@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
-    "babelify": "^6.3.0",
     "browserify": "^11.1.0",
     "browserify-istanbul": "^0.2.1",
     "es5-shim": "^4.1.13",
@@ -34,7 +33,23 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-safari-launcher": "^0.1.1",
     "phantomjs": "^1.9.18",
+    "react": "^0.13.3",
     "string": "^3.3.1",
     "yargs": "^3.25.0"
+  },
+  "peerDependencies": {
+    "babelify": "^6.3.0",
+    "react": "^0.13.3"
+  },
+  "dependencies": {
+    "superagent": "^1.4.0",
+    "underscore": "^1.8.3"
+  },
+  "browserify": {
+    "transform": [
+      [ "babelify", {
+        "optional": ["es7.classProperties"]
+      }]
+    ]
   }
 }
