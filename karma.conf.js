@@ -18,6 +18,14 @@ module.exports = function(config) {
     ],
 
 
+    babelPreprocessor: {
+      options: {
+        optional: ['es7.classProperties'],
+        auxiliaryCommentBefore: "istanbul ignore next"
+      }
+    },
+
+
     // config for coverage reporter
     coverageReporter: {
       dir: process.cwd() + '/coverage',

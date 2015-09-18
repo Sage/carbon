@@ -16,7 +16,7 @@ class DropdownSuggest extends React.Component {
    * @property listeningToScroll
    * @type {Boolean}
    */
-  listeningToScroll = true
+  listeningToScroll = true;
 
   /**
    * Default state
@@ -54,21 +54,23 @@ class DropdownSuggest extends React.Component {
      */
     pages: 0,
 
-    /**
-     * The filter applied to the results.
-     *
-     * @property filter
-     * @type {String}
-     */
-    filter: "",
+    value: {
+      /**
+       * The filter applied to the results.
+       *
+       * @property filter
+       * @type {String}
+       */
+      name: "",
 
-    /**
-     * The currently selected item.
-     *
-     * @property value
-     * @type {Integer}
-     */
-    value: null,
+      /**
+       * The currently selected item.
+       *
+       * @property value
+       * @type {Integer}
+       */
+      id: null
+    },
 
     /**
      * The ID of the highlighted item in the list.
@@ -87,10 +89,10 @@ class DropdownSuggest extends React.Component {
   getData = (page = 1) => {
     Request
       .get(this.props.path)
-      .query({
+      .send({
         page: page,
         rows: 10,
-        value: this.state.filter
+        value: this.state.value.name
       })
       .end((err, response) => {
         this.updateList(response.body.data[0]);
@@ -114,12 +116,14 @@ class DropdownSuggest extends React.Component {
 
     this.listeningToScroll = true;
 
+    var highlighted = data.records ? records[0].id : null;
+
     this.setState({
       options: records,
       open: true,
       pages: pages,
       page: data.page,
-      highlighted: records[0].id
+      highlighted: highlighted
     });
   }
 
@@ -168,7 +172,7 @@ class DropdownSuggest extends React.Component {
    *
    * @method handleScroll
    */
-  handleScroll = (ev) => {
+  handleScroll = () => {
     if (this.listeningToScroll) {
       if (this.state.page < this.state.pages) {
         var list = this.refs.list.getDOMNode();
@@ -192,7 +196,7 @@ class DropdownSuggest extends React.Component {
       clearTimeout(this.timeout);
     }
 
-    this.setState({ filter: ev.target.value });
+    this.setState({ value: { name: ev.target.value, id: null } });
 
     this.timeout = setTimeout(() => {
       this.getData(1);
@@ -206,8 +210,10 @@ class DropdownSuggest extends React.Component {
    */
   handleSelect = (ev) => {
     this.setState({
-      value: ev.target.value,
-      filter: ev.target.textContent
+      value: {
+        id: ev.target.value,
+        name: ev.target.textContent
+      }
     });
   }
 
@@ -235,11 +241,15 @@ class DropdownSuggest extends React.Component {
     switch(ev.which) {
       case 13:
         // return
-        this.setState({
-          value: element.value,
-          filter: element.textContent,
-          open: false
-        });
+        if (element) {
+          this.setState({
+            value: {
+              id: element.value,
+              name: element.textContent,
+            },
+            open: false
+          });
+        }
         break;
       case 38:
         // up arrow
@@ -274,6 +284,7 @@ class DropdownSuggest extends React.Component {
     list.scrollTop = 0;
   }
 
+
   /**
    * Renders the component.
    *
@@ -289,22 +300,26 @@ class DropdownSuggest extends React.Component {
       overflowY: 'scroll'
     };
 
-    var options = this.state.options.map((option) => {
-      return <li
-                value={option.id}
-                onMouseDown={this.handleSelect}
-                onMouseOver={this.handleMouseOver}
-                key={option.id}
-                className={(this.state.highlighted == option.id) ? 'highlighted' : ''}
-              >{option.name}</li>;
-    });
+    if (this.state.options.length) {
+      var options = this.state.options.map((option) => {
+        return <li
+                  key={option.id}
+                  value={option.id}
+                  onMouseDown={this.handleSelect}
+                  onMouseOver={this.handleMouseOver}
+                  className={(this.state.highlighted == option.id) ? 'highlighted' : ''}
+                >{option.name}</li>;
+      });
+    } else {
+      var options = <li>No results</li>;
+    }
 
     return (
       <div className="ui-dropdown-suggest" style={containerCSS}>
         <input
           ref="input"
           hidden="true"
-          value={this.state.value}
+          value={this.state.value.id}
         />
 
         <input
@@ -313,7 +328,7 @@ class DropdownSuggest extends React.Component {
           onBlur={this.handleBlur}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
-          value={this.state.filter}
+          value={this.state.value.name}
         />
 
         <ul
