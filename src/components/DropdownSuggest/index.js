@@ -89,7 +89,7 @@ class DropdownSuggest extends React.Component {
   getData = (page = 1) => {
     Request
       .get(this.props.path)
-      .send({
+      .query({
         page: page,
         rows: 10,
         value: this.state.value.name
