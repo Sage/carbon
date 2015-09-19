@@ -1,3 +1,7 @@
-module.exports = {
-  DropdownSuggest: require('./components/DropdownSuggest')
-};
+import Components from './components';
+import Utils from './utils';
+
+var toExport = Components;
+toExport.Utils = Utils;
+
+export default toExport;

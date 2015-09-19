@@ -3,10 +3,11 @@ var Server = require('karma').Server;
 var istanbul = require('browserify-istanbul');
 var argv = require('yargs').argv;
 var S = require('string');
+var babelify = require('babelify');
 
 gulp.task('test', function(done) {
-  var path = 'src/**/*.js';
-  var specs = 'spec/**/*.js';
+  var path = 'src/***/**/*.js';
+  var specs = 'src/***/**/__spec__.js';
   var preProcessors = ['babel', 'coverage', 'browserify'];
   var specPreProcessors = [ 'babel', 'browserify' ];
 
@@ -30,9 +31,12 @@ gulp.task('test', function(done) {
     var browserifyOpts = {
       debug: true,
       transform: [
-        'babelify',
+        babelify.configure({
+          optional: ["es7.classProperties"],
+          auxiliaryCommentBefore: "istanbul ignore next"
+        }),
         istanbul({
-          ignore: ['**/node_modules/**', '**/spec/**']
+          ignore: ['**/node_modules/**', '**/__spec__.js']
         })
       ]
     };
@@ -46,9 +50,12 @@ gulp.task('test', function(done) {
       var browserifyOpts = {
         debug: true,
         transform: [
-          'babelify',
+          babelify.configure({
+            optional: ["es7.classProperties"],
+            auxiliaryCommentBefore: "istanbul ignore next"
+          }),
           istanbul({
-            ignore: ['**/node_modules/**', '**/spec/**']
+            ignore: ['**/node_modules/**', '**/__spec__.js']
           })
         ]
       };
@@ -58,7 +65,10 @@ gulp.task('test', function(done) {
       var browserifyOpts = {
         debug: true,
         transform: [
-          'babelify'
+          babelify.configure({
+            optional: ["es7.classProperties"],
+            auxiliaryCommentBefore: "istanbul ignore next"
+          })
         ]
       };
     }
@@ -66,7 +76,12 @@ gulp.task('test', function(done) {
 
   var config = {
     configFile: __dirname + '/karma.conf.js',
-    files: [path, specs],
+    files: [{
+      pattern: path,
+      watched: false,
+      included: true,
+      served: true
+    }],
     preprocessors: preProcessorObj,
     browsers: browsers,
     browserify: browserifyOpts,
