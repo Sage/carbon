@@ -40,9 +40,12 @@
   },
   "peerDependencies": {
     "babelify": "^6.3.0",
-    "react": "^0.13.3"
+    "flux": "^2.1.1",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3"
   },
   "dependencies": {
+    "events": "^1.0.2",
     "superagent": "^1.4.0",
     "underscore": "^1.8.3"
   },
