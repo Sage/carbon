@@ -12,7 +12,7 @@ class View extends React.Component {
   }
 
   _onChange = () => {
-    this.setState(this.store.getState());
+    this.setState({ data: this.store.getState() });
   }
 }
 
