@@ -226,9 +226,7 @@ class DropdownSuggest extends React.Component {
 
   emitOnChangeCallback = (ev) => {
     if (this.props.onChange) {
-      this.props.onChange({
-        target: ev.target
-      }, this.props);
+      this.props.onChange(ev, this.props);
     }
   }
 
