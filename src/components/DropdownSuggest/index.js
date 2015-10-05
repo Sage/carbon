@@ -7,7 +7,12 @@ class DropdownSuggest extends React.Component {
    * Define property types
    */
   static propTypes = {
-    path: React.PropTypes.string.isRequired
+    onChange: React.PropTypes.func.isRequired,
+    path: React.PropTypes.string.isRequired,
+    value: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.number
+    ])
   }
 
   /**
@@ -215,6 +220,16 @@ class DropdownSuggest extends React.Component {
         name: ev.target.textContent
       }
     });
+
+    this.emitOnChangeCallback(ev);
+  }
+
+  emitOnChangeCallback = (ev) => {
+    if (this.props.onChange) {
+      this.props.onChange({
+        target: ev.target
+      }, this.props);
+    }
   }
 
 
@@ -249,6 +264,7 @@ class DropdownSuggest extends React.Component {
             },
             open: false
           });
+          this.emitOnChangeCallback(element.value)
         }
         break;
       case 38:
@@ -284,6 +300,40 @@ class DropdownSuggest extends React.Component {
     list.scrollTop = 0;
   }
 
+  /**
+   * Sets props for input fieild.
+   *
+   * @method inputProps 
+   */
+  inputProps = (inputProps) => {
+    var { ...inputProps } = this.props;
+
+    inputProps.onFocus = this.handleFocus;
+    inputProps.onBlur = this.handleBlur;
+    inputProps.onChange = this.handleChange;
+    inputProps.onKeyDown = this.handleKeyDown;
+    inputProps.value = this.state.value.name;
+    return inputProps;
+  }
+
+  /**
+   * Gets props for selected option id.
+   *
+   * @method hiddenFieldProps 
+   */
+  hiddenFieldProps = () => {
+    var props = {};
+
+    if (this.props.value) {
+      props.value = this.props.value;
+    }
+
+    if (this.props.defaultValue) {
+      props.defaultValue = this.props.defaultValue;
+    }
+
+    return props;
+  }
 
   /**
    * Renders the component.
@@ -301,9 +351,9 @@ class DropdownSuggest extends React.Component {
     };
 
     if (this.state.options.length) {
-      var options = this.state.options.map((option) => {
+      var listOptions = this.state.options.map((option) => {
         return <li
-                  key={option.id}
+                  key={option.name + option.id}
                   value={option.id}
                   onMouseDown={this.handleSelect}
                   onMouseOver={this.handleMouseOver}
@@ -311,24 +361,23 @@ class DropdownSuggest extends React.Component {
                 >{option.name}</li>;
       });
     } else {
-      var options = <li>No results</li>;
+      var listOptions = <li>No results</li>;
     }
+
 
     return (
       <div className="ui-dropdown-suggest" style={containerCSS}>
-        <input
-          ref="input"
-          hidden="true"
-          value={this.state.value.id}
-        />
 
         <input
           ref="filter"
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-          value={this.state.value.name}
+          { ...this.inputProps() }
+        />
+
+        <input
+          ref="input"
+          readOnly="true"
+          hidden="true"
+          { ...this.hiddenFieldProps() }
         />
 
         <ul
@@ -337,7 +386,7 @@ class DropdownSuggest extends React.Component {
           className={this.state.open ? '' : 'hidden'}
           onScroll={this.handleScroll}
         >
-          {options}
+          {listOptions}
         </ul>
       </div>
     );
