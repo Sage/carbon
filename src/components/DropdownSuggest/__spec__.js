@@ -3,12 +3,18 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import DropdownSuggest from './index'
 import Request from 'superagent';
 import MockRequest from 'superagent-mock'
+import Immutable from 'immutable';
 
 describe("DropdownSuggest", () => {
   var instance;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(<DropdownSuggest path="/foo" />);
+    instance = TestUtils.renderIntoDocument(
+      <DropdownSuggest
+        path="/foo"
+        value={ { name: 'foo', id: 1 } }
+        onChange={ jasmine.createSpy('dummy') }
+     />);
   });
 
   describe("render", () => {
@@ -85,26 +91,24 @@ describe("DropdownSuggest", () => {
       describe("if no item is highlighted", () => {
         it("does not update the value and open state", () => {
           spyOn(instance, 'setState');
+          spyOn(instance, 'emitOnChangeCallback');
+
           TestUtils.Simulate.keyDown(filter, { which: 13 });
           expect(instance.setState).not.toHaveBeenCalled();
+          expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
       });
 
       describe("if an item is highlighted", () => {
-        it("updates the value and open state", () => {
+        it("open state", () => {
           instance.setState({
             options: [{ id: 1, name: "Foo" }, { id: 25, name: "Bar" }],
             highlighted: 25
           });
           spyOn(instance, 'setState');
+
           TestUtils.Simulate.keyDown(filter, { which: 13 });
-          expect(instance.setState).toHaveBeenCalledWith({
-            value: {
-              id: 25,
-              name: "Bar"
-            },
-            open: false
-          });
+          expect(instance.setState).toHaveBeenCalledWith({ open: false });
         });
       });
     });
@@ -179,13 +183,10 @@ describe("DropdownSuggest", () => {
       instance.setState({
         options: [{ id: 1, name: "Foo" }, { id: 25, name: "Bar" }]
       });
-      spyOn(instance, 'setState');
+      spyOn(instance, 'emitOnChangeCallback');
       var listItem = instance.refs.list.getDOMNode().childNodes[1];
       TestUtils.Simulate.mouseDown(listItem);
-      expect(instance.setState).toHaveBeenCalledWith({ value: {
-        id: 25,
-        name: "Bar"
-      }});
+      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(listItem);
     });
   });
 
@@ -196,7 +197,7 @@ describe("DropdownSuggest", () => {
       jasmine.clock().install();
       filter = instance.refs.filter.getDOMNode();
       filter.value = "qux";
-      spyOn(instance, 'setState');
+      spyOn(instance, 'emitOnChangeCallback');
       spyOn(instance, 'getData');
       TestUtils.Simulate.change(filter);
     });
@@ -205,11 +206,11 @@ describe("DropdownSuggest", () => {
       jasmine.clock().uninstall();
     });
 
-    it("sets state for the value", () => {
-      expect(instance.setState).toHaveBeenCalledWith({ value: {
-        id: null,
-        name: "qux"
-      }});
+    it("calls emitOnChangeCallback", () => {
+      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith({ 
+        value: null,
+        textContent: "qux"
+      });
     });
 
     it("calls getData after a delay of 200ms", () => {
@@ -316,21 +317,47 @@ describe("DropdownSuggest", () => {
       expect(filter.setSelectionRange).toHaveBeenCalledWith(0, 9999);
     });
 
-    describe("when there is no options", () => {
-      it("calls getData", () => {
-        TestUtils.Simulate.focus(filter);
-        jasmine.clock().tick(0);
-        expect(instance.getData).toHaveBeenCalled();
+    describe("when there is NO options", () => {
+      describe("and an id has been set", () => {
+        it("calls getData", () => {
+          TestUtils.Simulate.focus(filter);
+          jasmine.clock().tick(0);
+          expect(instance.getData).toHaveBeenCalled();
+        });
+      });
+
+      describe("and an id has NOT been set", () => {
+        it("calls getData", () => {
+          TestUtils.Simulate.focus(filter);
+          jasmine.clock().tick(0);
+          expect(instance.getData).toHaveBeenCalled();
+        });
       });
     });
 
     describe("when there are options", () => {
-      it("calls setState to open the list", () => {
-        instance.setState({ options: [{}] });
-        spyOn(instance, 'setState');
-        TestUtils.Simulate.focus(filter);
-        jasmine.clock().tick(0);
-        expect(instance.setState).toHaveBeenCalledWith({ open: true });
+      describe("and an id has been set", () => {
+        it("calls getData", () => {
+          instance.setState({ options: [{}]});
+          spyOn(instance, 'get').and.returnValue(1);
+
+          TestUtils.Simulate.focus(filter);
+          jasmine.clock().tick(0);
+          expect(instance.getData).toHaveBeenCalled();
+        });
+      });
+
+      describe("and an id has NOT been set", () => {
+        it("calls setState to open the list", () => {
+          instance.setState({ options: [{}]});
+          spyOn(instance, 'get').and.returnValue(null);
+          spyOn(instance, 'setState');
+          
+          TestUtils.Simulate.focus(filter);
+          jasmine.clock().tick(0);
+          expect(instance.setState).toHaveBeenCalledWith({ open: true });
+          expect(instance.getData).not.toHaveBeenCalled();
+        });
       });
     });
   });
@@ -391,13 +418,13 @@ describe("DropdownSuggest", () => {
     describe("if page is greater than 1", () => {
       beforeEach(() => {
         instance.setState({
-          options: [{id: 1}, 2, 3]
+          options: [{id: 1}]
         });
         spyOn(instance, 'setState');
         instance.updateList({
           page: 2,
           records: 15,
-          items: [4, 5, 6]
+          items: [2, 3, 4]
         });
       });
 
@@ -407,7 +434,7 @@ describe("DropdownSuggest", () => {
 
       it("calls setState with concatenated data", () => {
         expect(instance.setState).toHaveBeenCalledWith({
-          options: [{id: 1}, 2, 3, 4, 5, 6],
+          options: [{id: 1}, 2, 3, 4],
           open: true,
           pages: 2,
           page: 2,
@@ -439,6 +466,43 @@ describe("DropdownSuggest", () => {
           highlighted: 1
         });
       });
+    });
+  });
+  
+
+  describe("emitOnChangeCallback", () => {
+    describe("when a onChange event has taken place", () => {
+      it("should do", () => {
+        instance.emitOnChangeCallback({});
+        expect(instance.props.onChange).toHaveBeenCalled(); 
+      });
+    });
+  });
+
+  /*
+   * 'isImmutable' and 'get' will probably become
+   * protected methods in a base react component
+   */
+  describe("isImmutable", () => {
+    it("returns true when passed a immutable object", () => {
+      instance.props.value = Immutable.fromJS({ id: 1, name: "foo" });
+      expect(instance.isImmutable(instance.props.value)).toBe(true)
+    });
+
+    it("returns false when passed a non immutable object", () => {
+      instance.props.value = { id: 1, name: "foo" };
+      expect(instance.isImmutable(instance.props.value)).toBe(false)
+    });
+  });
+
+  describe("get", () => {
+    it("returns the correct value when passed a immutable object", () => {
+      instance.props.value = Immutable.fromJS({ id: 1, name: "foo" });
+      expect(instance.get(instance.props.value, 'name')).toBe('foo');
+    });
+    it("returns the correct value when passed a non immutable object", () => {
+      instance.props.value = { id: 1, name: "foo" };
+      expect(instance.get(instance.props.value, 'name')).toBe('foo');
     });
   });
 
