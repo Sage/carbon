@@ -30,6 +30,7 @@ gulp.task('test', function(done) {
     var reporters = ['progress', 'coverage'];
     var browserifyOpts = {
       debug: true,
+      paths: ['./src'],
       transform: [
         babelify.configure({
           optional: ["es7.classProperties"],
@@ -49,6 +50,7 @@ gulp.task('test', function(done) {
       var reporters = ['progress', 'coverage'];
       var browserifyOpts = {
         debug: true,
+        paths: ['./src'],
         transform: [
           babelify.configure({
             optional: ["es7.classProperties"],
@@ -64,6 +66,7 @@ gulp.task('test', function(done) {
       var reporters = ['progress'];
       var browserifyOpts = {
         debug: true,
+        paths: ['./src'],
         transform: [
           babelify.configure({
             optional: ["es7.classProperties"],

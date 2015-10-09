@@ -1,6 +1,8 @@
 import React from 'react';
+import Radium from 'radium';
 import InputClass from './../../utils/InputClass';
 import Immutable from 'immutable';
+import style from './style';
 
 class Textbox extends InputClass {
 
@@ -9,11 +11,12 @@ class Textbox extends InputClass {
    *
    * @method render
    */
-  render = () => {
+  render() {
     return (
-      <div className="ui-textbox">
+      <div style={ style.base }>
         { this.labelHTML() }
         <input
+          style={ style.input }
           { ...this.inputProps() }
         />
       </div>
@@ -22,4 +25,4 @@ class Textbox extends InputClass {
 
 };
 
-export default Textbox;
+export default Radium(Textbox);

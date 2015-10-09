@@ -4,7 +4,8 @@
   "description": "Fundamental building blocks.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "babel --stage 0 ./src --out-dir ./lib"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
     "browserify-istanbul": "^0.2.1",
     "es5-shim": "^4.1.13",
     "gulp": "^3.9.0",
+    "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.9",
     "karma-babel-preprocessor": "^5.2.2",
@@ -41,18 +43,18 @@
   "peerDependencies": {
     "babelify": "^6.3.0",
     "flux": "^2.1.1",
+    "immutable": "^3.7.5",
+    "radium": "^0.14.1",
     "react": "^0.13.3",
     "react-router": "^0.13.3"
   },
   "dependencies": {
     "events": "^1.0.2",
-    "sass-css-stream": "^0.1.6",
-    "superagent": "^1.4.0",
-    "underscore": "^1.8.3"
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "react-date-picker": "^3.1.5",
+    "superagent": "^1.4.0"
   },
-  "transforms": [
-    "sass-css-stream"
-  ],
   "browserify": {
     "transform": [
       [
