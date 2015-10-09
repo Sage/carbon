@@ -100,15 +100,19 @@ describe("DropdownSuggest", () => {
       });
 
       describe("if an item is highlighted", () => {
-        it("open state", () => {
+        it("emits on change callback and closes the results list", () => {
           instance.setState({
             options: [{ id: 1, name: "Foo" }, { id: 25, name: "Bar" }],
             highlighted: 25
           });
           spyOn(instance, 'setState');
+          spyOn(instance, 'emitOnChangeCallback');
+
+          var element = instance.refs.list.getDOMNode().getElementsByClassName('highlighted')[0];
 
           TestUtils.Simulate.keyDown(filter, { which: 13 });
           expect(instance.setState).toHaveBeenCalledWith({ open: false });
+          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(element);
         });
       });
     });
@@ -320,6 +324,7 @@ describe("DropdownSuggest", () => {
     describe("when there is NO options", () => {
       describe("and an id has been set", () => {
         it("calls getData", () => {
+          spyOn(instance, 'get').and.returnValue(1);
           TestUtils.Simulate.focus(filter);
           jasmine.clock().tick(0);
           expect(instance.getData).toHaveBeenCalled();
@@ -328,6 +333,7 @@ describe("DropdownSuggest", () => {
 
       describe("and an id has NOT been set", () => {
         it("calls getData", () => {
+          spyOn(instance, 'get').and.returnValue(null);
           TestUtils.Simulate.focus(filter);
           jasmine.clock().tick(0);
           expect(instance.getData).toHaveBeenCalled();
