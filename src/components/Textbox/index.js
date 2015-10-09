@@ -1,7 +1,6 @@
 import React from 'react';
 import Radium from 'radium';
-import InputClass from './../../utils/InputClass';
-import Immutable from 'immutable';
+import InputClass from './../../utils/input-class';
 import style from './style';
 
 class Textbox extends InputClass {

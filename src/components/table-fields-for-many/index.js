@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import TableRow from './../TableRow';
+import TableRow from './../table-row';
 
 class TableFieldsForMany extends React.Component {
 

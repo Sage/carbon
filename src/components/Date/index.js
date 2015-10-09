@@ -1,5 +1,5 @@
 import React from 'react';
-import InputClass from './../../utils/InputClass';
+import InputClass from './../../utils/input-class';
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";

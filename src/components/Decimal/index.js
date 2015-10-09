@@ -1,5 +1,5 @@
 import React from 'react';
-import InputClass from './../../utils/InputClass';
+import InputClass from './../../utils/input-class';
 import I18n from "i18n-js";
 
 class Decimal extends InputClass {
