@@ -1,4 +1,4 @@
 var gulp = require('gulp');
-var Factory = require('carbon-factory');
+var SpecTask = require('carbon-factory/lib/gulp/spec');
 
-gulp.task('test', Factory.gulp.spec());
+gulp.task('test', SpecTask());
