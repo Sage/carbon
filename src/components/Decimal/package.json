@@ -1,0 +1,15 @@
+{
+  "style": "*.scss",
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "optional": [
+            "es7.classProperties"
+          ]
+        }
+      ]
+    ]
+  }
+}
