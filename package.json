@@ -20,6 +20,7 @@
   "devDependencies": {
     "browserify": "^11.1.0",
     "browserify-istanbul": "^0.2.1",
+    "carbon-factory": "sage/carbon-factory",
     "es5-shim": "^4.1.13",
     "gulp": "^3.9.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
