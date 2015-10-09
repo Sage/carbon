@@ -46,9 +46,13 @@
   },
   "dependencies": {
     "events": "^1.0.2",
+    "sass-css-stream": "^0.1.6",
     "superagent": "^1.4.0",
     "underscore": "^1.8.3"
   },
+  "transforms": [
+    "sass-css-stream"
+  ],
   "browserify": {
     "transform": [
       [
