@@ -1,5 +1,4 @@
 import React from 'react';
-import Radium from 'radium';
 import InputClass from './../../utils/input-class';
 import style from './style';
 
@@ -24,4 +23,4 @@ class Textbox extends InputClass {
 
 };
 
-export default Radium(Textbox);
+export default Textbox;

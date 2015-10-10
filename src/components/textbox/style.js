@@ -7,10 +7,6 @@ export default {
     borderRadius: 4,
     color: 'white',
     padding: '1.5em',
-
-    ':hover': {
-      backgroundColor: colours.blue
-    }
   },
 
   input: {

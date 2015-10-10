@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
+    "install": "node -e \"require('ncp').ncp('./src', './lib')\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
   },
   "repository": {
     "type": "git",
@@ -45,7 +45,6 @@
     "babelify": "^6.3.0",
     "flux": "^2.1.1",
     "immutable": "^3.7.5",
-    "radium": "^0.14.1",
     "react": "^0.13.3",
     "react-router": "^0.13.3"
   },
@@ -54,6 +53,7 @@
     "events": "^1.0.2",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
+    "ncp": "^2.0.0",
     "react-date-picker": "^3.1.5",
     "superagent": "^1.4.0"
   },
