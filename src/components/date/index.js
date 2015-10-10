@@ -180,7 +180,7 @@ class Date extends InputClass {
    *
    * @method render
    */
-  render = () => {
+  render() {
     var datePicker = "";
 
     if (this.state.open) {

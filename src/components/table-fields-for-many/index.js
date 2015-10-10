@@ -26,8 +26,8 @@ class TableFieldsForMany extends React.Component {
   }
 
   hasNumOfChildrenChanged = (prevProps, nextProps) => {
-    var prevNumOfChildren = _.filter(prevProps.children).length,
-        nextNumOfChildren = _.filter(nextProps.children).length;
+    var prevNumOfChildren = prevProps.fields.length,
+        nextNumOfChildren = nextProps.fields.length;
 
     if (prevNumOfChildren != nextNumOfChildren) {
       return true;
@@ -37,9 +37,9 @@ class TableFieldsForMany extends React.Component {
   }
 
   hasPropsOfChildrenChanged = (prevProps, nextProps) => {
-    for (var key in nextProps.children) {
-      var prevField = prevProps.children[key],
-          nextField = nextProps.children[key];
+    for (var key in nextProps.fields) {
+      var prevField = prevProps.fields[key],
+          nextField = nextProps.fields[key];
 
       if (prevField && nextField) {
         if (!_.isEqual(prevField.props, nextField.props)) {
@@ -116,7 +116,7 @@ class TableFieldsForMany extends React.Component {
    *
    * @method render
    */
-  render = () => {
+  render() {
     return (
       <table className="ui-table-fields-for-many">
         <tbody>

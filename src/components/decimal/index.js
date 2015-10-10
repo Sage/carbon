@@ -129,7 +129,7 @@ class Decimal extends InputClass {
    *
    * @method render
    */
-  render = () => {
+  render() {
     return (
       <div className="ui-textbox">
 

@@ -72,7 +72,7 @@ class TableRow extends React.Component {
    *
    * @method render
    */
-  render = () => {
+  render() {
     return (
       <tr className="ui-table-row">
         { this.buildRow() }

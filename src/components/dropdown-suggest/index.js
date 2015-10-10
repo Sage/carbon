@@ -290,7 +290,7 @@ class DropdownSuggest extends React.Component {
    *
    * @method render
    */
-  render = () => {
+  render() {
     var containerCSS = {
       display: 'inline-block'
     };
