@@ -56,17 +56,5 @@
     "ncp": "^2.0.0",
     "react-date-picker": "^3.1.5",
     "superagent": "^1.4.0"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "optional": [
-            "es7.classProperties"
-          ]
-        }
-      ]
-    ]
   }
 }
