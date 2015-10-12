@@ -12,12 +12,12 @@ class Decimal extends InputClass {
   }
 
   /**
-   * Returns an uformatted decimal value.
+   * Returns an unformatted decimal value.
    *
    * @method formatHiddenValue
    */
-  formatHiddenValue = (value) => {
-    var value = value || this.props.value || this.getDefaultValue();
+  formatHiddenValue = (valueToFormat) => {
+    var value = valueToFormat || this.props.value || this.getDefaultValue();
     var regex = new RegExp('\\' + this.i18n().delimiter, "g");
 
     value = value.replace(regex, "", "g");
