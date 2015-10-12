@@ -43,8 +43,8 @@ class Decimal extends InputClass {
   }
 
   getDefaultValue = () => {
-    if (this.refs) {
-      return this.refs.hidden.getDOMNode().value;
+    if (this.refs.hidden) {
+      return this.refs.hidden.value;
     } else {
       return this.props.defaultValue;
     }
@@ -55,7 +55,7 @@ class Decimal extends InputClass {
   }
 
   componentWillReceiveProps = (props) => {
-    if (document.activeElement != this.refs.visible.getDOMNode()) {
+    if (document.activeElement != this.refs.visible) {
       var value = props.value || props.defaultValue;
       this.setState({
         visibleValue: this.formatVisibleValue(value)
@@ -88,7 +88,7 @@ class Decimal extends InputClass {
   }
 
   emitOnChangeCallback = (val) => {
-    var hiddenField = this.refs.hidden.getDOMNode();
+    var hiddenField = this.refs.hidden;
     hiddenField.value = val;
     if (this.props.onChange) {
       this.props.onChange({

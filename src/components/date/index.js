@@ -31,7 +31,7 @@ class Date extends InputClass {
 
   getDefaultValue = () => {
     if (this.refs) {
-      return this.refs.hidden.getDOMNode().value;
+      return this.refs.hidden.value;
     } else {
       return this.props.defaultValue;
     }
@@ -44,7 +44,7 @@ class Date extends InputClass {
   }
 
   componentWillReceiveProps = (props) => {
-    if (document.activeElement != this.refs.visible.getDOMNode()) {
+    if (document.activeElement != this.refs.visible) {
       var value = props.value || props.defaultValue;
       var date = this.formatVisibleValue(value);
       this.setState({
@@ -72,7 +72,7 @@ class Date extends InputClass {
   }
 
   emitOnChangeCallback = (val) => {
-    var hiddenField = this.refs.hidden.getDOMNode();
+    var hiddenField = this.refs.hidden;
     hiddenField.value = val;
 
     if (this.props.onChange) {
