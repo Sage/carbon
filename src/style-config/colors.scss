@@ -1,5 +1,14 @@
 $yellow: yellow !default;
 $red: red !default;
+$white: #FFF;
 
+// To be moved to input.scss
+$input-base-font-size: 12px;
+$input-base-font: Arial,Helvetica,sans-serif;
+$input-base-border: 1px solid #D0D0D0;
 $input-base-border-colour: #4D4F52;
+$input-border-radius: 3px;
 $input-active-border-colour: #41A940;
+$input-base-line-height: 16px;
+$input-base-height: 31px;
+$input-base-padding: 6px;

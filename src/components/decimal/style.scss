@@ -10,27 +10,22 @@
 }
 
 .visible-decimal-input {
-  background-color: #FFF;
-  border: 1px solid #D0D0D0;
-  border-radius: 3px;
+  background-color: $white;
+  border: $input-base-border;
+  border-radius: $input-border-radius;
   box-sizing: border-box;
   color: $input-base-border-colour;
-  font-family: Arial,Helvetica,sans-serif;
-  font-size: 12px;
-  height: 31px;
-  line-height: 16px;
+  font-family: $input-base-font;
+  font-size: $input-base-font-size;
+  height: $input-base-height;
+  line-height: $input-base-line-height;
   margin: 0px;
-  padding: 6px;
+  padding: $input-base-padding; 
   text-align: right;
   vertical-align: baseline;
-}
 
-.visible-decimal-input:hover {
-  border-color: $input-active-border-colour;
-  outline: none;
-}
-
-.visible-decimal-input:focus {
-  border-color: $input-active-border-colour;
-  outline: none;
+  &:hover, &:focus { 
+    border-color: $input-active-border-colour;
+    outline: none;
+  }
 }
