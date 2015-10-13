@@ -1,6 +1,5 @@
 import React from 'react';
-import InputClass from './../../utils/input-class';
-import style from './style';
+import InputClass from './../../utils/input-class/index.js';
 
 class Textbox extends InputClass {
 
@@ -11,12 +10,12 @@ class Textbox extends InputClass {
    */
   render() {
     return (
-      <div className='ui-textbox' style={ style.base }>
+      <div className='ui-textbox'>
         { this.labelHTML() }
 
         <input
           ref="visible"
-          style={ style.input }
+          className="visible-textbox-input input"
           { ...this.inputProps() }
         />
       </div>

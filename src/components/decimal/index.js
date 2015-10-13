@@ -1,5 +1,5 @@
 import React from 'react';
-import InputClass from './../../utils/input-class';
+import InputClass from './../../utils/input-class/index.js';
 import I18n from "i18n-js";
 
 class Decimal extends InputClass {
@@ -136,7 +136,7 @@ class Decimal extends InputClass {
         { this.labelHTML() }
 
         <input
-          className="visible-decimal-input"
+          className="visible-decimal-input input"
           ref="visible"
           { ...this.inputProps() }
         />

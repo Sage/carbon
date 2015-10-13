@@ -1,0 +1,23 @@
+@import 'colors';
+@import 'input-field';
+
+.input {
+  background-color: $white;
+  border-radius: $input-border-radius;
+  border: $input-base-border;
+  box-sizing: border-box;
+  color: $input-base-border-colour;
+  font-family: $input-base-font;
+  font-size: $input-base-font-size;
+  height: $input-base-height;
+  line-height: $input-base-line-height;
+  margin: 0px;
+  padding: $input-base-padding; 
+  text-align: right;
+  vertical-align: baseline;
+
+  &:hover, &:focus { 
+    border-color: $input-active-border-colour;
+    outline: none;
+  }
+}
