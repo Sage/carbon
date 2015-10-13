@@ -154,7 +154,7 @@ class DropdownSuggest extends React.Component {
    * @method handleFocus
    */
   handleFocus = () => {
-    var filter = this.refs.filter.getDOMNode();
+    var filter = this.refs.filter;
 
     setTimeout(() => {
       filter.setSelectionRange(0, 9999);
@@ -175,7 +175,7 @@ class DropdownSuggest extends React.Component {
   handleScroll = () => {
     if (this.listeningToScroll) {
       if (this.state.page < this.state.pages) {
-        var list = this.refs.list.getDOMNode();
+        var list = this.refs.list;
         var scrollTriggerPosition = list.scrollHeight - list.offsetHeight - 20;
 
         if (list.scrollTop > scrollTriggerPosition) {
@@ -235,7 +235,7 @@ class DropdownSuggest extends React.Component {
    * @method handleKeyUp
    */
   handleKeyDown = (ev) => {
-    var list = this.refs.list.getDOMNode(),
+    var list = this.refs.list,
         element = list.getElementsByClassName('highlighted')[0];
 
     switch(ev.which) {
@@ -280,7 +280,7 @@ class DropdownSuggest extends React.Component {
    * @method resetScroll
    */
   resetScroll = () => {
-    var list = this.refs.list.getDOMNode();
+    var list = this.refs.list;
     list.scrollTop = 0;
   }
 

@@ -36,7 +36,6 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-safari-launcher": "^0.1.1",
     "phantomjs": "^1.9.18",
-    "react": "^0.13.3",
     "string": "^3.3.1",
     "superagent-mock": "^1.7.0",
     "yargs": "^3.25.0"
@@ -44,9 +43,11 @@
   "peerDependencies": {
     "babelify": "^6.3.0",
     "flux": "^2.1.1",
+    "history": "^1.12.5",
     "immutable": "^3.7.5",
-    "react": "^0.13.3",
-    "react-router": "^0.13.3"
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-router": "^1.0.0-rc3"
   },
   "dependencies": {
     "babel-plugin-flow-comments": "^1.0.9",
