@@ -1,63 +1,8 @@
 import React from 'react';
 import InputClass from './../../utils/input-class';
-import Validations from './../../utils/validations';
-import style from './style';
+import ValidationClass from './../../utils/validation-class';
 
-class Textbox extends InputClass {
-
-  static contextTypes = {
-    form: React.PropTypes.object
-  }
-
-  state = {
-    valid: true,
-    errorMessage: null
-  }
-
-  componentWillMount = () => {
-    if (this.props.validations) {
-      this.context.form.attachToForm(this);
-    }
-  }
-
-  componentWillUnmount = () => {
-    if (this.props.validations) {
-      if (!this.props.valid) {
-        this.context.form.decrementErrorCount()
-      }
-      this.context.form.detachFromForm(this);
-    }
-  }
-
-  validate = () => {
-    var valid = false;
-
-    this.props.validations.forEach((validation) => {
-      var validator = Validations[validation];
-      valid = validator.validate(this.props.value);
-
-      if (!valid) {
-        if (this.state.valid) {
-          this.context.form.incrementErrorCount()
-          this.setState({ errorMessage: "error!", valid: false })
-        }
-        return valid;
-      }
-    });
-
-    return valid;
-  }
-
-  handleBlur = () => {
-    this.validate();
-  }
-
-  handleFocus = () => {
-    if (!this.state.valid) {
-      this.context.form.decrementErrorCount()
-      this.setState({ errorMessage: null, valid: true });
-    }
-  }
+class Textbox extends React.Component {
 
   /**
    * Renders the component.
@@ -66,19 +11,20 @@ class Textbox extends InputClass {
    */
   render() {
     return (
-      <div style={ style.base }>
-        { this.labelHTML() }
+      <div>
+        { this.props.labelHTML() }
+
         <input
-          style={ style.input }
-          onBlur={ this.handleBlur }
-          onFocus={ this.handleFocus }
-          { ...this.inputProps() }
+          onBlur={ this.props.handleBlur }
+          onFocus={ this.props.handleFocus }
+          { ...this.props.inputProps() }
         />
-        { this.state.errorMessage }
+
+        { this.props.errorMessage }
       </div>
     );
   }
 
 };
 
-export default Textbox;
+export default ValidationClass(InputClass(Textbox));

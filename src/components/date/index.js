@@ -1,12 +1,13 @@
 import React from 'react';
 import InputClass from './../../utils/input-class';
+import ValidationClass from './../../utils/validation-class';
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 
 // TODO: do we need to use moment.js ???
 
-class Date extends InputClass {
+class DateComponent extends React.Component {
 
   visibleFormat = () => {
     return I18n.t('date.formats.javascript', { defaultValue: "dd/mm/yyyy" }).toUpperCase();
@@ -30,7 +31,7 @@ class Date extends InputClass {
   }
 
   getDefaultValue = () => {
-    if (this.refs) {
+    if (this.refs.hidden) {
       return this.refs.hidden.value;
     } else {
       return this.props.defaultValue;
@@ -153,7 +154,8 @@ class Date extends InputClass {
     return props;
   }
 
-  customInputProps = (inputProps) => {
+  customInputProps = () => {
+    var inputProps = this.props.inputProps();
     inputProps.onChange = this.handleVisibleInputChange;
     inputProps.onFocus = this.openDatePicker;
     inputProps.onBlur = this.updateVisibleValue;
@@ -192,7 +194,7 @@ class Date extends InputClass {
 
         <input
           ref="visible"
-          { ...this.inputProps() }
+          { ...this.customInputProps() }
         />
 
         <input
@@ -209,4 +211,4 @@ class Date extends InputClass {
 
 };
 
-export default Date;
+export default ValidationClass(InputClass(DateComponent));
