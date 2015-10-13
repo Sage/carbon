@@ -1,8 +1,7 @@
 import React from 'react';
-import ValidationClass from './validation-class';
 import _ from 'lodash';
 
-var InputClass = (ComposedComponent) => class extends React.Component {
+var Input = (ComposedComponent) => class extends React.Component {
 
   /**
    * Define property types
@@ -78,4 +77,4 @@ var InputClass = (ComposedComponent) => class extends React.Component {
 
 };
 
-export default InputClass;
+export default Input;

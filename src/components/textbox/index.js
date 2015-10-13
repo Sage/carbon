@@ -1,6 +1,6 @@
 import React from 'react';
-import InputClass from './../../utils/input-class';
-import ValidationClass from './../../utils/validation-class';
+import Input from './../../utils/input';
+import InputValidation from './../../utils/input-validation';
 
 class Textbox extends React.Component {
 
@@ -27,4 +27,4 @@ class Textbox extends React.Component {
   }
 };
 
-export default ValidationClass(InputClass(Textbox));
+export default InputValidation(Input(Textbox));

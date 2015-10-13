@@ -1,6 +1,6 @@
 import React from 'react';
 
-var ValidationClass = (ComposedComponent) => class extends React.Component {
+var InputValidation = (ComposedComponent) => class extends React.Component {
 
   /**
    * Get form context to manage validation
@@ -74,4 +74,4 @@ var ValidationClass = (ComposedComponent) => class extends React.Component {
 
 }
 
-export default ValidationClass;
+export default InputValidation;

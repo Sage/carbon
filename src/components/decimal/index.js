@@ -1,6 +1,6 @@
 import React from 'react';
-import InputClass from './../../utils/input-class';
-import ValidationClass from './../../utils/validation-class';
+import Input from './../../utils/input';
+import InputValidation from './../../utils/input-validation';
 import I18n from "i18n-js";
 
 class Decimal extends React.Component {
@@ -155,4 +155,4 @@ class Decimal extends React.Component {
 
 };
 
-export default ValidationClass(InputClass(Decimal));
+export default InputValidation(Input(Decimal));

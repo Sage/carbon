@@ -1,6 +1,6 @@
 import React from 'react';
-import InputClass from './../../utils/input-class';
-import ValidationClass from './../../utils/validation-class';
+import Input from './../../utils/input';
+import InputValidation from './../../utils/input-validation';
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
@@ -211,4 +211,4 @@ class DateComponent extends React.Component {
 
 };
 
-export default ValidationClass(InputClass(DateComponent));
+export default InputValidation(Input(DateComponent));
