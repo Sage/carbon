@@ -36,7 +36,10 @@ describe('Decimal', () => {
   });
 
   describe("I18n", () => {
-
+    it('returns a hash on I18n options', () => {
+      var result = instance.i18n();
+      expect(typeof(result)).toBe("object");
+    });
   });
 
   describe("formatHiddenValue", () => {
@@ -99,7 +102,9 @@ describe('Decimal', () => {
       expect(formattedValue).toBe('3,000,000.00');
     });
 
-    xit("adds custom delimiters and separators based on i18n", () => {
+    it("adds custom delimiters and separators based on i18n", () => {
+      /** PENDING TEST **/
+      pending();
       spyOn(instance, 'i18n').and.returnValue( { delimiter: '.', separator: ',' } );
       var baseValue = '3000000,00';
       var formattedValue = instance.formatVisibleValue(baseValue);
@@ -154,7 +159,9 @@ describe('Decimal', () => {
     });
 
     describe("when element has focus", () => {
-      xit("doesnt set the components state", () => {
+      it("doesnt set the components state", () => {
+      /** PENDING TEST **/
+        pending();
         // spyOn(document, 'activeElement').and.returnValue(instance.refs.visible.getDOMNode());
         // document.activeElement = instance.refs.visible.getDOMNode();
         // instance.refs.visible.getDOMNode().focus();
@@ -202,6 +209,17 @@ describe('Decimal', () => {
         instance.emitOnChangeCallback('2000.00');
         expect(instance.props.onChange).toHaveBeenCalled(); 
       });
+    });
+  });
+
+  describe("customInputProps", () => {
+    it("returns the props for the visible field", () => {
+    });
+  });
+
+  describe("hiddenFieldProps", () => {
+    it("returns the props for the hidden field", () => {
+
     });
   });
 });
