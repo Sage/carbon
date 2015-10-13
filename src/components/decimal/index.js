@@ -136,6 +136,7 @@ class Decimal extends InputClass {
         { this.labelHTML() }
 
         <input
+          className="visible-decimal-input"
           ref="visible"
           { ...this.inputProps() }
         />

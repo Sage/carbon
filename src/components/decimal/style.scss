@@ -1,0 +1,36 @@
+@import 'colors';
+
+// Alot of this to moved to base input mixin
+
+.ui-textbox {
+  border-radius: 8px;
+  margin-bottom: 0;
+  margin-top: 19px;
+  padding-left: 0px;
+}
+
+.visible-decimal-input {
+  background-color: #FFF;
+  border: 1px solid #D0D0D0;
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: $input-base-border-colour;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 12px;
+  height: 31px;
+  line-height: 16px;
+  margin: 0px;
+  padding: 6px;
+  text-align: right;
+  vertical-align: baseline;
+}
+
+.visible-decimal-input:hover {
+  border-color: $input-active-border-colour;
+  outline: none;
+}
+
+.visible-decimal-input:focus {
+  border-color: $input-active-border-colour;
+  outline: none;
+}
