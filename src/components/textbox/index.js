@@ -11,10 +11,11 @@ class Textbox extends React.Component {
    */
   render() {
     return (
-      <div>
+      <div className='ui-textbox'>
         { this.props.labelHTML() }
 
         <input
+          ref="visible"
           onBlur={ this.props.handleBlur }
           onFocus={ this.props.handleFocus }
           { ...this.props.inputProps() }
@@ -24,7 +25,6 @@ class Textbox extends React.Component {
       </div>
     );
   }
-
 };
 
 export default ValidationClass(InputClass(Textbox));

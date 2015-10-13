@@ -133,7 +133,7 @@ class Decimal extends React.Component {
    */
   render() {
     return (
-      <div className="ui-textbox">
+      <div className="ui-decimal">
 
         { this.props.labelHTML() }
 
