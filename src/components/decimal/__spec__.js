@@ -17,7 +17,7 @@ describe('Decimal', () => {
         onChange={ jasmine.createSpy('dummy') }
     />);
 
-    visibleInputField = instance.refs.visible.getDOMNode();
+    visibleInputField = instance.refs.visible;
   });
 
   describe("render", () => {
@@ -142,7 +142,7 @@ describe('Decimal', () => {
           onChange={ jasmine.createSpy('dummy') }
       />);
 
-      expect(instance.refs.visible.getDOMNode().value).toBe('333.00');
+      expect(instance.refs.visible.value).toBe('333.00');
     });
 
     it("gets the current value once set", () => {
@@ -162,9 +162,9 @@ describe('Decimal', () => {
       it("doesnt set the components state", () => {
       /** PENDING TEST **/
         pending();
-        // spyOn(document, 'activeElement').and.returnValue(instance.refs.visible.getDOMNode());
-        // document.activeElement = instance.refs.visible.getDOMNode();
-        // instance.refs.visible.getDOMNode().focus();
+        // spyOn(document, 'activeElement').and.returnValue(instance.refs.visible);
+        // document.activeElement = instance.refs.visible)
+        // instance.refs.visible.focus();
         instance.componentWillReceiveProps({value: '123'});
         expect(instance.setState).not.toHaveBeenCalled();
       });
