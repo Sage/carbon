@@ -1,18 +1,26 @@
 import React from 'react';
 
-class View extends React.Component {
-  store = undefined
-
+var View = (ComposedView, Store) => class extends React.Component {
   componentDidMount = () => {
-    this.store.addChangeListener(this._onChange);
+    Store.addChangeListener(this._onChange);
   }
 
   componentWillUnmount = () => {
-    this.store.removeChangeListener(this._onChange);
+    Store.removeChangeListener(this._onChange);
   }
 
   _onChange = () => {
-    this.setState({ data: this.store.getState() });
+    this.setState({ data: Store.getState() });
+  }
+
+  state = {
+    data: Store.getState()
+  }
+
+  render() {
+    return (
+      <ComposedView {...this.props} {...this.state} />
+    );
   }
 }
 
