@@ -31,7 +31,7 @@ describe('Decimal', () => {
     it("renders a visible input with a label", () => {
       var input = instance.refs.visible;
       expect(input.tagName).toEqual("INPUT");
-      expect(input.label).toBe('Label');
+      expect(input.getAttribute('label')).toBe('Label');
     });
   });
 
@@ -207,7 +207,7 @@ describe('Decimal', () => {
     describe("when a onChange event has taken place", () => {
       it("should send onChange the updated value", () => {
         instance.emitOnChangeCallback('2000.00');
-        expect(instance.onChange).toHaveBeenCalled(); 
+        expect(instance.props.onChange).toHaveBeenCalled();
       });
     });
   });
