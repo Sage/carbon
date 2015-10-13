@@ -8,10 +8,13 @@ class TableFieldsForMany extends React.Component {
    * Define property types
    */
   static propTypes = {
+    name: React.PropTypes.string.isRequired,
     data: React.PropTypes.object.isRequired,
     addRowHandler: React.PropTypes.func.isRequired,
     deleteRowHandler: React.PropTypes.func.isRequired
   }
+
+  placeholderID = new Date().getTime()
 
   shouldComponentUpdate = (nextProps) => {
     // check if children have changed
@@ -76,7 +79,11 @@ class TableFieldsForMany extends React.Component {
   }
 
   newRow = (rowData) => {
+    if (this.placeholderID == this.get(rowData, 'id')) {
+      this.placeholderID = new Date().getTime()
+    }
     return(<TableRow
+      name={ this.props.name }
       key={ this.get(rowData, 'id') }
       data={ rowData }
       fields={ this.props.fields }
@@ -87,10 +94,11 @@ class TableFieldsForMany extends React.Component {
 
   placeholderRow = () => {
     var placeholderData = {
-      id: new Date().getTime()
+      id: this.placeholderID
     };
 
     return(<TableRow 
+      name={ this.props.name }
       key={ placeholderData.id }
       placeholder="true"
       data={ placeholderData }
