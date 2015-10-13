@@ -11,16 +11,17 @@ class Textbox extends InputClass {
    */
   render() {
     return (
-      <div style={ style.base }>
+      <div className='ui-textbox' style={ style.base }>
         { this.labelHTML() }
+
         <input
+          ref="visible"
           style={ style.input }
           { ...this.inputProps() }
         />
       </div>
     );
   }
-
 };
 
 export default Textbox;
