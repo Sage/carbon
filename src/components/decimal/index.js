@@ -131,7 +131,7 @@ class Decimal extends InputClass {
    */
   render() {
     return (
-      <div className="ui-textbox">
+      <div className="ui-decimal">
 
         { this.labelHTML() }
 
