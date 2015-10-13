@@ -24,14 +24,14 @@ describe('Decimal', () => {
     it("renders a hidden input", () => {
       var input = instance.refs.hidden;
       expect(input.tagName).toEqual("INPUT");
-      expect(input.props.type).toBe('hidden');
-      expect(input.props.readOnly).toBeTruthy();
+      expect(input.type).toBe('hidden');
+      expect(input.readOnly).toBeTruthy();
     });
 
     it("renders a visible input with a label", () => {
       var input = instance.refs.visible;
       expect(input.tagName).toEqual("INPUT");
-      expect(input.props.label).toBe('Label');
+      expect(input.label).toBe('Label');
     });
   });
 
@@ -207,7 +207,7 @@ describe('Decimal', () => {
     describe("when a onChange event has taken place", () => {
       it("should send onChange the updated value", () => {
         instance.emitOnChangeCallback('2000.00');
-        expect(instance.props.onChange).toHaveBeenCalled(); 
+        expect(instance.onChange).toHaveBeenCalled(); 
       });
     });
   });
