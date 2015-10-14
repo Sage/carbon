@@ -62,14 +62,14 @@ class TableFieldsForMany extends React.Component {
 
     if (this.isImmutable()) {
       // iterate through immutable object
-      this.props.data.forEach((rowData) => {
-        rows.push(this.newRow(rowData));
+      this.props.data.forEach((rowData, key) => {
+        rows.push(this.newRow(key, rowData));
       });
     } else {
       // iterate through standard object
       for (var key in this.props.data) {
         var rowData = this.props.data[key];
-        rows.push(this.newRow(rowData));
+        rows.push(this.newRow(key, rowData));
       };
     }
 
@@ -78,13 +78,14 @@ class TableFieldsForMany extends React.Component {
     return rows;
   }
 
-  newRow = (rowData) => {
-    if (this.placeholderID == this.get(rowData, 'id')) {
+  newRow = (id, rowData) => {
+    if (this.placeholderID == id) {
       this.placeholderID = new Date().getTime()
     }
     return(<TableRow
       name={ this.props.name }
-      key={ this.get(rowData, 'id') }
+      key={ id }
+      id={ id }
       data={ rowData }
       fields={ this.props.fields }
       childPropsHaveChanged={ this.childPropsHaveChanged }
@@ -94,13 +95,14 @@ class TableFieldsForMany extends React.Component {
 
   placeholderRow = () => {
     var placeholderData = {
-      id: this.placeholderID
+      id: null
     };
 
     return(<TableRow 
       name={ this.props.name }
-      key={ placeholderData.id }
+      key={ this.placeholderID }
       placeholder="true"
+      id={ this.placeholderID }
       data={ placeholderData }
       fields={ this.props.fields }
       addRowHandler={ this.props.addRowHandler }

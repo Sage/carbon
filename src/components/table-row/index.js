@@ -17,10 +17,10 @@ class TableRow extends React.Component {
 
   buildRow = () => {
     var row = [],
-        id = this.get(this.props.data, 'id');
+        id = this.props.id;
 
     if (!this.props.placeholder) {
-      row.push(<td key={ id + 'actions' }><button id={ id } onClick={this.props.deleteRowHandler}>X</button></td>);
+      row.push(<td key={ id + 'actions' }><button id={ id } onClick={this.deleteMethod}>X</button></td>);
     } else {
       row.push(<td key={ id + 'actions' }></td>);
     }
@@ -37,15 +37,19 @@ class TableRow extends React.Component {
     return row;
   }
 
+  deleteMethod = (ev) => {
+    this.props.deleteRowHandler(ev, this.props);
+  }
+
   buildCell = (field, value) => {
-    var id = this.get(this.props.data, 'id'),
+    var id = this.props.id,
         fieldProps = {
-      value: value,
-      label: false,
-      key: id,
-      row_id: id,
-      namespace: this.props.name
-    };
+          value: value,
+          label: false,
+          key: id,
+          row_id: id,
+          namespace: this.props.name
+        };
 
     if (this.props.placeholder) {
       fieldProps._placeholder = true
