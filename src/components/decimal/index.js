@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from './../../utils/input-class/index.js';
+import Input from './../../utils/input-class';
 import InputValidation from './../../utils/input-validation';
 import I18n from "i18n-js";
 

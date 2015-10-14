@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from './../../utils/input-class/index.js';
+import Input from './../../utils/input-class';
 import InputValidation from './../../utils/input-validation';
 
 class Textbox extends React.Component {
