@@ -15,7 +15,7 @@ class Textbox extends InputClass {
 
         <input
           ref="visible"
-          className="visible-textbox-input input"
+          className="base-text-input"
           { ...this.inputProps() }
         />
       </div>

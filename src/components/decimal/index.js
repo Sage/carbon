@@ -38,11 +38,6 @@ class Decimal extends InputClass {
   formatVisibleValue = (value) => {
     var value = value || this.props.value || this.getDefaultValue();
 
-    console.log(value);
-    var x = I18n;
-    if (window.foo) {
-      debugger;
-    }
     var value = I18n.toNumber(value, {
       precision: 2,
       delimiter: this.i18n().delimiter,
@@ -145,7 +140,7 @@ class Decimal extends InputClass {
         { this.labelHTML() }
 
         <input
-          className="visible-decimal-input input"
+          className="base-text-input"
           ref="visible"
           { ...this.inputProps() }
         />
