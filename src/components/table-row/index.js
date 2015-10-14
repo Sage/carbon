@@ -43,10 +43,12 @@ class TableRow extends React.Component {
       value: value,
       label: false,
       key: id,
-      row_id: id
+      row_id: id,
+      namespace: this.props.name
     };
 
     if (this.props.placeholder) {
+      fieldProps._placeholder = true
       fieldProps.onChange = this.props.addRowHandler;
     }
 
