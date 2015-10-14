@@ -1,8 +1,8 @@
 import React from 'react';
-import InputClass from './../../utils/input-class';
-import style from './style';
+import Input from './../../utils/input';
+import InputValidation from './../../utils/input-validation';
 
-class Textbox extends InputClass {
+class Textbox extends React.Component {
 
   /**
    * Renders the component.
@@ -11,17 +11,20 @@ class Textbox extends InputClass {
    */
   render() {
     return (
-      <div className='ui-textbox' style={ style.base }>
-        { this.labelHTML() }
+      <div className='ui-textbox'>
+        { this.props.labelHTML() }
 
         <input
           ref="visible"
-          style={ style.input }
-          { ...this.inputProps() }
+          onBlur={ this.props.handleBlur }
+          onFocus={ this.props.handleFocus }
+          { ...this.props.inputProps() }
         />
+
+        { this.props.errorMessage }
       </div>
     );
   }
 };
 
-export default Textbox;
+export default InputValidation(Input(Textbox));

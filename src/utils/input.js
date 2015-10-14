@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-class InputClass extends React.Component {
+var Input = (ComposedComponent) => class extends React.Component {
 
   /**
    * Define property types
@@ -10,6 +10,9 @@ class InputClass extends React.Component {
     name: React.PropTypes.string.isRequired
   }
 
+  /**
+   * Determines if the component should re-render
+   */
   shouldComponentUpdate = (nextProps, nextState) => {
     if (!_.isEqual(this.props, nextProps) ||
         !_.isEqual(this.state, nextState)) {
@@ -34,18 +37,12 @@ class InputClass extends React.Component {
       inputProps.onChange = this.handleOnChange;
     }
 
-    return this.customInputProps(inputProps);
-  }
-
-  /**
-   * Overridable method to supply further customisation.
-   *
-   * @method customInputProps
-   */
-  customInputProps = (inputProps) => {
     return inputProps;
   }
 
+  /**
+   * Calls the onChange method with relevant data.
+   */
   handleOnChange = (ev) => {
     this.props.onChange(ev, this.props);
   }
@@ -67,6 +64,17 @@ class InputClass extends React.Component {
     );
   }
 
+  state = {
+    labelHTML: this.labelHTML,
+    inputProps: this.inputProps
+  }
+
+  render() {
+    return (
+      <ComposedComponent {...this.props} {...this.state} />
+    );
+  }
+
 };
 
-export default InputClass;
+export default Input;

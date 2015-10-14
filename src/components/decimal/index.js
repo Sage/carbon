@@ -1,8 +1,9 @@
 import React from 'react';
-import InputClass from './../../utils/input-class';
+import Input from './../../utils/input';
+import InputValidation from './../../utils/input-validation';
 import I18n from "i18n-js";
 
-class Decimal extends InputClass {
+class Decimal extends React.Component {
 
   i18n = () => {
     return {
@@ -102,7 +103,8 @@ class Decimal extends InputClass {
    *
    * @method customInputProps
    */
-  customInputProps = (inputProps) => {
+  customInputProps = () => {
+    var inputProps = this.props.inputProps();
     delete inputProps.value;
     inputProps.onChange = this.handleVisibleInputChange;
     inputProps.onBlur = this.updateVisibleValue;
@@ -133,11 +135,11 @@ class Decimal extends InputClass {
     return (
       <div className="ui-decimal">
 
-        { this.labelHTML() }
+        { this.props.labelHTML() }
 
         <input
           ref="visible"
-          { ...this.inputProps() }
+          { ...this.customInputProps() }
         />
 
         <input
@@ -153,4 +155,4 @@ class Decimal extends InputClass {
 
 };
 
-export default Decimal;
+export default InputValidation(Input(Decimal));
