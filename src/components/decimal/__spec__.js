@@ -103,12 +103,11 @@ describe('Decimal', () => {
     });
 
     it("adds custom delimiters and separators based on i18n", () => {
-      /** PENDING TEST **/
-      pending();
+      window.foo = true
       spyOn(instance, 'i18n').and.returnValue( { delimiter: '.', separator: ',' } );
-      var baseValue = '3000000,00';
+      var baseValue = '300000';
       var formattedValue = instance.formatVisibleValue(baseValue);
-      expect(formattedValue).toBe('3,000,000.00');
+      expect(formattedValue).toBe('300.000,00');
     });
 
     describe("when value is not passed and a props value is set", () => {
@@ -160,11 +159,7 @@ describe('Decimal', () => {
 
     describe("when element has focus", () => {
       it("doesnt set the components state", () => {
-      /** PENDING TEST **/
-        pending();
-        // spyOn(document, 'activeElement').and.returnValue(instance.refs.visible);
-        // document.activeElement = instance.refs.visible)
-        // instance.refs.visible.focus();
+        instance.doc = { activeElement: instance.refs.visible }
         instance.componentWillReceiveProps({value: '123'});
         expect(instance.setState).not.toHaveBeenCalled();
       });
@@ -219,7 +214,6 @@ describe('Decimal', () => {
 
   describe("hiddenFieldProps", () => {
     it("returns the props for the hidden field", () => {
-
     });
   });
 });

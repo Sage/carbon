@@ -323,6 +323,7 @@ class DropdownSuggest extends React.Component {
         />
 
         <input
+          className="input"
           ref="filter"
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}

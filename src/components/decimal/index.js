@@ -4,6 +4,9 @@ import I18n from "i18n-js";
 
 class Decimal extends InputClass {
 
+  // We should not be using document here In future we should monitor which element has focus
+  doc = document
+
   i18n = () => {
     return {
       delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
@@ -30,10 +33,16 @@ class Decimal extends InputClass {
    * Returns a formatted decimal value.
    *
    * @method formatVisibleValue
+   * @param should be interger or floating point
    */
   formatVisibleValue = (value) => {
     var value = value || this.props.value || this.getDefaultValue();
 
+    console.log(value);
+    var x = I18n;
+    if (window.foo) {
+      debugger;
+    }
     var value = I18n.toNumber(value, {
       precision: 2,
       delimiter: this.i18n().delimiter,
@@ -55,7 +64,7 @@ class Decimal extends InputClass {
   }
 
   componentWillReceiveProps = (props) => {
-    if (document.activeElement != this.refs.visible) {
+    if (this.doc.activeElement != this.refs.visible) {
       var value = props.value || props.defaultValue;
       this.setState({
         visibleValue: this.formatVisibleValue(value)
