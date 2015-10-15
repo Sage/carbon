@@ -17,7 +17,7 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
 
   componentWillUnmount = () => {
     if (this.props.validations) {
-      if (!this.props.valid) {
+      if (!this.state.valid) {
         this.context.form.decrementErrorCount()
       }
       this.context.form.detachFromForm(this);

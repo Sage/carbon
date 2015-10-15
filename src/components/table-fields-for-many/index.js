@@ -10,7 +10,7 @@ class TableFieldsForMany extends React.Component {
   static propTypes = {
     name: React.PropTypes.string.isRequired,
     data: React.PropTypes.object.isRequired,
-    addRowHandler: React.PropTypes.func.isRequired,
+    updateRowHandler: React.PropTypes.func.isRequired,
     deleteRowHandler: React.PropTypes.func.isRequired
   }
 
@@ -62,15 +62,16 @@ class TableFieldsForMany extends React.Component {
 
     if (this.isImmutable()) {
       // iterate through immutable object
-      this.props.data.forEach((rowData, key) => {
-        rows.push(this.newRow(key, rowData));
+      this.props.data.forEach((rowData) => {
+        rows.push(this.newRow(rowData));
       });
     } else {
+      // TODO: i dont think we need this bit anymore but need to test with regular data
       // iterate through standard object
-      for (var key in this.props.data) {
-        var rowData = this.props.data[key];
-        rows.push(this.newRow(key, rowData));
-      };
+      // for (var key in this.props.data) {
+      //   var rowData = this.props.data[key];
+      //   rows.push(this.newRow(rowData));
+      // };
     }
 
     rows.push(this.placeholderRow());
@@ -78,18 +79,21 @@ class TableFieldsForMany extends React.Component {
     return rows;
   }
 
-  newRow = (id, rowData) => {
-    if (this.placeholderID == id) {
+  newRow = (rowData) => {
+    var rowID = rowData.get('_row_id');
+
+    if (this.placeholderID == rowID) {
       this.placeholderID = new Date().getTime()
     }
     return(<TableRow
       name={ this.props.name }
-      key={ id }
-      id={ id }
+      key={ rowID }
+      row_id={ rowID }
       data={ rowData }
       fields={ this.props.fields }
       childPropsHaveChanged={ this.childPropsHaveChanged }
       deleteRowHandler={ this.props.deleteRowHandler }
+      updateRowHandler={ this.props.updateRowHandler }
     />);
   }
 
@@ -102,10 +106,10 @@ class TableFieldsForMany extends React.Component {
       name={ this.props.name }
       key={ this.placeholderID }
       placeholder="true"
-      id={ this.placeholderID }
+      row_id={ this.placeholderID }
       data={ placeholderData }
       fields={ this.props.fields }
-      addRowHandler={ this.props.addRowHandler }
+      updateRowHandler={ this.props.updateRowHandler }
     />);
   }
 
