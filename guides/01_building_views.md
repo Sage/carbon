@@ -6,6 +6,8 @@ Carbon provides modular, re-useable components written with [React](https://face
 
 In this guide, we will walk through building a Carbon view within the context of a Rails application. We will indicate Rails/Ruby specific logic using the Rails logo:
 
+If you're familiar with ES5 Javascript, you may find some of our syntax odd. We're not crazy, we're just using [ES6 syntax](https://babeljs.io/docs/learn-es2015/). This is transpiled into ES5 using a Babel transform for use in all browsers before compilation.
+
 ## Building a Journals Page with Carbon 
 
 ### 1) Setup
@@ -49,6 +51,8 @@ gulp.task('test', SpecTask());
 
 * To set gulp to watch for changes, run ```gulp``` in your project root directory.
 
+* **Note** It's probably best at this point to add the node_modules directory, as well as the compiled .js and .css files to your *.gitignore* file. 
+
 ### 3) (Rails) Layout
 
 * In order to render our Carbon view in our Rails app, we need to create a layout. By default, the carbon prepare task creates *ui.js* and *ui.css*. We include these in our layout below.
@@ -90,7 +94,7 @@ gulp.task('test', SpecTask());
   end
 ```
 
-### 6) Creating your first view
+### 5) Creating your first view
 
 * In React, everything is a component. When we talk about views, we're using an abstraction - we really mean a high level component built up from several modular components (i.e. widgets). 
 * N.B. It's possible to have multiple views rendered on a single page - for the moment, we'll define the view to be the page.
@@ -101,6 +105,7 @@ gulp.task('test', SpecTask());
 
 import React from 'react';
 import View from 'carbon/lib/utils/view';
+import JournalStore from 'stores/journals';
 
 class JournalsReverse extends React.Component {
 
@@ -111,8 +116,10 @@ class JournalsReverse extends React.Component {
   }
 };
 
-export default View(JournalsReverse);
+export default View(JournalsReverse, JournalStore);
 ```
+* N.B. If you've worked with React before, you may wonder why we're importing *View* into our view. We use a pattern called [Higher Order Components](https://github.com/Sage/carbon/blob/master/src/utils/view.js) to wrap together our view, our store and any additional functionality we want to provide.
+
 * To build your view, you need to start adding components to the return block. Let's add a:
   *Form* containing a 
     - *Textbox* 
@@ -126,6 +133,7 @@ export default View(JournalsReverse);
 
 import React from 'react';
 import View from 'carbon/lib/utils/view';
+import JournalStore from 'stores/journals';
 
 import Form from 'carbon/lib/components/form';
 import Textbox from 'carbon/lib/components/textbox';
@@ -141,7 +149,7 @@ class JournalsReverse extends React.Component {
   }
 };
 
-export default View(JournalsReverse);
+export default View(JournalsReverse, JournalStore);
 ```
 
 * Carbon uses [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) syntax for building and using components.
@@ -149,13 +157,7 @@ Once you have imported the component into your view, you can render it as follow
 ```javascript
 // ui/src/views/journals/reverse/index.js
 
-import React from 'react';
-import View from 'carbon/lib/utils/view';
-
-import Form from 'carbon/lib/components/form';
-import Textbox from 'carbon/lib/components/textbox';
-import Date from 'carbon/lib/components/date';
-import TTFM from 'carbon/lib/components/table-fields-for-many';
+// ...import statements
 
 class JournalsReverse extends React.Component {
 
@@ -179,20 +181,14 @@ class JournalsReverse extends React.Component {
   }
 };
 
-export default View(JournalsReverse);
+export default View(JournalsReverse, JournalStore);
 ```
 
 * Carbon components use React *props* which allow you to pass data down to a component. Our components have a few required props which we'll add now.
 ```javascript
 // ui/src/views/journals/reverse/index.js
-import React from 'react';
-import View from 'carbon/lib/utils/view';
-import JournalActions from 'actions/journals';
 
-import Form from 'carbon/lib/components/form';
-import Textbox from 'carbon/lib/components/textbox';
-import Date from 'carbon/lib/components/date';
-import TTFM from 'carbon/lib/components/table-fields-for-many';
+// ...import statements
 
 class JournalsReverse extends React.Component {
 
@@ -226,11 +222,11 @@ class JournalsReverse extends React.Component {
   }
 };
 
-export default View(JournalsReverse);
+export default View(JournalsReverse, JournalStore);
 ```
 * Note that we just imported a new module called JournalActions which contains our Row Handler actions used by the table-fields-for-many component and onChange actions. We haven't created any actions yet, let's do so now.
 
-### 7) Creating Actions for your view
+### 6) Creating Actions for your view
 
 Actions are essentially objects we use to pass data through our view. Read more about them [here](https://facebook.github.io/flux/docs/actions-and-the-dispatcher.html#content)
 
@@ -273,7 +269,7 @@ export default JournalActions;
 * You can pass any data you want inside an action, the only requirement is to define an actionType. This is used to register the action with our Store (which we'll talk about soon).
 
 
-### 8) Setting up React routes
+### 7) Setting up React routes
 
 * Carbon uses [React Router](https://github.com/rackt/react-router) to bind view components to specific paths. Before we can see anything on our page, we need to specify the route.
 
@@ -294,9 +290,11 @@ var routes = (
 
 CarbonRoute(routes);
 ```
-* Note that we've defined the path as the url, and the component to render as our view component.
+* Note that we've defined the path as the url, and the component to render as our view component
 
-### 9) Setting up our Store
+* You should now be able to navigate to your view. If you don't see anything, check that gulp is running and that it isn't reporting any syntax errors.
+
+### 8) Setting up our Store
 
 A [Store in React](https://facebook.github.io/flux/docs/overview.html#stores) holds all the information about the current state of our view. At the moment, our view is static and can't be updated. Even though we have added event handlers to our components, the events(or actions) haven't been registered with Store.
 
