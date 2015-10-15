@@ -4,8 +4,8 @@ var SpecTask = require('carbon-factory/lib/gulp/spec');
 
 gulp.task('default', BuildTask({
   src: './example/main.js',
-  jsDest: './example',
-  cssDest: './example',
+  jsDest: './example/assets/javascripts',
+  cssDest: './example/assets/stylesheets',
   fontDest: './example/assets/fonts'
 }));
 

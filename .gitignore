@@ -3,5 +3,6 @@ coverage/
 *.swp
 *.swo
 lib/
-example/ui.js
-example/ui.css
+example/assets/fonts
+example/assets/stylesheets/ui.css
+example/assets/javascripts/ui.js
