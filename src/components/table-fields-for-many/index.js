@@ -11,7 +11,8 @@ class TableFieldsForMany extends React.Component {
     name: React.PropTypes.string.isRequired,
     data: React.PropTypes.object.isRequired,
     updateRowHandler: React.PropTypes.func.isRequired,
-    deleteRowHandler: React.PropTypes.func.isRequired
+    deleteRowHandler: React.PropTypes.func.isRequired,
+    columnNames: React.PropTypes.array.isRequired
   }
 
   placeholderID = new Date().getTime()
@@ -98,6 +99,12 @@ class TableFieldsForMany extends React.Component {
     />);
   }
 
+  buildHead = () => {
+    return this.props.data.columnNames.forEach((column) => {
+      return <th>column</th>
+    });  
+  }
+
   /**
    * Renders the component.
    *
@@ -106,13 +113,13 @@ class TableFieldsForMany extends React.Component {
   render() {
     return (
       <table className="ui-table-fields-for-many">
+        <thead>{ this.buildHead() }</thead>
         <tbody>
           { this.buildRows() }
         </tbody>
       </table>
     );
   }
-
 };
 
 export default TableFieldsForMany;
