@@ -37,7 +37,7 @@ describe("DropdownSuggest", () => {
 
     it("renders a li with no results", () => {
       var ul = instance.refs.list;
-      var listItems = ul.getDOMNode().childNodes;
+      var listItems = ul.childNodes;
       expect(listItems.length).toEqual(1);
       expect(listItems[0].tagName).toEqual("LI");
       expect(listItems[0].textContent).toEqual("No results");
@@ -53,7 +53,7 @@ describe("DropdownSuggest", () => {
         });
         instance.render();
         ul = instance.refs.list;
-        listItems = ul.getDOMNode().childNodes;
+        listItems = ul.childNodes;
       });
 
       it("renders a li with results", () => {
@@ -74,7 +74,7 @@ describe("DropdownSuggest", () => {
   describe("resetScroll", () => {
     it("sets the scrollTop to 0 on the list", () => {
       var obj = { scrollTop: 100 };
-      spyOn(instance.refs.list, 'getDOMNode').and.returnValue(obj);
+      instance.refs.list = obj;
       instance.resetScroll();
       expect(obj.scrollTop).toEqual(0);
     });
@@ -84,7 +84,7 @@ describe("DropdownSuggest", () => {
     var filter;
 
     beforeEach(() => {
-      filter = instance.refs.filter.getDOMNode();
+      filter = instance.refs.filter;
     });
 
     describe("on return key", () => {
@@ -176,7 +176,7 @@ describe("DropdownSuggest", () => {
         options: [{ id: 1, name: "Foo" }, { id: 25, name: "Bar" }]
       });
       spyOn(instance, 'setState');
-      var listItem = instance.refs.list.getDOMNode().childNodes[1];
+      var listItem = instance.refs.list.childNodes[1];
       TestUtils.Simulate.mouseOver(listItem);
       expect(instance.setState).toHaveBeenCalledWith({ highlighted: 25 });
     });
@@ -187,8 +187,9 @@ describe("DropdownSuggest", () => {
       instance.setState({
         options: [{ id: 1, name: "Foo" }, { id: 25, name: "Bar" }]
       });
+
       spyOn(instance, 'emitOnChangeCallback');
-      var listItem = instance.refs.list.getDOMNode().childNodes[1];
+      var listItem = instance.refs.list.childNodes[1];
       TestUtils.Simulate.mouseDown(listItem);
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(listItem);
     });
@@ -199,7 +200,7 @@ describe("DropdownSuggest", () => {
 
     beforeEach(() => {
       jasmine.clock().install();
-      filter = instance.refs.filter.getDOMNode();
+      filter = instance.refs.filter;
       filter.value = "qux";
       spyOn(instance, 'emitOnChangeCallback');
       spyOn(instance, 'getData');
@@ -269,7 +270,7 @@ describe("DropdownSuggest", () => {
               scrollHeight: 200,
               offsetHeight: 150
             };
-            spyOn(ul, 'getDOMNode').and.returnValue(obj);
+            ul = obj;
             instance.handleScroll();
           });
 
@@ -285,7 +286,7 @@ describe("DropdownSuggest", () => {
               scrollHeight: 200,
               offsetHeight: 150
             };
-            spyOn(ul, 'getDOMNode').and.returnValue(obj);
+            ul = obj;
             instance.handleScroll();
           });
 
@@ -306,7 +307,7 @@ describe("DropdownSuggest", () => {
 
     beforeEach(() => {
       jasmine.clock().install();
-      filter = instance.refs.filter.getDOMNode();
+      filter = instance.refs.filter;
       spyOn(filter, 'setSelectionRange');
       spyOn(instance, 'getData');
     });
@@ -372,7 +373,7 @@ describe("DropdownSuggest", () => {
     beforeEach(() => {
       spyOn(instance, 'resetScroll');
       spyOn(instance, 'setState');
-      var filter = instance.refs.filter.getDOMNode();
+      var filter = instance.refs.filter;
       TestUtils.Simulate.blur(filter);
     });
 

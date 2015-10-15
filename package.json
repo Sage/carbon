@@ -4,7 +4,8 @@
   "description": "Fundamental building blocks.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node -e \"require('ncp').ncp('./src', './lib')\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
   },
   "repository": {
     "type": "git",
@@ -19,8 +20,10 @@
   "devDependencies": {
     "browserify": "^11.1.0",
     "browserify-istanbul": "^0.2.1",
+    "carbon-factory": "sage/carbon-factory",
     "es5-shim": "^4.1.13",
     "gulp": "^3.9.0",
+    "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.9",
     "karma-babel-preprocessor": "^5.2.2",
@@ -33,7 +36,6 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-safari-launcher": "^0.1.1",
     "phantomjs": "^1.9.18",
-    "react": "^0.13.3",
     "string": "^3.3.1",
     "superagent-mock": "^1.7.0",
     "yargs": "^3.25.0"
@@ -41,25 +43,19 @@
   "peerDependencies": {
     "babelify": "^6.3.0",
     "flux": "^2.1.1",
-    "react": "^0.13.3",
-    "react-router": "^0.13.3",
-    "immutable": "^3.7.5" 
+    "history": "^1.12.5",
+    "immutable": "^3.7.5",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-router": "^1.0.0-rc3"
   },
   "dependencies": {
+    "babel-plugin-flow-comments": "^1.0.9",
     "events": "^1.0.2",
-    "superagent": "^1.4.0",
-    "underscore": "^1.8.3"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "optional": [
-            "es7.classProperties"
-          ]
-        }
-      ]
-    ]
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "ncp": "^2.0.0",
+    "react-date-picker": "^3.1.5",
+    "superagent": "^1.4.0"
   }
 }
