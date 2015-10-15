@@ -7,7 +7,9 @@ class DropdownSuggest extends React.Component {
    * Define property types
    */
   static propTypes = {
-    path: React.PropTypes.string.isRequired
+    onChange: React.PropTypes.func.isRequired,
+    path: React.PropTypes.string.isRequired,
+    value: React.PropTypes.object.isRequired
   }
 
   /**
@@ -54,24 +56,6 @@ class DropdownSuggest extends React.Component {
      */
     pages: 0,
 
-    value: {
-      /**
-       * The filter applied to the results.
-       *
-       * @property filter
-       * @type {String}
-       */
-      name: "",
-
-      /**
-       * The currently selected item.
-       *
-       * @property value
-       * @type {Integer}
-       */
-      id: null
-    },
-
     /**
      * The ID of the highlighted item in the list.
      *
@@ -87,12 +71,15 @@ class DropdownSuggest extends React.Component {
    * @method getData
    */
   getData = (page = 1) => {
+    // Passes empty string to query if value has been selected
+    var query = this.get(this.props.value, 'id') ? "" : this.get(this.props.value, 'name');
+
     Request
       .get(this.props.path)
       .query({
         page: page,
         rows: 10,
-        value: this.state.value.name
+        value: query
       })
       .end((err, response) => {
         this.updateList(response.body.data[0]);
@@ -160,7 +147,7 @@ class DropdownSuggest extends React.Component {
       filter.setSelectionRange(0, 9999);
     }, 0);
 
-    if (!this.state.options.length) {
+    if (this.get(this.props.value, 'id') || !this.state.options.length) {
       this.getData();
     } else {
       this.setState({ open: true });
@@ -195,8 +182,8 @@ class DropdownSuggest extends React.Component {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
-
-    this.setState({ value: { name: ev.target.value, id: null } });
+    var target = { textContent: ev.target.value, value: null };
+    this.emitOnChangeCallback(target)
 
     this.timeout = setTimeout(() => {
       this.getData(1);
@@ -209,14 +196,8 @@ class DropdownSuggest extends React.Component {
    * @method handleSelect
    */
   handleSelect = (ev) => {
-    this.setState({
-      value: {
-        id: ev.target.value,
-        name: ev.target.textContent
-      }
-    });
+    this.emitOnChangeCallback(ev.target);
   }
-
 
   /**
    * Handles a mouse over event for list items.
@@ -239,20 +220,13 @@ class DropdownSuggest extends React.Component {
         element = list.getElementsByClassName('highlighted')[0];
 
     switch(ev.which) {
-      case 13:
-        // return
+      case 13: // return
         if (element) {
-          this.setState({
-            value: {
-              id: element.value,
-              name: element.textContent,
-            },
-            open: false
-          });
+          this.setState({ open: false });
+          this.emitOnChangeCallback(element)
         }
         break;
-      case 38:
-        // up arrow
+      case 38: // up arrow
         var nextVal = list.lastChild.value;
 
         if (element && element.previousElementSibling) {
@@ -261,8 +235,7 @@ class DropdownSuggest extends React.Component {
 
         this.setState({ highlighted: nextVal });
         break;
-      case 40:
-        // down arrow
+      case 40: // down arrow
         var nextVal = list.firstChild.value;
 
         if (element && element.nextElementSibling) {
@@ -275,15 +248,72 @@ class DropdownSuggest extends React.Component {
   }
 
   /**
+   * Runs the callback onChange action
+   *
+   * @method emitOnChangeCallback
+   * @param [target] input selected 
+   */
+  emitOnChangeCallback = (target) => {
+    this.props.onChange({ target: target } , this.props);
+  }
+
+
+  /**
    * Resets the scroll position of the list.
    *
    * @method resetScroll
    */
   resetScroll = () => {
+    this.listeningToScroll = false;
     var list = this.refs.list;
     list.scrollTop = 0;
   }
 
+  /**
+   * Sets props for input fieild.
+   *
+   * @method inputProps 
+   */
+  inputProps = (inputProps) => {
+    var { ...inputProps } = this.props;
+
+    inputProps.onFocus = this.handleFocus;
+    inputProps.onBlur = this.handleBlur;
+    inputProps.onChange = this.handleChange;
+    inputProps.onKeyDown = this.handleKeyDown;
+
+    inputProps.value = this.get(this.props.value, 'name');
+    
+    return inputProps;
+  }
+
+  /**
+   * Gets props for selected option id.
+   *
+   * @method hiddenFieldProps 
+   */
+  hiddenFieldProps = () => {
+    var props = {};
+
+    if (this.props.value) {
+      props.value = this.get(this.props.value, 'id');
+    }
+
+    return props;
+  }
+
+
+  isImmutable = (data) => {
+    return typeof data.get === 'function';
+  }
+
+  get = (data, key) => {
+    if (this.isImmutable(data)) {
+      return data.get(key);
+    } else {
+      return data[key];
+    }
+  }
 
   /**
    * Renders the component.
@@ -301,9 +331,9 @@ class DropdownSuggest extends React.Component {
     };
 
     if (this.state.options.length) {
-      var options = this.state.options.map((option) => {
+      var results = this.state.options.map((option) => {
         return <li
-                  key={option.id}
+                  key={option.name + option.id}
                   value={option.id}
                   onMouseDown={this.handleSelect}
                   onMouseOver={this.handleMouseOver}
@@ -311,24 +341,22 @@ class DropdownSuggest extends React.Component {
                 >{option.name}</li>;
       });
     } else {
-      var options = <li>No results</li>;
+      var results = <li>No results</li>;
     }
 
     return (
       <div className="ui-dropdown-suggest" style={containerCSS}>
-        <input
-          ref="input"
-          hidden="true"
-          value={this.state.value.id}
-        />
 
         <input
           ref="filter"
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-          value={this.state.value.name}
+          { ...this.inputProps() }
+        />
+
+        <input
+          ref="input"
+          readOnly="true"
+          hidden="true"
+          { ...this.hiddenFieldProps() }
         />
 
         <ul
@@ -337,7 +365,7 @@ class DropdownSuggest extends React.Component {
           className={this.state.open ? '' : 'hidden'}
           onScroll={this.handleScroll}
         >
-          {options}
+          {results}
         </ul>
       </div>
     );
