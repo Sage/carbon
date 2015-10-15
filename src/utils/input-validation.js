@@ -17,7 +17,7 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
 
   componentWillUnmount = () => {
     if (this.props.validations) {
-      if (!this.props.valid) {
+      if (!this.state.valid) {
         this.context.form.decrementErrorCount()
       }
       this.context.form.detachFromForm(this);
@@ -27,18 +27,21 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
   validate = () => {
     var valid = false;
 
-    this.props.validations.forEach((validation) => {
-      valid = validation.validate(this.props.value);
+    if (this.props.validations) {
+      this.props.validations.forEach((validation) => {
+        valid = validation.validate(this.props.value);
 
-      if (!valid) {
-        if (this.state.valid) {
-          this.context.form.incrementErrorCount()
-          this.setState({ errorMessage: "error!", valid: false })
+        if (!valid) {
+          if (this.state.valid) {
+            this.context.form.incrementErrorCount()
+            this.setState({ errorMessage: "error!", valid: false })
+          }
+          return valid;
         }
-        return valid;
-      }
-    });
-
+      });
+    } else {
+      valid = true;
+    }
     return valid;
   }
 

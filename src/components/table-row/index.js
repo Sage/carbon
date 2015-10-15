@@ -17,12 +17,12 @@ class TableRow extends React.Component {
 
   buildRow = () => {
     var row = [],
-        id = this.get(this.props.data, 'id');
+        rowID = this.props.row_id;
 
     if (!this.props.placeholder) {
-      row.push(<td key={ id + 'actions' }><button id={ id } onClick={this.props.deleteRowHandler}>X</button></td>);
+      row.push(<td key={ rowID + 'actions' }><button id={ rowID } onClick={this.deleteMethod}>X</button></td>);
     } else {
-      row.push(<td key={ id + 'actions' }></td>);
+      row.push(<td key={ rowID + 'actions' }></td>);
     }
 
     for (var key in this.props.fields) {
@@ -37,24 +37,29 @@ class TableRow extends React.Component {
     return row;
   }
 
+  deleteMethod = (ev) => {
+    ev.preventDefault();
+    this.props.deleteRowHandler(ev, this.props);
+  }
+
   buildCell = (field, value) => {
-    var id = this.get(this.props.data, 'id'),
+    var rowID = this.props.row_id,
         fieldProps = {
-      value: value,
-      label: false,
-      key: id,
-      row_id: id,
-      namespace: this.props.name
-    };
+          value: value,
+          label: false,
+          key: rowID,
+          row_id: rowID,
+          namespace: this.props.name,
+          onChange: this.props.updateRowHandler
+        };
 
     if (this.props.placeholder) {
       fieldProps._placeholder = true
-      fieldProps.onChange = this.props.addRowHandler;
     }
 
     var fieldHTML = React.cloneElement(field, fieldProps);
 
-    return <td key={ id + field.props.name }>{ fieldHTML }</td>;
+    return <td key={ rowID + field.props.name }>{ fieldHTML }</td>;
   }
 
   isImmutable = () => {

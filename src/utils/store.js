@@ -5,8 +5,6 @@ class Store extends Events.EventEmitter {
   constructor(Dispatcher, data) {
     super();
 
-    var _store = this;
-
     this.data = data;
 
     this.dispatchToken = Dispatcher.register(this.dispatcherCallback);
