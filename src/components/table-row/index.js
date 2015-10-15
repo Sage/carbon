@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from 'utils/icon';
 
 class TableRow extends React.Component {
 
@@ -20,9 +21,15 @@ class TableRow extends React.Component {
         rowID = this.props.row_id;
 
     if (!this.props.placeholder) {
-      row.push(<td key={ rowID + 'actions' }><button id={ rowID } onClick={this.deleteMethod}>X</button></td>);
+      row.push(
+        <td key={ rowID + 'actions' } className="ui-table-row__td">
+          <button className="ui-table-row__delete" id={ rowID } onClick={this.deleteMethod}>
+            <Icon type="delete" className="ui-table-row__delete-icon" />
+          </button>
+        </td>
+      );
     } else {
-      row.push(<td key={ rowID + 'actions' }></td>);
+      row.push(<td key={ rowID + 'actions' } className="ui-table-row__td"></td>);
     }
 
     for (var key in this.props.fields) {
@@ -59,7 +66,7 @@ class TableRow extends React.Component {
 
     var fieldHTML = React.cloneElement(field, fieldProps);
 
-    return <td key={ rowID + field.props.name }>{ fieldHTML }</td>;
+    return <td key={ rowID + field.props.name } className="ui-table-row__td">{ fieldHTML }</td>;
   }
 
   isImmutable = () => {
