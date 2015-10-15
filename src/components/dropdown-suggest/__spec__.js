@@ -108,7 +108,7 @@ describe("DropdownSuggest", () => {
           spyOn(instance, 'setState');
           spyOn(instance, 'emitOnChangeCallback');
 
-          var element = instance.refs.list.getDOMNode().getElementsByClassName('highlighted')[0];
+          var element = instance.refs.list.getElementsByClassName('highlighted')[0];
 
           TestUtils.Simulate.keyDown(filter, { which: 13 });
           expect(instance.setState).toHaveBeenCalledWith({ open: false });
@@ -231,10 +231,8 @@ describe("DropdownSuggest", () => {
   });
 
   describe("when the list scrolls", () => {
-    var ul;
 
     beforeEach(() => {
-      ul = instance.refs.list;
       spyOn(instance, "getNextPage");
     });
 
@@ -270,7 +268,7 @@ describe("DropdownSuggest", () => {
               scrollHeight: 200,
               offsetHeight: 150
             };
-            ul = obj;
+            instance.refs.list = obj;
             instance.handleScroll();
           });
 
@@ -286,7 +284,7 @@ describe("DropdownSuggest", () => {
               scrollHeight: 200,
               offsetHeight: 150
             };
-            ul = obj;
+            instance.refs.list = obj;
             instance.handleScroll();
           });
 
@@ -492,23 +490,33 @@ describe("DropdownSuggest", () => {
    */
   describe("isImmutable", () => {
     it("returns true when passed a immutable object", () => {
-      instance.props.value = Immutable.fromJS({ id: 1, name: "foo" });
+      instance = TestUtils.renderIntoDocument(
+        <DropdownSuggest
+          path="/foo"
+          value={ Immutable.fromJS({ name: 'foo', id: 1 }) }
+          onChange={ jasmine.createSpy('dummy') }
+        />);
+
       expect(instance.isImmutable(instance.props.value)).toBe(true)
     });
 
     it("returns false when passed a non immutable object", () => {
-      instance.props.value = { id: 1, name: "foo" };
       expect(instance.isImmutable(instance.props.value)).toBe(false)
     });
   });
 
   describe("get", () => {
     it("returns the correct value when passed a immutable object", () => {
-      instance.props.value = Immutable.fromJS({ id: 1, name: "foo" });
+      instance = TestUtils.renderIntoDocument(
+        <DropdownSuggest
+          path="/foo"
+          value={ Immutable.fromJS({ name: 'foo', id: 1 }) }
+          onChange={ jasmine.createSpy('dummy') }
+        />);
+
       expect(instance.get(instance.props.value, 'name')).toBe('foo');
     });
     it("returns the correct value when passed a non immutable object", () => {
-      instance.props.value = { id: 1, name: "foo" };
       expect(instance.get(instance.props.value, 'name')).toBe('foo');
     });
   });
