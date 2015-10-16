@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-var InputClass = (ComposedComponent) => class extends React.Component {
+var Input = (ComposedComponent) => class extends React.Component {
 
   /**
    * Define property types
@@ -69,12 +69,28 @@ var InputClass = (ComposedComponent) => class extends React.Component {
     inputProps: this.inputProps
   }
 
+  mainClasses = () => {
+    return " base-input";
+  }
+
+  inputClasses = () => {
+    return " base-input__input";
+  }
+
+  exposedMethods = () => {
+    return {
+      mainClasses: this.mainClasses,
+      inputClasses: this.inputClasses,
+      ...this.state
+    };
+  }
+
   render() {
     return (
-      <ComposedComponent {...this.props} {...this.state} />
+      <ComposedComponent input={this.exposedMethods()} {...this.props} />
     );
   }
 
 };
 
-export default InputClass;
+export default Input;

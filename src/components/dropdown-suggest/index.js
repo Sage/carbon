@@ -344,11 +344,19 @@ class DropdownSuggest extends React.Component {
       var results = <li>No results</li>;
     }
 
+    var mainClasses = 'ui-dropdown-suggest' +
+        this.props.input.mainClasses() +
+        this.props.validation.mainClasses();
+
+    var inputClasses = "ui-dropdown-suggest__input" +
+        this.props.input.inputClasses() +
+        this.props.validation.inputClasses();
+
     return (
-      <div className="ui-dropdown-suggest" style={containerCSS}>
+      <div className={ mainClasses } style={containerCSS}>
 
         <input
-          className="base-text-input"
+          className={ inputClasses }
           ref="filter"
           { ...this.inputProps() }
         />

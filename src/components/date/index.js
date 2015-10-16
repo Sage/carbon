@@ -1,6 +1,6 @@
 import React from 'react';
-import Input from './../../utils/input-class';
-import InputValidation from './../../utils/input-validation';
+import Input from './../../utils/input';
+import InputValidation from './../../utils/input/validation';
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
@@ -189,10 +189,21 @@ class DateComponent extends React.Component {
       datePicker = <DatePicker { ...this.datePickerProps() } />;
     }
 
+    var mainClasses = 'ui-date' +
+        this.props.input.mainClasses() +
+        this.props.validation.mainClasses();
+
+    var inputClasses = "ui-date__input" +
+        this.props.input.inputClasses() +
+        this.props.validation.inputClasses();
+
+
+
     return (
-      <div className="ui-date" onClick={ this.handleWidgetClick }>
+      <div className={ mainClasses } onClick={ this.handleWidgetClick }>
 
         <input
+          className={ inputClasses }
           ref="visible"
           { ...this.customInputProps() }
         />

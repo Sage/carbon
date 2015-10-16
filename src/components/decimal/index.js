@@ -1,6 +1,6 @@
 import React from 'react';
-import Input from './../../utils/input-class';
-import InputValidation from './../../utils/input-validation';
+import Input from './../../utils/input';
+import InputValidation from './../../utils/input/validation';
 import I18n from "i18n-js";
 
 class Decimal extends React.Component {
@@ -136,13 +136,21 @@ class Decimal extends React.Component {
    * @method render
    */
   render() {
-    return (
-      <div className="ui-decimal">
+    var mainClasses = 'ui-decimal' +
+        this.props.input.mainClasses() +
+        this.props.validation.mainClasses();
 
-        { this.props.labelHTML() }
+    var inputClasses = "ui-decimal__input" +
+        this.props.input.inputClasses() +
+        this.props.validation.inputClasses();
+
+    return (
+      <div className={ mainClasses }>
+
+        { this.props.input.labelHTML() }
 
         <input
-          className="base-text-input"
+          className={ inputClasses }
           ref="visible"
           { ...this.customInputProps() }
         />
