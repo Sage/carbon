@@ -1,0 +1,99 @@
+@import 'colors';
+
+$dialog-padding: 20px;
+$dialog-initial-position: 60px;
+$dialog-animation-length: 300ms;
+$dialog-background-opacity: 0.6;
+$dialog-background-animation-length: 300ms;
+
+.ui-dialog__background {
+  background-color: #555;
+  bottom: 0;
+  left: 0;
+  opacity: $dialog-background-opacity;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.ui-dialog__dialog {
+  background-color: #F5F5F5;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px #555;
+  padding: $dialog-padding;
+  position: absolute;
+  width: 750px;
+  z-index: 1;
+}
+
+.ui-dialog__dialog--small   { width: 380px; }
+.ui-dialog__dialog--smed    { width: 540px; }
+.ui-dialog__dialog--lmed    { width: 850px; }
+.ui-dialog__dialog--large  { width: 960px; }
+
+.ui-dialog__title {
+  background: none;
+  border-bottom: 1px solid $grey-mid;
+  box-shadow: 0 1px 1px $white;
+  color: $grey-dark;
+  font-size: 1.8em;
+  font-weight: normal;
+  margin: 0 0 15px 0;
+  padding-bottom: 10px;
+}
+
+.ui-dialog__close {
+  color: $grey-mid;
+  cursor: pointer;
+  position: absolute;
+  right: $dialog-padding;
+  top: $dialog-padding;
+
+  &:hover {
+    color: $grey-dark;
+  }
+}
+
+// dialog animation:
+
+.dialog-enter {
+  opacity: 0;
+  margin-top: $dialog-initial-position;
+}
+
+.dialog-enter.dialog-enter-active {
+  opacity: 1;
+  margin-top: 0;
+  transition: all $dialog-animation-length 200ms ease-in;
+}
+
+.dialog-leave {
+  opacity: 1;
+  margin-top: 0;
+}
+
+.dialog-leave.dialog-leave-active {
+  opacity: 0;
+  margin-top: $dialog-initial-position;
+  transition: all $dialog-animation-length ease-in;
+}
+
+// dialog background animation:
+
+.dialog-background-enter {
+  opacity: 0;
+}
+
+.dialog-background-enter.dialog-background-enter-active {
+  opacity: $dialog-background-opacity;
+  transition: opacity $dialog-background-animation-length ease-in;
+}
+
+.dialog-background-leave {
+  opacity: $dialog-background-opacity;
+}
+
+.dialog-background-leave.dialog-background-leave-active {
+  opacity: 0;
+  transition: opacity $dialog-background-animation-length 200ms ease-in;
+}
