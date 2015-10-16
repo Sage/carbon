@@ -7,9 +7,7 @@ class DropdownSuggest extends React.Component {
    * Define property types
    */
   static propTypes = {
-    onChange: React.PropTypes.func.isRequired,
-    path: React.PropTypes.string.isRequired,
-    value: React.PropTypes.object.isRequired
+    path: React.PropTypes.string.isRequired
   }
 
   /**
@@ -72,7 +70,7 @@ class DropdownSuggest extends React.Component {
    */
   getData = (page = 1) => {
     // Passes empty string to query if value has been selected
-    var query = this.get(this.props.value, 'id') ? "" : this.get(this.props.value, 'name');
+    var query = this.get(this.props.value, 'id') ? "" : this.get(this.props.value, this.props.resource_key);
 
     Request
       .get(this.props.path)
@@ -282,7 +280,7 @@ class DropdownSuggest extends React.Component {
     inputProps.onChange = this.handleChange;
     inputProps.onKeyDown = this.handleKeyDown;
 
-    inputProps.value = this.get(this.props.value, 'name');
+    inputProps.value = this.get(this.props.value, this.props.resource_key);
     
     return inputProps;
   }
