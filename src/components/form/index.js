@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from 'components/button';
 
 class Form extends React.Component {
 
@@ -102,7 +103,7 @@ class Form extends React.Component {
     return (
       <form onChange={ this.handleOnChange } onSubmit={ this.handleOnSubmit }>
         { this.props.children }
-        <button>Save</button>
+        <Button/>
         Errors: <span>{ this.state.errorCount }</span>
       </form>
     );
