@@ -1,0 +1,9 @@
+{
+  "style": "style.scss",
+  "fonts": [
+    "fonts/carbon-icons-webfont.eot",
+    "fonts/carbon-icons-webfont.svg",
+    "fonts/carbon-icons-webfont.ttf",
+    "fonts/carbon-icons-webfont.woff"
+  ]
+}

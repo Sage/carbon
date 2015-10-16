@@ -60,19 +60,9 @@ class TableFieldsForMany extends React.Component {
   buildRows = () => {
     var rows = [];
 
-    if (this.isImmutable()) {
-      // iterate through immutable object
-      this.props.data.forEach((rowData) => {
-        rows.push(this.newRow(rowData));
-      });
-    } else {
-      // TODO: i dont think we need this bit anymore but need to test with regular data
-      // iterate through standard object
-      // for (var key in this.props.data) {
-      //   var rowData = this.props.data[key];
-      //   rows.push(this.newRow(rowData));
-      // };
-    }
+    this.props.data.forEach((rowData) => {
+      rows.push(this.newRow(rowData));
+    });
 
     rows.push(this.placeholderRow());
 
@@ -98,31 +88,14 @@ class TableFieldsForMany extends React.Component {
   }
 
   placeholderRow = () => {
-    var placeholderData = {
-      id: null
-    };
-
     return(<TableRow 
       name={ this.props.name }
       key={ this.placeholderID }
       placeholder="true"
       row_id={ this.placeholderID }
-      data={ placeholderData }
       fields={ this.props.fields }
       updateRowHandler={ this.props.updateRowHandler }
     />);
-  }
-
-  isImmutable = () => {
-    return typeof this.props.data.get === 'function';
-  }
-
-  get = (data, key) => {
-    if (this.isImmutable()) {
-      return data.get(key);
-    } else {
-      return data[key];
-    }
   }
 
   /**
