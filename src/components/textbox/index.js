@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from './../../utils/input';
+import Input from './../../utils/input-class';
 import InputValidation from './../../utils/input-validation';
 
 class Textbox extends React.Component {
@@ -16,6 +16,7 @@ class Textbox extends React.Component {
 
         <input
           ref="visible"
+          className="base-text-input"
           onBlur={ this.props.handleBlur }
           onFocus={ this.props.handleFocus }
           { ...this.props.inputProps() }

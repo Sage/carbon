@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-var Input = (ComposedComponent) => class extends React.Component {
+var InputClass = (ComposedComponent) => class extends React.Component {
 
   /**
    * Define property types
@@ -77,4 +77,4 @@ var Input = (ComposedComponent) => class extends React.Component {
 
 };
 
-export default Input;
+export default InputClass;

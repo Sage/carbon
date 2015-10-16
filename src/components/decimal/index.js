@@ -1,9 +1,12 @@
 import React from 'react';
-import Input from './../../utils/input';
+import Input from './../../utils/input-class';
 import InputValidation from './../../utils/input-validation';
 import I18n from "i18n-js";
 
 class Decimal extends React.Component {
+
+  // We should not be using document here In future we should monitor which element has focus
+  doc = document
 
   i18n = () => {
     return {
@@ -13,12 +16,12 @@ class Decimal extends React.Component {
   }
 
   /**
-   * Returns an uformatted decimal value.
+   * Returns an unformatted decimal value.
    *
    * @method formatHiddenValue
    */
-  formatHiddenValue = (value) => {
-    var value = value || this.props.value || this.getDefaultValue();
+  formatHiddenValue = (valueToFormat) => {
+    var value = valueToFormat || this.props.value || this.getDefaultValue();
     var regex = new RegExp('\\' + this.i18n().delimiter, "g");
 
     value = value.replace(regex, "", "g");
@@ -31,6 +34,7 @@ class Decimal extends React.Component {
    * Returns a formatted decimal value.
    *
    * @method formatVisibleValue
+   * @param should be interger or floating point
    */
   formatVisibleValue = (value) => {
     var value = value || this.props.value || this.getDefaultValue();
@@ -56,7 +60,7 @@ class Decimal extends React.Component {
   }
 
   componentWillReceiveProps = (props) => {
-    if (document.activeElement != this.refs.visible) {
+    if (this.doc.activeElement != this.refs.visible) {
       var value = props.value || props.defaultValue;
       this.setState({
         visibleValue: this.formatVisibleValue(value)
@@ -138,6 +142,7 @@ class Decimal extends React.Component {
         { this.props.labelHTML() }
 
         <input
+          className="base-text-input"
           ref="visible"
           { ...this.customInputProps() }
         />

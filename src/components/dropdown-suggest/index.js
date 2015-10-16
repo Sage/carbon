@@ -348,6 +348,7 @@ class DropdownSuggest extends React.Component {
       <div className="ui-dropdown-suggest" style={containerCSS}>
 
         <input
+          className="base-text-input"
           ref="filter"
           { ...this.inputProps() }
         />

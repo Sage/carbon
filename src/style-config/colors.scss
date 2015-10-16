@@ -1,5 +1,65 @@
-$red: #CB3500 !default;
-$white: #FFFFFF !default;
+// Brand Colours - These are named by their colour.
+$white:                      #FFF !default;
+$black:                      #000 !default;
+$grey:                       #D0D0D0 !default;
+$grey-dark:                  #4D4F53 !default;
+$grey-mid:                   #AFAFAF !default;
+$grey-light:                 #E0E1DD !default;
+$grey-background:            #F2F2F2 !default;
+$green:                      #007F64 !default;
+$green-bright:               #41A940 !default;
+$orange:                     #FF8234 !default;
+$orange-bright:              #FF5800 !default;
+$blue:                       #009FDA !default;
+$red:                        #CB3500 !default;
+$yellow:                     #FFE44D !default;
 
-$border-color: #D0D0D0 !default;
-$error: $red !default;
+// Main colours
+$warning:                    $orange !default;
+$error:                      $red !default;
+$delete:                     $grey-mid !default;
+$close:                      $grey-mid !default;
+
+// Borders
+$border:                     $grey !default;
+$border-dark:                #888 !default;
+$border_error:               $error !default;
+
+// Backgrounds
+$inset-background:           #E6E6E6 !default;
+
+// Hover States
+$delete_hover:               $error !default;
+$close_hover:                $grey-dark !default;
+
+// App header
+$global-nav-background:      $grey-dark !default;
+$global-nav-hover:           #5E6066 !default;
+$menu-link-color:            #868B96 !default;
+
+// Table row banding and TFFM inputs
+$row_alt_background:          $grey-background !default; // alternate row banding in tables
+$row_hover_background:        lighten($green-bright, 42%) !default; // Pale green - used as row banding hover state
+$row_hover_background_light:  lighten($green-bright, 52%) !default; // Even more pale green - used on inputs in TFFM
+$row_hover_border:            lighten($green-bright, 20%) !default; // used on inputs in TFFM
+
+// Disabled States
+$delete_disabled:             $grey-light !default;
+
+
+// Buttons
+$button-secondary-background-color:           $white !default;
+$button-secondary-background-gradient:        top, (#FCFCFC, #DADADA) !default;
+$button-secondary-hover-background-color:     $grey !default;
+$button-secondary-hover-background-gradient:  top, (#F1F1F1, #B9B9B9) !default;
+$button-secondary-active-background-color:    #DADADA !default;
+$button-secondary-active-background-gradient: false !default;
+$button-primary-background-color:             $green-bright !default;
+$button-primary-background-gradient:          top, (lighten($green-bright, 15%), $green-bright) !default;
+$button-primary-hover-background-color:       false !default;
+$button-primary-hover-background-gradient:    top, (lighten($green-bright, 10%), darken($green-bright, 10%)) !default;
+$button-primary-active-background-color:      $green-bright !default;
+$button-primary-active-background-gradient:   false !default;
+$button-disabled-background-color:            $grey-light !default;
+
+$border-color: $grey !default;

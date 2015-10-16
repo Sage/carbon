@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from './../../utils/input';
+import Input from './../../utils/input-class';
 import InputValidation from './../../utils/input-validation';
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
