@@ -1,3 +1,39 @@
+@import 'colors';
+
 .ui-dropdown-suggest {
-  color: blue;
+  width: 350px;
+}
+
+.ui-dropdown-suggest__list {
+  background-color: $white;
+  border: 1px solid $green-bright;
+  color: $grey-dark;
+  cursor: pointer;
+  height: 100px;
+  list-style: none;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+
+  &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      background-color: #EEE;
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #777777;
+      border-radius:4px;
+    }
+
+  li{
+      &:hover {
+        background-color: lighten($green-bright, 42%);
+    }
+  }
+
 }

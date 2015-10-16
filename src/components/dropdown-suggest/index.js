@@ -1,5 +1,7 @@
 import React from 'react';
 import Request from 'superagent';
+import Input from './../../utils/input';
+import InputValidation from './../../utils/input/validation';
 
 class DropdownSuggest extends React.Component {
 
@@ -311,15 +313,6 @@ class DropdownSuggest extends React.Component {
    * @method render
    */
   render() {
-    var containerCSS = {
-      display: 'inline-block'
-    };
-
-    var listCSS = {
-      height: '100px',
-      overflowY: 'scroll'
-    };
-
     if (this.state.options.length) {
       var results = this.state.options.map((option) => {
         return <li
@@ -342,8 +335,11 @@ class DropdownSuggest extends React.Component {
         this.props.input.inputClasses() +
         this.props.validation.inputClasses();
 
+    var listClasses = "ui-dropdown-suggest__list" + 
+        (this.state.open ? '' : ' hidden');
+
     return (
-      <div className={ mainClasses } style={containerCSS}>
+      <div className={ mainClasses } >
 
         <input
           className={ inputClasses }
@@ -360,9 +356,8 @@ class DropdownSuggest extends React.Component {
 
         <ul
           ref="list"
-          style={listCSS}
-          className={this.state.open ? '' : 'hidden'}
-          onScroll={this.handleScroll}
+          className={ listClasses }
+          onScroll={ this.handleScroll }
         >
           {results}
         </ul>
@@ -371,4 +366,4 @@ class DropdownSuggest extends React.Component {
   }
 }
 
-export default DropdownSuggest
+export default InputValidation(Input(DropdownSuggest))
