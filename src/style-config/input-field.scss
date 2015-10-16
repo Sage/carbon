@@ -1,9 +1,12 @@
-$input-base-font-size: 12px !default;
-$input-base-font: Arial,Helvetica,sans-serif !default;
-$input-base-border: 1px solid #D0D0D0 !default;
-$input-base-border-colour: #4D4F52 !default;
-$input-border-radius: 3px !default;
-$input-active-border-colour: #41A940 !default;
-$input-base-line-height: 16px !default;
-$input-base-height: 31px !default;
-$input-base-padding: 6px !default;
+@import 'general';
+@import 'colors';
+
+$input-base-font-size:        12px !default;
+$input-base-font:             $app-font-family !default;
+$input-base-border:           1px solid $grey !default;
+$input-base-border-colour:    $grey-dark !default;
+$input-border-radius:         3px !default;
+$input-active-border-colour:  $green-bright !default;
+$input-base-line-height:      16px !default;
+$input-base-height:           31px !default;
+$input-base-padding:          6px !default;

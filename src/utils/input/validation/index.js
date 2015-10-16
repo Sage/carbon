@@ -56,11 +56,47 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
     }
   }
 
+  errorMessageHTML = () => {
+    if (this.state.errorMessage) {
+      return (
+        <div className="base-input__message base-input__message--error">
+          { this.state.errorMessage }
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  mainClasses = () => {
+    var classes = "";
+
+    if (!this.state.valid) {
+      classes += " base-input--error";
+    }
+
+    return classes;
+  }
+
+  inputClasses = () => {
+    var classes = "";
+
+    if (!this.state.valid) {
+      classes += " base-input__input--error";
+    }
+
+    return classes;
+  }
+
   exposedMethods = () => {
     return {
       handleBlur: this.handleBlur,
       handleFocus: this.handleFocus,
-      validate: this.validate
+      validate: this.validate,
+      mainClasses: this.mainClasses,
+      inputClasses: this.inputClasses,
+      errorMessageHTML: this.errorMessageHTML,
+      ...this.state
     };
   }
 
@@ -71,7 +107,7 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
 
   render() {
     return (
-      <ComposedComponent {...this.exposedMethods()} {...this.props} {...this.state} />
+      <ComposedComponent validation={this.exposedMethods()} {...this.props} />
     );
   }
 
