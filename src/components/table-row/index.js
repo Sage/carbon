@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from 'utils/icon';
 
 class TableRow extends React.Component {
 
@@ -7,12 +8,7 @@ class TableRow extends React.Component {
       return true;
     }
 
-    if (this.isImmutable()) {
-      return (nextProps.data !== this.props.data);
-    } else {
-      // if not using immutable then return true
-      return true;
-    }
+    return (nextProps.data !== this.props.data);
   }
 
   buildRow = () => {
@@ -20,16 +16,22 @@ class TableRow extends React.Component {
         rowID = this.props.row_id;
 
     if (!this.props.placeholder) {
-      row.push(<td key={ rowID + 'actions' }><button id={ rowID } onClick={this.deleteMethod}>X</button></td>);
+      row.push(
+        <td key={ rowID + 'actions' } className="ui-table-row__td">
+          <button className="ui-table-row__delete" id={ rowID } onClick={this.deleteMethod}>
+            <Icon type="delete" className="ui-table-row__delete-icon" />
+          </button>
+        </td>
+      );
     } else {
-      row.push(<td key={ rowID + 'actions' }></td>);
+      row.push(<td key={ rowID + 'actions' } className="ui-table-row__td"></td>);
     }
 
     for (var key in this.props.fields) {
       var field = this.props.fields[key];
 
       if (field) {
-        var value = this.get(this.props.data, field.props.name) || "";
+        var value = (this.props.data) ? this.props.data.get(field.props.name) : "";
         row.push(this.buildCell(field, value));
       }
     }
@@ -59,19 +61,7 @@ class TableRow extends React.Component {
 
     var fieldHTML = React.cloneElement(field, fieldProps);
 
-    return <td key={ rowID + field.props.name }>{ fieldHTML }</td>;
-  }
-
-  isImmutable = () => {
-    return typeof this.props.data.get === 'function';
-  }
-
-  get = (data, key) => {
-    if (this.isImmutable()) {
-      return data.get(key);
-    } else {
-      return data[key];
-    }
+    return <td key={ rowID + field.props.name } className="ui-table-row__td">{ fieldHTML }</td>;
   }
 
   /**
