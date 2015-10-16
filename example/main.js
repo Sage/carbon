@@ -12,7 +12,7 @@ class testView extends React.Component {
 
     var data = ImmutableHelper.parseJSON({
       foo: [
-        {foo_1: 'Hello', ledger_account: {resource_name: 'bla', id: '1'}}
+        {foo_1: 'Hello', ledger_account: {resource_name: 'Please Select', id: '1'}}
       ]
     });
 
@@ -28,6 +28,7 @@ class testView extends React.Component {
         resource_key='resource_name'
         name='ledger_account'
        />
+
     ];
 
     var deleteLineItem = () => {

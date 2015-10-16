@@ -2,6 +2,7 @@ import React from 'react';
 import Request from 'superagent';
 import Input from './../../utils/input';
 import InputValidation from './../../utils/input/validation';
+import Icon from 'utils/icon';
 
 class DropdownSuggest extends React.Component {
 
@@ -294,6 +295,10 @@ class DropdownSuggest extends React.Component {
     return props;
   }
 
+  setFocus = () => {
+    debugger
+    this.focus();
+  }
 
   isImmutable = (data) => {
     return typeof data.get === 'function';
@@ -325,7 +330,7 @@ class DropdownSuggest extends React.Component {
       });
     } else {
       var results = <li>No results</li>;
-    }
+    } 
 
     var mainClasses = 'ui-dropdown-suggest' +
         this.props.input.mainClasses() +
@@ -346,14 +351,13 @@ class DropdownSuggest extends React.Component {
           ref="filter"
           { ...this.inputProps() }
         />
-
         <input
           ref="input"
           readOnly="true"
           hidden="true"
           { ...this.hiddenFieldProps() }
         />
-
+        <Icon type="input" className="ui-dropdown-suggest__dropdown-icon" onClick={this.setFocus} />
         <ul
           ref="list"
           className={ listClasses }
@@ -361,7 +365,7 @@ class DropdownSuggest extends React.Component {
         >
           {results}
         </ul>
-      </div>
+        </div>
     );
   }
 }

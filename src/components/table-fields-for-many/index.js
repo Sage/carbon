@@ -98,7 +98,7 @@ class TableFieldsForMany extends React.Component {
       key={ this.placeholderID }
       placeholder="true"
       row_id={ this.placeholderID }
-      fields={ this.props.fields }
+   e   fields={ this.props.fields }
       updateRowHandler={ this.props.updateRowHandler }
     />);
   }
@@ -108,7 +108,11 @@ class TableFieldsForMany extends React.Component {
     headings.push(<th key='delete-action'></th>);
 
     this.props.fields.forEach((field) => {
-      headings.push(<th key={field.props._row_id + field.props.name}>{ this.i18n(field.props.name) }</th>);
+      headings.push(
+        <th key={field.props._row_id + field.props.name}>
+        { this.i18n(field.props.name) }
+        </th>
+      );
     });
     return headings;
   }
