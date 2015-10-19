@@ -9,6 +9,10 @@ import I18n from "i18n-js";
 
 class DateComponent extends React.Component {
 
+  static defaultProps = {
+    defaultValue: moment().format("YYYY-MM-DD")
+  }
+
   visibleFormat = () => {
     return I18n.t('date.formats.javascript', { defaultValue: "dd/mm/yyyy" }).toUpperCase();
   }
@@ -155,7 +159,7 @@ class DateComponent extends React.Component {
   }
 
   customInputProps = () => {
-    var inputProps = this.props.inputProps();
+    var inputProps = this.props.input.inputProps();
     inputProps.onChange = this.handleVisibleInputChange;
     inputProps.onFocus = this.openDatePicker;
     inputProps.onBlur = this.updateVisibleValue;

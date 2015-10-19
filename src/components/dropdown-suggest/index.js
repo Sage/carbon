@@ -3,16 +3,21 @@ import Request from 'superagent';
 import Input from './../../utils/input';
 import InputValidation from './../../utils/input/validation';
 import Icon from 'utils/icon';
+import Immutable from 'immutable';
 
 class DropdownSuggest extends React.Component {
+
+
+  static defaultProps = {
+    value: Immutable.Map({})
+  }
 
   /**
    * Define property types
    */
   static propTypes = {
     onChange: React.PropTypes.func.isRequired,
-    path: React.PropTypes.string.isRequired,
-    value: React.PropTypes.object.isRequired
+    path: React.PropTypes.string.isRequired
   }
 
   /**
@@ -75,7 +80,7 @@ class DropdownSuggest extends React.Component {
    */
   getData = (page = 1) => {
     // Passes empty string to query if value has been selected
-    var query = this.get(this.props.value, 'id') ? "" : this.get(this.props.value, 'name');
+    var query = this.props.value.get('id') ? "" : this.props.value.get(this.props.resource_key);
 
     Request
       .get(this.props.path)
@@ -150,7 +155,7 @@ class DropdownSuggest extends React.Component {
       filter.setSelectionRange(0, 9999);
     }, 0);
 
-    if (this.get(this.props.value, 'id') || !this.state.options.length) {
+    if (this.props.value.get('id') || !this.state.options.length) {
       this.getData();
     } else {
       this.setState({ open: true });
@@ -185,8 +190,8 @@ class DropdownSuggest extends React.Component {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
-    var target = { textContent: ev.target.value, value: null };
-    this.emitOnChangeCallback(target)
+    var val = this.newValue(ev.target.value, null);
+    this.emitOnChangeCallback(val)
 
     this.timeout = setTimeout(() => {
       this.getData(1);
@@ -199,7 +204,15 @@ class DropdownSuggest extends React.Component {
    * @method handleSelect
    */
   handleSelect = (ev) => {
-    this.emitOnChangeCallback(ev.target);
+    var val = this.newValue(ev.target.textContent, this.refs.input.value);
+    this.emitOnChangeCallback(val);
+  }
+
+  newValue = (name, id) => {
+    var newValue = this.props.value.set(this.props.resource_key, name)
+    newValue = newValue.set('id', id);
+
+    return newValue;
   }
 
   /**
@@ -220,13 +233,15 @@ class DropdownSuggest extends React.Component {
    */
   handleKeyDown = (ev) => {
     var list = this.refs.list,
-        element = list.getElementsByClassName('highlighted')[0];
+        element = list.getElementsByClassName('ui-dropdown-suggest__item--highlighted')[0];
 
     switch(ev.which) {
       case 13: // return
         if (element) {
+          ev.preventDefault();
+          var val = this.newValue(element.textContent, element.value);
           this.setState({ open: false });
-          this.emitOnChangeCallback(element)
+          this.emitOnChangeCallback(val)
         }
         break;
       case 38: // up arrow
@@ -254,10 +269,10 @@ class DropdownSuggest extends React.Component {
    * Runs the callback onChange action
    *
    * @method emitOnChangeCallback
-   * @param [target] input selected 
+   * @param [value] Immutable object representing the value
    */
-  emitOnChangeCallback = (target) => {
-    this.props.onChange({ target: target } , this.props);
+  emitOnChangeCallback = (value) => {
+    this.props.onChange({ target: { value: value } } , this.props);
   }
 
   /**
@@ -283,7 +298,7 @@ class DropdownSuggest extends React.Component {
     inputProps.onChange = this.handleChange;
     inputProps.onKeyDown = this.handleKeyDown;
 
-    inputProps.value = this.get(this.props.value, this.props.resource_key);
+    inputProps.value = this.props.value.get(this.props.resource_key);
 
     return inputProps;
   }
@@ -297,22 +312,10 @@ class DropdownSuggest extends React.Component {
     var props = {};
 
     if (this.props.value) {
-      props.value = this.get(this.props.value, 'id');
+      props.value = this.props.value.get('id');
     }
 
     return props;
-  }
-
-  isImmutable = (data) => {
-    return typeof data.get === 'function';
-  }
-
-  get = (data, key) => {
-    if (this.isImmutable(data)) {
-      return data.get(key);
-    } else {
-      return data[key];
-    }
   }
 
   /**

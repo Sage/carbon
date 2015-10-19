@@ -6,7 +6,11 @@ import I18n from "i18n-js";
 class Decimal extends React.Component {
 
   // We should not be using document here In future we should monitor which element has focus
-  doc = document
+  doc = document;
+
+  static defaultProps = {
+    defaultValue: '0.00'
+  }
 
   i18n = () => {
     return {
@@ -108,7 +112,7 @@ class Decimal extends React.Component {
    * @method customInputProps
    */
   customInputProps = () => {
-    var inputProps = this.props.inputProps();
+    var inputProps = this.props.input.inputProps();
     delete inputProps.value;
     inputProps.onChange = this.handleVisibleInputChange;
     inputProps.onBlur = this.updateVisibleValue;

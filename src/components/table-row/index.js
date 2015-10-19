@@ -18,7 +18,7 @@ class TableRow extends React.Component {
     if (!this.props.placeholder) {
       row.push(
         <td key={ rowID + 'actions' } className="ui-table-row__td">
-          <button className="ui-table-row__delete" id={ rowID } onClick={this.deleteMethod}>
+          <button type="button" className="ui-table-row__delete" id={ rowID } onClick={this.deleteMethod}>
             <Icon type="delete" className="ui-table-row__delete-icon" />
           </button>
         </td>
@@ -31,7 +31,7 @@ class TableRow extends React.Component {
       var field = this.props.fields[key];
 
       if (field) {
-        var value = (this.props.data) ? this.props.data.get(field.props.name) : "";
+        var value = (this.props.data) ? this.props.data.get(field.props.name) : null;
         row.push(this.buildCell(field, value));
       }
     }
@@ -47,14 +47,17 @@ class TableRow extends React.Component {
   buildCell = (field, value) => {
     var rowID = this.props.row_id,
         fieldProps = {
-          value: value,
           label: false,
           key: rowID,
-          name: rowID + field.props.name,
+          name: `[${this.props.name}][${rowID}][${field.props.name}]`,
           row_id: rowID,
           namespace: this.props.name,
           onChange: this.props.updateRowHandler
         };
+
+    if (value) {
+      fieldProps.value = value
+    }
 
     if (this.props.placeholder) {
       fieldProps._placeholder = true
