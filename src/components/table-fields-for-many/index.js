@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import TableRow from './../table-row';
+import  _string from 'string';
 
 class TableFieldsForMany extends React.Component {
 
@@ -11,7 +12,11 @@ class TableFieldsForMany extends React.Component {
     name: React.PropTypes.string.isRequired,
     data: React.PropTypes.object.isRequired,
     updateRowHandler: React.PropTypes.func.isRequired,
-    deleteRowHandler: React.PropTypes.func.isRequired
+    deleteRowHandler: React.PropTypes.func.isRequired,
+  }
+
+  i18n = (value) => {
+    return  _string(value).humanize().titleCase().s;
   }
 
   placeholderID = new Date().getTime()
@@ -98,6 +103,22 @@ class TableFieldsForMany extends React.Component {
     />);
   }
 
+  buildHeader = () => {
+    var headings = [];
+
+    headings.push(<th key='delete-action' className="ui-table-fields-for-many__header-cell"></th>);
+
+    this.props.fields.forEach((field) => {
+      headings.push(
+        <th className="ui-table-fields-for-many__header-cell" key={ field.props.name }>
+          { this.i18n(field.props.name) }
+        </th>
+      );
+    });
+
+    return headings;
+  }
+
   /**
    * Renders the component.
    *
@@ -106,13 +127,17 @@ class TableFieldsForMany extends React.Component {
   render() {
     return (
       <table className="ui-table-fields-for-many">
+        <thead>
+          <tr className="ui-table-fields-for-many__header">
+            { this.buildHeader() }
+          </tr>
+        </thead>
         <tbody>
           { this.buildRows() }
         </tbody>
       </table>
     );
   }
-
 };
 
 export default TableFieldsForMany;

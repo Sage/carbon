@@ -1,9 +1,34 @@
 @import "colors";
+@import "tables";
+
+$table-header-color: #65686D;
+$table-header-border-color: #949494;
 
 .ui-table-fields-for-many {
   border: 1px solid $border-color {
     collapse: separate;
     radius: 4px;
     spacing: 0;
+  }
+}
+
+.ui-table-fields-for-many__header {
+  background-color: $table-header-color;
+  color: $white;
+  height: 40px;
+  text-align: left;
+}
+
+.ui-table-fields-for-many__header-cell {
+  padding: 0 8px;
+  border-right: 1px solid $table-header-border-color;
+
+  &:first-child {
+    border-radius: $tables__border-radius 0 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 $tables__border-radius 0 0;
+    border-right: none;
   }
 }
