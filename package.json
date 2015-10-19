@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "description": "Fundamental building blocks.",
   "main": "index.js",
-  "style": ["./src/style-base/general.scss"],
+  "style": [
+    "./src/style-base/general.scss"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "node -e \"require('ncp').ncp('./src', './lib')\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
@@ -41,6 +43,7 @@
     "karma-safari-launcher": "^0.1.1",
     "phantomjs": "^1.9.18",
     "react": "^0.14.0",
+    "react-addons-css-transition-group": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-router": "^1.0.0-rc3",
     "string": "^3.3.1",
