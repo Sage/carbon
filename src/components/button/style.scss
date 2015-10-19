@@ -2,114 +2,102 @@
 @import 'general';
 @import 'mixins';
 
-// Buttons General 
-$button-font-weight: bold !default;
-$button-padding: 7px 18px !default;
-$button-border-radius: 4px !default;
+/* ui-button */
+$ui_button__border-radius: 4px !default;
+$ui-button__font-weight: bold !default;
+$ui-button__padding: 7px 18px !default;
 
-// Primary Button
-$button-primary-border: 1px solid $green;
-$button-primary-box-shadow: inset 0 1px 1px #BAE39A !default;
-$button-primary-background-color: false !default;
-$button-primary-background-gradient: top, (lighten($green-bright, 15%), $green-bright) !default;
-$button-primary-text-shadow: 0px 1px 1px #555 !default;
+/* ui-button__primary */
+$ui-button__background-gradient--primary: top, (lighten($green-bright, 15%), $green-bright) !default;
+$ui-button__border--primary: 1px solid $green !default;
+$ui-button__box-shadow--primary: inset 0 1px 1px #BAE39A !default;
+$ui-button__text-shadow--primary: 0px 1px 1px #555 !default;
 
-// Hover
-$button-primary-hover-background-color: false !default;
-$button-primary-hover-background-gradient: top, (lighten($green-bright, 10%), darken($green-bright, 10%)) !default;
-$button-primary-hover-box-shadow: $button-primary-box-shadow !default;
+/* ui-button__primary--hover */
+$ui-button__background-gradient--primary--hover: top, (lighten($green-bright, 10%), darken($green-bright, 10%)) !default;
+$ui-button__box-shadow--primary--hover: $ui-button__box-shadow--primary !default;
 
-// Active
-$button-primary-active-background-color: $green-bright !default;
-$button-primary-active-background-gradient: false !default;
-$button-primary-active-box-shadow: inset 0 1px 4px $green !default;
+/* ui-button__primary--active */
+$ui-button__background-color--primary--active: $green-bright !default;
+$ui-button__box-shadow--primary--active: inset 0 1px 4px $green !default;
 
+/* ui-button__secondary */
+$ui-button__background-gradient--secondary: top, (#FCFCFC, #DADADA) !default;
+$ui-button__border--secondary: 1px solid #888 !default;
+$ui-button__box-shadow--secondary: inset 0 1px 1px $white !default;
 
-// Secondary Button 
-$button-secondary-border: 1px solid #888;
-$button-secondary-box-shadow: inset 0 1px 1px $white !default;
-$button-secondary-background-color: false !default;
-$button-secondary-background-gradient: top, (#FCFCFC, #DADADA) !default;
-$button-secondary-text-shadow: 0px 1px 1px $white;
+/* ui-button__secondary--hover */
+$ui-button__background-gradient--secondary--hover: top, (#F1F1F1, #B9B9B9) !default;
+$ui-button__text-shadow--secondary--hover: 0px 1px 1px $white !default;
 
-// Hover
-$button-secondary-hover-background-color: false !default;
-$button-secondary-hover-background-gradient: top, (#F1F1F1, #B9B9B9) !default;
+/* ui-button__secondary--active */
+$ui-button__background-color--secondary--active: #DADADA !default;
+$ui-button__box-shadow--secondary--active: inset 0 1px 8px $grey-mid !default;
 
-// Active
-$button-secondary-active-box-shadow: inset 0 1px 8px $grey-mid !default;
-$button-secondary-active-background-color: #DADADA !default;
-$button-secondary-active-background-gradient: false !default;
-
-
-// DISABLED BUTTON
-
-$button-disabled-border-color: transparent !default;
-$button-disabled-box-shadow: none !default;
-$button-disabled-background-color: $grey-light !default;
-$button-disabled-color: #777;
+/* ui-button--disabled */ 
+$ui-button__background-color--disabled: $grey-light !default;
+$ui-button__border-color--disabled: transparent !default;
+$ui-button__box-shadow--disabled: none !default;
+$ui-button__color--disabled: #777 !default;
 
 
-
-.primary-button,
-.secondary-button {
-  @include border-radius($button-border-radius);
+.ui-button {
+  @include border-radius($ui-button__border-radius);
   cursor: pointer;
   display: inline-block;
   font-family: $app-font-family;
   font-size: $app-font-size;
-  font-weight: $button-font-weight;
-  height: auto;
-  text-decoration: none;
-  padding: $button-padding;
-
-  &.disabled-button {
-    border-color: $button-disabled-border-color !important;
-    @include box-shadow($button-disabled-box-shadow !important);
-    background-color: $button-disabled-background-color !important;
-    background-image: none !important;
-    color: $button-disabled-color !important;
-    cursor: default !important;
-    text-shadow: none !important;
-  }
+  font-weight: $ui-button__font-weight;
+  padding: $ui-button__padding;
 }
 
-.primary-button {
-  @include box-shadow($button-primary-box-shadow);
-  @include set-background-color($button-primary-background-color, $button-primary-background-gradient);
-  border: $button-primary-border;
+.ui-button--disabled {
+  @include box-shadow($ui-button__box-shadow--disabled !important);
+  border-color: $ui-button__border-color--disabled !important;
+  background-color: $ui-button__background-color--disabled !important;
+  background-image: none !important;
+  color: $ui-button__color--disabled !important;
+  cursor: default !important;
+  text-shadow: none !important;
+}
+
+.ui-button__primary {
+  @include box-shadow($ui-button__box-shadow--primary);
+  @include linear-gradient($ui-button__background-gradient--primary...);
+  border: $ui-button__border--primary;
   color: $white;
-  text-shadow: $button-primary-text-shadow;
+  text-shadow: $ui-button__text-shadow--primary;
 
   &:focus,
   &:hover {
+    @include linear-gradient($ui-button__background-gradient--primary--hover...);
+    @include box-shadow($ui-button__box-shadow--primary--hover);
     outline: none;
-    @include set-background-color($button-primary-hover-background-color, $button-primary-hover-background-gradient);
-    @include box-shadow($button-primary-hover-box-shadow);
   }
 
   &:active {
-    @include set-background-color($button-primary-active-background-color, $button-primary-active-background-gradient);
-    @include box-shadow($button-primary-active-box-shadow);
+    @include box-shadow($ui-button__box-shadow--primary--active);
+    background-color: $ui-button__background-color--primary--active;
+    outline: none;
   }
 }
 
-.secondary-button {
-  @include box-shadow($button-secondary-box-shadow);
-  @include set-background-color($button-secondary-background-color, $button-secondary-background-gradient);
-  border: $button-secondary-border;
+.ui-button__secondary {
+  @include box-shadow($ui-button__box-shadow--secondary);
+  @include linear-gradient($ui-button__background-gradient--secondary...);
+  border: $ui-button__border--secondary;
   color: $grey-dark;
 
   &:focus,
   &:hover {
+    @include linear-gradient($ui-button__background-gradient--secondary--hover...);
     outline: none;
-    text-decoration: none;
-    text-shadow: $button-secondary-text-shadow;
-    @include set-background-color($button-secondary-hover-background-color, $button-secondary-hover-background-gradient);
+    text-shadow: $ui-button__text-shadow--secondary--hover;
   }
 
   &:active {
-    @include set-background-color($button-secondary-active-background-color, $button-secondary-active-background-gradient);
-    @include box-shadow($button-secondary-active-box-shadow);
+    @include box-shadow($ui-button__box-shadow--secondary--active);
+    background-color: $ui-button__background-color--secondary--active;
+    outline: none;
   }
 }
