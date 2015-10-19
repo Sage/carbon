@@ -314,12 +314,14 @@ class DropdownSuggest extends React.Component {
   render() {
     if (this.state.options.length) {
       var results = this.state.options.map((option) => {
+        var className = "ui-dropdown-suggest__item";
+
         return <li
                   key={option.name + option.id}
                   value={option.id}
                   onMouseDown={this.handleSelect}
                   onMouseOver={this.handleMouseOver}
-                  className={(this.state.highlighted == option.id) ? 'highlighted' : ''}
+                  className={(this.state.highlighted == option.id) ? className + ' ui-dropdown-suggest__item--highlighted' : className}
                 >{option.name}</li>;
       });
     } else {
