@@ -1,8 +1,11 @@
 import React from 'react';
 
 var Icons = (props) => {
-  var iconClass = props.className + " icon-" + props.type
-  return <span className={ iconClass }></span>;
+  var { className, type, ...props } = props;
+
+  className = className + " icon-" + type;
+
+  return <span className={ className } { ...props }></span>;
 };
 
 export default Icons;
