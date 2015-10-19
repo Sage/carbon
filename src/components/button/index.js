@@ -17,7 +17,7 @@ class ButtonComponent extends React.Component {
   render() {
     var {className, ...props} = this.props;
 
-    className = 'ui-button ui-button__' + this.props.type + 
+    className = 'ui-button ui-button--' + this.props.type + 
       (this.props.disabled ? ' ui-button--disabled' : '');
 
     return(
