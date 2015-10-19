@@ -123,7 +123,7 @@ class DropdownSuggest extends React.Component {
    *
    * @method handleBlur
    */
-  handleBlur = (ev) => {
+  handleBlur = () => {
     this.resetScroll();
     this.setState({ open: false });
   }
@@ -133,7 +133,7 @@ class DropdownSuggest extends React.Component {
    *
    * @method handleFocus
    */
-  handleFocus = () => {
+  handleFocus = (ev) => {
     var filter = this.refs.filter;
 
     setTimeout(() => {
@@ -268,15 +268,14 @@ class DropdownSuggest extends React.Component {
    * @method inputProps 
    */
   inputProps = (inputProps) => {
-    var { ...inputProps } = this.props;
-
+    var inputProps = this.props.input.inputProps();
     inputProps.onFocus = this.handleFocus;
     inputProps.onBlur = this.handleBlur;
     inputProps.onChange = this.handleChange;
     inputProps.onKeyDown = this.handleKeyDown;
 
     inputProps.value = this.get(this.props.value, this.props.resource_key);
-    
+
     return inputProps;
   }
 
@@ -293,11 +292,6 @@ class DropdownSuggest extends React.Component {
     }
 
     return props;
-  }
-
-  setFocus = () => {
-    debugger
-    this.focus();
   }
 
   isImmutable = (data) => {
@@ -351,13 +345,14 @@ class DropdownSuggest extends React.Component {
           ref="filter"
           { ...this.inputProps() }
         />
+        <label htmlFor={ this.props.name }><Icon type="input" className="ui-dropdown-suggest__dropdown-icon" /></label>
         <input
           ref="input"
           readOnly="true"
           hidden="true"
           { ...this.hiddenFieldProps() }
         />
-        <Icon type="input" className="ui-dropdown-suggest__dropdown-icon" onClick={this.setFocus} />
+       
         <ul
           ref="list"
           className={ listClasses }

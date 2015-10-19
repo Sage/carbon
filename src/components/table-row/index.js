@@ -50,6 +50,7 @@ class TableRow extends React.Component {
           value: value,
           label: false,
           key: rowID,
+          name: rowID + field.props.name,
           row_id: rowID,
           namespace: this.props.name,
           onChange: this.props.updateRowHandler
