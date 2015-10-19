@@ -16,7 +16,7 @@ class TableFieldsForMany extends React.Component {
   }
 
   i18n = (value) => {
-    return  _string(value).humanize().s;
+    return  _string(value).humanize().titleCase().s;
   }
 
   placeholderID = new Date().getTime()
@@ -105,15 +105,17 @@ class TableFieldsForMany extends React.Component {
 
   buildHeader = () => {
     var headings = [];
-    headings.push(<th key='delete-action'></th>);
+
+    headings.push(<th key='delete-action' className="ui-table-fields-for-many__header-cell"></th>);
 
     this.props.fields.forEach((field) => {
       headings.push(
-        <th key={field.props._row_id + field.props.name}>
-        { this.i18n(field.props.name) }
+        <th className="ui-table-fields-for-many__header-cell" key={ field.props.name }>
+          { this.i18n(field.props.name) }
         </th>
       );
     });
+
     return headings;
   }
 
@@ -126,7 +128,9 @@ class TableFieldsForMany extends React.Component {
     return (
       <table className="ui-table-fields-for-many">
         <thead>
-          <tr>{ this.buildHeader() }</tr>
+          <tr className="ui-table-fields-for-many__header">
+            { this.buildHeader() }
+          </tr>
         </thead>
         <tbody>
           { this.buildRows() }

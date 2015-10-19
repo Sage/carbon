@@ -1,9 +1,9 @@
 @import "colors";
+@import "tables";
 
 $row__background-color--even: $white;
 $row__background-color--odd: #F2F2F2;
 $row__background-color--hover: #D2EED1;
-$row__border-radius: 4px;
 $row__delete-icon-size: 18px;
 $row__delete-icon-color--normal: #AFAFAF;
 $row__delete-icon-color--hover: $error;
@@ -11,32 +11,17 @@ $row__delete-icon-color--hover: $error;
 .ui-table-row {
   background-color: $row__background-color--odd;
 
-  // first row
-  &:first-child {
-    .ui-table-row__td {
-      // first td in first row
-      &:first-child {
-        border-radius: $row__border-radius 0 0 0;
-      }
-
-      // last td in first row
-      &:last-child {
-        border-radius: 0 $row__border-radius 0 0;
-      }
-    }
-  }
-
   // last row
   &:last-child {
     .ui-table-row__td {
       // first td in last row
       &:first-child {
-        border-radius: 0 0 0 $row__border-radius;
+        border-radius: 0 0 0 $tables__border-radius;
       }
 
       // last td in last row
       &:last-child {
-        border-radius: 0 0 $row__border-radius 0;
+        border-radius: 0 0 $tables__border-radius 0;
       }
     }
   }
