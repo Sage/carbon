@@ -1,0 +1,103 @@
+@import 'colors';
+@import 'general';
+@import 'mixins';
+
+/* ui-button */
+$ui_button__border-radius: 4px !default;
+$ui-button__font-weight: bold !default;
+$ui-button__padding: 7px 18px !default;
+
+/* ui-button--primary */
+$ui-button__background-gradient--primary: top, (lighten($green-bright, 15%), $green-bright) !default;
+$ui-button__border--primary: 1px solid $green !default;
+$ui-button__box-shadow--primary: inset 0 1px 1px #BAE39A !default;
+$ui-button__text-shadow--primary: 0px 1px 1px #555 !default;
+
+/* ui-button--primary--hover */
+$ui-button__background-gradient--primary--hover: top, (lighten($green-bright, 10%), darken($green-bright, 10%)) !default;
+$ui-button__box-shadow--primary--hover: $ui-button__box-shadow--primary !default;
+
+/* ui-button--primary--active */
+$ui-button__background-color--primary--active: $green-bright !default;
+$ui-button__box-shadow--primary--active: inset 0 1px 4px $green !default;
+
+/* ui-button--secondary */
+$ui-button__background-gradient--secondary: top, (#FCFCFC, #DADADA) !default;
+$ui-button__border--secondary: 1px solid #888 !default;
+$ui-button__box-shadow--secondary: inset 0 1px 1px $white !default;
+
+/* ui-button--secondary--hover */
+$ui-button__background-gradient--secondary--hover: top, (#F1F1F1, #B9B9B9) !default;
+$ui-button__text-shadow--secondary--hover: 0px 1px 1px $white !default;
+
+/* ui-button--secondary--active */
+$ui-button__background-color--secondary--active: #DADADA !default;
+$ui-button__box-shadow--secondary--active: inset 0 1px 8px $grey-mid !default;
+
+/* ui-button--disabled */ 
+$ui-button__background-color--disabled: $grey-light !default;
+$ui-button__border-color--disabled: transparent !default;
+$ui-button__box-shadow--disabled: none !default;
+$ui-button__color--disabled: #777 !default;
+
+
+.ui-button {
+  @include border-radius($ui-button__border-radius);
+  cursor: pointer;
+  display: inline-block;
+  font-family: $app-font-family;
+  font-size: $app-font-size;
+  font-weight: $ui-button__font-weight;
+  padding: $ui-button__padding;
+}
+
+.ui-button--disabled {
+  @include box-shadow($ui-button__box-shadow--disabled !important);
+  border-color: $ui-button__border-color--disabled !important;
+  background-color: $ui-button__background-color--disabled !important;
+  background-image: none !important;
+  color: $ui-button__color--disabled !important;
+  cursor: default !important;
+  text-shadow: none !important;
+}
+
+.ui-button--primary {
+  @include box-shadow($ui-button__box-shadow--primary);
+  @include linear-gradient($ui-button__background-gradient--primary...);
+  border: $ui-button__border--primary;
+  color: $white;
+  text-shadow: $ui-button__text-shadow--primary;
+
+  &:focus,
+  &:hover {
+    @include linear-gradient($ui-button__background-gradient--primary--hover...);
+    @include box-shadow($ui-button__box-shadow--primary--hover);
+    outline: none;
+  }
+
+  &:active {
+    @include box-shadow($ui-button__box-shadow--primary--active);
+    background-color: $ui-button__background-color--primary--active;
+    outline: none;
+  }
+}
+
+.ui-button--secondary {
+  @include box-shadow($ui-button__box-shadow--secondary);
+  @include linear-gradient($ui-button__background-gradient--secondary...);
+  border: $ui-button__border--secondary;
+  color: $grey-dark;
+
+  &:focus,
+  &:hover {
+    @include linear-gradient($ui-button__background-gradient--secondary--hover...);
+    outline: none;
+    text-shadow: $ui-button__text-shadow--secondary--hover;
+  }
+
+  &:active {
+    @include box-shadow($ui-button__box-shadow--secondary--active);
+    background-color: $ui-button__background-color--secondary--active;
+    outline: none;
+  }
+}
