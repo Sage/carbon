@@ -98,7 +98,7 @@ class TableFieldsForMany extends React.Component {
       key={ this.placeholderID }
       placeholder="true"
       row_id={ this.placeholderID }
-   e   fields={ this.props.fields }
+      fields={ this.props.fields }
       updateRowHandler={ this.props.updateRowHandler }
     />);
   }
