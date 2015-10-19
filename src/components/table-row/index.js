@@ -49,7 +49,7 @@ class TableRow extends React.Component {
         fieldProps = {
           label: false,
           key: rowID,
-          name: `[${this.props.name}][${rowID}][${field.props.name}]`,
+          name: `[${this.props.name}_attributes][${rowID}][${field.props.name}]`,
           row_id: rowID,
           namespace: this.props.name,
           onChange: this.props.updateRowHandler
@@ -60,7 +60,7 @@ class TableRow extends React.Component {
     }
 
     if (this.props.placeholder) {
-      fieldProps._placeholder = true
+      fieldProps._placeholder = true;
     }
 
     var fieldHTML = React.cloneElement(field, fieldProps);

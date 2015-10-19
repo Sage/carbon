@@ -15,6 +15,14 @@ class TableFieldsForMany extends React.Component {
     deleteRowHandler: React.PropTypes.func.isRequired,
   }
 
+  static contextTypes = {
+    form: React.PropTypes.object
+  }
+
+  state = {
+    placeholder: true
+  }
+
   i18n = (value) => {
     return  _string(value).humanize().titleCase().s;
   }
@@ -62,6 +70,14 @@ class TableFieldsForMany extends React.Component {
 
   childPropsHaveChanged = false
 
+  componentWillMount = () => {
+    this.context.form.attachToForm(this);
+  }
+
+  componentWillUnmount = () => {
+    this.context.form.detachFromForm(this);
+  }
+
   buildRows = () => {
     var rows = [];
 
@@ -69,7 +85,9 @@ class TableFieldsForMany extends React.Component {
       rows.push(this.newRow(rowData));
     });
 
-    rows.push(this.placeholderRow());
+    if (this.state.placeholder) {
+      rows.push(this.placeholderRow());
+    }
 
     return rows;
   }

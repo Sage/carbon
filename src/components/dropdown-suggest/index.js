@@ -292,7 +292,8 @@ class DropdownSuggest extends React.Component {
    * @method inputProps 
    */
   inputProps = (inputProps) => {
-    var inputProps = this.props.input.inputProps();
+    var { name, ...inputProps } = this.props.input.inputProps();
+
     inputProps.onFocus = this.handleFocus;
     inputProps.onBlur = this.handleBlur;
     inputProps.onChange = this.handleChange;
@@ -309,7 +310,11 @@ class DropdownSuggest extends React.Component {
    * @method hiddenFieldProps 
    */
   hiddenFieldProps = () => {
-    var props = {};
+    var inputProps = this.props.input.inputProps();
+    var nameWithID = inputProps.name.split(/\]$/)[0] + "_id]";
+    var props = {
+      name: nameWithID
+    };
 
     if (this.props.value) {
       props.value = this.props.value.get('id');

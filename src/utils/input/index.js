@@ -32,6 +32,14 @@ var Input = (ComposedComponent) => class extends React.Component {
     return false;
   }
 
+  generateFormName = () => {
+    if (this.props.name.charAt(0) === "[") {
+      return this.context.form.model + this.props.name;
+    } else {
+      return this.context.form.model + "[" + this.props.name + "]";
+    }
+  }
+
   /**
    * Returns modified properties for the input element.
    *
@@ -40,7 +48,7 @@ var Input = (ComposedComponent) => class extends React.Component {
   inputProps = () => {
     var { ...inputProps } = this.props;
 
-    inputProps.name = this.context.form.model + "[" + inputProps.name + "]";
+    inputProps.name = this.generateFormName();
 
     // set id so label will work correctly
     inputProps.id = inputProps.name;
@@ -72,7 +80,7 @@ var Input = (ComposedComponent) => class extends React.Component {
     var labelText = this.props.label || this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1);
 
     return (
-      <label htmlFor={ this.props.name }>{ labelText }:</label>
+      <label htmlFor={ this.generateFormName() }>{ labelText }:</label>
     );
   }
 
