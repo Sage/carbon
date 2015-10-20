@@ -160,7 +160,7 @@ class Form extends React.Component {
 
         <div className={ saveClasses }>
           { errorCount }
-          <Button />
+          <Button type="primary" />
         </div>
       </form>
     );

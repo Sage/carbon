@@ -69,6 +69,16 @@ $row__delete-icon-color--hover: $error;
     top: 15px;
     bottom: 15px;
   }
+
+  .base-input__input {
+    border-color: transparent;
+    font-size: 18px;
+    font-weight: bold;
+
+    &:hover {
+      border-color: transparent;
+    }
+  }
 }
 
 .ui-table-row__delete {
