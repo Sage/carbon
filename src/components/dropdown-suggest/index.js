@@ -2,7 +2,7 @@ import React from 'react';
 import Request from 'superagent';
 import Input from './../../utils/input';
 import InputValidation from './../../utils/input/validation';
-import Icon from 'utils/icon';
+import Icon from './../../utils/icon';
 import Immutable from 'immutable';
 
 class DropdownSuggest extends React.Component {

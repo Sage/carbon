@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from 'utils/icon';
+import Icon from './../../icon';
 
 var InputValidation = (ComposedComponent) => class extends React.Component {
 
