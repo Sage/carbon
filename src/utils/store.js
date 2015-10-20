@@ -10,7 +10,8 @@ class Store extends Events.EventEmitter {
     this.dispatchToken = Dispatcher.register(this.dispatcherCallback);
   }
 
-  addChangeListener = (callback) => {
+  addChangeListener = (callback, key) => {
+    this.key = key;
     this.on('change', callback);
   };
 
@@ -25,7 +26,7 @@ class Store extends Events.EventEmitter {
   dispatcherCallback = (action) => {
     if (this[action.actionType]) {
       this[action.actionType].call(this, action)
-      this.emit('change');
+      this.emit('change', this.key);
     }
   }
 }

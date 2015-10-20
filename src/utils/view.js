@@ -1,21 +1,32 @@
 import React from 'react';
 
-var View = (ComposedView, Store) => class extends React.Component {
+var View = (ComposedView, Stores) => class extends React.Component {
+
   componentDidMount = () => {
-    Store.addChangeListener(this._onChange);
+    for (var key in Stores) {
+      Stores[key].addChangeListener(this._onChange);
+    }
   }
 
   componentWillUnmount = () => {
-    Store.removeChangeListener(this._onChange);
+    for (var key in Stores) {
+      Stores[key].removeChangeListener(this._onChange);
+    }
   }
 
-  _onChange = () => {
-    this.setState({ data: Store.getState() });
+  _onChange = (key) => {
+    this.setState({ [key]: Stores[key].getState() })
   }
 
-  state = {
-    data: Store.getState()
+  setStoreStates = (Stores) => {
+    var states = {}
+    for (var key in Stores) {
+      states[key] = Stores[key].getState(); 
+    }
+    return states;
   }
+
+  state = this.setStoreStates(Stores);
 
   render() {
     return (
