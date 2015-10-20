@@ -7,7 +7,6 @@ import Immutable from 'immutable';
 
 class DropdownSuggest extends React.Component {
 
-
   static defaultProps = {
     value: Immutable.Map({})
   }
@@ -139,6 +138,11 @@ class DropdownSuggest extends React.Component {
    * @method handleBlur
    */
   handleBlur = () => {
+    if (!this.skipValidation) {
+      this.props.validation.handleBlur();
+    }
+
+    this.skipValidation = false;
     this.resetScroll();
     this.setState({ open: false });
   }
@@ -160,6 +164,8 @@ class DropdownSuggest extends React.Component {
     } else {
       this.setState({ open: true });
     }
+
+    this.props.validation.handleFocus();
   }
 
   /**
@@ -204,7 +210,8 @@ class DropdownSuggest extends React.Component {
    * @method handleSelect
    */
   handleSelect = (ev) => {
-    var val = this.newValue(ev.target.textContent, this.refs.input.value);
+    this.skipValidation = true;
+    var val = this.newValue(ev.target.textContent, ev.target.value);
     this.emitOnChangeCallback(val);
   }
 
@@ -356,16 +363,18 @@ class DropdownSuggest extends React.Component {
     var listClasses = "ui-dropdown-suggest__list" + 
         (this.state.open ? '' : ' hidden');
 
+    var inputProps = this.inputProps();
+
     return (
       <div className={ mainClasses } >
 
         <input
           className={ inputClasses }
           ref="filter"
-          { ...this.inputProps() }
+          { ...inputProps }
         />
 
-        <label htmlFor={ this.props.name }><Icon type="input" className="ui-dropdown-suggest__dropdown-icon" /></label>
+        <label htmlFor={ inputProps.id }><Icon type="input" className="ui-dropdown-suggest__dropdown-icon" /></label>
 
         <input
           ref="input"
@@ -381,6 +390,8 @@ class DropdownSuggest extends React.Component {
         >
           {results}
         </ul>
+
+        { this.props.validation.errorMessageHTML() }
 
       </div>
     );

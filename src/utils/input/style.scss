@@ -1,5 +1,6 @@
 @import 'colors';
 @import 'mixins';
+@import 'z-index';
 @import 'input-field';
 
 .base-input {
@@ -8,6 +9,15 @@
   &:hover .base-input__message {
     display: block;
   }
+}
+
+.base-input__label {
+  color: $grey-dark;
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  padding: 0 6px;
 }
 
 .base-input__input {
@@ -48,6 +58,7 @@
   position: absolute;
   text-align: center;
   width: 100%;
+  z-index: $z-validation-message;
 
   &:before {
     @include arrow("up", $arrow-size, $error);
@@ -57,6 +68,21 @@
     position: absolute;
     top: -($arrow-size * 2);
   }
+}
+
+.base-input__icon {
+  color: red;
+  margin: 7px 5px;
+  position: absolute;
+  right: 0;
+
+  &:before {
+    font-size: 20px;
+  }
+}
+
+.base-input__icon {
+  color: $error;
 }
 
 .base-input__input--error,

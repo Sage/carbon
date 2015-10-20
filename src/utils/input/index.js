@@ -15,6 +15,8 @@ var Input = (ComposedComponent) => class extends React.Component {
     form: React.PropTypes.object
   }
 
+  static defaultProps = ComposedComponent.defaultProps
+
   /**
    * Determines if the component should re-render
    */
@@ -79,8 +81,12 @@ var Input = (ComposedComponent) => class extends React.Component {
 
     var labelText = this.props.label || this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1);
 
+    if (this.props.validations) {
+      labelText += "*";
+    }
+
     return (
-      <label htmlFor={ this.generateFormName() }>{ labelText }:</label>
+      <label className="base-input__label" htmlFor={ this.generateFormName() }>{ labelText }</label>
     );
   }
 

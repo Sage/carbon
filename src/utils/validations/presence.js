@@ -1,10 +1,22 @@
 var PresenceValidator = {
   validate: function(value) {
-    if (value) {
-      return true;
+    if (value && value.get) {
+      if (value.get('id')) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      return false;
+      if (value) {
+        return true;
+      } else {
+        return false;
+      }
     }
+  },
+
+  message: function() {
+    return "This field is required.";
   }
 };
 

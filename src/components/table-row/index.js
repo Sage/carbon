@@ -17,14 +17,14 @@ class TableRow extends React.Component {
 
     if (!this.props.placeholder) {
       row.push(
-        <td key={ rowID + 'actions' } className="ui-table-row__td">
+        <td key={ rowID + 'actions' } className="ui-table-row__td ui-table-row__td--actions">
           <button type="button" className="ui-table-row__delete" id={ rowID } onClick={this.deleteMethod}>
             <Icon type="delete" className="ui-table-row__delete-icon" />
           </button>
         </td>
       );
     } else {
-      row.push(<td key={ rowID + 'actions' } className="ui-table-row__td"></td>);
+      row.push(<td key={ rowID + 'actions' } className="ui-table-row__td ui-table-row__td--actions"></td>);
     }
 
     for (var key in this.props.fields) {

@@ -1,6 +1,8 @@
 @import 'colors';
+@import 'z-index';
 
 .date-picker {
+  z-index: $z-datepicker;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;

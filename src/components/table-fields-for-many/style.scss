@@ -10,6 +10,7 @@ $table-header-border-color: #949494;
     radius: 4px;
     spacing: 0;
   }
+  width: 100%;
 }
 
 .ui-table-fields-for-many__header {
@@ -20,8 +21,9 @@ $table-header-border-color: #949494;
 }
 
 .ui-table-fields-for-many__header-cell {
-  padding: 0 8px;
   border-right: 1px solid $table-header-border-color;
+  padding: 0 8px;
+  vertical-align: middle;
 
   &:first-child {
     border-radius: $tables__border-radius 0 0 0;

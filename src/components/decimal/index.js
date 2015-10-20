@@ -106,6 +106,15 @@ class Decimal extends React.Component {
     }
   }
 
+  handleBlur = () => {
+    this.updateVisibleValue();
+    this.props.validation.handleBlur();
+  }
+
+  handleFocus = () => {
+    this.props.validation.handleFocus();
+  }
+
   /**
    * Supplies further customisation for the input properties.
    *
@@ -115,7 +124,8 @@ class Decimal extends React.Component {
     var inputProps = this.props.input.inputProps();
     delete inputProps.value;
     inputProps.onChange = this.handleVisibleInputChange;
-    inputProps.onBlur = this.updateVisibleValue;
+    inputProps.onBlur = this.handleBlur;
+    inputProps.onFocus = this.handleFocus;
     inputProps.value = this.state.visibleValue;
     return inputProps;
   }
@@ -165,6 +175,8 @@ class Decimal extends React.Component {
           readOnly
           { ...this.hiddenFieldProps() }
         />
+
+        { this.props.validation.errorMessageHTML() }
 
       </div>
     );

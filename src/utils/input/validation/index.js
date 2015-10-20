@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from 'utils/icon';
 
 var InputValidation = (ComposedComponent) => class extends React.Component {
 
@@ -8,6 +9,8 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
   static contextTypes = {
     form: React.PropTypes.object
   }
+
+  static defaultProps = ComposedComponent.defaultProps
 
   componentWillMount = () => {
     if (this.props.validations) {
@@ -29,12 +32,13 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
 
     if (this.props.validations) {
       this.props.validations.forEach((validation) => {
-        valid = validation.validate(this.props.value);
+        var value = this.props.value || this.props.defaultValue;
+        valid = validation.validate(value);
 
         if (!valid) {
           if (this.state.valid) {
             this.context.form.incrementErrorCount()
-            this.setState({ errorMessage: "error!", valid: false })
+            this.setState({ errorMessage: validation.message(), valid: false })
           }
           return valid;
         }
@@ -62,6 +66,16 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
         <div className="base-input__message base-input__message--error">
           { this.state.errorMessage }
         </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  errorIconHTML = () => {
+    if (this.state.errorMessage) {
+      return (
+        <Icon type="error" className="base-input__icon base-input__icon--error" />
       );
     } else {
       return null;
@@ -96,6 +110,7 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
       mainClasses: this.mainClasses,
       inputClasses: this.inputClasses,
       errorMessageHTML: this.errorMessageHTML,
+      errorIconHTML: this.errorIconHTML,
       ...this.state
     };
   }

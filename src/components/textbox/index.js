@@ -30,6 +30,8 @@ class Textbox extends React.Component {
           { ...this.props.input.inputProps() }
         />
 
+        { this.props.validation.errorIconHTML() }
+
         { this.props.validation.errorMessageHTML() }
       </div>
     );

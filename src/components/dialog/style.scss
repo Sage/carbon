@@ -1,4 +1,5 @@
 @import 'colors';
+@import 'z-index';
 
 $dialog-padding: 20px;
 $dialog-initial-position: 60px;
@@ -23,7 +24,7 @@ $dialog-background-animation-length: 300ms;
   padding: $dialog-padding;
   position: absolute;
   width: 750px;
-  z-index: 1;
+  z-index: $z-dialog;
 }
 
 .ui-dialog__dialog--small   { width: 380px; }

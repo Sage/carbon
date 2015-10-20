@@ -130,7 +130,7 @@ class Form extends React.Component {
       }
     };
 
-    return <input name={ csrfAttr } value={ csrfValue } readOnly="true" />;
+    return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
   }
 
   /**
@@ -139,12 +139,29 @@ class Form extends React.Component {
    * @method render
    */
   render() {
+    var errorCount,
+        saveClasses = "ui-form__save";
+
+    if (this.state.errorCount) {
+      errorCount = (
+        <span className="ui-form__summary">
+          There are <span>{ this.state.errorCount }</span> errors
+        </span>
+      );
+
+      saveClasses += " ui-form__save--invalid";
+    }
+
     return (
       <form onChange={ this.handleOnChange } onSubmit={ this.handleOnSubmit } { ...this.htmlProps() }>
         { this.generateCSRFToken() }
+
         { this.props.children }
-        <Button/>
-        Errors: <span>{ this.state.errorCount }</span>
+
+        <div className={ saveClasses }>
+          { errorCount }
+          <Button />
+        </div>
       </form>
     );
   }

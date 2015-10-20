@@ -47,6 +47,14 @@ $row__delete-icon-color--hover: $error;
   padding: 4px 2px;
 }
 
+.ui-table-row__td--actions {
+  padding: {
+    left: 6px;
+    right: 6px;
+  }
+  width: 18px;
+}
+
 .ui-table-row__delete {
   background: none;
   border: none;
