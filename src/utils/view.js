@@ -4,13 +4,13 @@ var View = (ComposedView, Stores) => class extends React.Component {
 
   componentDidMount = () => {
     for (var key in Stores) {
-      Stores[key].addChangeListener(this._onChange);
+      Stores[key].addChangeListener(this._onChange, key);
     }
   }
 
   componentWillUnmount = () => {
     for (var key in Stores) {
-      Stores[key].removeChangeListener(this._onChange);
+      Stores[key].removeChangeListener(this._onChange, key);
     }
   }
 
@@ -18,8 +18,9 @@ var View = (ComposedView, Stores) => class extends React.Component {
     this.setState({ [key]: Stores[key].getState() })
   }
 
+
   setStoreStates = (Stores) => {
-    var states = {}
+    var states = {};
     for (var key in Stores) {
       states[key] = Stores[key].getState(); 
     }
