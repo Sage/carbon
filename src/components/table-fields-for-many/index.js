@@ -89,6 +89,10 @@ class TableFieldsForMany extends React.Component {
       rows.push(this.placeholderRow());
     }
 
+    if (this.props.gutter) {
+      rows.push(this.gutterRow());
+    }
+
     return rows;
   }
 
@@ -107,6 +111,14 @@ class TableFieldsForMany extends React.Component {
       childPropsHaveChanged={ this.childPropsHaveChanged }
       deleteRowHandler={ this.props.deleteRowHandler }
       updateRowHandler={ this.props.updateRowHandler }
+    />);
+  }
+
+  gutterRow = () => {
+    return(<TableRow
+      key="gutter"
+      fields={ this.props.fields }
+      gutterFields={ this.props.gutter }
     />);
   }
 
