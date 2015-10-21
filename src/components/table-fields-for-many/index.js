@@ -148,7 +148,7 @@ class TableFieldsForMany extends React.Component {
       }
 
       headings.push(
-        <th className={ columnClasses } key={ field.props.name }>
+        <th hidden={field.props.hidden} className={ columnClasses } key={ field.props.name }>
           { this.i18n(field.props.name) }
         </th>
       );
