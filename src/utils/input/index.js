@@ -35,10 +35,14 @@ var Input = (ComposedComponent) => class extends React.Component {
   }
 
   generateFormName = () => {
-    if (this.props.name.charAt(0) === "[") {
-      return this.context.form.model + this.props.name;
+    if (this.context.form) {
+      if (this.props.name.charAt(0) === "[") {
+        return this.context.form.model + this.props.name;
+      } else {
+        return this.context.form.model + "[" + this.props.name + "]";
+      }
     } else {
-      return this.context.form.model + "[" + this.props.name + "]";
+      return this.props.name;
     }
   }
 
