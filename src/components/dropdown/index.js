@@ -4,18 +4,20 @@ import InputValidation from './../../utils/input/validation';
 
 class DropdownComponent extends React.Component {
 
+  static defaultProps = { resource_key: 'id' }
+
   render() {
     var optionClassName = "ui-dropdown__option";
 
     var options = this.props.options.map((option) => {
-      return <option
+      return  <option
                 key={ option.get('name') + option.get('id') } 
-                value={ option.get('combined_id') }
+                value={ option.get(this.props.resource_key) }
                 className={ optionClassName }
-                >{ option.get('name') }
+              >
+                { option.get('name') }
               </option>;
     });
-    
 
     return(
       <select

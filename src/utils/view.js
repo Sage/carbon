@@ -19,7 +19,7 @@ var View = (ComposedView, Stores) => class extends React.Component {
   }
 
 
-  setStoreStates = (Stores) => {
+  getStoreStates = () => {
     var states = {};
     for (var key in Stores) {
       states[key] = Stores[key].getState(); 
@@ -27,7 +27,7 @@ var View = (ComposedView, Stores) => class extends React.Component {
     return states;
   }
 
-  state = this.setStoreStates(Stores);
+  state = this.getStoreStates();
 
   render() {
     return (
