@@ -1,10 +1,7 @@
 @import 'colors';
 @import 'mixins';
+@import 'z-index';
 @import 'input-field';
-
-.ui-dropdown-suggest {
-  width: 350px;
-}
 
 .ui-dropdown-suggest__dropdown-icon:hover,
 .ui-dropdown-suggest__input:focus + label .ui-dropdown-suggest__dropdown-icon {
@@ -51,7 +48,7 @@
   box-sizing: border-box;
   color: $grey-dark;
   cursor: pointer;
-  height: 100px;
+  max-height: 180px;
   list-style: none;
   margin: 0;
   overflow-x: hidden;
@@ -60,7 +57,7 @@
   position: absolute;
   margin-top: -1px;
   width: 100%;
-  z-index: 1;
+  z-index: $z-dropdown-list;
 
   &::-webkit-scrollbar {
     -webkit-appearance: none;

@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import Immutable from 'immutable';
 
 var Input = (ComposedComponent) => class extends React.Component {
 
@@ -10,16 +11,35 @@ var Input = (ComposedComponent) => class extends React.Component {
     name: React.PropTypes.string.isRequired
   }
 
+  static contextTypes = {
+    form: React.PropTypes.object
+  }
+
+  static defaultProps = ComposedComponent.defaultProps
+
   /**
    * Determines if the component should re-render
    */
   shouldComponentUpdate = (nextProps, nextState) => {
-    if (!_.isEqual(this.props, nextProps) ||
+    var { value, ...otherProps } = this.props;
+    var previous = value;
+    var { value, ...otherNextProps } = nextProps;
+
+    if (!Immutable.is(previous, value) ||
+        !_.isEqual(otherProps, otherNextProps) ||
         !_.isEqual(this.state, nextState)) {
       return true;
     }
 
     return false;
+  }
+
+  generateFormName = () => {
+    if (this.props.name.charAt(0) === "[") {
+      return this.context.form.model + this.props.name;
+    } else {
+      return this.context.form.model + "[" + this.props.name + "]";
+    }
   }
 
   /**
@@ -29,6 +49,8 @@ var Input = (ComposedComponent) => class extends React.Component {
    */
   inputProps = () => {
     var { ...inputProps } = this.props;
+
+    inputProps.name = this.generateFormName();
 
     // set id so label will work correctly
     inputProps.id = inputProps.name;
@@ -59,8 +81,12 @@ var Input = (ComposedComponent) => class extends React.Component {
 
     var labelText = this.props.label || this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1);
 
+    if (this.props.validations) {
+      labelText += "*";
+    }
+
     return (
-      <label htmlFor={ this.props.name }>{ labelText }:</label>
+      <label className="base-input__label" htmlFor={ this.generateFormName() }>{ labelText }</label>
     );
   }
 

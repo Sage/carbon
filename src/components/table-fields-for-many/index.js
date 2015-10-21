@@ -15,6 +15,14 @@ class TableFieldsForMany extends React.Component {
     deleteRowHandler: React.PropTypes.func.isRequired,
   }
 
+  static contextTypes = {
+    form: React.PropTypes.object
+  }
+
+  state = {
+    placeholder: true
+  }
+
   i18n = (value) => {
     return  _string(value).humanize().titleCase().s;
   }
@@ -62,6 +70,14 @@ class TableFieldsForMany extends React.Component {
 
   childPropsHaveChanged = false
 
+  componentWillMount = () => {
+    this.context.form.attachToForm(this);
+  }
+
+  componentWillUnmount = () => {
+    this.context.form.detachFromForm(this);
+  }
+
   buildRows = () => {
     var rows = [];
 
@@ -69,7 +85,13 @@ class TableFieldsForMany extends React.Component {
       rows.push(this.newRow(rowData));
     });
 
-    rows.push(this.placeholderRow());
+    if (this.state.placeholder) {
+      rows.push(this.placeholderRow());
+    }
+
+    if (this.props.gutter) {
+      rows.push(this.gutterRow());
+    }
 
     return rows;
   }
@@ -92,6 +114,14 @@ class TableFieldsForMany extends React.Component {
     />);
   }
 
+  gutterRow = () => {
+    return(<TableRow
+      key="gutter"
+      fields={ this.props.fields }
+      gutterFields={ this.props.gutter }
+    />);
+  }
+
   placeholderRow = () => {
     return(<TableRow 
       name={ this.props.name }
@@ -109,8 +139,14 @@ class TableFieldsForMany extends React.Component {
     headings.push(<th key='delete-action' className="ui-table-fields-for-many__header-cell"></th>);
 
     this.props.fields.forEach((field) => {
+      var columnClasses = "ui-table-fields-for-many__header-cell";
+
+      if (this.props.columnClasses[field.props.name]) {
+        columnClasses += " ui-table-fields-for-many__header-cell--" + this.props.columnClasses[field.props.name];
+      }
+
       headings.push(
-        <th className="ui-table-fields-for-many__header-cell" key={ field.props.name }>
+        <th className={ columnClasses } key={ field.props.name }>
           { this.i18n(field.props.name) }
         </th>
       );

@@ -44,11 +44,15 @@ var ImmutableHelper = {
     });
   },
 
+  parseLineItemAttribute: (name, index) => {
+    return name.match(/[^[\]]+(?=])/g)[index];
+  },
+
   updateLineItem: (keys, value) => {
     var data = keys[0],
         line_item_key = keys[1],
         _row_id = keys[2],
-        attribute = keys[3],
+        attribute = ImmutableHelper.parseLineItemAttribute(keys[3], 2),
         line_items = data.get(line_item_key);
 
     var index = ImmutableHelper.getLineItemIndex(line_items, _row_id);

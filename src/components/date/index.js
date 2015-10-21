@@ -9,6 +9,10 @@ import I18n from "i18n-js";
 
 class DateComponent extends React.Component {
 
+  static defaultProps = {
+    defaultValue: moment().format("YYYY-MM-DD")
+  }
+
   visibleFormat = () => {
     return I18n.t('date.formats.javascript', { defaultValue: "dd/mm/yyyy" }).toUpperCase();
   }
@@ -154,11 +158,21 @@ class DateComponent extends React.Component {
     return props;
   }
 
+  handleBlur = () => {
+    this.updateVisibleValue();
+    this.props.validation.handleBlur();
+  }
+
+  handleFocus = () => {
+    this.openDatePicker();
+    this.props.validation.handleFocus();
+  }
+
   customInputProps = () => {
-    var inputProps = this.props.inputProps();
+    var inputProps = this.props.input.inputProps();
     inputProps.onChange = this.handleVisibleInputChange;
-    inputProps.onFocus = this.openDatePicker;
-    inputProps.onBlur = this.updateVisibleValue;
+    inputProps.onFocus = this.handleFocus;
+    inputProps.onBlur = this.handleBlur;
     inputProps.value = this.state.visibleValue;
     return inputProps;
   }
@@ -197,10 +211,10 @@ class DateComponent extends React.Component {
         this.props.input.inputClasses() +
         this.props.validation.inputClasses();
 
-
-
     return (
       <div className={ mainClasses } onClick={ this.handleWidgetClick }>
+
+        { this.props.input.labelHTML() }
 
         <input
           className={ inputClasses }
@@ -216,6 +230,9 @@ class DateComponent extends React.Component {
         />
 
         { datePicker }
+
+        { this.props.validation.errorMessageHTML() }
+
       </div>
     );
   }
