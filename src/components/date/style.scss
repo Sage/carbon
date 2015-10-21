@@ -1,87 +1,40 @@
 @import 'colors';
 @import 'z-index';
+@import 'mixins';
 
 .date-picker {
+  @include border-radius(5px);
+  @include box-shadow(0 0 12px #999);
+
+  background-color: #E5F3D2;
+  border: 1px solid #E5F3D2;
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  min-width: 207px;
+  position: absolute;
   z-index: $z-datepicker;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  flex-direction: column;
-  -webkit-flex-flow: column;
-  -moz-flex-flow: column;
-  -ms-flex-flow: column;
-  -o-flex-flow: column;
-  flex-flow: column;
-  flex-flow: column;
-  -webkit-box-flex: 1 0 auto;
-  -moz-box-flex: 1 0 auto;
-  -ms-box-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  -webkit-flex: 1 0 auto;
-  flex: 1 0 auto;
 }
+
 .date-picker,
 .date-picker * {
+  overflow: hidden;
   box-sizing: border-box;
+  outline: none;  
 }
+
 .date-picker .dp-footer {
-  flex-direction: row;
-  -webkit-flex-flow: row;
-  -moz-flex-flow: row;
-  -ms-flex-flow: row;
-  -o-flex-flow: row;
-  flex-flow: row;
-  flex-flow: row;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
 }
+
 .date-picker .dp-body {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  flex-direction: column;
-  -webkit-flex-flow: column;
-  -moz-flex-flow: column;
-  -ms-flex-flow: column;
-  -o-flex-flow: column;
-  flex-flow: column;
-  flex-flow: column;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -ms-box-flex: 1;
-  -ms-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;
+  border: 5px solid #E5F3D2;
+  border-top-width: 0;
+  border-bottom-width: 0;
 }
+
 .date-picker .dp-table {
-  width: 100%;
-  height: 100%;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  flex-direction: column;
-  -webkit-flex-flow: column;
-  -moz-flex-flow: column;
-  -ms-flex-flow: column;
-  -o-flex-flow: column;
-  flex-flow: column;
-  flex-flow: column;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -ms-box-flex: 1;
-  -ms-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;
 }
+
 .date-picker .dp-row {
   display: -webkit-box;
   display: -moz-box;
@@ -102,191 +55,191 @@
   -webkit-flex: 1;
   flex: 1;
 }
+
 .date-picker .dp-cell {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  -webkit-box-pack: center;
-  flex-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -ms-box-flex: 1;
-  -ms-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;
+  box-shadow: inset 0 1px 0 #FDFDFD;
+  width: 28px;
 }
+
 .date-picker .dp-nav-table {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  flex-direction: row;
-  -webkit-flex-flow: row;
-  -moz-flex-flow: row;
-  -ms-flex-flow: row;
-  -o-flex-flow: row;
-  flex-flow: row;
-  flex-flow: row;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -ms-box-flex: 1;
-  -ms-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;
+  @include border-radius(3px 3px 0 0);
+  @include linear-gradient(top, (#666666, #535353), #535353);
+
+  color: #FFF;
+  display: inline-block;
+  height: 27px;
   width: 100%;
 }
+
 .date-picker .dp-nav-table .dp-cell {
-  -webkit-box-flex: 7;
-  -moz-box-flex: 7;
-  -ms-box-flex: 7;
-  -ms-flex: 7;
-  -webkit-flex: 7;
-  flex: 7;
+  border-bottom-width: 0px;
+  border-right: 1px solid #949494;
+  border-top-width: 0px;
+  font-weight: bold;
+  padding: 8px;
+  text-align: center;
+  width: 60%;
 }
+
 .date-picker .dp-nav-table .dp-nav-cell {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -ms-box-flex: 1;
-  -ms-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;
+  width: 20%;
+
+  &:active {
+    @include linear-gradient(top, (#696969, #353535), #353535);
+
+    overflow: hidden;
+  }
 }
-.date-picker {
-  overflow: hidden;
-  background: #fff;
-  font-size: 14px;
-  width: 250px;
-  position: absolute;
-  height: 260px;
-  border: 1px solid #a8a8a8;
-}
+
 .date-picker .dp-table {
   border-color: #a8a8a8;
 }
+
 .date-picker .dp-table .dp-row {
   border-top: 1px solid #a8a8a8;
 }
+
 .date-picker .dp-table .dp-row:last-child {
   border-bottom: 1px solid #a8a8a8;
 }
+
 .date-picker .dp-table .dp-cell {
-  cursor: pointer;
+  color: #888888;
+  outline: none;
   padding: 5px;
-  background: inherit;
+  text-align: center;
+
+  &.dp-day:not(.dp-prev):not(.dp-next) , 
+  &.dp-month, 
+  &.dp-year:not(.dp-prev):not(.dp-next) {
+    @include box-shadow(inset 0 1px 0 #FDFDFD);
+    @include linear-gradient(top, (#F7F7F7, #E6E6E6), #E6E6E6);
+
+    cursor: pointer;
+
+    &:hover {
+      @include box-shadow(inset 0 1px 0 #EFEFEF);
+      @include linear-gradient(top, (#E7E7E7, #CFCFCF), #CFCFCF);
+    }
+
+    &:active, &.dp-value {
+      @include box-shadow(inset 0 4px 10px #999);
+      @include linear-gradient(top, (#BFD49C, #BFD49C), #BFD49C);
+    
+      // border: 1px solid #FFFFFF;
+      color: #FFFFFF;
+      text-shadow: 1px 1px 2px #666;
+    }
+  }
 }
+
 .date-picker .dp-table .dp-cell:not(:first-child) {
-  border-left: 1px solid #a8a8a8;
+  &.dp-day, &.dp-month, &.dp-year {
+    border-left: 1px solid #a8a8a8;
+  }
 }
+
 .date-picker .dp-table .dp-cell.dp-prev,
 .date-picker .dp-table .dp-cell.dp-next {
-  color: #5c5c5c;
-  background: inherit;
+  background: #E4E4E4;
+  color: rgba(0, 0, 0, 0);
 }
-.date-picker .dp-table .dp-cell.dp-in-range {
-  background: #e2f0ff;
+
+.date-picker .dp-table .dp-cell.dp-next {
+  display: none;
 }
-.date-picker .dp-table .dp-cell:hover {
-  color: inherit;
-  font-weight: inherit;
-  background: #eee;
-}
+
 .date-picker .dp-table .dp-cell.dp-disabled {
   cursor: default;
-  color: #adadad;
-  background: inherit;
 }
+
 .date-picker .dp-table .dp-cell.dp-value {
-  color: #000;
   font-weight: bold;
-  background: #eee;
 }
+
 .date-picker .dp-table .dp-cell.dp-current {
-  color: #2e99eb;
-  background: inherit;
 }
+
 .date-picker .dp-table .dp-cell.dp-in-range.dp-current,
 .date-picker .dp-table .dp-cell.dp-in-range.dp-value {
-  background: #e2f0ff;
 }
-.date-picker .dp-table .dp-cell.dp-month {
+
+.date-picker .dp-table .dp-cell.dp-month,
+.date-picker .dp-table .dp-cell.dp-year {
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
+  width: 25%;
 }
+
 .date-picker .dp-table .dp-cell.dp-week-day-name {
-  font-weight: bold;
+  background-color: #CECECE;
   cursor: default;
-  background: inherit;
+  font-size: 8px;
+  font-weight: bold;
 }
+
 .date-picker .dp-footer {
-  padding: 3px;
-  -webkit-justify-content: center;
-  -webkit-box-pack: center;
-  flex-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-top-width: 0px;
+ border-top-width: 0px;
+ justify-content: center;
+ padding: 0 3px 0 3px;
 }
+
 .date-picker .dp-footer .dp-footer-selected,
 .date-picker .dp-footer .dp-footer-today {
-  padding: 5px 15px;
-  border-width: 1px;
+  @include box-shadow(inset 0 1px 0 #FDFDFD);
+  @include linear-gradient(top, (#F7F7F7, #E6E6E6), #E6E6E6);
+
   cursor: pointer;
+  display: inline-block;
+  margin-bottom: 3px;
+  outline: none;
+  padding: 5px 0;
+  text-align: center;
+  width: 49%;
+
+  &:hover {
+    @include box-shadow(inset 0 1px 0 #EFEFEF);
+    @include linear-gradient(top, (#E7E7E7, #CFCFCF), #CFCFCF);
+  }
+  &:active {
+    @include box-shadow(inset 0 4px 10px #999);
+    @include linear-gradient(top, (#BFD49C, #BFD49C), #BFD49C);
+
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 2px #666;
+  }
 }
-.date-picker .dp-body {
-  overflow: hidden;
+
+.date-picker .dp-footer .dp-footer-selected {
+  border-left: 1px solid #a8a8a8;
 }
+
 .date-picker .dp-nav-view,
 .date-picker .dp-nav-cell,
 .date-picker .dp-week-day-name {
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
-  touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
 }
+
 .date-picker .dp-nav-view,
 .date-picker .dp-nav-cell {
   cursor: pointer;
 }
-.date-picker .dp-nav-cell {
-  background: inherit;
+
+.date-picker .dp-nav-cell { 
 }
 .date-picker .dp-nav-cell:hover {
-  background: #eee;
 }
 .date-picker .dp-nav-view {
-  background: inherit;
 }
 .date-picker .dp-nav-view:hover {
-  background: #eee;
 }
-.date-picker .dp-nav-table .dp-cell {
-  border-top-width: 0px;
-  border-bottom-width: 0px;
-  padding: 8px;
-  font-weight: bold;
-}
-.date-picker .dp-decade-view,
-.date-picker .dp-year-view,
-.date-picker .dp-month-view {
-  touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
+
+.dp-table.dp-year-view, .dp-decade-view{
+  line-height: 55px;
+
+  &.dp-year-view {
+    font-size: 10px;
+  }
 }

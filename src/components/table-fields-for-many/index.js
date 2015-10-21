@@ -141,8 +141,10 @@ class TableFieldsForMany extends React.Component {
     this.props.fields.forEach((field) => {
       var columnClasses = "ui-table-fields-for-many__header-cell";
 
-      if (this.props.columnClasses[field.props.name]) {
-        columnClasses += " ui-table-fields-for-many__header-cell--" + this.props.columnClasses[field.props.name];
+      if (this.props.columnClasses){
+        if(this.props.columnClasses[field.props.name]) {
+          columnClasses += " ui-table-fields-for-many__header-cell--" + this.props.columnClasses[field.props.name];
+        }
       }
 
       headings.push(
