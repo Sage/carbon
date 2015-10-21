@@ -19,15 +19,25 @@ class DropdownComponent extends React.Component {
               </option>;
     });
 
+    var mainClasses = 'ui-dropdown' +
+        this.props.input.mainClasses() +
+        this.props.validation.mainClasses();
+
+    var inputClasses = "ui-dropdown__input" +
+        this.props.input.inputClasses() +
+        this.props.validation.inputClasses();
+
     return(
-      <select
-        className={ this.props.input.mainClasses() }
-        onBlur={ this.props.validation.handleBlur }
-        onFocus={ this.props.validation.handleFocus }
-        { ...this.props.input.inputProps() }
-      >
-        { options }
-      </select>
+      <div className={ mainClasses }>
+        <select
+          className={ inputClasses }
+          onBlur={ this.props.validation.handleBlur }
+          onFocus={ this.props.validation.handleFocus }
+          { ...this.props.input.inputProps() }
+        >
+          { options }
+        </select>
+      </div>
     )
   };
 }
