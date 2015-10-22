@@ -2,6 +2,7 @@ import React from 'react';
 import Input from './../../utils/input';
 import InputValidation from './../../utils/input/validation';
 import I18n from "i18n-js";
+import Events from './../../utils/helpers/events';
 
 class Decimal extends React.Component {
 
@@ -93,7 +94,6 @@ class Decimal extends React.Component {
       visibleValue: ev.target.value
     });
     this.emitOnChangeCallback(this.formatHiddenValue(ev.target.value));
-    
   }
 
   emitOnChangeCallback = (val) => {
@@ -146,26 +146,18 @@ class Decimal extends React.Component {
   }
 
   filterKeys = (ev) => {
-    if(ev.metaKey) {
-      return true;
-    }
-    var allowedSpecialKeys = [0, 8, 13];
+    if (Events.isMetaKey(ev) ||
+        Events.isEnterKey(ev) ||
+        Events.isNavigationKey(ev) ||
+        Events.isDeletingKey(ev) ||
+        Events.isNumberKey(ev) ||
+        Events.isDelimiterKey(ev)) {
 
-    var typedCharacter = String.fromCharCode(ev.which)
-
-    var code = typedCharacter.charCodeAt(0)
-    
-    if(allowedSpecialKeys.indexOf(code) > -1) {
-      return true;
-    }
-
-    var allowedKeys = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 188, 190];
-    
-    if(allowedKeys.indexOf(code) > -1) {
-      return true;
+        return true;
     }
 
     ev.preventDefault();
+    return false;
   }
 
   /**

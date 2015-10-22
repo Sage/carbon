@@ -43,7 +43,6 @@ class DropdownComponent extends React.Component {
         >
           { this.props.prompt ? promptText : null }
           { options }
-          }
         </select>
       </div>
     )
