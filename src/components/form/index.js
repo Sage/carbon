@@ -133,14 +133,24 @@ class Form extends React.Component {
     return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
   }
 
-  /**
+  buildReversePath = () => {
+    var currentPath = window.location.pathname;
+    var reversePath = currentPath.replace(currentPath.match(/[^\/]+\/?$/), '');
+    return reversePath;
+  }
+
+  cancelForm = (ev) => {
+    ev.preventDefault();
+    window.location = this.buildReversePath();
+  }
+   /**
    * Renders the component.
    *
    * @method render
    */
   render() {
     var errorCount,
-        saveClasses = "ui-form__save";
+        saveClasses = "ui-form__save", cancelClasses = "ui-form__cancel";
 
     if (this.state.errorCount) {
       errorCount = (
@@ -157,15 +167,20 @@ class Form extends React.Component {
         { this.generateCSRFToken() }
 
         { this.props.children }
-
+        <div className= { cancelClasses }>
+          <Button type='button'
+            onClick={ this.cancelForm }
+          >
+            Cancel
+          </Button>
+        </div>
         <div className={ saveClasses }>
           { errorCount }
-          <Button type="primary" />
+          <Button as="primary" />
         </div>
       </form>
     );
   }
-
 };
 
 export default Form;
