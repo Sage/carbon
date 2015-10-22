@@ -48,7 +48,7 @@ class CheckboxComponent extends React.Component {
         <input
           className={ inputClasses }
           type="checkbox" 
-          checked={ this.props.checked ga }
+          checked={ this.props.checked }
           { ...this.customInputProps() }
         />
 

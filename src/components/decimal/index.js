@@ -146,14 +146,8 @@ class Decimal extends React.Component {
   }
 
   filterKeys = (ev) => {
-    if (Events.isMetaKey(ev) ||
-        Events.isEnterKey(ev) ||
-        Events.isNavigationKey(ev) ||
-        Events.isDeletingKey(ev) ||
-        Events.isNumberKey(ev) ||
-        Events.isDelimiterKey(ev)) {
-
-        return true;
+    if (Events.isValidDecimalKey(ev)) {
+      return true;
     }
 
     ev.preventDefault();

@@ -254,72 +254,43 @@ class Events {
   };
 
   /**
-  * Determines if the key pressed is a comma or period key
+  * Determines if the key pressed is the period key
   *
-  * @method isDelimiterKey
+  * @method isPeriodKey
   * @params {Event} ev A JavaScript event
   * @returns {Boolean}
   **/
-  static isDelimiterKey = (ev) => {
-    return ev.which === 188 || ev.which === 190;
+  static isPeriodKey = (ev) => {
+    return ev.which === 190;
   };
 
-  // TODO
-  /***
-  * * A proxy method for deprecating an event.
-  * *
-  * * The method still triggers the event, but also determines if any handlers
-  * * are listening for this event, if so it will trigger a warning in the
-  * * console to the developer that the event is deprecated.
-  * *
-  * * @method deprecate
-  * * @params {String} message A message to be displayed in the console
-  * * @params {jQuery Selector} selector A jQuery selector to trigger the event on
-  * * @params {Event} ev A JavaScript event
-  * * @params {Array} args Arguments to trigger with the event
-  * ***
-  * static deprecate = (message, selector, ev, args) =>
-  *   * Only do the handler check in test/dev mode
-  *   <% if Rails.env.development? || Rails.env.test? %>
-  *   type = ev.type
-  *   handlers = $._data(selector.get(0), "events")
+  /**
+  * Determines if the key pressed is the comma key
+  *
+  * @method isCommaKey
+  * @params {Event} ev A JavaScript event
+  * @returns {Boolean}
+  **/
+  static isCommaKey = (ev) => {
+    return ev.which === 188
+  };
 
-  *   if handlers and handlers[ev.type] and handlers[ev.type].length
-  *     Logger.deprecate "Event Deprecation: ", "*{type}.", message
-  *   <% end %>
-
-  *   * Trigger the event as normal
-  *   @trigger selector, ev, args
-
-  * ? DO we need to rewrite these without jQuery
-  * ***
-  * * A proxy method for triggering an event.
-  * *
-  * * The method triggers the event on a given seletor with the provided args
-  * *
-  * * @method trigger
-  * * @params {jQuery Selector} selector A jQuery selector to trigger the event on
-  * * @params {Event} ev A JavaScript event
-  * * @params {Array} args Arguments to trigger with the event
-  * ***
-  * static trigger = (selector, ev, args) =>
-  *   * Trigger the provided event on the selector with the given args
-  *   selector.trigger(ev, args);
-
-  * ***
-  * * A proxy method for listening/watching for an event.
-  * *
-  * * @method watch
-  * * @params {jQuery Selector} selector A jQuery selector to watch for the event on
-  * * @params {String} ev A javascript event to listen for
-  * * @params {Function} callback a Callback function which is called when the event is fired.
-  * ***
-  * static watch = (selector, ev, callback) =>
-  *   selector.on ev, (args...) ->
-  *     ev = args.shift()
-  *     * Call the callback with the event + any other arguments provided.
-  *     callback ev, args
-  */
+  /**
+  * Determines if the key pressed is valid for a Decimal Field
+  *
+  * @method isValidDecimalKey
+  * @params {Event} ev A JavaScript event
+  * @returns {Boolean}
+  **/
+  static isValidDecimalKey = (ev) => {
+    return Events.isMetaKey(ev) ||
+           Events.isEnterKey(ev) ||
+           Events.isNavigationKey(ev) ||
+           Events.isDeletingKey(ev) ||
+           Events.isNumberKey(ev) ||
+           Events.isPeriodKey(ev) ||
+           Events.isCommaKey(ev);
+  };
 };
 
 export default Events;
