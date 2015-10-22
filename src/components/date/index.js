@@ -1,6 +1,8 @@
 import React from 'react';
 import Input from './../../utils/input';
 import InputValidation from './../../utils/input/validation';
+import InputIcon from './../../utils/input/icon';
+// https://github.com/zippyui/react-date-picker
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
@@ -148,6 +150,8 @@ class DateComponent extends React.Component {
   datePickerProps = () => {
     var value = this.props.value || this.getDefaultValue();
     var props = {};
+    props.weekDayNames = ["S", "M", "T", "W", "T", "F", "S"];
+    props.monthFormat = "MMM";
     props.dateFormat = this.hiddenFormat();
     props.onChange = this.handleDateSelect;
     props.date = value;
@@ -222,6 +226,8 @@ class DateComponent extends React.Component {
           { ...this.customInputProps() }
         />
 
+        { this.props.icon.inputIconHTML("calendar", this.customInputProps().id) }
+
         <input
           ref="hidden"
           type="hidden"
@@ -239,4 +245,4 @@ class DateComponent extends React.Component {
 
 };
 
-export default InputValidation(Input(DateComponent));
+export default InputIcon(InputValidation(Input(DateComponent)));

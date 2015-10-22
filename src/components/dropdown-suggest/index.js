@@ -2,7 +2,7 @@ import React from 'react';
 import Request from 'superagent';
 import Input from './../../utils/input';
 import InputValidation from './../../utils/input/validation';
-import Icon from './../../utils/icon';
+import InputIcon from './../../utils/input/icon';
 import Immutable from 'immutable';
 
 class DropdownSuggest extends React.Component {
@@ -368,13 +368,15 @@ class DropdownSuggest extends React.Component {
     return (
       <div className={ mainClasses } >
 
+        { this.props.input.labelHTML() }
+
         <input
           className={ inputClasses }
           ref="filter"
           { ...inputProps }
         />
 
-        <label htmlFor={ inputProps.id }><Icon type="input" className="ui-dropdown-suggest__dropdown-icon" /></label>
+        { this.props.icon.inputIconHTML("dropdown", inputProps.id) }
 
         <input
           ref="input"
@@ -398,4 +400,4 @@ class DropdownSuggest extends React.Component {
   }
 }
 
-export default InputValidation(Input(DropdownSuggest))
+export default InputIcon(InputValidation(Input(DropdownSuggest)))
