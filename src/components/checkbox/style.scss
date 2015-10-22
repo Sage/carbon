@@ -1,4 +1,10 @@
+.ui-checkbox {
+  text-align: center;
+}
+
 .ui-checkbox__input {
-  height: auto;
-  width: auto;
+  cursor: pointer;
+  height: 15px;
+  vertical-align: middle;
+  width: 15px;
 }

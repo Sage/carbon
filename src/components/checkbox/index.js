@@ -8,6 +8,18 @@ class CheckboxComponent extends React.Component {
     value: false
   }
 
+  handleClick = (ev) => {
+    this.props.onClick({ target: { value: ev.target.checked }}, this.props);
+  }
+
+  customInputProps = () => {
+    var { onChange, ...props } = this.props.input.inputProps();
+
+    props.onClick = this.handleClick;
+
+    return props;
+  }
+
   render() {
 
     var mainClasses = 'ui-checkbox ' + 
@@ -23,11 +35,19 @@ class CheckboxComponent extends React.Component {
 
         { this.props.input.labelHTML() }
 
-        <input 
+        <input
+          ref="hidden"
+          type="hidden"
+          value='0'
+          name={ this.props.input.inputProps().name }
+          readOnly
+        />
+
+        <input
           className={ inputClasses }
           type="checkbox" 
           checked={ this.props.value }
-          { ...this.props.input.inputProps() }
+          { ...this.customInputProps() }
         />
 
         { this.props.validation.errorMessageHTML() }

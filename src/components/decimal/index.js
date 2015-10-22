@@ -92,8 +92,8 @@ class Decimal extends React.Component {
     this.setState({
       visibleValue: ev.target.value
     });
-
     this.emitOnChangeCallback(this.formatHiddenValue(ev.target.value));
+    
   }
 
   emitOnChangeCallback = (val) => {
@@ -127,6 +127,7 @@ class Decimal extends React.Component {
     inputProps.onBlur = this.handleBlur;
     inputProps.onFocus = this.handleFocus;
     inputProps.value = this.state.visibleValue;
+    inputProps.onKeyDown = this.filterKeys;
     return inputProps;
   }
 
@@ -142,6 +143,29 @@ class Decimal extends React.Component {
     }
 
     return props;
+  }
+
+  filterKeys = (ev) => {
+    if(ev.metaKey) {
+      return true;
+    }
+    var allowedSpecialKeys = [0, 8, 13];
+
+    var typedCharacter = String.fromCharCode(ev.which)
+
+    var code = typedCharacter.charCodeAt(0)
+    
+    if(allowedSpecialKeys.indexOf(code) > -1) {
+      return true;
+    }
+
+    var allowedKeys = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 188, 190];
+    
+    if(allowedKeys.indexOf(code) > -1) {
+      return true;
+    }
+
+    ev.preventDefault();
   }
 
   /**
