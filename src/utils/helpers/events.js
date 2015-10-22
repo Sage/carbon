@@ -31,7 +31,7 @@ class Events {
   * @returns {Boolean}
   **/
   static isNavigationKeyup = (ev) => {
-    if (!this.isEventType(ev, "keyup")) {
+    if (!Events.isEventType(ev, "keyup")) {
       return false;
     }
 
@@ -46,7 +46,7 @@ class Events {
   * @returns {Boolean}
   **/
   static isEnterKeyup = (ev) => {
-    if (!this.isEventType(ev, "keyup")) {
+    if (!Events.isEventType(ev, "keyup")) {
       return false;
     }
 
@@ -61,7 +61,7 @@ class Events {
   * @returns {Boolean}
   **/
   static isValidKeypress = (ev) => {
-    if (!this.isEventType(ev, "keyup")) {
+    if (!Events.isEventType(ev, "keyup")) {
       return false;
     }
     // 0-9 a-z
@@ -289,7 +289,8 @@ class Events {
            Events.isDeletingKey(ev) ||
            Events.isNumberKey(ev) ||
            Events.isPeriodKey(ev) ||
-           Events.isCommaKey(ev);
+           Events.isCommaKey(ev) ||
+           Events.isSpaceKey(ev);
   };
 };
 
