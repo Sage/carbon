@@ -10,14 +10,14 @@ class CheckboxComponent extends React.Component {
     defaultChecked: false
   }
 
-  handleClick = (ev) => {
-    this.props.onClick({ target: { value: ev.target.checked }}, this.props);
+  handleOnChange = (ev) => {
+    this.props.onChange({ target: { value: ev.target.checked }}, this.props);
   }
 
   customInputProps = () => {
     var { onChange, ...props } = this.props.input.inputProps();
 
-    props.onClick = this.handleClick;
+    props.onChange = this.handleOnChange;
 
     return props;
   }
@@ -48,7 +48,8 @@ class CheckboxComponent extends React.Component {
         <input
           className={ inputClasses }
           type="checkbox" 
-          checked={ this.props.checked }
+          checked={ this.props.checked || this.props.value }
+          value="1"
           { ...this.customInputProps() }
         />
 
