@@ -19,6 +19,12 @@ $date__picker__cell-border-color: #CECECE;
   width: $date__picker__width;
   z-index: $z-datepicker;
 
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
   * {
     box-sizing: border-box;
     outline: none;
