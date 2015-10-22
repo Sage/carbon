@@ -148,6 +148,8 @@ class DateComponent extends React.Component {
   datePickerProps = () => {
     var value = this.props.value || this.getDefaultValue();
     var props = {};
+    props.weekDayNames = ["S", "M", "T", "W", "T", "F", "S"];
+    props.monthFormat = "MMM";
     props.dateFormat = this.hiddenFormat();
     props.onChange = this.handleDateSelect;
     props.date = value;
