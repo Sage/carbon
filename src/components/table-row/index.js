@@ -42,12 +42,7 @@ class TableRow extends React.Component {
 
       if (this.props.gutterFields) {
         var gutterField = this.props.gutterFields[field.props.name];
-
-        if (gutterField) {
-          row.push(<td key={ key + "gutter" } className="ui-table-row__td ui-table-row__td--gutter">{ gutterField }</td>);
-        } else {
-          row.push(<td key={ key + "gutter" } className="ui-table-row__td ui-table-row__td--gutter"></td>);
-        }
+        row.push(<td hidden={ field.props.hidden } key={ key + "gutter" } className="ui-table-row__td ui-table-row__td--gutter">{ gutterField }</td>);
       } else {
         var value = (this.props.data) ? this.props.data.get(field.props.name) : null;
         row.push(this.buildCell(field, value));
@@ -83,7 +78,7 @@ class TableRow extends React.Component {
 
     var fieldHTML = React.cloneElement(field, fieldProps);
 
-    return <td key={ rowID + field.props.name } className="ui-table-row__td">{ fieldHTML }</td>;
+    return <td hidden={ field.props.hidden } key={ rowID + field.props.name } className="ui-table-row__td">{ fieldHTML }</td>;
   }
 
   /**

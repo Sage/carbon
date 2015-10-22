@@ -28,7 +28,7 @@ class Store extends Events.EventEmitter {
   undo = () => {
     if (this.history.length) {
       this.data = this.history.pop();
-      this.emit('change');
+      this.emit('change', this.key);
     }
   }
 
@@ -36,7 +36,7 @@ class Store extends Events.EventEmitter {
     if (this.history.length) {
       this.data = this.history[0];
       this.history = [];
-      this.emit('change');
+      this.emit('change', this.key);
     }
   }
 

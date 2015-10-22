@@ -27,6 +27,12 @@ class DropdownComponent extends React.Component {
         this.props.input.inputClasses() +
         this.props.validation.inputClasses();
 
+    var promptText = <option 
+                       key='prompt' 
+                       className={ optionClassName }
+                      >
+                       { this.props.prompt }
+                     </option> 
     return(
       <div className={ mainClasses }>
         <select
@@ -35,6 +41,7 @@ class DropdownComponent extends React.Component {
           onFocus={ this.props.validation.handleFocus }
           { ...this.props.input.inputProps() }
         >
+          { this.props.prompt ? promptText : null }
           { options }
         </select>
       </div>

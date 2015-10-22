@@ -5,7 +5,21 @@ import InputValidation from './../../utils/input/validation';
 class CheckboxComponent extends React.Component {
 
   static defaultProps = { 
-    value: false
+    /* React suggests using checked rather than value for checked box.
+       Need to pass checked as boolean from view. */
+    defaultChecked: false
+  }
+
+  handleClick = (ev) => {
+    this.props.onClick({ target: { value: ev.target.checked }}, this.props);
+  }
+
+  customInputProps = () => {
+    var { onChange, ...props } = this.props.input.inputProps();
+
+    props.onClick = this.handleClick;
+
+    return props;
   }
 
   render() {
@@ -23,11 +37,19 @@ class CheckboxComponent extends React.Component {
 
         { this.props.input.labelHTML() }
 
-        <input 
+        <input
+          ref="hidden"
+          type="hidden"
+          value='0'
+          name={ this.props.input.inputProps().name }
+          readOnly
+        />
+
+        <input
           className={ inputClasses }
           type="checkbox" 
-          checked={ this.props.value }
-          { ...this.props.input.inputProps() }
+          checked={ this.props.checked }
+          { ...this.customInputProps() }
         />
 
         { this.props.validation.errorMessageHTML() }

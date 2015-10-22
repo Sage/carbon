@@ -2,6 +2,7 @@ import React from 'react';
 import Input from './../../utils/input';
 import InputValidation from './../../utils/input/validation';
 import I18n from "i18n-js";
+import Events from './../../utils/helpers/events';
 
 class Decimal extends React.Component {
 
@@ -92,7 +93,6 @@ class Decimal extends React.Component {
     this.setState({
       visibleValue: ev.target.value
     });
-
     this.emitOnChangeCallback(this.formatHiddenValue(ev.target.value));
   }
 
@@ -127,6 +127,7 @@ class Decimal extends React.Component {
     inputProps.onBlur = this.handleBlur;
     inputProps.onFocus = this.handleFocus;
     inputProps.value = this.state.visibleValue;
+    inputProps.onKeyDown = this.filterKeys;
     return inputProps;
   }
 
@@ -142,6 +143,15 @@ class Decimal extends React.Component {
     }
 
     return props;
+  }
+
+  filterKeys = (ev) => {
+    if (Events.isValidDecimalKey(ev)) {
+      return true;
+    }
+
+    ev.preventDefault();
+    return false;
   }
 
   /**
