@@ -16,7 +16,7 @@ class DateComponent extends React.Component {
   }
 
   visibleFormat = () => {
-    return I18n.t('date.formats.javascript', { defaultValue: "dd/mm/yyyy" }).toUpperCase();
+    return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
   }
 
   hiddenFormat = () => {
@@ -66,11 +66,12 @@ class DateComponent extends React.Component {
    * @method handleVisibleInputChange
    */
   handleVisibleInputChange = (ev) => {
-    var validDate = moment(ev.target.value, this.visibleFormat()).isValid(),
+    var formats = [this.visibleFormat(), "MMM DD YY", "MM-DD-YYYY", "DD-MM", "DD-MM-YYYY"],
+        validDate = moment(ev.target.value, formats).isValid(),
         newState = { visibleValue: ev.target.value };
 
     if (validDate) {
-      var hiddenValue = this.formatValue(ev.target.value, this.visibleFormat(), this.hiddenFormat());
+      var hiddenValue = this.formatValue(ev.target.value, formats, this.hiddenFormat());
       newState.viewDate = hiddenValue;
       this.emitOnChangeCallback(hiddenValue);
     }
