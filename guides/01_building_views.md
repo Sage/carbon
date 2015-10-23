@@ -1,6 +1,5 @@
 
-# NOTE: This is a working document and may not reflect current best practice. 
-Carbon is still in alpha and subject to change. 
+# NOTE: This is a working document and may not reflect current best practice Carbon is still in alpha and subject to change.
 
 
 # Building a View with Carbon 
@@ -23,7 +22,7 @@ If you're familiar with ES5 Javascript, you may find some of our syntax odd. We'
 
 * To begin, navigate to the directory that will house your project and run:
 ```
-carbon prepare myproject
+carbon app myproject
 ```
 the directory will take the name you provide as *myproject*.
 
@@ -45,7 +44,9 @@ For example:
 
 var opts = {
   jsDest: './../host_app/app/assets/javascripts', // the destination directory
-  cssDest: './../host_app/app/assets/stylesheets'
+  cssDest: './../host_app/app/assets/stylesheets',
+  fontDest: './host_app/public/assets/fonts'
+
 };
 
 gulp.task('default', BuildTask(opts));
@@ -102,7 +103,7 @@ gulp.task('test', SpecTask());
 ### 5) Creating your first view
 
 * In React, everything is a component. When we talk about views, we're using an abstraction - we really mean a high level component built up from several modular components (i.e. widgets). 
-* N.B. It's possible to have multiple views rendered on a single page - for the moment, we'll define the view to be the page.
+* Note: It's possible to have multiple views rendered on a single page - for the moment, we'll define the view to be the page.
 
 * To create a view (or any other component), you'll create a class representing that view.
 ```javascript
@@ -121,9 +122,9 @@ class JournalsReverse extends React.Component {
   }
 };
 
-export default View(JournalsReverse, JournalStore);
+export default View(JournalsReverse, { journal_store: JournalStore });
 ```
-* N.B. If you've worked with React before, you may wonder why we're importing *View* into our view. We use a pattern called [Higher Order Components](https://github.com/Sage/carbon/blob/master/src/utils/view.js) to wrap together our view, our store and any additional functionality we want to provide.
+* Note: If you've worked with React before, you may wonder why we're importing *View* into our view. We use a pattern called [Higher Order Components](https://github.com/Sage/carbon/blob/master/src/utils/view.js) to wrap together our view, our store and any additional functionality we want to provide.
 
 * To build your view, you need to start adding components to the return block. Let's add a:
   *Form* containing a 
@@ -154,7 +155,7 @@ class JournalsReverse extends React.Component {
   }
 };
 
-export default View(JournalsReverse, JournalStore);
+export default View(JournalsReverse, { journal_store: JournalStore });
 ```
 
 * Carbon uses [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) syntax for building and using components.
@@ -168,7 +169,9 @@ class JournalsReverse extends React.Component {
 
   render() {
     /* Here we're defining what children components table-fields-for-many will 
-    render. We can pack these children components into an array. */
+    render. We can pack these children components into an array. 
+    Table-fields-for-many is a complex component that renders components 
+    passed to it as children. */
 
     var tableFields = [<Textbox />,<Textbox />];
 
@@ -177,8 +180,6 @@ class JournalsReverse extends React.Component {
         <Form>
           <Textbox />
           <Date />
-          /* table-fields-for-many is a complex component that renders components 
-          passed to it as children. */
           <TTFM />
         </Form >
       </div>
@@ -186,7 +187,7 @@ class JournalsReverse extends React.Component {
   }
 };
 
-export default View(JournalsReverse, JournalStore);
+export default View(JournalsReverse, { journal_store: JournalStore });
 ```
 
 * Carbon components use React *props* which allow you to pass data down to a component. Our components have a few required props which we'll add now.
@@ -198,36 +199,33 @@ export default View(JournalsReverse, JournalStore);
 class JournalsReverse extends React.Component {
 
   render() {
-    var tableFields = [<Textbox key='1' name='service' />
-    ,<Textbox key='2' name='description' />];
+    var tableFields = [<Textbox key='1' name='service' />,
+                       <Textbox key='2' name='description' />];
 
     return (
       <div>
-        <Form>
+        <Form model='journal' action='/journals' method='post'>
           <Textbox
-            name="description"
-            value={ this.props.data.get('description') }
-            onChange={ JournalActions.journalValueUpdated }
-          />
+           name="description"
+           value={ this.props.data.get('description') }
+           onChange={ JournalActions.journalValueUpdated } />
           <Date
-            name='date'
-            value={ this.props.data.get('date') }
-            onChange={ JournalActions.journalValueUpdated }
-          />
+           name='date'
+           value={ this.props.data.get('date') }
+           onChange={ JournalActions.journalValueUpdated } />
           <TTFM
-            name='journal_lines'
-            data={ this.props.data.get('journal_lines') }
-            deleteRowHandler={ JournalActions.deleteJournalLineRow }
-            addRowHandler={ JournalActions.updateJournalLineRow }
-            fields={ tableFields }
-            />
+           name='journal_lines'
+           data={ this.props.data.get('journal_lines') }
+           deleteRowHandler={ JournalActions.deleteJournalLineRow }
+           addRowHandler={ JournalActions.updateJournalLineRow }
+           fields={ tableFields } />
         </Form>
       </div>
     )
   }
 };
 
-export default View(JournalsReverse, JournalStore);
+export default View(JournalsReverse, { journal_store: JournalStore });
 ```
 * Note that we just imported a new module called JournalActions which contains our Row Handler actions used by the table-fields-for-many component and onChange actions. We haven't created any actions yet, let's do so now.
 
@@ -316,6 +314,10 @@ import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
 var _journal = ImmutableHelper.parseJSON(APPDATA.journal);
 
 class JournalStore extends CarbonStore {
+
+  constructor(dispatcher, data) {
+    super(dispatcher, data);
+  }
 
   journalValueUpdated = (action) => {
     this.data = this.data.set(action.name, action.value);
