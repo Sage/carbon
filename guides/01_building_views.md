@@ -1,3 +1,8 @@
+
+# NOTE: This is a working document and may not reflect current best practice. 
+Carbon is still in alpha and subject to change. 
+
+
 # Building a View with Carbon 
 
 ## Introduction
@@ -103,9 +108,9 @@ gulp.task('test', SpecTask());
 ```javascript
 // ui/src/views/journals/reverse/index.js
 
+import JournalStore from 'stores/journals';
 import React from 'react';
 import View from 'carbon/lib/utils/view';
-import JournalStore from 'stores/journals';
 
 class JournalsReverse extends React.Component {
 
@@ -131,13 +136,13 @@ export default View(JournalsReverse, JournalStore);
 ```javascript
 // ui/src/views/journals/reverse/index.js
 
+import JournalStore from 'stores/journals';
 import React from 'react';
 import View from 'carbon/lib/utils/view';
-import JournalStore from 'stores/journals';
 
+import Date from 'carbon/lib/components/date';
 import Form from 'carbon/lib/components/form';
 import Textbox from 'carbon/lib/components/textbox';
-import Date from 'carbon/lib/components/date';
 import TTFM from 'carbon/lib/components/table-fields-for-many';
 
 class JournalsReverse extends React.Component {
