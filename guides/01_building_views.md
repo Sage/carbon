@@ -1,5 +1,5 @@
 
-# NOTE: This is a working document and may not reflect current best practice Carbon is still in alpha and subject to change.
+## :warning: This is a working document and may not reflect current best practice Carbon is still in alpha and subject to change.
 
 
 # Building a View with Carbon 
@@ -8,7 +8,7 @@
 
 Carbon provides modular, re-useable components written with [React](https://facebook.github.io/react/) Javascript library. Carbon components are platform agnostic and can be used with any backend - the only requirement is that data be passed in the JSON format. Carbon also utilizes the [Flux](https://facebook.github.io/flux/docs/overview.html) pattern to organize data flow within the view.
 
-In this guide, we will walk through building a Carbon view within the context of a Rails application. We will indicate Rails/Ruby specific logic using the Rails logo:
+In this guide, we will walk through building a Carbon view within the context of a Rails application.
 
 If you're familiar with ES5 Javascript, you may find some of our syntax odd. We're not crazy, we're just using [ES6 syntax](https://babeljs.io/docs/learn-es2015/). This is transpiled into ES5 using a Babel transform for use in all browsers before compilation.
 
@@ -16,7 +16,7 @@ If you're familiar with ES5 Javascript, you may find some of our syntax odd. We'
 
 ### 1) Setup
 
-* Before you begin, ensure you have followed the first time setup guide for [Carbon-factory](https://github.com/Sage/carbon-factory/wiki/First-Time-System-Setup)
+* Before you begin, ensure you have followed the first time setup guide for [Carbon Factory](https://github.com/Sage/carbon-factory/wiki/First-Time-System-Setup)
 
 ### 2) Creating a project
 
@@ -26,11 +26,7 @@ carbon app myproject
 ```
 the directory will take the name you provide as *myproject*.
 
-* To install all required dependencies including Carbon, run:
-```
-npm install
-```
-You will need to re-run this command every time you wish to update to the latest version of Carbon.
+You will need to run ```npm install``` command every time you wish to update to the latest version of Carbon.
 
 * As you work, you can set gulp to watch for changes and compile as you go.
 (Rails) Before running gulp, you may want to specifiy the destination for your compiled js and css files. To do this, you'll need to edit the gulpfile.js in your project root directory. 
@@ -57,11 +53,9 @@ gulp.task('test', SpecTask());
 
 * To set gulp to watch for changes, run ```gulp``` in your project root directory.
 
-* **Note** It's probably best at this point to add the node_modules directory, as well as the compiled .js and .css files to your *.gitignore* file. 
-
 ### 3) (Rails) Layout
 
-* In order to render our Carbon view in our Rails app, we need to create a layout. By default, the carbon prepare task creates *ui.js* and *ui.css*. We include these in our layout below.
+* In order to render our React view components in our Rails app, we need to create a layout. By default, the carbon prepare task creates *ui.js* and *ui.css*. We include these in our layout below.
 
 ```html
 <!--app/assets/views/layouts/carbon.html.erb-->
@@ -73,7 +67,7 @@ gulp.task('test', SpecTask());
   </head>
   <body>
 
-  <!--Default hook for Carbon views-->
+<!--Default hook for our React components-->
     <div id='app'></div>
 
     <script type="text/javascript">
@@ -89,7 +83,7 @@ gulp.task('test', SpecTask());
 
 ### 4) Rails Route
 
-* To render your new layout, you need to link it to a controller action. For our example, we'll render the layout when users call the *reverse* action. Simply add ```layout: 'carbon'``` to the call to render.
+* To render your new layout, you need to link it to a Rails controller action. For our example, we'll render the layout when users call the *reverse* action. Simply add ```layout: 'carbon'``` to the call to render.
 ```ruby
 # journals_controller.rb
 
@@ -102,8 +96,7 @@ gulp.task('test', SpecTask());
 
 ### 5) Creating your first view
 
-* In React, everything is a component. When we talk about views, we're using an abstraction - we really mean a high level component built up from several modular components (i.e. widgets). 
-* Note: It's possible to have multiple views rendered on a single page - for the moment, we'll define the view to be the page.
+* In React, everything is a component. When we talk about views, we're using an abstraction - we really mean a component built up from several modular components (i.e. widgets). 
 
 * To create a view (or any other component), you'll create a class representing that view.
 ```javascript
@@ -150,16 +143,18 @@ class JournalsReverse extends React.Component {
 
   render() {
     return (
-
     )
   }
 };
 
-export default View(JournalsReverse, { journal_store: JournalStore });
+export default View(JournalsReverse,
+  {journal_store: JournalStore });
 ```
 
 * Carbon uses [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) syntax for building and using components.
+
 Once you have imported the component into your view, you can render it as follows.
+
 ```javascript
 // ui/src/views/journals/reverse/index.js
 
@@ -191,6 +186,7 @@ export default View(JournalsReverse, { journal_store: JournalStore });
 ```
 
 * Carbon components use React *props* which allow you to pass data down to a component. Our components have a few required props which we'll add now.
+
 ```javascript
 // ui/src/views/journals/reverse/index.js
 
@@ -209,10 +205,12 @@ class JournalsReverse extends React.Component {
            name="description"
            value={ this.props.data.get('description') }
            onChange={ JournalActions.journalValueUpdated } />
+
           <Date
            name='date'
            value={ this.props.data.get('date') }
            onChange={ JournalActions.journalValueUpdated } />
+
           <TTFM
            name='journal_lines'
            data={ this.props.data.get('journal_lines') }
