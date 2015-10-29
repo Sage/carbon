@@ -9,7 +9,7 @@ class ButtonComponent extends React.Component {
   }
 
   static propTypes = {
-    type: React.PropTypes.string,
+    as: React.PropTypes.string,
     children: React.PropTypes.string.isRequired,
     disabled: React.PropTypes.bool.isRequired,
     path: React.PropTypes.string
@@ -18,7 +18,7 @@ class ButtonComponent extends React.Component {
   render() {
     var {className, ...props} = this.props;
 
-    className = 'ui-button ui-button--' + this.props.as + 
+    className = 'ui-button ui-button--' + this.props.as +
       (this.props.disabled ? ' ui-button--disabled' : '') + " " + className;
 
     return(
