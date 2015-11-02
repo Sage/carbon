@@ -7,11 +7,17 @@ import Dropdown from 'components/dropdown-suggest';
 
 class testView extends React.Component {
 
+  customOnChange = () => {
+    console.log("CHANGE");
+  }
+
   render () {
     return(
       <div>
-        <UIDate name="foo" defaultValue="2012-12-21" />
-        <Dropdown name="foo" defaultValue="2012-12-21" />
+        <Dropdown 
+          name="foo"
+          onChange={this.customOnChange}
+        />
       </div>
     )
   }

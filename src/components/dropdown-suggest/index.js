@@ -4,6 +4,7 @@ import Input from './../../utils/input';
 import InputValidation from './../../utils/input/validation';
 import InputIcon from './../../utils/input/icon';
 import Immutable from 'immutable';
+import DropdownSuggestList from './../dropdown_suggest_list';
 
 class DropdownSuggest extends React.Component {
 
@@ -80,7 +81,6 @@ class DropdownSuggest extends React.Component {
   getData = (page = 1) => {
     // Passes empty string to query if value has been selected
     var query = this.props.value.get('id') ? "" : this.props.value.get(this.props.resource_key);
-
     Request
       .get(this.props.path)
       .query({
@@ -176,7 +176,7 @@ class DropdownSuggest extends React.Component {
   handleScroll = () => {
     if (this.listeningToScroll) {
       if (this.state.page < this.state.pages) {
-        var list = this.refs.list;
+        var list = this.dropdownList();
         var scrollTriggerPosition = list.scrollHeight - list.offsetHeight - 20;
 
         if (list.scrollTop > scrollTriggerPosition) {
@@ -239,7 +239,7 @@ class DropdownSuggest extends React.Component {
    * @method handleKeyUp
    */
   handleKeyDown = (ev) => {
-    var list = this.refs.list,
+    var list = this.dropdownList(),
         element = list.getElementsByClassName('ui-dropdown-suggest__item--highlighted')[0];
 
     switch(ev.which) {
@@ -289,8 +289,15 @@ class DropdownSuggest extends React.Component {
    */
   resetScroll = () => {
     this.listeningToScroll = false;
-    var list = this.refs.list;
-    list.scrollTop = 0;
+    this.dropdownList().scrollTop = 0;
+  }
+
+  /** 
+  * There must be a better way
+  *
+  */
+  dropdownList = () => {
+    return this.refs.list.refs.list;
   }
 
   /**
@@ -330,28 +337,24 @@ class DropdownSuggest extends React.Component {
     return props;
   }
 
+  listProps = () => {
+    var listProps = {};
+    listProps.options = this.state.options;
+    listProps.open = this.state.open;
+    listProps.highlighted = this.state.highlighted;
+    listProps.handleScroll = this.handleScroll;
+    listProps.handleSelect = this.handleSelect;
+    listProps.handleMouseOver = this.handleMouseOver;
+
+    return listProps;
+  }
+
   /**
    * Renders the component.
    *
    * @method render
    */
   render() {
-    if (this.state.options.length) {
-      var results = this.state.options.map((option) => {
-        var className = "ui-dropdown-suggest__item";
-
-        return <li
-                  key={option.name + option.id}
-                  value={option.id}
-                  onMouseDown={this.handleSelect}
-                  onMouseOver={this.handleMouseOver}
-                  className={(this.state.highlighted == option.id) ? className + ' ui-dropdown-suggest__item--highlighted' : className}
-                >{option.name}</li>;
-      });
-    } else {
-      var results = <li>No results</li>;
-    } 
-
     var mainClasses = 'ui-dropdown-suggest' +
         this.props.input.mainClasses() +
         this.props.validation.mainClasses();
@@ -359,9 +362,6 @@ class DropdownSuggest extends React.Component {
     var inputClasses = "ui-dropdown-suggest__input" +
         this.props.input.inputClasses() +
         this.props.validation.inputClasses();
-
-    var listClasses = "ui-dropdown-suggest__list" + 
-        (this.state.open ? '' : ' hidden');
 
     var inputProps = this.inputProps();
 
@@ -385,13 +385,10 @@ class DropdownSuggest extends React.Component {
           { ...this.hiddenFieldProps() }
         />
 
-        <ul
+       <DropdownSuggestList
           ref="list"
-          className={ listClasses }
-          onScroll={ this.handleScroll }
-        >
-          {results}
-        </ul>
+          { ...this.listProps() }
+       />
 
         { this.props.validation.errorMessageHTML() }
 
