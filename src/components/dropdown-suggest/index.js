@@ -3,6 +3,7 @@ import Request from 'superagent';
 import Input from './../../utils/input';
 import InputValidation from './../../utils/input/validation';
 import InputIcon from './../../utils/input/icon';
+import InputHelper from './../../utils/helpers/input';
 import Immutable from 'immutable';
 
 class DropdownSuggest extends React.Component {
@@ -296,7 +297,7 @@ class DropdownSuggest extends React.Component {
   /**
    * Sets props for input fieild.
    *
-   * @method inputProps 
+   * @method inputProps
    */
   inputProps = (inputProps) => {
     var { name, ...inputProps } = this.props.input.inputProps();
@@ -314,7 +315,7 @@ class DropdownSuggest extends React.Component {
   /**
    * Gets props for selected option id.
    *
-   * @method hiddenFieldProps 
+   * @method hiddenFieldProps
    */
   hiddenFieldProps = () => {
     var inputProps = this.props.input.inputProps();
@@ -336,45 +337,46 @@ class DropdownSuggest extends React.Component {
    * @method render
    */
   render() {
+    var rootClassName = 'ui-dropdown-suggest';
+
     if (this.state.options.length) {
       var results = this.state.options.map((option) => {
-        var className = "ui-dropdown-suggest__item";
+        let className = `${rootClassName}__item`;
 
         return <li
                   key={option.name + option.id}
                   value={option.id}
                   onMouseDown={this.handleSelect}
                   onMouseOver={this.handleMouseOver}
-                  className={(this.state.highlighted == option.id) ? className + ' ui-dropdown-suggest__item--highlighted' : className}
-                >{option.name}</li>;
+                  className={(this.state.highlighted == option.id) ?
+                    className +
+                    ` ${rootClassName}__item--highlighted` :
+                    className}>
+                  {option.name}
+                </li>;
       });
-    } else {
+    }
+    else {
       var results = <li>No results</li>;
-    } 
+    }
 
-    var mainClasses = 'ui-dropdown-suggest' +
-        this.props.input.mainClasses() +
-        this.props.validation.mainClasses();
 
-    var inputClasses = "ui-dropdown-suggest__input" +
-        this.props.input.inputClasses() +
-        this.props.validation.inputClasses();
 
-    var listClasses = "ui-dropdown-suggest__list" + 
+    var listClasses = `${rootClassName}__list` +
         (this.state.open ? '' : ' hidden');
 
     var inputProps = this.inputProps();
 
+
     return (
-      <div className={ mainClasses } >
+      <div className={ InputHelper.mainClasses(rootClassName, this.props) } >
 
         { this.props.input.labelHTML() }
 
         <input
-          className={ inputClasses }
+          className={ InputHelper.inputClasses(rootClassName, this.props) }
           ref="filter"
-          { ...inputProps }
-        />
+          { ...inputProps } />
 
         { this.props.icon.inputIconHTML("dropdown", inputProps.id) }
 
@@ -382,14 +384,12 @@ class DropdownSuggest extends React.Component {
           ref="input"
           readOnly="true"
           hidden="true"
-          { ...this.hiddenFieldProps() }
-        />
+          { ...this.hiddenFieldProps() } />
 
         <ul
           ref="list"
           className={ listClasses }
-          onScroll={ this.handleScroll }
-        >
+          onScroll={ this.handleScroll } >
           {results}
         </ul>
 

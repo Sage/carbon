@@ -26,7 +26,7 @@ class Dialog extends React.Component {
   }
 
   centerDialog = () => {
-    var height = this.refs.dialog.offsetHeight / 2,
+    let height = this.refs.dialog.offsetHeight / 2,
         width = this.refs.dialog.offsetWidth / 2,
         midPointY = window.innerHeight / 2,
         midPointX = window.innerWidth / 2;
@@ -44,13 +44,13 @@ class Dialog extends React.Component {
    * @method render
    */
   render() {
-    var mainClasses = "ui-dialog",
+    let mainClasses = "ui-dialog",
         dialogClasses = "ui-dialog__dialog",
         backgroundHTML,
         dialogHTML;
 
     if (this.props.open) {
-      var dialogTitleHTML = this.props.title ?
+      let dialogTitleHTML = this.props.title ?
         <h2 className="ui-dialog__title">{ this.props.title }</h2> :
         null;
 
@@ -74,16 +74,14 @@ class Dialog extends React.Component {
         <ReactCSSTransitionGroup
           transitionName="dialog"
           transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 }
-        >
+          transitionLeaveTimeout={ 500 } >
           { dialogHTML }
         </ReactCSSTransitionGroup>
 
         <ReactCSSTransitionGroup
           transitionName="dialog-background"
           transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 }
-        >
+          transitionLeaveTimeout={ 500 } >
           { backgroundHTML }
         </ReactCSSTransitionGroup>
       </div>

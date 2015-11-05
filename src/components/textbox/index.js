@@ -27,8 +27,7 @@ class Textbox extends React.Component {
           className={ inputClasses }
           onBlur={ this.props.validation.handleBlur }
           onFocus={ this.props.validation.handleFocus }
-          { ...this.props.input.inputProps() }
-        />
+          { ...this.props.input.inputProps() } />
 
         { this.props.validation.errorIconHTML() }
 

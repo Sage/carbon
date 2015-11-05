@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from './../../icon';
 
-var InputIcon = (ComposedComponent) => class extends React.Component {
+const InputIcon = (ComposedComponent) => class extends React.Component {
   inputIconHTML = (icon, inputID) => {
     return (
       <label htmlFor={ inputID }>

@@ -7,11 +7,11 @@ class DropdownComponent extends React.Component {
   static defaultProps = { resource_key: 'id' }
 
   render() {
-    var optionClassName = "ui-dropdown__option";
+    let optionClassName = "ui-dropdown__option";
 
-    var options = this.props.options.map((option) => {
+    let options = this.props.options.map((option) => {
       return  <option
-                key={ option.get('name') + option.get('id') } 
+                key={ option.get('name') + option.get('id') }
                 value={ option.get(this.props.resource_key) }
                 className={ optionClassName }
               >
@@ -19,20 +19,20 @@ class DropdownComponent extends React.Component {
               </option>;
     });
 
-    var mainClasses = 'ui-dropdown' +
+    let mainClasses = 'ui-dropdown' +
         this.props.input.mainClasses() +
         this.props.validation.mainClasses();
 
-    var inputClasses = "ui-dropdown__input" +
+    let inputClasses = "ui-dropdown__input" +
         this.props.input.inputClasses() +
         this.props.validation.inputClasses();
 
-    var promptText = <option 
-                       key='prompt' 
+    let promptText = <option 
+                       key='prompt'
                        className={ optionClassName }
                       >
                        { this.props.prompt }
-                     </option> 
+                     </option>
     return(
       <div className={ mainClasses }>
         <select

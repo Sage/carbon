@@ -26,8 +26,8 @@ class Decimal extends React.Component {
    * @method formatHiddenValue
    */
   formatHiddenValue = (valueToFormat) => {
-    var value = valueToFormat || this.props.value || this.getDefaultValue();
-    var regex = new RegExp('\\' + this.i18n().delimiter, "g");
+    let value = valueToFormat || this.props.value || this.getDefaultValue();
+    let regex = new RegExp('\\' + this.i18n().delimiter, "g");
 
     value = value.replace(regex, "", "g");
     value = value.replace(this.i18n().separator, ".");
@@ -42,14 +42,14 @@ class Decimal extends React.Component {
    * @param should be interger or floating point
    */
   formatVisibleValue = (value) => {
-    var value = value || this.props.value || this.getDefaultValue();
+    let formattedValue = value || this.props.value || this.getDefaultValue();
 
-    var value = I18n.toNumber(value, {
+    formattedValue = I18n.toNumber(formattedValue, {
       precision: 2,
       delimiter: this.i18n().delimiter,
       separator: this.i18n().separator
     });
-    return value;
+    return formattedValue;
   }
 
   getDefaultValue = () => {
@@ -66,7 +66,7 @@ class Decimal extends React.Component {
 
   componentWillReceiveProps = (props) => {
     if (this.doc.activeElement != this.refs.visible) {
-      var value = props.value || props.defaultValue;
+      let value = props.value || props.defaultValue;
       this.setState({
         visibleValue: this.formatVisibleValue(value)
       });
@@ -132,7 +132,7 @@ class Decimal extends React.Component {
   }
 
   hiddenFieldProps = () => {
-    var props = {};
+    let props = {};
 
     if (this.props.value) {
       props.value = this.props.value;
@@ -146,10 +146,7 @@ class Decimal extends React.Component {
   }
 
   filterKeys = (ev) => {
-    if (Events.isValidDecimalKey(ev)) {
-      return true;
-    }
-
+    if (Events.isValidDecimalKey(ev)) { return true }
     ev.preventDefault();
     return false;
   }
@@ -160,11 +157,11 @@ class Decimal extends React.Component {
    * @method render
    */
   render() {
-    var mainClasses = 'ui-decimal' +
+    let mainClasses = 'ui-decimal' +
         this.props.input.mainClasses() +
         this.props.validation.mainClasses();
 
-    var inputClasses = "ui-decimal__input" +
+    let inputClasses = "ui-decimal__input" +
         this.props.input.inputClasses() +
         this.props.validation.inputClasses();
 
@@ -176,15 +173,13 @@ class Decimal extends React.Component {
         <input
           className={ inputClasses }
           ref="visible"
-          { ...this.customInputProps() }
-        />
+          { ...this.customInputProps() } />
 
         <input
           ref="hidden"
           type="hidden"
           readOnly
-          { ...this.hiddenFieldProps() }
-        />
+          { ...this.hiddenFieldProps() } />
 
         { this.props.validation.errorMessageHTML() }
 

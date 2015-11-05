@@ -24,7 +24,7 @@ class DateComponent extends React.Component {
   }
 
   formatValue = (val, formatFrom, formatTo) => {
-    var date = moment(val, formatFrom);
+    let date = moment(val, formatFrom);
     return date.format(formatTo);
   }
 
@@ -32,8 +32,8 @@ class DateComponent extends React.Component {
   }
 
   formatVisibleValue = (value) => {
-    var value = value || this.props.value || this.getDefaultValue();
-    return this.formatValue(value, this.hiddenFormat(), this.visibleFormat());
+    let formattedValue = value || this.props.value || this.getDefaultValue();
+    return this.formatValue(formattedValue, this.hiddenFormat(), this.visibleFormat());
   }
 
   getDefaultValue = () => {
@@ -52,8 +52,8 @@ class DateComponent extends React.Component {
 
   componentWillReceiveProps = (props) => {
     if (document.activeElement != this.refs.visible) {
-      var value = props.value || props.defaultValue;
-      var date = this.formatVisibleValue(value);
+      let value = props.value || props.defaultValue;
+      let date = this.formatVisibleValue(value);
       this.setState({
         visibleValue: date
       });
@@ -66,12 +66,12 @@ class DateComponent extends React.Component {
    * @method handleVisibleInputChange
    */
   handleVisibleInputChange = (ev) => {
-    var formats = [this.visibleFormat(), "MMM DD YY", "MM-DD-YYYY", "DD-MM", "DD-MM-YYYY"],
+    let formats = [this.visibleFormat(), "MMM DD YY", "MM-DD-YYYY", "DD-MM", "DD-MM-YYYY"],
         validDate = moment(ev.target.value, formats).isValid(),
         newState = { visibleValue: ev.target.value };
 
     if (validDate) {
-      var hiddenValue = this.formatValue(ev.target.value, formats, this.hiddenFormat());
+      let hiddenValue = this.formatValue(ev.target.value, formats, this.hiddenFormat());
       newState.viewDate = hiddenValue;
       this.emitOnChangeCallback(hiddenValue);
     }
@@ -80,7 +80,7 @@ class DateComponent extends React.Component {
   }
 
   emitOnChangeCallback = (val) => {
-    var hiddenField = this.refs.hidden;
+    let hiddenField = this.refs.hidden;
     hiddenField.value = val;
 
     if (this.props.onChange) {
@@ -108,7 +108,7 @@ class DateComponent extends React.Component {
    */
   openDatePicker = () => {
     document.addEventListener("click", this.closeDatePicker);
-    var value = this.props.value || this.getDefaultValue();
+    let value = this.props.value || this.getDefaultValue();
     this.setState({
       open: true,
       viewDate: value
@@ -137,7 +137,7 @@ class DateComponent extends React.Component {
   }
 
   updateVisibleValue = () => {
-    var date = this.formatVisibleValue();
+    let date = this.formatVisibleValue();
     this.setState({
       visibleValue: date
     });
@@ -149,8 +149,8 @@ class DateComponent extends React.Component {
    * @method datePickerProps
    */
   datePickerProps = () => {
-    var value = this.props.value || this.getDefaultValue();
-    var props = {};
+    let value = this.props.value || this.getDefaultValue();
+    let props = {};
     props.weekDayNames = ["S", "M", "T", "W", "T", "F", "S"];
     props.monthFormat = "MMM";
     props.dateFormat = this.hiddenFormat();
@@ -174,7 +174,7 @@ class DateComponent extends React.Component {
   }
 
   customInputProps = () => {
-    var inputProps = this.props.input.inputProps();
+    let inputProps = this.props.input.inputProps();
     inputProps.onChange = this.handleVisibleInputChange;
     inputProps.onFocus = this.handleFocus;
     inputProps.onBlur = this.handleBlur;
@@ -183,15 +183,11 @@ class DateComponent extends React.Component {
   }
 
   hiddenFieldProps = () => {
-    var props = {};
+    let props = {};
 
-    if (this.props.value) {
-      props.value = this.props.value;
-    }
+    if (this.props.value) { props.value = this.props.value }
 
-    if (this.props.defaultValue) {
-      props.defaultValue = this.props.defaultValue;
-    }
+    if (this.props.defaultValue) { props.defaultValue = this.props.defaultValue}
 
     return props;
   }
@@ -202,17 +198,17 @@ class DateComponent extends React.Component {
    * @method render
    */
   render() {
-    var datePicker = "";
+    let datePicker = "";
 
     if (this.state.open) {
       datePicker = <DatePicker { ...this.datePickerProps() } />;
     }
 
-    var mainClasses = 'ui-date' +
+    let mainClasses = 'ui-date' +
         this.props.input.mainClasses() +
         this.props.validation.mainClasses();
 
-    var inputClasses = "ui-date__input" +
+    let inputClasses = "ui-date__input" +
         this.props.input.inputClasses() +
         this.props.validation.inputClasses();
 
@@ -224,8 +220,7 @@ class DateComponent extends React.Component {
         <input
           className={ inputClasses }
           ref="visible"
-          { ...this.customInputProps() }
-        />
+          { ...this.customInputProps() } />
 
         { this.props.icon.inputIconHTML("calendar", this.customInputProps().id) }
 
@@ -233,8 +228,7 @@ class DateComponent extends React.Component {
           ref="hidden"
           type="hidden"
           readOnly
-          { ...this.hiddenFieldProps() }
-        />
+          { ...this.hiddenFieldProps() } />
 
         { datePicker }
 

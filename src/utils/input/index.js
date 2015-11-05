@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import Immutable from 'immutable';
 
-var Input = (ComposedComponent) => class extends React.Component {
+const Input = (ComposedComponent) => class extends React.Component {
 
   /**
    * Define property types
@@ -22,7 +22,7 @@ var Input = (ComposedComponent) => class extends React.Component {
    */
   shouldComponentUpdate = (nextProps, nextState) => {
     var { value, ...otherProps } = this.props;
-    var previous = value;
+    let previous = value;
     var { value, ...otherNextProps } = nextProps;
 
     if (!Immutable.is(previous, value) ||
@@ -52,7 +52,7 @@ var Input = (ComposedComponent) => class extends React.Component {
    * @method inputProps
    */
   inputProps = () => {
-    var { ...inputProps } = this.props;
+    let { ...inputProps } = this.props;
 
     inputProps.name = this.generateFormName();
 
@@ -79,11 +79,9 @@ var Input = (ComposedComponent) => class extends React.Component {
    * @method labelHTML
    */
   labelHTML = () => {
-    if (this.props.label === false) {
-      return;
-    }
+    if (this.props.label === false) { return }
 
-    var labelText = this.props.label || this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1);
+    let labelText = this.props.label || this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1);
 
     if (this.props.validations) {
       labelText += "*";
@@ -120,7 +118,6 @@ var Input = (ComposedComponent) => class extends React.Component {
       <ComposedComponent input={this.exposedMethods()} {...this.props} />
     );
   }
-
 };
 
 export default Input;

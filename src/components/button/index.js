@@ -16,19 +16,17 @@ class ButtonComponent extends React.Component {
   }
 
   render() {
-    var {className, ...props} = this.props;
+    let {className, ...props} = this.props;
 
-    className = 'ui-button ui-button--' + this.props.as + 
+    className = 'ui-button ui-button--' + this.props.as +
       (this.props.disabled ? ' ui-button--disabled' : '') + " " + className;
 
     return(
       <button
         className={ className }
-        { ...props }
-      >
+        { ...props } >
       { this.props.children }
       </button>
-
     );
   }
 };

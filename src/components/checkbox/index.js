@@ -4,8 +4,8 @@ import InputValidation from './../../utils/input/validation';
 
 class CheckboxComponent extends React.Component {
 
-  static defaultProps = { 
-    /* React suggests using checked rather than value for checked box.
+  static defaultProps = {
+    /* React requires using checked rather than value for checked box.
        Need to pass checked as boolean from view. */
     defaultChecked: false
   }
@@ -15,7 +15,7 @@ class CheckboxComponent extends React.Component {
   }
 
   customInputProps = () => {
-    var { onChange, ...props } = this.props.input.inputProps();
+    let { onChange, ...props } = this.props.input.inputProps();
 
     props.onChange = this.handleOnChange;
 
@@ -24,12 +24,12 @@ class CheckboxComponent extends React.Component {
 
   render() {
 
-    var mainClasses = 'ui-checkbox ' + 
-          this.props.input.mainClasses() + 
+    let mainClasses = 'ui-checkbox ' +
+          this.props.input.mainClasses() +
           this.props.validation.mainClasses();
 
-    var inputClasses = 'ui-checkbox__input ' + 
-          this.props.input.inputClasses() + 
+    let inputClasses = 'ui-checkbox__input ' +
+          this.props.input.inputClasses() +
           this.props.validation.inputClasses();
 
     return(
@@ -42,16 +42,14 @@ class CheckboxComponent extends React.Component {
           type="hidden"
           value='0'
           name={ this.props.input.inputProps().name }
-          readOnly
-        />
+          readOnly />
 
         <input
           className={ inputClasses }
-          type="checkbox" 
+          type="checkbox"
           checked={ this.props.checked || this.props.value }
           value="1"
-          { ...this.customInputProps() }
-        />
+          { ...this.customInputProps() } />
 
         { this.props.validation.errorMessageHTML() }
       </div>
