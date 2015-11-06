@@ -347,7 +347,6 @@ Then in the render method we can add `disabled={ this.props.disabled }` to the r
 ##### Spread Operator
 The first line of the render function uses the spread operator to define a className variable. The statement pulls className out of this.props and sets it to a local className variable. The rest of this.props is assigned to a local props variable. For more information on the spread operator click [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator).
 
-
 We can now add another button to the Journals Reverse page. This time we want to pass a disabled state down to the component.
 
 ```javascript
@@ -374,7 +373,7 @@ Refreshing the page you should be able to see three buttons on the page. One pri
 ## Other Props
 Currently our button component only allows props that have been defined explicitly. We have not even thought about custom events such as onClick. Realistically we can't account for every possible prop that the parent component may or may not pass down to our component.
 
-We can use the spread operator to accept any other properties we pass down without knowing beforehand what those props are. Using `{...props}`, we can now pass down a change handler, or any other prop we wish the component to have.
+We can use the spread operator to accept any other properties we pass down without knowing beforehand what those props are. Using `{ ...props }`, we can now pass down a change handler, or any other prop we wish the component to have.
 
 ```javascript
 // src/components/button/index.js
@@ -425,7 +424,7 @@ class JournalsReverse extends React.Component {
   }
 };
 ```
-As a result when the middle button is click you should receive an output in your developer console.
+As a result, when the middle button is clicked you should receive an output in your developer console.
 
 ## Final Code
 
