@@ -1,10 +1,10 @@
-### Best Practices for Writing Views with Carbon Components.
+# Best Practices for Writing Views with Carbon Components.
 
 This guide will suggest some best practices for writing code using carbon components. The Carbon library is written using various features of ES6 (updated javascript syntax) as well as some experimental ES7 features.
 
 ## Next Generation Javascript Syntax
 
-We use various new features of javascript which are not specific to React or Flux. However, they are encouraged as best practice since in some cases the new features provide improved functionality (such as *let*)
+We use various new features of javascript which are not specific to React or Flux. However, they are encouraged as best practice since in some cases the new features provide improved functionality.
 
 ### `let`
 
@@ -77,3 +77,10 @@ render() {
       ...
     </div>
 ```
+
+## Patterns
+
+### 1) Centralize State
+  Components should not keep track of their own state (their a few situations where a component may need to hold a particular piece of state.) The state of a page should live in the store (or stores) relevant to the page. When something on the page changes (i.e. a user enters a value or checks a checkbox), state is updated in the stores which then update the views.
+
+### 2) 
