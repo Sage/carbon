@@ -13,7 +13,7 @@ Before you begin you may want to have a look at some of the components currently
 
 ## Component File Structure
 
-A Carbon React component will usually contain 4 files within its component folder.
+A Carbon React component will usually contain 4 files within its directory.
 
 * `index.js`      - Main Code
 * `__spec__.js`   - Test File
@@ -28,9 +28,9 @@ To begin, navigate to the directory that contains your current project. If you f
 carbon component button
 ```
 
-This will prompt you to confirm the location and name of the new component. Type `y` and press enter to create the component.
+This will prompt you to confirm the location and name of the new component. Type `y` and press `enter` to create the component.
 
-You are now able to navigate to the components directory where the `index.js` file and the `__spec__.js` file will exist
+You are now able to navigate to the components directory where the `index.js` file and the `__spec__.js` file will exist.
 
 ## Understanding the boilerplate
 
@@ -100,9 +100,11 @@ class JournalsReverse extends React.Component {
 // ... export
 ```
 
-The code should produce a small button that doesn't contain any text or icons. To set the content of the button you can pass text or images by placing the information between the opening and closing tags as `children`. React uses the type of children in the same way. Take the `Form` component from the previous guide. It takes multiple other react components as its children which are wrapped within the form.
+The code should produce a small button that doesn't contain any text or icons.
 
-We want to add a child element to the button so that it can display text or an icon but we don't want to hard code this within the component otherwise we would need hundreds of button components in our depending on what they apply to. Instead we want the parent component to be able to pass down the content to the button. We can achieve this by using `props`. In the previous tutorial we saw how to pass props down to a component such as value to a textbox. To consume the parsed props we can add `this.props.property`. In this case the property is `children`.
+To set the content of the button you can insert text between the opening and closing tags as 'children'. The text can take the form of a simple string, icons, images or even other React Components. Take the `Form` component from the previous guide. It takes multiple other react components as its children which are wrapped within the form.
+
+We want to add a child element to the button so that it can display text or an icon but we don't want to hard code this within the component. Instead we want the parent component to be able to pass down the content to the button. We can achieve this by using `props`. In the previous tutorial we saw how to pass props down to a component such as value to a `textbox`. To consume the parsed props we can add `this.props.property`. In this case the property is `children`.
 
 
 ```javascript
@@ -111,16 +113,16 @@ We want to add a child element to the button so that it can display text or an i
 
   render() {
     return (
-      <button>
-        { this.props.children }
-      </button>
+      <button>                  // Opening Tag
+        { this.props.children } // Child
+      </button>                 // Closing Tag
     );
   }
 };
 
 // ... export
 ```
-We can then change the JournalsReverse view to pass down the children prop to the button
+We can then change the JournalsReverse view to pass down the children prop to the button.
 
 ```javascript
 // ui/src/views/journals/reverse/index.js
@@ -132,9 +134,9 @@ class JournalsReverse extends React.Component {
   render() {
     return (
       <div>
-        <Button>
-          Save
-        </Button>
+        <Button>  // Opening Tag
+          Save    // Child
+        </Button> // Closing Tag
       </div>
     )
   }
@@ -145,7 +147,7 @@ Refreshing the page should show a button containing the word 'Save'.
 
 ## Prop Types
 
-When creating react components it is important to define the propTypes for that component. This allows other developers to quickly understand what the component needs to function. To define props types we create a state variable `propTypes`.
+When creating react components it is important to define the propTypes for that component. This allows other developers to quickly understand what the component needs to function. To define props types we create a static variable `propTypes`.
 
 ```javascript
 // src/components/button/index.js
@@ -217,14 +219,17 @@ Our button is currently a basic HTML button without any custom styling. We want 
 // ... export
 ```
 
+* Note: We are using `let className` instead of `var className`. The definition of [`let`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/let) was introduced in ES6 and declares a variable limited to the scope of the block or statement it was created in. In comparison the [`var`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var) creates a variable with a global scope.
+
 ### Primary and Secondary
 
 Throughout our app the button has two possible types. Primary and Secondary. These two types provide different styling and we want the button to be secondary by default. This requirement means that we need to provide functionality so:
-* The button can receive a type prop
+* The button can consume a type prop
 * The prop must be defaulted to 'secondary'
 * The button can change the CSS class depending on this prop
 
-First lets change the propTypes so that it includes a 'type' and is set to 'secondary' by default. In the example we use 'as' instead of type because 'type' is a reserved word. The component doesn't need propTypes to be set to be able to receive a certain prop...
+First lets change the propTypes so that it includes a 'type' and that 'type' is defaulted to 'secondary'. In the example we use 'as' instead of type because 'type' is a reserved word.
+* Note: A component doesn't need to define a propType to be able to use that prop. But it stated as good practice to define common and expected props.
 
 ```javascript
 // src/components/button/index.js
@@ -245,7 +250,7 @@ class Button extends React.Component {
 // .. render
 // ... export
 ```
-Now the prop types have been set up we can add the type to the list of classes being set on the the button.
+Now the propTypes have been set up we can add the type to the list of classes being set on the the button.
 
 ```javascript
 // src/components/button/index.js
@@ -289,7 +294,7 @@ class JournalsReverse extends React.Component {
 There are two more requirements needed from the button component. First we want to be able to add a disabled state via props. The second is that we want the parent component to be able to pass custom classes to the component.
 
 ### Disabled state
-As always the first thing to do when adding new props to a component is update the prop types. So lets add the disabled and className props to the propTypes.
+As always the first thing to do when adding new props to a component is update the propTypes. So lets add the disabled and className props to the propTypes.
 
 ```javascript
 // src/components/button/index.js
@@ -329,7 +334,7 @@ Then in the render method we can add `disabled={ this.props.disabled }` to the r
     return (
       <button
         className={ className }
-        disabled= { props.disabled } >
+        disabled={ props.disabled } >
 
         { props.children }
       </button>
@@ -340,7 +345,7 @@ Then in the render method we can add `disabled={ this.props.disabled }` to the r
 // ... export
 ```
 ##### Spread Operator
-The first line of the render function uses the spread operator to define a className variable. The statement pulls className out of this.props and sets it to a local className variable. The rest of this.props is assigned to a local props variable.
+The first line of the render function uses the spread operator to define a className variable. The statement pulls className out of this.props and sets it to a local className variable. The rest of this.props is assigned to a local props variable. For more information on the spread operator click [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator).
 
 
 We can now add another button to the Journals Reverse page. This time we want to pass a disabled state down to the component.
@@ -364,8 +369,12 @@ class JournalsReverse extends React.Component {
 };
 ```
 
+Refreshing the page you should be able to see three buttons on the page. One primary (Save), one secondary (Click Me) and one secondary disabled (Click Me).
+
 ## Other Props
-Currently our button component only allows props that have been defined explicity. We havn't even thought about custom events such as onClick. A simpler way would be.......
+Currently our button component only allows props that have been defined explicitly. We have not even thought about custom events such as onClick. Realistically we can't account for every possible prop that the parent component may or may not pass down to our component.
+
+We can use the spread operator to accept any other properties we pass down without knowing beforehand what those props are. Using `{...props}`, we can now pass down a change handler, or any other prop we wish the component to have.
 
 ```javascript
 // src/components/button/index.js
@@ -379,10 +388,10 @@ Currently our button component only allows props that have been defined explicit
 
     return (
       <button
-        className={ className }
+        className={ className } // we have extracted this from props
         { ...props } >
 
-        { props.children }
+        { props.children } // Children is a special props case
       </button>
     );
   }
@@ -390,6 +399,33 @@ Currently our button component only allows props that have been defined explicit
 
 // ... export
 ```
+
+## Parsing a onClick
+
+Now that the component has been set up to consume any props that are parsed to it. We can add other functionality without touching the component. Say we want a custom onClick handler in the JournalsReverse Page.
+
+```javascript
+// ui/src/views/journals/reverse/index.js
+
+// ...import statements
+class JournalsReverse extends React.Component {
+
+  handleOnClick = () => {
+    console.log("Clicked...");
+  }
+
+  render() {
+    return (
+      <div>
+        <Button as={ 'primary' }>Save</Button>
+        <Button onClick={ this.handleOnClick }/>
+        <Button disabled />
+      </div>
+    )
+  }
+};
+```
+As a result when the middle button is click you should receive an output in your developer console.
 
 ## Final Code
 
@@ -405,11 +441,15 @@ import Button from './../../../components/button';
 
 class JournalsReverse extends React.Component {
 
+  handleOnClick = () => {
+    console.log("Clicked...");
+  }
+
   render() {
     return (
       <div>
         <Button as={ 'primary' }>Save</Button>
-        <Button />
+        <Button onClick={ this.handleOnClick } />
         <Button disabled />
       </div>
     )
