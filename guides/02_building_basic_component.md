@@ -253,7 +253,9 @@ class Button extends React.Component {
 // .. render
 // ... export
 ```
-Now the propTypes have been set up we can add the type to the list of classes being set on the the button.
+(Note that we could have used `type: 'secondary'` instead of `as`. However to allow developers to use the native `type` attribute of html buttons we went with `as`.)
+
+Now the propTypes have been set up we can add the type to the list of classes being set on the the button. 
 
 ```javascript
 // src/components/button/index.js
