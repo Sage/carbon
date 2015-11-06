@@ -44,11 +44,6 @@ import React from 'react';
 
 class Button extends React.Component {
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   */
   render() {
     return (
       <div></div>
@@ -61,7 +56,7 @@ export default Button;
 
 ## Creating a basic button
 
-At the moment our component doesn't do much but render an empty div into the page. Lets change this so that a basic html button is rendered instead. Change the `div` tags within the return to `button` tags.
+At the moment our component doesn't do much but render an empty div into the page. Let's change this so that a basic html button is rendered instead. Add `button` tags inside the rendered `div`. Although the `div` tag isn't necessary in this case, JSX requires it if there is more than element in a `return` function, so it's good practice to include it.
 
 ```javascript
 // src/components/button/index.js
@@ -69,7 +64,9 @@ At the moment our component doesn't do much but render an empty div into the pag
 
   render() {
     return (
-      <button></button>
+      <div>
+        <button></button>
+      </div>
     );
   }
 };
@@ -77,7 +74,7 @@ At the moment our component doesn't do much but render an empty div into the pag
 // ... export
 ```
 
-Lets check to see if the button has rendered correctly. Open up your view that you created in the first guide. Import the button and add it to the render method of the view component. For simplicity I have removed the form and its components from the view.
+Let's check to see if the button has rendered correctly. Open up your view that you created in the first guide. Import the button and add it to the render method of the view component. For simplicity I have removed the form and its components from the view.
 
 ```javascript
 // ui/src/views/journals/reverse/index.js
@@ -102,7 +99,7 @@ class JournalsReverse extends React.Component {
 
 The code should produce a small button that doesn't contain any text or icons.
 
-To set the content of the button you can insert text between the opening and closing tags as 'children'. The text can take the form of a simple string, icons, images or even other React Components. Take the `Form` component from the previous guide. It takes multiple other react components as its children which are wrapped within the form.
+To set the content of the button you can insert text between the opening and closing tags as 'children'. The text can take the form of a simple string, icons, images or even other React Components. Take the `Form` component from the previous guide, for example. It takes multiple other react components as its children which are wrapped within the form.
 
 We want to add a child element to the button so that it can display text or an icon but we don't want to hard code this within the component. Instead we want the parent component to be able to pass down the content to the button. We can achieve this by using `props`. In the previous tutorial we saw how to pass props down to a component such as value to a `textbox`. To consume the parsed props we can add `this.props.property`. In this case the property is `children`.
 
@@ -113,9 +110,11 @@ We want to add a child element to the button so that it can display text or an i
 
   render() {
     return (
-      <button>                  // Opening Tag
-        { this.props.children } // Child
-      </button>                 // Closing Tag
+      <div>
+        <button>                  // Opening Tag
+          { this.props.children } // Child
+        </button>                 // Closing Tag
+      </div>
     );
   }
 };
@@ -161,9 +160,11 @@ class Button extends React.Component {
 
   render() {
     return (
-      <button>
-        { this.props.children }
-      </button>
+      <div>
+        <button>
+          { this.props.children }
+        </button>
+      </div>
     );
   }
 };
@@ -171,7 +172,7 @@ class Button extends React.Component {
 // ... export
 ```
 
-The variable declaration states that this component should receive a prop called children and that the type of this prop should be a string. For more information on propTypes click [here](https://facebook.github.io/react/docs/reusable-components.html).
+The variable declaration states that this component should receive a prop called children and that the type of this prop should be a string. We have also made this prop required. For more information on propTypes click [here](https://facebook.github.io/react/docs/reusable-components.html).
 
 Component Props can also be defaulted to a particular value. To default the prop value we need another variable called defaultProps.
 
@@ -197,7 +198,7 @@ Removing the text from between the opening and closing tags in the Journals View
 
 ## Adding CSS Classes
 
-Our button is currently a basic HTML button without any custom styling. We want to add a class name to the button component. Carbon uses [`Block, Element, Modifier` (BEM)](https://en.bem.info/) method to structure the CSS classes.
+Our button is currently a basic HTML button without any custom styling. We want to add a class name to the button component. Carbon uses the [`Block, Element, Modifier` (BEM)](https://en.bem.info/) pattern to structure the CSS classes.
 
 
 ```javascript
@@ -209,9 +210,11 @@ Our button is currently a basic HTML button without any custom styling. We want 
     let className = 'ui-button '
 
     return (
-      <button className={ className }>
-        { this.props.children }
-      </button>
+      <div>
+        <button className={ className }>
+          { this.props.children }
+        </button>
+      </div>
     );
   }
 };
@@ -226,10 +229,10 @@ Our button is currently a basic HTML button without any custom styling. We want 
 Throughout our app the button has two possible types. Primary and Secondary. These two types provide different styling and we want the button to be secondary by default. This requirement means that we need to provide functionality so:
 * The button can consume a type prop
 * The prop must be defaulted to 'secondary'
-* The button can change the CSS class depending on this prop
+* The button accepts the CSS corresponding to its type
 
-First lets change the propTypes so that it includes a 'type' and that 'type' is defaulted to 'secondary'. In the example we use 'as' instead of type because 'type' is a reserved word.
-* Note: A component doesn't need to define a propType to be able to use that prop. But it stated as good practice to define common and expected props.
+First lets change the propTypes so that it includes a `type` and that this is defaulted to `secondary`.
+* Note: A component doesn't need to define a propType to be able to use that prop. But it is good practice to define common and expected props.
 
 ```javascript
 // src/components/button/index.js
@@ -238,12 +241,12 @@ First lets change the propTypes so that it includes a 'type' and that 'type' is 
 class Button extends React.Component {
 
   static defaultProps = {
-    as: 'secondary',
+    as:       'secondary',
     children: 'Click Me'
   }
 
   static propTypes = {
-    as: React.PropTypes.string,
+    as:       React.PropTypes.string,
     children: React.PropTypes.string.isRequired
   }
 
@@ -261,9 +264,11 @@ Now the propTypes have been set up we can add the type to the list of classes be
     let className = 'ui-button ui-button--' + this.props.as;
 
     return (
-      <button className={ className }>
-        { this.props.children }
-      </button>
+      <div>
+        <button className={ className }>
+          { this.props.children }
+        </button>
+      </div>
     );
   }
 };
@@ -271,7 +276,7 @@ Now the propTypes have been set up we can add the type to the list of classes be
 // ... export
 ```
 
-Reloading the page you will now see that the button has been styled as a 'secondary' button. To create a primary button lets add another button to the JournalReverse view. This time it will pass the 'as' prop down to the component.
+Reloading the page you will now see that the button has been styled as a 'secondary' button. To create a primary button let's add another button to the JournalReverse view. This time it will pass the 'as' prop down to the component.
 
 ```javascript
 // ui/src/views/journals/reverse/index.js
@@ -294,7 +299,7 @@ class JournalsReverse extends React.Component {
 There are two more requirements needed from the button component. First we want to be able to add a disabled state via props. The second is that we want the parent component to be able to pass custom classes to the component.
 
 ### Disabled state
-As always the first thing to do when adding new props to a component is update the propTypes. So lets add the disabled and className props to the propTypes.
+As always the first thing to do when adding new props to a component is update the propTypes. So let's add the disabled and className props to the propTypes.
 
 ```javascript
 // src/components/button/index.js
@@ -309,17 +314,17 @@ class Button extends React.Component {
   }
 
   static propTypes = {
-    as: React.PropTypes.string,
-    children: React.PropTypes.string.isRequired,
+    as:        React.PropTypes.string,
+    children:  React.PropTypes.string.isRequired,
     className: React.PropTypes.string,
-    disabled: React.PropTypes.bool.isRequired
+    disabled:  React.PropTypes.bool.isRequired
   }
 
 // .. render
 // ... export
 ```
 
-Then in the render method we can add `disabled={ this.props.disabled }` to the render method. We can also change the className logic so that incorporates the disabled state and the className Props. Notice the continuation of the BEM style for class names.
+Then in the render method we can add `disabled={ this.props.disabled }`. We can also change the className logic so that it incorporates the disabled state and the className props. Notice the continuation of the BEM style for class names. (You'll notice we're doing something a little odd with `{...props}`, we'll explain that next - trust us.)
 
 ```javascript
 // src/components/button/index.js
@@ -332,12 +337,14 @@ Then in the render method we can add `disabled={ this.props.disabled }` to the r
       (props.disabled ? ' ui-button--disabled' : '') + ' ' + className;
 
     return (
-      <button
-        className={ className }
-        disabled={ props.disabled } >
+      <div>
+        <button
+          className={ className }
+          disabled={ props.disabled } >
 
-        { props.children }
-      </button>
+          { props.children }
+        </button>
+      </div>
     );
   }
 };
@@ -345,7 +352,7 @@ Then in the render method we can add `disabled={ this.props.disabled }` to the r
 // ... export
 ```
 ##### Spread Operator
-The first line of the render function uses the spread operator to define a className variable. The statement pulls className out of this.props and sets it to a local className variable. The rest of this.props is assigned to a local props variable. For more information on the spread operator click [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator).
+The first line of the render function uses the spread operator to define a className variable. The statement pulls className out of this.props and sets it to a local className variable. The rest of `this.props` is assigned to a local `props` variable. For more information on the spread operator click [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator).
 
 We can now add another button to the Journals Reverse page. This time we want to pass a disabled state down to the component.
 
@@ -371,9 +378,9 @@ class JournalsReverse extends React.Component {
 Refreshing the page you should be able to see three buttons on the page. One primary (Save), one secondary (Click Me) and one secondary disabled (Click Me).
 
 ## Other Props
-Currently our button component only allows props that have been defined explicitly. We have not even thought about custom events such as onClick. Realistically we can't account for every possible prop that the parent component may or may not pass down to our component.
+Currently our button component only allows props that have been defined explicitly. We have not even thought about binding events such as `onClick`. We may also want to add other props to a `Button` in the future. Rather than having to go back and update the `Button` component to accept every conceivable prop, we use `{...props}`.
 
-We can use the spread operator to accept any other properties we pass down without knowing beforehand what those props are. Using `{ ...props }`, we can now pass down a change handler, or any other prop we wish the component to have.
+Using `{ ...props }`, we can now pass down a change handler, or any other prop we wish the component to have.
 
 ```javascript
 // src/components/button/index.js
@@ -399,9 +406,9 @@ We can use the spread operator to accept any other properties we pass down witho
 // ... export
 ```
 
-## Parsing a onClick
+## Handling an `onClick`
 
-Now that the component has been set up to consume any props that are parsed to it. We can add other functionality without touching the component. Say we want a custom onClick handler in the JournalsReverse Page.
+Now that the component has been set up to consume any props that are passed to it. We can add other functionality without touching the component. Let's add a custom onClick handler to JournalsReverse.
 
 ```javascript
 // ui/src/views/journals/reverse/index.js
@@ -466,16 +473,16 @@ import React from 'react';
 class Button extends React.Component {
 
   static defaultProps = {
-    as: 'secondary',
+    as:       'secondary',
     children: 'Click Me',
     disabled: false
   }
 
   static propTypes = {
-    as: React.PropTypes.string,
-    children: React.PropTypes.string.isRequired,
+    as:        React.PropTypes.string,
+    children:  React.PropTypes.string.isRequired,
     className: React.PropTypes.string,
-    disabled: React.PropTypes.bool.isRequired
+    disabled:  React.PropTypes.bool.isRequired
   }
 
   /**
@@ -490,12 +497,14 @@ class Button extends React.Component {
       (props.disabled ? ' ui-button--disabled ' : ' ') + className;
 
     return (
-      <button
-        className={ className }
-        { ...props } >
+      <div>
+        <button
+          className={ className }
+          { ...props } >
 
-        { props.children }
-      </button>
+          { props.children }
+        </button>
+      </div>
     );
   }
 };
