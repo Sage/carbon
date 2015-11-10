@@ -36,6 +36,6 @@ class Textbox extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default InputValidation(Input(Textbox));

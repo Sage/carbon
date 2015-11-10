@@ -21,7 +21,7 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
   componentWillUnmount = () => {
     if (this.props.validations) {
       if (!this.state.valid) {
-        this.context.form.decrementErrorCount()
+        this.context.form.decrementErrorCount();
       }
       this.context.form.detachFromForm(this);
     }
@@ -37,8 +37,8 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
 
         if (!valid) {
           if (this.state.valid) {
-            this.context.form.incrementErrorCount()
-            this.setState({ errorMessage: validation.message(), valid: false })
+            this.context.form.incrementErrorCount();
+            this.setState({ errorMessage: validation.message(), valid: false });
           }
           return valid;
         }
@@ -55,7 +55,7 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
 
   handleFocus = () => {
     if (!this.state.valid) {
-      this.context.form.decrementErrorCount()
+      this.context.form.decrementErrorCount();
       this.setState({ errorMessage: null, valid: true });
     }
   }
@@ -126,6 +126,6 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
     );
   }
 
-}
+};
 
 export default InputValidation;

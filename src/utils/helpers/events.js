@@ -272,7 +272,7 @@ class Events {
   * @returns {Boolean}
   **/
   static isCommaKey = (ev) => {
-    return ev.which === 188
+    return ev.which === 188;
   };
 
   /**
@@ -292,6 +292,6 @@ class Events {
            Events.isCommaKey(ev) ||
            Events.isSpaceKey(ev);
   };
-};
+}
 
 export default Events;

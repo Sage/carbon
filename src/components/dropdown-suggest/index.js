@@ -99,12 +99,13 @@ class DropdownSuggest extends React.Component {
    * @method updateList
    */
   updateList = (data) => {
-    var pages = Math.ceil(data.records / 10);
+    var pages = Math.ceil(data.records / 10),
+        records;
 
     if (data.page > 1) {
-      var records = this.state.options.concat(data.items);
+      records = this.state.options.concat(data.items);
     } else {
-      var records = data.items;
+      records = data.items;
       this.resetScroll();
     }
 
@@ -197,7 +198,7 @@ class DropdownSuggest extends React.Component {
       clearTimeout(this.timeout);
     }
     var val = this.newValue(ev.target.value, null);
-    this.emitOnChangeCallback(val)
+    this.emitOnChangeCallback(val);
 
     this.timeout = setTimeout(() => {
       this.getData(1);
@@ -216,7 +217,7 @@ class DropdownSuggest extends React.Component {
   }
 
   newValue = (name, id) => {
-    var newValue = this.props.value.set(this.props.resource_key, name)
+    var newValue = this.props.value.set(this.props.resource_key, name);
     newValue = newValue.set('id', id);
 
     return newValue;
@@ -240,7 +241,8 @@ class DropdownSuggest extends React.Component {
    */
   handleKeyDown = (ev) => {
     var list = this.refs.list,
-        element = list.getElementsByClassName('ui-dropdown-suggest__item--highlighted')[0];
+        element = list.getElementsByClassName('ui-dropdown-suggest__item--highlighted')[0],
+        nextVal;
 
     switch(ev.which) {
       case 13: // return
@@ -248,11 +250,11 @@ class DropdownSuggest extends React.Component {
           ev.preventDefault();
           var val = this.newValue(element.textContent, element.value);
           this.setState({ open: false });
-          this.emitOnChangeCallback(val)
+          this.emitOnChangeCallback(val);
         }
         break;
       case 38: // up arrow
-        var nextVal = list.lastChild.value;
+        nextVal = list.lastChild.value;
 
         if (element && element.previousElementSibling) {
           nextVal = element.previousElementSibling.value;
@@ -261,7 +263,7 @@ class DropdownSuggest extends React.Component {
         this.setState({ highlighted: nextVal });
         break;
       case 40: // down arrow
-        var nextVal = list.firstChild.value;
+        nextVal = list.firstChild.value;
 
         if (element && element.nextElementSibling) {
           nextVal = element.nextElementSibling.value;
@@ -296,9 +298,9 @@ class DropdownSuggest extends React.Component {
   /**
    * Sets props for input fieild.
    *
-   * @method inputProps 
+   * @method inputProps
    */
-  inputProps = (inputProps) => {
+  inputProps = () => {
     var { name, ...inputProps } = this.props.input.inputProps();
 
     inputProps.onFocus = this.handleFocus;
@@ -314,7 +316,7 @@ class DropdownSuggest extends React.Component {
   /**
    * Gets props for selected option id.
    *
-   * @method hiddenFieldProps 
+   * @method hiddenFieldProps
    */
   hiddenFieldProps = () => {
     var inputProps = this.props.input.inputProps();
@@ -336,8 +338,10 @@ class DropdownSuggest extends React.Component {
    * @method render
    */
   render() {
+    var results;
+
     if (this.state.options.length) {
-      var results = this.state.options.map((option) => {
+      results = this.state.options.map((option) => {
         var className = "ui-dropdown-suggest__item";
 
         return <li
@@ -349,8 +353,8 @@ class DropdownSuggest extends React.Component {
                 >{option.name}</li>;
       });
     } else {
-      var results = <li>No results</li>;
-    } 
+      results = <li>No results</li>;
+    }
 
     var mainClasses = 'ui-dropdown-suggest' +
         this.props.input.mainClasses() +
@@ -360,7 +364,7 @@ class DropdownSuggest extends React.Component {
         this.props.input.inputClasses() +
         this.props.validation.inputClasses();
 
-    var listClasses = "ui-dropdown-suggest__list" + 
+    var listClasses = "ui-dropdown-suggest__list" +
         (this.state.open ? '' : ' hidden');
 
     var inputProps = this.inputProps();
@@ -400,4 +404,4 @@ class DropdownSuggest extends React.Component {
   }
 }
 
-export default InputIcon(InputValidation(Input(DropdownSuggest)))
+export default InputIcon(InputValidation(Input(DropdownSuggest)));

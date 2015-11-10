@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import Immutable from 'immutable';
 
 var Input = (ComposedComponent) => class extends React.Component {
 
@@ -21,12 +20,7 @@ var Input = (ComposedComponent) => class extends React.Component {
    * Determines if the component should re-render
    */
   shouldComponentUpdate = (nextProps, nextState) => {
-    var { value, ...otherProps } = this.props;
-    var previous = value;
-    var { value, ...otherNextProps } = nextProps;
-
-    if (!Immutable.is(previous, value) ||
-        !_.isEqual(otherProps, otherNextProps) ||
+    if (!_.isEqual(this.props, nextProps) ||
         !_.isEqual(this.state, nextState)) {
       return true;
     }

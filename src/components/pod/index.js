@@ -15,6 +15,6 @@ class Pod extends React.Component {
     );
   }
 
-};
+}
 
 export default Pod;
