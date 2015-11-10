@@ -28,11 +28,8 @@ class DateComponent extends React.Component {
     return date.format(formatTo);
   }
 
-  formatHiddenValue = (value) => {
-  }
-
   formatVisibleValue = (value) => {
-    var value = value || this.props.value || this.getDefaultValue();
+    value = value || this.props.value || this.getDefaultValue();
     return this.formatValue(value, this.hiddenFormat(), this.visibleFormat());
   }
 
@@ -158,7 +155,7 @@ class DateComponent extends React.Component {
     props.date = value;
     props.onViewDateChange = (val) => {
       this.setState({ viewDate: val });
-    }
+    };
     props.viewDate = this.state.viewDate;
     return props;
   }
@@ -244,6 +241,6 @@ class DateComponent extends React.Component {
     );
   }
 
-};
+}
 
 export default InputIcon(InputValidation(Input(DateComponent)));

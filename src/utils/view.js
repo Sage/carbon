@@ -15,14 +15,14 @@ var View = (ComposedView, Stores) => class extends React.Component {
   }
 
   _onChange = (key) => {
-    this.setState({ [key]: Stores[key].getState() })
+    this.setState({ [key]: Stores[key].getState() });
   }
 
 
   getStoreStates = () => {
     var states = {};
     for (var key in Stores) {
-      states[key] = Stores[key].getState(); 
+      states[key] = Stores[key].getState();
     }
     return states;
   }
@@ -34,6 +34,6 @@ var View = (ComposedView, Stores) => class extends React.Component {
       <ComposedView {...this.props} {...this.state} />
     );
   }
-}
+};
 
 export default View;

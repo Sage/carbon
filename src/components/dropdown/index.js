@@ -11,7 +11,7 @@ class DropdownComponent extends React.Component {
 
     var options = this.props.options.map((option) => {
       return  <option
-                key={ option.get('name') + option.get('id') } 
+                key={ option.get('name') + option.get('id') }
                 value={ option.get(this.props.resource_key) }
                 className={ optionClassName }
               >
@@ -27,12 +27,12 @@ class DropdownComponent extends React.Component {
         this.props.input.inputClasses() +
         this.props.validation.inputClasses();
 
-    var promptText = <option 
-                       key='prompt' 
+    var promptText = <option
+                       key='prompt'
                        className={ optionClassName }
                       >
                        { this.props.prompt }
-                     </option> 
+                     </option>;
     return(
       <div className={ mainClasses }>
         <select
@@ -45,8 +45,8 @@ class DropdownComponent extends React.Component {
           { options }
         </select>
       </div>
-    )
-  };
+    );
+  }
 }
 
-export default InputValidation(Input(DropdownComponent))
+export default InputValidation(Input(DropdownComponent));

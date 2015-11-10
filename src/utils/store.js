@@ -43,10 +43,10 @@ class Store extends Events.EventEmitter {
   dispatcherCallback = (action) => {
     if (this[action.actionType]) {
       this.history.push(this.data);
-      this[action.actionType].call(this, action)
+      this[action.actionType].call(this, action);
       this.emit('change', this.key);
     }
   }
 }
 
-export default Store
+export default Store;
