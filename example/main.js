@@ -5,16 +5,18 @@ import CarbonRoute from 'utils/route';
 import Form from 'components/form';
 import Textbox from 'components/textbox';
 
+import Validation from 'utils/validations/presence';
+
 class testView extends React.Component {
 
   foo = () => {
-    console.log("o")
+    console.log("bar")
   }
 
   render () {
     return(
-      <Form>
-        <Textbox name="hello" onChange={ this.foo } />
+      <Form model="foo">
+        <Textbox name="foo" onBlur={ this.foo } validations={ [Validation] } />
       </Form>
     )
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import Request from 'superagent';
 import Input from './../../utils/input';
-import InputValidation from './../../utils/input/validation';
+import InputValidation from './../../utils/input-validation';
 import InputIcon from './../../utils/input/icon';
 import Immutable from 'immutable';
 

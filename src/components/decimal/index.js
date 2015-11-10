@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from './../../utils/input';
-import InputValidation from './../../utils/input/validation';
+import InputValidation from './../../utils/input-validation';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
 

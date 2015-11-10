@@ -1,24 +1,31 @@
 import React from 'react';
 import Icon from './../../icon';
+import chainFunctions from './../../helpers/chain-functions';
 
-var InputValidation = (ComposedComponent) => class extends React.Component {
+var InputValidation = (ComposedComponent) => class Component extends ComposedComponent {
 
-  /**
-   * Get form context to manage validation
-   */
-  static contextTypes = {
-    form: React.PropTypes.object
+  constructor() {
+    super();
+    this.state = this.state || {};
+    this.state.valid = true;
+    this.state.errorMessage = null;
   }
 
-  static defaultProps = ComposedComponent.defaultProps
+  static contextTypes = Object.assign({}, ComposedComponent.contextTypes, {
+    form: React.PropTypes.object
+  })
 
-  componentWillMount = () => {
+  componentWillMount() {
+    if (super.componentWillMount) { super.componentWillMount(); }
+
     if (this.props.validations) {
       this.context.form.attachToForm(this);
     }
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
+    if (super.componentWillUnmount) { super.componentWillUnmount(); }
+
     if (this.props.validations) {
       if (!this.state.valid) {
         this.context.form.decrementErrorCount();
@@ -46,6 +53,7 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
     } else {
       valid = true;
     }
+
     return valid;
   }
 
@@ -60,7 +68,7 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
     }
   }
 
-  errorMessageHTML = () => {
+  get errorMessageHTML() {
     if (this.state.errorMessage) {
       return (
         <div className="base-input__message base-input__message--error">
@@ -72,7 +80,7 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
     }
   }
 
-  errorIconHTML = () => {
+  get errorIconHTML() {
     if (this.state.errorMessage) {
       return (
         <Icon type="error" className="base-input__icon base-input__icon--error" />
@@ -82,8 +90,8 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
     }
   }
 
-  mainClasses = () => {
-    var classes = "";
+  get mainClasses() {
+    let classes = super.mainClasses || "";
 
     if (!this.state.valid) {
       classes += " base-input--error";
@@ -92,8 +100,8 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
     return classes;
   }
 
-  inputClasses = () => {
-    var classes = "";
+  get inputClasses() {
+    let classes = super.inputClasses || "";
 
     if (!this.state.valid) {
       classes += " base-input__input--error";
@@ -102,28 +110,13 @@ var InputValidation = (ComposedComponent) => class extends React.Component {
     return classes;
   }
 
-  exposedMethods = () => {
-    return {
-      handleBlur: this.handleBlur,
-      handleFocus: this.handleFocus,
-      validate: this.validate,
-      mainClasses: this.mainClasses,
-      inputClasses: this.inputClasses,
-      errorMessageHTML: this.errorMessageHTML,
-      errorIconHTML: this.errorIconHTML,
-      ...this.state
-    };
-  }
+  get inputProps() {
+    var inputProps = (super.inputProps) ? super.inputProps : {};
 
-  state = {
-    valid: true,
-    errorMessage: null
-  }
+    inputProps.onBlur = chainFunctions(this.handleBlur, inputProps.onBlur);
+    inputProps.onFocus = chainFunctions(this.handleFocus, inputProps.onFocus);
 
-  render() {
-    return (
-      <ComposedComponent validation={this.exposedMethods()} {...this.props} />
-    );
+    return inputProps;
   }
 
 };

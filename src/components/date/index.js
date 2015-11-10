@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from './../../utils/input';
-import InputValidation from './../../utils/input/validation';
+import InputValidation from './../../utils/input-validation';
 import InputIcon from './../../utils/input/icon';
 // https://github.com/zippyui/react-date-picker
 import DatePicker from 'react-date-picker';

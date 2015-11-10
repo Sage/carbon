@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from './../../utils/input';
-import InputValidation from './../../utils/input/validation';
+import InputValidation from './../../utils/input-validation';
 
 class DropdownComponent extends React.Component {
 

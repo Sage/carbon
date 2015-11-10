@@ -1,17 +1,12 @@
 import React from 'react';
-import Input from './../../utils/input';
-import InputValidation from './../../utils/input/validation';
+import Input from './../../utils/decorators/input';
+import InputLabel from './../../utils/decorators/input-label';
+import InputValidation from './../../utils/decorators/input-validation';
 
+@Input
+@InputLabel
+@InputValidation
 class Textbox extends React.Component {
-
-  hello() {
-    return "hello";
-  }
-
-  test() {
-    return this.hello();
-  }
-
   get mainClasses() {
     return 'ui-textbox';
   }
@@ -21,7 +16,9 @@ class Textbox extends React.Component {
   }
 
   get inputProps() {
-    return {};
+    var { ...props } = this.props;
+    props.className = this.inputClasses;
+    return props;
   }
 
   /**
@@ -33,15 +30,13 @@ class Textbox extends React.Component {
     return (
       <div className={ this.mainClasses }>
 
-        <input
-          ref="visible"
-          className={ this.inputClasses }
-          { ...this.inputProps }
-        />
+        { this.labelHTML }
+        <input { ...this.inputProps } />
+        { this.errorMessageHTML }
 
       </div>
     );
   }
 }
 
-export default Input(Textbox);
+export default Textbox;
