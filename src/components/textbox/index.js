@@ -4,38 +4,44 @@ import InputValidation from './../../utils/input/validation';
 
 class Textbox extends React.Component {
 
+  hello() {
+    return "hello";
+  }
+
+  test() {
+    return this.hello();
+  }
+
+  get mainClasses() {
+    return 'ui-textbox';
+  }
+
+  get inputClasses() {
+    return 'ui-textbox__input';
+  }
+
+  get inputProps() {
+    return {};
+  }
+
   /**
    * Renders the component.
    *
    * @method render
    */
   render() {
-    var mainClasses = 'ui-textbox' +
-        this.props.input.mainClasses() +
-        this.props.validation.mainClasses();
-
-    var inputClasses = "ui-textbox__input" +
-        this.props.input.inputClasses() +
-        this.props.validation.inputClasses();
-
     return (
-      <div className={ mainClasses }>
-        { this.props.input.labelHTML() }
+      <div className={ this.mainClasses }>
 
         <input
           ref="visible"
-          className={ inputClasses }
-          onBlur={ this.props.validation.handleBlur }
-          onFocus={ this.props.validation.handleFocus }
-          { ...this.props.input.inputProps() }
+          className={ this.inputClasses }
+          { ...this.inputProps }
         />
 
-        { this.props.validation.errorIconHTML() }
-
-        { this.props.validation.errorMessageHTML() }
       </div>
     );
   }
 }
 
-export default InputValidation(Input(Textbox));
+export default Input(Textbox);

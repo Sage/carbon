@@ -2,17 +2,20 @@ import React from 'react';
 import { Route } from 'react-router';
 import CarbonRoute from 'utils/route';
 
-import UIDate from 'components/date';
-import Dropdown from 'components/dropdown-suggest';
+import Form from 'components/form';
+import Textbox from 'components/textbox';
 
 class testView extends React.Component {
 
+  foo = () => {
+    console.log("o")
+  }
+
   render () {
     return(
-      <div>
-        <UIDate name="foo" defaultValue="2012-12-21" />
-        <Dropdown name="foo" defaultValue="2012-12-21" />
-      </div>
+      <Form>
+        <Textbox name="hello" onChange={ this.foo } />
+      </Form>
     )
   }
 

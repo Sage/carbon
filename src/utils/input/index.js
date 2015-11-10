@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-var Input = (ComposedComponent) => class extends React.Component {
+var Input = (ComposedComponent) => class extends ComposedComponent {
 
   /**
    * Define property types
@@ -19,7 +19,8 @@ var Input = (ComposedComponent) => class extends React.Component {
   /**
    * Determines if the component should re-render
    */
-  shouldComponentUpdate = (nextProps, nextState) => {
+  shouldComponentUpdate(nextProps, nextState) {
+    super.shouldComponentUpdate(nextProps, nextState);
     if (!_.isEqual(this.props, nextProps) ||
         !_.isEqual(this.state, nextState)) {
       return true;
@@ -38,26 +39,6 @@ var Input = (ComposedComponent) => class extends React.Component {
     } else {
       return this.props.name;
     }
-  }
-
-  /**
-   * Returns modified properties for the input element.
-   *
-   * @method inputProps
-   */
-  inputProps = () => {
-    var { ...inputProps } = this.props;
-
-    inputProps.name = this.generateFormName();
-
-    // set id so label will work correctly
-    inputProps.id = inputProps.name;
-
-    if (inputProps.onChange) {
-      inputProps.onChange = this.handleOnChange;
-    }
-
-    return inputProps;
   }
 
   /**
@@ -88,31 +69,47 @@ var Input = (ComposedComponent) => class extends React.Component {
     );
   }
 
-  state = {
-    labelHTML: this.labelHTML,
-    inputProps: this.inputProps
+  get mainClasses() {
+    return super.mainClasses + " base-input";
   }
 
-  mainClasses = () => {
-    return " base-input";
+  get inputClasses() {
+    return super.inputClasses + " base-input__input";
   }
 
-  inputClasses = () => {
-    return " base-input__input";
-  }
+  /**
+   * Returns modified properties for the input element.
+   *
+   * @method inputProps
+   */
+  get inputProps() {
+    var { ...inputProps } = this.props;
 
-  exposedMethods = () => {
-    return {
-      mainClasses: this.mainClasses,
-      inputClasses: this.inputClasses,
-      ...this.state
-    };
+    inputProps.name = this.generateFormName();
+
+    // set id so label will work correctly
+    inputProps.id = inputProps.name;
+
+    if (inputProps.onChange) {
+      inputProps.onChange = this.handleOnChange;
+    }
+
+    return inputProps;
   }
 
   render() {
+    const renderedElement = super.render();
+
+    debugger
+
+    var {props, state, type, ...other} = renderedElement;
+
     return (
-      <ComposedComponent input={this.exposedMethods()} {...this.props} />
-    );
+      <renderedElement.type { ...props } { ...state } { ...other } >
+        { this.labelHTML() }
+        { renderedElement.props.children }
+      </renderedElement.type>
+    )
   }
 
 };

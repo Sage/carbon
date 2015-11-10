@@ -1,4 +1,5 @@
 import React from 'react';
+import test from './test';
 
 class ButtonComponent extends React.Component {
 
@@ -23,6 +24,7 @@ class ButtonComponent extends React.Component {
 
     return(
       <button
+        ref="hello"
         className={ className }
         { ...props }
       >
@@ -33,4 +35,4 @@ class ButtonComponent extends React.Component {
   }
 }
 
-export default ButtonComponent;
+export default test(ButtonComponent);
