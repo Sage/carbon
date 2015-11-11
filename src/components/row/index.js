@@ -52,8 +52,10 @@ class Row extends React.Component {
 
     if (this.props.columns) {
       mainClasses += " ui-row--columns-" + this.props.columns;
-    } else {
+    } else if(this.props.children.constructor === Array) {
       mainClasses += " ui-row--columns-" + this.props.children.length;
+    } else {
+      mainClasses += " ui-row--columns-1";
     }
 
     return (

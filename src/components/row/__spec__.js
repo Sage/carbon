@@ -67,4 +67,21 @@ describe('Row', () => {
       expect(rowNode.className).toEqual('ui-row ui-row--columns-2');
     });
   });
+
+  describe('When there is only 1 column', () => {
+    let instance;
+
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Row>
+          <div>Foo</div>
+        </Row>
+      );
+    });
+
+    it('renders a parent div with calculated CSS classes', () => {
+      let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-row')
+      expect(rowNode.className).toEqual('ui-row ui-row--columns-1');
+    });
+  });
 });
