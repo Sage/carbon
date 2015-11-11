@@ -88,7 +88,7 @@ describe('Button', () => {
       disabledDOM = ReactDOM.findDOMNode(disabled)
     });
 
-    it('adds a className of ui-button to all classes', () => {
+    it('adds a className of ui-button to all buttons', () => {
       expect(defaultDOM.classList[0]).toEqual('ui-button')
       expect(primaryDOM.classList[0]).toEqual('ui-button')
       expect(secondaryDOM.classList[0]).toEqual('ui-button')

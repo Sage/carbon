@@ -2,6 +2,10 @@ import React from 'react';
 
 class Row extends React.Component {
 
+  static propTypes = {
+    children: React.PropTypes.array.isRequired
+  }
+
   buildColumns = () => {
     var columns = [];
 
