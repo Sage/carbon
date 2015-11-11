@@ -1,9 +1,13 @@
 import React from 'react';
-import Input from './../../utils/input';
-import InputValidation from './../../utils/input/validation';
 import I18n from "i18n-js";
+import Input from './../../utils/decorators/input';
+import InputLabel from './../../utils/decorators/input-label';
+import InputValidation from './../../utils/decorators/input-validation';
 import Events from './../../utils/helpers/events';
 
+@Input
+@InputLabel
+@InputValidation
 class Decimal extends React.Component {
 
   // We should not be using document here In future we should monitor which element has focus
@@ -13,142 +17,63 @@ class Decimal extends React.Component {
     defaultValue: '0.00'
   }
 
-  i18n = () => {
-    return {
-      delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
-      separator: I18n.t("number.format.separator", { defaultValue: "." })
-    }
-  }
-
-  /**
-   * Returns an unformatted decimal value.
-   *
-   * @method formatHiddenValue
-   */
-  formatHiddenValue = (valueToFormat) => {
-    let value = valueToFormat || this.props.value || this.getDefaultValue();
-    let regex = new RegExp('\\' + this.i18n().delimiter, "g");
-
-    value = value.replace(regex, "", "g");
-    value = value.replace(this.i18n().separator, ".");
-
-    return value;
-  }
-
-  /**
-   * Returns a formatted decimal value.
-   *
-   * @method formatVisibleValue
-   * @param should be interger or floating point
-   */
-  formatVisibleValue = (value) => {
-    let formattedValue = value || this.props.value || this.getDefaultValue();
-
-    formattedValue = I18n.toNumber(formattedValue, {
-      precision: 2,
-      delimiter: this.i18n().delimiter,
-      separator: this.i18n().separator
-    });
-    return formattedValue;
-  }
-
-  getDefaultValue = () => {
-    if (this.refs.hidden) {
-      return this.refs.hidden.value;
-    } else {
-      return this.props.defaultValue;
-    }
-  }
-
   state = {
-    visibleValue: this.formatVisibleValue()
+    visibleValue: formatVisibleValue(this.props.value, this)
   }
 
   componentWillReceiveProps = (props) => {
     if (this.doc.activeElement != this.refs.visible) {
-      let value = props.value || props.defaultValue;
-      this.setState({
-        visibleValue: this.formatVisibleValue(value)
-      });
+      var value = props.value || props.defaultValue;
+      this.setState({ visibleValue: formatVisibleValue(value, this) });
     }
-  }
-
-  /**
-   * Sets the visible input to the visible value.
-   *
-   * @method updateVisibleValue
-   */
-  updateVisibleValue = () => {
-    this.setState({
-      visibleValue: this.formatVisibleValue()
-    });
-  }
-
-  /**
-   * Update the hidden input and triggers it's onChange event.
-   *
-   * @method handleVisibleInputChange
-   */
-  handleVisibleInputChange = (ev) => {
-    this.setState({
-      visibleValue: ev.target.value
-    });
-    this.emitOnChangeCallback(this.formatHiddenValue(ev.target.value));
   }
 
   emitOnChangeCallback = (val) => {
     var hiddenField = this.refs.hidden;
     hiddenField.value = val;
-    if (this.props.onChange) {
-      this.props.onChange({
-        target: hiddenField
-      }, this.props);
-    }
+
+    this._handleOnChange({ target: hiddenField }, false);
+  }
+
+  handleVisibleInputChange = (ev) => {
+    this.setState({ visibleValue: ev.target.value });
+    this.emitOnChangeCallback(formatHiddenValue(ev.target.value));
   }
 
   handleBlur = () => {
-    this.updateVisibleValue();
-    this.props.validation.handleBlur();
+    this.setState({ visibleValue: formatVisibleValue(this.props.value, this) });
   }
 
-  handleFocus = () => {
-    this.props.validation.handleFocus();
+  get inputProps() {
+    var { onChange, ...props } = this.props;
+    props.className = this.inputClasses;
+    props.ref = "visible";
+    props.onChange = this.handleVisibleInputChange;
+    props.onBlur = this.handleBlur;
+    props.value = this.state.visibleValue;
+    props.onKeyDown = filterKeys;
+    return props;
   }
 
-  /**
-   * Supplies further customisation for the input properties.
-   *
-   * @method customInputProps
-   */
-  customInputProps = () => {
-    var inputProps = this.props.input.inputProps();
-    delete inputProps.value;
-    inputProps.onChange = this.handleVisibleInputChange;
-    inputProps.onBlur = this.handleBlur;
-    inputProps.onFocus = this.handleFocus;
-    inputProps.value = this.state.visibleValue;
-    inputProps.onKeyDown = this.filterKeys;
-    return inputProps;
-  }
+  get hiddenInputProps() {
+    var props = {
+      ref: "hidden",
+      type: "hidden",
+      readOnly: true
+    };
 
-  hiddenFieldProps = () => {
-    let props = {};
-
-    if (this.props.value) {
-      props.value = this.props.value;
-    }
-
-    if (this.props.defaultValue) {
-      props.defaultValue = this.props.defaultValue;
-    }
+    if (this.props.value) { props.value = this.props.value; }
+    if (this.props.defaultValue) { props.defaultValue = this.props.defaultValue; }
 
     return props;
   }
 
-  filterKeys = (ev) => {
-    if (Events.isValidDecimalKey(ev)) { return true }
-    ev.preventDefault();
-    return false;
+  get mainClasses() {
+    return 'ui-decimal';
+  }
+
+  get inputClasses() {
+    return 'ui-decimal__input';
   }
 
   /**
@@ -157,36 +82,61 @@ class Decimal extends React.Component {
    * @method render
    */
   render() {
-    let mainClasses = 'ui-decimal' +
-        this.props.input.mainClasses() +
-        this.props.validation.mainClasses();
-
-    let inputClasses = "ui-decimal__input" +
-        this.props.input.inputClasses() +
-        this.props.validation.inputClasses();
-
     return (
-      <div className={ mainClasses }>
+      <div className={ this.mainClasses }>
 
-        { this.props.input.labelHTML() }
-
-        <input
-          className={ inputClasses }
-          ref="visible"
-          { ...this.customInputProps() } />
-
-        <input
-          ref="hidden"
-          type="hidden"
-          readOnly
-          { ...this.hiddenFieldProps() } />
-
-        { this.props.validation.errorMessageHTML() }
+        { this.labelHTML }
+        <input { ...this.inputProps } />
+        <input { ...this.hiddenInputProps } />
+        { this.validationHTML }
 
       </div>
     );
   }
 
-};
+}
 
-export default InputValidation(Input(Decimal));
+function i18nFormatting() {
+  return {
+    delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
+    separator: I18n.t("number.format.separator", { defaultValue: "." })
+  };
+}
+
+function filterKeys(ev) {
+  if (Events.isValidDecimalKey(ev)) { return true; }
+
+  ev.preventDefault();
+  return false;
+}
+
+function formatHiddenValue(valueToFormat) {
+  var value = valueToFormat;
+  var regex = new RegExp('\\' + i18nFormatting().delimiter, "g");
+
+  value = value.replace(regex, "", "g");
+  value = value.replace(i18nFormatting().separator, ".");
+
+  return value;
+}
+
+function formatVisibleValue(value, scope) {
+  value = value || getDefaultValue(scope);
+
+  value = I18n.toNumber(value, {
+    precision: 2,
+    delimiter: i18nFormatting().delimiter,
+    separator: i18nFormatting().separator
+  });
+  return value;
+}
+
+function getDefaultValue(scope) {
+  if (scope.refs.hidden) {
+    return scope.refs.hidden.value;
+  } else {
+    return scope.props.defaultValue;
+  }
+}
+
+export default Decimal;

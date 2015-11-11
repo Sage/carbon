@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory'
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 const Route = function(routes) {
   let history = createBrowserHistory()
@@ -10,7 +10,7 @@ const Route = function(routes) {
     <Router history={ history }>
       { routes }
     </Router>
-  ), document.getElementById('app'))
+  ), document.getElementById('app'));
 };
 
 export default Route;

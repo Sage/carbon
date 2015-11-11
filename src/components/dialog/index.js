@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Icon from 'utils/icon';
+import Icon from './../../utils/icon';
 
 class Dialog extends React.Component {
 
@@ -88,6 +88,6 @@ class Dialog extends React.Component {
     );
   }
 
-};
+}
 
 export default Dialog;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from './../../utils/icon';
+import Icon from './../icon';
 
 class TableRow extends React.Component {
 
@@ -64,7 +64,9 @@ class TableRow extends React.Component {
         onChange: this.props.updateRowHandler
       };
 
-    if (value) { fieldProps.value = value };
+    if (value) {
+      fieldProps.value = value;
+    }
 
     if (this.props.placeholder) { fieldProps._placeholder = true };
 
@@ -89,6 +91,11 @@ class TableRow extends React.Component {
       </tr>
     );
   }
+<<<<<<< HEAD
 };
+=======
+
+}
+>>>>>>> master
 
 export default TableRow;

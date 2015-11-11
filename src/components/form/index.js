@@ -3,6 +3,10 @@ import Button from './../button';
 
 class Form extends React.Component {
 
+  static propTypes = {
+    model: React.PropTypes.string.isRequired
+  }
+
   static childContextTypes = {
     form: React.PropTypes.object
   }
@@ -16,7 +20,7 @@ class Form extends React.Component {
         decrementErrorCount: this.decrementErrorCount,
         model: this.props.model
       }
-    }
+    };
   }
 
   state = {
@@ -30,11 +34,11 @@ class Form extends React.Component {
   }
 
   incrementErrorCount = () => {
-    this.setState({ errorCount: this.state.errorCount + 1 })
+    this.setState({ errorCount: this.state.errorCount + 1 });
   }
 
   decrementErrorCount = () => {
-    this.setState({ errorCount: this.state.errorCount - 1 })
+    this.setState({ errorCount: this.state.errorCount - 1 });
   }
 
   attachToForm = (component) => {
@@ -102,10 +106,10 @@ class Form extends React.Component {
     if (!valid) {
       ev.preventDefault();
     } else {
-      for (var key in this.tables) {
-        var table = this.tables[key];
+      for (var tableKey in this.tables) {
+        var table = this.tables[tableKey];
         table.setState({ placeholder: false });
-      };
+      }
     }
   }
 
@@ -128,7 +132,7 @@ class Form extends React.Component {
       } else if (item.getAttribute('name') === 'csrf-token') {
         csrfValue = item.getAttribute('content');
       }
-    };
+    }
 
     return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
   }
@@ -181,6 +185,6 @@ class Form extends React.Component {
       </form>
     );
   }
-};
+}
 
 export default Form;

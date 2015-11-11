@@ -12,7 +12,7 @@ class TableFieldsForMany extends React.Component {
     name: React.PropTypes.string.isRequired,
     data: React.PropTypes.object.isRequired,
     updateRowHandler: React.PropTypes.func.isRequired,
-    deleteRowHandler: React.PropTypes.func.isRequired,
+    deleteRowHandler: React.PropTypes.func.isRequired
   }
 
   static contextTypes = {
@@ -60,7 +60,6 @@ class TableFieldsForMany extends React.Component {
       if (prevField && nextField) {
         if (!_.isEqual(prevField.props, nextField.props)) {
           return true;
-          break;
         }
       }
     }
@@ -100,7 +99,7 @@ class TableFieldsForMany extends React.Component {
     var rowID = rowData.get('_row_id');
 
     if (this.placeholderID == rowID) {
-      this.placeholderID = new Date().getTime()
+      this.placeholderID = new Date().getTime();
     }
     return(<TableRow
       name={ this.props.name }
@@ -123,7 +122,7 @@ class TableFieldsForMany extends React.Component {
   }
 
   placeholderRow = () => {
-    return(<TableRow 
+    return(<TableRow
       name={ this.props.name }
       key={ this.placeholderID }
       placeholder="true"
@@ -176,6 +175,6 @@ class TableFieldsForMany extends React.Component {
       </table>
     );
   }
-};
+}
 
 export default TableFieldsForMany;
