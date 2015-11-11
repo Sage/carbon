@@ -12,7 +12,7 @@ function insertRowIDs(js) {
   });
 
   return js;
-};
+}
 
 var ImmutableHelper = {
   guid: () => {
@@ -29,7 +29,7 @@ var ImmutableHelper = {
     if (typeof js !== 'object' || js === null) {
       return js;
     } else {
-      if (Array.isArray(js)) { 
+      if (Array.isArray(js)) {
         js = insertRowIDs(js);
         return Immutable.Seq(js).map(ImmutableHelper.parseJSON).toList();
       } else {
@@ -39,8 +39,8 @@ var ImmutableHelper = {
   },
 
   getLineItemIndex: (line_items, _row_id) => {
-    return line_items.findIndex((item) => { 
-      return item.get("_row_id") === _row_id; 
+    return line_items.findIndex((item) => {
+      return item.get("_row_id") === _row_id;
     });
   },
 
@@ -60,7 +60,7 @@ var ImmutableHelper = {
     if (index < 0) {
       // handle creating placeholder
       index = line_items.size;
-      data = data.setIn([line_item_key, index, "_row_id"], _row_id)
+      data = data.setIn([line_item_key, index, "_row_id"], _row_id);
     }
 
     return data.setIn([line_item_key, index, attribute], value);

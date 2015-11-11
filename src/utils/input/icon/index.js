@@ -22,6 +22,6 @@ var InputIcon = (ComposedComponent) => class extends React.Component {
     );
   }
 
-}
+};
 
 export default InputIcon;

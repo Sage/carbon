@@ -59,6 +59,6 @@ class Row extends React.Component {
     );
   }
 
-};
+}
 
 export default Row;

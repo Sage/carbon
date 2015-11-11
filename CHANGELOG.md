@@ -1,6 +1,12 @@
+# 0.0.2.beta
+
+## Misc
+
+* Ran ESLint task and fixed any errors.
+
 # 0.0.1
 
-* Initial prototype release.
+Initial prototype release.
 
 Components included:
 

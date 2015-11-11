@@ -17,7 +17,7 @@ class Decimal extends React.Component {
     return {
       delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
       separator: I18n.t("number.format.separator", { defaultValue: "." })
-    }
+    };
   }
 
   /**
@@ -42,9 +42,9 @@ class Decimal extends React.Component {
    * @param should be interger or floating point
    */
   formatVisibleValue = (value) => {
-    var value = value || this.props.value || this.getDefaultValue();
+    value = value || this.props.value || this.getDefaultValue();
 
-    var value = I18n.toNumber(value, {
+    value = I18n.toNumber(value, {
       precision: 2,
       delimiter: this.i18n().delimiter,
       separator: this.i18n().separator
@@ -192,6 +192,6 @@ class Decimal extends React.Component {
     );
   }
 
-};
+}
 
 export default InputValidation(Input(Decimal));

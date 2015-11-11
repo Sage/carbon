@@ -69,7 +69,7 @@ class TableRow extends React.Component {
         };
 
     if (value) {
-      fieldProps.value = value
+      fieldProps.value = value;
     }
 
     if (this.props.placeholder) {
@@ -100,6 +100,6 @@ class TableRow extends React.Component {
     );
   }
 
-};
+}
 
 export default TableRow;
