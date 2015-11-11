@@ -11,12 +11,11 @@ class CheckboxComponent extends React.Component {
   static defaultProps = {
     /* React suggests using checked rather than value for checked box.
        Need to pass checked as boolean from view. */
-    defaultChecked: false,
-    _deferOnChange: true
+    defaultChecked: false
   }
 
   handleOnChange = (ev) => {
-    this._handleOnChange({ target: { value: ev.target.checked }}, false);
+    this._handleOnChange({ target: { value: ev.target.checked }});
   }
 
   get mainClasses() {
@@ -28,7 +27,7 @@ class CheckboxComponent extends React.Component {
   }
 
   get inputProps() {
-    var { onChange, ...props } = this.props;
+    var { ...props } = this.props;
     props.className = this.inputClasses;
     props.type = "checkbox";
     props.checked = this.props.checked || this.props.value;

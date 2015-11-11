@@ -83,7 +83,7 @@ class DropdownSuggest extends React.Component {
    * @param [value] Immutable object representing the value
    */
   emitOnChangeCallback = (value) => {
-    this._handleOnChange({ target: { value: value } }, false);
+    this._handleOnChange({ target: { value: value } });
   }
 
   /**
@@ -281,7 +281,7 @@ class DropdownSuggest extends React.Component {
   }
 
   get inputProps() {
-    var { onChange, ...props } = this.props;
+    var { ...props } = this.props;
     props.className = this.inputClasses;
     props.ref = "filter";
     props.onFocus = this.handleFocus;
