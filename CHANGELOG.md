@@ -1,5 +1,16 @@
 # 0.0.2.beta
 
+## Higher Order Components and Decorators
+
+We have removed the use of Higher Order Components with our component library. We have instead adopted the use of decorators as they are easier to test and result in a tidier and more logical codebase.
+
+Decorators can now be found in the `/utils/decorators` directory. So far we have decorators for:
+
+* Input
+* Input Icon
+* Input Label
+* Input Validation
+
 ## Misc
 
 * Ran ESLint task and fixed any errors.

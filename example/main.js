@@ -2,17 +2,24 @@ import React from 'react';
 import { Route } from 'react-router';
 import CarbonRoute from 'utils/route';
 
-import UIDate from 'components/date';
-import Dropdown from 'components/dropdown-suggest';
+import Form from 'components/form';
+import Textbox from 'components/textbox';
+import Textarea from 'components/textarea';
+
+import Validation from 'utils/validations/presence';
 
 class testView extends React.Component {
 
+  foo = (ev) => {
+    console.log(ev)
+  }
+
   render () {
     return(
-      <div>
-        <UIDate name="foo" defaultValue="2012-12-21" />
-        <Dropdown name="foo" defaultValue="2012-12-21" />
-      </div>
+      <Form model="foo">
+        <Textarea name="date" onChange={ this.foo }  validations={ [Validation] }/>
+        <Textbox name="foo" onBlur={ this.foo } validations={ [Validation] } />
+      </Form>
     )
   }
 

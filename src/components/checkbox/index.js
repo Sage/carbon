@@ -1,62 +1,67 @@
 import React from 'react';
-import Input from './../../utils/input';
-import InputValidation from './../../utils/input/validation';
+import Input from './../../utils/decorators/input';
+import InputLabel from './../../utils/decorators/input-label';
+import InputValidation from './../../utils/decorators/input-validation';
 
+@Input
+@InputLabel
+@InputValidation
 class CheckboxComponent extends React.Component {
 
   static defaultProps = {
     /* React suggests using checked rather than value for checked box.
        Need to pass checked as boolean from view. */
-    defaultChecked: false
+    defaultChecked: false,
+    _deferOnChange: true
   }
 
   handleOnChange = (ev) => {
-    this.props.onChange({ target: { value: ev.target.checked }}, this.props);
+    this._handleOnChange({ target: { value: ev.target.checked }}, false);
   }
 
-  customInputProps = () => {
-    var { onChange, ...props } = this.props.input.inputProps();
+  get mainClasses() {
+    return 'ui-checkbox';
+  }
 
+  get inputClasses() {
+    return 'ui-checkbox__input';
+  }
+
+  get inputProps() {
+    var { onChange, ...props } = this.props;
+    props.className = this.inputClasses;
+    props.type = "checkbox";
+    props.checked = this.props.checked || this.props.value;
+    props.value = "1";
     props.onChange = this.handleOnChange;
+    return props;
+  }
+
+  get hiddenInputProps() {
+    var props = {
+      ref: "hidden",
+      type: "hidden",
+      value: "0",
+      name: this.inputProps.name,
+      readOnly: true
+    }
 
     return props;
   }
 
   render() {
 
-    var mainClasses = 'ui-checkbox ' +
-          this.props.input.mainClasses() +
-          this.props.validation.mainClasses();
-
-    var inputClasses = 'ui-checkbox__input ' +
-          this.props.input.inputClasses() +
-          this.props.validation.inputClasses();
-
     return(
-      <div className={ mainClasses }>
+      <div className={ this.mainClasses }>
 
-        { this.props.input.labelHTML() }
+        { this.labelHTML }
+        <input { ...this.inputProps } />
+        <input { ...this.hiddenInputProps } />
+        { this.validationHTML }
 
-        <input
-          ref="hidden"
-          type="hidden"
-          value='0'
-          name={ this.props.input.inputProps().name }
-          readOnly
-        />
-
-        <input
-          className={ inputClasses }
-          type="checkbox"
-          checked={ this.props.checked || this.props.value }
-          value="1"
-          { ...this.customInputProps() }
-        />
-
-        { this.props.validation.errorMessageHTML() }
       </div>
     );
   }
 }
 
-export default InputValidation(Input(CheckboxComponent));
+export default CheckboxComponent;

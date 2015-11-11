@@ -1,10 +1,15 @@
 import React from 'react';
 import Request from 'superagent';
-import Input from './../../utils/input';
-import InputValidation from './../../utils/input/validation';
-import InputIcon from './../../utils/input/icon';
+import Input from './../../utils/decorators/input';
+import InputLabel from './../../utils/decorators/input-label';
+import InputValidation from './../../utils/decorators/input-validation';
+import InputIcon from './../../utils/decorators/input-icon';
 import Immutable from 'immutable';
 
+@Input
+@InputIcon
+@InputLabel
+@InputValidation
 class DropdownSuggest extends React.Component {
 
   static defaultProps = {
@@ -15,7 +20,6 @@ class DropdownSuggest extends React.Component {
    * Define property types
    */
   static propTypes = {
-    onChange: React.PropTypes.func.isRequired,
     path: React.PropTypes.string.isRequired
   }
 
@@ -73,6 +77,16 @@ class DropdownSuggest extends React.Component {
   }
 
   /**
+   * Runs the callback onChange action
+   *
+   * @method emitOnChangeCallback
+   * @param [value] Immutable object representing the value
+   */
+  emitOnChangeCallback = (value) => {
+    this._handleOnChange({ target: { value: value } }, false);
+  }
+
+  /**
    * Retrieves data from the server for the list.
    *
    * @method getData
@@ -91,6 +105,17 @@ class DropdownSuggest extends React.Component {
       .end((err, response) => {
         this.updateList(response.body.data[0]);
       });
+  }
+
+  /**
+   * Asks for the next page of data.
+   *
+   * @method getNextPage
+   */
+  getNextPage = () => {
+    if (this.state.page < this.state.pages) {
+      this.getData(this.state.page + 1);
+    }
   }
 
   /**
@@ -123,27 +148,11 @@ class DropdownSuggest extends React.Component {
   }
 
   /**
-   * Asks for the next page of data.
-   *
-   * @method getNextPage
-   */
-  getNextPage = () => {
-    if (this.state.page < this.state.pages) {
-      this.getData(this.state.page + 1);
-    }
-  }
-
-  /**
    * Handles what happens on blur of the input.
    *
    * @method handleBlur
    */
   handleBlur = () => {
-    if (!this.skipValidation) {
-      this.props.validation.handleBlur();
-    }
-
-    this.skipValidation = false;
     this.resetScroll();
     this.setState({ open: false });
   }
@@ -165,8 +174,6 @@ class DropdownSuggest extends React.Component {
     } else {
       this.setState({ open: true });
     }
-
-    this.props.validation.handleFocus();
   }
 
   /**
@@ -194,10 +201,8 @@ class DropdownSuggest extends React.Component {
    * @method handleChange
    */
   handleChange = (ev) => {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-    var val = this.newValue(ev.target.value, null);
+    if (this.timeout) { clearTimeout(this.timeout); }
+    var val = buildImmutableValue(this.props, ev.target.value, null);
     this.emitOnChangeCallback(val);
 
     this.timeout = setTimeout(() => {
@@ -211,16 +216,8 @@ class DropdownSuggest extends React.Component {
    * @method handleSelect
    */
   handleSelect = (ev) => {
-    this.skipValidation = true;
-    var val = this.newValue(ev.target.textContent, ev.target.value);
+    var val = buildImmutableValue(this.props, ev.target.textContent, ev.target.value);
     this.emitOnChangeCallback(val);
-  }
-
-  newValue = (name, id) => {
-    var newValue = this.props.value.set(this.props.resource_key, name);
-    newValue = newValue.set('id', id);
-
-    return newValue;
   }
 
   /**
@@ -229,9 +226,7 @@ class DropdownSuggest extends React.Component {
    * @method handleMouseOver
    */
   handleMouseOver = (ev) => {
-    this.setState({
-      highlighted: ev.target.value
-    });
+    this.setState({ highlighted: ev.target.value });
   }
 
   /**
@@ -248,7 +243,7 @@ class DropdownSuggest extends React.Component {
       case 13: // return
         if (element) {
           ev.preventDefault();
-          var val = this.newValue(element.textContent, element.value);
+          var val = buildImmutableValue(this.props, element.textContent, element.value);
           this.setState({ open: false });
           this.emitOnChangeCallback(val);
         }
@@ -275,16 +270,6 @@ class DropdownSuggest extends React.Component {
   }
 
   /**
-   * Runs the callback onChange action
-   *
-   * @method emitOnChangeCallback
-   * @param [value] Immutable object representing the value
-   */
-  emitOnChangeCallback = (value) => {
-    this.props.onChange({ target: { value: value } } , this.props);
-  }
-
-  /**
    * Resets the scroll position of the list.
    *
    * @method resetScroll
@@ -295,49 +280,41 @@ class DropdownSuggest extends React.Component {
     list.scrollTop = 0;
   }
 
-  /**
-   * Sets props for input fieild.
-   *
-   * @method inputProps
-   */
-  inputProps = () => {
-    var { name, ...inputProps } = this.props.input.inputProps();
-
-    inputProps.onFocus = this.handleFocus;
-    inputProps.onBlur = this.handleBlur;
-    inputProps.onChange = this.handleChange;
-    inputProps.onKeyDown = this.handleKeyDown;
-
-    inputProps.value = this.props.value.get(this.props.resource_key);
-
-    return inputProps;
+  get inputProps() {
+    var { onChange, ...props } = this.props;
+    props.className = this.inputClasses;
+    props.ref = "filter";
+    props.onFocus = this.handleFocus;
+    props.onBlur = this.handleBlur;
+    props.onChange = this.handleChange;
+    props.onKeyDown = this.handleKeyDown;
+    props.value = this.props.value.get(this.props.resource_key);
+    return props;
   }
 
-  /**
-   * Gets props for selected option id.
-   *
-   * @method hiddenFieldProps
-   */
-  hiddenFieldProps = () => {
-    var inputProps = this.props.input.inputProps();
-    var nameWithID = inputProps.name.split(/\]$/)[0] + "_id]";
+  get hiddenInputProps() {
+    var nameWithID = this.inputProps.name.split(/\]$/)[0] + "_id]";
     var props = {
+      ref: "input",
+      type: "hidden",
+      readOnly: true,
       name: nameWithID
     };
 
-    if (this.props.value) {
-      props.value = this.props.value.get('id');
-    }
+    if (this.props.value) { props.value = this.props.value.get('id'); }
 
     return props;
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   */
-  render() {
+  get mainClasses() {
+    return 'ui-dropdown-suggest';
+  }
+
+  get inputClasses() {
+    return 'ui-dropdown-suggest__input';
+  }
+
+  get results() {
     var results;
 
     if (this.state.options.length) {
@@ -356,52 +333,45 @@ class DropdownSuggest extends React.Component {
       results = <li>No results</li>;
     }
 
-    var mainClasses = 'ui-dropdown-suggest' +
-        this.props.input.mainClasses() +
-        this.props.validation.mainClasses();
+    return results;
+  }
 
-    var inputClasses = "ui-dropdown-suggest__input" +
-        this.props.input.inputClasses() +
-        this.props.validation.inputClasses();
-
+  /**
+   * Renders the component.
+   *
+   * @method render
+   */
+  render() {
     var listClasses = "ui-dropdown-suggest__list" +
         (this.state.open ? '' : ' hidden');
 
-    var inputProps = this.inputProps();
-
     return (
-      <div className={ mainClasses } >
+      <div className={ this.mainClasses } >
 
-        { this.props.input.labelHTML() }
-
-        <input
-          className={ inputClasses }
-          ref="filter"
-          { ...inputProps }
-        />
-
-        { this.props.icon.inputIconHTML("dropdown", inputProps.id) }
-
-        <input
-          ref="input"
-          readOnly="true"
-          hidden="true"
-          { ...this.hiddenFieldProps() }
-        />
+        { this.labelHTML }
+        <input { ...this.inputProps } />
+        <input { ...this.hiddenInputProps } />
+        { this.inputIconHTML("dropdown") }
+        { this.validationHTML }
 
         <ul
           ref="list"
           className={ listClasses }
           onScroll={ this.handleScroll }
         >
-          {results}
+          { this.results }
         </ul>
-
-        { this.props.validation.errorMessageHTML() }
 
       </div>
     );
   }
 }
 
-export default InputIcon(InputValidation(Input(DropdownSuggest)));
+function buildImmutableValue(props, name, id) {
+  var newValue = props.value.set(props.resource_key, name);
+  newValue = newValue.set('id', id);
+
+  return newValue;
+}
+
+export default DropdownSuggest;

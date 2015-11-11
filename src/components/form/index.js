@@ -3,6 +3,10 @@ import Button from './../button';
 
 class Form extends React.Component {
 
+  static propTypes = {
+    model: React.PropTypes.string.isRequired
+  }
+
   static childContextTypes = {
     form: React.PropTypes.object
   }
