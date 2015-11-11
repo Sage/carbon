@@ -77,9 +77,9 @@ describe('Button', () => {
 
   describe('Class names', () => {
     let defaultDOM;
+    let disabledDOM;
     let primaryDOM;
     let secondaryDOM;
-    let disabledDOM;
 
     beforeEach(() => {
       defaultDOM = ReactDOM.findDOMNode(defaultButton)
@@ -88,19 +88,19 @@ describe('Button', () => {
       disabledDOM = ReactDOM.findDOMNode(disabled)
     });
 
-    it('gives a className of ui-button to all classes', () => {
+    it('adds a className of ui-button to all classes', () => {
       expect(defaultDOM.classList[0]).toEqual('ui-button')
       expect(primaryDOM.classList[0]).toEqual('ui-button')
       expect(secondaryDOM.classList[0]).toEqual('ui-button')
       expect(disabledDOM.classList[0]).toEqual('ui-button')
     });
 
-    it('gives a secondary class depending on its type', () => {
+    it('adds a secondary class depending on its type', () => {
       expect(primaryDOM.classList[1]).toEqual('ui-button--primary')
       expect(secondaryDOM.classList[1]).toEqual('ui-button--secondary')
     });
 
-    it('gives adds a disabled class if the button is disabled', () => {
+    it('adds a disabled class if the button is disabled', () => {
       expect(disabledDOM.classList[2]).toEqual('ui-button--disabled')
       expect(defaultDOM.classList[2]).toBeNull();
     });
@@ -116,7 +116,6 @@ describe('Button', () => {
     it('triggers when the button is clicked', () => {
       TestUtils.Simulate.click(primaryDOM);
       expect(spy).toHaveBeenCalled();
-      expect(spy.calls.count()).toEqual(1);
     });
   });
 });
