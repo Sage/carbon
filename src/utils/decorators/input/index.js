@@ -1,11 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
+import chainFunctions from './../../helpers/chain-functions';
 import { generateInputName } from './../../helpers/forms';
 
 var Input = (ComposedComponent) => class Component extends ComposedComponent {
 
-  constructor() {
-    super();
+  constructor(...args) {
+    super(...args);
   }
 
   static propTypes = Object.assign({}, ComposedComponent.propTypes, {
@@ -30,8 +31,10 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     return false;
   }
 
-  handleOnChange = (ev) => {
-    this.props.onChange(ev, this.props);
+  _handleOnChange = (ev, deferred=this.props._deferOnChange) => {
+    if (this.props.onChange && !deferred) {
+      this.props.onChange(ev, this.props);
+    }
   }
 
   get mainClasses() {
@@ -49,9 +52,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     inputProps.name = generateInputName(this.props.name, this.context.form);
 
-    if (inputProps.onChange) {
-      inputProps.onChange = this.handleOnChange;
-    }
+    inputProps.onChange = chainFunctions(this._handleOnChange, inputProps.onChange);
 
     return inputProps;
   }

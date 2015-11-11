@@ -7,6 +7,7 @@ import InputValidation from './../../utils/decorators/input-validation';
 @InputLabel
 @InputValidation
 class Textbox extends React.Component {
+
   get mainClasses() {
     return 'ui-textbox';
   }
@@ -16,7 +17,7 @@ class Textbox extends React.Component {
   }
 
   get inputProps() {
-    var { ...props } = this.props;
+    var { onChange, ...props } = this.props;
     props.className = this.inputClasses;
     return props;
   }
@@ -32,7 +33,7 @@ class Textbox extends React.Component {
 
         { this.labelHTML }
         <input { ...this.inputProps } />
-        { this.errorMessageHTML }
+        { this.validationHTML }
 
       </div>
     );

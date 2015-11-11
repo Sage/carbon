@@ -1,11 +1,11 @@
 import React from 'react';
-import Icon from './../../icon';
+import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
 
 var InputValidation = (ComposedComponent) => class Component extends ComposedComponent {
 
-  constructor() {
-    super();
+  constructor(...args) {
+    super(...args);
     this.state = this.state || {};
     this.state.valid = true;
     this.state.errorMessage = null;
@@ -39,8 +39,11 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     if (this.props.validations) {
       this.props.validations.forEach((validation) => {
-        var value = this.props.value || this.props.defaultValue;
-        valid = validation.validate(value);
+        if (!this.props.value) {
+          console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);
+        }
+
+        valid = validation.validate(this.props.value);
 
         if (!valid) {
           if (this.state.valid) {
@@ -57,34 +60,26 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
     return valid;
   }
 
-  handleBlur = () => {
+  _handleBlur = () => {
     this.validate();
   }
 
-  handleFocus = () => {
+  _handleFocus = () => {
     if (!this.state.valid) {
       this.context.form.decrementErrorCount();
       this.setState({ errorMessage: null, valid: true });
     }
   }
 
-  get errorMessageHTML() {
+  get validationHTML() {
     if (this.state.errorMessage) {
-      return (
-        <div className="base-input__message base-input__message--error">
+      var html = [
+        <Icon key="0" type="error" className="base-input__icon base-input__icon--error" />,
+        <div key="1" className="base-input__message base-input__message--error">
           { this.state.errorMessage }
         </div>
-      );
-    } else {
-      return null;
-    }
-  }
-
-  get errorIconHTML() {
-    if (this.state.errorMessage) {
-      return (
-        <Icon type="error" className="base-input__icon base-input__icon--error" />
-      );
+      ];
+      return html;
     } else {
       return null;
     }
@@ -113,8 +108,8 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
   get inputProps() {
     var inputProps = (super.inputProps) ? super.inputProps : {};
 
-    inputProps.onBlur = chainFunctions(this.handleBlur, inputProps.onBlur);
-    inputProps.onFocus = chainFunctions(this.handleFocus, inputProps.onFocus);
+    inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
+    inputProps.onFocus = chainFunctions(this._handleFocus, inputProps.onFocus);
 
     return inputProps;
   }

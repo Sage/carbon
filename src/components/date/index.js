@@ -1,101 +1,45 @@
 import React from 'react';
-import Input from './../../utils/input';
-import InputValidation from './../../utils/input-validation';
-import InputIcon from './../../utils/input/icon';
+import Input from './../../utils/decorators/input';
+import InputLabel from './../../utils/decorators/input-label';
+import InputValidation from './../../utils/decorators/input-validation';
+import InputIcon from './../../utils/decorators/input-icon';
 // https://github.com/zippyui/react-date-picker
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 
-// TODO: do we need to use moment.js ???
-
+@Input
+@InputIcon
+@InputLabel
+@InputValidation
 class DateComponent extends React.Component {
 
   static defaultProps = {
-    defaultValue: moment().format("YYYY-MM-DD")
-  }
-
-  visibleFormat = () => {
-    return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
-  }
-
-  hiddenFormat = () => {
-    return "YYYY-MM-DD";
-  }
-
-  formatValue = (val, formatFrom, formatTo) => {
-    var date = moment(val, formatFrom);
-    return date.format(formatTo);
-  }
-
-  formatVisibleValue = (value) => {
-    value = value || this.props.value || this.getDefaultValue();
-    return this.formatValue(value, this.hiddenFormat(), this.visibleFormat());
-  }
-
-  getDefaultValue = () => {
-    if (this.refs.hidden) {
-      return this.refs.hidden.value;
-    } else {
-      return this.props.defaultValue;
-    }
+    defaultValue: moment().format("YYYY-MM-DD"),
+    _deferOnChange: true
   }
 
   state = {
     open: false,
     viewDate: null,
-    visibleValue: this.formatVisibleValue()
+    visibleValue: formatVisibleValue(this.props.value, this)
   }
 
   componentWillReceiveProps = (props) => {
     if (document.activeElement != this.refs.visible) {
       var value = props.value || props.defaultValue;
-      var date = this.formatVisibleValue(value);
+      var date = formatVisibleValue(value, this);
       this.setState({
         visibleValue: date
       });
     }
   }
 
-  /**
-   * Handles user input and updates date picker appropriately.
-   *
-   * @method handleVisibleInputChange
-   */
-  handleVisibleInputChange = (ev) => {
-    var formats = [this.visibleFormat(), "MMM DD YY", "MM-DD-YYYY", "DD-MM", "DD-MM-YYYY"],
-        validDate = moment(ev.target.value, formats).isValid(),
-        newState = { visibleValue: ev.target.value };
-
-    if (validDate) {
-      var hiddenValue = this.formatValue(ev.target.value, formats, this.hiddenFormat());
-      newState.viewDate = hiddenValue;
-      this.emitOnChangeCallback(hiddenValue);
-    }
-
-    this.setState(newState);
-  }
-
   emitOnChangeCallback = (val) => {
     var hiddenField = this.refs.hidden;
     hiddenField.value = val;
 
-    if (this.props.onChange) {
-      this.props.onChange({
-        target: hiddenField
-      }, this.props);
-    }
-  }
-
-  /**
-   * Sets the value of the input from the date picker.
-   *
-   * @method handleDateSelect
-   */
-  handleDateSelect = (val) => {
-    this.closeDatePicker();
-    this.emitOnChangeCallback(val);
-    this.updateVisibleValue();
+    this._handleOnChange({ target: hiddenField }, false);
   }
 
   /**
@@ -105,7 +49,7 @@ class DateComponent extends React.Component {
    */
   openDatePicker = () => {
     document.addEventListener("click", this.closeDatePicker);
-    var value = this.props.value || this.getDefaultValue();
+    var value = this.props.value || getDefaultValue(this);
     this.setState({
       open: true,
       viewDate: value
@@ -124,6 +68,32 @@ class DateComponent extends React.Component {
     });
   }
 
+  updateVisibleValue = () => {
+    var date = formatVisibleValue(this.props.value, this);
+    this.setState({
+      visibleValue: date
+    });
+  }
+
+  /**
+   * Handles user input and updates date picker appropriately.
+   *
+   * @method handleVisibleInputChange
+   */
+  handleVisibleInputChange = (ev) => {
+    var formats = [visibleFormat(), "MMM DD YY", "MM-DD-YYYY", "DD-MM", "DD-MM-YYYY"],
+        validDate = moment(ev.target.value, formats).isValid(),
+        newState = { visibleValue: ev.target.value };
+
+    if (validDate) {
+      var hiddenValue = formatValue(ev.target.value, formats, hiddenFormat());
+      newState.viewDate = hiddenValue;
+      this.emitOnChangeCallback(hiddenValue);
+    }
+
+    this.setState(newState);
+  }
+
   /**
    * Prevents propagation so date picker does not close click inside the widget.
    *
@@ -133,24 +103,31 @@ class DateComponent extends React.Component {
     ev.nativeEvent.stopImmediatePropagation();
   }
 
-  updateVisibleValue = () => {
-    var date = this.formatVisibleValue();
-    this.setState({
-      visibleValue: date
-    });
+  /**
+   * Sets the value of the input from the date picker.
+   *
+   * @method handleDateSelect
+   */
+  handleDateSelect = (val) => {
+    this.closeDatePicker();
+    this.emitOnChangeCallback(val);
+    this.updateVisibleValue();
   }
 
-  /**
-   * Define properties for the date picker.
-   *
-   * @method datePickerProps
-   */
-  datePickerProps = () => {
-    var value = this.props.value || this.getDefaultValue();
+  handleBlur = () => {
+    this.updateVisibleValue();
+  }
+
+  handleFocus = () => {
+    this.openDatePicker();
+  }
+
+  get datePickerProps() {
+    var value = this.props.value || getDefaultValue(this);
     var props = {};
     props.weekDayNames = ["S", "M", "T", "W", "T", "F", "S"];
     props.monthFormat = "MMM";
-    props.dateFormat = this.hiddenFormat();
+    props.dateFormat = hiddenFormat();
     props.onChange = this.handleDateSelect;
     props.date = value;
     props.onViewDateChange = (val) => {
@@ -160,37 +137,36 @@ class DateComponent extends React.Component {
     return props;
   }
 
-  handleBlur = () => {
-    this.updateVisibleValue();
-    this.props.validation.handleBlur();
+  get inputProps() {
+    var { onChange, ...props } = this.props;
+    props.className = this.inputClasses;
+    props.ref = "visible";
+    props.onChange = this.handleVisibleInputChange;
+    props.onFocus = this.handleFocus;
+    props.onBlur = this.handleBlur;
+    props.value = this.state.visibleValue;
+    return props;
   }
 
-  handleFocus = () => {
-    this.openDatePicker();
-    this.props.validation.handleFocus();
-  }
+  get hiddenInputProps() {
+    var props = {
+      ref: "hidden",
+      type: "hidden",
+      readOnly: true
+    };
 
-  customInputProps = () => {
-    var inputProps = this.props.input.inputProps();
-    inputProps.onChange = this.handleVisibleInputChange;
-    inputProps.onFocus = this.handleFocus;
-    inputProps.onBlur = this.handleBlur;
-    inputProps.value = this.state.visibleValue;
-    return inputProps;
-  }
-
-  hiddenFieldProps = () => {
-    var props = {};
-
-    if (this.props.value) {
-      props.value = this.props.value;
-    }
-
-    if (this.props.defaultValue) {
-      props.defaultValue = this.props.defaultValue;
-    }
+    if (this.props.value) { props.value = this.props.value; }
+    if (this.props.defaultValue) { props.defaultValue = this.props.defaultValue; }
 
     return props;
+  }
+
+  get mainClasses() {
+    return 'ui-date';
+  }
+
+  get inputClasses() {
+    return 'ui-date__input';
   }
 
   /**
@@ -199,43 +175,18 @@ class DateComponent extends React.Component {
    * @method render
    */
   render() {
-    var datePicker = "";
+    var datePicker = (this.state.open) ? <DatePicker { ...this.datePickerProps } /> : null;
 
-    if (this.state.open) {
-      datePicker = <DatePicker { ...this.datePickerProps() } />;
-    }
-
-    var mainClasses = 'ui-date' +
-        this.props.input.mainClasses() +
-        this.props.validation.mainClasses();
-
-    var inputClasses = "ui-date__input" +
-        this.props.input.inputClasses() +
-        this.props.validation.inputClasses();
 
     return (
-      <div className={ mainClasses } onClick={ this.handleWidgetClick }>
+      <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
 
-        { this.props.input.labelHTML() }
-
-        <input
-          className={ inputClasses }
-          ref="visible"
-          { ...this.customInputProps() }
-        />
-
-        { this.props.icon.inputIconHTML("calendar", this.customInputProps().id) }
-
-        <input
-          ref="hidden"
-          type="hidden"
-          readOnly
-          { ...this.hiddenFieldProps() }
-        />
-
+        { this.labelHTML }
+        <input { ...this.inputProps } />
+        <input { ...this.hiddenInputProps } />
+        { this.inputIconHTML("calendar") }
         { datePicker }
-
-        { this.props.validation.errorMessageHTML() }
+        { this.validationHTML }
 
       </div>
     );
@@ -243,4 +194,32 @@ class DateComponent extends React.Component {
 
 }
 
-export default InputIcon(InputValidation(Input(DateComponent)));
+export default DateComponent;
+
+// @private
+
+function visibleFormat() {
+  return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
+};
+
+function hiddenFormat() {
+  return "YYYY-MM-DD";
+};
+
+function formatValue(val, formatFrom, formatTo) {
+  var date = moment(val, formatFrom);
+  return date.format(formatTo);
+}
+
+function formatVisibleValue(value, scope) {
+  value = value || getDefaultValue(scope);
+  return formatValue(value, hiddenFormat(), visibleFormat());
+}
+
+function getDefaultValue(scope) {
+  if (scope.refs.hidden) {
+    return scope.refs.hidden.value;
+  } else {
+    return scope.props.defaultValue;
+  }
+}

@@ -3,8 +3,8 @@ import { generateInputName } from './../../helpers/forms';
 
 var InputLabel = (ComposedComponent) => class Component extends ComposedComponent {
 
-  constructor() {
-    super();
+  constructor(...args) {
+    super(...args);
   }
 
   static contextTypes = Object.assign({}, ComposedComponent.contextTypes, {

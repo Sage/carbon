@@ -1,8 +1,29 @@
 import React from 'react';
-import Input from './../../utils/input';
-import InputValidation from './../../utils/input-validation';
+import Input from './../../utils/decorators/input';
+import InputLabel from './../../utils/decorators/input-label';
+import InputValidation from './../../utils/decorators/input-validation';
 
+@Input
+@InputLabel
+@InputValidation
 class TextareaComponent extends React.Component {
+
+  get mainClasses() {
+    return 'ui-textarea';
+  }
+
+  get inputClasses() {
+    return 'ui-textarea__input';
+  }
+
+  get inputProps() {
+    var { onChange, ...props } = this.props;
+    props.className = this.inputClasses;
+    props.ref = "ref";
+    props.rows = this.props.rows;
+    props.cols = this.props.cols;
+    return props;
+  }
 
   /**
    * Renders the component.
@@ -10,35 +31,16 @@ class TextareaComponent extends React.Component {
    * @method render
    */
   render() {
-
-    var mainClasses = 'ui-textarea ' +
-        this.props.input.mainClasses() +
-        this.props.validation.mainClasses();
-
-    var inputClasses = "ui-textarea__input" +
-        this.props.input.inputClasses() +
-        this.props.validation.inputClasses();
-
     return (
-      <div className={ mainClasses }>
-        { this.props.input.labelHTML() }
+      <div className={ this.mainClasses }>
 
-        <textarea
-          ref="visible"
-          className={ inputClasses }
-          onBlur={ this.props.validation.handleBlur }
-          onFocus={ this.props.validation.handleFocus }
-          rows={ this.props.rows }
-          cols={ this.props.cols }
-          { ...this.props.input.inputProps() }
-        />
+        { this.labelHTML }
+        <textarea { ...this.inputProps } />
+        { this.validationHTML }
 
-        { this.props.validation.errorIconHTML() }
-
-        { this.props.validation.errorMessageHTML() }
       </div>
     );
   }
 }
 
-export default InputValidation(Input(TextareaComponent));
+export default TextareaComponent;
