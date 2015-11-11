@@ -1,15 +1,21 @@
-import Events from 'events';
+var Store = (ComposedStore) => class Store extends ComposedStore {
 
-class Store extends Events.EventEmitter {
+  constructor(...args) {
+    super(...args);
 
-  constructor(Dispatcher, data) {
-    super();
+    if (!this.emit) {
+      console.warn("You need to extend your store class from EventEmitter (https://www.npmjs.com/package/events).");
+    }
 
-    this.history = [];
+    if (!this.data) {
+      console.warn("You need to define data for the store. Define a data property in your store's constructor.");
+    }
 
-    this.data = data;
+    if (!this.dispatcher) {
+      console.warn("You need to define the dispatcher for the store. Define a dispatcher property in your store's constructor.");
+    }
 
-    this.dispatchToken = Dispatcher.register(this.dispatcherCallback);
+    this.dispatchToken = this.dispatcher.register(this.dispatcherCallback);
   }
 
   addChangeListener = (callback, key) => {
@@ -42,8 +48,8 @@ class Store extends Events.EventEmitter {
 
   dispatcherCallback = (action) => {
     if (this[action.actionType]) {
-      this.history.push(this.data);
-      this[action.actionType].call(this, action);
+      if (this.history) { this.history.push(this.data); }
+      this.data = this[action.actionType].call(this, this.data, action);
       this.emit('change', this.key);
     }
   }

@@ -1,39 +1,40 @@
-import React from 'react';
+export function connect(ComposedView, Stores) {
+  return class View extends ComposedView {
 
-var View = (ComposedView, Stores) => class extends React.Component {
-
-  componentDidMount = () => {
-    for (var key in Stores) {
-      Stores[key].addChangeListener(this._onChange, key);
+    constructor(...args) {
+      super(...args);
+      this.state = Object.assign({}, this.state, this._getStoreStates());
     }
-  }
 
-  componentWillUnmount = () => {
-    for (var key in Stores) {
-      Stores[key].removeChangeListener(this._onChange, key);
+    componentDidMount() {
+      if (super.componentDidMount) { super.componentDidMount(); }
+
+      for (var key in Stores) {
+        Stores[key].addChangeListener(this._onChange, key);
+      }
     }
-  }
 
-  _onChange = (key) => {
-    this.setState({ [key]: Stores[key].getState() });
-  }
+    componentWillUnmount() {
+      if (super.componentWillUnmount) { super.componentWillMount(); }
 
-
-  getStoreStates = () => {
-    var states = {};
-    for (var key in Stores) {
-      states[key] = Stores[key].getState();
+      for (var key in Stores) {
+        Stores[key].removeChangeListener(this._onChange, key);
+      }
     }
-    return states;
-  }
 
-  state = this.getStoreStates();
+    _onChange = (key) => {
+      this.setState({ [key]: Stores[key].getState() });
+    }
 
-  render() {
-    return (
-      <ComposedView {...this.props} {...this.state} />
-    );
+    _getStoreStates = () => {
+      var states = {};
+
+      for (var key in Stores) {
+        states[key] = Stores[key].getState();
+      }
+
+      return states;
+    }
+
   }
 };
-
-export default View;
