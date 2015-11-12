@@ -3,14 +3,12 @@ import ReactDOM from 'react-dom';
 import Router from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 
-var Route = function(routes) {
+export function startRouter(routes, target = document.getElementById('app')) {
   let history = createBrowserHistory();
 
   ReactDOM.render((
     <Router history={ history }>
       { routes }
     </Router>
-  ), document.getElementById('app'));
+  ), target);
 };
-
-export default Route;

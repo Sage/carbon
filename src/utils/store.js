@@ -1,40 +1,36 @@
-var Store = (ComposedStore) => class Store extends ComposedStore {
+import { EventEmitter } from 'events';
 
-  constructor(...args) {
-    super(...args);
+const CHANGE_EVENT = "change";
 
-    if (!this.emit) {
-      console.warn("You need to extend your store class from EventEmitter (https://www.npmjs.com/package/events).");
+class Store extends EventEmitter {
+
+  constructor(Dispatcher) {
+    super(Dispatcher);
+
+    if (!Dispatcher) {
+      console.warn("You need to initialize your store with a dispatcher.");
     }
 
-    if (!this.data) {
-      console.warn("You need to define data for the store. Define a data property in your store's constructor.");
-    }
-
-    if (!this.dispatcher) {
-      console.warn("You need to define the dispatcher for the store. Define a dispatcher property in your store's constructor.");
-    }
-
-    this.dispatchToken = this.dispatcher.register(this.dispatcherCallback);
+    this.dispatchToken = Dispatcher.register(this.dispatcherCallback);
   }
 
-  addChangeListener = (callback, key) => {
-    this.key = key;
-    this.on('change', callback);
+  addChangeListener = (callback) => {
+    this.on(CHANGE_EVENT, callback);
   };
 
   removeChangeListener = (callback) => {
-    this.removeListener('change', callback);
+    this.removeListener(CHANGE_EVENT, callback);
   };
 
   getState = () => {
+    if (!this.data) { console.warn("You need to set the data property on your store."); }
     return this.data;
   };
 
   undo = () => {
     if (this.history.length) {
       this.data = this.history.pop();
-      this.emit('change', this.key);
+      this.emit(CHANGE_EVENT, this.constructor.name);
     }
   }
 
@@ -42,17 +38,18 @@ var Store = (ComposedStore) => class Store extends ComposedStore {
     if (this.history.length) {
       this.data = this.history[0];
       this.history = [];
-      this.emit('change', this.key);
+      this.emit(CHANGE_EVENT, this.constructor.name);
     }
   }
 
   dispatcherCallback = (action) => {
     if (this[action.actionType]) {
       if (this.history) { this.history.push(this.data); }
-      this.data = this[action.actionType].call(this, this.data, action);
-      this.emit('change', this.key);
+      this[action.actionType].call(this, action);
+      this.emit(CHANGE_EVENT, this.constructor.name);
     }
   }
+
 }
 
 export default Store;
