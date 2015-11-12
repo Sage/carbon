@@ -137,15 +137,8 @@ class Form extends React.Component {
     return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
   }
 
-  buildReversePath = () => {
-    var currentPath = window.location.pathname;
-    var reversePath = currentPath.replace(currentPath.match(/[^\/]+\/?$/), '');
-    return reversePath;
-  }
-
   cancelForm = (ev) => {
-    ev.preventDefault();
-    window.location = this.buildReversePath();
+    history.back();
   }
    /**
    * Renders the component.
@@ -173,14 +166,15 @@ class Form extends React.Component {
         { this.props.children }
         <div className= { cancelClasses }>
           <Button type='button'
-            onClick={ this.cancelForm }
-          >
+            onClick={ this.cancelForm } >
             Cancel
           </Button>
         </div>
         <div className={ saveClasses }>
           { errorCount }
-          <Button as="primary" />
+          <Button as="primary">
+            Save
+          </Button>
         </div>
       </form>
     );

@@ -8,30 +8,65 @@ import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 
+// Decorators
 @Input
 @InputIcon
 @InputLabel
 @InputValidation
-class DateComponent extends React.Component {
+/**
+ * A Date widget.
+ *
+ * == How to use a Date in a component:
+ *
+ * In your file
+ *
+ *  import Date from 'carbon/lib/components/Date';
+ *
+ *  In the render method:
+ *
+ *    <Date />
+ *
+ * This component receives its props from the decorators listed above.
+ * Refer to the Input decorator for more information on required and optional props.
+ *
+ * @class Textbox
+ * @constructor
+ **/
+class Date extends React.Component {
 
+  /**
+  * Sets the default date to the current date
+  *
+  * @property defaultValue
+  * @type { Number }
+  * @default current date
+  */
   static defaultProps = {
     defaultValue: moment().format("YYYY-MM-DD")
   }
 
+  /**
+  * Private component state, initializes with default values provided.
+  */
   state = {
     open: false,
     viewDate: null,
     visibleValue: formatVisibleValue(this.props.value, this)
   }
 
+  /**
+  * A lifecycle method to update the visible value with new props
+  * when the field is not the active element.
+  *
+  * @method componentWillReceiveProps
+  * @param props The new props passed down to the component
+  */
   componentWillReceiveProps = (props) => {
     if (document.activeElement != this.refs.visible) {
-      var value = props.value || props.defaultValue;
-      var date = formatVisibleValue(value, this);
+      let value = props.value || props.defaultValue;
+      let date = formatVisibleValue(value, this);
 
-      this.setState({
-        visibleValue: date
-      });
+      this.setState({ visibleValue: date });
     }
   }
 
@@ -177,7 +212,7 @@ class DateComponent extends React.Component {
    */
   render() {
     var datePicker = (this.state.open) ? <DatePicker { ...this.datePickerProps } /> : null;
-
+    debugger
 
     return (
       <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
@@ -195,7 +230,7 @@ class DateComponent extends React.Component {
 
 }
 
-export default DateComponent;
+export default Date;
 
 // @private
 

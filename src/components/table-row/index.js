@@ -91,11 +91,6 @@ class TableRow extends React.Component {
       </tr>
     );
   }
-<<<<<<< HEAD
-};
-=======
-
 }
->>>>>>> master
 
 export default TableRow;

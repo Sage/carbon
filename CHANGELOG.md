@@ -14,6 +14,7 @@ Decorators can now be found in the `/utils/decorators` directory. So far we have
 ## Misc
 
 * Ran ESLint task and fixed any errors.
+* Updated Form Cancel Button to use History object
 
 # 0.0.1
 

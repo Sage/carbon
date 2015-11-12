@@ -1,16 +1,11 @@
 import React from 'react';
 import Request from 'superagent';
-<<<<<<< HEAD
-import Input from './../../utils/input';
-import InputValidation from './../../utils/input/validation';
-import InputIcon from './../../utils/input/icon';
-import InputHelper from './../../utils/helpers/input';
-=======
+
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
->>>>>>> master
+
 import Immutable from 'immutable';
 
 @Input

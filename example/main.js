@@ -15,8 +15,8 @@ import Validation from 'utils/validations/presence';
 class testView extends React.Component {
 
   foo = (ev, props) => {
-    console.log(props);
-    console.log(ev.target.value)
+    // console.log(props);
+
   }
 
   render () {
@@ -31,7 +31,6 @@ class testView extends React.Component {
       </Form>
     )
   }
-
 }
 
 var routes = (
