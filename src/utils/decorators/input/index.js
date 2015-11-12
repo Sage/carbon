@@ -31,8 +31,8 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     return false;
   }
 
-  _handleOnChange = (ev, deferred=this.props._deferOnChange) => {
-    if (this.props.onChange && !deferred) {
+  _handleOnChange = (ev) => {
+    if (this.props.onChange) {
       this.props.onChange(ev, this.props);
     }
   }
@@ -52,7 +52,9 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     inputProps.name = generateInputName(this.props.name, this.context.form);
 
-    inputProps.onChange = chainFunctions(this._handleOnChange, inputProps.onChange);
+    if (this.props.onChange === inputProps.onChange) {
+      inputProps.onChange = this._handleOnChange;
+    }
 
     return inputProps;
   }
