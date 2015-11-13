@@ -70,7 +70,7 @@ The route helper has been modified to return a specific function:
 ```js
 import React from 'react';
 import { Route } from 'react-router';
-import { startRouter } from 'carbon/lib/utils/route';
+import { startRouter } from 'carbon/lib/utils/router';
 
 var routes = (
   <Route />

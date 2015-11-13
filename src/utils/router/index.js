@@ -8,7 +8,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
  *
  * You can import this function with the following:
  *
- *   import { startRouter } from 'carbon/lib/utils/route';
+ *   import { startRouter } from 'carbon/lib/utils/router';
  *
  * You can then use the function like this:
  *
