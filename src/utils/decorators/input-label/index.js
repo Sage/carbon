@@ -1,5 +1,6 @@
 import React from 'react';
 import { generateInputName } from './../../helpers/forms';
+import _ from 'lodash';
 
 var InputLabel = (ComposedComponent) => class Component extends ComposedComponent {
 
@@ -7,7 +8,7 @@ var InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     super(...args);
   }
 
-  static contextTypes = Object.assign({}, ComposedComponent.contextTypes, {
+  static contextTypes = _.merge(ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 

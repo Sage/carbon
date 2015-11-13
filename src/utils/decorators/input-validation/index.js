@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
+import _ from 'lodash';
 
 var InputValidation = (ComposedComponent) => class Component extends ComposedComponent {
 
@@ -11,7 +12,7 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
     this.state.errorMessage = null;
   }
 
-  static contextTypes = Object.assign({}, ComposedComponent.contextTypes, {
+  static contextTypes = _.merge(ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 
