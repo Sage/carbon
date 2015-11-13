@@ -102,7 +102,7 @@ describe('Button', () => {
 
     it('adds a disabled class if the button is disabled', () => {
       expect(disabledDOM.classList[2]).toEqual('ui-button--disabled')
-      expect(defaultDOM.classList[2]).toBeNull();
+      expect(defaultDOM.classList[2]).toBeFalsy();
     });
   });
 
