@@ -4,9 +4,9 @@ class Row extends React.Component {
 
   static propTypes = {
     children: React.PropTypes.oneOfType([
-                React.PropTypes.array,
-                React.PropTypes.object
-              ]).isRequired
+      React.PropTypes.array,
+      React.PropTypes.object
+    ]).isRequired
   }
 
   buildColumns = () => {
