@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import chainFunctions from './../../helpers/chain-functions';
 import { generateInputName } from './../../helpers/forms';
 
 var Input = (ComposedComponent) => class Component extends ComposedComponent {

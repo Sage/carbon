@@ -35,4 +35,4 @@ export function startRouter(routes, target = document.getElementById('app')) {
       { routes }
     </Router>
   ), target);
-};
+}

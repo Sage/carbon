@@ -21,7 +21,7 @@
  *
  * @method connect
  * @param {ReactComponent} ComposedView The view component to interact with the store(s).
- * @param {Object|Array} stores The store(s) you want to connec to the ComposedView.
+ * @param {Object|Array} stores The store(s) you want to connect to the ComposedView.
  * @return {Class} An enhanced version of the ComposedView to work with flux stores.
  */
 export function connect(ComposedView, stores) {
@@ -120,4 +120,4 @@ export function connect(ComposedView, stores) {
   }
 
   return View;
-};
+}

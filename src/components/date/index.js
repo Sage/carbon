@@ -199,11 +199,11 @@ export default DateComponent;
 
 function visibleFormat() {
   return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
-};
+}
 
 function hiddenFormat() {
   return "YYYY-MM-DD";
-};
+}
 
 function formatValue(val, formatFrom, formatTo) {
   var date = moment(val, formatFrom);

@@ -7,4 +7,4 @@ export function generateInputName(name, form) {
   }
 
   return formName;
-};
+}

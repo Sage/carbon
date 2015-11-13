@@ -61,7 +61,7 @@ export default class Store extends EventEmitter {
     // it is required to initialize the store with the dispatcher so we can register
     // the store with it and store the dispatchToken
     if (!Dispatcher) {
-      console.warn("You need to initialize your store with a dispatcher.");
+      console.warn("You need to initialize your store with a dispatcher."); // eslint-disable-line no-console
     }
 
     /**
@@ -102,7 +102,7 @@ export default class Store extends EventEmitter {
    */
   getState = () => {
     // warn the developer if they have not defined the data property.
-    if (!this.data) { console.warn("You need to set the data property on your store."); }
+    if (!this.data) { console.warn("You need to set the data property on your store."); } // eslint-disable-line no-console
     return this.data;
   }
 
