@@ -42,7 +42,7 @@ class CheckboxComponent extends React.Component {
       value: "0",
       name: this.inputProps.name,
       readOnly: true
-    }
+    };
 
     return props;
   }
