@@ -52,7 +52,7 @@ describe('Textbox', () => {
   });
 
   describe('Passing a custom onChange', () => {
-    it('triggers the custome function', () => {
+    it('triggers the custom function', () => {
       let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
       TestUtils.Simulate.change(input);
       expect(spy).toHaveBeenCalled();
