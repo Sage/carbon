@@ -19,7 +19,6 @@ class TextareaComponent extends React.Component {
   get inputProps() {
     var { ...props } = this.props;
     props.className = this.inputClasses;
-    props.ref = "ref";
     props.rows = this.props.rows;
     props.cols = this.props.cols;
     return props;
