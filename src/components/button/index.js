@@ -30,11 +30,11 @@ class Button extends React.Component {
     as: React.PropTypes.string,
 
     /**
-    * A required prop. This is what the button will display.
-    *
-    * @property children
-    * @type { Multiple }
-    */
+     * A required prop. This is what the button will display.
+     *
+     * @property children
+     * @type { Multiple }
+     */
     children: React.PropTypes.string.isRequired,
 
     /**

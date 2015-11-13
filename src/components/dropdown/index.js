@@ -2,6 +2,25 @@ import React from 'react';
 import Input from './../../utils/input';
 import InputValidation from './../../utils/input/validation';
 
+/**
+ * A decimal widget.
+ *
+ * == How to use a Decimal in a component:
+ *
+ * In your file
+ *
+ *  import Decimal from 'carbon/lib/components/decimal';
+ *
+ *  In the render method:
+ *
+ *    <Decimal />
+ *
+ * This component receives its props from the decorators listed above.
+ * Refer to the Input decorator for more information on required and optional props.
+ *
+ * @class Checkbox
+ * @constructor
+ **/
 class DropdownComponent extends React.Component {
 
   static defaultProps = { resource_key: 'id' }
@@ -27,7 +46,7 @@ class DropdownComponent extends React.Component {
         this.props.input.inputClasses() +
         this.props.validation.inputClasses();
 
-    let promptText = <option 
+    let promptText = <option
                        key='prompt'
                        className={ optionClassName }
                       >

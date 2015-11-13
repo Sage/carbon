@@ -28,27 +28,27 @@ import InputValidation from './../../utils/decorators/input-validation';
  **/
 class Checkbox extends React.Component {
 
-  /**
-  * Sets the checked state of the checkbox
-  *
-  * @property defaultChecked
-  * @type { Boolean }
-  * @default false
-  */
   static defaultProps = {
+    /**
+    * Sets the checked state of the checkbox
+    *
+    * @property defaultChecked
+    * @type { Boolean }
+    * @default false
+    */
     defaultChecked: false
   }
 
   /**
    * Sets the value of the checkbox [true | false]
    * @method handleOnChange
-   * @param { Object } ev
+   * @param {Object} ev event
    */
   handleOnChange = (ev) => {
     /**
      * The change event
      *
-     * @param { Object } ev
+     * @param {Object} ev event
      */
     this._handleOnChange({ target: { value: ev.target.checked }});
   }

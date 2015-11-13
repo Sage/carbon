@@ -1,7 +1,7 @@
 import React from 'react';
 
 var Icons = (props) => {
-  var { className, type, ...otherProps } = props;
+  let { className, type, ...otherProps } = props;
 
   className = className + " icon-" + type;
 

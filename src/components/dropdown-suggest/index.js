@@ -8,20 +8,49 @@ import InputIcon from './../../utils/decorators/input-icon';
 
 import Immutable from 'immutable';
 
+// Decorators
 @Input
 @InputIcon
 @InputLabel
 @InputValidation
+/**
+ * A dropdown-suggest widget.
+ *
+ * == How to use a dropdown-suggest in a component:
+ *
+ * In your file
+ *
+ *  import DropdownSuggest from 'carbon/lib/components/dropdown-suggest';
+ *
+ *  In the render method:
+ *
+ *    <DropdownSuggest path={foo} />
+ *
+ * This component receives its props from the decorators listed above.
+ * Refer to the Input decorator for more information on required and optional props.
+ *
+ * @class DropdownSuggest
+ * @constructor
+ **/
 class DropdownSuggest extends React.Component {
 
   static defaultProps = {
+    /**
+     * An initially empty object to hold data for rendering in the widget
+     *
+     * @property value
+     * @type { Object }
+     */
     value: Immutable.Map({})
   }
 
-  /**
-   * Define property types
-   */
   static propTypes = {
+    /**
+     * The path to your data (e.g. "/core_accounting/ledger_accounts/suggestions")
+     *
+     * @property path
+     * @type { String }
+     */
     path: React.PropTypes.string.isRequired
   }
 
@@ -34,7 +63,7 @@ class DropdownSuggest extends React.Component {
   listeningToScroll = true;
 
   /**
-   * Default state
+   * Private state with initial values
    */
   state = {
     /**
@@ -50,6 +79,7 @@ class DropdownSuggest extends React.Component {
      *
      * @property open
      * @type {Boolean}
+     * @default false
      */
     open: false,
 
@@ -57,7 +87,8 @@ class DropdownSuggest extends React.Component {
      * The current page number for the results.
      *
      * @property page
-     * @type {Integer}
+     * @type {Number}
+     * @default 1
      */
     page: 1,
 
@@ -65,7 +96,8 @@ class DropdownSuggest extends React.Component {
      * The total number of pages of results.
      *
      * @property pages
-     * @type {Integer}
+     * @type {Number}
+     * @default 0
      */
     pages: 0,
 
@@ -73,7 +105,8 @@ class DropdownSuggest extends React.Component {
      * The ID of the highlighted item in the list.
      *
      * @property highlighted
-     * @type {Integer}
+     * @type {Number}
+     * @default null
      */
     highlighted: null
   }
@@ -82,7 +115,7 @@ class DropdownSuggest extends React.Component {
    * Runs the callback onChange action
    *
    * @method emitOnChangeCallback
-   * @param [value] Immutable object representing the value
+   * @param {Object} value Immutable object representing the value
    */
   emitOnChangeCallback = (value) => {
     this._handleOnChange({ target: { value: value } });
@@ -92,10 +125,12 @@ class DropdownSuggest extends React.Component {
    * Retrieves data from the server for the list.
    *
    * @method getData
+   * @param {Object} page Page, defaults to 1.
    */
   getData = (page = 1) => {
     // Passes empty string to query if value has been selected
-    var query = this.props.value.get('id') ? "" : this.props.value.get(this.props.resource_key);
+    let query = typeof this.props.value.get('id') !== 'undefined' ?
+                "" : this.props.value.get(this.props.resource_key);
 
     Request
       .get(this.props.path)
@@ -124,9 +159,10 @@ class DropdownSuggest extends React.Component {
    * Sets or appends the list with new data and causes a setState.
    *
    * @method updateList
+   * @param {Object} data data returned from server
    */
   updateList = (data) => {
-    var pages = Math.ceil(data.records / 10),
+    let pages = Math.ceil(data.records / 10),
         records;
 
     if (data.page > 1) {
@@ -138,7 +174,7 @@ class DropdownSuggest extends React.Component {
 
     this.listeningToScroll = true;
 
-    var highlighted = data.records ? records[0].id : null;
+    let highlighted = data.records ? records[0].id : null;
 
     this.setState({
       options: records,
@@ -165,13 +201,13 @@ class DropdownSuggest extends React.Component {
    * @method handleFocus
    */
   handleFocus = () => {
-    var filter = this.refs.filter;
+    let filter = this.refs.filter;
 
     setTimeout(() => {
       filter.setSelectionRange(0, 9999);
     }, 0);
 
-    if (this.props.value.get('id') || !this.state.options.length) {
+    if (typeof this.props.value.get('id') !== 'undefined' || !this.state.options.length) {
       this.getData();
     } else {
       this.setState({ open: true });
@@ -184,10 +220,10 @@ class DropdownSuggest extends React.Component {
    * @method handleScroll
    */
   handleScroll = () => {
-    if (this.listeningToScroll) {
+    if (typeof this.listeningToScroll !== 'undefined') {
       if (this.state.page < this.state.pages) {
-        var list = this.refs.list;
-        var scrollTriggerPosition = list.scrollHeight - list.offsetHeight - 20;
+        let list = this.refs.list;
+        let scrollTriggerPosition = list.scrollHeight - list.offsetHeight - 20;
 
         if (list.scrollTop > scrollTriggerPosition) {
           this.listeningToScroll = false;
@@ -201,10 +237,11 @@ class DropdownSuggest extends React.Component {
    * Handles what happens on change of the input.
    *
    * @method handleChange
+   * @param {Object} ev event
    */
   handleChange = (ev) => {
-    if (this.timeout) { clearTimeout(this.timeout); }
-    var val = buildImmutableValue(this.props, ev.target.value, null);
+    if (typeof this.timeout !== 'undefined') { clearTimeout(this.timeout); }
+    let val = buildImmutableValue(this.props, ev.target.value, null);
     this.emitOnChangeCallback(val);
 
     this.timeout = setTimeout(() => {
@@ -216,9 +253,10 @@ class DropdownSuggest extends React.Component {
    * Handles a select action on a list item.
    *
    * @method handleSelect
+   * @param {Object} ev event
    */
   handleSelect = (ev) => {
-    var val = buildImmutableValue(this.props, ev.target.textContent, ev.target.value);
+    let val = buildImmutableValue(this.props, ev.target.textContent, ev.target.value);
     this.emitOnChangeCallback(val);
   }
 
@@ -226,6 +264,7 @@ class DropdownSuggest extends React.Component {
    * Handles a mouse over event for list items.
    *
    * @method handleMouseOver
+   * @param {Object} ev event
    */
   handleMouseOver = (ev) => {
     this.setState({ highlighted: ev.target.value });
@@ -235,17 +274,18 @@ class DropdownSuggest extends React.Component {
    * Handles when a user keys up on input.
    *
    * @method handleKeyUp
+   * @param {Object} ev event
    */
   handleKeyDown = (ev) => {
-    var list = this.refs.list,
+    let list = this.refs.list,
         element = list.getElementsByClassName('ui-dropdown-suggest__item--highlighted')[0],
         nextVal;
 
     switch(ev.which) {
       case 13: // return
-        if (element) {
+        if (typeof element !== 'undefined') {
           ev.preventDefault();
-          var val = buildImmutableValue(this.props, element.textContent, element.value);
+          let val = buildImmutableValue(this.props, element.textContent, element.value);
           this.setState({ open: false });
           this.emitOnChangeCallback(val);
         }
@@ -278,50 +318,77 @@ class DropdownSuggest extends React.Component {
    */
   resetScroll = () => {
     this.listeningToScroll = false;
-    var list = this.refs.list;
+    let list = this.refs.list;
     list.scrollTop = 0;
   }
 
+  /***
+   * A getter that combines props passed down from the input decorator with
+   * textbox specific props.
+   *
+   * @method inputProps
+   ***/
   get inputProps() {
-    var { ...props } = this.props;
+    let { ...props } = this.props;
     props.className = this.inputClasses;
     props.ref = "filter";
     props.onFocus = this.handleFocus;
     props.onBlur = this.handleBlur;
     props.onChange = this.handleChange;
     props.onKeyDown = this.handleKeyDown;
-    props.value = this.props.value.get(this.props.resource_key);
+    props.value = props.value.get(this.props.resource_key);
     return props;
   }
 
+  /**
+   * A getter for hidden input props.
+   *
+   * @method hiddenInputProps
+   **/
   get hiddenInputProps() {
-    var nameWithID = this.inputProps.name.split(/\]$/)[0] + "_id]";
-    var props = {
+    let nameWithID = this.inputProps.name.split(/\]$/)[0] + "_id]";
+    let props = {
       ref: "input",
       type: "hidden",
       readOnly: true,
       name: nameWithID
     };
 
-    if (this.props.value) { props.value = this.props.value.get('id'); }
+    if (typeof this.props.value !== 'undefined')
+      { props.value = this.props.value.get('id'); }
 
     return props;
   }
 
+  /**
+   * Main Class getter
+   *
+   * @method mainClasses Main Class getter
+   */
   get mainClasses() {
     return 'ui-dropdown-suggest';
   }
 
+  /**
+   * Input class getter
+   *
+   * @method inputClasses
+   */
   get inputClasses() {
     return 'ui-dropdown-suggest__input';
   }
 
+  /**
+   * Getter that returns search results. Builds each list item with relevant handlers and classes.
+   *
+   * @method results
+   */
   get results() {
-    var results;
+    let results;
 
     if (this.state.options.length) {
       results = this.state.options.map((option) => {
-        var className = "ui-dropdown-suggest__item";
+        let className = "ui-dropdown-suggest__item";
 
         return <li
                   key={option.name + option.id}
@@ -349,7 +416,7 @@ class DropdownSuggest extends React.Component {
    * @method render
    */
   render() {
-    var listClasses = "ui-dropdown-suggest__list" +
+    let listClasses = "ui-dropdown-suggest__list" +
         (this.state.open ? '' : ' hidden');
 
     return (
@@ -364,8 +431,7 @@ class DropdownSuggest extends React.Component {
         <ul
           ref="list"
           className={ listClasses }
-          onScroll={ this.handleScroll }
-        >
+          onScroll={ this.handleScroll }>
           { this.results }
         </ul>
 
@@ -374,8 +440,18 @@ class DropdownSuggest extends React.Component {
   }
 }
 
+// Private Functions
+
+/**
+ * Transforms selected element into an Immutable Object.
+ *
+ * @method buildImmutableValue
+ * @param {Object} props
+ * @param {String} name
+ * @param {Number} id
+ */
 function buildImmutableValue(props, name, id) {
-  var newValue = props.value.set(props.resource_key, name);
+  let newValue = props.value.set(props.resource_key, name);
   newValue = newValue.set('id', id);
 
   return newValue;

@@ -1,16 +1,55 @@
 import React from 'react';
 import Button from './../button';
 
+/**
+ * A Form widget.
+ *
+ * == How to use a Form in a component:
+ *
+ * In your file
+ *
+ *  import Form from 'carbon/lib/components/form';
+ *
+ *  In the render method:
+ *
+ *    <Form model='foo'>
+ *      <Textbox />
+ *      <Textbox />
+ *      <Date />
+ *    </Form>
+ *
+ *
+ * @class Checkbox
+ * @constructor
+ **/
 class Form extends React.Component {
 
   static propTypes = {
+    /**
+     * Where the form inputs are sent on submit
+     *
+     * @property model
+     * @type { String }
+     */
     model: React.PropTypes.string.isRequired
   }
 
   static childContextTypes = {
+    /**
+     * Defines a context object for child components of the form component.
+     * https://facebook.github.io/react/docs/context.html
+     *
+     * @property form
+     * @type { Object }
+     */
     form: React.PropTypes.object
   }
 
+  /**
+   * Returns form object to child components.
+   *
+   *@method getChildContext
+   */
   getChildContext = () => {
     return {
       form: {
@@ -23,72 +62,111 @@ class Form extends React.Component {
     };
   }
 
+  // Private State for tracking errors
   state = {
     errorCount: 0
   }
 
+  // Object to hold form inputs
   inputs = {
   }
 
+  // Object to hold table fields for many
   tables = {
   }
 
+  /**
+   * Increase current error count in state by 1.
+   *
+   * @method incrementErrorCount
+   */
   incrementErrorCount = () => {
     this.setState({ errorCount: this.state.errorCount + 1 });
   }
 
+  /**
+   * Decreases the current error count in state by 1.
+   *
+   * @method decrementErrorCount
+   */
   decrementErrorCount = () => {
     this.setState({ errorCount: this.state.errorCount - 1 });
   }
 
+  /**
+   * Attaches child component to form.
+   *
+   * @method attachToForm
+   * @param {Object} component
+   */
   attachToForm = (component) => {
+    let namespace = component.props.namespace;
+    let row_id    = component.props.row_id;
+    let name      = component.props.name;
+
     if (component.constructor.name === "TableFieldsForMany") {
-      this.tables[component.props.name] = component;
-    } else if (component.props.namespace && component.props.row_id) {
-      if (!this.inputs[component.props.namespace]) {
-        this.inputs[component.props.namespace] = {};
+      this.tables[name] = component;
+    } else if (namespace && row_id) {
+      if (!this.inputs[namespace]) {
+        this.inputs[namespace] = {};
       }
 
-      if (!this.inputs[component.props.namespace][component.props.row_id]) {
-        this.inputs[component.props.namespace][component.props.row_id] = {};
+      if (!this.inputs[namespace][row_id]) {
+        this.inputs[namespace][row_id] = {};
       }
 
-      this.inputs[component.props.namespace][component.props.row_id][component.props.name] = component;
+      this.inputs[namespace][row_id][name] = component;
     } else {
-      this.inputs[component.props.name] = component;
+      this.inputs[name] = component;
     }
   }
 
+  /**
+   * Detaches child component from form.
+   *
+   * @method detachFromFormToForm
+   * @param {Object} component
+   */
   detachFromForm = (component) => {
+    let namespace = component.props.namespace;
+    let row_id    = component.props.row_id;
+    let name      = component.props.name;
+
     if (component.constructor.name === "TableFieldsForMany") {
-      delete this.tables[component.props.name];
-    } else if (component.props.namespace && component.props.row_id) {
-      delete this.inputs[component.props.namespace][component.props.row_id][component.props.name];
+      delete this.tables[name];
+    } else if (namespace && row_id) {
+      delete this.inputs[namespace][row_id][name];
     } else {
-      delete this.inputs[component.props.name];
+      delete this.inputs[name];
     }
   }
 
+  /**
+   * Handles submit, checks for required fields and updates v
+   *
+   * @method handleOnSubmit
+   * @param {Object} ev event
+   */
   handleOnSubmit = (ev) => {
-    var valid = true;
-    var errors = 0;
+    let valid = true;
+    let errors = 0;
 
-    for (var key in this.inputs) {
-      var input = this.inputs[key];
+    for (let key in this.inputs) {
+      let input = this.inputs[key];
 
-      if (input.props) {
+      if (typeof input.props !== 'undefined') {
         if (!input.validate()) {
           valid = false;
           errors++;
         }
       } else {
-        for (var id in input) {
-          var row = input[id];
+        for (let id in input) {
+          let row = input[id];
 
-          for (var rowField in row) {
-            var rowInput = row[rowField];
+          for (let rowField in row) {
+            let rowInput = row[rowField];
 
-            if (rowInput.props._placeholder) {
+            if (typeof rowInput.props._placeholder !== 'undefined') {
               continue;
             }
 
@@ -106,27 +184,25 @@ class Form extends React.Component {
     if (!valid) {
       ev.preventDefault();
     } else {
-      for (var tableKey in this.tables) {
-        var table = this.tables[tableKey];
+      for (let tableKey in this.tables) {
+        let table = this.tables[tableKey];
         table.setState({ placeholder: false });
       }
     }
   }
 
   htmlProps = () => {
-    var { model, ...props } = this.props;
+    let { model, ...props } = this.props;
 
     return props;
   }
 
   generateCSRFToken = () => {
-    var meta = document.getElementsByTagName('meta'),
+    let meta = document.getElementsByTagName('meta'),
         csrfAttr,
         csrfValue;
 
-    for (var i = 0; i < meta.length; i++) {
-      var item = meta[i];
-
+    for (let item in meta) {
       if (item.getAttribute('name') === 'csrf-param') {
         csrfAttr = item.getAttribute('content');
       } else if (item.getAttribute('name') === 'csrf-token') {
@@ -136,10 +212,16 @@ class Form extends React.Component {
 
     return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
   }
-
+  /**
+   *  Redirects to the previous page, uses React Router history
+   *
+   * @method cancelForm
+   * @param {Object} ev event
+   */
   cancelForm = (ev) => {
     history.back();
   }
+
    /**
    * Renders the component.
    *

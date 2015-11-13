@@ -33,14 +33,14 @@ class Decimal extends React.Component {
   // We should not be using document here In future we should monitor which element has focus
   doc = document;
 
-  /**
-  * Sets the checked state of the checkbox
-  *
-  * @property defaultValue
-  * @type { Number }
-  * @default 0.00
-  */
   static defaultProps = {
+    /**
+    * Sets the checked state of the checkbox
+    *
+    * @property defaultValue
+    * @type { Number }
+    * @default 0.00
+    */
     defaultValue: '0.00'
   }
 
@@ -54,7 +54,7 @@ class Decimal extends React.Component {
   * when the field is not the active element.
   *
   * @method componentWillReceiveProps
-  * @param props The new props passed down to the component
+  * @param {Object} props The new props passed down to the component
   */
   componentWillReceiveProps = (props) => {
     if (this.doc.activeElement != this.refs.visible) {
@@ -67,7 +67,7 @@ class Decimal extends React.Component {
   * Call back to update the hidden field on change.
   *
   *@method emitOnChangeCallback
-  *@param val The unformatted decimal value
+  *@param {Number} val The unformatted decimal value
   */
   emitOnChangeCallback = (val) => {
     let hiddenField = this.refs.hidden;
@@ -80,7 +80,7 @@ class Decimal extends React.Component {
   * Handles Change to visible field
   *
   *@method handleVisibleInputChange
-  *@param ev
+  *@param {Object} ev event
   */
   handleVisibleInputChange = (ev) => {
     this.setState({ visibleValue: ev.target.value });
@@ -112,6 +112,7 @@ class Decimal extends React.Component {
     props.onKeyDown = filterKeys;
     return props;
   }
+
   /**
    * A getter for hidden input props.
    *
@@ -187,7 +188,7 @@ function i18nFormatting() {
  * Filters out invalid keys for decimal field
  *
  * @method filterKeys
- * @param ev
+ * @param {Object} ev event
  */
 function filterKeys(ev) {
   if (Events.isValidDecimalKey(ev)) { return true; }
@@ -200,7 +201,7 @@ function filterKeys(ev) {
  * Removes delimiters and separators from value
  *
  * @method formatHiddenValue
- * @param valueToFormat Formatted value
+ * @param {Number} valueToFormat Formatted value
  */
 function formatHiddenValue(valueToFormat) {
   let value = valueToFormat;
@@ -216,8 +217,8 @@ function formatHiddenValue(valueToFormat) {
  * Adds delimiters to the value
  *
  * @method formatVisibleValue
- * @param value Unformatted Value
- * @param scope used to get default value of current scope if value doesn't exist
+ * @param {Number} value Unformatted Value
+ * @param {Object} scope used to get default value of current scope if value doesn't exist
  */
 function formatVisibleValue(value, scope) {
   value = value || getDefaultValue(scope);
@@ -234,10 +235,10 @@ function formatVisibleValue(value, scope) {
  * Returns defaultValue for specified scope,
  *
  * @method getDefaultValue
- * @param scope used to get default value of current scope
+ * @param {Object} scope used to get default value of current scope
  */
 function getDefaultValue(scope) {
-  if (scope.refs.hidden) {
+  if (typeof scope.refs.hidden !== 'undefined') {
     return scope.refs.hidden.value;
   } else {
     return scope.props.defaultValue;

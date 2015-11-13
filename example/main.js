@@ -14,19 +14,13 @@ import Validation from 'utils/validations/presence';
 
 class testView extends React.Component {
 
-  foo = (ev, props) => {
-    // console.log(props);
-
-  }
-
   render () {
     return(
       <Form model="foo">
-        <Textarea path="/" name="date" onChange={ this.foo }  validations={ [Validation] }/>
-        <Date path="/" name="date" onChange={ this.foo }  validations={ [Validation] }/>
-        <DropdownSuggest path="/" name="date" onChange={ this.foo }  validations={ [Validation] }/>
-        <Checkbox path="/" name="date" onChange={ this.foo }  validations={ [Validation] }/>
-        <Decimal path="/" name="date" onChange={ this.foo }  validations={ [Validation] }/>
+        <Date name="date"/>
+        <DropdownSuggest path="/" name="foo" onChange={ this.foo }  validations={ [Validation] }/>
+        <Checkbox path="/" name="foo" onChange={ this.foo }  validations={ [Validation] }/>
+        <Decimal path="/" name="cost" onChange={ this.foo }  validations={ [Validation] }/>
         <Textbox name="foo" onChange={ this.foo } validations={ [Validation] } />
       </Form>
     )
