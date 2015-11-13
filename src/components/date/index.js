@@ -15,8 +15,7 @@ import I18n from "i18n-js";
 class DateComponent extends React.Component {
 
   static defaultProps = {
-    defaultValue: moment().format("YYYY-MM-DD"),
-    _deferOnChange: true
+    defaultValue: moment().format("YYYY-MM-DD")
   }
 
   state = {
@@ -39,7 +38,7 @@ class DateComponent extends React.Component {
     var hiddenField = this.refs.hidden;
     hiddenField.value = val;
 
-    this._handleOnChange({ target: hiddenField }, false);
+    this._handleOnChange({ target: hiddenField });
   }
 
   /**
@@ -138,7 +137,7 @@ class DateComponent extends React.Component {
   }
 
   get inputProps() {
-    var { onChange, ...props } = this.props;
+    var { ...props } = this.props;
     props.className = this.inputClasses;
     props.ref = "visible";
     props.onChange = this.handleVisibleInputChange;

@@ -32,7 +32,7 @@ class Decimal extends React.Component {
     var hiddenField = this.refs.hidden;
     hiddenField.value = val;
 
-    this._handleOnChange({ target: hiddenField }, false);
+    this._handleOnChange({ target: hiddenField });
   }
 
   handleVisibleInputChange = (ev) => {
@@ -45,7 +45,7 @@ class Decimal extends React.Component {
   }
 
   get inputProps() {
-    var { onChange, ...props } = this.props;
+    var { ...props } = this.props;
     props.className = this.inputClasses;
     props.ref = "visible";
     props.onChange = this.handleVisibleInputChange;
