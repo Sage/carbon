@@ -176,5 +176,22 @@ describe('Decimal', () => {
         expect(instance.refs.hidden.defaultValue).toEqual("1000.00");
       });
     });
+
+    describe('render', () => {
+      it('renders its top level div', () => {
+        let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+        expect(div.classList[0]).toEqual('ui-decimal');
+      });
+
+      it('renders a visible field', () => {
+        let input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
+        expect(input.type).toEqual('text');
+      });
+
+      it('renders a hidden field', () => {
+        let input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
+        expect(input.type).toEqual('hidden');
+      });
+    });
   });
 });
