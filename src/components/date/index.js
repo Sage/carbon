@@ -14,6 +14,8 @@ import I18n from "i18n-js";
 @InputValidation
 class DateComponent extends React.Component {
 
+ doc = document;
+
   static defaultProps = {
     defaultValue: moment().format("YYYY-MM-DD")
   }
@@ -25,7 +27,7 @@ class DateComponent extends React.Component {
   }
 
   componentWillReceiveProps = (props) => {
-    if (document.activeElement != this.refs.visible) {
+    if (this.doc.activeElement != this.refs.visible) {
       var value = props.value || props.defaultValue;
       var date = formatVisibleValue(value, this);
       this.setState({
@@ -80,7 +82,8 @@ class DateComponent extends React.Component {
    * @method handleVisibleInputChange
    */
   handleVisibleInputChange = (ev) => {
-    var formats = [visibleFormat(), "MMM DD YY", "MM-DD-YYYY", "DD-MM", "DD-MM-YYYY"],
+    // TODO: This needs more thought i18n with multiple options
+    var formats = [visibleFormat(), "MMM DD YY", "DD-MM", "DD-MM-YYYY"],
         validDate = moment(ev.target.value, formats).isValid(),
         newState = { visibleValue: ev.target.value };
 

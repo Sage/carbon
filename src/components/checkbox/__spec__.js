@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Checkbox from './index';
 
 describe('Checkbox', () => {
-  var instance
+  let instance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
