@@ -3,7 +3,10 @@ import React from 'react';
 class Row extends React.Component {
 
   static propTypes = {
-    children: React.PropTypes.array.isRequired
+    children: React.PropTypes.oneOfType([
+                React.PropTypes.array,
+                React.PropTypes.object
+              ]).isRequired
   }
 
   buildColumns = () => {
