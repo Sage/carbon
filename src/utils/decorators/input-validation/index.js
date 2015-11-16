@@ -12,11 +12,12 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
     this.state.errorMessage = null;
   }
 
-  static contextTypes = _.merge(ComposedComponent.contextTypes, {
+  static contextTypes = _.assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 
   componentWillMount() {
+
     if (super.componentWillMount) { super.componentWillMount(); }
 
     if (this.props.validations) {

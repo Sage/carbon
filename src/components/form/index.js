@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './../button';
+import I18n from "i18n-js";
 
 /**
  * A Form widget.
@@ -191,18 +192,30 @@ class Form extends React.Component {
     }
   }
 
+  /**
+   * Separates and returns HTML specific props
+   *
+   * @method htmlProps
+   */
   htmlProps = () => {
     let { model, ...props } = this.props;
 
     return props;
   }
 
+  /**
+   * Creates and returns csrf token for input field
+   *
+   * @method generateCSRFToken
+   */
   generateCSRFToken = () => {
     let meta = document.getElementsByTagName('meta'),
         csrfAttr,
         csrfValue;
 
-    for (let item in meta) {
+    for (var i = 0; i < meta.length; i++) {
+      var item = meta[i];
+
       if (item.getAttribute('name') === 'csrf-param') {
         csrfAttr = item.getAttribute('content');
       } else if (item.getAttribute('name') === 'csrf-token') {
@@ -212,6 +225,7 @@ class Form extends React.Component {
 
     return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
   }
+
   /**
    *  Redirects to the previous page, uses React Router history
    *
@@ -222,19 +236,32 @@ class Form extends React.Component {
     history.back();
   }
 
+  //Translation fallback for error messages
+  fallback = () => {
+    let errorMessage = '';
+
+    if (this.state.errorCount === 1 ) {
+      errorMessage = "There is 1 error";
+    }
+    else {
+      errorMessage = `There are ${this.state.errorCount} errors`;
+    }
+    return errorMessage;
+  }
    /**
    * Renders the component.
    *
    * @method render
    */
   render() {
-    var errorCount,
+    let errorCount,
         saveClasses = "ui-form__save", cancelClasses = "ui-form__cancel";
 
     if (this.state.errorCount) {
+      let errors= I18n.t("errors.messages.form_summary.errors", { defaultValue: this.fallback() }, { count: this.state.errorCount });
       errorCount = (
         <span className="ui-form__summary">
-          There are <span>{ this.state.errorCount }</span> errors
+          { errors }
         </span>
       );
 
