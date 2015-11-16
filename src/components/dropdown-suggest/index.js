@@ -31,18 +31,9 @@ import Immutable from 'immutable';
  *
  * @class DropdownSuggest
  * @constructor
- **/
+ */
 class DropdownSuggest extends React.Component {
 
-  static defaultProps = {
-    /**
-     * An initially empty object to hold data for rendering in the widget
-     *
-     * @property value
-     * @type { Object }
-     */
-    value: Immutable.Map({})
-  }
 
   static propTypes = {
     /**
@@ -52,6 +43,19 @@ class DropdownSuggest extends React.Component {
      * @type { String }
      */
     path: React.PropTypes.string.isRequired
+
+    /**
+     * An object to hold data for rendering in the widget
+     *
+     * @property value
+     * @type { Object }
+     * @default Immutable.Map({})
+     */
+     value: React.PropTypes.object
+  }
+
+  static defaultProps = {
+    value: Immutable.Map({})
   }
 
   /**
@@ -66,6 +70,7 @@ class DropdownSuggest extends React.Component {
    * Private state with initial values
    */
   state = {
+
     /**
      * A collection of results for the list.
      *
@@ -322,12 +327,12 @@ class DropdownSuggest extends React.Component {
     list.scrollTop = 0;
   }
 
-  /***
+  /**
    * A getter that combines props passed down from the input decorator with
    * textbox specific props.
    *
    * @method inputProps
-   ***/
+   */
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
@@ -344,7 +349,7 @@ class DropdownSuggest extends React.Component {
    * A getter for hidden input props.
    *
    * @method hiddenInputProps
-   **/
+   */
   get hiddenInputProps() {
     let nameWithID = this.inputProps.name.split(/\]$/)[0] + "_id]";
     let props = {

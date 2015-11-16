@@ -17,7 +17,7 @@ import React from 'react';
  *
  * @class Row
  * @constructor
- **/
+ */
 class Row extends React.Component {
 
   static propTypes = {

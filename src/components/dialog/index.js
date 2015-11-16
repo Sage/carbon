@@ -15,11 +15,13 @@ import Icon from './../icon';
  *
  *    <Dialog cancelDialogHandler={ customEvenHandler } />
  *
+ * The component rendering the Dialog must pass down a prop of 'open' in order to open the dialog.
+ *
  * You need to provide a custom cancel event handler to handle a close event.
  *
  * @class Dialog
  * @constructor
- **/
+ */
 class Dialog extends React.Component {
 
   static propTypes = {
@@ -30,6 +32,19 @@ class Dialog extends React.Component {
      * @type { Function }
      */
     cancelDialogHandler: React.PropTypes.func.isRequired
+
+    /**
+     * Sets the open state of the dialog
+     *
+     * @property open
+     * @type { Boolean }
+     * @default false
+     */
+    open: React.PropTypes.bool.isRequired
+  }
+
+  static defaultProps = {
+    open: false
   }
 
   /**
@@ -62,9 +77,9 @@ class Dialog extends React.Component {
 
   /**
    * Centers dialog relative to window
-  *
-  * @method centerDialog
-  */
+   *
+   * @method centerDialog
+   */
   centerDialog = () => {
     let height = this.refs.dialog.offsetHeight / 2,
         width = this.refs.dialog.offsetWidth / 2,

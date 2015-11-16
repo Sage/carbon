@@ -11,6 +11,8 @@ import I18n from "i18n-js";
  *
  *  import Form from 'carbon/lib/components/form';
  *
+ * Form requires a prop of 'model'. It renders any children components of input type passed to it.
+ *
  *  In the render method:
  *
  *    <Form model='foo'>
@@ -19,10 +21,9 @@ import I18n from "i18n-js";
  *      <Date />
  *    </Form>
  *
- *
- * @class Checkbox
+ * @class Form
  * @constructor
- **/
+ */
 class Form extends React.Component {
 
   static propTypes = {

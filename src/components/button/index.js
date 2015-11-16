@@ -10,6 +10,8 @@ import React from 'react';
  *
  * In the render method:
  *
+ * Pass the button a string to display
+ *
  *   <Button>Save</Button>
  *
  * For additional properties specific to this component, see propTypes and defaultProps.

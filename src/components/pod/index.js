@@ -17,7 +17,7 @@ import React from 'react';
  *
  * @class Pod
  * @constructor
- **/
+ */
 class Pod extends React.Component {
 
   /**

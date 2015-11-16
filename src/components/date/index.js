@@ -29,25 +29,17 @@ import I18n from "i18n-js";
  * This component receives its props from the decorators listed above.
  * Refer to the Input decorator for more information on required and optional props.
  *
- * @class Textbox
+ * @class Date
  * @constructor
- **/
+ */
 class Date extends React.Component {
 
   static defaultProps = {
-    /**
-    * Sets the default date to the current date
-    *
-    * @property defaultValue
-    * @type { Number }
-    * @default current date
-    */
     defaultValue: moment().format("YYYY-MM-DD")
   }
 
-  /**
-  * Private component state, initializes with default values provided.
-  */
+
+ //Private component state, initializes with default values provided.
   state = {
     open: false,
     viewDate: null,
@@ -55,12 +47,12 @@ class Date extends React.Component {
   }
 
   /**
-  * A lifecycle method to update the visible value with new props
-  * when the field is not the active element.
-  *
-  * @method componentWillReceiveProps
-  * @param {Object} props The new props passed down to the component
-  */
+   * A lifecycle method to update the visible value with new props
+   * when the field is not the active element.
+   *
+   * @method componentWillReceiveProps
+   * @param {Object} props The new props passed down to the component
+   */
   componentWillReceiveProps = (props) => {
     if (document.activeElement != this.refs.visible) {
       let value = props.value || props.defaultValue;
@@ -71,11 +63,11 @@ class Date extends React.Component {
   }
 
   /**
-  * Call back to update the hidden field on change.
-  *
-  *@method emitOnChangeCallback
-  *@param {String} val The unformatted decimal value
-  */
+   * Call back to update the hidden field on change.
+   *
+   *@method emitOnChangeCallback
+   *@param {String} val The unformatted decimal value
+   */
   emitOnChangeCallback = (val) => {
     let hiddenField = this.refs.hidden;
     hiddenField.value = val;
@@ -181,11 +173,11 @@ class Date extends React.Component {
     this.openDatePicker();
   }
 
-  /***
+  /**
    * A getter that returns datepicker specific props
    *
    * @method inputProps
-   ***/
+   */
   get datePickerProps() {
     let value = this.props.value || getDefaultValue(this);
     let props = {};
@@ -201,12 +193,12 @@ class Date extends React.Component {
     return props;
   }
 
-  /***
+  /**
    * A getter that combines props passed down from the input decorator with
    * textbox specific props.
    *
    * @method inputProps
-   ***/
+   */
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
@@ -222,7 +214,7 @@ class Date extends React.Component {
    * A getter for hidden input props.
    *
    * @method hiddenInputProps
-   **/
+   */
   get hiddenInputProps() {
   let props = {
       ref: "hidden",
@@ -303,7 +295,7 @@ function hiddenFormat() {
 }
 
 /**
- *
+ * Formats the given value to a specified format
  *
  * @method formatValue
  * @param {String} val current value

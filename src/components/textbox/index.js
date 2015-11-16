@@ -25,7 +25,7 @@ import InputValidation from './../../utils/decorators/input-validation';
  *
  * @class Textbox
  * @constructor
- **/
+ */
 class Textbox extends React.Component {
 
   /**
@@ -46,12 +46,12 @@ class Textbox extends React.Component {
     return 'ui-textbox__input';
   }
 
-  /***
+  /**
    * A getter that combines props passed down from the input decorator with
    * textbox specific props.
    *
    * @method inputProps
-   ***/
+   */
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;

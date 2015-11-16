@@ -25,22 +25,21 @@ import Events from './../../utils/helpers/events';
  * This component receives its props from the decorators listed above.
  * Refer to the Input decorator for more information on required and optional props.
  *
- * @class Checkbox
+ * @class Decimal
  * @constructor
- **/
+ */
 class Decimal extends React.Component {
 
   // We should not be using document here In future we should monitor which element has focus
   doc = document;
-
   static defaultProps = {
     /**
-    * Sets the checked state of the checkbox
-    *
-    * @property defaultValue
-    * @type { Number }
-    * @default 0.00
-    */
+     * Sets the default value of the decimal field
+     *
+     * @property defaultValue
+     * @type { Number }
+     * @default 0.00
+     */
     defaultValue: '0.00'
   }
 
@@ -50,12 +49,12 @@ class Decimal extends React.Component {
   }
 
   /**
-  * A lifecycle method to update the visible value with new props
-  * when the field is not the active element.
-  *
-  * @method componentWillReceiveProps
-  * @param {Object} props The new props passed down to the component
-  */
+   * A lifecycle method to update the visible value with new props
+   * when the field is not the active element.
+   *
+   * @method componentWillReceiveProps
+   * @param {Object} props The new props passed down to the component
+   */
   componentWillReceiveProps = (props) => {
     if (this.doc.activeElement != this.refs.visible) {
       let value = props.value || props.defaultValue;
@@ -64,11 +63,11 @@ class Decimal extends React.Component {
   }
 
   /**
-  * Call back to update the hidden field on change.
-  *
-  *@method emitOnChangeCallback
-  *@param {Number} val The unformatted decimal value
-  */
+   * Call back to update the hidden field on change.
+   *
+   *@method emitOnChangeCallback
+   *@param {Number} val The unformatted decimal value
+   */
   emitOnChangeCallback = (val) => {
     let hiddenField = this.refs.hidden;
     hiddenField.value = val;
@@ -77,31 +76,31 @@ class Decimal extends React.Component {
   }
 
   /**
-  * Handles Change to visible field
-  *
-  *@method handleVisibleInputChange
-  *@param {Object} ev event
-  */
+   * Handles Change to visible field
+   *
+   *@method handleVisibleInputChange
+   *@param {Object} ev event
+   */
   handleVisibleInputChange = (ev) => {
     this.setState({ visibleValue: ev.target.value });
     this.emitOnChangeCallback(formatHiddenValue(ev.target.value));
   }
 
   /**
-  * Updates visible value on blur
-  *
-  *@method handleBlur
-  */
+   * Updates visible value on blur
+   *
+   *@method handleBlur
+   */
   handleBlur = () => {
     this.setState({ visibleValue: formatVisibleValue(this.props.value, this) });
   }
 
-  /***
+  /**
    * A getter that combines props passed down from the input decorator with
    * textbox specific props.
    *
    * @method inputProps
-   ***/
+   */
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
@@ -117,7 +116,7 @@ class Decimal extends React.Component {
    * A getter for hidden input props.
    *
    * @method hiddenInputProps
-   **/
+   */
   get hiddenInputProps() {
     var props = {
       ref: "hidden",

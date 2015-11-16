@@ -28,19 +28,24 @@ import InputValidation from './../../utils/decorators/input-validation';
  **/
 class Checkbox extends React.Component {
 
-  static defaultProps = {
+  static propTypes = {
     /**
-    * Sets the checked state of the checkbox
-    *
-    * @property defaultChecked
-    * @type { Boolean }
-    * @default false
-    */
+     * Sets the checked state of the checkbox
+     *
+     * @property defaultChecked
+     * @type { Boolean }
+     * @default false
+     */
+    defaultChecked: React.PropTypes.bool.isRequired
+  }
+
+  static defaultProps = {
     defaultChecked: false
   }
 
   /**
    * Sets the value of the checkbox [true | false]
+   *
    * @method handleOnChange
    * @param {Object} ev event
    */
@@ -56,7 +61,7 @@ class Checkbox extends React.Component {
   /**
    * Main Class getter
    *
-   * @method mainClasses Main Class getter
+   * @method mainClasses
    */
   get mainClasses() {
     return 'ui-checkbox';
@@ -71,12 +76,12 @@ class Checkbox extends React.Component {
     return 'ui-checkbox__input';
   }
 
-  /***
+  /**
    * A getter that combines props passed down from the input decorator with
    * checkbox specific props.
    *
    * @method inputProps
-   ***/
+   */
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
@@ -92,7 +97,7 @@ class Checkbox extends React.Component {
    * A getter for hidden input props.
    *
    * @method hiddenInputProps
-   **/
+   */
   get hiddenInputProps() {
     let props = {
       ref: "hidden",

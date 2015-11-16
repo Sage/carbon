@@ -19,7 +19,7 @@ import React from 'react';
  *
  * @class Icon
  * @constructor
- **/
+ */
 var Icons = (props) => {
 
   let { className, type, ...otherProps } = props;
