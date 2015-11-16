@@ -14,7 +14,7 @@ import I18n from "i18n-js";
 @InputValidation
 class DateComponent extends React.Component {
 
- doc = document;
+  doc = document;
 
   static defaultProps = {
     defaultValue: moment().format("YYYY-MM-DD")
