@@ -291,7 +291,7 @@ export default Date;
  */
 function visibleFormat() {
   return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
-};
+}
 
 /**
  * Sets the hidden format
@@ -300,7 +300,7 @@ function visibleFormat() {
  */
 function hiddenFormat() {
   return "YYYY-MM-DD";
-};
+}
 
 /**
  *

@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import chainFunctions from './../../helpers/chain-functions';
 import { generateInputName } from './../../helpers/forms';
 
 var Input = (ComposedComponent) => class Component extends ComposedComponent {
@@ -9,11 +8,11 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     super(...args);
   }
 
-  static propTypes = Object.assign({}, ComposedComponent.propTypes, {
+  static propTypes = _.merge(ComposedComponent.propTypes, {
     name: React.PropTypes.string.isRequired
   })
 
-  static contextTypes = Object.assign({}, ComposedComponent.contextTypes, {
+  static contextTypes = _.merge(ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 

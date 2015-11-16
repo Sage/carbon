@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router';
-import CarbonRoute from 'utils/route';
+import CarbonRoute from 'utils/router';
 
 import Form from 'components/form';
 import Textbox from 'components/textbox';

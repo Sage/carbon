@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Icon from './../../utils/icon';
+import Icon from './../icon';
 
 /**
  * A Dialog widget.

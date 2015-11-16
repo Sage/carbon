@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
+import _ from 'lodash';
 
 var InputValidation = (ComposedComponent) => class Component extends ComposedComponent {
 
@@ -11,7 +12,7 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
     this.state.errorMessage = null;
   }
 
-  static contextTypes = Object.assign({}, ComposedComponent.contextTypes, {
+  static contextTypes = _.merge(ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 
@@ -40,7 +41,7 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
     if (this.props.validations) {
       this.props.validations.forEach((validation) => {
         if (!this.props.value) {
-          console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);
+          console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);  // eslint-disable-line no-console
         }
 
         valid = validation.validate(this.props.value);
