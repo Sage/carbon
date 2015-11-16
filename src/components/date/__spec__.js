@@ -64,13 +64,12 @@ describe('Date', () => {
   });
 
   describe('openDatePicker', () => {
-    var spy;
+    let spy;
 
     beforeEach(() => {
       spy = jasmine.createSpy('spy');
-      instance.doc = {
-        addEventListener: spy
-      };
+      instance.doc = { addEventListener: spy };
+
       spyOn(instance, 'setState');
       instance.openDatePicker();
     });
@@ -88,16 +87,18 @@ describe('Date', () => {
   });
 
   describe('closeDatePicker', () => {
+    let spy;
+
     beforeEach(() => {
+      spy = jasmine.createSpy('spy');
+      instance.doc = { removeEventListener: spy };
+
       spyOn(instance, 'setState');
       instance.closeDatePicker();
     });
 
     it('removes a eventListener to the document', () => {
-      // TODO: May pass but not working like openDatePicker addEvent
-      spyOn(instance, 'closeDatePicker');
-      TestUtils.Simulate.click(instance.doc)
-      expect(instance.closeDatePicker).not.toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith('click', instance.closeDatePicker);
     });
 
     it('calls set state to open the view and set the view date', () => {

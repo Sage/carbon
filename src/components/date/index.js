@@ -63,7 +63,7 @@ class DateComponent extends React.Component {
    * @method closeDatePicker
    */
   closeDatePicker = () => {
-    document.removeEventListener("click", this.closeDatePicker);
+    this.doc.removeEventListener("click", this.closeDatePicker);
     this.setState({
       open: false
     });
