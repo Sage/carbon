@@ -236,18 +236,25 @@ class Form extends React.Component {
     history.back();
   }
 
-  //Translation fallback for error messages
-  fallback = () => {
-    let errorMessage = '';
+  /**
+   *  Constructs validations error message
+   *
+   * @method errors
+   */
+  errors() {
+    let count = this.state.errorCount;
 
-    if (this.state.errorCount === 1 ) {
-      errorMessage = "There is 1 error";
-    }
-    else {
-      errorMessage = `There are ${this.state.errorCount} errors`;
-    }
+    let errorMessage =  I18n.t("errors.messages.form_summary.errors", {
+      defaultValue: {
+        one: `There is ${ count } error`,
+        other: `There are ${ count } errors`
+      },
+      count: count
+    });
+
     return errorMessage;
   }
+
    /**
    * Renders the component.
    *
@@ -258,10 +265,9 @@ class Form extends React.Component {
         saveClasses = "ui-form__save", cancelClasses = "ui-form__cancel";
 
     if (this.state.errorCount) {
-      let errors= I18n.t("errors.messages.form_summary.errors", { defaultValue: this.fallback() }, { count: this.state.errorCount });
       errorCount = (
         <span className="ui-form__summary">
-          { errors }
+          { this.errors() }
         </span>
       );
 

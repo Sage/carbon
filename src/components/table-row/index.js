@@ -1,6 +1,22 @@
 import React from 'react';
 import Icon from './../icon';
 
+/**
+ * A table row widget.
+ *
+ * == How to use a Table Row in a component:
+ *
+ * In your file
+ *
+ *  import Row from 'carbon/lib/components/Row';
+ *
+ *  In the render method:
+ *
+ *    <Row/>
+ *
+ * @class Row
+ * @constructor
+ **/
 class TableRow extends React.Component {
 
   shouldComponentUpdate = (nextProps) => {

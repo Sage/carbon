@@ -7,6 +7,7 @@ import InputValidation from './../../utils/decorators/input-validation';
 @Input
 @InputLabel
 @InputValidation
+
 /**
  * A textarea widget.
  *
@@ -55,8 +56,8 @@ class Textarea extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.ref = "ref";
-    props.value = props.value || '';
+    props.rows = this.props.rows;
+    props.cols = this.props.cols;
     return props;
   }
 
