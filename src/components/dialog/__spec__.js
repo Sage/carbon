@@ -72,10 +72,6 @@ describe('Dialog', () => {
     });
   });
 
-  describe('centerDialog', () => {
-    // TODO
-  });
-
   describe('dialogTitle', () => {
     describe('when a props title is passed', () => {
       beforeEach(() => {

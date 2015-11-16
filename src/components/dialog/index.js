@@ -44,11 +44,11 @@ class Dialog extends React.Component {
           <h2 className="ui-dialog__title">{ this.props.title }</h2> :
           null
     );
-  };
+  }
 
   get backgroundHTML() {
     return <div className="ui-dialog__background"></div>;
-  };
+  }
 
   get mainClasses() {
     return 'ui-dialog';
@@ -66,7 +66,7 @@ class Dialog extends React.Component {
   render() {
     let dialogClasses = this.dialogClasses,
         backgroundHTML,
-        dialogHTML
+        dialogHTML;
 
     if (this.props.open) {
 
@@ -82,7 +82,7 @@ class Dialog extends React.Component {
           <Icon className="ui-dialog__close" type="close" onClick={ this.props.cancelDialogHandler } />
           { this.props.children }
         </div>
-      )
+      );
     }
 
     return (
