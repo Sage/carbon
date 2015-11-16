@@ -14,6 +14,8 @@ import I18n from "i18n-js";
 @InputValidation
 class DateComponent extends React.Component {
 
+  doc = document;
+
   static defaultProps = {
     defaultValue: moment().format("YYYY-MM-DD")
   }
@@ -25,7 +27,7 @@ class DateComponent extends React.Component {
   }
 
   componentWillReceiveProps = (props) => {
-    if (document.activeElement != this.refs.visible) {
+    if (this.doc.activeElement != this.refs.visible) {
       var value = props.value || props.defaultValue;
       var date = formatVisibleValue(value, this);
       this.setState({
@@ -47,7 +49,7 @@ class DateComponent extends React.Component {
    * @method openDatePicker
    */
   openDatePicker = () => {
-    document.addEventListener("click", this.closeDatePicker);
+    this.doc.addEventListener("click", this.closeDatePicker);
     var value = this.props.value || getDefaultValue(this);
     this.setState({
       open: true,
@@ -61,7 +63,7 @@ class DateComponent extends React.Component {
    * @method closeDatePicker
    */
   closeDatePicker = () => {
-    document.removeEventListener("click", this.closeDatePicker);
+    this.doc.removeEventListener("click", this.closeDatePicker);
     this.setState({
       open: false
     });
@@ -80,7 +82,8 @@ class DateComponent extends React.Component {
    * @method handleVisibleInputChange
    */
   handleVisibleInputChange = (ev) => {
-    var formats = [visibleFormat(), "MMM DD YY", "MM-DD-YYYY", "DD-MM", "DD-MM-YYYY"],
+    // TODO: This needs more thought i18n with multiple options
+    var formats = [visibleFormat(), "MMM DD YY", "DD-MM", "DD-MM-YYYY"],
         validDate = moment(ev.target.value, formats).isValid(),
         newState = { visibleValue: ev.target.value };
 
@@ -121,17 +124,20 @@ class DateComponent extends React.Component {
     this.openDatePicker();
   }
 
+  handleViewDateChange = (val) => {
+    this.setState({ viewDate: val });
+  }
+
   get datePickerProps() {
     var value = this.props.value || getDefaultValue(this);
     var props = {};
+    props.ref = 'datepicker';
     props.weekDayNames = ["S", "M", "T", "W", "T", "F", "S"];
     props.monthFormat = "MMM";
     props.dateFormat = hiddenFormat();
     props.onChange = this.handleDateSelect;
     props.date = value;
-    props.onViewDateChange = (val) => {
-      this.setState({ viewDate: val });
-    };
+    props.onViewDateChange = this.handleViewDateChange;
     props.viewDate = this.state.viewDate;
     return props;
   }
@@ -176,7 +182,6 @@ class DateComponent extends React.Component {
   render() {
     var datePicker = (this.state.open) ? <DatePicker { ...this.datePickerProps } /> : null;
 
-
     return (
       <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
 
@@ -190,7 +195,6 @@ class DateComponent extends React.Component {
       </div>
     );
   }
-
 }
 
 export default DateComponent;
