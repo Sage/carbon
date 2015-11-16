@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Dialog from './index';
 import I18n from "i18n-js";
-import Button from './../Button';
+import Button from './../button';
 
 describe('Dialog', () => {
   let instance;
