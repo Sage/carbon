@@ -5,7 +5,8 @@ import Date from './index';
 
 describe('Date', () => {
   let instance;
-  let today = moment().format("DD MMM YYYY")
+  let today = moment().format("DD MMM YYYY");
+  let hiddenToday = moment().format("YYYY-MM-DD");
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -63,16 +64,19 @@ describe('Date', () => {
   });
 
   describe('openDatePicker', () => {
+    var spy;
+
     beforeEach(() => {
+      spy = jasmine.createSpy('spy');
+      instance.doc = {
+        addEventListener: spy
+      };
       spyOn(instance, 'setState');
       instance.openDatePicker();
     });
 
-
     it('adds a eventListener to the document', () => {
-      spyOn(instance, 'closeDatePicker');
-      TestUtils.Simulate.click(instance.doc)
-      expect(instance.closeDatePicker).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith('click', instance.closeDatePicker);
     });
 
     it('calls set state to open the view and set the view date', () => {
@@ -119,12 +123,11 @@ describe('Date', () => {
     it('is triggered when visible input changes', () => {
       spyOn(instance, 'emitOnChangeCallback')
       TestUtils.Simulate.change(instance.refs.visible);
-      let viewDate = moment().format('YYYY-MM-DD') 
 
-      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(viewDate);
+      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(hiddenToday);
       expect(instance.setState).toHaveBeenCalledWith({ 
         visibleValue: today,
-        viewDate: viewDate
+        viewDate: hiddenToday
       });
     });
 
@@ -155,8 +158,7 @@ describe('Date', () => {
         instance.handleVisibleInputChange({ target: { value: date } })
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          // Doesn't have year so adding days may create inconsistent results
-          viewDate: moment().format('YYYY-MM-DD')
+          viewDate: hiddenToday
         });
       });
 
@@ -180,45 +182,158 @@ describe('Date', () => {
     });
   });
 
-  describe('handleWidgetClick', () => {
-    it('stops immediate propagation of the event', () => {
-      expect(1).toEqual(2);
-    });
-  });
-
   describe('handleDateSelect', () => {
-    it('closes the date picker', => {
-
+    beforeEach(() => {
+      instance.setState({ open: true });
     });
-    it('closes the date picker', => {
 
+    it('closes the date picker', () => {
+      let spy = spyOn(instance, 'closeDatePicker')
+      instance.refs.datepicker.handleChange();
+      expect(instance.closeDatePicker).toHaveBeenCalled();
     });
-    it('closes the date picker', => {
 
+    it('emits a onChange callback', () => {
+      spyOn(instance, 'emitOnChangeCallback')
+      instance.refs.datepicker.handleChange();
+      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith( hiddenToday );
+    });
+
+    it('updates the visible value', () => {
+      spyOn(instance, 'updateVisibleValue')
+      instance.refs.datepicker.handleChange();
+      expect(instance.updateVisibleValue).toHaveBeenCalled();
     });
   });
+
   describe('handleBlur', () => {
+    beforeEach(() => {
+      spyOn(instance, 'updateVisibleValue')
+      TestUtils.Simulate.blur(instance.refs.visible);
+    });
 
+    it('updates the visible value', () => {
+      expect(instance.updateVisibleValue).toHaveBeenCalled();
+    });
   });
+
   describe('handleFocus', () => {
+    beforeEach(() => {
+      spyOn(instance, 'openDatePicker')
+      TestUtils.Simulate.focus(instance.refs.visible);
+    });
 
+    it('opens the date picker', () => {
+      expect(instance.openDatePicker).toHaveBeenCalled();
+    });
   });
+
+  describe('handleViewDateChange', () => {
+    it('sets the state of the viewDate', () => {
+      spyOn(instance, 'setState');
+      instance.handleViewDateChange(123);
+      expect(instance.setState).toHaveBeenCalledWith({ viewDate: 123 });
+    });
+  });
+
   describe('datePickerProps', () => {
+    let datepicker;
 
+    beforeEach(() => {
+      instance.setState({ open: true });
+      datepicker = instance.refs.datepicker;
+    });
+
+    it('sets the weekDays and format', () => {
+      expect(datepicker.props.weekDayNames).toEqual(
+        ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+      );
+      expect(datepicker.props.monthFormat).toEqual('MMM');
+      expect(datepicker.props.dateFormat).toEqual('YYYY-MM-DD');
+    });
   });
+
   describe('inputProps', () => {
+    it('sets the ui-date__input class on the input', () => {
+      expect(instance.refs.visible.classList[0]).toEqual('ui-date__input');
+    });
 
+    it('sets the visible value', () => {
+      expect(instance.refs.visible.value).toEqual(today);
+    });
   });
+
   describe('hiddenInputProps', () => {
+    it('sets the input as a hidden readOnly field', () => {
+      expect(instance.refs.hidden.type).toEqual('hidden');
+      expect(instance.refs.hidden.readOnly).toEqual(true);
+    });
 
+    describe('when value is not passed', () => {
+      it('uses the defaultValue', () => {
+        expect(instance.refs.hidden.defaultValue).toEqual(hiddenToday);
+      });
+    });
+
+    describe('when value is passed', () => {
+      let value;
+      let hidden;
+
+      beforeEach(() => {
+        value = moment().add(3, 'days').format('YYYY-MM-DD');
+
+        instance = TestUtils.renderIntoDocument(
+          <Date label='Date' value={ value } />
+        )
+      });
+
+      it('sets the hidden value to props.value', () => {
+        expect(instance.refs.hidden.defaultValue).toEqual(value);
+      });
+    });
   });
+
   describe('mainClasses', () => {
-
+    it('retuns a date class and base input decorated class', () => {
+      expect(instance.mainClasses).toEqual('ui-date base-input');
+    });
   });
+
   describe('inputClasses', () => {
-
+    it('retuns a date input class', () => {
+      expect(instance.inputClasses).toEqual('ui-date__input base-input__input');
+    });
   });
-  describe('render', () => {
 
+  describe('render', () => {
+    it('renders a parent div with a custom click method', () => {
+      let spy = jasmine.createSpy('stopImmediatePropagation');
+      let dateNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-date')
+      TestUtils.Simulate.click(dateNode, { nativeEvent: { stopImmediatePropagation: spy } });
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('renders a visible input', () => {
+      let visibleInput = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0]
+      expect(visibleInput.classList[0]).toEqual('ui-date__input');
+    });
+
+    it('renders a hidden input', () => {
+      let visibleInput = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1]
+      expect(visibleInput.type).toEqual('hidden');
+    });
+
+    describe('when state.open is true', () => {
+      it('renders a date picker', () => {
+        instance.setState({ open: true });
+        expect(instance.refs.datepicker).toBeTruthy();
+      });
+    });
+
+    describe('when state.open is false', () => {
+      it('does not renders a date picker', () => {
+        expect(instance.refs.datepicker).toBeFalsy();
+      });
+    });
   });
 });

@@ -49,7 +49,7 @@ class DateComponent extends React.Component {
    * @method openDatePicker
    */
   openDatePicker = () => {
-    document.addEventListener("click", this.closeDatePicker);
+    this.doc.addEventListener("click", this.closeDatePicker);
     var value = this.props.value || getDefaultValue(this);
     this.setState({
       open: true,
@@ -124,17 +124,20 @@ class DateComponent extends React.Component {
     this.openDatePicker();
   }
 
+  handleViewDateChange = (val) => {
+    this.setState({ viewDate: val });
+  }
+
   get datePickerProps() {
     var value = this.props.value || getDefaultValue(this);
     var props = {};
+    props.ref = 'datepicker';
     props.weekDayNames = ["S", "M", "T", "W", "T", "F", "S"];
     props.monthFormat = "MMM";
     props.dateFormat = hiddenFormat();
     props.onChange = this.handleDateSelect;
     props.date = value;
-    props.onViewDateChange = (val) => {
-      this.setState({ viewDate: val });
-    };
+    props.onViewDateChange = this.handleViewDateChange;
     props.viewDate = this.state.viewDate;
     return props;
   }
@@ -179,7 +182,6 @@ class DateComponent extends React.Component {
   render() {
     var datePicker = (this.state.open) ? <DatePicker { ...this.datePickerProps } /> : null;
 
-
     return (
       <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
 
@@ -193,7 +195,6 @@ class DateComponent extends React.Component {
       </div>
     );
   }
-
 }
 
 export default DateComponent;
