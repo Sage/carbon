@@ -283,7 +283,7 @@ class InputGrid extends React.Component {
 
     // iterate through each field to build a header for it
     this.props.fields.forEach((field) => {
-      var columnClasses = "ui-input-grid__header-cell";
+      let columnClasses = "ui-input-grid__header-cell";
 
       // add any additional classes for this column
       if (this.props.columnClasses) {
@@ -346,7 +346,7 @@ function tableHeaderName(value) {
  * @return {Boolean} Whether the number of children has changed
  */
 function hasNumOfChildrenChanged(prevProps, nextProps) {
-  var prevNumOfChildren = prevProps.fields.length,
+  let prevNumOfChildren = prevProps.fields.length,
       nextNumOfChildren = nextProps.fields.length;
 
   if (prevNumOfChildren != nextNumOfChildren) {
@@ -366,8 +366,8 @@ function hasNumOfChildrenChanged(prevProps, nextProps) {
  * @return {Boolean} Whether the props have changed on the fields
  */
 function hasPropsOfChildrenChanged(prevProps, nextProps) {
-  for (var key in nextProps.fields) {
-    var prevField = prevProps.fields[key],
+  for (let key in nextProps.fields) {
+    let prevField = prevProps.fields[key],
         nextField = nextProps.fields[key];
 
     // only check if the field existed previously
