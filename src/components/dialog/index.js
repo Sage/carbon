@@ -2,12 +2,56 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './../icon';
 
+/**
+ * A Dialog widget.
+ *
+ * == How to use a Dialog in a component:
+ *
+ * In your file
+ *
+ *  import Dialog from 'carbon/lib/components/dialog';
+ *
+ * In the render method:
+ *
+ *  <Dialog cancelDialogHandler={ customEvenHandler } />
+ *
+ * The component rendering the Dialog must pass down a prop of 'open' in order to open the dialog.
+ *
+ * You need to provide a custom cancel event handler to handle a close event.
+ *
+ * @class Dialog
+ * @constructor
+ */
 class Dialog extends React.Component {
 
   static propTypes = {
-    cancelDialogHandler: React.PropTypes.func.isRequired
+    /**
+     * A custom close event handler
+     *
+     * @property cancelDialogHandler
+     * @type {Function}
+     */
+    cancelDialogHandler: React.PropTypes.func.isRequired,
+
+    /**
+     * Sets the open state of the dialog
+     *
+     * @property open
+     * @type {Boolean}
+     * @default false
+     */
+    open: React.PropTypes.bool.isRequired
   }
 
+  static defaultProps = {
+    open: false
+  }
+
+  /**
+   * A lifecycle method to update the component after it is re-rendered
+   *
+   * @method componentDidUpdate
+   */
   componentDidUpdate = () => {
     if (this.refs.dialog) {
       this.centerDialog();
@@ -19,14 +63,25 @@ class Dialog extends React.Component {
     }
   }
 
+  /**
+   * Triggers the custom close event handler on ESC
+   *
+   * @method closeDialog
+   * @param {Object} ev event
+   */
   closeDialog = (ev) => {
     if (ev.keyCode === 27) {
       this.props.cancelDialogHandler();
     }
   }
 
+  /**
+   * Centers dialog relative to window
+   *
+   * @method centerDialog
+   */
   centerDialog = () => {
-    var height = this.refs.dialog.offsetHeight / 2,
+    let height = this.refs.dialog.offsetHeight / 2,
         width = this.refs.dialog.offsetWidth / 2,
         midPointY = window.innerHeight / 2,
         midPointX = window.innerWidth / 2;
@@ -69,10 +124,9 @@ class Dialog extends React.Component {
         dialogHTML;
 
     if (this.props.open) {
-
       backgroundHTML = this.backgroundHTML;
 
-      if (this.props.size) {
+      if (typeof this.props.size !== 'undefined') {
         dialogClasses += (" ui-dialog__dialog--" + this.props.size);
       }
 
@@ -90,22 +144,19 @@ class Dialog extends React.Component {
         <ReactCSSTransitionGroup
           transitionName="dialog"
           transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 }
-        >
+          transitionLeaveTimeout={ 500 } >
           { dialogHTML }
         </ReactCSSTransitionGroup>
 
         <ReactCSSTransitionGroup
           transitionName="dialog-background"
           transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 }
-        >
+          transitionLeaveTimeout={ 500 } >
           { backgroundHTML }
         </ReactCSSTransitionGroup>
       </div>
     );
   }
-
 }
 
 export default Dialog;

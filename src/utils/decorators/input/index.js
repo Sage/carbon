@@ -8,11 +8,11 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     super(...args);
   }
 
-  static propTypes = _.merge(ComposedComponent.propTypes, {
+  static propTypes = _.assign({}, ComposedComponent.propTypes, {
     name: React.PropTypes.string.isRequired
   })
 
-  static contextTypes = _.merge(ComposedComponent.contextTypes, {
+  static contextTypes = _.assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 

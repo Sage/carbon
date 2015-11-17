@@ -59,7 +59,7 @@ export function connect(ComposedView, stores) {
        * @property state
        * @type {Object}
        */
-      this.state = _.merge(this.state, this._getStoreStates());
+      this.state = _.assign({}, this.state, this._getStoreStates());
     }
 
     /**

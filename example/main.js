@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router';
-import CarbonRoute from 'utils/router';
+import { startRouter } from 'utils/router';
 
 import Form from 'components/form';
 import Textbox from 'components/textbox';
@@ -14,28 +14,17 @@ import Validation from 'utils/validations/presence';
 
 class testView extends React.Component {
 
-  foo = (ev, props) => {
-    console.log(props);
-    console.log(ev.target.value)
-  }
-
   render () {
     return(
       <Form model="foo">
-        <Textarea path="/" name="date" onChange={ this.foo }  validations={ [Validation] }/>
-        <Date path="/" name="date" onChange={ this.foo }  validations={ [Validation] }/>
-        <DropdownSuggest path="/" name="date" onChange={ this.foo }  validations={ [Validation] }/>
-        <Checkbox path="/" name="date" onChange={ this.foo }  validations={ [Validation] }/>
-        <Decimal path="/" name="date" onChange={ this.foo }  validations={ [Validation] }/>
-        <Textbox name="foo" onChange={ this.foo } validations={ [Validation] } />
+        <Date name='date'></Date>
       </Form>
     )
   }
-
 }
 
 var routes = (
   <Route path="/" component={testView} />
 );
 
-CarbonRoute(routes);
+startRouter(routes);;

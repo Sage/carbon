@@ -5,47 +5,112 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import Events from './../../utils/helpers/events';
 
+/**
+ * Decorators
+ *
+ * The component's decorators may define additional props.
+ * Refer to the decorators for more information on required and optional props.
+ */
 @Input
 @InputLabel
 @InputValidation
+/**
+ * A decimal widget.
+ *
+ * == How to use a Decimal in a component:
+ *
+ * In your file
+ *
+ *  import Decimal from 'carbon/lib/components/decimal';
+ *
+ * In the render method:
+ *
+ *  <Decimal />
+ *
+ * @class Decimal
+ * @constructor
+ */
 class Decimal extends React.Component {
 
   // We should not be using document here In future we should monitor which element has focus
   doc = document;
 
   static defaultProps = {
+    /**
+     * Sets the default value of the decimal field
+     *
+     * @property defaultValue
+     * @type {String}
+     * @default '0.00'
+     */
     defaultValue: '0.00'
   }
 
   state = {
+    /**
+     * The formatted value for display
+     *
+     * @property visibleValue
+     * @type {String}
+     */
     visibleValue: formatVisibleValue(this.props.value, this)
   }
 
+  /**
+   * A lifecycle method to update the visible value with a formatted version,
+   * only when the field is not the active element.
+   *
+   * @method componentWillReceiveProps
+   * @param {Object} props The new props passed down to the component
+   */
   componentWillReceiveProps = (props) => {
     if (this.doc.activeElement != this.refs.visible) {
-      var value = props.value || props.defaultValue;
+      let value = props.value || props.defaultValue;
       this.setState({ visibleValue: formatVisibleValue(value, this) });
     }
   }
 
+  /**
+   * Call back to update the hidden field on change.
+   *
+   * @method emitOnChangeCallback
+   * @param {String} val The unformatted decimal value
+   */
   emitOnChangeCallback = (val) => {
-    var hiddenField = this.refs.hidden;
+    let hiddenField = this.refs.hidden;
     hiddenField.value = val;
 
     this._handleOnChange({ target: hiddenField });
   }
 
+  /**
+   * Handles Change to visible field
+   *
+   * @method handleVisibleInputChange
+   * @param {Object} ev event
+   */
   handleVisibleInputChange = (ev) => {
     this.setState({ visibleValue: ev.target.value });
     this.emitOnChangeCallback(formatHiddenValue(ev.target.value));
   }
 
+  /**
+   * Updates visible value on blur
+   *
+   * @method handleBlur
+   */
   handleBlur = () => {
     this.setState({ visibleValue: formatVisibleValue(this.props.value, this) });
   }
 
+  /**
+   * A getter that combines props passed down from the input decorator with
+   * textbox specific props.
+   *
+   * @method inputProps
+   */
   get inputProps() {
-    var { ...props } = this.props;
+    let { ...props } = this.props;
     props.className = this.inputClasses;
     props.ref = "visible";
     props.onChange = this.handleVisibleInputChange;
@@ -55,6 +120,11 @@ class Decimal extends React.Component {
     return props;
   }
 
+  /**
+   * A getter for hidden input props.
+   *
+   * @method hiddenInputProps
+   */
   get hiddenInputProps() {
     var props = {
       ref: "hidden",
@@ -62,16 +132,28 @@ class Decimal extends React.Component {
       readOnly: true
     };
 
-    if (this.props.value) { props.value = this.props.value; }
-    if (this.props.defaultValue) { props.defaultValue = this.props.defaultValue; }
+    if (typeof this.props.value !== 'undefined')
+      { props.value = this.props.value; }
+    if (typeof this.props.defaultValue !== 'undefined')
+      { props.defaultValue = this.props.defaultValue; }
 
     return props;
   }
 
+  /**
+   * Main Class getter
+   *
+   * @method mainClasses Main Class getter
+   */
   get mainClasses() {
     return 'ui-decimal';
   }
 
+  /**
+   * Input class getter
+   *
+   * @method inputClasses
+   */
   get inputClasses() {
     return 'ui-decimal__input';
   }
@@ -93,9 +175,16 @@ class Decimal extends React.Component {
       </div>
     );
   }
-
 }
 
+// Private Methods
+
+/**
+ * Formats delimiter and separator through i18n
+ *
+ * @method i18nFormatting
+ * @private
+ */
 function i18nFormatting() {
   return {
     delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
@@ -103,6 +192,13 @@ function i18nFormatting() {
   };
 }
 
+/**
+ * Filters out invalid keys for decimal field
+ *
+ * @method filterKeys
+ * @private
+ * @param {Object} ev event
+ */
 function filterKeys(ev) {
   if (Events.isValidDecimalKey(ev)) { return true; }
 
@@ -110,9 +206,16 @@ function filterKeys(ev) {
   return false;
 }
 
+/**
+ * Removes delimiters and separators from value
+ *
+ * @method formatHiddenValue
+ * @private
+ * @param {String} valueToFormat Formatted value
+ */
 function formatHiddenValue(valueToFormat) {
-  var value = valueToFormat;
-  var regex = new RegExp('\\' + i18nFormatting().delimiter, "g");
+  let value = valueToFormat;
+  let regex = new RegExp('\\' + i18nFormatting().delimiter, "g");
 
   value = value.replace(regex, "", "g");
   value = value.replace(i18nFormatting().separator, ".");
@@ -120,6 +223,14 @@ function formatHiddenValue(valueToFormat) {
   return value;
 }
 
+/**
+ * Adds formatting to the value
+ *
+ * @method formatVisibleValue
+ * @private
+ * @param {String} value Unformatted Value
+ * @param {Object} scope used to get default value of current scope if value doesn't exist
+ */
 function formatVisibleValue(value, scope) {
   value = value || getDefaultValue(scope);
 
@@ -131,8 +242,15 @@ function formatVisibleValue(value, scope) {
   return value;
 }
 
+/**
+ * Returns defaultValue for specified scope,
+ *
+ * @method getDefaultValue
+ * @private
+ * @param {Object} scope used to get default value of current scope
+ */
 function getDefaultValue(scope) {
-  if (scope.refs.hidden) {
+  if (typeof scope.refs.hidden !== 'undefined') {
     return scope.refs.hidden.value;
   } else {
     return scope.props.defaultValue;

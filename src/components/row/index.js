@@ -1,16 +1,45 @@
 import React from 'react';
 
+/**
+ * A row widget.
+ *
+ * This is a standalone row widget used for layout; for table rows use the table-row widget.
+ *
+ * == How to use a Row in a component:
+ *
+ * In your file
+ *
+ *  import Row from 'carbon/lib/components/Row';
+ *
+ * In the render method:
+ *
+ *  <Row/>
+ *
+ * @class Row
+ * @constructor
+ */
 class Row extends React.Component {
 
   static propTypes = {
+    /**
+     * The elements to be rendered in the row
+     *
+     * @property children
+     * @type {Object | Array}
+     */
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object
     ]).isRequired
   }
 
+  /**
+   * Builds row columns from the children object fields
+   *
+   * @method buildColumns
+   */
   buildColumns = () => {
-    var columns = [];
+    let columns = [];
 
     if (this.props.children.length) {
       this.props.children.forEach((child, index) => {
@@ -23,8 +52,13 @@ class Row extends React.Component {
     return columns;
   }
 
+  /**
+   * Builds each column field with appropriate classes
+   *
+   * @method buildColumn
+   */
   buildColumn = (child, key) => {
-    var columnClass = "ui-row__column";
+    let columnClass = "ui-row__column";
 
     if (child.props.columnClasses) {
       columnClass += " " + child.props.columnClasses;
@@ -51,7 +85,7 @@ class Row extends React.Component {
    * @method render
    */
   render() {
-    var mainClasses = "ui-row";
+    let mainClasses = "ui-row";
 
     if (this.props.columns) {
       mainClasses += " ui-row--columns-" + this.props.columns;

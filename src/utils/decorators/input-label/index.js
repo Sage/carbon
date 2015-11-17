@@ -8,7 +8,7 @@ var InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     super(...args);
   }
 
-  static contextTypes = _.merge(ComposedComponent.contextTypes, {
+  static contextTypes = _.assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 

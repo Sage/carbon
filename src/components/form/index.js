@@ -1,16 +1,57 @@
 import React from 'react';
 import Button from './../button';
+import I18n from "i18n-js";
 
+/**
+ * A Form widget.
+ *
+ * == How to use a Form in a component:
+ *
+ * In your file
+ *
+ *  import Form from 'carbon/lib/components/form';
+ *
+ * Form requires a prop of 'model'. It renders any children components of input type passed to it.
+ *
+ * In the render method:
+ *
+ *  <Form model='foo'>
+ *    <Textbox />
+ *    <Textbox />
+ *    <Date />
+ *  </Form>
+ *
+ * @class Form
+ * @constructor
+ */
 class Form extends React.Component {
 
   static propTypes = {
+    /**
+     * The model name from the database
+     *
+     * @property model
+     * @type {String}
+     */
     model: React.PropTypes.string.isRequired
   }
 
   static childContextTypes = {
+    /**
+     * Defines a context object for child components of the form component.
+     * https://facebook.github.io/react/docs/context.html
+     *
+     * @property form
+     * @type {Object}
+     */
     form: React.PropTypes.object
   }
 
+  /**
+   * Returns form object to child components.
+   *
+   * @method getChildContext
+   */
   getChildContext = () => {
     return {
       form: {
@@ -23,70 +64,109 @@ class Form extends React.Component {
     };
   }
 
+  // Private State for tracking errors
   state = {
     errorCount: 0
   }
 
+  // Object to hold form inputs
   inputs = {
   }
 
+  // Object to hold input grids
   tables = {
   }
 
+  /**
+   * Increase current error count in state by 1.
+   *
+   * @method incrementErrorCount
+   */
   incrementErrorCount = () => {
     this.setState({ errorCount: this.state.errorCount + 1 });
   }
 
+  /**
+   * Decreases the current error count in state by 1.
+   *
+   * @method decrementErrorCount
+   */
   decrementErrorCount = () => {
     this.setState({ errorCount: this.state.errorCount - 1 });
   }
 
+  /**
+   * Attaches child component to form.
+   *
+   * @method attachToForm
+   * @param {Object} component
+   */
   attachToForm = (component) => {
+    let namespace = component.props.namespace;
+    let row_id    = component.props.row_id;
+    let name      = component.props.name;
+
     if (component.constructor.name === "TableFieldsForMany") {
-      this.tables[component.props.name] = component;
-    } else if (component.props.namespace && component.props.row_id) {
-      if (!this.inputs[component.props.namespace]) {
-        this.inputs[component.props.namespace] = {};
+      this.tables[name] = component;
+    } else if (namespace && row_id) {
+      if (!this.inputs[namespace]) {
+        this.inputs[namespace] = {};
       }
 
-      if (!this.inputs[component.props.namespace][component.props.row_id]) {
-        this.inputs[component.props.namespace][component.props.row_id] = {};
+      if (!this.inputs[namespace][row_id]) {
+        this.inputs[namespace][row_id] = {};
       }
 
-      this.inputs[component.props.namespace][component.props.row_id][component.props.name] = component;
+      this.inputs[namespace][row_id][name] = component;
     } else {
-      this.inputs[component.props.name] = component;
+      this.inputs[name] = component;
     }
   }
 
+  /**
+   * Detaches child component from form.
+   *
+   * @method detachFromFormToForm
+   * @param {Object} component
+   */
   detachFromForm = (component) => {
+    let namespace = component.props.namespace;
+    let row_id    = component.props.row_id;
+    let name      = component.props.name;
+
     if (component.constructor.name === "TableFieldsForMany") {
-      delete this.tables[component.props.name];
-    } else if (component.props.namespace && component.props.row_id) {
-      delete this.inputs[component.props.namespace][component.props.row_id][component.props.name];
+      delete this.tables[name];
+    } else if (namespace && row_id) {
+      delete this.inputs[namespace][row_id][name];
     } else {
-      delete this.inputs[component.props.name];
+      delete this.inputs[name];
     }
   }
 
+  /**
+   * Handles submit, checks for required fields and updates validations.
+   *
+   * @method handleOnSubmit
+   * @param {Object} ev event
+   */
   handleOnSubmit = (ev) => {
-    var valid = true;
-    var errors = 0;
+    let valid = true;
+    let errors = 0;
 
-    for (var key in this.inputs) {
-      var input = this.inputs[key];
+    for (let key in this.inputs) {
+      let input = this.inputs[key];
 
-      if (input.props) {
+      if (typeof input.props !== 'undefined') {
         if (!input.validate()) {
           valid = false;
           errors++;
         }
       } else {
-        for (var id in input) {
-          var row = input[id];
+        for (let id in input) {
+          let row = input[id];
 
-          for (var rowField in row) {
-            var rowInput = row[rowField];
+          for (let rowField in row) {
+            let rowInput = row[rowField];
 
             if (rowInput.props._placeholder) {
               continue;
@@ -106,21 +186,31 @@ class Form extends React.Component {
     if (!valid) {
       ev.preventDefault();
     } else {
-      for (var tableKey in this.tables) {
-        var table = this.tables[tableKey];
+      for (let tableKey in this.tables) {
+        let table = this.tables[tableKey];
         table.setState({ placeholder: false });
       }
     }
   }
 
+  /**
+   * Separates and returns HTML specific props
+   *
+   * @method htmlProps
+   */
   htmlProps = () => {
-    var { model, ...props } = this.props;
+    let { model, ...props } = this.props;
 
     return props;
   }
 
+  /**
+   * Creates and returns csrf token for input field
+   *
+   * @method generateCSRFToken
+   */
   generateCSRFToken = () => {
-    var meta = document.getElementsByTagName('meta'),
+    let meta = document.getElementsByTagName('meta'),
         csrfAttr,
         csrfValue;
 
@@ -137,29 +227,47 @@ class Form extends React.Component {
     return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
   }
 
-  buildReversePath = () => {
-    var currentPath = window.location.pathname;
-    var reversePath = currentPath.replace(currentPath.match(/[^\/]+\/?$/), '');
-    return reversePath;
+  /**
+   * Redirects to the previous page; uses React Router history.
+   *
+   * @method cancelForm
+   */
+  cancelForm = () => {
+    history.back();
   }
 
-  cancelForm = (ev) => {
-    ev.preventDefault();
-    window.location = this.buildReversePath();
+  /**
+   *  Constructs validations error message
+   *
+   * @method errors
+   */
+  errorMessage() {
+    let count = this.state.errorCount;
+
+    let errorMessage =  I18n.t("errors.messages.form_summary.errors", {
+      defaultValue: {
+        one: `There is ${ count } error`,
+        other: `There are ${ count } errors`
+      },
+      count: count
+    });
+
+    return errorMessage;
   }
+
    /**
    * Renders the component.
    *
    * @method render
    */
   render() {
-    var errorCount,
+    let errorCount,
         saveClasses = "ui-form__save", cancelClasses = "ui-form__cancel";
 
     if (this.state.errorCount) {
       errorCount = (
         <span className="ui-form__summary">
-          There are <span>{ this.state.errorCount }</span> errors
+          { this.errorMessage() }
         </span>
       );
 
@@ -173,14 +281,15 @@ class Form extends React.Component {
         { this.props.children }
         <div className= { cancelClasses }>
           <Button type='button'
-            onClick={ this.cancelForm }
-          >
+            onClick={ this.cancelForm } >
             Cancel
           </Button>
         </div>
         <div className={ saveClasses }>
           { errorCount }
-          <Button as="primary" />
+          <Button as="primary">
+            Save
+          </Button>
         </div>
       </form>
     );
