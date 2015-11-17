@@ -18,13 +18,13 @@ import InputValidation from './../../utils/decorators/input-validation';
  *
  * == How to use a Textarea in a component:
  *
- * In your file
+ * In your file:
  *
- *  import Textarea from 'carbon/lib/components/textarea';
+ *   import Textarea from 'carbon/lib/components/textarea';
  *
- * In the render method:
+ * To render a Textarea:
  *
- *  <Textarea/>
+ *   <Textarea name="myTextarea" />
  *
  * @class Textarea
  * @constructor
