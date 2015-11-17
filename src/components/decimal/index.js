@@ -14,6 +14,7 @@ import Events from './../../utils/helpers/events';
 @Input
 @InputLabel
 @InputValidation
+
 /**
  * A decimal widget.
  *
@@ -21,18 +22,24 @@ import Events from './../../utils/helpers/events';
  *
  * In your file
  *
- *  import Decimal from 'carbon/lib/components/decimal';
+ *   import Decimal from 'carbon/lib/components/decimal';
  *
- * In the render method:
+ * To render the Decimal:
  *
- *  <Decimal />
+ *   <Decimal name="myDecimal" />
  *
  * @class Decimal
  * @constructor
  */
 class Decimal extends React.Component {
 
-  // We should not be using document here In future we should monitor which element has focus
+  /**
+   * Stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property doc
+   * @type {document}
+   */
   doc = document;
 
   static defaultProps = {
@@ -71,7 +78,7 @@ class Decimal extends React.Component {
   }
 
   /**
-   * Call back to update the hidden field on change.
+   * Callback to update the hidden field on change.
    *
    * @method emitOnChangeCallback
    * @param {String} val The unformatted decimal value
