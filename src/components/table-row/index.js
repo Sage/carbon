@@ -4,7 +4,7 @@ import Icon from './../icon';
 /**
  * A table row widget.
  *
- * == How to use a Table Row in a component:
+ * Table Rows ar
  *
  *
  * @class TableRow
@@ -12,6 +12,11 @@ import Icon from './../icon';
  */
 class TableRow extends React.Component {
 
+  /**
+   * Increase current error count in state by 1.
+   *
+   * @method shouldComponentUpdate
+   */
   shouldComponentUpdate = (nextProps) => {
     if (nextProps.childPropsHaveChanged) { return true; }
 

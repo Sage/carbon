@@ -144,7 +144,7 @@ class Form extends React.Component {
   }
 
   /**
-   * Handles submit, checks for required fields and updates v
+   * Handles submit, checks for required fields and updates validations.
    *
    * @method handleOnSubmit
    * @param {Object} ev event
@@ -168,7 +168,7 @@ class Form extends React.Component {
           for (let rowField in row) {
             let rowInput = row[rowField];
 
-            if (typeof rowInput.props._placeholder !== 'undefined') {
+            if (rowInput.props._placeholder) {
               continue;
             }
 
