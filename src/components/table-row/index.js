@@ -1,10 +1,10 @@
 import React from 'react';
-import Icon from './../../utils/icon';
+import Icon from './../icon';
 
 class TableRow extends React.Component {
 
   shouldComponentUpdate = (nextProps) => {
-    if (nextProps.childPropsHaveChanged) {
+    if (nextProps.forceUpdate) {
       return true;
     }
 
@@ -69,7 +69,7 @@ class TableRow extends React.Component {
         };
 
     if (value) {
-      fieldProps.value = value
+      fieldProps.value = value;
     }
 
     if (this.props.placeholder) {
@@ -100,6 +100,6 @@ class TableRow extends React.Component {
     );
   }
 
-};
+}
 
 export default TableRow;

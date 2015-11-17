@@ -4,7 +4,7 @@
 $table-header-color: #65686D;
 $table-header-border-color: #949494;
 
-.ui-table-fields-for-many {
+.ui-input-grid {
   border: 1px solid $border-color {
     collapse: separate;
     radius: 4px;
@@ -13,14 +13,14 @@ $table-header-border-color: #949494;
   width: 100%;
 }
 
-.ui-table-fields-for-many__header {
+.ui-input-grid__header {
   background-color: $table-header-color;
   color: $white;
   height: 40px;
   text-align: left;
 }
 
-.ui-table-fields-for-many__header-cell {
+.ui-input-grid__header-cell {
   border-right: 1px solid $table-header-border-color;
   padding: 0 8px;
   vertical-align: middle;
@@ -35,6 +35,6 @@ $table-header-border-color: #949494;
   }
 }
 
-.ui-table-fields-for-many__header-cell--narrow {
+.ui-input-grid__header-cell--narrow {
   width: 160px;
 }

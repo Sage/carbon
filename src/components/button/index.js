@@ -1,36 +1,79 @@
 import React from 'react';
+/**
+ * A button widget.
+ *
+ * == How to use a Button in a component:
+ *
+ * In your file:
+ *
+ *   import Button from 'carbon/lib/components/button';
+ *
+ * In the render method:
+ *
+ * Pass the button a string to display
+ *
+ *   <Button>Save</Button>
+ *
+ * For additional properties specific to this component, see propTypes and defaultProps.
+ *
+ * @class Button
+ * @constructor
+ */
+class Button extends React.Component {
 
-class ButtonComponent extends React.Component {
+  static propTypes = {
+
+    /**
+     * Customizes the appearance, can be set to 'primary' or 'secondary'.
+     *
+     * @property as
+     * @type {String}
+     * @default 'secondary'
+     */
+    as: React.PropTypes.string,
+
+    /**
+     * A required prop. This is what the button will display.
+     *
+     * @property children
+     * @type {Multiple}
+     */
+    children: React.PropTypes.string.isRequired,
+
+    /**
+     * Gives the button a disabled state.
+     *
+     * @property boolean
+     * @type {Boolean}
+     * @default false
+     */
+    disabled: React.PropTypes.bool
+  }
 
   static defaultProps = {
     as: 'secondary',
-    children: 'Save',
     disabled: false
   }
 
-  static propTypes = {
-    type: React.PropTypes.string,
-    children: React.PropTypes.string.isRequired,
-    disabled: React.PropTypes.bool.isRequired,
-    path: React.PropTypes.string
-  }
-
+  /**
+   * Renders the component with props.
+   *
+   * @method render
+   */
   render() {
-    var {className, ...props} = this.props;
+    let {className, ...props} = this.props;
 
-    className = 'ui-button ui-button--' + this.props.as + 
-      (this.props.disabled ? ' ui-button--disabled' : '') + " " + className;
+    className = 'ui-button ui-button--' + this.props.as +
+      (this.props.disabled ? ' ui-button--disabled' : '') +
+      (className ? ' ' + className : '');
 
     return(
-      <button
-        className={ className }
-        { ...props }
-      >
-      { this.props.children }
-      </button>
-
+        <button className={ className }
+            { ...props }>
+            { this.props.children }
+        </button>
     );
   }
-};
+}
 
-export default ButtonComponent
+export default Button;

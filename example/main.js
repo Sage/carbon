@@ -1,25 +1,30 @@
 import React from 'react';
 import { Route } from 'react-router';
-import CarbonRoute from 'utils/route';
+import { startRouter } from 'utils/router';
 
-import UIDate from 'components/date';
-import Dropdown from 'components/dropdown-suggest';
+import Form from 'components/form';
+import Textbox from 'components/textbox';
+import Decimal from 'components/decimal';
+import Checkbox from 'components/checkbox';
+import Date from 'components/date';
+import DropdownSuggest from 'components/dropdown-suggest';
+import Textarea from 'components/textarea';
+
+import Validation from 'utils/validations/presence';
 
 class testView extends React.Component {
 
   render () {
     return(
-      <div>
-        <UIDate name="foo" defaultValue="2012-12-21" />
-        <Dropdown name="foo" defaultValue="2012-12-21" />
-      </div>
+      <Form model="foo">
+        <Date name='date'></Date>
+      </Form>
     )
   }
-
 }
 
 var routes = (
   <Route path="/" component={testView} />
 );
 
-CarbonRoute(routes);
+startRouter(routes);;
