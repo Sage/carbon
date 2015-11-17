@@ -128,6 +128,16 @@ class InputGrid extends React.Component {
     form: React.PropTypes.object
   }
 
+  state = {
+    /**
+     * Determines if the placeholder should be rendered or not.
+     *
+     * @property placeholder
+     * @type {Boolean}
+     */
+    placeholder: true
+  }
+
   /**
    * Stores the ID currently used for the placeholder row.
    *
@@ -201,8 +211,8 @@ class InputGrid extends React.Component {
       rows.push(this.regularRow(rowData));
     });
 
-    // create a placeholder
-    rows.push(this.placeholderRow());
+    // create a placeholder depending on the placeholder state
+    if (this.state.placeholder) { rows.push(this.placeholderRow()); }
     // if gutter fields have been defined, create a gutter row
     if (this.props.gutter) { rows.push(this.gutterRow()); }
 
