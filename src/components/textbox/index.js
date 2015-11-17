@@ -12,6 +12,7 @@ import InputValidation from './../../utils/decorators/input-validation';
 @Input
 @InputLabel
 @InputValidation
+
 /**
  * A textbox widget.
  *
@@ -19,11 +20,11 @@ import InputValidation from './../../utils/decorators/input-validation';
  *
  * In your file
  *
- *  import Textbox from 'carbon/lib/components/textbox';
+ *   import Textbox from 'carbon/lib/components/textbox';
  *
- * In the render method:
+ * To render a Textbox:
  *
- *  <Textbox/>
+ *   <Textbox name="myTextbox" />
  *
  * @class Textbox
  * @constructor

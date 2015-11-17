@@ -7,15 +7,15 @@ import React from 'react';
  *
  * In your file
  *
- *  import Icon from 'carbon/lib/components/icon';
+ *   import Icon from 'carbon/lib/components/icon';
  *
- * In the render method:
+ * To render an Icon:
  *
- *  <Icon type='foo' />
+ *   <Icon type='foo' />
  *
- *  'type' is a required prop
+ * 'type' is a required prop
  *
- *  This widget follows this pattern: https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
+ * This widget follows this pattern: https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
  *
  * @class Icon
  * @constructor

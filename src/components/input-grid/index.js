@@ -10,11 +10,13 @@ import _ from 'lodash';
  * to have a property of `_row_id`. To easily add row IDs to your data, run your
  * JSON through the ImmutableHelper `parseJSON` method.
  *
- * You can import this component with the following:
+ * == How to use an InputGrid in a component:
+ *
+ * In your file:
  *
  *   import InputGrid from 'carbon/lib/components/input-grid';
  *
- * You can then use the grid within your application like this:
+ * To render the InputGrid:
  *
  *   // Define which fields the grid should render. The name of the input should
  *   // match the key in the data structure.
