@@ -4,11 +4,11 @@
 
 The [issue tracker](https://github.com/sage/carbon/issues) is the preferred area to report any bugs or issues with the codebase. Once an issue is submitted, it will be reviewed and handled accordingly.
 
-When reporting an issue, please provide as much information and context as possible to allow a developer to be able to replicate and understand the problem. Also ensure you record the version of Carbon you are using, as well as any console or error logs.
+When reporting an issue, please provide as much information and context as possible allowing a developer to replicate and understand the problem. Also ensure you record the version of Carbon you are using, as well as any console or error logs.
 
 ## Requesting Features
 
-For any feature requests, please use the [issue tracker](https://github.com/sage/carbon/issues). When you raise the feature request, please provide as much information as possible to describe the feature required, as well as any examples of how you would like the feature to work.
+For any feature requests, please use the [issue tracker](https://github.com/sage/carbon/issues). When you raise the feature request, please provide as much information as possible to describe the feature required, as well as examples of how you would like the feature to work.
 
 ## Submitting Pull Requests
 
