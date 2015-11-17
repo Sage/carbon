@@ -93,23 +93,38 @@ class Dialog extends React.Component {
     this.refs.dialog.style.left = midPointX + "px";
   }
 
+  get dialogTitle() {
+    return (
+        this.props.title ?
+          <h2 className="ui-dialog__title">{ this.props.title }</h2> :
+          null
+    );
+  }
+
+  get backgroundHTML() {
+    return <div className="ui-dialog__background"></div>;
+  }
+
+  get mainClasses() {
+    return 'ui-dialog';
+  }
+
+  get dialogClasses() {
+    return 'ui-dialog__dialog';
+  }
+
   /**
    * Renders the component.
    *
    * @method render
    */
   render() {
-    let mainClasses = "ui-dialog",
-        dialogClasses = "ui-dialog__dialog",
+    let dialogClasses = this.dialogClasses,
         backgroundHTML,
         dialogHTML;
 
     if (this.props.open) {
-      let dialogTitleHTML = this.props.title ?
-        <h2 className="ui-dialog__title">{ this.props.title }</h2> :
-        null;
-
-      backgroundHTML = <div className="ui-dialog__background"></div>;
+      backgroundHTML = this.backgroundHTML;
 
       if (typeof this.props.size !== 'undefined') {
         dialogClasses += (" ui-dialog__dialog--" + this.props.size);
@@ -117,7 +132,7 @@ class Dialog extends React.Component {
 
       dialogHTML = (
         <div ref="dialog" className={ dialogClasses }>
-          { dialogTitleHTML }
+          { this.dialogTitle }
           <Icon className="ui-dialog__close" type="close" onClick={ this.props.cancelDialogHandler } />
           { this.props.children }
         </div>
@@ -125,7 +140,7 @@ class Dialog extends React.Component {
     }
 
     return (
-      <div className={ mainClasses }>
+      <div className={ this.mainClasses }>
         <ReactCSSTransitionGroup
           transitionName="dialog"
           transitionEnterTimeout={ 500 }
