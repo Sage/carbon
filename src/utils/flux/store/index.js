@@ -30,6 +30,9 @@ const CHANGE_EVENT = "change";
  *     constructor(Dispatcher) {
  *       super(Dispatcher);
  *
+ *       // required - Define a unique name for the store.
+ *       this.name = "myStore";
+ *
  *       // required - Define the store's initial data.
  *       this.data = ImmutableHelper.parse({});
  *
@@ -46,7 +49,8 @@ const CHANGE_EVENT = "change";
  *
  * Please note, you should initialize your store with your application's dispatcher.
  * It is also required that you define your store's initial data by defining the
- * data property in the store's constructor.
+ * data property in the store's constructor, as well as a defining a unique name
+ * in the constructor which will be used to store the data on the component's state.
  *
  * @class Store
  * @param {Object} Dispatcher
@@ -61,7 +65,7 @@ export default class Store extends EventEmitter {
     // it is required to initialize the store with the dispatcher so we can register
     // the store with it and store the dispatchToken
     if (!Dispatcher) {
-      console.warn("You need to initialize your store with a dispatcher."); // eslint-disable-line no-console
+      throw new Error(`You need to initialize your store with your application's dispatcher. Check the initialization of ${this.constructor.name}.`);
     }
 
     /**
@@ -101,8 +105,6 @@ export default class Store extends EventEmitter {
    * @method getState
    */
   getState = () => {
-    // warn the developer if they have not defined the data property.
-    if (!this.data) { console.warn("You need to set the data property on your store."); } // eslint-disable-line no-console
     return this.data;
   }
 
@@ -162,8 +164,8 @@ export default class Store extends EventEmitter {
    * @method _triggerChange
    */
   _triggerChange() {
-    // we use the constructor name so the view component knows which store updated
-    this.emit(CHANGE_EVENT, this.constructor.name);
+    // we use the store name so the view component knows which store updated
+    this.emit(CHANGE_EVENT, this.name);
   }
 
 }

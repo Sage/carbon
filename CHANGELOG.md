@@ -12,7 +12,7 @@ The base Store class is now available from:
 import Store from 'carbon/lib/utils/flux/store';
 ```
 
-When creating your store, initialize it with your application's dispatcher. You must also define the store's data within its constructor. The following shows the minimum required to set up a store:
+When creating your store, initialize it with your application's dispatcher. You must also define the store's data and unique name within its constructor. The following shows the minimum required to set up a store:
 
 ```js
 import Store from 'carbon/lib/utils/flux/store';
@@ -22,6 +22,9 @@ import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
 class MyStore extends Store {
   constructor(Dispatcher) {
     super(Dispatcher);
+
+    // this is required for the store to work (it should be a unique name)
+    this.name = "myStore";
 
     // this is required for the store to work
     this.data = ImmutableHelper.parseJSON(APPDATA.mydata);
@@ -51,8 +54,8 @@ import { connect } from 'carbon/lib/utils/flux';
 
 class MyComponent extends React.Component {
   render() {
-    // the connected store data is available on the state as the store's class name
-    var val = this.state.MyStore.get('myValue');
+    // the connected store data is available on the state as the store's unique name defined in its constructor
+    let val = this.state.myStore.get('myValue');
 
     return (
       <div>My Component.</div>
@@ -80,7 +83,7 @@ import React from 'react';
 import { Route } from 'react-router';
 import { startRouter } from 'carbon/lib/utils/router';
 
-var routes = (
+let routes = (
   <Route />
 );
 
