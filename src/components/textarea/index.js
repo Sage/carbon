@@ -23,7 +23,6 @@ import InputValidation from './../../utils/decorators/input-validation';
  *   import Textarea from 'carbon/lib/components/textarea';
  *
  * To render a Textarea:
- mal:
  *
  *   <Textarea name="myTextarea" />
  *

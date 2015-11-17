@@ -13,7 +13,7 @@ import I18n from "i18n-js";
  *
  * Form requires a prop of 'model'. It renders any children components of input type passed to it.
  *
- * To render a Decimal:
+ * To render a Form:
  *
  *   <Form model='foo'>
  *     <Textbox />
