@@ -19,7 +19,7 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
   componentWillMount() {
     if (super.componentWillMount) { super.componentWillMount(); }
 
-    if (this.props.validations) {
+    if (this.context.form && this.props.validations) {
       this.context.form.attachToForm(this);
     }
   }
@@ -27,7 +27,7 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
   componentWillUnmount() {
     if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
-    if (this.props.validations) {
+    if (this.context.form && this.props.validations) {
       if (!this.state.valid) {
         this.context.form.decrementErrorCount();
       }

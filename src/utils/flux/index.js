@@ -33,12 +33,26 @@ export function connect(ComposedView, stores) {
 
   var _stores = {};
 
+  function _addStore(store) {
+    // tell the developer if they have not defined the name property.
+    if (!store.name) {
+      throw new Error(`You need to set the name property on your store. In ${store.constructor.name}'s constructor add 'store.name = "uniqueStoreName";'.`);
+    }
+
+    // tell the developer if they have not defined the data property.
+    if (!store.data) {
+      throw new Error(`You need to set the data property on your store. In ${store.constructor.name}'s constructor add 'store.data = ImmutableHelper.parseJSON({});'.`);
+    }
+
+    _stores[store.name] = store;
+  }
+
   if (stores.constructor === Array) {
     stores.forEach((store) => {
-      _stores[store.constructor.name] = store;
+      _addStore(store);
     });
   } else {
-    _stores[stores.constructor.name] = stores;
+    _addStore(stores);
   }
 
   /**
@@ -96,7 +110,7 @@ export function connect(ComposedView, stores) {
      * A callback for whenever a store that is listened to emits a change.
      *
      * @method _onChange
-     * @param {String} key The class name for the store that changed.
+     * @param {String} key The name for the store that changed.
      */
     _onChange = (key) => {
       // update the state with the data for the store that changed
