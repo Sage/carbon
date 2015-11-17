@@ -4,7 +4,7 @@ import Icon from './../icon';
 class TableRow extends React.Component {
 
   shouldComponentUpdate = (nextProps) => {
-    if (nextProps.childPropsHaveChanged) {
+    if (nextProps.forceUpdate) {
       return true;
     }
 

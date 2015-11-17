@@ -92,6 +92,10 @@ Decorators can now be found in the `/utils/decorators` directory. So far we have
 * Input Label
 * Input Validation
 
+## TableFieldsForMany Renamed
+
+TableFieldsForMany was originally named after a Rails convention, but was generally a fairly obscure and confusing name. We are now taking the opportunity to rename this component and have chosen InputGrid.
+
 ## Misc
 
 * Ran ESLint task and fixed any errors.
