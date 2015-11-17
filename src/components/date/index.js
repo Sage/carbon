@@ -79,7 +79,7 @@ class Date extends React.Component {
    * @param {Object} props The new props passed down to the component
    */
   componentWillReceiveProps = (props) => {
-    if (document.activeElement != this.refs.visible) {
+    if (this.doc.activeElement != this.refs.visible) {
       let value = props.value || props.defaultValue;
       let date = formatVisibleValue(value, this);
 

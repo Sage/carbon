@@ -22,6 +22,7 @@ import React from 'react';
 class Button extends React.Component {
 
   static propTypes = {
+
     /**
      * Customizes the appearance, can be set to 'primary' or 'secondary'.
      *

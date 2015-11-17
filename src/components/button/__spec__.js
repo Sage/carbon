@@ -14,7 +14,7 @@ describe('Button', () => {
   beforeEach(() => {
 
     defaultButton = TestUtils.renderIntoDocument(
-      <Button />
+      <Button>Save</Button>
     );
 
     primary = TestUtils.renderIntoDocument(
