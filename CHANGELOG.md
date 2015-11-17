@@ -1,4 +1,4 @@
-a# 0.0.2.beta
+# 0.0.2.beta
 
 ## Store, View and Route Utils
 
@@ -55,7 +55,7 @@ import { connect } from 'carbon/lib/utils/flux';
 class MyComponent extends React.Component {
   render() {
     // the connected store data is available on the state as the store's unique name defined in its constructor
-    var val = this.state.myStore.get('myValue');
+    let val = this.state.myStore.get('myValue');
 
     return (
       <div>My Component.</div>
@@ -83,7 +83,7 @@ import React from 'react';
 import { Route } from 'react-router';
 import { startRouter } from 'carbon/lib/utils/router';
 
-var routes = (
+let routes = (
   <Route />
 );
 

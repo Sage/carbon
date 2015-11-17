@@ -31,7 +31,7 @@ export function connect(ComposedView, stores) {
   // Build an object mapping any stores passed to the connect function, using
   // the store's class name as the key.
 
-  var _stores = {};
+  let _stores = {};
 
   function _addStore(store) {
     // tell the developer if they have not defined the name property.
