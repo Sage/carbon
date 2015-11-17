@@ -26,7 +26,7 @@ class Button extends React.Component {
      * Customizes the appearance, can be set to 'primary' or 'secondary'.
      *
      * @property as
-     * @type { String }
+     * @type {String}
      * @default 'secondary'
      */
     as: React.PropTypes.string,
@@ -35,7 +35,7 @@ class Button extends React.Component {
      * A required prop. This is what the button will display.
      *
      * @property children
-     * @type { Multiple }
+     * @type {Multiple}
      */
     children: React.PropTypes.string.isRequired,
 
@@ -43,7 +43,7 @@ class Button extends React.Component {
      * Gives the button a disabled state.
      *
      * @property boolean
-     * @type { Boolean }
+     * @type {Boolean}
      * @default false
      */
     disabled: React.PropTypes.bool
@@ -67,12 +67,9 @@ class Button extends React.Component {
       (className ? ' ' + className : '');
 
     return(
-
         <button className={ className }
-
             { ...props }>
             { this.props.children }
-
         </button>
     );
   }

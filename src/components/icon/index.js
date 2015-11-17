@@ -9,9 +9,9 @@ import React from 'react';
  *
  *  import Icon from 'carbon/lib/components/icon';
  *
- *  In the render method:
+ * In the render method:
  *
- *    <Icon type='foo' />
+ *  <Icon type='foo' />
  *
  *  'type' is a required prop
  *

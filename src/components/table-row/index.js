@@ -6,17 +6,10 @@ import Icon from './../icon';
  *
  * == How to use a Table Row in a component:
  *
- * In your file
  *
- *  import Row from 'carbon/lib/components/Row';
- *
- *  In the render method:
- *
- *    <Row/>
- *
- * @class Row
+ * @class TableRow
  * @constructor
- **/
+ */
 class TableRow extends React.Component {
 
   shouldComponentUpdate = (nextProps) => {
@@ -71,16 +64,16 @@ class TableRow extends React.Component {
 
   buildCell = (field, value) => {
     let rowID = this.props.row_id,
-      fieldProps = {
-        label: false,
-        key: rowID,
-        name: `[${this.props.name}_attributes][${rowID}][${field.props.name}]`,
-        row_id: rowID,
-        namespace: this.props.name,
-        onChange: this.props.updateRowHandler
-      };
+        fieldProps = {
+          label: false,
+          key: rowID,
+          name: `[${this.props.name}_attributes][${rowID}][${field.props.name}]`,
+          row_id: rowID,
+          namespace: this.props.name,
+          onChange: this.props.updateRowHandler
+        };
 
-    if (value) {
+    if (typeof value !== 'undefined') {
       fieldProps.value = value;
     }
 

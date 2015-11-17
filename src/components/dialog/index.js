@@ -11,9 +11,9 @@ import Icon from './../icon';
  *
  *  import Dialog from 'carbon/lib/components/dialog';
  *
- *  In the render method:
+ * In the render method:
  *
- *    <Dialog cancelDialogHandler={ customEvenHandler } />
+ *  <Dialog cancelDialogHandler={ customEvenHandler } />
  *
  * The component rendering the Dialog must pass down a prop of 'open' in order to open the dialog.
  *
@@ -29,15 +29,15 @@ class Dialog extends React.Component {
      * A custom close event handler
      *
      * @property cancelDialogHandler
-     * @type { Function }
+     * @type {Function}
      */
-    cancelDialogHandler: React.PropTypes.func.isRequired
+    cancelDialogHandler: React.PropTypes.func.isRequired,
 
     /**
      * Sets the open state of the dialog
      *
      * @property open
-     * @type { Boolean }
+     * @type {Boolean}
      * @default false
      */
     open: React.PropTypes.bool.isRequired
@@ -53,7 +53,7 @@ class Dialog extends React.Component {
    * @method componentDidUpdate
    */
   componentDidUpdate = () => {
-    if (typeof this.refs.dialog !== 'undefined') {
+    if (this.refs.dialog) {
       this.centerDialog();
       window.addEventListener('resize', this.centerDialog);
       window.addEventListener('keyup', this.closeDialog);
@@ -104,7 +104,7 @@ class Dialog extends React.Component {
         backgroundHTML,
         dialogHTML;
 
-    if (typeof this.props.open !== 'undefined') {
+    if (this.props.open) {
       let dialogTitleHTML = this.props.title ?
         <h2 className="ui-dialog__title">{ this.props.title }</h2> :
         null;

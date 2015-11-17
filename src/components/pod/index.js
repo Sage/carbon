@@ -9,11 +9,11 @@ import React from 'react';
  *
  * In your file
  *
- *  import Textarea from 'carbon/lib/components/pod';
+ *  import Pod from 'carbon/lib/components/pod';
  *
- *  In the render method:
+ * In the render method:
  *
- *    <Pod />
+ *  <Pod />
  *
  * @class Pod
  * @constructor

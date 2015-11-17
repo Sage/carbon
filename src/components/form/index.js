@@ -13,13 +13,13 @@ import I18n from "i18n-js";
  *
  * Form requires a prop of 'model'. It renders any children components of input type passed to it.
  *
- *  In the render method:
+ * In the render method:
  *
- *    <Form model='foo'>
- *      <Textbox />
- *      <Textbox />
- *      <Date />
- *    </Form>
+ *  <Form model='foo'>
+ *    <Textbox />
+ *    <Textbox />
+ *    <Date />
+ *  </Form>
  *
  * @class Form
  * @constructor
@@ -28,10 +28,10 @@ class Form extends React.Component {
 
   static propTypes = {
     /**
-     * Where the form inputs are sent on submit
+     * The model name from the database
      *
      * @property model
-     * @type { String }
+     * @type {String}
      */
     model: React.PropTypes.string.isRequired
   }
@@ -42,7 +42,7 @@ class Form extends React.Component {
      * https://facebook.github.io/react/docs/context.html
      *
      * @property form
-     * @type { Object }
+     * @type {Object}
      */
     form: React.PropTypes.object
   }
@@ -50,7 +50,7 @@ class Form extends React.Component {
   /**
    * Returns form object to child components.
    *
-   *@method getChildContext
+   * @method getChildContext
    */
   getChildContext = () => {
     return {
@@ -73,7 +73,7 @@ class Form extends React.Component {
   inputs = {
   }
 
-  // Object to hold table fields for many
+  // Object to hold input grids
   tables = {
   }
 
@@ -228,7 +228,7 @@ class Form extends React.Component {
   }
 
   /**
-   *  Redirects to the previous page, uses React Router history
+   * Redirects to the previous page; uses React Router history.
    *
    * @method cancelForm
    * @param {Object} ev event
@@ -242,7 +242,7 @@ class Form extends React.Component {
    *
    * @method errors
    */
-  errors() {
+  errorMessage() {
     let count = this.state.errorCount;
 
     let errorMessage =  I18n.t("errors.messages.form_summary.errors", {
@@ -268,7 +268,7 @@ class Form extends React.Component {
     if (this.state.errorCount) {
       errorCount = (
         <span className="ui-form__summary">
-          { this.errors() }
+          { this.errorMessage() }
         </span>
       );
 

@@ -8,7 +8,12 @@ import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 
-// Decorators
+/**
+ * Decorators
+ *
+ * The component's decorators may define additional props.
+ * Refer to the decorators for more information on required and optional props.
+ */
 @Input
 @InputIcon
 @InputLabel
@@ -22,12 +27,9 @@ import I18n from "i18n-js";
  *
  *  import Date from 'carbon/lib/components/Date';
  *
- *  In the render method:
+ * In the render method:
  *
- *    <Date />
- *
- * This component receives its props from the decorators listed above.
- * Refer to the Input decorator for more information on required and optional props.
+ *  <Date />
  *
  * @class Date
  * @constructor
@@ -38,17 +40,38 @@ class Date extends React.Component {
     defaultValue: moment().format("YYYY-MM-DD")
   }
 
-
- //Private component state, initializes with default values provided.
   state = {
+    /**
+     * Sets open state of the datepicker
+     *
+     * @property open
+     * @type {Boolean}
+     * @default false
+     */
     open: false,
+
+    /**
+     * Keeps track of hidden value
+     *
+     * @property viewDate
+     * @type {String}
+     * @default null
+     */
     viewDate: null,
+
+    /**
+     * Sets the default value of the decimal field
+     *
+     * @property visibleValue
+     * @type {String}
+     * @default defaultValue
+     */
     visibleValue: formatVisibleValue(this.props.value, this)
   }
 
   /**
-   * A lifecycle method to update the visible value with new props
-   * when the field is not the active element.
+   * A lifecycle method to update the visible value with a formatted version,
+   * only when the field is not the active element.
    *
    * @method componentWillReceiveProps
    * @param {Object} props The new props passed down to the component
@@ -63,7 +86,7 @@ class Date extends React.Component {
   }
 
   /**
-   * Call back to update the hidden field on change.
+   * Callback to update the hidden field on change.
    *
    *@method emitOnChangeCallback
    *@param {String} val The unformatted decimal value
@@ -124,17 +147,18 @@ class Date extends React.Component {
         validDate = moment(ev.target.value, formats).isValid(),
         newState = { visibleValue: ev.target.value };
 
-    if (typeof validDate !== 'undefined') {
+    // Updates the hidden value after first formatting to default hidden format
+    if (validDate) {
       let hiddenValue = formatValue(ev.target.value, formats, hiddenFormat());
       newState.viewDate = hiddenValue;
       this.emitOnChangeCallback(hiddenValue);
     }
-
+    console.log(this.state.viewDate);
     this.setState(newState);
   }
 
   /**
-   * Prevents propagation so date picker does not close click inside the widget.
+   * Prevents propagation so date picker does not close on click inside the widget.
    *
    * @method handleWidgetClick
    * @param {Object} ev event
@@ -216,16 +240,16 @@ class Date extends React.Component {
    * @method hiddenInputProps
    */
   get hiddenInputProps() {
-  let props = {
+    let props = {
       ref: "hidden",
       type: "hidden",
       readOnly: true
     };
 
-    if (typeof this.props.value !== 'undefined')
-      { props.value = this.props.value; }
-    if (typeof this.props.defaultValue !== 'undefined')
-      { props.defaultValue = this.props.defaultValue; }
+    if (typeof this.props.value !== 'undefined') {
+      props.value = this.props.value; }
+    if (typeof this.props.defaultValue !== 'undefined') {
+      props.defaultValue = this.props.defaultValue; }
 
     return props;
   }
@@ -254,7 +278,7 @@ class Date extends React.Component {
    * @method render
    */
   render() {
-    var datePicker = (this.state.open) ? <DatePicker { ...this.datePickerProps } /> : null;
+    let datePicker = (this.state.open) ? <DatePicker { ...this.datePickerProps } /> : null;
 
     return (
       <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
@@ -280,6 +304,7 @@ export default Date;
  * Formats the visible date using i18n
  *
  * @method visibleFormat
+ * @private
  */
 function visibleFormat() {
   return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
@@ -289,6 +314,7 @@ function visibleFormat() {
  * Sets the hidden format
  *
  * @method hiddenFormat
+ * @private
  */
 function hiddenFormat() {
   return "YYYY-MM-DD";
@@ -298,6 +324,7 @@ function hiddenFormat() {
  * Formats the given value to a specified format
  *
  * @method formatValue
+ * @private
  * @param {String} val current value
  * @param {String} formatFrom Current format
  * @param {String} formatTo Desired format
@@ -311,6 +338,7 @@ function formatValue(val, formatFrom, formatTo) {
  * Adds delimiters to the value
  *
  * @method {String} formatVisibleValue
+ * @private
  * @param {String} value Unformatted Value
  * @param {String} scope used to get default value of current scope if value doesn't exist
  */
@@ -323,6 +351,7 @@ function formatVisibleValue(value, scope) {
  * Returns defaultValue for specified scope,
  *
  * @method getDefaultValue
+ * @private
  * @param {Object} scope used to get default value of current scope
  */
 function getDefaultValue(scope) {

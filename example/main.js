@@ -17,8 +17,7 @@ class testView extends React.Component {
   render () {
     return(
       <Form model="foo">
-        <Textbox name='Name' validations={ [Validation] }/>
-        <Textbox name='Name' validations={ [Validation] }/>
+        <Date name='date'></Date>
       </Form>
     )
   }

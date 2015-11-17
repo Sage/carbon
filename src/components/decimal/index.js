@@ -5,7 +5,12 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import Events from './../../utils/helpers/events';
 
-// Decorators
+/**
+ * Decorators
+ *
+ * The component's decorators may define additional props.
+ * Refer to the decorators for more information on required and optional props.
+ */
 @Input
 @InputLabel
 @InputValidation
@@ -18,12 +23,9 @@ import Events from './../../utils/helpers/events';
  *
  *  import Decimal from 'carbon/lib/components/decimal';
  *
- *  In the render method:
+ * In the render method:
  *
- *    <Decimal />
- *
- * This component receives its props from the decorators listed above.
- * Refer to the Input decorator for more information on required and optional props.
+ *  <Decimal />
  *
  * @class Decimal
  * @constructor
@@ -32,25 +34,31 @@ class Decimal extends React.Component {
 
   // We should not be using document here In future we should monitor which element has focus
   doc = document;
+
   static defaultProps = {
     /**
      * Sets the default value of the decimal field
      *
      * @property defaultValue
-     * @type { Number }
-     * @default 0.00
+     * @type {String}
+     * @default '0.00'
      */
     defaultValue: '0.00'
   }
 
-  // Private component state, it holds the formatted value for display.
   state = {
+    /**
+     * The formatted value for display
+     *
+     * @property visibleValue
+     * @type {String}
+     */
     visibleValue: formatVisibleValue(this.props.value, this)
   }
 
   /**
-   * A lifecycle method to update the visible value with new props
-   * when the field is not the active element.
+   * A lifecycle method to update the visible value with a formatted version,
+   * only when the field is not the active element.
    *
    * @method componentWillReceiveProps
    * @param {Object} props The new props passed down to the component
@@ -65,8 +73,8 @@ class Decimal extends React.Component {
   /**
    * Call back to update the hidden field on change.
    *
-   *@method emitOnChangeCallback
-   *@param {Number} val The unformatted decimal value
+   * @method emitOnChangeCallback
+   * @param {String} val The unformatted decimal value
    */
   emitOnChangeCallback = (val) => {
     let hiddenField = this.refs.hidden;
@@ -78,8 +86,8 @@ class Decimal extends React.Component {
   /**
    * Handles Change to visible field
    *
-   *@method handleVisibleInputChange
-   *@param {Object} ev event
+   * @method handleVisibleInputChange
+   * @param {Object} ev event
    */
   handleVisibleInputChange = (ev) => {
     this.setState({ visibleValue: ev.target.value });
@@ -89,7 +97,7 @@ class Decimal extends React.Component {
   /**
    * Updates visible value on blur
    *
-   *@method handleBlur
+   * @method handleBlur
    */
   handleBlur = () => {
     this.setState({ visibleValue: formatVisibleValue(this.props.value, this) });
@@ -175,6 +183,7 @@ class Decimal extends React.Component {
  * Formats delimiter and separator through i18n
  *
  * @method i18nFormatting
+ * @private
  */
 function i18nFormatting() {
   return {
@@ -187,6 +196,7 @@ function i18nFormatting() {
  * Filters out invalid keys for decimal field
  *
  * @method filterKeys
+ * @private
  * @param {Object} ev event
  */
 function filterKeys(ev) {
@@ -200,7 +210,8 @@ function filterKeys(ev) {
  * Removes delimiters and separators from value
  *
  * @method formatHiddenValue
- * @param {Number} valueToFormat Formatted value
+ * @private
+ * @param {String} valueToFormat Formatted value
  */
 function formatHiddenValue(valueToFormat) {
   let value = valueToFormat;
@@ -213,10 +224,11 @@ function formatHiddenValue(valueToFormat) {
 }
 
 /**
- * Adds delimiters to the value
+ * Adds formatting to the value
  *
  * @method formatVisibleValue
- * @param {Number} value Unformatted Value
+ * @private
+ * @param {String} value Unformatted Value
  * @param {Object} scope used to get default value of current scope if value doesn't exist
  */
 function formatVisibleValue(value, scope) {
@@ -234,6 +246,7 @@ function formatVisibleValue(value, scope) {
  * Returns defaultValue for specified scope,
  *
  * @method getDefaultValue
+ * @private
  * @param {Object} scope used to get default value of current scope
  */
 function getDefaultValue(scope) {

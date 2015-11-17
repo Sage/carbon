@@ -3,7 +3,12 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 
-// Decorators
+/**
+ * Decorators
+ *
+ * The component's decorators may define additional props.
+ * Refer to the decorators for more information on required and optional props.
+ */
 @Input
 @InputLabel
 @InputValidation
@@ -16,12 +21,9 @@ import InputValidation from './../../utils/decorators/input-validation';
  *
  *  import Checkbox from 'carbon/lib/components/checkbox';
  *
- *  In the render method:
+ * In the render method:
  *
- *    <Checkbox />
- *
- * This component receives its props from the decorators listed above.
- * Refer to the Input decorator for more information on required and optional props.
+ *  <Checkbox />
  *
  * @class Checkbox
  * @constructor
@@ -33,7 +35,7 @@ class Checkbox extends React.Component {
      * Sets the checked state of the checkbox
      *
      * @property defaultChecked
-     * @type { Boolean }
+     * @type {Boolean}
      * @default false
      */
     defaultChecked: React.PropTypes.bool.isRequired
@@ -86,7 +88,7 @@ class Checkbox extends React.Component {
     let { ...props } = this.props;
     props.className = this.inputClasses;
     props.type = "checkbox";
-    //React uses checked instead of value to define the state of a checkbox
+    // React uses checked instead of value to define the state of a checkbox
     props.checked = this.props.checked || this.props.value;
     props.value = "1";
     props.onChange = this.handleOnChange;

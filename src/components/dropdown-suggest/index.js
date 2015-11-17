@@ -8,7 +8,12 @@ import InputIcon from './../../utils/decorators/input-icon';
 
 import Immutable from 'immutable';
 
-// Decorators
+/**
+ * Decorators
+ *
+ * The component's decorators may define additional props.
+ * Refer to the decorators for more information on required and optional props.
+ */
 @Input
 @InputIcon
 @InputLabel
@@ -22,12 +27,9 @@ import Immutable from 'immutable';
  *
  *  import DropdownSuggest from 'carbon/lib/components/dropdown-suggest';
  *
- *  In the render method:
+ * In the render method:
  *
- *    <DropdownSuggest path={foo} />
- *
- * This component receives its props from the decorators listed above.
- * Refer to the Input decorator for more information on required and optional props.
+ *  <DropdownSuggest path={foo} />
  *
  * @class DropdownSuggest
  * @constructor
@@ -40,23 +42,23 @@ class DropdownSuggest extends React.Component {
      * The path to your data (e.g. "/core_accounting/ledger_accounts/suggestions")
      *
      * @property path
-     * @type { String }
+     * @type {String}
      */
-    path: React.PropTypes.string.isRequired
+    path: React.PropTypes.string.isRequired,
 
     /**
      * An object to hold data for rendering in the widget
      *
      * @property value
-     * @type { Object }
+     * @type {Object}
      * @default Immutable.Map({})
      */
      value: React.PropTypes.object
-  }
+  };
 
   static defaultProps = {
     value: Immutable.Map({})
-  }
+  };
 
   /**
    * Tracks whether the scroll listener is active on the list.
@@ -167,9 +169,10 @@ class DropdownSuggest extends React.Component {
    * @param {Object} data data returned from server
    */
   updateList = (data) => {
+    // Default page size is 10 records
     let pages = Math.ceil(data.records / 10),
         records;
-
+    // Adds next set of records as page scrolled down
     if (data.page > 1) {
       records = this.state.options.concat(data.items);
     } else {
@@ -212,7 +215,7 @@ class DropdownSuggest extends React.Component {
       filter.setSelectionRange(0, 9999);
     }, 0);
 
-    if (typeof this.props.value.get('id') !== 'undefined' || !this.state.options.length) {
+    if (this.props.value.get('id') || !this.state.options.length) {
       this.getData();
     } else {
       this.setState({ open: true });
@@ -225,7 +228,7 @@ class DropdownSuggest extends React.Component {
    * @method handleScroll
    */
   handleScroll = () => {
-    if (typeof this.listeningToScroll !== 'undefined') {
+    if (this.listeningToScroll) {
       if (this.state.page < this.state.pages) {
         let list = this.refs.list;
         let scrollTriggerPosition = list.scrollHeight - list.offsetHeight - 20;
@@ -288,7 +291,7 @@ class DropdownSuggest extends React.Component {
 
     switch(ev.which) {
       case 13: // return
-        if (typeof element !== 'undefined') {
+        if (element) {
           ev.preventDefault();
           let val = buildImmutableValue(this.props, element.textContent, element.value);
           this.setState({ open: false });
@@ -451,6 +454,7 @@ class DropdownSuggest extends React.Component {
  * Transforms selected element into an Immutable Object.
  *
  * @method buildImmutableValue
+ * @private
  * @param {Object} props
  * @param {String} name
  * @param {Number} id

@@ -3,7 +3,12 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 
-// Decorators
+/**
+ * Decorators
+ *
+ * The component's decorators may define additional props.
+ * Refer to the decorators for more information on required and optional props.
+ */
 @Input
 @InputLabel
 @InputValidation
@@ -16,12 +21,9 @@ import InputValidation from './../../utils/decorators/input-validation';
  *
  *  import Textbox from 'carbon/lib/components/textbox';
  *
- *  In the render method:
+ * In the render method:
  *
- *    <Textbox/>
- *
- * This component receives its props from the decorators listed above.
- * Refer to the Input decorator for more information on required and optional props.
+ *  <Textbox/>
  *
  * @class Textbox
  * @constructor

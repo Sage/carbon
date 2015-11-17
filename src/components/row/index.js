@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * A row widget.
  *
- * This is a standalone row widget, for table rows use the table-row widget.
+ * This is a standalone row widget used for layout; for table rows use the table-row widget.
  *
  * == How to use a Row in a component:
  *
@@ -11,9 +11,9 @@ import React from 'react';
  *
  *  import Row from 'carbon/lib/components/Row';
  *
- *  In the render method:
+ * In the render method:
  *
- *    <Row/>
+ *  <Row/>
  *
  * @class Row
  * @constructor
@@ -25,7 +25,7 @@ class Row extends React.Component {
      * The elements to be rendered in the row
      *
      * @property children
-     * @type { Object | Array}
+     * @type {Object | Array}
      */
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
@@ -34,7 +34,7 @@ class Row extends React.Component {
   }
 
   /**
-   *  Builds row columns from the children object fields
+   * Builds row columns from the children object fields
    *
    * @method buildColumns
    */
