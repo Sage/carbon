@@ -11,13 +11,14 @@ import Icon from './../icon';
 class TableRow extends React.Component {
 
   /**
-   * Only re-renders component if nextProps data has changed.
+   * Only renders component if data has changed, or if the row has
+   * forceUpdate set to true or is a gutter row
    *
    * @method shouldComponentUpdate
    * @param {Object} nextProps
    */
   shouldComponentUpdate = (nextProps) => {
-    if (nextProps.childPropsHaveChanged) { return true; }
+    if (nextProps.forceUpdate) { return true; }
 
     if (nextProps.gutterFields) { return true; }
 
@@ -104,7 +105,7 @@ class TableRow extends React.Component {
       fieldProps.value = value;
     }
 
-    if (this.props.placeholder) { fieldProps._placeholder = true ;}
+    if (this.props.placeholder) { fieldProps._placeholder = true ; }
 
     let fieldHTML = React.cloneElement(field, fieldProps);
 
@@ -119,7 +120,7 @@ class TableRow extends React.Component {
   render() {
     let mainClasses = "ui-table-row";
 
-    if (this.props.gutterFields) { mainClasses += " ui-table-row--gutter" ;}
+    if (this.props.gutterFields) { mainClasses += " ui-table-row--gutter" ; }
 
     return (
       <tr className={ mainClasses }>
