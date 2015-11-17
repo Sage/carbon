@@ -12,7 +12,7 @@ The base store class is now available from:
 import Store from 'carbon/lib/utils/flux/store';
 ```
 
-When creating your store, initialize it with your application's dispatcher. You also need to define the store's data as well as a unique name for your store within it's constructor. The following shows the minimum required to setup a store:
+When creating your store, initialize it with your application's dispatcher. You also need to define the store's data as well as a unique name for your store within its constructor. The following shows the minimum required to setup a store:
 
 ```js
 import Store from 'carbon/lib/utils/flux/store';
@@ -36,7 +36,7 @@ export default new MyStore(Dispatcher);
 
 ### View
 
-The view helper is now available as a flux utility from Carbon. This was done to clarify it's intentions. You can import it with:
+The view helper is now available as a flux utility from Carbon. This was done to clarify its intentions. You can import it with:
 
 
 ```js
@@ -52,7 +52,7 @@ import { connect } from 'carbon/lib/utils/flux';
 
 class MyComponent extends React.Component {
   render() {
-    // the connected store data is available on the state as the store's unique name defined in it's constructor
+    // the connected store data is available on the state as the store's unique name defined in its constructor
     var val = this.state.myStore.get('myValue');
 
     return (
