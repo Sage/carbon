@@ -231,9 +231,8 @@ class Form extends React.Component {
    * Redirects to the previous page; uses React Router history.
    *
    * @method cancelForm
-   * @param {Object} ev event
    */
-  cancelForm = (ev) => {
+  cancelForm = () => {
     history.back();
   }
 

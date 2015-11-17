@@ -153,7 +153,6 @@ class Date extends React.Component {
       newState.viewDate = hiddenValue;
       this.emitOnChangeCallback(hiddenValue);
     }
-    console.log(this.state.viewDate);
     this.setState(newState);
   }
 

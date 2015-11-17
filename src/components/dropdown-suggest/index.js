@@ -53,7 +53,7 @@ class DropdownSuggest extends React.Component {
      * @type {Object}
      * @default Immutable.Map({})
      */
-     value: React.PropTypes.object
+    value: React.PropTypes.object
   };
 
   static defaultProps = {
@@ -248,7 +248,7 @@ class DropdownSuggest extends React.Component {
    * @param {Object} ev event
    */
   handleChange = (ev) => {
-    if (typeof this.timeout !== 'undefined') { clearTimeout(this.timeout); }
+    if (this.timeout) { clearTimeout(this.timeout); }
     let val = buildImmutableValue(this.props, ev.target.value, null);
     this.emitOnChangeCallback(val);
 
@@ -404,8 +404,7 @@ class DropdownSuggest extends React.Component {
                   onMouseDown={this.handleSelect}
                   onMouseOver={this.handleMouseOver}
                   className={(this.state.highlighted == option.id) ?
-                    className +
-                    ` ${rootClassName}__item--highlighted` :
+                    `${className} ${className}--highlighted` :
                     className}>
                   {option.name}
                 </li>;

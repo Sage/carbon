@@ -13,16 +13,16 @@ import Icon from './../icon';
 class TableRow extends React.Component {
 
   shouldComponentUpdate = (nextProps) => {
-    if (nextProps.childPropsHaveChanged) { return true };
+    if (nextProps.childPropsHaveChanged) { return true; }
 
-    if (nextProps.gutterFields) { return true };
+    if (nextProps.gutterFields) { return true; }
 
     return (nextProps.data !== this.props.data);
   }
 
   buildRow = () => {
     let row = [],
-      rowID = this.props.row_id;
+        rowID = this.props.row_id;
 
     if (!this.props.placeholder && !this.props.gutterFields) {
       row.push(
@@ -36,7 +36,7 @@ class TableRow extends React.Component {
     else {
       let tdClass = "ui-table-row__td ui-table-row__td--actions";
 
-      if (this.props.gutterFields) { tdClass += " ui-table-row__td--gutter" };
+      if (this.props.gutterFields) { tdClass += " ui-table-row__td--gutter" ;}
 
       row.push(<td key={ rowID + 'actions' } className={ tdClass }></td>);
     }
@@ -77,7 +77,7 @@ class TableRow extends React.Component {
       fieldProps.value = value;
     }
 
-    if (this.props.placeholder) { fieldProps._placeholder = true };
+    if (this.props.placeholder) { fieldProps._placeholder = true ;}
 
     let fieldHTML = React.cloneElement(field, fieldProps);
 
@@ -92,7 +92,7 @@ class TableRow extends React.Component {
   render() {
     let mainClasses = "ui-table-row";
 
-    if (this.props.gutterFields) { mainClasses += " ui-table-row--gutter" };
+    if (this.props.gutterFields) { mainClasses += " ui-table-row--gutter" ;}
 
     return (
       <tr className={ mainClasses }>
