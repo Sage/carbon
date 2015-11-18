@@ -38,7 +38,6 @@ describe('Form', () => {
   });
 
   describe('attachToForm', () => {
-
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
         <Form model='test'>
@@ -124,7 +123,7 @@ describe('Form', () => {
       it('removes a input by its name', () => {
         expect(instance.inputs.excludedBox).toBeTruthy();
         instance.detachFromForm(instance.inputs.excludedBox);
-        expect(instance.inputs.excludedBox).toBeTruthy();
+        expect(instance.inputs.excludedBox).toBeFalsy();
       });
     });
   });
@@ -171,13 +170,11 @@ describe('Form', () => {
 
         spyOn(instance, 'setState');
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-        let grid = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-input-grid');
 
-        spyOn(grid, 'setState');
+        spyOn(instance.tables.test, 'setState');
         TestUtils.Simulate.submit(form);
         expect(instance.setState).toHaveBeenCalledWith({ errorCount : 0 });
-        // TODO:
-        // expect(grid.setState).toHaveBeenCalledWith({ placeholder: false });
+        expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: false });
       });
     });
   });
@@ -193,8 +190,13 @@ describe('Form', () => {
   });
 
   describe('cancelForm', () => {
-    it('redirects to the previous page', () => {
-      // TODO:  
+    describe('when window history is availiable', () => {
+      it('redirects to the previous page', () => {
+        spyOn(window.history, 'back')
+        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        TestUtils.Simulate.click(cancel);
+        expect(window.history.back).toHaveBeenCalled();
+      });
     });
   });
 

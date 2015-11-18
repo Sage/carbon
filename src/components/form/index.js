@@ -187,7 +187,6 @@ class Form extends React.Component {
       ev.preventDefault();
     } else {
       for (let tableKey in this.tables) {
-        console.log('key');
         let table = this.tables[tableKey];
         table.setState({ placeholder: false });
       }
@@ -211,7 +210,10 @@ class Form extends React.Component {
    * @method cancelForm
    */
   cancelForm = () => {
-    history.back();
+    // history comes from react router
+    if (window.history) {
+      window.history.back();
+    }
   }
 
   /**
