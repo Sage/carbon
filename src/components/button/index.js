@@ -1,4 +1,5 @@
 import React from 'react';
+
 /**
  * A button widget.
  *
@@ -8,9 +9,7 @@ import React from 'react';
  *
  *   import Button from 'carbon/lib/components/button';
  *
- * In the render method:
- *
- * Pass the button a string to display
+ * To render the Button:
  *
  *   <Button>Save</Button>
  *
@@ -22,7 +21,6 @@ import React from 'react';
 class Button extends React.Component {
 
   static propTypes = {
-
     /**
      * Customizes the appearance, can be set to 'primary' or 'secondary'.
      *

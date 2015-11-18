@@ -113,6 +113,14 @@ describe('InputGrid', () => {
       expect(instance.placeholderRow.calls.count()).toEqual(1);
     });
 
+    describe('no placeholder', () => {
+      it('does not render a placeholder if the state is set to false', () => {
+        instance.setState({ placeholder: false });
+        expect(instance.buildRows().length).toEqual(2);
+        expect(instance.placeholderRow.calls.count()).toEqual(0);
+      });
+    });
+
     describe('with gutter', () => {
       beforeEach(() => {
         function foo() {};

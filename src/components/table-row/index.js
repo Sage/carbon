@@ -1,24 +1,40 @@
 import React from 'react';
 import Icon from './../icon';
 
+/**
+ * A table row widget for use in an input grid. This is virtually a subcomponent of InputGrid.
+ * Using it outside of InputGrid would require extending TableRow.
+ *
+ * @class TableRow
+ * @constructor
+ */
 class TableRow extends React.Component {
 
+  /**
+   * Only renders component if data has changed, or if the row has
+   * forceUpdate set to true or is a gutter row
+   *
+   * @method shouldComponentUpdate
+   * @param {Object} nextProps
+   */
   shouldComponentUpdate = (nextProps) => {
-    if (nextProps.forceUpdate) {
-      return true;
-    }
+    if (nextProps.forceUpdate) { return true; }
 
-    if (nextProps.gutterFields) {
-      return true;
-    }
+    if (nextProps.gutterFields) { return true; }
 
     return (nextProps.data !== this.props.data);
   }
 
+  /**
+   * Builds row inlcuding buttons, classnames & optional gutterfields.
+   *
+   * @method buildRpw
+   */
   buildRow = () => {
-    var row = [],
+    let row = [],
         rowID = this.props.row_id;
 
+    // If row is not a placeholder or gutterfield add delete button.
     if (!this.props.placeholder && !this.props.gutterFields) {
       row.push(
         <td key={ rowID + 'actions' } className="ui-table-row__td ui-table-row__td--actions">
@@ -27,24 +43,28 @@ class TableRow extends React.Component {
           </button>
         </td>
       );
-    } else {
-      var tdClass = "ui-table-row__td ui-table-row__td--actions";
+    }
+    else {
+      let tdClass = "ui-table-row__td ui-table-row__td--actions";
 
-      if (this.props.gutterFields) {
-        tdClass += " ui-table-row__td--gutter";
-      }
+      if (this.props.gutterFields) { tdClass += " ui-table-row__td--gutter"; }
 
       row.push(<td key={ rowID + 'actions' } className={ tdClass }></td>);
     }
 
-    for (var key in this.props.fields) {
-      var field = this.props.fields[key];
+    // Builds fields for row
+    for (let key in this.props.fields) {
+      let field = this.props.fields[key];
 
+      // Adds gutterfields if present
       if (this.props.gutterFields) {
-        var gutterField = this.props.gutterFields[field.props.name];
+        let gutterField = this.props.gutterFields[field.props.name];
         row.push(<td hidden={ field.props.hidden } key={ key + "gutter" } className="ui-table-row__td ui-table-row__td--gutter">{ gutterField }</td>);
-      } else {
-        var value = (this.props.data) ? this.props.data.get(field.props.name) : null;
+      }
+
+      // Uses buildCell to build cell with appropriate values
+      else {
+        let value = (this.props.data) ? this.props.data.get(field.props.name) : null;
         row.push(this.buildCell(field, value));
       }
     }
@@ -52,13 +72,26 @@ class TableRow extends React.Component {
     return row;
   }
 
+  /**
+   * Calls delete row handler
+   *
+   * @method buildRpw
+   * @param {Object}
+   */
   deleteMethod = (ev) => {
     ev.preventDefault();
     this.props.deleteRowHandler(ev, this.props);
   }
 
+  /**
+   * Build each cell with appropriate values and attributes.
+   *
+   * @method buildCell
+   * @param {Object} field
+   * @param {String | Number | Boolean} value
+   */
   buildCell = (field, value) => {
-    var rowID = this.props.row_id,
+    let rowID = this.props.row_id,
         fieldProps = {
           label: false,
           key: rowID,
@@ -68,15 +101,13 @@ class TableRow extends React.Component {
           onChange: this.props.updateRowHandler
         };
 
-    if (value) {
+    if (typeof value !== 'undefined') {
       fieldProps.value = value;
     }
 
-    if (this.props.placeholder) {
-      fieldProps._placeholder = true;
-    }
+    if (this.props.placeholder) { fieldProps._placeholder = true; }
 
-    var fieldHTML = React.cloneElement(field, fieldProps);
+    let fieldHTML = React.cloneElement(field, fieldProps);
 
     return <td hidden={ field.props.hidden } key={ rowID + field.props.name } className="ui-table-row__td">{ fieldHTML }</td>;
   }
@@ -87,11 +118,9 @@ class TableRow extends React.Component {
    * @method render
    */
   render() {
-    var mainClasses = "ui-table-row";
+    let mainClasses = "ui-table-row";
 
-    if (this.props.gutterFields) {
-      mainClasses += " ui-table-row--gutter";
-    }
+    if (this.props.gutterFields) { mainClasses += " ui-table-row--gutter"; }
 
     return (
       <tr className={ mainClasses }>
@@ -99,7 +128,6 @@ class TableRow extends React.Component {
       </tr>
     );
   }
-
 }
 
 export default TableRow;

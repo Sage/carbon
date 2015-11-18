@@ -9,17 +9,17 @@ import I18n from "i18n-js";
  *
  * In your file
  *
- *  import Form from 'carbon/lib/components/form';
+ *   import Form from 'carbon/lib/components/form';
  *
  * Form requires a prop of 'model'. It renders any children components of input type passed to it.
  *
- * In the render method:
+ * To render a Form:
  *
- *  <Form model='foo'>
- *    <Textbox />
- *    <Textbox />
- *    <Date />
- *  </Form>
+ *   <Form model='foo'>
+ *     <Textbox />
+ *     <Textbox />
+ *     <Date />
+ *   </Form>
  *
  * @class Form
  * @constructor
@@ -64,16 +64,31 @@ class Form extends React.Component {
     };
   }
 
-  // Private State for tracking errors
   state = {
+    /**
+     * Tracks the number of errors in the form
+     *
+     * @property errorCount
+     * @type {Number}
+     */
     errorCount: 0
   }
 
-  // Object to hold form inputs
+  /**
+   * Stores references to the inputs in the form
+   *
+   * @property inputs
+   * @type {Object}
+   */
   inputs = {
   }
 
-  // Object to hold input grids
+  /**
+   * Stores references to the tables in the form
+   *
+   * @property tables
+   * @type {Object}
+   */
   tables = {
   }
 

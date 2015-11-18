@@ -10,11 +10,13 @@ import _ from 'lodash';
  * to have a property of `_row_id`. To easily add row IDs to your data, run your
  * JSON through the ImmutableHelper `parseJSON` method.
  *
- * You can import this component with the following:
+ * == How to use an InputGrid in a component:
+ *
+ * In your file:
  *
  *   import InputGrid from 'carbon/lib/components/input-grid';
  *
- * You can then use the grid within your application like this:
+ * To render the InputGrid:
  *
  *   // Define which fields the grid should render. The name of the input should
  *   // match the key in the data structure.
@@ -128,6 +130,16 @@ class InputGrid extends React.Component {
     form: React.PropTypes.object
   }
 
+  state = {
+    /**
+     * Determines if the placeholder should be rendered or not.
+     *
+     * @property placeholder
+     * @type {Boolean}
+     */
+    placeholder: true
+  }
+
   /**
    * Stores the ID currently used for the placeholder row.
    *
@@ -201,8 +213,8 @@ class InputGrid extends React.Component {
       rows.push(this.regularRow(rowData));
     });
 
-    // create a placeholder
-    rows.push(this.placeholderRow());
+    // create a placeholder depending on the placeholder state
+    if (this.state.placeholder) { rows.push(this.placeholderRow()); }
     // if gutter fields have been defined, create a gutter row
     if (this.props.gutter) { rows.push(this.gutterRow()); }
 

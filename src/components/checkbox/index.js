@@ -12,22 +12,23 @@ import InputValidation from './../../utils/decorators/input-validation';
 @Input
 @InputLabel
 @InputValidation
+
 /**
  * A checkbox widget.
  *
  * == How to use a Checkbox in a component:
  *
- * In your file
+ * In your file:
  *
- *  import Checkbox from 'carbon/lib/components/checkbox';
+ *   import Checkbox from 'carbon/lib/components/checkbox';
  *
- * In the render method:
+ * To render the Checkbox:
  *
- *  <Checkbox />
+ *   <Checkbox name="myCheckbox" />
  *
  * @class Checkbox
  * @constructor
- **/
+ */
 class Checkbox extends React.Component {
 
   static propTypes = {
@@ -38,7 +39,7 @@ class Checkbox extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    defaultChecked: React.PropTypes.bool.isRequired
+    defaultChecked: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -52,11 +53,8 @@ class Checkbox extends React.Component {
    * @param {Object} ev event
    */
   handleOnChange = (ev) => {
-    /**
-     * The change event
-     *
-     * @param {Object} ev event
-     */
+    // we handle the change event manually here, as we pass the checked param
+    // instead of value
     this._handleOnChange({ target: { value: ev.target.checked }});
   }
 

@@ -36,12 +36,12 @@ export function connect(ComposedView, stores) {
   function _addStore(store) {
     // tell the developer if they have not defined the name property.
     if (!store.name) {
-      throw new Error(`You need to set the name property on your store. In ${store.constructor.name}'s constructor add 'store.name = "uniqueStoreName";'.`);
+      throw new Error(`You need to set the name property on your store. In ${store.constructor.name}'s constructor add 'this.name = "uniqueStoreName";'.`);
     }
 
     // tell the developer if they have not defined the data property.
     if (!store.data) {
-      throw new Error(`You need to set the data property on your store. In ${store.constructor.name}'s constructor add 'store.data = ImmutableHelper.parseJSON({});'.`);
+      throw new Error(`You need to set the data property on your store. In ${store.constructor.name}'s constructor add 'this.data = ImmutableHelper.parseJSON({});'.`);
     }
 
     _stores[store.name] = store;

@@ -9,11 +9,11 @@ import Icon from './../icon';
  *
  * In your file
  *
- *  import Dialog from 'carbon/lib/components/dialog';
+ *   import Dialog from 'carbon/lib/components/dialog';
  *
- * In the render method:
+ * To render a Dialog:
  *
- *  <Dialog cancelDialogHandler={ customEvenHandler } />
+ *   <Dialog cancelDialogHandler={ customEvenHandler } />
  *
  * The component rendering the Dialog must pass down a prop of 'open' in order to open the dialog.
  *
@@ -93,6 +93,11 @@ class Dialog extends React.Component {
     this.refs.dialog.style.left = midPointX + "px";
   }
 
+  /**
+   * Returns HTML and text for the dialog title.
+   *
+   * @method dialogTitle
+   */
   get dialogTitle() {
     return (
         this.props.title ?
@@ -101,14 +106,29 @@ class Dialog extends React.Component {
     );
   }
 
+  /**
+   * Returns HTML for the background.
+   *
+   * @method backgroundHTML
+   */
   get backgroundHTML() {
     return <div className="ui-dialog__background"></div>;
   }
 
+  /**
+   * Returns classes for the component.
+   *
+   * @method mainClasses
+   */
   get mainClasses() {
     return 'ui-dialog';
   }
 
+  /**
+   * Returns classes for the dialog.
+   *
+   * @method dialogClasses
+   */
   get dialogClasses() {
     return 'ui-dialog__dialog';
   }

@@ -9,11 +9,11 @@ import React from 'react';
  *
  * In your file
  *
- *  import Row from 'carbon/lib/components/Row';
+ *   import Row from 'carbon/lib/components/Row';
  *
- * In the render method:
+ * To render the Row:
  *
- *  <Row/>
+ *   <Row />
  *
  * @class Row
  * @constructor
