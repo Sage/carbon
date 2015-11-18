@@ -2,7 +2,7 @@
 ## :warning: This is a working document and may not reflect current best practice Carbon is still in alpha and subject to change.
 
 
-# Building a View with Carbon 
+# Building a View with Carbon
 
 ## Introduction
 
@@ -12,7 +12,7 @@ In this guide, we will walk through building a Carbon view within the context of
 
 If you're familiar with ES5 Javascript, you may find some of our syntax odd. We're not crazy, we're just using [ES6 syntax](https://babeljs.io/docs/learn-es2015/). This is transpiled into ES5 using a Babel transform for use in all browsers before compilation.
 
-## Building a Journals Page with Carbon 
+## Building a Journals Page with Carbon
 
 ### 1) Setup
 
@@ -29,9 +29,9 @@ the directory will take the name you provide as *myproject*.
 You will need to run ```npm install``` command every time you wish to update to the latest version of Carbon.
 
 * As you work, you can set gulp to watch for changes and compile as you go.
-(Rails) Before running gulp, you may want to specifiy the destination for your compiled js and css files. To do this, you'll need to edit the gulpfile.js in your project root directory. 
+(Rails) Before running gulp, you may want to specifiy the destination for your compiled js and css files. To do this, you'll need to edit the gulpfile.js in your project root directory.
 
-See **Futher Configuration** in the [guides](https://github.com/Sage/carbon-factory/blob/master/README.md) for more info. 
+See **Futher Configuration** in the [guides](https://github.com/Sage/carbon-factory/blob/master/README.md) for more info.
 
 For example:
 
@@ -96,7 +96,7 @@ gulp.task('test', SpecTask());
 
 ### 5) Creating your first view
 
-* In React, everything is a component. When we talk about views, we're using an abstraction - we really mean a component built up from several modular components (i.e. widgets). 
+* In React, everything is a component. When we talk about views, we're using an abstraction - we really mean a component built up from several modular components (i.e. widgets).
 
 * To create a view (or any other component), you'll create a class representing that view.
 ```javascript
@@ -120,10 +120,10 @@ export default View(JournalsReverse, { journal_store: JournalStore });
 * Note: If you've worked with React before, you may wonder why we're importing *View* into our view. We use a pattern called [Higher Order Components](https://github.com/Sage/carbon/blob/master/src/utils/view.js) to wrap together our view, our store and any additional functionality we want to provide.
 
 * To build your view, you need to start adding components to the return block. Let's add a:
-  *Form* containing a 
-    - *Textbox* 
+  *Form* containing a
+    - *Textbox*
     - *Date*
-    - *Table-Fields-For-Many* which contains 
+    - *Table-Fields-For-Many* which contains
       - 2 *Textbox* fields.
 
 * Each component you wish to use in your view requires import into the view.
@@ -163,9 +163,9 @@ Once you have imported the component into your view, you can render it as follow
 class JournalsReverse extends React.Component {
 
   render() {
-    /* Here we're defining what children components table-fields-for-many will 
-    render. We can pack these children components into an array. 
-    Table-fields-for-many is a complex component that renders components 
+    /* Here we're defining what children components table-fields-for-many will
+    render. We can pack these children components into an array.
+    Table-fields-for-many is a complex component that renders components
     passed to it as children. */
 
     var tableFields = [<Textbox />,<Textbox />];
@@ -339,4 +339,3 @@ export default new JournalStore(Dispatcher, _journal);
 ```
 
 * Our Store has assigned the parsed JSON data from our database to *_journal* and has registered our three actions. The Store is now listening for those actions- any time they are called in our view, the store will update the view. [Read more here](https://facebook.github.io/flux/docs/overview.html#structure-and-data-flow)
-
