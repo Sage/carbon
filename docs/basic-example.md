@@ -29,7 +29,7 @@ export default Dispatcher;
 
 ## An Action
 
-The actions should describe an event in the application, they will use the dispatcher to dispatch the event along with any data the store may need to update its data.
+An action should describe an event in the application, it will use the dispatcher to dispatch the event along with any data the store may need to update its data.
 
 ```js
 // ./src/actions/contact/index.js
