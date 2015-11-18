@@ -124,8 +124,8 @@ class Contact extends React.Component {
 
     return (
       <div>
-        <span>{ name }</span>
-        <Textbox value={ name } onChange={ ContactActions.contactValueUpdated } />
+        <h1>{ name }</h1>
+        <Textbox name="name" value={ name } onChange={ ContactActions.contactValueUpdated } />
       </div>
     );
   }
