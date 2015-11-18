@@ -23,7 +23,6 @@ describe('TableRow', () => {
         name='bar'/>
     ]
 
-
     regularTable = document.createElement('table');
     regularTable.innerHTML = '<tbody></tbody>';
 
@@ -45,9 +44,7 @@ describe('TableRow', () => {
           key='gutter_1'
           row_id='gutter_1_gut'
           fields={ fields }
-          gutterFields={ gutterFields }
-          deleteRowHandler={ function() {} }
-          updateRowHandler={ function() {} } />), gutterTable.children[0]);
+          gutterFields={ gutterFields } />), gutterTable.children[0]);
 
     placeholderTable = document.createElement('table');
     placeholderTable.innerHTML = '<tbody></tbody>';
@@ -57,8 +54,7 @@ describe('TableRow', () => {
           key='placeholder_1'
           placeholder='true'
           row_id='placeholder_1_place'
-          fields={ fields }
-          updateRowHandler={ function() {} } />), placeholderTable.children[0]);
+          fields={ fields } />), placeholderTable.children[0]);
   });
 
   describe('lifecycle functions', () => {
@@ -90,6 +86,15 @@ describe('TableRow', () => {
             data: ImmutableHelper.parseJSON({ foo: 'change', bar: '10000.0' })
           };
           expect(regular.shouldComponentUpdate(nextProps)).toBeTruthy();
+        });
+      });
+
+      describe('when props have not changed', () => {
+        it('should update the component', () => {
+          let nextProps = {
+            data: ImmutableHelper.parseJSON({ foo: 'text', bar: '1.00' })
+          };
+          expect(regular.shouldComponentUpdate(nextProps)).toBeFalsy();
         });
       });
     });
@@ -150,7 +155,7 @@ describe('TableRow', () => {
         expect(deleteButtons.length).toEqual(0);
       });
 
-      it('builds stubs empty fields', () => {
+      it('builds empty tds where a gutter field is not present', () => {
         let gutterCells = TestUtils.scryRenderedDOMComponentsWithClass(gutter, 'ui-table-row__td');
         expect(gutterCells.length).toEqual(3);
         expect(gutterCells[0].children.length).toEqual(0);
