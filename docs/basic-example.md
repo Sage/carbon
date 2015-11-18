@@ -11,7 +11,7 @@ For a basic application, you need:
 * Components
 * A router
 
-A basic setup may look something like this:
+A basic setup may look something like the following. You could even use the [Carbon Factory](https://github.com/sage/carbon-factory) task to generate an application (`carbon app appname`) and use the following code to have a basic React/Flux application running:
 
 ## The Dispatcher
 
