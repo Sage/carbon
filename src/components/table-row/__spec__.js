@@ -7,7 +7,9 @@ import Textbox from './../textbox';
 import Decimal from './../decimal';
 
 describe('TableRow', () => {
-  let regular, gutter, placeholder, regularTable, gutterTable, placeholderTable;
+  let regular, gutter, placeholder,
+      regularTable, gutterTable, placeholderTable,
+      baseData;
 
   let deleteSpy = jasmine.createSpy('deleteSpy');
   let updateSpy = jasmine.createSpy('updateSpy');
@@ -23,6 +25,8 @@ describe('TableRow', () => {
         name='bar'/>
     ]
 
+    baseData = ImmutableHelper.parseJSON({ foo: 'text', bar: '1.00' });
+
     regularTable = document.createElement('table');
     regularTable.innerHTML = '<tbody></tbody>';
 
@@ -30,7 +34,7 @@ describe('TableRow', () => {
       name='regular'
       key='regular_1'
       row_id='regular_1_reg'
-      data={ ImmutableHelper.parseJSON({ foo: 'text', bar: '1.00' }) }
+      data={ baseData }
       fields={ fields }
       deleteRowHandler={ deleteSpy }
       updateRowHandler={ updateSpy } />), regularTable.children[0]);
@@ -92,7 +96,7 @@ describe('TableRow', () => {
       describe('when props have not changed', () => {
         it('should update the component', () => {
           let nextProps = {
-            data: ImmutableHelper.parseJSON({ foo: 'text', bar: '1.00' })
+            data: baseData
           };
           expect(regular.shouldComponentUpdate(nextProps)).toBeFalsy();
         });
