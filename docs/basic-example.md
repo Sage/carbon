@@ -1,20 +1,21 @@
 # Basic Example
 
-Carbon provides utilities to easily setup a Flux based application.
+Carbon provides utilities to easily setup a [Flux](https://facebook.github.io/flux/) based application.
 
 For a basic application, you need:
 
-* A dispatcher.
-* An action.
-* A store.
-* A component.
-* A router.
+* A dispatcher
+* Constants
+* Actions
+* Stores
+* Components
+* A router
 
 A basic setup may look something like this:
 
 ## The Dispatcher
 
-The dispatcher should be a singleton, and will handle dispatching any actions to any stores that are subscribed to it.
+The dispatcher should be a singleton and only needs setting up once, it will handle dispatching any actions to any stores that are subscribed to it.
 
 ```js
 // ./src/dispatcher/index.js
@@ -27,6 +28,18 @@ var Dispatcher = new Flux.Dispatcher();
 export default Dispatcher;
 ```
 
+## A Constant
+
+Using constants helps organise your application and mitigates any conflicts. Each constant represents the name of an action and should be entirely unique.
+
+```js
+// ./src/constants/contact/index.js
+
+export default {
+  CONTACT_VALUE_UPDATED: 'contactValueUpdated'
+}
+```
+
 ## An Action
 
 An action should describe an event in the application, it will use the dispatcher to dispatch the event along with any data the store may need to update its data.
@@ -35,13 +48,14 @@ An action should describe an event in the application, it will use the dispatche
 // ./src/actions/contact/index.js
 
 import Dispatcher from 'dispatcher';
+import ContactConstants from 'constants/contact';
 
 var ContactActions = {
   contactValueUpdated: (ev, props) => {
-    // this should dispatch a completely unique actionType, as well as any data
-    // the store should be aware of from the event that occurred (eg the input's value)
+    // this should dispatch the constant we defined, as well as any data the store
+    // should be aware of from the event that occurred (eg the input's value)
     Dispatcher.dispatch({
-      actionType: 'contactValueUpdated',
+      actionType: ContactConstants.CONTACT_VALUE_UPDATED,
       value: ev.target.value,
       name: props.name
     });
@@ -59,6 +73,7 @@ The store handles the data for a particular model, it will define functions whic
 // ./src/stores/contact/index.js
 
 import Dispatcher from 'dispatcher';
+import ContactConstants from 'constants/contact';
 import Store from 'carbon/lib/utils/flux/store';
 import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
 
@@ -74,9 +89,10 @@ class ContactStore extends Store {
     this.data = ImmutableHelper.parseJSON({});
   }
 
-  // this function's name matches the action we defined, so will trigger when
-  // the action is dispatched
-  contactValueUpdated = (action) => {
+  // we create a function that uses the constant we defined, this subscribes
+  // the store to the this particular action so it will trigger when the
+  // action is dispatched
+  [ContactConstants.CONTACT_VALUE_UPDATED](action) {
     // we modify the data and update `this.data` to the new data (remember that
     // we are working with immutable data)
     this.data = this.data.set(action.name, action.value);
