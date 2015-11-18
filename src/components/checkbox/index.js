@@ -1,62 +1,134 @@
 import React from 'react';
-import Input from './../../utils/input';
-import InputValidation from './../../utils/input/validation';
+import Input from './../../utils/decorators/input';
+import InputLabel from './../../utils/decorators/input-label';
+import InputValidation from './../../utils/decorators/input-validation';
 
-class CheckboxComponent extends React.Component {
+/**
+ * Decorators
+ *
+ * The component's decorators may define additional props.
+ * Refer to the decorators for more information on required and optional props.
+ */
+@Input
+@InputLabel
+@InputValidation
+/**
+ * A checkbox widget.
+ *
+ * == How to use a Checkbox in a component:
+ *
+ * In your file
+ *
+ *  import Checkbox from 'carbon/lib/components/checkbox';
+ *
+ * In the render method:
+ *
+ *  <Checkbox />
+ *
+ * @class Checkbox
+ * @constructor
+ **/
+class Checkbox extends React.Component {
 
-  static defaultProps = { 
-    /* React suggests using checked rather than value for checked box.
-       Need to pass checked as boolean from view. */
+  static propTypes = {
+    /**
+     * Sets the checked state of the checkbox
+     *
+     * @property defaultChecked
+     * @type {Boolean}
+     * @default false
+     */
+    defaultChecked: React.PropTypes.bool.isRequired
+  }
+
+  static defaultProps = {
     defaultChecked: false
   }
 
+  /**
+   * Sets the value of the checkbox [true | false]
+   *
+   * @method handleOnChange
+   * @param {Object} ev event
+   */
   handleOnChange = (ev) => {
-    this.props.onChange({ target: { value: ev.target.checked }}, this.props);
+    /**
+     * The change event
+     *
+     * @param {Object} ev event
+     */
+    this._handleOnChange({ target: { value: ev.target.checked }});
   }
 
-  customInputProps = () => {
-    var { onChange, ...props } = this.props.input.inputProps();
+  /**
+   * Main Class getter
+   *
+   * @method mainClasses
+   */
+  get mainClasses() {
+    return 'ui-checkbox';
+  }
 
+  /**
+   * Input class getter
+   *
+   * @method inputClasses
+   */
+  get inputClasses() {
+    return 'ui-checkbox__input';
+  }
+
+  /**
+   * A getter that combines props passed down from the input decorator with
+   * checkbox specific props.
+   *
+   * @method inputProps
+   */
+  get inputProps() {
+    let { ...props } = this.props;
+    props.className = this.inputClasses;
+    props.type = "checkbox";
+    // React uses checked instead of value to define the state of a checkbox
+    props.checked = this.props.checked || this.props.value;
+    props.value = "1";
     props.onChange = this.handleOnChange;
+    return props;
+  }
+
+  /**
+   * A getter for hidden input props.
+   *
+   * @method hiddenInputProps
+   */
+  get hiddenInputProps() {
+    let props = {
+      ref: "hidden",
+      type: "hidden",
+      value: "0",
+      name: this.inputProps.name,
+      readOnly: true
+    };
 
     return props;
   }
 
+  /**
+   * Renders the component with props.
+   *
+   * @method render
+   */
   render() {
-
-    var mainClasses = 'ui-checkbox ' + 
-          this.props.input.mainClasses() + 
-          this.props.validation.mainClasses();
-
-    var inputClasses = 'ui-checkbox__input ' + 
-          this.props.input.inputClasses() + 
-          this.props.validation.inputClasses();
-
     return(
-      <div className={ mainClasses }>
+      <div className={ this.mainClasses }>
 
-        { this.props.input.labelHTML() }
+        { this.labelHTML }
+        <input { ...this.inputProps } />
+        <input { ...this.hiddenInputProps } />
+        { this.validationHTML }
 
-        <input
-          ref="hidden"
-          type="hidden"
-          value='0'
-          name={ this.props.input.inputProps().name }
-          readOnly
-        />
-
-        <input
-          className={ inputClasses }
-          type="checkbox" 
-          checked={ this.props.checked || this.props.value }
-          value="1"
-          { ...this.customInputProps() }
-        />
-
-        { this.props.validation.errorMessageHTML() }
       </div>
     );
   }
-};
+}
 
-export default InputValidation(Input(CheckboxComponent))
+export default Checkbox;

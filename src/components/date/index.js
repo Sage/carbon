@@ -1,104 +1,103 @@
 import React from 'react';
-import Input from './../../utils/input';
-import InputValidation from './../../utils/input/validation';
-import InputIcon from './../../utils/input/icon';
+import Input from './../../utils/decorators/input';
+import InputLabel from './../../utils/decorators/input-label';
+import InputValidation from './../../utils/decorators/input-validation';
+import InputIcon from './../../utils/decorators/input-icon';
 // https://github.com/zippyui/react-date-picker
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 
-// TODO: do we need to use moment.js ???
+/**
+ * Decorators
+ *
+ * The component's decorators may define additional props.
+ * Refer to the decorators for more information on required and optional props.
+ */
+@Input
+@InputIcon
+@InputLabel
+@InputValidation
+/**
+ * A Date widget.
+ *
+ * == How to use a Date in a component:
+ *
+ * In your file
+ *
+ *  import Date from 'carbon/lib/components/Date';
+ *
+ * In the render method:
+ *
+ *  <Date />
+ *
+ * @class Date
+ * @constructor
+ */
+class Date extends React.Component {
 
-class DateComponent extends React.Component {
+  doc = document;
 
   static defaultProps = {
     defaultValue: moment().format("YYYY-MM-DD")
   }
 
-  visibleFormat = () => {
-    return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
-  }
-
-  hiddenFormat = () => {
-    return "YYYY-MM-DD";
-  }
-
-  formatValue = (val, formatFrom, formatTo) => {
-    var date = moment(val, formatFrom);
-    return date.format(formatTo);
-  }
-
-  formatHiddenValue = (value) => {
-  }
-
-  formatVisibleValue = (value) => {
-    var value = value || this.props.value || this.getDefaultValue();
-    return this.formatValue(value, this.hiddenFormat(), this.visibleFormat());
-  }
-
-  getDefaultValue = () => {
-    if (this.refs.hidden) {
-      return this.refs.hidden.value;
-    } else {
-      return this.props.defaultValue;
-    }
-  }
-
   state = {
+    /**
+     * Sets open state of the datepicker
+     *
+     * @property open
+     * @type {Boolean}
+     * @default false
+     */
     open: false,
+
+    /**
+     * Keeps track of hidden value
+     *
+     * @property viewDate
+     * @type {String}
+     * @default null
+     */
     viewDate: null,
-    visibleValue: this.formatVisibleValue()
+
+    /**
+     * Sets the default value of the decimal field
+     *
+     * @property visibleValue
+     * @type {String}
+     * @default defaultValue
+     */
+    visibleValue: formatVisibleValue(this.props.value, this)
   }
 
+  /**
+   * A lifecycle method to update the visible value with a formatted version,
+   * only when the field is not the active element.
+   *
+   * @method componentWillReceiveProps
+   * @param {Object} props The new props passed down to the component
+   */
   componentWillReceiveProps = (props) => {
-    if (document.activeElement != this.refs.visible) {
-      var value = props.value || props.defaultValue;
-      var date = this.formatVisibleValue(value);
-      this.setState({
-        visibleValue: date
-      });
+    if (this.doc.activeElement != this.refs.visible) {
+      let value = props.value || props.defaultValue;
+      let date = formatVisibleValue(value, this);
+
+      this.setState({ visibleValue: date });
     }
   }
 
   /**
-   * Handles user input and updates date picker appropriately.
+   * Callback to update the hidden field on change.
    *
-   * @method handleVisibleInputChange
+   *@method emitOnChangeCallback
+   *@param {String} val The unformatted decimal value
    */
-  handleVisibleInputChange = (ev) => {
-    var formats = [this.visibleFormat(), "MMM DD YY", "MM-DD-YYYY", "DD-MM", "DD-MM-YYYY"],
-        validDate = moment(ev.target.value, formats).isValid(),
-        newState = { visibleValue: ev.target.value };
-
-    if (validDate) {
-      var hiddenValue = this.formatValue(ev.target.value, formats, this.hiddenFormat());
-      newState.viewDate = hiddenValue;
-      this.emitOnChangeCallback(hiddenValue);
-    }
-
-    this.setState(newState);
-  }
-
   emitOnChangeCallback = (val) => {
-    var hiddenField = this.refs.hidden;
+    let hiddenField = this.refs.hidden;
     hiddenField.value = val;
 
-    if (this.props.onChange) {
-      this.props.onChange({
-        target: hiddenField
-      }, this.props);
-    }
-  }
-
-  /**
-   * Sets the value of the input from the date picker.
-   *
-   * @method handleDateSelect
-   */
-  handleDateSelect = (val) => {
-    this.closeDatePicker();
-    this.emitOnChangeCallback(val);
-    this.updateVisibleValue();
+    this._handleOnChange({ target: hiddenField });
   }
 
   /**
@@ -107,8 +106,8 @@ class DateComponent extends React.Component {
    * @method openDatePicker
    */
   openDatePicker = () => {
-    document.addEventListener("click", this.closeDatePicker);
-    var value = this.props.value || this.getDefaultValue();
+    this.doc.addEventListener("click", this.closeDatePicker);
+    var value = this.props.value || getDefaultValue(this);
     this.setState({
       open: true,
       viewDate: value
@@ -121,79 +120,166 @@ class DateComponent extends React.Component {
    * @method closeDatePicker
    */
   closeDatePicker = () => {
-    document.removeEventListener("click", this.closeDatePicker);
+    this.doc.removeEventListener("click", this.closeDatePicker);
     this.setState({
       open: false
     });
   }
 
   /**
-   * Prevents propagation so date picker does not close click inside the widget.
+   * Updates field with the formatted date value.
    *
-   * @method handleWidgetClick
+   * @method updateVisibleValue
    */
-  handleWidgetClick = (ev) => {
-    ev.nativeEvent.stopImmediatePropagation();
-  }
-
   updateVisibleValue = () => {
-    var date = this.formatVisibleValue();
+    let date = formatVisibleValue(this.props.value, this);
     this.setState({
       visibleValue: date
     });
   }
 
   /**
-   * Define properties for the date picker.
+   * Handles user input and updates date picker appropriately.
    *
-   * @method datePickerProps
+   * @method handleVisibleInputChange
    */
-  datePickerProps = () => {
-    var value = this.props.value || this.getDefaultValue();
-    var props = {};
+  handleVisibleInputChange = (ev) => {
+    // TODO: This needs more thought i18n with multiple options
+    let formats = [visibleFormat(), "MMM DD YY", "DD-MM", "DD-MM-YYYY"],
+        validDate = moment(ev.target.value, formats).isValid(),
+        newState = { visibleValue: ev.target.value };
+
+    // Updates the hidden value after first formatting to default hidden format
+    if (validDate) {
+      let hiddenValue = formatValue(ev.target.value, formats, hiddenFormat());
+      newState.viewDate = hiddenValue;
+      this.emitOnChangeCallback(hiddenValue);
+    }
+    this.setState(newState);
+  }
+
+  /**
+   * Prevents propagation so date picker does not close on click inside the widget.
+   *
+   * @method handleWidgetClick
+   * @param {Object} ev event
+   */
+  handleWidgetClick = (ev) => {
+    ev.nativeEvent.stopImmediatePropagation();
+  }
+
+  /**
+   * Sets the value of the input from the date picker.
+   *
+   * @method handleDateSelect
+   * @param {String} val User selected value
+   */
+  handleDateSelect = (val) => {
+    this.closeDatePicker();
+    this.emitOnChangeCallback(val);
+    this.updateVisibleValue();
+  }
+
+  /**
+   * Updates visible value on blur
+   *
+   * @method handleBlur
+   */
+  handleBlur = () => {
+    this.updateVisibleValue();
+  }
+
+  /**
+   * Opens the datepicker on focus
+   *
+   * @method handleFocus
+   */
+  handleFocus = () => {
+    this.openDatePicker();
+  }
+
+  /**
+   * A getter that returns datepicker specific props
+   *
+   * @method inputProps
+   */
+  get datePickerProps() {
+    let value = this.props.value || getDefaultValue(this);
+    let props = {};
+    props.ref = 'datepicker';
     props.weekDayNames = ["S", "M", "T", "W", "T", "F", "S"];
     props.monthFormat = "MMM";
-    props.dateFormat = this.hiddenFormat();
+    props.dateFormat = hiddenFormat();
     props.onChange = this.handleDateSelect;
     props.date = value;
-    props.onViewDateChange = (val) => {
-      this.setState({ viewDate: val });
-    }
+    props.onViewDateChange = this.handleViewDateChange;
     props.viewDate = this.state.viewDate;
     return props;
   }
 
-  handleBlur = () => {
-    this.updateVisibleValue();
-    this.props.validation.handleBlur();
+  /**
+   * Updates viewDate as hidden input changes.
+   *
+   * @method handleViewDateChange
+   * @param val
+   */
+  handleViewDateChange = (val) => {
+    this.setState({ viewDate: val });
   }
 
-  handleFocus = () => {
-    this.openDatePicker();
-    this.props.validation.handleFocus();
+  /**
+   * A getter that combines props passed down from the input decorator with
+   * textbox specific props.
+   *
+   * @method inputProps
+   */
+  get inputProps() {
+    let { ...props } = this.props;
+    props.className = this.inputClasses;
+    props.ref = "visible";
+    props.onChange = this.handleVisibleInputChange;
+    props.onFocus = this.handleFocus;
+    props.onBlur = this.handleBlur;
+    props.value = this.state.visibleValue;
+    return props;
   }
 
-  customInputProps = () => {
-    var inputProps = this.props.input.inputProps();
-    inputProps.onChange = this.handleVisibleInputChange;
-    inputProps.onFocus = this.handleFocus;
-    inputProps.onBlur = this.handleBlur;
-    inputProps.value = this.state.visibleValue;
-    return inputProps;
-  }
+  /**
+   * A getter for hidden input props.
+   *
+   * @method hiddenInputProps
+   */
+  get hiddenInputProps() {
+    let props = {
+      ref: "hidden",
+      type: "hidden",
+      readOnly: true
+    };
 
-  hiddenFieldProps = () => {
-    var props = {};
-
-    if (this.props.value) {
-      props.value = this.props.value;
-    }
-
-    if (this.props.defaultValue) {
-      props.defaultValue = this.props.defaultValue;
-    }
+    if (typeof this.props.value !== 'undefined') {
+      props.value = this.props.value; }
+    if (typeof this.props.defaultValue !== 'undefined') {
+      props.defaultValue = this.props.defaultValue; }
 
     return props;
+  }
+
+  /**
+   * Main Class getter
+   *
+   * @method mainClasses Main Class getter
+   */
+  get mainClasses() {
+    return 'ui-date';
+  }
+
+  /**
+   * Input class getter
+   *
+   * @method inputClasses
+   */
+  get inputClasses() {
+    return 'ui-date__input';
   }
 
   /**
@@ -202,48 +288,85 @@ class DateComponent extends React.Component {
    * @method render
    */
   render() {
-    var datePicker = "";
-
-    if (this.state.open) {
-      datePicker = <DatePicker { ...this.datePickerProps() } />;
-    }
-
-    var mainClasses = 'ui-date' +
-        this.props.input.mainClasses() +
-        this.props.validation.mainClasses();
-
-    var inputClasses = "ui-date__input" +
-        this.props.input.inputClasses() +
-        this.props.validation.inputClasses();
+    let datePicker = (this.state.open) ? <DatePicker { ...this.datePickerProps } /> : null;
 
     return (
-      <div className={ mainClasses } onClick={ this.handleWidgetClick }>
+      <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
 
-        { this.props.input.labelHTML() }
-
-        <input
-          className={ inputClasses }
-          ref="visible"
-          { ...this.customInputProps() }
-        />
-
-        { this.props.icon.inputIconHTML("calendar", this.customInputProps().id) }
-
-        <input
-          ref="hidden"
-          type="hidden"
-          readOnly
-          { ...this.hiddenFieldProps() }
-        />
-
+        { this.labelHTML }
+        <input { ...this.inputProps } />
+        <input { ...this.hiddenInputProps } />
+        { this.inputIconHTML("calendar") }
         { datePicker }
-
-        { this.props.validation.errorMessageHTML() }
+        { this.validationHTML }
 
       </div>
     );
   }
+}
 
-};
+export default Date;
 
-export default InputIcon(InputValidation(Input(DateComponent)));
+// Private Methods
+
+/**
+ * Formats the visible date using i18n
+ *
+ * @method visibleFormat
+ * @private
+ */
+function visibleFormat() {
+  return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
+}
+
+/**
+ * Sets the hidden format
+ *
+ * @method hiddenFormat
+ * @private
+ */
+function hiddenFormat() {
+  return "YYYY-MM-DD";
+}
+
+/**
+ * Formats the given value to a specified format
+ *
+ * @method formatValue
+ * @private
+ * @param {String} val current value
+ * @param {String} formatFrom Current format
+ * @param {String} formatTo Desired format
+ */
+function formatValue(val, formatFrom, formatTo) {
+  let date = moment(val, formatFrom);
+  return date.format(formatTo);
+}
+
+/**
+ * Adds delimiters to the value
+ *
+ * @method {String} formatVisibleValue
+ * @private
+ * @param {String} value Unformatted Value
+ * @param {String} scope used to get default value of current scope if value doesn't exist
+ */
+function formatVisibleValue(value, scope) {
+  value = value || getDefaultValue(scope);
+  return formatValue(value, hiddenFormat(), visibleFormat());
+}
+
+/**
+ * Returns defaultValue for specified scope,
+ *
+ * @method getDefaultValue
+ * @private
+ * @param {Object} scope used to get default value of current scope
+ */
+function getDefaultValue(scope) {
+  if (typeof scope.refs.hidden !== 'undefined') {
+    return scope.refs.hidden.value;
+  } else {
+    return scope.props.defaultValue;
+  }
+}

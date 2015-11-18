@@ -9,4 +9,11 @@ gulp.task('default', BuildTask({
   fontDest: './example/assets/fonts'
 }));
 
-gulp.task('test', SpecTask());
+gulp.task('test', SpecTask({
+  coverage: {
+   statements: 90.53,
+   branches: 83.72,
+   functions: 84.25,
+   lines: 83.02
+  }
+}));
