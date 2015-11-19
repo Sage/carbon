@@ -1,6 +1,6 @@
 # Assets
 
-Along with the JavaScript you may need to include additional assets with your modules such as stylesheets, images or fonts. You can define these additional dependencies by creating a `package.json` file for your module.
+In addition to the JavaScript, you may need to include other assets with your modules such as stylesheets, images or fonts. You can define these additional dependencies by creating a `package.json` file for your module.
 
 For example, if you have a component called textbox located at `./src/components/textbox/index.js`, you could create a `package.json` for this component:
 
@@ -21,11 +21,13 @@ For example, if you have a component called textbox located at `./src/components
 }
 ```
 
-This states that if a developer uses your textbox component they also should get the `style.scss`, font files and images.
+This states that if a developer uses your textbox component, they should also  get the `style.scss` file and the specified font files and images.
 
-Now when using the [gulp build task](https://github.com/Sage/carbon-factory/blob/master/src/gulp/build.js) provided by Carbon Factory, you will get these assets compiled or copied accordingly.
+Now when using the [gulp build task](https://github.com/Sage/carbon-factory/blob/master/src/gulp/build.js) provided by Carbon Factory, these assets are compiled or copied accordingly.
 
-Creating the `package.json` for the module to define it's assets means that the module can be entirely self contained. For example a module or component directory structure may look like this:
+Creating a `package.json` for the module to define its assets means that the module can be entirely self contained. 
+
+For example, a module or component directory structure may look like this:
 
 ```
 |-- components
@@ -43,6 +45,6 @@ Creating the `package.json` for the module to define it's assets means that the 
             |-- textbox.png
 ```
 
-### More Information
+### More information
 
 If you want more information on how we compile assets, see [Browserify](http://browserify.org/) and [Parcelify](https://github.com/rotundasoftware/parcelify).
