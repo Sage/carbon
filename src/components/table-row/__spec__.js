@@ -41,7 +41,7 @@ describe('TableRow', () => {
 
     gutterTable = document.createElement('table');
     gutterTable.innerHTML = '<tbody></tbody>';
-    let gutterFields = { foo: <Textbox name='foo' /> } 
+    let gutterFields = { foo: <Textbox name='foo' /> }
 
     gutter = ReactDOM.render((<TableRow
           name='gutter'

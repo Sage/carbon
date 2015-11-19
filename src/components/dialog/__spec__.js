@@ -76,15 +76,15 @@ describe('Dialog', () => {
     describe('when a props title is passed', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
-          <Dialog 
-            cancelDialogHandler={ cancelHandler } 
+          <Dialog
+            cancelDialogHandler={ cancelHandler }
             open={ true }
             title="Dialog title" />
         );
       });
 
       it('sets a dialog header', () => {
-        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');    
+        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
         expect(header.classList[0]).toEqual('ui-dialog__title');
         expect(header.textContent).toEqual('Dialog title');
       });
@@ -93,14 +93,14 @@ describe('Dialog', () => {
     describe('when a props title is not passed', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
-          <Dialog 
+          <Dialog
             cancelDialogHandler={ cancelHandler }
             open={ true } />
         );
       });
 
       it('defaults to null', () => {
-        expect(instance.dialogTitle).toBeFalsy(); 
+        expect(instance.dialogTitle).toBeFalsy();
       });
     });
   });
@@ -110,8 +110,8 @@ describe('Dialog', () => {
     describe('when dialog is open', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
-          <Dialog 
-            cancelDialogHandler={ cancelHandler } 
+          <Dialog
+            cancelDialogHandler={ cancelHandler }
             open={ true } >
 
             <Button>Button</Button>
@@ -144,9 +144,9 @@ describe('Dialog', () => {
       describe('when passing a custom size', () => {
         it('adds the size class to the dialog', () => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog 
-              cancelDialogHandler={ cancelHandler } 
-              open={ true } 
+            <Dialog
+              cancelDialogHandler={ cancelHandler }
+              open={ true }
               size='small' />
           );
 

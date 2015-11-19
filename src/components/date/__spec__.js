@@ -126,7 +126,7 @@ describe('Date', () => {
       TestUtils.Simulate.change(instance.refs.visible);
 
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(hiddenToday);
-      expect(instance.setState).toHaveBeenCalledWith({ 
+      expect(instance.setState).toHaveBeenCalledWith({
         visibleValue: today,
         viewDate: hiddenToday
       });
@@ -141,7 +141,7 @@ describe('Date', () => {
         instance.handleVisibleInputChange({ target: { value: date } })
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          viewDate: hiddenDate 
+          viewDate: hiddenDate
         });
       });
 
@@ -150,7 +150,7 @@ describe('Date', () => {
         instance.handleVisibleInputChange({ target: { value: date } })
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          viewDate: hiddenDate 
+          viewDate: hiddenDate
         });
       });
 
@@ -168,7 +168,7 @@ describe('Date', () => {
         instance.handleVisibleInputChange({ target: { value: date } })
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          viewDate: hiddenDate 
+          viewDate: hiddenDate
         });
       });
     });
