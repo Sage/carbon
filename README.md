@@ -27,8 +27,8 @@ We also have additional guides and tutorials for further information.
 
 #### Tutorials
 
-* [Creating an App in Rails](docs/guides/creating-an-app-in-rails.md)
-* [Creating a Component](docs/guides/creating-a-component.md)
+* [Creating an App in Rails](docs/tutorials/creating-an-app-in-rails.md)
+* [Creating a Component](docs/tutorials/creating-a-component.md)
 
 ## Technologies
 
