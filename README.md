@@ -12,23 +12,23 @@ A collection of [React](https://facebook.github.io/react/) components and utilit
 
 ### Documentation
 
-We have a [basic example](https://github.com/sage/carbon/docs/guides/a-basic-example.md) to get started with Carbon.
+We have a [basic example](docs/guides/a-basic-example.md) to get started with Carbon.
 
 We also have additional guides and tutorials for further information.
 
 #### Guides
 
 * [A Basic Example](docs/guides/a-basic-example.md)
-* [Assets](https://github.com/sage/carbon/docs/guides/assets.md)
-* [Flux](https://github.com/sage/carbon/docs/guides/flux.md)
-* [Immutable](https://github.com/sage/carbon/docs/guides/immutable.md)
-* [Validations](https://github.com/sage/carbon/docs/guides/validations.md)
-* [Decorators](https://github.com/sage/carbon/docs/guides/decorators.md)
+* [Assets](docs/guides/assets.md)
+* [Flux](docs/guides/flux.md)
+* [Immutable](docs/guides/immutable.md)
+* [Validations](docs/guides/validations.md)
+* [Decorators](docs/guides/decorators.md)
 
 #### Tutorials
 
-* [Creating an App in Rails](https://github.com/sage/carbon/docs/guides/creating-an-app-in-rails.md)
-* [Creating a Component](https://github.com/sage/carbon/docs/guides/creating-a-component.md)
+* [Creating an App in Rails](docs/guides/creating-an-app-in-rails.md)
+* [Creating a Component](docs/guides/creating-a-component.md)
 
 ## Technologies
 
