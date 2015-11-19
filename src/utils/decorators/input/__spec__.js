@@ -1,7 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
 import Input from './index';
-import _ from 'lodash';
 
 class TestClassOne {
   props = {

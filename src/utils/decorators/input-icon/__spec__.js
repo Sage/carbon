@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
 import InputIcon from './index';
 
 describe('InputIcon', () => {
