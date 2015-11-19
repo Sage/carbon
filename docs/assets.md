@@ -21,7 +21,7 @@ For example, if you have a component called textbox located at `./src/components
 }
 ```
 
-This defines that if a developer uses your textbox component they also should get the `style.scss`, font files and images.
+This states that if a developer uses your textbox component they also should get the `style.scss`, font files and images.
 
 Now when using the [gulp build task](https://github.com/Sage/carbon-factory/blob/master/src/gulp/build.js) provided by Carbon Factory, you will get these assets compiled or copied accordingly.
 
