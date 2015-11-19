@@ -8,6 +8,7 @@ describe('Checkbox', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Checkbox
+        name='checkbox'
         label='checkbox'
       />
     )

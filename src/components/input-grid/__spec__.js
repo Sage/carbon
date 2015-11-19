@@ -132,7 +132,7 @@ describe('InputGrid', () => {
               name="test-grid"
               data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
               fields={ [ <input name='foo' /> ] }
-              gutter={ [ <div /> ] }
+              gutter={ { foo: <div /> } }
               updateRowHandler={ foo }
               deleteRowHandler={ bar } />
           </Form>
