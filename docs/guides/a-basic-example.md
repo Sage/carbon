@@ -1,4 +1,4 @@
-# Basic Example
+# A Basic Example
 
 Carbon provides utilities to easily setup a [Flux](https://facebook.github.io/flux/) based application.
 
