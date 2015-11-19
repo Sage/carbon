@@ -1,7 +1,7 @@
 ## :warning: This is a working document and may not reflect current best practice.
 ## :warning: Carbon is still in alpha and subject to change.
 
-# Building a View with Carbon 
+# Creating an App in Rails
 
 ## Introduction
 

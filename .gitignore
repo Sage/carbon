@@ -3,7 +3,6 @@ coverage/
 *.swp
 *.swo
 lib/
-example/assets/fonts
-example/assets/stylesheets/ui.css
-example/assets/javascripts/ui.js
+example/assets
+example/main.js
 .DS_Store
