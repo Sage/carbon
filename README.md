@@ -6,7 +6,7 @@ A collection of [React](https://facebook.github.io/react/) components and utilit
 
 ## Getting Started
 
-### Carbon Factory
+### Installation
 
 [Carbon Factory](https://github.com/sage/carbon-factory) is a toolkit and command line interface to help build projects with Carbon. We recommend you run through the [installation guide](https://github.com/Sage/carbon-factory/blob/master/docs/first-time-installation.md) before continuing with Carbon.
 
