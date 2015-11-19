@@ -1,10 +1,11 @@
-## :warning: This is a working document and may not reflect current best practice - Carbon is still in alpha and subject to change.
+## :warning: This is a working document and may not reflect current best practice.
+## :warning: Carbon is still in alpha and subject to change.
 
 # Building a View with Carbon 
 
 ## Introduction
 
-Carbon provides modular, re-useable components written with the [React](https://facebook.github.io/react/) JavaScript library. Carbon components are platform agnostic and can be used with any backend - the only requirement is that the data passed in is in JSON format. Carbon also utilizes the [Flux](https://facebook.github.io/flux/docs/overview.html) pattern to organize data flow within the view.
+Carbon provides modular, reusable components written with the [React](https://facebook.github.io/react/) JavaScript library. Carbon components are platform agnostic and can be used with any backend - the only requirement is that the data passed in is in JSON format. Carbon also utilizes the [Flux](https://facebook.github.io/flux/docs/overview.html) pattern to organize data flow within the view.
 
 In this guide, we will walk through building a Carbon view within a Rails application.
 

@@ -5,7 +5,7 @@
 
 ## Introduction
 
-Carbon provides modular, re-usable components written with the [React](https://facebook.github.io/react/) JavaScript library. Carbon aims to provide a wide range of useful components but specific requirements may require you to create your own custom components.
+Carbon provides modular, reusable components written with the [React](https://facebook.github.io/react/) JavaScript library. Carbon aims to provide a wide range of useful components but specific requirements may require you to create your own custom components.
 
 In this guide, we will walk through building a simple React Component - A Button.
 
