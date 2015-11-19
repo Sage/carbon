@@ -114,8 +114,8 @@ describe('Dialog', () => {
             cancelDialogHandler={ cancelHandler } 
             open={ true } >
 
-            <Button />
-            <Button />
+            <Button>Button</Button>
+            <Button>Button</Button>
           </Dialog>
         );
       });
