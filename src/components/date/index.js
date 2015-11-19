@@ -18,6 +18,7 @@ import I18n from "i18n-js";
 @InputIcon
 @InputLabel
 @InputValidation
+
 /**
  * A Date widget.
  *
@@ -25,20 +26,34 @@ import I18n from "i18n-js";
  *
  * In your file
  *
- *  import Date from 'carbon/lib/components/Date';
+ *   import Date from 'carbon/lib/components/Date';
  *
- * In the render method:
+ * To render the Date:
  *
- *  <Date />
+ *   <Date name="myDate" />
  *
  * @class Date
  * @constructor
  */
 class Date extends React.Component {
 
+  /**
+   * Stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property doc
+   * @type {document}
+   */
   doc = document;
 
   static defaultProps = {
+    /**
+     * Sets the default value of the date field
+     *
+     * @property defaultValue
+     * @type {String}
+     * @default Today's date
+     */
     defaultValue: moment().format("YYYY-MM-DD")
   }
 
@@ -90,8 +105,8 @@ class Date extends React.Component {
   /**
    * Callback to update the hidden field on change.
    *
-   *@method emitOnChangeCallback
-   *@param {String} val The unformatted decimal value
+   * @method emitOnChangeCallback
+   * @param {String} val The unformatted decimal value
    */
   emitOnChangeCallback = (val) => {
     let hiddenField = this.refs.hidden;

@@ -9,9 +9,9 @@ describe('Pod', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Pod>
-        <Button />
-        <Button />
-        <Button />
+        <Button>Button</Button>
+        <Button>Button</Button>
+        <Button>Button</Button>
       </Pod>
     );
   });

@@ -10,7 +10,7 @@ describe('Date', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Date label='Date' />
+      <Date name='date' label='Date' />
     )
   });
 
@@ -284,7 +284,7 @@ describe('Date', () => {
         value = moment().add(3, 'days').format('YYYY-MM-DD');
 
         instance = TestUtils.renderIntoDocument(
-          <Date label='Date' value={ value } />
+          <Date name='date' label='Date' value={ value } />
         )
       });
 

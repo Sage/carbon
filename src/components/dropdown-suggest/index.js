@@ -18,6 +18,7 @@ import Immutable from 'immutable';
 @InputIcon
 @InputLabel
 @InputValidation
+
 /**
  * A dropdown-suggest widget.
  *
@@ -25,11 +26,11 @@ import Immutable from 'immutable';
  *
  * In your file
  *
- *  import DropdownSuggest from 'carbon/lib/components/dropdown-suggest';
+ *   import DropdownSuggest from 'carbon/lib/components/dropdown-suggest';
  *
- * In the render method:
+ * To render a DropdownSuggest:
  *
- *  <DropdownSuggest path={foo} />
+ *   <DropdownSuggest path={foo} />
  *
  * @class DropdownSuggest
  * @constructor
@@ -68,9 +69,6 @@ class DropdownSuggest extends React.Component {
    */
   listeningToScroll = true;
 
-  /**
-   * Private state with initial values
-   */
   state = {
 
     /**
