@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from './../../../components/icon';
 
-var InputIcon = (ComposedComponent) => class Component extends ComposedComponent {
+let InputIcon = (ComposedComponent) => class Component extends ComposedComponent {
 
   constructor(...args) {
     super(...args);

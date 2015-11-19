@@ -4,23 +4,31 @@
 
 A collection of [React](https://facebook.github.io/react/) components and utilities to help build modular user interfaces.
 
-## Available Modules
+## Getting Started
 
-### Components
+### Carbon Factory
 
-`src/components` contains all of the available components.
+[Carbon Factory](https://github.com/sage/carbon-factory) is a toolkit and command line interface to help build projects with Carbon. We recommend you run through the [installation guide](https://github.com/Sage/carbon-factory) before continuing with Carbon.
 
-### Utils
+### Documentation
 
-`src/utils` contains helpers for common tasks such as modifying immutable objects as well as class decorators for applying common functionality to components such as validation.
+We have a [basic example](docs/guides/a-basic-example.md) to get started with Carbon.
 
-### Style
+We also have additional guides and tutorials for further information.
 
-`src/style-config` contains Sass variables for sharing style attributes across components for a consistent look and feel. These variables are overridable on a per application basis.
+#### Guides
 
-## Devtools
+* [A Basic Example](docs/guides/a-basic-example.md)
+* [Assets](docs/guides/assets.md)
+* [Flux](docs/guides/flux.md)
+* [Immutable](docs/guides/immutable.md)
+* [Validations](docs/guides/validations.md)
+* [Decorators](docs/guides/decorators.md)
 
-[Carbon Factory](https://github.com/Sage/carbon-factory) is available to help you build components and user interfaces more easily and rapidly.
+#### Tutorials
+
+* [Creating an App in Rails](docs/tutorials/creating-an-app-in-rails.md)
+* [Creating a Component](docs/tutorials/creating-a-component.md)
 
 ## Technologies
 
