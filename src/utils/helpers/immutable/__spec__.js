@@ -51,26 +51,40 @@ describe('Immutable Helper', () => {
     });
 
     describe('when the JSON object is a array of objects', () => {
-      let data;
-      let result;
-
-      beforeEach(() => {
-        spyOn(ImmutableHelper, 'guid').and.returnValue('bla');
-
-        data = [ { foo: 'a' }, { bar: 'b' }, { baz: 'c' } ];
-        result = ImmutableHelper.parseJSON(data);
-      });
+      let data, result;
 
       it('returns a immutable object of that array', () => {
+        data = [ { foo: 'a' }, { bar: 'b' }, { baz: 'c' } ];
+        result = ImmutableHelper.parseJSON(data);
+
         expect(result.get(0).get('foo')).toEqual('a');
         expect(result.get(1).get('bar')).toEqual('b');
         expect(result.get(2).get('baz')).toEqual('c');
       });
 
-      it('adds a row id to each object', () => {
-        expect(result.get(0).get('_row_id')).toEqual('bla')
-        expect(result.get(1).get('_row_id')).toEqual('bla')
-        expect(result.get(2).get('_row_id')).toEqual('bla')
+      describe('_row_id', () => {
+        describe('if the objects do not have a id', () => {
+          it('adds a row_id to each object', () => {
+            spyOn(ImmutableHelper, 'guid').and.returnValue('bla');
+            data = [ { foo: 'a' }, { bar: 'b' }, { baz: 'c' } ];
+            result = ImmutableHelper.parseJSON(data);
+
+            expect(result.get(0).get('_row_id')).toEqual('bla');
+            expect(result.get(1).get('_row_id')).toEqual('bla');
+            expect(result.get(2).get('_row_id')).toEqual('bla');
+          });
+        });
+
+        describe('if obj does have a id', () => {
+          it('uses obj.id as the row id', () => {
+            data = [ { id: 1, foo: 'a' }, { id: 2, bar: 'b' }, { id: 3, baz: 'c' } ];
+            result = ImmutableHelper.parseJSON(data);
+
+            expect(result.get(0).get('_row_id')).toEqual(1);
+            expect(result.get(1).get('_row_id')).toEqual(2);
+            expect(result.get(2).get('_row_id')).toEqual(3);
+          });
+        });
       });
     });
 
@@ -148,10 +162,64 @@ describe('Immutable Helper', () => {
   });
 
   describe('updateLineItem', () => {
+    let data, line_item_key, attribute;
 
+    beforeEach(() => {
+      data = ImmutableHelper.parseJSON({ lines: [ { baz: '1' }, { baz: '2' }, { baz: '3' } ] });
+      line_item_key = 'lines';
+      attribute = '[foo][bar][baz]'
+    });
+
+    describe('when the line exists', () => {
+      it('updates the line item', () => {
+        let _row_id = data.get('lines').get(1).get('_row_id');
+
+        let result = ImmutableHelper.updateLineItem([data, line_item_key, _row_id, attribute], 'NEWVALUE');
+        expect(result.get('lines').get(1).get('baz')).toEqual('NEWVALUE');
+      });
+    });
+
+    describe('when editing the placeholder', () => {
+      let result, _row_id;
+
+      beforeEach(() => {
+        _row_id = '123';
+        result = ImmutableHelper.updateLineItem([data, line_item_key, _row_id, attribute], 'NEWVALUE');
+      });
+
+      it('adds a new line', () => {
+        expect(result.get('lines').size).toEqual(4);
+      });
+
+      it('updates the line item', () => {
+        expect(result.get('lines').get(3).get('baz')).toEqual('NEWVALUE');
+      });
+    });
   });
 
   describe('deleteLineItem', () => { 
+    let data, line_item_key;
 
+    beforeEach(() => {
+      data = ImmutableHelper.parseJSON({ lines: [ { baz: '1' }, { baz: '2' }, { baz: '3' } ] });
+      line_item_key = 'lines';
+    });
+
+
+    describe('when the row exisits', () => {
+      it('deletes the given row', () => {
+        let _row_id = data.get('lines').get(1).get('_row_id');
+
+        let result = ImmutableHelper.deleteLineItem([data, line_item_key, _row_id]);
+        expect(result.get('lines').size).toEqual(2);
+      });
+    });
+
+    describe('when the row does not exist', () => {
+      it('does not change the data', () => {
+        let result = ImmutableHelper.deleteLineItem([data, line_item_key, 'no_row']);
+        expect(result.get('lines').size).toEqual(3);
+      });
+    });
   });
 });

@@ -76,7 +76,7 @@ var ImmutableHelper = {
 
     var index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
 
-    return data.deleteIn([line_item_key, index]);
+    return index > -1 ? data.deleteIn([line_item_key, index]) : data;
   }
 };
 
