@@ -1,6 +1,6 @@
 # A Basic Example
 
-Carbon provides utilities to easily setup a [Flux](https://facebook.github.io/flux/) based application.
+Carbon provides utilities to easily set up a [Flux](https://facebook.github.io/flux/) based application.
 
 For a basic application, you need:
 
@@ -11,11 +11,13 @@ For a basic application, you need:
 * Components
 * A router
 
-A basic setup may look something like the following. You could even use the [Carbon Factory](https://github.com/sage/carbon-factory) task to generate an application (`carbon app appname`) and use the following code to have a basic React/Flux application running:
+The following sections show the basic code required for an application to function.
 
-## The Dispatcher
+**Note:** You can use the [Carbon Factory](https://github.com/sage/carbon-factory) task to generate an application (`carbon app appname`) then refer to the following code to get a basic React/Flux application running.
 
-The dispatcher should be a singleton and only needs setting up once, it will handle dispatching any actions to any stores that are subscribed to it.
+## The dispatcher
+
+The dispatcher should be a singleton and you only need to set it up once. It handles the dispatching of actions to the stores that are subscribed to it.
 
 ```js
 // ./src/dispatcher/index.js
@@ -28,7 +30,7 @@ let AppDispatcher = new Dispatcher();
 export default AppDispatcher;
 ```
 
-## A Constant
+## Constants
 
 Using constants helps organise your application and mitigates any conflicts. Each constant represents the name of an action and should be entirely unique.
 
@@ -40,9 +42,9 @@ export default {
 }
 ```
 
-## An Action
+## An action
 
-An action should describe an event in the application, it will use the dispatcher to dispatch the event along with any data the store may need to update its data.
+An action should describe an event in the application. It uses the dispatcher to dispatch the event along with any data the store may need to update its data.
 
 ```js
 // ./src/actions/contact/index.js
@@ -65,9 +67,9 @@ let ContactActions = {
 export default ContactActions;
 ```
 
-## The Store
+## The store
 
-The store handles the data for a particular model, it will define functions which subscribe to events dispatched by the dispatcher.
+The store handles the data for a particular model. It defines functions which subscribe to events dispatched by the dispatcher.
 
 ```js
 // ./src/stores/contact/index.js
@@ -103,9 +105,9 @@ class ContactStore extends Store {
 export default new ContactStore(Dispatcher);
 ```
 
-## A Component
+## A component
 
-The component will connect to a store, setting up listeners for when the stores data changes.
+The component connects to a store, setting up listeners for when the store's data changes.
 
 ```js
 // ./src/views/contact/index.js
@@ -136,9 +138,9 @@ class Contact extends React.Component {
 export default connect(Contact, ContactStore);
 ```
 
-## The Router
+## The router
 
-The router defines what component will render for a given route.
+The router defines which component to render for a given route.
 
 ```js
 // ./src/main.js
