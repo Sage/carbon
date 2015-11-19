@@ -363,7 +363,7 @@ describe("DropdownSuggest", () => {
           instance.setState({ options: [{}]});
           spyOn(instance.props.value, 'get').and.returnValue(null);
           spyOn(instance, 'setState');
-          
+
           TestUtils.Simulate.focus(filter);
           jasmine.clock().tick(0);
           expect(instance.setState).toHaveBeenCalledWith({ open: true });
@@ -479,7 +479,7 @@ describe("DropdownSuggest", () => {
       });
     });
   });
-  
+
 
   describe("emitOnChangeCallback", () => {
     describe("when a onChange event has taken place", () => {
@@ -490,7 +490,7 @@ describe("DropdownSuggest", () => {
       });
 
       it("Trigger the handleOnChangeFunction", () => {
-        expect(instance._handleOnChange).toHaveBeenCalledWith({ target: { value: {} }}); 
+        expect(instance._handleOnChange).toHaveBeenCalledWith({ target: { value: {} }});
       });
     });
   });
