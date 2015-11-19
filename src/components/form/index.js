@@ -121,7 +121,7 @@ class Form extends React.Component {
     let row_id    = component.props.row_id;
     let name      = component.props.name;
 
-    if (component.constructor.name === "TableFieldsForMany") {
+    if (component.constructor.name === "InputGrid") {
       this.tables[name] = component;
     } else if (namespace && row_id) {
       if (!this.inputs[namespace]) {
@@ -149,7 +149,7 @@ class Form extends React.Component {
     let row_id    = component.props.row_id;
     let name      = component.props.name;
 
-    if (component.constructor.name === "TableFieldsForMany") {
+    if (component.constructor.name === "InputGrid") {
       delete this.tables[name];
     } else if (namespace && row_id) {
       delete this.inputs[namespace][row_id][name];
@@ -215,31 +215,8 @@ class Form extends React.Component {
    */
   htmlProps = () => {
     let { model, ...props } = this.props;
-
+    props.className = this.mainClasses;
     return props;
-  }
-
-  /**
-   * Creates and returns csrf token for input field
-   *
-   * @method generateCSRFToken
-   */
-  generateCSRFToken = () => {
-    let meta = document.getElementsByTagName('meta'),
-        csrfAttr,
-        csrfValue;
-
-    for (var i = 0; i < meta.length; i++) {
-      var item = meta[i];
-
-      if (item.getAttribute('name') === 'csrf-param') {
-        csrfAttr = item.getAttribute('content');
-      } else if (item.getAttribute('name') === 'csrf-token') {
-        csrfValue = item.getAttribute('content');
-      }
-    }
-
-    return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
   }
 
   /**
@@ -248,26 +225,19 @@ class Form extends React.Component {
    * @method cancelForm
    */
   cancelForm = () => {
-    history.back();
+    // history comes from react router
+    if (window.history) {
+      window.history.back();
+    }
   }
 
   /**
-   *  Constructs validations error message
+   * Main class getter
    *
-   * @method errors
+   * @method mainClasses
    */
-  errorMessage() {
-    let count = this.state.errorCount;
-
-    let errorMessage =  I18n.t("errors.messages.form_summary.errors", {
-      defaultValue: {
-        one: `There is ${ count } error`,
-        other: `There are ${ count } errors`
-      },
-      count: count
-    });
-
-    return errorMessage;
+  get mainClasses() {
+    return 'ui-form';
   }
 
    /**
@@ -282,7 +252,7 @@ class Form extends React.Component {
     if (this.state.errorCount) {
       errorCount = (
         <span className="ui-form__summary">
-          { this.errorMessage() }
+          { errorMessage(this.state.errorCount) }
         </span>
       );
 
@@ -290,8 +260,8 @@ class Form extends React.Component {
     }
 
     return (
-      <form onChange={ this.handleOnChange } onSubmit={ this.handleOnSubmit } { ...this.htmlProps() }>
-        { this.generateCSRFToken() }
+      <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() }>
+        { generateCSRFToken() }
 
         { this.props.children }
         <div className= { cancelClasses }>
@@ -312,3 +282,45 @@ class Form extends React.Component {
 }
 
 export default Form;
+
+/**
+ * Creates and returns CSRF token for input field
+ *
+ * @private
+ * @method generateCSRFToken
+ */
+function generateCSRFToken() {
+  let meta = document.getElementsByTagName('meta'),
+      csrfAttr,
+      csrfValue;
+
+  for (var i = 0; i < meta.length; i++) {
+    var item = meta[i];
+
+    if (item.getAttribute('name') === 'csrf-param') {
+      csrfAttr = item.getAttribute('content');
+    } else if (item.getAttribute('name') === 'csrf-token') {
+      csrfValue = item.getAttribute('content');
+    }
+  }
+
+  return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
+}
+
+/**
+ *  Constructs validations error message
+ *
+ * @private
+ * @method errorMessage
+ */
+function errorMessage(count) {
+  let errorMessage =  I18n.t("errors.messages.form_summary.errors", {
+    defaultValue: {
+      one: `There is ${ count } error`,
+      other: `There are ${ count } errors`
+    },
+    count: count
+  });
+
+  return errorMessage;
+}
