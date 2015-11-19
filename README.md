@@ -19,6 +19,7 @@ We also have additional guides and tutorials for further information.
 #### Guides
 
 * [A Basic Example](https://github.com/sage/carbon/docs/guides/a-basic-example.md)
+* [Assets](https://github.com/sage/carbon/docs/guides/assets.md)
 * [Flux](https://github.com/sage/carbon/docs/guides/flux.md)
 * [Immutable](https://github.com/sage/carbon/docs/guides/immutable.md)
 * [Validations](https://github.com/sage/carbon/docs/guides/validations.md)
