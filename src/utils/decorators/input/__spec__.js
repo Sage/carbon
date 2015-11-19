@@ -9,7 +9,9 @@ class TestClassOne {
   };
 
   context = {
-    form: 'model_1'
+    form: {
+      model: 'model_1'
+    }
   };
 
   state = [];
@@ -22,16 +24,6 @@ class TestClassOne {
     return "testInput"
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (!_.isEqual(this.props, nextProps) ||
-        !_.isEqual(this.state, nextState)) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
 }
 
 class TestClassTwo {
@@ -40,12 +32,21 @@ class TestClassTwo {
   };
 
   context = {
-    form: 'model_2'
+    form: {
+      model: 'model_2'
+    }
   };
+
+  count = 0;
+
+  shouldComponentUpdate(nextProps, nextState) {
+    this.count++;
+  }
 }
 
 describe('Input', () => {
-  let instance, instanceTwo, instanceEmpty;
+
+  let instance, instanceTwo, onChange;
 
   beforeEach(() => {
     let extendedClassOne = Input(TestClassOne);
@@ -53,9 +54,16 @@ describe('Input', () => {
 
     let extendedClassTwo = Input(TestClassTwo);
     instanceTwo = new extendedClassTwo();
+
+    onChange = jasmine.createSpy('onChange');
   });
 
   describe('shouldComponentUpdate', () => {
+
+    beforeEach(() => {
+      instanceTwo.count = 1;
+    });
+
     it('returns true if props have changed', () => {
       let nextProps = { name: 'bar' };
       let nextState = instance.state;
@@ -78,12 +86,29 @@ describe('Input', () => {
     });
 
     describe('when the component defines a shouldComponentUpdate function', () => {
-      it('uses the components function and returns true when props have changed', () => {
+
+
+      it('calls the components function as well', () => {
         let nextProps = { name: 'bar' };
         let nextState = instance.state;
 
-        expect(instanceTwo.shouldComponentUpdate(nextProps, nextState)).toBeTruthy();
+        expect(instanceTwo.shouldComponentUpdate(nextProps, nextState)).toBeTruthy;
+        instance.shouldComponentUpdate(nextProps,nextState);
+        expect(instanceTwo.count).toEqual(2);
       });
+    });
+  });
+
+  describe('_handleOnChange', () => {
+    it('calls the components onChange handler if it has one', () => {
+      instance.props.onChange = onChange
+      instance._handleOnChange('foo')
+      expect(onChange).toHaveBeenCalledWith('foo', instance.props);
+    });
+
+    it('should not call the onChange handler if the component has no onChange handler', () => {
+      instance._handleOnChange('foo')
+      expect(onChange).not.toHaveBeenCalled()
     });
   });
 
@@ -119,9 +144,16 @@ describe('Input', () => {
 
   describe('inputProps', () => {
 
-    describe('when no inputProps are passed', () => {
-      it('sets inputProps to an empty object', () => {
-        expect(instanceTwo.inputProps).toMatch(/([bar])/);
+    describe('inputProps are passed', () => {
+      it('builds the name with provided inputProps', () => {
+        expect(instanceTwo.inputProps.name).toEqual('model_2[bar]');
+      });
+    });
+
+    describe('when the component has its own onChange handler', () => {
+      it('passes the change event through the Input change handler', () => {
+        instanceTwo.inputProps.onChange = onChange;
+        expect(instanceTwo.inputProps.onChange).toEqual(instanceTwo._handleOnChange);
       });
     });
   });
