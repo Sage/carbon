@@ -20,12 +20,12 @@ The dispatcher should be a singleton and only needs setting up once, it will han
 ```js
 // ./src/dispatcher/index.js
 
-import Flux from 'flux';
+import { Dispatcher } from 'flux';
 
 // initialize the dispatcher (a singleton for your application)
-var Dispatcher = new Flux.Dispatcher();
+let AppDispatcher = new Dispatcher();
 
-export default Dispatcher;
+export default AppDispatcher;
 ```
 
 ## A Constant
@@ -50,7 +50,7 @@ An action should describe an event in the application, it will use the dispatche
 import Dispatcher from 'dispatcher';
 import ContactConstants from 'constants/contact';
 
-var ContactActions = {
+let ContactActions = {
   contactValueUpdated: (ev, props) => {
     // this should dispatch the constant we defined, as well as any data the store
     // should be aware of from the event that occurred (eg the input's value)
@@ -148,7 +148,7 @@ import { Route } from 'react-router';
 import { startRouter } from 'carbon/lib/utils/router';
 import Contact from 'views/contact';
 
-var routes = (
+let routes = (
   <Route path="/contact" component={ Contact } />
 );
 
