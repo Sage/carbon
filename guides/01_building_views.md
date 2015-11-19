@@ -194,7 +194,7 @@ class JournalsReverse extends React.Component {
 export default connect(JournalsReverse, JournalStore);
 ```
 
-Notice that we enclose everything in a <div> tag. That's because React expects the return block to return a single component. (We don't actually need the <div> here since our <Form> is a single component but we include the <div> as best practice).
+Notice that we enclose everything in a `<div>` tag. That's because React expects the return block to return a single component. (We don't actually need the `<div>` here since our `<Form>` is a single component but we include the `<div>` as best practice).
 
 ### Setting up our Store
 
@@ -219,22 +219,6 @@ class JournalStore extends Store {
 
     // here we assign the parsed JSON data from our app
     this.data = ImmutableHelper.parseJSON(APPDATA.journal);
-  }
-
-  journalValueUpdated = (action) => {
-    this.data = this.data.set(action.name, action.value);
-  }
-
-  updateJournalLineRow = (action) => {
-    this.data = ImmutableHelper.updateLineItem(
-      [this.data, 'journal_lines', action.row_id, action.name], action.value
-    );
-  }
-
-  deleteJournalLineRow = (action) => {
-    this.data = ImmutableHelper.deleteLineItem(
-      [this.data, 'journal_lines', action.row_id]
-    );
   }
 }
 
@@ -302,16 +286,39 @@ Note that we have imported a new module called `JournalActions`. This defines th
 
 Actions are essentially objects we use to pass data through our view. Read more about them [here](https://facebook.github.io/flux/docs/actions-and-the-dispatcher.html#content).
 
+#### Defining our actions as constants
+
+You should define all of your actions in a constants file.
+
+Having the action names clearly visible in one file gives a good high level view of the available actions making it easier to spot errors or duplication as well as making it more obvious what the application is used for.
+
+For example:
+
+```javascript
+// ui/src/constants/journals/index.js
+
+export default {
+  JOURNAL_VALUE_UPDATED:   'journalValueUpdated',
+  DELETE_JOURNAL_LINE_ROW: 'deleteJournalLineRow',
+  UPDATE_JOURNAL_LINE_ROW: 'updateJournalLineRow'
+}
+```
+
+You can pass any data you want inside an action - the only requirement is to define an actionType which is used to register the action with our Store.
+
+For example:
+
 ```javascript
 //ui/src/actions/journal/index.js
 
 import Dispatcher from 'dispatcher';
+import Constants from 'constants/journals';
 
 var JournalActions = {
 
   journalValueUpdated: (ev, props) => {
     Dispatcher.dispatch({
-      actionType: 'journalValueUpdated',
+      actionType: Constants.JOURNAL_VALUE_UPDATED,
       value: ev.target.value,
       name: props.name
     });
@@ -319,14 +326,14 @@ var JournalActions = {
 
   deleteJournalLineRow: (ev, props) => {
     Dispatcher.dispatch({
-      actionType: 'deleteJournalLineRow',
+      actionType: Constants.DELETE_JOURNAL_LINE_ROW,
       row_id: props.row_id
     });
   },
 
   updateJournalLineRow: (ev, props) => {
     Dispatcher.dispatch({
-      actionType: 'updateJournalLineRow',
+      actionType: Constants.UPDATE_JOURNAL_LINE_ROW,
       row_id: props.row_id,
       name: props.name,
       value: ev.target.value
@@ -337,7 +344,46 @@ var JournalActions = {
 export default JournalActions;
 ```
 
-You can pass any data you want inside an action - the only requirement is to define an actionType which is used to register the action with our Store.
+Now we need to update our Store to listen for these actions:
+
+```javascript
+// ui/src/stores/journals/index.js
+
+import Store from 'carbon/lib/utils/flux/store';
+import Dispatcher from 'dispatcher';
+import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
+import Constants from 'constants/journals';
+
+class JournalStore extends Store {
+
+  constructor(Dispatcher) {
+    super(Dispatcher);
+
+    this.name = 'journalStore';
+
+    this.data = ImmutableHelper.parseJSON(APPDATA.journal);
+  }
+
+  [Constants.JOURNAL_VALUE_UPDATED](action) {
+    this.data = this.data.set(action.name, action.value);
+  }
+
+  [Constants.DELETE_JOURNAL_LINE_ROW](action) {
+    this.data = ImmutableHelper.deleteLineItem(
+      [this.data, 'journal_lines', action.row_id]
+    );
+  }
+
+  [Constants.UPDATE_JOURNAL_LINE_ROW](action) {
+    this.data = ImmutableHelper.updateLineItem(
+      [this.data, 'journal_lines', action.row_id, action.name], action.value
+    );
+  }
+}
+
+export default new JournalStore(Dispatcher);
+
+```
 
 ### Setting up React routes
 
