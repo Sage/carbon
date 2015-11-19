@@ -4,8 +4,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import InputIcon from './index';
 
 describe('InputIcon', () => {
-let instance, icon, inputIconInstance;
-
+  let instance, icon, inputIconInstance;
 
   class TestClass{
     inputProps = {

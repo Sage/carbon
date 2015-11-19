@@ -23,7 +23,6 @@ class TestClassOne {
   get inputClasses() {
     return "testInput"
   }
-
 }
 
 class TestClassTwo {
@@ -86,8 +85,6 @@ describe('Input', () => {
     });
 
     describe('when the component defines a shouldComponentUpdate function', () => {
-
-
       it('calls the components function as well', () => {
         let nextProps = { name: 'bar' };
         let nextState = instance.state;
