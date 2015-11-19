@@ -35,7 +35,7 @@ class Events {
       return false;
     }
 
-    Events.isNavigationKey(ev);
+    return Events.isNavigationKey(ev);
   };
 
   /**
@@ -50,11 +50,11 @@ class Events {
       return false;
     }
 
-    Events.isEnterKey(ev);
+    return Events.isEnterKey(ev);
   };
 
   /**
-  * A method to determine whether a key up event is allowed or not. This
+  * A method to determine whether a key up event is allowed or not.
   *
   * @method isValidKeypress
   * @params {Event} ev A JavaScript event
@@ -64,26 +64,16 @@ class Events {
     if (!Events.isEventType(ev, "keyup")) {
       return false;
     }
-    // 0-9 a-z
-    if (ev.which >= 48 && ev.which <= 90) {
+    if (Events.isNumberKey(ev) ||
+        Events.isAlphabetKey(ev) ||
+        Events.isNumpadKey(ev) ||
+        Events.isSymbolKey(ev) ||
+        Events.isSpaceKey(ev) ||
+        Events.isDeletingKey(ev) ||
+        Events.isBackspaceKey(ev)) {
       return true;
     }
-    // Numpad 0-9
-    if (ev.which >= 96 && ev.which <= 111) {
-      return true;
-    }
-    // Symbols
-    if (ev.which >= 186 && ev.which <= 192) {
-      return true;
-    }
-    // More Symbols
-    if (ev.which >= 219 && ev.which <= 222) {
-      return true;
-    }
-    // Space, Delete, Backspace
-    if (ev.which === 32 || ev.which === 46 || ev.which === 8) {
-      return true;
-    }
+
     return false;
   };
 
@@ -97,6 +87,44 @@ class Events {
   **/
   static isNumberKey = (ev) => {
     return ev.which >= 48 && ev.which <= 57 || ev.which >= 96 && ev.which <= 105;
+  };
+
+  /**
+  * Determines if the key pressed is part of the numpad
+  * includes symbols
+  *
+  * @method isNumberKey
+  * @params {Event} ev A JavaScript event
+  * @returns {Boolean}
+  **/
+  static isNumpadKey = (ev) => {
+    return ev.which >= 96 && ev.which <= 111;
+  };
+
+  /**
+  * Determines if the key pressed is a alphabet key
+  * Case insensitive
+  *
+  * @method isAlphasbetKey
+  * @params {Event} ev A JavaScript event
+  * @returns {Boolean}
+  **/
+  static isAlphabetKey = (ev) => {
+    return ev.which >= 65 && ev.which <= 90;
+  };
+
+  /**
+  * Determines if the key pressed is a valid symbol
+  *
+  * @method isSymbolKey
+  * @params {Event} ev A JavaScript event
+  * @returns {Boolean}
+  **/
+  static isSymbolKey = (ev) => {
+    return ev.which >= 58 && ev.which <= 64 || // : to @
+           ev.which >= 106 && ev.which <= 107 || // numpad * and +
+           ev.which >= 186 && ev.which <= 192 || // , .
+           ev.which >= 219 && ev.which <= 222; // \ ]
   };
 
   /**
