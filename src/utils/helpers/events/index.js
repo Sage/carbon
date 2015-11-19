@@ -105,7 +105,7 @@ class Events {
   * Determines if the key pressed is a alphabet key
   * Case insensitive
   *
-  * @method isAlphasbetKey
+  * @method isAlphabetKey
   * @params {Event} ev A JavaScript event
   * @returns {Boolean}
   **/
