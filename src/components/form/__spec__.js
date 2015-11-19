@@ -32,8 +32,8 @@ describe('Form', () => {
   describe('decrementErrorCount', () => {
     it('increments the state error count', () => {
       instance.setState({ errorCount: 2 });
-      instance.incrementErrorCount();
-      expect(instance.state.errorCount).toEqual(3);
+      instance.decrementErrorCount();
+      expect(instance.state.errorCount).toEqual(1);
     });
   });
 
@@ -62,7 +62,7 @@ describe('Form', () => {
       });
     });
 
-    describe('when the component is a a element in a grid', () => {
+    describe('when the component is an element in a grid', () => {
       it('adds a input nested by namespace and row_id', () => {
         let keys = Object.keys(instance.inputs.grid);
         expect(Object.keys(instance.inputs.grid[keys[0]]).length).toEqual(2);
@@ -104,7 +104,7 @@ describe('Form', () => {
     });
 
     describe('when the component is a grid', () => {
-      it('removes a key value pair to tables', () => {
+      it('removes a key value pair from tables', () => {
         expect(instance.tables.grid).toBeTruthy();
         instance.detachFromForm(instance.tables.grid);
         expect(instance.tables.grid).toBeFalsy();
@@ -242,7 +242,7 @@ describe('Form', () => {
       });
     });
 
-    describe('Errors', () => {
+    describe('errorMessage', () => {
       beforeEach(() => {
         instance.setState({ errorCount: 2});
       });

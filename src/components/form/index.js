@@ -252,7 +252,7 @@ class Form extends React.Component {
     if (this.state.errorCount) {
       errorCount = (
         <span className="ui-form__summary">
-          { errors(this.state.errorCount) }
+          { errorMessage(this.state.errorCount) }
         </span>
       );
 
@@ -311,9 +311,9 @@ function generateCSRFToken() {
  *  Constructs validations error message
  *
  * @private
- * @method errors
+ * @method errorMessage
  */
-function errors(count) {
+function errorMessage(count) {
   let errorMessage =  I18n.t("errors.messages.form_summary.errors", {
     defaultValue: {
       one: `There is ${ count } error`,
