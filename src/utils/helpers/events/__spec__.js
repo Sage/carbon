@@ -40,7 +40,7 @@ describe("Events", function () {
   describe('isEnterKeyup', () => {
     describe('when event is not a key up event', () => {
       it('returns false', () => {
-        expect(Events.isNavigationKeyup({ type: 'click' })).toBeFalsy();
+        expect(Events.isEnterKeyup({ type: 'click' })).toBeFalsy();
       });
     });
 
@@ -62,7 +62,7 @@ describe("Events", function () {
   describe('isValidKeyPress', () => {
     describe('when event is not a key up event', () => {
       it('returns false', () => {
-        expect(Events.isNavigationKeyup({ type: 'click' })).toBeFalsy();
+        expect(Events.isValidKeypress({ type: 'click' })).toBeFalsy();
       });
     });
 
