@@ -227,8 +227,6 @@ export default new JournalStore(Dispatcher);
 
 ```
 
-Our Store is now listening for the defined actions - any time they are called in our view, the store will update the view. [Read more here](https://facebook.github.io/flux/docs/overview.html#structure-and-data-flow)
-
 ### Updating our View with props
 
 The connected store data is available to our View's `state` object using the unique name defined in the store's contructor. For example:
@@ -385,6 +383,8 @@ class JournalStore extends Store {
 export default new JournalStore(Dispatcher);
 
 ```
+
+Our Store is now listening for the defined actions - any time they are called in our view, the store will update the view. [Read more here](https://facebook.github.io/flux/docs/overview.html#structure-and-data-flow)
 
 ### Setting up React routes
 
