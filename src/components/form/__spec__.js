@@ -1,9 +1,11 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Form from './index';
 import Textbox from './../textbox';
 import Validation from './../../utils/validations/presence';
 import InputGrid from './../input-grid';
+import TableRow from './../table-row';
 import ImmutableHelper from './../../utils/helpers/immutable';
 
 describe('Form', () => {
@@ -41,15 +43,15 @@ describe('Form', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
         <Form model='test'>
-          <Textbox validations={ [Validation] } name='excludedBox' />
+          <Textbox validations={ [Validation] } name='excludedBox' value='' />
           <InputGrid
             name='grid'
             data={ ImmutableHelper.parseJSON([ { foo: 'bar' } ]) }
             updateRowHandler={ function(){} }
             deleteRowHandler={ function(){} }
             fields={ [
-              <Textbox validations={ [Validation] } name='box1' />,
-              <Textbox validations={ [Validation] } name='box2' />
+              <Textbox validations={ [Validation] } name='box1' value='foo' />,
+              <Textbox validations={ [Validation] } name='box2' value='foo' />
             ] }
           />
         </Form>
@@ -83,13 +85,12 @@ describe('Form', () => {
     let excludedTextbox;
 
     beforeEach(() => {
-
-      textbox1 = <Textbox validations={ [Validation] } name='box1' />; 
-      textbox2 = <Textbox validations={ [Validation] } name='box2' />;
-      excludedTextbox = <Textbox validations={ [Validation] } name='excludedBox' />;
+      textbox1 = <Textbox validations={ [Validation] } name='box1' value='' />;
+      textbox2 = <Textbox validations={ [Validation] } name='box2' value='' />;
+      excludedTextbox = <Textbox validations={ [Validation] } name='excludedBox' value='' />;
       grid = <InputGrid
             name='grid'
-            data={ ImmutableHelper.parseJSON([ { foo: 'bar' } ]) }
+            data={ ImmutableHelper.parseJSON([ { box1: 'bar' } ]) }
             updateRowHandler={ function(){} }
             deleteRowHandler={ function(){} }
             fields={ [ textbox1, textbox2 ] }
@@ -111,11 +112,29 @@ describe('Form', () => {
       });
     });
 
-    describe('when the component is a a element in a grid', () => {
+    describe('when the component is a row in a grid', () => {
+      let regular;
+
+      beforeEach(() => {
+        let regularTable = document.createElement('table');
+        regularTable.innerHTML = '<tbody></tbody>';
+
+        regular = ReactDOM.render((<TableRow
+              name='regular'
+              key='regular_1'
+              namespace='namespace'
+              row_id='row_id'
+              data={ ImmutableHelper.parseJSON({ foo: 'text', bar: '1.00' }) }
+              fields={ [ textbox1, textbox2 ] }
+              />), regularTable.children[0]);
+
+        instance.attachToForm(regular);
+      });
+
       it('removes a input nested by namespace and row_id', () => {
-        let keys = Object.keys(instance.inputs.grid);
-        instance.detachFromForm(instance.tables.grid);
-        expect(Object.keys(instance.inputs.grid[keys[0]]).length).toEqual(2);
+        expect(instance.inputs.namespace.row_id.regular).toBeTruthy();
+        instance.detachFromForm(regular);
+        expect(instance.inputs.namespace.row_id.regular).toBeFalsy();
       });
     });
 
@@ -143,7 +162,7 @@ describe('Form', () => {
       it('does not not submit the form', () => {
         instance = TestUtils.renderIntoDocument(
           <Form model='test'>
-            <Textbox validations={ [Validation] } name='test'/>
+            <Textbox validations={ [Validation] } name='test' value='' />
           </Form>
         );
 
@@ -155,15 +174,15 @@ describe('Form', () => {
     });
 
     describe('submitting a input grid', () => {
-      it('removes placeholders when the form is valid', () => {
+      it('removes placeholder when the form is valid', () => {
         instance = TestUtils.renderIntoDocument(
           <Form model='test'>
             <InputGrid
               name='test'
-              data={ ImmutableHelper.parseJSON([ { foo: 'bar' } ]) }
+              data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
               updateRowHandler={ function(){} }
               deleteRowHandler={ function(){} }
-              fields={ [<Textbox name='box' />] }
+              fields={ [<Textbox validation={ [Validation] } name='box' />] }
             />
           </Form>
         );
@@ -175,6 +194,32 @@ describe('Form', () => {
         TestUtils.Simulate.submit(form);
         expect(instance.setState).toHaveBeenCalledWith({ errorCount : 0 });
         expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: false });
+      });
+
+      it('checks the validation of each field', () => {
+        let baseData = ImmutableHelper.parseJSON(
+          [ { box1: 'bar', box2: '' } ]
+        );
+
+        let textbox1 = <Textbox validations={ [Validation] } name='box1' />;
+        let textbox2 = <Textbox validations={ [Validation] } name='box2' />;
+
+        let grid = <InputGrid
+          name='grid'
+          data={ baseData }
+          updateRowHandler={ function(){} }
+          deleteRowHandler={ function(){} }
+          fields={ [ textbox1, textbox2 ] } />
+
+        instance = TestUtils.renderIntoDocument(
+          <Form model='test'>
+            { grid }
+          </Form>
+          );
+
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(instance.state.errorCount).toEqual(1);
       });
     });
   });
