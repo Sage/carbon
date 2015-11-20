@@ -2,7 +2,7 @@ import React from 'react';
 import { generateInputName } from './../../helpers/forms';
 import _ from 'lodash';
 
-var InputLabel = (ComposedComponent) => class Component extends ComposedComponent {
+let InputLabel = (ComposedComponent) => class Component extends ComposedComponent {
 
   constructor(...args) {
     super(...args);
@@ -15,7 +15,7 @@ var InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   get labelHTML() {
     if (this.props.label === false) { return; }
 
-    var labelText = this.props.label || this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1);
+    let labelText = this.props.label || this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1);
 
     if (this.props.validations) {
       labelText += "*";
@@ -27,7 +27,7 @@ var InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   }
 
   get inputProps() {
-    var inputProps = (super.inputProps) ? super.inputProps : {};
+    let inputProps = (super.inputProps) ? super.inputProps : {};
 
     // set id so label will work correctly
     inputProps.id = generateInputName(this.props.name, this.context.form);
