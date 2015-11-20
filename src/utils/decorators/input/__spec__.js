@@ -46,11 +46,11 @@ describe('Input', () => {
   let instance, instanceTwo, onChange;
 
   beforeEach(() => {
-    let extendedClassOne = Input(TestClassOne);
-    instance = new extendedClassOne();
+    let ExtendedClassOne = Input(TestClassOne);
+    instance = new ExtendedClassOne();
 
-    let extendedClassTwo = Input(TestClassTwo);
-    instanceTwo = new extendedClassTwo();
+    let ExtendedClassTwo = Input(TestClassTwo);
+    instanceTwo = new ExtendedClassTwo();
 
     onChange = jasmine.createSpy('onChange');
   });
