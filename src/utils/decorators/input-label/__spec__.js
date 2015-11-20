@@ -43,7 +43,8 @@ class ValidationClass {
   props = {
     name: 'foo',
     label: 'Validate Label',
-    validations: true
+    validations: true,
+    value: 'qux'
   };
 
   context = {

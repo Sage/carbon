@@ -3,7 +3,7 @@ import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
 import _ from 'lodash';
 
-var InputValidation = (ComposedComponent) => class Component extends ComposedComponent {
+let InputValidation = (ComposedComponent) => class Component extends ComposedComponent {
 
   constructor(...args) {
     super(...args);
@@ -37,29 +37,39 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   validate = () => {
-    var valid = false;
+    let valid = false;
 
     if (this.props.validations) {
-      this.props.validations.forEach((validation) => {
-        if (!this.props.value) {
-          console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);  // eslint-disable-line no-console
-        }
+      let validations = this.props.validations;
 
-        valid = validation.validate(this.props.value);
-
-        if (!valid) {
-          if (this.state.valid) {
-            this.context.form.incrementErrorCount();
-            this.setState({ errorMessage: validation.message(), valid: false });
-          }
-          return valid;
-        }
+      if(typeof validation === 'string') {
+        this.runValidations(validations);
+      }
+      else {
+        validations.forEach((validation) => { this.runValidations(validations);}
       });
-    } else {
+    };
+    else {
       valid = true;
     }
 
     return valid;
+  }
+
+  runValidations = (validation) => {
+    if (!this.props.value) {
+      console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);  // eslint-disable-line no-console
+    }
+
+    valid = validation.validate(this.props.value);
+
+    if (!valid) {
+      if (this.state.valid) {
+        this.context.form.incrementErrorCount();
+        this.setState({ errorMessage: validation.message(), valid: false });
+      }
+      return valid;
+    }
   }
 
   _handleBlur = () => {
@@ -108,7 +118,7 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   get inputProps() {
-    var inputProps = (super.inputProps) ? super.inputProps : {};
+    let inputProps = (super.inputProps) ? super.inputProps : {};
 
     inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
     inputProps.onFocus = chainFunctions(this._handleFocus, inputProps.onFocus);

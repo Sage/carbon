@@ -41,15 +41,15 @@ describe('Form', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
         <Form model='test'>
-          <Textbox validations={ [Validation] } name='excludedBox' />
+          <Textbox validations={ [Validation] } name='excludedBox' value='one' />
           <InputGrid
             name='grid'
             data={ ImmutableHelper.parseJSON([ { foo: 'bar' } ]) }
             updateRowHandler={ function(){} }
             deleteRowHandler={ function(){} }
             fields={ [
-              <Textbox validations={ [Validation] } name='box1' />,
-              <Textbox validations={ [Validation] } name='box2' />
+              <Textbox validations={ [Validation] } name='box1' value='two' />,
+              <Textbox validations={ [Validation] } name='box2' value='three'/>
             ] }
           />
         </Form>
@@ -84,7 +84,7 @@ describe('Form', () => {
 
     beforeEach(() => {
 
-      textbox1 = <Textbox validations={ [Validation] } name='box1' />; 
+      textbox1 = <Textbox validations={ [Validation] } name='box1' />;
       textbox2 = <Textbox validations={ [Validation] } name='box2' />;
       excludedTextbox = <Textbox validations={ [Validation] } name='excludedBox' />;
       grid = <InputGrid
@@ -98,7 +98,7 @@ describe('Form', () => {
       instance = TestUtils.renderIntoDocument(
         <Form model='test'>
           { excludedTextbox }
-          { grid } 
+          { grid }
         </Form>
       );
     });
@@ -143,7 +143,7 @@ describe('Form', () => {
       it('does not not submit the form', () => {
         instance = TestUtils.renderIntoDocument(
           <Form model='test'>
-            <Textbox validations={ [Validation] } name='test'/>
+            <Textbox validations={ [Validation] } name='test' value='four'/>
           </Form>
         );
 
@@ -178,7 +178,7 @@ describe('Form', () => {
       });
     });
   });
-  
+
   describe('htmlProps', () => {
     it('pulls out the model from props', () => {
       expect(instance.htmlProps().model).toBeFalsy();
@@ -209,7 +209,7 @@ describe('Form', () => {
   describe('render', () => {
     it('renders a parent form', () => {
       let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form')
-      expect(form.className).toEqual('ui-form'); 
+      expect(form.className).toEqual('ui-form');
     });
 
     it('renders a hidden CSRFToken field', () => {
