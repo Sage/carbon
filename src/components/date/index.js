@@ -9,17 +9,6 @@ import moment from 'moment';
 import I18n from "i18n-js";
 
 /**
- * Decorators
- *
- * The component's decorators may define additional props.
- * Refer to the decorators for more information on required and optional props.
- */
-@Input
-@InputIcon
-@InputLabel
-@InputValidation
-
-/**
  * A Date widget.
  *
  * == How to use a Date in a component:
@@ -34,7 +23,9 @@ import I18n from "i18n-js";
  *
  * @class Date
  * @constructor
+ * @decorators {Input,InputIcon,InputLabel,InputValidation}
  */
+const Date = Input(InputIcon(InputLabel(InputValidation(
 class Date extends React.Component {
 
   /**
@@ -273,7 +264,7 @@ class Date extends React.Component {
 
     if (typeof this.props.value !== 'undefined') {
       props.value = this.props.value; }
-    if (typeof this.props.defaultValue !== 'undefined') {
+    else {
       props.defaultValue = this.props.defaultValue; }
 
     return props;
@@ -319,6 +310,7 @@ class Date extends React.Component {
     );
   }
 }
+))));
 
 export default Date;
 

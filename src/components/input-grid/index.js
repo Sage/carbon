@@ -382,12 +382,9 @@ function hasPropsOfChildrenChanged(prevProps, nextProps) {
     let prevField = prevProps.fields[key],
         nextField = nextProps.fields[key];
 
-    // only check if the field existed previously
-    if (prevField && nextField) {
-      // compare the two fields properties
-      if (!_.isEqual(prevField.props, nextField.props)) {
-        return true;
-      }
+    // compare the two fields properties
+    if (!_.isEqual(prevField.props, nextField.props)) {
+      return true;
     }
   }
 
