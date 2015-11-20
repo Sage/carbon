@@ -4,16 +4,6 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 
 /**
- * Decorators
- *
- * The component's decorators may define additional props.
- * Refer to the decorators for more information on required and optional props.
- */
-@Input
-@InputLabel
-@InputValidation
-
-/**
  * A checkbox widget.
  *
  * == How to use a Checkbox in a component:
@@ -28,7 +18,9 @@ import InputValidation from './../../utils/decorators/input-validation';
  *
  * @class Checkbox
  * @constructor
+ * @decorators {Input,InputLabel,InputValidation}
  */
+const Checkbox = Input(InputLabel(InputValidation(
 class Checkbox extends React.Component {
 
   static propTypes = {
@@ -128,5 +120,6 @@ class Checkbox extends React.Component {
     );
   }
 }
+)));
 
 export default Checkbox;

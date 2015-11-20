@@ -2,8 +2,8 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import DropdownSuggest from './index'
 import Request from 'superagent';
-import MockRequest from 'superagent-mock'
 import Immutable from 'immutable';
+import Input from './../../utils/decorators/input';
 
 describe("DropdownSuggest", () => {
   var instance;
@@ -480,7 +480,6 @@ describe("DropdownSuggest", () => {
     });
   });
 
-
   describe("emitOnChangeCallback", () => {
     describe("when a onChange event has taken place", () => {
 
@@ -495,49 +494,71 @@ describe("DropdownSuggest", () => {
     });
   });
 
-  // TODO: test this properly
-  // describe("getData", () => {
-  //   var mock;
-  //
-  //   beforeEach(() => {
-  //     instance.setState({ value: { name: "foo" }})
-  //     mock = MockRequest(Request, [{
-  //       fixtures: (match, params, headers) => {
-  //         return {
-  //           page: params['page'],
-  //           rows: params['rows'],
-  //           value: params['value']
-  //         };
-  //       },
-  //       get: (match, data) => {
-  //         return {
-  //           body: { data: [ data ] }
-  //         };
-  //       }
-  //     }]);
-  //     spyOn(instance, 'updateList');
-  //   });
-  //
-  //   describe("passing a page value", () => {
-  //     it("requests data and calls updateList with the response", () => {
-  //       instance.getData();
-  //       expect(instance.updateList).toHaveBeenCalledWith({
-  //         page: 1,
-  //         rows: 10,
-  //         value: "foo"
-  //       });
-  //     });
-  //   });
-  //
-  //   describe("not passing a page value", () => {
-  //     it("requests data and calls updateList with the response", () => {
-  //       instance.getData(3);
-  //       expect(instance.updateList).toHaveBeenCalledWith({
-  //         page: 3,
-  //         rows: 10,
-  //         value: "foo"
-  //       });
-  //     });
-  //   });
-  // });
+  describe("getData", () => {
+    beforeEach(() => {
+      jasmine.Ajax.install();
+    });
+
+    afterEach(() => {
+      jasmine.Ajax.uninstall();
+    });
+
+    describe("with no page value or input value", () => {
+      it("requests data to the correct path and query", () => {
+        instance.getData();
+        let request = jasmine.Ajax.requests.mostRecent();
+        expect(request.url).toEqual("/foo?page=1&rows=10")
+      });
+    });
+
+    describe("with page value and input value but no id", () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownSuggest
+            name="bla"
+            path="/foo"
+            resource_key="customkey"
+            value={ Immutable.Map({ id: '', customkey: 'my value' }) }
+          />);
+      });
+
+      it("requests data to the correct path and query", () => {
+        instance.getData(3);
+        let request = jasmine.Ajax.requests.mostRecent();
+        expect(request.url).toEqual("/foo?page=3&rows=10&value=my%20value")
+      });
+    });
+
+    describe("with page value and input value and id", () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownSuggest
+            name="bla"
+            path="/foo"
+            resource_key="customkey"
+            value={ Immutable.Map({ id: '1', customkey: 'my value' }) }
+          />);
+      });
+
+      it("requests data to the correct path and query", () => {
+        instance.getData(3);
+        let request = jasmine.Ajax.requests.mostRecent();
+        expect(request.url).toEqual("/foo?page=3&rows=10&value=")
+      });
+    });
+
+    describe("on successful ajax response", () => {
+      it("updates the list with the data", () => {
+        spyOn(instance, 'updateList');
+        instance.getData();
+        let request = jasmine.Ajax.requests.mostRecent();
+        request.respondWith({
+          "status": 200,
+          "contentType": 'application/json',
+          "responseText": "{\"data\": [\"foo\"]}"
+        });
+        expect(instance.updateList).toHaveBeenCalledWith('foo');
+      });
+    });
+  });
 });
