@@ -4,16 +4,6 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 
 /**
- * Decorators
- *
- * The component's decorators may define additional props.
- * Refer to the decorators for more information on required and optional props.
- */
-@Input
-@InputLabel
-@InputValidation
-
-/**
  * A textarea widget.
  *
  * == How to use a Textarea in a component:
@@ -28,7 +18,9 @@ import InputValidation from './../../utils/decorators/input-validation';
  *
  * @class Textarea
  * @constructor
+ * @decorators {Input,InputLabel,InputValidation}
  */
+const Textarea = Input(InputLabel(InputValidation(
 class Textarea extends React.Component {
 
   /**
@@ -80,5 +72,6 @@ class Textarea extends React.Component {
     );
   }
 }
+)));
 
 export default Textarea;
