@@ -2,10 +2,12 @@ import Immutable from 'immutable';
 
 function insertRowIDs(js) {
   js = js.map((obj) => {
-    if (obj.id) {
-      obj['_row_id'] = obj.id;
-    } else {
-      obj['_row_id'] = ImmutableHelper.guid();
+    if (typeof obj === 'object') {
+      if (obj.id) {
+        obj['_row_id'] = obj.id;
+      } else {
+        obj['_row_id'] = ImmutableHelper.guid();
+      }
     }
 
     return obj;
@@ -74,9 +76,8 @@ var ImmutableHelper = {
 
     var index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
 
-    return data.deleteIn([line_item_key, index]);
+    return index > -1 ? data.deleteIn([line_item_key, index]) : data;
   }
-
 };
 
 export default ImmutableHelper;
