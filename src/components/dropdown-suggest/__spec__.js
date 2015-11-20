@@ -3,7 +3,6 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import DropdownSuggest from './index'
 import Request from 'superagent';
 import Immutable from 'immutable';
-import Input from './../../utils/decorators/input';
 
 describe("DropdownSuggest", () => {
   var instance;
