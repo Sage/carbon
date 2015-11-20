@@ -2,7 +2,7 @@ import React from 'react';
 import InputValidation from './index';
 import Form from 'components/form';
 
-class BasicClass {
+class Basic {
   props = {
     name: 'foo',
     value: 'bar'
@@ -28,11 +28,11 @@ class BasicClass {
   }
 }
 
-class ValidationsClass {
+class StringValidations {
   props = {
     name: 'baz',
     value: 'qux',
-    validations: ['Presence']
+    validations: 'Presence'
   };
 
   context = {
@@ -47,17 +47,39 @@ class ValidationsClass {
   state = {};
 }
 
+
+class ArrayValidations {
+  props = {
+    name: 'zoo',
+    value: 'baz',
+    validations: '[Presence, Format]'
+  };
+
+  context = {
+    form: {
+      model: 'model_3',
+      attachToForm: function() {},
+      detachFromForm: function() {},
+      decrementErrorCount: function() {}
+    }
+  };
+
+  state = {};
+}
+
 describe('InputValidation', () => {
-  let instanceBasic, instanceValidation;
+  let instanceBasic, instanceValidation, instanceValidationArray;
 
   beforeEach(() => {
-    let ExtendedClass = InputValidation(BasicClass);
+    let ExtendedClass = InputValidation(Basic);
     instanceBasic = new ExtendedClass;
 
-    let ExtendedClassTwo = InputValidation(ValidationsClass);
+    let ExtendedClassTwo = InputValidation(StringValidations);
     instanceValidation = new ExtendedClassTwo;
 
-    console.warn = jasmine.createSpy();
+    let ExtendedClassThree = InputValidation(ArrayValidations);
+    instanceValidationArray = new ExtendedClassThree;
+
   });
 
   describe('constructor', () => {
@@ -137,32 +159,75 @@ describe('InputValidation', () => {
   });
 
   describe('validate', () => {
-
     describe('when validations are present on the input', () => {
-      describe('when value is defined on the input', () => {
-        describe('when the input is not valid', () => {
-
+      describe('when the input field is invalid', () => {
+        describe('when the validation is passed a String', () => {
+          it('passes the validation to runValidations', () => {
+            spyOn(instanceValidation, 'runValidations');
+            instanceValidation.validate();
+            expect(instanceValidation.runValidations).toHaveBeenCalledWith(instanceValidation.props.validations, false);
+          });
         });
-        describe('when the input is valid', () => {
 
+        describe('when the validations are passed in an Array', () => {
+          it('passes the validations to runValidations', () => {
+            spyOn(instanceValidationArray, 'runValidations');
+            instanceValidationArray.validate();
+            expect(instanceValidationArray.runValidations).toHaveBeenCalledWith(instanceValidationArray.props.validations, false);
+          });
         });
       });
+    });
 
-      describe('when no value is defined on the input', () => {
-        it('outputs a warning message to the console', () => {
-          instanceValidation.validate();
-          expect(console.warn).toHaveBeenCalled();
-        });
+    describe('when no validations have been set on the input', () => {
+      it('defaults the input validity to true', () => {
+        let valid = instanceBasic.validate();
+        expect(valid).toBeTruthy();
       });
     });
   });
 
-  describe('_handleBlur', () => {
+  describe('runValidations', () => {
 
+    beforeEach(() => {
+      var validate = jasmine.createSpy('instanceValidations.props.validations.validate');
+      debugger
+    });
+
+    // describe('when no value is defined on the input', () => {
+    //   it('outputs a warning message to the console', () => {
+    //     // spyOn(instanceValidation.props.validations, 'validate').and.returnValue(true);
+    //     debugger
+    //     // expect(instanceValidation.props.validations.validate).toHaveBeenCalledWith(instanceValidation.props.value).andReturn;
+    //     // expect(console.warn).toHaveBeenCalled();
+    //   });
+    // });
+
+    describe('when value is defined on the input', () => {
+
+    });
+
+    describe('when the input is not valid', () => {
+
+    });
+
+    describe('when the input is valid', () => {
+
+    });
+  });
+
+  describe('_handleBlur', () => {
+    it('calls validate on blur of the input', () => {
+      spyOn(instanceValidation, 'validate');
+      instanceValidation._handleBlur();
+      expect(instanceValidation.validate).toHaveBeenCalled();
+    });
   });
 
   describe('_handleFocus', () => {
+    describe('when the input is invalid and the field gets focus', () => {
 
+    });
   });
 
   describe('validationHTML', () => {

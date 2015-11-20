@@ -36,39 +36,58 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     }
   }
 
+  /**
+   *  Checks for validations and returns boolean defining if field valid.
+   *
+   * @method validate
+   */
   validate = () => {
-    let valid = false;
+    let _valid = false;
 
+    // If validations have been set on the
     if (this.props.validations) {
       let validations = this.props.validations;
 
-      if(typeof validation === 'string') {
-        this.runValidations(validations);
+      // If a string reference to the validation is passed.
+      if(typeof validations === 'string') {
+        this.runValidations(validations, _valid);
       }
+
+      // If an array containing validations is passed.
       else {
-        validations.forEach((validation) => { this.runValidations(validations);}
-      });
-    };
+        validations.forEach((validation) => { this.runValidations(validation, _valid); });
+      }
+    }
+    // If no validations have been set on the input, default valid to true
     else {
-      valid = true;
+      _valid = true;
     }
 
-    return valid;
+    return _valid;
   }
 
-  runValidations = (validation) => {
+  /**
+   *  Adjusts error count, sets error message and checks with validations for validity.
+   *
+   * @method runValidations
+   * @param {String | Array} references to validations set on input
+   * @param {Boolean }_valid
+   */
+  runValidations = (validation, _valid) => {
     if (!this.props.value) {
       console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);  // eslint-disable-line no-console
     }
 
-    valid = validation.validate(this.props.value);
+    // Calls the the provided validation's validate method
+    _valid = validation.validate(this.props.value);
 
-    if (!valid) {
+    // If field invalid, update ComposedComponent state
+    if (!_valid) {
       if (this.state.valid) {
         this.context.form.incrementErrorCount();
-        this.setState({ errorMessage: validation.message(), valid: false });
+        this.setState({ errorMessage: validation.message(), _valid: false });
       }
-      return valid;
+      return _valid;
     }
   }
 
