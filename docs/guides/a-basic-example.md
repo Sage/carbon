@@ -38,7 +38,7 @@ Using constants helps organise your application and mitigates any conflicts. Eac
 // ./src/constants/contact/index.js
 
 export default {
-  CONTACT_VALUE_UPDATED: 'contactValueUpdated'
+  CONTACT_FIRST_NAME_UPDATED: 'contactFirstNameUpdated'
 }
 ```
 
@@ -53,13 +53,12 @@ import Dispatcher from 'dispatcher';
 import ContactConstants from 'constants/contact';
 
 let ContactActions = {
-  contactValueUpdated: (ev, props) => {
+  contactFirstNameUpdated: (ev, props) => {
     // this should dispatch the constant we defined, as well as any data the store
     // should be aware of from the event that occurred (eg the input's value)
     Dispatcher.dispatch({
-      actionType: ContactConstants.CONTACT_VALUE_UPDATED,
-      value: ev.target.value,
-      name: props.name
+      actionType: ContactConstants.CONTACT_FIRST_NAME_UPDATED,
+      value: ev.target.value
     });
   }
 };
@@ -94,10 +93,10 @@ class ContactStore extends Store {
   // we create a function that uses the constant we defined, this subscribes
   // the store to the this particular action so it will trigger when the
   // action is dispatched
-  [ContactConstants.CONTACT_VALUE_UPDATED](action) {
+  [ContactConstants.CONTACT_FIRST_NAME_UPDATED](action) {
     // we modify the data and update `this.data` to the new data (remember that
     // we are working with immutable data)
-    this.data = this.data.set(action.name, action.value);
+    this.data = this.data.set('first_name', action.value);
   }
 }
 
@@ -122,12 +121,12 @@ class Contact extends React.Component {
   render() {
     // you can access the store's data using the previously defined namespace
     // (remember that this is an immutable data object)
-    let name = this.state.contactStore.get('name');
+    let firstName = this.state.contactStore.get('first_name');
 
     return (
       <div>
         <h1>{ name }</h1>
-        <Textbox name="name" value={ name } onChange={ ContactActions.contactValueUpdated } />
+        <Textbox name="first_name" value={ firstName } onChange={ ContactActions.contactFirstNameUpdated } />
       </div>
     );
   }
