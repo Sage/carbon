@@ -248,9 +248,10 @@ class Form extends React.Component {
    */
   cancelForm = () => {
     // history comes from react router
-    if (window.history) {
-      window.history.back();
+    if (!window.history) {
+      throw new Error('History is not defined. This is normally configured by the react router');
     }
+    window.history.back();
   }
 
   /**

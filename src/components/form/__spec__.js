@@ -249,6 +249,14 @@ describe('Form', () => {
         expect(window.history.back).toHaveBeenCalled();
       });
     });
+
+    describe('when window history is not availiable', () => {
+      it('throws an error', () => {
+        window.history = false;
+        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        expect(function() { TestUtils.Simulate.click(cancel) }).toThrowError('History is not defined. This is normally configured by the react router');
+      });
+    });
   });
 
   describe('mainClasses', () => {
