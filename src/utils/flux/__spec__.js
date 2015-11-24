@@ -91,7 +91,7 @@ describe('Connect', () => {
     });
 
     describe('when a store has no name', () => {
-      it('throughs an error', () => {
+      it('throws an error', () => {
         expect(function () { connect(View, noNameStore) }).toThrowError(
           `You need to set the name property on your store. In ${noNameStore.constructor.name}'s constructor add 'this.name = "uniqueStoreName";'.`
         );
@@ -99,7 +99,7 @@ describe('Connect', () => {
     });
 
     describe('when a store has no data', () => {
-      it('throughs an error', () => {
+      it('throws an error', () => {
         expect(function () { connect(View, noDataStore) }).toThrowError(
           `You need to set the data property on your store. In ${noDataStore.constructor.name}'s constructor add 'this.data = ImmutableHelper.parseJSON({});'.`
         );
