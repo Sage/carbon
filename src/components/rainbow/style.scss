@@ -1,3 +1,6 @@
+@import 'general';
+@import 'colors';
+
 .ui-rainbow {
   .highcharts-series path {
     transform-origin: 50% 35%;
@@ -9,7 +12,22 @@
     }
   }
 
+  .highcharts-title {
+    color: $grey-dark;
+    font-family: $app-font-family;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 16px;
+    text-align: center;
+  }
+
   .highcharts-tooltip {
+    font-family: $app-font-family;
+    font-weight: bold;
     margin-top: 20px;
+  }
+
+  .highcharts-data-labels {
+    text-align: center;
   }
 }

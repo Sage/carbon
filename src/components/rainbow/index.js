@@ -154,14 +154,10 @@ function generateConfig(immutableData, title) {
       width: 400
     },
     title: {
-      align: 'center',
       style: {
-        "color": "#696d75",
-        "fontFamily": "inherit",
-        "fontSize": "25px",
-        "fontWeight": "bold",
-        "line-height": "16px",
-        "textAlign": "center"
+        "color": "",
+        "fontFamily": "",
+        "fontSize": ""
       },
       text: title,
       useHTML: true,
@@ -174,13 +170,10 @@ function generateConfig(immutableData, title) {
       followPointer: true,
       headerFormat: '',
       pointFormatter: function() {
-        return '<span style="color: ' + this.color  + '; font-weight: bold">' + this.tooltip + '</span>';
+        return '<span style="color: ' + this.color  + '">' + this.tooltip + '</span>';
       },
       positioner: function(tooltipWidth, tooltipHeight, point) {
         return tooltipPosition(tooltipWidth, tooltipHeight, point);
-      },
-      style: {
-        "fontFamily": "inherit"
       },
       shadow: false
     },
@@ -191,19 +184,20 @@ function generateConfig(immutableData, title) {
         },
         borderWidth: 0,
         center: ['50%', '100%'],
-        colors: ['#23B492', '#F8B74C', '#EA4D5B'],
+        colors: ['#01A4CF', '#FFAB02', '#EA433F', '#FFDD4F', '#FF448F'],
         dataLabels: {
           connectorWidth: 0,
           defer: false,
           distance: 25,
           enabled: true,
           formatter: function () {
-            return '<span style="display: block; text-align: center; text-size: 12px; color:' + this.point.color + '">' + this.point.name + '<br><span style="font-weight: normal;">' + this.point.label + '</span></span>';
+            return '<span style="color:' + this.point.color + '"><strong>' + this.point.name + '</strong><br>' + this.point.label + '</span>';
           },
           padding: 0,
           style: {
-            "fontSize": "12px",
-            "fontFamily": "inherit"
+            "fontSize": "",
+            "fontWeight": "",
+            "fontFamily": ""
           },
           useHTML: true
         },
