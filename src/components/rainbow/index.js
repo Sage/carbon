@@ -85,7 +85,7 @@ class Rainbow extends React.Component {
 
     return (
       <div className="ui-rainbow">
-        <ReactHighcharts ref="chart" config={config}></ReactHighcharts>
+        <ReactHighcharts ref="chart" config={config} />
       </div>
     );
   }
