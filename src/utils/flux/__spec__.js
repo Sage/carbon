@@ -1,5 +1,4 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
 import Flux from 'flux';
 import { connect } from './index';
 import Textbox from './../../components/textbox';
