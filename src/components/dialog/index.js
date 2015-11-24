@@ -135,11 +135,10 @@ class Dialog extends React.Component {
 
   /**
    * Returns the computed HTML for the dialog.
-   * Should this be a getter?
    *
    * @method dialogClasses
    */
-  dialogHTML = () => {
+  get dialogHTML() {
     let dialogClasses = this.dialogClasses;
 
     if (typeof this.props.size !== 'undefined') {
@@ -166,7 +165,7 @@ class Dialog extends React.Component {
 
     if (this.props.open) {
       backgroundHTML = this.backgroundHTML;
-      dialogHTML = this.dialogHTML();
+      dialogHTML = this.dialogHTML;
     }
 
     return (
