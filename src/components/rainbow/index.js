@@ -17,7 +17,8 @@ import ReactHighcharts from 'react-highcharts/dist/bundle/highcharts';
  *       y: 30,
  *       name: 'First Bit',
  *       label: 'label for first bit',
- *       tooltip: 'more info about this bit'
+ *       tooltip: 'more info about this bit',
+ *       color: '#000' # we supply color by default, but you can supply your own like this
  *     }, {
  *       y: 70,
  *       name: 'Second Bit',
