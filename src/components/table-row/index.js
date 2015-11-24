@@ -63,7 +63,7 @@ class TableRow extends React.Component {
   }
 
   /**
-   * Builds and returns a gutter field cell
+   * Builds a table field
    *
    * @method buildRowField
    * @param {String} key
