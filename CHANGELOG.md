@@ -114,7 +114,8 @@ We have renamed this because its original name was based on a Rails convention a
 ## Misc
 
 * Ran ESLint task and fixed any errors.
-* Updated Form Cancel Button to use History object
+* Updated Form Cancel Button to use History object.
+* Added Rainbow chart component.
 
 # 0.0.1
 
