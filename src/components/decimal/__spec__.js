@@ -77,6 +77,13 @@ describe('Decimal', () => {
         spyOn(instance, 'setState');
       });
 
+      describe('no value passed', () => {
+        it('uses the default value instead', () => {
+          instance.componentWillReceiveProps({ defaultValue: '999.00' });
+          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '999.00' });
+        });
+      });
+
       it('re-evaluates the formatted visible value if input does not have focus', () => {
         instance.componentWillReceiveProps({ value: '1001.00' });
         expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '1,001.00' });

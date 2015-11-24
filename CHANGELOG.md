@@ -103,6 +103,8 @@ Decorators can be found in the `/utils/decorators` directory. So far we have dec
 * Input Label
 * Input Validation
 
+Note: although there is an ES7 Babel transform for decorators, we have opted not to use it for now due to the way in which it compiles and produces missing coverage reports.
+
 ## TableFieldsForMany renamed
 
 `TableFieldsForMany` is now called `InputGrid`.

@@ -1,23 +1,10 @@
 import React from 'react';
 import Request from 'superagent';
-
+import Immutable from 'immutable';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
-
-import Immutable from 'immutable';
-
-/**
- * Decorators
- *
- * The component's decorators may define additional props.
- * Refer to the decorators for more information on required and optional props.
- */
-@Input
-@InputIcon
-@InputLabel
-@InputValidation
 
 /**
  * A dropdown-suggest widget.
@@ -34,9 +21,10 @@ import Immutable from 'immutable';
  *
  * @class DropdownSuggest
  * @constructor
+ * @decorators {Input,InputIcon,InputLabel,InputValidation}
  */
+const DropdownSuggest = Input(InputIcon(InputLabel(InputValidation(
 class DropdownSuggest extends React.Component {
-
 
   static propTypes = {
     /**
@@ -134,8 +122,7 @@ class DropdownSuggest extends React.Component {
    */
   getData = (page = 1) => {
     // Passes empty string to query if value has been selected
-    let query = typeof this.props.value.get('id') !== 'undefined' ?
-                "" : this.props.value.get(this.props.resource_key);
+    let query = this.props.value.get('id') ? "" : this.props.value.get(this.props.resource_key);
 
     Request
       .get(this.props.path)
@@ -360,8 +347,7 @@ class DropdownSuggest extends React.Component {
       name: nameWithID
     };
 
-    if (typeof this.props.value !== 'undefined')
-      { props.value = this.props.value.get('id'); }
+    props.value = this.props.value.get('id');
 
     return props;
   }
@@ -444,6 +430,7 @@ class DropdownSuggest extends React.Component {
     );
   }
 }
+))));
 
 // Private Functions
 
