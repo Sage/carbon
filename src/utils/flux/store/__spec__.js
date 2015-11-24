@@ -2,7 +2,7 @@ import Store from './index';
 import { Dispatcher } from 'flux';
 
 describe('Store', () => {
-  var instance, dispatcher;
+  let instance, dispatcher;
 
   beforeEach(() => {
     dispatcher = new Dispatcher();
