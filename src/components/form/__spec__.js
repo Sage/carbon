@@ -151,6 +151,12 @@ describe('Form', () => {
   describe('handleOnSubmit', () => {
     describe('valid input', () => {
       it('submits the form', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form model='test'>
+            <Textbox validations={ [Validation] } name='test' value='Valid' />
+          </Form>
+        );
+
         spyOn(instance, 'setState');
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
@@ -257,10 +263,38 @@ describe('Form', () => {
       expect(form.className).toEqual('ui-form'); 
     });
 
-    it('renders a hidden CSRFToken field', () => {
-      let csrf = TestUtils.findRenderedDOMComponentWithTag(instance, 'input')
-      expect(csrf.type).toEqual('hidden');
-      expect(csrf.readOnly).toBeTruthy();
+    describe('CSRF', () => {
+      let csrf;
+
+      beforeEach(() => {
+        let fakeMeta1 = { getAttribute() {} },
+            fakeMeta2 = { getAttribute() {} };
+
+        spyOn(fakeMeta1, 'getAttribute').and.returnValue('csrf-param')
+        spyOn(fakeMeta2, 'getAttribute').and.returnValue('csrf-token')
+        spyOn(instance.doc, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
+
+        instance = TestUtils.renderIntoDocument(<Form model='test' />);
+
+        csrf = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
+      });
+
+      it('renders a hidden CSRFToken field', () => {
+        expect(csrf.type).toEqual('hidden');
+        expect(csrf.readOnly).toBeTruthy();
+      });
+
+      describe('when meta tag name == csrf-param', () => {
+        it('adds the meta tag content as the name of the input field', () => {
+          expect(csrf.name).toEqual('csrf-param');
+        });
+      });
+      
+      describe('when meta tag name == csrf-token', () => {
+        it('adds the meta tag content as the value of the input field', () => {
+          expect(csrf.value).toEqual('csrf-token');
+        });
+      });
     });
 
     describe('buttons', () => {
@@ -284,6 +318,28 @@ describe('Form', () => {
       it('renders a primary save button with saveClasses', () => {
         expect(buttons[1].className).toEqual('ui-button ui-button--primary');
         expect(buttonContainers[1].className).toEqual('ui-form__save');
+      });
+    });
+
+    describe('Cancel Button', () => {
+      describe('when cancel prop is false', () => {
+        beforeEach(() => {
+          instance = TestUtils.renderIntoDocument(
+            <Form cancel={false} model='test' />
+          );
+        });
+
+        it('does not show a cancel button', () => {
+          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+          expect(buttons.length).toEqual(1);
+        });
+      });
+
+      describe('when cancel props is true (default)', () => {
+        it('does show a cancel button', () => {
+          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+          expect(buttons.length).toEqual(2);
+        });
       });
     });
 
