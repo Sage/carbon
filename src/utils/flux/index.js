@@ -98,7 +98,7 @@ export function connect(ComposedView, stores) {
      */
     componentWillUnmount() {
       // ensure that the super view calls it's version of componentWillUnmount
-      if (super.componentWillUnmount) { super.componentWillMount(); }
+      if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
       // unlisten to each store when the view component unmounts
       for (let key in _stores) {
@@ -132,7 +132,6 @@ export function connect(ComposedView, stores) {
 
       return states;
     }
-
   }
 
   return View;
