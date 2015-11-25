@@ -63,14 +63,14 @@ class DropdownList extends React.Component {
 
   }
 
-componentWillMount() {
-  let data = this.props.data;
-  data = data.get('items').toJS();
+  componentWillMount() {
+    let data = this.props.data;
+    data = data.get('items').toJS();
 
-  this.setState({
-    options: this.state.options.concat(data),
-  });
-}
+    this.setState({
+      options: this.state.options.concat(data),
+    });
+  }
 
   handleFocus = () => {
     let data = this.props.data;
@@ -100,11 +100,6 @@ componentWillMount() {
   }
 
   handleKeyDown = (ev) => {
-    let val = this.buildImmutableValue(this.props, ev.target.textContent, ev.target.value);
-    this.emitOnChangeCallback(val);
-  }
-
-  filterList = (pattern) => {
 
   }
 

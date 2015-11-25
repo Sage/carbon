@@ -9,6 +9,7 @@ import { connect } from '../../../lib/utils/flux';
 import DropdownList from '../components/dropdown-list';
 import DropdownSuggest from '../../../src/components/dropdown-suggest';
 import Textbox from '../../../src/components/textbox';
+import Form from '../../../src/components/form';
 
 
 class MainView extends React.Component {
@@ -19,9 +20,11 @@ class MainView extends React.Component {
 
     return(
       <div>
-        <Textbox name='foo' />
-        <DropdownList name="list" data={ data } onChange={ Actions.updateValue } value={ displayValue } placeholder='goo'/>
-        <DropdownSuggest name="suggest" data={ data } />
+        <Form model='baz'>
+          <Textbox name='foo' />
+          <DropdownList name="list" data={ data } onChange={ Actions.updateValue } value={ displayValue } placeholder='goo'/>
+          <DropdownSuggest name="suggest" data={ data } />
+        </Form>
       </div>
     )
   }
