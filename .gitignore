@@ -4,5 +4,4 @@ coverage/
 *.swo
 lib/
 example/assets
-example/main.js
 .DS_Store
