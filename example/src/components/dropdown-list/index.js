@@ -24,18 +24,6 @@ import InputIcon from './../../../../lib/utils/decorators/input-icon';
  */
 const DropdownList = Input(InputIcon(InputLabel(InputValidation(
 class DropdownList extends React.Component {
-
-  static propTypes = {
-    /**
-     * An object to hold data for rendering in the widget
-     *
-     * @property value
-     * @type {Object}
-     * @default Immutable.Map({})
-     */
-    value: React.PropTypes.object
-  };
-
   state = {
 
     /**
@@ -62,7 +50,9 @@ class DropdownList extends React.Component {
      * @type {Number}
      * @default null
      */
-    highlighted: null
+    highlighted: null,
+
+    selected: undefined
   }
 
 componentWillMount() {
@@ -72,15 +62,17 @@ componentWillMount() {
     options: this.state.options.concat(data.items),
   });
 }
-  /**
-   * Handles what happens on change of the input.
-   *
-   * @method handleChange
-   * @param {Object} ev event
-   */
-  handleChange = (ev) => {
+  // /**
+  //  * Handles what happens on change of the input.
+  //  *
+  //  * @method handleChange
+  //  * @param {Object} ev event
+  //  */
+  // handleChange = (ev) => {
+  //
+  // }
 
-  }
+
 
   handleFocus = () => {
     let data = this.props.data;
@@ -92,12 +84,12 @@ componentWillMount() {
     });
   }
 
-  emitOnChangeCallback = (props, text, value) => {
+  emitOnChangeCallback = (value) => {
     this._handleOnChange({ target: { value: value } });
   }
 
   handleSelect = (ev) => {
-    this.emitOnChangeCallback(this.props, ev.target.textContent, ev.target.value);
+    this.emitOnChangeCallback(ev.target.value);
   }
 
   handleBlur = () => {
@@ -120,8 +112,25 @@ componentWillMount() {
     props.onChange = this.handleChange;
     props.onFocus = this.handleFocus;
     props.onBlur = this.handleBlur;
+    props.value = this.nameByID;
+    props.onKeyDown = this.handleKeyDown;
 
     return props;
+  }
+
+  handleKeyDown = (ev) => {
+    debugger
+  }
+
+// rewrite
+  get nameByID() {
+    let name = '';
+    this.props.data.items.forEach((item) => {
+      if (item.id == this.props.value) {
+          name = item.name;
+      }
+    })
+    return name;
   }
 
   /**
@@ -135,10 +144,9 @@ componentWillMount() {
       ref: "input",
       type: "hidden",
       readOnly: true,
-      name: this.props.name + "_hidden"
+      name: this.props.name + "_hidden",
+      value: this.props.value
     };
-
-    props.value = this.props.data.id;
 
     return props;
   }

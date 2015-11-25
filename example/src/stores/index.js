@@ -1,4 +1,4 @@
-import Constants from 'constants';
+import Constants from './../constants';
 import Store from '../../../lib/utils/flux/store';
 import ImmutableHelper from '../../../lib/utils/helpers/immutable';
 import Dispatcher from '../dispatcher';
@@ -27,7 +27,8 @@ class DropdownStore extends Store {
                        {'id' : 7,  'name': 'asdg'
                        },
                        {'id' : 8,  'name': 'asdas'
-                       }]
+                     }],
+                        selectedID: undefined
                      });
   }
 
@@ -35,9 +36,10 @@ class DropdownStore extends Store {
   // the store to the this particular action so it will trigger when the
   // action is dispatched
   [Constants.UPDATE_VALUE](action) {
+    debugger
     // we modify the data and update `this.data` to the new data (remember that
     // we are working with immutable data)
-    this.data = this.data.set('displayValue', action.value);
+    this.data = this.data.set('selectedID', action.value);
   }
 }
 
