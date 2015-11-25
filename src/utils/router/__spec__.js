@@ -4,7 +4,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 import { startRouter } from './index';
 
 describe('startRouter', () => {
-  var render, router, routes;
+  let render, router, routes;
 
   beforeEach(() => {
     routes = <div></div>;
