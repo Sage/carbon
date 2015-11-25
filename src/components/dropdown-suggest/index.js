@@ -33,7 +33,7 @@ class DropdownSuggest extends React.Component {
      * @property path
      * @type {String}
      */
-    path: React.PropTypes.string.isRequired,
+    path: React.PropTypes.string,
 
     /**
      * An object to hold data for rendering in the widget
@@ -121,19 +121,27 @@ class DropdownSuggest extends React.Component {
    * @param {Object} page Page, defaults to 1.
    */
   getData = (page = 1) => {
-    // Passes empty string to query if value has been selected
-    let query = this.props.value.get('id') ? "" : this.props.value.get(this.props.resource_key);
 
-    Request
-      .get(this.props.path)
-      .query({
-        page: page,
-        rows: 10,
-        value: query
-      })
-      .end((err, response) => {
-        this.updateList(response.body.data[0]);
-      });
+    if(this.props.data.toJS()) {
+      let data = this.props.data.toJS()
+      this.updateList(data);
+    }
+
+    else if(this.props.path) {
+      // Passes empty string to query if value has been selected
+      let query = this.props.value.get('id') ? "" : this.props.value.get(this.props.resource_key);
+
+      Request
+        .get(this.props.path)
+        .query({
+          page: page,
+          rows: 10,
+          value: query
+        })
+        .end((err, response) => {
+          this.updateList(response.body.data[0]);
+        });
+    }
   }
 
   /**

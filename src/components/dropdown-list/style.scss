@@ -1,0 +1,40 @@
+@import 'colors';
+@import 'mixins';
+@import 'z-index';
+
+.ui-dropdown-list__list {
+  background-color: $white;
+  border: 1px solid $green-bright;
+  box-sizing: border-box;
+  color: $grey-dark;
+  cursor: pointer;
+  max-height: 180px;
+  list-style: none;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  position: absolute;
+  margin-top: -1px;
+  width: 100%;
+  z-index: $z-dropdown-list;
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    background-color: #EEE;
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #777777;
+    border-radius:4px;
+  }
+}
+
+.ui-dropdown-list__item {
+  padding: 5px 6px;
+}
+
+.ui-dropdown-list__item--highlighted {
+  background-color: lighten($green-bright, 42%);
+}
