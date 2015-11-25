@@ -192,7 +192,15 @@ function generateConfig(immutableData, title) {
           distance: 25,
           enabled: true,
           formatter: function () {
-            return '<span style="color:' + this.point.color + '"><strong>' + this.point.name + '</strong><br>' + this.point.label + '</span>';
+            let display = "display: ";
+
+            if (this.point.visible) {
+              display += "block";
+            } else {
+              display += "none";
+            }
+
+            return '<span style="color:' + this.point.color + '; ' + display + '"><strong>' + this.point.name + '</strong><br>' + this.point.label + '</span>';
           },
           padding: 0,
           style: {

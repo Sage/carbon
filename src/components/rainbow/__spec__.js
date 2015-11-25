@@ -93,5 +93,29 @@ describe('Rainbow', () => {
       };
       expect(instance.refs.chart.chart.userOptions.tooltip.positioner(50, 100, opts)).toEqual({ x: 75, y: 105 });
     });
+
+    it("sets the label to be display block if the pointer is visible", () => {
+      instance.refs.chart.chart.series[0].setData([{
+        y: 30,
+        name: 'First Bit',
+        label: 'label for first bit',
+        tooltip: 'more info about this bit',
+        visible: true
+      }]);
+      let display = instance.refs.chart.chart.series[0].points[0].dataLabel.div.children[0].children[0].style["display"];
+      expect(display).toEqual('block');
+    });
+
+    it("sets the label to be display none if the pointer is not visible", () => {
+      instance.refs.chart.chart.series[0].setData([{
+        y: 30,
+        name: 'First Bit',
+        label: 'label for first bit',
+        tooltip: 'more info about this bit',
+        visible: false
+      }]);
+      let display = instance.refs.chart.chart.series[0].points[0].dataLabel.div.children[0].children[0].style["display"];
+      expect(display).toEqual('none');
+    });
   });
 });

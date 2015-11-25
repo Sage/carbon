@@ -185,6 +185,7 @@ class InputGrid extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
+    if (!this.context.form) { return false; }
     this.context.form.attachToForm(this);
   }
 
@@ -194,6 +195,7 @@ class InputGrid extends React.Component {
    * @method componentWillUnmount
    */
   componentWillUnmount() {
+    if (!this.context.form) { return false; }
     this.context.form.detachFromForm(this);
   }
 
@@ -260,6 +262,7 @@ class InputGrid extends React.Component {
     return(<TableRow
       key="gutter"
       fields={ this.props.fields }
+      forceUpdate={ this.childrenHaveChanged }
       gutterFields={ this.props.gutter }
     />);
   }
@@ -275,6 +278,7 @@ class InputGrid extends React.Component {
       name={ this.props.name }
       key={ this.placeholderID }
       placeholder="true"
+      forceUpdate={ this.childrenHaveChanged }
       row_id={ this.placeholderID }
       fields={ this.props.fields }
       updateRowHandler={ this.props.updateRowHandler }

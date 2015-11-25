@@ -31,8 +31,13 @@ describe('Decimal', () => {
   describe('with options', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Decimal name="total" value="1000000.00000" />
+        <Decimal name="total" value="1000000.00000" className="foobar" />
       );
+    });
+
+    it('sets mainClasses to include the custom class', () => {
+      expect(instance.mainClasses).toMatch('ui-decimal');
+      expect(instance.mainClasses).toMatch('foobar');
     });
 
     it('sets the visibleValue state to a formatted version of the value', () => {
