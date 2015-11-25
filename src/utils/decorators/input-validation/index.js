@@ -41,54 +41,30 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    *
    * @method validate
    */
-  validate = () => {
-    let _valid = false;
+   validate = () => {
+    var valid = false;
 
-    // If validations have been set on the
     if (this.props.validations) {
-      let validations = this.props.validations;
+      this.props.validations.forEach((validation) => {
+        if (!this.props.value) {
+          console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);  // eslint-disable-line no-console
+        }
 
-      // If a string reference to the validation is passed.
-      if(typeof validations === 'string') {
-        this.runValidations(validations, _valid);
-      }
+        valid = validation.validate(this.props.value);
 
-      // If an array containing validations is passed.
-      else {
-        validations.forEach((validation) => { this.runValidations(validation, _valid); });
-      }
-    }
-    // If no validations have been set on the input, default valid to true
-    else {
-      _valid = true;
-    }
-
-    return _valid;
-  }
-
-  /**
-   *  Adjusts error count, sets error message and checks with validations for validity.
-   *
-   * @method runValidations
-   * @param {String | Array} references to validations set on input
-   * @param {Boolean }_valid
-   */
-  runValidations = (validation, _valid) => {
-    if (!this.props.value) {
-      console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);  // eslint-disable-line no-console
+        if (!valid && this.state.valid) {
+          if (this.context.form) {
+            this.context.form.incrementErrorCount();
+          this.setState({ errorMessage: validation.message(), valid: false });
+          }
+        return valid;
+        }
+      });
+    } else {
+      valid = true;
     }
 
-    // Calls the the provided validation's validate method
-    _valid = validation.validate(this.props.value);
-
-    // If field invalid, update ComposedComponent state
-    if (!_valid) {
-      if (this.state.valid) {
-        this.context.form.incrementErrorCount();
-        this.setState({ errorMessage: validation.message(), _valid: false });
-      }
-      return _valid;
-    }
+    return valid;
   }
 
   _handleBlur = () => {

@@ -31,8 +31,13 @@ describe('Decimal', () => {
   describe('with options', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Decimal name="total" value="1000000.00000" />
+        <Decimal name="total" value="1000000.00000" className="foobar" />
       );
+    });
+
+    it('sets mainClasses to include the custom class', () => {
+      expect(instance.mainClasses).toMatch('ui-decimal');
+      expect(instance.mainClasses).toMatch('foobar');
     });
 
     it('sets the visibleValue state to a formatted version of the value', () => {
@@ -75,6 +80,13 @@ describe('Decimal', () => {
     describe('componentWillReceiveProps', () => {
       beforeEach(() => {
         spyOn(instance, 'setState');
+      });
+
+      describe('no value passed', () => {
+        it('uses the default value instead', () => {
+          instance.componentWillReceiveProps({ defaultValue: '999.00' });
+          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '999.00' });
+        });
       });
 
       it('re-evaluates the formatted visible value if input does not have focus', () => {

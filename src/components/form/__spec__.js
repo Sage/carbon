@@ -1,9 +1,11 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Form from './index';
 import Textbox from './../textbox';
 import Validation from './../../utils/validations/presence';
 import InputGrid from './../input-grid';
+import TableRow from './../table-row';
 import ImmutableHelper from './../../utils/helpers/immutable';
 
 describe('Form', () => {
@@ -41,15 +43,15 @@ describe('Form', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
         <Form model='test'>
-          <Textbox validations={ [Validation] } name='excludedBox' value='one' />
+          <Textbox validations={ [Validation] } name='excludedBox' value='' />
           <InputGrid
             name='grid'
             data={ ImmutableHelper.parseJSON([ { foo: 'bar' } ]) }
             updateRowHandler={ function(){} }
             deleteRowHandler={ function(){} }
             fields={ [
-              <Textbox validations={ [Validation] } name='box1' value='two' />,
-              <Textbox validations={ [Validation] } name='box2' value='three'/>
+              <Textbox validations={ [Validation] } name='box1' value='foo' />,
+              <Textbox validations={ [Validation] } name='box2' value='foo' />
             ] }
           />
         </Form>
@@ -83,13 +85,13 @@ describe('Form', () => {
     let excludedTextbox;
 
     beforeEach(() => {
+      textbox1 = <Textbox validations={ [Validation] } name='box1' value='' />;
+      textbox2 = <Textbox validations={ [Validation] } name='box2' value='' />;
+      excludedTextbox = <Textbox validations={ [Validation] } name='excludedBox' value='' />;
 
-      textbox1 = <Textbox validations={ [Validation] } name='box1' />;
-      textbox2 = <Textbox validations={ [Validation] } name='box2' />;
-      excludedTextbox = <Textbox validations={ [Validation] } name='excludedBox' />;
       grid = <InputGrid
             name='grid'
-            data={ ImmutableHelper.parseJSON([ { foo: 'bar' } ]) }
+            data={ ImmutableHelper.parseJSON([ { box1: 'bar' } ]) }
             updateRowHandler={ function(){} }
             deleteRowHandler={ function(){} }
             fields={ [ textbox1, textbox2 ] }
@@ -111,11 +113,29 @@ describe('Form', () => {
       });
     });
 
-    describe('when the component is a a element in a grid', () => {
+    describe('when the component is a row in a grid', () => {
+      let regular;
+
+      beforeEach(() => {
+        let regularTable = document.createElement('table');
+        regularTable.innerHTML = '<tbody></tbody>';
+
+        regular = ReactDOM.render((<TableRow
+              name='regular'
+              key='regular_1'
+              namespace='namespace'
+              row_id='row_id'
+              data={ ImmutableHelper.parseJSON({ foo: 'text', bar: '1.00' }) }
+              fields={ [ textbox1, textbox2 ] }
+              />), regularTable.children[0]);
+
+        instance.attachToForm(regular);
+      });
+
       it('removes a input nested by namespace and row_id', () => {
-        let keys = Object.keys(instance.inputs.grid);
-        instance.detachFromForm(instance.tables.grid);
-        expect(Object.keys(instance.inputs.grid[keys[0]]).length).toEqual(2);
+        expect(instance.inputs.namespace.row_id.regular).toBeTruthy();
+        instance.detachFromForm(regular);
+        expect(instance.inputs.namespace.row_id.regular).toBeFalsy();
       });
     });
 
@@ -132,6 +152,12 @@ describe('Form', () => {
   describe('handleOnSubmit', () => {
     describe('valid input', () => {
       it('submits the form', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form model='test'>
+            <Textbox validations={ [Validation] } name='test' value='Valid' />
+          </Form>
+        );
+
         spyOn(instance, 'setState');
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
@@ -143,7 +169,7 @@ describe('Form', () => {
       it('does not not submit the form', () => {
         instance = TestUtils.renderIntoDocument(
           <Form model='test'>
-            <Textbox validations={ [Validation] } name='test' value='four'/>
+            <Textbox validations={ [Validation] } name='test' value='' />
           </Form>
         );
 
@@ -155,15 +181,15 @@ describe('Form', () => {
     });
 
     describe('submitting a input grid', () => {
-      it('removes placeholders when the form is valid', () => {
+      it('removes placeholder when the form is valid', () => {
         instance = TestUtils.renderIntoDocument(
           <Form model='test'>
             <InputGrid
               name='test'
-              data={ ImmutableHelper.parseJSON([ { foo: 'bar' } ]) }
+              data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
               updateRowHandler={ function(){} }
               deleteRowHandler={ function(){} }
-              fields={ [<Textbox name='box' />] }
+              fields={ [<Textbox validation={ [Validation] } name='box' />] }
             />
           </Form>
         );
@@ -175,6 +201,32 @@ describe('Form', () => {
         TestUtils.Simulate.submit(form);
         expect(instance.setState).toHaveBeenCalledWith({ errorCount : 0 });
         expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: false });
+      });
+
+      it('checks the validation of each field', () => {
+        let baseData = ImmutableHelper.parseJSON(
+          [ { box1: 'bar', box2: '' } ]
+        );
+
+        let textbox1 = <Textbox validations={ [Validation] } name='box1' />;
+        let textbox2 = <Textbox validations={ [Validation] } name='box2' />;
+
+        let grid = <InputGrid
+          name='grid'
+          data={ baseData }
+          updateRowHandler={ function(){} }
+          deleteRowHandler={ function(){} }
+          fields={ [ textbox1, textbox2 ] } />
+
+        instance = TestUtils.renderIntoDocument(
+          <Form model='test'>
+            { grid }
+          </Form>
+          );
+
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(instance.state.errorCount).toEqual(1);
       });
     });
   });
@@ -198,6 +250,14 @@ describe('Form', () => {
         expect(window.history.back).toHaveBeenCalled();
       });
     });
+
+    describe('when window history is not availiable', () => {
+      it('throws an error', () => {
+        window.history = false;
+        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        expect(function() { TestUtils.Simulate.click(cancel) }).toThrowError('History is not defined. This is normally configured by the react router');
+      });
+    });
   });
 
   describe('mainClasses', () => {
@@ -212,10 +272,38 @@ describe('Form', () => {
       expect(form.className).toEqual('ui-form');
     });
 
-    it('renders a hidden CSRFToken field', () => {
-      let csrf = TestUtils.findRenderedDOMComponentWithTag(instance, 'input')
-      expect(csrf.type).toEqual('hidden');
-      expect(csrf.readOnly).toBeTruthy();
+    describe('CSRF', () => {
+      let csrf;
+
+      beforeEach(() => {
+        let fakeMeta1 = { getAttribute() {} },
+            fakeMeta2 = { getAttribute() {} };
+
+        spyOn(fakeMeta1, 'getAttribute').and.returnValue('csrf-param')
+        spyOn(fakeMeta2, 'getAttribute').and.returnValue('csrf-token')
+        spyOn(instance.doc, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
+
+        instance = TestUtils.renderIntoDocument(<Form model='test' />);
+
+        csrf = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
+      });
+
+      it('renders a hidden CSRFToken field', () => {
+        expect(csrf.type).toEqual('hidden');
+        expect(csrf.readOnly).toBeTruthy();
+      });
+
+      describe('when meta tag name == csrf-param', () => {
+        it('adds the meta tag content as the name of the input field', () => {
+          expect(csrf.name).toEqual('csrf-param');
+        });
+      });
+      
+      describe('when meta tag name == csrf-token', () => {
+        it('adds the meta tag content as the value of the input field', () => {
+          expect(csrf.value).toEqual('csrf-token');
+        });
+      });
     });
 
     describe('buttons', () => {
@@ -239,6 +327,28 @@ describe('Form', () => {
       it('renders a primary save button with saveClasses', () => {
         expect(buttons[1].className).toEqual('ui-button ui-button--primary');
         expect(buttonContainers[1].className).toEqual('ui-form__save');
+      });
+    });
+
+    describe('Cancel Button', () => {
+      describe('when cancel prop is false', () => {
+        beforeEach(() => {
+          instance = TestUtils.renderIntoDocument(
+            <Form cancel={false} model='test' />
+          );
+        });
+
+        it('does not show a cancel button', () => {
+          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+          expect(buttons.length).toEqual(1);
+        });
+      });
+
+      describe('when cancel props is true (default)', () => {
+        it('does show a cancel button', () => {
+          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+          expect(buttons.length).toEqual(2);
+        });
       });
     });
 

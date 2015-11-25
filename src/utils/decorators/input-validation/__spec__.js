@@ -28,11 +28,11 @@ class Basic {
   }
 }
 
-class StringValidations {
+class Validations {
   props = {
     name: 'baz',
     value: 'qux',
-    validations: 'Presence'
+    validations: [Presence]
   };
 
   context = {
@@ -47,39 +47,15 @@ class StringValidations {
   state = {};
 }
 
-
-class ArrayValidations {
-  props = {
-    name: 'zoo',
-    value: 'baz',
-    validations: '[Presence, Format]'
-  };
-
-  context = {
-    form: {
-      model: 'model_3',
-      attachToForm: function() {},
-      detachFromForm: function() {},
-      decrementErrorCount: function() {}
-    }
-  };
-
-  state = {};
-}
-
-describe('InputValidation', () => {
+fdescribe('InputValidation', () => {
   let instanceBasic, instanceValidation, instanceValidationArray;
 
   beforeEach(() => {
     let ExtendedClass = InputValidation(Basic);
     instanceBasic = new ExtendedClass;
 
-    let ExtendedClassTwo = InputValidation(StringValidations);
+    let ExtendedClassTwo = InputValidation(Validations);
     instanceValidation = new ExtendedClassTwo;
-
-    let ExtendedClassThree = InputValidation(ArrayValidations);
-    instanceValidationArray = new ExtendedClassThree;
-
   });
 
   describe('constructor', () => {
@@ -135,7 +111,7 @@ describe('InputValidation', () => {
       });
 
       describe('when the input is valid', () => {
-        it('detaches the input to the form', () => {
+        it('detaches the input from the form', () => {
           spyOn(instanceValidation.context.form, 'detachFromForm');
           instanceValidation.componentWillUnmount();
           expect(instanceValidation.context.form.detachFromForm).toHaveBeenCalledWith(instanceValidation);
@@ -150,7 +126,7 @@ describe('InputValidation', () => {
     });
 
     describe('When no validations are present on the input', () => {
-      it('does not detach the input to the form', () => {
+      it('does not detach the input from the form', () => {
         spyOn(instanceBasic.context.form, 'detachFromForm');
         instanceBasic.componentWillUnmount();
         expect(instanceBasic.context.form.detachFromForm).not.toHaveBeenCalled();
@@ -160,22 +136,14 @@ describe('InputValidation', () => {
 
   describe('validate', () => {
     describe('when validations are present on the input', () => {
-      describe('when the input field is invalid', () => {
-        describe('when the validation is passed a String', () => {
-          it('passes the validation to runValidations', () => {
-            spyOn(instanceValidation, 'runValidations');
-            instanceValidation.validate();
-            expect(instanceValidation.runValidations).toHaveBeenCalledWith(instanceValidation.props.validations, false);
-          });
-        });
 
-        describe('when the validations are passed in an Array', () => {
-          it('passes the validations to runValidations', () => {
-            spyOn(instanceValidationArray, 'runValidations');
-            instanceValidationArray.validate();
-            expect(instanceValidationArray.runValidations).toHaveBeenCalledWith(instanceValidationArray.props.validations, false);
-          });
-        });
+      it('checks if the field is valid', () => {
+        
+      });
+
+      describe('when the input field is invalid', () => {
+
+
       });
     });
 
@@ -186,13 +154,6 @@ describe('InputValidation', () => {
       });
     });
   });
-
-  describe('runValidations', () => {
-
-    beforeEach(() => {
-      var validate = jasmine.createSpy('instanceValidations.props.validations.validate');
-      debugger
-    });
 
     // describe('when no value is defined on the input', () => {
     //   it('outputs a warning message to the console', () => {
@@ -214,7 +175,6 @@ describe('InputValidation', () => {
     describe('when the input is valid', () => {
 
     });
-  });
 
   describe('_handleBlur', () => {
     it('calls validate on blur of the input', () => {

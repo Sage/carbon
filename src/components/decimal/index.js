@@ -6,16 +6,6 @@ import InputValidation from './../../utils/decorators/input-validation';
 import Events from './../../utils/helpers/events';
 
 /**
- * Decorators
- *
- * The component's decorators may define additional props.
- * Refer to the decorators for more information on required and optional props.
- */
-@Input
-@InputLabel
-@InputValidation
-
-/**
  * A decimal widget.
  *
  * == How to use a Decimal in a component:
@@ -30,7 +20,9 @@ import Events from './../../utils/helpers/events';
  *
  * @class Decimal
  * @constructor
+ * @decorators {Input,InputLabel,InputValidation}
  */
+const Decimal = Input(InputLabel(InputValidation(
 class Decimal extends React.Component {
 
   /**
@@ -141,7 +133,7 @@ class Decimal extends React.Component {
 
     if (typeof this.props.value !== 'undefined')
       { props.value = this.props.value; }
-    if (typeof this.props.defaultValue !== 'undefined')
+    else
       { props.defaultValue = this.props.defaultValue; }
 
     return props;
@@ -153,7 +145,13 @@ class Decimal extends React.Component {
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    return 'ui-decimal';
+    let classes = 'ui-decimal';
+
+    if (this.props.className) {
+      classes += ` ${this.props.className}`;
+    }
+
+    return classes;
   }
 
   /**
@@ -183,6 +181,7 @@ class Decimal extends React.Component {
     );
   }
 }
+)));
 
 // Private Methods
 

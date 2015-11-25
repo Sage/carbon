@@ -30,8 +30,7 @@
     "react": "^0.14.0",
     "react-addons-css-transition-group": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react-router": "^1.0.0-rc3",
-    "superagent-mock": "^1.7.0"
+    "react-router": "^1.0.0"
   },
   "dependencies": {
     "events": "^1.0.2",
@@ -39,6 +38,7 @@
     "moment": "^2.10.6",
     "ncp": "^2.0.0",
     "react-date-picker": "^3.1.5",
+    "react-highcharts": "^5.0.4",
     "superagent": "^1.4.0"
   }
 }

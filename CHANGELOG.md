@@ -103,6 +103,8 @@ Decorators can be found in the `/utils/decorators` directory. So far we have dec
 * Input Label
 * Input Validation
 
+Note: although there is an ES7 Babel transform for decorators, we have opted not to use it for now due to the way in which it compiles and produces missing coverage reports.
+
 ## TableFieldsForMany renamed
 
 `TableFieldsForMany` is now called `InputGrid`.
@@ -112,7 +114,8 @@ We have renamed this because its original name was based on a Rails convention a
 ## Misc
 
 * Ran ESLint task and fixed any errors.
-* Updated Form Cancel Button to use History object
+* Updated Form Cancel Button to use History object.
+* Added Rainbow chart component.
 
 # 0.0.1
 

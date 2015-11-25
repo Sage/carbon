@@ -28,48 +28,81 @@ class TableRow extends React.Component {
   /**
    * Builds row inlcuding buttons, classnames & optional gutterfields.
    *
-   * @method buildRpw
+   * @method buildRow
    */
   buildRow = () => {
-    let row = [],
-        rowID = this.props.row_id;
+    let row = [];
 
-    // If row is not a placeholder or gutterfield add delete button.
-    if (!this.props.placeholder && !this.props.gutterFields) {
-      row.push(
-        <td key={ rowID + 'actions' } className="ui-table-row__td ui-table-row__td--actions">
-          <button type="button" className="ui-table-row__delete" id={ rowID } onClick={this.deleteMethod}>
-            <Icon type="delete" className="ui-table-row__delete-icon" />
-          </button>
-        </td>
-      );
-    }
-    else {
-      let tdClass = "ui-table-row__td ui-table-row__td--actions";
-
-      if (this.props.gutterFields) { tdClass += " ui-table-row__td--gutter"; }
-
-      row.push(<td key={ rowID + 'actions' } className={ tdClass }></td>);
-    }
+    row.push(this.buildRowActionCell());
 
     // Builds fields for row
     for (let key in this.props.fields) {
       let field = this.props.fields[key];
-
-      // Adds gutterfields if present
-      if (this.props.gutterFields) {
-        let gutterField = this.props.gutterFields[field.props.name];
-        row.push(<td hidden={ field.props.hidden } key={ key + "gutter" } className="ui-table-row__td ui-table-row__td--gutter">{ gutterField }</td>);
-      }
-
-      // Uses buildCell to build cell with appropriate values
-      else {
-        let value = (this.props.data) ? this.props.data.get(field.props.name) : null;
-        row.push(this.buildCell(field, value));
-      }
+      row.push(this.buildRowField(key, field));
     }
 
     return row;
+  }
+
+  /**
+   * Builds initial row action cell
+   *
+   * @method buildActionCell
+   */
+  buildRowActionCell = () => {
+    // If row is not a placeholder or gutterfield add delete button.
+    if (!this.props.placeholder && !this.props.gutterFields) {
+      return this.buildRowDeleteButton();
+    }
+    else {
+      let tdClass = "ui-table-row__td ui-table-row__td--actions";
+      if (this.props.gutterFields) { tdClass += " ui-table-row__td--gutter"; }
+
+      return (<td key={ this.props.row_id + 'actions' } className={ tdClass }></td>);
+    }
+  }
+
+  /**
+   * Builds a table field
+   *
+   * @method buildRowField
+   * @param {String} key
+   * @param {Object} field
+   */
+  buildRowField = (key, field) => {
+    if (this.props.gutterFields) {
+      return this.buildRowGutterField(key, field);
+    } else { // Uses buildCell to build cell with appropriate values
+      let value = (this.props.data) ? this.props.data.get(field.props.name) : null;
+      return this.buildCell(field, value);
+    }
+  };
+
+  /**
+   * Builds and returns delete button cell
+   *
+   * @method buildRowDeleteButton
+   */
+  buildRowDeleteButton = () => {
+    return (
+      <td key={ this.props.row_id + 'actions' } className="ui-table-row__td ui-table-row__td--actions">
+        <button type="button" className="ui-table-row__delete" id={ this.props.row_id } onClick={this.deleteMethod}>
+          <Icon type="delete" className="ui-table-row__delete-icon" />
+        </button>
+      </td>
+    );
+  }
+
+  /**
+   * Builds and returns a gutter field cell
+   *
+   * @method addGutterField
+   * @param {String} key
+   * @param {Object} field
+   */
+  buildRowGutterField = (key, field) => {
+    let gutterField = this.props.gutterFields[field.props.name];
+    return(<td hidden={ field.props.hidden } key={ key + "gutter" } className="ui-table-row__td ui-table-row__td--gutter">{ gutterField }</td>);
   }
 
   /**
