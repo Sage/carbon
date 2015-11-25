@@ -125,7 +125,7 @@ class Contact extends React.Component {
 
     return (
       <div>
-        <h1>{ name }</h1>
+        <h1>{ firstName }</h1>
         <Textbox name="first_name" value={ firstName } onChange={ ContactActions.contactFirstNameUpdated } />
       </div>
     );
