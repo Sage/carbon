@@ -193,12 +193,7 @@ function generateConfig(immutableData, title) {
           enabled: true,
           formatter: function () {
             let display = "display: ";
-
-            if (this.point.visible) {
-              display += "block";
-            } else {
-              display += "none";
-            }
+            display += this.point.visible ? "block" : "none";
 
             return '<span style="color:' + this.point.color + '; ' + display + '"><strong>' + this.point.name + '</strong><br>' + this.point.label + '</span>';
           },
