@@ -24,6 +24,15 @@ import InputIcon from './../../../../lib/utils/decorators/input-icon';
  */
 const DropdownList = Input(InputIcon(InputLabel(InputValidation(
 class DropdownList extends React.Component {
+
+  static propTypes = {
+    defaultValue: React.PropTypes.object
+  };
+
+  static defaultProps = {
+    defaultValue: Immutable.Map({})
+  };
+
   state = {
 
     /**
@@ -52,27 +61,16 @@ class DropdownList extends React.Component {
      */
     highlighted: null,
 
-    selected: undefined
   }
 
 componentWillMount() {
   let data = this.props.data;
+  data = data.get('items').toJS();
 
   this.setState({
-    options: this.state.options.concat(data.items),
+    options: this.state.options.concat(data),
   });
 }
-  // /**
-  //  * Handles what happens on change of the input.
-  //  *
-  //  * @method handleChange
-  //  * @param {Object} ev event
-  //  */
-  // handleChange = (ev) => {
-  //
-  // }
-
-
 
   handleFocus = () => {
     let data = this.props.data;
@@ -89,7 +87,8 @@ componentWillMount() {
   }
 
   handleSelect = (ev) => {
-    this.emitOnChangeCallback(ev.target.value);
+    let val = this.buildImmutableValue(this.props, ev.target.textContent, ev.target.value);
+    this.emitOnChangeCallback(val);
   }
 
   handleBlur = () => {
@@ -100,32 +99,27 @@ componentWillMount() {
     this.setState({ highlighted: ev.target.value });
   }
 
-  /**
-   * A getter that combines props passed down from the input decorator with
-   * textbox specific props.
-   *
-   * @method inputProps
-   */
-  get inputProps() {
-    let { ...props } = this.props;
-    props.className = this.inputClasses;
-    props.onChange = this.handleChange;
-    props.onFocus = this.handleFocus;
-    props.onBlur = this.handleBlur;
-    props.value = this.nameByID;
-    props.onKeyDown = this.handleKeyDown;
-
-    return props;
+  handleKeyDown = (ev) => {
+    let val = this.buildImmutableValue(this.props, ev.target.textContent, ev.target.value);
+    this.emitOnChangeCallback(val);
   }
 
-  handleKeyDown = (ev) => {
-    debugger
+  filterList = (pattern) => {
+
+  }
+
+  buildImmutableValue(props, name, id) {
+    let newValue = Immutable.Map()
+    newValue = newValue.set('name', name);
+    newValue = newValue.set('id', id);
+
+    return newValue;
   }
 
 // rewrite
   get nameByID() {
     let name = '';
-    this.props.data.items.forEach((item) => {
+    this.state.options.forEach((item) => {
       if (item.id == this.props.value) {
           name = item.name;
       }
@@ -133,19 +127,35 @@ componentWillMount() {
     return name;
   }
 
+    /**
+     * A getter that combines props passed down from the input decorator with
+     * textbox specific props.
+     *
+     * @method inputProps
+     */
+    get inputProps() {
+      let { ...props } = this.props;
+      props.className = this.inputClasses;
+      props.onChange = this.handleChange;
+      props.onFocus = this.handleFocus;
+      props.onBlur = this.handleBlur;
+      props.onKeyDown = this.handleKeyDown;
+      props.value = this.nameByID
+
+      return props;
+    }
+
   /**
    * A getter for hidden input props.
    *
    * @method hiddenInputProps
    */
   get hiddenInputProps() {
-    // let nameWithID = this.inputProps.name.split(/\]$/)[0] + "_id]";
     let props = {
       ref: "input",
       type: "hidden",
       readOnly: true,
-      name: this.props.name + "_hidden",
-      value: this.props.value
+      name: this.props.name + "_hidden"
     };
 
     return props;

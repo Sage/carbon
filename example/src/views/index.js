@@ -14,13 +14,13 @@ import Textbox from '../../../src/components/textbox';
 class MainView extends React.Component {
 
   render () {
-    let displayValue = this.state.dropdownStore.get('selectedID');
-    let data =  this.state.dropdownStore.toJS();
+    let displayValue = this.state.dropdownStore.get('selected');
+    let data = this.state.dropdownStore;
 
     return(
       <div>
         <Textbox name='foo' />
-        <DropdownList name="list" data={ data } onChange={ Actions.updateValue } value={ displayValue }/>
+        <DropdownList name="list" data={ data } onChange={ Actions.updateValue } value={ displayValue } placeholder='goo'/>
         <DropdownSuggest name="suggest" data={ data } />
       </div>
     )

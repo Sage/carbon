@@ -28,7 +28,7 @@ class DropdownStore extends Store {
                        },
                        {'id' : 8,  'name': 'asdas'
                      }],
-                        selectedID: undefined
+                        selected: undefined
                      });
   }
 
@@ -36,10 +36,9 @@ class DropdownStore extends Store {
   // the store to the this particular action so it will trigger when the
   // action is dispatched
   [Constants.UPDATE_VALUE](action) {
-    debugger
     // we modify the data and update `this.data` to the new data (remember that
     // we are working with immutable data)
-    this.data = this.data.set('selectedID', action.value);
+    this.data = this.data.set('selected', action.value.get('id'));
   }
 }
 
