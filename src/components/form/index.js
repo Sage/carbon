@@ -26,6 +26,15 @@ import I18n from "i18n-js";
  */
 class Form extends React.Component {
 
+  /**
+   * Stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property doc
+   * @type {document}
+   */
+  doc = document;
+
   static propTypes = {
     /**
      * The model name from the database
@@ -33,7 +42,20 @@ class Form extends React.Component {
      * @property model
      * @type {String}
      */
-    model: React.PropTypes.string.isRequired
+    model: React.PropTypes.string.isRequired,
+
+    /**
+     * Cancel button is shown if true
+     *
+     * @property cancel
+     * @type {Boolean}
+     * @default true
+     */
+    cancel: React.PropTypes.bool
+  }
+
+  static defaultProps = {
+    cancel: true
   }
 
   static childContextTypes = {
@@ -226,9 +248,10 @@ class Form extends React.Component {
    */
   cancelForm = () => {
     // history comes from react router
-    if (window.history) {
-      window.history.back();
+    if (!window.history) {
+      throw new Error('History is not defined. This is normally configured by the react router');
     }
+    window.history.back();
   }
 
   /**
@@ -240,14 +263,30 @@ class Form extends React.Component {
     return 'ui-form';
   }
 
+  /**
+   * Gets the cancel button for the form
+   *
+   * @method cancelButton
+   */
+  get cancelButton() {
+    let cancelClasses = "ui-form__cancel";
+
+    return (<div className={ cancelClasses }>
+      <Button type='button' onClick={ this.cancelForm } >
+        Cancel
+      </Button>
+    </div>);
+  }
+
    /**
    * Renders the component.
    *
    * @method render
    */
   render() {
-    let errorCount,
-        saveClasses = "ui-form__save", cancelClasses = "ui-form__cancel";
+    let cancelButton,
+        errorCount,
+        saveClasses = "ui-form__save";
 
     if (this.state.errorCount) {
       errorCount = (
@@ -259,17 +298,16 @@ class Form extends React.Component {
       saveClasses += " ui-form__save--invalid";
     }
 
+    if (this.props.cancel) {
+      cancelButton = this.cancelButton;
+    }
+
     return (
       <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() }>
-        { generateCSRFToken() }
+        { generateCSRFToken(this.doc) }
 
         { this.props.children }
-        <div className= { cancelClasses }>
-          <Button type='button'
-            onClick={ this.cancelForm } >
-            Cancel
-          </Button>
-        </div>
+        { cancelButton }
         <div className={ saveClasses }>
           { errorCount }
           <Button as="primary">
@@ -289,8 +327,8 @@ export default Form;
  * @private
  * @method generateCSRFToken
  */
-function generateCSRFToken() {
-  let meta = document.getElementsByTagName('meta'),
+function generateCSRFToken(doc) {
+  let meta = doc.getElementsByTagName('meta'),
       csrfAttr,
       csrfValue;
 
