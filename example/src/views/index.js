@@ -6,9 +6,9 @@ import DropdownStore from '../stores';
 import Actions from '../actions';
 import { connect } from '../../../lib/utils/flux';
 
-import DropdownList from '../../../lib/components/dropdown-list';
-import DropdownSuggest from '../../../lib/components/dropdown-suggest';
-import Textbox from '../../../lib/components/textbox';
+import DropdownList from '../components/dropdown-list';
+import DropdownSuggest from '../../../src/components/dropdown-suggest';
+import Textbox from '../../../src/components/textbox';
 
 
 class MainView extends React.Component {
