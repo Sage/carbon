@@ -10,7 +10,7 @@ describe('Row', () => {
 
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Row>
+        <Row className="foobar">
           <div columnOffset={2}>Foo</div>
           <div columnSpan={3}>Bar</div>
           <div columnClasses='extra-class'>Bar</div>
@@ -23,7 +23,7 @@ describe('Row', () => {
     describe('render', () => {
       it('renders a parent div with calculated CSS classes', () => {
         let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-row')
-        expect(rowNode.className).toEqual('ui-row ui-row--columns-3');
+        expect(rowNode.className).toEqual('ui-row foobar ui-row--columns-3');
       });
 
       it('renders the correct amount of columns', () => {

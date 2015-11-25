@@ -87,6 +87,10 @@ class Row extends React.Component {
   render() {
     let mainClasses = "ui-row";
 
+    if (this.props.className) {
+      mainClasses += ` ${this.props.className}`;
+    }
+
     if (this.props.columns) {
       mainClasses += " ui-row--columns-" + this.props.columns;
     } else if(this.props.children.constructor === Array) {

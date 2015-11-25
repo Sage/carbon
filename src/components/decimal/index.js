@@ -145,7 +145,13 @@ class Decimal extends React.Component {
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    return 'ui-decimal';
+    let classes = 'ui-decimal';
+
+    if (this.props.className) {
+      classes += ` ${this.props.className}`;
+    }
+
+    return classes;
   }
 
   /**
