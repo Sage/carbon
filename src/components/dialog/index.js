@@ -134,29 +134,38 @@ class Dialog extends React.Component {
   }
 
   /**
+   * Returns the computed HTML for the dialog.
+   *
+   * @method dialogClasses
+   */
+  get dialogHTML() {
+    let dialogClasses = this.dialogClasses;
+
+    if (typeof this.props.size !== 'undefined') {
+      dialogClasses += (" ui-dialog__dialog--" + this.props.size);
+    }
+
+    return (
+      <div ref="dialog" className={ dialogClasses }>
+        { this.dialogTitle }
+        <Icon className="ui-dialog__close" type="close" onClick={ this.props.cancelDialogHandler } />
+        { this.props.children }
+      </div>
+    );
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
    */
   render() {
-    let dialogClasses = this.dialogClasses,
-        backgroundHTML,
+    let backgroundHTML,
         dialogHTML;
 
     if (this.props.open) {
       backgroundHTML = this.backgroundHTML;
-
-      if (typeof this.props.size !== 'undefined') {
-        dialogClasses += (" ui-dialog__dialog--" + this.props.size);
-      }
-
-      dialogHTML = (
-        <div ref="dialog" className={ dialogClasses }>
-          { this.dialogTitle }
-          <Icon className="ui-dialog__close" type="close" onClick={ this.props.cancelDialogHandler } />
-          { this.props.children }
-        </div>
-      );
+      dialogHTML = this.dialogHTML;
     }
 
     return (

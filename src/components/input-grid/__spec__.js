@@ -87,6 +87,11 @@ describe('InputGrid', () => {
       instance.componentWillMount();
       expect(instance.context.form.attachToForm).toHaveBeenCalledWith(instance);
     });
+
+    it('does not call attachToForm if there is no form', () => {
+      instance.context.form = undefined;
+      expect(instance.componentWillMount()).toEqual(false);
+    });
   });
 
   describe('componentWillUnmount', () => {
@@ -94,6 +99,11 @@ describe('InputGrid', () => {
       spyOn(instance.context.form, 'detachFromForm');
       instance.componentWillUnmount();
       expect(instance.context.form.detachFromForm).toHaveBeenCalledWith(instance);
+    });
+
+    it('does not call detachFromForm if there is no form', () => {
+      instance.context.form = undefined;
+      expect(instance.componentWillUnmount()).toEqual(false);
     });
   });
 
@@ -193,6 +203,7 @@ describe('InputGrid', () => {
       expect(row.key).toEqual('gutter');
       expect(row.props.fields).toEqual(instance.props.fields);
       expect(row.props.gutterFields).toEqual(instance.props.gutter);
+      expect(row.props.forceUpdate).toEqual(false);
     });
   });
 
@@ -202,6 +213,7 @@ describe('InputGrid', () => {
       expect(row.key).toEqual(String(instance.placeholderID));
       expect(row.props.name).toEqual(instance.props.name);
       expect(row.props.placeholder).toEqual("true");
+      expect(row.props.forceUpdate).toEqual(false);
       expect(row.props.row_id).toEqual(instance.placeholderID);
       expect(row.props.fields).toEqual(instance.props.fields);
       expect(row.props.updateRowHandler).toEqual(instance.props.updateRowHandler);
