@@ -51,16 +51,6 @@ $ui-button__color--disabled: #777 !default;
   padding: $ui-button__padding;
 }
 
-.ui-button--disabled {
-  @include box-shadow($ui-button__box-shadow--disabled !important);
-  border-color: $ui-button__border-color--disabled !important;
-  background-color: $ui-button__background-color--disabled !important;
-  background-image: none !important;
-  color: $ui-button__color--disabled !important;
-  cursor: default !important;
-  text-shadow: none !important;
-}
-
 .ui-button--primary {
   @include box-shadow($ui-button__box-shadow--primary);
   @include linear-gradient($ui-button__background-gradient--primary...);
@@ -101,3 +91,14 @@ $ui-button__color--disabled: #777 !default;
     outline: none;
   }
 }
+
+.ui-button--disabled {
+  @include box-shadow($ui-button__box-shadow--disabled);
+  border-color: $ui-button__border-color--disabled;
+  background-color: $ui-button__background-color--disabled;
+  background-image: none;
+  color: $ui-button__color--disabled;
+  cursor: default;
+  text-shadow: none;
+}
+
