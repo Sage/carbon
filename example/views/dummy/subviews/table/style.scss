@@ -1,0 +1,9 @@
+@import 'colors';
+
+.balance--bad .base-input__input {
+  color: $red;
+}
+
+.balance--good .base-input__input {
+  color: $green-bright;
+}
