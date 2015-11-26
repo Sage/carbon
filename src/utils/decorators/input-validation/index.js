@@ -108,7 +108,7 @@ var InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   get inputProps() {
-    var inputProps = (super.inputProps) ? super.inputProps : {};
+    var inputProps = super.inputProps || {};
 
     inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
     inputProps.onFocus = chainFunctions(this._handleFocus, inputProps.onFocus);

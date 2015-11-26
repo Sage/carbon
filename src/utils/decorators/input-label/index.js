@@ -27,7 +27,7 @@ var InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   }
 
   get inputProps() {
-    var inputProps = (super.inputProps) ? super.inputProps : {};
+    var inputProps = super.inputProps || {};
 
     // set id so label will work correctly
     inputProps.id = generateInputName(this.props.name, this.context.form);
