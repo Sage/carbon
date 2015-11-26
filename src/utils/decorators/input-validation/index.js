@@ -17,7 +17,6 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   })
 
   componentWillMount() {
-
     if (super.componentWillMount) { super.componentWillMount(); }
 
     if (this.context.form && this.props.validations) {
@@ -42,30 +41,40 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @method validate
    */
   validate = () => {
-    var valid = false;
+    let valid = false;
 
-    if (this.props.validations) {
-      this.props.validations.forEach((validation) => {
-        if (!this.props.value) {
-          console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);  // eslint-disable-line no-console
-        }
-
-        valid = validation.validate(this.props.value);
-
-        if (!valid) {
-          if (this.state.valid) {
-            if (this.context.form) {
-              this.context.form.incrementErrorCount();
-            }
-            this.setState({ errorMessage: validation.message(), valid: false });
-          }
-          return valid;
-        }
-      });
-    } else {
-      valid = true;
+    // if there are no validation, return truthy
+    if (!this.props.validations) {
+      return true;
     }
 
+    // iterate through each validation applied to the input
+    this.props.validations.forEach((validation) => {
+      if (!this.props.value) {
+        console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);  // eslint-disable-line no-console
+      }
+
+      valid = validation.validate(this.props.value);
+
+      // if validation fails
+      if (!valid) {
+        // if input currently thinks it is valid
+        if (this.state.valid) {
+          // if input has a form
+          if (this.context.form) {
+            // increment the error count on the form
+            this.context.form.incrementErrorCount();
+          }
+          // tell the input it is invalid
+          this.setState({ errorMessage: validation.message(), valid: false });
+        }
+
+        // a validation has failed, so exit the loop at this point
+        return valid;
+      }
+    });
+
+    // return the result of the validation
     return valid;
   }
 

@@ -1,24 +1,47 @@
 import React from 'react';
+import TestUtils from 'react/lib/ReactTestUtils';
 import InputValidation from './index';
 import Form from 'components/form';
 
-class Basic {
-  props = {
-    name: 'foo',
-    value: 'bar'
-  };
+let validationOne = {
+  validate: function() {
+    return true;
+  },
 
-  context = {
-    form: {
-      model: 'model_1',
-      attachToForm: function() {},
-      detachFromForm: function() {},
-      decrementErrorCount: function() {}
-    }
+  message: function() {
+    return 'foo';
   }
+};
 
-  state = {};
+let validationTwo = {
+  validate: function() {
+    return true;
+  },
 
+  message: function() {
+    return 'foo';
+  }
+};
+
+let validationThree = {
+  validate: function() {
+    return false;
+  },
+
+  message: function() {
+    return 'foo';
+  }
+};
+
+let form = {
+  model: 'model_2',
+  attachToForm: function() {},
+  detachFromForm: function() {},
+  decrementErrorCount: function() {},
+  incrementErrorCount: function() {}
+}
+
+class DummyInput extends React.Component {
   componentWillMount() {
     this.count++;
   }
@@ -26,67 +49,55 @@ class Basic {
   componentWillUnmount() {
     this.count--;
   }
+
+  render() {
+    return <div></div>;
+  }
 }
 
-class Validations {
-  props = {
-    name: 'baz',
-    value: 'qux',
-    validations: [Presence]
-  };
-
-  context = {
-    form: {
-      model: 'model_2',
-      attachToForm: function() {},
-      detachFromForm: function() {},
-      decrementErrorCount: function() {}
-    }
-  };
-
-  state = {};
-}
+let Component = InputValidation(DummyInput);
 
 fdescribe('InputValidation', () => {
-  let instanceBasic, instanceValidation, instanceValidationArray;
+  let instance;
 
   beforeEach(() => {
-    let ExtendedClass = InputValidation(Basic);
-    instanceBasic = new ExtendedClass;
-
-    let ExtendedClassTwo = InputValidation(Validations);
-    instanceValidation = new ExtendedClassTwo;
+    instance = TestUtils.renderIntoDocument(React.createElement(Component));
   });
 
   describe('constructor', () => {
     it('instatiates state with some defaults', () => {
-      expect(instanceBasic.state.valid).toBeTruthy();
-      expect(instanceBasic.state.errorMessage).not.toBeDefined;
+      expect(instance.state.valid).toBeTruthy();
+      expect(instance.state.errorMessage).toBe(null);
     });
   });
 
   describe('componentWillMount', () => {
     describe('when the component has a componentWillMount method', () => {
       it('uses the components method', () => {
-        instanceBasic.count = 1;
-        instanceBasic.componentWillMount();
-        expect(instanceBasic.count).toEqual(2);
+        instance.count = 1;
+        instance.componentWillMount();
+        expect(instance.count).toEqual(2);
       });
     });
 
     describe('When validations are present on the input', () => {
       it('attaches the input to the form', () => {
-        spyOn(instanceValidation.context.form, 'attachToForm');
-        instanceValidation.componentWillMount();
-        expect(instanceValidation.context.form.attachToForm).toHaveBeenCalledWith(instanceValidation);
+        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+          validations: [validationOne]
+        }));
+        instance.context.form = form;
+        spyOn(instance.context.form, 'attachToForm');
+        instance.componentWillMount();
+        expect(instance.context.form.attachToForm).toHaveBeenCalledWith(instance);
       });
     });
 
     describe('When no validations are present on the input', () => {
       it('does not attach the input to the form', () => {
-        spyOn(instanceBasic.context.form, 'attachToForm');
-        instanceBasic.componentWillMount();
-        expect(instanceBasic.context.form.attachToForm).not.toHaveBeenCalled();
+        instance.context.form = form;
+        spyOn(instance.context.form, 'attachToForm');
+        instance.componentWillMount();
+        expect(instance.context.form.attachToForm).not.toHaveBeenCalled();
       });
     });
   });
@@ -94,116 +105,161 @@ fdescribe('InputValidation', () => {
   describe('componentWillUnmount', () => {
     describe('when the component has a componentWillUnmount method', () => {
       it('uses the components method', () => {
-        instanceBasic.count = 2;
-        instanceBasic.componentWillUnmount();
-        expect(instanceBasic.count).toEqual(1);
+        instance.count = 2;
+        instance.componentWillUnmount();
+        expect(instance.count).toEqual(1);
       });
     });
 
     describe('When validations are present on the input', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+          validations: [validationOne]
+        }));
+        instance.context.form = form;
+      });
+
       describe('when the input is invalid', () => {
         it('decrements the error count', () => {
-          instanceValidation.state.valid = false;
-          spyOn(instanceValidation.context.form, 'decrementErrorCount');
-          instanceValidation.componentWillUnmount();
-          expect(instanceValidation.context.form.decrementErrorCount).toHaveBeenCalled();
+          instance.state.valid = false;
+          spyOn(instance.context.form, 'decrementErrorCount');
+          instance.componentWillUnmount();
+          expect(instance.context.form.decrementErrorCount).toHaveBeenCalled();
         });
       });
 
       describe('when the input is valid', () => {
         it('detaches the input from the form', () => {
-          spyOn(instanceValidation.context.form, 'detachFromForm');
-          instanceValidation.componentWillUnmount();
-          expect(instanceValidation.context.form.detachFromForm).toHaveBeenCalledWith(instanceValidation);
+          spyOn(instance.context.form, 'detachFromForm');
+          instance.componentWillUnmount();
+          expect(instance.context.form.detachFromForm).toHaveBeenCalledWith(instance);
         });
 
         it('does not decrement the error count', () => {
-          spyOn(instanceValidation.context.form, 'decrementErrorCount');
-          instanceValidation.componentWillUnmount();
-          expect(instanceValidation.context.form.decrementErrorCount).not.toHaveBeenCalled();
+          spyOn(instance.context.form, 'decrementErrorCount');
+          instance.componentWillUnmount();
+          expect(instance.context.form.decrementErrorCount).not.toHaveBeenCalled();
         });
       });
     });
 
     describe('When no validations are present on the input', () => {
       it('does not detach the input from the form', () => {
-        spyOn(instanceBasic.context.form, 'detachFromForm');
-        instanceBasic.componentWillUnmount();
-        expect(instanceBasic.context.form.detachFromForm).not.toHaveBeenCalled();
+        instance.context.form = form;
+        spyOn(instance.context.form, 'detachFromForm');
+        instance.componentWillUnmount();
+        expect(instance.context.form.detachFromForm).not.toHaveBeenCalled();
       });
     });
   });
 
   describe('validate', () => {
     describe('when validations are present on the input', () => {
+      describe('when the input does not have a value set', () => {
+        beforeEach(() => {
+          instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+            validations: [validationOne],
+            value: null,
+            name: 'foo'
+          }));
+        });
 
-      it('checks if the field is valid', () => {
-        
+        it('warns that a value should be set', () => {
+          spyOn(console, 'warn');
+          instance.validate();
+          expect(console.warn).toHaveBeenCalledWith("Validations require a value property to be set to work correctly. See the render for the input with name 'foo'.");
+        });
       });
 
-      describe('when the input field is invalid', () => {
+      describe('when the input has a value', () => {
+        beforeEach(() => {
+          instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+            validations: [validationOne, validationTwo, validationThree],
+            value: 'foo'
+          }));
+          instance.context.form = form;
+          spyOn(validationOne, 'validate').and.callThrough();
+          spyOn(validationTwo, 'validate').and.callThrough();
+          spyOn(validationThree, 'validate').and.callThrough();
+        });
 
+        it('calls validate for each validation', () => {
+          instance.validate();
+          expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value);
+          expect(validationTwo.validate).toHaveBeenCalledWith(instance.props.value);
+          expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value);
+        });
 
+        describe('when the inputs state is currently valid', () => {
+          describe('when the input has a form', () => {
+            it('calls incrementErrorCount', () => {
+              spyOn(instance.context.form, 'incrementErrorCount');
+              instance.validate();
+              expect(instance.context.form.incrementErrorCount).toHaveBeenCalled();
+            });
+          });
+
+          describe('when the input does not have a form', () => {
+            it('is still able to validate', () => {
+              instance.context.form = null;
+              expect(instance.validate()).toBeFalsy();
+            });
+          });
+
+          it('calls setState', () => {
+            spyOn(instance, 'setState');
+            instance.validate();
+            expect(instance.setState).toHaveBeenCalledWith({ errorMessage: 'foo', valid: false });
+          });
+        });
+
+        describe('when the inputs state is not valid', () => {
+          it('does not call setState', () => {
+            instance.setState({ valid: false });
+            spyOn(instance, 'setState');
+            instance.validate();
+            expect(instance.setState).not.toHaveBeenCalled();
+          });
+        });
       });
     });
 
     describe('when no validations have been set on the input', () => {
       it('defaults the input validity to true', () => {
-        let valid = instanceBasic.validate();
+        let valid = instance.validate();
         expect(valid).toBeTruthy();
       });
     });
   });
 
-    // describe('when no value is defined on the input', () => {
-    //   it('outputs a warning message to the console', () => {
-    //     // spyOn(instanceValidation.props.validations, 'validate').and.returnValue(true);
-    //     debugger
-    //     // expect(instanceValidation.props.validations.validate).toHaveBeenCalledWith(instanceValidation.props.value).andReturn;
-    //     // expect(console.warn).toHaveBeenCalled();
-    //   });
-    // });
-
-    describe('when value is defined on the input', () => {
-
-    });
-
-    describe('when the input is not valid', () => {
-
-    });
-
-    describe('when the input is valid', () => {
-
-    });
-
   describe('_handleBlur', () => {
     it('calls validate on blur of the input', () => {
-      spyOn(instanceValidation, 'validate');
-      instanceValidation._handleBlur();
-      expect(instanceValidation.validate).toHaveBeenCalled();
+      spyOn(instance, 'validate');
+      instance._handleBlur();
+      expect(instance.validate).toHaveBeenCalled();
     });
   });
-
-  describe('_handleFocus', () => {
-    describe('when the input is invalid and the field gets focus', () => {
-
-    });
-  });
-
-  describe('validationHTML', () => {
-
-  });
-
-  describe('mainClasses', () => {
-
-  });
-
-  describe('inputClasses', () => {
-
-  });
-
-  describe('inputProps', () => {
-
-  });
+  //
+  // describe('_handleFocus', () => {
+  //   describe('when the input is invalid and the field gets focus', () => {
+  //
+  //   });
+  // });
+  //
+  // describe('validationHTML', () => {
+  //
+  // });
+  //
+  // describe('mainClasses', () => {
+  //
+  // });
+  //
+  // describe('inputClasses', () => {
+  //
+  // });
+  //
+  // describe('inputProps', () => {
+  //
+  // });
 
 });
