@@ -37,11 +37,11 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   /**
-   *  Checks for validations and returns boolean defining if field valid.
+   * Checks for validations and returns boolean defining if field valid.
    *
    * @method validate
    */
-   validate = () => {
+  validate = () => {
     var valid = false;
 
     if (this.props.validations) {
@@ -52,12 +52,14 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
         valid = validation.validate(this.props.value);
 
-        if (!valid && this.state.valid) {
-          if (this.context.form) {
-            this.context.form.incrementErrorCount();
-          this.setState({ errorMessage: validation.message(), valid: false });
+        if (!valid) {
+          if (this.state.valid) {
+            if (this.context.form) {
+              this.context.form.incrementErrorCount();
+            }
+            this.setState({ errorMessage: validation.message(), valid: false });
           }
-        return valid;
+          return valid;
         }
       });
     } else {
@@ -73,7 +75,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
   _handleFocus = () => {
     if (!this.state.valid) {
-      this.context.form.decrementErrorCount();
+      if (this.context.form) {
+        this.context.form.decrementErrorCount();
+      }
       this.setState({ errorMessage: null, valid: true });
     }
   }
