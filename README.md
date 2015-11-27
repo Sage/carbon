@@ -8,6 +8,8 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 
 ## Getting Started
 
+If you're new to React and/or Node, make sure to see the [Carbon wiki](https://github.com/Sage/carbon/wiki) for learning material.
+
 ### Installation
 
 There are instructions on setting up your environment on the [Carbon Factory repository](https://github.com/Sage/carbon-factory/blob/master/docs/first-time-installation.md). We recommend you run through these before continuing with Carbon.
