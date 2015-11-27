@@ -4,30 +4,19 @@ import Dropdown from './index';
 import ImmutableHelper from './../../utils/helpers/immutable'
 
 describe("Dropdown", () => {
-  let instance, instanceTwo, input;
+  let instance, instanceTwo, instanceEmpty, input;
   let data = ImmutableHelper.parseJSON({ 'items':
                      [{'id' : 1,  'name': 'foo'
                      },
                      {'id' : 2,  'name': 'foof'
-                     },
-                     {'id' : 3,  'name': 'dfdf'
-                     },
-                     {'id' : 4,  'name': 'fdfd'
-                     },
-                     {'id' : 5,  'name': 'gfhg'
-                     },
-                     {'id' : 6,  'name': 'gfgf'
-                     },
-                     {'id' : 7,  'name': 'asdg'
-                     },
-                     {'id' : 8,  'name': 'asdas'
-                   }],
+                     }],
                       selected: undefined
                    });
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 2 } />);
     instanceTwo = TestUtils.renderIntoDocument(<Dropdown name="bar" options={ data.get('items') } />);
+    instanceEmpty = TestUtils.renderIntoDocument(<Dropdown name="baz" />);
     input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
   });
 
@@ -166,7 +155,61 @@ describe("Dropdown", () => {
 
     it('returns an unordered list containing the options', () => {
       expect(instance.listHTML.ref).toEqual('list');
-      expect(instance.listHTML.props.children.length).toEqual(8);
+      expect(instance.listHTML.props.children.length).toEqual(2);
+    });
+  });
+
+  describe("render", () => {
+    it("renders a hidden input", () => {
+      input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
+      expect(input.tagName).toEqual("INPUT");
+      expect(input.type).toEqual('hidden');
+    });
+
+    it("renders a visible input", () => {
+      input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
+      expect(input.tagName).toEqual("INPUT");
+    });
+
+    it("renders a ul", () => {
+      let ul = instance.refs.list;
+      expect(ul.tagName).toEqual("UL");
+      expect(ul.classList[1]).toEqual("hidden");
+    });
+
+    describe('render with no options', () => {
+      it("renders a li with no results", () => {
+        let ul = instanceEmpty.refs.list;
+        let listItems = ul.childNodes;
+        expect(listItems.length).toEqual(1);
+        expect(listItems[0].tagName).toEqual("LI");
+        expect(listItems[0].textContent).toEqual("No results");
+      });
+    });
+
+    describe("render with options", () => {
+      let ul, listItems;
+
+      beforeEach(() => {
+        ul = instance.refs.list;
+        listItems = ul.childNodes;
+      });
+
+      it("renders a li with results", () => {
+        expect(listItems.length).toEqual(2);
+        expect(listItems[0].value).toEqual(1);
+        expect(listItems[0].textContent).toEqual("foo");
+        expect(listItems[1].value).toEqual(2);
+        expect(listItems[1].textContent).toEqual("foof");
+      });
+
+      it("sets the highlighted class on the relevant option", () => {
+        instance.setState({
+          highlighted: 2
+        });
+        expect(listItems[0].className).toEqual("ui-dropdown__item");
+        expect(listItems[1].classList[1]).toEqual("ui-dropdown__item--highlighted");
+      });
     });
   });
 

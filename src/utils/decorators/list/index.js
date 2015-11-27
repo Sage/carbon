@@ -1,7 +1,7 @@
 import React from 'react';
 import chainFunctions from './../../helpers/chain-functions';
 
-var List = (ComposedComponent) => class Component extends ComposedComponent {
+let List = (ComposedComponent) => class Component extends ComposedComponent {
 
   constructor(...args) {
     super(...args);
@@ -90,36 +90,17 @@ var List = (ComposedComponent) => class Component extends ComposedComponent {
     return results;
   }
 
+  /**
+   * Getter for inputProps. Provides base blur handler.
+   *
+   * @method inputProps
+   */
   get inputProps() {
     var inputProps = super.inputProps || {};
 
     inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
 
-    if (this.props.onChange === inputProps.onChange) {
-      inputProps.onChange = this._handleOnChange;
-    }
     return inputProps;
-  }
-
-  /**
-   * Renders the component.
-   *
-   * @method render
-   */
-  render() {
-    return (
-      <div className={ this.mainClasses } >
-
-        { this.labelHTML }
-        <input { ...this.inputProps } />
-        <input { ...this.hiddenInputProps } />
-        { this.inputIconHTML("dropdown") }
-        { this.validationHTML }
-
-        { this.listHTML }
-
-      </div>
-    );
   }
 
 };

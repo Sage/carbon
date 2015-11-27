@@ -369,8 +369,25 @@ class DropdownSuggest extends React.Component {
   }
 
   /**
-   * This components render method is provided by the List decorator
+   * Renders the component.
+   *
+   * @method render
    */
+  render() {
+    return (
+      <div className={ this.mainClasses } >
+
+        { this.labelHTML }
+        <input { ...this.inputProps } />
+        <input { ...this.hiddenInputProps } />
+        { this.inputIconHTML("dropdown") }
+        { this.validationHTML }
+
+        { this.listHTML }
+
+      </div>
+    );
+  }
 }
 )))));
 
