@@ -3,7 +3,7 @@
 @import 'input-field';
 
 .ui-input-icon:hover,
-.base-input__input:focus + label .ui-input-icon {
+.base-input__input:hover ~ label .ui-input-icon {
   color: $white;
   border-color: $blue;
   background-color: $blue;

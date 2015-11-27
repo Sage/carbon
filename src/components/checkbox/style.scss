@@ -1,10 +1,47 @@
+@import 'colors';
+@import 'input-field';
+@import 'mixins';
+
 .ui-checkbox {
   text-align: center;
 }
 
 .ui-checkbox__input {
   cursor: pointer;
-  height: 15px;
+  height: 16px;
   vertical-align: middle;
-  width: 15px;
+  width: 16px;
+  position: absolute;
+  left: 47.5%;
+  opacity: 0;
+
+
+  ~ svg {
+    
+    .checkbox-outline {
+      rx: 2;
+    }
+
+    .checkbox-fill {
+      ry: 1;
+    }
+
+    .checkbox-check {
+      position: absolute;
+      fill: $white;
+    }
+  }
+
+
+  &:hover + svg {
+    .checkbox-outline {
+     fill: $input-active-border-colour;
+    }
+  }
+
+  &:checked + svg {
+    .checkbox-check {
+      fill: black;
+    }
+  }
 }
