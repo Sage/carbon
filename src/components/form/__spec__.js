@@ -99,7 +99,7 @@ describe('Form', () => {
       instance = TestUtils.renderIntoDocument(
         <Form model='test'>
           { excludedTextbox }
-          { grid } 
+          { grid }
         </Form>
       );
     });
@@ -229,7 +229,7 @@ describe('Form', () => {
       });
     });
   });
-  
+
   describe('htmlProps', () => {
     it('pulls out the model from props', () => {
       expect(instance.htmlProps().model).toBeFalsy();
@@ -268,7 +268,7 @@ describe('Form', () => {
   describe('render', () => {
     it('renders a parent form', () => {
       let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form')
-      expect(form.className).toEqual('ui-form'); 
+      expect(form.className).toEqual('ui-form');
     });
 
     describe('CSRF', () => {
@@ -297,7 +297,7 @@ describe('Form', () => {
           expect(csrf.name).toEqual('csrf-param');
         });
       });
-      
+
       describe('when meta tag name == csrf-token', () => {
         it('adds the meta tag content as the value of the input field', () => {
           expect(csrf.value).toEqual('csrf-token');

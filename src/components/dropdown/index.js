@@ -18,7 +18,9 @@ import List from './../../utils/decorators/list';
  *
  *   <Dropdown data={ foo } onChange={ myChangeHandler } />
  *
- * Dropdown
+ * The developed should pass data to the store as JSON. e.g.
+ *
+ *   foo: [{ id: 1, name: "Foo" }, { id: 2, name: "Bar" }]
  *
  * @class Dropdown
  * @constructor
@@ -136,7 +138,7 @@ class Dropdown extends React.Component {
    * @method rootClass
    */
   get rootClass() {
-    return 'ui-dropdown-list';
+    return 'ui-dropdown';
   }
 
   /**
@@ -145,7 +147,7 @@ class Dropdown extends React.Component {
    * @method mainClasses
    */
   get mainClasses() {
-    return 'ui-dropdown-list';
+    return 'ui-dropdown';
   }
 
   /**
@@ -154,7 +156,7 @@ class Dropdown extends React.Component {
    * @method inputClasses
    */
   get inputClasses() {
-    return 'ui-dropdown-list__input';
+    return 'ui-dropdown__input';
   }
 
   /**
@@ -163,7 +165,7 @@ class Dropdown extends React.Component {
    * @method listHTML
    */
   get listHTML() {
-    let listClasses = 'ui-dropdown-list__list' +
+    let listClasses = 'ui-dropdown__list' +
         (this.state.open ? '' : ' hidden');
 
     let options = this.props.options ? this.props.options.toJS() : [];
