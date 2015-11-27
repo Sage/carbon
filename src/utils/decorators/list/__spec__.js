@@ -26,7 +26,7 @@ class DummyTwo extends React.Component {
   }
 }
 
-describe('List', () => {
+fdescribe('List', () => {
   let instance, instanceTwo, input;
 
   beforeEach(() => {
@@ -35,6 +35,17 @@ describe('List', () => {
 
     let ComposedListTwo = List(DummyTwo);
     instanceTwo = new ComposedListTwo();
+  });
+
+  describe('_handleSelect', () => {
+    describe('when the component lacks a select handler', () => {
+      it('calls emitOnChangeCallback with the selected value', () => {
+        spyOn(instance, 'emitOnChangeCallback');
+        let ev = { target: { value: 'bar' }};
+        instance._handleSelect(ev);
+        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(ev.target.value;
+      });
+    });
   });
 
   describe('inputProps', () => {

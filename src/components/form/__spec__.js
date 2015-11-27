@@ -88,6 +88,7 @@ describe('Form', () => {
       textbox1 = <Textbox validations={ [Validation] } name='box1' value='' />;
       textbox2 = <Textbox validations={ [Validation] } name='box2' value='' />;
       excludedTextbox = <Textbox validations={ [Validation] } name='excludedBox' value='' />;
+
       grid = <InputGrid
             name='grid'
             data={ ImmutableHelper.parseJSON([ { box1: 'bar' } ]) }
@@ -207,8 +208,8 @@ describe('Form', () => {
           [ { box1: 'bar', box2: '' } ]
         );
 
-        let textbox1 = <Textbox validations={ [Validation] } name='box1' />;
-        let textbox2 = <Textbox validations={ [Validation] } name='box2' />;
+        let textbox1 = <Textbox validations={ [Validation] } name='box1' value='' />;
+        let textbox2 = <Textbox validations={ [Validation] } name='box2' value='' />;
 
         let grid = <InputGrid
           name='grid'

@@ -6,7 +6,7 @@ import ImmutableHelper from 'utils/helpers/immutable';
 import BigNumber from 'bignumber.js';
 
 // Hard code some initial data for the store
-const data = {
+const data = ImmutableHelper.parseJSON({
   date_from: "2015-11-01",
   name: "My Finances",
   discount: false,
@@ -47,20 +47,11 @@ const data = {
       total: "-81.21"
     }
   ]
-};
+});
 
 class FinancesStore extends Store {
-  constructor(Dispatcher) {
-    super(Dispatcher);
-
-    // provide a name for this store
-    this.name = 'financesStore';
-
-    // define the data for this store
-    this.data = ImmutableHelper.parseJSON(data);
-
-    // turn on history for this store
-    this.history = [];
+  constructor(name, data, Dispatcher, opts = {}) {
+    super(name, data, Dispatcher, opts);
 
     // setup some initial calculated data for this store
     this.data = updateTotals(this.data, 'credit');
@@ -196,4 +187,5 @@ function getPercentage(data, val) {
   return value.dividedBy(total).times(100);
 };
 
-export default new FinancesStore(Dispatcher);
+// init the store with a name, data, dispatcher and enabled history
+export default new FinancesStore('financesStore', data, Dispatcher, { history: true });

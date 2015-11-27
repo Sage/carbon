@@ -79,17 +79,6 @@ import Store from 'carbon/lib/utils/flux/store';
 import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
 
 class ContactStore extends Store {
-  constructor(Dispatcher) {
-    super(Dispatcher);
-
-    // define the namespace for the store - this will be used by the component
-    // to access the data in the store
-    this.name = 'contactStore';
-
-    // define the store's initial data (this should use Immutable.js)
-    this.data = ImmutableHelper.parseJSON({});
-  }
-
   // we create a function that uses the constant we defined, this subscribes
   // the store to the this particular action so it will trigger when the
   // action is dispatched
@@ -100,8 +89,15 @@ class ContactStore extends Store {
   }
 }
 
-// initialize the store (another singleton for your application)
-export default new ContactStore(Dispatcher);
+// data to init your store with
+let data = ImmutableHelper.parseJSON({});
+
+// initialize the store (another singleton for your application), you need to
+// initialize it with:
+//  * the name - this will be used to access the store on the component
+//  * the data - this is the stores initial data
+//  * the dispatcher - this is your applications dispatcher
+export default new ContactStore('contactStore', data, Dispatcher);
 ```
 
 ## A component

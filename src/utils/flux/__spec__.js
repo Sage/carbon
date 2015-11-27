@@ -6,35 +6,9 @@ import Store from './store';
 
 let Dispatcher = new Flux.Dispatcher();
 
-class BaseStore1 extends Store {
-  constructor(Dispatcher) {
-    super(Dispatcher);
-    this.name="BaseStore1";
-    this.data = { text: 'text' };
-  }
-}
+class BaseStore1 extends Store {}
 
-class BaseStore2 extends Store {
-  constructor(Dispatcher) {
-    super(Dispatcher);
-    this.name="BaseStore2";
-    this.data = {};
-  }
-}
-
-class NoDataStore extends Store {
-  constructor(Dispatcher) {
-    super(Dispatcher);
-    this.name="NoDate";
-  }
-}
-
-class NoNameStore extends Store {
-  constructor(Dispatcher) {
-    super(Dispatcher);
-    this.data = {};
-  }
-}
+class BaseStore2 extends Store {}
 
 class SimpleView extends React.Component {
   render() {
@@ -66,10 +40,8 @@ class View extends React.Component {
   }
 }
 
-let baseStore1 = new BaseStore1(Dispatcher);
-let baseStore2 = new BaseStore2(Dispatcher);
-let noNameStore = new NoNameStore(Dispatcher);
-let noDataStore = new NoDataStore(Dispatcher);
+let baseStore1 = new BaseStore1('BaseStore1', { text: 'text' }, Dispatcher);
+let baseStore2 = new BaseStore2('BaseStore2', {}, Dispatcher);
 
 describe('Connect', () => {
   describe('Add Store', () => {
@@ -87,22 +59,6 @@ describe('Connect', () => {
         let SingleStoreView = connect(View, baseStore1);
         let instance = new SingleStoreView();
         expect(instance.state.BaseStore1).toEqual({ text: 'text' });
-      });
-    });
-
-    describe('when a store has no name', () => {
-      it('throws an error', () => {
-        expect(function () { connect(View, noNameStore) }).toThrowError(
-          `You need to set the name property on your store. In ${noNameStore.constructor.name}'s constructor add 'this.name = "uniqueStoreName";'.`
-        );
-      });
-    });
-
-    describe('when a store has no data', () => {
-      it('throws an error', () => {
-        expect(function () { connect(View, noDataStore) }).toThrowError(
-          `You need to set the data property on your store. In ${noDataStore.constructor.name}'s constructor add 'this.data = ImmutableHelper.parseJSON({});'.`
-        );
       });
     });
   });

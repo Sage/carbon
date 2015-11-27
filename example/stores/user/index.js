@@ -5,23 +5,14 @@ import Immutable from 'immutable';
 import ImmutableHelper from 'utils/helpers/immutable';
 
 // Hard code some initial data for the store
-const data = {
+const data = ImmutableHelper.parseJSON({
   dialogOpen: false,
   name: "John Hancock",
   date_of_birth: "1980-01-23",
   address: "Sage UK\nNorth Park\nNewcastle upon Tyne"
-};
+});
 
 class UserStore extends Store {
-  constructor(Dispatcher) {
-    super(Dispatcher);
-
-    // provide a name for this store
-    this.name = 'userStore';
-
-    // define the data for this store
-    this.data = ImmutableHelper.parseJSON(data);
-  }
 
   /**
    * Subscribe this store to the following actions...
@@ -40,4 +31,4 @@ class UserStore extends Store {
   }
 }
 
-export default new UserStore(Dispatcher);
+export default new UserStore('userStore', data, Dispatcher);

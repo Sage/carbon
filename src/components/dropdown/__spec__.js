@@ -4,7 +4,7 @@ import Dropdown from './index';
 import ImmutableHelper from './../../utils/helpers/immutable'
 
 describe("Dropdown", () => {
-  let instance, instanceTwo, instanceEmpty, input;
+  let instance, instanceTwo, instanceEmpty, instanceInvalid, input;
   let data = ImmutableHelper.parseJSON({ 'items':
                      [{'id' : 1,  'name': 'foo'
                      },
@@ -17,6 +17,7 @@ describe("Dropdown", () => {
     instance = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 2 } />);
     instanceTwo = TestUtils.renderIntoDocument(<Dropdown name="bar" options={ data.get('items') } />);
     instanceEmpty = TestUtils.renderIntoDocument(<Dropdown name="baz" />);
+    instanceInvalid = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 3 } />);
     input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
   });
 
@@ -41,8 +42,9 @@ describe("Dropdown", () => {
   describe('emitOnChangeCallback', () => {
     it('calls the change handler with the selected item', () => {
       spyOn(instance, '_handleOnChange');
-      instance.emitOnChangeCallback('one');
-      expect(instance._handleOnChange).toHaveBeenCalledWith({ target: {value: 'one'}});
+      let ev = { target: {value: 'one' }};
+      instance.emitOnChangeCallback(ev);
+      expect(instance._handleOnChange).toHaveBeenCalledWith(ev.target.value);
     });
   });
 
@@ -95,7 +97,8 @@ describe("Dropdown", () => {
 
       describe('when the selected value does not have a corresponding name', () => {
         it('sets visibleValue to an empty string', () => {
-          //
+          instanceInvalid.nameByID();
+          expect(instanceInvalid.visibleValue).toEqual('');
         });
       });
     });
