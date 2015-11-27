@@ -115,7 +115,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     // iterate through each validation applied to the input
     this.props.validations.forEach((validation) => {
-      if (!this.props.value) {
+      if (this.props.value === undefined) {
         console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);  // eslint-disable-line no-console
       }
 

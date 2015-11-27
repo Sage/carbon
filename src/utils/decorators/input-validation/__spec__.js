@@ -189,7 +189,7 @@ describe('InputValidation', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(React.createElement(Component, {
             validations: [validationOne],
-            value: null,
+            value: undefined,
             name: 'foo'
           }));
         });

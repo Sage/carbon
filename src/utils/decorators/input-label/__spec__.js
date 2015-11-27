@@ -75,7 +75,7 @@ describe('InputLabel', () => {
   describe('labelHTML', () => {
     describe('when label is set to false', () => {
       it('does not add a label', () => {
-        expect(instanceFalse.labelHTML).not.toBeDefined;
+        expect(instanceFalse.labelHTML).not.toBeDefined();
       });
     });
 
