@@ -34,12 +34,7 @@ $row__delete-icon-color--hover: $error;
   // row hover
   &:hover {
     background-color: $row__background-color--hover;
-
-    // delete icon on row hover
-    .ui-table-row__delete-icon:before {
-      content: "w";
-      font-size: $row__delete-icon-size;
-    }
+    color: $red;
   }
 }
 
