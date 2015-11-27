@@ -88,6 +88,7 @@ describe('Form', () => {
       textbox1 = <Textbox validations={ [Validation] } name='box1' value='' />;
       textbox2 = <Textbox validations={ [Validation] } name='box2' value='' />;
       excludedTextbox = <Textbox validations={ [Validation] } name='excludedBox' value='' />;
+
       grid = <InputGrid
             name='grid'
             data={ ImmutableHelper.parseJSON([ { box1: 'bar' } ]) }
@@ -99,7 +100,7 @@ describe('Form', () => {
       instance = TestUtils.renderIntoDocument(
         <Form model='test'>
           { excludedTextbox }
-          { grid } 
+          { grid }
         </Form>
       );
     });
@@ -207,8 +208,8 @@ describe('Form', () => {
           [ { box1: 'bar', box2: '' } ]
         );
 
-        let textbox1 = <Textbox validations={ [Validation] } name='box1' />;
-        let textbox2 = <Textbox validations={ [Validation] } name='box2' />;
+        let textbox1 = <Textbox validations={ [Validation] } name='box1' value='' />;
+        let textbox2 = <Textbox validations={ [Validation] } name='box2' value='' />;
 
         let grid = <InputGrid
           name='grid'
@@ -229,7 +230,7 @@ describe('Form', () => {
       });
     });
   });
-  
+
   describe('htmlProps', () => {
     it('pulls out the model from props', () => {
       expect(instance.htmlProps().model).toBeFalsy();
@@ -268,7 +269,7 @@ describe('Form', () => {
   describe('render', () => {
     it('renders a parent form', () => {
       let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form')
-      expect(form.className).toEqual('ui-form'); 
+      expect(form.className).toEqual('ui-form');
     });
 
     describe('CSRF', () => {
