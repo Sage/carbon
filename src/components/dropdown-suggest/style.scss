@@ -4,7 +4,7 @@
 
 .ui-dropdown-suggest__list {
   background-color: $white;
-  border: 1px solid $green-bright;
+  border: 1px solid $border-color;
   box-sizing: border-box;
   color: $grey-dark;
   cursor: pointer;
@@ -15,7 +15,6 @@
   overflow-y: scroll;
   padding: 0;
   position: absolute;
-  margin-top: -1px;
   width: 100%;
   z-index: $z-dropdown-list;
 
@@ -36,5 +35,5 @@
 }
 
 .ui-dropdown-suggest__item--highlighted {
-  background-color: lighten($green-bright, 42%);
+  background-color: $grey-light;
 }

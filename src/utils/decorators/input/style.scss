@@ -43,7 +43,7 @@
   &:active,
   &:focus {
     border-color: $input-active-border-colour;
-    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px rgba(144, 200, 99, 0.5));
+    @include box-shadow( 0 0 6px rgba(25, 99, 246, 0.6));
   }
 }
 

@@ -87,7 +87,8 @@ $ui-button__color--disabled: #A4A6AA !default;
   }
 }
 
-.ui-button--disabled {
+.ui-button--disabled,
+.ui-button--disabled:hover {
   background-color: $ui-button__background-color--disabled;
   border-color: $ui-button__border-color--disabled;
   color: $ui-button__color--disabled;

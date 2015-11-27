@@ -3,15 +3,14 @@
 @import 'mixins';
 
 $date__picker__width: 210px;
-$date__picker__border: #E5F3D2;
-$date__picker__header-color: #65686D;
-$date__picker__header-border-color: #949494;
+$date__picker__border: #EBEDEF;
+$date__picker__header-color: #8A8E95;
+$date__picker__header-border-color: #636872;
 $date__picker__cell-border-color: #CECECE;
 
 .date-picker {
   border-radius: 5px;
-  border: 5px solid $date__picker__border;
-  box-shadow: 0 0 12px #999;
+  border: 2px solid $date__picker__border;
   color: #888888;
   display: block;
   position: absolute;
@@ -87,26 +86,23 @@ $date__picker__cell-border-color: #CECECE;
 .dp-month,
 .dp-day,
 .dp-footer div {
-  @include linear-gradient(top, (#F7F7F7, #E6E6E6), #E6E6E6);
+  background-color: $grey-light;
   border: 1px solid $date__picker__cell-border-color;
   border-top: none;
-  box-shadow: inset 0 1px 0 #FDFDFD;
   cursor: pointer;
 
   &:hover {
-    @include linear-gradient(top, (#E7E7E7, #CFCFCF), #CFCFCF);
-    box-shadow: inset 0 1px 0 #EFEFEF;
+    background-color: $blue-alt;
+    color: $white;
   }
 
   &.dp-value {
-    @include linear-gradient(top, (#BFD49C, #BFD49C), #BFD49C);
-    box-shadow: inset 0 0 0 1px #FFF, inset 0 4px 10px #999;
-    color: #FFFFFF;
-    text-shadow: 1px 1px 2px #666;
+    background-color: $blue;
+    color: $white;
   }
 
   &.dp-current {
-    font-weight: bold;
+    font-weight: bolder;
   }
 }
 
@@ -119,14 +115,11 @@ $date__picker__cell-border-color: #CECECE;
 
 .dp-prev,
 .dp-next {
-  background-image: none;
   background-color: #DEDEDE;
-  box-shadow: none;
 
   &:hover {
-    background-image: none;
-    background-color: #DEDEDE;
-    box-shadow: none;
+    color: $grey-dark;
+    background-color: #EDF4FB;
   }
 }
 
