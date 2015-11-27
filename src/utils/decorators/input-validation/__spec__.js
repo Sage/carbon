@@ -41,7 +41,13 @@ let form = {
   incrementErrorCount: function() {}
 }
 
-class DummyInput extends React.Component {
+class DummyInputWithoutLifecycleMethods extends React.Component {
+  render() {
+    return <div></div>;
+  }
+}
+
+class DummyInput extends DummyInputWithoutLifecycleMethods {
   componentWillMount() {
     this.count++;
   }
@@ -50,14 +56,24 @@ class DummyInput extends React.Component {
     this.count--;
   }
 
-  render() {
-    return <div></div>;
+  onBlur = () => {
+  }
+
+  onFocus = () => {
+  }
+
+  get inputProps() {
+    return {
+      onBlur: this.onBlur,
+      onFocus: this.onFocus
+    };
   }
 }
 
+let SimpleComponent = InputValidation(DummyInputWithoutLifecycleMethods);
 let Component = InputValidation(DummyInput);
 
-fdescribe('InputValidation', () => {
+describe('InputValidation', () => {
   let instance;
 
   beforeEach(() => {
@@ -72,6 +88,13 @@ fdescribe('InputValidation', () => {
   });
 
   describe('componentWillMount', () => {
+    describe('when the component does not have a componentWillMount method', () => {
+      it('still works', () => {
+        let simpleInstance = TestUtils.renderIntoDocument(React.createElement(SimpleComponent));
+        expect(simpleInstance.componentWillMount()).toBe(undefined);
+      });
+    });
+
     describe('when the component has a componentWillMount method', () => {
       it('uses the components method', () => {
         instance.count = 1;
@@ -103,6 +126,13 @@ fdescribe('InputValidation', () => {
   });
 
   describe('componentWillUnmount', () => {
+    describe('when the component does not have a componentWillUnmount method', () => {
+      it('still works', () => {
+        let simpleInstance = TestUtils.renderIntoDocument(React.createElement(SimpleComponent));
+        expect(simpleInstance.componentWillUnmount()).toBe(undefined);
+      });
+    });
+
     describe('when the component has a componentWillUnmount method', () => {
       it('uses the components method', () => {
         instance.count = 2;
@@ -239,27 +269,149 @@ fdescribe('InputValidation', () => {
       expect(instance.validate).toHaveBeenCalled();
     });
   });
-  //
-  // describe('_handleFocus', () => {
-  //   describe('when the input is invalid and the field gets focus', () => {
-  //
-  //   });
-  // });
-  //
-  // describe('validationHTML', () => {
-  //
-  // });
-  //
-  // describe('mainClasses', () => {
-  //
-  // });
-  //
-  // describe('inputClasses', () => {
-  //
-  // });
-  //
-  // describe('inputProps', () => {
-  //
-  // });
 
+  describe('_handleFocus', () => {
+    describe('when the input is invalid and the field gets focus', () => {
+      it('should call setState to remove the validation', () => {
+        instance.setState({ valid: false });
+        spyOn(instance, 'setState');
+        instance._handleFocus();
+        expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, valid: true });
+      });
+    });
+
+    describe('when the input is valid and the field gets focus', () => {
+      it('should call setState to remove the validation', () => {
+        instance.setState({ valid: true });
+        spyOn(instance, 'setState');
+        instance._handleFocus();
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when the input has a form', () => {
+      it('should call decrementErrorCount', () => {
+        instance.setState({ valid: false });
+        instance.context.form = form;
+        spyOn(instance.context.form, 'decrementErrorCount');
+        instance._handleFocus();
+        expect(instance.context.form.decrementErrorCount).toHaveBeenCalled();
+      });
+    });
+
+    describe('when the input does not have a form', () => {
+      it('should not throw an error', () => {
+        instance.setState({ valid: false });
+        expect(instance._handleFocus).not.toThrow();
+      });
+    });
+  });
+
+  describe('validationHTML', () => {
+    describe('there is no error', () => {
+      it('returns null', () => {
+        expect(instance.validationHTML).toBe(null);
+      });
+    });
+
+    describe('there is an error', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+          validations: [validationThree],
+          value: 'foo'
+        }));
+
+        instance.validate();
+      });
+
+      it('returns an error icon', () => {
+        expect(instance.validationHTML[0].props.type).toEqual('error');
+        expect(instance.validationHTML[0].props.className).toEqual('base-input__icon base-input__icon--error');
+      });
+
+      it('returns a div for the error message', () => {
+        expect(instance.validationHTML[1].props.className).toEqual('base-input__message base-input__message--error');
+        expect(instance.validationHTML[1].props.children).toEqual('foo');
+      });
+    });
+  });
+
+  describe('mainClasses', () => {
+    describe('when there is an error', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+          validations: [validationThree],
+          value: 'foo'
+        }));
+
+        instance.validate();
+      });
+
+      it('returns with an error class', () => {
+        expect(instance.mainClasses).toMatch('base-input--error');
+      });
+    });
+
+    describe('when there is no error', () => {
+      beforeEach(() => {
+        instance.validate();
+      });
+
+      it('returns with an error class', () => {
+        expect(instance.mainClasses).not.toMatch('base-input--error');
+      });
+    });
+  });
+
+  describe('inputClasses', () => {
+    describe('when there is an error', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+          validations: [validationThree],
+          value: 'foo'
+        }));
+
+        instance.validate();
+      });
+
+      it('returns with an error class', () => {
+        expect(instance.inputClasses).toMatch('base-input__input--error');
+      });
+    });
+
+    describe('when there is no error', () => {
+      beforeEach(() => {
+        instance.validate();
+      });
+
+      it('returns with an error class', () => {
+        expect(instance.inputClasses).not.toMatch('base-input__input--error');
+      });
+    });
+  });
+
+  describe('inputProps', () => {
+    describe('with no super inputProps', () => {
+      it('still works', () => {
+        let simpleInstance = TestUtils.renderIntoDocument(React.createElement(SimpleComponent));
+        expect(simpleInstance.inputProps).toBeDefined();
+      });
+    });
+
+    it('sets an onBlur event of chained functions', () => {
+      spyOn(instance, '_handleBlur');
+      spyOn(instance, 'onBlur');
+      instance.inputProps.onBlur();
+      expect(instance._handleBlur).toHaveBeenCalled();
+      expect(instance.onBlur).toHaveBeenCalled();
+    });
+
+    it('sets an onFocus event of chained functions', () => {
+      spyOn(instance, '_handleFocus');
+      spyOn(instance, 'onFocus');
+      instance.inputProps.onFocus();
+      expect(instance._handleFocus).toHaveBeenCalled();
+      expect(instance.onFocus).toHaveBeenCalled();
+    });
+  });
 });
