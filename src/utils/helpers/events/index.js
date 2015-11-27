@@ -1,13 +1,13 @@
 /**
-*  JavaScript Events
+* JavaScript Events
 *
-*  A collection of functions to be used with events.
+* A collection of functions to be used with events.
 *
-*  E.g. The KeyPress event has different implementations accross browsers, so
-*  this class contains methods to polyfill this functionality to ensure a standardised
-*  implementation between browsers
+* E.g. The KeyPress event has different implementations accross browsers, so
+* this class contains methods to polyfill this functionality to ensure a standardised
+* implementation between browsers
 *
-*  @object Events
+* @object Events
 */
 let Events = {
 
