@@ -35,13 +35,13 @@
 
   &:hover + svg {
     .checkbox-outline {
-     fill: $input-active-border-colour;
+     fill: $input-active-border-color;
     }
   }
 
   &:checked + svg {
     .checkbox-check {
-      fill: black;
+      fill: $black;
     }
   }
 }

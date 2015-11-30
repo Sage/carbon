@@ -25,7 +25,7 @@
   border-radius: $input-border-radius;
   border: $input-base-border;
   box-sizing: border-box;
-  color: $input-base-border-colour;
+  color: $input-base-border-color;
   font-family: $input-base-font;
   font-size: $input-base-font-size;
   height: $input-base-height;
@@ -37,12 +37,12 @@
   vertical-align: baseline;
 
   &:hover { 
-    border-color: $input-active-border-colour;
+    border-color: $input-active-border-color;
   }
 
   &:active,
   &:focus {
-    border-color: $input-active-border-colour;
+    border-color: $input-active-border-color;
     @include box-shadow( 0 0 6px rgba(25, 99, 246, 0.6));
   }
 }
