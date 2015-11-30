@@ -20,20 +20,13 @@ import Dispatcher from 'dispatcher';
 import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
 
 class MyStore extends Store {
-  constructor(Dispatcher) {
-    super(Dispatcher);
-
-    // this is required for the store to work (it should be a unique name)
-    this.name = "myStore";
-
-    // this is required for the store to work
-    this.data = ImmutableHelper.parseJSON(APPDATA.mydata);
-  }
-
-  // Component Actions...
+  ...
 }
 
-export default new MyStore(Dispatcher);
+let data = ImmutableHelper.parseJSON({});
+
+// init the store with a name, some data, and your dispatcher
+export default new MyStore('myStore', data, Dispatcher);
 ```
 
 ### View

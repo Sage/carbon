@@ -8,6 +8,8 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 
 ## Getting Started
 
+If you're new to React and/or Node, make sure to see the [Carbon wiki](https://github.com/Sage/carbon/wiki) for learning material.
+
 ### Installation
 
 There are instructions on setting up your environment on the [Carbon Factory repository](https://github.com/Sage/carbon-factory/blob/master/docs/first-time-installation.md). We recommend you run through these before continuing with Carbon.
@@ -31,6 +33,10 @@ We also have additional guides and tutorials for further information.
 
 * [Creating an App in Rails](docs/tutorials/creating-an-app-in-rails.md)
 * [Creating a Component](docs/tutorials/creating-a-component.md)
+
+### Running the Example
+
+Carbon has an example page, which demonstrates most of the components with a Flux implementation. This can be used to quickly see a demonstration of the components and/or as an area to test while developing with the components. To run the example, simply run `gulp` from the root directory of the Carbon repository and navigate to [http://localhost:8080/](http://localhost:8080/).
 
 ## Technologies
 
