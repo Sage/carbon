@@ -1,5 +1,9 @@
 # 0.0.2.beta
 
+## Dialog Cancel button
+
+Dialogs have been updated to pass context to any children components. We have used this to switch the Form Cancel button to use the Dialog's cancel handler when the form is nested in a dialog. This overrides the default history.back method.
+
 ## Store, View and Route Utils
 
 We have standardised the utilities we provide to easily set up Flux based applications. This involved a few breaking changes:
