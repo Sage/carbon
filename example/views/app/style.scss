@@ -1,0 +1,38 @@
+@import 'colors';
+
+.nav {
+  background-color: $grey-mid;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 30px;
+  z-index: 1000;
+
+  .logo {
+    float: left;
+    h3 {
+      margin: 5px;
+    }
+  }
+
+  .navlinks {
+    height: 30px;
+    margin: 0;
+    float: right;
+    list-style-type: none;
+
+    li {
+      height: 100%;
+      display: inline;
+      padding: 0px 10px 0 10px;
+      height: 30px;
+    }
+  }
+}
+
+.content {
+  margin: 0 auto;
+  width: 980px;
+  margin-top: 50px;
+}
