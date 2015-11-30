@@ -7,6 +7,7 @@ import Validation from './../../utils/validations/presence';
 import InputGrid from './../input-grid';
 import TableRow from './../table-row';
 import ImmutableHelper from './../../utils/helpers/immutable';
+import Dialog from './../dialog';
 
 describe('Form', () => {
   let instance;
@@ -256,6 +257,29 @@ describe('Form', () => {
         window.history = false;
         let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         expect(function() { TestUtils.Simulate.click(cancel) }).toThrowError('History is not defined. This is normally configured by the react router');
+      });
+    });
+
+    describe('when the form is inside a dialog', () => {
+      it('uses the dialogs cancel handler instead', () => {
+        let spy = jasmine.createSpy('cancelDialogHandler');
+        let nestedInstance = TestUtils.renderIntoDocument(
+          <Dialog
+            title="test"
+            open={ true }
+            cancelDialogHandler={ spy }>
+
+            <Form model="contact">
+              <Textbox
+                name="name"
+                onChange={ function() {} }
+                value={ 'foo' } />
+            </Form>
+          </Dialog>
+        )
+        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(nestedInstance, 'button')[0];
+        TestUtils.Simulate.click(cancel);
+        expect(spy).toHaveBeenCalled();
       });
     });
   });
