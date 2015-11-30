@@ -42,9 +42,10 @@ describe("Dropdown", () => {
   describe('emitOnChangeCallback', () => {
     it('calls the change handler with the selected item', () => {
       spyOn(instance, '_handleOnChange');
-      let ev = { target: {value: 'one' }};
-      instance.emitOnChangeCallback(ev);
-      expect(instance._handleOnChange).toHaveBeenCalledWith(ev.target.value);
+      let value = 'one';
+      instance.emitOnChangeCallback(value);
+      debugger
+      expect(instance._handleOnChange).toHaveBeenCalledWith({target: { value: value }});
     });
   });
 

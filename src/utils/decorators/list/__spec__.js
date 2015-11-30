@@ -9,6 +9,7 @@ class Dummy extends React.Component {
     name: 'baz',
     value: 1
   }
+  emitOnChangeCallback() {}
 }
 
 class DummyTwo extends React.Component {
@@ -26,7 +27,7 @@ class DummyTwo extends React.Component {
   }
 }
 
-fdescribe('List', () => {
+describe('List', () => {
   let instance, instanceTwo, input;
 
   beforeEach(() => {
@@ -43,7 +44,8 @@ fdescribe('List', () => {
         spyOn(instance, 'emitOnChangeCallback');
         let ev = { target: { value: 'bar' }};
         instance._handleSelect(ev);
-        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(ev.target.value;
+        debugger
+        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(ev.target.value);
       });
     });
   });
