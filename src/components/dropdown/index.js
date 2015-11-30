@@ -24,7 +24,7 @@ import List from './../../utils/decorators/list';
  *
  * @class Dropdown
  * @constructor
- * @decorators {Input,InputIcon,InputLabel,InputValidation}
+ * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
  */
 const Dropdown = List(Input(InputIcon(InputLabel(InputValidation(
 class Dropdown extends React.Component {

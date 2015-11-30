@@ -20,12 +20,9 @@ import List from './../../utils/decorators/list';
  *
  *   <DropdownSuggest path={foo} />
  *
- *
- *
- *
  * @class DropdownSuggest
  * @constructor
- * @decorators {Input,InputIcon,InputLabel,InputValidation}
+ * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
  */
 const DropdownSuggest = List(Input(InputIcon(InputLabel(InputValidation(
 class DropdownSuggest extends React.Component {

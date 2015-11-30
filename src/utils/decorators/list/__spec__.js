@@ -44,7 +44,6 @@ describe('List', () => {
         spyOn(instance, 'emitOnChangeCallback');
         let ev = { target: { value: 'bar' }};
         instance._handleSelect(ev);
-        debugger
         expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(ev.target.value);
       });
     });
@@ -53,7 +52,6 @@ describe('List', () => {
   describe('inputProps', () => {
     describe('when the component has its own inputProps', () => {
       it('merges inputProps with those of the component', () => {
-        debugger
         spyOn(instanceTwo, '_handleBlur');
         spyOn(instanceTwo, 'onBlur');
         instanceTwo.inputProps.onBlur();

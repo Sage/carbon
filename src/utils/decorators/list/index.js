@@ -1,6 +1,14 @@
 import React from 'react';
 import chainFunctions from './../../helpers/chain-functions';
 
+/**
+ * List decorator.
+ *
+ * This decorator is specific to the dropdown and dropdown-suggest components,
+ * providing functionality common to both.
+ *
+ * @method List
+ */
 let List = (ComposedComponent) => class Component extends ComposedComponent {
 
   constructor(...args) {
@@ -96,7 +104,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * @method inputProps
    */
   get inputProps() {
-    var inputProps = super.inputProps || {};
+    let inputProps = super.inputProps || {};
 
     inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
 

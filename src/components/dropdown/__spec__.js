@@ -54,7 +54,6 @@ describe("Dropdown", () => {
       spyOn(instance, 'setState').and.callThrough();
     });
 
-
     it('calls setState and opens the dropdown', () => {
       TestUtils.Simulate.focus(input[0]);
       expect(instance.setState).toHaveBeenCalledWith({ open: true, highlighted: instance.props.value });
