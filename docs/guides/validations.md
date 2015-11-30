@@ -26,7 +26,7 @@ You can apply as many validations to the input as you like by adding more to the
 
 ## With a Form
 
-Usually, your inputs will sit inside a form component. The Carbon form component uses the validation API to run validation checks when you try and submit the form. It also keeps track on the number of invalid fields to display data to the user in a validation summary.
+Usually, your inputs will sit inside a form component. The Carbon form component uses the validation API to run validation checks when you try and submit the form. It also keeps track of the number of invalid fields to display data to the user in a validation summary.
 
 
 ```js
