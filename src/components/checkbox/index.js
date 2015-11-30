@@ -117,7 +117,7 @@ class Checkbox extends React.Component {
           12.9179844 6.25647356,12.8283903 L5.16378128,11.9115126 C5.12512704,11.8790778 5.09077658,
           11.8434362 5.06079081,11.805307 L5.06079081,11.805307 Z" className="checkbox-check" fill="#FFFFFF"></path>
         </svg>
-    )
+    );
   }
 
   /**
