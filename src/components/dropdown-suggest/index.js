@@ -124,18 +124,16 @@ class DropdownSuggest extends React.Component {
     // Passes empty string to query if value has been selected
     let query = this.props.value.get('id') ? "" : this.props.value.get(this.props.resource_key);
 
-    // Request
-    //   .get(this.props.path)
-    //   .query({
-    //     page: page,
-    //     rows: 10,
-    //     value: query
-    //   })
-    //   .end((err, response) => {
-    //     this.updateList(response.body.data[0]);
-    //   });
-
-      this.updateList({"records":6,"items":[{"id":4801699,"name":"4000 - Sales Type A","resource":"fuji_core_accounting/ledger_account","resource_name":"Ledger Account"},{"id":4801700,"name":"4009 - Sales Discounts","resource":"fuji_core_accounting/ledger_account","resource_name":"Ledger Account"},{"id":4801701,"name":"4200 - Sale of Assets","resource":"fuji_core_accounting/ledger_account","resource_name":"Ledger Account"},{"id":4801702,"name":"4400 - Late Payment Charges","resource":"fuji_core_accounting/ledger_account","resource_name":"Ledger Account"},{"id":4801703,"name":"4900 - Other income","resource":"fuji_core_accounting/ledger_account","resource_name":"Ledger Account"},{"id":4801704,"name":"4905 - Carriage on Sales","resource":"fuji_core_accounting/ledger_account","resource_name":"Ledger Account"}],"page":1});
+    Request
+      .get(this.props.path)
+      .query({
+        page: page,
+        rows: 10,
+        value: query
+      })
+      .end((err, response) => {
+        this.updateList(response.body.data[0]);
+      });
   }
 
   /**
