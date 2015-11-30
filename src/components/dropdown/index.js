@@ -138,7 +138,7 @@ class Dropdown extends React.Component {
   }
 
   /**
-   * Root Class getter
+   * Root Class getter, returns a single class
    *
    * @method rootClass
    */
@@ -147,12 +147,12 @@ class Dropdown extends React.Component {
   }
 
   /**
-   * Main Class getter
+   * Main Classes getter, can be extended to return additional classes
    *
    * @method mainClasses
    */
   get mainClasses() {
-    return `${this.rootClass}`;
+    return this.rootClass;
   }
 
   /**

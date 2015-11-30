@@ -325,7 +325,7 @@ class DropdownSuggest extends React.Component {
   }
 
   /**
-   * Root Class getter
+   * Root Class getter, returns a single class
    *
    * @method rootClass
    */
@@ -334,12 +334,12 @@ class DropdownSuggest extends React.Component {
   }
 
   /**
-   * Main Class getter
+   * Main Class getter, can be extended with additional classes.
    *
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    return `${this.rootClass}`;
+    return this.rootClass;
   }
 
   /**
