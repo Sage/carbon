@@ -23,6 +23,45 @@ import InputValidation from './../../utils/decorators/input-validation';
 const Textarea = Input(InputLabel(InputValidation(
 class Textarea extends React.Component {
 
+  valLength = 0;
+  minHeight = 0;
+
+  componentDidMount = () => {
+    this.valLength = this.props.value ? this.props.value.length : 0;
+    this.minHeight = this.refs.textarea.clientHeight;
+
+    if (this.props.expandable) {
+      this.expandTextarea();
+    }
+  }
+
+  componentDidUpdate = () => {
+    if (this.props.expandable) {
+      if (this.refs.textarea.value.length !== this.valLength) {
+        this.expandTextarea();
+      }
+    }
+  }
+
+  expandTextarea = () => {
+    let textarea = this.refs.textarea,
+      boxWidth = textarea.boxWidth,
+      offWidth = textarea.offsetWidth,
+      newLen = textarea.value.length,
+      oldLen = this.valLength;
+
+    if (textarea.scrollHeight > this.minHeight) {
+      if (newLen < oldLen || offWidth !== boxWidth) {
+        textarea.style.height = "0px";
+      }
+
+      textarea.style.overflow = "hidden";
+      textarea.style.height = textarea.scrollHeight + "px";
+      textarea.boxWidth = offWidth;
+      this.valLength = newLen;
+    }
+  }
+
   /**
    * Main Class getter
    *
@@ -65,7 +104,7 @@ class Textarea extends React.Component {
       <div className={ this.mainClasses }>
 
         { this.labelHTML }
-        <textarea { ...this.inputProps } />
+        <textarea ref='textarea' { ...this.inputProps } />
         { this.validationHTML }
 
       </div>
