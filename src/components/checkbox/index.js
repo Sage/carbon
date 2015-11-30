@@ -31,11 +31,21 @@ class Checkbox extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    defaultChecked: React.PropTypes.bool
+    defaultChecked: React.PropTypes.bool,
+
+    /**
+     * Reverses label and checkbox display
+     *
+     * @property reverse
+     * @type {Boolean}
+     * @default false
+     */
+    reverse: React.PropTypes.bool
   }
 
   static defaultProps = {
-    defaultChecked: false
+    defaultChecked: false,
+    reverse: false
   }
 
   /**
@@ -126,16 +136,26 @@ class Checkbox extends React.Component {
    * @method render
    */
   render() {
+    let labelRight, labelLeft;
+
+    if (this.props.reverse) {
+      labelLeft = this.labelHTML;
+      labelRight = null
+      }
+    else {
+      labelLeft = null;
+      labelRight = this.labelHTML;
+    }
+
     return(
-      <div className={ this.mainClasses }>
-
-        { this.labelHTML }
-        <input { ...this.inputProps } />
-        { this.checkbox_sprite }
-        <input { ...this.hiddenInputProps } />
-        { this.validationHTML }
-
-      </div>
+        <div className={ this.mainClasses }>
+          { labelLeft }
+          <input { ...this.inputProps } />
+          { this.checkbox_sprite }
+          <input { ...this.hiddenInputProps } />
+          { this.validationHTML }
+          { labelRight}
+        </div>
     );
   }
 }
