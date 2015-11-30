@@ -9,27 +9,44 @@ describe('Store', () => {
   });
 
   describe('constructor', () => {
-    describe('init without a dispatcher', () => {
+    describe('init without a name', () => {
       it('throws an error', () => {
-        expect(function() { new Store }).toThrowError("You need to initialize your store with your application's dispatcher. Check the initialization of Store.");
+        expect(function() { new Store }).toThrowError("You need to initialize your store with a name. Check the initialization of Store.");
+      });
+    });
+
+    describe('init without data', () => {
+      it('throws an error', () => {
+        expect(function() { new Store('foo') }).toThrowError("You need to initialize your store with data. Check the initialization of Store.");
+      });
+    });
+
+    describe('init without dispatcher', () => {
+      it('throws an error', () => {
+        expect(function() { new Store('foo', {}) }).toThrowError("You need to initialize your store with your application's dispatcher. Check the initialization of Store.");
       });
     });
 
     describe('init with a dispatcher', () => {
       it('registers the dispatcher and store the token', () => {
         spyOn(dispatcher, 'register').and.returnValue('foo');
-        instance = new Store(dispatcher);
+        instance = new Store('foo', {}, dispatcher);
         expect(dispatcher.register).toHaveBeenCalledWith(instance.dispatcherCallback);
         expect(instance.dispatchToken).toEqual('foo');
+      });
+    });
+
+    describe('init with history enabled', () => {
+      it('adds a history prop of an empty array', () => {
+        instance = new Store('foo', {}, dispatcher, { history: true });
+        expect(instance.history).toEqual([]);
       });
     });
   });
 
   describe("with an actual store", () => {
     beforeEach(() => {
-      instance = new Store(dispatcher);
-      instance.name = 'foo';
-      instance.data = 'some data';
+      instance = new Store('foo', 'some data', dispatcher);
     });
 
     describe('addChangeListener', () => {

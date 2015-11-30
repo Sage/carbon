@@ -27,46 +27,67 @@ const CHANGE_EVENT = "change";
  * You can then use the imported store to extend your defined store class:
  *
  *   class MyStore extends Store {
- *     constructor(Dispatcher) {
- *       super(Dispatcher);
- *
- *       // required - Define a unique name for the store.
- *       this.name = "myStore";
- *
- *       // required - Define the store's initial data.
- *       this.data = ImmutableHelper.parse({});
- *
- *       // optional - By defining the history property, the store will collect
- *       // any data interaction. You should only define this if you intend to
- *       // use the data collected.
- *       this.history = [];
- *     }
  *   }
  *
- *   // You should initialize your store with your application's dispatcher before
- *   // exporting it.
- *   export default new MyStore(Dispatcher);
+ *   // get the initial data for your store
+ *   let data = ImmutableHelper.parse({});
  *
- * Please note, you should initialize your store with your application's dispatcher.
- * It is also required that you define your store's initial data by defining the
- * data property in the store's constructor, as well as a defining a unique name
- * in the constructor which will be used to store the data on the component's state.
+ *   // You should initialize your store with a name, its data and your
+ *   // application's dispatcher before exporting it.
+ *   //
+ *   // optional - By defining the history property, the store will collect
+ *   // any data interaction. You should only set this if you intend to
+ *   // use the data collected.
+ *   export default new MyStore("myStore", data, Dispatcher, { history: true });
+ *
+ * Please note, you should initialize your store with a name, initial data, and
+ * your application's dispatcher. You can also pass a fourth param of additional
+ * options which allows you to enable history for your store.
  *
  * @class Store
+ * @param {String} name
+ * @param {Object} data
  * @param {Object} Dispatcher
+ * @param {Object} opts
  * @constructor
  * @extends EventEmitter
  */
 export default class Store extends EventEmitter {
 
-  constructor(Dispatcher) {
-    super(Dispatcher);
+  constructor(name, data, Dispatcher, opts = {}) {
+    super(name, data, Dispatcher, opts);
+
+    // tell the developer if they have not defined the name property.
+    if (!name) {
+      throw new Error(`You need to initialize your store with a name. Check the initialization of ${this.constructor.name}.`);
+    }
+
+    // tell the developer if they have not defined the data property.
+    if (!data) {
+      throw new Error(`You need to initialize your store with data. Check the initialization of ${this.constructor.name}.`);
+    }
 
     // it is required to initialize the store with the dispatcher so we can register
     // the store with it and store the dispatchToken
     if (!Dispatcher) {
       throw new Error(`You need to initialize your store with your application's dispatcher. Check the initialization of ${this.constructor.name}.`);
     }
+
+    /**
+     * Set the name for the store - this will be used to identify your store.
+     *
+     * @property name
+     * @type {String}
+     */
+    this.name = name;
+
+    /**
+     * Set the data for the store - this should be an immutable object.
+     *
+     * @property data
+     * @type {Object}
+     */
+    this.data = data;
 
     /**
      * Store the dispatchToken after registering with the dispatcher, this will
@@ -77,6 +98,16 @@ export default class Store extends EventEmitter {
      * @type {String}
      */
     this.dispatchToken = Dispatcher.register(this.dispatcherCallback);
+
+    if (opts.history) {
+      /**
+       * If the store has history enabled, define it as an empty array.
+       *
+       * @property history
+       * @type {Array}
+       */
+      this.history = [];
+    }
   }
 
   /**
