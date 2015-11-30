@@ -22,9 +22,9 @@ class Table extends React.Component {
     ];
 
     let gutterFields = {
-      credit: <Decimal name="credit_total" label={ false } value={ this.props.creditTotal } />,
-      debit: <Decimal name="debit_total" label={ false } value={ this.props.debitTotal } />,
-      total: <Decimal className={ this.totalClassName } name="total" label={ false } value={ this.props.balance } />
+      credit: <Decimal name="credit_total" label={ false } value={ this.props.creditTotal } readOnly />,
+      debit: <Decimal name="debit_total" label={ false } value={ this.props.debitTotal } readOnly />,
+      total: <Decimal className={ this.totalClassName } name="total" label={ false } value={ this.props.balance } readOnly />
     };
 
     if (this.props.discount) {
