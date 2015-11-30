@@ -47,6 +47,30 @@ class Dialog extends React.Component {
     open: false
   }
 
+  static childContextTypes = {
+    /**
+     * Defines a context object for child components of the dialog component.
+     * https://facebook.github.io/react/docs/context.html
+     *
+     * @property dialog
+     * @type {Object}
+     */
+    dialog: React.PropTypes.object
+  }
+
+  /**
+   * Returns dialog object to child components. Used to override form cancel button functionality.
+   *
+   * @method getChildContext
+   */
+  getChildContext() {
+    return {
+      dialog: {
+        cancelDialogHandler: this.props.cancelDialogHandler
+      }
+    };
+  }
+
   /**
    * A lifecycle method to update the component after it is re-rendered
    *

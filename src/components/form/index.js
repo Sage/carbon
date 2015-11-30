@@ -69,6 +69,10 @@ class Form extends React.Component {
     form: React.PropTypes.object
   }
 
+  static contextTypes = {
+    dialog: React.PropTypes.object
+  }
+
   /**
    * Returns form object to child components.
    *
@@ -242,16 +246,20 @@ class Form extends React.Component {
   }
 
   /**
-   * Redirects to the previous page; uses React Router history.
+   * Redirects to the previous page; uses React Router history, or uses dialog cancel handler.
    *
    * @method cancelForm
    */
   cancelForm = () => {
-    // history comes from react router
-    if (!window.history) {
-      throw new Error('History is not defined. This is normally configured by the react router');
+    if (this.context.dialog) {
+      this.context.dialog.cancelDialogHandler();
+    } else {
+      // history comes from react router
+      if (!window.history) {
+        throw new Error('History is not defined. This is normally configured by the react router');
+      }
+      window.history.back();
     }
-    window.history.back();
   }
 
   /**
