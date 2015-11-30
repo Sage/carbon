@@ -143,7 +143,7 @@ class Dropdown extends React.Component {
    * @method rootClass
    */
   get rootClass() {
-    return 'base-list ui-dropdown';
+    return 'ui-dropdown';
   }
 
   /**
@@ -171,7 +171,8 @@ class Dropdown extends React.Component {
    */
   get listHTML() {
     let listClasses =  `${this.rootClass}__list` +
-        (this.state.open ? '' : ' hidden');
+        (this.state.open ? '' : ' hidden') +
+        this.baseListClasses;
 
     let options = this.props.options ? this.props.options.toJS() : [];
 

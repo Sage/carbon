@@ -68,6 +68,15 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
+   * Getter for classes for the base list
+   *
+   * @method baseListClasses
+   */
+  get baseListClasses() {
+    return ' base-list';
+  }
+
+  /**
    * Function that returns search results. Builds each list item with relevant handlers and classes.
    *
    * @method results
@@ -78,7 +87,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
     if (options.length) {
       results = options.map((option) => {
         let className = `${this.rootClass}__item`;
-        let baseName  = 'base-list__item';
+        let baseName  = `${this.baseListClasses}__item`;
 
         return <li
                   key={option.name + option.id}
@@ -86,8 +95,8 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
                   onMouseDown={this._handleSelect}
                   onMouseOver={this._handleMouseOver}
                   className={(this.state.highlighted == option.id) ?
-                    `${className} ${className}--highlighted ${baseName} ${baseName}--highlighted` :
-                    className}>
+                    `${className} ${className}--highlighted${baseName}${baseName}--highlighted` :
+                    `${className}${baseName}` }>
                   {option.name}
                 </li>;
       });

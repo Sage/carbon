@@ -144,7 +144,7 @@ describe("Dropdown", () => {
     describe('when the dropdown is open', () => {
       it('sets the list classname', () => {
         TestUtils.Simulate.focus(input[0]);
-        expect(instance.listHTML.props.className).toEqual('ui-dropdown__list')
+        expect(instance.listHTML.props.className).toEqual('ui-dropdown__list base-list')
       });
     });
 
@@ -208,8 +208,8 @@ describe("Dropdown", () => {
         instance.setState({
           highlighted: 2
         });
-        expect(listItems[0].className).toEqual("ui-dropdown__item");
-        expect(listItems[1].classList[1]).toEqual("ui-dropdown__item--highlighted");
+        expect(listItems[0].className).toEqual("ui-dropdown__item base-list__item");
+        expect(listItems[1].className).toEqual("ui-dropdown__item ui-dropdown__item--highlighted base-list__item base-list__item--highlighted");
       });
     });
   });

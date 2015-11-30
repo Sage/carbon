@@ -330,7 +330,7 @@ class DropdownSuggest extends React.Component {
    * @method rootClass
    */
   get rootClass() {
-    return 'base-list ui-dropdown-suggest';
+    return 'ui-dropdown-suggest';
   }
 
   /**
@@ -353,7 +353,8 @@ class DropdownSuggest extends React.Component {
 
   get listHTML() {
     let listClasses = `${this.rootClass}__list` +
-        (this.state.open ? '' : ' hidden');
+        (this.state.open ? '' : ' hidden') +
+        this.baseListClasses;
 
     return (
       <ul
