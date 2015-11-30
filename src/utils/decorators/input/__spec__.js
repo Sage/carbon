@@ -1,19 +1,8 @@
 import React from 'react';
+import TestUtils from 'react/lib/ReactTestUtils';
 import Input from './index';
 
-class TestClassOne {
-  props = {
-    name: 'foo'
-  };
-
-  context = {
-    form: {
-      model: 'model_1'
-    }
-  };
-
-  state = [];
-
+class TestClassOne extends React.Component {
   get mainClasses() {
     return "testMain"
   }
@@ -21,46 +10,43 @@ class TestClassOne {
   get inputClasses() {
     return "testInput"
   }
+
+  render() {
+    return <div></div>;
+  }
 }
 
-class TestClassTwo {
-  props = {
-    name: 'bar'
-  };
-
-  context = {
-    form: {
-      model: 'model_2'
-    }
-  };
-
+class TestClassTwo extends React.Component {
   count = 0;
 
   shouldComponentUpdate(nextProps, nextState) {
     this.count++;
   }
+
+  render() {
+    return <div></div>;
+  }
 }
 
-describe('Input', () => {
+let ExtendedClassOne = Input(TestClassOne);
+let ExtendedClassTwo = Input(TestClassTwo);
 
+describe('Input', () => {
   let instance, instanceTwo, onChange;
 
   beforeEach(() => {
-    let ExtendedClassOne = Input(TestClassOne);
-    instance = new ExtendedClassOne();
+    instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+      name: 'foo'
+    }));
 
-    let ExtendedClassTwo = Input(TestClassTwo);
-    instanceTwo = new ExtendedClassTwo();
+    instanceTwo = TestUtils.renderIntoDocument(React.createElement(ExtendedClassTwo, {
+      name: 'bar'
+    }));
 
     onChange = jasmine.createSpy('onChange');
   });
 
   describe('shouldComponentUpdate', () => {
-
-    beforeEach(() => {
-      instanceTwo.count = 1;
-    });
-
     it('returns true if props have changed', () => {
       let nextProps = { name: 'bar' };
       let nextState = instance.state;
@@ -88,15 +74,18 @@ describe('Input', () => {
         let nextState = instance.state;
 
         expect(instanceTwo.shouldComponentUpdate(nextProps, nextState)).toBeTruthy;
-        instance.shouldComponentUpdate(nextProps,nextState);
-        expect(instanceTwo.count).toEqual(2);
+        instance.shouldComponentUpdate(nextProps, nextState);
+        expect(instanceTwo.count).toEqual(1);
       });
     });
   });
 
   describe('_handleOnChange', () => {
     it('calls the components onChange handler if it has one', () => {
-      instance.props.onChange = onChange
+      instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+        onChange: onChange,
+        name: 'foo'
+      }));
       instance._handleOnChange('foo')
       expect(onChange).toHaveBeenCalledWith('foo', instance.props);
     });
@@ -108,7 +97,6 @@ describe('Input', () => {
   });
 
   describe('mainClasses', () => {
-
     describe('When the component includes main class names', () => {
       it('returns component and additional decorated classes', () => {
         expect(instance.mainClasses).toEqual('testMain base-input');
@@ -120,10 +108,19 @@ describe('Input', () => {
         expect(instanceTwo.mainClasses).toEqual(' base-input');
       });
     });
+
+    describe('When custom classes are added', () => {
+      it('returns component and additional custom classes', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          className: 'foobar',
+          name: 'foo'
+        }));
+        expect(instance.mainClasses).toEqual('testMain foobar base-input');
+      });
+    });
   });
 
   describe('inputClasses', () => {
-
     describe('When the component includes input class names', () => {
       it('returns component and additional decorated classes', () => {
         expect(instance.inputClasses).toEqual('testInput base-input__input');
@@ -138,10 +135,10 @@ describe('Input', () => {
   });
 
   describe('inputProps', () => {
-
     describe('inputProps are passed', () => {
       it('builds the name with provided inputProps', () => {
-        expect(instanceTwo.inputProps.name).toEqual('model_2[bar]');
+        instanceTwo.context.form = { model: 'model' };
+        expect(instanceTwo.inputProps.name).toEqual('model[bar]');
       });
     });
 
@@ -152,5 +149,4 @@ describe('Input', () => {
       });
     });
   });
-
 });
