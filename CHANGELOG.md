@@ -1,5 +1,9 @@
 # 0.0.2.beta
 
+## Dropdown and DropdownSuggest components
+
+A new dropdown component has been added to Carbon. As they share common functionality, dropdown and dropdown-suggest now use a List decorator. This should not affect how you use dropdown-suggest.
+
 ## Store, View and Route Utils
 
 We have standardised the utilities we provide to easily set up Flux based applications. This involved a few breaking changes:

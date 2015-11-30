@@ -16,7 +16,7 @@ import List from './../../utils/decorators/list';
  *
  * To render a Dropdown:
  *
- *   <Dropdown data={ foo } onChange={ myChangeHandler } />
+ *   <Dropdown options={ foo } onChange={ myChangeHandler } />
  *
  * The developed should pass data to the store as JSON. e.g.
  *
@@ -39,6 +39,12 @@ class Dropdown extends React.Component {
     options: React.PropTypes.object.isRequired
   };
 
+  /**
+   * Clears the visibleValue if a new value has been selected.
+   *
+   * @method componentWillReceiveProps
+   * @param {Object} nextProps the updated props
+   */
   componentWillReceiveProps(nextProps) {
     if (nextProps.value != this.props.value) {
       this.visibleValue = null;
@@ -79,13 +85,12 @@ class Dropdown extends React.Component {
    * @method nameByID
    */
   nameByID = () => {
-    //if no value selected, visibleValue is null
+    // if no value selected, visibleValue is null
     if (!this.props.value) {
-      this.visibleValue = '';
-      return this.visibleValue;
+      return this.visibleValue = '';
     }
 
-    //Match selected id to corresponding list option
+    // Match selected id to corresponding list option
     let option = this.props.options.find((item) => {
       return item.get('id') === this.props.value;
     });
@@ -102,7 +107,7 @@ class Dropdown extends React.Component {
 
   /**
    * A getter that combines props passed down from the input decorator with
-   * textbox specific props.
+   * dropdown specific props.
    *
    * @method inputProps
    */
@@ -147,7 +152,7 @@ class Dropdown extends React.Component {
    * @method mainClasses
    */
   get mainClasses() {
-    return 'ui-dropdown';
+    return `${this.rootClass}`;
   }
 
   /**
@@ -156,7 +161,7 @@ class Dropdown extends React.Component {
    * @method inputClasses
    */
   get inputClasses() {
-    return 'ui-dropdown__input';
+    return  `${this.rootClass}__input`;
   }
 
   /**
@@ -165,7 +170,7 @@ class Dropdown extends React.Component {
    * @method listHTML
    */
   get listHTML() {
-    let listClasses = 'ui-dropdown__list' +
+    let listClasses =  `${this.rootClass}__list` +
         (this.state.open ? '' : ' hidden');
 
     let options = this.props.options ? this.props.options.toJS() : [];

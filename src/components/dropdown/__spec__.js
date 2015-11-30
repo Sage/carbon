@@ -4,18 +4,17 @@ import Dropdown from './index';
 import ImmutableHelper from './../../utils/helpers/immutable'
 
 describe("Dropdown", () => {
-  let instance, instanceTwo, instanceEmpty, instanceInvalid, input;
-  let data = ImmutableHelper.parseJSON({ 'items':
-                     [{'id' : 1,  'name': 'foo'
-                     },
-                     {'id' : 2,  'name': 'foof'
-                     }],
+  let instance, instanceNoValue, instanceEmpty, instanceInvalid, input;
+  let data = ImmutableHelper.parseJSON(
+            { 'items': [{'id' : 1,  'name': 'foo' },
+                        {'id' : 2,  'name': 'foof' }
+                      ],
                       selected: undefined
                    });
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 2 } />);
-    instanceTwo = TestUtils.renderIntoDocument(<Dropdown name="bar" options={ data.get('items') } />);
+    instanceNoValue = TestUtils.renderIntoDocument(<Dropdown name="bar" options={ data.get('items') } />);
     instanceEmpty = TestUtils.renderIntoDocument(<Dropdown name="baz" />);
     instanceInvalid = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 3 } />);
     input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
@@ -44,7 +43,6 @@ describe("Dropdown", () => {
       spyOn(instance, '_handleOnChange');
       let value = 'one';
       instance.emitOnChangeCallback(value);
-      debugger
       expect(instance._handleOnChange).toHaveBeenCalledWith({target: { value: value }});
     });
   });
@@ -61,13 +59,13 @@ describe("Dropdown", () => {
 
     describe('when no option has been selected', () => {
       beforeEach(() => {
-        spyOn(instanceTwo, 'setState');
-        input = TestUtils.scryRenderedDOMComponentsWithTag(instanceTwo, 'input');
+        spyOn(instanceNoValue, 'setState');
+        input = TestUtils.scryRenderedDOMComponentsWithTag(instanceNoValue, 'input');
       });
 
       it('highlights the first option', () => {
         TestUtils.Simulate.focus(input[0]);
-        expect(instanceTwo.setState).toHaveBeenCalledWith({ open: true, highlighted: instanceTwo.props.options.first().get('id') });
+        expect(instanceNoValue.setState).toHaveBeenCalledWith({ open: true, highlighted: instanceNoValue.props.options.first().get('id') });
       });
     });
 
@@ -82,8 +80,8 @@ describe("Dropdown", () => {
   describe('nameByID', () => {
     describe('when no value has been selected', () => {
       it('sets the visibleValue to and empty string', () => {
-        instanceTwo.nameByID();
-        expect(instanceTwo.visibleValue).toEqual('');
+        instanceNoValue.nameByID();
+        expect(instanceNoValue.visibleValue).toEqual('');
       });
     });
 

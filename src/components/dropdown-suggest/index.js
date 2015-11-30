@@ -339,7 +339,7 @@ class DropdownSuggest extends React.Component {
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    return 'ui-dropdown-suggest';
+    return `${this.rootClass}`;
   }
 
   /**
@@ -348,11 +348,11 @@ class DropdownSuggest extends React.Component {
    * @method inputClasses
    */
   get inputClasses() {
-    return 'ui-dropdown-suggest__input';
+    return `${this.rootClass}__input`;
   }
 
   get listHTML() {
-    let listClasses = "ui-dropdown-suggest__list" +
+    let listClasses = `${this.rootClass}__list` +
         (this.state.open ? '' : ' hidden');
 
     return (
