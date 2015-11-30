@@ -6,6 +6,7 @@
   background-color: $white;
   border: 1px solid $border-color;
   box-sizing: border-box;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
   color: $grey-dark;
   cursor: pointer;
   max-height: 180px;
@@ -35,5 +36,5 @@
 }
 
 .ui-dropdown-suggest__item--highlighted {
-  background-color: $grey-light;
+  background-color: #E6E9E7;
 }

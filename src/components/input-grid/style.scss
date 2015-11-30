@@ -26,6 +26,8 @@ $table-header-border-bottom-color: $border-color;
 
 .ui-input-grid__header-cell {
   border-right: 1px solid $table-header-border-color;
+  font-weight: normal;
+  line-height: 14px;
   padding: 0 8px;
   vertical-align: middle;
 

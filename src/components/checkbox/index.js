@@ -105,7 +105,7 @@ class Checkbox extends React.Component {
   get checkbox_sprite() {
     return(
         <svg width="15" height="15" viewBox="0 0 15 15">
-          <rect className="checkbox-outline" fill="#D0D0D0" x="0" y="0" width="15" height="15"></rect>
+          <rect className="checkbox-outline" fill="#AFAFAF" x="0" y="0" width="15" height="15"></rect>
           <rect className="checkbox-fill" fill="#FFFFFF" x="1" y="1" width="13" height="13"></rect>
           <path d="M5.06079081,11.805307 L2.2548404,9.4508351 C1.95287351,9.19745479 1.91372172,
           8.74748731 2.16708208,8.44554418 L3.08395978,7.35285189 C3.3376225,7.05054844 3.78738919,

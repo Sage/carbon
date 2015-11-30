@@ -8,16 +8,14 @@
 
 .ui-checkbox__input {
   cursor: pointer;
-  height: 16px;
-  vertical-align: middle;
-  width: 16px;
-  position: absolute;
-  left: 47.5%;
+  height: 15px;
+  left: 47.7%;
   opacity: 0;
-
+  position: absolute;
+  vertical-align: middle;
+  width: 15px;
 
   ~ svg {
-    
     .checkbox-outline {
       rx: 2;
     }
@@ -25,23 +23,36 @@
     .checkbox-fill {
       ry: 1;
     }
-
-    .checkbox-check {
-      position: absolute;
-      fill: $white;
-    }
   }
 
+  &:focus + svg {
+    box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
+    @include transition(border linear 0.1s, box-shadow linear 0.1s);
 
-  &:hover + svg {
     .checkbox-outline {
-     fill: $input-active-border-color;
+      fill: $input-active-border-color;
     }
   }
 
-  &:checked + svg {
+  &:hover + svg .checkbox-outline {
+    fill: $input-active-border-color;
+  }
+
+  &:checked + svg .checkbox-check {
+    fill: $grey-dark;
+  }
+
+  &[disabled] + svg {
+    .checkbox-outline {
+      fill: $grey;
+    }
+
+    .checkbox-fill {
+      fill: $grey-light;
+    }
+
     .checkbox-check {
-      fill: $black;
+      fill: $grey;
     }
   }
 }
