@@ -2,7 +2,7 @@
 @import 'mixins';
 @import 'z-index';
 
-.ui-dropdown-suggest__list, .ui-dropdown__list {
+.base-list {
   background-color: $white;
   border: 1px solid $green-bright;
   box-sizing: border-box;
@@ -31,10 +31,10 @@
   }
 }
 
-.ui-dropdown-suggest__item, .ui-dropdown__item {
+.base-list__item {
   padding: 5px 6px;
 }
 
-.ui-dropdown-suggest__item--highlighted, .ui-dropdown__item--highlighted  {
+.base-list__item--highlighted  {
   background-color: lighten($green-bright, 42%);
 }

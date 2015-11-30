@@ -78,6 +78,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
     if (options.length) {
       results = options.map((option) => {
         let className = `${this.rootClass}__item`;
+        let baseName  = 'base-list__item';
 
         return <li
                   key={option.name + option.id}
@@ -85,7 +86,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
                   onMouseDown={this._handleSelect}
                   onMouseOver={this._handleMouseOver}
                   className={(this.state.highlighted == option.id) ?
-                    `${className} ${className}--highlighted` :
+                    `${className} ${className}--highlighted ${baseName} ${baseName}--highlighted` :
                     className}>
                   {option.name}
                 </li>;

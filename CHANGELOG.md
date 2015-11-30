@@ -2,7 +2,7 @@
 
 ## Dropdown and DropdownSuggest components
 
-A new dropdown component has been added to Carbon. As they share common functionality, dropdown and dropdown-suggest now use a List decorator. This should not affect how you use dropdown-suggest.
+Dropdown and dropdown-suggest have been updated. As they share common functionality, dropdown and dropdown-suggest now use a List decorator. This should not affect how you use either component.
 
 ## Store, View and Route Utils
 

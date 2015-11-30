@@ -143,7 +143,7 @@ class Dropdown extends React.Component {
    * @method rootClass
    */
   get rootClass() {
-    return 'ui-dropdown';
+    return 'base-list ui-dropdown';
   }
 
   /**
