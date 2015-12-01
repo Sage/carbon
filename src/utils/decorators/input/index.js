@@ -107,7 +107,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @method inputClasses
    */
   get inputProps() {
-    var inputProps = (super.inputProps) ? super.inputProps : {};
+    var inputProps = super.inputProps || {};
 
     // redefine the input name relative to the form
     inputProps.name = generateInputName(this.props.name, this.context.form);

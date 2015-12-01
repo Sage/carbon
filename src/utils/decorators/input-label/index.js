@@ -70,7 +70,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    * @method inputProps
    */
   get inputProps() {
-    let inputProps = (super.inputProps) ? super.inputProps : {};
+    let inputProps = super.inputProps || {};
 
     // set id so label will focus on input when clicked
     inputProps.id = generateInputName(this.props.name, this.context.form);
