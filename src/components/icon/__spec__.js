@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Icon from './index';
 
-fdescribe('Icon', () => {
+describe('Icon', () => {
   let instance;
 
   describe('with no additional options', () => {
