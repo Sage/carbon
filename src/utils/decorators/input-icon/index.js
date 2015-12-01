@@ -46,6 +46,10 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
    * @param {string} icon Which icon to render
    */
   inputIconHTML = (icon) => {
+    if (this.props && (this.props.readOnly || this.props.disabled)) {
+      return null;
+    }
+
     return (
       <label htmlFor={ this.inputProps.id }>
         <Icon type={ icon } className="ui-input-icon" />
