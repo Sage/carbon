@@ -193,6 +193,7 @@ class Date extends React.Component {
    */
   handleBlur = () => {
     this.updateVisibleValue();
+    this.closeDatePicker();
   }
 
   /**

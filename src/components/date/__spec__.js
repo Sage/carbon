@@ -208,12 +208,17 @@ describe('Date', () => {
 
   describe('handleBlur', () => {
     beforeEach(() => {
-      spyOn(instance, 'updateVisibleValue')
+      spyOn(instance, 'updateVisibleValue');
+      spyOn(instance, 'closeDatePicker');
       TestUtils.Simulate.blur(instance.refs.visible);
     });
 
     it('updates the visible value', () => {
       expect(instance.updateVisibleValue).toHaveBeenCalled();
+    });
+
+    it('calls closeDatePicker', () => {
+      expect(instance.closeDatePicker).toHaveBeenCalled();
     });
   });
 
