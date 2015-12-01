@@ -1,5 +1,9 @@
 # 0.0.2.beta
 
+## Decimal Component
+
+ An extra validation has been added to decimal to prevent multiple separators from being entered in the input field.
+
 ## Dropdown and DropdownSuggest components
 
 Dropdown and dropdown-suggest have been updated. As they share common functionality, dropdown and dropdown-suggest now use a List decorator. This should not affect how you use either component.
