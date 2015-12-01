@@ -37,12 +37,12 @@ class Form extends React.Component {
 
   static propTypes = {
     /**
-     * The model name from the database
+     * The model name from the database (this will be used to manipulate input names in the form)
      *
      * @property model
      * @type {String}
      */
-    model: React.PropTypes.string.isRequired,
+    model: React.PropTypes.string,
 
     /**
      * Cancel button is shown if true
@@ -67,6 +67,10 @@ class Form extends React.Component {
      * @type {Object}
      */
     form: React.PropTypes.object
+  }
+
+  static contextTypes = {
+    dialog: React.PropTypes.object
   }
 
   /**
@@ -242,16 +246,20 @@ class Form extends React.Component {
   }
 
   /**
-   * Redirects to the previous page; uses React Router history.
+   * Redirects to the previous page; uses React Router history, or uses dialog cancel handler.
    *
    * @method cancelForm
    */
   cancelForm = () => {
-    // history comes from react router
-    if (!window.history) {
-      throw new Error('History is not defined. This is normally configured by the react router');
+    if (this.context.dialog) {
+      this.context.dialog.cancelDialogHandler();
+    } else {
+      // history comes from react router
+      if (!window.history) {
+        throw new Error('History is not defined. This is normally configured by the react router');
+      }
+      window.history.back();
     }
-    window.history.back();
   }
 
   /**

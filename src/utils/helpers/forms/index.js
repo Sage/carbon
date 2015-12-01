@@ -13,7 +13,7 @@
 export function generateInputName(name, form) {
   let formName = name;
 
-  if (form) {
+  if (form && form.model) {
     formName = form.model;
     formName += (name.charAt(0) === "[") ? name : `[${name}]`;
   }
