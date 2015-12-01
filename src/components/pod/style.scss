@@ -6,3 +6,31 @@
   border-radius: 4px;
   padding: 20px 15px;
 }
+
+.ui-pod__title h2 {
+  display: inline;
+  background: none;
+  color: $grey-dark;
+  font-size: 1.8em;
+  font-weight: 300;
+}
+
+.ui-pod__description {
+  margin-top: 10px;
+  background: none;
+  font-size: 12px;
+}
+
+.ui-pod__content {
+  margin-top: 15px;
+}
+
+.ui-pod__arrow {
+  display: inline-block;
+}
+
+.ui-pod__arrow--open {
+  -ms-transform: rotate(180deg); /* IE 9 */
+  -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+  transform: rotate(180deg);
+}
