@@ -5,15 +5,22 @@ describe('Form Helper', () => {
     describe('when form is present', () => {
       describe('when name contains brackets', () => {
         it('adds the bracketed form model to the input name', () => {
-          let form = { model: '[foo]' }
+          let form = { model: '[foo]' };
           expect(generateInputName('bar', form)).toEqual('[foo][bar]');
         });
       });
 
       describe('when name does not contain brackets', () => {
         it('adds form model to the input name', () => {
-          let form = { model: 'foo' }
+          let form = { model: 'foo' };
           expect(generateInputName('bar', form)).toEqual('foo[bar]');
+        });
+      });
+
+      describe('when form has no model', () => {
+        it('does not modify the input name', () => {
+          let form = {};
+          expect(generateInputName('bar', form)).toEqual('bar');
         });
       });
     });

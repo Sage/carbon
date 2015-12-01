@@ -83,6 +83,11 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   get mainClasses() {
     let classes = super.mainClasses || "";
+
+    if (this.props.className) {
+      classes += ` ${this.props.className}`;
+    }
+
     return `${classes} base-input`;
   }
 
