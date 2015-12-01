@@ -114,8 +114,11 @@ class Dropdown extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.onFocus = this.handleFocus;
     props.value = this.visibleValue || this.nameByID();
+
+    if (!this.props.readOnly && !this.props.disabled) {
+      props.onFocus = this.handleFocus;
+    }
 
     return props;
   }

@@ -244,9 +244,13 @@ class Date extends React.Component {
     props.className = this.inputClasses;
     props.ref = "visible";
     props.onChange = this.handleVisibleInputChange;
-    props.onFocus = this.handleFocus;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
+
+    if (!this.props.readOnly && !this.props.disabled) {
+      props.onFocus = this.handleFocus;
+    }
+
     return props;
   }
 
