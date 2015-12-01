@@ -114,8 +114,11 @@ class Dropdown extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.onFocus = this.handleFocus;
     props.value = this.visibleValue || this.nameByID();
+
+    if (!this.props.readOnly && !this.props.disabled) {
+      props.onFocus = this.handleFocus;
+    }
 
     return props;
   }
@@ -147,7 +150,7 @@ class Dropdown extends React.Component {
   }
 
   /**
-   * Main Classes getter, can be extended to return additional classes
+   * Uses the mainClasses method provided by the decorator to add additional classes.
    *
    * @method mainClasses
    */
@@ -156,7 +159,7 @@ class Dropdown extends React.Component {
   }
 
   /**
-   * Input class getter
+   * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
    */

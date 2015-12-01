@@ -20,13 +20,13 @@ import React from 'react';
  * @class Icon
  * @constructor
  */
-var Icons = (props) => {
-
+var Icon = (props) => {
   let { className, type, ...otherProps } = props;
 
-  className = className + " icon-" + type;
+  className = className || '';
+  className = `icon-${type} ${className}`;
 
   return <span className={ className } { ...otherProps }></span>;
 };
 
-export default Icons;
+export default Icon;

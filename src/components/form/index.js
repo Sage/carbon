@@ -11,15 +11,17 @@ import I18n from "i18n-js";
  *
  *   import Form from 'carbon/lib/components/form';
  *
- * Form requires a prop of 'model'. It renders any children components of input type passed to it.
- *
  * To render a Form:
  *
- *   <Form model='foo'>
+ *   <Form>
  *     <Textbox />
  *     <Textbox />
  *     <Date />
  *   </Form>
+ *
+ * Optionally, you can pass a model name to the form. The form will use this name
+ * to modify its inputs names. For example, a form with a model name of 'foo' and
+ * an input with a name of 'bar', the inputs name will get modified to be 'foo[bar]'.
  *
  * @class Form
  * @constructor

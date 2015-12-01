@@ -298,11 +298,15 @@ class DropdownSuggest extends React.Component {
     let { ...props } = this.props;
     props.className = this.inputClasses;
     props.ref = "filter";
-    props.onFocus = this.handleFocus;
     props.onBlur = this.handleBlur;
     props.onChange = this.handleChange;
     props.onKeyDown = this.handleKeyDown;
     props.value = props.value.get(this.props.resource_key);
+
+    if (!this.props.readOnly && !this.props.disabled) {
+      props.onFocus = this.handleFocus;
+    }
+
     return props;
   }
 
@@ -334,16 +338,16 @@ class DropdownSuggest extends React.Component {
   }
 
   /**
-   * Main Class getter, can be extended with additional classes.
+   * Uses the mainClasses method provided by the decorator to add additional classes.
    *
-   * @method mainClasses Main Class getter
+   * @method mainClasses
    */
   get mainClasses() {
     return this.rootClass;
   }
 
   /**
-   * Input class getter
+   * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
    */

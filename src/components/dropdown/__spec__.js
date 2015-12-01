@@ -75,6 +75,26 @@ describe("Dropdown", () => {
         expect(instance.setState).toHaveBeenCalledWith({ open: true, highlighted: instance.props.value });
       });
     });
+
+    describe('when disabled', () => {
+      it('does not call setState', () => {
+        instance = TestUtils.renderIntoDocument(<Dropdown disabled name="foo" options={ data.get('items') } value={ 2 } />);
+        input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
+        spyOn(instance, 'setState');
+        TestUtils.Simulate.focus(input[0]);
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when readOnly', () => {
+      it('does not call setState', () => {
+        instance = TestUtils.renderIntoDocument(<Dropdown readOnly name="foo" options={ data.get('items') } value={ 2 } />);
+        input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
+        spyOn(instance, 'setState');
+        TestUtils.Simulate.focus(input[0]);
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('nameByID', () => {

@@ -31,11 +31,21 @@ class Checkbox extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    defaultChecked: React.PropTypes.bool
+    defaultChecked: React.PropTypes.bool,
+
+    /**
+     * Reverses label and checkbox display
+     *
+     * @property reverse
+     * @type {Boolean}
+     * @default false
+     */
+    reverse: React.PropTypes.bool
   }
 
   static defaultProps = {
-    defaultChecked: false
+    defaultChecked: false,
+    reverse: false
   }
 
   /**
@@ -51,7 +61,7 @@ class Checkbox extends React.Component {
   }
 
   /**
-   * Main Class getter
+   * Uses the mainClasses method provided by the decorator to add additional classes.
    *
    * @method mainClasses
    */
@@ -60,7 +70,7 @@ class Checkbox extends React.Component {
   }
 
   /**
-   * Input class getter
+   * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
    */
@@ -102,7 +112,7 @@ class Checkbox extends React.Component {
     return props;
   }
 
-  get checkbox_sprite() {
+  get checkboxSprite() {
     return(
         <svg width="15" height="15" viewBox="0 0 15 15">
           <rect className="checkbox-outline" fill="#AFAFAF" x="0" y="0" width="15" height="15"></rect>
@@ -126,15 +136,22 @@ class Checkbox extends React.Component {
    * @method render
    */
   render() {
+    let labelRight, labelLeft;
+
+    if (this.props.reverse) {
+      labelLeft = this.labelHTML;
+    } else {
+      labelRight = this.labelHTML;
+    }
+
     return(
       <div className={ this.mainClasses }>
-
-        { this.labelHTML }
+        { labelLeft }
         <input { ...this.inputProps } />
-        { this.checkbox_sprite }
+        { this.checkboxSprite }
         <input { ...this.hiddenInputProps } />
+        { labelRight }
         { this.validationHTML }
-
       </div>
     );
   }
