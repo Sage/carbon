@@ -177,7 +177,7 @@ class Dropdown extends React.Component {
         (this.state.open ? '' : ' hidden') +
         this.baseListClasses;
 
-    let options = this.props.options ? this.props.options.toJS() : [];
+    let options = this.props.options.toJS();
 
     return (
       <ul

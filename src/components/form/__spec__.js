@@ -245,16 +245,16 @@ describe('Form', () => {
   describe('cancelForm', () => {
     describe('when window history is availiable', () => {
       it('redirects to the previous page', () => {
-        spyOn(window.history, 'back')
+        spyOn(instance._window.history, 'back')
         let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         TestUtils.Simulate.click(cancel);
-        expect(window.history.back).toHaveBeenCalled();
+        expect(instance._window.history.back).toHaveBeenCalled();
       });
     });
 
     describe('when window history is not availiable', () => {
       it('throws an error', () => {
-        window.history = false;
+        instance._window = {};
         let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         expect(function() { TestUtils.Simulate.click(cancel) }).toThrowError('History is not defined. This is normally configured by the react router');
       });
@@ -305,7 +305,7 @@ describe('Form', () => {
 
         spyOn(fakeMeta1, 'getAttribute').and.returnValue('csrf-param')
         spyOn(fakeMeta2, 'getAttribute').and.returnValue('csrf-token')
-        spyOn(instance.doc, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
+        spyOn(instance._document, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
 
         instance = TestUtils.renderIntoDocument(<Form model='test' />);
 
