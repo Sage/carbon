@@ -369,6 +369,40 @@ describe("DropdownSuggest", () => {
         });
       });
     });
+
+    describe('when disabled', () => {
+      it('does not call setSelectionRange', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownSuggest
+            disabled
+            name="bla"
+            path="/foo"
+            resource_key="key"
+          />);
+        filter = instance.refs.filter;
+        spyOn(filter, 'setSelectionRange');
+        TestUtils.Simulate.focus(filter);
+        jasmine.clock().tick(0);
+        expect(filter.setSelectionRange).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when readOnly', () => {
+      it('does not call setSelectionRange', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownSuggest
+            readOnly
+            name="bla"
+            path="/foo"
+            resource_key="key"
+          />);
+        filter = instance.refs.filter;
+        spyOn(filter, 'setSelectionRange');
+        TestUtils.Simulate.focus(filter);
+        jasmine.clock().tick(0);
+        expect(filter.setSelectionRange).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe("on blur of the input", () => {
