@@ -23,18 +23,62 @@ import InputValidation from './../../utils/decorators/input-validation';
 const Textarea = Input(InputLabel(InputValidation(
 class Textarea extends React.Component {
 
+  // Number of characters in the textarea
   valLength = 0;
+
+  // Minimum height of the textarea
   minHeight = 0;
 
-  componentDidMount = () => {
-    this.valLength = this.props.value ? this.props.value.length : 0;
-    this.minHeight = this.refs.textarea.clientHeight;
+  static propTypes = {
+    /**
+     * Allows the Textareas Height to change based on user input
+     * Width of the textarea will remain static
+     *
+     * @property expandable
+     * @type {Boolean}
+     * @default false
+     */
+    expandable: React.PropTypes.bool
+  }
 
+  static defaultProps = {
+    expandable: false
+  }
+
+  /**
+   * A lifecycle method that is called after initial render.
+   * Allows access to refs and DOM to set expandable variables
+   *
+   * @method componentDidMount
+   */
+  componentDidMount = () => {
     if (this.props.expandable) {
+      window.addEventListener('resize', this.expandTextarea);
+      this.valLength = this.props.value ? this.props.value.length : 0;
+      this.minHeight = this.refs.textarea.clientHeight;
+
       this.expandTextarea();
     }
   }
 
+  /**
+   * A lifecycle method that is called before the component is
+   * unmounted from the DOM
+   *
+   * @method componentWillUnmount
+   */
+  componentWillUnmount = () => {
+    if (this.props.expandable) {
+      window.removeEventListener('resize', this.expandTextarea);
+    }
+  }
+
+  /**
+   * A lifecycle method to update the component after it is re-rendered
+   * Resizes the textarea based on update if it can expand
+   *
+   * @method componentDidUpdate
+   */
   componentDidUpdate = () => {
     if (this.props.expandable) {
       if (this.refs.textarea.value.length !== this.valLength) {
@@ -43,14 +87,22 @@ class Textarea extends React.Component {
     }
   }
 
+  /**
+   * Expands the textarea based on the current input
+   * so that width is fixed but height changes to show
+   * all content.
+   *
+   * @method expandTextarea
+   */
   expandTextarea = () => {
     let textarea = this.refs.textarea,
-      boxWidth = textarea.boxWidth,
-      offWidth = textarea.offsetWidth,
+      boxWidth = textarea.boxWidth, // width of textbox
+      offWidth = textarea.offsetWidth, // width including border
       newLen = textarea.value.length,
       oldLen = this.valLength;
 
     if (textarea.scrollHeight > this.minHeight) {
+      // Reset the css height
       if (newLen < oldLen || offWidth !== boxWidth) {
         textarea.style.height = "0px";
       }
@@ -89,6 +141,7 @@ class Textarea extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
+    props.ref = 'textarea';
     props.rows = this.props.rows;
     props.cols = this.props.cols;
     return props;
@@ -104,7 +157,7 @@ class Textarea extends React.Component {
       <div className={ this.mainClasses }>
 
         { this.labelHTML }
-        <textarea ref='textarea' { ...this.inputProps } />
+        <textarea { ...this.inputProps } />
         { this.validationHTML }
 
       </div>
