@@ -26,7 +26,7 @@ describe('Checkbox', () => {
       expect(checkbox.value).toEqual('1');
     });
 
-    it('renders a checkbox_sprite to be used as the visible input', () => {
+    it('renders a checkboxSprite to be used as the visible input', () => {
       let sprite = TestUtils.findRenderedDOMComponentWithTag(instance, 'svg');
       let check = TestUtils.findRenderedDOMComponentWithTag(instance, 'path');
       expect(sprite.getAttribute('viewBox')).toEqual('0 0 15 15');
@@ -61,6 +61,36 @@ describe('Checkbox', () => {
       let checkbox = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
       TestUtils.Simulate.change(checkbox, {target: { checked: true }});
       expect(instance._handleOnChange).toHaveBeenCalledWith({ target: { value: true }});
+    });
+  });
+
+  describe('reverse set to false', () => {
+    it('sets reverse to false by default', () => {
+      expect(instance.props.reverse).toBeFalsy();
+    });
+
+    it('renders with the label on the right by default', () => {
+      let label = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'label')[0];
+      expect(label.previousSibling.name).toEqual('checkbox');
+      expect(label.nextSibling).toBe(null);
+    });
+  });
+
+  describe('reverse set to true', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Checkbox
+          name='checkbox'
+          label='checkbox'
+          reverse={ true }
+        />
+      )
+    });
+
+    it('renders with the label on the left', () => {
+      let label = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'label')[0];
+      expect(label.previousSibling).toBe(null);
+      expect(label.nextSibling.name).toEqual('checkbox');
     });
   });
 });

@@ -117,6 +117,7 @@ A new style and colour scheme has been applied to the carbon components library.
 * Forms no longer needs a model name defined.
 * Updated Form Cancel Button to use History object.
 * Input components can now use custom classes.
+* Checkbox label now sits inline, and is reversable.
 * Added Rainbow chart component.
 
 # 0.0.1
