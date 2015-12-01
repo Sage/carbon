@@ -56,7 +56,7 @@ class Textarea extends React.Component {
       }
 
       textarea.style.overflow = "hidden";
-      textarea.style.height = textarea.scrollHeight + "px";
+      textarea.style.height = Math.max(textarea.scrollHeight, this.minHeight) + "px";
       textarea.boxWidth = offWidth;
       this.valLength = newLen;
     }
