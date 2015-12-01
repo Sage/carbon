@@ -61,7 +61,7 @@ class Checkbox extends React.Component {
   }
 
   /**
-   * Main Class getter
+   * Uses the mainClasses method provided by the decorator to add additional classes.
    *
    * @method mainClasses
    */
@@ -70,7 +70,7 @@ class Checkbox extends React.Component {
   }
 
   /**
-   * Input class getter
+   * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
    */

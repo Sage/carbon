@@ -20,6 +20,12 @@ import { generateInputName } from './../../helpers/forms';
  *     ...
  *   })
  *
+ * This decorator provides methods you can use in your component class:
+ *
+ *  * `mainClasses` - classes to apply to the main component element
+ *  * `inputClasses` - classes to apply to the input element
+ *  * `inputProps` - props to apply to the input element
+ *
  * @method Input
  */
 var Input = (ComposedComponent) => class Component extends ComposedComponent {
@@ -107,7 +113,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @method inputClasses
    */
   get inputProps() {
-    var inputProps = (super.inputProps) ? super.inputProps : {};
+    var inputProps = super.inputProps || {};
 
     // redefine the input name relative to the form
     inputProps.name = generateInputName(this.props.name, this.context.form);

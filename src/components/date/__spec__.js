@@ -24,7 +24,6 @@ describe('Date', () => {
 
   describe('lifecycle', () => {
     describe('componentWillReceiveProps', () => {
-
       beforeEach(() => {
         spyOn(instance, 'setState');
       });
@@ -226,6 +225,34 @@ describe('Date', () => {
 
     it('opens the date picker', () => {
       expect(instance.openDatePicker).toHaveBeenCalled();
+    });
+
+    describe('when disabled', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Date name='date' label='Date' disabled />
+        )
+        spyOn(instance, 'openDatePicker')
+        TestUtils.Simulate.focus(instance.refs.visible);
+      });
+
+      it('does not open the date picker', () => {
+        expect(instance.openDatePicker).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when readOnly', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Date name='date' label='Date' readOnly />
+        )
+        spyOn(instance, 'openDatePicker')
+        TestUtils.Simulate.focus(instance.refs.visible);
+      });
+
+      it('does not open the date picker', () => {
+        expect(instance.openDatePicker).not.toHaveBeenCalled();
+      });
     });
   });
 

@@ -5,6 +5,7 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
+import List from './../../utils/decorators/list';
 
 /**
  * A dropdown-suggest widget.
@@ -21,9 +22,9 @@ import InputIcon from './../../utils/decorators/input-icon';
  *
  * @class DropdownSuggest
  * @constructor
- * @decorators {Input,InputIcon,InputLabel,InputValidation}
+ * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
  */
-const DropdownSuggest = Input(InputIcon(InputLabel(InputValidation(
+const DropdownSuggest = List(Input(InputIcon(InputLabel(InputValidation(
 class DropdownSuggest extends React.Component {
 
   static propTypes = {
@@ -50,7 +51,8 @@ class DropdownSuggest extends React.Component {
   };
 
   /**
-   * Tracks whether the scroll listener is active on the list.
+   * Tracks whether the scroll listener is active on the list, useful for
+   * paginated results.
    *
    * @property listeningToScroll
    * @type {Boolean}
@@ -68,15 +70,6 @@ class DropdownSuggest extends React.Component {
     options: [],
 
     /**
-     * Defines whether the list is open or not.
-     *
-     * @property open
-     * @type {Boolean}
-     * @default false
-     */
-    open: false,
-
-    /**
      * The current page number for the results.
      *
      * @property page
@@ -92,16 +85,7 @@ class DropdownSuggest extends React.Component {
      * @type {Number}
      * @default 0
      */
-    pages: 0,
-
-    /**
-     * The ID of the highlighted item in the list.
-     *
-     * @property highlighted
-     * @type {Number}
-     * @default null
-     */
-    highlighted: null
+    pages: 0
   }
 
   /**
@@ -185,7 +169,6 @@ class DropdownSuggest extends React.Component {
    */
   handleBlur = () => {
     this.resetScroll();
-    this.setState({ open: false });
   }
 
   /**
@@ -243,7 +226,7 @@ class DropdownSuggest extends React.Component {
   }
 
   /**
-   * Handles a select action on a list item.
+   * Handles a select action on a list item - overrides the method supplied by the list decorator
    *
    * @method handleSelect
    * @param {Object} ev event
@@ -251,16 +234,6 @@ class DropdownSuggest extends React.Component {
   handleSelect = (ev) => {
     let val = buildImmutableValue(this.props, ev.target.textContent, ev.target.value);
     this.emitOnChangeCallback(val);
-  }
-
-  /**
-   * Handles a mouse over event for list items.
-   *
-   * @method handleMouseOver
-   * @param {Object} ev event
-   */
-  handleMouseOver = (ev) => {
-    this.setState({ highlighted: ev.target.value });
   }
 
   /**
@@ -325,11 +298,15 @@ class DropdownSuggest extends React.Component {
     let { ...props } = this.props;
     props.className = this.inputClasses;
     props.ref = "filter";
-    props.onFocus = this.handleFocus;
     props.onBlur = this.handleBlur;
     props.onChange = this.handleChange;
     props.onKeyDown = this.handleKeyDown;
     props.value = props.value.get(this.props.resource_key);
+
+    if (!this.props.readOnly && !this.props.disabled) {
+      props.onFocus = this.handleFocus;
+    }
+
     return props;
   }
 
@@ -344,61 +321,53 @@ class DropdownSuggest extends React.Component {
       ref: "input",
       type: "hidden",
       readOnly: true,
-      name: nameWithID
+      name: nameWithID,
+      value: this.props.value.get('id')
     };
-
-    props.value = this.props.value.get('id');
 
     return props;
   }
 
   /**
-   * Main Class getter
+   * Root Class getter, returns a single class
    *
-   * @method mainClasses Main Class getter
+   * @method rootClass
    */
-  get mainClasses() {
+  get rootClass() {
     return 'ui-dropdown-suggest';
   }
 
   /**
-   * Input class getter
+   * Uses the mainClasses method provided by the decorator to add additional classes.
+   *
+   * @method mainClasses
+   */
+  get mainClasses() {
+    return this.rootClass;
+  }
+
+  /**
+   * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
    */
   get inputClasses() {
-    return 'ui-dropdown-suggest__input';
+    return `${this.rootClass}__input`;
   }
 
-  /**
-   * Getter that returns search results. Builds each list item with relevant handlers and classes.
-   *
-   * @method results
-   */
-  get results() {
-    let results;
+  get listHTML() {
+    let listClasses = `${this.rootClass}__list` +
+        (this.state.open ? '' : ' hidden') +
+        this.baseListClasses;
 
-    if (this.state.options.length) {
-      results = this.state.options.map((option) => {
-        let className = "ui-dropdown-suggest__item";
-
-        return <li
-                  key={option.name + option.id}
-                  value={option.id}
-                  onMouseDown={this.handleSelect}
-                  onMouseOver={this.handleMouseOver}
-                  className={(this.state.highlighted == option.id) ?
-                    `${className} ${className}--highlighted` :
-                    className}>
-                  {option.name}
-                </li>;
-      });
-
-    } else {
-      results = <li>No results</li>;
-    }
-
-    return results;
+    return (
+      <ul
+        ref="list"
+        className={ listClasses }
+        onScroll={ this.handleScroll }>
+        { this.results(this.state.options) }
+      </ul>
+    );
   }
 
   /**
@@ -407,9 +376,6 @@ class DropdownSuggest extends React.Component {
    * @method render
    */
   render() {
-    let listClasses = "ui-dropdown-suggest__list" +
-        (this.state.open ? '' : ' hidden');
-
     return (
       <div className={ this.mainClasses } >
 
@@ -419,18 +385,13 @@ class DropdownSuggest extends React.Component {
         { this.inputIconHTML("dropdown") }
         { this.validationHTML }
 
-        <ul
-          ref="list"
-          className={ listClasses }
-          onScroll={ this.handleScroll }>
-          { this.results }
-        </ul>
+        { this.listHTML }
 
       </div>
     );
   }
 }
-))));
+)))));
 
 // Private Functions
 
