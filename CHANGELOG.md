@@ -111,6 +111,7 @@ We have renamed this because its original name was based on a Rails convention a
 ## Misc
 
 * Ran ESLint task and fixed any errors.
+* Forms no longer needs a model name defined.
 * Updated Form Cancel Button to use History object.
 * Added Rainbow chart component.
 
