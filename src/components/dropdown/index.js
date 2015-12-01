@@ -150,7 +150,7 @@ class Dropdown extends React.Component {
   }
 
   /**
-   * Main Classes getter, can be extended to return additional classes
+   * Uses the mainClasses method provided by the decorator to add additional classes.
    *
    * @method mainClasses
    */
@@ -159,7 +159,7 @@ class Dropdown extends React.Component {
   }
 
   /**
-   * Input class getter
+   * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
    */
