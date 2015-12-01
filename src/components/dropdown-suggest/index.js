@@ -334,16 +334,16 @@ class DropdownSuggest extends React.Component {
   }
 
   /**
-   * Main Class getter, can be extended with additional classes.
+   * Uses the mainClasses method provided by the decorator to add additional classes.
    *
-   * @method mainClasses Main Class getter
+   * @method mainClasses
    */
   get mainClasses() {
     return this.rootClass;
   }
 
   /**
-   * Input class getter
+   * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
    */

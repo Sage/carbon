@@ -271,7 +271,7 @@ class Date extends React.Component {
   }
 
   /**
-   * Main Class getter
+   * Uses the mainClasses method provided by the decorator to add additional classes.
    *
    * @method mainClasses Main Class getter
    */
@@ -280,7 +280,7 @@ class Date extends React.Component {
   }
 
   /**
-   * Input class getter
+   * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
    */
