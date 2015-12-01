@@ -25,6 +25,16 @@ import { generateInputName } from './../../helpers/forms';
  *  * `mainClasses` - classes to apply to the main component element
  *  * `inputClasses` - classes to apply to the input element
  *  * `inputProps` - props to apply to the input element
+ *  * `inputHTML` - the html for the actual input
+ *
+ * You can also change the default input type from `input` to something else,
+ * for example `textarea`, by defining a `inputType` getter method in your
+ * components class.
+ *
+ * If you are using the Input Icon decorator, the Input decorator will take care
+ * of rendering the HTML for it - you only need to define the type of icon you
+ * want for your component within your components class. To do this, create a
+ * getter method called `inputIconType` and return a string of the correct type.
  *
  * @method Input
  */
@@ -94,7 +104,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
       classes += ` ${this.props.className}`;
     }
 
-    return `${classes} base-input`;
+    return `${classes} common-input`;
   }
 
   /**
@@ -104,16 +114,16 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   get inputClasses() {
     let classes = super.inputClasses || "";
-    return `${classes} base-input__input`;
+    return `${classes} common-input__input`;
   }
 
   /**
    * Extends input props add additional properties for the input.
    *
-   * @method inputClasses
+   * @method inputProps
    */
   get inputProps() {
-    var inputProps = super.inputProps || {};
+    let inputProps = super.inputProps || {};
 
     // redefine the input name relative to the form
     inputProps.name = generateInputName(this.props.name, this.context.form);
@@ -124,6 +134,48 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     }
 
     return inputProps;
+  }
+
+  /**
+   * Extends field props add additional properties for the containing field.
+   *
+   * @method fieldProps
+   */
+  get fieldProps() {
+    let fieldProps = super.fieldProps || {};
+
+    fieldProps.className = 'common-input__field';
+
+    return fieldProps;
+  }
+
+  /**
+   * Defaults to `input`, but a developer can override it in their own class
+   * to something different.
+   *
+   * @method inputType
+   */
+  get inputType() {
+    return super.inputType || 'input';
+  }
+
+  /**
+   * Returns HTML for the input.
+   *
+   * @method inputHTML
+   */
+  get inputHTML() {
+    // builds the input with a variable input type - see `inputType`
+    let input = React.createElement(this.inputType, { ...this.inputProps });
+    // if using the input icon decorator, output the HTML for that too
+    let icon = this.inputIconHTML ? this.inputIconHTML(this.inputIconType) : null;
+
+    return (
+      <div { ...this.fieldProps }>
+        { input }
+        { icon }
+      </div>
+    );
   }
 
 };

@@ -322,14 +322,14 @@ describe('Date', () => {
   });
 
   describe('mainClasses', () => {
-    it('retuns a date class and base input decorated class', () => {
-      expect(instance.mainClasses).toEqual('ui-date base-input');
+    it('retuns a date class and common input decorated class', () => {
+      expect(instance.mainClasses).toEqual('ui-date common-input');
     });
   });
 
   describe('inputClasses', () => {
     it('retuns a date input class', () => {
-      expect(instance.inputClasses).toEqual('ui-date__input base-input__input');
+      expect(instance.inputClasses).toEqual('ui-date__input common-input__input');
     });
   });
 

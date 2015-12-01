@@ -147,7 +147,7 @@ class Checkbox extends React.Component {
     return(
       <div className={ this.mainClasses }>
         { labelLeft }
-        <input { ...this.inputProps } />
+        { this.inputHTML }
         { this.checkboxSprite }
         <input { ...this.hiddenInputProps } />
         { labelRight }

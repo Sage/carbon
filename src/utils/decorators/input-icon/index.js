@@ -31,6 +31,9 @@ import Icon from './../../../components/icon';
  *     );
  *   }
  *
+ * Note: if you are using the Input decorator as well, it will take care of rendering
+ * the InputIcon for you.
+ *
  * @method InputIcon
  */
 let InputIcon = (ComposedComponent) => class Component extends ComposedComponent {

@@ -31,6 +31,13 @@ import _ from 'lodash';
  *     );
  *   }
  *
+ * The label decorator adds additional props to your component for:
+ *
+ *  * `label` - either a string or false to turn the label off
+ *  * `labelInline` - pass true to format the input/label inline
+ *  * `labelWidth` - pass a percentage to define the width of the label when it
+ *  is displayed inline.
+ *
  * @method InputIcon
  */
 let InputLabel = (ComposedComponent) => class Component extends ComposedComponent {
@@ -44,6 +51,21 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   })
 
   /**
+   * Extends the main classes with any validation classes.
+   *
+   * @method mainClasses
+   */
+  get mainClasses() {
+    let classes = super.mainClasses || "";
+
+    if (this.props.labelInline) {
+      classes += " common-input--label-inline";
+    }
+
+    return classes;
+  }
+
+  /**
    * Supplies the HTML for the label.
    *
    * @method labelHTML
@@ -51,16 +73,31 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   get labelHTML() {
     if (this.props.label === false) { return; }
 
-    // either use label supplied by dev, or automatically make one based on input name
+    // either use label supplied by dev, or automatically make one common on input name
     let labelText = this.props.label || _.startCase(this.props.name);
+
+    // add classes for the label
+    let labelClasses = "common-input__label";
+
+    if (this.props.labelInline) {
+      labelClasses += ` ${labelClasses}--inline`;
+    }
 
     // set asterix if presence validation is applied (TODO: currently this applies to any validation)
     if (this.props.validations) {
       labelText += "*";
     }
 
+    // add label width if defined
+    let labelStyle = this.props.labelWidth ? { width: `${this.props.labelWidth}%` } : null;
+
     return (
-      <label className="base-input__label" htmlFor={ generateInputName(this.props.name, this.context.form) }>{ labelText }</label>
+      <label
+        style={ labelStyle }
+        className={ labelClasses }
+        htmlFor={ generateInputName(this.props.name, this.context.form) }>
+        { labelText }
+      </label>
     );
   }
 
@@ -76,6 +113,24 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     inputProps.id = generateInputName(this.props.name, this.context.form);
 
     return inputProps;
+  }
+
+  /**
+   * Extends the field props to include width.
+   *
+   * @method inputProps
+   */
+  get fieldProps() {
+    let fieldProps = super.fieldProps || {};
+
+    // add input width if label width is defined
+    if (this.props.labelWidth) {
+      let inputWidth = `${100 - this.props.labelWidth}%`;
+      fieldProps.style = fieldProps.style || {};
+      fieldProps.style.width = inputWidth;
+    }
+
+    return fieldProps;
   }
 
 };

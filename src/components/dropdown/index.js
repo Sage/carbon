@@ -168,6 +168,15 @@ class Dropdown extends React.Component {
   }
 
   /**
+   * Defines the type of input icon this component should render.
+   *
+   * @method inputIconType
+   */
+  get inputIconType() {
+    return 'dropdown';
+  }
+
+  /**
    * Getter to return HTML for list to render method.
    *
    * @method listHTML
@@ -175,7 +184,7 @@ class Dropdown extends React.Component {
   get listHTML() {
     let listClasses =  `${this.rootClass}__list` +
         (this.state.open ? '' : ' hidden') +
-        this.baseListClasses;
+        this.commonListClasses;
 
     let options = this.props.options.toJS();
 
@@ -198,9 +207,8 @@ class Dropdown extends React.Component {
       <div className={ this.mainClasses } >
 
         { this.labelHTML }
-        <input { ...this.inputProps } />
+        { this.inputHTML }
         <input { ...this.hiddenInputProps } />
-        { this.inputIconHTML("dropdown") }
         { this.validationHTML }
 
         { this.listHTML }

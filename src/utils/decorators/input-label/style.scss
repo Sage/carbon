@@ -1,0 +1,30 @@
+@import 'general';
+@import 'colors';
+
+.base-input__label {
+  color: $grey-dark;
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  padding: 0 6px;
+}
+
+.base-input--label-inline {
+  margin-left: -($grid-margin);
+}
+
+.base-input__label--inline {
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0;
+  padding: 0 0 0 $grid-margin;
+  width: 30%;
+
+  + .base-input__field {
+    box-sizing: border-box;
+    display: inline-block;
+    padding-left: $grid-margin;
+    width: 70%;
+  }
+}
