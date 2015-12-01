@@ -4,7 +4,7 @@ import Dropdown from './index';
 import ImmutableHelper from './../../utils/helpers/immutable'
 
 describe("Dropdown", () => {
-  let instance, instanceNoValue, instanceEmpty, instanceInvalid, input;
+  let instance, instanceNoValue, instanceInvalid, input;
   let data = ImmutableHelper.parseJSON(
             { 'items': [{'id' : 1,  'name': 'foo' },
                         {'id' : 2,  'name': 'foof' }
@@ -15,7 +15,6 @@ describe("Dropdown", () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 2 } />);
     instanceNoValue = TestUtils.renderIntoDocument(<Dropdown name="bar" options={ data.get('items') } />);
-    instanceEmpty = TestUtils.renderIntoDocument(<Dropdown name="baz" />);
     instanceInvalid = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 3 } />);
     input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
   });
@@ -196,16 +195,6 @@ describe("Dropdown", () => {
       let ul = instance.refs.list;
       expect(ul.tagName).toEqual("UL");
       expect(ul.classList[1]).toEqual("hidden");
-    });
-
-    describe('render with no options', () => {
-      it("renders a li with no results", () => {
-        let ul = instanceEmpty.refs.list;
-        let listItems = ul.childNodes;
-        expect(listItems.length).toEqual(1);
-        expect(listItems[0].tagName).toEqual("LI");
-        expect(listItems[0].textContent).toEqual("No results");
-      });
     });
 
     describe("render with options", () => {
