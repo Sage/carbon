@@ -112,7 +112,7 @@ class Checkbox extends React.Component {
     return props;
   }
 
-  get checkbox_sprite() {
+  get checkboxSprite() {
     return(
         <svg width="15" height="15" viewBox="0 0 15 15">
           <rect className="checkbox-outline" fill="#AFAFAF" x="0" y="0" width="15" height="15"></rect>
@@ -140,22 +140,19 @@ class Checkbox extends React.Component {
 
     if (this.props.reverse) {
       labelLeft = this.labelHTML;
-      labelRight = null
-      }
-    else {
-      labelLeft = null;
+    } else {
       labelRight = this.labelHTML;
     }
 
     return(
-        <div className={ this.mainClasses }>
-          { labelLeft }
-          <input { ...this.inputProps } />
-          { this.checkbox_sprite }
-          <input { ...this.hiddenInputProps } />
-          { this.validationHTML }
-          { labelRight}
-        </div>
+      <div className={ this.mainClasses }>
+        { labelLeft }
+        <input { ...this.inputProps } />
+        { this.checkboxSprite }
+        <input { ...this.hiddenInputProps } />
+        { labelRight }
+        { this.validationHTML }
+      </div>
     );
   }
 }
