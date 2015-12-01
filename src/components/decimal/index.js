@@ -89,9 +89,27 @@ class Decimal extends React.Component {
    * @param {Object} ev event
    */
   handleVisibleInputChange = (ev) => {
-    this.setState({ visibleValue: ev.target.value });
-    this.emitOnChangeCallback(formatHiddenValue(ev.target.value));
-  }
+    if (this.isValidDecimal(ev.target.value)) {
+      this.setState({ visibleValue: ev.target.value });
+      this.emitOnChangeCallback(formatHiddenValue(ev.target.value));
+    }
+  };
+
+  /**
+   * Checks that visibleValue is valid decimal.
+   *
+   * @method isValidDecimal
+   * @param {String} value
+   */
+  isValidDecimal = (value) => {
+    let del, regex, result, sep;
+    del = i18nFormatting().delimiter;
+    sep = i18nFormatting().separator;
+    regex = new RegExp('^[+-]?[0-9]*(?:\\' + del + '?[0-9]?)*\\' + sep + '?[0-9]{0,2}$');
+    result = regex.test(value);
+
+    return result;
+  };
 
   /**
    * Updates visible value on blur
