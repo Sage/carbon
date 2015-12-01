@@ -29,7 +29,7 @@ class FalseLabelClass {
 
 class UnnamedClass {
   props = {
-    name: 'bar'
+    name: 'bar qux'
   };
 
   context = {
@@ -82,7 +82,7 @@ describe('InputLabel', () => {
     describe('when no label is provided', () => {
       it('titleizes the name to provide the label text', () => {
         var label = instanceUnNamed.labelHTML;
-        expect(label.props.children).toEqual('Bar');
+        expect(label.props.children).toEqual('Bar Qux');
       });
     });
 
