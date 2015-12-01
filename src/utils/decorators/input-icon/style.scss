@@ -2,18 +2,28 @@
 @import 'mixins';
 @import 'input-field';
 
-.ui-input-icon:hover,
-.base-input__input:focus + label .ui-input-icon {
+.base-input__input:hover ~ label .ui-input-icon {
+  background-color: $blue;
+  border-color: $blue;
   color: $white;
-  border-color: $green-bright;
-  @include linear-gradient(top, (#5CC15B, #338432));
+
+  &:hover {
+    background-color: $blue-bright;
+    border-color: $blue-bright;
+  }
+}
+
+.base-input__input:focus ~ label .ui-input-icon,
+.base-input__input:focus ~ label .ui-input-icon:hover {
+  background-color: $blue-dark;
+  border-color: $blue-dark;
+  color: $white;
 }
 
 .ui-input-icon {
   $button-border-radius: $input-border-radius - 1;
-
-  @include linear-gradient(top, (#FCFCFC, #DADADA));
-  border-left: 1px solid #AFAFAF;
+  background-color: $grey-light;
+  border-left: 1px solid $grey;
   border-radius: 0 $button-border-radius $button-border-radius 0;
   box-sizing: border-box;
   color: $grey-dark;
@@ -26,10 +36,4 @@
   text-align: center;
   width: $input-base-height;
 
-  &:active {
-    background-image: none;
-    background-color: $green-bright;
-    box-shadow: inset 0 1px 4px $green;
-    color: $white;
-  }
 }

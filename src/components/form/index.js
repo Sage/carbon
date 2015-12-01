@@ -37,12 +37,12 @@ class Form extends React.Component {
 
   static propTypes = {
     /**
-     * The model name from the database
+     * The model name from the database (this will be used to manipulate input names in the form)
      *
      * @property model
      * @type {String}
      */
-    model: React.PropTypes.string.isRequired,
+    model: React.PropTypes.string,
 
     /**
      * Cancel button is shown if true

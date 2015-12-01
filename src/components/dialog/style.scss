@@ -8,17 +8,18 @@ $dialog-background-opacity: 0.6;
 $dialog-background-animation-length: 300ms;
 
 .ui-dialog__background {
-  background-color: #555;
+  background-color: #3C424F;
   bottom: 0;
   left: 0;
   opacity: $dialog-background-opacity;
   position: absolute;
   right: 0;
   top: 0;
+  z-index: $z-dialog-background;
 }
 
 .ui-dialog__dialog {
-  background-color: #F5F5F5;
+  background-color: $grey-light;
   border-radius: 5px;
   box-shadow: 0 4px 8px #555;
   padding: $dialog-padding;
@@ -34,13 +35,12 @@ $dialog-background-animation-length: 300ms;
 
 .ui-dialog__title {
   background: none;
-  border-bottom: 1px solid $grey-mid;
-  box-shadow: 0 1px 1px $white;
+  border-bottom: 1px solid $border-color;
   color: $grey-dark;
   font-size: 1.8em;
-  font-weight: normal;
-  margin: 0 0 15px 0;
-  padding-bottom: 10px;
+  font-weight: 300;
+  margin: 10px 0 15px 0;
+  padding-bottom: 20px;
 }
 
 .ui-dialog__close {
@@ -48,10 +48,10 @@ $dialog-background-animation-length: 300ms;
   cursor: pointer;
   position: absolute;
   right: $dialog-padding;
-  top: $dialog-padding;
+  top: 25px;
 
   &:hover {
-    color: $grey-dark;
+    color: $blue;
   }
 }
 
@@ -65,7 +65,7 @@ $dialog-background-animation-length: 300ms;
 .dialog-enter.dialog-enter-active {
   opacity: 1;
   margin-top: 0;
-  transition: all $dialog-animation-length 200ms ease-in;
+  transition: all $dialog-animation-length 100ms ease-in;
 }
 
 .dialog-leave {
@@ -96,5 +96,5 @@ $dialog-background-animation-length: 300ms;
 
 .dialog-background-leave.dialog-background-leave-active {
   opacity: 0;
-  transition: opacity $dialog-background-animation-length 200ms ease-in;
+  transition: opacity $dialog-background-animation-length 100ms ease-in;
 }

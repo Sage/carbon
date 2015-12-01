@@ -26,6 +26,13 @@ describe('Checkbox', () => {
       expect(checkbox.value).toEqual('1');
     });
 
+    it('renders a checkbox_sprite to be used as the visible input', () => {
+      let sprite = TestUtils.findRenderedDOMComponentWithTag(instance, 'svg');
+      let check = TestUtils.findRenderedDOMComponentWithTag(instance, 'path');
+      expect(sprite.getAttribute('viewBox')).toEqual('0 0 15 15');
+      expect(check.className.baseVal).toEqual('checkbox-check');
+    });
+
     it('renders a hidden input with a value of 0', () => {
       let checkbox = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
       expect(checkbox.type).toEqual('hidden');

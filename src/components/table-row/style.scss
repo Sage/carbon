@@ -1,9 +1,10 @@
 @import "colors";
 @import "tables";
+@import 'input-field';
 
 $row__background-color--even: $white;
-$row__background-color--odd: #F2F2F2;
-$row__background-color--hover: #D2EED1;
+$row__background-color--odd: #F8F9FB;
+$row__background-color--hover: #EDF4FB;
 $row__delete-icon-size: 18px;
 $row__delete-icon-color--normal: #AFAFAF;
 $row__delete-icon-color--hover: $error;
@@ -14,6 +15,8 @@ $row__delete-icon-color--hover: $error;
   // last row
   &:last-child {
     .ui-table-row__td {
+      border-bottom: 0;
+
       // first td in last row
       &:first-child {
         border-radius: 0 0 0 $tables__border-radius;
@@ -34,11 +37,14 @@ $row__delete-icon-color--hover: $error;
   // row hover
   &:hover {
     background-color: $row__background-color--hover;
+    color: $red;
 
-    // delete icon on row hover
-    .ui-table-row__delete-icon:before {
-      content: "w";
-      font-size: $row__delete-icon-size;
+    .base-input__input {
+      border-color: #99B5EC;
+
+      &:hover {
+        border-color: $input-active-border-color;
+      }
     }
   }
 }
@@ -52,6 +58,7 @@ $row__delete-icon-color--hover: $error;
 }
 
 .ui-table-row__td {
+  border-bottom: 1px solid #E4E7EA;
   padding: 4px 2px;
 }
 
@@ -64,20 +71,14 @@ $row__delete-icon-color--hover: $error;
 }
 
 .ui-table-row__td--gutter {
-  border-top: 1px solid $border-color;
   padding: {
     top: 15px;
     bottom: 15px;
   }
 
   .base-input__input {
-    border-color: transparent;
     font-size: 18px;
     font-weight: bold;
-
-    &:hover {
-      border-color: transparent;
-    }
   }
 }
 

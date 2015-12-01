@@ -25,25 +25,46 @@
   border-radius: $input-border-radius;
   border: $input-base-border;
   box-sizing: border-box;
-  color: $input-base-border-colour;
+  color: $input-base-color;
   font-family: $input-base-font;
   font-size: $input-base-font-size;
   height: $input-base-height;
   line-height: $input-base-line-height;
   margin: 0px;
   outline: none;
-  padding: $input-base-padding; 
+  padding: $input-base-padding;
   width: 100%;
   vertical-align: baseline;
 
   &:hover { 
-    border-color: $input-active-border-colour;
+    border-color: $input-active-border-color;
   }
 
   &:active,
   &:focus {
-    border-color: $input-active-border-colour;
-    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px rgba(144, 200, 99, 0.5));
+    border-color: $input-active-border-color;
+    box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
+    @include transition(box-shadow linear 0.1s);
+  }
+
+  &[readonly] {
+    background-color: transparent;
+    border: none;
+
+    &:active,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  &[disabled] {
+    background-color: $grey-light !important; // this is the correct use of !important
+    border-color: $grey !important; // this is the correct use of !important
+
+    &:active,
+    &:focus {
+      box-shadow: none;
+    }
   }
 }
 
@@ -81,13 +102,14 @@
   }
 }
 
+.base-input--error .base-input__label,
 .base-input__icon {
   color: $error;
 }
 
 .base-input__input--error,
 .base-input__input--error:hover {
-  border-color: $error;
+  border-color: $error !important; // this is the correct use of !important
 }
 
 .base-input__message--error {
