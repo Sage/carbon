@@ -26,15 +26,12 @@ import { generateInputName } from './../../helpers/forms';
  *  * `inputClasses` - classes to apply to the input element
  *  * `inputProps` - props to apply to the input element
  *  * `inputHTML` - the html for the actual input
+ *  * `additionalInputContent` - extension point to add additional content
+ *  alongside the input
  *
  * You can also change the default input type from `input` to something else,
  * for example `textarea`, by defining a `inputType` getter method in your
  * components class.
- *
- * If you are using the Input Icon decorator, the Input decorator will take care
- * of rendering the HTML for it - you only need to define the type of icon you
- * want for your component within your components class. To do this, create a
- * getter method called `inputIconType` and return a string of the correct type.
  *
  * @method Input
  */
@@ -160,6 +157,15 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
+   * Extension point to add additional content to the input
+   *
+   * @method additionalInputContent
+   */
+  get additionalInputContent() {
+    return super.additionalInputContent || null;
+  }
+
+  /**
    * Returns HTML for the input.
    *
    * @method inputHTML
@@ -167,13 +173,11 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
   get inputHTML() {
     // builds the input with a variable input type - see `inputType`
     let input = React.createElement(this.inputType, { ...this.inputProps });
-    // if using the input icon decorator, output the HTML for that too
-    let icon = this.inputIconHTML ? this.inputIconHTML(this.inputIconType) : null;
 
     return (
       <div { ...this.fieldProps }>
         { input }
-        { icon }
+        { this.additionalInputContent }
       </div>
     );
   }

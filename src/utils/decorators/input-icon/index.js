@@ -31,8 +31,7 @@ import Icon from './../../../components/icon';
  *     );
  *   }
  *
- * Note: if you are using the Input decorator as well, it will take care of rendering
- * the InputIcon for you.
+ * Note: the icon html needs to sit as a sibling to its input.
  *
  * @method InputIcon
  */

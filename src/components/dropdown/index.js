@@ -168,12 +168,12 @@ class Dropdown extends React.Component {
   }
 
   /**
-   * Defines the type of input icon this component should render.
+   * Extends the input content to include the input icon.
    *
-   * @method inputIconType
+   * @method additionalInputContent
    */
-  get inputIconType() {
-    return 'dropdown';
+  get additionalInputContent() {
+    return this.inputIconHTML("dropdown");
   }
 
   /**

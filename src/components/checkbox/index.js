@@ -131,6 +131,15 @@ class Checkbox extends React.Component {
   }
 
   /**
+   * Extends the input content to include the checkbox sprite
+   *
+   * @method additionalInputContent
+   */
+  get additionalInputContent() {
+    return this.checkboxSprite;
+  }
+
+  /**
    * Renders the component with props.
    *
    * @method render
@@ -148,7 +157,6 @@ class Checkbox extends React.Component {
       <div className={ this.mainClasses }>
         { labelLeft }
         { this.inputHTML }
-        { this.checkboxSprite }
         <input { ...this.hiddenInputProps } />
         { labelRight }
         { this.validationHTML }
