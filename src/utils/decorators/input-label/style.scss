@@ -1,7 +1,7 @@
 @import 'general';
 @import 'colors';
 
-.base-input__label {
+.common-input__label {
   color: $grey-dark;
   cursor: pointer;
   display: block;
@@ -10,18 +10,18 @@
   padding: 0 6px;
 }
 
-.base-input--label-inline {
+.common-input--label-inline {
   margin-left: -($grid-margin);
 }
 
-.base-input__label--inline {
+.common-input__label--inline {
   box-sizing: border-box;
   display: inline-block;
   margin: 0;
   padding: 0 0 0 $grid-margin;
   width: 30%;
 
-  + .base-input__field {
+  + .common-input__field {
     box-sizing: border-box;
     display: inline-block;
     padding-left: $grid-margin;
