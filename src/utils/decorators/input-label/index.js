@@ -51,8 +51,8 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   get labelHTML() {
     if (this.props.label === false) { return; }
 
-    // either use label supplied by dev, or automatically make one based on input name (TODO: use lodash to gen a better name)
-    let labelText = this.props.label || this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1);
+    // either use label supplied by dev, or automatically make one based on input name
+    let labelText = this.props.label || _.startCase(this.props.name);
 
     // set asterix if presence validation is applied (TODO: currently this applies to any validation)
     if (this.props.validations) {
