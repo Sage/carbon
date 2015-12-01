@@ -23,8 +23,6 @@ import InputValidation from './../../utils/decorators/input-validation';
 const Textarea = Input(InputLabel(InputValidation(
 class Textarea extends React.Component {
 
-  // Number of characters in the textarea
-  valLength = 0;
 
   // Minimum height of the textarea
   minHeight = 0;
@@ -54,7 +52,9 @@ class Textarea extends React.Component {
   componentDidMount = () => {
     if (this.props.expandable) {
       window.addEventListener('resize', this.expandTextarea);
-      this.valLength = this.props.value ? this.props.value.length : 0;
+      // Set the min height to the initially rendered height.
+      // Without minHeight expandable textareas will only have
+      // one line when no content is present.
       this.minHeight = this.refs.textarea.clientHeight;
 
       this.expandTextarea();
@@ -81,9 +81,7 @@ class Textarea extends React.Component {
    */
   componentDidUpdate = () => {
     if (this.props.expandable) {
-      if (this.refs.textarea.value.length !== this.valLength) {
-        this.expandTextarea();
-      }
+      this.expandTextarea();
     }
   }
 
@@ -95,22 +93,13 @@ class Textarea extends React.Component {
    * @method expandTextarea
    */
   expandTextarea = () => {
-    let textarea = this.refs.textarea,
-      boxWidth = textarea.boxWidth, // width of textbox
-      offWidth = textarea.offsetWidth, // width including border
-      newLen = textarea.value.length,
-      oldLen = this.valLength;
+    let textarea = this.refs.textarea;
 
     if (textarea.scrollHeight > this.minHeight) {
-      // Reset the css height
-      if (newLen < oldLen || offWidth !== boxWidth) {
-        textarea.style.height = "0px";
-      }
-
-      textarea.style.overflow = "hidden";
+      // Reset height to zero - IE specific
+      textarea.style.height = "0px";
+      // Set the height so all content is shown
       textarea.style.height = Math.max(textarea.scrollHeight, this.minHeight) + "px";
-      textarea.boxWidth = offWidth;
-      this.valLength = newLen;
     }
   }
 
