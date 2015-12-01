@@ -210,7 +210,6 @@ describe('Date', () => {
   describe('handleBlur', () => {
     beforeEach(() => {
       spyOn(instance, 'updateVisibleValue');
-      spyOn(instance, 'closeDatePicker');
       TestUtils.Simulate.blur(instance.refs.visible);
     });
 
