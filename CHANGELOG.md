@@ -111,6 +111,7 @@ A new style and colour scheme has been applied to the carbon components library.
 
 * Ran ESLint task and fixed any errors.
 * Updated Form Cancel Button to use History object.
+* Input components can now use custom classes.
 * Added Rainbow chart component.
 
 # 0.0.1
