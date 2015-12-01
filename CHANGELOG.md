@@ -108,11 +108,15 @@ Note: although there is an ES7 Babel transform for decorators, we have opted not
 
 We have renamed this because its original name was based on a Rails convention and was fairly obscure and confusing.
 
+## New Brand
+A new style and colour scheme has been applied to the carbon components library. This change will affect all of the components.
+
 ## Misc
 
 * Ran ESLint task and fixed any errors.
 * Forms no longer needs a model name defined.
 * Updated Form Cancel Button to use History object.
+* Input components can now use custom classes.
 * Added Rainbow chart component.
 
 # 0.0.1

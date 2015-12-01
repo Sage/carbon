@@ -2,20 +2,23 @@
 $white:                      #FFF !default;
 $black:                      #000 !default;
 $grey:                       #D0D0D0 !default;
+$grey-dark-blue:             #3C424F !default;
 $grey-dark:                  #4D4F53 !default;
 $grey-mid:                   #AFAFAF !default;
-$grey-light:                 #E0E1DD !default;
-$grey-background:            #F2F2F2 !default;
+$grey-light:                 #EBEDEF !default;
+$grey-background:            $grey-light !default;
 $green:                      #007F64 !default;
-$green-bright:               #41A940 !default;
+$green-bright:               #00DC00 !default;
 $orange:                     #FF8234 !default;
 $orange-bright:              #FF5800 !default;
-$blue:                       #009FDA !default;
-$red:                        #CB3500 !default;
+$blue:                       #255BC7 !default;
+$blue-dark:                  #193E90 !default;
+$blue-bright:                #1963F6 !default;
+$red:                        #D63F40 !default;
 $yellow:                     #FFE44D !default;
 
 // Main colours
 $warning:                    $orange !default;
 $error:                      $red !default;
 
-$border-color:               $grey !default;
+$border-color:               #CCD1DC !default;

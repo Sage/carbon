@@ -1,8 +1,10 @@
 @import "colors";
 @import "tables";
 
-$table-header-color: #65686D;
-$table-header-border-color: #949494;
+$table-header-color: #636872;
+$table-header-border-color: #8A8E95;
+$table-header-border-top-color: $border-color;
+$table-header-border-bottom-color: $border-color;
 
 .ui-input-grid {
   border: 1px solid $border-color {
@@ -15,13 +17,17 @@ $table-header-border-color: #949494;
 
 .ui-input-grid__header {
   background-color: $table-header-color;
+  border-top-color: $table-header-border-top-color;
+  border-bottom-color: $table-header-border-bottom-color;
   color: $white;
-  height: 40px;
+  height: 36px;
   text-align: left;
 }
 
 .ui-input-grid__header-cell {
   border-right: 1px solid $table-header-border-color;
+  font-weight: normal;
+  line-height: 14px;
   padding: 0 8px;
   vertical-align: middle;
 
