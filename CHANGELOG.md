@@ -123,7 +123,7 @@ A new style and colour scheme has been applied to the carbon components library.
 * Input components can now use custom classes.
 * Checkbox label now sits inline, and is reversable.
 * Added Rainbow chart component.
-* Date now closes on Blur
+* Date now closes on tab out.
 
 # 0.0.1
 

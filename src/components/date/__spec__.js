@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import moment from 'moment';
 import Date from './index';
+import Events from './../../utils/helpers/events';
 
 describe('Date', () => {
   let instance;
@@ -216,10 +217,6 @@ describe('Date', () => {
     it('updates the visible value', () => {
       expect(instance.updateVisibleValue).toHaveBeenCalled();
     });
-
-    it('calls closeDatePicker', () => {
-      expect(instance.closeDatePicker).toHaveBeenCalled();
-    });
   });
 
   describe('handleFocus', () => {
@@ -266,6 +263,26 @@ describe('Date', () => {
       spyOn(instance, 'setState');
       instance.handleViewDateChange(123);
       expect(instance.setState).toHaveBeenCalledWith({ viewDate: 123 });
+    });
+  });
+
+  describe('handleKeyDown', () => {
+    describe('when the tab key is pressed on a focused input', () => {
+      it('closes the datepicker on tab out', () => {
+        spyOn(Events, 'isTabKey').and.returnValue(true);
+        spyOn(instance, 'closeDatePicker');
+        TestUtils.Simulate.keyDown(instance.refs.visible, { keyCode: 9 });
+        expect(instance.closeDatePicker).toHaveBeenCalled();
+      });
+    });
+
+    describe('when any other key is pressed', () => {
+      it('continues without closing the datepicker', () => {
+        spyOn(Events, 'isTabKey').and.returnValue(false);
+        spyOn(instance, 'closeDatePicker');
+        TestUtils.Simulate.keyDown(instance.refs.visible, { keyCode: 12 });
+        expect(instance.closeDatePicker).not.toHaveBeenCalled();
+      });
     });
   });
 
