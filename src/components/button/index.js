@@ -66,9 +66,8 @@ class Button extends React.Component {
       (className ? ' ' + className : '');
 
     return(
-        <button className={ className }
-            { ...props }>
-            { this.props.children }
+        <button className={ className } { ...props }>
+          { this.props.children }
         </button>
     );
   }
