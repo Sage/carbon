@@ -307,6 +307,15 @@ class Date extends React.Component {
   }
 
   /**
+   * Extends the input content to include the input icon.
+   *
+   * @method additionalInputContent
+   */
+  get additionalInputContent() {
+    return this.inputIconHTML("calendar");
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -318,9 +327,8 @@ class Date extends React.Component {
       <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
 
         { this.labelHTML }
-        <input { ...this.inputProps } />
+        { this.inputHTML }
         <input { ...this.hiddenInputProps } />
-        { this.inputIconHTML("calendar") }
         { datePicker }
         { this.validationHTML }
 

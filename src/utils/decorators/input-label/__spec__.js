@@ -4,7 +4,9 @@ import InputLabel from './index';
 class BasicClass {
   props = {
     name: 'foo',
-    label: 'test label'
+    label: 'test label',
+    labelInline: true,
+    labelWidth: 20
   };
 
   context = {
@@ -99,6 +101,12 @@ describe('InputLabel', () => {
         });
       });
     });
+
+    describe('when label width is passed', () => {
+      it('sets a width for the label', () => {
+        expect(instanceBasic.labelHTML.props.style.width).toEqual('20%');
+      });
+    });
   });
 
   describe('inputProps', () => {
@@ -106,6 +114,30 @@ describe('InputLabel', () => {
       it('builds the id with provided inputProps', () => {
         expect(instanceBasic.inputProps.id).toEqual('model_1[foo]');
       });
+    });
+  });
+
+  describe('fieldProps', () => {
+    describe('when label has a width', () => {
+      it('sets a width for the field', () => {
+        expect(instanceBasic.fieldProps.style.width).toEqual('80%');
+      });
+    });
+
+    describe('when label does not have a width', () => {
+      it('does not set a width for the field', () => {
+        expect(instanceFalse.fieldProps.style).toBe(undefined);
+      });
+    });
+  });
+
+  describe('mainClasses', () => {
+    it('adds the label inline class if input is inline', () => {
+      expect(instanceBasic.mainClasses).toEqual(' common-input--label-inline');
+    });
+
+    it('does not add the label inline class if input is inline', () => {
+      expect(instanceFalse.mainClasses).toEqual('');
     });
   });
 });

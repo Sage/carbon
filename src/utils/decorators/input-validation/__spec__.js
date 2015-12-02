@@ -326,11 +326,11 @@ describe('InputValidation', () => {
 
       it('returns an error icon', () => {
         expect(instance.validationHTML[0].props.type).toEqual('error');
-        expect(instance.validationHTML[0].props.className).toEqual('base-input__icon base-input__icon--error');
+        expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--error');
       });
 
       it('returns a div for the error message', () => {
-        expect(instance.validationHTML[1].props.className).toEqual('base-input__message base-input__message--error');
+        expect(instance.validationHTML[1].props.className).toEqual('common-input__message common-input__message--error');
         expect(instance.validationHTML[1].props.children).toEqual('foo');
       });
     });
@@ -348,7 +348,7 @@ describe('InputValidation', () => {
       });
 
       it('returns with an error class', () => {
-        expect(instance.mainClasses).toMatch('base-input--error');
+        expect(instance.mainClasses).toMatch('common-input--error');
       });
     });
 
@@ -358,7 +358,7 @@ describe('InputValidation', () => {
       });
 
       it('returns with an error class', () => {
-        expect(instance.mainClasses).not.toMatch('base-input--error');
+        expect(instance.mainClasses).not.toMatch('common-input--error');
       });
     });
   });
@@ -375,7 +375,7 @@ describe('InputValidation', () => {
       });
 
       it('returns with an error class', () => {
-        expect(instance.inputClasses).toMatch('base-input__input--error');
+        expect(instance.inputClasses).toMatch('common-input__input--error');
       });
     });
 
@@ -385,7 +385,7 @@ describe('InputValidation', () => {
       });
 
       it('returns with an error class', () => {
-        expect(instance.inputClasses).not.toMatch('base-input__input--error');
+        expect(instance.inputClasses).not.toMatch('common-input__input--error');
       });
     });
   });
