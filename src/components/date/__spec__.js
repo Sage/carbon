@@ -30,7 +30,7 @@ describe('Date', () => {
 
       describe('when element has focus', () => {
         it('does not change the state', () => {
-          instance.doc = { activeElement: instance.refs.visible }
+          instance._document = { activeElement: instance.refs.visible }
           instance.componentWillReceiveProps({});
           expect(instance.setState).not.toHaveBeenCalled();
         });
@@ -67,7 +67,7 @@ describe('Date', () => {
 
     beforeEach(() => {
       spy = jasmine.createSpy('spy');
-      instance.doc = { addEventListener: spy };
+      instance._document = { addEventListener: spy };
 
       spyOn(instance, 'setState');
       instance.openDatePicker();
@@ -90,7 +90,7 @@ describe('Date', () => {
 
     beforeEach(() => {
       spy = jasmine.createSpy('spy');
-      instance.doc = { removeEventListener: spy };
+      instance._document = { removeEventListener: spy };
 
       spyOn(instance, 'setState');
       instance.closeDatePicker();

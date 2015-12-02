@@ -29,13 +29,22 @@ import I18n from "i18n-js";
 class Form extends React.Component {
 
   /**
-   * Stores the document - allows us to override it different contexts, such as
+   * stores the document - allows us to override it different contexts, such as
    * when running tests.
    *
-   * @property doc
+   * @property _document
    * @type {document}
    */
-  doc = document;
+  _document = document;
+
+  /**
+   * stores the window - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _window
+   * @type {window}
+   */
+  _window = window;
 
   static propTypes = {
     /**
@@ -257,10 +266,10 @@ class Form extends React.Component {
       this.context.dialog.cancelDialogHandler();
     } else {
       // history comes from react router
-      if (!window.history) {
+      if (!this._window.history) {
         throw new Error('History is not defined. This is normally configured by the react router');
       }
-      window.history.back();
+      this._window.history.back();
     }
   }
 
@@ -314,7 +323,7 @@ class Form extends React.Component {
 
     return (
       <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() }>
-        { generateCSRFToken(this.doc) }
+        { generateCSRFToken(this._document) }
 
         { this.props.children }
         { cancelButton }

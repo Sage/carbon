@@ -329,6 +329,7 @@ let Events = {
            Events.isNumberKey(ev)     ||
            Events.isPeriodKey(ev)     ||
            Events.isCommaKey(ev)      ||
+           Events.isTabKey(ev)        ||
            Events.isMinusKey(ev)      ||
            Events.isSpaceKey(ev);
   }

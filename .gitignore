@@ -5,3 +5,4 @@ coverage/
 lib/
 example/assets
 .DS_Store
+.browser-preferences/

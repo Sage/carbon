@@ -124,9 +124,11 @@ A new style and colour scheme has been applied to the carbon components library.
 * Ran ESLint task and fixed any errors.
 * Forms no longer needs a model name defined.
 * Updated Form Cancel Button to use History object.
+* Textarea is no longer draggable. Add a expandable={true} prop to make the area height change to fit content
 * Input components can now use custom classes.
 * Checkbox label now sits inline, and is reversable.
 * Added Rainbow chart component.
+* Decimal now allows tabbing in and out of the field.
 
 # 0.0.1
 
