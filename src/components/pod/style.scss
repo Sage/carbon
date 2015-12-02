@@ -7,7 +7,12 @@
   padding: 20px 15px;
 }
 
-.ui-pod__title h2 {
+.ui-pod__title {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.ui-pod__title-header {
   display: inline;
   background: none;
   color: $grey-dark;
@@ -16,20 +21,16 @@
 }
 
 .ui-pod__description {
-  margin-top: 10px;
   background: none;
+  margin-bottom: 10px;
   font-size: 12px;
-}
-
-.ui-pod__content {
-  margin-top: 15px;
 }
 
 .ui-pod__arrow {
   display: inline-block;
 }
 
-.ui-pod__arrow--open {
+.ui-pod__arrow--false {
   -ms-transform: rotate(180deg); /* IE 9 */
   -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
   transform: rotate(180deg);

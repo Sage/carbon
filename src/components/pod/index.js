@@ -22,35 +22,30 @@ import Icon from 'components/icon';
  */
 class Pod extends React.Component {
 
-  state = {
-    collapsible: undefined
-  }
-
   componentWillMount = () => {
-    if(this.props.collapsible) {
-      if(this.props.collaspible == 'closed') {
-        this.setState({ collapsible: 'closed' });
-      } else {
-        this.setState({ collapsible: 'open' });
-      }
-    }
+    this.setState({ collapsed: this.props.collapsed });
   }
 
   /**
    * Returns HTML and text for the dialog title.
+   * Adds collapsible arrow if applicable
    *
    * @method podTitle
    */
   get podTitle() {
     let pod;
-    if(this.state.collapsible) {
+    let props = {}
+    props.className = "ui-pod__title unselectable";
+
+    if(this.state.collapsed !== undefined) {
       pod = this.podCollapsible;
+      props.onClick = this.toggleCollapse;
     }
 
     return (
         this.props.title ?
-          <div className="ui-pod__title" onClick={ this.toggleCollapse }>
-            <h2>{ this.props.title }</h2>
+          <div { ...props }>
+            <h2 className="ui-pod__title-header" >{ this.props.title }</h2>
           { pod }
           </div> :
           null
@@ -58,7 +53,7 @@ class Pod extends React.Component {
   }
 
   /**
-   * Returns HTML and text for the dialog title.
+   * Returns HTML and text for the dialog description.
    *
    * @method podTitle
    */
@@ -70,17 +65,42 @@ class Pod extends React.Component {
     );
   }
 
+  /**
+   * Returns the collapsible icon.
+   *
+   * @method podCollapsible
+   */
   get podCollapsible() {
-    let className = 'ui-pod__arrow ui-pod__arrow--' + this.state.collapsible;
+    let className = 'ui-pod__arrow ui-pod__arrow--' + this.state.collapsed
 
     return(
       <Icon type='dropdown' className={ className } /> 
     );
   }
 
+  /**
+   * Returns the pod description and children.
+   *
+   * @method podContent
+   */
+  get podContent() {
+    return(
+      <div className='ui-pod__collapsible-content'>
+        { this.podDescription }
+        <div className='ui-pod__content'>
+          { this.props.children }
+        </div>
+      </div>
+    );
+  }
+
+  /**
+   * Toggles the opening and closing of the pod
+   *
+   * @method toggleCollapse
+   */
   toggleCollapse = () => {
-    let newState = this.state.collapsible === 'open' ? 'closed' : 'open'
-    this.setState({ collapsible: newState });
+    this.setState({ collapsed: !this.state.collapsed });
   };
 
   /**
@@ -89,33 +109,19 @@ class Pod extends React.Component {
    * @method render
    */
   render() {
-    let className = "ui-pod";
+    let className = "ui-pod ";
     let content;
+
     className += this.props.className ? this.props.className : '';
 
-    if(this.state.collapsible) {
-      className += " collapsible " + this.state.collapsible; 
-
-      if(this.state.collapsible === 'open') {
-        content = (<div className='ui-pod__full-content'>
-          { this.podDescription }
-          <div className='ui-pod__content' >
-            { this.props.children }
-          </div>
-        </div>);
-      }
+    if(!this.state.collapsed) {
+      content = this.podContent;
     }
-
 
     return (
       <div className={ className } >
         { this.podTitle }
-        <ReactCSSTransitionGroup
-          transitionName='pod'
-          transitionEnterTimeout={ 100 }
-          transitionLeaveTimeout={ 100 } >
-          { content }
-        </ReactCSSTransitionGroup>
+        { content }
       </div>
     );
   }
