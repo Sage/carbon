@@ -7,12 +7,16 @@
   padding: 20px 15px;
 }
 
-.ui-pod__title {
+.ui-pod__header {
   margin-bottom: 10px;
   cursor: pointer;
 }
 
-.ui-pod__title-header {
+.ui-pod__header--true {
+  margin-bottom: 0;
+}
+
+.ui-pod__title {
   display: inline;
   background: none;
   color: $grey-dark;
@@ -28,6 +32,8 @@
 
 .ui-pod__arrow {
   display: inline-block;
+  position: relative;
+  top: -1px;
 }
 
 .ui-pod__arrow--false {

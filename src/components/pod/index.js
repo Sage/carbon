@@ -33,19 +33,21 @@ class Pod extends React.Component {
    * @method podTitle
    */
   get podTitle() {
-    let pod;
-    let props = {}
-    props.className = "ui-pod__title unselectable";
+    let pod,
+        headerProps = {};
+
+    headerProps.className = "ui-pod__header unselectable";
 
     if(this.state.collapsed !== undefined) {
       pod = this.podCollapsible;
-      props.onClick = this.toggleCollapse;
+      headerProps.onClick = this.toggleCollapse;
+      headerProps.className += " ui-pod__header--" + this.state.collapsed;
     }
 
     return (
         this.props.title ?
-          <div { ...props }>
-            <h2 className="ui-pod__title-header" >{ this.props.title }</h2>
+          <div { ...headerProps }>
+            <h2 className="ui-pod__title" >{ this.props.title }</h2>
           { pod }
           </div> :
           null
