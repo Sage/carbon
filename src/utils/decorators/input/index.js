@@ -25,6 +25,13 @@ import { generateInputName } from './../../helpers/forms';
  *  * `mainClasses` - classes to apply to the main component element
  *  * `inputClasses` - classes to apply to the input element
  *  * `inputProps` - props to apply to the input element
+ *  * `inputHTML` - the html for the actual input
+ *  * `additionalInputContent` - extension point to add additional content
+ *  alongside the input
+ *
+ * You can also change the default input type from `input` to something else,
+ * for example `textarea`, by defining a `inputType` getter method in your
+ * components class.
  *
  * @method Input
  */
@@ -94,7 +101,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
       classes += ` ${this.props.className}`;
     }
 
-    return `${classes} base-input`;
+    return `${classes} common-input`;
   }
 
   /**
@@ -104,16 +111,16 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   get inputClasses() {
     let classes = super.inputClasses || "";
-    return `${classes} base-input__input`;
+    return `${classes} common-input__input`;
   }
 
   /**
    * Extends input props add additional properties for the input.
    *
-   * @method inputClasses
+   * @method inputProps
    */
   get inputProps() {
-    var inputProps = super.inputProps || {};
+    let inputProps = super.inputProps || {};
 
     // redefine the input name relative to the form
     inputProps.name = generateInputName(this.props.name, this.context.form);
@@ -124,6 +131,55 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     }
 
     return inputProps;
+  }
+
+  /**
+   * Extends field props add additional properties for the containing field.
+   *
+   * @method fieldProps
+   */
+  get fieldProps() {
+    let fieldProps = super.fieldProps || {};
+
+    fieldProps.className = 'common-input__field';
+
+    return fieldProps;
+  }
+
+  /**
+   * Defaults to `input`, but a developer can override it in their own class
+   * to something different.
+   *
+   * @method inputType
+   */
+  get inputType() {
+    return super.inputType || 'input';
+  }
+
+  /**
+   * Extension point to add additional content to the input
+   *
+   * @method additionalInputContent
+   */
+  get additionalInputContent() {
+    return super.additionalInputContent || null;
+  }
+
+  /**
+   * Returns HTML for the input.
+   *
+   * @method inputHTML
+   */
+  get inputHTML() {
+    // builds the input with a variable input type - see `inputType`
+    let input = React.createElement(this.inputType, { ...this.inputProps });
+
+    return (
+      <div { ...this.fieldProps }>
+        { input }
+        { this.additionalInputContent }
+      </div>
+    );
   }
 
 };

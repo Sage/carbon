@@ -2,7 +2,7 @@
 @import 'mixins';
 @import 'input-field';
 
-.base-input__input:hover ~ label .ui-input-icon {
+.common-input__input:hover ~ label .ui-input-icon {
   background-color: $blue;
   border-color: $blue;
   color: $white;
@@ -13,8 +13,8 @@
   }
 }
 
-.base-input__input:focus ~ label .ui-input-icon,
-.base-input__input:focus ~ label .ui-input-icon:hover {
+.common-input__input:focus ~ label .ui-input-icon,
+.common-input__input:focus ~ label .ui-input-icon:hover {
   background-color: $blue-dark;
   border-color: $blue-dark;
   color: $white;
@@ -25,15 +25,15 @@
   background-color: $grey-light;
   border-left: 1px solid $grey;
   border-radius: 0 $button-border-radius $button-border-radius 0;
+  bottom: 1px;
   box-sizing: border-box;
   color: $grey-dark;
   cursor: pointer;
-  height: $input-base-height - 2;
+  height: $input-common-height - 2;
   margin-top: 1px;
   padding: 6px;
   position: absolute;
   right: 1px;
   text-align: center;
-  width: $input-base-height;
-
+  width: $input-common-height;
 }
