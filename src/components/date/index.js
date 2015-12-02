@@ -32,10 +32,10 @@ class Date extends React.Component {
    * Stores the document - allows us to override it different contexts, such as
    * when running tests.
    *
-   * @property doc
+   * @property _document
    * @type {document}
    */
-  doc = document;
+  _document = document;
 
   static defaultProps = {
     /**
@@ -85,7 +85,7 @@ class Date extends React.Component {
    * @param {Object} props The new props passed down to the component
    */
   componentWillReceiveProps = (props) => {
-    if (this.doc.activeElement != this.refs.visible) {
+    if (this._document.activeElement != this.refs.visible) {
       let value = props.value || props.defaultValue;
       let date = formatVisibleValue(value, this);
 
@@ -112,7 +112,7 @@ class Date extends React.Component {
    * @method openDatePicker
    */
   openDatePicker = () => {
-    this.doc.addEventListener("click", this.closeDatePicker);
+    this._document.addEventListener("click", this.closeDatePicker);
     var value = this.props.value || getDefaultValue(this);
     this.setState({
       open: true,
@@ -126,7 +126,7 @@ class Date extends React.Component {
    * @method closeDatePicker
    */
   closeDatePicker = () => {
-    this.doc.removeEventListener("click", this.closeDatePicker);
+    this._document.removeEventListener("click", this.closeDatePicker);
     this.setState({
       open: false
     });
