@@ -95,7 +95,7 @@ describe('Decimal', () => {
       });
 
       it('does not re-evaluate the formatted visible value if input has focus', () => {
-        instance.doc = {
+        instance._document = {
           activeElement: instance.refs.visible
         };
         instance.componentWillReceiveProps({ value: '1001.00' });
