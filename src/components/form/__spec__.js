@@ -181,11 +181,25 @@ describe('Form', () => {
       });
     });
 
-    describe('when a customOnSubmit is passed', () => {
-      it('calls the customOnSubmit', () => {
+    describe('when a beforeFormValidation prop is passed', () => {
+      it('calls the beforeFormValidation', () => {
         let spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
-          <Form customOnSubmit={ spy } model='test'>
+          <Form beforeFormValidation={ spy } model='test'>
+            <Textbox validations={ [Validation] } name='test' value='Valid' />
+          </Form>
+        );
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('when a afterFormValidation prop is passed', () => {
+      it('calls the afterFormValidation', () => {
+        let spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form afterFormValidation={ spy } model='test'>
             <Textbox validations={ [Validation] } name='test' value='Valid' />
           </Form>
         );

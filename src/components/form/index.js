@@ -66,13 +66,22 @@ class Form extends React.Component {
 
 
     /**
-     * Custom function that is called immediately after
-     * the form submits
+     * Custom function that is called immediately
+     * after the form validates
      *
-     * @property customOnSubmit
+     * @property afterFormValidation
      * @type {Function}
      */
-    customOnSubmit: React.PropTypes.func
+    afterFormValidation: React.PropTypes.func,
+
+    /**
+     * Custom function that is called immediately
+     * before the form validates
+     *
+     * @property beforeFormValidation
+     * @type {Function}
+     */
+    beforeFormValidation: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -212,6 +221,10 @@ class Form extends React.Component {
    * @param {Object} ev event
    */
   handleOnSubmit = (ev) => {
+    if (this.props.beforeFormValidation) {
+      this.props.beforeFormValidation(ev);
+    }
+
     let valid = true;
     let errors = 0;
 
@@ -254,8 +267,8 @@ class Form extends React.Component {
       }
     }
 
-    if (this.props.customOnSubmit) {
-      this.props.customOnSubmit(ev, valid);
+    if (this.props.afterFormValidation) {
+      this.props.afterFormValidation(ev, valid);
     }
   }
 
