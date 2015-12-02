@@ -137,6 +137,15 @@ class Textarea extends React.Component {
   }
 
   /**
+   * Defines a custom input type for this component.
+   *
+   * @method inputType
+   */
+  get inputType() {
+    return 'textarea';
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -146,7 +155,7 @@ class Textarea extends React.Component {
       <div className={ this.mainClasses }>
 
         { this.labelHTML }
-        <textarea { ...this.inputProps } />
+        { this.inputHTML }
         { this.validationHTML }
 
       </div>

@@ -39,7 +39,7 @@ $row__delete-icon-color--hover: $error;
     background-color: $row__background-color--hover;
     color: $red;
 
-    .base-input__input {
+    .common-input__input {
       border-color: #99B5EC;
 
       &:hover {
@@ -76,7 +76,7 @@ $row__delete-icon-color--hover: $error;
     bottom: 15px;
   }
 
-  .base-input__input {
+  .common-input__input {
     font-size: 18px;
     font-weight: bold;
   }

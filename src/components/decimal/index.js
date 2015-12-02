@@ -192,7 +192,7 @@ class Decimal extends React.Component {
       <div className={ this.mainClasses }>
 
         { this.labelHTML }
-        <input { ...this.inputProps } />
+        { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { this.validationHTML }
 

@@ -127,6 +127,7 @@ A new style and colour scheme has been applied to the carbon components library.
 * Textarea is no longer draggable. Add a expandable={true} prop to make the area height change to fit content
 * Input components can now use custom classes.
 * Checkbox label now sits inline, and is reversable.
+* Added props on inputs for inline labels.
 * Added Rainbow chart component.
 * Decimal now allows tabbing in and out of the field.
 * Date now closes on tab out.

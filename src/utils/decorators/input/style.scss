@@ -3,36 +3,31 @@
 @import 'z-index';
 @import 'input-field';
 
-.base-input {
+.common-input {
   position: relative;
 
-  &:hover .base-input__message {
+  &:hover .common-input__message {
     display: block;
+  }
+
+  + .common-input {
+    margin-top: 10px;
   }
 }
 
-.base-input__label {
-  color: $grey-dark;
-  cursor: pointer;
-  display: block;
-  font-weight: bold;
-  margin: 0 0 5px 0;
-  padding: 0 6px;
-}
-
-.base-input__input {
+.common-input__input {
   background-color: $white;
   border-radius: $input-border-radius;
-  border: $input-base-border;
+  border: $input-common-border;
   box-sizing: border-box;
-  color: $input-base-color;
-  font-family: $input-base-font;
-  font-size: $input-base-font-size;
-  height: $input-base-height;
-  line-height: $input-base-line-height;
+  color: $input-common-color;
+  font-family: $input-common-font;
+  font-size: $input-common-font-size;
+  height: $input-common-height;
+  line-height: $input-common-line-height;
   margin: 0px;
   outline: none;
-  padding: $input-base-padding;
+  padding: $input-common-padding;
   width: 100%;
   vertical-align: baseline;
 
@@ -68,7 +63,7 @@
   }
 }
 
-.base-input__message {
+.common-input__message {
   $arrow-size: 5px;
 
   border-radius: 3px;
@@ -91,7 +86,8 @@
   }
 }
 
-.base-input__icon {
+.common-input__icon {
+  bottom: 1px;
   color: red;
   margin: 7px 5px;
   position: absolute;
@@ -102,17 +98,17 @@
   }
 }
 
-.base-input--error .base-input__label,
-.base-input__icon {
+.common-input--error .common-input__label,
+.common-input__icon {
   color: $error;
 }
 
-.base-input__input--error,
-.base-input__input--error:hover {
+.common-input__input--error,
+.common-input__input--error:hover {
   border-color: $error !important; // this is the correct use of !important
 }
 
-.base-input__message--error {
+.common-input__message--error {
   background-color: $error;
   color: $white;
 }
