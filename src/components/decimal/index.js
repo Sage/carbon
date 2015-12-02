@@ -97,6 +97,7 @@ class Decimal extends React.Component {
 
   /**
    * Checks that visibleValue is valid decimal.
+   * This is a post-processor applied after the value has been updated.
    *
    * @method isValidDecimal
    * @param {String} value
@@ -217,7 +218,8 @@ function i18nFormatting() {
 }
 
 /**
- * Filters out invalid keys for decimal field
+ * Filters out invalid keys for decimal field.
+ * This is a preprocessor applied before the value is updated.
  *
  * @method filterKeys
  * @private
