@@ -9,11 +9,15 @@
 
 .ui-pod__header {
   margin-bottom: 10px;
-  cursor: pointer;
 }
 
 .ui-pod__header--true {
   margin-bottom: 0;
+  cursor: pointer;
+}
+
+.ui-pod__header--false {
+  cursor: pointer;
 }
 
 .ui-pod__title {
