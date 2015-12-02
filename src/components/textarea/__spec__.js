@@ -139,19 +139,19 @@ describe('Textarea', () => {
 
   describe('mainClasses', () => {
     it('returns ui-textarea and additional decorated classes', () => {
-      expect(baseInstance.mainClasses).toEqual('ui-textarea base-input');
+      expect(baseInstance.mainClasses).toEqual('ui-textarea common-input');
     });
   });
 
   describe('inputClasses', () => {
     it('returns ui-textarea__input and additional decorated classes', () => {
-      expect(baseInstance.inputClasses).toEqual('ui-textarea__input base-input__input');
+      expect(baseInstance.inputClasses).toEqual('ui-textarea__input common-input__input');
     });
   });
 
   describe('render', () => {
     it('renders a parent div', () => {
-      let textareaNode = TestUtils.findRenderedDOMComponentWithTag(baseInstance, 'div')
+      let textareaNode = TestUtils.scryRenderedDOMComponentsWithTag(baseInstance, 'div')[0];
       expect(textareaNode.classList[0]).toEqual('ui-textarea');
     });
 
@@ -170,8 +170,20 @@ describe('Textarea', () => {
 
     it('is decorated with a validation if a error is present', () => {
       baseInstance.setState({errorMessage: 'Error'});
-      let errorDiv = TestUtils.findRenderedDOMComponentWithClass(baseInstance, 'base-input__message--error')
+      let errorDiv = TestUtils.findRenderedDOMComponentWithClass(baseInstance, 'common-input__message--error')
       expect(errorDiv.textContent).toEqual('Error')
+    });
+  });
+
+  describe('mainClasses', () => {
+    it('returns ui-textarea and additional decorated classes', () => {
+      expect(baseInstance.mainClasses).toEqual('ui-textarea common-input');
+    });
+  });
+
+  describe('inputClasses', () => {
+    it('returns ui-textarea__input and additional decorated classes', () => {
+      expect(baseInstance.inputClasses).toEqual('ui-textarea__input common-input__input');
     });
   });
 

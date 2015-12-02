@@ -16,7 +16,7 @@ describe('Checkbox', () => {
 
   describe('render', () => {
     it('renders a parent div with a pod CSS class', () => {
-      let checkboxNode = TestUtils.findRenderedDOMComponentWithTag(instance, 'div')
+      let checkboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(checkboxNode.classList[0]).toEqual('ui-checkbox');
     });
 
@@ -42,13 +42,13 @@ describe('Checkbox', () => {
 
   describe('mainClasses', () => {
     it('returns ui-checkbox and additional decorated classes', () => {
-      expect(instance.mainClasses).toEqual('ui-checkbox base-input');
+      expect(instance.mainClasses).toEqual('ui-checkbox common-input');
     });
   });
 
   describe('inputClasses', () => {
     it('returns ui-checkbox__input and additional decorated classes', () => {
-      expect(instance.inputClasses).toEqual('ui-checkbox__input base-input__input');
+      expect(instance.inputClasses).toEqual('ui-checkbox__input common-input__input');
     });
   });
 
@@ -90,7 +90,7 @@ describe('Checkbox', () => {
     it('renders with the label on the left', () => {
       let label = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'label')[0];
       expect(label.previousSibling).toBe(null);
-      expect(label.nextSibling.name).toEqual('checkbox');
+      expect(label.nextSibling.className).toEqual('common-input__field');
     });
   });
 });
