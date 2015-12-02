@@ -9,6 +9,10 @@
   &:hover .common-input__message {
     display: block;
   }
+
+  + .common-input {
+    margin-top: 10px;
+  }
 }
 
 .common-input__input {
