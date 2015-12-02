@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from 'components/icon';
 
 /**
@@ -22,17 +21,41 @@ import Icon from 'components/icon';
  */
 class Pod extends React.Component {
 
+  static propTypes = {
+
+    /**
+     * The collapsed state of the pod
+     *
+     * underfined - Pod is not collapsible
+     * true - Pod is closed
+     * false - Pod is open
+     *
+     * @property collapsed
+     * @type {Boolean}
+     */
+    collapsed: React.PropTypes.bool
+  }
+
+  /**
+   * A lifecycle called immediatly before initial render
+   * Sets the initial state of collasped
+   *
+   * @method componentDidUpdate
+   */
   componentWillMount = () => {
     this.setState({ collapsed: this.props.collapsed });
   }
 
   /**
-   * Returns HTML and text for the dialog title.
-   * Adds collapsible arrow if applicable
+   * Returns HTML and text for the pod header.
+   * Includes:
+   *    Title
+   *    Collapsible arrow if collapsible
    *
-   * @method podTitle
+   * @method podHeader
    */
-  get podTitle() {
+  get podHeader() {
+    if(!this.props.title) { return; }
     let pod,
         headerProps = {};
 
@@ -45,19 +68,17 @@ class Pod extends React.Component {
     }
 
     return (
-        this.props.title ?
-          <div { ...headerProps }>
-            <h2 className="ui-pod__title" >{ this.props.title }</h2>
-          { pod }
-          </div> :
-          null
+      <div { ...headerProps }>
+        <h2 className="ui-pod__title" >{ this.props.title }</h2>
+        { pod }
+      </div>
     );
   }
 
   /**
-   * Returns HTML and text for the dialog description.
+   * Returns HTML and text for the pod description.
    *
-   * @method podTitle
+   * @method podDescription
    */
   get podDescription() {
     return (
@@ -73,10 +94,10 @@ class Pod extends React.Component {
    * @method podCollapsible
    */
   get podCollapsible() {
-    let className = 'ui-pod__arrow ui-pod__arrow--' + this.state.collapsed
+    let className = 'ui-pod__arrow ui-pod__arrow--' + this.state.collapsed;
 
     return(
-      <Icon type='dropdown' className={ className } /> 
+      <Icon type='dropdown' className={ className } />
     );
   }
 
@@ -122,7 +143,7 @@ class Pod extends React.Component {
 
     return (
       <div className={ className } >
-        { this.podTitle }
+        { this.podHeader }
         { content }
       </div>
     );
