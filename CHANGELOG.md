@@ -129,6 +129,8 @@ A new style and colour scheme has been applied to the carbon components library.
 * Checkbox label now sits inline, and is reversable.
 * Added Rainbow chart component.
 * Decimal now allows tabbing in and out of the field.
+* Date now closes on tab out.
+
 
 # 0.0.1
 
