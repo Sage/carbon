@@ -181,6 +181,20 @@ describe('Form', () => {
       });
     });
 
+    describe('when a customOnSubmit is passed', () => {
+      it('calls the customOnSubmit', () => {
+        let spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form customOnSubmit={ spy } model='test'>
+            <Textbox validations={ [Validation] } name='test' value='Valid' />
+          </Form>
+        );
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
     describe('submitting a input grid', () => {
       it('removes placeholder when the form is valid', () => {
         instance = TestUtils.renderIntoDocument(

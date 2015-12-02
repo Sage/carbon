@@ -62,7 +62,17 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    cancel: React.PropTypes.bool
+    cancel: React.PropTypes.bool,
+
+
+    /**
+     * Custom function that is called immediately after
+     * the form submits
+     *
+     * @property customOnSubmit
+     * @type {Function}
+     */
+    customOnSubmit: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -242,6 +252,10 @@ class Form extends React.Component {
         let table = this.tables[tableKey];
         table.setState({ placeholder: false });
       }
+    }
+
+    if (this.props.customOnSubmit) {
+      this.props.customOnSubmit(ev, valid);
     }
   }
 
