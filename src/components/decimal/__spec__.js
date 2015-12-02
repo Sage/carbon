@@ -135,10 +135,6 @@ describe('Decimal', () => {
           TestUtils.Simulate.change(instance.refs.visible, { target: { value: "1,0,0,0.00" } });
         });
 
-        it('confirms it is a valid decimal', () => {
-          let val = '1,000.00'
-          expect(instance.isValidDecimal(val)).toBeTruthy();
-        });
 
         it('calls setState with the exact visibleValue from the visible input', () => {
           expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "1,0,0,0.00" });
@@ -154,11 +150,6 @@ describe('Decimal', () => {
           TestUtils.Simulate.change(instance.refs.visible, { target: { value: "..1.0.0,0.00" } });
         });
 
-        it('confirms it is not a valid decimal', () => {
-          let val = '..0.8,9.00';
-          expect(instance.isValidDecimal(val)).toBeFalsy();
-        });
-
         it('does not call setState', () => {
           expect(instance.setState).not.toHaveBeenCalled();
         });
@@ -167,7 +158,23 @@ describe('Decimal', () => {
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
       });
+    });
 
+    describe('isValidDecimal', () => {
+      it('confirms it is a valid decimal', () => {
+        let val = '1,000.00';
+        expect(instance.isValidDecimal(val)).toBeTruthy();
+      });
+
+      it('returns false when it is not a valid decimal', () => {
+        let val = '..0.8,9.00';
+        expect(instance.isValidDecimal(val)).toBeFalsy();
+      });
+
+      it('allows a minus symbol at the start of the decimal', () => {
+        let val = '-1,000.00';
+        expect(instance.isValidDecimal(val)).toBeTruthy();
+      });
     });
 
     describe('handleBlur', () => {

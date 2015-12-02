@@ -105,7 +105,7 @@ class Decimal extends React.Component {
     let del, regex, result, sep;
     del = i18nFormatting().delimiter;
     sep = i18nFormatting().separator;
-    regex = new RegExp('^[+-]?[0-9]*(?:\\' + del + '?[0-9]?)*\\' + sep + '?[0-9]{0,2}$');
+    regex = new RegExp('^[-]?[0-9]*(?:\\' + del + '?[0-9]?)*\\' + sep + '?[0-9]{0,2}$');
     result = regex.test(value);
 
     return result;

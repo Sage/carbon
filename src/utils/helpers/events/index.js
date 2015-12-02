@@ -304,6 +304,17 @@ let Events = {
   },
 
   /**
+  * Determines if the key pressed is the minus key
+  *
+  * @method isMinusKey
+  * @params {Event} ev A JavaScript event
+  * @returns {Boolean}
+  **/
+  isMinusKey: (ev) => {
+    return ev.which === 189;
+  },
+
+  /**
   * Determines if the key pressed is valid for a Decimal Field
   *
   * @method isValidDecimalKey
@@ -319,6 +330,7 @@ let Events = {
            Events.isPeriodKey(ev)     ||
            Events.isCommaKey(ev)      ||
            Events.isTabKey(ev)        ||
+           Events.isMinusKey(ev)      ||
            Events.isSpaceKey(ev);
   }
 };
