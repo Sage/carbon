@@ -99,13 +99,13 @@ describe('Input', () => {
   describe('mainClasses', () => {
     describe('When the component includes main class names', () => {
       it('returns component and additional decorated classes', () => {
-        expect(instance.mainClasses).toEqual('testMain base-input');
+        expect(instance.mainClasses).toEqual('testMain common-input');
       });
     });
 
     describe('When the component does not include any main class names', () => {
       it('returns the decorated class names only', () => {
-        expect(instanceTwo.mainClasses).toEqual(' base-input');
+        expect(instanceTwo.mainClasses).toEqual(' common-input');
       });
     });
 
@@ -115,7 +115,7 @@ describe('Input', () => {
           className: 'foobar',
           name: 'foo'
         }));
-        expect(instance.mainClasses).toEqual('testMain foobar base-input');
+        expect(instance.mainClasses).toEqual('testMain foobar common-input');
       });
     });
   });
@@ -123,13 +123,13 @@ describe('Input', () => {
   describe('inputClasses', () => {
     describe('When the component includes input class names', () => {
       it('returns component and additional decorated classes', () => {
-        expect(instance.inputClasses).toEqual('testInput base-input__input');
+        expect(instance.inputClasses).toEqual('testInput common-input__input');
       });
     });
 
     describe('When the component does not include any main class names', () => {
       it('returns the decorated class names only', () => {
-        expect(instanceTwo.inputClasses).toEqual(' base-input__input');
+        expect(instanceTwo.inputClasses).toEqual(' common-input__input');
       });
     });
   });
@@ -147,6 +147,12 @@ describe('Input', () => {
         instanceTwo.inputProps.onChange = onChange;
         expect(instanceTwo.inputProps.onChange).toEqual(instanceTwo._handleOnChange);
       });
+    });
+  });
+
+  describe('fieldProps', () => {
+    it('adds a class name', () => {
+      expect(instanceTwo.fieldProps.className).toEqual('common-input__field');
     });
   });
 });

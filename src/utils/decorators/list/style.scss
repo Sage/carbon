@@ -2,7 +2,7 @@
 @import 'mixins';
 @import 'z-index';
 
-.base-list {
+.common-list {
   background-color: $white;
   border: 1px solid $border-color;
   box-sizing: border-box;
@@ -31,10 +31,10 @@
   }
 }
 
-.base-list__item {
+.common-list__item {
   padding: 5px 6px;
 }
 
-.base-list__item--highlighted {
+.common-list__item--highlighted {
   background-color: #E6E9E7;
 }
