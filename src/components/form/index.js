@@ -23,6 +23,10 @@ import I18n from "i18n-js";
  * to modify its inputs names. For example, a form with a model name of 'foo' and
  * an input with a name of 'bar', the inputs name will get modified to be 'foo[bar]'.
  *
+ * Form provides the ability to hook into the form handle submission method.
+ * By passing afterFormValidation or beforeFormValidation you can add custom
+ * validation logic and prevent the form submission using ev.preventDefault()
+ *
  * @class Form
  * @constructor
  */
@@ -62,7 +66,25 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    cancel: React.PropTypes.bool
+    cancel: React.PropTypes.bool,
+
+    /**
+     * Custom function that is called immediately
+     * after the form validates
+     *
+     * @property afterFormValidation
+     * @type {Function}
+     */
+    afterFormValidation: React.PropTypes.func,
+
+    /**
+     * Custom function that is called immediately
+     * before the form validates
+     *
+     * @property beforeFormValidation
+     * @type {Function}
+     */
+    beforeFormValidation: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -202,6 +224,10 @@ class Form extends React.Component {
    * @param {Object} ev event
    */
   handleOnSubmit = (ev) => {
+    if (this.props.beforeFormValidation) {
+      this.props.beforeFormValidation(ev);
+    }
+
     let valid = true;
     let errors = 0;
 
@@ -242,6 +268,10 @@ class Form extends React.Component {
         let table = this.tables[tableKey];
         table.setState({ placeholder: false });
       }
+    }
+
+    if (this.props.afterFormValidation) {
+      this.props.afterFormValidation(ev, valid);
     }
   }
 
