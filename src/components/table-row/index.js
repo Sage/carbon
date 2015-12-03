@@ -73,8 +73,7 @@ class TableRow extends React.Component {
     if (this.props.gutterFields) {
       return this.buildRowGutterField(key, field);
     } else { // Uses buildCell to build cell with appropriate values
-      let value = (this.props.data) ? this.props.data.get(field.props.name) : null;
-      return this.buildCell(field, value);
+      return this.buildCell(field);
     }
   };
 
@@ -123,7 +122,7 @@ class TableRow extends React.Component {
    * @param {Object} field
    * @param {String | Number | Boolean} value
    */
-  buildCell = (field, value) => {
+  buildCell = (field) => {
     let rowID = this.props.row_id,
         fieldProps = {
           label: false,
@@ -134,8 +133,14 @@ class TableRow extends React.Component {
           onChange: this.props.updateRowHandler
         };
 
-    if (typeof value !== 'undefined') {
-      fieldProps.value = value;
+    let value = this.props.data ? this.props.data.get(field.props.name) : null;
+    if (value != null) {
+      if(typeof value === 'object'){
+        fieldProps.value = value.get('id')
+        fieldProps.initialVisibleValue = value.get('name')
+      } else {
+        fieldProps.value = value;
+      }
     }
 
     if (this.props.placeholder) { fieldProps._placeholder = true; }

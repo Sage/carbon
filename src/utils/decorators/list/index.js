@@ -53,7 +53,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
     if (this.handleSelect) {
       this.handleSelect(ev);
     } else {
-      this.emitOnChangeCallback(ev.target.value);
+      this.emitOnChangeCallback(ev.target.dataset.id);
     }
   }
 
@@ -64,7 +64,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * @param {Object} ev event
    */
   _handleMouseOver = (ev) => {
-    this.setState({ highlighted: ev.target.value });
+    this.setState({ highlighted: ev.target.dataset.id });
   }
 
   /**
@@ -92,6 +92,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
         return <li
                   key={option.name + option.id}
                   value={option.id}
+                  data-id={option.id}
                   onMouseDown={this._handleSelect}
                   onMouseOver={this._handleMouseOver}
                   className={(this.state.highlighted == option.id) ?

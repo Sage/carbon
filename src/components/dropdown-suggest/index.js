@@ -43,11 +43,7 @@ class DropdownSuggest extends React.Component {
      * @type {Object}
      * @default Immutable.Map({})
      */
-    value: React.PropTypes.object
-  };
-
-  static defaultProps = {
-    value: Immutable.Map({})
+    value: React.PropTypes.number
   };
 
   /**
@@ -85,7 +81,28 @@ class DropdownSuggest extends React.Component {
      * @type {Number}
      * @default 0
      */
-    pages: 0
+    pages: 0,
+
+    /**
+     * The value of the visible input field.
+     * Is set to initialVisibleValue prop on initial mount
+     *
+     * @property visibleValue
+     * @type {String}
+     */
+    visibleValue: undefined
+  }
+
+  /**
+   * A lifecycle called immediatly before initial render
+   * Sets the initial visible value
+   * 
+   * @method componentWillMount
+   */
+  componentWillMount() {
+    if(this.props.initialVisibleValue){
+      this.setState({ visibleValue: this.props.initialVisibleValue });
+    }
   }
 
   /**
@@ -106,7 +123,7 @@ class DropdownSuggest extends React.Component {
    */
   getData = (page = 1) => {
     // Passes empty string to query if value has been selected
-    let query = this.props.value.get('id') ? "" : this.props.value.get(this.props.resource_key);
+    let query = this.props.value ? "" : this.state.visibleValue
 
     Request
       .get(this.props.path)
@@ -183,7 +200,7 @@ class DropdownSuggest extends React.Component {
       filter.setSelectionRange(0, 9999);
     }, 0);
 
-    if (this.props.value.get('id') || !this.state.options.length) {
+    if (this.props.value || !this.state.options.length) {
       this.getData();
     } else {
       this.setState({ open: true });
@@ -217,8 +234,8 @@ class DropdownSuggest extends React.Component {
    */
   handleChange = (ev) => {
     if (this.timeout) { clearTimeout(this.timeout); }
-    let val = buildImmutableValue(this.props, ev.target.value, null);
-    this.emitOnChangeCallback(val);
+    this.setState({visibleValue: ev.target.value});
+    this.emitOnChangeCallback(undefined);
 
     this.timeout = setTimeout(() => {
       this.getData(1);
@@ -232,7 +249,8 @@ class DropdownSuggest extends React.Component {
    * @param {Object} ev event
    */
   handleSelect = (ev) => {
-    let val = buildImmutableValue(this.props, ev.target.textContent, ev.target.value);
+    let val = ev.target.value;
+    this.setState({visibleValue: ev.target.textContent});
     this.emitOnChangeCallback(val);
   }
 
@@ -251,9 +269,8 @@ class DropdownSuggest extends React.Component {
       case 13: // return
         if (element) {
           ev.preventDefault();
-          let val = buildImmutableValue(this.props, element.textContent, element.value);
-          this.setState({ open: false });
-          this.emitOnChangeCallback(val);
+          this.setState({ open: false, visibleValue: element.textContent});
+          this.emitOnChangeCallback(element.value);
         }
         break;
       case 38: // up arrow
@@ -301,7 +318,7 @@ class DropdownSuggest extends React.Component {
     props.onBlur = this.handleBlur;
     props.onChange = this.handleChange;
     props.onKeyDown = this.handleKeyDown;
-    props.value = props.value.get(this.props.resource_key);
+    props.value = this.state.visibleValue;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
@@ -318,11 +335,11 @@ class DropdownSuggest extends React.Component {
   get hiddenInputProps() {
     let nameWithID = this.inputProps.name.split(/\]$/)[0] + "_id]";
     let props = {
-      ref: "input",
-      type: "hidden",
+      ref: 'input',
+      type: 'hidden',
       readOnly: true,
       name: nameWithID,
-      value: this.props.value.get('id')
+      value: this.props.value
     };
 
     return props;
@@ -400,23 +417,5 @@ class DropdownSuggest extends React.Component {
   }
 }
 )))));
-
-// Private Functions
-
-/**
- * Transforms selected element into an Immutable Object.
- *
- * @method buildImmutableValue
- * @private
- * @param {Object} props
- * @param {String} name
- * @param {Number} id
- */
-function buildImmutableValue(props, name, id) {
-  let newValue = props.value.set(props.resource_key, name);
-  newValue = newValue.set('id', id);
-
-  return newValue;
-}
 
 export default DropdownSuggest;
