@@ -96,7 +96,7 @@ class DropdownSuggest extends React.Component {
   /**
    * A lifecycle called immediatly before initial render
    * Sets the initial visible value
-   * 
+   *
    * @method componentWillMount
    */
   componentWillMount() {
@@ -372,6 +372,11 @@ class DropdownSuggest extends React.Component {
     return `${this.rootClass}__input`;
   }
 
+  /**
+   * Getter to return HTML for list to render method.
+   *
+   * @method listHTML
+   */
   get listHTML() {
     let listClasses = `${this.rootClass}__list` +
         (this.state.open ? '' : ' hidden') +
@@ -388,12 +393,19 @@ class DropdownSuggest extends React.Component {
   }
 
   /**
-   * Extends the input content to include the input icon.
+   * Getter to return HTML for the visible input field
    *
-   * @method additionalInputContent
+   * @method visibleInput
    */
-  get additionalInputContent() {
-    return this.inputIconHTML("dropdown");
+  get visibleInput() {
+    let { name, ...inputProps } = this.inputProps;
+
+    return(
+      <div { ...this.fieldProps } >
+        <input { ...inputProps } />
+        { this.inputIconHTML('dropdown') }
+      </div>
+    );
   }
 
   /**
@@ -406,7 +418,7 @@ class DropdownSuggest extends React.Component {
       <div className={ this.mainClasses } >
 
         { this.labelHTML }
-        { this.inputHTML }
+        { this.visibleInput }
         <input { ...this.hiddenInputProps } />
         { this.validationHTML }
 
