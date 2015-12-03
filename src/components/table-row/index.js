@@ -136,8 +136,8 @@ class TableRow extends React.Component {
     let value = this.props.data ? this.props.data.get(field.props.name) : null;
     if (value != null) {
       if(typeof value === 'object'){
-        fieldProps.value = value.get('id')
-        fieldProps.initialVisibleValue = value.get('name')
+        fieldProps.value = value.get('id');
+        fieldProps.initialVisibleValue = value.get('name');
       } else {
         fieldProps.value = value;
       }

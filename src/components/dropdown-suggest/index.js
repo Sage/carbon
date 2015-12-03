@@ -1,6 +1,5 @@
 import React from 'react';
 import Request from 'superagent';
-import Immutable from 'immutable';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -123,7 +122,7 @@ class DropdownSuggest extends React.Component {
    */
   getData = (page = 1) => {
     // Passes empty string to query if value has been selected
-    let query = this.props.value ? "" : this.state.visibleValue
+    let query = this.props.value ? "" : this.state.visibleValue;
 
     Request
       .get(this.props.path)
