@@ -149,6 +149,23 @@ describe('Form', () => {
     });
   });
 
+  describe('serialize', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Form model='model'>
+          <Textbox name='test' value='foo' />
+        </Form>
+      );
+    });
+
+    it('without opts it returns a string', () => {
+      expect(instance.serialize()).toEqual('model%5Btest%5D=foo');
+    });
+
+    it('with opts it returns a hash', () => {
+      expect(instance.serialize({ hash: true })).toEqual({ model: { test: 'foo' } });
+    });
+  });
 
   describe('handleOnSubmit', () => {
     describe('valid input', () => {

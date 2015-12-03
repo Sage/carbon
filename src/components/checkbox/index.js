@@ -156,8 +156,8 @@ class Checkbox extends React.Component {
     return(
       <div className={ this.mainClasses }>
         { labelLeft }
-        { this.inputHTML }
         <input { ...this.hiddenInputProps } />
+        { this.inputHTML }
         { labelRight }
         { this.validationHTML }
       </div>

@@ -177,7 +177,7 @@ describe("DropdownSuggest", () => {
       spyOn(instance, 'setState');
       let listItem = instance.refs.list.childNodes[1];
       TestUtils.Simulate.mouseOver(listItem);
-      expect(instance.setState).toHaveBeenCalledWith({ highlighted: 25 });
+      expect(instance.setState).toHaveBeenCalledWith({ highlighted: '25' });
     });
   });
 

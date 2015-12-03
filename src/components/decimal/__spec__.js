@@ -186,6 +186,7 @@ describe('Decimal', () => {
         expect(instance.refs.hidden.readOnly).toBeTruthy();
         expect(instance.refs.hidden.value).toEqual("1000.00");
         expect(instance.refs.hidden.defaultValue).toEqual("1000.00");
+        expect(instance.refs.hidden.name).toEqual("total");
       });
     });
 
