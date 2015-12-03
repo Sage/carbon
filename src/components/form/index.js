@@ -23,6 +23,10 @@ import I18n from "i18n-js";
  * to modify its inputs names. For example, a form with a model name of 'foo' and
  * an input with a name of 'bar', the inputs name will get modified to be 'foo[bar]'.
  *
+ * Form provides a ability to hook into the form handle submission method.
+ * By passing afterFormValidation or beforeFormValidation you can add custom
+ * validation logic and prevent the form submission using ev.preventDefault()
+ *
  * @class Form
  * @constructor
  */
@@ -63,7 +67,6 @@ class Form extends React.Component {
      * @default true
      */
     cancel: React.PropTypes.bool,
-
 
     /**
      * Custom function that is called immediately
