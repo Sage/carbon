@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import TableRow from './index';
 import ImmutableHelper from './../../utils/helpers/immutable';
+import Immutable from 'immutable';
 import Textbox from './../textbox';
 import Decimal from './../decimal';
+import DropdownSuggest from './../dropdown-suggest';
 
 describe('TableRow', () => {
   let regular, gutter, placeholder,
@@ -22,10 +24,18 @@ describe('TableRow', () => {
 
       <Decimal
         key='bar'
-        name='bar'/>
+        name='bar'/>,
+
+      <DropdownSuggest
+        key='baz'
+        name='baz'
+        path='' />
     ]
 
-    baseData = ImmutableHelper.parseJSON({ foo: 'text', bar: '1.00' });
+    baseData = ImmutableHelper.parseJSON({ foo: 'text',
+      bar: '1.00',
+      baz: Immutable.fromJS({ id: 1, name: 'baz' })
+    });
 
     regularTable = document.createElement('table');
     regularTable.innerHTML = '<tbody></tbody>';
@@ -114,7 +124,7 @@ describe('TableRow', () => {
       it('builds each field', () => {
         let regularRow = TestUtils.findRenderedDOMComponentWithClass(regular, 'ui-table-row');
         let regularCells = TestUtils.scryRenderedDOMComponentsWithClass(regular, 'ui-table-row__td');
-        expect(regularCells.length).toEqual(3);
+        expect(regularCells.length).toEqual(4);
         expect(regularCells[0].children[0].type).toEqual('button');
         expect(regularCells[1].children[0].classList[0]).toEqual('ui-textbox');
         expect(regularCells[2].children[0].classList[0]).toEqual('ui-decimal');
@@ -138,7 +148,7 @@ describe('TableRow', () => {
       it('builds each field', () => {
         let placeholderRow = TestUtils.findRenderedDOMComponentWithClass(placeholder, 'ui-table-row');
         let placeholderCells = TestUtils.scryRenderedDOMComponentsWithClass(placeholder, 'ui-table-row__td');
-        expect(placeholderCells.length).toEqual(3);
+        expect(placeholderCells.length).toEqual(4);
         expect(placeholderCells[0].children.length).toEqual(0);
         expect(placeholderCells[1].children[0].classList[0]).toEqual('ui-textbox');
         expect(placeholderCells[2].children[0].classList[0]).toEqual('ui-decimal');
@@ -161,7 +171,7 @@ describe('TableRow', () => {
 
       it('builds empty tds where a gutter field is not present', () => {
         let gutterCells = TestUtils.scryRenderedDOMComponentsWithClass(gutter, 'ui-table-row__td');
-        expect(gutterCells.length).toEqual(3);
+        expect(gutterCells.length).toEqual(4);
         expect(gutterCells[0].children.length).toEqual(0);
       });
 
@@ -200,6 +210,16 @@ describe('TableRow', () => {
       it('adds the updateRowHandler', () => {
         TestUtils.Simulate.change(input);
         expect(updateSpy).toHaveBeenCalled();
+      });
+    });
+
+    describe('When value is an object', () => {
+      it('Strips out id and name from the object', () => {
+        let cells = TestUtils.scryRenderedDOMComponentsWithClass(regular, 'ui-table-row__td');
+        let visibleDropdownInput = cells[3].getElementsByTagName('INPUT')[0];
+        let hiddenDropdownInput= cells[3].getElementsByTagName('INPUT')[1];
+        expect(visibleDropdownInput.value).toEqual('baz');
+        expect(hiddenDropdownInput.value).toEqual('1');
       });
     });
   });

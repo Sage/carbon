@@ -42,9 +42,9 @@ describe('List', () => {
     describe('when the component lacks a select handler', () => {
       it('calls emitOnChangeCallback with the selected value', () => {
         spyOn(instance, 'emitOnChangeCallback');
-        let ev = { target: { value: 'bar' }};
+        let ev = { target: { dataset: { id: 'bar' }}};
         instance._handleSelect(ev);
-        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(ev.target.value);
+        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(ev.target.dataset.id);
       });
     });
   });
@@ -68,5 +68,4 @@ describe('List', () => {
       });
     });
   });
-
 });
