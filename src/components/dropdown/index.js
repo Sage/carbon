@@ -4,6 +4,7 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import List from './../../utils/decorators/list';
+import { generateInputName } from './../../utils/helpers/forms';
 
 /**
  * A dropdown widget.
@@ -92,7 +93,7 @@ class Dropdown extends React.Component {
 
     // Match selected id to corresponding list option
     let option = this.props.options.find((item) => {
-      return item.get('id') === this.props.value;
+      return item.get('id') == this.props.value;
     });
 
     // If match is found, set visibleValue to option's name;
@@ -115,6 +116,7 @@ class Dropdown extends React.Component {
     let { ...props } = this.props;
     props.className = this.inputClasses;
     props.value = this.visibleValue || this.nameByID();
+    props.name = null;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
@@ -133,7 +135,7 @@ class Dropdown extends React.Component {
       ref: "input",
       type: "hidden",
       readOnly: true,
-      name: this.props.name,
+      name: generateInputName(this.props.name, this.context.form),
       value: this.props.value
     };
 

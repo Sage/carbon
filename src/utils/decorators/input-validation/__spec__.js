@@ -185,22 +185,6 @@ describe('InputValidation', () => {
 
   describe('validate', () => {
     describe('when validations are present on the input', () => {
-      describe('when the input does not have a value set', () => {
-        beforeEach(() => {
-          instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-            validations: [validationOne],
-            value: undefined,
-            name: 'foo'
-          }));
-        });
-
-        it('warns that a value should be set', () => {
-          spyOn(console, 'warn');
-          instance.validate();
-          expect(console.warn).toHaveBeenCalledWith("Validations require a value property to be set to work correctly. See the render for the input with name 'foo'.");
-        });
-      });
-
       describe('when the input has a value', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(React.createElement(Component, {
@@ -215,9 +199,9 @@ describe('InputValidation', () => {
 
         it('calls validate for each validation', () => {
           instance.validate();
-          expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value);
-          expect(validationTwo.validate).toHaveBeenCalledWith(instance.props.value);
-          expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value);
+          expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
+          expect(validationTwo.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
+          expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
         });
 
         describe('when the inputs state is currently valid', () => {

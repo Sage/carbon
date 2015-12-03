@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from './../button';
 import I18n from "i18n-js";
+import Serialize from "form-serialize";
 
 /**
  * A Form widget.
@@ -276,6 +277,15 @@ class Form extends React.Component {
   }
 
   /**
+   * Serializes the inputs in the form ready for submission via AJAX
+   *
+   * @method serialize
+   */
+  serialize = (opts) => {
+    return Serialize(this.refs.form, opts);
+  }
+
+  /**
    * Separates and returns HTML specific props
    *
    * @method htmlProps
@@ -338,10 +348,9 @@ class Form extends React.Component {
         saveClasses = "ui-form__save";
 
     if (this.state.errorCount) {
+      // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
       errorCount = (
-        <span className="ui-form__summary">
-          { errorMessage(this.state.errorCount) }
-        </span>
+        <span className="ui-form__summary" dangerouslySetInnerHTML={ errorMessage(this.state.errorCount) } />
       );
 
       saveClasses += " ui-form__save--invalid";
@@ -352,7 +361,7 @@ class Form extends React.Component {
     }
 
     return (
-      <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() }>
+      <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() } ref="form">
         { generateCSRFToken(this._document) }
 
         { this.props.children }
@@ -409,5 +418,5 @@ function errorMessage(count) {
     count: count
   });
 
-  return errorMessage;
+  return { __html: errorMessage };
 }
