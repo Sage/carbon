@@ -92,7 +92,6 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
         return <li
                   key={option.name + option.id}
                   value={option.id}
-                  data-id={option.id}
                   onMouseDown={this._handleSelect}
                   onMouseOver={this._handleMouseOver}
                   className={(this.state.highlighted == option.id) ?

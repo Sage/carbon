@@ -5,6 +5,7 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import List from './../../utils/decorators/list';
+import { generateInputName } from './../../utils/helpers/forms';
 
 /**
  * A dropdown-suggest widget.
@@ -315,6 +316,7 @@ class DropdownSuggest extends React.Component {
     props.className = this.inputClasses;
     props.ref = "filter";
     props.onBlur = this.handleBlur;
+    props.name = null;
     props.onChange = this.handleChange;
     props.onKeyDown = this.handleKeyDown;
     props.value = this.state.visibleValue;
@@ -332,12 +334,11 @@ class DropdownSuggest extends React.Component {
    * @method hiddenInputProps
    */
   get hiddenInputProps() {
-    let nameWithID = this.inputProps.name.split(/\]$/)[0] + "_id]";
     let props = {
       ref: 'input',
       type: 'hidden',
       readOnly: true,
-      name: nameWithID,
+      name: generateInputName(this.props.name, this.context.form).split(/\]$/)[0] + "_id]",
       value: this.props.value
     };
 
