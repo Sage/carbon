@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import moment from 'moment';
 import Date from './index';
+import Events from './../../utils/helpers/events';
 
 describe('Date', () => {
   let instance;
@@ -208,7 +209,7 @@ describe('Date', () => {
 
   describe('handleBlur', () => {
     beforeEach(() => {
-      spyOn(instance, 'updateVisibleValue')
+      spyOn(instance, 'updateVisibleValue');
       TestUtils.Simulate.blur(instance.refs.visible);
     });
 
@@ -261,6 +262,26 @@ describe('Date', () => {
       spyOn(instance, 'setState');
       instance.handleViewDateChange(123);
       expect(instance.setState).toHaveBeenCalledWith({ viewDate: 123 });
+    });
+  });
+
+  describe('handleKeyDown', () => {
+    describe('when the tab key is pressed on a focused input', () => {
+      it('closes the datepicker on tab out', () => {
+        spyOn(Events, 'isTabKey').and.returnValue(true);
+        spyOn(instance, 'closeDatePicker');
+        TestUtils.Simulate.keyDown(instance.refs.visible, { keyCode: 9 });
+        expect(instance.closeDatePicker).toHaveBeenCalled();
+      });
+    });
+
+    describe('when any other key is pressed', () => {
+      it('continues without closing the datepicker', () => {
+        spyOn(Events, 'isTabKey').and.returnValue(false);
+        spyOn(instance, 'closeDatePicker');
+        TestUtils.Simulate.keyDown(instance.refs.visible, { keyCode: 12 });
+        expect(instance.closeDatePicker).not.toHaveBeenCalled();
+      });
     });
   });
 
@@ -322,14 +343,14 @@ describe('Date', () => {
   });
 
   describe('mainClasses', () => {
-    it('retuns a date class and base input decorated class', () => {
-      expect(instance.mainClasses).toEqual('ui-date base-input');
+    it('retuns a date class and common input decorated class', () => {
+      expect(instance.mainClasses).toEqual('ui-date common-input');
     });
   });
 
   describe('inputClasses', () => {
     it('retuns a date input class', () => {
-      expect(instance.inputClasses).toEqual('ui-date__input base-input__input');
+      expect(instance.inputClasses).toEqual('ui-date__input common-input__input');
     });
   });
 

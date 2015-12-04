@@ -1,4 +1,5 @@
-$grid-margin: 20px !default;
+@import 'general';
+
 $max-columns: 12 !default;
 
 .ui-row {
@@ -13,6 +14,7 @@ $max-columns: 12 !default;
   .ui-row__column {
     box-sizing: border-box;
     float: left;
+    min-height: 1px;
     padding-left: $grid-margin;
     width: 100%;
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from './../button';
 import I18n from "i18n-js";
+import Serialize from "form-serialize";
 
 /**
  * A Form widget.
@@ -22,6 +23,10 @@ import I18n from "i18n-js";
  * Optionally, you can pass a model name to the form. The form will use this name
  * to modify its inputs names. For example, a form with a model name of 'foo' and
  * an input with a name of 'bar', the inputs name will get modified to be 'foo[bar]'.
+ *
+ * Form provides the ability to hook into the form handle submission method.
+ * By passing afterFormValidation or beforeFormValidation you can add custom
+ * validation logic and prevent the form submission using ev.preventDefault()
  *
  * @class Form
  * @constructor
@@ -62,7 +67,25 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    cancel: React.PropTypes.bool
+    cancel: React.PropTypes.bool,
+
+    /**
+     * Custom function that is called immediately
+     * after the form validates
+     *
+     * @property afterFormValidation
+     * @type {Function}
+     */
+    afterFormValidation: React.PropTypes.func,
+
+    /**
+     * Custom function that is called immediately
+     * before the form validates
+     *
+     * @property beforeFormValidation
+     * @type {Function}
+     */
+    beforeFormValidation: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -202,6 +225,10 @@ class Form extends React.Component {
    * @param {Object} ev event
    */
   handleOnSubmit = (ev) => {
+    if (this.props.beforeFormValidation) {
+      this.props.beforeFormValidation(ev);
+    }
+
     let valid = true;
     let errors = 0;
 
@@ -243,6 +270,19 @@ class Form extends React.Component {
         table.setState({ placeholder: false });
       }
     }
+
+    if (this.props.afterFormValidation) {
+      this.props.afterFormValidation(ev, valid);
+    }
+  }
+
+  /**
+   * Serializes the inputs in the form ready for submission via AJAX
+   *
+   * @method serialize
+   */
+  serialize = (opts) => {
+    return Serialize(this.refs.form, opts);
   }
 
   /**
@@ -308,10 +348,9 @@ class Form extends React.Component {
         saveClasses = "ui-form__save";
 
     if (this.state.errorCount) {
+      // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
       errorCount = (
-        <span className="ui-form__summary">
-          { errorMessage(this.state.errorCount) }
-        </span>
+        <span className="ui-form__summary" dangerouslySetInnerHTML={ errorMessage(this.state.errorCount) } />
       );
 
       saveClasses += " ui-form__save--invalid";
@@ -322,7 +361,7 @@ class Form extends React.Component {
     }
 
     return (
-      <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() }>
+      <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() } ref="form">
         { generateCSRFToken(this._document) }
 
         { this.props.children }
@@ -379,5 +418,5 @@ function errorMessage(count) {
     count: count
   });
 
-  return errorMessage;
+  return { __html: errorMessage };
 }

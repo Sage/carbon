@@ -1,14 +1,16 @@
 @import 'colors';
+@import 'general';
 @import 'mixins';
 @import 'z-index';
 
-.base-list {
+.common-list {
   background-color: $white;
   border: 1px solid $border-color;
   box-sizing: border-box;
   box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
   color: $grey-dark;
   cursor: pointer;
+  left: 0;
   max-height: 180px;
   list-style: none;
   margin: 0;
@@ -16,7 +18,7 @@
   overflow-y: scroll;
   padding: 0;
   position: absolute;
-  width: 100%;
+  right: 0;
   z-index: $z-dropdown-list;
 
   &::-webkit-scrollbar {
@@ -29,12 +31,16 @@
     background-color: #777777;
     border-radius:4px;
   }
+
+  .common-input--label-inline & {
+    left: $grid-margin;
+  }
 }
 
-.base-list__item {
+.common-list__item {
   padding: 5px 6px;
 }
 
-.base-list__item--highlighted {
+.common-list__item--highlighted {
   background-color: #E6E9E7;
 }

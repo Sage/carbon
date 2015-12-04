@@ -63,8 +63,8 @@ describe("DropdownSuggest", () => {
       });
 
       it("sets the highlighted class on the relevant option", () => {
-        expect(listItems[0].className).toEqual("ui-dropdown-suggest__item base-list__item");
-        expect(listItems[1].className).toEqual("ui-dropdown-suggest__item ui-dropdown-suggest__item--highlighted base-list__item base-list__item--highlighted");
+        expect(listItems[0].className).toEqual("ui-dropdown-suggest__item common-list__item");
+        expect(listItems[1].className).toEqual("ui-dropdown-suggest__item ui-dropdown-suggest__item--highlighted common-list__item common-list__item--highlighted");
       });
     });
   });
@@ -177,7 +177,7 @@ describe("DropdownSuggest", () => {
       spyOn(instance, 'setState');
       let listItem = instance.refs.list.childNodes[1];
       TestUtils.Simulate.mouseOver(listItem);
-      expect(instance.setState).toHaveBeenCalledWith({ highlighted: 25 });
+      expect(instance.setState).toHaveBeenCalledWith({ highlighted: '25' });
     });
   });
 

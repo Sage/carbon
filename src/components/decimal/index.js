@@ -4,6 +4,7 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import Events from './../../utils/helpers/events';
+import { generateInputName } from './../../utils/helpers/forms';
 
 /**
  * A decimal widget.
@@ -113,6 +114,7 @@ class Decimal extends React.Component {
     props.className = this.inputClasses;
     props.ref = "visible";
     props.onChange = this.handleVisibleInputChange;
+    props.name = null;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
     props.onKeyDown = filterKeys;
@@ -128,7 +130,8 @@ class Decimal extends React.Component {
     var props = {
       ref: "hidden",
       type: "hidden",
-      readOnly: true
+      readOnly: true,
+      name: generateInputName(this.props.name, this.context.form)
     };
 
     if (typeof this.props.value !== 'undefined')
@@ -173,7 +176,7 @@ class Decimal extends React.Component {
       <div className={ this.mainClasses }>
 
         { this.labelHTML }
-        <input { ...this.inputProps } />
+        { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { this.validationHTML }
 

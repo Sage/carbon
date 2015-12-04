@@ -115,12 +115,8 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     // iterate through each validation applied to the input
     this.props.validations.forEach((validation) => {
-      if (this.props.value === undefined) {
-        console.warn(`Validations require a value property to be set to work correctly. See the render for the input with name '${this.props.name}'.`);  // eslint-disable-line no-console
-      }
-
       // run this validation
-      valid = validation.validate(this.props.value);
+      valid = validation.validate(this.props.value, this.props);
 
       // if validation fails
       if (!valid) {
@@ -132,7 +128,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
             this.context.form.incrementErrorCount();
           }
           // tell the input it is invalid
-          this.setState({ errorMessage: validation.message(), valid: false });
+          this.setState({ errorMessage: validation.message(this.props), valid: false });
         }
 
         // a validation has failed, so exit the loop at this point
@@ -177,8 +173,8 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     if (!this.state.errorMessage) { return null; }
 
     return [
-      <Icon key="0" type="error" className="base-input__icon base-input__icon--error" />,
-      <div key="1" className="base-input__message base-input__message--error">
+      <Icon key="0" type="error" className="common-input__icon common-input__icon--error" />,
+      <div key="1" className="common-input__message common-input__message--error">
         { this.state.errorMessage }
       </div>
     ];
@@ -193,7 +189,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     let classes = super.mainClasses || "";
 
     if (!this.state.valid) {
-      classes += " base-input--error";
+      classes += " common-input--error";
     }
 
     return classes;
@@ -208,7 +204,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     let classes = super.inputClasses || "";
 
     if (!this.state.valid) {
-      classes += " base-input__input--error";
+      classes += " common-input__input--error";
     }
 
     return classes;

@@ -53,7 +53,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
     if (this.handleSelect) {
       this.handleSelect(ev);
     } else {
-      this.emitOnChangeCallback(ev.target.value);
+      this.emitOnChangeCallback(ev.target.getAttribute('value'));
     }
   }
 
@@ -64,16 +64,16 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * @param {Object} ev event
    */
   _handleMouseOver = (ev) => {
-    this.setState({ highlighted: ev.target.value });
+    this.setState({ highlighted: ev.target.getAttribute('value') });
   }
 
   /**
-   * Getter for classes for the base list
+   * Getter for classes for the common list
    *
-   * @method baseListClasses
+   * @method commonListClasses
    */
-  get baseListClasses() {
-    return ' base-list';
+  get commonListClasses() {
+    return ' common-list';
   }
 
   /**
@@ -87,7 +87,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
     if (options.length) {
       results = options.map((option) => {
         let className = `${this.rootClass}__item`;
-        let baseName  = `${this.baseListClasses}__item`;
+        let commonName  = `${this.commonListClasses}__item`;
 
         return <li
                   key={option.name + option.id}
@@ -95,8 +95,8 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
                   onMouseDown={this._handleSelect}
                   onMouseOver={this._handleMouseOver}
                   className={(this.state.highlighted == option.id) ?
-                    `${className} ${className}--highlighted${baseName}${baseName}--highlighted` :
-                    `${className}${baseName}` }>
+                    `${className} ${className}--highlighted${commonName}${commonName}--highlighted` :
+                    `${className}${commonName}` }>
                   {option.name}
                 </li>;
       });
@@ -109,7 +109,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
-   * Getter for inputProps. Provides base blur handler.
+   * Getter for inputProps. Provides common blur handler.
    *
    * @method inputProps
    */

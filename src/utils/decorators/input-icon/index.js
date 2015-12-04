@@ -31,6 +31,8 @@ import Icon from './../../../components/icon';
  *     );
  *   }
  *
+ * Note: the icon html needs to sit as a sibling to its input.
+ *
  * @method InputIcon
  */
 let InputIcon = (ComposedComponent) => class Component extends ComposedComponent {

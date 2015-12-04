@@ -7,6 +7,7 @@ import InputIcon from './../../utils/decorators/input-icon';
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
+import Events from 'utils/helpers/events';
 
 /**
  * A Date widget.
@@ -234,6 +235,18 @@ class Date extends React.Component {
   }
 
   /**
+   * Handles specific key down events
+   *
+   * @method handleKeyDown
+   * @param ev
+   */
+  handleKeyDown = (ev) => {
+    if (Events.isTabKey(ev)) {
+      this.closeDatePicker();
+    }
+  };
+
+  /**
    * A getter that combines props passed down from the input decorator with
    * textbox specific props.
    *
@@ -246,6 +259,7 @@ class Date extends React.Component {
     props.onChange = this.handleVisibleInputChange;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
+    props.onKeyDown = this.handleKeyDown;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
@@ -293,6 +307,15 @@ class Date extends React.Component {
   }
 
   /**
+   * Extends the input content to include the input icon.
+   *
+   * @method additionalInputContent
+   */
+  get additionalInputContent() {
+    return this.inputIconHTML("calendar");
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -304,9 +327,8 @@ class Date extends React.Component {
       <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
 
         { this.labelHTML }
-        <input { ...this.inputProps } />
+        { this.inputHTML }
         <input { ...this.hiddenInputProps } />
-        { this.inputIconHTML("calendar") }
         { datePicker }
         { this.validationHTML }
 
