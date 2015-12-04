@@ -1,4 +1,5 @@
 @import 'colors';
+@import 'general';
 @import 'mixins';
 @import 'z-index';
 
@@ -9,6 +10,7 @@
   box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
   color: $grey-dark;
   cursor: pointer;
+  left: 0;
   max-height: 180px;
   list-style: none;
   margin: 0;
@@ -16,7 +18,7 @@
   overflow-y: scroll;
   padding: 0;
   position: absolute;
-  width: 100%;
+  right: 0;
   z-index: $z-dropdown-list;
 
   &::-webkit-scrollbar {
@@ -28,6 +30,10 @@
   &::-webkit-scrollbar-thumb {
     background-color: #777777;
     border-radius:4px;
+  }
+
+  .common-input--label-inline & {
+    left: $grid-margin;
   }
 }
 

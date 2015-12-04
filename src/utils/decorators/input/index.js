@@ -123,7 +123,9 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     let inputProps = super.inputProps || {};
 
     // redefine the input name relative to the form
-    inputProps.name = generateInputName(this.props.name, this.context.form);
+    if (inputProps.name !== null) {
+      inputProps.name = generateInputName(this.props.name, this.context.form);
+    }
 
     // only thread the onChange event through the handler if the event is defined by the dev
     if (this.props.onChange === inputProps.onChange) {

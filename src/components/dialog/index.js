@@ -113,6 +113,10 @@ class Dialog extends React.Component {
     midPointY = midPointY - height;
     midPointX = midPointX - width;
 
+    if (midPointY < 20) {
+      midPointY = 20;
+    }
+
     this.refs.dialog.style.top = midPointY + "px";
     this.refs.dialog.style.left = midPointX + "px";
   }
