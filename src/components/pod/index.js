@@ -26,7 +26,7 @@ class Pod extends React.Component {
     /**
      * The collapsed state of the pod
      *
-     * underfined - Pod is not collapsible
+     * undefined - Pod is not collapsible
      * true - Pod is closed
      * false - Pod is open
      *
@@ -40,7 +40,7 @@ class Pod extends React.Component {
    * A lifecycle called immediatly before initial render
    * Sets the initial state of collasped
    *
-   * @method componentDidUpdate
+   * @method componentWillMount
    */
   componentWillMount = () => {
     this.setState({ collapsed: this.props.collapsed });
