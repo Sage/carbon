@@ -149,6 +149,23 @@ describe('Form', () => {
     });
   });
 
+  describe('serialize', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Form model='model'>
+          <Textbox name='test' value='foo' />
+        </Form>
+      );
+    });
+
+    it('without opts it returns a string', () => {
+      expect(instance.serialize()).toEqual('model%5Btest%5D=foo');
+    });
+
+    it('with opts it returns a hash', () => {
+      expect(instance.serialize({ hash: true })).toEqual({ model: { test: 'foo' } });
+    });
+  });
 
   describe('handleOnSubmit', () => {
     describe('valid input', () => {
@@ -178,6 +195,34 @@ describe('Form', () => {
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
         expect(instance.setState).toHaveBeenCalledWith({ errorCount :1 });
+      });
+    });
+
+    describe('when a beforeFormValidation prop is passed', () => {
+      it('calls the beforeFormValidation', () => {
+        let spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form beforeFormValidation={ spy } model='test'>
+            <Textbox validations={ [Validation] } name='test' value='Valid' />
+          </Form>
+        );
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('when a afterFormValidation prop is passed', () => {
+      it('calls the afterFormValidation', () => {
+        let spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form afterFormValidation={ spy } model='test'>
+            <Textbox validations={ [Validation] } name='test' value='Valid' />
+          </Form>
+        );
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(spy).toHaveBeenCalled();
       });
     });
 

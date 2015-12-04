@@ -50,6 +50,32 @@ describe('Dialog', () => {
     });
   });
 
+  describe('centerDialog', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Dialog open={ true } cancelDialogHandler={ cancelHandler } />
+      );
+    });
+
+    describe('when dialog is lower than 20px', () => {
+      it('sets top position to the correct value', () => {
+        instance.centerDialog();
+        expect(instance.refs.dialog.style.top).toEqual('150px');
+      });
+    });
+
+    describe('when dialog is higher than 20px', () => {
+      it('sets top position to 20px', () => {
+        instance.refs.dialog = {
+          style: {},
+          offsetHeight: 261
+        };
+        instance.centerDialog();
+        expect(instance.refs.dialog.style.top).toEqual('20px');
+      });
+    });
+  });
+
   describe('closeDialog', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(

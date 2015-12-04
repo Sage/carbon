@@ -42,9 +42,10 @@ describe('List', () => {
     describe('when the component lacks a select handler', () => {
       it('calls emitOnChangeCallback with the selected value', () => {
         spyOn(instance, 'emitOnChangeCallback');
-        let ev = { target: { dataset: { id: 'bar' }}};
+        let ev = { target: { getAttribute: function() {} }};
+        spyOn(ev.target, 'getAttribute').and.returnValue('foo');
         instance._handleSelect(ev);
-        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(ev.target.dataset.id);
+        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('foo');
       });
     });
   });

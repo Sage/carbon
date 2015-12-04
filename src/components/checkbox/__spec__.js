@@ -21,7 +21,7 @@ describe('Checkbox', () => {
     });
 
     it('renders a input with type checkbox and a value of 1', () => {
-      let checkbox = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
+      let checkbox = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
       expect(checkbox.type).toEqual('checkbox');
       expect(checkbox.value).toEqual('1');
     });
@@ -34,7 +34,7 @@ describe('Checkbox', () => {
     });
 
     it('renders a hidden input with a value of 0', () => {
-      let checkbox = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
+      let checkbox = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
       expect(checkbox.type).toEqual('hidden');
       expect(checkbox.value).toEqual('0');
     });
@@ -58,7 +58,7 @@ describe('Checkbox', () => {
     });
 
     it('passes the checked value', () => {
-      let checkbox = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
+      let checkbox = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
       TestUtils.Simulate.change(checkbox, {target: { checked: true }});
       expect(instance._handleOnChange).toHaveBeenCalledWith({ target: { value: true }});
     });
@@ -71,7 +71,7 @@ describe('Checkbox', () => {
 
     it('renders with the label on the right by default', () => {
       let label = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'label')[0];
-      expect(label.previousSibling.name).toEqual('checkbox');
+      expect(label.previousSibling.className).toEqual('common-input__field');
       expect(label.nextSibling).toBe(null);
     });
   });
@@ -90,7 +90,7 @@ describe('Checkbox', () => {
     it('renders with the label on the left', () => {
       let label = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'label')[0];
       expect(label.previousSibling).toBe(null);
-      expect(label.nextSibling.className).toEqual('common-input__field');
+      expect(label.nextSibling.name).toEqual('checkbox');
     });
   });
 });

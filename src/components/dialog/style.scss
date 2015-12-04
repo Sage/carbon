@@ -12,7 +12,7 @@ $dialog-background-animation-length: 300ms;
   bottom: 0;
   left: 0;
   opacity: $dialog-background-opacity;
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
   z-index: $z-dialog-background;
