@@ -122,6 +122,7 @@ A new style and colour scheme has been applied to the carbon components library.
 ## Misc
 
 * Ran ESLint task and fixed any errors.
+* Form provides a serialization method to parse its inputs into data usable for AJAX.
 * Forms no longer needs a model name defined.
 * Updated Form Cancel Button to use History object.
 * Textarea is no longer draggable. Add a expandable={true} prop to make the area height change to fit content
