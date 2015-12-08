@@ -40,7 +40,15 @@ var PresenceValidator = function() {
      */
     message: function() {
       return "This field is required.";
-    }
+    },
+
+    /**
+     * States that this validation should display an asterisk with the label.
+     *
+     * @method asterisk
+     * @return {Boolean}
+     */
+    asterisk: true
   };
 };
 

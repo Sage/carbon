@@ -45,7 +45,23 @@ class ValidationClass {
   props = {
     name: 'foo',
     label: 'Validate Label',
-    validations: true,
+    validations: ['foo', { asterisk: true }],
+    value: 'qux'
+  };
+
+  context = {
+    form: {
+      model: 'model_4'
+    }
+  };
+}
+
+
+class AltValidationClass {
+  props = {
+    name: 'foo',
+    label: 'Validate Label',
+    validations: ['foo'],
     value: 'qux'
   };
 
@@ -58,7 +74,7 @@ class ValidationClass {
 
 describe('InputLabel', () => {
 
-  let instanceBasic, instanceFalse, instanceUnNamed, instanceValidation;
+  let instanceBasic, instanceFalse, instanceUnNamed, instanceValidation, instanceAltValidation;
 
   beforeEach(() => {
     let ExtendedClassOne = InputLabel(BasicClass);
@@ -72,6 +88,9 @@ describe('InputLabel', () => {
 
     let ExtendedClassFour = InputLabel(ValidationClass);
     instanceValidation = new ExtendedClassFour();
+
+    let ExtendedClassFive = InputLabel(AltValidationClass);
+    instanceAltValidation = new ExtendedClassFive();
   });
 
   describe('labelHTML', () => {
@@ -94,10 +113,17 @@ describe('InputLabel', () => {
         expect(label.props.children).toEqual('test label');
       });
 
-      describe('when the input has validations', () => {
+      describe('when the input has a presence validation', () => {
         it('adds additional symbols to the label', () => {
           var label = instanceValidation.labelHTML;
           expect(label.props.children).toEqual('Validate Label*');
+        });
+      });
+
+      describe('when the input does not have a presence validation', () => {
+        it('adds additional symbols to the label', () => {
+          var label = instanceAltValidation.labelHTML;
+          expect(label.props.children).toEqual('Validate Label');
         });
       });
     });

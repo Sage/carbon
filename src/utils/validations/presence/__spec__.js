@@ -29,4 +29,10 @@ describe('Presence Validator', () => {
       expect(Validator().message()).toEqual('This field is required.');
     });
   });
+
+  describe('asterisk', () => {
+    it('returns true', () => {
+      expect(Validator().asterisk).toBeTruthy();
+    });
+  });
 });
