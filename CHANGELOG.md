@@ -119,6 +119,15 @@ We have renamed this because its original name was based on a Rails convention a
 ## New Brand
 A new style and colour scheme has been applied to the carbon components library. This change will affect all of the components.
 
+## Validations
+Validations have changed to a function so that different parameters can be passed to them.
+
+You can now define Validations on a component using the following syntax:
+
+```javascript
+<Textbox validations={ [Validation()] } name='valid' />
+```
+
 ## Misc
 
 * Ran ESLint task and fixed any errors.
