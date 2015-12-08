@@ -100,7 +100,7 @@ class DropdownSuggest extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
-    if(this.props.initialVisibleValue){
+    if (this.props.initialVisibleValue){
       this.setState({ visibleValue: this.props.initialVisibleValue });
     }
   }
