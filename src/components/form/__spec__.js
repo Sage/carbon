@@ -44,15 +44,15 @@ describe('Form', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
         <Form model='test'>
-          <Textbox validations={ [Validation] } name='excludedBox' value='' />
+          <Textbox validations={ [Validation()] } name='excludedBox' value='' />
           <InputGrid
             name='grid'
             data={ ImmutableHelper.parseJSON([ { foo: 'bar' } ]) }
             updateRowHandler={ function(){} }
             deleteRowHandler={ function(){} }
             fields={ [
-              <Textbox validations={ [Validation] } name='box1' value='foo' />,
-              <Textbox validations={ [Validation] } name='box2' value='foo' />
+              <Textbox validations={ [Validation()] } name='box1' value='foo' />,
+              <Textbox validations={ [Validation()] } name='box2' value='foo' />
             ] }
           />
         </Form>
@@ -86,9 +86,9 @@ describe('Form', () => {
     let excludedTextbox;
 
     beforeEach(() => {
-      textbox1 = <Textbox validations={ [Validation] } name='box1' value='' />;
-      textbox2 = <Textbox validations={ [Validation] } name='box2' value='' />;
-      excludedTextbox = <Textbox validations={ [Validation] } name='excludedBox' value='' />;
+      textbox1 = <Textbox validations={ [Validation()] } name='box1' value='' />;
+      textbox2 = <Textbox validations={ [Validation()] } name='box2' value='' />;
+      excludedTextbox = <Textbox validations={ [Validation()] } name='excludedBox' value='' />;
 
       grid = <InputGrid
             name='grid'
@@ -172,7 +172,7 @@ describe('Form', () => {
       it('submits the form', () => {
         instance = TestUtils.renderIntoDocument(
           <Form model='test'>
-            <Textbox validations={ [Validation] } name='test' value='Valid' />
+            <Textbox validations={ [Validation()] } name='test' value='Valid' />
           </Form>
         );
 
@@ -187,7 +187,7 @@ describe('Form', () => {
       it('does not not submit the form', () => {
         instance = TestUtils.renderIntoDocument(
           <Form model='test'>
-            <Textbox validations={ [Validation] } name='test' value='' />
+            <Textbox validations={ [Validation()] } name='test' value='' />
           </Form>
         );
 
@@ -203,7 +203,7 @@ describe('Form', () => {
         let spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
           <Form beforeFormValidation={ spy } model='test'>
-            <Textbox validations={ [Validation] } name='test' value='Valid' />
+            <Textbox validations={ [Validation()] } name='test' value='Valid' />
           </Form>
         );
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
@@ -217,7 +217,7 @@ describe('Form', () => {
         let spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
           <Form afterFormValidation={ spy } model='test'>
-            <Textbox validations={ [Validation] } name='test' value='Valid' />
+            <Textbox validations={ [Validation()] } name='test' value='Valid' />
           </Form>
         );
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
@@ -235,7 +235,7 @@ describe('Form', () => {
               data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
               updateRowHandler={ function(){} }
               deleteRowHandler={ function(){} }
-              fields={ [<Textbox validation={ [Validation] } name='box' />] }
+              fields={ [<Textbox validation={ [Validation()] } name='box' />] }
             />
           </Form>
         );
@@ -254,8 +254,8 @@ describe('Form', () => {
           [ { box1: 'bar', box2: '' } ]
         );
 
-        let textbox1 = <Textbox validations={ [Validation] } name='box1' value='' />;
-        let textbox2 = <Textbox validations={ [Validation] } name='box2' value='' />;
+        let textbox1 = <Textbox validations={ [Validation()] } name='box1' value='' />;
+        let textbox2 = <Textbox validations={ [Validation()] } name='box2' value='' />;
 
         let grid = <InputGrid
           name='grid'

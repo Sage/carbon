@@ -41,7 +41,7 @@ var PresenceValidator = function() {
     message: function() {
       return "This field is required.";
     }
-  }
+  };
 };
 
 export default PresenceValidator;
