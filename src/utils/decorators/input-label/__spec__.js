@@ -113,15 +113,15 @@ describe('InputLabel', () => {
         expect(label.props.children).toEqual('test label');
       });
 
-      describe('when the input has a presence validation', () => {
+      describe('when the input has a validation with asterisk enabled', () => {
         it('adds additional symbols to the label', () => {
           var label = instanceValidation.labelHTML;
           expect(label.props.children).toEqual('Validate Label*');
         });
       });
 
-      describe('when the input does not have a presence validation', () => {
-        it('adds additional symbols to the label', () => {
+      describe('when the input does not have a validation with asterisk enabled', () => {
+        it('does not add additional symbols to the label', () => {
           var label = instanceAltValidation.labelHTML;
           expect(label.props.children).toEqual('Validate Label');
         });
