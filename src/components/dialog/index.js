@@ -24,6 +24,8 @@ import Icon from './../icon';
  */
 class Dialog extends React.Component {
 
+  listening = false
+
   static propTypes = {
     /**
      * A custom close event handler
@@ -77,11 +79,13 @@ class Dialog extends React.Component {
    * @method componentDidUpdate
    */
   componentDidUpdate = () => {
-    if (this.refs.dialog) {
+    if (this.props.open && !this.listening) {
       this.centerDialog();
+      this.listening = true;
       window.addEventListener('resize', this.centerDialog);
       window.addEventListener('keyup', this.closeDialog);
-    } else {
+    } else if (!this.props.open) {
+      this.listening = false;
       window.removeEventListener('resize', this.centerDialog);
       window.removeEventListener('keyup', this.closeDialog);
     }
@@ -107,8 +111,8 @@ class Dialog extends React.Component {
   centerDialog = () => {
     let height = this.refs.dialog.offsetHeight / 2,
         width = this.refs.dialog.offsetWidth / 2,
-        midPointY = window.innerHeight / 2,
-        midPointX = window.innerWidth / 2;
+        midPointY = window.innerHeight / 2 + window.scrollY,
+        midPointX = window.innerWidth / 2 + window.scrollX;
 
     midPointY = midPointY - height;
     midPointX = midPointX - width;

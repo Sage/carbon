@@ -30,6 +30,17 @@ describe('Dialog', () => {
           expect(window.addEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
           expect(window.addEventListener).toHaveBeenCalledWith('keyup', instance.closeDialog);
         });
+
+        describe('when the dialog is already listening', () => {
+          it('does not set up event listeners', () => {
+            let spy = spyOn(window, 'addEventListener');
+            instance.listening = true;
+            instance.componentDidUpdate();
+            expect(spy.calls.count()).toEqual(0);
+            expect(window.addEventListener).not.toHaveBeenCalled();
+            expect(window.addEventListener).not.toHaveBeenCalled();
+          });
+        });
       });
 
       describe('when the dialog is closed', () => {

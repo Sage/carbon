@@ -117,6 +117,7 @@ class Dropdown extends React.Component {
     props.className = this.inputClasses;
     props.value = this.visibleValue || this.nameByID();
     props.name = null;
+    props.readOnly = true;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
@@ -175,7 +176,10 @@ class Dropdown extends React.Component {
    * @method additionalInputContent
    */
   get additionalInputContent() {
-    return this.inputIconHTML("dropdown");
+    return [
+      this.inputIconHTML("dropdown"),
+      this.listHTML
+    ];
   }
 
   /**
@@ -192,6 +196,7 @@ class Dropdown extends React.Component {
 
     return (
       <ul
+        key="list"
         ref="list"
         className={ listClasses } >
         { this.results(options) }
@@ -212,8 +217,6 @@ class Dropdown extends React.Component {
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { this.validationHTML }
-
-        { this.listHTML }
 
       </div>
     );

@@ -3,7 +3,7 @@
 @import 'mixins';
 
 .ui-checkbox {
-  padding-top: 7px;
+  padding-top: 9px;
 
   .common-input__field,
   .common-input__label {
@@ -12,7 +12,7 @@
   }
 }
 
-.ui-checkbox__input {
+.ui-checkbox__input.common-input__input {
   cursor: pointer;
   height: 15px;
   opacity: 0;
