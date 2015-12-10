@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Pod from './index';
+import Pod from './pod';
 import Button from './../button';
 
 describe('Pod', () => {

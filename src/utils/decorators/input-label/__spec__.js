@@ -1,5 +1,5 @@
 import React from 'react';
-import InputLabel from './index';
+import InputLabel from './input-label';
 
 class BasicClass {
   props = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import InputIcon from './index';
+import InputIcon from './input-icon';
 
 class TestClass extends React.Component {
   inputProps = {

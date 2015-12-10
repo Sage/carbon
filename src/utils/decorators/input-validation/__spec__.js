@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import InputValidation from './index';
+import InputValidation from './input-validation';
 import Form from 'components/form';
 
 let validationOne = {

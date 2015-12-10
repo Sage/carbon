@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import moment from 'moment';
-import Date from './index';
+import Date from './date';
 import Events from './../../utils/helpers/events';
 
 describe('Date', () => {

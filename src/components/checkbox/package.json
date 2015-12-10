@@ -1,3 +1,5 @@
 {
-  "style": "style.scss"
+  "name": "checkbox",
+  "style": "checkbox.scss",
+  "main": "./checkbox.js"
 }
