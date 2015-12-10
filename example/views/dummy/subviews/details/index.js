@@ -10,7 +10,7 @@ class Details extends React.Component {
   render() {
     return (
       <Row>
-        <Textbox name="name" value={ this.props.name } onChange={ FinancesActions.financesValueUpdated } validations={ [Presence] } />
+        <Textbox name="name" value={ this.props.name } onChange={ FinancesActions.financesValueUpdated } validations={ [Presence()] } />
         <Date name="date_from" value={ this.props.dateFrom } onChange={ FinancesActions.financesValueUpdated } />
         <Checkbox name="discount" label="Apply Discount?" value={ this.props.discount } onChange={ FinancesActions.financesValueUpdated } />
       </Row>

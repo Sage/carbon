@@ -363,5 +363,9 @@ describe("Events", function () {
     it('returns true when a space key is pressed', () => {
       expect(Events.isValidDecimalKey({ which: 32 })).toBeTruthy();
     });
+
+    it('returns true when a minus key is pressed', () => {
+      expect(Events.isValidDecimalKey({ which: 189 })).toBeTruthy();
+    });
   });
 });

@@ -1,3 +1,5 @@
 {
-  "style": "style.scss"
+  "name": "pod",
+  "style": "pod.scss",
+  "main": "./pod.js"
 }

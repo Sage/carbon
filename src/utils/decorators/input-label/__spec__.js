@@ -1,10 +1,12 @@
 import React from 'react';
-import InputLabel from './index';
+import InputLabel from './input-label';
 
 class BasicClass {
   props = {
     name: 'foo',
-    label: 'test label'
+    label: 'test label',
+    labelInline: true,
+    labelWidth: 20
   };
 
   context = {
@@ -29,7 +31,7 @@ class FalseLabelClass {
 
 class UnnamedClass {
   props = {
-    name: 'bar'
+    name: 'bar qux'
   };
 
   context = {
@@ -43,7 +45,23 @@ class ValidationClass {
   props = {
     name: 'foo',
     label: 'Validate Label',
-    validations: true,
+    validations: ['foo', { asterisk: true }],
+    value: 'qux'
+  };
+
+  context = {
+    form: {
+      model: 'model_4'
+    }
+  };
+}
+
+
+class AltValidationClass {
+  props = {
+    name: 'foo',
+    label: 'Validate Label',
+    validations: ['foo'],
     value: 'qux'
   };
 
@@ -56,7 +74,7 @@ class ValidationClass {
 
 describe('InputLabel', () => {
 
-  let instanceBasic, instanceFalse, instanceUnNamed, instanceValidation;
+  let instanceBasic, instanceFalse, instanceUnNamed, instanceValidation, instanceAltValidation;
 
   beforeEach(() => {
     let ExtendedClassOne = InputLabel(BasicClass);
@@ -70,6 +88,9 @@ describe('InputLabel', () => {
 
     let ExtendedClassFour = InputLabel(ValidationClass);
     instanceValidation = new ExtendedClassFour();
+
+    let ExtendedClassFive = InputLabel(AltValidationClass);
+    instanceAltValidation = new ExtendedClassFive();
   });
 
   describe('labelHTML', () => {
@@ -82,7 +103,7 @@ describe('InputLabel', () => {
     describe('when no label is provided', () => {
       it('titleizes the name to provide the label text', () => {
         var label = instanceUnNamed.labelHTML;
-        expect(label.props.children).toEqual('Bar');
+        expect(label.props.children).toEqual('Bar Qux');
       });
     });
 
@@ -92,11 +113,24 @@ describe('InputLabel', () => {
         expect(label.props.children).toEqual('test label');
       });
 
-      describe('when the input has validations', () => {
+      describe('when the input has a validation with asterisk enabled', () => {
         it('adds additional symbols to the label', () => {
           var label = instanceValidation.labelHTML;
           expect(label.props.children).toEqual('Validate Label*');
         });
+      });
+
+      describe('when the input does not have a validation with asterisk enabled', () => {
+        it('does not add additional symbols to the label', () => {
+          var label = instanceAltValidation.labelHTML;
+          expect(label.props.children).toEqual('Validate Label');
+        });
+      });
+    });
+
+    describe('when label width is passed', () => {
+      it('sets a width for the label', () => {
+        expect(instanceBasic.labelHTML.props.style.width).toEqual('20%');
       });
     });
   });
@@ -106,6 +140,30 @@ describe('InputLabel', () => {
       it('builds the id with provided inputProps', () => {
         expect(instanceBasic.inputProps.id).toEqual('model_1[foo]');
       });
+    });
+  });
+
+  describe('fieldProps', () => {
+    describe('when label has a width', () => {
+      it('sets a width for the field', () => {
+        expect(instanceBasic.fieldProps.style.width).toEqual('80%');
+      });
+    });
+
+    describe('when label does not have a width', () => {
+      it('does not set a width for the field', () => {
+        expect(instanceFalse.fieldProps.style).toBe(undefined);
+      });
+    });
+  });
+
+  describe('mainClasses', () => {
+    it('adds the label inline class if input is inline', () => {
+      expect(instanceBasic.mainClasses).toEqual(' common-input--label-inline');
+    });
+
+    it('does not add the label inline class if input is inline', () => {
+      expect(instanceFalse.mainClasses).toEqual('');
     });
   });
 });

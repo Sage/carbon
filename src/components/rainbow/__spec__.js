@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Rainbow from './index';
+import Rainbow from './rainbow';
 import Immutable from 'immutable';
 
 describe('Rainbow', () => {

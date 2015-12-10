@@ -7,6 +7,17 @@ body {
   line-height: $app-line-height;
 }
 
+h1 { font-size: 24px; line-height: 32px; margin-bottom: 5px; font-weight: 300; }
+h2 { font-size: 1.8em; margin-bottom: 12px; font-weight: 300; }
+h3 { font-size: 1.6em; margin-bottom: 16px; font-weight: 300; }
+h4 { font-size: 1.4em; margin-bottom: 14px; font-weight: 300; }
+h5 { font-size: 1.2em; margin-bottom: 12px; font-weight: 300; }
+h6 { font-size: 1.1em; margin-bottom: 11px; font-weight: 300; }
+
+p {
+  margin-bottom: 10px;
+}
+
 .hidden {
   display: none;
 }

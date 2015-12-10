@@ -1,19 +1,8 @@
 import React from 'react';
-import Input from './index';
+import TestUtils from 'react/lib/ReactTestUtils';
+import Input from './input';
 
-class TestClassOne {
-  props = {
-    name: 'foo'
-  };
-
-  context = {
-    form: {
-      model: 'model_1'
-    }
-  };
-
-  state = [];
-
+class TestClassOne extends React.Component {
   get mainClasses() {
     return "testMain"
   }
@@ -21,46 +10,43 @@ class TestClassOne {
   get inputClasses() {
     return "testInput"
   }
+
+  render() {
+    return <div></div>;
+  }
 }
 
-class TestClassTwo {
-  props = {
-    name: 'bar'
-  };
-
-  context = {
-    form: {
-      model: 'model_2'
-    }
-  };
-
+class TestClassTwo extends React.Component {
   count = 0;
 
   shouldComponentUpdate(nextProps, nextState) {
     this.count++;
   }
+
+  render() {
+    return <div></div>;
+  }
 }
 
-describe('Input', () => {
+let ExtendedClassOne = Input(TestClassOne);
+let ExtendedClassTwo = Input(TestClassTwo);
 
+describe('Input', () => {
   let instance, instanceTwo, onChange;
 
   beforeEach(() => {
-    let ExtendedClassOne = Input(TestClassOne);
-    instance = new ExtendedClassOne();
+    instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+      name: 'foo'
+    }));
 
-    let ExtendedClassTwo = Input(TestClassTwo);
-    instanceTwo = new ExtendedClassTwo();
+    instanceTwo = TestUtils.renderIntoDocument(React.createElement(ExtendedClassTwo, {
+      name: 'bar'
+    }));
 
     onChange = jasmine.createSpy('onChange');
   });
 
   describe('shouldComponentUpdate', () => {
-
-    beforeEach(() => {
-      instanceTwo.count = 1;
-    });
-
     it('returns true if props have changed', () => {
       let nextProps = { name: 'bar' };
       let nextState = instance.state;
@@ -88,15 +74,18 @@ describe('Input', () => {
         let nextState = instance.state;
 
         expect(instanceTwo.shouldComponentUpdate(nextProps, nextState)).toBeTruthy;
-        instance.shouldComponentUpdate(nextProps,nextState);
-        expect(instanceTwo.count).toEqual(2);
+        instance.shouldComponentUpdate(nextProps, nextState);
+        expect(instanceTwo.count).toEqual(1);
       });
     });
   });
 
   describe('_handleOnChange', () => {
     it('calls the components onChange handler if it has one', () => {
-      instance.props.onChange = onChange
+      instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+        onChange: onChange,
+        name: 'foo'
+      }));
       instance._handleOnChange('foo')
       expect(onChange).toHaveBeenCalledWith('foo', instance.props);
     });
@@ -108,40 +97,59 @@ describe('Input', () => {
   });
 
   describe('mainClasses', () => {
+    describe('When readOnly', () => {
+      it('returns classes with readonly class', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          onChange: onChange,
+          name: 'foo',
+          readOnly: true
+        }));
+        expect(instance.mainClasses).toEqual('testMain common-input--readonly common-input');
+      });
+    });
 
     describe('When the component includes main class names', () => {
       it('returns component and additional decorated classes', () => {
-        expect(instance.mainClasses).toEqual('testMain base-input');
+        expect(instance.mainClasses).toEqual('testMain common-input');
       });
     });
 
     describe('When the component does not include any main class names', () => {
       it('returns the decorated class names only', () => {
-        expect(instanceTwo.mainClasses).toEqual(' base-input');
+        expect(instanceTwo.mainClasses).toEqual(' common-input');
+      });
+    });
+
+    describe('When custom classes are added', () => {
+      it('returns component and additional custom classes', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          className: 'foobar',
+          name: 'foo'
+        }));
+        expect(instance.mainClasses).toEqual('testMain foobar common-input');
       });
     });
   });
 
   describe('inputClasses', () => {
-
     describe('When the component includes input class names', () => {
       it('returns component and additional decorated classes', () => {
-        expect(instance.inputClasses).toEqual('testInput base-input__input');
+        expect(instance.inputClasses).toEqual('testInput common-input__input');
       });
     });
 
     describe('When the component does not include any main class names', () => {
       it('returns the decorated class names only', () => {
-        expect(instanceTwo.inputClasses).toEqual(' base-input__input');
+        expect(instanceTwo.inputClasses).toEqual(' common-input__input');
       });
     });
   });
 
   describe('inputProps', () => {
-
     describe('inputProps are passed', () => {
       it('builds the name with provided inputProps', () => {
-        expect(instanceTwo.inputProps.name).toEqual('model_2[bar]');
+        instanceTwo.context.form = { model: 'model' };
+        expect(instanceTwo.inputProps.name).toEqual('model[bar]');
       });
     });
 
@@ -153,4 +161,9 @@ describe('Input', () => {
     });
   });
 
+  describe('fieldProps', () => {
+    it('adds a class name', () => {
+      expect(instanceTwo.fieldProps.className).toEqual('common-input__field');
+    });
+  });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Decimal from './index';
+import Decimal from './decimal';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
 
@@ -95,7 +95,7 @@ describe('Decimal', () => {
       });
 
       it('does not re-evaluate the formatted visible value if input has focus', () => {
-        instance.doc = {
+        instance._document = {
           activeElement: instance.refs.visible
         };
         instance.componentWillReceiveProps({ value: '1001.00' });
@@ -122,15 +122,58 @@ describe('Decimal', () => {
       beforeEach(() => {
         spyOn(instance, 'setState');
         spyOn(instance, 'emitOnChangeCallback');
+        spyOn(instance, 'isValidDecimal').and.callThrough();
+      });
+
+      it('checks if the value is a valid decimal', () => {
         TestUtils.Simulate.change(instance.refs.visible, { target: { value: "1,0,0,0.00" } });
+        expect(instance.isValidDecimal).toHaveBeenCalledWith("1,0,0,0.00");
       });
 
-      it('calls setState with the exact visibleValue from the visible input', () => {
-        expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "1,0,0,0.00" });
+      describe('when it is as a valid decimal', () => {
+        beforeEach(() => {
+          TestUtils.Simulate.change(instance.refs.visible, { target: { value: "1,0,0,0.00" } });
+        });
+
+
+        it('calls setState with the exact visibleValue from the visible input', () => {
+          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "1,0,0,0.00" });
+        });
+
+        it('calls emitOnChangeCallback with a formatted hidden value', () => {
+          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith("1000.00");
+        });
+      })
+
+      describe('when it is not a valid decimal', () => {
+        beforeEach(() => {
+          TestUtils.Simulate.change(instance.refs.visible, { target: { value: "..1.0.0,0.00" } });
+        });
+
+        it('does not call setState', () => {
+          expect(instance.setState).not.toHaveBeenCalled();
+        });
+
+        it('does not call emitOnChangeCallback', () => {
+          expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('isValidDecimal', () => {
+      it('confirms it is a valid decimal', () => {
+        let val = '1,000.00';
+        expect(instance.isValidDecimal(val)).toBeTruthy();
       });
 
-      it('calls emitOnChangeCallback with a formatted hidden value', () => {
-        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith("1000.00");
+      it('returns false when it is not a valid decimal', () => {
+        let val = '..0.8,9.00';
+        expect(instance.isValidDecimal(val)).toBeFalsy();
+      });
+
+      it('allows a minus symbol at the start of the decimal', () => {
+        let val = '-1,000.00';
+        expect(instance.isValidDecimal(val)).toBeTruthy();
       });
     });
 
@@ -186,6 +229,7 @@ describe('Decimal', () => {
         expect(instance.refs.hidden.readOnly).toBeTruthy();
         expect(instance.refs.hidden.value).toEqual("1000.00");
         expect(instance.refs.hidden.defaultValue).toEqual("1000.00");
+        expect(instance.refs.hidden.name).toEqual("total");
       });
     });
 

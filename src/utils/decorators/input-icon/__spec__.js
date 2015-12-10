@@ -1,34 +1,53 @@
 import React from 'react';
-import InputIcon from './index';
+import InputIcon from './input-icon';
+
+class TestClass extends React.Component {
+  inputProps = {
+    id: 'bar'
+  }
+}
+
+let ExtendedClass = InputIcon(TestClass);
+let klass = new ExtendedClass;
 
 describe('InputIcon', () => {
-  let instance, icon, inputIconInstance;
-
-  class TestClass{
-    inputProps = {
-      id: 'bar'
-    };
-  }
+  let instance;
 
   beforeEach(() => {
-    let ExtendedClass = InputIcon(TestClass);
-
-    instance = new ExtendedClass;
-    icon = 'foo';
-    inputIconInstance = instance.inputIconHTML(icon);
+    instance = klass.inputIconHTML('foo');
   });
 
   describe('inputIconHTML', () => {
     it('contains a label with the components id', () => {
-      expect(inputIconInstance.props.htmlFor).toEqual('bar');
+      expect(instance.props.htmlFor).toEqual('bar');
     });
 
     it('contains an icon with a type corresponding to the passed in icon', () => {
-      expect(inputIconInstance.props.children.props.type).toEqual('foo');
+      expect(instance.props.children.props.type).toEqual('foo');
     });
 
     it('sets a default className', () => {
-      expect(inputIconInstance.props.children.props.className).toEqual('ui-input-icon');
+      expect(instance.props.children.props.className).toEqual('ui-input-icon');
+    });
+  });
+
+  describe('readOnly', () => {
+    it('should return null', () => {
+      klass.props = {
+        readOnly: true
+      };
+      instance = klass.inputIconHTML('foo');
+      expect(instance).toBe(null);
+    });
+  });
+
+  describe('disabled', () => {
+    it('should return null', () => {
+      klass.props = {
+        disabled: true
+      };
+      instance = klass.inputIconHTML('foo');
+      expect(instance).toBe(null);
     });
   });
 });

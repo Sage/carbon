@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Textbox from './index';
+import Textbox from './textbox';
 
 describe('Textbox', () => {
   let instance;
@@ -17,7 +17,7 @@ describe('Textbox', () => {
 
   describe('render', () => {
     it('renders a parent div', () => {
-      let textboxNode = TestUtils.findRenderedDOMComponentWithTag(instance, 'div')
+      let textboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(textboxNode.classList[0]).toEqual('ui-textbox');
     });
 
@@ -34,20 +34,20 @@ describe('Textbox', () => {
 
     it('is decorated with a validation if a error is present', () => {
       instance.setState({errorMessage: 'Error'});
-      let errorDiv = TestUtils.findRenderedDOMComponentWithClass(instance, 'base-input__message--error')
+      let errorDiv = TestUtils.findRenderedDOMComponentWithClass(instance, 'common-input__message--error')
       expect(errorDiv.textContent).toEqual('Error')
     });
   });
 
   describe('mainClasses', () => {
     it('returns ui-textbox and additional decorated classes', () => {
-      expect(instance.mainClasses).toEqual('ui-textbox base-input');
+      expect(instance.mainClasses).toEqual('ui-textbox common-input');
     });
   });
 
   describe('inputClasses', () => {
     it('returns ui-textbox__input and additional decorated classes', () => {
-      expect(instance.inputClasses).toEqual('ui-textbox__input base-input__input');
+      expect(instance.inputClasses).toEqual('ui-textbox__input common-input__input');
     });
   });
 

@@ -1,0 +1,5 @@
+{
+  "name": "list",
+  "style": "list.scss",
+  "main": "./list.js"
+}

@@ -1,11 +1,11 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import DropdownSuggest from './index'
+import DropdownSuggest from './dropdown-suggest'
 import Request from 'superagent';
 import Immutable from 'immutable';
 
 describe("DropdownSuggest", () => {
-  var instance;
+  let instance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -18,32 +18,32 @@ describe("DropdownSuggest", () => {
 
   describe("render", () => {
     it("renders a hidden input", () => {
-      var input = instance.refs.input;
+      let input = instance.refs.input;
       expect(input.tagName).toEqual("INPUT");
       expect(input.type).toEqual('hidden');
     });
 
     it("renders a visible input", () => {
-      var input = instance.refs.filter;
+      let input = instance.refs.filter;
       expect(input.tagName).toEqual("INPUT");
     });
 
     it("renders a ul", () => {
-      var ul = instance.refs.list;
+      let ul = instance.refs.list;
       expect(ul.tagName).toEqual("UL");
       expect(ul.classList[1]).toEqual("hidden");
     });
 
     it("renders a li with no results", () => {
-      var ul = instance.refs.list;
-      var listItems = ul.childNodes;
+      let ul = instance.refs.list;
+      let listItems = ul.childNodes;
       expect(listItems.length).toEqual(1);
       expect(listItems[0].tagName).toEqual("LI");
       expect(listItems[0].textContent).toEqual("No results");
     });
 
     describe("render with options", () => {
-      var ul, listItems;
+      let ul, listItems;
 
       beforeEach(() => {
         instance.setState({
@@ -63,15 +63,15 @@ describe("DropdownSuggest", () => {
       });
 
       it("sets the highlighted class on the relevant option", () => {
-        expect(listItems[0].className).toEqual("ui-dropdown-suggest__item");
-        expect(listItems[1].classList[1]).toEqual("ui-dropdown-suggest__item--highlighted");
+        expect(listItems[0].className).toEqual("ui-dropdown-suggest__item common-list__item");
+        expect(listItems[1].className).toEqual("ui-dropdown-suggest__item ui-dropdown-suggest__item--highlighted common-list__item common-list__item--highlighted");
       });
     });
   });
 
   describe("resetScroll", () => {
     it("sets the scrollTop to 0 on the list", () => {
-      var obj = { scrollTop: 100 };
+      let obj = { scrollTop: 100 };
       instance.refs.list = obj;
       instance.resetScroll();
       expect(obj.scrollTop).toEqual(0);
@@ -79,7 +79,7 @@ describe("DropdownSuggest", () => {
   });
 
   describe("on key down of the filter", () => {
-    var filter;
+    let filter;
 
     beforeEach(() => {
       filter = instance.refs.filter;
@@ -175,9 +175,9 @@ describe("DropdownSuggest", () => {
         options: [{ id: 1, name: "Foo" }, { id: 25, name: "Bar" }]
       });
       spyOn(instance, 'setState');
-      var listItem = instance.refs.list.childNodes[1];
+      let listItem = instance.refs.list.childNodes[1];
       TestUtils.Simulate.mouseOver(listItem);
-      expect(instance.setState).toHaveBeenCalledWith({ highlighted: 25 });
+      expect(instance.setState).toHaveBeenCalledWith({ highlighted: '25' });
     });
   });
 
@@ -186,9 +186,8 @@ describe("DropdownSuggest", () => {
       instance.setState({
         options: [{ id: 1, name: "Foo" }, { id: 25, name: "Bar" }]
       });
-
       spyOn(instance, 'emitOnChangeCallback');
-      var listItem = instance.refs.list.childNodes[1];
+      let listItem = instance.refs.list.childNodes[1];
 
       let element = instance.props.value.set(instance.props.resource_key, "Bar");
       element = element.set('id', 25);
@@ -199,7 +198,7 @@ describe("DropdownSuggest", () => {
   });
 
   describe("when the filter changes", () => {
-    var filter;
+    let filter;
     let element;
 
     beforeEach(() => {
@@ -268,7 +267,7 @@ describe("DropdownSuggest", () => {
 
         describe("when not scrolled into position", () => {
           beforeEach(() => {
-            var obj = {
+            let obj = {
               scrollTop: 30,
               scrollHeight: 200,
               offsetHeight: 150
@@ -284,7 +283,7 @@ describe("DropdownSuggest", () => {
 
         describe("when scrolled into position", () => {
           beforeEach(() => {
-            var obj = {
+            let obj = {
               scrollTop: 31,
               scrollHeight: 200,
               offsetHeight: 150
@@ -306,7 +305,7 @@ describe("DropdownSuggest", () => {
   });
 
   describe("on focus of the input", () => {
-    var filter;
+    let filter;
 
     beforeEach(() => {
       jasmine.clock().install();
@@ -370,13 +369,47 @@ describe("DropdownSuggest", () => {
         });
       });
     });
+
+    describe('when disabled', () => {
+      it('does not call setSelectionRange', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownSuggest
+            disabled
+            name="bla"
+            path="/foo"
+            resource_key="key"
+          />);
+        filter = instance.refs.filter;
+        spyOn(filter, 'setSelectionRange');
+        TestUtils.Simulate.focus(filter);
+        jasmine.clock().tick(0);
+        expect(filter.setSelectionRange).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when readOnly', () => {
+      it('does not call setSelectionRange', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownSuggest
+            readOnly
+            name="bla"
+            path="/foo"
+            resource_key="key"
+          />);
+        filter = instance.refs.filter;
+        spyOn(filter, 'setSelectionRange');
+        TestUtils.Simulate.focus(filter);
+        jasmine.clock().tick(0);
+        expect(filter.setSelectionRange).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe("on blur of the input", () => {
     beforeEach(() => {
       spyOn(instance, 'resetScroll');
       spyOn(instance, 'setState');
-      var filter = instance.refs.filter;
+      let filter = instance.refs.filter;
       TestUtils.Simulate.blur(filter);
     });
 

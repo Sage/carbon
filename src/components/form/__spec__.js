@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Form from './index';
+import Form from './form';
 import Textbox from './../textbox';
 import Validation from './../../utils/validations/presence';
 import InputGrid from './../input-grid';
@@ -44,15 +44,15 @@ describe('Form', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
         <Form model='test'>
-          <Textbox validations={ [Validation] } name='excludedBox' value='' />
+          <Textbox validations={ [Validation()] } name='excludedBox' value='' />
           <InputGrid
             name='grid'
             data={ ImmutableHelper.parseJSON([ { foo: 'bar' } ]) }
             updateRowHandler={ function(){} }
             deleteRowHandler={ function(){} }
             fields={ [
-              <Textbox validations={ [Validation] } name='box1' value='foo' />,
-              <Textbox validations={ [Validation] } name='box2' value='foo' />
+              <Textbox validations={ [Validation()] } name='box1' value='foo' />,
+              <Textbox validations={ [Validation()] } name='box2' value='foo' />
             ] }
           />
         </Form>
@@ -86,9 +86,9 @@ describe('Form', () => {
     let excludedTextbox;
 
     beforeEach(() => {
-      textbox1 = <Textbox validations={ [Validation] } name='box1' value='' />;
-      textbox2 = <Textbox validations={ [Validation] } name='box2' value='' />;
-      excludedTextbox = <Textbox validations={ [Validation] } name='excludedBox' value='' />;
+      textbox1 = <Textbox validations={ [Validation()] } name='box1' value='' />;
+      textbox2 = <Textbox validations={ [Validation()] } name='box2' value='' />;
+      excludedTextbox = <Textbox validations={ [Validation()] } name='excludedBox' value='' />;
 
       grid = <InputGrid
             name='grid'
@@ -149,13 +149,30 @@ describe('Form', () => {
     });
   });
 
+  describe('serialize', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Form model='model'>
+          <Textbox name='test' value='foo' />
+        </Form>
+      );
+    });
+
+    it('without opts it returns a string', () => {
+      expect(instance.serialize()).toEqual('model%5Btest%5D=foo');
+    });
+
+    it('with opts it returns a hash', () => {
+      expect(instance.serialize({ hash: true })).toEqual({ model: { test: 'foo' } });
+    });
+  });
 
   describe('handleOnSubmit', () => {
     describe('valid input', () => {
       it('submits the form', () => {
         instance = TestUtils.renderIntoDocument(
           <Form model='test'>
-            <Textbox validations={ [Validation] } name='test' value='Valid' />
+            <Textbox validations={ [Validation()] } name='test' value='Valid' />
           </Form>
         );
 
@@ -170,7 +187,7 @@ describe('Form', () => {
       it('does not not submit the form', () => {
         instance = TestUtils.renderIntoDocument(
           <Form model='test'>
-            <Textbox validations={ [Validation] } name='test' value='' />
+            <Textbox validations={ [Validation()] } name='test' value='' />
           </Form>
         );
 
@@ -178,6 +195,34 @@ describe('Form', () => {
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
         expect(instance.setState).toHaveBeenCalledWith({ errorCount :1 });
+      });
+    });
+
+    describe('when a beforeFormValidation prop is passed', () => {
+      it('calls the beforeFormValidation', () => {
+        let spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form beforeFormValidation={ spy } model='test'>
+            <Textbox validations={ [Validation()] } name='test' value='Valid' />
+          </Form>
+        );
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('when a afterFormValidation prop is passed', () => {
+      it('calls the afterFormValidation', () => {
+        let spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form afterFormValidation={ spy } model='test'>
+            <Textbox validations={ [Validation()] } name='test' value='Valid' />
+          </Form>
+        );
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(spy).toHaveBeenCalled();
       });
     });
 
@@ -190,7 +235,7 @@ describe('Form', () => {
               data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
               updateRowHandler={ function(){} }
               deleteRowHandler={ function(){} }
-              fields={ [<Textbox validation={ [Validation] } name='box' />] }
+              fields={ [<Textbox validation={ [Validation()] } name='box' />] }
             />
           </Form>
         );
@@ -209,8 +254,8 @@ describe('Form', () => {
           [ { box1: 'bar', box2: '' } ]
         );
 
-        let textbox1 = <Textbox validations={ [Validation] } name='box1' value='' />;
-        let textbox2 = <Textbox validations={ [Validation] } name='box2' value='' />;
+        let textbox1 = <Textbox validations={ [Validation()] } name='box1' value='' />;
+        let textbox2 = <Textbox validations={ [Validation()] } name='box2' value='' />;
 
         let grid = <InputGrid
           name='grid'
@@ -245,16 +290,16 @@ describe('Form', () => {
   describe('cancelForm', () => {
     describe('when window history is availiable', () => {
       it('redirects to the previous page', () => {
-        spyOn(window.history, 'back')
+        spyOn(instance._window.history, 'back')
         let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         TestUtils.Simulate.click(cancel);
-        expect(window.history.back).toHaveBeenCalled();
+        expect(instance._window.history.back).toHaveBeenCalled();
       });
     });
 
     describe('when window history is not availiable', () => {
       it('throws an error', () => {
-        window.history = false;
+        instance._window = {};
         let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         expect(function() { TestUtils.Simulate.click(cancel) }).toThrowError('History is not defined. This is normally configured by the react router');
       });
@@ -305,7 +350,7 @@ describe('Form', () => {
 
         spyOn(fakeMeta1, 'getAttribute').and.returnValue('csrf-param')
         spyOn(fakeMeta2, 'getAttribute').and.returnValue('csrf-token')
-        spyOn(instance.doc, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
+        spyOn(instance._document, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
 
         instance = TestUtils.renderIntoDocument(<Form model='test' />);
 

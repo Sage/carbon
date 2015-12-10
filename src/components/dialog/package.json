@@ -1,3 +1,5 @@
 {
-  "style": "style.scss"
+  "name": "dialog",
+  "style": "dialog.scss",
+  "main": "./dialog.js"
 }

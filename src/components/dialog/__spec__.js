@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Dialog from './index';
+import Dialog from './dialog';
 import I18n from "i18n-js";
 import Button from './../button';
 
@@ -30,6 +30,17 @@ describe('Dialog', () => {
           expect(window.addEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
           expect(window.addEventListener).toHaveBeenCalledWith('keyup', instance.closeDialog);
         });
+
+        describe('when the dialog is already listening', () => {
+          it('does not set up event listeners', () => {
+            let spy = spyOn(window, 'addEventListener');
+            instance.listening = true;
+            instance.componentDidUpdate();
+            expect(spy.calls.count()).toEqual(0);
+            expect(window.addEventListener).not.toHaveBeenCalled();
+            expect(window.addEventListener).not.toHaveBeenCalled();
+          });
+        });
       });
 
       describe('when the dialog is closed', () => {
@@ -46,6 +57,32 @@ describe('Dialog', () => {
           expect(window.removeEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
           expect(window.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeDialog);
         });
+      });
+    });
+  });
+
+  describe('centerDialog', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Dialog open={ true } cancelDialogHandler={ cancelHandler } />
+      );
+    });
+
+    describe('when dialog is lower than 20px', () => {
+      it('sets top position to the correct value', () => {
+        instance.centerDialog();
+        expect(instance.refs.dialog.style.top).toEqual('150px');
+      });
+    });
+
+    describe('when dialog is higher than 20px', () => {
+      it('sets top position to 20px', () => {
+        instance.refs.dialog = {
+          style: {},
+          offsetHeight: 261
+        };
+        instance.centerDialog();
+        expect(instance.refs.dialog.style.top).toEqual('20px');
       });
     });
   });

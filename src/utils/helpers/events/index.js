@@ -64,11 +64,11 @@ let Events = {
     if (!Events.isEventType(ev, "keyup")) {
       return false;
     }
-    if (Events.isNumberKey(ev) ||
+    if (Events.isNumberKey(ev)   ||
         Events.isAlphabetKey(ev) ||
-        Events.isNumpadKey(ev) ||
-        Events.isSymbolKey(ev) ||
-        Events.isSpaceKey(ev) ||
+        Events.isNumpadKey(ev)   ||
+        Events.isSymbolKey(ev)   ||
+        Events.isSpaceKey(ev)    ||
         Events.isDeletingKey(ev) ||
         Events.isBackspaceKey(ev)) {
       return true;
@@ -304,6 +304,17 @@ let Events = {
   },
 
   /**
+  * Determines if the key pressed is the minus key
+  *
+  * @method isMinusKey
+  * @params {Event} ev A JavaScript event
+  * @returns {Boolean}
+  **/
+  isMinusKey: (ev) => {
+    return ev.which === 189;
+  },
+
+  /**
   * Determines if the key pressed is valid for a Decimal Field
   *
   * @method isValidDecimalKey
@@ -311,13 +322,15 @@ let Events = {
   * @returns {Boolean}
   **/
   isValidDecimalKey: (ev) => {
-    return Events.isMetaKey(ev) ||
-           Events.isEnterKey(ev) ||
+    return Events.isMetaKey(ev)       ||
+           Events.isEnterKey(ev)      ||
            Events.isNavigationKey(ev) ||
-           Events.isDeletingKey(ev) ||
-           Events.isNumberKey(ev) ||
-           Events.isPeriodKey(ev) ||
-           Events.isCommaKey(ev) ||
+           Events.isDeletingKey(ev)   ||
+           Events.isNumberKey(ev)     ||
+           Events.isPeriodKey(ev)     ||
+           Events.isCommaKey(ev)      ||
+           Events.isTabKey(ev)        ||
+           Events.isMinusKey(ev)      ||
            Events.isSpaceKey(ev);
   }
 };

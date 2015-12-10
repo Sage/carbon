@@ -1,0 +1,39 @@
+@import 'colors';
+@import 'mixins';
+@import 'input-field';
+
+.common-input__input:hover ~ label .ui-input-icon {
+  background-color: $blue;
+  border-color: $blue;
+  color: $white;
+
+  &:hover {
+    background-color: $blue-bright;
+    border-color: $blue-bright;
+  }
+}
+
+.common-input__input:focus ~ label .ui-input-icon,
+.common-input__input:focus ~ label .ui-input-icon:hover {
+  background-color: $blue-dark;
+  border-color: $blue-dark;
+  color: $white;
+}
+
+.ui-input-icon {
+  $button-border-radius: $input-border-radius - 1;
+  background-color: $grey-light;
+  border-left: 1px solid $grey;
+  border-radius: 0 $button-border-radius $button-border-radius 0;
+  bottom: 1px;
+  box-sizing: border-box;
+  color: $grey-dark;
+  cursor: pointer;
+  height: $input-common-height - 2;
+  margin-top: 1px;
+  padding: 6px;
+  position: absolute;
+  right: 1px;
+  text-align: center;
+  width: $input-common-height;
+}

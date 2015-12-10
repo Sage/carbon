@@ -1,3 +1,4 @@
 {
-  "style": "style.scss"
+  "name": "dropdown-suggest",
+  "main": "./dropdown-suggest.js"
 }
