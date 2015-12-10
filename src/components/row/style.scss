@@ -8,7 +8,7 @@ $max-columns: 12 !default;
   position: relative;
 
   + .ui-row {
-    margin-top: $grid-margin;
+    margin-top: 10px;
   }
 
   .ui-row__column {

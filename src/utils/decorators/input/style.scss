@@ -16,6 +16,22 @@
   }
 }
 
+.common-input--readonly {
+  .common-input__input {
+    background-color: transparent;
+    border: none;
+
+    &:active,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.common-input__field {
+  position: relative;
+}
+
 .common-input__input {
   background-color: $white;
   border-radius: $input-border-radius;
@@ -43,16 +59,6 @@
     @include transition(box-shadow linear 0.1s);
   }
 
-  &[readonly] {
-    background-color: transparent;
-    border: none;
-
-    &:active,
-    &:focus {
-      box-shadow: none;
-    }
-  }
-
   &[disabled] {
     background-color: $grey-light !important; // this is the correct use of !important
     border-color: $grey !important; // this is the correct use of !important
@@ -67,28 +73,30 @@
 .common-input__message {
   $arrow-size: 5px;
 
-  border-radius: 3px;
+  border-radius: 3px 3px 3px 0;
+  bottom: 100%;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   box-sizing: border-box;
   display: none;
-  left: 0;
+  left: 100%;
+  margin-bottom: -14px;
+  margin-left: -15px;
   margin-top: $arrow-size;
-  padding: 5px 10px;
+  padding: 10px;
   position: absolute;
-  right: 0;
   text-align: center;
+  white-space: nowrap;
   z-index: $z-validation-message;
 
   &:before {
-    @include arrow("up", $arrow-size, $error);
-
-    left: 50%;
-    margin-left: -($arrow-size + 1);
+    border-top: 14px solid #D63F40;
+    border-right: 16px solid transparent;
+    content: '';
+    display: block;
+    margin-right: -16px;
     position: absolute;
-    top: -($arrow-size * 2);
-  }
-
-  .common-input--label-inline & {
-    left: $grid-margin;
+    left: 0;
+    bottom: -14px;
   }
 }
 

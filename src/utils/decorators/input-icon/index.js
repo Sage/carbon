@@ -53,7 +53,7 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
     }
 
     return (
-      <label htmlFor={ this.inputProps.id }>
+      <label htmlFor={ this.inputProps.id } key="label-icon">
         <Icon type={ icon } className="ui-input-icon" />
       </label>
     );

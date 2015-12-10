@@ -97,6 +97,17 @@ describe('Input', () => {
   });
 
   describe('mainClasses', () => {
+    describe('When readOnly', () => {
+      it('returns classes with readonly class', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          onChange: onChange,
+          name: 'foo',
+          readOnly: true
+        }));
+        expect(instance.mainClasses).toEqual('testMain common-input--readonly common-input');
+      });
+    });
+
     describe('When the component includes main class names', () => {
       it('returns component and additional decorated classes', () => {
         expect(instance.mainClasses).toEqual('testMain common-input');
