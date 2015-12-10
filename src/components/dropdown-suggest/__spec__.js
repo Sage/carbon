@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import DropdownSuggest from './index'
+import DropdownSuggest from './dropdown-suggest'
 import Request from 'superagent';
 import Immutable from 'immutable';
 

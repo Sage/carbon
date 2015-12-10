@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import List from './index';
+import List from './list';
 import ImmutableHelper from './../../helpers/immutable';
 import ReactDOM from 'react-dom';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Dropdown from './index';
+import Dropdown from './dropdown';
 import ImmutableHelper from './../../utils/helpers/immutable'
 
 describe("Dropdown", () => {
