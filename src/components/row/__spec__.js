@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Row from './index';
+import Row from './row';
 
 describe('Row', () => {
 

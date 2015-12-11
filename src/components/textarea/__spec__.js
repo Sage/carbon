@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Textarea from './index';
+import Textarea from './textarea';
 
 describe('Textarea', () => {
   let baseInstance;

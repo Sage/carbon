@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Button from './index';
+import Button from './button';
 
 describe('Button', () => {
 

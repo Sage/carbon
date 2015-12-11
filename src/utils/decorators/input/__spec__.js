@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Input from './index';
+import Input from './input';
 
 class TestClassOne extends React.Component {
   get mainClasses() {

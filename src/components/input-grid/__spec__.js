@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
 import ImmutableHelper from './../../utils/helpers/immutable';
-import InputGrid from './index';
+import InputGrid from './input-grid';
 import Form from './../form';
 
 describe('InputGrid', () => {

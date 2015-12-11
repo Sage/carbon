@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Dialog from './index';
+import Dialog from './dialog';
 import I18n from "i18n-js";
 import Button from './../button';
 

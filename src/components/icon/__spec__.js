@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Icon from './index';
+import Icon from './icon';
 
 describe('Icon', () => {
   let instance;
