@@ -180,11 +180,63 @@ describe('Decimal', () => {
     describe('handleBlur', () => {
       beforeEach(() => {
         spyOn(instance, 'setState');
+        instance.highlighted = true;
         TestUtils.Simulate.blur(instance.refs.visible);
       });
 
       it('calls setState with the formatted visible value', () => {
         expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "1,000.00" });
+      });
+
+      it('sets the highlighted property to false', () => {
+        expect(instance.highlighted).toBeFalsy();
+      });
+    });
+
+    describe("handleOnClick", function() {
+      let visible;
+
+      beforeEach(function() {
+        visible = instance.refs.visible;
+        spyOn(visible, 'setSelectionRange');
+      });
+
+      describe("when the caret is at the edge of the value", function() {
+        beforeEach(function() {
+          visible.selectionStart = 0;
+          visible.selectionEnd = 0;
+          TestUtils.Simulate.click(visible);
+        });
+
+        it("should call setSelectionRange method", function() {
+          expect(visible.setSelectionRange).toHaveBeenCalledWith(0, visible.value.length);
+        });
+      });
+
+      describe("when the caret is within the value", function() {
+        beforeEach(function() {
+          visible.value = '100';
+          spyOn(visible, 'selectionStart');
+          TestUtils.Simulate.click(visible);
+        });
+
+        it("should not call setSelectionRange method", function() {
+          expect(visible.setSelectionRange).not.toHaveBeenCalled();
+        });
+      });
+
+      describe("when highlighted is true", function() {
+        beforeEach(function() {
+          instance.highlighted = true;
+          visible.selectionStart = 0
+          visible.selectionEnd = 0
+          TestUtils.Simulate.click(visible);
+        });
+
+        it("resets highlighted to false and does not call setSelectionRange", function() {
+          expect(instance.highlighted).toBeFalsy();
+          expect(visible.setSelectionRange).not.toHaveBeenCalled();
+        });
       });
     });
 
