@@ -1,6 +1,6 @@
 import React from 'react';
 import Flux from 'flux';
-import { connect } from './index';
+import { connect } from './flux';
 import Textbox from './../../components/textbox';
 import Store from './store';
 

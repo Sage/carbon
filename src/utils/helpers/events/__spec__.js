@@ -1,4 +1,4 @@
-import Events from './index';
+import Events from './events';
 
 describe("Events", function () {
   describe('isEventType', () => {

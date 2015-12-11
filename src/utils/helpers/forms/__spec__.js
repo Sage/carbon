@@ -1,4 +1,4 @@
-import { generateInputName } from './index';
+import { generateInputName } from './forms';
 
 describe('Form Helper', () => {
   describe('generateInputName', () => {

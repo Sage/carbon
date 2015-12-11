@@ -1,5 +1,5 @@
 import ImmutableHelper from './../../helpers/immutable';
-import Validator from './index';
+import Validator from './presence';
 
 describe('Presence Validator', () => {
   describe('Immutable data', () => {
