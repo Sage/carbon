@@ -5,7 +5,8 @@ import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import List from './../../utils/decorators/list';
 import { generateInputName } from './../../utils/helpers/forms';
-
+import Immutable from 'immutable';
+import Events from './../../utils/helpers/events';
 /**
  * A dropdown widget.
  *
@@ -19,7 +20,7 @@ import { generateInputName } from './../../utils/helpers/forms';
  *
  *   <Dropdown options={ foo } onChange={ myChangeHandler } />
  *
- * The developed should pass data to the store as JSON. e.g.
+ * The developer should pass data to the store as JSON. e.g.
  *
  *   foo: [{ id: 1, name: "Foo" }, { id: 2, name: "Bar" }]
  *
@@ -39,6 +40,8 @@ class Dropdown extends React.Component {
      */
     options: React.PropTypes.object.isRequired
   };
+
+  filter = [];
 
   /**
    * Clears the visibleValue if a new value has been selected.
@@ -118,6 +121,7 @@ class Dropdown extends React.Component {
     props.value = this.visibleValue || this.nameByID();
     props.name = null;
     props.readOnly = true;
+    props.onKeyDown = this.getKey;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
@@ -126,6 +130,23 @@ class Dropdown extends React.Component {
     return props;
   }
 
+  getKey = (ev) => {
+    ev.preventDefault();
+    if (Events.isBackspaceKey(ev)) { this.filter = []; }
+    let char = String.fromCharCode(ev.which)
+    this.filter.push(char);
+    this.visibleValue = this.filter.join('');
+  }
+
+  filterList = () => {
+    let filtered;
+    let regex = new RegExp(this.filter.join(''), 'i');
+    filtered = this.props.options.filter(function(selection) {
+      return (selection.get('name').search(regex) > -1);
+    });
+    debugger
+    return filtered;
+  }
   /**
    * A getter for hidden input props.
    *
@@ -192,7 +213,7 @@ class Dropdown extends React.Component {
         (this.state.open ? '' : ' hidden') +
         this.commonListClasses;
 
-    let options = this.props.options.toJS();
+    let options = this.filterList().toJS();
 
     return (
       <ul

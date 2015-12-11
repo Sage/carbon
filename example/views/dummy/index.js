@@ -33,6 +33,7 @@ class Finances extends React.Component {
         <Form model="foo">
           <FinancesDetails
             name={ name }
+            foo={ this.state.financesStore.get('foo') }
             discount={ this.state.financesStore.get('discount') }
             dateFrom={ this.state.financesStore.get('date_from') } />
 
