@@ -326,4 +326,14 @@ describe("Events", function () {
       expect(Events.isCommaKey({ which: 188 })).toBeTruthy();
     });
   });
+
+  describe('isMinusKey', () => {
+    it('returns false when a minus key is not pressed', () => {
+      expect(Events.isMinusKey({ which: 190 })).toBeFalsy();
+    });
+
+    it('returns true when the minus key is pressed', () => {
+      expect(Events.isMinusKey({ which: 189 })).toBeTruthy();
+    });
+  });
 });
