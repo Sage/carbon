@@ -18,7 +18,7 @@ describe("DropdownSuggest", () => {
 
   describe("render", () => {
     it("renders a hidden input", () => {
-      let input = instance.refs.input;
+      let input = instance.refs.hidden;
       expect(input.tagName).toEqual("INPUT");
       expect(input.type).toEqual('hidden');
     });

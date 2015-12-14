@@ -40,7 +40,9 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * @method handleBlur
    */
   _handleBlur = () => {
-    this.setState({ open: false });
+    if (!this.blockBlur) {
+      this.setState({ open: false });
+    }
   }
 
   /**
@@ -50,6 +52,9 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * @param {Object} ev event
    */
   _handleSelect = (ev) => {
+    this.blockBlur = false;
+    this._handleBlur();
+
     if (this.handleSelect) {
       this.handleSelect(ev);
     } else {

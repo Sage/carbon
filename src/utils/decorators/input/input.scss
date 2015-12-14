@@ -48,6 +48,11 @@
   width: 100%;
   vertical-align: baseline;
 
+  &::-ms-clear {
+    // Hide x icon in IE
+    display: none;
+  }
+
   &:hover { 
     border-color: $input-active-border-color;
   }

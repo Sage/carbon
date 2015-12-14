@@ -111,8 +111,8 @@ class Dialog extends React.Component {
   centerDialog = () => {
     let height = this.refs.dialog.offsetHeight / 2,
         width = this.refs.dialog.offsetWidth / 2,
-        midPointY = window.innerHeight / 2 + window.scrollY,
-        midPointX = window.innerWidth / 2 + window.scrollX;
+        midPointY = window.innerHeight / 2 + window.pageYOffset,
+        midPointX = window.innerWidth / 2 + window.pageXOffset;
 
     midPointY = midPointY - height;
     midPointX = midPointX - width;
