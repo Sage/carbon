@@ -35,6 +35,17 @@ class Decimal extends React.Component {
    */
   _document = document;
 
+  /**
+   * Used within the onClick and onBlur method to
+   * check if the current visible input value is
+   * highlighted
+   *
+   * @property highlighted
+   * @type {Boolean}
+   */
+  highlighted = false;
+
+
   static defaultProps = {
     /**
      * Sets the default value of the decimal field
@@ -120,6 +131,28 @@ class Decimal extends React.Component {
    */
   handleBlur = () => {
     this.setState({ visibleValue: formatVisibleValue(this.props.value, this) });
+    this.highlighted = false;
+  }
+
+  /*
+   * Selects visible input text depending on where the user clicks
+   *
+   * @method handleOnClick
+   * @param {Object} ev event
+   */
+  handleOnClick = () => {
+    // if value is already highlighted then don't re-highlight it
+    if (this.highlighted) {
+      this.highlighted = false;
+      return;
+    }
+
+    let input = this.refs.visible;
+    // only do it if the selection is not within the value
+    if ((input.selectionStart === 0) && (input.selectionEnd === 0)) {
+      input.setSelectionRange(0, input.value.length);
+      this.highlighted = true;
+    }
   }
 
   /**
@@ -133,6 +166,7 @@ class Decimal extends React.Component {
     props.className = this.inputClasses;
     props.ref = "visible";
     props.onChange = this.handleVisibleInputChange;
+    props.onClick = this.handleOnClick;
     props.name = null;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;

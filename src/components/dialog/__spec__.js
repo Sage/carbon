@@ -149,6 +149,7 @@ describe('Dialog', () => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
             cancelDialogHandler={ cancelHandler }
+            className="foo"
             open={ true } >
 
             <Button>Button</Button>
@@ -159,7 +160,7 @@ describe('Dialog', () => {
 
       it('renders a parent div with mainClasses attached', () => {
         let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(dialogNode.classList[0]).toEqual('ui-dialog');
+        expect(dialogNode.className).toEqual('ui-dialog foo');
       });
 
       it('renders the dialog', () => {
