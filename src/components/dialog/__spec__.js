@@ -1,7 +1,8 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Dialog from './dialog';
-import I18n from "i18n-js";
+import I18n from 'i18n-js';
+import Bowser from 'bowser';
 import Button from './../button';
 
 describe('Dialog', () => {
@@ -83,6 +84,14 @@ describe('Dialog', () => {
         };
         instance.centerDialog();
         expect(instance.refs.dialog.style.top).toEqual('20px');
+      });
+    });
+
+    describe('when ios', () => {
+      it('does not remove page y offset', () => {
+        Bowser.ios = true;
+        instance.centerDialog();
+        expect(instance.refs.dialog.style.top).toEqual('150px');
       });
     });
   });

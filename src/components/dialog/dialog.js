@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './../icon';
+import Bowser from 'bowser';
 
 /**
  * A Dialog widget.
@@ -119,6 +120,12 @@ class Dialog extends React.Component {
 
     if (midPointY < 20) {
       midPointY = 20;
+    } else if (Bowser.ios) {
+      midPointY -= window.pageYOffset;
+    }
+
+    if (midPointX < 20) {
+      midPointX = 20;
     }
 
     this.refs.dialog.style.top = midPointY + "px";

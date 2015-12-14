@@ -192,7 +192,7 @@ describe("DropdownSuggest", () => {
       let element = instance.props.value.set(instance.props.resource_key, "Bar");
       element = element.set('id', 25);
 
-      TestUtils.Simulate.mouseDown(listItem);
+      TestUtils.Simulate.click(listItem);
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(element);
     });
   });
