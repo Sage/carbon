@@ -1,4 +1,5 @@
 {
   "name": "dropdown",
-  "main": "./dropdown.js"
+  "main": "./dropdown.js",
+  "style": "./dropdown.scss"
 }

@@ -5,8 +5,7 @@ import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import List from './../../utils/decorators/list';
 import { generateInputName } from './../../utils/helpers/forms';
-import Immutable from 'immutable';
-import Events from './../../utils/helpers/events';
+
 /**
  * A dropdown widget.
  *
@@ -41,22 +40,37 @@ class Dropdown extends React.Component {
     options: React.PropTypes.object.isRequired
   };
 
-  filter = [];
+  state = {
+    /**
+     * The text currently displayed in the input field.
+     *
+     * @property inputValue
+     * @type {String}
+     * @default ''
+     */
+    inputValue: '',
+
+    /**
+     * The user input search text.
+     *
+     * @property filter
+     * @type {String}
+     * @default ''
+     */
+    filter: ''
+  };
 
   /**
-   * Clears the visibleValue if a new value has been selected.
+   * Clears the visible value if a new value has been selected.
    *
    * @method componentWillReceiveProps
    * @param {Object} nextProps the updated props
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.value != this.props.value) {
-      this.visibleValue = null;
+      this.setState({ inputValue: this.nameByID(nextProps.value) });
     }
   }
-
-  // Variable to cache current value. Setting it here rather than state prevents complete rerender when value changes.
-  visibleValue = null;
 
   /**
    * Runs the callback onChange action
@@ -84,29 +98,54 @@ class Dropdown extends React.Component {
   }
 
   /**
-   * Sets visibleValue based on selected id.
+   * Handles what happens on blur of the input.
+   *
+   * @method handleBlur
+   */
+  handleBlur = () => {
+    this.setState({ inputValue: this.nameByID(this.props.value) });
+  }
+
+  /**
+   * Handles a select action on a list item. Resets filter on select.
+   *
+   * @method handleSelect
+   * @param {Object} ev event
+   */
+  handleSelect = (ev) => {
+    this.setState({ filter: ''});
+    this.emitOnChangeCallback(ev.target.getAttribute('value'));
+  }
+
+  /*
+   * Handles changes to the visible input field. Updates filter and displayed value.
+   *
+   * @method handleSelect
+   * @param {Object} ev event
+   */
+  handleVisibleChange = (ev) => {
+    let value = ev.target.value;
+    this.setState({ filter: value, inputValue: value });
+  }
+
+  /**
+   * Sets the selected value based on selected id.
    *
    * @method nameByID
+   * @param {String} value
    */
-  nameByID = () => {
-    // if no value selected, visibleValue is null
-    if (!this.props.value) {
-      return this.visibleValue = '';
+  nameByID = (value) => {
+    // if no value selected, no match possible
+    if (!value) {
+      return '';
     }
-
     // Match selected id to corresponding list option
     let option = this.props.options.find((item) => {
-      return item.get('id') == this.props.value;
+      return item.get('id') == value;
     });
 
-    // If match is found, set visibleValue to option's name;
-    if (option) {
-      this.visibleValue = option.get('name');
-    } else {
-      this.visibleValue = '';
-    }
-
-    return this.visibleValue;
+    // If match is found, set value to option's name;
+    return option ? option.get('name') : '';
   }
 
   /**
@@ -118,11 +157,10 @@ class Dropdown extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.value = this.visibleValue || this.nameByID();
+    props.value = this.state.inputValue;
     props.name = null;
-    props.readOnly = true;
-    props.onKeyDown = this.getKey;
-
+    props.onChange = this.handleVisibleChange;
+    props.onBlur = this.handleBlur;
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
     }
@@ -130,23 +168,63 @@ class Dropdown extends React.Component {
     return props;
   }
 
-  getKey = (ev) => {
-    ev.preventDefault();
-    if (Events.isBackspaceKey(ev)) { this.filter = []; }
-    let char = String.fromCharCode(ev.which)
-    this.filter.push(char);
-    this.visibleValue = this.filter.join('');
+  /**
+   * Find and highlights search terms in text
+   *
+   * @method highlightMatches
+   * @param {String} optionText - the text to search
+   * @param {String} value - the search term
+   */
+  highlightMatches = (optionText, value) => {
+    if (!value.length) { return optionText; }
+
+    let beginning, end, middle, newValue, parsedOptionText, valIndex;
+
+    parsedOptionText = optionText.toLowerCase();
+    valIndex = parsedOptionText.indexOf(value);
+
+    if (valIndex === -1) {
+      return optionText;
+    }
+
+    beginning = optionText.substr(0, valIndex);
+    middle = optionText.substr(valIndex, value.length);
+    end = optionText.substr(valIndex + value.length, optionText.length);
+
+    if (end.indexOf(value) !== -1) {
+      end = this.highlightMatches(end, value);
+    }
+    // build JSX object
+    newValue = [<span   key="beginning">{ beginning }</span>,
+                <strong key="middle"><u>{ middle }</u></strong>,
+                <span   key="end">{ end }</span>];
+
+    return newValue;
   }
 
-  filterList = () => {
-    let filtered;
-    let regex = new RegExp(this.filter.join(''), 'i');
-    filtered = this.props.options.filter(function(selection) {
-      return (selection.get('name').search(regex) > -1);
-    });
-    debugger
-    return filtered;
+  /**
+   * Prepares list options by converting to JSON and formatting filtered options.
+   *
+   * @method prepareList
+   * @param {Object} options Immutable map of list options
+   */
+  prepareList = (options) => {
+    let _options = options.toJS();
+    let filter = this.state.filter;
+    let regex = new RegExp(filter, 'i');
+
+    // if user has entered a search filter
+    if(filter.length) {
+      _options = _options.filter((option) => {
+        if (option.name.search(regex) > -1) {
+          option.name = this.highlightMatches(option.name, this.state.filter);
+          return option;
+        }
+      });
+    }
+    return _options;
   }
+
   /**
    * A getter for hidden input props.
    *
@@ -188,7 +266,8 @@ class Dropdown extends React.Component {
    * @method inputClasses
    */
   get inputClasses() {
-    return  `${this.rootClass}__input`;
+    let inputClasses = `${this.rootClass}__input` + (this.state.filter.length ? ` ${this.rootClass}__input--filter` : '');
+    return inputClasses;
   }
 
   /**
@@ -204,6 +283,21 @@ class Dropdown extends React.Component {
   }
 
   /**
+   * Returns HTML for the input.
+   *
+   * @method inputHTML
+   */
+  get inputHTML() {
+    // builds the input with a variable input type - see `inputType`
+    return (
+      <div { ...this.fieldProps }>
+        <input { ...this.inputProps }></input>
+        { this.additionalInputContent }
+      </div>
+    );
+  }
+
+  /**
    * Getter to return HTML for list to render method.
    *
    * @method listHTML
@@ -213,7 +307,8 @@ class Dropdown extends React.Component {
         (this.state.open ? '' : ' hidden') +
         this.commonListClasses;
 
-    let options = this.filterList().toJS();
+    // Runs filter if active and returns JSON objects as list items
+    let options = this.prepareList(this.props.options);
 
     return (
       <ul

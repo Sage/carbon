@@ -83,11 +83,12 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    */
   results = (options) => {
     let results;
+    let className = `${this.rootClass}__item`;
+    let commonName  = `${this.commonListClasses}__item`;
 
     if (options.length) {
       results = options.map((option) => {
-        let className = `${this.rootClass}__item`;
-        let commonName  = `${this.commonListClasses}__item`;
+
 
         return <li
                   key={option.name + option.id}
@@ -102,7 +103,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
       });
 
     } else {
-      results = <li>No results</li>;
+      results = <li className={ `${commonName}` }>No results</li>;
     }
 
     return results;

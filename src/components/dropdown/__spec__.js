@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Dropdown from './dropdown';
 import ImmutableHelper from './../../utils/helpers/immutable'
 
-describe("Dropdown", () => {
+fdescribe("Dropdown", () => {
   let instance, instanceNoValue, instanceInvalid, input;
   let data = ImmutableHelper.parseJSON(
             { 'items': [{'id' : 1,  'name': 'foo' },
