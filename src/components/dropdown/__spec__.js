@@ -7,7 +7,7 @@ fdescribe("Dropdown", () => {
   let instance, instanceNoValue, instanceInvalid, input;
   let data = ImmutableHelper.parseJSON(
             { 'items': [{'id' : 1,  'name': 'foo' },
-                        {'id' : 2,  'name': 'foof' }
+                        {'id' : 2,  'name': 'bar' }
                       ],
                       selected: undefined
                    });
@@ -20,19 +20,23 @@ fdescribe("Dropdown", () => {
   });
 
   describe ('componentWillReceiveProps', () => {
+    beforeEach(() => {
+      spyOn(instance, 'setState');
+      spyOn(instance, 'nameByID').and.callThrough();
+    });
+
     describe('when props have changed', () => {
-      it('resets visibleValue to null', () => {
-        instance.visibleValue = 'foo'
-        instance.componentWillReceiveProps({value: 'bar'});
-        expect(instance.visibleValue).toBe(null);
+      it('calls setState with the input text', () => {
+        instance.componentWillReceiveProps({value: 1});
+        expect(instance.setState).toHaveBeenCalledWith({ inputValue: 'foo' });
       });
     });
 
     describe('when props have not changed', () => {
-      it('does not change the visibleValue', () => {
-        instance.visibleValue = 'bar'
+      it('does not call setState', () => {
+        instance.state.inputValue = 'bar'
         instance.componentWillReceiveProps({value: 2 });
-        expect(instance.visibleValue).toEqual('bar');
+        expect(instance.setState).not.toHaveBeenCalled();
       });
     });
   });
@@ -46,7 +50,7 @@ fdescribe("Dropdown", () => {
     });
   });
 
-  describe('_handleFocus', () => {
+  describe('handleFocus', () => {
     beforeEach(() => {
       spyOn(instance, 'setState').and.callThrough();
     });
@@ -96,6 +100,49 @@ fdescribe("Dropdown", () => {
     });
   });
 
+  describe('handleBlur', () => {
+    beforeEach(() => {
+      spyOn(instance, 'setState');
+      input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
+    });
+
+    describe('when the input value is valid', ()=> {
+      it('calls setState with the current value', ()=> {
+        TestUtils.Simulate.blur(input[0]);
+        expect(instance.setState).toHaveBeenCalledWith({ inputValue: 'bar' });
+      });
+    });
+
+    describe('when the input value is not valid', ()=> {
+      it('calls setState with the last selected value', ()=> {
+        instance.setState({inputValue: 'xFxOx'});
+        TestUtils.Simulate.blur(input[0]);
+        expect(instance.setState).toHaveBeenCalledWith({ inputValue: 'bar' });
+      });
+    });
+  });
+
+  describe('handleSelect', () => {
+    beforeEach(() => {
+      spyOn(instance, 'setState');
+    });
+
+    it('calls emitOnChangeCallback with the selected value and resets the filter', () => {
+      spyOn(instance, 'emitOnChangeCallback');
+      let ev = { target: { getAttribute: function() {} }};
+      spyOn(ev.target, 'getAttribute').and.returnValue('foo');
+      instance._handleSelect(ev);
+      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('foo');
+      expect(instance.setState).toHaveBeenCalledWith({ filter: '' });
+    });
+  });
+
+  describe('handleVisibleChange', () => {
+    it('calls setState and applies the input text to the inputValue and the filter', ()=> {
+
+    });
+  });
+
   describe('nameByID', () => {
     describe('when no value has been selected', () => {
       it('sets the visibleValue to and empty string', () => {
@@ -108,7 +155,7 @@ fdescribe("Dropdown", () => {
       describe('when the selected value is valid', () => {
         it('sets the visibleValue to the corresponding name', () => {
           instance.nameByID();
-          expect(instance.visibleValue).toEqual('foof');
+          expect(instance.visibleValue).toEqual('bar');
         });
       });
 
@@ -210,7 +257,7 @@ fdescribe("Dropdown", () => {
         expect(listItems[0].value).toEqual(1);
         expect(listItems[0].textContent).toEqual("foo");
         expect(listItems[1].value).toEqual(2);
-        expect(listItems[1].textContent).toEqual("foof");
+        expect(listItems[1].textContent).toEqual("bar");
       });
 
       it("sets the highlighted class on the relevant option", () => {

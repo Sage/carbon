@@ -105,7 +105,7 @@ class Dropdown extends React.Component {
    * @method handleBlur
    */
   handleBlur = () => {
-    this.setState({ inputValue: this.nameByID(this.props.value) });
+    this.setState({ inputValue: this.nameByID(this.props.value), filter: '' });
   }
 
   /**
@@ -159,7 +159,7 @@ class Dropdown extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.value = this.state.inputValue;
+    props.value = this.state.filter || this.nameByID(this.props.value);
     props.name = null;
     props.onChange = this.handleVisibleChange;
     props.onBlur = this.handleBlur;

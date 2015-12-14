@@ -103,7 +103,9 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
       });
 
     } else {
-      results = <li className={ `${commonName}--noResult` }>No results match: "{this.state.filter}"</li>;
+      results = <li className={ `${commonName} ${commonName}--noResult` }>
+                 No results match: "{this.state.filter}"
+                </li>;
     }
 
     return results;

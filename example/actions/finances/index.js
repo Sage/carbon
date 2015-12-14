@@ -1,6 +1,5 @@
 import Dispatcher from './../../dispatcher';
 import FinancesConstants from './../../constants/finances';
-import Immutable from 'immutable';
 
 let FinancesActions = {
   financesValueUpdated: (ev, props) => {

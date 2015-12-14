@@ -1,5 +1,4 @@
 import React from 'react';
-import BigNumber from 'bignumber.js';
 import { connect } from 'utils/flux';
 import Form from 'components/form';
 import Button from 'components/button';
