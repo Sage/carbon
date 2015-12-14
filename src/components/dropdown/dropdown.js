@@ -31,6 +31,7 @@ const Dropdown = List(Input(InputIcon(InputLabel(InputValidation(
 class Dropdown extends React.Component {
 
   static propTypes = {
+
     /**
      * The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.
      *
@@ -41,6 +42,7 @@ class Dropdown extends React.Component {
   };
 
   state = {
+
     /**
      * The text currently displayed in the input field.
      *

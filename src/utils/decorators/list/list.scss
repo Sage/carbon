@@ -46,3 +46,7 @@ $baseClass: ".common-list";
 "#{$baseClass}__item--highlighted" {
   background-color: #E6E9E7;
 }
+
+"#{$baseClass}__item--noResult" {
+  font-style: italic;
+}
