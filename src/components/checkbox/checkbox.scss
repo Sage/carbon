@@ -3,12 +3,18 @@
 @import 'mixins';
 
 .ui-checkbox {
-  padding-top: 9px;
+  padding-top: 8px;
 
   .common-input__field,
   .common-input__label {
     display: inline-block;
     vertical-align: top;
+  }
+
+  .common-input__label {
+    margin: 0;
+    padding-top: 1px;
+    padding-bottom: 5px;
   }
 }
 
