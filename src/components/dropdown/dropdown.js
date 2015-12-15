@@ -29,6 +29,15 @@ import { generateInputName } from './../../utils/helpers/forms';
  */
 const Dropdown = List(Input(InputIcon(InputLabel(InputValidation(
 class Dropdown extends React.Component {
+  
+  /**
+   * Determines if the blur event should be prevented.
+   *
+   * @property blockBlur
+   * @type {Boolean}
+   * @default false
+   */
+  blockBlur = false;
 
   static propTypes = {
 
@@ -99,13 +108,46 @@ class Dropdown extends React.Component {
     });
   }
 
+    /**
+   * Handles when the mouse hovers over the list.
+   *
+   * @method handleMouseEnterList
+   */
+  handleMouseEnterList = () => {
+    this.blockBlur = true;
+  }
+
+  /**
+   * Handles when the mouse hovers out of the list.
+   *
+   * @method handleMouseLeaveList
+   */
+  handleMouseLeaveList = () => {
+    this.blockBlur = false;
+  }
+
+  /**
+   * Handles when the mouse clicks on the list.
+   *
+   * @method handleMouseDownOnList
+   */
+  handleMouseDownOnList = (ev) => {
+    // if mouse down was on list (not list item), ensure the input retains focus
+    // NOTE: this is an IE11 fix
+    if (ev.target === this.refs.list) {
+      setTimeout(() => {
+        this.refs.input.focus();
+      }, 0);
+    }
+  }
+
   /**
    * Handles what happens on blur of the input.
    *
    * @method handleBlur
    */
   handleBlur = () => {
-    this.setState({ inputValue: this.nameByID(this.props.value) });
+    this.setState({ inputValue: this.nameByID(this.props.value) , filter: ''});
   }
 
   /**
@@ -163,6 +205,7 @@ class Dropdown extends React.Component {
     props.name = null;
     props.onChange = this.handleVisibleChange;
     props.onBlur = this.handleBlur;
+    props.ref = "input";
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
     }
@@ -234,7 +277,7 @@ class Dropdown extends React.Component {
    */
   get hiddenInputProps() {
     let props = {
-      ref: "input",
+      ref: "hidden",
       type: "hidden",
       readOnly: true,
       name: generateInputName(this.props.name, this.context.form),
@@ -316,6 +359,9 @@ class Dropdown extends React.Component {
       <ul
         key="list"
         ref="list"
+        onMouseDown={ this.handleMouseDownOnList }
+        onMouseLeave={ this.handleMouseLeaveList }
+        onMouseEnter={ this.handleMouseEnterList }
         className={ listClasses } >
         { this.results(options) }
       </ul>
