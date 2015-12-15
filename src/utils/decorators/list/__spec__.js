@@ -68,6 +68,14 @@ describe('List', () => {
         expect(instance.setState).toHaveBeenCalledWith({ open: false });
       });
     });
-  });
 
+    describe('when blockBlur is set to true', () => {
+      it('does not call setState', () => {
+        spyOn(instance, 'setState');
+        instance.blockBlur = true;
+        instance.inputProps.onBlur();
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
+    });
+  });
 });

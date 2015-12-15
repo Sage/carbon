@@ -143,6 +143,49 @@ fdescribe("Dropdown", () => {
     });
   });
 
+  describe('handleMouseEnterList', () => {
+    it('sets blockBlur to true', () => {
+      instance.blockBlur = false;
+      TestUtils.Simulate.mouseEnter(instance.refs.list);
+      expect(instance.blockBlur).toBeTruthy();
+    });
+  });
+
+  describe('handleMouseLeaveList', () => {
+    it('sets blockBlur to true', () => {
+      instance.blockBlur = true;
+      TestUtils.Simulate.mouseLeave(instance.refs.list);
+      expect(instance.blockBlur).toBeFalsy();
+    });
+  });
+
+  describe('handleMouseDownOnList', () => {
+    beforeEach(() => {
+      jasmine.clock().install();
+      spyOn(instance.refs.input, 'focus');
+    });
+
+    afterEach(() => {
+      jasmine.clock().uninstall();
+    });
+
+    describe('when the target was not the list', () => {
+      it('does not call focus on the input', () => {
+        TestUtils.Simulate.mouseDown(instance.refs.list, { target: 'foo' });
+        jasmine.clock().tick(0);
+        expect(instance.refs.input.focus).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when the target was the list', () => {
+      it('does not call focus on the input', () => {
+        TestUtils.Simulate.mouseDown(instance.refs.list, { target: instance.refs.list });
+        jasmine.clock().tick(0);
+        expect(instance.refs.input.focus).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('nameByID', () => {
     describe('when no value has been selected', () => {
       it('sets the visibleValue to and empty string', () => {
@@ -180,7 +223,7 @@ fdescribe("Dropdown", () => {
 
   describe('hiddenInputProps', () => {
     it('sets the hidden props to the defined values', () => {
-      expect(instance.hiddenInputProps.ref).toEqual('input');
+      expect(instance.hiddenInputProps.ref).toEqual('hidden');
       expect(instance.hiddenInputProps.type).toEqual('hidden');
       expect(instance.hiddenInputProps.readOnly).toBeTruthy();
       expect(instance.hiddenInputProps.name).toEqual(instance.props.name);

@@ -3,7 +3,6 @@ import I18n from "i18n-js";
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
-import Events from './../../utils/helpers/events';
 import { generateInputName } from './../../utils/helpers/forms';
 
 /**
@@ -95,19 +94,6 @@ class Decimal extends React.Component {
   }
 
   /**
-   * Handles Change to visible field
-   *
-   * @method handleVisibleInputChange
-   * @param {Object} ev event
-   */
-  handleVisibleInputChange = (ev) => {
-    if (this.isValidDecimal(ev.target.value)) {
-      this.setState({ visibleValue: ev.target.value });
-      this.emitOnChangeCallback(formatHiddenValue(ev.target.value));
-    }
-  };
-
-  /**
    * Checks that visibleValue is valid decimal.
    * This is a post-processor applied after the value has been updated.
    *
@@ -122,7 +108,25 @@ class Decimal extends React.Component {
     result = regex.test(value);
 
     return result;
-  };
+  }
+
+  /**
+   * Handles Change to visible field
+   *
+   * @method handleVisibleInputChange
+   * @param {Object} ev event
+   */
+  handleVisibleInputChange = (ev) => {
+    if (this.isValidDecimal(ev.target.value)) {
+      this.setState({ visibleValue: ev.target.value });
+      this.emitOnChangeCallback(formatHiddenValue(ev.target.value));
+    } else {
+      // reset the value
+      ev.target.value = this.state.visibleValue;
+      // reset the selection range
+      ev.target.setSelectionRange(this.selectionStart, this.selectionEnd);
+    }
+  }
 
   /**
    * Updates visible value on blur
@@ -155,6 +159,18 @@ class Decimal extends React.Component {
     }
   }
 
+  /*
+   * Triggers on key down of the input
+   *
+   * @method handleKeyDown
+   * @param {Object} ev event
+   */
+  handleKeyDown = (ev) => {
+    // track the selection start and end
+    this.selectionStart = ev.target.selectionStart;
+    this.selectionEnd = ev.target.selectionEnd;
+  }
+
   /**
    * A getter that combines props passed down from the input decorator with
    * textbox specific props.
@@ -170,7 +186,7 @@ class Decimal extends React.Component {
     props.name = null;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
-    props.onKeyDown = filterKeys;
+    props.onKeyDown = this.handleKeyDown;
     return props;
   }
 
@@ -252,21 +268,6 @@ function i18nFormatting() {
     delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
     separator: I18n.t("number.format.separator", { defaultValue: "." })
   };
-}
-
-/**
- * Filters out invalid keys for decimal field.
- * This is a preprocessor applied before the value is updated.
- *
- * @method filterKeys
- * @private
- * @param {Object} ev event
- */
-function filterKeys(ev) {
-  if (Events.isValidDecimalKey(ev)) { return true; }
-
-  ev.preventDefault();
-  return false;
 }
 
 /**
