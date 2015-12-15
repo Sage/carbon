@@ -33,11 +33,6 @@ describe('Number', () => {
       spyOn(instance, '_handleOnChange');
     });
 
-    it('checks if the value is a valid number', () => {
-      TestUtils.Simulate.change(input, { target: { value: '100' } });
-      expect(instance.isValidDecimal).toHaveBeenCalledWith('100');
-    });
-
     describe('when it is as a valid number', () => {
       it('calls the inputs decorators handleOnChange', () => {
         TestUtils.Simulate.change(input, { target: { value: '100' } });
