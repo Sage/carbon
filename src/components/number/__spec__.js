@@ -62,7 +62,7 @@ describe('Number', () => {
       });
 
       it('calls setSelectionRange', () => {
-        expect(setSelectionSpy).toHaveBeenCalled();
+        expect(setSelectionSpy).toHaveBeenCalledWith(2, 4);
       });
     });
   });

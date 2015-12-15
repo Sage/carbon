@@ -15,7 +15,7 @@ import InputValidation from './../../utils/decorators/input-validation';
  *
  * To render a Number:
  *
- *   <Numbername="myNumber" />
+ *   <Number name="myNumber" />
  *
  * @class Number
  * @constructor
@@ -49,7 +49,7 @@ class Number extends React.Component {
    * @param {Object} ev event
    */
   handleOnChange = (ev) => {
-    if(isValidNumber(ev.target.value)) {
+    if (isValidNumber(ev.target.value)) {
       this._handleOnChange(ev);
     } else {
       // reset the value
@@ -118,6 +118,5 @@ function isValidNumber(value) {
 
   return result;
 }
-
 
 export default Number;
