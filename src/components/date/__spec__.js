@@ -344,7 +344,7 @@ describe('Date', () => {
 
   describe('mainClasses', () => {
     it('retuns a date class and common input decorated class', () => {
-      expect(instance.mainClasses).toEqual('ui-date common-input');
+      expect(instance.mainClasses).toEqual('ui-date common-input--with-icon common-input');
     });
   });
 

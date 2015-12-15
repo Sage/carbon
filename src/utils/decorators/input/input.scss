@@ -79,18 +79,15 @@
   $arrow-size: 5px;
 
   border-radius: 3px 3px 3px 0;
-  bottom: 100%;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   box-sizing: border-box;
-  display: none;
   left: 100%;
-  margin-bottom: -14px;
-  margin-left: -15px;
   margin-top: $arrow-size;
+  max-width: 250px;
+  min-width: 50px;
   padding: 10px;
   position: absolute;
   text-align: center;
-  white-space: nowrap;
   z-index: $z-validation-message;
 
   &:before {
@@ -98,10 +95,28 @@
     border-right: 16px solid transparent;
     content: '';
     display: block;
-    margin-right: -16px;
     position: absolute;
     left: 0;
     bottom: -14px;
+  }
+}
+
+.common-input__message--hidden {
+  display: none;
+}
+
+.common-input__message--locked {
+  display: block;
+}
+
+.common-input__message--flipped {
+  border-radius: 3px 3px 0 3px;
+
+  &:before {
+    border-left: 16px solid transparent;
+    border-right: none;
+    left: auto;
+    right: 0;
   }
 }
 

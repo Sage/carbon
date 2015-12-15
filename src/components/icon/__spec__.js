@@ -3,25 +3,27 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Icon from './icon';
 
 describe('Icon', () => {
-  let instance;
+  let instance, span;
 
   describe('with no additional options', () => {
     beforeEach(() => {
-      instance = Icon({ type: 'foo' });
+      instance = TestUtils.renderIntoDocument(<Icon type='foo' />);
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
     });
 
     it('renders with a class of icon-settings', () => {
-      expect(instance.props.className).toEqual('icon-foo ');
+      expect(span.className).toEqual('icon-foo ');
     });
   });
 
   describe('with custom class name', () => {
     beforeEach(() => {
-      instance = Icon({ type: 'foo', className: 'test' });
+      instance = TestUtils.renderIntoDocument(<Icon type='foo' className='custom' />);
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
     });
 
     it('renders with a class of icon-settings and test', () => {
-      expect(instance.props.className).toEqual('icon-foo test');
+      expect(span.className).toEqual('icon-foo custom');
     });
   });
 });
