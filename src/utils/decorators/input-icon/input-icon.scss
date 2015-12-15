@@ -2,6 +2,12 @@
 @import 'mixins';
 @import 'input-field';
 
+.common-input--with-icon {
+  .common-input__icon {
+    right: 32px;
+  }
+}
+
 .common-input__input:hover ~ label .ui-input-icon {
   background-color: $blue;
   border-color: $blue;
