@@ -1,0 +1,102 @@
+import React from 'react';
+import TestUtils from 'react/lib/ReactTestUtils';
+import Number from './number';
+
+describe('Number', () => {
+  let instance, input,
+    spy = jasmine.createSpy('spy');
+
+  beforeEach(() => {
+    instance = TestUtils.renderIntoDocument(<Number
+      name="Dummy Number"
+      value="123456789"
+      label={ 'Label' }
+      onChange={ spy }
+    />);
+    input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
+  });
+
+  describe('mainClasses', () => {
+    it('returns ui-number and additional decorated classes', () => {
+      expect(instance.mainClasses).toEqual('ui-number common-input');
+    });
+  });
+
+  describe('inputClasses', () => {
+    it('returns ui-number__input and additional decorated classes', () => {
+      expect(instance.inputClasses).toEqual('ui-number__input common-input__input');
+    });
+  });
+
+  describe('handleOnChange', () => {
+    beforeEach(() => {
+      spyOn(instance, '_handleOnChange');
+    });
+
+    it('checks if the value is a valid number', () => {
+      TestUtils.Simulate.change(input, { target: { value: '100' } });
+      expect(instance.isValidDecimal).toHaveBeenCalledWith('100');
+    });
+
+    describe('when it is as a valid number', () => {
+      it('calls the inputs decorators handleOnChange', () => {
+        TestUtils.Simulate.change(input, { target: { value: '100' } });
+        expect(instance._handleOnChange).toHaveBeenCalled();
+      });
+    });
+
+    describe('when it is not a valid number', () => {
+      let setSelectionSpy;
+
+      beforeEach(() => {
+        setSelectionSpy = jasmine.createSpy();
+
+        instance.selectionStart = 2;
+        instance.selectionEnd = 4;
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'abcdefghij',
+            setSelectionRange: setSelectionSpy 
+          }
+        });
+      });
+
+      it('does not call the decorators handleOnChange', () => {
+        expect(instance._handleOnChange).not.toHaveBeenCalled();
+      });
+
+      it('calls setSelectionRange', () => {
+        expect(setSelectionSpy).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('handleKeyDown', () => {
+    it('tracks selection start and end', () => {
+      instance.selectionStart = 99;
+      instance.selectionEnd = 99;
+      TestUtils.Simulate.keyDown(input);
+      expect(instance.selectionStart).toEqual(0);
+      expect(instance.selectionEnd).toEqual(0);
+    });
+  });
+
+  describe('inputProps', () => {
+    it('sets the ui-number__input class to the input', () => {
+      expect(input.className).toEqual('ui-number__input common-input__input');
+    });
+  });
+
+  describe('render', () => {
+    it('renders its top level div', () => {
+      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      expect(div.classList[0]).toEqual('ui-number');
+    });
+
+    it('renders a visible field', () => {
+      expect(input.type).toEqual('text');
+      expect(input.value).toEqual('123456789');
+    });
+  });
+});

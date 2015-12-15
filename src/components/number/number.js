@@ -1,6 +1,5 @@
 import React from 'react';
 import Input from './../../utils/decorators/input';
-import Event from './../../utils/helpers/events';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 
@@ -43,30 +42,34 @@ class Number extends React.Component {
     return 'ui-number__input';
   }
 
-  handleKeyUp = (ev) => {
-    let value = ev.target.value;
-    let negative = false;
-
-    if (value.indexOf("-") == 0) {
-      negative = true;
+  /**
+   * Handles Change to input field
+   *
+   * @method handleOnChange
+   * @param {Object} ev event
+   */
+  handleOnChange = (ev) => {
+    if(isValidNumber(ev.target.value)) {
+      this._handleOnChange(ev);
+    } else {
+      // reset the value
+      ev.target.value = this.props.value;
+      // reset the selection range
+      ev.target.setSelectionRange(this.selectionStart, this.selectionEnd);
     }
-
-    value = value.replace(/[^\d]/g, '');
-
-    if (negative) {
-      value = "-" + value;
-    }
-
-    ev.target.value = value;
   }
 
+  /*
+   * Triggers on key down of the input
+   *
+   * @method handleKeyDown
+   * @param {Object} ev event
+   */
   handleKeyDown = (ev) => {
-    if (Event.isValidNumberFieldKey(ev)) { return true; }
-
-    ev.preventDefault();
-    return false;
+    // track the selection start and end
+    this.selectionStart = ev.target.selectionStart;
+    this.selectionEnd = ev.target.selectionEnd;
   }
-
 
   /**
    * A getter that combines props passed down from the input decorator with
@@ -77,8 +80,8 @@ class Number extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
+    props.onChange = this.handleOnChange;
     props.onKeyDown = this.handleKeyDown;
-    props.onKeyUp = this.handleKeyUp;
     return props;
   }
 
@@ -100,5 +103,21 @@ class Number extends React.Component {
   }
 }
 )));
+
+/**
+ * Checks that the given value is valid number.
+ *
+ * @method isValidNumber
+ * @private
+ * @param {String} value
+ */
+function isValidNumber(value) {
+  let regex, result;
+  regex = new RegExp('^[-]?[0-9]*$');
+  result = regex.test(value);
+
+  return result;
+}
+
 
 export default Number;
