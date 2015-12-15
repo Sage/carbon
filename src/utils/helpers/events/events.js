@@ -89,14 +89,6 @@ let Events = {
     return ev.which >= 48 && ev.which <= 57 || ev.which >= 96 && ev.which <= 105;
   },
 
-  isValidNumberFieldKey: (ev) => {
-    return Events.isNumberKey(ev) ||
-           Events.isDeletingKey(ev) ||
-           Events.isTabKey(ev) ||
-           Events.isNavigationKey(ev) ||
-           ev.which == 189; // - key
-  },
-
   /**
   * Determines if the key pressed is part of the numpad
   * includes symbols
