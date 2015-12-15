@@ -59,6 +59,17 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
     );
   }
 
+  /**
+   * Extends the main classes with any input icon classes.
+   *
+   * @method mainClasses
+   */
+  get mainClasses() {
+    let classes = super.mainClasses || "";
+    classes += " common-input--with-icon";
+    return classes;
+  }
+
 };
 
 export default InputIcon;
