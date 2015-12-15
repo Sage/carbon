@@ -39,15 +39,6 @@ class Dropdown extends React.Component {
    */
   blockBlur = false;
 
-  /**
-   * Tracks if filter currently active
-   *
-   * @property filterActive
-   * @type {Boolean}
-   * @default false
-   */
-  filterActive = false;
-
   static propTypes = {
 
     /**
@@ -136,7 +127,6 @@ class Dropdown extends React.Component {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      this.filterActive = false;
       this.setState({ filter: ''});
     }
   }
@@ -149,8 +139,7 @@ class Dropdown extends React.Component {
    */
   handleSelect = (ev) => {
     this.blockBlur = false;
-    this.emitOnChangeCallback(ev.target.getAttribute('value'));
-    this.filterActive = false;
+    this.emitOnChangeCallback(ev.currentTarget.getAttribute('value'));
     this.setState({ filter: ''});
   }
 
@@ -162,7 +151,6 @@ class Dropdown extends React.Component {
    */
   handleVisibleChange = (ev) => {
     let value = ev.target.value;
-    this.filterActive = true;
     this.setState({ filter: value });
   }
 
@@ -229,7 +217,7 @@ class Dropdown extends React.Component {
   prepareList = (options) => {
     let _options = options.toJS();
 
-    if (this.filterActive === true){
+    if (this.state.filter.length){
       let filter = this.state.filter;
       let regex = new RegExp(filter, 'i');
 
@@ -256,7 +244,7 @@ class Dropdown extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.value = this.filterActive ? this.state.filter : this.nameByID(this.props.value);
+    props.value = this.state.filter.length ? this.state.filter : this.nameByID(this.props.value);
     props.name = null;
     props.onChange = this.handleVisibleChange;
     props.onBlur = this.handleBlur;
