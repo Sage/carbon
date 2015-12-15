@@ -18,7 +18,7 @@ describe("DropdownSuggest", () => {
 
   describe("render", () => {
     it("renders a hidden input", () => {
-      let input = instance.refs.input;
+      let input = instance.refs.hidden;
       expect(input.tagName).toEqual("INPUT");
       expect(input.type).toEqual('hidden');
     });
@@ -192,7 +192,7 @@ describe("DropdownSuggest", () => {
       let element = instance.props.value.set(instance.props.resource_key, "Bar");
       element = element.set('id', 25);
 
-      TestUtils.Simulate.mouseDown(listItem);
+      TestUtils.Simulate.click(listItem);
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(element);
     });
   });
