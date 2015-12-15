@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import moment from 'moment';
-import Date from './index';
+import Date from './date';
 import Events from './../../utils/helpers/events';
 
 describe('Date', () => {
@@ -344,7 +344,7 @@ describe('Date', () => {
 
   describe('mainClasses', () => {
     it('retuns a date class and common input decorated class', () => {
-      expect(instance.mainClasses).toEqual('ui-date common-input');
+      expect(instance.mainClasses).toEqual('ui-date common-input--with-icon common-input');
     });
   });
 

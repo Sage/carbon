@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Checkbox from './index';
+import Checkbox from './checkbox';
 
 describe('Checkbox', () => {
   let instance;

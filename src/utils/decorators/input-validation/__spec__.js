@@ -1,6 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
-import InputValidation from './index';
+import InputValidation from './input-validation';
 import Form from 'components/form';
 
 let validationOne = {
@@ -43,7 +44,7 @@ let form = {
 
 class DummyInputWithoutLifecycleMethods extends React.Component {
   render() {
-    return <div></div>;
+    return <div>{ this.validationHTML }</div>;
   }
 }
 
@@ -84,6 +85,56 @@ describe('InputValidation', () => {
     it('instatiates state with some defaults', () => {
       expect(instance.state.valid).toBeTruthy();
       expect(instance.state.errorMessage).toBe(null);
+    });
+  });
+
+  describe('componentDidUpdate', () => {
+    describe('when the component is valid', () => {
+      it('does nothing', () => {
+        instance.setState({ valid: true });
+        expect(instance.componentDidUpdate.bind(instance)).not.toThrow();
+      });
+    });
+
+    describe('when the component is invalid', () => {
+      describe('when there is no icon or message', () => {
+        it('does nothing', () => {
+          instance.setState({ valid: false });
+          spyOn(ReactDOM, 'findDOMNode').and.returnValue(null);
+          expect(instance.componentDidUpdate.bind(instance)).not.toThrow();
+        });
+      });
+
+      describe('when there is an icon and message', () => {
+        describe('when onscreen', () => {
+          it('sets the correct left position', () => {
+            instance.setState({ valid: false, errorMessage: 'foo' });
+            spyOn(ReactDOM, 'findDOMNode').and.returnValue({
+              offsetLeft: 20,
+              offsetWidth: 10,
+              offsetTop: 30
+            });
+            instance.componentDidUpdate();
+            expect(instance.refs.validationMessage.style.left).toEqual('25px');
+          });
+        });
+
+        describe('when offscreen', () => {
+          it('sets the class to flipped', () => {
+            instance.setState({ valid: false, errorMessage: 'foo' });
+            spyOn(ReactDOM, 'findDOMNode').and.returnValue({
+              offsetLeft: 20,
+              offsetWidth: 10,
+              offsetTop: 30
+            });
+            instance._window = {
+              innerWidth: -1
+            };
+            instance.componentDidUpdate();
+            expect(instance.refs.validationMessage.classList).toContain('common-input__message--flipped');
+          });
+        });
+      });
     });
   });
 
@@ -252,23 +303,61 @@ describe('InputValidation', () => {
       instance._handleBlur();
       expect(instance.validate).toHaveBeenCalled();
     });
+
+    describe('when message is locked', () => {
+      it('unlocks it', () => {
+        instance.setState({ messageLocked: true });
+        spyOn(instance, 'setState');
+        instance._handleBlur();
+        expect(instance.setState).toHaveBeenCalledWith({ messageLocked: false });
+      });
+    });
+
+    describe('when message is not locked', () => {
+      it('does nothing', () => {
+        instance.setState({ messageLocked: false });
+        spyOn(instance, 'setState');
+        instance._handleBlur();
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('_handleFocus', () => {
     describe('when the input is invalid and the field gets focus', () => {
-      it('should call setState to remove the validation', () => {
+      it('should call setState to lock the message', () => {
         instance.setState({ valid: false });
         spyOn(instance, 'setState');
         instance._handleFocus();
-        expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, valid: true });
+        expect(instance.setState).toHaveBeenCalledWith({ messageLocked: true });
       });
     });
 
     describe('when the input is valid and the field gets focus', () => {
-      it('should call setState to remove the validation', () => {
+      it('should not call setState', () => {
         instance.setState({ valid: true });
         spyOn(instance, 'setState');
         instance._handleFocus();
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('_handleKeyDown', () => {
+    describe('when the input is invalid and key down occurs', () => {
+      it('should call setState to lock the message', () => {
+        instance.setState({ valid: false });
+        spyOn(instance, 'setState');
+        instance._handleKeyDown();
+        expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, valid: true });
+      });
+    });
+
+    describe('when the input is valid and key down occurs', () => {
+      it('should not call setState', () => {
+        instance.setState({ valid: true });
+        spyOn(instance, 'setState');
+        instance._handleKeyDown();
         expect(instance.setState).not.toHaveBeenCalled();
       });
     });
@@ -278,7 +367,7 @@ describe('InputValidation', () => {
         instance.setState({ valid: false });
         instance.context.form = form;
         spyOn(instance.context.form, 'decrementErrorCount');
-        instance._handleFocus();
+        instance._handleKeyDown();
         expect(instance.context.form.decrementErrorCount).toHaveBeenCalled();
       });
     });
@@ -286,7 +375,7 @@ describe('InputValidation', () => {
     describe('when the input does not have a form', () => {
       it('should not throw an error', () => {
         instance.setState({ valid: false });
-        expect(instance._handleFocus).not.toThrow();
+        expect(instance._handleKeyDown).not.toThrow();
       });
     });
   });
@@ -316,6 +405,13 @@ describe('InputValidation', () => {
       it('returns a div for the error message', () => {
         expect(instance.validationHTML[1].props.className).toEqual('common-input__message common-input__message--error');
         expect(instance.validationHTML[1].props.children).toEqual('foo');
+      });
+
+      describe('when the message is locked', () => {
+        it('adds a locked class', () => {
+          instance.setState({ messageLocked: true });
+          expect(instance.refs.validationMessage.classList).toContain('common-input__message--locked');
+        });
       });
     });
   });

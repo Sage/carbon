@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import List from './index';
+import List from './list';
 import ImmutableHelper from './../../helpers/immutable';
 import ReactDOM from 'react-dom';
 
@@ -66,6 +66,15 @@ describe('List', () => {
         spyOn(instance, 'setState');
         instance.inputProps.onBlur();
         expect(instance.setState).toHaveBeenCalledWith({ open: false });
+      });
+    });
+
+    describe('when blockBlur is set to true', () => {
+      it('does not call setState', () => {
+        spyOn(instance, 'setState');
+        instance.blockBlur = true;
+        instance.inputProps.onBlur();
+        expect(instance.setState).not.toHaveBeenCalled();
       });
     });
   });

@@ -24,6 +24,7 @@ $dialog-background-animation-length: 300ms;
   box-shadow: 0 4px 8px #555;
   padding: $dialog-padding;
   position: absolute;
+  top: 50%;
   width: 750px;
   z-index: $z-dialog;
 }

@@ -3,7 +3,6 @@ import I18n from "i18n-js";
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
-import Events from './../../utils/helpers/events';
 import { generateInputName } from './../../utils/helpers/forms';
 
 /**
@@ -34,6 +33,17 @@ class Decimal extends React.Component {
    * @type {document}
    */
   _document = document;
+
+  /**
+   * Used within the onClick and onBlur method to
+   * check if the current visible input value is
+   * highlighted
+   *
+   * @property highlighted
+   * @type {Boolean}
+   */
+  highlighted = false;
+
 
   static defaultProps = {
     /**
@@ -84,14 +94,38 @@ class Decimal extends React.Component {
   }
 
   /**
+   * Checks that visibleValue is valid decimal.
+   * This is a post-processor applied after the value has been updated.
+   *
+   * @method isValidDecimal
+   * @param {String} value
+   */
+  isValidDecimal = (value) => {
+    let del, regex, result, sep;
+    del = i18nFormatting().delimiter;
+    sep = i18nFormatting().separator;
+    regex = new RegExp('^[-]?[0-9]*(?:\\' + del + '?[0-9]?)*\\' + sep + '?[0-9]{0,}$');
+    result = regex.test(value);
+
+    return result;
+  }
+
+  /**
    * Handles Change to visible field
    *
    * @method handleVisibleInputChange
    * @param {Object} ev event
    */
   handleVisibleInputChange = (ev) => {
-    this.setState({ visibleValue: ev.target.value });
-    this.emitOnChangeCallback(formatHiddenValue(ev.target.value));
+    if (this.isValidDecimal(ev.target.value)) {
+      this.setState({ visibleValue: ev.target.value });
+      this.emitOnChangeCallback(formatHiddenValue(ev.target.value));
+    } else {
+      // reset the value
+      ev.target.value = this.state.visibleValue;
+      // reset the selection range
+      ev.target.setSelectionRange(this.selectionStart, this.selectionEnd);
+    }
   }
 
   /**
@@ -101,6 +135,40 @@ class Decimal extends React.Component {
    */
   handleBlur = () => {
     this.setState({ visibleValue: formatVisibleValue(this.props.value, this) });
+    this.highlighted = false;
+  }
+
+  /*
+   * Selects visible input text depending on where the user clicks
+   *
+   * @method handleOnClick
+   * @param {Object} ev event
+   */
+  handleOnClick = () => {
+    // if value is already highlighted then don't re-highlight it
+    if (this.highlighted) {
+      this.highlighted = false;
+      return;
+    }
+
+    let input = this.refs.visible;
+    // only do it if the selection is not within the value
+    if ((input.selectionStart === 0) && (input.selectionEnd === 0)) {
+      input.setSelectionRange(0, input.value.length);
+      this.highlighted = true;
+    }
+  }
+
+  /*
+   * Triggers on key down of the input
+   *
+   * @method handleKeyDown
+   * @param {Object} ev event
+   */
+  handleKeyDown = (ev) => {
+    // track the selection start and end
+    this.selectionStart = ev.target.selectionStart;
+    this.selectionEnd = ev.target.selectionEnd;
   }
 
   /**
@@ -114,10 +182,11 @@ class Decimal extends React.Component {
     props.className = this.inputClasses;
     props.ref = "visible";
     props.onChange = this.handleVisibleInputChange;
+    props.onClick = this.handleOnClick;
     props.name = null;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
-    props.onKeyDown = filterKeys;
+    props.onKeyDown = this.handleKeyDown;
     return props;
   }
 
@@ -199,20 +268,6 @@ function i18nFormatting() {
     delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
     separator: I18n.t("number.format.separator", { defaultValue: "." })
   };
-}
-
-/**
- * Filters out invalid keys for decimal field
- *
- * @method filterKeys
- * @private
- * @param {Object} ev event
- */
-function filterKeys(ev) {
-  if (Events.isValidDecimalKey(ev)) { return true; }
-
-  ev.preventDefault();
-  return false;
 }
 
 /**

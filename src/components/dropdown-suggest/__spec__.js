@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import DropdownSuggest from './index'
+import DropdownSuggest from './dropdown-suggest'
 import Request from 'superagent';
 import Immutable from 'immutable';
 
@@ -18,7 +18,7 @@ describe("DropdownSuggest", () => {
 
   describe("render", () => {
     it("renders a hidden input", () => {
-      let input = instance.refs.input;
+      let input = instance.refs.hidden;
       expect(input.tagName).toEqual("INPUT");
       expect(input.type).toEqual('hidden');
       expect(input.name).toEqual('bla_id]');
@@ -210,7 +210,7 @@ describe("DropdownSuggest", () => {
       spyOn(instance, 'emitOnChangeCallback');
       let listItem = instance.refs.list.childNodes[1];
 
-      TestUtils.Simulate.mouseDown(listItem);
+      TestUtils.Simulate.click(listItem);
       expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "Bar" });
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(25);
     });

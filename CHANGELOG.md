@@ -1,5 +1,9 @@
 # 0.0.2.beta
 
+## Decimal Component
+
+ An extra validation has been added to decimal to prevent multiple separators from being entered in the input field.
+
 ## Dropdown and DropdownSuggest components
 
 Dropdown and dropdown-suggest have been updated. As they share common functionality, dropdown and dropdown-suggest now use a List decorator. This should not affect how you use either component.
@@ -115,9 +119,19 @@ We have renamed this because its original name was based on a Rails convention a
 ## New Brand
 A new style and colour scheme has been applied to the carbon components library. This change will affect all of the components.
 
+## Validations
+Validations have changed to a function so that different parameters can be passed to them.
+
+You can now define Validations on a component using the following syntax:
+
+```javascript
+<Textbox validations={ [Validation()] } name='valid' />
+```
+
 ## Misc
 
 * Ran ESLint task and fixed any errors.
+* Form provides a serialization method to parse its inputs into data usable for AJAX.
 * Forms no longer needs a model name defined.
 * Updated Form Cancel Button to use History object.
 * Textarea is no longer draggable. Add a expandable={true} prop to make the area height change to fit content
@@ -125,7 +139,9 @@ A new style and colour scheme has been applied to the carbon components library.
 * Checkbox label now sits inline, and is reversable.
 * Added props on inputs for inline labels.
 * Added Rainbow chart component.
+* Decimal now allows tabbing in and out of the field.
 * Date now closes on tab out.
+
 
 # 0.0.1
 

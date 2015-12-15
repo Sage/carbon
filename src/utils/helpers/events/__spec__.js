@@ -1,4 +1,4 @@
-import Events from './index';
+import Events from './events';
 
 describe("Events", function () {
   describe('isEventType', () => {
@@ -327,41 +327,13 @@ describe("Events", function () {
     });
   });
 
-  describe('isValidDecimalKey', () => {
-    it('returns false when a invalid key is pressed', () => {
-      expect(Events.isValidDecimalKey({ which: 200 })).toBeFalsy();
+  describe('isMinusKey', () => {
+    it('returns false when a minus key is not pressed', () => {
+      expect(Events.isMinusKey({ which: 190 })).toBeFalsy();
     });
 
-    it('returns true when a meta key is pressed', () => {
-      expect(Events.isValidDecimalKey({ metaKey: true })).toBeTruthy();
-    });
-
-    it('returns true when the enter key is pressed', () => {
-      expect(Events.isValidDecimalKey({ which: 13 })).toBeTruthy();
-    });
-
-    it('returns true when a navigation key is pressed', () => {
-      expect(Events.isValidDecimalKey({ which: 37 })).toBeTruthy();
-    });
-
-    it('returns true when a deleting key is pressed', () => {
-      expect(Events.isValidDecimalKey({ which: 8 })).toBeTruthy();
-    });
-
-    it('returns true when a number key is pressed', () => {
-      expect(Events.isValidDecimalKey({ which: 50 })).toBeTruthy();
-    });
-
-    it('returns true when a period key is pressed', () => {
-      expect(Events.isValidDecimalKey({ which: 190 })).toBeTruthy();
-    });
-
-    it('returns true when a comma key is pressed', () => {
-      expect(Events.isValidDecimalKey({ which: 188 })).toBeTruthy();
-    });
-
-    it('returns true when a space key is pressed', () => {
-      expect(Events.isValidDecimalKey({ which: 32 })).toBeTruthy();
+    it('returns true when the minus key is pressed', () => {
+      expect(Events.isMinusKey({ which: 189 })).toBeTruthy();
     });
   });
 });

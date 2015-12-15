@@ -1,4 +1,4 @@
-import Store from './index';
+import Store from './store';
 import { Dispatcher } from 'flux';
 
 describe('Store', () => {

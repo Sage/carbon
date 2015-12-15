@@ -16,6 +16,22 @@
   }
 }
 
+.common-input--readonly {
+  .common-input__input {
+    background-color: transparent;
+    border: none;
+
+    &:active,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.common-input__field {
+  position: relative;
+}
+
 .common-input__input {
   background-color: $white;
   border-radius: $input-border-radius;
@@ -32,6 +48,11 @@
   width: 100%;
   vertical-align: baseline;
 
+  &::-ms-clear {
+    // Hide x icon in IE
+    display: none;
+  }
+
   &:hover { 
     border-color: $input-active-border-color;
   }
@@ -41,16 +62,6 @@
     border-color: $input-active-border-color;
     box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
     @include transition(box-shadow linear 0.1s);
-  }
-
-  &[readonly] {
-    background-color: transparent;
-    border: none;
-
-    &:active,
-    &:focus {
-      box-shadow: none;
-    }
   }
 
   &[disabled] {
@@ -67,28 +78,45 @@
 .common-input__message {
   $arrow-size: 5px;
 
-  border-radius: 3px;
+  border-radius: 3px 3px 3px 0;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   box-sizing: border-box;
-  display: none;
-  left: 0;
+  left: 100%;
   margin-top: $arrow-size;
-  padding: 5px 10px;
+  max-width: 250px;
+  min-width: 50px;
+  padding: 10px;
   position: absolute;
-  right: 0;
   text-align: center;
   z-index: $z-validation-message;
 
   &:before {
-    @include arrow("up", $arrow-size, $error);
-
-    left: 50%;
-    margin-left: -($arrow-size + 1);
+    border-top: 14px solid #D63F40;
+    border-right: 16px solid transparent;
+    content: '';
+    display: block;
     position: absolute;
-    top: -($arrow-size * 2);
+    left: 0;
+    bottom: -14px;
   }
+}
 
-  .common-input--label-inline & {
-    left: $grid-margin;
+.common-input__message--hidden {
+  display: none;
+}
+
+.common-input__message--locked {
+  display: block;
+}
+
+.common-input__message--flipped {
+  border-radius: 3px 3px 0 3px;
+
+  &:before {
+    border-left: 16px solid transparent;
+    border-right: none;
+    left: auto;
+    right: 0;
   }
 }
 

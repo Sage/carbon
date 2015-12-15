@@ -1,4 +1,4 @@
-import ImmutableHelper from './index';
+import ImmutableHelper from './immutable';
 import Immutable from 'immutable';
 
 describe('Immutable Helper', () => {
