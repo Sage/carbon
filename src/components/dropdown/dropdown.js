@@ -38,6 +38,14 @@ class Dropdown extends React.Component {
    * @default false
    */
   blockBlur = false;
+
+  /**
+   * Tracks if filter currently active
+   *
+   * @property filterActive
+   * @type {Boolean}
+   * @default false
+   */
   filterActive = false;
 
   static propTypes = {
@@ -62,18 +70,6 @@ class Dropdown extends React.Component {
      */
     filter: ''
   };
-
-  /**
-   * Clears the visible value if a new value has been selected.
-   *
-   * @method componentWillReceiveProps
-   * @param {Object} nextProps the updated props
-   */
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.value != this.props.value) {
-  //     this.setState({ filter: this.nameByID(nextProps.value) });
-  //   }
-  // }
 
   /**
    * Runs the callback onChange action
