@@ -7,9 +7,10 @@ fdescribe("Dropdown", () => {
   let instance, instanceNoValue, instanceInvalid, input;
   let data = ImmutableHelper.parseJSON(
             { 'items': [{'id' : 1,  'name': 'foo' },
-                        {'id' : 2,  'name': 'bar' }
-                      ],
-                      selected: undefined
+                        {'id' : 2,  'name': 'bar' },
+                        {'id' : 3,  'name': 'far' },
+                        {'id' : 4,  'name': 'boo' }
+                      ]
                    });
 
   beforeEach(() => {
@@ -17,28 +18,6 @@ fdescribe("Dropdown", () => {
     instanceNoValue = TestUtils.renderIntoDocument(<Dropdown name="bar" options={ data.get('items') } />);
     instanceInvalid = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 3 } />);
     input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
-  });
-
-  describe ('componentWillReceiveProps', () => {
-    beforeEach(() => {
-      spyOn(instance, 'setState');
-      spyOn(instance, 'nameByID').and.callThrough();
-    });
-
-    describe('when props have changed', () => {
-      it('calls setState with the input text', () => {
-        instance.componentWillReceiveProps({value: 1});
-        expect(instance.setState).toHaveBeenCalledWith({ inputValue: 'foo' });
-      });
-    });
-
-    describe('when props have not changed', () => {
-      it('does not call setState', () => {
-        instance.state.inputValue = 'bar'
-        instance.componentWillReceiveProps({value: 2 });
-        expect(instance.setState).not.toHaveBeenCalled();
-      });
-    });
   });
 
   describe('emitOnChangeCallback', () => {
@@ -100,115 +79,177 @@ fdescribe("Dropdown", () => {
     });
   });
 
+   describe('handleMouseEnterList', () => {
+      it('sets blockBlur to true', () => {
+        instance.blockBlur = false;
+        TestUtils.Simulate.mouseEnter(instance.refs.list);
+        expect(instance.blockBlur).toBeTruthy();
+      });
+    });
+
+    describe('handleMouseLeaveList', () => {
+      it('sets blockBlur to true', () => {
+        instance.blockBlur = true;
+        TestUtils.Simulate.mouseLeave(instance.refs.list);
+        expect(instance.blockBlur).toBeFalsy();
+      });
+    });
+
+    describe('handleMouseDownOnList', () => {
+      beforeEach(() => {
+        jasmine.clock().install();
+        spyOn(instance.refs.input, 'focus');
+      });
+
+      afterEach(() => {
+        jasmine.clock().uninstall();
+      });
+
+      describe('when the target was not the list', () => {
+        it('does not call focus on the input', () => {
+          TestUtils.Simulate.mouseDown(instance.refs.list, { target: 'foo' });
+          jasmine.clock().tick(0);
+          expect(instance.refs.input.focus).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when the target was the list', () => {
+        it('does not call focus on the input', () => {
+          TestUtils.Simulate.mouseDown(instance.refs.list, { target: instance.refs.list });
+          jasmine.clock().tick(0);
+          expect(instance.refs.input.focus).toHaveBeenCalled();
+        });
+      });
+    });
+
   describe('handleBlur', () => {
     beforeEach(() => {
       spyOn(instance, 'setState');
       input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
     });
 
-    describe('when the input value is valid', ()=> {
-      it('calls setState with the current value', ()=> {
-        TestUtils.Simulate.blur(input[0]);
-        expect(instance.setState).toHaveBeenCalledWith({ inputValue: 'bar' });
-      });
+    it('turns off filtering', () => {
+      instance.filterActive = true;
+      TestUtils.Simulate.blur(input[0]);
+      expect(instance.filterActive).toBeFalsy();
     });
 
-    describe('when the input value is not valid', ()=> {
-      it('calls setState with the last selected value', ()=> {
-        instance.setState({inputValue: 'xFxOx'});
-        TestUtils.Simulate.blur(input[0]);
-        expect(instance.setState).toHaveBeenCalledWith({ inputValue: 'bar' });
-      });
+    it('clears the filter', () => {
+      TestUtils.Simulate.blur(input[0]);
+      expect(instance.setState).toHaveBeenCalledWith({ filter: '' });
     });
   });
 
   describe('handleSelect', () => {
     beforeEach(() => {
+      instance.filterActive = true;
       spyOn(instance, 'setState');
-    });
-
-    it('calls emitOnChangeCallback with the selected value and resets the filter', () => {
       spyOn(instance, 'emitOnChangeCallback');
       let ev = { target: { getAttribute: function() {} }};
       spyOn(ev.target, 'getAttribute').and.returnValue('foo');
       instance._handleSelect(ev);
+    });
+
+    it('calls emitOnChangeCallback with the selected value', () => {
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('foo');
+    });
+
+    it('clears the filter', () => {
       expect(instance.setState).toHaveBeenCalledWith({ filter: '' });
+    });
+
+    it('turns off filtering', () => {
+      expect(instance.filterActive).toBeFalsy();
     });
   });
 
   describe('handleVisibleChange', () => {
-    it('calls setState and applies the input text to the inputValue and the filter', ()=> {
-
-    });
-  });
-
-  describe('handleMouseEnterList', () => {
-    it('sets blockBlur to true', () => {
-      instance.blockBlur = false;
-      TestUtils.Simulate.mouseEnter(instance.refs.list);
-      expect(instance.blockBlur).toBeTruthy();
-    });
-  });
-
-  describe('handleMouseLeaveList', () => {
-    it('sets blockBlur to true', () => {
-      instance.blockBlur = true;
-      TestUtils.Simulate.mouseLeave(instance.refs.list);
-      expect(instance.blockBlur).toBeFalsy();
-    });
-  });
-
-  describe('handleMouseDownOnList', () => {
     beforeEach(() => {
-      jasmine.clock().install();
-      spyOn(instance.refs.input, 'focus');
+      instance.filterActive = false;
+      spyOn(instance, 'setState');
+      let ev = { target: { value: 'far' }};
+      instance.handleVisibleChange(ev);
     });
 
-    afterEach(() => {
-      jasmine.clock().uninstall();
+    it('turns on filtering', () => {
+      expect(instance.filterActive).toBeTruthy();
     });
 
-    describe('when the target was not the list', () => {
-      it('does not call focus on the input', () => {
-        TestUtils.Simulate.mouseDown(instance.refs.list, { target: 'foo' });
-        jasmine.clock().tick(0);
-        expect(instance.refs.input.focus).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('when the target was the list', () => {
-      it('does not call focus on the input', () => {
-        TestUtils.Simulate.mouseDown(instance.refs.list, { target: instance.refs.list });
-        jasmine.clock().tick(0);
-        expect(instance.refs.input.focus).toHaveBeenCalled();
-      });
+    it('calls setState with the filter text', () => {
+      expect(instance.setState).toHaveBeenCalledWith({ filter: 'far' });
     });
   });
 
   describe('nameByID', () => {
     describe('when no value has been selected', () => {
-      it('sets the visibleValue to and empty string', () => {
+      it('returns an empty string', () => {
         instanceNoValue.nameByID();
-        expect(instanceNoValue.visibleValue).toEqual('');
+        expect(instanceNoValue.props.value).toBeFalsy();
       });
     });
 
     describe('when a value has been selected', () => {
       describe('when the selected value is valid', () => {
-        it('sets the visibleValue to the corresponding name', () => {
-          instance.nameByID();
-          expect(instance.visibleValue).toEqual('bar');
+        it('returns the corresponding name', () => {
+          expect(instance.nameByID(1)).toEqual('foo');
         });
       });
 
       describe('when the selected value does not have a corresponding name', () => {
         it('sets visibleValue to an empty string', () => {
-          instanceInvalid.nameByID();
-          expect(instanceInvalid.visibleValue).toEqual('');
+          expect(instanceInvalid.nameByID(3)).toBeFalsy();
         });
       });
     });
+  });
+
+  describe("handleHighlight",() => {
+    let option;
+
+    beforeEach(() => {
+      let options = data.get('items').toJS();
+      option = options[0];
+    });
+
+    it('returns the option when no filter text is passed',() => {
+      expect(instance.highlightMatches(option.name, '')).toEqual(option);
+    });
+
+    describe('when valid matches are found', () => {
+      let output, beginning, middleInner, middleOuter, middleContent, end, endContent;
+
+      beforeEach(() => {
+        output = instance.highlightMatches(option.name, 'f');
+        beginning = output[0];
+        middleOuter = output[1];
+        middleInner = middleOuter.props.children;
+        middleContent = middleInner.props.children;
+        end = output[2];
+        endContent = output[2].props.children;
+      });
+
+      it('returns option with matching text bold & underlined',() => {
+        expect(middleOuter.type).toEqual('strong');
+        expect(middleContent).toEqual('f');
+        expect(middleInner.type).toEqual('u');
+      });
+
+      it('returns non-matched text as unformatted text', () => {
+        expect(beginning.props.children).toBeFalsy();
+        expect(end.type).not.toEqual('strong');
+        expect(endContent).toEqual('oo');
+      });
+    });
+
+    describe('when no matches are found', () => {
+      it('returns the unformatted option', () => {
+        expect(instance.highlightMatches(option.name, 'g')).toEqual('foo');
+      });
+    });
+  });
+
+  fdescribe('prepareList', () => {
+    beforeEach('')
   });
 
   describe('inputProps', () => {

@@ -29,7 +29,7 @@ import { generateInputName } from './../../utils/helpers/forms';
  */
 const Dropdown = List(Input(InputIcon(InputLabel(InputValidation(
 class Dropdown extends React.Component {
-  
+
   /**
    * Determines if the blur event should be prevented.
    *
@@ -120,6 +120,7 @@ class Dropdown extends React.Component {
    * @method handleMouseDownOnList
    */
   handleMouseDownOnList = (ev) => {
+    debugger
     // if mouse down was on list (not list item), ensure the input retains focus
     // NOTE: this is an IE11 fix
     if (ev.target === this.refs.list) {
@@ -135,8 +136,8 @@ class Dropdown extends React.Component {
    * @method handleBlur
    */
   handleBlur = () => {
-    this.filterActive = false;this.nameByID(this.props.value)
     this.setState({ filter: ''});
+    this.filterActive = false;
   }
 
   /**
@@ -146,9 +147,10 @@ class Dropdown extends React.Component {
    * @param {Object} ev event
    */
   handleSelect = (ev) => {
-    this.filterActive = false;
+    debugger
     this.setState({ filter: ''});
     this.emitOnChangeCallback(ev.target.getAttribute('value'));
+    this.filterActive = false;
   }
 
   /*
@@ -158,9 +160,9 @@ class Dropdown extends React.Component {
    * @param {Object} ev event
    */
   handleVisibleChange = (ev) => {
-    this.filterActive = true;
     let value = ev.target.value;
     this.setState({ filter: value });
+    this.filterActive = true;
   }
 
   /**
@@ -181,28 +183,6 @@ class Dropdown extends React.Component {
 
     // If match is found, set value to option's name;
     return option ? option.get('name') : '';
-  }
-
-  /**
-   * A getter that combines props passed down from the input decorator with
-   * dropdown specific props.
-   *
-   * @method inputProps
-   */
-  get inputProps() {
-    let { ...props } = this.props;
-    props.className = this.inputClasses;
-    props.value = this.filterActive ? this.state.filter : this.nameByID(this.props.value);
-    props.name = null;
-    props.onChange = this.handleVisibleChange;
-    props.onBlur = this.handleBlur;
-    props.ref = "input";
-
-    if (!this.props.readOnly && !this.props.disabled) {
-      props.onFocus = this.handleFocus;
-    }
-
-    return props;
   }
 
   /**
@@ -247,19 +227,45 @@ class Dropdown extends React.Component {
    */
   prepareList = (options) => {
     let _options = options.toJS();
-    let filter = this.state.filter;
-    let regex = new RegExp(filter, 'i');
 
-    // if user has entered a search filter
-    if(filter.length) {
-      _options = _options.filter((option) => {
-        if (option.name.search(regex) > -1) {
-          option.name = this.highlightMatches(option.name, this.state.filter);
-          return option;
-        }
-      });
+    // if (this.filterActive === true){
+      let filter = this.state.filter;
+      let regex = new RegExp(filter, 'i');
+
+      // if user has entered a search filter
+      if(filter.length) {
+        _options = _options.filter((option) => {
+          if (option.name.search(regex) > -1) {
+            option.name = this.highlightMatches(option.name, this.state.filter);
+            return option;
+          }
+        });
+      // }
     }
+   
     return _options;
+  }
+
+  /**
+   * A getter that combines props passed down from the input decorator with
+   * dropdown specific props.
+   *
+   * @method inputProps
+   */
+  get inputProps() {
+    let { ...props } = this.props;
+    props.className = this.inputClasses;
+    props.value = this.filterActive ? this.state.filter : this.nameByID(this.props.value);
+    props.name = null;
+    props.onChange = this.handleVisibleChange;
+    props.onBlur = this.handleBlur;
+    props.ref = "input";
+
+    if (!this.props.readOnly && !this.props.disabled) {
+      props.onFocus = this.handleFocus;
+    }
+
+    return props;
   }
 
   /**
