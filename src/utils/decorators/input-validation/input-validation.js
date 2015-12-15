@@ -37,7 +37,7 @@ import _ from 'lodash';
  */
 let InputValidation = (ComposedComponent) => class Component extends ComposedComponent {
 
-  _window = window
+  _window = window;
 
   constructor(...args) {
     super(...args);
