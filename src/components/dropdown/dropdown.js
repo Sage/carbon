@@ -120,7 +120,6 @@ class Dropdown extends React.Component {
    * @method handleMouseDownOnList
    */
   handleMouseDownOnList = (ev) => {
-    debugger
     // if mouse down was on list (not list item), ensure the input retains focus
     // NOTE: this is an IE11 fix
     if (ev.target === this.refs.list) {
@@ -136,8 +135,10 @@ class Dropdown extends React.Component {
    * @method handleBlur
    */
   handleBlur = () => {
-    this.setState({ filter: ''});
-    this.filterActive = false;
+    if (!this.blockBlur) {
+      this.filterActive = false;
+      this.setState({ filter: ''});
+    }
   }
 
   /**
@@ -147,10 +148,10 @@ class Dropdown extends React.Component {
    * @param {Object} ev event
    */
   handleSelect = (ev) => {
-    debugger
-    this.setState({ filter: ''});
+    this.blockBlur = false;
     this.emitOnChangeCallback(ev.target.getAttribute('value'));
     this.filterActive = false;
+    this.setState({ filter: ''});
   }
 
   /*
@@ -161,8 +162,8 @@ class Dropdown extends React.Component {
    */
   handleVisibleChange = (ev) => {
     let value = ev.target.value;
-    this.setState({ filter: value });
     this.filterActive = true;
+    this.setState({ filter: value });
   }
 
   /**
@@ -228,7 +229,7 @@ class Dropdown extends React.Component {
   prepareList = (options) => {
     let _options = options.toJS();
 
-    // if (this.filterActive === true){
+    if (this.filterActive === true){
       let filter = this.state.filter;
       let regex = new RegExp(filter, 'i');
 
@@ -240,7 +241,7 @@ class Dropdown extends React.Component {
             return option;
           }
         });
-      // }
+      }
     }
    
     return _options;
