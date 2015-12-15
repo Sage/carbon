@@ -318,7 +318,7 @@ class DropdownSuggest extends React.Component {
   get hiddenInputProps() {
     let nameWithID = this.inputProps.name.split(/\]$/)[0] + "_id]";
     let props = {
-      ref: "input",
+      ref: "hidden",
       type: "hidden",
       readOnly: true,
       name: nameWithID,

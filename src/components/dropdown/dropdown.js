@@ -38,6 +38,7 @@ class Dropdown extends React.Component {
    * @default false
    */
   blockBlur = false;
+  filterActive = false;
 
   static propTypes = {
 
@@ -51,15 +52,6 @@ class Dropdown extends React.Component {
   };
 
   state = {
-
-    /**
-     * The text currently displayed in the input field.
-     *
-     * @property inputValue
-     * @type {String}
-     * @default ''
-     */
-    inputValue: '',
 
     /**
      * The user input search text.
@@ -77,11 +69,11 @@ class Dropdown extends React.Component {
    * @method componentWillReceiveProps
    * @param {Object} nextProps the updated props
    */
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value != this.props.value) {
-      this.setState({ inputValue: this.nameByID(nextProps.value) });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.value != this.props.value) {
+  //     this.setState({ filter: this.nameByID(nextProps.value) });
+  //   }
+  // }
 
   /**
    * Runs the callback onChange action
@@ -108,7 +100,7 @@ class Dropdown extends React.Component {
     });
   }
 
-    /**
+  /**
    * Handles when the mouse hovers over the list.
    *
    * @method handleMouseEnterList
@@ -147,7 +139,8 @@ class Dropdown extends React.Component {
    * @method handleBlur
    */
   handleBlur = () => {
-    this.setState({ inputValue: this.nameByID(this.props.value) , filter: ''});
+    this.filterActive = false;this.nameByID(this.props.value)
+    this.setState({ filter: ''});
   }
 
   /**
@@ -157,6 +150,7 @@ class Dropdown extends React.Component {
    * @param {Object} ev event
    */
   handleSelect = (ev) => {
+    this.filterActive = false;
     this.setState({ filter: ''});
     this.emitOnChangeCallback(ev.target.getAttribute('value'));
   }
@@ -168,8 +162,9 @@ class Dropdown extends React.Component {
    * @param {Object} ev event
    */
   handleVisibleChange = (ev) => {
+    this.filterActive = true;
     let value = ev.target.value;
-    this.setState({ filter: value, inputValue: value });
+    this.setState({ filter: value });
   }
 
   /**
@@ -201,11 +196,12 @@ class Dropdown extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.value = this.state.inputValue;
+    props.value = this.filterActive ? this.state.filter : this.nameByID(this.props.value);
     props.name = null;
     props.onChange = this.handleVisibleChange;
     props.onBlur = this.handleBlur;
     props.ref = "input";
+
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
     }

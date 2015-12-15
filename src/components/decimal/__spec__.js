@@ -146,8 +146,20 @@ describe('Decimal', () => {
       })
 
       describe('when it is not a valid decimal', () => {
+        let setSelectionSpy;
+
         beforeEach(() => {
-          TestUtils.Simulate.change(instance.refs.visible, { target: { value: "..1.0.0,0.00" } });
+          setSelectionSpy = jasmine.createSpy();
+
+          instance.selectionStart = 2;
+          instance.selectionEnd = 4;
+
+          TestUtils.Simulate.change(instance.refs.visible, {
+            target: {
+              value: "..1.0.0,0.00",
+              setSelectionRange: setSelectionSpy
+            }
+          });
         });
 
         it('does not call setState', () => {
@@ -157,34 +169,73 @@ describe('Decimal', () => {
         it('does not call emitOnChangeCallback', () => {
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
-      });
-    });
 
-    describe('isValidDecimal', () => {
-      it('confirms it is a valid decimal', () => {
-        let val = '1,000.00';
-        expect(instance.isValidDecimal(val)).toBeTruthy();
-      });
-
-      it('returns false when it is not a valid decimal', () => {
-        let val = '..0.8,9.00';
-        expect(instance.isValidDecimal(val)).toBeFalsy();
-      });
-
-      it('allows a minus symbol at the start of the decimal', () => {
-        let val = '-1,000.00';
-        expect(instance.isValidDecimal(val)).toBeTruthy();
+        it('calls setSelectionRange', () => {
+          expect(setSelectionSpy).toHaveBeenCalledWith(2, 4);
+        });
       });
     });
 
     describe('handleBlur', () => {
       beforeEach(() => {
         spyOn(instance, 'setState');
+        instance.highlighted = true;
         TestUtils.Simulate.blur(instance.refs.visible);
       });
 
       it('calls setState with the formatted visible value', () => {
         expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "1,000.00" });
+      });
+
+      it('sets the highlighted property to false', () => {
+        expect(instance.highlighted).toBeFalsy();
+      });
+    });
+
+    describe("handleOnClick", function() {
+      let visible;
+
+      beforeEach(function() {
+        visible = instance.refs.visible;
+        spyOn(visible, 'setSelectionRange');
+      });
+
+      describe("when the caret is at the edge of the value", function() {
+        beforeEach(function() {
+          visible.selectionStart = 0;
+          visible.selectionEnd = 0;
+          TestUtils.Simulate.click(visible);
+        });
+
+        it("should call setSelectionRange method", function() {
+          expect(visible.setSelectionRange).toHaveBeenCalledWith(0, visible.value.length);
+        });
+      });
+
+      describe("when the caret is within the value", function() {
+        beforeEach(function() {
+          visible.value = '100';
+          spyOn(visible, 'selectionStart');
+          TestUtils.Simulate.click(visible);
+        });
+
+        it("should not call setSelectionRange method", function() {
+          expect(visible.setSelectionRange).not.toHaveBeenCalled();
+        });
+      });
+
+      describe("when highlighted is true", function() {
+        beforeEach(function() {
+          instance.highlighted = true;
+          visible.selectionStart = 0
+          visible.selectionEnd = 0
+          TestUtils.Simulate.click(visible);
+        });
+
+        it("resets highlighted to false and does not call setSelectionRange", function() {
+          expect(instance.highlighted).toBeFalsy();
+          expect(visible.setSelectionRange).not.toHaveBeenCalled();
+        });
       });
     });
 
@@ -205,22 +256,6 @@ describe('Decimal', () => {
       it('sets value to the visible value', () => {
         expect(instance.refs.visible.value).toEqual("1,000.00");
       });
-
-      describe('if a valid keydown occurs', () => {
-        it('prevents default', () => {
-          spyOn(Events, 'isValidDecimalKey').and.returnValue(true);
-          TestUtils.Simulate.keyDown(instance.refs.visible, mockEvent);
-          expect(spy).not.toHaveBeenCalled();
-        });
-      });
-
-      describe('if an invalid keydown occurs', () => {
-        it('prevents default', () => {
-          spyOn(Events, 'isValidDecimalKey').and.returnValue(false);
-          TestUtils.Simulate.keyDown(instance.refs.visible, mockEvent);
-          expect(spy).toHaveBeenCalled();
-        });
-      });
     });
 
     describe('hiddenInputProps', () => {
@@ -230,6 +265,16 @@ describe('Decimal', () => {
         expect(instance.refs.hidden.value).toEqual("1000.00");
         expect(instance.refs.hidden.defaultValue).toEqual("1000.00");
         expect(instance.refs.hidden.name).toEqual("total");
+      });
+    });
+
+    describe('handleKeyDown', () => {
+      it('tracks selection start and end', () => {
+        instance.selectionStart = 99;
+        instance.selectionEnd = 99;
+        TestUtils.Simulate.keyDown(instance.refs.visible);
+        expect(instance.selectionStart).toEqual(0);
+        expect(instance.selectionEnd).toEqual(0);
       });
     });
 

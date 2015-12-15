@@ -1,7 +1,8 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Dialog from './dialog';
-import I18n from "i18n-js";
+import I18n from 'i18n-js';
+import Bowser from 'bowser';
 import Button from './../button';
 
 describe('Dialog', () => {
@@ -85,6 +86,25 @@ describe('Dialog', () => {
         expect(instance.refs.dialog.style.top).toEqual('20px');
       });
     });
+
+    describe('when dialog is less than 20px from the side', () => {
+      it('sets top position to 20px', () => {
+        instance.refs.dialog = {
+          style: {},
+          offsetWidth: 361
+        };
+        instance.centerDialog();
+        expect(instance.refs.dialog.style.left).toEqual('20px');
+      });
+    });
+
+    describe('when ios', () => {
+      it('does not remove page y offset', () => {
+        Bowser.ios = true;
+        instance.centerDialog();
+        expect(instance.refs.dialog.style.top).toEqual('150px');
+      });
+    });
   });
 
   describe('closeDialog', () => {
@@ -149,6 +169,7 @@ describe('Dialog', () => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
             cancelDialogHandler={ cancelHandler }
+            className="foo"
             open={ true } >
 
             <Button>Button</Button>
@@ -159,7 +180,7 @@ describe('Dialog', () => {
 
       it('renders a parent div with mainClasses attached', () => {
         let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(dialogNode.classList[0]).toEqual('ui-dialog');
+        expect(dialogNode.className).toEqual('ui-dialog foo');
       });
 
       it('renders the dialog', () => {
