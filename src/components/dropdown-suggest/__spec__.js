@@ -39,7 +39,7 @@ describe("DropdownSuggest", () => {
       let listItems = ul.childNodes;
       expect(listItems.length).toEqual(1);
       expect(listItems[0].tagName).toEqual("LI");
-      expect(listItems[0].textContent).toEqual("No results");
+      expect(listItems[0].textContent).toEqual("No results match: " + undefined);
     });
 
     describe("render with options", () => {
