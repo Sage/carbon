@@ -69,6 +69,11 @@ class Number extends React.Component {
     // track the selection start and end
     this.selectionStart = ev.target.selectionStart;
     this.selectionEnd = ev.target.selectionEnd;
+
+    if (this.props.onKeyDown) {
+      // we also send the props so more information can be extracted by the action
+      this.props.onKeyDown(ev, this.props);
+    }
   }
 
   /**
