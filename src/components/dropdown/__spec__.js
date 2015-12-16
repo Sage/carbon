@@ -420,7 +420,7 @@ describe("Dropdown", () => {
           highlighted: 2
         });
         expect(listItems[0].className).toEqual("ui-dropdown__item common-list__item");
-        expect(listItems[1].className).toEqual("ui-dropdown__item ui-dropdown__item--highlighted common-list__item common-list__item--highlighted");
+        expect(listItems[1].className).toEqual("ui-dropdown__item common-list__item ui-dropdown__item--highlighted common-list__item--highlighted ui-dropdown__item--selected common-list__item--selected");
       });
     });
   });
