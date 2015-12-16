@@ -362,7 +362,7 @@ describe("Dropdown", () => {
     });
 
     describe('when filter is enabled', () => {
-      it('sets the input to be readonly', () => {
+      it('sets the input to not be readonly', () => {
         expect(instance.inputProps.readOnly).toBeFalsy();
       });
     });
