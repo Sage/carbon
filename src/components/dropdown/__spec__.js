@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Dropdown from './dropdown';
 import ImmutableHelper from './../../utils/helpers/immutable'
 
-fdescribe("Dropdown", () => {
+describe("Dropdown", () => {
   let instance, instanceNoValue, instanceInvalid, input;
   let data = ImmutableHelper.parseJSON(
             { 'items': [{'id' : 1,  'name': 'foo' },
@@ -199,14 +199,14 @@ fdescribe("Dropdown", () => {
       });
 
       describe('when the selected value does not have a corresponding name', () => {
-        it('sets visibleValue to an empty string', () => {
-          expect(instanceInvalid.nameByID(3)).toBeFalsy();
+        it('sets visible value to an empty string', () => {
+          expect(instanceInvalid.nameByID(5)).toBeFalsy();
         });
       });
     });
   });
 
-  describe("handleHighlight",() => {
+  describe("highlightMatches",() => {
     let option;
 
     beforeEach(() => {
@@ -219,28 +219,31 @@ fdescribe("Dropdown", () => {
     });
 
     describe('when valid matches are found', () => {
-      let output, beginning, middleInner, middleOuter, middleContent, end, endContent;
+      let output, beginning, beginningOuter, beginningInner,
+          beginningContent, middleInner, middleOuter, middleContent, endOuter, endInner, endContent;
 
       beforeEach(() => {
-        output = instance.highlightMatches(option.name, 'f');
+        output = instance.highlightMatches(option.name, 'o');
         beginning = output[0];
+        beginningContent = beginning.props.children;
         middleOuter = output[1];
         middleInner = middleOuter.props.children;
         middleContent = middleInner.props.children;
-        end = output[2];
+        endOuter = output[2];
+        endInner = endOuter.props.children;
         endContent = output[2].props.children;
       });
 
       it('returns option with matching text bold & underlined', () => {
         expect(middleOuter.type).toEqual('strong');
-        expect(middleContent).toEqual('f');
+        expect(middleContent).toEqual('o');
         expect(middleInner.type).toEqual('u');
       });
 
       it('returns non-matched text as unformatted text', () => {
-        expect(beginning.props.children).toBeFalsy();
-        expect(end.type).not.toEqual('strong');
-        expect(endContent).toEqual('oo');
+        expect(beginningContent).toEqual('f');
+        expect(middleContent).toEqual('o');
+        expect(middleContent.type).not.toEqual('strong');
       });
     });
 
@@ -251,12 +254,12 @@ fdescribe("Dropdown", () => {
     });
   });
 
-  fdescribe('prepareList', () => {
+  describe('prepareList', () => {
     let options;
 
     beforeEach(() => {
       options = data.get('items');
-      spyOn(instance, 'highlightMatches').and.returnValue('foo');
+      spyOn(instance, 'highlightMatches');
     });
 
     describe('when no filter is applied', () => {
@@ -265,13 +268,12 @@ fdescribe("Dropdown", () => {
       });
     });
 
-    fdescribe('when a filter is being applied', () => {
+    describe('when a filter is being applied', () => {
       describe('when matches are found', () => {
         it('returns matched items with formatted matching text', () => {
-          let match = options.toJS();
           instance.state.filter = 'fo';
-          debugger
-          expect(instance.prepareList(options)).toEqual(match[0].name);
+          instance.prepareList(options);
+          expect(instance.highlightMatches).toHaveBeenCalled();
         });
       });
 
@@ -290,7 +292,19 @@ fdescribe("Dropdown", () => {
       spyOn(instance, 'handleFocus');
       instance.inputProps.onFocus();
       expect(instance.handleFocus).toHaveBeenCalled();
-      expect(instance.inputProps.value).toEqual(instance.visibleValue);
+    });
+
+    describe('when filtering is active', () => {
+      it('sets value to the current filter string', () => {
+        instance.state.filter = 'f'
+        expect(instance.inputProps.value).toEqual('f');
+      });
+    });
+
+    describe('when filtering is not active', () => {
+      it('sets value to the corresponding value in the hidden input', () => {
+        expect(instance.inputProps.value).toEqual('bar');
+      });
     });
   });
 
@@ -320,6 +334,13 @@ fdescribe("Dropdown", () => {
     it('returns the input class names', () => {
       expect(instance.inputClasses).toMatch('ui-dropdown__input');
     });
+
+    describe('when filtering is active', () => {
+      it('adds a filter class', () => {
+        instance.state.filter = 'a';
+        expect(instance.inputClasses).toMatch('ui-dropdown__input ui-dropdown__input--filter');
+      });
+    });
   });
 
   describe('listHTML', () => {
@@ -338,7 +359,7 @@ fdescribe("Dropdown", () => {
 
     it('returns an unordered list containing the options', () => {
       expect(instance.listHTML.ref).toEqual('list');
-      expect(instance.listHTML.props.children.length).toEqual(2);
+      expect(instance.listHTML.props.children.length).toEqual(4);
     });
   });
 
@@ -369,7 +390,7 @@ fdescribe("Dropdown", () => {
       });
 
       it("renders a li with results", () => {
-        expect(listItems.length).toEqual(2);
+        expect(listItems.length).toEqual(4);
         expect(listItems[0].value).toEqual(1);
         expect(listItems[0].textContent).toEqual("foo");
         expect(listItems[1].value).toEqual(2);

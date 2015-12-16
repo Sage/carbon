@@ -223,14 +223,12 @@ class Dropdown extends React.Component {
       let filter = this.state.filter;
       let regex = new RegExp(filter, 'i');
       // if user has entered a search filter
-      if(filter) {
-        _options = _options.filter((option) => {
-          if (option.name.search(regex) > -1) {
-            option.name = this.highlightMatches(option.name, this.state.filter);
-            return option;
-          }
-        });
-      }
+      _options = _options.filter((option) => {
+        if (option.name.search(regex) > -1) {
+          option.name = this.highlightMatches(option.name, this.state.filter);
+          return option;
+        }
+      });
     }
     return _options;
   }
@@ -312,21 +310,6 @@ class Dropdown extends React.Component {
       this.inputIconHTML("dropdown"),
       this.listHTML
     ];
-  }
-
-  /**
-   * Returns HTML for the input.
-   *
-   * @method inputHTML
-   */
-  get inputHTML() {
-    // builds the input with a variable input type - see `inputType`
-    return (
-      <div { ...this.fieldProps }>
-        <input { ...this.inputProps }></input>
-        { this.additionalInputContent }
-      </div>
-    );
   }
 
   /**
