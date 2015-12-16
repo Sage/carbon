@@ -77,6 +77,7 @@ class Dropdown extends React.Component {
    *
    * @method componentWillReceiveProps
    * @param {Object} nextProps the updated props
+   * @return {void}
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.value != this.props.value) {
@@ -89,6 +90,7 @@ class Dropdown extends React.Component {
    *
    * @method emitOnChangeCallback
    * @param {Object} value Value of the selected list item
+   * @return {void}
    */
   emitOnChangeCallback = (value) => {
     this._handleOnChange({ target: { value: value } });
@@ -98,6 +100,7 @@ class Dropdown extends React.Component {
    * Handles what happens on focus of the input.
    *
    * @method handleFocus
+   * @return {void}
    */
   handleFocus = () => {
     let data = this.props.options;
@@ -113,6 +116,7 @@ class Dropdown extends React.Component {
    * Handles when the mouse hovers over the list.
    *
    * @method handleMouseEnterList
+   * @return {void}
    */
   handleMouseEnterList = () => {
     this.blockBlur = true;
@@ -122,6 +126,7 @@ class Dropdown extends React.Component {
    * Handles when the mouse hovers out of the list.
    *
    * @method handleMouseLeaveList
+   * @return {void}
    */
   handleMouseLeaveList = () => {
     this.blockBlur = false;
@@ -131,6 +136,8 @@ class Dropdown extends React.Component {
    * Handles when the mouse clicks on the list.
    *
    * @method handleMouseDownOnList
+   * @param {Object} ev Event
+   * @return {void}
    */
   handleMouseDownOnList = (ev) => {
     // if mouse down was on list (not list item), ensure the input retains focus
@@ -146,6 +153,7 @@ class Dropdown extends React.Component {
    * Handles what happens on blur of the input.
    *
    * @method handleBlur
+   * @return {void}
    */
   handleBlur = () => {
     if (!this.blockBlur) {
@@ -158,6 +166,7 @@ class Dropdown extends React.Component {
    *
    * @method handleSelect
    * @param {Object} ev event
+   * @return {void}
    */
   handleSelect = (ev) => {
     this.blockBlur = false;
@@ -170,6 +179,7 @@ class Dropdown extends React.Component {
    *
    * @method handleSelect
    * @param {Object} ev event
+   * @return {void}
    */
   handleVisibleChange = (ev) => {
     let value = ev.target.value;
@@ -180,7 +190,7 @@ class Dropdown extends React.Component {
    * Sets the selected value based on selected id.
    *
    * @method nameByID
-   * @param {String} value
+   * @return {String} value to display
    */
   nameByID = () => {
     let value = this.props.value;
@@ -211,6 +221,7 @@ class Dropdown extends React.Component {
    * @method highlightMatches
    * @param {String} optionText - the text to search
    * @param {String} value - the search term
+   * @return {Object} JSX of list item
    */
   highlightMatches = (optionText, value) => {
     if (!value.length) { return optionText; }
@@ -246,6 +257,7 @@ class Dropdown extends React.Component {
    *
    * @method prepareList
    * @param {Object} options Immutable map of list options
+   * @return {Object} filtered and highlighted list items
    */
   prepareList = (options) => {
     let _options = options.toJS();
@@ -269,6 +281,7 @@ class Dropdown extends React.Component {
    * dropdown specific props.
    *
    * @method inputProps
+   * @return {Object} props for visible input
    */
   get inputProps() {
     let { ...props } = this.props;
@@ -290,6 +303,7 @@ class Dropdown extends React.Component {
    * A getter for hidden input props.
    *
    * @method hiddenInputProps
+   * @return {Object} props for hidden input
    */
   get hiddenInputProps() {
     let props = {
@@ -307,6 +321,7 @@ class Dropdown extends React.Component {
    * Root Class getter, returns a single class
    *
    * @method rootClass
+   * @return {String} root className
    */
   get rootClass() {
     return 'ui-dropdown';
@@ -316,6 +331,7 @@ class Dropdown extends React.Component {
    * Uses the mainClasses method provided by the decorator to add additional classes.
    *
    * @method mainClasses
+   * @return {String} Main className
    */
   get mainClasses() {
     return this.rootClass;
@@ -325,6 +341,7 @@ class Dropdown extends React.Component {
    * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
+   * @return {String} input className
    */
   get inputClasses() {
     let inputClasses = `${this.rootClass}__input` +
@@ -337,6 +354,7 @@ class Dropdown extends React.Component {
    * Extends the input content to include the input icon.
    *
    * @method additionalInputContent
+   * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
     return [
@@ -349,6 +367,7 @@ class Dropdown extends React.Component {
    * Getter to return HTML for list to render method.
    *
    * @method listHTML
+   * @return {Object} JSX list to render
    */
   get listHTML() {
     let listClasses =  `${this.rootClass}__list` +
@@ -375,6 +394,7 @@ class Dropdown extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     return (

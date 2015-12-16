@@ -93,6 +93,7 @@ class DropdownSuggest extends React.Component {
    *
    * @method emitOnChangeCallback
    * @param {Object} value Immutable object representing the value
+   * @return {void}
    */
   emitOnChangeCallback = (value) => {
     this._handleOnChange({ target: { value: value } });
@@ -103,6 +104,7 @@ class DropdownSuggest extends React.Component {
    *
    * @method getData
    * @param {Object} page Page, defaults to 1.
+   * @return {void}
    */
   getData = (page = 1) => {
     // Passes empty string to query if value has been selected
@@ -124,6 +126,7 @@ class DropdownSuggest extends React.Component {
    * Asks for the next page of data.
    *
    * @method getNextPage
+   * @return {void}
    */
   getNextPage = () => {
     if (this.state.page < this.state.pages) {
@@ -136,6 +139,7 @@ class DropdownSuggest extends React.Component {
    *
    * @method updateList
    * @param {Object} data data returned from server
+   * @return {void}
    */
   updateList = (data) => {
     // Default page size is 10 records
@@ -166,6 +170,7 @@ class DropdownSuggest extends React.Component {
    * Handles what happens on blur of the input.
    *
    * @method handleBlur
+   * @return {void}
    */
   handleBlur = () => {
     this.resetScroll();
@@ -175,6 +180,7 @@ class DropdownSuggest extends React.Component {
    * Handles what happens on focus of the input.
    *
    * @method handleFocus
+   * @return {void}
    */
   handleFocus = () => {
     let filter = this.refs.filter;
@@ -194,6 +200,7 @@ class DropdownSuggest extends React.Component {
    * Handles what happens on scroll of the list.
    *
    * @method handleScroll
+   * @return {void}
    */
   handleScroll = () => {
     if (this.listeningToScroll) {
@@ -214,6 +221,7 @@ class DropdownSuggest extends React.Component {
    *
    * @method handleChange
    * @param {Object} ev event
+   * @return {void}
    */
   handleChange = (ev) => {
     if (this.timeout) { clearTimeout(this.timeout); }
@@ -230,6 +238,7 @@ class DropdownSuggest extends React.Component {
    *
    * @method handleSelect
    * @param {Object} ev event
+   * @return {void}
    */
   handleSelect = (ev) => {
     let val = buildImmutableValue(this.props, ev.target.textContent, ev.target.value);
@@ -241,6 +250,7 @@ class DropdownSuggest extends React.Component {
    *
    * @method handleKeyUp
    * @param {Object} ev event
+   * @return {void}
    */
   handleKeyDown = (ev) => {
     let list = this.refs.list,
@@ -281,6 +291,7 @@ class DropdownSuggest extends React.Component {
    * Resets the scroll position of the list.
    *
    * @method resetScroll
+   * @return {void}
    */
   resetScroll = () => {
     this.listeningToScroll = false;
@@ -293,6 +304,7 @@ class DropdownSuggest extends React.Component {
    * dropdown-suggest specific props.
    *
    * @method inputProps
+   * @return {Object} props for visible input
    */
   get inputProps() {
     let { ...props } = this.props;
@@ -314,6 +326,7 @@ class DropdownSuggest extends React.Component {
    * A getter for hidden input props.
    *
    * @method hiddenInputProps
+   * @return {Object} props for hidden input
    */
   get hiddenInputProps() {
     let nameWithID = this.inputProps.name.split(/\]$/)[0] + "_id]";
@@ -332,6 +345,7 @@ class DropdownSuggest extends React.Component {
    * Root Class getter, returns a single class
    *
    * @method rootClass
+   * @return {String} Root className
    */
   get rootClass() {
     return 'ui-dropdown-suggest';
@@ -341,6 +355,7 @@ class DropdownSuggest extends React.Component {
    * Uses the mainClasses method provided by the decorator to add additional classes.
    *
    * @method mainClasses
+   * @return {String} Main className
    */
   get mainClasses() {
     return this.rootClass;
@@ -350,11 +365,18 @@ class DropdownSuggest extends React.Component {
    * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
+   * @return {String} Input className
    */
   get inputClasses() {
     return `${this.rootClass}__input`;
   }
 
+  /**
+   * Generate the list from the state options
+   *
+   * @method ListHTML
+   * @return {Object} JSX list to render
+   */
   get listHTML() {
     let listClasses = `${this.rootClass}__list` +
         (this.state.open ? '' : ' hidden') +
@@ -374,6 +396,7 @@ class DropdownSuggest extends React.Component {
    * Extends the input content to include the input icon.
    *
    * @method additionalInputContent
+   * @return {Object} JSX
    */
   get additionalInputContent() {
     return this.inputIconHTML("dropdown");
@@ -383,6 +406,7 @@ class DropdownSuggest extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     return (
@@ -408,9 +432,10 @@ class DropdownSuggest extends React.Component {
  *
  * @method buildImmutableValue
  * @private
- * @param {Object} props
- * @param {String} name
- * @param {Number} id
+ * @param {Object} props dropdown suggest props
+ * @param {String} name visible name of element
+ * @param {Number} id id of element
+ * @return {Object} immutable value
  */
 function buildImmutableValue(props, name, id) {
   let newValue = props.value.set(props.resource_key, name);
