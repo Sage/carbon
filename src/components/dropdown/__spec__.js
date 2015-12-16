@@ -48,7 +48,13 @@ describe("Dropdown", () => {
 
   describe('handleFocus', () => {
     beforeEach(() => {
+      spyOn(instance.refs.input, 'setSelectionRange');
       spyOn(instance, 'setState').and.callThrough();
+    });
+
+    it('select all the value', () => {
+      TestUtils.Simulate.focus(input[0]);
+      expect(instance.refs.input.setSelectionRange).toHaveBeenCalledWith(0, instance.refs.input.value.length);
     });
 
     it('calls setState and opens the dropdown', () => {

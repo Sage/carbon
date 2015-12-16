@@ -103,6 +103,9 @@ class Dropdown extends React.Component {
     let data = this.props.options;
     let highlighted = this.props.value ? this.props.value : data.first().get('id');
 
+    // auto select the value
+    this.refs.input.setSelectionRange(0, this.refs.input.value.length);
+
     this.setState({
       open: true,
       highlighted: highlighted
