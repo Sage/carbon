@@ -4,7 +4,7 @@ import Dropdown from './dropdown';
 import ImmutableHelper from './../../utils/helpers/immutable'
 
 describe("Dropdown", () => {
-  let instance, instanceNoValue, instanceInvalid, input;
+  let instance, instanceNoValue, instanceInvalid, instanceNoFilter, input;
   let data = ImmutableHelper.parseJSON(
             { 'items': [{'id' : 1,  'name': 'foo' },
                         {'id' : 2,  'name': 'bar' },
@@ -17,6 +17,7 @@ describe("Dropdown", () => {
     instance = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 2 } />);
     instanceNoValue = TestUtils.renderIntoDocument(<Dropdown name="bar" options={ data.get('items') } />);
     instanceInvalid = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 3 } />);
+    instanceNoFilter = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 2 } filter={ false } />);
     input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
   });
 
@@ -49,12 +50,18 @@ describe("Dropdown", () => {
   describe('handleFocus', () => {
     beforeEach(() => {
       spyOn(instance.refs.input, 'setSelectionRange');
+      spyOn(instanceNoFilter.refs.input, 'setSelectionRange');
       spyOn(instance, 'setState').and.callThrough();
     });
 
     it('select all the value', () => {
       TestUtils.Simulate.focus(input[0]);
       expect(instance.refs.input.setSelectionRange).toHaveBeenCalledWith(0, instance.refs.input.value.length);
+    });
+
+    it('does not select the value when filter disabled', () => {
+      TestUtils.Simulate.focus(instanceNoFilter.refs.input);
+      expect(instanceNoFilter.refs.input.setSelectionRange).not.toHaveBeenCalled();
     });
 
     it('calls setState and opens the dropdown', () => {
@@ -165,6 +172,15 @@ describe("Dropdown", () => {
         expect(instance.setState).not.toHaveBeenCalled();
       });
     });
+
+    describe('when filter is disabled', () => {
+      it('does not clear the filter', () => {
+        spyOn(instanceNoFilter, 'setState');
+        instanceNoFilter.blockBlur = false;
+        instanceNoFilter.handleBlur();
+        expect(instanceNoFilter.setState).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('handleSelect', () => {
@@ -192,17 +208,31 @@ describe("Dropdown", () => {
       instance._handleSelect(ev);
       expect(instance.setState).toHaveBeenCalledWith({ filter: null });
     });
+
+    it('does not clear the filter if filter is disabled', () => {
+      spyOn(instanceNoFilter, 'setState');
+      instanceNoFilter.handleSelect(ev);
+      expect(instanceNoFilter.setState).not.toHaveBeenCalled();
+    });
   });
 
   describe('handleVisibleChange', () => {
+    let ev;
+
     beforeEach(() => {
       spyOn(instance, 'setState');
-      let ev = { target: { value: 'far' }};
+      ev = { target: { value: 'far' }};
       instance.handleVisibleChange(ev);
     });
 
     it('calls setState with the filter text', () => {
       expect(instance.setState).toHaveBeenCalledWith({ filter: 'far' });
+    });
+
+    it('does not clear the filter if filter is disabled', () => {
+      spyOn(instanceNoFilter, 'setState');
+      instanceNoFilter.handleVisibleChange(ev);
+      expect(instanceNoFilter.setState).not.toHaveBeenCalled();
     });
   });
 
@@ -328,6 +358,18 @@ describe("Dropdown", () => {
     describe('when filtering is not active', () => {
       it('sets value to the corresponding value in the hidden input', () => {
         expect(instance.inputProps.value).toEqual('bar');
+      });
+    });
+
+    describe('when filter is enabled', () => {
+      it('sets the input to be readonly', () => {
+        expect(instance.inputProps.readOnly).toBeFalsy();
+      });
+    });
+
+    describe('when filter is disabled', () => {
+      it('sets the input to be readonly', () => {
+        expect(instanceNoFilter.inputProps.readOnly).toBeTruthy();
       });
     });
   });
