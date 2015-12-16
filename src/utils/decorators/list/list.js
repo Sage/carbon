@@ -1,5 +1,6 @@
 import React from 'react';
 import chainFunctions from './../../helpers/chain-functions';
+import I18n from 'i18n-js';
 
 /**
  * List decorator.
@@ -58,7 +59,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
     if (this.handleSelect) {
       this.handleSelect(ev);
     } else {
-      this.emitOnChangeCallback(ev.target.getAttribute('value'));
+      this.emitOnChangeCallback(ev.currentTarget.getAttribute('value'));
     }
   }
 
@@ -69,7 +70,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * @param {Object} ev event
    */
   _handleMouseOver = (ev) => {
-    this.setState({ highlighted: ev.target.getAttribute('value') });
+    this.setState({ highlighted: ev.currentTarget.getAttribute('value') });
   }
 
   /**
@@ -88,11 +89,12 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    */
   results = (options) => {
     let results;
+    let className = `${this.rootClass}__item`;
+    let commonName  = `${this.commonListClasses}__item`;
 
     if (options.length) {
       results = options.map((option) => {
-        let className = `${this.rootClass}__item`;
-        let commonName  = `${this.commonListClasses}__item`;
+
 
         return <li
                   key={option.name + option.id}
@@ -107,7 +109,12 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
       });
 
     } else {
-      results = <li>No results</li>;
+      results = <li className={ `${commonName} ${commonName}--noResult` }>
+                  { I18n.t("dropdownlist.no_results",
+                  { defaultValue: "No results match: " }) +
+                    this.state.filter
+                  }
+                </li>;
     }
 
     return results;

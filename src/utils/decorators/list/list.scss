@@ -3,7 +3,9 @@
 @import 'mixins';
 @import 'z-index';
 
-.common-list {
+$baseClass: ".common-list";
+
+"#{$baseClass}" {
   background-color: $white;
   border: 1px solid $border-color;
   box-sizing: border-box;
@@ -37,10 +39,14 @@
   }
 }
 
-.common-list__item {
+"#{$baseClass}__item" {
   padding: 5px 6px;
 }
 
-.common-list__item--highlighted {
+"#{$baseClass}__item--highlighted" {
   background-color: #E6E9E7;
+}
+
+"#{$baseClass}__item--noResult" {
+  font-style: italic;
 }

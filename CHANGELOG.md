@@ -7,6 +7,7 @@
 ## Dropdown and DropdownSuggest components
 
 Dropdown and dropdown-suggest have been updated. As they share common functionality, dropdown and dropdown-suggest now use a List decorator. This should not affect how you use either component.
+* Dropdown now filters results as you type. 
 
 ## Dialog Cancel button
 
@@ -139,6 +140,7 @@ You can now define Validations on a component using the following syntax:
 * Checkbox label now sits inline, and is reversable.
 * Added props on inputs for inline labels.
 * Added Rainbow chart component.
+* Added Number component.
 * Decimal now allows tabbing in and out of the field.
 * Date now closes on tab out.
 
