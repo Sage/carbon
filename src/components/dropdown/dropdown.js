@@ -56,8 +56,8 @@ class Dropdown extends React.Component {
      * The user input search text.
      *
      * @property filter
-     * @type {String}
-     * @default ''
+     * @type {Object | String}
+     * @default null
      */
     filter: null
   };

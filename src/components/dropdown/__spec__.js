@@ -128,51 +128,54 @@ fdescribe("Dropdown", () => {
       input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
     });
 
-    it('turns off filtering', () => {
-      instance.filterActive = true;
-      TestUtils.Simulate.blur(input[0]);
-      expect(instance.filterActive).toBeFalsy();
+    describe('when blurring is not blocked', () => {
+      it('clears the filter', () => {
+        TestUtils.Simulate.blur(input[0]);
+        expect(instance.setState).toHaveBeenCalledWith({ filter: null });
+      });
     });
 
-    it('clears the filter', () => {
-      TestUtils.Simulate.blur(input[0]);
-      expect(instance.setState).toHaveBeenCalledWith({ filter: '' });
+    describe('when blurring is blocked', () => {
+      it('does not clear the filter', () => {
+        instance.blockBlur = true;
+        TestUtils.Simulate.blur(input[0]);
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
     });
   });
 
   describe('handleSelect', () => {
+    let ev;
+
     beforeEach(() => {
-      instance.filterActive = true;
       spyOn(instance, 'setState');
       spyOn(instance, 'emitOnChangeCallback');
-      let ev = { target: { getAttribute: function() {} }};
-      spyOn(ev.target, 'getAttribute').and.returnValue('foo');
+      ev = { currentTarget: { getAttribute: function() {} }};
+      spyOn(ev.currentTarget, 'getAttribute').and.returnValue('foo');
+      instance.blockBlur = true;
+    });
+
+    it('turns blur blocking off', () => {
       instance._handleSelect(ev);
+      expect(instance.blockBlur).toBeFalsy();
     });
 
     it('calls emitOnChangeCallback with the selected value', () => {
+      instance._handleSelect(ev);
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('foo');
     });
 
     it('clears the filter', () => {
-      expect(instance.setState).toHaveBeenCalledWith({ filter: '' });
-    });
-
-    it('turns off filtering', () => {
-      expect(instance.filterActive).toBeFalsy();
+      instance._handleSelect(ev);
+      expect(instance.setState).toHaveBeenCalledWith({ filter: null });
     });
   });
 
   describe('handleVisibleChange', () => {
     beforeEach(() => {
-      instance.filterActive = false;
       spyOn(instance, 'setState');
       let ev = { target: { value: 'far' }};
       instance.handleVisibleChange(ev);
-    });
-
-    it('turns on filtering', () => {
-      expect(instance.filterActive).toBeTruthy();
     });
 
     it('calls setState with the filter text', () => {
@@ -211,8 +214,8 @@ fdescribe("Dropdown", () => {
       option = options[0];
     });
 
-    it('returns the option when no filter text is passed',() => {
-      expect(instance.highlightMatches(option.name, '')).toEqual(option);
+    it('returns the option when no filter text is passed', () => {
+      expect(instance.highlightMatches(option.name, '')).toEqual(option.name);
     });
 
     describe('when valid matches are found', () => {
@@ -228,7 +231,7 @@ fdescribe("Dropdown", () => {
         endContent = output[2].props.children;
       });
 
-      it('returns option with matching text bold & underlined',() => {
+      it('returns option with matching text bold & underlined', () => {
         expect(middleOuter.type).toEqual('strong');
         expect(middleContent).toEqual('f');
         expect(middleInner.type).toEqual('u');
@@ -249,7 +252,36 @@ fdescribe("Dropdown", () => {
   });
 
   fdescribe('prepareList', () => {
-    beforeEach('')
+    let options;
+
+    beforeEach(() => {
+      options = data.get('items');
+      spyOn(instance, 'highlightMatches').and.returnValue('foo');
+    });
+
+    describe('when no filter is applied', () => {
+      it('returns the original options as JSON', () => {
+        expect(instance.prepareList(options)).toEqual(options.toJS());
+      });
+    });
+
+    fdescribe('when a filter is being applied', () => {
+      describe('when matches are found', () => {
+        it('returns matched items with formatted matching text', () => {
+          let match = options.toJS();
+          instance.state.filter = 'fo';
+          debugger
+          expect(instance.prepareList(options)).toEqual(match[0].name);
+        });
+      });
+
+      describe('when no matches are found', () => {
+        it('returns an empty object', () => {
+          instance.state.filter = 'xXx';
+          expect(instance.prepareList(options)).toEqual([]);
+        });
+      })
+    });
   });
 
   describe('inputProps', () => {
