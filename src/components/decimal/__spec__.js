@@ -276,6 +276,20 @@ describe('Decimal', () => {
         expect(instance.selectionStart).toEqual(0);
         expect(instance.selectionEnd).toEqual(0);
       });
+
+      describe('when passed a custom onKeyDown function', () => {
+        it('calls this onKeyDown function with the event and its props', () => {
+          let spy = jasmine.createSpy('spy');
+          instance = TestUtils.renderIntoDocument(<Decimal
+            name="Dummy Decimal"
+            onKeyDown={ spy }
+          />);
+
+          let param = { target: { selectionStart: 1, selectionEnd: 2 } }
+          instance.handleKeyDown(param);
+          expect(spy).toHaveBeenCalledWith(param, instance.props);
+        });
+      });
     });
 
     describe('render', () => {
