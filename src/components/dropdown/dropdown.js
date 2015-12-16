@@ -50,18 +50,29 @@ class Dropdown extends React.Component {
   visibleValue = null;
 
   static propTypes = {
-
     /**
      * The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.
      *
      * @property options
      * @type {object}
      */
-    options: React.PropTypes.object.isRequired
-  };
+    options: React.PropTypes.object.isRequired,
+
+    /**
+     * Determines if the filter is enabled.
+     *
+     * @property filter
+     * @type {Boolean}
+     * @default true
+     */
+    filter: React.PropTypes.bool
+  }
+
+  static defaultProps = {
+    filter: true
+  }
 
   state = {
-
     /**
      * The user input search text.
      *
@@ -70,7 +81,7 @@ class Dropdown extends React.Component {
      * @default null
      */
     filter: null
-  };
+  }
 
   /**
    * Clears the visible value if a new value has been selected.
@@ -104,7 +115,9 @@ class Dropdown extends React.Component {
     let highlighted = this.props.value ? this.props.value : data.first().get('id');
 
     // auto select the value
-    this.refs.input.setSelectionRange(0, this.refs.input.value.length);
+    if (this.props.filter) {
+      this.refs.input.setSelectionRange(0, this.refs.input.value.length);
+    }
 
     this.setState({
       open: true,
@@ -151,7 +164,7 @@ class Dropdown extends React.Component {
    * @method handleBlur
    */
   handleBlur = () => {
-    if (!this.blockBlur) {
+    if (!this.blockBlur && this.props.filter) {
       this.setState({ filter: null });
     }
   }
@@ -165,7 +178,10 @@ class Dropdown extends React.Component {
   handleSelect = (ev) => {
     this.blockBlur = false;
     this.emitOnChangeCallback(ev.currentTarget.getAttribute('value'));
-    this.setState({ filter: null });
+
+    if (this.props.filter) {
+      this.setState({ filter: null });
+    }
   }
 
   /*
@@ -176,7 +192,10 @@ class Dropdown extends React.Component {
    */
   handleVisibleChange = (ev) => {
     let value = ev.target.value;
-    this.setState({ filter: value });
+
+    if (this.props.filter) {
+      this.setState({ filter: value });
+    }
   }
 
   /**
@@ -256,6 +275,7 @@ class Dropdown extends React.Component {
     if (typeof this.state.filter === 'string'){
       let filter = this.state.filter;
       let regex = new RegExp(filter, 'i');
+
       // if user has entered a search filter
       _options = _options.filter((option) => {
         if (option.name.search(regex) > -1) {
@@ -281,6 +301,10 @@ class Dropdown extends React.Component {
     props.onChange = this.handleVisibleChange;
     props.onBlur = this.handleBlur;
     props.ref = "input";
+
+    if (!this.props.filter) {
+      props.readOnly = true;
+    }
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
