@@ -394,6 +394,11 @@ describe("Dropdown", () => {
     it('returns the main class names', () => {
       expect(instance.mainClasses).toMatch('ui-dropdown');
     });
+
+    it('adds open class when state is open', () => {
+      instance.setState({ open: true });
+      expect(instance.mainClasses).toMatch('ui-dropdown ui-dropdown--open');
+    });
   });
 
   describe('inputClasses', () => {

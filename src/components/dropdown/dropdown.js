@@ -345,7 +345,13 @@ class Dropdown extends React.Component {
    * @method mainClasses
    */
   get mainClasses() {
-    return this.rootClass;
+    let classes = this.rootClass;
+
+    if (this.state.open) {
+      classes += ` ${this.rootClass}--open`;
+    }
+
+    return classes;
   }
 
   /**

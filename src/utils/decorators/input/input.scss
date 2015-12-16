@@ -8,7 +8,7 @@
   position: relative;
 
   &:hover .common-input__message {
-    display: block;
+    display: table;
   }
 
   + .common-input {
@@ -81,6 +81,7 @@
   border-radius: 3px 3px 3px 0;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   box-sizing: border-box;
+  display: table;
   left: 100%;
   margin-top: $arrow-size;
   max-width: 250px;
@@ -106,7 +107,7 @@
 }
 
 .common-input__message--locked {
-  display: block;
+  display: table;
 }
 
 .common-input__message--flipped {
