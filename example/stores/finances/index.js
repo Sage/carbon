@@ -46,6 +46,40 @@ const data = ImmutableHelper.parseJSON({
       credit: "2.00",
       total: "-81.21"
     }
+  ],
+  options: [
+    {
+      id: 1,
+      name: 'Cash'
+    },
+    {
+      id: 2,
+      name: 'Debit'
+    },
+    {
+      id: 3,
+      name: 'Current'
+    },
+    {
+      id: 4,
+      name: 'ISA'
+    },
+    {
+      id: 5,
+      name: 'Line of Credit'
+    },
+    {
+      id: 6,
+      name: 'Pension'
+    },
+    {
+      id: 7,
+      name: 'Saver Plus'
+    },
+    {
+      id: 8,
+      name: 'Savings'
+    }
   ]
 });
 

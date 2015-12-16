@@ -33,6 +33,7 @@ class Finances extends React.Component {
           <FinancesDetails
             name={ name }
             accounts={ this.state.financesStore.get('accounts') }
+            options={ this.state.financesStore.get('options') }
             discount={ this.state.financesStore.get('discount') }
             dateFrom={ this.state.financesStore.get('date_from') } />
 

@@ -20,6 +20,23 @@ describe("Dropdown", () => {
     input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
   });
 
+    describe ('componentWillReceiveProps', () => {
+      describe('when props have changed', () => {
+        it('clears the visible value', () => {
+          instance.componentWillReceiveProps({value: 1});
+          expect(instance.visibleValue).toBeFalsy();
+        });
+      });
+
+      describe('when props have not changed', () => {
+        it('does not clear the visible value', () => {
+          instance.visibleValue = 'bar'
+          instance.componentWillReceiveProps({value: 2 });
+          expect(instance.visibleValue).toEqual('bar');
+        });
+      });
+    });
+
   describe('emitOnChangeCallback', () => {
     it('calls the change handler with the selected item', () => {
       spyOn(instance, '_handleOnChange');
@@ -80,7 +97,7 @@ describe("Dropdown", () => {
   });
 
    describe('handleMouseEnterList', () => {
-      it('sets blockBlur to true', () => {
+      it('turns blur blocking off', () => {
         instance.blockBlur = false;
         TestUtils.Simulate.mouseEnter(instance.refs.list);
         expect(instance.blockBlur).toBeTruthy();
@@ -88,7 +105,7 @@ describe("Dropdown", () => {
     });
 
     describe('handleMouseLeaveList', () => {
-      it('sets blockBlur to true', () => {
+      it('turns blur blocking on', () => {
         instance.blockBlur = true;
         TestUtils.Simulate.mouseLeave(instance.refs.list);
         expect(instance.blockBlur).toBeFalsy();
@@ -114,7 +131,7 @@ describe("Dropdown", () => {
       });
 
       describe('when the target was the list', () => {
-        it('does not call focus on the input', () => {
+        it('does call focus on the input', () => {
           TestUtils.Simulate.mouseDown(instance.refs.list, { target: instance.refs.list });
           jasmine.clock().tick(0);
           expect(instance.refs.input.focus).toHaveBeenCalled();
@@ -194,13 +211,14 @@ describe("Dropdown", () => {
     describe('when a value has been selected', () => {
       describe('when the selected value is valid', () => {
         it('returns the corresponding name', () => {
-          expect(instance.nameByID(1)).toEqual('foo');
+          expect(instance.nameByID()).toEqual('bar');
         });
       });
 
       describe('when the selected value does not have a corresponding name', () => {
         it('sets visible value to an empty string', () => {
-          expect(instanceInvalid.nameByID(5)).toBeFalsy();
+          let instance = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 5 } />);
+          expect(instance.nameByID()).toBeFalsy();
         });
       });
     });

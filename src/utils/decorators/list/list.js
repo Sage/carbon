@@ -110,7 +110,10 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
 
     } else {
       results = <li className={ `${commonName} ${commonName}--noResult` }>
-                { I18n.t("dropdownlist.no_results", { defaultValue: "No results match: " }) +  `${this.state.filter}` }
+                  { I18n.t("dropdownlist.no_results",
+                  { defaultValue: "No results match: " }) +
+                    this.state.filter
+                  }
                 </li>;
     }
 

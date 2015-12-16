@@ -39,6 +39,16 @@ class Dropdown extends React.Component {
    */
   blockBlur = false;
 
+  /**
+   * Variable to cache current value.
+   * Setting it here rather than state prevents complete rerender when value changes.
+   *
+   * @property visibleValue
+   * @type {Object | String}
+   * @default null
+   */
+  visibleValue = null;
+
   static propTypes = {
 
     /**
@@ -61,6 +71,18 @@ class Dropdown extends React.Component {
      */
     filter: null
   };
+
+  /**
+   * Clears the visible value if a new value has been selected.
+   *
+   * @method componentWillReceiveProps
+   * @param {Object} nextProps the updated props
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value != this.props.value) {
+      this.visibleValue = null;
+    }
+  }
 
   /**
    * Runs the callback onChange action
@@ -160,18 +182,27 @@ class Dropdown extends React.Component {
    * @method nameByID
    * @param {String} value
    */
-  nameByID = (value) => {
+  nameByID = () => {
+    let value = this.props.value;
+
     // if no value selected, no match possible
     if (!value) {
-      return '';
+      return this.visibleValue = '';
     }
+
     // Match selected id to corresponding list option
     let option = this.props.options.find((item) => {
       return item.get('id') == value;
     });
 
+    // If match is found, set visibleValue to option's name;
+    if (option) {
+      this.visibleValue = option.get('name');
+    } else {
+      this.visibleValue = '';
+    }
     // If match is found, set value to option's name;
-    return option ? option.get('name') : '';
+    return this.visibleValue;
   }
 
   /**
@@ -242,7 +273,7 @@ class Dropdown extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.value = (typeof this.state.filter === 'string') ? this.state.filter : this.nameByID(this.props.value);
+    props.value = (typeof this.state.filter === 'string') ? this.state.filter : this.visibleValue || this.nameByID(this.props.value);
     props.name = null;
     props.onChange = this.handleVisibleChange;
     props.onBlur = this.handleBlur;
@@ -296,7 +327,9 @@ class Dropdown extends React.Component {
    * @method inputClasses
    */
   get inputClasses() {
-    let inputClasses = `${this.rootClass}__input` + ((typeof this.state.filter === 'string')  ? ` ${this.rootClass}__input--filter` : '');
+    let inputClasses = `${this.rootClass}__input` +
+                        ((typeof this.state.filter === 'string') ?
+                        ` ${this.rootClass}__input--filter` : '');
     return inputClasses;
   }
 
