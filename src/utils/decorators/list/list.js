@@ -94,25 +94,35 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
 
     if (options.length) {
       results = options.map((option) => {
+        let klass = className + commonName;
 
+        // add highlighted class
+        if (this.state.highlighted == option.id) {
+          klass += ` ${className}--highlighted${commonName}--highlighted`;
+        }
+
+        // add selected class
+        if (this.props.value == option.id) {
+          klass += ` ${className}--selected${commonName}--selected`;
+        }
 
         return <li
-                  key={option.name + option.id}
-                  value={option.id}
-                  onClick={this._handleSelect}
-                  onMouseOver={this._handleMouseOver}
-                  className={(this.state.highlighted == option.id) ?
-                    `${className} ${className}--highlighted${commonName}${commonName}--highlighted` :
-                    `${className}${commonName}` }>
-                  {option.name}
+                  key={ option.name + option.id }
+                  value={ option.id }
+                  onClick={ this._handleSelect }
+                  onMouseOver={ this._handleMouseOver }
+                  className={ klass }>
+                  { option.name }
                 </li>;
       });
 
     } else {
       results = <li className={ `${commonName} ${commonName}--noResult` }>
-                  { I18n.t("dropdownlist.no_results",
-                  { defaultValue: "No results match: " }) +
-                    this.state.filter
+                  {
+                    I18n.t("dropdownlist.no_results", {
+                      defaultValue: "No results match \"%{term}\"",
+                      term: this.state.filter
+                    })
                   }
                 </li>;
     }

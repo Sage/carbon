@@ -48,7 +48,13 @@ describe("Dropdown", () => {
 
   describe('handleFocus', () => {
     beforeEach(() => {
+      spyOn(instance.refs.input, 'setSelectionRange');
       spyOn(instance, 'setState').and.callThrough();
+    });
+
+    it('select all the value', () => {
+      TestUtils.Simulate.focus(input[0]);
+      expect(instance.refs.input.setSelectionRange).toHaveBeenCalledWith(0, instance.refs.input.value.length);
     });
 
     it('calls setState and opens the dropdown', () => {
@@ -420,7 +426,7 @@ describe("Dropdown", () => {
           highlighted: 2
         });
         expect(listItems[0].className).toEqual("ui-dropdown__item common-list__item");
-        expect(listItems[1].className).toEqual("ui-dropdown__item ui-dropdown__item--highlighted common-list__item common-list__item--highlighted");
+        expect(listItems[1].className).toEqual("ui-dropdown__item common-list__item ui-dropdown__item--highlighted common-list__item--highlighted ui-dropdown__item--selected common-list__item--selected");
       });
     });
   });
