@@ -21,11 +21,13 @@ describe("DropdownSuggest", () => {
       let input = instance.refs.hidden;
       expect(input.tagName).toEqual("INPUT");
       expect(input.type).toEqual('hidden');
+      expect(input.name).toEqual('bla_id]');
     });
 
     it("renders a visible input", () => {
       let input = instance.refs.filter;
       expect(input.tagName).toEqual("INPUT");
+      expect(input.name).toEqual('');
     });
 
     it("renders a ul", () => {
@@ -68,6 +70,21 @@ describe("DropdownSuggest", () => {
         expect(listItems[1].className).toEqual("ui-dropdown-suggest__item common-list__item ui-dropdown-suggest__item--highlighted common-list__item--highlighted");
       });
     });
+
+    describe('render with initialVisibleValue', () => {
+      it('sets the states visibleValue', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownSuggest
+            name="bla"
+            path="/foo"
+            resource_key="key"
+            initialVisibleValue='my value'
+            value='1'
+          />);
+
+        expect(instance.state.visibleValue).toEqual('my value');
+      });
+    });
   });
 
   describe("resetScroll", () => {
@@ -88,7 +105,7 @@ describe("DropdownSuggest", () => {
 
     describe("on return key", () => {
       describe("if no item is highlighted", () => {
-        it("does not update the value and open state", () => {
+        it("does not update the visible value and open state", () => {
           spyOn(instance, 'setState');
           spyOn(instance, 'emitOnChangeCallback');
 
@@ -99,7 +116,7 @@ describe("DropdownSuggest", () => {
       });
 
       describe("if an item is highlighted", () => {
-        it("emits on change callback and closes the results list", () => {
+        beforeEach(() => {
           instance.setState({
             options: [{ id: 1, name: "Foo" }, { id: 25, name: "Bar" }],
             highlighted: 25
@@ -107,12 +124,15 @@ describe("DropdownSuggest", () => {
           spyOn(instance, 'setState');
           spyOn(instance, 'emitOnChangeCallback');
 
-          let element = instance.props.value.set(instance.props.resource_key, "Bar");
-          element = element.set('id', 25);
-
           TestUtils.Simulate.keyDown(filter, { which: 13 });
-          expect(instance.setState).toHaveBeenCalledWith({ open: false });
-          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(element);
+        });
+
+        it("emits on change callback and closes the results list", () => {
+          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(25);
+        });
+
+        it('sets visible value and closes the results list', () => {
+          expect(instance.setState).toHaveBeenCalledWith({ open: false, visibleValue: "Bar" });
         });
       });
     });
@@ -187,14 +207,13 @@ describe("DropdownSuggest", () => {
       instance.setState({
         options: [{ id: 1, name: "Foo" }, { id: 25, name: "Bar" }]
       });
+      spyOn(instance, 'setState');
       spyOn(instance, 'emitOnChangeCallback');
       let listItem = instance.refs.list.childNodes[1];
 
-      let element = instance.props.value.set(instance.props.resource_key, "Bar");
-      element = element.set('id', 25);
-
       TestUtils.Simulate.click(listItem);
-      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(element);
+      expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "Bar" });
+      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(25);
     });
   });
 
@@ -207,8 +226,7 @@ describe("DropdownSuggest", () => {
       filter = instance.refs.filter;
       filter.value = "qux";
 
-      element = instance.props.value.set(instance.props.resource_key, filter.value);
-      element = element.set('id', null);
+      instance.setState({ visibleValue: filter.value });
 
       spyOn(instance, 'emitOnChangeCallback');
       spyOn(instance, 'getData');
@@ -326,18 +344,18 @@ describe("DropdownSuggest", () => {
     });
 
     describe("when there is NO options", () => {
-      describe("and an id has been set", () => {
+      describe("when value is present", () => {
         it("calls getData", () => {
-          spyOn(instance.props.value, 'get').and.returnValue(1);
+          instance.props = { value: 1 }
           TestUtils.Simulate.focus(filter);
           jasmine.clock().tick(0);
           expect(instance.getData).toHaveBeenCalled();
         });
       });
 
-      describe("and an id has NOT been set", () => {
+      describe("and value is not present", () => {
         it("calls getData", () => {
-          spyOn(instance.props.value, 'get').and.returnValue(null);
+          instance.props = { value: undefined }
           TestUtils.Simulate.focus(filter);
           jasmine.clock().tick(0);
           expect(instance.getData).toHaveBeenCalled();
@@ -346,21 +364,10 @@ describe("DropdownSuggest", () => {
     });
 
     describe("when there are options", () => {
-      describe("and an id has been set", () => {
-        it("calls getData", () => {
-          instance.setState({ options: [{}]});
-          spyOn(instance.props.value, 'get').and.returnValue(1);
-
-          TestUtils.Simulate.focus(filter);
-          jasmine.clock().tick(0);
-          expect(instance.getData).toHaveBeenCalled();
-        });
-      });
-
-      describe("and an id has NOT been set", () => {
+      describe("and there is no value", () => {
         it("calls setState to open the list", () => {
           instance.setState({ options: [{}]});
-          spyOn(instance.props.value, 'get').and.returnValue(null);
+          instance.props = { value: undefined }
           spyOn(instance, 'setState');
 
           TestUtils.Simulate.focus(filter);
@@ -544,14 +551,14 @@ describe("DropdownSuggest", () => {
       });
     });
 
-    describe("with page value and input value but no id", () => {
+    describe("with page value and visible input value but no id", () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <DropdownSuggest
             name="bla"
             path="/foo"
             resource_key="customkey"
-            value={ Immutable.Map({ id: '', customkey: 'my value' }) }
+            initialVisibleValue='my value'
           />);
       });
 
@@ -562,14 +569,15 @@ describe("DropdownSuggest", () => {
       });
     });
 
-    describe("with page value and input value and id", () => {
+    describe("with page value and visible input value and id", () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <DropdownSuggest
             name="bla"
             path="/foo"
             resource_key="customkey"
-            value={ Immutable.Map({ id: '1', customkey: 'my value' }) }
+            value='1'
+            initialVisibleValue='my value'
           />);
       });
 

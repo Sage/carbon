@@ -142,7 +142,6 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
 
     return inputProps;
   }
-
 };
 
 export default List;
