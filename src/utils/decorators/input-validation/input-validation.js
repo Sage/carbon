@@ -89,11 +89,12 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
           message = this.refs.validationMessage;
 
       if (icon && message) {
-        let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2));
+        let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2)),
+            topOffset = icon.offsetTop - icon.offsetHeight;
 
         // set initial position for message
         message.style.left = `${messagePositionLeft}px`;
-        message.style.top = `-${message.offsetHeight - 10}px`;
+        message.style.top = `-${message.offsetHeight - topOffset}px`;
 
         // figure out if the message is positioned offscreen
         let messageScreenPosition = message.getBoundingClientRect().left + message.offsetWidth;
