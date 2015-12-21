@@ -75,7 +75,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
   static contextTypes = _.assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object,
-    tabItem: React.PropTypes.object
+    tab: React.PropTypes.object
   })
 
   /**
@@ -180,9 +180,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
         }
 
         // if input has a tab
-        if (this.context.tabItem) {
+        if (this.context.tab) {
           // tell the input it has a invalid field
-          this.context.tabItem.setValidity(false)
+          this.context.tab.setValidity(false)
         }
 
         // a validation has failed, so exit the loop at this point
@@ -229,7 +229,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       // if there is a form, decrement the error count
       if (this.context.form) { this.context.form.decrementErrorCount(); }
       // if there is tab, remove invalid state
-      if (this.context.tabItem) { this.context.tabItem.setValidity(true) }
+      if (this.context.tab) { this.context.tab.setValidity(true) }
       // reset the error state
       this.setState({ errorMessage: null, valid: true });
     }

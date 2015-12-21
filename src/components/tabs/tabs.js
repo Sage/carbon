@@ -1,16 +1,16 @@
 import React from 'react';
 
 /**
- * A Tab widget.
+ * A Tabs widget.
  *
- * == How to use a Form in a component:
+ * == How to use a Tabs Widget in a component:
  *
  * In your file
  *
- *   import Tab from 'carbon/lib/components/tab';
- *   import TabItem from 'carbon/lib/components/tab-item';
+ *   import Tabs from 'carbon/lib/components/tabs';
+ *   import Tabs from 'carbon/lib/components/tab';
  *
- * To render a Tab:
+ * To render a Tabs Widget:
  *
  *   <Tabs>
  *     <Tab title='Title 1'>
@@ -36,10 +36,10 @@ import React from 'react';
  * other tabs will not be rendered to the page however this will not work correctly
  * when a form needs to validte fields on non visible tabs.
  *
- * @class Tab 
+ * @class Tabs
  * @constructor
  */
-class Tab extends React.Component {
+class Tabs extends React.Component {
 
   static propTypes = {
 
@@ -74,7 +74,7 @@ class Tab extends React.Component {
      * @property tab
      * @type {Object}
      */
-    tab: React.PropTypes.object
+    tabs: React.PropTypes.object
   }
 
   /**
@@ -84,7 +84,7 @@ class Tab extends React.Component {
    */
   getChildContext() {
     return {
-      tab: {
+      tabs: {
         changeValidity: this.changeValidity
       }
     };
@@ -109,9 +109,9 @@ class Tab extends React.Component {
    */
   componentWillMount() {
     let numOfTabs = this.props.numberOfTabs || React.Children.count(this.props.children);
-    let initialSelectedTab = this.props.initialTab || 0;
+    let initialSelectedTabId = this.props.children[this.props.initialTabKey] || this.props.children[0].props.tabId
 
-    this.setState({ numberOfTabs: numOfTabs, selectedTab: initialSelectedTab });
+    this.setState({ numberOfTabs: numOfTabs, selectedTabId: initialSelectedTabId });
   }
 
   /**
@@ -135,7 +135,7 @@ class Tab extends React.Component {
    * @param {Event} ev Click Event
    */
   handleTabClick = (ev) => {
-    this.setState({ selectedTab: Number(ev.target.dataset.tab) })
+    this.setState({ selectedTabId: ev.target.dataset.tabid })
   }
 
   /**
@@ -154,22 +154,22 @@ class Tab extends React.Component {
    * @return Unordered list of tab titles
    */
   get tabHeaders() {
-    let tabTitles = React.Children.map(this.props.children, ((child, index) => {
+    let tabTitles = React.Children.map(this.props.children, ((child) => {
 
       let validClass = ''
        
-      if (this.state.tabValidity[index] == false) {
+      if (this.state.tabValidity[child.props.tabId] == false) {
         validClass = ' ui-tab__headers__header--error';
       }
 
-      let selectedClassName = index === this.state.selectedTab ? ' selected' : '';
+      let selectedClassName = child.props.tabId === this.state.selectedTabId ? ' selected' : '';
 
       return(
       <li
         className={ "ui-tab__headers__header" + selectedClassName + validClass }
         onClick={ this.handleTabClick }
         key={ child.props.title }
-        data-tab={ index } >
+        data-tabid={ child.props.tabId } >
           { child.props.title }
       </li>);
     }));
@@ -184,7 +184,7 @@ class Tab extends React.Component {
    * @return {JSX} visible tab
    */
   get visibleTab() {
-    let clone = React.cloneElement(child, { id: this.selectedTab });
+    let clone = React.cloneElement(child, { id: this.selectedTabId });
     return <div className='selected'>{ clone }</div>
   }
 
@@ -199,14 +199,14 @@ class Tab extends React.Component {
 
     let tabs;
 
-    tabs = React.Children.map(this.props.children, ((child, index) => {
+    tabs = React.Children.map(this.props.children, ((child) => {
       let klass = 'hidden';
 
-      if (index === this.state.selectedTab) {
+      if (child.props.tabId === this.state.selectedTabId) {
         klass = 'selected';
       }
 
-      let clone = React.cloneElement(child, { id: index });
+      let clone = React.cloneElement(child, { id: child.props.tabId });
       return <div className={ klass }>{ clone }</div>
     }));
 
@@ -228,4 +228,4 @@ class Tab extends React.Component {
   }
 }
 
-export default Tab;
+export default Tabs;
