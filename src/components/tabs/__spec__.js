@@ -124,15 +124,29 @@ fdescribe('Tabs', () => {
   });
 
   describe('tabHeaders', () => {
-     
+    it('renders unordered list of headers', () => {
+      expect(instance.tabHeaders.type).toBe('ul');
+    });
+
+    it('renders a list item for each tab passed to the tabs', () => {
+      expect(instance.tabHeaders.props.children.length).toEqual(2);
+    });
+
+    it('adds a data-tabid to each list item', () => {
+      expect(instance.tabHeaders.props.children[0].props['data-tabid']).toEqual('uniqueid1');
+    });
   });
 
   describe('visibleTab', () => {
-    
+    it('builds one single tab', () => {
+
+    });
   });
+
   describe('tabs', () => {
     
   });
+
   describe('render', () => {
     
   });
