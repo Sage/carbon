@@ -13,14 +13,14 @@ import React from 'react';
  * To render a Tabs Widget:
  *
  *   <Tabs>
- *     <Tab title='Title 1'>
+ *     <Tab title='Title 1' tabId='uniqueId1'>
  *
  *       <Textbox />
  *       <Textbox />
  *
  *     </Tab>
  *
- *     <Tab title='Title 2'>
+ *     <Tab title='Title 2' tabId='uniqueId2'>
  *
  *       <Date />
  *       <Textbox />
@@ -50,20 +50,12 @@ class Tabs extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    renderHiddenTabs: React.PropTypes.bool,
-
-    /**
-     * The number of child tabs
-     *
-     * @property numberOfTabs 
-     * @type {Number}
-     */
-    numberOfTabs: React.PropTypes.number
+    renderHiddenTabs: React.PropTypes.bool
   }
 
   static defaultProps = {
-    renderHiddenTabs: true,
-  }
+    renderHiddenTabs: true
+  };
 
   static childContextTypes = {
 
@@ -75,7 +67,7 @@ class Tabs extends React.Component {
      * @type {Object}
      */
     tabs: React.PropTypes.object
-  }
+  };
 
   /**
    * Returns tabs object to tab component.
@@ -108,10 +100,9 @@ class Tabs extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
-    let numOfTabs = this.props.numberOfTabs || React.Children.count(this.props.children);
-    let initialSelectedTabId = this.props.children[this.props.initialTabKey] || this.props.children[0].props.tabId
+    let initialSelectedTabId = this.props.initialTabId || this.props.children[0].props.tabId
 
-    this.setState({ numberOfTabs: numOfTabs, selectedTabId: initialSelectedTabId });
+    this.setState({ selectedTabId: initialSelectedTabId });
   }
 
   /**
@@ -144,7 +135,30 @@ class Tabs extends React.Component {
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    return 'ui-tab';
+    let classes = 'ui-tabs ';
+
+    if (this.props.className) {
+      classes += this.props.className;
+    }
+    return classes;
+  }
+
+  get headerClasses() {
+
+  }
+
+  tabHeaderClasses = (tab) => {
+    let classes = 'ui-tabs__headers__header'
+
+    if (this.state.tabValidity[tab.props.tabId] == false) {
+      classes += ' ui-tabs__headers__header--error';
+    }
+
+    if (tab.props.tabId === this.state.selectedTabId) {
+      classes += ' selected';
+    }
+
+    return classes;
   }
 
   /**
@@ -156,17 +170,9 @@ class Tabs extends React.Component {
   get tabHeaders() {
     let tabTitles = React.Children.map(this.props.children, ((child) => {
 
-      let validClass = ''
-       
-      if (this.state.tabValidity[child.props.tabId] == false) {
-        validClass = ' ui-tab__headers__header--error';
-      }
-
-      let selectedClassName = child.props.tabId === this.state.selectedTabId ? ' selected' : '';
-
-      return(
+    return(
       <li
-        className={ "ui-tab__headers__header" + selectedClassName + validClass }
+        className={ this.tabHeaderClasses(child) }
         onClick={ this.handleTabClick }
         key={ child.props.title }
         data-tabid={ child.props.tabId } >
@@ -174,7 +180,7 @@ class Tabs extends React.Component {
       </li>);
     }));
 
-    return <ul className='ui-tab__headers' >{ tabTitles }</ul>;
+    return <ul className='ui-tabs__headers' >{ tabTitles }</ul>;
   }
 
   /**
