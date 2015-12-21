@@ -1,0 +1,5 @@
+{
+  "name": "tab-item",
+  "style": "tab-item.scss",
+  "main": "./tab-item.js"
+}
