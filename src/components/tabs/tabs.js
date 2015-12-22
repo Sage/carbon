@@ -153,10 +153,6 @@ class Tabs extends React.Component {
     return classes;
   }
 
-  get headerClasses() {
-
-  }
-
   tabHeaderClasses = (tab) => {
     let classes = 'ui-tabs__headers__header';
 

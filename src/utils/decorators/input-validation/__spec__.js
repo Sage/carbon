@@ -262,6 +262,16 @@ describe('InputValidation', () => {
               instance.validate();
               expect(instance.context.form.incrementErrorCount).toHaveBeenCalled();
             });
+
+            describe('when the input is within a tab', () => {
+              it('sets the notfies the tab that it is invalid', () => {
+                let spy = jasmine.createSpy();
+                instance.context.tab = { setValidity: spy };
+                instance.validate()
+
+                expect(spy).toHaveBeenCalledWith(false);
+              });
+            });
           });
 
           describe('when the input does not have a form', () => {
@@ -363,12 +373,26 @@ describe('InputValidation', () => {
     });
 
     describe('when the input has a form', () => {
-      it('should call decrementErrorCount', () => {
+      beforeEach(() => {
         instance.setState({ valid: false });
         instance.context.form = form;
+      });
+
+      it('should call decrementErrorCount', () => {
         spyOn(instance.context.form, 'decrementErrorCount');
         instance._handleKeyDown();
+
         expect(instance.context.form.decrementErrorCount).toHaveBeenCalled();
+      });
+
+      describe('when the input is within a tab', () => {
+        it('notifies the tab of the new validations state', () => {
+          let spy = jasmine.createSpy();
+          instance.context.tab = { setValidity: spy };
+          instance._handleKeyDown();
+
+          expect(spy).toHaveBeenCalledWith(true);
+        });
       });
     });
 

@@ -227,7 +227,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // if the field is in an invalid state
     if (!this.state.valid) {
       // if there is a form, decrement the error count
-      if (this.context.form) { 
+      if (this.context.form) {
         this.context.form.decrementErrorCount();
 
         // if there is tab, remove invalid state
