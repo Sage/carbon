@@ -190,13 +190,15 @@ class Tabs extends React.Component {
    * @return {JSX} visible tab
    */
   get visibleTab() {
-    let child = React.Children.forEach(this.props.children, ((child) => {
-      if (this.props.children[0].props.tabId == this.state.selectedTabId) {
-        return child;
+    let visibleTab;
+
+    React.Children.forEach(this.props.children, ((child) => {
+      if (child.props.tabId == this.state.selectedTabId) {
+        visibleTab = child;
       }
     }));
 
-    let clone = React.cloneElement(child, { id: this.selectedTabId });
+    let clone = React.cloneElement(visibleTab, { id: this.selectedTabId });
     return <div className='selected'>{ clone }</div>
   }
 

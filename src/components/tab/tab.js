@@ -99,12 +99,12 @@ class Tab extends React.Component {
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    let classes = this.props.className;
+    let classes = this.props.className || '';
     if (!this.state.isValid) {
-      classes += ' ui-tab-item--errors';
+      classes += ' ui-tab--errors';
     }
 
-    return 'ui-tab-item ' + classes;
+    return 'ui-tab ' + classes;
   }
   
   /**

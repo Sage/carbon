@@ -138,16 +138,81 @@ fdescribe('Tabs', () => {
   });
 
   describe('visibleTab', () => {
-    it('builds one single tab', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Tabs renderHiddenTabs={ false } name='Tab Comp'>
+          <Tab title='Tab Title 1' tabId='uniqueid1'>
+            <Textbox name='foo'/>
+            <Textbox name='bar'/>
+          </Tab>
+          <Tab title='Tab Title 2' tabId='uniqueid2'>
+            <Textbox name='baz'/>
+            <Textbox name='bax'/>
+          </Tab>
+        </Tabs>);
+    });
 
+    it('returns the currently visible tab', () => {
+      let tab = instance.visibleTab.props.children;
+      expect(tab.props.title).toEqual('Tab Title 1');
+      expect(tab.props.tabId).toEqual('uniqueid1');
+    });
+
+    it('adds a class of selected to the tab', () => {
+      expect(instance.visibleTab.props.className).toEqual('selected');
     });
   });
 
   describe('tabs', () => {
-    
+    describe('when renderHiddenTabs is set to true', () => {
+      it('returns an array of all child components', () => {
+        expect(instance.tabs.length).toEqual(2);
+      });
+
+      it('adds a selected class to the visible tab', () => {
+        expect(instance.tabs[0].props.className).toEqual('selected');
+      });
+
+      it('adds a hidden class to all other tabs', () => {
+        expect(instance.tabs[1].props.className).toEqual('hidden');
+      });
+
+      it('adds an extra id props to each child', () => {
+        expect(instance.tabs[0].props.children.props.id).toEqual('uniqueid1');
+        expect(instance.tabs[1].props.children.props.id).toEqual('uniqueid2');
+      });
+    });
+
+    describe('when renderHiddenTabs is set to false', () => {
+      it('returns a single child tab component', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Tabs renderHiddenTabs={ false } name='Tab Comp'>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='foo'/>
+              <Textbox name='bar'/>
+            </Tab>
+            <Tab title='Tab Title 2' tabId='uniqueid2'>
+              <Textbox name='baz'/>
+              <Textbox name='bax'/>
+            </Tab>
+          </Tabs>);
+
+        expect(typeof instance.tabs).toEqual('object');
+      });
+    });
   });
 
   describe('render', () => {
-    
+    it('creates a parent div for the component', () => {
+      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      expect(div.className).toEqual('ui-tabs ');
+    });
+
+    it('renders the tab headers', () => {
+      let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
+      let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
+      expect(list.className).toEqual('ui-tabs__headers');
+      expect(items.length).toEqual(2);
+    });
   });
 });
