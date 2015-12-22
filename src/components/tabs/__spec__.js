@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import Immutable from 'immutable';
 import Tabs from './tabs';
 import Tab from './../tab';
 import Textbox from './../textbox';
@@ -22,8 +23,8 @@ describe('Tabs', () => {
   });
 
   describe('initialize', () => {
-    it('sets tabValidity to a empty object', () => {
-      expect(instance.state.tabValidity).toEqual({});
+    it('sets tabValidity to a empty immutable map', () => {
+      expect(instance.state.tabValidity).toEqual(Immutable.Map());
     });
   });
 
@@ -52,19 +53,33 @@ describe('Tabs', () => {
           expect(instance.state.selectedTabId).toEqual('uniqueid1');
         });
       });
+
+      describe('when there is only one tab', () => {
+        it('uses the first tab', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Tabs>
+              <Tab title='Tab Title 1' tabId='uniqueid1'>
+                <Textbox name='foo'/>
+                <Textbox name='bar'/>
+              </Tab>
+            </Tabs>);
+
+          expect(instance.state.selectedTabId).toEqual('uniqueid1');
+        });
+      });
     });
   });
 
   describe('changeValidity', () => {
     beforeEach(() => {
-      instance.setState({ tabValidity: { 'foo': true } });
-      spyOn(instance, 'setState');
+      instance.setState({ tabValidity: Immutable.fromJS({ 'foo': true })});
+      spyOn(instance, 'setState').and.callThrough();
       instance.changeValidity('foo', false);
     });
 
     it('sets the validity state for the given tab', () => {
-      expect(instance.setState).toHaveBeenCalledWith({ tabValidity: { 'foo': false } });
-      expect(instance.state).toEqual({ tabValidity: { 'foo': false }, selectedTabId: 'uniqueid1' });
+      expect(instance.setState).toHaveBeenCalledWith({ tabValidity: instance.state.tabValidity.set('foo', false) });
+      expect(instance.state.tabValidity.toJS()).toEqual({ 'foo': false });
     });
   });
 
@@ -116,7 +131,7 @@ describe('Tabs', () => {
 
     describe('when tab is inValid', () => {
       it('adds a error class to the header', () => {
-        instance.setState({ tabValidity: { 'uniqueid2': false } });
+        instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
         expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--error'); 
       });

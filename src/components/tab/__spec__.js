@@ -1,22 +1,12 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Tabs from './../tabs';
 import Tab from './tab';
 import Textbox from './../textbox';
 
 describe('Tab', () => {
-  let tabs;
   let instance;
 
   beforeEach(() => {
-    tabs = TestUtils.renderIntoDocument(
-      <Tabs name='Tab Comp'>
-        <Tab title='Tab Title 1' tabId='uniqueid1'>
-          <Textbox name='foo'/>
-          <Textbox name='bar'/>
-        </Tab>
-      </Tabs>);
-
     instance = TestUtils.renderIntoDocument(
       <Tab title='Tab Title 1' tabId='uniqueid1' id='uniqueid1'>
         <Textbox name='foo'/>

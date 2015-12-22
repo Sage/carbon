@@ -1,4 +1,5 @@
 import React from 'react';
+import Immutable from 'immutable';
 
 /**
  * A Tabs widget.
@@ -125,7 +126,7 @@ class Tabs extends React.Component {
      * @property tabValidity
      * @type {Object}
      */
-    tabValidity: {}
+    tabValidity: Immutable.Map()
   }
 
   /**
@@ -159,9 +160,7 @@ class Tabs extends React.Component {
    * @param {Boolean} state of tab child
    */
   changeValidity = (id, valid) => {
-    let tabValidity = this.state.tabValidity;
-    tabValidity[id] = valid;
-    this.setState({ tabValidity: tabValidity });
+    this.setState({ tabValidity: this.state.tabValidity.set(id, valid) });
   }
 
   /**
@@ -191,7 +190,7 @@ class Tabs extends React.Component {
   tabHeaderClasses = (tab) => {
     let classes = 'ui-tabs__headers__header';
 
-    if (this.state.tabValidity[tab.props.tabId] == false) {
+    if (this.state.tabValidity.get(tab.props.tabId) == false) {
       classes += ' ui-tabs__headers__header--error';
     }
 
