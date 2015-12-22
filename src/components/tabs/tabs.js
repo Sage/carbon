@@ -1,5 +1,6 @@
 import React from 'react';
 import Immutable from 'immutable';
+import Tab from './tab';
 
 /**
  * A Tabs widget.
@@ -8,8 +9,7 @@ import Immutable from 'immutable';
  *
  * In your file
  *
- *   import Tabs from 'carbon/lib/components/tabs';
- *   import Tabs from 'carbon/lib/components/tab';
+ *   import { Tabs, Tab } from 'components/tabs';
  *
  * To render a Tabs Widget:
  *
@@ -280,4 +280,4 @@ class Tabs extends React.Component {
   }
 }
 
-export default Tabs;
+export {Tabs, Tab};
