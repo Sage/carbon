@@ -161,7 +161,7 @@ class Tabs extends React.Component {
     }
 
     if (tab.props.tabId === this.state.selectedTabId) {
-      classes += ' selected';
+      classes += ' ui-tabs__headers__header--selected';
     }
 
     return classes;
@@ -204,7 +204,7 @@ class Tabs extends React.Component {
       }
     }));
 
-    return React.cloneElement(visibleTab, { className: 'selected', id: this.selectedTabId });
+    return React.cloneElement(visibleTab, { className: 'ui-tab--selected', id: this.selectedTabId });
   }
 
   /**
@@ -222,7 +222,7 @@ class Tabs extends React.Component {
       let klass = 'hidden';
 
       if (child.props.tabId === this.state.selectedTabId) {
-        klass = 'selected';
+        klass = 'ui-tab--selected';
       }
 
       return React.cloneElement(child, { className: klass, id: child.props.tabId });

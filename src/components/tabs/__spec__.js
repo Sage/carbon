@@ -77,7 +77,7 @@ describe('Tabs', () => {
 
       TestUtils.Simulate.click(secondTab);
 
-      expect(secondTab.classList[1]).toEqual('selected');
+      expect(secondTab.classList[1]).toEqual('ui-tabs__headers__header--selected');
     });
   });
 
@@ -110,7 +110,7 @@ describe('Tabs', () => {
     describe('when tab is selected tab', () => {
       it('adds a selected class to the header', () => {
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[0];
-        expect(secondTab.className).toEqual('ui-tabs__headers__header selected'); 
+        expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--selected'); 
       });
     });
 
@@ -159,7 +159,7 @@ describe('Tabs', () => {
     });
 
     it('adds a class of selected to the tab', () => {
-      expect(instance.visibleTab.props.className).toEqual('selected');
+      expect(instance.visibleTab.props.className).toEqual('ui-tab--selected');
     });
   });
 
@@ -170,7 +170,7 @@ describe('Tabs', () => {
       });
 
       it('adds a selected class to the visible tab', () => {
-        expect(instance.tabs[0].props.className).toEqual('selected');
+        expect(instance.tabs[0].props.className).toEqual('ui-tab--selected');
       });
 
       it('adds a hidden class to all other tabs', () => {
