@@ -28,13 +28,38 @@ import React from 'react';
  *     </Tab>
  *   </Tabs>
  *
- * Optionally, you can pass `renderHiddenTabs` prop to the Tab. By default this is
- * set to true and therefore all tabs with be rendered. The selected tab with have
+ * Optionally, you can pass `renderHiddenTabs` prop to the Tabs. By default this is
+ * set to true and therefore all tabs will be rendered. The selected tab will have
  * a class of `selected` and all other tabs will have a class of `hidden` which sets
  * their display to `none`.
- * Setting `renderHiddenTabs to false will add a small performance improvement as the
- * other tabs will not be rendered to the page however this will not work correctly
- * when a form needs to validte fields on non visible tabs.
+ *
+ * Setting `renderHiddenTabs to false will add a small performance improvement as
+ * all previously hidden tabs will not be rendered to the page.
+ *
+ * If you are using the tab component within a form all tabs should be rendered so that
+ * form validation can work correctly.
+ *
+ * The tabs widget also allows you to select a tab on page load. By default this is set
+ * to the first tab. To set a different tab on page load pass a tabId to the
+ * initialSelectedTabId prop as shown in the example below.
+ *
+ * To render a Tabs Widget with Options:
+ *
+ *   <Tabs renderHiddenTabs={ false } initialSelectedTabId='uniqueId2' >
+ *     <Tab title='Title 1' tabId='uniqueId1'>
+ *
+ *       <Textbox />
+ *       <Textbox />
+ *
+ *     </Tab>
+ *
+ *     <Tab title='Title 2' tabId='uniqueId2'>
+ *
+ *       <Date />
+ *       <Textbox />
+ *
+ *     </Tab>
+ *   </Tabs>
  *
  * @class Tabs
  * @constructor
@@ -50,12 +75,22 @@ class Tabs extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    renderHiddenTabs: React.PropTypes.bool
+    renderHiddenTabs: React.PropTypes.bool,
+
+    /**
+     * The selected tab on page load
+     * Defaults to the first tab
+     *
+     * @property initialSelectedTabId
+     * @type {String}
+     * @default firstTab
+     */
+    initialSelectedTabId : React.PropTypes.string
   }
 
   static defaultProps = {
     renderHiddenTabs: true
-  };
+  }
 
   static childContextTypes = {
 
@@ -67,7 +102,7 @@ class Tabs extends React.Component {
      * @type {Object}
      */
     tabs: React.PropTypes.object
-  };
+  }
 
   /**
    * Returns tabs object to tab component.
@@ -180,7 +215,7 @@ class Tabs extends React.Component {
         <li
           className={ this.tabHeaderClasses(child) }
           onClick={ this.handleTabClick }
-          key={ child.props.title }
+          key={ child.props.tabId }
           data-tabid={ child.props.tabId } >
             { child.props.title }
         </li>);
@@ -204,7 +239,7 @@ class Tabs extends React.Component {
       }
     }));
 
-    return React.cloneElement(visibleTab, { className: 'ui-tab--selected', id: this.selectedTabId });
+    return React.cloneElement(visibleTab, { className: 'ui-tab--selected' });
   }
 
   /**
@@ -225,7 +260,7 @@ class Tabs extends React.Component {
         klass = 'ui-tab--selected';
       }
 
-      return React.cloneElement(child, { className: klass, id: child.props.tabId });
+      return React.cloneElement(child, { className: klass });
     }));
 
     return tabs;

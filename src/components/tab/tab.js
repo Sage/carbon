@@ -25,7 +25,6 @@ class Tab extends React.Component {
     /**
      * id to identify the tab within the component
      * used when validating and switching tabs
-     * this is created by the Tabs component from key
      *
      * @property tabId
      * @type {String}
@@ -82,14 +81,15 @@ class Tab extends React.Component {
   }
 
   /**
-   * Called when valid state if affected. Emits this
-   * update to parent context and sets self state
+   * Sets valid state to passed param
+   * It notifies the parent context of the change
+   * and sets the current valid state to the new value
    *
    * @method setValidity
    * @param {Boolean} valid updates validity of this tab
    */
   setValidity = (valid) => {
-    this.context.tabs.changeValidity(this.props.id, valid);
+    this.context.tabs.changeValidity(this.props.tabId, valid);
     this.setState({ isValid: valid });
   }
 
@@ -100,6 +100,7 @@ class Tab extends React.Component {
    */
   get mainClasses() {
     let classes = this.props.className || '';
+
     if (!this.state.isValid) {
       classes += ' ui-tab--errors';
     }

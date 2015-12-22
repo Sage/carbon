@@ -9,7 +9,7 @@ describe('Tabs', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Tabs name='Tab Comp'>
+      <Tabs>
         <Tab title='Tab Title 1' tabId='uniqueid1'>
           <Textbox name='foo'/>
           <Textbox name='bar'/>
@@ -32,7 +32,7 @@ describe('Tabs', () => {
       describe('when passed as props', () => {
         it('it uses the prop as the initialSelectedId', () => {
           instance = TestUtils.renderIntoDocument(
-            <Tabs name='Tab Comp' initialTabId='uniqueid2'>
+            <Tabs initialTabId='uniqueid2'>
               <Tab title='Tab Title 1' tabId='uniqueid1'>
                 <Textbox name='foo'/>
                 <Textbox name='bar'/>
@@ -89,7 +89,7 @@ describe('Tabs', () => {
     describe('when passing custom classNames', () => {
       it('adds it to the classList', () => {
         instance = TestUtils.renderIntoDocument(
-          <Tabs className='1tab' name='Tab Comp' initialTabId='uniqueid2'>
+          <Tabs className='1tab' initialTabId='uniqueid2'>
             <Tab title='Tab Title 1' tabId='uniqueid1'>
               <Textbox name='foo'/>
               <Textbox name='bar'/>
@@ -140,7 +140,7 @@ describe('Tabs', () => {
   describe('visibleTab', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Tabs renderHiddenTabs={ false } name='Tab Comp'>
+        <Tabs renderHiddenTabs={ false }>
           <Tab title='Tab Title 1' tabId='uniqueid1'>
             <Textbox name='foo'/>
             <Textbox name='bar'/>
@@ -176,17 +176,12 @@ describe('Tabs', () => {
       it('adds a hidden class to all other tabs', () => {
         expect(instance.tabs[1].props.className).toEqual('hidden');
       });
-
-      it('adds an extra id props to each child', () => {
-        expect(instance.tabs[0].props.id).toEqual('uniqueid1');
-        expect(instance.tabs[1].props.id).toEqual('uniqueid2');
-      });
     });
 
     describe('when renderHiddenTabs is set to false', () => {
       it('returns a single child tab component', () => {
         instance = TestUtils.renderIntoDocument(
-          <Tabs renderHiddenTabs={ false } name='Tab Comp'>
+          <Tabs renderHiddenTabs={ false }>
             <Tab title='Tab Title 1' tabId='uniqueid1'>
               <Textbox name='foo'/>
               <Textbox name='bar'/>
