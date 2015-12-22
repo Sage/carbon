@@ -4,7 +4,7 @@ import Tabs from './tabs';
 import Tab from './../tab';
 import Textbox from './../textbox';
 
-fdescribe('Tabs', () => {
+describe('Tabs', () => {
   let instance;
 
   beforeEach(() => {
@@ -153,7 +153,7 @@ fdescribe('Tabs', () => {
     });
 
     it('returns the currently visible tab', () => {
-      let tab = instance.visibleTab.props.children;
+      let tab = instance.visibleTab;
       expect(tab.props.title).toEqual('Tab Title 1');
       expect(tab.props.tabId).toEqual('uniqueid1');
     });
@@ -178,8 +178,8 @@ fdescribe('Tabs', () => {
       });
 
       it('adds an extra id props to each child', () => {
-        expect(instance.tabs[0].props.children.props.id).toEqual('uniqueid1');
-        expect(instance.tabs[1].props.children.props.id).toEqual('uniqueid2');
+        expect(instance.tabs[0].props.id).toEqual('uniqueid1');
+        expect(instance.tabs[1].props.id).toEqual('uniqueid2');
       });
     });
 

@@ -174,15 +174,15 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
           if (this.context.form) {
             // increment the error count on the form
             this.context.form.incrementErrorCount();
+
+            // if input has a tab
+            if (this.context.tab) {
+              // tell the input it has a invalid field
+              this.context.tab.setValidity(false);
+            }
           }
           // tell the input it is invalid
           this.setState({ errorMessage: validation.message(this.props), valid: false });
-        }
-
-        // if input has a tab
-        if (this.context.tab) {
-          // tell the input it has a invalid field
-          this.context.tab.setValidity(false)
         }
 
         // a validation has failed, so exit the loop at this point
@@ -227,9 +227,12 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // if the field is in an invalid state
     if (!this.state.valid) {
       // if there is a form, decrement the error count
-      if (this.context.form) { this.context.form.decrementErrorCount(); }
-      // if there is tab, remove invalid state
-      if (this.context.tab) { this.context.tab.setValidity(true) }
+      if (this.context.form) { 
+        this.context.form.decrementErrorCount();
+
+        // if there is tab, remove invalid state
+        if (this.context.tab) { this.context.tab.setValidity(true); }
+      }
       // reset the error state
       this.setState({ errorMessage: null, valid: true });
     }

@@ -67,11 +67,11 @@ class Tab extends React.Component {
       tab: {
         setValidity: this.setValidity
       }
-    }
+    };
   }
 
   state = {
-    
+
     /**
      * Tracks if the tab is a valid state
      *
@@ -90,7 +90,7 @@ class Tab extends React.Component {
    */
   setValidity = (valid) => {
     this.context.tabs.changeValidity(this.props.id, valid);
-    this.setState({ isValid: valid }); 
+    this.setState({ isValid: valid });
   }
 
   /**
@@ -106,13 +106,13 @@ class Tab extends React.Component {
 
     return 'ui-tab ' + classes;
   }
-  
+
   /**
    * Renders the component.
    *
    * @method render
    */
-  render() { 
+  render() {
     return(
       <div className={ this.mainClasses }>
         { this.props.children }

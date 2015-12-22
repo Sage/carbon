@@ -85,7 +85,7 @@ class Tabs extends React.Component {
   state = {
 
     /**
-     * Tracks the validity of each tab 
+     * Tracks the validity of each tab
      *
      * @property tabValidity
      * @type {Object}
@@ -100,23 +100,33 @@ class Tabs extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
-    let initialSelectedTabId = this.props.initialTabId || this.props.children[0].props.tabId
+    let initialSelectedTabId;
+
+    if (this.props.initialTabId) {
+      initialSelectedTabId = this.props.initialTabId;
+    } else {
+      if (React.Children.count(this.props.children) == 1) {
+        initialSelectedTabId = this.props.children.props.tabId;
+      } else {
+        initialSelectedTabId = this.props.children[0].props.tabId;
+      }
+    }
 
     this.setState({ selectedTabId: initialSelectedTabId });
   }
 
   /**
-   * Sets the validity state of the given tab (id) to the 
-   * given state (valid) 
-   * 
+   * Sets the validity state of the given tab (id) to the
+   * given state (valid)
+   *
    * @method changeValidity
    * @param {Number} id tab identifier
    * @param {Boolean} state of tab child
    */
   changeValidity = (id, valid) => {
     let tabValidity = this.state.tabValidity;
-    tabValidity[id] = valid
-    this.setState({ tabValidity: tabValidity });  
+    tabValidity[id] = valid;
+    this.setState({ tabValidity: tabValidity });
   }
 
   /**
@@ -126,7 +136,7 @@ class Tabs extends React.Component {
    * @param {Event} ev Click Event
    */
   handleTabClick = (ev) => {
-    this.setState({ selectedTabId: ev.target.dataset.tabid })
+    this.setState({ selectedTabId: ev.target.dataset.tabid });
   }
 
   /**
@@ -148,7 +158,7 @@ class Tabs extends React.Component {
   }
 
   tabHeaderClasses = (tab) => {
-    let classes = 'ui-tabs__headers__header'
+    let classes = 'ui-tabs__headers__header';
 
     if (this.state.tabValidity[tab.props.tabId] == false) {
       classes += ' ui-tabs__headers__header--error';
@@ -170,14 +180,14 @@ class Tabs extends React.Component {
   get tabHeaders() {
     let tabTitles = React.Children.map(this.props.children, ((child) => {
 
-    return(
-      <li
-        className={ this.tabHeaderClasses(child) }
-        onClick={ this.handleTabClick }
-        key={ child.props.title }
-        data-tabid={ child.props.tabId } >
-          { child.props.title }
-      </li>);
+      return(
+        <li
+          className={ this.tabHeaderClasses(child) }
+          onClick={ this.handleTabClick }
+          key={ child.props.title }
+          data-tabid={ child.props.tabId } >
+            { child.props.title }
+        </li>);
     }));
 
     return <ul className='ui-tabs__headers' >{ tabTitles }</ul>;
@@ -198,8 +208,7 @@ class Tabs extends React.Component {
       }
     }));
 
-    let clone = React.cloneElement(visibleTab, { id: this.selectedTabId });
-    return <div className='selected'>{ clone }</div>
+    return React.cloneElement(visibleTab, { className: 'selected', id: this.selectedTabId });
   }
 
   /**
@@ -220,8 +229,7 @@ class Tabs extends React.Component {
         klass = 'selected';
       }
 
-      let clone = React.cloneElement(child, { id: child.props.tabId });
-      return <div className={ klass }>{ clone }</div>
+      return React.cloneElement(child, { className: klass, id: child.props.tabId });
     }));
 
     return tabs;
@@ -232,7 +240,7 @@ class Tabs extends React.Component {
    *
    * @method render
    */
-  render() { 
+  render() {
     return(
       <div className={ this.mainClasses }>
         { this.tabHeaders }
