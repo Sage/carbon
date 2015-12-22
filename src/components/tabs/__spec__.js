@@ -1,8 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
-import Tabs from './tabs';
-import Tab from './../tab';
+import { Tabs, Tab } from './tabs';
 import Textbox from './../textbox';
 
 describe('Tabs', () => {

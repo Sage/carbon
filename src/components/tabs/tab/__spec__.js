@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Tab from './tab';
-import Textbox from './../textbox';
+import Textbox from './../../textbox';
 
 describe('Tab', () => {
   let instance;
