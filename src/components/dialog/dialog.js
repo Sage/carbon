@@ -25,7 +25,7 @@ import Bowser from 'bowser';
  */
 class Dialog extends React.Component {
 
-  listening = false
+  listening = false;
 
   static propTypes = {
     /**

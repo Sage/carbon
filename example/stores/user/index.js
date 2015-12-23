@@ -7,6 +7,7 @@ import ImmutableHelper from 'utils/helpers/immutable';
 // Hard code some initial data for the store
 const data = ImmutableHelper.parseJSON({
   dialogOpen: false,
+  alertOpen: false,
   name: "John Hancock",
   date_of_birth: "1980-01-23",
   address: "Sage UK\nNorth Park\nNewcastle upon Tyne"
@@ -28,6 +29,14 @@ class UserStore extends Store {
 
   [UserConstants.USER_DIALOG_CLOSED](action) {
     this.data = this.data.set('dialogOpen', false);
+  }
+
+  [UserConstants.USER_ALERT_OPENED](action) {
+    this.data = this.data.set('alertOpen', true);
+  }
+
+  [UserConstants.USER_ALERT_CLOSED](action) {
+    this.data = this.data.set('alertOpen', false);
   }
 }
 

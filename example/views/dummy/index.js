@@ -15,7 +15,7 @@ import UserDialog from './subviews/user-dialog';
 class Finances extends React.Component {
   handleOnClick = (ev) => {
     ev.preventDefault();
-    UserActions.userDialogOpened();
+    UserActions.userAlertOpened();
   }
 
   render() {
@@ -25,7 +25,7 @@ class Finances extends React.Component {
       <div className="view-finances">
         <FinancesHistory />
 
-        <Button onClick={ this.handleOnClick }>Edit My Details</Button>
+        <Button onClick={ this.handleOnClick }>Open Alert</Button>
 
         <h1 className="view-finances__title">{ name }</h1>
 
@@ -50,7 +50,7 @@ class Finances extends React.Component {
             creditTotal={ this.state.financesStore.get('credit_total') } />
         </Form>
 
-        <UserDialog />
+          <UserDialog />
       </div>
     );
   }
