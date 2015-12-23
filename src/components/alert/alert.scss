@@ -1,4 +1,17 @@
+@import 'colors';
+
 .ui-alert {
+  border-radius: 30px;
   min-width: 300px;
-  width: auto !important;
+  padding: 30px;
+  width: auto;
+}
+
+.ui-alert__title {
+  background: none;
+  color: $grey-dark;
+  font-size: 1.6em;
+  font-weight: 300;
+  margin: 10px 0 15px 0;
+  padding-bottom: 20px;
 }

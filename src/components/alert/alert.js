@@ -67,6 +67,19 @@ class Alert extends Dialog {
   }
 
   /**
+   * Returns HTML and text for the dialog title.
+   *
+   * @method dialogTitle
+   */
+  get alertTitle() {
+    return (
+        this.props.title ?
+          <h2 className="ui-alert__title">{ this.props.title }</h2> :
+          null
+    );
+  }
+
+  /**
    * Returns the computed HTML for the dialog.
    *
    * @method dialogClasses
@@ -80,7 +93,7 @@ class Alert extends Dialog {
 
     return (
       <div ref="alert" className={ dialogClasses }>
-        { this.dialogTitle }
+        { this.alertTitle }
         <Icon className="ui-dialog__close" type="close" onClick={ this.props.cancelAlertHandler } />
         { this.props.children }
       </div>

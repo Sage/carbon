@@ -50,7 +50,7 @@ class Finances extends React.Component {
             creditTotal={ this.state.financesStore.get('credit_total') } />
         </Form>
 
-          <UserDialog />
+        <UserDialog />
       </div>
     );
   }
