@@ -3,7 +3,6 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
-import List from './../../utils/decorators/list';
 import { generateInputName } from './../../utils/helpers/forms';
 
 /**
@@ -27,7 +26,7 @@ import { generateInputName } from './../../utils/helpers/forms';
  * @constructor
  * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
  */
-const Dropdown = List(Input(InputIcon(InputLabel(InputValidation(
+const Dropdown = Input(InputIcon(InputLabel(InputValidation(
 class Dropdown extends React.Component {
 
   /**
@@ -49,38 +48,58 @@ class Dropdown extends React.Component {
    */
   visibleValue = null;
 
+  /**
+   * @constructor
+   */
+  constructor(...args) {
+    super(...args);
+
+    // bind scope to functions - allowing them to be overridden and
+    // recalled with the use of super
+    this.selectValue = this.selectValue.bind(this);
+    this.results = this.results.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+  }
+
   static propTypes = {
+    /**
+     * The ID value for the component
+     *
+     * @property value
+     * @type {String}
+     */
+    value: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
+
     /**
      * The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.
      *
      * @property options
      * @type {object}
      */
-    options: React.PropTypes.object.isRequired,
-
-    /**
-     * Determines if the filter is enabled.
-     *
-     * @property filter
-     * @type {Boolean}
-     * @default true
-     */
-    filter: React.PropTypes.bool
-  }
-
-  static defaultProps = {
-    filter: true
+    options: React.PropTypes.object.isRequired
   }
 
   state = {
     /**
-     * The user input search text.
+     * Defines whether the list is open or not.
      *
-     * @property filter
-     * @type {Object | String}
+     * @property open
+     * @type {Boolean}
+     * @default false
+     */
+    open: false,
+
+    /**
+     * The ID of the highlighted item in the list.
+     *
+     * @property highlighted
+     * @type {Number}
      * @default null
      */
-    filter: null
+    highlighted: null
   }
 
   /**
@@ -91,8 +110,21 @@ class Dropdown extends React.Component {
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.value != this.props.value) {
+      // clear the cache
       this.visibleValue = null;
     }
+  }
+
+  /**
+   * Selects the value for the component
+   *
+   * @method selectValue
+   * @param {String} val
+   */
+  selectValue(val, visibleVal) {
+    this.blockBlur = false;
+    this.handleBlur();
+    this.emitOnChangeCallback(val, visibleVal);
   }
 
   /**
@@ -101,28 +133,34 @@ class Dropdown extends React.Component {
    * @method emitOnChangeCallback
    * @param {Object} value Value of the selected list item
    */
-  emitOnChangeCallback = (value) => {
-    this._handleOnChange({ target: { value: value } });
+  emitOnChangeCallback = (value, visibleValue) => {
+    // mock a standard input event return, with target and value
+    this._handleOnChange({
+      target: {
+        value: value,
+        visibleValue: visibleValue
+      }
+    });
   }
 
   /**
-   * Handles what happens on focus of the input.
+   * Handles a select action on a list item
    *
-   * @method handleFocus
+   * @method handleSelect
+   * @param {Object} ev event
    */
-  handleFocus = () => {
-    let data = this.props.options;
-    let highlighted = this.props.value ? this.props.value : data.first().get('id');
+  handleSelect = (ev) => {
+    this.selectValue(ev.currentTarget.getAttribute('value'), ev.currentTarget.textContent);
+  }
 
-    // auto select the value
-    if (this.props.filter) {
-      this.refs.input.setSelectionRange(0, this.refs.input.value.length);
-    }
-
-    this.setState({
-      open: true,
-      highlighted: highlighted
-    });
+  /**
+   * Handles a mouse over event for list items.
+   *
+   * @method handleMouseOverListItem
+   * @param {Object} ev event
+   */
+  handleMouseOverListItem = (ev) => {
+    this.setState({ highlighted: ev.currentTarget.getAttribute('value') });
   }
 
   /*
@@ -164,38 +202,19 @@ class Dropdown extends React.Component {
    * @method handleBlur
    */
   handleBlur = () => {
-    if (!this.blockBlur && this.props.filter) {
-      this.setState({ filter: null });
-    }
+    if (!this.blockBlur) { this.setState({ open: false }); }
   }
 
   /**
-   * Handles a select action on a list item. Resets filter on select.
+   * Handles what happens on focus of the input.
    *
-   * @method handleSelect
-   * @param {Object} ev event
+   * @method handleFocus
    */
-  handleSelect = (ev) => {
-    this.blockBlur = false;
-    this.emitOnChangeCallback(ev.currentTarget.getAttribute('value'));
-
-    if (this.props.filter) {
-      this.setState({ filter: null });
-    }
-  }
-
-  /*
-   * Handles changes to the visible input field. Updates filter and displayed value.
-   *
-   * @method handleSelect
-   * @param {Object} ev event
-   */
-  handleVisibleChange = (ev) => {
-    let value = ev.target.value;
-
-    if (this.props.filter) {
-      this.setState({ filter: value });
-    }
+  handleFocus() {
+    this.setState({
+      open: true,
+      highlighted: this.defaultHighlighted
+    });
   }
 
   /**
@@ -205,86 +224,83 @@ class Dropdown extends React.Component {
    * @param {String} value
    */
   nameByID = () => {
-    let value = this.props.value;
-
-    // if no value selected, no match possible
-    if (!value) {
-      return this.visibleValue = '';
-    }
-
-    // Match selected id to corresponding list option
-    let option = this.props.options.find((item) => {
-      return item.get('id') == value;
-    });
-
-    // If match is found, set visibleValue to option's name;
-    if (option) {
-      this.visibleValue = option.get('name');
-    } else {
+    if (this.props.options) {
       this.visibleValue = '';
+
+      // if no value selected, no match possible
+      if (!this.props.value) { return this.visibleValue; }
+
+      // Match selected id to corresponding list option
+      let option = this.props.options.find((item) => {
+        return item.get('id') == this.props.value;
+      });
+
+      // If match is found, set visibleValue to option's name;
+      if (option) { this.visibleValue = option.get('name'); }
     }
+
     // If match is found, set value to option's name;
     return this.visibleValue;
   }
 
   /**
-   * Find and highlights search terms in text
+   * Handles when a user keys up on input.
    *
-   * @method highlightMatches
-   * @param {String} optionText - the text to search
-   * @param {String} value - the search term
+   * @method handleKeyUp
+   * @param {Object} ev event
    */
-  highlightMatches = (optionText, value) => {
-    if (!value.length) { return optionText; }
+  handleKeyDown = (ev) => {
+    if (!this.refs.list) { return; }
 
-    let beginning, end, middle, newValue, parsedOptionText, valIndex;
+    let list = this.refs.list,
+        element = list.getElementsByClassName('ui-dropdown__list__item--highlighted')[0],
+        nextVal;
 
-    parsedOptionText = optionText.toLowerCase();
-    valIndex = parsedOptionText.indexOf(value);
+    switch(ev.which) {
+      case 13: // return
+        if (element) {
+          ev.preventDefault();
+          this.selectValue(element.value, element.textContent);
+        }
+        break;
+      case 38: // up arrow
+        ev.preventDefault();
+        nextVal = list.lastChild.value;
 
-    if (valIndex === -1) {
-      return optionText;
+        if (element && element.previousElementSibling) {
+          nextVal = element.previousElementSibling.value;
+        }
+
+        this.setState({ highlighted: nextVal });
+        break;
+      case 40: // down arrow
+        ev.preventDefault();
+        nextVal = list.firstChild.value;
+
+        if (element && element.nextElementSibling) {
+          nextVal = element.nextElementSibling.value;
+        }
+
+        this.setState({ highlighted: nextVal });
+        break;
     }
-
-    beginning = optionText.substr(0, valIndex);
-    middle = optionText.substr(valIndex, value.length);
-    end = optionText.substr(valIndex + value.length, optionText.length);
-
-    // find end of string recursively
-    if (end.indexOf(value) !== -1) {
-      end = this.highlightMatches(end, value);
-    }
-
-    // build JSX object
-    newValue = [<span   key="beginning">{ beginning }</span>,
-                <strong key="middle"><u>{ middle }</u></strong>,
-                <span   key="end">{ end }</span>];
-
-    return newValue;
   }
 
   /**
-   * Prepares list options by converting to JSON and formatting filtered options.
+   * Return the list item which should be highlighted by default.
    *
-   * @method prepareList
-   * @param {Object} options Immutable map of list options
+   * @method defaultHighlighted
    */
-  prepareList = (options) => {
-    let _options = options.toJS();
+  get defaultHighlighted() {
+    let highlighted = null;
 
-    if (typeof this.state.filter === 'string'){
-      let filter = this.state.filter;
-      let regex = new RegExp(filter, 'i');
-
-      // if user has entered a search filter
-      _options = _options.filter((option) => {
-        if (option.name.search(regex) > -1) {
-          option.name = this.highlightMatches(option.name, this.state.filter);
-          return option;
-        }
-      });
+    if (this.props.value) {
+      highlighted = this.props.value;
+    } else if (this.props.options) {
+      highlighted = this.props.options.first().get('id');
     }
-    return _options;
+
+    return highlighted;
   }
 
   /**
@@ -296,15 +312,12 @@ class Dropdown extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.value = (typeof this.state.filter === 'string') ? this.state.filter : this.visibleValue || this.nameByID(this.props.value);
+    props.value = this.visibleValue || this.nameByID(this.props.value);
     props.name = null;
-    props.onChange = this.handleVisibleChange;
     props.onBlur = this.handleBlur;
+    props.onKeyDown = this.handleKeyDown;
     props.ref = "input";
-
-    if (!this.props.filter) {
-      props.readOnly = true;
-    }
+    props.readOnly = true;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
@@ -331,12 +344,12 @@ class Dropdown extends React.Component {
   }
 
   /**
-   * Root Class getter, returns a single class
+   * Returns the list options in the correct format
    *
-   * @method rootClass
+   * @method options
    */
-  get rootClass() {
-    return 'ui-dropdown';
+  get options() {
+    return this.props.options.toJS();
   }
 
   /**
@@ -345,10 +358,10 @@ class Dropdown extends React.Component {
    * @method mainClasses
    */
   get mainClasses() {
-    let classes = this.rootClass;
+    let classes = 'ui-dropdown';
 
     if (this.state.open) {
-      classes += ` ${this.rootClass}--open`;
+      classes += ' ui-dropdown--open';
     }
 
     return classes;
@@ -360,10 +373,78 @@ class Dropdown extends React.Component {
    * @method inputClasses
    */
   get inputClasses() {
-    let inputClasses = `${this.rootClass}__input` +
-                        ((typeof this.state.filter === 'string') ?
-                        ` ${this.rootClass}__input--filter` : '');
+    let inputClasses = 'ui-dropdown__input';
+
     return inputClasses;
+  }
+
+  /**
+   * Properties to be assigned to the list.
+   *
+   * @method listProps
+   */
+  get listProps() {
+    let listClasses = 'ui-dropdown__list';
+
+    return {
+      key: "list",
+      ref: "list",
+      onMouseDown: this.handleMouseDownOnList,
+      onMouseLeave: this.handleMouseLeaveList,
+      onMouseEnter: this.handleMouseEnterList,
+      className: listClasses
+    }
+  }
+
+  /**
+   * Getter to return HTML for list to render method.
+   *
+   * @method listHTML
+   */
+  get listHTML() {
+    if (!this.state.open) { return null; }
+
+    return (
+      <ul { ...this.listProps }>
+        { this.results(this.options) }
+      </ul>
+    );
+  }
+
+  /**
+   * Function that returns search results. Builds each list item with relevant handlers and classes.
+   *
+   * @method results
+   */
+  results(options) {
+    let className = 'ui-dropdown__list__item';
+
+    let results = options.map((option) => {
+      let klass = className;
+
+      // add highlighted class
+      if (this.state.highlighted == option.id) {
+        klass += ` ${className}--highlighted`;
+      }
+
+      // add selected class
+      if (this.props.value == option.id) {
+        klass += ` ${className}--selected`;
+      }
+
+      return (
+        <li
+          key={ option.name + option.id }
+          value={ option.id }
+          onClick={ this.handleSelect }
+          onMouseOver={ this.handleMouseOverListItem }
+          className={ klass }>
+            { option.name }
+        </li>
+      );
+    });
+
+    return results;
   }
 
   /**
@@ -376,32 +457,6 @@ class Dropdown extends React.Component {
       this.inputIconHTML("dropdown"),
       this.listHTML
     ];
-  }
-
-  /**
-   * Getter to return HTML for list to render method.
-   *
-   * @method listHTML
-   */
-  get listHTML() {
-    let listClasses =  `${this.rootClass}__list` +
-        (this.state.open ? '' : ' hidden') +
-        this.commonListClasses;
-
-    // Runs filter if active and returns JSON objects as list items
-    let options = this.prepareList(this.props.options);
-
-    return (
-      <ul
-        key="list"
-        ref="list"
-        onMouseDown={ this.handleMouseDownOnList }
-        onMouseLeave={ this.handleMouseLeaveList }
-        onMouseEnter={ this.handleMouseEnterList }
-        className={ listClasses } >
-        { this.results(options) }
-      </ul>
-    );
   }
 
   /**
@@ -422,6 +477,6 @@ class Dropdown extends React.Component {
     );
   }
 }
-)))));
+))));
 
 export default Dropdown;

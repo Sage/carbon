@@ -1,0 +1,284 @@
+import React from 'react';
+import Request from 'superagent';
+import _ from 'lodash';
+import DropdownFilter from './../dropdown-filter';
+import { generateInputName } from './../../utils/helpers/forms';
+
+/**
+ * A dropdown-suggest widget.
+ *
+ * == How to use a dropdown-suggest in a component:
+ *
+ * In your file
+ *
+ *   import DropdownSuggest from 'carbon/lib/components/dropdown-suggest';
+ *
+ * To render a DropdownSuggest:
+ *
+ *   <DropdownSuggest path={foo} />
+ *
+ * @class DropdownSuggest
+ * @constructor
+ * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
+ */
+class DropdownSuggest extends DropdownFilter {
+
+  /**
+   * Tracks whether the scroll listener is active on the list, useful for
+   * paginated results.
+   *
+   * @property listeningToScroll
+   * @type {Boolean}
+   */
+  listeningToScroll = true;
+
+  constructor(...args) {
+    super(...args);
+
+    /**
+     * A collection of results for the list.
+     *
+     * @property options
+     * @type {Array}
+     */
+    this.state.options = [];
+
+    /**
+     * The current page number for the results.
+     *
+     * @property page
+     * @type {Number}
+     * @default 1
+     */
+    this.state.page = 1;
+
+    /**
+     * The total number of pages of results.
+     *
+     * @property pages
+     * @type {Number}
+     * @default 0
+     */
+    this.state.pages = 0;
+  }
+
+  static propTypes = {
+    /**
+     * The ID value for the component
+     *
+     * @property value
+     * @type {Number}
+     */
+    value: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
+
+    /**
+     * The visible value for the input
+     *
+     * @property visibleValue
+     * @type {String}
+     */
+    visibleValue: React.PropTypes.string,
+
+    /**
+     * The path to your data (e.g. "/core_accounting/ledger_accounts/suggestions")
+     *
+     * @property path
+     * @type {String}
+     */
+    path: React.PropTypes.string.isRequired,
+
+    /**
+     * The number of rows to get per request
+     *
+     * @property rowsPerRequest
+     * @type {Number}
+     * @default 25
+     */
+    rowsPerRequest: React.PropTypes.number
+  }
+
+  static defaultProps = {
+    rowsPerRequest: 25
+  }
+
+  /*
+   * Handles changes to the visible input field. Updates filter and displayed value.
+   *
+   * @method handleVisibleChange
+   * @param {Object} ev event
+   */
+  handleVisibleChange = (ev) => {
+    this.emitOnChangeCallback("", ev.target.value);
+    this.getData(ev.target.value, 1);
+  }
+
+  /**
+   * Handles what happens on focus of the input.
+   *
+   * @method handleFocus
+   */
+  handleFocus = () => {
+    this.getData("", 1);
+    this.refs.input.setSelectionRange(0, this.refs.input.value.length);
+  }
+
+  /**
+   * Handles what happens on scroll of the list.
+   *
+   * @method handleScroll
+   */
+  handleScroll = () => {
+    if (this.listeningToScroll) {
+      if (this.state.page < this.state.pages) {
+        let list = this.refs.list;
+        let scrollTriggerPosition = list.scrollHeight - list.offsetHeight - 25;
+
+        if (list.scrollTop > scrollTriggerPosition) {
+          this.listeningToScroll = false;
+          this.getData(this.state.visibleValue, this.state.page + 1);
+        }
+      }
+    }
+  }
+
+  /**
+   * Retrieves data from the server for the list.
+   *
+   * @method getData
+   * @param {String} query The search term
+   * @param {Object} page The page number to get
+   */
+  getData = (query = "", page = 1) => {
+    // Passes empty string to query if value has been selected
+    query = this.state.value ? "" : query;
+
+    Request
+      .get(this.props.path)
+      .query({
+        page: page,
+        rows: this.props.rowsPerRequest,
+        value: query
+      })
+      .end((err, response) => {
+        this.updateList(response.body.data[0]);
+      });
+  }
+
+  /**
+   * Resets the scroll position of the list.
+   *
+   * @method resetScroll
+   */
+  resetScroll = () => {
+    let list = this.refs.list;
+
+    this.listeningToScroll = false;
+
+    if (list) {
+      list.scrollTop = 0;
+    }
+  }
+
+  /**
+   * Sets or appends the list with new data and causes a setState.
+   *
+   * @method updateList
+   * @param {Object} data
+   */
+  updateList = (data) => {
+    // Default page size is 25 records
+    let pages = Math.ceil(data.records / this.props.rowsPerRequest),
+        records = data.items;
+
+    // Adds next set of records as page scrolled down
+    if (data.page > 1) {
+      records = this.state.options.concat(records);
+    } else {
+      this.resetScroll();
+    }
+
+    this.setState({
+      open: true,
+      options: records,
+      page: data.page,
+      pages: pages
+    });
+
+    this.listeningToScroll = true;
+  }
+
+  /**
+   * Prepares list options by converting to JSON and formatting filtered options.
+   *
+   * @method prepareList
+   * @param {Object} options Immutable map of list options
+   */
+  prepareList = (options) => {
+    let _options = _.cloneDeep(options);
+
+    if (!this.props.value && this.props.visibleValue){
+      let filter = this.props.visibleValue;
+      let regex = new RegExp(filter, 'i');
+
+      // if user has entered a search filter
+      _options = _options.filter((option) => {
+        if (option.name.search(regex) > -1) {
+          option.name = this.highlightMatches(option.name, filter);
+          return option;
+        }
+      });
+    }
+
+    return _options;
+  }
+
+  /**
+   * Properties to be assigned to the list.
+   *
+   * @method listProps
+   */
+  get listProps() {
+    let props = super.listProps;
+
+    props.onScroll = this.handleScroll;
+
+    return props;
+  }
+
+  /**
+   * Return the list item which should be highlighted by default.
+   *
+   * @method defaultHighlighted
+   */
+  get defaultHighlighted() {
+    return null;
+  }
+
+  /**
+   * Returns the list options in the correct format
+   *
+   * @method options
+   */
+  get options() {
+    return this.prepareList(this.state.options);
+  }
+
+  /**
+   * Input props for the dropdown, extended from the base dropdown component.
+   *
+   * @method inputProps
+   */
+  get inputProps() {
+    let props = super.inputProps;
+
+    props.value = props.value || this.props.visibleValue;
+
+    return props;
+  }
+
+}
+
+export default DropdownSuggest;

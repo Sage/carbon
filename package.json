@@ -22,9 +22,9 @@
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
     "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git",
+    "express": "^4.13.3",
     "flux": "^2.1.1",
     "gulp": "^3.9.0",
-    "gulp-connect": "^2.2.0",
     "history": "^1.12.5",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "^3.7.5",
