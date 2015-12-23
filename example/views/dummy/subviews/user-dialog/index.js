@@ -10,7 +10,7 @@ class UserDialog extends React.Component {
       <div>
         <Alert  title="Alert"
                 open={ this.state.userStore.get('alertOpen') }
-                cancelAlertHandler={ UserActions.userAlertClosed }>
+                cancelDialogHandler={ UserActions.userAlertClosed }>
           Danger Will Robinson
         </Alert>
       </div>
