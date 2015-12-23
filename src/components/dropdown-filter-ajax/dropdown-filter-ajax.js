@@ -97,7 +97,23 @@ class DropdownSuggest extends DropdownFilter {
      * @type {Number}
      * @default 25
      */
-    rowsPerRequest: React.PropTypes.number
+    rowsPerRequest: React.PropTypes.number,
+
+    /**
+     * Enables create functionality for dropdown.
+     *
+     * @property create
+     * @type {Boolean}
+     */
+    create: React.PropTypes.bool,
+
+    /**
+     * Should the dropdown act and look like a suggestable input instead.
+     *
+     * @property suggest
+     * @type {Boolean}
+     */
+    suggest: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -110,8 +126,8 @@ class DropdownSuggest extends DropdownFilter {
    * @method handleVisibleChange
    * @param {Object} ev event
    */
-  handleVisibleChange = (ev) => {
-    this.emitOnChangeCallback("", ev.target.value);
+  handleVisibleChange(ev) {
+    super.handleVisibleChange(ev);
     this.getData(ev.target.value, 1);
   }
 
@@ -121,7 +137,10 @@ class DropdownSuggest extends DropdownFilter {
    * @method handleFocus
    */
   handleFocus = () => {
-    this.getData("", 1);
+    if (!this.props.suggest) {
+      this.getData("", 1);
+    }
+
     this.refs.input.setSelectionRange(0, this.refs.input.value.length);
   }
 
@@ -152,9 +171,6 @@ class DropdownSuggest extends DropdownFilter {
    * @param {Object} page The page number to get
    */
   getData = (query = "", page = 1) => {
-    // Passes empty string to query if value has been selected
-    query = this.state.value ? "" : query;
-
     Request
       .get(this.props.path)
       .query({
@@ -211,31 +227,6 @@ class DropdownSuggest extends DropdownFilter {
   }
 
   /**
-   * Prepares list options by converting to JSON and formatting filtered options.
-   *
-   * @method prepareList
-   * @param {Object} options Immutable map of list options
-   */
-  prepareList = (options) => {
-    let _options = _.cloneDeep(options);
-
-    if (!this.props.value && this.props.visibleValue){
-      let filter = this.props.visibleValue;
-      let regex = new RegExp(filter, 'i');
-
-      // if user has entered a search filter
-      _options = _options.filter((option) => {
-        if (option.name.search(regex) > -1) {
-          option.name = this.highlightMatches(option.name, filter);
-          return option;
-        }
-      });
-    }
-
-    return _options;
-  }
-
-  /**
    * Properties to be assigned to the list.
    *
    * @method listProps
@@ -263,7 +254,7 @@ class DropdownSuggest extends DropdownFilter {
    * @method options
    */
   get options() {
-    return this.prepareList(this.state.options);
+    return this.prepareList(_.cloneDeep(this.state.options));
   }
 
   /**
@@ -274,7 +265,9 @@ class DropdownSuggest extends DropdownFilter {
   get inputProps() {
     let props = super.inputProps;
 
-    props.value = props.value || this.props.visibleValue;
+    if (typeof props.value !== 'string') {
+      props.value = this.props.visibleValue;
+    }
 
     return props;
   }

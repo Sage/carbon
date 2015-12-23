@@ -1,6 +1,17 @@
 @import 'colors';
 @import 'general';
+@import 'input-field';
 @import 'z-index';
+
+$dropdown-item-padding: 5px 6px;
+$max-height: 180px;
+
+.ui-dropdown__list-block {
+  left: 0;
+  position: absolute;
+  right: 0;
+  z-index: $z-dropdown-list;
+}
 
 .ui-dropdown__list {
   background-color: $white;
@@ -9,16 +20,12 @@
   box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
   color: $grey-dark;
   cursor: pointer;
-  left: 0;
-  max-height: 180px;
+  max-height: $max-height;
   list-style: none;
   margin: 0;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 0;
-  position: absolute;
-  right: 0;
-  z-index: $z-dropdown-list;
 
   &::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -37,9 +44,27 @@
 }
 
 .ui-dropdown__list__item {
-  padding: 5px 6px;
+  padding: $dropdown-item-padding;
 }
 
 .ui-dropdown__list__item--highlighted {
   background-color: #E6E9E7;
+}
+
+.ui-dropdown__action {
+  background-color: $white;
+  border: 1px solid $border-color;
+  border-top: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  left: 0;
+  padding: $dropdown-item-padding;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+
+  &:hover {
+    background-color: $blue-bright;
+    color: $white;
+  }
 }

@@ -58,7 +58,6 @@ class Dropdown extends React.Component {
     // recalled with the use of super
     this.selectValue = this.selectValue.bind(this);
     this.results = this.results.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
   }
 
   static propTypes = {
@@ -210,7 +209,7 @@ class Dropdown extends React.Component {
    *
    * @method handleFocus
    */
-  handleFocus() {
+  handleFocus = () => {
     this.setState({
       open: true,
       highlighted: this.defaultHighlighted
@@ -453,10 +452,19 @@ class Dropdown extends React.Component {
    * @method additionalInputContent
    */
   get additionalInputContent() {
-    return [
-      this.inputIconHTML("dropdown"),
-      this.listHTML
-    ];
+    let content = [];
+
+    if (!this.props.suggest) {
+      content.push(this.inputIconHTML("dropdown"));
+    }
+
+    content.push(
+      <div className="ui-dropdown__list-block" key="dropdown-list">
+        { this.listHTML }
+      </div>
+    );
+
+    return content;
   }
 
   /**

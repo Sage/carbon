@@ -4,6 +4,8 @@ import I18n from 'i18n-js';
 
 class DropdownFilter extends Dropdown {
 
+  openingList = false
+
   constructor(...args) {
     super(...args);
 
@@ -15,6 +17,53 @@ class DropdownFilter extends Dropdown {
      * @default null
      */
     this.state.filter = null;
+
+    // bind scope to functions - allowing them to be overridden and
+    // recalled with the use of super
+    this.handleVisibleChange = this.handleVisibleChange.bind(this);
+  }
+
+  static propTypes = {
+    /**
+     * The ID value for the component
+     *
+     * @property value
+     * @type {String}
+     */
+    value: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
+
+    /**
+     * The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.
+     *
+     * @property options
+     * @type {object}
+     */
+    options: React.PropTypes.object.isRequired,
+
+    /**
+     * Enables create functionality for dropdown.
+     *
+     * @property create
+     * @type {Boolean}
+     */
+    create: React.PropTypes.bool,
+
+    /**
+     * Should the dropdown act and look like a suggestable input instead.
+     *
+     * @property suggest
+     * @type {Boolean}
+     */
+    suggest: React.PropTypes.bool
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.open != nextState.open) {
+      this.openingList = true;
+    }
   }
 
   /**
@@ -34,8 +83,26 @@ class DropdownFilter extends Dropdown {
    * @method handleVisibleChange
    * @param {Object} ev event
    */
-  handleVisibleChange = (ev) => {
-    this.setState({ filter: ev.target.value });
+  handleVisibleChange(ev) {
+    let state = {
+      filter: ev.target.value,
+    };
+
+    if (this.props.suggest && ev.target.value.length > 0) {
+      state.open = true;
+      state.highlighted = this.defaultHighlighted;
+    } else if (this.props.suggest) {
+      state.open = false;
+    }
+
+    this.setState(state);
+
+    this.openingList = false;
+
+    if (this.props.create) {
+      // if create is enabled then empty the selected value so the filter persists
+      this.emitOnChangeCallback("", ev.target.value);
+    }
   }
 
   /*
@@ -44,7 +111,11 @@ class DropdownFilter extends Dropdown {
    * @method handleBlur
    */
   handleBlur = () => {
-    if (!this.blockBlur) { this.setState({ open: false, filter: null }); }
+    if (!this.blockBlur) {
+      let filter = this.props.create ? this.state.filter : null;
+
+      this.setState({ open: false, filter: filter });
+    }
   }
 
   /**
@@ -52,8 +123,14 @@ class DropdownFilter extends Dropdown {
    *
    * @method handleFocus
    */
-  handleFocus() {
-    super.handleFocus();
+  handleFocus = () => {
+    if (!this.props.suggest) {
+      this.setState({
+        open: true,
+        highlighted: this.defaultHighlighted
+      });
+    }
+
     this.refs.input.setSelectionRange(0, this.refs.input.value.length);
   }
 
@@ -64,14 +141,12 @@ class DropdownFilter extends Dropdown {
    * @param {Object} options Immutable map of list options
    */
   prepareList = (options) => {
-    let _options = options.toJS();
-
-    if (typeof this.state.filter === 'string') {
+    if (!this.openingList && typeof this.state.filter === 'string') {
       let filter = this.state.filter;
       let regex = new RegExp(filter, 'i');
 
       // if user has entered a search filter
-      _options = _options.filter((option) => {
+      options = options.filter((option) => {
         if (option.name.search(regex) > -1) {
           option.name = this.highlightMatches(option.name, filter);
           return option;
@@ -79,7 +154,7 @@ class DropdownFilter extends Dropdown {
       });
     }
 
-    return _options;
+    return options;
   }
 
   /**
@@ -107,12 +182,38 @@ class DropdownFilter extends Dropdown {
   }
 
   /**
+   * Getter to return HTML for list to render method.
+   *
+   * @method listHTML
+   */
+  get listHTML() {
+    let original = super.listHTML,
+        html = [original];
+
+    if (this.state.open && this.props.create) {
+      let text = "Create ";
+
+      if (this.state.filter) {
+        text += '"' + this.state.filter + '"';
+      } else {
+        text += "New";
+      }
+
+      html.push(
+        <a key="dropdown-action" className="ui-dropdown__action">{ text }</a>
+      );
+    }
+
+    return html;
+  }
+
+  /**
    * Returns the list options in the correct format
    *
    * @method options
    */
   get options() {
-    return this.prepareList(this.props.options);
+    return this.prepareList(this.props.options.toJS());
   }
 
   /**
@@ -133,7 +234,7 @@ class DropdownFilter extends Dropdown {
   get inputClasses() {
     let classes = super.inputClasses;
 
-    if (typeof this.state.filter === 'string') {
+    if (!this.props.create && typeof this.state.filter === 'string') {
       classes += ' ui-dropdown__input--filtered';
     }
 
