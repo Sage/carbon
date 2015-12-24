@@ -1,6 +1,7 @@
 # 0.1.0
 
-TBC
+## New Components
+* Link
 
 # 0.0.2
 
@@ -11,7 +12,7 @@ TBC
 ## Dropdown and DropdownSuggest components
 
 Dropdown and dropdown-suggest have been updated. As they share common functionality, dropdown and dropdown-suggest now use a List decorator. This should not affect how you use either component.
-* Dropdown now filters results as you type. 
+* Dropdown now filters results as you type.
 
 ## Dialog Cancel button
 

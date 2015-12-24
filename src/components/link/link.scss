@@ -1,0 +1,19 @@
+@import 'colors';
+
+$link-color: $blue !default;
+$link-hover-color: $blue-dark !default;
+$link-hover-text-decoration: underline !default;
+
+.ui-link{
+  a {
+    color: $link-color;
+    font-size: 1.4em;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: $link-hover-text-decoration;
+      color: $link-hover-color;
+    }
+  }
+}
