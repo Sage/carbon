@@ -20,7 +20,8 @@ describe('Alert', () => {
     describe('when a props title is passed', () => {
       it('sets a dialog header', () => {
         let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
-        expect(header.classList[0]).toEqual('ui-alert__title');
+        expect(header.classList[0]).toEqual('ui-dialog__title');
+        expect(header.classList[1]).toEqual('ui-alert__title');
         expect(header.textContent).toEqual('Alert title');
       });
     });

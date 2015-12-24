@@ -50,7 +50,7 @@ class Alert extends Dialog {
    */
   get dialogClasses() {
     let classes = super.dialogClasses;
-    classes += ' ui-alert__alert'
+    classes += ' ui-alert__alert';
     return classes;
   }
 }
