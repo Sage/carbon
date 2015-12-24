@@ -3,7 +3,6 @@ import FinancesActions from './../../../../actions/finances';
 import InputGrid from 'components/input-grid';
 import Textbox from 'components/textbox';
 import Decimal from 'components/decimal';
-import NumberWidget from 'components/number';
 
 class Table extends React.Component {
   get totalClassName() {
@@ -18,7 +17,7 @@ class Table extends React.Component {
     let fields = [
       <Textbox name="description" />,
       <Decimal name="credit" />,
-      <NumberWidget name="debit" />,
+      <Decimal name="debit" />,
       <Decimal name="total" readOnly />
     ];
 
