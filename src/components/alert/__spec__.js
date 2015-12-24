@@ -1,10 +1,50 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Dialog
-import Alert from './index';
+import Dialog from './../dialog'
+import Alert from './alert';
 
-fdescribe('Alert', () => {
-  it('failing test demo', () => {
-    expect(1).toEqual(2);
+let dialog = TestUtils.renderIntoDocument(<Dialog name="foo" cancelHandler={ function(){} } open={ false }/>);
+
+describe('Alert', () => {
+  let instance;
+  let cancelHandler = jasmine.createSpy('cancel');
+
+  beforeEach(() => {
+    instance = TestUtils.renderIntoDocument(
+      <Alert
+        cancelHandler={ cancelHandler }
+        open={ true }
+        title="Alert title" />
+    );
+  });
+
+  describe('getDialogTitle', () => {
+    describe('when a props title is passed', () => {
+      it('sets a dialog header', () => {
+        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
+        expect(header.classList[0]).toEqual('ui-alert__title');
+        expect(header.textContent).toEqual('Alert title');
+      });
+    });
+
+    describe('when a props title is not passed', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Alert
+            cancelHandler={ cancelHandler }
+            open={ true } />
+        );
+      });
+
+      it('defaults to null', () => {
+        expect(instance.alertTitle).toBeFalsy();
+      });
+    });
+  });
+
+  describe('dialogClasses', () => {
+    it('returns the dialog class along with the alert class', () => {
+        expect(instance.dialogClasses).toEqual('ui-dialog__dialog ui-alert__alert');
+    });
   });
 });
