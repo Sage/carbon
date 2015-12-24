@@ -33,9 +33,12 @@ class Alert extends Dialog {
    * @method dialogTitle
    */
   get dialogTitle() {
+    let mainTitle = 'ui-dialog__title';
+    let combinedTitle = mainTitle + ' ui-alert__title';
+
     return (
         this.props.title ?
-          <h2 className="ui-alert__title">{ this.props.title }</h2> :
+          <h2 className={ combinedTitle }>{ this.props.title }</h2> :
           null
     );
   }

@@ -9,10 +9,6 @@
 }
 
 .ui-alert__title {
-  background: none;
-  color: $grey-dark;
+  border-bottom: none;
   font-size: 1.6em;
-  font-weight: 300;
-  margin: 10px 0 15px 0;
-  padding-bottom: 20px;
 }
