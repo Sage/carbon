@@ -213,17 +213,6 @@ describe('TableRow', () => {
         expect(updateSpy).toHaveBeenCalled();
       });
     });
-
-    // NO LONGER NEEDED? ::
-    // describe('When value is an object', () => {
-    //   it('Strips out id and name from the object', () => {
-    //     let cells = TestUtils.scryRenderedDOMComponentsWithClass(regular, 'ui-table-row__td');
-    //     let visibleDropdownInput = cells[3].getElementsByTagName('INPUT')[0];
-    //     let hiddenDropdownInput= cells[3].getElementsByTagName('INPUT')[1];
-    //     expect(visibleDropdownInput.value).toEqual('baz');
-    //     expect(hiddenDropdownInput.value).toEqual('1');
-    //   });
-    // });
   });
 
   describe('render', () => {
