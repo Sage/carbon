@@ -10,9 +10,8 @@ import UserStore from './../../../../stores/user';
 class History extends React.Component {
   handleReset = (ev) => {
     ev.preventDefault();
-    debugger
-    UserActions.userAlertOpened;
     FinancesStore.reset();
+    UserActions.userAlertOpened();
   }
 
   handleUndo = (ev) => {
@@ -32,7 +31,7 @@ class History extends React.Component {
         <Alert  title="Alert"
                 open={ this.state.userStore.get('alertOpen') }
                 cancelHandler={ UserActions.userAlertClosed }>
-                Are you sure you want to reset the page?
+                The page is now in it's previous state.
         </Alert>
       </div>
     );
