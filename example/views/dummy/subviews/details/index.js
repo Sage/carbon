@@ -11,6 +11,10 @@ import FinancesActions from './../../../../actions/finances';
 
 class Details extends React.Component {
 
+  foo = (ev, component) => {
+    debugger
+  }
+
   render() {
     return (
       <Row>
@@ -22,7 +26,7 @@ class Details extends React.Component {
           options={ this.props.options }
           onChange={ FinancesActions.financesValueUpdated }
           value={ this.props.accounts }
-          create={ true }
+          suggest={ true }
         />
 
         <DropdownFilterAjax
@@ -31,7 +35,6 @@ class Details extends React.Component {
           onChange={ FinancesActions.financesCountryUpdated }
           value={ this.props.countryValue }
           visibleValue={ this.props.countryVisibleValue }
-          create={ true }
         />
 
       </Row>

@@ -3,9 +3,6 @@
 @import 'input-field';
 @import 'z-index';
 
-$dropdown-item-padding: 5px 6px;
-$max-height: 180px;
-
 .ui-dropdown__list-block {
   left: 0;
   position: absolute;
@@ -20,7 +17,7 @@ $max-height: 180px;
   box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
   color: $grey-dark;
   cursor: pointer;
-  max-height: $max-height;
+  max-height: 180px;
   list-style: none;
   margin: 0;
   overflow-x: hidden;
@@ -44,27 +41,9 @@ $max-height: 180px;
 }
 
 .ui-dropdown__list__item {
-  padding: $dropdown-item-padding;
+  padding: 5px 6px;
 }
 
 .ui-dropdown__list__item--highlighted {
   background-color: #E6E9E7;
-}
-
-.ui-dropdown__action {
-  background-color: $white;
-  border: 1px solid $border-color;
-  border-top: none;
-  box-sizing: border-box;
-  cursor: pointer;
-  left: 0;
-  padding: $dropdown-item-padding;
-  position: absolute;
-  width: 100%;
-  z-index: 10;
-
-  &:hover {
-    background-color: $blue-bright;
-    color: $white;
-  }
 }

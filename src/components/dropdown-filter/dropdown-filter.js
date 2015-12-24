@@ -47,9 +47,9 @@ class DropdownFilter extends Dropdown {
      * Enables create functionality for dropdown.
      *
      * @property create
-     * @type {Boolean}
+     * @type {Function}
      */
-    create: React.PropTypes.bool,
+    create: React.PropTypes.func,
 
     /**
      * Should the dropdown act and look like a suggestable input instead.
@@ -85,7 +85,7 @@ class DropdownFilter extends Dropdown {
    */
   handleVisibleChange(ev) {
     let state = {
-      filter: ev.target.value,
+      filter: ev.target.value
     };
 
     if (this.props.suggest && ev.target.value.length > 0) {
@@ -135,13 +135,23 @@ class DropdownFilter extends Dropdown {
   }
 
   /**
+   * Handles what happens when create button is clicked.
+   *
+   * @method handleCreate
+   */
+  handleCreate = (ev) => {
+    this.setState({ open: false });
+    this.props.create(ev, this);
+  }
+
+  /**
    * Prepares list options by converting to JSON and formatting filtered options.
    *
    * @method prepareList
    * @param {Object} options Immutable map of list options
    */
   prepareList = (options) => {
-    if (!this.openingList && typeof this.state.filter === 'string') {
+    if ((this.props.suggest || !this.openingList) && typeof this.state.filter === 'string') {
       let filter = this.state.filter;
       let regex = new RegExp(filter, 'i');
 
@@ -200,7 +210,7 @@ class DropdownFilter extends Dropdown {
       }
 
       html.push(
-        <a key="dropdown-action" className="ui-dropdown__action">{ text }</a>
+        <a key="dropdown-action" className="ui-dropdown__action" onClick={ this.handleCreate }>{ text }</a>
       );
     }
 

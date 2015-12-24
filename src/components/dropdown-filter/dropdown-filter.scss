@@ -1,3 +1,6 @@
+@import 'colors';
+@import 'z-index';
+
 .ui-dropdown__list__item--no-results {
   font-style: italic;
 }
@@ -5,4 +8,22 @@
 .ui-dropdown__input--filtered {
   font-style: italic;
   color: #AAA;
+}
+
+.ui-dropdown__action {
+  background-color: $white;
+  border: 1px solid $border-color;
+  border-top: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  left: 0;
+  padding: 5px 6px;
+  position: absolute;
+  width: 100%;
+  z-index: $z-dropdown-list;
+
+  &:hover {
+    background-color: $blue-bright;
+    color: $white;
+  }
 }

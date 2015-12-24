@@ -1,481 +1,551 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Dropdown from './dropdown';
-import ImmutableHelper from './../../utils/helpers/immutable'
+import Immutable from 'immutable';
 
-describe("Dropdown", () => {
-  let instance, instanceNoValue, instanceInvalid, instanceNoFilter, input;
-  let data = ImmutableHelper.parseJSON(
-            { 'items': [{'id' : 1,  'name': 'foo' },
-                        {'id' : 2,  'name': 'bar' },
-                        {'id' : 3,  'name': 'far' },
-                        {'id' : 4,  'name': 'boo' }
-                      ]
-                   });
+fdescribe('Dropdown', () => {
+  let instance;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 2 } />);
-    instanceNoValue = TestUtils.renderIntoDocument(<Dropdown name="bar" options={ data.get('items') } />);
-    instanceInvalid = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 3 } />);
-    instanceNoFilter = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 2 } filter={ false } />);
-    input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
+    instance = TestUtils.renderIntoDocument(
+      <Dropdown name="foo" options={ Immutable.fromJS([{}]) } value="1" />
+    );
   });
 
-    describe ('componentWillReceiveProps', () => {
-      describe('when props have changed', () => {
-        it('clears the visible value', () => {
-          instance.componentWillReceiveProps({value: 1});
-          expect(instance.visibleValue).toBeFalsy();
-        });
-      });
+  describe('constructor', () => {
+    it('sets default class properties', () => {
+      expect(instance.blockBlur).toBeFalsy();
+      expect(instance.visibleValue).toBe('');
+    });
 
-      describe('when props have not changed', () => {
-        it('does not clear the visible value', () => {
-          instance.visibleValue = 'bar'
-          instance.componentWillReceiveProps({value: 2 });
-          expect(instance.visibleValue).toEqual('bar');
+    it('sets default state', () => {
+      expect(instance.state.open).toBeFalsy();
+      expect(instance.state.highlighted).toBe(null);
+    });
+  });
+
+  describe('componentWillReceiveProps', () => {
+    describe('when next value does not equal current value', () => {
+      it('resets visibleValue', () => {
+        instance.visibleValue = "foobar";
+        instance.componentWillReceiveProps({
+          value: "2"
         });
+        expect(instance.visibleValue).toBe(null);
       });
     });
+
+    describe('when next value does equal current value', () => {
+      it('resets visibleValue', () => {
+        instance.visibleValue = "foobar";
+        instance.componentWillReceiveProps({
+          value: "1"
+        });
+        expect(instance.visibleValue).toBe("foobar");
+      });
+    });
+  });
+
+  describe('selectValue', () => {
+    beforeEach(() => {
+      spyOn(instance, 'handleBlur');
+      spyOn(instance, 'emitOnChangeCallback');
+    });
+
+    it('sets blockBlur to false', () => {
+      instance.blockBlur = true;
+      instance.selectValue('10', 'foo');
+      expect(instance.blockBlur).toBeFalsy();
+    });
+
+    it('calls handleBlur', () => {
+      instance.selectValue('10', 'foo');
+      expect(instance.handleBlur).toHaveBeenCalled();
+    });
+
+    it('calls emitOnChangeCallback', () => {
+      instance.selectValue('10', 'foo');
+      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('10', 'foo');
+    });
+  });
 
   describe('emitOnChangeCallback', () => {
-    it('calls the change handler with the selected item', () => {
+    it('calls _handleOnChange', () => {
       spyOn(instance, '_handleOnChange');
-      let value = 'one';
-      instance.emitOnChangeCallback(value);
-      expect(instance._handleOnChange).toHaveBeenCalledWith({target: { value: value }});
-    });
-  });
-
-  describe('handleFocus', () => {
-    beforeEach(() => {
-      spyOn(instance.refs.input, 'setSelectionRange');
-      spyOn(instanceNoFilter.refs.input, 'setSelectionRange');
-      spyOn(instance, 'setState').and.callThrough();
-    });
-
-    it('select all the value', () => {
-      TestUtils.Simulate.focus(input[0]);
-      expect(instance.refs.input.setSelectionRange).toHaveBeenCalledWith(0, instance.refs.input.value.length);
-    });
-
-    it('does not select the value when filter disabled', () => {
-      TestUtils.Simulate.focus(instanceNoFilter.refs.input);
-      expect(instanceNoFilter.refs.input.setSelectionRange).not.toHaveBeenCalled();
-    });
-
-    it('calls setState and opens the dropdown', () => {
-      TestUtils.Simulate.focus(input[0]);
-      expect(instance.setState).toHaveBeenCalledWith({ open: true, highlighted: instance.props.value });
-    });
-
-    describe('when no option has been selected', () => {
-      beforeEach(() => {
-        spyOn(instanceNoValue, 'setState');
-        input = TestUtils.scryRenderedDOMComponentsWithTag(instanceNoValue, 'input');
-      });
-
-      it('highlights the first option', () => {
-        TestUtils.Simulate.focus(input[0]);
-        expect(instanceNoValue.setState).toHaveBeenCalledWith({ open: true, highlighted: instanceNoValue.props.options.first().get('id') });
-      });
-    });
-
-    describe('when an option has been selected', () => {
-      it('highlights the selected option', () => {
-        TestUtils.Simulate.focus(input[0]);
-        expect(instance.setState).toHaveBeenCalledWith({ open: true, highlighted: instance.props.value });
-      });
-    });
-
-    describe('when disabled', () => {
-      it('does not call setState', () => {
-        instance = TestUtils.renderIntoDocument(<Dropdown disabled name="foo" options={ data.get('items') } value={ 2 } />);
-        input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
-        spyOn(instance, 'setState');
-        TestUtils.Simulate.focus(input[0]);
-        expect(instance.setState).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('when readOnly', () => {
-      it('does not call setState', () => {
-        instance = TestUtils.renderIntoDocument(<Dropdown readOnly name="foo" options={ data.get('items') } value={ 2 } />);
-        input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
-        spyOn(instance, 'setState');
-        TestUtils.Simulate.focus(input[0]);
-        expect(instance.setState).not.toHaveBeenCalled();
-      });
-    });
-  });
-
-   describe('handleMouseEnterList', () => {
-      it('turns blur blocking off', () => {
-        instance.blockBlur = false;
-        TestUtils.Simulate.mouseEnter(instance.refs.list);
-        expect(instance.blockBlur).toBeTruthy();
-      });
-    });
-
-    describe('handleMouseLeaveList', () => {
-      it('turns blur blocking on', () => {
-        instance.blockBlur = true;
-        TestUtils.Simulate.mouseLeave(instance.refs.list);
-        expect(instance.blockBlur).toBeFalsy();
-      });
-    });
-
-    describe('handleMouseDownOnList', () => {
-      beforeEach(() => {
-        jasmine.clock().install();
-        spyOn(instance.refs.input, 'focus');
-      });
-
-      afterEach(() => {
-        jasmine.clock().uninstall();
-      });
-
-      describe('when the target was not the list', () => {
-        it('does not call focus on the input', () => {
-          TestUtils.Simulate.mouseDown(instance.refs.list, { target: 'foo' });
-          jasmine.clock().tick(0);
-          expect(instance.refs.input.focus).not.toHaveBeenCalled();
-        });
-      });
-
-      describe('when the target was the list', () => {
-        it('does call focus on the input', () => {
-          TestUtils.Simulate.mouseDown(instance.refs.list, { target: instance.refs.list });
-          jasmine.clock().tick(0);
-          expect(instance.refs.input.focus).toHaveBeenCalled();
-        });
-      });
-    });
-
-  describe('handleBlur', () => {
-    beforeEach(() => {
-      spyOn(instance, 'setState');
-      input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
-    });
-
-    describe('when blurring is not blocked', () => {
-      it('clears the filter', () => {
-        TestUtils.Simulate.blur(input[0]);
-        expect(instance.setState).toHaveBeenCalledWith({ filter: null });
-      });
-    });
-
-    describe('when blurring is blocked', () => {
-      it('does not clear the filter', () => {
-        instance.blockBlur = true;
-        TestUtils.Simulate.blur(input[0]);
-        expect(instance.setState).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('when filter is disabled', () => {
-      it('does not clear the filter', () => {
-        spyOn(instanceNoFilter, 'setState');
-        instanceNoFilter.blockBlur = false;
-        instanceNoFilter.handleBlur();
-        expect(instanceNoFilter.setState).not.toHaveBeenCalled();
+      instance.emitOnChangeCallback('10', 'foo');
+      expect(instance._handleOnChange).toHaveBeenCalledWith({
+        target: {
+          value: '10',
+          visibleValue: 'foo'
+        }
       });
     });
   });
 
   describe('handleSelect', () => {
-    let ev;
+    it('calls selectValue', () => {
+      spyOn(instance, 'selectValue');
+      instance.handleSelect({
+        currentTarget: {
+          getAttribute: function() { return 'foo' },
+          textContent: 'bar'
+        }
+      });
 
-    beforeEach(() => {
-      spyOn(instance, 'setState');
-      spyOn(instance, 'emitOnChangeCallback');
-      ev = { currentTarget: { getAttribute: function() {} }};
-      spyOn(ev.currentTarget, 'getAttribute').and.returnValue('foo');
-      instance.blockBlur = true;
-    });
-
-    it('turns blur blocking off', () => {
-      instance._handleSelect(ev);
-      expect(instance.blockBlur).toBeFalsy();
-    });
-
-    it('calls emitOnChangeCallback with the selected value', () => {
-      instance._handleSelect(ev);
-      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('foo');
-    });
-
-    it('clears the filter', () => {
-      instance._handleSelect(ev);
-      expect(instance.setState).toHaveBeenCalledWith({ filter: null });
-    });
-
-    it('does not clear the filter if filter is disabled', () => {
-      spyOn(instanceNoFilter, 'setState');
-      instanceNoFilter.handleSelect(ev);
-      expect(instanceNoFilter.setState).not.toHaveBeenCalled();
+      expect(instance.selectValue).toHaveBeenCalledWith('foo', 'bar');
     });
   });
 
-  describe('handleVisibleChange', () => {
-    let ev;
+  describe('handleMouseOverListItem', () => {
+    it('calls setState', () => {
+      spyOn(instance, 'setState');
+      instance.handleMouseOverListItem({
+        currentTarget: {
+          getAttribute: function() { return 'foo' }
+        }
+      });
 
+      expect(instance.setState).toHaveBeenCalledWith({ highlighted: 'foo' });
+    });
+  });
+
+  describe('handleMouseEnterList', () => {
+    it('sets blockBlur to true', () => {
+      instance.blockBlur = false;
+      TestUtils.Simulate.mouseEnter(instance.refs.listBlock);
+      expect(instance.blockBlur).toBeTruthy;
+    });
+  });
+
+  describe('handleMouseLeaveList', () => {
+    it('sets blockBlur to true', () => {
+      instance.blockBlur = true;
+      TestUtils.Simulate.mouseLeave(instance.refs.listBlock);
+      expect(instance.blockBlur).toBeFalsy;
+    });
+  });
+
+  describe('handleMouseDownOnList', () => {
+    beforeEach(() => {
+      spyOn(instance.refs.input, 'focus');
+      jasmine.clock().install();
+    });
+
+    afterEach(() => {
+      jasmine.clock().uninstall();
+    });
+
+    describe('if target is the list', () => {
+      it('calls focus on the input after a timeout', () => {
+        TestUtils.Simulate.mouseDown(instance.refs.listBlock, {
+          target: instance.refs.list
+        });
+        jasmine.clock().tick();
+        expect(instance.refs.input.focus).toHaveBeenCalled();
+      });
+    });
+
+    describe('if target is not the list', () => {
+      it('does not call focus on the input', () => {
+        TestUtils.Simulate.mouseDown(instance.refs.listBlock, {
+          target: 'foo'
+        });
+        jasmine.clock().tick();
+        expect(instance.refs.input.focus).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('handleBlur', () => {
     beforeEach(() => {
       spyOn(instance, 'setState');
-      ev = { target: { value: 'far' }};
-      instance.handleVisibleChange(ev);
     });
 
-    it('calls setState with the filter text', () => {
-      expect(instance.setState).toHaveBeenCalledWith({ filter: 'far' });
+    describe('if blur is blocked', () => {
+      it('does not call setState', () => {
+        instance.blockBlur = true;
+        TestUtils.Simulate.blur(instance.refs.input);
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
     });
 
-    it('does not clear the filter if filter is disabled', () => {
-      spyOn(instanceNoFilter, 'setState');
-      instanceNoFilter.handleVisibleChange(ev);
-      expect(instanceNoFilter.setState).not.toHaveBeenCalled();
+    describe('if blur is not blocked', () => {
+      it('calls setState', () => {
+        instance.blockBlur = false;
+        TestUtils.Simulate.blur(instance.refs.input);
+        expect(instance.setState).toHaveBeenCalledWith({ open: false });
+      });
+    });
+  });
+
+  describe('handleFocus', () => {
+    it('calls setState', () => {
+      spyOn(instance, 'setState');
+      TestUtils.Simulate.focus(instance.refs.input);
+      expect(instance.setState).toHaveBeenCalledWith({
+        open: true,
+        highlighted: '1'
+      });
+    });
+
+    describe('if readOnly', () => {
+      it('does not call setState by focus', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }]) } readOnly={ true } />
+        );
+        spyOn(instance, 'setState');
+        TestUtils.Simulate.focus(instance.refs.input);
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if disabled', () => {
+      it('does not call setState by focus', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }]) } disabled={ true } />
+        );
+        spyOn(instance, 'setState');
+        TestUtils.Simulate.focus(instance.refs.input);
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
     });
   });
 
   describe('nameByID', () => {
-    describe('when no value has been selected', () => {
-      it('returns an empty string', () => {
-        instanceNoValue.nameByID();
-        expect(instanceNoValue.props.value).toBeFalsy();
+    describe('if there are no options', () => {
+      it('returns the visible value', () => {
+        expect(instance.nameByID()).toEqual(instance.visibleValue);
       });
     });
 
-    describe('when a value has been selected', () => {
-      describe('when the selected value is valid', () => {
-        it('returns the corresponding name', () => {
-          expect(instance.nameByID()).toEqual('bar');
+    describe('if there are options', () => {
+      describe('if there is no value', () => {
+        it('it returns the visible value', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Dropdown name="foo" options={ Immutable.Map([]) } value="" />
+          );
+          expect(instance.nameByID()).toEqual(instance.visibleValue);
         });
       });
 
-      describe('when the selected value does not have a corresponding name', () => {
-        it('sets visible value to an empty string', () => {
-          let instance = TestUtils.renderIntoDocument(<Dropdown name="foo" options={ data.get('items') } value={ 5 } />);
-          expect(instance.nameByID()).toBeFalsy();
+      describe('if there is a value', () => {
+        describe('if a match is found', () => {
+          it('returns the correct value', () => {
+            instance = TestUtils.renderIntoDocument(
+              <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }]) } value="1" />
+            );
+            expect(instance.nameByID()).toEqual('foo');
+          });
+        });
+
+        describe('if no match is found', () => {
+          it('returns the visible value', () => {
+            instance = TestUtils.renderIntoDocument(
+              <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }]) } value="2" />
+            );
+            expect(instance.nameByID()).toEqual(instance.visibleValue);
+          });
         });
       });
     });
   });
 
-  describe("highlightMatches",() => {
-    let option;
-
+  describe('handleKeyDown', () => {
     beforeEach(() => {
-      let options = data.get('items').toJS();
-      option = options[0];
+      instance = TestUtils.renderIntoDocument(
+        <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value="" />
+      );
     });
 
-    it('returns the option when no filter text is passed', () => {
-      expect(instance.highlightMatches(option.name, '')).toEqual(option.name);
+    describe('if there is no list', () => {
+      it('returns nothing', () => {
+        expect(instance.handleKeyDown()).toBe(undefined);
+      });
     });
 
-    describe('when valid matches are found', () => {
-      let output, beginning, beginningOuter, beginningInner,
-          beginningContent, middleInner, middleOuter, middleContent, endOuter, endInner, endContent;
-
+    describe('if there is a list', () => {
       beforeEach(() => {
-        output = instance.highlightMatches(option.name, 'o');
-        beginning = output[0];
-        beginningContent = beginning.props.children;
-        middleOuter = output[1];
-        middleInner = middleOuter.props.children;
-        middleContent = middleInner.props.children;
-        endOuter = output[2];
-        endInner = endOuter.props.children;
-        endContent = output[2].props.children;
+        instance.setState({ open: true });
       });
 
-      it('returns option with matching text bold & underlined', () => {
-        expect(middleOuter.type).toEqual('strong');
-        expect(middleContent).toEqual('o');
-        expect(middleInner.type).toEqual('u');
+      describe('if return key', () => {
+        let spy, opts;
+
+        beforeEach(() => {
+          spyOn(instance, 'selectValue');
+          spy = jasmine.createSpy();
+          opts = { which: 13, preventDefault: spy };
+        });
+
+        describe('if something is highlighted', () => {
+          beforeEach(() => {
+            instance.setState({ highlighted: 1 });
+            TestUtils.Simulate.keyDown(instance.refs.input, opts);
+          });
+
+          it('prevents default', () => {
+            expect(spy).toHaveBeenCalled();
+          });
+
+          it('calls setValue', () => {
+            expect(instance.selectValue).toHaveBeenCalledWith(1, 'foo');
+          });
+        });
+
+        describe('if something is not highlighted', () => {
+          it('does not prevent default', () => {
+            TestUtils.Simulate.keyDown(instance.refs.input, opts);
+            expect(spy).not.toHaveBeenCalled();
+          });
+        });
       });
 
-      it('returns non-matched text as unformatted text', () => {
-        expect(beginningContent).toEqual('f');
-        expect(middleContent).toEqual('o');
-        expect(middleContent.type).not.toEqual('strong');
-      });
-    });
+      describe('up arrow', () => {
+        let spy, opts;
 
-    describe('when no matches are found', () => {
-      it('returns the unformatted option', () => {
-        expect(instance.highlightMatches(option.name, 'g')).toEqual('foo');
+        beforeEach(() => {
+          spy = jasmine.createSpy();
+          opts = { which: 38, preventDefault: spy };
+        });
+
+        it('prevents default', () => {
+          TestUtils.Simulate.keyDown(instance.refs.input, opts);
+          expect(spy).toHaveBeenCalled();
+        });
+
+        describe('if there is a next sibling', () => {
+          it('calls setState with the correct values', () => {
+            instance.setState({ highlighted: 1 });
+            spyOn(instance, 'setState');
+            TestUtils.Simulate.keyDown(instance.refs.input, opts);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 2 });
+          });
+        });
+
+        describe('if there is no next sibling', () => {
+          it('calls setState with the correct values', () => {
+            instance.setState({ highlighted: 2 });
+            spyOn(instance, 'setState');
+            TestUtils.Simulate.keyDown(instance.refs.input, opts);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 1 });
+          });
+        });
+      });
+
+      describe('down arrow', () => {
+        let spy, opts;
+
+        beforeEach(() => {
+          spy = jasmine.createSpy();
+          opts = { which: 40, preventDefault: spy };
+        });
+
+        it('prevents default', () => {
+          TestUtils.Simulate.keyDown(instance.refs.input, opts);
+          expect(spy).toHaveBeenCalled();
+        });
+
+        describe('if there is a previous sibling', () => {
+          it('calls setState with the correct values', () => {
+            instance.setState({ highlighted: 2 });
+            spyOn(instance, 'setState');
+            TestUtils.Simulate.keyDown(instance.refs.input, opts);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 1 });
+          });
+        });
+
+        describe('if there is no next sibling', () => {
+          it('calls setState with the correct values', () => {
+            instance.setState({ highlighted: 1 });
+            spyOn(instance, 'setState');
+            TestUtils.Simulate.keyDown(instance.refs.input, opts);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 2 });
+          });
+        });
       });
     });
   });
 
-  describe('prepareList', () => {
-    let options;
-
-    beforeEach(() => {
-      options = data.get('items');
-      spyOn(instance, 'highlightMatches');
-    });
-
-    describe('when no filter is applied', () => {
-      it('returns the original options as JSON', () => {
-        expect(instance.prepareList(options)).toEqual(options.toJS());
+  describe('defaultHighlighted', () => {
+    describe('if there is a value', () => {
+      it('returns the value', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" options={ Immutable.fromJS([{ id: 999, name: 'foo' }, { id: 2, name: 'bar' }]) } value="50" />
+        );
+        expect(instance.defaultHighlighted).toEqual('50');
       });
     });
 
-    describe('when a filter is being applied', () => {
-      describe('when matches are found', () => {
-        it('returns matched items with formatted matching text', () => {
-          instance.state.filter = 'fo';
-          instance.prepareList(options);
-          expect(instance.highlightMatches).toHaveBeenCalled();
-        });
+    describe('if there is no value', () => {
+      it('returns first option in the list', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" options={ Immutable.fromJS([{ id: 999, name: 'foo' }, { id: 2, name: 'bar' }]) } value="" />
+        );
+        expect(instance.defaultHighlighted).toEqual(999);
       });
+    });
 
-      describe('when no matches are found', () => {
-        it('returns an empty object', () => {
-          instance.state.filter = 'xXx';
-          expect(instance.prepareList(options)).toEqual([]);
-        });
-      })
+    describe('if there is no value and no options', () => {
+      it('returns null', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" options={ Immutable.fromJS([]) } value="" />
+        );
+        expect(instance.defaultHighlighted).toBe(null);
+      });
     });
   });
 
   describe('inputProps', () => {
-    it('sets props to defined values', () => {
-      expect(instance.inputProps.className).toMatch('ui-dropdown__input');
-      spyOn(instance, 'handleFocus');
-      instance.inputProps.onFocus();
-      expect(instance.handleFocus).toHaveBeenCalled();
+    it('returns the correct data', () => {
+      instance.visibleValue = 'foo';
+      expect(instance.inputProps.className).toEqual(instance.inputClasses);
+      expect(instance.inputProps.name).toBe(null);
+      expect(instance.inputProps.ref).toEqual("input");
+      expect(instance.inputProps.readOnly).toBeTruthy();
+      expect(instance.inputProps.value).toEqual('foo');
     });
 
-    describe('when filtering is active', () => {
-      it('sets value to the current filter string', () => {
-        instance.state.filter = 'f'
-        expect(instance.inputProps.value).toEqual('f');
-      });
-    });
-
-    describe('when filtering is not active', () => {
-      it('sets value to the corresponding value in the hidden input', () => {
-        expect(instance.inputProps.value).toEqual('bar');
-      });
-    });
-
-    describe('when filter is enabled', () => {
-      it('sets the input to not be readonly', () => {
-        expect(instance.inputProps.readOnly).toBeFalsy();
-      });
-    });
-
-    describe('when filter is disabled', () => {
-      it('sets the input to be readonly', () => {
-        expect(instanceNoFilter.inputProps.readOnly).toBeTruthy();
+    describe('if there is no visibleValue', () => {
+      it('sets name to the name by id', () => {
+        instance.visibleValue = null;
+        spyOn(instance, 'nameByID');
+        instance.inputProps;
+        expect(instance.nameByID).toHaveBeenCalled();
       });
     });
   });
 
   describe('hiddenInputProps', () => {
-    it('sets the hidden props to the defined values', () => {
-      expect(instance.hiddenInputProps.ref).toEqual('hidden');
-      expect(instance.hiddenInputProps.type).toEqual('hidden');
-      expect(instance.hiddenInputProps.readOnly).toBeTruthy();
-      expect(instance.hiddenInputProps.name).toEqual(instance.props.name);
-      expect(instance.hiddenInputProps.value).toEqual(instance.props.value);
+    it('return the correct props', () => {
+      expect(instance.hiddenInputProps).toEqual({
+        ref: "hidden",
+        type: "hidden",
+        readOnly: true,
+        name: "foo",
+        value: instance.props.value
+      });
     });
   });
 
-  describe('rootClass', () => {
-    it('returns the root class name', () => {
-      expect(instance.rootClass).toEqual('ui-dropdown');
+  describe('options', () => {
+    it('should return the options', () => {
+      expect(instance.options).toEqual(instance.props.options.toJS());
     });
   });
 
   describe('mainClasses', () => {
-    it('returns the main class names', () => {
-      expect(instance.mainClasses).toMatch('ui-dropdown');
+    describe('if closed', () => {
+      it('should return the main class', () => {
+        expect(instance.mainClasses).toEqual('ui-dropdown common-input--with-icon common-input');
+      });
     });
 
-    it('adds open class when state is open', () => {
-      instance.setState({ open: true });
-      expect(instance.mainClasses).toMatch('ui-dropdown ui-dropdown--open');
+    describe('if open', () => {
+      it('should return the main classes', () => {
+        instance.setState({ open: true });
+        expect(instance.mainClasses).toEqual('ui-dropdown ui-dropdown--open common-input--with-icon common-input');
+      });
     });
   });
 
   describe('inputClasses', () => {
-    it('returns the input class names', () => {
-      expect(instance.inputClasses).toMatch('ui-dropdown__input');
+    it('should return the classes for the input', () => {
+      expect(instance.inputClasses).toEqual('ui-dropdown__input common-input__input');
     });
+  });
 
-    describe('when filtering is active', () => {
-      it('adds a filter class', () => {
-        instance.state.filter = 'a';
-        expect(instance.inputClasses).toMatch('ui-dropdown__input ui-dropdown__input--filter');
-      });
+  describe('listBlockProps', () => {
+    it('should return the correct options', () => {
+      expect(instance.listBlockProps.key).toEqual('listBlock');
+      expect(instance.listBlockProps.ref).toEqual('listBlock');
+      expect(instance.listBlockProps.className).toEqual('ui-dropdown__list-block');
+    });
+  });
+
+  describe('listProps', () => {
+    it('should return the correct options', () => {
+      expect(instance.listProps.key).toEqual('list');
+      expect(instance.listProps.ref).toEqual('list');
+      expect(instance.listProps.className).toEqual('ui-dropdown__list');
     });
   });
 
   describe('listHTML', () => {
-    describe('when the dropdown is open', () => {
-      it('sets the list classname', () => {
-        TestUtils.Simulate.focus(input[0]);
-        expect(instance.listHTML.props.className).toEqual('ui-dropdown__list common-list')
+    describe('if closed', () => {
+      it('returns null', () => {
+        expect(instance.listHTML).toBe(null);
       });
     });
 
-    describe('when the dropdown is closed', () => {
-      it('adds hidden to the classname', () => {
-        expect(instance.listHTML.props.className).toMatch('hidden')
-      });
-    });
-
-    it('returns an unordered list containing the options', () => {
-      expect(instance.listHTML.ref).toEqual('list');
-      expect(instance.listHTML.props.children.length).toEqual(4);
-    });
-  });
-
-  describe("render", () => {
-    it("renders a hidden input", () => {
-      input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
-      expect(input.tagName).toEqual("INPUT");
-      expect(input.type).toEqual('hidden');
-    });
-
-    it("renders a visible input", () => {
-      input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
-      expect(input.tagName).toEqual("INPUT");
-    });
-
-    it("renders a ul", () => {
-      let ul = instance.refs.list;
-      expect(ul.tagName).toEqual("UL");
-      expect(ul.classList[1]).toEqual("hidden");
-    });
-
-    describe("render with options", () => {
-      let ul, listItems;
-
-      beforeEach(() => {
-        ul = instance.refs.list;
-        listItems = ul.childNodes;
-      });
-
-      it("renders a li with results", () => {
-        expect(listItems.length).toEqual(4);
-        expect(listItems[0].value).toEqual(1);
-        expect(listItems[0].textContent).toEqual("foo");
-        expect(listItems[1].value).toEqual(2);
-        expect(listItems[1].textContent).toEqual("bar");
-      });
-
-      it("sets the highlighted class on the relevant option", () => {
-        instance.setState({
-          highlighted: 2
-        });
-        expect(listItems[0].className).toEqual("ui-dropdown__item common-list__item");
-        expect(listItems[1].className).toEqual("ui-dropdown__item common-list__item ui-dropdown__item--highlighted common-list__item--highlighted ui-dropdown__item--selected common-list__item--selected");
+    describe('if open', () => {
+      it('returns the html', () => {
+        instance.setState({ open: true });
+        expect(TestUtils.isElement(instance.listHTML)).toBeTruthy();
       });
     });
   });
 
+  describe('results', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Dropdown name="foo" options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) } value="1" />
+      );
+    });
+
+    it('returns list of items', () => {
+      expect(instance.results(instance.options).length).toEqual(2);
+    });
+
+    it('adds selected class', () => {
+      expect(instance.results(instance.options)[0].props.className).toEqual('ui-dropdown__list__item ui-dropdown__list__item--selected');
+    });
+
+    it('adds highlighted class', () => {
+      instance.setState({ highlighted: 2 });
+      expect(instance.results(instance.options)[1].props.className).toEqual('ui-dropdown__list__item ui-dropdown__list__item--highlighted');
+    });
+  });
+
+  describe('additionalInputContent', () => {
+    it('returns the list', () => {
+      expect(instance.additionalInputContent[1].props.className).toEqual('ui-dropdown__list-block');
+    });
+
+    describe('with suggest disabled', () => {
+      it('returns the icon', () => {
+        expect(instance.additionalInputContent[0].key).toEqual('label-icon');
+      });
+    });
+
+    describe('with suggest enabled', () => {
+      it('does not return the icon', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) } value="1" suggest={ true } />
+        );
+        expect(instance.additionalInputContent.length).toEqual(1);
+        expect(instance.additionalInputContent[0].props.className).toEqual('ui-dropdown__list-block');
+      });
+    });
+  });
+
+  describe('render', () => {
+    let dropdown;
+
+    beforeEach(() => {
+      dropdown = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dropdown');
+    });
+
+    it('renders the label', () => {
+      expect(dropdown.children[0].tagName).toEqual("LABEL");
+    });
+
+    it('renders the input', () => {
+      expect(dropdown.children[1].tagName).toEqual("DIV");
+      expect(dropdown.children[1].children[0].tagName).toEqual("INPUT");
+    });
+
+    it('renders the hidden input', () => {
+      expect(dropdown.children[2].tagName).toEqual("INPUT");
+    });
+  });
 });

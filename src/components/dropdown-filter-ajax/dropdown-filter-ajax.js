@@ -2,7 +2,6 @@ import React from 'react';
 import Request from 'superagent';
 import _ from 'lodash';
 import DropdownFilter from './../dropdown-filter';
-import { generateInputName } from './../../utils/helpers/forms';
 
 /**
  * A dropdown-suggest widget.
@@ -103,9 +102,9 @@ class DropdownSuggest extends DropdownFilter {
      * Enables create functionality for dropdown.
      *
      * @property create
-     * @type {Boolean}
+     * @type {Function}
      */
-    create: React.PropTypes.bool,
+    create: React.PropTypes.func,
 
     /**
      * Should the dropdown act and look like a suggestable input instead.

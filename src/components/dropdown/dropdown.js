@@ -30,29 +30,29 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(
 class Dropdown extends React.Component {
 
   /**
-   * Determines if the blur event should be prevented.
-   *
-   * @property blockBlur
-   * @type {Boolean}
-   * @default false
-   */
-  blockBlur = false;
-
-  /**
-   * Variable to cache current value.
-   * Setting it here rather than state prevents complete rerender when value changes.
-   *
-   * @property visibleValue
-   * @type {Object | String}
-   * @default null
-   */
-  visibleValue = null;
-
-  /**
    * @constructor
    */
   constructor(...args) {
     super(...args);
+
+    /**
+     * Determines if the blur event should be prevented.
+     *
+     * @property blockBlur
+     * @type {Boolean}
+     * @default false
+     */
+    this.blockBlur = false;
+
+    /**
+     * Variable to cache current value.
+     * Setting it here rather than state prevents complete rerender when value changes.
+     *
+     * @property visibleValue
+     * @type {String}
+     * @default ''
+     */
+    this.visibleValue = '';
 
     // bind scope to functions - allowing them to be overridden and
     // recalled with the use of super
@@ -74,6 +74,8 @@ class Dropdown extends React.Component {
 
     /**
      * The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.
+     *
+     * This should be an Immutable object.
      *
      * @property options
      * @type {object}
@@ -295,11 +297,20 @@ class Dropdown extends React.Component {
 
     if (this.props.value) {
       highlighted = this.props.value;
-    } else if (this.props.options) {
+    } else if (this.props.options.length) {
       highlighted = this.props.options.first().get('id');
     }
 
     return highlighted;
+  }
+
+  /**
+   * Returns the list options in the correct format
+   *
+   * @method options
+   */
+  get options() {
+    return this.props.options.toJS();
   }
 
   /**
@@ -311,7 +322,7 @@ class Dropdown extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.value = this.visibleValue || this.nameByID(this.props.value);
+    props.value = this.visibleValue || this.nameByID();
     props.name = null;
     props.onBlur = this.handleBlur;
     props.onKeyDown = this.handleKeyDown;
@@ -343,12 +354,36 @@ class Dropdown extends React.Component {
   }
 
   /**
-   * Returns the list options in the correct format
+   * Properties to be assigned to the list.
    *
-   * @method options
+   * @method listProps
    */
-  get options() {
-    return this.props.options.toJS();
+  get listBlockProps() {
+    let listClasses = 'ui-dropdown__list-block';
+
+    return {
+      key: "listBlock",
+      ref: "listBlock",
+      onMouseDown: this.handleMouseDownOnList,
+      onMouseLeave: this.handleMouseLeaveList,
+      onMouseEnter: this.handleMouseEnterList,
+      className: listClasses
+    };
+  }
+
+  /**
+   * Properties to be assigned to the list.
+   *
+   * @method listProps
+   */
+  get listProps() {
+    let listClasses = 'ui-dropdown__list';
+
+    return {
+      key: "list",
+      ref: "list",
+      className: listClasses
+    };
   }
 
   /**
@@ -375,24 +410,6 @@ class Dropdown extends React.Component {
     let inputClasses = 'ui-dropdown__input';
 
     return inputClasses;
-  }
-
-  /**
-   * Properties to be assigned to the list.
-   *
-   * @method listProps
-   */
-  get listProps() {
-    let listClasses = 'ui-dropdown__list';
-
-    return {
-      key: "list",
-      ref: "list",
-      onMouseDown: this.handleMouseDownOnList,
-      onMouseLeave: this.handleMouseLeaveList,
-      onMouseEnter: this.handleMouseEnterList,
-      className: listClasses
-    }
   }
 
   /**
@@ -459,7 +476,7 @@ class Dropdown extends React.Component {
     }
 
     content.push(
-      <div className="ui-dropdown__list-block" key="dropdown-list">
+      <div { ...this.listBlockProps }>
         { this.listHTML }
       </div>
     );
