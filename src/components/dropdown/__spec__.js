@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Dropdown from './dropdown';
 import Immutable from 'immutable';
 
-fdescribe('Dropdown', () => {
+describe('Dropdown', () => {
   let instance;
 
   beforeEach(() => {

@@ -26,7 +26,7 @@ class Details extends React.Component {
           options={ this.props.options }
           onChange={ FinancesActions.financesValueUpdated }
           value={ this.props.accounts }
-          suggest={ true }
+          create={ true }
         />
 
         <DropdownFilterAjax

@@ -10,26 +10,17 @@ import DropdownFilter from './../dropdown-filter';
  *
  * In your file
  *
- *   import DropdownSuggest from 'carbon/lib/components/dropdown-suggest';
+ *   import DropdownFilterAjax from 'carbon/lib/components/dropdown-suggest';
  *
- * To render a DropdownSuggest:
+ * To render a DropdownFilterAjax:
  *
- *   <DropdownSuggest path={foo} />
+ *   <DropdownFilterAjax path={foo} />
  *
- * @class DropdownSuggest
+ * @class DropdownFilterAjax
  * @constructor
  * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
  */
-class DropdownSuggest extends DropdownFilter {
-
-  /**
-   * Tracks whether the scroll listener is active on the list, useful for
-   * paginated results.
-   *
-   * @property listeningToScroll
-   * @type {Boolean}
-   */
-  listeningToScroll = true;
+class DropdownFilterAjax extends DropdownFilter {
 
   constructor(...args) {
     super(...args);
@@ -59,6 +50,16 @@ class DropdownSuggest extends DropdownFilter {
      * @default 0
      */
     this.state.pages = 0;
+
+    /**
+     * Tracks whether the scroll listener is active on the list, useful for
+     * paginated results.
+     *
+     * @property listeningToScroll
+     * @type {Boolean}
+     * @default true
+     */
+    this.listeningToScroll = true;
   }
 
   static propTypes = {
@@ -256,21 +257,6 @@ class DropdownSuggest extends DropdownFilter {
     return this.prepareList(_.cloneDeep(this.state.options));
   }
 
-  /**
-   * Input props for the dropdown, extended from the base dropdown component.
-   *
-   * @method inputProps
-   */
-  get inputProps() {
-    let props = super.inputProps;
-
-    if (typeof props.value !== 'string') {
-      props.value = this.props.visibleValue;
-    }
-
-    return props;
-  }
-
 }
 
-export default DropdownSuggest;
+export default DropdownFilterAjax;

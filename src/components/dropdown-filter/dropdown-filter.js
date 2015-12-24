@@ -4,8 +4,6 @@ import I18n from 'i18n-js';
 
 class DropdownFilter extends Dropdown {
 
-  openingList = false
-
   constructor(...args) {
     super(...args);
 
@@ -17,6 +15,15 @@ class DropdownFilter extends Dropdown {
      * @default null
      */
     this.state.filter = null;
+
+    /**
+     * Determines if list is being opened on current render.
+     *
+     * @property openingList
+     * @type {Boolean}
+     * @default false
+     */
+    this.openingList = false;
 
     // bind scope to functions - allowing them to be overridden and
     // recalled with the use of super
@@ -60,7 +67,15 @@ class DropdownFilter extends Dropdown {
     suggest: React.PropTypes.bool
   }
 
+  /**
+   * Lifecycle hook for when the component will update.
+   *
+   * @method componentWillUpdate
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   */
   componentWillUpdate(nextProps, nextState) {
+    // if list is being opened, set boolean
     if (this.state.open != nextState.open) {
       this.openingList = true;
     }
@@ -259,8 +274,7 @@ class DropdownFilter extends Dropdown {
   get inputProps() {
     let props = super.inputProps;
 
-    // use value from cache or get value by id
-    let value = this.visibleValue || this.nameByID(this.props.value);
+    let value = props.value;
 
     if (typeof this.state.filter === 'string') {
       // if filter has a value, use that instead

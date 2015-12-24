@@ -297,7 +297,7 @@ class Dropdown extends React.Component {
 
     if (this.props.value) {
       highlighted = this.props.value;
-    } else if (this.props.options.length) {
+    } else if (this.props.options.size) {
       highlighted = this.props.options.first().get('id');
     }
 
