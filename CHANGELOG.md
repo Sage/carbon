@@ -1,4 +1,8 @@
-# 0.0.2.beta
+# 0.1.0
+
+TBC
+
+# 0.0.2
 
 ## Decimal Component
 

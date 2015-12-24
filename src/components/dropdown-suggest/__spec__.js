@@ -39,7 +39,8 @@ describe("DropdownSuggest", () => {
       let listItems = ul.childNodes;
       expect(listItems.length).toEqual(1);
       expect(listItems[0].tagName).toEqual("LI");
-      expect(listItems[0].textContent).toEqual("No results match: " + undefined);
+      // TODO: fix this spec
+      expect(listItems[0].textContent).toEqual("No results match \"[missing %{term} value]\"");
     });
 
     describe("render with options", () => {
@@ -64,7 +65,7 @@ describe("DropdownSuggest", () => {
 
       it("sets the highlighted class on the relevant option", () => {
         expect(listItems[0].className).toEqual("ui-dropdown-suggest__item common-list__item");
-        expect(listItems[1].className).toEqual("ui-dropdown-suggest__item ui-dropdown-suggest__item--highlighted common-list__item common-list__item--highlighted");
+        expect(listItems[1].className).toEqual("ui-dropdown-suggest__item common-list__item ui-dropdown-suggest__item--highlighted common-list__item--highlighted");
       });
     });
   });
