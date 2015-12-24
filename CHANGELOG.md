@@ -1,6 +1,12 @@
 # 0.1.0
 
-TBC
+## Dropdowns
+
+Dropdown components have been refactored. We now have three different kinds:
+
+* Dropdown
+* Dropdown Filter
+* Dropdown Filter Ajax
 
 # 0.0.2
 

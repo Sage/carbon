@@ -4,21 +4,26 @@ import _ from 'lodash';
 import DropdownFilter from './../dropdown-filter';
 
 /**
- * A dropdown-suggest widget.
+ * A dropdown filter widget using ajax.
  *
- * == How to use a dropdown-suggest in a component:
+ * == How to use a dropdown in a component:
  *
  * In your file
  *
- *   import DropdownFilterAjax from 'carbon/lib/components/dropdown-suggest';
+ *   import DropdownFilterAjax from 'carbon/lib/components/dropdown-filter-ajax';
  *
  * To render a DropdownFilterAjax:
  *
- *   <DropdownFilterAjax path={foo} />
+ *   <DropdownFilter name="foo" path="/foo" onChange={ myChangeHandler } />
  *
- * @class DropdownFilterAjax
+ * You can also use the component in 'suggest' mode, which only shows the dropdown
+ * once a filter term has been entered.
+ *
+ * You can also define a function using the 'create' prop, this will allow you
+ * to trigger events to create new items.
+ *
+ * @class DropdownFilter
  * @constructor
- * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
  */
 class DropdownFilterAjax extends DropdownFilter {
 

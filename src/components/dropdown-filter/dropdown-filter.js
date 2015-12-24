@@ -2,6 +2,32 @@ import React from 'react';
 import Dropdown from './../dropdown';
 import I18n from 'i18n-js';
 
+/**
+ * A dropdown filter widget.
+ *
+ * == How to use a dropdown in a component:
+ *
+ * In your file
+ *
+ *   import DropdownFilter from 'carbon/lib/components/dropdown-filter';
+ *
+ * To render a DropdownFilter:
+ *
+ *   <DropdownFilter name="foo" options={ foo } onChange={ myChangeHandler } />
+ *
+ * The developer should pass data to the store as JSON. e.g.
+ *
+ *   foo: [{ id: 1, name: "Foo" }, { id: 2, name: "Bar" }]
+ *
+ * You can also use the component in 'suggest' mode, which only shows the dropdown
+ * once a filter term has been entered.
+ *
+ * You can also define a function using the 'create' prop, this will allow you
+ * to trigger events to create new items.
+ *
+ * @class DropdownFilter
+ * @constructor
+ */
 class DropdownFilter extends Dropdown {
 
   constructor(...args) {

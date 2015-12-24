@@ -16,7 +16,7 @@ import { generateInputName } from './../../utils/helpers/forms';
  *
  * To render a Dropdown:
  *
- *   <Dropdown options={ foo } onChange={ myChangeHandler } />
+ *   <Dropdown name="foo" options={ foo } onChange={ myChangeHandler } />
  *
  * The developer should pass data to the store as JSON. e.g.
  *
