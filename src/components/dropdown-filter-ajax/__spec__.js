@@ -233,4 +233,26 @@ describe('DropdownFilterAjax', () => {
       expect(instance.prepareList).toHaveBeenCalled();
     });
   });
+
+  describe('inputProps', () => {
+    describe('when value is not a string', () => {
+      it('uses the visibleValue', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilterAjax name="foo" value="1" path="/foobar" visibleValue="bar" />
+        );
+        instance.visibleValue = null;
+        expect(instance.inputProps.value).toEqual('bar');
+      });
+    });
+
+    describe('when value is a string', () => {
+      it('uses the value from inputProps', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilterAjax name="foo" path="/foobar" visibleValue="bar" />
+        );
+        instance.visibleValue = 'foo';
+        expect(instance.inputProps.value).toEqual('foo');
+      });
+    });
+  });
 });

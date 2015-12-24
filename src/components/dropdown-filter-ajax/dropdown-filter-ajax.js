@@ -262,6 +262,22 @@ class DropdownFilterAjax extends DropdownFilter {
     return this.prepareList(_.cloneDeep(this.state.options));
   }
 
+
+  /**
+   * Input props for the dropdown, extended from the base dropdown component.
+   *
+   * @method inputProps
+   */
+  get inputProps() {
+    let props = super.inputProps;
+
+    if (typeof props.value !== 'string') {
+      props.value = this.props.visibleValue;
+    }
+
+    return props;
+  }
+
 }
 
 export default DropdownFilterAjax;

@@ -35,7 +35,7 @@ describe('TableRow', () => {
 
     baseData = ImmutableHelper.parseJSON({ foo: 'text',
       bar: '1.00',
-      baz: Immutable.fromJS({ id: 1, name: 'baz' })
+      baz: '1'
     });
 
     regularTable = document.createElement('table');
