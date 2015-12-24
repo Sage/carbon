@@ -1,8 +1,5 @@
 import React from 'react';
 import Dialog from '../dialog';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Icon from './../icon';
-import Bowser from 'bowser';
 
 /**
  * A Alert widget.
@@ -15,7 +12,7 @@ import Bowser from 'bowser';
  *
  * To render a Alert:
  *
- *   <Alert cancelDialogHandler={ customEvenHandler } />
+ *   <Alert cancelHandler={ customEvenHandler } />
  *
  * The component rendering the Alert must pass down a prop of 'open' in order to open the alert.
  *
@@ -26,8 +23,8 @@ import Bowser from 'bowser';
  */
 class Alert extends Dialog {
 
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
   }
 
   /**
@@ -35,7 +32,7 @@ class Alert extends Dialog {
    *
    * @method dialogTitle
    */
-  get alertTitle() {
+  get dialogTitle() {
     return (
         this.props.title ?
           <h2 className="ui-alert__title">{ this.props.title }</h2> :

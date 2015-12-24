@@ -14,7 +14,7 @@ import Bowser from 'bowser';
  *
  * To render a Dialog:
  *
- *   <Dialog cancelDialogHandler={ customEvenHandler } />
+ *   <Dialog cancelHandler={ customEvenHandler } />
  *
  * The component rendering the Dialog must pass down a prop of 'open' in order to open the dialog.
  *
@@ -31,10 +31,10 @@ class Dialog extends React.Component {
     /**
      * A custom close event handler
      *
-     * @property cancelDialogHandler
+     * @property cancelHandler
      * @type {Function}
      */
-    cancelDialogHandler: React.PropTypes.func.isRequired,
+    cancelHandler: React.PropTypes.func.isRequired,
 
     /**
      * Sets the open state of the dialog
@@ -69,7 +69,7 @@ class Dialog extends React.Component {
   getChildContext() {
     return {
       dialog: {
-        cancelDialogHandler: this.props.cancelDialogHandler
+        cancelHandler: this.props.cancelHandler
       }
     };
   }
@@ -100,7 +100,7 @@ class Dialog extends React.Component {
    */
   closeDialog = (ev) => {
     if (ev.keyCode === 27) {
-      this.props.cancelDialogHandler();
+      this.props.cancelHandler();
     }
   }
 
@@ -193,7 +193,7 @@ class Dialog extends React.Component {
     return (
       <div ref="dialog" className={ dialogClasses }>
         { this.dialogTitle }
-        <Icon className="ui-dialog__close" type="close" onClick={ this.props.cancelDialogHandler } />
+        <Icon className="ui-dialog__close" type="close" onClick={ this.props.cancelHandler } />
         { this.props.children }
       </div>
     );
