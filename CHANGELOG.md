@@ -1,6 +1,9 @@
 # 0.1.0
 
-TBC
+## Dialog & Alert
+
+  A new Alert component has been added which extends from Dialog.
+  Both components now require a `cancelHandler` prop (rather than the `cancelDialogHandler`).
 
 # 0.0.2
 
@@ -11,7 +14,7 @@ TBC
 ## Dropdown and DropdownSuggest components
 
 Dropdown and dropdown-suggest have been updated. As they share common functionality, dropdown and dropdown-suggest now use a List decorator. This should not affect how you use either component.
-* Dropdown now filters results as you type. 
+* Dropdown now filters results as you type.
 
 ## Dialog Cancel button
 

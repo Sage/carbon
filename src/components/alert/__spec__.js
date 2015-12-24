@@ -3,8 +3,6 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Dialog from './../dialog'
 import Alert from './alert';
 
-let dialog = TestUtils.renderIntoDocument(<Dialog name="foo" cancelHandler={ function(){} } open={ false }/>);
-
 describe('Alert', () => {
   let instance;
   let cancelHandler = jasmine.createSpy('cancel');

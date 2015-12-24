@@ -28,7 +28,7 @@ class Alert extends Dialog {
   }
 
   /**
-   * Returns HTML and text for the dialog title.
+   * Returns HTML and text for the alert title. Overrides super method.
    *
    * @method dialogTitle
    */
@@ -41,7 +41,7 @@ class Alert extends Dialog {
   }
 
   /**
-   * Returns classes for the dialog.
+   * Returns classes for the alert, combines with dialog class names..
    *
    * @method dialogClasses
    */
