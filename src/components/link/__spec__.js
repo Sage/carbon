@@ -4,7 +4,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Link from './link';
 
 describe('Link', () => {
-  let basicLink, disabledLink;
+  let basicLink, disabledLink, customLink;
 
   beforeEach(() => {
     basicLink = TestUtils.renderIntoDocument(
@@ -13,6 +13,10 @@ describe('Link', () => {
 
     disabledLink = TestUtils.renderIntoDocument(
       <Link path='http://app.com/edit' disabled>My Link</Link>
+    )
+
+    customLink = TestUtils.renderIntoDocument(
+      <Link className='fancy' path='http://app.com/home'>My Link</Link>
     )
   });
 
@@ -37,11 +41,12 @@ describe('Link', () => {
   });
 
   describe('class names', () => {
-    let basicDOM, disabledDOM;
+    let basicDOM, disabledDOM, customDOM;
 
     beforeEach(() => {
       basicDOM    = ReactDOM.findDOMNode(basicLink);
       disabledDOM = ReactDOM.findDOMNode(disabledLink);
+      customDOM   = ReactDOM.findDOMNode(customLink);
     });
 
     it('adds a className of ui-link to all links', () => {
@@ -51,6 +56,10 @@ describe('Link', () => {
 
     it('adds a disabled class name to a disabled link', () => {
       expect(disabledDOM.classList[1]).toEqual('ui-link--disabled');
+    });
+
+    it('adds any additional classes passed', () => {
+      expect(customDOM.classList[1]).toEqual('fancy');
     });
   });
 });
