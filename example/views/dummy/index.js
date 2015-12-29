@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'utils/flux';
 import Form from 'components/form';
 import Button from 'components/button';
+import QuickCreate from './subviews/quick-create';
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
@@ -27,6 +28,8 @@ class Finances extends React.Component {
 
         <Button onClick={ this.handleOnClick }>Edit My Details</Button>
 
+        <QuickCreate />
+        
         <h1 className="view-finances__title">{ name }</h1>
 
         <Form model="foo">
@@ -49,7 +52,6 @@ class Finances extends React.Component {
             debitTotal={ this.state.financesStore.get('debit_total') }
             creditTotal={ this.state.financesStore.get('credit_total') } />
         </Form>
-
         <UserDialog />
       </div>
     );
