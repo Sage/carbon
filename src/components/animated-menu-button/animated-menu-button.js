@@ -16,21 +16,33 @@ class AnimatedMenuButton extends React.Component {
     direction: 'left'
   }
 
+  state = {
+    open: false
+  }
+
   get closeIcon() {
     return <div onClick={ this.handleTouch }>
              <Icon type='close' />
            </div>
   }
 
-  handleTouch() {
-    document.getElementsByClassName("ui-animated-menu-button")[0].className = "closed";
+  // componentWillMount() {
+  //   this.setState({})
+  // }
+
+  handleMouseOver = () => {
+    this.setState({ open: true });
   }
 
-   componentDidMount() {
-      if (isTouchDevice()) {
-       document.getElementsByClassName('icon-close')[0].style.display='inline-block';
-      }
-   }
+  // handleTouch() {
+  //   document.getElementsByClassName("ui-animated-menu-button")[0].className = "closed";
+  // }
+
+  //  componentDidMount() {
+  //     if (isTouchDevice()) {
+  //      document.getElementsByClassName('icon-close')[0].style.display='inline-block';
+  //     }
+  //  }
 
   //  addFocusEvents() {
   //    var triggers;
@@ -52,6 +64,7 @@ class AnimatedMenuButton extends React.Component {
     }
 
     get innerHTML() {
+      debugger
       let contents = [];
 
       contents.push(this.label);
@@ -67,16 +80,21 @@ class AnimatedMenuButton extends React.Component {
    * @method render
    */
   render() {
+    let content;
     let {className, ...props} = this.props;
 
     className = 'ui-animated-menu-button ui-animated-menu-button--' + this.props.size +
                 ' ui-animated-menu-button--' + this.props.direction + ' ' +
                 (className ? ' ' + className : '');
 
+    if (this.state.open === 'true') {
+      content = this.innnerHTML;
+    }
+
     return (
-      <div className={ className } >
+      <div className={ className } onMouseEnter={ this.handleMouseOver } >
         <Icon type='add'/>
-        { this.innerHTML }
+        { content }
       </div>
     );
   }
