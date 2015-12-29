@@ -290,7 +290,7 @@ class DropdownSuggest extends React.Component {
 
   /**
    * A getter that combines props passed down from the input decorator with
-   * textbox specific props.
+   * dropdown-suggest specific props.
    *
    * @method inputProps
    */
@@ -318,7 +318,7 @@ class DropdownSuggest extends React.Component {
   get hiddenInputProps() {
     let nameWithID = this.inputProps.name.split(/\]$/)[0] + "_id]";
     let props = {
-      ref: "input",
+      ref: "hidden",
       type: "hidden",
       readOnly: true,
       name: nameWithID,

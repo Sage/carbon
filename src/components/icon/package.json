@@ -1,5 +1,7 @@
 {
-  "style": "style.scss",
+  "name": "icon",
+  "style": "icon.scss",
+  "main": "./icon.js",
   "fonts": [
     "fonts/carbon-icons-webfont.eot",
     "fonts/carbon-icons-webfont.svg",

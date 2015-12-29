@@ -2,6 +2,12 @@
 @import 'mixins';
 @import 'input-field';
 
+.common-input--with-icon {
+  .common-input__icon {
+    right: 32px;
+  }
+}
+
 .common-input__input:hover ~ label .ui-input-icon {
   background-color: $blue;
   border-color: $blue;
@@ -10,7 +16,8 @@
   &:hover {
     background-color: $blue-bright;
     border-color: $blue-bright;
-  }
+    color: $white;
+  };
 }
 
 .common-input__input:focus ~ label .ui-input-icon,
@@ -24,7 +31,6 @@
   $button-border-radius: $input-border-radius - 1;
   background-color: $grey-light;
   border-left: 1px solid $grey;
-  border-radius: 0 $button-border-radius $button-border-radius 0;
   bottom: 1px;
   box-sizing: border-box;
   color: $grey-dark;
@@ -36,4 +42,10 @@
   right: 1px;
   text-align: center;
   width: $input-common-height;
+
+  &:hover {
+    background-color: $blue-bright;
+    border-color: $blue-bright;
+    color: $white;
+  };
 }

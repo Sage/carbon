@@ -83,8 +83,8 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
       labelClasses += ` ${labelClasses}--inline`;
     }
 
-    // set asterix if presence validation is applied (TODO: currently this applies to any validation)
-    if (this.props.validations) {
+    // set asterisk if validation is used which uses an asterisk
+    if (_.find(this.props.validations, (v) => { return v.asterisk; })) {
       labelText += "*";
     }
 

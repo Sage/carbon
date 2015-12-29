@@ -20,13 +20,15 @@ import React from 'react';
  * @class Icon
  * @constructor
  */
-var Icon = (props) => {
-  let { className, type, ...otherProps } = props;
+class Icon extends React.Component {
+  render() {
+    let { className, type, ...otherProps } = this.props;
 
-  className = className || '';
-  className = `icon-${type} ${className}`;
+    className = className || '';
+    className = `icon-${type} ${className}`;
 
-  return <span className={ className } { ...otherProps }></span>;
-};
+    return <span className={ className } { ...otherProps }></span>;
+  }
+}
 
 export default Icon;

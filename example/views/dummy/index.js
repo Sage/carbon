@@ -1,5 +1,4 @@
 import React from 'react';
-import BigNumber from 'bignumber.js';
 import { connect } from 'utils/flux';
 import Form from 'components/form';
 import Button from 'components/button';
@@ -33,6 +32,8 @@ class Finances extends React.Component {
         <Form model="foo">
           <FinancesDetails
             name={ name }
+            accounts={ this.state.financesStore.get('accounts') }
+            options={ this.state.financesStore.get('options') }
             discount={ this.state.financesStore.get('discount') }
             dateFrom={ this.state.financesStore.get('date_from') } />
 

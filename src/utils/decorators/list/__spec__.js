@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import List from './index';
+import List from './list';
 import ImmutableHelper from './../../helpers/immutable';
 import ReactDOM from 'react-dom';
 
@@ -42,8 +42,8 @@ describe('List', () => {
     describe('when the component lacks a select handler', () => {
       it('calls emitOnChangeCallback with the selected value', () => {
         spyOn(instance, 'emitOnChangeCallback');
-        let ev = { target: { getAttribute: function() {} }};
-        spyOn(ev.target, 'getAttribute').and.returnValue('foo');
+        let ev = { currentTarget: { getAttribute: function() {} }};
+        spyOn(ev.currentTarget, 'getAttribute').and.returnValue('foo');
         instance._handleSelect(ev);
         expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('foo');
       });
@@ -68,6 +68,14 @@ describe('List', () => {
         expect(instance.setState).toHaveBeenCalledWith({ open: false });
       });
     });
-  });
 
+    describe('when blockBlur is set to true', () => {
+      it('does not call setState', () => {
+        spyOn(instance, 'setState');
+        instance.blockBlur = true;
+        instance.inputProps.onBlur();
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
+    });
+  });
 });

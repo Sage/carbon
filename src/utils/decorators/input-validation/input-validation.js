@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
 import _ from 'lodash';
@@ -36,6 +37,8 @@ import _ from 'lodash';
  */
 let InputValidation = (ComposedComponent) => class Component extends ComposedComponent {
 
+  _window = window;
+
   constructor(...args) {
     super(...args);
 
@@ -59,11 +62,55 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
      * @default null
      */
     this.state.errorMessage = null;
+
+    /**
+     * Determines if the message should always be visible.
+     *
+     * @property messageLocked
+     * @type {Boolean}
+     * @default false
+     */
+    this.state.messageLocked = false;
   }
 
   static contextTypes = _.assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
+
+  /**
+   * A lifecycle method for when the component has re-rendered.
+   *
+   * @method componentDidUpdate
+   */
+  componentDidUpdate() {
+    if (!this.state.valid) {
+      // calculate the position for the message relative to the icon
+      let icon = ReactDOM.findDOMNode(this.refs.validationIcon),
+          message = this.refs.validationMessage;
+
+      if (icon && message) {
+        let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2)),
+            topOffset = icon.offsetTop - icon.offsetHeight;
+
+        // set initial position for message
+        message.style.left = `${messagePositionLeft}px`;
+        message.style.top = `-${message.offsetHeight - topOffset}px`;
+
+        // figure out if the message is positioned offscreen
+        let messageScreenPosition = message.getBoundingClientRect().left + message.offsetWidth;
+
+        // change the position if it is offscreen
+        if (messageScreenPosition > this._window.innerWidth) {
+          messagePositionLeft -= message.offsetWidth;
+          message.style.left = `${messagePositionLeft}px`;
+          message.className += " common-input__message--flipped";
+        }
+
+        // hide the message
+        message.className += " common-input__message--hidden";
+      }
+    }
+  }
 
   /**
    * A lifecycle method for when the component is added to the page.
@@ -147,14 +194,29 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    */
   _handleBlur = () => {
     this.validate();
+
+    if (this.state.messageLocked) {
+      this.setState({ messageLocked: false });
+    }
   }
 
   /**
-   * On focus of the input we want to reset validation of the field.
+   * On focus of the input.
    *
    * @method _handleFocus
    */
   _handleFocus = () => {
+    if (!this.state.valid && !this.state.messageLocked) {
+      this.setState({ messageLocked: true });
+    }
+  }
+
+  /**
+   * On key down of the input when we want to reset the validation.
+   *
+   * @method _handleKeyDown
+   */
+  _handleKeyDown = () => {
     // if the field is in an invalid state
     if (!this.state.valid) {
       // if there is a form, decrement the error count
@@ -172,9 +234,14 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   get validationHTML() {
     if (!this.state.errorMessage) { return null; }
 
+    let messageClasses = "common-input__message common-input__message--error",
+        iconClasses = "common-input__icon common-input__icon--error";
+
+    if (this.state.messageLocked) { messageClasses += " common-input__message--locked"; }
+
     return [
-      <Icon key="0" type="error" className="common-input__icon common-input__icon--error" />,
-      <div key="1" className="common-input__message common-input__message--error">
+      <Icon key="0" ref="validationIcon" type="error" className={ iconClasses } />,
+      <div key="1" ref="validationMessage" className={ messageClasses }>
         { this.state.errorMessage }
       </div>
     ];
@@ -218,8 +285,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   get inputProps() {
     let inputProps = super.inputProps || {};
 
-    inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
     inputProps.onFocus = chainFunctions(this._handleFocus, inputProps.onFocus);
+    inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
+    inputProps.onKeyDown = chainFunctions(this._handleKeyDown, inputProps.onKeyDown);
 
     return inputProps;
   }

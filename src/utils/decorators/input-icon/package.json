@@ -1,3 +1,5 @@
 {
-  "style": "style.scss"
+  "name": "input-icon",
+  "style": "input-icon.scss",
+  "main": "./input-icon.js"
 }
