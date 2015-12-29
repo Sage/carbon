@@ -29,8 +29,6 @@ class Finances extends React.Component {
 
         <Button onClick={ this.handleOnClick }>Edit My Details</Button>
 
-        <Link className="home-link" path='#'>Main Page</Link>
-
         <h1 className="view-finances__title">{ name }</h1>
 
         <Form model="foo">
@@ -53,6 +51,8 @@ class Finances extends React.Component {
             debitTotal={ this.state.financesStore.get('debit_total') }
             creditTotal={ this.state.financesStore.get('credit_total') } />
         </Form>
+
+        <Link className="home-link" path='#' disabled>Main Page</Link>
 
         <UserDialog />
       </div>

@@ -1,22 +1,43 @@
 import React from 'react';
 
+/**
+ * A link widget.
+ *
+ * == How to use a Link in a component:
+ *
+ * In your file:
+ *
+ *   import Link from 'carbon/lib/components/link';
+ *
+ * To render the Link:
+ *
+ *  <Link path='foo'>Main Page</Link>
+ *
+ * For additional properties specific to this component, see propTypes and defaultProps.
+ *
+ * @class Link
+ * @constructor
+ */
 class Link extends React.Component {
 
   static propTypes = {
+
+    /**
+     * The redirect path.
+     *
+     * @property path
+     * @type {String}
+     */
     path: React.PropTypes.string.isRequired,
 
     /**
      * Gives the link a disabled state.
      *
-     * @property boolean
-     * @type {Boolean}
-     * @default false
+     * @property disabled
+     * @type {boolean}
+     * @default undefined
      */
     disabled: React.PropTypes.bool
-  }
-
-  static defaultProps = {
-    disabled: false
   }
 
   /**
