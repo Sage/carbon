@@ -53,11 +53,9 @@ class Link extends React.Component {
       (className ? ' ' + className : '');
 
     return (
-      <div className={ className }>
-        <a href={ this.props.path} >
-          { this.props.children }
-        </a>
-      </div>
+      <a className={ className } href={ this.props.path} >
+        { this.props.children }
+      </a>
     );
   }
 

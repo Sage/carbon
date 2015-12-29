@@ -4,31 +4,27 @@ $link-color: $blue !default;
 $link-hover-color: $blue-dark !default;
 $link-hover-text-decoration: underline !default;
 
-.ui-link {
-  a {
-    color: $link-color;
-    font-size: 1.2em;
-    font-weight: bold;
-    text-decoration: none;
+a.ui-link {
+  color: $link-color;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-decoration: none;
 
-    &:hover {
-      text-decoration: $link-hover-text-decoration;
-      color: $link-hover-color;
-    }
+  &:hover {
+    text-decoration: $link-hover-text-decoration;
+    color: $link-hover-color;
   }
 }
 
-.ui-link--disabled {
-  a {
-    color: $grey-dark;
-    cursor: default;
-    pointer-events: none;
-    text-decoration: none;
+a.ui-link--disabled {
+  color: $grey-dark;
+  cursor: default;
+  pointer-events: none;
+  text-decoration: none;
 
-    //for IE
-    &:hover {
-      text-decoration: none;
-      color: $grey-dark;
-    }
+  //for IE
+  &:hover {
+    text-decoration: none;
+    color: $grey-dark;
   }
 }
