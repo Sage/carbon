@@ -9,15 +9,15 @@ class QuickCreate extends React.Component {
     return (
     <AnimatedMenuButton className='quick-create' direction='left' label="Create...">
       <Row>
-        <Pod>
+        <Pod key='1'>
           <h2 className="title">Column 1</h2>
           PEEKABOO
         </Pod>
-        <Pod>
+        <Pod key='2'>
           <h2 className="title">Column 2</h2>
           <Button>A Button</Button>
         </Pod>
-        <Pod>
+        <Pod key='3'>
           <h2 className="title">Column 3</h2>
           <a href='#'>This will be a link</a>
         </Pod>

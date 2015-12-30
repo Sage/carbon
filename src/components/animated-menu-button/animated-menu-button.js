@@ -58,7 +58,8 @@ class AnimatedMenuButton extends React.Component {
   }
 
   state = {
-    open: false
+    open: false,
+    touch: isTouchDevice()
   }
 
   /**
@@ -67,7 +68,7 @@ class AnimatedMenuButton extends React.Component {
    * @method handleMouseOver
    * @return {void}
    */
-  handleMouseOver = () => {
+  handleMouseEnter = () => {
     this.setState({ open: true });
   }
 
@@ -81,6 +82,14 @@ class AnimatedMenuButton extends React.Component {
     this.setState({ open: false });
   }
 
+  //TODO: element not tabbable, need to manually handle focus/blur, e.g. add class 'hover'
+  // handleFocus = () => {
+  //   this.setState({ open: true });
+  // }
+  //
+  // handleBlur = () => {
+  //   this.setState({ open: false });
+  // }
   /**
    * Handles touch event on widget. Toggles open state.
    *
@@ -102,7 +111,8 @@ class AnimatedMenuButton extends React.Component {
    * @return {HTML} Html for label.
    */
   get labelHTML() {
-    return <span className='label'>{ this.props.label }</span> || '';
+    let label = this.props.label ? <span className='label'>{ this.props.label }</span> : '';
+    return label;
   }
 
   /**
@@ -117,7 +127,7 @@ class AnimatedMenuButton extends React.Component {
     contents.push(this.labelHTML);
 
     // If device supports touch, add close icon.
-    if (!isTouchDevice()) { contents.push(this.closeIcon); }
+    if (this.state.touch) { contents.push(this.closeIcon); }
 
     contents.push(this.props.children);
 
@@ -131,7 +141,7 @@ class AnimatedMenuButton extends React.Component {
      * @return {String} Classnames
      */
   get mainClasses() {
-    let className = ' ' + this.props.className || '';
+    let className = this.props.className ? ' ' + this.props.className : '';
 
     let classes = 'ui-animated-menu-button ui-animated-menu-button--' + this.props.size +
                 ' ui-animated-menu-button--' + this.props.direction + className;
@@ -148,9 +158,13 @@ class AnimatedMenuButton extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.mainClasses;
-    props.onMouseEnter = this.handleMouseOver;
+    props.onMouseEnter = this.handleMouseEnter;
     props.onMouseLeave = this.handleMouseLeave;
-    props.onTouchEnd = isTouchDevice ? this.handleTouch : null;
+    props.onFocus = this.handleFocus;
+    props.onBlur = this.handleBlur;
+    props.onTouchEnd = this.state.touch ? this.handleTouch : null;
+    props.ref = 'button';
+
     return props;
   }
 
@@ -182,7 +196,7 @@ class AnimatedMenuButton extends React.Component {
     }
 
     return (
-      <div  { ...this.inputProps }>
+      <div { ...this.inputProps }>
         <Icon type='add'/>
         { content }
       </div>
