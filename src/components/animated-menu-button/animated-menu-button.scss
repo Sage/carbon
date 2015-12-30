@@ -34,16 +34,12 @@
       font-weight: bold;
     }
   }
-
-.content {
-  display: none;
-}
 /******** Expanded Button Styles ****/
 
   &:hover,
   &.hover {
     background-color: $magenta-dull;
-    @include transition(background-color 0.1s 0.15s);
+    @include transition(background-color 0.1s 0s);
 
     > .content {
       @include transform(scale(1));

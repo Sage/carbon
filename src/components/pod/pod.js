@@ -20,10 +20,6 @@ import React from 'react';
  */
 class Pod extends React.Component {
 
-  static propTypes = {
-    
-  }
-
   /**
    * Renders the component.
    *
