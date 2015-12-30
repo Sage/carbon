@@ -72,6 +72,7 @@ export function connect(ComposedView, stores) {
      * Lifecycle method called by React when a component is mounted.
      *
      * @method componentDidMount
+     * @return {Void}
      */
     componentDidMount() {
       // ensure that the super view calls it's version of componentDidMount
@@ -87,6 +88,7 @@ export function connect(ComposedView, stores) {
      * Lifecycle method called by React when a component is unmounted.
      *
      * @method componentWillUnmount
+     * @return {Void}
      */
     componentWillUnmount() {
       // ensure that the super view calls it's version of componentWillUnmount
@@ -103,6 +105,7 @@ export function connect(ComposedView, stores) {
      *
      * @method _onChange
      * @param {String} key The name for the store that changed.
+     * @return {Void}
      */
     _onChange = (key) => {
       // update the state with the data for the store that changed
@@ -116,7 +119,7 @@ export function connect(ComposedView, stores) {
      * @return {Object} A collection of each store and it's data.
      */
     _getStoreStates = () => {
-      var states = {};
+      let states = {};
 
       for (let key in _stores) {
         states[key] = _stores[key].getState();

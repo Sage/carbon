@@ -12,8 +12,9 @@ import Immutable from 'immutable';
 * We add the row ids through the `ImmutableHelper.parseJSON` function.
 *
 * @object insertRowIDs
-* @param {object} js
+* @param {Object} js
 * @private
+* @return {Object} original object with row ids inserted.
 */
 function insertRowIDs(js) {
   // maps the array with the following transformer
@@ -40,10 +41,8 @@ function insertRowIDs(js) {
 * Provides helper methods for working with immutable data.
 *
 * @object ImmutableHelper
-* @param {String} name
-* @param {Object} form
 */
-var ImmutableHelper = {
+let ImmutableHelper = {
 
   /**
   * Parses a regular JSON object into an Immutable data object, mapping the data
@@ -51,6 +50,7 @@ var ImmutableHelper = {
   *
   * @method parseJSON
   * @param {Object} js
+  * @return {Object} Original data as immutable object
   */
   parseJSON: (js) => {
     if (typeof js !== 'object' || js === null) {
@@ -85,9 +85,10 @@ var ImmutableHelper = {
   * @method updateLineItem
   * @param {Array} keys
   * @param {String} value
+  * @return {Object}
   */
   updateLineItem: (keys, value) => {
-    var data = keys[0],
+    let data = keys[0],
         line_item_key = keys[1],
         _row_id = keys[2],
         // as we modify the input name to use brackets (eg `user[foo][bar]`),
@@ -95,7 +96,7 @@ var ImmutableHelper = {
         attribute = ImmutableHelper.parseLineItemAttribute(keys[3], 2),
         line_items = data.get(line_item_key);
 
-    var index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
+    let index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
 
     if (index < 0) {
       // this will initialize the placeholder as a real row, by giving it an
@@ -123,12 +124,12 @@ var ImmutableHelper = {
   * @param {Array} keys
   */
   deleteLineItem: (keys) => {
-    var data = keys[0],
+    let data = keys[0],
         line_item_key = keys[1],
         _row_id = keys[2],
         line_items = data.get(line_item_key);
 
-    var index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
+    let index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
 
     return index > -1 ? data.deleteIn([line_item_key, index]) : data;
   },

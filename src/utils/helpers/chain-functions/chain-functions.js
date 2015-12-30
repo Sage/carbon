@@ -7,6 +7,7 @@
 * @method chainFunctions
 * @param {Function} newFunction
 * @param {Function} originalFunction
+* @return {Function} Composed Function
 */
 export default (newFunction, originalFunction) => {
   return (...args) => {

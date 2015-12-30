@@ -9,6 +9,7 @@
 * @method generateInputName
 * @param {String} name
 * @param {Object} form
+* @return {String} Name for input field
 */
 export function generateInputName(name, form) {
   let formName = name;

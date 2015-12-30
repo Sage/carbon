@@ -3,7 +3,7 @@
  *
  * @object PresenceValidator
  */
-var PresenceValidator = function() {
+let PresenceValidator = function() {
   return {
     /**
      * This will validate the given value, and return a valid status.
