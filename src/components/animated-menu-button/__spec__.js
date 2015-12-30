@@ -5,8 +5,9 @@ import AnimatedMenuButton from './animated-menu-button';
 import Row from 'components/row';
 import Button from 'components/button';
 import Pod from 'components/pod';
+import Device from './../../utils/helpers/devices';
 
-fdescribe('AnimatedMenuButton', () => {
+describe('AnimatedMenuButton', () => {
   let basicWidget, labelWidget, customClassWidget, rightWidget, largeWidget, contentWidget, button;
 
   beforeEach(() => {
@@ -50,7 +51,6 @@ fdescribe('AnimatedMenuButton', () => {
     );
 
     spyOn(basicWidget, 'setState').and.callThrough();
-    // button = TestUtils.scryRenderedDOMComponentsWithClass(basicWidget, 'ui-animated-menu-button');
   });
 
   describe('a mouse enter event', () => {
@@ -63,6 +63,20 @@ fdescribe('AnimatedMenuButton', () => {
   describe('a mouse leave event', () => {
     it('contracts the menu', () => {
       TestUtils.Simulate.mouseLeave(basicWidget.refs.button);
+      expect(basicWidget.setState).toHaveBeenCalledWith({open: false });
+    });
+  });
+
+  describe('focusing on the button', () => {
+    it('opens the menu', () => {
+      TestUtils.Simulate.focus(basicWidget.refs.button);
+      expect(basicWidget.setState).toHaveBeenCalledWith({open: true });
+    });
+  });
+
+  describe('losing focus of the menu', () => {
+    it('closes the menu', () => {
+      TestUtils.Simulate.blur(basicWidget.refs.button);
       expect(basicWidget.setState).toHaveBeenCalledWith({open: false });
     });
   });
@@ -87,22 +101,19 @@ fdescribe('AnimatedMenuButton', () => {
         expect(labelWidget.labelHTML.props.children).toEqual('Create...');
       });
     });
+  });
+  
+  describe('innerHTML', () => {
+    it('returns the HTML for the content', () => {
+      expect(contentWidget.innerHTML.props.className).toEqual('content');
+      expect(contentWidget.innerHTML.props.children.length).toEqual(3);
+    });
 
-    describe('innerHTML', () => {
-      it('returns the HTML for the content', () => {
-        expect(contentWidget.innerHTML.props.className).toEqual('content');
-        expect(contentWidget.innerHTML.props.children.length).toEqual(3);
+    describe('when it is a touch device', () => {
+      it('adds a close icon to the content HTML', () => {
+        basicWidget.setState({ touch: true });
+        expect(basicWidget.innerHTML.props.children[1].props.children.props.type).toEqual('close');
       });
-
-      // describe('when it is a touch device', () => {
-      //   let isTouchDevice = jasmine.createSpy('isTouchDevice');
-      //   spyOn('isTouchDevice').and.returnValue(true);
-      //
-      //
-      //   it('adds a close icon to the content HTML', () => {
-      //     debugger
-      //   });
-      // });
     });
   });
 
@@ -133,7 +144,15 @@ fdescribe('AnimatedMenuButton', () => {
   describe('inputProps', () => {
     describe('when it is a touch device', () => {
       it('adds a touch handler', () => {
+        basicWidget.setState({ touch: true });
+        expect(basicWidget.inputProps.onTouchEnd).toBeDefined();
+      });
+    });
 
+    describe('when it is not a touch device', () => {
+      it('does not add the touch handler', () => {
+        basicWidget.setState({ touch: false });
+        expect(basicWidget.inputProps.onTouchEnd).toBeFalsy();
       });
     });
   });

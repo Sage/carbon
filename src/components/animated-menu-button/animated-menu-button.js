@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from './../icon';
+import Devices from './../../utils/helpers/devices';
 
 /**
  * An AnimatedMenuButton widget.
@@ -59,7 +60,7 @@ class AnimatedMenuButton extends React.Component {
 
   state = {
     open: false,
-    touch: isTouchDevice()
+    touch: Devices.isTouchDevice()
   }
 
   /**
@@ -83,13 +84,26 @@ class AnimatedMenuButton extends React.Component {
   }
 
   //TODO: element not tabbable, need to manually handle focus/blur, e.g. add class 'hover'
-  // handleFocus = () => {
-  //   this.setState({ open: true });
-  // }
-  //
-  // handleBlur = () => {
-  //   this.setState({ open: false });
-  // }
+  /**
+   * Handles focus on button.
+   *
+   * @method handleFocus
+   * @return {void}
+   */
+  handleFocus = () => {
+    this.setState({ open: true });
+  }
+
+  /**
+   * Handles blur of expanded menu.
+   *
+   * @method handleBlur
+   * @return {void}
+   */
+  handleBlur = () => {
+    this.setState({ open: false });
+  }
+
   /**
    * Handles touch event on widget. Toggles open state.
    *
@@ -105,10 +119,10 @@ class AnimatedMenuButton extends React.Component {
   }
 
   /**
-   * Getter for label Html
+   * Getter for label HTML
    *
    * @method labelHTML
-   * @return {HTML} Html for label.
+   * @return {HTML} HTML for label.
    */
   get labelHTML() {
     let label = this.props.label ? <span className='label'>{ this.props.label }</span> : '';
@@ -116,10 +130,10 @@ class AnimatedMenuButton extends React.Component {
   }
 
   /**
-   * Getter for inner Html of menu
+   * Getter for inner HTML of menu
    *
    * @method innerHTML
-   * @return {HTML} Html for menu contents.
+   * @return {HTML} HTML for menu contents.
    */
   get innerHTML() {
     let contents = [];
@@ -202,22 +216,6 @@ class AnimatedMenuButton extends React.Component {
       </div>
     );
   }
-
 }
 
 export default AnimatedMenuButton;
-
-// Private Methods
-
-/**
- * Determines if device supports touch events.
- *
- * @method isTouchDevice
- * @private
- * @return {Boolean}
- */
-function isTouchDevice() {
-  return (('ontouchstart' in window)
-       || (navigator.MaxTouchPoints > 0)
-       || (navigator.msMaxTouchPoints > 0));
-}

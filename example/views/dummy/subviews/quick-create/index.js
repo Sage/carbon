@@ -23,7 +23,6 @@ class QuickCreate extends React.Component {
         </Pod>
       </Row>
     </AnimatedMenuButton>
-
     );
   }
 }
