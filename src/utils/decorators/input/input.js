@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 import { generateInputName } from './../../helpers/forms';
 
 /**
@@ -41,7 +41,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     super(...args);
   }
 
-  static propTypes = _.assign({}, ComposedComponent.propTypes, {
+  static propTypes = Object.assign({}, ComposedComponent.propTypes, {
     /**
      * The name of your input
      *
@@ -51,7 +51,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     name: React.PropTypes.string.isRequired
   })
 
-  static contextTypes = _.assign({}, ComposedComponent.contextTypes, {
+  static contextTypes = Object.assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 
@@ -68,8 +68,8 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     // determine if anything has changed that should result in a re-render
     if (changeDetected ||
-        !_.isEqual(this.props, nextProps) ||
-        !_.isEqual(this.state, nextState)) {
+        !isEqual(this.props, nextProps) ||
+        !isEqual(this.state, nextState)) {
       return true;
     }
 
