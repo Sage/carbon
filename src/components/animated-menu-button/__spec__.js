@@ -82,9 +82,27 @@ describe('AnimatedMenuButton', () => {
   });
 
   describe('a touch event', () => {
-    it('toggles the open state of the menu', () => {
+    describe('when the menu is open', () => {
+      beforeEach(() => {
+        basicWidget.setState({ open: true });
+      });
+
+      it('closes the menu', () => {
       TestUtils.Simulate.touchEnd(basicWidget.refs.button);
-      expect(basicWidget.setState).toHaveBeenCalled();
+      expect(basicWidget.state.open).toBeFalsy();
+      });
+    });
+
+
+    describe('when the menu is closed', () => {
+      beforeEach(() => {
+        basicWidget.setState({ open: false });
+      });
+
+      it('opens the menu', () => {
+      TestUtils.Simulate.touchEnd(basicWidget.refs.button);
+      expect(basicWidget.state.open).toBeTruthy();
+      });
     });
   });
 
@@ -102,7 +120,7 @@ describe('AnimatedMenuButton', () => {
       });
     });
   });
-  
+
   describe('innerHTML', () => {
     it('returns the HTML for the content', () => {
       expect(contentWidget.innerHTML.props.className).toEqual('content');

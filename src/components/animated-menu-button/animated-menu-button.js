@@ -59,7 +59,20 @@ class AnimatedMenuButton extends React.Component {
   }
 
   state = {
+    /**
+     * Menu open or closed.
+     *
+     * @property open
+     * @type {Boolean}
+     */
     open: false,
+
+    /**
+     * Indicates if user currently on touch device
+     *
+     * @property touch
+     * @type {Boolean}
+     */
     touch: Devices.isTouchDevice()
   }
 
@@ -111,7 +124,7 @@ class AnimatedMenuButton extends React.Component {
    * @return {void}
    */
   handleTouch = () => {
-    if (this.state.open === 'true') {
+    if (this.state.open === true) {
       this.setState({ open: false });
     } else {
       this.setState({ open: true });
@@ -141,6 +154,7 @@ class AnimatedMenuButton extends React.Component {
     contents.push(this.labelHTML);
 
     // If device supports touch, add close icon.
+    /* istanbul ignore else*/
     if (this.state.touch) { contents.push(this.closeIcon); }
 
     contents.push(this.props.children);
