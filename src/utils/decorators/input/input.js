@@ -1,5 +1,5 @@
 import React from 'react';
-import { isEqual } from 'lodash';
+import { isEqual, assign } from 'lodash';
 import { generateInputName } from './../../helpers/forms';
 
 /**
@@ -41,7 +41,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     super(...args);
   }
 
-  static propTypes = Object.assign({}, ComposedComponent.propTypes, {
+  static propTypes = assign({}, ComposedComponent.propTypes, {
     /**
      * The name of your input
      *
@@ -51,7 +51,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     name: React.PropTypes.string.isRequired
   })
 
-  static contextTypes = Object.assign({}, ComposedComponent.contextTypes, {
+  static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 

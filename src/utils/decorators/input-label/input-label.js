@@ -1,6 +1,6 @@
 import React from 'react';
 import { generateInputName } from './../../helpers/forms';
-import { find, startCase } from 'lodash';
+import { find, startCase, assign } from 'lodash';
 
 /**
  * InputLabel decorator.
@@ -46,7 +46,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     super(...args);
   }
 
-  static contextTypes = Object.assign({}, ComposedComponent.contextTypes, {
+  static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
+import { assign } from 'lodash';
 
 /**
  * InputValidation decorator.
@@ -72,7 +73,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     this.state.messageLocked = false;
   }
 
-  static contextTypes = Object.assign({}, ComposedComponent.contextTypes, {
+  static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 

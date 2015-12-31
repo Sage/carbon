@@ -1,3 +1,5 @@
+import { assign } from 'lodash';
+
 /**
  * Connects a view component to one or more flux based stores.
  *
@@ -63,7 +65,7 @@ export function connect(ComposedView, stores) {
        * @property state
        * @type {Object}
        */
-      this.state = Object.assign({}, this.state, this._getStoreStates());
+      this.state = assign({}, this.state, this._getStoreStates());
     }
 
     /**
