@@ -133,6 +133,13 @@ describe('AnimatedMenuButton', () => {
         expect(basicWidget.innerHTML.props.children[1].props.children.props.type).toEqual('close');
       });
     });
+
+    describe('when it is not a touch device', () => {
+      it('does not add a close icon to the content HTML', () => {
+        basicWidget.setState({ touch: false });
+        expect(basicWidget.innerHTML.props.children[1]).not.toBeDefined();
+      });
+    });
   });
 
   describe('mainClasses', () => {

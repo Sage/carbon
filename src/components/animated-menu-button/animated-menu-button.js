@@ -154,7 +154,6 @@ class AnimatedMenuButton extends React.Component {
     contents.push(this.labelHTML);
 
     // If device supports touch, add close icon.
-    /* istanbul ignore else*/
     if (this.state.touch) { contents.push(this.closeIcon); }
 
     contents.push(this.props.children);
