@@ -12,7 +12,7 @@ import Dialog from '../dialog';
  *
  * To render a Alert:
  *
- *   <Alert cancelHandler={ customEvenHandler } />
+ *   <Alert cancelHandler={ customEventHandler } />
  *
  * The component rendering the Alert must pass down a prop of 'open' in order to open the alert.
  *

@@ -14,7 +14,7 @@ import Bowser from 'bowser';
  *
  * To render a Dialog:
  *
- *   <Dialog cancelHandler={ customEvenHandler } />
+ *   <Dialog cancelHandler={ customEventHandler } />
  *
  * The component rendering the Dialog must pass down a prop of 'open' in order to open the dialog.
  *

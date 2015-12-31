@@ -3,7 +3,8 @@
 ## Dialog & Alert
 
   A new Alert component has been added which extends from Dialog.
-  Both components now require a `cancelHandler` prop (rather than the `cancelDialogHandler`).
+
+  Breaking Change! :warning: Both components now require a `cancelHandler` prop (rather than the `cancelDialogHandler`). :warning:
 
 # 0.0.2
 
