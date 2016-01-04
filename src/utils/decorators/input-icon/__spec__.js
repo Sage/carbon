@@ -1,5 +1,5 @@
 import React from 'react';
-import InputIcon from './index';
+import InputIcon from './input-icon';
 
 class TestClass extends React.Component {
   inputProps = {
@@ -28,6 +28,12 @@ describe('InputIcon', () => {
 
     it('sets a default className', () => {
       expect(instance.props.children.props.className).toEqual('ui-input-icon');
+    });
+  });
+
+  describe('mainClasses', () => {
+    it('returns the class', () => {
+      expect(klass.mainClasses).toEqual(' common-input--with-icon');
     });
   });
 

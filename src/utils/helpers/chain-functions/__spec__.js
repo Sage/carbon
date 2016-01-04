@@ -1,4 +1,4 @@
-import ChainFunction from './index'
+import ChainFunction from './chain-functions'
 
 describe('ChainFunctions', () => {
   let originalFunction, newFunction;

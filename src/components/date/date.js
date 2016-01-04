@@ -7,7 +7,7 @@ import InputIcon from './../../utils/decorators/input-icon';
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
-import Events from 'utils/helpers/events';
+import Events from './../../utils/helpers/events';
 
 /**
  * A Date widget.

@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Textbox from './index';
+import Textbox from './textbox';
 
 describe('Textbox', () => {
   let instance;

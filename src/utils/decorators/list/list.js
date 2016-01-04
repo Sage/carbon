@@ -1,5 +1,6 @@
 import React from 'react';
 import chainFunctions from './../../helpers/chain-functions';
+import I18n from 'i18n-js';
 
 /**
  * List decorator.
@@ -40,7 +41,9 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * @method handleBlur
    */
   _handleBlur = () => {
-    this.setState({ open: false });
+    if (!this.blockBlur) {
+      this.setState({ open: false });
+    }
   }
 
   /**
@@ -50,10 +53,13 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * @param {Object} ev event
    */
   _handleSelect = (ev) => {
+    this.blockBlur = false;
+    this._handleBlur();
+
     if (this.handleSelect) {
       this.handleSelect(ev);
     } else {
-      this.emitOnChangeCallback(ev.target.getAttribute('value'));
+      this.emitOnChangeCallback(ev.currentTarget.getAttribute('value'));
     }
   }
 
@@ -64,7 +70,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * @param {Object} ev event
    */
   _handleMouseOver = (ev) => {
-    this.setState({ highlighted: ev.target.getAttribute('value') });
+    this.setState({ highlighted: ev.currentTarget.getAttribute('value') });
   }
 
   /**
@@ -83,26 +89,42 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    */
   results = (options) => {
     let results;
+    let className = `${this.rootClass}__item`;
+    let commonName  = `${this.commonListClasses}__item`;
 
     if (options.length) {
       results = options.map((option) => {
-        let className = `${this.rootClass}__item`;
-        let commonName  = `${this.commonListClasses}__item`;
+        let klass = className + commonName;
+
+        // add highlighted class
+        if (this.state.highlighted == option.id) {
+          klass += ` ${className}--highlighted${commonName}--highlighted`;
+        }
+
+        // add selected class
+        if (this.props.value == option.id) {
+          klass += ` ${className}--selected${commonName}--selected`;
+        }
 
         return <li
-                  key={option.name + option.id}
-                  value={option.id}
-                  onMouseDown={this._handleSelect}
-                  onMouseOver={this._handleMouseOver}
-                  className={(this.state.highlighted == option.id) ?
-                    `${className} ${className}--highlighted${commonName}${commonName}--highlighted` :
-                    `${className}${commonName}` }>
-                  {option.name}
+                  key={ option.name + option.id }
+                  value={ option.id }
+                  onClick={ this._handleSelect }
+                  onMouseOver={ this._handleMouseOver }
+                  className={ klass }>
+                  { option.name }
                 </li>;
       });
 
     } else {
-      results = <li>No results</li>;
+      results = <li className={ `${commonName} ${commonName}--noResult` }>
+                  {
+                    I18n.t("dropdownlist.no_results", {
+                      defaultValue: "No results match \"%{term}\"",
+                      term: this.state.filter
+                    })
+                  }
+                </li>;
     }
 
     return results;
