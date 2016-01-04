@@ -16,8 +16,8 @@ describe('AnimatedMenuButton', () => {
     );
 
     labelWidget = TestUtils.renderIntoDocument(
-        <AnimatedMenuButton label="Create..." />
-      );
+      <AnimatedMenuButton label="Create..." />
+    );
 
     customClassWidget = TestUtils.renderIntoDocument(
       <AnimatedMenuButton  className='quick-create'/>
@@ -47,7 +47,7 @@ describe('AnimatedMenuButton', () => {
             <a href='#'>This will be a link</a>
           </Pod>
         </Row>
-      </ AnimatedMenuButton>
+      </AnimatedMenuButton>
     );
 
     spyOn(basicWidget, 'setState').and.callThrough();
@@ -92,7 +92,6 @@ describe('AnimatedMenuButton', () => {
       expect(basicWidget.state.open).toBeFalsy();
       });
     });
-
 
     describe('when the menu is closed', () => {
       beforeEach(() => {

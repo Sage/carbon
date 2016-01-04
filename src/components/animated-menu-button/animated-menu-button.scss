@@ -13,8 +13,7 @@
   touch-action: manipulation;
 
 /***** Button Label Styles ****/
-
-  .label {
+  .ui-animated-menu-button__label {
     display: inline-block;
     font-size: 22px;
     font-weight: 300;
@@ -41,14 +40,14 @@
     background-color: $magenta-dull;
     @include transition(background-color 0.1s 0s);
 
-    > .content {
+    > .ui-animated-menu-button__content{
       @include transform(scale(1));
       @include transition-delay(0.1s, 0.15s);
       opacity: 1;
     }
   }
 
-  > .content {
+  > .ui-animated-menu-button__content {
     @include box-shadow(0 5px 10px 0 rgba(0, 0, 0, 0.2));
     @include border-radius(5px 25px 5px 5px);
     @include transform(scale(0));

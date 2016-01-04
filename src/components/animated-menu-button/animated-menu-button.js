@@ -138,7 +138,7 @@ class AnimatedMenuButton extends React.Component {
    * @return {HTML} HTML for label.
    */
   get labelHTML() {
-    let label = this.props.label ? <span className='label'>{ this.props.label }</span> : '';
+    let label = this.props.label ? <span className='ui-animated-menu-button__label'>{ this.props.label }</span> : '';
     return label;
   }
 
@@ -158,15 +158,15 @@ class AnimatedMenuButton extends React.Component {
 
     contents.push(this.props.children);
 
-    return <div className="content">{ contents }</div>;
+    return <div className='ui-animated-menu-button__content'>{ contents }</div>;
   }
 
-    /**
-     * Getter for widget's main classes.
-     *
-     * @method mainClasses
-     * @return {String} Classnames
-     */
+  /**
+   * Getter for widget's main classes.
+   *
+   * @method mainClasses
+   * @return {String} Classnames
+   */
   get mainClasses() {
     let className = this.props.className ? ' ' + this.props.className : '';
 
@@ -176,12 +176,12 @@ class AnimatedMenuButton extends React.Component {
     return classes;
   }
 
-    /**
-     * A getter that returns any supplied custom props along with default props.
-     *
-     * @method inputProps
-     * @return {Object} props including class names & event handlers.
-     */
+  /**
+   * A getter that returns any supplied custom props along with default props.
+   *
+   * @method inputProps
+   * @return {Object} props including class names & event handlers.
+   */
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.mainClasses;
@@ -218,8 +218,6 @@ class AnimatedMenuButton extends React.Component {
     // If menu closed, don't render contents
     if (this.state.open === true) {
       content = this.innerHTML;
-    } else {
-      content = '';
     }
 
     return (
