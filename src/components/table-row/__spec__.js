@@ -29,9 +29,7 @@ describe('TableRow', () => {
       <DropdownFilter
         options={ Immutable.Map([]) }
         key='baz'
-        name='baz'
-        path='' />
-        name='[{ROWID}][bar]' />
+        name='[{ROWID}][baz]' />
     ]
 
     baseData = ImmutableHelper.parseJSON({ foo: 'text',
