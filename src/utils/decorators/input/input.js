@@ -63,7 +63,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @method shouldComponentUpdate
    * @param {Object} nextProps the updated props
    * @param {Object} nextState the updated state
-   * @return {Boolean}
+   * @return {Boolean} true if the component should update
    */
   shouldComponentUpdate(nextProps, nextState) {
     // call super method if one is defined
@@ -177,7 +177,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * Extension point to add additional content to the input
    *
    * @method additionalInputContent
-   * @return {Object|HTML|String|Number}
+   * @return {Object | HTML | String | Number} additional content from composed class
    */
   get additionalInputContent() {
     return super.additionalInputContent || null;
