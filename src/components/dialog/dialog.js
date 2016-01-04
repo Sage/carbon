@@ -190,7 +190,7 @@ class Dialog extends React.Component {
   /**
    * Returns the computed HTML for the dialog.
    *
-   * @method dialogClasses
+   * @method dialogHTML
    */
   get dialogHTML() {
     let dialogClasses = this.dialogClasses;

@@ -27,6 +27,11 @@ class Alert extends Dialog {
     super();
   }
 
+  /**
+   * Returns classes title for the confirm, combines with dialog class names.
+   *
+   * @method dialogTitleClasses
+   */
   get dialogTitleClasses() {
     let classes = super.dialogTitleClasses;
     classes += ' ui-alert__title';

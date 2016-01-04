@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialog from '../dialog';
-import Button from '../Button';
+import Button from '../button';
 
 /**
  * A Confirm widget.
@@ -16,6 +16,10 @@ import Button from '../Button';
  *   <Confirm cancelHandler={ customEventHandler } open={ false }/>
  *
  * The component rendering the Confirm must pass down a prop of 'open' in order to open the confrim dialog.
+ * 
+ * You need to provide a custom cancel event handler to handle a close event via the 'no' button
+ *
+ * You need to provide a custom confirm event handler to handle a close event via the 'yes' button
  *
  * @class Confirm
  * @constructor
@@ -27,10 +31,10 @@ class Confirm extends Dialog {
     /**
      * A custom event handler when a confirmation takes place
      *
-     * @property acceptHandler
+     * @property confirmHandler
      * @type {Function}
      */
-    acceptHandler: React.PropTypes.func.isRequired
+    confirmHandler: React.PropTypes.func.isRequired
   }
 
   constructor() {
@@ -73,7 +77,7 @@ class Confirm extends Dialog {
         </div>
 
         <div className='ui-confirm__button ui-confirm__yes'>
-          <Button as='primary' onClick={ this.props.acceptHandler }>Yes</Button>
+          <Button as='primary' onClick={ this.props.confirmHandler }>Yes</Button>
         </div>
       </div>
     );
@@ -81,7 +85,7 @@ class Confirm extends Dialog {
 
   /**
    * Returns HTML and text for the confirm body. Appends the two
-   * confirm buttons to super
+   * confirm buttons to super dialogHTML
    *
    * @method dialogTitle
    */
