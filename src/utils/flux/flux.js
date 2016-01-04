@@ -119,7 +119,7 @@ export function connect(ComposedView, stores) {
      * @return {Object} A collection of each store and it's data.
      */
     _getStoreStates = () => {
-      var states = {};
+      let states = {};
 
       for (let key in _stores) {
         states[key] = _stores[key].getState();

@@ -66,6 +66,7 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
    * Extends the main classes with any input icon classes.
    *
    * @method mainClasses
+   * @return {String} Main class names
    */
   get mainClasses() {
     let classes = super.mainClasses || "";

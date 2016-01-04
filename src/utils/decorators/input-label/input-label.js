@@ -56,6 +56,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    * Extends the main classes with any validation classes.
    *
    * @method mainClasses
+   * @return {String} Main class names
    */
   get mainClasses() {
     let classes = super.mainClasses || "";
@@ -71,6 +72,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    * Supplies the HTML for the label.
    *
    * @method labelHTML
+   * @return {HTML} HTML for label.
    */
   get labelHTML() {
     if (this.props.label === false) { return; }
@@ -107,6 +109,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    * Extends the input props to include the ID.
    *
    * @method inputProps
+   * @return {Object} Input props
    */
   get inputProps() {
     let inputProps = super.inputProps || {};
@@ -120,7 +123,8 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   /**
    * Extends the field props to include width.
    *
-   * @method inputProps
+   * @method fieldProps
+   * @return {Object} Field props
    */
   get fieldProps() {
     let fieldProps = super.fieldProps || {};

@@ -41,10 +41,8 @@ function insertRowIDs(js) {
 * Provides helper methods for working with immutable data.
 *
 * @object ImmutableHelper
-* @param {String} name
-* @param {Object} form
 */
-var ImmutableHelper = {
+let ImmutableHelper = {
 
   /**
   * Parses a regular JSON object into an Immutable data object, mapping the data
@@ -90,7 +88,7 @@ var ImmutableHelper = {
   * @return {Object} new data object
   */
   updateLineItem: (keys, value) => {
-    var data = keys[0],
+    let data = keys[0],
         line_item_key = keys[1],
         _row_id = keys[2],
         // as we modify the input name to use brackets (eg `user[foo][bar]`),
@@ -98,7 +96,7 @@ var ImmutableHelper = {
         attribute = ImmutableHelper.parseLineItemAttribute(keys[3], 2),
         line_items = data.get(line_item_key);
 
-    var index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
+    let index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
 
     if (index < 0) {
       // this will initialize the placeholder as a real row, by giving it an
@@ -127,12 +125,12 @@ var ImmutableHelper = {
   * @return {Object} new data object
   */
   deleteLineItem: (keys) => {
-    var data = keys[0],
+    let data = keys[0],
         line_item_key = keys[1],
         _row_id = keys[2],
         line_items = data.get(line_item_key);
 
-    var index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
+    let index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
 
     return index > -1 ? data.deleteIn([line_item_key, index]) : data;
   },

@@ -239,6 +239,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * Returns the HTML for the validation, only if it is invalid.
    *
    * @method validationHTML
+   * @return {HTML} Validation HTML including icon & message
    */
   get validationHTML() {
     if (!this.state.errorMessage) { return null; }
@@ -260,6 +261,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * Extends the main classes with any validation classes.
    *
    * @method mainClasses
+   * @return {String} Main class names
    */
   get mainClasses() {
     let classes = super.mainClasses || "";
@@ -275,6 +277,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * Extends the input classes with any validation classes.
    *
    * @method inputClasses
+   * @return {String} Input class names
    */
   get inputClasses() {
     let classes = super.inputClasses || "";
@@ -290,6 +293,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * Extends the input props with onBlur and onFocus events.
    *
    * @method inputProps
+   * @return {Object} Input props
    */
   get inputProps() {
     let inputProps = super.inputProps || {};
