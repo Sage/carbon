@@ -22,7 +22,10 @@ import DropdownFilter from './../dropdown-filter';
  * You can also define a function using the 'create' prop, this will allow you
  * to trigger events to create new items.
  *
- * @class DropdownFilter
+ * You can also define the number of rows returned by the ajax request using
+ * the property rowsPerRequest.
+ *
+ * @class DropdownFilterAjax
  * @constructor
  */
 class DropdownFilterAjax extends DropdownFilter {
@@ -245,7 +248,7 @@ class DropdownFilterAjax extends DropdownFilter {
   }
 
   /**
-   * Return the list item which should be highlighted by default.
+   * DropdownFilterAjax does not have a default highlighted, so returns null.
    *
    * @method defaultHighlighted
    */

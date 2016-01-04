@@ -11,10 +11,6 @@ import DropdownFilterAjax from 'components/dropdown-filter-ajax';
 
 class Details extends React.Component {
 
-  foo = (ev, component) => {
-    debugger
-  }
-
   render() {
     return (
       <Row>
