@@ -28,7 +28,7 @@ class Link extends React.Component {
      * @property path
      * @type {String}
      */
-    path: React.PropTypes.string.isRequired,
+    href: React.PropTypes.string.isRequired,
 
     /**
      * Gives the link a disabled state.
@@ -40,12 +40,35 @@ class Link extends React.Component {
     disabled: React.PropTypes.bool
   }
 
-  get inputProps() {
+  /**
+   * Getter for componet properties.
+   *
+   * @method componentProps
+   * @return {Object} props
+   */
+  get componentProps() {
     let { ...props } = this.props;
-    props.href = this.props.path;
+    props.href = this.props.href;
     props.disabled = this.props.disabled || '';
+    props.className = this.componentClasses;
 
     return props;
+  }
+
+  /**
+   * Getter for componet classes.
+   *
+   * @method componentClasses
+   * @return {String} class names
+   */
+  get componentClasses() {
+    let className = this.props.className;
+
+    let classes = 'ui-link__anchor' +
+      (this.props.disabled ? ' ui-link__anchor--disabled' : '') +
+      (className ? ' ' + className : '');
+
+    return classes;
   }
 
   /**
@@ -54,18 +77,10 @@ class Link extends React.Component {
    * @method render
    */
   render() {
-    let {className, ...props} = this.props;
-
-    className = 'ui-link' +
-      (this.props.disabled ? ' ui-link--disabled' : '') +
-      (className ? ' ' + className : '');
-
     return (
-      <div className={ className }>
-        <a { ...this.inputProps } >
-          { this.props.children }
-        </a>
-      </div>
+      <a { ...this.componentProps }>
+        { this.props.children }
+      </a>
     );
   }
 
