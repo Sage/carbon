@@ -51,8 +51,8 @@ describe('Form', () => {
             updateRowHandler={ function(){} }
             deleteRowHandler={ function(){} }
             fields={ [
-              <Textbox validations={ [Validation()] } name='box1' value='foo' />,
-              <Textbox validations={ [Validation()] } name='box2' value='foo' />
+              <Textbox validations={ [Validation()] } name='[{ROWID}][box1]' value='foo' />,
+              <Textbox validations={ [Validation()] } name='[{ROWID}][box2]' value='foo' />
             ] }
           />
         </Form>
@@ -62,13 +62,6 @@ describe('Form', () => {
     describe('when the component is a grid', () => {
       it('adds a key value pair to tables', () => {
         expect(instance.tables.grid).toBeTruthy();
-      });
-    });
-
-    describe('when the component is an element in a grid', () => {
-      it('adds a input nested by namespace and row_id', () => {
-        let keys = Object.keys(instance.inputs.grid);
-        expect(Object.keys(instance.inputs.grid[keys[0]]).length).toEqual(2);
       });
     });
 
@@ -86,8 +79,8 @@ describe('Form', () => {
     let excludedTextbox;
 
     beforeEach(() => {
-      textbox1 = <Textbox validations={ [Validation()] } name='box1' value='' />;
-      textbox2 = <Textbox validations={ [Validation()] } name='box2' value='' />;
+      textbox1 = <Textbox validations={ [Validation()] } name='[{ROWID}][box1]' value='' />;
+      textbox2 = <Textbox validations={ [Validation()] } name='[{ROWID}][box2]' value='' />;
       excludedTextbox = <Textbox validations={ [Validation()] } name='excludedBox' value='' />;
 
       grid = <InputGrid
@@ -114,32 +107,6 @@ describe('Form', () => {
       });
     });
 
-    describe('when the component is a row in a grid', () => {
-      let regular;
-
-      beforeEach(() => {
-        let regularTable = document.createElement('table');
-        regularTable.innerHTML = '<tbody></tbody>';
-
-        regular = ReactDOM.render((<TableRow
-              name='regular'
-              key='regular_1'
-              namespace='namespace'
-              row_id='row_id'
-              data={ ImmutableHelper.parseJSON({ foo: 'text', bar: '1.00' }) }
-              fields={ [ textbox1, textbox2 ] }
-              />), regularTable.children[0]);
-
-        instance.attachToForm(regular);
-      });
-
-      it('removes a input nested by namespace and row_id', () => {
-        expect(instance.inputs.namespace.row_id.regular).toBeTruthy();
-        instance.detachFromForm(regular);
-        expect(instance.inputs.namespace.row_id.regular).toBeFalsy();
-      });
-    });
-
     describe('when the component is self contained', () => {
       it('removes a input by its name', () => {
         expect(instance.inputs.excludedBox).toBeTruthy();
@@ -152,8 +119,8 @@ describe('Form', () => {
   describe('serialize', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Form model='model'>
-          <Textbox name='test' value='foo' />
+        <Form>
+          <Textbox name='model[test]' value='foo' />
         </Form>
       );
     });
@@ -235,7 +202,7 @@ describe('Form', () => {
               data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
               updateRowHandler={ function(){} }
               deleteRowHandler={ function(){} }
-              fields={ [<Textbox validation={ [Validation()] } name='box' />] }
+              fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
             />
           </Form>
         );
@@ -254,8 +221,8 @@ describe('Form', () => {
           [ { box1: 'bar', box2: '' } ]
         );
 
-        let textbox1 = <Textbox validations={ [Validation()] } name='box1' value='' />;
-        let textbox2 = <Textbox validations={ [Validation()] } name='box2' value='' />;
+        let textbox1 = <Textbox validations={ [Validation()] } name='[{ROWID}][box1]' value='' />;
+        let textbox2 = <Textbox validations={ [Validation()] } name='[{ROWID}][box2]' value='' />;
 
         let grid = <InputGrid
           name='grid'

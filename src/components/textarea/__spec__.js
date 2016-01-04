@@ -10,6 +10,7 @@ describe('Textarea', () => {
   beforeEach(() => {
     baseInstance = TestUtils.renderIntoDocument(<Textarea
       name="Dummy Area"
+      id="Dummy Area"
       value={ 'foo' }
       label={ 'Label' }
       cols={10}

@@ -127,6 +127,10 @@ class TableRow extends React.Component {
    * @param {String | Number | Boolean} value
    */
   buildCell = (field, value) => {
+    if (!field.props.name.match("{ROWID}")) {
+      throw new Error("Inputs used in a grid should supply a {ROWID} placeholder within the input's name, which will be replaced on render with a unique row id.");
+    }
+
     let rowID = this.props.row_id,
         fieldProps = {
           label: false,

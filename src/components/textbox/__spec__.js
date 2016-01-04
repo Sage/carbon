@@ -9,6 +9,7 @@ describe('Textbox', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<Textbox
       name="Dummy Box"
+      id="Dummy Box"
       value={ 'foo' }
       label={ 'Label' }
       onChange={ spy }

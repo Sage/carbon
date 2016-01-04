@@ -32,16 +32,20 @@ import _ from 'lodash';
  *     updateRowHandler={ Action.lineItemUpdated }
  *     deleteRowHandler={ Action.lineItemDeleted } />
  *
- * You can optionally pass additional HTML classes for each column:
+ * You can optionally pass additional HTML classes for each column, add the classes
+ * to the input:
  *
- *   // the key should match the input name for the relevant column
- *   let columnClasses = {
- *     description: 'custom-class'
- *   };
+ *   let lineItemFields = [
+ *     <Textbox name='name' columnClasses='foo' />,
+ *     <Textbox name='description' />
+ *   ];
  *
  *   <InputGrid
- *     ...
- *     columnClasses={ columnClasses } />
+ *     name="line_items"
+ *     data={ data.get('line_items') }
+ *     fields={ lineItemFields }
+ *     updateRowHandler={ Action.lineItemUpdated }
+ *     deleteRowHandler={ Action.lineItemDeleted } />
  *
  * You can optionally pass fields to render in a gutter along the bottom of the
  * grid:
@@ -302,10 +306,8 @@ class InputGrid extends React.Component {
       let columnClasses = "ui-input-grid__header-cell";
 
       // add any additional classes for this column
-      if (this.props.columnClasses) {
-        if (field.props.label && this.props.columnClasses[field.props.label]) {
-          columnClasses += ` ${this.props.columnClasses[field.props.label]}`;
-        }
+      if (field.props.columnClasses) {
+        columnClasses += ` ${field.props.columnClasses}`;
       }
 
       // add the header for this column

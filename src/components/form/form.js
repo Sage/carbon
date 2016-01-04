@@ -219,10 +219,6 @@ class Form extends React.Component {
     for (let key in this.inputs) {
       let input = this.inputs[key];
 
-      if (input.props._placeholder) {
-        continue;
-      }
-
       if (!input.validate()) {
         valid = false;
         errors++;

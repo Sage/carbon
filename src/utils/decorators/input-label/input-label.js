@@ -103,7 +103,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
       <label
         style={ labelStyle }
         className={ labelClasses }
-        htmlFor={ this.inputProps.id || this.labelID }>
+        htmlFor={ this.inputProps.id }>
         { labelText }
       </label>
     );

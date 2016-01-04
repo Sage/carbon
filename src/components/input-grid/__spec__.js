@@ -17,7 +17,7 @@ describe('InputGrid', () => {
         <InputGrid
           name="test-grid"
           data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
-          fields={ [ <input name='foo' /> ] }
+          fields={ [ <input name='[{ROWID}][foo]' /> ] }
           updateRowHandler={ foo }
           deleteRowHandler={ bar } />
       </Form>
@@ -50,7 +50,7 @@ describe('InputGrid', () => {
     describe('number of children have changed', () => {
       it('sets childrenHaveChanged to true and returns true', () => {
         let nextProps = {
-          fields: [ <input name='foo' />, <input name='bar' /> ]
+          fields: [ <input name='[{ROWID}][foo]' />, <input name='[{ROWID}][bar]' /> ]
         };
         let _status = instance.shouldComponentUpdate(nextProps);
         expect(instance.childrenHaveChanged).toBeTruthy();
@@ -61,7 +61,7 @@ describe('InputGrid', () => {
     describe('props on child have changed', () => {
       it('sets childrenHaveChanged to true and returns true', () => {
         let nextProps = {
-          fields: [ <input name='foo' foo="bar" /> ]
+          fields: [ <input name='[{ROWID}][foo]' foo="bar" /> ]
         };
         let _status = instance.shouldComponentUpdate(nextProps);
         expect(instance.childrenHaveChanged).toBeTruthy();
@@ -72,7 +72,7 @@ describe('InputGrid', () => {
     describe('children have not changed', () => {
       it('sets childrenHaveChanged to false and returns true', () => {
         let nextProps = {
-          fields: [ <input name='foo' /> ]
+          fields: [ <input name='[{ROWID}][foo]' /> ]
         };
         let _status = instance.shouldComponentUpdate(nextProps);
         expect(instance.childrenHaveChanged).toBeFalsy();
@@ -141,7 +141,7 @@ describe('InputGrid', () => {
             <InputGrid
               name="test-grid"
               data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
-              fields={ [ <input name='foo' /> ] }
+              fields={ [ <input name='[{ROWID}][foo]' /> ] }
               gutter={ { foo: <div /> } }
               updateRowHandler={ foo }
               deleteRowHandler={ bar } />
@@ -230,10 +230,9 @@ describe('InputGrid', () => {
           <InputGrid
             name="test-grid"
             data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
-            fields={ [ <input name='first_name' />, <input name='last_name' hidden='true' /> ] }
+            fields={ [ <input name='[{ROWID}][first_name]' />, <input name='[{ROWID}][last_name]' label="Last Name" hidden='true' columnClasses="foo" /> ] }
             updateRowHandler={ foo }
-            deleteRowHandler={ bar }
-            columnClasses={ { last_name: 'foo' } } />
+            deleteRowHandler={ bar } />
         </Form>
       );
 
@@ -252,7 +251,7 @@ describe('InputGrid', () => {
       expect(instance.buildHeader()[2].props.hidden).toEqual('true');
     });
 
-    it('generates a human readable name for the table header', () => {
+    it('uses the label for the header name', () => {
       expect(instance.buildHeader()[2].props.children).toEqual('Last Name');
     });
 
