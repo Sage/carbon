@@ -39,6 +39,8 @@ import _ from 'lodash';
  *  is displayed inline.
  *
  * @method InputIcon
+ * @param {Class} ComposedComponent class to decorate
+ * @return {Object} Decorated Component
  */
 let InputLabel = (ComposedComponent) => class Component extends ComposedComponent {
 

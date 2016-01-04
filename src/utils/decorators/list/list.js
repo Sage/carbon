@@ -9,6 +9,8 @@ import I18n from 'i18n-js';
  * providing functionality common to both.
  *
  * @method List
+ * @param {Class} ComposedComponent class to decorate
+ * @return {Object} Decorated Component
  */
 let List = (ComposedComponent) => class Component extends ComposedComponent {
 
@@ -39,6 +41,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * Handles what happens on blur of the input.
    *
    * @method handleBlur
+   * @returns {void}
    */
   _handleBlur = () => {
     if (!this.blockBlur) {
@@ -51,6 +54,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    *
    * @method handleSelect
    * @param {Object} ev event
+   * @returns {void}
    */
   _handleSelect = (ev) => {
     this.blockBlur = false;
@@ -68,6 +72,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    *
    * @method handleMouseOver
    * @param {Object} ev event
+   * @returns {void}
    */
   _handleMouseOver = (ev) => {
     this.setState({ highlighted: ev.currentTarget.getAttribute('value') });
@@ -77,6 +82,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * Getter for classes for the common list
    *
    * @method commonListClasses
+   * @returns {String} common list class
    */
   get commonListClasses() {
     return ' common-list';
@@ -86,6 +92,8 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * Function that returns search results. Builds each list item with relevant handlers and classes.
    *
    * @method results
+   * @param {Object} options list options to build
+   * @return {Object} JSX menu list
    */
   results = (options) => {
     let results;
@@ -134,6 +142,7 @@ let List = (ComposedComponent) => class Component extends ComposedComponent {
    * Getter for inputProps. Provides common blur handler.
    *
    * @method inputProps
+   * @returns {Object} input props
    */
   get inputProps() {
     let inputProps = super.inputProps || {};

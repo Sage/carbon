@@ -15,9 +15,9 @@ let Events = {
   * A method to determine if an event is of a particular type
   *
   * @method isEventType
-  * @params {Event} ev A JavaScript event
-  * @params {Type} type A JavaScript event type
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @param {Type} type A JavaScript event type
+  * @returns {Boolean} true if event type matches passed type
   **/
   isEventType: (ev, type) => {
     return ev.type == type;
@@ -27,8 +27,8 @@ let Events = {
   * A method to determine whether a key down event was an arrow key
   *
   * @method isNavigationKeyup
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if key up event and a navigation key
   **/
   isNavigationKeyup: (ev) => {
     if (!Events.isEventType(ev, "keyup")) {
@@ -42,8 +42,8 @@ let Events = {
   * A method to determine whether a key down event was an enter key
   *
   * @method isEnterKeyup
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if keyup event and enter key
   **/
   isEnterKeyup: (ev) => {
     if (!Events.isEventType(ev, "keyup")) {
@@ -57,8 +57,8 @@ let Events = {
   * A method to determine whether a key up event is allowed or not.
   *
   * @method isValidKeypress
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if keyup and valid
   **/
   isValidKeypress: (ev) => {
     if (!Events.isEventType(ev, "keyup")) {
@@ -82,8 +82,8 @@ let Events = {
   * keypad is pressed
   *
   * @method isNumberKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if valid number key
   **/
   isNumberKey: (ev) => {
     return ev.which >= 48 && ev.which <= 57 || ev.which >= 96 && ev.which <= 105;
@@ -94,8 +94,8 @@ let Events = {
   * includes symbols
   *
   * @method isNumberKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if key is part of numpad
   **/
   isNumpadKey: (ev) => {
     return ev.which >= 96 && ev.which <= 111;
@@ -106,8 +106,8 @@ let Events = {
   * Case insensitive
   *
   * @method isAlphabetKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if alphabet key is pressed
   **/
   isAlphabetKey: (ev) => {
     return ev.which >= 65 && ev.which <= 90;
@@ -117,8 +117,8 @@ let Events = {
   * Determines if the key pressed is a valid symbol
   *
   * @method isSymbolKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if any symbol key is pressed
   **/
   isSymbolKey: (ev) => {
     return ev.which >= 58 && ev.which <= 64 || // : to @
@@ -131,8 +131,8 @@ let Events = {
   * Determines if the key pressed is a navigation key
   *
   * @method isNavigationKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if one of four arrow keys
   **/
   isNavigationKey: (ev) => {
     return ev.which >= 37 && ev.which <= 40;
@@ -142,8 +142,8 @@ let Events = {
   * Determines if the key pressed is a navigation left key
   *
   * @method isLeftKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if left arrow key
   **/
   isLeftKey: (ev) => {
     return ev.which === 37;
@@ -153,8 +153,8 @@ let Events = {
   * Determines if the key pressed is a navigation up key
   *
   * @method isUpKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if up arrow key
   **/
   isUpKey: (ev) => {
     return ev.which === 38;
@@ -164,8 +164,8 @@ let Events = {
   * Determines if the key pressed is a navigation right key
   *
   * @method isRightKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if right arrow key
   **/
   isRightKey: (ev) => {
     return ev.which === 39;
@@ -175,8 +175,8 @@ let Events = {
   * Determines if the key pressed is a navigation down key
   *
   * @method isDownKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if down arrow key
   **/
   isDownKey: (ev) => {
     return ev.which === 40;
@@ -186,8 +186,8 @@ let Events = {
   * Determines if the key pressed is a meta key
   *
   * @method isMetaKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if any meta key is pressed
   **/
   isMetaKey: (ev) => {
     return ev.metaKey;
@@ -197,8 +197,8 @@ let Events = {
   * Determines if the key pressed is the escape key
   *
   * @method isEscKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if esc key
   **/
   isEscKey: (ev) => {
     return ev.which === 27;
@@ -208,8 +208,8 @@ let Events = {
   * Determines if the key pressed is the enter key
   *
   * @method isEnterKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if enter key
   **/
   isEnterKey: (ev) => {
     return ev.which === 13;
@@ -219,8 +219,8 @@ let Events = {
   * Determines if the key pressed is the tab key
   *
   * @method isTabKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if tab key
   **/
   isTabKey: (ev) => {
     return ev.which === 9;
@@ -230,8 +230,8 @@ let Events = {
   * Determines if the key pressed is the backspace key
   *
   * @method isBackspaceKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if backspace key
   **/
   isBackspaceKey: (ev) => {
     return ev.which === 8;
@@ -241,8 +241,8 @@ let Events = {
   * Determines if the key pressed is the delete key
   *
   * @method isDeleteKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if delete key
   **/
   isDeleteKey: (ev) => {
     return ev.which === 46;
@@ -252,8 +252,8 @@ let Events = {
   * Determines if the key pressed is the backspace or delete key
   *
   * @method isDeletingKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if is delete key or backspace key
   **/
   isDeletingKey: (ev) => {
     return Events.isDeleteKey(ev) || Events.isBackspaceKey(ev);
@@ -263,8 +263,8 @@ let Events = {
   * Determines if the key pressed is the shift key
   *
   * @method isShiftKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if shift key
   **/
   isShiftKey: (ev) => {
     return ev.shiftKey || ev.which === 16;
@@ -274,8 +274,8 @@ let Events = {
   * Determines if the key pressed is the space key
   *
   * @method isSpaceKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if space key
   **/
   isSpaceKey: (ev) => {
     return ev.which === 32;
@@ -285,8 +285,8 @@ let Events = {
   * Determines if the key pressed is the period key
   *
   * @method isPeriodKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if period key
   **/
   isPeriodKey: (ev) => {
     return ev.which === 190;
@@ -296,8 +296,8 @@ let Events = {
   * Determines if the key pressed is the comma key
   *
   * @method isCommaKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if comma key
   **/
   isCommaKey: (ev) => {
     return ev.which === 188;
@@ -307,8 +307,8 @@ let Events = {
   * Determines if the key pressed is the minus key
   *
   * @method isMinusKey
-  * @params {Event} ev A JavaScript event
-  * @returns {Boolean}
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if minus key
   **/
   isMinusKey: (ev) => {
     return ev.which === 189;

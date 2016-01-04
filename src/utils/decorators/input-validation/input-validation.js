@@ -34,6 +34,8 @@ import _ from 'lodash';
  *   }
  *
  * @method InputValidation
+ * @param {Class} ComposedComponent class to decorate
+ * @return {Object} Decorated Component
  */
 let InputValidation = (ComposedComponent) => class Component extends ComposedComponent {
 
@@ -81,6 +83,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * A lifecycle method for when the component has re-rendered.
    *
    * @method componentDidUpdate
+   * @return {void}
    */
   componentDidUpdate() {
     if (!this.state.valid) {
@@ -116,6 +119,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * A lifecycle method for when the component is added to the page.
    *
    * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
     // call the components super method if it exists
@@ -131,6 +135,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * A lifecycle method for when the component is removed from the page.
    *
    * @method componentWillUnmount
+   * @return {void}
    */
   componentWillUnmount() {
     // call the components super method if it exists
@@ -151,6 +156,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * Checks for validations and returns boolean defining if field valid.
    *
    * @method validate
+   * @return {Boolean} if the field/fields is/are valid
    */
   validate = () => {
     let valid = false;
@@ -191,6 +197,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * On blur of the input we want to validate the field.
    *
    * @method _handleBlur
+   * @return {void}
    */
   _handleBlur = () => {
     this.validate();
@@ -204,6 +211,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * On focus of the input.
    *
    * @method _handleFocus
+   * @return {void}
    */
   _handleFocus = () => {
     if (!this.state.valid && !this.state.messageLocked) {
@@ -215,6 +223,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * On key down of the input when we want to reset the validation.
    *
    * @method _handleKeyDown
+   * @return {void}
    */
   _handleKeyDown = () => {
     // if the field is in an invalid state

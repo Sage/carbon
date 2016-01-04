@@ -7,8 +7,9 @@
 * of 'age' you will get 'user[age]'.
 *
 * @method generateInputName
-* @param {String} name
-* @param {Object} form
+* @param {String} name name passed to form input
+* @param {Object} form form model name
+* @return {String} generated input name
 */
 export function generateInputName(name, form) {
   let formName = name;

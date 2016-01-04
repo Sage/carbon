@@ -12,8 +12,9 @@ import Immutable from 'immutable';
 * We add the row ids through the `ImmutableHelper.parseJSON` function.
 *
 * @object insertRowIDs
-* @param {object} js
+* @param {object} js javascript object to parse
 * @private
+* @return {Object} new parsed object
 */
 function insertRowIDs(js) {
   // maps the array with the following transformer
@@ -50,7 +51,8 @@ var ImmutableHelper = {
   * correctly and applying custom transforms to make the data easier to work with.
   *
   * @method parseJSON
-  * @param {Object} js
+  * @param {Object} js javascript object to parse
+  * @return {Object} new js object
   */
   parseJSON: (js) => {
     if (typeof js !== 'object' || js === null) {
@@ -83,8 +85,9 @@ var ImmutableHelper = {
   * eg. `ImmutableHelper.updateLineItem([this.data, 'line_items', 5, 'attr'], 'foo');
   *
   * @method updateLineItem
-  * @param {Array} keys
-  * @param {String} value
+  * @param {Array} keys data and nested keys
+  * @param {String} value the new value to set
+  * @return {Object} new data object
   */
   updateLineItem: (keys, value) => {
     var data = keys[0],
@@ -120,7 +123,8 @@ var ImmutableHelper = {
   * eg. `ImmutableHelper.deleteLineItem([this.data, 'line_items', 5]);
   *
   * @method deleteLineItem
-  * @param {Array} keys
+  * @param {Array} keys data and nested keys
+  * @return {Object} new data object
   */
   deleteLineItem: (keys) => {
     var data = keys[0],
@@ -137,6 +141,7 @@ var ImmutableHelper = {
   * Generates a random guid, useful for creating unique IDs.
   *
   * @method guid
+  * @return {String} random guid
   */
   guid: () => {
     function s4() {
@@ -149,8 +154,9 @@ var ImmutableHelper = {
   * Uses the row id to find the index of the object within the array.
   *
   * @method getLineItemIndex
-  * @param {Array} line_items
-  * @param {Number} _row_id
+  * @param {Array} line_items object to search
+  * @param {Number} _row_id of the object
+  * @return {Number} index of found object
   */
   getLineItemIndex: (line_items, _row_id) => {
     return line_items.findIndex((item) => {
@@ -163,13 +169,13 @@ var ImmutableHelper = {
   * 2nd set of brackets, we would call this function with an index of 1.
   *
   * @method parseLineItemAttribute
-  * @param {String} name
-  * @param {Number} index
+  * @param {String} name the formatted value to parse
+  * @param {Number} index the index of the attribute within the name
+  * @return {Object} matched attribute of given index
   */
   parseLineItemAttribute: (name, index) => {
     return name.match(/[^[\]]+(?=])/g)[index];
   }
-
 };
 
 export default ImmutableHelper;

@@ -34,6 +34,8 @@ import { generateInputName } from './../../helpers/forms';
  * components class.
  *
  * @method Input
+ * @param {Class} ComposedComponent class to decorate
+ * @return {Object} Decorated Component
  */
 var Input = (ComposedComponent) => class Component extends ComposedComponent {
 
@@ -59,6 +61,9 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * A lifecycle method to determine if the component should re-render for better performance.
    *
    * @method shouldComponentUpdate
+   * @param {Object} nextProps the updated props
+   * @param {Object} nextState the updated state
+   * @return {void}
    */
   shouldComponentUpdate(nextProps, nextState) {
     // call super method if one is defined
@@ -80,7 +85,8 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * Calls the onChange event defined by the dev with more useful information.
    *
    * @method _handleChange
-   * @prop {Event} ev
+   * @param {Event} ev the change event
+   * @returns {void}
    */
   _handleOnChange = (ev) => {
     if (this.props.onChange) {

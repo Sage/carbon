@@ -58,7 +58,7 @@ class Row extends React.Component {
    *
    * @method buildColumn
    * @param {Object} child child component
-   * @params {Object} key index of child
+   * @param {Object} key index of child
    * @return {Object} JSX of build column
    */
   buildColumn = (child, key) => {
