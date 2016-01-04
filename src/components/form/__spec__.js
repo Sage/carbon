@@ -14,7 +14,7 @@ describe('Form', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Form model='test' />
+      <Form />
     );
   });
 
@@ -43,7 +43,7 @@ describe('Form', () => {
   describe('attachToForm', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Form model='test'>
+        <Form>
           <Textbox validations={ [Validation()] } name='excludedBox' value='' />
           <InputGrid
             name='grid'
@@ -92,7 +92,7 @@ describe('Form', () => {
           />
 
       instance = TestUtils.renderIntoDocument(
-        <Form model='test'>
+        <Form>
           { excludedTextbox }
           { grid }
         </Form>
@@ -138,7 +138,7 @@ describe('Form', () => {
     describe('valid input', () => {
       it('submits the form', () => {
         instance = TestUtils.renderIntoDocument(
-          <Form model='test'>
+          <Form>
             <Textbox validations={ [Validation()] } name='test' value='Valid' />
           </Form>
         );
@@ -153,7 +153,7 @@ describe('Form', () => {
     describe('invalid input', () => {
       it('does not not submit the form', () => {
         instance = TestUtils.renderIntoDocument(
-          <Form model='test'>
+          <Form>
             <Textbox validations={ [Validation()] } name='test' value='' />
           </Form>
         );
@@ -169,7 +169,7 @@ describe('Form', () => {
       it('calls the beforeFormValidation', () => {
         let spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
-          <Form beforeFormValidation={ spy } model='test'>
+          <Form beforeFormValidation={ spy }>
             <Textbox validations={ [Validation()] } name='test' value='Valid' />
           </Form>
         );
@@ -183,7 +183,7 @@ describe('Form', () => {
       it('calls the afterFormValidation', () => {
         let spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
-          <Form afterFormValidation={ spy } model='test'>
+          <Form afterFormValidation={ spy }>
             <Textbox validations={ [Validation()] } name='test' value='Valid' />
           </Form>
         );
@@ -196,7 +196,7 @@ describe('Form', () => {
     describe('submitting a input grid', () => {
       it('removes placeholder when the form is valid', () => {
         instance = TestUtils.renderIntoDocument(
-          <Form model='test'>
+          <Form>
             <InputGrid
               name='test'
               data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
@@ -232,7 +232,7 @@ describe('Form', () => {
           fields={ [ textbox1, textbox2 ] } />
 
         instance = TestUtils.renderIntoDocument(
-          <Form model='test'>
+          <Form>
             { grid }
           </Form>
           );
@@ -245,10 +245,6 @@ describe('Form', () => {
   });
 
   describe('htmlProps', () => {
-    it('pulls out the model from props', () => {
-      expect(instance.htmlProps().model).toBeFalsy();
-    });
-
     it('sets the className', () => {
       expect(instance.htmlProps().className).toEqual('ui-form');
     });
@@ -281,7 +277,7 @@ describe('Form', () => {
             open={ true }
             cancelDialogHandler={ spy }>
 
-            <Form model="contact">
+            <Form>
               <Textbox
                 name="name"
                 onChange={ function() {} }
@@ -319,7 +315,7 @@ describe('Form', () => {
         spyOn(fakeMeta2, 'getAttribute').and.returnValue('csrf-token')
         spyOn(instance._document, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
 
-        instance = TestUtils.renderIntoDocument(<Form model='test' />);
+        instance = TestUtils.renderIntoDocument(<Form />);
 
         csrf = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
       });
@@ -370,7 +366,7 @@ describe('Form', () => {
       describe('when cancel prop is false', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(
-            <Form cancel={false} model='test' />
+            <Form cancel={false} />
           );
         });
 

@@ -20,10 +20,6 @@ import Serialize from "form-serialize";
  *     <Date />
  *   </Form>
  *
- * Optionally, you can pass a model name to the form. The form will use this name
- * to modify its inputs names. For example, a form with a model name of 'foo' and
- * an input with a name of 'bar', the inputs name will get modified to be 'foo[bar]'.
- *
  * Form provides the ability to hook into the form handle submission method.
  * By passing afterFormValidation or beforeFormValidation you can add custom
  * validation logic and prevent the form submission using ev.preventDefault()
@@ -52,13 +48,6 @@ class Form extends React.Component {
   _window = window;
 
   static propTypes = {
-    /**
-     * The model name from the database (this will be used to manipulate input names in the form)
-     *
-     * @property model
-     * @type {String}
-     */
-    model: React.PropTypes.string,
 
     /**
      * Cancel button is shown if true
@@ -118,8 +107,7 @@ class Form extends React.Component {
         attachToForm: this.attachToForm,
         detachFromForm: this.detachFromForm,
         incrementErrorCount: this.incrementErrorCount,
-        decrementErrorCount: this.decrementErrorCount,
-        model: this.props.model
+        decrementErrorCount: this.decrementErrorCount
       }
     };
   }
@@ -256,7 +244,7 @@ class Form extends React.Component {
    * @method htmlProps
    */
   htmlProps = () => {
-    let { model, ...props } = this.props;
+    let { ...props } = this.props;
     props.className = this.mainClasses;
     return props;
   }

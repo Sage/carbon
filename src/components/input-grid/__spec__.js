@@ -13,7 +13,7 @@ describe('InputGrid', () => {
     function bar() {};
 
     form = TestUtils.renderIntoDocument(
-      <Form model="test">
+      <Form>
         <InputGrid
           name="test-grid"
           data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
@@ -137,7 +137,7 @@ describe('InputGrid', () => {
         function bar() {};
 
         form = TestUtils.renderIntoDocument(
-          <Form model="test">
+          <Form>
             <InputGrid
               name="test-grid"
               data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
@@ -226,7 +226,7 @@ describe('InputGrid', () => {
       function bar() {};
 
       form = TestUtils.renderIntoDocument(
-        <Form model="test">
+        <Form>
           <InputGrid
             name="test-grid"
             data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
