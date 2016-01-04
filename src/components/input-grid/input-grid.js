@@ -303,15 +303,15 @@ class InputGrid extends React.Component {
 
       // add any additional classes for this column
       if (this.props.columnClasses) {
-        if (this.props.columnClasses[field.props.name]) {
-          columnClasses += ` ${this.props.columnClasses[field.props.name]}`;
+        if (field.props.label && this.props.columnClasses[field.props.label]) {
+          columnClasses += ` ${this.props.columnClasses[field.props.label]}`;
         }
       }
 
       // add the header for this column
       headings.push(
         <th hidden={field.props.hidden} className={ columnClasses } key={ field.props.name }>
-          { tableHeaderName(field.props.name) }
+          { tableHeaderName(field.props.label) }
         </th>
       );
     });

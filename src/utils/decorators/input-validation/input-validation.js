@@ -156,7 +156,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     let valid = false;
 
     // if there are no validation, return truthy
-    if (!this.props.validations) {
+    if (!this.props.validations || this.props._placeholder) {
       return true;
     }
 

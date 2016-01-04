@@ -177,22 +177,10 @@ class Form extends React.Component {
    * @param {Object} component
    */
   attachToForm = (component) => {
-    let namespace = component.props.namespace;
-    let row_id    = component.props.row_id;
-    let name      = component.props.name;
+    let name = component.props.name;
 
     if (component.constructor.name === "InputGrid") {
       this.tables[name] = component;
-    } else if (namespace && row_id) {
-      if (!this.inputs[namespace]) {
-        this.inputs[namespace] = {};
-      }
-
-      if (!this.inputs[namespace][row_id]) {
-        this.inputs[namespace][row_id] = {};
-      }
-
-      this.inputs[namespace][row_id][name] = component;
     } else {
       this.inputs[name] = component;
     }
@@ -205,14 +193,10 @@ class Form extends React.Component {
    * @param {Object} component
    */
   detachFromForm = (component) => {
-    let namespace = component.props.namespace;
-    let row_id    = component.props.row_id;
-    let name      = component.props.name;
+    let name = component.props.name;
 
     if (component.constructor.name === "InputGrid") {
       delete this.tables[name];
-    } else if (namespace && row_id) {
-      delete this.inputs[namespace][row_id][name];
     } else {
       delete this.inputs[name];
     }
@@ -235,28 +219,13 @@ class Form extends React.Component {
     for (let key in this.inputs) {
       let input = this.inputs[key];
 
-      if (typeof input.props !== 'undefined') {
-        if (!input.validate()) {
-          valid = false;
-          errors++;
-        }
-      } else {
-        for (let id in input) {
-          let row = input[id];
+      if (input.props._placeholder) {
+        continue;
+      }
 
-          for (let rowField in row) {
-            let rowInput = row[rowField];
-
-            if (rowInput.props._placeholder) {
-              continue;
-            }
-
-            if (!rowInput.validate()) {
-              valid = false;
-              errors++;
-            }
-          }
-        }
+      if (!input.validate()) {
+        valid = false;
+        errors++;
       }
     }
 
