@@ -40,6 +40,14 @@ class Link extends React.Component {
     disabled: React.PropTypes.bool
   }
 
+  get inputProps() {
+    let { ...props } = this.props;
+    props.href = this.props.path
+    props.disabled = this.props.disabled || '';
+
+    return props;
+  }
+
   /**
    * Renders the component.
    *
@@ -53,9 +61,11 @@ class Link extends React.Component {
       (className ? ' ' + className : '');
 
     return (
-      <a className={ className } href={ this.props.path} >
-        { this.props.children }
-      </a>
+      <div className={ className }>
+        <a { ...this.inputProps } >
+          { this.props.children }
+        </a>
+      </div>
     );
   }
 
