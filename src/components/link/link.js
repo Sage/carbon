@@ -13,7 +13,7 @@ import React from 'react';
  *
  *  <Link path='foo'>Main Page</Link>
  *
- * For additional properties specific to this component, see propTypes and defaultProps.
+ * For additional properties specific to this component, see propTypes.
  *
  * @class Link
  * @constructor
