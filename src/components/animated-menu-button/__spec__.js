@@ -114,7 +114,7 @@ describe('AnimatedMenuButton', () => {
 
     describe ('when a label is passed', () => {
       it('returns the HTML for the label', () => {
-        expect(labelWidget.labelHTML.props.className).toEqual('label');
+        expect(labelWidget.labelHTML.props.className).toEqual('ui-animated-menu-button__label');
         expect(labelWidget.labelHTML.props.children).toEqual('Create...');
       });
     });
@@ -122,7 +122,7 @@ describe('AnimatedMenuButton', () => {
 
   describe('innerHTML', () => {
     it('returns the HTML for the content', () => {
-      expect(contentWidget.innerHTML.props.className).toEqual('content');
+      expect(contentWidget.innerHTML.props.className).toEqual('ui-animated-menu-button__content');
       expect(contentWidget.innerHTML.props.children.length).toEqual(3);
     });
 
@@ -190,14 +190,16 @@ describe('AnimatedMenuButton', () => {
   describe('render', () => {
     describe('when the menu is expanded', () => {
       it('renders the content', () => {
-        basicWidget.setState({ open: true });
-        expect(TestUtils.scryRenderedDOMComponentsWithClass(basicWidget, 'content').length).toEqual(1);
+        TestUtils.Simulate.mouseEnter(basicWidget.refs.button);
+        var t = TestUtils;
+        debugger
+        expect(TestUtils.scryRenderedDOMComponentsWithClass(basicWidget, 'ui-animated-menu-button__content').length).toEqual(1);
       });
     });
 
     describe('when the menu is closed', () => {
       it('does not render the content', () => {
-        expect(TestUtils.scryRenderedDOMComponentsWithClass(basicWidget, 'content').length).toEqual(0);
+        expect(TestUtils.scryRenderedDOMComponentsWithClass(basicWidget, 'ui-animated-menu-button__content').length).toEqual(0);
       });
     });
   });
