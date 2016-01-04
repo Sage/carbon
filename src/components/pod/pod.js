@@ -137,9 +137,7 @@ class Pod extends React.Component {
 
     className += this.props.className ? this.props.className : '';
 
-    if(!this.state.collapsed) {
-      content = this.podContent;
-    }
+    if(!this.state.collapsed) { content = this.podContent; }
 
     return (
       <div className={ className } >
@@ -148,7 +146,6 @@ class Pod extends React.Component {
       </div>
     );
   }
-
 }
 
 export default Pod;
