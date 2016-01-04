@@ -1,5 +1,13 @@
 # 0.1.0
 
+## Dropdowns
+
+Dropdown components have been refactored. We now have three different kinds:
+
+* Dropdown
+* Dropdown Filter
+* Dropdown Filter Ajax
+
 ## Inputs and Forms No Longer Rely on Name Property
 
 In previous versions of Carbon, all inputs required a `name` property. Some Carbon components would manipulate what this name was, depending on where the input was used.

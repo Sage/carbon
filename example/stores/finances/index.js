@@ -10,6 +10,10 @@ const data = ImmutableHelper.parseJSON({
   date_from: "2015-11-01",
   name: "My Finances",
   discount: false,
+  country: {
+    id: 218,
+    name: 'United Kingdom'
+  },
   chart_data: [
     {
       y: 0,
@@ -111,6 +115,11 @@ class FinancesStore extends Store {
       this.data = updateChartData(this.data);
       this.data = updateBalance(this.data);
     }
+  }
+
+  [FinancesConstants.FINANCES_COUNTRY_UPDATED](action) {
+    this.data = this.data.setIn(['country', 'id'], action.value);
+    this.data = this.data.setIn(['country', 'name'], action.visibleValue);
   }
 
   [FinancesConstants.FINANCES_LINE_ITEM_UPDATED](action) {

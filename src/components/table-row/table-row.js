@@ -74,9 +74,7 @@ class TableRow extends React.Component {
     if (this.props.gutterFields) {
       return this.buildRowGutterField(key, field);
     } else { // Uses buildCell to build cell with appropriate values
-      let name = ImmutableHelper.parseName(field.props.name, 'last');
-      let value = (this.props.data) ? this.props.data.get(name) : null;
-      return this.buildCell(field, value);
+      return this.buildCell(field);
     }
   };
 
@@ -126,7 +124,7 @@ class TableRow extends React.Component {
    * @param {Object} field
    * @param {String | Number | Boolean} value
    */
-  buildCell = (field, value) => {
+  buildCell = (field) => {
     if (!field.props.name.match("{ROWID}")) {
       throw new Error("Inputs used in a grid should supply a {ROWID} placeholder within the input's name, which will be replaced on render with a unique row id.");
     }
@@ -141,7 +139,10 @@ class TableRow extends React.Component {
           onChange: this.props.updateRowHandler
         };
 
-    if (typeof value !== 'undefined') {
+
+    let name = ImmutableHelper.parseName(field.props.name, 'last');
+    let value = (this.props.data) ? this.props.data.get(name) : null;
+    if (value != null) {
       fieldProps.value = value;
     }
 
