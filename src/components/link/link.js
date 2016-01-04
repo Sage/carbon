@@ -42,7 +42,7 @@ class Link extends React.Component {
 
   get inputProps() {
     let { ...props } = this.props;
-    props.href = this.props.path
+    props.href = this.props.path;
     props.disabled = this.props.disabled || '';
 
     return props;
