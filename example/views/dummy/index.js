@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'utils/flux';
 import Form from 'components/form';
 import Button from 'components/button';
+import Radiobutton from 'components/radiobutton';
 import Link from   'components/link';
 
 import FinancesStore from './../../stores/finances';
@@ -54,7 +55,10 @@ class Finances extends React.Component {
             debitTotal={ this.state.financesStore.get('debit_total') }
             creditTotal={ this.state.financesStore.get('credit_total') } />
         </Form>
-
+        
+        <Radiobutton name='frequency' value='weekly' defaultChecked label='Weekly' />
+        <Radiobutton name='frequency' value='monthly' label='Monthly' />
+        
         <Link className="home-link" href='#' disabled>Main Page</Link>
 
         <UserDialog />
