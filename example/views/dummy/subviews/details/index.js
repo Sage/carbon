@@ -15,10 +15,32 @@ class Details extends React.Component {
     return (
       <Row>
 
-        <Textbox name="name" value={ this.props.name } onChange={ FinancesActions.financesValueUpdated } validations={ [Presence()] } />
-        <Date name="date_from" value={ this.props.dateFrom } onChange={ FinancesActions.financesValueUpdated } />
-        <Checkbox name="discount" label="Apply Discount?" value={ this.props.discount } onChange={ FinancesActions.financesValueUpdated } />
-        <Dropdown name="accounts" options={ this.props.options } onChange={ FinancesActions.financesValueUpdated } value={ this.props.accounts }/>
+        <Textbox
+          name="name"
+          value={ this.props.name }
+          onChange={ FinancesActions.financesValueUpdated }
+          validations={ [Presence()] }
+        />
+
+        <Date
+          name="date_from"
+          value={ this.props.dateFrom }
+          onChange={ FinancesActions.financesValueUpdated }
+        />
+
+        <Checkbox
+          name="discount"
+          label="Apply Discount?"
+          value={ this.props.discount }
+          onChange={ FinancesActions.financesValueUpdated }
+        />
+
+        <Dropdown
+          name="accounts"
+          options={ this.props.options }
+          onChange={ FinancesActions.financesValueUpdated }
+          value={ this.props.accounts }
+        />
 
         <DropdownFilterAjax
           name="country"
