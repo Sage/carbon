@@ -3,7 +3,12 @@ import { connect } from 'utils/flux';
 import Form from 'components/form';
 import Button from 'components/button';
 import QuickCreate from './subviews/quick-create';
+<<<<<<< aa8408a0d0fe4cb58630a465eb52f55955438a2a
 import Link from 'components/link';
+=======
+import Radiobutton from 'components/radiobutton';
+import Link from   'components/link';
+>>>>>>> added radiobutton with name value and checked properties
 import Pill from 'components/pill';
 import Banner from 'components/banner';
 import Toast from 'components/toast';
@@ -116,6 +121,45 @@ class Finances extends React.Component {
           <strong>New Features</strong><br />
           We have introduced new features, please see the <Link href="https://github.com/Sage/carbon/blob/master/CHANGELOG.md" target="_blank">changelog</Link> for more information.
         </Toast>
+
+      <div className="view-finances">
+        <FinancesHistory />
+
+        <Button onClick={ this.handleOnClick }>Edit My Details</Button>
+
+        <h1 className="view-finances__title">{ name }</h1>
+
+        <Form model="foo">
+          <FinancesDetails
+            name={ name }
+            countryValue={ this.state.financesStore.getIn(['country', 'id']) }
+            countryVisibleValue={ this.state.financesStore.getIn(['country', 'name']) }
+            accounts={ this.state.financesStore.get('accounts') }
+            foo={ this.state.financesStore.get('foo') }
+            options={ this.state.financesStore.get('options') }
+            discount={ this.state.financesStore.get('discount') }
+            dateFrom={ this.state.financesStore.get('date_from') } />
+
+          <FinancesChart
+            data={ this.state.financesStore.get('chart_data') }
+            balance={ this.state.financesStore.get('balance') } />
+
+          <FinancesTable
+            data={ this.state.financesStore.get('line_items') }
+            discount={ this.state.financesStore.get('discount') }
+            balance={ this.state.financesStore.get('balance') }
+            discountTotal={ this.state.financesStore.get('discount_total') }
+            debitTotal={ this.state.financesStore.get('debit_total') }
+            creditTotal={ this.state.financesStore.get('credit_total') } />
+        </Form>
+        
+        <Radiobutton name='frequency' value='weekly' defaultChecked label='Weekly' />
+        <Radiobutton name='frequency' value='monthly' label='Monthly' />
+        
+        <Link className="home-link" href='#' disabled>Main Page</Link>
+
+        <UserDialog />
+
       </div>
     );
   }
