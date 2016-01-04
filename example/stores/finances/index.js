@@ -118,7 +118,7 @@ class FinancesStore extends Store {
     this.data = ImmutableHelper.updateLineItem([this.data, 'line_items', action.row_id, action.name], action.value);
 
     // update other data affected by this change
-    let name = ImmutableHelper.parseLineItemAttribute(action.name, 2)
+    let name = ImmutableHelper.parseName(action.name, 'last');
     if (name == 'credit' || name == 'debit' || name == 'discount'){
       this.data = updateTotals(this.data, name);
       this.data = updateChartData(this.data);
