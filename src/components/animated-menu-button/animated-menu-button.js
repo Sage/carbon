@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from './../icon';
 import Devices from './../../utils/helpers/devices';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 /**
  * An AnimatedMenuButton widget.
@@ -138,7 +139,8 @@ class AnimatedMenuButton extends React.Component {
    * @return {HTML} HTML for label.
    */
   get labelHTML() {
-    let label = this.props.label ? <span className='ui-animated-menu-button__label'>{ this.props.label }</span> : '';
+    let label = this.props.label ?
+                <span key={ this.props.label } className='ui-animated-menu-button__label'>{ this.props.label }</span> : '';
     return label;
   }
 
@@ -223,7 +225,14 @@ class AnimatedMenuButton extends React.Component {
     return (
       <div { ...this.inputProps }>
         <Icon type='add'/>
-        { content }
+
+        <ReactCSSTransitionGroup
+          transitionName='ui-animated-menu-button'
+          transitionEnterTimeout={ 500 }
+          transitionLeaveTimeout={ 500 } >
+          { content }
+        </ReactCSSTransitionGroup>
+
       </div>
     );
   }
