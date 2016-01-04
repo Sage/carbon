@@ -148,6 +148,7 @@ You can now define Validations on a component using the following syntax:
 * Checkbox label now sits inline, and is reversable.
 * Added props on inputs for inline labels.
 * Added Rainbow chart component.
+* Added Tabs component.
 * Added Number component.
 * Decimal now allows tabbing in and out of the field.
 * Date now closes on tab out.
