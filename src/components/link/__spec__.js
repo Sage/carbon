@@ -8,15 +8,15 @@ describe('Link', () => {
 
   beforeEach(() => {
     basicLink = TestUtils.renderIntoDocument(
-      <Link path='http://app.com/home'>My Link</Link>
+      <Link href='http://app.com/home'>My Link</Link>
     )
 
     disabledLink = TestUtils.renderIntoDocument(
-      <Link path='http://app.com/edit' disabled>My Link</Link>
+      <Link href='http://app.com/edit' disabled>My Link</Link>
     )
 
     customLink = TestUtils.renderIntoDocument(
-      <Link className='fancy' path='http://app.com/home'>My Link</Link>
+      <Link className='fancy' href='http://app.com/home'>My Link</Link>
     )
   });
 
@@ -26,7 +26,7 @@ describe('Link', () => {
     });
 
     it('renders a link with the provided path', () => {
-      expect(basicLink.props.path).toEqual('http://app.com/home');
+      expect(basicLink.props.href).toEqual('http://app.com/home');
     });
 
     it('renders children passed to it', () => {
@@ -50,12 +50,12 @@ describe('Link', () => {
     });
 
     it('adds a className of ui-link to all links', () => {
-      expect(basicDOM.classList[0]).toEqual('ui-link');
-      expect(disabledDOM.classList[0]).toEqual('ui-link');
+      expect(basicDOM.classList[0]).toEqual('ui-link__anchor');
+      expect(disabledDOM.classList[0]).toEqual('ui-link__anchor');
     });
 
     it('adds a disabled class name to a disabled link', () => {
-      expect(disabledDOM.classList[1]).toEqual('ui-link--disabled');
+      expect(disabledDOM.classList[1]).toEqual('ui-link__anchor--disabled');
     });
 
     it('adds any additional classes passed', () => {
