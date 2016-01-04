@@ -44,6 +44,10 @@ $dialog-background-animation-length: 300ms;
   padding-bottom: 20px;
 }
 
+.ui-dialog__content {
+  width: 100%;
+}
+
 .ui-dialog__close {
   color: $grey-mid;
   cursor: pointer;

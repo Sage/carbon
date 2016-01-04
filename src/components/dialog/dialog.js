@@ -140,7 +140,7 @@ class Dialog extends React.Component {
   get dialogTitle() {
     return (
         this.props.title ?
-          <h2 className="ui-dialog__title">{ this.props.title }</h2> :
+          <h2 className={ this.dialogTitleClasses }>{ this.props.title }</h2> :
           null
     );
   }
@@ -152,6 +152,15 @@ class Dialog extends React.Component {
    */
   get backgroundHTML() {
     return <div className="ui-dialog__background"></div>;
+  }
+
+  /**
+   * Returns classes for the dialog title.
+   *
+   * @method dialogTitleClasses
+   */
+  get dialogTitleClasses() {
+    return 'ui-dialog__title';
   }
 
   /**
@@ -194,7 +203,10 @@ class Dialog extends React.Component {
       <div ref="dialog" className={ dialogClasses }>
         { this.dialogTitle }
         <Icon className="ui-dialog__close" type="close" onClick={ this.props.cancelHandler } />
-        { this.props.children }
+
+        <div className='ui-dialog__content'>
+          { this.props.children }
+        </div>
       </div>
     );
   }

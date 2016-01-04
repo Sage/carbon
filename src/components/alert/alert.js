@@ -12,7 +12,7 @@ import Dialog from '../dialog';
  *
  * To render a Alert:
  *
- *   <Alert cancelHandler={ customEventHandler }  open={ false }/>
+ *   <Alert cancelHandler={ customEventHandler } open={ false }/>
  *
  * The component rendering the Alert must pass down a prop of 'open' in order to open the alert.
  *
@@ -27,20 +27,10 @@ class Alert extends Dialog {
     super();
   }
 
-  /**
-   * Returns HTML and text for the alert title. Overrides super method.
-   *
-   * @method dialogTitle
-   */
-  get dialogTitle() {
-    let mainTitle = 'ui-dialog__title';
-    let combinedTitle = mainTitle + ' ui-alert__title';
-
-    return (
-        this.props.title ?
-          <h2 className={ combinedTitle }>{ this.props.title }</h2> :
-          null
-    );
+  get dialogTitleClasses() {
+    let classes = super.dialogTitleClasses;
+    classes += ' ui-alert__title';
+    return classes;
   }
 
   /**
