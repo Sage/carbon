@@ -1,6 +1,12 @@
 # 0.1.0
 
-TBC
+## Inputs and Forms No Longer Rely on Name Property
+
+In previous versions of Carbon, all inputs required a `name` property. Some Carbon components would manipulate what this name was, depending on where the input was used.
+
+To keep things simple, and to remove some of the logic behind the scenes, we no longer do any manipulation on input names and the property is no longer a requirement when using a form input.
+
+It is still recommended that you use names on inputs, as they are useful to identify your which input is which. They are also required if you are performing standing HTML form submissions.
 
 # 0.0.2
 

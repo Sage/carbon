@@ -4,7 +4,6 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import List from './../../utils/decorators/list';
-import { generateInputName } from './../../utils/helpers/forms';
 
 /**
  * A dropdown widget.
@@ -323,7 +322,7 @@ class Dropdown extends React.Component {
       ref: "hidden",
       type: "hidden",
       readOnly: true,
-      name: generateInputName(this.props.name, this.context.form),
+      name: this.props.name,
       value: this.props.value
     };
 

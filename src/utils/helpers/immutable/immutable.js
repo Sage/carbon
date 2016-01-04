@@ -92,7 +92,7 @@ var ImmutableHelper = {
         _row_id = keys[2],
         // as we modify the input name to use brackets (eg `user[foo][bar]`),
         // this will find the attribute name from that string (eg `bar`)
-        attribute = ImmutableHelper.parseLineItemAttribute(keys[3], 2),
+        attribute = ImmutableHelper.parseName(keys[3], 'last'),
         line_items = data.get(line_item_key);
 
     var index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
@@ -159,15 +159,26 @@ var ImmutableHelper = {
   },
 
   /**
-  * Given a string such as foo[bar][qux] we want to get the attribute name in the
-  * 2nd set of brackets, we would call this function with an index of 1.
+  * Given a string such as foo[bar][qux], this will parse the string into an array such
+  * as ['foo', 'bar', 'qux']. You can also pass an index to return a single value. Passing
+  * an index of 'last' will return the last value in the array.
   *
-  * @method parseLineItemAttribute
+  * @method parseName
   * @param {String} name
   * @param {Number} index
   */
-  parseLineItemAttribute: (name, index) => {
-    return name.match(/[^[\]]+(?=])/g)[index];
+  parseName: (name, index = null) => {
+    let names = name.match(/(^[\w]+)|([^[\]]+(?=]))/g);
+
+    if (index != null) {
+      if (index === "last") {
+        return names[names.length - 1];
+      } else {
+        return names[index];
+      }
+    } else {
+      return names;
+    }
   }
 
 };
