@@ -146,13 +146,6 @@ describe('Input', () => {
   });
 
   describe('inputProps', () => {
-    describe('inputProps are passed', () => {
-      it('builds the name with provided inputProps', () => {
-        instanceTwo.context.form = { model: 'model' };
-        expect(instanceTwo.inputProps.name).toEqual('model[bar]');
-      });
-    });
-
     describe('when the component has its own onChange handler', () => {
       it('passes the change event through the Input change handler', () => {
         instanceTwo.inputProps.onChange = onChange;

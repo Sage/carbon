@@ -1,6 +1,6 @@
 import React from 'react';
-import { generateInputName } from './../../helpers/forms';
 import _ from 'lodash';
+import ImmutableHelper from './../../helpers/immutable';
 
 /**
  * InputLabel decorator.
@@ -65,6 +65,14 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     return classes;
   }
 
+  get labelID() {
+    if (this._guid) {
+      return this._guid;
+    } else {
+      return this._guid = ImmutableHelper.guid();
+    }
+  }
+
   /**
    * Supplies the HTML for the label.
    *
@@ -95,7 +103,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
       <label
         style={ labelStyle }
         className={ labelClasses }
-        htmlFor={ generateInputName(this.props.name, this.context.form) }>
+        htmlFor={ this.inputProps.id }>
         { labelText }
       </label>
     );
@@ -110,7 +118,9 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     let inputProps = super.inputProps || {};
 
     // set id so label will focus on input when clicked
-    inputProps.id = generateInputName(this.props.name, this.context.form);
+    if (!inputProps.id) {
+      inputProps.id = this.labelID;
+    }
 
     return inputProps;
   }

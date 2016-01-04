@@ -19,18 +19,19 @@ describe('TableRow', () => {
   beforeEach(() => {
     let fields = [
       <Textbox
-        name="foo"
+        name="[{ROWID}][foo]"
         key="foo" />,
 
       <Decimal
         key='bar'
-        name='bar'/>,
+        name='[{ROWID}][bar]' />,
 
       <DropdownFilter
         options={ Immutable.Map([]) }
         key='baz'
         name='baz'
         path='' />
+        name='[{ROWID}][bar]' />
     ]
 
     baseData = ImmutableHelper.parseJSON({ foo: 'text',
@@ -205,12 +206,20 @@ describe('TableRow', () => {
       });
 
       it('sets the name property', () => {
-        expect(input.name).toEqual('[regular_attributes][regular_1_reg][foo]');
+        expect(input.name).toEqual('[regular_1_reg][foo]');
       });
 
       it('adds the updateRowHandler', () => {
         TestUtils.Simulate.change(input);
         expect(updateSpy).toHaveBeenCalled();
+      });
+    });
+
+    describe('with no ROWID used', () => {
+      it('throws an error', () => {
+        expect(function() {
+          regular.buildCell(<input name="foo" />);
+        }).toThrowError("Inputs used in a grid should supply a {ROWID} placeholder within the input's name, which will be replaced on render with a unique row id.");
       });
     });
   });

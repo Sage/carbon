@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from './../icon';
+import ImmutableHelper from './../../utils/helpers/immutable';
 
 /**
  * A table row widget for use in an input grid. This is virtually a subcomponent of InputGrid.
@@ -100,7 +101,8 @@ class TableRow extends React.Component {
    * @param {Object} field
    */
   buildRowGutterField = (key, field) => {
-    let gutterField = this.props.gutterFields[field.props.name];
+    let name = ImmutableHelper.parseName(field.props.name, 'last');
+    let gutterField = this.props.gutterFields[name];
     return(<td hidden={ field.props.hidden } key={ key + "gutter" } className="ui-table-row__td ui-table-row__td--gutter">{ gutterField }</td>);
   }
 
@@ -123,17 +125,23 @@ class TableRow extends React.Component {
    * @param {String | Number | Boolean} value
    */
   buildCell = (field) => {
+    if (!field.props.name.match("{ROWID}")) {
+      throw new Error("Inputs used in a grid should supply a {ROWID} placeholder within the input's name, which will be replaced on render with a unique row id.");
+    }
+
     let rowID = this.props.row_id,
         fieldProps = {
           label: false,
           key: rowID,
-          name: `[${this.props.name}_attributes][${rowID}][${field.props.name}]`,
+          name: field.props.name.replace("{ROWID}", rowID),
           row_id: rowID,
           namespace: this.props.name,
           onChange: this.props.updateRowHandler
         };
 
-    let value = this.props.data ? this.props.data.get(field.props.name) : null;
+
+    let name = ImmutableHelper.parseName(field.props.name, 'last');
+    let value = (this.props.data) ? this.props.data.get(name) : null;
     if (value != null) {
       fieldProps.value = value;
     }
