@@ -71,6 +71,7 @@ class Decimal extends React.Component {
    *
    * @method componentWillReceiveProps
    * @param {Object} props The new props passed down to the component
+   * @return {void}
    */
   componentWillReceiveProps = (props) => {
     if (this._document.activeElement != this.refs.visible) {
@@ -84,6 +85,7 @@ class Decimal extends React.Component {
    *
    * @method emitOnChangeCallback
    * @param {String} val The unformatted decimal value
+   * @return {void}
    */
   emitOnChangeCallback = (val) => {
     let hiddenField = this.refs.hidden;
@@ -97,7 +99,8 @@ class Decimal extends React.Component {
    * This is a post-processor applied after the value has been updated.
    *
    * @method isValidDecimal
-   * @param {String} value
+   * @param {String} value new prop value
+   * @return {Boolean} true if a valid decimal
    */
   isValidDecimal = (value) => {
     let del, regex, result, sep;
@@ -114,6 +117,7 @@ class Decimal extends React.Component {
    *
    * @method handleVisibleInputChange
    * @param {Object} ev event
+   * @return {void}
    */
   handleVisibleInputChange = (ev) => {
     if (this.isValidDecimal(ev.target.value)) {
@@ -131,6 +135,7 @@ class Decimal extends React.Component {
    * Updates visible value on blur
    *
    * @method handleBlur
+   * @return {void}
    */
   handleBlur = () => {
     this.setState({ visibleValue: formatVisibleValue(this.props.value, this) });
@@ -142,6 +147,7 @@ class Decimal extends React.Component {
    *
    * @method handleOnClick
    * @param {Object} ev event
+   * @return {void}
    */
   handleOnClick = () => {
     // if value is already highlighted then don't re-highlight it
@@ -163,6 +169,7 @@ class Decimal extends React.Component {
    *
    * @method handleKeyDown
    * @param {Object} ev event
+   * @return {void}
    */
   handleKeyDown = (ev) => {
     // track the selection start and end
@@ -180,6 +187,7 @@ class Decimal extends React.Component {
    * textbox specific props.
    *
    * @method inputProps
+   * @return {Object} props to apply to input field
    */
   get inputProps() {
     let { ...props } = this.props;
@@ -198,6 +206,7 @@ class Decimal extends React.Component {
    * A getter for hidden input props.
    *
    * @method hiddenInputProps
+   * @return {Object} props to apply to hidden field
    */
   get hiddenInputProps() {
     var props = {
@@ -218,7 +227,8 @@ class Decimal extends React.Component {
   /**
    * Uses the mainClasses method provided by the decorator to add additional classes.
    *
-   * @method mainClasses Main Class getter
+   * @method mainClasses
+   * @return {String} Main className
    */
   get mainClasses() {
     let classes = 'ui-decimal';
@@ -234,6 +244,7 @@ class Decimal extends React.Component {
    * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
+   * @return {String} Input className
    */
   get inputClasses() {
     return 'ui-decimal__input';
@@ -243,6 +254,7 @@ class Decimal extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     return (
@@ -266,6 +278,7 @@ class Decimal extends React.Component {
  *
  * @method i18nFormatting
  * @private
+ * @return {Object} Delimeter and separator values
  */
 function i18nFormatting() {
   return {
@@ -280,6 +293,7 @@ function i18nFormatting() {
  * @method formatHiddenValue
  * @private
  * @param {String} valueToFormat Formatted value
+ * @return {String} formated hidden value
  */
 function formatHiddenValue(valueToFormat) {
   let value = valueToFormat;
@@ -298,6 +312,7 @@ function formatHiddenValue(valueToFormat) {
  * @private
  * @param {String} value Unformatted Value
  * @param {Object} scope used to get default value of current scope if value doesn't exist
+ * @return {String} formated value
  */
 function formatVisibleValue(value, scope) {
   value = value || getDefaultValue(scope);
@@ -316,6 +331,7 @@ function formatVisibleValue(value, scope) {
  * @method getDefaultValue
  * @private
  * @param {Object} scope used to get default value of current scope
+ * @return {String} default Value
  */
 function getDefaultValue(scope) {
   if (typeof scope.refs.hidden !== 'undefined') {

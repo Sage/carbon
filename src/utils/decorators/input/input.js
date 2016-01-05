@@ -33,8 +33,10 @@ import { isEqual, assign } from 'lodash';
  * components class.
  *
  * @method Input
+ * @param {Class} ComposedComponent class to decorate
+ * @return {Object} Decorated Component
  */
-var Input = (ComposedComponent) => class Component extends ComposedComponent {
+let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
   constructor(...args) {
     super(...args);
@@ -48,6 +50,9 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * A lifecycle method to determine if the component should re-render for better performance.
    *
    * @method shouldComponentUpdate
+   * @param {Object} nextProps the updated props
+   * @param {Object} nextState the updated state
+   * @return {Boolean} true if the component should update
    */
   shouldComponentUpdate(nextProps, nextState) {
     // call super method if one is defined
@@ -69,7 +74,8 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * Calls the onChange event defined by the dev with more useful information.
    *
    * @method _handleChange
-   * @prop {Event} ev
+   * @param {Event} ev the change event
+   * @returns {void}
    */
   _handleOnChange = (ev) => {
     if (this.props.onChange) {
@@ -82,6 +88,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * Extends main classes to add ones for the input.
    *
    * @method mainClasses
+   * @return {String} Main class names
    */
   get mainClasses() {
     let classes = super.mainClasses || "";
@@ -101,6 +108,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * Extends input classes to add ones for the input.
    *
    * @method inputClasses
+   * @return {String} Input class names
    */
   get inputClasses() {
     let classes = super.inputClasses || "";
@@ -111,6 +119,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * Extends input props add additional properties for the input.
    *
    * @method inputProps
+   * @return {Object} Input props
    */
   get inputProps() {
     let inputProps = super.inputProps || {};
@@ -127,6 +136,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * Extends field props add additional properties for the containing field.
    *
    * @method fieldProps
+   * @return {Object} Field props
    */
   get fieldProps() {
     let fieldProps = super.fieldProps || {};
@@ -141,6 +151,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * to something different.
    *
    * @method inputType
+   * @return {String} HTML input type
    */
   get inputType() {
     return super.inputType || 'input';
@@ -150,6 +161,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * Extension point to add additional content to the input
    *
    * @method additionalInputContent
+   * @return {Object | HTML | String | Number} additional content from composed class
    */
   get additionalInputContent() {
     return super.additionalInputContent || null;
@@ -159,6 +171,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    * Returns HTML for the input.
    *
    * @method inputHTML
+   * @return {HTML} HTML for input
    */
   get inputHTML() {
     // builds the input with a variable input type - see `inputType`

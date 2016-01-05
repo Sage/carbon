@@ -16,7 +16,8 @@ class TableRow extends React.Component {
    * forceUpdate set to true or is a gutter row
    *
    * @method shouldComponentUpdate
-   * @param {Object} nextProps
+   * @param {Object} nextProps new props passed to the component
+   * @return {Boolean} true if the component should update
    */
   shouldComponentUpdate = (nextProps) => {
     if (nextProps.forceUpdate) { return true; }
@@ -27,9 +28,10 @@ class TableRow extends React.Component {
   }
 
   /**
-   * Builds row inlcuding buttons, classnames & optional gutterfields.
+   * Builds row including buttons, classnames & optional gutterfields.
    *
    * @method buildRow
+   * @return {Object} JSX of the built row
    */
   buildRow = () => {
     let row = [];
@@ -49,6 +51,7 @@ class TableRow extends React.Component {
    * Builds initial row action cell
    *
    * @method buildActionCell
+   * @return {Object} JSX of action cell
    */
   buildRowActionCell = () => {
     // If row is not a placeholder or gutterfield add delete button.
@@ -67,8 +70,9 @@ class TableRow extends React.Component {
    * Builds a table field
    *
    * @method buildRowField
-   * @param {String} key
-   * @param {Object} field
+   * @param {String} key row key
+   * @param {Object} field react component
+   * @return {Object} JSX of build field
    */
   buildRowField = (key, field) => {
     if (this.props.gutterFields) {
@@ -82,6 +86,7 @@ class TableRow extends React.Component {
    * Builds and returns delete button cell
    *
    * @method buildRowDeleteButton
+   * @return {Object} JSX table cell with delete button
    */
   buildRowDeleteButton = () => {
     return (
@@ -97,8 +102,9 @@ class TableRow extends React.Component {
    * Builds and returns a gutter field cell
    *
    * @method addGutterField
-   * @param {String} key
-   * @param {Object} field
+   * @param {String} key row key
+   * @param {Object} field react component
+   * @return {Object} JSX of gutterfield
    */
   buildRowGutterField = (key, field) => {
     let name = ImmutableHelper.parseName(field.props.name, 'last');
@@ -110,7 +116,8 @@ class TableRow extends React.Component {
    * Calls delete row handler
    *
    * @method buildRpw
-   * @param {Object}
+   * @param {Object} ev event to trigger delete action
+   * @return {void}
    */
   deleteMethod = (ev) => {
     ev.preventDefault();
@@ -121,8 +128,9 @@ class TableRow extends React.Component {
    * Build each cell with appropriate values and attributes.
    *
    * @method buildCell
-   * @param {Object} field
-   * @param {String | Number | Boolean} value
+   * @param {Object} field react component
+   * @param {String | Number | Boolean} value value to give to field
+   * @return {Object} JSX of build cell
    */
   buildCell = (field) => {
     if (!field.props.name.match("{ROWID}")) {
@@ -157,6 +165,7 @@ class TableRow extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     let mainClasses = "ui-table-row";

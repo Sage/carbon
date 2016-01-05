@@ -100,6 +100,7 @@ class Form extends React.Component {
    * Returns form object to child components.
    *
    * @method getChildContext
+   * @return {void}
    */
   getChildContext = () => {
     return {
@@ -152,6 +153,7 @@ class Form extends React.Component {
    * Increase current error count in state by 1.
    *
    * @method incrementErrorCount
+   * @return {void}
    */
   incrementErrorCount = () => {
     this.setState({ errorCount: this.state.errorCount + 1 });
@@ -161,6 +163,7 @@ class Form extends React.Component {
    * Decreases the current error count in state by 1.
    *
    * @method decrementErrorCount
+   * @return {void}
    */
   decrementErrorCount = () => {
     this.setState({ errorCount: this.state.errorCount - 1 });
@@ -170,7 +173,8 @@ class Form extends React.Component {
    * Attaches child component to form.
    *
    * @method attachToForm
-   * @param {Object} component
+   * @param {Object} component Component to attach
+   * @return {void}
    */
   attachToForm = (component) => {
     let name = component.props.name;
@@ -186,7 +190,8 @@ class Form extends React.Component {
    * Detaches child component from form.
    *
    * @method detachFromFormToForm
-   * @param {Object} component
+   * @param {Object} component Component to detach
+   * @return {void}
    */
   detachFromForm = (component) => {
     let name = component.props.name;
@@ -203,6 +208,7 @@ class Form extends React.Component {
    *
    * @method handleOnSubmit
    * @param {Object} ev event
+   * @return {void}
    */
   handleOnSubmit = (ev) => {
     if (this.props.beforeFormValidation) {
@@ -240,8 +246,11 @@ class Form extends React.Component {
 
   /**
    * Serializes the inputs in the form ready for submission via AJAX
+   * https://www.npmjs.com/package/form-serialize
    *
    * @method serialize
+   * @param {Object} opts options to pass to serialize
+   * @return {Object} Serialized object of fields
    */
   serialize = (opts) => {
     return Serialize(this.refs.form, opts);
@@ -251,6 +260,7 @@ class Form extends React.Component {
    * Separates and returns HTML specific props
    *
    * @method htmlProps
+   * @return {Object} props for form element
    */
   htmlProps = () => {
     let { ...props } = this.props;
@@ -262,6 +272,7 @@ class Form extends React.Component {
    * Redirects to the previous page; uses React Router history, or uses dialog cancel handler.
    *
    * @method cancelForm
+   * @return {void}
    */
   cancelForm = () => {
     if (this.context.dialog) {
@@ -279,6 +290,7 @@ class Form extends React.Component {
    * Main class getter
    *
    * @method mainClasses
+   * @return {String} Main className
    */
   get mainClasses() {
     return 'ui-form';
@@ -288,6 +300,7 @@ class Form extends React.Component {
    * Gets the cancel button for the form
    *
    * @method cancelButton
+   * @return {Object} JSX cancel button
    */
   get cancelButton() {
     let cancelClasses = "ui-form__cancel";
@@ -303,6 +316,7 @@ class Form extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX form
    */
   render() {
     let cancelButton,
@@ -339,13 +353,13 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
-
 /**
  * Creates and returns CSRF token for input field
  *
  * @private
  * @method generateCSRFToken
+ * @param {Object} doc DOM object
+ * @return {Object} JSX hidden CSRF token
  */
 function generateCSRFToken(doc) {
   let meta = doc.getElementsByTagName('meta'),
@@ -370,6 +384,8 @@ function generateCSRFToken(doc) {
  *
  * @private
  * @method errorMessage
+ * @param {Integer} count number of errors
+ * @return {Object} JSX Error message
  */
 function errorMessage(count) {
   let errorMessage =  I18n.t("errors.messages.form_summary.errors", {
@@ -382,3 +398,5 @@ function errorMessage(count) {
 
   return { __html: errorMessage };
 }
+
+export default Form;

@@ -27,7 +27,8 @@ class Number extends React.Component {
   /**
    * Main Class getter
    *
-   * @method mainClasses Main Class getter
+   * @method mainClasses
+   * @return {String} Main className
    */
   get mainClasses() {
     return 'ui-number';
@@ -37,6 +38,7 @@ class Number extends React.Component {
    * Input class getter
    *
    * @method inputClasses
+   * @return {String} Input className
    */
   get inputClasses() {
     return 'ui-number__input';
@@ -47,6 +49,7 @@ class Number extends React.Component {
    *
    * @method handleOnChange
    * @param {Object} ev event
+   * @return {void}
    */
   handleOnChange = (ev) => {
     if (isValidNumber(ev.target.value)) {
@@ -64,6 +67,7 @@ class Number extends React.Component {
    *
    * @method handleKeyDown
    * @param {Object} ev event
+   * @return {void}
    */
   handleKeyDown = (ev) => {
     // track the selection start and end
@@ -81,6 +85,7 @@ class Number extends React.Component {
    * number specific props.
    *
    * @method inputProps
+   * @return {Object} props for the input
    */
   get inputProps() {
     let { ...props } = this.props;
@@ -94,6 +99,7 @@ class Number extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     return (
@@ -114,7 +120,8 @@ class Number extends React.Component {
  *
  * @method isValidNumber
  * @private
- * @param {String} value
+ * @param {String} value number to check validity
+ * @return {Boolean} true if value is valid number
  */
 function isValidNumber(value) {
   let regex, result;

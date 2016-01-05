@@ -53,6 +53,7 @@ class Checkbox extends React.Component {
    *
    * @method handleOnChange
    * @param {Object} ev event
+   * @return {void}
    */
   handleOnChange = (ev) => {
     // we handle the change event manually here, as we pass the checked param
@@ -64,6 +65,7 @@ class Checkbox extends React.Component {
    * Uses the mainClasses method provided by the decorator to add additional classes.
    *
    * @method mainClasses
+   * @return {String} Main className
    */
   get mainClasses() {
     return 'ui-checkbox';
@@ -73,6 +75,7 @@ class Checkbox extends React.Component {
    * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
+   * @return {String} input className
    */
   get inputClasses() {
     return 'ui-checkbox__input';
@@ -83,6 +86,7 @@ class Checkbox extends React.Component {
    * checkbox specific props.
    *
    * @method inputProps
+   * @return {Object} Props to be applied to the input
    */
   get inputProps() {
     let { ...props } = this.props;
@@ -99,6 +103,7 @@ class Checkbox extends React.Component {
    * A getter for hidden input props.
    *
    * @method hiddenInputProps
+   * @return {Object} Props to be applied to the hidden input
    */
   get hiddenInputProps() {
     let props = {
@@ -112,6 +117,11 @@ class Checkbox extends React.Component {
     return props;
   }
 
+  /**
+   * Return the svg image for the checkbox
+   *
+   * @return {Object} JSX svg
+   */
   get checkboxSprite() {
     return(
         <svg width="15" height="15" viewBox="0 0 15 15">
@@ -134,6 +144,7 @@ class Checkbox extends React.Component {
    * Extends the input content to include the checkbox sprite
    *
    * @method additionalInputContent
+   * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
     return this.checkboxSprite;
@@ -143,6 +154,7 @@ class Checkbox extends React.Component {
    * Renders the component with props.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     let labelRight, labelLeft;

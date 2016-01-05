@@ -34,6 +34,8 @@ import Icon from './../../../components/icon';
  * Note: the icon html needs to sit as a sibling to its input.
  *
  * @method InputIcon
+ * @param {Class} ComposedComponent class to decorate
+ * @return {Object} Decorated Component
  */
 let InputIcon = (ComposedComponent) => class Component extends ComposedComponent {
 
@@ -46,6 +48,7 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
    *
    * @method inputIconHTML
    * @param {string} icon Which icon to render
+   * @return {Object} JSX for icon
    */
   inputIconHTML = (icon) => {
     if (this.props && (this.props.readOnly || this.props.disabled)) {
@@ -63,6 +66,7 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
    * Extends the main classes with any input icon classes.
    *
    * @method mainClasses
+   * @return {String} Main class names
    */
   get mainClasses() {
     let classes = super.mainClasses || "";
