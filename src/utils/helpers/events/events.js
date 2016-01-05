@@ -17,11 +17,7 @@ let Events = {
   * @method isEventType
   * @param {Event} ev A JavaScript event
   * @param {Type} type A JavaScript event type
-<<<<<<< HEAD
   * @returns {Boolean} true if event type matches passed type
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isEventType: (ev, type) => {
     return ev.type == type;
@@ -32,11 +28,7 @@ let Events = {
   *
   * @method isNavigationKeyup
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if key up event and a navigation key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isNavigationKeyup: (ev) => {
     if (!Events.isEventType(ev, "keyup")) {
@@ -51,11 +43,7 @@ let Events = {
   *
   * @method isEnterKeyup
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if keyup event and enter key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isEnterKeyup: (ev) => {
     if (!Events.isEventType(ev, "keyup")) {
@@ -70,11 +58,7 @@ let Events = {
   *
   * @method isValidKeypress
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if keyup and valid
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isValidKeypress: (ev) => {
     if (!Events.isEventType(ev, "keyup")) {
@@ -99,11 +83,7 @@ let Events = {
   *
   * @method isNumberKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if valid number key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isNumberKey: (ev) => {
     return ev.which >= 48 && ev.which <= 57 || ev.which >= 96 && ev.which <= 105;
@@ -115,11 +95,7 @@ let Events = {
   *
   * @method isNumberKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if key is part of numpad
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isNumpadKey: (ev) => {
     return ev.which >= 96 && ev.which <= 111;
@@ -131,11 +107,7 @@ let Events = {
   *
   * @method isAlphabetKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if alphabet key is pressed
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isAlphabetKey: (ev) => {
     return ev.which >= 65 && ev.which <= 90;
@@ -146,11 +118,7 @@ let Events = {
   *
   * @method isSymbolKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if any symbol key is pressed
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isSymbolKey: (ev) => {
     return ev.which >= 58 && ev.which <= 64 || // : to @
@@ -164,11 +132,7 @@ let Events = {
   *
   * @method isNavigationKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if one of four arrow keys
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isNavigationKey: (ev) => {
     return ev.which >= 37 && ev.which <= 40;
@@ -179,11 +143,7 @@ let Events = {
   *
   * @method isLeftKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if left arrow key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isLeftKey: (ev) => {
     return ev.which === 37;
@@ -194,11 +154,7 @@ let Events = {
   *
   * @method isUpKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if up arrow key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isUpKey: (ev) => {
     return ev.which === 38;
@@ -209,11 +165,7 @@ let Events = {
   *
   * @method isRightKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if right arrow key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isRightKey: (ev) => {
     return ev.which === 39;
@@ -224,11 +176,7 @@ let Events = {
   *
   * @method isDownKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if down arrow key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isDownKey: (ev) => {
     return ev.which === 40;
@@ -239,11 +187,7 @@ let Events = {
   *
   * @method isMetaKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if any meta key is pressed
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isMetaKey: (ev) => {
     return ev.metaKey;
@@ -254,11 +198,7 @@ let Events = {
   *
   * @method isEscKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if esc key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isEscKey: (ev) => {
     return ev.which === 27;
@@ -269,11 +209,7 @@ let Events = {
   *
   * @method isEnterKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if enter key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isEnterKey: (ev) => {
     return ev.which === 13;
@@ -284,11 +220,7 @@ let Events = {
   *
   * @method isTabKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if tab key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isTabKey: (ev) => {
     return ev.which === 9;
@@ -299,11 +231,7 @@ let Events = {
   *
   * @method isBackspaceKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if backspace key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isBackspaceKey: (ev) => {
     return ev.which === 8;
@@ -314,11 +242,7 @@ let Events = {
   *
   * @method isDeleteKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if delete key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isDeleteKey: (ev) => {
     return ev.which === 46;
@@ -329,11 +253,7 @@ let Events = {
   *
   * @method isDeletingKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if is delete key or backspace key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isDeletingKey: (ev) => {
     return Events.isDeleteKey(ev) || Events.isBackspaceKey(ev);
@@ -344,11 +264,7 @@ let Events = {
   *
   * @method isShiftKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if shift key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isShiftKey: (ev) => {
     return ev.shiftKey || ev.which === 16;
@@ -359,11 +275,7 @@ let Events = {
   *
   * @method isSpaceKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if space key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isSpaceKey: (ev) => {
     return ev.which === 32;
@@ -374,11 +286,7 @@ let Events = {
   *
   * @method isPeriodKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if period key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isPeriodKey: (ev) => {
     return ev.which === 190;
@@ -389,11 +297,7 @@ let Events = {
   *
   * @method isCommaKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if comma key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isCommaKey: (ev) => {
     return ev.which === 188;
@@ -404,11 +308,7 @@ let Events = {
   *
   * @method isMinusKey
   * @param {Event} ev A JavaScript event
-<<<<<<< HEAD
   * @returns {Boolean} true if minus key
-=======
-  * @return {Boolean}
->>>>>>> 5705cf8c44e6ffa94212080c7fcce4a032d1ec6d
   **/
   isMinusKey: (ev) => {
     return ev.which === 189;
