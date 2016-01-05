@@ -21,6 +21,15 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
  */
 class AnimatedMenuButton extends React.Component {
 
+  /**
+   * Determines if the blur event should be prevented.
+   *
+   * @property blockBlur
+   * @type {Boolean}
+   * @default false
+   */
+  blockBlur = false;
+
   static propTypes = {
 
     /**
@@ -74,8 +83,7 @@ class AnimatedMenuButton extends React.Component {
      * @property touch
      * @type {Boolean}
      */
-    // touch: Devices.isTouchDevice()
-    touch: true
+    touch: Devices.isTouchDevice()
   }
 
   /**
@@ -86,6 +94,7 @@ class AnimatedMenuButton extends React.Component {
    */
   handleMouseEnter = () => {
     this.setState({ open: true });
+    this.blockBlur = true;
   }
 
   /**
@@ -96,6 +105,7 @@ class AnimatedMenuButton extends React.Component {
    */
   handleMouseLeave = () => {
     this.setState({ open: false });
+    this.blockBlur = false;
   }
 
   //TODO: element not tabbable, need to manually handle focus/blur, e.g. add class 'hover'
@@ -107,6 +117,7 @@ class AnimatedMenuButton extends React.Component {
    */
   handleFocus = () => {
     this.setState({ open: true });
+    this.blockBlur = true;
   }
 
   /**
@@ -116,7 +127,7 @@ class AnimatedMenuButton extends React.Component {
    * @return {void}
    */
   handleBlur = () => {
-    this.setState({ open: false });
+    if (!this.blockBlur) { this.setState({ open: false }); }
   }
 
   /**
@@ -126,7 +137,19 @@ class AnimatedMenuButton extends React.Component {
    * @return {void}
    */
     handleTouch = () => {
-      this.setState({ open: !this.state.open })
+      this.setState({ open: true });
+      this.blockBlur = true;
+    }
+
+    /**
+     * Closes menu on touch event.
+     *
+     * @method closeHandler
+     * @return {void}
+     */
+    closeHandler = () => {
+      this.setState({ open: false })
+      this.blockBlur = false;
     }
 
   /**
@@ -199,7 +222,7 @@ class AnimatedMenuButton extends React.Component {
    * @return {HTML} html for close icon
    */
   get closeIcon() {
-    return <div onClick={ this.handleTouch }>
+    return <div onClick={ this.closeHandler }>
              <Icon type='close' />
            </div>;
   }
@@ -223,8 +246,8 @@ class AnimatedMenuButton extends React.Component {
 
         <ReactCSSTransitionGroup
           transitionName='ui-animated-menu-button'
-          transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 } >
+          transitionEnterTimeout={ 1000 }
+          transitionLeaveTimeout={ 1000 } >
           { content }
         </ReactCSSTransitionGroup>
 
