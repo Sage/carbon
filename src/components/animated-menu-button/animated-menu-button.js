@@ -148,7 +148,7 @@ class AnimatedMenuButton extends React.Component {
      * @return {void}
      */
     closeHandler = () => {
-      this.setState({ open: false })
+      this.setState({ open: false });
       this.blockBlur = false;
     }
 
