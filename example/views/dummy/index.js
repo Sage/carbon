@@ -2,7 +2,11 @@ import React from 'react';
 import { connect } from 'utils/flux';
 import Form from 'components/form';
 import Button from 'components/button';
+<<<<<<< HEAD
 import QuickCreate from './subviews/quick-create';
+=======
+import Link from   'components/link';
+>>>>>>> master
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
@@ -12,6 +16,7 @@ import FinancesDetails from './subviews/details';
 import FinancesChart from './subviews/chart';
 import FinancesTable from './subviews/table';
 import UserDialog from './subviews/user-dialog';
+
 
 class Finances extends React.Component {
   handleOnClick = (ev) => {
@@ -29,7 +34,7 @@ class Finances extends React.Component {
         <Button onClick={ this.handleOnClick }>Edit My Details</Button>
 
         <QuickCreate />
-        
+
         <h1 className="view-finances__title">{ name }</h1>
 
         <Form model="foo">
@@ -55,6 +60,9 @@ class Finances extends React.Component {
             debitTotal={ this.state.financesStore.get('debit_total') }
             creditTotal={ this.state.financesStore.get('credit_total') } />
         </Form>
+
+        <Link className="home-link" href='#' disabled>Main Page</Link>
+
         <UserDialog />
       </div>
     );
