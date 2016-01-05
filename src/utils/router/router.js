@@ -25,6 +25,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
  * @method startRouter
  * @param {Object} routes The routes to send to React Router.
  * @param {HTMLElement} target (optional) Where in the DOM should React render.
+ * @return {void}
  */
 export function startRouter(routes, target = document.getElementById('app')) {
   let history = createBrowserHistory();

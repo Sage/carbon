@@ -84,6 +84,7 @@ class Date extends React.Component {
    *
    * @method componentWillReceiveProps
    * @param {Object} props The new props passed down to the component
+   * @return {void}
    */
   componentWillReceiveProps = (props) => {
     if (this._document.activeElement != this.refs.visible) {
@@ -99,6 +100,7 @@ class Date extends React.Component {
    *
    * @method emitOnChangeCallback
    * @param {String} val The unformatted decimal value
+   * @return {void}
    */
   emitOnChangeCallback = (val) => {
     let hiddenField = this.refs.hidden;
@@ -111,6 +113,7 @@ class Date extends React.Component {
    * Opens the date picker.
    *
    * @method openDatePicker
+   * @return {void}
    */
   openDatePicker = () => {
     this._document.addEventListener("click", this.closeDatePicker);
@@ -125,6 +128,7 @@ class Date extends React.Component {
    * Closes the date picker.
    *
    * @method closeDatePicker
+   * @return {void}
    */
   closeDatePicker = () => {
     this._document.removeEventListener("click", this.closeDatePicker);
@@ -137,6 +141,7 @@ class Date extends React.Component {
    * Updates field with the formatted date value.
    *
    * @method updateVisibleValue
+   * @return {void}
    */
   updateVisibleValue = () => {
     let date = formatVisibleValue(this.props.value, this);
@@ -149,6 +154,8 @@ class Date extends React.Component {
    * Handles user input and updates date picker appropriately.
    *
    * @method handleVisibleInputChange
+   * @param {Object} ev Event
+   * @return {void}
    */
   handleVisibleInputChange = (ev) => {
     // TODO: This needs more thought i18n with multiple options
@@ -170,6 +177,7 @@ class Date extends React.Component {
    *
    * @method handleWidgetClick
    * @param {Object} ev event
+   * @return {void}
    */
   handleWidgetClick = (ev) => {
     ev.nativeEvent.stopImmediatePropagation();
@@ -180,6 +188,7 @@ class Date extends React.Component {
    *
    * @method handleDateSelect
    * @param {String} val User selected value
+   * @return {void}
    */
   handleDateSelect = (val) => {
     this.closeDatePicker();
@@ -191,6 +200,7 @@ class Date extends React.Component {
    * Updates visible value on blur
    *
    * @method handleBlur
+   * @return {void}
    */
   handleBlur = () => {
     this.updateVisibleValue();
@@ -200,6 +210,7 @@ class Date extends React.Component {
    * Opens the datepicker on focus
    *
    * @method handleFocus
+   * @return {void}
    */
   handleFocus = () => {
     this.openDatePicker();
@@ -209,6 +220,7 @@ class Date extends React.Component {
    * A getter that returns datepicker specific props
    *
    * @method inputProps
+   * @return {Object} props for the datepicker
    */
   get datePickerProps() {
     let value = this.props.value || getDefaultValue(this);
@@ -228,7 +240,8 @@ class Date extends React.Component {
    * Updates viewDate as hidden input changes.
    *
    * @method handleViewDateChange
-   * @param val
+   * @param {String} val hidden input value
+   * @return {void}
    */
   handleViewDateChange = (val) => {
     this.setState({ viewDate: val });
@@ -238,7 +251,8 @@ class Date extends React.Component {
    * Handles specific key down events
    *
    * @method handleKeyDown
-   * @param ev
+   * @param {Object} ev Event
+   * @return {void}
    */
   handleKeyDown = (ev) => {
     if (Events.isTabKey(ev)) {
@@ -251,6 +265,7 @@ class Date extends React.Component {
    * textbox specific props.
    *
    * @method inputProps
+   * @return {Object} props for the visible input
    */
   get inputProps() {
     let { ...props } = this.props;
@@ -272,6 +287,7 @@ class Date extends React.Component {
    * A getter for hidden input props.
    *
    * @method hiddenInputProps
+   * @return {Object} props for the hidden input
    */
   get hiddenInputProps() {
     let props = {
@@ -289,9 +305,10 @@ class Date extends React.Component {
   }
 
   /**
-   * Uses the mainClasses method provided by the decorator to add additional classes.
+   * Uses the mainClasses method provided by the decorator to add additional classes
    *
-   * @method mainClasses Main Class getter
+   * @method mainClasses
+   * @return {String} Main className
    */
   get mainClasses() {
     return 'ui-date';
@@ -301,6 +318,7 @@ class Date extends React.Component {
    * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
+   * @return {String} input className
    */
   get inputClasses() {
     return 'ui-date__input';
@@ -310,6 +328,7 @@ class Date extends React.Component {
    * Extends the input content to include the input icon.
    *
    * @method additionalInputContent
+   * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
     return this.inputIconHTML("calendar");
@@ -319,6 +338,7 @@ class Date extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     let datePicker = (this.state.open) ? <DatePicker { ...this.datePickerProps } /> : null;
@@ -347,6 +367,7 @@ export default Date;
  *
  * @method visibleFormat
  * @private
+ * @return {String} formatted date string
  */
 function visibleFormat() {
   return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
@@ -357,6 +378,7 @@ function visibleFormat() {
  *
  * @method hiddenFormat
  * @private
+ * @return {String} formatted date string
  */
 function hiddenFormat() {
   return "YYYY-MM-DD";
@@ -370,6 +392,7 @@ function hiddenFormat() {
  * @param {String} val current value
  * @param {String} formatFrom Current format
  * @param {String} formatTo Desired format
+ * @return {String} formatted date
  */
 function formatValue(val, formatFrom, formatTo) {
   let date = moment(val, formatFrom);
@@ -379,10 +402,11 @@ function formatValue(val, formatFrom, formatTo) {
 /**
  * Adds delimiters to the value
  *
- * @method {String} formatVisibleValue
+ * @method formatVisibleValue
  * @private
  * @param {String} value Unformatted Value
  * @param {String} scope used to get default value of current scope if value doesn't exist
+ * @return {String} formatted visible value
  */
 function formatVisibleValue(value, scope) {
   value = value || getDefaultValue(scope);
@@ -395,6 +419,7 @@ function formatVisibleValue(value, scope) {
  * @method getDefaultValue
  * @private
  * @param {Object} scope used to get default value of current scope
+ * @return {String} default value
  */
 function getDefaultValue(scope) {
   if (typeof scope.refs.hidden !== 'undefined') {

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'utils/flux';
 import Form from 'components/form';
 import Button from 'components/button';
+import Link from   'components/link';
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
@@ -11,6 +12,7 @@ import FinancesDetails from './subviews/details';
 import FinancesChart from './subviews/chart';
 import FinancesTable from './subviews/table';
 import UserDialog from './subviews/user-dialog';
+
 
 class Finances extends React.Component {
   handleOnClick = (ev) => {
@@ -52,6 +54,8 @@ class Finances extends React.Component {
             debitTotal={ this.state.financesStore.get('debit_total') }
             creditTotal={ this.state.financesStore.get('credit_total') } />
         </Form>
+
+        <Link className="home-link" href='#' disabled>Main Page</Link>
 
         <UserDialog />
       </div>

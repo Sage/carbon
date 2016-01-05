@@ -130,6 +130,7 @@ class Pod extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     let className = "ui-pod ";

@@ -57,7 +57,8 @@ class Rainbow extends React.Component {
    * data or title if they have been updated.
    *
    * @method shouldComponentUpdate
-   * @param {Object} nextProps
+   * @param {Object} nextProps new props passed to the component
+   * @return {void}
    */
   shouldComponentUpdate(nextProps) {
     let chart = this.refs.chart.chart;
@@ -80,6 +81,7 @@ class Rainbow extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     let config = generateConfig(this.props.data, this.props.title);
@@ -98,6 +100,7 @@ class Rainbow extends React.Component {
  *
  * @method focusSegment
  * @private
+ * @return {void}
  */
 function focusSegment() {
   this.graphic.zIndexSetter(1);
@@ -108,6 +111,7 @@ function focusSegment() {
  *
  * @method unfocusSegment
  * @private
+ * @return {void}
  */
 function unfocusSegment() {
   this.graphic.zIndexSetter(0);
@@ -117,11 +121,11 @@ function unfocusSegment() {
  * Calculates the position for the tooltip.
  *
  * @method tooltipPosition
- * @param {Number} tooltipWidth
- * @param {Number} tooltipHeight
- * @param {Object} point
+ * @param {Number} tooltipWidth width of tooltip
+ * @param {Number} tooltipHeight height of tooltip
+ * @param {Object} point center of tooltip
  * @private
- * @return {Object}
+ * @return {Object} x and y position of tooltip
  */
 function tooltipPosition(tooltipWidth, tooltipHeight, point) {
   let x = point.plotX - (tooltipWidth / 2);
@@ -134,10 +138,10 @@ function tooltipPosition(tooltipWidth, tooltipHeight, point) {
  * Generates the config for the Highchart.
  *
  * @method generateConfig
- * @param {Object} immutableData
- * @param {String} title
+ * @param {Object} immutableData data for highchart
+ * @param {String} title title for highchart
  * @private
- * @return {Object}
+ * @return {Object} config for highchart
  */
 function generateConfig(immutableData, title) {
   let data = immutableData.toJS();

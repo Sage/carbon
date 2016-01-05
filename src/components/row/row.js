@@ -37,6 +37,7 @@ class Row extends React.Component {
    * Builds row columns from the children object fields
    *
    * @method buildColumns
+   * @return {Array} array of built columns
    */
   buildColumns = () => {
     let columns = [];
@@ -56,6 +57,9 @@ class Row extends React.Component {
    * Builds each column field with appropriate classes
    *
    * @method buildColumn
+   * @param {Object} child child component
+   * @param {Object} key index of child
+   * @return {Object} JSX of build column
    */
   buildColumn = (child, key) => {
     let columnClass = "ui-row__column";
@@ -83,6 +87,7 @@ class Row extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     let mainClasses = "ui-row";
@@ -105,7 +110,6 @@ class Row extends React.Component {
       </div>
     );
   }
-
 }
 
 export default Row;

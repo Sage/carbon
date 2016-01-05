@@ -65,6 +65,7 @@ class Dialog extends React.Component {
    * Returns dialog object to child components. Used to override form cancel button functionality.
    *
    * @method getChildContext
+   * @return {void}
    */
   getChildContext() {
     return {
@@ -78,6 +79,7 @@ class Dialog extends React.Component {
    * A lifecycle method to update the component after it is re-rendered
    *
    * @method componentDidUpdate
+   * @return {void}
    */
   componentDidUpdate = () => {
     if (this.props.open && !this.listening) {
@@ -97,6 +99,7 @@ class Dialog extends React.Component {
    *
    * @method closeDialog
    * @param {Object} ev event
+   * @return {void}
    */
   closeDialog = (ev) => {
     if (ev.keyCode === 27) {
@@ -108,6 +111,7 @@ class Dialog extends React.Component {
    * Centers dialog relative to window
    *
    * @method centerDialog
+   * @return {void}
    */
   centerDialog = () => {
     let height = this.refs.dialog.offsetHeight / 2,
@@ -136,6 +140,7 @@ class Dialog extends React.Component {
    * Returns HTML and text for the dialog title.
    *
    * @method dialogTitle
+   * @return {String} title to display
    */
   get dialogTitle() {
     return (
@@ -149,6 +154,7 @@ class Dialog extends React.Component {
    * Returns HTML for the background.
    *
    * @method backgroundHTML
+   * @return {Object} JSX
    */
   get backgroundHTML() {
     return <div className="ui-dialog__background"></div>;
@@ -167,6 +173,7 @@ class Dialog extends React.Component {
    * Returns classes for the component.
    *
    * @method mainClasses
+   * @return {String} Main className
    */
   get mainClasses() {
     let classes = 'ui-dialog';
@@ -182,6 +189,7 @@ class Dialog extends React.Component {
    * Returns classes for the dialog.
    *
    * @method dialogClasses
+   * @return {String} dialog className
    */
   get dialogClasses() {
     return 'ui-dialog__dialog';
@@ -191,6 +199,7 @@ class Dialog extends React.Component {
    * Returns the computed HTML for the dialog.
    *
    * @method dialogHTML
+   * @return {Object} JSX for dialog
    */
   get dialogHTML() {
     let dialogClasses = this.dialogClasses;
@@ -215,6 +224,7 @@ class Dialog extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     let backgroundHTML,

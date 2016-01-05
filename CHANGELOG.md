@@ -2,6 +2,7 @@
 
 ## New Components
 
+* Link
 * Alert
 
 ## Dialog Type Components
