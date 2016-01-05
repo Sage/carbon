@@ -15,7 +15,7 @@ class UserDialog extends React.Component {
       <Dialog
         title="Edit My Details"
         open={ this.state.userStore.get('dialogOpen') }
-        cancelDialogHandler={ UserActions.userDialogClosed }>
+        cancelHandler={ UserActions.userDialogClosed }>
 
         <Form model="contact">
           <Row>

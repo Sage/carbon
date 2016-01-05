@@ -3,6 +3,11 @@
 ## New Components
 
 * Link
+* Alert
+
+## Dialog Type Components
+
+  Breaking Change! :warning: Both components now require a `cancelHandler` prop (rather than the `cancelDialogHandler`). :warning:
 
 ## Dropdowns
 
@@ -19,6 +24,12 @@ In previous versions of Carbon, all inputs required a `name` property. Some Carb
 To keep things simple, and to remove some of the logic behind the scenes, we no longer do any manipulation on input names and the property is no longer a requirement when using a form input.
 
 It is still recommended that you use names on inputs, as they are useful to identify your which input is which. They are also required if you are performing standing HTML form submissions.
+
+# 0.0.3
+
+## Bug Fixes
+
+* On successful submit, form components will disable their save buttons to prevent multiple form submissions.
 
 # 0.0.2
 
