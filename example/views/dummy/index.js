@@ -2,11 +2,8 @@ import React from 'react';
 import { connect } from 'utils/flux';
 import Form from 'components/form';
 import Button from 'components/button';
-<<<<<<< HEAD
 import QuickCreate from './subviews/quick-create';
-=======
 import Link from   'components/link';
->>>>>>> master
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
