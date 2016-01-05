@@ -16,6 +16,12 @@ To keep things simple, and to remove some of the logic behind the scenes, we no 
 
 It is still recommended that you use names on inputs, as they are useful to identify your which input is which. They are also required if you are performing standing HTML form submissions.
 
+# 0.0.3
+
+## Bug Fixes
+
+* On successful submit, form components will disable their save buttons to prevent multiple form submissions.
+
 # 0.0.2
 
 ## Decimal Component
