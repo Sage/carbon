@@ -1,10 +1,29 @@
 # 0.1.0
 
-## Dialog & Alert
+## New Components
 
-  A new Alert component has been added which extends from Dialog.
+* Alert
+
+## Dialog Type Components
 
   Breaking Change! :warning: Both components now require a `cancelHandler` prop (rather than the `cancelDialogHandler`). :warning:
+
+## Dropdowns
+
+Dropdown components have been refactored. We now have three different kinds:
+
+* Dropdown
+* Dropdown Filter
+* Dropdown Filter Ajax
+
+## Inputs and Forms No Longer Rely on Name Property
+
+In previous versions of Carbon, all inputs required a `name` property. Some Carbon components would manipulate what this name was, depending on where the input was used.
+
+To keep things simple, and to remove some of the logic behind the scenes, we no longer do any manipulation on input names and the property is no longer a requirement when using a form input.
+
+It is still recommended that you use names on inputs, as they are useful to identify your which input is which. They are also required if you are performing standing HTML form submissions.
+>>>>>>> master
 
 # 0.0.2
 
