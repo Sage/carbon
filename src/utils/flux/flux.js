@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { assign } from 'lodash';
 
 /**
  * Connects a view component to one or more flux based stores.
@@ -65,7 +65,7 @@ export function connect(ComposedView, stores) {
        * @property state
        * @type {Object}
        */
-      this.state = _.assign({}, this.state, this._getStoreStates());
+      this.state = assign({}, this.state, this._getStoreStates());
     }
 
     /**
@@ -75,7 +75,7 @@ export function connect(ComposedView, stores) {
      * @return {void}
      */
     componentDidMount() {
-      // ensure that the super view calls it's version of componentDidMount
+      // ensure that the super view calls its version of componentDidMount
       if (super.componentDidMount) { super.componentDidMount(); }
 
       // listen to each store when the view component mounts
@@ -91,7 +91,7 @@ export function connect(ComposedView, stores) {
      * @return {void}
      */
     componentWillUnmount() {
-      // ensure that the super view calls it's version of componentWillUnmount
+      // ensure that the super view calls its version of componentWillUnmount
       if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
       // unlisten to each store when the view component unmounts

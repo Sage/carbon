@@ -14,7 +14,7 @@ describe('Dialog', () => {
       describe('when the dialog is open', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog open={ true } cancelDialogHandler={ cancelHandler } />
+            <Dialog open={ true } cancelHandler={ cancelHandler } />
           );
         });
 
@@ -47,7 +47,7 @@ describe('Dialog', () => {
       describe('when the dialog is closed', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog cancelDialogHandler={ cancelHandler } />
+            <Dialog cancelHandler={ cancelHandler } />
           );
         });
 
@@ -65,7 +65,7 @@ describe('Dialog', () => {
   describe('centerDialog', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Dialog open={ true } cancelDialogHandler={ cancelHandler } />
+        <Dialog open={ true } cancelHandler={ cancelHandler } />
       );
     });
 
@@ -110,7 +110,7 @@ describe('Dialog', () => {
   describe('closeDialog', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Dialog open={ true } cancelDialogHandler={ cancelHandler } />
+        <Dialog open={ true } cancelHandler={ cancelHandler } />
       );
     });
 
@@ -134,7 +134,7 @@ describe('Dialog', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
-            cancelDialogHandler={ cancelHandler }
+            cancelHandler={ cancelHandler }
             open={ true }
             title="Dialog title" />
         );
@@ -151,7 +151,7 @@ describe('Dialog', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
-            cancelDialogHandler={ cancelHandler }
+            cancelHandler={ cancelHandler }
             open={ true } />
         );
       });
@@ -168,7 +168,7 @@ describe('Dialog', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
-            cancelDialogHandler={ cancelHandler }
+            cancelHandler={ cancelHandler }
             className="foo"
             open={ true } >
 
@@ -203,7 +203,7 @@ describe('Dialog', () => {
         it('adds the size class to the dialog', () => {
           instance = TestUtils.renderIntoDocument(
             <Dialog
-              cancelDialogHandler={ cancelHandler }
+              cancelHandler={ cancelHandler }
               open={ true }
               size='small' />
           );
@@ -215,7 +215,7 @@ describe('Dialog', () => {
 
     describe('when dialog is closed', () => {
       instance = TestUtils.renderIntoDocument(
-        <Dialog cancelDialogHandler={ cancelHandler } />
+        <Dialog cancelHandler={ cancelHandler } />
       );
 
       it('renders a parent div with mainClasses attached', () => {

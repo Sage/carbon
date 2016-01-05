@@ -12,9 +12,8 @@ import Immutable from 'immutable';
 * We add the row ids through the `ImmutableHelper.parseJSON` function.
 *
 * @object insertRowIDs
-* @param {object} js javascript object to parse
+* @param {object} js
 * @private
-* @return {Object} new parsed object
 */
 function insertRowIDs(js) {
   // maps the array with the following transformer
@@ -41,16 +40,17 @@ function insertRowIDs(js) {
 * Provides helper methods for working with immutable data.
 *
 * @object ImmutableHelper
+* @param {String} name
+* @param {Object} form
 */
-let ImmutableHelper = {
+var ImmutableHelper = {
 
   /**
   * Parses a regular JSON object into an Immutable data object, mapping the data
   * correctly and applying custom transforms to make the data easier to work with.
   *
   * @method parseJSON
-  * @param {Object} js javascript object to parse
-  * @return {Object} new js object
+  * @param {Object} js
   */
   parseJSON: (js) => {
     if (typeof js !== 'object' || js === null) {
@@ -83,20 +83,19 @@ let ImmutableHelper = {
   * eg. `ImmutableHelper.updateLineItem([this.data, 'line_items', 5, 'attr'], 'foo');
   *
   * @method updateLineItem
-  * @param {Array} keys data and nested keys
-  * @param {String} value the new value to set
-  * @return {Object} new data object
+  * @param {Array} keys
+  * @param {String} value
   */
   updateLineItem: (keys, value) => {
-    let data = keys[0],
+    var data = keys[0],
         line_item_key = keys[1],
         _row_id = keys[2],
         // as we modify the input name to use brackets (eg `user[foo][bar]`),
         // this will find the attribute name from that string (eg `bar`)
-        attribute = ImmutableHelper.parseLineItemAttribute(keys[3], 2),
+        attribute = ImmutableHelper.parseName(keys[3], 'last'),
         line_items = data.get(line_item_key);
 
-    let index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
+    var index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
 
     if (index < 0) {
       // this will initialize the placeholder as a real row, by giving it an
@@ -121,16 +120,15 @@ let ImmutableHelper = {
   * eg. `ImmutableHelper.deleteLineItem([this.data, 'line_items', 5]);
   *
   * @method deleteLineItem
-  * @param {Array} keys data and nested keys
-  * @return {Object} new data object
+  * @param {Array} keys
   */
   deleteLineItem: (keys) => {
-    let data = keys[0],
+    var data = keys[0],
         line_item_key = keys[1],
         _row_id = keys[2],
         line_items = data.get(line_item_key);
 
-    let index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
+    var index = ImmutableHelper.getLineItemIndex(line_items, _row_id);
 
     return index > -1 ? data.deleteIn([line_item_key, index]) : data;
   },
@@ -139,7 +137,6 @@ let ImmutableHelper = {
   * Generates a random guid, useful for creating unique IDs.
   *
   * @method guid
-  * @return {String} random guid
   */
   guid: () => {
     function s4() {
@@ -152,9 +149,8 @@ let ImmutableHelper = {
   * Uses the row id to find the index of the object within the array.
   *
   * @method getLineItemIndex
-  * @param {Array} line_items object to search
-  * @param {Number} _row_id of the object
-  * @return {Number} index of found object
+  * @param {Array} line_items
+  * @param {Number} _row_id
   */
   getLineItemIndex: (line_items, _row_id) => {
     return line_items.findIndex((item) => {
@@ -163,17 +159,28 @@ let ImmutableHelper = {
   },
 
   /**
-  * Given a string such as foo[bar][qux] we want to get the attribute name in the
-  * 2nd set of brackets, we would call this function with an index of 1.
+  * Given a string such as foo[bar][qux], this will parse the string into an array such
+  * as ['foo', 'bar', 'qux']. You can also pass an index to return a single value. Passing
+  * an index of 'last' will return the last value in the array.
   *
-  * @method parseLineItemAttribute
-  * @param {String} name the formatted value to parse
-  * @param {Number} index the index of the attribute within the name
-  * @return {Object} matched attribute of given index
+  * @method parseName
+  * @param {String} name
+  * @param {Number} index
   */
-  parseLineItemAttribute: (name, index) => {
-    return name.match(/[^[\]]+(?=])/g)[index];
+  parseName: (name, index = null) => {
+    let names = name.match(/(^[\w]+)|([^[\]]+(?=]))/g);
+
+    if (index != null) {
+      if (index === "last") {
+        return names[names.length - 1];
+      } else {
+        return names[index];
+      }
+    } else {
+      return names;
+    }
   }
+
 };
 
 export default ImmutableHelper;

@@ -20,6 +20,18 @@ let UserActions = {
     Dispatcher.dispatch({
       actionType: UserConstants.USER_DIALOG_OPENED
     });
+  },
+
+  userAlertClosed: (ev, props) => {
+    Dispatcher.dispatch({
+      actionType: UserConstants.USER_ALERT_CLOSED
+    });
+  },
+
+  userAlertOpened: (ev, props) => {
+    Dispatcher.dispatch({
+      actionType: UserConstants.USER_ALERT_OPENED
+    });
   }
 };
 

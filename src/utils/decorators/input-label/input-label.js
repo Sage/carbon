@@ -1,6 +1,6 @@
 import React from 'react';
-import { generateInputName } from './../../helpers/forms';
-import _ from 'lodash';
+import { find, startCase, assign } from 'lodash';
+import ImmutableHelper from './../../helpers/immutable';
 
 /**
  * InputLabel decorator.
@@ -48,7 +48,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     super(...args);
   }
 
-  static contextTypes = _.assign({}, ComposedComponent.contextTypes, {
+  static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 
@@ -68,6 +68,14 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     return classes;
   }
 
+  get labelID() {
+    if (this._guid) {
+      return this._guid;
+    } else {
+      return this._guid = ImmutableHelper.guid();
+    }
+  }
+
   /**
    * Supplies the HTML for the label.
    *
@@ -78,7 +86,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     if (this.props.label === false) { return; }
 
     // either use label supplied by dev, or automatically make one common on input name
-    let labelText = this.props.label || _.startCase(this.props.name);
+    let labelText = this.props.label || startCase(this.props.name);
 
     // add classes for the label
     let labelClasses = "common-input__label";
@@ -88,7 +96,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     }
 
     // set asterisk if validation is used which uses an asterisk
-    if (_.find(this.props.validations, (v) => { return v.asterisk; })) {
+    if (find(this.props.validations, (v) => { return v.asterisk; })) {
       labelText += "*";
     }
 
@@ -99,7 +107,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
       <label
         style={ labelStyle }
         className={ labelClasses }
-        htmlFor={ generateInputName(this.props.name, this.context.form) }>
+        htmlFor={ this.inputProps.id }>
         { labelText }
       </label>
     );
@@ -115,7 +123,9 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     let inputProps = super.inputProps || {};
 
     // set id so label will focus on input when clicked
-    inputProps.id = generateInputName(this.props.name, this.context.form);
+    if (!inputProps.id) {
+      inputProps.id = this.labelID;
+    }
 
     return inputProps;
   }

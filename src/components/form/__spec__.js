@@ -14,13 +14,17 @@ describe('Form', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Form model='test' />
+      <Form />
     );
   });
 
   describe('initialize', () => {
     it('sets the errorCount to 0', () => {
       expect(instance.state.errorCount).toEqual(0);
+    });
+
+    it('sets the isSubmitting to to false', () => {
+      expect(instance.state.isSubmitting).toBeFalsy();
     });
   });
 
@@ -43,7 +47,7 @@ describe('Form', () => {
   describe('attachToForm', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Form model='test'>
+        <Form>
           <Textbox validations={ [Validation()] } name='excludedBox' value='' />
           <InputGrid
             name='grid'
@@ -51,8 +55,8 @@ describe('Form', () => {
             updateRowHandler={ function(){} }
             deleteRowHandler={ function(){} }
             fields={ [
-              <Textbox validations={ [Validation()] } name='box1' value='foo' />,
-              <Textbox validations={ [Validation()] } name='box2' value='foo' />
+              <Textbox validations={ [Validation()] } name='[{ROWID}][box1]' value='foo' />,
+              <Textbox validations={ [Validation()] } name='[{ROWID}][box2]' value='foo' />
             ] }
           />
         </Form>
@@ -62,13 +66,6 @@ describe('Form', () => {
     describe('when the component is a grid', () => {
       it('adds a key value pair to tables', () => {
         expect(instance.tables.grid).toBeTruthy();
-      });
-    });
-
-    describe('when the component is an element in a grid', () => {
-      it('adds a input nested by namespace and row_id', () => {
-        let keys = Object.keys(instance.inputs.grid);
-        expect(Object.keys(instance.inputs.grid[keys[0]]).length).toEqual(2);
       });
     });
 
@@ -86,8 +83,8 @@ describe('Form', () => {
     let excludedTextbox;
 
     beforeEach(() => {
-      textbox1 = <Textbox validations={ [Validation()] } name='box1' value='' />;
-      textbox2 = <Textbox validations={ [Validation()] } name='box2' value='' />;
+      textbox1 = <Textbox validations={ [Validation()] } name='[{ROWID}][box1]' value='' />;
+      textbox2 = <Textbox validations={ [Validation()] } name='[{ROWID}][box2]' value='' />;
       excludedTextbox = <Textbox validations={ [Validation()] } name='excludedBox' value='' />;
 
       grid = <InputGrid
@@ -99,7 +96,7 @@ describe('Form', () => {
           />
 
       instance = TestUtils.renderIntoDocument(
-        <Form model='test'>
+        <Form>
           { excludedTextbox }
           { grid }
         </Form>
@@ -111,32 +108,6 @@ describe('Form', () => {
         expect(instance.tables.grid).toBeTruthy();
         instance.detachFromForm(instance.tables.grid);
         expect(instance.tables.grid).toBeFalsy();
-      });
-    });
-
-    describe('when the component is a row in a grid', () => {
-      let regular;
-
-      beforeEach(() => {
-        let regularTable = document.createElement('table');
-        regularTable.innerHTML = '<tbody></tbody>';
-
-        regular = ReactDOM.render((<TableRow
-              name='regular'
-              key='regular_1'
-              namespace='namespace'
-              row_id='row_id'
-              data={ ImmutableHelper.parseJSON({ foo: 'text', bar: '1.00' }) }
-              fields={ [ textbox1, textbox2 ] }
-              />), regularTable.children[0]);
-
-        instance.attachToForm(regular);
-      });
-
-      it('removes a input nested by namespace and row_id', () => {
-        expect(instance.inputs.namespace.row_id.regular).toBeTruthy();
-        instance.detachFromForm(regular);
-        expect(instance.inputs.namespace.row_id.regular).toBeFalsy();
       });
     });
 
@@ -152,8 +123,8 @@ describe('Form', () => {
   describe('serialize', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Form model='model'>
-          <Textbox name='test' value='foo' />
+        <Form>
+          <Textbox name='model[test]' value='foo' />
         </Form>
       );
     });
@@ -171,7 +142,7 @@ describe('Form', () => {
     describe('valid input', () => {
       it('submits the form', () => {
         instance = TestUtils.renderIntoDocument(
-          <Form model='test'>
+          <Form>
             <Textbox validations={ [Validation()] } name='test' value='Valid' />
           </Form>
         );
@@ -179,14 +150,14 @@ describe('Form', () => {
         spyOn(instance, 'setState');
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ errorCount: 0 });
+        expect(instance.setState).toHaveBeenCalledWith({ isSubmitting: true });
       });
     });
 
     describe('invalid input', () => {
       it('does not not submit the form', () => {
         instance = TestUtils.renderIntoDocument(
-          <Form model='test'>
+          <Form>
             <Textbox validations={ [Validation()] } name='test' value='' />
           </Form>
         );
@@ -194,7 +165,7 @@ describe('Form', () => {
         spyOn(instance, 'setState');
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ errorCount :1 });
+        expect(instance.setState).toHaveBeenCalledWith({ errorCount: 1 });
       });
     });
 
@@ -202,7 +173,7 @@ describe('Form', () => {
       it('calls the beforeFormValidation', () => {
         let spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
-          <Form beforeFormValidation={ spy } model='test'>
+          <Form beforeFormValidation={ spy }>
             <Textbox validations={ [Validation()] } name='test' value='Valid' />
           </Form>
         );
@@ -216,7 +187,7 @@ describe('Form', () => {
       it('calls the afterFormValidation', () => {
         let spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
-          <Form afterFormValidation={ spy } model='test'>
+          <Form afterFormValidation={ spy }>
             <Textbox validations={ [Validation()] } name='test' value='Valid' />
           </Form>
         );
@@ -229,13 +200,13 @@ describe('Form', () => {
     describe('submitting a input grid', () => {
       it('removes placeholder when the form is valid', () => {
         instance = TestUtils.renderIntoDocument(
-          <Form model='test'>
+          <Form>
             <InputGrid
               name='test'
               data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
               updateRowHandler={ function(){} }
               deleteRowHandler={ function(){} }
-              fields={ [<Textbox validation={ [Validation()] } name='box' />] }
+              fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
             />
           </Form>
         );
@@ -245,7 +216,7 @@ describe('Form', () => {
 
         spyOn(instance.tables.test, 'setState');
         TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ errorCount : 0 });
+        expect(instance.setState).toHaveBeenCalledWith({ isSubmitting: true });
         expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: false });
       });
 
@@ -254,8 +225,8 @@ describe('Form', () => {
           [ { box1: 'bar', box2: '' } ]
         );
 
-        let textbox1 = <Textbox validations={ [Validation()] } name='box1' value='' />;
-        let textbox2 = <Textbox validations={ [Validation()] } name='box2' value='' />;
+        let textbox1 = <Textbox validations={ [Validation()] } name='[{ROWID}][box1]' value='' />;
+        let textbox2 = <Textbox validations={ [Validation()] } name='[{ROWID}][box2]' value='' />;
 
         let grid = <InputGrid
           name='grid'
@@ -265,7 +236,7 @@ describe('Form', () => {
           fields={ [ textbox1, textbox2 ] } />
 
         instance = TestUtils.renderIntoDocument(
-          <Form model='test'>
+          <Form>
             { grid }
           </Form>
           );
@@ -278,10 +249,6 @@ describe('Form', () => {
   });
 
   describe('htmlProps', () => {
-    it('pulls out the model from props', () => {
-      expect(instance.htmlProps().model).toBeFalsy();
-    });
-
     it('sets the className', () => {
       expect(instance.htmlProps().className).toEqual('ui-form');
     });
@@ -307,14 +274,14 @@ describe('Form', () => {
 
     describe('when the form is inside a dialog', () => {
       it('uses the dialogs cancel handler instead', () => {
-        let spy = jasmine.createSpy('cancelDialogHandler');
+        let spy = jasmine.createSpy('cancelHandler');
         let nestedInstance = TestUtils.renderIntoDocument(
           <Dialog
             title="test"
             open={ true }
-            cancelDialogHandler={ spy }>
+            cancelHandler={ spy }>
 
-            <Form model="contact">
+            <Form>
               <Textbox
                 name="name"
                 onChange={ function() {} }
@@ -352,7 +319,7 @@ describe('Form', () => {
         spyOn(fakeMeta2, 'getAttribute').and.returnValue('csrf-token')
         spyOn(instance._document, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
 
-        instance = TestUtils.renderIntoDocument(<Form model='test' />);
+        instance = TestUtils.renderIntoDocument(<Form />);
 
         csrf = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
       });
@@ -397,13 +364,22 @@ describe('Form', () => {
         expect(buttons[1].className).toEqual('ui-button ui-button--primary');
         expect(buttonContainers[1].className).toEqual('ui-form__save');
       });
+
+      it('renders an undisabled save button if not submitting', () => {
+        expect(buttons[1].disabled).toBeFalsy();
+      });
+
+      it('renders a disabled save button if isSubmitting', () => {
+        instance.setState({ isSubmitting: true });
+        expect(buttons[1].disabled).toBeTruthy();
+      });
     });
 
     describe('Cancel Button', () => {
       describe('when cancel prop is false', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(
-            <Form cancel={false} model='test' />
+            <Form cancel={false} />
           );
         });
 

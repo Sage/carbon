@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
-import _ from 'lodash';
+import { assign } from 'lodash';
 
 /**
  * InputValidation decorator.
@@ -75,8 +75,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     this.state.messageLocked = false;
   }
 
-  static contextTypes = _.assign({}, ComposedComponent.contextTypes, {
-    form: React.PropTypes.object
+  static contextTypes = assign({}, ComposedComponent.contextTypes, {
+    form: React.PropTypes.object,
+    tab: React.PropTypes.object
   })
 
   /**
@@ -162,7 +163,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     let valid = false;
 
     // if there are no validation, return truthy
-    if (!this.props.validations) {
+    if (!this.props.validations || this.props._placeholder) {
       return true;
     }
 
@@ -179,7 +180,15 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
           if (this.context.form) {
             // increment the error count on the form
             this.context.form.incrementErrorCount();
+
           }
+
+          // if input has a tab
+          if (this.context.tab) {
+            // Set the validity of the tab to false
+            this.context.tab.setValidity(false);
+          }
+
           // tell the input it is invalid
           this.setState({ errorMessage: validation.message(this.props), valid: false });
         }
@@ -229,7 +238,13 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // if the field is in an invalid state
     if (!this.state.valid) {
       // if there is a form, decrement the error count
-      if (this.context.form) { this.context.form.decrementErrorCount(); }
+      if (this.context.form) {
+        this.context.form.decrementErrorCount();
+      }
+
+      // if there is tab, remove invalid state
+      if (this.context.tab) { this.context.tab.setValidity(true); }
+
       // reset the error state
       this.setState({ errorMessage: null, valid: true });
     }

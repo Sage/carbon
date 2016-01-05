@@ -3,7 +3,6 @@ import I18n from "i18n-js";
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
-import { generateInputName } from './../../utils/helpers/forms';
 
 /**
  * A decimal widget.
@@ -214,7 +213,7 @@ class Decimal extends React.Component {
       ref: "hidden",
       type: "hidden",
       readOnly: true,
-      name: generateInputName(this.props.name, this.context.form)
+      name: this.props.name
     };
 
     if (typeof this.props.value !== 'undefined')

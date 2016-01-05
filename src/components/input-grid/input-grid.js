@@ -1,6 +1,6 @@
 import React from 'react';
 import TableRow from './../table-row';
-import _ from 'lodash';
+import { startCase, isEqual } from 'lodash';
 
 /**
  * InputGrid is a component to display and edit a collection of data or line items.
@@ -32,16 +32,20 @@ import _ from 'lodash';
  *     updateRowHandler={ Action.lineItemUpdated }
  *     deleteRowHandler={ Action.lineItemDeleted } />
  *
- * You can optionally pass additional HTML classes for each column:
+ * You can optionally pass additional HTML classes for each column, add the classes
+ * to the input:
  *
- *   // the key should match the input name for the relevant column
- *   let columnClasses = {
- *     description: 'custom-class'
- *   };
+ *   let lineItemFields = [
+ *     <Textbox name='name' columnClasses='foo' />,
+ *     <Textbox name='description' />
+ *   ];
  *
  *   <InputGrid
- *     ...
- *     columnClasses={ columnClasses } />
+ *     name="line_items"
+ *     data={ data.get('line_items') }
+ *     fields={ lineItemFields }
+ *     updateRowHandler={ Action.lineItemUpdated }
+ *     deleteRowHandler={ Action.lineItemDeleted } />
  *
  * You can optionally pass fields to render in a gutter along the bottom of the
  * grid:
@@ -305,16 +309,14 @@ class InputGrid extends React.Component {
       let columnClasses = "ui-input-grid__header-cell";
 
       // add any additional classes for this column
-      if (this.props.columnClasses) {
-        if (this.props.columnClasses[field.props.name]) {
-          columnClasses += ` ${this.props.columnClasses[field.props.name]}`;
-        }
+      if (field.props.columnClasses) {
+        columnClasses += ` ${field.props.columnClasses}`;
       }
 
       // add the header for this column
       headings.push(
         <th hidden={field.props.hidden} className={ columnClasses } key={ field.props.name }>
-          { tableHeaderName(field.props.name) }
+          { tableHeaderName(field.props.label) }
         </th>
       );
     });
@@ -353,7 +355,7 @@ class InputGrid extends React.Component {
  * @return {String} The converted value
  */
 function tableHeaderName(value) {
-  return _.startCase(value);
+  return startCase(value);
 }
 
 /**
@@ -391,7 +393,7 @@ function hasPropsOfChildrenChanged(prevProps, nextProps) {
         nextField = nextProps.fields[key];
 
     // compare the two fields properties
-    if (!_.isEqual(prevField.props, nextField.props)) {
+    if (!isEqual(prevField.props, nextField.props)) {
       return true;
     }
   }
