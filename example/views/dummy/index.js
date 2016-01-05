@@ -55,7 +55,7 @@ class Finances extends React.Component {
             creditTotal={ this.state.financesStore.get('credit_total') } />
         </Form>
 
-        <Link className="home-link" href='#' disabled >Main Page</Link>
+        <Link className="home-link" href='#' disabled>Main Page</Link>
 
         <UserDialog />
       </div>
