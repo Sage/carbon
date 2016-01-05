@@ -1,0 +1,29 @@
+@import 'colors';
+
+$link-color: $blue !default;
+$link-hover-color: $blue-dark !default;
+$link-hover-text-decoration: underline !default;
+
+.ui-link__anchor {
+  color: $link-color;
+  font-weight: bold;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: $link-hover-text-decoration;
+    color: $link-hover-color;
+  }
+}
+
+.ui-link__anchor--disabled {
+  color: $grey-dark;
+  cursor: default;
+  pointer-events: none;
+  text-decoration: none;
+
+  //for IE
+  &:hover {
+    text-decoration: none;
+    color: $grey-dark;
+  }
+}
