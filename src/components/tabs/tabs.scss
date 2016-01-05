@@ -1,0 +1,47 @@
+@import 'general';
+@import 'colors';
+
+$ui-tabs__header__background-color: #F6F7F8 !default;
+$ui-tabs__header__border-color: #D8D9DC !default;
+$ui-tabs__header__color: #666666 !default;
+
+.ui-tabs {
+  margin-top: 15px;
+}
+
+.ui-tabs__headers {
+  cursor: pointer;
+  line-height: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ui-tabs__headers__header {
+  background-color: $ui-tabs__header__background-color;
+  border-bottom: 2px solid $ui-tabs__header__border-color;
+  color: $ui-tabs__header__color;
+  display: inline-block;
+  font-weight: bold;
+  height: 100%;
+  margin-left: 2px;
+  padding: 0px 15px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:hover {
+    border-bottom-color: $blue-bright;
+  }
+}
+
+.ui-tabs__headers__header--selected {
+  background-color: $white;
+  border-bottom-color: $green-bright !important;
+  color: $black;
+}
+
+.ui-tabs__headers__header--error {
+  border-bottom-color: $red;
+}

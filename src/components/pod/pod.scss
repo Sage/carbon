@@ -6,3 +6,42 @@
   border-radius: 4px;
   padding: 20px 15px;
 }
+
+.ui-pod__header {
+  margin-bottom: 10px;
+}
+
+.ui-pod__header--true {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.ui-pod__header--false {
+  cursor: pointer;
+}
+
+.ui-pod__title {
+  display: inline;
+  background: none;
+  color: $grey-dark;
+  font-size: 1.8em;
+  font-weight: 300;
+}
+
+.ui-pod__description {
+  background: none;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.ui-pod__arrow {
+  display: inline-block;
+  position: relative;
+  top: -1px;
+}
+
+.ui-pod__arrow--false {
+  -ms-transform: rotate(180deg); /* IE 9 */
+  -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+  transform: rotate(180deg);
+}

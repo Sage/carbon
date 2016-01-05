@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import TableRow from './table-row';
 import ImmutableHelper from './../../utils/helpers/immutable';
+import Immutable from 'immutable';
 import Textbox from './../textbox';
 import Decimal from './../decimal';
+import DropdownFilter from './../dropdown-filter';
 
 describe('TableRow', () => {
   let regular, gutter, placeholder,
@@ -17,15 +19,23 @@ describe('TableRow', () => {
   beforeEach(() => {
     let fields = [
       <Textbox
-        name="foo"
+        name="[{ROWID}][foo]"
         key="foo" />,
 
       <Decimal
         key='bar'
-        name='bar'/>
+        name='[{ROWID}][bar]' />,
+
+      <DropdownFilter
+        options={ Immutable.Map([]) }
+        key='baz'
+        name='[{ROWID}][baz]' />
     ]
 
-    baseData = ImmutableHelper.parseJSON({ foo: 'text', bar: '1.00' });
+    baseData = ImmutableHelper.parseJSON({ foo: 'text',
+      bar: '1.00',
+      baz: '1'
+    });
 
     regularTable = document.createElement('table');
     regularTable.innerHTML = '<tbody></tbody>';
@@ -114,7 +124,7 @@ describe('TableRow', () => {
       it('builds each field', () => {
         let regularRow = TestUtils.findRenderedDOMComponentWithClass(regular, 'ui-table-row');
         let regularCells = TestUtils.scryRenderedDOMComponentsWithClass(regular, 'ui-table-row__td');
-        expect(regularCells.length).toEqual(3);
+        expect(regularCells.length).toEqual(4);
         expect(regularCells[0].children[0].type).toEqual('button');
         expect(regularCells[1].children[0].classList[0]).toEqual('ui-textbox');
         expect(regularCells[2].children[0].classList[0]).toEqual('ui-decimal');
@@ -138,7 +148,7 @@ describe('TableRow', () => {
       it('builds each field', () => {
         let placeholderRow = TestUtils.findRenderedDOMComponentWithClass(placeholder, 'ui-table-row');
         let placeholderCells = TestUtils.scryRenderedDOMComponentsWithClass(placeholder, 'ui-table-row__td');
-        expect(placeholderCells.length).toEqual(3);
+        expect(placeholderCells.length).toEqual(4);
         expect(placeholderCells[0].children.length).toEqual(0);
         expect(placeholderCells[1].children[0].classList[0]).toEqual('ui-textbox');
         expect(placeholderCells[2].children[0].classList[0]).toEqual('ui-decimal');
@@ -161,7 +171,7 @@ describe('TableRow', () => {
 
       it('builds empty tds where a gutter field is not present', () => {
         let gutterCells = TestUtils.scryRenderedDOMComponentsWithClass(gutter, 'ui-table-row__td');
-        expect(gutterCells.length).toEqual(3);
+        expect(gutterCells.length).toEqual(4);
         expect(gutterCells[0].children.length).toEqual(0);
       });
 
@@ -194,12 +204,20 @@ describe('TableRow', () => {
       });
 
       it('sets the name property', () => {
-        expect(input.name).toEqual('[regular_attributes][regular_1_reg][foo]');
+        expect(input.name).toEqual('[regular_1_reg][foo]');
       });
 
       it('adds the updateRowHandler', () => {
         TestUtils.Simulate.change(input);
         expect(updateSpy).toHaveBeenCalled();
+      });
+    });
+
+    describe('with no ROWID used', () => {
+      it('throws an error', () => {
+        expect(function() {
+          regular.buildCell(<input name="foo" />);
+        }).toThrowError("Inputs used in a grid should supply a {ROWID} placeholder within the input's name, which will be replaced on render with a unique row id.");
       });
     });
   });

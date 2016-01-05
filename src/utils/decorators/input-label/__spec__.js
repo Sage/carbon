@@ -62,7 +62,8 @@ class AltValidationClass {
     name: 'foo',
     label: 'Validate Label',
     validations: ['foo'],
-    value: 'qux'
+    value: 'qux',
+    id: 'bar'
   };
 
   context = {
@@ -137,8 +138,8 @@ describe('InputLabel', () => {
 
   describe('inputProps', () => {
     describe('inputProps are passed', () => {
-      it('builds the id with provided inputProps', () => {
-        expect(instanceBasic.inputProps.id).toEqual('model_1[foo]');
+      it('builds the id with random guid', () => {
+        expect(instanceBasic.inputProps.id).toEqual(instanceBasic._guid);
       });
     });
   });
