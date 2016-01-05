@@ -119,7 +119,15 @@ class Form extends React.Component {
      * @property errorCount
      * @type {Number}
      */
-    errorCount: 0
+    errorCount: 0,
+
+    /**
+     * Determines if the form is in a submitting state
+     *
+     * @property isSubmitting
+     * @type {Boolean}
+     */
+    isSubmitting: false
   }
 
   /**
@@ -213,11 +221,12 @@ class Form extends React.Component {
       }
     }
 
-    this.setState({ errorCount: errors });
-
     if (!valid) {
       ev.preventDefault();
+      this.setState({ errorCount: errors });
     } else {
+      this.setState({ isSubmitting: true });
+
       for (let tableKey in this.tables) {
         let table = this.tables[tableKey];
         table.setState({ placeholder: false });
@@ -321,7 +330,7 @@ class Form extends React.Component {
         { cancelButton }
         <div className={ saveClasses }>
           { errorCount }
-          <Button as="primary">
+          <Button as="primary" disabled={ this.state.isSubmitting }>
             Save
           </Button>
         </div>
