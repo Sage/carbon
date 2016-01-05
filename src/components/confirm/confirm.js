@@ -15,7 +15,7 @@ import Button from '../button';
  *
  *   <Confirm cancelHandler={ customEventHandler } open={ false }/>
  *
- * The component rendering the Confirm must pass down a prop of 'open' in order to open the confrim dialog.
+ * The component rendering the Confirm must pass down a prop of 'open={ true }' to open the confirm dialog.
  *
  * You need to provide a custom cancel event handler to handle a close event via the 'no' button
  *
