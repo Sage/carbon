@@ -10,6 +10,14 @@ let FinancesActions = {
     });
   },
 
+  financesCountryUpdated: (data, props) => {
+    Dispatcher.dispatch({
+      actionType: FinancesConstants.FINANCES_COUNTRY_UPDATED,
+      value: data.target.value,
+      visibleValue: data.target.visibleValue
+    });
+  },
+
   financesLineItemUpdated: (ev, props) => {
     Dispatcher.dispatch({
       actionType: FinancesConstants.FINANCES_LINE_ITEM_UPDATED,

@@ -147,17 +147,19 @@ describe('Immutable Helper', () => {
     });
   });
 
-  describe('parseLineItemAttribute', () => {
+  describe('parseName', () => {
     it('parses a string of arrays and returns the correct indexed element', () => {
       let data = '[foo][bar][baz]';
-      expect(ImmutableHelper.parseLineItemAttribute(data, 0)).toEqual('foo');
-      expect(ImmutableHelper.parseLineItemAttribute(data, 1)).toEqual('bar');
-      expect(ImmutableHelper.parseLineItemAttribute(data, 2)).toEqual('baz');
+      expect(ImmutableHelper.parseName(data, 0)).toEqual('foo');
+      expect(ImmutableHelper.parseName(data, 1)).toEqual('bar');
+      expect(ImmutableHelper.parseName(data, 2)).toEqual('baz');
+      expect(ImmutableHelper.parseName(data, 'last')).toEqual('baz');
+      expect(ImmutableHelper.parseName(data)).toEqual(['foo', 'bar', 'baz']);
     });
 
     it('returns when element is not present', () => {
       let data = '[foo][bar][baz]';
-      expect(ImmutableHelper.parseLineItemAttribute(data, 100)).toBeFalsy();
+      expect(ImmutableHelper.parseName(data, 100)).toBe(undefined);
     });
   });
 

@@ -10,6 +10,10 @@ const data = ImmutableHelper.parseJSON({
   date_from: "2015-11-01",
   name: "My Finances",
   discount: false,
+  country: {
+    id: 218,
+    name: 'United Kingdom'
+  },
   chart_data: [
     {
       y: 0,
@@ -113,12 +117,17 @@ class FinancesStore extends Store {
     }
   }
 
+  [FinancesConstants.FINANCES_COUNTRY_UPDATED](action) {
+    this.data = this.data.setIn(['country', 'id'], action.value);
+    this.data = this.data.setIn(['country', 'name'], action.visibleValue);
+  }
+
   [FinancesConstants.FINANCES_LINE_ITEM_UPDATED](action) {
     // update this value in the store
     this.data = ImmutableHelper.updateLineItem([this.data, 'line_items', action.row_id, action.name], action.value);
 
     // update other data affected by this change
-    let name = ImmutableHelper.parseLineItemAttribute(action.name, 2)
+    let name = ImmutableHelper.parseName(action.name, 'last');
     if (name == 'credit' || name == 'debit' || name == 'discount'){
       this.data = updateTotals(this.data, name);
       this.data = updateChartData(this.data);
