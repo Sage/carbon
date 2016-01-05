@@ -270,12 +270,12 @@ describe('Form', () => {
 
     describe('when the form is inside a dialog', () => {
       it('uses the dialogs cancel handler instead', () => {
-        let spy = jasmine.createSpy('cancelDialogHandler');
+        let spy = jasmine.createSpy('cancelHandler');
         let nestedInstance = TestUtils.renderIntoDocument(
           <Dialog
             title="test"
             open={ true }
-            cancelDialogHandler={ spy }>
+            cancelHandler={ spy }>
 
             <Form>
               <Textbox
