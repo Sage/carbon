@@ -3,6 +3,7 @@ import FinancesActions from './../../../../actions/finances';
 import InputGrid from 'components/input-grid';
 import Textbox from 'components/textbox';
 import Decimal from 'components/decimal';
+import Presence from 'utils/validations/presence';
 
 class Table extends React.Component {
   get totalClassName() {
@@ -15,10 +16,10 @@ class Table extends React.Component {
 
   render() {
     let fields = [
-      <Textbox name="description" />,
-      <Decimal name="credit" />,
-      <Decimal name="debit" />,
-      <Decimal name="total" readOnly />
+      <Textbox validations={ [Presence()] } name="[foo][{ROWID}][description]" label="Description" />,
+      <Decimal name="[foo][{ROWID}][credit]" label="Credit" />,
+      <Decimal name="[foo][{ROWID}][debit]" label="Debit" />,
+      <Decimal name="[foo][{ROWID}][total]" label="Total" readOnly />
     ];
 
     let gutterFields = {

@@ -1,6 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
-import { generateInputName } from './../../helpers/forms';
+import { isEqual, assign } from 'lodash';
 
 /**
  * Input decorator.
@@ -41,17 +40,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     super(...args);
   }
 
-  static propTypes = _.assign({}, ComposedComponent.propTypes, {
-    /**
-     * The name of your input
-     *
-     * @property name
-     * @type {String}
-     */
-    name: React.PropTypes.string.isRequired
-  })
-
-  static contextTypes = _.assign({}, ComposedComponent.contextTypes, {
+  static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 
@@ -68,8 +57,8 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     // determine if anything has changed that should result in a re-render
     if (changeDetected ||
-        !_.isEqual(this.props, nextProps) ||
-        !_.isEqual(this.state, nextState)) {
+        !isEqual(this.props, nextProps) ||
+        !isEqual(this.state, nextState)) {
       return true;
     }
 
@@ -125,11 +114,6 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   get inputProps() {
     let inputProps = super.inputProps || {};
-
-    // redefine the input name relative to the form
-    if (inputProps.name !== null) {
-      inputProps.name = generateInputName(this.props.name, this.context.form);
-    }
 
     // only thread the onChange event through the handler if the event is defined by the dev
     if (this.props.onChange === inputProps.onChange) {

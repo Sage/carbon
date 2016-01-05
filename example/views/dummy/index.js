@@ -35,7 +35,10 @@ class Finances extends React.Component {
         <Form model="foo">
           <FinancesDetails
             name={ name }
+            countryValue={ this.state.financesStore.getIn(['country', 'id']) }
+            countryVisibleValue={ this.state.financesStore.getIn(['country', 'name']) }
             accounts={ this.state.financesStore.get('accounts') }
+            foo={ this.state.financesStore.get('foo') }
             options={ this.state.financesStore.get('options') }
             discount={ this.state.financesStore.get('discount') }
             dateFrom={ this.state.financesStore.get('date_from') } />

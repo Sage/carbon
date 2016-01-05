@@ -1,7 +1,7 @@
 import React from 'react';
 import Devices from './devices';
 
-fdescribe('devices', () => {
+describe('devices', () => {
   let _window, _navigator;
 
   beforeEach(() => {

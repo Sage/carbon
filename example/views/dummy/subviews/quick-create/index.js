@@ -11,15 +11,15 @@ class QuickCreate extends React.Component {
       <Row>
         <Pod>
           <h2 className="title">Column 1</h2>
-          PEEKABOO
+          Finances
         </Pod>
         <Pod>
           <h2 className="title">Column 2</h2>
-          <Button>A Button</Button>
+          <Button>Forecast</Button>
         </Pod>
         <Pod>
           <h2 className="title">Column 3</h2>
-          <a href='#'>This will be a link</a>
+          <a href='#'>Budget</a>
         </Pod>
       </Row>
     </AnimatedMenuButton>
