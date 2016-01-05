@@ -22,6 +22,10 @@ describe('Form', () => {
     it('sets the errorCount to 0', () => {
       expect(instance.state.errorCount).toEqual(0);
     });
+
+    it('sets the isSubmitting to to false', () => {
+      expect(instance.state.isSubmitting).toBeFalsy();
+    });
   });
 
   describe('incrementErrorCount', () => {
@@ -179,7 +183,7 @@ describe('Form', () => {
         spyOn(instance, 'setState');
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ errorCount: 0 });
+        expect(instance.setState).toHaveBeenCalledWith({ isSubmitting: true });
       });
     });
 
@@ -194,7 +198,7 @@ describe('Form', () => {
         spyOn(instance, 'setState');
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ errorCount :1 });
+        expect(instance.setState).toHaveBeenCalledWith({ errorCount: 1 });
       });
     });
 
@@ -245,7 +249,7 @@ describe('Form', () => {
 
         spyOn(instance.tables.test, 'setState');
         TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ errorCount : 0 });
+        expect(instance.setState).toHaveBeenCalledWith({ isSubmitting: true });
         expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: false });
       });
 
@@ -396,6 +400,15 @@ describe('Form', () => {
       it('renders a primary save button with saveClasses', () => {
         expect(buttons[1].className).toEqual('ui-button ui-button--primary');
         expect(buttonContainers[1].className).toEqual('ui-form__save');
+      });
+
+      it('renders an undisabled save button if not submitting', () => {
+        expect(buttons[1].disabled).toBeFalsy();
+      });
+
+      it('renders a disabled save button if isSubmitting', () => {
+        instance.setState({ isSubmitting: true });
+        expect(buttons[1].disabled).toBeTruthy();
       });
     });
 
