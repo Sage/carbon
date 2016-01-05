@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import { isEqual, assign } from 'lodash';
 
 /**
  * Input decorator.
@@ -40,7 +40,7 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
     super(...args);
   }
 
-  static contextTypes = _.assign({}, ComposedComponent.contextTypes, {
+  static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
 
@@ -57,8 +57,8 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     // determine if anything has changed that should result in a re-render
     if (changeDetected ||
-        !_.isEqual(this.props, nextProps) ||
-        !_.isEqual(this.state, nextState)) {
+        !isEqual(this.props, nextProps) ||
+        !isEqual(this.state, nextState)) {
       return true;
     }
 

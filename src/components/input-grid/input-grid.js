@@ -1,6 +1,6 @@
 import React from 'react';
 import TableRow from './../table-row';
-import _ from 'lodash';
+import { startCase, isEqual } from 'lodash';
 
 /**
  * InputGrid is a component to display and edit a collection of data or line items.
@@ -351,7 +351,7 @@ class InputGrid extends React.Component {
  * @return {String} The converted value
  */
 function tableHeaderName(value) {
-  return _.startCase(value);
+  return startCase(value);
 }
 
 /**
@@ -389,7 +389,7 @@ function hasPropsOfChildrenChanged(prevProps, nextProps) {
         nextField = nextProps.fields[key];
 
     // compare the two fields properties
-    if (!_.isEqual(prevField.props, nextField.props)) {
+    if (!isEqual(prevField.props, nextField.props)) {
       return true;
     }
   }
