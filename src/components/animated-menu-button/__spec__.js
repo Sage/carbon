@@ -191,8 +191,6 @@ describe('AnimatedMenuButton', () => {
     describe('when the menu is expanded', () => {
       it('renders the content', () => {
         TestUtils.Simulate.mouseEnter(basicWidget.refs.button);
-        var t = TestUtils;
-        debugger
         expect(TestUtils.scryRenderedDOMComponentsWithClass(basicWidget, 'ui-animated-menu-button__content').length).toEqual(1);
       });
     });

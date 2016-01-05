@@ -74,7 +74,8 @@ class AnimatedMenuButton extends React.Component {
      * @property touch
      * @type {Boolean}
      */
-    touch: Devices.isTouchDevice()
+    // touch: Devices.isTouchDevice()
+    touch: true
   }
 
   /**
@@ -124,13 +125,9 @@ class AnimatedMenuButton extends React.Component {
    * @method handleTouch
    * @return {void}
    */
-  handleTouch = () => {
-    if (this.state.open === true) {
-      this.setState({ open: false });
-    } else {
-      this.setState({ open: true });
+    handleTouch = () => {
+      this.setState({ open: !this.state.open })
     }
-  }
 
   /**
    * Getter for label HTML
@@ -139,9 +136,8 @@ class AnimatedMenuButton extends React.Component {
    * @return {HTML} HTML for label.
    */
   get labelHTML() {
-    let label = this.props.label ?
-                <span key={ this.props.label } className='ui-animated-menu-button__label'>{ this.props.label }</span> : '';
-    return label;
+    return this.props.label ?
+           <span key={ this.props.label } className='ui-animated-menu-button__label'>{ this.props.label }</span> : '';
   }
 
   /**
@@ -153,11 +149,10 @@ class AnimatedMenuButton extends React.Component {
   get innerHTML() {
     let contents = [];
 
-    contents.push(this.labelHTML);
-
     // If device supports touch, add close icon.
     if (this.state.touch) { contents.push(this.closeIcon); }
 
+    contents.push(this.labelHTML);
     contents.push(this.props.children);
 
     return <div className='ui-animated-menu-button__content'>{ contents }</div>;
