@@ -43,17 +43,17 @@ class Radiobutton extends React.Component {
         value: React.PropTypes.string, 
 
        /**
-       * Gives the radiobutton a checked state.
+       * Sets the radiobutton default checked state.
        *
-       * @property checked
+       * @property defaultChecked
        * @type {boolean}
        * @default false
        */
-        checked: React.PropTypes.bool
+        defaultChecked: React.PropTypes.bool
     }
     
     static defaultProps = {
-        checked: false
+        defaultChecked: false
     }
     
     /**
@@ -67,7 +67,7 @@ class Radiobutton extends React.Component {
      
      props.name = this.props.name;
      props.value = this.props.value;
-     props.checked = this.props.checked;           
+     props.defaultChecked = this.props.defaultChecked;           
     
      return props;
    }
