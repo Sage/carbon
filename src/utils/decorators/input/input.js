@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import { generateInputName } from './../../helpers/forms';
 
 /**
  * Input decorator.
@@ -40,16 +39,6 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
   constructor(...args) {
     super(...args);
   }
-
-  static propTypes = _.assign({}, ComposedComponent.propTypes, {
-    /**
-     * The name of your input
-     *
-     * @property name
-     * @type {String}
-     */
-    name: React.PropTypes.string.isRequired
-  })
 
   static contextTypes = _.assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
@@ -125,11 +114,6 @@ var Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   get inputProps() {
     let inputProps = super.inputProps || {};
-
-    // redefine the input name relative to the form
-    if (inputProps.name !== null) {
-      inputProps.name = generateInputName(this.props.name, this.context.form);
-    }
 
     // only thread the onChange event through the handler if the event is defined by the dev
     if (this.props.onChange === inputProps.onChange) {
