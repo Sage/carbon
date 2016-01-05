@@ -1,3 +1,9 @@
+# 0.0.3
+
+## Bug Fixes
+
+* On successful submit, form components will disable their save buttons to prevent multiple form submissions.
+
 # 0.0.2
 
 ## Decimal Component
