@@ -1,5 +1,5 @@
 {
   "main": "./multi-action-button.js",
-  "style": ["./multi-action-button.scss", "./../button/button.scss", "./../dropdown/dropdown.scss"],
+  "style": ["./multi-action-button.scss", "./../button/button.scss"],
   "name": "MultiActionButton"
 }

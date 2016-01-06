@@ -109,7 +109,7 @@ class MultiActionButton extends React.Component {
    */
   get listProps() {
     let props = {};
-    props.className='ui-multi-action-button__list ui-dropdown__list';
+    props.className='ui-multi-action-button__list';
     props.onMouseEnter = this.handleMouseEnterList;
     props.onMouseLeave = this.handleMouseLeaveList;
 
@@ -123,7 +123,7 @@ class MultiActionButton extends React.Component {
    */
   get listItemProps() {
     let props = {};
-    props.className='ui-dropdown__list__item';
+    props.className='ui-multi-action-button__list__item';
     props.onMouseEnter = this.handleMouseEnterListItem;
     props.onMouseLeave = this.handleMouseLeaveListItem;
 
@@ -137,7 +137,7 @@ class MultiActionButton extends React.Component {
       let props = this.listItemProps;
 
       if (this.state.highlighted == index) {
-        props.className += ' ui-dropdown__list__item--highlighted'
+        props.className += ' ui-multi-action-button__list__item--highlighted'
       }
       
       if (action.get('callback')) {
@@ -170,13 +170,13 @@ class MultiActionButton extends React.Component {
   render() {
     let list;
 
-    if (this.state.overList || this.state.overButton) {
+    // if (this.state.overList || this.state.overButton) {
       list = (
         <ul { ...this.listProps } >
           { this.options }
         </ul>
       );
-    }
+    // }
 
 
     return (
