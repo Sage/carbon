@@ -229,7 +229,7 @@ class AnimatedMenuButton extends React.Component {
    * @return {HTML} html for close icon
    */
   get closeIcon() {
-    return <div onTouchEnd={ this.closeHandler } ref='close'>
+    return <div onClick={ this.closeHandler } ref='close'>
              <Icon type='close' />
            </div>;
   }
@@ -253,8 +253,8 @@ class AnimatedMenuButton extends React.Component {
 
         <ReactCSSTransitionGroup
           transitionName='ui-animated-menu-button'
-          transitionEnterTimeout={ 1000 }
-          transitionLeaveTimeout={ 1000 } >
+          transitionEnterTimeout={ 500 }
+          transitionLeaveTimeout={ 500 } >
           { content }
         </ReactCSSTransitionGroup>
 

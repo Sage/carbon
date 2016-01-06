@@ -21,7 +21,7 @@ class QuickCreate extends React.Component {
         </Pod>
         <Pod>
           <h2 className="title">Expense</h2>
-            <p><Link href='#'>Personal</Link></p>
+            <p><Link href='http://google.com'>Personal</Link></p>
             <p><Link href='#'>Work</Link></p>
         </Pod>
       </Row>

@@ -108,6 +108,7 @@ describe('AnimatedMenuButton', () => {
       it('closes the menu', () => {
         basicWidget.setState.calls.reset();
         let closeIcon = basicWidget.refs.close.children[0];
+
         TestUtils.Simulate.touchEnd(closeIcon);
         expect(basicWidget.setState).toHaveBeenCalled();
       });
@@ -124,6 +125,14 @@ describe('AnimatedMenuButton', () => {
       expect(basicWidget.state.open).toBeTruthy();
       expect(basicWidget.blockBlur).toBeTruthy();
       });
+    });
+  });
+
+  describe('close handler', () => {
+    it('closes the menu', () => {
+      basicWidget.closeHandler();
+      expect(basicWidget.setState).toHaveBeenCalled();
+      expect(basicWidget.blockBlur).toBeFalsy();
     });
   });
 
