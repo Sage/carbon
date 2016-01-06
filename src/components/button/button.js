@@ -57,6 +57,7 @@ class Button extends React.Component {
    * Renders the component with props.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     let {className, ...props} = this.props;

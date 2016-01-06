@@ -2,15 +2,16 @@
  * This will validate an input for presence.
  *
  * @object PresenceValidator
+ * @return {Object} Validator object
  */
-var PresenceValidator = function() {
+let PresenceValidator = function() {
   return {
     /**
      * This will validate the given value, and return a valid status.
      *
      * @method validate
-     * @param {String} value
-     * @return {Boolean}
+     * @param {String} value to check presence
+     * @return {Boolean} true if value is valid
      */
     validate: function(value) {
       if (value && value.get) {
@@ -36,7 +37,7 @@ var PresenceValidator = function() {
      * This is the message returned when this validation fails.
      *
      * @method message
-     * @return {String}
+     * @return {String} the error message to display
      */
     message: function() {
       return "This field is required.";

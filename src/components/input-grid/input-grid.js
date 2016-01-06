@@ -168,7 +168,8 @@ class InputGrid extends React.Component {
    * the TableRow component).
    *
    * @method shouldComponentUpdate
-   * @param {Object} nextProps
+   * @param {Object} nextProps new props passed to component
+   * @return {Boolean} true if the component should update
    */
   shouldComponentUpdate(nextProps) {
     this.childrenHaveChanged = false;
@@ -187,6 +188,7 @@ class InputGrid extends React.Component {
    * Ensures the form has knowledge of the InputGrid, to handle validation.
    *
    * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
     if (!this.context.form) { return false; }
@@ -197,6 +199,7 @@ class InputGrid extends React.Component {
    * Ensures the form no longer knows about the InputGrid if it is removed.
    *
    * @method componentWillUnmount
+   * @return {void}
    */
   componentWillUnmount() {
     if (!this.context.form) { return false; }
@@ -325,6 +328,7 @@ class InputGrid extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     return (
@@ -346,7 +350,7 @@ class InputGrid extends React.Component {
  * Converts a string into a title case string.
  *
  * @method tableHeaderName
- * @param {String} value
+ * @param {String} value unformatted title string
  * @private
  * @return {String} The converted value
  */
@@ -358,8 +362,8 @@ function tableHeaderName(value) {
  * Determines if the number of child fields have changed.
  *
  * @method hasNumOfChildrenChanged
- * @param {Object} prevProps
- * @param {Object} nextProps
+ * @param {Object} prevProps this.props
+ * @param {Object} nextProps new props passed to component
  * @private
  * @return {Boolean} Whether the number of children has changed
  */
@@ -378,8 +382,8 @@ function hasNumOfChildrenChanged(prevProps, nextProps) {
  * Determines if any props have changed on the fields.
  *
  * @method hasPropsOfChildrenChanged
- * @param {Object} prevProps
- * @param {Object} nextProps
+ * @param {Object} prevProps this.props
+ * @param {Object} nextProps new props passed to the component
  * @private
  * @return {Boolean} Whether the props have changed on the fields
  */

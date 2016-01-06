@@ -115,6 +115,7 @@ export default class Store extends EventEmitter {
    *
    * @method addChangeListener
    * @param {Function} callback The function that is called in the view component.
+   * @return {void}
    */
   addChangeListener = (callback) => {
     this.on(CHANGE_EVENT, callback);
@@ -125,6 +126,7 @@ export default class Store extends EventEmitter {
    *
    * @method addChangeListener
    * @param {Function} callback The function that is called in the view component.
+   * @return {void}
    */
   removeChangeListener = (callback) => {
     this.removeListener(CHANGE_EVENT, callback);
@@ -134,6 +136,7 @@ export default class Store extends EventEmitter {
    * Returns the current data from the store.
    *
    * @method getState
+   * @return {Object} the current data
    */
   getState = () => {
     return this.data;
@@ -144,6 +147,7 @@ export default class Store extends EventEmitter {
    *
    * @method dispatcherCallback
    * @param {Object} action The action dispatched from the dispatcher
+   * @return {void}
    */
   dispatcherCallback = (action) => {
     // We determine if the store has the actionType available as a function.
@@ -162,6 +166,7 @@ export default class Store extends EventEmitter {
    * Reverts the data to the previous data set in the history array.
    *
    * @method undo
+   * @return {void}
    */
   undo = () => {
     if (this.history.length) {
@@ -176,6 +181,7 @@ export default class Store extends EventEmitter {
    * Reverts the data to the initial data set in the history.
    *
    * @method reset
+   * @return {void}
    */
   reset = () => {
     if (this.history.length) {
@@ -193,6 +199,7 @@ export default class Store extends EventEmitter {
    * the callback provided from the view component.
    *
    * @method _triggerChange
+   * @return {void}
    */
   _triggerChange() {
     // we use the store name so the view component knows which store updated

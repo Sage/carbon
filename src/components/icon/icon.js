@@ -21,6 +21,13 @@ import React from 'react';
  * @constructor
  */
 class Icon extends React.Component {
+
+   /**
+   * Renders the component.
+   *
+   * @method render
+   * @return {Object} JSX
+   */
   render() {
     let { className, type, ...otherProps } = this.props;
 

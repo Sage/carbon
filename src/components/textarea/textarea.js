@@ -48,6 +48,7 @@ class Textarea extends React.Component {
    * Allows access to refs and DOM to set expandable variables
    *
    * @method componentDidMount
+   * @return {void}
    */
   componentDidMount = () => {
     if (this.props.expandable) {
@@ -66,6 +67,7 @@ class Textarea extends React.Component {
    * unmounted from the DOM
    *
    * @method componentWillUnmount
+   * @return {void}
    */
   componentWillUnmount = () => {
     if (this.props.expandable) {
@@ -78,6 +80,7 @@ class Textarea extends React.Component {
    * Resizes the textarea based on update if it can expand
    *
    * @method componentDidUpdate
+   * @return {void}
    */
   componentDidUpdate = () => {
     if (this.props.expandable) {
@@ -91,6 +94,7 @@ class Textarea extends React.Component {
    * all content.
    *
    * @method expandTextarea
+   * @return {void}
    */
   expandTextarea = () => {
     let textarea = this.refs.textarea;
@@ -104,9 +108,10 @@ class Textarea extends React.Component {
   }
 
   /**
-   * Uses the mainClasses method provided by the decorator to add additional classes.
+   * Uses the mainClasses method provided by the decorator to add additional classes
    *
-   * @method mainClasses Main Class getter
+   * @method mainClasses
+   * @return {String} main className
    */
   get mainClasses() {
     return 'ui-textarea';
@@ -116,6 +121,7 @@ class Textarea extends React.Component {
    * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
+   * @return {String} input className
    */
   get inputClasses() {
     return 'ui-textarea__input';
@@ -126,6 +132,7 @@ class Textarea extends React.Component {
    * textbox specific props.
    *
    * @method inputProps
+   * @return {Object} props for the input
    */
   get inputProps() {
     let { ...props } = this.props;
@@ -140,6 +147,7 @@ class Textarea extends React.Component {
    * Defines a custom input type for this component.
    *
    * @method inputType
+   * @return {String} the input type
    */
   get inputType() {
     return 'textarea';
@@ -149,6 +157,7 @@ class Textarea extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     return (

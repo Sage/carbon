@@ -26,7 +26,8 @@ class Textbox extends React.Component {
   /**
    * Main Class getter
    *
-   * @method mainClasses Main Class getter
+   * @method mainClasses
+   * @return {void}
    */
   get mainClasses() {
     return 'ui-textbox';
@@ -46,6 +47,7 @@ class Textbox extends React.Component {
    * textbox specific props.
    *
    * @method inputProps
+   * @return {Object} props for the input
    */
   get inputProps() {
     let { ...props } = this.props;
@@ -57,6 +59,7 @@ class Textbox extends React.Component {
    * Renders the component.
    *
    * @method render
+   * @return {Object} JSX
    */
   render() {
     return (
