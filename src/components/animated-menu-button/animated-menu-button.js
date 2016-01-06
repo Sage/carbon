@@ -12,9 +12,16 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
  *
  *   import AnimatedMenuButton from 'carbon/lib/components/animated-menu-button';
  *
- * To render a AnimatedMenuButton:
+ * To render a AnimatedMenuButton, pass children to be rendered in the expanded menu:
  *
- *   <AnimatedMenuButton />
+ *  <AnimatedMenuButton>
+ *    <Row>
+ *      <Pod>
+ *        <h2 className="title">Foo</h2>
+ *          <p><Link href='#'>Bar</Link></p>
+ *       </Pod>
+ *     </Row>
+ *  </AnimatedMenuButton>
  *
  * @class AnimatedMenuButton
  * @constructor
@@ -136,21 +143,21 @@ class AnimatedMenuButton extends React.Component {
    * @method handleTouch
    * @return {void}
    */
-    handleTouch = () => {
-      this.setState({ open: true });
-      this.blockBlur = true;
-    }
+  handleTouch = () => {
+    this.setState({ open: true });
+    this.blockBlur = true;
+  }
 
-    /**
-     * Closes menu on touch event.
-     *
-     * @method closeHandler
-     * @return {void}
-     */
-    closeHandler = () => {
-      this.setState({ open: false });
-      this.blockBlur = false;
-    }
+  /**
+   * Closes menu on touch event.
+   *
+   * @method closeHandler
+   * @return {void}
+   */
+  closeHandler = () => {
+    this.setState({ open: false });
+    this.blockBlur = false;
+  }
 
   /**
    * Getter for label HTML
@@ -199,10 +206,10 @@ class AnimatedMenuButton extends React.Component {
   /**
    * A getter that returns any supplied custom props along with default props.
    *
-   * @method inputProps
+   * @method componentProps
    * @return {Object} props including class names & event handlers.
    */
-  get inputProps() {
+  get componentProps() {
     let { ...props } = this.props;
     props.className = this.mainClasses;
     props.onMouseEnter = this.handleMouseEnter;
@@ -222,7 +229,7 @@ class AnimatedMenuButton extends React.Component {
    * @return {HTML} html for close icon
    */
   get closeIcon() {
-    return <div onClick={ this.closeHandler }>
+    return <div onTouchEnd={ this.closeHandler } ref='close'>
              <Icon type='close' />
            </div>;
   }
@@ -241,7 +248,7 @@ class AnimatedMenuButton extends React.Component {
     }
 
     return (
-      <div { ...this.inputProps }>
+      <div { ...this.componentProps }>
         <Icon type='add'/>
 
         <ReactCSSTransitionGroup

@@ -7,7 +7,7 @@ import Button from 'components/button';
 import Pod from 'components/pod';
 import Device from './../../utils/helpers/devices';
 
-fdescribe('AnimatedMenuButton', () => {
+describe('AnimatedMenuButton', () => {
   let basicWidget, labelWidget, customClassWidget, rightWidget, largeWidget, contentWidget, button;
 
   beforeEach(() => {
@@ -78,30 +78,45 @@ fdescribe('AnimatedMenuButton', () => {
   });
 
   describe('losing focus of the menu', () => {
-    it('closes the menu', () => {
-      TestUtils.Simulate.blur(basicWidget.refs.button);
-      expect(basicWidget.setState).toHaveBeenCalledWith({open: false });
-      expect(basicWidget.blockBlur).toBeFalsy();
+    describe('if blockBlur is active', () => {
+      it('does not close the menu', () => {
+        basicWidget.blockBlur = true;
+        TestUtils.Simulate.blur(basicWidget.refs.button);
+        expect(basicWidget.setState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if blockBlur is not active', () => {
+      it('closes the menu', () => {
+        TestUtils.Simulate.blur(basicWidget.refs.button);
+        expect(basicWidget.setState).toHaveBeenCalledWith({open: false });
+      });
     });
   });
 
   describe('a touch event', () => {
+    beforeEach(() => {
+      basicWidget.setState({ touch: true });
+    });
+
     describe('when the menu is open', () => {
       beforeEach(() => {
         basicWidget.setState({ open: true });
+        basicWidget.blockBlur = true;
       });
 
       it('closes the menu', () => {
-      // let closeIcons = basicWidget.innerHTML.props.children[0].props.children;
-      debugger
-      TestUtils.Simulate.touchEnd(basicWidget.refs.button);
-      expect(basicWidget.state.open).toBeFalsy();
+        basicWidget.setState.calls.reset();
+        let closeIcon = basicWidget.refs.close.children[0];
+        TestUtils.Simulate.touchEnd(closeIcon);
+        expect(basicWidget.setState).toHaveBeenCalled();
       });
     });
 
     describe('when the menu is closed', () => {
       beforeEach(() => {
         basicWidget.setState({ open: false });
+        basicWidget.blockBlur = false;
       });
 
       it('opens the menu', () => {
@@ -172,18 +187,18 @@ fdescribe('AnimatedMenuButton', () => {
     });
   });
 
-  describe('inputProps', () => {
+  describe('componentProps', () => {
     describe('when it is a touch device', () => {
       it('adds a touch handler', () => {
         basicWidget.setState({ touch: true });
-        expect(basicWidget.inputProps.onTouchEnd).toBeDefined();
+        expect(basicWidget.componentProps.onTouchEnd).toBeDefined();
       });
     });
 
     describe('when it is not a touch device', () => {
       it('does not add the touch handler', () => {
         basicWidget.setState({ touch: false });
-        expect(basicWidget.inputProps.onTouchEnd).toBeFalsy();
+        expect(basicWidget.componentProps.onTouchEnd).toBeFalsy();
       });
     });
   });

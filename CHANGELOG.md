@@ -4,6 +4,7 @@
 
 * Link
 * Alert
+* Animated Menu Button
 
 ## Dialog Type Components
 
