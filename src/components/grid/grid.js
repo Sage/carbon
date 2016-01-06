@@ -1,5 +1,6 @@
 import React from 'react';
 import GridRow from './grid_row';
+import _ from 'lodash';
 
 /**
  * Grid is a component to display a collection of data or line items.
@@ -78,7 +79,7 @@ class Grid extends React.Component {
   get columns() {
     return this.props.fields.map((column, index) => {
       return (
-        <th key={ index} className='ui-grid__header-cell'>{ column }</th>
+        <th key={ index} className='ui-grid__header__cell'>{ _.capitalize(column) }</th>
       );
     });
   }
@@ -103,6 +104,22 @@ class Grid extends React.Component {
   }
 
   /**
+   * Sets the table class and consumes
+   * any classes sent via props
+   *
+   * @method tableClasses
+   * @return {String} table className
+   */
+  get tableClasses() {
+    let className = 'ui-grid';
+    if (this.props.className) {
+      className += ' ' + this.props.className;
+    }
+
+    return className;
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -110,9 +127,9 @@ class Grid extends React.Component {
    */
   render() {
     return (
-      <table className='ui-grid'>
-        <thead>
-          <tr className='ui-grid__header'>
+      <table className={ this.tableClasses }>
+        <thead className='ui-grid__header'>
+          <tr className='ui-grid__header__row'>
             { this.columns }
           </tr>
         </thead>

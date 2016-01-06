@@ -2,37 +2,36 @@
 @import "tables";
 @import 'input-field';
 
+$grid-header-color: #636872;
+$grid-header-border-color: #8A8E95;
+$grid-header-border-top-color: $border-color;
+$grid-header-border-bottom-color: $border-color;
+
 $row__background-color--even: $white;
 $row__background-color--odd: #F8F9FB;
 $row__background-color--hover: #EDF4FB;
-$row__delete-icon-size: 18px;
-$row__delete-icon-color--normal: #AFAFAF;
-$row__delete-icon-color--hover: $error;
-$table-header-color: #636872;
-$table-header-border-color: #8A8E95;
-$table-header-border-top-color: $border-color;
-$table-header-border-bottom-color: $border-color;
+
 
 .ui-grid {
   border: 1px solid $border-color {
-    collapse: separate;
+    collapse: collapse;
     radius: 4px;
     spacing: 0;
   }
   width: 100%;
 }
 
-.ui-grid__header {
-  background-color: $table-header-color;
-  border-top-color: $table-header-border-top-color;
-  border-bottom-color: $table-header-border-bottom-color;
+.ui-grid__header__row {
+  background-color: $grid-header-color;
+  border-top-color: $grid-header-border-top-color;
+  border-bottom-color: $grid-header-border-bottom-color;
   color: $white;
   height: 36px;
   text-align: left;
 }
 
-.ui-grid__header-cell {
-  border-right: 1px solid $table-header-border-color;
+.ui-grid__header__cell {
+  border-right: 1px solid $grid-header-border-color;
   font-weight: normal;
   line-height: 14px;
   padding: 0 8px;
@@ -48,16 +47,15 @@ $table-header-border-bottom-color: $border-color;
   }
 }
 
-.ui-grid__header-cell--narrow {
-  width: 160px;
-}
-
 .ui-grid__row {
+  cursor: pointer;
   background-color: $row__background-color--odd;
+  border-bottom: 1px solid #E4E7EA;
+  height: 33px;
 
   // last row
   &:last-child {
-    .ui-table-row__td {
+    .ui-grid__row__cell {
       border-bottom: 0;
 
       // first td in last row
@@ -80,14 +78,9 @@ $table-header-border-bottom-color: $border-color;
   // row hover
   &:hover {
     background-color: $row__background-color--hover;
-    color: $red;
-
-    .common-input__input {
-      border-color: #99B5EC;
-
-      &:hover {
-        border-color: $input-active-border-color;
-      }
-    }
   }
+}
+
+.ui-grid__row__cell {
+  padding: 6px 8px 4px;
 }

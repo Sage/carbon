@@ -62,7 +62,7 @@ class GridRow extends React.Component {
   get cells() {
     return this.props.fields.map((column, index) => {
       return (
-        <td key={index}>
+        <td className='ui-grid__row__cell' key={index}>
           { this.props.row.get(column) }
         </td>
       );

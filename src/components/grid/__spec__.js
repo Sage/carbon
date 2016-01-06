@@ -12,6 +12,7 @@ describe('Grid', () => {
     instance = TestUtils.renderIntoDocument(
     <Grid
       fields={ fields }
+      className='customClass'
       data={ ImmutableHelper.parseJSON( [
                 { foo: '1', bar: '2', baz: '3' },
                 { foo: '4', bar: '5', baz: '6' } 
@@ -23,9 +24,9 @@ describe('Grid', () => {
     it('builds a column for each field', () => {
       let headings = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'th');
       expect(headings.length).toEqual(3);
-      expect(headings[0].textContent).toEqual('foo');
-      expect(headings[1].textContent).toEqual('bar');
-      expect(headings[2].textContent).toEqual('baz');
+      expect(headings[0].textContent).toEqual('Foo');
+      expect(headings[1].textContent).toEqual('Bar');
+      expect(headings[2].textContent).toEqual('Baz');
     });
   });
 
@@ -33,6 +34,12 @@ describe('Grid', () => {
     it('builds a grid row for each data element', () => {
       let rows = TestUtils.scryRenderedComponentsWithType(instance, GridRow); 
       expect(rows.length).toEqual(2);
+    });
+  });
+
+  describe('tableClasses', () => {
+    it('applies a base ui-grid class and adds any classes passed as props', () => {
+      expect(instance.tableClasses).toEqual('ui-grid customClass'); 
     });
   });
 
