@@ -24,7 +24,7 @@ import GridRow from './grid_row';
  *
  *   <Grid
  *     fields={ fields }
- *     data={ data.get('line_items' } />
+ *     data={ data.get('line_items') } />
  *
  * You can optionally pass a row click handler which will be emitted whenever
  * one of the data rows is clicked.
@@ -33,7 +33,7 @@ import GridRow from './grid_row';
  *
  *   <Grid
  *     fields={ fields }
- *     data={ data.get('line_items' } 
+ *     data={ data.get('line_items') }
  *     onRowClick={ this.handleRowClick } />
  *
  * @class Grid
@@ -96,7 +96,7 @@ class Grid extends React.Component {
           key={index}
           fields={ this.props.fields }
           row={ row }
-          onRowClick={ this.props.onRowClick } 
+          onRowClick={ this.props.onRowClick }
         />
       );
     });

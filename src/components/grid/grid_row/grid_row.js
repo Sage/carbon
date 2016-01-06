@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * Grid Row for the Grid component
- * 
+ *
  * == How to use a Grid Row Widget in a component:
  *   See Grid component
  *
@@ -40,7 +40,7 @@ class GridRow extends React.Component {
   }
 
   /**
-   * Emits the row click event with the 
+   * Emits the row click event with the
    * row props which includes _row_id
    *
    * @method handleRowClick
@@ -62,9 +62,9 @@ class GridRow extends React.Component {
   get cells() {
     return this.props.fields.map((column, index) => {
       return (
-        <th key={index}>
+        <td key={index}>
           { this.props.row.get(column) }
-        </th>
+        </td>
       );
     });
   }
