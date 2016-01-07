@@ -1,0 +1,80 @@
+@import "colors";
+@import "tables";
+@import 'input-field';
+
+$grid-header-color: #636872;
+$grid-header-border-color: #8A8E95;
+$grid-header-border-top-color: $border-color;
+$grid-header-border-bottom-color: $border-color;
+
+$row__background-color--even: $white;
+$row__background-color--odd: #F8F9FB;
+$row__background-color--hover: #EDF4FB;
+
+.common-grid {
+  width: 100%;
+}
+
+.common-grid__header__row {
+  background-color: $grid-header-color;
+  border-top-color: $grid-header-border-top-color;
+  border-bottom-color: $grid-header-border-bottom-color;
+  color: $white;
+  height: 36px;
+  text-align: left;
+}
+
+.common-grid__header__cell {
+  border-right: 1px solid $grid-header-border-color;
+  font-weight: normal;
+  line-height: 14px;
+  padding: 0 8px;
+  vertical-align: middle;
+
+  &:first-child {
+    border-radius: $tables__border-radius 0 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 $tables__border-radius 0 0;
+    border-right: none;
+  }
+}
+
+.common-grid__row {
+  background-color: $row__background-color--odd;
+  border-bottom: 1px solid #E4E7EA;
+  cursor: pointer;
+  height: 33px;
+
+  // last row
+  &:last-child {
+    .common-grid__row__cell {
+      border-bottom: 0;
+
+      // first td in last row
+      &:first-child {
+        border-radius: 0 0 0 $tables__border-radius;
+      }
+
+      // last td in last row
+      &:last-child {
+        border-radius: 0 0 $tables__border-radius 0;
+      }
+    }
+  }
+
+  // even rows
+  &:nth-child(even) {
+    background-color: $row__background-color--even;
+  }
+
+  // row hover
+  &:hover {
+    background-color: $row__background-color--hover;
+  }
+}
+
+.common-grid__row__cell {
+  padding: 8px;
+}
