@@ -34,13 +34,13 @@ class Radiobutton extends React.Component {
       */
         name: React.PropTypes.string.isRequired,
         
-      /**
+         /**
       * The name property
       *
-      * @property value
+      * @property name
       * @type {String}
       */
-        value: React.PropTypes.string, 
+        leftAlignedText: React.PropTypes.bool,
 
        /**
        * Sets the radiobutton default checked state.
@@ -53,7 +53,8 @@ class Radiobutton extends React.Component {
     }
     
     static defaultProps = {
-        defaultChecked: false
+        defaultChecked: false,
+        leftAlignedText: false
     }
     
     /**
@@ -66,10 +67,30 @@ class Radiobutton extends React.Component {
      let { ...props } = this.props;
      
      props.name = this.props.name;
-     props.value = this.props.value;
      props.defaultChecked = this.props.defaultChecked;           
+     props.leftAlignedText = this.props.leftAlignedText;
     
      return props;
+   }
+   
+   get radioButton() {
+       
+       if ( this.props.leftAlignedText ){
+           return (
+                <div>
+                    { this.props.label }
+                    <input type='radio' { ...this.componentProps } />
+                </div>
+           );
+       }
+       else{
+            return (
+                <div>
+                    <input type='radio' { ...this.componentProps } />
+                    {this.props.label}
+                </div>
+            );
+       }
    }
 
   /**
@@ -78,12 +99,13 @@ class Radiobutton extends React.Component {
    * @method render
    */
   render() {
+   
     return (
-      <input type='radio' { ...this.componentProps } >
-        { this.props.children } </input>
+        <div>
+            {this.radioButton}
+        </div> 
     );
   }
-
 }
 
 export default Radiobutton;
