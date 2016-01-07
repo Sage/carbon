@@ -1,3 +1,13 @@
+# 0.2.0
+
+## New Components
+
+* Grid
+
+## Minor
+
+* Input Grid is now decorated by common grid
+
 # 0.1.0
 
 ## New Components
