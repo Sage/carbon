@@ -92,7 +92,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       let icon = ReactDOM.findDOMNode(this.refs.validationIcon),
           message = this.refs.validationMessage;
 
-      if (icon && message) {
+      if (icon && message && message.offsetHeight) {
         let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2)),
             topOffset = icon.offsetTop - icon.offsetHeight;
 
@@ -229,12 +229,12 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   /**
-   * On key down of the input when we want to reset the validation.
+   * On content change of the input when we want to reset the validation.
    *
-   * @method _handleKeyDown
+   * @method _handleContentChange
    * @return {void}
    */
-  _handleKeyDown = () => {
+  _handleContentChange = () => {
     // if the field is in an invalid state
     if (!this.state.valid) {
       // if there is a form, decrement the error count
@@ -266,8 +266,10 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     return [
       <Icon key="0" ref="validationIcon" type="error" className={ iconClasses } />,
-      <div key="1" ref="validationMessage" className={ messageClasses }>
-        { this.state.errorMessage }
+      <div key="1" className="common-input__message-wrapper">
+        <div ref="validationMessage" className={ messageClasses }>
+          { this.state.errorMessage }
+        </div>
       </div>
     ];
   }
@@ -315,7 +317,8 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     inputProps.onFocus = chainFunctions(this._handleFocus, inputProps.onFocus);
     inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
-    inputProps.onKeyDown = chainFunctions(this._handleKeyDown, inputProps.onKeyDown);
+    inputProps.onKeyDown = chainFunctions(this._handleContentChange, inputProps.onKeyDown);
+    inputProps.onPaste = chainFunctions(this._handleContentChange, inputProps.onKeyDown);
 
     return inputProps;
   }

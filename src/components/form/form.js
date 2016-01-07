@@ -174,6 +174,7 @@ class Form extends React.Component {
    *
    * @method attachToForm
    * @param {Object} component Component to attach
+   * @param {Object} options
    * @return {void}
    */
   attachToForm = (component, options = {}) => {
@@ -191,6 +192,7 @@ class Form extends React.Component {
    *
    * @method detachFromFormToForm
    * @param {Object} component Component to detach
+   * @param {Object} options
    * @return {void}
    */
   detachFromForm = (component, options = {}) => {
