@@ -174,12 +174,13 @@ class Form extends React.Component {
    *
    * @method attachToForm
    * @param {Object} component Component to attach
+   * @param {Object} options
    * @return {void}
    */
-  attachToForm = (component) => {
+  attachToForm = (component, options = {}) => {
     let name = component.props.name;
 
-    if (component.constructor.name === "InputGrid") {
+    if (options.table) {
       this.tables[name] = component;
     } else {
       this.inputs[name] = component;
@@ -191,12 +192,13 @@ class Form extends React.Component {
    *
    * @method detachFromFormToForm
    * @param {Object} component Component to detach
+   * @param {Object} options
    * @return {void}
    */
-  detachFromForm = (component) => {
+  detachFromForm = (component, options = {}) => {
     let name = component.props.name;
 
-    if (component.constructor.name === "InputGrid") {
+    if (options.table) {
       delete this.tables[name];
     } else {
       delete this.inputs[name];
