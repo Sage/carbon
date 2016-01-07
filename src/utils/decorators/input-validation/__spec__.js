@@ -109,6 +109,18 @@ describe('InputValidation', () => {
         describe('when onscreen', () => {
           it('sets the correct left position', () => {
             instance.setState({ valid: false, errorMessage: 'foo' });
+            instance.refs.validationMessage = {
+              offsetHeight: 30,
+              style: {
+                left: 10,
+                top: 10
+              },
+              getBoundingClientRect: function() {
+                return {
+                  left: 10
+                };
+              }
+            };
             spyOn(ReactDOM, 'findDOMNode').and.returnValue({
               offsetLeft: 20,
               offsetWidth: 10,
@@ -122,6 +134,19 @@ describe('InputValidation', () => {
         describe('when offscreen', () => {
           it('sets the class to flipped', () => {
             instance.setState({ valid: false, errorMessage: 'foo' });
+            instance.refs.validationMessage = {
+              offsetWidth: 0,
+              offsetHeight: 30,
+              style: {
+                left: 0,
+                top: 0
+              },
+              getBoundingClientRect: function() {
+                return {
+                  left: 0
+                };
+              }
+            };
             spyOn(ReactDOM, 'findDOMNode').and.returnValue({
               offsetLeft: 20,
               offsetWidth: 10,
@@ -131,7 +156,7 @@ describe('InputValidation', () => {
               innerWidth: -1
             };
             instance.componentDidUpdate();
-            expect(instance.refs.validationMessage.classList).toContain('common-input__message--flipped');
+            expect(instance.refs.validationMessage.className).toContain('common-input__message--flipped');
           });
         });
       });
@@ -353,12 +378,12 @@ describe('InputValidation', () => {
     });
   });
 
-  describe('_handleKeyDown', () => {
+  describe('_handleContentChange', () => {
     describe('when the input is invalid and key down occurs', () => {
       it('should call setState to lock the message', () => {
         instance.setState({ valid: false });
         spyOn(instance, 'setState');
-        instance._handleKeyDown();
+        instance._handleContentChange();
         expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, valid: true });
       });
     });
@@ -367,7 +392,7 @@ describe('InputValidation', () => {
       it('should not call setState', () => {
         instance.setState({ valid: true });
         spyOn(instance, 'setState');
-        instance._handleKeyDown();
+        instance._handleContentChange();
         expect(instance.setState).not.toHaveBeenCalled();
       });
     });
@@ -377,7 +402,7 @@ describe('InputValidation', () => {
         instance.setState({ valid: false });
         instance.context.form = form;
         spyOn(instance.context.form, 'decrementErrorCount');
-        instance._handleKeyDown();
+        instance._handleContentChange();
 
         expect(instance.context.form.decrementErrorCount).toHaveBeenCalled();
       });
@@ -388,7 +413,7 @@ describe('InputValidation', () => {
         instance.setState({ valid: false });
         let spy = jasmine.createSpy();
         instance.context.tab = { setValidity: spy };
-        instance._handleKeyDown();
+        instance._handleContentChange();
 
         expect(spy).toHaveBeenCalledWith(true);
       });
@@ -397,7 +422,7 @@ describe('InputValidation', () => {
     describe('when the input does not have a form', () => {
       it('should not throw an error', () => {
         instance.setState({ valid: false });
-        expect(instance._handleKeyDown).not.toThrow();
+        expect(instance._handleContentChange).not.toThrow();
       });
     });
   });
@@ -425,8 +450,10 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the error message', () => {
-        expect(instance.validationHTML[1].props.className).toEqual('common-input__message common-input__message--error');
-        expect(instance.validationHTML[1].props.children).toEqual('foo');
+        expect(instance.validationHTML[1].props.className).toEqual('common-input__message-wrapper');
+
+        expect(instance.validationHTML[1].props.children.props.className).toEqual('common-input__message common-input__message--error');
+        expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
       });
 
       describe('when the message is locked', () => {
