@@ -25,6 +25,11 @@ To keep things simple, and to remove some of the logic behind the scenes, we no 
 
 It is still recommended that you use names on inputs, as they are useful to identify your which input is which. They are also required if you are performing standing HTML form submissions.
 
+## Bug Fixes
+
+* Fixes position and width or validation messages on inputs.
+* Fixes re-validating fields when content is pasted into an input.
+
 # 0.0.3
 
 ## Bug Fixes
