@@ -75,6 +75,12 @@
   }
 }
 
+.common-input__message-wrapper {
+  top: 0;
+  position: absolute;
+  width: 250px;
+}
+
 .common-input__message {
   $arrow-size: 5px;
 

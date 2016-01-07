@@ -2,9 +2,10 @@
 
 ## New Components
 
-* Link
 * Alert
 * Animated Menu Button
+* Link
+* Tabs
 
 ## Dialog Type Components
 
@@ -25,6 +26,15 @@ In previous versions of Carbon, all inputs required a `name` property. Some Carb
 To keep things simple, and to remove some of the logic behind the scenes, we no longer do any manipulation on input names and the property is no longer a requirement when using a form input.
 
 It is still recommended that you use names on inputs, as they are useful to identify your which input is which. They are also required if you are performing standing HTML form submissions.
+
+## Minor
+
+* Pod has an option to make it collapsible.
+
+## Bug Fixes
+
+* Fixes position and width or validation messages on inputs.
+* Fixes re-validating fields when content is pasted into an input.
 
 # 0.0.3
 
