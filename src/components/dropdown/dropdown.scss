@@ -8,6 +8,10 @@
   position: absolute;
   right: 0;
   z-index: $z-dropdown-list;
+
+  .common-input--label-inline & {
+    left: $grid-margin;
+  }
 }
 
 .ui-dropdown__list {
@@ -33,10 +37,6 @@
   &::-webkit-scrollbar-thumb {
     background-color: #777777;
     border-radius:4px;
-  }
-
-  .common-input--label-inline & {
-    left: $grid-margin;
   }
 }
 
