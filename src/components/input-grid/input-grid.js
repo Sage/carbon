@@ -335,6 +335,7 @@ class InputGrid extends React.Component {
    */
   get gridClasses() {
     let className = 'ui-input-grid';
+
     if (this.props.className) {
       className += ' ' + this.props.className;
     }

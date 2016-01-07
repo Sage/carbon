@@ -266,6 +266,24 @@ describe('InputGrid', () => {
       expect(table.className).toEqual('common-grid ui-input-grid');
     });
 
+    it('adds additonal classes to the table is supplied via props', () => {
+      function foo() {};
+      function bar() {};
+
+      instance = TestUtils.renderIntoDocument(
+          <InputGrid
+            name="test-grid"
+            data={ ImmutableHelper.parseJSON([{}]) }
+            className='foo'
+            fields={ [ <input name='[{ROWID}][foo]' /> ] }
+            updateRowHandler={ foo }
+            deleteRowHandler={ bar } />
+      );
+
+      var table = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'table')[0];
+      expect(table.className).toEqual('common-grid ui-input-grid foo');
+    });
+
     it('renders a thead with decorated className', () => {
       var thead = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
       expect(thead).toBeDefined();
