@@ -85,7 +85,7 @@ describe('InputGrid', () => {
     it('calls attachToForm', () => {
       spyOn(instance.context.form, 'attachToForm');
       instance.componentWillMount();
-      expect(instance.context.form.attachToForm).toHaveBeenCalledWith(instance);
+      expect(instance.context.form.attachToForm).toHaveBeenCalledWith(instance, { table: true });
     });
 
     it('does not call attachToForm if there is no form', () => {
@@ -98,7 +98,7 @@ describe('InputGrid', () => {
     it('calls detachFromForm', () => {
       spyOn(instance.context.form, 'detachFromForm');
       instance.componentWillUnmount();
-      expect(instance.context.form.detachFromForm).toHaveBeenCalledWith(instance);
+      expect(instance.context.form.detachFromForm).toHaveBeenCalledWith(instance, { table: true });
     });
 
     it('does not call detachFromForm if there is no form', () => {
