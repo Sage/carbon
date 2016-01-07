@@ -1,5 +1,6 @@
 @import 'colors';
 @import 'mixins';
+@import 'z-index';
 
 .ui-animated-menu-button {
   @include border-radius(100%);
@@ -39,7 +40,7 @@
   &.hover {
     background-color: $magenta-dull;
     @include transition(background-color 0.1s 0s);
-}
+  }
 
   .ui-animated-menu-button-enter {
     opacity: 0;
@@ -70,7 +71,7 @@
     padding: 25px 40px 30px;
     position: absolute;
     top: 0;
-    z-index: 310;
+    z-index: $z-animate-menu-button;
 
     @at-root {
       /******** Direction Option Styles ***/
@@ -111,12 +112,6 @@
     .icon-close {
       float: right;
       outline: none;
-    }
-
-    .ui-pod {
-      border: none;
-      background-color: inherit;
-      padding-top: 0;
     }
 
     .title {

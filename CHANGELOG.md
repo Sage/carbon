@@ -1,9 +1,14 @@
+# 0.2.0
+
+## New Components
+
+* Animated Menu Button
+
 # 0.1.0
 
 ## New Components
 
 * Alert
-* Animated Menu Button
 * Link
 * Tabs
 

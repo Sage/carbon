@@ -94,37 +94,25 @@ class AnimatedMenuButton extends React.Component {
   }
 
   /**
-   * Handles mouse over contracted widget. Sets state to open.
+   * Opens handler on event.
    *
-   * @method handleMouseOver
+   * @method openHandler
    * @return {void}
    */
-  handleMouseEnter = () => {
+  openHandler = () => {
     this.setState({ open: true });
     this.blockBlur = true;
   }
 
-  /**
-   * Handles mouse leaving expanded widget. Sets state to closed.
+ /**
+   * Closes menu on event.
    *
-   * @method handleMouseLeave
+   * @method closeHandler
    * @return {void}
    */
-  handleMouseLeave = () => {
+  closeHandler = () => {
     this.setState({ open: false });
     this.blockBlur = false;
-  }
-
-  //TODO: element not tabbable, need to manually handle focus/blur, e.g. add class 'hover'
-  /**
-   * Handles focus on button.
-   *
-   * @method handleFocus
-   * @return {void}
-   */
-  handleFocus = () => {
-    this.setState({ open: true });
-    this.blockBlur = true;
   }
 
   /**
@@ -135,28 +123,6 @@ class AnimatedMenuButton extends React.Component {
    */
   handleBlur = () => {
     if (!this.blockBlur) { this.setState({ open: false }); }
-  }
-
-  /**
-   * Handles touch event on widget. Toggles open state.
-   *
-   * @method handleTouch
-   * @return {void}
-   */
-  handleTouch = () => {
-    this.setState({ open: true });
-    this.blockBlur = true;
-  }
-
-  /**
-   * Closes menu on touch event.
-   *
-   * @method closeHandler
-   * @return {void}
-   */
-  closeHandler = () => {
-    this.setState({ open: false });
-    this.blockBlur = false;
   }
 
   /**
@@ -212,11 +178,11 @@ class AnimatedMenuButton extends React.Component {
   get componentProps() {
     let { ...props } = this.props;
     props.className = this.mainClasses;
-    props.onMouseEnter = this.handleMouseEnter;
-    props.onMouseLeave = this.handleMouseLeave;
-    props.onFocus = this.handleFocus;
+    props.onMouseEnter = this.openHandler;
+    props.onMouseLeave = this.closeHandler;
+    props.onFocus = this.openHandler;
     props.onBlur = this.handleBlur;
-    props.onTouchEnd = this.state.touch ? this.handleTouch : null;
+    props.onTouchEnd = this.state.touch ? this.openHandler : null;
     props.ref = 'button';
 
     return props;
