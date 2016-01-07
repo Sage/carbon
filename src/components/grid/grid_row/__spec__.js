@@ -4,12 +4,15 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
 import GridRow from './grid_row';
 
-describe('Grid Row', () => {
+fdescribe('Grid Row', () => {
   let instance, noEvent;
   let spy = jasmine.createSpy('rowClick');
 
   beforeEach(() => {
-    let fields = ['foo', 'bar', 'baz']
+    let fields = [{name: 'foo', displayName: 'Foo'},
+                  {name: 'bar', className: 'customClass'}, 
+                  {name: 'baz', displayName: 'BazBaz', align: 'right'}];
+
     let row = Immutable.fromJS({ _row_id: 'rowid', foo: '1', bar: '2', baz: '3' });
 
     let regularTable = document.createElement('table');
@@ -66,6 +69,18 @@ describe('Grid Row', () => {
       expect(cells[0].textContent).toEqual('1');
       expect(cells[1].textContent).toEqual('2');
       expect(cells[2].textContent).toEqual('3');
+    });
+
+    describe('when a custom className is passed', () => {
+      it('adds the custom className to the classList', () => {
+        expect(cells[1].className).toEqual('ui-grid__row__cell customClass');
+      });
+    });
+
+    describe('when a align option is passed', () => {
+      it('adds a align class to the specified side', () => {
+        expect(cells[2].className).toEqual('ui-grid__row__cell ui-grid__row__cell__align--right');
+      });
     });
   });
 

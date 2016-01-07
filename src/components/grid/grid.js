@@ -21,7 +21,7 @@ import _ from 'lodash';
  *   Define which fields of columns your grid should render. The name
  *   of the field should match the key in the data structure.
  *
- *   let fields = ['description', 'debit', 'credit']
+ *   let fields = [{name: 'description'}, {name: 'debit'}, {name: 'credit'}]
  *
  *   <Grid
  *     fields={ fields }
@@ -36,6 +36,18 @@ import _ from 'lodash';
  *     fields={ fields }
  *     data={ data.get('line_items') }
  *     onRowClick={ this.handleRowClick } />
+ *
+ * You can pass extra options to each field object:
+ *
+ *    className - add extra classes to a column.
+ *    displayName - change the displayName of the column.
+ *    align: 'right' - align column header and row cells to the right
+ *
+ *    Example:
+ *      let fields = [{name: 'description', displayName: 'DESCRIPTION'},
+ *                    {name: 'debit', className: 'customeClass', align: 'right'},
+ *                    {name: 'credit', align: 'right'},
+ *                    {name: 'total', align: 'right'}];
  *
  * @class Grid
  * @extends React.Component
@@ -78,8 +90,10 @@ class Grid extends React.Component {
    */
   get columns() {
     return this.props.fields.map((column, index) => {
+      let displayName = column.displayName || _.capitalize(column.name);
+
       return (
-        <th key={ index} className='ui-grid__header__cell'>{ _.capitalize(column) }</th>
+        <th key={ index } className={ cellClasses(column) }>{ displayName }</th>
       );
     });
   }
@@ -139,6 +153,27 @@ class Grid extends React.Component {
       </table>
     );
   }
+}
+
+/**
+ * Defines the cell class based on column options
+ *
+ * @method cellClasses
+ * @private
+ * @return {String} classes for the cell
+ */
+function cellClasses(column) {
+  let className = 'ui-grid__header__cell';
+
+  if (column.className) {
+    className += ' ' + column.className;
+  }
+
+  if (column.align) {
+    className += ' ui-grid__header__cell__align--' + column.align;
+  }
+
+  return className;
 }
 
 export default Grid;

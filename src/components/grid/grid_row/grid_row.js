@@ -62,8 +62,8 @@ class GridRow extends React.Component {
   get cells() {
     return this.props.fields.map((column, index) => {
       return (
-        <td className='ui-grid__row__cell' key={index}>
-          { this.props.row.get(column) }
+        <td className={ cellClasses(column)  } key={index}>
+          { this.props.row.get(column.name) }
         </td>
       );
     });
@@ -85,6 +85,27 @@ class GridRow extends React.Component {
       </tr>
     );
   }
+}
+
+/**
+ * Defines the cell class based on column options
+ *
+ * @method cellClasses
+ * @private
+ * @return {String} classes for the cell
+ */
+function cellClasses(column) {
+  let className = 'ui-grid__row__cell'
+
+  if (column.className) {
+    className += ' ' + column.className
+  }
+
+  if (column.align) {
+    className += ' ui-grid__row__cell__align--' + column.align;
+  }
+
+  return className;
 }
 
 export default GridRow;

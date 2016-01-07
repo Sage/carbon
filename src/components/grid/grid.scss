@@ -47,6 +47,10 @@ $row__background-color--hover: #EDF4FB;
   }
 }
 
+.ui-grid__header__cell__align--right {
+  text-align: right;
+}
+
 .ui-grid__row {
   cursor: pointer;
   background-color: $row__background-color--odd;
@@ -82,5 +86,10 @@ $row__background-color--hover: #EDF4FB;
 }
 
 .ui-grid__row__cell {
-  padding: 6px 8px 4px;
+  padding: 8px;
 }
+
+.ui-grid__row__cell__align--right {
+  text-align: right;
+}
+

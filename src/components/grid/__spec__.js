@@ -5,28 +5,58 @@ import Grid from './grid';
 import GridRow from './grid_row';
 
 describe('Grid', () => {
-  let instance;
+  let instance, fields;
 
   beforeEach(() => {
-    let fields = ['foo', 'bar', 'baz'] 
+    fields = [{name: 'foo', displayName: 'Foo'},
+              {name: 'bar', className: 'customClass'}, 
+              {name: 'baz', displayName: 'BazBaz', align: 'right'}];
+
     instance = TestUtils.renderIntoDocument(
-    <Grid
-      fields={ fields }
-      className='customClass'
-      data={ ImmutableHelper.parseJSON( [
-                { foo: '1', bar: '2', baz: '3' },
-                { foo: '4', bar: '5', baz: '6' } 
-            ]) } />
+      <Grid
+        fields={ fields }
+        className='customClass'
+        data={ ImmutableHelper.parseJSON( [
+                  { foo: '1', bar: '2', baz: '3' },
+                  { foo: '4', bar: '5', baz: '6' } 
+              ]) } />
     );
   });
 
   describe('Columns', () => {
+    let headings;
+
+    beforeEach(() => {
+      headings = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'th');
+    });
+
     it('builds a column for each field', () => {
-      let headings = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'th');
       expect(headings.length).toEqual(3);
-      expect(headings[0].textContent).toEqual('Foo');
-      expect(headings[1].textContent).toEqual('Bar');
-      expect(headings[2].textContent).toEqual('Baz');
+    });
+
+    describe('when a custom displayName is NOT passed', () => {
+      it('uses a capitalized version of the column name', () => {
+        expect(headings[0].textContent).toEqual('Foo');
+        expect(headings[1].textContent).toEqual('Bar');
+      });
+    });
+
+    describe('when a custom display name is passed', () => {
+      it('uses it as the text for the column header cell', () => {
+        expect(headings[2].textContent).toEqual('BazBaz');
+      });
+    });
+
+    describe('when a custom className is passed', () => {
+      it('adds the custom className to the classList', () => {
+        expect(headings[1].className).toEqual('ui-grid__header__cell customClass');
+      });
+    });
+
+    describe('when a align option is passed', () => {
+      it('adds a align class to the specified side', () => {
+        expect(headings[2].className).toEqual('ui-grid__header__cell ui-grid__header__cell__align--right');
+      });
     });
   });
 
@@ -38,6 +68,15 @@ describe('Grid', () => {
   });
 
   describe('tableClasses', () => {
+    it('sets a base ui-grid class', () => {
+      instance = TestUtils.renderIntoDocument(
+      <Grid fields={ fields }
+        data={ ImmutableHelper.parseJSON([]) } />
+      );
+
+      expect(instance.tableClasses).toEqual('ui-grid'); 
+    });
+
     it('applies a base ui-grid class and adds any classes passed as props', () => {
       expect(instance.tableClasses).toEqual('ui-grid customClass'); 
     });
