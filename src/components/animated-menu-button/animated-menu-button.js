@@ -16,10 +16,10 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
  *
  *  <AnimatedMenuButton>
  *    <Row>
- *      <Pod>
+ *      <div>
  *        <h2 className="title">Foo</h2>
  *          <p><Link href='#'>Bar</Link></p>
- *       </Pod>
+ *       </div>
  *     </Row>
  *  </AnimatedMenuButton>
  *
