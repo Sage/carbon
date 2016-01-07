@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from './../icon';
+import CommonGrid from './../../utils/decorators/common_grid';
 import ImmutableHelper from './../../utils/helpers/immutable';
 
 /**
@@ -9,6 +10,7 @@ import ImmutableHelper from './../../utils/helpers/immutable';
  * @class TableRow
  * @constructor
  */
+const TableRow = CommonGrid(
 class TableRow extends React.Component {
 
   /**
@@ -59,8 +61,8 @@ class TableRow extends React.Component {
       return this.buildRowDeleteButton();
     }
     else {
-      let tdClass = "ui-table-row__td ui-table-row__td--actions";
-      if (this.props.gutterFields) { tdClass += " ui-table-row__td--gutter"; }
+      let tdClass = this.gridRowCellClasses + " ui-table-row__cell--actions";
+      if (this.props.gutterFields) { tdClass += " ui-table-row__cell--gutter"; }
 
       return (<td key={ this.props.row_id + 'actions' } className={ tdClass }></td>);
     }
@@ -90,7 +92,7 @@ class TableRow extends React.Component {
    */
   buildRowDeleteButton = () => {
     return (
-      <td key={ this.props.row_id + 'actions' } className="ui-table-row__td ui-table-row__td--actions">
+      <td key={ this.props.row_id + 'actions' } className="ui-table-row__cell ui-table-row__cell--actions">
         <button type="button" className="ui-table-row__delete" id={ this.props.row_id } onClick={this.deleteMethod}>
           <Icon type="delete" className="ui-table-row__delete-icon" />
         </button>
@@ -109,7 +111,13 @@ class TableRow extends React.Component {
   buildRowGutterField = (key, field) => {
     let name = ImmutableHelper.parseName(field.props.name, 'last');
     let gutterField = this.props.gutterFields[name];
-    return(<td hidden={ field.props.hidden } key={ key + "gutter" } className="ui-table-row__td ui-table-row__td--gutter">{ gutterField }</td>);
+    return(
+      <td hidden={ field.props.hidden }
+        key={ key + "gutter" }
+        className={ this.gridRowCellClasses + " ui-table-row__cell--gutter" }>
+        { gutterField }
+      </td>
+    );
   }
 
   /**
@@ -158,7 +166,27 @@ class TableRow extends React.Component {
 
     let fieldHTML = React.cloneElement(field, fieldProps);
 
-    return <td hidden={ field.props.hidden } key={ rowID + field.props.name } className="ui-table-row__td">{ fieldHTML }</td>;
+    return <td hidden={ field.props.hidden } key={ rowID + field.props.name } className={ this.gridRowCellClasses }>{ fieldHTML }</td>;
+  }
+
+  /**
+   * Sets the grid row class and extends from decorator
+   *
+   * @method gridRowClasses
+   * @return {String} grid row className
+   */
+  get gridRowClasses() {
+    return 'ui-table-row';
+  }
+
+  /**
+   * Sets the grid row cell class and extends from decorator
+   *
+   * @method gridRowCellClasses
+   * @return {String} grid row cell className
+   */
+  get gridRowCellClasses() {
+    return 'ui-table-row__cell';
   }
 
   /**
@@ -168,7 +196,7 @@ class TableRow extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let mainClasses = "ui-table-row";
+    let mainClasses = this.gridRowClasses;
 
     if (this.props.gutterFields) { mainClasses += " ui-table-row--gutter"; }
 
@@ -178,6 +206,6 @@ class TableRow extends React.Component {
       </tr>
     );
   }
-}
+});
 
 export default TableRow;

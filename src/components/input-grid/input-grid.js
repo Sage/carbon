@@ -1,5 +1,6 @@
 import React from 'react';
 import TableRow from './../table-row';
+import CommonGrid from './../../utils/decorators/common_grid';
 import { startCase, isEqual } from 'lodash';
 
 /**
@@ -63,6 +64,7 @@ import { startCase, isEqual } from 'lodash';
  * @constructor
  * @extends React.Component
  */
+const InputGrid = CommonGrid(
 class InputGrid extends React.Component {
 
   static propTypes = {
@@ -192,7 +194,7 @@ class InputGrid extends React.Component {
    */
   componentWillMount() {
     if (!this.context.form) { return false; }
-    this.context.form.attachToForm(this);
+    this.context.form.attachToForm(this, { table: true });
   }
 
   /**
@@ -203,7 +205,7 @@ class InputGrid extends React.Component {
    */
   componentWillUnmount() {
     if (!this.context.form) { return false; }
-    this.context.form.detachFromForm(this);
+    this.context.form.detachFromForm(this, { table: true });
   }
 
   /**
@@ -302,11 +304,11 @@ class InputGrid extends React.Component {
     let headings = [];
 
     // add an empty header for the actions column
-    headings.push(<th key='actions' className="ui-input-grid__header-cell"></th>);
+    headings.push(<th key='actions' className={ this.gridHeaderCellClasses }></th>);
 
     // iterate through each field to build a header for it
     this.props.fields.forEach((field) => {
-      let columnClasses = "ui-input-grid__header-cell";
+      let columnClasses = this.gridHeaderCellClasses;
 
       // add any additional classes for this column
       if (field.props.columnClasses) {
@@ -325,6 +327,52 @@ class InputGrid extends React.Component {
   }
 
   /**
+   * Sets the grid class and consumes any classes sent via props
+   * Extends from grid decorator
+   *
+   * @method gridClasses
+   * @return {String} grid className
+   */
+  get gridClasses() {
+    let className = 'ui-input-grid';
+    if (this.props.className) {
+      className += ' ' + this.props.className;
+    }
+
+    return className;
+  }
+
+  /**
+   * Sets the grid header class and extends from decorator
+   *
+   * @method gridHeaderClasses
+   * @return {String} grid header className
+   */
+  get gridHeaderClasses() {
+    return 'ui-input-grid__header';
+  }
+
+  /**
+   * Sets the grid header row class and extends from decorator
+   *
+   * @method gridHeaderRowClasses
+   * @return {String} grid header className
+   */
+  get gridHeaderRowClasses() {
+    return 'ui-input-grid__header__row';
+  }
+
+  /**
+   * Defines the header cell class and extends from decorator
+   *
+   * @method gridHeaderCellClasses
+   * @return {String} classes for the cell
+   */
+  get gridHeaderCellClasses() {
+    return 'ui-input-grid__header__cell';
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -332,9 +380,9 @@ class InputGrid extends React.Component {
    */
   render() {
     return (
-      <table className="ui-input-grid">
-        <thead>
-          <tr className="ui-input-grid__header">
+      <table className={ this.gridClasses }>
+        <thead className={ this.gridHeaderClasses }>
+          <tr className={ this.gridHeaderRowClasses }>
             { this.buildHeader() }
           </tr>
         </thead>
@@ -344,7 +392,7 @@ class InputGrid extends React.Component {
       </table>
     );
   }
-}
+});
 
 /**
  * Converts a string into a title case string.

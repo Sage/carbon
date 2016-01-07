@@ -256,24 +256,31 @@ describe('InputGrid', () => {
     });
 
     it('applies custom classes to the headers if supplied', () => {
-      expect(instance.buildHeader()[2].props.className).toEqual('ui-input-grid__header-cell foo');
+      expect(instance.buildHeader()[2].props.className).toEqual('common-grid__header__cell ui-input-grid__header__cell foo');
     });
   });
 
   describe('render', () => {
-    it('renders a table', () => {
+    it('renders a table with decorated className', () => {
       var table = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'table')[0];
-      expect(table.className).toEqual('ui-input-grid');
+      expect(table.className).toEqual('common-grid ui-input-grid');
     });
 
-    it('renders a thead', () => {
+    it('renders a thead with decorated className', () => {
       var thead = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
       expect(thead).toBeDefined();
+      expect(thead.className).toEqual('common-grid__header ui-input-grid__header');
     });
 
     it('renders a tbody', () => {
       var tbody = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'tbody')[0];
       expect(tbody).toBeDefined();
+    });
+
+    it('renders a thead row', () => {
+      var tr = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'tr')[0];
+      expect(tr).toBeDefined();
+      expect(tr.className).toEqual('common-grid__header__row ui-input-grid__header__row');
     });
   });
 });
