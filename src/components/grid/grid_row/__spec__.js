@@ -54,6 +54,12 @@ describe('Grid Row', () => {
     });
   });
 
+  describe('gridRowClasses', () => {
+    it('extends from common grid decorator and sets base ui-grid__row class', () => {
+      expect(instance.gridRowClasses).toEqual('common-grid__row ui-grid__row'); 
+    });
+  });
+
   describe('cells', () => {
     let cells;
 
@@ -73,13 +79,13 @@ describe('Grid Row', () => {
 
     describe('when a custom className is passed', () => {
       it('adds the custom className to the classList', () => {
-        expect(cells[1].className).toEqual('ui-grid__row__cell customClass');
+        expect(cells[1].className).toEqual('common-grid__row__cell ui-grid__row__cell customClass');
       });
     });
 
     describe('when a align option is passed', () => {
       it('adds a align class to the specified side', () => {
-        expect(cells[2].className).toEqual('ui-grid__row__cell ui-grid__row__cell__align--right');
+        expect(cells[2].className).toEqual('common-grid__row__cell ui-grid__row__cell ui-grid__row__cell__align--right');
       });
     });
   });

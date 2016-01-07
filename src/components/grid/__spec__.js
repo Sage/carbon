@@ -49,13 +49,13 @@ describe('Grid', () => {
 
     describe('when a custom className is passed', () => {
       it('adds the custom className to the classList', () => {
-        expect(headings[1].className).toEqual('ui-grid__header__cell customClass');
+        expect(headings[1].className).toEqual('common-grid__header__cell ui-grid__header__cell customClass');
       });
     });
 
     describe('when a align option is passed', () => {
       it('adds a align class to the specified side', () => {
-        expect(headings[2].className).toEqual('ui-grid__header__cell ui-grid__header__cell__align--right');
+        expect(headings[2].className).toEqual('common-grid__header__cell ui-grid__header__cell ui-grid__header__cell__align--right');
       });
     });
   });
@@ -67,18 +67,30 @@ describe('Grid', () => {
     });
   });
 
-  describe('tableClasses', () => {
-    it('sets a base ui-grid class', () => {
+  describe('gridClasses', () => {
+    it('extends from common grid decorator and sets base ui-grid class', () => {
       instance = TestUtils.renderIntoDocument(
       <Grid fields={ fields }
         data={ ImmutableHelper.parseJSON([]) } />
       );
 
-      expect(instance.tableClasses).toEqual('ui-grid'); 
+      expect(instance.gridClasses).toEqual('common-grid ui-grid'); 
     });
 
-    it('applies a base ui-grid class and adds any classes passed as props', () => {
-      expect(instance.tableClasses).toEqual('ui-grid customClass'); 
+    it('adds any classes passed as props', () => {
+      expect(instance.gridClasses).toEqual('common-grid ui-grid customClass'); 
+    });
+  });
+
+  describe('gridHeaderClasses', () => {
+    it('extends from common grid decorator and sets base ui-grid__header class', () => {
+      expect(instance.gridHeaderClasses).toEqual('common-grid__header ui-grid__header'); 
+    });
+  });
+
+  describe('gridHeaderRowClasses', () => {
+    it('extends from common grid decorator and sets base ui-grid__header__row class', () => {
+      expect(instance.gridHeaderRowClasses).toEqual('common-grid__header__row ui-grid__header__row'); 
     });
   });
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import GridRow from './grid_row';
+import CommonGrid from './../../utils/decorators/common_grid';
 import _ from 'lodash';
 
 /**
@@ -52,6 +53,7 @@ import _ from 'lodash';
  * @class Grid
  * @extends React.Component
  */
+const Grid = CommonGrid(
 class Grid extends React.Component {
 
   static propTypes = {
@@ -93,7 +95,7 @@ class Grid extends React.Component {
       let displayName = column.displayName || _.capitalize(column.name);
 
       return (
-        <th key={ index } className={ cellClasses(column) }>{ displayName }</th>
+        <th key={ index } className={ this.cellClasses(column) }>{ displayName }</th>
       );
     });
   }
@@ -118,16 +120,57 @@ class Grid extends React.Component {
   }
 
   /**
-   * Sets the table class and consumes
-   * any classes sent via props
+   * Sets the grid class and consumes any classes sent via props
+   * Extends from grid decorator
    *
-   * @method tableClasses
-   * @return {String} table className
+   * @method gridClasses
+   * @return {String} grid className
    */
-  get tableClasses() {
+  get gridClasses() {
     let className = 'ui-grid';
     if (this.props.className) {
       className += ' ' + this.props.className;
+    }
+
+    return className;
+  }
+
+  /**
+   * Sets the grid header class and extends from decorator
+   *
+   * @method gridHeaderClasses
+   * @return {String} grid header className
+   */
+  get gridHeaderClasses() {
+    return 'ui-grid__header';
+  }
+
+  /**
+   * Sets the grid header row class and extends from decorator
+   *
+   * @method gridHeaderRowClasses
+   * @return {String} grid header className
+   */
+  get gridHeaderRowClasses() {
+    return 'ui-grid__header__row';
+  }
+
+  /**
+   * Defines the cell class based on column options
+   *
+   * @method cellClasses
+   * @return {String} classes for the cell
+   */
+  cellClasses = (column) => {
+    let className = this.gridHeaderCellClasses +
+                    'ui-grid__header__cell';
+
+    if (column.className) {
+      className += ' ' + column.className;
+    }
+
+    if (column.align) {
+      className += ' ui-grid__header__cell__align--' + column.align;
     }
 
     return className;
@@ -141,9 +184,9 @@ class Grid extends React.Component {
    */
   render() {
     return (
-      <table className={ this.tableClasses }>
-        <thead className='ui-grid__header'>
-          <tr className='ui-grid__header__row'>
+      <table className={ this.gridClasses }>
+        <thead className={ this.gridHeaderClasses }>
+          <tr className={ this.gridHeaderRowClasses }>
             { this.columns }
           </tr>
         </thead>
@@ -153,27 +196,6 @@ class Grid extends React.Component {
       </table>
     );
   }
-}
-
-/**
- * Defines the cell class based on column options
- *
- * @method cellClasses
- * @private
- * @return {String} classes for the cell
- */
-function cellClasses(column) {
-  let className = 'ui-grid__header__cell';
-
-  if (column.className) {
-    className += ' ' + column.className;
-  }
-
-  if (column.align) {
-    className += ' ui-grid__header__cell__align--' + column.align;
-  }
-
-  return className;
-}
+});
 
 export default Grid;

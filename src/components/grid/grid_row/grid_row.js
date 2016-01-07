@@ -1,4 +1,5 @@
 import React from 'react';
+import CommonGrid from './../../../utils/decorators/common_grid';
 
 /**
  * Grid Row for the Grid component
@@ -9,6 +10,7 @@ import React from 'react';
  * @class GridRow
  * @extends React.Component
  */
+const GridRow = CommonGrid(
 class GridRow extends React.Component {
 
   static propTypes = {
@@ -62,11 +64,41 @@ class GridRow extends React.Component {
   get cells() {
     return this.props.fields.map((column, index) => {
       return (
-        <td className={ cellClasses(column)  } key={index}>
+        <td className={ this.cellClasses(column)  } key={index}>
           { this.props.row.get(column.name) }
         </td>
       );
     });
+  }
+
+  /**
+   * Sets the grid row class and extends from decorator
+   *
+   * @method gridRowClasses
+   * @return {String} grid row className
+   */
+  get gridRowClasses() {
+    return 'ui-grid__row';
+  }
+
+  /**
+   * Defines the cell class based on column options
+   *
+   * @method cellClasses
+   * @return {String} classes for the cell
+   */
+  cellClasses = (column) => {
+    let className = this.gridRowCellClasses + 'ui-grid__row__cell';
+
+    if (column.className) {
+      className += ' ' + column.className;
+    }
+
+    if (column.align) {
+      className += ' ui-grid__row__cell__align--' + column.align;
+    }
+
+    return className;
   }
 
   /**
@@ -79,33 +111,12 @@ class GridRow extends React.Component {
     return (
       <tr key={ this.props.row.get('_row_id') }
         onClick={ this.handleRowClick }
-        className='ui-grid__row'>
+        className={ this.gridRowClasses }>
 
         { this.cells }
       </tr>
     );
   }
-}
-
-/**
- * Defines the cell class based on column options
- *
- * @method cellClasses
- * @private
- * @return {String} classes for the cell
- */
-function cellClasses(column) {
-  let className = 'ui-grid__row__cell';
-
-  if (column.className) {
-    className += ' ' + column.className;
-  }
-
-  if (column.align) {
-    className += ' ui-grid__row__cell__align--' + column.align;
-  }
-
-  return className;
-}
+});
 
 export default GridRow;
