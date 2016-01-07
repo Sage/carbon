@@ -4,7 +4,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
 import GridRow from './grid_row';
 
-fdescribe('Grid Row', () => {
+describe('Grid Row', () => {
   let instance, noEvent;
   let spy = jasmine.createSpy('rowClick');
 

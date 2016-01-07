@@ -95,10 +95,10 @@ class GridRow extends React.Component {
  * @return {String} classes for the cell
  */
 function cellClasses(column) {
-  let className = 'ui-grid__row__cell'
+  let className = 'ui-grid__row__cell';
 
   if (column.className) {
-    className += ' ' + column.className
+    className += ' ' + column.className;
   }
 
   if (column.align) {
