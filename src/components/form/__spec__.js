@@ -106,7 +106,7 @@ describe('Form', () => {
     describe('when the component is a grid', () => {
       it('removes a key value pair from tables', () => {
         expect(instance.tables.grid).toBeTruthy();
-        instance.detachFromForm(instance.tables.grid);
+        instance.detachFromForm(instance.tables.grid, { table: true });
         expect(instance.tables.grid).toBeFalsy();
       });
     });
