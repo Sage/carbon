@@ -6,6 +6,14 @@ import Textbox from './../textbox';
 
 describe('Tabs', () => {
   let instance;
+  let instanceWithNull = TestUtils.renderIntoDocument(
+              <Tabs renderHiddenTabs={ false }>
+                { null }
+                <Tab title='Tab Title 1' tabId='uniqueid1'>
+                  <Textbox name='foo'/>
+                  <Textbox name='bar'/>
+                </Tab>
+              </Tabs>);
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -69,16 +77,7 @@ describe('Tabs', () => {
 
       describe('when passed a null child', () => {
         it('ignores the null child', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Tabs renderHiddenTabs={ false }>
-              { null }
-              <Tab title='Tab Title 1' tabId='uniqueid1'>
-                <Textbox name='foo'/>
-                <Textbox name='bar'/>
-              </Tab>
-            </Tabs>);
-
-          expect(instance.state.selectedTabId).toEqual('uniqueid1');
+          expect(instanceWithNull.state.selectedTabId).toEqual('uniqueid1');
         });
       });
     });
@@ -167,16 +166,7 @@ describe('Tabs', () => {
 
     describe('when passed a null child', () => {
       it('ignores the null child', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Tabs renderHiddenTabs={ false }>
-            { null }
-            <Tab title='Tab Title 1' tabId='uniqueid1'>
-              <Textbox name='foo'/>
-              <Textbox name='bar'/>
-            </Tab>
-          </Tabs>);
-
-        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-tabs__headers__header')
+        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'ui-tabs__headers__header')
         expect(headers.length).toEqual(1);
       });
     });
@@ -224,16 +214,7 @@ describe('Tabs', () => {
 
       describe('when passed a null child', () => {
         it('ignores the null child', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Tabs renderHiddenTabs={ false }>
-              { null }
-              <Tab title='Tab Title 1' tabId='uniqueid1'>
-                <Textbox name='foo'/>
-                <Textbox name='bar'/>
-              </Tab>
-            </Tabs>);
-
-          let tabs = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-tab')
+          let tabs = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'ui-tab')
           expect(tabs.length).toEqual(1);
         });
       });
