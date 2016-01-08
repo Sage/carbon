@@ -1,3 +1,9 @@
+# 0.2.0
+
+## New Components
+
+* Animated Menu Button
+
 # 0.1.1
 
 * Form submitting state is now controlled by the developer using the `saving` prop.
@@ -11,8 +17,8 @@
 
 ## New Components
 
-* Link
 * Alert
+* Link
 * Tabs
 
 ## Dialog Type Components
