@@ -1,6 +1,8 @@
 # 0.2.0
 
-TBC
+## Bug Fixes
+
+* Tab allows null children.
 
 # 0.1.0
 
