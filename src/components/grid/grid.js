@@ -1,7 +1,7 @@
 import React from 'react';
 import GridRow from './grid_row';
 import CommonGrid from './../../utils/decorators/common_grid';
-import { capitalize }  from 'lodash';
+import { startCase }  from 'lodash';
 
 /**
  * Grid is a component to display a collection of data or line items.
@@ -92,7 +92,7 @@ class Grid extends React.Component {
    */
   get columns() {
     return this.props.fields.map((column, index) => {
-      let displayName = column.displayName || capitalize(column.name);
+      let displayName = column.displayName || startCase(column.name);
 
       return (
         <th key={ index } className={ this.cellClasses(column) }>{ displayName }</th>
