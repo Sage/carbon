@@ -55,7 +55,7 @@ describe('Grid', () => {
 
     describe('when a align option is passed', () => {
       it('adds a align class to the specified side', () => {
-        expect(headings[2].className).toEqual('common-grid__header__cell ui-grid__header__cell ui-grid__header__cell__align--right');
+        expect(headings[2].className).toEqual('common-grid__header__cell ui-grid__header__cell ui-grid__header__cell--align-right');
       });
     });
   });

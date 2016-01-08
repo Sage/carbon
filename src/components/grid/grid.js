@@ -170,7 +170,7 @@ class Grid extends React.Component {
     }
 
     if (column.align) {
-      className += ' ui-grid__header__cell__align--' + column.align;
+      className += ' ui-grid__header__cell--align-' + column.align;
     }
 
     return className;

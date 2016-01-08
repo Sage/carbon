@@ -95,7 +95,7 @@ class GridRow extends React.Component {
     }
 
     if (column.align) {
-      className += ' ui-grid__row__cell__align--' + column.align;
+      className += ' ui-grid__row__cell--align-' + column.align;
     }
 
     return className;
