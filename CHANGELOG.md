@@ -1,6 +1,8 @@
 # 0.2.0
 
-TBC
+## New Components
+
+* Confirm
 
 # 0.1.0
 
