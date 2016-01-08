@@ -1,13 +1,15 @@
 # 0.2.0
 
-TBC
+## New Components
+
+* Animated Menu Button
 
 # 0.1.0
 
 ## New Components
 
-* Link
 * Alert
+* Link
 * Tabs
 
 ## Dialog Type Components
