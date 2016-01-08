@@ -34,6 +34,11 @@
       font-weight: bold;
     }
   }
+
+  .ui-link__anchor {
+    font-weight: normal;
+  }
+
 /******** Expanded Button Styles ****/
 
   &:hover,
@@ -119,6 +124,8 @@
       border-bottom: 1px solid #D24675;
       font-size: 16px;
       font-weight: 500;
+      margin-bottom: 15px;
+      margin-top: 0;
       padding-bottom: 10px;
     }
   }

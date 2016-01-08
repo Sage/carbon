@@ -15,7 +15,12 @@ h5 { font-size: 1.2em; margin-bottom: 12px; font-weight: 300; }
 h6 { font-size: 1.1em; margin-bottom: 11px; font-weight: 300; }
 
 p {
+  margin-top: 10px;
   margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .hidden {
