@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'utils/flux';
 import Form from 'components/form';
 import Button from 'components/button';
+import QuickCreate from './subviews/quick-create';
 import Link from   'components/link';
 
 import FinancesStore from './../../stores/finances';
@@ -28,6 +29,8 @@ class Finances extends React.Component {
         <FinancesHistory />
 
         <Button onClick={ this.handleOnClick }>Edit My Details</Button>
+
+        <QuickCreate />
 
         <h1 className="view-finances__title">{ name }</h1>
 

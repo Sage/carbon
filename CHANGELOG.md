@@ -3,6 +3,7 @@
 ## New Components
 
 * Grid
+* Animated Menu Button
 
 ## Minor
 
@@ -12,8 +13,8 @@
 
 ## New Components
 
-* Link
 * Alert
+* Link
 * Tabs
 
 ## Dialog Type Components
