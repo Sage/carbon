@@ -2,6 +2,12 @@
 
 TBC
 
+# 0.1.1
+
+## Bug Fixes
+
+* Tab allows null children.
+
 # 0.1.0
 
 ## New Components
