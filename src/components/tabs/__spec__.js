@@ -6,6 +6,14 @@ import Textbox from './../textbox';
 
 describe('Tabs', () => {
   let instance;
+  let instanceWithNull = TestUtils.renderIntoDocument(
+              <Tabs renderHiddenTabs={ false }>
+                { null }
+                <Tab title='Tab Title 1' tabId='uniqueid1'>
+                  <Textbox name='foo'/>
+                  <Textbox name='bar'/>
+                </Tab>
+              </Tabs>);
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -64,6 +72,12 @@ describe('Tabs', () => {
             </Tabs>);
 
           expect(instance.state.selectedTabId).toEqual('uniqueid1');
+        });
+      });
+
+      describe('when passed a null child', () => {
+        it('ignores the null child', () => {
+          expect(instanceWithNull.state.selectedTabId).toEqual('uniqueid1');
         });
       });
     });
@@ -149,6 +163,13 @@ describe('Tabs', () => {
     it('adds a data-tabid to each list item', () => {
       expect(instance.tabHeaders.props.children[0].props['data-tabid']).toEqual('uniqueid1');
     });
+
+    describe('when passed a null child', () => {
+      it('ignores the null child', () => {
+        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'ui-tabs__headers__header')
+        expect(headers.length).toEqual(1);
+      });
+    });
   });
 
   describe('visibleTab', () => {
@@ -189,6 +210,13 @@ describe('Tabs', () => {
 
       it('adds a hidden class to all other tabs', () => {
         expect(instance.tabs[1].props.className).toEqual('hidden');
+      });
+
+      describe('when passed a null child', () => {
+        it('ignores the null child', () => {
+          let tabs = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'ui-tab')
+          expect(tabs.length).toEqual(1);
+        });
       });
     });
 
