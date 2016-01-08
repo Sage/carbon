@@ -1,3 +1,9 @@
+# 0.2.0
+
+## New Components
+
+* Animated Menu Button
+
 # 0.1.1
 
 ## Bug Fixes
@@ -10,8 +16,8 @@
 
 ## New Components
 
-* Link
 * Alert
+* Link
 * Tabs
 
 ## Dialog Type Components
