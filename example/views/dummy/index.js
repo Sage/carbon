@@ -16,11 +16,10 @@ import UserDialog from './subviews/user-dialog';
 
 
 class Finances extends React.Component {
-  componentWillUpdate(props, state) {
-    if (state.financesStore.get('foo')) {
-      setTimeout(() => {
-        this.refs.form.setState({ isSubmitting: false });
-      }, 1000);
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.financesStore.get('success')) {
+      console.log('saved!');
     }
   }
 
@@ -31,6 +30,7 @@ class Finances extends React.Component {
 
   save = (ev) => {
     ev.preventDefault();
+    FinancesActions.beforeSave();
     FinancesActions.financesSave();
   }
 
@@ -45,7 +45,7 @@ class Finances extends React.Component {
 
         <h1 className="view-finances__title">{ name }</h1>
 
-        <Form model="foo" afterFormValidation={ this.save } ref="form">
+        <Form model="foo" saving={ this.state.financesStore.get('isSaving') } afterFormValidation={ this.save } ref="form">
           <FinancesDetails
             name={ name }
             countryValue={ this.state.financesStore.getIn(['country', 'id']) }

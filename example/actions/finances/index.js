@@ -34,10 +34,18 @@ let FinancesActions = {
     });
   },
 
-  financesSave: (ev, props) => {
+  beforeSave: (ev, props) => {
     Dispatcher.dispatch({
-      actionType: FinancesConstants.FINANCES_SAVE
+      actionType: FinancesConstants.FINANCES_BEFORE_SAVE
     });
+  },
+
+  financesSave: (ev, props) => {
+    setTimeout(() => {
+      Dispatcher.dispatch({
+        actionType: FinancesConstants.FINANCES_SAVE
+      });
+    }, 3000);
   }
 };
 
