@@ -1,0 +1,39 @@
+@import 'colors';
+
+.ui-notification {
+  background-color: #2BA3D2;
+  height: 70px;
+  min-width: 1000px;
+  width: 100%;
+  color:white;
+}
+
+.ui-notification__icon,
+.ui-notification__info,
+.ui-notification__action {
+  display: inline-block;
+  padding: 20px 0px;
+}
+
+.ui-notification__icon {
+  float: left;
+  width: 10%;
+}
+
+.ui-notification__info {
+  width: 75%;
+}
+
+.ui-notification__title {
+  font-size: 14px;
+}
+
+.ui-notification__action {
+  float: right;
+  width: 15%;
+}
+
+.ui-notification__action__button {
+  background-color: white;
+  color: #2BA3D2;
+}
