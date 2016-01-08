@@ -29,8 +29,8 @@ class Table extends React.Component {
     };
 
     if (this.props.discount) {
-      fields.splice(3, 0, <Decimal name="discount" />);
-      gutterFields.discount = <Decimal name="discount_total" value={ this.props.discountTotal } label={ false } readOnly />;
+      fields.splice(3, 0, <Decimal name="[foo][{ROWID}][discount_total]" label="Discount" />);
+      gutterFields.discount = <Decimal name="discount" value={ this.props.discountTotal } label={ false } readOnly />;
     }
 
     return (
