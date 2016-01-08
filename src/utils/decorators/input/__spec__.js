@@ -129,6 +129,16 @@ describe('Input', () => {
         expect(instance.mainClasses).toEqual('testMain foobar common-input');
       });
     });
+
+    describe('When an alignment is provided', () => {
+      it('returns with a align class', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          align: 'right',
+          name: 'foo'
+        }));
+        expect(instance.mainClasses).toEqual('testMain common-input--align-right common-input');
+      });
+    });
   });
 
   describe('inputClasses', () => {

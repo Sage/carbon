@@ -28,6 +28,71 @@ describe('Form', () => {
     });
   });
 
+  describe('componentWillUpdate', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Form>
+          <InputGrid
+            name='test'
+            data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
+            updateRowHandler={ function(){} }
+            deleteRowHandler={ function(){} }
+            fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
+          />
+        </Form>
+      );
+    });
+
+    describe('when isSubmitting is neither truthy or falsy', () => {
+      it('does nothing', () => {
+        instance.setState({ isSubmitting: true });
+        spyOn(instance.tables.test, 'setState');
+        instance.componentWillUpdate({}, {});
+        expect(instance.tables.test.setState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when isSubmitting is truthy in nextState', () => {
+      describe('when isSubmiting was truthy', () => {
+        it('does nothing', () => {
+          instance.setState({ isSubmitting: true });
+          spyOn(instance.tables.test, 'setState');
+          instance.componentWillUpdate({}, { isSubmitting: true });
+          expect(instance.tables.test.setState).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when isSubmiting was falsy', () => {
+        it('sets the placeholder false on table', () => {
+          instance.setState({ isSubmitting: false });
+          spyOn(instance.tables.test, 'setState');
+          instance.componentWillUpdate({}, { isSubmitting: true });
+          expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: false });
+        });
+      });
+    });
+
+    describe('when isSubmitting is falsy in nextState', () => {
+      describe('when isSubmiting was truthy', () => {
+        it('sets the placeholder true on table', () => {
+          instance.setState({ isSubmitting: true });
+          spyOn(instance.tables.test, 'setState');
+          instance.componentWillUpdate({}, { isSubmitting: false });
+          expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: true });
+        });
+      });
+
+      describe('when isSubmiting was falsy', () => {
+        it('does nothing', () => {
+          instance.setState({ isSubmitting: false });
+          spyOn(instance.tables.test, 'setState');
+          instance.componentWillUpdate({}, { isSubmitting: false });
+          expect(instance.tables.test.setState).not.toHaveBeenCalled();
+        });
+      });
+    });
+  });
+
   describe('incrementErrorCount', () => {
     it('increments the state error count', () => {
       instance.setState({ errorCount: 2 });
@@ -198,28 +263,6 @@ describe('Form', () => {
     });
 
     describe('submitting a input grid', () => {
-      it('removes placeholder when the form is valid', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <InputGrid
-              name='test'
-              data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
-              updateRowHandler={ function(){} }
-              deleteRowHandler={ function(){} }
-              fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
-            />
-          </Form>
-        );
-
-        spyOn(instance, 'setState');
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-
-        spyOn(instance.tables.test, 'setState');
-        TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ isSubmitting: true });
-        expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: false });
-      });
-
       it('checks the validation of each field', () => {
         let baseData = ImmutableHelper.parseJSON(
           [ { box1: 'bar', box2: '' } ]

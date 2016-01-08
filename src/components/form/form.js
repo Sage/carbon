@@ -150,6 +150,23 @@ class Form extends React.Component {
   }
 
   /**
+   * Determines if it should remove/add placeholder dummy inputs.
+   *
+   * @method componentWillUpdate
+   * @return {void}
+   */
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.isSubmitting === true || nextState.isSubmitting === false) {
+      if (this.state.isSubmitting != nextState.isSubmitting) {
+        for (let tableKey in this.tables) {
+          let table = this.tables[tableKey];
+          table.setState({ placeholder: !nextState.isSubmitting });
+        }
+      }
+    }
+  }
+
+  /**
    * Increase current error count in state by 1.
    *
    * @method incrementErrorCount
@@ -234,11 +251,6 @@ class Form extends React.Component {
       this.setState({ errorCount: errors });
     } else {
       this.setState({ isSubmitting: true });
-
-      for (let tableKey in this.tables) {
-        let table = this.tables[tableKey];
-        table.setState({ placeholder: false });
-      }
     }
 
     if (this.props.afterFormValidation) {

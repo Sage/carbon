@@ -101,6 +101,10 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       classes += ` ${this.props.className}`;
     }
 
+    if (this.props.align) {
+      classes += ` common-input--align-${this.props.align}`;
+    }
+
     return `${classes} common-input`;
   }
 
