@@ -122,6 +122,10 @@ class FinancesStore extends Store {
     this.data = this.data.setIn(['country', 'name'], action.visibleValue);
   }
 
+  [FinancesConstants.FINANCES_SAVE](action) {
+    this.data = this.data.set('foo', true);
+  }
+
   [FinancesConstants.FINANCES_LINE_ITEM_UPDATED](action) {
     // update this value in the store
     this.data = ImmutableHelper.updateLineItem([this.data, 'line_items', action.row_id, action.name], action.value);

@@ -32,6 +32,12 @@ let FinancesActions = {
       actionType: FinancesConstants.FINANCES_LINE_ITEM_DELETED,
       row_id: props.row_id
     });
+  },
+
+  financesSave: (ev, props) => {
+    Dispatcher.dispatch({
+      actionType: FinancesConstants.FINANCES_SAVE
+    });
   }
 };
 
