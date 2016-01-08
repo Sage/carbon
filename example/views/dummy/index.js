@@ -6,6 +6,7 @@ import Link from   'components/link';
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
+import FinancesActions from './../../actions/finances';
 
 import FinancesHistory from './subviews/history';
 import FinancesDetails from './subviews/details';
@@ -15,9 +16,22 @@ import UserDialog from './subviews/user-dialog';
 
 
 class Finances extends React.Component {
+  componentWillUpdate(props, state) {
+    if (state.financesStore.get('foo')) {
+      setTimeout(() => {
+        this.refs.form.setState({ isSubmitting: false });
+      }, 1000);
+    }
+  }
+
   handleOnClick = (ev) => {
     ev.preventDefault();
     UserActions.userDialogOpened();
+  }
+
+  save = (ev) => {
+    ev.preventDefault();
+    FinancesActions.financesSave();
   }
 
   render() {
@@ -31,7 +45,7 @@ class Finances extends React.Component {
 
         <h1 className="view-finances__title">{ name }</h1>
 
-        <Form model="foo">
+        <Form model="foo" afterFormValidation={ this.save } ref="form">
           <FinancesDetails
             name={ name }
             countryValue={ this.state.financesStore.getIn(['country', 'id']) }

@@ -52,7 +52,16 @@ class Decimal extends React.Component {
      * @type {String}
      * @default '0.00'
      */
-    defaultValue: '0.00'
+    defaultValue: '0.00',
+
+    /**
+     * Sets the default value alignment
+     *
+     * @property align
+     * @type {String}
+     * @default 'right'
+     */
+    align: "right"
   }
 
   state = {
