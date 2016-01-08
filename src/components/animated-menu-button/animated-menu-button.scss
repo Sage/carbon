@@ -1,0 +1,132 @@
+@import 'colors';
+@import 'mixins';
+@import 'z-index';
+
+.ui-animated-menu-button {
+  @include border-radius(100%);
+  @include box-shadow(0 5px 8px rgba(0,0,0,0.2));
+  background-color: $magenta;
+  color: $white;
+  display: inline-block;
+  position: relative;
+  width: 45px;
+  height: 45px;
+  touch-action: manipulation;
+
+/***** Button Label Styles ****/
+  .ui-animated-menu-button__label {
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 24px;
+    margin-bottom: 15px;
+  }
+
+  .icon-add {
+    display: inline-block;
+    left: 50%;
+    margin-left: -7px;
+    position: relative;
+    top: 14px;
+
+    &::before {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  .ui-link__anchor {
+    font-weight: normal;
+  }
+
+/******** Expanded Button Styles ****/
+
+  &:hover,
+  &.hover {
+    background-color: $magenta-dull;
+    @include transition(background-color 0.1s 0s);
+  }
+
+  .ui-animated-menu-button-enter {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  .ui-animated-menu-button-enter.ui-animated-menu-button-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 200ms ease, opacity 200ms ease 50ms;
+  }
+
+  .ui-animated-menu-button-leave {
+    opacity: 1;
+  }
+
+  .ui-animated-menu-button-leave.ui-animated-menu-button-leave-active  {
+    opacity: 0;
+    transform: scale(0);
+    transition: all 100ms ease, opacity 100ms ease;
+  }
+
+  .ui-animated-menu-button__content {
+    @include box-shadow(0 5px 10px 0 rgba(0, 0, 0, 0.2));
+    @include border-radius(5px 25px 5px 5px);
+    background-color: $magenta-dull;
+    display: block;
+    padding: 25px 40px 30px;
+    position: absolute;
+    top: 0;
+    z-index: $z-animate-menu-button;
+
+    @at-root {
+      /******** Direction Option Styles ***/
+
+      .ui-animated-menu-button--left#{&} {
+        @include transform-origin(top right);
+        right: 0;
+      }
+
+      .ui-animated-menu-button--right#{&} {
+        @include transform-origin(top left);
+        left: 0;
+      }
+
+      /******* Size Options ****/
+
+      .ui-animated-menu-button--small#{&} {
+        min-width: 150px;
+      }
+
+      .ui-animated-menu-button--smed#{&} {
+        min-width: 400px;
+      }
+
+      .ui-animated-menu-button--medium#{&} {
+        min-width: 550px;
+      }
+
+      .ui-animated-menu-button--mlarge#{&} {
+        min-width: 700px;
+      }
+
+      .ui-animated-menu-button--large#{&} {
+        min-width: 1050px;
+      }
+    }
+
+    .icon-close {
+      float: right;
+      outline: none;
+    }
+
+    .title {
+      color: $white;
+      border-bottom: 1px solid #D24675;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 15px;
+      margin-top: 0;
+      padding-bottom: 10px;
+    }
+  }
+}
