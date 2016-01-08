@@ -16,6 +16,10 @@ describe('Decimal', () => {
       it('sets defaultValue to 0.00', () => {
         expect(instance.props.defaultValue).toEqual('0.00');
       });
+
+      it('sets align to right', () => {
+        expect(instance.props.align).toEqual('right');
+      });
     });
 
     describe('handleBlur using default value', () => {

@@ -1,6 +1,7 @@
 # 0.1.1
 
 * Forms can be re-enabled by updating the state `isSubmitting` on any form components.
+* Developers can now set the alignment on an input's value using the `align` prop.
 
 # 0.1.0
 
