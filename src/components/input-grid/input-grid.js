@@ -192,7 +192,7 @@ class InputGrid extends React.Component {
    */
   componentWillMount() {
     if (!this.context.form) { return false; }
-    this.context.form.attachToForm(this);
+    this.context.form.attachToForm(this, { table: true });
   }
 
   /**
@@ -203,7 +203,7 @@ class InputGrid extends React.Component {
    */
   componentWillUnmount() {
     if (!this.context.form) { return false; }
-    this.context.form.detachFromForm(this);
+    this.context.form.detachFromForm(this, { table: true });
   }
 
   /**
