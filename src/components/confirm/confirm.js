@@ -1,6 +1,7 @@
 import React from 'react';
 import Dialog from '../dialog';
 import Button from '../button';
+import I18n from "i18n-js";
 
 /**
  * A Confirm widget.
@@ -13,7 +14,13 @@ import Button from '../button';
  *
  * To render a Confirm:
  *
- *   <Confirm cancelHandler={ customEventHandler } open={ false }/>
+ *   <Confirm
+ *      title='Are you sure?"
+ *      confirmHandler={ customConfirmHandler }
+ *      cancelHandler={ customCancelHandler }
+ *      open={ false }
+ *    This is the content message
+ *   </Confirm>
  *
  * The component rendering the Confirm must pass down a prop of 'open={ true }' to open the confirm dialog.
  *
@@ -39,6 +46,19 @@ class Confirm extends Dialog {
 
   constructor() {
     super();
+  }
+
+  /**
+   * Returns main classes for the component combined with
+   * dialog main classes.
+   *
+   * @method mainClasses
+   * @return {String} Main className
+   */
+  get mainClasses() {
+    let classes = super.mainClasses;
+    classes += ' ui-confirm';
+    return classes;
   }
 
   /**
@@ -73,11 +93,11 @@ class Confirm extends Dialog {
     return (
       <div className='ui-confirm__buttons' >
         <div className='ui-confirm__button ui-confirm__no'>
-          <Button as='secondary' onClick={ this.props.cancelHandler }>No</Button>
+          <Button as='secondary' onClick={ this.props.cancelHandler }>{ cancelText() }</Button>
         </div>
 
         <div className='ui-confirm__button ui-confirm__yes'>
-          <Button as='primary' onClick={ this.props.confirmHandler }>Yes</Button>
+          <Button as='primary' onClick={ this.props.confirmHandler }>{ confirmText() }</Button>
         </div>
       </div>
     );
@@ -94,6 +114,14 @@ class Confirm extends Dialog {
     dialog.props.children.push(this.confirmButtons);
     return dialog;
   }
+}
+
+function confirmText() {
+  return I18n.t('confirm.yes', { defaultValue: 'Yes' });
+}
+
+function cancelText() {
+  return I18n.t('confirm.no', { defaultValue: 'No' });
 }
 
 export default Confirm;
