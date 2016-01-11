@@ -345,17 +345,17 @@ describe('InputValidation', () => {
 
         it('calls validate for each validation', () => {
           instance.validate();
-          expect(validationone.validate).tohavebeencalledwith(instance.props.value, instance.props);
-          expect(validationtwo.validate).tohavebeencalledwith(instance.props.value, instance.props);
-          expect(validationthree.validate).tohavebeencalledwith(instance.props.value, instance.props);
+          expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
+          expect(validationTwo.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
+          expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
         });
 
         describe('when called with a custom value', () => {
           it('calls validate for each validation', () => {
             instance.validate('foo');
-            expect(validationone.validate).tohavebeencalledwith('foo', instance.props);
-            expect(validationtwo.validate).tohavebeencalledwith('foo', instance.props);
-            expect(validationthree.validate).tohavebeencalledwith('foo', instance.props);
+            expect(validationOne.validate).toHaveBeenCalledWith('foo', instance.props);
+            expect(validationTwo.validate).toHaveBeenCalledWith('foo', instance.props);
+            expect(validationThree.validate).toHaveBeenCalledWith('foo', instance.props);
           });
         });
 
