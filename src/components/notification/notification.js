@@ -7,7 +7,7 @@ class Notification extends React.Component {
 
     /**
      * Customizes the appearance through icon and colour
-     * Can be set to 'info', 'warning', 'success'
+     * Can be set to 'info', 'warning', 'new'
      *
      * @property as
      * @type {String}
@@ -29,39 +29,43 @@ class Notification extends React.Component {
      * @property message
      * @type {String}
      */
-    message: React.PropTypes.string.isRequired
+    message: React.PropTypes.string.isRequired,
+
+    /**
+     * Text to display on button.
+     *
+     * @property buttonText
+     * @type {String}
+     * @default 'Got it!'
+     */
+    buttonText: React.PropTypes.string,
+
+    /**
+     * The action to trigger on click.
+     *
+     * @property buttonAction
+     * @type {func}
+     */
+    buttonAction: React.PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    as: 'info'
+    as: 'info',
+    buttonText: 'Got it!'
   }
 
   get mainClasses() {
-    let className = 'ui-notification';
+    let className = `ui-notification ui-notification--${this.props.as}`;
 
     if (this.props.className) {
       className += ' ' + this.props.className;
     }
 
-    className += ' ui-notification--' + this.props.as;
     return className;
   }
 
   get buttonClasses() {
-    let className = 'ui-notification__action__button';
-
-    className += ' ui-notification__action__button--' + this.props.as;
-    return className;
-  }
-
-  get buttonText() {
-    let text = 'Got it!';
-
-    if (this.props.as == 'warning') {
-      text = 'Log out now';
-    }
-
-    return text;
+    return `ui-notification__action__button ui-notification__action__button--${this.props.as}`;
   }
 
   /**
@@ -72,24 +76,27 @@ class Notification extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
-
-        <div className='ui-notification__icon'>
-          icon goes here
-        </div>
-
-        <div className='ui-notification__info'>
-          <div className='ui-notification__title'>
-            { this.props.title }
+        <div className="ui-notification__content">
+          <div className='ui-notification__icon'>
+            icon goes here
           </div>
-          <div className='ui-notification__message'>
-            { this.props.message }
+
+          <div className='ui-notification__info'>
+            <div className='ui-notification__title'>
+              { this.props.title }
+            </div>
+
+            <div className='ui-notification__message'>
+              { this.props.message }
+            </div>
+          </div>
+
+          <div className='ui-notification__action'>
+            <Button onClick={ this.props.buttonAction } className={ this.buttonClasses }>
+              { this.props.buttonText }
+            </Button>
           </div>
         </div>
-
-        <div className='ui-notification__action'>
-          <Button className={ this.buttonClasses }>{ this.buttonText }</Button> 
-        </div>
-
       </div>
     );
   }
