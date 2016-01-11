@@ -3,6 +3,7 @@
 ## Bug Fixes
 
 * Validation is cleared on fields that become disabled.
+* Validation re-evaluated when a value changes in the store.
 
 # 0.1.1
 

@@ -94,6 +94,13 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     if (nextProps.disabled && !this.state.valid) {
       this.setState({ valid: true });
     }
+
+    // if value changes and the input is currently invalid, re-assess its validity
+    if (!this.state.valid && (nextProps.value != this.props.value)) {
+      if (this.validate(nextProps.value)) {
+        this.setState({ valid: true });
+      }
+    }
   }
 
 
@@ -179,7 +186,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @method validate
    * @return {Boolean} if the field/fields is/are valid
    */
-  validate = () => {
+  validate = (value = this.props.value) => {
     let valid = false;
 
     // if there are no validation, return truthy
@@ -190,7 +197,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // iterate through each validation applied to the input
     this.props.validations.forEach((validation) => {
       // run this validation
-      valid = validation.validate(this.props.value, this.props);
+      valid = validation.validate(value, this.props);
 
       // if validation fails
       if (!valid) {
