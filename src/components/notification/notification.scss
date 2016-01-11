@@ -1,39 +1,76 @@
 @import 'colors';
 
+$notification-green: #46B237;
+$notification-red: #D23A3B;
+$notification-blue: #2BA3D2;
+
 .ui-notification {
-  background-color: #2BA3D2;
-  height: 70px;
+  color: white;
+  height: 60px;
   min-width: 1000px;
   width: 100%;
-  color:white;
+}
+
+.ui-notification--info {
+  background-color: $notification-blue;
+}
+
+.ui-notification--warning {
+  background-color: $notification-red;
+}
+
+.ui-notification--success {
+  background-color: $notification-green;
 }
 
 .ui-notification__icon,
 .ui-notification__info,
 .ui-notification__action {
   display: inline-block;
-  padding: 20px 0px;
+  height: 40px;
+  position: relative;
 }
 
 .ui-notification__icon {
   float: left;
+  text-align: center;
   width: 10%;
 }
 
 .ui-notification__info {
+  top: 10px;
   width: 75%;
 }
 
 .ui-notification__title {
-  font-size: 14px;
+  font-weight: bold;
+  font-size: 13px;
 }
 
 .ui-notification__action {
   float: right;
+  height: 31px;
+  text-align: center;
+  top: 15px;
   width: 15%;
 }
 
 .ui-notification__action__button {
   background-color: white;
-  color: #2BA3D2;
+  border-radius: 2px;
+  border: none;
+  width: 100px;
+}
+
+.ui-notification__action__button--info {
+  color: $notification-blue;
+}
+
+.ui-notification__action__button--warning {
+  width: 110px;
+  color: $notification-red;
+}
+
+.ui-notification__action__button--success {
+  color: $notification-green; 
 }
