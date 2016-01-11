@@ -466,8 +466,16 @@ describe('InputValidation', () => {
   });
 
   describe('validationHTML', () => {
-    describe('there is no error', () => {
+    describe('there is no error message', () => {
       it('returns null', () => {
+        instance.setState({ valid: false });
+        expect(instance.validationHTML).toBe(null);
+      });
+    });
+
+    describe('the field is valid', () => {
+      it('returns null', () => {
+        instance.setState({ valid: true });
         expect(instance.validationHTML).toBe(null);
       });
     });
