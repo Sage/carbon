@@ -32,6 +32,20 @@ let FinancesActions = {
       actionType: FinancesConstants.FINANCES_LINE_ITEM_DELETED,
       row_id: props.row_id
     });
+  },
+
+  beforeSave: (ev, props) => {
+    Dispatcher.dispatch({
+      actionType: FinancesConstants.FINANCES_BEFORE_SAVE
+    });
+  },
+
+  financesSave: (ev, props) => {
+    setTimeout(() => {
+      Dispatcher.dispatch({
+        actionType: FinancesConstants.FINANCES_SAVE
+      });
+    }, 3000);
   }
 };
 

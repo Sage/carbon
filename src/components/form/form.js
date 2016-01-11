@@ -74,11 +74,21 @@ class Form extends React.Component {
      * @property beforeFormValidation
      * @type {Function}
      */
-    beforeFormValidation: React.PropTypes.func
+    beforeFormValidation: React.PropTypes.func,
+
+    /**
+     * Determines if the form is in a saving state
+     *
+     * @property saving
+     * @type {Boolean}
+     * @default false
+     */
+    saving: React.PropTypes.bool
   }
 
   static defaultProps = {
-    cancel: true
+    cancel: true,
+    saving: false
   }
 
   static childContextTypes = {
@@ -120,15 +130,7 @@ class Form extends React.Component {
      * @property errorCount
      * @type {Number}
      */
-    errorCount: 0,
-
-    /**
-     * Determines if the form is in a submitting state
-     *
-     * @property isSubmitting
-     * @type {Boolean}
-     */
-    isSubmitting: false
+    errorCount: 0
   }
 
   /**
@@ -147,6 +149,21 @@ class Form extends React.Component {
    * @type {Object}
    */
   tables = {
+  }
+
+  /**
+   * Determines if it should remove/add placeholder dummy inputs.
+   *
+   * @method componentWillUpdate
+   * @return {void}
+   */
+  componentWillUpdate(nextProps) {
+    if (this.props.saving != nextProps.saving) {
+      for (let tableKey in this.tables) {
+        let table = this.tables[tableKey];
+        table.setState({ placeholder: !nextProps.saving });
+      }
+    }
   }
 
   /**
@@ -232,13 +249,6 @@ class Form extends React.Component {
     if (!valid) {
       ev.preventDefault();
       this.setState({ errorCount: errors });
-    } else {
-      this.setState({ isSubmitting: true });
-
-      for (let tableKey in this.tables) {
-        let table = this.tables[tableKey];
-        table.setState({ placeholder: false });
-      }
     }
 
     if (this.props.afterFormValidation) {
@@ -346,7 +356,7 @@ class Form extends React.Component {
         { cancelButton }
         <div className={ saveClasses }>
           { errorCount }
-          <Button as="primary" disabled={ this.state.isSubmitting }>
+          <Button as="primary" disabled={ this.props.saving }>
             Save
           </Button>
         </div>
