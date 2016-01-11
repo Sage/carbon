@@ -45,9 +45,12 @@ class GridRow extends React.Component {
      * GUID for the row
      *
      * @property row_id
-     * @type {String}
+     * @type {String|Number}
      */
-    row_id: React.PropTypes.string,
+    row_id: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
 
     /**
      * A callback for when a row delete action is triggered.
@@ -82,6 +85,7 @@ class GridRow extends React.Component {
    */
   handleRowDelete = (ev) => {
     ev.preventDefault();
+    ev.stopPropagation();
     this.props.deleteRowHandler(ev, this.props);
   }
 
