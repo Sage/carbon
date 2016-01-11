@@ -1,14 +1,48 @@
 @import 'colors';
+@import 'general';
+@import 'input-field';
 
 $notification-green: #46B237;
-$notification-red: #D23A3B;
 $notification-blue: #2BA3D2;
 
 .ui-notification {
   color: white;
-  height: 60px;
-  min-width: 1000px;
   width: 100%;
+}
+
+.ui-notification__content {
+  box-sizing: border-box;
+  height: ($input-common-height - 2) + ($grid-margin * 2);
+  margin: 0 auto;
+  padding: $grid-margin;
+}
+
+.ui-notification__icon,
+.ui-notification__info,
+.ui-notification__action {
+  display: inline-block;
+  position: relative;
+}
+
+.ui-notification__icon {
+  text-align: center;
+}
+
+.ui-notification__title {
+  font-weight: bold;
+}
+
+.ui-notification__info {
+  margin-left: $grid-margin;
+}
+
+.ui-notification__action {
+  float: right;
+}
+
+.ui-notification__action__button {
+  background-color: white;
+  border: none;
 }
 
 .ui-notification--info {
@@ -16,50 +50,11 @@ $notification-blue: #2BA3D2;
 }
 
 .ui-notification--warning {
-  background-color: $notification-red;
+  background-color: $warning;
 }
 
-.ui-notification--success {
+.ui-notification--new {
   background-color: $notification-green;
-}
-
-.ui-notification__icon,
-.ui-notification__info,
-.ui-notification__action {
-  display: inline-block;
-  height: 40px;
-  position: relative;
-}
-
-.ui-notification__icon {
-  float: left;
-  text-align: center;
-  width: 10%;
-}
-
-.ui-notification__info {
-  top: 10px;
-  width: 75%;
-}
-
-.ui-notification__title {
-  font-weight: bold;
-  font-size: 13px;
-}
-
-.ui-notification__action {
-  float: right;
-  height: 31px;
-  text-align: center;
-  top: 15px;
-  width: 15%;
-}
-
-.ui-notification__action__button {
-  background-color: white;
-  border-radius: 2px;
-  border: none;
-  width: 100px;
 }
 
 .ui-notification__action__button--info {
@@ -67,10 +62,9 @@ $notification-blue: #2BA3D2;
 }
 
 .ui-notification__action__button--warning {
-  width: 110px;
-  color: $notification-red;
+  color: $warning;
 }
 
-.ui-notification__action__button--success {
-  color: $notification-green; 
+.ui-notification__action__button--new {
+  color: $notification-green;
 }
