@@ -1,3 +1,9 @@
+# 0.1.2
+
+## Bug Fixes
+
+* Validation is cleared on fields that become disabled.
+
 # 0.1.1
 
 * Form submitting state is now controlled by the developer using the `saving` prop.

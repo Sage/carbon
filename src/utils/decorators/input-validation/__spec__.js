@@ -49,6 +49,9 @@ class DummyInputWithoutLifecycleMethods extends React.Component {
 }
 
 class DummyInput extends DummyInputWithoutLifecycleMethods {
+  componentDidUpdate() {
+  }
+
   componentWillMount() {
     this.count++;
   }
@@ -85,6 +88,41 @@ describe('InputValidation', () => {
     it('instatiates state with some defaults', () => {
       expect(instance.state.valid).toBeTruthy();
       expect(instance.state.errorMessage).toBe(null);
+    });
+  });
+
+  describe('componentWillReceiveProps', () => {
+    describe('when invalid', () => {
+      beforeEach(() => {
+        instance.setState({ valid: false });
+        spyOn(instance, 'setState');
+      });
+
+      describe('when becoming disabled', () => {
+        it('calls setState', () => {
+          instance.componentWillReceiveProps({ disabled: true });
+          expect(instance.setState).toHaveBeenCalledWith({ valid: true });
+        });
+      });
+
+      describe('when not becoming disabled', () => {
+        it('does not call setState', () => {
+          instance.componentWillReceiveProps({ disabled: false });
+          expect(instance.setState).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('when valid', () => {
+      beforeEach(() => {
+        instance.setState({ valid: true });
+        spyOn(instance, 'setState');
+      });
+
+      it('does not call setState', () => {
+        instance.componentWillReceiveProps({ disabled: true });
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
     });
   });
 

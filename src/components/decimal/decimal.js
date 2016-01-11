@@ -82,7 +82,7 @@ class Decimal extends React.Component {
    * @param {Object} props The new props passed down to the component
    * @return {void}
    */
-  componentWillReceiveProps = (props) => {
+  componentWillReceiveProps(props) {
     if (this._document.activeElement != this.refs.visible) {
       let value = props.value || props.defaultValue;
       this.setState({ visibleValue: formatVisibleValue(value, this) });
