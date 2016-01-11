@@ -11,6 +11,10 @@ $row__background-color--even: $white;
 $row__background-color--odd: #F8F9FB;
 $row__background-color--hover: #EDF4FB;
 
+$row__delete-icon-size: 18px;
+$row__delete-icon-color--normal: #AFAFAF;
+$row__delete-icon-color--hover: $error;
+
 .common-grid {
   width: 100%;
 }
@@ -77,4 +81,32 @@ $row__background-color--hover: #EDF4FB;
 
 .common-grid__row__cell {
   padding: 8px;
+}
+
+.common-grid__row__cell--actions {
+  padding: {
+    left: 6px;
+    right: 6px;
+  }
+  width: 18px;
+}
+
+.common-grid__delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  padding: 0;
+  width: $row__delete-icon-size;
+}
+
+.common-grid__delete-icon {
+  &:before {
+    color: $row__delete-icon-color--normal;
+    font-size: $row__delete-icon-size - 2;
+  }
+
+  &:hover:before {
+    color: $row__delete-icon-color--hover;
+  }
 }

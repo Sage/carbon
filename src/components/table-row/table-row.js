@@ -61,7 +61,7 @@ class TableRow extends React.Component {
       return this.buildRowDeleteButton();
     }
     else {
-      let tdClass = this.gridRowCellClasses + " ui-table-row__cell--actions";
+      let tdClass = this.gridRowCellClasses + " ui-table-row__cell--actions common-grid__row__cell--actions";
       if (this.props.gutterFields) { tdClass += " ui-table-row__cell--gutter"; }
 
       return (<td key={ this.props.row_id + 'actions' } className={ tdClass }></td>);
@@ -91,10 +91,12 @@ class TableRow extends React.Component {
    * @return {Object} JSX table cell with delete button
    */
   buildRowDeleteButton = () => {
+    let tdClass = this.gridRowCellClasses + ' ui-table-row__cell--actions';
+
     return (
-      <td key={ this.props.row_id + 'actions' } className="ui-table-row__cell ui-table-row__cell--actions">
-        <button type="button" className="ui-table-row__delete" id={ this.props.row_id } onClick={this.deleteMethod}>
-          <Icon type="delete" className="ui-table-row__delete-icon" />
+      <td key={ this.props.row_id + 'actions' } className={ tdClass }>
+        <button type="button" className="ui-table-row__delete common-grid__delete" id={ this.props.row_id } onClick={this.deleteMethod}>
+          <Icon type="delete" className="ui-table-row__delete-icon common-grid__delete-icon" />
         </button>
       </td>
     );

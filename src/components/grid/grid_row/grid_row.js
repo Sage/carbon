@@ -1,5 +1,6 @@
 import React from 'react';
 import CommonGrid from './../../../utils/decorators/common_grid';
+import Icon from './../../icon';
 
 /**
  * Grid Row for the Grid component
@@ -38,12 +39,28 @@ class GridRow extends React.Component {
      * @property data
      * @type {Object}
      */
-    row: React.PropTypes.object
+    data: React.PropTypes.object,
+
+    /**
+     * GUID for the row
+     *
+     * @property row_id
+     * @type {String}
+     */
+    row_id: React.PropTypes.string,
+
+    /**
+     * A callback for when a row delete action is triggered.
+     *
+     * @property deleteRowHandler
+     * @type {Function}
+     */
+    deleteRowHandler: React.PropTypes.func
   }
 
   /**
    * Emits the row click event with the
-   * row props which includes _row_id
+   * row props which includes row_id
    *
    * @method handleRowClick
    * @param {Event} ev click event
@@ -51,8 +68,39 @@ class GridRow extends React.Component {
    */
   handleRowClick = (ev) => {
     if (this.props.onRowClick) {
-      this.props.onRowClick(ev, this.props.row);
+      this.props.onRowClick(ev, this.props);
     }
+  }
+
+  /**
+   * Emits the row delete event with the
+   * row props which includes row_id
+   *
+   * @method handleRowDelete
+   * @param {Event} ev click event
+   * @return {void}
+   */
+  handleRowDelete = (ev) => {
+    ev.preventDefault();
+    this.props.deleteRowHandler(ev, this.props);
+  }
+
+  /**
+   * Builds the deleting cell
+   *
+   * @method deleting action cell
+   * @return {Object} JSX
+   */
+  get deletingCell() {
+    let tdClass = this.gridRowCellClasses + ' common-grid__row__cell--actions ui-grid-row__cell--actions';
+
+    return (
+      <td key={ this.props.row_id + 'actions' } className={ tdClass }>
+        <button type="button" className="ui-grid-row__delete common-grid__delete" id={ this.props.row_id } onClick={this.handleRowDelete}>
+          <Icon type="delete" className="ui-grid-row__delete-icon common-grid__delete-icon" />
+        </button>
+      </td>
+    );
   }
 
   /**
@@ -62,13 +110,19 @@ class GridRow extends React.Component {
    * @return {Object} JSX
    */
   get cells() {
-    return this.props.fields.map((column, index) => {
-      return (
+    let cells = [];
+
+    if (this.props.deleteRowHandler) { cells.push(this.deletingCell); }
+
+    this.props.fields.forEach((column, index) => {
+      cells.push(
         <td className={ this.cellClasses(column)  } key={index}>
-          { this.props.row.get(column.name) }
+          { this.props.data.get(column.name) }
         </td>
       );
     });
+
+    return cells;
   }
 
   /**
@@ -109,10 +163,9 @@ class GridRow extends React.Component {
    */
   render() {
     return (
-      <tr key={ this.props.row.get('_row_id') }
+      <tr key={ this.props.row_id }
         onClick={ this.handleRowClick }
         className={ this.gridRowClasses }>
-
         { this.cells }
       </tr>
     );

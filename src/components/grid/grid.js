@@ -50,6 +50,16 @@ import { capitalize }  from 'lodash';
  *                    {name: 'credit', align: 'right'},
  *                    {name: 'total', align: 'right'}];
  *
+ * To add a deleting action to the grid pass you can pass an additional callback prop
+ *
+ *    deleteRowHandler - callback when delete action is triggered
+ *
+ *    <Grid
+ *      fields={ fields }
+ *      data={ data.get('line_items') }
+ *      onRowClick={ this.handleRowClick }
+ *      deleteRowHandler={ this.handleRowDelete } />
+ *
  * @class Grid
  * @extends React.Component
  */
@@ -81,7 +91,26 @@ class Grid extends React.Component {
      * @property onRowClick
      * @type {Function}
      */
-    onRowClick: React.PropTypes.func
+    onRowClick: React.PropTypes.func,
+
+    /**
+     * A callback for when a row delete action is triggered.
+     *
+     * @property deleteRowHandler
+     * @type {Function}
+     */
+    deleteRowHandler: React.PropTypes.func
+  }
+
+  /**
+   * Builds a placeholder column for the delete action
+   *
+   * @method deletingColumn
+   * @return {Object} JSX
+   */
+  get deletingColumn() {
+    let className = this.cellClasses({}) + 'ui-grid__header__cell--delete';
+    return ( <th key='delete' className={ className }></th> );
   }
 
   /**
@@ -91,13 +120,21 @@ class Grid extends React.Component {
    * @return {Object} JSX
    */
   get columns() {
-    return this.props.fields.map((column, index) => {
+    let columns = [];
+
+    if (this.props.deleteRowHandler) {
+      columns.push(this.deletingColumn);
+    }
+
+    this.props.fields.forEach((column, index) => {
       let displayName = column.displayName || capitalize(column.name);
 
-      return (
+      columns.push(
         <th key={ index } className={ this.cellClasses(column) }>{ displayName }</th>
       );
     });
+
+    return columns;
   }
 
   /**
@@ -107,13 +144,15 @@ class Grid extends React.Component {
    * @return {Object} JSX
    */
   get rows() {
-    return this.props.data.map((row, index) => {
+    return this.props.data.map((row) => {
       return (
         <GridRow
-          key={index}
+          key={ row.get('_row_id') }
           fields={ this.props.fields }
-          row={ row }
+          data={ row }
+          row_id={ row.get('_row_id') }
           onRowClick={ this.props.onRowClick }
+          deleteRowHandler={ this.props.deleteRowHandler }
         />
       );
     });
