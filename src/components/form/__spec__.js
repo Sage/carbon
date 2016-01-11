@@ -22,9 +22,71 @@ describe('Form', () => {
     it('sets the errorCount to 0', () => {
       expect(instance.state.errorCount).toEqual(0);
     });
+  });
 
-    it('sets the isSubmitting to to false', () => {
-      expect(instance.state.isSubmitting).toBeFalsy();
+  describe('componentWillUpdate', () => {
+    describe('when saving is truthy', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Form saving={ true }>
+            <InputGrid
+              name='test'
+              data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
+              updateRowHandler={ function(){} }
+              deleteRowHandler={ function(){} }
+              fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
+            />
+          </Form>
+        );
+      });
+
+      describe('when it has not changed', () => {
+        it('does nothing', () => {
+          spyOn(instance.tables.test, 'setState');
+          instance.componentWillUpdate({ saving: true });
+          expect(instance.tables.test.setState).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when it has changed', () => {
+        it('sets the placeholder true on table', () => {
+          spyOn(instance.tables.test, 'setState');
+          instance.componentWillUpdate({ saving: false });
+          expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: true });
+        });
+      });
+    });
+
+    describe('when saving is falsy', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Form saving={ false }>
+            <InputGrid
+              name='test'
+              data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
+              updateRowHandler={ function(){} }
+              deleteRowHandler={ function(){} }
+              fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
+            />
+          </Form>
+        );
+      });
+
+      describe('when it has changed', () => {
+        it('sets the placeholder false on table', () => {
+          spyOn(instance.tables.test, 'setState');
+          instance.componentWillUpdate({ saving: true });
+          expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: false });
+        });
+      });
+
+      describe('when it has not changed', () => {
+        it('does nothing', () => {
+          spyOn(instance.tables.test, 'setState');
+          instance.componentWillUpdate({ saving: false });
+          expect(instance.tables.test.setState).not.toHaveBeenCalled();
+        });
+      });
     });
   });
 
@@ -139,21 +201,6 @@ describe('Form', () => {
   });
 
   describe('handleOnSubmit', () => {
-    describe('valid input', () => {
-      it('submits the form', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <Textbox validations={ [Validation()] } name='test' value='Valid' />
-          </Form>
-        );
-
-        spyOn(instance, 'setState');
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-        TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ isSubmitting: true });
-      });
-    });
-
     describe('invalid input', () => {
       it('does not not submit the form', () => {
         instance = TestUtils.renderIntoDocument(
@@ -198,28 +245,6 @@ describe('Form', () => {
     });
 
     describe('submitting a input grid', () => {
-      it('removes placeholder when the form is valid', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <InputGrid
-              name='test'
-              data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
-              updateRowHandler={ function(){} }
-              deleteRowHandler={ function(){} }
-              fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
-            />
-          </Form>
-        );
-
-        spyOn(instance, 'setState');
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-
-        spyOn(instance.tables.test, 'setState');
-        TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ isSubmitting: true });
-        expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: false });
-      });
-
       it('checks the validation of each field', () => {
         let baseData = ImmutableHelper.parseJSON(
           [ { box1: 'bar', box2: '' } ]
@@ -369,8 +394,11 @@ describe('Form', () => {
         expect(buttons[1].disabled).toBeFalsy();
       });
 
-      it('renders a disabled save button if isSubmitting', () => {
-        instance.setState({ isSubmitting: true });
+      it('renders a disabled save button if saving', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form saving={true} />
+        );
+        buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
         expect(buttons[1].disabled).toBeTruthy();
       });
     });

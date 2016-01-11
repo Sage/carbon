@@ -4,6 +4,15 @@
 
 * Animated Menu Button
 
+# 0.1.1
+
+* Form submitting state is now controlled by the developer using the `saving` prop.
+
+## Bug Fixes
+
+* Developers can now set the alignment on an input's value using the `align` prop.
+* Tab allows null children.
+
 # 0.1.0
 
 ## New Components
