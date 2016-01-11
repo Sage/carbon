@@ -145,12 +145,14 @@ class Grid extends React.Component {
    */
   get rows() {
     return this.props.data.map((row) => {
+      let row_id = row.get('_row_id');
+
       return (
         <GridRow
-          key={ row.get('_row_id') }
+          key={ row_id }
           fields={ this.props.fields }
           data={ row }
-          row_id={ row.get('_row_id') }
+          row_id={ row_id }
           onRowClick={ this.props.onRowClick }
           deleteRowHandler={ this.props.deleteRowHandler }
         />
