@@ -26,6 +26,8 @@ $notification-blue: #2BA3D2;
 
 .ui-notification__icon {
   text-align: center;
+  float: left;
+  top: -5px
 }
 
 .ui-notification__title {
