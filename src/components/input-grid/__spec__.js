@@ -18,8 +18,8 @@ describe('InputGrid', () => {
           name="test-grid"
           data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
           fields={ [ <input name='[{ROWID}][foo]' /> ] }
-          updateRowHandler={ foo }
-          deleteRowHandler={ bar } />
+          onRowUpdate={ foo }
+          onRowDelete={ bar } />
       </Form>
     );
 
@@ -143,8 +143,8 @@ describe('InputGrid', () => {
               data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
               fields={ [ <input name='[{ROWID}][foo]' /> ] }
               gutter={ { foo: <div /> } }
-              updateRowHandler={ foo }
-              deleteRowHandler={ bar } />
+              onRowUpdate={ foo }
+              onRowDelete={ bar } />
           </Form>
         );
 
@@ -191,8 +191,8 @@ describe('InputGrid', () => {
         expect(row.props.data).toEqual(data);
         expect(row.props.fields).toEqual(instance.props.fields);
         expect(row.props.forceUpdate).toEqual(instance.childrenHaveChanged);
-        expect(row.props.deleteRowHandler).toEqual(instance.props.deleteRowHandler);
-        expect(row.props.updateRowHandler).toEqual(instance.props.updateRowHandler);
+        expect(row.props.onRowDelete).toEqual(instance.props.onRowDelete);
+        expect(row.props.onRowUpdate).toEqual(instance.props.onRowUpdate);
       });
     });
   });
@@ -216,7 +216,7 @@ describe('InputGrid', () => {
       expect(row.props.forceUpdate).toEqual(false);
       expect(row.props.row_id).toEqual(instance.placeholderID);
       expect(row.props.fields).toEqual(instance.props.fields);
-      expect(row.props.updateRowHandler).toEqual(instance.props.updateRowHandler);
+      expect(row.props.onRowUpdat).toEqual(instance.props.onRowUpdat);
     });
   });
 
@@ -231,8 +231,8 @@ describe('InputGrid', () => {
             name="test-grid"
             data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
             fields={ [ <input name='[{ROWID}][first_name]' />, <input name='[{ROWID}][last_name]' label="Last Name" hidden='true' columnClasses="foo" /> ] }
-            updateRowHandler={ foo }
-            deleteRowHandler={ bar } />
+            onRowUpdate={ foo }
+            onRowDelete={ bar } />
         </Form>
       );
 
@@ -256,24 +256,49 @@ describe('InputGrid', () => {
     });
 
     it('applies custom classes to the headers if supplied', () => {
-      expect(instance.buildHeader()[2].props.className).toEqual('ui-input-grid__header-cell foo');
+      expect(instance.buildHeader()[2].props.className).toEqual('common-grid__header__cell ui-input-grid__header__cell foo');
     });
   });
 
   describe('render', () => {
-    it('renders a table', () => {
+    it('renders a table with decorated className', () => {
       var table = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'table')[0];
-      expect(table.className).toEqual('ui-input-grid');
+      expect(table.className).toEqual('common-grid ui-input-grid');
     });
 
-    it('renders a thead', () => {
+    it('adds additonal classes to the table is supplied via props', () => {
+      function foo() {};
+      function bar() {};
+
+      instance = TestUtils.renderIntoDocument(
+          <InputGrid
+            name="test-grid"
+            data={ ImmutableHelper.parseJSON([{}]) }
+            className='foo'
+            fields={ [ <input name='[{ROWID}][foo]' /> ] }
+            onRowUpdate={ foo }
+            onRowDelete={ bar } />
+      );
+
+      var table = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'table')[0];
+      expect(table.className).toEqual('common-grid ui-input-grid foo');
+    });
+
+    it('renders a thead with decorated className', () => {
       var thead = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
       expect(thead).toBeDefined();
+      expect(thead.className).toEqual('common-grid__header ui-input-grid__header');
     });
 
     it('renders a tbody', () => {
       var tbody = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'tbody')[0];
       expect(tbody).toBeDefined();
+    });
+
+    it('renders a thead row', () => {
+      var tr = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'tr')[0];
+      expect(tr).toBeDefined();
+      expect(tr.className).toEqual('common-grid__header__row ui-input-grid__header__row');
     });
   });
 });
