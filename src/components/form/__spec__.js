@@ -32,8 +32,8 @@ describe('Form', () => {
             <InputGrid
               name='test'
               data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
-              updateRowHandler={ function(){} }
-              deleteRowHandler={ function(){} }
+              onRowUpdate={ function(){} }
+              onRowDelete={ function(){} }
               fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
             />
           </Form>
@@ -64,8 +64,8 @@ describe('Form', () => {
             <InputGrid
               name='test'
               data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
-              updateRowHandler={ function(){} }
-              deleteRowHandler={ function(){} }
+              onRowUpdate={ function(){} }
+              onRowDelete={ function(){} }
               fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
             />
           </Form>
@@ -245,28 +245,6 @@ describe('Form', () => {
     });
 
     describe('submitting a input grid', () => {
-      it('removes placeholder when the form is valid', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <InputGrid
-              name='test'
-              data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
-              onRowUpdate={ function(){} }
-              onRowDelete={ function(){} }
-              fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
-            />
-          </Form>
-        );
-
-        spyOn(instance, 'setState');
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-
-        spyOn(instance.tables.test, 'setState');
-        TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ isSubmitting: true });
-        expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: false });
-      });
-
       it('checks the validation of each field', () => {
         let baseData = ImmutableHelper.parseJSON(
           [ { box1: 'bar', box2: '' } ]

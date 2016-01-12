@@ -46,7 +46,7 @@ import { startCase }  from 'lodash';
  *
  *    Example:
  *      let fields = [{name: 'description', displayName: 'DESCRIPTION'},
- *                    {name: 'debit', className: 'customeClass', align: 'right'},
+ *                    {name: 'debit', className: 'customClass', align: 'right'},
  *                    {name: 'credit', align: 'right'},
  *                    {name: 'total', align: 'right'}];
  *
@@ -126,11 +126,11 @@ class Grid extends React.Component {
       columns.push(this.deletingColumn);
     }
 
-    this.props.fields.forEach((column, index) => {
+    this.props.fields.forEach((column) => {
       let displayName = column.displayName || startCase(column.name);
 
       columns.push(
-        <th key={ index } className={ this.cellClasses(column) }>{ displayName }</th>
+        <th key={ column.name } className={ this.cellClasses(column) }>{ displayName }</th>
       );
     });
 
