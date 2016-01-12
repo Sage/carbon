@@ -122,6 +122,19 @@ class FinancesStore extends Store {
     this.data = this.data.setIn(['country', 'name'], action.visibleValue);
   }
 
+  [FinancesConstants.FINANCES_BEFORE_SAVE](action) {
+    this.data = this.data.set('isSaving', true);
+  }
+
+  [FinancesConstants.FINANCES_SAVE](action) {
+    if (this.data.get('name') === 'error') {
+      this.data = this.data.set('success', true);
+    } else {
+      this.data = this.data.set('isSaving', false);
+      this.data = this.data.set('success', false);
+    }
+  }
+
   [FinancesConstants.FINANCES_LINE_ITEM_UPDATED](action) {
     // update this value in the store
     this.data = ImmutableHelper.updateLineItem([this.data, 'line_items', action.row_id, action.name], action.value);

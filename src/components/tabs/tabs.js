@@ -1,6 +1,7 @@
 import React from 'react';
 import Immutable from 'immutable';
 import Tab from './tab';
+import { compact } from 'lodash';
 
 /**
  * A Tabs widget.
@@ -86,7 +87,18 @@ class Tabs extends React.Component {
      * @type {String}
      * @default firstTab
      */
-    initialSelectedTabId : React.PropTypes.string
+    initialSelectedTabId: React.PropTypes.string,
+
+    /**
+     * Individual tabs
+     *
+     * @property children
+     * @type {Object | Array}
+     */
+    children: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object
+    ]).isRequired
   }
 
   static defaultProps = {
@@ -141,10 +153,10 @@ class Tabs extends React.Component {
     if (this.props.initialTabId) {
       initialSelectedTabId = this.props.initialTabId;
     } else {
-      if (React.Children.count(this.props.children) == 1) {
-        initialSelectedTabId = this.props.children.props.tabId;
+      if (Array.isArray(this.props.children)) {
+        initialSelectedTabId = compact(this.props.children)[0].props.tabId;
       } else {
-        initialSelectedTabId = this.props.children[0].props.tabId;
+        initialSelectedTabId = this.props.children.props.tabId;
       }
     }
 
@@ -208,7 +220,7 @@ class Tabs extends React.Component {
    * @return Unordered list of tab titles
    */
   get tabHeaders() {
-    let tabTitles = React.Children.map(this.props.children, ((child) => {
+    let tabTitles = React.Children.map(compact(this.props.children), ((child) => {
 
       return(
         <li
@@ -232,7 +244,7 @@ class Tabs extends React.Component {
   get visibleTab() {
     let visibleTab;
 
-    React.Children.forEach(this.props.children, ((child) => {
+    React.Children.forEach(compact(this.props.children), ((child) => {
       if (child.props.tabId == this.state.selectedTabId) {
         visibleTab = child;
       }
@@ -250,9 +262,8 @@ class Tabs extends React.Component {
   get tabs() {
     if (!this.props.renderHiddenTabs) { return this.visibleTab; }
 
-    let tabs;
+    let tabs = React.Children.map(compact(this.props.children), ((child) => {
 
-    tabs = React.Children.map(this.props.children, ((child) => {
       let klass = 'hidden';
 
       if (child.props.tabId === this.state.selectedTabId) {
