@@ -3,7 +3,7 @@
 @import 'input-field';
 
 $notification-green: #46B237;
-$notification-blue: #2BA3D2;
+$notification-blue: #00A4CF;
 
 .ui-notification {
   color: white;
@@ -14,7 +14,7 @@ $notification-blue: #2BA3D2;
   box-sizing: border-box;
   height: ($input-common-height - 2) + ($grid-margin * 2);
   margin: 0 auto;
-  padding: $grid-margin;
+  padding: $grid-margin ($grid-margin * 2);
 }
 
 .ui-notification__icon,
