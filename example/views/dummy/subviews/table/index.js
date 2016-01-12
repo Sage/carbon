@@ -39,8 +39,8 @@ class Table extends React.Component {
         name="line_items"
         fields={ fields }
         gutter={ gutterFields }
-        updateRowHandler={ FinancesActions.financesLineItemUpdated }
-        deleteRowHandler={ FinancesActions.financesLineItemDeleted } />
+        onRowUpdate={ FinancesActions.financesLineItemUpdated }
+        onRowDelete={ FinancesActions.financesLineItemDeleted } />
     );
   }
 }

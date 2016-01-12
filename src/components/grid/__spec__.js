@@ -58,6 +58,29 @@ describe('Grid', () => {
         expect(headings[2].className).toEqual('common-grid__header__cell ui-grid__header__cell ui-grid__header__cell--align-right');
       });
     });
+
+    describe('when a onRowDelete is passed as a prop', () => {
+      let spy;
+
+      it('adds a placeholder column for the delete actions', () => {
+        spy = jasmine.createSpy('spy');
+
+        instance = TestUtils.renderIntoDocument(
+          <Grid
+            fields={ fields }
+            className='customClass'
+            onRowDelete={ spy }
+            data={ ImmutableHelper.parseJSON( [
+                      { foo: '1', bar: '2', baz: '3' },
+                      { foo: '4', bar: '5', baz: '6' } 
+                  ]) } />
+        );
+
+        headings = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'th');
+        expect(headings[0].textContent).toEqual('');
+        expect(headings.length).toEqual(4);
+      });
+    });
   });
 
   describe('Rows', () => {

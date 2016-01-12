@@ -46,8 +46,8 @@ describe('TableRow', () => {
       row_id='regular_1_reg'
       data={ baseData }
       fields={ fields }
-      deleteRowHandler={ deleteSpy }
-      updateRowHandler={ updateSpy } />), regularTable.children[0]);
+      onRowDelete={ deleteSpy }
+      onRowUpdate={ updateSpy } />), regularTable.children[0]);
 
     gutterTable = document.createElement('table');
     gutterTable.innerHTML = '<tbody></tbody>';
@@ -182,7 +182,7 @@ describe('TableRow', () => {
   });
 
   describe('deleteMethod', () => {
-    it('triggers the deleteRowHandler', () => {
+    it('triggers the onRowDelete', () => {
       let deleteButton = TestUtils.findRenderedDOMComponentWithClass(regular, 'ui-table-row__delete');
       TestUtils.Simulate.click(deleteButton);
       expect(deleteSpy).toHaveBeenCalled();
@@ -206,7 +206,7 @@ describe('TableRow', () => {
         expect(input.name).toEqual('[regular_1_reg][foo]');
       });
 
-      it('adds the updateRowHandler', () => {
+      it('adds the onRowUpdate', () => {
         TestUtils.Simulate.change(input);
         expect(updateSpy).toHaveBeenCalled();
       });

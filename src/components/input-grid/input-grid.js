@@ -30,8 +30,8 @@ import { startCase, isEqual } from 'lodash';
  *     name="line_items"
  *     data={ data.get('line_items') }
  *     fields={ lineItemFields }
- *     updateRowHandler={ Action.lineItemUpdated }
- *     deleteRowHandler={ Action.lineItemDeleted } />
+ *     onRowUpdate={ Action.lineItemUpdated }
+ *     onRowDelete={ Action.lineItemDeleted } />
  *
  * You can optionally pass additional HTML classes for each column, add the classes
  * to the input:
@@ -45,8 +45,8 @@ import { startCase, isEqual } from 'lodash';
  *     name="line_items"
  *     data={ data.get('line_items') }
  *     fields={ lineItemFields }
- *     updateRowHandler={ Action.lineItemUpdated }
- *     deleteRowHandler={ Action.lineItemDeleted } />
+ *     onRowUpdate={ Action.lineItemUpdated }
+ *     onRowDelete={ Action.lineItemDeleted } />
  *
  * You can optionally pass fields to render in a gutter along the bottom of the
  * grid:
@@ -87,18 +87,18 @@ class InputGrid extends React.Component {
     /**
      * A callback for when a data change action is triggered.
      *
-     * @property updateRowHandler
+     * @property onRowUpdate
      * @type {Function}
      */
-    updateRowHandler: React.PropTypes.func.isRequired,
+    onRowUpdate: React.PropTypes.func.isRequired,
 
     /**
      * A callback for when a row delete action is triggered.
      *
-     * @property deleteRowHandler
+     * @property onRowDelete
      * @type {Function}
      */
-    deleteRowHandler: React.PropTypes.func.isRequired,
+    onRowDelete: React.PropTypes.func.isRequired,
 
     /**
      * The fields to display in the table.
@@ -256,8 +256,8 @@ class InputGrid extends React.Component {
       data={ rowData }
       fields={ this.props.fields }
       forceUpdate={ this.childrenHaveChanged }
-      deleteRowHandler={ this.props.deleteRowHandler }
-      updateRowHandler={ this.props.updateRowHandler }
+      onRowDelete={ this.props.onRowDelete }
+      onRowUpdate={ this.props.onRowUpdate }
     />);
   }
 
@@ -290,7 +290,7 @@ class InputGrid extends React.Component {
       forceUpdate={ this.childrenHaveChanged }
       row_id={ this.placeholderID }
       fields={ this.props.fields }
-      updateRowHandler={ this.props.updateRowHandler }
+      onRowUpdate={ this.props.onRowUpdate }
     />);
   }
 
