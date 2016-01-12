@@ -42,7 +42,7 @@ describe('Grid Row', () => {
       <GridRow
         fields={ fields }
         data={ data }
-        deleteRowHandler={ deleteSpy }
+        onRowDelete={ deleteSpy }
       />
     ), deleteTable.children[0] );
   })
@@ -66,7 +66,7 @@ describe('Grid Row', () => {
   });
 
   describe('handleDeleteRow', () => {
-    describe('when a deleteRowHandler function is passed', () => {
+    describe('when a onRowDelete function is passed', () => {
       it('is called when the delete button is clicked', () => {
         let deleteButton = TestUtils.scryRenderedDOMComponentsWithClass(deleteInstance, 'ui-grid-row__delete');
         TestUtils.Simulate.click(deleteButton[0]);
@@ -110,7 +110,7 @@ describe('Grid Row', () => {
       });
     });
 
-    describe('when a deleteRowHandler is passed', () => {
+    describe('when a onRowDelete is passed', () => {
       it('adds a extra cell with a delete action', () => {
         cells = TestUtils.scryRenderedDOMComponentsWithTag(deleteInstance, 'td'); 
         expect(cells.length).toEqual(4);

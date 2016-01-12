@@ -18,8 +18,8 @@ describe('InputGrid', () => {
           name="test-grid"
           data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
           fields={ [ <input name='[{ROWID}][foo]' /> ] }
-          updateRowHandler={ foo }
-          deleteRowHandler={ bar } />
+          onRowUpdate={ foo }
+          onRowDelete={ bar } />
       </Form>
     );
 
@@ -143,8 +143,8 @@ describe('InputGrid', () => {
               data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
               fields={ [ <input name='[{ROWID}][foo]' /> ] }
               gutter={ { foo: <div /> } }
-              updateRowHandler={ foo }
-              deleteRowHandler={ bar } />
+              onRowUpdate={ foo }
+              onRowDelete={ bar } />
           </Form>
         );
 
@@ -191,8 +191,8 @@ describe('InputGrid', () => {
         expect(row.props.data).toEqual(data);
         expect(row.props.fields).toEqual(instance.props.fields);
         expect(row.props.forceUpdate).toEqual(instance.childrenHaveChanged);
-        expect(row.props.deleteRowHandler).toEqual(instance.props.deleteRowHandler);
-        expect(row.props.updateRowHandler).toEqual(instance.props.updateRowHandler);
+        expect(row.props.onRowDelete).toEqual(instance.props.onRowDelete);
+        expect(row.props.onRowUpdate).toEqual(instance.props.onRowUpdate);
       });
     });
   });
@@ -216,7 +216,7 @@ describe('InputGrid', () => {
       expect(row.props.forceUpdate).toEqual(false);
       expect(row.props.row_id).toEqual(instance.placeholderID);
       expect(row.props.fields).toEqual(instance.props.fields);
-      expect(row.props.updateRowHandler).toEqual(instance.props.updateRowHandler);
+      expect(row.props.onRowUpdat).toEqual(instance.props.onRowUpdat);
     });
   });
 
@@ -231,8 +231,8 @@ describe('InputGrid', () => {
             name="test-grid"
             data={ ImmutableHelper.parseJSON([{ foo: 'bar' }, { foo: 'qux' }]) }
             fields={ [ <input name='[{ROWID}][first_name]' />, <input name='[{ROWID}][last_name]' label="Last Name" hidden='true' columnClasses="foo" /> ] }
-            updateRowHandler={ foo }
-            deleteRowHandler={ bar } />
+            onRowUpdate={ foo }
+            onRowDelete={ bar } />
         </Form>
       );
 
@@ -276,8 +276,8 @@ describe('InputGrid', () => {
             data={ ImmutableHelper.parseJSON([{}]) }
             className='foo'
             fields={ [ <input name='[{ROWID}][foo]' /> ] }
-            updateRowHandler={ foo }
-            deleteRowHandler={ bar } />
+            onRowUpdate={ foo }
+            onRowDelete={ bar } />
       );
 
       var table = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'table')[0];

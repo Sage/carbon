@@ -59,7 +59,7 @@ describe('Grid', () => {
       });
     });
 
-    describe('when a deleteRowHandler is passed as a prop', () => {
+    describe('when a onRowDelete is passed as a prop', () => {
       let spy;
 
       it('adds a placeholder column for the delete actions', () => {
@@ -69,7 +69,7 @@ describe('Grid', () => {
           <Grid
             fields={ fields }
             className='customClass'
-            deleteRowHandler={ spy }
+            onRowDelete={ spy }
             data={ ImmutableHelper.parseJSON( [
                       { foo: '1', bar: '2', baz: '3' },
                       { foo: '4', bar: '5', baz: '6' } 

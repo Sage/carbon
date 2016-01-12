@@ -55,10 +55,10 @@ class GridRow extends React.Component {
     /**
      * A callback for when a row delete action is triggered.
      *
-     * @property deleteRowHandler
+     * @property onRowDelete
      * @type {Function}
      */
-    deleteRowHandler: React.PropTypes.func
+    onRowDelete: React.PropTypes.func
   }
 
   /**
@@ -86,7 +86,7 @@ class GridRow extends React.Component {
   handleRowDelete = (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
-    this.props.deleteRowHandler(ev, this.props);
+    this.props.onRowDelete(ev, this.props);
   }
 
   /**
@@ -116,7 +116,7 @@ class GridRow extends React.Component {
   get cells() {
     let cells = [];
 
-    if (this.props.deleteRowHandler) { cells.push(this.deletingCell); }
+    if (this.props.onRowDelete) { cells.push(this.deletingCell); }
 
     this.props.fields.forEach((column, index) => {
       cells.push(

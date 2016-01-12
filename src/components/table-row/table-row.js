@@ -131,7 +131,7 @@ class TableRow extends React.Component {
    */
   deleteMethod = (ev) => {
     ev.preventDefault();
-    this.props.deleteRowHandler(ev, this.props);
+    this.props.onRowDelete(ev, this.props);
   }
 
   /**
@@ -154,7 +154,7 @@ class TableRow extends React.Component {
           name: field.props.name.replace("{ROWID}", rowID),
           row_id: rowID,
           namespace: this.props.name,
-          onChange: this.props.updateRowHandler
+          onChange: this.props.onRowUpdate
         };
 
 

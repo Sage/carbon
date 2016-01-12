@@ -52,13 +52,13 @@ import { startCase }  from 'lodash';
  *
  * To add a deleting action to the grid pass you can pass an additional callback prop
  *
- *    deleteRowHandler - callback when delete action is triggered
+ *    onRowDelete - callback when delete action is triggered
  *
  *    <Grid
  *      fields={ fields }
  *      data={ data.get('line_items') }
  *      onRowClick={ this.handleRowClick }
- *      deleteRowHandler={ this.handleRowDelete } />
+ *      onRowDelete={ this.handleRowDelete } />
  *
  * @class Grid
  * @extends React.Component
@@ -96,10 +96,10 @@ class Grid extends React.Component {
     /**
      * A callback for when a row delete action is triggered.
      *
-     * @property deleteRowHandler
+     * @property onRowDelete
      * @type {Function}
      */
-    deleteRowHandler: React.PropTypes.func
+    onRowDelete: React.PropTypes.func
   }
 
   /**
@@ -122,7 +122,7 @@ class Grid extends React.Component {
   get columns() {
     let columns = [];
 
-    if (this.props.deleteRowHandler) {
+    if (this.props.onRowDelete) {
       columns.push(this.deletingColumn);
     }
 
@@ -154,7 +154,7 @@ class Grid extends React.Component {
           data={ row }
           row_id={ row_id }
           onRowClick={ this.props.onRowClick }
-          deleteRowHandler={ this.props.deleteRowHandler }
+          onRowDelete={ this.props.onRowDelete }
         />
       );
     });

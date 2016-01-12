@@ -52,8 +52,8 @@ describe('Form', () => {
           <InputGrid
             name='grid'
             data={ ImmutableHelper.parseJSON([ { foo: 'bar' } ]) }
-            updateRowHandler={ function(){} }
-            deleteRowHandler={ function(){} }
+            onRowUpdate={ function(){} }
+            onRowDelete={ function(){} }
             fields={ [
               <Textbox validations={ [Validation()] } name='[{ROWID}][box1]' value='foo' />,
               <Textbox validations={ [Validation()] } name='[{ROWID}][box2]' value='foo' />
@@ -90,8 +90,8 @@ describe('Form', () => {
       grid = <InputGrid
             name='grid'
             data={ ImmutableHelper.parseJSON([ { box1: 'bar' } ]) }
-            updateRowHandler={ function(){} }
-            deleteRowHandler={ function(){} }
+            onRowUpdate={ function(){} }
+            onRowDelete={ function(){} }
             fields={ [ textbox1, textbox2 ] }
           />
 
@@ -204,8 +204,8 @@ describe('Form', () => {
             <InputGrid
               name='test'
               data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
-              updateRowHandler={ function(){} }
-              deleteRowHandler={ function(){} }
+              onRowUpdate={ function(){} }
+              onRowDelete={ function(){} }
               fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
             />
           </Form>
@@ -231,8 +231,8 @@ describe('Form', () => {
         let grid = <InputGrid
           name='grid'
           data={ baseData }
-          updateRowHandler={ function(){} }
-          deleteRowHandler={ function(){} }
+          onRowUpdate={ function(){} }
+          onRowDelete={ function(){} }
           fields={ [ textbox1, textbox2 ] } />
 
         instance = TestUtils.renderIntoDocument(
