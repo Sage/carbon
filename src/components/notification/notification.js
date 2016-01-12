@@ -113,10 +113,10 @@ class Notification extends React.Component {
    * TODO: Waiting on release of https://github.com/facebook/react/pull/5714
    *
    * @method icon
-   * @return {Object} icon svg 
+   * @return {Object} icon svg
    */
   get icon() {
-    return this[this.props.as + 'Icon']
+    return this[this.props.as + 'Icon'];
   }
 
   /**
@@ -159,7 +159,7 @@ class Notification extends React.Component {
    * @return {Object} newIcon svg
    */
   get newIcon() {
-    return { 
+    return {
       __html:
         '<svg class="ui-notification__new-icon" width="50px" height="40px" viewBox="0 0 50 40">' +
         '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
