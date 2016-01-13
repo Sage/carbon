@@ -10,6 +10,7 @@ const data = ImmutableHelper.parseJSON({
   date_from: "2015-11-01",
   name: "My Finances",
   discount: false,
+  displayFlash: false,
   country: {
     id: 218,
     name: 'United Kingdom'
@@ -158,6 +159,14 @@ class FinancesStore extends Store {
     if (this.data.get('discount')) { this.data = updateTotals(this.data, 'discount'); }
     this.data = updateChartData(this.data);
     this.data = updateBalance(this.data);
+  }
+
+  [FinancesConstants.FLASH_OPENED](action) {
+    this.data = this.data.set('displayFlash', true);
+  }
+
+  [FinancesConstants.FLASH_CLOSED](action) {
+    this.data = this.data.set('displayFlash', false);
   }
 }
 

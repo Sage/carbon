@@ -14,7 +14,7 @@ import FinancesDetails from './subviews/details';
 import FinancesChart from './subviews/chart';
 import FinancesTable from './subviews/table';
 import UserDialog from './subviews/user-dialog';
-
+import Flash from 'components/flash';
 
 class Finances extends React.Component {
 
@@ -33,6 +33,12 @@ class Finances extends React.Component {
     ev.preventDefault();
     FinancesActions.beforeSave();
     FinancesActions.financesSave();
+    FinancesActions.financesFlashOpened();
+  }
+
+  handleFlashEnd = (ev) => {
+    console.log('re-render')
+    FinancesActions.financesFlashClosed();
   }
 
   render() {
@@ -75,6 +81,9 @@ class Finances extends React.Component {
         <Link className="home-link" href='#' disabled>Main Page</Link>
 
         <UserDialog />
+
+        <Flash done={ this.handleFlashEnd } title="Save Successful!" open={this.state.financesStore.get('displayFlash')} mode='success' />
+
       </div>
     );
   }
