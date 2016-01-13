@@ -2,6 +2,7 @@
 
 ## New Components
 
+* Confirm
 * Grid
 * Animated Menu Button
 
