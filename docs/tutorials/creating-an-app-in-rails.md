@@ -267,8 +267,8 @@ class JournalsReverse extends React.Component {
           <InputGrid
            name='journal_lines'
            data={ this.state.journalStore.get('journal_lines') }
-           deleteRowHandler={ JournalActions.deleteJournalLineRow }
-           addRowHandler={ JournalActions.updateJournalLineRow }
+           onRowDelete={ JournalActions.deleteJournalLineRow }
+           onRowUpdate={ JournalActions.updateJournalLineRow }
            fields={ inputGridFields } />
         </Form>
       </div>
