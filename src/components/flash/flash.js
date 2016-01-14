@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Icon from './../icon';
 
 class Flash extends React.Component {
 
   static propTypes = {
+
     /**
      * A custom close event handler
      *
@@ -21,10 +23,42 @@ class Flash extends React.Component {
      */
     open: React.PropTypes.bool.isRequired,
 
+    /**
+     * Type of notification.
+     *
+     * @property mode
+     * @type {String}
+     */
     mode: React.PropTypes.string,
-
-    done: React.PropTypes.func
   }
+
+  state = {
+  /**
+   * Whether notification currently showing.
+   *
+   * @property active
+   * @type {Boolean}
+   * @default false
+   */
+    active: false
+  }
+
+  /**
+   * Triggers close action after notification displayed.
+   *
+   * @method componentDidUpdate
+   * @return(Void)
+   */
+  componentDidUpdate() {
+    if (!this.state.active && this.props.open === true) {
+      this.setState({ active: true });
+      setTimeout(() => {
+        this.props.cancelHandler()
+        this.setState({active: false});
+      }, 3000);
+    }
+  }
+
   /**
    * Returns classes title for the confirm, combines with dialog class names.
    *
@@ -42,7 +76,19 @@ class Flash extends React.Component {
   get componentClasses() {
     let classes = 'ui-flash__flash';
 
-
+    switch(this.props.mode) {
+      case 'success':
+        classes += ' ui-flash__mode--success';
+        break;
+      case 'error':
+        classes += ' ui-flash__mode--error';
+      case 'warning':
+        classes += ' ui-flash__mode--warning';
+        break;
+      default:
+        classes += ' ui-flash__mode--alert';
+        break;
+    }
     return classes;
   }
 
@@ -63,19 +109,18 @@ class Flash extends React.Component {
   }
 
   /**
-   * Returns HTML and text for the flash title.
+   * Returns a close icon with touch handler.
    *
-   * @method flashTitle
-   * @return {String} title to display
-  //  */
-  // get flashTitle() {
-  //   return (
-  //       this.props.title ?
-  //         <h3 className={ this.componentTitleClasses }>{ this.props.title }</h3> :
-  //         null
-  //   );
-  // }
-
+   * @method closeIcon
+   * @return {HTML} html for close icon
+   */
+  get closeIcon() {
+    if(!this.props.mode == 'success') {
+      return <div onClick={ this.props.cancelHandler }>
+               <Icon type='close' />
+             </div>;
+      }
+  }
   /**
    * Returns the computed HTML for the dialog.
    *
@@ -83,38 +128,21 @@ class Flash extends React.Component {
    * @return {Object} JSX for dialog
    */
   get flashHTML() {
-    return (
-      <div className={ this.componentClasses }>
-        <h3 className={ this.componentTitleClasses }>{ this.props.title }</h3>
-      </div>
-    );
+  return <div className={ this.componentClasses }>
+      <h3 className={ this.componentTitleClasses } key='message'>{ this.props.title }</h3>
+    </div>;
   }
-
-    // state = { active: false }
-    //
-    // componentDidUpdate() {
-    //   if (!this.state.active && this.props.open === true) {
-    //     this.setState({ active: true });
-    //     setTimeout(() => {
-    //       this.props.done()
-    //       this.setState({active: false});
-    //     }, 3000);
-    //   }
-    // }
 
   get sliderHTML() {
     let classes = 'ui-flash-slider';
 
-    if(this.props.mode == 'success') {
-      classes += ' ui-flash-slider__mode--success';
-    }
     return (
       <div className={ classes }>
 
       </div>
     );
   }
-        // <Icon className="ui-flash__close" type="close" onClick={ this.props.cancelHandler } />
+
   /**
    * Renders the component.
    *
@@ -145,24 +173,7 @@ class Flash extends React.Component {
         </ReactCSSTransitionGroup>
       </div>
     );
-    // return (
-    //   <div className={ this.mainClasses }>
-    //     <ReactCSSTransitionGroup
-    //       transitionName="ui-flash__flash"
-    //       transitionEnterTimeout={ 500 }
-    //       transitionLeaveTimeout={ 500} >
-    //       { sliderHTML }
-    //   </ReactCSSTransitionGroup>
-    //   </div>
-    // );
-
-    // return (
-    //   <div className={ this.mainClasses }>
-    //       { flashHTML }
-    //   </div>
-    // );
   }
-
 }
 
 export default Flash;

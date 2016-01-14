@@ -13,9 +13,7 @@
 }
 
 .ui-flash__flash {
-  // width: 0%;
-  // opacity: 0;
-    background: #42AE42;
+
 }
 
 
@@ -127,8 +125,16 @@
   background: #42AE42;
 }
 
-.ui-flash-slider__mode--success {
-  background: #42AE42;
+.ui-flash__mode--error {
+  background: #D63F40;
+}
+
+.ui-flash__mode--alert {
+  background:$blue-alt;
+}
+
+.ui-flash__mode--warning {
+  background: #FFAB00;
 }
 
 .ui-flash__title {
@@ -151,14 +157,19 @@
 //   width: 100%;
 // }
 //
-// .slider-icon {
-//   background: transparent image-url('notice-icons.png') no-repeat 0 -150px;
-//   height: 50px;
-//   margin-top: -25px;
-//   position: absolute;
-//   top: 50%;
-//   width: 50px;
-// }
+.slider-icon {
+  background: transparent image-url('notice-icons.png') no-repeat 0 -150px;
+  height: 50px;
+  margin-top: -25px;
+  position: absolute;
+  top: 50%;
+  width: 50px;
+}
+
+.icon-close {
+  float: right;
+  outline: none;
+}
 //
 //
 // .close {
