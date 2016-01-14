@@ -3,53 +3,84 @@
 @import 'mixins';
 @import 'z-index';
 
-.ui-flash__flash {
+.ui-flash {
   bottom: 0px;
-  right: 0;
   overflow: hidden;
   position: fixed;
+  right: 0;
   width: 100%;
   z-index: $z-flash;
 }
 
+.ui-flash__flash {
+  // width: 0%;
+  // opacity: 0;
+    background: #42AE42;
+}
+
+
+
 .ui-flash__flash-enter {
   opacity: 0;
-  transform: scale(0,1);
+  // transform: scale(0,1);
+  // width: 0%;
 }
 
 .ui-flash__flash-enter.ui-flash__flash-enter-active {
   opacity: 1;
-  transform: scale(1,1);
-  transition: all 500ms ease;
+  // transform: scale(1,1);
+  // width: 100%;
+  transition: all 1000ms ease;
 }
 
 .ui-flash__flash-leave {
   opacity: 1;
-  transform: scale(1,1);
+  // transform: scale(1,1);
+  // width: 100%;
 }
 
 .ui-flash__flash-leave.ui-flash__flash-leave-active  {
   opacity: 0;
-  transform: scale(0,1);
+  // transform: scale(0,1);
+  // width: 0%;
   transition: all 500ms ease;
 }
 
-.ui-flash__slider-enter {
-  opacity: 0;
-}
-
-.ui-flash__slider-enter.ui-flash__slider-enter-active {
+.ui-flash-slider {
+  font-size: 13px;
+  content: 'h';
+  // padding: 0 60px;
+  display: inline-block;
+  line-height: 18px;
+  padding-right: 30px;
   opacity: 1;
-  transition: all 400ms ease;
+  width: 100%;
 }
 
-.ui-flash__slider-leave {
-  opacity: 1;
-  transition: all 400ms ease;
-}
-
-.ui-flash__slider-leave.ui-flash__slider-leave-active  {
+.ui-flash-slider-enter {
   opacity: 0;
+  width: 0%;
+  transform: scale(0,1);
+}
+
+.ui-flash-slider-enter.ui-flash-slider-enter-active {
+  opacity: 1;
+  width: 100%;
+  transform: scale(1,1);
+  transition: all 500ms ease;
+}
+
+.ui-flash-slider-leave {
+  opacity: 1;
+  transform: scale(1,1);
+  width: 100%;
+}
+
+.ui-flash-slider-leave.ui-flash-slider-leave-active  {
+  width: 0%;
+  transform: scale(0,1);
+  opacity: 0;
+  transition: all 500ms ease;
 }
 
 
@@ -96,6 +127,10 @@
   background: #42AE42;
 }
 
+.ui-flash-slider__mode--success {
+  background: #42AE42;
+}
+
 .ui-flash__title {
   color: white;
   margin: 0 auto;
@@ -103,17 +138,10 @@
   min-width: $app-width - 200;
   padding: 20px 0;
   position: relative;
+  text-align: center;
   width: 95%
 }
 
-.ui-flash__slider {
-  background-color: green;
-  font-size: 13px;
-  padding: 0 60px;
-  display: inline-block;
-  line-height: 18px;
-  padding-right: 30px;
-}
 
 //
 // &.hide-notification {

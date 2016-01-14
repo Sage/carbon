@@ -42,9 +42,7 @@ class Flash extends React.Component {
   get componentClasses() {
     let classes = 'ui-flash__flash';
 
-    if(this.props.mode == 'success') {
-      classes += ' ui-flash__mode--success';
-    }
+
     return classes;
   }
 
@@ -86,26 +84,33 @@ class Flash extends React.Component {
    */
   get flashHTML() {
     return (
-      <div className={ this.componentClasses }></div>
+      <div className={ this.componentClasses }>
+        <h3 className={ this.componentTitleClasses }>{ this.props.title }</h3>
+      </div>
     );
   }
 
-  state = { active: false }
-
-  componentDidUpdate() {
-    if (!this.state.active && this.props.open === true) {
-      this.setState({ active: true });
-      setTimeout(() => {
-        this.props.done()
-        this.setState({active: false});
-      }, 3000);
-    }
-  }
+    // state = { active: false }
+    //
+    // componentDidUpdate() {
+    //   if (!this.state.active && this.props.open === true) {
+    //     this.setState({ active: true });
+    //     setTimeout(() => {
+    //       this.props.done()
+    //       this.setState({active: false});
+    //     }, 3000);
+    //   }
+    // }
 
   get sliderHTML() {
+    let classes = 'ui-flash-slider';
+
+    if(this.props.mode == 'success') {
+      classes += ' ui-flash-slider__mode--success';
+    }
     return (
-      <div className='ui-flash__slider'>
-          <h3 className={ this.componentTitleClasses }>{ this.props.title }</h3>
+      <div className={ classes }>
+
       </div>
     );
   }
@@ -128,21 +133,28 @@ class Flash extends React.Component {
       <div className={ this.mainClasses }>
         <ReactCSSTransitionGroup
           transitionName="ui-flash__flash"
-          transitionEnterTimeout={ 100 }
-          transitionLeaveTimeout={ 100 } >
-          { flashHTML }
+          transitionEnterTimeout={ 500 }
+          transitionLeaveTimeout={ 500 }>
+          { sliderHTML }
           <ReactCSSTransitionGroup
-            transitionName="ui-flash__slider"
-            transitionEnterTimeout={ 100 }
-            transitionLeaveTimeout={ 100 } >
-            { sliderHTML }
+            transitionName="ui-flash-slider"
+            transitionEnterTimeout={ 500 }
+            transitionLeaveTimeout={ 500} >
+            { flashHTML }
           </ReactCSSTransitionGroup>
         </ReactCSSTransitionGroup>
-
-
       </div>
     );
-
+    // return (
+    //   <div className={ this.mainClasses }>
+    //     <ReactCSSTransitionGroup
+    //       transitionName="ui-flash__flash"
+    //       transitionEnterTimeout={ 500 }
+    //       transitionLeaveTimeout={ 500} >
+    //       { sliderHTML }
+    //   </ReactCSSTransitionGroup>
+    //   </div>
+    // );
 
     // return (
     //   <div className={ this.mainClasses }>
