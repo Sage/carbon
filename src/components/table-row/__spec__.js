@@ -46,8 +46,8 @@ describe('TableRow', () => {
       row_id='regular_1_reg'
       data={ baseData }
       fields={ fields }
-      deleteRowHandler={ deleteSpy }
-      updateRowHandler={ updateSpy } />), regularTable.children[0]);
+      onRowDelete={ deleteSpy }
+      onRowUpdate={ updateSpy } />), regularTable.children[0]);
 
     gutterTable = document.createElement('table');
     gutterTable.innerHTML = '<tbody></tbody>';
@@ -123,7 +123,7 @@ describe('TableRow', () => {
 
       it('builds each field', () => {
         let regularRow = TestUtils.findRenderedDOMComponentWithClass(regular, 'ui-table-row');
-        let regularCells = TestUtils.scryRenderedDOMComponentsWithClass(regular, 'ui-table-row__td');
+        let regularCells = TestUtils.scryRenderedDOMComponentsWithClass(regular, 'ui-table-row__cell');
         expect(regularCells.length).toEqual(4);
         expect(regularCells[0].children[0].type).toEqual('button');
         expect(regularCells[1].children[0].classList[0]).toEqual('ui-textbox');
@@ -146,8 +146,7 @@ describe('TableRow', () => {
       });
 
       it('builds each field', () => {
-        let placeholderRow = TestUtils.findRenderedDOMComponentWithClass(placeholder, 'ui-table-row');
-        let placeholderCells = TestUtils.scryRenderedDOMComponentsWithClass(placeholder, 'ui-table-row__td');
+        let placeholderCells = TestUtils.scryRenderedDOMComponentsWithClass(placeholder, 'ui-table-row__cell');
         expect(placeholderCells.length).toEqual(4);
         expect(placeholderCells[0].children.length).toEqual(0);
         expect(placeholderCells[1].children[0].classList[0]).toEqual('ui-textbox');
@@ -170,20 +169,20 @@ describe('TableRow', () => {
       });
 
       it('builds empty tds where a gutter field is not present', () => {
-        let gutterCells = TestUtils.scryRenderedDOMComponentsWithClass(gutter, 'ui-table-row__td');
+        let gutterCells = TestUtils.scryRenderedDOMComponentsWithClass(gutter, 'ui-table-row__cell');
         expect(gutterCells.length).toEqual(4);
         expect(gutterCells[0].children.length).toEqual(0);
       });
 
       it('builds cells where a gutterField is present', () => {
-        let gutterCells = TestUtils.scryRenderedDOMComponentsWithClass(gutter, 'ui-table-row__td');
+        let gutterCells = TestUtils.scryRenderedDOMComponentsWithClass(gutter, 'ui-table-row__cell');
         expect(gutterCells[1].children[0].classList[0]).toEqual('ui-textbox');
       });
     });
   });
 
   describe('deleteMethod', () => {
-    it('triggers the deleteRowHandler', () => {
+    it('triggers the onRowDelete', () => {
       let deleteButton = TestUtils.findRenderedDOMComponentWithClass(regular, 'ui-table-row__delete');
       TestUtils.Simulate.click(deleteButton);
       expect(deleteSpy).toHaveBeenCalled();
@@ -195,7 +194,7 @@ describe('TableRow', () => {
       let cell, input;
 
       beforeEach(() => {
-        cell = TestUtils.scryRenderedDOMComponentsWithClass(regular, 'ui-table-row__td')[1];
+        cell = TestUtils.scryRenderedDOMComponentsWithClass(regular, 'ui-table-row__cell')[1];
         input = cell.getElementsByTagName('INPUT')[0];
       });
 
@@ -207,7 +206,7 @@ describe('TableRow', () => {
         expect(input.name).toEqual('[regular_1_reg][foo]');
       });
 
-      it('adds the updateRowHandler', () => {
+      it('adds the onRowUpdate', () => {
         TestUtils.Simulate.change(input);
         expect(updateSpy).toHaveBeenCalled();
       });
@@ -222,16 +221,28 @@ describe('TableRow', () => {
     });
   });
 
+  describe('getRowClasses', () => {
+    it('extends from common grid decorator and sets base ui-table-row class', () => {
+      expect(regular.gridRowClasses).toEqual('common-grid__row ui-table-row'); 
+    });
+  });
+
+  describe('getRowCellClasses', () => {
+    it('extends from common grid decorator and sets base ui-table-row class', () => {
+      expect(regular.gridRowCellClasses).toEqual('common-grid__row__cell ui-table-row__cell'); 
+    });
+  });
+
   describe('render', () => {
     it('renders a tr with ui-table-row class', () => {
       let row = TestUtils.findRenderedDOMComponentWithTag(regular, 'tr');
-      expect(row.className).toEqual('ui-table-row');
+      expect(row.className).toEqual('common-grid__row ui-table-row');
     });
 
     describe('when a gutter row', () => {
       it('adds a gutter class', () => {
         let row = TestUtils.findRenderedDOMComponentWithTag(gutter, 'tr');
-        expect(row.classList[1]).toEqual('ui-table-row--gutter');
+        expect(row.classList[2]).toEqual('ui-table-row--gutter');
       });
     });
   });

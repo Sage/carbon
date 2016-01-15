@@ -1,9 +1,18 @@
-# 0.1.2
+# 0.2.0
 
-## Bug Fixes
+## New Components
 
-* Validation is cleared on fields that become disabled.
-* Validation re-evaluated when a value changes in the store.
+* Confirm
+* Grid
+* Animated Menu Button
+
+* Input Grid - Breaking change
+
+Input Grid now requires a onRowDelete prop and onRowUpdate prop instead of a deleteRowHandler prop and updateRowHandler prop
+
+## Minor
+
+* Input Grid is now decorated by common grid
 
 # 0.1.1
 
@@ -18,8 +27,8 @@
 
 ## New Components
 
-* Link
 * Alert
+* Link
 * Tabs
 
 ## Dialog Type Components

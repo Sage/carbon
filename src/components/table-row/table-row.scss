@@ -2,52 +2,9 @@
 @import "tables";
 @import 'input-field';
 
-$row__background-color--even: $white;
-$row__background-color--odd: #F8F9FB;
-$row__background-color--hover: #EDF4FB;
 $row__delete-icon-size: 18px;
 $row__delete-icon-color--normal: #AFAFAF;
 $row__delete-icon-color--hover: $error;
-
-.ui-table-row {
-  background-color: $row__background-color--odd;
-
-  // last row
-  &:last-child {
-    .ui-table-row__td {
-      border-bottom: 0;
-
-      // first td in last row
-      &:first-child {
-        border-radius: 0 0 0 $tables__border-radius;
-      }
-
-      // last td in last row
-      &:last-child {
-        border-radius: 0 0 $tables__border-radius 0;
-      }
-    }
-  }
-
-  // even rows
-  &:nth-child(even) {
-    background-color: $row__background-color--even;
-  }
-
-  // row hover
-  &:hover {
-    background-color: $row__background-color--hover;
-    color: $red;
-
-    .common-input__input {
-      border-color: #99B5EC;
-
-      &:hover {
-        border-color: $input-active-border-color;
-      }
-    }
-  }
-}
 
 .ui-table-row--gutter {
   background-color: $white;
@@ -57,20 +14,12 @@ $row__delete-icon-color--hover: $error;
   }
 }
 
-.ui-table-row__td {
+.ui-table-row__cell {
   border-bottom: 1px solid #E4E7EA;
   padding: 4px 2px;
 }
 
-.ui-table-row__td--actions {
-  padding: {
-    left: 6px;
-    right: 6px;
-  }
-  width: 18px;
-}
-
-.ui-table-row__td--gutter {
+.ui-table-row__cell--gutter {
   padding: {
     top: 15px;
     bottom: 15px;
@@ -79,25 +28,5 @@ $row__delete-icon-color--hover: $error;
   .common-input__input {
     font-size: 18px;
     font-weight: bold;
-  }
-}
-
-.ui-table-row__delete {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: block;
-  padding: 0;
-  width: $row__delete-icon-size;
-}
-
-.ui-table-row__delete-icon {
-  &:before {
-    color: $row__delete-icon-color--normal;
-    font-size: $row__delete-icon-size - 2;
-  }
-
-  &:hover:before {
-    color: $row__delete-icon-color--hover;
   }
 }
