@@ -2,7 +2,7 @@ import React from 'react';
 import Button from './../button';
 
 /**
- * A Notificaation widget.
+ * A Notification widget.
  *
  * == How to use a Notification in a component:
  *
@@ -19,7 +19,7 @@ import Button from './../button';
  *
  * Additionally you can pass optional props to the Notification component
  *
- *   as: Customizes the appearence of the notifcation changing the colour and icon
+ *   as: Customizes the appearence of the notification changing the colour and icon
  *     info: default
  *     warning
  *     new
