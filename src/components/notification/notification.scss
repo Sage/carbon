@@ -39,12 +39,9 @@ $notification-blue: #00A4CF;
 }
 
 .ui-notification__action {
-  float: right;
-}
-
-.ui-notification__action__button {
   background-color: white;
   border: none;
+  float: right;
 }
 
 .ui-notification--info {
@@ -59,14 +56,14 @@ $notification-blue: #00A4CF;
   background-color: $notification-green;
 }
 
-.ui-notification__action__button--info {
+.ui-notification__action--info {
   color: $notification-blue;
 }
 
-.ui-notification__action__button--warning {
+.ui-notification__action--warning {
   color: $warning;
 }
 
-.ui-notification__action__button--new {
+.ui-notification__action--new {
   color: $notification-green;
 }

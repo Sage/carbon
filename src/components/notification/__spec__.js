@@ -50,9 +50,9 @@ describe('Notification', () => {
 
   describe('buttonClasses', () => {
     it('returns the class for the button depending on the as prop', () => {
-      expect(infoInstance.buttonClasses).toEqual('ui-notification__action__button ui-notification__action__button--info');
-      expect(newInstance.buttonClasses).toEqual('ui-notification__action__button ui-notification__action__button--new');
-      expect(warningInstance.buttonClasses).toEqual('ui-notification__action__button ui-notification__action__button--warning');
+      expect(infoInstance.buttonClasses).toEqual('ui-notification__action ui-notification__action--info');
+      expect(newInstance.buttonClasses).toEqual('ui-notification__action ui-notification__action--new');
+      expect(warningInstance.buttonClasses).toEqual('ui-notification__action ui-notification__action--warning');
     });
   });
 

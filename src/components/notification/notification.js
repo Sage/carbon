@@ -105,7 +105,7 @@ class Notification extends React.Component {
    * @return {String} classNames for button
    */
   get buttonClasses() {
-    return `ui-notification__action__button ui-notification__action__button--${this.props.as}`;
+    return `ui-notification__action ui-notification__action--${this.props.as}`;
   }
 
   /**
@@ -141,11 +141,9 @@ class Notification extends React.Component {
             </div>
           </div>
 
-          <div className='ui-notification__action'>
-            <Button onClick={ this.props.buttonAction } className={ this.buttonClasses }>
-              { this.props.buttonText }
-            </Button>
-          </div>
+          <Button onClick={ this.props.buttonAction } className={ this.buttonClasses }>
+            { this.props.buttonText }
+          </Button>
         </div>
       </div>
     );
