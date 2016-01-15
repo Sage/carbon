@@ -5,8 +5,9 @@
 * Confirm
 * Grid
 * Animated Menu Button
+* Notification
 
-* Input Grid - Breaking change
+## Input Grid - Breaking change
 
 Input Grid now requires a onRowDelete prop and onRowUpdate prop instead of a deleteRowHandler prop and updateRowHandler prop
 
