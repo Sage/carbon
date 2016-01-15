@@ -83,10 +83,37 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   /**
    * A lifecycle method for when the component has re-rendered.
    *
+   * @method componentWillReceiveProps
+   * @return {void}
+   */
+  componentWillReceiveProps(nextProps) {
+    // call the components super method if it exists
+    if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
+
+    // if disabling the field, reset the validation on it
+    if (nextProps.disabled && !this.state.valid) {
+      this.setState({ valid: true });
+    }
+
+    // if value changes and the input is currently invalid, re-assess its validity
+    if (!this.state.valid && (nextProps.value != this.props.value)) {
+      if (this.validate(nextProps.value)) {
+        this.setState({ valid: true });
+      }
+    }
+  }
+
+
+  /**
+   * A lifecycle method for when the component has re-rendered.
+   *
    * @method componentDidUpdate
    * @return {void}
    */
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
+    // call the components super method if it exists
+    if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
+
     if (!this.state.valid) {
       // calculate the position for the message relative to the icon
       let icon = ReactDOM.findDOMNode(this.refs.validationIcon),
@@ -159,7 +186,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @method validate
    * @return {Boolean} if the field/fields is/are valid
    */
-  validate = () => {
+  validate = (value = this.props.value) => {
     let valid = false;
 
     // if there are no validation, return truthy
@@ -170,7 +197,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // iterate through each validation applied to the input
     this.props.validations.forEach((validation) => {
       // run this validation
-      valid = validation.validate(this.props.value, this.props);
+      valid = validation.validate(value, this.props);
 
       // if validation fails
       if (!valid) {
@@ -259,7 +286,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {HTML} Validation HTML including icon & message
    */
   get validationHTML() {
-    if (!this.state.errorMessage) { return null; }
+    if (!this.state.errorMessage || this.state.valid) { return null; }
 
     let messageClasses = "common-input__message common-input__message--error",
         iconClasses = "common-input__icon common-input__icon--error";

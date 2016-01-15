@@ -49,6 +49,9 @@ class DummyInputWithoutLifecycleMethods extends React.Component {
 }
 
 class DummyInput extends DummyInputWithoutLifecycleMethods {
+  componentDidUpdate() {
+  }
+
   componentWillMount() {
     this.count++;
   }
@@ -85,6 +88,73 @@ describe('InputValidation', () => {
     it('instatiates state with some defaults', () => {
       expect(instance.state.valid).toBeTruthy();
       expect(instance.state.errorMessage).toBe(null);
+    });
+  });
+
+  describe('componentWillReceiveProps', () => {
+    describe('when invalid', () => {
+      beforeEach(() => {
+        instance.setState({ valid: false });
+        spyOn(instance, 'setState');
+      });
+
+      describe('when becoming disabled', () => {
+        it('calls setState', () => {
+          instance.componentWillReceiveProps({ disabled: true });
+          expect(instance.setState).toHaveBeenCalledWith({ valid: true });
+        });
+      });
+
+      describe('when not becoming disabled', () => {
+        it('does not call setState', () => {
+          instance.componentWillReceiveProps({ disabled: false });
+          expect(instance.setState).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when the next value matches the current value', () => {
+        it('does not call validate', () => {
+          spyOn(instance, 'validate');
+          instance.componentWillReceiveProps({ value: instance.props.value });
+          expect(instance.validate).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when the next value does not match the current value', () => {
+        it('calls validate with the next value', () => {
+          spyOn(instance, 'validate');
+          instance.componentWillReceiveProps({ value: 'foo' });
+          expect(instance.validate).toHaveBeenCalledWith('foo');
+        });
+
+        describe('when it returns valid', () => {
+          it('resets valid to be truthy', () => {
+            spyOn(instance, 'validate').and.returnValue(true);
+            instance.componentWillReceiveProps({ value: 'foo' });
+            expect(instance.setState).toHaveBeenCalledWith({ valid: true });
+          });
+        });
+
+        describe('when it returns invalid', () => {
+          it('does not modify the validity', () => {
+            spyOn(instance, 'validate').and.returnValue(false);
+            instance.componentWillReceiveProps({ value: 'foo' });
+            expect(instance.setState).not.toHaveBeenCalled();
+          });
+        });
+      });
+    });
+
+    describe('when valid', () => {
+      beforeEach(() => {
+        instance.setState({ valid: true });
+        spyOn(instance, 'setState');
+      });
+
+      it('does not call setState', () => {
+        instance.componentWillReceiveProps({ disabled: true });
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
     });
   });
 
@@ -280,6 +350,15 @@ describe('InputValidation', () => {
           expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
         });
 
+        describe('when called with a custom value', () => {
+          it('calls validate for each validation', () => {
+            instance.validate('foo');
+            expect(validationOne.validate).toHaveBeenCalledWith('foo', instance.props);
+            expect(validationTwo.validate).toHaveBeenCalledWith('foo', instance.props);
+            expect(validationThree.validate).toHaveBeenCalledWith('foo', instance.props);
+          });
+        });
+
         describe('when the inputs state is currently valid', () => {
           describe('when the input has a form', () => {
             it('calls incrementErrorCount', () => {
@@ -428,8 +507,16 @@ describe('InputValidation', () => {
   });
 
   describe('validationHTML', () => {
-    describe('there is no error', () => {
+    describe('there is no error message', () => {
       it('returns null', () => {
+        instance.setState({ valid: false });
+        expect(instance.validationHTML).toBe(null);
+      });
+    });
+
+    describe('the field is valid', () => {
+      it('returns null', () => {
+        instance.setState({ valid: true });
         expect(instance.validationHTML).toBe(null);
       });
     });
