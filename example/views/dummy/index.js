@@ -38,6 +38,7 @@ class Finances extends React.Component {
 
   render() {
     let name = this.state.financesStore.get('name');
+    let financesStore = this.state.financesStore;
 
     return (
       <div>
@@ -55,25 +56,25 @@ class Finances extends React.Component {
           <Form model="foo">
             <FinancesDetails
               name={ name }
-              countryValue={ this.state.financesStore.getIn(['country', 'id']) }
-              countryVisibleValue={ this.state.financesStore.getIn(['country', 'name']) }
-              accounts={ this.state.financesStore.get('accounts') }
-              foo={ this.state.financesStore.get('foo') }
-              options={ this.state.financesStore.get('options') }
-              discount={ this.state.financesStore.get('discount') }
-              dateFrom={ this.state.financesStore.get('date_from') } />
+              countryValue={ financesStore.getIn(['country', 'id']) }
+              countryVisibleValue={ financesStore.getIn(['country', 'name']) }
+              accounts={ financesStore.get('accounts') }
+              foo={ financesStore.get('foo') }
+              options={ financesStore.get('options') }
+              discount={ financesStore.get('discount') }
+              dateFrom={ financesStore.get('date_from') } />
 
             <FinancesChart
-              data={ this.state.financesStore.get('chart_data') }
-              balance={ this.state.financesStore.get('balance') } />
+              data={ financesStore.get('chart_data') }
+              balance={ financesStore.get('balance') } />
 
             <FinancesTable
-              data={ this.state.financesStore.get('line_items') }
-              discount={ this.state.financesStore.get('discount') }
-              balance={ this.state.financesStore.get('balance') }
-              discountTotal={ this.state.financesStore.get('discount_total') }
-              debitTotal={ this.state.financesStore.get('debit_total') }
-              creditTotal={ this.state.financesStore.get('credit_total') } />
+              data={ financesStore.get('line_items') }
+              discount={ financesStore.get('discount') }
+              balance={ financesStore.get('balance') }
+              discountTotal={ financesStore.get('discount_total') }
+              debitTotal={ financesStore.get('debit_total') }
+              creditTotal={ financesStore.get('credit_total') } />
           </Form>
 
           <Link className="home-link" href='#' disabled>Main Page</Link>
