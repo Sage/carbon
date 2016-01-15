@@ -170,7 +170,7 @@ describe('Textarea', () => {
     });
 
     it('is decorated with a validation if a error is present', () => {
-      baseInstance.setState({errorMessage: 'Error'});
+      baseInstance.setState({errorMessage: 'Error', valid: false});
       let errorDiv = TestUtils.findRenderedDOMComponentWithClass(baseInstance, 'common-input__message--error')
       expect(errorDiv.textContent).toEqual('Error')
     });
