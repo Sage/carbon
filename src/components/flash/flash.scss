@@ -20,35 +20,35 @@
 
 .ui-flash__flash-enter {
   opacity: 0;
-  // transform: scale(0,1);
-  // width: 0%;
+  transform: scale(0,1);
+  width: 0%;
 }
 
 .ui-flash__flash-enter.ui-flash__flash-enter-active {
   opacity: 1;
-  // transform: scale(1,1);
-  // width: 100%;
-  transition: all 1000ms ease;
+  transform: scale(1,1);
+  width: 100%;
+  transition: all 500ms ease;
 }
 
 .ui-flash__flash-leave {
   opacity: 1;
-  // transform: scale(1,1);
-  // width: 100%;
+  transform: scale(1,1);
+  width: 100%;
 }
 
 .ui-flash__flash-leave.ui-flash__flash-leave-active  {
   opacity: 0;
-  // transform: scale(0,1);
-  // width: 0%;
+  transform: scale(0,1);
+  width: 0%;
   transition: all 500ms ease;
 }
 
 .ui-flash-slider {
   font-size: 13px;
   content: 'h';
-  // padding: 0 60px;
-  display: inline-block;
+  padding: 0 60px;
+  // display: inline-block;
   line-height: 18px;
   padding-right: 30px;
   opacity: 1;
@@ -143,9 +143,9 @@
   max-width: $app-max-width - 200;
   min-width: $app-width - 200;
   padding: 20px 0;
-  position: relative;
+  // position: relative;
   text-align: center;
-  width: 95%
+  // width: 95%
 }
 
 
@@ -157,8 +157,8 @@
 //   width: 100%;
 // }
 //
-.slider-icon {
-  background: transparent image-url('notice-icons.png') no-repeat 0 -150px;
+.ui-flash__icon {
+  // background: transparent image-url('notice-icons.png') no-repeat 0 -150px;
   height: 50px;
   margin-top: -25px;
   position: absolute;
