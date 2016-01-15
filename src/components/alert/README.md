@@ -1,8 +1,8 @@
 ## Alert widget
 
-* How to use a Alert in a component:
+### How to use a Alert in a component:
 
-  - In your file
+* In your file
 
 ```javascript
 import Alert from 'carbon/lib/components/alert';
