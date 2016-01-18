@@ -20,5 +20,5 @@ For additional properties specific to this component, see propTypes and defaultP
 | Name          | Required       | Type           | Default       | Description   |
 | ------------- |  ------------- |  ------------- | ------------- | ------------- |
 | as            | false          | String         | `secondary`   | The as property defines the button style. This can be `primary` or `secondary`  |
-| children      | true           | String         |               | What will be displayed within the button. Could be text, icons etc...  |
-| disabled      | false          | Boolean        | `false`         | Gives the button a disabled state |
+| children      | true           | Node           |               | What will be displayed within the button. Could be text, icons etc...  |
+| disabled      | false          | Boolean        | `false`       | Gives the button a disabled state |
