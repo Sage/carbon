@@ -7,13 +7,23 @@ import Textbox from './../textbox';
 describe('Tabs', () => {
   let instance;
   let instanceWithNull = TestUtils.renderIntoDocument(
-              <Tabs renderHiddenTabs={ false }>
-                { null }
-                <Tab title='Tab Title 1' tabId='uniqueid1'>
-                  <Textbox name='foo'/>
-                  <Textbox name='bar'/>
-                </Tab>
-              </Tabs>);
+    <Tabs renderHiddenTabs={ false }>
+      { null }
+      <Tab title='Tab Title 1' tabId='uniqueid1'>
+        <Textbox name='foo'/>
+        <Textbox name='bar'/>
+      </Tab>
+    </Tabs>
+  );
+
+  let instanceOneChild = TestUtils.renderIntoDocument(
+    <Tabs renderHiddenTabs={ false }>
+      <Tab title='Tab Title 1' tabId='uniqueid1'>
+        <Textbox name='foo'/>
+        <Textbox name='bar'/>
+      </Tab>
+    </Tabs>
+  );
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -63,15 +73,7 @@ describe('Tabs', () => {
 
       describe('when there is only one tab', () => {
         it('uses the first tab', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Tabs>
-              <Tab title='Tab Title 1' tabId='uniqueid1'>
-                <Textbox name='foo'/>
-                <Textbox name='bar'/>
-              </Tab>
-            </Tabs>);
-
-          expect(instance.state.selectedTabId).toEqual('uniqueid1');
+          expect(instanceOneChild.state.selectedTabId).toEqual('uniqueid1');
         });
       });
 
@@ -170,6 +172,13 @@ describe('Tabs', () => {
         expect(headers.length).toEqual(1);
       });
     });
+
+    describe('when there is only one child', () => {
+      it('renders a single header', () => {
+        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'ui-tabs__headers__header')
+        expect(headers.length).toEqual(1);
+      });
+    });
   });
 
   describe('visibleTab', () => {
@@ -235,6 +244,13 @@ describe('Tabs', () => {
           </Tabs>);
 
         expect(typeof instance.tabs).toEqual('object');
+      });
+    });
+
+    describe('when there is one child', () => {
+      it('renders the only child', () => {
+        let tabs = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'ui-tab')
+        expect(tabs.length).toEqual(1);
       });
     });
   });
