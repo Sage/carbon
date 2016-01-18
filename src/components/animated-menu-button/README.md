@@ -25,4 +25,3 @@ To render a AnimatedMenuButton, pass children to be rendered in the expanded men
 | size          | false       | String         | `medium`      | Size of the menu. Options: `small`, `smed`, `medium`, `mlarge`, `large` |
 | direction     | false       | String         | `left`       | The direction in which the menu expands. Options: `right`, `left` |
 | label         | false       | String         |              | A label to display at the top of the expanded menu. |
-`
