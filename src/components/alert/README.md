@@ -17,3 +17,7 @@ import Alert from 'carbon/lib/components/alert';
  The component rendering the Alert must pass down a prop of 'open' in order to open the alert.
 
  You need to provide a custom cancel event handler to handle a close event.
+
+ | Name          | Required    | Type           | Default       | Description   |
+ | ------------- |  ---------- |  ------------- | ------------- | ------------- |
+ | open          | false       | Boolean        |               | `open={ true }` must be passed to open the alert |
