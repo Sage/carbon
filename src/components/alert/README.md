@@ -18,6 +18,6 @@ import Alert from 'carbon/lib/components/alert';
 
  You need to provide a custom cancel event handler to handle a close event.
 
- | Name          | Required    | Type           | Default       | Description   |
- | ------------- |  ---------- |  ------------- | ------------- | ------------- |
- | open          | false       | Boolean        |               | `open={ true }` must be passed to open the alert |
+| Name          | Required    | Type           | Default       | Description   |
+| ------------- | ----------- | ------------- | ------------- | ------------- |
+| open          | false       | Boolean        |               | `open={ true }` must be passed to open the alert |
