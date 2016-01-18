@@ -59,7 +59,7 @@ class Finances extends React.Component {
 
           <h1 className="view-finances__title">{ name }</h1>
 
-          <Form model="foo">
+          <Form model="foo" afterFormValidation={ this.save } >
             <FinancesDetails
               name={ name }
               countryValue={ financesStore.getIn(['country', 'id']) }
@@ -87,7 +87,7 @@ class Finances extends React.Component {
 
           <UserDialog />
 
-          <Flash cancelHandler={ this.handleFlashEnd } title="Save Successful!" open={this.state.financesStore.get('displayFlash')} mode='warning' />
+          <Flash cancelHandler={ this.handleFlashEnd } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} />
         </div>
       </div>
     );

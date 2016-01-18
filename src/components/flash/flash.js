@@ -30,6 +30,18 @@ class Flash extends React.Component {
      * @type {String}
      */
     mode: React.PropTypes.string,
+
+    /**
+     * Contents of message.
+     *
+     * @property message
+     * @type {String}
+     */
+    message: React.PropTypes.string.isRequired
+  }
+
+  static defaultProps = {
+    mode: 'success'
   }
 
   state = {
@@ -43,29 +55,29 @@ class Flash extends React.Component {
     active: false
   }
 
-  // /**
-  //  * Triggers close action after notification displayed.
-  //  *
-  //  * @method componentDidUpdate
-  //  * @return(Void)
-  //  */
-  // componentDidUpdate() {
-  //   if (!this.state.active && this.props.open === true) {
-  //     this.setState({ active: true });
-  //     setTimeout(() => {
-  //       this.props.cancelHandler()
-  //       this.setState({active: false});
-  //     }, 3000);
-  //   }
-  // }
+  /**
+   * Triggers close action after notification displayed.
+   *
+   * @method componentDidUpdate
+   * @return(Void)
+   */
+  componentDidUpdate() {
+    if (!this.state.active && this.props.open === true) {
+      this.setState({ active: true });
+      setTimeout(() => {
+        this.props.cancelHandler()
+        this.setState({active: false});
+      }, 2000);
+    }
+  }
 
   /**
-   * Returns classes title for the confirm, combines with dialog class names.
+   * Returns classes message for the confirm, combines with dialog class names.
    *
-   * @method dialogTitleClasses
+   * @method dialogMessageClasses
    */
-  get componentTitleClasses() {
-    return ' ui-flash__title';
+  get componentMessageClasses() {
+    return ' ui-flash__message';
   }
 
   /**
@@ -74,22 +86,7 @@ class Flash extends React.Component {
    * @method dialogClasses
    */
   get componentClasses() {
-    let classes = 'ui-flash__flash';
-
-    switch(this.props.mode) {
-      case 'success':
-        classes += ' ui-flash__mode--success';
-        break;
-      case 'error':
-        classes += ' ui-flash__mode--error';
-      case 'warning':
-        classes += ' ui-flash__mode--warning';
-        break;
-      default:
-        classes += ' ui-flash__mode--alert';
-        break;
-    }
-    return classes;
+    return 'ui-flash__flash';
   }
 
   /**
@@ -106,20 +103,6 @@ class Flash extends React.Component {
     }
 
     return classes;
-  }
-
-  /**
-   * Returns a close icon with touch handler.
-   *
-   * @method closeIcon
-   * @return {HTML} html for close icon
-   */
-  get closeIcon() {
-    if(!this.props.mode == 'success') {
-      return <div onClick={ this.props.cancelHandler }>
-               <Icon type='close' />
-             </div>;
-      }
   }
 
   /**
@@ -140,18 +123,41 @@ class Flash extends React.Component {
    * @return {Object} JSX for dialog
    */
   get flashHTML() {
+    let contents = [];
+    //temporarily hardocded icon
+    contents.push(<div className='ui-flash__icon' dangerouslySetInnerHTML={ this.newIcon }></div>);
+    contents.push(<h3 className={ this.componentMessageClasses } key='message'>{ this.props.message }</h3>);
+
+    if (this.props.mode !== 'success') {
+      contents.push(<div onClick={ this.props.cancelHandler }>
+                      <Icon type='close' />
+                    </div>);
+    }
   return <div className={ this.componentClasses }>
-      <h3 className={ this.componentTitleClasses } key='message'>{ this.props.title }</h3>
-    </div>;
+           { contents }
+         </div>;
   }
 
   get sliderHTML() {
-    let classes = 'ui-flash-slider ui-flash__mode--success';
+    let classes = 'ui-flash-slider';
+
+    switch(this.props.mode) {
+      case 'success':
+        classes += ' ui-slider__mode--success';
+        break;
+      case 'error':
+        classes += ' ui-slider__mode--error';
+        break;
+      case 'warning':
+        classes += ' ui-slider__mode--warning';
+        break;
+      default:
+        classes += ' ui-slider__mode--alert';
+        break;
+    }
 
     return (
-      <div className={ classes }>
-        <div className='ui-flash__icon' dangerouslySetInnerHTML={ this.typeIcon }></div>
-        </div>
+      <div className={ classes }></div>
     );
   }
 
@@ -172,29 +178,19 @@ class Flash extends React.Component {
     return (
       <div className={ this.mainClasses }>
         <ReactCSSTransitionGroup
-          transitionName="ui-flash__flash"
-          transitionEnterTimeout={ 400 }
-          transitionLeaveTimeout={ 600 }>
-          { flashHTML }
+          transitionName="ui-flash-slider"
+          transitionEnterTimeout={ 500 }
+          transitionLeaveTimeout={ 500 }>
+          { sliderHTML }
           <ReactCSSTransitionGroup
-            transitionName="ui-flash-slider"
+            transitionName="ui-flash__flash"
             transitionEnterTimeout={ 500 }
             transitionLeaveTimeout={ 500} >
-            { sliderHTML }
+            { flashHTML }
           </ReactCSSTransitionGroup>
         </ReactCSSTransitionGroup>
       </div>
     );
-    // return (
-    //   <div className={ this.mainClasses }>
-    //       <ReactCSSTransitionGroup
-    //         transitionName="ui-flash-slider"
-    //         transitionEnterTimeout={ 500 }
-    //         transitionLeaveTimeout={ 500} >
-    //         { sliderHTML }
-    //       </ReactCSSTransitionGroup>
-    //   </div>
-    // );
   }
 
   /**
@@ -259,8 +255,5 @@ class Flash extends React.Component {
     };
   }
 }
-
-
-
 
 export default Flash;
