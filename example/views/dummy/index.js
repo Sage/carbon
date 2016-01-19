@@ -87,7 +87,7 @@ class Finances extends React.Component {
 
           <UserDialog />
 
-          <Flash cancelHandler={ this.handleFlashEnd } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} />
+          <Flash cancelHandler={ this.handleFlashEnd } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} mode="warning" />
         </div>
       </div>
     );

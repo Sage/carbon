@@ -2,6 +2,26 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './../icon';
 
+/**
+ * An Flash widget.
+ *
+ * The flash is rendered in two sections: a ventral message 'flash', and a
+ * dorsal coloured, exanding 'slider'.
+ *
+ * == How to use an Flash in a component:
+ *
+ * In your file
+ *
+ *   import Flash from 'carbon/lib/components/flash';
+ *
+ * To render a Flash, setup open and cancel handlers in your view to trigger
+ * the message on and off:
+ *
+ *  <Flash open={myopenHandler} cancelHandler={mycancelHandler} message='Alert!' />
+ *
+ * @class Flash
+ * @constructor
+ */
 class Flash extends React.Component {
 
   static propTypes = {
@@ -15,7 +35,7 @@ class Flash extends React.Component {
     cancelHandler: React.PropTypes.func,
 
     /**
-     * Sets the open state of the flash
+     * Sets the open state of the flash.
      *
      * @property open
      * @type {Boolean}
@@ -41,12 +61,13 @@ class Flash extends React.Component {
   }
 
   static defaultProps = {
-    mode: 'success'
+    mode: 'alert'
   }
 
   state = {
   /**
    * Whether notification currently showing.
+   * Allows component to monitor it's current state.
    *
    * @property active
    * @type {Boolean}
@@ -63,30 +84,14 @@ class Flash extends React.Component {
    */
   componentDidUpdate() {
     if (!this.state.active && this.props.open === true) {
+
       this.setState({ active: true });
+
       setTimeout(() => {
-        this.props.cancelHandler()
+        this.props.cancelHandler();
         this.setState({active: false});
       }, 2000);
     }
-  }
-
-  /**
-   * Returns classes message for the confirm, combines with dialog class names.
-   *
-   * @method dialogMessageClasses
-   */
-  get componentMessageClasses() {
-    return ' ui-flash__message';
-  }
-
-  /**
-   * Returns classes for the alert, combines with dialog class names..
-   *
-   * @method dialogClasses
-   */
-  get componentClasses() {
-    return 'ui-flash__flash';
   }
 
   /**
@@ -106,6 +111,53 @@ class Flash extends React.Component {
   }
 
   /**
+   * Returns classes for message.
+   *
+   * @method messageClasses
+   * @return {String}
+   */
+  get messageClasses() {
+    return 'ui-flash__message';
+  }
+
+  /**
+   * Returns classes for the flash.
+   *
+   * @method flashClasses
+   * @return {String}
+   */
+  get flashClasses() {
+    return 'ui-flash__flash';
+  }
+
+  /**
+   * Returns classes for the slider.
+   *
+   * @method sliderClasses
+   * @return {String}
+   */
+  get sliderClasses() {
+    let classes = 'ui-flash__slider';
+
+    switch(this.props.mode) {
+      case 'success':
+        classes += ' ui-flash__slider--success';
+        break;
+      case 'error':
+        classes += ' ui-flash__slider--error';
+        break;
+      case 'warning':
+        classes += ' ui-flash__slider--warning';
+        break;
+      default:
+        classes += ' ui-flash__slider--alert';
+        break;
+    }
+
+    return classes;
+  }
+
+  /**
    * Returns the icon to display depending on type
    * TODO: Waiting on release of https://github.com/facebook/react/pull/5714
    *
@@ -117,47 +169,36 @@ class Flash extends React.Component {
   }
 
   /**
-   * Returns the computed HTML for the dialog.
+   * Returns the computed HTML for the flash.
    *
    * @method dialogHTML
-   * @return {Object} JSX for dialog
+   * @return {Object} JSX for flash
    */
   get flashHTML() {
     let contents = [];
-    //temporarily hardocded icon
-    contents.push(<div className='ui-flash__icon' dangerouslySetInnerHTML={ this.newIcon }></div>);
-    contents.push(<h3 className={ this.componentMessageClasses } key='message'>{ this.props.message }</h3>);
+
+    contents.push(<div className='ui-flash__icon' dangerouslySetInnerHTML={ this.typeIcon }></div>);
+    contents.push(<h3 className={ this.messageClasses } key='message'>{ this.props.message }</h3>);
 
     if (this.props.mode !== 'success') {
       contents.push(<div onClick={ this.props.cancelHandler }>
                       <Icon type='close' />
                     </div>);
     }
-  return <div className={ this.componentClasses }>
-           { contents }
-         </div>;
+    return <div className={ this.flashClasses }>
+             { contents }
+           </div>;
   }
 
+  /**
+   * Returns the computed HTML for the slider.
+   *
+   * @method dialogHTML
+   * @return {Object} JSX for dialog
+   */
   get sliderHTML() {
-    let classes = 'ui-flash-slider';
-
-    switch(this.props.mode) {
-      case 'success':
-        classes += ' ui-slider__mode--success';
-        break;
-      case 'error':
-        classes += ' ui-slider__mode--error';
-        break;
-      case 'warning':
-        classes += ' ui-slider__mode--warning';
-        break;
-      default:
-        classes += ' ui-slider__mode--alert';
-        break;
-    }
-
     return (
-      <div className={ classes }></div>
+      <div className={ this.sliderClasses }></div>
     );
   }
 
@@ -178,7 +219,7 @@ class Flash extends React.Component {
     return (
       <div className={ this.mainClasses }>
         <ReactCSSTransitionGroup
-          transitionName="ui-flash-slider"
+          transitionName="ui-flash__slider"
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 }>
           { sliderHTML }
