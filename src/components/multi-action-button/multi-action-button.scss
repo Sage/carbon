@@ -1,0 +1,30 @@
+@import 'colors';
+@import 'general';
+@import 'input-field';
+@import 'z-index';
+
+.ui-multi-action-button__list {
+  background-color: $blue;
+  border: 1px solid $border-color;
+  box-sizing: content-box;
+  color: $white;
+  cursor: pointer;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  padding: 4px 0;
+  font-weight: bold;
+
+  .common-input--label-inline & {
+    left: $grid-margin;
+  }
+}
+
+.ui-multi-action-button__list__item {
+  padding: 4px 18px;
+}
+
+.ui-multi-action-button__list__item--highlighted {
+  background-color: $blue-bright;
+}
