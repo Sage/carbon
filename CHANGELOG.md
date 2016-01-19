@@ -13,6 +13,7 @@ Input Grid now requires a onRowDelete prop and onRowUpdate prop instead of a del
 
 ## Minor
 
+* Tabs can now render a single child
 * Input Grid is now decorated by common grid
 
 # 0.1.1
