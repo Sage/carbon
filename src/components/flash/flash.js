@@ -170,7 +170,7 @@ class Flash extends React.Component {
   /**
    * Returns the computed HTML for the flash.
    *
-   * @method dialogHTML
+   * @method flashHTML
    * @return {Object} JSX for flash
    */
   get flashHTML() {
@@ -199,8 +199,8 @@ class Flash extends React.Component {
   /**
    * Returns the computed HTML for the slider.
    *
-   * @method dialogHTML
-   * @return {Object} JSX for dialog
+   * @method flashHTML
+   * @return {Object} JSX for flash
    */
   get sliderHTML() {
     return (
@@ -284,6 +284,12 @@ function alertIcon() {
   };
 }
 
+/**
+ * Returns the 'success' icon
+ *
+ * @method successIcon
+ * @return {Object} successIcon svg
+ */
 function successIcon() {
   return {
     __html:
@@ -291,6 +297,12 @@ function successIcon() {
   };
 }
 
+/**
+ * Returns the 'error' icon
+ *
+ * @method errorIcon
+ * @return {Object} alertIcon svg
+ */
 function errorIcon() {
   return {
     __html:
