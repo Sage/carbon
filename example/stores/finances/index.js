@@ -117,10 +117,6 @@ class FinancesStore extends Store {
     }
   }
 
-  [FinancesConstants.FOO](action) {
-    this.data = this.data.setIn(['line_items', action.index, action.name], action.value);
-  }
-
   [FinancesConstants.FINANCES_COUNTRY_UPDATED](action) {
     this.data = this.data.setIn(['country', 'id'], action.value);
     this.data = this.data.setIn(['country', 'name'], action.visibleValue);

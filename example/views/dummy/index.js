@@ -59,7 +59,6 @@ class Finances extends React.Component {
               countryValue={ financesStore.getIn(['country', 'id']) }
               countryVisibleValue={ financesStore.getIn(['country', 'name']) }
               accounts={ financesStore.get('accounts') }
-              foo={ financesStore.get('foo') }
               options={ financesStore.get('options') }
               discount={ financesStore.get('discount') }
               data={ financesStore.get('line_items') }
