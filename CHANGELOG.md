@@ -128,6 +128,10 @@ class MyView extends React.Component {
 export default MyView
 ```
 
+## Bug Fixes
+
+* Tabs can now render a single child
+
 # 0.1.1
 
 * Form submitting state is now controlled by the developer using the `saving` prop.
