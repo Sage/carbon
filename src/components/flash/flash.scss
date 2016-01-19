@@ -1,6 +1,5 @@
 @import 'colors';
 @import 'general';
-@import 'mixins';
 @import 'z-index';
 
 .ui-flash {
@@ -22,7 +21,7 @@
   opacity: 0;
 }
 
-.ui-flash__flash-enter.ui-flash__flash-enter-active {
+.ui-flash__flash-enter-active {
   opacity: 1;
   transition: 900ms ease 100ms;
 }
@@ -31,7 +30,7 @@
   opacity: 1;
 }
 
-.ui-flash__flash-leave.ui-flash__flash-leave-active  {
+.ui-flash__flash-leave-active  {
   opacity: 0;
   transition: 700ms ease-out 100ms;
 }
@@ -55,7 +54,7 @@
   transform: scale(0,1);
 }
 
-.ui-flash__slider-enter.ui-flash__slider-enter-active {
+.ui-flash__slider-enter-active {
   opacity: 1;
   width: 100%;
   transform: scale(1,1);
@@ -68,7 +67,7 @@
   width: 100%;
 }
 
-.ui-flash__slider-leave.ui-flash__slider-leave-active  {
+.ui-flash__slider-leave-active  {
   width: 0%;
   transform: scale(0,1);
   opacity: 0;
@@ -77,19 +76,19 @@
 }
 
 .ui-flash__slider--success {
-  background: #42AE42;
+  background: $green-mid;
 }
 
 .ui-flash__slider--error {
-  background: #D63F40;
+  background: $red;
 }
 
 .ui-flash__slider--alert {
-  background: $blue-alt;
+  background: $blue-bright;
 }
 
 .ui-flash__slider--warning {
-  background: #FFAB00;
+  background: $orange-mid;
 }
 
 .ui-flash__message {
@@ -109,7 +108,7 @@
   width: 50px;
 }
 
-.icon-close {
+.ui-flash__closeIcon{
   float: right;
   outline: none;
 }

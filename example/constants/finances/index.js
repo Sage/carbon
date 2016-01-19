@@ -5,5 +5,5 @@ export default {
   FINANCES_LINE_ITEM_DELETED: 'financesLineItemDeleted',
   FINANCES_BEFORE_SAVE: 'financesBeforeSave',
   FINANCES_SAVE: 'financesSave',
-  FLASH_OPENED: 'flash_opened'
+  FLASH_OPENED: 'flashOpened'
 }

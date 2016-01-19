@@ -38,7 +38,6 @@ class Finances extends React.Component {
   }
 
   handleFlashEnd = (ev) => {
-    console.log('re-render')
     FinancesActions.financesFlashClosed();
   }
 
@@ -87,7 +86,7 @@ class Finances extends React.Component {
 
           <UserDialog />
 
-          <Flash cancelHandler={ this.handleFlashEnd } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} mode="warning" />
+          <Flash onDismiss={ this.handleFlashEnd } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} type="success" />
         </div>
       </div>
     );
