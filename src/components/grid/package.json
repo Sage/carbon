@@ -1,5 +1,0 @@
-{
-  "main": "./grid.js",
-  "style": "./grid.scss",
-  "name": "Grid"
-}

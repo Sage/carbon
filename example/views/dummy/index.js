@@ -13,7 +13,7 @@ import FinancesActions from './../../actions/finances';
 import FinancesHistory from './subviews/history';
 import FinancesDetails from './subviews/details';
 import FinancesChart from './subviews/chart';
-import FinancesTable from './subviews/table';
+import FinancesTable from './subviews/grid';
 import UserDialog from './subviews/user-dialog';
 
 
@@ -62,6 +62,7 @@ class Finances extends React.Component {
               foo={ financesStore.get('foo') }
               options={ financesStore.get('options') }
               discount={ financesStore.get('discount') }
+              data={ financesStore.get('line_items') }
               dateFrom={ financesStore.get('date_from') } />
 
             <FinancesChart
