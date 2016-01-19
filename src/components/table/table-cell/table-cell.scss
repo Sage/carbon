@@ -3,7 +3,7 @@
 
 .ui-table-cell {
   background-color: $row-alt-color;
-  border-bottom: 1px solid #E4E7EA;
+  border-bottom: 1px solid $table-border-color;
   border-left: none;
   border-right: none;
   border-top: none;

@@ -9,7 +9,7 @@
 
 ## Tables and Grids - Breaking Change
 
-The previous iteration of grid (InputGrid) was too restrictive, not allowing much flexibility and being too rigid in its implementation. We have now refactored grids creating a Table component with full control and flexibility for the developer. The new way of doing grids also means we no longer need to complicated immutable helpers we had set up for line items as well as injecting row_id into the store.
+The previous iteration of grid (InputGrid) was too restrictive, not allowing much flexibility and being too rigid in its implementation. We have now refactored grids creating a Table component with full control and flexibility for the developer. The new way of doing grids also means we no longer need to use complicated immutable helpers we had set up for line items as well as injecting row_id into the store.
 
 The following is an example of how to use the Table component:
 
