@@ -220,8 +220,7 @@ class Tabs extends React.Component {
    * @return Unordered list of tab titles
    */
   get tabHeaders() {
-    let tabTitles = React.Children.map(compact(this.props.children), ((child) => {
-
+    let tabTitles = compact(React.Children.toArray(this.props.children)).map((child) => {
       return(
         <li
           className={ this.tabHeaderClasses(child) }
@@ -230,7 +229,7 @@ class Tabs extends React.Component {
           data-tabid={ child.props.tabId } >
             { child.props.title }
         </li>);
-    }));
+    });
 
     return <ul className='ui-tabs__headers' >{ tabTitles }</ul>;
   }
@@ -244,11 +243,11 @@ class Tabs extends React.Component {
   get visibleTab() {
     let visibleTab;
 
-    React.Children.forEach(compact(this.props.children), ((child) => {
+    compact(React.Children.toArray(this.props.children)).map((child) => {
       if (child.props.tabId == this.state.selectedTabId) {
         visibleTab = child;
       }
-    }));
+    });
 
     return React.cloneElement(visibleTab, { className: 'ui-tab--selected' });
   }
@@ -262,7 +261,7 @@ class Tabs extends React.Component {
   get tabs() {
     if (!this.props.renderHiddenTabs) { return this.visibleTab; }
 
-    let tabs = React.Children.map(compact(this.props.children), ((child) => {
+    let tabs = compact(React.Children.toArray(this.props.children)).map((child) => {
 
       let klass = 'hidden';
 
@@ -271,7 +270,7 @@ class Tabs extends React.Component {
       }
 
       return React.cloneElement(child, { className: klass });
-    }));
+    });
 
     return tabs;
   }
