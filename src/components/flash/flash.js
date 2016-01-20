@@ -20,6 +20,11 @@ import Icon from './../icon';
  *
  *  <Flash open={ openStatus } onDismiss={ myOnDismiss } message='Alert!' />
  *
+ * By default, the flash renders with a clickable close icon that hooks up with the onDismiss function.
+ * To instead have the flash disappear after a given time period, pass a prop of timeout in milliseconds.
+ *
+ *  <Flash open={ openStatus } onDismiss={ myOnDismiss } message='Alert!' timeout={ 2000 }/>
+ *
  * @class Flash
  * @constructor
  */

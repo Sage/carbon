@@ -14,23 +14,28 @@ describe('Flash', () => {
     );
 
     successInstance = TestUtils.renderIntoDocument(
-      <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!" className='lost-in-space' type='success'/>
+      <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
+             className='lost-in-space' type='success'/>
     );
 
     errorInstance = TestUtils.renderIntoDocument(
-      <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"  type='error'/>
+      <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
+             type='error'/>
     );
 
     warningInstance = TestUtils.renderIntoDocument(
-      <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"  type='warning'/>
+      <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
+             type='warning'/>
     );
 
     timeoutInstance = TestUtils.renderIntoDocument(
-      <Flash open={ false } onDismiss={ dismissHandler } message="Danger Will Robinson!"  type='warning' timeout= { 2000 }/>
+      <Flash open={ false } onDismiss={ dismissHandler } message="Danger Will Robinson!"
+             type='warning' timeout= { 2000 }/>
     );
 
     customIconInstance = TestUtils.renderIntoDocument(
-      <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"  type='special'/>
+      <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
+             type='special'/>
     );
   });
 
@@ -50,7 +55,8 @@ describe('Flash', () => {
           let prevProps = { open: false };
 
           timeoutInstance = TestUtils.renderIntoDocument(
-            <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"  type='warning' timeout= { 2000 }/>);
+            <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
+                   type='warning' timeout= { 2000 }/>);
           timeoutInstance.componentDidUpdate(prevProps);
           jasmine.clock().tick(2000);
           expect(dismissHandler).toHaveBeenCalled();
@@ -62,7 +68,8 @@ describe('Flash', () => {
           let prevProps = { open: true };
 
           timeoutInstance = TestUtils.renderIntoDocument(
-            <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"  type='warning' timeout= { 2000 }/>);
+            <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
+                   type='warning' timeout= { 2000 }/>);
 
           timeoutInstance.componentDidUpdate(prevProps);
           jasmine.clock().tick(2000);
@@ -97,19 +104,6 @@ describe('Flash', () => {
       });
     });
   });
-
-  //   describe('when no type has been specified', () => {
-  //     it('returns the alert slider class by default', () => {
-  //       expect(defaultInstance.sliderClasses).toMatch('ui-flash__slider--alert');
-  //     });
-  //   });
-  //
-  //   describe('when a different type has been set', () => {
-  //     it('returns the corresponding class', () => {
-  //       expect(successInstance.sliderClasses).toMatch('ui-flash__slider--success');
-  //     });
-  //   });
-  // });
 
   describe('iconType', () => {
     it('returns the icon corresponding to the flash type by default', () => {

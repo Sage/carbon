@@ -20,9 +20,9 @@
 }
 
 .ui-flash__slider {
-  font-size: 13px;
   content: 'h';
   display: inline-block;
+  font-size: 13px;
   height: 100%;
   left: 0;
   line-height: 18px;
@@ -48,29 +48,29 @@
 
 .ui-flash__content {
   background-color: transparent ;
+  margin: 0 auto;
   max-width: $app-max-width;
   min-width: $app-width;
-  margin: 0 auto;
   position: relative;
 }
 
 .ui-flash__message {
   color: $white;
-  position: relative;
-  text-align: left;
   font-size: 14px;
   margin: 20px 60px;
+  position: relative;
+  text-align: left;
 }
 
 .ui-flash__icon {
   left: 0;
+  margin-top: -20px;
   position: absolute;
   top: 50%;
-  margin-top: -20px;
 
   &:before {
-    font-size: 50px;
     color: $white;
+    font-size: 50px;
     line-height: 36px;
   }
 }
@@ -85,14 +85,14 @@
 }
 
 .ui-flash__close-icon {
-  cursor: pointer;
   color: #FFF;
-  position: absolute;
-  outline: none;
-  right: 0;
-  padding: 0 15px 15px 0;
-  top: 50%;
+  cursor: pointer;
   margin-top: -8px;
+  outline: none;
+  padding: 0 15px 15px 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
 }
 
 /**
@@ -100,14 +100,14 @@
  */
 
 .ui-flash__slider-enter {
-  opacity: 0;
   left: 50%;
+  opacity: 0;
   right: 50%;
 }
 
 .ui-flash__slider-enter-active {
-  opacity: 1;
   left: 0%;
+  opacity: 1;
   right: 0%;
   transition: 500ms ease 100ms;
 }
