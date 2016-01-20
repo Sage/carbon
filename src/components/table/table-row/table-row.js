@@ -38,16 +38,18 @@ class TableRow extends React.Component {
     let className = classNames("ui-table-row", this.props.className),
         children = React.Children.toArray(this.props.children);
 
-    if (this.props.onDelete) {
+    let props = this.props;
+
+    if (props.onDelete) {
       children.unshift(
         <TableCell key="actions" className="ui-table-cell--actions">
-          <Icon type="delete" onClick={ this.props.onDelete } />
+          <Icon type="delete" onClick={ props.onDelete } />
         </TableCell>
       );
     }
 
     return (
-      <tr className={ className }>
+      <tr { ...props } className={ className }>
         { children }
       </tr>
     );
