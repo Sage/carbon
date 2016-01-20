@@ -63,9 +63,25 @@
 }
 
 .ui-flash__icon {
+  left: 0;
   position: absolute;
   top: 50%;
   margin-top: -20px;
+
+  &:before {
+    font-size: 50px;
+    color: $white;
+    line-height: 36px;
+  }
+}
+
+.ui-icon__svg {
+  height: 40px;
+  width: 50px;
+}
+
+.ui-icon__svg-group {
+  fill: $white;
 }
 
 .ui-flash__close-icon {
@@ -115,7 +131,7 @@
 
 .ui-flash__content-enter-active {
   opacity: 1;
-  transition: 500ms ease 100ms;
+  transition: 400ms ease 400ms;
 }
 
 .ui-flash__content-leave {

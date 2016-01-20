@@ -1,5 +1,9 @@
 @import 'general';
 
+body {
+  background-color: grey;
+}
+
 .view-finances {
   margin: 0 auto;
   max-width: $app-max-width;
