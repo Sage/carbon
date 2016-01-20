@@ -24,17 +24,17 @@ import ClassNames from 'classnames';
 class Icon extends React.Component {
 
   get renderIcon() {
+    let icon;
+
     switch(this.props.type) {
       case 'warning':
-        return this.renderWarningIcon;
-        break;
-      case 'alert':
-        return this.renderAlertIcon;
+        icon = this.renderWarningIcon;
         break;
       default:
-        return null;
+        null;
         break;
     }
+    return icon;
   }
 
    /**

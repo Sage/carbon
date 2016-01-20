@@ -3,7 +3,8 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Flash from './flash';
 
 describe('Flash', () => {
-  let defaultInstance, successInstance, errorInstance, warningInstance, dismissHandler;
+  let defaultInstance, successInstance, errorInstance, warningInstance, timeoutInstance,
+      customIconInstance, dismissHandler;
 
   beforeEach(() => {
     dismissHandler = jasmine.createSpy('dismiss');
@@ -23,6 +24,14 @@ describe('Flash', () => {
     warningInstance = TestUtils.renderIntoDocument(
       <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"  type='warning'/>
     );
+
+    timeoutInstance = TestUtils.renderIntoDocument(
+      <Flash open={ false } onDismiss={ dismissHandler } message="Danger Will Robinson!"  type='warning' timeout= { 2000 }/>
+    );
+
+    customIconInstance = TestUtils.renderIntoDocument(
+      <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"  type='special'/>
+    );
   });
 
   describe('componentDidUpdate', () => {
@@ -34,29 +43,40 @@ describe('Flash', () => {
       jasmine.clock().uninstall();
     });
 
-    describe('when the flash is open', () => {
-      beforeEach(() => {
-        spyOn(defaultInstance, 'setState');
-        spyOn(successInstance, 'setState');
-      });
+    describe('when the flash is open and a timeout was passed', () => {
+      describe('when its open state has changed', () => {
 
-      it('updates its state to active', () => {
-        defaultInstance.componentDidUpdate();
-        expect(defaultInstance.setState).toHaveBeenCalledWith({ active: true });
-      });
-
-      describe('when it is a success message', () => {
         it('calls the dismissHandler after a timeout', () => {
-          successInstance.componentDidUpdate();
+          let prevProps = { open: false };
+
+          timeoutInstance = TestUtils.renderIntoDocument(
+            <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"  type='warning' timeout= { 2000 }/>);
+          timeoutInstance.componentDidUpdate(prevProps);
           jasmine.clock().tick(2000);
           expect(dismissHandler).toHaveBeenCalled();
         });
+      });
 
-        it('updates its state to inactive after a timeout', () => {
-          successInstance.componentDidUpdate();
+      describe('when its open state has not changed', () => {
+        it('call the dismissHandler', () => {
+          let prevProps = { open: true };
+
+          timeoutInstance = TestUtils.renderIntoDocument(
+            <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"  type='warning' timeout= { 2000 }/>);
+
+          timeoutInstance.componentDidUpdate(prevProps);
           jasmine.clock().tick(2000);
-          expect(successInstance.setState).toHaveBeenCalledWith({ active: false });
+          expect(dismissHandler).not.toHaveBeenCalled();
         });
+      });
+    });
+
+    describe('when no timeout value is passed', () => {
+      it('does not update state or call the dismissHandler', () => {
+        let prevProps = { open: true };
+        defaultInstance.componentDidUpdate(prevProps);
+        jasmine.clock().tick(2000);
+        expect(dismissHandler).not.toHaveBeenCalled();
       });
     });
 
@@ -65,88 +85,54 @@ describe('Flash', () => {
 
       beforeEach(() => {
         closedInstance = TestUtils.renderIntoDocument(
-          <Flash open={ false } dismissHandler={ dismissHandler } message="Danger Will Robinson!" />
+          <Flash open={ false } onDismiss={ dismissHandler } message="Danger Will Robinson!" />
         );
-        spyOn(closedInstance, 'setState').and.callThrough();
       });
 
       it('does not update state or call the dismissHandler', () => {
-        closedInstance.componentDidUpdate();
-        expect(closedInstance.setState).not.toHaveBeenCalled();
-
+        let prevProps = { open: false };
+        closedInstance.componentDidUpdate(prevProps);
         jasmine.clock().tick(2000);
-
-        expect(closedInstance.setState).not.toHaveBeenCalled();
         expect(dismissHandler).not.toHaveBeenCalled();
       });
     });
   });
 
-  describe('messageClasses', () => {
-    it('returns the message classes', () => {
-      expect(defaultInstance.messageClasses).toMatch('ui-flash__message');
-    });
-  });
+  //   describe('when no type has been specified', () => {
+  //     it('returns the alert slider class by default', () => {
+  //       expect(defaultInstance.sliderClasses).toMatch('ui-flash__slider--alert');
+  //     });
+  //   });
+  //
+  //   describe('when a different type has been set', () => {
+  //     it('returns the corresponding class', () => {
+  //       expect(successInstance.sliderClasses).toMatch('ui-flash__slider--success');
+  //     });
+  //   });
+  // });
 
-  describe('flashClasses', () => {
-    it('returns the flash classes', () => {
-      expect(defaultInstance.flashClasses).toMatch('ui-flash__flash');
-    });
-  });
-
-  describe('sliderClasses', () => {
-    it('returns the main slider class', () => {
-      expect(defaultInstance.sliderClasses).toMatch('ui-flash__slider');
-    });
-
-    describe('when no type has been specified', () => {
-      it('returns the alert slider class by default', () => {
-        expect(defaultInstance.sliderClasses).toMatch('ui-flash__slider--alert');
-      });
+  describe('iconType', () => {
+    it('returns the icon corresponding to the flash type by default', () => {
+      expect(customIconInstance.iconType).toEqual('special');
     });
 
-    describe('when a different type has been set', () => {
-      it('returns the corresponding class', () => {
-        expect(successInstance.sliderClasses).toMatch('ui-flash__slider--success');
-      });
-    });
-  });
-
-  describe('typeIcon', () => {
-    it('returns the alert icon by default', () => {
-      let alertFlash = TestUtils.findRenderedDOMComponentWithClass(defaultInstance, 'ui-flash');
-      let iconSVG = alertFlash.getElementsByTagName('svg')[0];
-      expect(iconSVG.getAttribute('class')).toMatch('ui-flash__alertIcon');
+    it('returns a tick icon if it is a success flash', () => {
+      expect(successInstance.iconType).toEqual('tick');
     });
 
-    //pending svgs from UX team
-    xdescribe('when a different type has been set', () => {
-      it('returns a success icon if it is a success flash', () => {
-        let successFlash = TestUtils.findRenderedDOMComponentWithClass(successInstance, 'ui-flash');
-        let iconSVG = successFlash.getElementsByTagName('svg')[0];
-        expect(iconSVG.getAttribute('class')).toMatch('ui-flash__successIcon');
-      });
-
-      it('returns an error icon if it is a error flash', () => {
-        let errorFlash = TestUtils.findRenderedDOMComponentWithClass(errorInstance, 'ui-flash');
-        let iconSVG = errorFlash.getElementsByTagName('svg')[0];
-        expect(iconSVG.getAttribute('class')).toMatch('ui-flash__errorIcon');
-      });
-
-      it('returns a warning icon if it is a warning flash', () => {
-        let warningFlash = TestUtils.findRenderedDOMComponentWithClass(warningInstance, 'ui-flash');
-        let iconSVG = warningFlash.getElementsByTagName('svg')[0];
-        expect(iconSVG.getAttribute('class')).toMatch('ui-flash__warningIcon');
-      });
+    it('returns an warning icon if it is an error or alert flash', () => {
+      expect(warningInstance.iconType).toEqual('warning');
+      expect(errorInstance.iconType).toEqual('warning');
     });
   });
 
   describe('flashHTML', () => {
-    let successFlash, alertFlash;
+    let successFlash, alertFlash, timeoutFlash;
 
     beforeEach(() => {
       successFlash = TestUtils.findRenderedDOMComponentWithClass(successInstance, 'ui-flash');
       alertFlash = TestUtils.findRenderedDOMComponentWithClass(defaultInstance, 'ui-flash');
+      timeoutFlash = TestUtils.findRenderedDOMComponentWithClass(timeoutInstance, 'ui-flash');
     });
 
     it('adds an icon', () => {
@@ -154,25 +140,33 @@ describe('Flash', () => {
     });
 
     it('adds the message', () => {
-      let messageHTML = successFlash.getElementsByTagName('h3')[0];
-      expect(messageHTML.className).toEqual('ui-flash__message');
+      let messageHTML =  alertFlash.getElementsByClassName('ui-flash__message');
+      expect(messageHTML.length).toEqual(1);
     });
 
-    describe('when it is not a success flash', () => {
+    describe('when no timeout is passed', () => {
       it('adds a close icon', () => {
         let iconHTML = alertFlash.getElementsByClassName('ui-flash__icon');
         expect(iconHTML.length).toEqual(1);
       });
 
       it('adds a click handler that closes the flash', () => {
-        let closeIcon = alertFlash.getElementsByClassName('ui-flash__closeIcon')[0];
+        let closeIcon = alertFlash.getElementsByClassName('ui-flash__close-icon')[0];
         TestUtils.Simulate.click(closeIcon);
         expect(dismissHandler).toHaveBeenCalled();
       });
     });
 
+    describe('when a timeout is passed', () => {
+      it('does not add a close icon', () => {
+        let iconHTML = timeoutFlash.getElementsByClassName('ui-flash__icon');
+        expect(iconHTML.length).toEqual(0);
+      });
+    });
+
     it('returns a div with the flash class names', () => {
-      expect(defaultInstance.flashHTML.props.className).toMatch('ui-flash__flash');
+      let contentHTML = alertFlash.getElementsByClassName('ui-flash__content');
+      expect(contentHTML.length).toEqual(1);
     });
   });
 
@@ -194,7 +188,7 @@ describe('Flash', () => {
 
     describe('when the flash is open', () => {
       it('renders a parent div with mainClasses attached', () => {
-        expect(flashInstance.className).toMatch('ui-flash');
+        expect(flashInstance.className).toMatch('ui-flash ui-flash--alert');
       });
 
       it('renders an outer slider element', () => {
@@ -203,7 +197,7 @@ describe('Flash', () => {
 
       it('renders an inner flash element', () => {
         let innerFlash = flashInstance.firstChild.children[1].firstChild;
-        expect(innerFlash.className).toMatch('ui-flash__flash');
+        expect(innerFlash.className).toMatch('ui-flash__content');
       });
     });
   });

@@ -74,7 +74,7 @@ class Flash extends React.Component {
   }
 
   /**
-   * Triggers close action after notification displayed.
+   *  Conditionally triggers close action after flash displayed.
    *
    * @method componentDidUpdate
    * @return(Void)
@@ -96,20 +96,23 @@ class Flash extends React.Component {
    * @return {String}
    */
   get iconType() {
+    let icon;
+
     switch(this.props.type) {
       case 'success':
-        return 'tick';
+        icon = 'tick';
         break;
       case 'error':
-        return 'warning';
+        icon = 'warning';
         break;
       case 'alert':
-        return 'warning';
+        icon = 'warning';
         break;
       default:
-        return this.props.type;
+        icon = this.props.type;
         break;
     }
+    return icon;
   }
 
   /**
@@ -121,7 +124,7 @@ class Flash extends React.Component {
   get flashHTML() {
     let contents = [];
 
-    contents.push(<Icon className='ui-flash__icon' type={ this.iconType } />);
+    contents.push(<Icon className='ui-flash__icon' type={ this.iconType } key="icon" />);
 
     contents.push(<div className='ui-flash__message' key='message'>
                     { this.props.message }
