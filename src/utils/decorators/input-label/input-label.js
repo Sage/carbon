@@ -1,6 +1,6 @@
 import React from 'react';
 import { find, startCase, assign } from 'lodash';
-import ImmutableHelper from './../../helpers/immutable';
+import guid from './../../helpers/guid';
 
 /**
  * InputLabel decorator.
@@ -72,7 +72,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     if (this._guid) {
       return this._guid;
     } else {
-      return this._guid = ImmutableHelper.guid();
+      return this._guid = guid();
     }
   }
 
