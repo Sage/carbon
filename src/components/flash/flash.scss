@@ -7,110 +7,122 @@
   overflow: hidden;
   position: fixed;
   right: 0;
+  text-align: center;
   width: 100%;
   z-index: $z-flash;
-}
 
-.ui-flash__flash {
-  background-color: transparent ;
-  position: relative;
-  width: 100%;
-}
-
-.ui-flash__flash-enter {
-  opacity: 0;
-}
-
-.ui-flash__flash-enter-active {
-  opacity: 1;
-  transition: 900ms ease 100ms;
-}
-
-.ui-flash__flash-leave {
-  opacity: 1;
-}
-
-.ui-flash__flash-leave-active  {
-  opacity: 0;
-  transition: 700ms ease-out 100ms;
+  // span added by ReactCSSTransitionGroup
+  > span {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .ui-flash__slider {
-  position: fixed;
-  bottom: 0;
-  height: 50px;
   font-size: 13px;
   content: 'h';
-  padding: 0 60px;
   display: inline-block;
+  height: 100%;
+  left: 0;
   line-height: 18px;
-  padding-right: 30px;
-  width: 100%;
+  position: absolute;
+  right: 0;
+
+  .ui-flash--success & {
+    background: $green-mid;
+  }
+
+  .ui-flash--error & {
+    background: $red;
+  }
+
+  .ui-flash--alert & {
+    background: $blue-bright;
+  }
+
+  .ui-flash--warning & {
+    background: $orange-mid;
+  }
 }
 
-.ui-flash__slider-enter {
-  opacity: 0;
-  width: 0%;
-  transform: scale(0,1);
-}
-
-.ui-flash__slider-enter-active {
-  opacity: 1;
-  width: 100%;
-  transform: scale(1,1);
-  transition: 700ms ease 100ms;
-}
-
-.ui-flash__slider-leave {
-  opacity: 1;
-  transform: scale(1,1);
-  width: 100%;
-}
-
-.ui-flash__slider-leave-active  {
-  width: 0%;
-  transform: scale(0,1);
-  opacity: 0;
-  margin-left: 25%;
-  transition: 500ms ease 100ms;
-}
-
-.ui-flash__slider--success {
-  background: $green-mid;
-}
-
-.ui-flash__slider--error {
-  background: $red;
-}
-
-.ui-flash__slider--alert {
-  background: $blue-bright;
-}
-
-.ui-flash__slider--warning {
-  background: $orange-mid;
+.ui-flash__content {
+  background-color: transparent ;
+  max-width: $app-max-width;
+  min-width: $app-width;
+  margin: 0 auto;
+  position: relative;
 }
 
 .ui-flash__message {
   color: $white;
-  margin: 0 auto;
-  max-width: $app-max-width - 200;
-  min-width: $app-width - 200;
-  // padding: 18px 0;
-  margin-left: 30%;
+  position: relative;
+  text-align: left;
+  font-size: 14px;
+  margin: 20px 60px;
 }
 
 .ui-flash__icon {
-  height: 50px;
-  left: 28%;
   position: absolute;
-  top: 40%;
-  width: 50px;
+  top: 50%;
+  margin-top: -20px;
 }
 
-.ui-flash__closeIcon{
-  color: $white;
-  float: right;
+.ui-flash__close-icon {
+  cursor: pointer;
+  color: #FFF;
+  position: absolute;
   outline: none;
+  right: 0;
   padding: 0 15px 15px 0;
+  top: 50%;
+  margin-top: -8px;
+}
+
+/**
+ * Animation for slider
+ */
+
+.ui-flash__slider-enter {
+  opacity: 0;
+  left: 50%;
+  right: 50%;
+}
+
+.ui-flash__slider-enter-active {
+  opacity: 1;
+  left: 0%;
+  right: 0%;
+  transition: 500ms ease 100ms;
+}
+
+.ui-flash__slider-leave {
+  opacity: 1;
+}
+
+.ui-flash__slider-leave-active  {
+  opacity: 0;
+  transition: 500ms ease 100ms;
+}
+
+/**
+ * Animation for content inside slider
+ */
+
+.ui-flash__content-enter {
+  opacity: 0;
+}
+
+.ui-flash__content-enter-active {
+  opacity: 1;
+  transition: 500ms ease 100ms;
+}
+
+.ui-flash__content-leave {
+  opacity: 1;
+}
+
+.ui-flash__content-leave-active  {
+  opacity: 0;
+  transition: 400ms ease-out 100ms;
 }

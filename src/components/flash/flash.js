@@ -33,7 +33,7 @@ class Flash extends React.Component {
      * @property onDismiss
      * @type {Function}
      */
-    onDismiss: React.PropTypes.func,
+    onDismiss: React.PropTypes.func.isRequired,
 
     /**
      * Sets the open state of the flash.
@@ -70,20 +70,7 @@ class Flash extends React.Component {
   }
 
   static defaultProps = {
-    type: 'alert',
-    timeout: 2000
-  }
-
-  state = {
-  /**
-   * Whether notification currently showing.
-   * Allows component to monitor it's current state.
-   *
-   * @property active
-   * @type {Boolean}
-   * @default false
-   */
-    active: false
+    type: 'alert'
   }
 
   /**
@@ -92,51 +79,14 @@ class Flash extends React.Component {
    * @method componentDidUpdate
    * @return(Void)
    */
-  componentDidUpdate() {
-    if (!this.state.active && this.props.open === true) {
-      this.setState({ active: true });
-
-      if (this.props.type == 'success') {
+  componentDidUpdate(prevProps) {
+    if (this.props.timeout && this.props.open === true) {
+      if (prevProps.open != this.props.open) {
         setTimeout(() => {
           this.props.onDismiss();
-          this.setState({ active: false });
         }, this.props.timeout);
       }
     }
-  }
-
-  /**
-   * Returns classes for message.
-   *
-   * @method messageClasses
-   * @return {String}
-   */
-  get messageClasses() {
-    return 'ui-flash__message';
-  }
-
-  /**
-   * Returns classes for the flash.
-   *
-   * @method flashClasses
-   * @return {String}
-   */
-  get flashClasses() {
-    return 'ui-flash__flash';
-  }
-
-  /**
-   * Returns classes for the slider.
-   *
-   * @method sliderClasses
-   * @return {String}
-   */
-  get sliderClasses() {
-    let classes = 'ui-flash__slider';
-
-    classes += ` ui-flash__slider--${this.props.type}`;
-
-    return classes;
   }
 
   /**
@@ -181,17 +131,17 @@ class Flash extends React.Component {
                        dangerouslySetInnerHTML={ this.typeIcon }>
                   </div>);
 
-    contents.push(<h3 className={ this.messageClasses }
-                      key='message'>{ this.props.message }
-                  </h3>);
+    contents.push(<div className='ui-flash__message' key='message'>
+                    { this.props.message }
+                  </div>);
 
-    if (this.props.type !== 'success') {
-      contents.push(<div className='ui-flash__closeIcon' onClick={ this.props.onDismiss } key='close'>
+    if (!this.props.timeout) {
+      contents.push(<div className='ui-flash__close-icon' onClick={ this.props.onDismiss } key='close'>
                       <Icon type='close' />
                     </div>);
     }
 
-    return <div className={ this.flashClasses }>
+    return <div className='ui-flash__content'>
              { contents }
            </div>;
   }
@@ -204,7 +154,7 @@ class Flash extends React.Component {
    */
   get sliderHTML() {
     return (
-      <div className={ this.sliderClasses } key='slider'></div>
+      <div className='ui-flash__slider' key='slider'></div>
     );
   }
 
@@ -217,7 +167,11 @@ class Flash extends React.Component {
   render() {
     let flashHTML, sliderHTML, mainClasses;
 
-    mainClasses = ClassNames('ui-flash', this.props.className);
+    mainClasses = ClassNames(
+      'ui-flash',
+      this.props.className,
+      `ui-flash--${this.props.type}`
+    );
 
     if (this.props.open) {
       flashHTML = this.flashHTML;
@@ -232,9 +186,9 @@ class Flash extends React.Component {
           transitionLeaveTimeout={ 500 }>
           { sliderHTML }
           <ReactCSSTransitionGroup
-            transitionName="ui-flash__flash"
+            transitionName="ui-flash__content"
             transitionEnterTimeout={ 500 }
-            transitionLeaveTimeout={ 500} >
+            transitionLeaveTimeout={ 500 } >
             { flashHTML }
           </ReactCSSTransitionGroup>
         </ReactCSSTransitionGroup>
