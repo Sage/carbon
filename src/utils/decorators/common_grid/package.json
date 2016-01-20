@@ -1,5 +1,0 @@
-{
-  "main": "./common_grid.js",
-  "style": "./common_grid.scss",
-  "name": "CommonGrid"
-}
