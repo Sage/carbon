@@ -6,6 +6,7 @@
 * Grid
 * Animated Menu Button
 * Notification
+* Flash
 
 ## Input Grid - Breaking change
 
