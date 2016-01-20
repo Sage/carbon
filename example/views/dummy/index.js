@@ -86,7 +86,7 @@ class Finances extends React.Component {
 
           <UserDialog />
 
-          <Flash onDismiss={ this.handleFlashEnd } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} type="success" />
+          <Flash onDismiss={ this.handleFlashEnd } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} type="warning" />
         </div>
       </div>
     );

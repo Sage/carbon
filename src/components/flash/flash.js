@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './../icon';
 
 /**
- * An Flash widget.
+ * A Flash widget.
  *
  * The flash is rendered in two sections: a ventral message 'flash', and a
  * dorsal coloured, expanding 'slider'.
@@ -18,7 +18,7 @@ import Icon from './../icon';
  * To render a Flash, setup open and cancel handlers in your view to trigger
  * the message on and off:
  *
- *  <Flash open={ myopenHandler } onDismiss={ myonDismiss } message='Alert!' />
+ *  <Flash open={ openStatus } onDismiss={ myOnDismiss } message='Alert!' />
  *
  * @class Flash
  * @constructor
@@ -63,15 +63,15 @@ class Flash extends React.Component {
     /**
      * Time for flash to remain on screen
      *
-     * @property timeOut
+     * @property timeout
      * @type {Number} in milliseconds
      */
-    timeOut: React.PropTypes.number
+    timeout: React.PropTypes.number
   }
 
   static defaultProps = {
     type: 'alert',
-    timeOut: 2000
+    timeout: 2000
   }
 
   state = {
@@ -100,7 +100,7 @@ class Flash extends React.Component {
         setTimeout(() => {
           this.props.onDismiss();
           this.setState({ active: false });
-        }, this.props.timeOut);
+        }, this.props.timeout);
       }
     }
   }
@@ -293,7 +293,7 @@ function alertIcon() {
 function successIcon() {
   return {
     __html:
-    <Icon type='tick' />
+    "<div><Icon type='tick' /></div>"
   };
 }
 
@@ -306,7 +306,7 @@ function successIcon() {
 function errorIcon() {
   return {
     __html:
-    <Icon type='error' />
+    "<div><Icon type='error' /></div>"
   };
 }
 export default Flash;

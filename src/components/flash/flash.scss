@@ -92,11 +92,11 @@
 }
 
 .ui-flash__message {
-  color: white;
+  color: $white;
   margin: 0 auto;
   max-width: $app-max-width - 200;
   min-width: $app-width - 200;
-  padding: 18px 0;
+  // padding: 18px 0;
   margin-left: 30%;
 }
 
@@ -104,11 +104,13 @@
   height: 50px;
   left: 28%;
   position: absolute;
-  top: 12%;
+  top: 40%;
   width: 50px;
 }
 
 .ui-flash__closeIcon{
+  color: $white;
   float: right;
   outline: none;
+  padding: 0 15px 15px 0;
 }
