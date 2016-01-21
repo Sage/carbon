@@ -1,3 +1,9 @@
+# 0.1.3
+
+## Bug Fixes
+
+* Fixes validation message width in Firefox.
+
 # 0.1.2
 
 ## Bug Fixes
