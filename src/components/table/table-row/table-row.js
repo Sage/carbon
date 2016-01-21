@@ -35,10 +35,10 @@ class TableRow extends React.Component {
    * @method render
    */
   render() {
-    let className = classNames("ui-table-row", this.props.className),
-        children = React.Children.toArray(this.props.children);
+    let { className, ...props } = this.props;
+    let children = React.Children.toArray(this.props.children);
 
-    let props = this.props;
+    className = classNames("ui-table-row", className);
 
     if (props.onDelete) {
       children.unshift(
