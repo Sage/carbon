@@ -53,4 +53,22 @@ describe('TableRow', () => {
       expect(spy).toHaveBeenCalled();
     });
   });
+
+  describe('other props', () => {
+    it('consumes other props on the tr element', () => {
+      let spy = jasmine.createSpy();
+
+      instance = TestUtils.renderIntoDocument(
+        <Table>
+          <TableRow className="foo" onClick={ spy }>
+            <TableCell />
+          </TableRow>
+        </Table>
+      );
+
+      let tr = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-table-row');
+      TestUtils.Simulate.click(tr);
+      expect(spy).toHaveBeenCalled();
+    });
+  });
 });

@@ -14,27 +14,29 @@ class MyView extends React.Component {
     // Using map allows the developer to define any content they want - this could
     // render text, an input, a button or anything else.
     let tableRows = this.props.data.map((row, index) => {
-      <TableRow>
-        // This cell renders just text for 'description'.
-        <TableCell>
-          { row.get('description') }
-        </TableCell>
+      return(
+        <TableRow>
+          // This cell renders just text for 'description'.
+          <TableCell>
+            { row.get('description') }
+          </TableCell>
 
-        // This cell renders a textbox for 'name'. We also give it an onChange function. It is
-        // important to notice that we bind additional values to this function - 'this' and 'index'.
-        // This means that when the function is called it will receive the index as an argument.
-        // The store then knows which index in the array of data has been modified and needs to update,
-        // the mutation would look something like:
-        // `this.data = this.data.setIn(['line_items', action.index, action.name], action.value);`.
-        <TableCell>
-          <Textbox value={ row.get('name') } onChange={ Actions.nameUpdated.bind(this, index) } />
-        </TableCell>
+          // This cell renders a textbox for 'name'. We also give it an onChange function. It is
+          // important to notice that we bind additional values to this function - 'this' and 'index'.
+          // This means that when the function is called it will receive the index as an argument.
+          // The store then knows which index in the array of data has been modified and needs to update,
+          // the mutation would look something like:
+          // `this.data = this.data.setIn(['line_items', action.index, action.name], action.value);`.
+          <TableCell>
+            <Textbox value={ row.get('name') } onChange={ Actions.nameUpdated.bind(this, index) } />
+          </TableCell>
 
-        // This cell renders a button component.
-        <TableCell>
-          <Button>An Action!</Button>
-        </TableCell>
-      </TableRow>
+          // This cell renders a button component.
+          <TableCell>
+            <Button>An Action!</Button>
+          </TableCell>
+        </TableRow>
+      );
     });
 
     // tableRows is now an array mapped from the data we provided. We also need a table header so
