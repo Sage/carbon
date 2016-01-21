@@ -36,7 +36,8 @@ class TableRow extends React.Component {
    */
   render() {
     let { className, ...props } = this.props;
-    let children = React.Children.toArray(this.props.children);
+
+    let children = React.Children.toArray(props.children);
 
     className = classNames("ui-table-row", className);
 
