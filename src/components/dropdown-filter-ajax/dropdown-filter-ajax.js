@@ -1,6 +1,6 @@
 import React from 'react';
 import Request from 'superagent';
-import _ from 'lodash';
+import { find, cloneDeep } from 'lodash';
 import DropdownFilter from './../dropdown-filter';
 
 /**
@@ -139,6 +139,28 @@ class DropdownFilterAjax extends DropdownFilter {
     this.getData(ev.target.value, 1);
   }
 
+  /*
+   * Handles what happens on blur of the input.
+   *
+   * @method handleBlur
+   */
+  handleBlur = () => {
+    if (!this.blockBlur) {
+      let filter = this.props.create ? this.state.filter : null,
+          highlighted = this.highlighted(this.options);
+
+      if (highlighted != this.props.value) {
+        let item = find(this.state.options, (item) => {
+          return item.id === String(highlighted)
+        });
+
+        this.emitOnChangeCallback(highlighted, item.name);
+      }
+
+      this.setState({ open: false, filter: filter });
+    }
+  }
+
   /**
    * Handles what happens on focus of the input.
    *
@@ -248,21 +270,12 @@ class DropdownFilterAjax extends DropdownFilter {
   }
 
   /**
-   * DropdownFilterAjax does not have a default highlighted, so returns null.
-   *
-   * @method defaultHighlighted
-   */
-  get defaultHighlighted() {
-    return null;
-  }
-
-  /**
    * Returns the list options in the correct format
    *
    * @method options
    */
   get options() {
-    return this.prepareList(_.cloneDeep(this.state.options));
+    return this.prepareList(cloneDeep(this.state.options));
   }
 
 
@@ -274,8 +287,10 @@ class DropdownFilterAjax extends DropdownFilter {
   get inputProps() {
     let props = super.inputProps;
 
-    if (typeof props.value !== 'string') {
+    if (typeof this.state.filter !== 'string') {
       props.value = this.props.visibleValue;
+    } else {
+      props.value = this.state.filter;
     }
 
     return props;

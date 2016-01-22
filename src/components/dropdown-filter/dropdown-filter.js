@@ -126,12 +126,12 @@ class DropdownFilter extends Dropdown {
    */
   handleVisibleChange(ev) {
     let state = {
-      filter: ev.target.value
+      filter: ev.target.value,
+      highlighted: null
     };
 
     if (this.props.suggest && ev.target.value.length > 0) {
       state.open = true;
-      state.highlighted = this.defaultHighlighted;
     } else if (this.props.suggest) {
       state.open = false;
     }
@@ -153,7 +153,16 @@ class DropdownFilter extends Dropdown {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      let filter = this.props.create ? this.state.filter : null;
+      let filter = this.props.create ? this.state.filter : null,
+          highlighted = this.highlighted(this.options);
+
+      if (highlighted != this.props.value) {
+        let item = this.props.options.find((item) => {
+          return item.get('id') === highlighted
+        });
+
+        this.emitOnChangeCallback(highlighted, item.get('name'));
+      }
 
       this.setState({ open: false, filter: filter });
     }
@@ -166,10 +175,7 @@ class DropdownFilter extends Dropdown {
    */
   handleFocus = () => {
     if (!this.props.suggest) {
-      this.setState({
-        open: true,
-        highlighted: this.defaultHighlighted
-      });
+      this.setState({ open: true });
     }
 
     this.refs.input.setSelectionRange(0, this.refs.input.value.length);
@@ -230,6 +236,27 @@ class DropdownFilter extends Dropdown {
     }
 
     return items;
+  }
+
+  /**
+   * Return the list item which should be highlighted by default.
+   *
+   * @method highlighted
+   */
+  highlighted = (options) => {
+    let highlighted = null;
+
+    if (this.state.highlighted) {
+      highlighted = this.state.highlighted;
+    } else {
+      if (!this.state.filter && this.props.value) {
+        highlighted = this.props.value;
+      } else if (options.length) {
+        highlighted = options[0].id;
+      }
+    }
+
+    return highlighted;
   }
 
   /**
