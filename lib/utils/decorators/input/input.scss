@@ -1,0 +1,179 @@
+@import 'colors';
+@import 'general';
+@import 'mixins';
+@import 'z-index';
+@import 'input-field';
+
+.common-input {
+  position: relative;
+
+  &:hover .common-input__message {
+    display: table;
+  }
+
+  + .common-input {
+    margin-top: 10px;
+  }
+}
+
+.common-input--readonly {
+  .common-input__input {
+    background-color: transparent;
+    border: none;
+
+    &:active,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.common-input--align-left {
+  .common-input__input {
+    text-align: left;
+  }
+
+  .common-input__icon {
+    right: 0;
+    left: auto;
+  }
+}
+
+.common-input--align-right {
+  .common-input__input {
+    text-align: right;
+  }
+
+  .common-input__icon {
+    left: 0;
+    right: auto;
+  }
+}
+
+.common-input__field {
+  position: relative;
+}
+
+.common-input__input {
+  background-color: $white;
+  border-radius: $input-border-radius;
+  border: $input-common-border;
+  box-sizing: border-box;
+  color: $input-common-color;
+  font-family: $input-common-font;
+  font-size: $input-common-font-size;
+  height: $input-common-height;
+  line-height: $input-common-line-height;
+  margin: 0px;
+  outline: none;
+  padding: $input-common-padding;
+  width: 100%;
+  vertical-align: baseline;
+
+  &::-ms-clear {
+    // Hide x icon in IE
+    display: none;
+  }
+
+  &:hover { 
+    border-color: $input-active-border-color;
+  }
+
+  &:active,
+  &:focus {
+    border-color: $input-active-border-color;
+    box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
+    @include transition(box-shadow linear 0.1s);
+  }
+
+  &[disabled] {
+    background-color: $grey-light !important; // this is the correct use of !important
+    border-color: $grey !important; // this is the correct use of !important
+
+    &:active,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.common-input__message-wrapper {
+  top: 0;
+  position: absolute;
+  width: 250px;
+}
+
+.common-input__message {
+  $arrow-size: 5px;
+
+  border-radius: 3px 3px 3px 0;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  display: table;
+  left: 100%;
+  margin-top: $arrow-size;
+  max-width: 250px;
+  min-width: 50px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  width: fit-content;
+  width: -moz-fit-content;
+  z-index: $z-validation-message;
+
+  &:before {
+    border-top: 14px solid #D63F40;
+    border-right: 16px solid transparent;
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -14px;
+  }
+}
+
+.common-input__message--hidden {
+  display: none;
+}
+
+.common-input__message--locked {
+  display: table;
+}
+
+.common-input__message--flipped {
+  border-radius: 3px 3px 0 3px;
+
+  &:before {
+    border-left: 16px solid transparent;
+    border-right: none;
+    left: auto;
+    right: 0;
+  }
+}
+
+.common-input__icon {
+  bottom: 1px;
+  color: red;
+  margin: 7px 5px;
+  position: absolute;
+  right: 0;
+
+  &:before {
+    font-size: 20px;
+  }
+}
+
+.common-input--error .common-input__label,
+.common-input__icon {
+  color: $error;
+}
+
+.common-input__input--error,
+.common-input__input--error:hover {
+  border-color: $error !important; // this is the correct use of !important
+}
+
+.common-input__message--error {
+  background-color: $error;
+  color: $white;
+}

@@ -1,0 +1,5 @@
+{
+  "name": "input",
+  "style": "input.scss",
+  "main": "./input.js"
+}

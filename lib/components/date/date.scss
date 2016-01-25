@@ -1,0 +1,141 @@
+@import 'colors';
+@import 'z-index';
+@import 'mixins';
+
+$date__picker__width: 210px;
+$date__picker__border: #EBEDEF;
+$date__picker__header-color: #8A8E95;
+$date__picker__header-border-color: #636872;
+$date__picker__cell-border-color: #CECECE;
+
+.date-picker {
+  border-radius: 5px;
+  border: 2px solid $date__picker__border;
+  box-shadow: 0 4px 8px rgba($grey-dark-blue, 0.5);
+  color: #888888;
+  display: block;
+  position: absolute;
+  text-align: center;
+  width: $date__picker__width;
+  z-index: $z-datepicker;
+
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  * {
+    box-sizing: border-box;
+    outline: none;
+  }
+}
+
+.dp-footer div,
+.dp-cell {
+  float: left;
+  height: 27px;
+  padding: 6px 0;
+  width: 14.285714286%;
+}
+
+.dp-header {
+  color: $white;
+  cursor: pointer;
+  font-weight: bold;
+  height: 30px;
+}
+
+.dp-row {
+  height: 100%;
+}
+
+.dp-nav-table {
+  background-color: $date__picker__header-color;
+  border-radius: 3px 3px 0 0;
+  height: 100%;
+  width: 100%;
+
+  .dp-cell {
+    border-radius: 4px 0 0 0;
+    border-right: 1px solid $date__picker__header-border-color;
+    font-family: Arial;
+    height: 100%;
+    padding: 8px 0;
+    text-align: center;
+    width: 76%;
+
+    &:active {
+      background-color: $grey-dark;
+    }
+
+    &:last-child {
+      border-radius: 0 4px 0 0;
+      border-right: none;
+    }
+  }
+
+  .dp-nav-cell {
+    font-size: 20px;
+    line-height: 13px;
+    width: 12%;
+  }
+}
+
+.dp-week-day-name {
+  background-color: $date__picker__cell-border-color;
+  font-size: 10px;
+  font-weight: bold;
+  height: auto;
+  padding: 2px 0 1px 0;
+}
+
+.dp-year,
+.dp-month,
+.dp-day,
+.dp-footer div {
+  background-color: $grey-light;
+  border: 1px solid $date__picker__cell-border-color;
+  border-top: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $blue-bright;
+    color: $white;
+  }
+
+  &.dp-value {
+    background-color: $blue;
+    color: $white;
+  }
+
+  &.dp-current {
+    font-weight: bolder;
+  }
+}
+
+.dp-year + .dp-year,
+.dp-month + .dp-month,
+.dp-day + .dp-day,
+.dp-footer div + div {
+  border-left: none;
+}
+
+.dp-prev,
+.dp-next {
+  background-color: #DEDEDE;
+
+  &:hover {
+    color: $grey-dark;
+    background-color: #EDF4FB;
+  }
+}
+
+.dp-year,
+.dp-month {
+  width: 25%;
+}
+
+.dp-footer div {
+  width: 50%;
+}

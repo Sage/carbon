@@ -20,3 +20,14 @@ When submitting a pull request, please ensure your branch meets the following cr
 * The code does not introduce unnecessary dependencies (no jQuery!).
 
 To be merged, we prefer the pull request to be reviewed by at least two people with merge rights.
+
+## Submitting a Release
+
+* Bump the version in `package.json`.
+* Ensure the `CHANGELOG.md` is up to date.
+* Run `npm run-script release` to update `/lib`.
+* Commit and push changes.
+* If releasing a minor version, open a PR to `master`.
+* If releasing a patch version, open a PR to `release`.
+* Once merged, draft a release in GitHub.
+* If you have merged into `release`, open a PR to merge back into `master`.

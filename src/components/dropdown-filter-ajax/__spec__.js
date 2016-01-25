@@ -32,6 +32,69 @@ describe('DropdownFilterAjax', () => {
     });
   });
 
+  describe('handleBlur', () => {
+    beforeEach(() => {
+      instance.setState({ options: [{
+        id: '90',
+        name: 'foo'
+      }]});
+    });
+
+    describe('if blockBlur', () => {
+      it('does not call setState', () => {
+        spyOn(instance, 'setState');
+        instance.blockBlur = true;
+        instance.handleBlur();
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if not blockBlur', () => {
+      beforeEach(() => {
+        instance.blockBlur = false;
+        spyOn(instance, 'emitOnChangeCallback');
+      });
+
+      describe('when not in create mode', () => {
+        it('calls setState with null filter value', () => {
+          spyOn(instance, 'setState');
+          instance.handleBlur();
+          expect(instance.setState).toHaveBeenCalledWith({ open: false, filter: null });
+        });
+      });
+
+      describe('when in create mode', () => {
+        it('calls setState with filter value from state', () => {
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilterAjax name="foo" value="1" path="/foobar" create={ function() {} } />
+          );
+          instance.setState({ filter: 'foo', options: [{
+            id: '90',
+            name: 'foo'
+          }]});
+          spyOn(instance, 'setState');
+          instance.handleBlur();
+          expect(instance.setState).toHaveBeenCalledWith({ open: false, filter: 'foo' });
+        });
+      });
+
+      describe('if highlighted matches value', () => {
+        it('does not emit change', () => {
+          instance.handleBlur();
+          expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('if highlighted does not match value', () => {
+        it('emits change', () => {
+          spyOn(instance, 'highlighted').and.returnValue(90);
+          instance.handleBlur();
+          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(90, 'foo');
+        });
+      });
+    });
+  });
+
   describe('handleFocus', () => {
     beforeEach(() => {
       spyOn(instance, 'getData');
@@ -220,12 +283,6 @@ describe('DropdownFilterAjax', () => {
     });
   });
 
-  describe('defaultHighlighted', () => {
-    it('returns null', () => {
-      expect(instance.defaultHighlighted).toBe(null);
-    });
-  });
-
   describe('options', () => {
     it('calls prepareList', () => {
       spyOn(instance, 'prepareList');
@@ -235,23 +292,23 @@ describe('DropdownFilterAjax', () => {
   });
 
   describe('inputProps', () => {
-    describe('when value is not a string', () => {
+    describe('when filter is not a string', () => {
       it('uses the visibleValue', () => {
         instance = TestUtils.renderIntoDocument(
           <DropdownFilterAjax name="foo" value="1" path="/foobar" visibleValue="bar" />
         );
-        instance.visibleValue = null;
+        instance.setState({ filter: null });
         expect(instance.inputProps.value).toEqual('bar');
       });
     });
 
-    describe('when value is a string', () => {
-      it('uses the value from inputProps', () => {
+    describe('when filter is a string', () => {
+      it('uses the filter value', () => {
         instance = TestUtils.renderIntoDocument(
           <DropdownFilterAjax name="foo" path="/foobar" visibleValue="bar" />
         );
-        instance.visibleValue = 'foo';
-        expect(instance.inputProps.value).toEqual('foo');
+        instance.setState({ filter: 'abc' });
+        expect(instance.inputProps.value).toEqual('abc');
       });
     });
   });
