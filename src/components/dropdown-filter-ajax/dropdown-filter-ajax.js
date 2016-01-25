@@ -149,14 +149,16 @@ class DropdownFilterAjax extends DropdownFilter {
       let filter = this.props.create ? this.state.filter : null,
           highlighted = this.highlighted(this.options);
 
+      // select highlighted if it is not the current selected value
       if (highlighted != this.props.value) {
         let item = find(this.state.options, (item) => {
-          return item.id === String(highlighted)
+          return String(item.id) === String(highlighted);
         });
 
         this.emitOnChangeCallback(highlighted, item.name);
       }
 
+      // close list and reset filter
       this.setState({ open: false, filter: filter });
     }
   }

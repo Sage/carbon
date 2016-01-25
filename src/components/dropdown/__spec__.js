@@ -48,7 +48,7 @@ describe('Dropdown', () => {
 
   describe('selectValue', () => {
     beforeEach(() => {
-      spyOn(instance, 'handleBlur');
+      spyOn(instance, 'setState');
       spyOn(instance, 'emitOnChangeCallback');
     });
 
@@ -58,9 +58,9 @@ describe('Dropdown', () => {
       expect(instance.blockBlur).toBeFalsy();
     });
 
-    it('calls handleBlur', () => {
+    it('calls setState', () => {
       instance.selectValue('10', 'foo');
-      expect(instance.handleBlur).toHaveBeenCalled();
+      expect(instance.setState).toHaveBeenCalledWith({ open: false });
     });
 
     it('calls emitOnChangeCallback', () => {
@@ -170,10 +170,34 @@ describe('Dropdown', () => {
     });
 
     describe('if blur is not blocked', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown options={ Immutable.fromJS([{ id: '1', name: 'foo' }, { id: '2', name: 'bar' }]) } value="1" />
+        );
+        spyOn(instance, 'setState');
+        spyOn(instance, 'emitOnChangeCallback');
+      });
+
       it('calls setState', () => {
         instance.blockBlur = false;
         TestUtils.Simulate.blur(instance.refs.input);
         expect(instance.setState).toHaveBeenCalledWith({ open: false });
+      });
+
+      describe('if highlighted matches value', () => {
+        it('does not emit change', () => {
+          spyOn(instance, 'highlighted').and.returnValue(instance.props.value);
+          TestUtils.Simulate.blur(instance.refs.input);
+          expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('if highlighted does not match value', () => {
+        it('emits change', () => {
+          spyOn(instance, 'highlighted').and.returnValue('2');
+          TestUtils.Simulate.blur(instance.refs.input);
+          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('2', 'bar');
+        });
       });
     });
   });
@@ -183,8 +207,7 @@ describe('Dropdown', () => {
       spyOn(instance, 'setState');
       TestUtils.Simulate.focus(instance.refs.input);
       expect(instance.setState).toHaveBeenCalledWith({
-        open: true,
-        highlighted: '1'
+        open: true
       });
     });
 
@@ -294,6 +317,7 @@ describe('Dropdown', () => {
 
         describe('if something is not highlighted', () => {
           it('does not prevent default', () => {
+            instance.setState({ highlighted: 'abc' }); // value which does not exist
             TestUtils.Simulate.keyDown(instance.refs.input, opts);
             expect(spy).not.toHaveBeenCalled();
           });
@@ -366,31 +390,52 @@ describe('Dropdown', () => {
     });
   });
 
-  describe('defaultHighlighted', () => {
-    describe('if there is a value', () => {
-      it('returns the value', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Dropdown name="foo" options={ Immutable.fromJS([{ id: 999, name: 'foo' }, { id: 2, name: 'bar' }]) } value="50" />
-        );
-        expect(instance.defaultHighlighted).toEqual('50');
+  describe('highlighted', () => {
+    let opts;
+
+    beforeEach(() => {
+      opts = [{
+        id: '1',
+        name: 'foo'
+      }, {
+        id: '2',
+        name: 'bar'
+      }];
+    });
+
+    describe('if there is a highlighted state', () => {
+      it('returns the highlighted state', () => {
+        instance.setState({ highlighted: 'foo' });
+        expect(instance.highlighted(opts)).toEqual('foo');
       });
     });
 
-    describe('if there is no value', () => {
-      it('returns first option in the list', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Dropdown name="foo" options={ Immutable.fromJS([{ id: 999, name: 'foo' }, { id: 2, name: 'bar' }]) } value="" />
-        );
-        expect(instance.defaultHighlighted).toEqual(999);
+    describe('if there is no highlighted state', () => {
+      describe('if there is a value', () => {
+        it('returns the value', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Dropdown name="foo" options={ Immutable.fromJS([]) } value="50" />
+          );
+          expect(instance.highlighted(opts)).toEqual('50');
+        });
       });
-    });
 
-    describe('if there is no value and no options', () => {
-      it('returns null', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Dropdown name="foo" options={ Immutable.fromJS([]) } value="" />
-        );
-        expect(instance.defaultHighlighted).toBe(null);
+      describe('if there is no value', () => {
+        it('returns first option in the list', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Dropdown name="foo" options={ Immutable.fromJS([]) } value="" />
+          );
+          expect(instance.highlighted(opts)).toEqual('1');
+        });
+      });
+
+      describe('if there is no value and no options', () => {
+        it('returns null', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Dropdown name="foo" options={ Immutable.fromJS([]) } value="" />
+          );
+          expect(instance.highlighted([])).toBe(null);
+        });
       });
     });
   });
@@ -497,7 +542,7 @@ describe('Dropdown', () => {
     });
 
     it('adds selected class', () => {
-      expect(instance.results(instance.options)[0].props.className).toEqual('ui-dropdown__list__item ui-dropdown__list__item--selected');
+      expect(instance.results(instance.options)[0].props.className).toEqual('ui-dropdown__list__item ui-dropdown__list__item--highlighted ui-dropdown__list__item--selected');
     });
 
     it('adds highlighted class', () => {
