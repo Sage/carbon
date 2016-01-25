@@ -1,0 +1,14 @@
+@import "tables";
+@import "colors";
+
+.ui-table {
+  border-radius: $tables__border-radius;
+  background-color: $white;
+  border: 1px solid $border-color;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
+}
