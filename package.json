@@ -1,6 +1,6 @@
 {
   "name": "carbon",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Fundamental building blocks.",
   "main": "index.js",
   "style": [
