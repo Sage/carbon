@@ -1,3 +1,9 @@
+# 0.1.4
+
+## Bug Fixes
+
+* Dropdown components auto select highlighted values on blur.
+
 # 0.1.3
 
 ## Bug Fixes

@@ -420,15 +420,6 @@ describe('Dropdown', () => {
         });
       });
 
-      describe('if there is no value', () => {
-        it('returns first option in the list', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Dropdown name="foo" options={ Immutable.fromJS([]) } value="" />
-          );
-          expect(instance.highlighted(opts)).toEqual('1');
-        });
-      });
-
       describe('if there is no value and no options', () => {
         it('returns null', () => {
           instance = TestUtils.renderIntoDocument(

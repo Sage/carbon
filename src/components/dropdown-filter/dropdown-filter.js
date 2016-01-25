@@ -251,7 +251,7 @@ class DropdownFilter extends Dropdown {
     } else {
       if (!this.state.filter && this.props.value) {
         highlighted = this.props.value;
-      } else if (options.length) {
+      } else if (this.state.filter && options.length) {
         highlighted = options[0].id;
       }
     }

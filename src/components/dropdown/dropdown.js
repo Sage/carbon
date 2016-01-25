@@ -302,7 +302,7 @@ class Dropdown extends React.Component {
    *
    * @method highlighted
    */
-  highlighted = (options) => {
+  highlighted = () => {
     let highlighted = null;
 
     if (this.state.highlighted) {
@@ -310,8 +310,6 @@ class Dropdown extends React.Component {
     } else {
       if (this.props.value) {
         return this.props.value;
-      } else if (options.length) {
-        return options[0].id;
       }
     }
 
