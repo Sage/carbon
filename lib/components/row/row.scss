@@ -1,0 +1,59 @@
+@import 'general';
+
+$max-columns: 12 !default;
+
+.ui-row {
+  clear: both;
+  margin-left: -($grid-margin);
+  position: relative;
+
+  + .ui-row {
+    margin-top: 10px;
+  }
+
+  .ui-row__column {
+    box-sizing: border-box;
+    float: left;
+    min-height: 1px;
+    padding-left: $grid-margin;
+    width: 100%;
+  }
+
+  @for $i from 2 through $max-columns {
+    $width: 100% / $i;
+
+    &.ui-row--columns-#{$i} {
+      > .ui-row__column {
+        width: $width;
+      }
+
+      // span columns:
+      @for $y from 2 through $i {
+        @if $y != $i {
+          > .ui-row__column--span-#{$y} {
+            width: (100% / $i) * $y;
+          }
+        }
+      }
+
+      // offset columns:
+      @for $y from 1 through $i {
+        @if $y != $i {
+          > .ui-row__column--offset-#{$y} {
+            margin-left: $width * $y;
+          }
+        }
+      }
+    }
+  }
+
+  // Clearfix:
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}

@@ -3,6 +3,7 @@
 ## Bug Fixes
 
 * Dropdown components auto select highlighted values on blur.
+* Carbon now compiles code to `lib`, allowing developers to no longer require installing babel on their computer.
 
 # 0.1.3
 
