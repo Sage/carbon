@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "node -e \"require('ncp').ncp('./src', './lib')\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
+    "release": "node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js).)*$') }, function() { })\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
   },
   "repository": {
     "type": "git",
