@@ -124,6 +124,7 @@ class Dropdown extends React.Component {
   selectValue(val, visibleVal) {
     this.blockBlur = false;
     this.setState({ open: false });
+    this._handleContentChange();
     this.emitOnChangeCallback(val, visibleVal);
   }
 

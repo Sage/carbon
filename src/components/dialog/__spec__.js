@@ -162,6 +162,11 @@ describe('Dialog', () => {
     });
   });
 
+  describe('dialogTitleClasses', () => {
+    it('returns the class for the dialog title', () => {
+      expect(instance.dialogTitleClasses).toEqual('ui-dialog__title');
+    });
+  });
 
   describe('render', () => {
     describe('when dialog is open', () => {

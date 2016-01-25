@@ -1,0 +1,78 @@
+@import "tables";
+@import "colors";
+
+.ui-table-cell {
+  background-color: $row-alt-color;
+  border-bottom: 1px solid $table-border-color;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  font-size: 12px;
+  overflow: visible;
+  padding: 8px;
+  vertical-align: baseline;
+  width: auto;
+
+  .ui-table-row:first-child & {
+    border-bottom: none;
+
+    &:first-child {
+      border-radius: $tables__border-radius 0 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 $tables__border-radius 0 0;
+    }
+  }
+
+  .ui-table-row:last-child & {
+    border-bottom: none;
+
+    &:first-child {
+      border-radius: 0 0 0 $tables__border-radius;
+    }
+
+    &:last-child {
+      border-radius: 0 0 $tables__border-radius 0;
+    }
+  }
+
+  .ui-table-row:nth-child(odd) & {
+    background-color: $white;
+  }
+
+  .ui-table-row:hover & {
+    background-color: $row-hover-color;
+  }
+
+  .common-input {
+    margin-bottom: -4px;
+    margin-left: -6px;
+    margin-right: -6px;
+    margin-top: -4px;
+  }
+}
+
+.ui-table-cell--actions {
+  width: 18px;
+
+  .icon-delete:before {
+    cursor: pointer;
+    color: $grey-mid;
+    font-size: 16px;
+    line-height: 15px;
+    margin-left: 1px;
+  }
+
+  .icon-delete:hover:before {
+    color: $error;
+  }
+}
+
+.ui-table-cell--align-left {
+  text-align: left;
+}
+
+.ui-table-cell--align-right {
+  text-align: right;
+}

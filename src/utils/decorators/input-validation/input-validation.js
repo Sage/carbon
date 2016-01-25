@@ -236,10 +236,12 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {void}
    */
   _handleBlur = () => {
-    this.validate();
+    if (!this.blockBlur) {
+      this.validate();
 
-    if (this.state.messageLocked) {
-      this.setState({ messageLocked: false });
+      if (this.state.messageLocked) {
+        this.setState({ messageLocked: false });
+      }
     }
   }
 
