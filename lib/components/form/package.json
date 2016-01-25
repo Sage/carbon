@@ -1,0 +1,5 @@
+{
+  "name": "form",
+  "style": "form.scss",
+  "main": "./form.js"
+}

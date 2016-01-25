@@ -1,0 +1,36 @@
+@import 'general';
+@import 'colors';
+
+.common-input__label {
+  color: $grey-dark;
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  line-height: 14px;
+  margin: 0 0 5px 0;
+  padding: 0 6px;
+  vertical-align: middle;
+}
+
+.common-input--label-inline {
+  margin-left: -($grid-margin);
+
+  .common-input__message {
+    margin-bottom: 6px;
+  }
+}
+
+.common-input__label--inline {
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0;
+  padding: 0 0 0 $grid-margin;
+  width: 30%;
+
+  + .common-input__field {
+    box-sizing: border-box;
+    display: inline-block;
+    padding-left: $grid-margin;
+    width: 70%;
+  }
+}
