@@ -2,7 +2,6 @@ node_modules/
 coverage/
 *.swp
 *.swo
-lib/
 example/assets
 .DS_Store
 .browser-preferences/

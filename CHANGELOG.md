@@ -129,6 +129,21 @@ class MyView extends React.Component {
 export default MyView
 ```
 
+# 0.1.4
+
+## Bug Fixes
+
+* Dropdown components auto select highlighted values on blur.
+* Carbon now compiles code to `lib`, allowing developers to no longer require installing babel on their computer.
+
+# 0.1.3
+
+## Bug Fixes
+
+* Fixes validation message width in Firefox.
+
+# 0.1.2
+
 ## Bug Fixes
 
 * Tabs can now render a single child

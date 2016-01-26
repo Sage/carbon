@@ -1,0 +1,44 @@
+@import "tables";
+@import "colors";
+
+.ui-table-header {
+  border-bottom: 1px solid $grey-dark-blue-60;
+  border-left: 1px solid $grey-dark-blue-60;
+  border-right: none;
+  border-top: none;
+  box-sizing: border-box;
+  background-color: $grey-dark-blue-80;
+  color: $white;
+  font-weight: normal;
+  height: 36px;
+  line-height: 10px;
+  outline: medium none;
+  overflow: hidden;
+  padding: 8px 8px 6px 8px;
+  text-align: left;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  user-select: none;
+
+  &:first-child {
+    border-left: none;
+  }
+
+  .ui-table-row:first-child & {
+    &:first-child {
+      border-radius: $tables__border-radius 0 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 $tables__border-radius 0 0;
+    }
+  }
+}
+
+.ui-table-header--align-left {
+  text-align: left;
+}
+
+.ui-table-header--align-right {
+  text-align: right;
+}

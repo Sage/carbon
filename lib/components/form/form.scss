@@ -1,0 +1,21 @@
+.ui-form__save {
+  border-radius: 4px;
+  float: right;
+  margin-top: 20px;
+  padding: 5px;
+}
+
+.ui-form__save--invalid {
+  background-color: #DEE0E8;
+}
+
+.ui-form__summary {
+  margin: 0 10px;
+}
+
+.ui-form__cancel {
+  border-radius: 4px;
+  float: right;
+  margin-top: 20px;
+  padding: 5px 0 5px 5px;
+}
