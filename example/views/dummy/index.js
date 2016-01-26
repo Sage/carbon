@@ -42,7 +42,7 @@ class Finances extends React.Component {
 
     return (
       <div>
-        <Notification as="new" title="This is a title" message="This is my message." />
+        <Notification as="new" title="This is a title" message="This is my message." buttonAction={ function() {console.log('clicked')}}/>
 
         <div className="view-finances">
           <FinancesHistory />
