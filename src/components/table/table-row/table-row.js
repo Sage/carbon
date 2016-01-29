@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import TableCell from './../table-cell';
 
 /**
  * A TableRow widget.
