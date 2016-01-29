@@ -143,30 +143,6 @@ class Form extends React.Component {
   }
 
   /**
-   * Stores references to the tables in the form
-   *
-   * @property tables
-   * @type {Object}
-   */
-  tables = {
-  }
-
-  /**
-   * Determines if it should remove/add placeholder dummy inputs.
-   *
-   * @method componentWillUpdate
-   * @return {void}
-   */
-  componentWillUpdate(nextProps) {
-    if (this.props.saving != nextProps.saving) {
-      for (let tableKey in this.tables) {
-        let table = this.tables[tableKey];
-        table.setState({ placeholder: !nextProps.saving });
-      }
-    }
-  }
-
-  /**
    * Increase current error count in state by 1.
    *
    * @method incrementErrorCount
@@ -191,17 +167,11 @@ class Form extends React.Component {
    *
    * @method attachToForm
    * @param {Object} component Component to attach
-   * @param {Object} options
    * @return {void}
    */
-  attachToForm = (component, options = {}) => {
+  attachToForm = (component) => {
     let name = component.props.name;
-
-    if (options.table) {
-      this.tables[name] = component;
-    } else {
-      this.inputs[name] = component;
-    }
+    this.inputs[name] = component;
   }
 
   /**
@@ -209,17 +179,11 @@ class Form extends React.Component {
    *
    * @method detachFromFormToForm
    * @param {Object} component Component to detach
-   * @param {Object} options
    * @return {void}
    */
-  detachFromForm = (component, options = {}) => {
+  detachFromForm = (component) => {
     let name = component.props.name;
-
-    if (options.table) {
-      delete this.tables[name];
-    } else {
-      delete this.inputs[name];
-    }
+    delete this.inputs[name];
   }
 
   /**

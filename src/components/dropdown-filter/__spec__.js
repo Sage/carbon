@@ -62,7 +62,8 @@ describe('DropdownFilter', () => {
           });
           expect(instance.setState).toHaveBeenCalledWith({
             open: false,
-            filter: ''
+            filter: '',
+            highlighted: null
           });
         });
       });
@@ -75,7 +76,7 @@ describe('DropdownFilter', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             open: true,
             filter: 'a',
-            highlighted: '1'
+            highlighted: null
           });
         });
       });
@@ -88,7 +89,8 @@ describe('DropdownFilter', () => {
           target: { value: '' }
         });
         expect(instance.setState).toHaveBeenCalledWith({
-          filter: ''
+          filter: '',
+          highlighted: null
         });
       });
     });
@@ -142,6 +144,32 @@ describe('DropdownFilter', () => {
           });
         });
       });
+
+      describe('if highlighted matches value', () => {
+        it('does not call emitOnChangeCallback', () => {
+          spyOn(instance, 'emitOnChangeCallback');
+          instance.handleBlur();
+          expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('if highlighted does not match value', () => {
+        it('does calls emitOnChangeCallback', () => {
+          let opts = Immutable.fromJS([{
+            id: '90',
+            name: 'foo'
+          }]);
+
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ opts } value="1" suggest={ true } />
+          );
+
+          spyOn(instance, 'highlighted').and.returnValue(90);
+          spyOn(instance, 'emitOnChangeCallback');
+          instance.handleBlur();
+          expect(instance.emitOnChangeCallback).toHaveBeenCalled();
+        });
+      });
     });
   });
 
@@ -161,10 +189,7 @@ describe('DropdownFilter', () => {
       it('does not call setState', () => {
         spyOn(instance, 'setState');
         instance.handleFocus();
-        expect(instance.setState).toHaveBeenCalledWith({
-          open: true,
-          highlighted: '1'
-        });
+        expect(instance.setState).toHaveBeenCalledWith({ open: true });
       });
     });
 
@@ -194,6 +219,53 @@ describe('DropdownFilter', () => {
 
     it('calls spy', () => {
       expect(spy).toHaveBeenCalledWith(ev, instance);
+    });
+  });
+
+  describe('highlighted', () => {
+    let opts;
+
+    beforeEach(() => {
+      opts = [{
+        id: '1',
+        name: 'foo'
+      }, {
+        id: '2',
+        name: 'bar'
+      }];
+
+      instance = TestUtils.renderIntoDocument(
+        <DropdownFilter options={ Immutable.fromJS(opts) } value="50" />
+      );
+    });
+
+    describe('if highlighted is set in state', () => {
+      it('returns the highlighted state', () => {
+        instance.setState({ highlighted: '99' });
+        expect(instance.highlighted(opts)).toEqual('99');
+      });
+    });
+
+    describe('if highlighted is not set in state', () => {
+      describe('if there is no filter state and there is a value', () => {
+        it('returns the value', () => {
+          expect(instance.highlighted(opts)).toEqual('50');
+        });
+      });
+
+      describe('if there is a filter state', () => {
+        it('returns first value in the list', () => {
+          instance.setState({ filter: 'bar' });
+          expect(instance.highlighted(opts)).toEqual('1');
+        });
+      });
+
+      describe('if there is no options', () => {
+        it('returns null', () => {
+          instance.setState({ filter: 'bar' });
+          expect(instance.highlighted([])).toEqual(null);
+        });
+      });
     });
   });
 

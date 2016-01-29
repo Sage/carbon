@@ -40,6 +40,7 @@ class Details extends React.Component {
           options={ this.props.options }
           onChange={ FinancesActions.financesValueUpdated }
           value={ this.props.accounts }
+          validations={ [Presence()] }
         />
 
         <DropdownFilterAjax

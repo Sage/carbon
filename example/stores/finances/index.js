@@ -137,11 +137,11 @@ class FinancesStore extends Store {
 
   [FinancesConstants.FINANCES_LINE_ITEM_UPDATED](action) {
     // update this value in the store
-    this.data = ImmutableHelper.updateLineItem([this.data, 'line_items', action.row_id, action.name], action.value);
+    this.data = this.data.setIn(['line_items', action.index, action.name], action.value);
 
     // update other data affected by this change
-    let name = ImmutableHelper.parseName(action.name, 'last');
-    if (name == 'credit' || name == 'debit' || name == 'discount'){
+    let name = action.name;
+    if (name == 'credit' || name == 'debit' || name == 'discount') {
       this.data = updateTotals(this.data, name);
       this.data = updateChartData(this.data);
       this.data = updateBalance(this.data);
@@ -150,7 +150,7 @@ class FinancesStore extends Store {
 
   [FinancesConstants.FINANCES_LINE_ITEM_DELETED](action) {
     // update this value in the store
-    this.data = ImmutableHelper.deleteLineItem([this.data, 'line_items', action.row_id], action.value);
+    this.data = this.data.deleteIn(['line_items', action.index]);
 
     // update other data affected by this change
     this.data = updateTotals(this.data, 'credit');

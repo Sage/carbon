@@ -50,7 +50,7 @@ class Textarea extends React.Component {
    * @method componentDidMount
    * @return {void}
    */
-  componentDidMount = () => {
+  componentDidMount() {
     if (this.props.expandable) {
       window.addEventListener('resize', this.expandTextarea);
       // Set the min height to the initially rendered height.
@@ -69,7 +69,7 @@ class Textarea extends React.Component {
    * @method componentWillUnmount
    * @return {void}
    */
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     if (this.props.expandable) {
       window.removeEventListener('resize', this.expandTextarea);
     }
@@ -82,7 +82,7 @@ class Textarea extends React.Component {
    * @method componentDidUpdate
    * @return {void}
    */
-  componentDidUpdate = () => {
+  componentDidUpdate() {
     if (this.props.expandable) {
       this.expandTextarea();
     }

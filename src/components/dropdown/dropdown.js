@@ -123,7 +123,8 @@ class Dropdown extends React.Component {
    */
   selectValue(val, visibleVal) {
     this.blockBlur = false;
-    this.handleBlur();
+    this.setState({ open: false });
+    this._handleContentChange();
     this.emitOnChangeCallback(val, visibleVal);
   }
 
@@ -202,7 +203,19 @@ class Dropdown extends React.Component {
    * @method handleBlur
    */
   handleBlur = () => {
-    if (!this.blockBlur) { this.setState({ open: false }); }
+    if (!this.blockBlur) {
+      let highlighted = this.highlighted(this.options);
+
+      if (highlighted != this.props.value) {
+        let item = this.props.options.find((item) => {
+          return item.get('id') === highlighted;
+        });
+
+        this.emitOnChangeCallback(highlighted, item.get('name'));
+      }
+
+      this.setState({ open: false });
+    }
   }
 
   /**
@@ -212,8 +225,7 @@ class Dropdown extends React.Component {
    */
   handleFocus = () => {
     this.setState({
-      open: true,
-      highlighted: this.defaultHighlighted
+      open: true
     });
   }
 
@@ -289,15 +301,17 @@ class Dropdown extends React.Component {
   /**
    * Return the list item which should be highlighted by default.
    *
-   * @method defaultHighlighted
+   * @method highlighted
    */
-  get defaultHighlighted() {
+  highlighted = () => {
     let highlighted = null;
 
-    if (this.props.value) {
-      highlighted = this.props.value;
-    } else if (this.props.options.size) {
-      highlighted = this.props.options.first().get('id');
+    if (this.state.highlighted) {
+      return this.state.highlighted;
+    } else {
+      if (this.props.value) {
+        return this.props.value;
+      }
     }
 
     return highlighted;
@@ -432,13 +446,14 @@ class Dropdown extends React.Component {
    * @method results
    */
   results(options) {
-    let className = 'ui-dropdown__list__item';
+    let className = 'ui-dropdown__list__item',
+        highlighted = this.highlighted(options);
 
     let results = options.map((option) => {
       let klass = className;
 
       // add highlighted class
-      if (this.state.highlighted == option.id) {
+      if (highlighted == option.id) {
         klass += ` ${className}--highlighted`;
       }
 
