@@ -1,6 +1,9 @@
+@import 'general';
+
 .view-finances {
   margin: 0 auto;
-  width: 980px;
+  max-width: $app-max-width;
+  min-width: $app-width;
 }
 
 .view-finances__title {
