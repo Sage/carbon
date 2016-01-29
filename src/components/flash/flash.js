@@ -188,7 +188,7 @@ class Flash extends React.Component {
           <ReactCSSTransitionGroup
             transitionName="ui-flash__content"
             transitionEnterTimeout={ 800 }
-            transitionLeaveTimeout={ 600 } >
+            transitionLeaveTimeout={ 500 } >
             { flashHTML }
           </ReactCSSTransitionGroup>
         </ReactCSSTransitionGroup>
