@@ -311,7 +311,7 @@ describe('Dropdown', () => {
           });
 
           it('calls setValue', () => {
-            expect(instance.selectValue).toHaveBeenCalledWith(1, 'foo');
+            expect(instance.selectValue).toHaveBeenCalledWith('1', 'foo');
           });
         });
 
