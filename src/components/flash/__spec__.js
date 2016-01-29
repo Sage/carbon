@@ -79,11 +79,15 @@ describe('Flash', () => {
     });
 
     describe('when no timeout value is passed', () => {
-      it('does not update state or call the dismissHandler', () => {
+      beforeEach(() => {
+        spyOn(defaultInstance, 'calculateTimeout');
+      });
+
+      it('calculates the timeout based on message length', () => {
         let prevProps = { open: true };
         defaultInstance.componentDidUpdate(prevProps);
         jasmine.clock().tick(2000);
-        expect(dismissHandler).not.toHaveBeenCalled();
+        expect(defaultInstance.calculateTimeout).toHaveBeenCalled();
       });
     });
 
