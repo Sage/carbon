@@ -40,6 +40,18 @@ let FinancesActions = {
     });
   },
 
+  financesFlashOpened: (ev, props) => {
+    Dispatcher.dispatch({
+      actionType: FinancesConstants.FLASH_OPENED
+    });
+  },
+
+  financesFlashClosed: (ev, props) => {
+    Dispatcher.dispatch({
+      actionType: FinancesConstants.FLASH_CLOSED
+    });
+  },
+
   financesSave: (ev, props) => {
     setTimeout(() => {
       Dispatcher.dispatch({
