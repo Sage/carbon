@@ -44,7 +44,7 @@ describe('Pod', () => {
 
         it('Adds a additional collaspsible arrow to the the header', () => {
           let arrow = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__arrow');
-          expect(arrow.className).toEqual('icon-dropdown ui-pod__arrow ui-pod__arrow--true');
+          expect(arrow.className).toEqual('ui-pod__arrow ui-pod__arrow--true icon-dropdown');
         });
 
         it('Adds a additonal class header', () => {
