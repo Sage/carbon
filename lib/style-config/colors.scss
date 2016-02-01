@@ -17,8 +17,10 @@ $grey-mid:                   #AFAFAF !default;
 $grey-light:                 #EBEDEF !default;
 $grey-background:            $grey-light !default;
 $green:                      #007F64 !default;
+$green-mid:                  #42AE42 !default;
 $green-bright:               #00DC00 !default;
 $orange:                     #FF8234 !default;
+$orange-mid:                 #FFAB00 !default;
 $orange-bright:              #FF5800 !default;
 $blue:                       #255BC7 !default;
 $blue-dark:                  #193E90 !default;
@@ -29,8 +31,11 @@ $magenta:                    #ED1C5F !default;
 $magenta-dull:               #CA2A60 !default;
 
 // Main colours
-$warning:                    $orange !default;
-$error:                      $red !default;
+$warning:                    #ff5400 !default;
+$error:                      #ea433f !default;
+$info:                       #3592ff !default;
+$new:                        #42ae42 !default;
+$help:                       #ffab00 !default;
 
 $border-color:               #CCD1DC !default;
 $table-border-color:         #E4E7EA !default;
