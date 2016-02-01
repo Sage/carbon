@@ -133,11 +133,11 @@ describe('Date', () => {
     });
 
     describe('valid dates', () => {
-      let noOfDays = 300
+      let noOfDays = 300;
       let hiddenDate = moment().add(noOfDays, 'days').format('YYYY-MM-DD');
 
       it('accepts the format DD MMM YYYY', () => {
-        let date = moment().add(noOfDays, 'days').format('DD MMM YYY');
+        let date = moment().add(noOfDays, 'days').format('DD MMM YYYY');
         instance.handleVisibleInputChange({ target: { value: date } })
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
