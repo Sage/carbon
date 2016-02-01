@@ -135,6 +135,8 @@ class Dropdown extends React.Component {
    * @param {Object} value Value of the selected list item
    */
   emitOnChangeCallback = (value, visibleValue) => {
+    // To be consistent, always return string
+    value = String(value);
     // mock a standard input event return, with target and value
     this._handleOnChange({
       target: {
@@ -272,7 +274,7 @@ class Dropdown extends React.Component {
       case 13: // return
         if (element) {
           ev.preventDefault();
-          this.selectValue(element.value, element.textContent);
+          this.selectValue(element.getAttribute('value'), element.textContent);
         }
         break;
       case 38: // up arrow

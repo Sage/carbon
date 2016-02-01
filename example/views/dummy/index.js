@@ -15,7 +15,7 @@ import FinancesDetails from './subviews/details';
 import FinancesChart from './subviews/chart';
 import FinancesTable from './subviews/grid';
 import UserDialog from './subviews/user-dialog';
-
+import Flash from 'components/flash';
 
 class Finances extends React.Component {
 
@@ -34,6 +34,11 @@ class Finances extends React.Component {
     ev.preventDefault();
     FinancesActions.beforeSave();
     FinancesActions.financesSave();
+    FinancesActions.financesFlashOpened();
+  }
+
+  handleFlashEnd = (ev) => {
+    FinancesActions.financesFlashClosed();
   }
 
   render() {
@@ -53,7 +58,7 @@ class Finances extends React.Component {
 
           <h1 className="view-finances__title">{ name }</h1>
 
-          <Form model="foo">
+          <Form model="foo" afterFormValidation={ this.save } >
             <FinancesDetails
               name={ name }
               countryValue={ financesStore.getIn(['country', 'id']) }
@@ -80,6 +85,8 @@ class Finances extends React.Component {
           <Link className="home-link" href='#' disabled>Main Page</Link>
 
           <UserDialog />
+
+          <Flash onDismiss={ this.handleFlashEnd } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} type="alert" />
         </div>
       </div>
     );

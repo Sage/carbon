@@ -80,6 +80,28 @@ describe('Dropdown', () => {
         }
       });
     });
+
+    it('calls convert integer to string', () => {
+      spyOn(instance, '_handleOnChange');
+      instance.emitOnChangeCallback(10, 'foo');
+      expect(instance._handleOnChange).toHaveBeenCalledWith({
+        target: {
+          value: '10',
+          visibleValue: 'foo'
+        }
+      });
+    });
+
+    it('handles undefined', () => {
+      spyOn(instance, '_handleOnChange');
+      instance.emitOnChangeCallback(undefined, 'foo');
+      expect(instance._handleOnChange).toHaveBeenCalledWith({
+        target: {
+          value: 'undefined',
+          visibleValue: 'foo'
+        }
+      });
+    });
   });
 
   describe('handleSelect', () => {
@@ -311,7 +333,7 @@ describe('Dropdown', () => {
           });
 
           it('calls setValue', () => {
-            expect(instance.selectValue).toHaveBeenCalledWith(1, 'foo');
+            expect(instance.selectValue).toHaveBeenCalledWith('1', 'foo');
           });
         });
 
