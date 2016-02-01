@@ -5,12 +5,20 @@ import TableRow from './table-row';
 import Icon from './../../icon';
 
 describe('TableRow', () => {
-  let instance;
+  let instance, clickableInstance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Table>
         <TableRow className="foo">
+          <TableCell />
+        </TableRow>
+      </Table>
+    );
+
+    clickableInstance = TestUtils.renderIntoDocument(
+      <Table>
+        <TableRow className="foo" onClick={ function() {}}>
           <TableCell />
         </TableRow>
       </Table>
@@ -21,6 +29,13 @@ describe('TableRow', () => {
     let tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
     expect(tr).toBeDefined();
     expect(tr.className).toEqual('ui-table-row foo');
+  });
+
+  describe('if the row is clickable', () => {
+    it('adds a clickable class', () => {
+      let tr = TestUtils.findRenderedDOMComponentWithTag(clickableInstance, 'tr');
+      expect(tr.className).toMatch('ui-table-row__clickable');
+    })
   });
 
   describe('with delete action', () => {

@@ -12,6 +12,8 @@ import Icon from './../../icon';
  *
  * You can set a property of 'onDelete' which should be a function. This will
  * enable a delete action on the row.
+ * If you add an onClick event to a Table Row, will display the cursor as a pointer
+ * when hovering over the row.
  *
  * @class TableRow
  * @constructor
@@ -28,6 +30,16 @@ class TableRow extends React.Component {
     onDelete: React.PropTypes.func
   }
 
+  /**
+   * Classes to be applied to the table row component
+   *
+   * @method mainClasses Main Class getter
+   */
+  get mainClasses() {
+    let clickable = this.props.onClick ? 'ui-table-row__clickable' : '';
+
+    return classNames("ui-table-row", this.props.className, clickable);
+  }
 
   /**
    * Renders the component.
@@ -35,11 +47,8 @@ class TableRow extends React.Component {
    * @method render
    */
   render() {
-    let { className, ...props } = this.props;
-
+    let { ...props } = this.props;
     let children = React.Children.toArray(props.children);
-
-    className = classNames("ui-table-row", className);
 
     if (props.onDelete) {
       children.unshift(
@@ -50,7 +59,7 @@ class TableRow extends React.Component {
     }
 
     return (
-      <tr { ...props } className={ className }>
+      <tr { ...props } className={ this.mainClasses }>
         { children }
       </tr>
     );
