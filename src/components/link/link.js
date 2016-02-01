@@ -24,14 +24,6 @@ class Link extends React.Component {
   static propTypes = {
 
     /**
-     * The redirect path.
-     *
-     * @property path
-     * @type {String}
-     */
-    href: React.PropTypes.string,
-
-    /**
      * Gives the link a disabled state.
      *
      * @property disabled
