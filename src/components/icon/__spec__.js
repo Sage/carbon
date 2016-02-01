@@ -5,6 +5,18 @@ import Icon from './icon';
 describe('Icon', () => {
   let instance, span;
 
+  describe('renderIcon', () => {
+    beforeEach(() => {
+      let warningInstance = TestUtils.renderIntoDocument(<Icon type='warning' />);
+      spyOn(warningInstance, 'renderWarningIcon');
+    });
+
+    it('calls the render warning icon method', () => {
+      warningInstance.renderIcon;
+      expect(warningInstance.renderWarningIcon).toHaveBeenCalled();
+    });
+  });
+
   describe('with no additional options', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(<Icon type='foo' />);
@@ -12,7 +24,7 @@ describe('Icon', () => {
     });
 
     it('renders with a class of icon-settings', () => {
-      expect(span.className).toEqual('icon-foo ');
+      expect(span.className).toEqual('icon-foo');
     });
   });
 
@@ -23,7 +35,7 @@ describe('Icon', () => {
     });
 
     it('renders with a class of icon-settings and test', () => {
-      expect(span.className).toEqual('icon-foo custom');
+      expect(span.className).toEqual('custom icon-foo');
     });
   });
 });
