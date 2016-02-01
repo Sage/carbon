@@ -128,6 +128,12 @@ class MyView extends React.Component {
 export default MyView
 ```
 
+# 0.1.5
+
+## Bug Fixes
+
+* Dropdown will always return a string value to any callbacks.
+
 # 0.1.4
 
 ## Bug Fixes
