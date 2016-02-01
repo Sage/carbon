@@ -153,8 +153,8 @@ class Finances extends React.Component {
             creditTotal={ this.state.financesStore.get('credit_total') } />
         </Form>
         
-        <Radiobutton name='frequency' value='weekly' defaultChecked label='Weekly' />
-        <Radiobutton name='frequency' value='monthly' label='Monthly' />
+        <Radiobutton name='frequency' defaultChecked label='Weekly' />
+        <Radiobutton name='frequency' label='Monthly' />
         
         <Link className="home-link" href='#' disabled>Main Page</Link>
 

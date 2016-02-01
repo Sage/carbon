@@ -1,5 +1,16 @@
 @import 'general';
+.ui-radiobutton {
+  padding-top: 8px;
 
-.radioleft {
-  
+  .common-input__field,
+  .common-input__label {
+    display: inline-block;
+    vertical-align: top;
   }
+
+  .common-input__label {
+    margin: 0;
+    padding-top: 1px;
+    padding-bottom: 5px;
+  }
+}
