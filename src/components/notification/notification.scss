@@ -2,9 +2,6 @@
 @import 'general';
 @import 'input-field';
 
-$notification-green: #46B237;
-$notification-blue: #00A4CF;
-
 .ui-notification {
   color: white;
   width: 100%;
@@ -45,7 +42,7 @@ $notification-blue: #00A4CF;
 }
 
 .ui-notification--info {
-  background-color: $notification-blue;
+  background-color: $info;
 }
 
 .ui-notification--warning {
@@ -53,11 +50,11 @@ $notification-blue: #00A4CF;
 }
 
 .ui-notification--new {
-  background-color: $notification-green;
+  background-color: $new;
 }
 
 .ui-notification__action--info {
-  color: $notification-blue;
+  color: $info;
 }
 
 .ui-notification__action--warning {
@@ -65,5 +62,5 @@ $notification-blue: #00A4CF;
 }
 
 .ui-notification__action--new {
-  color: $notification-green;
+  color: $new;
 }

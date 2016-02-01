@@ -6,6 +6,7 @@
 * Confirm
 * Animated Menu Button
 * Notification
+* Pill
 * Flash
 
 ## Tables and Grids - Breaking Change
