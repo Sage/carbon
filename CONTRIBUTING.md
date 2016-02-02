@@ -26,8 +26,12 @@ To be merged, we prefer the pull request to be reviewed by at least two people w
 * Bump the version in `package.json`.
 * Ensure the `CHANGELOG.md` is up to date.
 * Run `npm run-script release` to update `/lib`.
+* If releasing a minor version, create a branch from `master`.
+* If releasing a patch version, create a branch from `release`.
 * Commit and push changes.
 * If releasing a minor version, open a PR to `master`.
 * If releasing a patch version, open a PR to `release`.
-* Once merged, draft a release in GitHub.
+* Once merged, create a tag in either the release or master branch. e.g. `git tag v0.1.5`
+* Push tag to Github.
+* Draft a release in GitHub from the new tag.
 * If you have merged into `release`, open a PR to merge back into `master`.
