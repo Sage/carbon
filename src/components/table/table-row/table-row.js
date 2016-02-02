@@ -36,9 +36,11 @@ class TableRow extends React.Component {
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    let clickable = this.props.onClick ? 'ui-table-row__clickable' : '';
-
-    return classNames("ui-table-row", this.props.className, clickable);
+    return classNames(
+      'ui-table-row',
+      this.props.className,
+      {'ui-table-row--clickable':  this.props.onClick}
+    );
   }
 
   /**

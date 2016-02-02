@@ -29,7 +29,7 @@ class Grid extends React.Component {
         ) : null;
 
         return (
-          <TableRow key={ key } onDelete={ FinancesActions.financesLineItemDeleted.bind(this, key) } onClick={ function() {console.log('foo')}}>
+          <TableRow key={ key } onDelete={ FinancesActions.financesLineItemDeleted.bind(this, key) }>
 
             { /* add description */ }
             <TableCell>
