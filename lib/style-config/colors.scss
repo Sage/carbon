@@ -31,11 +31,10 @@ $magenta:                    #ED1C5F !default;
 $magenta-dull:               #CA2A60 !default;
 
 // Main colours
-$warning:                    #ff5400 !default;
-$error:                      #ea433f !default;
-$info:                       #3592ff !default;
-$new:                        #42ae42 !default;
-$help:                       #ffab00 !default;
+$warning:                    $orange !default;
+$error:                      $red !default;
+$info:                       #00A4CF !default;
+$new:                        #46B237 !default;
 
 $border-color:               #CCD1DC !default;
 $table-border-color:         #E4E7EA !default;

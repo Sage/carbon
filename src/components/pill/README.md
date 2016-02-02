@@ -17,5 +17,5 @@ import Pill from 'carbon/lib/components/pill';
 
 | Name          | Required       | Type           | Default       | Description   |
 | ------------- |  ------------- |  ------------- | ------------- | ------------- |
-| `type`          | `false`          | `String`         | `info`   | The as property defines the pill colour. This can be `info`, `new` or `warning`  |
-| `children`      | `true`           | `Node`           |               | What will be displayed within the pill.  |
+| `type`        | `false`        | `String`       | `info`        | The as property defines the pill colour. This can be `info`, `new` or `warning`  |
+| `children`    | `true`         | `String`       |               | What will be displayed within the pill.  |
