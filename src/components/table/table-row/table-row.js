@@ -1,7 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import TableCell from './../table-cell';
-import Icon from './../../icon';
 
 /**
  * A TableRow widget.
@@ -10,11 +8,14 @@ import Icon from './../../icon';
  *
  * See documentation for Table component.
  *
+<<<<<<< HEAD
  * You can set a property of 'onDelete' which should be a function. This will
  * enable a delete action on the row.
  * If you add an onClick event to a Table Row, will display the cursor as a pointer
  * when hovering over the row.
  *
+=======
+>>>>>>> master
  * @class TableRow
  * @constructor
  */

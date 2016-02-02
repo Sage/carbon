@@ -3,6 +3,7 @@ import FinancesActions from './../../../../actions/finances';
 import { Table, TableRow, TableCell, TableHeader } from 'components/table';
 import Textbox from 'components/textbox';
 import Decimal from 'components/decimal';
+import Icon from 'components/icon';
 import Presence from 'utils/validations/presence';
 
 class Grid extends React.Component {
@@ -29,7 +30,12 @@ class Grid extends React.Component {
         ) : null;
 
         return (
-          <TableRow key={ key } onDelete={ FinancesActions.financesLineItemDeleted.bind(this, key) }>
+
+          <TableRow key={ key }>
+            { /* add delete */ }
+            <TableCell action={ true }>
+              <Icon type="delete" onClick={ FinancesActions.financesLineItemDeleted.bind(this, key) } />
+            </TableCell>
 
             { /* add description */ }
             <TableCell>
@@ -107,7 +113,7 @@ class Grid extends React.Component {
     // add placeholder row
     gridContent = gridContent.push(
       <TableRow key={ this.props.data.count() }>
-        <TableCell/>
+        <TableCell />
 
         <TableCell>
           <Textbox
