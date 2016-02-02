@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 /**
  * A link widget.
@@ -11,7 +12,7 @@ import React from 'react';
  *
  * To render the Link:
  *
- *  <Link path='foo'>Main Page</Link>
+ *  <Link href='foo'>Main Page</Link>
  *
  * For additional properties specific to this component, see propTypes.
  *
@@ -21,14 +22,6 @@ import React from 'react';
 class Link extends React.Component {
 
   static propTypes = {
-
-    /**
-     * The redirect path.
-     *
-     * @property path
-     * @type {String}
-     */
-    href: React.PropTypes.string.isRequired,
 
     /**
      * Gives the link a disabled state.
@@ -48,7 +41,6 @@ class Link extends React.Component {
    */
   get componentProps() {
     let { ...props } = this.props;
-    props.disabled = this.props.disabled || '';
     props.className = this.componentClasses;
 
     return props;
@@ -61,13 +53,11 @@ class Link extends React.Component {
    * @return {String} class names
    */
   get componentClasses() {
-    let className = this.props.className;
-
-    let classes = 'ui-link__anchor' +
-      (this.props.disabled ? ' ui-link__anchor--disabled' : '') +
-      (className ? ' ' + className : '');
-
-    return classes;
+    return classNames (
+      'ui-link__anchor',
+      this.props.className,
+      { 'ui-link__anchor--disabled': this.props.disabled }
+    );
   }
 
   /**
