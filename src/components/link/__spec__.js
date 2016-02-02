@@ -4,7 +4,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Link from './link';
 
 describe('Link', () => {
-  let basicLink, disabledLink, customLink;
+  let basicLink, disabledLink, customLink, actionLink, spy;
 
   beforeEach(() => {
     basicLink = TestUtils.renderIntoDocument(
@@ -18,6 +18,11 @@ describe('Link', () => {
     customLink = TestUtils.renderIntoDocument(
       <Link className='fancy' href='http://app.com/home'>My Link</Link>
     )
+
+    spy = jasmine.createSpy('click');
+    actionLink = TestUtils.renderIntoDocument(
+      <Link onClick={ spy }>My Link</Link>
+    );
   });
 
   describe('A basic link', () => {
@@ -60,6 +65,14 @@ describe('Link', () => {
 
     it('adds any additional classes passed', () => {
       expect(customDOM.classList[1]).toEqual('fancy');
+    });
+  });
+
+  describe('additonal props', () => {
+    it('consumes additional props', () => {
+      let link = ReactDOM.findDOMNode(actionLink);
+      TestUtils.Simulate.click(link);
+      expect(spy).toHaveBeenCalled();
     });
   });
 });
