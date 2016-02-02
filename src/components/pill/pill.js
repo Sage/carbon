@@ -12,7 +12,7 @@ import classNames from 'classnames';
 *
 * To render the Pill:
 *
-*   <Pill type='warning'> My warning text </Pill>
+*   <Pill type='warning'>My warning text</Pill>
 *
 * Additionally you can pass optional props to the Pill component
 *
