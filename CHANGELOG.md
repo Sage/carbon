@@ -1,3 +1,9 @@
+# 0.1.6
+
+## Bug Fixes
+
+* `startRouter` no longer throws an error if it cannot find an element to render the component to.
+
 # 0.1.5
 
 ## Bug Fixes
