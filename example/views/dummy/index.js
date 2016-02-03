@@ -5,6 +5,7 @@ import Button from 'components/button';
 import QuickCreate from './subviews/quick-create';
 import Link from   'components/link';
 import Notification from   'components/notification';
+import Pill from 'components/pill';
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
@@ -53,6 +54,10 @@ class Finances extends React.Component {
           <FinancesHistory />
 
           <Button onClick={ this.handleOnClick }>Edit My Details</Button>
+
+          <Pill type='warning'>Warning Pill</Pill>
+          <Pill ype='info'>Info Pill</Pill>
+          <Pill type='new'>New Pill</Pill>
 
           <QuickCreate />
 
