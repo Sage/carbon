@@ -5,6 +5,8 @@
 * Table, TableRow, TableCell, TableHeader
 * Confirm
 * Animated Menu Button
+* Notification
+* Pill
 * Banner
 * Flash
 
@@ -128,6 +130,10 @@ class MyView extends React.Component {
 
 export default MyView
 ```
+
+## Minor
+
+* Decrease width of dropdown icon to 20px
 
 # 0.1.6
 
