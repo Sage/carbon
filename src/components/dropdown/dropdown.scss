@@ -54,9 +54,8 @@ $dropdown-input-icon-width: 20px !default;
   .common-input__icon {
     right: 21px;
   }
-}
 
-.icon-dropdown {
-  padding: 6px 0;
-  width: $dropdown-input-icon-width;
+  .icon-dropdown {
+    width: $dropdown-input-icon-width;
+  }
 }
