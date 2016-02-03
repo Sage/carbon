@@ -30,8 +30,8 @@ class Grid extends React.Component {
         ) : null;
 
         return (
-
           <TableRow key={ key }>
+
             { /* add delete */ }
             <TableCell action={ true }>
               <Icon type="delete" onClick={ FinancesActions.financesLineItemDeleted.bind(this, key) } />
