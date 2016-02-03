@@ -4,7 +4,7 @@ import Form from 'components/form';
 import Button from 'components/button';
 import QuickCreate from './subviews/quick-create';
 import Link from   'components/link';
-import Notification from   'components/notification';
+import Banner from   'components/banner';
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
@@ -47,7 +47,7 @@ class Finances extends React.Component {
 
     return (
       <div>
-        <Notification as="new" title="This is a title" message="This is my message." buttonAction={ function() {console.log('clicked')}}/>
+        <Banner as="new" title="This is a title" message="This is my message." buttonAction={ function() {console.log('clicked')}}/>
 
         <div className="view-finances">
           <FinancesHistory />
