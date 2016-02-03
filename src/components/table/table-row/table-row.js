@@ -8,8 +8,6 @@ import classNames from 'classnames';
  *
  * See documentation for Table component.
  *
- * You can set a property of 'onDelete' which should be a function. This will
- * enable a delete action on the row.
  * If you add an onClick event to a Table Row, will display the cursor as a pointer
  * when hovering over the row.
  *
