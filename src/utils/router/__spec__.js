@@ -13,6 +13,7 @@ describe('startRouter', () => {
 
   describe('default', () => {
     beforeEach(() => {
+      spyOn(document, 'getElementById').and.returnValue('foo');
       startRouter(routes);
       router = render.calls.mostRecent().args[0];
     });
@@ -38,6 +39,17 @@ describe('startRouter', () => {
 
     it('renders the router with the element', () => {
       expect(render).toHaveBeenCalledWith(router, 'foo');
+    });
+  });
+
+  describe('with no target', () => {
+    beforeEach(() => {
+      spyOn(console, 'warn');
+      startRouter(routes);
+    });
+
+    it('does not call render', () => {
+      expect(render).not.toHaveBeenCalled();
     });
   });
 });
