@@ -3,6 +3,8 @@
 @import 'input-field';
 @import 'z-index';
 
+$dropdown-input-icon-width: 20px !default;
+
 .ui-dropdown__list-block {
   left: 0;
   position: absolute;
@@ -46,4 +48,15 @@
 
 .ui-dropdown__list__item--highlighted {
   background-color: #E6E9E7;
+}
+
+.ui-dropdown {
+  .common-input__icon {
+    right: 21px;
+  }
+}
+
+.icon-dropdown {
+  padding: 6px 0;
+  width: $dropdown-input-icon-width;
 }
