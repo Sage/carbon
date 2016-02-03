@@ -31,8 +31,9 @@ $magenta:                    #ED1C5F !default;
 $magenta-dull:               #CA2A60 !default;
 
 // Main colours
-$warning:                    #FF5400 !default;
-$error:                      #EA433F !default;
+$warning:                    $orange !default;
+$error:                      $red    !default;
+$warningTmp:                 #FF5400 !default;
 $info:                       #00A4CF !default;
 $new:                        #46B237 !default;
 
