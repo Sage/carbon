@@ -1,0 +1,22 @@
+@import 'colors';
+
+.ui-pill {
+  margin-left: 10px;
+  color: #FFFFFF;
+  font-size: 10px;
+  border-radius: 3px;
+  padding: 0 3px 1.5px 3px;
+  letter-spacing: 0.8px;
+}
+
+.ui-pill--info {
+  background-color: $info;
+}
+
+.ui-pill--warning {
+  background-color: $warningTmp;
+}
+
+.ui-pill--new {
+  background-color: $new;
+}
