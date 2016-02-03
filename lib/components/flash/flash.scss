@@ -1,0 +1,144 @@
+@import 'colors';
+@import 'general';
+@import 'z-index';
+
+.ui-flash {
+  bottom: 0px;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  width: 100%;
+  z-index: $z-flash;
+
+  // span added by ReactCSSTransitionGroup
+  > span {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.ui-flash__slider {
+  content: 'h';
+  display: inline-block;
+  font-size: 13px;
+  height: 100%;
+  left: 0;
+  line-height: 18px;
+  position: absolute;
+  right: 0;
+
+  .ui-flash--success & {
+    background: $green-mid;
+  }
+
+  .ui-flash--error & {
+    background: $red;
+  }
+
+  .ui-flash--alert & {
+    background: $blue-bright;
+  }
+
+  .ui-flash--warning & {
+    background: $orange-mid;
+  }
+}
+
+.ui-flash__content {
+  background-color: transparent ;
+  margin: 0 auto;
+  max-width: $app-max-width;
+  min-width: $app-width;
+  position: relative;
+}
+
+.ui-flash__message {
+  color: $white;
+  font-size: 14px;
+  margin: 20px 60px;
+  position: relative;
+  text-align: left;
+}
+
+.ui-flash__icon {
+  left: 0;
+  margin-top: -20px;
+  position: absolute;
+  top: 50%;
+
+  &:before {
+    color: $white;
+    font-size: 50px;
+    line-height: 36px;
+  }
+}
+
+.ui-icon__svg {
+  height: 40px;
+  width: 50px;
+}
+
+.ui-icon__svg-group {
+  fill: $white;
+}
+
+.ui-flash__close-icon {
+  color: #FFF;
+  cursor: pointer;
+  margin-top: -8px;
+  outline: none;
+  padding: 0 15px 15px 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
+
+/**
+ * Animation for slider
+ */
+
+.ui-flash__slider-enter {
+  left: 50%;
+  opacity: 0;
+  right: 50%;
+}
+
+.ui-flash__slider-enter-active {
+  left: 0%;
+  opacity: 1;
+  right: 0%;
+  transition: 500ms ease 100ms;
+}
+
+.ui-flash__slider-leave {
+  opacity: 1;
+}
+
+.ui-flash__slider-leave-active  {
+  opacity: 0;
+  transition: 500ms ease 100ms;
+}
+
+/**
+ * Animation for content inside slider
+ */
+
+.ui-flash__content-enter {
+  opacity: 0;
+}
+
+.ui-flash__content-enter-active {
+  opacity: 1;
+  transition: 400ms ease 400ms;
+}
+
+.ui-flash__content-leave {
+  opacity: 1;
+}
+
+.ui-flash__content-leave-active  {
+  opacity: 0;
+  transition: 400ms ease-out 100ms;
+}

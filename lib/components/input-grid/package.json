@@ -1,5 +1,0 @@
-{
-  "name": "input-grid",
-  "style": "input-grid.scss",
-  "main": "./input-grid.js"
-}
