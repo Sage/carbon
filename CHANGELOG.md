@@ -5,6 +5,8 @@
 * Table, TableRow, TableCell, TableHeader
 * Confirm
 * Animated Menu Button
+* Notification
+* Pill
 * Banner
 * Flash
 

@@ -39,7 +39,7 @@ class Banner extends React.Component {
      *
      * @property as
      * @type {String}
-     * @default 'secondary'
+     * @default 'info'
      */
     as: React.PropTypes.string,
 
