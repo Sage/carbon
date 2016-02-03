@@ -1,5 +1,0 @@
-{
-  "main": "./notification",
-  "name": "Notification",
-  "style": "./notification.scss"
-}

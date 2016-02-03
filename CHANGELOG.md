@@ -5,7 +5,7 @@
 * Table, TableRow, TableCell, TableHeader
 * Confirm
 * Animated Menu Button
-* Notification
+* Banner
 * Flash
 
 ## Tables and Grids - Breaking Change

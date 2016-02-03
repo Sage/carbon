@@ -1,8 +1,8 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Notification from './notification';
+import Banner from './banner';
 
-describe('Notification', () => {
+describe('Banner', () => {
   let infoInstance, newInstance, warningInstance;
   let spy;
 
@@ -10,7 +10,7 @@ describe('Notification', () => {
     spy = jasmine.createSpy('click');
 
     infoInstance = TestUtils.renderIntoDocument(
-      <Notification
+      <Banner
         as='info'
         title='Info'
         className='customClass'
@@ -19,7 +19,7 @@ describe('Notification', () => {
     );
 
     newInstance = TestUtils.renderIntoDocument(
-      <Notification
+      <Banner
         as='new'
         title="New"
         message="New Message."
@@ -27,7 +27,7 @@ describe('Notification', () => {
     );
 
     warningInstance = TestUtils.renderIntoDocument(
-      <Notification
+      <Banner
         as='warning'
         title="Warning"
         message="Warning Message."
@@ -37,30 +37,30 @@ describe('Notification', () => {
   });
 
   describe('mainClasses', () => {
-    it('returns the base notification class', () => {
-      expect(newInstance.mainClasses).toEqual('ui-notification ui-notification--new');
+    it('returns the base banner class', () => {
+      expect(newInstance.mainClasses).toEqual('ui-banner ui-banner--new');
     });
 
     describe('when passed extra classes via props', () => {
       it('appends the extra classes to the base class', () => {
-        expect(infoInstance.mainClasses).toEqual('ui-notification ui-notification--info customClass');
+        expect(infoInstance.mainClasses).toEqual('ui-banner ui-banner--info customClass');
       });
     });
   });
 
   describe('buttonClasses', () => {
     it('returns the class for the button depending on the as prop', () => {
-      expect(infoInstance.buttonClasses).toEqual('ui-notification__action ui-notification__action--info');
-      expect(newInstance.buttonClasses).toEqual('ui-notification__action ui-notification__action--new');
-      expect(warningInstance.buttonClasses).toEqual('ui-notification__action ui-notification__action--warning');
+      expect(infoInstance.buttonClasses).toEqual('ui-banner__action ui-banner__action--info');
+      expect(newInstance.buttonClasses).toEqual('ui-banner__action ui-banner__action--new');
+      expect(warningInstance.buttonClasses).toEqual('ui-banner__action ui-banner__action--warning');
     });
   });
 
   describe('render', () => {
     it('renders a content, information and a action', () => {
-      expect(TestUtils.scryRenderedDOMComponentsWithClass(infoInstance, 'ui-notification__content').length).toEqual(1);
-      expect(TestUtils.scryRenderedDOMComponentsWithClass(infoInstance, 'ui-notification__info').length).toEqual(1);
-      expect(TestUtils.scryRenderedDOMComponentsWithClass(infoInstance, 'ui-notification__action').length).toEqual(1);
+      expect(TestUtils.scryRenderedDOMComponentsWithClass(infoInstance, 'ui-banner__content').length).toEqual(1);
+      expect(TestUtils.scryRenderedDOMComponentsWithClass(infoInstance, 'ui-banner__info').length).toEqual(1);
+      expect(TestUtils.scryRenderedDOMComponentsWithClass(infoInstance, 'ui-banner__action').length).toEqual(1);
     });
   });
 });
