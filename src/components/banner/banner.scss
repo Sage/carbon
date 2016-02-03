@@ -2,65 +2,68 @@
 @import 'general';
 @import 'input-field';
 
-.ui-notification {
+$banner-green: #46B237;
+$banner-blue: #00A4CF;
+
+.ui-banner {
   color: white;
   width: 100%;
 }
 
-.ui-notification__content {
+.ui-banner__content {
   box-sizing: border-box;
   height: ($input-common-height - 2) + ($grid-margin * 2);
   margin: 0 auto;
   padding: $grid-margin ($grid-margin * 2);
 }
 
-.ui-notification__icon,
-.ui-notification__info,
-.ui-notification__action {
+.ui-banner__icon,
+.ui-banner__info,
+.ui-banner__action {
   display: inline-block;
   position: relative;
 }
 
-.ui-notification__icon {
+.ui-banner__icon {
   text-align: center;
   float: left;
   top: -5px
 }
 
-.ui-notification__title {
+.ui-banner__title {
   font-weight: bold;
 }
 
-.ui-notification__info {
+.ui-banner__info {
   margin-left: $grid-margin;
 }
 
-.ui-notification__action {
+.ui-banner__action {
   background-color: white;
   border: none;
   float: right;
 }
 
-.ui-notification--info {
-  background-color: $info;
+.ui-banner--info {
+  background-color: $banner-blue;
 }
 
-.ui-notification--warning {
+.ui-banner--warning {
   background-color: $warning;
 }
 
-.ui-notification--new {
-  background-color: $new;
+.ui-banner--new {
+  background-color: $banner-green;
 }
 
-.ui-notification__action--info {
-  color: $info;
+.ui-banner--info {
+  color: $banner-blue;
 }
 
-.ui-notification__action--warning {
+.ui-banner__action--warning {
   color: $warning;
 }
 
-.ui-notification__action--new {
-  color: $new;
+.ui-banner__action--new {
+  color: $banner-green;
 }

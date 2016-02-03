@@ -7,6 +7,7 @@
 * Animated Menu Button
 * Notification
 * Pill
+* Banner
 * Flash
 
 ## Tables and Grids - Breaking Change
