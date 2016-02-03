@@ -129,6 +129,10 @@ class MyView extends React.Component {
 export default MyView
 ```
 
+## Minor
+
+* Decrease width of dropdown icon to 20px
+
 # 0.1.5
 
 ## Bug Fixes
