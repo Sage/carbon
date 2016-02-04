@@ -194,7 +194,7 @@ describe('Dropdown', () => {
     describe('if blur is not blocked', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
-          <Dropdown options={ Immutable.fromJS([{ id: '1', name: 'foo' }, { id: '2', name: 'bar' }]) } value="1" />
+          <Dropdown options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value="1" />
         );
         spyOn(instance, 'setState');
         spyOn(instance, 'emitOnChangeCallback');

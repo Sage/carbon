@@ -135,6 +135,12 @@ export default MyView
 
 * Decrease width of dropdown icon to 20px
 
+# 0.1.7
+
+## Bug Fixes
+
+* [CARBON-102](https://sageone.atlassian.net/browse/CARBON-102) - Fixes bug - 'item is undefined triggered when clicking away from dropdown with option highlighted'.
+
 # 0.1.6
 
 ## Bug Fixes
