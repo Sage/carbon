@@ -210,7 +210,7 @@ class Dropdown extends React.Component {
 
       if (highlighted != this.props.value) {
         let item = this.props.options.find((item) => {
-          return item.get('id') === highlighted;
+          return item.get('id') == highlighted;
         });
 
         this.emitOnChangeCallback(highlighted, item.get('name'));

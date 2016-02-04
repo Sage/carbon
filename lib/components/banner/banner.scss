@@ -1,0 +1,69 @@
+@import 'colors';
+@import 'general';
+@import 'input-field';
+
+$banner-green: #46B237;
+$banner-blue: #00A4CF;
+
+.ui-banner {
+  color: white;
+  width: 100%;
+}
+
+.ui-banner__content {
+  box-sizing: border-box;
+  height: ($input-common-height - 2) + ($grid-margin * 2);
+  margin: 0 auto;
+  padding: $grid-margin ($grid-margin * 2);
+}
+
+.ui-banner__icon,
+.ui-banner__info,
+.ui-banner__action {
+  display: inline-block;
+  position: relative;
+}
+
+.ui-banner__icon {
+  text-align: center;
+  float: left;
+  top: -5px
+}
+
+.ui-banner__title {
+  font-weight: bold;
+}
+
+.ui-banner__info {
+  margin-left: $grid-margin;
+}
+
+.ui-banner__action {
+  background-color: white;
+  border: none;
+  float: right;
+}
+
+.ui-banner--info {
+  background-color: $banner-blue;
+}
+
+.ui-banner--warning {
+  background-color: $warning;
+}
+
+.ui-banner--new {
+  background-color: $banner-green;
+}
+
+.ui-banner--info {
+  color: $banner-blue;
+}
+
+.ui-banner__action--warning {
+  color: $warning;
+}
+
+.ui-banner__action--new {
+  color: $banner-green;
+}
