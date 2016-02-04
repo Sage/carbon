@@ -4,8 +4,6 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Form from './form';
 import Textbox from './../textbox';
 import Validation from './../../utils/validations/presence';
-import InputGrid from './../input-grid';
-import TableRow from './../table-row';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import Dialog from './../dialog';
 
@@ -21,72 +19,6 @@ describe('Form', () => {
   describe('initialize', () => {
     it('sets the errorCount to 0', () => {
       expect(instance.state.errorCount).toEqual(0);
-    });
-  });
-
-  describe('componentWillUpdate', () => {
-    describe('when saving is truthy', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
-          <Form saving={ true }>
-            <InputGrid
-              name='test'
-              data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
-              updateRowHandler={ function(){} }
-              deleteRowHandler={ function(){} }
-              fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
-            />
-          </Form>
-        );
-      });
-
-      describe('when it has not changed', () => {
-        it('does nothing', () => {
-          spyOn(instance.tables.test, 'setState');
-          instance.componentWillUpdate({ saving: true });
-          expect(instance.tables.test.setState).not.toHaveBeenCalled();
-        });
-      });
-
-      describe('when it has changed', () => {
-        it('sets the placeholder true on table', () => {
-          spyOn(instance.tables.test, 'setState');
-          instance.componentWillUpdate({ saving: false });
-          expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: true });
-        });
-      });
-    });
-
-    describe('when saving is falsy', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
-          <Form saving={ false }>
-            <InputGrid
-              name='test'
-              data={ ImmutableHelper.parseJSON([ { box: 'bar' } ]) }
-              updateRowHandler={ function(){} }
-              deleteRowHandler={ function(){} }
-              fields={ [<Textbox validation={ [Validation()] } name='[{ROWID}][box]' />] }
-            />
-          </Form>
-        );
-      });
-
-      describe('when it has changed', () => {
-        it('sets the placeholder false on table', () => {
-          spyOn(instance.tables.test, 'setState');
-          instance.componentWillUpdate({ saving: true });
-          expect(instance.tables.test.setState).toHaveBeenCalledWith({ placeholder: false });
-        });
-      });
-
-      describe('when it has not changed', () => {
-        it('does nothing', () => {
-          spyOn(instance.tables.test, 'setState');
-          instance.componentWillUpdate({ saving: false });
-          expect(instance.tables.test.setState).not.toHaveBeenCalled();
-        });
-      });
     });
   });
 
@@ -111,24 +43,8 @@ describe('Form', () => {
       instance = TestUtils.renderIntoDocument(
         <Form>
           <Textbox validations={ [Validation()] } name='excludedBox' value='' />
-          <InputGrid
-            name='grid'
-            data={ ImmutableHelper.parseJSON([ { foo: 'bar' } ]) }
-            updateRowHandler={ function(){} }
-            deleteRowHandler={ function(){} }
-            fields={ [
-              <Textbox validations={ [Validation()] } name='[{ROWID}][box1]' value='foo' />,
-              <Textbox validations={ [Validation()] } name='[{ROWID}][box2]' value='foo' />
-            ] }
-          />
         </Form>
       );
-    });
-
-    describe('when the component is a grid', () => {
-      it('adds a key value pair to tables', () => {
-        expect(instance.tables.grid).toBeTruthy();
-      });
     });
 
     describe('when the component is self contained', () => {
@@ -149,28 +65,11 @@ describe('Form', () => {
       textbox2 = <Textbox validations={ [Validation()] } name='[{ROWID}][box2]' value='' />;
       excludedTextbox = <Textbox validations={ [Validation()] } name='excludedBox' value='' />;
 
-      grid = <InputGrid
-            name='grid'
-            data={ ImmutableHelper.parseJSON([ { box1: 'bar' } ]) }
-            updateRowHandler={ function(){} }
-            deleteRowHandler={ function(){} }
-            fields={ [ textbox1, textbox2 ] }
-          />
-
       instance = TestUtils.renderIntoDocument(
         <Form>
           { excludedTextbox }
-          { grid }
         </Form>
       );
-    });
-
-    describe('when the component is a grid', () => {
-      it('removes a key value pair from tables', () => {
-        expect(instance.tables.grid).toBeTruthy();
-        instance.detachFromForm(instance.tables.grid, { table: true });
-        expect(instance.tables.grid).toBeFalsy();
-      });
     });
 
     describe('when the component is self contained', () => {
@@ -241,34 +140,6 @@ describe('Form', () => {
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
         expect(spy).toHaveBeenCalled();
-      });
-    });
-
-    describe('submitting a input grid', () => {
-      it('checks the validation of each field', () => {
-        let baseData = ImmutableHelper.parseJSON(
-          [ { box1: 'bar', box2: '' } ]
-        );
-
-        let textbox1 = <Textbox validations={ [Validation()] } name='[{ROWID}][box1]' value='' />;
-        let textbox2 = <Textbox validations={ [Validation()] } name='[{ROWID}][box2]' value='' />;
-
-        let grid = <InputGrid
-          name='grid'
-          data={ baseData }
-          updateRowHandler={ function(){} }
-          deleteRowHandler={ function(){} }
-          fields={ [ textbox1, textbox2 ] } />
-
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            { grid }
-          </Form>
-          );
-
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-        TestUtils.Simulate.submit(form);
-        expect(instance.state.errorCount).toEqual(1);
       });
     });
   });

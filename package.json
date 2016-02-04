@@ -1,6 +1,6 @@
 {
   "name": "carbon",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Fundamental building blocks.",
   "main": "index.js",
   "style": [
@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js).)*$') }, function() { })\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
+    "release": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "history": "^1.12.5",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "^3.7.5",
+    "ncp": "^2.0.0",
     "react": "^0.14.0",
     "react-addons-css-transition-group": "^0.14.0",
     "react-dom": "^0.14.0",
@@ -36,11 +37,11 @@
   "dependencies": {
     "bignumber.js": "^2.1.0",
     "bowser": "^1.0.0",
+    "classnames": "^2.2.3",
     "events": "^1.0.2",
     "form-serialize": "^0.7.0",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
-    "ncp": "^2.0.0",
     "react-date-picker": "^3.1.5",
     "react-highcharts": "^5.0.4",
     "superagent": "^1.4.0"

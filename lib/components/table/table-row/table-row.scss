@@ -1,0 +1,9 @@
+@import "colors";
+
+.ui-table-row:hover .common-input__input {
+  border-color: $row-hover-input-border;
+}
+
+.ui-table-row--clickable {
+  cursor: pointer;
+}

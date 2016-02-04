@@ -1,10 +1,21 @@
+@import 'general';
+
 .view-finances {
   margin: 0 auto;
-  width: 980px;
+  max-width: $app-max-width;
+  min-width: $app-width;
 }
 
 .view-finances__title {
   text-align: center;
+}
+
+.quick-create {
+  float: right;
+
+  .ui-link__anchor {
+    color: white;
+  }
 }
 
 .home-link {

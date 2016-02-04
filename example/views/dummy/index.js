@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'utils/flux';
 import Form from 'components/form';
 import Button from 'components/button';
+import QuickCreate from './subviews/quick-create';
 import Link from   'components/link';
+import Pill from 'components/pill';
+import Banner from   'components/banner';
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
@@ -11,9 +14,9 @@ import FinancesActions from './../../actions/finances';
 import FinancesHistory from './subviews/history';
 import FinancesDetails from './subviews/details';
 import FinancesChart from './subviews/chart';
-import FinancesTable from './subviews/table';
+import FinancesTable from './subviews/grid';
 import UserDialog from './subviews/user-dialog';
-
+import Flash from 'components/flash';
 
 class Finances extends React.Component {
 
@@ -32,46 +35,64 @@ class Finances extends React.Component {
     ev.preventDefault();
     FinancesActions.beforeSave();
     FinancesActions.financesSave();
+    FinancesActions.financesFlashOpened();
+  }
+
+  handleFlashEnd = (ev) => {
+    FinancesActions.financesFlashClosed();
   }
 
   render() {
     let name = this.state.financesStore.get('name');
+    let financesStore = this.state.financesStore;
 
     return (
-      <div className="view-finances">
-        <FinancesHistory />
+      <div>
+        <Banner as="new" title="This is a title" message="This is my message." buttonAction={ function() {console.log('clicked')}}/>
 
-        <Button onClick={ this.handleOnClick }>Edit My Details</Button>
+        <div className="view-finances">
+          <FinancesHistory />
 
-        <h1 className="view-finances__title">{ name }</h1>
+          <Button onClick={ this.handleOnClick }>Edit My Details</Button>
 
-        <Form model="foo" saving={ this.state.financesStore.get('isSaving') } afterFormValidation={ this.save } ref="form">
-          <FinancesDetails
-            name={ name }
-            countryValue={ this.state.financesStore.getIn(['country', 'id']) }
-            countryVisibleValue={ this.state.financesStore.getIn(['country', 'name']) }
-            accounts={ this.state.financesStore.get('accounts') }
-            foo={ this.state.financesStore.get('foo') }
-            options={ this.state.financesStore.get('options') }
-            discount={ this.state.financesStore.get('discount') }
-            dateFrom={ this.state.financesStore.get('date_from') } />
+          <Pill type='warning'>Warning Pill</Pill>
+          <Pill ype='info'>Info Pill</Pill>
+          <Pill type='new'>New Pill</Pill>
 
-          <FinancesChart
-            data={ this.state.financesStore.get('chart_data') }
-            balance={ this.state.financesStore.get('balance') } />
+          <QuickCreate />
 
-          <FinancesTable
-            data={ this.state.financesStore.get('line_items') }
-            discount={ this.state.financesStore.get('discount') }
-            balance={ this.state.financesStore.get('balance') }
-            discountTotal={ this.state.financesStore.get('discount_total') }
-            debitTotal={ this.state.financesStore.get('debit_total') }
-            creditTotal={ this.state.financesStore.get('credit_total') } />
-        </Form>
+          <h1 className="view-finances__title">{ name }</h1>
 
-        <Link className="home-link" href='#' disabled>Main Page</Link>
+          <Form model="foo" afterFormValidation={ this.save } >
+            <FinancesDetails
+              name={ name }
+              countryValue={ financesStore.getIn(['country', 'id']) }
+              countryVisibleValue={ financesStore.getIn(['country', 'name']) }
+              accounts={ financesStore.get('accounts') }
+              options={ financesStore.get('options') }
+              discount={ financesStore.get('discount') }
+              data={ financesStore.get('line_items') }
+              dateFrom={ financesStore.get('date_from') } />
 
-        <UserDialog />
+            <FinancesChart
+              data={ financesStore.get('chart_data') }
+              balance={ financesStore.get('balance') } />
+
+            <FinancesTable
+              data={ financesStore.get('line_items') }
+              discount={ financesStore.get('discount') }
+              balance={ financesStore.get('balance') }
+              discountTotal={ financesStore.get('discount_total') }
+              debitTotal={ financesStore.get('debit_total') }
+              creditTotal={ financesStore.get('credit_total') } />
+          </Form>
+
+          <Link className="home-link" href='#' disabled>Main Page</Link>
+
+          <UserDialog />
+
+          <Flash onDismiss={ this.handleFlashEnd } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} type="alert" />
+        </div>
       </div>
     );
   }

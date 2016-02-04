@@ -1,0 +1,5 @@
+{
+  "main": "./banner",
+  "name": "Banner",
+  "style": "./banner.scss"
+}

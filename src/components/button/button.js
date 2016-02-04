@@ -36,7 +36,7 @@ class Button extends React.Component {
      * @property children
      * @type {Multiple}
      */
-    children: React.PropTypes.string.isRequired,
+    children: React.PropTypes.node.isRequired,
 
     /**
      * Gives the button a disabled state.

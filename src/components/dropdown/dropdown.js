@@ -124,6 +124,7 @@ class Dropdown extends React.Component {
   selectValue(val, visibleVal) {
     this.blockBlur = false;
     this.setState({ open: false });
+    this._handleContentChange();
     this.emitOnChangeCallback(val, visibleVal);
   }
 
@@ -273,7 +274,7 @@ class Dropdown extends React.Component {
       case 13: // return
         if (element) {
           ev.preventDefault();
-          this.selectValue(element.value, element.textContent);
+          this.selectValue(element.getAttribute('value'), element.textContent);
         }
         break;
       case 38: // up arrow
