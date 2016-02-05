@@ -17,7 +17,7 @@ import I18n from "i18n-js";
  *   <Confirm
  *      title='Are you sure?"
  *      confirmHandler={ customConfirmHandler }
- *      cancelHandler={ customCancelHandler }
+ *      onCancel={ customCancelHandler }
  *      open={ false }
  *    This is the content message
  *   </Confirm>
@@ -93,7 +93,7 @@ class Confirm extends Dialog {
     return (
       <div className='ui-confirm__buttons' >
         <div className='ui-confirm__button ui-confirm__no'>
-          <Button as='secondary' onClick={ this.props.cancelHandler }>{ cancelText() }</Button>
+          <Button as='secondary' onClick={ this.props.onCancel }>{ cancelText() }</Button>
         </div>
 
         <div className='ui-confirm__button ui-confirm__yes'>
