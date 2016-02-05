@@ -4,23 +4,20 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Message from './message';
 
 describe('message', () => {
-  let spy;
   let warningMessage, infoMessage, customMessage;
 
   beforeEach(() => {
     warningMessage = TestUtils.renderIntoDocument(
-      <Message style = 'warning'>Some warning</Message>
+      <Message as = 'warning'>Some warning</Message>
     )
 
     infoMessage = TestUtils.renderIntoDocument(
-      <Message style = 'info'>Some information</Message>
+      <Message as = 'info'>Some information</Message>
     )
 
     customMessage = TestUtils.renderIntoDocument(
-      <Message className='fancy' style = 'info'>Some information</Message>
+      <Message className='fancy' as = 'info'>Some information</Message>
     )
-
-    spy = jasmine.createSpy('click');
   });
 
   describe('A warning message', () => {

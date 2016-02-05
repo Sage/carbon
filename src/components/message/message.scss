@@ -1,5 +1,6 @@
-@mixin message($backgroud) {
-  background-color: $backgroud;
+@import 'colors';
+
+.ui-message {
   border-radius: 5px;
   padding-top: 12px;
   padding-bottom: 12px;
@@ -10,11 +11,13 @@
 }
 
 .ui-message--info {
-  @include message(#42ae42);
+  @extend .ui-message;
+  background-color: $green-mid;
 }
 
 .ui-message--warning {
-  @include message(#ff8234);
+  @extend .ui-message;
+  background-color: $orange;
 }
 
 .ui-message__content {

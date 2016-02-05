@@ -11,7 +11,7 @@ import React from 'react';
  *
  * To render the Message:
  *
- *  <Message style='info'>text message</Message>
+ *  <Message as='info'>text message</Message>
  *
  * For additional properties specific to this component, see propTypes.
  *
@@ -22,17 +22,17 @@ class Message extends React.Component {
   static propTypes = {
 
     /**
-     * The backgroud color.
+     * The background color.
      *
-     * @property style
+     * @property as
      * @type {String}
      * @default info
      */
-    style: React.PropTypes.string.isRequired
+    as: React.PropTypes.string.isRequired
   };
 
   /**
-   * Getter for componet properties.
+   * Getter for component properties.
    *
    * @method componentProps
    * @return {Object} props
@@ -40,12 +40,12 @@ class Message extends React.Component {
   get componentProps() {
     let { ...props } = this.props;
     props.className = this.componentClasses;
-    delete props['style'];
+    delete props['as'];
     return props;
   }
 
   /**
-   * Getter for componet classes.
+   * Getter for component classes.
    *
    * @method componentClasses
    * @return {String} class names
@@ -53,7 +53,7 @@ class Message extends React.Component {
   get componentClasses() {
     let className = this.props.className;
 
-    let classes = (this.props.style ==='warning' ? 'ui-message--warning' : 'ui-message--info') +
+    let classes = (this.props.as === 'warning' ? 'ui-message--warning' : 'ui-message--info') +
         (className ? ' ' + className : '');
 
     return classes;
@@ -67,9 +67,9 @@ class Message extends React.Component {
   render() {
     return (
         <div { ...this.componentProps }>
-        <span className = 'ui-message__content'>
-        { this.props.children }
-        </span>
+          <span className = 'ui-message__content'>
+            { this.props.children }
+          </span>
         </div>
     );
   }
