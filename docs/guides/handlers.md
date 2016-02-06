@@ -7,6 +7,8 @@ Let's run through an example to demonstrate it's usefulness as well as how it wo
 Imagine we are given a component which provides the header and footer of our application:
 
 ```js
+// ./app.js
+
 import React from 'react';
 
 class App extends React.Component {
@@ -50,11 +52,13 @@ export default App;
 We could render the application like this:
 
 ```js
+// ./main.js
+
 import React from 'react';
 import { Route } from 'react-router';
 import { startRouter } from 'carbon/lib/utils/router';
 import App from './app';
-import MyView from './my-view';
+import MyView from './views/dummy';
 
 // render the routes using the App to render the header/footer, then render our
 // views as child components
@@ -69,9 +73,11 @@ startRouter(routes);
 
 This will setup a basic app using the `App` component for the header and footer. However, what if we want to modify the footer links?
 
-Let's create a handler pattern for the footer links:
+Let's create a handler registry for the footer links:
 
 ```js
+// ./footer-links-registry.js
+
 import BaseRegistry from 'carbon/lib/utils/handlers/base-registry';
 
 class FooterLinksRegistry extends BaseRegistry {
@@ -85,6 +91,8 @@ We have extended our registry from the base registry, and then exported it ensur
 Now let's update the `App` component to use this registry:
 
 ```js
+// ./app.js
+
 import React from 'react';
 // we import the new registry
 import FooterLinksRegistry from './footer-links-registry';
@@ -128,11 +136,13 @@ class App extends React.Component {
 export default App;
 ```
 
-So far, the app should still work. There are no registered handlers, but by default it should just return the original param passed to the `call` method.
+So far, the app should still work. There are no registered handlers, but by default it should just return the original param passed to the `call` method. However, the app is now setup with an extension point for the footer links, allowing developers to customise the menu as needed.
 
 Let's now create a handler and register it to our `FooterLinksRegistry`:
 
 ```js
+// ./footer-links-handler.js
+
 import React from 'react';
 import FooterLinksRegistry from './footer-links-registry';
 
@@ -165,6 +175,8 @@ export default FooterLinksRegistry.register(new FooterLinksHandler);
 The app should *still* work, however the links will not have been updated. This is because although we have created our custom handler, we have not imported it into our app. So let's update our routes file to import it:
 
 ```js
+// ./main.js
+
 import React from 'react';
 import { Route } from 'react-router';
 import { startRouter } from 'carbon/lib/utils/router';
@@ -185,4 +197,4 @@ startRouter(routes);
 
 Simply by importing it, it should register and enable our handler, updating the links in the footer.
 
-The way in which this works means that we could have many handlers, and many different configurations of the same application - configured depending on which handlers they import and register.
+The way in which this works means that we could have many handlers, and many different configurations of the same application - configured depending on which handlers the developers choose to import and/or register.
