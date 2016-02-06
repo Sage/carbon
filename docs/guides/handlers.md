@@ -2,7 +2,7 @@
 
 Carbon provides a handler pattern which can be used for optional content as well as for providing extension points within an application.
 
-Lets run through an example to demonstrate it's usefulness as well as how it works.
+Let's run through an example to demonstrate it's usefulness as well as how it works.
 
 Imagine we are given a component which provides the header and footer of our application:
 
@@ -12,15 +12,15 @@ import React from 'react';
 class App extends React.Component {
   // define the default footer links
   footerLinks = [
-    <Link1 />,
-    <Link2 />,
-    <Link3 />
+    <a key="1">link 1</a>,
+    <a key="2">link 2</a>,
+    <a key="3">link 3</a>
   ]
 
   // function to render the footer menu
   get renderFooterLinks() {
-    this.footerLinks.map((link) => {
-      <li>{ link }</li>
+    return this.footerLinks.map((link, index) => {
+      return <li key={ index }>{ link }</li>;
     });
   }
 
@@ -44,7 +44,7 @@ class App extends React.Component {
   };
 }
 
-export defaults App;
+export default App;
 ```
 
 We could render the application like this:
@@ -53,14 +53,14 @@ We could render the application like this:
 import React from 'react';
 import { Route } from 'react-router';
 import { startRouter } from 'carbon/lib/utils/router';
-import App from 'app';
+import App from './app';
 import MyView from './my-view';
 
 // render the routes using the App to render the header/footer, then render our
 // views as child components
 let routes = (
   <Route component={ App }>
-    <Route path="/foobar" component={ MyView } />
+    <Route path="/" component={ MyView } />
   </Route>
 );
 
@@ -69,7 +69,7 @@ startRouter(routes);
 
 This will setup a basic app using the `App` component for the header and footer. However, what if we want to modify the footer links?
 
-Lets create handler pattern for the footer links:
+Let's create a handler pattern for the footer links:
 
 ```js
 import BaseRegistry from 'carbon/lib/utils/handlers/base-registry';
@@ -77,30 +77,32 @@ import BaseRegistry from 'carbon/lib/utils/handlers/base-registry';
 class FooterLinksRegistry extends BaseRegistry {
 }
 
-export defaults new FooterLinksRegistry;
+export default new FooterLinksRegistry;
 ```
 
 We have extended our registry from the base registry, and then exported it ensuring that it has been initialized.
 
-Now lets update the `App` component to use this registry:
+Now let's update the `App` component to use this registry:
 
 ```js
 import React from 'react';
+// we import the new registry
 import FooterLinksRegistry from './footer-links-registry';
 
 class App extends React.Component {
   footerLinks = [
-    <Link1 />,
-    <Link2 />,
-    <Link3 />
+    <a key="1">link 1</a>,
+    <a key="2">link 2</a>,
+    <a key="3">link 3</a>
   ]
 
-  // obtain any relevant handler, and call it with the default links
+  // as well as importing the new registry, this function is the only thing we
+  // have modified, we obtain any relevant handler, and call it with the default links
   get renderFooterLinks() {
     let links = FooterLinksRegistry.obtain().call(this.footerLinks);
 
-    links.map((link) => {
-      <li>{ link }</li>
+    return links.map((link, index) => {
+      return <li key={ index }>{ link }</li>;
     });
   }
 
@@ -123,22 +125,23 @@ class App extends React.Component {
   };
 }
 
-export defaults App;
+export default App;
 ```
 
-So far, the app should still work. There are no registered handlers, but by default it should just return any params passed to the `call` method.
+So far, the app should still work. There are no registered handlers, but by default it should just return the original param passed to the `call` method.
 
-Lets now create a handler and register it to our `FooterLinksRegistry`:
+Let's now create a handler and register it to our `FooterLinksRegistry`:
 
-```
-import FooterLinksRegistry from 'footer-links-registry';
+```js
+import React from 'react';
+import FooterLinksRegistry from './footer-links-registry';
 
 class FooterLinksHandler {
   // The 'check' method is what determines to use this handler. We could pass
   // additional params to this through 'obtain' and perform more complex checks.
   // This is most useful when we have multiple handlers registered on the same
   // registry, but in this example we only have one so will always return 'true'.
-  check = () {
+  check = () => {
     return true;
   }
 
@@ -146,9 +149,9 @@ class FooterLinksHandler {
   // default footer links and returning our own set.
   call = (links) => {
     // insert new link after the first link
-    links.splice(1, 0, <a>first custom link!</a>)
+    links.splice(1, 0, <a key="custom1">first custom link!</a>)
     // add another link to the end of the array
-    links.push(<a>second custom link!</a>)
+    links.push(<a key="custom2">second custom link!</a>)
 
     return links;
   }
@@ -156,16 +159,16 @@ class FooterLinksHandler {
 
 // export our handler by initializing it and registering it with the appropriate
 // registry (in this case, the FooterLinksRegistry)
-export defaults FooterLinksRegistry.register(new FooterLinksHandler);
+export default FooterLinksRegistry.register(new FooterLinksHandler);
 ```
 
-The app should *still* work, however the links will not have been updated. This is because although we have created our custom handler, we hve not imported it into our app. So lets update our routes file to import it:
+The app should *still* work, however the links will not have been updated. This is because although we have created our custom handler, we have not imported it into our app. So let's update our routes file to import it:
 
 ```js
 import React from 'react';
 import { Route } from 'react-router';
 import { startRouter } from 'carbon/lib/utils/router';
-import App from 'app';
+import App from './app';
 import MyView from './my-view';
 
 // import our handler
@@ -173,7 +176,7 @@ import FooterLinksHandler from './footer-links-handler';
 
 let routes = (
   <Route component={ App }>
-    <Route path="/foobar" component={ MyView } />
+    <Route path="/" component={ MyView } />
   </Route>
 );
 

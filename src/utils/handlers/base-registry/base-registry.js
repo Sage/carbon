@@ -26,8 +26,8 @@ class BaseRegistry {
    * @type {Object}
    */
   defaultHandler = {
-    call: (...params) => {
-      return ...params;
+    call: (data) => {
+      return data;
     }
   }
 
