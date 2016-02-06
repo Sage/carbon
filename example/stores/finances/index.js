@@ -11,6 +11,7 @@ const data = ImmutableHelper.parseJSON({
   name: "My Finances",
   discount: false,
   displayFlash: false,
+  displayToast: true,
   country: {
     id: 218,
     name: 'United Kingdom'
@@ -167,6 +168,10 @@ class FinancesStore extends Store {
 
   [FinancesConstants.FLASH_CLOSED](action) {
     this.data = this.data.set('displayFlash', false);
+  }
+
+  [FinancesConstants.TOAST_CLOSED](action) {
+    this.data = this.data.set('displayToast', false);
   }
 }
 

@@ -21,10 +21,6 @@ import Flash from 'components/flash';
 
 class Finances extends React.Component {
 
-  state = {
-    toast: true
-  }
-
   componentWillUpdate(nextProps, nextState) {
     if (this.state.financesStore.get('success')) {
       console.log('saved!');
@@ -41,14 +37,6 @@ class Finances extends React.Component {
     FinancesActions.beforeSave();
     FinancesActions.financesSave();
     FinancesActions.financesFlashOpened();
-  }
-
-  handleFlashEnd = (ev) => {
-    FinancesActions.financesFlashClosed();
-  }
-
-  foo = () => {
-    this.setState({ toast: false })
   }
 
   render() {
@@ -100,10 +88,10 @@ class Finances extends React.Component {
 
           <UserDialog />
 
-          <Flash onDismiss={ this.handleFlashEnd } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} as="success" />
+          <Flash onDismiss={ FinancesActions.dismissFlash } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} as="success" />
         </div>
 
-        <Toast as="new" onDismiss={ this.foo } open={ this.state.toast }>
+        <Toast as="new" onDismiss={ FinancesActions.dismissToast } open={ this.state.financesStore.get('displayToast') }>
           <strong>New Features</strong><br />
           We have introduced new features, please see the <Link href="https://github.com/Sage/carbon/blob/master/CHANGELOG.md" target="_blank">changelog</Link> for more information.
         </Toast>

@@ -1,6 +1,23 @@
 # 0.3.0
 
-TBC
+## New Components
+
+* Toast
+
+## Standardised Color/Icon Sets on Components
+
+Several components allow the ability to define a particular `type` or `status`, such as `warning`, `error` or `success`. We have standardised the way this is implemented in components, each of which should use a prop name of `as`.
+
+Similarly, each supported type comes as part of a Sass list variable called `$colorIconSets`. This list can be used in component `scss` files to iterate through the types available and automatically generate the code required for each type. This means each component will automatically update with any new types added to this list.
+
+You can see examples of how this is implemented in the `scss` files for `Pill`, `Flash`, `Banner` or `Toast`.
+
+### Breaking Change
+
+Due to the standardisation of using the prop `as`, some components will have breaking changes to accomodate this:
+
+* Flash
+* Pill
 
 # 0.2.0
 
