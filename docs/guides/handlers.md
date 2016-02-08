@@ -2,7 +2,7 @@
 
 Carbon provides a handler pattern which can be used for optional content as well as for providing extension points within an application.
 
-Let's run through an example to demonstrate it's usefulness as well as how it works.
+Let's run through an example to demonstrate its usefulness as well as how it works.
 
 Imagine we are given a component which provides the header and footer of our application:
 
@@ -147,7 +147,7 @@ import React from 'react';
 import FooterLinksRegistry from './footer-links-registry';
 
 class FooterLinksHandler {
-  // The 'check' method is what determines to use this handler. We could pass
+  // The 'check' method is what determines whether to use this handler. We could pass
   // additional params to this through 'obtain' and perform more complex checks.
   // This is most useful when we have multiple handlers registered on the same
   // registry, but in this example we only have one so will always return 'true'.
@@ -155,7 +155,7 @@ class FooterLinksHandler {
     return true;
   }
 
-  // The `call` method return the custom data. In this case we are modifying the
+  // The `call` method returns the custom data. In this case we are modifying the
   // default footer links and returning our own set.
   call = (links) => {
     // insert new link after the first link
