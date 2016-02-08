@@ -14,23 +14,40 @@ describe('BaseRegistry', () => {
   });
 
   describe('handlers', () => {
-    it('is an empty array', () => {
-      expect(instance.handlers).toEqual([]);
+    it('is an empty object', () => {
+      expect(instance.handlers).toEqual({});
     });
   });
 
   describe('register', () => {
     it('adds to the handlers array', () => {
-      instance.register('foo');
-      instance.register('bar');
-      expect(instance.handlers).toEqual(['foo', 'bar']);
+      instance.register('foo', 'foo');
+      instance.register('bar', 'bar');
+      expect(instance.handlers).toEqual({ 'foo': 'foo', 'bar': 'bar' });
+    });
+
+    describe('when a key is not passed', () => {
+      it('throws an error', () => {
+        expect(function() { instance.register('foo') }).toThrowError();
+      });
+    });
+  });
+
+  describe('unregister', () => {
+    it('removes the give key value from the handlers', () => {
+      instance.register('foo', 'foo');
+      instance.register('bar', 'bar');
+
+      instance.unregister('foo');
+
+      expect(instance.handlers).toEqual({ 'bar': 'bar' });
     });
   });
 
   describe('obtain', () => {
     describe('when it cannot find a handler', () => {
       it('returns the defaultHandler', () => {
-        expect(instance.obtain()).toEqual(instance.defaultHandler);
+        expect(instance.obtain()).toEqual([instance.defaultHandler]);
       });
     });
 
@@ -47,11 +64,11 @@ describe('BaseRegistry', () => {
           name: "3"
         };
 
-        instance.register(handler1);
-        instance.register(handler2);
-        instance.register(handler3);
+        instance.register(handler1, 'handler1');
+        instance.register(handler2, 'handler2');
+        instance.register(handler3, 'handler3');
 
-        expect(instance.obtain().name).toEqual("2");
+        expect(instance.obtain()[0].name).toEqual("2");
       });
 
       it('returns the handler that checks true with params', () => {
@@ -72,13 +89,35 @@ describe('BaseRegistry', () => {
           name: "3"
         };
 
-        instance.register(handler1);
-        instance.register(handler2);
-        instance.register(handler3);
+        instance.register(handler1, 'handler1');
+        instance.register(handler2, 'handler2');
+        instance.register(handler3, 'handler3');
 
-        expect(instance.obtain("a", "a").name).toEqual("1");
-        expect(instance.obtain("a", "b").name).toEqual("2");
-        expect(instance.obtain("b", "a").name).toEqual("3");
+        expect(instance.obtain("a", "a")[0].name).toEqual("1");
+        expect(instance.obtain("a", "b")[0].name).toEqual("2");
+        expect(instance.obtain("b", "a")[0].name).toEqual("3");
+      });
+    });
+
+    describe('when there are multiple handlers that check true', () => {
+      it('returns an each true handler', () => {
+        let handler1 = {
+          check: () => { return false; },
+          name: "1"
+        }, handler2 = {
+          check: () => { return true; },
+          name: "2"
+        }, handler3 = {
+          check: () => { return true; },
+          name: "3"
+        };
+
+        instance.register(handler1, 'handler1');
+        instance.register(handler2, 'handler2');
+        instance.register(handler3, 'handler3');
+
+        expect(instance.obtain()[0].name).toEqual("2");
+        expect(instance.obtain()[1].name).toEqual("3");
       });
     });
   });

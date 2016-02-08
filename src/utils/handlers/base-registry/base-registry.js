@@ -1,5 +1,3 @@
-import { find } from 'lodash';
-
 /**
  * Base Registry class, for building handler patterns.
  *
@@ -35,33 +33,56 @@ class BaseRegistry {
    * Property to store any registered handlers.
    *
    * @property handlers
-   * @type {Array}
+   * @type {Object}
    */
-  handlers = []
+  handlers = {}
 
   /**
    * Adds the given handler to the registry.
    *
    * @method register
    * @param {Object} handler
+   * @param {String} key
    */
-  register = (handler) => {
-    this.handlers.push(handler);
+  register = (handler, key) => {
+    if (!key) {
+      throw new Error('You must supply a key when registering a handler');
+    }
+
+    this.handlers[key] = handler;
   }
 
   /**
-   * Finds the relevant handler. Additional params can be passed which will be
-   * sent to the handler to determine if it is the correct one to use.
+   * Removes given handler from the registry by key
+   *
+   * @method register
+   * @param {String} key
+   */
+  unregister = (key) => {
+    delete this.handlers[key];
+  }
+
+  /**
+   * Finds all relevant handlers. Additional params can be passed which will be
+   * sent to the handler to determine if it should be used
    *
    * @method obtain
    * @return {Object}
    */
   obtain = (...params) => {
-    let handler = find(this.handlers, (handler) => {
-      return handler.check(...params);
+    let handlers = [];
+
+    Object.keys(this.handlers).forEach((key) => {
+      const handler = this.handlers[key];
+
+      if (handler.check(...params)) {
+        handlers.push(handler);
+      }
     });
 
-    return handler || this.defaultHandler;
+    if (!handlers.length) { handlers.push(this.defaultHandler); }
+
+    return handlers;
   }
 }
 
