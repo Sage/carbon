@@ -1,6 +1,12 @@
 # 0.3.0
 
-TBC
+## Breaking Change
+
+* The `cancelHandler` method on `Dialog` based components has been renamed to `onCancel` to bring in line with the convention we would like to progress with for this kind of action name.
+
+## Bug Fixes
+
+* Dialog now centers itself if open on initialize.
 
 # 0.2.0
 
