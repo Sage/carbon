@@ -18,7 +18,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 *     My toast content
 *   </Toast>
 *
-* Additionally you can pass optional props to the Toas component
+* Additionally you can pass optional props to the Toast component
 *
 *   as: Customizes the appearence of the toast changing the colour
 *       (see the 'iconColorSets' for possible values).
