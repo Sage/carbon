@@ -30,7 +30,7 @@ class History extends React.Component {
 
         <Alert  title="Alert"
                 open={ this.state.userStore.get('alertOpen') }
-                cancelHandler={ UserActions.userAlertClosed }>
+                onCancel={ UserActions.userAlertClosed }>
                 The page is now in it's previous state.
         </Alert>
       </div>

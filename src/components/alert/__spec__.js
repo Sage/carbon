@@ -5,12 +5,12 @@ import Alert from './alert';
 
 describe('Alert', () => {
   let instance;
-  let cancelHandler = jasmine.createSpy('cancel');
+  let onCancel = jasmine.createSpy('cancel');
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Alert
-        cancelHandler={ cancelHandler }
+        onCancel={ onCancel }
         open={ true }
         title="Alert title" />
     );

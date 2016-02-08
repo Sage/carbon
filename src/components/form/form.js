@@ -252,7 +252,7 @@ class Form extends React.Component {
    */
   cancelForm = () => {
     if (this.context.dialog) {
-      this.context.dialog.cancelHandler();
+      this.context.dialog.onCancel();
     } else {
       // history comes from react router
       if (!this._window.history) {
