@@ -12,12 +12,16 @@ Similarly, each supported type comes as part of a Sass list variable called `$co
 
 You can see examples of how this is implemented in the `scss` files for `Pill`, `Flash`, `Banner` or `Toast`.
 
-### Breaking Change
+### Breaking Changes
 
-Due to the standardisation of using the prop `as`, some components will have breaking changes to accomodate this:
+* Due to the standardisation of using the prop `as`, some components will have breaking changes to accomodate this:
+  * Flash
+  * Pill
+* The `cancelHandler` method on `Dialog` based components has been renamed to `onCancel` to bring in line with the convention we would like to progress with for this kind of action name.
 
-* Flash
-* Pill
+## Bug Fixes
+
+* Dialog now centers itself if open on initialize.
 
 # 0.2.0
 
