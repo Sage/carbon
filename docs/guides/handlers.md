@@ -173,7 +173,7 @@ class FooterLinksHandler {
 
 // export our handler by initializing it and registering it with the appropriate
 // registry (in this case, the FooterLinksRegistry)
-export default FooterLinksRegistry.register(new FooterLinksHandler);
+export default FooterLinksRegistry.register("myFooterLinks", new FooterLinksHandler);
 ```
 
 The app should *still* work, however the links will not have been updated. This is because although we have created our custom handler, we have not imported it into our app. So let's update our routes file to import it:
