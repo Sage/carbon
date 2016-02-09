@@ -1,17 +1,21 @@
 @import 'colors';
 @import 'z-index';
 
-$toast-anim-start: -100px;
-$toast-anim-end: 30px;
+$toast-anim-start: -100px !default;
+$toast-anim-end: 30px !default;
+$toast-border: 1px solid !default;
+$toast-border-radius: 4px !default;
+$toast-top-position: 0 !default;
+$toast-width: 300px !default;
 
 .ui-toast {
-  border-radius: 4px;
-  border: 1px solid;
-  top: 0;
+  border-radius: $toast-border-radius;
+  border: $toast-border;
   margin-top: $toast-anim-end;
   position: fixed;
   right: $toast-anim-end;
-  width: 300px;
+  top: $toast-top-position;
+  width: $toast-width;
   z-index: $z-toast;
 }
 
@@ -26,7 +30,7 @@ $toast-anim-end: 30px;
 }
 
 .ui-toast__type {
-  border-radius: 4px 0 0 4px;
+  border-radius: $toast-border-radius 0 0 $toast-border-radius;
   height: 100%;
   left: 0;
   margin-top: 0;
