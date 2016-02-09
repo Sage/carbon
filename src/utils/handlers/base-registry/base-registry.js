@@ -46,6 +46,7 @@ class BaseRegistry {
    */
   register = (key, handler) => {
     this.handlers[key] = handler;
+    return handler;
   }
 
   /**
