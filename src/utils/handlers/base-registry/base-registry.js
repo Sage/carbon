@@ -41,14 +41,10 @@ class BaseRegistry {
    * Adds the given handler to the registry.
    *
    * @method register
-   * @param {Object} handler
    * @param {String} key
+   * @param {Object} handler
    */
-  register = (handler, key) => {
-    if (!key) {
-      throw new Error('You must supply a key when registering a handler');
-    }
-
+  register = (key, handler) => {
     this.handlers[key] = handler;
   }
 

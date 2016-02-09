@@ -21,26 +21,20 @@ describe('BaseRegistry', () => {
 
   describe('register', () => {
     it('adds to the handlers array', () => {
-      instance.register('foo', 'foo');
-      instance.register('bar', 'bar');
-      expect(instance.handlers).toEqual({ 'foo': 'foo', 'bar': 'bar' });
-    });
-
-    describe('when a key is not passed', () => {
-      it('throws an error', () => {
-        expect(function() { instance.register('foo') }).toThrowError();
-      });
+      instance.register('foo-key', 'foo');
+      instance.register('bar-key', 'bar');
+      expect(instance.handlers).toEqual({ 'foo-key': 'foo', 'bar-key': 'bar' });
     });
   });
 
   describe('unregister', () => {
     it('removes the give key value from the handlers', () => {
-      instance.register('foo', 'foo');
-      instance.register('bar', 'bar');
+      instance.register('foo-key', 'foo');
+      instance.register('bar-key', 'bar');
 
-      instance.unregister('foo');
+      instance.unregister('foo-key');
 
-      expect(instance.handlers).toEqual({ 'bar': 'bar' });
+      expect(instance.handlers).toEqual({ 'bar-key': 'bar' });
     });
   });
 
@@ -64,9 +58,9 @@ describe('BaseRegistry', () => {
           name: "3"
         };
 
-        instance.register(handler1, 'handler1');
-        instance.register(handler2, 'handler2');
-        instance.register(handler3, 'handler3');
+        instance.register('handler1', handler1);
+        instance.register('handler2', handler2);
+        instance.register('handler3', handler3);
 
         expect(instance.obtain()[0].name).toEqual("2");
       });
@@ -89,9 +83,9 @@ describe('BaseRegistry', () => {
           name: "3"
         };
 
-        instance.register(handler1, 'handler1');
-        instance.register(handler2, 'handler2');
-        instance.register(handler3, 'handler3');
+        instance.register('handler1', handler1);
+        instance.register('handler2', handler2);
+        instance.register('handler3', handler3);
 
         expect(instance.obtain("a", "a")[0].name).toEqual("1");
         expect(instance.obtain("a", "b")[0].name).toEqual("2");
@@ -112,9 +106,9 @@ describe('BaseRegistry', () => {
           name: "3"
         };
 
-        instance.register(handler1, 'handler1');
-        instance.register(handler2, 'handler2');
-        instance.register(handler3, 'handler3');
+        instance.register('handler1', handler1);
+        instance.register('handler2', handler2);
+        instance.register('handler3', handler3);
 
         expect(instance.obtain()[0].name).toEqual("2");
         expect(instance.obtain()[1].name).toEqual("3");
