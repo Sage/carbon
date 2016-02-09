@@ -105,9 +105,13 @@ class App extends React.Component {
   ]
 
   // as well as importing the new registry, this function is the only thing we
-  // have modified, we obtain any relevant handler, and call it with the default links
+  // have modified, we obtain any relevant handlers, and call them with the default links
   get renderFooterLinks() {
-    let links = FooterLinksRegistry.obtain().call(this.footerLinks);
+    let links = this.footerLinks;
+
+    FooterLinksRegistry.obtain().forEach((registry) => {
+      links = registry.call(links)
+    });
 
     return links.map((link, index) => {
       return <li key={ index }>{ link }</li>;
