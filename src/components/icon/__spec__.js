@@ -3,28 +3,31 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Icon from './icon';
 
 describe('Icon', () => {
-  let instance, span;
+  let instance, span, svg;
 
   describe('renderIcon', () => {
     it('calls the render warning icon method', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='warning' />);
-      spyOn(instance, 'renderWarningIcon');
       instance.renderIcon;
-      expect(instance.renderWarningIcon).toHaveBeenCalled();
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--warning");
     });
 
     it('calls the render new icon method', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='new' />);
-      spyOn(instance, 'renderNewIcon');
       instance.renderIcon;
-      expect(instance.renderNewIcon).toHaveBeenCalled();
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--new");
     });
 
     it('calls the render maintenance icon method', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='maintenance' />);
-      spyOn(instance, 'renderMaintenanceIcon');
       instance.renderIcon;
-      expect(instance.renderMaintenanceIcon).toHaveBeenCalled();
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--maintenance");
     });
   });
 
