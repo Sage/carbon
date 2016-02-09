@@ -21,6 +21,7 @@ import Icon from './../icon';
  *  <Flash open={ openStatus } onDismiss={ myOnDismiss } message='Alert!' />
  *
  * By default, the flash renders with a clickable close icon that hooks up with the onDismiss function.
+ *
  * To instead have the flash disappear after a given time period, pass a prop of timeout in milliseconds.
  *
  *  <Flash open={ openStatus } onDismiss={ myOnDismiss } message='Alert!' timeout={ 2000 }/>
@@ -51,11 +52,13 @@ class Flash extends React.Component {
 
     /**
      * Type of notification.
+     * (see the 'iconColorSets' for possible values)
      *
-     * @property type
+     * @property as
      * @type {String}
+     * @default 'success'
      */
-    type: React.PropTypes.string,
+    as: React.PropTypes.string,
 
     /**
      * Contents of message.
@@ -75,7 +78,7 @@ class Flash extends React.Component {
   }
 
   static defaultProps = {
-    type: 'alert'
+    as: 'success'
   }
 
   /**
@@ -103,18 +106,15 @@ class Flash extends React.Component {
   get iconType() {
     let icon;
 
-    switch(this.props.type) {
+    switch(this.props.as) {
       case 'success':
         icon = 'tick';
         break;
       case 'error':
         icon = 'warning';
         break;
-      case 'alert':
-        icon = 'warning';
-        break;
       default:
-        icon = this.props.type;
+        icon = this.props.as;
         break;
     }
     return icon;
@@ -170,7 +170,7 @@ class Flash extends React.Component {
     mainClasses = ClassNames(
       'ui-flash',
       this.props.className,
-      `ui-flash--${this.props.type}`
+      `ui-flash--${this.props.as}`
     );
 
     if (this.props.open) {

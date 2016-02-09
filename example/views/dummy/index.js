@@ -6,6 +6,7 @@ import QuickCreate from './subviews/quick-create';
 import Link from   'components/link';
 import Pill from 'components/pill';
 import Banner from   'components/banner';
+import Toast from   'components/toast';
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
@@ -38,26 +39,22 @@ class Finances extends React.Component {
     FinancesActions.financesFlashOpened();
   }
 
-  handleFlashEnd = (ev) => {
-    FinancesActions.financesFlashClosed();
-  }
-
   render() {
     let name = this.state.financesStore.get('name');
     let financesStore = this.state.financesStore;
 
     return (
       <div>
-        <Banner as="new" title="This is a title" message="This is my message." buttonAction={ function() {console.log('clicked')}}/>
+        <Banner as="warning" title="This is a title" message="This is my message." buttonAction={ function() {console.log('clicked')}}/>
 
         <div className="view-finances">
           <FinancesHistory />
 
           <Button onClick={ this.handleOnClick }>Edit My Details</Button>
 
-          <Pill type='warning'>Warning Pill</Pill>
-          <Pill ype='info'>Info Pill</Pill>
-          <Pill type='new'>New Pill</Pill>
+          <Pill as='warning'>Warning Pill</Pill>
+          <Pill as='info'>Info Pill</Pill>
+          <Pill as='new'>New Pill</Pill>
 
           <QuickCreate />
 
@@ -91,8 +88,13 @@ class Finances extends React.Component {
 
           <UserDialog />
 
-          <Flash onDismiss={ this.handleFlashEnd } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} type="alert" />
+          <Flash onDismiss={ FinancesActions.dismissFlash } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} as="success" />
         </div>
+
+        <Toast as="new" onDismiss={ FinancesActions.dismissToast } open={ this.state.financesStore.get('displayToast') }>
+          <strong>New Features</strong><br />
+          We have introduced new features, please see the <Link href="https://github.com/Sage/carbon/blob/master/CHANGELOG.md" target="_blank">changelog</Link> for more information.
+        </Toast>
       </div>
     );
   }

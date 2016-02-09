@@ -11,7 +11,7 @@ import Alert from 'carbon/lib/components/alert';
 *  To render a Alert:
 
 ```javascript
-   <Alert cancelHandler={ customEventHandler } open={ false }/>
+   <Alert onCancel={ customEventHandler } open={ false }/>
 ```
 
  The component rendering the Alert must pass down a prop of 'open' in order to open the alert.

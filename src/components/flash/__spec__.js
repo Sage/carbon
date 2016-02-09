@@ -15,27 +15,27 @@ describe('Flash', () => {
 
     successInstance = TestUtils.renderIntoDocument(
       <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
-             className='lost-in-space' type='success'/>
+             className='lost-in-space' as='success'/>
     );
 
     errorInstance = TestUtils.renderIntoDocument(
       <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
-             type='error'/>
+             as='error'/>
     );
 
     warningInstance = TestUtils.renderIntoDocument(
       <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
-             type='warning'/>
+             as='warning'/>
     );
 
     timeoutInstance = TestUtils.renderIntoDocument(
       <Flash open={ false } onDismiss={ dismissHandler } message="Danger Will Robinson!"
-             type='warning' timeout= { 2000 }/>
+             as='warning' timeout= { 2000 }/>
     );
 
     customIconInstance = TestUtils.renderIntoDocument(
       <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
-             type='special'/>
+             as='special'/>
     );
   });
 
@@ -56,7 +56,7 @@ describe('Flash', () => {
 
           timeoutInstance = TestUtils.renderIntoDocument(
             <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
-                   type='warning' timeout= { 2000 }/>);
+                   as='warning' timeout= { 2000 }/>);
           timeoutInstance.componentDidUpdate(prevProps);
           jasmine.clock().tick(2000);
           expect(dismissHandler).toHaveBeenCalled();
@@ -69,7 +69,7 @@ describe('Flash', () => {
 
           timeoutInstance = TestUtils.renderIntoDocument(
             <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
-                   type='warning' timeout= { 2000 }/>);
+                   as='warning' timeout= { 2000 }/>);
 
           timeoutInstance.componentDidUpdate(prevProps);
           jasmine.clock().tick(2000);
@@ -106,7 +106,7 @@ describe('Flash', () => {
   });
 
   describe('iconType', () => {
-    it('returns the icon corresponding to the flash type by default', () => {
+    it('returns the icon corresponding to the flash as by default', () => {
       expect(customIconInstance.iconType).toEqual('special');
     });
 
@@ -181,8 +181,8 @@ describe('Flash', () => {
     });
 
     describe('when the flash is open', () => {
-      it('renders a parent div with mainClasses attached', () => {
-        expect(flashInstance.className).toMatch('ui-flash ui-flash--alert');
+      it('renders a parent div with default mainClasses attached', () => {
+        expect(flashInstance.className).toMatch('ui-flash ui-flash--success');
       });
 
       it('renders an outer slider element', () => {
