@@ -36,7 +36,7 @@ describe('Pill', () => {
   });
 
   describe('classNames', () => {
-    describe('type', () => {
+    describe('as', () => {
       describe('when using the default', () => {
         it('adds a class of ui-pill--info', () => {
           expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill--info').length).toEqual(1);
@@ -44,10 +44,10 @@ describe('Pill', () => {
       });
 
       describe('when not using the default', () => {
-        it('uses the passed type', () => {
+        it('uses the passed as', () => {
           instance = TestUtils.renderIntoDocument(
             <Pill
-              type='warning'
+              as='warning'
               children='My Text'/>
           );
           expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill--warning').length).toEqual(1);

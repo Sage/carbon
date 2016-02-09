@@ -19,23 +19,61 @@ $grey-background:            $grey-light !default;
 $green:                      #007F64 !default;
 $green-mid:                  #42AE42 !default;
 $green-bright:               #00DC00 !default;
-$orange:                     #FF8234 !default;
+$orange:                     #FF5400 !default;
 $orange-mid:                 #FFAB00 !default;
 $orange-bright:              #FF5800 !default;
 $blue:                       #255BC7 !default;
 $blue-dark:                  #193E90 !default;
 $blue-bright:                #1963F6 !default;
+$blue-navy:                  #3592FF !default;
 $red:                        #D63F40 !default;
-$yellow:                     #FFE44D !default;
+$yellow:                     #FFAB00 !default;
 $magenta:                    #ED1C5F !default;
 $magenta-dull:               #CA2A60 !default;
 
 // Main colours
 $warning:                    $orange !default;
+$warning-text-background:    #FFF6F2 !default;
+$warning-border:             #FFDDCC !default;
+$warning-hover:              #903102 !default;
+
 $error:                      $red    !default;
-$warningTmp:                 #FF5400 !default;
-$info:                       #00A4CF !default;
-$new:                        #46B237 !default;
+$error-text-background:      #FDF5F5 !default;
+$error-border:               #F7D9D9 !default;
+$error-hover:                #822223 !default;
+
+$info:                       $blue-navy !default;
+$info-text-background:       #F5F9FF !default;
+$info-border:                #D7E9FF !default;
+$info-hover:                 #0B478E !default;
+
+$new:                        $green-mid !default;
+$new-text-background:        #F5FBF5 !default;
+$new-border:                 #D9EFD9 !default;
+$new-hover:                  #216521 !default;
+
+$success:                    $new !default;
+$success-text-background:    $new-text-background !default;
+$success-border:             $new-border !default;
+$success-hover:              $new-hover !default;
+
+$help:                       $yellow !default;
+$help-text-background:       #FFFBF2 !default;
+$help-border:                #FFEECC !default;
+$help-hover:                 #AB7403 !default;
+
+/**
+ * Color and Icon sets used for components with themes.
+ */
+$colorIconSets: (
+  ("warning", $warning, $warning-border, $warning-text-background, $warning-hover),
+  ("error", $error, $error-border, $error-text-background, $error-hover),
+  ("info", $info, $info-border, $info-text-background, $info-hover),
+  ("new", $new, $new-border, $new-text-background, $new-hover),
+  ("success", $success, $success-border, $success-text-background, $success-hover),
+  ("help", $help, $help-border, $help-text-background, $help-hover),
+  ("maintenance", $warning, $warning-border, $warning-text-background, $warning-hover),
+);
 
 $border-color:               #CCD1DC !default;
 $table-border-color:         #E4E7EA !default;
