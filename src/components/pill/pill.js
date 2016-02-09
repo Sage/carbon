@@ -12,14 +12,12 @@ import classNames from 'classnames';
 *
 * To render the Pill:
 *
-*   <Pill type='warning'>My warning text</Pill>
+*   <Pill as='warning'>My warning text</Pill>
 *
 * Additionally you can pass optional props to the Pill component
 *
-*   type: Customizes the appearence of the pill changing the colour
-*     info: default
-*     warning
-*     new
+*   as: Customizes the appearence of the pill changing the colour.
+*       (see the 'iconColorSets' for possible values).
 *
 * @class Pill
 * @constructor
@@ -30,13 +28,13 @@ class Pill extends React.Component {
 
     /**
      * Customizes the appearance through colour
-     * Can be set to 'info', 'warning', 'new'
+     * (see the 'iconColorSets' for possible values)
      *
-     * @property type
+     * @property as
      * @type {String}
      * @default 'info'
      */
-    type: React.PropTypes.string,
+    as: React.PropTypes.string,
 
     /**
      * The text to display on the Pill
@@ -48,7 +46,7 @@ class Pill extends React.Component {
   }
 
   static defaultProps = {
-    type: 'info'
+    as: 'info'
   }
 
   /**
@@ -62,7 +60,7 @@ class Pill extends React.Component {
     className = classNames(
       'ui-pill',
       className,
-      'ui-pill--' + this.props.type
+      'ui-pill--' + this.props.as
     );
 
     return(

@@ -1,7 +1,22 @@
 # 0.3.0
 
-## Breaking Change
+## New Components
 
+* Toast
+
+## Standardised Color/Icon Sets on Components
+
+Several components allow the ability to define a particular `type` or `status`, such as `warning`, `error` or `success`. We have standardised the way this is implemented in components, each of which should use a prop name of `as`.
+
+Similarly, each supported type comes as part of a Sass list variable called `$colorIconSets`. This list can be used in component `scss` files to iterate through the types available and automatically generate the code required for each type. This means each component will automatically update with any new types added to this list.
+
+You can see examples of how this is implemented in the `scss` files for `Pill`, `Flash`, `Banner` or `Toast`.
+
+### Breaking Changes
+
+* Due to the standardisation of using the prop `as`, some components will have breaking changes to accomodate this:
+  * Flash
+  * Pill
 * The `cancelHandler` method on `Dialog` based components has been renamed to `onCancel` to bring in line with the convention we would like to progress with for this kind of action name.
 
 ## Bug Fixes

@@ -9,14 +9,12 @@
   letter-spacing: 0.8px;
 }
 
-.ui-pill--info {
-  background-color: $info;
+@mixin pill-theme($type, $color, $border, $background, $color-hover) {
+  .ui-pill--#{$type} {
+    background-color: $color;
+  }
 }
 
-.ui-pill--warning {
-  background-color: $warningTmp;
-}
-
-.ui-pill--new {
-  background-color: $new;
+@each $set in $colorIconSets {
+  @include pill-theme($set...);
 }
