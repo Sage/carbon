@@ -1,5 +1,9 @@
 # 0.3.0
 
+## Handler Pattern
+
+Carbon now has a simple handler pattern implementation. For more information, see [the guide](https://github.com/Sage/carbon/blob/master/docs/guides/handlers.md).
+
 ## New Components
 
 * Toast
