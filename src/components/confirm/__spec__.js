@@ -5,14 +5,14 @@ import Confirm from './confirm';
 
 describe('Confirm', () => {
   let instance;
-  let cancelHandler = jasmine.createSpy('cancel');
-  let confirmHandler = jasmine.createSpy('confirm');
+  let onCancel = jasmine.createSpy('cancel');
+  let onConfirm = jasmine.createSpy('confirm');
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Confirm
-        cancelHandler={ cancelHandler }
-        confirmHandler={ confirmHandler }
+        onCancel={ onCancel }
+        onConfirm={ onConfirm }
         open={ true }
         title="Confrim title" />
     );
@@ -43,9 +43,9 @@ describe('Confirm', () => {
         expect(yes.className).toEqual('ui-confirm__button ui-confirm__yes');
       });
 
-      it('triggers the confirmHandler when the yes button is clicked', () => {
+      it('triggers the onConfirm when the yes button is clicked', () => {
         TestUtils.Simulate.click(yesButton);
-        expect(confirmHandler).toHaveBeenCalled();
+        expect(onConfirm).toHaveBeenCalled();
       });
     });
 
@@ -59,9 +59,9 @@ describe('Confirm', () => {
         expect(no.className).toEqual('ui-confirm__button ui-confirm__no');
       });
 
-      it('triggers the cancelHandler when the no button is clicked', () => {
+      it('triggers the onCancel when the no button is clicked', () => {
         TestUtils.Simulate.click(noButton);
-        expect(cancelHandler).toHaveBeenCalled();
+        expect(onCancel).toHaveBeenCalled();
       });
     });
   });

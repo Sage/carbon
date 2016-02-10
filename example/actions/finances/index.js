@@ -46,9 +46,15 @@ let FinancesActions = {
     });
   },
 
-  financesFlashClosed: (ev, props) => {
+  dismissFlash: (ev, props) => {
     Dispatcher.dispatch({
       actionType: FinancesConstants.FLASH_CLOSED
+    });
+  },
+
+  dismissToast: (ev, props) => {
+    Dispatcher.dispatch({
+      actionType: FinancesConstants.TOAST_CLOSED
     });
   },
 

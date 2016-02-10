@@ -12,7 +12,7 @@ describe('AnimatedMenuButton', () => {
 
   beforeEach(() => {
     basicWidget = TestUtils.renderIntoDocument(
-      <AnimatedMenuButton  />
+      <AnimatedMenuButton />
     );
 
     labelWidget = TestUtils.renderIntoDocument(
@@ -20,11 +20,11 @@ describe('AnimatedMenuButton', () => {
     );
 
     customClassWidget = TestUtils.renderIntoDocument(
-      <AnimatedMenuButton  className='quick-create'/>
+      <AnimatedMenuButton className='quick-create'/>
     );
 
     rightWidget = TestUtils.renderIntoDocument(
-      <AnimatedMenuButton  direction='right'/>
+      <AnimatedMenuButton direction='right'/>
     );
 
     largeWidget = TestUtils.renderIntoDocument(

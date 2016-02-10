@@ -133,7 +133,7 @@ class AnimatedMenuButton extends React.Component {
    */
   get labelHTML() {
     return this.props.label ?
-           <span key={ this.props.label } className='ui-animated-menu-button__label'>{ this.props.label }</span> : '';
+           <span key="label" className='ui-animated-menu-button__label'>{ this.props.label }</span> : '';
   }
 
   /**
@@ -195,7 +195,7 @@ class AnimatedMenuButton extends React.Component {
    * @return {HTML} html for close icon
    */
   get closeIcon() {
-    return <div onClick={ this.closeHandler } ref='close'>
+    return <div onClick={ this.closeHandler } ref='close' key='close'>
              <Icon type='close' />
            </div>;
   }

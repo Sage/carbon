@@ -29,20 +29,14 @@
   position: absolute;
   right: 0;
 
-  .ui-flash--success & {
-    background: $green-mid;
+  @mixin flash-theme($type, $color, $border, $background, $color-hover) {
+    .ui-flash--#{$type} & {
+      background-color: $color;
+    }
   }
 
-  .ui-flash--error & {
-    background: $red;
-  }
-
-  .ui-flash--alert & {
-    background: $blue-bright;
-  }
-
-  .ui-flash--warning & {
-    background: $orange-mid;
+  @each $set in $colorIconSets {
+    @include flash-theme($set...);
   }
 }
 
