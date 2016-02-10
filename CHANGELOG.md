@@ -7,6 +7,7 @@ Carbon now has a simple handler pattern implementation. For more information, se
 ## New Components
 
 * Toast
+* Message
 
 ## Standardised Color/Icon Sets on Components
 
