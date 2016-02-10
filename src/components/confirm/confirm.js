@@ -38,7 +38,7 @@ class Confirm extends Dialog {
     /**
      * A custom event handler when a confirmation takes place
      *
-     * @property onConfirm 
+     * @property onConfirm
      * @type {Function}
      */
     onConfirm: React.PropTypes.func.isRequired
