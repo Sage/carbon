@@ -13,8 +13,8 @@ import Confirm from 'carbon/lib/components/confirm';
 ```javascript
 <Confirm
   title='Are you sure?'
-  confirmHandler={ customConfirmHandler }
-  cancelHandler={ customCancelHandler }
+  onConfirm={ customConfirmHandler }
+  onCancel={ customCancelHandler }
   open={ false }
   This is the content message
 </Confirm>
@@ -29,7 +29,7 @@ import Confirm from 'carbon/lib/components/confirm';
 | Name          | Required       | Type           | Default       | Description   |
 | ------------- |  ------------- |  ------------- | ------------- | ------------- |
 | title         | false          | String         |               | Confirm dialog title  |
-| confirmHandler | false          | Function           |               | Callback for when the yes button is clicked  |
-| cancelHandler  | false         | Function        |               | Callback for when the no button is clicked |
+| onConfirm     | false          | Function       |               | Callback for when the yes button is clicked  |
+| onCancel      | false          | Function       |               | Callback for when the no button is clicked |
 | open          | false          | Boolean        |               | Pass true if you want the confirm to open |
-| children      | false          | String        |               | Confirm dialog content to show to the user |
+| children      | false          | String         |               | Confirm dialog content to show to the user |
