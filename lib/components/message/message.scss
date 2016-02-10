@@ -1,0 +1,20 @@
+@import 'colors';
+
+.ui-message {
+  border-radius: 4px;
+  color: white;
+  display: block;
+  font-size: 12px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+}
+
+@mixin message-theme($type, $color, $border, $background, $color-hover) {
+  .ui-message--#{$type} {
+    background-color: $color;
+  }
+}
+
+@each $set in $colorIconSets {
+  @include message-theme($set...);
+}
