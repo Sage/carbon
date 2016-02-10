@@ -1,3 +1,9 @@
+# 0.3.1
+
+## Bug Fixes
+
+* SVG icons inside toast component now re-render properly.
+
 # 0.3.0
 
 ## Handler Pattern
