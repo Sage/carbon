@@ -16,7 +16,7 @@ import I18n from "i18n-js";
  *
  *   <Confirm
  *      title='Are you sure?"
- *      confirmHandler={ customConfirmHandler }
+ *      onConfirm={ customConfirmHandler }
  *      onCancel={ customCancelHandler }
  *      open={ false }
  *    This is the content message
@@ -38,10 +38,10 @@ class Confirm extends Dialog {
     /**
      * A custom event handler when a confirmation takes place
      *
-     * @property confirmHandler
+     * @property onConfirm 
      * @type {Function}
      */
-    confirmHandler: React.PropTypes.func.isRequired
+    onConfirm: React.PropTypes.func.isRequired
   }
 
   constructor() {
@@ -97,7 +97,7 @@ class Confirm extends Dialog {
         </div>
 
         <div className='ui-confirm__button ui-confirm__yes'>
-          <Button as='primary' onClick={ this.props.confirmHandler }>{ confirmText() }</Button>
+          <Button as='primary' onClick={ this.props.onConfirm }>{ confirmText() }</Button>
         </div>
       </div>
     );

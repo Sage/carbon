@@ -22,6 +22,7 @@ You can see examples of how this is implemented in the `scss` files for `Pill`, 
   * Flash
   * Pill
 * The `cancelHandler` method on `Dialog` based components has been renamed to `onCancel` to bring in line with the convention we would like to progress with for this kind of action name.
+* The `confirmHandler` method on `Confirm` has also been renamed to `onConfirm` to align with the naming convention.
 
 ## Bug Fixes
 
