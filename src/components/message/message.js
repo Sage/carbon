@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 /**
  * A Message widget.
@@ -22,14 +23,19 @@ class Message extends React.Component {
   static propTypes = {
 
     /**
-     * The background color.
+     * Sets the theme for the component.
+     * (see the 'iconColorSets' for possible values)
      *
      * @property as
      * @type {String}
      * @default info
      */
-    as: React.PropTypes.string.isRequired
-  };
+    as: React.PropTypes.string
+  }
+
+  static defaultProps = {
+    as: 'info'
+  }
 
   /**
    * Getter for component properties.
@@ -40,7 +46,6 @@ class Message extends React.Component {
   get componentProps() {
     let { ...props } = this.props;
     props.className = this.componentClasses;
-    delete props['as'];
     return props;
   }
 
@@ -51,12 +56,11 @@ class Message extends React.Component {
    * @return {String} class names
    */
   get componentClasses() {
-    let className = this.props.className;
-
-    let classes = (this.props.as === 'warning' ? 'ui-message--warning' : 'ui-message--info') +
-        (className ? ' ' + className : '');
-
-    return classes;
+    return classNames(
+      'ui-message',
+      this.props.className,
+      'ui-message--' + this.props.as
+    );
   }
 
   /**
@@ -66,11 +70,9 @@ class Message extends React.Component {
    */
   render() {
     return (
-        <div { ...this.componentProps }>
-          <span className = 'ui-message__content'>
-            { this.props.children }
-          </span>
-        </div>
+      <div { ...this.componentProps }>
+        { this.props.children }
+      </div>
     );
   }
 

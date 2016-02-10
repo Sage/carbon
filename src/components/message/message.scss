@@ -1,27 +1,20 @@
 @import 'colors';
 
 .ui-message {
-  border-radius: 5px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 20px;
-  display: block;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.ui-message--info {
-  @extend .ui-message;
-  background-color: $green-mid;
-}
-
-.ui-message--warning {
-  @extend .ui-message;
-  background-color: $orange;
-}
-
-.ui-message__content {
-  font-family: HelveticaNeue-Bold;
-  font-size: 12px;
+  border-radius: 4px;
   color: white;
+  display: block;
+  font-size: 12px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+}
+
+@mixin message-theme($type, $color, $border, $background, $color-hover) {
+  .ui-message--#{$type} {
+    background-color: $color;
+  }
+}
+
+@each $set in $colorIconSets {
+  @include message-theme($set...);
 }
