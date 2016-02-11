@@ -38,21 +38,27 @@ $toast-width: 300px !default;
   top: 0;
   width: 30px;
 
+  .ui-toast__type-icon {
+    display: block;
+    position: relative;
+    top: 50%;
+
+    &:before {
+      color: #FFF;
+      display: block;
+      font-size: 24px;
+      margin-top: -6px;
+    }
+  }
+
   .ui-icon__svg {
     height: 24px;
     margin-top: -12px;
-    position: relative;
-    top: 50%;
     width: 30px;
-  }
 
-  &:before {
-    color: #FFF;
-    display: block;
-    font-size: 24px;
-    margin-top: -6px;
-    position: relative;
-    top: 50%;
+    .ui-icon__svg-group {
+      fill: $white;
+    }
   }
 }
 
@@ -62,6 +68,7 @@ $toast-width: 300px !default;
 
 .ui-toast__content {
   padding: 15px 45px;
+  white-space: pre-wrap;
 }
 
 @mixin toast-theme($type, $color, $border, $background, $color-hover) {
