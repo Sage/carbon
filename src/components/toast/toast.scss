@@ -68,7 +68,7 @@ $toast-width: 300px !default;
 
 .ui-toast__content {
   padding: 15px 45px;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 @mixin toast-theme($type, $color, $border, $background, $color-hover) {
