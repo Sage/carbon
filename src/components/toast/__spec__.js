@@ -33,9 +33,14 @@ describe('Toast', () => {
       expect(classes).toEqual("ui-toast custom ui-toast--info toast-appear");
     });
 
-    it('renders type icon', () => {
+    it('renders type div', () => {
       let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-toast__type');
-      expect(icon.className).toEqual("ui-toast__type icon-info");
+      expect(icon.className).toEqual("ui-toast__type");
+    });
+
+    it('renders type icon', () => {
+      let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-toast__type-icon');
+      expect(icon.className).toEqual("ui-toast__type-icon icon-info");
     });
 
     it('renders child content', () => {
