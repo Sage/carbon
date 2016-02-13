@@ -2,6 +2,7 @@
 @import 'general';
 @import 'mixins';
 @import 'z-index';
+@import 'input-field';
 
 /* ui-button */
 $ui-multi-action-button__border-radius: 4px !default;
@@ -21,7 +22,7 @@ $ui-multi-action-button__background-color--primary--active: $blue-dark !default;
 $ui-multi-action-button__border-color--primary--active: $blue-dark !default;
 $ui-multi-action-button__text-color--primary--active: $white !default;
 
-.ui-multi-action-button__main-button {
+.ui-multi-action-button__button {
   border-radius: $ui-multi-action-button__border-radius;
   cursor: pointer;
   display: inline-block;
@@ -47,7 +48,7 @@ $ui-multi-action-button__text-color--primary--active: $white !default;
   }
 }
 
-.ui-multi-action-button__block{
+.ui-multi-action-button{
   position: relative;
   button {
     width: 100%;
@@ -82,7 +83,22 @@ $ui-multi-action-button__text-color--primary--active: $white !default;
 }
 
 .ui-multi-action-button__icon{
-  background-color: $ui-multi-action-button__background-color--primary;
   border-left: 1px solid $ui-multi-action-button__background-color--primary--hover;
-  color: $white;
+  bottom: 1px;
+  box-sizing: border-box;
+  color: $blue-dark;
+  cursor: pointer;
+  height: $input-common-height - 2;
+  margin-top: 1px;
+  padding: 6px 0;
+  position: absolute;
+  right: 1px;
+  text-align: center;
+  width: $input-common-height;
+
+  &:hover {
+    background-color: $blue-bright;
+    border-color: $blue-bright;
+    color: $white;
+  };
 }

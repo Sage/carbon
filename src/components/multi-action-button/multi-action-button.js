@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from './../icon';
+import Button from './../button';
 /**
  * A MultiActionButton widget.
  *
@@ -9,10 +10,12 @@ import Icon from './../icon';
  *
  *   import MultiActionButton from 'components/multi-action-button';
  *
- * To render a MultiActionButton (developer can add any buttons and the first button is the main button):
+ * To render a MultiActionButton (developer can add any buttons to dropdown):
  *
- *         <MultiActionButton buttons={[{name: 'First/Main Button', handler: handleMainButton},
- *                                      {name: 'Second Button', handler: handleSecondButton}]}/>
+ *         <MultiActionButton name="Main Button" onClick={clickHandler}>
+ *           <Button onClick="buttonClickHandler1">Button name 1</Button>
+ *           <Button onClick="buttonClickHandler2">Button name 2</Button>
+ *         </MultiActionButton>
  *
  *
  * @class MultiActionButton
@@ -21,7 +24,8 @@ import Icon from './../icon';
 class MultiActionButton extends React.Component {
 
   static propTypes = {
-    buttons: React.PropTypes.array.isRequired
+    name: React.PropTypes.string.isRequired,
+    onClick: React.PropTypes.func.isRequired
   }
 
   state = {
@@ -35,13 +39,24 @@ class MultiActionButton extends React.Component {
     showMoreButtons: false
   }
 
+  /**
+   * Handles a mouse action on dropdown icon
+   *
+   * @method onMouseEnter
+   */
   onMouseEnter = () => {
     this.setState({ showMoreButtons: true });
   }
 
+  /**
+   * Handles a mouse action on leaving buttons
+   *
+   * @method onMouseLeave
+   */
   onMouseLeave = () => {
     this.setState({ showMoreButtons: false });
   }
+
   /**
    * Returns classes for the component.
    *
@@ -49,7 +64,7 @@ class MultiActionButton extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    let classes = 'ui-multi-action-button__block';
+    let classes = 'ui-multi-action-button';
 
     if (this.props.className) {
       classes += ` ${this.props.className}`;
@@ -59,42 +74,26 @@ class MultiActionButton extends React.Component {
   }
 
   get moreButtonHTML() {
-    const buttons = this.props.buttons.slice(1, this.props.buttons.length);
 
     return (
       <div className='ui-multi-action-button__list-block'>
-        <ul className='ui-multi-action-button__list'>
-          {buttons.map((button)=>{
-            return (
-              <li className='ui-multi-action-button__list-item'>
-                <button className='ui-multi-action-button__main-button' onClick={button.handler}>
-                  <span> {button.name} </span>
-                </button>
-              </li>
-              );
-          })}
-        </ul>
+        {this.props.children}
       </div>
     );
   }
 
   get mainButtonHTML() {
-    const button = this.props.buttons[0];
 
     return (
       <div>
-        <button
-          className='ui-multi-action-button__main-button'
-          onClick={ button.handler }
-          onMouseEnter={ this.onMouseLeave }>
-          <span> { button.name } </span>
-        </button>
-        <Icon type='dropdown' onMouseEnter={ this.onMouseEnter } className="ui-input-icon ui-multi-action-button__icon" />
+        <Button onClick={ this.props.onClick }  onMouseEnter={ this.onMouseLeave }>{ this.props.name}</Button>
+        <Icon type='dropdown' onMouseEnter={ this.onMouseEnter } className="ui-multi-action-button__icon" />
       </div>
     );
   }
 
   render() {
+
     return (
       <div className={ this.mainClasses } onMouseLeave={ this.onMouseLeave }>
         { this.mainButtonHTML }
