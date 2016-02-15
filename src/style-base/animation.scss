@@ -1,0 +1,39 @@
+@mixin transform($transforms...) {
+  -webkit-transform: $transforms;
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  transform: $transforms;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@include keyframes(rotate360) {
+  0%    {
+    @include transform(rotate(0deg));
+  }
+
+  100%  {
+    @include transform(rotate(360deg));
+  }
+}
+
+@mixin animation($anim) {
+  -webkit-animation: $anim;
+  -moz-animation: $anim;
+  -ms-animation: $anim;
+  animation: $anim;
+}
