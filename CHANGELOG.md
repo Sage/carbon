@@ -1,3 +1,9 @@
+# 0.4.0
+
+## New Components
+
+* Spinner
+
 # 0.3.1
 
 ## Bug Fixes
