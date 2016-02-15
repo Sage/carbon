@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Flash from './flash';
 
-describe('Flash', () => {
+fdescribe('Flash', () => {
   let defaultInstance, successInstance, errorInstance, warningInstance, timeoutInstance,
       customIconInstance, dismissHandler;
 
@@ -39,7 +39,53 @@ describe('Flash', () => {
     );
   });
 
+  describe('componentWillReceiveProps', () => {
+    beforeEach(() => {
+      spyOn(defaultInstance, 'setState');
+    });
+
+    describe('if open prop has changed', () => {
+      it('calls setState', () => {
+        defaultInstance.componentWillReceiveProps({ open: false });
+        expect(defaultInstance.setState).toHaveBeenCalledWith({ dialogs: {} });
+      });
+    });
+
+    describe('if open prop has not changed', () => {
+      it('does not call setState', () => {
+        defaultInstance.componentWillReceiveProps({ open: true });
+        expect(defaultInstance.setState).not.toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('componentDidUpdate', () => {
+    beforeEach(() => {
+      spyOn(defaultInstance, 'startTimeout');
+    });
+
+    it('resets the dialogs array', () => {
+      defaultInstance.dialogs = [1,2,3];
+      defaultInstance.componentDidUpdate({});
+      expect(defaultInstance.dialogs).toEqual([]);
+    });
+
+    describe('if open prop has changed', () => {
+      it('calls startTimeout', () => {
+        defaultInstance.componentDidUpdate({ open: false });
+        expect(defaultInstance.startTimeout).toHaveBeenCalled();
+      });
+    });
+
+    describe('if open prop has not changed', () => {
+      it('does not call startTimeout', () => {
+        defaultInstance.componentDidUpdate({ open: true });
+        expect(defaultInstance.startTimeout).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('startTimeout', () => {
     beforeEach(() => {
       jasmine.clock().install();
     });
@@ -49,39 +95,19 @@ describe('Flash', () => {
     });
 
     describe('when the flash is open and a timeout was passed', () => {
-      describe('when its open state has changed', () => {
-
-        it('calls the dismissHandler after a timeout', () => {
-          let prevProps = { open: false };
-
-          timeoutInstance = TestUtils.renderIntoDocument(
-            <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
-                   as='warning' timeout= { 2000 }/>);
-          timeoutInstance.componentDidUpdate(prevProps);
-          jasmine.clock().tick(2000);
-          expect(dismissHandler).toHaveBeenCalled();
-        });
-      });
-
-      describe('when its open state has not changed', () => {
-        it('call the dismissHandler', () => {
-          let prevProps = { open: true };
-
-          timeoutInstance = TestUtils.renderIntoDocument(
-            <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
-                   as='warning' timeout= { 2000 }/>);
-
-          timeoutInstance.componentDidUpdate(prevProps);
-          jasmine.clock().tick(2000);
-          expect(dismissHandler).not.toHaveBeenCalled();
-        });
+      it('calls the dismissHandler after a timeout', () => {
+        timeoutInstance = TestUtils.renderIntoDocument(
+          <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
+                 as='warning' timeout= { 2000 }/>);
+        timeoutInstance.startTimeout();
+        jasmine.clock().tick(2000);
+        expect(dismissHandler).toHaveBeenCalled();
       });
     });
 
     describe('when no timeout value is passed', () => {
       it('does not update state or call the dismissHandler', () => {
-        let prevProps = { open: true };
-        defaultInstance.componentDidUpdate(prevProps);
+        defaultInstance.startTimeout();
         jasmine.clock().tick(2000);
         expect(dismissHandler).not.toHaveBeenCalled();
       });
@@ -97,12 +123,29 @@ describe('Flash', () => {
       });
 
       it('does not update state or call the dismissHandler', () => {
-        let prevProps = { open: false };
-        closedInstance.componentDidUpdate(prevProps);
+        closedInstance.startTimeout();
         jasmine.clock().tick(2000);
         expect(dismissHandler).not.toHaveBeenCalled();
       });
     });
+  });
+
+  describe('stopTimeout', () => {
+    it('clears the timeout', () => {
+      defaultInstance.timeout = "foo";
+      spyOn(window, 'clearTimeout');
+      defaultInstance.stopTimeout();
+      expect(window.clearTimeout).toHaveBeenCalledWith("foo");
+    });
+  });
+
+  describe('toggleDialog', () => {
+  });
+
+  describe('formatDescription', () => {
+  });
+
+  describe('findMore', () => {
   });
 
   describe('iconType', () => {
@@ -117,6 +160,28 @@ describe('Flash', () => {
     it('returns an warning icon if it is an error or alert flash', () => {
       expect(warningInstance.iconType).toEqual('warning');
       expect(errorInstance.iconType).toEqual('warning');
+    });
+  });
+
+  describe('title', () => {
+  });
+
+  describe('description', () => {
+    describe('when not an object', () => {
+      it('returns itself', () => {
+      });
+    });
+
+    describe('when an object', () => {
+      describe('with no description', () => {
+        it('returns itself', () => {
+        });
+      });
+
+      describe('with a description', () => {
+        it('returns the description', () => {
+        });
+      });
     });
   });
 

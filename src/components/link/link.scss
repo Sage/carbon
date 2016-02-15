@@ -6,6 +6,7 @@ $link-hover-text-decoration: underline !default;
 
 .ui-link__anchor {
   color: $link-color;
+  cursor: pointer;
   font-weight: bold;
   text-decoration: none;
 

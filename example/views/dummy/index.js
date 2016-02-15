@@ -28,6 +28,10 @@ class Finances extends React.Component {
     }
   }
 
+  get message() {
+    return { description: { first_name: "is required", last_name: "This is too long ::more:: This sentence is proxied to a dialog." } }
+  }
+
   handleOnClick = (ev) => {
     ev.preventDefault();
     UserActions.userDialogOpened();
@@ -91,7 +95,7 @@ class Finances extends React.Component {
 
           <UserDialog />
 
-          <Flash onDismiss={ FinancesActions.dismissFlash } message="Save Successful!" open={this.state.financesStore.get('displayFlash')} as="success" />
+          <Flash onDismiss={ FinancesActions.dismissFlash } message={ this.message } open={this.state.financesStore.get('displayFlash')} as="success" timeout={ 5000 } />
         </div>
 
         <Toast as="new" onDismiss={ FinancesActions.dismissToast } open={ this.state.financesStore.get('displayToast') }>
