@@ -1,0 +1,104 @@
+$color: #255BC7;
+$std-speed: 0.7s;
+$std-thickness: $std-size/4;
+
+.ui-spinner__std--small { width: 12px; height: 12px; border: 3px solid $color }
+.ui-spinner__std--smed  { width: 20px; height: 20px; border: 5px solid $color }
+.ui-spinner__std--lmed  { width: 32px; height: 32px; border: 8px solid $color }
+.ui-spinner__std--large { width: 40px; height: 40px; border: 10px solid $color }
+
+@mixin transform($transforms...) {
+  -webkit-transform: $transforms;
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  transform: $transforms;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animation($anim) {
+  -webkit-animation: $anim;
+  -moz-animation: $anim;
+  -ms-animation: $anim;
+  animation: $anim;
+}
+
+@include keyframes(rotate360) {
+  0%    {
+    @include transform(rotate(0deg));
+  }
+
+  100%  {
+    @include transform(rotate(360deg));
+  }
+}
+
+.ui-spinner__std {
+  @include animation(rotate360 $std-speed linear forwards infinite);
+  border-radius: 50%;
+
+  border-top-color: rgba( $color, 1);
+  border-bottom-color: rgba( $color, .5);
+  border-right-color: rgba( $color, .3 );
+  border-left-color: rgba( $color, .7 );
+  display: inline-block;
+}
+
+// $adv-size: 30px;
+// $adv-speed: 1s;
+// $adv-think-border: 5px;
+// $adv-thin-border: 1px;
+// .ui-spinner__adv {
+//   @include animation(rotate220 $adv-speed linear forwards infinite);
+//
+//   clip: rect(0, $adv-size, $adv-size, $adv-size/2);
+//   height: $adv-size;
+//   left: 50%;
+//   margin-left: -$adv-size/2;
+//   position: absolute;
+//   top: 0px;
+//   width: $adv-size;
+//
+//   &:after {
+//     @include keyframes(animateBorder) {
+//       0% {
+//         @include box-shadow(inset $color 0 0 0 $adv-thick-border);
+//         @include transform(rotate(-140deg));
+//       }
+//
+//       50% {
+//         @include box-shadow(inset lighten( $color, 10% ) 0 0 0 $adv-thin-border);
+//       }
+//
+//       100% {
+//         @include box-shadow(inset $color 0 0 0 $adv-thick-border);
+//         @include transform(rotate(140deg));
+//       }
+//     }
+//
+//     @include animation(animateBorder $adv-speed ease-in-out forwards infinite);
+//     @include border-radius(50%);
+//
+//     clip: rect(0, $size, $size, $size/2);
+//     content: '';
+//     height: $adv-size;
+//     left: 0px;
+//     position: absolute;
+//     top: 0px;
+//     width: $adv-size;
+//   }
+// }
