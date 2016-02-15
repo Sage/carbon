@@ -1,0 +1,5 @@
+{
+  "name": "pill",
+  "style": "pill.scss",
+  "main": "./pill.js"
+}

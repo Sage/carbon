@@ -14,7 +14,7 @@ import Bowser from 'bowser';
  *
  * To render a Dialog:
  *
- *   <Dialog cancelHandler={ customEventHandler } />
+ *   <Dialog onCancel={ customEventHandler } />
  *
  * The component rendering the Dialog must pass down a prop of 'open' in order to open the dialog.
  *
@@ -31,10 +31,10 @@ class Dialog extends React.Component {
     /**
      * A custom close event handler
      *
-     * @property cancelHandler
+     * @property onCancel
      * @type {Function}
      */
-    cancelHandler: React.PropTypes.func.isRequired,
+    onCancel: React.PropTypes.func.isRequired,
 
     /**
      * Sets the open state of the dialog
@@ -70,9 +70,21 @@ class Dialog extends React.Component {
   getChildContext() {
     return {
       dialog: {
-        cancelHandler: this.props.cancelHandler
+        onCancel: this.props.onCancel
       }
     };
+  }
+
+  /**
+   * A lifecycle method to update the component on initialize
+   *
+   * @method componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    if (this.props.open) {
+      this.centerDialog();
+    }
   }
 
   /**
@@ -81,7 +93,7 @@ class Dialog extends React.Component {
    * @method componentDidUpdate
    * @return {void}
    */
-  componentDidUpdate = () => {
+  componentDidUpdate() {
     if (this.props.open && !this.listening) {
       this.centerDialog();
       this.listening = true;
@@ -103,7 +115,7 @@ class Dialog extends React.Component {
    */
   closeDialog = (ev) => {
     if (ev.keyCode === 27) {
-      this.props.cancelHandler();
+      this.props.onCancel();
     }
   }
 
@@ -145,7 +157,7 @@ class Dialog extends React.Component {
   get dialogTitle() {
     return (
         this.props.title ?
-          <h2 className="ui-dialog__title">{ this.props.title }</h2> :
+          <h2 className={ this.dialogTitleClasses }>{ this.props.title }</h2> :
           null
     );
   }
@@ -158,6 +170,15 @@ class Dialog extends React.Component {
    */
   get backgroundHTML() {
     return <div className="ui-dialog__background"></div>;
+  }
+
+  /**
+   * Returns classes for the dialog title.
+   *
+   * @method dialogTitleClasses
+   */
+  get dialogTitleClasses() {
+    return 'ui-dialog__title';
   }
 
   /**
@@ -189,7 +210,7 @@ class Dialog extends React.Component {
   /**
    * Returns the computed HTML for the dialog.
    *
-   * @method dialogClasses
+   * @method dialogHTML
    * @return {Object} JSX for dialog
    */
   get dialogHTML() {
@@ -202,8 +223,11 @@ class Dialog extends React.Component {
     return (
       <div ref="dialog" className={ dialogClasses }>
         { this.dialogTitle }
-        <Icon className="ui-dialog__close" type="close" onClick={ this.props.cancelHandler } />
-        { this.props.children }
+        <Icon className="ui-dialog__close" type="close" onClick={ this.props.onCancel } />
+
+        <div className='ui-dialog__content'>
+          { this.props.children }
+        </div>
       </div>
     );
   }

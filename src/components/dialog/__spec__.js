@@ -7,14 +7,38 @@ import Button from './../button';
 
 describe('Dialog', () => {
   let instance;
-  let cancelHandler = jasmine.createSpy('cancel');
+  let onCancel = jasmine.createSpy('cancel');
 
   describe('Lifecycle functions', () => {
+    describe('componentDidMount', () => {
+      describe('when dialog is open', () => {
+        it('centers the dialog', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Dialog open={ true } onCancel={ () => {} } />
+          );
+          spyOn(instance, "centerDialog");
+          instance.componentDidMount();
+          expect(instance.centerDialog).toHaveBeenCalled();
+        });
+      });
+
+      describe('when dialog is closed', () => {
+        it('does not center the dialog', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Dialog open={ false } onCancel={ () => {} } />
+          );
+          spyOn(instance, "centerDialog");
+          instance.componentDidMount();
+          expect(instance.centerDialog).not.toHaveBeenCalled();
+        });
+      });
+    });
+
     describe('componentDidUpdate', () => {
       describe('when the dialog is open', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog open={ true } cancelHandler={ cancelHandler } />
+            <Dialog open={ true } onCancel={ onCancel } />
           );
         });
 
@@ -47,7 +71,7 @@ describe('Dialog', () => {
       describe('when the dialog is closed', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog cancelHandler={ cancelHandler } />
+            <Dialog onCancel={ onCancel } />
           );
         });
 
@@ -65,7 +89,7 @@ describe('Dialog', () => {
   describe('centerDialog', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Dialog open={ true } cancelHandler={ cancelHandler } />
+        <Dialog open={ true } onCancel={ onCancel } />
       );
     });
 
@@ -110,21 +134,21 @@ describe('Dialog', () => {
   describe('closeDialog', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Dialog open={ true } cancelHandler={ cancelHandler } />
+        <Dialog open={ true } onCancel={ onCancel } />
       );
     });
 
     describe('when the esc key is released', () => {
       it('calls the cancel dialog handler', () => {
         instance.closeDialog({ keyCode: 27 });
-        expect(cancelHandler).toHaveBeenCalled();
+        expect(onCancel).toHaveBeenCalled();
       });
     });
 
     describe('when any other key is released', () => {
       it('calls the cancel dialog handler', () => {
         instance.closeDialog({ keyCode: 8 });
-        expect(cancelHandler).toHaveBeenCalled();
+        expect(onCancel).toHaveBeenCalled();
       });
     });
   });
@@ -134,7 +158,7 @@ describe('Dialog', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
-            cancelHandler={ cancelHandler }
+            onCancel={ onCancel }
             open={ true }
             title="Dialog title" />
         );
@@ -151,7 +175,7 @@ describe('Dialog', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
-            cancelHandler={ cancelHandler }
+            onCancel={ onCancel }
             open={ true } />
         );
       });
@@ -162,13 +186,18 @@ describe('Dialog', () => {
     });
   });
 
+  describe('dialogTitleClasses', () => {
+    it('returns the class for the dialog title', () => {
+      expect(instance.dialogTitleClasses).toEqual('ui-dialog__title');
+    });
+  });
 
   describe('render', () => {
     describe('when dialog is open', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
-            cancelHandler={ cancelHandler }
+            onCancel={ onCancel }
             className="foo"
             open={ true } >
 
@@ -191,7 +220,7 @@ describe('Dialog', () => {
       it('closes when the exit icon is click', () => {
         let closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dialog__close');
         TestUtils.Simulate.click(closeIcon);
-        expect(cancelHandler).toHaveBeenCalled();
+        expect(onCancel).toHaveBeenCalled();
       });
 
       it('renders the children passed to it', () => {
@@ -203,7 +232,7 @@ describe('Dialog', () => {
         it('adds the size class to the dialog', () => {
           instance = TestUtils.renderIntoDocument(
             <Dialog
-              cancelHandler={ cancelHandler }
+              onCancel={ onCancel }
               open={ true }
               size='small' />
           );
@@ -215,7 +244,7 @@ describe('Dialog', () => {
 
     describe('when dialog is closed', () => {
       instance = TestUtils.renderIntoDocument(
-        <Dialog cancelHandler={ cancelHandler } />
+        <Dialog onCancel={ onCancel } />
       );
 
       it('renders a parent div with mainClasses attached', () => {

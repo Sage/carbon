@@ -1,0 +1,140 @@
+import React from 'react';
+import Button from './../button';
+import Icon from './../icon';
+
+/**
+ * A Banner widget.
+ *
+ * == How to use a Banner in a component:
+ *
+ * In your file:
+ *
+ *   import Banner from 'carbon/lib/components/banner';
+ *
+ * To render the Banner:
+ *
+ *   <Banner
+ *      title="This is a title"
+ *      message="This is my message."
+ *      buttonAction={ this.handleButtonClick } />
+ *
+ * Additionally you can pass optional props to the Banner component
+ *
+ *   as: Customizes the appearence of the banner changing the colour
+ *       (see the 'iconColorSets' for possible values).
+ *
+ *   buttonText: allows you to customize the button text.
+ *
+ * @class Banner
+ * @constructor
+ */
+class Banner extends React.Component {
+
+  static propTypes = {
+
+    /**
+     * Customizes the appearance through icon and colour
+     * (see the 'iconColorSets' for possible values)
+     *
+     * @property as
+     * @type {String}
+     * @default 'info'
+     */
+    as: React.PropTypes.string,
+
+    /**
+     * Title to be displayed.
+     *
+     * @property title
+     * @type {String}
+     */
+    title: React.PropTypes.string.isRequired,
+
+    /**
+     * Message to be displayed.
+     *
+     * @property message
+     * @type {String}
+     */
+    message: React.PropTypes.string.isRequired,
+
+    /**
+     * Text to display on button.
+     *
+     * @property buttonText
+     * @type {String}
+     * @default 'Got it!'
+     */
+    buttonText: React.PropTypes.string,
+
+    /**
+     * The action to trigger on click.
+     *
+     * @property buttonAction
+     * @type {func}
+     */
+    buttonAction: React.PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    as: 'info',
+    buttonText: 'Got it!'
+  }
+
+  /**
+   * Classes for the banner
+   *
+   * @method mainClasses
+   * @return {String} Main className
+   */
+  get mainClasses() {
+    let className = `ui-banner ui-banner--${this.props.as}`;
+
+    if (this.props.className) {
+      className += ' ' + this.props.className;
+    }
+
+    return className;
+  }
+
+  /**
+   * Classes for the button action
+   *
+   * @method buttonClasses
+   * @return {String} classNames for button
+   */
+  get buttonClasses() {
+    return `ui-banner__action ui-banner__action--${this.props.as}`;
+  }
+
+  /**
+   * Renders the component.
+   *
+   * @method render
+   */
+  render() {
+    return (
+      <div className={ this.mainClasses }>
+        <div className="ui-banner__content">
+          <Icon className="ui-banner__icon" type={ this.props.as } />
+
+          <div className='ui-banner__info'>
+            <div className='ui-banner__title'>
+              { this.props.title }
+            </div>
+
+            <div className='ui-banner__message'>
+              { this.props.message }
+            </div>
+          </div>
+
+          <Button onClick={ this.props.buttonAction } className={ this.buttonClasses }>
+            { this.props.buttonText }
+          </Button>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Banner;

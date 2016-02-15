@@ -1,0 +1,116 @@
+@import 'colors';
+@import 'z-index';
+
+$toast-anim-start: -100px !default;
+$toast-anim-end: 30px !default;
+$toast-border: 1px solid !default;
+$toast-border-radius: 4px !default;
+$toast-top-position: 0 !default;
+$toast-width: 300px !default;
+
+.ui-toast {
+  border-radius: $toast-border-radius;
+  border: $toast-border;
+  margin-top: $toast-anim-end;
+  position: fixed;
+  right: $toast-anim-end;
+  top: $toast-top-position;
+  width: $toast-width;
+  z-index: $z-toast;
+}
+
+.ui-toast__type,
+.ui-toast__close {
+  margin-top: -8px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 50%;
+  width: 45px;
+}
+
+.ui-toast__type {
+  border-radius: $toast-border-radius 0 0 $toast-border-radius;
+  height: 100%;
+  left: 0;
+  margin-top: 0;
+  position: absolute;
+  top: 0;
+  width: 30px;
+
+  .ui-toast__type-icon {
+    display: block;
+    position: relative;
+    top: 50%;
+
+    &:before {
+      color: #FFF;
+      display: block;
+      font-size: 24px;
+      margin-top: -6px;
+    }
+  }
+
+  .ui-icon__svg {
+    height: 24px;
+    margin-top: -12px;
+    width: 30px;
+
+    .ui-icon__svg-group {
+      fill: $white;
+    }
+  }
+}
+
+.ui-toast__close {
+  cursor: pointer;
+}
+
+.ui-toast__content {
+  padding: 15px 45px;
+  white-space: pre-wrap;
+}
+
+@mixin toast-theme($type, $color, $border, $background, $color-hover) {
+  .ui-toast--#{$type} {
+    background-color: $background;
+    border-color: $border;
+
+    .ui-toast__type {
+      background-color: $color;
+    }
+
+    .ui-link__anchor,
+    .ui-toast__close {
+      color: $color;
+
+      &:hover {
+        color: $color-hover;
+      }
+    }
+  }
+}
+
+@each $set in $colorIconSets {
+  @include toast-theme($set...);
+}
+
+// toast animation:
+
+.toast-appear,
+.toast-enter {
+  opacity: 0;
+  margin-top: $toast-anim-start;
+}
+
+.toast-appear.toast-appear-active,
+.toast-enter.toast-enter-active {
+  opacity: 1;
+  margin-top: $toast-anim-end;
+  transition: all 300ms 1000ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
+}
+
+.toast-leave.toast-leave-active {
+  opacity: 0;
+  transition: all 300ms ease-out;
+}

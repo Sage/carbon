@@ -1,0 +1,5 @@
+{
+  "main": "./table.js",
+  "name": "Table",
+  "style": "./table.scss"
+}

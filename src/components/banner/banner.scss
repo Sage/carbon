@@ -1,0 +1,62 @@
+@import 'colors';
+@import 'general';
+@import 'input-field';
+
+.ui-banner {
+  color: white;
+  width: 100%;
+}
+
+.ui-banner__content {
+  box-sizing: border-box;
+  height: ($input-common-height - 2) + ($grid-margin * 2);
+  margin: 0 auto;
+  padding: $grid-margin ($grid-margin * 2);
+}
+
+.ui-banner__icon,
+.ui-banner__info,
+.ui-banner__action {
+  display: inline-block;
+  position: relative;
+}
+
+.ui-banner__icon {
+  float: left;
+  text-align: center;
+  top: -5px;
+
+  &:before {
+    font-size: 50px;
+    position: relative;
+    top: 11px;
+  }
+}
+
+.ui-banner__title {
+  font-weight: bold;
+}
+
+.ui-banner__info {
+  margin-left: $grid-margin;
+}
+
+.ui-banner__action {
+  background-color: white;
+  border: none;
+  float: right;
+}
+
+@mixin banner-theme($type, $color, $border, $background, $color-hover) {
+  .ui-banner--#{$type} {
+    background-color: $color;
+  }
+
+  .ui-banner__action--#{$type} {
+    color: $color;
+  }
+}
+
+@each $set in $colorIconSets {
+  @include banner-theme($set...);
+}

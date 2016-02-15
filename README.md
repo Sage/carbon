@@ -28,6 +28,7 @@ We also have additional guides and tutorials for further information.
 * [Immutable](docs/guides/immutable.md)
 * [Validations](docs/guides/validations.md)
 * [Decorators](docs/guides/decorators.md)
+* [Handlers](docs/guides/handlers.md)
 
 #### Tutorials
 

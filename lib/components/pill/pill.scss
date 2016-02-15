@@ -1,0 +1,20 @@
+@import 'colors';
+
+.ui-pill {
+  margin-left: 10px;
+  color: #FFFFFF;
+  font-size: 10px;
+  border-radius: 3px;
+  padding: 0 3px 1.5px 3px;
+  letter-spacing: 0.8px;
+}
+
+@mixin pill-theme($type, $color, $border, $background, $color-hover) {
+  .ui-pill--#{$type} {
+    background-color: $color;
+  }
+}
+
+@each $set in $colorIconSets {
+  @include pill-theme($set...);
+}
