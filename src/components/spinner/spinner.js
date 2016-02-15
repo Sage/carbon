@@ -14,11 +14,12 @@ import classNames from 'classnames';
  *
  *   <Spinner />
  *
- * You can pass a 'as' property to the spinner to define the stype of spinner
- *    std
+ * You can pass a 'as' property to the spinner to define the type of spinner
+ *    The default is std (standard).
  *
- * You can pass a 'size' property to adjust the size of the spinner   
- *    small, smed, lmed, large
+ * You can pass a 'size' property to adjust the size of the spinner
+ *    The default is lmed
+ *    options: small, smed, lmed, large
  *
  * @class Row
  * @constructor
@@ -28,17 +29,17 @@ class Spinner extends React.Component {
   static propTypes = {
     as: React.PropTypes.string,
     size: React.PropTypes.string
-  }
+  };
 
   static defaultProps = {
     as: 'std',
     size: 'lmed'
-  } 
+  };
 
   /**
    * Returns classes for the spinner.
    *
-   * @method spinnerClasses 
+   * @method spinnerClasses
    * @return {String} spinner className
    */
   get spinnerClasses() {

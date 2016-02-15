@@ -1,20 +1,31 @@
 @import 'animation';
+@import 'colors';
 
-$color: #255BC7;
+@include keyframes(rotate360) {
+  0%    {
+    @include transform(rotate(0deg));
+  }
+
+  100%  {
+    @include transform(rotate(360deg));
+  }
+}
+
+$spinner-color: $blue;
 $std-speed: 0.7s;
 
-.ui-spinner__std--small { width: 12px; height: 12px; border: 3px solid $color }
-.ui-spinner__std--smed  { width: 20px; height: 20px; border: 5px solid $color }
-.ui-spinner__std--lmed  { width: 32px; height: 32px; border: 8px solid $color }
-.ui-spinner__std--large { width: 40px; height: 40px; border: 10px solid $color }
+.ui-spinner__std--small { width: 12px; height: 12px; border: 3px solid $spinner-color }
+.ui-spinner__std--smed  { width: 20px; height: 20px; border: 5px solid $spinner-color }
+.ui-spinner__std--lmed  { width: 32px; height: 32px; border: 8px solid $spinner-color }
+.ui-spinner__std--large { width: 40px; height: 40px; border: 10px solid $spinner-color }
 
 .ui-spinner__std {
   @include animation(rotate360 $std-speed linear forwards infinite);
   border-radius: 50%;
 
-  border-top-color: rgba( $color, 1);
-  border-bottom-color: rgba( $color, .5);
-  border-right-color: rgba( $color, .3 );
-  border-left-color: rgba( $color, .7 );
+  border-top-color: rgba( $spinner-color, 1);
+  border-bottom-color: rgba( $spinner-color, .5);
+  border-right-color: rgba( $spinner-color, .3 );
+  border-left-color: rgba( $spinner-color, .7 );
   display: inline-block;
 }
