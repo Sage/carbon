@@ -1,5 +1,6 @@
 import React from 'react';
 import { isEqual, assign } from 'lodash';
+import guid from './../../helpers/guid';
 
 /**
  * Input decorator.
@@ -40,6 +41,14 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
   constructor(...args) {
     super(...args);
+
+    /**
+     * A unique identifier for the input.
+     *
+     * @prop _guid
+     * @return {String}
+     */
+    this._guid = guid();
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {

@@ -170,8 +170,7 @@ class Form extends React.Component {
    * @return {void}
    */
   attachToForm = (component) => {
-    let name = component.props.name;
-    this.inputs[name] = component;
+    this.inputs[component._guid] = component;
   }
 
   /**
@@ -182,8 +181,7 @@ class Form extends React.Component {
    * @return {void}
    */
   detachFromForm = (component) => {
-    let name = component.props.name;
-    delete this.inputs[name];
+    delete this.inputs[component._guid];
   }
 
   /**
@@ -204,7 +202,7 @@ class Form extends React.Component {
     for (let key in this.inputs) {
       let input = this.inputs[key];
 
-      if (!input.validate()) {
+      if (!input.props.disabled && !input.validate()) {
         valid = false;
         errors++;
       }
