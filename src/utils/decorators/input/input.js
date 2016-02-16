@@ -137,6 +137,9 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   get inputProps() {
     let inputProps = super.inputProps || {};
 
+    // disable autoComplete (causes performance issues in IE)
+    inputProps.autoComplete = this.props.autoComplete || "off";
+
     // only thread the onChange event through the handler if the event is defined by the dev
     if (this.props.onChange === inputProps.onChange) {
       inputProps.onChange = this._handleOnChange;
