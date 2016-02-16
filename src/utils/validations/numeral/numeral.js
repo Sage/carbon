@@ -100,6 +100,7 @@ function validateDecimal() {
  */
 function validateInteger() {
   return {
+
     /**
      * This will validate the given value, and return a valid status.
      *
@@ -122,6 +123,7 @@ function validateInteger() {
     }
   };
 }
+
 /**
  * This will validate whether the value is less than or equal to a maximum value.
  *
