@@ -2,7 +2,7 @@ import I18n from "i18n-js";
 import { startCase } from 'lodash';
 
 /**
- * A NUmber Validator object.
+ * A Numeral Validator object.
  *
  * == How to use this validator ==
  *
