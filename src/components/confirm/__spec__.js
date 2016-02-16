@@ -6,13 +6,13 @@ import Confirm from './confirm';
 describe('Confirm', () => {
   let instance;
   let onCancel = jasmine.createSpy('cancel');
-  let confirmHandler = jasmine.createSpy('confirm');
+  let onConfirm = jasmine.createSpy('confirm');
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Confirm
         onCancel={ onCancel }
-        confirmHandler={ confirmHandler }
+        onConfirm={ onConfirm }
         open={ true }
         title="Confrim title" />
     );
@@ -43,9 +43,9 @@ describe('Confirm', () => {
         expect(yes.className).toEqual('ui-confirm__button ui-confirm__yes');
       });
 
-      it('triggers the confirmHandler when the yes button is clicked', () => {
+      it('triggers the onConfirm when the yes button is clicked', () => {
         TestUtils.Simulate.click(yesButton);
-        expect(confirmHandler).toHaveBeenCalled();
+        expect(onConfirm).toHaveBeenCalled();
       });
     });
 

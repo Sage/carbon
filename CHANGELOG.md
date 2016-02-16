@@ -1,8 +1,19 @@
+# 0.3.1
+
+## Bug Fixes
+
+* SVG icons inside toast component now re-render properly.
+
 # 0.3.0
+
+## Handler Pattern
+
+Carbon now has a simple handler pattern implementation. For more information, see [the guide](https://github.com/Sage/carbon/blob/master/docs/guides/handlers.md).
 
 ## New Components
 
 * Toast
+* Message
 
 ## Standardised Color/Icon Sets on Components
 
@@ -18,6 +29,7 @@ You can see examples of how this is implemented in the `scss` files for `Pill`, 
   * Flash
   * Pill
 * The `cancelHandler` method on `Dialog` based components has been renamed to `onCancel` to bring in line with the convention we would like to progress with for this kind of action name.
+* The `confirmHandler` method on `Confirm` has also been renamed to `onConfirm` to align with the naming convention.
 
 ## Bug Fixes
 
@@ -159,6 +171,12 @@ export default MyView
 ## Minor
 
 * Decrease width of dropdown icon to 20px
+
+# 0.1.8
+
+## Bug Fixes
+
+* Backported dropdown validation fix.
 
 # 0.1.7
 

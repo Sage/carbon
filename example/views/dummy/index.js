@@ -18,6 +18,7 @@ import FinancesChart from './subviews/chart';
 import FinancesTable from './subviews/grid';
 import UserDialog from './subviews/user-dialog';
 import Flash from 'components/flash';
+import Message from 'components/message';
 
 class Finances extends React.Component {
 
@@ -74,6 +75,8 @@ class Finances extends React.Component {
             <FinancesChart
               data={ financesStore.get('chart_data') }
               balance={ financesStore.get('balance') } />
+
+            <Message>This is an example of a message.</Message>
 
             <FinancesTable
               data={ financesStore.get('line_items') }

@@ -84,7 +84,7 @@ class Toast extends React.Component {
   get toastContent() {
     return this.props.open ? (
       <div className={ this.componentClasses }>
-        <Icon className="ui-toast__type" type={ this.props.as } />
+        <div className="ui-toast__type"><Icon className="ui-toast__type-icon" type={ this.props.as } /></div>
 
         <div className="ui-toast__content">
           { this.props.children }
