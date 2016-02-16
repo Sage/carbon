@@ -8,12 +8,12 @@ import { startCase } from 'lodash';
  *
  * Import the validator into your component:
  *
- *  `import NumberValidator from 'utils/validations/number'`
+ *  `import NumeralValidator from 'utils/validations/numeral'`
  *
  * Assign the validator to the validations prop, passing the required params.:
  *
- *  `<Decimal validations={ [NumberValidator({ validate: 'decimal' })] }/>`
- *  `<Number validations={ [NumberValidator({ validate: 'number' })] }/>`
+ *  `<Decimal validations={ [NumeralValidator({ validate: 'decimal' })] }/>`
+ *  `<Numeral validations={ [NumeralValidator({ validate: 'integer' })] }/>`
  *
  * Other possible validate options are 'less', 'greater', & 'range'.
  * For value or range properties pass a `minValue`, and/or `maxValue`.
@@ -21,15 +21,15 @@ import { startCase } from 'lodash';
  *
  * For example, to set a validation to check for a range between 0 and 10 inclusive:
  *
- *  `<Decimal validations={ [NumberValidator({
+ *  `<Decimal validations={ [NumeralValidator({
                               validate: 'range',
                               minValue: 0,
                               maxValue: 10 })]
                            }/>`
- * @method NumberValidator
+ * @method NumeralValidator
  * @param {Object} params (validate), optional params (minValue, maxValue, strict)
  */
-const NumberValidator = function(params) {
+const NumeralValidator = function(params) {
 
   // Build String to call correct function
   let validationType = startCase(params.validate);
@@ -53,7 +53,7 @@ const NumberValidator = function(params) {
   return functionCalls[validationToCall];
 };
 
-export default NumberValidator;
+export default NumeralValidator;
 
 // Private Methods
 

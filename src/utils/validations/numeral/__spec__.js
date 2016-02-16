@@ -1,5 +1,5 @@
 import TestUtils from 'react/lib/ReactTestUtils';
-import Validator from './decimal';
+import Validator from './numeral';
 import I18n from 'i18n-js';
 
 describe('Decimal Validator', () => {
