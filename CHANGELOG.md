@@ -15,6 +15,10 @@ Carbon now has a simple handler pattern implementation. For more information, se
 * Toast
 * Message
 
+## New Validations
+
+* Decimal Validation
+
 ## Standardised Color/Icon Sets on Components
 
 Several components allow the ability to define a particular `type` or `status`, such as `warning`, `error` or `success`. We have standardised the way this is implemented in components, each of which should use a prop name of `as`.
@@ -30,6 +34,7 @@ You can see examples of how this is implemented in the `scss` files for `Pill`, 
   * Pill
 * The `cancelHandler` method on `Dialog` based components has been renamed to `onCancel` to bring in line with the convention we would like to progress with for this kind of action name.
 * The `confirmHandler` method on `Confirm` has also been renamed to `onConfirm` to align with the naming convention.
+* Decimal Validation keys have been standardised and new ones have been added
 
 ## Bug Fixes
 

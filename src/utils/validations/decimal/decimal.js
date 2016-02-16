@@ -186,8 +186,8 @@ function validateRange(params) {
               parseFloat(value) <= params.maxValue);
     },
     message: function() {
-      return I18n.t("validations.value_between_inclusive", { minValue: params.minValue,
-                                                 maxValue: params.maxValue });
+      return I18n.t("validations.value_between_inclusive",
+                    { minValue: params.minValue, maxValue: params.maxValue });
     }
   };
 }
@@ -209,8 +209,8 @@ function validateRangeStrict(params) {
               parseFloat(value) < params.maxValue);
     },
     message: function() {
-      return I18n.t("validations.value_between",  { minValue: params.minValue,
-                                                 maxValue: params.maxValue });
+      return I18n.t("validations.value_between",
+                   { minValue: params.minValue, maxValue: params.maxValue });
     }
   };
 }
