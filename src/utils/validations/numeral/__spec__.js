@@ -1,5 +1,5 @@
 import TestUtils from 'react/lib/ReactTestUtils';
-import Validator from './decimal';
+import Validator from './numeral';
 import I18n from 'i18n-js';
 
 describe('Decimal Validator', () => {
@@ -10,43 +10,49 @@ describe('Decimal Validator', () => {
       en: {
         validations: {
           decimal: "Must be a valid decimal",
-          equal_or_less_than: `Must be equal to or less than %{maxValue}`,
-          less_than: `Must be less than %{maxValue}`,
-          equal_or_greater_than: `Must be equal to or greater than %{minValue}`,
-          greater_than: `Must be greater than %{minValue}`,
-          value_between_inclusive: `Must be between %{minValue} and %{maxValue} inclusive`,
-          value_between: `Must be between %{minValue} and %{maxValue}`
+          integer: "Must be a valid integer",
+          equal_or_less_than: "Must be equal to or less than %{maxValue}",
+          less_than: "Must be less than %{maxValue}",
+          equal_or_greater_than: "Must be equal to or greater than %{minValue}",
+          greater_than: "Must be greater than %{minValue}",
+          value_between_inclusive: "Must be between %{minValue} and %{maxValue} inclusive",
+          value_between: "Must be between %{minValue} and %{maxValue}"
         }
       }
     };
   });
 
-  describe('when only a type validation is required', () => {
-    let typeValidator;
+  describe('when a type validation is required', () => {
+    let decimalValidator, integerValidator;
 
     beforeEach(() => {
-      typeValidator = Validator({ validate: 'type' });
+      decimalValidator = Validator({ validate: 'decimal' });
+      integerValidator = Validator({ validate: 'integer' });
     });
 
     it('returns the correct message function', () => {
-      expect(typeValidator.message()).toEqual("Must be a valid decimal");
+      expect(decimalValidator.message()).toEqual("Must be a valid decimal");
+      expect(integerValidator.message()).toEqual("Must be a valid integer");
     });
 
     describe('when value is empty', () => {
       it('returns true', () => {
-        expect(typeValidator.validate('')).toBeTruthy();
+        expect(decimalValidator.validate('')).toBeTruthy();
+        expect(integerValidator.validate('')).toBeTruthy();
       });
     });
 
-    describe('when value is a decimal', () => {
+    describe('when value is of the correct type', () => {
       it('returns true', () => {
-        expect(typeValidator.validate(123.12)).toBeTruthy();
+        expect(decimalValidator.validate(123.12)).toBeTruthy();
+        expect(integerValidator.validate(123)).toBeTruthy();
       });
     });
 
-    describe('when value is not a decimal', () => {
+    describe('when value is not of the correct type', () => {
       it('returns false', () => {
-        expect(typeValidator.validate('abcde12345')).toBeFalsy();
+        expect(decimalValidator.validate('abcde12345')).toBeFalsy();
+        expect(integerValidator.validate('abcde12345')).toBeFalsy();
       });
     });
   });

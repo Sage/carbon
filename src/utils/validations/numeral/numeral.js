@@ -2,17 +2,18 @@ import I18n from "i18n-js";
 import { startCase } from 'lodash';
 
 /**
- * A Decimal Validator object.
+ * A Numeral Validator object.
  *
  * == How to use this validator ==
  *
  * Import the validator into your component:
  *
- *  `import DecimalValidator from 'utils/validations/decimal'`
+ *  `import NumeralValidator from 'utils/validations/numeral'`
  *
  * Assign the validator to the validations prop, passing the required params.:
  *
- *  `<Decimal validations={ [DecimalValidator({ validate: 'type' })] }/>`
+ *  `<Decimal validations={ [NumeralValidator({ validate: 'decimal' })] }/>`
+ *  `<Numeral validations={ [NumeralValidator({ validate: 'integer' })] }/>`
  *
  * Other possible validate options are 'less', 'greater', & 'range'.
  * For value or range properties pass a `minValue`, and/or `maxValue`.
@@ -20,15 +21,15 @@ import { startCase } from 'lodash';
  *
  * For example, to set a validation to check for a range between 0 and 10 inclusive:
  *
- *  `<Decimal validations={ [DecimalValidator({
+ *  `<Decimal validations={ [NumeralValidator({
                               validate: 'range',
                               minValue: 0,
                               maxValue: 10 })]
                            }/>`
- * @method DecimalValidator
+ * @method NumeralValidator
  * @param {Object} params (validate), optional params (minValue, maxValue, strict)
  */
-const DecimalValidator = function(params) {
+const NumeralValidator = function(params) {
 
   // Build String to call correct function
   let validationType = startCase(params.validate);
@@ -39,7 +40,8 @@ const DecimalValidator = function(params) {
    * Object to map function names to exectuble instances
    */
   let functionCalls = {
-    'validateType':          validateType(),
+    'validateDecimal':       validateDecimal(),
+    'validateInteger':       validateInteger(),
     'validateLess':          validateLess(params),
     'validateLessStrict':    validateLessStrict(params),
     'validateGreater':       validateGreater(params),
@@ -51,19 +53,19 @@ const DecimalValidator = function(params) {
   return functionCalls[validationToCall];
 };
 
-export default DecimalValidator;
+export default NumeralValidator;
 
 // Private Methods
 
 /**
  * This will validate whether the value is a valid decimal.
  *
- * @method validate
+ * @method validateDecimal
  * @return {Function} validate
  * @return {Function} message
  * @private
  */
-function validateType() {
+function validateDecimal() {
   return {
     /**
      * This will validate the given value, and return a valid status.
@@ -84,6 +86,40 @@ function validateType() {
      */
     message: function() {
       return I18n.t("validations.decimal");
+    }
+  };
+}
+
+/**
+ * This will validate whether the value is a valid integer.
+ *
+ * @method validateInteger
+ * @return {Function} validate
+ * @return {Function} message
+ * @private
+ */
+function validateInteger() {
+  return {
+
+    /**
+     * This will validate the given value, and return a valid status.
+     *
+     * @method validate
+     * @param {Float} value to check
+     * @return {Boolean} true if value is valid
+     */
+    validate: function(value) {
+      return (!value || /^\d+$/.test(value));
+    },
+
+    /**
+     * This is the message returned when this validation fails.
+     *
+     * @method message
+     * @return {String} the error message to display
+     */
+    message: function() {
+      return I18n.t("validations.integer");
     }
   };
 }
