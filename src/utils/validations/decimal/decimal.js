@@ -31,15 +31,15 @@ import { startCase } from 'lodash';
 const DecimalValidator = function(params) {
 
   // Build String to call correct function
-  let validationType = params.validate;
+  let validationType = startCase(params.validate);
   validationType += params.strict ? 'Strict' : '';
-  let validationToCall = 'validate' + startCase(validationType);
+  let validationToCall = 'validate' + validationType;
 
   /*
    * Object to map function names to exectuble instances
    */
   let functionCalls = {
-    'validateType':          validateType(params),
+    'validateType':          validateType(),
     'validateLess':          validateLess(params),
     'validateLessStrict':    validateLessStrict(params),
     'validateGreater':       validateGreater(params),
@@ -59,12 +59,11 @@ export default DecimalValidator;
  * This will validate whether the value is a valid decimal.
  *
  * @method validate
- * @param {Object} value to check
  * @return {Function} validate
  * @return {Function} message
  * @private
  */
-function validateType(params) {
+function validateType() {
   return {
     /**
      * This will validate the given value, and return a valid status.
@@ -86,7 +85,7 @@ function validateType(params) {
     message: function() {
       return I18n.t("validations.decimal");
     }
-  }
+  };
 }
 
 /**
@@ -104,9 +103,9 @@ function validateLess(params) {
       return (!value || parseFloat(value) <= params.maxValue);
     },
     message: function() {
-      return I18n.t("validations.equal_or_less_than");
+      return I18n.t("validations.equal_or_less_than", { maxValue: params.maxValue });
     }
-  }
+  };
 }
 
 /**
@@ -124,9 +123,9 @@ function validateLessStrict(params) {
       return (!value || parseFloat(value) < params.maxValue);
     },
     message: function() {
-      return I18n.t("validations.less_than");
+      return I18n.t("validations.less_than", { maxValue: params.maxValue });
     }
-  }
+  };
 }
 
 /**
@@ -144,9 +143,9 @@ function validateGreater(params) {
       return (!value || parseFloat(value) >= params.minValue);
     },
     message: function() {
-      return I18n.t("validations.equal_or_greater_than");
+      return I18n.t("validations.equal_or_greater_than", { minValue: params.minValue });
     }
-  }
+  };
 }
 
 /**
@@ -164,9 +163,9 @@ function validateGreaterStrict(params) {
       return (!value || parseFloat(value) > params.minValue);
     },
     message: function() {
-      return I18n.t("validations.greater_than");
+      return I18n.t("validations.greater_than", { minValue: params.minValue });
     }
-  }
+  };
 }
 
 /**
@@ -187,9 +186,10 @@ function validateRange(params) {
               parseFloat(value) <= params.maxValue);
     },
     message: function() {
-      return I18n.t("value_between_inclusive",{ defaultValue:`Must be a value between ${params.minValue} and ${params.maxValue} inclusive`});
+      return I18n.t("validations.value_between_inclusive", { minValue: params.minValue,
+                                                 maxValue: params.maxValue });
     }
-  }
+  };
 }
 
 /**
@@ -209,7 +209,8 @@ function validateRangeStrict(params) {
               parseFloat(value) < params.maxValue);
     },
     message: function() {
-      return I18n.t("value_between");
+      return I18n.t("validations.value_between",  { minValue: params.minValue,
+                                                 maxValue: params.maxValue });
     }
-  }
+  };
 }
