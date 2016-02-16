@@ -55,7 +55,6 @@ describe('Decimal Validator', () => {
     let lessThanValidator;
 
     beforeEach(() => {
-      debugger
       lessThanValidator = Validator({ validate: 'less', maxValue: 25.32 });
     });
 
