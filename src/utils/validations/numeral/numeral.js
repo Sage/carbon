@@ -60,7 +60,7 @@ export default NumeralValidator;
 /**
  * This will validate whether the value is a valid decimal.
  *
- * @method validate
+ * @method validateDecimal
  * @return {Function} validate
  * @return {Function} message
  * @private
@@ -93,7 +93,7 @@ function validateDecimal() {
 /**
  * This will validate whether the value is a valid integer.
  *
- * @method validate
+ * @method validateInteger
  * @return {Function} validate
  * @return {Function} message
  * @private
