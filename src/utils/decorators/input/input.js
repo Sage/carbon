@@ -1,5 +1,6 @@
 import React from 'react';
 import { isEqual, assign } from 'lodash';
+import guid from './../../helpers/guid';
 
 /**
  * Input decorator.
@@ -40,6 +41,14 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
   constructor(...args) {
     super(...args);
+
+    /**
+     * A unique identifier for the input.
+     *
+     * @prop _guid
+     * @return {String}
+     */
+    this._guid = guid();
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
@@ -127,6 +136,9 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   get inputProps() {
     let inputProps = super.inputProps || {};
+
+    // disable autoComplete (causes performance issues in IE)
+    inputProps.autoComplete = this.props.autoComplete || "off";
 
     // only thread the onChange event through the handler if the event is defined by the dev
     if (this.props.onChange === inputProps.onChange) {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { find, startCase, assign } from 'lodash';
-import guid from './../../helpers/guid';
 
 /**
  * InputLabel decorator.
@@ -68,12 +67,14 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     return classes;
   }
 
+  /**
+   * ID used for the label.
+   *
+   * @method labelID
+   * @return {String}
+   */
   get labelID() {
-    if (this._guid) {
-      return this._guid;
-    } else {
-      return this._guid = guid();
-    }
+    return this._guid;
   }
 
   /**
