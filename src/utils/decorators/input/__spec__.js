@@ -156,6 +156,21 @@ describe('Input', () => {
   });
 
   describe('inputProps', () => {
+    describe('when autoComplete is not defined', () => {
+      it('disables autoComplete', () => {
+        expect(instanceTwo.inputProps.autoComplete).toEqual("off");
+      });
+    });
+
+    describe('when autoComplete is defined', () => {
+      it('sets autoComplete', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          autoComplete: 'on'
+        }));
+        expect(instance.inputProps.autoComplete).toEqual("on");
+      });
+    });
+
     describe('when the component has its own onChange handler', () => {
       it('passes the change event through the Input change handler', () => {
         instanceTwo.inputProps.onChange = onChange;

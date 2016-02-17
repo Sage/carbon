@@ -39,44 +39,41 @@ describe('Form', () => {
   });
 
   describe('attachToForm', () => {
+    let textbox;
+
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Form>
-          <Textbox validations={ [Validation()] } name='excludedBox' value='' />
-        </Form>
+        <Form><Textbox validations={ [Validation()] } value='' /></Form>
       );
+      textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
     });
 
     describe('when the component is self contained', () => {
-      it('adds a input by its name', () => {
-        expect(instance.inputs.excludedBox).toBeTruthy();
+      it('adds a input by its guid', () => {
+        expect(instance.inputs[textbox._guid]).toBeTruthy();
       });
     });
   });
 
   describe('detachFromForm', () => {
-    let textbox1;
-    let textbox2;
     let grid;
     let excludedTextbox;
 
     beforeEach(() => {
-      textbox1 = <Textbox validations={ [Validation()] } name='[{ROWID}][box1]' value='' />;
-      textbox2 = <Textbox validations={ [Validation()] } name='[{ROWID}][box2]' value='' />;
-      excludedTextbox = <Textbox validations={ [Validation()] } name='excludedBox' value='' />;
-
       instance = TestUtils.renderIntoDocument(
         <Form>
-          { excludedTextbox }
+          <Textbox validations={ [Validation()] } value='' />
         </Form>
       );
+
+      excludedTextbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
     });
 
     describe('when the component is self contained', () => {
-      it('removes a input by its name', () => {
-        expect(instance.inputs.excludedBox).toBeTruthy();
-        instance.detachFromForm(instance.inputs.excludedBox);
-        expect(instance.inputs.excludedBox).toBeFalsy();
+      it('removes a input by its guid', () => {
+        expect(instance.inputs[excludedTextbox._guid]).toBeTruthy();
+        instance.detachFromForm(instance.inputs[excludedTextbox._guid]);
+        expect(instance.inputs[excludedTextbox._guid]).toBeFalsy();
       });
     });
   });
@@ -112,6 +109,22 @@ describe('Form', () => {
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
         expect(instance.setState).toHaveBeenCalledWith({ errorCount: 1 });
+      });
+    });
+
+    describe('disabled input', () => {
+      it('does not validate the input', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form>
+            <Textbox validations={ [Validation()] } disabled={ true } />
+          </Form>
+        );
+
+        let textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        spyOn(textbox, 'validate');
+        TestUtils.Simulate.submit(form);
+        expect(textbox.validate).not.toHaveBeenCalled();
       });
     });
 

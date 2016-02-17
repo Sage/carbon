@@ -1,3 +1,12 @@
+# 0.3.2
+
+## Bug Fixes
+
+* Form no longer validates disabled fields on submit.
+* Form inputs are tracked by a guid now, rather than input name.
+* Autocomplete is disabled for all inputs by default.
+* Locks version numbers to try and mitigate incompatabilities with third party modules.
+
 # 0.3.1
 
 ## Bug Fixes
