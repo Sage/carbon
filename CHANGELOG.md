@@ -15,6 +15,12 @@ Carbon now has a simple handler pattern implementation. For more information, se
 * Toast
 * Message
 
+## New Validations
+
+* Numeral Validation (Checks Number or Decimal Type)
+* Length Validation (Checks length of numeral or string)
+* Value Validation (Checks value of numeral)
+
 ## Standardised Color/Icon Sets on Components
 
 Several components allow the ability to define a particular `type` or `status`, such as `warning`, `error` or `success`. We have standardised the way this is implemented in components, each of which should use a prop name of `as`.

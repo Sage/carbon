@@ -2,52 +2,72 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Validator from './length';
 import I18n from 'i18n-js';
 
-describe('Decimal Validator', () => {
-  let minValue, maxValue;
+describe('Length Validator', () => {
 
   beforeEach(() => {
     I18n.translations = {
       en: {
         validations: {
-          length: "Must be %{length} characters exactly"
-          length_less_than_or_equal: "Must be %{maxValue} characters or less",
-          length_less_than: "Must be less than %{maxValue} characters",
-          length_greater_than_or_equal: "Must be %{minValue} characters or more",
-          length_greater_than: "Must be more than %{minValue} characters",
-          length_range: "Must be between %{minValue} and %{maxValue} characters inclusive",
-          length_range_inclusive: "Must be between %{minValue} and %{maxValue} characters inclusive",
-          length_range: "Must be between %{minValue} and %{maxValue} characters"
+          length: {
+            numeral: "Must be %{is} digits exactly",
+            text:    "Must be %{is} characters exactly"
+          },
+          length_less_than_or_equal: {
+            numeral: "Must be %{max} digits or less",
+            text:    "Must be %{max} characters or less"
+          },
+          length_greater_than_or_equal: {
+            numeral: "Must be %{min} digits or more",
+            text:    "Must be %{min} characters or more"
+          },
+          length_range: {
+            numeral: "Must be between %{min} and %{max} digits",
+            text:    "Must be between %{min} and %{max} characters"
+          }
         }
       }
     };
   });
 
-  describe('when a type validation is required', () => {
+  describe('validateLength', () => {
     let lengthValidator;
 
-    beforeEach(() => {
-      lengthValidator = Validator({ length: 50 });
-    });
 
-    it('returns the correct message function', () => {
-      expect(lengthValidator.message()).toEqual("Must be a valid decimal");
-    });
+    describe('when no input type is specified', () => {
+      beforeEach(() => {
+        lengthValidator = Validator({ is: 5 });
+      });
 
-    describe('when value is empty', () => {
-      it('returns true', () => {
-        expect(lengthValidator.validate('')).toBeTruthy();
+      it('returns the correct message function', () => {
+        expect(lengthValidator.message()).toEqual("Must be 5 characters exactly");
+      });
+  //
+      describe('when value is empty', () => {
+        it('returns true', () => {
+          expect(lengthValidator.validate()).toBeTruthy();
+        });
+      });
+
+      describe('when value is of the correct length', () => {
+        it('returns true', () => {
+          expect(lengthValidator.validate('abcde')).toBeTruthy();
+        });
+      });
+
+      describe('when value is not of the correct length', () => {
+        it('returns false', () => {
+          expect(lengthValidator.validate('abcde12345')).toBeFalsy();
+        });
       });
     });
 
-    describe('when value is of the correct length', () => {
-      it('returns true', () => {
-        expect(lengthValidator.validate(50)).toBeTruthy();
+    describe('when a numeral input type is specified', () => {
+      beforeEach(() => {
+        lengthValidator = Validator({ is: 5, type: 'numeral' });
       });
-    });
 
-    describe('when value is not of the correct length', () => {
-      it('returns false', () => {
-        expect(lengthValidator.validate('abcde12345')).toBeFalsy();
+      it('returns the correct message function', () => {
+        expect(lengthValidator.message()).toEqual("Must be 5 digits exactly");
       });
     });
   });
@@ -56,58 +76,40 @@ describe('Decimal Validator', () => {
     let lessThanValidator;
 
     beforeEach(() => {
-      lessThanValidator = Validator({ validate: 'less', maxLength: 25.32 });
+      lessThanValidator = Validator({ maxValue: 5 });
     });
 
-    it('returns the correct message function', () => {
-      expect(lessThanValidator.message()).toEqual("Must be equal to or less than 25.32");
-    });
+    describe('when no input type is specified', () => {
+      it('returns the correct message function', () => {
+        expect(lessThanValidator.message()).toEqual("Must be 5 characters or less");
+      });
 
-    describe('when the value is greater than the maximum', () => {
-      it('returns false', () => {
-        expect(lessThanValidator.validate(32.32)).toBeFalsy();
+      describe('when the value is greater than the maximum', () => {
+        it('returns false', () => {
+          expect(lessThanValidator.validate('abcde12345')).toBeFalsy();
+        });
+      });
+
+      describe('when the value is less than the maximum', () => {
+        it('returns true', () => {
+          expect(lessThanValidator.validate('abc')).toBeTruthy();
+        });
+      });
+
+      describe('when the value equals the maximum', () => {
+        it('returns true', () => {
+          expect(lessThanValidator.validate('abcde')).toBeTruthy();
+        });
       });
     });
 
-    describe('when the value is less than the maximum', () => {
-      it('returns true', () => {
-        expect(lessThanValidator.validate(19.19)).toBeTruthy();
+    describe('when a numeral input type is specified', () => {
+      beforeEach(() => {
+        lessThanValidator = Validator({ maxValue: 10, type: 'numeral' });
       });
-    });
 
-    describe('when the value equals the maximum', () => {
-      it('returns true', () => {
-        expect(lessThanValidator.validate(25.32)).toBeTruthy();
-      });
-    });
-  });
-
-  describe('validateLessStict', () => {
-    let lessThanStrictValidator;
-
-    beforeEach(() => {
-      lessThanStrictValidator = Validator({ validate: 'less', maxValue: 25.32, strict: true });
-    });
-
-    it('returns the correct message function', () => {
-      expect(lessThanStrictValidator.message()).toEqual("Must be less than 25.32");
-    });
-
-    describe('when the value is greater than the maximum', () => {
-      it('returns false', () => {
-        expect(lessThanStrictValidator.validate(32.32)).toBeFalsy();
-      });
-    });
-
-    describe('when the value is less than the maximum', () => {
-      it('returns true', () => {
-        expect(lessThanStrictValidator.validate(19.19)).toBeTruthy();
-      });
-    });
-
-    describe('when the value equals the maximum', () => {
-      it('returns false', () => {
-        expect(lessThanStrictValidator.validate(25.32)).toBeFalsy();
+      it('returns the correct message function', () => {
+        expect(lessThanValidator.message()).toEqual("Must be 10 digits or less");
       });
     });
   });
@@ -115,122 +117,85 @@ describe('Decimal Validator', () => {
   describe('validateGreater', () => {
     let greaterThanValidator;
 
-    beforeEach(() => {
-      greaterThanValidator = Validator({ validate: 'greater', minValue: 5.55 });
-    });
+    describe('when no input type is specified', () => {
+      beforeEach(() => {
+        greaterThanValidator = Validator({ minValue: 10 });
+      });
 
-    it('returns the correct message function', () => {
-      expect(greaterThanValidator.message()).toEqual("Must be equal to or greater than 5.55");
-    });
+      it('returns the correct message function', () => {
+        expect(greaterThanValidator.message()).toEqual("Must be 10 characters or more");
+      });
 
-    describe('when the value is less than the minimum', () => {
-      it('returns false', () => {
-        expect(greaterThanValidator.validate(3.33)).toBeFalsy();
+      describe('when the value is less than the minimum', () => {
+        it('returns false', () => {
+          expect(greaterThanValidator.validate('abcde')).toBeFalsy();
+        });
+      });
+
+      describe('when the value is greater than the minimum', () => {
+        it('returns true', () => {
+          expect(greaterThanValidator.validate('abcde123456789')).toBeTruthy();
+        });
+      });
+
+      describe('when the value equals the maximum', () => {
+        it('returns true', () => {
+          expect(greaterThanValidator.validate('abcde12345')).toBeTruthy();
+        });
       });
     });
 
-    describe('when the value is greater than the minimum', () => {
-      it('returns true', () => {
-        expect(greaterThanValidator.validate(19.19)).toBeTruthy();
+    describe('when a numeral input type is specified', () => {
+      beforeEach(() => {
+        greaterThanValidator = Validator({ minValue: 5, type: 'numeral' });
       });
-    });
 
-    describe('when the value equals the maximum', () => {
-      it('returns true', () => {
-        expect(greaterThanValidator.validate(5.55)).toBeTruthy();
-      });
-    });
-  });
-
-  describe('validateGreaterStict', () => {
-    let greaterThanStrictValidator;
-
-    beforeEach(() => {
-       greaterThanStrictValidator = Validator({ validate: 'greater', minValue: 5.55, strict: true });
-    });
-
-    it('returns the correct message function', () => {
-      expect(greaterThanStrictValidator.message()).toEqual("Must be greater than 5.55");
-    });
-
-    describe('when the value is less than the minimum', () => {
-      it('returns false', () => {
-        expect(greaterThanStrictValidator.validate(3.33)).toBeFalsy();
-      });
-    });
-
-    describe('when the value is greater than the minimum', () => {
-      it('returns true', () => {
-        expect(greaterThanStrictValidator.validate(19.19)).toBeTruthy();
-      });
-    });
-
-    describe('when the value equals the minimum', () => {
-      it('returns false', () => {
-        expect(greaterThanStrictValidator.validate(5.55)).toBeFalsy();
+      it('returns the correct message function', () => {
+        expect(greaterThanValidator.message()).toEqual("Must be 5 digits or more");
       });
     });
   });
 
   describe('validateRange', () => {
-    let rangeValidator;
+      let rangeValidator;
 
-    beforeEach(() => {
-       rangeValidator = Validator({ validate: 'range', minValue: 5.55, maxValue: 25.25 });
-    });
+    describe('when no input type is specified', () => {
+      beforeEach(() => {
+         rangeValidator = Validator({ minValue: 5, maxValue: 10 });
+      });
 
-    it('returns the correct message function', () => {
-      expect(rangeValidator.message()).toEqual("Must be between 5.55 and 25.25 inclusive");
-    });
+      it('returns the correct message function', () => {
+        expect(rangeValidator.message()).toEqual("Must be between 5 and 10 characters");
+      });
 
-    describe('when the value is less than the minimum', () => {
-      it('returns false', () => {
-        expect(rangeValidator.validate(3.33)).toBeFalsy();
+      describe('when the value is less than the minimum', () => {
+        it('returns false', () => {
+          expect(rangeValidator.validate('abc')).toBeFalsy();
+        });
+      });
+
+      describe('when the value is greater than the maximum', () => {
+        it('returns false', () => {
+          expect(rangeValidator.validate('abcde123456789')).toBeFalsy();
+        });
+      });
+
+      describe('when the value is within the range', () => {
+        it('returns true', () => {
+          expect(rangeValidator.validate('abcde')).toBeTruthy();
+          expect(rangeValidator.validate('abcde123')).toBeTruthy();
+          expect(rangeValidator.validate('abcde12345')).toBeTruthy();
+        });
       });
     });
 
-    describe('when the value is greater than the maximum', () => {
-      it('returns false', () => {
-        expect(rangeValidator.validate(55.55)).toBeFalsy();
+    describe('when a numeral input type is specified', () => {
+      beforeEach(() => {
+        rangeValidator = Validator({ minValue: 5, type: 'numeral' });
       });
-    });
 
-    describe('when the value equals the minimum or maximum', () => {
-      it('returns true', () => {
-        expect(rangeValidator.validate(5.55)).toBeTruthy();
-        expect(rangeValidator.validate(25.25)).toBeTruthy();
-      });
-    });
-  });
-
-  describe('validateRangeStrict', () => {
-    let rangeStrictValidator;
-
-    beforeEach(() => {
-       rangeStrictValidator = Validator({ validate: 'range', minValue: 5.55, maxValue: 25.25, strict: true });
-    });
-
-    it('returns the correct message function', () => {
-      expect(rangeStrictValidator.message()).toEqual("Must be between 5.55 and 25.25");
-    });
-
-    describe('when the value is less than the minimum', () => {
-      it('returns false', () => {
-        expect(rangeStrictValidator.validate(3.33)).toBeFalsy();
-      });
-    });
-
-    describe('when the value is greater than the maximum', () => {
-      it('returns false', () => {
-        expect(rangeStrictValidator.validate(55.55)).toBeFalsy();
-      });
-    });
-
-    describe('when the value equals the minimum or maximum', () => {
-      it('returns false', () => {
-        expect(rangeStrictValidator.validate(5.55)).toBeFalsy();
-        expect(rangeStrictValidator.validate(25.25)).toBeFalsy
-        ();
+      it('returns the correct message function', () => {
+        expect(rangeValidator.message()).toEqual("Must be 5 digits or more");
       });
     });
   });

@@ -1,53 +1,48 @@
 import I18n from "i18n-js";
 
 /**
- * A Length Validator object.
+ * A Value Validator object.
  *
  * == How to use this validator ==
  *
  * Import the validator into your component:
  *
- *  `import LengthValidator from 'utils/validations/length'`
+ *  `import ValueValidator from 'utils/validations/Value'`
  *
  * Assign the validator to the validations prop, passing the required params:
  *
- * By default, the validator sets the input type to 'text', you can set this to 'numeral',
- * in order to change the i18n message returned.
+ * To validate a number is a specific value, pass { type: 'numeral', is: 100} :
  *
- * To validate a number is a specific length, pass { type: 'numeral', is: 100} :
- *
- * To validate that a length not be lesser or greater than a value set a 'maxValue' or 'minValue'.
+ * To validate that a value not be lesser or greater than a given value set a 'maxValue' or
+ * 'minValue'.
  *
  *  e.g.
  *
- *  `<TextArea validations={ [LengthValidator({
+ *  `<Number validations={ [ValueValidator({
  *                              minValue: 8 })] }/>`
  *
- * would validate that a text field be at least 8 characters long.
+ * would validate that a number value be at least 8.
  *
- * To validate a length is within a given range, set both a minValue and maxValue.
+ * To validate that a value is within a given range, set both a minValue and maxValue.
  *
- * @method LengthValidator
- * @param {Object} params (is, minValue, maxValue, type(optional))
+ * @method ValueValidator
+ * @param {Object} params (is, minValue, maxValue)
  */
-const LengthValidator = function(params) {
-  //defaults
-  params.type = params.type || 'text';
-
+const ValueValidator = function(params) {
   // Build string to call correct function
   let validationToCall = 'validate' + getType(params);
 
-  let LengthFunctions = {
+  let ValueFunctions = {
     'validateGreater': validateGreater(params),
-    'validateLength':  validateLength(params),
+    'validateValue':   validateValue(params),
     'validateLess':    validateLess(params),
     'validateRange':   validateRange(params)
   };
 
-  return LengthFunctions[validationToCall];
+  return ValueFunctions[validationToCall];
 };
 
-export default LengthValidator;
+export default ValueValidator;
 
 
 // Private Methods
@@ -62,7 +57,7 @@ export default LengthValidator;
 function getType(params) {
 
   if (params.is) {
-    return 'Length';
+    return 'Value';
   } else if (params.maxValue && !params.minValue) {
     return 'Less';
   } else if (params.minValue && !params.maxValue) {
@@ -75,14 +70,14 @@ function getType(params) {
 }
 
 /**
- * This will validate whether the value matches the specified length.
+ * This will validate whether the value matches the specified Value.
  *
- * @method validateLength
+ * @method validateValue
  * @return {Function} validate
  * @return {Function} message
  * @private
  */
-function validateLength(params) {
+function validateValue(params) {
   return {
     /**
      * This will validate the given value, and return a valid status.
@@ -92,7 +87,7 @@ function validateLength(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (value.length == params.is));
+      return (!value || (value == params.is));
     },
     /**
      * This is the message returned when this validation fails.
@@ -101,7 +96,7 @@ function validateLength(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t(`validations.length.${params.type}`, { is: params.is });
+      return I18n.t("validations.value", { is: params.is });
     }
   };
 }
@@ -118,13 +113,14 @@ function validateLength(params) {
 function validateLess(params) {
   return {
     validate: function(value) {
-      return (!value || (value.length <= params.maxValue));
+      return (!value || (value <= params.maxValue));
     },
     message: function() {
-      return I18n.t(`validations.length_less_than_or_equal.${params.type}`, { max: params.maxValue });
+      return I18n.t("validations.value_less_than_or_equal", { max: params.maxValue });
     }
   };
 }
+
 
 /**
  * This will validate whether the value is greater than or equal to a minimum value.
@@ -138,10 +134,10 @@ function validateLess(params) {
 function validateGreater(params) {
   return {
     validate: function(value) {
-      return (!value || (value.length >= params.minValue));
+      return (!value || (value >= params.minValue));
     },
     message: function() {
-      return I18n.t(`validations.length_greater_than_or_equal.${params.type}`, { min: params.minValue });
+      return I18n.t("validations.value_greater_than_or_equal", { min: params.minValue });
     }
   };
 }
@@ -159,10 +155,10 @@ function validateGreater(params) {
 function validateRange(params) {
   return {
     validate: function(value) {
-      return (!value || (value.length >= params.minValue && value.length <= params.maxValue));
+      return (!value || (value >= params.minValue && value <= params.maxValue));
     },
     message: function() {
-      return I18n.t(`validations.length_range.${params.type}`, { min: params.minValue, max: params.maxValue });
+      return I18n.t("validations.value_range", { min: params.minValue, max: params.maxValue });
     }
   };
 }
