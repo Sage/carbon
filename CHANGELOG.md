@@ -1,3 +1,7 @@
+# 0.3.3
+
+* Performance updates to inputs. We also now provide a `shouldComponentUpdate` method which can be reused in custom components.
+
 # 0.3.2
 
 ## Bug Fixes
