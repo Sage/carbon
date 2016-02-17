@@ -48,7 +48,7 @@ describe('Length Validator', () => {
       it('returns the correct message function', () => {
         expect(lengthValidator.message()).toEqual("Must be 5 characters exactly");
       });
-  //
+  
       describe('when value is empty', () => {
         it('returns true', () => {
           expect(lengthValidator.validate()).toBeTruthy();
