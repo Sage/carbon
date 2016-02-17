@@ -1,3 +1,13 @@
+# 0.4.0
+
+## Prefix for inputs
+
+We have added a new feature for input components which allows developers to output a prefix to the input.
+
+```js
+<Textbox prefix={ { text: 'foo', width: '50px' } } />
+```
+
 # 0.3.2
 
 ## Bug Fixes
