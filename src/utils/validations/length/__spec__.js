@@ -29,9 +29,16 @@ describe('Length Validator', () => {
     };
   });
 
+  describe('when incorrect params have been passed', () => {
+    let brokenValidator;
+
+    it('throws an error and returns a warning message', () => {
+      expect(function() {brokenValidator = Validator({ is: 5, minValue: 5 })}).toThrowError("You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.");
+    });
+  });
+
   describe('validateLength', () => {
     let lengthValidator;
-
 
     describe('when no input type is specified', () => {
       beforeEach(() => {

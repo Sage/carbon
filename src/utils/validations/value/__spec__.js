@@ -1,5 +1,4 @@
 import TestUtils from 'react/lib/ReactTestUtils';
-import Number from './../../../components/number';
 import Validator from './value';
 import I18n from 'i18n-js';
 
@@ -17,15 +16,11 @@ describe('Value Validator', () => {
     };
   });
 
-  fdescribe('when incorrect params have been passed', () => {
+  describe('when incorrect params have been passed', () => {
     let brokenValidator;
 
-      beforeEach(() => {
-        brokenValidator = TestUtils.renderIntoDocument(<Number validations={ [Validator({ is: 5, minValue:10 })] } />);
-      });
-
     it('throws an error and returns a warning message', () => {
-      expect(brokenValidator()).toThrowError( "You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.");
+      expect(function() {brokenValidator = Validator({ is: 5, minValue: 5 })}).toThrowError("You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.");
     });
   });
 

@@ -5,7 +5,6 @@ import Textbox from 'components/textbox';
 import Decimal from 'components/decimal';
 import Icon from 'components/icon';
 import Presence from 'utils/validations/presence';
-import LengthValidator from 'utils/validations/length';
 
 class Grid extends React.Component {
 
@@ -55,7 +54,6 @@ class Grid extends React.Component {
                 label={ false }
                 name="credit"
                 value={ row.get('credit') }
-                validations={ [LengthValidator({ is: 100 })] }
                 onChange={ FinancesActions.financesLineItemUpdated.bind(this, key) }
               />
             </TableCell>

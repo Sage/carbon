@@ -60,17 +60,16 @@ export default LengthValidator;
  * @private
  */
 function getType(params) {
-
-  if (params.is) {
+  if (params.is && !params.maxValue && !params.minValue) {
     return 'Length';
-  } else if (params.maxValue && !params.minValue) {
+  } else if (!params.is && params.maxValue && !params.minValue) {
     return 'Less';
-  } else if (params.minValue && !params.maxValue) {
+  } else if (!params.is && params.minValue && !params.maxValue) {
     return 'Greater';
-  } else if (params.minValue && params.maxValue) {
+  } else if (!params.is && params.minValue && params.maxValue) {
     return 'Range';
   } else {
-    throw "You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.";
+    throw new Error("You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.");
   }
 }
 
