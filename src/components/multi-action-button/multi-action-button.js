@@ -24,7 +24,23 @@ import Button from './../button';
 class MultiActionButton extends React.Component {
 
   static propTypes = {
+    /**
+     * The text to be displayed in the MultiActionButton.
+     *
+     * This should be a string.
+     *
+     * @property name
+     * @type {string}
+     */
     name: React.PropTypes.string.isRequired,
+    /**
+     * The handler to be run in the main button of the MultiActionButton.
+     *
+     * This should be a function.
+     *
+     * @property onClick
+     * @type {func}
+     */
     onClick: React.PropTypes.func.isRequired
   }
 
