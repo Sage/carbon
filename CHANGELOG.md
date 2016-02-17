@@ -5,7 +5,7 @@
 We have added a new feature for input components which allows developers to output a prefix to the input.
 
 ```js
-<Textbox prefix={ { text: 'foo', width: '50px' } } />
+<Textbox prefix="foo" />
 ```
 
 # 0.3.2

@@ -46,6 +46,52 @@ describe('Input', () => {
     onChange = jasmine.createSpy('onChange');
   });
 
+  describe('componentDidMount', () => {
+    describe('if prefix is not set', () => {
+      it('does not set text indentation', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {}));
+        spyOn(instance, 'setTextIndentation');
+        instance.componentDidMount();
+        expect(instance.setTextIndentation).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if prefix is set', () => {
+      it('sets text indentation', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: "foo"
+        }));
+        spyOn(instance, 'setTextIndentation');
+        instance.componentDidMount();
+        expect(instance.setTextIndentation).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('componentDidUpdate', () => {
+    describe('if prefix has not changed', () => {
+      it('does not set the text indentation', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: "foo"
+        }));
+        spyOn(instance, 'setTextIndentation');
+        instance.componentDidUpdate({ prefix: 'foo' });
+        expect(instance.setTextIndentation).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if prefix has changed', () => {
+      it('sets the text indentation', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: "foo"
+        }));
+        spyOn(instance, 'setTextIndentation');
+        instance.componentDidUpdate({ prefix: 'bar' });
+        expect(instance.setTextIndentation).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('shouldComponentUpdate', () => {
     it('returns true if props have changed', () => {
       let nextProps = { name: 'bar' };
@@ -186,15 +232,6 @@ describe('Input', () => {
         expect(instanceTwo.inputProps.onChange).toEqual(instanceTwo._handleOnChange);
       });
     });
-
-    describe('when prefix is defined', () => {
-      it('returns a div with a prefix', () => {
-        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
-          prefix: { text: 'foo', width: "50px" }
-        }));
-        expect(instance.inputProps.style.textIndent).toEqual('50px');
-      });
-    });
   });
 
   describe('fieldProps', () => {
@@ -203,13 +240,24 @@ describe('Input', () => {
     });
   });
 
+  describe('setTextIdentation', () => {
+    it('sets the textIndent to the width + 3 px', () => {
+      instance._input = { style: {} };
+      instance._prefix = { offsetWidth: 20 };
+      instance.setTextIndentation()
+      expect(instance._input.style.textIndent).toEqual("23px");
+    });
+  });
+
   describe('prefixHTML', () => {
     describe('when prefix is defined', () => {
       it('returns a div with a prefix', () => {
         instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
-          prefix: { text: 'foo', width: "50px" }
+          prefix: "foo"
         }));
+        instance.prefixHTML.ref("input");
         expect(instance.prefixHTML.props.className).toEqual('common-input__prefix');
+        expect(instance._prefix).toEqual('input');
         expect(instance.prefixHTML.props.children).toEqual('foo');
       });
     });

@@ -35,7 +35,7 @@ import guid from './../../helpers/guid';
  *
  * Inputs also accept a prop of `prefix` which outputs a prefix to the input:
  *
- *   <Textbox prefix={ { text: 'foo', width: '50px' } } />
+ *   <Textbox prefix="foo" />
  *
  * @method Input
  * @param {Class} ComposedComponent class to decorate
@@ -58,6 +58,36 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
+
+  /**
+   * A lifecycle method for when the component has rendered.
+   *
+   * @method componentWillReceiveProps
+   * @return {void}
+   */
+  componentDidMount() {
+    // call the components super method if it exists
+    if (super.componentDidMount) { super.componentDidMount(); }
+
+    if (this.props.prefix) {
+      this.setTextIndentation();
+    }
+  }
+
+  /**
+   * A lifecycle method for when the component has re-rendered.
+   *
+   * @method componentDidUpdate
+   * @return {void}
+   */
+  componentDidUpdate(prevProps, prevState) {
+    // call the components super method if it exists
+    if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
+
+    if (this.props.prefix != prevProps.prefix) {
+      this.setTextIndentation();
+    }
+  }
 
   /**
    * A lifecycle method to determine if the component should re-render for better performance.
@@ -94,6 +124,18 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     if (this.props.onChange) {
       // we also send the props so more information can be extracted by the action
       this.props.onChange(ev, this.props);
+    }
+  }
+
+  /**
+   * Sets indentation of input value based on prefix width.
+   *
+   * @method setTextIndentation
+   * @return {void}
+   */
+  setTextIndentation = () => {
+    if (this._input) {
+      this._input.style.textIndent = `${this._prefix.offsetWidth + 3}px`;
     }
   }
 
@@ -145,14 +187,11 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   get inputProps() {
     let inputProps = super.inputProps || {};
 
+    // store ref to input
+    inputProps.ref = (c) => { this._input = c; };
+
     // disable autoComplete (causes performance issues in IE)
     inputProps.autoComplete = this.props.autoComplete || "off";
-
-    // if prefix is defined set the width on the input as a text indent
-    if (this.props.prefix) {
-      inputProps.style = inputProps.style || {};
-      inputProps.style.textIndent = this.props.prefix.width;
-    }
 
     // only thread the onChange event through the handler if the event is defined by the dev
     if (this.props.onChange === inputProps.onChange) {
@@ -205,7 +244,11 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   get prefixHTML() {
     if (this.props.prefix) {
-      return <div className="common-input__prefix">{ this.props.prefix.text }</div>;
+      return (
+        <div ref={ (c) => { this._prefix = c; } } className="common-input__prefix">
+          { this.props.prefix }
+        </div>
+      );
     }
   }
 

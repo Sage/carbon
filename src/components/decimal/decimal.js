@@ -83,7 +83,7 @@ class Decimal extends React.Component {
    * @return {void}
    */
   componentWillReceiveProps(props) {
-    if (this._document.activeElement != this.refs.visible) {
+    if (this._document.activeElement != this._input) {
       let value = props.value || props.defaultValue;
       this.setState({ visibleValue: formatVisibleValue(value, this) });
     }
@@ -165,7 +165,7 @@ class Decimal extends React.Component {
       return;
     }
 
-    let input = this.refs.visible;
+    let input = this._input;
     // only do it if the selection is not within the value
     if ((input.selectionStart === 0) && (input.selectionEnd === 0)) {
       input.setSelectionRange(0, input.value.length);
@@ -201,7 +201,6 @@ class Decimal extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.ref = "visible";
     props.onChange = this.handleVisibleInputChange;
     props.onClick = this.handleOnClick;
     props.name = null;
