@@ -33,6 +33,10 @@ import guid from './../../helpers/guid';
  * for example `textarea`, by defining a `inputType` getter method in your
  * components class.
  *
+ * Inputs also accept a prop of `prefix` which outputs a prefix to the input:
+ *
+ *   <Textbox prefix={ { text: 'foo', width: '50px' } } />
+ *
  * @method Input
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
@@ -114,6 +118,10 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       classes += ` common-input--align-${this.props.align}`;
     }
 
+    if (this.props.prefix) {
+      classes += ' common-input--with-prefix';
+    }
+
     return `${classes} common-input`;
   }
 
@@ -139,6 +147,12 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     // disable autoComplete (causes performance issues in IE)
     inputProps.autoComplete = this.props.autoComplete || "off";
+
+    // if prefix is defined set the width on the input as a text indent
+    if (this.props.prefix) {
+      inputProps.style = inputProps.style || {};
+      inputProps.style.textIndent = this.props.prefix.width;
+    }
 
     // only thread the onChange event through the handler if the event is defined by the dev
     if (this.props.onChange === inputProps.onChange) {
@@ -184,6 +198,18 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
+   * Adds a prefix if it is defined
+   *
+   * @method prefixHTML
+   * @return {Object}
+   */
+  get prefixHTML() {
+    if (this.props.prefix) {
+      return <div className="common-input__prefix">{ this.props.prefix.text }</div>;
+    }
+  }
+
+  /**
    * Returns HTML for the input.
    *
    * @method inputHTML
@@ -195,6 +221,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     return (
       <div { ...this.fieldProps }>
+        { this.prefixHTML }
         { input }
         { this.additionalInputContent }
       </div>

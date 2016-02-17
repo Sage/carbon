@@ -139,6 +139,15 @@ describe('Input', () => {
         expect(instance.mainClasses).toEqual('testMain common-input--align-right common-input');
       });
     });
+
+    describe('When a prefix is provided', () => {
+      it('returns with a prefix class', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: 'foo'
+        }));
+        expect(instance.mainClasses).toEqual('testMain common-input--with-prefix common-input');
+      });
+    });
   });
 
   describe('inputClasses', () => {
@@ -177,11 +186,38 @@ describe('Input', () => {
         expect(instanceTwo.inputProps.onChange).toEqual(instanceTwo._handleOnChange);
       });
     });
+
+    describe('when prefix is defined', () => {
+      it('returns a div with a prefix', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: { text: 'foo', width: "50px" }
+        }));
+        expect(instance.inputProps.style.textIndent).toEqual('50px');
+      });
+    });
   });
 
   describe('fieldProps', () => {
     it('adds a class name', () => {
       expect(instanceTwo.fieldProps.className).toEqual('common-input__field');
+    });
+  });
+
+  describe('prefixHTML', () => {
+    describe('when prefix is defined', () => {
+      it('returns a div with a prefix', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: { text: 'foo', width: "50px" }
+        }));
+        expect(instance.prefixHTML.props.className).toEqual('common-input__prefix');
+        expect(instance.prefixHTML.props.children).toEqual('foo');
+      });
+    });
+
+    describe('when prefix is not defined', () => {
+      it('returns nothing', () => {
+        expect(instance.prefixHTML).toBe(undefined);
+      });
     });
   });
 });
