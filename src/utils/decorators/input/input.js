@@ -135,7 +135,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   setTextIndentation = () => {
     if (this._input) {
-      this._input.style.textIndent = `${this._prefix.offsetWidth + 3}px`;
+      this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
     }
   }
 
