@@ -1,3 +1,7 @@
+# 0.3.3
+
+* Inputs that are detached from a form no longer update error count.
+
 # 0.3.2
 
 ## Bug Fixes

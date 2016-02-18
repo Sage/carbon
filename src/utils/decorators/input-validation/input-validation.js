@@ -169,7 +169,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // call the components super method if it exists
     if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
-    if (this.context.form && this.props.validations) {
+    if (this.isAttachedToForm && this.props.validations) {
       if (!this.state.valid) {
         // decrement the forms error count if the input is removed
         this.context.form.decrementErrorCount();
@@ -204,10 +204,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
         // if input currently thinks it is valid
         if (this.state.valid) {
           // if input has a form
-          if (this.context.form) {
+          if (this.isAttachedToForm) {
             // increment the error count on the form
             this.context.form.incrementErrorCount();
-
           }
 
           // if input has a tab
@@ -267,7 +266,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // if the field is in an invalid state
     if (!this.state.valid) {
       // if there is a form, decrement the error count
-      if (this.context.form) {
+      if (this.isAttachedToForm) {
         this.context.form.decrementErrorCount();
       }
 
@@ -276,6 +275,20 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
       // reset the error state
       this.setState({ errorMessage: null, valid: true });
+    }
+  }
+
+  /**
+   * Determines if the input is attached to a form.
+   *
+   * @method isAttachedToForm
+   * @return {Boolean}
+   */
+  get isAttachedToForm() {
+    if (this.context.form && this.context.form.inputs[this._guid]) {
+      return true;
+    } else {
+      return false;
     }
   }
 
