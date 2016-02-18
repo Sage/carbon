@@ -1,3 +1,9 @@
+# 0.4.0
+
+## New Components
+
+* SplitButton.
+
 # 0.3.2
 
 ## Bug Fixes
