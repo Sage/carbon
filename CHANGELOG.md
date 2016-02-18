@@ -1,5 +1,6 @@
 # 0.3.3
 
+* Performance updates to inputs. We also now provide a `shouldComponentUpdate` method which can be reused in custom components.
 * Inputs that are detached from a form no longer update error count.
 
 # 0.3.2
