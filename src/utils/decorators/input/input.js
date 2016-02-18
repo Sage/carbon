@@ -1,5 +1,6 @@
 import React from 'react';
-import { isEqual, assign } from 'lodash';
+import shouldComponentUpdate from './../../helpers/should-component-update';
+import { assign } from 'lodash';
 import guid from './../../helpers/guid';
 import classNames from 'classnames';
 
@@ -105,9 +106,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       false;
 
     // determine if anything has changed that should result in a re-render
-    if (changeDetected ||
-        !isEqual(this.props, nextProps) ||
-        !isEqual(this.state, nextState)) {
+    if (changeDetected || shouldComponentUpdate(this, nextProps, nextState)) {
       return true;
     }
 
