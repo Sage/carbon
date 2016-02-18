@@ -31,6 +31,8 @@ function customCheck(current, next, key) {
     return true;
   }
 
+  // if immutable object, do custom comparison. otherwise return undefined to
+  // allow isEqual to continue as normal
   if (Immutable.Iterable.isIterable(current)) {
     return Immutable.is(current, next);
   } else {
