@@ -39,7 +39,8 @@ let form = {
   attachToForm: function() {},
   detachFromForm: function() {},
   decrementErrorCount: function() {},
-  incrementErrorCount: function() {}
+  incrementErrorCount: function() {},
+  inputs: { "123": {} }
 }
 
 class DummyInputWithoutLifecycleMethods extends React.Component {
@@ -49,6 +50,8 @@ class DummyInputWithoutLifecycleMethods extends React.Component {
 }
 
 class DummyInput extends DummyInputWithoutLifecycleMethods {
+  _guid = "123"
+
   componentDidUpdate() {
   }
 
@@ -628,6 +631,33 @@ describe('InputValidation', () => {
       instance.inputProps.onFocus();
       expect(instance._handleFocus).toHaveBeenCalled();
       expect(instance.onFocus).toHaveBeenCalled();
+    });
+  });
+
+  describe('isAttachedToForm', () => {
+    describe('if no form', () => {
+      it('returns false', () => {
+        instance.context.form = null;
+        expect(instance.isAttachedToForm).toBeFalsy();
+      });
+    });
+
+    describe('if input is not attached to form', () => {
+      it('returns false', () => {
+        instance.context.form = {
+          inputs: {}
+        };
+        expect(instance.isAttachedToForm).toBeFalsy();
+      });
+    });
+
+    describe('if input is attached to form', () => {
+      it('returns true', () => {
+        instance.context.form = {
+          inputs: { "123": {} }
+        };
+        expect(instance.isAttachedToForm).toBeTruthy();
+      });
     });
   });
 });
