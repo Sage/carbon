@@ -103,7 +103,6 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     }
   }
 
-
   /**
    * A lifecycle method for when the component has re-rendered.
    *

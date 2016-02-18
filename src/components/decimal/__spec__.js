@@ -100,7 +100,7 @@ describe('Decimal', () => {
 
       it('does not re-evaluate the formatted visible value if input has focus', () => {
         instance._document = {
-          activeElement: instance.refs.visible
+          activeElement: instance._input
         };
         instance.componentWillReceiveProps({ value: '1001.00' });
         expect(instance.setState).not.toHaveBeenCalled();
@@ -130,13 +130,13 @@ describe('Decimal', () => {
       });
 
       it('checks if the value is a valid decimal', () => {
-        TestUtils.Simulate.change(instance.refs.visible, { target: { value: "1,0,0,0.00" } });
+        TestUtils.Simulate.change(instance._input, { target: { value: "1,0,0,0.00" } });
         expect(instance.isValidDecimal).toHaveBeenCalledWith("1,0,0,0.00");
       });
 
       describe('when it is as a valid decimal', () => {
         beforeEach(() => {
-          TestUtils.Simulate.change(instance.refs.visible, { target: { value: "1,0,0,0.00" } });
+          TestUtils.Simulate.change(instance._input, { target: { value: "1,0,0,0.00" } });
         });
 
 
@@ -158,7 +158,7 @@ describe('Decimal', () => {
           instance.selectionStart = 2;
           instance.selectionEnd = 4;
 
-          TestUtils.Simulate.change(instance.refs.visible, {
+          TestUtils.Simulate.change(instance._input, {
             target: {
               value: "..1.0.0,0.00",
               setSelectionRange: setSelectionSpy
@@ -184,7 +184,7 @@ describe('Decimal', () => {
       beforeEach(() => {
         spyOn(instance, 'setState');
         instance.highlighted = true;
-        TestUtils.Simulate.blur(instance.refs.visible);
+        TestUtils.Simulate.blur(instance._input);
       });
 
       it('calls setState with the formatted visible value', () => {
@@ -200,7 +200,7 @@ describe('Decimal', () => {
       let visible;
 
       beforeEach(function() {
-        visible = instance.refs.visible;
+        visible = instance._input;
         spyOn(visible, 'setSelectionRange');
       });
 
@@ -254,11 +254,11 @@ describe('Decimal', () => {
       });
 
       it('sets the ui-decimal__input class to the input', () => {
-        expect(instance.refs.visible.classList[0]).toEqual('ui-decimal__input');
+        expect(instance._input.classList[0]).toEqual('ui-decimal__input');
       });
 
       it('sets value to the visible value', () => {
-        expect(instance.refs.visible.value).toEqual("1,000.00");
+        expect(instance._input.value).toEqual("1,000.00");
       });
     });
 
@@ -276,7 +276,7 @@ describe('Decimal', () => {
       it('tracks selection start and end', () => {
         instance.selectionStart = 99;
         instance.selectionEnd = 99;
-        TestUtils.Simulate.keyDown(instance.refs.visible);
+        TestUtils.Simulate.keyDown(instance._input);
         expect(instance.selectionStart).toEqual(0);
         expect(instance.selectionEnd).toEqual(0);
       });

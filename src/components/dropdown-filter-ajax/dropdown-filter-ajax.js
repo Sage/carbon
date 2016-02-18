@@ -173,7 +173,7 @@ class DropdownFilterAjax extends DropdownFilter {
       this.getData("", 1);
     }
 
-    this.refs.input.setSelectionRange(0, this.refs.input.value.length);
+    this._input.setSelectionRange(0, this._input.value.length);
   }
 
   /**
