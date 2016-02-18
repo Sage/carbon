@@ -177,3 +177,10 @@
   background-color: $error;
   color: $white;
 }
+
+.common-input__prefix {
+  font-weight: bold;
+  left: 7px;
+  position: absolute;
+  top: 8px;
+}

@@ -194,7 +194,7 @@ class Dropdown extends React.Component {
     // NOTE: this is an IE11 fix
     if (ev.target === this.refs.list) {
       setTimeout(() => {
-        this.refs.input.focus();
+        this._input.focus();
       }, 0);
     }
   }
@@ -341,7 +341,6 @@ class Dropdown extends React.Component {
     props.name = null;
     props.onBlur = this.handleBlur;
     props.onKeyDown = this.handleKeyDown;
-    props.ref = "input";
     props.readOnly = true;
 
     if (!this.props.readOnly && !this.props.disabled) {
