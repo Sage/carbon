@@ -3,8 +3,7 @@ import I18n from "i18n-js";
 import Validator from './regex';
 
 describe('Regex Validator', () => {
-
-  fdescribe('when value is undefined', () => {
+  describe('when value is undefined', () => {
     it('passes validation', () => {
       expect(Validator(/[a-z]/).validate(null)).toBeTruthy();
     });
