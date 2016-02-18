@@ -186,6 +186,12 @@ export default MyView
 
 * Decrease width of dropdown icon to 20px
 
+# 0.1.8
+
+## Bug Fixes
+
+* Backported dropdown validation fix.
+
 # 0.1.7
 
 ## Bug Fixes
