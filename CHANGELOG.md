@@ -1,5 +1,9 @@
 # 0.4.0
 
+## New Components
+
+* SplitButton.
+
 ## Prefix for inputs
 
 We have added a new feature for input components which allows developers to output a prefix to the input.
