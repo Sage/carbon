@@ -93,6 +93,7 @@ function validateLength(params) {
     validate: function(value) {
       return (!value || (value.length == params.is));
     },
+
     /**
      * This is the message returned when this validation fails.
      *
@@ -116,9 +117,19 @@ function validateLength(params) {
  */
 function validateLess(params) {
   return {
+    /**
+     * @method validate
+     * @param {Float} value to check
+     * @return {Boolean} true if value is valid
+     */
     validate: function(value) {
       return (!value || (value.length <= params.maxValue));
     },
+
+    /**
+     * @method message
+     * @return {String} the error message to display
+     */
     message: function() {
       return I18n.t(`validations.length_less_than_or_equal.${params.type}`, { max: params.maxValue });
     }
@@ -136,9 +147,19 @@ function validateLess(params) {
  */
 function validateGreater(params) {
   return {
+    /**
+     * @method validate
+     * @param {Float} value to check
+     * @return {Boolean} true if value is valid
+     */
     validate: function(value) {
       return (!value || (value.length >= params.minValue));
     },
+
+    /**
+     * @method message
+     * @return {String} the error message to display
+     */
     message: function() {
       return I18n.t(`validations.length_greater_than_or_equal.${params.type}`, { min: params.minValue });
     }
@@ -157,9 +178,19 @@ function validateGreater(params) {
  */
 function validateRange(params) {
   return {
+    /**
+     * @method validate
+     * @param {Float} value to check
+     * @return {Boolean} true if value is valid
+     */
     validate: function(value) {
       return (!value || (value.length >= params.minValue && value.length <= params.maxValue));
     },
+
+    /**
+     * @method message
+     * @return {String} the error message to display
+     */
     message: function() {
       return I18n.t(`validations.length_range.${params.type}`, { min: params.minValue, max: params.maxValue });
     }

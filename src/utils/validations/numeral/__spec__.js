@@ -24,7 +24,6 @@ describe('Decimal Validator', () => {
     });
 
     it('returns the correct message function', () => {
-      debugger
       expect(decimalValidator.message()).toEqual("Must be a valid decimal");
       expect(integerValidator.message()).toEqual("Must be a valid integer");
     });

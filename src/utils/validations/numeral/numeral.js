@@ -21,11 +21,10 @@ import { startCase } from 'lodash';
 const NumeralValidator = function(params) {
 
   // Build String to call correct function
-  let validationType = startCase(params.type);
-  let validationToCall = 'validate' + validationType;
+  let validationToCall = 'validate' + startCase(params.type);
 
 
-  let  NumeralFunctions = {
+  let NumeralFunctions = {
     'validateDecimal': validateDecimal(),
     'validateInteger': validateInteger()
   };
