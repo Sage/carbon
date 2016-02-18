@@ -34,12 +34,14 @@ describe('SplitButton', () => {
   });
 
   describe('render without custom className', () => {
-    let multiActionButton
+    let multiActionButton;
+
     beforeEach(() => {
       multiActionButton = TestUtils.renderIntoDocument(
-      <SplitButton text="mainButton" onClick={handleMainButton}>
-        <Button onClick={handleSecondButton}>Second Button</Button>
-      </SplitButton>)
+        <SplitButton text="mainButton" onClick={handleMainButton}>
+          <Button onClick={handleSecondButton}>Second Button</Button>
+        </SplitButton>
+      );
     });
 
     it('renders main button', () =>{
@@ -70,6 +72,17 @@ describe('SplitButton', () => {
       twoItemsSplitButton.forceUpdate();
       let block = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'ui-split-button__additional-buttons');
       expect(block).not.toBe(null);
+    });
+
+    it('when disabled it does not change the state', () => {
+      let multiActionButton = TestUtils.renderIntoDocument(
+        <SplitButton text="mainButton" disabled={ true }>
+          <Button>Second Button</Button>
+        </SplitButton>
+      );
+      let toggle = TestUtils.findRenderedDOMComponentWithClass(multiActionButton, 'ui-split-button__toggle');
+      TestUtils.Simulate.mouseEnter(toggle);
+      expect(twoItemsSplitButton.state.showAdditionalButtons).toEqual(false);
     });
   });
 

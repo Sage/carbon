@@ -122,13 +122,18 @@ class SplitButton extends React.Component {
    * @return {Object}
    */
   get toggleButtonProps() {
-    return {
+    let opts = {
       disabled: this.props.disabled,
       as: this.props.as,
-      onMouseEnter: this.showButtons,
       onClick: (ev) => { ev.preventDefault(); },
       className: "ui-split-button__toggle"
     };
+
+    if (!this.props.disabled) {
+      opts.onMouseEnter = this.showButtons;
+    }
+
+    return opts;
   }
 
   /**

@@ -21,13 +21,12 @@
   padding-right: 0;
   width: $input-common-height;
 
-  &:active {
-    background-color: $blue-bright;
-    border-color: $blue-bright;
-  }
-
   &.ui-button--primary {
     border-left: 1px solid $blue-light;
+
+    &.ui-button--disabled {
+      border-left-color: transparent;
+    }
   }
 
   .ui-split-button--open & {
@@ -35,6 +34,11 @@
     border-bottom-right-radius: 0;
     color: $white;
   }
+}
+
+.ui-split-button__toggle:not(.ui-button--disabled):active {
+  background-color: $blue-bright;
+  border-color: $blue-bright;
 }
 
 .ui-split-button__additional-buttons {
