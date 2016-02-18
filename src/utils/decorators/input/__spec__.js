@@ -150,7 +150,7 @@ describe('Input', () => {
           name: 'foo',
           readOnly: true
         }));
-        expect(instance.mainClasses).toEqual('testMain common-input--readonly common-input');
+        expect(instance.mainClasses).toEqual('testMain common-input common-input--readonly');
       });
     });
 
@@ -162,7 +162,7 @@ describe('Input', () => {
 
     describe('When the component does not include any main class names', () => {
       it('returns the decorated class names only', () => {
-        expect(instanceTwo.mainClasses).toEqual(' common-input');
+        expect(instanceTwo.mainClasses).toEqual('common-input');
       });
     });
 
@@ -182,7 +182,7 @@ describe('Input', () => {
           align: 'right',
           name: 'foo'
         }));
-        expect(instance.mainClasses).toEqual('testMain common-input--align-right common-input');
+        expect(instance.mainClasses).toEqual('testMain common-input common-input--align-right');
       });
     });
 
@@ -191,7 +191,7 @@ describe('Input', () => {
         instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
           prefix: 'foo'
         }));
-        expect(instance.mainClasses).toEqual('testMain common-input--with-prefix common-input');
+        expect(instance.mainClasses).toEqual('testMain common-input common-input--with-prefix');
       });
     });
   });

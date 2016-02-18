@@ -1,6 +1,7 @@
 import React from 'react';
 import { isEqual, assign } from 'lodash';
 import guid from './../../helpers/guid';
+import classNames from 'classnames';
 
 /**
  * Input decorator.
@@ -146,25 +147,13 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {String} Main class names
    */
   get mainClasses() {
-    let classes = super.mainClasses || "";
+    let classes = super.mainClasses;
 
-    if (this.props.readOnly) {
-      classes += ' common-input--readonly';
-    }
-
-    if (this.props.className) {
-      classes += ` ${this.props.className}`;
-    }
-
-    if (this.props.align) {
-      classes += ` common-input--align-${this.props.align}`;
-    }
-
-    if (this.props.prefix) {
-      classes += ' common-input--with-prefix';
-    }
-
-    return `${classes} common-input`;
+    return classNames(classes, this.props.className, 'common-input', {
+      'common-input--readonly': this.props.readOnly,
+      [`common-input--align-${this.props.align}`]: this.props.align,
+      'common-input--with-prefix': this.props.prefix
+    });
   }
 
   /**
