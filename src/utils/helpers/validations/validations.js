@@ -5,7 +5,7 @@ const ValidationsHelper = {
   /**
    * Return the correct validationMessage
    *
-   * @method validateMessage
+   * @method validationMessage
    * @param {String} Overriding validation message
    * @param {String} i18nString e.g. 'validations.presence'
    * @param {Object} i18nOptions e.g. { min: 2, max: 8 }
@@ -18,7 +18,7 @@ const ValidationsHelper = {
   /**
    * Return the comparison type depending on params
    *
-   * @method validate
+   * @method comparisonType
    * @param {Object} params
    * @return {String} function type to call
    */
@@ -32,7 +32,7 @@ const ValidationsHelper = {
     } else if (!params.is && params.min && params.max) {
       return 'Range';
     } else {
-      throw new Error("You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.");
+      throw new Error("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
     }
   }
 };

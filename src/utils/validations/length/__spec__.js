@@ -33,7 +33,7 @@ describe('Length Validator', () => {
     let brokenValidator;
 
     it('throws an error and returns a warning message', () => {
-      expect(function() {brokenValidator = Validator({ is: 5, min: 5 })}).toThrowError("You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.");
+      expect(function() {brokenValidator = Validator({ is: 5, min: 5 })}).toThrowError("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
     });
   });
 

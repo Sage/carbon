@@ -20,7 +20,7 @@ describe('Value Validator', () => {
     let brokenValidator;
 
     it('throws an error and returns a warning message', () => {
-      expect(function() {brokenValidator = Validator({ is: 5, min: 5 })}).toThrowError("You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.");
+      expect(function() {brokenValidator = Validator({ is: 5, min: 5 })}).toThrowError("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
     });
   });
 
@@ -43,6 +43,7 @@ describe('Value Validator', () => {
       describe('when value is correct', () => {
         it('returns true', () => {
           expect(valueValidator.validate(5)).toBeTruthy();
+          expect(valueValidator.validate('5')).toBeTruthy();
         });
       });
 
@@ -74,6 +75,7 @@ describe('Value Validator', () => {
       describe('when the value is less than the maximum', () => {
         it('returns true', () => {
           expect(lessThanValidator.validate(4)).toBeTruthy();
+          expect(lessThanValidator.validate('4')).toBeTruthy();
         });
       });
 
@@ -118,7 +120,7 @@ describe('Value Validator', () => {
   });
 
   describe('validateRange', () => {
-      let rangeValidator;
+    let rangeValidator;
 
     describe('when no input type is specified', () => {
       beforeEach(() => {

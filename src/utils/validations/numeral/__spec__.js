@@ -2,7 +2,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Validator from './numeral';
 import I18n from 'i18n-js';
 
-describe('Decimal Validator', () => {
+describe('Numeral Validator', () => {
 
   beforeEach(() => {
     I18n.translations = {
@@ -38,6 +38,7 @@ describe('Decimal Validator', () => {
     describe('when value is of the correct type', () => {
       it('returns true', () => {
         expect(decimalValidator.validate(123.12)).toBeTruthy();
+        expect(decimalValidator.validate('123.12')).toBeTruthy();
         expect(integerValidator.validate(123)).toBeTruthy();
       });
     });
