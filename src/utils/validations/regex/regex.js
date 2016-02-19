@@ -16,7 +16,7 @@ import ValidationsHelper from './../../helpers/validations';
  * @method RegexValidator
  * @param {Regex} format the regex to test against
  */
-var RegexValidator = function(params) {
+var RegexValidator = function(params = {}) {
 
   return {
     /**
@@ -37,7 +37,7 @@ var RegexValidator = function(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return ValidationsHelper.message(params.message, 'validations.regex');
+      return ValidationsHelper.validationMessage(params.message, 'validations.regex');
     }
   };
 };

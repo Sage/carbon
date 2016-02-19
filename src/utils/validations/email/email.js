@@ -21,7 +21,7 @@ import ValidationsHelper from './../../helpers/validations';
  *
  * @method EmailValidator
  */
-var EmailValidator = function() {
+var EmailValidator = function(params = {}) {
 
   return {
     /**
@@ -32,7 +32,7 @@ var EmailValidator = function() {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return RegexValidator(/(^$)|^([-a-z0-9+._]{1,64})@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i).validate(value);
+      return RegexValidator({ format: /(^$)|^([-a-z0-9+._]{1,64})@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }).validate(value);
     },
 
     /**
@@ -42,7 +42,7 @@ var EmailValidator = function() {
      * @return {String} the error message to display
      */
     message: function() {
-      return ValidationsHelper.message(params.message, 'validations.email');
+      return ValidationsHelper.validationMessage(params.message, 'validations.email');
     }
   };
 };
