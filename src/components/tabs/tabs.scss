@@ -3,7 +3,7 @@
 
 $ui-tabs__header__background-color: #F5F6F7 !default;
 $ui-tabs__header__border-color: $grey-dark-blue-20 !default;
-$ui-tabs__selected_header__border-color: $blue-bright !default;
+$ui-tabs__selected_header--selected_border-color: $blue-bright !default;
 $ui-tabs__header__color: $grey-dark !default;
 
 .ui-tabs {
@@ -33,15 +33,15 @@ $ui-tabs__header__color: $grey-dark !default;
   }
 
   &:hover {
-    background: $ui-tabs__selected_header__border-color;
-    border-bottom-color: $ui-tabs__selected_header__border-color;
+    background: $ui-tabs__selected_header--selected_border-color;
+    border-bottom-color: $ui-tabs__selected_header--selected_border-color;
     color: $white;
   }
 }
 
 .ui-tabs__headers__header--selected {
   background-color: $white;
-  border-bottom-color: $ui-tabs__selected_header__border-color !important;
+  border-bottom-color: $ui-tabs__selected_header--selected_border-color;
 
   &:hover {
     background: $white;
