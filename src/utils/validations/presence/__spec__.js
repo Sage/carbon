@@ -39,6 +39,12 @@ describe('Presence Validator', () => {
     it('returns the error message to display', () => {
       expect(Validator().message()).toEqual('This field is required.');
     });
+
+    describe('when passing a custom message', () => {
+      it('overrides the i18n message', () => {
+        expect(Validator({ message: 'Simple Message' }).message()).toEqual('Simple Message');
+      });
+    });
   });
 
   describe('asterisk', () => {
