@@ -11,7 +11,7 @@ const ValidationsHelper = {
    * @param {Object} i18nOptions e.g. { min: 2, max: 8 }
    * @return {String} message to display
    */
-  validationMessage: (message, i18nString, i18nOptions) => {
+  validationMessage: (message, i18nString, i18nOptions = {}) => {
     return message || I18n.t(i18nString, i18nOptions);
   },
 
