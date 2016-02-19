@@ -33,7 +33,7 @@ describe('Length Validator', () => {
     let brokenValidator;
 
     it('throws an error and returns a warning message', () => {
-      expect(function() {brokenValidator = Validator({ is: 5, minValue: 5 })}).toThrowError("You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.");
+      expect(function() {brokenValidator = Validator({ is: 5, min: 5 })}).toThrowError("You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.");
     });
   });
 
@@ -83,7 +83,7 @@ describe('Length Validator', () => {
     let lessThanValidator;
 
     beforeEach(() => {
-      lessThanValidator = Validator({ maxValue: 5 });
+      lessThanValidator = Validator({ max: 5 });
     });
 
     describe('when no input type is specified', () => {
@@ -112,7 +112,7 @@ describe('Length Validator', () => {
 
     describe('when a numeral input type is specified', () => {
       beforeEach(() => {
-        lessThanValidator = Validator({ maxValue: 10, type: 'numeral' });
+        lessThanValidator = Validator({ max: 10, type: 'numeral' });
       });
 
       it('returns the correct message function', () => {
@@ -126,7 +126,7 @@ describe('Length Validator', () => {
 
     describe('when no input type is specified', () => {
       beforeEach(() => {
-        greaterThanValidator = Validator({ minValue: 10 });
+        greaterThanValidator = Validator({ min: 10 });
       });
 
       it('returns the correct message function', () => {
@@ -154,7 +154,7 @@ describe('Length Validator', () => {
 
     describe('when a numeral input type is specified', () => {
       beforeEach(() => {
-        greaterThanValidator = Validator({ minValue: 5, type: 'numeral' });
+        greaterThanValidator = Validator({ min: 5, type: 'numeral' });
       });
 
       it('returns the correct message function', () => {
@@ -168,7 +168,7 @@ describe('Length Validator', () => {
 
     describe('when no input type is specified', () => {
       beforeEach(() => {
-         rangeValidator = Validator({ minValue: 5, maxValue: 10 });
+         rangeValidator = Validator({ min: 5, max: 10 });
       });
 
       it('returns the correct message function', () => {
@@ -198,7 +198,7 @@ describe('Length Validator', () => {
 
     describe('when a numeral input type is specified', () => {
       beforeEach(() => {
-        rangeValidator = Validator({ minValue: 5, type: 'numeral' });
+        rangeValidator = Validator({ min: 5, type: 'numeral' });
       });
 
       it('returns the correct message function', () => {

@@ -1,4 +1,4 @@
-import I18n from "i18n-js";
+import ValidationsHelper from './../../helpers/validations';
 
 /**
  * A Length Validator object.
@@ -16,19 +16,32 @@ import I18n from "i18n-js";
  *
  * To validate a number is a specific length, pass { type: 'numeral', is: 100} :
  *
- * To validate that a length not be lesser or greater than a value set a 'maxValue' or 'minValue'.
+ * To validate that a length not be lesser or greater than a value set a 'max' or 'min'.
  *
  *  e.g.
  *
- *  `<TextArea validations={ [LengthValidator({
- *                              minValue: 8 })] }/>`
+ *  `<TextArea validations={ [LengthValidator({ min: 8 })] }/>`
  *
  * would validate that a text field be at least 8 characters long.
  *
- * To validate a length is within a given range, set both a minValue and maxValue.
+ * To validate a length is within a given range, set both a min and max.
+ *
+ * Examples:
+ *
+ * // length is greater than or equal to 8:
+ * LengthValidator({ min: 8 });
+ *
+ * // length is less than or equal to 8:
+ * LengthValidator({ max: 8 });
+ *
+ * // length is between 5 and 10 characters:
+ * LengthValidator({ min: 5, max: 10 });
+ *
+ * // length is 10 characters:
+ * LengthValidator({ is: 10 });
  *
  * @method LengthValidator
- * @param {Object} params (is, minValue, maxValue, type(optional))
+ * @param {Object} params (is, min, max, type(optional))
  */
 const LengthValidator = function(params) {
   //defaults
@@ -38,10 +51,10 @@ const LengthValidator = function(params) {
   let validationToCall = 'validate' + getType(params);
 
   let LengthFunctions = {
-    'validateGreater': validateGreater(params),
-    'validateLength':  validateLength(params),
-    'validateLess':    validateLess(params),
-    'validateRange':   validateRange(params)
+    validateGreater: validateGreater(params),
+    validateExact:   validateLength(params),
+    validateLess:    validateLess(params),
+    validateRange:   validateRange(params)
   };
 
   return LengthFunctions[validationToCall];
@@ -60,17 +73,7 @@ export default LengthValidator;
  * @private
  */
 function getType(params) {
-  if (params.is && !params.maxValue && !params.minValue) {
-    return 'Length';
-  } else if (!params.is && params.maxValue && !params.minValue) {
-    return 'Less';
-  } else if (!params.is && params.minValue && !params.maxValue) {
-    return 'Greater';
-  } else if (!params.is && params.minValue && params.maxValue) {
-    return 'Range';
-  } else {
-    throw new Error("You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.");
-  }
+  return ValidationsHelper.comparisonType(params);
 }
 
 /**
@@ -101,7 +104,11 @@ function validateLength(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t(`validations.length.${params.type}`, { is: params.is });
+      return ValidationsHelper.validationMessage(
+        params.message,
+        `validations.length.${params.type}`,
+        { is: params.is }
+      );
     }
   };
 }
@@ -110,7 +117,7 @@ function validateLength(params) {
  * This will validate whether the value is less than or equal to a maximum value.
  *
  * @method validateLess
- * @param {Object} value to check, maxValue
+ * @param {Object} value to check, max
  * @return {Function} validateLess
  * @return {Function} message
  * @private
@@ -123,7 +130,7 @@ function validateLess(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (value.length <= params.maxValue));
+      return (!value || (value.length <= params.max));
     },
 
     /**
@@ -131,7 +138,11 @@ function validateLess(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t(`validations.length_less_than_or_equal.${params.type}`, { max: params.maxValue });
+      return ValidationsHelper.validationMessage(
+        params.message,
+        `validations.length_less_than_or_equal.${params.type}`,
+        { max: params.max }
+      );
     }
   };
 }
@@ -140,7 +151,7 @@ function validateLess(params) {
  * This will validate whether the value is greater than or equal to a minimum value.
  *
  * @method validateGreater
- * @param {Object} value to check, minValue
+ * @param {Object} value to check, min
  * @return {Function} validateGreater
  * @return {Function} message
  * @private
@@ -153,7 +164,7 @@ function validateGreater(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (value.length >= params.minValue));
+      return (!value || (value.length >= params.min));
     },
 
     /**
@@ -161,17 +172,21 @@ function validateGreater(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t(`validations.length_greater_than_or_equal.${params.type}`, { min: params.minValue });
+      return ValidationsHelper.validationMessage(
+        params.message,
+        `validations.length_greater_than_or_equal.${params.type}`,
+        { min: params.min }
+      );
     }
   };
 }
 
 /**
  * This will validate whether the value is between a given range,
- * inclusive of the minValue and maxValue.
+ * inclusive of the min and max.
  *
  * @method validateRange
- * @param {Object} value to check, minValue, maxValue
+ * @param {Object} value to check, min, max
  * @return {Function} validateRange
  * @return {Function} message
  * @private
@@ -184,7 +199,7 @@ function validateRange(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (value.length >= params.minValue && value.length <= params.maxValue));
+      return (!value || (value.length >= params.min && value.length <= params.max));
     },
 
     /**
@@ -192,7 +207,11 @@ function validateRange(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t(`validations.length_range.${params.type}`, { min: params.minValue, max: params.maxValue });
+      return ValidationsHelper.validationMessage(
+        params.message,
+        `validations.length_range.${params.type}`,
+        { min: params.min, max: params.max }
+      );
     }
   };
 }

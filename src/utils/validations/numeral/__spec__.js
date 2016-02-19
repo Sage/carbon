@@ -19,7 +19,7 @@ describe('Decimal Validator', () => {
     let decimalValidator, integerValidator;
 
     beforeEach(() => {
-      decimalValidator = Validator({ type: 'decimal' });
+      decimalValidator = Validator();
       integerValidator = Validator({ type: 'integer' });
     });
 

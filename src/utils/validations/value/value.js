@@ -1,3 +1,4 @@
+import ValidationsHelper from './../../helpers/validations';
 import I18n from "i18n-js";
 
 /**
@@ -13,30 +14,43 @@ import I18n from "i18n-js";
  *
  * To validate a number is a specific value, pass { type: 'numeral', is: 100} :
  *
- * To validate that a value not be lesser or greater than a given value set a 'maxValue' or
- * 'minValue'.
+ * To validate that a value not be lesser or greater than a given value set a 'max' or
+ * 'min'.
  *
  *  e.g.
  *
- *  `<Number validations={ [ValueValidator({
- *                              minValue: 8 })] }/>`
+ *  `<Number validations={ [ValueValidator({ min: 8 })] }/>`
  *
  * would validate that a number value be at least 8.
  *
- * To validate that a value is within a given range, set both a minValue and maxValue.
+ * To validate that a value is within a given range, set both a min and max.
+ *
+ * Examples:
+ *
+ * // value is greater than or equal to 8:
+ * ValueValidator({ min: 8 });
+ *
+ * // value is less than or equal to 8:
+ * ValueValidator({ max: 8 });
+ *
+ * // value is between 5 and 10:
+ * ValueValidator({ min: 5, max: 10 });
+ *
+ * // value is 10:
+ * ValueValidator({ is: 10 });
  *
  * @method ValueValidator
- * @param {Object} params (is, minValue, maxValue)
+ * @param {Object} params (is, min, max)
  */
 const ValueValidator = function(params) {
   // Build string to call correct function
   let validationToCall = 'validate' + getType(params);
 
   let ValueFunctions = {
-    'validateGreater': validateGreater(params),
-    'validateValue':   validateValue(params),
-    'validateLess':    validateLess(params),
-    'validateRange':   validateRange(params)
+    validateGreater: validateGreater(params),
+    validateExact:   validateValue(params),
+    validateLess:    validateLess(params),
+    validateRange:   validateRange(params)
   };
 
   return ValueFunctions[validationToCall];
@@ -55,21 +69,11 @@ export default ValueValidator;
  * @private
  */
 function getType(params) {
-  if (params.is && !params.maxValue && !params.minValue) {
-    return 'Value';
-  } else if (!params.is && params.maxValue && !params.minValue) {
-    return 'Less';
-  } else if (!params.is && params.minValue && !params.maxValue) {
-    return 'Greater';
-  } else if (!params.is && params.minValue && params.maxValue) {
-    return 'Range';
-  } else {
-    throw new Error("You must either set an 'is' value, a single minimum and maximum value, or both a minimum and maximum value.");
-  }
+  return ValidationsHelper.comparisonType(params);
 }
 
 /**
- * This will validate whether the value matches the specified Value.
+ * This will validate whether the value matches exactly the specified Value.
  *
  * @method validateValue
  * @return {Function} validate
@@ -95,7 +99,7 @@ function validateValue(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t("validations.value", { is: params.is });
+      return params.message || I18n.t("validations.value", { is: params.is });
     }
   };
 }
@@ -104,7 +108,7 @@ function validateValue(params) {
  * This will validate whether the value is less than or equal to a maximum value.
  *
  * @method validateLess
- * @param {Object} value to check, maxValue
+ * @param {Object} value to check, max
  * @return {Function} validateLess
  * @return {Function} message
  * @private
@@ -117,7 +121,7 @@ function validateLess(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (value <= params.maxValue));
+      return (!value || (value <= params.max));
     },
 
     /**
@@ -125,7 +129,7 @@ function validateLess(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t("validations.value_less_than_or_equal", { max: params.maxValue });
+      return params.message || I18n.t("validations.value_less_than_or_equal", { max: params.max });
     }
   };
 }
@@ -135,7 +139,7 @@ function validateLess(params) {
  * This will validate whether the value is greater than or equal to a minimum value.
  *
  * @method validateGreater
- * @param {Object} value to check, minValue
+ * @param {Object} value to check, min
  * @return {Function} validateGreater
  * @return {Function} message
  * @private
@@ -148,7 +152,7 @@ function validateGreater(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (value >= params.minValue));
+      return (!value || (value >= params.min));
     },
 
     /**
@@ -156,17 +160,17 @@ function validateGreater(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t("validations.value_greater_than_or_equal", { min: params.minValue });
+      return params.message || I18n.t("validations.value_greater_than_or_equal", { min: params.min });
     }
   };
 }
 
 /**
  * This will validate whether the value is between a given range,
- * inclusive of the minValue and maxValue.
+ * inclusive of the min and max.
  *
  * @method validateRange
- * @param {Object} value to check, minValue, maxValue
+ * @param {Object} value to check, min, max
  * @return {Function} validateRange
  * @return {Function} message
  * @private
@@ -179,7 +183,7 @@ function validateRange(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (value >= params.minValue && value <= params.maxValue));
+      return (!value || (value >= params.min && value <= params.max));
     },
 
     /**
@@ -187,7 +191,7 @@ function validateRange(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t("validations.value_range", { min: params.minValue, max: params.maxValue });
+      return params.message || I18n.t("validations.value_range", { min: params.min, max: params.max });
     }
   };
 }

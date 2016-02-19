@@ -1,4 +1,4 @@
-import I18n from "i18n-js";
+import ValidationsHelper from './../../helpers/validations';
 import { startCase } from 'lodash';
 
 /**
@@ -10,23 +10,26 @@ import { startCase } from 'lodash';
  *
  *  `import NumeralValidator from 'utils/validations/numeral'`
  *
- * Assign the validator to the validations prop, passing the required params.:
+ * Assign the validator to the validations prop. The numeral validator
+ * takes a type param which is defaulted to 'decimal'
  *
- *  `<Decimal validations={ [NumeralValidator({ type: 'decimal' })] }/>`
+ *  `<Decimal validations={ [NumeralValidator() ] }/>`
  *  `<Number validations={ [NumeralValidator({ type: 'integer' })] }/>`
  *
  * @method NumeralValidator
  * @param {Object} params (type)
  */
-const NumeralValidator = function(params) {
+const NumeralValidator = function(params = {}) {
+
+  // Default numeral type to decimal
+  let numeralType = params.type ? startCase(params.type) : 'Decimal';
 
   // Build String to call correct function
-  let validationToCall = 'validate' + startCase(params.type);
-
+  let validationToCall = 'validate' + numeralType;
 
   let NumeralFunctions = {
-    'validateDecimal': validateDecimal(),
-    'validateInteger': validateInteger()
+    validateDecimal: validateDecimal(params),
+    validateInteger: validateInteger(params)
   };
 
   return NumeralFunctions[validationToCall];
@@ -44,7 +47,7 @@ export default NumeralValidator;
  * @return {Function} message
  * @private
  */
-function validateDecimal() {
+function validateDecimal(params) {
   return {
     /**
      * This will validate the given value, and return a valid status.
@@ -64,7 +67,7 @@ function validateDecimal() {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t("validations.decimal");
+      return ValidationsHelper.validationMessage(params.message, "validations.decimal");
     }
   };
 }
@@ -77,7 +80,7 @@ function validateDecimal() {
  * @return {Function} message
  * @private
  */
-function validateInteger() {
+function validateInteger(params) {
   return {
     /**
      * This will validate the given value, and return a valid status.
@@ -97,7 +100,7 @@ function validateInteger() {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t("validations.integer");
+      return ValidationsHelper.validationMessage(params.message, "validations.integer");
     }
   };
 }
