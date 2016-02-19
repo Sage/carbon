@@ -215,7 +215,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
           }
 
           // tell the input it is invalid
-          this.setState({ errorMessage: validation.message(this.props), valid: false });
+          this.setState({ errorMessage: validation.message(value, this.props), valid: false });
         }
 
         // a validation has failed, so exit the loop at this point
