@@ -1,10 +1,13 @@
+import ValidationsHelper from './../../helpers/validations';
+import I18n from "i18n-js";
+
 /**
  * This will validate an input for presence.
  *
  * @object PresenceValidator
  * @return {Object} Validator object
  */
-let PresenceValidator = function() {
+let PresenceValidator = function(params = {}) {
   return {
     /**
      * This will validate the given value, and return a valid status.
@@ -40,7 +43,7 @@ let PresenceValidator = function() {
      * @return {String} the error message to display
      */
     message: function() {
-      return "This field is required.";
+      return ValidationsHelper.validationMessage(params.message, 'validations.presence');
     },
 
     /**

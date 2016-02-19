@@ -1,7 +1,18 @@
 import ImmutableHelper from './../../helpers/immutable';
+import I18n from 'i18n-js';
 import Validator from './presence';
 
 describe('Presence Validator', () => {
+  beforeEach(() => {
+    I18n.translations = {
+      en: {
+        validations: {
+          presence: "This field is required."
+        }
+      }
+    };
+  });
+
   describe('Immutable data', () => {
     it('returns true when an id is present', () => {
       let data = ImmutableHelper.parseJSON({ id: 1, value: 'foo' });
