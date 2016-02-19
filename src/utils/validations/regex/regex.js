@@ -1,4 +1,4 @@
-import I18n from "i18n-js";
+import ValidationsHelper from './../../helpers/validations';
 
 /**
  * A Regex Validator
@@ -11,12 +11,13 @@ import I18n from "i18n-js";
  *
  * Assign this validator to the validations prop
  *
- * <Textbox validations={ [RegexValidator(/[A-Z]{5}/)] }/>
+ * <Textbox validations={ [RegexValidator({ format: (/[A-Z]{5}/) }) ] }/>
  *
  * @method RegexValidator
  * @param {Regex} format the regex to test against
  */
-var RegexValidator = function(format) {
+var RegexValidator = function(params) {
+
   return {
     /**
      * This will validate the given value, and return a valid status.
@@ -26,7 +27,7 @@ var RegexValidator = function(format) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || format.test(value));
+      return (!value || params.format.test(value));
     },
 
     /**
@@ -36,7 +37,7 @@ var RegexValidator = function(format) {
      * @return {String} the error message to display
      */
     message: function() {
-      return I18n.t("validations.regex");
+      return ValidationsHelper.message(params.message, 'validations.regex');
     }
   };
 };
