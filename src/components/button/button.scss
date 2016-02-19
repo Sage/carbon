@@ -66,7 +66,7 @@ $ui-button__color--disabled: #A4A6AA !default;
     background-color: $ui-button__background-color--primary--hover;
   }
 
-  &:active {
+  &:not(.ui-button--disabled):active {
     background-color: $ui-button__background-color--primary--active;
     border-color: $ui-button__border-color--primary--active;
     color: $ui-button__text-color--primary--active;
@@ -85,7 +85,8 @@ $ui-button__color--disabled: #A4A6AA !default;
     color: $ui-button__text-color--secondary--hover;
   }
 
-  &:active {
+  &:not(.ui-button--disabled):active {
+    background-color: $ui-button__background-color--primary--active;
     background-color: $ui-button__background-color--secondary--active;
     border-color: $ui-button__border-color--secondary--active;
     color: $ui-button__text-color--secondary--active;

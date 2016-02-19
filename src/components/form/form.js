@@ -118,7 +118,8 @@ class Form extends React.Component {
         attachToForm: this.attachToForm,
         detachFromForm: this.detachFromForm,
         incrementErrorCount: this.incrementErrorCount,
-        decrementErrorCount: this.decrementErrorCount
+        decrementErrorCount: this.decrementErrorCount,
+        inputs: this.inputs
       }
     };
   }

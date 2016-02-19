@@ -87,7 +87,7 @@ class Date extends React.Component {
    * @return {void}
    */
   componentWillReceiveProps(props) {
-    if (this._document.activeElement != this.refs.visible) {
+    if (this._document.activeElement != this._input) {
       let value = props.value || props.defaultValue;
       let date = formatVisibleValue(value, this);
 
@@ -270,7 +270,6 @@ class Date extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.ref = "visible";
     props.onChange = this.handleVisibleInputChange;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;

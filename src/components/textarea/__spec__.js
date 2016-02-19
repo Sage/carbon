@@ -42,7 +42,7 @@ describe('Textarea', () => {
 
       it('sets the minHeight to the rendered client height', () => {
         expect(expandableInstance.minHeight).toEqual(
-          expandableInstance.refs.textarea.clientHeight
+          expandableInstance._input.clientHeight
         );
       });
 
@@ -93,7 +93,7 @@ describe('Textarea', () => {
       });
       it('should call to resize the textarea', () => {
         expandableInstance.valLength = 2000;
-        expandableInstance.componentDidUpdate();
+        expandableInstance.componentDidUpdate({});
         expect(expandableInstance.expandTextarea).toHaveBeenCalled();
       });
     });
@@ -102,7 +102,7 @@ describe('Textarea', () => {
       beforeEach(() => {
         spyOn(baseInstance, 'expandTextarea');
         baseInstance.valLength = 2000;
-        baseInstance.componentDidUpdate();
+        baseInstance.componentDidUpdate({});
       });
 
       it('does not resize the textarea', () => {
@@ -114,26 +114,26 @@ describe('Textarea', () => {
   describe('expandTextarea', () => {
     describe('when scrollHeight is greater than the min height', () => {
       it('sets the textareas height to fit the content', () => {
-        expandableInstance.refs.textarea = {
+        expandableInstance._input = {
           scrollHeight: 100,
           value: 'foo',
           style: { height: 0 }
         }
         expandableInstance.expandTextarea();
-        expect(expandableInstance.refs.textarea.style.height).toEqual('100px');
+        expect(expandableInstance._input.style.height).toEqual('100px');
       });
     });
 
     describe('when the scrollHeight is less than the minHeight', () => {
       it('does not update the textarea', () => {
-        expandableInstance.refs.textarea = {
+        expandableInstance._input = {
           scrollHeight: 5,
           value: 'foo',
           style: { height: 0 }
         }
         expandableInstance.minHeight = 20;
         expandableInstance.expandTextarea();
-        expect(expandableInstance.refs.textarea.style.height).toEqual(0);
+        expect(expandableInstance._input.style.height).toEqual(0);
       });
     });
   });

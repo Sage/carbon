@@ -56,7 +56,7 @@ class Textarea extends React.Component {
       // Set the min height to the initially rendered height.
       // Without minHeight expandable textareas will only have
       // one line when no content is present.
-      this.minHeight = this.refs.textarea.clientHeight;
+      this.minHeight = this._input.clientHeight;
 
       this.expandTextarea();
     }
@@ -97,7 +97,7 @@ class Textarea extends React.Component {
    * @return {void}
    */
   expandTextarea = () => {
-    let textarea = this.refs.textarea;
+    let textarea = this._input;
 
     if (textarea.scrollHeight > this.minHeight) {
       // Reset height to zero - IE specific
@@ -137,7 +137,6 @@ class Textarea extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.ref = 'textarea';
     props.rows = this.props.rows;
     props.cols = this.props.cols;
     return props;

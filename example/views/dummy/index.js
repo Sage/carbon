@@ -3,10 +3,11 @@ import { connect } from 'utils/flux';
 import Form from 'components/form';
 import Button from 'components/button';
 import QuickCreate from './subviews/quick-create';
-import Link from   'components/link';
+import Link from 'components/link';
 import Pill from 'components/pill';
-import Banner from   'components/banner';
-import Toast from   'components/toast';
+import Banner from 'components/banner';
+import Toast from 'components/toast';
+import SplitButton from 'components/split-button';
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
@@ -40,6 +41,18 @@ class Finances extends React.Component {
     FinancesActions.financesFlashOpened();
   }
 
+  splitMainButton = (ev) => {
+    console.log('main')
+  }
+
+  splitFirstButton = (ev) => {
+    console.log('first')
+  }
+
+  splitSecondButton = (ev) => {
+    console.log('second')
+  }
+
   render() {
     let name = this.state.financesStore.get('name');
     let financesStore = this.state.financesStore;
@@ -56,6 +69,11 @@ class Finances extends React.Component {
           <Pill as='warning'>Warning Pill</Pill>
           <Pill as='info'>Info Pill</Pill>
           <Pill as='new'>New Pill</Pill>
+
+          <SplitButton text="Split" onClick={ this.splitMainButton }>
+            <Button onClick={ this.splitFirstButton }>Foo</Button>
+            <Button onClick={ this.splitSecondButton }>Bar</Button>
+          </SplitButton>
 
           <QuickCreate />
 

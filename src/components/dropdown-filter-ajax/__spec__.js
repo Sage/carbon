@@ -119,9 +119,9 @@ describe('DropdownFilterAjax', () => {
     });
 
     it('calls setSelectionRange', () => {
-      spyOn(instance.refs.input, 'setSelectionRange');
+      spyOn(instance._input, 'setSelectionRange');
       instance.handleFocus();
-      expect(instance.refs.input.setSelectionRange).toHaveBeenCalledWith(0, instance.refs.input.value.length);
+      expect(instance._input.setSelectionRange).toHaveBeenCalledWith(0, instance._input.value.length);
     });
   });
 
