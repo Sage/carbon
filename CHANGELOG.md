@@ -45,6 +45,7 @@ Carbon now has a simple handler pattern implementation. For more information, se
 * Length Validation (Checks length of numeral or string)
 * Value Validation (Checks value of numeral)
 * Regex Validation
+* Email Validation
 
 ## Standardised Color/Icon Sets on Components
 
