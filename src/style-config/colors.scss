@@ -70,7 +70,7 @@ $new-hover:                  darken($purple, 20%) !default;
 $success:                    $green-apple !default;
 $success-text-background:    $green-apple-05 !default;
 $success-border:             $green-apple-20 !default;
-$success-hover:              $new-hover !default;
+$success-hover:              darken($green-apple, 20%) !default;
 
 $help:                       $yellow !default;
 $help-text-background:       $yellow-05 !default;
