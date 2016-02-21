@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+}
+
+.ui-demo__header {
+  background-color: #000;
+  color: #FFF;
+}
+
+.ui-demo__header-contents,
+.ui-demo__content {
+  margin: 0 auto;
+  width: 1000px;
+}
+
+.ui-demo__header-contents {
+  a {
+    color: #FFF;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+}
