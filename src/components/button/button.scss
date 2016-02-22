@@ -49,6 +49,7 @@ $ui-button__color--disabled: #A4A6AA !default;
   font-weight: $ui-button__font-weight;
   padding: $ui-button__padding;
   outline: none;
+  text-decoration: none;
 
   &:focus {
     @include transition(box-shadow linear 0.1s)
