@@ -55,11 +55,55 @@ Carbon now has a simple handler pattern implementation. For more information, se
 
 ## New Validations
 
-* Numeral Validation (Checks Number or Decimal Type)
-* Length Validation (Checks length of numeral or string)
-* Value Validation (Checks value of numeral)
-* Regex Validation
-* Email Validation
+### Numeral Validation
+
+Checks numeral type (Integer of Decimal)
+Checks if value is equal, greater than, less than
+
+```javascript
+// Integer with a min value of 8
+<Number validations={ [NumeralValidator({ integer: true, min: 8 })] }/>
+
+// Decimal with a between 8 and 20
+<Number validations={ [NumeralValidator({ integer: true, min: 8, max: 20 })] }/>
+
+// Decimal exactly 3.142
+<Number validations={ [NumeralValidator({ is: 3.142 })] }/>
+```
+
+### Length Validation
+
+Checks the length of a number of a string
+
+```javascript
+// length is greater than or equal to 8:
+<Textbox validations={ [ LengthValidator({ min: 8 }) ] });
+
+// length is less than or equal to 8:
+<Textbox validations={ [ LengthValidator({ max: 8 }) ] });
+
+// length is between 5 and 10 characters:
+<Number validations={ [ LengthValidator({ min: 5, max: 10 }) ] });
+
+// length is 10 characters:
+<Number validations={ [ LengthValidator({ is: 10 }) ] });
+```
+
+### Regex Validation
+
+Applies a regex validation to the input
+
+```javascript
+<Textbox validations={ [RegexValidator({ format: (/[A-Z]{5}/) }) ] }/>
+```
+
+### Email Validation
+
+Applies a email validation to the input
+
+```javascript
+<Textbox validations={ [ EmailValidator({ message: 'foo' }) ] }/>
+```
 
 ## Standardised Color/Icon Sets on Components
 
