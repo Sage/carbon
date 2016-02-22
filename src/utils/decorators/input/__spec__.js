@@ -241,11 +241,11 @@ describe('Input', () => {
   });
 
   describe('setTextIdentation', () => {
-    it('sets the textIndent to the width + 3 px', () => {
+    it('sets the paddingLeft to the width + 3 px', () => {
       instance._input = { style: {} };
       instance._prefix = { offsetWidth: 20 };
       instance.setTextIndentation()
-      expect(instance._input.style.textIndent).toEqual("23px");
+      expect(instance._input.style.paddingLeft).toEqual("31px");
     });
   });
 
