@@ -102,7 +102,7 @@ Applies a regex validation to the input
 Applies a email validation to the input
 
 ```javascript
-<Textbox validations={ [ EmailValidator({ message: 'foo' }) ] }/>
+<Textbox validations={ [ EmailValidator() ] }/>
 ```
 
 ## Standardised Color/Icon Sets on Components
