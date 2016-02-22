@@ -1,4 +1,4 @@
 {
-  "main": "./numeral.js",
-  "name": "NumeralValidator"
+  "name": "numeral",
+  "main": "./numeral.js"
 }
