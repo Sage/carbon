@@ -22,6 +22,10 @@ We have added a new feature for input components which allows developers to outp
 
 * Button component will now render a stylised `anchor` instead of a `button` if passed a `href` prop.
 
+## Bug Fixes
+
+* Add i18n to form buttons
+
 # 0.3.3
 
 * Performance updates to inputs. We also now provide a `shouldComponentUpdate` method which can be reused in custom components.
