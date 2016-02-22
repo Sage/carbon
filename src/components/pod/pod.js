@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from 'components/icon';
+import Icon from './../icon';
 
 /**
  * A Pod widget.
