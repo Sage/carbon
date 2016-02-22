@@ -12,6 +12,16 @@ We have added a new feature for input components which allows developers to outp
 <Textbox prefix="foo" />
 ```
 
+## Updated visuals for Toast Notifications and Tabs
+
+* Toast notifications have had updated styling applied to them, based on new designs.
+* Colour updates to Tabs, to align with design updates
+* New colour variables added
+
+## Misc
+
+* Button component will now render a stylised `anchor` instead of a `button` if passed a `href` prop.
+
 # 0.3.3
 
 * Performance updates to inputs. We also now provide a `shouldComponentUpdate` method which can be reused in custom components.

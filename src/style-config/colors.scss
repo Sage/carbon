@@ -19,49 +19,63 @@ $grey-background:            $grey-light !default;
 $green:                      #007F64 !default;
 $green-mid:                  #42AE42 !default;
 $green-bright:               #00DC00 !default;
+$green-apple:                #42AE42 !default;
+$green-apple-05:             #F5FBF5 !default;
+$green-apple-20:             #D9EFD9 !default;
 $orange:                     #FF5400 !default;
-$orange-mid:                 #FFAB00 !default;
 $orange-bright:              #FF5800 !default;
+$orange-bright-05:           #FFF6F2 !default;
+$orange-bright-20:           #FFDDCC !default;
 $blue:                       #255BC7 !default;
 $blue-dark:                  #193E90 !default;
 $blue-bright:                #1963F6 !default;
 $blue-navy:                  #3592FF !default;
+$blue-sky:                   #3592FF !default;
+$blue-sky-05:                #F5F9FF !default;
+$blue-sky-20:                #D7E9FF !default;
 $blue-light:                 #4782F7 !default;
 $red:                        #D63F40 !default;
+$red-05:                     #FDF5F5 !default;
+$red-20:                     #F7D9D9 !default;
 $yellow:                     #FFAB00 !default;
+$yellow-05:                  #FFFBF2 !default;
+$yellow-20:                  #FFEECC !default;
 $magenta:                    #ED1C5F !default;
 $magenta-dull:               #CA2A60 !default;
+$purple:                     rebeccapurple !default;
+$purple-05:                  #F7F5FA !default;
+$purple-20:                  #E0D6EB !default;
 
 // Main colours
-$warning:                    $orange !default;
-$warning-text-background:    #FFF6F2 !default;
-$warning-border:             #FFDDCC !default;
-$warning-hover:              #903102 !default;
+$warning:                    $orange-bright !default;
+$warning-text-background:    $orange-bright-05 !default;
+$warning-border:             $orange-bright-20 !default;
+$warning-hover:              darken($orange-bright, 20%) !default;
 
 $error:                      $red    !default;
-$error-text-background:      #FDF5F5 !default;
-$error-border:               #F7D9D9 !default;
-$error-hover:                #822223 !default;
+$error-text-background:      $red-05 !default;
+$error-border:               $red-20 !default;
+$error-hover:                darken($red, 20%) !default;
 
-$info:                       $blue-navy !default;
-$info-text-background:       #F5F9FF !default;
-$info-border:                #D7E9FF !default;
-$info-hover:                 #0B478E !default;
+$info:                       $blue-sky !default;
+$info-text-background:       $blue-sky-05 !default;
+$info-border:                $blue-sky-20 !default;
+$info-hover:                 darken($blue-sky, 20%) !default;;
 
-$new:                        $green-mid !default;
-$new-text-background:        #F5FBF5 !default;
-$new-border:                 #D9EFD9 !default;
-$new-hover:                  #216521 !default;
+$new:                        $purple !default;
+$new-text-background:        $purple-05 !default;
+$new-border:                 $purple-20 !default;
+$new-hover:                  darken($purple, 20%) !default;
 
-$success:                    $new !default;
-$success-text-background:    $new-text-background !default;
-$success-border:             $new-border !default;
-$success-hover:              $new-hover !default;
+$success:                    $green-apple !default;
+$success-text-background:    $green-apple-05 !default;
+$success-border:             $green-apple-20 !default;
+$success-hover:              darken($green-apple, 20%) !default;
 
 $help:                       $yellow !default;
-$help-text-background:       #FFFBF2 !default;
-$help-border:                #FFEECC !default;
-$help-hover:                 #AB7403 !default;
+$help-text-background:       $yellow-05 !default;
+$help-border:                $yellow-20 !default;
+$help-hover:                 darken($yellow, 20%) !default;
 
 /**
  * Color and Icon sets used for components with themes.
