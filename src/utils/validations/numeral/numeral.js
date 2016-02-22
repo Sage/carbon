@@ -260,7 +260,7 @@ function validateType(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return !value || typeCheck(params, value)
+      return !value || typeCheck(params, value);
     },
 
     /**
