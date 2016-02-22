@@ -1,4 +1,5 @@
 import TestUtils from 'react/lib/ReactTestUtils';
+import ValidationsHelper from './../../helpers/validations';
 import Validator from './length';
 import I18n from 'i18n-js';
 
@@ -29,11 +30,14 @@ describe('Length Validator', () => {
     };
   });
 
-  describe('when incorrect params have been passed', () => {
-    let brokenValidator;
+  describe('getType', () => {
+    describe('when type is undefined', () => {
+      it('throws an error and returns a warning message', () => {
+        spyOn(ValidationsHelper, 'comparisonType').and.returnValue(null);
 
-    it('throws an error and returns a warning message', () => {
-      expect(function() {brokenValidator = Validator({ is: 5, min: 5 })}).toThrowError("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
+        expect(function() { Validator().getType() })
+          .toThrowError("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
+      });
     });
   });
 

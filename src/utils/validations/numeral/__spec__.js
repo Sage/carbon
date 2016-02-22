@@ -17,14 +17,6 @@ describe('Numeral Validator', () => {
       }
     };
   });
-
-  describe('when incorrect params have been passed', () => {
-    let brokenValidator;
-
-    it('throws an error and returns a warning message', () => {
-      expect(function() {brokenValidator = Validator({ is: 5, min: 5 })}).toThrowError("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
-    });
-  });
   
   describe('getDescriptiveMessage', () => {
     describe('when passed a message', () => {
@@ -49,7 +41,7 @@ describe('Numeral Validator', () => {
     });
   });
 
-  describe('validateValue', () => {
+  describe('validateNumeral', () => {
     let numeralValidator;
 
     beforeEach(() => {
@@ -177,6 +169,49 @@ describe('Numeral Validator', () => {
           expect(rangeValidator.validate(7)).toBeTruthy();
           expect(rangeValidator.validate(10.00)).toBeTruthy();
           expect(rangeValidator.validate('10.00')).toBeTruthy();
+        });
+      });
+    });
+  });
+
+  describe('validateType', () => {
+    let typeValidator;
+
+    describe('when value is present', () => {
+      describe('value is of correct type', () => {
+        it('returns true', () => {
+          typeValidator = Validator({});
+          expect(typeValidator.validate(1)).toBeTruthy();
+        });
+      });
+
+      describe('value is incorrect type', () => {
+        it('returns false', () => {
+          typeValidator = Validator({ integer: true });
+          expect(typeValidator.validate(1.0)).toBeTruthy();
+        });
+      });
+    });
+
+    describe('when value is not present', () => {
+      it('returns true', () => {
+        typeValidator = Validator({ integer: true });
+        expect(typeValidator.validate()).toBeTruthy();
+      });
+    });
+
+    describe('message', () => {
+      describe('when expecting an integer', () => {
+        it('returns the integer message', () => {
+          typeValidator = Validator({ integer: true });
+          expect(typeValidator.message()).toEqual('Must be a valid Integer');
+        });
+      });
+
+      describe('when expecting an decimal', () => {
+        it('returns the decimal message', () => {
+          typeValidator = Validator({});
+          expect(typeValidator.message()).toEqual('Must be a valid Decimal');
         });
       });
     });

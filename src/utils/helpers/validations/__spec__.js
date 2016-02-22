@@ -61,7 +61,7 @@ describe('Validations Helper', () => {
 
     describe('when params is empty', () => {
       it('throws an error', () => {
-        expect(function() {Helper.comparisonType({})}).toThrow();
+        expect(Helper.comparisonType({})).toBeNull();
       });
     });
   });

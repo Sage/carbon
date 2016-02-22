@@ -47,13 +47,7 @@ const LengthValidator = function(params = {}) {
   //defaults
   params.type = params.type || 'text';
 
-  // Build string to call correct function
-  let type = getType(params);
-  if (!type) {
-    throw new Error("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
-  }
-
-  let validationToCall = 'validate' + type;
+  let validationToCall = 'validate' + getType(params);
 
   let LengthFunctions = {
     validateGreater: validateGreater(params),
@@ -78,7 +72,11 @@ export default LengthValidator;
  * @private
  */
 function getType(params) {
-  return ValidationsHelper.comparisonType(params);
+  let type = ValidationsHelper.comparisonType(params);
+  if (!type) {
+    throw new Error("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
+  }
+  return type;
 }
 
 /**
