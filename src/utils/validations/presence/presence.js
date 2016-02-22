@@ -1,10 +1,12 @@
+import ValidationsHelper from './../../helpers/validations';
+
 /**
  * This will validate an input for presence.
  *
  * @object PresenceValidator
  * @return {Object} Validator object
  */
-let PresenceValidator = function() {
+let PresenceValidator = function(params = {}) {
   return {
     /**
      * This will validate the given value, and return a valid status.
@@ -14,22 +16,10 @@ let PresenceValidator = function() {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      if (value && value.get) {
-        // if value is an immutable object, we probably want to judge that it has
-        // a value by an ID attribute. This relates to components such as
-        // DropdownSuggest which has an immutable object as its value.
-        if (value.get('id')) {
-          return true;
-        } else {
-          return false;
-        }
+      if (value) {
+        return true;
       } else {
-        // for regular inputs, we can just use it's regular value
-        if (value) {
-          return true;
-        } else {
-          return false;
-        }
+        return false;
       }
     },
 
@@ -40,7 +30,7 @@ let PresenceValidator = function() {
      * @return {String} the error message to display
      */
     message: function() {
-      return "This field is required.";
+      return ValidationsHelper.validationMessage(params.message, 'validations.presence');
     },
 
     /**

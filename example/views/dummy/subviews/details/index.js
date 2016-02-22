@@ -19,7 +19,7 @@ class Details extends React.Component {
           name="name"
           value={ this.props.name }
           onChange={ FinancesActions.financesValueUpdated }
-          validations={ [Presence()] }
+          validations={ [ Presence() ] }
         />
 
         <Date
