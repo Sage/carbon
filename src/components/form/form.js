@@ -316,12 +316,16 @@ class Form extends React.Component {
         { generateCSRFToken(this._document) }
 
         { this.props.children }
-        { cancelButton }
-        <div className={ saveClasses }>
-          { errorCount }
-          <Button as="primary" disabled={ this.props.saving }>
-            Save
-          </Button>
+
+        <div className="ui-form__buttons">
+          <div className={ saveClasses }>
+            { errorCount }
+            <Button as="primary" disabled={ this.props.saving }>
+              Save
+            </Button>
+          </div>
+
+          { cancelButton }
         </div>
       </form>
     );
