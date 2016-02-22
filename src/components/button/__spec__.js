@@ -9,6 +9,7 @@ describe('Button', () => {
   var primary;
   var secondary;
   var disabled;
+  var anchor;
   var spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
@@ -37,6 +38,10 @@ describe('Button', () => {
         name="Disabled Button"
         disabled={ true }
       >Disabled</Button>
+    );
+
+    anchor = TestUtils.renderIntoDocument(
+      <Button href="/foo">Anchor</Button>
     );
   });
 
@@ -116,6 +121,22 @@ describe('Button', () => {
     it('triggers when the button is clicked', () => {
       TestUtils.Simulate.click(primaryDOM);
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('render', () => {
+    describe('default', () => {
+      it('renders a button', () => {
+        let b = TestUtils.findRenderedDOMComponentWithClass(defaultButton, 'ui-button');
+        expect(b.tagName).toEqual('BUTTON');
+      });
+    });
+
+    describe('with href', () => {
+      it('renders an anchor', () => {
+        let b = TestUtils.findRenderedDOMComponentWithClass(anchor, 'ui-button');
+        expect(b.tagName).toEqual('A');
+      });
     });
   });
 });
