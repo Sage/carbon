@@ -1,0 +1,4 @@
+{
+  "main": "./numeral-type.js",
+  "name": "NumeralTypeValidator"
+}
