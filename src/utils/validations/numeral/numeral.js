@@ -58,7 +58,8 @@ const NumeralValidator = function(params) {
     validateGreater: validateGreater(params),
     validateExact:   validateValue(params),
     validateLess:    validateLess(params),
-    validateRange:   validateRange(params)
+    validateRange:   validateRange(params),
+    validateType:    validateType(params)
   };
 
   return NumeralFunctions[validationToCall];
@@ -77,7 +78,7 @@ export default NumeralValidator;
  * @private
  */
 function getType(params) {
-  return ValidationsHelper.comparisonType(params);
+  return ValidationsHelper.comparisonType(params) || 'Type';
 }
 
 /**
@@ -225,11 +226,11 @@ function validateRange(params) {
   return {
     /**
      * @method validate
-     * @param {Float} value to check
+     * @param {Integer|Float} value to check
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (value >= params.min && value <= params.max));
+      return (!value || (typeCheck(params, value) && (value >= params.min && value <= params.max)));
     },
 
     /**
@@ -238,6 +239,36 @@ function validateRange(params) {
      */
     message: function(value) {
       return getDescriptiveMessage(params, value, "validations.value_range", { min: params.min, max: params.max });
+    }
+  };
+}
+
+/**
+ * This will only validate the type of numeral
+ *
+ * @method validateRange
+ * @param {Object} value to check type
+ * @return {Function} validateRange
+ * @return {Function} message
+ * @private
+ */
+function validateType(params) {
+  return {
+    /**
+     * @method validate
+     * @param {Integer|Float} value to check
+     * @return {Boolean} true if value is valid
+     */
+    validate: function(value) {
+      return !value || typeCheck(params, value)
+    },
+
+    /**
+     * @method message
+     * @return {String} the error message to display
+     */
+    message: function() {
+      return NumeralTypeValidator(params).message();
     }
   };
 }

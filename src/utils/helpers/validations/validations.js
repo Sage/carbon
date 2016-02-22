@@ -32,7 +32,7 @@ const ValidationsHelper = {
     } else if (!params.is && params.min && params.max) {
       return 'Range';
     } else {
-      throw new Error("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
+      return null;
     }
   }
 };

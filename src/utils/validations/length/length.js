@@ -43,12 +43,17 @@ import ValidationsHelper from './../../helpers/validations';
  * @method LengthValidator
  * @param {Object} params (is, min, max, type(optional))
  */
-const LengthValidator = function(params) {
+const LengthValidator = function(params = {}) {
   //defaults
   params.type = params.type || 'text';
 
   // Build string to call correct function
-  let validationToCall = 'validate' + getType(params);
+  let type = getType(params);
+  if (!type) {
+    throw new Error("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
+  }
+
+  let validationToCall = 'validate' + type;
 
   let LengthFunctions = {
     validateGreater: validateGreater(params),

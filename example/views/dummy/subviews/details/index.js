@@ -1,6 +1,5 @@
 import React from 'react';
 import Presence from 'utils/validations/presence';
-import Numeral from 'utils/validations/numeral';
 import Textbox from 'components/textbox';
 import Date from 'components/date';
 import Checkbox from 'components/checkbox';
@@ -20,7 +19,7 @@ class Details extends React.Component {
           name="name"
           value={ this.props.name }
           onChange={ FinancesActions.financesValueUpdated }
-          validations={ [ Numeral({ is: 100 }) ] }
+          validations={ [ Presence() ] }
         />
 
         <Date
