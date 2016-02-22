@@ -13,22 +13,12 @@ describe('Presence Validator', () => {
     };
   });
 
-  describe('Immutable data', () => {
-    it('returns true when an id is present', () => {
-      let data = ImmutableHelper.parseJSON({ id: 1, value: 'foo' });
-      expect(Validator().validate(data)).toBeTruthy();
-    });
-    it('returns false when an id is NOT present', () => {
-      let data = ImmutableHelper.parseJSON({ id: null, value: null });
-      expect(Validator().validate(data)).toBeFalsy();
-    });
-  });
-
-  describe('Non immuntable data', () => {
+  describe('Validate', () => {
     it('returns true when an value is present', () => {
       let value = 'foo'
       expect(Validator().validate(value)).toBeTruthy();
     });
+
     it('returns false when an id is NOT present', () => {
       let value = null
       expect(Validator().validate(value)).toBeFalsy();
