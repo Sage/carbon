@@ -1,4 +1,4 @@
-import NumeralTypeValidator from './../numeral-type';
+import NumeralTypeValidator from './numeral-type';
 import ValidationsHelper from './../../helpers/validations';
 import I18n from "i18n-js";
 
@@ -44,7 +44,10 @@ import I18n from "i18n-js";
  * NumeralValidator({ is: 10 });
  *
  * @method NumeralValidator
- * @param {Object} params (is, min, max)
+ * @param {Object} [params]
+ * @param {Integer} [params.is] validate numeral is exact value
+ * @param {Integer} [params.min] validate numeral is greater than or equal to
+ * @param {Integer} [params.max] validate numeral is less than or equal to
  */
 const NumeralValidator = function(params) {
 

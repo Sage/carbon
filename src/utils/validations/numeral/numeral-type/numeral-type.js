@@ -1,4 +1,4 @@
-import ValidationsHelper from './../../helpers/validations';
+import ValidationsHelper from './../../../helpers/validations';
 
 /**
  * A NumeralType Validator object.
@@ -16,7 +16,8 @@ import ValidationsHelper from './../../helpers/validations';
  *  `<Number validations={ [NumeralTypeValidator({ integer: true })] }/>`
  *
  * @method NumeralTypeValidator
- * @param {Object} params (type)
+ * @param {Object} [params]
+ * @param {Boolean} [params.integer] true if type is a integer
  */
 const NumeralTypeValidator = function(params = {}) {
 
