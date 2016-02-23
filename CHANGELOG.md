@@ -4,6 +4,10 @@
 
 We now add a `common-input--disabled` class to the component when its input is disabled
 
+## Bug Fixes
+
+* We now use the `$grey-dark-blue-40` color for placeholders in inputs
+
 # 0.4.0
 
 ## New Components
