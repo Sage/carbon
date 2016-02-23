@@ -194,6 +194,15 @@ describe('Input', () => {
         expect(instance.mainClasses).toEqual('testMain common-input common-input--with-prefix');
       });
     });
+
+    describe('When disabled', () => {
+      it('returns with a disabled class', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          disabled: true
+        }));
+        expect(instance.mainClasses).toEqual('testMain common-input common-input--disabled');
+      });
+    });
   });
 
   describe('inputClasses', () => {
