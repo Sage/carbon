@@ -2,7 +2,7 @@
 
 ## Disabled class for inputs
 
-We now add a `common-input--disabled` class when to the component when its input is disabled
+We now add a `common-input--disabled` class to the component when its input is disabled
 
 # 0.4.0
 
