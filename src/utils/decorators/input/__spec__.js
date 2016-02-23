@@ -195,7 +195,7 @@ describe('Input', () => {
       });
     });
 
-    describe('When a disabled', () => {
+    describe('When disabled', () => {
       it('returns with a disabled class', () => {
         instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
           disabled: true
