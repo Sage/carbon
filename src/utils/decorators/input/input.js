@@ -151,7 +151,8 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     return classNames(classes, this.props.className, 'common-input', {
       'common-input--readonly': this.props.readOnly,
       [`common-input--align-${this.props.align}`]: this.props.align,
-      'common-input--with-prefix': this.props.prefix
+      'common-input--with-prefix': this.props.prefix,
+      'common-input--disabled': this.props.disabled
     });
   }
 
