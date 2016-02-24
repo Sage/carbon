@@ -42,7 +42,7 @@ class Grid extends React.Component {
               <Textbox
                 label={ false }
                 name="description"
-                validations={ [Presence()] }
+                validations={ [new Presence()] }
                 value={ row.get('description') }
                 onChange={ FinancesActions.financesLineItemUpdated.bind(this, key) }
               />

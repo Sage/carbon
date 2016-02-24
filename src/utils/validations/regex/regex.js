@@ -11,35 +11,55 @@ import ValidationsHelper from './../../helpers/validations';
  *
  * Assign this validator to the validations prop
  *
- * <Textbox validations={ [RegexValidator({ format: (/[A-Z]{5}/) }) ] }/>
+ * <Textbox validations={ [new RegexValidator({ format: (/[A-Z]{5}/) }) ] }/>
  *
- * @method RegexValidator
- * @param {Regex} format the regex to test against
+ * @constructor RegexValidator
  */
-var RegexValidator = function(params = {}) {
+class RegexValidator {
 
-  return {
-    /**
-     * This will validate the given value, and return a valid status.
-     *
-     * @method validate
-     * @param {Float} value to check
-     * @return {Boolean} true if value is valid
-     */
-    validate: function(value) {
-      return (!value || params.format.test(value));
-    },
+  /**
+   * @method constructor
+   * @param {Object} params
+   */
+  constructor(params = {}) {
 
     /**
-     * This is the message returned when this validation fails.
+     * An optional custom validation message.
      *
-     * @method message
-     * @return {String} the error message to display
+     * @property customMessage
+     * @type {String}
      */
-    message: function() {
-      return ValidationsHelper.validationMessage(params.message, 'validations.regex');
-    }
-  };
+    this.customMessage = params.customMessage;
+
+    /**
+     * The format to run the regex with.
+     *
+     * @method format
+     * @return {Regex}
+     */
+    this.format = params.format;
+  }
+
+  /**
+   * This will validate the given value, and return a valid status.
+   *
+   * @method validate
+   * @param {Float} value to check
+   * @return {Boolean} true if value is valid
+   */
+  validate = (value) => {
+    return (!value || this.format.test(value));
+  }
+
+  /**
+   * This is the message returned when this validation fails.
+   *
+   * @method message
+   * @return {String} the error message to display
+   */
+  message = () => {
+    return ValidationsHelper.validationMessage(this.customMessage, 'validations.regex');
+  }
 };
 
 export default RegexValidator;

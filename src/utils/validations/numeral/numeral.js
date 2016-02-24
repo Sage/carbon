@@ -43,27 +43,82 @@ import I18n from "i18n-js";
  * // value is 10:
  * NumeralValidator({ is: 10 });
  *
- * @method NumeralValidator
- * @param {Object} [params]
- * @param {Integer} [params.is] validate numeral is exact value
- * @param {Integer} [params.min] validate numeral is greater than or equal to
- * @param {Integer} [params.max] validate numeral is less than or equal to
+ * @constructor NumeralValidator
  */
-const NumeralValidator = function(params) {
+class NumeralValidator {
 
-  // Build string to call correct function
-  let validationToCall = 'validate' + getType(params);
+  /**
+   * @method constructor
+   * @param {Object} params
+   */
+  constructor(params = {}) {
+    let validationToCall, numeralFunctions, validationObject;
 
-  let NumeralFunctions = {
-    validateGreater: validateGreater(params),
-    validateExact:   validateValue(params),
-    validateLess:    validateLess(params),
-    validateRange:   validateRange(params),
-    validateType:    validateType(params)
-  };
+    validationToCall = 'validate' + getType(params);
 
-  return NumeralFunctions[validationToCall];
-};
+    numeralFunctions = {
+      validateGreater: validateGreater(),
+      validateExact:   validateValue(),
+      validateLess:    validateLess(),
+      validateRange:   validateRange(),
+      validateType:    validateType()
+    };
+
+    validationObject = numeralFunctions[validationToCall];
+
+    /**
+     * Custom message for validation.
+     *
+     * @property customMessage
+     * @type {String}
+     */
+    this.customMessage = params.customMessage;
+
+    /**
+     * Min length value.
+     *
+     * @property min
+     * @type {Number}
+     */
+    this.min = params.min;
+
+    /**
+     * Max length value.
+     *
+     * @property max
+     * @type {Number}
+     */
+    this.max = params.max;
+
+    /**
+     * An exact match.
+     *
+     * @property is
+     * @type {Number}
+     */
+    this.is = params.is;
+
+    /**
+     * Can the number be a decimal, or only an integer.
+     *
+     * @property integer
+     * @type {Boolean}
+     */
+    this.integer = params.integer;
+
+    /**
+     * @property validate
+     * @type {Function}
+     */
+    this.validate = validationObject.validate;
+
+    /**
+     * @property message
+     * @type {Function}
+     */
+    this.message = validationObject.message;
+  }
+}
 
 export default NumeralValidator;
 
@@ -94,9 +149,9 @@ function getType(params) {
  *
  */
 function getDescriptiveMessage(params, value, i18nString, i18nOptions) {
-  if (params.message) { return params.message; }
+  if (params.customMessage) { return params.customMessage; }
 
-  const typeValidator = NumeralTypeValidator(params);
+  const typeValidator = new NumeralTypeValidator(params);
 
   if (!typeValidator.validate(value)) {
     return typeValidator.message();
@@ -116,7 +171,7 @@ function getDescriptiveMessage(params, value, i18nString, i18nOptions) {
  *
  */
 function typeCheck(params, value) {
-  return NumeralTypeValidator(params).validate(value);
+  return new NumeralTypeValidator(params).validate(value);
 }
 
 /**
@@ -127,7 +182,7 @@ function typeCheck(params, value) {
  * @return {Function} message
  * @private
  */
-function validateValue(params) {
+function validateValue() {
   return {
     /**
      * This will validate the given value, and return a valid status.
@@ -137,7 +192,7 @@ function validateValue(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (typeCheck(params, value) && value == params.is));
+      return (!value || (typeCheck(this, value) && value == this.is));
     },
     /**
      * This is the message returned when this validation fails.
@@ -146,7 +201,7 @@ function validateValue(params) {
      * @return {String} the error message to display
      */
     message: function(value) {
-      return getDescriptiveMessage(params, value, "validations.value", { is: params.is });
+      return getDescriptiveMessage(this, value, "validations.value", { is: this.is });
     }
   };
 }
@@ -155,12 +210,11 @@ function validateValue(params) {
  * This will validate whether the value is less than or equal to a maximum value.
  *
  * @method validateLess
- * @param {Object} value to check, max
  * @return {Function} validateLess
  * @return {Function} message
  * @private
  */
-function validateLess(params) {
+function validateLess() {
   return {
     /**
      * @method validate
@@ -168,7 +222,7 @@ function validateLess(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (typeCheck(params, value) && value <= params.max));
+      return (!value || (typeCheck(this, value) && value <= this.max));
     },
 
     /**
@@ -176,7 +230,7 @@ function validateLess(params) {
      * @return {String} the error message to display
      */
     message: function(value) {
-      return getDescriptiveMessage(params, value, "validations.value_less_than_or_equal", { max: params.max });
+      return getDescriptiveMessage(this, value, "validations.value_less_than_or_equal", { max: this.max });
     }
   };
 }
@@ -186,12 +240,11 @@ function validateLess(params) {
  * This will validate whether the value is greater than or equal to a minimum value.
  *
  * @method validateGreater
- * @param {Object} value to check, min
  * @return {Function} validateGreater
  * @return {Function} message
  * @private
  */
-function validateGreater(params) {
+function validateGreater() {
   return {
     /**
      * @method validate
@@ -199,7 +252,7 @@ function validateGreater(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (typeCheck(params, value) && value >= params.min));
+      return (!value || (typeCheck(this, value) && value >= this.min));
     },
 
     /**
@@ -207,7 +260,7 @@ function validateGreater(params) {
      * @return {String} the error message to display
      */
     message: function(value) {
-      return getDescriptiveMessage(params, value, "validations.value_greater_than_or_equal", { min: params.min });
+      return getDescriptiveMessage(this, value, "validations.value_greater_than_or_equal", { min: this.min });
     }
   };
 }
@@ -217,12 +270,11 @@ function validateGreater(params) {
  * inclusive of the min and max.
  *
  * @method validateRange
- * @param {Object} value to check, min, max
  * @return {Function} validateRange
  * @return {Function} message
  * @private
  */
-function validateRange(params) {
+function validateRange() {
   return {
     /**
      * @method validate
@@ -230,7 +282,7 @@ function validateRange(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (typeCheck(params, value) && (value >= params.min && value <= params.max)));
+      return (!value || (typeCheck(this, value) && (value >= this.min && value <= this.max)));
     },
 
     /**
@@ -238,7 +290,7 @@ function validateRange(params) {
      * @return {String} the error message to display
      */
     message: function(value) {
-      return getDescriptiveMessage(params, value, "validations.value_range", { min: params.min, max: params.max });
+      return getDescriptiveMessage(this, value, "validations.value_range", { min: this.min, max: this.max });
     }
   };
 }
@@ -247,12 +299,11 @@ function validateRange(params) {
  * This will only validate the type of numeral
  *
  * @method validateRange
- * @param {Object} value to check type
  * @return {Function} validateRange
  * @return {Function} message
  * @private
  */
-function validateType(params) {
+function validateType() {
   return {
     /**
      * @method validate
@@ -260,7 +311,7 @@ function validateType(params) {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return !value || typeCheck(params, value);
+      return !value || typeCheck(this, value);
     },
 
     /**
@@ -268,7 +319,7 @@ function validateType(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return NumeralTypeValidator(params).message();
+      return new NumeralTypeValidator(this).message();
     }
   };
 }
