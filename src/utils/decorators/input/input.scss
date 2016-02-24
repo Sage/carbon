@@ -96,14 +96,10 @@
     }
   }
 
-  &::-webkit-input-placeholder {
-    color: $grey-dark-blue-40 !important;
-  }
-  &::-moz-placeholder {  /* Firefox 19+ */
-    color: $grey-dark-blue-40 !important;
-  }
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
   &:-ms-input-placeholder {
-    color: $grey-dark-blue-40 !important;
+    color: $grey-dark-blue-40;
   }
 }
 
