@@ -194,7 +194,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     }
 
     // iterate through each validation applied to the input
-    this.props.validations.forEach((validation) => {
+    for (let i = 0; i < this.props.validations.length; i++) {
+      let validation = this.props.validations[i];
+
       // run this validation
       valid = validation.validate(value, this.props);
 
@@ -219,9 +221,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
         }
 
         // a validation has failed, so exit the loop at this point
-        return valid;
+        break;
       }
-    });
+    }
 
     // return the result of the validation
     return valid;
