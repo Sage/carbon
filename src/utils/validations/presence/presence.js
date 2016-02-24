@@ -27,7 +27,7 @@ class PresenceValidator {
      * @method asterisk
      * @return {Boolean}
      */
-    this.asterisk = true
+    this.asterisk = true;
   }
 
   /**
@@ -54,6 +54,6 @@ class PresenceValidator {
   message = () => {
     return ValidationsHelper.validationMessage(this.customMessage, 'validations.presence');
   }
-};
+}
 
 export default PresenceValidator;

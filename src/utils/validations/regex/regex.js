@@ -60,6 +60,6 @@ class RegexValidator {
   message = () => {
     return ValidationsHelper.validationMessage(this.customMessage, 'validations.regex');
   }
-};
+}
 
 export default RegexValidator;

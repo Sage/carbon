@@ -19,6 +19,13 @@ describe('Numeral Validator', () => {
   });
   
   describe('getDescriptiveMessage', () => {
+    describe('when passed nothing', () => {
+      it('validates the decimal', () => {
+        let numeralValidator = new Validator();
+        expect(numeralValidator.validate(1.1)).toBeTruthy();
+      });
+    });
+
     describe('when passed a message', () => {
       it('returns the passed message', () => {
         let numeralValidator = new Validator({ customMessage: 'Simple Message', is: 5 });

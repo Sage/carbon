@@ -114,7 +114,7 @@ class LengthValidator {
      */
     this.message = validationObject.message;
   }
-};
+}
 
 export default LengthValidator;
 

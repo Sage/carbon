@@ -59,6 +59,6 @@ class EmailValidator {
     return ValidationsHelper.validationMessage(this.customMessage, 'validations.email');
   }
 
-};
+}
 
 export default EmailValidator;
