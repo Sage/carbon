@@ -1,4 +1,4 @@
-# 0.4.1
+# 0.5.0
 
 ## Disabled class for inputs
 
@@ -7,6 +7,7 @@ We now add a `common-input--disabled` class to the component when its input is d
 ## Bug Fixes
 
 * Inputs with multiple validations now validate correctly.
+* Split Button has been given a fixed height to resolve UI issues.
 * We now use the `$grey-dark-blue-40` color for placeholders in inputs
 
 # 0.4.0
