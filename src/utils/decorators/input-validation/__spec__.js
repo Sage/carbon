@@ -353,6 +353,19 @@ describe('InputValidation', () => {
           expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
         });
 
+        describe('when the second validation fails', () => {
+          it('stops validating', () => {
+            instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+              validations: [validationOne, validationThree, validationTwo],
+              value: 'foo'
+            }));
+            instance.validate();
+            expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
+            expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
+            expect(validationTwo.validate).not.toHaveBeenCalled();
+          });
+        });
+
         describe('when called with a custom value', () => {
           it('calls validate for each validation', () => {
             instance.validate('foo');
