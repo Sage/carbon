@@ -35,7 +35,7 @@ describe('Length Validator', () => {
       it('throws an error and returns a warning message', () => {
         spyOn(ValidationsHelper, 'comparisonType').and.returnValue(null);
 
-        expect(function() { Validator().getType() })
+        expect(function() { new Validator().getType() })
           .toThrowError("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
       });
     });
@@ -46,7 +46,7 @@ describe('Length Validator', () => {
 
     describe('when no input type is specified', () => {
       beforeEach(() => {
-        lengthValidator = Validator({ is: 5 });
+        lengthValidator = new Validator({ is: 5 });
       });
 
       it('returns the correct message function', () => {
@@ -74,7 +74,7 @@ describe('Length Validator', () => {
 
     describe('when a numeral input type is specified', () => {
       beforeEach(() => {
-        lengthValidator = Validator({ is: 5, type: 'numeral' });
+        lengthValidator = new Validator({ is: 5, type: 'numeral' });
       });
 
       it('returns the correct message function', () => {
@@ -87,7 +87,7 @@ describe('Length Validator', () => {
     let lessThanValidator;
 
     beforeEach(() => {
-      lessThanValidator = Validator({ max: 5 });
+      lessThanValidator = new Validator({ max: 5 });
     });
 
     describe('when no input type is specified', () => {
@@ -116,7 +116,7 @@ describe('Length Validator', () => {
 
     describe('when a numeral input type is specified', () => {
       beforeEach(() => {
-        lessThanValidator = Validator({ max: 10, type: 'numeral' });
+        lessThanValidator = new Validator({ max: 10, type: 'numeral' });
       });
 
       it('returns the correct message function', () => {
@@ -130,7 +130,7 @@ describe('Length Validator', () => {
 
     describe('when no input type is specified', () => {
       beforeEach(() => {
-        greaterThanValidator = Validator({ min: 10 });
+        greaterThanValidator = new Validator({ min: 10 });
       });
 
       it('returns the correct message function', () => {
@@ -158,7 +158,7 @@ describe('Length Validator', () => {
 
     describe('when a numeral input type is specified', () => {
       beforeEach(() => {
-        greaterThanValidator = Validator({ min: 5, type: 'numeral' });
+        greaterThanValidator = new Validator({ min: 5, type: 'numeral' });
       });
 
       it('returns the correct message function', () => {
@@ -172,7 +172,7 @@ describe('Length Validator', () => {
 
     describe('when no input type is specified', () => {
       beforeEach(() => {
-         rangeValidator = Validator({ min: 5, max: 10 });
+         rangeValidator = new Validator({ min: 5, max: 10 });
       });
 
       it('returns the correct message function', () => {
@@ -202,7 +202,7 @@ describe('Length Validator', () => {
 
     describe('when a numeral input type is specified', () => {
       beforeEach(() => {
-        rangeValidator = Validator({ min: 5, type: 'numeral' });
+        rangeValidator = new Validator({ min: 5, type: 'numeral' });
       });
 
       it('returns the correct message function', () => {

@@ -1,5 +1,23 @@
 # 0.5.0
 
+## !BREAKING CHANGE! Validations have been converted into classes
+
+We have converted Validations provided by Carbon into classes. This means that you need to create an instance when you want to use them.
+
+For example, you would need to change:
+
+```js
+<Textbox validations={ [PresenceValidator()] } />
+```
+
+To this:
+
+```js
+<Textbox validations={ [new PresenceValidator()] } />
+```
+
+This allows better inspection of the validator, and the ability to modify params on the class.
+
 ## Disabled class for inputs
 
 We now add a `common-input--disabled` class to the component when its input is disabled

@@ -19,7 +19,7 @@ class Details extends React.Component {
           name="name"
           value={ this.props.name }
           onChange={ FinancesActions.financesValueUpdated }
-          validations={ [ Presence() ] }
+          validations={ [ new Presence() ] }
         />
 
         <Date
@@ -40,7 +40,7 @@ class Details extends React.Component {
           options={ this.props.options }
           onChange={ FinancesActions.financesValueUpdated }
           value={ this.props.accounts }
-          validations={ [Presence()] }
+          validations={ [new Presence()] }
         />
 
         <DropdownFilterAjax

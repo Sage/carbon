@@ -19,8 +19,8 @@ describe('Numeral Type Validator', () => {
     let decimalValidator, integerValidator;
 
     beforeEach(() => {
-      decimalValidator = Validator();
-      integerValidator = Validator({ integer: true });
+      decimalValidator = new Validator();
+      integerValidator = new Validator({ integer: true });
     });
 
     it('returns the correct message function', () => {

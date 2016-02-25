@@ -5,32 +5,32 @@ import Validator from './email';
 describe('Email Validator', () => {
   describe('when value is undefined', () => {
     it('passes validation', () => {
-      expect(Validator().validate(null)).toBeTruthy();
+      expect(new Validator().validate(null)).toBeTruthy();
     });
   });
 
   describe('Valid Email', () => {
     describe('basic email', () => {
       it('returns true', () => {
-        expect(Validator().validate('test1@test.com')).toBeTruthy();
+        expect(new Validator().validate('test1@test.com')).toBeTruthy();
       });
     });
 
     describe('when emails contain a dot before the @', () => {
       it('returns true', () => {
-        expect(Validator().validate('test2.test2@test.com')).toBeTruthy();
+        expect(new Validator().validate('test2.test2@test.com')).toBeTruthy();
       });
     });
 
     describe('when emails domain contains two dots', () => {
       it('returns true', () => {
-        expect(Validator().validate('test3@test.co.uk')).toBeTruthy();
+        expect(new Validator().validate('test3@test.co.uk')).toBeTruthy();
       });
     });
 
     describe('when emails contains single dash and underscore before the @', () => {
       it('returns true', () => {
-        expect(Validator().validate('test_4-test4@test.com')).toBeTruthy();
+        expect(new Validator().validate('test_4-test4@test.com')).toBeTruthy();
       });
     });
   });
@@ -39,37 +39,37 @@ describe('Email Validator', () => {
     it('returns false', () => {
       describe('no @ symbol', () => {
         it('returns false', () => {
-          expect(Validator().validate('test')).toBeFalsy();
+          expect(new Validator().validate('test')).toBeFalsy();
         });
       });
 
       describe('when email has no domain', () => {
         it('returns false', () => {
-          expect(Validator().validate('test@')).toBeFalsy();
+          expect(new Validator().validate('test@')).toBeFalsy();
         });
       });
 
       describe('when email has no local', () => {
         it('returns false', () => {
-          expect(Validator().validate('@test.com')).toBeFalsy();
+          expect(new Validator().validate('@test.com')).toBeFalsy();
         });
       });
 
       describe('when emails domain contains more than two dots', () => {
         it('returns false', () => {
-          expect(Validator().validate('test@test.co.co.uk')).toBeFalsy();
+          expect(new Validator().validate('test@test.co.co.uk')).toBeFalsy();
         });
       });
 
       describe('when email contains invalid symbols', () => {
         it('returns false', () => {
-          expect(Validator().validate('test!@test.com')).toBeFalsy();
+          expect(new Validator().validate('test!@test.com')).toBeFalsy();
         });
       });
 
       describe('when email contains a space', () => {
         it('returns false', () => {
-          expect(Validator().validate('test @test.com')).toBeFalsy();
+          expect(new Validator().validate('test @test.com')).toBeFalsy();
         });
       });
     });
@@ -84,12 +84,12 @@ describe('Email Validator', () => {
           }
         }
       }
-      expect(Validator().message()).toEqual("Incorrect Format");
+      expect(new Validator().message()).toEqual("Incorrect Format");
     });
 
     describe('when passing a custom message', () => {
       it('uses the passed message as the error message', () => {
-        expect(Validator({ message: 'Simple Message' }).message()).toEqual('Simple Message');
+        expect(new Validator({ customMessage: 'Simple Message' }).message()).toEqual('Simple Message');
       });
     });
   });
