@@ -15,25 +15,69 @@ import ValidationsHelper from './../../../helpers/validations';
  *  `<Decimal validations={ [NumeralTypeValidator() ] }/>`
  *  `<Number validations={ [NumeralTypeValidator({ integer: true })] }/>`
  *
- * @method NumeralTypeValidator
- * @param {Object} [params]
- * @param {Boolean} [params.integer] true if type is a integer
+ * @constructor NumeralTypeValidator
  */
-const NumeralTypeValidator = function(params = {}) {
+class NumeralTypeValidator {
 
-  // Default numeral type to decimal
-  let numeralType = params.integer ? 'Integer' : 'Decimal';
+  constructor(params = {}) {
+    let validationToCall, numeralFunctions, validationObject, numeralType;
 
-  // Build String to call correct function
-  let validationToCall = 'validate' + numeralType;
+    numeralType = params.integer ? 'Integer' : 'Decimal';
 
-  let NumeralFunctions = {
-    validateDecimal: validateDecimal(params),
-    validateInteger: validateInteger(params)
-  };
+    validationToCall = 'validate' + numeralType;
 
-  return NumeralFunctions[validationToCall];
-};
+    numeralFunctions = {
+      validateDecimal: validateDecimal(params),
+      validateInteger: validateInteger(params)
+    };
+
+    validationObject = numeralFunctions[validationToCall];
+
+    /**
+     * Custom message for validation.
+     *
+     * @property customMessage
+     * @type {String}
+     */
+    this.customMessage = params.customMessage;
+
+    /**
+     * Min length value.
+     *
+     * @property min
+     * @type {Number}
+     */
+    this.min = params.min;
+
+    /**
+     * Max length value.
+     *
+     * @property max
+     * @type {Number}
+     */
+    this.max = params.max;
+
+    /**
+     * An exact match.
+     *
+     * @property is
+     * @type {Number}
+     */
+    this.is = params.is;
+
+    /**
+     * @property validate
+     * @type {Function}
+     */
+    this.validate = validationObject.validate;
+
+    /**
+     * @property message
+     * @type {Function}
+     */
+    this.message = validationObject.message;
+  }
+}
 
 export default NumeralTypeValidator;
 
@@ -47,7 +91,7 @@ export default NumeralTypeValidator;
  * @return {Function} message
  * @private
  */
-function validateDecimal(params) {
+function validateDecimal() {
   return {
     /**
      * This will validate the given value, and return a valid status.
@@ -67,7 +111,7 @@ function validateDecimal(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return ValidationsHelper.validationMessage(params.message, "validations.decimal");
+      return ValidationsHelper.validationMessage(this.customMessage, "validations.decimal");
     }
   };
 }
@@ -80,7 +124,7 @@ function validateDecimal(params) {
  * @return {Function} message
  * @private
  */
-function validateInteger(params) {
+function validateInteger() {
   return {
     /**
      * This will validate the given value, and return a valid status.
@@ -100,7 +144,7 @@ function validateInteger(params) {
      * @return {String} the error message to display
      */
     message: function() {
-      return ValidationsHelper.validationMessage(params.message, "validations.integer");
+      return ValidationsHelper.validationMessage(this.customMessage, "validations.integer");
     }
   };
 }
