@@ -95,6 +95,12 @@
       box-shadow: none;
     }
   }
+
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder {
+    color: $grey-dark-blue-40;
+  }
 }
 
 .common-input__message-wrapper {

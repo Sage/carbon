@@ -364,7 +364,7 @@ describe('Dropdown', () => {
             instance.setState({ highlighted: 1 });
             spyOn(instance, 'setState');
             TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 2 });
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '2' });
           });
         });
 
@@ -373,7 +373,7 @@ describe('Dropdown', () => {
             instance.setState({ highlighted: 2 });
             spyOn(instance, 'setState');
             TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 1 });
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '1' });
           });
         });
       });
@@ -396,7 +396,7 @@ describe('Dropdown', () => {
             instance.setState({ highlighted: 2 });
             spyOn(instance, 'setState');
             TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 1 });
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '1' });
           });
         });
 
@@ -405,7 +405,22 @@ describe('Dropdown', () => {
             instance.setState({ highlighted: 1 });
             spyOn(instance, 'setState');
             TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 2 });
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '2' });
+          });
+        });
+
+        describe('when strings are used for IDs', () => {
+          beforeEach(() => {
+            instance = TestUtils.renderIntoDocument(
+              <Dropdown name="foo" options={ Immutable.fromJS([{ id: 'foo', name: 'foo' }, { id: 'bar', name: 'bar' }]) } value="" />
+            );
+            instance.setState({ open: true });
+          });
+
+          it('still works', () => {
+            spyOn(instance, 'setState');
+            TestUtils.Simulate.keyDown(instance._input, opts);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 'foo' });
           });
         });
       });

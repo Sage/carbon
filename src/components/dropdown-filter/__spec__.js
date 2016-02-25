@@ -301,6 +301,13 @@ describe('DropdownFilter', () => {
         });
       });
 
+      describe('if filter contains invalid characters', () => {
+        it('still filters the list', () => {
+          instance.setState({ filter: '[]()$£&%' });
+          expect(instance.prepareList(opts).length).toEqual(0);
+        });
+      });
+
       describe('if in suggest mode and list is opening', () => {
         it('filters the list', () => {
           instance.openingList = true;

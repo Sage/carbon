@@ -280,20 +280,20 @@ class Dropdown extends React.Component {
         break;
       case 38: // up arrow
         ev.preventDefault();
-        nextVal = list.lastChild.value;
+        nextVal = list.lastChild.getAttribute('value');
 
         if (element && element.previousElementSibling) {
-          nextVal = element.previousElementSibling.value;
+          nextVal = element.previousElementSibling.getAttribute('value');
         }
 
         this.setState({ highlighted: nextVal });
         break;
       case 40: // down arrow
         ev.preventDefault();
-        nextVal = list.firstChild.value;
+        nextVal = list.firstChild.getAttribute('value');
 
         if (element && element.nextElementSibling) {
-          nextVal = element.nextElementSibling.value;
+          nextVal = element.nextElementSibling.getAttribute('value');
         }
 
         this.setState({ highlighted: nextVal });
