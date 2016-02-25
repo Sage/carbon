@@ -3,6 +3,7 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
+import classNames from 'classnames';
 
 /**
  * A dropdown widget.
@@ -373,15 +374,13 @@ class Dropdown extends React.Component {
    * @method listProps
    */
   get listBlockProps() {
-    let listClasses = 'ui-dropdown__list-block';
-
     return {
       key: "listBlock",
       ref: "listBlock",
       onMouseDown: this.handleMouseDownOnList,
       onMouseLeave: this.handleMouseLeaveList,
       onMouseEnter: this.handleMouseEnterList,
-      className: listClasses
+      className: 'ui-dropdown__list-block'
     };
   }
 
@@ -391,12 +390,10 @@ class Dropdown extends React.Component {
    * @method listProps
    */
   get listProps() {
-    let listClasses = 'ui-dropdown__list';
-
     return {
       key: "list",
       ref: "list",
-      className: listClasses
+      className: 'ui-dropdown__list'
     };
   }
 
@@ -406,13 +403,10 @@ class Dropdown extends React.Component {
    * @method mainClasses
    */
   get mainClasses() {
-    let classes = 'ui-dropdown';
-
-    if (this.state.open) {
-      classes += ' ui-dropdown--open';
-    }
-
-    return classes;
+    return classNames(
+      'ui-dropdown',
+      { 'ui-dropdown--open': this.state.open }
+    );
   }
 
   /**
@@ -421,9 +415,7 @@ class Dropdown extends React.Component {
    * @method inputClasses
    */
   get inputClasses() {
-    let inputClasses = 'ui-dropdown__input';
-
-    return inputClasses;
+    return 'ui-dropdown__input';
   }
 
   /**

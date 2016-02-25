@@ -2,6 +2,7 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './../icon';
 import Bowser from 'bowser';
+import classNames from 'classnames';
 
 /**
  * A Dialog widget.
@@ -188,13 +189,10 @@ class Dialog extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    let classes = 'ui-dialog';
-
-    if (this.props.className) {
-      classes += ` ${this.props.className}`;
-    }
-
-    return classes;
+    return classNames(
+      'ui-dialog',
+      this.props.className
+    );
   }
 
   /**
@@ -204,7 +202,12 @@ class Dialog extends React.Component {
    * @return {String} dialog className
    */
   get dialogClasses() {
-    return 'ui-dialog__dialog';
+    return classNames(
+      'ui-dialog__dialog',
+      {
+        [`ui-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined'
+      }
+    );
   }
 
   /**
@@ -214,14 +217,8 @@ class Dialog extends React.Component {
    * @return {Object} JSX for dialog
    */
   get dialogHTML() {
-    let dialogClasses = this.dialogClasses;
-
-    if (typeof this.props.size !== 'undefined') {
-      dialogClasses += (" ui-dialog__dialog--" + this.props.size);
-    }
-
     return (
-      <div ref="dialog" className={ dialogClasses }>
+      <div ref="dialog" className={ this.dialogClasses }>
         { this.dialogTitle }
         <Icon className="ui-dialog__close" type="close" onClick={ this.props.onCancel } />
 

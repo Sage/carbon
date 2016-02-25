@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './../button';
+import classNames from 'classnames';
 import Icon from './../icon';
 
 /**
@@ -88,13 +89,10 @@ class Banner extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    let className = `ui-banner ui-banner--${this.props.as}`;
-
-    if (this.props.className) {
-      className += ' ' + this.props.className;
-    }
-
-    return className;
+    return classNames(
+      `ui-banner ui-banner--${this.props.as}`,
+      this.props.className
+    );
   }
 
   /**
@@ -104,7 +102,10 @@ class Banner extends React.Component {
    * @return {String} classNames for button
    */
   get buttonClasses() {
-    return `ui-banner__action ui-banner__action--${this.props.as}`;
+    return classNames(
+      'ui-banner__action',
+      `ui-banner__action--${this.props.as}`
+    );
   }
 
   /**

@@ -1,4 +1,5 @@
 import Dialog from '../dialog';
+import classNames from 'classnames';
 
 /**
  * A Alert widget.
@@ -32,9 +33,10 @@ class Alert extends Dialog {
    * @method dialogTitleClasses
    */
   get dialogTitleClasses() {
-    let classes = super.dialogTitleClasses;
-    classes += ' ui-alert__title';
-    return classes;
+    return classNames(
+      super.dialogTitleClasses,
+      'ui-alert__title'
+    );
   }
 
   /**
@@ -43,9 +45,10 @@ class Alert extends Dialog {
    * @method dialogClasses
    */
   get dialogClasses() {
-    let classes = super.dialogClasses;
-    classes += ' ui-alert__alert';
-    return classes;
+    return classNames(
+      super.dialogClasses,
+      'ui-alert__alert'
+    );
   }
 }
 

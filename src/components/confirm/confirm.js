@@ -2,6 +2,7 @@ import React from 'react';
 import Dialog from '../dialog';
 import Button from '../button';
 import I18n from "i18n-js";
+import classNames from 'classnames';
 
 /**
  * A Confirm widget.
@@ -56,9 +57,10 @@ class Confirm extends Dialog {
    * @return {String} Main className
    */
   get mainClasses() {
-    let classes = super.mainClasses;
-    classes += ' ui-confirm';
-    return classes;
+    return classNames(
+      super.mainClasses,
+      'ui-confirm'
+    );
   }
 
   /**
@@ -67,9 +69,10 @@ class Confirm extends Dialog {
    * @method dialogTitleClasses
    */
   get dialogTitleClasses() {
-    let classes = super.dialogTitleClasses;
-    classes += ' ui-confirm__title';
-    return classes;
+    return classNames(
+      super.dialogTitleClasses,
+      'ui-confirm__title',
+    );
   }
 
   /**
@@ -78,9 +81,10 @@ class Confirm extends Dialog {
    * @method dialogClasses
    */
   get dialogClasses() {
-    let classes = super.dialogClasses;
-    classes += ' ui-confirm__confirm';
-    return classes;
+    return classNames(
+      super.dialogClasses,
+      'ui-confirm__confirm'
+    );
   }
 
   /**

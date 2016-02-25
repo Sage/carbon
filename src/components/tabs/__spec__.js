@@ -113,7 +113,7 @@ describe('Tabs', () => {
 
   describe('mainClasses', () => {
     it('returns the main class for the component', () => {
-      expect(instance.mainClasses).toEqual('ui-tabs ');
+      expect(instance.mainClasses).toEqual('ui-tabs');
     });
 
     describe('when passing custom classNames', () => {
@@ -258,7 +258,7 @@ describe('Tabs', () => {
   describe('render', () => {
     it('creates a parent div for the component', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(div.className).toEqual('ui-tabs ');
+      expect(div.className).toEqual('ui-tabs');
     });
 
     it('renders the tab headers', () => {

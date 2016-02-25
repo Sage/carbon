@@ -1,6 +1,7 @@
 import React from 'react';
 import Dropdown from './../dropdown';
 import I18n from 'i18n-js';
+import classNames from 'classNames';
 
 /**
  * A dropdown filter widget.
@@ -300,8 +301,10 @@ class DropdownFilter extends Dropdown {
    * @method mainClasses
    */
   get mainClasses() {
-    let classes = super.mainClasses;
-    return classes + ' ui-dropdown-filter';
+    return classNames(
+      super.mainClasses,
+      'ui-dropdown-filter'
+    );
   }
 
   /**
@@ -310,13 +313,12 @@ class DropdownFilter extends Dropdown {
    * @method inputClasses
    */
   get inputClasses() {
-    let classes = super.inputClasses;
-
-    if (!this.props.create && typeof this.state.filter === 'string') {
-      classes += ' ui-dropdown__input--filtered';
-    }
-
-    return classes;
+    return classNames(
+      super.inputClasses,
+      {
+        'ui-dropdown__input--filtered': !this.props.create && typeof this.state.filter === 'string'
+      }
+    );
   }
 
   /**
