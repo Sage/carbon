@@ -43,7 +43,7 @@ describe('Form', () => {
 
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Form><Textbox validations={ [Validation()] } value='' /></Form>
+        <Form><Textbox validations={ [new Validation()] } value='' /></Form>
       );
       textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
     });
@@ -62,7 +62,7 @@ describe('Form', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
         <Form>
-          <Textbox validations={ [Validation()] } value='' />
+          <Textbox validations={ [new Validation()] } value='' />
         </Form>
       );
 
@@ -101,7 +101,7 @@ describe('Form', () => {
       it('does not not submit the form', () => {
         instance = TestUtils.renderIntoDocument(
           <Form>
-            <Textbox validations={ [Validation()] } name='test' value='' />
+            <Textbox validations={ [new Validation()] } name='test' value='' />
           </Form>
         );
 
@@ -116,7 +116,7 @@ describe('Form', () => {
       it('does not validate the input', () => {
         instance = TestUtils.renderIntoDocument(
           <Form>
-            <Textbox validations={ [Validation()] } disabled={ true } />
+            <Textbox validations={ [new Validation()] } disabled={ true } />
           </Form>
         );
 
@@ -133,7 +133,7 @@ describe('Form', () => {
         let spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
           <Form beforeFormValidation={ spy }>
-            <Textbox validations={ [Validation()] } name='test' value='Valid' />
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
           </Form>
         );
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
@@ -147,7 +147,7 @@ describe('Form', () => {
         let spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
           <Form afterFormValidation={ spy }>
-            <Textbox validations={ [Validation()] } name='test' value='Valid' />
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
           </Form>
         );
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');

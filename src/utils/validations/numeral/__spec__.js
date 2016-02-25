@@ -19,23 +19,30 @@ describe('Numeral Validator', () => {
   });
   
   describe('getDescriptiveMessage', () => {
+    describe('when passed nothing', () => {
+      it('validates the decimal', () => {
+        let numeralValidator = new Validator();
+        expect(numeralValidator.validate(1.1)).toBeTruthy();
+      });
+    });
+
     describe('when passed a message', () => {
       it('returns the passed message', () => {
-        let numeralValidator = Validator({ message: 'Simple Message', is: 5 });
+        let numeralValidator = new Validator({ customMessage: 'Simple Message', is: 5 });
         expect(numeralValidator.message(1)).toEqual('Simple Message');
       });
     });
 
     describe('when passed a invalid type', () => {
       it('returns a invalid type error', () => {
-        let numeralValidator = Validator({ integer: true, is: 5 });
+        let numeralValidator = new Validator({ integer: true, is: 5 });
         expect(numeralValidator.message(1.50)).toEqual('Must be a valid Integer');
       });
     });
 
     describe('when correct type', () => {
       it('outputs the correct i18n string with the options', () => {
-        let numeralValidator = Validator({ integer: true, is: 5 });
+        let numeralValidator = new Validator({ integer: true, is: 5 });
         expect(numeralValidator.message(1)).toEqual('Must equal 5');
       });
     });
@@ -45,7 +52,7 @@ describe('Numeral Validator', () => {
     let numeralValidator;
 
     beforeEach(() => {
-      numeralValidator = Validator({ is: 5 });
+      numeralValidator = new Validator({ is: 5 });
     });
 
     describe('message', () => {
@@ -78,7 +85,7 @@ describe('Numeral Validator', () => {
     let lessThanValidator;
 
     beforeEach(() => {
-      lessThanValidator = Validator({ max: 5 });
+      lessThanValidator = new Validator({ max: 5 });
     });
 
     describe('when no input type is specified', () => {
@@ -112,7 +119,7 @@ describe('Numeral Validator', () => {
 
     describe('when no input type is specified', () => {
       beforeEach(() => {
-        greaterThanValidator = Validator({ min: 10 });
+        greaterThanValidator = new Validator({ min: 10 });
       });
 
       it('returns the correct message function', () => {
@@ -144,7 +151,7 @@ describe('Numeral Validator', () => {
 
     describe('when no input type is specified', () => {
       beforeEach(() => {
-         rangeValidator = Validator({ min: 5, max: 10 });
+         rangeValidator = new Validator({ min: 5, max: 10 });
       });
 
       it('returns the correct message function', () => {
@@ -180,14 +187,14 @@ describe('Numeral Validator', () => {
     describe('when value is present', () => {
       describe('value is of correct type', () => {
         it('returns true', () => {
-          typeValidator = Validator({});
+          typeValidator = new Validator({});
           expect(typeValidator.validate(1)).toBeTruthy();
         });
       });
 
       describe('value is incorrect type', () => {
         it('returns false', () => {
-          typeValidator = Validator({ integer: true });
+          typeValidator = new Validator({ integer: true });
           expect(typeValidator.validate(1.0)).toBeTruthy();
         });
       });
@@ -195,7 +202,7 @@ describe('Numeral Validator', () => {
 
     describe('when value is not present', () => {
       it('returns true', () => {
-        typeValidator = Validator({ integer: true });
+        typeValidator = new Validator({ integer: true });
         expect(typeValidator.validate()).toBeTruthy();
       });
     });
@@ -203,14 +210,14 @@ describe('Numeral Validator', () => {
     describe('message', () => {
       describe('when expecting an integer', () => {
         it('returns the integer message', () => {
-          typeValidator = Validator({ integer: true });
+          typeValidator = new Validator({ integer: true });
           expect(typeValidator.message()).toEqual('Must be a valid Integer');
         });
       });
 
       describe('when expecting an decimal', () => {
         it('returns the decimal message', () => {
-          typeValidator = Validator({});
+          typeValidator = new Validator({});
           expect(typeValidator.message()).toEqual('Must be a valid Decimal');
         });
       });

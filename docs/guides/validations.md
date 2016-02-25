@@ -14,7 +14,7 @@ class MyComponent extends React.Component {
     return (
       <Textbox name="foo"
         value={ this.state.myStore.get('foo') }
-        validations={ [Presence()] } />
+        validations={ [new Presence()] } />
     )
   }
 }
@@ -41,7 +41,7 @@ class MyComponent extends React.Component {
       <Form>
         <Textbox name="foo"
           value={ this.state.myStore.get('foo') }
-          validations={ [Presence()] } />
+          validations={ [new Presence()] } />
       </Form>
     )
   }
@@ -52,9 +52,9 @@ export default MyComponent;
 
 ## Defining New Validations
 
-A validation, such as the presence validation provided by Carbon, is just a function which returns an object with two functions.
+A validation, such as the presence validation provided by Carbon, is just a class with two functions.
 
-The object should define:
+The class should define:
 
 * A `validate` method returns a boolean.
 * A `message` method which returns the message to display if the input is invalid.
@@ -62,20 +62,18 @@ The object should define:
 Below is an example of how to setup a validation:
 
 ```js
-let MyValidator = function() {
-  return {
-    validate: function(value) {
-      if (value === 'foobar') {
-        return false;
-      } else {
-        return true;
-      }
-    },
-
-    message: function() {
-      return "foobar is an invalid value!";
+class MyValidator {
+  validate = (value) => {
+    if (value === 'foobar') {
+      return false;
+    } else {
+      return true;
     }
-  };
+  },
+
+  message = () => {
+    return "foobar is an invalid value!";
+  }
 };
 
 export default MyValidator;
