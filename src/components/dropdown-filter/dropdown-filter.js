@@ -135,8 +135,11 @@ class DropdownFilter extends Dropdown {
       state.open = true;
     } else if (this.props.suggest) {
       state.open = false;
+    } else {
+      state.open = true;
     }
 
+    console.log(state);
     this.setState(state);
 
     this.openingList = false;
@@ -175,8 +178,10 @@ class DropdownFilter extends Dropdown {
    * @method handleFocus
    */
   handleFocus = () => {
-    if (!this.props.suggest) {
+    if (!this.props.suggest && !this.blockFocus) {
       this.setState({ open: true });
+    } else {
+      this.blockFocus = false;
     }
 
     this._input.setSelectionRange(0, this._input.value.length);
