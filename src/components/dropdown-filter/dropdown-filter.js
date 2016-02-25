@@ -1,7 +1,7 @@
 import React from 'react';
 import Dropdown from './../dropdown';
 import I18n from 'i18n-js';
-import classNames from 'classNames';
+import classNames from 'classnames';
 import escapeStringRegexp from 'escape-string-regexp';
 
 /**

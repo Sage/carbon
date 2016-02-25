@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactHighcharts from 'react-highcharts/dist/bundle/highcharts';
-import classNames from 'classNames';
+import classNames from 'classnames';
 
 /**
  * A rainbow chart using the Highcharts API.

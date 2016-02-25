@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
+import classNames from 'classnames';
 import { assign } from 'lodash';
 
 /**
@@ -324,13 +325,10 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {String} Main class names
    */
   get mainClasses() {
-    let classes = super.mainClasses || "";
-
-    if (!this.state.valid) {
-      classes += " common-input--error";
-    }
-
-    return classes;
+    return classNames(
+      super.mainClasses,
+      { 'common-input--error': !this.state.valid }
+    );
   }
 
   /**
@@ -340,13 +338,10 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {String} Input class names
    */
   get inputClasses() {
-    let classes = super.inputClasses || "";
-
-    if (!this.state.valid) {
-      classes += " common-input__input--error";
-    }
-
-    return classes;
+    return classNames(
+      super.inputClasses,
+      { 'common-input__input--error': !this.state.valid }
+    );
   }
 
   /**
