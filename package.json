@@ -38,6 +38,7 @@
     "bignumber.js": "~2.1.0",
     "bowser": "~1.0.0",
     "classnames": "~2.2.3",
+    "escape-string-regexp": "^1.0.5",
     "events": "~1.0.2",
     "form-serialize": "~0.7.0",
     "lodash": "~3.10.1",
