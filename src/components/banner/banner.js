@@ -90,7 +90,8 @@ class Banner extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      `ui-banner ui-banner--${this.props.as}`,
+      'ui-banner',
+      `ui-banner--${this.props.as}`,
       this.props.className
     );
   }
