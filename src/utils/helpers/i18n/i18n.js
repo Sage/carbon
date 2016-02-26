@@ -6,7 +6,9 @@ import I18n from "i18n-js";
 * Provides helper methods for I18n.
 *
 * @object I18nHelper
-* @param {String} value
+* @method formatValue
+* @method removeFormat
+*
 */
 const I18nHelper = {
 
@@ -25,10 +27,11 @@ const I18nHelper = {
    * Adds formatting to the value
    *
    * @method formatValue
-   * @param {String} value Unformatted Value
-   * @return {String} formated value
+   * @param {String} value unformatted Value
+   * @param {Interger} precision
+   * @return {String} formatted value
    */
-  formatValue: (valueToFormat = 0, precision =  2) => {
+  formatValue: (valueToFormat = 0, precision = 2) => {
     return  I18n.toNumber(valueToFormat, {
       precision: precision,
       delimiter: I18nHelper.i18nFormatting.delimiter,
