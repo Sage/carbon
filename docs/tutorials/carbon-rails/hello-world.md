@@ -110,12 +110,13 @@ For example:
 
 At the moment our application will throw an error when it trys to include the `ui.js` file
 
-We need to precompile this assets so open up your `config/initializers/assets.rb` and add a precompile line for the js file
+We need to precompile this assets so open up your `config/initializers/assets.rb` and add a precompile line for the `js` file, and while we are here, the `css` file
 
 ```ruby
 # config/initializers/assets.rb
 
 Rails.application.config.assets.precompile += %w( ui.js )
+Rails.application.config.assets.precompile += %w( ui.css )
 ```
 
 ### Rails Controller and View
@@ -174,7 +175,6 @@ To create a view (or any other component), create a class representing that view
 // ui/src/views/welcome/welcome.js
 
 import React from 'react';
-import { connect } from 'carbon/lib/utils/flux';
 
 class Welcome extends React.Component {
   render() {
