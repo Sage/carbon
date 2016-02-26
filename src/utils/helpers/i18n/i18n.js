@@ -29,13 +29,11 @@ const I18nHelper = {
    * @return {String} formated value
    */
   formatValue: (valueToFormat = 0, precision =  2) => {
-    valueToFormat = valueToFormat;
-    valueToFormat = I18n.toNumber(valueToFormat, {
+    return  I18n.toNumber(valueToFormat, {
       precision: precision,
       delimiter: I18nHelper.i18nFormatting.delimiter,
       separator: I18nHelper.i18nFormatting.separator
     });
-    return valueToFormat;
   },
 
   /**
@@ -46,13 +44,11 @@ const I18nHelper = {
    * @return {String} value with no format
    */
   removeFormat: (valueWithFormat = '') => {
-    let value = valueWithFormat;
     let regex = new RegExp('\\' + I18nHelper.i18nFormatting.delimiter, "g");
 
-    value = value.replace(regex, "", "g");
-    value = value.replace(I18nHelper.i18nFormatting.separator, ".");
+    valueWithFormat = valueWithFormat.replace(regex, "", "g");
 
-    return value;
+    return valueWithFormat.replace(I18nHelper.i18nFormatting.separator, ".");
   }
 };
 
