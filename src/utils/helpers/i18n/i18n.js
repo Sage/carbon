@@ -11,20 +11,29 @@ import I18n from "i18n-js";
 const I18nHelper = {
 
   /**
+   * Formats delimiter and separator through i18n
+   *
+   * @method i18nFormatting
+   * @return {Object} Delimeter and separator values
+   */
+  i18nFormatting: {
+    delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
+    separator: I18n.t("number.format.separator", { defaultValue: "." })
+  },
+
+  /**
    * Adds formatting to the value
    *
    * @method formatValue
-   * @private
    * @param {String} value Unformatted Value
    * @return {String} formated value
    */
-  formatValue: (valueToFormat) => {
-    valueToFormat = valueToFormat || 0;
-
+  formatValue: (valueToFormat = 0, precision =  2) => {
+    valueToFormat = valueToFormat;
     valueToFormat = I18n.toNumber(valueToFormat, {
-      precision: 2,
-      delimiter: i18nFormatting().delimiter,
-      separator: i18nFormatting().separator
+      precision: precision,
+      delimiter: I18nHelper.i18nFormatting.delimiter,
+      separator: I18nHelper.i18nFormatting.separator
     });
     return valueToFormat;
   },
@@ -33,35 +42,18 @@ const I18nHelper = {
    * Removes delimiters and separators from value
    *
    * @method removeFormat
-   * @private
    * @param {String} valueWithFormat Formatted value
    * @return {String} value with no format
    */
-  removeFormat: (valueWithFormat) => {
-    let value = valueWithFormat || '';
-    let regex = new RegExp('\\' + i18nFormatting().delimiter, "g");
+  removeFormat: (valueWithFormat = '') => {
+    let value = valueWithFormat;
+    let regex = new RegExp('\\' + I18nHelper.i18nFormatting.delimiter, "g");
 
     value = value.replace(regex, "", "g");
-    value = value.replace(i18nFormatting().separator, ".");
+    value = value.replace(I18nHelper.i18nFormatting.separator, ".");
 
     return value;
   }
 };
-
-/**
- * Formats delimiter and separator through i18n
- *
- * @method i18nFormatting
- * @private
- * @return {Object} Delimeter and separator values
- */
-function i18nFormatting() {
-  return {
-    delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
-    separator: I18n.t("number.format.separator", { defaultValue: "." })
-  };
-}
-
-
 
 export default I18nHelper;
