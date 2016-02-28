@@ -3,6 +3,7 @@ import shouldComponentUpdate from './../../helpers/should-component-update';
 import { assign } from 'lodash';
 import guid from './../../helpers/guid';
 import classNames from 'classnames';
+import Icon from './../../../components/icon';
 
 /**
  * Input decorator.
@@ -163,8 +164,11 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {String} Input class names
    */
   get inputClasses() {
-    let classes = super.inputClasses || "";
-    return `${classes} common-input__input`;
+    return classNames(
+      super.inputClasses,
+      'common-input__input',
+      { 'common-input__input--search': this.props.search }
+    );
   }
 
   /**
@@ -241,6 +245,12 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     }
   }
 
+  get searchHTML() {
+    if (this.props.search) {
+      return <Icon type='search' className='common-input__search' />
+    }
+  }
+
   /**
    * Returns HTML for the input.
    *
@@ -254,6 +264,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     return (
       <div { ...this.fieldProps }>
         { this.prefixHTML }
+        { this.searchHTML }
         { input }
         { this.additionalInputContent }
       </div>
