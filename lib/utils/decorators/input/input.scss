@@ -95,6 +95,12 @@
       box-shadow: none;
     }
   }
+
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder {
+    color: $grey-dark-blue-40;
+  }
 }
 
 .common-input__message-wrapper {
@@ -176,4 +182,11 @@
 .common-input__message--error {
   background-color: $error;
   color: $white;
+}
+
+.common-input__prefix {
+  font-weight: bold;
+  left: 7px;
+  position: absolute;
+  top: 8px;
 }

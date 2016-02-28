@@ -103,7 +103,6 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     }
   }
 
-
   /**
    * A lifecycle method for when the component has re-rendered.
    *
@@ -169,7 +168,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // call the components super method if it exists
     if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
-    if (this.context.form && this.props.validations) {
+    if (this.isAttachedToForm && this.props.validations) {
       if (!this.state.valid) {
         // decrement the forms error count if the input is removed
         this.context.form.decrementErrorCount();
@@ -195,7 +194,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     }
 
     // iterate through each validation applied to the input
-    this.props.validations.forEach((validation) => {
+    for (let i = 0; i < this.props.validations.length; i++) {
+      let validation = this.props.validations[i];
+
       // run this validation
       valid = validation.validate(value, this.props);
 
@@ -204,10 +205,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
         // if input currently thinks it is valid
         if (this.state.valid) {
           // if input has a form
-          if (this.context.form) {
+          if (this.isAttachedToForm) {
             // increment the error count on the form
             this.context.form.incrementErrorCount();
-
           }
 
           // if input has a tab
@@ -217,13 +217,13 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
           }
 
           // tell the input it is invalid
-          this.setState({ errorMessage: validation.message(this.props), valid: false });
+          this.setState({ errorMessage: validation.message(value, this.props), valid: false });
         }
 
         // a validation has failed, so exit the loop at this point
-        return valid;
+        break;
       }
-    });
+    }
 
     // return the result of the validation
     return valid;
@@ -267,7 +267,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // if the field is in an invalid state
     if (!this.state.valid) {
       // if there is a form, decrement the error count
-      if (this.context.form) {
+      if (this.isAttachedToForm) {
         this.context.form.decrementErrorCount();
       }
 
@@ -276,6 +276,20 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
       // reset the error state
       this.setState({ errorMessage: null, valid: true });
+    }
+  }
+
+  /**
+   * Determines if the input is attached to a form.
+   *
+   * @method isAttachedToForm
+   * @return {Boolean}
+   */
+  get isAttachedToForm() {
+    if (this.context.form && this.context.form.inputs[this._guid]) {
+      return true;
+    } else {
+      return false;
     }
   }
 

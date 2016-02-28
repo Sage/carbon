@@ -149,7 +149,7 @@ describe('Dropdown', () => {
 
   describe('handleMouseDownOnList', () => {
     beforeEach(() => {
-      spyOn(instance.refs.input, 'focus');
+      spyOn(instance._input, 'focus');
       jasmine.clock().install();
     });
 
@@ -163,7 +163,7 @@ describe('Dropdown', () => {
           target: instance.refs.list
         });
         jasmine.clock().tick();
-        expect(instance.refs.input.focus).toHaveBeenCalled();
+        expect(instance._input.focus).toHaveBeenCalled();
       });
     });
 
@@ -173,7 +173,7 @@ describe('Dropdown', () => {
           target: 'foo'
         });
         jasmine.clock().tick();
-        expect(instance.refs.input.focus).not.toHaveBeenCalled();
+        expect(instance._input.focus).not.toHaveBeenCalled();
       });
     });
   });
@@ -186,7 +186,7 @@ describe('Dropdown', () => {
     describe('if blur is blocked', () => {
       it('does not call setState', () => {
         instance.blockBlur = true;
-        TestUtils.Simulate.blur(instance.refs.input);
+        TestUtils.Simulate.blur(instance._input);
         expect(instance.setState).not.toHaveBeenCalled();
       });
     });
@@ -202,14 +202,14 @@ describe('Dropdown', () => {
 
       it('calls setState', () => {
         instance.blockBlur = false;
-        TestUtils.Simulate.blur(instance.refs.input);
+        TestUtils.Simulate.blur(instance._input);
         expect(instance.setState).toHaveBeenCalledWith({ open: false });
       });
 
       describe('if highlighted matches value', () => {
         it('does not emit change', () => {
           spyOn(instance, 'highlighted').and.returnValue(instance.props.value);
-          TestUtils.Simulate.blur(instance.refs.input);
+          TestUtils.Simulate.blur(instance._input);
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
       });
@@ -217,7 +217,7 @@ describe('Dropdown', () => {
       describe('if highlighted does not match value', () => {
         it('emits change', () => {
           spyOn(instance, 'highlighted').and.returnValue('2');
-          TestUtils.Simulate.blur(instance.refs.input);
+          TestUtils.Simulate.blur(instance._input);
           expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('2', 'bar');
         });
       });
@@ -227,7 +227,7 @@ describe('Dropdown', () => {
   describe('handleFocus', () => {
     it('calls setState', () => {
       spyOn(instance, 'setState');
-      TestUtils.Simulate.focus(instance.refs.input);
+      TestUtils.Simulate.focus(instance._input);
       expect(instance.setState).toHaveBeenCalledWith({
         open: true
       });
@@ -239,7 +239,7 @@ describe('Dropdown', () => {
           <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }]) } readOnly={ true } />
         );
         spyOn(instance, 'setState');
-        TestUtils.Simulate.focus(instance.refs.input);
+        TestUtils.Simulate.focus(instance._input);
         expect(instance.setState).not.toHaveBeenCalled();
       });
     });
@@ -250,7 +250,7 @@ describe('Dropdown', () => {
           <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }]) } disabled={ true } />
         );
         spyOn(instance, 'setState');
-        TestUtils.Simulate.focus(instance.refs.input);
+        TestUtils.Simulate.focus(instance._input);
         expect(instance.setState).not.toHaveBeenCalled();
       });
     });
@@ -325,7 +325,7 @@ describe('Dropdown', () => {
         describe('if something is highlighted', () => {
           beforeEach(() => {
             instance.setState({ highlighted: 1 });
-            TestUtils.Simulate.keyDown(instance.refs.input, opts);
+            TestUtils.Simulate.keyDown(instance._input, opts);
           });
 
           it('prevents default', () => {
@@ -340,7 +340,7 @@ describe('Dropdown', () => {
         describe('if something is not highlighted', () => {
           it('does not prevent default', () => {
             instance.setState({ highlighted: 'abc' }); // value which does not exist
-            TestUtils.Simulate.keyDown(instance.refs.input, opts);
+            TestUtils.Simulate.keyDown(instance._input, opts);
             expect(spy).not.toHaveBeenCalled();
           });
         });
@@ -355,7 +355,7 @@ describe('Dropdown', () => {
         });
 
         it('prevents default', () => {
-          TestUtils.Simulate.keyDown(instance.refs.input, opts);
+          TestUtils.Simulate.keyDown(instance._input, opts);
           expect(spy).toHaveBeenCalled();
         });
 
@@ -363,8 +363,8 @@ describe('Dropdown', () => {
           it('calls setState with the correct values', () => {
             instance.setState({ highlighted: 1 });
             spyOn(instance, 'setState');
-            TestUtils.Simulate.keyDown(instance.refs.input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 2 });
+            TestUtils.Simulate.keyDown(instance._input, opts);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '2' });
           });
         });
 
@@ -372,8 +372,8 @@ describe('Dropdown', () => {
           it('calls setState with the correct values', () => {
             instance.setState({ highlighted: 2 });
             spyOn(instance, 'setState');
-            TestUtils.Simulate.keyDown(instance.refs.input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 1 });
+            TestUtils.Simulate.keyDown(instance._input, opts);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '1' });
           });
         });
       });
@@ -387,7 +387,7 @@ describe('Dropdown', () => {
         });
 
         it('prevents default', () => {
-          TestUtils.Simulate.keyDown(instance.refs.input, opts);
+          TestUtils.Simulate.keyDown(instance._input, opts);
           expect(spy).toHaveBeenCalled();
         });
 
@@ -395,8 +395,8 @@ describe('Dropdown', () => {
           it('calls setState with the correct values', () => {
             instance.setState({ highlighted: 2 });
             spyOn(instance, 'setState');
-            TestUtils.Simulate.keyDown(instance.refs.input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 1 });
+            TestUtils.Simulate.keyDown(instance._input, opts);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '1' });
           });
         });
 
@@ -404,8 +404,23 @@ describe('Dropdown', () => {
           it('calls setState with the correct values', () => {
             instance.setState({ highlighted: 1 });
             spyOn(instance, 'setState');
-            TestUtils.Simulate.keyDown(instance.refs.input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 2 });
+            TestUtils.Simulate.keyDown(instance._input, opts);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '2' });
+          });
+        });
+
+        describe('when strings are used for IDs', () => {
+          beforeEach(() => {
+            instance = TestUtils.renderIntoDocument(
+              <Dropdown name="foo" options={ Immutable.fromJS([{ id: 'foo', name: 'foo' }, { id: 'bar', name: 'bar' }]) } value="" />
+            );
+            instance.setState({ open: true });
+          });
+
+          it('still works', () => {
+            spyOn(instance, 'setState');
+            TestUtils.Simulate.keyDown(instance._input, opts);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 'foo' });
           });
         });
       });
@@ -458,7 +473,6 @@ describe('Dropdown', () => {
       instance.visibleValue = 'foo';
       expect(instance.inputProps.className).toEqual(instance.inputClasses);
       expect(instance.inputProps.name).toBe(null);
-      expect(instance.inputProps.ref).toEqual("input");
       expect(instance.inputProps.readOnly).toBeTruthy();
       expect(instance.inputProps.value).toEqual('foo');
     });

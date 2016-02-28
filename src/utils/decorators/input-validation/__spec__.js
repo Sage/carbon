@@ -39,7 +39,8 @@ let form = {
   attachToForm: function() {},
   detachFromForm: function() {},
   decrementErrorCount: function() {},
-  incrementErrorCount: function() {}
+  incrementErrorCount: function() {},
+  inputs: { "123": {} }
 }
 
 class DummyInputWithoutLifecycleMethods extends React.Component {
@@ -49,6 +50,8 @@ class DummyInputWithoutLifecycleMethods extends React.Component {
 }
 
 class DummyInput extends DummyInputWithoutLifecycleMethods {
+  _guid = "123"
+
   componentDidUpdate() {
   }
 
@@ -350,6 +353,19 @@ describe('InputValidation', () => {
           expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
         });
 
+        describe('when the second validation fails', () => {
+          it('stops validating', () => {
+            instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+              validations: [validationOne, validationThree, validationTwo],
+              value: 'foo'
+            }));
+            instance.validate();
+            expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
+            expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
+            expect(validationTwo.validate).not.toHaveBeenCalled();
+          });
+        });
+
         describe('when called with a custom value', () => {
           it('calls validate for each validation', () => {
             instance.validate('foo');
@@ -628,6 +644,33 @@ describe('InputValidation', () => {
       instance.inputProps.onFocus();
       expect(instance._handleFocus).toHaveBeenCalled();
       expect(instance.onFocus).toHaveBeenCalled();
+    });
+  });
+
+  describe('isAttachedToForm', () => {
+    describe('if no form', () => {
+      it('returns false', () => {
+        instance.context.form = null;
+        expect(instance.isAttachedToForm).toBeFalsy();
+      });
+    });
+
+    describe('if input is not attached to form', () => {
+      it('returns false', () => {
+        instance.context.form = {
+          inputs: {}
+        };
+        expect(instance.isAttachedToForm).toBeFalsy();
+      });
+    });
+
+    describe('if input is attached to form', () => {
+      it('returns true', () => {
+        instance.context.form = {
+          inputs: { "123": {} }
+        };
+        expect(instance.isAttachedToForm).toBeTruthy();
+      });
     });
   });
 });

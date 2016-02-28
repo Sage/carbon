@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 /**
  * A button widget.
@@ -54,23 +55,35 @@ class Button extends React.Component {
   }
 
   /**
+   * Build the element to render.
+   *
+   * @method element
+   * @return {Object} JSX
+   */
+  get element() {
+    let {...props} = this.props,
+        // if props.href then render an anchor instead
+        el = props.href ? 'a' : 'button';
+
+    props.className = classNames(
+      'ui-button',
+      'ui-button--' + this.props.as,
+      props.className, {
+        'ui-button--disabled': this.props.disabled
+      }
+    );
+
+    return React.createElement(el, props, this.props.children);
+  }
+
+  /**
    * Renders the component with props.
    *
    * @method render
    * @return {Object} JSX
    */
   render() {
-    let {className, ...props} = this.props;
-
-    className = 'ui-button ui-button--' + this.props.as +
-      (this.props.disabled ? ' ui-button--disabled' : '') +
-      (className ? ' ' + className : '');
-
-    return(
-        <button className={ className } { ...props }>
-          { this.props.children }
-        </button>
-    );
+    return this.element;
   }
 }
 

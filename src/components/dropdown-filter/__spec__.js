@@ -57,7 +57,7 @@ describe('DropdownFilter', () => {
 
       describe('when character length is 0', () => {
         it('closes the list', () => {
-          TestUtils.Simulate.change(instance.refs.input, {
+          TestUtils.Simulate.change(instance._input, {
             target: { value: '' }
           });
           expect(instance.setState).toHaveBeenCalledWith({
@@ -70,7 +70,7 @@ describe('DropdownFilter', () => {
 
       describe('when character length is greater than 0', () => {
         it('opens the list', () => {
-          TestUtils.Simulate.change(instance.refs.input, {
+          TestUtils.Simulate.change(instance._input, {
             target: { value: 'a' }
           });
           expect(instance.setState).toHaveBeenCalledWith({
@@ -85,7 +85,7 @@ describe('DropdownFilter', () => {
     describe('when not in suggest mode', () => {
       it('calls setState with the filter even with no chars', () => {
         spyOn(instance, 'setState');
-        TestUtils.Simulate.change(instance.refs.input, {
+        TestUtils.Simulate.change(instance._input, {
           target: { value: '' }
         });
         expect(instance.setState).toHaveBeenCalledWith({
@@ -101,7 +101,7 @@ describe('DropdownFilter', () => {
           <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" create={ function() {} } />
         );
         spyOn(instance, 'emitOnChangeCallback');
-        TestUtils.Simulate.change(instance.refs.input, {
+        TestUtils.Simulate.change(instance._input, {
           target: { value: 'foo' }
         });
         expect(instance.emitOnChangeCallback).toHaveBeenCalledWith("", 'foo');
@@ -194,9 +194,9 @@ describe('DropdownFilter', () => {
     });
 
     it('calls setSelectionRange', () => {
-      spyOn(instance.refs.input, 'setSelectionRange');
+      spyOn(instance._input, 'setSelectionRange');
       instance.handleFocus();
-      expect(instance.refs.input.setSelectionRange).toHaveBeenCalledWith(0, instance.refs.input.value.length);
+      expect(instance._input.setSelectionRange).toHaveBeenCalledWith(0, instance._input.value.length);
     });
   });
 
@@ -298,6 +298,13 @@ describe('DropdownFilter', () => {
       describe('if not in suggest mode and list is not opening', () => {
         it('filters the list', () => {
           expect(instance.prepareList(opts).length).toEqual(2);
+        });
+      });
+
+      describe('if filter contains invalid characters', () => {
+        it('still filters the list', () => {
+          instance.setState({ filter: '[]()$£&%' });
+          expect(instance.prepareList(opts).length).toEqual(0);
         });
       });
 

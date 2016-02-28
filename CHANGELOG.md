@@ -1,8 +1,135 @@
-# 0.4.0
+# 0.6.0
 
 ## New Components
 
 * Spinner
+
+# 0.5.0
+
+## !BREAKING CHANGE! Validations have been converted into classes
+
+We have converted Validations provided by Carbon into classes. This means that you need to create an instance when you want to use them.
+
+For example, you would need to change:
+
+```js
+<Textbox validations={ [PresenceValidator()] } />
+```
+
+To this:
+
+```js
+<Textbox validations={ [new PresenceValidator()] } />
+```
+
+This allows better inspection of the validator, and the ability to modify params on the class.
+
+## Disabled class for inputs
+
+We now add a `common-input--disabled` class to the component when its input is disabled
+
+## Bug Fixes
+
+* Inputs with multiple validations now validate correctly.
+* DropdownFilter now parses its filter before creating a Regular Expression.
+* Split Button has been given a fixed height to resolve UI issues.
+* Dropdown up and down arrows now work with options that use strings for IDs.
+* We now use the `$grey-dark-blue-40` color for placeholders in inputs
+
+# 0.4.0
+
+## New Components
+
+* SplitButton.
+
+## New Validations
+
+### Numeral Validation
+
+Checks numeral type (Integer of Decimal)
+Checks if value is equal, greater than, less than
+
+```javascript
+// Integer with a min value of 8
+<Number validations={ [NumeralValidator({ integer: true, min: 8 })] }/>
+
+// Decimal with a between 8 and 20
+<Number validations={ [NumeralValidator({ integer: true, min: 8, max: 20 })] }/>
+
+// Decimal exactly 3.142
+<Number validations={ [NumeralValidator({ is: 3.142 })] }/>
+```
+
+### Length Validation
+
+Checks the length of a number of a string
+
+```javascript
+// length is greater than or equal to 8:
+<Textbox validations={ [ LengthValidator({ min: 8 }) ] });
+
+// length is less than or equal to 8:
+<Textbox validations={ [ LengthValidator({ max: 8 }) ] });
+
+// length is between 5 and 10 characters:
+<Number validations={ [ LengthValidator({ min: 5, max: 10 }) ] });
+
+// length is 10 characters:
+<Number validations={ [ LengthValidator({ is: 10 }) ] });
+```
+
+### Regex Validation
+
+Applies a regex validation to the input
+
+```javascript
+<Textbox validations={ [RegexValidator({ format: (/[A-Z]{5}/) }) ] }/>
+```
+
+### Email Validation
+
+Applies a email validation to the input
+
+```javascript
+<Textbox validations={ [ EmailValidator() ] }/>
+```
+
+## Prefix for inputs
+
+We have added a new feature for input components which allows developers to output a prefix to the input.
+
+```js
+<Textbox prefix="foo" />
+```
+
+## Updated visuals for Toast Notifications and Tabs
+
+* Toast notifications have had updated styling applied to them, based on new designs.
+* Colour updates to Tabs, to align with design updates
+* New colour variables added
+
+## Misc
+
+* Button component will now render a stylised `anchor` instead of a `button` if passed a `href` prop.
+
+## Bug Fixes
+
+* Add i18n to form buttons
+
+# 0.3.3
+
+* Performance updates to inputs. We also now provide a `shouldComponentUpdate` method which can be reused in custom components.
+* Inputs that are detached from a form no longer update error count.
+
+# 0.3.2
+
+## Bug Fixes
+
+* Form no longer validates disabled fields on submit.
+* Form inputs are tracked by a guid now, rather than input name.
+* Autocomplete is disabled for all inputs by default.
+* Locks version numbers to try and mitigate incompatabilities with third party modules.
+>>>>>>> master
 
 # 0.3.1
 
@@ -177,6 +304,12 @@ export default MyView
 ## Minor
 
 * Decrease width of dropdown icon to 20px
+
+# 0.1.8
+
+## Bug Fixes
+
+* Backported dropdown validation fix.
 
 # 0.1.7
 

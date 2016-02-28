@@ -118,7 +118,8 @@ class Form extends React.Component {
         attachToForm: this.attachToForm,
         detachFromForm: this.detachFromForm,
         incrementErrorCount: this.incrementErrorCount,
-        decrementErrorCount: this.decrementErrorCount
+        decrementErrorCount: this.decrementErrorCount,
+        inputs: this.inputs
       }
     };
   }
@@ -170,8 +171,7 @@ class Form extends React.Component {
    * @return {void}
    */
   attachToForm = (component) => {
-    let name = component.props.name;
-    this.inputs[name] = component;
+    this.inputs[component._guid] = component;
   }
 
   /**
@@ -182,8 +182,7 @@ class Form extends React.Component {
    * @return {void}
    */
   detachFromForm = (component) => {
-    let name = component.props.name;
-    delete this.inputs[name];
+    delete this.inputs[component._guid];
   }
 
   /**
@@ -204,7 +203,7 @@ class Form extends React.Component {
     for (let key in this.inputs) {
       let input = this.inputs[key];
 
-      if (!input.validate()) {
+      if (!input.props.disabled && !input.validate()) {
         valid = false;
         errors++;
       }
@@ -283,7 +282,7 @@ class Form extends React.Component {
 
     return (<div className={ cancelClasses }>
       <Button type='button' onClick={ this.cancelForm } >
-        Cancel
+        { cancelText() }
       </Button>
     </div>);
   }
@@ -317,12 +316,16 @@ class Form extends React.Component {
         { generateCSRFToken(this._document) }
 
         { this.props.children }
-        { cancelButton }
-        <div className={ saveClasses }>
-          { errorCount }
-          <Button as="primary" disabled={ this.props.saving }>
-            Save
-          </Button>
+
+        <div className="ui-form__buttons">
+          <div className={ saveClasses }>
+            { errorCount }
+            <Button as="primary" disabled={ this.props.saving }>
+              { saveText() }
+            </Button>
+          </div>
+
+          { cancelButton }
         </div>
       </form>
     );
@@ -373,6 +376,14 @@ function errorMessage(count) {
   });
 
   return { __html: errorMessage };
+}
+
+function saveText() {
+  return I18n.t('actions.save', { defaultValue: 'Save' });
+}
+
+function cancelText() {
+  return I18n.t('actions.cancel', { defaultValue: 'Cancel' });
 }
 
 export default Form;

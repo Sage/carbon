@@ -1,4 +1,5 @@
 var Immutable = require('immutable');
+var escapeStringRegexp = require('escape-string-regexp');
 
 exports.countries = function(query) {
   var query = parseQueryString(query);
@@ -6,7 +7,7 @@ exports.countries = function(query) {
   var page = Number(query.page);
   var rows = Number(query.rows);
   var skip = (page - 1) * rows;
-  var regex = new RegExp(text, "i");
+  var regex = new RegExp(escapeStringRegexp(text), "i");
 
   var filteredCountries = countryList.filter(function(item) {
     return item.get('name').search(regex) > -1;

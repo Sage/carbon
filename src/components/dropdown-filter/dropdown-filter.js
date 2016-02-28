@@ -1,6 +1,7 @@
 import React from 'react';
 import Dropdown from './../dropdown';
 import I18n from 'i18n-js';
+import escapeStringRegexp from 'escape-string-regexp';
 
 /**
  * A dropdown filter widget.
@@ -178,7 +179,7 @@ class DropdownFilter extends Dropdown {
       this.setState({ open: true });
     }
 
-    this.refs.input.setSelectionRange(0, this.refs.input.value.length);
+    this._input.setSelectionRange(0, this._input.value.length);
   }
 
   /**
@@ -200,7 +201,7 @@ class DropdownFilter extends Dropdown {
   prepareList = (options) => {
     if ((this.props.suggest || !this.openingList) && typeof this.state.filter === 'string') {
       let filter = this.state.filter;
-      let regex = new RegExp(filter, 'i');
+      let regex = new RegExp(escapeStringRegexp(filter), 'i');
 
       // if user has entered a search filter
       options = options.filter((option) => {
