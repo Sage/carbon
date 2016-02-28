@@ -129,7 +129,6 @@ We have added a new feature for input components which allows developers to outp
 * Form inputs are tracked by a guid now, rather than input name.
 * Autocomplete is disabled for all inputs by default.
 * Locks version numbers to try and mitigate incompatabilities with third party modules.
->>>>>>> master
 
 # 0.3.1
 
