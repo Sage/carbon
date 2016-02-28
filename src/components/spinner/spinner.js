@@ -14,25 +14,41 @@ import classNames from 'classnames';
  *
  *   <Spinner />
  *
- * You can pass a 'as' property to the spinner to define the type of spinner
- *    The default is std (standard).
- *
  * You can pass a 'size' property to adjust the size of the spinner
  *    The default is lmed
  *    options: small, smed, lmed, large
  *
- * @class Row
+ * For additional properties specific to this component, see propTypes.
+ *
+ * @class Spinner
  * @constructor
  */
 class Spinner extends React.Component {
 
   static propTypes = {
+
+    /**
+     * Sets the theme for the component.
+     * (see the 'iconColorSets' for possible values)
+     *
+     * @property as
+     * @type {String}
+     * @default info
+     */
     as: React.PropTypes.string,
+
+    /**
+     * Size of the spinner
+     * Options: small, smed, lmed, large
+     *
+     * @property size
+     * @type {String}
+     */
     size: React.PropTypes.string
   };
 
   static defaultProps = {
-    as: 'std',
+    as: 'info',
     size: 'lmed'
   };
 
@@ -45,8 +61,8 @@ class Spinner extends React.Component {
   get spinnerClasses() {
     return classNames(
       'ui-spinner',
-      'ui-spinner__' + this.props.as,
-      'ui-spinner__' + this.props.as + '--' + this.props.size,
+      'ui-spinner--'+ this.props.as,
+      'ui-spinner--' + this.props.size,
       this.props.className
     );
   }

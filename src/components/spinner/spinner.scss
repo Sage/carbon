@@ -1,5 +1,5 @@
-@import 'animation';
 @import 'colors';
+@import 'mixins';
 
 @include keyframes(rotate360) {
   0%    {
@@ -11,21 +11,32 @@
   }
 }
 
-$spinner-color: $blue;
+// $spinner-color: $blue;
 $std-speed: 0.7s;
 
-.ui-spinner__std--small { width: 12px; height: 12px; border: 3px solid $spinner-color }
-.ui-spinner__std--smed  { width: 20px; height: 20px; border: 5px solid $spinner-color }
-.ui-spinner__std--lmed  { width: 32px; height: 32px; border: 8px solid $spinner-color }
-.ui-spinner__std--large { width: 40px; height: 40px; border: 10px solid $spinner-color }
-
-.ui-spinner__std {
+.ui-spinner {
   @include animation(rotate360 $std-speed linear forwards infinite);
   border-radius: 50%;
 
-  border-top-color: rgba( $spinner-color, 1);
-  border-bottom-color: rgba( $spinner-color, .5);
-  border-right-color: rgba( $spinner-color, .3 );
-  border-left-color: rgba( $spinner-color, .7 );
   display: inline-block;
 }
+
+@mixin spinner-theme($type, $color, $border, $background, $color-hover) {
+  .ui-spinner--#{$type} {
+    border-style: solid;
+    border-top-color: rgba( $color, 1);
+    border-bottom-color: rgba( $color, .5);
+    border-right-color: rgba( $color, .3 );
+    border-left-color: rgba( $color, .7 );
+  }
+}
+
+@each $set in $colorIconSets {
+    @include spinner-theme($set...);
+}
+
+.ui-spinner--small { width: 12px; height: 12px; border-width: 3px }
+.ui-spinner--smed  { width: 20px; height: 20px; border-width: 5px }
+.ui-spinner--lmed  { width: 32px; height: 32px; border-width: 8px }
+.ui-spinner--large { width: 40px; height: 40px; border-width: 10px }
+
