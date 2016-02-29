@@ -143,7 +143,7 @@ function getType(params) {
  * @method getDescriptiveMessage
  * @param {Object} params validator params
  * @param {Integer|Decimal|String} value value in input field
- * @param {String} i18nString e.g. validations.greater
+ * @param {String} i18nString e.g. errors.messages.length
  * @param {Object} i18nOptions options to pass to i18n
  * @return {String} message to display
  *
@@ -201,7 +201,7 @@ function validateValue() {
      * @return {String} the error message to display
      */
     message: function(value) {
-      return getDescriptiveMessage(this, value, "validations.value", { is: this.is });
+      return getDescriptiveMessage(this, value, "errors.messages.equal", { is: this.is });
     }
   };
 }
@@ -230,7 +230,7 @@ function validateLess() {
      * @return {String} the error message to display
      */
     message: function(value) {
-      return getDescriptiveMessage(this, value, "validations.value_less_than_or_equal", { max: this.max });
+      return getDescriptiveMessage(this, value, "errors.messages.less_than_or_equal_to", { count: this.max });
     }
   };
 }
@@ -260,7 +260,7 @@ function validateGreater() {
      * @return {String} the error message to display
      */
     message: function(value) {
-      return getDescriptiveMessage(this, value, "validations.value_greater_than_or_equal", { min: this.min });
+      return getDescriptiveMessage(this, value, "errors.messages.greater_than_or_equal_to", { count: this.min });
     }
   };
 }
@@ -290,7 +290,18 @@ function validateRange() {
      * @return {String} the error message to display
      */
     message: function(value) {
-      return getDescriptiveMessage(this, value, "validations.value_range", { min: this.min, max: this.max });
+      let error = 'greater', count = this.min;
+
+      if (value >= this.min) {
+        error = 'less';
+        count = this.max;
+      }
+
+      return getDescriptiveMessage(
+        this, value,
+        `errors.messages.${ error }_than_or_equal_to`,
+        { count: count }
+      );
     }
   };
 }

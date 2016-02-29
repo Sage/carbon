@@ -56,7 +56,7 @@ class EmailValidator {
    * @return {String} the error message to display
    */
   message = () => {
-    return ValidationsHelper.validationMessage(this.customMessage, 'validations.email');
+    return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.invalid_email');
   }
 
 }

@@ -11,10 +11,7 @@ import ValidationsHelper from './../../helpers/validations';
  *
  * Assign the validator to the validations prop, passing the required params:
  *
- * By default, the validator sets the input type to 'text', you can set this to 'numeral',
- * in order to change the i18n message returned.
- *
- * To validate a number is a specific length, pass { type: 'numeral', is: 100} :
+ * To validate a number is a specific length, pass { is: 100} :
  *
  * To validate that a length not be lesser or greater than a value set a 'max' or 'min'.
  *
@@ -95,14 +92,6 @@ class LengthValidator {
     this.is = params.is;
 
     /**
-     * Can either be 'text' or 'numeral'.
-     *
-     * @property type
-     * @type {String}
-     */
-    this.type = params.type || 'text';
-
-    /**
      * @property validate
      * @type {Function}
      */
@@ -168,7 +157,7 @@ function validateLength() {
     message: function() {
       return ValidationsHelper.validationMessage(
         this.customMessage,
-        `validations.length.${this.type}`,
+        'errors.messages.wrong_length',
         { is: this.is }
       );
     }
@@ -201,8 +190,8 @@ function validateLess() {
     message: function() {
       return ValidationsHelper.validationMessage(
         this.customMessage,
-        `validations.length_less_than_or_equal.${this.type}`,
-        { max: this.max }
+        'errors.messages.too_long',
+        { count: this.max }
       );
     }
   };
@@ -234,8 +223,8 @@ function validateGreater() {
     message: function() {
       return ValidationsHelper.validationMessage(
         this.customMessage,
-        `validations.length_greater_than_or_equal.${this.type}`,
-        { min: this.min }
+        'errors.messages.too_short',
+        { count: this.min }
       );
     }
   };
@@ -265,11 +254,18 @@ function validateRange() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function() {
+    message: function(value) {
+      let error = 'short', count = this.min;
+
+      if (value.length >= this.min) {
+        error = 'long';
+        count = this.max;
+      }
+
       return ValidationsHelper.validationMessage(
         this.customMessage,
-        `validations.length_range.${this.type}`,
-        { min: this.min, max: this.max }
+        `errors.messages.too_${ error }`,
+        { count: count }
       );
     }
   };
