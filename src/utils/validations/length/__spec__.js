@@ -10,7 +10,7 @@ describe('Length Validator', () => {
       en: {
         errors: {
           messages: {
-            wrong_length: "Must be %{is} characters exactly",
+            wrong_length: "Must be %{count} characters exactly",
             too_long: "Must be %{count} characters or less",
             too_short: "Must be %{count} characters or more"
           }

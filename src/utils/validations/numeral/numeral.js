@@ -201,7 +201,7 @@ function validateValue() {
      * @return {String} the error message to display
      */
     message: function(value) {
-      return getDescriptiveMessage(this, value, "errors.messages.equal", { is: this.is });
+      return getDescriptiveMessage(this, value, "errors.messages.equal", { count: this.is });
     }
   };
 }

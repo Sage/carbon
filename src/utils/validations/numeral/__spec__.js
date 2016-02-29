@@ -10,7 +10,7 @@ describe('Numeral Validator', () => {
           messages: {
             not_a_integer: 'Must be a valid Integer',
             not_a_number: 'Must be a valid Decimal',
-            equal: "Must equal %{is}",
+            equal: "Must equal %{count}",
             less_than_or_equal_to: "Must equal %{count} or less",
             greater_than_or_equal_to: "Must equal %{count} or more"
           }

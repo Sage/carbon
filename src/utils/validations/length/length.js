@@ -158,7 +158,7 @@ function validateLength() {
       return ValidationsHelper.validationMessage(
         this.customMessage,
         'errors.messages.wrong_length',
-        { is: this.is }
+        { count: this.is }
       );
     }
   };
