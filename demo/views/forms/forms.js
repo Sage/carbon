@@ -2,6 +2,7 @@ import React from 'react';
 import TextboxDemo from './textbox-demo';
 import DecimalDemo from './decimal-demo';
 import DropdownDemo from './dropdown-demo';
+import RowDemo from './row-demo';
 
 class Forms extends React.Component {
   /**
@@ -13,6 +14,7 @@ class Forms extends React.Component {
         <TextboxDemo />
         <DecimalDemo />
         <DropdownDemo />
+        <RowDemo />
       </div>
     );
   }
