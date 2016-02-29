@@ -53,7 +53,7 @@ describe('shouldComponentUpdate', () => {
         props: {
           foo: "foo",
           bar: "bar",
-          validations: [PresenceValidator()]
+          validations: [new PresenceValidator()]
         },
         state: {
           foo: "foo",
@@ -66,7 +66,7 @@ describe('shouldComponentUpdate', () => {
       it('comparison to return false', () => {
         nextProps = cloneDeep(instance.props);
         nextState = cloneDeep(instance.state);
-        nextProps.validations = [PresenceValidator()];
+        nextProps.validations = [new PresenceValidator()];
         expect(shouldComponentUpdate(instance, nextProps, nextState)).toBeFalsy();
       });
     });
@@ -75,7 +75,7 @@ describe('shouldComponentUpdate', () => {
       it('comparison to return true', () => {
         nextProps = cloneDeep(instance.props);
         nextState = cloneDeep(instance.state);
-        nextProps.validations = [PresenceValidator()];
+        nextProps.validations = [new PresenceValidator()];
         nextProps.foo = "not foo";
         expect(shouldComponentUpdate(instance, nextProps, nextState)).toBeTruthy();
       });

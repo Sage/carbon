@@ -1,38 +1,45 @@
 import ImmutableHelper from './../../helpers/immutable';
+import I18n from 'i18n-js';
 import Validator from './presence';
 
 describe('Presence Validator', () => {
-  describe('Immutable data', () => {
-    it('returns true when an id is present', () => {
-      let data = ImmutableHelper.parseJSON({ id: 1, value: 'foo' });
-      expect(Validator().validate(data)).toBeTruthy();
-    });
-    it('returns false when an id is NOT present', () => {
-      let data = ImmutableHelper.parseJSON({ id: null, value: null });
-      expect(Validator().validate(data)).toBeFalsy();
-    });
+  beforeEach(() => {
+    I18n.translations = {
+      en: {
+        validations: {
+          presence: "This field is required."
+        }
+      }
+    };
   });
 
-  describe('Non immuntable data', () => {
+  describe('Validate', () => {
     it('returns true when an value is present', () => {
       let value = 'foo'
-      expect(Validator().validate(value)).toBeTruthy();
+      expect(new Validator().validate(value)).toBeTruthy();
     });
+
     it('returns false when an id is NOT present', () => {
       let value = null
-      expect(Validator().validate(value)).toBeFalsy();
+      expect(new Validator().validate(value)).toBeFalsy();
     });
   });
 
   describe('message', () => {
     it('returns the error message to display', () => {
-      expect(Validator().message()).toEqual('This field is required.');
+      expect(new Validator().message()).toEqual('This field is required.');
+    });
+
+    describe('when passing a custom message', () => {
+      it('overrides the i18n message', () => {
+        expect(new Validator({ customMessage: 'Simple Message' }).message()).toEqual('Simple Message');
+      });
     });
   });
 
   describe('asterisk', () => {
     it('returns true', () => {
-      expect(Validator().asterisk).toBeTruthy();
+      expect(new Validator().asterisk).toBeTruthy();
     });
   });
 });

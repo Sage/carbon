@@ -135,7 +135,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   setTextIndentation = () => {
     if (this._input) {
-      this._input.style.textIndent = `${this._prefix.offsetWidth + 3}px`;
+      this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
     }
   }
 
@@ -151,7 +151,8 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     return classNames(classes, this.props.className, 'common-input', {
       'common-input--readonly': this.props.readOnly,
       [`common-input--align-${this.props.align}`]: this.props.align,
-      'common-input--with-prefix': this.props.prefix
+      'common-input--with-prefix': this.props.prefix,
+      'common-input--disabled': this.props.disabled
     });
   }
 

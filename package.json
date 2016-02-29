@@ -1,6 +1,6 @@
 {
   "name": "carbon",
-  "version": "0.4.0-beta",
+  "version": "0.5.0",
   "description": "Fundamental building blocks.",
   "main": "index.js",
   "style": [
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
-    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.0.7",
+    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.0.10",
     "express": "~4.13.3",
     "flux": "~2.1.1",
     "gulp": "~3.9.0",
@@ -38,6 +38,7 @@
     "bignumber.js": "~2.1.0",
     "bowser": "~1.0.0",
     "classnames": "~2.2.3",
+    "escape-string-regexp": "^1.0.5",
     "events": "~1.0.2",
     "form-serialize": "~0.7.0",
     "highlight.js": "~8.4.0",
