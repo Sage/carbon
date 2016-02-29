@@ -139,7 +139,6 @@ class DropdownFilter extends Dropdown {
       state.open = true;
     }
 
-    console.log(state);
     this.setState(state);
 
     this.openingList = false;

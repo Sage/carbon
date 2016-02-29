@@ -428,9 +428,18 @@ describe('InputValidation', () => {
   });
 
   describe('_handleBlur', () => {
+    beforeEach(() => {
+      jasmine.clock().install();
+    });
+
+    afterEach(() => {
+      jasmine.clock().uninstall();
+    });
+
     it('calls validate on blur of the input', () => {
       spyOn(instance, 'validate');
       instance._handleBlur();
+      jasmine.clock().tick(0);
       expect(instance.validate).toHaveBeenCalled();
     });
 
@@ -439,6 +448,7 @@ describe('InputValidation', () => {
         instance.setState({ messageLocked: true });
         spyOn(instance, 'setState');
         instance._handleBlur();
+        jasmine.clock().tick(0);
         expect(instance.setState).toHaveBeenCalledWith({ messageLocked: false });
       });
     });
