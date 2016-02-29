@@ -1,3 +1,0 @@
-export default {
-  TEXTBOX_VALUE_UPDATED: "TEXTBOX_VALUE_UPDATED"
-}

@@ -5,22 +5,22 @@ import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
 import FormInputHelper from './../../../helpers/form-input-helper';
 
-import Textbox from 'components/textbox';
+import Decimal from 'components/decimal';
 
-class TextboxDemo extends React.Component {
+class DecimalDemo extends React.Component {
 
   /**
    * @method value
    */
   value = (key) => {
-    return this.state.appStore.getIn(['textbox', key]);
+    return this.state.appStore.getIn(['decimal', key]);
   }
 
   /**
    * @method action
    */
   get action() {
-    return AppActions.appValueUpdated.bind(this, 'textbox');
+    return AppActions.appValueUpdated.bind(this, 'decimal');
   }
 
   /**
@@ -28,7 +28,7 @@ class TextboxDemo extends React.Component {
    */
   get demo() {
     return (
-      <Textbox { ...FormInputHelper.demoProps(this, this.action) } />
+      <Decimal { ...FormInputHelper.demoProps(this, this.action) } />
     );
   }
 
@@ -36,9 +36,9 @@ class TextboxDemo extends React.Component {
    * @method code
    */
   get code() {
-    let html = "import Textbox from 'carbon/lib/components/textbox';\n\n";
+    let html = "import Decimal from 'carbon/lib/components/decimal';\n\n";
 
-    html += "<Textbox\n";
+    html += "<Decimal\n";
     html = FormInputHelper.codeProps(this, html);
     html += "/>\n\n";
 
@@ -58,8 +58,8 @@ class TextboxDemo extends React.Component {
   render() {
     return (
       <Example
-        title="Textbox"
-        readme="github/textbox"
+        title="Decimal"
+        readme="github/decimal"
         demo={ this.demo }
         code={ this.code }
         controls={ this.controls }
@@ -68,4 +68,4 @@ class TextboxDemo extends React.Component {
   }
 }
 
-export default connect(TextboxDemo, AppStore);
+export default connect(DecimalDemo, AppStore);
