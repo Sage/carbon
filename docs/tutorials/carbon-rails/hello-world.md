@@ -1,6 +1,3 @@
-## :warning: This is a working document and may not reflect current best practice.
-## :warning: Carbon is still in alpha and subject to change.
-
 # Creating an App in Rails
 
 ## Introduction
@@ -11,27 +8,37 @@ In this guide, we will walk through building a Carbon view within a Rails applic
 
 If you're familiar with ES5 JavaScript, you may find some of our syntax odd. We're not crazy, we're just using [ES6 syntax](https://babeljs.io/docs/learn-es2015/). This is transpiled into ES5 using a Babel transform for use in all browsers before compilation.
 
-### Setup
+## Setup
 
 * Before you begin, ensure you have followed the first time setup guide for [Carbon Factory](https://github.com/Sage/carbon-factory/wiki/First-Time-System-Setup).
+* If you are new to Node/npm, read our [quick intro](https://github.com/Sage/carbon-factory/blob/master/docs/an-introduction-to-node-and-npm.md).
 
-### Creating a Rails App
+### Setting up Rails App
 
 ```
 rails new carbon-rails-test
 ```
 
-### Creating a Carbon Directory
+### Setting Up Carbon App
 
 Using the carbon-factory command line tools we can generate some boilerplate for our application
 
-```
-carbon app mydirectory
+Change directory to the directory you created your Rails app:
+
+```shell
+cd carbon-rails-test
 ```
 
-This creates a directory called `mydirectory`. In our example, we have called the project `ui`.
+Run the Carbon command to generate a React/Flux app:
 
-Directory structure:
+```shell
+carbon app ui
+```
+
+This creates a directory called `ui`, with everything we need to build a React/Flux application.
+
+The directory structure look like this:
+
 ```
 ├── ui/
 │   ├── node_modules/ - Installed Dependencies
@@ -49,151 +56,158 @@ Directory structure:
 │   ├── package.json - Dependencies
 ```
 
-You should now navigate to the `ui` directory and run `npm install` which will install all the dependencies defined in your `package.json`
+You should now navigate to the `ui` directory:
 
+```shell
+cd ui
+```
 
-#### Configure and run gulp
+And install the Node dependencies:
 
-As you work, you can set gulp to watch for changes and compile as you go.
+```shell
+npm install
+```
 
-Before running gulp, you may want to specify the destination for your compiled JavaScript and CSS files. To do this, edit gulpfile.js in your projects `ui` directory:
+This will install all the dependencies defined in your `package.json`.
+
+### Configuring Carbon App
+
+As you work, you can set [gulp](http://gulpjs.com/) to watch for changes and compile as you go.
+
+The compilation task can also be configured, for example you may want to specify the destination for your compiled JavaScript, CSS, or any other assets. To do this, edit `gulpfile.js` in your project's `ui` directory:
 
 ```javascript
-// ./gulpfile.js
+// carbon-rails-test/ui/gulpfile.js
+
+var gulp = require('gulp');
+var BuildTask = require('carbon-factory/lib/gulp/build');
+var SpecTask = require('carbon-factory/lib/gulp/spec');
 
 var opts = {
   jsDest: './../app/assets/javascripts',
   cssDest: './../app/assets/stylesheets',
-  fontDest: './../public/assets/fonts'
+  fontDest: './../app/assets/fonts/fonts'
 };
 
 gulp.task('default', BuildTask(opts)); // <-- Pass options here
 
 gulp.task('test', SpecTask());
-
 ```
 
-To compile your assets and set gulp to watch for changes, run `gulp` in your `ui` directory.
+Our changes above will tell gulp to compile the assets into the Rails `/app/assets` directory, so the asset pipeline can find and serve them to the Rails app.
+
+We should now run gulp to compile the assets and watch for any changes:
+
+```shell
+gulp
+```
 
 **Note:** For more `gulpfile` options see the [carbon-factory gulp file](https://github.com/Sage/carbon-factory/blob/master/src/gulp/build.js)
 
-### Rails layout
+### Configuring Rails App
 
-To render the Carbon components in your Rails app, you need to create a layout.
+We now need to configure Rails so it knows about the new assets and how to use them.
 
-* By default, the Carbon prepare task creates `ui.js` and `ui.css` and you need to include these in the layout.
-* You need to insert a default hook with `id='app'` - this is where your Carbon view is rendered.
-* We have also defined a APPDATA object which we will use to get data from our controllers.
-
-For example:
+First of all, lets update the application layout to move the JS asset and add a `div` in which to render the React components:
 
 ```html
-<!--app/views/layouts/carbon.html.erb-->
+<!-- app/views/layouts/application.html.erb -->
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <%= stylesheet_link_tag "ui" %>
-  </head>
-  <body>
-    <!--Default hook for our React components-->
-    <div id='app'></div>
+<head>
+  <title>CarbonRailsTest</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
 
-    <script type="text/javascript">
-      window.APPDATA = JSON.parse('<%= @data.to_json.html_safe || [] %>');
-    </script>
+<%= yield %>
 
-    <%= javascript_include_tag "ui" %>
-  </body>
+<!-- add the following div so react knows where to render: -->
+<div id='app'></div>
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+</body>
 </html>
 ```
 
-At the moment our application will throw an error when it trys to include the `ui.js` file
+Please note that we have moved JS assets to the bottom of the `body`. This is important to rendering the page successfully.
 
-We need to precompile this assets so open up your `config/initializers/assets.rb` and add a precompile line for the `js` file, and while we are here, the `css` file
-
-```ruby
-# config/initializers/assets.rb
-
-Rails.application.config.assets.precompile += %w( ui.js )
-Rails.application.config.assets.precompile += %w( ui.css )
-```
+For some Rails applications, you may want to keep the React assets separate. In this case, ensure you render the additional assets to the layout and add them to the precompilation config option in your app.
 
 ### Rails Controller and View
 
-Using Rails controller generator lets create a welcome page
+Using Rails controller generator lets create a user page:
 
-```
-rails generate controller welcome index
+```shell
+rails generate controller user index
 ```
 
-Lets make the `welcome#index` our root
+Lets make the `user#index` our root:
 
 ```ruby
+# config/routes.rb
+
 Rails.application.routes.draw do
-  get 'welcome/index'
-  root 'welcome#index'
+  get 'user/index'
+  root 'user#index'
 end
 ```
 
-### Rails route
-
-To render the new layout, you need to link it to a Rails controller action.
-
-For this example, you want to render the layout when users call the `index` action.
-
-Simply add `layout: 'carbon'` to the call to render:
+As we want React to take care of rendering our UI, we can tell the `index` action to not render anything except the layout:
 
 ```ruby
-class WelcomeController < ApplicationController
+# app/controllers/user_controller.rb
+
+class UserController < ApplicationController
   def index
-    @data = [1,2,3]
-    render :index, layout: 'carbon'
+    render inline: "", layout: "application"
   end
 end
 ```
 
-### Creating your first React view
+### Creating Your First React View
 
 In React, everything is a component. When we talk about views, we're using an abstraction - we really mean a component built up from several modular components (i.e. widgets).
 
-To create view we need a new directory `ui/src/views/welcome` and two files.
-* `ui/src/views/welcome/welcome.js`
-* `ui/src/views/welcome/package.json`
+To create a view we need a new directory `ui/src/views/user/` and two files.
 
-Within the `package.json` we need to add a `main` key to correctly compile the file
+* `ui/src/views/user/user.js`
+* `ui/src/views/user/package.json`
+
+Within the `package.json` we need to add a `main` key to correctly load the file:
 
 ```json
 {
-  "main": "./welcome.js"
+  "main": "./user.js"
 }
 ```
 
 To create a view (or any other component), create a class representing that view:
 
 ```javascript
-// ui/src/views/welcome/welcome.js
+// ui/src/views/user/user.js
 
 import React from 'react';
 
-class Welcome extends React.Component {
+class User extends React.Component {
   render() {
     return (
       <div>Hello World!</div>
-    )
+    );
   }
-};
+}
 
-export default Welcome;
+export default User;
 ```
 
 Within the `return` block we are declaring what looks like HTML div tags but actually we are using [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) syntax.
 
 Lets leave our React Application as it is for now and try get something into our browser. The final thing we need to do is define the routes for our react component.
 
-Open up the `main.js` file and import the `Welcome` component
-
-We can add the component to the default route which matches the root path
+Open up the `main.js` file and import the `User` component. We can add the component to the default route which matches the root path:
 
 ```javascript
 // ui/src/main.js
@@ -201,10 +215,11 @@ We can add the component to the default route which matches the root path
 import React from 'react';
 import { Route } from 'react-router';
 import { startRouter } from 'carbon/lib/utils/router';
-import Welcome from 'views/welcome';
+
+import User from 'views/user';
 
 var routes = (
-  <Route path="/" component={ Welcome } />
+  <Route path="/" component={ User } />
 );
 
 startRouter(routes);
@@ -212,6 +227,18 @@ startRouter(routes);
 
 ### Hello World!
 
-In the root of your carbon test app boot up the rails server and navigate to `localhost:3000`
+In the root of your Rails app, boot the Rails server:
 
-You should see the text `Hello World!` within your browser.
+```shell
+bundle exec rails s
+```
+
+You should now be able to navigate to [http://localhost:3000/](http://localhost:3000/) in your browser and see the text `Hello World!` rendered by your React component.
+
+## Whats Next
+
+If you have not already, this is probably a good time to familiarise yourself with Flux - we have a [basic example](https://github.com/Sage/carbon/blob/master/docs/guides/a-basic-example.md) to demonstrate the fundamentals.
+
+Otherwise, lets continue by introducing data to our Rails/React application using Flux.
+
+[Introducing Data](https://github.com/Sage/carbon/blob/master/docs/tutorials/carbon-rails/introducing-data.md)
