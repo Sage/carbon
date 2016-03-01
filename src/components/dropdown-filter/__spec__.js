@@ -154,6 +154,15 @@ describe('DropdownFilter', () => {
         });
       });
 
+      describe('when there is no highlighted option', () => {
+        it('does not call emitOnChangeCallback', () => {
+          spyOn(instance, 'highlighted').and.returnValue(null);
+          spyOn(instance, 'emitOnChangeCallback');
+          instance.handleBlur();
+          expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+        });
+      });
+
       describe('if highlighted does not match value', () => {
         it('does calls emitOnChangeCallback', () => {
           let opts = Immutable.fromJS([{

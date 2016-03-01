@@ -85,6 +85,14 @@ describe('DropdownFilterAjax', () => {
         });
       });
 
+      describe('when there is no highlighted option', () => {
+        it('does not call emitOnChangeCallback', () => {
+          spyOn(instance, 'highlighted').and.returnValue(null);
+          instance.handleBlur();
+          expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+        });
+      });
+
       describe('if highlighted does not match value', () => {
         it('emits change', () => {
           spyOn(instance, 'highlighted').and.returnValue(90);
