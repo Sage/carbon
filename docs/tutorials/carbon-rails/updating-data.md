@@ -32,7 +32,7 @@ User.create(first_name: "Keanu", last_name: "Reeves")
 
 We can now update the Rails controller:
 
-```
+```ruby
 # app/controllers/user_controller.rb
 
 class UserController < ApplicationController
@@ -69,7 +69,7 @@ As we only have one user, we will always load the last user for the data. We hav
 
 Rails.application.routes.draw do
   get 'user/index'
-  post 'user/update'
+  post '/update', controller: :user, action: :update
   root 'user#index'
 end
 ```

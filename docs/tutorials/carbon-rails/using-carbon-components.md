@@ -61,24 +61,4 @@ render() {
 
 Refresh your browser page and the Textbox should have a 'First Name' label inline with the Textbox.
 
-## Custom App Styling
 
-At the moment our Textbox and label span the entire width of our page. Lets add some css to the app id so that the width is defined and the content is centered.
-
-Within `ui/src/views/welcome/package.json` file we want to add a stylesheet file that will be included when the Welcome component on the page.
-
-```json
-{
-  "main": "./welcome.js",
-  "style": "./welcome.scss"
-}
-```
-
-```scss
-//
-
-#app {
-  width: 960px;
-  margin: auto;
-}
-```

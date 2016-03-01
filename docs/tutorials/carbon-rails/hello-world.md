@@ -15,7 +15,7 @@ If you're familiar with ES5 JavaScript, you may find some of our syntax odd. We'
 
 ### Setting up Rails App
 
-```
+```shell
 rails new carbon-rails-test
 ```
 
@@ -234,6 +234,30 @@ bundle exec rails s
 ```
 
 You should now be able to navigate to [http://localhost:3000/](http://localhost:3000/) in your browser and see the text `Hello World!` rendered by your React component.
+
+### Custom App Styling
+
+At the moment our view span the entire width of our page. Lets add some css to the app id so that the width is defined and the content is centered.
+
+Within our view's `package.json` file we want to add a stylesheet file that will be included with the User component.
+
+```json
+# ui/src/views/user/package.json
+
+{
+  "main": "./user.js",
+  "style": "./user.scss"
+}
+```
+
+```scss
+// ui/src/views/user/user.scss
+
+#app {
+  width: 960px;
+  margin: auto;
+}
+```
 
 ## Whats Next
 
