@@ -7,9 +7,11 @@ describe('Numeral Type Validator', () => {
   beforeEach(() => {
     I18n.translations = {
       en: {
-        validations: {
-          decimal: "Must be a valid decimal",
-          integer: "Must be a valid integer"
+        errors: {
+          messages: {
+            not_a_number: "Must be a valid decimal",
+            not_a_integer: "Must be a valid integer"
+          }
         }
       }
     };

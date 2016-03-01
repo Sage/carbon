@@ -58,7 +58,7 @@ class RegexValidator {
    * @return {String} the error message to display
    */
   message = () => {
-    return ValidationsHelper.validationMessage(this.customMessage, 'validations.regex');
+    return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.wrong_format');
   }
 }
 

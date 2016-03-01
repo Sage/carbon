@@ -3,6 +3,7 @@
 ## Bug Fixes
 
 * `autoFocus` no longer automatically opens lists or datepickers on Dropdown and Date components.
+* Update validations i18n to use `errors.messages` instead of `validations`
 
 # 0.5.0
 
