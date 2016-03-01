@@ -169,8 +169,10 @@ class DropdownFilterAjax extends DropdownFilter {
    * @method handleFocus
    */
   handleFocus = () => {
-    if (!this.props.suggest) {
+    if (!this.props.suggest && !this.blockFocus) {
       this.getData("", 1);
+    } else {
+      this.blockFocus = false;
     }
 
     this._input.setSelectionRange(0, this._input.value.length);

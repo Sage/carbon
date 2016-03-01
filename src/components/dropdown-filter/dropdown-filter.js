@@ -131,10 +131,10 @@ class DropdownFilter extends Dropdown {
       highlighted: null
     };
 
-    if (this.props.suggest && ev.target.value.length > 0) {
-      state.open = true;
-    } else if (this.props.suggest) {
+    if (this.props.suggest && ev.target.value.length <= 0) {
       state.open = false;
+    } else {
+      state.open = true;
     }
 
     this.setState(state);
@@ -175,8 +175,10 @@ class DropdownFilter extends Dropdown {
    * @method handleFocus
    */
   handleFocus = () => {
-    if (!this.props.suggest) {
+    if (!this.props.suggest && !this.blockFocus) {
       this.setState({ open: true });
+    } else {
+      this.blockFocus = false;
     }
 
     this._input.setSelectionRange(0, this._input.value.length);

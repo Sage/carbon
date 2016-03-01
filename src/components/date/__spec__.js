@@ -12,7 +12,7 @@ describe('Date', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Date name='date' label='Date' />
-    )
+    );
   });
 
   describe('intialize', () => {
@@ -36,10 +36,30 @@ describe('Date', () => {
           expect(instance.setState).not.toHaveBeenCalled();
         });
       });
+
       describe('when element does not have focus', () => {
         it('calls set state with to set the date', () => {
           instance.componentWillReceiveProps({ date: today });
           expect(instance.setState).toHaveBeenCalledWith({ visibleValue: today });
+        });
+      });
+    });
+
+    describe('componentDidMount', () => {
+      describe('if not autoFocus', () => {
+        it('does not set focus on the input', () => {
+          spyOn(instance._input, 'focus');
+          instance.componentDidMount();
+          expect(instance._input.focus).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('if autoFocus', () => {
+        it('does sets focus on the input', () => {
+          instance = TestUtils.renderIntoDocument(<Date autoFocus />);
+          spyOn(instance._input, 'focus');
+          instance.componentDidMount();
+          expect(instance._input.focus).toHaveBeenCalled();
         });
       });
     });
@@ -221,11 +241,22 @@ describe('Date', () => {
   describe('handleFocus', () => {
     beforeEach(() => {
       spyOn(instance, 'openDatePicker')
-      TestUtils.Simulate.focus(instance._input);
     });
 
-    it('opens the date picker', () => {
-      expect(instance.openDatePicker).toHaveBeenCalled();
+    describe('when focus is blocked', () => {
+      it('does not open the date picker', () => {
+        instance.blockFocus = true;
+        TestUtils.Simulate.focus(instance._input);
+        expect(instance.openDatePicker).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when focus is not blocked', () => {
+      it('opens the date picker', () => {
+        instance.blockFocus = false;
+        TestUtils.Simulate.focus(instance._input);
+        expect(instance.openDatePicker).toHaveBeenCalled();
+      });
     });
 
     describe('when disabled', () => {

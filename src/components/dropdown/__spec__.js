@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Dropdown from './dropdown';
 import Immutable from 'immutable';
+import Events from './../../utils/helpers/events';
 
 describe('Dropdown', () => {
   let instance;
@@ -42,6 +43,25 @@ describe('Dropdown', () => {
           value: "1"
         });
         expect(instance.visibleValue).toBe("foobar");
+      });
+    });
+  });
+
+  describe('componentDidMount', () => {
+    describe('if not autoFocus', () => {
+      it('does not set focus on the input', () => {
+        spyOn(instance._input, 'focus');
+        instance.componentDidMount();
+        expect(instance._input.focus).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if autoFocus', () => {
+      it('does sets focus on the input', () => {
+        instance = TestUtils.renderIntoDocument(<Dropdown options={ Immutable.fromJS([{}]) } autoFocus />);
+        spyOn(instance._input, 'focus');
+        instance.componentDidMount();
+        expect(instance._input.focus).toHaveBeenCalled();
       });
     });
   });
@@ -225,11 +245,22 @@ describe('Dropdown', () => {
   });
 
   describe('handleFocus', () => {
-    it('calls setState', () => {
-      spyOn(instance, 'setState');
-      TestUtils.Simulate.focus(instance._input);
-      expect(instance.setState).toHaveBeenCalledWith({
-        open: true
+    describe('if focus is not blocked', () => {
+      it('calls setState', () => {
+        spyOn(instance, 'setState');
+        TestUtils.Simulate.focus(instance._input);
+        expect(instance.setState).toHaveBeenCalledWith({
+          open: true
+        });
+      });
+    });
+
+    describe('if focus is blocked', () => {
+      it('does not call setState', () => {
+        instance.blockFocus = true;
+        spyOn(instance, 'setState');
+        TestUtils.Simulate.focus(instance._input);
+        expect(instance.setState).not.toHaveBeenCalled();
       });
     });
 
@@ -296,15 +327,54 @@ describe('Dropdown', () => {
   });
 
   describe('handleKeyDown', () => {
+    let ev;
+
     beforeEach(() => {
+      ev = { which: "" };
+
       instance = TestUtils.renderIntoDocument(
         <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value="" />
       );
     });
 
     describe('if there is no list', () => {
-      it('returns nothing', () => {
-        expect(instance.handleKeyDown()).toBe(undefined);
+      beforeEach(() => {
+        spyOn(instance, 'setState');
+      });
+
+      describe('if up key', () => {
+        it('opens the list', () => {
+          spyOn(Events, 'isUpKey').and.returnValue(true);
+          let result = instance.handleKeyDown(ev);
+          expect(instance.setState).toHaveBeenCalledWith({ open: true });
+          expect(result).toBe(undefined);
+        });
+      });
+
+      describe('if down key', () => {
+        it('opens the list', () => {
+          spyOn(Events, 'isDownKey').and.returnValue(true);
+          let result = instance.handleKeyDown(ev);
+          expect(instance.setState).toHaveBeenCalledWith({ open: true });
+          expect(result).toBe(undefined);
+        });
+      });
+
+      describe('if space key', () => {
+        it('opens the list', () => {
+          spyOn(Events, 'isSpaceKey').and.returnValue(true);
+          let result = instance.handleKeyDown(ev);
+          expect(instance.setState).toHaveBeenCalledWith({ open: true });
+          expect(result).toBe(undefined);
+        });
+      });
+
+      describe('if other key', () => {
+        it('does not open list, but still returns undefined', () => {
+          let result = instance.handleKeyDown(ev);
+          expect(instance.setState).not.toHaveBeenCalled();
+          expect(result).toBe(undefined);
+        });
       });
     });
 
