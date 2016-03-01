@@ -11,6 +11,7 @@ class Chrome extends React.Component {
         <div className="ui-demo__header">
           <div className="ui-demo__header-contents">
             <div className="ui-demo__menu">
+              <Link to="/">Carbon</Link>
               <Link to="/actions">Actions/Navigation</Link>
               <Link to="/forms">Forms</Link>
               <Link to="/grids">Grids</Link>

@@ -55,7 +55,7 @@ class DropdownDemo extends React.Component {
     html += "]);\n\n";
 
     html += "<Dropdown\n";
-    html += "  options={opts}\n";
+    html += "  options={opts}";
     html = FormInputHelper.codeProps(this, html);
     html += "/>\n\n";
 

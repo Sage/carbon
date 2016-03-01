@@ -6,8 +6,31 @@ import Immutable from 'immutable';
 import FormInputHelper from './../helpers/form-input-helper';
 
 let data = ImmutableHelper.parseJSON({
+  button: {
+    text: "Action"
+  },
+  flash: {
+    as: "warning",
+    open: true,
+    text: "Sample flash notification."
+  },
+  link: {
+    text: "Sample Link"
+  },
+  message: {
+    as: "warning",
+    text: "Sample message."
+  },
   row: {
     columnData: [{}, {}, {}, {}]
+  },
+  split_button: {
+    text: "Main Action"
+  },
+  toast: {
+    as: "warning",
+    open: true,
+    text: "Sample toast notification."
   }
 });
 

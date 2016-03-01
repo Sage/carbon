@@ -38,7 +38,7 @@ class TextboxDemo extends React.Component {
   get code() {
     let html = "import Textbox from 'carbon/lib/components/textbox';\n\n";
 
-    html += "<Textbox\n";
+    html += "<Textbox";
     html = FormInputHelper.codeProps(this, html);
     html += "/>\n\n";
 

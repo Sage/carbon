@@ -1,9 +1,10 @@
 import React from 'react';
 import Highlight from 'react-highlight';
 import Row from 'components/row';
-import Button from 'components/button';
+import Link from 'components/link';
 import Checkbox from 'components/checkbox';
 import Pod from 'components/pod';
+import Icon from 'components/icon';
 
 class Example extends React.Component {
   state = {
@@ -42,25 +43,26 @@ class Example extends React.Component {
       <div className="ui-example__header">
         <Checkbox
           className="ui-example__header-item"
-          label="Show Code"
+          label="Code"
           value={ this.state.isCodeOpen }
           onChange={ this.toggleCode }
         />
 
         <Checkbox
           className="ui-example__header-item"
-          label="Show Config"
+          label="Config"
           value={ this.state.isConfigOpen }
           onChange={ this.toggleConfig }
         />
 
-        <Button
+
+        <Link
           className="ui-example__header-item"
           href={ `https://www.github.com/Sage/carbon/tree/master/src/${this.props.readme}` }
           target="_blank"
         >
-          { this.props.title } README
-        </Button>
+          <Icon type="info" className="ui-example__help-icon" />
+        </Link>
       </div>
     );
   }

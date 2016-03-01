@@ -20,27 +20,35 @@ let FormInputHelper = {
 
   codeProps: (scope, html) => {
     if (scope.value('label')) {
-      html += `  label='${scope.value('label')}'\n`;
+      html += `\n  label='${scope.value('label')}'`;
     }
 
     if (scope.value('labelInline')) {
-      html += `  labelInline={${scope.value('labelInline')}}\n`;
+      html += `\n  labelInline={${scope.value('labelInline')}}`;
     }
 
     if (scope.value('labelInline') && scope.value('labelWidth')) {
-      html += `  labelWidth='${scope.value('labelWidth')}'\n`;
+      html += `\n  labelWidth='${scope.value('labelWidth')}'`;
     }
 
     if (scope.value('disabled')) {
-      html += `  disabled={${scope.value('disabled')}}\n`;
+      html += `\n  disabled={${scope.value('disabled')}}`;
     }
 
     if (scope.value('readOnly')) {
-      html += `  readOnly={${scope.value('readOnly')}}\n`;
+      html += `\n  readOnly={${scope.value('readOnly')}}`;
     }
 
     if (scope.value('prefix')) {
-      html += `  prefix='${scope.value('prefix')}'\n`;
+      html += `\n  prefix='${scope.value('prefix')}'`;
+    }
+
+    // determine if we need extra space
+    let splitHtml = html.split("\n  ");
+    if (splitHtml.length == 1) {
+      html += " ";
+    } else {
+      html += "\n";
     }
 
     return html;
@@ -58,7 +66,7 @@ let FormInputHelper = {
           />
         </Row>
 
-        <Row>
+        <Row columns="3">
           <Checkbox
             label="Label Inline"
             value={ scope.value('labelInline') }
@@ -72,6 +80,7 @@ let FormInputHelper = {
             disabled={ !scope.value('labelInline') }
             onChange={ onChange.bind(scope, 'labelWidth') }
             placeholder="In percent"
+            columnSpan="2"
           />
         </Row>
 

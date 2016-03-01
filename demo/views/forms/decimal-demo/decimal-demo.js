@@ -38,7 +38,7 @@ class DecimalDemo extends React.Component {
   get code() {
     let html = "import Decimal from 'carbon/lib/components/decimal';\n\n";
 
-    html += "<Decimal\n";
+    html += "<Decimal";
     html = FormInputHelper.codeProps(this, html);
     html += "/>\n\n";
 
