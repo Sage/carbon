@@ -59,7 +59,7 @@ class DecimalDemo extends React.Component {
     return (
       <Example
         title="Decimal"
-        readme="github/decimal"
+        readme="components/decimal"
         demo={ this.demo }
         code={ this.code }
         controls={ this.controls }

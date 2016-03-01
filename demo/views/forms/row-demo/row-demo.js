@@ -109,6 +109,7 @@ class RowDemo extends React.Component {
               label={ false }
               value={ data.get('columnOffset') }
               onChange={ this.action.bind(this, ['columnData', index, 'columnOffset']) }
+              placeholder={ `Enter 1-${length - 1}` }
             />
           </TableCell>
 
@@ -117,6 +118,7 @@ class RowDemo extends React.Component {
               label={ false }
               value={ data.get('columnSpan') }
               onChange={ this.action.bind(this, ['columnData', index, 'columnSpan']) }
+              placeholder={ `Enter 2-${length - 1}` }
             />
           </TableCell>
         </TableRow>
@@ -151,6 +153,7 @@ class RowDemo extends React.Component {
             value={ this.value('columns') }
             labelInline={ true }
             onChange={ this.action.bind(this, 'columns') }
+            placeholder="Enter a fixed number of columns"
           />
         </Row>
 
@@ -168,7 +171,7 @@ class RowDemo extends React.Component {
     return (
       <Example
         title="Row"
-        readme="github/row"
+        readme="components/row"
         demo={ this.demo }
         code={ this.code }
         controls={ this.controls }

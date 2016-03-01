@@ -3,6 +3,7 @@ import Highlight from 'react-highlight';
 import Row from 'components/row';
 import Button from 'components/button';
 import Checkbox from 'components/checkbox';
+import Pod from 'components/pod';
 
 class Example extends React.Component {
   state = {
@@ -39,10 +40,6 @@ class Example extends React.Component {
   get renderHeader() {
     return (
       <div className="ui-example__header">
-        <h2 className="ui-example__header-item ui-example__title">
-          { this.props.title }
-        </h2>
-
         <Checkbox
           className="ui-example__header-item"
           label="Show Code"
@@ -59,7 +56,8 @@ class Example extends React.Component {
 
         <Button
           className="ui-example__header-item"
-          href={ this.props.readme }
+          href={ `https://www.github.com/Sage/carbon/tree/master/src/${this.props.readme}` }
+          target="_blank"
         >
           { this.props.title } README
         </Button>
@@ -79,9 +77,9 @@ class Example extends React.Component {
 
     if (this.state.isConfigOpen) {
       example.push(
-        <div key="controls" className="ui-example__controls">
+        <Pod key="controls" className="ui-example__controls">
           { this.props.controls }
-        </div>
+        </Pod>
       );
     }
 
@@ -106,7 +104,7 @@ class Example extends React.Component {
    */
   render() {
     return (
-      <div className="ui-example">
+      <Pod className="ui-example" title={ this.props.title }>
         { this.renderHeader }
 
         <Row>
@@ -114,7 +112,7 @@ class Example extends React.Component {
         </Row>
 
         { this.renderCode }
-      </div>
+      </Pod>
     );
   }
 }

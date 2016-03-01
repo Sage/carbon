@@ -76,7 +76,7 @@ class DropdownDemo extends React.Component {
     return (
       <Example
         title="Dropdown"
-        readme="github/dropdown"
+        readme="components/dropdown"
         demo={ this.demo }
         code={ this.code }
         controls={ this.controls }

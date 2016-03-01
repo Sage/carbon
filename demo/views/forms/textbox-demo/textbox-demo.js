@@ -59,7 +59,7 @@ class TextboxDemo extends React.Component {
     return (
       <Example
         title="Textbox"
-        readme="github/textbox"
+        readme="components/textbox"
         demo={ this.demo }
         code={ this.code }
         controls={ this.controls }

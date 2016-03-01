@@ -71,6 +71,7 @@ let FormInputHelper = {
             value={ scope.value('labelWidth') }
             disabled={ !scope.value('labelInline') }
             onChange={ onChange.bind(scope, 'labelWidth') }
+            placeholder="In percent"
           />
         </Row>
 

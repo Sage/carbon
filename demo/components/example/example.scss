@@ -3,15 +3,13 @@
 }
 
 .ui-example__header {
+  position: relative;
   text-align: right;
+  top: -25px;
 }
 
 .ui-example__header-item {
   display: inline;
-}
-
-.ui-example__title {
-  float: left;
 }
 
 .ui-example__code {
