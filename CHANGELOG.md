@@ -1,3 +1,9 @@
+# 0.5.1
+
+## Bug Fixes
+
+* `autoFocus` no longer automatically opens lists or datepickers on Dropdown and Date components.
+
 # 0.5.0
 
 ## !BREAKING CHANGE! Validations have been converted into classes
