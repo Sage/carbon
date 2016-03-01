@@ -153,7 +153,7 @@ class DropdownFilterAjax extends DropdownFilter {
       if (highlighted != this.props.value) {
         let item = find(this.state.options, (item) => {
           return String(item.id) === String(highlighted);
-        });
+        }) || {};
 
         this.emitOnChangeCallback(highlighted, item.name);
       }

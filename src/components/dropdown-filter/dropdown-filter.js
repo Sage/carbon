@@ -162,7 +162,11 @@ class DropdownFilter extends Dropdown {
           return String(item.get('id')) === String(highlighted);
         });
 
-        this.emitOnChangeCallback(highlighted, item.get('name'));
+        if (item) {
+          this.emitOnChangeCallback(highlighted, item.get('name'));
+        } else {
+          this.emitOnChangeCallback(highlighted, '');
+        }
       }
 
       this.setState({ open: false, filter: filter });
