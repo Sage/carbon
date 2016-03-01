@@ -116,6 +116,14 @@ describe('DropdownFilterAjax', () => {
         instance.handleFocus();
         expect(instance.getData).toHaveBeenCalledWith("", 1);
       });
+
+      describe('if suggest is disabled but focus is blocked', () => {
+        it('does not call getData', () => {
+          instance.blockFocus = true;
+          instance.handleFocus();
+          expect(instance.getData).not.toHaveBeenCalled();
+        });
+      });
     });
 
     it('calls setSelectionRange', () => {
