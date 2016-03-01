@@ -25,8 +25,10 @@ describe('Regex Validator', () => {
     it('returns the i18n error message to display', () => {
       I18n.translations = {
         en: {
-          validations: {
-            regex: 'Incorrect Format'
+          errors: {
+            messages: {
+              wrong_format: 'Incorrect Format'
+            }
           }
         }
       }

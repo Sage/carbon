@@ -52,7 +52,7 @@ class PresenceValidator {
    * @return {String} the error message to display
    */
   message = () => {
-    return ValidationsHelper.validationMessage(this.customMessage, 'validations.presence');
+    return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.blank');
   }
 }
 

@@ -6,13 +6,14 @@ describe('Numeral Validator', () => {
   beforeEach(() => {
     I18n.translations = {
       en: {
-        validations: {
-          integer: 'Must be a valid Integer',
-          decimal: 'Must be a valid Decimal',
-          value: "Must equal %{is}",
-          value_less_than_or_equal: "Must equal %{max} or less",
-          value_greater_than_or_equal: "Must equal %{min} or more",
-          value_range: "Must be between %{min} and %{max}"
+        errors: {
+          messages: {
+            not_a_integer: 'Must be a valid Integer',
+            not_a_number: 'Must be a valid Decimal',
+            equal: "Must equal %{count}",
+            less_than_or_equal_to: "Must equal %{count} or less",
+            greater_than_or_equal_to: "Must equal %{count} or more"
+          }
         }
       }
     };
@@ -154,17 +155,21 @@ describe('Numeral Validator', () => {
          rangeValidator = new Validator({ min: 5, max: 10 });
       });
 
-      it('returns the correct message function', () => {
-        expect(rangeValidator.message()).toEqual("Must be between 5 and 10");
-      });
-
       describe('when the value is less than the minimum', () => {
+        it('returns the correct message function', () => {
+          expect(rangeValidator.message(1)).toEqual("Must equal 5 or more");
+        });
+
         it('returns false', () => {
           expect(rangeValidator.validate(3)).toBeFalsy();
         });
       });
 
       describe('when the value is greater than the maximum', () => {
+        it('returns the correct message function', () => {
+          expect(rangeValidator.message(14)).toEqual("Must equal 10 or less");
+        });
+
         it('returns false', () => {
           expect(rangeValidator.validate(14)).toBeFalsy();
         });
