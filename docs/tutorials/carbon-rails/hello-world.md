@@ -77,7 +77,7 @@ As you work, you can set [gulp](http://gulpjs.com/) to watch for changes and com
 The compilation task can also be configured, for example you may want to specify the destination for your compiled JavaScript, CSS, or any other assets. To do this, edit `gulpfile.js` in your project's `ui` directory:
 
 ```javascript
-// carbon-rails-test/ui/gulpfile.js
+// ui/gulpfile.js
 
 var gulp = require('gulp');
 var BuildTask = require('carbon-factory/lib/gulp/build');
@@ -180,6 +180,8 @@ To create a view we need a new directory `ui/src/views/user/` and two files.
 Within the `package.json` we need to add a `main` key to correctly load the file:
 
 ```json
+// ui/src/views/user/package.json
+
 {
   "main": "./user.js"
 }

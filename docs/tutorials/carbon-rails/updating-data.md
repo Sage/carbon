@@ -78,7 +78,7 @@ end
 
 Currently our view is rendering text, but we probably want some inputs so we can edit the data. Lets update the view:
 
-```
+```js
 // ui/src/views/user/user.js
 
 import React from 'react';
