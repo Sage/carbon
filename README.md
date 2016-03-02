@@ -28,7 +28,7 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 
 * Rails:
   * [Hello world](docs/tutorials/carbon-rails/hello-world.md)
-  * [Introducting data](docs/tutorials/carbon-rails/introducing-data.md)
+  * [Introducing data](docs/tutorials/carbon-rails/introducing-data.md)
   * [Updating data](docs/tutorials/carbon-rails/updating-data.md)
 * [Creating a component](docs/tutorials/creating-a-component.md)
 

@@ -10,8 +10,8 @@ If you're familiar with ES5 JavaScript, you may find some of our syntax odd. We'
 
 ## Setup
 
-* Before you begin, ensure you have followed the first time setup guide for [Carbon Factory](https://github.com/Sage/carbon-factory/wiki/First-Time-System-Setup).
-* If you are new to Node/npm, read our [quick intro](https://github.com/Sage/carbon-factory/blob/master/docs/an-introduction-to-node-and-npm.md).
+* Before you begin, ensure you have followed the [first time setup guide](docs/guides/setting-up-your-environment.md).
+* If you are new to Node/npm, read our [quick intro](docs/guides/an-introduction-to-node-and-npm.md).
 
 ### Setting up Rails App
 
