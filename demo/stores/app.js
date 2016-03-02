@@ -21,6 +21,20 @@ let data = ImmutableHelper.parseJSON({
     as: "warning",
     text: "Sample message."
   },
+  rainbow: {
+    data: [{
+      y: "50",
+      name: "First Bit",
+      label: "bit 1!",
+      tooltip: "more info about the first bit"
+    }, {
+      y: "50",
+      name: "Second Bit",
+      label: "bit 2!",
+      tooltip: "more info about the second bit"
+    }],
+    title: "A Rainbow Chart"
+  },
   row: {
     columnData: [{}, {}, {}, {}]
   },

@@ -1,4 +1,5 @@
 import React from 'react';
+import RainbowDemo from './rainbow-demo';
 
 class Charts extends React.Component {
   /**
@@ -8,6 +9,7 @@ class Charts extends React.Component {
     return (
       <div>
         <h1>Charts</h1>
+        <RainbowDemo />
       </div>
     );
   }
