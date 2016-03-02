@@ -23,7 +23,7 @@ rails new carbon-rails-test
 
 Using the carbon-factory command line tools we can generate some boilerplate for our application
 
-Change directory to the directory you created your Rails app:
+Change to the directory containing your Rails app:
 
 ```shell
 cd carbon-rails-test
@@ -108,7 +108,7 @@ gulp
 
 We now need to configure Rails so it knows about the new assets and how to use them.
 
-First of all, lets update the application layout to move the JS asset and add a `div` in which to render the React components:
+First of all, let's update the application layout to move the JS asset and add a `div` in which to render the React components:
 
 ```html
 <!-- app/views/layouts/application.html.erb -->
@@ -133,19 +133,19 @@ First of all, lets update the application layout to move the JS asset and add a 
 </html>
 ```
 
-Please note that we have moved JS assets to the bottom of the `body`. This is important to rendering the page successfully.
+Please note that we have moved JS assets to the bottom of the `body`. This is important for rendering the page successfully.
 
 For some Rails applications, you may want to keep the React assets separate. In this case, ensure you render the additional assets to the layout and add them to the precompilation config option in your app.
 
 ### Rails Controller and View
 
-Using Rails controller generator lets create a user page:
+Using Rails controller generator let's create a user page:
 
 ```shell
 rails generate controller user index
 ```
 
-Lets make the `user#index` our root:
+Let's make the `user#index` our root:
 
 ```ruby
 # config/routes.rb
@@ -207,7 +207,7 @@ export default User;
 
 Within the `return` block we are declaring what looks like HTML div tags but actually we are using [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) syntax.
 
-Lets leave our React Application as it is for now and try get something into our browser. The final thing we need to do is define the routes for our react component.
+Let's leave our React Application as it is for now and try to get something into our browser. The final thing we need to do is define the routes for our react component.
 
 Open up the `main.js` file and import the `User` component. We can add the component to the default route which matches the root path:
 
@@ -220,7 +220,7 @@ import { startRouter } from 'carbon/lib/utils/router';
 
 import User from 'views/user';
 
-var routes = (
+let routes = (
   <Route path="/" component={ User } />
 );
 
@@ -239,7 +239,7 @@ You should now be able to navigate to [http://localhost:3000/](http://localhost:
 
 ### Custom App Styling
 
-At the moment our view span the entire width of our page. Lets add some css to the app id so that the width is defined and the content is centered.
+At the moment our view spans the entire width of our page. Let's add some css to the app id so that the width is defined and the content is centered.
 
 Within our view's `package.json` file we want to add a stylesheet file that will be included with the User component.
 
@@ -261,10 +261,10 @@ Within our view's `package.json` file we want to add a stylesheet file that will
 }
 ```
 
-## Whats Next
+## What's Next
 
 If you have not already, this is probably a good time to familiarise yourself with Flux - we have a [basic example](https://github.com/Sage/carbon/blob/master/docs/guides/a-basic-example.md) to demonstrate the fundamentals.
 
-Otherwise, lets continue by introducing data to our Rails/React application using Flux.
+Otherwise, let's continue by introducing data to our Rails/React application using Flux.
 
 [Introducing Data](https://github.com/Sage/carbon/blob/master/docs/tutorials/carbon-rails/introducing-data.md)

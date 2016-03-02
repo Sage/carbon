@@ -10,13 +10,13 @@ We will use the Rails command line to generate a User model:
 rails g model User first_name:string last_name:string
 ```
 
-And lets migrate the database:
+And let's migrate the database:
 
 ```shell
 bundle exec rake db:migrate
 ```
 
-And finally, lets use the rails console to create a user that we can load and edit in the app:
+And finally, let's use the rails console to create a user that we can load and edit in the app:
 
 ```shell
 rails c
@@ -62,7 +62,7 @@ class UserController < ApplicationController
 end
 ```
 
-As we only have one user, we will always load the last user for the data. We have also added an `update` action for when data gets posted back to the server. Lets also add a route for this action:
+As we only have one user, we will always load the last user for the data. We have also added an `update` action for when data gets posted back to the server. Let's also add a route for this action:
 
 ```rb
 # config/routes.rb
@@ -121,7 +121,7 @@ class User extends React.Component {
 export default connect(User, UserStore);
 ```
 
-We have updated our view to import a `Textbox` component, and render two of these for the first and last names. The values are populated by the store, but currently do not update the store - we should setup an action which tells the store how to update when these inputs change.
+We have updated our view to import a `Textbox` component, and render two of these for the first and last names. The values are populated by the store, but currently do not update the store - we should set up an action which tells the store how to update when these inputs change.
 
 ```js
 // ui/src/constants/user.js
@@ -139,7 +139,7 @@ import Dispatcher from 'dispatcher';
 import UserConstants from 'constants/user';
 import Request from 'superagent';
 
-var userActions = {
+let userActions = {
   getData: () => {
     Request
       .get('/')
@@ -251,7 +251,7 @@ We should now be able to successfully type and update the values in the textboxe
 
 Our Flux store is now being updated by user input, which we can see by the `H1` text being updated as we type.
 
-We now need to post this data back to the server. Lets create an additional constant and action pair for this:
+We now need to post this data back to the server. Let's create an additional constant and action pair for this:
 
 ```js
 // ui/src/constants/user.js
@@ -272,7 +272,7 @@ import Request from 'superagent';
 
 let csrfToken = document.getElementsByName('csrf-token')[0].content;
 
-var userActions = {
+let userActions = {
   getData: () => {
     Request
       .get('/')
@@ -317,7 +317,7 @@ export default userActions;
 
 Note that we also get the CSRF token from the page, and add it to the POST call.
 
-Now lets update our view to use a `Form` which calls the new action on submit:
+Now let's update our view to use a `Form` which calls the new action on submit:
 
 ```js
 // ui/src/views/user/user.js

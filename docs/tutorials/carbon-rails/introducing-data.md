@@ -64,7 +64,7 @@ export default new UserStore('userStore', data, Dispatcher);
 
 Currently, we are manually setting default data. This is useful so we know what the structure of this store looks like - but really we want to pull this data from the server instead.
 
-Lets create a Constant and an Action which can take care of this:
+Let's create a Constant and an Action which can take care of this:
 
 ```js
 // ui/src/constants/user.js
@@ -89,7 +89,7 @@ import Dispatcher from 'dispatcher';
 import UserConstants from 'constants/user';
 import Request from 'superagent';
 
-var userActions = {
+let userActions = {
   getData: () => {
     Request
       .get('/')
@@ -110,7 +110,7 @@ export default userActions;
 
 So now we have a `UserActions.getData`, which performs an API request and on success will dispatch the event `UserConstants.GET_DATA`.
 
-Lets now go back to our store, and subscribe it to the dispatched event:
+Let's now go back to our store, and subscribe it to the dispatched event:
 
 ```js
 // ui/src/stores/user/user.js
@@ -139,7 +139,7 @@ export default new UserStore('userStore', data, Dispatcher);
 
 So now our store will set the user key in the store with the returned data from the server.
 
-The last thing to do is to update the view component to connect with the store and to trigger the get data action:
+The last thing to do is to update the view component to connect with the store and to trigger the `getData` action:
 
 ```js
 // ui/src/views/user/user.js
@@ -172,7 +172,7 @@ export default connect(User, UserStore);
 
 So our React component can now get its data through AJAX - this makes it really flexible if we want to render it in different places. However, in some cases we might get some performance improvements if we render the JSON to the page and have the Flux store retrieve it from there instead.
 
-Lets update our Rails controller to supply this data:
+Let's update our Rails controller to supply this data:
 
 ```ruby
 # app/controllers/user_controller.rb
@@ -198,7 +198,7 @@ class UserController < ApplicationController
 end
 ```
 
-Our changes have set up an instance variable for `@user_data`, and we are now rendering a view for the HTML format. Lets update the view file to render the required data:
+Our changes have set up an instance variable for `@user_data`, and we are now rendering a view for the HTML format. Let's update the view file to render the required data:
 
 ```ruby
 # app/views/user/index.html.erb
@@ -210,7 +210,7 @@ Our changes have set up an instance variable for `@user_data`, and we are now re
 
 This will render the JSON to a global variable labelled `USER_DATA`, which our Flux store will be able to read.
 
-Lets update the store to read this data:
+Let's update the store to read this data:
 
 ```js
 // ui/src/stores/user/user.js
@@ -236,7 +236,7 @@ export default new UserStore('userStore', data, Dispatcher);
 
 We are now setting up our default data using the JSON available globally.
 
-So now we know we already have the data, we no longer need to call the action to retrieve the data from the server, so lets update our view:
+So now we know we already have the data, we no longer need to call the action to retrieve the data from the server, so let's update our view:
 
 ```js
 // ui/src/views/user/user.js
@@ -267,9 +267,9 @@ class User extends React.Component {
 export default connect(User, UserStore);
 ```
 
-Our view will now only retrieve the data from the server if it cannot find it on the global namespace. This means our view takes advantage of loading the data on page load from the server, will still being flexible to retrieve the data itself in other situations.
+Our view will now only retrieve the data from the server if it cannot find it on the global namespace. This means our view can access the cached data made available on page load from the server, while retaining the ability to retrieve the data itself if necessary.
 
-## Whats Next
+## What's Next
 
 Our application is now retrieving data from the server and rendering it in the DOM. Next we will take a look at updating the data in the store, and then posting it back to the server.
 
