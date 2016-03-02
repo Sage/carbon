@@ -95,12 +95,18 @@
       box-shadow: none;
     }
   }
+
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder {
+    color: $grey-dark-blue-40;
+  }
 }
 
 .common-input__message-wrapper {
   top: 0;
   position: absolute;
-  width: 250px;
+  width: 260px;
 }
 
 .common-input__message {
@@ -112,7 +118,7 @@
   display: table;
   left: 100%;
   margin-top: $arrow-size;
-  max-width: 250px;
+  max-width: 260px;
   min-width: 50px;
   padding: 10px;
   position: absolute;
@@ -176,4 +182,11 @@
 .common-input__message--error {
   background-color: $error;
   color: $white;
+}
+
+.common-input__prefix {
+  font-weight: bold;
+  left: 7px;
+  position: absolute;
+  top: 8px;
 }

@@ -22,3 +22,4 @@ For additional properties specific to this component, see propTypes and defaultP
 | as            | false          | String         | `secondary`   | The as property defines the button style. This can be `primary` or `secondary`  |
 | children      | true           | Node           |               | What will be displayed within the button. Could be text, icons etc...  |
 | disabled      | false          | Boolean        | `false`       | Gives the button a disabled state |
+| href          | false          | String         |               | If supplied, the button will render an anchor tag instead of a button tag. |  

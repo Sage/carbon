@@ -103,7 +103,6 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     }
   }
 
-
   /**
    * A lifecycle method for when the component has re-rendered.
    *
@@ -195,7 +194,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     }
 
     // iterate through each validation applied to the input
-    this.props.validations.forEach((validation) => {
+    for (let i = 0; i < this.props.validations.length; i++) {
+      let validation = this.props.validations[i];
+
       // run this validation
       valid = validation.validate(value, this.props);
 
@@ -216,13 +217,13 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
           }
 
           // tell the input it is invalid
-          this.setState({ errorMessage: validation.message(this.props), valid: false });
+          this.setState({ errorMessage: validation.message(value, this.props), valid: false });
         }
 
         // a validation has failed, so exit the loop at this point
-        return valid;
+        break;
       }
-    });
+    }
 
     // return the result of the validation
     return valid;
@@ -236,11 +237,14 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    */
   _handleBlur = () => {
     if (!this.blockBlur) {
-      this.validate();
+      // use setTimeout to drop in the callstack to ensure value has time to be set
+      setTimeout(() => {
+        this.validate();
 
-      if (this.state.messageLocked) {
-        this.setState({ messageLocked: false });
-      }
+        if (this.state.messageLocked) {
+          this.setState({ messageLocked: false });
+        }
+      }, 0);
     }
   }
 

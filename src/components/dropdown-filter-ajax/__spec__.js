@@ -85,6 +85,14 @@ describe('DropdownFilterAjax', () => {
         });
       });
 
+      describe('when there is no highlighted option', () => {
+        it('does not call emitOnChangeCallback', () => {
+          spyOn(instance, 'highlighted').and.returnValue(null);
+          instance.handleBlur();
+          expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+        });
+      });
+
       describe('if highlighted does not match value', () => {
         it('emits change', () => {
           spyOn(instance, 'highlighted').and.returnValue(90);
@@ -116,12 +124,20 @@ describe('DropdownFilterAjax', () => {
         instance.handleFocus();
         expect(instance.getData).toHaveBeenCalledWith("", 1);
       });
+
+      describe('if suggest is disabled but focus is blocked', () => {
+        it('does not call getData', () => {
+          instance.blockFocus = true;
+          instance.handleFocus();
+          expect(instance.getData).not.toHaveBeenCalled();
+        });
+      });
     });
 
     it('calls setSelectionRange', () => {
-      spyOn(instance.refs.input, 'setSelectionRange');
+      spyOn(instance._input, 'setSelectionRange');
       instance.handleFocus();
-      expect(instance.refs.input.setSelectionRange).toHaveBeenCalledWith(0, instance.refs.input.value.length);
+      expect(instance._input.setSelectionRange).toHaveBeenCalledWith(0, instance._input.value.length);
     });
   });
 

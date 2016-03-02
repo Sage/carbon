@@ -12,7 +12,7 @@ describe('Date', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Date name='date' label='Date' />
-    )
+    );
   });
 
   describe('intialize', () => {
@@ -31,15 +31,35 @@ describe('Date', () => {
 
       describe('when element has focus', () => {
         it('does not change the state', () => {
-          instance._document = { activeElement: instance.refs.visible }
+          instance._document = { activeElement: instance._input }
           instance.componentWillReceiveProps({});
           expect(instance.setState).not.toHaveBeenCalled();
         });
       });
+
       describe('when element does not have focus', () => {
         it('calls set state with to set the date', () => {
           instance.componentWillReceiveProps({ date: today });
           expect(instance.setState).toHaveBeenCalledWith({ visibleValue: today });
+        });
+      });
+    });
+
+    describe('componentDidMount', () => {
+      describe('if not autoFocus', () => {
+        it('does not set focus on the input', () => {
+          spyOn(instance._input, 'focus');
+          instance.componentDidMount();
+          expect(instance._input.focus).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('if autoFocus', () => {
+        it('does sets focus on the input', () => {
+          instance = TestUtils.renderIntoDocument(<Date autoFocus />);
+          spyOn(instance._input, 'focus');
+          instance.componentDidMount();
+          expect(instance._input.focus).toHaveBeenCalled();
         });
       });
     });
@@ -123,7 +143,7 @@ describe('Date', () => {
 
     it('is triggered when visible input changes', () => {
       spyOn(instance, 'emitOnChangeCallback')
-      TestUtils.Simulate.change(instance.refs.visible);
+      TestUtils.Simulate.change(instance._input);
 
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(hiddenToday);
       expect(instance.setState).toHaveBeenCalledWith({
@@ -210,7 +230,7 @@ describe('Date', () => {
   describe('handleBlur', () => {
     beforeEach(() => {
       spyOn(instance, 'updateVisibleValue');
-      TestUtils.Simulate.blur(instance.refs.visible);
+      TestUtils.Simulate.blur(instance._input);
     });
 
     it('updates the visible value', () => {
@@ -221,11 +241,22 @@ describe('Date', () => {
   describe('handleFocus', () => {
     beforeEach(() => {
       spyOn(instance, 'openDatePicker')
-      TestUtils.Simulate.focus(instance.refs.visible);
     });
 
-    it('opens the date picker', () => {
-      expect(instance.openDatePicker).toHaveBeenCalled();
+    describe('when focus is blocked', () => {
+      it('does not open the date picker', () => {
+        instance.blockFocus = true;
+        TestUtils.Simulate.focus(instance._input);
+        expect(instance.openDatePicker).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when focus is not blocked', () => {
+      it('opens the date picker', () => {
+        instance.blockFocus = false;
+        TestUtils.Simulate.focus(instance._input);
+        expect(instance.openDatePicker).toHaveBeenCalled();
+      });
     });
 
     describe('when disabled', () => {
@@ -234,7 +265,7 @@ describe('Date', () => {
           <Date name='date' label='Date' disabled />
         )
         spyOn(instance, 'openDatePicker')
-        TestUtils.Simulate.focus(instance.refs.visible);
+        TestUtils.Simulate.focus(instance._input);
       });
 
       it('does not open the date picker', () => {
@@ -248,7 +279,7 @@ describe('Date', () => {
           <Date name='date' label='Date' readOnly />
         )
         spyOn(instance, 'openDatePicker')
-        TestUtils.Simulate.focus(instance.refs.visible);
+        TestUtils.Simulate.focus(instance._input);
       });
 
       it('does not open the date picker', () => {
@@ -270,7 +301,7 @@ describe('Date', () => {
       it('closes the datepicker on tab out', () => {
         spyOn(Events, 'isTabKey').and.returnValue(true);
         spyOn(instance, 'closeDatePicker');
-        TestUtils.Simulate.keyDown(instance.refs.visible, { keyCode: 9 });
+        TestUtils.Simulate.keyDown(instance._input, { keyCode: 9 });
         expect(instance.closeDatePicker).toHaveBeenCalled();
       });
     });
@@ -279,7 +310,7 @@ describe('Date', () => {
       it('continues without closing the datepicker', () => {
         spyOn(Events, 'isTabKey').and.returnValue(false);
         spyOn(instance, 'closeDatePicker');
-        TestUtils.Simulate.keyDown(instance.refs.visible, { keyCode: 12 });
+        TestUtils.Simulate.keyDown(instance._input, { keyCode: 12 });
         expect(instance.closeDatePicker).not.toHaveBeenCalled();
       });
     });
@@ -304,11 +335,11 @@ describe('Date', () => {
 
   describe('inputProps', () => {
     it('sets the ui-date__input class on the input', () => {
-      expect(instance.refs.visible.classList[0]).toEqual('ui-date__input');
+      expect(instance._input.classList[0]).toEqual('ui-date__input');
     });
 
     it('sets the visible value', () => {
-      expect(instance.refs.visible.value).toEqual(today);
+      expect(instance._input.value).toEqual(today);
     });
   });
 

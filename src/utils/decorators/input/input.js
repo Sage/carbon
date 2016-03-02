@@ -2,6 +2,7 @@ import React from 'react';
 import shouldComponentUpdate from './../../helpers/should-component-update';
 import { assign } from 'lodash';
 import guid from './../../helpers/guid';
+import classNames from 'classnames';
 
 /**
  * Input decorator.
@@ -34,6 +35,10 @@ import guid from './../../helpers/guid';
  * for example `textarea`, by defining a `inputType` getter method in your
  * components class.
  *
+ * Inputs also accept a prop of `prefix` which outputs a prefix to the input:
+ *
+ *   <Textbox prefix="foo" />
+ *
  * @method Input
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
@@ -55,6 +60,36 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
+
+  /**
+   * A lifecycle method for when the component has rendered.
+   *
+   * @method componentWillReceiveProps
+   * @return {void}
+   */
+  componentDidMount() {
+    // call the components super method if it exists
+    if (super.componentDidMount) { super.componentDidMount(); }
+
+    if (this.props.prefix) {
+      this.setTextIndentation();
+    }
+  }
+
+  /**
+   * A lifecycle method for when the component has re-rendered.
+   *
+   * @method componentDidUpdate
+   * @return {void}
+   */
+  componentDidUpdate(prevProps, prevState) {
+    // call the components super method if it exists
+    if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
+
+    if (this.props.prefix != prevProps.prefix) {
+      this.setTextIndentation();
+    }
+  }
 
   /**
    * A lifecycle method to determine if the component should re-render for better performance.
@@ -93,27 +128,32 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
+   * Sets indentation of input value based on prefix width.
+   *
+   * @method setTextIndentation
+   * @return {void}
+   */
+  setTextIndentation = () => {
+    if (this._input) {
+      this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
+    }
+  }
+
+  /**
    * Extends main classes to add ones for the input.
    *
    * @method mainClasses
    * @return {String} Main class names
    */
   get mainClasses() {
-    let classes = super.mainClasses || "";
+    let classes = super.mainClasses;
 
-    if (this.props.readOnly) {
-      classes += ' common-input--readonly';
-    }
-
-    if (this.props.className) {
-      classes += ` ${this.props.className}`;
-    }
-
-    if (this.props.align) {
-      classes += ` common-input--align-${this.props.align}`;
-    }
-
-    return `${classes} common-input`;
+    return classNames(classes, this.props.className, 'common-input', {
+      'common-input--readonly': this.props.readOnly,
+      [`common-input--align-${this.props.align}`]: this.props.align,
+      'common-input--with-prefix': this.props.prefix,
+      'common-input--disabled': this.props.disabled
+    });
   }
 
   /**
@@ -135,6 +175,9 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   get inputProps() {
     let inputProps = super.inputProps || {};
+
+    // store ref to input
+    inputProps.ref = (c) => { this._input = c; };
 
     // disable autoComplete (causes performance issues in IE)
     inputProps.autoComplete = this.props.autoComplete || "off";
@@ -183,6 +226,22 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
+   * Adds a prefix if it is defined
+   *
+   * @method prefixHTML
+   * @return {Object}
+   */
+  get prefixHTML() {
+    if (this.props.prefix) {
+      return (
+        <div ref={ (c) => { this._prefix = c; } } className="common-input__prefix">
+          { this.props.prefix }
+        </div>
+      );
+    }
+  }
+
+  /**
    * Returns HTML for the input.
    *
    * @method inputHTML
@@ -194,6 +253,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     return (
       <div { ...this.fieldProps }>
+        { this.prefixHTML }
         { input }
         { this.additionalInputContent }
       </div>

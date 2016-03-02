@@ -1,47 +1,25 @@
+import ValidationsHelper from './../../helpers/validations';
+
 /**
  * This will validate an input for presence.
  *
- * @object PresenceValidator
- * @return {Object} Validator object
+ * @constructor PresenceValidator
  */
-let PresenceValidator = function() {
-  return {
-    /**
-     * This will validate the given value, and return a valid status.
-     *
-     * @method validate
-     * @param {String} value to check presence
-     * @return {Boolean} true if value is valid
-     */
-    validate: function(value) {
-      if (value && value.get) {
-        // if value is an immutable object, we probably want to judge that it has
-        // a value by an ID attribute. This relates to components such as
-        // DropdownSuggest which has an immutable object as its value.
-        if (value.get('id')) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        // for regular inputs, we can just use it's regular value
-        if (value) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    },
+class PresenceValidator {
+
+  /**
+   * @method constructor
+   * @param {Object} params
+   */
+  constructor(params = {}) {
 
     /**
-     * This is the message returned when this validation fails.
+     * An optional custom validation message.
      *
-     * @method message
-     * @return {String} the error message to display
+     * @property customMessage
+     * @type {String}
      */
-    message: function() {
-      return "This field is required.";
-    },
+    this.customMessage = params.customMessage;
 
     /**
      * States that this validation should display an asterisk with the label.
@@ -49,8 +27,33 @@ let PresenceValidator = function() {
      * @method asterisk
      * @return {Boolean}
      */
-    asterisk: true
-  };
-};
+    this.asterisk = true;
+  }
+
+  /**
+   * This will validate the given value, and return a valid status.
+   *
+   * @method validate
+   * @param {String} value to check presence
+   * @return {Boolean} true if value is valid
+   */
+  validate = (value) => {
+    if (value) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * This is the message returned when this validation fails.
+   *
+   * @method message
+   * @return {String} the error message to display
+   */
+  message = () => {
+    return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.blank');
+  }
+}
 
 export default PresenceValidator;

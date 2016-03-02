@@ -43,7 +43,7 @@ describe('Form', () => {
 
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Form><Textbox validations={ [Validation()] } value='' /></Form>
+        <Form><Textbox validations={ [new Validation()] } value='' /></Form>
       );
       textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
     });
@@ -62,7 +62,7 @@ describe('Form', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
         <Form>
-          <Textbox validations={ [Validation()] } value='' />
+          <Textbox validations={ [new Validation()] } value='' />
         </Form>
       );
 
@@ -101,7 +101,7 @@ describe('Form', () => {
       it('does not not submit the form', () => {
         instance = TestUtils.renderIntoDocument(
           <Form>
-            <Textbox validations={ [Validation()] } name='test' value='' />
+            <Textbox validations={ [new Validation()] } name='test' value='' />
           </Form>
         );
 
@@ -116,7 +116,7 @@ describe('Form', () => {
       it('does not validate the input', () => {
         instance = TestUtils.renderIntoDocument(
           <Form>
-            <Textbox validations={ [Validation()] } disabled={ true } />
+            <Textbox validations={ [new Validation()] } disabled={ true } />
           </Form>
         );
 
@@ -133,7 +133,7 @@ describe('Form', () => {
         let spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
           <Form beforeFormValidation={ spy }>
-            <Textbox validations={ [Validation()] } name='test' value='Valid' />
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
           </Form>
         );
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
@@ -147,7 +147,7 @@ describe('Form', () => {
         let spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
           <Form afterFormValidation={ spy }>
-            <Textbox validations={ [Validation()] } name='test' value='Valid' />
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
           </Form>
         );
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
@@ -167,7 +167,7 @@ describe('Form', () => {
     describe('when window history is availiable', () => {
       it('redirects to the previous page', () => {
         spyOn(instance._window.history, 'back')
-        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
         TestUtils.Simulate.click(cancel);
         expect(instance._window.history.back).toHaveBeenCalled();
       });
@@ -176,7 +176,7 @@ describe('Form', () => {
     describe('when window history is not availiable', () => {
       it('throws an error', () => {
         instance._window = {};
-        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
         expect(function() { TestUtils.Simulate.click(cancel) }).toThrowError('History is not defined. This is normally configured by the react router');
       });
     });
@@ -198,7 +198,7 @@ describe('Form', () => {
             </Form>
           </Dialog>
         )
-        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(nestedInstance, 'button')[0];
+        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(nestedInstance, 'button')[1];
         TestUtils.Simulate.click(cancel);
         expect(spy).toHaveBeenCalled();
       });
@@ -265,17 +265,17 @@ describe('Form', () => {
       });
 
       it('renders a secondary cancel button with cancelClasses', () => {
-        expect(buttons[0].className).toEqual('ui-button ui-button--secondary');
-        expect(buttonContainers[0].className).toEqual('ui-form__cancel');
+        expect(buttons[1].className).toEqual('ui-button ui-button--secondary');
+        expect(buttonContainers[2].className).toEqual('ui-form__cancel');
       });
 
       it('renders a primary save button with saveClasses', () => {
-        expect(buttons[1].className).toEqual('ui-button ui-button--primary');
+        expect(buttons[0].className).toEqual('ui-button ui-button--primary');
         expect(buttonContainers[1].className).toEqual('ui-form__save');
       });
 
       it('renders an undisabled save button if not submitting', () => {
-        expect(buttons[1].disabled).toBeFalsy();
+        expect(buttons[0].disabled).toBeFalsy();
       });
 
       it('renders a disabled save button if saving', () => {
@@ -283,7 +283,7 @@ describe('Form', () => {
           <Form saving={true} />
         );
         buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-        expect(buttons[1].disabled).toBeTruthy();
+        expect(buttons[0].disabled).toBeTruthy();
       });
     });
 

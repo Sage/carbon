@@ -282,7 +282,7 @@ class Form extends React.Component {
 
     return (<div className={ cancelClasses }>
       <Button type='button' onClick={ this.cancelForm } >
-        Cancel
+        { cancelText() }
       </Button>
     </div>);
   }
@@ -316,12 +316,16 @@ class Form extends React.Component {
         { generateCSRFToken(this._document) }
 
         { this.props.children }
-        { cancelButton }
-        <div className={ saveClasses }>
-          { errorCount }
-          <Button as="primary" disabled={ this.props.saving }>
-            Save
-          </Button>
+
+        <div className="ui-form__buttons">
+          <div className={ saveClasses }>
+            { errorCount }
+            <Button as="primary" disabled={ this.props.saving }>
+              { saveText() }
+            </Button>
+          </div>
+
+          { cancelButton }
         </div>
       </form>
     );
@@ -372,6 +376,14 @@ function errorMessage(count) {
   });
 
   return { __html: errorMessage };
+}
+
+function saveText() {
+  return I18n.t('actions.save', { defaultValue: 'Save' });
+}
+
+function cancelText() {
+  return I18n.t('actions.cancel', { defaultValue: 'Cancel' });
 }
 
 export default Form;
