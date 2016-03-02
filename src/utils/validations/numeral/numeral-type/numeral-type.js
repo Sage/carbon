@@ -144,7 +144,7 @@ function validateInteger() {
      * @return {String} the error message to display
      */
     message: function() {
-      return ValidationsHelper.validationMessage(this.customMessage, "errors.messages.not_a_integer");
+      return ValidationsHelper.validationMessage(this.customMessage, "errors.messages.not_an_integer");
     }
   };
 }

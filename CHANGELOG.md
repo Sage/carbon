@@ -1,3 +1,9 @@
+# 0.5.2
+
+## Bug Fixes
+
+* Fixed I18n translation for integer validation.
+
 # 0.5.1
 
 ## Bug Fixes
