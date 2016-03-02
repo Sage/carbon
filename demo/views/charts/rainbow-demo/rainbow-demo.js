@@ -51,7 +51,36 @@ class RainbowDemo extends React.Component {
   get code() {
     let html = "import Rainbow from 'carbon/lib/components/rainbow';\n\n";
 
+    html += "let chartData = Immutable.fromJS([";
+
+    this.value('data').forEach((slice) => {
+      html += "{";
+      if (slice.get('y')) {
+        html += `\n  y: ${slice.get('y')},`;
+      }
+      if (slice.get('name')) {
+        html += `\n  name: '${slice.get('name')}',`;
+      }
+      if (slice.get('label')) {
+        html += `\n  label: '${slice.get('label')}',`;
+      }
+      if (slice.get('tooltip')) {
+        html += `\n  tooltip: '${slice.get('tooltip')}',`;
+      }
+      if (slice.get('color')) {
+        html += `\n  color: '${slice.get('color')}',`;
+      }
+      html = html.substring(0, html.length - 1);
+      html += "\n}, ";
+    });
+
+    html = html.substring(0, html.length - 2);
+
+    html += "]);";
+    html += "\n\n";
+
     html += "<Rainbow";
+    html += "\n  data={chartData}";
 
     if (this.value('title')) {
       html += `\n  title='${this.value('title')}'`;
