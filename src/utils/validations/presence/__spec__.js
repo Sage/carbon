@@ -6,8 +6,10 @@ describe('Presence Validator', () => {
   beforeEach(() => {
     I18n.translations = {
       en: {
-        validations: {
-          presence: "This field is required."
+        errors: {
+          messages: {
+            blank: "This field is required."
+          }
         }
       }
     };

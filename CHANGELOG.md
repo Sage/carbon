@@ -1,3 +1,11 @@
+# 0.5.1
+
+## Bug Fixes
+
+* `autoFocus` no longer automatically opens lists or datepickers on Dropdown and Date components.
+* Update validations i18n to use `errors.messages` instead of `validations`
+* Bluring of DropdownFilter/DropdownFilterAjax does not throw a js error when no items exist
+
 # 0.5.0
 
 ## !BREAKING CHANGE! Validations have been converted into classes
