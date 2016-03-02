@@ -1,3 +1,13 @@
+# 0.6.0
+
+## I18nHelper
+
+An I18nHelper has been created to help with formatting decimal numbers.
+
+## Bug Fixes
+
+* We have inserted an engine dependency for npm version 3. This is to help mitigate any issues of users reporting issues when installing with npm version 2.
+
 # 0.5.1
 
 ## Bug Fixes
