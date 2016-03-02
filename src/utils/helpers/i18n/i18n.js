@@ -6,52 +6,54 @@ import I18n from "i18n-js";
 * Provides helper methods for I18n.
 *
 * @object I18nHelper
-* @method formatValue
-* @method removeFormat
-*
 */
 const I18nHelper = {
 
   /**
-   * Formats delimiter and separator through i18n
+   * Returns format from the defined translations.
    *
-   * @method i18nFormatting
+   * @method format
    * @return {Object} Delimeter and separator values
    */
-  i18nFormatting: {
-    delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
-    separator: I18n.t("number.format.separator", { defaultValue: "." })
+  format: () => {
+    return {
+      delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
+      separator: I18n.t("number.format.separator", { defaultValue: "." })
+    };
   },
 
   /**
    * Adds formatting to the value
    *
-   * @method formatValue
+   * @method formatDecimal
    * @param {String} value unformatted Value
    * @param {Interger} precision
    * @return {String} formatted value
    */
-  formatValue: (valueToFormat = 0, precision = 2) => {
+  formatDecimal: (valueToFormat = 0, precision = 2) => {
+    let format = I18nHelper.format();
+
     return  I18n.toNumber(valueToFormat, {
       precision: precision,
-      delimiter: I18nHelper.i18nFormatting.delimiter,
-      separator: I18nHelper.i18nFormatting.separator
+      delimiter: format.delimiter,
+      separator: format.separator
     });
   },
 
   /**
    * Removes delimiters and separators from value
    *
-   * @method removeFormat
+   * @method unformatDecimal
    * @param {String} valueWithFormat Formatted value
    * @return {String} value with no format
    */
-  removeFormat: (valueWithFormat = '') => {
-    let regex = new RegExp('\\' + I18nHelper.i18nFormatting.delimiter, "g");
+  unformatDecimal: (valueWithFormat = '') => {
+    let format = I18nHelper.format(),
+        regex = new RegExp('\\' + format.delimiter, "g");
 
     valueWithFormat = valueWithFormat.replace(regex, "", "g");
 
-    return valueWithFormat.replace(I18nHelper.i18nFormatting.separator, ".");
+    return valueWithFormat.replace(format.separator, ".");
   }
 };
 
