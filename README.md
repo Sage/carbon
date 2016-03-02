@@ -6,23 +6,17 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 
 [Carbon Factory](https://github.com/sage/carbon-factory) is supplementary to Carbon; providing tools to easily get your environment and project up and running to start building with React. As well as providing a command line interface to build projects, it manages tasks for compiling your assets and running test suites.
 
-## Getting Started
+## Documentation
 
-If you're new to React and/or Node, make sure to see the [Carbon wiki](https://github.com/Sage/carbon/wiki) for learning material.
+### Getting Started
 
-### Installation
+* [Setting up your environment](docs/guides/setting-up-your-environment.md)
+* [An introduction to Node/npm](docs/guides/an-introduction-to-node-and-npm.md)
+* [Getting started](docs/guides/getting-started.md)
+* [A basic example of Flux](docs/guides/a-basic-example.md)
 
-There are instructions on setting up your environment on the [Carbon Factory repository](https://github.com/Sage/carbon-factory/blob/master/docs/first-time-installation.md). We recommend you run through these before continuing with Carbon.
+### Guides
 
-### Documentation
-
-We have a [basic example](docs/guides/a-basic-example.md) to get started with Carbon.
-
-We also have additional guides and tutorials for further information.
-
-#### Guides
-
-* [A Basic Example](docs/guides/a-basic-example.md)
 * [Assets](docs/guides/assets.md)
 * [Flux](docs/guides/flux.md)
 * [Immutable](docs/guides/immutable.md)
@@ -30,11 +24,15 @@ We also have additional guides and tutorials for further information.
 * [Decorators](docs/guides/decorators.md)
 * [Handlers](docs/guides/handlers.md)
 
-#### Tutorials
+### Tutorials
 
-* [Creating a Component](docs/tutorials/creating-a-component.md)
+* Rails:
+  * [Hello world](docs/tutorials/carbon-rails/hello-world.md)
+  * [Introducting data](docs/tutorials/carbon-rails/introducing-data.md)
+  * [Updating data](docs/tutorials/carbon-rails/updating-data.md)
+* [Creating a component](docs/tutorials/creating-a-component.md)
 
-### Running the Example
+## Running the Example
 
 Carbon has an example page, which demonstrates most of the components with a Flux implementation. This can be used to quickly see a demonstration of the components and/or as an area to test while developing with the components. To run the example, simply run `gulp` from the root directory of the Carbon repository and navigate to [http://localhost:8080/](http://localhost:8080/).
 
