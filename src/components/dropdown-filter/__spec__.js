@@ -90,7 +90,8 @@ describe('DropdownFilter', () => {
         });
         expect(instance.setState).toHaveBeenCalledWith({
           filter: '',
-          highlighted: null
+          highlighted: null,
+          open: true
         });
       });
     });
@@ -153,6 +154,15 @@ describe('DropdownFilter', () => {
         });
       });
 
+      describe('when there is no highlighted option', () => {
+        it('does not call emitOnChangeCallback', () => {
+          spyOn(instance, 'highlighted').and.returnValue(null);
+          spyOn(instance, 'emitOnChangeCallback');
+          instance.handleBlur();
+          expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+        });
+      });
+
       describe('if highlighted does not match value', () => {
         it('does calls emitOnChangeCallback', () => {
           let opts = Immutable.fromJS([{
@@ -175,7 +185,7 @@ describe('DropdownFilter', () => {
 
   describe('handleFocus', () => {
     describe('if in suggest mode', () => {
-      it('calls setState', () => {
+      it('does not call setState', () => {
         instance = TestUtils.renderIntoDocument(
           <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" suggest={ true } />
         );
@@ -186,10 +196,19 @@ describe('DropdownFilter', () => {
     });
 
     describe('if not in suggest mode', () => {
-      it('does not call setState', () => {
+      it('calls setState', () => {
         spyOn(instance, 'setState');
         instance.handleFocus();
         expect(instance.setState).toHaveBeenCalledWith({ open: true });
+      });
+
+      describe('but focus is blocked', () => {
+        it('does not call setState', () => {
+          spyOn(instance, 'setState');
+          instance.blockFocus = true;
+          instance.handleFocus();
+          expect(instance.setState).not.toHaveBeenCalled();
+        });
       });
     });
 

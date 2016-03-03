@@ -79,6 +79,18 @@ class Date extends React.Component {
   }
 
   /**
+   * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
+   *
+   * @method componentDidMount
+   */
+  componentDidMount() {
+    if (this.props.autoFocus) {
+      this.blockFocus = true;
+      this._input.focus();
+    }
+  }
+
+  /**
    * A lifecycle method to update the visible value with a formatted version,
    * only when the field is not the active element.
    *
@@ -213,7 +225,11 @@ class Date extends React.Component {
    * @return {void}
    */
   handleFocus = () => {
-    this.openDatePicker();
+    if (this.blockFocus) {
+      this.blockFocus = false;
+    } else {
+      this.openDatePicker();
+    }
   }
 
   /**
@@ -268,7 +284,7 @@ class Date extends React.Component {
    * @return {Object} props for the visible input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { autoFocus, ...props } = this.props;
     props.className = this.inputClasses;
     props.onChange = this.handleVisibleInputChange;
     props.onBlur = this.handleBlur;

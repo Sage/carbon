@@ -131,10 +131,10 @@ class DropdownFilter extends Dropdown {
       highlighted: null
     };
 
-    if (this.props.suggest && ev.target.value.length > 0) {
-      state.open = true;
-    } else if (this.props.suggest) {
+    if (this.props.suggest && ev.target.value.length <= 0) {
       state.open = false;
+    } else {
+      state.open = true;
     }
 
     this.setState(state);
@@ -157,7 +157,7 @@ class DropdownFilter extends Dropdown {
       let filter = this.props.create ? this.state.filter : null,
           highlighted = this.highlighted(this.options);
 
-      if (highlighted != this.props.value) {
+      if (highlighted && highlighted !== String(this.props.value)) {
         let item = this.props.options.find((item) => {
           return String(item.get('id')) === String(highlighted);
         });
@@ -175,8 +175,10 @@ class DropdownFilter extends Dropdown {
    * @method handleFocus
    */
   handleFocus = () => {
-    if (!this.props.suggest) {
+    if (!this.props.suggest && !this.blockFocus) {
       this.setState({ open: true });
+    } else {
+      this.blockFocus = false;
     }
 
     this._input.setSelectionRange(0, this._input.value.length);
