@@ -79,8 +79,10 @@ describe('Email Validator', () => {
     it('returns the i18n error message to display', () => {
       I18n.translations = {
         en: {
-          validations: {
-            email: 'Incorrect Format'
+          errors: {
+            messages: {
+              invalid_email: 'Incorrect Format'
+            }
           }
         }
       }
