@@ -4,6 +4,7 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import classNames from 'classnames';
+import Events from './../../utils/helpers/events';
 
 /**
  * A dropdown widget.
@@ -101,6 +102,18 @@ class Dropdown extends React.Component {
      * @default null
      */
     highlighted: null
+  }
+
+  /**
+   * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
+   *
+   * @method componentDidMount
+   */
+  componentDidMount() {
+    if (this.props.autoFocus) {
+      this.blockFocus = true;
+      this._input.focus();
+    }
   }
 
   /**
@@ -227,9 +240,11 @@ class Dropdown extends React.Component {
    * @method handleFocus
    */
   handleFocus = () => {
-    this.setState({
-      open: true
-    });
+    if (this.blockFocus) {
+      this.blockFocus = false;
+    } else {
+      this.setState({ open: true });
+    }
   }
 
   /**
@@ -265,7 +280,14 @@ class Dropdown extends React.Component {
    * @param {Object} ev event
    */
   handleKeyDown = (ev) => {
-    if (!this.refs.list) { return; }
+    if (!this.refs.list) {
+      // if up/down/space then open list
+      if (Events.isUpKey(ev) || Events.isDownKey(ev) || Events.isSpaceKey(ev)) {
+        this.setState({ open: true });
+      }
+
+      return;
+    }
 
     let list = this.refs.list,
         element = list.getElementsByClassName('ui-dropdown__list__item--highlighted')[0],
@@ -336,7 +358,7 @@ class Dropdown extends React.Component {
    * @method inputProps
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { autoFocus, ...props } = this.props;
     props.className = this.inputClasses;
     props.value = this.visibleValue || this.nameByID();
     props.name = null;

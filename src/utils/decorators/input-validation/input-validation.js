@@ -238,11 +238,14 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    */
   _handleBlur = () => {
     if (!this.blockBlur) {
-      this.validate();
+      // use setTimeout to drop in the callstack to ensure value has time to be set
+      setTimeout(() => {
+        this.validate();
 
-      if (this.state.messageLocked) {
-        this.setState({ messageLocked: false });
-      }
+        if (this.state.messageLocked) {
+          this.setState({ messageLocked: false });
+        }
+      }, 0);
     }
   }
 
