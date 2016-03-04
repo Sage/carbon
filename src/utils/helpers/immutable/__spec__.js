@@ -84,6 +84,20 @@ describe('Immutable Helper', () => {
         expect(ImmutableHelper.parseJSON(1)).toEqual(Immutable.fromJS('1'));
         expect(ImmutableHelper.parseJSON(3.142)).toEqual(Immutable.fromJS('3.142'));
       });
+
+      describe('as a nested element', () => {
+        it('casts all numbers to a string', () => {
+          let data = [{ foo: 'bar', baz: 'qux' }, { a: [1, 2, 'c'], b: 2 }];
+
+          let obj1 = Immutable.Seq({ foo: 'bar', baz: 'qux' }).toOrderedMap();
+          let array1 = Immutable.Seq(['1','2','c']).toList();
+          let obj2 = Immutable.Seq({a: array1, b: '2'}).toOrderedMap();
+          let expectedData = Immutable.Seq([obj1, obj2]).toList();
+
+          let result = ImmutableHelper.parseJSON(data);
+          expect(result.toJS()).toEqual(expectedData.toJS());
+        });
+      });
     });
   });
 });
