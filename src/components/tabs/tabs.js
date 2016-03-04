@@ -2,6 +2,7 @@ import React from 'react';
 import Immutable from 'immutable';
 import Tab from './tab';
 import { compact } from 'lodash';
+import classNames from 'classnames';
 
 /**
  * A Tabs widget.
@@ -191,26 +192,20 @@ class Tabs extends React.Component {
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    let classes = 'ui-tabs ';
-
-    if (this.props.className) {
-      classes += this.props.className;
-    }
-    return classes;
+    return classNames(
+      'ui-tabs',
+      this.props.className
+    );
   }
 
   tabHeaderClasses = (tab) => {
-    let classes = 'ui-tabs__headers__header';
-
-    if (this.state.tabValidity.get(tab.props.tabId) == false) {
-      classes += ' ui-tabs__headers__header--error';
-    }
-
-    if (tab.props.tabId === this.state.selectedTabId) {
-      classes += ' ui-tabs__headers__header--selected';
-    }
-
-    return classes;
+    return classNames(
+      'ui-tabs__headers__header',
+      {
+        'ui-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
+        'ui-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
+      }
+    );
   }
 
   /**

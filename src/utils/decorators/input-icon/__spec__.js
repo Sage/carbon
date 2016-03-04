@@ -33,7 +33,7 @@ describe('InputIcon', () => {
 
   describe('mainClasses', () => {
     it('returns the class', () => {
-      expect(klass.mainClasses).toEqual(' common-input--with-icon');
+      expect(klass.mainClasses).toEqual('common-input--with-icon');
     });
   });
 

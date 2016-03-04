@@ -160,7 +160,7 @@ describe('InputLabel', () => {
 
   describe('mainClasses', () => {
     it('adds the label inline class if input is inline', () => {
-      expect(instanceBasic.mainClasses).toEqual(' common-input--label-inline');
+      expect(instanceBasic.mainClasses).toEqual('common-input--label-inline');
     });
 
     it('does not add the label inline class if input is inline', () => {

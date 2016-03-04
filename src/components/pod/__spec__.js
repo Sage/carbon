@@ -94,7 +94,7 @@ describe('Pod', () => {
     it('renders a parent div with a pod CSS class', () => {
       instance = TestUtils.renderIntoDocument(<Pod/>);
       let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
-      expect(podNode.className).toEqual('ui-pod ');
+      expect(podNode.className).toEqual('ui-pod');
     });
 
     describe('when a custom className is passed', () => {

@@ -1,8 +1,30 @@
+# 0.6.0
+
+## I18nHelper
+
+An I18nHelper has been created to help with formatting decimal numbers.
+
+## Bug Fixes
+
+* We have inserted an engine dependency for npm version 3. This is to help mitigate any issues of users reporting issues when installing with npm version 2.
+
+## New Components
+
+* Spinner
+
+# 0.5.2
+
+## Bug Fixes
+
+* Fixed I18n translation for integer validation.
+
 # 0.5.1
 
 ## Bug Fixes
 
 * `autoFocus` no longer automatically opens lists or datepickers on Dropdown and Date components.
+* Update validations i18n to use `errors.messages` instead of `validations`
+* Bluring of DropdownFilter/DropdownFilterAjax does not throw a js error when no items exist
 
 # 0.5.0
 
