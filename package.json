@@ -6,6 +6,10 @@
   "style": [
     "./src/style-base/general.scss"
   ],
+  "engineStrict": true,
+  "engines": {
+    "npm": "^3.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
