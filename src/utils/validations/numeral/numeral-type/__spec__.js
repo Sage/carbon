@@ -10,7 +10,7 @@ describe('Numeral Type Validator', () => {
         errors: {
           messages: {
             not_a_number: "Must be a valid decimal",
-            not_a_integer: "Must be a valid integer"
+            not_an_integer: "Must be a valid integer"
           }
         }
       }

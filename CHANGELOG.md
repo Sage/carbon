@@ -8,6 +8,12 @@ An I18nHelper has been created to help with formatting decimal numbers.
 
 * We have inserted an engine dependency for npm version 3. This is to help mitigate any issues of users reporting issues when installing with npm version 2.
 
+# 0.5.2
+
+## Bug Fixes
+
+* Fixed I18n translation for integer validation.
+
 # 0.5.1
 
 ## Bug Fixes
