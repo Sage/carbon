@@ -88,13 +88,25 @@ class Flash extends React.Component {
    * @return(Void)
    */
   componentDidUpdate(prevProps) {
-    if (this.props.timeout && this.props.open === true) {
+    let timeout = this.props.timeout ? this.props.timeout : this.calculateTimeout();
+
+    if (this.props.open === true) {
       if (prevProps.open != this.props.open) {
         setTimeout(() => {
           this.props.onDismiss();
-        }, this.props.timeout);
+        }, timeout);
       }
     }
+  }
+
+  /**
+   * Sets timeout relative to message length
+   *
+   * @method calculateTimeout
+   * @return {Number} timeout value, milliseconds
+   */
+  calculateTimeout() {
+    return this.props.message.length * 200;
   }
 
   /**
@@ -134,7 +146,6 @@ class Flash extends React.Component {
     contents.push(<div className='ui-flash__message' key='message'>
                     { this.props.message }
                   </div>);
-
     if (!this.props.timeout) {
       contents.push(<div className='ui-flash__close-icon' onClick={ this.props.onDismiss } key='close'>
                       <Icon type='close' />
