@@ -1,28 +1,28 @@
 import ShouldComponentUpdateHelper from './../../helpers/should-component-update';
 
 /**
- * Should Component Update Decorator.
+ * Lifecycle Decorator.
  *
  * This decorator provides useful base should component update method.
  *
- * == How to use Should Component Update decorator in a component:
+ * == How to use Lifecycle decorator in a component:
  *
  * In your file:
  *
- *   import ShouldComponentUpdateDecorator from 'carbon/lib/utils/decorators/should-component-update;
+ *   import Lifecycle from 'carbon/lib/utils/decorators/should-component-update;
  *
  * To use the decorator, wrap your component with it:
  *
- *   const MyComponent = ShouldComponentUpdateDecorator(
+ *   const MyComponent = Lifecycle(
  *   class MyComponent extends React.Component {
  *     ...
  *   })
  *
- * @method ShouldComponentUpdate
+ * @method Lifecycle
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
-let ShouldComponentUpdate = (ComposedComponent) => class Component extends ComposedComponent {
+let Lifecycle = (ComposedComponent) => class Component extends ComposedComponent {
 
   /**
    * Lifecycle hook to calculate if the component should re-render
@@ -33,8 +33,10 @@ let ShouldComponentUpdate = (ComposedComponent) => class Component extends Compo
    * @return {Boolean}
    */
   shouldComponentUpdate(nextProps, nextState) {
+    if (super.shouldComponentUpdate) { return super.shouldComponentUpdate }
+
     return ShouldComponentUpdateHelper(this, nextProps, nextState);
   }
 }
 
-export default ShouldComponentUpdate;
+export default Lifecycle;
