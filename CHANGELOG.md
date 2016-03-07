@@ -4,6 +4,10 @@
 
 An I18nHelper has been created to help with formatting decimal numbers.
 
+## Lifecycle Decorator
+
+New decortor that supplies base lifecycle methods - currently just supplies shouldComponentUpdate
+
 ## Bug Fixes
 
 * We have inserted an engine dependency for npm version 3. This is to help mitigate any issues of users reporting issues when installing with npm version 2.

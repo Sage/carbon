@@ -24,7 +24,7 @@ class TestClassTwo extends React.Component {
 let ExtendedClassOne = LifecycleDecorator(TestClassOne);
 let ExtendedClassTwo = LifecycleDecorator(TestClassTwo);
 
-fdescribe('Lifecycle Decorator', () => {
+describe('Lifecycle Decorator', () => {
   let instance, instanceTwo;
 
   beforeEach(() => {
