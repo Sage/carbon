@@ -3,7 +3,7 @@ import ShouldComponentUpdateHelper from './../../helpers/should-component-update
 /**
  * Lifecycle Decorator.
  *
- * This decorator provides useful base should component update method.
+ * This decorator provides useful lifecycle methods.
  *
  * == How to use Lifecycle decorator in a component:
  *
@@ -17,6 +17,10 @@ import ShouldComponentUpdateHelper from './../../helpers/should-component-update
  *   class MyComponent extends React.Component {
  *     ...
  *   })
+ *
+ * Provided Lifecycle Methods
+ *  * `shouldComponentUpdate` - uses the shouldComponentUpdate Helper to compare props and state
+ *
  *
  * @method Lifecycle
  * @param {Class} ComposedComponent class to decorate
@@ -33,10 +37,10 @@ let Lifecycle = (ComposedComponent) => class Component extends ComposedComponent
    * @return {Boolean}
    */
   shouldComponentUpdate(nextProps, nextState) {
-    if (super.shouldComponentUpdate) { return super.shouldComponentUpdate }
+    if (super.shouldComponentUpdate) { return super.shouldComponentUpdate(); }
 
     return ShouldComponentUpdateHelper(this, nextProps, nextState);
   }
-}
+};
 
 export default Lifecycle;
