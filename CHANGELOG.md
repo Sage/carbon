@@ -6,7 +6,7 @@ An I18nHelper has been created to help with formatting decimal numbers.
 
 ## Lifecycle Decorator
 
-New decortor that supplies base lifecycle methods - currently just supplies shouldComponentUpdate
+Supplies base lifecycle methods - currently just supplies shouldComponentUpdate
 
 ## Bug Fixes
 
