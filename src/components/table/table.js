@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
+import Pager from './../pager';
 
 /**
  * A Table widget.
@@ -50,6 +51,15 @@ import TableHeader from './table-header';
  */
 class Table extends React.Component {
 
+  get pagerProps() {
+    return {
+      currentPage: this.props.currentPage,
+      pageSize: this.props.pageSize,
+      numberOfRows: this.props.numberOfRows,
+      handlePageChange: this.props.handlePageChange
+    }
+  }
+
   /**
    * Renders the component.
    *
@@ -59,11 +69,14 @@ class Table extends React.Component {
     let className = classNames('ui-table', this.props.className);
 
     return (
-      <table className={ className }>
-        <tbody>
-          { this.props.children }
-        </tbody>
-      </table>
+      <div>
+        <table className={ className }>
+          <tbody>
+            { this.props.children }
+          </tbody>
+        </table>
+        <Pager { ...this.pagerProps } />
+      </div>
     );
   }
 
