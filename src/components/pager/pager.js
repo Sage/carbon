@@ -63,8 +63,16 @@ class Pager extends React.Component {
     this.setState({ currentPage: ev.target.value });
   }
 
+  /**
+   * Emit change function depending on event
+   *
+   * @method emitChangeCallback
+   * @param {String} element source of change
+   * @param {Event} ev change event
+   */
   emitChangeCallback = (element, ev) => {
     let newPage;
+
     switch (element) {
       case 'next':
         newPage = String(Number(this.props.currentPage) + 1)
@@ -92,22 +100,52 @@ class Pager extends React.Component {
     }
   }
 
+  /**
+   * Calculate the maximum page
+   *
+   * @method maxPage
+   * @return {Integer}
+   */
   get maxPage() {
     return Math.ceil(this.props.numberOfRows / this.props.pageSize);
   }
 
+  /**
+   * Should the previous arrow be disabled
+   *
+   * @method disablePrevious
+   * @return {Boolean}
+   */
   get disablePrevious() {
     return this.props.currentPage === '1';
   }
 
+  /**
+   * Should the next arrow be disabled
+   *
+   * @method disableNext
+   * @return {Boolean}
+   */
   get disableNext() {
     return this.props.currentPage * this.props.pageSize >= Number(this.props.numberOfRows);
   }
 
+  /**
+   * Should the page number input be disabled 
+   *
+   * @method disabeCurrentPageInput
+   * @return {Boolean}
+   */
   get disableCurrentPageInput() {
     return Number(this.props.numberOfRows) <= Number(this.props.pageSize);
   }
 
+  /**
+   * Get previous arrow icon
+   *
+   * @method previousArrow
+   * @return {JSX}
+   */
   get previousArrow() {
     let classes = 'ui-pager__previous',
         props = { type: 'dropdown' }
@@ -123,6 +161,12 @@ class Pager extends React.Component {
     );
   }
 
+  /**
+   * Get current page number input
+   *
+   * @method currentPageInput
+   * @return {JSX}
+   */
   get currentPageInput() {
     let classes = classNames(
       'ui-pager__current-page',
@@ -145,6 +189,12 @@ class Pager extends React.Component {
     );
   }
 
+  /**
+   * Get next arrow icon
+   *
+   * @method nextArrow 
+   * @return {JSX}
+   */
   get nextArrow() {
     let classes = 'ui-pager__next',
         props = { type: 'dropdown' }
@@ -160,6 +210,12 @@ class Pager extends React.Component {
     );
   }
 
+  /**
+   * Page Size Selection Dropdown
+   *
+   * @method sizeSelectionDropdown
+   * @return {JSX}
+   */
   get sizeSelectionDropdown() {
     if (this.props.showPageSizeSelection) {
       return (
@@ -172,6 +228,12 @@ class Pager extends React.Component {
     }
   }
 
+  /**
+   * Render method for page
+   *
+   * @method render
+   * @return {JSX}
+   */
   render() {
     return(
       <div className='ui-pager'>
