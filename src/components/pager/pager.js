@@ -23,12 +23,54 @@ import Immutable from 'immutable';
 class Pager extends React.Component {
 
   static propTypes = {
+
+    /**
+     * Current visible page
+     *
+     * @property currentPage
+     * @type {String}
+     */
     currentPage: React.PropTypes.string.isRequired,
+
+    /**
+     * Total number of rows 
+     *
+     * @property numberOfRows 
+     * @type {String}
+     */
     numberOfRows: React.PropTypes.string.isRequired,
+
+    /**
+     * Function called when any pager changes take place
+     * PageSize, Current Page
+     *
+     * @property handlePagerChange
+     * @type {Function}
+     */
     handlePagerChange: React.PropTypes.func.isRequired,
 
+    /**
+     * Pagination page size 
+     *
+     * @property pageSize 
+     * @type {String}
+     */
     pageSize: React.PropTypes.string,
+
+    /**
+     * Should the page size selection dropdown be shown
+     *
+     * @property showPageSizeSelection 
+     * @type {Boolean}
+     */
     showPageSizeSelection: React.PropTypes.bool,
+
+    /**
+     * Set of page size options 
+     *
+     * @property pageSizeSelectionOptions 
+     * @type {Object}
+     */
     pageSizeSelectionOptions: React.PropTypes.object,
   }
 
