@@ -54,8 +54,8 @@ class Table extends React.Component {
   get pagerProps() {
     return {
       currentPage: this.props.currentPage,
-      numberOfRows: this.props.numberOfRows,
-      handlePagerChange: this.props.handlePagerChange,
+      totalRecords: this.props.totalRecords,
+      onPagination: this.props.onPagination,
 
       pageSize: this.props.pageSize,
 
@@ -65,7 +65,7 @@ class Table extends React.Component {
   }
 
   get pager() {
-    if (this.props.handlePagerChange) {
+    if (this.props.onPagination) {
       return (<Pager { ...this.pagerProps } />);
     }
   }

@@ -16,7 +16,7 @@ import Immutable from 'immutable';
  *
  * To render a Pager:
  *
- *   <Pager currentPage='1' numberOfRows='100' handlePageChange={ function(){} } />
+ *   <Pager currentPage='1' totalRecords='100' handlePageChange={ function(){} } />
  *
  * @class Pager
  */
@@ -33,21 +33,21 @@ class Pager extends React.Component {
     currentPage: React.PropTypes.string.isRequired,
 
     /**
-     * Total number of rows 
+     * Total number of records 
      *
-     * @property numberOfRows 
+     * @property totalRecords
      * @type {String}
      */
-    numberOfRows: React.PropTypes.string.isRequired,
+    totalRecords: React.PropTypes.string.isRequired,
 
     /**
      * Function called when any pager changes take place
      * PageSize, Current Page
      *
-     * @property handlePagerChange
+     * @property onPagination
      * @type {Function}
      */
-    handlePagerChange: React.PropTypes.func.isRequired,
+    onPagination: React.PropTypes.func.isRequired,
 
     /**
      * Pagination page size 
@@ -118,7 +118,7 @@ class Pager extends React.Component {
     switch (element) {
       case 'next':
         newPage = String(Number(this.props.currentPage) + 1)
-        this.props.handlePagerChange(newPage, this.props.pageSize);
+        this.props.onPagination(newPage, this.props.pageSize);
         break;
       case 'input':
         let maxPage = this.maxPage;
@@ -128,16 +128,16 @@ class Pager extends React.Component {
           newPage = String(maxPage);
         }
 
-        this.props.handlePagerChange(newPage, this.props.pageSize)
+        this.props.onPagination(newPage, this.props.pageSize)
         break;
       case 'previous':
         newPage = String(Number(this.props.currentPage) - 1);
-        this.props.handlePagerChange(newPage, this.props.pageSize);
+        this.props.onPagination(newPage, this.props.pageSize);
         break;
       case 'size':
         let newPageSize = ev.target.value;
         // TODO: Clever current page correction
-        this.props.handlePagerChange('1', newPageSize);
+        this.props.onPagination('1', newPageSize);
         break;
     }
   }
@@ -149,7 +149,7 @@ class Pager extends React.Component {
    * @return {Integer}
    */
   get maxPage() {
-    return Math.ceil(this.props.numberOfRows / this.props.pageSize);
+    return Math.ceil(this.props.totalRecords / this.props.pageSize);
   }
 
   /**
@@ -169,7 +169,7 @@ class Pager extends React.Component {
    * @return {Boolean}
    */
   get disableNext() {
-    return this.props.currentPage * this.props.pageSize >= Number(this.props.numberOfRows);
+    return this.props.currentPage * this.props.pageSize >= Number(this.props.totalRecords);
   }
 
   /**
@@ -179,7 +179,7 @@ class Pager extends React.Component {
    * @return {Boolean}
    */
   get disableCurrentPageInput() {
-    return Number(this.props.numberOfRows) <= Number(this.props.pageSize);
+    return Number(this.props.totalRecords) <= Number(this.props.pageSize);
   }
 
   /**
@@ -291,7 +291,7 @@ class Pager extends React.Component {
         </div>
 
         <div className='ui-pager__summary'>
-          { this.props.numberOfRows } records 
+          { this.props.totalRecords } records 
         </div>
 
       </div>
