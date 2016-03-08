@@ -1,5 +1,26 @@
-.ui-pager__navigation {
+@import 'colors';
+@import 'mixins';
 
+.ui-pager {
+  background-color: #F2F3F6;
+  border: 1px solid $border-color;
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+}
+
+.ui-pager__size {
+  float: left
+}
+
+.ui-pager__navigation {
+  width: 10%;
+  min-width: 130px;
+  margin: auto;
+}
+
+.ui-pager__summary {
+  display: inline-block;
+  float: right;
 }
 
 .ui-pager__current-page {
@@ -8,9 +29,27 @@
 }
 
 .ui-pager__previous {
-  display: inline;
+  display: inline-block;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.ui-pager__previous--disabled {
+  opacity: 0.3;
 }
 
 .ui-pager__next {
-  display: inline;
+  display: inline-block;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate-(90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+.ui-pager__next--disabled {
+  opacity: 0.3;
 }

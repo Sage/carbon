@@ -5,6 +5,21 @@ import NumberComponent from './../number';
 import Dropdown from './../dropdown';
 import Immutable from 'immutable';
 
+/**
+ * A Pager widget.
+ *
+ * == How to use a Pager in a component:
+ *
+ * In your file
+ *
+ *   import Pager from 'carbon/lib/components/pager';
+ *
+ * To render a Pager:
+ *
+ *   <Pager currentPage='1' numberOfRows='100' handlePageChange={ function(){} } />
+ *
+ * @class Pager
+ */
 class Pager extends React.Component {
 
   static propTypes = {
@@ -13,7 +28,6 @@ class Pager extends React.Component {
     handlePagerChange: React.PropTypes.func.isRequired,
 
     pageSize: React.PropTypes.string,
-
     showPageSizeSelection: React.PropTypes.bool,
     pageSizeSelectionOptions: React.PropTypes.object,
   }
@@ -28,12 +42,23 @@ class Pager extends React.Component {
     currentPage: this.props.currentPage
   }
 
-  // Override internal currentPage
+  /**
+   * Ensure the currentPage is defined by props
+   *
+   * @method componentWillReceiveProps
+   * @param {Object} new props for component
+   * @return {Void}
+   */
   componentWillReceiveProps(nextProps) {
     this.setState({ currentPage: nextProps.currentPage });
   }
 
-  // Handle current page input internally until blur event
+  /**
+   * Handle current page input internally until blur event
+   *
+   * @method handleCurrentPageInputChange
+   * @return {Void}
+   */
   handleCurrentPageInputChange = (ev) => {
     this.setState({ currentPage: ev.target.value });
   }
@@ -46,7 +71,7 @@ class Pager extends React.Component {
         this.props.handlePagerChange(newPage, this.props.pageSize);
         break;
       case 'input':
-        let maxPage = this.maxPage();
+        let maxPage = this.maxPage;
         newPage = ev.target.value;
         
         if (Number(newPage) > maxPage) {
@@ -85,7 +110,7 @@ class Pager extends React.Component {
 
   get previousArrow() {
     let classes = 'ui-pager__previous',
-        props = { type: 'arrow' }
+        props = { type: 'dropdown' }
 
     if (this.disablePrevious) {
       classes += ' ui-pager__previous--disabled';
@@ -122,7 +147,7 @@ class Pager extends React.Component {
 
   get nextArrow() {
     let classes = 'ui-pager__next',
-        props = { type: 'arrow' }
+        props = { type: 'dropdown' }
 
     if (this.disableNext) {
       classes += ' ui-pager__next--disabled';
@@ -151,16 +176,18 @@ class Pager extends React.Component {
     return(
       <div className='ui-pager'>
 
-        <div className='ui-pager__navigation' >
-
+        <div className='ui-pager__size' >
           { this.sizeSelectionDropdown }
-          
+        </div>
+
+        <div className='ui-pager__navigation' >
           { this.previousArrow }
-
           { this.currentPageInput }
-
           { this.nextArrow }
+        </div>
 
+        <div className='ui-pager__summary'>
+          { this.props.numberOfRows } records 
         </div>
 
       </div>

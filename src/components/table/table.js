@@ -64,6 +64,12 @@ class Table extends React.Component {
     }
   }
 
+  get pager() {
+    if (this.props.handlePagerChange) {
+      return (<Pager { ...this.pagerProps } />);
+    }
+  }
+
   /**
    * Renders the component.
    *
@@ -79,7 +85,7 @@ class Table extends React.Component {
             { this.props.children }
           </tbody>
         </table>
-        <Pager { ...this.pagerProps } />
+        { this.pager }
       </div>
     );
   }
