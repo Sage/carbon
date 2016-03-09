@@ -291,16 +291,17 @@ class Pager extends React.Component {
           { this.sizeSelectionDropdown }
         </div>
 
-        <div className='ui-pager__navigation' >
-          { this.previousArrow }
-          { this.currentPageInput }
-          { this.nextArrow }
-        </div>
-
         <div className='ui-pager__summary'>
           { this.props.totalRecords } records
         </div>
 
+        <div className='ui-pager__navigation' >
+          { this.previousArrow }
+          <span> Page </span>
+          { this.currentPageInput }
+          <span> of { this.maxPage }</span>
+          { this.nextArrow }
+        </div>
       </div>
     );
   }

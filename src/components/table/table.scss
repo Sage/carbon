@@ -12,3 +12,19 @@
   width: auto;
   word-break: break-all;
 }
+
+.ui-table__pager {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+// @if (type-of($tables__header-height) == number) and (type-of($tables__row-height) == number) {
+//   // Intervals of 5
+//   $i: 5;
+//   @while $i <= 100 {
+//     .ui-table__pager--#{$i} { 
+//       min-height: $tables__header-height + ($i * $tables__row-height)
+//     }
+//     $i: $i + 5;
+//   }
+// }

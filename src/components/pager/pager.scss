@@ -4,45 +4,56 @@
 .ui-pager {
   // TODO: COLOR VAR
   background-color: #F2F3F6;
+  border-radius: 0 0 3px 3px;
   border: 1px solid $border-color;
   border-top: none;
-  border-radius: 0 0 3px 3px;
+  font-size: 0.9em;
+  padding: 0 8px 3px;
 }
 
 .ui-pager__size {
-  float: left
+  float: left;
+  width: 55px;
 }
 
 .ui-pager__navigation {
-  width: 10%;
-  min-width: 130px;
-  margin: auto;
+  text-align: center;
 }
 
 .ui-pager__summary {
-  display: inline-block;
   float: right;
+  padding-top: 12px;
 }
 
 .ui-pager__current-page {
+  text-align: center;
   display: inline-block;
-  width: 30px;
+
+  .ui-number__input {
+    margin: 1px;
+    width: 35px;
+    text-align: center;
+  }
 }
 
 .ui-pager__previous {
-  display: inline-block;
   @include transform(rotate(90deg))
+  display: inline-block;
+  cursor: pointer;
 }
 
 .ui-pager__previous--disabled {
   opacity: 0.3;
+  cursor: default;
 }
 
 .ui-pager__next {
-  display: inline-block;
   @include transform(rotate(-90deg))
+  display: inline-block;
+  cursor: pointer;
 }
 
 .ui-pager__next--disabled {
   opacity: 0.3;
+  cursor: default;
 }
