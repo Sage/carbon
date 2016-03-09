@@ -1,8 +1,6 @@
 import React from 'react';
 import Presence from 'utils/validations/presence';
-import NumeralValidator from 'utils/validations/numeral';
 import Textbox from 'components/textbox';
-import Number from 'components/number';
 import Date from 'components/date';
 import Checkbox from 'components/checkbox';
 import Row from 'components/row';
@@ -16,13 +14,6 @@ class Details extends React.Component {
   render() {
     return (
       <Row>
-
-        <Number
-          name="name"
-          value={ this.props.name }
-          onChange={ FinancesActions.financesValueUpdated }
-          validations={ [ new NumeralValidator({ min: 0, max: 999999999999.99 }) ] }
-        />
 
         <Textbox
           name="name"
