@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import Icon from './../icon';
 import NumberComponent from './../number';
 import Dropdown from './../dropdown';
@@ -33,7 +32,7 @@ class Pager extends React.Component {
     currentPage: React.PropTypes.string.isRequired,
 
     /**
-     * Total number of records 
+     * Total number of records
      *
      * @property totalRecords
      * @type {String}
@@ -50,9 +49,9 @@ class Pager extends React.Component {
     onPagination: React.PropTypes.func.isRequired,
 
     /**
-     * Pagination page size 
+     * Pagination page size
      *
-     * @property pageSize 
+     * @property pageSize
      * @type {String}
      */
     pageSize: React.PropTypes.string,
@@ -60,24 +59,24 @@ class Pager extends React.Component {
     /**
      * Should the page size selection dropdown be shown
      *
-     * @property showPageSizeSelection 
+     * @property showPageSizeSelection
      * @type {Boolean}
      */
     showPageSizeSelection: React.PropTypes.bool,
 
     /**
-     * Set of page size options 
+     * Set of page size options
      *
-     * @property pageSizeSelectionOptions 
+     * @property pageSizeSelectionOptions
      * @type {Object}
      */
-    pageSizeSelectionOptions: React.PropTypes.object,
+    pageSizeSelectionOptions: React.PropTypes.object
   }
 
   static defaultProps = {
     pageSize: 10,
     showPageSizeSelection: false,
-    pageSizeSelectionOptions: Immutable.fromJS([{ id: '10', name: 10 }, { id: '25', name: 25 }, { id: '50', name: 50 }]),
+    pageSizeSelectionOptions: Immutable.fromJS([{ id: '10', name: 10 }, { id: '25', name: 25 }, { id: '50', name: 50 }])
   }
 
   state = {
@@ -114,28 +113,31 @@ class Pager extends React.Component {
    */
   emitChangeCallback = (element, ev) => {
     let newPage;
-
     switch (element) {
       case 'next':
-        newPage = String(Number(this.props.currentPage) + 1)
+        newPage = String(Number(this.props.currentPage) + 1);
         this.props.onPagination(newPage, this.props.pageSize);
         break;
+
       case 'input':
         let maxPage = this.maxPage;
         newPage = ev.target.value;
-        
+
         if (Number(newPage) > maxPage) {
           newPage = String(maxPage);
         }
 
-        this.props.onPagination(newPage, this.props.pageSize)
+        this.props.onPagination(newPage, this.props.pageSize);
         break;
+
       case 'previous':
         newPage = String(Number(this.props.currentPage) - 1);
         this.props.onPagination(newPage, this.props.pageSize);
         break;
+
       case 'size':
         let newPageSize = ev.target.value;
+        // TODO: Check page size is in options
         // TODO: Clever current page correction
         this.props.onPagination('1', newPageSize);
         break;
@@ -149,6 +151,7 @@ class Pager extends React.Component {
    * @return {Integer}
    */
   get maxPage() {
+    // Divide by zero check?
     return Math.ceil(this.props.totalRecords / this.props.pageSize);
   }
 
@@ -173,7 +176,7 @@ class Pager extends React.Component {
   }
 
   /**
-   * Should the page number input be disabled 
+   * Should the page number input be disabled
    *
    * @method disabeCurrentPageInput
    * @return {Boolean}
@@ -189,17 +192,19 @@ class Pager extends React.Component {
    * @return {JSX}
    */
   get previousArrow() {
-    let classes = 'ui-pager__previous',
-        props = { type: 'dropdown' }
+    let props = {
+      type: 'dropdown',
+      className: 'ui-pager__previous'
+    };
 
     if (this.disablePrevious) {
-      classes += ' ui-pager__previous--disabled';
+      props.className += ' ui-pager__previous--disabled';
     } else {
       props.onClick = this.emitChangeCallback.bind(this, 'previous');
     }
 
     return (
-      <Icon { ...props } className={ classes } />
+      <Icon { ...props } />
     );
   }
 
@@ -210,45 +215,45 @@ class Pager extends React.Component {
    * @return {JSX}
    */
   get currentPageInput() {
-    let classes = classNames(
-      'ui-pager__current-page',
-      { 'ui-pager__current-page--disabled': this.disableCurrentPageInput }
-    );
-
     let props = {
       value: this.state.currentPage,
-      onChange: this.handleCurrentPageInputChange,
-      onBlur: this.emitChangeCallback.bind(this, 'input')
-    }
+      className: 'ui-pager__current-page'
+    };
 
     if (this.disableCurrentPageInput) {
       props.disabled = true;
       props.readOnly = true;
+      props.className += ' ui-pager__current-page--disabled';
+    } else {
+      props.onChange = this.handleCurrentPageInputChange,
+      props.onBlur = this.emitChangeCallback.bind(this, 'input');
     }
 
     return (
-      <NumberComponent { ...props } className={ classes } />
+      <NumberComponent { ...props } />
     );
   }
 
   /**
    * Get next arrow icon
    *
-   * @method nextArrow 
+   * @method nextArrow
    * @return {JSX}
    */
   get nextArrow() {
-    let classes = 'ui-pager__next',
-        props = { type: 'dropdown' }
+    let props = {
+      className: 'ui-pager__next',
+      type: 'dropdown'
+    };
 
     if (this.disableNext) {
-      classes += ' ui-pager__next--disabled';
+      props.className += ' ui-pager__next--disabled';
     } else {
       props.onClick = this.emitChangeCallback.bind(this, 'next');
     }
 
     return (
-      <Icon { ...props } className={ classes } />
+      <Icon { ...props } />
     );
   }
 
@@ -291,7 +296,7 @@ class Pager extends React.Component {
         </div>
 
         <div className='ui-pager__summary'>
-          { this.props.totalRecords } records 
+          { this.props.totalRecords } records
         </div>
 
       </div>

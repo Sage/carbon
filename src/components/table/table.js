@@ -158,6 +158,7 @@ class Table extends React.Component {
   onPagination = (currentPage, pageSize) => {
     let options = this.emitOptions;
     options.currentPage = currentPage;
+    options.pageSize = pageSize;
     this.emitOnChangeCallback('pager', options);
   }
 
@@ -169,6 +170,7 @@ class Table extends React.Component {
    */
   get emitOptions() {
     return {
+      // What if paginate if false - think about when next change functionality is added
       currentPage: this.props.currentPage,
       pageSize: this.props.pageSize
     };
@@ -187,8 +189,8 @@ class Table extends React.Component {
       pageSize: this.props.pageSize,
       pageSizeSelectionOptions: this.props.pageSizeSelectionOptions,
       showPageSizeSelection: this.props.showPageSizeSelection,
-      totalRecords: this.props.totalRecords,
-    }
+      totalRecords: this.props.totalRecords
+    };
   }
 
   /**

@@ -1,0 +1,283 @@
+import React from 'react';
+import TestUtils from 'react/lib/ReactTestUtils';
+import NumberComponent from './../number';
+import Pager from './pager';
+
+describe('Pager', () => {
+  let instance, instance2, spy1, spy2;
+  
+  beforeEach(() => {
+    spy1 = jasmine.createSpy('instance 1 pagination');
+    spy2 = jasmine.createSpy('instance 2 pagination');
+
+    instance = TestUtils.renderIntoDocument(
+      <Pager
+        currentPage='1'
+        pageSize='10'
+        showPageSizeSelection={ true }
+        totalRecords='100'
+        onPagination={ spy1 }
+      />
+    );
+
+    instance2 = TestUtils.renderIntoDocument(
+      <Pager
+        currentPage='2'
+        pageSize='10'
+        totalRecords='20'
+        onPagination={ spy2 }
+      />
+    );
+  });
+
+  describe('onInitialise', () => {
+    it('sets the currentPage within the state', () => {
+      expect(instance.state.currentPage).toEqual('1'); 
+    });
+  });
+
+  describe('componentWillReceiveProps', () => {
+    it('updates the interanl state currentPage with the props currentPage', () => {
+      instance.setState({ currentPage: '2' });
+      instance.componentWillReceiveProps({currentPage: '1'});
+
+      expect(instance.state.currentPage).toEqual('1'); 
+    });
+  });
+
+  describe('emitChangeCallback', () => {
+    describe('when element is next', () => {
+      it('emits onPagination increasing currentPage by 1', () => {
+        instance.emitChangeCallback('next', {});
+        expect(spy1).toHaveBeenCalledWith('2', '10');
+      });
+    });
+
+    describe('when element is input', () => {
+      it('emit a new page from the input field', () => {
+        let event = { target: { value: '5' } };  
+        instance.emitChangeCallback('input', event);
+        expect(spy1).toHaveBeenCalledWith('5', '10');
+      });
+
+      describe('when input is greater than the max page number', () => {
+        it('emit a max page as the new current page', () => {
+          let event = { target: { value: '100' } };  
+          instance.emitChangeCallback('input', event);
+          expect(spy1).toHaveBeenCalledWith('10', '10');
+        });
+      });
+    });
+
+    describe('when element is previous', () => {
+      it('emits onPagination decreasing currentPage by 1', () => {
+        instance2.emitChangeCallback('previous', {});
+        expect(spy2).toHaveBeenCalledWith('1', '10');
+      });
+    });
+
+    describe('when element is size', () => {
+      it('emits the new page size', () => {
+        let event = { target: { value: '50' } };  
+        instance.emitChangeCallback('size', event);
+        expect(spy1).toHaveBeenCalledWith('1', '50');
+      });
+
+      describe('when page size is not a correct option', () => {
+        // TODO
+      });
+
+      describe('when not on the first page', () => {
+        // TODO:
+      });
+    });
+  });
+
+  describe('maxPage', () => {
+    it('returns the max page depending on totalReacords and pageSize', () => {
+      expect(instance.maxPage).toEqual(10);
+    });
+  });
+
+  describe('disablePrevious', () => {
+    describe('when currentPage is 1', () => {
+      it('returns true', () => {
+        expect(instance.disablePrevious).toBeTruthy();
+      });
+    });
+
+    describe('when currentPage is not 1', () => {
+      it('returns false', () => {
+        expect(instance2.disablePrevious).toBeFalsy();
+      });
+    });
+  });
+
+  describe('disableNext', () => {
+    describe('showing the last record', () => {
+      it('returns true', () => {
+        expect(instance2.disableNext).toBeTruthy();
+      });
+    });
+
+    describe('when currentPage is not 1', () => {
+      it('returns false', () => {
+        expect(instance.disableNext).toBeFalsy();
+      });
+    });
+  });
+
+  describe('disableCurrentPageInput', () => {
+    describe('when there are less records than page size', () => {
+      it('returns true', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Pager
+            currentPage='1'
+            pageSize='10'
+            totalRecords='1'
+            onPagination={ spy1 }
+          />
+        );
+
+        expect(instance.disableCurrentPageInput).toBeTruthy();
+      });
+    });
+
+    describe('when there are more records than page size', () => {
+      it('returns false', () => {
+        expect(instance.disableCurrentPageInput).toBeFalsy();
+      });
+    });
+  });
+
+  describe('previousArrow', () => {
+    let previous;
+
+    it('returns a arrow icon', () => {
+      previous = instance.previousArrow;
+      expect(previous.props.type).toEqual('dropdown');
+    });
+
+    describe('when disabled', () => {
+      it('adds a disabled class', () => {
+        previous = instance.previousArrow;
+        expect(previous.props.className).toEqual('ui-pager__previous ui-pager__previous--disabled');
+      });
+    });
+
+    describe('when enabled', () => {
+      it('adds a onClick handler', () => {
+        let input = TestUtils.findRenderedDOMComponentWithClass(instance2, 'ui-pager__previous'); 
+        TestUtils.Simulate.click(input);
+        expect(spy2).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('currentPageInput', () => {
+    let input;
+
+    it('returns a number component', () => {
+      expect(TestUtils.findRenderedComponentWithType(instance, NumberComponent)).toBeTruthy();
+    });
+
+    it('sets the current page to this.state.currentPage', () => {
+      input = instance.currentPageInput;
+      expect(input.props.value).toEqual(instance.props.currentPage);
+    });
+
+    describe('when input is disabled', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Pager
+            currentPage='1'
+            pageSize='10'
+            totalRecords='1'
+            onPagination={ spy1 }
+          />
+        );
+
+        input = instance.currentPageInput;
+      });
+
+      it('adds a disabled class', () => {
+        expect(input.props.className).toEqual('ui-pager__current-page ui-pager__current-page--disabled');
+      });
+
+      it('sets the input as readOnly', () => {
+        expect(input.props.readOnly).toBeTruthy();
+      });
+    });
+
+    describe('when input is enabled', () => {
+      it('adds a onChange handler', () => {
+        spyOn(instance, 'setState');
+        let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-number__input'); 
+        TestUtils.Simulate.change(input);
+        expect(instance.setState).toHaveBeenCalled();
+      });
+
+      it('adds a onBlur handler', () => {
+        let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-number__input'); 
+        TestUtils.Simulate.blur(input);
+        expect(spy1).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('nextArrow', () => {
+    let next;
+
+    it('returns a arrow icon', () => {
+      next = instance.nextArrow;
+      expect(next.props.type).toEqual('dropdown');
+    });
+
+    describe('when disabled', () => {
+      it('adds a disabled class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Pager
+            currentPage='1'
+            pageSize='10'
+            totalRecords='1'
+            onPagination={ spy1 }
+          />
+        );
+
+        next = instance.nextArrow;
+        expect(next.props.className).toEqual('ui-pager__next ui-pager__next--disabled');
+      });
+    });
+
+    describe('when enabled', () => {
+      it('adds a onClick handler', () => {
+        let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pager__next'); 
+        TestUtils.Simulate.click(input);
+        expect(spy1).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('sizeSelectionDropdown', () => {
+    describe('when showPageSizeSelection is true', () => {
+      let dropdown;
+
+      it('returns size dropdown', () => {
+        dropdown = instance.sizeSelectionDropdown;
+        expect(dropdown.props.value).toEqual(instance.props.pageSize);
+      });
+
+      it('adds a onChange event to the dropdown', () => {
+        dropdown = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dropdown__input'); 
+        TestUtils.Simulate.change(dropdown);
+        expect(spy1).toHaveBeenCalled();
+      });
+    });
+
+    describe('when showPageSizeSelection is false', () => {
+      it('does not return the dropdown', () => {
+        expect(instance2.sizeSelectionDropdown).toBeFalsy();
+      });
+    });
+  });
+});
