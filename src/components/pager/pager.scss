@@ -2,6 +2,7 @@
 @import 'mixins';
 
 .ui-pager {
+  // TODO: COLOR VAR
   background-color: #F2F3F6;
   border: 1px solid $border-color;
   border-top: none;
@@ -30,11 +31,7 @@
 
 .ui-pager__previous {
   display: inline-block;
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  transform: rotate(90deg);
+  @include transform(rotate(90deg))
 }
 
 .ui-pager__previous--disabled {
@@ -43,11 +40,7 @@
 
 .ui-pager__next {
   display: inline-block;
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate-(90deg);
-  -ms-transform: rotate(-90deg);
-  -o-transform: rotate(-90deg);
-  transform: rotate(-90deg);
+  @include transform(rotate(-90deg))
 }
 
 .ui-pager__next--disabled {

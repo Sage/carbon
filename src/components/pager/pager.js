@@ -15,7 +15,7 @@ import Immutable from 'immutable';
  *
  * To render a Pager:
  *
- *   <Pager currentPage='1' totalRecords='100' handlePageChange={ function(){} } />
+ *   <Pager currentPage='1' totalRecords='100' onPagination={ function(){} } />
  *
  * @class Pager
  */
@@ -91,7 +91,9 @@ class Pager extends React.Component {
    * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
-    this.setState({ currentPage: nextProps.currentPage });
+    if (nextProps.currentPage !== this.props.currentPage){
+      this.setState({ currentPage: nextProps.currentPage });
+    }
   }
 
   /**
