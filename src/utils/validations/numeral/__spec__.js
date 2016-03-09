@@ -112,6 +112,14 @@ describe('Numeral Validator', () => {
           expect(lessThanValidator.validate(5.00)).toBeTruthy();
         });
       });
+
+      describe('when the value is less than the maximum and negative', () => {
+        it('returns correct response', () => {
+          lessThanValidator = new Validator({ max: -5 });
+          expect(lessThanValidator.validate('-6')).toBeTruthy();
+          expect(lessThanValidator.validate('-4')).toBeFalsy();
+        });
+      });
     });
   });
 
@@ -142,6 +150,13 @@ describe('Numeral Validator', () => {
       describe('when the value equals the maximum', () => {
         it('returns true', () => {
           expect(greaterThanValidator.validate(10.00)).toBeTruthy();
+        });
+      });
+
+      describe('when the value is less than the min and negative', () => {
+        it('returns false', () => {
+          greaterThanValidator = new Validator({ min: 0 });
+          expect(greaterThanValidator.validate('-1')).toBeFalsy();
         });
       });
     });
@@ -181,6 +196,13 @@ describe('Numeral Validator', () => {
           expect(rangeValidator.validate(7)).toBeTruthy();
           expect(rangeValidator.validate(10.00)).toBeTruthy();
           expect(rangeValidator.validate('10.00')).toBeTruthy();
+        });
+      });
+
+      describe('when the value is less than the range and negative', () => {
+        it('returns false', () => {
+           rangeValidator = new Validator({ min: 0, max: 10 });
+          expect(rangeValidator.validate("-1")).toBeFalsy();
         });
       });
     });

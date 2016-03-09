@@ -1,6 +1,7 @@
 import NumeralTypeValidator from './numeral-type';
 import ValidationsHelper from './../../helpers/validations';
 import I18n from "i18n-js";
+import BigNumber from 'bignumber.js';
 
 /**
  * A Numeral Validator object.
@@ -192,7 +193,12 @@ function validateValue() {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (typeCheck(this, value) && value == this.is));
+      if (!value) { return true; }
+
+      let stringValue = new BigNumber(value),
+          stringIs = new BigNumber(this.is);
+
+      return (typeCheck(this, value) && stringValue.equals(stringIs));
     },
     /**
      * This is the message returned when this validation fails.
@@ -222,7 +228,12 @@ function validateLess() {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (typeCheck(this, value) && value <= this.max));
+      if (!value) { return true; }
+
+      let stringValue = new BigNumber(value),
+          stringMax = new BigNumber(this.max);
+
+      return (typeCheck(this, value) && stringValue.lessThanOrEqualTo(stringMax));
     },
 
     /**
@@ -252,7 +263,12 @@ function validateGreater() {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (typeCheck(this, value) && value >= this.min));
+      if (!value) { return true; }
+
+      let stringValue = new BigNumber(value),
+          stringMin = new BigNumber(this.min);
+
+      return (typeCheck(this, value) && stringValue.greaterThanOrEqualTo(stringMin));
     },
 
     /**
@@ -282,7 +298,13 @@ function validateRange() {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (typeCheck(this, value) && (value >= this.min && value <= this.max)));
+      if (!value) { return true; }
+
+      let stringValue = new BigNumber(value),
+          stringMin = new BigNumber(this.min),
+          stringMax = new BigNumber(this.max);
+
+      return (typeCheck(this, value) && (stringValue.greaterThanOrEqualTo(stringMin) && stringValue.lessThanOrEqualTo(stringMax)));
     },
 
     /**
@@ -290,11 +312,18 @@ function validateRange() {
      * @return {String} the error message to display
      */
     message: function(value) {
-      let error = 'greater', count = this.min;
+      let error = 'greater',
+          count = this.min,
+          hasMin = typeof count !== "undefined";
 
-      if (value >= this.min) {
-        error = 'less';
-        count = this.max;
+      if (hasMin) {
+        let stringValue = new BigNumber(value),
+            stringMin = new BigNumber(count);
+
+        if (stringValue.greaterThanOrEqualTo(stringMin)) {
+          error = 'less';
+          count = this.max;
+        }
       }
 
       return getDescriptiveMessage(
@@ -322,7 +351,9 @@ function validateType() {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return !value || typeCheck(this, value);
+      if (!value) { return true; }
+
+      return typeCheck(this, value);
     },
 
     /**
