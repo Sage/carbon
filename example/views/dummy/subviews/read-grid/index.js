@@ -20,20 +20,14 @@ class ReadGrid extends React.Component {
       this.props.data.map((row, key) => {
         return (
           <TableRow key={ key }>
-            { /* add description */ }
             <TableCell>{ row.get('id') }</TableCell>
-
-            { /* add credit field */ }
             <TableCell>{ row.get('value') }</TableCell>
-
-            { /* add debit field */ }
             <TableCell>{ row.get('name') }</TableCell>
           </TableRow>
         );
       })
     );
 
-    // add header
     gridContent = gridContent.unshift(
       <TableRow key="header">
         <TableHeader>Id</TableHeader>
