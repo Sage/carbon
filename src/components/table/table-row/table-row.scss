@@ -1,4 +1,8 @@
 @import "colors";
+@import "tables";
+
+.ui-table-row {
+}
 
 .ui-table-row:hover .common-input__input {
   border-color: $row-hover-input-border;
