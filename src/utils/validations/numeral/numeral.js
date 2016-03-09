@@ -314,16 +314,12 @@ function validateRange() {
     message: function(value) {
       let error = 'greater',
           count = this.min,
-          hasMin = typeof count !== "undefined";
+          stringValue = new BigNumber(value),
+          stringMin = new BigNumber(count);
 
-      if (hasMin) {
-        let stringValue = new BigNumber(value),
-            stringMin = new BigNumber(count);
-
-        if (stringValue.greaterThanOrEqualTo(stringMin)) {
-          error = 'less';
-          count = this.max;
-        }
+      if (stringValue.greaterThanOrEqualTo(stringMin)) {
+        error = 'less';
+        count = this.max;
       }
 
       return getDescriptiveMessage(

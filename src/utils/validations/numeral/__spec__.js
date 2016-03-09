@@ -89,6 +89,12 @@ describe('Numeral Validator', () => {
       lessThanValidator = new Validator({ max: 5 });
     });
 
+    describe('when value is empty', () => {
+      it('returns true', () => {
+        expect(lessThanValidator.validate()).toBeTruthy();
+      });
+    });
+
     describe('when no input type is specified', () => {
       it('returns the correct message function', () => {
         expect(lessThanValidator.message()).toEqual("Must equal 5 or less");
@@ -131,6 +137,12 @@ describe('Numeral Validator', () => {
         greaterThanValidator = new Validator({ min: 10 });
       });
 
+      describe('when value is empty', () => {
+        it('returns true', () => {
+          expect(greaterThanValidator.validate()).toBeTruthy();
+        });
+      });
+
       it('returns the correct message function', () => {
         expect(greaterThanValidator.message()).toEqual("Must equal 10 or more");
       });
@@ -168,6 +180,12 @@ describe('Numeral Validator', () => {
     describe('when no input type is specified', () => {
       beforeEach(() => {
          rangeValidator = new Validator({ min: 5, max: 10 });
+      });
+
+      describe('when value is empty', () => {
+        it('returns true', () => {
+          expect(rangeValidator.validate()).toBeTruthy();
+        });
       });
 
       describe('when the value is less than the minimum', () => {
