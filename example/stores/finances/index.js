@@ -104,14 +104,14 @@ class FinancesStore extends Store {
     this.data = updateChartData(this.data);
     this.data = updateBalance(this.data);
 
-    FinancesActions.pagerChange('1', '10');
+    FinancesActions.tableChange('pager', { currentPage: '1', pageSize: '10' });
   }
 
   /**
    * Subscribe this store to the following actions...
    */
 
-  [FinancesConstants.PAGER_CHANGE](action) {
+  [FinancesConstants.TABLE_CHANGE](action) {
     this.data = this.data.set('current_page', action.currentPage);
     this.data = this.data.set('page_size', action.pageSize);
     this.data = this.data.set('total_records', action.lines.records);

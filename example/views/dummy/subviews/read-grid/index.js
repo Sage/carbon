@@ -4,12 +4,13 @@ import FinancesActions from './../../../../actions/finances';
 
 class ReadGrid extends React.Component {
 
-  get pagerProps() {
+  get tableProps() {
     return {
       currentPage: this.props.currentPage,
+      paginate: true,
       pageSize: this.props.pageSize,
       totalRecords: String(this.props.totalRecords),
-      onPagination: FinancesActions.pagerChange,
+      onChange: FinancesActions.tableChange,
       showPageSizeSelection: true
     }
   }
@@ -42,7 +43,7 @@ class ReadGrid extends React.Component {
     );
 
     return (
-      <Table { ...this.pagerProps } >
+      <Table { ...this.tableProps } >
         { gridContent }
       </Table>
     );

@@ -28,7 +28,10 @@ let FinancesActions = {
     });
   },
 
-  pagerChange: (currentPage, pageSize) => {
+  tableChange: (element, options) => {
+    let currentPage = options.currentPage,
+        pageSize = options.pageSize;
+
     Request
       .get('./countries')
       .query({
@@ -38,7 +41,7 @@ let FinancesActions = {
       })
       .end((err, response) => {
         Dispatcher.dispatch({
-          actionType: FinancesConstants.PAGER_CHANGE,
+          actionType: FinancesConstants.TABLE_CHANGE,
           lines: response.body.data[0],
           currentPage: String(currentPage),
           pageSize: String(pageSize)

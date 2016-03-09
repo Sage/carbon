@@ -51,21 +51,36 @@ import Pager from './../pager';
  */
 class Table extends React.Component {
 
+  emitOnChangeCallback = (element, options) => {
+    this.props.onChange(element, options);
+  }
+
+  get emitOptions() {
+    return {
+      currentPage: this.props.currentPage,
+      pageSize: this.props.pageSize
+    };
+  }
+
+  onPagination = (currentPage, pageSize) => {
+    let options = this.emitOptions;
+    options.currentPage = currentPage;
+    this.emitOnChangeCallback('pager', options);
+  }
+
   get pagerProps() {
     return {
       currentPage: this.props.currentPage,
-      totalRecords: this.props.totalRecords,
-      onPagination: this.props.onPagination,
-
+      onPagination: this.onPagination,
       pageSize: this.props.pageSize,
-
-      showPageSizeSelection: this.props.showPageSizeSelection,
       pageSizeSelectionOptions: this.props.pageSizeSelectionOptions,
+      showPageSizeSelection: this.props.showPageSizeSelection,
+      totalRecords: this.props.totalRecords,
     }
   }
 
   get pager() {
-    if (this.props.onPagination) {
+    if (this.props.paginate) {
       return (<Pager { ...this.pagerProps } />);
     }
   }
