@@ -1,5 +1,6 @@
 import Dispatcher from './../../dispatcher';
 import FinancesConstants from './../../constants/finances';
+import FinancesActions from './../../actions/finances';
 import Store from 'utils/flux/store';
 import Immutable from 'immutable';
 import ImmutableHelper from 'utils/helpers/immutable';
@@ -12,6 +13,9 @@ const data = ImmutableHelper.parseJSON({
   discount: false,
   displayFlash: false,
   displayToast: true,
+  page_size: '10',
+  current_page: '1',
+  grid_data: [],
   country: {
     id: 218,
     name: 'United Kingdom'
@@ -99,11 +103,20 @@ class FinancesStore extends Store {
     if (this.data.get('discount')) { this.data = updateTotals(this.data, 'discount'); }
     this.data = updateChartData(this.data);
     this.data = updateBalance(this.data);
+
+    FinancesActions.pagerChange('1', '10');
   }
 
   /**
    * Subscribe this store to the following actions...
    */
+
+  [FinancesConstants.PAGER_CHANGE](action) {
+    this.data = this.data.set('current_page', action.currentPage);
+    this.data = this.data.set('page_size', action.pageSize);
+    this.data = this.data.set('total_records', action.lines.records);
+    this.data = this.data.set('grid_data', Immutable.fromJS(action.lines.items));
+  }
 
   [FinancesConstants.FINANCES_VALUE_UPDATED](action) {
     // update this value in the store

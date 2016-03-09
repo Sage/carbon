@@ -17,6 +17,7 @@ import FinancesHistory from './subviews/history';
 import FinancesDetails from './subviews/details';
 import FinancesChart from './subviews/chart';
 import FinancesTable from './subviews/grid';
+import FinancesReadTable from './subviews/read-grid';
 import UserDialog from './subviews/user-dialog';
 import Flash from 'components/flash';
 import Message from 'components/message';
@@ -104,6 +105,13 @@ class Finances extends React.Component {
               debitTotal={ financesStore.get('debit_total') }
               creditTotal={ financesStore.get('credit_total') } />
           </Form>
+
+          <FinancesReadTable
+            data={ financesStore.get('grid_data') }
+            currentPage={ financesStore.get('current_page') }
+            totalRecords={ financesStore.get('total_records') }
+            pageSize={ financesStore.get('page_size') }
+          />
 
           <Link className="home-link" href='#' disabled>Main Page</Link>
 

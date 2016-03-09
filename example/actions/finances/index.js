@@ -1,4 +1,5 @@
 import Dispatcher from './../../dispatcher';
+import Request from 'superagent';
 import FinancesConstants from './../../constants/finances';
 
 let FinancesActions = {
@@ -25,6 +26,24 @@ let FinancesActions = {
       name: props.name,
       index: index
     });
+  },
+
+  pagerChange: (currentPage, pageSize) => {
+    Request
+      .get('./countries')
+      .query({
+        page: currentPage,
+        value: '',
+        rows: pageSize
+      })
+      .end((err, response) => {
+        Dispatcher.dispatch({
+          actionType: FinancesConstants.PAGER_CHANGE,
+          lines: response.body.data[0],
+          currentPage: String(currentPage),
+          pageSize: String(pageSize)
+        });
+      });
   },
 
   financesLineItemDeleted: (index, ev, props) => {
