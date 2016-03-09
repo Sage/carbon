@@ -23,13 +23,17 @@ const ValidationsHelper = {
    * @return {String} function type to call
    */
   comparisonType: (params) => {
-    if (params.is && !params.max && !params.min) {
+    let is = typeof params.is !== "undefined",
+        max = typeof params.max !== "undefined",
+        min = typeof params.min !== "undefined";
+
+    if (is && !max && !min) {
       return 'Exact';
-    } else if (!params.is && params.max && !params.min) {
+    } else if (!is && max && !min) {
       return 'Less';
-    } else if (!params.is && params.min && !params.max) {
+    } else if (!is && min && !max) {
       return 'Greater';
-    } else if (!params.is && params.min && params.max) {
+    } else if (!is && min && max) {
       return 'Range';
     } else {
       return null;

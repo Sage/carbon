@@ -1,3 +1,7 @@
+# 0.5.3
+
+* Fixed numeral validator so it returns the correct type of validator.
+
 # 0.5.2
 
 ## Bug Fixes
