@@ -28,7 +28,7 @@ import InputValidation from './../../utils/decorators/input-validation';
 const Radiobutton = Input(InputLabel(InputValidation(
 class Radiobutton extends React.Component {
 
-  static propTypes = {
+    static propTypes = {
 
     /**
     * Sets the checked state of the checkbox
@@ -37,8 +37,8 @@ class Radiobutton extends React.Component {
     * @type {Boolean}
     * @default false
     */
-    defaultChecked: React.PropTypes.bool
-  }
+      defaultChecked: React.PropTypes.bool
+    }
 
   static defaultProps = {
     defaultChecked: false
