@@ -4,9 +4,9 @@
 
 An I18nHelper has been created to help with formatting decimal numbers.
 
-## Lifecycle Decorator
+## Should Component Update Decorator
 
-Supplies base lifecycle methods - currently just supplies shouldComponentUpdate
+Supplies base shouldComponentUpdate
 
 ## Bug Fixes
 
