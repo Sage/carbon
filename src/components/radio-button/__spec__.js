@@ -1,13 +1,13 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Radiobutton from './radiobutton';
+import RadioButton from './radio-button';
 
-describe('Radiobutton', () => {
+describe('RadioButton', () => {
   let instance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Radiobutton
+      <RadioButton
         name='radiobutton'
         label='radiobutton'
       />
@@ -17,7 +17,7 @@ describe('Radiobutton', () => {
   describe('render', () => {
     it('renders a parent div with a pod CSS class', () => {
       let radioButtonNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(radioButtonNode.classList[0]).toEqual('ui-radiobutton');
+      expect(radioButtonNode.classList[0]).toEqual('ui-radio-button');
     });
 
     it('renders a input with type radiobutton and a value of 1', () => {
@@ -32,7 +32,7 @@ describe('Radiobutton', () => {
       let radio = sprite.getElementsByTagName('path')[0]
 
       expect(sprite.getAttribute('viewBox')).toEqual('0 0 15 15');
-      expect(radio.className.baseVal).toEqual('radiobutton-outline');
+      expect(radio.className.baseVal).toEqual('radio-button-outline');
     });
 
     it('renders a hidden input with a value of 0', () => {
@@ -43,14 +43,14 @@ describe('Radiobutton', () => {
   });
 
   describe('mainClasses', () => {
-    it('returns ui-radiobutton and additional decorated classes', () => {
-      expect(instance.mainClasses).toEqual('ui-radiobutton common-input');
+    it('returns ui-radio-button and additional decorated classes', () => {
+      expect(instance.mainClasses).toEqual('ui-radio-button common-input');
     });
   });
 
   describe('inputClasses', () => {
-    it('returns ui-radiobutton__input and additional decorated classes', () => {
-      expect(instance.inputClasses).toEqual('ui-radiobutton__input common-input__input');
+    it('returns ui-radio-button__input and additional decorated classes', () => {
+      expect(instance.inputClasses).toEqual('ui-radio-button__input common-input__input');
     });
   });
 

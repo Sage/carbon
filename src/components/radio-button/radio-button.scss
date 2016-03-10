@@ -2,7 +2,7 @@
 @import 'input-field';
 @import 'mixins';
 
-.ui-radiobutton {
+.ui-radio-button {
   padding-top: 8px;
 
   .common-input__field,
@@ -18,7 +18,7 @@
   }
 }
 
-.ui-radiobutton__input.common-input__input {
+.ui-radio-button__input.common-input__input {
   cursor: pointer;
   height: 15px;
   opacity: 0;
@@ -27,11 +27,11 @@
   width: 15px;
 
   ~ div svg {
-    .radiobutton-outline {
+    .radio-button-outline {
       rx: 2;
     }
 
-    .radiobutton-fill {
+    .radio-button-fill {
       ry: 1;
     }
   }
@@ -41,31 +41,31 @@
     border-radius: 100%;
     @include transition(border linear 0.1s, box-shadow linear 0.1s);
 
-    .radiobutton-outline {
+    .radio-button-outline {
       fill: $input-active-border-color;
     }
   }
 
-  &:hover + div svg .radiobutton-outline {
+  &:hover + div svg .radio-button-outline {
     // the hover colour for the ring
     fill: $input-active-border-color;
   }
 
-  &:checked + div svg .radiobutton-check {
+  &:checked + div svg .radio-button-check {
     // The checked colour in the middle
     fill: $grey-dark;
   }
 
   &[disabled] + div svg {
-    .radiobutton-outline {
+    .radio-button-outline {
       fill: $grey;
     }
 
-    .radiobutton-fill {
+    .radio-button-fill {
       fill: $grey-light;
     }
 
-    .radiobutton-check {
+    .radio-button-check {
       fill: $grey;
     }
   }

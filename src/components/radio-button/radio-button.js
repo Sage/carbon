@@ -25,18 +25,17 @@ import InputValidation from './../../utils/decorators/input-validation';
  * @constructor
  * @decorators {Input, InputLabel, InputValidation}
  */
-const Radiobutton = Input(InputLabel(InputValidation(
-class Radiobutton extends React.Component {
-
+const RadioButton = Input(InputLabel(InputValidation(
+class RadioButton extends React.Component {
     static propTypes = {
 
-    /**
-    * Sets the checked state of the checkbox
-    *
-    * @property defaultChecked
-    * @type {Boolean}
-    * @default false
-    */
+      /**
+      * Sets the checked state of the radio button
+      *
+      * @property defaultChecked
+      * @type {Boolean}
+      * @default false
+      */
       defaultChecked: React.PropTypes.bool
     }
 
@@ -64,7 +63,7 @@ class Radiobutton extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return 'ui-radiobutton';
+    return 'ui-radio-button';
   }
 
   /**
@@ -74,7 +73,7 @@ class Radiobutton extends React.Component {
    * @return {String} input className
    */
   get inputClasses() {
-    return 'ui-radiobutton__input';
+    return 'ui-radio-button__input';
   }
 
   /**
@@ -125,13 +124,13 @@ class Radiobutton extends React.Component {
     svg += '    <g transform="translate(-69.000000, -293.000000)">';
     svg += '      <g transform="translate(69.000000, 268.000000)">';
     svg += '        <g transform="translate(0.000000, 25.000000)">';
-    svg += '          <circle class="radiobutton-fill" fill="#FFFFFF" cx="7.5" cy="7.5" r="7.5"></circle>';
-    svg += '          <path class="radiobutton-outline" d="M7.5,15 C11.6421356,15 15,11.6421356 15,';
+    svg += '          <circle class="radio-button-fill" fill="#FFFFFF" cx="7.5" cy="7.5" r="7.5"></circle>';
+    svg += '          <path class="radio-button-outline" d="M7.5,15 C11.6421356,15 15,11.6421356 15,';
     svg += '            7.5 C15,3.35786438 11.6421356,0 7.5,0 C3.35786438,0 0,3.35786438 0,7.5 C0,';
     svg += '            11.6421356 3.35786438,15 7.5,15 Z M7.5,14 C11.0898509,14 14,11.0898509 14,';
     svg += '            7.5 C14,3.91014913 11.0898509,1 7.5,1 C3.91014913,1 1,3.91014913 1,7.5 C1,';
     svg += '            11.0898509 3.91014913,14 7.5,14 Z" fill="#AFAFAF"></path>';
-    svg += '          <circle fill="#FFFFFF" cx="7.5" cy="7.5" r="3.5" class="radiobutton-check"></circle>';
+    svg += '          <circle fill="#FFFFFF" cx="7.5" cy="7.5" r="3.5" class="radio-button-check"></circle>';
     svg += '        </g>';
     svg += '      </g>';
     svg += '    </g>';
@@ -171,4 +170,4 @@ class Radiobutton extends React.Component {
 }
 )));
 
-export default Radiobutton;
+export default RadioButton;

@@ -8,7 +8,7 @@ import Pill from 'components/pill';
 import Banner from 'components/banner';
 import Toast from 'components/toast';
 import SplitButton from 'components/split-button';
-import Radiobutton from 'components/radiobutton';
+import RadioButton from 'components/radio-button';
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
@@ -106,8 +106,8 @@ class Finances extends React.Component {
               creditTotal={ financesStore.get('credit_total') } />
           </Form>
           
-          <Radiobutton name='frequency' defaultChecked label='Weekly' />
-          <Radiobutton name='frequency' label='Monthly' />
+          <RadioButton name='frequency' defaultChecked label='Weekly' />
+          <RadioButton name='frequency' label='Monthly' />
           
           
           <Link className="home-link" href='#' disabled>Main Page</Link>
