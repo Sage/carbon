@@ -91,7 +91,7 @@ class Pager extends React.Component {
    * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentPage !== this.props.currentPage){
+    if (nextProps.currentPage !== this.state.currentPage){
       this.setState({ currentPage: nextProps.currentPage });
     }
   }

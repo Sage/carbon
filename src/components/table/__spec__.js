@@ -52,7 +52,7 @@ describe('Table', () => {
       expect(instancePager.emitOptions).toEqual({
         currentPage: '1',
         pageSize: '10'
-      })
+      });
     });
   });
 
