@@ -78,8 +78,6 @@ class RadioButton extends React.Component {
     let { ...props } = this.props;
     props.className = this.inputClasses;
     props.type = "radio";
-    // React uses checked instead of value to define the state of a radiobutton
-    //props.checked = this.props.checked || this.props.value;
     return props;
   }
 
@@ -119,7 +117,7 @@ class RadioButton extends React.Component {
    * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
-    return <div dangerouslySetInnerHTML={{ __html: this.radiobuttonSprite }}></div>;
+    return <div className="ui-radio-button__sprite" dangerouslySetInnerHTML={{ __html: this.radiobuttonSprite }}></div>;
   }
 
   /**
