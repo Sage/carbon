@@ -15,10 +15,10 @@ import InputValidation from './../../utils/decorators/input-validation';
  *
  * To render the radiobutton:
  *
- *  <RadioButton name='frequency' value='weekly'>Weekly</RadioButton>
- *  <RadioButton name='frequency' value='2weekly'>2 Weekly</RadioButton>
- *  <RadioButton name='frequency' value='4weekly'>4 Weekly</RadioButton>
- *  <RadioButton name='frequency' value='monthly'>Monthly</RadioButton>
+ *  <RadioButton name='frequency' value='weekly' label='Weekly'/>
+ *  <RadioButton name='frequency' value='2weekly' label='2 Weekly' />
+ *  <RadioButton name='frequency' value='4weekly' label='4 Weekly'/>
+ *  <RadioButton name='frequency' value='monthly' label='Monthly' />
  *
  * For additional properties specific to this component, see propTypes.
  *
