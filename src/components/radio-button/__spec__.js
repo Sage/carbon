@@ -21,7 +21,6 @@ describe('RadioButton', () => {
     });
 
     it('renders a input with type radiobutton and a value of 1', () => {
-      debugger
       let radiobutton = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
       expect(radiobutton.type).toEqual('radio');
       expect(radiobutton.value).toEqual('');
