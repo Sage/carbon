@@ -127,7 +127,6 @@ class RadioButton extends React.Component {
    * @return {Object} JSX
    */
   render() {
-
     return(
       <div className={ this.mainClasses }>
         { this.inputHTML }

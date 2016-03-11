@@ -9,6 +9,7 @@ import Banner from 'components/banner';
 import Toast from 'components/toast';
 import SplitButton from 'components/split-button';
 import RadioButton from 'components/radio-button';
+import Checkbox from 'components/checkbox';
 
 import FinancesStore from './../../stores/finances';
 import UserActions from './../../actions/user';
@@ -57,6 +58,7 @@ class Finances extends React.Component {
   render() {
     let name = this.state.financesStore.get('name');
     let financesStore = this.state.financesStore;
+    let frequency = financesStore.get('frequency');
 
     return (
       <div>
@@ -105,11 +107,23 @@ class Finances extends React.Component {
               debitTotal={ financesStore.get('debit_total') }
               creditTotal={ financesStore.get('credit_total') } />
           </Form>
-          
-          <RadioButton name='frequency' defaultChecked label='Weekly' />
-          <RadioButton name='frequency' label='Monthly' />
-          
-          
+
+          <RadioButton
+            onChange={ FinancesActions.financesValueUpdated }
+            name='frequency'
+            checked={ frequency == 'weekly' }
+            value='weekly'
+            label='Weekly'
+          />
+
+          <RadioButton
+            onChange={ FinancesActions.financesValueUpdated }
+            name='frequency'
+            checked={ frequency == 'monthly' }
+            value='monthly'
+            label='Monthly'
+          />
+
           <Link className="home-link" href='#' disabled>Main Page</Link>
 
           <UserDialog />
