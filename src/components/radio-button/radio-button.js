@@ -1,27 +1,28 @@
 import React from 'react';
+import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 
-/*****
+/**
  * A radiobutton widget.
  *
- * == How to use a radiobutton in a component:
+ * == How to use a RadioButton in a component:
  *
  * In your file:
  *
- *   import radiobutton from 'carbon/lib/components/radiobutton';
+ *   import RadioButton from 'carbon/lib/components/radio-button';
  *
  * To render the radiobutton:
  *
- *  <radiobutton name='frequency' value='weekly'>Weekly</radiobutton>
- *  <radiobutton name='frequency' value='2weekly'>2 Weekly</radiobutton>
- *  <radiobutton name='frequency' value='weekly'>4 Weekly</radiobutton>
- *  <radiobutton name='frequency' value='monthly'>Monthly</radiobutton>
+ *  <RadioButton name='frequency' value='weekly'>Weekly</RadioButton>
+ *  <RadioButton name='frequency' value='2weekly'>2 Weekly</RadioButton>
+ *  <RadioButton name='frequency' value='4weekly'>4 Weekly</RadioButton>
+ *  <RadioButton name='frequency' value='monthly'>Monthly</RadioButton>
  *
  * For additional properties specific to this component, see propTypes.
  *
- * @class Radiobutton
+ * @class RadioButton
  * @constructor
  * @decorators {Input, InputLabel, InputValidation}
  */
@@ -43,19 +44,6 @@ class RadioButton extends React.Component {
     defaultChecked: false
   }
 
-    /**
-   * Sets the value of the radiobutton [true | false]
-   *
-   * @method handleOnChange
-   * @param {Object} ev event
-   * @return {void}
-   */
-  handleOnChange = (ev) => {
-    // we handle the change event manually here, as we pass the checked param
-    // instead of value
-    this._handleOnChange({ target: { value: ev.target.checked }});
-  }
-
   /**
    * Uses the mainClasses method provided by the decorator to add additional classes.
    *
@@ -63,7 +51,10 @@ class RadioButton extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return 'ui-radio-button';
+    return classNames (
+      'ui-radio-button',
+      this.props.className
+    );
   }
 
   /**
@@ -88,26 +79,7 @@ class RadioButton extends React.Component {
     props.className = this.inputClasses;
     props.type = "radio";
     // React uses checked instead of value to define the state of a radiobutton
-    props.checked = this.props.checked || this.props.value;
-    props.onChange = this.handleOnChange;
-    return props;
-  }
-
-  /**
-   * A getter for hidden input props.
-   *
-   * @method hiddenInputProps
-   * @return {Object} Props to be applied to the hidden input
-   */
-  get hiddenInputProps() {
-    let props = {
-      ref: "hidden",
-      type: "hidden",
-      value: "0",
-      name: this.inputProps.name,
-      readOnly: true
-    };
-
+    //props.checked = this.props.checked || this.props.value;
     return props;
   }
 
@@ -160,7 +132,6 @@ class RadioButton extends React.Component {
 
     return(
       <div className={ this.mainClasses }>
-        <input { ...this.hiddenInputProps } />
         { this.inputHTML }
         { this.labelHTML }
         { this.validationHTML }

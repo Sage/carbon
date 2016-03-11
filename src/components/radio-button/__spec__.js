@@ -21,7 +21,8 @@ describe('RadioButton', () => {
     });
 
     it('renders a input with type radiobutton and a value of 1', () => {
-      let radiobutton = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
+      debugger
+      let radiobutton = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
       expect(radiobutton.type).toEqual('radio');
       expect(radiobutton.value).toEqual('');
     });
@@ -34,12 +35,6 @@ describe('RadioButton', () => {
       expect(sprite.getAttribute('viewBox')).toEqual('0 0 15 15');
       expect(radio.className.baseVal).toEqual('radio-button-outline');
     });
-
-    it('renders a hidden input with a value of 0', () => {
-      let radiobutton = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
-      expect(radiobutton.type).toEqual('hidden');
-      expect(radiobutton.value).toEqual('0');
-    });
   });
 
   describe('mainClasses', () => {
@@ -51,18 +46,6 @@ describe('RadioButton', () => {
   describe('inputClasses', () => {
     it('returns ui-radio-button__input and additional decorated classes', () => {
       expect(instance.inputClasses).toEqual('ui-radio-button__input common-input__input');
-    });
-  });
-
-  describe('handleOnChange', () => {
-    beforeEach(() => {
-      spyOn(instance, '_handleOnChange')
-    });
-
-    it('passes the checked value', () => {
-      let radiobutton = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
-      TestUtils.Simulate.change(radiobutton, {target: { checked: true }});
-      expect(instance._handleOnChange).toHaveBeenCalledWith({ target: { value: true }});
     });
   });
 });
