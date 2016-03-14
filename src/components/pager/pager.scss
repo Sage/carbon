@@ -9,18 +9,21 @@
   border-top: none;
   font-size: 0.9em;
   padding: 0 8px 3px;
+  text-align: center;
 }
 
 .ui-pager__size {
+  display: inline-block;
   float: left;
   width: 55px;
 }
 
 .ui-pager__navigation {
-  text-align: center;
+  display: inline-block;
 }
 
 .ui-pager__summary {
+  display: inline-block;
   float: right;
   padding-top: 12px;
 }
