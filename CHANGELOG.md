@@ -4,6 +4,12 @@
 
 An I18nHelper has been created to help with formatting decimal numbers.
 
+## toArray
+
+We have added a helper method to convert strings into arrays, for example:
+
+`"foo[bar][baz]"` into `["foo", "bar", "baz"]`.
+
 ## Bug Fixes
 
 * We have inserted an engine dependency for npm version 3. This is to help mitigate any issues of users reporting issues when installing with npm version 2.
@@ -11,6 +17,7 @@ An I18nHelper has been created to help with formatting decimal numbers.
 ## New Components
 
 * Spinner
+* RadioButton
 
 # 0.5.2
 
