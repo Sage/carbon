@@ -76,7 +76,11 @@ class Pager extends React.Component {
   static defaultProps = {
     pageSize: 10,
     showPageSizeSelection: false,
-    pageSizeSelectionOptions: Immutable.fromJS([{ id: '10', name: 10 }, { id: '25', name: 25 }, { id: '50', name: 50 }])
+    pageSizeSelectionOptions: Immutable.fromJS([
+      { id: '10', name: 10 },
+      { id: '25', name: 25 },
+      { id: '50', name: 50 }
+    ])
   }
 
   state = {
@@ -122,6 +126,7 @@ class Pager extends React.Component {
         break;
 
       case 'input':
+        // TODO Check input is valid
         let maxPage = this.maxPage;
         newPage = ev.target.value;
 

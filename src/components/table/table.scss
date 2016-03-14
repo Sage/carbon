@@ -19,12 +19,17 @@
 }
 
 @if (type-of($tables__header-height) == number) and (type-of($tables__row-height) == number) {
-  // Intervals of 5
+  // Starting a ui-table__pager--5
   $i: 5;
+
+  // To ui-table__pager--100
   @while $i <= 100 {
     .ui-table__pager--#{$i} {
+      // calculate the height of a table based on:
+      // The header height + the number of rows * the height of a single row
       min-height: $tables__header-height + ($i * $tables__row-height)
     }
+    // increment counter by 5
     $i: $i + 5;
   }
 }
