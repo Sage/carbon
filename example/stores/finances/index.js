@@ -9,6 +9,7 @@ import BigNumber from 'bignumber.js';
 const data = ImmutableHelper.parseJSON({
   date_from: "2015-11-01",
   name: "My Finances",
+  frequency: "",
   discount: false,
   displayFlash: false,
   displayToast: true,
