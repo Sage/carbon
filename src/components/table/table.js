@@ -163,22 +163,6 @@ class Table extends React.Component {
   }
 
   /**
-   * Return a formatted thead if tableheader is provided
-   *
-   * @method tableHeader
-   * @return {JSX} tableHeader
-   */
-  get tableHeader() {
-    if (this.props.tableHeader) {
-      return (
-        <thead>
-          { this.props.tableHeader }
-        </thead>
-      );
-    }
-  }
-
-  /**
    * Base Options to be emitted by onChange
    *
    * @method emitOptions
@@ -236,7 +220,6 @@ class Table extends React.Component {
     return (
       <div>
         <table className={ className }>
-          { this.tableHeader }
           <tbody>
             { this.props.children }
           </tbody>

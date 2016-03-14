@@ -47,33 +47,6 @@ describe('Table', () => {
     });
   });
 
-  describe('tableHeader', () => {
-    describe('when a header is not passed', () => {
-      it('returns null', () => {
-        expect(instance.tableHeader).toBeFalsy();
-      });
-    });
-
-    describe('when a header is passed', () => {
-      it('returns the header formatted in thead', () => {
-        let tableHeader = (
-          <TableRow key="header">
-            <TableHeader />
-          </TableRow>
-        );
-
-        instance = TestUtils.renderIntoDocument(
-          <Table tableHeader={ tableHeader } >
-            foo
-          </Table>
-        );
-
-        let header =TestUtils.findRenderedDOMComponentWithTag(instance, 'thead');
-        expect(header.children.length).toEqual(1);
-      });
-    });
-  });
-
   describe('emitOptions', () => {
     it('gathers all relevent props to emit', () => {
       expect(instancePager.emitOptions).toEqual({
