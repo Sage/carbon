@@ -1,5 +1,6 @@
 import React from 'react';
 import Request from 'superagent';
+import classNames from 'classnames';
 import { Table } from './../table';
 
 /**
@@ -121,6 +122,14 @@ class TableAjax extends Table {
       pageSizeSelectionOptions: this.props.pageSizeSelectionOptions,
       showPageSizeSelection: this.props.showPageSizeSelection
     };
+  }
+
+  get tableClasses() {
+    return classNames(
+      'ui-table',
+      this.props.className,
+      { [`ui-table__pager ui-table__pager--${this.state.pageSize}`]: this.props.paginate }
+    );
   }
 }
 

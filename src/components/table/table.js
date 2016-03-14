@@ -205,21 +205,23 @@ class Table extends React.Component {
     }
   }
 
+  get tableClasses() {
+    return classNames(
+      'ui-table',
+      this.props.className,
+      { [`ui-table__pager ui-table__pager--${this.props.pageSize}`]: this.props.paginate }
+    );
+  }
+
   /**
    * Renders the component.
    *
    * @method render
    */
   render() {
-    let className = classNames(
-      'ui-table',
-      this.props.className,
-      { [`ui-table__pager ui-table__pager--${this.props.pageSize}`]: this.props.paginate }
-    );
-
     return (
       <div>
-        <table className={ className }>
+        <table className={ this.tableClasses }>
           <tbody>
             { this.props.children }
           </tbody>
