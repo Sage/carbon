@@ -162,6 +162,12 @@ class Table extends React.Component {
     this.emitOnChangeCallback('pager', options);
   }
 
+  /**
+   * Return a formatted thead if tableheader is provided
+   *
+   * @method tableHeader
+   * @return {JSX} tableHeader
+   */
   get tableHeader() {
     if (this.props.tableHeader) {
       return (

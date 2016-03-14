@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import { Table } from './table';
+import { Table, TableHeader, TableRow } from './table';
 
 describe('Table', () => {
   let instance, instancePager, spy;
@@ -44,6 +44,33 @@ describe('Table', () => {
       instancePager.onPagination('2', '25');
 
       expect(spy).toHaveBeenCalledWith('pager', options);
+    });
+  });
+
+  describe('tableHeader', () => {
+    describe('when a header is not passed', () => {
+      it('returns null', () => {
+        expect(instance.tableHeader).toBeFalsy();
+      });
+    });
+
+    describe('when a header is passed', () => {
+      it('returns the header formatted in thead', () => {
+        let tableHeader = (
+          <TableRow key="header">
+            <TableHeader />
+          </TableRow>
+        );
+
+        instance = TestUtils.renderIntoDocument(
+          <Table tableHeader={ tableHeader } >
+            foo
+          </Table>
+        );
+
+        let header =TestUtils.findRenderedDOMComponentWithTag(instance, 'thead');
+        expect(header.children.length).toEqual(1);
+      });
     });
   });
 
