@@ -51,5 +51,12 @@ describe('Numeral Type Validator', () => {
         expect(integerValidator.validate('abcde12345')).toBeFalsy();
       });
     });
+
+    describe('negative numbers', () => {
+      it('handles negative numbers', () => {
+        expect(decimalValidator.validate('-1.00')).toBeTruthy();
+        expect(integerValidator.validate('-1')).toBeTruthy();
+      });
+    });
   });
 });
