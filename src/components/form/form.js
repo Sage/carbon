@@ -2,6 +2,7 @@ import React from 'react';
 import Button from './../button';
 import I18n from "i18n-js";
 import Serialize from "form-serialize";
+import classNames from 'classnames';
 
 /**
  * A Form widget.
@@ -268,7 +269,10 @@ class Form extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return 'ui-form';
+    return classNames(
+      'ui-form',
+      this.props.className
+    );
   }
 
   /**

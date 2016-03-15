@@ -1,5 +1,5 @@
 import React from 'react';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 
 /**
  * An Icon widget.
@@ -65,7 +65,7 @@ class Icon extends React.Component {
     // we have no icon for 'success', so use 'tick'
     type = type == 'success' ? 'tick' : type;
 
-    className = ClassNames(
+    className = classNames(
       className, {
         [`icon-${type}`]: !icon
       }

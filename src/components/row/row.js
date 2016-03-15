@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 /**
  * A row widget.
@@ -84,28 +85,36 @@ class Row extends React.Component {
   }
 
   /**
+   * Main Class getter
+   *
+   * @method mainClasses
+   * @return {String} Main className
+   */
+  get mainClasses() {
+    let columns = 1;
+
+    if (this.props.columns) {
+      columns = this.props.columns;
+    } else if (this.props.children.constructor === Array) {
+      columns = this.props.children.length;
+    }
+
+    return classNames(
+      'ui-row',
+      this.props.className,
+      `ui-row--columns-${columns}`
+    );
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
    * @return {Object} JSX
    */
   render() {
-    let mainClasses = "ui-row";
-
-    if (this.props.className) {
-      mainClasses += ` ${this.props.className}`;
-    }
-
-    if (this.props.columns) {
-      mainClasses += " ui-row--columns-" + this.props.columns;
-    } else if(this.props.children.constructor === Array) {
-      mainClasses += " ui-row--columns-" + this.props.children.length;
-    } else {
-      mainClasses += " ui-row--columns-1";
-    }
-
     return (
-      <div className={ mainClasses }>
+      <div className={ this.mainClasses }>
         { this.buildColumns() }
       </div>
     );
