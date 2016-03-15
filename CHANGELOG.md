@@ -21,6 +21,7 @@ We have added a helper method to convert strings into arrays, for example:
 ## New Components
 
 * Spinner
+* RadioButton
 
 # 0.5.2
 

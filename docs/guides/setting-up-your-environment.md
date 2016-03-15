@@ -12,8 +12,15 @@ To use [React](http://facebook.github.io/react/) and [Carbon](https://github.com
 
 If you are new to Node and npm, we have written a [short introduction](an-introduction-to-node-and-npm.md).
 
-* Download and install Node from [https://nodejs.org/](https://nodejs.org/), or install and use [Node Version Manager](https://github.com/creationix/nvm).
-* *Optional:* If you are getting permission issues when you install modules using npm, you may need to change the permission of your npm directory. Follow the instructions on [npm's website](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
+Download and install Node from [https://nodejs.org/](https://nodejs.org/), or install and use [Node Version Manager](https://github.com/creationix/nvm).
+
+#### Check npm version
+
+Make sure you are on Version 3.x by running `npm -v`. To upgrade your version of npm run `npm install npm -g`
+
+#### Check permissions
+
+If you are getting permission issues when you install modules using npm, you may need to change the permission of your npm directory. Follow the instructions on [npm's website](https://docs.npmjs.com/getting-started/fixing-npm-permissions). You should not need to use `sudo` to install modules.
 
 ### Installing Gulp.js
 
