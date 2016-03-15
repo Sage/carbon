@@ -4,6 +4,10 @@
 
 An I18nHelper has been created to help with formatting decimal numbers.
 
+## Should Component Update Decorator
+
+Supplies base shouldComponentUpdate
+
 ## toArray
 
 We have added a helper method to convert strings into arrays, for example:
