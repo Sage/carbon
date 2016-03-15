@@ -69,6 +69,14 @@ import Pager from './../pager';
  */
 class Table extends React.Component {
 
+  /**
+   * Maintains the height of the table
+   *
+   * @property tableHeight
+   * @type {Number}
+   */
+  tableHeight = 0;
+
   static propTypes = {
     /**
      * Emitted when table component changes e.g.
@@ -130,6 +138,82 @@ class Table extends React.Component {
      * @type {String}
      */
     totalRecords: React.PropTypes.string
+  }
+
+  /**
+   * Lifecycle for after mounting
+   * Resize the table to set the correct height on pageload
+   *
+   * @method componentDidMount
+   * @return {Void}
+   */
+  componentDidMount() {
+    this.resizeTable();
+  }
+
+  /**
+   * Lifecycle for after a update has happened
+   * If pageSize has updated to a smaller value - reset table height
+   * else resize table
+   *
+   * @method componentDidUpdate
+   * @return {Void}
+   */
+  componentDidUpdate(prevProps, prevState) {
+    if (this.shouldResetTableHeight(prevProps, prevState)) {
+      this.resetTableHeight();
+    } else {
+      this.resizeTable();
+    }
+  }
+
+  /**
+   * Reset the minHeight and tableHeight of the table
+   *
+   * @method resetTableHeight
+   * @return {Void}
+   */
+  resetTableHeight() {
+    this._table.style.minHeight = '0';
+    this.tableHeight = 0;
+    setTimeout(() => {
+      this.resizeTable();
+    }, 0);
+  }
+
+  /**
+   * Increase the minheight of the table if the new height
+   * is greater than the previous
+   *
+   * @method resizeTable
+   * @return {Void}
+   */
+  resizeTable() {
+    if (this._table.offsetHeight > this.tableHeight) {
+      this.tableHeight = this._table.offsetHeight;
+      this._table.style.minHeight = this.tableHeight + 'px';
+    }
+  }
+
+  /**
+   * Test if the table height should be reset to 0
+   *
+   * @method shouldResetTableHeight
+   * @param prevProps - props before update
+   * @return {Boolean}
+   */
+  shouldResetTableHeight(prevProps) {
+    return prevProps.pageSize > this.pageSize;
+  }
+
+  /**
+   * Get pageSize for table
+   *
+   * @method pageSize
+   * @return {String} table page size
+   */
+  get pageSize() {
+    return this.props.pageSize;
   }
 
   /**
@@ -205,6 +289,12 @@ class Table extends React.Component {
     }
   }
 
+  /**
+   * Classes to apply to the table
+   *
+   * @method tableClasses
+   * @return {String}
+   */
   get tableClasses() {
     return classNames(
       'ui-table',
@@ -221,7 +311,10 @@ class Table extends React.Component {
   render() {
     return (
       <div>
-        <table className={ this.tableClasses }>
+        <table
+          className={ this.tableClasses }
+          ref={ (table) => { this._table = table; } }
+        >
           <tbody>
             { this.props.children }
           </tbody>

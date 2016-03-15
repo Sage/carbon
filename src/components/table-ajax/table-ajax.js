@@ -55,17 +55,41 @@ class TableAjax extends Table {
 
   /**
    * Request initial data on mount
+   * @override
    *
    * @method componentDidMount
    * @return {Void}
    */
   componentDidMount() {
+    super.componentDidMount();
     this.emitOnChangeCallback('data', this.emitOptions);
   }
 
   /**
+   * Test if the table height should be reset to 0
+   * @override
+   *
+   * @method shouldResetTableHeight
+   * @return {Boolean}
+   */
+  shouldResetTableHeight(prevProps, prevState) {
+    return prevState.pageSize > this.pageSize;
+  }
+
+  /**
+   * Get pageSize for table
+   * @override
+   *
+   * @method pageSize
+   * @return {String} table page size
+   */
+  get pageSize() {
+    return this.state.pageSize;
+  }
+
+  /**
    * Emit onChange event row data
-   * Overides super method
+   * @override
    *
    * @method emitOnChangeCallback
    * @param {String} element changed element
@@ -94,7 +118,7 @@ class TableAjax extends Table {
 
   /**
    * Base Options to be emitted by onChange
-   * Overides super method
+   * @override
    *
    * @method emitOptions
    * @return {Object} options to emit
@@ -108,7 +132,7 @@ class TableAjax extends Table {
 
   /**
    * Props to pass to pager component
-   * Overides super method
+   * @override
    *
    * @method pagerProps
    * @return {Object} props
@@ -124,6 +148,13 @@ class TableAjax extends Table {
     };
   }
 
+  /**
+   * Classes to apply to the table
+   * @override
+   *
+   * @method tableClasses
+   * @return {String}
+   */
   get tableClasses() {
     return classNames(
       'ui-table',

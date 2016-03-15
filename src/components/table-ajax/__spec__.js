@@ -31,6 +31,33 @@ describe('TableAjax', () => {
     });
   });
 
+  describe('shouldResetTableHeight', () => {
+    beforeEach(() => {
+      instance.setState({ pageSize: '10' });
+    });
+
+    describe('when pageSize is less than previous pageSize', () => {
+      it('returns true', () => {
+        let prevState = { pageSize: '100' }
+        expect(instance.shouldResetTableHeight({}, prevState)).toBeTruthy();
+      });
+    });
+
+    describe('when pageSize is greater than previous pageSize', () => {
+      it('returns false', () => {
+        let prevState = { pageSize: '1' }
+        expect(instance.shouldResetTableHeight({}, prevState)).toBeFalsy();
+      });
+    });
+  });
+
+  describe('pageSize', () => {
+    it('gets the current pageSize', () => {
+      instance.setState({ pageSize: '10' });
+      expect(instance.pageSize).toEqual('10');
+    });
+  });
+
   describe('emitOnChangeCallback', () => {
     let options;
     beforeEach(() => {
