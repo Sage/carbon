@@ -1,5 +1,9 @@
 # 0.6.0
 
+## Improve Date widget
+
+Improve the existing Date widget to allow passing in `minDate` and `maxDate`.
+
 ## I18nHelper
 
 An I18nHelper has been created to help with formatting decimal numbers.
