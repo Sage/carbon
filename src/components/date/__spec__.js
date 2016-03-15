@@ -371,6 +371,36 @@ describe('Date', () => {
         expect(instance.refs.hidden.defaultValue).toEqual(value);
       });
     });
+
+    describe('when minDate is passed', () => {
+      let minDate;
+
+      beforeEach(() => {
+        minDate = moment().subtract(3, 'days').format('YYYY-MM-DD');
+        instance = TestUtils.renderIntoDocument(
+          <Date name='date' label='Date' minDate={ minDate } />
+        )
+      });
+
+      it('sets the minDate to the correct value', () => {
+        expect(instance.refs.datepicker.props.minDate).toEqual(minDate);
+      });
+    });
+
+    describe('when maxDate is passed', () => {
+      let maxDate;
+
+      beforeEach(() => {
+        maxDate = moment().add(3, 'days').format('YYYY-MM-DD');
+        instance = TestUtils.renderIntoDocument(
+          <Date name='date' label='Date' maxDate={ maxDate } />
+        )
+      });
+
+      it('sets the maxDate to the correct value', () => {
+        expect(instance.refs.datepicker.props.maxDate).toEqual(maxDate);
+      });
+    });
   });
 
   describe('mainClasses', () => {

@@ -240,6 +240,8 @@ class Date extends React.Component {
    */
   get datePickerProps() {
     let value = this.props.value || getDefaultValue(this);
+    let minDate = this.props.minDate;
+    let maxDate = this.props.maxDate;
     let props = {};
     props.ref = 'datepicker';
     props.weekDayNames = ["S", "M", "T", "W", "T", "F", "S"];
@@ -249,6 +251,8 @@ class Date extends React.Component {
     props.date = value;
     props.onViewDateChange = this.handleViewDateChange;
     props.viewDate = this.state.viewDate;
+    props.minDate = minDate;
+    props.maxDate = maxDate;
     return props;
   }
 
