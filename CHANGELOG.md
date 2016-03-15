@@ -23,6 +23,12 @@ We have added a helper method to convert strings into arrays, for example:
 * Spinner
 * RadioButton
 
+# 0.5.3
+
+## Bug Fixes
+
+* Fixed numeral validator so it returns the correct type of validator.
+
 # 0.5.2
 
 ## Bug Fixes
