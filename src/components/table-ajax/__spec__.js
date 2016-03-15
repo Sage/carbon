@@ -88,6 +88,14 @@ describe('TableAjax', () => {
     });
   });
 
+  describe('query params', () => {
+    it('returns formatted params for server request', () => {
+      let options = { currentPage: 10, pageSize: 20 }
+      let expected = { page: 10, value: '', rows: 20 }
+      expect(instance.queryParams('', options)).toEqual(expected);
+    });
+  });
+
   describe('emitOptions', () => {
     it('gathers all relevent state variables for endpoint', () => {
       expect(instance.emitOptions).toEqual({

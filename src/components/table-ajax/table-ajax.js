@@ -97,23 +97,36 @@ class TableAjax extends Table {
    * @return {Void}
    */
   emitOnChangeCallback = (element, options) => {
-    let currentPage = options.currentPage,
-        pageSize = options.pageSize;
-
     Request
       .get(this.props.path)
-      .query({
-        page: currentPage,
-        value: '',
-        rows: pageSize
-      })
+      .query(this.queryParams(element, options))
       .end((err, response) => {
         if (!err) {
           let data = response.body.data[0];
-          this.setState({ currentPage, pageSize, totalRecords: String(data.records) });
+          this.setState({
+            currentPage: options.currentPage,
+            pageSize: options.pageSize,
+            totalRecords: String(data.records)
+          });
           this.props.onChange(data);
         }
       });
+  }
+
+  /**
+   * Formatted params for server request
+   *
+   * @method queryParams
+   * @param {String} element changed element
+   * @param {Object} options base and updated options
+   * @return {Object} params for query
+   */
+  queryParams = (element, options) => {
+    return {
+      page: options.currentPage,
+      value: '',
+      rows: options.pageSize
+    };
   }
 
   /**
