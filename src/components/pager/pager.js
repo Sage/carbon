@@ -75,7 +75,7 @@ class Pager extends React.Component {
   }
 
   static defaultProps = {
-    pageSize: 10,
+    pageSize: '10',
     showPageSizeSelection: false,
     pageSizeSelectionOptions: Immutable.fromJS([
       { id: '10', name: 10 },
@@ -165,8 +165,9 @@ class Pager extends React.Component {
    * @return {Integer}
    */
   get maxPage() {
-    // Divide by zero check?
-    return Math.ceil(this.props.totalRecords / this.props.pageSize);
+    if (this.props.pageSize) {
+      return Math.ceil(this.props.totalRecords / this.props.pageSize);
+    }
   }
 
   /**
@@ -280,11 +281,15 @@ class Pager extends React.Component {
   get sizeSelectionDropdown() {
     if (this.props.showPageSizeSelection) {
       return (
-        <Dropdown
-          options={ this.props.pageSizeSelectionOptions }
-          value={ this.props.pageSize }
-          onChange={ this.emitChangeCallback.bind(this, 'size') }
-        />
+        <div>
+          <span className='unselectable'>{ showSizeText() }</span>
+          <Dropdown
+            options={ this.props.pageSizeSelectionOptions }
+            value={ this.props.pageSize }
+            onChange={ this.emitChangeCallback.bind(this, 'size') }
+          />
+          <span className='unselectable'>{ recordsText(this.props.pageSize) }</span>
+        </div>
       );
     }
   }
@@ -300,9 +305,7 @@ class Pager extends React.Component {
       <div className='ui-pager'>
 
         <div className='ui-pager__size' >
-          <span className='unselectable'>{ showSizeText() }</span>
           { this.sizeSelectionDropdown }
-          <span className='unselectable'>{ recordsText(this.props.pageSize) }</span>
         </div>
 
         <div className='ui-pager__navigation' >
