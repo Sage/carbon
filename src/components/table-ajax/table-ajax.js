@@ -29,6 +29,8 @@ class TableAjax extends Table {
     super(...args);
   }
 
+  timeout = null;
+
   static propTypes = {
     /**
      * Setting to true turns on pagination for the table
@@ -65,15 +67,9 @@ class TableAjax extends Table {
     this.emitOnChangeCallback('data', this.emitOptions);
   }
 
-  /**
-   * Test if the table height should be reset to 0
-   * @override
-   *
-   * @method shouldResetTableHeight
-   * @return {Boolean}
-   */
-  shouldResetTableHeight(prevProps, prevState) {
-    return prevState.pageSize > this.pageSize;
+  // Override Super
+  componentDidUpdate(prevProps, prevState) {
+    this.resizeTable();
   }
 
   /**
@@ -97,20 +93,33 @@ class TableAjax extends Table {
    * @return {Void}
    */
   emitOnChangeCallback = (element, options) => {
-    Request
-      .get(this.props.path)
-      .query(this.queryParams(element, options))
-      .end((err, response) => {
-        if (!err) {
-          let data = response.body.data[0];
-          this.setState({
-            currentPage: options.currentPage,
-            pageSize: options.pageSize,
-            totalRecords: String(data.records)
-          });
-          this.props.onChange(data);
-        }
-      });
+    let resetHeight = options.pageSize < this.pageSize;
+
+    this.setState({
+      currentPage: options.currentPage,
+      pageSize: options.pageSize
+    });
+
+    this.stopTimeout();
+    this.timeout = setTimeout(() => {
+      Request
+        .get(this.props.path)
+        .query(this.queryParams(element, options))
+        .end((err, response) => {
+          if (!err) {
+            let data = response.body.data[0];
+            this.props.onChange(data);
+            this.setState({totalRecords: String(data.records)})
+            if (resetHeight) { this.resetTableHeight() }
+          }
+        });
+    }, 250);
+  }
+
+  stopTimeout = () => {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
   }
 
   /**
@@ -159,21 +168,6 @@ class TableAjax extends Table {
       pageSizeSelectionOptions: this.props.pageSizeSelectionOptions,
       showPageSizeSelection: this.props.showPageSizeSelection
     };
-  }
-
-  /**
-   * Classes to apply to the table
-   * @override
-   *
-   * @method tableClasses
-   * @return {String}
-   */
-  get tableClasses() {
-    return classNames(
-      'ui-table',
-      this.props.className,
-      { [`ui-table__pager ui-table__pager--${this.state.pageSize}`]: this.props.paginate }
-    );
   }
 }
 

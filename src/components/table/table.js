@@ -160,7 +160,7 @@ class Table extends React.Component {
    * @return {Void}
    */
   componentDidUpdate(prevProps, prevState) {
-    if (this.shouldResetTableHeight(prevProps, prevState)) {
+    if (this.shouldResetTableHeight(prevProps)) {
       this.resetTableHeight();
     } else {
       this.resizeTable();
@@ -174,7 +174,7 @@ class Table extends React.Component {
    * @return {Void}
    */
   resetTableHeight() {
-    this._table.style.minHeight = '0';
+    this._wrapper.style.minHeight = '0';
     this.tableHeight = 0;
     setTimeout(() => {
       this.resizeTable();
@@ -191,7 +191,7 @@ class Table extends React.Component {
   resizeTable() {
     if (this._table.offsetHeight > this.tableHeight) {
       this.tableHeight = this._table.offsetHeight;
-      this._table.style.minHeight = this.tableHeight + 'px';
+      this._wrapper.style.minHeight = this.tableHeight + 'px';
     }
   }
 
@@ -289,6 +289,21 @@ class Table extends React.Component {
     }
   }
 
+  get mainClasses() {
+    return classNames(
+      'ui-table',
+      this.props.className
+    );
+  }
+
+  get wrapperClasses() {
+    return classNames(
+      'ui-table__wrapper',
+      this.props.className,
+      { [`ui-table--pager`]: this.props.paginate }
+    );
+  }
+
   /**
    * Classes to apply to the table
    *
@@ -296,11 +311,7 @@ class Table extends React.Component {
    * @return {String}
    */
   get tableClasses() {
-    return classNames(
-      'ui-table',
-      this.props.className,
-      { [`ui-table__pager ui-table__pager--${this.props.pageSize}`]: this.props.paginate }
-    );
+    return 'ui-table__table';
   }
 
   /**
@@ -310,15 +321,14 @@ class Table extends React.Component {
    */
   render() {
     return (
-      <div>
-        <table
-          className={ this.tableClasses }
-          ref={ (table) => { this._table = table; } }
-        >
-          <tbody>
-            { this.props.children }
-          </tbody>
-        </table>
+      <div className={ this.mainClasses }>
+        <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
+          <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
+            <tbody>
+              { this.props.children }
+            </tbody>
+          </table>
+        </div>
         { this.pager }
       </div>
     );
