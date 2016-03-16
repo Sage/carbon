@@ -2,7 +2,7 @@
 @import 'input-field';
 @import 'mixins';
 
-.ui-checkbox {
+.ui-radio-button {
   padding-top: 8px;
 
   .common-input__field,
@@ -18,7 +18,7 @@
   }
 }
 
-.ui-checkbox__input.common-input__input {
+.ui-radio-button__input.common-input__input {
   cursor: pointer;
   height: 15px;
   opacity: 0;
@@ -26,48 +26,53 @@
   vertical-align: middle;
   width: 15px;
 
-  ~ svg {
-    .checkbox-outline {
+  ~ .ui-radio-button__sprite {
+    .radio-button-outline {
       rx: 2;
     }
 
-    .checkbox-fill {
+    .radio-button-fill {
       ry: 1;
     }
   }
 
-  &:focus + svg {
+  &:focus + .ui-radio-button__sprite {
     box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
+    border-radius: 100%;
+    height: 15px;
+    width: 15px;
     @include transition(border linear 0.1s, box-shadow linear 0.1s);
 
-    .checkbox-outline {
+    .radio-button-outline {
       fill: $input-active-border-color;
     }
   }
 
-  &:hover + svg .checkbox-outline {
+  &:hover + .ui-radio-button__sprite .radio-button-outline {
+    // the hover colour for the ring
     fill: $input-active-border-color;
   }
 
-  &:checked + svg .checkbox-check {
+  &:checked + .ui-radio-button__sprite .radio-button-check {
+    // The checked colour in the middle
     fill: $grey-dark;
   }
 
-  &[disabled] + svg {
-    .checkbox-outline {
+  &[disabled] + .ui-radio-button__sprite {
+    .radio-button-outline {
       fill: $grey;
     }
 
-    .checkbox-fill {
+    .radio-button-fill {
       fill: $grey-light;
     }
 
-    .checkbox-check {
+    .radio-button-check {
       fill: $grey-light;
     }
   }
 
-  &[disabled]:checked + svg .checkbox-check {
+  &[disabled]:checked + .ui-radio-button__sprite .radio-button-check {
     fill: $grey;
   }
 }
