@@ -54,17 +54,27 @@ describe('Pager', () => {
     });
 
     describe('when element is input', () => {
-      it('emit a new page from the input field', () => {
-        let event = { target: { value: '5' } };  
         instance.emitChangeCallback('input', event);
         expect(spy1).toHaveBeenCalledWith('5', '10');
       });
 
       describe('when input is greater than the max page number', () => {
         it('emit a max page as the new current page', () => {
-          let event = { target: { value: '100' } };  
+          let event = { target: { value: '100' } };
           instance.emitChangeCallback('input', event);
           expect(spy1).toHaveBeenCalledWith('10', '10');
+        });
+      });
+
+      describe('when input is blank', () => {
+        it('resets currentPage to the currentPage is state', () => {
+          spyOn(instance, 'setState');
+          let event = { target: { value: '' } };
+          instance.emitChangeCallback('input', event);
+
+          expect(instance.setState).toHaveBeenCalledWith({
+            currentPage: instance.state.currentPage
+          });
         });
       });
     });
@@ -84,11 +94,15 @@ describe('Pager', () => {
       });
 
       describe('when page size is not a correct option', () => {
-        // TODO
+        it('does not emit a callback', () => {
+          let event = { target: { value: '13' } };
+          instance.emitChangeCallback('size', event);
+          expect(spy1).not.toHaveBeenCalled();
+        });
       });
 
       describe('when not on the first page', () => {
-        // TODO:
+        // TODO: see page.js 155
       });
     });
   });

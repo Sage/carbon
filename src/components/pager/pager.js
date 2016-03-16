@@ -127,9 +127,13 @@ class Pager extends React.Component {
         break;
 
       case 'input':
-        // TODO Check input is valid
         let maxPage = this.maxPage;
         newPage = ev.target.value;
+
+        if (!newPage) {
+          this.setState({ currentPage: this.props.currentPage });
+          break;
+        }
 
         if (Number(newPage) > maxPage) {
           newPage = String(maxPage);
@@ -145,7 +149,9 @@ class Pager extends React.Component {
 
       case 'size':
         let newPageSize = ev.target.value;
-        // TODO: Check page size is in options
+        if (!this.props.pageSizeSelectionOptions.find(x => x.get('id') === newPageSize)) {
+          break;
+        }
         // TODO: Clever current page correction
         this.props.onPagination('1', newPageSize);
         break;
