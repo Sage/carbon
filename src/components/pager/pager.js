@@ -298,9 +298,9 @@ class Pager extends React.Component {
 
         <div className='ui-pager__navigation' >
           { this.previousArrow }
-          <span> Page </span>
+          <span className='unselectable'> Page </span>
           { this.currentPageInput }
-          <span> of { this.maxPage }</span>
+          <span className='unselectable'> of { this.maxPage }</span>
           { this.nextArrow }
         </div>
 
