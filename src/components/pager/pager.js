@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from './../icon';
 import NumberComponent from './../number';
 import Dropdown from './../dropdown';
+import I18n from "i18n-js";
 import Immutable from 'immutable';
 
 /**
@@ -293,23 +294,41 @@ class Pager extends React.Component {
       <div className='ui-pager'>
 
         <div className='ui-pager__size' >
+          <span className='unselectable'>{ showSizeText() }</span>
           { this.sizeSelectionDropdown }
+          <span className='unselectable'>{ recordsText(this.props.pageSize) }</span>
         </div>
 
         <div className='ui-pager__navigation' >
           { this.previousArrow }
-          <span className='unselectable'> Page </span>
+          <span className='unselectable'>{ pageX() }</span>
           { this.currentPageInput }
-          <span className='unselectable'> of { this.maxPage }</span>
+          <span className='unselectable'>{ ofY() }{ this.maxPage }</span>
           { this.nextArrow }
         </div>
 
         <div className='ui-pager__summary'>
-          { this.props.totalRecords } records
+          { this.props.totalRecords }{ recordsText(this.props.totalRecords) }
         </div>
       </div>
     );
   }
+}
+
+function showSizeText() {
+  return I18n.t('pager.size', { defaultValue: 'Show ' });
+}
+
+function recordsText(numberOfRecords) {
+  return I18n.t('pager.records', { count: numberOfRecords, defaultValue: ' records' });
+}
+
+function pageX() {
+  return I18n.t('pager.page_x', { defaultValue: 'Page ' });
+}
+
+function ofY() {
+  return I18n.t('pager.of_y', { defaultValue: ' of ' });
 }
 
 export default Pager;
