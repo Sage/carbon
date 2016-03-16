@@ -10,12 +10,19 @@
   font-size: 0.9em;
   padding: 0 8px 3px;
   text-align: center;
+  position: relative;
 }
 
 .ui-pager__size {
-  display: inline-block;
-  float: left;
-  width: 55px;
+  position: absolute;
+  left: 0;
+  padding-left: 8px;
+
+  .ui-dropdown {
+    width: 55px;
+    padding: 0 2px;
+    display: inline-block;
+  }
 }
 
 .ui-pager__navigation {
@@ -40,9 +47,10 @@
 }
 
 .ui-pager__previous {
-  @include transform(rotate(90deg))
+  @include transform(rotate(90deg) scale(1.4))
   display: inline-block;
   cursor: pointer;
+  margin-right: 8px;
 }
 
 .ui-pager__previous--disabled {
@@ -51,9 +59,10 @@
 }
 
 .ui-pager__next {
-  @include transform(rotate(-90deg))
+  @include transform(rotate(-90deg) scale(1.4))
   display: inline-block;
   cursor: pointer;
+  margin-left: 8px;
 }
 
 .ui-pager__next--disabled {
