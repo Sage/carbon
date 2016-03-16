@@ -54,6 +54,8 @@ describe('Pager', () => {
     });
 
     describe('when element is input', () => {
+      it('emit a new page from the input field', () => {
+        let event = { target: { value: '5' } };
         instance.emitChangeCallback('input', event);
         expect(spy1).toHaveBeenCalledWith('5', '10');
       });
