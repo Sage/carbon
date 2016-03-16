@@ -75,18 +75,16 @@ describe('Table', () => {
       jasmine.clock().uninstall();
     });
 
-    it('Resets the table height to the tableOffset', () => {
-      instance._table = {
-        style: { minHeight: '100px' },
-        offsetHeight: '50'
-      }
+    it('Resets the table wrapper height to the tableOffset', () => {
+      instance._wrapper = { style: { minHeight: '100px' } };
+      instance._table = { offsetHeight: '50' }
 
       instance.tableHeight = 100;
 
       instance.resetTableHeight();
       jasmine.clock().tick();
 
-      expect(instance._table.style.minHeight).toEqual('50px');
+      expect(instance._wrapper.style.minHeight).toEqual('50px');
       expect(instance.tableHeight).toEqual('50');
     });
   });
@@ -94,30 +92,26 @@ describe('Table', () => {
   describe('resizeTable', () => {
     describe('when offsetHeight is greater than table height', () => {
       it('sets the table minHeight and tableHeight to the offsetHeight', () => {
-        instance._table = {
-          style: { minHeight: '10px' },
-          offsetHeight: '50'
-        }
+        instance._wrapper = { style: { minHeight: '10px' } };
+        instance._table = { offsetHeight: '50' }
         instance.tableHeight = '10';
 
         instance.resizeTable();
 
-        expect(instance._table.style.minHeight).toEqual('50px');
+        expect(instance._wrapper.style.minHeight).toEqual('50px');
         expect(instance.tableHeight).toEqual('50');
       });
     });
 
     describe('when offsetHeight is less than table height', () => {
       it('maintains the current height', () => {
-        instance._table = {
-          style: { minHeight: '50px' },
-          offsetHeight: '10'
-        }
+        instance._wrapper = { style: { minHeight: '50px' } };
+        instance._table = { offsetHeight: '10' }
         instance.tableHeight = '50';
 
         instance.resizeTable();
 
-        expect(instance._table.style.minHeight).toEqual('50px');
+        expect(instance._wrapper.style.minHeight).toEqual('50px');
         expect(instance.tableHeight).toEqual('50');
       });
     });
@@ -198,9 +192,9 @@ describe('Table', () => {
 
   describe('render', () => {
     it('renders a table with correct classes', () => {
-      let table = TestUtils.findRenderedDOMComponentWithTag(instance, 'table');
-      expect(table).toBeDefined();
-      expect(table.className).toEqual('ui-table foo');
+      let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      expect(parent).toBeDefined();
+      expect(parent.className).toEqual('ui-table foo');
     });
   });
 });

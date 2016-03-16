@@ -1,6 +1,5 @@
 import React from 'react';
 import Request from 'superagent';
-import classNames from 'classnames';
 import { Table } from './../table';
 
 /**
@@ -67,8 +66,14 @@ class TableAjax extends Table {
     this.emitOnChangeCallback('data', this.emitOptions);
   }
 
-  // Override Super
-  componentDidUpdate(prevProps, prevState) {
+  /**
+   * Lifecycle for after a update has happened
+   * Resize the grid to fit new content
+   *
+   * @method componentDidUpdate
+   * @return {Void}
+   */
+  componentDidUpdate() {
     this.resizeTable();
   }
 
@@ -93,7 +98,7 @@ class TableAjax extends Table {
    * @return {Void}
    */
   emitOnChangeCallback = (element, options) => {
-    let resetHeight = options.pageSize < this.pageSize;
+    let resetHeight = Number(options.pageSize) < Number(this.pageSize);
 
     this.setState({
       currentPage: options.currentPage,
@@ -109,13 +114,19 @@ class TableAjax extends Table {
           if (!err) {
             let data = response.body.data[0];
             this.props.onChange(data);
-            this.setState({totalRecords: String(data.records)})
-            if (resetHeight) { this.resetTableHeight() }
+            this.setState({totalRecords: String(data.records)});
+            if (resetHeight) { this.resetTableHeight(); }
           }
         });
     }, 250);
   }
 
+  /**
+   * Clears the ajax timeout if present
+   *
+   * @method stopTimeout
+   * @return {Void}
+   */
   stopTimeout = () => {
     if (this.timeout) {
       clearTimeout(this.timeout);

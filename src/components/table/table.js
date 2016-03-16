@@ -159,7 +159,7 @@ class Table extends React.Component {
    * @method componentDidUpdate
    * @return {Void}
    */
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (this.shouldResetTableHeight(prevProps)) {
       this.resetTableHeight();
     } else {

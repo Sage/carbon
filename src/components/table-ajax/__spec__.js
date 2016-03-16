@@ -31,23 +31,11 @@ describe('TableAjax', () => {
     });
   });
 
-  describe('shouldResetTableHeight', () => {
-    beforeEach(() => {
-      instance.setState({ pageSize: '10' });
-    });
-
-    describe('when pageSize is less than previous pageSize', () => {
-      it('returns true', () => {
-        let prevState = { pageSize: '100' }
-        expect(instance.shouldResetTableHeight({}, prevState)).toBeTruthy();
-      });
-    });
-
-    describe('when pageSize is greater than previous pageSize', () => {
-      it('returns false', () => {
-        let prevState = { pageSize: '1' }
-        expect(instance.shouldResetTableHeight({}, prevState)).toBeFalsy();
-      });
+  describe('componentDidUpdate', () => {
+    it('calls to resize the table', () => {
+      spyOn(instance, 'resizeTable');
+      instance.componentDidUpdate();
+      expect(instance.resizeTable).toHaveBeenCalled();
     });
   });
 
@@ -62,22 +50,32 @@ describe('TableAjax', () => {
     let options;
     beforeEach(() => {
       jasmine.Ajax.install();
+      jasmine.clock().install();
 
       options = { currentPage: '1', pageSize: '10' }
     });
 
     afterEach(() => {
       jasmine.Ajax.uninstall();
+      jasmine.clock().uninstall();
+    });
+
+    it('Sets the new pageSize and currentPage in state', () => {
+      spyOn(instance, 'setState');
+      instance.emitOnChangeCallback('data', options);
+      expect(instance.setState).toHaveBeenCalledWith(options);
     });
 
     it('queries for the data', () => {
       instance.emitOnChangeCallback('data', options);
+      jasmine.clock().tick(251);
       let request = jasmine.Ajax.requests.mostRecent();
       expect(request.url).toEqual('/test?page=1&value=&rows=10');
     });
 
     it('on success emits the returned data', () => {
         instance.emitOnChangeCallback('data', options);
+        jasmine.clock().tick(251);
         let request = jasmine.Ajax.requests.mostRecent();
         request.respondWith({
           "status": 200,
@@ -85,6 +83,50 @@ describe('TableAjax', () => {
           "responseText": "{\"data\": [\"foo\"]}"
         });
         expect(spy).toHaveBeenCalledWith('foo');
+    });
+
+    it('on success sets the totalRecords', () => {
+      spyOn(instance, 'setState');
+      instance.emitOnChangeCallback('data', options);
+      jasmine.clock().tick(251);
+
+      let request = jasmine.Ajax.requests.mostRecent();
+      request.respondWith({
+        "status": 200,
+        "contentType": 'application/json',
+        "responseText": "{\"data\": [{\"records\": 1}]}"
+      });
+      expect(instance.setState).toHaveBeenCalledWith({ totalRecords: '1' });
+    });
+
+    describe('when page size is less than previous page size', () => {
+      it('calls resetTableHeight on successful response', () => {
+        spyOn(instance, 'resetTableHeight');
+        options = { currentPage: '1', pageSize: '5' }
+
+        instance.emitOnChangeCallback('data', options);
+        jasmine.clock().tick(251);
+
+        let request = jasmine.Ajax.requests.mostRecent();
+        request.respondWith({
+          "status": 200,
+          "contentType": 'application/json',
+          "responseText": "{\"data\": [\"foo\"]}"
+        });
+
+        expect(instance.resetTableHeight).toHaveBeenCalled(); 
+      });
+    });
+  });
+
+  describe('stopTimeout', () => {
+    describe('when timeout is present', () => {
+      it('clears the timeout', () => {
+        spyOn(window, 'clearTimeout');
+        instance.timeout = 'foo'
+        instance.stopTimeout();
+        expect(window.clearTimeout).toHaveBeenCalledWith('foo');
+      });
     });
   });
 
