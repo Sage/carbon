@@ -1,8 +1,16 @@
 # 0.6.0
 
+## Improve Date widget
+
+Improve the existing Date widget to allow passing in `minDate` and `maxDate`.
+
 ## I18nHelper
 
 An I18nHelper has been created to help with formatting decimal numbers.
+
+## Should Component Update Decorator
+
+Supplies base shouldComponentUpdate
 
 ## toArray
 
@@ -18,6 +26,12 @@ We have added a helper method to convert strings into arrays, for example:
 
 * Spinner
 * RadioButton
+
+# 0.5.3
+
+## Bug Fixes
+
+* Fixed numeral validator so it returns the correct type of validator.
 
 # 0.5.2
 
