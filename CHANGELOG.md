@@ -26,6 +26,7 @@ We have added a helper method to convert strings into arrays, for example:
 
 * Spinner
 * RadioButton
+* Pager
 
 # 0.5.3
 
