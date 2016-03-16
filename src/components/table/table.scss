@@ -4,6 +4,7 @@
 .ui-table__wrapper {
   border-radius: $tables__border-radius;
   border: 1px solid $border-color;
+  overflow-x: scroll;
 }
 
 .ui-table__table {

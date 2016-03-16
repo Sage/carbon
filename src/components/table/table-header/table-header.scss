@@ -19,6 +19,7 @@
   text-overflow: ellipsis;
   vertical-align: middle;
   user-select: none;
+  white-space: nowrap;
 
   &:first-child {
     border-left: none;

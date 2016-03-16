@@ -11,7 +11,7 @@
   overflow: visible;
   padding: 8px;
   vertical-align: middle;
-  width: auto;
+  white-space: nowrap;
 
   .ui-table-row:first-child & {
     border-bottom: none;
