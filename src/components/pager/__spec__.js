@@ -113,6 +113,38 @@ describe('Pager', () => {
     it('returns the max page depending on totalReacords and pageSize', () => {
       expect(instance.maxPage).toEqual(10);
     });
+
+    describe('when pageSize is undefined', () => {
+      it('returns 1', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Pager
+            currentPage='1'
+            pageSize={ null }
+            showPageSizeSelection={ true }
+            totalRecords='100'
+            onPagination={ spy1 }
+          />
+        );
+        
+        expect(instance.maxPage).toEqual(1);
+      });
+    });
+
+    describe('when pageSize is 0', () => {
+      it('returns 1', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Pager
+            currentPage='1'
+            pageSize='0'
+            showPageSizeSelection={ true }
+            totalRecords='100'
+            onPagination={ spy1 }
+          />
+        );
+
+        expect(instance.maxPage).toEqual(1);
+      });
+    });
   });
 
   describe('disablePrevious', () => {
@@ -279,7 +311,8 @@ describe('Pager', () => {
       let dropdown;
 
       it('returns size dropdown', () => {
-        dropdown = instance.sizeSelectionDropdown;
+        let size = instance.sizeSelectionDropdown;
+        dropdown = size.props.children[1];
         expect(dropdown.props.value).toEqual(instance.props.pageSize);
       });
 
