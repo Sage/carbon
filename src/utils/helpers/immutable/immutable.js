@@ -20,7 +20,9 @@ var ImmutableHelper = {
   */
   parseJSON: (js) => {
     if (typeof js !== 'object' || js === null) {
-      // if the js is not an object, or is null then just return it
+      if (typeof js === 'number') {
+        return String(js);
+      }
       return js;
     } else {
       if (Array.isArray(js)) {

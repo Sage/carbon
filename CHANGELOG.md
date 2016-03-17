@@ -18,6 +18,10 @@ We have added a helper method to convert strings into arrays, for example:
 
 `"foo[bar][baz]"` into `["foo", "bar", "baz"]`.
 
+## ImmutableHelper parseJSON
+
+The parseJSON method now converts all integers to strings for consistency
+
 ## Bug Fixes
 
 * We have inserted an engine dependency for npm version 3. This is to help mitigate any issues of users reporting issues when installing with npm version 2.
