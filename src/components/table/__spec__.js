@@ -183,8 +183,8 @@ describe('Table', () => {
       });
     });
 
-    describe('when paginate if false', () => {
-      it('does not returns the pager', () => {
+    describe('when paginate is false', () => {
+      it('does not return the pager', () => {
         expect(instance.pager).toBeFalsy();
       });
     });
