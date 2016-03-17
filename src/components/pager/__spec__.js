@@ -37,9 +37,9 @@ describe('Pager', () => {
   });
 
   describe('componentWillReceiveProps', () => {
-    it('updates the interanl state currentPage with the props currentPage', () => {
+    it('updates the internal state currentPage with the props currentPage', () => {
       instance.setState({ currentPage: '2' });
-      instance.componentWillReceiveProps({currentPage: '1'});
+      instance.componentWillReceiveProps({ currentPage: '1' });
 
       expect(instance.state.currentPage).toEqual('1'); 
     });
@@ -110,7 +110,7 @@ describe('Pager', () => {
   });
 
   describe('maxPage', () => {
-    it('returns the max page depending on totalReacords and pageSize', () => {
+    it('returns the max page depending on totalRecords and pageSize', () => {
       expect(instance.maxPage).toEqual(10);
     });
 
@@ -176,7 +176,7 @@ describe('Pager', () => {
   });
 
   describe('disableCurrentPageInput', () => {
-    describe('when there are less records than page size', () => {
+    describe('when there are fewer records than page size', () => {
       it('returns true', () => {
         instance = TestUtils.renderIntoDocument(
           <Pager
@@ -201,7 +201,7 @@ describe('Pager', () => {
   describe('previousArrow', () => {
     let previous;
 
-    it('returns a arrow icon', () => {
+    it('returns an arrow icon', () => {
       previous = instance.previousArrow;
       expect(previous.props.type).toEqual('dropdown');
     });
