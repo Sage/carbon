@@ -5,7 +5,7 @@ describe('Immutable Helper', () => {
   describe('parseJSON', () => {
     describe('when the passed json is not an object', () => {
       it('returns the json', () => {
-        expect(ImmutableHelper.parseJSON(1)).toEqual(1);
+        expect(ImmutableHelper.parseJSON('a')).toEqual('a');
       });
     });
 
@@ -16,21 +16,19 @@ describe('Immutable Helper', () => {
     });
 
     describe('when the JSON is a simple array', () => {
-      let data;
-      let expectedData; 
-      let result;
+      let data, expectedData, result;
 
       beforeEach(() => {
-        data = [ 1, 2, 3 ];
+        data = [ 'a', 'b', 'c' ];
         expectedData = Immutable.Seq(data).toList();
         result = ImmutableHelper.parseJSON(data);
       });
 
       it('returns a immutable object of that array', () => {
         expect(result).toEqual(expectedData);
-        expect(result.get(0)).toEqual(1);
-        expect(result.get(1)).toEqual(2);
-        expect(result.get(2)).toEqual(3);
+        expect(result.get(0)).toEqual('a');
+        expect(result.get(1)).toEqual('b');
+        expect(result.get(2)).toEqual('c');
       });
     });
 
@@ -48,8 +46,7 @@ describe('Immutable Helper', () => {
     });
 
     describe('when JSON is a object', () => {
-      let data;
-      let expectedData; 
+      let data, expectedData; 
 
       beforeEach(() => {
         data = { foo: 'bar', baz: 'qux' };
@@ -65,8 +62,7 @@ describe('Immutable Helper', () => {
     });
 
     describe('when JSON is a complex value with nest arrays and objects', () => {
-      let data;
-      let expectedData;
+      let data, expectedData;
 
       beforeEach(() => {
         data = [{ foo: 'bar', baz: 'qux' }, { a: ['a', 'b', 'c'], b: 'b' }];
@@ -82,6 +78,26 @@ describe('Immutable Helper', () => {
         expect(result.toJS()).toEqual(expectedData.toJS());
       });
     });
-  });
 
+    describe('when passed a number', () => {
+      it('casts it to a string', () => {
+        expect(ImmutableHelper.parseJSON(1)).toEqual(Immutable.fromJS('1'));
+        expect(ImmutableHelper.parseJSON(3.142)).toEqual(Immutable.fromJS('3.142'));
+      });
+
+      describe('as a nested element', () => {
+        it('casts all numbers to a string', () => {
+          let data = [{ foo: 'bar', baz: 'qux' }, { a: [1, 2, 'c'], b: 2 }];
+
+          let obj1 = Immutable.Seq({ foo: 'bar', baz: 'qux' }).toOrderedMap();
+          let array1 = Immutable.Seq(['1','2','c']).toList();
+          let obj2 = Immutable.Seq({a: array1, b: '2'}).toOrderedMap();
+          let expectedData = Immutable.Seq([obj1, obj2]).toList();
+
+          let result = ImmutableHelper.parseJSON(data);
+          expect(result.toJS()).toEqual(expectedData.toJS());
+        });
+      });
+    });
+  });
 });
