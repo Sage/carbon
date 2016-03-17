@@ -268,11 +268,26 @@ class Table extends React.Component {
     return {
       currentPage: this.props.currentPage,
       onPagination: this.onPagination,
-      pageSize: this.props.pageSize,
+      pageSize: this.defaultPageSize,
       pageSizeSelectionOptions: this.props.pageSizeSelectionOptions,
       showPageSizeSelection: this.props.showPageSizeSelection,
       totalRecords: this.props.totalRecords
     };
+  }
+
+  /**
+   * Page size for page load
+   *
+   * @method defaultPageSize
+   * @return {Void}
+   */
+  get defaultPageSize() {
+    if (this.props.pageSize) {
+      return this.props.pageSize;
+    } else if (this.props.pageSizeSelectionOptions) {
+      return this.props.pageSizeSelectionOptions.first().get('id');
+    }
+    return '10';
   }
 
   /**

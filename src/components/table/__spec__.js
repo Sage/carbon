@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 
 describe('Table', () => {
@@ -175,6 +176,41 @@ describe('Table', () => {
       expect(props.totalRecords).toEqual('100')
     });
   });
+
+  describe('defaultPageSize', () => {
+    describe('when pageSize is passed', () => {
+      it('returns the prop pageSize', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Table path='/test' pageSize='123' >
+          </Table>
+        );
+        expect(instance.defaultPageSize).toEqual('123')
+      });
+    });
+
+    describe('when pageSizeSelectionOptions are set', () => {
+      it('sets it to the first item in the pageSizeSelectionOptions', () => {
+        let options = Immutable.fromJS([
+          { id: '1', name: 1 },
+          { id: '2', name: 2 },
+          { id: '3', name: 3 }
+        ]);
+
+        instance = TestUtils.renderIntoDocument(
+          <Table pageSizeSelectionOptions={ options } >
+          </Table>
+        );
+        expect(instance.defaultPageSize).toEqual('1')
+      });
+    });
+
+    describe('when neither pageSize or options are passed', () => {
+      it('returns a default of 10', () => {
+        expect(instance.defaultPageSize).toEqual('10')
+      });
+    });
+  });
+
 
   describe('pager', () => {
     describe('when paginate is true', () => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Immutable from 'immutable';
 import { TableAjax } from './table-ajax';
 
 describe('TableAjax', () => {
@@ -43,40 +42,6 @@ describe('TableAjax', () => {
     it('gets the current pageSize', () => {
       instance.setState({ pageSize: '10' });
       expect(instance.pageSize).toEqual('10');
-    });
-  });
-
-  describe('defaultPageSize', () => {
-    describe('when pageSize is passed', () => {
-      it('returns the prop pageSize', () => {
-        instance = TestUtils.renderIntoDocument(
-          <TableAjax path='/test' pageSize='123' >
-          </TableAjax>
-        );
-        expect(instance.defaultPageSize).toEqual('123')
-      });
-    });
-
-    describe('when pageSizeSelectionOptions are set', () => {
-      it('sets it to the first item in the pageSizeSelectionOptions', () => {
-        let options = Immutable.fromJS([
-          { id: '1', name: 1 },
-          { id: '2', name: 2 },
-          { id: '3', name: 3 }
-        ]);
-
-        instance = TestUtils.renderIntoDocument(
-          <TableAjax path='/text' pageSizeSelectionOptions={ options } >
-          </TableAjax>
-        );
-        expect(instance.defaultPageSize).toEqual('1')
-      });
-    });
-
-    describe('when neither pageSize or options are passed', () => {
-      it('returns a default of 10', () => {
-        expect(instance.defaultPageSize).toEqual('10')
-      });
     });
   });
 

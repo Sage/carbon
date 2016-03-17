@@ -122,22 +122,6 @@ class TableAjax extends Table {
   }
 
   /**
-   * Page size for page load
-   *
-   * @method defaultPageSize
-   * @return {Void}
-   */
-  get defaultPageSize() {
-    if (this.props.pageSize) {
-      return this.props.pageSize;
-    } else if (this.props.pageSizeSelectionOptions) {
-      return this.props.pageSizeSelectionOptions.first().get('id');
-    }
-    return '10';
-  }
-
-
-  /**
    * Emit onChange event row data
    * @override
    *
