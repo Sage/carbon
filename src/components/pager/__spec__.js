@@ -45,6 +45,29 @@ describe('Pager', () => {
     });
   });
 
+  describe('handleCurrentPageKeyUp', () => {
+
+    beforeEach(() => {
+      spyOn(instance, 'emitChangeCallback')
+    });
+
+    describe('when the event is a enter key', () => {
+      it('calls emitChangeCallback', () => {
+        let ev = { which: 13 };
+        instance.handleCurrentPageKeyUp(ev);
+        expect(instance.emitChangeCallback).toHaveBeenCalledWith('input', ev);
+      });
+    });
+
+    describe('when the the event is any other key', () => {
+      it('does not emit the change', () => {
+        let ev = { which: 8 };
+        instance.handleCurrentPageKeyUp(ev);
+        expect(instance.emitChangeCallback).not.toHaveBeenCalled()
+      });
+    });
+  });
+
   describe('emitChangeCallback', () => {
     describe('when element is next', () => {
       it('emits onPagination increasing currentPage by 1', () => {
@@ -175,29 +198,6 @@ describe('Pager', () => {
     });
   });
 
-  describe('disableCurrentPageInput', () => {
-    describe('when there are fewer records than page size', () => {
-      it('returns true', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Pager
-            currentPage='1'
-            pageSize='10'
-            totalRecords='1'
-            onPagination={ spy1 }
-          />
-        );
-
-        expect(instance.disableCurrentPageInput).toBeTruthy();
-      });
-    });
-
-    describe('when there are more records than page size', () => {
-      it('returns false', () => {
-        expect(instance.disableCurrentPageInput).toBeFalsy();
-      });
-    });
-  });
-
   describe('previousArrow', () => {
     let previous;
 
@@ -234,42 +234,17 @@ describe('Pager', () => {
       expect(input.props.value).toEqual(instance.props.currentPage);
     });
 
-    describe('when input is disabled', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
-          <Pager
-            currentPage='1'
-            pageSize='10'
-            totalRecords='1'
-            onPagination={ spy1 }
-          />
-        );
-
-        input = instance.currentPageInput;
-      });
-
-      it('adds a disabled class', () => {
-        expect(input.props.className).toEqual('ui-pager__current-page ui-pager__current-page--disabled');
-      });
-
-      it('sets the input as readOnly', () => {
-        expect(input.props.readOnly).toBeTruthy();
-      });
+    it('adds a onChange handler', () => {
+      spyOn(instance, 'setState');
+      let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-number__input');
+      TestUtils.Simulate.change(input);
+      expect(instance.setState).toHaveBeenCalled();
     });
 
-    describe('when input is enabled', () => {
-      it('adds a onChange handler', () => {
-        spyOn(instance, 'setState');
-        let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-number__input'); 
-        TestUtils.Simulate.change(input);
-        expect(instance.setState).toHaveBeenCalled();
-      });
-
-      it('adds a onBlur handler', () => {
-        let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-number__input'); 
-        TestUtils.Simulate.blur(input);
-        expect(spy1).toHaveBeenCalled();
-      });
+    it('adds a onBlur handler', () => {
+      let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-number__input');
+      TestUtils.Simulate.blur(input);
+      expect(spy1).toHaveBeenCalled();
     });
   });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Request from 'superagent';
-import { Table } from './../table';
+import { Table, TableRow, TableCell, TableHeader } from './../table';
 
 /**
  * A Table Ajax Widget
@@ -14,10 +14,9 @@ import { Table } from './../table';
  *
  * To render a Table please see the Table Component
  *
- * TableAjax requires pagination to be turned on and a path to be provided
+ * TableAjax requires a path to be provided
  *
  * <TableAjax
- *    paginate={ true }
  *    path='./path'
  * >
  *
@@ -36,13 +35,14 @@ class TableAjax extends Table {
   timeout = null;
 
   static propTypes = {
+
     /**
      * Setting to true turns on pagination for the table
      *
      * @property paginate
      * @type {Boolean}
      */
-    paginate: React.PropTypes.bool.isRequired,
+    paginate: React.PropTypes.bool,
 
     /**
      * Endpoint to fetch the data for table
@@ -51,6 +51,10 @@ class TableAjax extends Table {
      * @type {String}
      */
     path: React.PropTypes.string.isRequired
+  }
+
+  static defaultProps = {
+    paginate: true
   }
 
   state = {
@@ -62,7 +66,7 @@ class TableAjax extends Table {
      * @property currentPage
      * @type {String}
      */
-    currentPage: '1',
+    currentPage: this.props.currentPage || '1',
 
     /**
      * Pagination
@@ -71,7 +75,7 @@ class TableAjax extends Table {
      * @property pageSize
      * @type {String}
      */
-    pageSize: '10',
+    pageSize: this.defaultPageSize,
 
     /**
      * Pagination
@@ -116,6 +120,22 @@ class TableAjax extends Table {
   get pageSize() {
     return this.state.pageSize;
   }
+
+  /**
+   * Page size for page load
+   *
+   * @method defaultPageSize
+   * @return {Void}
+   */
+  get defaultPageSize() {
+    if (this.props.pageSize) {
+      return this.props.pageSize;
+    } else if (this.props.pageSizeSelectionOptions) {
+      return this.props.pageSizeSelectionOptions.first().get('id');
+    }
+    return '10';
+  }
+
 
   /**
    * Emit onChange event row data
@@ -211,4 +231,9 @@ class TableAjax extends Table {
   }
 }
 
-export default TableAjax;
+export {
+  TableAjax,
+  TableRow,
+  TableCell,
+  TableHeader
+};

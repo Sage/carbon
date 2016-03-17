@@ -4,6 +4,7 @@ import NumberComponent from './../number';
 import Dropdown from './../dropdown';
 import I18n from "i18n-js";
 import Immutable from 'immutable';
+import Events from './../../utils/helpers/events';
 
 /**
  * A Pager widget.
@@ -122,6 +123,19 @@ class Pager extends React.Component {
   }
 
   /**
+   * Handle key up event in the page input
+   *
+   * @method handleCurrentPageKeyUp
+   * @param {Event} key up event
+   * @return {Void}
+   */
+  handleCurrentPageKeyUp = (ev) => {
+    if (Events.isEnterKey(ev)) {
+      this.emitChangeCallback('input', ev);
+    }
+  }
+
+  /**
    * Emit change function depending on event
    *
    * @method emitChangeCallback
@@ -202,16 +216,6 @@ class Pager extends React.Component {
   }
 
   /**
-   * Should the page number input be disabled
-   *
-   * @method disabeCurrentPageInput
-   * @return {Boolean}
-   */
-  get disableCurrentPageInput() {
-    return Number(this.props.totalRecords) <= Number(this.props.pageSize);
-  }
-
-  /**
    * Get previous arrow icon
    *
    * @method previousArrow
@@ -243,17 +247,11 @@ class Pager extends React.Component {
   get currentPageInput() {
     let props = {
       value: this.state.currentPage,
-      className: 'ui-pager__current-page'
+      className: 'ui-pager__current-page',
+      onChange: this.handleCurrentPageInputChange,
+      onBlur: this.emitChangeCallback.bind(this, 'input'),
+      onKeyUp: this.handleCurrentPageKeyUp
     };
-
-    if (this.disableCurrentPageInput) {
-      props.disabled = true;
-      props.readOnly = true;
-      props.className += ' ui-pager__current-page--disabled';
-    } else {
-      props.onChange = this.handleCurrentPageInputChange,
-      props.onBlur = this.emitChangeCallback.bind(this, 'input');
-    }
 
     return (
       <NumberComponent { ...props } />
