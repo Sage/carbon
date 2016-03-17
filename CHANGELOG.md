@@ -1,3 +1,10 @@
+# 0.7.0
+
+# New Components
+
+* Pager
+* Table Ajax
+
 # 0.6.0
 
 ## Improve Date widget
@@ -30,7 +37,6 @@ The parseJSON method now converts all integers to strings for consistency
 
 * Spinner
 * RadioButton
-* Pager
 
 # 0.5.3
 
