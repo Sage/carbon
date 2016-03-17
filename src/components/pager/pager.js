@@ -85,6 +85,16 @@ class Pager extends React.Component {
   }
 
   state = {
+
+    /**
+     * Current page is held in state so the
+     * user can use the input field
+     *
+     * New props always overide the currentPage
+     *
+     * @property currentPage
+     * @type {String}
+     */
     currentPage: this.props.currentPage
   }
 

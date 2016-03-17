@@ -2,8 +2,7 @@
 @import 'mixins';
 
 .ui-pager {
-  // TODO: COLOR VAR
-  background-color: #F2F3F6;
+  background-color: $grey-light;
   border-radius: 0 0 3px 3px;
   border: 1px solid $border-color;
   border-top: none;

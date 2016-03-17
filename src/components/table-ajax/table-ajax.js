@@ -28,6 +28,11 @@ class TableAjax extends Table {
     super(...args);
   }
 
+  /**
+   * Timeout for firing ajax request
+   *
+   * @property timeout
+   */
   timeout = null;
 
   static propTypes = {
@@ -49,8 +54,32 @@ class TableAjax extends Table {
   }
 
   state = {
+
+    /**
+     * Pagination
+     * Current Visible Page
+     *
+     * @property currentPage
+     * @type {String}
+     */
     currentPage: '1',
+
+    /**
+     * Pagination
+     * Page Size of grid (number of visible records)
+     *
+     * @property pageSize
+     * @type {String}
+     */
     pageSize: '10',
+
+    /**
+     * Pagination
+     * Total number of records in the grid
+     *
+     * @property totalRecords
+     * @type {String}
+     */
     totalRecords: '0'
   };
 

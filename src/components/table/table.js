@@ -61,9 +61,6 @@ import Pager from './../pager';
  *   pageSizeSelectionOptions={ sizeOptions } // Optional - Page Size Options
  * />
  *
- *
- *
- *
  * @class Table
  * @constructor
  */
@@ -94,6 +91,7 @@ class Table extends React.Component {
      * @type {Boolean}
      */
     paginate: React.PropTypes.bool,
+
     /**
      * Pagination
      * Current Visible Page
@@ -289,6 +287,12 @@ class Table extends React.Component {
     }
   }
 
+  /**
+   * Classes that apply to the parent table div
+   *
+   * @method mainClasses
+   * @return {String}
+   */
   get mainClasses() {
     return classNames(
       'ui-table',
@@ -296,6 +300,12 @@ class Table extends React.Component {
     );
   }
 
+  /**
+   * Classes that apply to the table wrapper
+   *
+   * @method wrapperClasses
+   * @return {String}
+   */
   get wrapperClasses() {
     return classNames(
       'ui-table__wrapper',
