@@ -1,0 +1,70 @@
+@import 'colors';
+@import 'mixins';
+
+.ui-pager {
+  background-color: $grey-light;
+  border-radius: 0 0 3px 3px;
+  border: 1px solid $border-color;
+  border-top: none;
+  font-size: 0.9em;
+  padding: 0 8px 3px;
+  text-align: center;
+  position: relative;
+}
+
+.ui-pager__size {
+  position: absolute;
+  left: 0;
+  padding-left: 8px;
+
+  .ui-dropdown {
+    width: 55px;
+    padding: 0 2px;
+    display: inline-block;
+  }
+}
+
+.ui-pager__navigation {
+  display: inline-block;
+}
+
+.ui-pager__summary {
+  display: inline-block;
+  float: right;
+  padding-top: 12px;
+}
+
+.ui-pager__current-page {
+  text-align: center;
+  display: inline-block;
+
+  .ui-number__input {
+    margin: 1px;
+    width: 35px;
+    text-align: center;
+  }
+}
+
+.ui-pager__previous {
+  @include transform(rotate(90deg) scale(1.4))
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.ui-pager__previous--disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.ui-pager__next {
+  @include transform(rotate(-90deg) scale(1.4))
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.ui-pager__next--disabled {
+  opacity: 0.3;
+  cursor: default;
+}

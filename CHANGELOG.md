@@ -1,3 +1,10 @@
+# 0.7.0
+
+# New Components
+
+* Pager
+* Table Ajax
+
 # 0.6.0
 
 ## Improve Date widget
@@ -17,6 +24,10 @@ Supplies base shouldComponentUpdate
 We have added a helper method to convert strings into arrays, for example:
 
 `"foo[bar][baz]"` into `["foo", "bar", "baz"]`.
+
+## ImmutableHelper parseJSON
+
+The parseJSON method now converts all integers to strings for consistency
 
 ## Bug Fixes
 
