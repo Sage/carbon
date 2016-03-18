@@ -11,7 +11,8 @@ class ReadGrid extends React.Component {
       pageSize: this.props.pageSize,
       totalRecords: String(this.props.totalRecords),
       onChange: FinancesActions.tableChange,
-      showPageSizeSelection: true
+      showPageSizeSelection: true,
+      columnToSort: this.props.columnToSort
     }
   }
 
@@ -30,9 +31,9 @@ class ReadGrid extends React.Component {
 
     gridContent = gridContent.unshift(
       <TableRow key="header">
-        <TableHeader>Id</TableHeader>
-        <TableHeader>Code</TableHeader>
-        <TableHeader>Name</TableHeader>
+        <TableHeader name='id'>Id</TableHeader>
+        <TableHeader name='code'>Code</TableHeader>
+        <TableHeader name='name'>Name</TableHeader>
       </TableRow>
     );
 

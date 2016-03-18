@@ -117,6 +117,8 @@ class FinancesStore extends Store {
     this.data = this.data.set('page_size', action.pageSize);
     this.data = this.data.set('total_records', action.lines.records);
     this.data = this.data.set('grid_data', Immutable.fromJS(action.lines.items));
+    this.data = this.data.set('columnToSort', action.columnToSort);
+    this.data = this.date.set('sortOrder', action.sortOrder);
   }
 
   [FinancesConstants.FINANCES_VALUE_UPDATED](action) {

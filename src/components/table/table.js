@@ -4,6 +4,7 @@ import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import Pager from './../pager';
+import { assign } from 'lodash';
 
 /**
  * A Table widget.
@@ -149,6 +150,29 @@ class Table extends React.Component {
     this.resizeTable();
   }
 
+  static childContextTypes = {
+    /**
+     * Defines a context object for child components of the table component.
+     * https://facebook.github.io/react/docs/context.html
+     *
+     * @property table
+     * @type {Object}
+     */
+    onSort: React.PropTypes.func
+  }
+
+  /**
+   * Returns table object to child components.
+   *
+   * @method getChildContext
+   * @return {void}
+   */
+  getChildContext = () => {
+    return {
+      onSort: this.onSort
+    };
+  }
+
   /**
    * Lifecycle for after a update has happened
    * If pageSize has updated to a smaller value - reset table height
@@ -228,7 +252,7 @@ class Table extends React.Component {
   }
 
   /**
-   * Handlers when the pager emits a onChange event
+   * Handles when the pager emits a onChange event
    * Passes data to emitOnChangeCallback in the correct
    * format
    *
@@ -244,6 +268,13 @@ class Table extends React.Component {
     this.emitOnChangeCallback('pager', options);
   }
 
+  onSort = (columnToSort, sortOrder) => {
+    let options = this.emitOptions;
+    options.columnToSort = columnToSort;
+    options.sortOrder = sortOrder;
+    this.emitOnChangeCallback('table', options);
+  }
+
   /**
    * Base Options to be emitted by onChange
    *
@@ -254,9 +285,13 @@ class Table extends React.Component {
     return {
       // What if paginate if false - think about when next change functionality is added
       currentPage: this.props.currentPage,
-      pageSize: this.props.pageSize
+      pageSize: this.props.pageSize,
+      columnToSort: this.props.columnToSort,
+      sortOrder: this.props.sortOrder
     };
   }
+
+
 
   /**
    * Props to pass to pager component

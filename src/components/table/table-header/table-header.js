@@ -23,7 +23,31 @@ class TableHeader extends React.Component {
      * @property align
      * @type {String}
      */
-    align: React.PropTypes.string
+    align: React.PropTypes.string,
+
+    name:  function(props, propName, componentName) {
+      if (props.sortable && !props[propName]) {
+        return new Error('Sortable columns require a prop of name of type String');
+      }
+      if (typeof props[propName] !== 'string') {
+        return new Error('name must be a String');
+      }
+    },
+
+    sortable: React.PropTypes.boolean,
+
+    // 'asc', 'desc'
+    sortOrder: React.PropTypes.String
+  }
+
+  static contextTypes = {
+    onSort: React.PropTypes.func
+  }
+
+  emitSortEvent = () => {
+    let columnToSort = this.props.name;
+    let sortOrder = this.props.sortOrder || 'asc';
+    this.context.onSort(columnToSort, sortOrder);
   }
 
   /**
@@ -39,7 +63,7 @@ class TableHeader extends React.Component {
     );
 
     return (
-      <th className={ className }>
+      <th className={ className } onClick={ this.emitSortEvent.bind(this) } name={ this.props.name }>
         { this.props.children }
       </th>
     );

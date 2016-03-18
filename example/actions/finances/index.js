@@ -30,14 +30,18 @@ let FinancesActions = {
 
   tableChange: (element, options) => {
     let currentPage = options.currentPage,
-        pageSize = options.pageSize;
+        pageSize = options.pageSize,
+        columnToSort = options.columnToSort,
+        sortOrder = options.sortOrder;
 
     Request
       .get('./countries')
       .query({
         page: currentPage,
         value: '',
-        rows: pageSize
+        rows: pageSize,
+        sord: sortOrder,
+        sidx: columnToSort
       })
       .end((err, response) => {
         Dispatcher.dispatch({
