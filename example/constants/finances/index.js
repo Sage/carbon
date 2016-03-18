@@ -7,5 +7,6 @@ export default {
   FINANCES_SAVE: 'financesSave',
   FLASH_OPENED: 'flashOpened',
   FLASH_CLOSED: 'flashClosed',
-  TOAST_CLOSED: 'toastClosed'
+  TOAST_CLOSED: 'toastClosed',
+  TABLE_CHANGE: 'tableChange'
 }

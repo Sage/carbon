@@ -1,3 +1,10 @@
+# 0.7.0
+
+# New Components
+
+* Pager
+* Table Ajax
+
 # 0.6.0
 
 ## Improve Date widget
