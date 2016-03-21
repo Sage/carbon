@@ -25,29 +25,61 @@ class TableHeader extends React.Component {
      */
     align: React.PropTypes.string,
 
+    /**
+     * Name of the column to sort. Should correspond to name in database.
+     *
+     * @property name
+     * @type {String}
+     */
     name:  function(props, propName, componentName) {
       if (props.sortable && !props[propName]) {
         return new Error('Sortable columns require a prop of name of type String');
       }
       if (typeof props[propName] !== 'string') {
-        return new Error('name must be a String');
+        return new Error('name must be a string');
       }
     },
 
+    /**
+     * Whether column is sortable.
+     *
+     * @property sortable
+     * @type {Boolean}
+     */
     sortable: React.PropTypes.boolean,
 
-    // 'asc', 'desc'
-    sortOrder: React.PropTypes.String
+    /**
+     * Order to sort in - either 'asc' (ascending) or 'desc' (descending)
+     *
+     * @property sortOrder
+     * @type {String}
+     */
+    sortOrder: React.PropTypes.string
   }
 
+  /**
+   * Sort handler passed from table context
+   *
+   * @property onSort
+   * @type {Function}
+   */
   static contextTypes = {
     onSort: React.PropTypes.func
   }
 
+  /**
+   * Emits sort event to parent context - table.
+   *
+   * @method emitSortEvent
+   */
   emitSortEvent = () => {
     let columnToSort = this.props.name;
     let sortOrder = this.props.sortOrder || 'asc';
     this.context.onSort(columnToSort, sortOrder);
+  }
+
+  get sortIconHTML() {
+    
   }
 
   /**
@@ -62,8 +94,11 @@ class TableHeader extends React.Component {
       { [`ui-table-header--align-${this.props.align}`]: this.props.align }
     );
 
+    let onClick = this.props.sortable ? this.emitSortEvent.bind(this) : '';
+
     return (
-      <th className={ className } onClick={ this.emitSortEvent.bind(this) } name={ this.props.name }>
+      <th className={ className } onClick={ onClick } name={ this.props.name }>
+        { sortIconHTML }
         { this.props.children }
       </th>
     );

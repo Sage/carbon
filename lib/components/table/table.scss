@@ -1,14 +1,23 @@
 @import "tables";
 @import "colors";
 
-.ui-table {
+.ui-table__wrapper {
   border-radius: $tables__border-radius;
-  background-color: $white;
   border: 1px solid $border-color;
+  overflow-x: scroll;
+}
+
+.ui-table__table {
+  background-color: $white;
   border-collapse: separate;
   border-spacing: 0;
   min-width: 100%;
   table-layout: fixed;
   width: auto;
   word-break: break-all;
+}
+
+.ui-table--pager {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
