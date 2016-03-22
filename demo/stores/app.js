@@ -14,6 +14,9 @@ let data = ImmutableHelper.parseJSON({
     open: true,
     text: "Sample flash notification."
   },
+  icon: {
+    type: 'info'
+  },
   link: {
     text: "Sample Link"
   },
