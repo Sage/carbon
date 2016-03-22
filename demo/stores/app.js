@@ -41,6 +41,9 @@ let data = ImmutableHelper.parseJSON({
   split_button: {
     text: "Main Action"
   },
+  tabs: {
+    tabData: [{}, {}]
+  },
   toast: {
     as: "warning",
     open: true,

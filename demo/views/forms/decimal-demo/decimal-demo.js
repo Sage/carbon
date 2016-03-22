@@ -6,6 +6,7 @@ import Example from './../../../components/example';
 import FormInputHelper from './../../../helpers/form-input-helper';
 
 import Decimal from 'components/decimal';
+import Presence from 'utils/validations/presence';
 
 class DecimalDemo extends React.Component {
 
@@ -28,7 +29,7 @@ class DecimalDemo extends React.Component {
    */
   get demo() {
     return (
-      <Decimal { ...FormInputHelper.demoProps(this, this.action) } />
+      <Decimal validations={ [ new Presence ] } { ...FormInputHelper.demoProps(this, this.action) } />
     );
   }
 
