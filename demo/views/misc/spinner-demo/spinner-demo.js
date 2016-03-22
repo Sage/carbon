@@ -42,8 +42,8 @@ class SpinnerDemo extends React.Component {
     let html = "import Spinner from 'carbon/lib/components/spinner';\n\n";
 
     html += "<Spinner";
-    html += ` as={ ${this.value('as')} }`
-    html += ` size={ ${this.value('size')} }`
+    html += ` as='${this.value('as')}'`
+    html += ` size='${this.value('size')}'`
     html += "/>\n\n";
 
     return html;
