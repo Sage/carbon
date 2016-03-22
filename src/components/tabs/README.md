@@ -35,7 +35,7 @@ set to true and therefore all tabs will be rendered. The selected tab will have
 a class of `selected` and all other tabs will have a class of `hidden` which sets
 their display to `none`.
 
-Setting `renderHiddenTabs to false will add a small performance improvement as
+Setting `renderHiddenTabs` to false will add a small performance improvement as
 all previously hidden tabs will not be rendered to the page.
 
 If you are using the tab component within a form all tabs should be rendered so that
