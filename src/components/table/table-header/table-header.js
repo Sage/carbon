@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Icon from './../../icon'
 
 /**
  * A TableHeader widget.
@@ -11,10 +12,27 @@ import classNames from 'classnames';
  * You can set a property of 'align' which should be a string. This will
  * align the content to either "left" or "right".
  *
+ * == Sortable Columns:
+ *
+ * To make a column sortable, pass a prop of 'sortable={ true }' to the corresponding
+ * TableHeader.
+ * Sortable columns also require a 'name' prop which must correspond to the database key.
+ *
+ * You can also provide a custom sortOrder - 'asc (ascending)' or 'desc (descending)'.
+ * By Default columns are sorted in ascending order.
+ *
+ * See the Table documentation for more information on hooking up a change handler
+ * to setup sort functionality in your app.
+ *
  * @class TableHeader
  * @constructor
  */
 class TableHeader extends React.Component {
+
+  /*
+   * Used to track first click of header for displaying sort icons
+   */
+  clicked = false;
 
   static propTypes = {
     /**
@@ -76,10 +94,23 @@ class TableHeader extends React.Component {
     let columnToSort = this.props.name;
     let sortOrder = this.props.sortOrder || 'asc';
     this.context.onSort(columnToSort, sortOrder);
+    this.clicked ? null : this.clicked = true;
   }
 
+  /**
+   * Returns sort icon HTML if column is sortable and header has been clicked.
+   *
+   * @method sortIconHTML
+   * @return {JSX} Icon JSX
+   */
   get sortIconHTML() {
-    
+    if (this.clicked && this.props.sortable) {
+      if (this.props.sortOrder === 'desc') {
+        return <Icon type='icon-sort-up' className='ui-table-header__icon'/>;
+      } else {
+        return <Icon type='icon-sort-down'  className='ui-table-header__icon'/>;
+      }
+    }
   }
 
   /**
@@ -91,15 +122,16 @@ class TableHeader extends React.Component {
     let className = classNames(
       "ui-table-header",
       this.props.className,
-      { [`ui-table-header--align-${this.props.align}`]: this.props.align }
+      { [`ui-table-header--align-${this.props.align}`]: this.props.align },
+      this.props.sortable ? 'ui-table-header--sortable' : ''
     );
 
     let onClick = this.props.sortable ? this.emitSortEvent.bind(this) : '';
 
     return (
       <th className={ className } onClick={ onClick } name={ this.props.name }>
-        { sortIconHTML }
         { this.props.children }
+        { this.sortIconHTML }
       </th>
     );
   }
