@@ -8,7 +8,7 @@
 import Icon from 'carbon/lib/components/icon';
 ```
 
-*  To render a Icon:
+*  To render an Icon:
 
 ```javascript
    <Icon type='arrow' />
