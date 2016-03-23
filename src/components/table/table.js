@@ -4,7 +4,6 @@ import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import Pager from './../pager';
-import { assign } from 'lodash';
 
 /**
  * A Table widget.
@@ -61,6 +60,11 @@ import { assign } from 'lodash';
  *   showPageSizeSelection={ false }          // Options  - Show page size selection
  *   pageSizeSelectionOptions={ sizeOptions } // Optional - Page Size Options
  * />
+ *
+ * == Sorting
+ *
+ *  To enable column sorting, you will need to configure the Table Header component.
+ * See the Table Header component documentation.
  *
  * @class Table
  * @constructor
@@ -284,10 +288,8 @@ class Table extends React.Component {
   get emitOptions() {
     return {
       // What if paginate if false - think about when next change functionality is added
-      currentPage: this.props.currentPage,
-      pageSize: this.props.pageSize,
-      columnToSort: this.props.columnToSort,
-      sortOrder: this.props.sortOrder
+      currentPage: this.props.currentPage   || '',
+      pageSize: this.props.pageSize         || ''
     };
   }
 

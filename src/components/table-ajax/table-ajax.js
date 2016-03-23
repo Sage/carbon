@@ -110,6 +110,29 @@ class TableAjax extends Table {
     this.resizeTable();
   }
 
+  static childContextTypes = {
+    /**
+     * Defines a context object for child components of the table component.
+     * https://facebook.github.io/react/docs/context.html
+     *
+     * @property table
+     * @type {Object}
+     */
+    onSort: React.PropTypes.func
+  }
+
+  /**
+   * Returns table object to child components.
+   *
+   * @method getChildContext
+   * @return {void}
+   */
+  getChildContext = () => {
+    return {
+      onSort: this.onSort
+    };
+  }
+
   /**
    * Get pageSize for table
    * @override
@@ -135,7 +158,8 @@ class TableAjax extends Table {
 
     this.setState({
       currentPage: options.currentPage,
-      pageSize: options.pageSize
+      pageSize: options.pageSize,
+      sortOrder: options.sortOrder
     });
 
     this.stopTimeout();
@@ -192,7 +216,10 @@ class TableAjax extends Table {
   get emitOptions() {
     return {
       currentPage: this.state.currentPage,
-      pageSize: this.state.pageSize
+      pageSize: this.state.pageSize,
+      columnToSort: this.props.columnToSort,
+      sortOrder: this.props.sortOrder
+
     };
   }
 

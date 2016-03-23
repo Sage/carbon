@@ -43,10 +43,10 @@ class Icon extends React.Component {
       case 'maintenance':
         icon = this.renderMaintenanceIcon;
         break;
-      case 'icon-sort-up':
+      case 'sort-up':
         icon = this.renderSortUpIcon;
         break;
-      case 'icon-sort-down':
+      case 'sort-down':
         icon = this.renderSortDownIcon;
         break;
       default:
@@ -105,7 +105,7 @@ class Icon extends React.Component {
   get renderSortDownIcon() {
     return {
       __html:
-        '<svg width="10px" height="11px" viewBox="0 0 10 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
+        '<svg class="ui-icon__svg ui-icon__svg--sort-down" width="10px" height="11px" viewBox="0 0 10 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
           '<title>sort-down</title>' +
             '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">' +
               '<g id="Paginated-Grid" sketch:type="MSArtboardGroup" transform="translate(-511.000000, -164.000000)" fill="#fff">' +
@@ -123,7 +123,7 @@ class Icon extends React.Component {
   get renderSortUpIcon() {
     return {
       __html:
-      '<svg width="10px" height="11px" viewBox="0 0 10 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
+      '<svg class="ui-icon__svg ui-icon__svg--sort-up" width="10px" height="11px" viewBox="0 0 10 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
         '<title>sort-up</title>' +
           '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">' +
             '<g id="Paginated-Grid" sketch:type="MSArtboardGroup" transform="translate(-511.000000, -164.000000)" fill="#fff">' +
@@ -135,7 +135,7 @@ class Icon extends React.Component {
             '</g>'+
           '</g>' +
       '</svg>'
-    }
+    };
   }
 
   /**

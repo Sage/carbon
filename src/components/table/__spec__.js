@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 
 describe('Table', () => {
-  let instance, instancePager, spy;
+  let instance, instancePager, instanceSortable, spy;
 
   beforeEach(() => {
     spy = jasmine.createSpy('onChange spy');
@@ -35,6 +35,16 @@ describe('Table', () => {
         foo
       </Table>
     );
+
+    instanceSortable = TestUtils.renderIntoDocument(
+      <Table className='bar' onChange={ spy }>
+        <TableRow key='header'>
+          <TableHeader sortable={true} name='name'>
+            Names
+          </TableHeader>
+        </TableRow>
+      </Table>
+    )
   });
 
   describe('componentDidMount', () => {
@@ -44,7 +54,7 @@ describe('Table', () => {
       expect(instance.resizeTable).toHaveBeenCalled();
     });
   });
-  
+
   describe('componentDidUpdate', () => {
     describe('when table height should reset', () => {
       it('calls to reset the table height', () => {
@@ -156,6 +166,18 @@ describe('Table', () => {
       instancePager.onPagination('2', '25');
 
       expect(spy).toHaveBeenCalledWith('pager', options);
+    });
+  });
+
+  describe('onSort', () => {
+    it('formats the sort options for emitting', () => {
+      let options = instance.emitOptions;
+      options.columnToSort = 'name';
+      options.sortOrder = 'desc';
+
+      instanceSortable.onSort('name', 'desc');
+
+      expect(spy).toHaveBeenCalledWith('table', options);
     });
   });
 

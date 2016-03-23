@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from './../../icon'
+import Icon from './../../icon';
 
 /**
  * A TableHeader widget.
@@ -31,6 +31,9 @@ class TableHeader extends React.Component {
 
   /*
    * Used to track first click of header for displaying sort icons
+   *
+   * @property clicked
+   * @type {Boolean}
    */
   clicked = false;
 
@@ -49,7 +52,7 @@ class TableHeader extends React.Component {
      * @property name
      * @type {String}
      */
-    name:  function(props, propName, componentName) {
+    name:  function(props, propName) {
       if (props.sortable && !props[propName]) {
         return new Error('Sortable columns require a prop of name of type String');
       }
@@ -106,9 +109,9 @@ class TableHeader extends React.Component {
   get sortIconHTML() {
     if (this.clicked && this.props.sortable) {
       if (this.props.sortOrder === 'desc') {
-        return <Icon type='icon-sort-up' className='ui-table-header__icon'/>;
+        return <Icon type='sort-up' className='ui-table-header__icon'/>;
       } else {
-        return <Icon type='icon-sort-down'  className='ui-table-header__icon'/>;
+        return <Icon type='sort-down'  className='ui-table-header__icon'/>;
       }
     }
   }
@@ -122,14 +125,16 @@ class TableHeader extends React.Component {
     let className = classNames(
       "ui-table-header",
       this.props.className,
-      { [`ui-table-header--align-${this.props.align}`]: this.props.align },
-      this.props.sortable ? 'ui-table-header--sortable' : ''
+      { [`ui-table-header--align-${this.props.align}`]: this.props.align }
     );
 
     let onClick = this.props.sortable ? this.emitSortEvent.bind(this) : '';
 
     return (
-      <th className={ className } onClick={ onClick } name={ this.props.name }>
+      <th className={ className }
+          onClick={ onClick }
+          name={ this.props.name }
+          ref={ (header) =>  this._header = header }>
         { this.props.children }
         { this.sortIconHTML }
       </th>
