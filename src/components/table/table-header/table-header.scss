@@ -9,7 +9,6 @@
   border-top: none;
   box-sizing: border-box;
   color: $white;
-  cursor: pointer;
   font-weight: normal;
   height: $tables__header-height;
   line-height: 10px;
@@ -49,4 +48,8 @@
   margin-left: 4px;
   position: relative;
   vertical-align: middle;
+}
+
+.ui-table-header--sortable {
+  cursor: pointer;
 }

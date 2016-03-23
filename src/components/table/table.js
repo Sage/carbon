@@ -162,7 +162,9 @@ class Table extends React.Component {
      * @property table
      * @type {Object}
      */
-    onSort: React.PropTypes.func
+    onSort: React.PropTypes.func,
+    sortedColumn: React.PropTypes.string,
+    sortOrder: React.PropTypes.string
   }
 
   /**
@@ -173,7 +175,9 @@ class Table extends React.Component {
    */
   getChildContext = () => {
     return {
-      onSort: this.onSort
+      onSort: this.onSort,
+      sortedColumn: this.sortedColumn,
+      sortOrder: this.sortOrder
     };
   }
 
@@ -272,9 +276,17 @@ class Table extends React.Component {
     this.emitOnChangeCallback('pager', options);
   }
 
-  onSort = (columnToSort, sortOrder) => {
+  get sortedColumn() {
+    return this.props.sortedColumn;
+  }
+
+  get sortOrder() {
+    return this.props.sortOrder;
+  }
+
+  onSort = (sortedColumn, sortOrder) => {
     let options = this.emitOptions;
-    options.columnToSort = columnToSort;
+    options.sortedColumn = sortedColumn;
     options.sortOrder = sortOrder;
     this.emitOnChangeCallback('table', options);
   }
@@ -287,9 +299,10 @@ class Table extends React.Component {
    */
   get emitOptions() {
     return {
-      // What if paginate if false - think about when next change functionality is added
       currentPage: this.props.currentPage   || '',
-      pageSize: this.props.pageSize         || ''
+      pageSize: this.props.pageSize         || '',
+      sortOrder: this.props.sortOrder       || '',
+      sortedColumn: this.props.sortedColumn || ''
     };
   }
 

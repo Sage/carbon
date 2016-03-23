@@ -67,15 +67,7 @@ class TableHeader extends React.Component {
      * @property sortable
      * @type {Boolean}
      */
-    sortable: React.PropTypes.boolean,
-
-    /**
-     * Order to sort in - either 'asc' (ascending) or 'desc' (descending)
-     *
-     * @property sortOrder
-     * @type {String}
-     */
-    sortOrder: React.PropTypes.string
+    sortable: React.PropTypes.boolean
   }
 
   /**
@@ -85,7 +77,9 @@ class TableHeader extends React.Component {
    * @type {Function}
    */
   static contextTypes = {
-    onSort: React.PropTypes.func
+    onSort: React.PropTypes.func,
+    sortedColumn: React.PropTypes.string,
+    sortOrder: React.PropTypes.string
   }
 
   /**
@@ -94,10 +88,18 @@ class TableHeader extends React.Component {
    * @method emitSortEvent
    */
   emitSortEvent = () => {
-    let columnToSort = this.props.name;
-    let sortOrder = this.props.sortOrder || 'asc';
-    this.context.onSort(columnToSort, sortOrder);
-    this.clicked ? null : this.clicked = true;
+    let sortOrder = 'asc';
+
+    // If this is the current sorted column. flip order
+    if (this.sorted) {
+      sortOrder = this.context.sortOrder === 'asc' ? 'desc' : 'asc';
+    }
+
+    this.context.onSort(this.props.name, sortOrder);
+  }
+
+  get sorted() {
+    return this.props.sortable && this.context.sortedColumn === this.props.name;
   }
 
   /**
@@ -107,12 +109,9 @@ class TableHeader extends React.Component {
    * @return {JSX} Icon JSX
    */
   get sortIconHTML() {
-    if (this.clicked && this.props.sortable) {
-      if (this.props.sortOrder === 'desc') {
-        return <Icon type='sort-up' className='ui-table-header__icon'/>;
-      } else {
-        return <Icon type='sort-down'  className='ui-table-header__icon'/>;
-      }
+    if (this.sorted) {
+      let type = this.context.sortOrder === 'desc' ? 'sort-up' : 'sort-down';
+      return <Icon type={ type } className='ui-table-header__icon'/>;
     }
   }
 
@@ -125,7 +124,10 @@ class TableHeader extends React.Component {
     let className = classNames(
       "ui-table-header",
       this.props.className,
-      { [`ui-table-header--align-${this.props.align}`]: this.props.align }
+      {
+        [`ui-table-header--align-${this.props.align}`]: this.props.align,
+        'ui-table-header--sortable': this.props.sortable
+      }
     );
 
     let onClick = this.props.sortable ? this.emitSortEvent.bind(this) : '';
