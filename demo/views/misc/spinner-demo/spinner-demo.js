@@ -3,10 +3,11 @@ import { connect } from 'utils/flux';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
+import AsDropdown from './../../../components/as-dropdown';
+import SizeDropdown from './../../../components/size-dropdown';
 
 import Spinner from 'components/spinner';
 import Row from 'components/row';
-import RadioButton from 'components/radio-button';
 
 class SpinnerDemo extends React.Component {
 
@@ -55,27 +56,9 @@ class SpinnerDemo extends React.Component {
   get controls() {
     return (
       <div>
-        <h2>Size</h2>
         <Row>
-          <RadioButton onClick={ this.action.bind(this, 'size') } name='size' value='small' label='Small'/>
-          <RadioButton onClick={ this.action.bind(this, 'size') } name='size' value='smed'  label='Small-Medium' />
-          <RadioButton defaultChecked={ true } onClick={ this.action.bind(this, 'size') } name='size' value='lmed'  label='Large-Medium'/>
-          <RadioButton onClick={ this.action.bind(this, 'size') } name='size' value='large' label='Large' />
-        </Row>
-
-        <h2>As</h2>
-        <Row>
-          <RadioButton defaultChecked={ true } onClick={ this.action.bind(this, 'as') } name='as' value='info' label='Info'/>
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='error' label='Error' />
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='help' label='Help'/>
-        </Row>
-        <Row>
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='maintenance' label='Maintenance' />
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='new' label='New' />
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='success' label='Success' />
-        </Row>
-        <Row>
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='warning' label='Warning' />
+          <SizeDropdown value={ this.value('size') } onChange={ this.action.bind(this, 'size') } />
+          <AsDropdown value={ this.value('as') } onChange={ this.action.bind(this, 'as') } />
         </Row>
       </div>
     );

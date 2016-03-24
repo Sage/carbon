@@ -3,11 +3,11 @@ import { connect } from 'utils/flux';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
+import AsDropdown from './../../../components/as-dropdown';
 
 import Pill from 'components/pill';
 import Row from 'components/row';
 import Textbox from 'components/textbox';
-import RadioButton from 'components/radio-button';
 
 class PillDemo extends React.Component {
   /**
@@ -66,21 +66,7 @@ class PillDemo extends React.Component {
             onChange={ this.action.bind(this, 'text') }
             columnSpan="2"
           />
-
-        </Row>
-        <h2>As</h2>
-        <Row>
-          <RadioButton defaultChecked={ true } onClick={ this.action.bind(this, 'as') } name='as' value='info' label='Info'/>
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='error' label='Error' />
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='help' label='Help'/>
-        </Row>
-        <Row>
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='maintenance' label='Maintenance' />
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='new' label='New' />
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='success' label='Success' />
-        </Row>
-        <Row>
-          <RadioButton onClick={ this.action.bind(this, 'as') } name='as' value='warning' label='Warning' />
+          <AsDropdown value={ this.value('as') } onChange={ this.action.bind(this, 'as') } />
         </Row>
       </div>
     );
