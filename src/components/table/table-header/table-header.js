@@ -38,6 +38,7 @@ class TableHeader extends React.Component {
   clicked = false;
 
   static propTypes = {
+
     /**
      * Aligns the content of the cell (can be "left" or "right").
      *
@@ -52,12 +53,14 @@ class TableHeader extends React.Component {
      * @property name
      * @type {String}
      */
-    name:  function(props, propName) {
-      if (props.sortable && !props[propName]) {
-        return new Error('Sortable columns require a prop of name of type String');
-      }
-      if (typeof props[propName] !== 'string') {
-        return new Error('name must be a string');
+    name: function(props, propName, componentName) {
+      if (props.sortable) {
+        if (!props[propName]) {
+          return new Error(`Sortable columns require a prop of name of type String. See render of ${componentName}`);
+        }
+        if (typeof props[propName] !== 'string') {
+          return new Error('name must be a string');
+        }
       }
     },
 
@@ -67,7 +70,7 @@ class TableHeader extends React.Component {
      * @property sortable
      * @type {Boolean}
      */
-    sortable: React.PropTypes.boolean
+    sortable: React.PropTypes.bool
   }
 
   /**
@@ -137,8 +140,9 @@ class TableHeader extends React.Component {
           onClick={ onClick }
           name={ this.props.name }
           ref={ (header) =>  this._header = header }>
+        { this.props.align === 'right' ? this.sortIconHTML : null }
         { this.props.children }
-        { this.sortIconHTML }
+        { this.props.align !== 'right' ? this.sortIconHTML : null }
       </th>
     );
   }

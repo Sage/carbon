@@ -118,7 +118,9 @@ class TableAjax extends Table {
      * @property table
      * @type {Object}
      */
-    onSort: React.PropTypes.func
+    onSort: React.PropTypes.func,
+    sortedColumn: React.PropTypes.string,
+    sortOrder: React.PropTypes.string
   }
 
   /**
@@ -129,7 +131,9 @@ class TableAjax extends Table {
    */
   getChildContext = () => {
     return {
-      onSort: this.onSort
+      onSort: this.onSort,
+      sortedColumn: this.sortedColumn,
+      sortOrder: this.sortOrder
     };
   }
 
@@ -142,6 +146,14 @@ class TableAjax extends Table {
    */
   get pageSize() {
     return this.state.pageSize;
+  }
+
+  get sortedColumn() {
+    return this.state.sortedColumn;
+  }
+
+  get sortOrder() {
+    return this.state.sortOrder;
   }
 
   /**
@@ -159,21 +171,19 @@ class TableAjax extends Table {
     this.setState({
       currentPage: options.currentPage,
       pageSize: options.pageSize,
-      sortOrder: options.sortOrder
+      sortOrder: options.sortOrder,
+      sortedColumn: options.sortedColumn
     });
 
     this.stopTimeout();
     this.timeout = setTimeout(() => {
       Request
         .get(this.props.path)
+        .set('Accept', 'application/json')
         .query(this.queryParams(element, options))
         .end((err, response) => {
-          if (!err) {
-            let data = response.body.data[0];
-            this.props.onChange(data);
-            this.setState({totalRecords: String(data.records)});
-            if (resetHeight) { this.resetTableHeight(); }
-          }
+          this.handleResponse(err, response);
+          if (resetHeight) { this.resetTableHeight(); }
         });
     }, 250);
   }
@@ -190,6 +200,14 @@ class TableAjax extends Table {
     }
   }
 
+  handleResponse = (err, response) => {
+    if (!err) {
+      let data = response.body;
+      this.props.onChange(data);
+      this.setState({totalRecords: String(data.records)});
+    }
+  }
+
   /**
    * Formatted params for server request
    *
@@ -202,6 +220,8 @@ class TableAjax extends Table {
     return {
       page: options.currentPage,
       value: '',
+      sord: options.sortOrder,
+      sidx: options.sortedColumn,
       rows: options.pageSize
     };
   }
@@ -217,9 +237,8 @@ class TableAjax extends Table {
     return {
       currentPage: this.state.currentPage,
       pageSize: this.state.pageSize,
-      columnToSort: this.props.columnToSort,
-      sortOrder: this.props.sortOrder
-
+      sortedColumn: this.state.sortedColumn,
+      sortOrder: this.state.sortOrder
     };
   }
 
