@@ -1,4 +1,5 @@
 import React from 'react';
+import PillDemo from './pill-demo';
 
 class Misc extends React.Component {
   /**
@@ -8,6 +9,7 @@ class Misc extends React.Component {
     return (
       <div>
         <h1>Misc</h1>
+        <PillDemo />
       </div>
     );
   }

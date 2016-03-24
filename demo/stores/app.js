@@ -24,6 +24,10 @@ let data = ImmutableHelper.parseJSON({
     as: "warning",
     text: "Sample message."
   },
+  pill: {
+    as: 'info',
+    text: 'Pill'
+  },
   rainbow: {
     data: [{
       y: "50",
