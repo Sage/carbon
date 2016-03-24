@@ -1,0 +1,4 @@
+{
+  "main": "./pill-demo.js",
+  "style": "./pill-demo.scss"
+}
