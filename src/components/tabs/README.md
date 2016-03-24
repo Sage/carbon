@@ -42,8 +42,8 @@ If you are using the tab component within a form all tabs should be rendered so 
 form validation can work correctly.
 
 The tabs widget also allows you to select a tab on page load. By default this is set
-to the first tab. To set a different tab on page load pass a tabId to the
-initialSelectedTabId prop as shown in the example below.
+to the first tab. To set a different tab on page load pass a `tabId` to the
+`initialSelectedTabId` prop as shown in the example below.
 
 To render a Tabs Widget with Options:
 
