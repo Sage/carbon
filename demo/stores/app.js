@@ -9,6 +9,9 @@ let data = ImmutableHelper.parseJSON({
   button: {
     text: "Action"
   },
+  collapsible_pod: {
+    title: 'Hello World!'
+  },
   flash: {
     as: "warning",
     open: true,
@@ -47,6 +50,10 @@ let data = ImmutableHelper.parseJSON({
   },
   tabs: {
     tabData: [{}, {}]
+  },
+  spinner: {
+    as: 'info',
+    size: 'lmed'
   },
   toast: {
     as: "warning",

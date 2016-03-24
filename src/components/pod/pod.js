@@ -34,7 +34,25 @@ class Pod extends React.Component {
      * @property collapsed
      * @type {Boolean}
      */
-    collapsed: React.PropTypes.bool
+    collapsed: React.PropTypes.bool,
+
+    /**
+     * Title for the pod h2 element
+     * always shown
+     *
+     * @property title
+     * @type {String}
+     */
+    title: React.PropTypes.string,
+
+    /**
+     * Description for the pod
+     * Not shown if collapsed
+     *
+     * @property title
+     * @type {String}
+     */
+    description: React.PropTypes.string
   }
 
   /**
