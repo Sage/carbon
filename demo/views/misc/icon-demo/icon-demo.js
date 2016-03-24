@@ -30,7 +30,9 @@ class IconDemo extends React.Component {
   get demo() {
     let type = this.value('type')
     return (
-      <Icon type={ type } />
+      <div className='icon-demo__icon'>
+        <Icon type={ type } />
+      </div>
     );
   }
 
@@ -104,6 +106,7 @@ class IconDemo extends React.Component {
       <Dropdown
         label='Type'
         value={ this.value('type') }
+        labelInline={ true }
         options={ options }
         onChange={ this.action.bind(this, 'type') }
       />
