@@ -48,6 +48,10 @@ let data = ImmutableHelper.parseJSON({
   split_button: {
     text: "Main Action"
   },
+  spinner: {
+    as: 'info',
+    size: 'lmed'
+  },
   toast: {
     as: "warning",
     open: true,
