@@ -276,14 +276,33 @@ class Table extends React.Component {
     this.emitOnChangeCallback('pager', options);
   }
 
+  /**
+   * Returns the currently sorted column.
+   *
+   * @method sortedColumn
+   * @return {String}
+   */
   get sortedColumn() {
     return this.props.sortedColumn;
   }
 
+  /**
+   * Returns the current sort order.
+   *
+   * @method sortOrder
+   * @return {String}
+   */
   get sortOrder() {
     return this.props.sortOrder;
   }
 
+  /**
+   * Handles what happens on sort.
+   *
+   * @method onSort
+   * @param {String} sortedColumn
+   * @param {String} sortOrder
+   */
   onSort = (sortedColumn, sortOrder) => {
     let options = this.emitOptions;
     options.sortedColumn = sortedColumn;
@@ -305,8 +324,6 @@ class Table extends React.Component {
       sortedColumn: this.props.sortedColumn || ''
     };
   }
-
-
 
   /**
    * Props to pass to pager component

@@ -29,14 +29,6 @@ import Icon from './../../icon';
  */
 class TableHeader extends React.Component {
 
-  /*
-   * Used to track first click of header for displaying sort icons
-   *
-   * @property clicked
-   * @type {Boolean}
-   */
-  clicked = false;
-
   static propTypes = {
 
     /**
@@ -101,6 +93,12 @@ class TableHeader extends React.Component {
     this.context.onSort(this.props.name, sortOrder);
   }
 
+  /**
+   * Determines if this column is currently sorted.
+   *
+   * @method sorted
+   * @return {Boolean}
+   */
   get sorted() {
     return this.props.sortable && this.context.sortedColumn === this.props.name;
   }

@@ -5,7 +5,7 @@ import { Table, TableRow } from './../table';
 import TableHeader from './table-header';
 import Icon from './../../icon';
 
-fdescribe('TableHeader', () => {
+describe('TableHeader', () => {
   let instance, instanceSortable, changeSpy;
 
   beforeEach(() => {

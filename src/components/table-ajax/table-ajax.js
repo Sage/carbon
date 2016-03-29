@@ -148,10 +148,22 @@ class TableAjax extends Table {
     return this.state.pageSize;
   }
 
+  /**
+   * Returns the currently sorted column.
+   *
+   * @method sortedColumn
+   * @return {String}
+   */
   get sortedColumn() {
     return this.state.sortedColumn;
   }
 
+  /**
+   * Returns the current sort order.
+   *
+   * @method sortOrder
+   * @return {String}
+   */
   get sortOrder() {
     return this.state.sortOrder;
   }
@@ -200,11 +212,18 @@ class TableAjax extends Table {
     }
   }
 
+  /**
+   * Handles what happens for an error.
+   *
+   * @method handlerResponse
+   * @param {Object} err
+   * @param {Object} response
+   */
   handleResponse = (err, response) => {
     if (!err) {
       let data = response.body;
       this.props.onChange(data);
-      this.setState({totalRecords: String(data.records)});
+      this.setState({ totalRecords: String(data.records) });
     }
   }
 
