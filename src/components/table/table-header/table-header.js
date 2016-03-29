@@ -18,7 +18,7 @@ import Icon from './../../icon';
  * TableHeader.
  * Sortable columns also require a 'name' prop which must correspond to the database key.
  *
- * You can also provide a custom sortOrder - 'asc (ascending)' or 'desc (descending)'.
+ * You can also provide a custom sortOrder - 'asc' (ascending) or 'desc' (descending).
  * By Default columns are sorted in ascending order.
  *
  * See the Table documentation for more information on hooking up a change handler
@@ -83,7 +83,7 @@ class TableHeader extends React.Component {
    * @method emitSortEvent
    */
   emitSortEvent = () => {
-    let sortOrder = 'asc';
+    let sortOrder = this.context.sortOrder || 'asc';
 
     // If this is the current sorted column. flip order
     if (this.sorted) {
@@ -104,7 +104,7 @@ class TableHeader extends React.Component {
   }
 
   /**
-   * Returns sort icon HTML if column is sortable and header has been clicked.
+   * Returns sort icon HTML if column is sortable and has been sorted.
    *
    * @method sortIconHTML
    * @return {JSX} Icon JSX
@@ -125,10 +125,10 @@ class TableHeader extends React.Component {
     let className = classNames(
       "ui-table-header",
       this.props.className,
-      {
-        [`ui-table-header--align-${this.props.align}`]: this.props.align,
-        'ui-table-header--sortable': this.props.sortable
-      }
+        {
+          [`ui-table-header--align-${this.props.align}`]: this.props.align,
+          'ui-table-header--sortable': this.props.sortable
+        }
     );
 
     let onClick = this.props.sortable ? this.emitSortEvent.bind(this) : '';

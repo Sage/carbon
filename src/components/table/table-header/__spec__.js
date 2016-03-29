@@ -5,8 +5,8 @@ import { Table, TableRow } from './../table';
 import TableHeader from './table-header';
 import Icon from './../../icon';
 
-describe('TableHeader', () => {
-  let instance, instanceSortable, changeSpy;
+fdescribe('TableHeader', () => {
+  let instance, instanceSortable, instanceCustomSort, sortableColumn, changeSpy;
 
   beforeEach(() => {
     changeSpy = jasmine.createSpy('changeSpy');
@@ -22,6 +22,14 @@ describe('TableHeader', () => {
     instanceSortable = TestUtils.renderIntoDocument(
       <Table onChange={ changeSpy }>
         <TableRow>
+          <TableHeader sortable={ true } name='name' />
+        </TableRow>
+      </Table>
+    );
+
+    instanceCustomSort = TestUtils.renderIntoDocument(
+      <Table onChange={ changeSpy } sortOrder='desc'>
+        <TableRow>
           <TableHeader sortable={ true } name='name'/>
         </TableRow>
       </Table>
@@ -29,53 +37,82 @@ describe('TableHeader', () => {
   });
 
   describe('emitSortEvent', () => {
-    let sortableColumn, sortableTable;
-
-    beforeEach(() => {
-      sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceSortable, 'th');
-      sortableTable = ReactDOM.findDOMNode(instanceSortable);
-    });
-
     describe('if no sortOrder has been specified', () => {
+      beforeEach(() => {
+        sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceSortable, 'th');
+      });
+
       it('calls the tables onSort function with the default params', () => {
         TestUtils.Simulate.click(sortableColumn);
         expect(instanceSortable.props.onChange).toHaveBeenCalledWith(
           'table', {
             currentPage: '',
             pageSize: '',
-            columnToSort: 'name',
+            sortedColumn: 'name',
             sortOrder: 'asc'
           }
         );
       });
 
-      it('sets clicked property if not already set', () => {
-        let t = TestUtils;
-        debugger
-        TestUtils.Simulate.click(sortableColumn);
-        expect(this.clicked).toEqual(true);
+      xdescribe('if the column has already has been sorted', () => {
+        let sortableHeader;
+
+        it('flips the sortOrder when clicked', () => {
+          sortableHeader = TestUtils.scryRenderedComponentsWithType(instanceSortable, TableHeader)[0];
+          sortableHeader.emitSortEvent()
+          TestUtils.Simulate.click(sortableColumn);
+          expect(instanceSortable.props.onChange).toHaveBeenCalledWith(
+            'table', {
+              currentPage: '',
+              pageSize: '',
+              sortedColumn: 'name',
+              sortOrder: 'desc'
+            }
+          );
+        });
       });
     });
 
     describe('if a sortOrder has been passed', () => {
-      it('sends the passed in sortOrder prop to the onSort function', () => {
+      beforeEach(() => {
+        sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceCustomSort, 'th');
+      });
 
+      it('sends the passed in sortOrder prop to the onSort function', () => {
+        TestUtils.Simulate.click(sortableColumn);
+        expect(instanceCustomSort.props.onChange).toHaveBeenCalledWith(
+          'table', {
+            currentPage: '',
+            pageSize: '',
+            sortedColumn: 'name',
+            sortOrder: 'desc'
+          }
+        );
       });
     });
   });
 
   describe('sortIconHTML', () => {
     describe('if a column is sortable', () => {
+      beforeEach(() => {
+        sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceSortable, 'th');
+      });
+
       describe('before a sortable header is clicked', () => {
         it('does not display an icon', () => {
-
+          let icon = TestUtils.scryRenderedDOMComponentsWithTag(instanceSortable, 'icon');
+          expect(icon).toEqual([]);
         });
       });
 
       describe('after a sortable header has been clicked', () => {
         describe('when the sortOrder is descending', () => {
           it('adds the sort-up icon', () => {
-
+            TestUtils.Simulate.click(sortableColumn);
+            debugger
+            let t = TestUtils;
+            let icon = TestUtils.scryRenderedDOMComponentsWithTag(instanceSortable, 'icon');
+            expect(icon).toEqual([]);
           });
         });
 
