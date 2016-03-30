@@ -1,4 +1,6 @@
 import React from 'react';
+import TableDemo from './table-demo';
+import TableAjaxDemo from './table-ajax-demo';
 
 class Grids extends React.Component {
   /**
@@ -8,6 +10,8 @@ class Grids extends React.Component {
     return (
       <div>
         <h1>Grids</h1>
+        <TableDemo />
+        <TableAjaxDemo />
       </div>
     );
   }

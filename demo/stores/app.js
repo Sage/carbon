@@ -48,15 +48,29 @@ let data = ImmutableHelper.parseJSON({
   row: {
     columnData: [{}, {}, {}, {}]
   },
-  split_button: {
-    text: "Main Action"
-  },
-  tabs: {
-    tabData: [{}, {}]
-  },
   spinner: {
     as: 'info',
     size: 'lmed'
+  },
+  split_button: {
+    text: "Main Action"
+  },
+  table: {
+    current_page: "1",
+    data: [],
+    paginate: false,
+    page_size: "10",
+    show_page_size_selection: false,
+    total_records: "0"
+  },
+  table_ajax: {
+    data: [],
+    paginate: true,
+    page_size: "10",
+    show_page_size_selection: false
+  },
+  tabs: {
+    tabData: [{}, {}]
   },
   toast: {
     as: "warning",
@@ -79,6 +93,25 @@ class AppStore extends Store {
    */
   [AppConstants.APP_DELETE_ROW](action) {
     this.data = this.data.deleteIn(action.key);
+  }
+
+  /**
+   * @method APP_TABLE_UPDATED
+   */
+  [AppConstants.APP_TABLE_UPDATED](action) {
+    let data = ImmutableHelper.parseJSON(action.items);
+    this.data = this.data.setIn([action.component, "data"], data);
+  }
+
+  /**
+   * @method APP_TABLE_MANUALLY_UPDATED
+   */
+  [AppConstants.APP_TABLE_MANUALLY_UPDATED](action) {
+    let data = ImmutableHelper.parseJSON(action.items);
+    this.data = this.data.setIn([action.component, "data"], data);
+    this.data = this.data.setIn([action.component, "current_page"], action.page);
+    this.data = this.data.setIn([action.component, "total_records"], action.records);
+    this.data = this.data.setIn([action.component, "page_size"], action.pageSize);
   }
 }
 
