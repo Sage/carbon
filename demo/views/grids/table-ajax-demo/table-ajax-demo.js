@@ -6,6 +6,8 @@ import Example from './../../../components/example';
 import { TableAjax, TableHeader, TableRow, TableCell } from 'components/table-ajax';
 
 import Row from 'components/row';
+import Filter from 'components/filter';
+import Textbox from 'components/textbox';
 import Checkbox from 'components/checkbox';
 
 class TableAjaxDemo extends React.Component {
@@ -27,16 +29,28 @@ class TableAjaxDemo extends React.Component {
    * @method demo
    */
   get demo() {
+    let filter = this.value('filter');
+
     return (
-      <TableAjax
-        showPageSizeSelection={ this.value('show_page_size_selection') }
-        pageSize={ this.value('page_size') }
-        paginate={ this.value('paginate') }
-        path="/countries"
-        onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
-      >
-        { this.tableRows }
-      </TableAjax>
+      <div>
+        <TableAjax
+          filter={ this.value('filter') }
+          showPageSizeSelection={ this.value('show_page_size_selection') }
+          pageSize={ this.value('page_size') }
+          paginate={ this.value('paginate') }
+          path="/countries"
+          onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
+        >
+          { this.tableRows }
+        </TableAjax>
+
+        <Filter>
+          <Textbox
+            value={ filter.get('name') }
+            onChange={ this.action.bind(this, ['filter', 'name']) }
+          />
+        </Filter>
+      </div>
     );
   }
 

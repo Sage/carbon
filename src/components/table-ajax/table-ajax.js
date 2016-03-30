@@ -1,5 +1,7 @@
 import React from 'react';
 import Request from 'superagent';
+import Immutable from 'immutable';
+import serialize from './../../utils/helpers/serialize';
 import { Table, TableRow, TableCell, TableHeader } from './../table';
 
 /**
@@ -96,7 +98,7 @@ class TableAjax extends Table {
    */
   componentDidMount() {
     super.componentDidMount();
-    this.emitOnChangeCallback('data', this.emitOptions);
+    this.emitOnChangeCallback('data', this.emitOptions, 0);
   }
 
   /**
@@ -106,7 +108,12 @@ class TableAjax extends Table {
    * @method componentDidUpdate
    * @return {Void}
    */
-  componentDidUpdate() {
+  componentDidUpdate(nextProps) {
+    // if filter has changed, update the data
+    if (!Immutable.is(this.props.filter, nextProps.filter)) {
+      this.emitOnChangeCallback('data', this.emitOptions);
+    }
+
     this.resizeTable();
   }
 
@@ -130,7 +137,7 @@ class TableAjax extends Table {
    * @param {Object} options base and updated options
    * @return {Void}
    */
-  emitOnChangeCallback = (element, options) => {
+  emitOnChangeCallback = (element, options, timeout=250) => {
     let resetHeight = Number(options.pageSize) < Number(this.pageSize);
 
     this.setState({
@@ -151,7 +158,7 @@ class TableAjax extends Table {
             if (resetHeight) { this.resetTableHeight(); }
           }
         });
-    }, 250);
+    }, timeout);
   }
 
   /**
@@ -175,11 +182,10 @@ class TableAjax extends Table {
    * @return {Object} params for query
    */
   queryParams = (element, options) => {
-    return {
-      page: options.currentPage,
-      value: '',
-      rows: options.pageSize
-    };
+    let query = this.props.filter ? this.props.filter.toJS() : {};
+    query.page = options.currentPage;
+    query.rows = options.pageSize;
+    return serialize(query);
   }
 
   /**
