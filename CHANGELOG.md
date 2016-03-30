@@ -9,6 +9,10 @@
 
 * TableCell and TableHeader can receive additional props.
 
+## New functionality
+
+* Table and TableHeader have been updated to allow sorting.
+
 # 0.6.0
 
 ## Improve Date widget
