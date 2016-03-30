@@ -143,6 +143,7 @@ class TableHeader extends React.Component {
     let { children, ...props } = this.props;
     props.className = this.tableHeaderClasses;
     props.onClick = this.props.sortable ? this.emitSortEvent.bind(this) : '';
+
     return props;
   }
 
@@ -155,6 +156,7 @@ class TableHeader extends React.Component {
     return (
       <th { ...this.tableHeaderProps }>
         { this.props.children }
+        { this.sortIconHTML }
       </th>
     );
   }
