@@ -7,7 +7,7 @@ import { Table, TableHeader, TableRow, TableCell } from 'components/table';
 
 import Row from 'components/row';
 import Checkbox from 'components/checkbox';
-import Number from 'components/number';
+import Message from 'components/message';
 
 class TableDemo extends React.Component {
   /**
@@ -94,6 +94,16 @@ class TableDemo extends React.Component {
    * @method controls
    */
   get controls() {
+    let warning = null;
+
+    if (this.value('paginate')) {
+      warning = (
+        <Row>
+          <Message as="warning">If you want to use pagination, we recommend you use TableAjax instead as it will do a lot of the work for you.</Message>
+        </Row>
+      );
+    }
+
     return (
       <div>
         <Row>
@@ -109,6 +119,7 @@ class TableDemo extends React.Component {
             disabled={ !this.value('paginate') }
           />
         </Row>
+        { warning }
       </div>
     );
   }
