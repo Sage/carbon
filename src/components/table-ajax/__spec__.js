@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import { TableAjax } from './table-ajax';
 
 describe('TableAjax', () => {
-  let instance, spy;
+  let instance, customInstance, spy;
 
   beforeEach(() => {
     spy = jasmine.createSpy('onChange spy');
@@ -17,6 +17,18 @@ describe('TableAjax', () => {
        foo
       </TableAjax>
     );
+
+    customInstance = TestUtils.renderIntoDocument(
+      <TableAjax
+        className="foo"
+        path='/test'
+        onChange={ spy }
+        sortOrder='desc'
+        sortedColumn='name'
+      >
+       foo
+      </TableAjax>
+    );
   });
 
   describe('componentDidMount', () => {
@@ -26,8 +38,21 @@ describe('TableAjax', () => {
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('data', {
         currentPage: '1',
         pageSize: '10',
-        sortOrder: undefined,
-        sortedColumn: undefined
+        sortOrder: '',
+        sortedColumn: ''
+      });
+    });
+
+    describe('when custom props are passed', () => {
+      it('sends the custom props', () => {
+        spyOn(customInstance, 'emitOnChangeCallback');
+        customInstance.componentDidMount();
+        expect(customInstance.emitOnChangeCallback).toHaveBeenCalledWith('data', {
+          currentPage: '1',
+          pageSize: '10',
+          sortOrder: 'desc',
+          sortedColumn: 'name'
+        });
       });
     });
   });
@@ -148,8 +173,8 @@ describe('TableAjax', () => {
       expect(instance.emitOptions).toEqual({
         currentPage: '1',
         pageSize: '10',
-        sortedColumn: undefined,
-        sortOrder: undefined
+        sortedColumn: '',
+        sortOrder: ''
       });
     });
   });
