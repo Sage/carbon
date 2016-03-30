@@ -38,20 +38,40 @@ class TableCell extends React.Component {
   }
 
   /**
-   * Renders the component.
+   * Returns classes to be used on the TD element.
    *
-   * @method render
+   * @method tableCellClasses
+   * @return {String}
    */
-  render() {
-    let className = classNames(
+  get tableCellClasses() {
+    return classNames(
       "ui-table-cell",
       this.props.className,
       { [`ui-table-cell--align-${this.props.align}`]: this.props.align },
       { [`ui-table-cell--action`]: this.props.action }
     );
+  }
 
+  /**
+   * Returns props to be used on the TD element.
+   *
+   * @method tableCellProps
+   * @return {Object}
+   */
+  get tableCellProps() {
+    let { children, ...props } = this.props;
+    props.className = this.tableCellClasses;
+    return props;
+  }
+
+  /**
+   * Renders the component.
+   *
+   * @method render
+   */
+  render() {
     return (
-      <td className={ className }>
+      <td { ...this.tableCellProps }>
         { this.props.children }
       </td>
     );

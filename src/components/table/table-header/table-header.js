@@ -117,12 +117,13 @@ class TableHeader extends React.Component {
   }
 
   /**
-   * Renders the component.
+   * Returns classes to be used on the TH element.
    *
-   * @method render
+   * @method tableHeaderClasses
+   * @return {String}
    */
-  render() {
-    let className = classNames(
+  get tableHeaderClasses() {
+    return classNames(
       "ui-table-header",
       this.props.className,
         {
@@ -130,17 +131,29 @@ class TableHeader extends React.Component {
           'ui-table-header--sortable': this.props.sortable
         }
     );
+  }
 
-    let onClick = this.props.sortable ? this.emitSortEvent.bind(this) : '';
+  /**
+   * Returns props to be used on the TH element.
+   *
+   * @method tableHeaderProps
+   * @return {Object}
+   */
+  get tableHeaderProps() {
+    let { children, ...props } = this.props;
+    props.className = this.tableHeaderClasses;
+    return props;
+  }
 
+  /**
+   * Renders the component.
+   *
+   * @method render
+   */
+  render() {
     return (
-      <th className={ className }
-          onClick={ onClick }
-          name={ this.props.name }
-          ref={ (header) =>  this._header = header }>
-        { this.props.align === 'right' ? this.sortIconHTML : null }
+      <th { ...this.tableHeaderProps }>
         { this.props.children }
-        { this.props.align !== 'right' ? this.sortIconHTML : null }
       </th>
     );
   }

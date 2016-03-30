@@ -25,10 +25,11 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
-    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.0.10",
+    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.0.12",
     "express": "~4.13.3",
     "flux": "~2.1.1",
     "gulp": "~3.9.0",
+    "highlight.js": "~8.4.0",
     "history": "~1.17.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "~3.7.5",
@@ -36,6 +37,7 @@
     "react": "~0.14.0",
     "react-addons-css-transition-group": "~0.14.0",
     "react-dom": "~0.14.0",
+    "react-highlight": "~0.6.1",
     "react-router": "~1.0.0"
   },
   "dependencies": {
