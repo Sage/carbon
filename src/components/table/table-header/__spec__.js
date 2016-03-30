@@ -11,10 +11,15 @@ describe('TableRow', () => {
     instance = TestUtils.renderIntoDocument(
       <Table>
         <TableRow>
-          <TableHeader className="foo" align="right" />
+          <TableHeader className="foo" align="right" style={{ width: "50px" }} />
         </TableRow>
       </Table>
     );
+  });
+
+  it('renders additional props to the th element', () => {
+    let th = TestUtils.findRenderedDOMComponentWithTag(instance, 'th');
+    expect(th.style.width).toEqual("50px");
   });
 
   it('renders a th with correct classes', () => {

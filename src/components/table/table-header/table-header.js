@@ -27,19 +27,39 @@ class TableHeader extends React.Component {
   }
 
   /**
+   * Returns classes to be used on the TH element.
+   *
+   * @method tableHeaderClasses
+   * @return {String}
+   */
+  get tableHeaderClasses() {
+    return classNames(
+      "ui-table-header",
+      this.props.className,
+      { [`ui-table-header--align-${this.props.align}`]: this.props.align }
+    );
+  }
+
+  /**
+   * Returns props to be used on the TH element.
+   *
+   * @method tableHeaderProps
+   * @return {Object}
+   */
+  get tableHeaderProps() {
+    let { children, ...props } = this.props;
+    props.className = this.tableHeaderClasses;
+    return props;
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
    */
   render() {
-    let className = classNames(
-      "ui-table-header",
-      this.props.className,
-      { [`ui-table-header--align-${this.props.align}`]: this.props.align }
-    );
-
     return (
-      <th className={ className }>
+      <th { ...this.tableHeaderProps }>
         { this.props.children }
       </th>
     );
