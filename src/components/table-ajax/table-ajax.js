@@ -94,6 +94,7 @@ class TableAjax extends Table {
      * @type {String}
      */
     sortOrder: this.props.sortOrder || '',
+
     /**
      * Sorting
      * column name to sort
@@ -130,10 +131,10 @@ class TableAjax extends Table {
 
   static childContextTypes = {
     /**
-     * Defines a context object for child components of the table component.
+     * Defines a context object for child components of the table-ajax component.
      * https://facebook.github.io/react/docs/context.html
      *
-     * @property table
+     * @property childContextTypes
      * @type {Object}
      */
     onSort: React.PropTypes.func,
