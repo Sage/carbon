@@ -55,6 +55,19 @@ describe('TableAjax', () => {
         });
       });
     });
+
+    describe('when custom props are passed', () => {
+      it('sends the custom props', () => {
+        spyOn(customInstance, 'emitOnChangeCallback');
+        customInstance.componentDidMount();
+        expect(customInstance.emitOnChangeCallback).toHaveBeenCalledWith('data', {
+          currentPage: '1',
+          pageSize: '10',
+          sortOrder: 'desc',
+          sortedColumn: 'name'
+        });
+      });
+    });
   });
 
   describe('componentDidUpdate', () => {
