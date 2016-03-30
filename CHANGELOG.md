@@ -1,9 +1,13 @@
 # 0.7.0
 
-# New Components
+## New Components
 
 * Pager
 * Table Ajax
+
+## Bug Fixes
+
+* TableCell and TableHeader can receive additional props.
 
 # 0.6.0
 
