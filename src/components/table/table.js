@@ -159,7 +159,7 @@ class Table extends React.Component {
      * Defines a context object for child components of the table component.
      * https://facebook.github.io/react/docs/context.html
      *
-     * @property table
+     * @property childContextTypes
      * @type {Object}
      */
     onSort: React.PropTypes.func,
