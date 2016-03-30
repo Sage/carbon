@@ -25,7 +25,9 @@ describe('TableAjax', () => {
       instance.componentDidMount();
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('data', {
         currentPage: '1',
-        pageSize: '10'
+        pageSize: '10',
+        sortOrder: undefined,
+        sortedColumn: undefined
       });
     });
   });
@@ -51,7 +53,11 @@ describe('TableAjax', () => {
       jasmine.Ajax.install();
       jasmine.clock().install();
 
-      options = { currentPage: '1', pageSize: '10' }
+      options = { currentPage: '1',
+                  pageSize: '10',
+                  sortOrder: undefined,
+                  sortedColumn: undefined
+                }
     });
 
     afterEach(() => {
@@ -81,7 +87,7 @@ describe('TableAjax', () => {
           "contentType": 'application/json',
           "responseText": "{\"data\": [\"foo\"]}"
         });
-        expect(spy).toHaveBeenCalledWith('foo');
+        expect(spy).toHaveBeenCalledWith({ data: ['foo'] });
     });
 
     it('on success sets the totalRecords', () => {
@@ -93,7 +99,7 @@ describe('TableAjax', () => {
       request.respondWith({
         "status": 200,
         "contentType": 'application/json',
-        "responseText": "{\"data\": [{\"records\": 1}]}"
+        "responseText": "{\"records\": 1}"
       });
       expect(instance.setState).toHaveBeenCalledWith({ totalRecords: '1' });
     });
@@ -113,7 +119,7 @@ describe('TableAjax', () => {
           "responseText": "{\"data\": [\"foo\"]}"
         });
 
-        expect(instance.resetTableHeight).toHaveBeenCalled(); 
+        expect(instance.resetTableHeight).toHaveBeenCalled();
       });
     });
   });
@@ -131,8 +137,8 @@ describe('TableAjax', () => {
 
   describe('query params', () => {
     it('returns formatted params for server request', () => {
-      let options = { currentPage: 10, pageSize: 20 }
-      let expected = { page: 10, value: '', rows: 20 }
+      let options = { currentPage: 10, pageSize: 20, sortOrder: 'asc', sortedColumn: 'name' }
+      let expected = { page: 10, value: '', rows: 20, sord: 'asc', sidx: 'name' }
       expect(instance.queryParams('', options)).toEqual(expected);
     });
   });
@@ -141,7 +147,9 @@ describe('TableAjax', () => {
     it('gathers all relevent state variables for endpoint', () => {
       expect(instance.emitOptions).toEqual({
         currentPage: '1',
-        pageSize: '10'
+        pageSize: '10',
+        sortedColumn: undefined,
+        sortOrder: undefined
       });
     });
   });

@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 
 describe('Table', () => {
-  let instance, instancePager, instanceSortable, spy;
+  let instance, instancePager, instanceSortable, instanceCustomSort, spy;
 
   beforeEach(() => {
     spy = jasmine.createSpy('onChange spy');
@@ -44,7 +44,22 @@ describe('Table', () => {
           </TableHeader>
         </TableRow>
       </Table>
-    )
+    );
+
+    instanceCustomSort = TestUtils.renderIntoDocument(
+      <Table className='baz'
+             onChange={ spy }
+             sortOrder='desc'
+             sortedColumn='name'
+             currentPage='10'
+             pageSize='25'
+             totalRecords='2500'
+        >
+        <TableRow>
+          <TableHeader sortable={ true } name='name'/>
+        </TableRow>
+      </Table>
+    );
   });
 
   describe('componentDidMount', () => {
@@ -172,7 +187,7 @@ describe('Table', () => {
   describe('onSort', () => {
     it('formats the sort options for emitting', () => {
       let options = instance.emitOptions;
-      options.columnToSort = 'name';
+      options.sortedColumn = 'name';
       options.sortOrder = 'desc';
 
       instanceSortable.onSort('name', 'desc');
@@ -185,7 +200,20 @@ describe('Table', () => {
     it('gathers all relevent props to emit', () => {
       expect(instancePager.emitOptions).toEqual({
         currentPage: '1',
-        pageSize: '10'
+        pageSize: '10',
+        sortOrder: '',
+        sortedColumn: ''
+      });
+    });
+
+    describe('when custom props have been passed', () => {
+      it('emits the custom props', () => {
+        expect(instanceCustomSort.emitOptions).toEqual({
+          currentPage: '10',
+          pageSize: '25',
+          sortOrder: 'desc',
+          sortedColumn: 'name'
+        });
       });
     });
   });

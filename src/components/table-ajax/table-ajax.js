@@ -213,7 +213,7 @@ class TableAjax extends Table {
   }
 
   /**
-   * Handles what happens for an error.
+   * Handles what happens with response.
    *
    * @method handlerResponse
    * @param {Object} err

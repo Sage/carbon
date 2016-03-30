@@ -48,10 +48,10 @@ class TableHeader extends React.Component {
     name: function(props, propName, componentName) {
       if (props.sortable) {
         if (!props[propName]) {
-          return new Error(`Sortable columns require a prop of name of type String. See render of ${componentName}`);
+          throw new Error(`Sortable columns require a prop of name of type String. See render method of ${componentName}`);
         }
         if (typeof props[propName] !== 'string') {
-          return new Error('name must be a string');
+          throw new Error('name must be a string');
         }
       }
     },
@@ -126,10 +126,10 @@ class TableHeader extends React.Component {
     return classNames(
       "ui-table-header",
       this.props.className,
-        {
-          [`ui-table-header--align-${this.props.align}`]: this.props.align,
-          'ui-table-header--sortable': this.props.sortable
-        }
+      {
+        [`ui-table-header--align-${this.props.align}`]: this.props.align,
+        'ui-table-header--sortable': this.props.sortable
+      }
     );
   }
 
@@ -142,6 +142,7 @@ class TableHeader extends React.Component {
   get tableHeaderProps() {
     let { children, ...props } = this.props;
     props.className = this.tableHeaderClasses;
+    props.onClick = this.props.sortable ? this.emitSortEvent.bind(this) : '';
     return props;
   }
 

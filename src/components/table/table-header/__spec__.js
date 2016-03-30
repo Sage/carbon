@@ -5,8 +5,8 @@ import { Table, TableRow } from './../table';
 import TableHeader from './table-header';
 import Icon from './../../icon';
 
-fdescribe('TableHeader', () => {
-  let instance, instanceSortable, instanceCustomSort, sortableColumn, changeSpy;
+describe('TableHeader', () => {
+  let instance, instanceSortable, instanceCustomSort, sortableColumn, sortableHeader, changeSpy;
 
   beforeEach(() => {
     changeSpy = jasmine.createSpy('changeSpy');
@@ -34,14 +34,41 @@ fdescribe('TableHeader', () => {
         </TableRow>
       </Table>
     );
+
+    sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceSortable, 'th');
+    sortableHeader = TestUtils.scryRenderedComponentsWithType(instanceSortable, TableHeader)[0];
+  });
+
+  describe('prop checking', () => {
+    beforeEach(() => {
+      spyOn(console, 'error');
+    });
+
+    it('throws an error if no name prop is passed', () => {
+      TestUtils.renderIntoDocument(
+        <Table onChange={ changeSpy } sortOrder='desc'>
+          <TableRow>
+            <TableHeader sortable={ true }/>
+          </TableRow>
+        </Table>
+      );
+      expect(console.error).toHaveBeenCalledWith('Warning: Failed propType: Sortable columns require a prop of name of type String. See render method of TableHeader');
+    });
+
+    it('throws an error if the name is not a string', () => {
+      TestUtils.renderIntoDocument(
+        <Table onChange={ changeSpy } sortOrder='desc'>
+          <TableRow>
+            <TableHeader sortable={ true } name={ 123 }/>
+          </TableRow>
+        </Table>
+      );
+      expect(console.error).toHaveBeenCalledWith('Warning: Failed propType: name must be a string');
+    });
   });
 
   describe('emitSortEvent', () => {
     describe('if no sortOrder has been specified', () => {
-      beforeEach(() => {
-        sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceSortable, 'th');
-      });
-
       it('calls the tables onSort function with the default params', () => {
         TestUtils.Simulate.click(sortableColumn);
         expect(instanceSortable.props.onChange).toHaveBeenCalledWith(
@@ -54,12 +81,10 @@ fdescribe('TableHeader', () => {
         );
       });
 
-      xdescribe('if the column has already has been sorted', () => {
-        let sortableHeader;
-
+      describe('if the column has already has been sorted', () => {
         it('flips the sortOrder when clicked', () => {
-          sortableHeader = TestUtils.scryRenderedComponentsWithType(instanceSortable, TableHeader)[0];
-          sortableHeader.emitSortEvent()
+          sortableHeader.context.sortedColumn = 'name';
+          sortableHeader.context.sortOrder = 'asc';
           TestUtils.Simulate.click(sortableColumn);
           expect(instanceSortable.props.onChange).toHaveBeenCalledWith(
             'table', {
@@ -74,13 +99,10 @@ fdescribe('TableHeader', () => {
     });
 
     describe('if a sortOrder has been passed', () => {
-      beforeEach(() => {
-        sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceCustomSort, 'th');
-      });
-
       it('sends the passed in sortOrder prop to the onSort function', () => {
+        sortableHeader.context.sortOrder = 'desc';
         TestUtils.Simulate.click(sortableColumn);
-        expect(instanceCustomSort.props.onChange).toHaveBeenCalledWith(
+        expect(instanceSortable.props.onChange).toHaveBeenCalledWith(
           'table', {
             currentPage: '',
             pageSize: '',
@@ -94,31 +116,27 @@ fdescribe('TableHeader', () => {
 
   describe('sortIconHTML', () => {
     describe('if a column is sortable', () => {
-      beforeEach(() => {
-        sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceSortable, 'th');
-      });
-
       describe('before a sortable header is clicked', () => {
         it('does not display an icon', () => {
-          let icon = TestUtils.scryRenderedDOMComponentsWithTag(instanceSortable, 'icon');
-          expect(icon).toEqual([]);
+          expect(sortableHeader.sortIconHTML).not.toBeDefined();
         });
       });
 
       describe('after a sortable header has been clicked', () => {
         describe('when the sortOrder is descending', () => {
           it('adds the sort-up icon', () => {
+            sortableHeader.context.sortedColumn = 'name';
+            sortableHeader.context.sortOrder = 'desc';
             TestUtils.Simulate.click(sortableColumn);
-            debugger
-            let t = TestUtils;
-            let icon = TestUtils.scryRenderedDOMComponentsWithTag(instanceSortable, 'icon');
-            expect(icon).toEqual([]);
+            expect(sortableHeader.sortIconHTML.props.type).toEqual('sort-up');
           });
         });
 
         describe('when the sortOrder is ascending or not specified', () => {
           it('adds the sort-down icon', () => {
-
+            sortableHeader.context.sortedColumn = 'name';
+            TestUtils.Simulate.click(sortableColumn);
+            expect(sortableHeader.sortIconHTML.props.type).toEqual('sort-down');
           });
         })
       });
@@ -126,7 +144,8 @@ fdescribe('TableHeader', () => {
 
     describe('if a column is not sortable', () => {
       it('does not return an icon', () => {
-
+        let nonSortableHeader = TestUtils.scryRenderedComponentsWithType(instance, TableHeader)[0];
+        expect(nonSortableHeader.sortIconHTML).not.toBeDefined();
       });
     });
   });
