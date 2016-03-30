@@ -84,7 +84,25 @@ class TableAjax extends Table {
      * @property totalRecords
      * @type {String}
      */
-    totalRecords: '0'
+    totalRecords: '0',
+
+    /**
+     * Sorting
+     * either 'asc' or 'desc' order
+     *
+     * @property sortOrder
+     * @type {String}
+     */
+    sortOrder: this.props.sortOrder || '',
+    /**
+     * Sorting
+     * column name to sort
+     *
+     * @property sortedColumn
+     * @type {String}
+     */
+    sortedColumn: this.props.sortedColumn || ''
+
   };
 
   /**
