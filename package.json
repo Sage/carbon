@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
-    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.0.10",
+    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.0.12",
     "express": "~4.13.3",
     "flux": "~2.1.1",
     "gulp": "~3.9.0",
