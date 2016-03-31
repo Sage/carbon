@@ -5,6 +5,10 @@
 * Pager
 * Table Ajax
 
+## Improve Tabs Component
+
+* Passing a prop of align='right' will align tab headers to the right
+
 ## Bug Fixes
 
 * TableCell and TableHeader can receive additional props.
