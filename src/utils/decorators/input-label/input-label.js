@@ -100,6 +100,8 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     // either use label supplied by dev, or automatically make one common on input name
     let labelText = this.props.label || startCase(this.props.name);
 
+    if (!labelText) { return; }
+
     // set asterisk if validation is used which uses an asterisk
     if (find(this.props.validations, (v) => { return v.asterisk; })) {
       labelText += "*";

@@ -7,7 +7,7 @@
   border: 1px solid $border-color;
   border-top: none;
   font-size: 0.9em;
-  padding: 0 8px 3px;
+  padding: 3px 8px;
   text-align: center;
   position: relative;
 }
@@ -31,7 +31,7 @@
 .ui-pager__summary {
   display: inline-block;
   float: right;
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
 .ui-pager__current-page {
@@ -39,7 +39,6 @@
   display: inline-block;
 
   .ui-number__input {
-    margin: 1px;
     width: 35px;
     text-align: center;
   }

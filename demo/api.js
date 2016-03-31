@@ -3,7 +3,8 @@ var escapeStringRegexp = require('escape-string-regexp');
 
 exports.countries = function(query) {
   var query = parseQueryString(query);
-  var text = decodeURIComponent(query.value);
+  var filter = query.value || query.name || "";
+  var text = decodeURIComponent(filter);
   var page = Number(query.page);
   var rows = Number(query.rows);
   var skip = (page - 1) * rows;

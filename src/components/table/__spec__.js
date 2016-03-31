@@ -37,6 +37,37 @@ describe('Table', () => {
     );
   });
 
+  describe('componentWillReceiveProps', () => {
+    let data;
+
+    beforeEach(() => {
+      data = Immutable.fromJS({ foo: "bar" });
+      instance = TestUtils.renderIntoDocument(
+        <Table filter={ data }></Table>
+      );
+      spyOn(instance, 'emitOnChangeCallback');
+    });
+
+    describe('when data has not changed', () => {
+      it('does not emit on change', () => {
+        instance.componentWillReceiveProps({ filter: data });
+        expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when data has changed', () => {
+      it('emits on change', () => {
+        data = data.set('foo', 'qux');
+        instance.componentWillReceiveProps({ filter: data });
+        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('filter', {
+          currentPage: undefined,
+          filter: { foo: 'qux' },
+          pageSize: undefined
+        });
+      });
+    });
+  });
+
   describe('componentDidMount', () => {
     it('calls to resize the table and set initial min height', () => {
       spyOn(instance, 'resizeTable');
@@ -44,7 +75,7 @@ describe('Table', () => {
       expect(instance.resizeTable).toHaveBeenCalled();
     });
   });
-  
+
   describe('componentDidUpdate', () => {
     describe('when table height should reset', () => {
       it('calls to reset the table height', () => {
@@ -149,7 +180,7 @@ describe('Table', () => {
 
   describe('onPagination', () => {
     it('formats the pagination changes for emitting', () => {
-      let options = instance.emitOptions;
+      let options = instance.emitOptions();
       options.currentPage = '2';
       options.pageSize = '25';
 
@@ -161,9 +192,24 @@ describe('Table', () => {
 
   describe('emitOptions', () => {
     it('gathers all relevent props to emit', () => {
-      expect(instancePager.emitOptions).toEqual({
+      expect(instancePager.emitOptions()).toEqual({
         currentPage: '1',
+        filter: {},
         pageSize: '10'
+      });
+    });
+
+    it('gathers all relevent props to emit using passed in props', () => {
+      let props = {
+        currentPage: '9',
+        filter: Immutable.fromJS({ foo: 'bar' }),
+        pageSize: '100'
+      };
+
+      expect(instancePager.emitOptions(props)).toEqual({
+        currentPage: '9',
+        filter: { foo: 'bar' },
+        pageSize: '100'
       });
     });
   });

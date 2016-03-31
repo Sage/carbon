@@ -1,6 +1,7 @@
 import Dispatcher from './../dispatcher';
 import AppConstants from './../constants/app';
 import Request from 'superagent';
+import serialize from 'utils/helpers/serialize';
 
 let AppActions = {
   /**
@@ -40,15 +41,16 @@ let AppActions = {
    * @method appTableUpdated
    */
   appTableManuallyUpdated: (component, change, opts={}) => {
-    let pageSize = opts.pageSize || "10";
+    let pageSize = opts.pageSize || "10",
+        currentPage = opts.currentPage || "1",
+        query = opts.filter || {};
+
+    query.page = currentPage;
+    query.rows = pageSize;
 
     Request
       .get("/countries")
-      .query({
-        page: opts.currentPage || "1",
-        value: '',
-        rows: pageSize
-      })
+      .query(serialize(query))
       .end((err, response) => {
         let data = response.body.data[0];
 

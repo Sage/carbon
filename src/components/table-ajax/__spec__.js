@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import Immutable from 'immutable';
 import { TableAjax } from './table-ajax';
 
 describe('TableAjax', () => {
@@ -25,8 +26,9 @@ describe('TableAjax', () => {
       instance.componentDidMount();
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('data', {
         currentPage: '1',
-        pageSize: '10'
-      });
+        pageSize: '10',
+        filter: {}
+      }, 0);
     });
   });
 
@@ -46,7 +48,8 @@ describe('TableAjax', () => {
   });
 
   describe('emitOnChangeCallback', () => {
-    let options;
+    let options, request;
+
     beforeEach(() => {
       jasmine.Ajax.install();
       jasmine.clock().install();
@@ -65,17 +68,32 @@ describe('TableAjax', () => {
       expect(instance.setState).toHaveBeenCalledWith(options);
     });
 
-    it('queries for the data', () => {
+    it('queries for the data after the set timeout', () => {
+      instance.emitOnChangeCallback('data', options, 50);
+
+      request = jasmine.Ajax.requests.mostRecent();
+      expect(request).toBe(undefined);
+
+      jasmine.clock().tick(51);
+      request = jasmine.Ajax.requests.mostRecent();
+      expect(request.url).toEqual('/test?page=1&rows=10');
+    });
+
+    it('queries for the data after 250ms', () => {
       instance.emitOnChangeCallback('data', options);
+
+      request = jasmine.Ajax.requests.mostRecent();
+      expect(request).toBe(undefined);
+
       jasmine.clock().tick(251);
-      let request = jasmine.Ajax.requests.mostRecent();
-      expect(request.url).toEqual('/test?page=1&value=&rows=10');
+      request = jasmine.Ajax.requests.mostRecent();
+      expect(request.url).toEqual('/test?page=1&rows=10');
     });
 
     it('on success emits the returned data', () => {
         instance.emitOnChangeCallback('data', options);
         jasmine.clock().tick(251);
-        let request = jasmine.Ajax.requests.mostRecent();
+        request = jasmine.Ajax.requests.mostRecent();
         request.respondWith({
           "status": 200,
           "contentType": 'application/json',
@@ -89,7 +107,7 @@ describe('TableAjax', () => {
       instance.emitOnChangeCallback('data', options);
       jasmine.clock().tick(251);
 
-      let request = jasmine.Ajax.requests.mostRecent();
+      request = jasmine.Ajax.requests.mostRecent();
       request.respondWith({
         "status": 200,
         "contentType": 'application/json',
@@ -106,7 +124,7 @@ describe('TableAjax', () => {
         instance.emitOnChangeCallback('data', options);
         jasmine.clock().tick(251);
 
-        let request = jasmine.Ajax.requests.mostRecent();
+        request = jasmine.Ajax.requests.mostRecent();
         request.respondWith({
           "status": 200,
           "contentType": 'application/json',
@@ -131,17 +149,37 @@ describe('TableAjax', () => {
 
   describe('query params', () => {
     it('returns formatted params for server request', () => {
-      let options = { currentPage: 10, pageSize: 20 }
-      let expected = { page: 10, value: '', rows: 20 }
+      let options = { currentPage: 10, pageSize: 20 };
+      let expected = "page=10&rows=20";
+      expect(instance.queryParams('', options)).toEqual(expected);
+    });
+
+    it('returns formatted params for server request with filter', () => {
+      let options = { currentPage: 10, pageSize: 20, filter: { foo: "bar" } };
+      let expected = "foo=bar&page=10&rows=20";
       expect(instance.queryParams('', options)).toEqual(expected);
     });
   });
 
   describe('emitOptions', () => {
     it('gathers all relevent state variables for endpoint', () => {
-      expect(instance.emitOptions).toEqual({
+      expect(instance.emitOptions()).toEqual({
         currentPage: '1',
-        pageSize: '10'
+        filter: {},
+        pageSize: '10',
+      });
+    });
+
+    it('gathers all relevent state variables for endpoint with passed props', () => {
+      let props = {
+        filter: Immutable.fromJS({
+          foo: "bar"
+        })
+      };
+      expect(instance.emitOptions(props)).toEqual({
+        currentPage: '1',
+        filter: { foo: "bar" },
+        pageSize: '10',
       });
     });
   });
