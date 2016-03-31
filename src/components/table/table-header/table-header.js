@@ -83,7 +83,7 @@ class TableHeader extends React.Component {
    * @method emitSortEvent
    */
   emitSortEvent = () => {
-    let sortOrder = this.context.sortOrder || 'asc';
+    let sortOrder = this.context.sortOrder || 'desc';
 
     // If this is the current sorted column. flip order
     if (this.sorted) {

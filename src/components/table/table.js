@@ -340,9 +340,15 @@ class Table extends React.Component {
    * @return {Object} options to emit
    */
   emitOptions = (props = this.props) => {
+    let currentPage = props.currentPage || '';
+
+    if (Number(props.currentPage) > Number(props.pageSize)) {
+      currentPage = "1";
+    }
+
     return {
       // What if paginate if false - think about when next change functionality is added
-      currentPage: props.currentPage || '',
+      currentPage: currentPage,
       filter: props.filter ? props.filter.toJS() : {},
       pageSize: props.pageSize || '',
       sortOrder: props.sortOrder || '',

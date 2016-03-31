@@ -32,7 +32,7 @@ let AppActions = {
   appTableUpdated: (component, data) => {
     Dispatcher.dispatch({
       actionType: AppConstants.APP_TABLE_UPDATED,
-      items: data.items,
+      items: data.rows,
       component: component
     });
   },
@@ -45,6 +45,8 @@ let AppActions = {
         currentPage = opts.currentPage || "1",
         query = opts.filter || {};
 
+    if (opts.sortOrder) { query.sord = opts.sortOrder; }
+    if (opts.sortedColumn) { query.sidx = opts.sortedColumn; }
     query.page = currentPage;
     query.rows = pageSize;
 
@@ -52,14 +54,16 @@ let AppActions = {
       .get("/countries")
       .query(serialize(query))
       .end((err, response) => {
-        let data = response.body.data[0];
+        let data = response.body;
 
         if (!err) {
           Dispatcher.dispatch({
             actionType: AppConstants.APP_TABLE_MANUALLY_UPDATED,
-            items: data.items,
+            items: data.rows,
             records: String(data.records),
-            page: String(data.page),
+            sortOrder: opts.sortOrder,
+            sortedColumn: opts.sortedColumn,
+            page: String(data.current_page),
             pageSize: pageSize,
             component: component
           });

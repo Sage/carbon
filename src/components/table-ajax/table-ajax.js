@@ -205,10 +205,11 @@ class TableAjax extends Table {
    * @return {Void}
    */
   emitOnChangeCallback = (element, options, timeout = 250) => {
-    let resetHeight = Number(options.pageSize) < Number(this.pageSize);
+    let resetHeight = Number(options.pageSize) < Number(this.pageSize),
+        currentPage = (element === "filter") ? "1" : options.currentPage;
 
     this.setState({
-      currentPage: options.currentPage,
+      currentPage: currentPage,
       pageSize: options.pageSize,
       sortOrder: options.sortOrder,
       sortedColumn: options.sortedColumn
@@ -264,7 +265,7 @@ class TableAjax extends Table {
    */
   queryParams = (element, options) => {
     let query = options.filter || {};
-    query.page = options.currentPage;
+    query.page = (element === "filter") ? "1" : options.currentPage;
     query.rows = options.pageSize;
     if (options.sortOrder) { query.sord = options.sortOrder; }
     if (options.sortedColumn) { query.sidx = options.sortedColumn; }

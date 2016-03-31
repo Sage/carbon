@@ -114,6 +114,14 @@ describe('TableAjax', () => {
       expect(instance.setState).toHaveBeenCalledWith(options);
     });
 
+    it('sets current page to 1 if filter has been updated', () => {
+      spyOn(instance, 'setState');
+      options.currentPage = "2";
+      instance.emitOnChangeCallback('filter', options);
+      options.currentPage = "1";
+      expect(instance.setState).toHaveBeenCalledWith(options);
+    });
+
     it('queries for the data after the set timeout', () => {
       instance.emitOnChangeCallback('data', options, 50);
 
@@ -204,6 +212,12 @@ describe('TableAjax', () => {
       let options = { currentPage: 10, pageSize: 20, sortOrder: 'asc', sortedColumn: 'name', filter: { foo: "bar" } };
       let expected = "foo=bar&page=10&rows=20&sord=asc&sidx=name";
       expect(instance.queryParams('', options)).toEqual(expected);
+    });
+
+    it('returns currentPage as 1 if element is filter', () => {
+      let options = { currentPage: 10, pageSize: 20, sortOrder: 'asc', sortedColumn: 'name', filter: { foo: "bar" } };
+      let expected = "foo=bar&page=1&rows=20&sord=asc&sidx=name";
+      expect(instance.queryParams('filter', options)).toEqual(expected);
     });
   });
 

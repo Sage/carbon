@@ -69,6 +69,8 @@ class TableDemo extends React.Component {
           paginate={ this.value('paginate') }
           showPageSizeSelection={ this.value('show_page_size_selection') }
           totalRecords={ this.value('total_records') }
+          sortOrder={ this.value('sort_order') }
+          sortedColumn={ this.value('sorted_column') }
         >
           { this.tableRows }
         </Table>
@@ -81,22 +83,40 @@ class TableDemo extends React.Component {
    */
   get code() {
     let additionalProps = false,
-        html = "import { Table, TableHeader, TableRow, TableCell } from 'carbon/lib/components/table';\n\n";
+        html = "import { Table, TableHeader, TableRow, TableCell } from 'carbon/lib/components/table';\n";
+
+    if (this.value('enable_filter')) {
+      html += "import Filter from 'carbon/lib/components/filter';\n";
+    }
+
+    html += "\n";
 
     html += "let tableRows = [],\n";
     html += "    countries = this.state.store.get('countries');\n\n";
 
     html += "tableRows.push(\n";
     html += "  <TableRow>\n";
-    html += "    <TableHeader>Code</TableHeader>\n";
-    html += "    <TableHeader>Country</TableHeader>\n";
+    html += "    <TableHeader";
+
+    if (this.value('sortable')) {
+      html += " sortable={true} name='name'";
+    }
+
+    html += ">Country</TableHeader>\n";
+    html += "    <TableHeader";
+
+    if (this.value('sortable')) {
+      html += " sortable={true} name='value'";
+    }
+
+    html += "Code</TableHeader>\n";
     html += "  </TableRow>\n";
     html += ");\n\n";
 
     html += "tableRows = tableRows.concat(countries.map((country) => {\n";
     html += "  <TableRow>\n";
-    html += "    <TableCell>{ country.get('code') }</TableCell>\n";
     html += "    <TableCell>{ country.get('name') }</TableCell>\n";
+    html += "    <TableCell>{ country.get('code') }</TableCell>\n";
     html += "  </TableRow>\n";
     html += "}));\n\n";
 
@@ -118,6 +138,12 @@ class TableDemo extends React.Component {
     }
 
     html += "<Table\n";
+
+    if (this.value('sortable')) {
+      additionalProps = true;
+      html += `  sortOrder='${this.value('sort_order')}'\n`;
+      html += `  sortedColumn='${this.value('sorted_column')}'\n`;
+    }
 
     if (this.value('enable_filter')) {
       additionalProps = true;
@@ -151,7 +177,7 @@ class TableDemo extends React.Component {
   get controls() {
     let warning = null;
 
-    if (this.value('paginate') || this.value('enable_filter')) {
+    if (this.value('paginate') || this.value('enable_filter') || this.value('sortable')) {
       warning = (
         <Row>
           <Message as="warning">If you want to use data controls, we recommend you use TableAjax instead as it will do a lot of the work for you.</Message>
@@ -187,6 +213,13 @@ class TableDemo extends React.Component {
             disabled={ !this.value('paginate') }
           />
         </Row>
+        <Row>
+          <Checkbox
+            label="Sortable (when active, interact any table header)"
+            value={ this.value('sortable') }
+            onChange={ this.action.bind(this, 'sortable') }
+          />
+        </Row>
         { warning }
       </div>
     );
@@ -201,11 +234,11 @@ class TableDemo extends React.Component {
 
     rows.push(
       <TableRow key="header">
-        <TableHeader style={{ width: "75px" }}>
-          Code
-        </TableHeader>
-        <TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="value">
+          Code
         </TableHeader>
       </TableRow>
     );
@@ -213,8 +246,8 @@ class TableDemo extends React.Component {
     return rows.concat(data.map((row, index) => {
       return (
         <TableRow key={ index }>
-          <TableCell>{ row.get('value') }</TableCell>
           <TableCell>{ row.get('name') }</TableCell>
+          <TableCell>{ row.get('value') }</TableCell>
         </TableRow>
       );
     }));

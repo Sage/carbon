@@ -240,6 +240,26 @@ describe('Table', () => {
       });
     });
 
+    describe('when current page is greater than page size', () => {
+      it('sets current page to 1', () => {
+        let props = {
+          currentPage: '11',
+          filter: null,
+          pageSize: '10',
+          sortOrder: 'asc',
+          sortedColumn: 'foo'
+        };
+
+        expect(instanceCustomSort.emitOptions(props)).toEqual({
+          currentPage: '1',
+          filter: {},
+          pageSize: '10',
+          sortOrder: 'asc',
+          sortedColumn: 'foo'
+        });
+      });
+    });
+
     describe('when custom props have been passed', () => {
       it('emits the custom props', () => {
         expect(instanceCustomSort.emitOptions()).toEqual({

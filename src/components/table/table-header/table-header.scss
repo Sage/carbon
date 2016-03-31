@@ -15,6 +15,7 @@
   outline: medium none;
   overflow: hidden;
   padding: 8px 8px 6px 8px;
+  position: relative;
   text-align: left;
   text-overflow: ellipsis;
   user-select: none;
@@ -45,11 +46,22 @@
 }
 
 .ui-table-header__icon {
-  margin: 0 10px;
-  position: relative;
-  vertical-align: middle;
+  margin: -5px 10px 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+
+  .ui-icon__svg--sort-down,
+  .ui-icon__svg--sort-up {
+    height: 11px;
+    width: 10px;
+  }
 }
 
 .ui-table-header--sortable {
   cursor: pointer;
+
+  &:hover {
+    background-color: $grey-dark-blue-60;
+  }
 }

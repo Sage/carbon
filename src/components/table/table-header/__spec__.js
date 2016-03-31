@@ -77,7 +77,7 @@ describe('TableHeader', () => {
             pageSize: '',
             filter: {},
             sortedColumn: 'name',
-            sortOrder: 'asc'
+            sortOrder: 'desc'
           }
         );
       });
