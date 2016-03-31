@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import Row from './../row';
 
 /**
  * @class Filter
@@ -22,6 +21,12 @@ class Filter extends React.Component {
     align: 'left'
   }
 
+  /**
+   * Returns the classes for the filter.
+   *
+   * @method classes
+   * @return {String}
+   */
   get classes() {
     return classNames(
       'ui-filter',
@@ -30,6 +35,11 @@ class Filter extends React.Component {
     );
   }
 
+
+  /**
+   * @method render
+   * @return {Object} JSX
+   */
   render() {
     return (
       <form className={ this.classes } onSubmit={ (ev) => { ev.preventDefault() } }>
