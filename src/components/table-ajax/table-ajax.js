@@ -98,7 +98,7 @@ class TableAjax extends Table {
    */
   componentDidMount() {
     super.componentDidMount();
-    this.emitOnChangeCallback('data', this.emitOptions, 0);
+    this.emitOnChangeCallback('data', this.emitOptions(), 0);
   }
 
   /**
@@ -108,12 +108,7 @@ class TableAjax extends Table {
    * @method componentDidUpdate
    * @return {Void}
    */
-  componentDidUpdate(nextProps) {
-    // if filter has changed, update the data
-    if (!Immutable.is(this.props.filter, nextProps.filter)) {
-      this.emitOnChangeCallback('data', this.emitOptions);
-    }
-
+  componentDidUpdate() {
     this.resizeTable();
   }
 
@@ -182,7 +177,7 @@ class TableAjax extends Table {
    * @return {Object} params for query
    */
   queryParams = (element, options) => {
-    let query = this.props.filter ? this.props.filter.toJS() : {};
+    let query = options.filter;
     query.page = options.currentPage;
     query.rows = options.pageSize;
     return serialize(query);
@@ -195,9 +190,10 @@ class TableAjax extends Table {
    * @method emitOptions
    * @return {Object} options to emit
    */
-  get emitOptions() {
+  emitOptions = (props=this.props) => {
     return {
       currentPage: this.state.currentPage,
+      filter: props.filter ? props.filter.toJS() : {},
       pageSize: this.state.pageSize
     };
   }

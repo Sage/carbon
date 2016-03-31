@@ -29,12 +29,29 @@ class TableAjaxDemo extends React.Component {
    * @method demo
    */
   get demo() {
-    let filter = this.value('filter');
+    let filter, filterHtml;
+
+    if (this.value('enable_filter')) {
+      let align = this.value('filter_align_right') ? "right" : "left";
+      filter = this.value('filter');
+      filterHtml = (
+        <Filter align={ align }>
+          <Textbox
+            value={ filter.get('name') }
+            onChange={ this.action.bind(this, ['filter', 'name']) }
+            label="Country"
+            labelInline={ true }
+          />
+        </Filter>
+      );
+    }
 
     return (
       <div>
+        { filterHtml }
+
         <TableAjax
-          filter={ this.value('filter') }
+          filter={ filter }
           showPageSizeSelection={ this.value('show_page_size_selection') }
           pageSize={ this.value('page_size') }
           paginate={ this.value('paginate') }
@@ -43,13 +60,6 @@ class TableAjaxDemo extends React.Component {
         >
           { this.tableRows }
         </TableAjax>
-
-        <Filter>
-          <Textbox
-            value={ filter.get('name') }
-            onChange={ this.action.bind(this, ['filter', 'name']) }
-          />
-        </Filter>
       </div>
     );
   }
@@ -77,7 +87,28 @@ class TableAjaxDemo extends React.Component {
     html += "  </TableRow>\n";
     html += "}));\n\n";
 
+    if (this.value('enable_filter')) {
+      html += "<Filter";
+
+      if (this.value('filter_align_right')) {
+        html += " align='right'";
+      }
+
+      html += ">\n";
+      html += "  <Textbox\n";
+      html += "    value={this.state.store.getIn(['filter', 'name'])}\n";
+      html += "    onChange={Actions.filterUpdated}\n";
+      html += "    label='Country'\n";
+      html += "    labelInline={true}\n";
+      html += "  />\n";
+      html += "</Filter>\n\n";
+    }
+
     html += "<TableAjax\n";
+
+    if (this.value('enable_filter')) {
+      html += "  filter={this.state.store.get('filter')}\n";
+    }
 
     if (this.value('show_page_size_selection')) {
       html += "  showPageSizeSelection={true}\n";
@@ -106,6 +137,19 @@ class TableAjaxDemo extends React.Component {
   get controls() {
     return (
       <div>
+        <Row>
+          <Checkbox
+            label="Filter"
+            value={ this.value('enable_filter') }
+            onChange={ this.action.bind(this, 'enable_filter') }
+          />
+          <Checkbox
+            label="Filter Align Right"
+            value={ this.value('filter_align_right') }
+            onChange={ this.action.bind(this, 'filter_align_right') }
+            disabled={ !this.value('enable_filter') }
+          />
+        </Row>
         <Row>
           <Checkbox
             label="Paginate"

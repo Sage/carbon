@@ -8,13 +8,18 @@ import { Table, TableHeader, TableRow, TableCell } from 'components/table';
 import Row from 'components/row';
 import Checkbox from 'components/checkbox';
 import Message from 'components/message';
+import Filter from 'components/filter';
+import Textbox from 'components/textbox';
+import Button from 'components/button';
 
 class TableDemo extends React.Component {
   /**
    * @method componentWillMount
    */
   componentWillMount() {
-    AppActions.appTableManuallyUpdated('table');
+    AppActions.appTableManuallyUpdated('table', 'data', {
+      filter: this.value('filter').toJS()
+    });
   }
 
   /**
@@ -35,17 +40,39 @@ class TableDemo extends React.Component {
    * @method demo
    */
   get demo() {
+    let filter, filterHtml;
+
+    if (this.value('enable_filter')) {
+      let align = this.value('filter_align_right') ? "right" : "left";
+      filter = this.value('filter');
+      filterHtml = (
+        <Filter align={ align }>
+          <Textbox
+            value={ filter.get('name') }
+            onChange={ this.action.bind(this, ['filter', 'name']) }
+            label="Country"
+            labelInline={ true }
+          />
+        </Filter>
+      );
+    }
+
     return (
-      <Table
-        currentPage={ this.value('current_page') }
-        onChange={ AppActions.appTableManuallyUpdated.bind(this, 'table') }
-        pageSize={ this.value('page_size') }
-        paginate={ this.value('paginate') }
-        showPageSizeSelection={ this.value('show_page_size_selection') }
-        totalRecords={ this.value('total_records') }
-      >
-        { this.tableRows }
-      </Table>
+      <div>
+        { filterHtml }
+
+        <Table
+          filter={ filter }
+          currentPage={ this.value('current_page') }
+          onChange={ AppActions.appTableManuallyUpdated.bind(this, 'table') }
+          pageSize={ this.value('page_size') }
+          paginate={ this.value('paginate') }
+          showPageSizeSelection={ this.value('show_page_size_selection') }
+          totalRecords={ this.value('total_records') }
+        >
+          { this.tableRows }
+        </Table>
+      </div>
     );
   }
 
@@ -53,7 +80,8 @@ class TableDemo extends React.Component {
    * @method code
    */
   get code() {
-    let html = "import { Table, TableHeader, TableRow, TableCell } from 'carbon/lib/components/table';\n\n";
+    let additionalProps = false,
+        html = "import { Table, TableHeader, TableRow, TableCell } from 'carbon/lib/components/table';\n\n";
 
     html += "let tableRows = [],\n";
     html += "    countries = this.state.store.get('countries');\n\n";
@@ -72,15 +100,42 @@ class TableDemo extends React.Component {
     html += "  </TableRow>\n";
     html += "}));\n\n";
 
-    html += "<Table";
+    if (this.value('enable_filter')) {
+      html += "<Filter";
+
+      if (this.value('filter_align_right')) {
+        html += " align='right'";
+      }
+
+      html += ">\n";
+      html += "  <Textbox\n";
+      html += "    value={this.state.store.getIn(['filter', 'name'])}\n";
+      html += "    onChange={Actions.filterUpdated}\n";
+      html += "    label='Country'\n";
+      html += "    labelInline={true}\n";
+      html += "  />\n";
+      html += "</Filter>\n\n";
+    }
+
+    html += "<Table\n";
+
+    if (this.value('enable_filter')) {
+      additionalProps = true;
+      html += "  filter={this.state.store.get('filter')}\n";
+    }
 
     if (this.value('paginate')) {
-      html += "\n  paginate={true}\n";
+      additionalProps = true;
+      html += "  paginate={true}\n";
       html += `  currentPage='${this.value('current_page')}'\n`;
       html += "  onChange={Actions.tableUpdated}\n";
       html += `  pageSize='${this.value('page_size')}'\n`;
       html += `  showPageSizeSelection={${this.value('show_page_size_selection')}}\n`;
       html += `  totalRecords='${this.value('total_records')}'\n`;
+    }
+
+    if (!additionalProps) {
+      html = html.substring(0, html.length - 1);
     }
 
     html += ">\n";
@@ -96,16 +151,29 @@ class TableDemo extends React.Component {
   get controls() {
     let warning = null;
 
-    if (this.value('paginate')) {
+    if (this.value('paginate') || this.value('enable_filter')) {
       warning = (
         <Row>
-          <Message as="warning">If you want to use pagination, we recommend you use TableAjax instead as it will do a lot of the work for you.</Message>
+          <Message as="warning">If you want to use data controls, we recommend you use TableAjax instead as it will do a lot of the work for you.</Message>
         </Row>
       );
     }
 
     return (
       <div>
+        <Row>
+          <Checkbox
+            label="Filter"
+            value={ this.value('enable_filter') }
+            onChange={ this.action.bind(this, 'enable_filter') }
+          />
+          <Checkbox
+            label="Filter Align Right"
+            value={ this.value('filter_align_right') }
+            onChange={ this.action.bind(this, 'filter_align_right') }
+            disabled={ !this.value('enable_filter') }
+          />
+        </Row>
         <Row>
           <Checkbox
             label="Paginate"

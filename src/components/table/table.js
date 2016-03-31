@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Immutable from 'immutable';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
@@ -149,6 +150,13 @@ class Table extends React.Component {
     this.resizeTable();
   }
 
+  componentWillReceiveProps(nextProps) {
+    // if filter has changed, update the data
+    if (!Immutable.is(this.props.filter, nextProps.filter)) {
+      this.emitOnChangeCallback('filter', this.emitOptions(nextProps));
+    }
+  }
+
   /**
    * Lifecycle for after a update has happened
    * If pageSize has updated to a smaller value - reset table height
@@ -157,7 +165,7 @@ class Table extends React.Component {
    * @method componentDidUpdate
    * @return {Void}
    */
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, nextProps) {
     if (this.shouldResetTableHeight(prevProps)) {
       this.resetTableHeight();
     } else {
@@ -238,7 +246,7 @@ class Table extends React.Component {
    * @return {Void}
    */
   onPagination = (currentPage, pageSize) => {
-    let options = this.emitOptions;
+    let options = this.emitOptions();
     options.currentPage = currentPage;
     options.pageSize = pageSize;
     this.emitOnChangeCallback('pager', options);
@@ -250,11 +258,12 @@ class Table extends React.Component {
    * @method emitOptions
    * @return {Object} options to emit
    */
-  get emitOptions() {
+  emitOptions = (props=this.props) => {
     return {
       // What if paginate if false - think about when next change functionality is added
-      currentPage: this.props.currentPage,
-      pageSize: this.props.pageSize
+      currentPage: props.currentPage,
+      filter: props.filter ? props.filter.toJS() : {},
+      pageSize: props.pageSize
     };
   }
 

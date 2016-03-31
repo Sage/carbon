@@ -58,6 +58,7 @@ let data = ImmutableHelper.parseJSON({
   table: {
     current_page: "1",
     data: [],
+    filter: {},
     paginate: false,
     page_size: "10",
     show_page_size_selection: false,
@@ -65,7 +66,9 @@ let data = ImmutableHelper.parseJSON({
   },
   table_ajax: {
     data: [],
+    enable_filter: true,
     filter: {
+      name: "ar"
     },
     paginate: true,
     page_size: "10",
