@@ -138,7 +138,7 @@ class TableAjax extends Table {
    * @param {Object} options base and updated options
    * @return {Void}
    */
-  emitOnChangeCallback = (element, options, timeout=250) => {
+  emitOnChangeCallback = (element, options, timeout = 250) => {
     let resetHeight = Number(options.pageSize) < Number(this.pageSize);
 
     this.setState({
@@ -196,7 +196,7 @@ class TableAjax extends Table {
    * @method emitOptions
    * @return {Object} options to emit
    */
-  emitOptions = (props=this.props) => {
+  emitOptions = (props = this.props) => {
     return {
       currentPage: this.state.currentPage,
       filter: props.filter ? props.filter.toJS() : {},

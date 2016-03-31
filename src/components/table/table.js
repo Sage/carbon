@@ -273,7 +273,7 @@ class Table extends React.Component {
    * @method emitOptions
    * @return {Object} options to emit
    */
-  emitOptions = (props=this.props) => {
+  emitOptions = (props = this.props) => {
     return {
       // What if paginate if false - think about when next change functionality is added
       currentPage: props.currentPage,
