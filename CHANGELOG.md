@@ -11,6 +11,10 @@
 * TableCell and TableHeader can receive additional props.
 * Inputs no longer render a label if the input has no name or label props.
 
+## New functionality
+
+* Table and TableHeader have been updated to allow sorting.
+
 # 0.6.0
 
 ## Improve Date widget

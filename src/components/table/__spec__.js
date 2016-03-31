@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 
 describe('Table', () => {
-  let instance, instancePager, spy;
+  let instance, instancePager, instanceSortable, instanceCustomSort, spy;
 
   beforeEach(() => {
     spy = jasmine.createSpy('onChange spy');
@@ -35,6 +35,31 @@ describe('Table', () => {
         foo
       </Table>
     );
+
+    instanceSortable = TestUtils.renderIntoDocument(
+      <Table className='bar' onChange={ spy }>
+        <TableRow key='header'>
+          <TableHeader sortable={true} name='name'>
+            Names
+          </TableHeader>
+        </TableRow>
+      </Table>
+    );
+
+    instanceCustomSort = TestUtils.renderIntoDocument(
+      <Table className='baz'
+             onChange={ spy }
+             sortOrder='desc'
+             sortedColumn='name'
+             currentPage='10'
+             pageSize='25'
+             totalRecords='2500'
+        >
+        <TableRow>
+          <TableHeader sortable={ true } name='name'/>
+        </TableRow>
+      </Table>
+    );
   });
 
   describe('componentWillReceiveProps', () => {
@@ -60,9 +85,11 @@ describe('Table', () => {
         data = data.set('foo', 'qux');
         instance.componentWillReceiveProps({ filter: data });
         expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('filter', {
-          currentPage: undefined,
+          currentPage: '',
           filter: { foo: 'qux' },
-          pageSize: undefined
+          pageSize: '',
+          sortOrder: '',
+          sortedColumn: ''
         });
       });
     });
@@ -190,12 +217,38 @@ describe('Table', () => {
     });
   });
 
+  describe('onSort', () => {
+    it('formats the sort options for emitting', () => {
+      let options = instance.emitOptions();
+      options.sortedColumn = 'name';
+      options.sortOrder = 'desc';
+
+      instanceSortable.onSort('name', 'desc');
+
+      expect(spy).toHaveBeenCalledWith('table', options);
+    });
+  });
+
   describe('emitOptions', () => {
     it('gathers all relevent props to emit', () => {
       expect(instancePager.emitOptions()).toEqual({
         currentPage: '1',
         filter: {},
-        pageSize: '10'
+        pageSize: '10',
+        sortOrder: '',
+        sortedColumn: ''
+      });
+    });
+
+    describe('when custom props have been passed', () => {
+      it('emits the custom props', () => {
+        expect(instanceCustomSort.emitOptions()).toEqual({
+          currentPage: '10',
+          filter: {},
+          pageSize: '25',
+          sortOrder: 'desc',
+          sortedColumn: 'name'
+        });
       });
     });
 
@@ -203,13 +256,17 @@ describe('Table', () => {
       let props = {
         currentPage: '9',
         filter: Immutable.fromJS({ foo: 'bar' }),
-        pageSize: '100'
+        pageSize: '100',
+        sortOrder: 'asc',
+        sortedColumn: 'foo'
       };
 
       expect(instancePager.emitOptions(props)).toEqual({
         currentPage: '9',
         filter: { foo: 'bar' },
-        pageSize: '100'
+        pageSize: '100',
+        sortOrder: 'asc',
+        sortedColumn: 'foo'
       });
     });
   });

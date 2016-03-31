@@ -2,12 +2,12 @@
 @import "colors";
 
 .ui-table-header {
+  background-color: $grey-dark-blue-80;
   border-bottom: 1px solid $grey-dark-blue-60;
   border-left: 1px solid $grey-dark-blue-60;
   border-right: none;
   border-top: none;
   box-sizing: border-box;
-  background-color: $grey-dark-blue-80;
   color: $white;
   font-weight: normal;
   height: $tables__header-height;
@@ -17,8 +17,8 @@
   padding: 8px 8px 6px 8px;
   text-align: left;
   text-overflow: ellipsis;
-  vertical-align: middle;
   user-select: none;
+  vertical-align: middle;
   white-space: nowrap;
 
   &:first-child {
@@ -42,4 +42,14 @@
 
 .ui-table-header--align-right {
   text-align: right;
+}
+
+.ui-table-header__icon {
+  margin: 0 10px;
+  position: relative;
+  vertical-align: middle;
+}
+
+.ui-table-header--sortable {
+  cursor: pointer;
 }
