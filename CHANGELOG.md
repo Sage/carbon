@@ -3,6 +3,7 @@
 ## New Components
 
 * Pager
+* Filter
 * Table Ajax
 
 ## Bug Fixes
