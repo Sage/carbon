@@ -22,6 +22,16 @@ class Filter extends React.Component {
   }
 
   /**
+   * Handles the submission of the form.
+   *
+   * @method handleSubmit
+   * @param {Object}
+   */
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+  }
+
+  /**
    * Returns the classes for the filter.
    *
    * @method classes
@@ -42,7 +52,7 @@ class Filter extends React.Component {
    */
   render() {
     return (
-      <form className={ this.classes } onSubmit={ (ev) => { ev.preventDefault() } }>
+      <form className={ this.classes } onSubmit={ this.handleSubmit }>
         { this.props.children }
       </form>
     );

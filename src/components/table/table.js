@@ -77,6 +77,14 @@ class Table extends React.Component {
 
   static propTypes = {
     /**
+     * Data used to filter the data
+     *
+     * @property filter
+     * @type {Object}
+     */
+    filter: React.PropTypes.object,
+
+    /**
      * Emitted when table component changes e.g.
      * Pager, sorting, filter
      *
@@ -150,6 +158,13 @@ class Table extends React.Component {
     this.resizeTable();
   }
 
+  /**
+   * Lifecycle for after a update has happened
+   * If filter has changed then emit the on change event.
+   *
+   * @method componentWillReceiveProps
+   * @return {Void}
+   */
   componentWillReceiveProps(nextProps) {
     // if filter has changed, update the data
     if (!Immutable.is(this.props.filter, nextProps.filter)) {
@@ -165,7 +180,7 @@ class Table extends React.Component {
    * @method componentDidUpdate
    * @return {Void}
    */
-  componentDidUpdate(prevProps, nextProps) {
+  componentDidUpdate(prevProps) {
     if (this.shouldResetTableHeight(prevProps)) {
       this.resetTableHeight();
     } else {

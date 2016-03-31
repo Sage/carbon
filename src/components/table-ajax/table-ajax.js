@@ -1,6 +1,5 @@
 import React from 'react';
 import Request from 'superagent';
-import Immutable from 'immutable';
 import serialize from './../../utils/helpers/serialize';
 import { Table, TableRow, TableCell, TableHeader } from './../table';
 
@@ -37,6 +36,13 @@ class TableAjax extends Table {
   timeout = null;
 
   static propTypes = {
+    /**
+     * Data used to filter the data
+     *
+     * @property filter
+     * @type {Object}
+     */
+    filter: React.PropTypes.object,
 
     /**
      * Setting to true turns on pagination for the table
@@ -177,7 +183,7 @@ class TableAjax extends Table {
    * @return {Object} params for query
    */
   queryParams = (element, options) => {
-    let query = options.filter;
+    let query = options.filter || {};
     query.page = options.currentPage;
     query.rows = options.pageSize;
     return serialize(query);
