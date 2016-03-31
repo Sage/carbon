@@ -1,13 +1,15 @@
 let serialize = (obj, prefix) => {
   let str = [];
 
-  for (let p in obj) {
-    if (obj.hasOwnProperty(p)) {
-      let k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+  for (let prop in obj) {
+    if (obj.hasOwnProperty(prop)) {
+      let key = prefix ? prefix + "[" + prop + "]" : prop,
+          value = obj[prop];
+
       str.push(
-        typeof v == "object" ?
-          serialize(v, k) :
-          encodeURIComponent(k) + "=" + encodeURIComponent(v)
+        typeof value == "object" ?
+          serialize(value, key) :
+          encodeURIComponent(key) + "=" + encodeURIComponent(value)
       );
     }
   }
