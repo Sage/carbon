@@ -7,6 +7,7 @@ import Example from './../../../components/example';
 
 import { Tabs, Tab } from 'components/tabs';
 import Textbox from 'components/textbox';
+import Checkbox from 'components/checkbox';
 import Icon from 'components/icon';
 import Button from 'components/button';
 import Row from 'components/row';
@@ -42,12 +43,17 @@ class TabsDemo extends React.Component {
     }).toJS();
   }
 
+
+  get align() {
+    return this.value('align') ? 'right' : 'left';
+  }
+
   /**
    * @method demo
    */
   get demo() {
     return (
-      <Tabs>
+      <Tabs align={ this.align }>
         { this.tabs }
       </Tabs>
     );
@@ -59,16 +65,21 @@ class TabsDemo extends React.Component {
   get code() {
     let html = "import { Tabs, Tab } from 'carbon/lib/components/tabs';\n\n";
 
-    html += '<Tabs>';
+    html += '<Tabs';
 
-    html += '\n\n'
+    if (this.value('align')) {
+      html += ` align='right'`
+    }
+
+    html += ' >\n\n'
 
     this.value('tabData').map((data, index) => {
       let title = data.get('title') || `Title ${index + 1}`,
           id = `tab${index + 1}`,
           content = `    This is the content for tab ${index + 1}`;
 
-      html += `  <Tab title='${title}' tabId='${id}' >`;
+      html += `  <Tab title='${title}' tabId='${id} >'`;
+
       html += `\n`;
       html += content;
       html += `\n`;
@@ -134,6 +145,12 @@ class TabsDemo extends React.Component {
 
     return (
       <div>
+        <Checkbox
+          label="Align Right"
+          value={ this.value('align') }
+          reverse={ true }
+          onChange={ this.action.bind(this, 'align') }
+        />
         <Row>
           <Table>{ tableRows }</Table>
         </Row>

@@ -99,11 +99,14 @@ class Tabs extends React.Component {
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object
-    ]).isRequired
+    ]).isRequired,
+
+    align: React.PropTypes.string
   }
 
   static defaultProps = {
-    renderHiddenTabs: true
+    renderHiddenTabs: true,
+    align: 'left'
   }
 
   static childContextTypes = {
@@ -223,10 +226,15 @@ class Tabs extends React.Component {
           key={ child.props.tabId }
           data-tabid={ child.props.tabId } >
             { child.props.title }
-        </li>);
+        </li>
+      );
     });
 
-    return <ul className='ui-tabs__headers' >{ tabTitles }</ul>;
+    return(
+      <ul className={ `ui-tabs__headers ui-tabs__headers--align-${ this.props.align }` } >
+        { tabTitles }
+      </ul>
+    );
   }
 
   /**
