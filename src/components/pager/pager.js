@@ -163,6 +163,10 @@ class Pager extends React.Component {
           newPage = String(maxPage);
         }
 
+        if (Number(newPage) < 1) {
+          newPage = "1";
+        }
+
         this.props.onPagination(newPage, this.props.pageSize);
         break;
 

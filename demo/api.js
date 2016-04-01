@@ -14,20 +14,28 @@ exports.countries = function(query) {
     return item.get('name').search(regex) > -1;
   });
 
+  if (query.sord && query.sidx) {
+    filteredCountries = filteredCountries.sort(function(a, b) {
+      if (query.sord === "asc") {
+        return a.get(query.sidx).localeCompare(b.get(query.sidx));
+      } else {
+        return b.get(query.sidx).localeCompare(a.get(query.sidx));
+      }
+    });
+  }
+
   var numberOfResults = filteredCountries.count();
 
   var i = 0;
-  var filteredCountries = filteredCountries.skip(skip).takeUntil(function() {
+  filteredCountries = filteredCountries.skip(skip).takeUntil(function() {
     i++;
     return(i == (rows + 1));
   });
 
   return {
-    data: [{
-      items: filteredCountries.toJS(),
-      records: numberOfResults,
-      page: page
-    }]
+    rows: filteredCountries.toJS(),
+    records: numberOfResults,
+    current_page: page
   };
 };
 

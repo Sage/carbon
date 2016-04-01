@@ -92,7 +92,26 @@ class TableAjax extends Table {
      * @property totalRecords
      * @type {String}
      */
-    totalRecords: '0'
+    totalRecords: '0',
+
+    /**
+     * Sorting
+     * either 'asc' or 'desc' order
+     *
+     * @property sortOrder
+     * @type {String}
+     */
+    sortOrder: this.props.sortOrder || '',
+
+    /**
+     * Sorting
+     * column name to sort
+     *
+     * @property sortedColumn
+     * @type {String}
+     */
+    sortedColumn: this.props.sortedColumn || ''
+
   };
 
   /**
@@ -118,6 +137,33 @@ class TableAjax extends Table {
     this.resizeTable();
   }
 
+  static childContextTypes = {
+    /**
+     * Defines a context object for child components of the table-ajax component.
+     * https://facebook.github.io/react/docs/context.html
+     *
+     * @property childContextTypes
+     * @type {Object}
+     */
+    onSort: React.PropTypes.func,
+    sortedColumn: React.PropTypes.string,
+    sortOrder: React.PropTypes.string
+  }
+
+  /**
+   * Returns table object to child components.
+   *
+   * @method getChildContext
+   * @return {void}
+   */
+  getChildContext = () => {
+    return {
+      onSort: this.onSort,
+      sortedColumn: this.sortedColumn,
+      sortOrder: this.sortOrder
+    };
+  }
+
   /**
    * Get pageSize for table
    * @override
@@ -130,6 +176,26 @@ class TableAjax extends Table {
   }
 
   /**
+   * Returns the currently sorted column.
+   *
+   * @method sortedColumn
+   * @return {String}
+   */
+  get sortedColumn() {
+    return this.state.sortedColumn;
+  }
+
+  /**
+   * Returns the current sort order.
+   *
+   * @method sortOrder
+   * @return {String}
+   */
+  get sortOrder() {
+    return this.state.sortOrder;
+  }
+
+  /**
    * Emit onChange event row data
    * @override
    *
@@ -139,25 +205,25 @@ class TableAjax extends Table {
    * @return {Void}
    */
   emitOnChangeCallback = (element, options, timeout = 250) => {
-    let resetHeight = Number(options.pageSize) < Number(this.pageSize);
+    let resetHeight = Number(options.pageSize) < Number(this.pageSize),
+        currentPage = (element === "filter") ? "1" : options.currentPage;
 
     this.setState({
-      currentPage: options.currentPage,
-      pageSize: options.pageSize
+      currentPage: currentPage,
+      pageSize: options.pageSize,
+      sortOrder: options.sortOrder,
+      sortedColumn: options.sortedColumn
     });
 
     this.stopTimeout();
     this.timeout = setTimeout(() => {
       Request
         .get(this.props.path)
+        .set('Accept', 'application/json')
         .query(this.queryParams(element, options))
         .end((err, response) => {
-          if (!err) {
-            let data = response.body.data[0];
-            this.props.onChange(data);
-            this.setState({totalRecords: String(data.records)});
-            if (resetHeight) { this.resetTableHeight(); }
-          }
+          this.handleResponse(err, response);
+          if (resetHeight) { this.resetTableHeight(); }
         });
     }, timeout);
   }
@@ -175,6 +241,21 @@ class TableAjax extends Table {
   }
 
   /**
+   * Handles what happens with response.
+   *
+   * @method handlerResponse
+   * @param {Object} err
+   * @param {Object} response
+   */
+  handleResponse = (err, response) => {
+    if (!err) {
+      let data = response.body;
+      this.props.onChange(data);
+      this.setState({ totalRecords: String(data.records) });
+    }
+  }
+
+  /**
    * Formatted params for server request
    *
    * @method queryParams
@@ -184,8 +265,10 @@ class TableAjax extends Table {
    */
   queryParams = (element, options) => {
     let query = options.filter || {};
-    query.page = options.currentPage;
+    query.page = (element === "filter") ? "1" : options.currentPage;
     query.rows = options.pageSize;
+    if (options.sortOrder) { query.sord = options.sortOrder; }
+    if (options.sortedColumn) { query.sidx = options.sortedColumn; }
     return serialize(query);
   }
 
@@ -200,7 +283,9 @@ class TableAjax extends Table {
     return {
       currentPage: this.state.currentPage,
       filter: props.filter ? props.filter.toJS() : {},
-      pageSize: this.state.pageSize
+      pageSize: this.state.pageSize,
+      sortedColumn: this.state.sortedColumn,
+      sortOrder: this.state.sortOrder
     };
   }
 
