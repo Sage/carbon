@@ -3,6 +3,7 @@
 ## New Components
 
 * Pager
+* Filter
 * Table Ajax
 
 ## Improve Tabs Component
@@ -12,6 +13,7 @@
 ## Bug Fixes
 
 * TableCell and TableHeader can receive additional props.
+* Inputs no longer render a label if the input has no name or label props.
 
 # 0.6.0
 

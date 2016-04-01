@@ -1,5 +1,6 @@
 import React from 'react';
 import Request from 'superagent';
+import serialize from './../../utils/helpers/serialize';
 import { Table, TableRow, TableCell, TableHeader } from './../table';
 
 /**
@@ -35,6 +36,13 @@ class TableAjax extends Table {
   timeout = null;
 
   static propTypes = {
+    /**
+     * Data used to filter the data
+     *
+     * @property filter
+     * @type {Object}
+     */
+    filter: React.PropTypes.object,
 
     /**
      * Setting to true turns on pagination for the table
@@ -96,7 +104,7 @@ class TableAjax extends Table {
    */
   componentDidMount() {
     super.componentDidMount();
-    this.emitOnChangeCallback('data', this.emitOptions);
+    this.emitOnChangeCallback('data', this.emitOptions(), 0);
   }
 
   /**
@@ -130,7 +138,7 @@ class TableAjax extends Table {
    * @param {Object} options base and updated options
    * @return {Void}
    */
-  emitOnChangeCallback = (element, options) => {
+  emitOnChangeCallback = (element, options, timeout = 250) => {
     let resetHeight = Number(options.pageSize) < Number(this.pageSize);
 
     this.setState({
@@ -151,7 +159,7 @@ class TableAjax extends Table {
             if (resetHeight) { this.resetTableHeight(); }
           }
         });
-    }, 250);
+    }, timeout);
   }
 
   /**
@@ -175,11 +183,10 @@ class TableAjax extends Table {
    * @return {Object} params for query
    */
   queryParams = (element, options) => {
-    return {
-      page: options.currentPage,
-      value: '',
-      rows: options.pageSize
-    };
+    let query = options.filter || {};
+    query.page = options.currentPage;
+    query.rows = options.pageSize;
+    return serialize(query);
   }
 
   /**
@@ -189,9 +196,10 @@ class TableAjax extends Table {
    * @method emitOptions
    * @return {Object} options to emit
    */
-  get emitOptions() {
+  emitOptions = (props = this.props) => {
     return {
       currentPage: this.state.currentPage,
+      filter: props.filter ? props.filter.toJS() : {},
       pageSize: this.state.pageSize
     };
   }
