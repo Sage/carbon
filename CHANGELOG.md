@@ -6,10 +6,6 @@
 * Filter
 * Table Ajax
 
-## Improve Tabs Component
-
-* Passing a prop of align='right' will align tab headers to the right
-
 ## Bug Fixes
 
 * TableCell and TableHeader can receive additional props.
@@ -18,6 +14,7 @@
 ## New functionality
 
 * Table and TableHeader have been updated to allow sorting.
+* Tabs - Passing a prop of align='right' will align tab headers to the right
 
 # 0.6.0
 
