@@ -78,7 +78,7 @@ class TabsDemo extends React.Component {
           id = `tab${index + 1}`,
           content = `    This is the content for tab ${index + 1}`;
 
-      html += `  <Tab title='${title}' tabId='${id} >'`;
+      html += `  <Tab title='${title}' tabId='${id}'>`;
 
       html += `\n`;
       html += content;
@@ -145,12 +145,14 @@ class TabsDemo extends React.Component {
 
     return (
       <div>
-        <Checkbox
-          label="Align Right"
-          value={ this.value('align') }
-          reverse={ true }
-          onChange={ this.action.bind(this, 'align') }
-        />
+        <Row>
+          <Checkbox
+            label="Align Right"
+            value={ this.value('align') }
+            reverse={ true }
+            onChange={ this.action.bind(this, 'align') }
+          />
+        </Row>
         <Row>
           <Table>{ tableRows }</Table>
         </Row>
