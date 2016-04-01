@@ -29,6 +29,22 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--maintenance");
     });
+
+    it('calls the render sort down icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='sort-down' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--sort-down");
+    });
+
+    it('calls the render sort up icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='sort-up' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--sort-up");
+    });
   });
 
   describe('success', () => {

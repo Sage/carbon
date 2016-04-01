@@ -91,6 +91,14 @@ describe('Pager', () => {
         });
       });
 
+      describe('when input is less than 1', () => {
+        it('emit first page as the new current page', () => {
+          let event = { target: { value: '0' } };
+          instance.emitChangeCallback('input', event);
+          expect(spy1).toHaveBeenCalledWith('1', '10');
+        });
+      });
+
       describe('when input is blank', () => {
         it('resets currentPage to the currentPage is state', () => {
           spyOn(instance, 'setState');
