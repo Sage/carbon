@@ -179,6 +179,21 @@ describe('Tabs', () => {
         expect(headers.length).toEqual(1);
       });
     });
+
+    describe('when a align prop is passed', () => {
+      it('adds a aligned class', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs align='right'>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+        
+        let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
+        expect(headers.className).toEqual('ui-tabs__headers ui-tabs__headers--align-right');
+      });
+    });
   });
 
   describe('visibleTab', () => {
@@ -264,7 +279,7 @@ describe('Tabs', () => {
     it('renders the tab headers', () => {
       let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
       let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
-      expect(list.className).toEqual('ui-tabs__headers');
+      expect(list.className).toEqual('ui-tabs__headers ui-tabs__headers--align-left');
       expect(items.length).toEqual(2);
     });
   });
