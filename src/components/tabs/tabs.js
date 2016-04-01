@@ -101,6 +101,12 @@ class Tabs extends React.Component {
       React.PropTypes.object
     ]).isRequired,
 
+    /**
+     * Aligns the tab headers
+     *
+     * @property align
+     * @type {String}
+     */
     align: React.PropTypes.string
   }
 
