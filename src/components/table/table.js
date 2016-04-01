@@ -62,6 +62,11 @@ import Pager from './../pager';
  *   pageSizeSelectionOptions={ sizeOptions } // Optional - Page Size Options
  * />
  *
+ * == Sorting
+ *
+ *  To enable column sorting, you will need to configure the Table Header component.
+ * See the Table Header component documentation.
+ *
  * @class Table
  * @constructor
  */
@@ -158,6 +163,33 @@ class Table extends React.Component {
     this.resizeTable();
   }
 
+  static childContextTypes = {
+    /**
+     * Defines a context object for child components of the table component.
+     * https://facebook.github.io/react/docs/context.html
+     *
+     * @property childContextTypes
+     * @type {Object}
+     */
+    onSort: React.PropTypes.func,
+    sortedColumn: React.PropTypes.string,
+    sortOrder: React.PropTypes.string
+  }
+
+  /**
+   * Returns table object to child components.
+   *
+   * @method getChildContext
+   * @return {void}
+   */
+  getChildContext = () => {
+    return {
+      onSort: this.onSort,
+      sortedColumn: this.sortedColumn,
+      sortOrder: this.sortOrder
+    };
+  }
+
   /**
    * Lifecycle for after a update has happened
    * If filter has changed then emit the on change event.
@@ -251,7 +283,7 @@ class Table extends React.Component {
   }
 
   /**
-   * Handlers when the pager emits a onChange event
+   * Handles when the pager emits a onChange event
    * Passes data to emitOnChangeCallback in the correct
    * format
    *
@@ -268,17 +300,59 @@ class Table extends React.Component {
   }
 
   /**
+   * Returns the currently sorted column.
+   *
+   * @method sortedColumn
+   * @return {String}
+   */
+  get sortedColumn() {
+    return this.props.sortedColumn;
+  }
+
+  /**
+   * Returns the current sort order.
+   *
+   * @method sortOrder
+   * @return {String}
+   */
+  get sortOrder() {
+    return this.props.sortOrder;
+  }
+
+  /**
+   * Handles what happens on sort.
+   *
+   * @method onSort
+   * @param {String} sortedColumn
+   * @param {String} sortOrder
+   */
+  onSort = (sortedColumn, sortOrder) => {
+    let options = this.emitOptions();
+    options.sortedColumn = sortedColumn;
+    options.sortOrder = sortOrder;
+    this.emitOnChangeCallback('table', options);
+  }
+
+  /**
    * Base Options to be emitted by onChange
    *
    * @method emitOptions
    * @return {Object} options to emit
    */
   emitOptions = (props = this.props) => {
+    let currentPage = props.currentPage || '';
+
+    if (Number(props.currentPage) > Number(props.pageSize)) {
+      currentPage = "1";
+    }
+
     return {
       // What if paginate if false - think about when next change functionality is added
-      currentPage: props.currentPage,
+      currentPage: currentPage,
       filter: props.filter ? props.filter.toJS() : {},
-      pageSize: props.pageSize
+      pageSize: props.pageSize || '',
+      sortOrder: props.sortOrder || '',
+      sortedColumn: props.sortedColumn || ''
     };
   }
 

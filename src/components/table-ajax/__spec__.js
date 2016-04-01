@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { TableAjax } from './table-ajax';
 
 describe('TableAjax', () => {
-  let instance, spy;
+  let instance, customInstance, spy;
 
   beforeEach(() => {
     spy = jasmine.createSpy('onChange spy');
@@ -18,6 +18,18 @@ describe('TableAjax', () => {
        foo
       </TableAjax>
     );
+
+    customInstance = TestUtils.renderIntoDocument(
+      <TableAjax
+        className="foo"
+        path='/test'
+        onChange={ spy }
+        sortOrder='desc'
+        sortedColumn='name'
+      >
+       foo
+      </TableAjax>
+    );
   });
 
   describe('componentDidMount', () => {
@@ -27,8 +39,38 @@ describe('TableAjax', () => {
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('data', {
         currentPage: '1',
         pageSize: '10',
+        sortOrder: '',
+        sortedColumn: '',
         filter: {}
       }, 0);
+    });
+
+    describe('when custom props are passed', () => {
+      it('sends the custom props', () => {
+        spyOn(customInstance, 'emitOnChangeCallback');
+        customInstance.componentDidMount();
+        expect(customInstance.emitOnChangeCallback).toHaveBeenCalledWith('data', {
+          currentPage: '1',
+          pageSize: '10',
+          sortOrder: 'desc',
+          sortedColumn: 'name',
+          filter: {}
+        }, 0);
+      });
+    });
+
+    describe('when custom props are passed', () => {
+      it('sends the custom props', () => {
+        spyOn(customInstance, 'emitOnChangeCallback');
+        customInstance.componentDidMount();
+        expect(customInstance.emitOnChangeCallback).toHaveBeenCalledWith('data', {
+          currentPage: '1',
+          pageSize: '10',
+          sortOrder: 'desc',
+          sortedColumn: 'name',
+          filter: {}
+        }, 0);
+      });
     });
   });
 
@@ -54,7 +96,11 @@ describe('TableAjax', () => {
       jasmine.Ajax.install();
       jasmine.clock().install();
 
-      options = { currentPage: '1', pageSize: '10' }
+      options = { currentPage: '1',
+                  pageSize: '10',
+                  sortOrder: undefined,
+                  sortedColumn: undefined
+                }
     });
 
     afterEach(() => {
@@ -65,6 +111,14 @@ describe('TableAjax', () => {
     it('Sets the new pageSize and currentPage in state', () => {
       spyOn(instance, 'setState');
       instance.emitOnChangeCallback('data', options);
+      expect(instance.setState).toHaveBeenCalledWith(options);
+    });
+
+    it('sets current page to 1 if filter has been updated', () => {
+      spyOn(instance, 'setState');
+      options.currentPage = "2";
+      instance.emitOnChangeCallback('filter', options);
+      options.currentPage = "1";
       expect(instance.setState).toHaveBeenCalledWith(options);
     });
 
@@ -99,7 +153,7 @@ describe('TableAjax', () => {
           "contentType": 'application/json',
           "responseText": "{\"data\": [\"foo\"]}"
         });
-        expect(spy).toHaveBeenCalledWith('foo');
+        expect(spy).toHaveBeenCalledWith({ data: ['foo'] });
     });
 
     it('on success sets the totalRecords', () => {
@@ -111,7 +165,7 @@ describe('TableAjax', () => {
       request.respondWith({
         "status": 200,
         "contentType": 'application/json',
-        "responseText": "{\"data\": [{\"records\": 1}]}"
+        "responseText": "{\"records\": 1}"
       });
       expect(instance.setState).toHaveBeenCalledWith({ totalRecords: '1' });
     });
@@ -131,7 +185,7 @@ describe('TableAjax', () => {
           "responseText": "{\"data\": [\"foo\"]}"
         });
 
-        expect(instance.resetTableHeight).toHaveBeenCalled(); 
+        expect(instance.resetTableHeight).toHaveBeenCalled();
       });
     });
   });
@@ -155,9 +209,15 @@ describe('TableAjax', () => {
     });
 
     it('returns formatted params for server request with filter', () => {
-      let options = { currentPage: 10, pageSize: 20, filter: { foo: "bar" } };
-      let expected = "foo=bar&page=10&rows=20";
+      let options = { currentPage: 10, pageSize: 20, sortOrder: 'asc', sortedColumn: 'name', filter: { foo: "bar" } };
+      let expected = "foo=bar&page=10&rows=20&sord=asc&sidx=name";
       expect(instance.queryParams('', options)).toEqual(expected);
+    });
+
+    it('returns currentPage as 1 if element is filter', () => {
+      let options = { currentPage: 10, pageSize: 20, sortOrder: 'asc', sortedColumn: 'name', filter: { foo: "bar" } };
+      let expected = "foo=bar&page=1&rows=20&sord=asc&sidx=name";
+      expect(instance.queryParams('filter', options)).toEqual(expected);
     });
   });
 
@@ -167,6 +227,8 @@ describe('TableAjax', () => {
         currentPage: '1',
         filter: {},
         pageSize: '10',
+        sortedColumn: '',
+        sortOrder: ''
       });
     });
 
@@ -180,6 +242,8 @@ describe('TableAjax', () => {
         currentPage: '1',
         filter: { foo: "bar" },
         pageSize: '10',
+        sortedColumn: '',
+        sortOrder: ''
       });
     });
   });
