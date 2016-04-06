@@ -12,6 +12,15 @@
   padding: 8px;
   vertical-align: middle;
   white-space: nowrap;
+  width: 75px;
+
+  &:first-child {
+    border-right: none;
+    border-spacing: 0;
+    border: 1px solid $border-color;
+    left: 50px;
+    position: absolute;;
+  }
 
   .ui-table-row:first-child & {
     border-bottom: none;
@@ -26,7 +35,7 @@
   }
 
   .ui-table-row:last-child & {
-    border-bottom: none;
+    // border-bottom: none;
 
     &:first-child {
       border-radius: 0 0 0 $tables__border-radius;
