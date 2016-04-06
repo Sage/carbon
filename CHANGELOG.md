@@ -1,3 +1,9 @@
+# 0.8.0
+
+## Improvements
+
+* Improved store reset. `store.reset()` will now reset the store to it's initial data, regardless of if history is enabled.
+
 # 0.7.0
 
 ## New Components
