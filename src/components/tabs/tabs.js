@@ -2,6 +2,7 @@ import React from 'react';
 import Immutable from 'immutable';
 import Tab from './tab';
 import { compact } from 'lodash';
+import classNames from 'classnames';
 
 /**
  * A Tabs widget.
@@ -98,11 +99,20 @@ class Tabs extends React.Component {
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object
-    ]).isRequired
+    ]).isRequired,
+
+    /**
+     * Aligns the tab headers
+     *
+     * @property align
+     * @type {String}
+     */
+    align: React.PropTypes.string
   }
 
   static defaultProps = {
-    renderHiddenTabs: true
+    renderHiddenTabs: true,
+    align: 'left'
   }
 
   static childContextTypes = {
@@ -191,26 +201,20 @@ class Tabs extends React.Component {
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    let classes = 'ui-tabs ';
-
-    if (this.props.className) {
-      classes += this.props.className;
-    }
-    return classes;
+    return classNames(
+      'ui-tabs',
+      this.props.className
+    );
   }
 
   tabHeaderClasses = (tab) => {
-    let classes = 'ui-tabs__headers__header';
-
-    if (this.state.tabValidity.get(tab.props.tabId) == false) {
-      classes += ' ui-tabs__headers__header--error';
-    }
-
-    if (tab.props.tabId === this.state.selectedTabId) {
-      classes += ' ui-tabs__headers__header--selected';
-    }
-
-    return classes;
+    return classNames(
+      'ui-tabs__headers__header',
+      {
+        'ui-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
+        'ui-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
+      }
+    );
   }
 
   /**
@@ -228,10 +232,15 @@ class Tabs extends React.Component {
           key={ child.props.tabId }
           data-tabid={ child.props.tabId } >
             { child.props.title }
-        </li>);
+        </li>
+      );
     });
 
-    return <ul className='ui-tabs__headers' >{ tabTitles }</ul>;
+    return(
+      <ul className={ `ui-tabs__headers ui-tabs__headers--align-${ this.props.align }` } >
+        { tabTitles }
+      </ul>
+    );
   }
 
   /**

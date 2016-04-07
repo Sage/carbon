@@ -1,0 +1,27 @@
+@import "colors";
+
+body {
+  background-color: $grey-background;
+  margin: 0;
+}
+
+.ui-demo__header {
+  background-color: $grey-dark-blue;
+  color: #FFF;
+}
+
+.ui-demo__header-contents,
+.ui-demo__content {
+  margin: 0 auto;
+  min-width: 960px;
+  max-width: 1400px;
+}
+
+.ui-demo__header-contents {
+  a {
+    color: #FFF;
+    display: inline-block;
+    padding: 10px;
+    text-decoration: none;
+  }
+}

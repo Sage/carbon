@@ -113,7 +113,7 @@ describe('Tabs', () => {
 
   describe('mainClasses', () => {
     it('returns the main class for the component', () => {
-      expect(instance.mainClasses).toEqual('ui-tabs ');
+      expect(instance.mainClasses).toEqual('ui-tabs');
     });
 
     describe('when passing custom classNames', () => {
@@ -177,6 +177,21 @@ describe('Tabs', () => {
       it('renders a single header', () => {
         let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'ui-tabs__headers__header')
         expect(headers.length).toEqual(1);
+      });
+    });
+
+    describe('when a align prop is passed', () => {
+      it('adds a aligned class', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs align='right'>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+        
+        let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
+        expect(headers.className).toEqual('ui-tabs__headers ui-tabs__headers--align-right');
       });
     });
   });
@@ -258,13 +273,13 @@ describe('Tabs', () => {
   describe('render', () => {
     it('creates a parent div for the component', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(div.className).toEqual('ui-tabs ');
+      expect(div.className).toEqual('ui-tabs');
     });
 
     it('renders the tab headers', () => {
       let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
       let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
-      expect(list.className).toEqual('ui-tabs__headers');
+      expect(list.className).toEqual('ui-tabs__headers ui-tabs__headers--align-left');
       expect(items.length).toEqual(2);
     });
   });

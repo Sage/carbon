@@ -1,4 +1,57 @@
+# 0.7.0
+
+## New Components
+
+* Pager
+* Filter
+* Table Ajax
+
+## Bug Fixes
+
+* TableCell and TableHeader can receive additional props.
+* Inputs no longer render a label if the input has no name or label props.
+
+## New functionality
+
+* Table and TableHeader have been updated to allow sorting.
+* Tabs - Passing a prop of align='right' will align tab headers to the right
+
+# 0.6.0
+
+## Improve Date widget
+
+Improve the existing Date widget to allow passing in `minDate` and `maxDate`.
+
+## I18nHelper
+
+An I18nHelper has been created to help with formatting decimal numbers.
+
+## Should Component Update Decorator
+
+Supplies base shouldComponentUpdate
+
+## toArray
+
+We have added a helper method to convert strings into arrays, for example:
+
+`"foo[bar][baz]"` into `["foo", "bar", "baz"]`.
+
+## ImmutableHelper parseJSON
+
+The parseJSON method now converts all integers to strings for consistency
+
+## Bug Fixes
+
+* We have inserted an engine dependency for npm version 3. This is to help mitigate any issues of users reporting issues when installing with npm version 2.
+
+## New Components
+
+* Spinner
+* RadioButton
+
 # 0.5.3
+
+## Bug Fixes
 
 * Fixed numeral validator so it returns the correct type of validator.
 

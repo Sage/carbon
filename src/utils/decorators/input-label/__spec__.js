@@ -73,9 +73,19 @@ class AltValidationClass {
   };
 }
 
-describe('InputLabel', () => {
+class NamelessClass {
+  props = {
+  };
 
-  let instanceBasic, instanceFalse, instanceUnNamed, instanceValidation, instanceAltValidation;
+  context = {
+    form: {
+      model: 'model_2'
+    }
+  };
+}
+
+describe('InputLabel', () => {
+  let instanceBasic, instanceFalse, instanceUnNamed, instanceValidation, instanceAltValidation, instanceNameless;
 
   beforeEach(() => {
     let ExtendedClassOne = InputLabel(BasicClass);
@@ -92,12 +102,21 @@ describe('InputLabel', () => {
 
     let ExtendedClassFive = InputLabel(AltValidationClass);
     instanceAltValidation = new ExtendedClassFive();
+
+    let ExtendedClassSix = InputLabel(NamelessClass);
+    instanceNameless = new ExtendedClassSix();
   });
 
   describe('labelHTML', () => {
     describe('when label is set to false', () => {
       it('does not add a label', () => {
         expect(instanceFalse.labelHTML).not.toBeDefined();
+      });
+    });
+
+    describe('when no name is provided', () => {
+      it('does not add a label', () => {
+        expect(instanceNameless.labelHTML).not.toBeDefined();
       });
     });
 
@@ -160,7 +179,7 @@ describe('InputLabel', () => {
 
   describe('mainClasses', () => {
     it('adds the label inline class if input is inline', () => {
-      expect(instanceBasic.mainClasses).toEqual(' common-input--label-inline');
+      expect(instanceBasic.mainClasses).toEqual('common-input--label-inline');
     });
 
     it('does not add the label inline class if input is inline', () => {

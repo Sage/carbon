@@ -11,10 +11,16 @@ describe('TableRow', () => {
     instance = TestUtils.renderIntoDocument(
       <Table>
         <TableRow>
-          <TableCell className="foo" align="right" />
+          <TableCell className="foo" align="right" style={{ width: "50px" }} />
         </TableRow>
       </Table>
     );
+  });
+
+  it('renders additional props to the td element', () => {
+    let td = TestUtils.findRenderedDOMComponentWithTag(instance, 'td');
+
+    expect(td.style.width).toEqual("50px");
   });
 
   it('renders a td with correct classes', () => {

@@ -1,0 +1,4 @@
+{
+  "main": "./example.js",
+  "style": "./example.scss"
+}

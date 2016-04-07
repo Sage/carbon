@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from './../icon';
+import classNames from 'classnames';
 
 /**
  * A Pod widget.
@@ -33,7 +34,25 @@ class Pod extends React.Component {
      * @property collapsed
      * @type {Boolean}
      */
-    collapsed: React.PropTypes.bool
+    collapsed: React.PropTypes.bool,
+
+    /**
+     * Title for the pod h2 element
+     * always shown
+     *
+     * @property title
+     * @type {String}
+     */
+    title: React.PropTypes.string,
+
+    /**
+     * Description for the pod
+     * Not shown if collapsed
+     *
+     * @property title
+     * @type {String}
+     */
+    description: React.PropTypes.string
   }
 
   /**
@@ -55,13 +74,13 @@ class Pod extends React.Component {
    * @method podHeader
    */
   get podHeader() {
-    if(!this.props.title) { return; }
+    if (!this.props.title) { return; }
     let pod,
         headerProps = {};
 
     headerProps.className = "ui-pod__header unselectable";
 
-    if(this.state.collapsed !== undefined) {
+    if (this.state.collapsed !== undefined) {
       pod = this.podCollapsible;
       headerProps.onClick = this.toggleCollapse;
       headerProps.className += " ui-pod__header--" + this.state.collapsed;
@@ -127,21 +146,31 @@ class Pod extends React.Component {
   };
 
   /**
+   * Main Class getter
+   *
+   * @method mainClasses
+   * @return {String} Main className
+   */
+  get mainClasses() {
+    return classNames(
+      'ui-pod',
+      this.props.className
+    );
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
    * @return {Object} JSX
    */
   render() {
-    let className = "ui-pod ";
     let content;
-
-    className += this.props.className ? this.props.className : '';
 
     if(!this.state.collapsed) { content = this.podContent; }
 
     return (
-      <div className={ className } >
+      <div className={ this.mainClasses } >
         { this.podHeader }
         { content }
       </div>

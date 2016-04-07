@@ -1,5 +1,5 @@
 import React from 'react';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './../icon';
 
@@ -167,7 +167,7 @@ class Flash extends React.Component {
   render() {
     let flashHTML, sliderHTML, mainClasses;
 
-    mainClasses = ClassNames(
+    mainClasses = classNames(
       'ui-flash',
       this.props.className,
       `ui-flash--${this.props.as}`

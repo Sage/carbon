@@ -18,6 +18,10 @@ $ui-tabs__header__color: $grey-dark !default;
   padding: 0;
 }
 
+.ui-tabs__headers--align-right {
+  text-align: right;
+}
+
 .ui-tabs__headers__header {
   background-color: $ui-tabs__header__background-color;
   border-bottom: 2px solid $ui-tabs__header__border-color;

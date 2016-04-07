@@ -1,0 +1,4 @@
+{
+  "main": "./icon-demo.js",
+  "style": "icon-demo.scss"
+}

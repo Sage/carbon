@@ -249,6 +249,8 @@ class Date extends React.Component {
     props.date = value;
     props.onViewDateChange = this.handleViewDateChange;
     props.viewDate = this.state.viewDate;
+    props.minDate = this.props.minDate;
+    props.maxDate = this.props.maxDate;
     return props;
   }
 

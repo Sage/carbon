@@ -1,5 +1,5 @@
 import React from 'react';
-import I18n from "i18n-js";
+import I18nHelper from './../../utils/helpers/i18n';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -71,7 +71,7 @@ class Decimal extends React.Component {
      * @property visibleValue
      * @type {String}
      */
-    visibleValue: formatVisibleValue(this.props.value, this)
+    visibleValue: I18nHelper.formatDecimal(this.value)
   }
 
   /**
@@ -85,7 +85,7 @@ class Decimal extends React.Component {
   componentWillReceiveProps(props) {
     if (this._document.activeElement != this._input) {
       let value = props.value || props.defaultValue;
-      this.setState({ visibleValue: formatVisibleValue(value, this) });
+      this.setState({ visibleValue: I18nHelper.formatDecimal(value) });
     }
   }
 
@@ -112,9 +112,9 @@ class Decimal extends React.Component {
    * @return {Boolean} true if a valid decimal
    */
   isValidDecimal = (value) => {
-    let del, regex, result, sep;
-    del = i18nFormatting().delimiter;
-    sep = i18nFormatting().separator;
+    let del, regex, result, sep, format = I18nHelper.format();
+    del = format.delimiter;
+    sep = format.separator;
     regex = new RegExp('^[-]?[0-9]*(?:\\' + del + '?[0-9]?)*\\' + sep + '?[0-9]{0,}$');
     result = regex.test(value);
 
@@ -131,7 +131,7 @@ class Decimal extends React.Component {
   handleVisibleInputChange = (ev) => {
     if (this.isValidDecimal(ev.target.value)) {
       this.setState({ visibleValue: ev.target.value });
-      this.emitOnChangeCallback(formatHiddenValue(ev.target.value));
+      this.emitOnChangeCallback(I18nHelper.unformatDecimal(ev.target.value));
     } else {
       // reset the value
       ev.target.value = this.state.visibleValue;
@@ -147,7 +147,7 @@ class Decimal extends React.Component {
    * @return {void}
    */
   handleBlur = () => {
-    this.setState({ visibleValue: formatVisibleValue(this.props.value, this) });
+    this.setState({ visibleValue: I18nHelper.formatDecimal(this.value) });
     this.highlighted = false;
   }
 
@@ -189,6 +189,16 @@ class Decimal extends React.Component {
       // we also send the props so more information can be extracted by the action
       this.props.onKeyDown(ev, this.props);
     }
+  }
+
+  /**
+   * Returns the current value or default value.
+   *
+   * @method value
+   * @return {String}
+   */
+  get value() {
+    return this.props.value || getDefaultValue(this);
   }
 
   /**
@@ -280,58 +290,6 @@ class Decimal extends React.Component {
 )));
 
 // Private Methods
-
-/**
- * Formats delimiter and separator through i18n
- *
- * @method i18nFormatting
- * @private
- * @return {Object} Delimeter and separator values
- */
-function i18nFormatting() {
-  return {
-    delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
-    separator: I18n.t("number.format.separator", { defaultValue: "." })
-  };
-}
-
-/**
- * Removes delimiters and separators from value
- *
- * @method formatHiddenValue
- * @private
- * @param {String} valueToFormat Formatted value
- * @return {String} formated hidden value
- */
-function formatHiddenValue(valueToFormat) {
-  let value = valueToFormat;
-  let regex = new RegExp('\\' + i18nFormatting().delimiter, "g");
-
-  value = value.replace(regex, "", "g");
-  value = value.replace(i18nFormatting().separator, ".");
-
-  return value;
-}
-
-/**
- * Adds formatting to the value
- *
- * @method formatVisibleValue
- * @private
- * @param {String} value Unformatted Value
- * @param {Object} scope used to get default value of current scope if value doesn't exist
- * @return {String} formated value
- */
-function formatVisibleValue(value, scope) {
-  value = value || getDefaultValue(scope);
-
-  value = I18n.toNumber(value, {
-    precision: 2,
-    delimiter: i18nFormatting().delimiter,
-    separator: i18nFormatting().separator
-  });
-  return value;
-}
 
 /**
  * Returns defaultValue for specified scope,

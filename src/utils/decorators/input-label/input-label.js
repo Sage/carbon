@@ -1,5 +1,6 @@
 import React from 'react';
 import { find, startCase, assign } from 'lodash';
+import classNames from 'classnames';
 
 /**
  * InputLabel decorator.
@@ -58,13 +59,23 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    * @return {String} Main class names
    */
   get mainClasses() {
-    let classes = super.mainClasses || "";
+    return classNames(
+      super.mainClasses,
+      { 'common-input--label-inline': this.props.labelInline }
+    );
+  }
 
-    if (this.props.labelInline) {
-      classes += " common-input--label-inline";
-    }
-
-    return classes;
+  /**
+   * Classes to apply to the label
+   *
+   * @method labelClasses
+   * @return {String} classes
+   */
+  get labelClasses() {
+    return classNames(
+      'common-input__label',
+      { 'common-input__label--inline': this.props.labelInline }
+    );
   }
 
   /**
@@ -89,12 +100,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     // either use label supplied by dev, or automatically make one common on input name
     let labelText = this.props.label || startCase(this.props.name);
 
-    // add classes for the label
-    let labelClasses = "common-input__label";
-
-    if (this.props.labelInline) {
-      labelClasses += ` ${labelClasses}--inline`;
-    }
+    if (!labelText) { return; }
 
     // set asterisk if validation is used which uses an asterisk
     if (find(this.props.validations, (v) => { return v.asterisk; })) {
@@ -107,7 +113,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     return (
       <label
         style={ labelStyle }
-        className={ labelClasses }
+        className={ this.labelClasses }
         htmlFor={ this.inputProps.id }>
         { labelText }
       </label>

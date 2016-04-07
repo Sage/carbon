@@ -2,23 +2,25 @@
 @import "colors";
 
 .ui-table-header {
+  background-color: $grey-dark-blue-80;
   border-bottom: 1px solid $grey-dark-blue-60;
   border-left: 1px solid $grey-dark-blue-60;
   border-right: none;
   border-top: none;
   box-sizing: border-box;
-  background-color: $grey-dark-blue-80;
   color: $white;
   font-weight: normal;
-  height: 36px;
+  height: $tables__header-height;
   line-height: 10px;
   outline: medium none;
   overflow: hidden;
   padding: 8px 8px 6px 8px;
+  position: relative;
   text-align: left;
   text-overflow: ellipsis;
-  vertical-align: middle;
   user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
 
   &:first-child {
     border-left: none;
@@ -41,4 +43,25 @@
 
 .ui-table-header--align-right {
   text-align: right;
+}
+
+.ui-table-header__icon {
+  margin: -5px 10px 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+
+  .ui-icon__svg--sort-down,
+  .ui-icon__svg--sort-up {
+    height: 11px;
+    width: 10px;
+  }
+}
+
+.ui-table-header--sortable {
+  cursor: pointer;
+
+  &:hover {
+    background-color: $grey-dark-blue-60;
+  }
 }

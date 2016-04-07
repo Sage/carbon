@@ -10,8 +10,8 @@
   font-size: 12px;
   overflow: visible;
   padding: 8px;
-  vertical-align: baseline;
-  width: auto;
+  vertical-align: middle;
+  white-space: nowrap;
 
   .ui-table-row:first-child & {
     border-bottom: none;
