@@ -1,3 +1,9 @@
+# 0.7.1
+
+## Updates
+
+* Moves the validation logic in Form component to its own method.
+
 # 0.7.0
 
 ## New Components
