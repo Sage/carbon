@@ -84,12 +84,22 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    saving: React.PropTypes.bool
+    saving: React.PropTypes.bool,
+
+    /**
+     * If true, will validate the form on mount
+     *
+     * @property validateOnMount
+     * @type {Boolean}
+     * @default false
+     */
+    validateOnMount: React.PropTypes.bool
   }
 
   static defaultProps = {
     cancel: true,
-    saving: false
+    saving: false,
+    validateOnMount: false
   }
 
   static childContextTypes = {
@@ -142,6 +152,18 @@ class Form extends React.Component {
    * @type {Object}
    */
   inputs = {
+  }
+
+  /**
+   * Runs once the component has mounted.
+   *
+   * @method componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    if (this.props.validateOnMount) {
+      this.validate();
+    }
   }
 
   /**

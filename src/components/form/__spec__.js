@@ -22,6 +22,23 @@ describe('Form', () => {
     });
   });
 
+  describe('componentDidMount', () => {
+    it('does not validate by default', () => {
+      spyOn(instance, 'validate');
+      instance.componentDidMount();
+      expect(instance.validate).not.toHaveBeenCalled();
+    });
+
+    describe('when validateOnMount is set to true', () => {
+      it('validates the form', () => {
+        instance = TestUtils.renderIntoDocument(<Form validateOnMount={ true } />);
+        spyOn(instance, 'validate');
+        instance.componentDidMount();
+        expect(instance.validate).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('incrementErrorCount', () => {
     it('increments the state error count', () => {
       instance.setState({ errorCount: 2 });
