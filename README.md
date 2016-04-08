@@ -23,6 +23,8 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 * [Validations](docs/guides/validations.md)
 * [Decorators](docs/guides/decorators.md)
 * [Handlers](docs/guides/handlers.md)
+* [Retrieving Data](docs/guides/retrieving-data.md)
+* [Integrating React & Flux with Other UI](docs/guides/integrating-with-other-ui.md)
 
 ### Tutorials
 
