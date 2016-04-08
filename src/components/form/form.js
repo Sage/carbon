@@ -84,12 +84,22 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    saving: React.PropTypes.bool
+    saving: React.PropTypes.bool,
+
+    /**
+     * If true, will validate the form on mount
+     *
+     * @property validateOnMount
+     * @type {Boolean}
+     * @default false
+     */
+    validateOnMount: React.PropTypes.bool
   }
 
   static defaultProps = {
     cancel: true,
-    saving: false
+    saving: false,
+    validateOnMount: false
   }
 
   static childContextTypes = {
@@ -145,6 +155,18 @@ class Form extends React.Component {
   }
 
   /**
+   * Runs once the component has mounted.
+   *
+   * @method componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    if (this.props.validateOnMount) {
+      this.validate();
+    }
+  }
+
+  /**
    * Increase current error count in state by 1.
    *
    * @method incrementErrorCount
@@ -187,7 +209,7 @@ class Form extends React.Component {
   }
 
   /**
-   * Handles submit, checks for required fields and updates validations.
+   * Handles submit and runs validation.
    *
    * @method handleOnSubmit
    * @param {Object} ev event
@@ -198,8 +220,24 @@ class Form extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    let valid = true;
-    let errors = 0;
+    let valid = this.validate();
+
+    if (!valid) { ev.preventDefault(); }
+
+    if (this.props.afterFormValidation) {
+      this.props.afterFormValidation(ev, valid);
+    }
+  }
+
+  /**
+   * Validates any inputs in the form which have validations.
+   *
+   * @method validate
+   * @return {Boolean} valid status
+   */
+  validate = () => {
+    let valid = true,
+        errors = 0;
 
     for (let key in this.inputs) {
       let input = this.inputs[key];
@@ -210,14 +248,9 @@ class Form extends React.Component {
       }
     }
 
-    if (!valid) {
-      ev.preventDefault();
-      this.setState({ errorCount: errors });
-    }
+    if (!valid) { this.setState({ errorCount: errors }); }
 
-    if (this.props.afterFormValidation) {
-      this.props.afterFormValidation(ev, valid);
-    }
+    return valid;
   }
 
   /**
