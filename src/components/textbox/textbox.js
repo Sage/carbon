@@ -19,9 +19,9 @@ import LabelIcon from './../../utils/decorators/label-icon';
  *
  * @class Textbox
  * @constructor
- * @decorators {Input,InputLabel,InputValidation}
+ * @decorators {Input,InputLabel,InputValidation, LabelIcon}
  */
-const Textbox = Input(InputLabel(InputValidation(HelpIcon(
+const Textbox = Input(InputLabel(InputValidation(LabelIcon(
 class Textbox extends React.Component {
 
   /**

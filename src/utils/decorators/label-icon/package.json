@@ -1,4 +1,4 @@
 {
   "main": "./label-icon",
-  "style": "style.scss"
+  "style": "label-icon.scss"
 }

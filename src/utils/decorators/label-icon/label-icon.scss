@@ -1,0 +1,19 @@
+@import 'colors';
+
+.ui-label-icon {
+  color: $grey-mid;
+  top: -3px;
+  position: relative;
+
+  &:hover {
+    color: $grey-dark;
+  }
+
+  &::before {
+    font-size: 1.3em;
+  }
+}
+
+.common-input__label {
+  display: inline-block;
+}

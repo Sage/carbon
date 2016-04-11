@@ -2,15 +2,52 @@ import React from 'react';
 import Icon from './../../../components/icon';
 import classNames from 'classnames';
 
+/**
+ * LabelIcon decorator.
+ *
+ * This decorator provides HTML and CSS to style an input icon next to the label.
+ *
+ * == How to use LabelIcon decorator in a component:
+ *
+ * In your file:
+ *
+ *   import LabelIcon from 'carbon/lib/utils/decorators/label-icon';
+ *
+ * To use the decorator, wrap your component with it:
+ *
+ *   const MyComponent = InputLabel(LabelIcon(
+ *   class MyComponent extends React.Component {
+ *     ...
+ *   })
+ *
+ * In the render method for your component, you can now output the HTML:
+ *
+ *   render() {
+ *     return (
+ *       <div>
+ *         { this.labelHTML }
+ *         { this.labelIconType('info') }
+ *         <input />
+
+ *       </div>
+ *     );
+ *   }
+ *
+ * Note: the label icon html needs to sit as a sibling to its label.
+ *
+ * @method LabelIcon
+ * @param {Class} ComposedComponent class to decorate
+ * @return {Object} Decorated Component
+ */
 let LabelIcon = (ComposedComponent) => class extends ComposedComponent {
 
   constructor(...args) {
      super(...args);
    }
    /**
-    * Supplies the HTML for the help icon.
+    * Supplies the HTML for the label icon.
     *
-    * @method helpIconHTML
+    * @method labelIconHTML
     * @param {string} icon Which icon to render
     * @return {Object} JSX for icon
     */
@@ -22,9 +59,7 @@ let LabelIcon = (ComposedComponent) => class extends ComposedComponent {
     }
 
      return (
-       <label htmlFor={ this.inputProps.id } key="label-icon">
-         <Icon type={ icon } className="ui-label-icon" />
-       </label>
+        <Icon type={ icon } className="ui-label-icon" />
      );
   }
 };
