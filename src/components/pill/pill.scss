@@ -1,17 +1,17 @@
 @import 'colors';
 
 .ui-pill {
-  margin-left: 10px;
-  color: #FFFFFF;
-  font-size: 10px;
   border-radius: 3px;
-  padding: 0 3px 1.5px 3px;
-  letter-spacing: 0.8px;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding: 2px 15px 2px 15px;
 }
 
 @mixin pill-theme($type, $color, $border, $background, $color-hover) {
   .ui-pill--#{$type} {
-    background-color: $color;
+    border: 1px solid $color;
+    color: $color;
   }
 }
 

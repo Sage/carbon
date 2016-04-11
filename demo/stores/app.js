@@ -28,8 +28,8 @@ let data = ImmutableHelper.parseJSON({
     text: "Sample message."
   },
   pill: {
-    as: 'info',
-    text: 'Pill'
+    as: 'new',
+    text: 'MANAGER'
   },
   rainbow: {
     data: [{
