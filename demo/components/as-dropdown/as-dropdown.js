@@ -25,6 +25,9 @@ class AsDropdown extends React.Component {
     }, {
       id: "warning",
       name: "Warning"
+    }, {
+      id: "disabled",
+      name: "Disabled"
     }]);
 
     return (
