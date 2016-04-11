@@ -1,3 +1,9 @@
+# 0.8.0
+
+## Improve Dialog
+
+* Dialog now takes a prop of diableBackground which is true by default
+
 # 0.7.1
 
 ## Updates
