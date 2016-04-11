@@ -13,6 +13,7 @@ let data = ImmutableHelper.parseJSON({
     title: 'Hello World!'
   },
   dialog: {
+    open: false,
     title: 'Hello World!',
     disableBackground: true
   },
@@ -51,6 +52,9 @@ let data = ImmutableHelper.parseJSON({
   },
   row: {
     columnData: [{}, {}, {}, {}]
+  },
+  sidebar: {
+    open: false
   },
   spinner: {
     as: 'info',

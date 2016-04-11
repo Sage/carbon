@@ -204,19 +204,6 @@ class Dialog extends React.Component {
   }
 
   /**
-   * Returns classes for the component.
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
-  get mainClasses() {
-    return classNames(
-      'ui-dialog',
-      this.props.className
-    );
-  }
-
-  /**
    * Returns classes for the dialog.
    *
    * @method dialogClasses

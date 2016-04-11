@@ -1,0 +1,23 @@
+@import 'colors';
+@import 'mixins';
+
+.ui-sidebar__sidebar {
+  background-color: white;
+  border-radius: 1px;
+  @include box-shadow(-1px 0 0 0 #D8D9DC) 
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 400px;
+}
+
+.ui-sidebar__close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+
+  &:hover {
+    color: $blue;
+  }
+}
