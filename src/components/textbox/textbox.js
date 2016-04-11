@@ -65,9 +65,10 @@ class Textbox extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
-
-        { this.labelHTML }
-        { this.labelIconHTML }
+        <div className='ui-label'>
+          { this.labelHTML }
+          { this.labelIconHTML }
+        </div>
         { this.inputHTML }
         { this.validationHTML }
       </div>

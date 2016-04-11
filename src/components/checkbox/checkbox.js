@@ -2,6 +2,7 @@ import React from 'react';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
+import LabelIcon from './../../utils/decorators/label-icon';
 
 /**
  * A checkbox widget.
@@ -18,9 +19,9 @@ import InputValidation from './../../utils/decorators/input-validation';
  *
  * @class Checkbox
  * @constructor
- * @decorators {Input,InputLabel,InputValidation}
+ * @decorators {Input,InputLabel,InputValidation, LabelIcon}
  */
-const Checkbox = Input(InputLabel(InputValidation(
+const Checkbox = Input(InputLabel(InputValidation(LabelIcon(
 class Checkbox extends React.Component {
 
   static propTypes = {
@@ -176,7 +177,7 @@ class Checkbox extends React.Component {
     );
   }
 }
-)));
+))));
 
 
 export default Checkbox;
