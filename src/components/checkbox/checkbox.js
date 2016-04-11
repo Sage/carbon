@@ -19,7 +19,7 @@ import LabelIcon from './../../utils/decorators/label-icon';
  *
  * @class Checkbox
  * @constructor
- * @decorators {Input,InputLabel,InputValidation, LabelIcon}
+ * @decorators {Input,InputLabel,InputValidation,LabelIcon}
  */
 const Checkbox = Input(InputLabel(InputValidation(LabelIcon(
 class Checkbox extends React.Component {
