@@ -1,6 +1,5 @@
 import React from 'react';
 import Pod from 'components/pod';
-import Textbox from 'components/textbox';
 
 class Homepage extends React.Component {
   /**
@@ -8,13 +7,9 @@ class Homepage extends React.Component {
    */
   render() {
     return (
-      <div>
-        <Pod className="ui-homepage">
-          Carbon
-        </Pod>
-
-        <Textbox name='help-demo' labelIconType='info' />
-      </div>
+      <Pod className="ui-homepage">
+        Carbon
+      </Pod>
     );
   }
 }

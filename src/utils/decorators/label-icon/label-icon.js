@@ -1,6 +1,5 @@
 import React from 'react';
 import Icon from './../../../components/icon';
-import classNames from 'classnames';
 
 /**
  * LabelIcon decorator.
@@ -42,25 +41,26 @@ import classNames from 'classnames';
 let LabelIcon = (ComposedComponent) => class extends ComposedComponent {
 
   constructor(...args) {
-     super(...args);
-   }
-   /**
-    * Supplies the HTML for the label icon.
-    *
-    * @method labelIconHTML
-    * @param {string} icon Which icon to render
-    * @return {Object} JSX for icon
-    */
-   get labelIconHTML() {
-     let icon;
+    super(...args);
+  }
 
-     if (this.props.labelIconType) {
-       icon = this.props.labelIconType;
-    }
+  /**
+   * Supplies the HTML for the label icon.
+   *
+   * @method labelIconHTML
+   * @param {string} icon Which icon to render
+   * @return {Object} JSX for icon
+   */
+  get labelIconHTML() {
+    let icon;
 
-     return (
+    if (this.props.labelIconType) {
+      icon = this.props.labelIconType;
+
+      return (
         <Icon type={ icon } className="ui-label-icon" />
-     );
+      );
+    }
   }
 };
 
