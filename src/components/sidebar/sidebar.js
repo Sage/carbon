@@ -91,8 +91,9 @@ class Sidebar extends React.Component {
    */
   get sidebarHTML() {
     return (
-      <div className={ this.sidebarClasses }>
+      <div className={ this.sidebarClasses } style={ { top: '36px' } } >
         <Icon className="ui-sidebar__close" type="close" onClick={ this.props.onCancel } />
+        { this.props.children }
       </div>
     );
   }
