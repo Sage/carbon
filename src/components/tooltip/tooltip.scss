@@ -1,0 +1,27 @@
+@import 'colors';
+@import 'mixins';
+
+.ui-tooltip {
+  background-color: $grey-dark;
+  border-radius: 4px;
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.15);
+  color: $white;
+  max-width: 960px;
+  min-width: 380px;
+  padding: 10px 7px;
+  position: absolute;
+
+  .ui-tooltip__pointer {
+    height: 12px !important; // overrides the arrow mixin
+    left: 49%;
+    position: absolute;
+    top: -14px;
+
+    &:before {
+      left: -10px;
+      position: absolute;
+
+      @include arrow(up, 7px, $grey-dark);
+    }
+  }
+}
