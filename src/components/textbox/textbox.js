@@ -2,6 +2,7 @@ import React from 'react';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
+import LabelIcon from './../../utils/decorators/label-icon';
 
 /**
  * A textbox widget.
@@ -18,9 +19,9 @@ import InputValidation from './../../utils/decorators/input-validation';
  *
  * @class Textbox
  * @constructor
- * @decorators {Input,InputLabel,InputValidation}
+ * @decorators {Input,InputLabel,InputValidation,LabelIcon}
  */
-const Textbox = Input(InputLabel(InputValidation(
+const Textbox = Input(InputLabel(InputValidation(LabelIcon(
 class Textbox extends React.Component {
 
   /**
@@ -64,15 +65,16 @@ class Textbox extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
-
-        { this.labelHTML }
+        <div className='ui-label'>
+          { this.labelHTML }
+          { this.labelIconHTML }
+        </div>
         { this.inputHTML }
         { this.validationHTML }
-
       </div>
     );
   }
 }
-)));
+))));
 
 export default Textbox;
