@@ -22,6 +22,23 @@ describe('Form', () => {
     });
   });
 
+  describe('componentDidMount', () => {
+    it('does not validate by default', () => {
+      spyOn(instance, 'validate');
+      instance.componentDidMount();
+      expect(instance.validate).not.toHaveBeenCalled();
+    });
+
+    describe('when validateOnMount is set to true', () => {
+      it('validates the form', () => {
+        instance = TestUtils.renderIntoDocument(<Form validateOnMount={ true } />);
+        spyOn(instance, 'validate');
+        instance.componentDidMount();
+        expect(instance.validate).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('incrementErrorCount', () => {
     it('increments the state error count', () => {
       instance.setState({ errorCount: 2 });
@@ -78,55 +95,14 @@ describe('Form', () => {
     });
   });
 
-  describe('serialize', () => {
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Form>
-          <Textbox name='model[test]' value='foo' />
-        </Form>
-      );
-    });
-
-    it('without opts it returns a string', () => {
-      expect(instance.serialize()).toEqual('model%5Btest%5D=foo');
-    });
-
-    it('with opts it returns a hash', () => {
-      expect(instance.serialize({ hash: true })).toEqual({ model: { test: 'foo' } });
-    });
-  });
-
   describe('handleOnSubmit', () => {
-    describe('invalid input', () => {
-      it('does not not submit the form', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <Textbox validations={ [new Validation()] } name='test' value='' />
-          </Form>
-        );
-
-        spyOn(instance, 'setState');
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-        TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ errorCount: 1 });
-      });
+    it('calls the validate method', () => {
+      spyOn(instance, 'validate');
+      let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+      TestUtils.Simulate.submit(form);
+      expect(instance.validate).toHaveBeenCalled();
     });
 
-    describe('disabled input', () => {
-      it('does not validate the input', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <Textbox validations={ [new Validation()] } disabled={ true } />
-          </Form>
-        );
-
-        let textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-        spyOn(textbox, 'validate');
-        TestUtils.Simulate.submit(form);
-        expect(textbox.validate).not.toHaveBeenCalled();
-      });
-    });
 
     describe('when a beforeFormValidation prop is passed', () => {
       it('calls the beforeFormValidation', () => {
@@ -154,6 +130,55 @@ describe('Form', () => {
         TestUtils.Simulate.submit(form);
         expect(spy).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('validate', () => {
+    describe('invalid input', () => {
+      it('does not not submit the form', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form>
+            <Textbox validations={ [new Validation()] } name='test' value='' />
+          </Form>
+        );
+
+        spyOn(instance, 'setState');
+        instance.validate();
+        expect(instance.setState).toHaveBeenCalledWith({ errorCount: 1 });
+      });
+    });
+
+    describe('disabled input', () => {
+      it('does not validate the input', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form>
+            <Textbox validations={ [new Validation()] } disabled={ true } />
+          </Form>
+        );
+
+        let textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
+        spyOn(textbox, 'validate');
+        instance.validate();
+        expect(textbox.validate).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('serialize', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Form>
+          <Textbox name='model[test]' value='foo' />
+        </Form>
+      );
+    });
+
+    it('without opts it returns a string', () => {
+      expect(instance.serialize()).toEqual('model%5Btest%5D=foo');
+    });
+
+    it('with opts it returns a hash', () => {
+      expect(instance.serialize({ hash: true })).toEqual({ model: { test: 'foo' } });
     });
   });
 
