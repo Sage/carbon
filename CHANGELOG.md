@@ -1,3 +1,9 @@
+# 0.8.0
+
+## New Components
+
+* Portrait
+
 # 0.7.1
 
 ## Updates
