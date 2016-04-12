@@ -65,26 +65,26 @@ class ToolTipDemo extends React.Component {
             name='position'
             onChange={ this.action.bind(this, 'position')}
             value='left'
-            />
+          />
           <RadioButton
             defaultChecked={ true }
             label='Bottom'
             name='position'
             onChange={ this.action.bind(this, 'position')}
             value='bottom'
-            />
+          />
           <RadioButton
             label='Top'
             name='position'
             onChange={ this.action.bind(this, 'position')}
             value='top'
-            />
+          />
           <RadioButton
             label='Right'
             name='position'
             onChange={ this.action.bind(this, 'position')}
             value='right'
-            />
+          />
         </Row>
         <Row className='props-row'>
           <h5 className='row-label'>Pointer Alignment</h5>
@@ -94,35 +94,35 @@ class ToolTipDemo extends React.Component {
             name='align'
             onChange={ this.action.bind(this, 'align')}
             value='left'
-            />
+          />
           <RadioButton
             defaultChecked={ true }
             label='Center'
             name='align'
             onChange={ this.action.bind(this, 'align')}
             value='center'
-            />
+          />
           <RadioButton
             disabled={ this.value('position') === 'right' || this.value('position') === 'left'}
             label='Right'
             name='align'
             onChange={ this.action.bind(this, 'align')}
             value='right'
-            />
+          />
           <RadioButton
             disabled={ this.value('position') === 'bottom' || this.value('position') === 'top'}
             label='Top'
             name='align'
             onChange={ this.action.bind(this, 'align')}
             value='top'
-            />
+          />
           <RadioButton
             disabled={ this.value('position') === 'bottom' || this.value('position') === 'top'}
             label='Bottom'
             name='align'
             onChange={ this.action.bind(this, 'align')}
             value='bottom'
-            />
+          />
         </Row>
       </div>
     );

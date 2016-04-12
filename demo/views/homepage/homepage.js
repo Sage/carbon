@@ -10,8 +10,6 @@ class Homepage extends React.Component {
       <Pod className="ui-homepage">
         Carbon
       </Pod>
-
-
     );
   }
 }
