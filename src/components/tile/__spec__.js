@@ -11,5 +11,17 @@ describe('Tile', () => {
       let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
       expect(podNode.className).toEqual('ui-tile');
     });
+
+    it('renders div with custom class', () => {
+      instance = TestUtils.renderIntoDocument(<Tile className="foo">foo</Tile>);
+      let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
+      expect(podNode.className).toEqual('ui-tile foo');
+    });
+
+    it('renders its children', () => {
+      instance = TestUtils.renderIntoDocument(<Tile>foo</Tile>);
+      let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
+      expect(podNode.textContent).toEqual('foo');
+    });
   });
 });
