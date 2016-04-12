@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 /**
 * A Tooltip widget.
 *
@@ -11,14 +12,16 @@ import classNames from 'classnames';
 *
 * To render the Tooltip:
 *
-*   <Tooltip>
+*   <Tooltip showTooltip={ toggleTooltipHandler }>
 *     My tooltip content
 *   </Tooltip>
+*
+* You must pass a prop of 'showTooltip' which is toggled to true or false.
 *
 * You can pass a prop of 'align' to the component which shifts the alignment of the pointer.
 * This defaults to 'center'.
 * You can also pass a prop of 'position' to the component which shifts the position of the tooltip.
-* This defaults to 'bottom'.
+* This defaults to 'bottom'
 *
 * @class Tooltip
 * @constructor
@@ -42,12 +45,32 @@ class Tooltip extends React.Component {
      * @type {String}
      * @default 'bottom'
      */
-    position: React.PropTypes.string
+    position: React.PropTypes.string,
+
+    /**
+     * Show or hide tooltip
+     *
+     * @property showTooltip
+     * @type {Boolean}
+     * @default 'false'
+     */
+    showTooltip: React.PropTypes.bool.isRequired
   };
 
   static defaultProps = {
     align: 'center',
     position: 'bottom'
+  };
+
+  state = {
+    /**
+     * Whether tooltip currently showing
+     *
+     * @property showTooltip
+     * @type {Boolean}
+     * @default 'false'
+     */
+    showTooltip: this.props.showTooltip || false
   };
 
   /**
@@ -64,17 +87,37 @@ class Tooltip extends React.Component {
     );
   }
 
+  get mainClasses() {
+    return classNames(
+      'ui-tooltip',
+      this.props.className
+    );
+  }
+
+  get innerHTML() {
+    let contents = [];
+
+    contents.push(this.props.children);
+    contents.push(<span className={ this.pointerClasses }></span>);
+
+    return <div className={ this.mainClasses }>{ contents }</div>;
+  }
+
   /**
    * Renders the component.
    *
    * @method render
    */
   render() {
+    let content;
+
+    if (this.state.showTooltip) {
+      content = this.innerHTML;
+    }
+
     return(
-      <div className='ui-tooltip'>
-          { this.props.children }
-        <span className={ this.pointerClasses }>
-        </span>
+      <div>
+        { content }
       </div>
     );
   }
