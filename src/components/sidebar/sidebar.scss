@@ -45,11 +45,10 @@ $sidebar-background-animation-length: 300ms;
   right: -30px;
 }
 
-// TODO SPEED UP ANIMATION SPEED
 .sidebar-enter.sidebar-enter-active {
   opacity: 1;
   right: 0;
-  transition: all $sidebar-animation-length 100ms ease-in;
+  transition: all $sidebar-animation-length ease-in;
 }
 
 .sidebar-leave {
@@ -60,7 +59,7 @@ $sidebar-background-animation-length: 300ms;
 .sidebar-leave.sidebar-leave-active {
   opacity: 0;
   right: -50px;
-  transition: all $sidebar-animation-length 100ms ease-in;
+  transition: all $sidebar-animation-length ease-in;
 }
 
 // sidebar background animation:
@@ -80,5 +79,5 @@ $sidebar-background-animation-length: 300ms;
 
 .sidebar-background-leave.sidebar-background-leave-active {
   opacity: 0;
-  transition: opacity $sidebar-background-animation-length 100ms ease-in;
+  transition: opacity $sidebar-background-animation-length ease-in;
 }

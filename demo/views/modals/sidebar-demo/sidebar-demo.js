@@ -32,20 +32,30 @@ class SidebarDemo extends React.Component {
    * @method demo
    */
   get demo() {
-    return (
-      <div>
+    let button;
+
+    if (this.value('open')) {
+      button = (
+        <Button onClick={ this.action.bind(this, 'open', { target: { value: false } } ) } >
+          Click me to Close Sidebar
+        </Button>
+      );
+    } else {
+      button = (
         <Button onClick={ this.action.bind(this, 'open', { target: { value: true } } ) } >
           Click me to Open Sidebar 
         </Button>
+      );
+    }
+
+    return (
+      <div>
+        { button }
         <Sidebar
           open={ this.value('open') }
           onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
           disableBackground={ this.value('disableBackground') }
         >
-          <Row>
-            <Textbox />
-            <Textbox />
-          </Row>
         </Sidebar>
       </div>
     );
@@ -71,12 +81,6 @@ class SidebarDemo extends React.Component {
     return (
       <div>
         <Row>
-          <Textbox
-            label="Title"
-            labelInline={ true }
-            value={ this.value('title') }
-            onChange={ this.action.bind(this, 'title') }
-          />
           <Checkbox
             label="Disable Background"
             value={ this.value('disableBackground') }
