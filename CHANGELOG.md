@@ -10,6 +10,10 @@
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
 
+## Misc
+
+* Child components of Row can now use a `columnAlign` prop.
+
 # 0.7.1
 
 ## Updates

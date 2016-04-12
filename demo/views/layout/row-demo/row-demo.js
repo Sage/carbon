@@ -10,6 +10,7 @@ import Row from 'components/row';
 import Button from 'components/button';
 import Textbox from 'components/textbox';
 import Number from 'components/number';
+import Dropdown from 'components/dropdown';
 import { Table, TableRow, TableCell, TableHeader } from 'components/table';
 
 class RowDemo extends React.Component {
@@ -37,11 +38,12 @@ class RowDemo extends React.Component {
         {
           this.value('columnData').map((data, index) => {
             return (
-              <Textbox
+              <div
                 key={ index }
                 columnOffset={ data.get('columnOffset') }
                 columnSpan={ data.get('columnSpan') }
-              />
+                columnAlign={ data.get('columnAlign') }
+              >Foobar</div>
             );
           }).toJS()
         }
@@ -87,6 +89,23 @@ class RowDemo extends React.Component {
   }
 
   /**
+   * @method alignOptions
+   * @return {Object}
+   */
+  get alignOptions() {
+    return Immutable.fromJS([{
+      id: 'left',
+      name: 'Left'
+    }, {
+      id: 'center',
+      name: 'Center'
+    }, {
+      id: 'right',
+      name: 'Right'
+    }]);
+  }
+
+  /**
    * @method controls
    */
   get controls() {
@@ -121,6 +140,15 @@ class RowDemo extends React.Component {
               placeholder={ `Enter 2-${length - 1}` }
             />
           </TableCell>
+
+          <TableCell>
+            <Dropdown
+              label={ false }
+              value={ data.get('columnAlign') }
+              onChange={ this.action.bind(this, ['columnData', index, 'columnAlign']) }
+              options={ this.alignOptions }
+            />
+          </TableCell>
         </TableRow>
       );
     });
@@ -131,6 +159,7 @@ class RowDemo extends React.Component {
         <TableHeader />
         <TableHeader>Column Offset</TableHeader>
         <TableHeader>Column Span</TableHeader>
+        <TableHeader>Column Align</TableHeader>
       </TableRow>
     );
 
@@ -141,6 +170,7 @@ class RowDemo extends React.Component {
         <TableCell>
           <Button onClick={ this.action.bind(this, ['columnData', length, 'foo']) } disabled={ length == 12 }>Add Column</Button>
         </TableCell>
+        <TableCell />
         <TableCell />
       </TableRow>
     );
