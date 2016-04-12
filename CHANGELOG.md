@@ -1,5 +1,9 @@
 # 0.8.0
 
+## New Components
+
+* Sidebar 
+
 ## Improve Dialog
 
 * Dialog now takes a prop of diableBackground which is true by default
