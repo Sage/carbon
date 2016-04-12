@@ -58,14 +58,14 @@ class PortraitDemo extends React.Component {
     let html = "import Portrait from 'carbon/lib/components/portrait';\n\n"
 
     html += '<Portrait\n';
-    html += `  size=${ this.value('size') }\n`;
+    html += `  size="${ this.value('size') }"\n`;
 
     if (this.value('alt')) {
       html += `  alt="${ this.value('alt') }"\n`;
     }
 
     if (this.value('shape') !== 'standard') {
-      html += `  shape=${ this.value('shape') }\n`
+      html += `  shape="${ this.value('shape') }"\n`
     }
 
     if (this.value('gravatar')) {
