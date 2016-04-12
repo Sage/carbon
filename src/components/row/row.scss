@@ -1,19 +1,22 @@
 @import 'general';
 
 $max-columns: 12 !default;
+$row-margin: 10px !default;
 
 .ui-row {
   clear: both;
+  margin-bottom: -($row-margin);
   margin-left: -($grid-margin);
   position: relative;
 
   + .ui-row {
-    margin-top: 10px;
+    margin-top: $row-margin;
   }
 
   .ui-row__column {
     box-sizing: border-box;
     float: left;
+    margin-bottom: 10px;
     min-height: 1px;
     padding-left: $grid-margin;
     width: 100%;
