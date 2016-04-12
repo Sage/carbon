@@ -1,5 +1,15 @@
 # 0.8.0
 
+## New Components
+
+* Tile - an alternative to Pod, with a drop shadow.
+
+## Layout Updates
+
+* Pod component now receives two additional props:
+  * `border` - allows developers to disable border.
+  * `padding` - allows developers to have control over padding size.
+
 ## Improve Dialog
 
 * Dialog now takes a prop of diableBackground which is true by default
