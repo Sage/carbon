@@ -1,14 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
 
-class Sidebar extends React.Component {
+class SidebarHeader extends React.Component {
 
   static propTypes = {
-  }
 
-  static defaultProps = {
+    /**
+     * Required prop which will be the content
+     * of the sidebar header
+     *
+     * @property children
+     * @type {Multiple}
+     */
+    children: React.PropTypes.node.isRequired
   }
-
 
   /**
    * Returns classes for the component.
@@ -38,4 +43,4 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+export default SidebarHeader;
