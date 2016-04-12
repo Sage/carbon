@@ -10,6 +10,10 @@
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
 
+## Bug Fixes
+
+* Fixes alignment issue with SplitButton when using anchors.
+
 # 0.7.1
 
 ## Updates
