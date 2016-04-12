@@ -4,7 +4,22 @@
   background-color: $white;
   border: 1px solid $border-color;
   border-radius: 4px;
+}
+
+.ui-pod--padding-small {
+  padding: 10px;
+}
+
+.ui-pod--padding-medium {
   padding: 20px 15px;
+}
+
+.ui-pod--padding-large {
+  padding: 30px 25px;
+}
+
+.ui-pod--no-border {
+  border: 1px solid transparent;
 }
 
 .ui-pod__header {
