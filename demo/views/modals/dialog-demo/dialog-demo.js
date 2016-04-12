@@ -62,8 +62,8 @@ class DialogDemo extends React.Component {
     html += `  open={ ${ this.value('open') } }\n`
     html += `  title="${ this.value('title') }"\n`;
 
-    if (this.value('disableBackground')) {
-      html += `  disableBackground={ true }\n`;
+    if (!this.value('disableBackground')) {
+      html += `  disableBackground={ false }\n`;
     }
 
     html += "/>\n\n";

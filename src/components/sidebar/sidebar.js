@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './../icon';
-import Bowser from 'bowser';
 import classNames from 'classnames';
 
 class Sidebar extends React.Component {
@@ -35,13 +34,20 @@ class Sidebar extends React.Component {
      */
     disableBackground: React.PropTypes.bool,
 
+    /**
+     * Determines the position of the sidebar
+     * 'left' or 'right'
+     *
+     * @property position
+     * @type {String}
+     * @default 'right'
+     */
     position: React.PropTypes.string
-
-
   }
 
   static defaultProps = {
     open: false,
+    disableBackground: true,
     position: 'right'
   }
 
@@ -54,10 +60,7 @@ class Sidebar extends React.Component {
   get sidebarClasses() {
     return classNames(
       'ui-sidebar__sidebar',
-      `ui-sidebar__sidebar--${this.props.position}`,
-      {
-        [`ui-sidebar__sidebar--${this.props.size}`]: typeof this.props.size !== 'undefined'
-      }
+      `ui-sidebar__sidebar--${this.props.position}`
     );
   }
 
@@ -90,7 +93,7 @@ class Sidebar extends React.Component {
   /**
    * Returns the computed HTML for the sidebar.
    *
-   * @method sidebarHTML 
+   * @method sidebarHTML
    * @return {Object} JSX for sidebar
    */
   get sidebarHTML() {

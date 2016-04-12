@@ -2,17 +2,17 @@
 @import 'mixins';
 @import 'z-index';
 
-$sidebar-animation-length: 300ms;
+$sidebar-animation-length: 250ms;
 $sidebar-background-opacity: 0.6;
-$sidebar-background-animation-length: 300ms;
+$sidebar-background-animation-length: 250ms;
 
 .ui-sidebar__sidebar {
-  background-color: white;
-  border-radius: 1px;
   @include box-shadow(-1px 0 0 0 #D8D9DC) 
+  background-color: $grey-light;
+  border-radius: 1px;
+  height: 100%;
   position: fixed;
   top: 0;
-  height: 100%;
   width: 400px;
   z-index: $z-sidebar;
 }

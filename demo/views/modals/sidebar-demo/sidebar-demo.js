@@ -72,6 +72,14 @@ class SidebarDemo extends React.Component {
 
     html += "<Sidebar\n";
     html += `  open={ ${ this.value('open') } }\n`
+
+    if (!this.value('disableBackground')) {
+      html += `  disableBackground={ false }\n`
+    }
+
+    if (this.value('positionLeft')) {
+      html += `  position='left'\n`
+    }
     html += "/>\n\n";
 
     return html;
