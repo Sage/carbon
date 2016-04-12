@@ -7,6 +7,7 @@ import AsDropdown from './../../../components/as-dropdown';
 import SizeDropdown from './../../../components/size-dropdown';
 
 import Sidebar from 'components/sidebar';
+import SidebarHeader from 'components/sidebar/sidebar-header';
 import Row from 'components/row';
 import Button from 'components/button';
 import Textbox from 'components/textbox';
@@ -55,10 +56,13 @@ class SidebarDemo extends React.Component {
         { button }
         <Sidebar
           open={ this.value('open') }
-          onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
+          onClose={ this.action.bind(this, 'open', { target: { value: false } } ) }
           disableBackground={ this.value('disableBackground') }
           position={ position }
         >
+          <SidebarHeader>
+            Sean Armstrong
+          </SidebarHeader>
         </Sidebar>
       </div>
     );

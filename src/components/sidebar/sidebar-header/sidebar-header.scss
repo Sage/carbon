@@ -1,0 +1,11 @@
+@import 'colors';
+
+$sidebar-border-color: lighten($border-color, 8%);
+
+.ui-sidebar-header {
+  width: 100%; 
+  background-color: #FFFFFF;
+  padding: 20px;
+  // border-bottom: solid 4px $sidebar-header-border-color;
+  border-bottom: solid 4px $sidebar-border-color;
+}
