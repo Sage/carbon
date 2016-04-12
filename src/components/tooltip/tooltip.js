@@ -47,7 +47,7 @@ class Tooltip extends React.Component {
 
   static defaultProps = {
     align: 'center',
-    postion: 'bottom'
+    position: 'bottom'
   };
 
   /**

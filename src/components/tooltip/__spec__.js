@@ -34,16 +34,22 @@ describe('tooltip', () => {
       positionedTooltip = ReactDOM.findDOMNode(positionedInstance);
     });
 
-    it('renders a content div', () => {
-      expect(tooltip.classList[0]).toEqual('ui-tooltip');
-    });
+    describe('default render', () => {
+      it('renders a content div', () => {
+        expect(tooltip.classList[0]).toEqual('ui-tooltip');
+      });
 
-    it('renders a pointer span', () => {
-      expect(tooltip.children[1].classList[0]).toEqual('ui-tooltip__pointer');
-    });
+      it('renders a pointer span', () => {
+        expect(tooltip.children[1].classList[0]).toEqual('ui-tooltip__pointer');
+      });
 
-    it('aligns the pointer to center', () => {
-      expect(tooltip.children[1].classList[1]).toEqual('ui-tooltip__pointer--align-center');
+      it('aligns the pointer to center', () => {
+        expect(tooltip.children[1].classList[1]).toEqual('ui-tooltip__pointer--align-center');
+      });
+
+      it('positions the pointer on the bottom', () => {
+        expect(tooltip.children[1].classList[2]).toEqual('ui-tooltip__pointer--position-bottom');
+      });
     });
 
     describe('when a prop of align is passed', () => {
