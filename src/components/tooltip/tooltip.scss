@@ -7,7 +7,7 @@
   box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.15);
   color: $white;
   max-width: 960px;
-  min-width: 380px;
+  min-width: 100px;
   padding: 10px 7px;
   position: absolute;
 
@@ -18,48 +18,38 @@
 
 
   .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-top {
+    bottom: -12px;
     left: 49%;
-    top: -14px;
 
     &:before {
-      @include arrow(up, 7px, $grey-dark);
+      @include arrow(down, 7px, $grey-dark);
       position: absolute;
     }
   }
 
   .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-bottom {
-    bottom: -12px;
     left: 49%;
+    top: -15px;
 
     &:before {
-      @include arrow(down, 7px, $grey-dark);
+      @include arrow(up, 7px, $grey-dark);
       position: absolute;
     }
   }
 
   .ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-top {
+    bottom: -12px;
     left: 4%;
-    top: -14px;
 
     &:before {
-      @include arrow(up, 7px, $grey-dark);
+      @include arrow(down, 7px, $grey-dark);
       position: absolute;
     }
   }
 
   .ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-bottom {
-    bottom: -12px;
     left: 4%;
-
-    &:before {
-      @include arrow(down, 7px, $grey-dark);
-      position: absolute;
-    }
-  }
-
-  .ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-top {
-    right: 4%;
-    top: -14px;
+    top: -15px;
 
     &:before {
       @include arrow(up, 7px, $grey-dark);
@@ -67,7 +57,7 @@
     }
   }
 
-  .ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-bottom {
+  .ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-top {
     bottom: -12px;
     right: 4%;
 
@@ -77,53 +67,48 @@
     }
   }
 
+  .ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-bottom {
+    right: 4%;
+    top: -15px;
+
+    &:before {
+      @include arrow(up, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
   .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-right {
-    left: auto;
-    right: 0;
+    left: -15px;
     top: 33%;
 
     &:before {
-      @include arrow(right, 7px, $grey-dark);
+      @include arrow(left, 7px, $grey-dark);
       position: absolute;
     }
   }
 
   .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-left {
-    left: -15px;
-    right: auto;
+    right: 0px;
     top: 33%;
 
     &:before {
-      @include arrow(left, 7px, $grey-dark);
+      @include arrow(right, 7px, $grey-dark);
       position: absolute;
     }
   }
 
   .ui-tooltip__pointer--align-top.ui-tooltip__pointer--position-right {
-    left: auto;
-    right: 0;
+    left: -15px;
     top: 10%;
 
     &:before {
-      @include arrow(right, 7px, $grey-dark);
+      @include arrow(left, 7px, $grey-dark);
       position: absolute;
     }
   }
 
   .ui-tooltip__pointer--align-bottom.ui-tooltip__pointer--position-left {
-    left: -15px;
-    right: auto;
-    bottom: 10%;
-
-    &:before {
-      @include arrow(left, 7px, $grey-dark);
-      position: absolute;
-    }
-  }
-
-  .ui-tooltip__pointer--align-bottom.ui-tooltip__pointer--position-right {
-    left: auto;
-    right: 0;
+    right: 0px;
     bottom: 10%;
 
     &:before {
@@ -132,13 +117,22 @@
     }
   }
 
-  .ui-tooltip__pointer--align-top.ui-tooltip__pointer--position-left {
+  .ui-tooltip__pointer--align-bottom.ui-tooltip__pointer--position-right {
     left: -15px;
-    right: auto;
-    top: 10%;
+    bottom: 10%;
 
     &:before {
       @include arrow(left, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-top.ui-tooltip__pointer--position-left {
+    right: 0px;
+    top: 10%;
+
+    &:before {
+      @include arrow(right, 7px, $grey-dark);
       position: absolute;
     }
   }
