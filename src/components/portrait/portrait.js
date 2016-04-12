@@ -68,11 +68,21 @@ class Portrait extends React.Component {
      * @property src
      * @type {String}
      */
-    alt: React.PropTypes.string
+    alt: React.PropTypes.string,
+
+    /**
+     * Shape of the portrait
+     * Options - standard, circle, leaf
+     *
+     * @property shape
+     * @type {String}
+     */
+    shape: React.PropTypes.string
   }
 
   static defaultProps = {
-    size: 'lmed'
+    size: 'lmed',
+    shape: 'standard'
   };
 
   /**
@@ -134,6 +144,7 @@ class Portrait extends React.Component {
     return classNames(
       'ui-portrait',
       `ui-portrait--${ this.props.size }`,
+      `ui-portrait--${ this.props.shape }`,
       this.props.className
     );
   }

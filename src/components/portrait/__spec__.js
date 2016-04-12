@@ -85,11 +85,11 @@ describe('Portrait', () => {
 
   describe('mainClasses', () => {
     it('adds a ui-portrait classes', () => {
-      expect(gravatarInstance.mainClasses).toEqual('ui-portrait ui-portrait--lmed');
+      expect(gravatarInstance.mainClasses).toEqual('ui-portrait ui-portrait--lmed ui-portrait--standard');
     });
 
     it('appends additional passed classNames', () => {
-      expect(instance.mainClasses).toEqual('ui-portrait ui-portrait--lmed custom-class');
+      expect(instance.mainClasses).toEqual('ui-portrait ui-portrait--lmed ui-portrait--standard custom-class');
     });
   });
 

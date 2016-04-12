@@ -1,5 +1,13 @@
-.ui-portrait {
+.ui-portrait--standard {
   border-radius: 5px;
+}
+
+.ui-portrait--circle {
+  border-radius: 50%;
+}
+
+.ui-portrait--leaf {
+  border-radius: 10% 40% 10%;
 }
 
 .ui-portrait--small {

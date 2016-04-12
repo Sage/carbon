@@ -32,3 +32,4 @@ You can pass a 'size' property to adjust the size of the Portrait
 | src           | True if gravatar is not provided | String         |               | src of the image         |
 | gravatar      | True if src is not provided      | String         |               | gravatar email adddress  |
 | alt           | false                            | String         |               | alternate text for image |
+| shape         | false                            | String         | `standard`    | shape of the portrait    |

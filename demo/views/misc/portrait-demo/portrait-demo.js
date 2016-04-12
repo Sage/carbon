@@ -4,10 +4,12 @@ import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
 import SizeDropdown from './../../../components/size-dropdown';
+import Immutable from 'immutable';
 
 import Portrait from 'components/portrait';
 import Checkbox from 'components/checkbox';
 import Row from 'components/row';
+import Dropdown from 'components/dropdown';
 import Textbox from 'components/textbox';
 
 class PortraitDemo extends React.Component {
@@ -32,6 +34,7 @@ class PortraitDemo extends React.Component {
     let props = {};
     props.size = this.value('size');
     props.alt = this.value('alt');
+    props.shape = this.value('shape');
 
     if (this.value('gravatar')) {
       props.gravatar = this.value('email'); 
@@ -61,6 +64,10 @@ class PortraitDemo extends React.Component {
       html += `  alt="${ this.value('alt') }"\n`;
     }
 
+    if (this.value('shape') !== 'standard') {
+      html += `  shape=${ this.value('shape') }\n`
+    }
+
     if (this.value('gravatar')) {
       html += `  gravatar="${ this.value('email') }"\n`;
     } else {
@@ -75,6 +82,17 @@ class PortraitDemo extends React.Component {
    * @method controls
    */
   get controls() {
+    let shapes = Immutable.fromJS([{
+      id: 'standard',
+      name: 'Standard'
+    }, {
+      id: 'circle',
+      name: 'Circle'
+    }, {
+      id: 'leaf',
+      name: 'Leaf'
+    }])
+
     return (
       <div>
         <Row>
@@ -102,6 +120,15 @@ class PortraitDemo extends React.Component {
             value={ this.value('email') }
             labelInline={ true }
             onChange={ this.action.bind(this, 'email') }
+          />
+        </Row>
+        <Row>
+          <Dropdown
+            options={ shapes }
+            label="Shape"
+            labelInline={ true }
+            value={ this.value('shape') }
+            onChange={ this.action.bind(this, 'shape') }
           />
         </Row>
       </div>
