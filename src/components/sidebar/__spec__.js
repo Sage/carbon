@@ -12,7 +12,7 @@ describe('Sidebar', () => {
 
     instance = TestUtils.renderIntoDocument(
       <Sidebar
-        onCancel={ spy }
+        onClose={ spy }
         open={ true }
         className='custom-class'
       >
@@ -24,7 +24,7 @@ describe('Sidebar', () => {
 
     leftInstance = TestUtils.renderIntoDocument(
       <Sidebar
-        onCancel={ spy }
+        onClose={ spy }
         open={ true }
         position='left'
         disableBackground={ false }
@@ -101,7 +101,7 @@ describe('Sidebar', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <Sidebar
-            onCancel={ spy }
+            onClose={ spy }
             open={ false }
           >
           </Sidebar>

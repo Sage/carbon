@@ -3,6 +3,31 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './../icon';
 import classNames from 'classnames';
 
+/**
+ * A Sidebar widget.
+ *
+ * == How to use a Sidebar in a component:
+ *
+ * In your file
+ *
+ *   import Sidebar from 'carbon/lib/components/sidebar';
+ *
+ * To render the Sidebar:
+ *
+ *   <Sidebar
+ *     onClose={ closeSidebar }
+ *     open={ true }
+ *   />
+ *
+ * Side bar is positioned on the right hand screen of the window by default.
+ * To position the sidebar on the left hand side pass `position='left' to the component.
+ *
+ * The background behind the sidebar is disabled by default. To allow the user to interact
+ * with all the UI pass `disableBackground={ false }` to the component
+ *
+ * @class Sidebar
+ * @constructor
+ */
 class Sidebar extends React.Component {
 
   static propTypes = {
@@ -10,13 +35,13 @@ class Sidebar extends React.Component {
     /**
      * A custom close event handler
      *
-     * @property onCancel
+     * @property onClose
      * @type {Function}
      */
-    onCancel: React.PropTypes.func.isRequired,
+    onClose: React.PropTypes.func.isRequired,
 
     /**
-     * Sets the open state of the dialog
+     * Sets the open state of the sidebar
      *
      * @property open
      * @type {Boolean}
@@ -52,7 +77,7 @@ class Sidebar extends React.Component {
   }
 
   /**
-   * Returns classes for the dialog.
+   * Returns classes for the sidebar.
    *
    * @method sidebarClasses
    * @return {String} sidebar className
@@ -99,7 +124,7 @@ class Sidebar extends React.Component {
   get sidebarHTML() {
     return (
       <div className={ this.sidebarClasses } >
-        <Icon className="ui-sidebar__close" type="close" onClick={ this.props.onCancel } />
+        <Icon className="ui-sidebar__close" type="close" onClick={ this.props.onClose } />
         { this.props.children }
       </div>
     );
