@@ -43,7 +43,7 @@ class Tooltip extends React.Component {
      *
      * @property position
      * @type {String}
-     * @default 'bottom'
+     * @default 'top'
      */
     position: React.PropTypes.string,
 
@@ -59,19 +59,19 @@ class Tooltip extends React.Component {
 
   static defaultProps = {
     align: 'center',
-    position: 'bottom'
+    position: 'top'
   };
 
-  state = {
-    /**
-     * Whether tooltip currently showing
-     *
-     * @property showTooltip
-     * @type {Boolean}
-     * @default 'false'
-     */
-    showTooltip: this.props.showTooltip || false
-  };
+  // state = {
+  //   /**
+  //    * Whether tooltip currently showing
+  //    *
+  //    * @property showTooltip
+  //    * @type {Boolean}
+  //    * @default 'false'
+  //    */
+  //   showTooltip: this.props.showTooltip || false
+  // };
 
   /**
    * Pointer classes
@@ -98,7 +98,7 @@ class Tooltip extends React.Component {
     let contents = [];
 
     contents.push(this.props.children);
-    contents.push(<span className={ this.pointerClasses }></span>);
+    contents.push(<span key='pointer' className={ this.pointerClasses }></span>);
 
     return <div className={ this.mainClasses }>{ contents }</div>;
   }
@@ -111,7 +111,7 @@ class Tooltip extends React.Component {
   render() {
     let content;
 
-    if (this.state.showTooltip) {
+    if (this.props.showTooltip) {
       content = this.innerHTML;
     }
 

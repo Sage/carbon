@@ -36,8 +36,16 @@ let ToolTipIDecorator = (ComposedComponent) => class Component extends ComposedC
    * @return {Object} JSX for tooltip
    */
   get tooltipHTML() {
-    return <Tooltip>{ this.props.message }</Tooltip>;
-  }
+    if (this.props.toolTipMessage) {
+      let classes = this.tooltipClasses;
+
+      return <Tooltip
+              className={ classes }
+              showTooltip={ this.state.showTooltip }>
+                { this.props.toolTipMessage }
+            </Tooltip>;
+      }
+    }
 };
 
 export default ToolTipIDecorator;

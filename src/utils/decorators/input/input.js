@@ -3,7 +3,7 @@ import shouldComponentUpdate from './../../helpers/should-component-update';
 import { assign } from 'lodash';
 import guid from './../../helpers/guid';
 import classNames from 'classnames';
-
+import TooltipIDecorator from './../tooltip-decorator';
 /**
  * Input decorator.
  *
@@ -250,9 +250,9 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   get inputHTML() {
     // builds the input with a variable input type - see `inputType`
     let input = React.createElement(this.inputType, { ...this.inputProps });
-
     return (
       <div { ...this.fieldProps }>
+        { this.tooltipHTML }
         { this.prefixHTML }
         { input }
         { this.additionalInputContent }

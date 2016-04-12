@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
 
 /**
  * An Icon widget.
@@ -21,7 +22,11 @@ import classNames from 'classnames';
  * @class Icon
  * @constructor
  */
-class Icon extends React.Component {
+const Icon = TooltipDecorator(class Icon extends React.Component {
+
+  state = {
+    showTooltip: true
+  }
 
   /**
    * Checks if we have an SVG available, otherwise will fall back
@@ -57,6 +62,30 @@ class Icon extends React.Component {
     return icon;
   }
 
+  showHandler = () => {
+    // setTimeout(() => {
+    //   this.setState({ showTooltip: true });
+    // }, 300 );
+  }
+
+  hideHandler = () => {
+    this.setState({ showTooltip: false });
+  }
+
+
+  get componentProps() {
+    let { ...props } = this.props;
+    props.onMouseEnter = this.showHandler;
+    props.onMouseLeave = this.hideHandler;
+    // we have no icon for 'success', so use 'tick'
+    props.type = props.type == 'success' ? 'tick' : props.type;
+
+    return props
+  }
+
+  get tooltipClasses() {
+    return 'ui-icon__tooltip';
+  }
   /**
    * Renders the component.
    *
@@ -64,21 +93,23 @@ class Icon extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let { className, type, ...otherProps } = this.props;
-
     let icon = this.renderIcon;
 
-    // we have no icon for 'success', so use 'tick'
-    type = type == 'success' ? 'tick' : type;
-
-    className = classNames(
-      className, {
-        [`icon-${type}`]: !icon
+    let className = classNames(
+      this.props.className, {
+        [`icon-${this.props.type}`]: !icon
       }
     );
 
     return (
-      <span className={ className } { ...otherProps } dangerouslySetInnerHTML={ icon }></span>
+      <div>
+        { this.tooltipHTML }
+        <span
+          className={ className }
+          { ...this.componentProps }
+          dangerouslySetInnerHTML={ icon }>
+        </span>
+      </div>
     );
   }
 
@@ -179,6 +210,6 @@ class Icon extends React.Component {
         '</svg>'
     };
   }
-}
+});
 
 export default Icon;
