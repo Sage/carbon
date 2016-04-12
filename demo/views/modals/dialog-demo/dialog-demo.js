@@ -34,12 +34,12 @@ class DialogDemo extends React.Component {
   get demo() {
     return (
       <div>
-        <Button onClick={ this.action.bind(this, 'dialog', { target: { value: true } } ) } >
+        <Button onClick={ this.action.bind(this, 'open', { target: { value: true } } ) } >
           Click me to Open Dialog
         </Button>
         <Dialog
-          open={ this.value('dialog') }
-          onCancel={ this.action.bind(this, 'dialog', { target: { value: false } } ) }
+          open={ this.value('open') }
+          onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
           title={ this.value('title') }
           disableBackground={ this.value('disableBackground') }
         >
@@ -59,7 +59,7 @@ class DialogDemo extends React.Component {
     let html = "import Dialog from 'carbon/lib/components/dialog';\n\n";
 
     html += "<Dialog\n";
-    html += `  open={ ${ this.value('dialog') } }\n`
+    html += `  open={ ${ this.value('open') } }\n`
     html += `  title="${ this.value('title') }"\n`;
 
     if (this.value('disableBackground')) {

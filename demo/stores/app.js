@@ -13,6 +13,7 @@ let data = ImmutableHelper.parseJSON({
     title: 'Hello World!'
   },
   dialog: {
+    open: false,
     title: 'Hello World!',
     disableBackground: true
   },
