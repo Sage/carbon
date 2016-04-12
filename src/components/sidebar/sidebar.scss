@@ -12,10 +12,17 @@ $sidebar-background-animation-length: 300ms;
   @include box-shadow(-1px 0 0 0 #D8D9DC) 
   position: fixed;
   top: 0;
-  right: 0;
   height: 100%;
   width: 400px;
   z-index: $z-sidebar;
+}
+
+.ui-sidebar__sidebar--right {
+  right: 0;
+}
+
+.ui-sidebar__sidebar--left {
+  left: 0;
 }
 
 .ui-sidebar__background {
@@ -40,25 +47,49 @@ $sidebar-background-animation-length: 300ms;
   }
 }
 
-.sidebar-enter {
+// sidebar right animation:
+.sidebar--right-enter {
   opacity: 0;
   right: -30px;
 }
 
-.sidebar-enter.sidebar-enter-active {
+.sidebar--right-enter.sidebar--right-enter-active {
   opacity: 1;
   right: 0;
   transition: all $sidebar-animation-length ease-in;
 }
 
-.sidebar-leave {
+.sidebar--right-leave {
   right: 0;
   opacity: 1;
 }
 
-.sidebar-leave.sidebar-leave-active {
+.sidebar--right-leave.sidebar--right-leave-active {
   opacity: 0;
   right: -50px;
+  transition: all $sidebar-animation-length ease-in;
+}
+
+// sidebar left animation:
+.sidebar--left-enter {
+  opacity: 0;
+  left: -30px;
+}
+
+.sidebar--left-enter.sidebar--left-enter-active {
+  opacity: 1;
+  left: 0;
+  transition: all $sidebar-animation-length ease-in;
+}
+
+.sidebar--left-leave {
+  left: 0;
+  opacity: 1;
+}
+
+.sidebar--left-leave.sidebar--left-leave-active {
+  opacity: 0;
+  left: -50px;
   transition: all $sidebar-animation-length ease-in;
 }
 

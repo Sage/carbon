@@ -6,8 +6,6 @@ import classNames from 'classnames';
 
 class Sidebar extends React.Component {
 
-  listening = false;
-
   static propTypes = {
 
     /**
@@ -35,11 +33,16 @@ class Sidebar extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    disableBackground: React.PropTypes.bool
+    disableBackground: React.PropTypes.bool,
+
+    position: React.PropTypes.string
+
+
   }
 
   static defaultProps = {
-    open: false
+    open: false,
+    position: 'right'
   }
 
   /**
@@ -51,6 +54,7 @@ class Sidebar extends React.Component {
   get sidebarClasses() {
     return classNames(
       'ui-sidebar__sidebar',
+      `ui-sidebar__sidebar--${this.props.position}`,
       {
         [`ui-sidebar__sidebar--${this.props.size}`]: typeof this.props.size !== 'undefined'
       }
@@ -87,11 +91,11 @@ class Sidebar extends React.Component {
    * Returns the computed HTML for the sidebar.
    *
    * @method sidebarHTML 
-   * @return {Object} JSX for sidebar 
+   * @return {Object} JSX for sidebar
    */
   get sidebarHTML() {
     return (
-      <div className={ this.sidebarClasses } style={ { top: '36px' } } >
+      <div className={ this.sidebarClasses } >
         <Icon className="ui-sidebar__close" type="close" onClick={ this.props.onCancel } />
         { this.props.children }
       </div>
@@ -116,7 +120,7 @@ class Sidebar extends React.Component {
     return (
       <div className={ this.mainClasses }>
         <ReactCSSTransitionGroup
-          transitionName="sidebar"
+          transitionName={ `sidebar--${this.props.position}` }
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 } >
           { sidebarHTML }

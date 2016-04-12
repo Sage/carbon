@@ -48,6 +48,8 @@ class SidebarDemo extends React.Component {
       );
     }
 
+    let position = this.value('positionLeft') ? 'left' : 'right';
+
     return (
       <div>
         { button }
@@ -55,6 +57,7 @@ class SidebarDemo extends React.Component {
           open={ this.value('open') }
           onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
           disableBackground={ this.value('disableBackground') }
+          position={ position }
         >
         </Sidebar>
       </div>
@@ -86,6 +89,12 @@ class SidebarDemo extends React.Component {
             value={ this.value('disableBackground') }
             reverse={ true }
             onChange={ this.action.bind(this, 'disableBackground') }
+          />
+          <Checkbox
+            label="Position Left"
+            value={ this.value('positionLeft') }
+            reverse={ true }
+            onChange={ this.action.bind(this, 'positionLeft') }
           />
         </Row>
       </div>
