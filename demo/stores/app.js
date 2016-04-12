@@ -86,7 +86,8 @@ let data = ImmutableHelper.parseJSON({
     text: "Sample toast notification."
   },
   tooltip: {
-    
+    align: 'center',
+    position: 'bottom'
   }
 });
 
