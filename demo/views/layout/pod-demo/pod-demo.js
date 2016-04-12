@@ -8,6 +8,7 @@ import Example from './../../../components/example';
 import Pod from 'components/pod';
 import Textbox from 'components/textbox';
 import Checkbox from 'components/checkbox';
+import Dropdown from 'components/dropdown';
 import Row from 'components/row';
 import { startCase } from 'lodash';
 
@@ -50,6 +51,8 @@ class PodDemo extends React.Component {
         collapsed={ this.props.collapsed }
         title={ this.value('title') }
         description={ this.value('description') }
+        padding={ this.value('padding') }
+        border={ this.value('border') }
       >
         <Row>
           <Textbox />
@@ -66,11 +69,13 @@ class PodDemo extends React.Component {
   get code() {
     let collapsible = this.collapsible,
         title = this.value('title'),
-        description = this.value('description');
+        description = this.value('description'),
+        border = this.value('border'),
+        padding = this.value('padding');
 
     let html = "import Pod from 'carbon/lib/components/pod';\n\n";
 
-    if (!collapsible && !title && !description) {
+    if (!collapsible && !title && !description && border && padding == "medium") {
       html += '<Pod>';
     } else {
       html += '<Pod';
@@ -87,6 +92,14 @@ class PodDemo extends React.Component {
         html += `\n  description={ ${this.value('description')} }`
       }
 
+      if (!border) {
+        html += "\n  border={ false }";
+      }
+
+      if (padding != "medium") {
+        html += `\n  padding='${padding}'`
+      }
+
       html += '\n>'
     }
     html += '\n  <Row>'
@@ -97,6 +110,25 @@ class PodDemo extends React.Component {
     html += '\n</Pod>'
 
     return html;
+  }
+
+  /**
+   * @method paddingOptions
+   */
+  get paddingOptions() {
+    return Immutable.fromJS([{
+      id: "none",
+      name: "None"
+    }, {
+      id: "small",
+      name: "Small"
+    }, {
+      id: "medium",
+      name: "Medium"
+    }, {
+      id: "large",
+      name: "Large"
+    }]);
   }
 
   /**
@@ -119,6 +151,20 @@ class PodDemo extends React.Component {
             labelInline={ true }
             value={ this.value('description') }
             onChange={ this.action.bind(this, 'description') }
+          />
+        </Row>
+        <Row>
+          <Dropdown
+            label="Padding Size"
+            labelInline={ true }
+            value={ this.value('padding') }
+            onChange={ this.action.bind(this, 'padding') }
+            options={ this.paddingOptions }
+          />
+          <Checkbox
+            label="Border"
+            value={ this.value('border') }
+            onChange={ this.action.bind(this, 'border') }
           />
         </Row>
       </div>
