@@ -231,7 +231,6 @@ describe('Dialog', () => {
 
       it('renders a parent div with mainClasses attached', () => {
         let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        debugger
         expect(dialogNode.className).toEqual('ui-dialog foo');
       });
 
