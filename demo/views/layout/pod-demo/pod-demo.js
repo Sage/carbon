@@ -53,6 +53,7 @@ class PodDemo extends React.Component {
         description={ this.value('description') }
         padding={ this.value('padding') }
         border={ this.value('border') }
+        as={ this.value('as') }
       >
         <Row>
           <Textbox />
@@ -71,7 +72,8 @@ class PodDemo extends React.Component {
         title = this.value('title'),
         description = this.value('description'),
         border = this.value('border'),
-        padding = this.value('padding');
+        padding = this.value('padding'),
+        as = this.value('as');
 
     let html = "import Pod from 'carbon/lib/components/pod';\n\n";
 
@@ -98,6 +100,10 @@ class PodDemo extends React.Component {
 
       if (padding != "medium") {
         html += `\n  padding='${padding}'`
+      }
+
+      if (as != "primary") {
+        html += `\n  as='${as}'`
       }
 
       html += '\n>'
@@ -132,6 +138,22 @@ class PodDemo extends React.Component {
   }
 
   /**
+   * @method asOptions
+   */
+  get asOptions() {
+    return Immutable.fromJS([{
+      id: "primary",
+      name: "Primary"
+    }, {
+      id: "secondary",
+      name: "Secondary"
+    }, {
+      id: "tile",
+      name: "Tile"
+    }]);
+  }
+
+  /**
    * @method controls
    */
   get controls() {
@@ -155,12 +177,21 @@ class PodDemo extends React.Component {
         </Row>
         <Row>
           <Dropdown
+            label="As"
+            labelInline={ true }
+            value={ this.value('as') }
+            onChange={ this.action.bind(this, 'as') }
+            options={ this.asOptions }
+          />
+          <Dropdown
             label="Padding Size"
             labelInline={ true }
             value={ this.value('padding') }
             onChange={ this.action.bind(this, 'padding') }
             options={ this.paddingOptions }
           />
+        </Row>
+        <Row>
           <Checkbox
             label="Border"
             value={ this.value('border') }
