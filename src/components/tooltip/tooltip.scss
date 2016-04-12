@@ -13,15 +13,133 @@
 
   .ui-tooltip__pointer {
     height: 12px !important; // overrides the arrow mixin
-    left: 49%;
     position: absolute;
+  }
+
+
+  .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-top {
+    left: 49%;
     top: -14px;
 
     &:before {
-      left: -10px;
-      position: absolute;
-
       @include arrow(up, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-bottom {
+    bottom: -12px;
+    left: 49%;
+
+    &:before {
+      @include arrow(down, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-top {
+    left: 4%;
+    top: -14px;
+
+    &:before {
+      @include arrow(up, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-bottom {
+    bottom: -12px;
+    left: 4%;
+
+    &:before {
+      @include arrow(down, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-top {
+    right: 4%;
+    top: -14px;
+
+    &:before {
+      @include arrow(up, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-bottom {
+    bottom: -12px;
+    right: 4%;
+
+    &:before {
+      @include arrow(down, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-right {
+    left: auto;
+    right: 0;
+    top: 33%;
+
+    &:before {
+      @include arrow(right, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-left {
+    left: -15px;
+    right: auto;
+    top: 33%;
+
+    &:before {
+      @include arrow(left, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-top.ui-tooltip__pointer--position-right {
+    left: auto;
+    right: 0;
+    top: 10%;
+
+    &:before {
+      @include arrow(right, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-bottom.ui-tooltip__pointer--position-left {
+    left: -15px;
+    right: auto;
+    bottom: 10%;
+
+    &:before {
+      @include arrow(left, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-bottom.ui-tooltip__pointer--position-right {
+    left: auto;
+    right: 0;
+    bottom: 10%;
+
+    &:before {
+      @include arrow(right, 7px, $grey-dark);
+      position: absolute;
+    }
+  }
+
+  .ui-tooltip__pointer--align-top.ui-tooltip__pointer--position-left {
+    left: -15px;
+    right: auto;
+    top: 10%;
+
+    &:before {
+      @include arrow(left, 7px, $grey-dark);
+      position: absolute;
     }
   }
 }
