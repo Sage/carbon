@@ -154,9 +154,9 @@ Through this connection, we can set the Textbox's value to use the value from th
 
 Carbon attempts to do as much of the Flux setup for you as possible - however there is not a lot to it. We recommend you familiarise yourself with these two files in Carbon:
 
-* [The `connect` function](https://github.com/Sage/carbon/blob/master/src/utils/flux/index.js)
-* [The base Store class](https://github.com/Sage/carbon/blob/master/src/utils/flux/store/index.js)
+* [The `connect` function](https://github.com/Sage/carbon/blob/master/src/utils/flux/flux.js)
+* [The base Store class](https://github.com/Sage/carbon/blob/master/src/utils/flux/store/store.js)
 
 This implementation does not stray far from the recommended setup from [Flux examples](https://facebook.github.io/flux/docs/todo-list.html). The only notable difference is how an action is triggered on the store.
 
-Many of the example demonstrate a `switch`/`case` block. With Carbon, we check each registered store to see if there is a corresponding function that matches the dispatched action type. If it finds one, it calls it (see the `dispatcherCallback` function in the [base store class](https://github.com/Sage/carbon/blob/master/src/utils/flux/store/index.js)).
+Many of the example demonstrate a `switch`/`case` block. With Carbon, we check each registered store to see if there is a corresponding function that matches the dispatched action type. If it finds one, it calls it (see the `dispatcherCallback` function in the [base store class](https://github.com/Sage/carbon/blob/master/src/utils/flux/store/store.js)).
