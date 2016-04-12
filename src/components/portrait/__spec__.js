@@ -22,6 +22,41 @@ describe('Portrait', () => {
     );
   });
 
+  describe('custome props function', () => {
+    describe('src and gravatar', () => {
+      beforeEach(() => {
+        spyOn(console, 'error');
+      });
+
+      describe('when neither gravatar or src is passed', () => {
+        it('throws a error', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Portrait />
+          );
+
+          expect(console.error).toHaveBeenCalledWith(
+            "Warning: Failed propType: Portrait requires a prop of 'src' OR a prop of 'gravatar'"
+          );
+        });
+      });
+
+      describe('when both gravatar and src are passed', () => {
+        it('throws a error', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Portrait
+              gravatar='foo'
+              src='foo'
+            />
+          );
+
+          expect(console.error).toHaveBeenCalledWith(
+            "Warning: Failed propType: Portrait requires a prop of 'src' OR a prop of 'gravatar' but not both"
+          );
+        });
+      });
+    });
+  });
+
   describe('imgProps', () => {
     describe('when a gravatar is passed', () => {
       it('returns gravatar props', () => {

@@ -14,12 +14,12 @@ import MD5 from 'crypto-js/md5';
  * To render the Portrait
  *
  *   <Portrait src='/my-image' alt='my image' />
- * 
+ *
  * To render a gravatar portrait
  *
  *   <Portrait gravatar='mygrav@email.com' />
  *
- * You can pass a 'size' property to adjust the size of the portrait 
+ * You can pass a 'size' property to adjust the size of the portrait
  *    The default is lmed
  *    options: small, smed, lmed, large
  *
@@ -45,7 +45,13 @@ class Portrait extends React.Component {
      * @property src
      * @type {String}
      */
-    src: React.PropTypes.string,
+    src: function(props) {
+      if (!props.gravatar && !props.src) {
+        throw new Error(`Portrait requires a prop of 'src' OR a prop of 'gravatar'`);
+      } else if (props.gravatar && props.src) {
+        throw new Error(`Portrait requires a prop of 'src' OR a prop of 'gravatar' but not both`);
+      }
+    },
 
     /**
      * Gravatar email
@@ -57,7 +63,7 @@ class Portrait extends React.Component {
     gravatar: React.PropTypes.string,
 
     /**
-     * Alternate text for image 
+     * Alternate text for image
      *
      * @property src
      * @type {String}
