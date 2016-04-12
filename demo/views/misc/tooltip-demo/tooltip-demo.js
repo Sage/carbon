@@ -59,7 +59,7 @@ class ToolTipDemo extends React.Component {
     return(
       <div>
         <Row className='props-row'>
-          <h5 className='row-label'>Pointer Position</h5>
+          <h5 className='row-label'>ToolTip Position</h5>
           <RadioButton
             label='Left'
             name='position'

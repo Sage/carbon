@@ -17,7 +17,7 @@ import classNames from 'classnames';
 *
 * You can pass a prop of 'align' to the component which shifts the alignment of the pointer.
 * This defaults to 'center'.
-* You can also pass a prop of 'position' to the component which shifts the position of the pointer.
+* You can also pass a prop of 'position' to the component which shifts the position of the tooltip.
 * This defaults to 'bottom'.
 *
 * @class Tooltip
@@ -36,7 +36,7 @@ class Tooltip extends React.Component {
     align: React.PropTypes.string,
 
     /**
-     * Sets position of pointer on tooltip
+     * Sets position of the tooltip
      *
      * @property position
      * @type {String}
