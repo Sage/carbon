@@ -12,6 +12,11 @@ let data = ImmutableHelper.parseJSON({
   collapsible_pod: {
     title: 'Hello World!'
   },
+  dialog: {
+    open: false,
+    title: 'Hello World!',
+    disableBackground: true
+  },
   flash: {
     as: "warning",
     open: true,
@@ -30,6 +35,11 @@ let data = ImmutableHelper.parseJSON({
   pill: {
     as: 'new',
     text: 'MANAGER'
+  },
+  portrait: {
+    size: 'lmed',
+    shape: 'standard',
+    email: 'Email'
   },
   pod: {
     border: true,
