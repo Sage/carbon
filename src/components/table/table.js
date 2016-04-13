@@ -242,7 +242,7 @@ class Table extends React.Component {
    * @return {Void}
    */
   resizeTable() {
-    if (this._table.offsetHeight > this.tableHeight) {
+    if (this.props.forceResize || this._table.offsetHeight > this.tableHeight) {
       this.tableHeight = this._table.offsetHeight;
       this._wrapper.style.minHeight = this.tableHeight + 'px';
     }
