@@ -169,4 +169,4 @@ class Sidebar extends React.Component {
 export {
   Sidebar,
   SidebarHeader
-}
+};

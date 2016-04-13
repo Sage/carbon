@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Sidebar from './sidebar';
+import { Sidebar } from './sidebar';
 import Textbox from './../textbox';
 import Icon from './../icon';
 
