@@ -2,7 +2,8 @@
 
 ## New Components
 
-* Sidebar 
+* Sidebar - with sidebar header
+* Portrait
 * Tile - an alternative to Pod, with a drop shadow.
 
 ## Layout Updates
@@ -14,6 +15,10 @@
 ## Improve Dialog
 
 * Dialog now takes a prop of diableBackground which is true by default
+
+## Bug Fixes
+
+* Fixes alignment issue with SplitButton when using anchors.
 
 # 0.7.1
 
