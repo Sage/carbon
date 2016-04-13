@@ -259,7 +259,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       let warning = this.props.warnings[i];
 
       // run this validation
-      shouldWarn = warning.warning(value, this.props);
+      shouldWarn = warning.warning(value, this.props, this.updateWarning);
 
       this.updateWarning(shouldWarn, value, warning);
 
