@@ -46,15 +46,6 @@ class Tooltip extends React.Component {
      * @default 'top'
      */
     position: React.PropTypes.string,
-
-    /**
-     * Show or hide tooltip
-     *
-     * @property showTooltip
-     * @type {Boolean}
-     * @default 'false'
-     */
-    showTooltip: React.PropTypes.bool.isRequired
   };
 
   static defaultProps = {
@@ -82,14 +73,14 @@ class Tooltip extends React.Component {
   get pointerClasses() {
     return classNames(
       'ui-tooltip__pointer',
-      'ui-tooltip__pointer--align-' + this.props.align,
-      'ui-tooltip__pointer--position-' + this.props.position
+      'ui-tooltip__pointer--align-' + this.props.align
     );
   }
 
   get mainClasses() {
     return classNames(
       'ui-tooltip',
+      'ui-tooltipr--position-' + this.props.position
       this.props.className
     );
   }
@@ -100,7 +91,10 @@ class Tooltip extends React.Component {
     contents.push(this.props.children);
     contents.push(<span key='pointer' className={ this.pointerClasses }></span>);
 
-    return <div className={ this.mainClasses }>{ contents }</div>;
+    return <div
+            className={ this.mainClasses }>
+             { contents }
+           </div>;
   }
 
   /**
@@ -116,7 +110,7 @@ class Tooltip extends React.Component {
     }
 
     return(
-      <div>
+      <div ref='tooltip'>
         { content }
       </div>
     );
