@@ -2,6 +2,7 @@ import React from 'react';
 import IconDemo from './icon-demo';
 import SpinnerDemo from './spinner-demo';
 import PillDemo from './pill-demo';
+import PortraitDemo from './portrait-demo';
 
 class Misc extends React.Component {
   /**
@@ -13,6 +14,7 @@ class Misc extends React.Component {
         <h1>Misc</h1>
         <IconDemo />
         <SpinnerDemo />
+        <PortraitDemo />
         <PillDemo />
       </div>
     );
