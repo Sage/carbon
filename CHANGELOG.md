@@ -11,6 +11,14 @@
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
 
+## Improve Dialog
+
+* Dialog now takes a prop of diableBackground which is true by default
+
+## Bug Fixes
+
+* Fixes alignment issue with SplitButton when using anchors.
+
 # 0.7.1
 
 ## Updates

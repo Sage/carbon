@@ -44,11 +44,30 @@ class Dialog extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    open: React.PropTypes.bool.isRequired
+    open: React.PropTypes.bool.isRequired,
+
+    /**
+     * Title displayed at top of dialog
+     *
+     * @property title
+     * @type {String}
+     */
+    title: React.PropTypes.string,
+
+    /**
+     * Determines if the background is disabled
+     * when the dialog is open
+     *
+     * @property disableBackground
+     * @type {Boolean}
+     * @default true
+     */
+    disableBackground: React.PropTypes.bool
   }
 
   static defaultProps = {
-    open: false
+    open: false,
+    disableBackground: true
   }
 
   static childContextTypes = {
@@ -170,7 +189,9 @@ class Dialog extends React.Component {
    * @return {Object} JSX
    */
   get backgroundHTML() {
-    return <div className="ui-dialog__background"></div>;
+    if (this.props.disableBackground) {
+      return <div className="ui-dialog__background"></div>;
+    }
   }
 
   /**
