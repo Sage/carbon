@@ -68,6 +68,10 @@ class RowDemo extends React.Component {
     this.value('columnData').forEach((data, index) => {
       html += "  <Textbox";
 
+      if (data.get('columnAlign')) {
+        html += `\n    columnAlign='${data.get('columnAlign')}'`;
+      }
+
       if (data.get('columnOffset')) {
         html += `\n    columnOffset='${data.get('columnOffset')}'`;
       }
@@ -76,7 +80,7 @@ class RowDemo extends React.Component {
         html += `\n    columnSpan='${data.get('columnSpan')}'`;
       }
 
-      if (data.get('columnSpan') || data.get('columnOffset')) {
+      if (data.get('columnSpan') || data.get('columnOffset') || data.get('columnAlign')) {
         html += "\n ";
       }
 

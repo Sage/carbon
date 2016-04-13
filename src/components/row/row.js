@@ -63,23 +63,13 @@ class Row extends React.Component {
    * @return {Object} JSX of build column
    */
   buildColumn = (child, key) => {
-    let columnClass = "ui-row__column";
-
-    if (child.props.columnClasses) {
-      columnClass += " " + child.props.columnClasses;
-    }
-
-    if (child.props.columnOffset) {
-      columnClass += " ui-row__column--offset-" + child.props.columnOffset;
-    }
-
-    if (child.props.columnSpan) {
-      columnClass += " ui-row__column--span-" + child.props.columnSpan;
-    }
-
-    if (child.props.columnAlign) {
-      columnClass += " ui-row__column--align-" + child.props.columnAlign;
-    }
+    let columnClass = classNames(
+      "ui-row__column",
+      child.props.columnClasses, {
+        [`ui-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
+        [`ui-row__column--span-${child.props.columnSpan}`]: child.props.columnSpan,
+        [`ui-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign,
+    });
 
     return (
       <div key={ key } className={ columnClass }>
