@@ -98,11 +98,11 @@ class PodDemo extends React.Component {
         html += "\n  border={ false }";
       }
 
-      if (padding != "medium") {
+      if (padding !== "medium") {
         html += `\n  padding='${padding}'`
       }
 
-      if (as != "primary") {
+      if (as !== "primary") {
         html += `\n  as='${as}'`
       }
 
