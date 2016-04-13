@@ -25,12 +25,9 @@ class AsDropdown extends React.Component {
     }, {
       id: "warning",
       name: "Warning"
-    }, {
-      id: "disabled",
-      name: "Disabled"
     }]);
 
-    opts.merge(this.props.extraOpts);
+    opts = opts.merge(this.props.extraOpts);
 
     return (
       <Dropdown
