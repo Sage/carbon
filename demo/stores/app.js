@@ -36,6 +36,11 @@ let data = ImmutableHelper.parseJSON({
     as: 'info',
     text: 'Pill'
   },
+  portrait: {
+    size: 'lmed',
+    shape: 'standard',
+    email: 'Email'
+  },
   pod: {
     border: true,
     padding: "medium"

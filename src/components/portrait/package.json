@@ -1,0 +1,4 @@
+{
+  "main": "./portrait.js",
+  "style": "portrait.scss"
+}
