@@ -1,4 +1,5 @@
 import React from 'react';
+import DialogDemo from './dialog-demo';
 
 class Modals extends React.Component {
   /**
@@ -8,6 +9,7 @@ class Modals extends React.Component {
     return (
       <div>
         <h1>Modals</h1>
+        <DialogDemo />
       </div>
     );
   }
