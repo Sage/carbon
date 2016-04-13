@@ -77,11 +77,6 @@ $help-text-background:       $yellow-05 !default;
 $help-border:                $yellow-20 !default;
 $help-hover:                 darken($yellow, 20%) !default;
 
-$disabled-color:                  $grey-mid;
-$disabled-color-text-background:  $white;
-$disabled-color-border:           $grey-dark;
-$disabled-color-hover:            $grey-dark;
-
 /**
  * Color and Icon sets used for components with themes.
  */
@@ -93,7 +88,6 @@ $colorIconSets: (
   ("success", $success, $success-border, $success-text-background, $success-hover),
   ("help", $help, $help-border, $help-text-background, $help-hover),
   ("maintenance", $warning, $warning-border, $warning-text-background, $warning-hover),
-  ("disabled", $disabled-color, $disabled-color-text-background, $disabled-color-border, $disabled-color-hover),
 );
 
 $border-color:               #CCD1DC !default;

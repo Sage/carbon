@@ -1,4 +1,5 @@
 import React from 'react';
+import Immutable from 'immutable';
 import { connect } from 'utils/flux';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
@@ -56,6 +57,8 @@ class PillDemo extends React.Component {
    * @method controls
    */
   get controls() {
+    let extraOpts = Immutable.fromJS([{ id: 'disabled', name: 'Disabled' }]);
+
     return (
       <div>
         <Row>
@@ -66,7 +69,11 @@ class PillDemo extends React.Component {
             onChange={ this.action.bind(this, 'text') }
             columnSpan="2"
           />
-          <AsDropdown value={ this.value('as') } onChange={ this.action.bind(this, 'as') } />
+          <AsDropdown
+            value={ this.value('as') }
+            onChange={ this.action.bind(this, 'as') }
+            extraOpts={ extraOpts }
+          />
         </Row>
       </div>
     );

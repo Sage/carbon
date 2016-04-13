@@ -15,6 +15,11 @@
   }
 }
 
+.ui-pill--disabled {
+  border: 1px solid $grey-mid;
+  color: $grey-mid;
+}
+
 @each $set in $colorIconSets {
   @include pill-theme($set...);
 }
