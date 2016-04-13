@@ -6,8 +6,7 @@ import Example from './../../../components/example';
 import AsDropdown from './../../../components/as-dropdown';
 import SizeDropdown from './../../../components/size-dropdown';
 
-import Sidebar from 'components/sidebar';
-import SidebarHeader from 'components/sidebar/sidebar-header';
+import { Sidebar, SidebarHeader } from 'components/sidebar';
 import Row from 'components/row';
 import Button from 'components/button';
 import Textbox from 'components/textbox';

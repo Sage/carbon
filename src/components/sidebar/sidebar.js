@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import SidebarHeader from './sidebar-header';
 import Icon from './../icon';
 import classNames from 'classnames';
 
@@ -10,7 +11,7 @@ import classNames from 'classnames';
  *
  * In your file
  *
- *   import Sidebar from 'carbon/lib/components/sidebar';
+ *   import { Sidebar } from 'carbon/lib/components/sidebar';
  *
  * To render the Sidebar:
  *
@@ -20,7 +21,7 @@ import classNames from 'classnames';
  *   />
  *
  * Side bar is positioned on the right hand screen of the window by default.
- * To position the sidebar on the left hand side pass `position='left' to the component.
+ * To position the sidebar on the left hand side pass `position='left'` to the component.
  *
  * The background behind the sidebar is disabled by default. To allow the user to interact
  * with all the UI pass `disableBackground={ false }` to the component
@@ -47,7 +48,7 @@ class Sidebar extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    open: React.PropTypes.bool.isRequired,
+    open: React.PropTypes.bool,
 
     /**
      * Determines if the background is disabled
@@ -165,4 +166,7 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+export {
+  Sidebar,
+  SidebarHeader
+}

@@ -1,6 +1,29 @@
 import React from 'react';
 import classNames from 'classnames';
 
+/**
+ * A Sidebar Header widget.
+ *
+ * Sidebar header can be used as a first child of the Sidebar component
+ *
+ * == How to use a Sidebar Header in a component:
+ *
+ * In your file
+ *
+ *   import { Sidebar, SidebarHeader } from 'carbon/lib/components/sidebar';
+ *
+ * To render the Sidebar Header:
+ *
+ *   <Sidebar
+ *     onClose={ closeSidebar }
+ *     open={ true }
+ *   >
+ *   <SidebarHeader />
+ *   </Sidebar>
+ *
+ * @class SidebarHeader
+ * @constructor
+ */
 class SidebarHeader extends React.Component {
 
   static propTypes = {
@@ -12,7 +35,7 @@ class SidebarHeader extends React.Component {
      * @property children
      * @type {Multiple}
      */
-    children: React.PropTypes.node.isRequired
+    children: React.PropTypes.node
   }
 
   /**

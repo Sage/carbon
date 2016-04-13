@@ -7,7 +7,6 @@ $sidebar-background-opacity: 0.6;
 $sidebar-background-animation-length: 250ms;
 
 .ui-sidebar__sidebar {
-  @include box-shadow(-1px 0 0 0 $grey-dark-blue-20) 
   background-color: $grey-light;
   border-radius: 1px;
   height: 100%;
@@ -18,10 +17,12 @@ $sidebar-background-animation-length: 250ms;
 }
 
 .ui-sidebar__sidebar--right {
+  @include box-shadow(-1px 0 0 0 $grey-dark-blue-20) 
   right: 0;
 }
 
 .ui-sidebar__sidebar--left {
+  @include box-shadow(1px 0 0 0 $grey-dark-blue-20) 
   left: 0;
 }
 
