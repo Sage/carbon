@@ -6,6 +6,7 @@ import Textbox from './../textbox';
 import Validation from './../../utils/validations/presence';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import Dialog from './../dialog';
+import I18n from "i18n-js";
 
 describe('Form', () => {
   let instance;
@@ -19,6 +20,23 @@ describe('Form', () => {
   describe('initialize', () => {
     it('sets the errorCount to 0', () => {
       expect(instance.state.errorCount).toEqual(0);
+    });
+  });
+
+  describe('componentDidMount', () => {
+    it('does not validate by default', () => {
+      spyOn(instance, 'validate');
+      instance.componentDidMount();
+      expect(instance.validate).not.toHaveBeenCalled();
+    });
+
+    describe('when validateOnMount is set to true', () => {
+      it('validates the form', () => {
+        instance = TestUtils.renderIntoDocument(<Form validateOnMount={ true } />);
+        spyOn(instance, 'validate');
+        instance.componentDidMount();
+        expect(instance.validate).toHaveBeenCalled();
+      });
     });
   });
 
@@ -78,55 +96,14 @@ describe('Form', () => {
     });
   });
 
-  describe('serialize', () => {
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Form>
-          <Textbox name='model[test]' value='foo' />
-        </Form>
-      );
-    });
-
-    it('without opts it returns a string', () => {
-      expect(instance.serialize()).toEqual('model%5Btest%5D=foo');
-    });
-
-    it('with opts it returns a hash', () => {
-      expect(instance.serialize({ hash: true })).toEqual({ model: { test: 'foo' } });
-    });
-  });
-
   describe('handleOnSubmit', () => {
-    describe('invalid input', () => {
-      it('does not not submit the form', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <Textbox validations={ [new Validation()] } name='test' value='' />
-          </Form>
-        );
-
-        spyOn(instance, 'setState');
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-        TestUtils.Simulate.submit(form);
-        expect(instance.setState).toHaveBeenCalledWith({ errorCount: 1 });
-      });
+    it('calls the validate method', () => {
+      spyOn(instance, 'validate');
+      let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+      TestUtils.Simulate.submit(form);
+      expect(instance.validate).toHaveBeenCalled();
     });
 
-    describe('disabled input', () => {
-      it('does not validate the input', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <Textbox validations={ [new Validation()] } disabled={ true } />
-          </Form>
-        );
-
-        let textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-        spyOn(textbox, 'validate');
-        TestUtils.Simulate.submit(form);
-        expect(textbox.validate).not.toHaveBeenCalled();
-      });
-    });
 
     describe('when a beforeFormValidation prop is passed', () => {
       it('calls the beforeFormValidation', () => {
@@ -154,6 +131,55 @@ describe('Form', () => {
         TestUtils.Simulate.submit(form);
         expect(spy).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('validate', () => {
+    describe('invalid input', () => {
+      it('does not not submit the form', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form>
+            <Textbox validations={ [new Validation()] } name='test' value='' />
+          </Form>
+        );
+
+        spyOn(instance, 'setState');
+        instance.validate();
+        expect(instance.setState).toHaveBeenCalledWith({ errorCount: 1 });
+      });
+    });
+
+    describe('disabled input', () => {
+      it('does not validate the input', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form>
+            <Textbox validations={ [new Validation()] } disabled={ true } />
+          </Form>
+        );
+
+        let textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
+        spyOn(textbox, 'validate');
+        instance.validate();
+        expect(textbox.validate).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('serialize', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Form>
+          <Textbox name='model[test]' value='foo' />
+        </Form>
+      );
+    });
+
+    it('without opts it returns a string', () => {
+      expect(instance.serialize()).toEqual('model%5Btest%5D=foo');
+    });
+
+    it('with opts it returns a hash', () => {
+      expect(instance.serialize({ hash: true })).toEqual({ model: { test: 'foo' } });
     });
   });
 
@@ -199,6 +225,20 @@ describe('Form', () => {
           </Dialog>
         )
         let cancel = TestUtils.scryRenderedDOMComponentsWithTag(nestedInstance, 'button')[1];
+        TestUtils.Simulate.click(cancel);
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('when an onCancel prop is passed', () => {
+      it('calls onCancel', () => {
+        let spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form onCancel={ spy }>
+            <Textbox />
+          </Form>
+        );
+        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
         TestUtils.Simulate.click(cancel);
         expect(spy).toHaveBeenCalled();
       });
@@ -267,6 +307,20 @@ describe('Form', () => {
       it('renders a secondary cancel button with cancelClasses', () => {
         expect(buttons[1].className).toEqual('ui-button ui-button--secondary');
         expect(buttonContainers[2].className).toEqual('ui-form__cancel');
+      });
+
+      it('when cancelText prop is passed it renders the secondary button with the prop', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form cancelText={'Foo'} />
+        );
+        buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+        expect(buttons[1].innerHTML).toEqual('Foo');
+      });
+
+      it('when cancelText prop is not passed it renders the secondary button with default text', () => {
+        expect(buttons[1].innerHTML).toEqual(
+          I18n.t('actions.cancel', { defaultValue: 'Cancel' })
+        );
       });
 
       it('renders a primary save button with saveClasses', () => {

@@ -1,6 +1,6 @@
 {
   "name": "carbon",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Fundamental building blocks.",
   "main": "index.js",
   "style": [
@@ -44,6 +44,7 @@
     "bignumber.js": "~2.1.0",
     "bowser": "~1.0.0",
     "classnames": "~2.2.3",
+    "crypto-js": "^3.1.6",
     "escape-string-regexp": "^1.0.5",
     "events": "~1.0.2",
     "form-serialize": "~0.7.0",

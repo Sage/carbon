@@ -4,6 +4,32 @@
 
 * Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
 
+## New Components
+
+* Portrait
+* Tile - an alternative to Pod, with a drop shadow.
+
+## Layout Updates
+
+* Pod component now receives two additional props:
+  * `border` - allows developers to disable border.
+  * `padding` - allows developers to have control over padding size.
+
+## Improved Dialog
+
+* Dialog now takes a prop of `disableBackground` which is true by default.
+
+## Bug Fixes
+
+* Fixes alignment issue with SplitButton when using anchors.
+
+# 0.7.1
+
+## Updates
+
+* Moves the validation logic in Form component to its own method.
+* Adds `validateOnMount` prop to Forms.
+
 # 0.7.0
 
 ## New Components

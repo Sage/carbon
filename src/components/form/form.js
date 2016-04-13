@@ -84,12 +84,40 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    saving: React.PropTypes.bool
+    saving: React.PropTypes.bool,
+
+    /**
+     * If true, will validate the form on mount
+     *
+     * @property validateOnMount
+     * @type {Boolean}
+     * @default false
+     */
+    validateOnMount: React.PropTypes.bool,
+
+    /**
+     * Text for the cancel button
+     *
+     * @property cancelText
+     * @type {String}
+     * @default true
+     */
+    cancelText: React.PropTypes.string,
+
+    /**
+     * Custom function for Cancel button onClick
+     *
+     * @property onCancel
+     * @type {Function}
+     */
+    onCancel: React.PropTypes.func
   }
 
   static defaultProps = {
+    cancelText: I18n.t('actions.cancel', { defaultValue: 'Cancel' }),
     cancel: true,
-    saving: false
+    saving: false,
+    validateOnMount: false
   }
 
   static childContextTypes = {
@@ -145,6 +173,18 @@ class Form extends React.Component {
   }
 
   /**
+   * Runs once the component has mounted.
+   *
+   * @method componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    if (this.props.validateOnMount) {
+      this.validate();
+    }
+  }
+
+  /**
    * Increase current error count in state by 1.
    *
    * @method incrementErrorCount
@@ -187,7 +227,7 @@ class Form extends React.Component {
   }
 
   /**
-   * Handles submit, checks for required fields and updates validations.
+   * Handles submit and runs validation.
    *
    * @method handleOnSubmit
    * @param {Object} ev event
@@ -198,8 +238,24 @@ class Form extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    let valid = true;
-    let errors = 0;
+    let valid = this.validate();
+
+    if (!valid) { ev.preventDefault(); }
+
+    if (this.props.afterFormValidation) {
+      this.props.afterFormValidation(ev, valid);
+    }
+  }
+
+  /**
+   * Validates any inputs in the form which have validations.
+   *
+   * @method validate
+   * @return {Boolean} valid status
+   */
+  validate = () => {
+    let valid = true,
+        errors = 0;
 
     for (let key in this.inputs) {
       let input = this.inputs[key];
@@ -210,14 +266,9 @@ class Form extends React.Component {
       }
     }
 
-    if (!valid) {
-      ev.preventDefault();
-      this.setState({ errorCount: errors });
-    }
+    if (!valid) { this.setState({ errorCount: errors }); }
 
-    if (this.props.afterFormValidation) {
-      this.props.afterFormValidation(ev, valid);
-    }
+    return valid;
   }
 
   /**
@@ -251,7 +302,9 @@ class Form extends React.Component {
    * @return {void}
    */
   cancelForm = () => {
-    if (this.context.dialog) {
+    if (this.props.onCancel) {
+      this.props.onCancel();
+    } else if (this.context.dialog) {
       this.context.dialog.onCancel();
     } else {
       // history comes from react router
@@ -286,7 +339,7 @@ class Form extends React.Component {
 
     return (<div className={ cancelClasses }>
       <Button type='button' onClick={ this.cancelForm } >
-        { cancelText() }
+        { this.props.cancelText }
       </Button>
     </div>);
   }
@@ -384,10 +437,6 @@ function errorMessage(count) {
 
 function saveText() {
   return I18n.t('actions.save', { defaultValue: 'Save' });
-}
-
-function cancelText() {
-  return I18n.t('actions.cancel', { defaultValue: 'Cancel' });
 }
 
 export default Form;

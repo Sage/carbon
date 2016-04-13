@@ -156,7 +156,7 @@ let userActions = {
 
   updateValue: (key, ev) => {
     Dispatcher.dispatch({
-      actionType: UserConstants.UPDATE_VALUE,
+      actionType: UserConstants.VALUE_UPDATED,
       key: key,
       value: ev.target.value
     });
@@ -188,7 +188,7 @@ class UserStore extends Store {
     this.data = this.data.set('user', ImmutableHelper.parseJSON(action.data));
   }
 
-  [UserConstants.UPDATE_VALUE](action) {
+  [UserConstants.VALUE_UPDATED](action) {
     this.data = this.data.setIn(['user', action.key], action.value);
   }
 }
@@ -305,7 +305,7 @@ let userActions = {
 
   updateValue: (key, ev) => {
     Dispatcher.dispatch({
-      actionType: UserConstants.UPDATE_VALUE,
+      actionType: UserConstants.VALUE_UPDATED,
       key: key,
       value: ev.target.value
     });
