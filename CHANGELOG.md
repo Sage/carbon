@@ -8,8 +8,11 @@
 ## Layout Updates
 
 * Pod component now receives two additional props:
+
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
+
+* Pill style has changed
 
 ## Improve Dialog
 
