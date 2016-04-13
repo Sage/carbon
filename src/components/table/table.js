@@ -253,7 +253,6 @@ class Table extends React.Component {
     let shrink = this.props.shrink && this._table.offsetHeight < this.tableHeight;
 
     if (shrink || this._table.offsetHeight > this.tableHeight) {
-      console.log('foo');
       this.tableHeight = this._table.offsetHeight;
       this._wrapper.style.minHeight = this.tableHeight + 'px';
     }
