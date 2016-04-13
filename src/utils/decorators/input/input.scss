@@ -129,7 +129,7 @@
   z-index: $z-validation-message;
 
   &:before {
-    border-top: 14px solid #D63F40;
+    border-top: 14px solid transparent;
     border-right: 16px solid transparent;
     content: '';
     display: block;
@@ -137,6 +137,18 @@
     left: 0;
     bottom: -14px;
   }
+}
+
+.common-input__message--warning:before {
+  border-top-color: $warning;
+}
+
+.common-input__message--error:before {
+  border-top-color: $error;
+}
+
+.common-input__message--hidden {
+  display: none;
 }
 
 .common-input__message--locked {
@@ -155,14 +167,27 @@
 }
 
 .ui-icon.common-input__icon {
-  bottom: 1px;
   color: red;
-  margin: 7px 5px;
+  height: 30px;
+  margin: 0 5px;
   position: absolute;
   right: 0;
+  top: 1px;
 
   &:before {
     font-size: 20px;
+    top: 6px;
+    position: relative;
+  }
+
+  .ui-icon__svg--warning {
+    height: 22px;
+    margin: 4px 0 0;
+    width: 28px;
+
+    .ui-icon__svg-group {
+      fill: $warning;
+    }
   }
 }
 
@@ -171,14 +196,30 @@
   color: $error;
 }
 
+.common-input__input--warning,
+.common-input__input--warning:hover {
+  border-color: $warning !important; // this is the correct use of !important
+}
+
 .common-input__input--error,
 .common-input__input--error:hover {
   border-color: $error !important; // this is the correct use of !important
 }
 
+.common-input__message--warning {
+  background-color: $warning;
+  color: $white;
+}
+
 .common-input__message--error {
   background-color: $error;
   color: $white;
+}
+
+.common-input__spinner {
+  right: 8px;
+  top: 7px;
+  position: absolute;
 }
 
 .common-input__prefix {
