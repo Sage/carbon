@@ -11,6 +11,7 @@
 
 ## Layout Updates
 
+* Row margin has been reduced to `15px`.
 * Pod component now receives two additional props:
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
