@@ -396,7 +396,7 @@ describe('Table', () => {
         let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
         expect(parent).toBeDefined();
         expect(instance.tableHeader).toEqual(
-          <thead>
+          <thead className="ui-table__header">
             {header}
           </thead>
         )

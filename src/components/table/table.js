@@ -466,7 +466,7 @@ class Table extends React.Component {
   get tableHeader() {
     if (this.props.tableHeader) {
       return (
-        <thead>
+        <thead className="ui-table__header">
           { this.props.tableHeader }
         </thead>
       );
