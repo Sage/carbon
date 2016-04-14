@@ -5,11 +5,11 @@ import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
 
-import ToolTip from 'components/tooltip';
+import Tooltip from 'components/tooltip';
 import RadioButton from 'components/radio-button';
 import Row from 'components/row';
 
-class ToolTipDemo extends React.Component {
+class TooltipDemo extends React.Component {
   /**
    * @method value
    */
@@ -30,9 +30,9 @@ class ToolTipDemo extends React.Component {
   get demo() {
     return (
       <div className='tooltip-demo'>
-        <ToolTip align={ this.value('align') } position={ this.value('position') }>
-          Icons are a fundamental part of the user experience. They can help to communicate, guide and inform the user. Icons make the meaning of buttons clearer.
-        </ToolTip>
+        <Tooltip pointerAlign={ this.value('pointerAlign') } pointerPosition={ this.value('pointerPosition') } showTooltip={ true }>
+          Tooltips are a fundamental part of the user experience.
+        </Tooltip>
       </div>
     );
   }
@@ -41,14 +41,27 @@ class ToolTipDemo extends React.Component {
    * @method code
    */
   get code() {
-    let html = "ToolTip from 'carbon/lib/components/tooltip';\n\n";
+    let html = "import Tooltip from 'carbon/lib/components/tooltip';\n\n";
 
-    html += '<ToolTip>\n';
-    html += '\tIcons are a fundamental part of the user experience.\n';
-    html += '\tThey can help to communicate, guide and inform the user.\n';
-    html += '\tIcons make the meaning of buttons clearer.\n';
-    html += '</ToolTip>'
+    html += '<Tooltip showTooltip={ toggleTooltipHandler }>\n';
+    html += '  Tooltips are a fundamental part of the user experience.\n';
+    html += '</Tooltip>\n'
+    html += '\n'
 
+    if (this.value('pointerAlign')) {
+      html += '<Tooltip pointerAlign="left"\n'
+      html += '         showTooltip={ toggleTooltipHandler }>\n';
+      html += '  Tooltips are a fundamental part of the user experience.\n';
+      html += '</Tooltip>\n'
+      html += '\n'
+    }
+
+    if (this.value('pointerPosition')) {
+      html += '<Tooltip pointerPosition="bottom"\n';
+      html += '         showTooltip={ toggleTooltipHandler }>\n';
+      html += '  Tooltips are a fundamental part of the user experience.\n';
+      html += '</Tooltip>\n'
+    }
     return html;
   }
 
@@ -59,68 +72,68 @@ class ToolTipDemo extends React.Component {
     return(
       <div>
         <Row className='props-row'>
-          <h5 className='row-label'>ToolTip Position</h5>
+          <h5 className='row-label'>Tooltip Position</h5>
           <RadioButton
             label='Left'
-            name='position'
-            onChange={ this.action.bind(this, 'position')}
+            name='pointerPosition'
+            onChange={ this.action.bind(this, 'pointerPosition')}
             value='left'
           />
           <RadioButton
             defaultChecked={ true }
             label='Bottom'
-            name='position'
-            onChange={ this.action.bind(this, 'position')}
+            name='pointerPosition'
+            onChange={ this.action.bind(this, 'pointerPosition')}
             value='bottom'
           />
           <RadioButton
             label='Top'
-            name='position'
-            onChange={ this.action.bind(this, 'position')}
+            name='pointerPosition'
+            onChange={ this.action.bind(this, 'pointerPosition')}
             value='top'
           />
           <RadioButton
             label='Right'
-            name='position'
-            onChange={ this.action.bind(this, 'position')}
+            name='pointerPosition'
+            onChange={ this.action.bind(this, 'pointerPosition')}
             value='right'
           />
         </Row>
         <Row className='props-row'>
           <h5 className='row-label'>Pointer Alignment</h5>
           <RadioButton
-            disabled={ this.value('position') === 'right' || this.value('position') === 'left'}
+            disabled={ this.value('pointerPosition') === 'right' || this.value('pointerPosition') === 'left'}
             label='Left'
-            name='align'
-            onChange={ this.action.bind(this, 'align')}
+            name='pointerAlign'
+            onChange={ this.action.bind(this, 'pointerAlign')}
             value='left'
           />
           <RadioButton
             defaultChecked={ true }
             label='Center'
-            name='align'
-            onChange={ this.action.bind(this, 'align')}
+            name='pointerAlign'
+            onChange={ this.action.bind(this, 'pointerAlign')}
             value='center'
           />
           <RadioButton
-            disabled={ this.value('position') === 'right' || this.value('position') === 'left'}
+            disabled={ this.value('pointerPosition') === 'right' || this.value('pointerPosition') === 'left'}
             label='Right'
-            name='align'
-            onChange={ this.action.bind(this, 'align')}
+            name='pointerAlign'
+            onChange={ this.action.bind(this, 'pointerAlign')}
             value='right'
           />
           <RadioButton
-            disabled={ this.value('position') === 'bottom' || this.value('position') === 'top'}
+            disabled={ this.value('pointerPosition') === 'bottom' || this.value('pointerPosition') === 'top'}
             label='Top'
-            name='align'
-            onChange={ this.action.bind(this, 'align')}
+            name='pointerAlign'
+            onChange={ this.action.bind(this, 'pointerAlign')}
             value='top'
           />
           <RadioButton
-            disabled={ this.value('position') === 'bottom' || this.value('position') === 'top'}
+            disabled={ this.value('pointerPosition') === 'bottom' || this.value('pointerPosition') === 'top'}
             label='Bottom'
-            name='align'
-            onChange={ this.action.bind(this, 'align')}
+            name='pointerAlign'
+            onChange={ this.action.bind(this, 'pointerAlign')}
             value='bottom'
           />
         </Row>
@@ -136,7 +149,7 @@ class ToolTipDemo extends React.Component {
   render() {
     return (
       <Example
-        title='ToolTip'
+        title='Tooltip'
         readme='components/tooltip'
         demo={ this.demo }
         code={ this.code }
@@ -146,4 +159,4 @@ class ToolTipDemo extends React.Component {
   }
 }
 
-export default connect(ToolTipDemo, AppStore);
+export default connect(TooltipDemo, AppStore);
