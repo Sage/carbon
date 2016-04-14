@@ -21,7 +21,9 @@
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-top {
   top: -15px;
-  left: 47%;
+  left: -webkit-calc(50% - 7px);
+  left:    -moz-calc(50% - 7px);
+  left:         calc(50% - 7px);
 
   &:before {
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark);
@@ -30,7 +32,9 @@
 }
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-bottom {
-  left: 47%;
+  left: -webkit-calc(50% - 7px);
+  left:    -moz-calc(50% - 7px);
+  left:         calc(50% - 7px);
   bottom: -12px;
 
   &:before {
