@@ -23,6 +23,7 @@
 ## Misc
 
 * Allow Tables to shrink in size using the `shrink` prop.
+* Link component can now display with an icon.
 * Child components of Row can now use a `columnAlign` prop.
 
 ## Bug Fixes

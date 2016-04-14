@@ -10,8 +10,12 @@ $link-hover-text-decoration: underline !default;
   text-decoration: none;
 
   &:hover {
-    text-decoration: $link-hover-text-decoration;
     color: $link-hover-color;
+    text-decoration: none;
+
+    .ui-link__content {
+      text-decoration: $link-hover-text-decoration;
+    }
   }
 }
 
@@ -23,7 +27,16 @@ $link-hover-text-decoration: underline !default;
 
   //for IE
   &:hover {
-    text-decoration: none;
     color: $grey-dark;
+
+    .ui-link__content {
+      text-decoration: none;
+    }
   }
+}
+
+.ui-link__icon {
+  margin-right: 5px;
+  position: relative;
+  top: -2px;
 }
