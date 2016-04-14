@@ -51,6 +51,7 @@ class TableAjaxDemo extends React.Component {
         { filterHtml }
 
         <TableAjax
+          shrink={ this.value('shrink') }
           filter={ filter }
           showPageSizeSelection={ this.value('show_page_size_selection') }
           pageSize={ this.value('page_size') }
@@ -124,6 +125,10 @@ class TableAjaxDemo extends React.Component {
 
     html += "<TableAjax\n";
 
+    if (this.value('shrink')) {
+      html += '  shrink={ true }\n';
+    }
+
     if (this.value('enable_filter')) {
       html += "  filter={this.state.store.get('filter')}\n";
     }
@@ -186,6 +191,13 @@ class TableAjaxDemo extends React.Component {
             label="Sortable (when active, interact with the any table header)"
             value={ this.value('sortable') }
             onChange={ this.action.bind(this, 'sortable') }
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Shrink (allow table to shrink with few results)"
+            value={ this.value('shrink') }
+            onChange={ this.action.bind(this, 'shrink') }
           />
         </Row>
       </div>
