@@ -19,7 +19,7 @@ describe('tooltip', () => {
     );
 
     positionedInstance = TestUtils.renderIntoDocument(
-      <Tooltip showTooltip={ true } pointerPosition='down'>
+      <Tooltip showTooltip={ true } pointerPosition='bottom'>
         Some Helpful Content
       </Tooltip>
     );
@@ -54,7 +54,7 @@ describe('tooltip', () => {
       });
 
       it('positions the pointer on the top', () => {
-        expect(tooltip.children[1].classList[2]).toEqual('ui-tooltip__pointer--position-up');
+        expect(tooltip.children[1].classList[2]).toEqual('ui-tooltip__pointer--position-top');
       });
     });
 
@@ -66,7 +66,7 @@ describe('tooltip', () => {
 
     describe('when a prop of position is passed', () => {
       it('adds the appropriate class', () => {
-        expect(positionedTooltip.children[1].classList[2]).toEqual('ui-tooltip__pointer--position-down');
+        expect(positionedTooltip.children[1].classList[2]).toEqual('ui-tooltip__pointer--position-bottom');
       });
     });
   });

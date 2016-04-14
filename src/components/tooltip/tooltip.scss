@@ -19,7 +19,7 @@
   position: absolute;
 }
 
-.ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-up {
+.ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-top {
   top: -15px;
   left: 47%;
 
@@ -29,7 +29,7 @@
   }
 }
 
-.ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-down {
+.ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-bottom {
   left: 47%;
   bottom: -12px;
 
@@ -39,7 +39,7 @@
   }
 }
 
-.ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-up {
+.ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-top {
   top: -15px;
   left: 4%;
 
@@ -49,7 +49,7 @@
   }
 }
 
-.ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-down {
+.ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-bottom {
   left: 4%;
   bottom: -12px;
 
@@ -60,7 +60,7 @@
   }
 }
 
-.ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-up {
+.ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-bottom {
   top: -15px;
   right: 7%;
 
@@ -70,7 +70,7 @@
   }
 }
 
-.ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-down {
+.ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-bottom {
   right: 7%;
   bottom: -12px;
 
@@ -100,7 +100,7 @@
   }
 }
 
-.ui-tooltip__pointer--align-up.ui-tooltip__pointer--position-right {
+.ui-tooltip__pointer--align-top.ui-tooltip__pointer--position-right {
   right: 0px;
   top: 10%;
 
@@ -110,7 +110,7 @@
   }
 }
 
-.ui-tooltip__pointer--align-down.ui-tooltip__pointer--position-left {
+.ui-tooltip__pointer--align-bottom.ui-tooltip__pointer--position-left {
   left: -15px;
   bottom: 10%;
 
@@ -120,7 +120,7 @@
   }
 }
 
-.ui-tooltip__pointer--align-down.ui-tooltip__pointer--position-right {
+.ui-tooltip__pointer--align-bottom.ui-tooltip__pointer--position-right {
   right: 0px;
   bottom: 10%;
 
@@ -130,7 +130,7 @@
   }
 }
 
-.ui-tooltip__pointer--align-up.ui-tooltip__pointer--position-left {
+.ui-tooltip__pointer--align-top.ui-tooltip__pointer--position-left {
   left: -15px;
   top: 10%;
 

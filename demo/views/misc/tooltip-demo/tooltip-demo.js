@@ -21,7 +21,7 @@ class TooltipDemo extends React.Component {
    * @method action
    */
   get action() {
-    return AppActions.appValueUpdated.bind(this, 'tooltip');
+    return AppActions.appValueTopdated.bind(this, 'tooltip');
   }
 
   /**
@@ -53,7 +53,7 @@ class TooltipDemo extends React.Component {
       html += '  pointerAlign="left"\n'
     }
     if (this.value('pointerPosition')) {
-      html += '  pointerPosition="down"\n'
+      html += '  pointerPosition="bottom"\n'
     }
     html += '>\n'
     html += '  Tooltips are a fundamental part of the user experience.\n';
@@ -78,17 +78,17 @@ class TooltipDemo extends React.Component {
             value='left'
           />
           <RadioButton
-            label='Down'
+            label='Bottom'
             name='pointerPosition'
             onChange={ this.action.bind(this, 'pointerPosition')}
-            value='down'
+            value='bottom'
           />
           <RadioButton
             defaultChecked={ true }
-            label='Up'
+            label='Top'
             name='pointerPosition'
             onChange={ this.action.bind(this, 'pointerPosition')}
-            value='up'
+            value='top'
           />
           <RadioButton
             label='Right'
@@ -121,18 +121,18 @@ class TooltipDemo extends React.Component {
             value='right'
           />
           <RadioButton
-            disabled={ this.value('pointerPosition') === 'down' || this.value('pointerPosition') === 'up'}
-            label='Up'
+            disabled={ this.value('pointerPosition') === 'bottom' || this.value('pointerPosition') === 'top'}
+            label='Top'
             name='pointerAlign'
             onChange={ this.action.bind(this, 'pointerAlign')}
-            value='up'
+            value='top'
           />
           <RadioButton
-            disabled={ this.value('pointerPosition') === 'down' || this.value('pointerPosition') === 'up'}
-            label='Down'
+            disabled={ this.value('pointerPosition') === 'bottom' || this.value('pointerPosition') === 'top'}
+            label='Bottom'
             name='pointerAlign'
             onChange={ this.action.bind(this, 'pointerAlign')}
-            value='down'
+            value='bottom'
           />
         </Row>
       </div>
