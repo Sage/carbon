@@ -34,7 +34,7 @@ let data = ImmutableHelper.parseJSON({
   },
   pill: {
     as: 'new',
-    text: 'MANAGER'
+    text: 'PILL'
   },
   portrait: {
     size: 'lmed',
