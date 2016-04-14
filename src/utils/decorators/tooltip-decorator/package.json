@@ -1,0 +1,4 @@
+{
+  "main": "./tooltip-decorator.js",
+  "style": "tooltip-decorator.scss"
+}
