@@ -11,6 +11,7 @@ $link-hover-text-decoration: underline !default;
 
   &:hover {
     color: $link-hover-color;
+    cursor: pointer;
     text-decoration: none;
 
     .ui-link__content {
@@ -25,9 +26,9 @@ $link-hover-text-decoration: underline !default;
   pointer-events: none;
   text-decoration: none;
 
-  //for IE
   &:hover {
     color: $grey-dark;
+    cursor: default;
 
     .ui-link__content {
       text-decoration: none;
