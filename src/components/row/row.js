@@ -43,7 +43,7 @@ class Row extends React.Component {
    */
   buildColumns = () => {
     let columns = [],
-        children = compact(this.props.children)[0];
+        children = (this.props.children.constructor === Array) ? compact(this.props.children) : this.props.children;
 
     if (children.length) {
       children.forEach((child, index) => {
@@ -93,7 +93,7 @@ class Row extends React.Component {
     if (this.props.columns) {
       columns = this.props.columns;
     } else if (this.props.children.constructor === Array) {
-      columns = compact(this.props.children)[0].length;
+      columns = compact(this.props.children).length;
     }
 
     return classNames(
