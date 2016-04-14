@@ -21,7 +21,7 @@ import classNames from 'classnames';
 * You can pass a prop of 'pointerAlign' to the component which shifts the alignment of the pointer.
 * This defaults to 'center'.
 * You can also pass a prop of 'pointerPosition' to the component which shifts the position of the tooltip.
-* This defaults to 'down'
+* This defaults to 'up'
 *
 * @class Tooltip
 * @constructor
