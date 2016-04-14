@@ -82,6 +82,12 @@ class Tooltip extends React.Component {
     );
   }
 
+  /**
+   * Main classes
+   *
+   * @method mainClasses
+   * @return {String} classNames for tooltip
+   */
   get mainClasses() {
     return classNames(
       'ui-tooltip',
@@ -89,6 +95,12 @@ class Tooltip extends React.Component {
     );
   }
 
+  /**
+   * Return HTML for tooltip
+   *
+   * @method innerHTML
+   * @return {JSX} 
+   */
   get innerHTML() {
     let contents = [];
 
