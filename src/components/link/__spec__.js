@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Link from './link';
+import Icon from './../icon';
 
 describe('Link', () => {
   let basicLink, disabledLink, customLink, actionLink, spy;
@@ -42,6 +43,17 @@ describe('Link', () => {
   describe('A disabled link', () => {
     it('renders a link with the disabled attribute', () => {
       expect(disabledLink.props.disabled).toBeTruthy();
+    });
+  });
+
+  describe('with an icon', () => {
+    it('renders an icon', () => {
+      let instance = TestUtils.renderIntoDocument(
+        <Link icon="foo">My Link</Link>
+      );
+      let icon = TestUtils.findRenderedComponentWithType(instance, Icon);
+      expect(icon.props.className).toEqual('ui-link__icon');
+      expect(icon.props.type).toEqual('foo');
     });
   });
 
