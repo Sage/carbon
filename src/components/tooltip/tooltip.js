@@ -98,10 +98,10 @@ class Tooltip extends React.Component {
   /**
    * Return HTML for tooltip
    *
-   * @method innerHTML
+   * @method tooltipHTML
    * @return {JSX}
    */
-  get innerHTML() {
+  get tooltipHTML() {
     let contents = [];
 
     contents.push(this.props.children);
@@ -120,17 +120,9 @@ class Tooltip extends React.Component {
    * @method render
    */
   render() {
-    let content;
+    if (!this.props.showTooltip) { return null; }
 
-    if (this.props.showTooltip) {
-      content = this.innerHTML;
-    }
-
-    return(
-      <div>
-        { content }
-      </div>
-    );
+    return this.tooltipHTML;
   }
 }
 

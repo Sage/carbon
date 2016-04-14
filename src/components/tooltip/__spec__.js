@@ -35,9 +35,9 @@ describe('tooltip', () => {
     let tooltip, alignedTooltip, positionedTooltip;
 
     beforeEach(() => {
-      tooltip = ReactDOM.findDOMNode(instance).children[0];
-      alignedTooltip = ReactDOM.findDOMNode(alignedInstance).children[0];
-      positionedTooltip = ReactDOM.findDOMNode(positionedInstance).children[0];
+      tooltip = ReactDOM.findDOMNode(instance);
+      alignedTooltip = ReactDOM.findDOMNode(alignedInstance);
+      positionedTooltip = ReactDOM.findDOMNode(positionedInstance);
     });
 
     describe('default render', () => {
@@ -73,8 +73,8 @@ describe('tooltip', () => {
 
   describe('when the tooltip is toggled off', () => {
     it('does not render any content', () => {
-      let hiddenTooltip = ReactDOM.findDOMNode(hiddenInstance).children[0];
-      expect(hiddenTooltip).not.toBeDefined();
+      let hiddenTooltip = ReactDOM.findDOMNode(hiddenInstance);
+      expect(hiddenTooltip).toEqual(null);
     });
   });
 });
