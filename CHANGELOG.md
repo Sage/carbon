@@ -23,6 +23,7 @@
 ## Misc
 
 * Allow Tables to shrink in size using the `shrink` prop.
+* Child components of Row can now use a `columnAlign` prop.
 
 ## Bug Fixes
 
