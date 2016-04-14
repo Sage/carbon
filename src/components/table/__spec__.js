@@ -368,6 +368,41 @@ describe('Table', () => {
     });
   });
 
+  describe('tableHeader', () => {
+    describe('when tableHeader is not provided', () => {
+      it('returns the the correct markup', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Table path='/test'>
+          </Table>
+        );
+        let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
+        expect(parent).toBeUndefined();
+      });
+    });
+
+    describe('when tableHeader is provided', () => {
+      it('returns the the correct markup', () => {
+        let header = (
+          <TableRow key="header">
+            <TableHeader>
+              foo
+            </TableHeader>
+          </TableRow>
+        );
+        instance = TestUtils.renderIntoDocument(
+          <Table path='/test' tableHeader={header}>
+          </Table>
+        );
+        let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
+        expect(parent).toBeDefined();
+        expect(instance.tableHeader).toEqual(
+          <thead className="ui-table__header">
+            {header}
+          </thead>
+        )
+      });
+    });
+  });
 
   describe('pager', () => {
     describe('when paginate is true', () => {
