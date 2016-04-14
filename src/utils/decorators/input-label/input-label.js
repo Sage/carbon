@@ -110,12 +110,22 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     // add label width if defined
     let labelStyle = this.props.labelWidth ? { width: `${this.props.labelWidth}%` } : null;
 
+    let helpText;
+    if (this.props.labelHelp) {
+      helpText = (
+        <span className='common-input__label__help-text'>
+          { this.props.labelHelp }
+        </span>
+      );
+    }
+
     return (
       <label
         style={ labelStyle }
         className={ this.labelClasses }
         htmlFor={ this.inputProps.id }>
         { labelText }
+        { helpText }
       </label>
     );
   }
