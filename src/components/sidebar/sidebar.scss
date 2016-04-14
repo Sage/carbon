@@ -27,7 +27,7 @@ $sidebar-background-animation-length: 250ms;
 }
 
 .ui-sidebar__background {
-  background-color: #3C424F;
+  background-color: $grey-dark-blue;
   bottom: 0;
   left: 0;
   opacity: $sidebar-background-opacity;
