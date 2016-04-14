@@ -68,8 +68,9 @@ class Row extends React.Component {
       child.props.columnClasses, {
         [`ui-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
         [`ui-row__column--span-${child.props.columnSpan}`]: child.props.columnSpan,
-        [`ui-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign,
-    });
+        [`ui-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign
+      }
+    );
 
     return (
       <div key={ key } className={ columnClass }>
