@@ -36,10 +36,20 @@ describe('Store', () => {
       });
     });
 
+    it('sets history to an array with init data', () => {
+      instance = new Store('foo', { foo: 'bar' }, dispatcher);
+      expect(instance.history).toEqual([{ foo: 'bar' }]);
+    });
+
+    it('sets trackHistory to false', () => {
+      instance = new Store('foo', {}, dispatcher);
+      expect(instance.trackHistory).toBeFalsy();
+    });
+
     describe('init with history enabled', () => {
-      it('adds a history prop of an empty array', () => {
+      it('sets trackHistory to true', () => {
         instance = new Store('foo', {}, dispatcher, { history: true });
-        expect(instance.history).toEqual([]);
+        expect(instance.trackHistory).toBeTruthy();
       });
     });
   });
@@ -99,13 +109,14 @@ describe('Store', () => {
 
         describe('if history is not enabled', () => {
           it('does nothing with the history', () => {
-            expect(instance.history).toBeUndefined();
+            expect(instance.history).toEqual(['some data']);
           });
         });
 
         describe('if history is enabled', () => {
           beforeEach(() => {
             instance.history = ['foo'];
+            instance.trackHistory = true;
             instance.data = 'bar';
             instance.dispatcherCallback({ actionType: 'foobar' });
           });
@@ -161,8 +172,8 @@ describe('Store', () => {
           instance.reset();
         });
 
-        it('resets the history array', () => {
-          expect(instance.history).toEqual([]);
+        it('resets the history array to the first entry', () => {
+          expect(instance.history).toEqual(['foo']);
         });
 
         it('sets the data to the first entry', () => {
@@ -174,11 +185,18 @@ describe('Store', () => {
         });
       });
 
-      describe('if there is no history left', () => {
-        it('does not call trigger change', () => {
-          instance.history = [];
+      describe('if there is only one history entry', () => {
+        beforeEach(() => {
+          instance.history = ['foo'];
           instance.reset();
-          expect(instance._triggerChange).not.toHaveBeenCalled();
+        });
+
+        it('maintains the same history array', () => {
+          expect(instance.history).toEqual(['foo']);
+        });
+
+        it('maintains the same data', () => {
+          expect(instance.data).toEqual('foo');
         });
       });
     });
