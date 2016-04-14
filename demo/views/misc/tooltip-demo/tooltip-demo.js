@@ -57,7 +57,7 @@ class TooltipDemo extends React.Component {
     }
 
     if (this.value('pointerPosition')) {
-      html += '<Tooltip pointerPosition="bottom"\n';
+      html += '<Tooltip pointerPosition="down"\n';
       html += '         showTooltip={ toggleTooltipHandler }>\n';
       html += '  Tooltips are a fundamental part of the user experience.\n';
       html += '</Tooltip>\n'
@@ -80,17 +80,17 @@ class TooltipDemo extends React.Component {
             value='left'
           />
           <RadioButton
-            defaultChecked={ true }
-            label='Bottom'
+            label='Down'
             name='pointerPosition'
             onChange={ this.action.bind(this, 'pointerPosition')}
-            value='bottom'
+            value='down'
           />
           <RadioButton
-            label='Top'
+            defaultChecked={ true }
+            label='Up'
             name='pointerPosition'
             onChange={ this.action.bind(this, 'pointerPosition')}
-            value='top'
+            value='up'
           />
           <RadioButton
             label='Right'
@@ -123,18 +123,18 @@ class TooltipDemo extends React.Component {
             value='right'
           />
           <RadioButton
-            disabled={ this.value('pointerPosition') === 'bottom' || this.value('pointerPosition') === 'top'}
-            label='Top'
+            disabled={ this.value('pointerPosition') === 'down' || this.value('pointerPosition') === 'up'}
+            label='Up'
             name='pointerAlign'
             onChange={ this.action.bind(this, 'pointerAlign')}
-            value='top'
+            value='up'
           />
           <RadioButton
-            disabled={ this.value('pointerPosition') === 'bottom' || this.value('pointerPosition') === 'top'}
-            label='Bottom'
+            disabled={ this.value('pointerPosition') === 'down' || this.value('pointerPosition') === 'up'}
+            label='Down'
             name='pointerAlign'
             onChange={ this.action.bind(this, 'pointerAlign')}
-            value='bottom'
+            value='down'
           />
         </Row>
       </div>

@@ -25,7 +25,7 @@ describe('tooltip', () => {
     );
 
     hiddenInstance = TestUtils.renderIntoDocument(
-      <Tooltip showTooltip={ false}>
+      <Tooltip showTooltip={ false }>
         Some Helpful Content
       </Tooltip>
     );
