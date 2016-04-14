@@ -84,8 +84,27 @@ class NamelessClass {
   };
 }
 
+
+class LabelHelpClass {
+  props = {
+    name: 'foo',
+    label: 'test label',
+    labelHelp: 'help label',
+    labelInline: true,
+    labelWidth: 20
+  };
+
+  context = {
+    form: {
+      model: 'model_1'
+    }
+  };
+}
+
 describe('InputLabel', () => {
-  let instanceBasic, instanceFalse, instanceUnNamed, instanceValidation, instanceAltValidation, instanceNameless;
+  let instanceBasic, instanceFalse, instanceUnNamed,
+      instanceValidation, instanceAltValidation, instanceNameless,
+      instanceLabelHelp;
 
   beforeEach(() => {
     let ExtendedClassOne = InputLabel(BasicClass);
@@ -105,6 +124,9 @@ describe('InputLabel', () => {
 
     let ExtendedClassSix = InputLabel(NamelessClass);
     instanceNameless = new ExtendedClassSix();
+
+    let ExtendedClassSeven = InputLabel(LabelHelpClass);
+    instanceLabelHelp = new ExtendedClassSeven();
   });
 
   describe('labelHTML', () => {
@@ -123,27 +145,43 @@ describe('InputLabel', () => {
     describe('when no label is provided', () => {
       it('titleizes the name to provide the label text', () => {
         var label = instanceUnNamed.labelHTML;
-        expect(label.props.children).toEqual('Bar Qux');
+        expect(label.props.children[0]).toEqual('Bar Qux');
       });
     });
 
     describe('when the input has a label', () => {
       it('sets the labelText to the passed in label', () => {
         var label = instanceBasic.labelHTML;
-        expect(label.props.children).toEqual('test label');
+        expect(label.props.children[0]).toEqual('test label');
+      });
+
+      describe('labelHelp', () => {
+        describe('when the input has no labelHelp', () => {
+          it('does not render the label help span', () => {
+            var label = instanceBasic.labelHTML;
+            expect(label.props.children[1]).not.toBeDefined();
+          });
+        });
+
+        describe('when the input has a labelHelp', () => {
+          it('adds the labelHelp text to the label', () => {
+            let label = instanceLabelHelp.labelHTML;
+            expect(label.props.children[1].props.className).toEqual('common-input__label__help-text');;
+          });
+        });
       });
 
       describe('when the input has a validation with asterisk enabled', () => {
         it('adds additional symbols to the label', () => {
           var label = instanceValidation.labelHTML;
-          expect(label.props.children).toEqual('Validate Label*');
+          expect(label.props.children[0]).toEqual('Validate Label*');
         });
       });
 
       describe('when the input does not have a validation with asterisk enabled', () => {
         it('does not add additional symbols to the label', () => {
           var label = instanceAltValidation.labelHTML;
-          expect(label.props.children).toEqual('Validate Label');
+          expect(label.props.children[0]).toEqual('Validate Label');
         });
       });
     });
