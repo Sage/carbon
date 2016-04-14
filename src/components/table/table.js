@@ -60,6 +60,7 @@ import Pager from './../pager';
  *   totalRecords                             // Required - Total number of records
  *   showPageSizeSelection={ false }          // Options  - Show page size selection
  *   pageSizeSelectionOptions={ sizeOptions } // Optional - Page Size Options
+ *   tableHeader={ TableRow }                 // Optional - A TableRow to be wrapped in <thead>
  * />
  *
  * == Sorting
@@ -157,7 +158,15 @@ class Table extends React.Component {
      * @property shrink
      * @type {Boolean}
      */
-    shrink: React.PropTypes.bool
+    shrink: React.PropTypes.bool,
+
+    /**
+     * TableRows to be wrapped in <thead>
+     *
+     * @property tableHeader
+     * @type {Object}
+     */
+    tableHeader: React.PropTypes.object
   }
 
   /**
@@ -447,6 +456,23 @@ class Table extends React.Component {
     return 'ui-table__table';
   }
 
+
+  /**
+   * Returns tableHeader content wrapped in <thead>
+   *
+   * @method tableHeader
+   * @return {JSX}
+   */
+  get tableHeader() {
+    if (this.props.tableHeader) {
+      return (
+        <thead className="ui-table__header">
+          { this.props.tableHeader }
+        </thead>
+      );
+    }
+  }
+
   /**
    * Renders the component.
    *
@@ -457,6 +483,7 @@ class Table extends React.Component {
       <div className={ this.mainClasses }>
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
+            { this.tableHeader }
             <tbody>
               { this.props.children }
             </tbody>

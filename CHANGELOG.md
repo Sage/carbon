@@ -3,6 +3,7 @@
 ## Improvements
 
 * Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
+* Add `tableHeader` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
 
 ## New Components
 
@@ -26,6 +27,8 @@
 ## Misc
 
 * Allow Tables to shrink in size using the `shrink` prop.
+* Link component can now display with an icon.
+* Child components of Row can now use a `columnAlign` prop.
 
 ## Bug Fixes
 

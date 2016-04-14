@@ -15,6 +15,15 @@ $max-columns: 12 !default;
     min-height: 1px;
     padding-left: $grid-margin;
     width: 100%;
+
+    &.ui-row__column--align-center,
+    &.ui-row__column--align-middle {
+      text-align: center;
+    }
+
+    &.ui-row__column--align-right {
+      text-align: right;
+    }
   }
 
   @for $i from 2 through $max-columns {
