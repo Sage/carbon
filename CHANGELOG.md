@@ -20,6 +20,10 @@
 
 * Dialog now takes a prop of `disableBackground` which is true by default.
 
+## Misc
+
+* Allow Tables to shrink in size using the `shrink` prop.
+
 ## Bug Fixes
 
 * Fixes alignment issue with SplitButton when using anchors.
