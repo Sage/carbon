@@ -17,6 +17,11 @@ let data = ImmutableHelper.parseJSON({
     title: 'Hello World!',
     disableBackground: true
   },
+  dialog_full_screen: {
+    open: false,
+    title: 'Your Header Goes Here',
+    disableBackground: true
+  },
   flash: {
     as: "warning",
     open: true,

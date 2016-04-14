@@ -1,0 +1,46 @@
+@import 'colors';
+
+.ui-dialog-full-screen {
+  .dialog__dialog, .ui-dialog__dialog {
+    padding: 0;
+  }
+
+  .ui-dialog__dialog {
+    border-radius: 0;
+    box-shadow: 0 4px 8px #555;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+  }
+
+  .ui-dialog__content {
+    padding:50px 105px;
+    text-align: left;
+  }
+
+  .ui-dialog__header {
+    background: none;
+    border-bottom: 1px solid $border-color;
+    color: $grey-mid;
+    margin: 0;
+    padding: 36px 0 0 109px;
+    height:115px;
+
+    .ui-dialog__title {
+      border-bottom: none;
+      font-size: 2.0em;
+      font-weight: 500;
+    }
+
+    .ui-dialog__close {
+      right: 109px;
+      top: 45px;
+
+      &[class^="icon-"]:before, &[class*="icon-"]:before {
+        font-size: 28px;
+      }
+    }
+  }
+}
