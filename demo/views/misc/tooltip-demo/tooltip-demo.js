@@ -30,7 +30,10 @@ class TooltipDemo extends React.Component {
   get demo() {
     return (
       <div className='tooltip-demo'>
-        <Tooltip pointerAlign={ this.value('pointerAlign') } pointerPosition={ this.value('pointerPosition') } showTooltip={ true }>
+        <Tooltip 
+          pointerAlign={ this.value('pointerAlign') } 
+          pointerPosition={ this.value('pointerPosition') } 
+          showTooltip={ true }>
           Tooltips are a fundamental part of the user experience.
         </Tooltip>
       </div>

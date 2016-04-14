@@ -6,6 +6,14 @@
   border-radius: 4px;
 }
 
+.ui-pod--secondary {
+  background-color: $background-alt;
+}
+
+.ui-pod--tile {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
 .ui-pod--padding-small {
   padding: 10px;
 }

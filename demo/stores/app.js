@@ -43,7 +43,8 @@ let data = ImmutableHelper.parseJSON({
   },
   pod: {
     border: true,
-    padding: "medium"
+    padding: "medium",
+    as: "primary"
   },
   rainbow: {
     data: [{
@@ -93,9 +94,6 @@ let data = ImmutableHelper.parseJSON({
   },
   tabs: {
     tabData: [{}, {}]
-  },
-  tile: {
-    content: "Using a borderless Pod can provide padding inside your tile."
   },
   toast: {
     as: "warning",
