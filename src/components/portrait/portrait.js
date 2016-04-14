@@ -98,7 +98,7 @@ class Portrait extends React.Component {
 
     return {
       src: this.props.src,
-      alt = this.props.alt
+      alt: this.props.alt
     };
   }
 
@@ -113,9 +113,9 @@ class Portrait extends React.Component {
         hash = MD5(this.props.gravatar.toLowerCase()),
         size = this.numericSizes[this.props.size];
 
-    return = {
-      src: `${base}${hash}?s=${size}`;
-      alt: this.props.alt || this.props.gravatar;
+    return {
+      src: `${base}${hash}?s=${size}`,
+      alt: this.props.alt || this.props.gravatar
     };
   }
 

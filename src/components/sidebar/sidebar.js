@@ -31,6 +31,8 @@ import classNames from 'classnames';
  */
 class Sidebar extends React.Component {
 
+  listening = false;
+
   static propTypes = {
 
     /**
@@ -75,6 +77,33 @@ class Sidebar extends React.Component {
     open: false,
     disableBackground: true,
     position: 'right'
+  }
+
+  /**
+   * A lifecycle method to update the component after it is re-rendered
+   *
+   * @method componentDidUpdate
+   * @return {void}
+   */
+  componentDidUpdate() {
+    if (this.props.open && !this.listening) {
+      window.addEventListener('keyup', this.closeSidebar);
+    } else if (!this.props.open) {
+      window.removeEventListener('keyup', this.closeSidebar);
+    }
+  }
+
+  /**
+   * Triggers the custom close event handler on ESC
+   *
+   * @method closeSidebar
+   * @param {Object} ev event
+   * @return {void}
+   */
+  closeSidebar = (ev) => {
+    if (ev.keyCode === 27) {
+      this.props.onClose();
+    }
   }
 
   /**
