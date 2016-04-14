@@ -1,18 +1,33 @@
 # 0.8.0
 
+## Improvements
+
+* Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
+
 ## New Components
 
+* Portrait
 * Tile - an alternative to Pod, with a drop shadow.
 
 ## Layout Updates
 
+* Row margin has been reduced to `15px`.
 * Pod component now receives two additional props:
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
 
+## Improved Dialog
+
+* Dialog now takes a prop of `disableBackground` which is true by default.
+
 ## Misc
 
+* Allow Tables to shrink in size using the `shrink` prop.
 * Child components of Row can now use a `columnAlign` prop.
+
+## Bug Fixes
+
+* Fixes alignment issue with SplitButton when using anchors.
 
 # 0.7.1
 

@@ -62,6 +62,7 @@ class TableDemo extends React.Component {
         { filterHtml }
 
         <Table
+          shrink={ this.value('shrink') }
           filter={ filter }
           currentPage={ this.value('current_page') }
           onChange={ AppActions.appTableManuallyUpdated.bind(this, 'table') }
@@ -138,6 +139,11 @@ class TableDemo extends React.Component {
     }
 
     html += "<Table\n";
+
+    if (this.value('shrink')) {
+      additionalProps = true;
+      html += '  shrink={ true }\n';
+    }
 
     if (this.value('sortable')) {
       additionalProps = true;
@@ -218,6 +224,13 @@ class TableDemo extends React.Component {
             label="Sortable (when active, interact any table header)"
             value={ this.value('sortable') }
             onChange={ this.action.bind(this, 'sortable') }
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Shrink (allow table to shrink with few results)"
+            value={ this.value('shrink') }
+            onChange={ this.action.bind(this, 'shrink') }
           />
         </Row>
         { warning }

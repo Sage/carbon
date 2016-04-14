@@ -12,6 +12,11 @@ let data = ImmutableHelper.parseJSON({
   collapsible_pod: {
     title: 'Hello World!'
   },
+  dialog: {
+    open: false,
+    title: 'Hello World!',
+    disableBackground: true
+  },
   flash: {
     as: "warning",
     open: true,
@@ -31,9 +36,15 @@ let data = ImmutableHelper.parseJSON({
     as: 'info',
     text: 'Pill'
   },
+  portrait: {
+    size: 'lmed',
+    shape: 'standard',
+    email: 'Email'
+  },
   pod: {
     border: true,
-    padding: "medium"
+    padding: "medium",
+    as: "primary"
   },
   rainbow: {
     data: [{
@@ -83,9 +94,6 @@ let data = ImmutableHelper.parseJSON({
   },
   tabs: {
     tabData: [{}, {}]
-  },
-  tile: {
-    content: "Using a borderless Pod can provide padding inside your tile."
   },
   toast: {
     as: "warning",
