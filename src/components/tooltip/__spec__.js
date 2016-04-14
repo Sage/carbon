@@ -13,13 +13,13 @@ describe('tooltip', () => {
       </Tooltip>
     );
     alignedInstance = TestUtils.renderIntoDocument(
-      <Tooltip showTooltip={ true } align='left'>
+      <Tooltip showTooltip={ true } pointerAlign='left'>
         Some Helpful Content
       </Tooltip>
     );
 
     positionedInstance = TestUtils.renderIntoDocument(
-      <Tooltip showTooltip={ true } position='bottom'>
+      <Tooltip showTooltip={ true } pointerPosition='bottom'>
         Some Helpful Content
       </Tooltip>
     );
@@ -53,8 +53,8 @@ describe('tooltip', () => {
         expect(tooltip.children[1].classList[1]).toEqual('ui-tooltip__pointer--align-center');
       });
 
-      it('positions the pointer on the bottom', () => {
-        expect(tooltip.children[1].classList[2]).toEqual('ui-tooltip__pointer--position-bottom');
+      it('positions the pointer on the top', () => {
+        expect(tooltip.children[1].classList[2]).toEqual('ui-tooltip__pointer--position-top');
       });
     });
 
