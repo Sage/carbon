@@ -19,14 +19,12 @@ import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
  *
  * This widget follows this pattern: https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
  *
+ * For information on how to use the Tooltip Decorator see the decorator docs.
+ *
  * @class Icon
  * @constructor
  */
 const Icon = TooltipDecorator(class Icon extends React.Component {
-
-  state = {
-    showTooltip: true
-  }
 
   /**
    * Checks if we have an SVG available, otherwise will fall back
@@ -62,30 +60,48 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     return icon;
   }
 
-  showHandler = () => {
-    // setTimeout(() => {
-    //   this.setState({ showTooltip: true });
-    // }, 300 );
-  }
-
-  hideHandler = () => {
-    this.setState({ showTooltip: false });
-  }
-
-
+  /**
+   * Return component props
+   *
+   * @method componentProps
+   * @return {Object} props
+   */
   get componentProps() {
     let { ...props } = this.props;
-    props.onMouseEnter = this.showHandler;
-    props.onMouseLeave = this.hideHandler;
+
+    props.type = this.type;
+
+    return props;
+  }
+
+  /**
+   * Return component classes
+   *
+   * @method mainClasses
+   * @return {String} classes
+   */
+  get mainClasses() {
+    let icon = this.renderIcon;
+
+    return classNames(
+      this.props.className, {
+        [`icon-${this.props.type}`]: !icon,
+        'target-tooltip': this.props.tooltipMessage
+      }
+    );
+  }
+
+  /**
+   * Return Icon type with overrides
+   *
+   * @method type
+   * @return {String} icon type
+   */
+  get type() {
     // we have no icon for 'success', so use 'tick'
-    props.type = props.type == 'success' ? 'tick' : props.type;
-
-    return props
+    return this.props.type == 'success' ? 'tick' : this.props.type;
   }
 
-  get tooltipClasses() {
-    return 'ui-icon__tooltip';
-  }
   /**
    * Renders the component.
    *
@@ -93,21 +109,13 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let icon = this.renderIcon;
-
-    let className = classNames(
-      this.props.className, {
-        [`icon-${this.props.type}`]: !icon
-      }
-    );
-
     return (
       <div>
         { this.tooltipHTML }
         <span
-          className={ className }
+          className={ this.mainClasses }
           { ...this.componentProps }
-          dangerouslySetInnerHTML={ icon }>
+          dangerouslySetInnerHTML={ this.renderIcon }>
         </span>
       </div>
     );

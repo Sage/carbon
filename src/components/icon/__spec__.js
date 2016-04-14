@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Icon from './icon';
 
-describe('Icon', () => {
+fdescribe('Icon', () => {
   let instance, span, svg;
 
   describe('renderIcon', () => {
@@ -66,14 +66,28 @@ describe('Icon', () => {
     });
   });
 
-  describe('with custom class name', () => {
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(<Icon type='foo' className='custom' />);
-      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+  fdescribe ('mainClasses', () => {
+    describe('with custom class name', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(<Icon type='foo' className='custom' />);
+        span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      });
+
+      it('renders with a class of icon-settings and test', () => {
+        expect(span.className).toEqual('custom icon-foo');
+      });
     });
 
-    it('renders with a class of icon-settings and test', () => {
-      expect(span.className).toEqual('custom icon-foo');
+    describe('when decorated with a tooltip', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(<Icon type='foo' tooltipMessage='Hello' />);
+        span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      });
+
+      it('adds a target-tooltip class', () => {
+        expect(span.className).toEqual('icon-foo target-tooltip');
+      });
     });
   });
+
 });
