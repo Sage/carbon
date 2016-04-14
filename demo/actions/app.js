@@ -37,6 +37,17 @@ let AppActions = {
     });
   },
 
+  appTableCellUpdated: (index, key, component, event) => {
+    console.log(event.target.value);
+    Dispatcher.dispatch({
+      actionType: AppConstants.APP_TABLE_CELL_VALUE_UPDATED,
+      component: component,
+      index: index,
+      value: event.target.value,
+      key: key
+    });
+  },
+
   /**
    * @method appTableUpdated
    */
