@@ -12,6 +12,7 @@
 
 ## Layout Updates
 
+* Row margin has been reduced to `15px`.
 * Pod component now receives two additional props:
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
@@ -19,6 +20,10 @@
 ## Improved Dialog
 
 * Dialog now takes a prop of `disableBackground` which is true by default.
+
+## Misc
+
+* Allow Tables to shrink in size using the `shrink` prop.
 
 ## Bug Fixes
 
