@@ -59,7 +59,6 @@ class TooltipDemo extends React.Component {
     html += '  Tooltips are a fundamental part of the user experience.\n';
     html += '</Tooltip>\n'
     html += '\n'
-
     return html;
   }
 
