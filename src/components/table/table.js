@@ -60,7 +60,7 @@ import Pager from './../pager';
  *   totalRecords                             // Required - Total number of records
  *   showPageSizeSelection={ false }          // Options  - Show page size selection
  *   pageSizeSelectionOptions={ sizeOptions } // Optional - Page Size Options
- *   tableHeader={ TableRow }                 // Optional - A TableRow to be wrapper in <thead>
+ *   tableHeader={ TableRow }                 // Optional - A TableRow to be wrapped in <thead>
  * />
  *
  * == Sorting
