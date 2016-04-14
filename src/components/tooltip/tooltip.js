@@ -99,7 +99,7 @@ class Tooltip extends React.Component {
    * Return HTML for tooltip
    *
    * @method innerHTML
-   * @return {JSX} 
+   * @return {JSX}
    */
   get innerHTML() {
     let contents = [];
