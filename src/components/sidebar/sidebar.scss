@@ -1,0 +1,115 @@
+@import 'colors';
+@import 'mixins';
+@import 'z-index';
+
+$sidebar-animation-length: 250ms;
+$sidebar-background-opacity: 0.6;
+$sidebar-background-animation-length: 250ms;
+
+.ui-sidebar__sidebar {
+  background-color: $grey-light;
+  border-radius: 1px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  width: 400px;
+  z-index: $z-sidebar;
+}
+
+.ui-sidebar__sidebar--right {
+  @include box-shadow(-1px 0 0 0 $grey-dark-blue-20) 
+  right: 0;
+}
+
+.ui-sidebar__sidebar--left {
+  @include box-shadow(1px 0 0 0 $grey-dark-blue-20) 
+  left: 0;
+}
+
+.ui-sidebar__background {
+  background-color: $grey-dark-blue;
+  bottom: 0;
+  left: 0;
+  opacity: $sidebar-background-opacity;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: $z-sidebar-background;
+}
+
+.ui-sidebar__close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  z-index: 1;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+// sidebar right animation:
+.sidebar--right-enter {
+  opacity: 0;
+  right: -30px;
+}
+
+.sidebar--right-enter.sidebar--right-enter-active {
+  opacity: 1;
+  right: 0;
+  transition: all $sidebar-animation-length ease-in;
+}
+
+.sidebar--right-leave {
+  right: 0;
+  opacity: 1;
+}
+
+.sidebar--right-leave.sidebar--right-leave-active {
+  opacity: 0;
+  right: -50px;
+  transition: all $sidebar-animation-length ease-in;
+}
+
+// sidebar left animation:
+.sidebar--left-enter {
+  opacity: 0;
+  left: -30px;
+}
+
+.sidebar--left-enter.sidebar--left-enter-active {
+  opacity: 1;
+  left: 0;
+  transition: all $sidebar-animation-length ease-in;
+}
+
+.sidebar--left-leave {
+  left: 0;
+  opacity: 1;
+}
+
+.sidebar--left-leave.sidebar--left-leave-active {
+  opacity: 0;
+  left: -50px;
+  transition: all $sidebar-animation-length ease-in;
+}
+
+// sidebar background animation:
+
+.sidebar-background-enter {
+  opacity: 0;
+}
+
+.sidebar-background-enter.sidebar-background-enter-active {
+  opacity: $sidebar-background-opacity;
+  transition: opacity $sidebar-background-animation-length ease-in;
+}
+
+.sidebar-background-leave {
+  opacity: $sidebar-background-opacity;
+}
+
+.sidebar-background-leave.sidebar-background-leave-active {
+  opacity: 0;
+  transition: opacity $sidebar-background-animation-length ease-in;
+}

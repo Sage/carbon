@@ -149,7 +149,15 @@ class Table extends React.Component {
      * @property totalRecords
      * @type {String}
      */
-    totalRecords: React.PropTypes.string
+    totalRecords: React.PropTypes.string,
+
+    /**
+     * Allow table to shrink in size.
+     *
+     * @property shrink
+     * @type {Boolean}
+     */
+    shrink: React.PropTypes.bool
   }
 
   /**
@@ -242,7 +250,9 @@ class Table extends React.Component {
    * @return {Void}
    */
   resizeTable() {
-    if (this._table.offsetHeight > this.tableHeight) {
+    let shrink = this.props.shrink && this._table.offsetHeight < this.tableHeight;
+
+    if (shrink || this._table.offsetHeight > this.tableHeight) {
       this.tableHeight = this._table.offsetHeight;
       this._wrapper.style.minHeight = this.tableHeight + 'px';
     }
