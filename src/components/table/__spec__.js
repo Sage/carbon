@@ -174,6 +174,40 @@ describe('Table', () => {
         expect(instance.tableHeight).toEqual('50');
       });
     });
+
+    describe('when shrink is enabled', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Table shrink={ true }></Table>
+        );
+      });
+
+      describe('when new height has not changed', () => {
+        it('does nothing', () => {
+          instance._wrapper = { style: { minHeight: '50px' } };
+          instance._table = { offsetHeight: '50' }
+          instance.tableHeight = '50';
+
+          instance.resizeTable();
+
+          expect(instance._wrapper.style.minHeight).toEqual('50px');
+          expect(instance.tableHeight).toEqual('50');
+        });
+      });
+
+      describe('when new height is less than old height', () => {
+        it('updates the height', () => {
+          instance._wrapper = { style: { minHeight: '50px' } };
+          instance._table = { offsetHeight: '10' }
+          instance.tableHeight = '50';
+
+          instance.resizeTable();
+
+          expect(instance._wrapper.style.minHeight).toEqual('10px');
+          expect(instance.tableHeight).toEqual('10');
+        });
+      });
+    });
   });
 
   describe('shouldResetTableHeight', () => {

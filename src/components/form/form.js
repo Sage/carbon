@@ -93,10 +93,28 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    validateOnMount: React.PropTypes.bool
+    validateOnMount: React.PropTypes.bool,
+
+    /**
+     * Text for the cancel button
+     *
+     * @property cancelText
+     * @type {String}
+     * @default true
+     */
+    cancelText: React.PropTypes.string,
+
+    /**
+     * Custom function for Cancel button onClick
+     *
+     * @property onCancel
+     * @type {Function}
+     */
+    onCancel: React.PropTypes.func
   }
 
   static defaultProps = {
+    cancelText: I18n.t('actions.cancel', { defaultValue: 'Cancel' }),
     cancel: true,
     saving: false,
     validateOnMount: false
@@ -284,7 +302,9 @@ class Form extends React.Component {
    * @return {void}
    */
   cancelForm = () => {
-    if (this.context.dialog) {
+    if (this.props.onCancel) {
+      this.props.onCancel();
+    } else if (this.context.dialog) {
       this.context.dialog.onCancel();
     } else {
       // history comes from react router
@@ -319,7 +339,7 @@ class Form extends React.Component {
 
     return (<div className={ cancelClasses }>
       <Button type='button' onClick={ this.cancelForm } >
-        { cancelText() }
+        { this.props.cancelText }
       </Button>
     </div>);
   }
@@ -417,10 +437,6 @@ function errorMessage(count) {
 
 function saveText() {
   return I18n.t('actions.save', { defaultValue: 'Save' });
-}
-
-function cancelText() {
-  return I18n.t('actions.cancel', { defaultValue: 'Cancel' });
 }
 
 export default Form;

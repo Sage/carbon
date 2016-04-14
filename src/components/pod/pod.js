@@ -25,6 +25,35 @@ class Pod extends React.Component {
   static propTypes = {
 
     /**
+     * Enables/disables the border around the pod.
+     *
+     * @property border
+     * @type {Boolean}
+     * @default true
+     */
+    border: React.PropTypes.bool,
+
+    /**
+     * Determines the padding around the pod.
+     * Values: "none", "small", "medium" or "large".
+     *
+     * @property padding
+     * @type {String}
+     * @default medium
+     */
+    padding: React.PropTypes.string,
+
+    /**
+     * Applies a theme to the Pod.
+     * Value: primary, secondary, tile
+     *
+     * @property as
+     * @type {Boolean}
+     * @default primary
+     */
+    as: React.PropTypes.string,
+
+    /**
      * The collapsed state of the pod
      *
      * undefined - Pod is not collapsible
@@ -53,6 +82,12 @@ class Pod extends React.Component {
      * @type {String}
      */
     description: React.PropTypes.string
+  }
+
+  static defaultProps = {
+    border: true,
+    as: "primary",
+    padding: "medium"
   }
 
   /**
@@ -154,7 +189,11 @@ class Pod extends React.Component {
   get mainClasses() {
     return classNames(
       'ui-pod',
-      this.props.className
+      this.props.className,
+      `ui-pod--${this.props.as}`,
+      `ui-pod--padding-${this.props.padding}`, {
+        'ui-pod--no-border': !this.props.border
+      }
     );
   }
 

@@ -12,6 +12,11 @@ let data = ImmutableHelper.parseJSON({
   collapsible_pod: {
     title: 'Hello World!'
   },
+  dialog: {
+    open: false,
+    title: 'Hello World!',
+    disableBackground: true
+  },
   flash: {
     as: "warning",
     open: true,
@@ -30,6 +35,16 @@ let data = ImmutableHelper.parseJSON({
   pill: {
     as: 'info',
     text: 'Pill'
+  },
+  portrait: {
+    size: 'lmed',
+    shape: 'standard',
+    email: 'Email'
+  },
+  pod: {
+    border: true,
+    padding: "medium",
+    as: "primary"
   },
   rainbow: {
     data: [{
@@ -84,10 +99,6 @@ let data = ImmutableHelper.parseJSON({
     as: "warning",
     open: true,
     text: "Sample toast notification."
-  },
-  tooltip: {
-    align: 'center',
-    position: 'bottom'
   }
 });
 

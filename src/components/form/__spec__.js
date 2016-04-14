@@ -6,6 +6,7 @@ import Textbox from './../textbox';
 import Validation from './../../utils/validations/presence';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import Dialog from './../dialog';
+import I18n from "i18n-js";
 
 describe('Form', () => {
   let instance;
@@ -228,6 +229,20 @@ describe('Form', () => {
         expect(spy).toHaveBeenCalled();
       });
     });
+
+    describe('when an onCancel prop is passed', () => {
+      it('calls onCancel', () => {
+        let spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form onCancel={ spy }>
+            <Textbox />
+          </Form>
+        );
+        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
+        TestUtils.Simulate.click(cancel);
+        expect(spy).toHaveBeenCalled();
+      });
+    });
   });
 
   describe('mainClasses', () => {
@@ -292,6 +307,20 @@ describe('Form', () => {
       it('renders a secondary cancel button with cancelClasses', () => {
         expect(buttons[1].className).toEqual('ui-button ui-button--secondary');
         expect(buttonContainers[2].className).toEqual('ui-form__cancel');
+      });
+
+      it('when cancelText prop is passed it renders the secondary button with the prop', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form cancelText={'Foo'} />
+        );
+        buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+        expect(buttons[1].innerHTML).toEqual('Foo');
+      });
+
+      it('when cancelText prop is not passed it renders the secondary button with default text', () => {
+        expect(buttons[1].innerHTML).toEqual(
+          I18n.t('actions.cancel', { defaultValue: 'Cancel' })
+        );
       });
 
       it('renders a primary save button with saveClasses', () => {

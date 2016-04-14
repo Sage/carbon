@@ -99,15 +99,21 @@ export default class Store extends EventEmitter {
      */
     this.dispatchToken = Dispatcher.register(this.dispatcherCallback);
 
-    if (opts.history) {
-      /**
-       * If the store has history enabled, define it as an empty array.
-       *
-       * @property history
-       * @type {Array}
-       */
-      this.history = [];
-    }
+    /**
+     * Array to store the history, set with the initial data.
+     *
+     * @property history
+     * @type {Array}
+     */
+    this.history = [data];
+
+    /**
+     * Determines if the store should track data changes.
+     *
+     * @property trackHistory
+     * @type {Boolean}
+     */
+    this.trackHistory = opts.history ? true : false;
   }
 
   /**
@@ -154,7 +160,7 @@ export default class Store extends EventEmitter {
     // In traditional flux this normally uses a switch/case statement.
     if (this[action.actionType]) {
       // if history is enabled, store it at this point
-      if (this.history) { this.history.push(this.data); }
+      if (this.trackHistory) { this.history.push(this.data); }
       // call the function on the store with the action
       this[action.actionType].call(this, action);
       // tell the store a change has occurred
@@ -169,7 +175,7 @@ export default class Store extends EventEmitter {
    * @return {void}
    */
   undo = () => {
-    if (this.history.length) {
+    if (this.history.length > 1) {
       // pop the last entry in history and set it as the current data
       this.data = this.history.pop();
       // tell the store a change has occurred
@@ -184,14 +190,12 @@ export default class Store extends EventEmitter {
    * @return {void}
    */
   reset = () => {
-    if (this.history.length) {
-      // set the data to the initial state stored in the history array
-      this.data = this.history[0];
-      // reset the history array
-      this.history = [];
-      // tell the store a change has occurred
-      this._triggerChange();
-    }
+    // set the data to the initial state stored in the history array
+    this.data = this.history[0];
+    // reset the history array
+    this.history = [this.data];
+    // tell the store a change has occurred
+    this._triggerChange();
   }
 
   /**

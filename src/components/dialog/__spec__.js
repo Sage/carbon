@@ -186,6 +186,28 @@ describe('Dialog', () => {
     });
   });
 
+  describe('backgroundHTML', () => {
+    describe('when disableBackground is true', () => {
+      it('returns a background div', () => {
+        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dialog__background')).toBeTruthy();
+      });
+    });
+
+    describe('when disableBackground is false', () => {
+      it('returns null', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Dialog
+            onCancel={ onCancel }
+            open={ true }
+            disableBackground={ false }
+          />
+        );
+
+        expect(instance.backgroundHTML).toBeFalsy();
+      });
+    });
+  });
+
   describe('dialogTitleClasses', () => {
     it('returns the class for the dialog title', () => {
       expect(instance.dialogTitleClasses).toEqual('ui-dialog__title');

@@ -21,7 +21,7 @@ import classNames from 'classnames';
 * You can pass a prop of 'pointerAlign' to the component which shifts the alignment of the pointer.
 * This defaults to 'center'.
 * You can also pass a prop of 'pointerPosition' to the component which shifts the position of the tooltip.
-* This defaults to 'bottom'
+* This defaults to 'down'
 *
 * @class Tooltip
 * @constructor
@@ -32,6 +32,8 @@ class Tooltip extends React.Component {
     /**
      * Sets alignment of pointer on tooltip
      *
+     * Options: up, down, center, right, left
+     *
      * @property pointerAlign
      * @type {String}
      * @default 'center'
@@ -41,9 +43,12 @@ class Tooltip extends React.Component {
     /**
      * Sets position of the tooltip
      *
+     *
+     * Options: up, down, right, left
+     *
      * @property pointerPosition
      * @type {String}
-     * @default 'top'
+     * @default 'up'
      */
     pointerPosition: React.PropTypes.string,
 
@@ -59,7 +64,7 @@ class Tooltip extends React.Component {
 
   static defaultProps = {
     pointerAlign: 'center',
-    pointerPosition: 'top',
+    pointerPosition: 'up',
     showTooltip: false
   };
 
@@ -77,6 +82,12 @@ class Tooltip extends React.Component {
     );
   }
 
+  /**
+   * Main classes
+   *
+   * @method mainClasses
+   * @return {String} classNames for tooltip
+   */
   get mainClasses() {
     return classNames(
       'ui-tooltip',
@@ -84,16 +95,23 @@ class Tooltip extends React.Component {
     );
   }
 
+  /**
+   * Return HTML for tooltip
+   *
+   * @method innerHTML
+   * @return {JSX}
+   */
   get innerHTML() {
     let contents = [];
 
     contents.push(this.props.children);
     contents.push(<span key='pointer' className={ this.pointerClasses }></span>);
 
-    return <div
-            className={ this.mainClasses }>
-             { contents }
-           </div>;
+    return (
+      <div className={ this.mainClasses }>
+        { contents }
+       </div>
+     );
   }
 
   /**
