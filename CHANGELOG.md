@@ -30,6 +30,7 @@
 ## Bug Fixes
 
 * Fixes alignment issue with SplitButton when using anchors.
+* Row component will not break with children of `null` or `undefined`.
 
 # 0.7.1
 
