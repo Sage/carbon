@@ -3,6 +3,7 @@
 ## Improvements
 
 * Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
+* Label can now have a subtitle. Pass labelHelp='help message' to any label enabled input
 
 ## New Components
 
