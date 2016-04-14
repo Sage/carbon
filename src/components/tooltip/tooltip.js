@@ -32,6 +32,8 @@ class Tooltip extends React.Component {
     /**
      * Sets alignment of pointer on tooltip
      *
+     * Options: up, down, center, right, left
+     *
      * @property pointerAlign
      * @type {String}
      * @default 'center'
@@ -40,6 +42,9 @@ class Tooltip extends React.Component {
 
     /**
      * Sets position of the tooltip
+     *
+     *
+     * Options: up, down, right, left
      *
      * @property pointerPosition
      * @type {String}
@@ -90,10 +95,11 @@ class Tooltip extends React.Component {
     contents.push(this.props.children);
     contents.push(<span key='pointer' className={ this.pointerClasses }></span>);
 
-    return <div
-            className={ this.mainClasses }>
-             { contents }
-           </div>;
+    return (
+      <div className={ this.mainClasses }>
+        { contents }
+       </div>
+     );
   }
 
   /**

@@ -21,5 +21,5 @@
 | Name              | Required       | Type           | Default       | Description           |
 | ----------------- |  ------------- |  ------------- | ------------- | --------------------- |
 | `pointerAlign`    | `false`        | `String`       |  'center'     | alignment of pointer  |
-| `pointerPosition` | `false`        | `String`       |  'up'        | position of pointer   |
-| `showTooltip`     | `false`        | `Boolean       |  'false'      | position of pointer   |
+| `pointerPosition` | `false`        | `String`       |  'up'         | position of pointer   |
+| `showTooltip`     | `false`        | `Boolean       |  'false'      | toggle tooltip hide/show  |

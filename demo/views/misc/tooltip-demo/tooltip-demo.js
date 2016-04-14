@@ -43,25 +43,19 @@ class TooltipDemo extends React.Component {
   get code() {
     let html = "import Tooltip from 'carbon/lib/components/tooltip';\n\n";
 
-    html += '<Tooltip showTooltip={ toggleTooltipHandler }>\n';
+    html += '<Tooltip\n'
+    html += '  showTooltip={ toggleTooltipHandler }\n';
+
+    if (this.value('pointerAlign')){
+      html += '  pointerAlign="left"\n'
+    }
+    if (this.value('pointerPosition')) {
+      html += '  pointerPosition="down"\n'
+    }
+    html += '>\n'
     html += '  Tooltips are a fundamental part of the user experience.\n';
     html += '</Tooltip>\n'
     html += '\n'
-
-    if (this.value('pointerAlign')) {
-      html += '<Tooltip pointerAlign="left"\n'
-      html += '         showTooltip={ toggleTooltipHandler }>\n';
-      html += '  Tooltips are a fundamental part of the user experience.\n';
-      html += '</Tooltip>\n'
-      html += '\n'
-    }
-
-    if (this.value('pointerPosition')) {
-      html += '<Tooltip pointerPosition="down"\n';
-      html += '         showTooltip={ toggleTooltipHandler }>\n';
-      html += '  Tooltips are a fundamental part of the user experience.\n';
-      html += '</Tooltip>\n'
-    }
     return html;
   }
 

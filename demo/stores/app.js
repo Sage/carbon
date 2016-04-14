@@ -101,7 +101,7 @@ let data = ImmutableHelper.parseJSON({
     as: "warning",
     open: true,
     text: "Sample toast notification."
-  }
+  },
 });
 
 class AppStore extends Store {
