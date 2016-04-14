@@ -141,7 +141,7 @@ class Sidebar extends React.Component {
    */
   get backgroundHTML() {
     if (this.props.disableBackground) {
-      return <div className="ui-sidebar__background"></div>;
+      return <div onClick={ this.props.onClose } className="ui-sidebar__background"></div>;
     }
   }
 
@@ -154,7 +154,9 @@ class Sidebar extends React.Component {
   get sidebarHTML() {
     return (
       <div className={ this.sidebarClasses } >
-        <Icon className="ui-sidebar__close" type="close" onClick={ this.props.onClose } />
+        <span className={ 'ui-sidebar__close' } >
+          <Icon className="ui-sidebar__close-icon" type="close" onClick={ this.props.onClose } />
+        </span>
         { this.props.children }
       </div>
     );
