@@ -1,5 +1,9 @@
 # 0.8.0
 
+## Improvements
+
+* Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
+
 ## New Components
 
 * Portrait
@@ -12,9 +16,9 @@
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
 
-## Improve Dialog
+## Improved Dialog
 
-* Dialog now takes a prop of diableBackground which is true by default
+* Dialog now takes a prop of `disableBackground` which is true by default.
 
 ## Bug Fixes
 
