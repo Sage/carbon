@@ -7,6 +7,7 @@
 ## New Components
 
 * Portrait
+* Content
 * Tile - an alternative to Pod, with a drop shadow.
 
 ## Layout Updates
