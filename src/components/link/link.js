@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Icon from './../icon';
 
 /**
  * A link widget.
@@ -27,10 +28,19 @@ class Link extends React.Component {
      * Gives the link a disabled state.
      *
      * @property disabled
-     * @type {boolean}
+     * @type {Boolean}
      * @default undefined
      */
-    disabled: React.PropTypes.bool
+    disabled: React.PropTypes.bool,
+
+    /**
+     * Renders an icon inline with the link.
+     *
+     * @property icon
+     * @type {String}
+     * @default undefined
+     */
+    icon: React.PropTypes.string
   }
 
   /**
@@ -60,6 +70,14 @@ class Link extends React.Component {
     );
   }
 
+  get icon() {
+    if (this.props.icon) {
+      return <Icon type={ this.props.icon } className="ui-link__icon" />;
+    } else {
+      return null;
+    }
+  }
+
   /**
    * Renders the component.
    *
@@ -68,7 +86,10 @@ class Link extends React.Component {
   render() {
     return (
       <a { ...this.componentProps }>
-        { this.props.children }
+        { this.icon }
+        <span className="ui-link__content">
+          { this.props.children }
+        </span>
       </a>
     );
   }
