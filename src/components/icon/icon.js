@@ -36,7 +36,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderIcon() {
     let icon;
 
-    switch(this.props.type) {
+    switch(this.type) {
       case 'warning':
         icon = this.renderWarningIcon;
         break;
@@ -67,7 +67,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {Object} props
    */
   get componentProps() {
-    let { ...props } = this.props;
+    let { className, ...props } = this.props;
 
     props.type = this.type;
 
@@ -83,12 +83,12 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get mainClasses() {
     let icon = this.renderIcon;
 
-    return classNames(
+    let classes = classNames(
       this.props.className, {
-        [`icon-${this.props.type}`]: !icon,
-        'target-tooltip': this.props.tooltipMessage
+        [`icon-${this.type}`]: !icon
       }
     );
+    return classes;
   }
 
   /**
@@ -115,7 +115,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         <span
           className={ this.mainClasses }
           { ...this.componentProps }
-          dangerouslySetInnerHTML={ this.renderIcon }>
+          dangerouslySetInnerHTML={ this.renderIcon }
+          ref={ (comp) => this._target = comp }>
         </span>
       </div>
     );
