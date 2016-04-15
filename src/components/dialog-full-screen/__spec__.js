@@ -43,7 +43,7 @@ describe('DialogFullScreen', () => {
           );
         });
 
-        it('removes event listeners for resize and closing', () => {
+        it('removes the event listener for closing', () => {
           let spy = spyOn(window, 'removeEventListener');
           instance.componentDidUpdate();
           expect(spy.calls.count()).toEqual(1);
@@ -153,12 +153,12 @@ describe('DialogFullScreen', () => {
 
       it('renders a parent div with mainClasses attached', () => {
         let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(dialogNode.className).toEqual('ui-dialog ui-dialog-full-screen foo');
+        expect(dialogNode.className).toEqual('ui-dialog foo ui-dialog-full-screen');
       });
 
       it('renders the dialog', () => {
-        expect(instance.refs.dialog).toBeTruthy();
-        expect(instance.refs.dialog.classList[0]).toEqual('ui-dialog__dialog');
+        expect(instance._dialog).toBeTruthy();
+        expect(instance._dialog.classList[0]).toEqual('ui-dialog__dialog');
       });
 
       it('closes when the exit icon is click', () => {
@@ -170,19 +170,6 @@ describe('DialogFullScreen', () => {
       it('renders the children passed to it', () => {
         let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
         expect(buttons.length).toEqual(2);
-      });
-
-      describe('when passing a custom size', () => {
-        it('adds the size class to the dialog', () => {
-          instance = TestUtils.renderIntoDocument(
-            <DialogFullScreen
-              onCancel={ onCancel }
-              open={ true }
-              size='small' />
-          );
-
-          expect(instance.refs.dialog.classList[1]).toEqual('ui-dialog__dialog--small');
-        });
       });
     });
 

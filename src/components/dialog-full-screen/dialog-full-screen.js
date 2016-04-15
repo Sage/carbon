@@ -27,6 +27,7 @@ class DialogFullScreen extends Dialog {
 
   /**
    * A lifecycle method to update the component on initialize
+   * @override
    *
    * @method componentDidMount
    * @return {void}
@@ -36,6 +37,7 @@ class DialogFullScreen extends Dialog {
 
   /**
    * A lifecycle method to update the component after it is re-rendered
+   * @override
    *
    * @method componentDidUpdate
    * @return {void}
@@ -51,28 +53,30 @@ class DialogFullScreen extends Dialog {
   }
 
   /**
-   * Returns classes for the component.
+   * Returns main classes for the component combined with
+   * Dialog main classes.
+   * @override
    *
    * @method mainClasses
    * @return {String} Main className
    */
   get mainClasses() {
     return classNames(
-      'ui-dialog',
-      'ui-dialog-full-screen',
-      this.props.className
+      super.mainClasses,
+      'ui-dialog-full-screen'
     );
   }
 
   /**
    * Returns the computed HTML for the dialog.
+   * @override
    *
    * @method dialogHTML
    * @return {Object} JSX for dialog
    */
   get dialogHTML() {
     return (
-      <div ref="dialog" className={ this.dialogClasses }>
+      <div ref={ (dialog) => this._dialog = dialog } className={ this.dialogClasses }>
         <div className="ui-dialog__header">
           { this.dialogTitle }
           <Icon className="ui-dialog__close" type="close" onClick={ this.props.onCancel } />
