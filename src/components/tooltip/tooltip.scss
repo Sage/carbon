@@ -20,7 +20,7 @@
 }
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-top {
-  top: -15px;
+  top: -14px;
   left: -webkit-calc(50% - 7px);
   left:    -moz-calc(50% - 7px);
   left:         calc(50% - 7px);
@@ -44,7 +44,7 @@
 }
 
 .ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-top {
-  top: -15px;
+  top: -14px;
   left: 4%;
 
   &:before {
@@ -65,7 +65,7 @@
 }
 
 .ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-bottom {
-  top: -15px;
+  top: -14px;
   right: 7%;
 
   &:before {
@@ -86,7 +86,9 @@
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-right {
   right: 0px;
-  top: 33%;
+  top: -webkit-calc(50% - 7px);
+  top:    -moz-calc(50% - 7px);
+  top:         calc(50% - 7px);
 
   &:before {
     @include arrow(right, $app-tooltip-pointer-size, $grey-dark);
@@ -96,7 +98,9 @@
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-left {
   left: -15px;
-  top: 33%;
+  top: -webkit-calc(50% - 7px);
+  top:    -moz-calc(50% - 7px);
+  top:         calc(50% - 7px);
 
   &:before {
     @include arrow(left, $app-tooltip-pointer-size, $grey-dark);

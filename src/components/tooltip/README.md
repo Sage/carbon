@@ -15,11 +15,11 @@
 ```
 
 * You can pass a prop of 'pointerAlign' to the component which shifts the alignment of the pointer. This defaults to 'center'.
-* You can also pass a prop of 'pointerPosition' to the component which shifts the position of the pointer. This defaults to 'top'.
+* You can also pass a prop of 'pointerPosition' to the component which shifts the position of the pointer. This defaults to 'bottom'.
 * The 'showTooltip' boolean prop determines whether or not to render the tooltip. If you want to implement the tooltip you must add handlers to toggle this prop.
 
 | Name              | Required       | Type           | Default       | Description           |
 | ----------------- |  ------------- |  ------------- | ------------- | --------------------- |
 | `pointerAlign`    | `false`        | `String`       |  'center'     | alignment of pointer  |
-| `pointerPosition` | `false`        | `String`       |  'top'         | position of pointer   |
+| `pointerPosition` | `false`        | `String`       |  'bottom'     | position of pointer   |
 | `showTooltip`     | `false`        | `Boolean       |  'false'      | toggle tooltip hide/show  |

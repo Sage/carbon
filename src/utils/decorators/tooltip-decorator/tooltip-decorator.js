@@ -1,5 +1,8 @@
 import React from 'react';
 import Tooltip from './../../../components/tooltip';
+import chainFunctions from './../../helpers/chain-functions';
+import guid from './../../helpers/guid';
+import classNames from 'classnames';
 
 /**
  * ToolTipIDecorator.
@@ -19,14 +22,6 @@ import Tooltip from './../../../components/tooltip';
  *     ...
  *   });
  *
- *  Your decorated component must add a conditional class name of 'target-tooltip';
- *
- * e.g.
- *
- *  if (this.props.tooltipMessage) {
- *    classes += ' target-tooltip '
- *  }
- *
  * You must also output the tooltip HTML in your component's render method:
  *
  * e.g.
@@ -40,6 +35,14 @@ import Tooltip from './../../../components/tooltip';
  *   );
  * }
  *
+ * To output the decorated component in a view, you must wrap it in a relatively
+ * positioned container.
+ *
+ * e.g.
+ *
+ *  <div className='my-position-relative-wrapper'>
+ *    <MyDecoratedComponent/>
+ *  </div>
  *
  * @method ToolTipIDecorator
  * @param {Class} ComposedComponent class to decorate
@@ -49,6 +52,14 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
 
   constructor(...args) {
     super(...args);
+
+    /**
+     * Allows tooltip to identify its target uniquely
+     *
+     * @property targetID
+     * @type {String}
+     */
+    this.targetID = guid();
   }
 
   state = {
@@ -59,7 +70,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
      * @type {Boolean}
      * @default false
      */
-    showTooltip: false
+    showTooltip: true
   };
 
   /**
@@ -93,34 +104,61 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
    */
   positionTooltip = () => {
     if (this.state.showTooltip) {
-      let target  = document.getElementsByClassName('target-tooltip')[0],
+      let target  = document.getElementsByClassName(`target-tooltip-${this.targetID}`)[0],
           tooltip = document.getElementsByClassName('ui-tooltip')[0],
-          pointer = document.getElementsByClassName('ui-tooltip__pointer')[0];
+          pointer = document.getElementsByClassName('ui-tooltip__pointer')[0],
+          isInput;
 
-      let position = this.props.tooltipPosition,
-          tooltipWidth = tooltip.offsetWidth,
+      //if target is an input get the field.
+      if (target.getElementsByTagName('input')[0]) {
+        isInput = true;
+      }
+
+      let position      = this.props.tooltipPosition || 'top',
+          tooltipWidth  = tooltip.offsetWidth,
           tooltipHeight = tooltip.offsetHeight,
           pointerHeight = pointer.offsetHeight,
-          targetWidth = target.offsetWidth;
+          targetWidth   = target.offsetWidth,
+          targetHeight  = target.offsetHeight;
 
       switch (position) {
         case "top":
-          tooltip.style.top = String(-tooltipHeight - pointerHeight / 2) + 'px';
+          if (isInput) {
+            tooltip.style.top = String(-tooltipHeight + pointerHeight) + 'px';
+          } else {
+            tooltip.style.top = String(-tooltipHeight - pointerHeight / 2) + 'px';
+          }
           tooltip.style.left = String(-tooltipWidth / 2 + targetWidth / 2) + 'px';
           break;
+
         case "bottom":
-          tooltip.style.top = String(tooltipHeight - pointerHeight) + 'px';
+          if (isInput) {
+            tooltip.style.top = String(targetHeight + pointerHeight / 2) + 'px';
+          } else {
+            tooltip.style.top = String(tooltipHeight - pointerHeight) + 'px';
+          }
           tooltip.style.left = String(-tooltipWidth / 2 + targetWidth / 2) + 'px';
           break;
+
         case "left":
           // hardcode 7px for pointerWidth since span has no width
           tooltip.style.left = String(-tooltipWidth - 7) + 'px';
-          tooltip.style.top = String(-tooltipHeight / 2 + pointerHeight / 2) + 'px';
+          if (isInput) {
+            tooltip.style.top = String(-targetHeight / 2 + tooltipHeight + pointerHeight / 2) + 'px';
+          } else {
+              tooltip.style.top = String(-tooltipHeight / 2 + pointerHeight / 2) + 'px';
+          }
           break;
+
         case "right":
         // hardcode 7px for pointerWidth since span has no width
           tooltip.style.left = String(targetWidth + 7) + 'px';
-          tooltip.style.top = String(-tooltipHeight / 2 + pointerHeight / 2) + 'px';
+          if (isInput) {
+            tooltip.style.top = String(-targetHeight / 2 + tooltipHeight + pointerHeight / 2) + 'px';
+          } else {
+            tooltip.style.top = String(-tooltipHeight / 2 + pointerHeight / 2) + 'px';
+          }
+
       }
     }
   }
@@ -132,14 +170,23 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
    * @return {Object} props
    */
   get componentProps() {
-    let props = super.componentProps;
+    if (this.props.tooltipMessage) {
 
-    props.tooltipPosition = props.tooltipPosition || 'top';
-    props.onMouseEnter = this.onShow;
-    props.onMouseLeave = this.onHide;
-    props.onTouchEnd = this.state.showTooltip ? this.onHide : this.onShow;
+      let props = super.componentProps || super.inputProps;
+      props.onMouseEnter = chainFunctions(this.onShow, props.onMouseEnter);
+      props.onMouseLeave = chainFunctions(this.onHide, props.onMouseLeave);
+      props.onFocus = chainFunctions(this.onShow, props.onFocus);
+      props.onBlur = chainFunctions(this.onHide, props.onBlur);
+      props.onTouchEnd = this.state.showTooltip ? this.onHide : this.onShow;
 
-    return props;
+      return props;
+    }
+  }
+
+
+  //Alias get componentProps for inputs
+  get inputProps() {
+    return this.componentProps;
   }
 
   /**
@@ -149,26 +196,45 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
    * @return {Object} props
    */
   get pointerProps() {
-    let props = {};
+    if (this.props.tooltipMessage) {
+      let props = {};
 
-    switch (this.props.tooltipPosition) {
-      case 'top':
-        props.pointerPosition = 'bottom';
-        break;
-      case 'right':
-        props.pointerPosition = 'left';
-        break;
-      case 'left':
-        props.pointerPosition = 'right';
-        break;
-      case 'bottom':
-        props.pointerPosition = 'top';
+      switch (this.props.tooltipPosition) {
+        case 'bottom':
+          props.pointerPosition = 'top';
+          break;
+        case 'right':
+          props.pointerPosition = 'left';
+          break;
+        case 'left':
+          props.pointerPosition = 'right';
+          break;
+        case 'top':
+          props.pointerPosition = 'bottom';
+      }
+
+      props.pointerAlign = this.props.pointerAlign;
+
+      return props;
     }
-
-    props.pointerAlign = this.props.pointerAlign;
-
-    return props;
   }
+
+  /**
+   * Main Class getter
+   *
+   * @method mainClasses
+   * @return {void}
+   */
+  get mainClasses() {
+    let classes = super.mainClasses || '';
+
+    return classNames(
+      classes,
+      'ui-textbox',
+      { [`target-tooltip-${this.targetID}`]: this.props.tooltipMessage }
+    );
+  }
+
   /**
    * Supplies the HTML for tooltip
    *
