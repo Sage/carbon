@@ -9,6 +9,7 @@ import AsDropdown from './../../../components/as-dropdown';
 import Pill from 'components/pill';
 import Row from 'components/row';
 import Textbox from 'components/textbox';
+import Checkbox from 'components/checkbox';
 
 class PillDemo extends React.Component {
   /**
@@ -31,7 +32,7 @@ class PillDemo extends React.Component {
   get demo() {
     return (
       <div className='pill-demo' >
-        <Pill as={ this.value('as') } >
+        <Pill fill={ this.value('fill') } as={ this.value('as') } >
           { this.value('text') }
         </Pill>
       </div>
@@ -46,6 +47,11 @@ class PillDemo extends React.Component {
 
     html += '<Pill';
     html += ` as='${this.value('as')}' `;
+
+    if (this.value('fill')) {
+      html += ` fill={ true }`;
+    }
+
     html += '/>';
     html += `\n  ${this.value('text')}`;
     html += "\n</Pill>\n\n";
@@ -68,6 +74,14 @@ class PillDemo extends React.Component {
             labelInline={ true }
             onChange={ this.action.bind(this, 'text') }
             columnSpan="2"
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Fill"
+            reverse={ true }
+            value={ this.value('fill') }
+            onChange={ this.action.bind(this, 'fill') }
           />
           <AsDropdown
             value={ this.value('as') }

@@ -9,15 +9,25 @@
 }
 
 @mixin pill-theme($type, $color, $border, $background, $color-hover) {
-  .ui-pill--#{$type} {
+  .ui-pill--#{$type}--empty {
     border: 1px solid $color;
     color: $color;
   }
+
+  .ui-pill--#{$type}--fill {
+    background-color: $color;
+    color: $white;
+  }
 }
 
-.ui-pill--disabled {
+.ui-pill--disabled--empty {
   border: 1px solid $grey-mid;
   color: $grey-mid;
+}
+
+.ui-pill--disabled--fill {
+  background-color: $grey-mid;
+  color: $white;
 }
 
 @each $set in $colorIconSets {
