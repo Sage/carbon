@@ -81,8 +81,8 @@ describe('Icon', () => {
     describe('when decorated with a tooltip', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(<Icon type='foo' tooltipMessage='Hello' />);
-        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
         debugger
+        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
       });
 
       it('adds a target-tooltip class', () => {

@@ -53,13 +53,15 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
   constructor(...args) {
     super(...args);
 
-    /**
-     * Allows tooltip to identify its target uniquely
-     *
-     * @property targetID
-     * @type {String}
-     */
-    this.targetID = guid();
+    if (this.props.tooltipMessage) {
+      /**
+       * Allows tooltip to identify its target uniquely
+       *
+       * @property targetID
+       * @type {String}
+       */
+      this.targetID = guid();
+    }
   }
 
   state = {
@@ -70,7 +72,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
      * @type {Boolean}
      * @default false
      */
-    showTooltip: true
+    showTooltip: false
   };
 
   /**
@@ -109,7 +111,6 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
           pointer = document.getElementsByClassName('ui-tooltip__pointer')[0],
           isInput;
 
-      //if target is an input get the field.
       if (target.getElementsByTagName('input')[0]) {
         isInput = true;
       }
@@ -146,7 +147,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
           if (isInput) {
             tooltip.style.top = String(-targetHeight / 2 + tooltipHeight + pointerHeight / 2) + 'px';
           } else {
-              tooltip.style.top = String(-tooltipHeight / 2 + pointerHeight / 2) + 'px';
+            tooltip.style.top = String(-tooltipHeight / 2 + pointerHeight / 2) + 'px';
           }
           break;
 
@@ -170,21 +171,24 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
    * @return {Object} props
    */
   get componentProps() {
-    if (this.props.tooltipMessage) {
+    let props = super.componentProps || super.inputProps || {};
 
-      let props = super.componentProps || super.inputProps;
+    if (this.props.tooltipMessage) {
       props.onMouseEnter = chainFunctions(this.onShow, props.onMouseEnter);
       props.onMouseLeave = chainFunctions(this.onHide, props.onMouseLeave);
       props.onFocus = chainFunctions(this.onShow, props.onFocus);
       props.onBlur = chainFunctions(this.onHide, props.onBlur);
       props.onTouchEnd = this.state.showTooltip ? this.onHide : this.onShow;
-
-      return props;
     }
+    return props;
   }
 
-
-  //Alias get componentProps for inputs
+  /**
+   * Alias for componentProps if component is an input
+   *
+   * @method inputProps
+   * @return {Function} componentProps
+   */
   get inputProps() {
     return this.componentProps;
   }
@@ -226,12 +230,15 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
    * @return {void}
    */
   get mainClasses() {
-    let classes = super.mainClasses || '';
+    if (this.props.tooltipMessage) {
+      let classes = super.mainClasses || '';
 
-    return classNames(
-      classes,
-      { [`target-tooltip-${this.targetID}`]: this.props.tooltipMessage }
-    );
+      return classNames(
+        classes,
+        `target-tooltip-${this.targetID}`
+      );
+    }
+    return super.mainClasses;
   }
 
   /**
