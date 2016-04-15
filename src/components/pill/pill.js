@@ -36,6 +36,8 @@ class Pill extends React.Component {
      */
     as: React.PropTypes.string,
 
+    fill: React.PropTypes.bool,
+
     /**
      * The text to display on the Pill
      *
@@ -46,7 +48,8 @@ class Pill extends React.Component {
   }
 
   static defaultProps = {
-    as: 'info'
+    as: 'info',
+    fill: false
   }
 
   /**
@@ -60,7 +63,7 @@ class Pill extends React.Component {
     className = classNames(
       'ui-pill',
       className,
-      'ui-pill--' + this.props.as
+      'ui-pill--' + this.props.as + (this.props.fill ? '--fill' : '--empty')
     );
 
     return(
