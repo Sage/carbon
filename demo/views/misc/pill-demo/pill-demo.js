@@ -1,4 +1,5 @@
 import React from 'react';
+import Immutable from 'immutable';
 import { connect } from 'utils/flux';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
@@ -8,6 +9,7 @@ import AsDropdown from './../../../components/as-dropdown';
 import Pill from 'components/pill';
 import Row from 'components/row';
 import Textbox from 'components/textbox';
+import Checkbox from 'components/checkbox';
 
 class PillDemo extends React.Component {
   /**
@@ -30,7 +32,7 @@ class PillDemo extends React.Component {
   get demo() {
     return (
       <div className='pill-demo' >
-        <Pill as={ this.value('as') } >
+        <Pill fill={ this.value('fill') } as={ this.value('as') } >
           { this.value('text') }
         </Pill>
       </div>
@@ -45,6 +47,11 @@ class PillDemo extends React.Component {
 
     html += '<Pill';
     html += ` as='${this.value('as')}' `;
+
+    if (this.value('fill')) {
+      html += ` fill={ true }`;
+    }
+
     html += '/>';
     html += `\n  ${this.value('text')}`;
     html += "\n</Pill>\n\n";
@@ -56,6 +63,8 @@ class PillDemo extends React.Component {
    * @method controls
    */
   get controls() {
+    let extraOpts = Immutable.fromJS([{ id: 'disabled', name: 'Disabled' }]);
+
     return (
       <div>
         <Row>
@@ -66,7 +75,19 @@ class PillDemo extends React.Component {
             onChange={ this.action.bind(this, 'text') }
             columnSpan="2"
           />
-          <AsDropdown value={ this.value('as') } onChange={ this.action.bind(this, 'as') } />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Fill"
+            reverse={ true }
+            value={ this.value('fill') }
+            onChange={ this.action.bind(this, 'fill') }
+          />
+          <AsDropdown
+            value={ this.value('as') }
+            onChange={ this.action.bind(this, 'as') }
+            extraOpts={ extraOpts }
+          />
         </Row>
       </div>
     );
