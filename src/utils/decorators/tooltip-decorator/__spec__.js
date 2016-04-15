@@ -18,7 +18,7 @@ class basicClass extends React.Component {
   }
 }
 
-fdescribe('tooltip-decorator', () => {
+describe('tooltip-decorator', () => {
   let basicTarget;
 
   beforeEach(() => {

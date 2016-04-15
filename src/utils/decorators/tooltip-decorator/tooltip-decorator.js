@@ -230,7 +230,6 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
 
     return classNames(
       classes,
-      'ui-textbox',
       { [`target-tooltip-${this.targetID}`]: this.props.tooltipMessage }
     );
   }

@@ -85,7 +85,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
 
     return classNames(
       this.props.className, {
-        [`icon-${this.props.type}`]: !icon,
+        [`icon-${this.type}`]: !icon,
         'target-tooltip': this.props.tooltipMessage
       }
     );
