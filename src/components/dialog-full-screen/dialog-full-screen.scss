@@ -38,7 +38,7 @@
       right: 109px;
       top: 45px;
 
-      &[class^="icon-"]:before, &[class*="icon-"]:before {
+      &:before {
         font-size: 28px;
       }
     }
