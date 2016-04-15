@@ -3,6 +3,7 @@ import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import guid from './../../helpers/guid';
 import classNames from 'classnames';
+import ReactDOM from 'react-dom';
 
 /**
  * ToolTipIDecorator.
@@ -43,6 +44,20 @@ import classNames from 'classnames';
  *  <div className='my-position-relative-wrapper'>
  *    <MyDecoratedComponent/>
  *  </div>
+ *
+ * For the tooltip to position correctly, you must supply a ref of '_target' to your component.
+ *
+ * e.g.
+ *
+ * render() {
+ *   return (
+ *     <div ref={ (comp) => this._tooltip = comp }>
+ *       { this.tooltipHTML }
+ *       ...your components JSX
+ *     </div>
+ *   );
+ * }
+ *
  *
  * @method ToolTipIDecorator
  * @param {Class} ComposedComponent class to decorate
@@ -98,6 +113,14 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
     this.setState({ showTooltip: false });
   };
 
+  getTarget = () => {
+    return ReactDOM.findDOMNode(this._target);
+  }
+
+  getTooltip = () => {
+    return ReactDOM.findDOMNode(this._tooltip);
+  }
+
   /**
    * Positions tooltip relative to target
    *
@@ -105,15 +128,12 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
    * @return {Void}
    */
   positionTooltip = () => {
+    // debugger
     if (this.state.showTooltip) {
-      let target  = document.getElementsByClassName(`target-tooltip-${this.targetID}`)[0],
-          tooltip = document.getElementsByClassName('ui-tooltip')[0],
-          pointer = document.getElementsByClassName('ui-tooltip__pointer')[0],
-          isInput;
-
-      if (target.getElementsByTagName('input')[0]) {
-        isInput = true;
-      }
+      let target  = this.getTarget(),
+          tooltip = this.getTooltip();
+          debugger
+          let pointer = tooltip.children[1];
 
       let position      = this.props.tooltipPosition || 'top',
           tooltipWidth  = tooltip.offsetWidth,
@@ -124,41 +144,25 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
 
       switch (position) {
         case "top":
-          if (isInput) {
-            tooltip.style.top = String(-tooltipHeight + pointerHeight) + 'px';
-          } else {
-            tooltip.style.top = String(-tooltipHeight - pointerHeight / 2) + 'px';
-          }
+          tooltip.style.top = String(-tooltipHeight - pointerHeight / 2) + 'px';
           tooltip.style.left = String(-tooltipWidth / 2 + targetWidth / 2) + 'px';
           break;
 
         case "bottom":
-          if (isInput) {
-            tooltip.style.top = String(targetHeight + pointerHeight / 2) + 'px';
-          } else {
-            tooltip.style.top = String(tooltipHeight - pointerHeight) + 'px';
-          }
+          tooltip.style.bottom = String(-tooltipHeight - pointerHeight / 2) + 'px';
           tooltip.style.left = String(-tooltipWidth / 2 + targetWidth / 2) + 'px';
           break;
 
         case "left":
           // hardcode 7px for pointerWidth since span has no width
           tooltip.style.left = String(-tooltipWidth - 7) + 'px';
-          if (isInput) {
-            tooltip.style.top = String(-targetHeight / 2 + tooltipHeight + pointerHeight / 2) + 'px';
-          } else {
-            tooltip.style.top = String(-tooltipHeight / 2 + pointerHeight / 2) + 'px';
-          }
+          tooltip.style.top = String((targetHeight / 2) - (tooltipHeight / 2)) + 'px';
           break;
 
         case "right":
         // hardcode 7px for pointerWidth since span has no width
           tooltip.style.left = String(targetWidth + 7) + 'px';
-          if (isInput) {
-            tooltip.style.top = String(-targetHeight / 2 + tooltipHeight + pointerHeight / 2) + 'px';
-          } else {
-            tooltip.style.top = String(-tooltipHeight / 2 + pointerHeight / 2) + 'px';
-          }
+          tooltip.style.top = String((targetHeight / 2) - (tooltipHeight / 2)) + 'px';
       }
     }
   };
@@ -223,24 +227,6 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
   }
 
   /**
-   * Main Class getter
-   *
-   * @method mainClasses
-   * @return {void}
-   */
-  get mainClasses() {
-    if (this.props.tooltipMessage) {
-      let classes = super.mainClasses || '';
-
-      return classNames(
-        classes,
-        `target-tooltip-${this.targetID}`
-      );
-    }
-    return super.mainClasses;
-  }
-
-  /**
    * Supplies the HTML for tooltip
    *
    * @method tooltipHTML
@@ -250,6 +236,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
     if (this.props.tooltipMessage) {
       return (
         <Tooltip
+          ref={ (comp) => this._tooltip = comp }
           showTooltip={ this.state.showTooltip }
           { ...this.pointerProps }>
           { this.props.tooltipMessage }

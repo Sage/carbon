@@ -64,7 +64,8 @@ class Textbox extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses }
+           ref={ (comp) => this._target = comp }>
         { this.tooltipHTML }
         { this.labelHTML }
         { this.inputHTML }

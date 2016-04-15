@@ -115,7 +115,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         <span
           className={ this.mainClasses }
           { ...this.componentProps }
-          dangerouslySetInnerHTML={ this.renderIcon }>
+          dangerouslySetInnerHTML={ this.renderIcon }
+          ref={ (comp) => this._target = comp }>
         </span>
       </div>
     );
