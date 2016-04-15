@@ -86,7 +86,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
       this.setState({ showTooltip: true });
       this.positionTooltip();
     }, 300 );
-  }
+  };
 
   /**
    * Hides tooltip
@@ -96,7 +96,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
    */
   onHide = () => {
     this.setState({ showTooltip: false });
-  }
+  };
 
   /**
    * Positions tooltip relative to target
@@ -159,10 +159,9 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
           } else {
             tooltip.style.top = String(-tooltipHeight / 2 + pointerHeight / 2) + 'px';
           }
-
       }
     }
-  }
+  };
 
   /**
    * Additional Props for decorated component
