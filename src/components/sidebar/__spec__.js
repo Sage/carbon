@@ -183,7 +183,7 @@ describe('Sidebar', () => {
   describe('Behaviour', () => {
     describe('clicking the close icon sidebar', () => {
       it('closes the sidebar', () => {
-        let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-sidebar__close');
+        let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-sidebar__close-icon');
         TestUtils.Simulate.click(icon);
         expect(spy).toHaveBeenCalled();
       });
