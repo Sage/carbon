@@ -117,7 +117,7 @@ describe('Checkbox', () => {
             labelHelpInline={ true }
           />
         );
-        expect(instance.labelHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--inline');
+        expect(instance.labelHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--reverse ui-checkbox__help-text--inline');
       });
     });
 
