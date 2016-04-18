@@ -8,6 +8,7 @@
 
 * Portrait
 * Tile - an alternative to Pod, with a drop shadow.
+* Tooltip
 
 ## Layout Updates
 
@@ -24,6 +25,11 @@
 
 * Allow Tables to shrink in size using the `shrink` prop.
 * Child components of Row can now use a `columnAlign` prop.
+
+
+## New Decorators
+
+* Tooltip Decorator - currently available on Icon and Textbox.
 
 ## Bug Fixes
 
