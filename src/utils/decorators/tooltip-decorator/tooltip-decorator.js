@@ -80,7 +80,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
     setTimeout(() => {
       this.setState({ showTooltip: true });
       this.positionTooltip();
-    }, 300 );
+    }, 0 );
   };
 
   /**
