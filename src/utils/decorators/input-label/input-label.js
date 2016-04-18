@@ -73,8 +73,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    */
   get labelClasses() {
     return classNames(
-      'common-input__label',
-      {
+      'common-input__label', {
         'common-input__label--inline': this.props.labelInline,
         'common-input__label--help': this.props.labelHelp
       }
@@ -84,9 +83,8 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   get labelHelpClasses() {
     return classNames(
       super.labelHelpClasses,
-      'common-input__help-text',
-      {
-        'common-input__help-text--inline': this.props.labelInline,
+      'common-input__help-text', {
+        'common-input__help-text--inline': this.props.labelInline
       }
     );
   }

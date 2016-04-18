@@ -153,8 +153,7 @@ class Checkbox extends React.Component {
 
   get labelHelpClasses() {
     return classNames(
-      'ui-checkbox__help-text',
-      {
+      'ui-checkbox__help-text', {
         'ui-checkbox__help-text--reverse': this.props.reverse,
         'ui-checkbox__help-text--inline': this.props.labelHelpInline
       }
@@ -172,7 +171,7 @@ class Checkbox extends React.Component {
         labelHelpRight = this.labelHelpHTML;
 
     if (this.props.reverse) {
-      labelLeft = this.labelHTML
+      labelLeft = this.labelHTML;
 
       if (this.props.labelHelpInline) {
         labelHelpLeft = this.labelHelpHTML;

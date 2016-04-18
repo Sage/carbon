@@ -144,44 +144,28 @@ describe('InputLabel', () => {
 
     describe('when no label is provided', () => {
       it('titleizes the name to provide the label text', () => {
-        var label = instanceUnNamed.labelHTML;
-        expect(label.props.children[0]).toEqual('Bar Qux');
+        let label = instanceUnNamed.labelHTML;
+        expect(label.props.children).toEqual('Bar Qux');
       });
     });
 
     describe('when the input has a label', () => {
       it('sets the labelText to the passed in label', () => {
-        var label = instanceBasic.labelHTML;
-        expect(label.props.children[0]).toEqual('test label');
-      });
-
-      describe('labelHelp', () => {
-        describe('when the input has no labelHelp', () => {
-          it('does not render the label help span', () => {
-            var label = instanceBasic.labelHTML;
-            expect(label.props.children[1]).not.toBeDefined();
-          });
-        });
-
-        describe('when the input has a labelHelp', () => {
-          it('adds the labelHelp text to the label', () => {
-            let label = instanceLabelHelp.labelHTML;
-            expect(label.props.children[1].props.className).toEqual('common-input__label__help-text');;
-          });
-        });
+        let label = instanceBasic.labelHTML;
+        expect(label.props.children).toEqual('test label');
       });
 
       describe('when the input has a validation with asterisk enabled', () => {
         it('adds additional symbols to the label', () => {
-          var label = instanceValidation.labelHTML;
-          expect(label.props.children[0]).toEqual('Validate Label*');
+          let label = instanceValidation.labelHTML;
+          expect(label.props.children).toEqual('Validate Label*');
         });
       });
 
       describe('when the input does not have a validation with asterisk enabled', () => {
         it('does not add additional symbols to the label', () => {
-          var label = instanceAltValidation.labelHTML;
-          expect(label.props.children[0]).toEqual('Validate Label');
+          let label = instanceAltValidation.labelHTML;
+          expect(label.props.children).toEqual('Validate Label');
         });
       });
     });
@@ -189,6 +173,22 @@ describe('InputLabel', () => {
     describe('when label width is passed', () => {
       it('sets a width for the label', () => {
         expect(instanceBasic.labelHTML.props.style.width).toEqual('20%');
+      });
+    });
+  });
+
+  describe('labelHelpHTML', () => {
+    describe('when label help is provided', () => {
+      it('renders the help within a span', () => {
+        let help = instanceLabelHelp.labelHelpHTML;
+        expect(help.type).toEqual('span');
+        expect(help.props.children).toEqual('help label');
+      });
+    });
+
+    describe('when label help is not provided', () => {
+      it('does not return a help span', () => {
+        expect(instanceBasic.labelHelpHTML).toBeUndefined();
       });
     });
   });

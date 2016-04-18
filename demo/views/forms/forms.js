@@ -14,10 +14,10 @@ class Forms extends React.Component {
       <div>
         <h1>Forms</h1>
         <CheckboxDemo />
+        <TextboxDemo />
         <DecimalDemo />
         <DateDemo />
         <DropdownDemo />
-        <TextboxDemo />
       </div>
     );
   }

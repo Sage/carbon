@@ -45,8 +45,7 @@ class Textbox extends React.Component {
 
   get labelHelpClasses() {
     return classNames(
-      'ui-textbox__help-text',
-      {
+      'ui-textbox__help-text', {
         'ui-textbox__help-text--inline': this.props.labelInline
       }
     );

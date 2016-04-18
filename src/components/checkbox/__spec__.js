@@ -93,4 +93,46 @@ describe('Checkbox', () => {
       expect(label.nextSibling.name).toEqual('checkbox');
     });
   });
+
+  describe('labelHelperClasses', () => {
+    it('returns the classNames to apply to the label help text', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Checkbox
+          name='checkbox'
+          label='checkbox'
+          labelHelp='foo'
+        />
+      );
+      expect(instance.labelHelpClasses).toMatch('ui-checkbox__help-text');
+    });
+
+    describe('when label is inline', () => {
+      it('returns a modified inline class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Checkbox
+            name='checkbox'
+            label='checkbox'
+            labelHelp='foo'
+            reverse={ true }
+            labelHelpInline={ true }
+          />
+        );
+        expect(instance.labelHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--inline');
+      });
+    });
+
+    describe('when the label is reversed', () => {
+      it('returns a modified reverse class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Checkbox
+            name='checkbox'
+            label='checkbox'
+            labelHelp='foo'
+            reverse={ true }
+          />
+        );
+        expect(instance.labelHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--reverse');
+      });
+    });
+  });
 });
