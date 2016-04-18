@@ -20,10 +20,8 @@
 }
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-top {
+  @include calc(left, "50% - #{$app-tooltip-pointer-size}");
   top: -14px;
-  left: -webkit-calc(50% - 7px);
-  left:    -moz-calc(50% - 7px);
-  left:         calc(50% - 7px);
 
   &:before {
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark);
@@ -32,9 +30,7 @@
 }
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-bottom {
-  left: -webkit-calc(50% - 7px);
-  left:    -moz-calc(50% - 7px);
-  left:         calc(50% - 7px);
+  @include calc(left, "50% - #{$app-tooltip-pointer-size}");
   bottom: -12px;
 
   &:before {
@@ -45,7 +41,7 @@
 
 .ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-top {
   top: -14px;
-  left: 3%;
+  left: 1%;
 
   &:before {
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark);
@@ -54,7 +50,7 @@
 }
 
 .ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-bottom {
-  left: 3%;
+  left: 1%;
   bottom: -12px;
 
 
@@ -66,7 +62,7 @@
 
 .ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-top {
   top: -14px;
-  right: 13%;
+  right: 5%;
 
   &:before {
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark);
@@ -75,7 +71,7 @@
 }
 
 .ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-bottom {
-  right: 13%;
+  right: 5%;
   bottom: -12px;
 
   &:before {
@@ -85,10 +81,8 @@
 }
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-right {
+  @include calc(top, "50% - #{$app-tooltip-pointer-size}");
   right: 0px;
-  top: -webkit-calc(50% - 7px);
-  top:    -moz-calc(50% - 7px);
-  top:         calc(50% - 7px);
 
   &:before {
     @include arrow(right, $app-tooltip-pointer-size, $grey-dark);
@@ -97,10 +91,8 @@
 }
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-left {
+  @include calc(top, "50% - #{$app-tooltip-pointer-size}");
   left: -15px;
-  top: -webkit-calc(50% - 7px);
-  top:    -moz-calc(50% - 7px);
-  top:         calc(50% - 7px);
 
   &:before {
     @include arrow(left, $app-tooltip-pointer-size, $grey-dark);
