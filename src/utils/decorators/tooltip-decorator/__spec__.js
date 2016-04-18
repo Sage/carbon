@@ -20,7 +20,6 @@ class BasicClass extends React.Component {
   }
 
   get componentProps() {
-
     return {
       onMouseEnter: this.onMouseEnter,
       onMouseLeave: this.onMouseLeave,
