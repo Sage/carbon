@@ -374,12 +374,6 @@ describe('tooltip-decorator', () => {
         expect(topTooltip.tooltipHTML).toBeDefined();
       });
     });
-
-    describe('the ref to the instance', () => {
-      it('returns the instance of the component', () => {
-
-      });
-    });
   });
 
   describe('when no tooltip message is provided', () => {
