@@ -4,7 +4,7 @@
 .common-input__label {
   color: $grey-dark;
   cursor: pointer;
-  display: block;
+  display: inline-block;
   font-weight: bold;
   line-height: 14px;
   margin: 0 0 5px 0;
@@ -33,11 +33,13 @@
     padding-left: $grid-margin;
     width: 70%;
   }
+
 }
 
-.common-input__label__help-text {
-  display: block;
-  font-weight: 300;
-  margin-top: 1px;
+.common-input__help-text {
   color: $grey-mid;
+  line-height: 14px;
+  margin-top: 5px;
+  padding: 0 6px;
+  vertical-align: middle;
 }

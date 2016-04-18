@@ -35,6 +35,7 @@ class CheckboxDemo extends React.Component {
         value={ this.value('value') }
         label={ this.value('label') }
         labelHelp={ this.value('labelHelp') }
+        labelHelpInline={ this.value('helpInline') }
         reverse={ this.value('reverse') }
         disabled={ this.value('disabled') }
       />
@@ -110,6 +111,12 @@ class CheckboxDemo extends React.Component {
             disabled={ !this.value('label') }
             value={ this.value('reverse') }
             onChange={ this.action.bind(this, 'reverse') }
+          />
+          <Checkbox
+            label="Help Label Inline"
+            disabled={ !this.value('labelHelp') }
+            value={ this.value('helpInline') }
+            onChange={ this.action.bind(this, 'helpInline') }
           />
         </Row>
       </div>

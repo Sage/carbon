@@ -71,3 +71,18 @@
     fill: $grey;
   }
 }
+
+.ui-checkbox__help-text {
+  display: block;
+  margin-top: 0;
+  padding-left: 21px;
+}
+
+.ui-checkbox__help-text--reverse {
+  padding-left: 6px;
+}
+
+.ui-checkbox__help-text--inline {
+  display: inline;
+  padding-left: 0;
+}
