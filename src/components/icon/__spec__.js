@@ -77,18 +77,6 @@ describe('Icon', () => {
         expect(span.className).toEqual('custom icon-foo');
       });
     });
-
-    describe('when decorated with a tooltip', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(<Icon type='foo' tooltipMessage='Hello' />);
-        debugger
-        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
-      });
-
-      it('adds a target-tooltip class', () => {
-        expect(span.className).toMatch('icon-foo target-tooltip');
-      });
-    });
   });
 
 });

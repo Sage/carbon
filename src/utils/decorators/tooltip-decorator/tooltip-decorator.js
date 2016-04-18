@@ -2,7 +2,6 @@ import React from 'react';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import guid from './../../helpers/guid';
-import classNames from 'classnames';
 import ReactDOM from 'react-dom';
 
 /**
@@ -67,16 +66,6 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
 
   constructor(...args) {
     super(...args);
-
-    if (this.props.tooltipMessage) {
-      /**
-       * Allows tooltip to identify its target uniquely
-       *
-       * @property targetID
-       * @type {String}
-       */
-      this.targetID = guid();
-    }
   }
 
   state = {
@@ -87,7 +76,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
      * @type {Boolean}
      * @default false
      */
-    showTooltip: false
+    showTooltip: true
   };
 
   /**
@@ -113,10 +102,22 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
     this.setState({ showTooltip: false });
   };
 
+  /**
+   * Returns the DOM node of the target.
+   *
+   * @method getTarget
+   * @return {DOM node}
+   */
   getTarget = () => {
     return ReactDOM.findDOMNode(this._target);
   }
 
+  /**
+   * Returns the DOM node of the tooltip.
+   *
+   * @method getTooltip
+   * @return {DOM node}
+   */
   getTooltip = () => {
     return ReactDOM.findDOMNode(this._tooltip);
   }
@@ -128,11 +129,9 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
    * @return {Void}
    */
   positionTooltip = () => {
-    // debugger
     if (this.state.showTooltip) {
       let target  = this.getTarget(),
           tooltip = this.getTooltip();
-          debugger
           let pointer = tooltip.children[1];
 
       let position      = this.props.tooltipPosition || 'top',
