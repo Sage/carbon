@@ -5,7 +5,7 @@ import InputValidation from './../../utils/decorators/input-validation';
 import classNames from 'classnames';
 
 /**
- * A checkbox widget.
+ * A Checkbox widget.
  *
  * == How to use a Checkbox in a component:
  *

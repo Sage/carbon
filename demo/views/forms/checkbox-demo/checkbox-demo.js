@@ -56,6 +56,10 @@ class CheckboxDemo extends React.Component {
       if (this.value('labelHelp')) {
         html += `\n  labelHelp='${this.value('labelHelp')}'`;
       }
+
+      if (this.value('helpInline')) {
+        html += `\n  labelHelpInline={ true }`;
+      }
     }
 
     if (this.value('disabled')) {
