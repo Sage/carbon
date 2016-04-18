@@ -24,7 +24,7 @@ class DummyClassNoHelp extends React.Component {
   }
 };
 
-fdescribe('HelpDecorator', () => {
+describe('HelpDecorator', () => {
   let instance, noHelpInstance;
 
   beforeEach(() => {
@@ -45,8 +45,8 @@ fdescribe('HelpDecorator', () => {
 
   describe('when no tooltipMessage is provided', () => {
     it('does not render a help component', () => {
-      let helpInstance = ReactDom.findDOMNode(this._help);
-      expect(helpInstance).not.toBeDefined();
+      let helpInstance = ReactDom.findDOMNode(noHelpInstance._help);
+      expect(helpInstance).toEqual(null);
     });
   });
 });

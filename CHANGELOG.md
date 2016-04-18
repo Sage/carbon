@@ -8,7 +8,7 @@
 
 * Portrait
 * Tile - an alternative to Pod, with a drop shadow.
-* Help - A question mark icon with a tooltip.
+* Help - A info icon with a tooltip.
 * Tooltip
 
 ## Layout Updates
@@ -31,6 +31,7 @@
 ## New Decorators
 
 * Tooltip Decorator - currently available on Icon and Textbox.
+* Help Decorator - adds an inline help component, currently available on checkbox.
 
 ## Bug Fixes
 
