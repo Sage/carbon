@@ -20,8 +20,8 @@
 }
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-top {
-  top: -15px;
-  left: 47%;
+  @include calc(left, "50% - #{$app-tooltip-pointer-size}");
+  top: -14px;
 
   &:before {
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark);
@@ -30,7 +30,7 @@
 }
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-bottom {
-  left: 47%;
+  @include calc(left, "50% - #{$app-tooltip-pointer-size}");
   bottom: -12px;
 
   &:before {
@@ -40,8 +40,8 @@
 }
 
 .ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-top {
-  top: -15px;
-  left: 4%;
+  top: -14px;
+  left: 1%;
 
   &:before {
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark);
@@ -50,7 +50,7 @@
 }
 
 .ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-bottom {
-  left: 4%;
+  left: 1%;
   bottom: -12px;
 
 
@@ -60,9 +60,9 @@
   }
 }
 
-.ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-bottom {
-  top: -15px;
-  right: 7%;
+.ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-top {
+  top: -14px;
+  right: 5%;
 
   &:before {
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark);
@@ -71,7 +71,7 @@
 }
 
 .ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-bottom {
-  right: 7%;
+  right: 5%;
   bottom: -12px;
 
   &:before {
@@ -81,8 +81,8 @@
 }
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-right {
+  @include calc(top, "50% - #{$app-tooltip-pointer-size}");
   right: 0px;
-  top: 33%;
 
   &:before {
     @include arrow(right, $app-tooltip-pointer-size, $grey-dark);
@@ -91,8 +91,8 @@
 }
 
 .ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-left {
+  @include calc(top, "50% - #{$app-tooltip-pointer-size}");
   left: -15px;
-  top: 33%;
 
   &:before {
     @include arrow(left, $app-tooltip-pointer-size, $grey-dark);
@@ -102,7 +102,7 @@
 
 .ui-tooltip__pointer--align-top.ui-tooltip__pointer--position-right {
   right: 0px;
-  top: 10%;
+  top: 7%;
 
   &:before {
     @include arrow(right, $app-tooltip-pointer-size, $grey-dark);
@@ -112,7 +112,7 @@
 
 .ui-tooltip__pointer--align-bottom.ui-tooltip__pointer--position-left {
   left: -15px;
-  bottom: 10%;
+  bottom: 13%;
 
   &:before {
     @include arrow(left, $app-tooltip-pointer-size, $grey-dark);
@@ -122,7 +122,7 @@
 
 .ui-tooltip__pointer--align-bottom.ui-tooltip__pointer--position-right {
   right: 0px;
-  bottom: 10%;
+  bottom: 13%;
 
   &:before {
     @include arrow(right, $app-tooltip-pointer-size, $grey-dark);
@@ -132,7 +132,7 @@
 
 .ui-tooltip__pointer--align-top.ui-tooltip__pointer--position-left {
   left: -15px;
-  top: 10%;
+  top: 7%;
 
   &:before {
     @include arrow(left, $app-tooltip-pointer-size, $grey-dark);

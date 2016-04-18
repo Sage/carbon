@@ -23,7 +23,7 @@ describe('Textbox', () => {
     });
 
     it('renders with a visible input', () => {
-      let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input')
+      let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
       expect(input.tagName).toEqual("INPUT");
       expect(input.getAttribute('label')).toBe('Label');
     });
@@ -42,7 +42,7 @@ describe('Textbox', () => {
 
   describe('mainClasses', () => {
     it('returns ui-textbox and additional decorated classes', () => {
-      expect(instance.mainClasses).toEqual('ui-textbox common-input');
+      expect(instance.mainClasses).toEqual('ui-textbox ui-textbox__wrapper common-input');
     });
   });
 

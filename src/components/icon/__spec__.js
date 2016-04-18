@@ -66,14 +66,17 @@ describe('Icon', () => {
     });
   });
 
-  describe('with custom class name', () => {
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(<Icon type='foo' className='custom' />);
-      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
-    });
+  describe ('mainClasses', () => {
+    describe('with custom class name', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(<Icon type='foo' className='custom' />);
+        span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      });
 
-    it('renders with a class of icon-settings and test', () => {
-      expect(span.className).toEqual('custom icon-foo');
+      it('renders with a class of icon-settings and test', () => {
+        expect(span.className).toEqual('custom icon-foo');
+      });
     });
   });
+
 });
