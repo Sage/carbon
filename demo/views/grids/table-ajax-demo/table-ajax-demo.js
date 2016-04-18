@@ -58,6 +58,7 @@ class TableAjaxDemo extends React.Component {
           paginate={ this.value('paginate') }
           path="/countries"
           onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
+          tableHeader={ this.tableHeaderRow }
         >
           { this.tableRows }
         </TableAjax>
@@ -205,13 +206,10 @@ class TableAjaxDemo extends React.Component {
   }
 
   /**
-   * @method tableRows
+   * @method tableHeaderRow
    */
-  get tableRows() {
-    let data = this.state.appStore.getIn(['table_ajax', 'data']),
-        rows = [];
-
-    rows.push(
+  get tableHeaderRow() {
+    return(
       <TableRow key="header">
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
@@ -221,15 +219,22 @@ class TableAjaxDemo extends React.Component {
         </TableHeader>
       </TableRow>
     );
+  }
 
-    return rows.concat(data.map((row, index) => {
+  /**
+   * @method tableRows
+   */
+  get tableRows() {
+    let data = this.state.appStore.getIn(['table_ajax', 'data']);
+
+    return data.map((row, index) => {
       return (
         <TableRow key={ index }>
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
         </TableRow>
       );
-    }));
+    });
   }
 
   /**
