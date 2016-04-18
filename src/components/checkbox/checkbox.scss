@@ -75,14 +75,16 @@
 .ui-checkbox__help-text {
   display: block;
   margin-top: 0;
-  padding-left: 21px;
+  padding-left: 15px;
 }
 
 .ui-checkbox__help-text--reverse {
-  padding-left: 6px;
+  padding-left: 0px;
 }
 
 .ui-checkbox__help-text--inline {
   display: inline;
   padding-left: 0;
+  margin-right: 5px;
+  margin-left: 0px;
 }
