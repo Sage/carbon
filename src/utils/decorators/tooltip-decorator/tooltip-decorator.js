@@ -1,7 +1,6 @@
 import React from 'react';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
-import guid from './../../helpers/guid';
 import ReactDOM from 'react-dom';
 
 /**
@@ -35,15 +34,6 @@ import ReactDOM from 'react-dom';
  *   );
  * }
  *
- * To output the decorated component in a view, you must wrap it in a relatively
- * positioned container.
- *
- * e.g.
- *
- *  <div className='my-position-relative-wrapper'>
- *    <MyDecoratedComponent/>
- *  </div>
- *
  * For the tooltip to position correctly, you must supply a ref of '_target' to your component.
  *
  * e.g.
@@ -76,7 +66,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
      * @type {Boolean}
      * @default false
      */
-    showTooltip: true
+    showTooltip: false
   };
 
   /**
@@ -131,8 +121,8 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
   positionTooltip = () => {
     if (this.state.showTooltip) {
       let target  = this.getTarget(),
-          tooltip = this.getTooltip();
-          let pointer = tooltip.children[1];
+          tooltip = this.getTooltip(),
+          pointer = tooltip.children[1];
 
       let position      = this.props.tooltipPosition || 'top',
           tooltipWidth  = tooltip.offsetWidth,
@@ -173,7 +163,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
    * @return {Object} props
    */
   get componentProps() {
-    let props = super.componentProps || super.inputProps || {};
+    let props = super.componentProps || super.inputProps;
 
     if (this.props.tooltipMessage) {
       props.onMouseEnter = chainFunctions(this.onShow, props.onMouseEnter);
@@ -215,7 +205,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
         case 'left':
           props.pointerPosition = 'right';
           break;
-        case 'top':
+        default:
           props.pointerPosition = 'bottom';
       }
 
