@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -31,7 +32,10 @@ class Textbox extends React.Component {
    * @return {void}
    */
   get mainClasses() {
-    return 'ui-textbox';
+    return classNames(
+      'ui-textbox',
+      'ui-textbox__wrapper'
+    );
   }
 
   /**

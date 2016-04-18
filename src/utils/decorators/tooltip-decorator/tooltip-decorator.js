@@ -35,12 +35,13 @@ import ReactDOM from 'react-dom';
  * }
  *
  * For the tooltip to position correctly, you must supply a ref of '_target' to your component.
+ * You must also give the surrounding div of the component a position of 'relative'
  *
  * e.g.
  *
  * render() {
  *   return (
- *     <div ref={ (comp) => this._tooltip = comp }>
+ *     <div ref={ (comp) => this._tooltip = comp } className='relative-class'>
  *       { this.tooltipHTML }
  *       ...your components JSX
  *     </div>

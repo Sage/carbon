@@ -110,7 +110,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    */
   render() {
     return (
-      <div>
+      <div className='ui-icon__wrapper'>
         { this.tooltipHTML }
         <span
           className={ this.mainClasses }
