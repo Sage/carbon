@@ -8,6 +8,7 @@
 
 * Portrait
 * Tile - an alternative to Pod, with a drop shadow.
+* Help - A question mark icon with a tooltip.
 
 ## Layout Updates
 

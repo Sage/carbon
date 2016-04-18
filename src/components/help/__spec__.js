@@ -4,7 +4,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Help from './help.js';
 import Icon from 'components/icon';
 
-fdescribe('Help', () => {
+describe('Help', () => {
   let basicInstance, positionedInstance, alignedInstance, customStyleInstance;
 
   beforeEach(() => {
@@ -49,7 +49,7 @@ fdescribe('Help', () => {
     });
 
     it('renders an icon', () => {
-      expect(icon.props.type).toEqual('question');
+      expect(icon.props.type).toEqual('info');
     });
 
     it('passes the tooltipMessage as a prop', () => {
