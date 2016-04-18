@@ -59,6 +59,13 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
     super(...args);
   }
 
+  /**
+   * Timeout for firing ajax request
+   *
+   * @property timeout
+   */
+  timeout = null;
+
   state = {
     /**
      * Whether tooltip currently showing
@@ -77,10 +84,10 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
    * @return {void}
    */
   onShow = () => {
-    setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.setState({ showTooltip: true });
       this.positionTooltip();
-    }, 0 );
+    }, 300 );
   };
 
   /**
@@ -90,6 +97,7 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
    * @return {void}
    */
   onHide = () => {
+    clearTimeout(this.timeout);
     this.setState({ showTooltip: false });
   };
 
