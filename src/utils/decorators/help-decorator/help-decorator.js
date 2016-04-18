@@ -11,7 +11,6 @@ let HelpDecorator = (ComposedComponent) => class Component extends ComposedCompo
       return (
         <Help
           className='ui-help--inline'
-          ref={ (comp) => this._help = comp }
           inline={ true }
           { ...this.props }>
         </Help>
