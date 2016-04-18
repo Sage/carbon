@@ -34,10 +34,10 @@
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "~3.7.5",
     "ncp": "~2.0.0",
-    "react": "~0.14.0",
-    "react-addons-css-transition-group": "~0.14.0",
-    "react-dom": "~0.14.0",
-    "react-highlight": "~0.6.1",
+    "react": "~15.0.1",
+    "react-addons-css-transition-group": "~15.0.0",
+    "react-dom": "~15.0.0",
+    "react-highlight": "~0.8.0",
     "react-router": "~1.0.0"
   },
   "dependencies": {
@@ -51,7 +51,7 @@
     "lodash": "~3.10.1",
     "moment": "~2.10.6",
     "react-date-picker": "~3.1.5",
-    "react-highcharts": "~5.0.4",
+    "react-highcharts": "~8.2.0",
     "superagent": "~1.4.0"
   }
 }

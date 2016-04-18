@@ -44,14 +44,14 @@ class Example extends React.Component {
         <Checkbox
           className="ui-example__header-item"
           label="Code"
-          value={ this.state.isCodeOpen }
+          checked={ this.state.isCodeOpen }
           onChange={ this.toggleCode }
         />
 
         <Checkbox
           className="ui-example__header-item"
           label="Config"
-          value={ this.state.isConfigOpen }
+          checked={ this.state.isConfigOpen }
           onChange={ this.toggleConfig }
         />
 
