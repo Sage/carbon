@@ -4,7 +4,7 @@ import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
 
 /**
- * ToolTipIDecorator.
+ * ToolTipDecorator.
  *
  * This decorator attaches a tooltip to a component.
  *
@@ -12,11 +12,11 @@ import ReactDOM from 'react-dom';
  *
  * In your file:
  *
- *   import ToolTip from 'carbon/lib/utils/decorators/tooltip-decorator';
+ *   import ToolTipDecorator from 'carbon/lib/utils/decorators/tooltip-decorator';
  *
  * To use the decorator, wrap your component with it:
  *
- *   const MyComponent = ToolTipIDecorator(
+ *   const MyComponent = ToolTipDecorator(
  *   class MyComponent extends React.Component {
  *     ...
  *   });
@@ -34,26 +34,25 @@ import ReactDOM from 'react-dom';
  *   );
  * }
  *
- * For the tooltip to position correctly, you must supply a ref of '_target' to your component.
  * You must also give the surrounding div of the component a position of 'relative'
  *
  * e.g.
  *
  * render() {
  *   return (
- *     <div ref={ (comp) => this._tooltip = comp } className='relative-class'>
+ *     <div className='relative-class'>
  *       { this.tooltipHTML }
- *       ...your components JSX
+ *       ...your component's JSX
  *     </div>
  *   );
  * }
  *
  *
- * @method ToolTipIDecorator
+ * @method ToolTipDecorator
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
-let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedComponent {
+let TooltipDecorator = (ComposedComponent) => class Component extends ComposedComponent {
 
   constructor(...args) {
     super(...args);
@@ -244,4 +243,4 @@ let TooltipIDecorator = (ComposedComponent) => class Component extends ComposedC
   }
 };
 
-export default TooltipIDecorator;
+export default TooltipDecorator;
