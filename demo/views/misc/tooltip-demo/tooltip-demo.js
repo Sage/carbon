@@ -21,7 +21,7 @@ class TooltipDemo extends React.Component {
    * @method action
    */
   get action() {
-    return AppActions.appValueTopdated.bind(this, 'tooltip');
+    return AppActions.appValueUpdated.bind(this, 'tooltip');
   }
 
   /**
