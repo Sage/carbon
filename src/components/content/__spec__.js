@@ -7,7 +7,7 @@ describe('Content', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Content title="foo">bar</Content>
+      <Content title="foo" className="foobar">bar</Content>
     );
   });
 
@@ -20,6 +20,11 @@ describe('Content', () => {
     it('renders the body', () => {
       let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-content__body');
       expect(div.textContent).toEqual('bar');
+    });
+
+    it('renders custom classes', () => {
+      let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-content');
+      expect(div.className).toEqual('ui-content foobar');
     });
   });
 });
