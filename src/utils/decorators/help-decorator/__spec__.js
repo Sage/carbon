@@ -7,7 +7,7 @@ import Help from 'components/help';
 class DummyClass extends React.Component {
   render() {
     return (
-      <div tooltipMessage={ this.props.tooltipMessage }>
+      <div tooltipMessage={ this.props.helpMessage }>
         {this.helpHTML }
       </div>
     )
@@ -31,7 +31,7 @@ describe('HelpDecorator', () => {
     let DecoratedClassOne = HelpDecorator(DummyClass);
     let DecoratedClassTwo = HelpDecorator(DummyClassNoHelp);
 
-    instance = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Helpful Content'/>);
+    instance = TestUtils.renderIntoDocument(<DecoratedClassOne helpMessage='Helpful Content'/>);
     noHelpInstance = TestUtils.renderIntoDocument(<DecoratedClassTwo />)
   });
 
