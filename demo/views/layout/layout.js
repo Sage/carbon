@@ -2,6 +2,7 @@ import React from 'react';
 import RowDemo from './row-demo';
 import TabsDemo from './tabs-demo';
 import PodDemo from './pod-demo';
+import ContentDemo from './content-demo';
 
 class Layout extends React.Component {
   /**
@@ -14,7 +15,8 @@ class Layout extends React.Component {
         <RowDemo />
         <TabsDemo />
         <PodDemo />
-        <PodDemo collapsed={ true }/>
+        <PodDemo collapsed={ true } />
+        <ContentDemo />
       </div>
     );
   }
