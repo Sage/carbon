@@ -12,7 +12,7 @@ describe('Sidebar', () => {
 
     instance = TestUtils.renderIntoDocument(
       <Sidebar
-        onClose={ spy }
+        onCancel={ spy }
         open={ true }
         className='custom-class'
       >
@@ -24,7 +24,7 @@ describe('Sidebar', () => {
 
     leftInstance = TestUtils.renderIntoDocument(
       <Sidebar
-        onClose={ spy }
+        onCancel={ spy }
         open={ true }
         position='left'
         enableBackgroundUI={ true }
@@ -36,7 +36,7 @@ describe('Sidebar', () => {
     describe('when the Sidebar is open', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
-          <Sidebar open={ true } onClose={ spy } />
+          <Sidebar open={ true } onCancel={ spy } />
         );
       });
 
@@ -44,7 +44,7 @@ describe('Sidebar', () => {
         let spy = spyOn(window, 'addEventListener');
         instance.componentDidUpdate();
         expect(spy.calls.count()).toEqual(1);
-        expect(window.addEventListener).toHaveBeenCalledWith('keyup', instance.closeSidebar);
+        expect(window.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
       });
 
       describe('when the Sidebar is already listening', () => {
@@ -61,7 +61,7 @@ describe('Sidebar', () => {
     describe('when the Sidebar is closed', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
-          <Sidebar onClose={ spy } />
+          <Sidebar onCancel={ spy } />
         );
       });
 
@@ -69,23 +69,7 @@ describe('Sidebar', () => {
         let spy = spyOn(window, 'removeEventListener');
         instance.componentDidUpdate();
         expect(spy.calls.count()).toEqual(1);
-        expect(window.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeSidebar);
-      });
-    });
-  });
-
-  describe('closeSidebar', () => {
-    describe('when the esc key is released', () => {
-      it('calls the cancel sidebar handler', () => {
-        instance.closeSidebar({ which: 27 });
-        expect(spy).toHaveBeenCalled();
-      });
-    });
-
-    describe('when any other key is released', () => {
-      it('does not close the sidebar', () => {
-        instance.closeSidebar({ keyCode: 8 });
-        expect(spy).not.toHaveBeenCalled();
+        expect(window.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
       });
     });
   });
@@ -107,20 +91,6 @@ describe('Sidebar', () => {
 
     it('appends any additional passed classes', () => {
       expect(instance.mainClasses).toEqual('ui-sidebar custom-class');
-    });
-  });
-
-  describe('backgroundHTML', () => {
-    describe('when enableBackgroundUI is false', () => {
-      it('returns a background div', () => {
-        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-sidebar__background')).toBeTruthy();
-      });
-    });
-
-    describe('when enableBackgroundUI is true', () => {
-      it('returns null', () => {
-        expect(leftInstance.backgroundHTML).toBeFalsy();
-      });
     });
   });
 
@@ -147,7 +117,7 @@ describe('Sidebar', () => {
       });
 
       it('renders a background div', () => {
-        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-sidebar__background')).toBeTruthy();
+        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-modal__background')).toBeTruthy();
       });
 
       it('renders a sidebar', () => {
@@ -159,7 +129,7 @@ describe('Sidebar', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <Sidebar
-            onClose={ spy }
+            onCancel={ spy }
             open={ false }
           >
           </Sidebar>

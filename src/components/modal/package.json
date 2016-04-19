@@ -1,0 +1,4 @@
+{
+  "main": "./modal.js",
+  "style": "modal.scss"
+}

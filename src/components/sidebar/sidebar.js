@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import SidebarHeader from './sidebar-header';
 import Icon from './../icon';
+import Modal from './../modal';
 import classNames from 'classnames';
-import Events from './../../utils/helpers/events';
 
 /**
  * A Sidebar widget.
@@ -17,7 +16,7 @@ import Events from './../../utils/helpers/events';
  * To render the Sidebar:
  *
  *   <Sidebar
- *     onClose={ closeSidebar }
+ *     onCancel={ closeSidebar }
  *     open={ true }
  *   />
  *
@@ -30,19 +29,17 @@ import Events from './../../utils/helpers/events';
  * @class Sidebar
  * @constructor
  */
-class Sidebar extends React.Component {
-
-  listening = false;
+class Sidebar extends Modal {
 
   static propTypes = {
 
     /**
      * A custom close event handler
      *
-     * @property onClose
+     * @property onCancel
      * @type {Function}
      */
-    onClose: React.PropTypes.func.isRequired,
+    onCancel: React.PropTypes.func.isRequired,
 
     /**
      * Sets the open state of the sidebar
@@ -75,38 +72,20 @@ class Sidebar extends React.Component {
   }
 
   static defaultProps = {
-    open: false,
-    enableBackgroundUI: false,
     position: 'right'
   }
 
   /**
-   * A lifecycle method to update the component after it is re-rendered
+   * Returns classes for the component.
    *
-   * @method componentDidUpdate
-   * @return {void}
+   * @method mainClasses
+   * @return {String} Main className
    */
-  componentDidUpdate() {
-    if (this.props.open && !this.listening) {
-      this.listening == true;
-      window.addEventListener('keyup', this.closeSidebar);
-    } else if (!this.props.open) {
-      this.listening == false;
-      window.removeEventListener('keyup', this.closeSidebar);
-    }
-  }
-
-  /**
-   * Triggers the custom close event handler on ESC
-   *
-   * @method closeSidebar
-   * @param {Object} ev event
-   * @return {void}
-   */
-  closeSidebar = (ev) => {
-    if (Events.isEscKey(ev)) {
-      this.props.onClose();
-    }
+  get mainClasses() {
+    return classNames(
+      'ui-sidebar',
+      this.props.className
+    );
   }
 
   /**
@@ -123,80 +102,24 @@ class Sidebar extends React.Component {
   }
 
   /**
-   * Returns classes for the component.
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
-  get mainClasses() {
-    return classNames(
-      'ui-sidebar',
-      this.props.className
-    );
-  }
-
-
-  /**
-   * Returns HTML for the background.
-   *
-   * @method backgroundHTML
-   * @return {Object} JSX
-   */
-  get backgroundHTML() {
-    if (!this.props.enableBackgroundUI) {
-      return <div onClick={ this.props.onClose } className="ui-sidebar__background"></div>;
-    }
-  }
-
-  /**
    * Returns the computed HTML for the sidebar.
    *
    * @method sidebarHTML
    * @return {Object} JSX for sidebar
    */
-  get sidebarHTML() {
+  get modalHTML() {
     return (
       <div className={ this.sidebarClasses } >
         <span className={ 'ui-sidebar__close' } >
-          <Icon className="ui-sidebar__close-icon" type="close" onClick={ this.props.onClose } />
+          <Icon className="ui-sidebar__close-icon" type="close" onClick={ this.props.onCancel } />
         </span>
         { this.props.children }
       </div>
     );
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   * @return {Object} JSX
-   */
-  render() {
-    let backgroundHTML,
-        sidebarHTML;
-
-    if (this.props.open) {
-      backgroundHTML = this.backgroundHTML;
-      sidebarHTML= this.sidebarHTML;
-    }
-
-    return (
-      <div className={ this.mainClasses }>
-        <ReactCSSTransitionGroup
-          transitionName={ `sidebar--${this.props.position}` }
-          transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 } >
-          { sidebarHTML }
-        </ReactCSSTransitionGroup>
-
-        <ReactCSSTransitionGroup
-          transitionName="sidebar-background"
-          transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 } >
-          { backgroundHTML }
-        </ReactCSSTransitionGroup>
-      </div>
-    );
+  get transitionName() {
+    return `sidebar--${this.props.position}`;
   }
 }
 

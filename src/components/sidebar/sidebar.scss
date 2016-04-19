@@ -26,17 +26,6 @@ $sidebar-background-animation-length: 250ms;
   left: 0;
 }
 
-.ui-sidebar__background {
-  background-color: $grey-dark-blue;
-  bottom: 0;
-  left: 0;
-  opacity: $sidebar-background-opacity;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: $z-sidebar-background;
-}
-
 .ui-sidebar__close {
   cursor: pointer;
   position: absolute;
@@ -46,7 +35,7 @@ $sidebar-background-animation-length: 250ms;
 
   &:hover {
     color: $blue;
-  }
+}
 }
 
 // sidebar right animation:
@@ -93,24 +82,4 @@ $sidebar-background-animation-length: 250ms;
   opacity: 0;
   left: -50px;
   transition: all $sidebar-animation-length ease-in;
-}
-
-// sidebar background animation:
-
-.sidebar-background-enter {
-  opacity: 0;
-}
-
-.sidebar-background-enter.sidebar-background-enter-active {
-  opacity: $sidebar-background-opacity;
-  transition: opacity $sidebar-background-animation-length ease-in;
-}
-
-.sidebar-background-leave {
-  opacity: $sidebar-background-opacity;
-}
-
-.sidebar-background-leave.sidebar-background-leave-active {
-  opacity: 0;
-  transition: opacity $sidebar-background-animation-length ease-in;
 }

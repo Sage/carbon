@@ -55,7 +55,7 @@ class SidebarDemo extends React.Component {
         { button }
         <Sidebar
           open={ this.value('open') }
-          onClose={ this.action.bind(this, 'open', { target: { value: false } } ) }
+          onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
           enableBackgroundUI={ this.value('enableBackgroundUI') }
           position={ position }
         >
