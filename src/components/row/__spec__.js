@@ -14,6 +14,7 @@ describe('Row', () => {
           <div columnOffset={2}>Foo</div>
           <div columnSpan={3}>Bar</div>
           <div columnClasses='extra-class'>Bar</div>
+          <div columnAlign='center'>Bar</div>
         </Row>
       );
 
@@ -23,11 +24,11 @@ describe('Row', () => {
     describe('render', () => {
       it('renders a parent div with calculated CSS classes', () => {
         let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-row')
-        expect(rowNode.className).toEqual('ui-row foobar ui-row--columns-3');
+        expect(rowNode.className).toEqual('ui-row foobar ui-row--columns-4');
       });
 
       it('renders the correct amount of columns', () => {
-        expect(columns.length).toEqual(3);
+        expect(columns.length).toEqual(4);
       });
     });
 
@@ -46,6 +47,12 @@ describe('Row', () => {
     describe('Column classes', () => {
       it('renders a div with all additional column classes', () => {
         expect(columns[2].className).toEqual('ui-row__column extra-class');
+      });
+    });
+
+    describe('Column align', () => {
+      it('renders a div with alignment class', () => {
+        expect(columns[3].className).toEqual('ui-row__column ui-row__column--align-center');
       });
     });
   });
