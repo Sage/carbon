@@ -2,7 +2,7 @@ import React from 'react';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
-import Ether from './../../ether/ether.js';
+import { styleElement, pixelValue, isVisible } from './../../ether/js';
 
 /**
  * TooltipDecorator.
@@ -136,35 +136,34 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @return {Void}
    */
   positionTooltip = (element, target) => {
-    if (Ether.isVisible(this)) {
-      let pointer = Ether.nthChild(element, 1);
+    if (isVisible(this)) {
+      // hardcode value as span has no dimensions
+      let pointerDimension = 15;
 
-      let verticalCenter     = -element.offsetHeight - pointer.offsetHeight / 2,
+      let verticalCenter     = -element.offsetHeight - pointerDimension / 2,
           horizontalCenter   = -element.offsetWidth / 2 + target.offsetWidth / 2,
           sideVerticalCenter = target.offsetHeight / 2 - element.offsetHeight / 2;
 
     switch (this.props.tooltipPosition) {
       case "bottom":
-        Ether.styleElement(element, 'bottom', Ether.buildPixelValue(verticalCenter));
-        Ether.styleElement(element, 'left', Ether.buildPixelValue(horizontalCenter));
+        styleElement(element, 'bottom', pixelValue(verticalCenter));
+        styleElement(element, 'left', pixelValue(horizontalCenter));
         break;
 
       case "left":
-        Ether.styleElement(element, 'top', Ether.buildPixelValue(sideVerticalCenter));
-        // hardcode 7px for pointerWidth since span has no width
-        Ether.styleElement(element, 'left', element.offsetWidth - 7);
+        styleElement(element, 'top', pixelValue(sideVerticalCenter));
+        styleElement(element, 'left', element.offsetWidth - pointerDimension / 2);
         break;
 
       case "right":
-        Ether.styleElement(element, 'top', Ether.buildPixelValue(sideVerticalCenter));
-        // hardcode 7px for pointerWidth since span has no width
-        Ether.styleElement(element, 'left', target.offsetWidth + 7);
+        styleElement(element, 'top', pixelValue(sideVerticalCenter));
+        styleElement(element, 'left', target.offsetWidth + pointerDimension / 2);
         break;
 
       default:
       // top
-        Ether.styleElement(element, 'top', Ether.buildPixelValue(verticalCenter));
-        Ether.styleElement(element, 'left', Ether.buildPixelValue(horizontalCenter));
+        styleElement(element, 'top', pixelValue(verticalCenter));
+        styleElement(element, 'left', pixelValue(horizontalCenter));
       }
     }
   };
@@ -183,7 +182,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
       props.onMouseLeave = chainFunctions(this.onHide, props.onMouseLeave);
       props.onFocus = chainFunctions(this.onShow, props.onFocus);
       props.onBlur = chainFunctions(this.onHide, props.onBlur);
-      props.onTouchEnd = this.state.isVisible ? this.onHide : this.onShow;
+      props.onTouchEnd = isVisible(this) ? this.onHide : this.onShow;
     }
     return props;
   }

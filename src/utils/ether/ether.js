@@ -8,8 +8,8 @@ let Ether = {
     return element.style[attribute] = Ether.toString(value);
   },
 
-  buildPixelValue: (value) => {
-    return Ether.toString(value) + 'px';
+  pixelValue: (value) => {
+    return `${value}px`;
   },
 
   isVisible: (object) => {
