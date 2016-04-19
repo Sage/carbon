@@ -12,11 +12,11 @@ import classNames from 'classnames';
 *
 * To render the Tooltip:
 *
-*   <Tooltip showTooltip={ toggleTooltipHandler }>
+*   <Tooltip isVisible={ toggleTooltipHandler }>
 *     My tooltip content
 *   </Tooltip>
 *
-* You must pass a prop of 'showTooltip' which is toggled to true or false.
+* You must pass a prop of 'isVisible' which is toggled to true or false.
 *
 * You can pass a prop of 'pointerAlign' to the component which shifts the alignment of the pointer.
 * This defaults to 'center'.
@@ -48,24 +48,24 @@ class Tooltip extends React.Component {
      *
      * @property pointerPosition
      * @type {String}
-     * @default 'top'
+     * @default 'bottom'
      */
     pointerPosition: React.PropTypes.string,
 
     /**
      * Whether to to show the Tooltip
      *
-     * @property showTooltip
+     * @property isVisible
      * @type {Boolean}
      * @default false
      */
-    showTooltip: React.PropTypes.bool
+    isVisible: React.PropTypes.bool
   };
 
   static defaultProps = {
     pointerAlign: 'center',
     pointerPosition: 'bottom',
-    showTooltip: false
+    isVisible: false
   };
 
   /**
@@ -102,10 +102,10 @@ class Tooltip extends React.Component {
    * @return {JSX}
    */
   get tooltipHTML() {
-    let contents = [];
-
-    contents.push(this.props.children);
-    contents.push(<span key='pointer' className={ this.pointerClasses }></span>);
+    let contents = [
+      this.props.children,
+      <span key='pointer' className={ this.pointerClasses }></span>
+    ];
 
     return (
       <div className={ this.mainClasses }>
@@ -120,7 +120,7 @@ class Tooltip extends React.Component {
    * @method render
    */
   render() {
-    if (!this.props.showTooltip) { return null; }
+    if (!this.props.isVisible) { return null; }
 
     return this.tooltipHTML;
   }

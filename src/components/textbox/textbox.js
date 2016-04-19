@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
-import TooltipIDecorator from './../../utils/decorators/tooltip-decorator';
+import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
 
 /**
  * A textbox widget.
@@ -22,7 +22,7 @@ import TooltipIDecorator from './../../utils/decorators/tooltip-decorator';
  * @constructor
  * @decorators {Input,InputLabel,InputValidation}
  */
-const Textbox = Input(InputLabel(InputValidation(TooltipIDecorator(
+const Textbox = Input(InputLabel(InputValidation(TooltipDecorator(
 class Textbox extends React.Component {
 
   /**

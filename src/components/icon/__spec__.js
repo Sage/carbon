@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Icon from './icon';
+import Tooltip from 'components/tooltip'
 
 describe('Icon', () => {
   let instance, span, svg;
@@ -79,4 +80,11 @@ describe('Icon', () => {
     });
   });
 
+  describe('when passed a tooltipMessage', () => {
+    it('renders a tooltip', () => {
+      let helpInstance = TestUtils.renderIntoDocument(<Icon type='info' tooltipMessage='Helpful content' />);
+      let tooltip = TestUtils.findRenderedComponentWithType(helpInstance, Tooltip);
+      expect(tooltip).toBeDefined();
+    });
+  });
 });

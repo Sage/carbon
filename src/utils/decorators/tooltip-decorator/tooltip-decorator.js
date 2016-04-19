@@ -77,11 +77,11 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
     /**
      * Whether tooltip currently showing
      *
-     * @property showTooltip
+     * @property isVisible
      * @type {Boolean}
      * @default false
      */
-    showTooltip: false
+    isVisible: false
   };
 
   /**
@@ -92,9 +92,9 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    */
   onShow = () => {
     this.timeout = setTimeout(() => {
-      this.setState({ showTooltip: true });
+      this.setState({ isVisible: true });
       this.positionTooltip();
-    }, 300 );
+    }, 100 );
   };
 
   /**
@@ -105,7 +105,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    */
   onHide = () => {
     clearTimeout(this.timeout);
-    this.setState({ showTooltip: false });
+    this.setState({ isVisible: false });
   };
 
   /**
@@ -135,15 +135,16 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @return {Void}
    */
   positionTooltip = () => {
-    if (this.state.showTooltip) {
+    if (this.state.isVisible) {
       let target  = this.getTarget(),
-          tooltip = this.getTooltip(),
-          pointer = tooltip.children[1];
+          tooltip = this.getTooltip();
 
       let position      = this.props.tooltipPosition || 'top',
           tooltipWidth  = tooltip.offsetWidth,
           tooltipHeight = tooltip.offsetHeight,
-          pointerHeight = pointer.offsetHeight,
+          // hardcode height & width since span has no dimensions
+          pointerHeight = 15,
+          pointerWidth = 15,
           targetWidth   = target.offsetWidth,
           targetHeight  = target.offsetHeight;
 
@@ -159,14 +160,12 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
           break;
 
         case "left":
-          // hardcode 7px for pointerWidth since span has no width
-          tooltip.style.left = String(-tooltipWidth - 7) + 'px';
+          tooltip.style.left = String(-tooltipWidth - pointerWidth / 2) + 'px';
           tooltip.style.top = String((targetHeight / 2) - (tooltipHeight / 2)) + 'px';
           break;
 
         case "right":
-        // hardcode 7px for pointerWidth since span has no width
-          tooltip.style.left = String(targetWidth + 7) + 'px';
+          tooltip.style.left = String(targetWidth + pointerWidth / 2) + 'px';
           tooltip.style.top = String((targetHeight / 2) - (tooltipHeight / 2)) + 'px';
       }
     }
@@ -186,7 +185,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
       props.onMouseLeave = chainFunctions(this.onHide, props.onMouseLeave);
       props.onFocus = chainFunctions(this.onShow, props.onFocus);
       props.onBlur = chainFunctions(this.onHide, props.onBlur);
-      props.onTouchEnd = this.state.showTooltip ? this.onHide : this.onShow;
+      props.onTouchEnd = this.state.isVisible ? this.onHide : this.onShow;
     }
     return props;
   }
@@ -242,7 +241,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
       return (
         <Tooltip
           ref={ (comp) => this._tooltip = comp }
-          showTooltip={ this.state.showTooltip }
+          isVisible={ this.state.isVisible }
           { ...this.pointerProps }>
           { this.props.tooltipMessage }
         </Tooltip>

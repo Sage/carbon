@@ -29,7 +29,7 @@ class TooltipDemo extends React.Component {
    */
   get demo() {
     return (
-      <div className='tooltip-demo'>
+      <div className='tooltip--demo'>
         <Tooltip
           pointerAlign={ this.value('pointerAlign') }
           pointerPosition={ this.value('pointerPosition') }
@@ -50,10 +50,10 @@ class TooltipDemo extends React.Component {
     html += '  showTooltip={ toggleTooltipHandler }\n';
 
     if (this.value('pointerAlign')){
-      html += '  pointerAlign="left"\n'
+      html += '  pointerAlign={ this.props.pointerAlign }\n'
     }
     if (this.value('pointerPosition')) {
-      html += '  pointerPosition="bottom"\n'
+      html += '  pointerPosition={ this.props.pointerPosition }\n'
     }
     html += '>\n'
     html += '  Tooltips are a fundamental part of the user experience.\n';
@@ -68,8 +68,8 @@ class TooltipDemo extends React.Component {
   get controls() {
     return(
       <div>
-        <Row className='props-row'>
-          <h5 className='row-label'>Tooltip Position</h5>
+        <Row className='row--props'>
+          <h5 className='row__label'>Tooltip Position</h5>
           <RadioButton
             label='Left'
             name='pointerPosition'
@@ -96,8 +96,8 @@ class TooltipDemo extends React.Component {
             value='right'
           />
         </Row>
-        <Row className='props-row'>
-          <h5 className='row-label'>Pointer Alignment</h5>
+        <Row className='row--props'>
+          <h5 className='row__label'>Pointer Alignment</h5>
           <RadioButton
             disabled={ this.value('pointerPosition') === 'right' || this.value('pointerPosition') === 'left'}
             label='Left'

@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from 'components/icon'
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
-import TooltipIDecorator from './tooltip-decorator';
+import TooltipDecorator from './tooltip-decorator';
 
 class BasicClass extends React.Component {
   onBlur = () => {
@@ -42,19 +42,19 @@ describe('tooltip-decorator', () => {
   let topTooltip, bottomTooltip, rightTooltip, leftTooltip, bottomAlignTooltip, noTooltip;
 
   beforeEach(() => {
-    let DecoratedClassOne = TooltipIDecorator(BasicClass);
+    let DecoratedClassOne = TooltipDecorator(BasicClass);
     topTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello'/>);
 
-    let DecoratedClassTwo = TooltipIDecorator(BasicClass);
+    let DecoratedClassTwo = TooltipDecorator(BasicClass);
     bottomTooltip = TestUtils.renderIntoDocument(<DecoratedClassTwo tooltipMessage='Hello' tooltipPosition='bottom'/>);
 
-    let DecoratedClassThree = TooltipIDecorator(BasicClass);
+    let DecoratedClassThree = TooltipDecorator(BasicClass);
     rightTooltip = TestUtils.renderIntoDocument(<DecoratedClassThree tooltipMessage='Hello' tooltipPosition='right'/>);
 
-    let DecoratedClassFour = TooltipIDecorator(BasicClass);
+    let DecoratedClassFour = TooltipDecorator(BasicClass);
     leftTooltip = TestUtils.renderIntoDocument(<DecoratedClassFour tooltipMessage='Hello' tooltipPosition='left'/>);
 
-    let DecoratedClassFive = TooltipIDecorator(BasicClass);
+    let DecoratedClassFive = TooltipDecorator(BasicClass);
     noTooltip = TestUtils.renderIntoDocument(<DecoratedClassFive/>);
 
     jasmine.clock().install();
@@ -73,7 +73,7 @@ describe('tooltip-decorator', () => {
       spyOn(topTooltip, 'setState');
       topTooltip.onShow();
       jasmine.clock().tick(300);
-      expect(topTooltip.setState).toHaveBeenCalledWith({ showTooltip: true });
+      expect(topTooltip.setState).toHaveBeenCalledWith({ isVisible: true });
     });
 
     it('calls positionTooltip after a timeout', () => {
@@ -87,7 +87,14 @@ describe('tooltip-decorator', () => {
     it('hides the tooltip', () => {
       spyOn(topTooltip, 'setState');
       topTooltip.onHide();
-      expect(topTooltip.setState).toHaveBeenCalledWith({ showTooltip: false });
+      expect(topTooltip.setState).toHaveBeenCalledWith({ isVisible: false });
+    });
+
+    it('clears the timeout', () => {
+      jasmine.clock().uninstall();
+      spyOn(window, 'clearTimeout');
+      topTooltip.onHide();
+      expect(window.clearTimeout).toHaveBeenCalledWith(topTooltip.timeout);
     });
   });
 
@@ -138,7 +145,7 @@ describe('tooltip-decorator', () => {
         jasmine.clock().tick(300);
         let positionedTooltip = topTooltip.getTooltip()
         expect(positionedTooltip.style.left).toEqual('-35px');
-        expect(positionedTooltip.style.top).toEqual('-53.5px');
+        expect(positionedTooltip.style.top).toEqual('-57.5px');
       });
     });
 
@@ -172,7 +179,7 @@ describe('tooltip-decorator', () => {
         jasmine.clock().tick(300);
         let positionedTooltip = bottomTooltip.getTooltip()
         expect(positionedTooltip.style.left).toEqual('-35px');
-        expect(positionedTooltip.style.bottom).toEqual('-53.5px');
+        expect(positionedTooltip.style.bottom).toEqual('-57.5px');
       });
     });
 
@@ -205,7 +212,7 @@ describe('tooltip-decorator', () => {
         rightTooltip.onShow();
         jasmine.clock().tick(300);
         let positionedTooltip = rightTooltip.getTooltip()
-        expect(positionedTooltip.style.left).toEqual('37px');
+        expect(positionedTooltip.style.left).toEqual('37.5px');
         expect(positionedTooltip.style.top).toEqual('-10px');
       });
     });
@@ -239,12 +246,12 @@ describe('tooltip-decorator', () => {
         leftTooltip.onShow();
         jasmine.clock().tick(300);
         let positionedTooltip = leftTooltip.getTooltip()
-        expect(positionedTooltip.style.left).toEqual('-107px');
+        expect(positionedTooltip.style.left).toEqual('-107.5px');
         expect(positionedTooltip.style.top).toEqual('-10px');
       });
     });
 
-    describe('when showTooltip is set to false', () => {
+    describe('when isVisible is set to false', () => {
       it('does not try to position the tooltip', () => {
         spyOn(topTooltip, 'getTooltip');
         topTooltip.onHide();
@@ -291,11 +298,11 @@ describe('tooltip-decorator', () => {
       spyOn(topTooltip, 'onShow');
       spyOn(topTooltip, 'onHide');
 
-      topTooltip.setState({ showTooltip: true });
+      topTooltip.setState({ isVisible: true });
       topTooltip.componentProps.onTouchEnd();
       expect(topTooltip.onHide).toHaveBeenCalled();
 
-      topTooltip.setState({ showTooltip: false });
+      topTooltip.setState({ isVisible: false });
       topTooltip.componentProps.onTouchEnd();
       expect(topTooltip.onShow).toHaveBeenCalled();
     });

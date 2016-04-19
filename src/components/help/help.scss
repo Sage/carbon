@@ -1,6 +1,17 @@
-.ui-help--inline {
+@import 'colors';
+
+.ui-help {
+  color: $grey-dark-blue-70;
   display: inline;
   margin-left: 5px;
   position: absolute;
-  top: 6px;
+  top: -1px;
+}
+
+.ui-help__href {
+  color: $blue;
+
+  &:hover {
+    color: $blue-dark;
+  }
 }
