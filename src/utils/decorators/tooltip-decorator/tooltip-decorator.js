@@ -4,19 +4,19 @@ import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
 
 /**
- * ToolTipDecorator.
+ * TooltipDecorator.
  *
  * This decorator attaches a tooltip to a component.
  *
- * == How to use ToolTip decorator in a component:
+ * == How to use Tooltip decorator in a component:
  *
  * In your file:
  *
- *   import ToolTipDecorator from 'carbon/lib/utils/decorators/tooltip-decorator';
+ *   import TooltipDecorator from 'carbon/lib/utils/decorators/tooltip-decorator';
  *
  * To use the decorator, wrap your component with it:
  *
- *   const MyComponent = ToolTipDecorator(
+ *   const MyComponent = TooltipDecorator(
  *   class MyComponent extends React.Component {
  *     ...
  *   });
@@ -47,8 +47,16 @@ import ReactDOM from 'react-dom';
  *   );
  * }
  *
+ * To activate the tooltip, you must pass a prop of 'tooltipMessage' with some text content.
  *
- * @method ToolTipDecorator
+ * render() {
+ *   return (
+ *     <MyComponent tooltipMessage='Some Helpful Content' />
+ *   )
+ * }
+ *
+ *
+ * @method TooltipDecorator
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */

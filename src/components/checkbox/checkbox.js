@@ -2,6 +2,7 @@ import React from 'react';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
+import HelpDecorator from './../../utils/decorators/help-decorator';
 
 /**
  * A checkbox widget.
@@ -20,7 +21,7 @@ import InputValidation from './../../utils/decorators/input-validation';
  * @constructor
  * @decorators {Input,InputLabel,InputValidation}
  */
-const Checkbox = Input(InputLabel(InputValidation(
+const Checkbox = Input(InputLabel(InputValidation(HelpDecorator(
 class Checkbox extends React.Component {
 
   static propTypes = {
@@ -172,11 +173,12 @@ class Checkbox extends React.Component {
         { this.inputHTML }
         { labelRight }
         { this.validationHTML }
+        { this.helpHTML }
       </div>
     );
   }
 }
-)));
+))));
 
 
 export default Checkbox;

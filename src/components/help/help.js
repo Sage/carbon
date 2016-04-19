@@ -48,9 +48,21 @@ const Help = TooltipIDecorator(class Help extends React.Component{
      * @type {String} Options: { top, bottom, right, left, center }
      * @default center
      */
-    pointerAlign: React.PropTypes.string
+    pointerAlign: React.PropTypes.string,
+
+    /**
+     * Whether to display the help component inline
+     *
+     * @property inline
+     * @type {Boolean}
+     * @default false
+     */
+    inline: React.PropTypes.bool
   };
 
+  static defaultProps = {
+    inline: false
+  }
   /**
    * Return component classes
    *
@@ -60,6 +72,7 @@ const Help = TooltipIDecorator(class Help extends React.Component{
   get mainClasses() {
     return classNames(
       'ui-help',
+      {'ui-help--inline': this.props.inline },
       this.props.className
     );
   }
@@ -75,7 +88,7 @@ const Help = TooltipIDecorator(class Help extends React.Component{
       <div className={ this.mainClasses }>
         <Icon
           type='info'
-          helpMessage={ this.props.helpMessage }
+          tooltipMessage={ this.props.helpMessage }
           tooltipPosition={ this.props.tooltipPosition }
           pointerAlign={ this.props.pointerAlign } />
       </div>

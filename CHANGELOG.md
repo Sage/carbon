@@ -31,6 +31,7 @@
 ## New Decorators
 
 * Tooltip Decorator - currently available on Icon and Textbox.
+* Help Decorator - adds an inline help component, currently available on checkbox.
 
 ## Bug Fixes
 
