@@ -1,9 +1,10 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Checkbox from './checkbox';
+import Help from './../help';
 
 describe('Checkbox', () => {
-  let instance;
+  let instance, helpInstance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -11,10 +12,18 @@ describe('Checkbox', () => {
         name='checkbox'
         label='checkbox'
       />
-    )
+    );
+
+    helpInstance = TestUtils.renderIntoDocument(
+      <Checkbox
+        name='checkbox'
+        label='checkbox'
+        helpMessage='Helpful Content'
+      />
+    );
   });
 
-  describe('render', () => {
+  fdescribe('render', () => {
     it('renders a parent div with a pod CSS class', () => {
       let checkboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(checkboxNode.classList[0]).toEqual('ui-checkbox');
@@ -37,6 +46,11 @@ describe('Checkbox', () => {
       let checkbox = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
       expect(checkbox.type).toEqual('hidden');
       expect(checkbox.value).toEqual('0');
+    });
+
+    it('renders a help component if a helpMessage is passed', () => {
+      let helpedCheckbox = TestUtils.findRenderedComponentWithType(helpInstance, Help);
+      expect(helpedCheckbox).toBeDefined();
     });
   });
 

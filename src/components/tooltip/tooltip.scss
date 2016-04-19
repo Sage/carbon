@@ -1,0 +1,141 @@
+@import 'colors';
+@import 'general';
+@import 'mixins';
+
+.ui-tooltip {
+  background-color: $grey-dark;
+  border-radius: 4px;
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.15);
+  color: $white;
+  max-width: 960px;
+  min-width: 100px;
+  padding: 10px 7px;
+  position: absolute;
+  text-align: center;
+}
+
+.ui-tooltip__pointer {
+  height: 12px !important; // overrides the arrow mixin
+  position: absolute;
+}
+
+.ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-top {
+  @include calc(left, "50% - #{$app-tooltip-pointer-size}");
+  top: -14px;
+
+  &:before {
+    @include arrow(up, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
+
+.ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-bottom {
+  @include calc(left, "50% - #{$app-tooltip-pointer-size}");
+  bottom: -12px;
+
+  &:before {
+    @include arrow(down, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
+
+.ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-top {
+  top: -14px;
+  left: 1%;
+
+  &:before {
+    @include arrow(up, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
+
+.ui-tooltip__pointer--align-left.ui-tooltip__pointer--position-bottom {
+  left: 1%;
+  bottom: -12px;
+
+
+  &:before {
+    @include arrow(down, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
+
+.ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-top {
+  top: -14px;
+  right: 5%;
+
+  &:before {
+    @include arrow(up, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
+
+.ui-tooltip__pointer--align-right.ui-tooltip__pointer--position-bottom {
+  right: 5%;
+  bottom: -12px;
+
+  &:before {
+    @include arrow(down, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
+
+.ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-right {
+  @include calc(top, "50% - #{$app-tooltip-pointer-size}");
+  right: 0px;
+
+  &:before {
+    @include arrow(right, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
+
+.ui-tooltip__pointer--align-center.ui-tooltip__pointer--position-left {
+  @include calc(top, "50% - #{$app-tooltip-pointer-size}");
+  left: -15px;
+
+  &:before {
+    @include arrow(left, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
+
+.ui-tooltip__pointer--align-top.ui-tooltip__pointer--position-right {
+  right: 0px;
+  top: 7%;
+
+  &:before {
+    @include arrow(right, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
+
+.ui-tooltip__pointer--align-bottom.ui-tooltip__pointer--position-left {
+  left: -15px;
+  bottom: 13%;
+
+  &:before {
+    @include arrow(left, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
+
+.ui-tooltip__pointer--align-bottom.ui-tooltip__pointer--position-right {
+  right: 0px;
+  bottom: 13%;
+
+  &:before {
+    @include arrow(right, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
+
+.ui-tooltip__pointer--align-top.ui-tooltip__pointer--position-left {
+  left: -15px;
+  top: 7%;
+
+  &:before {
+    @include arrow(left, $app-tooltip-pointer-size, $grey-dark);
+    position: absolute;
+  }
+}
