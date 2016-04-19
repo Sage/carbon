@@ -2,6 +2,7 @@ import React from 'react';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
+import Ether from './../../ether/ether.js';
 
 /**
  * TooltipDecorator.
@@ -77,11 +78,11 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
     /**
      * Whether tooltip currently showing
      *
-     * @property showTooltip
+     * @property isVisible
      * @type {Boolean}
      * @default false
      */
-    showTooltip: false
+    isVisible: false
   };
 
   /**
@@ -92,8 +93,8 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    */
   onShow = () => {
     this.timeout = setTimeout(() => {
-      this.setState({ showTooltip: true });
-      this.positionTooltip();
+      this.setState({ isVisible: true });
+      this.positionTooltip(this.getTooltip(), this.getTarget());
     }, 300 );
   };
 
@@ -105,7 +106,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    */
   onHide = () => {
     clearTimeout(this.timeout);
-    this.setState({ showTooltip: false });
+    this.setState({ isVisible: false });
   };
 
   /**
@@ -134,40 +135,36 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @method positionTooltip
    * @return {Void}
    */
-  positionTooltip = () => {
-    if (this.state.showTooltip) {
-      let target  = this.getTarget(),
-          tooltip = this.getTooltip(),
-          pointer = tooltip.children[1];
+  positionTooltip = (element, target) => {
+    if (Ether.isVisible(this)) {
+      let pointer = Ether.nthChild(element, 1);
 
-      let position      = this.props.tooltipPosition || 'top',
-          tooltipWidth  = tooltip.offsetWidth,
-          tooltipHeight = tooltip.offsetHeight,
-          pointerHeight = pointer.offsetHeight,
-          targetWidth   = target.offsetWidth,
-          targetHeight  = target.offsetHeight;
+      let verticalCenter     = -element.offsetHeight - pointer.offsetHeight / 2,
+          horizontalCenter   = -element.offsetWidth / 2 + target.offsetWidth / 2,
+          sideVerticalCenter = target.offsetHeight / 2 - element.offsetHeight / 2;
 
-      switch (position) {
-        case "top":
-          tooltip.style.top = String(-tooltipHeight - pointerHeight / 2) + 'px';
-          tooltip.style.left = String(-tooltipWidth / 2 + targetWidth / 2) + 'px';
-          break;
+    switch (this.props.tooltipPosition) {
+      case "bottom":
+        Ether.styleElement(element, 'bottom', Ether.buildPixelValue(verticalCenter));
+        Ether.styleElement(element, 'left', Ether.buildPixelValue(horizontalCenter));
+        break;
 
-        case "bottom":
-          tooltip.style.bottom = String(-tooltipHeight - pointerHeight / 2) + 'px';
-          tooltip.style.left = String(-tooltipWidth / 2 + targetWidth / 2) + 'px';
-          break;
-
-        case "left":
-          // hardcode 7px for pointerWidth since span has no width
-          tooltip.style.left = String(-tooltipWidth - 7) + 'px';
-          tooltip.style.top = String((targetHeight / 2) - (tooltipHeight / 2)) + 'px';
-          break;
-
-        case "right":
+      case "left":
+        Ether.styleElement(element, 'top', Ether.buildPixelValue(sideVerticalCenter));
         // hardcode 7px for pointerWidth since span has no width
-          tooltip.style.left = String(targetWidth + 7) + 'px';
-          tooltip.style.top = String((targetHeight / 2) - (tooltipHeight / 2)) + 'px';
+        Ether.styleElement(element, 'left', element.offsetWidth - 7);
+        break;
+
+      case "right":
+        Ether.styleElement(element, 'top', Ether.buildPixelValue(sideVerticalCenter));
+        // hardcode 7px for pointerWidth since span has no width
+        Ether.styleElement(element, 'left', target.offsetWidth + 7);
+        break;
+
+      default:
+      // top
+        Ether.styleElement(element, 'top', Ether.buildPixelValue(verticalCenter));
+        Ether.styleElement(element, 'left', Ether.buildPixelValue(horizontalCenter));
       }
     }
   };
@@ -186,7 +183,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
       props.onMouseLeave = chainFunctions(this.onHide, props.onMouseLeave);
       props.onFocus = chainFunctions(this.onShow, props.onFocus);
       props.onBlur = chainFunctions(this.onHide, props.onBlur);
-      props.onTouchEnd = this.state.showTooltip ? this.onHide : this.onShow;
+      props.onTouchEnd = this.state.isVisible ? this.onHide : this.onShow;
     }
     return props;
   }
@@ -242,7 +239,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
       return (
         <Tooltip
           ref={ (comp) => this._tooltip = comp }
-          showTooltip={ this.state.showTooltip }
+          isVisible={ this.state.isVisible }
           { ...this.pointerProps }>
           { this.props.tooltipMessage }
         </Tooltip>
