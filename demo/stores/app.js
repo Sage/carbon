@@ -12,6 +12,10 @@ let data = ImmutableHelper.parseJSON({
   collapsible_pod: {
     title: 'Hello World!'
   },
+  content: {
+    title: 'Example Content',
+    body: 'This is some example content\nfor the Content component.'
+  },
   dialog: {
     open: false,
     title: 'Hello World!',
