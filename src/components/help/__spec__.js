@@ -9,19 +9,19 @@ describe('Help', () => {
 
   beforeEach(() => {
     basicInstance = TestUtils.renderIntoDocument(
-      <Help tooltipMessage="Helpful Content" />
+      <Help helpMessage="Helpful Content" />
     );
 
     positionedInstance = TestUtils.renderIntoDocument(
-      <Help tooltipMessage="Helpful Content" tooltipPosition='right' />
+      <Help helpMessage="Helpful Content" tooltipPosition='right' />
     );
 
     alignedInstance = TestUtils.renderIntoDocument(
-      <Help tooltipMessage="Helpful Content" pointerAlign='left' />
+      <Help helpMessage="Helpful Content" pointerAlign='left' />
     );
 
     customStyleInstance = TestUtils.renderIntoDocument(
-      <Help tooltipMessage="Helpful Content" className='fancy-pants' />
+      <Help helpMessage="Helpful Content" className='fancy-pants' />
     );
   });
 
@@ -52,8 +52,8 @@ describe('Help', () => {
       expect(icon.props.type).toEqual('info');
     });
 
-    it('passes the tooltipMessage as a prop', () => {
-      expect(icon.props.tooltipMessage).toEqual('Helpful Content');
+    it('passes the helpMessage as a prop', () => {
+      expect(icon.props.helpMessage).toEqual('Helpful Content');
     });
 
     it('passes the tooltipPosition if provided', () => {

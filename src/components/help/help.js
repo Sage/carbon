@@ -13,7 +13,7 @@ import TooltipIDecorator from './../../utils/decorators/tooltip-decorator';
  *
  * To render a help component:
  *
- *   <Help tooltipMessage={ this.props.tooltipMessage } />
+ *   <Help helpMessage={ this.props.helpMessage } />
  *
  *  You can also pass additional props of tooltipPosition and pointerAlign.
  *
@@ -25,15 +25,15 @@ const Help = TooltipIDecorator(class Help extends React.Component{
 
   static propTypes = {
     /**
-     * Sets the checked state of the checkbox
+     * Message to display in tooltip
      *
-     * @property defaultChecked
+     * @property helpMessage
      * @type {String}
      */
-    tooltipMessage: React.PropTypes.string.isRequired,
+    helpMessage: React.PropTypes.string.isRequired,
 
     /**
-     * Position of tooltip relative to
+     * Position of tooltip relative to target
      *
      * @property tooltipPosition
      * @type {String} Options: { top, bottom, right, left }
@@ -88,7 +88,7 @@ const Help = TooltipIDecorator(class Help extends React.Component{
       <div className={ this.mainClasses }>
         <Icon
           type='info'
-          tooltipMessage={ this.props.tooltipMessage }
+          helpMessage={ this.props.helpMessage }
           tooltipPosition={ this.props.tooltipPosition }
           pointerAlign={ this.props.pointerAlign } />
       </div>
