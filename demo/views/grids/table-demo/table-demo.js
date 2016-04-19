@@ -72,6 +72,7 @@ class TableDemo extends React.Component {
           totalRecords={ this.value('total_records') }
           sortOrder={ this.value('sort_order') }
           sortedColumn={ this.value('sorted_column') }
+          tableHeader={ this.tableHeaderRow }
         >
           { this.tableRows }
         </Table>
@@ -239,13 +240,10 @@ class TableDemo extends React.Component {
   }
 
   /**
-   * @method tableRows
+   * @method tableHeaderRow
    */
-  get tableRows() {
-    let data = this.state.appStore.getIn(['table', 'data']),
-        rows = [];
-
-    rows.push(
+  get tableHeaderRow() {
+    return(
       <TableRow key="header">
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
@@ -255,15 +253,22 @@ class TableDemo extends React.Component {
         </TableHeader>
       </TableRow>
     );
+  }
 
-    return rows.concat(data.map((row, index) => {
+  /**
+   * @method tableRows
+   */
+  get tableRows() {
+    let data = this.state.appStore.getIn(['table', 'data']);
+
+    return data.map((row, index) => {
       return (
         <TableRow key={ index }>
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
         </TableRow>
       );
-    }));
+    });
   }
 
   /**
