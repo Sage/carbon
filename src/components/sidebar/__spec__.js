@@ -27,7 +27,7 @@ describe('Sidebar', () => {
         onClose={ spy }
         open={ true }
         position='left'
-        disableBackground={ false }
+        enableBackgroundUI={ true }
       />
     );
   });
@@ -77,7 +77,7 @@ describe('Sidebar', () => {
   describe('closeSidebar', () => {
     describe('when the esc key is released', () => {
       it('calls the cancel sidebar handler', () => {
-        instance.closeSidebar({ keyCode: 27 });
+        instance.closeSidebar({ which: 27 });
         expect(spy).toHaveBeenCalled();
       });
     });
@@ -111,13 +111,13 @@ describe('Sidebar', () => {
   });
 
   describe('backgroundHTML', () => {
-    describe('when disableBackground is true', () => {
+    describe('when enableBackgroundUI is false', () => {
       it('returns a background div', () => {
         expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-sidebar__background')).toBeTruthy();
       });
     });
 
-    describe('when disableBackground is false', () => {
+    describe('when enableBackgroundUI is true', () => {
       it('returns null', () => {
         expect(leftInstance.backgroundHTML).toBeFalsy();
       });

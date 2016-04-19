@@ -3,6 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import SidebarHeader from './sidebar-header';
 import Icon from './../icon';
 import classNames from 'classnames';
+import Events from './../../utils/helpers/events';
 
 /**
  * A Sidebar widget.
@@ -24,7 +25,7 @@ import classNames from 'classnames';
  * To position the sidebar on the left hand side pass `position='left'` to the component.
  *
  * The background behind the sidebar is disabled by default. To allow the user to interact
- * with all the UI pass `disableBackground={ false }` to the component
+ * with all the UI pass `enableBackgroundUI={ true}` to the component
  *
  * @class Sidebar
  * @constructor
@@ -53,14 +54,14 @@ class Sidebar extends React.Component {
     open: React.PropTypes.bool,
 
     /**
-     * Determines if the background is disabled
-     * when the sidebar is open
+     * Determines if the user can interact with
+     * the background ui when the sidebar is open
      *
-     * @property disableBackground
+     * @property enableBackgroundUI
      * @type {Boolean}
-     * @default true
+     * @default false
      */
-    disableBackground: React.PropTypes.bool,
+    enableBackgroundUI: React.PropTypes.bool,
 
     /**
      * Determines the position of the sidebar
@@ -75,7 +76,7 @@ class Sidebar extends React.Component {
 
   static defaultProps = {
     open: false,
-    disableBackground: true,
+    enableBackgroundUI: false,
     position: 'right'
   }
 
@@ -87,8 +88,10 @@ class Sidebar extends React.Component {
    */
   componentDidUpdate() {
     if (this.props.open && !this.listening) {
+      this.listening == true;
       window.addEventListener('keyup', this.closeSidebar);
     } else if (!this.props.open) {
+      this.listening == false;
       window.removeEventListener('keyup', this.closeSidebar);
     }
   }
@@ -101,7 +104,7 @@ class Sidebar extends React.Component {
    * @return {void}
    */
   closeSidebar = (ev) => {
-    if (ev.keyCode === 27) {
+    if (Events.isEscKey(ev)) {
       this.props.onClose();
     }
   }
@@ -140,7 +143,7 @@ class Sidebar extends React.Component {
    * @return {Object} JSX
    */
   get backgroundHTML() {
-    if (this.props.disableBackground) {
+    if (!this.props.enableBackgroundUI) {
       return <div onClick={ this.props.onClose } className="ui-sidebar__background"></div>;
     }
   }

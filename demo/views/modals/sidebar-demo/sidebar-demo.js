@@ -56,7 +56,7 @@ class SidebarDemo extends React.Component {
         <Sidebar
           open={ this.value('open') }
           onClose={ this.action.bind(this, 'open', { target: { value: false } } ) }
-          disableBackground={ this.value('disableBackground') }
+          enableBackgroundUI={ this.value('enableBackgroundUI') }
           position={ position }
         >
           <SidebarHeader>
@@ -76,8 +76,8 @@ class SidebarDemo extends React.Component {
     html += "<Sidebar\n";
     html += `  open={ ${ this.value('open') } }\n`
 
-    if (!this.value('disableBackground')) {
-      html += `  disableBackground={ false }\n`
+    if (!this.value('enableBackgroundUI')) {
+      html += `  enableBackgroundUI={ false }\n`
     }
 
     if (this.value('positionLeft')) {
@@ -96,10 +96,10 @@ class SidebarDemo extends React.Component {
       <div>
         <Row>
           <Checkbox
-            label="Disable Background"
-            value={ this.value('disableBackground') }
+            label="Enable Background UI"
+            value={ this.value('enableBackgroundUI') }
             reverse={ true }
-            onChange={ this.action.bind(this, 'disableBackground') }
+            onChange={ this.action.bind(this, 'enableBackgroundUI') }
           />
           <Checkbox
             label="Position Left"
