@@ -23,7 +23,7 @@ describe('Checkbox', () => {
     );
   });
 
-  describe('render', () => {
+  fdescribe('render', () => {
     it('renders a parent div with a pod CSS class', () => {
       let checkboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(checkboxNode.classList[0]).toEqual('ui-checkbox');

@@ -53,7 +53,7 @@ describe('Help', () => {
     });
 
     it('passes the helpMessage as a prop', () => {
-      expect(icon.props.helpMessage).toEqual('Helpful Content');
+      expect(icon.props.tooltipMessage).toEqual('Helpful Content');
     });
 
     it('passes the tooltipPosition if provided', () => {

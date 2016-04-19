@@ -23,7 +23,7 @@ import Help from './../../../components/help';
  *
  * render() {
  *   return (
- *     <MyComponent tooltipMessage='Some Helpful Content' />
+ *     <MyComponent helpMessage='Some Helpful Content' />
  *   )
  * }
  *
@@ -44,7 +44,7 @@ let HelpDecorator = (ComposedComponent) => class Component extends ComposedCompo
    * @return {Object} JSX for help
    */
   get helpHTML() {
-    if (this.props.tooltipMessage) {
+    if (this.props.helpMessage) {
       return (
         <Help
           className='ui-help--inline'

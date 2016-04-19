@@ -88,7 +88,7 @@ const Help = TooltipIDecorator(class Help extends React.Component{
       <div className={ this.mainClasses }>
         <Icon
           type='info'
-          helpMessage={ this.props.helpMessage }
+          tooltipMessage={ this.props.helpMessage }
           tooltipPosition={ this.props.tooltipPosition }
           pointerAlign={ this.props.pointerAlign } />
       </div>
