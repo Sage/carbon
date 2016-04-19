@@ -3,7 +3,7 @@
 ## Improvements
 
 * Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
-* Add `tableHeader` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
+* Add `thead` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
 
 ## New Components
 
