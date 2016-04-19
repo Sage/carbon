@@ -13,6 +13,7 @@ describe('Row', () => {
         <Row className="foobar">
           <div columnOffset={2}>Foo</div>
           <div columnSpan={3}>Bar</div>
+          { null }
           <div columnClasses='extra-class'>Bar</div>
           <div columnAlign='center'>Bar</div>
         </Row>
