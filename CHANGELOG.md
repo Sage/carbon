@@ -3,10 +3,12 @@
 ## Improvements
 
 * Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
+* Add `thead` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
 
 ## New Components
 
 * Portrait
+* Content
 * Tile - an alternative to Pod, with a drop shadow.
 * Help - An info icon with a tooltip.
 * Tooltip
@@ -15,8 +17,11 @@
 
 * Row margin has been reduced to `15px`.
 * Pod component now receives two additional props:
+
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
+
+* Pill style has changed
 
 ## Improved Dialog
 
@@ -25,6 +30,7 @@
 ## Misc
 
 * Allow Tables to shrink in size using the `shrink` prop.
+* Link component can now display with an icon.
 * Child components of Row can now use a `columnAlign` prop.
 
 
@@ -35,6 +41,7 @@
 ## Bug Fixes
 
 * Fixes alignment issue with SplitButton when using anchors.
+* Row component will not break with children of `null` or `undefined`.
 
 # 0.7.1
 
