@@ -76,9 +76,12 @@ class Dialog extends Modal {
   }
 
   /**
+   * Called by ComponentDidUpdate when
+   * Dialog is opened
    * @override
    *
-   *
+   * @method onOpening
+   * @return {Void}
    */
   get onOpening() {
     this.centerDialog();
@@ -86,9 +89,12 @@ class Dialog extends Modal {
   }
 
   /**
+   * Called by ComponentDidUpdate when
+   * Dialog is closed
    * @override
    *
-   *
+   * @method onClosing
+   * @return {Void}
    */
   get onClosing() {
     window.removeEventListener('resize', this.centerDialog);
@@ -195,6 +201,12 @@ class Dialog extends Modal {
     );
   }
 
+  /**
+   * Transisiton group name
+   *
+   * @method transitionName
+   * @return {String}
+   */
   get transitionName() {
     return 'dialog';
   }

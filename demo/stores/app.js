@@ -64,8 +64,7 @@ let data = ImmutableHelper.parseJSON({
     columnData: [{}, {}, {}, {}]
   },
   sidebar: {
-    open: false,
-    disableBackground: true
+    open: false
   },
   spinner: {
     as: 'info',

@@ -2,6 +2,36 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Events from './../../utils/helpers/events';
 
+/**
+ * A Modal Component
+ *
+ * Abstract base class for all modals
+ *
+ * == How to use a Modal in a component
+ *
+ * In your file
+ *
+ *   import Modal from 'carbon/lib/components/modal'
+ *
+ * Extends from the modal
+ *
+ *   class MyModal extends Modal
+ *
+ * Override several methods
+ *
+ * get onOpening() // Called by componentDidUpdate when dialog opens
+ * get onClosing() // Called by componentDidUpdate when dialog closes
+ * get mainClasses() // Classes to apply to parent div
+ * get modalHTML() // JSX displayed when open
+ * get transitionName() // Transisition name for ReactCSSTransitionGroup
+ *
+ * Optional Override
+ * get backgroundTransitionName() // Transisition name for background fade
+ *
+ *
+ * @class Modal
+ * @constructor
+ */
 class Modal extends React.Component {
 
   listening = false;
