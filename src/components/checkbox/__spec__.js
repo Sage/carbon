@@ -18,7 +18,7 @@ describe('Checkbox', () => {
       <Checkbox
         name='checkbox'
         label='checkbox'
-        tooltipMessage='Helpful Content'
+        helpMessage='Helpful Content'
       />
     );
   });
@@ -48,7 +48,7 @@ describe('Checkbox', () => {
       expect(checkbox.value).toEqual('0');
     });
 
-    it('renders a help component if a tooltipMessage is passed', () => {
+    it('renders a help component if a helpMessage is passed', () => {
       let helpedCheckbox = TestUtils.findRenderedComponentWithType(helpInstance, Help);
       expect(helpedCheckbox).toBeDefined();
     });
