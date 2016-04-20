@@ -1,5 +1,7 @@
 import React from 'react';
+import TestUtils from 'react/lib/ReactTestUtils';
 import InputLabel from './input-label';
+import Help from 'components/help';
 
 class BasicClass {
   props = {
@@ -101,10 +103,24 @@ class LabelHelpClass {
   };
 }
 
+class HelpClass extends React.Component {
+  context = {
+    form: {
+      model: 'model_1'
+    }
+  };
+
+  render() {
+    return (
+      <div name='foo' helpMessage={ this.props.helpMessage } label='test label' />
+    );
+  }
+}
+
 describe('InputLabel', () => {
   let instanceBasic, instanceFalse, instanceUnNamed,
       instanceValidation, instanceAltValidation, instanceNameless,
-      instanceLabelHelp;
+      instanceLabelHelp, instanceHelp;
 
   beforeEach(() => {
     let ExtendedClassOne = InputLabel(BasicClass);
@@ -127,6 +143,9 @@ describe('InputLabel', () => {
 
     let ExtendedClassSeven = InputLabel(LabelHelpClass);
     instanceLabelHelp = new ExtendedClassSeven();
+
+    let ExtendedClassEight = InputLabel(HelpClass);
+    instanceHelp = TestUtils.renderIntoDocument(<ExtendedClassEight helpMessage='Some Helpful Content'/>);
   });
 
   describe('labelHTML', () => {
@@ -145,27 +164,27 @@ describe('InputLabel', () => {
     describe('when no label is provided', () => {
       it('titleizes the name to provide the label text', () => {
         let label = instanceUnNamed.labelHTML;
-        expect(label.props.children).toEqual('Bar Qux');
+        expect(label.props.children).toMatch('Bar Qux');
       });
     });
 
     describe('when the input has a label', () => {
       it('sets the labelText to the passed in label', () => {
         let label = instanceBasic.labelHTML;
-        expect(label.props.children).toEqual('test label');
+        expect(label.props.children).toMatch('test label');
       });
 
       describe('when the input has a validation with asterisk enabled', () => {
         it('adds additional symbols to the label', () => {
           let label = instanceValidation.labelHTML;
-          expect(label.props.children).toEqual('Validate Label*');
+          expect(label.props.children).toMatch('Validate Label*');
         });
       });
 
       describe('when the input does not have a validation with asterisk enabled', () => {
         it('does not add additional symbols to the label', () => {
           let label = instanceAltValidation.labelHTML;
-          expect(label.props.children).toEqual('Validate Label');
+          expect(label.props.children).toMatch('Validate Label');
         });
       });
     });
@@ -176,6 +195,15 @@ describe('InputLabel', () => {
       });
     });
   });
+
+  describe('helpHTML', () => {
+    describe('when a helpmessage is provided', () => {
+      it('renders a help component', () => {
+        let help = instanceHelp.helpHTML;
+        expect(help.props.helpMessage).toEqual('Some Helpful Content');
+      });
+    });
+  })
 
   describe('labelHelpHTML', () => {
     describe('when label help is provided', () => {

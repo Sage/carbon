@@ -32,11 +32,7 @@ class Textbox extends React.Component {
    * @return {void}
    */
   get mainClasses() {
-    return classNames(
-      'ui-textbox',{
-        'ui-textbox__help--inner': !this.props.label
-      }
-    );
+    return 'ui-textbox';
   }
 
   /**
@@ -81,7 +77,6 @@ class Textbox extends React.Component {
            ref={ (comp) => this._target = comp }>
         { this.tooltipHTML }
         { this.labelHTML }
-        { this.helpHTML }
         { this.inputHTML }
         { this.validationHTML }
         { this.labelHelpHTML }

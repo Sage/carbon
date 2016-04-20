@@ -250,12 +250,7 @@ class Decimal extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return classNames(
-      'ui-decimal',
-      this.props.className, {
-        'ui-decimal__help--inner': !this.props.label && this.props.helpMessage
-      }
-    );
+    return 'ui-decimal';
   }
 
   /**
@@ -279,7 +274,6 @@ class Decimal extends React.Component {
       <div className={ this.mainClasses }>
 
         { this.labelHTML }
-        { this.helpHTML }
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { this.validationHTML }

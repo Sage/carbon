@@ -33,9 +33,8 @@ class Number extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-number', {
-        'ui-number__help--inner': !this.props.label
-      }
+      'ui-number',
+      this.props.className
     );
   }
 
@@ -111,7 +110,6 @@ class Number extends React.Component {
       <div className={ this.mainClasses }>
 
         { this.labelHTML }
-        { this.helpHTML }
         { this.inputHTML }
         { this.validationHTML }
 

@@ -4,21 +4,13 @@ import Checkbox from './checkbox';
 import Help from './../help';
 
 describe('Checkbox', () => {
-  let instance, helpInstance;
+  let instance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Checkbox
         name='checkbox'
         label='checkbox'
-      />
-    );
-
-    helpInstance = TestUtils.renderIntoDocument(
-      <Checkbox
-        name='checkbox'
-        label='checkbox'
-        helpMessage='Helpful Content'
       />
     );
   });
@@ -46,11 +38,6 @@ describe('Checkbox', () => {
       let checkbox = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
       expect(checkbox.type).toEqual('hidden');
       expect(checkbox.value).toEqual('0');
-    });
-
-    it('renders a help component if a helpMessage is passed', () => {
-      let helpedCheckbox = TestUtils.findRenderedComponentWithType(helpInstance, Help);
-      expect(helpedCheckbox).toBeDefined();
     });
   });
 

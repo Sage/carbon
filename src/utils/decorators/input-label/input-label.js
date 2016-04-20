@@ -1,6 +1,7 @@
 import React from 'react';
 import { find, startCase, assign } from 'lodash';
 import classNames from 'classnames';
+import Help from './../../../components/help';
 
 /**
  * InputLabel decorator.
@@ -127,10 +128,33 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
         className={ this.labelClasses }
         htmlFor={ this.inputProps.id }>
         { labelText }
+        { this.helpHTML }
       </label>
     );
   }
 
+  /**
+   * Supplies the HTML for help component
+   *
+   * @method helpHTML
+   * @return {Object} JSX for help
+   */
+  get helpHTML() {
+    if (this.props.helpMessage) {
+      return (
+        <Help
+          { ...this.props }>
+        </Help>
+      );
+    }
+  }
+
+  /**
+   * Supplies the HTML label help
+   *
+   * @method labelHelpHTML
+   * @return {Object} JSX for label help
+   */
   get labelHelpHTML() {
     if (this.props.labelHelp) {
       return (

@@ -311,12 +311,6 @@ describe('Decimal', () => {
         let input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
         expect(input.type).toEqual('hidden');
       });
-
-      it('adds a class if help component is present with no label', () => {
-        let helpInstance = TestUtils.renderIntoDocument(<Decimal name="total" helpMessage="Help"/>);
-        let div = TestUtils.scryRenderedDOMComponentsWithTag(helpInstance, 'div')[0];
-        expect(div.classList).toMatch('ui-decimal__help--inner');
-      });
     });
   });
 });
