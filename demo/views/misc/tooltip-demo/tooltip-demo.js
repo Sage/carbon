@@ -8,6 +8,7 @@ import Example from './../../../components/example';
 import Tooltip from 'components/tooltip';
 import RadioButton from 'components/radio-button';
 import Row from 'components/row';
+import TextArea from 'components/textarea';
 
 class TooltipDemo extends React.Component {
   /**
@@ -29,12 +30,12 @@ class TooltipDemo extends React.Component {
    */
   get demo() {
     return (
-      <div className='tooltip--demo'>
+      <div className='tooltip-demo'>
         <Tooltip
           pointerAlign={ this.value('pointerAlign') }
           pointerPosition={ this.value('pointerPosition') }
-          showTooltip={ true }>
-          Tooltips are a fundamental part of the user experience.
+          isVisible={ true }>
+          { this.value('message') }
         </Tooltip>
       </div>
     );
@@ -47,7 +48,7 @@ class TooltipDemo extends React.Component {
     let html = "import Tooltip from 'carbon/lib/components/tooltip';\n\n";
 
     html += '<Tooltip\n'
-    html += '  showTooltip={ toggleTooltipHandler }\n';
+    html += '  isVisible={ toggleTooltipHandler }\n';
 
     if (this.value('pointerAlign')){
       html += '  pointerAlign={ this.props.pointerAlign }\n'
@@ -68,7 +69,7 @@ class TooltipDemo extends React.Component {
   get controls() {
     return(
       <div>
-        <Row className='row--props'>
+        <Row className='tooltip-demo__row--props'>
           <h5 className='row__label'>Tooltip Position</h5>
           <RadioButton
             label='Left'
@@ -96,7 +97,7 @@ class TooltipDemo extends React.Component {
             value='right'
           />
         </Row>
-        <Row className='row--props'>
+        <Row className='tooltip-demo__row--props'>
           <h5 className='row__label'>Pointer Alignment</h5>
           <RadioButton
             disabled={ this.value('pointerPosition') === 'right' || this.value('pointerPosition') === 'left'}
@@ -133,6 +134,12 @@ class TooltipDemo extends React.Component {
             onChange={ this.action.bind(this, 'pointerAlign')}
             value='bottom'
           />
+        </Row>
+        <Row className='tooltip-demo__row--message'>
+          <TextArea
+            name='message'
+            label='Tooltip Message'
+            onChange={ this.action.bind(this, 'message') }/>
         </Row>
       </div>
     );

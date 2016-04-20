@@ -7,11 +7,12 @@
   border-radius: 4px;
   box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.15);
   color: $white;
-  max-width: 960px;
+  max-width: 640px;
   min-width: 100px;
   padding: 10px;
   position: absolute;
   text-align: center;
+  white-space: pre-wrap;
 }
 
 .ui-tooltip__pointer {
