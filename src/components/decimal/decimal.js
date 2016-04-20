@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import I18nHelper from './../../utils/helpers/i18n';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
