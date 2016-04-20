@@ -1,4 +1,5 @@
 {
   "name": "decimal",
-  "main": "./decimal.js"
+  "main": "./decimal.js",
+  "style": "decimal.scss"
 }

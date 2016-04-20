@@ -3,15 +3,16 @@
 .ui-help {
   color: $grey-dark-blue-70;
   display: inline;
-  margin-left: 5px;
-  position: absolute;
-  top: -1px;
+  position: relative;;
+  top: -4px;
 }
 
 .ui-help__href {
   color: $blue;
+  text-decoration: none;
 
   &:hover {
     color: $blue-dark;
+    text-decoration: underline;
   }
 }

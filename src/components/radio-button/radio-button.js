@@ -131,6 +131,7 @@ class RadioButton extends React.Component {
       <div className={ this.mainClasses }>
         { this.inputHTML }
         { this.labelHTML }
+        { this.helpHTML }
         { this.labelHelpHTML }
         { this.validationHTML }
       </div>

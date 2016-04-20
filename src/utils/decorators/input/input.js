@@ -273,7 +273,6 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
         { this.prefixHTML }
         { input }
         { this.additionalInputContent }
-        { this.helpHTML }
       </div>
     );
   }

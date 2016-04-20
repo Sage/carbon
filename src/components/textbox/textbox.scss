@@ -7,3 +7,12 @@
   margin-left: 15px;
   padding: 0;
 }
+
+.ui-textbox__help--inner {
+  .ui-help {
+    float: right;
+    margin-right: 5px;
+    top: 21px;
+    z-index: 100;    
+  }
+}

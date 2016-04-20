@@ -1,4 +1,5 @@
 {
   "name": "number",
-  "main": "./number.js"
+  "main": "./number.js",
+  "style": "number.scss"
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import I18nHelper from './../../utils/helpers/i18n';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
@@ -249,13 +250,12 @@ class Decimal extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    let classes = 'ui-decimal';
-
-    if (this.props.className) {
-      classes += ` ${this.props.className}`;
-    }
-
-    return classes;
+    return classNames(
+      'ui-decimal',
+      this.props.className, {
+        'ui-decimal__help--inner': !this.props.label
+      }
+    );
   }
 
   /**
@@ -279,6 +279,7 @@ class Decimal extends React.Component {
       <div className={ this.mainClasses }>
 
         { this.labelHTML }
+        { this.helpHTML }
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { this.validationHTML }

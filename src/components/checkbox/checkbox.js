@@ -188,6 +188,7 @@ class Checkbox extends React.Component {
         <input { ...this.hiddenInputProps } />
         { this.inputHTML }
         { labelRight }
+        { this.helpHTML }
         { labelHelpRight }
         { this.validationHTML }
       </div>

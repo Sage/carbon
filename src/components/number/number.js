@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -31,7 +32,11 @@ class Number extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return 'ui-number';
+    return classNames(
+      'ui-number', {
+        'ui-number__help--inner': !this.props.label
+      }
+    );
   }
 
   /**
@@ -106,6 +111,7 @@ class Number extends React.Component {
       <div className={ this.mainClasses }>
 
         { this.labelHTML }
+        { this.helpHTML }
         { this.inputHTML }
         { this.validationHTML }
 
