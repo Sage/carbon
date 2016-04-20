@@ -20,4 +20,4 @@ import Icon from 'carbon/lib/components/help';
 | -------------- | ----------- | -------------  | ------------- | ---------------------------------- | ------------ |
 | helpMessage | true        | String         |       -       |    -                               | message to display in tooltip|
 | tooltipPosition| false       | String         |      top      |  top, bottom, left, right          | position of tooltip relative to icon|
-| tooltipPosition| false       | String         |      center   |  center, right, left, bottom, top  | alignemnt of pointer on tooltip|
+| pointerAlign | false       | String         |      center   |  center, right, left, bottom, top  | alignemnt of pointer on tooltip|
