@@ -22,4 +22,4 @@
 | ----------------- |  ------------- |  ------------- | ------------- | --------------------- |
 | `pointerAlign`    | `false`        | `String`       |  'center'     | alignment of pointer  |
 | `pointerPosition` | `false`        | `String`       |  'bottom'     | position of pointer   |
-| `showTooltip`     | `false`        | `Boolean       |  'false'      | toggle tooltip hide/show  |
+| `isVisible`     | `false`        | `Boolean       |  'false'      | toggle tooltip hide/show  |
