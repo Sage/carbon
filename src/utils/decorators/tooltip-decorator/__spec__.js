@@ -246,7 +246,7 @@ describe('tooltip-decorator', () => {
         leftTooltip.onShow();
         jasmine.clock().tick(300);
         let positionedTooltip = leftTooltip.getTooltip()
-        expect(positionedTooltip.style.left).toEqual('-107.5px');
+        expect(positionedTooltip.style.left).toEqual('92.5px');
         expect(positionedTooltip.style.top).toEqual('-10px');
       });
     });

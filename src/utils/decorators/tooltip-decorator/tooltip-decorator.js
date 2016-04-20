@@ -2,7 +2,7 @@ import React from 'react';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
-import { styleElement, pixelValue } from './../../ether/js';
+import { styleElement, pixelValue } from './../../ether/ether.js';
 
 /**
  * TooltipDecorator.
@@ -144,26 +144,26 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
           horizontalCenter   = -element.offsetWidth / 2 + target.offsetWidth / 2,
           sideVerticalCenter = target.offsetHeight / 2 - element.offsetHeight / 2;
 
-    switch (this.props.tooltipPosition) {
-      case "bottom":
-        styleElement(element, 'bottom', pixelValue(verticalCenter));
-        styleElement(element, 'left', pixelValue(horizontalCenter));
-        break;
+      switch (this.props.tooltipPosition) {
+        case "bottom":
+          styleElement(element, 'bottom', pixelValue(verticalCenter));
+          styleElement(element, 'left', pixelValue(horizontalCenter));
+          break;
 
-      case "left":
-        styleElement(element, 'top', pixelValue(sideVerticalCenter));
-        styleElement(element, 'left', element.offsetWidth - pointerDimension / 2);
-        break;
+        case "left":
+          styleElement(element, 'top', pixelValue(sideVerticalCenter));
+          styleElement(element, 'left', pixelValue(element.offsetWidth - pointerDimension / 2));
+          break;
 
-      case "right":
-        styleElement(element, 'top', pixelValue(sideVerticalCenter));
-        styleElement(element, 'left', target.offsetWidth + pointerDimension / 2);
-        break;
+        case "right":
+          styleElement(element, 'top', pixelValue(sideVerticalCenter));
+          styleElement(element, 'left', pixelValue(target.offsetWidth + pointerDimension / 2));
+          break;
 
-      default:
-      // top
-        styleElement(element, 'top', pixelValue(verticalCenter));
-        styleElement(element, 'left', pixelValue(horizontalCenter));
+        default:
+        // top
+          styleElement(element, 'top', pixelValue(verticalCenter));
+          styleElement(element, 'left', pixelValue(horizontalCenter));
       }
     }
   };
