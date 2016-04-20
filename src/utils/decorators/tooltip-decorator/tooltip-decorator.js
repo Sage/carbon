@@ -95,7 +95,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
     this.timeout = setTimeout(() => {
       this.setState({ isVisible: true });
       this.positionTooltip(this.getTooltip(), this.getTarget());
-    }, 300 );
+    }, 100 );
   };
 
   /**
@@ -182,8 +182,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
       props.onMouseLeave = chainFunctions(this.onHide, props.onMouseLeave);
       props.onFocus = chainFunctions(this.onShow, props.onFocus);
       props.onBlur = chainFunctions(this.onHide, props.onBlur);
-      props.onTouchEnd = isVisible(this
-      ) ? this.onHide : this.onShow;
+      props.onTouchEnd = this.state.isVisible ? this.onHide : this.onShow;
     }
     return props;
   }

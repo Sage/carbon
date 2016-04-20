@@ -2,10 +2,10 @@ import React from 'react';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
-import HelpDecorator from './../../utils/decorators/help-decorator';
+import classNames from 'classnames';
 
 /**
- * A checkbox widget.
+ * A Checkbox widget.
  *
  * == How to use a Checkbox in a component:
  *
@@ -21,7 +21,7 @@ import HelpDecorator from './../../utils/decorators/help-decorator';
  * @constructor
  * @decorators {Input,InputLabel,InputValidation}
  */
-const Checkbox = Input(InputLabel(InputValidation(HelpDecorator(
+const Checkbox = Input(InputLabel(InputValidation(
 class Checkbox extends React.Component {
 
   static propTypes = {
@@ -151,6 +151,15 @@ class Checkbox extends React.Component {
     return this.checkboxSprite;
   }
 
+  get labelHelpClasses() {
+    return classNames(
+      'ui-checkbox__help-text', {
+        'ui-checkbox__help-text--reverse': this.props.reverse,
+        'ui-checkbox__help-text--inline': this.props.labelHelpInline
+      }
+    );
+  }
+
   /**
    * Renders the component with props.
    *
@@ -158,10 +167,16 @@ class Checkbox extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let labelRight, labelLeft;
+    let labelRight, labelLeft, labelHelpLeft,
+        labelHelpRight = this.labelHelpHTML;
 
     if (this.props.reverse) {
       labelLeft = this.labelHTML;
+
+      if (this.props.labelHelpInline) {
+        labelHelpLeft = this.labelHelpHTML;
+        labelHelpRight = null;
+      }
     } else {
       labelRight = this.labelHTML;
     }
@@ -169,16 +184,17 @@ class Checkbox extends React.Component {
     return(
       <div className={ this.mainClasses }>
         { labelLeft }
+        { labelHelpLeft }
         <input { ...this.hiddenInputProps } />
         { this.inputHTML }
         { labelRight }
+        { labelHelpRight }
         { this.validationHTML }
-        { this.helpHTML }
       </div>
     );
   }
 }
-))));
+)));
 
 
 export default Checkbox;

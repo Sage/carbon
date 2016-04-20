@@ -32,6 +32,7 @@ class LinkDemo extends React.Component {
       <Link
         disabled={ this.value('disabled') }
         href={ this.value('href') }
+        icon={ this.value('icon') }
       >
         { this.value('text') || " " }
       </Link>
@@ -53,6 +54,11 @@ class LinkDemo extends React.Component {
 
     if (this.value('disabled')) {
       html += "\n  disabled={true}";
+      additionalProps = true;
+    }
+
+    if (this.value('icon')) {
+      html += `\n  icon='${this.value('icon')}'`;
       additionalProps = true;
     }
 
@@ -105,6 +111,13 @@ class LinkDemo extends React.Component {
             value={ this.value('href') }
             labelInline={ true }
             onChange={ this.action.bind(this, 'href') }
+          />
+
+          <Textbox
+            label="Icon"
+            value={ this.value('icon') }
+            labelInline={ true }
+            onChange={ this.action.bind(this, 'icon') }
           />
         </Row>
       </div>

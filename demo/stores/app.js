@@ -12,6 +12,10 @@ let data = ImmutableHelper.parseJSON({
   collapsible_pod: {
     title: 'Hello World!'
   },
+  content: {
+    title: 'Example Content',
+    body: 'This is some example content\nfor the Content component.'
+  },
   dialog: {
     open: false,
     title: 'Hello World!',
@@ -33,8 +37,8 @@ let data = ImmutableHelper.parseJSON({
     text: "Sample message."
   },
   pill: {
-    as: 'info',
-    text: 'Pill'
+    as: 'new',
+    text: 'PILL'
   },
   portrait: {
     size: 'lmed',
@@ -45,6 +49,13 @@ let data = ImmutableHelper.parseJSON({
     border: true,
     padding: "medium",
     as: "primary"
+  },
+  radio_button: {
+    columnData: [
+      { name: 'access', value: 'full', label: 'Full Access'},
+      { name: 'access', value: 'limited', label: 'Limited Access'},
+      { name: 'access', value: 'no-access', label: 'No Access'}
+    ]
   },
   rainbow: {
     data: [{
@@ -99,6 +110,9 @@ let data = ImmutableHelper.parseJSON({
     as: "warning",
     open: true,
     text: "Sample toast notification."
+  },
+  tooltip: {
+    message: 'Some Helpful Content'
   }
 });
 

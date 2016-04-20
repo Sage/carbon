@@ -3,6 +3,7 @@ import shouldComponentUpdate from './../../helpers/should-component-update';
 import { assign } from 'lodash';
 import guid from './../../helpers/guid';
 import classNames from 'classnames';
+import Help from './../../../components/help';
 
 /**
  * Input decorator.
@@ -242,6 +243,22 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
+   * Supplies the HTML for help component
+   *
+   * @method helpHTML
+   * @return {Object} JSX for help
+   */
+  get helpHTML() {
+    if (this.props.helpMessage) {
+      return (
+        <Help
+          { ...this.props }>
+        </Help>
+      );
+    }
+  }
+
+  /**
    * Returns HTML for the input.
    *
    * @method inputHTML
@@ -256,6 +273,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
         { this.prefixHTML }
         { input }
         { this.additionalInputContent }
+        { this.helpHTML }
       </div>
     );
   }

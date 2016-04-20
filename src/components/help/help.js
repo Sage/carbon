@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from './../icon';
 import classNames from 'classnames';
-import TooltipIDecorator from './../../utils/decorators/tooltip-decorator';
+import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
 /**
  * A Help widget.
  *
@@ -19,9 +19,9 @@ import TooltipIDecorator from './../../utils/decorators/tooltip-decorator';
  *
  * @class Help
  * @constructor
- * @decorators {TooltipIDecorator}
+ * @decorators {TooltipDecorator}
  */
-const Help = TooltipIDecorator(class Help extends React.Component{
+const Help = TooltipDecorator(class Help extends React.Component{
 
   static propTypes = {
     /**
@@ -51,17 +51,17 @@ const Help = TooltipIDecorator(class Help extends React.Component{
     pointerAlign: React.PropTypes.string,
 
     /**
-     * Whether to display the help component inline
+     * A path for the anchor
      *
-     * @property inline
-     * @type {Boolean}
-     * @default false
+     * @property href
+     * @type {String}
      */
-    inline: React.PropTypes.bool
+    href: React.PropTypes.string
   };
 
   static defaultProps = {
-    inline: false
+    tooltipPosition: 'top',
+    pointerAlign: 'center'
   }
   /**
    * Return component classes
@@ -72,7 +72,7 @@ const Help = TooltipIDecorator(class Help extends React.Component{
   get mainClasses() {
     return classNames(
       'ui-help',
-      {'ui-help--inline': this.props.inline },
+      {'ui-help__href': this.props.href },
       this.props.className
     );
   }
@@ -85,13 +85,13 @@ const Help = TooltipIDecorator(class Help extends React.Component{
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <a className={ this.mainClasses } href={ this.props.href }>
         <Icon
           type='info'
           tooltipMessage={ this.props.helpMessage }
           tooltipPosition={ this.props.tooltipPosition }
           pointerAlign={ this.props.pointerAlign } />
-      </div>
+      </a>
     );
   }
 });

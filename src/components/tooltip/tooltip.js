@@ -48,7 +48,7 @@ class Tooltip extends React.Component {
      *
      * @property pointerPosition
      * @type {String}
-     * @default 'top'
+     * @default 'bottom'
      */
     pointerPosition: React.PropTypes.string,
 
@@ -102,10 +102,10 @@ class Tooltip extends React.Component {
    * @return {JSX}
    */
   get tooltipHTML() {
-    let contents = [];
-
-    contents.push(this.props.children);
-    contents.push(<span key='pointer' className={ this.pointerClasses }></span>);
+    let contents = [
+      this.props.children,
+      <span key='pointer' className={ this.pointerClasses }></span>
+    ];
 
     return (
       <div className={ this.mainClasses }>

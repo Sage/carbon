@@ -8,24 +8,24 @@ describe('tooltip', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Tooltip showTooltip={ true }>
+      <Tooltip isVisible={ true }>
         Some Helpful Content
       </Tooltip>
     );
     alignedInstance = TestUtils.renderIntoDocument(
-      <Tooltip showTooltip={ true } pointerAlign='left'>
+      <Tooltip isVisible={ true } pointerAlign='left'>
         Some Helpful Content
       </Tooltip>
     );
 
     positionedInstance = TestUtils.renderIntoDocument(
-      <Tooltip showTooltip={ true } pointerPosition='top'>
+      <Tooltip isVisible={ true } pointerPosition='top'>
         Some Helpful Content
       </Tooltip>
     );
 
     hiddenInstance = TestUtils.renderIntoDocument(
-      <Tooltip showTooltip={ false }>
+      <Tooltip isVisible={ false }>
         Some Helpful Content
       </Tooltip>
     );
@@ -53,7 +53,7 @@ describe('tooltip', () => {
         expect(tooltip.children[1].classList[1]).toEqual('ui-tooltip__pointer--align-center');
       });
 
-      it('positions the pointer on the top', () => {
+      it('positions the pointer on the bottom', () => {
         expect(tooltip.children[1].classList[2]).toEqual('ui-tooltip__pointer--position-bottom');
       });
     });

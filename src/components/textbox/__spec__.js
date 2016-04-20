@@ -42,13 +42,35 @@ describe('Textbox', () => {
 
   describe('mainClasses', () => {
     it('returns ui-textbox and additional decorated classes', () => {
-      expect(instance.mainClasses).toEqual('ui-textbox ui-textbox__wrapper common-input');
+      expect(instance.mainClasses).toEqual('ui-textbox common-input');
     });
   });
 
   describe('inputClasses', () => {
     it('returns ui-textbox__input and additional decorated classes', () => {
       expect(instance.inputClasses).toEqual('ui-textbox__input common-input__input');
+    });
+  });
+
+  describe('labelHelperClasses', () => {
+    it('returns the classNames to apply to the label help text', () => {
+      expect(instance.labelHelpClasses).toMatch('ui-textbox__help-text');
+    });
+
+    describe('when label is inline', () => {
+      it('returns a modified inline class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Textbox
+            name="Dummy Box"
+            id="Dummy Box"
+            value={ 'foo' }
+            label={ 'Label' }
+            labelInline='true'
+            onChange={ spy }
+          />
+        );
+        expect(instance.labelHelpClasses).toMatch('ui-textbox__help-text ui-textbox__help-text--inline');
+      });
     });
   });
 
