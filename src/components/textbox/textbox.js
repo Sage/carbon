@@ -33,8 +33,7 @@ class Textbox extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-textbox',
-      'ui-textbox__wrapper'
+      'ui-textbox'
     );
   }
 

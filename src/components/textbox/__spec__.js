@@ -42,7 +42,7 @@ describe('Textbox', () => {
 
   describe('mainClasses', () => {
     it('returns ui-textbox and additional decorated classes', () => {
-      expect(instance.mainClasses).toEqual('ui-textbox ui-textbox__wrapper common-input');
+      expect(instance.mainClasses).toEqual('ui-textbox common-input');
     });
   });
 
@@ -51,7 +51,7 @@ describe('Textbox', () => {
       expect(instance.inputClasses).toEqual('ui-textbox__input common-input__input');
     });
   });
-  
+
   describe('labelHelperClasses', () => {
     it('returns the classNames to apply to the label help text', () => {
       expect(instance.labelHelpClasses).toMatch('ui-textbox__help-text');
