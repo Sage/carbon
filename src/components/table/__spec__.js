@@ -368,8 +368,8 @@ describe('Table', () => {
     });
   });
 
-  describe('tableHeader', () => {
-    describe('when tableHeader is not provided', () => {
+  describe('thead', () => {
+    describe('when thead is not provided', () => {
       it('returns the the correct markup', () => {
         instance = TestUtils.renderIntoDocument(
           <Table path='/test'>
@@ -380,7 +380,7 @@ describe('Table', () => {
       });
     });
 
-    describe('when tableHeader is provided', () => {
+    describe('when thead is provided', () => {
       it('returns the the correct markup', () => {
         let header = (
           <TableRow key="header">
@@ -390,12 +390,12 @@ describe('Table', () => {
           </TableRow>
         );
         instance = TestUtils.renderIntoDocument(
-          <Table path='/test' tableHeader={header}>
+          <Table path='/test' thead={header}>
           </Table>
         );
         let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
         expect(parent).toBeDefined();
-        expect(instance.tableHeader).toEqual(
+        expect(instance.thead).toEqual(
           <thead className="ui-table__header">
             {header}
           </thead>

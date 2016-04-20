@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { compact } from 'lodash';
 
 /**
  * A row widget.
@@ -41,14 +42,15 @@ class Row extends React.Component {
    * @return {Array} array of built columns
    */
   buildColumns = () => {
-    let columns = [];
+    let columns = [],
+        children = (this.props.children.constructor === Array) ? compact(this.props.children) : this.props.children;
 
-    if (this.props.children.length) {
-      this.props.children.forEach((child, index) => {
+    if (children.length) {
+      children.forEach((child, index) => {
         columns.push(this.buildColumn(child, index));
       });
     } else {
-      columns.push(this.buildColumn(this.props.children, 0));
+      columns.push(this.buildColumn(children, 0));
     }
 
     return columns;
@@ -91,7 +93,7 @@ class Row extends React.Component {
     if (this.props.columns) {
       columns = this.props.columns;
     } else if (this.props.children.constructor === Array) {
-      columns = this.props.children.length;
+      columns = compact(this.props.children).length;
     }
 
     return classNames(
