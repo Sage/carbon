@@ -11,14 +11,6 @@ let Ether = {
   pixelValue: (value) => {
     return `${value}px`;
   },
-
-  isVisible: (object) => {
-    return object.state.isVisible;
-  },
-
-  nthChild: (element, n) => {
-    return element.children[n]
-  }
 };
 
 export default Ether;

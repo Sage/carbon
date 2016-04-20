@@ -2,7 +2,7 @@ import React from 'react';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
-import { styleElement, pixelValue, isVisible } from './../../ether/js';
+import { styleElement, pixelValue } from './../../ether/js';
 
 /**
  * TooltipDecorator.
@@ -136,7 +136,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @return {Void}
    */
   positionTooltip = (element, target) => {
-    if (isVisible(this)) {
+    if (this.state.isVisible) {
       // hardcode value as span has no dimensions
       let pointerDimension = 15;
 
@@ -182,7 +182,8 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
       props.onMouseLeave = chainFunctions(this.onHide, props.onMouseLeave);
       props.onFocus = chainFunctions(this.onShow, props.onFocus);
       props.onBlur = chainFunctions(this.onHide, props.onBlur);
-      props.onTouchEnd = isVisible(this) ? this.onHide : this.onShow;
+      props.onTouchEnd = isVisible(this
+      ) ? this.onHide : this.onShow;
     }
     return props;
   }
