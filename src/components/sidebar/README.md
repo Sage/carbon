@@ -21,7 +21,7 @@ Side bar is positioned on the right hand screen of the window by default.
 To position the sidebar on the left hand side pass `position='left'` to the component.
 
 The background behind the sidebar is disabled by default. To allow the user to interact
-with all the UI pass `disableBackground={ false }` to the component
+with all the UI pass `enableBackgroundUI={ true }` to the component
 
 ## Sidebar Header
 
@@ -49,9 +49,9 @@ To render content within the SidebarHeader pass a children prop
 </Sidebar>
 ```
 
-| Name              | Required    | Type           | Default       | Description   |
-| -------------     | ----------- | -------------  | ------------- | ------------- |
-| onClose           | true        | Function       |               | Callback for when close icon is clicked |
-| open              | true        | Boolean        | `false`       | Sets the open state of the sidebar      |
-| disableBackground | false       | Boolean        | `true`        | Disables background behind sidebar      |
-| onClose           | false       | Boolean        | `right`       | 'left' or 'right' position of sidebar   |
+| Name               | Required    | Type           | Default       | Description   |
+| -------------      | ----------- | -------------  | ------------- | ------------- |
+| onClose            | true        | Function       |               | Callback for when close icon is clicked |
+| open               | true        | Boolean        | `false`       | Sets the open state of the sidebar      |
+| enableBackgroundUI | false       | Boolean        | `false`       | Enables background UI behind sidebar so the user can interact    |
+| onClose            | false       | Boolean        | `right`       | 'left' or 'right' position of sidebar   |
