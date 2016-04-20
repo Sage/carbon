@@ -51,7 +51,7 @@
 
 * Moves the validation logic in Form component to its own method.
 * Adds `validateOnMount` prop to Forms.
-* Help Components now available on all inputs.
+* Help Components on inputs with labels.
 
 # 0.7.0
 
