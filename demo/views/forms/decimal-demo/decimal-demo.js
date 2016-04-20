@@ -28,7 +28,9 @@ class DecimalDemo extends React.Component {
    */
   get demo() {
     return (
-      <Decimal { ...FormInputHelper.demoProps(this, this.action) } />
+      <Decimal
+        { ...FormInputHelper.demoProps(this, this.action) }
+        helpMessage={ this.value('helpMessage')} />
     );
   }
 

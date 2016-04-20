@@ -31,6 +31,7 @@ class TextboxDemo extends React.Component {
     return (
       <Textbox
         { ...FormInputHelper.demoProps(this, this.action) }
+        helpMessage={ this.value('helpMessage')}
       />
     );
   }

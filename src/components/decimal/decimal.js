@@ -253,7 +253,7 @@ class Decimal extends React.Component {
     return classNames(
       'ui-decimal',
       this.props.className, {
-        'ui-decimal__help--inner': !this.props.label
+        'ui-decimal__help--inner': !this.props.label && this.props.helpMessage
       }
     );
   }

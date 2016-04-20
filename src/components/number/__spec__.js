@@ -52,7 +52,7 @@ describe('Number', () => {
         TestUtils.Simulate.change(input, {
           target: {
             value: 'abcdefghij',
-            setSelectionRange: setSelectionSpy 
+            setSelectionRange: setSelectionSpy
           }
         });
       });
@@ -105,6 +105,12 @@ describe('Number', () => {
     it('renders a visible field', () => {
       expect(input.type).toEqual('text');
       expect(input.value).toEqual('123456789');
+    });
+
+    it('adds a class if help component is present with no label', () => {
+      let helpInstance = TestUtils.renderIntoDocument(<Number name="total" helpMessage="Help"/>);
+      let div = TestUtils.scryRenderedDOMComponentsWithTag(helpInstance, 'div')[0];
+      expect(div.classList).toMatch('ui-number__help--inner');
     });
   });
 });

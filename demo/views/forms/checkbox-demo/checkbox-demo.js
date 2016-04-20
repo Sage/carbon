@@ -7,6 +7,7 @@ import FormInputHelper from './../../../helpers/form-input-helper';
 
 import Checkbox from 'components/checkbox';
 import Textbox from 'components/textbox';
+import TextArea from 'components/textarea';
 import Presence from 'utils/validations/presence';
 import Row from 'components/row';
 
@@ -38,6 +39,7 @@ class CheckboxDemo extends React.Component {
         labelHelpInline={ this.value('helpInline') }
         reverse={ this.value('reverse') }
         disabled={ this.value('disabled') }
+        helpMessage={ this.value('helpMessage')}
       />
     );
   }
@@ -70,6 +72,10 @@ class CheckboxDemo extends React.Component {
       html += `\n  reverse={${this.value('reverse')}}`;
     }
 
+    if (this.value('helpMessage')) {
+      html += `\n  helpMessage="${this.value('helpMessage')}"`;
+    }
+
     // determine if we need extra space
     let splitHtml = html.split("\n  ");
     if (splitHtml.length == 1) {
@@ -100,6 +106,12 @@ class CheckboxDemo extends React.Component {
             label="Disabled"
             value={ this.value('disabled') }
             onChange={ this.action.bind(this, 'disabled') }
+          />
+          <TextArea
+            label="Help"
+            labelInline={ false }
+            value={ this.value('helpMessage') }
+            onChange={ this.action.bind(this, 'helpMessage') }
           />
         </Row>
         <Row>

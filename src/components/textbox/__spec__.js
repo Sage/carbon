@@ -44,6 +44,12 @@ describe('Textbox', () => {
     it('returns ui-textbox and additional decorated classes', () => {
       expect(instance.mainClasses).toEqual('ui-textbox common-input');
     });
+
+    it('adds a class if help component is present with no label', () => {
+      let helpInstance = TestUtils.renderIntoDocument(<Textbox name="total" helpMessage="Help"/>);
+      let div = TestUtils.scryRenderedDOMComponentsWithTag(helpInstance, 'div')[0];
+      expect(div.classList).toMatch('ui-textbox__help--inner');
+    });
   });
 
   describe('inputClasses', () => {

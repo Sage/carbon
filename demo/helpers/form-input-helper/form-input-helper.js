@@ -48,6 +48,10 @@ let FormInputHelper = {
       html += `\n  prefix='${scope.value('prefix')}'`;
     }
 
+    if (scope.value('helpMessage')) {
+      html += `\n  helpMessage='${scope.value('helpMessage')}'`;
+    }
+
     // determine if we need extra space
     let splitHtml = html.split("\n  ");
     if (splitHtml.length == 1) {
@@ -67,7 +71,7 @@ let FormInputHelper = {
             label="Label"
             labelInline={ true }
             value={ scope.value('label') }
-            onChange={ onChange.bind(scope, 'label') }
+            onChange={ onChange.bind(scope, 'label')}
           />
           <Textbox
             label="Label Help"
@@ -92,6 +96,12 @@ let FormInputHelper = {
             onChange={ onChange.bind(scope, 'labelWidth') }
             placeholder="In percent"
             columnSpan="2"
+          />
+        <Textbox
+            label="Help"
+            labelInline={ true }
+            value={ scope.value('helpMessage') }
+            onChange={ onChange.bind(scope, 'helpMessage') }
           />
         </Row>
         <Row>

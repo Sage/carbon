@@ -45,6 +45,7 @@ class RadiButtonDemo extends React.Component {
                 value={ data.get('value') }
                 label={ data.get('label') }
                 labelHelp={ data.get('labelHelp') }
+                helpMessage={ this.value('helpMessage')}
               />
             );
           }).toJS()
