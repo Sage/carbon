@@ -6,6 +6,10 @@ import Immutable from 'immutable';
 import FormInputHelper from './../helpers/form-input-helper';
 
 let data = ImmutableHelper.parseJSON({
+  animated_menu_button: {
+    alignRight: true,
+    size: 'large'
+  },
   button: {
     text: "Action"
   },
