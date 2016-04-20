@@ -51,6 +51,28 @@ describe('Textbox', () => {
       expect(instance.inputClasses).toEqual('ui-textbox__input common-input__input');
     });
   });
+  
+  describe('labelHelperClasses', () => {
+    it('returns the classNames to apply to the label help text', () => {
+      expect(instance.labelHelpClasses).toMatch('ui-textbox__help-text');
+    });
+
+    describe('when label is inline', () => {
+      it('returns a modified inline class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Textbox
+            name="Dummy Box"
+            id="Dummy Box"
+            value={ 'foo' }
+            label={ 'Label' }
+            labelInline='true'
+            onChange={ spy }
+          />
+        );
+        expect(instance.labelHelpClasses).toMatch('ui-textbox__help-text ui-textbox__help-text--inline');
+      });
+    });
+  });
 
   describe('Passing a custom onChange', () => {
     it('triggers the custom function', () => {

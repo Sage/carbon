@@ -2,6 +2,7 @@ import React from 'react';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
+import classNames from 'classnames';
 
 /**
  * A textbox widget.
@@ -42,6 +43,14 @@ class Textbox extends React.Component {
     return 'ui-textbox__input';
   }
 
+  get labelHelpClasses() {
+    return classNames(
+      'ui-textbox__help-text', {
+        'ui-textbox__help-text--inline': this.props.labelInline
+      }
+    );
+  }
+
   /**
    * A getter that combines props passed down from the input decorator with
    * textbox specific props.
@@ -68,6 +77,7 @@ class Textbox extends React.Component {
         { this.labelHTML }
         { this.inputHTML }
         { this.validationHTML }
+        { this.labelHelpHTML }
 
       </div>
     );
