@@ -47,7 +47,7 @@ class Row extends React.Component {
     let columns = [],
         children = (this.props.children.constructor === Array) ? compact(this.props.children) : this.props.children;
 
-    if (children.length) {
+    if (children.constructor === Array && children.length) {
       children.forEach((child, index) => {
         columns.push(this.buildColumn(child, index));
       });
