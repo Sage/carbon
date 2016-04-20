@@ -43,6 +43,17 @@ describe('Row', () => {
       });
     });
 
+    describe('with no children in an array', () => {
+      it('allows render', () => {
+        let children = [];
+        instance = TestUtils.renderIntoDocument(
+          <Row>{ children }</Row>
+        );
+        let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-row')
+        expect(rowNode).toBeTruthy();
+      });
+    });
+
     describe('Column offset', () => {
       it('renders a div with an additional offset CSS class', () => {
         expect(columns[0].className).toEqual('ui-row__column ui-row__column--offset-2');

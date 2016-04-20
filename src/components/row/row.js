@@ -51,7 +51,7 @@ class Row extends React.Component {
       children.forEach((child, index) => {
         columns.push(this.buildColumn(child, index));
       });
-    } else {
+    } else if (children.constructor !== Array) {
       columns.push(this.buildColumn(children, 0));
     }
 
