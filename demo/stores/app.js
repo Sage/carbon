@@ -36,6 +36,9 @@ let data = ImmutableHelper.parseJSON({
     as: "warning",
     text: "Sample message."
   },
+  number: {
+    value: 0
+  },
   pill: {
     as: 'new',
     text: 'PILL'
