@@ -4,7 +4,6 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
-import classNames from 'classnames';
 
 /**
  * A textbox widget.
