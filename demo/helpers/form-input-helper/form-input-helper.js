@@ -10,6 +10,7 @@ let FormInputHelper = {
       onChange: onChange.bind(scope, 'value'),
       value: scope.value('value'),
       label: scope.value('label'),
+      labelHelp: scope.value('labelHelp'),
       labelInline: scope.value('labelInline'),
       labelWidth: scope.value('labelInline') ? scope.value('labelWidth') : '',
       disabled: scope.value('disabled'),
@@ -21,6 +22,10 @@ let FormInputHelper = {
   codeProps: (scope, html) => {
     if (scope.value('label')) {
       html += `\n  label='${scope.value('label')}'`;
+
+      if (scope.value('labelHelp')) {
+        html += `\n  labelHelp='${scope.value('labelHelp')}'`;
+      }
     }
 
     if (scope.value('labelInline')) {
@@ -64,6 +69,12 @@ let FormInputHelper = {
             value={ scope.value('label') }
             onChange={ onChange.bind(scope, 'label') }
           />
+          <Textbox
+            label="Label Help"
+            labelInline={ true }
+            value={ scope.value('labelHelp') }
+            onChange={ scope.action.bind(scope, 'labelHelp') }
+          />
         </Row>
 
         <Row columns="3">
@@ -83,7 +94,6 @@ let FormInputHelper = {
             columnSpan="2"
           />
         </Row>
-
         <Row>
           <Checkbox
             label="Disabled"

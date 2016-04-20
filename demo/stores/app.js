@@ -50,6 +50,13 @@ let data = ImmutableHelper.parseJSON({
     padding: "medium",
     as: "primary"
   },
+  radio_button: {
+    columnData: [
+      { name: 'access', value: 'full', label: 'Full Access'},
+      { name: 'access', value: 'limited', label: 'Limited Access'},
+      { name: 'access', value: 'no-access', label: 'No Access'}
+    ]
+  },
   rainbow: {
     data: [{
       y: "50",
