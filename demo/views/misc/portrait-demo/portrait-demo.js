@@ -8,6 +8,7 @@ import Immutable from 'immutable';
 
 import Portrait from 'components/portrait';
 import Checkbox from 'components/checkbox';
+import Button from 'components/button';
 import Row from 'components/row';
 import Dropdown from 'components/dropdown';
 import Textbox from 'components/textbox';
@@ -43,7 +44,7 @@ class PortraitDemo extends React.Component {
     }
 
     return (
-      <div className='portrait-demo' >
+      <div ref={(c) => this._portrait = c} className='portrait-demo' >
         <Portrait
           { ...props }
         />
@@ -131,8 +132,21 @@ class PortraitDemo extends React.Component {
             onChange={ this.action.bind(this, 'shape') }
           />
         </Row>
+        <Row>
+          <Button
+            onClick={ this.forceRender }
+          >
+            Force ReRender
+          </Button>
+        </Row>
       </div>
     );
+  }
+
+  forceRender = (ev) => {
+    debugger
+    this.refs.portrait.setState({ error: false });    
+    this.refs.portrait.forceUpdate();
   }
 
   /**

@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import PortraitInitials from './portrait-initials';
 import MD5 from 'crypto-js/md5';
 
 /**
@@ -26,6 +27,7 @@ import MD5 from 'crypto-js/md5';
  * For additional properties specific to this component, see propTypes.
  */
 class Portrait extends React.Component {
+
 
   static propTypes = {
 
@@ -77,13 +79,28 @@ class Portrait extends React.Component {
      * @property shape
      * @type {String}
      */
-    shape: React.PropTypes.string
+    shape: React.PropTypes.string,
+
+    /**
+     * Initials to display as image
+     * if src throws an error
+     *
+     * @property initials
+     * @type {String}
+     * @default 'U'
+     */
+    initials: React.PropTypes.string
   }
 
   static defaultProps = {
     size: 'lmed',
-    shape: 'standard'
+    shape: 'standard',
+    initials: 'U'
   };
+
+  state = {
+    error: false
+  }
 
   /**
    * Props for the HTML Img
@@ -114,7 +131,7 @@ class Portrait extends React.Component {
     let size = this.numericSizes[this.props.size];
 
     let props = {};
-    props.src = `${base}${hash}?s=${size}`;
+    props.src = `${base}${hash}?s=${size}&d=404`;
     props.alt = this.props.alt || this.props.gravatar;
     return props;
   }
@@ -149,6 +166,10 @@ class Portrait extends React.Component {
     );
   }
 
+  onError = (ev) => {
+    this.setState({ error: true });
+  }
+
   /**
    * Renders the component.
    *
@@ -156,12 +177,25 @@ class Portrait extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    return (
-      <img
-        className={ this.mainClasses }
-        { ...this.imgProps }
-      />
-    );
+    if (this.state.error) {
+      return (
+        <PortraitInitials
+          className={ this.props.className }
+          alt={ this.props.alt }
+          size={ this.props.size }
+          shape={ this.props.shape }
+          initials={ this.props.initials }
+        />
+      );
+    } else {
+      return (
+        <img
+          className={ this.mainClasses }
+          { ...this.imgProps }
+          onError={ this.onError }
+        />
+      );
+    }
   }
 }
 
