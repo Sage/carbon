@@ -82,6 +82,8 @@ let data = ImmutableHelper.parseJSON({
     text: "Main Action"
   },
   table: {
+    selected: {},
+    selectedCount: 0,
     current_page: "1",
     data: [],
     filter: {},
@@ -93,6 +95,7 @@ let data = ImmutableHelper.parseJSON({
     total_records: "0"
   },
   table_ajax: {
+    selected: {},
     data: [],
     enable_filter: true,
     filter: {
@@ -135,6 +138,36 @@ class AppStore extends Store {
   [AppConstants.APP_TABLE_UPDATED](action) {
     let data = ImmutableHelper.parseJSON(action.items);
     this.data = this.data.setIn([action.component, "data"], data);
+    this.data = this.data.setIn([action.component, 'selectedAll'], this.allSelected(action.component));
+    this.data = this.data.setIn([action.component, 'selectedCount'], this.countSelected(action.component));
+  }
+
+  [AppConstants.APP_ALL_TABLE_ROWS_SELECTED](action) {
+    this.data.getIn([action.component, 'data']).forEach((row) => {
+      this.data = this.data.setIn([action.component, 'selected', row.get('id')], action.value);
+    });
+    this.data = this.data.setIn([action.component, 'selectedAll'], action.value);
+    this.data = this.data.setIn([action.component, 'selectedCount'], this.countSelected(action.component));
+  }
+
+  [AppConstants.APP_TABLE_ROW_SELECTED](action) {
+    this.data = this.data.setIn([action.component, 'selected', action.id], action.value);
+    this.data = this.data.setIn([action.component, 'selectedAll'], this.allSelected(action.component));
+    this.data = this.data.setIn([action.component, 'selectedCount'], this.countSelected(action.component));
+  }
+
+  allSelected(component) {
+    let rows = this.data.get(component);
+    return rows.get('data').every((row) => {
+      return rows.getIn(['selected', row.get('id')])
+    });
+  }
+
+  countSelected(component) {
+    let rows = this.data.get(component);
+    return rows.get('data').count((row) => {
+      return rows.getIn(['selected', row.get('id')])
+    });
   }
 
   /**
@@ -148,6 +181,8 @@ class AppStore extends Store {
     this.data = this.data.setIn([action.component, "page_size"], action.pageSize);
     if (action.sortOrder) { this.data = this.data.setIn([action.component, "sort_order"], action.sortOrder); }
     if (action.sortedColumn) { this.data = this.data.setIn([action.component, "sorted_column"], action.sortedColumn); }
+
+    this.data = this.data.setIn([action.component, 'selectedAll'], this.allSelected(action.component));
   }
 }
 

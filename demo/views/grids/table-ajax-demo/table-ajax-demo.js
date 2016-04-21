@@ -58,7 +58,7 @@ class TableAjaxDemo extends React.Component {
           paginate={ this.value('paginate') }
           path="/countries"
           onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
-          tableHeader={ this.tableHeaderRow }
+          thead={ this.tableHeaderRow }
         >
           { this.tableRows }
         </TableAjax>
@@ -159,6 +159,12 @@ class TableAjaxDemo extends React.Component {
    * @method controls
    */
   get controls() {
+    let selectedCountProps = {};
+
+    if (this.value('selectable')) {
+      selectedCountProps.labelHelp = `Rows Selected: ${ this.value('selectedCount') }`;
+    }
+
     return (
       <div>
         <Row>
@@ -189,13 +195,21 @@ class TableAjaxDemo extends React.Component {
         </Row>
         <Row>
           <Checkbox
+            className='long-label'
             label="Sortable (when active, interact with the any table header)"
             value={ this.value('sortable') }
             onChange={ this.action.bind(this, 'sortable') }
           />
+          <Checkbox
+            label="Selectable"
+            { ...selectedCountProps }
+            value={ this.value('selectable') }
+            onChange={ this.action.bind(this, 'selectable') }
+          />
         </Row>
         <Row>
           <Checkbox
+            className='long-label'
             label="Shrink (allow table to shrink with few results)"
             value={ this.value('shrink') }
             onChange={ this.action.bind(this, 'shrink') }
@@ -205,12 +219,41 @@ class TableAjaxDemo extends React.Component {
     );
   }
 
+  get selectHeader() {
+    if (this.value('selectable')) {
+      return (
+        <TableHeader action={ true }>
+          <Checkbox
+            checked={ this.value('selectedAll') }
+            onChange={ AppActions.allTableRowsSelected.bind(this, 'table_ajax') }
+          />
+        </TableHeader>
+      );
+    }
+  }
+
+  selectCell = (id) => {
+    if (this.value('selectable')) {
+      let selected = this.state.appStore.getIn(['table_ajax', 'selected']);
+      return (
+        <TableCell action={ true }>
+          <Checkbox
+            className='table-select-cell'
+            checked={ selected.get(id) }
+            onChange={ AppActions.tableRowSelected.bind(this, 'table_ajax', id) }
+          />
+        </TableCell>
+      );
+    }
+  }
+
   /**
    * @method tableHeaderRow
    */
   get tableHeaderRow() {
     return(
       <TableRow key="header">
+        { this.selectHeader }
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>
@@ -230,6 +273,7 @@ class TableAjaxDemo extends React.Component {
     return data.map((row, index) => {
       return (
         <TableRow key={ index }>
+          { this.selectCell(row.get('id')) }
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
         </TableRow>

@@ -1,3 +1,4 @@
 {
-  "main": "./table-demo.js"
+  "main": "./table-demo.js",
+  "style": "table-demo.scss"
 }

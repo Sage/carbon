@@ -38,6 +38,29 @@ let AppActions = {
   },
 
   /**
+   * @method allTableRowsSelected
+   */
+  allTableRowsSelected: (component, ev) => {
+    Dispatcher.dispatch({
+      actionType: AppConstants.APP_ALL_TABLE_ROWS_SELECTED,
+      component: component,
+      value: ev.target.value
+    });
+  },
+
+  /**
+   * @method tableRowSelected
+   */
+  tableRowSelected: (component, id, ev) => {
+    Dispatcher.dispatch({
+      actionType: AppConstants.APP_TABLE_ROW_SELECTED,
+      component: component,
+      id: id,
+      value: ev.target.value
+    });
+  },
+
+  /**
    * @method appTableUpdated
    */
   appTableManuallyUpdated: (component, change, opts={}) => {
