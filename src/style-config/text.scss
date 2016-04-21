@@ -1,0 +1,27 @@
+@import 'colors';
+
+.inactive-italic-medium {
+  color:$grey-dark-blue-50;
+  font-family: HelveticaNeue-MediumItalic;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+
+.inactive-standard-small {
+  color: $grey-dark-blue-50;
+  font-family: HelveticaNeue-Bold;
+  font-size: 10px;
+  letter-spacing: 0.3px;
+}
+
+.inactive-standard-medium {
+  color: $grey-dark-blue-50;
+  font-family: HelveticaNeue-Bold;
+  font-size: 12px;
+}
+
+.standard-medium {
+  color: $grey-dark;
+  font-family: HelveticaNeue-Medium;
+  font-size: 12px;
+}

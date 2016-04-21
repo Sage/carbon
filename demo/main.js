@@ -11,6 +11,7 @@ import Notifications from './views/notifications';
 import Modals from './views/modals';
 import Layout from './views/layout';
 import Misc from './views/misc';
+import Design from './views/design';
 
 var routes = (
   <Route component={ Chrome }>
@@ -23,6 +24,7 @@ var routes = (
     <Route path="/modals" component={ Modals } />
     <Route path="/layout" component={ Layout } />
     <Route path="/misc" component={ Misc } />
+    <Route path="/design" component={ Design } />
   </Route>
 );
 
