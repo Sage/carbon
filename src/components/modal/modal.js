@@ -33,7 +33,13 @@ import Events from './../../utils/helpers/events';
  * @constructor
  */
 class Modal extends React.Component {
-
+  
+  /**
+   * Tracks if event listeners are on for modal
+   *
+   * @property listening
+   * @type {Boolean}
+   */
   listening = false;
 
   static propTypes = {
@@ -151,7 +157,7 @@ class Modal extends React.Component {
   // Classes for parent div
   get mainClasses()               { return; }
   // Modal HTML shown when open
-  get modalHTML()                { return; }
+  get modalHTML()                 { return; }
 
   // Modal transistion name
   get transitionName()            { return 'modal'; }
