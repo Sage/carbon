@@ -2,6 +2,7 @@ import React from 'react';
 import FlashDemo from './flash-demo';
 import MessageDemo from './message-demo';
 import ToastDemo from './toast-demo';
+import BannerDemo from './banner-demo';
 
 class Notifications extends React.Component {
   /**
@@ -14,6 +15,7 @@ class Notifications extends React.Component {
         <FlashDemo />
         <MessageDemo />
         <ToastDemo />
+        <BannerDemo />
       </div>
     );
   }
