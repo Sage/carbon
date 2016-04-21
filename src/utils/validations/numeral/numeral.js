@@ -1,6 +1,7 @@
 import NumeralTypeValidator from './numeral-type';
 import ValidationsHelper from './../../helpers/validations';
 import I18n from "i18n-js";
+import I18nHelper from './../../helpers/i18n';
 import BigNumber from 'bignumber.js';
 
 /**
@@ -157,6 +158,8 @@ function getDescriptiveMessage(params, value, i18nString, i18nOptions) {
   if (!typeValidator.validate(value)) {
     return typeValidator.message();
   } else {
+    let precision = params.integer ? 0 : 2;
+    i18nOptions.count = I18nHelper.formatDecimal(i18nOptions.count, precision);
     return I18n.t(i18nString, i18nOptions);
   }
 }
