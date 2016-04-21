@@ -32,22 +32,51 @@ class PortraitDemo extends React.Component {
    * @method demo
    */
   get demo() {
-    let props = {};
-    props.size = this.value('size');
-    props.alt = this.value('alt');
-    props.shape = this.value('shape');
-
-    if (this.value('gravatar')) {
-      props.gravatar = this.value('email'); 
-    } else {
-      props.src='https://facebook.github.io/react/img/logo.svg';
-    }
+    let props = {
+      size: this.value('size'),
+      alt: this.value('alt'),
+      shape: this.value('shape'),
+      useInitials: this.value('useInitials')
+    };
 
     return (
       <div ref={(c) => this._portrait = c} className='portrait-demo' >
-        <Portrait
-          { ...props }
-        />
+        <Row>
+          <span>
+            <h2>src image</h2>
+            <Portrait
+              { ...props }
+              src='https://facebook.github.io/react/img/logo.svg'
+              initials='FB'
+            />
+          </span>
+          <span>
+            <h2>Gravatar Image</h2>
+            <Portrait
+              { ...props }
+              gravatar='chris.barber@sage.com'
+              initials='CB'
+            />
+          </span>
+        </Row>
+
+        <Row>
+          <span>
+            <h2>Initials Fallback Image</h2>
+            <Portrait
+              { ...props }
+              gravatar='foo'
+              initials='CB'
+            />
+          </span>
+          <span>
+            <h2>Final Fallback</h2>
+            <Portrait
+              { ...props }
+              gravatar='foo'
+            />
+          </span>
+        </Row>
       </div>
     );
   }
@@ -110,20 +139,6 @@ class PortraitDemo extends React.Component {
           />
         </Row>
         <Row>
-          <Checkbox
-            label="Gravatar"
-            value={ this.value('gravatar') }
-            onChange={ this.action.bind(this, 'gravatar') }
-          />
-
-          <Textbox
-            label="Gravatar"
-            value={ this.value('email') }
-            labelInline={ true }
-            onChange={ this.action.bind(this, 'email') }
-          />
-        </Row>
-        <Row>
           <Dropdown
             options={ shapes }
             label="Shape"
@@ -131,22 +146,14 @@ class PortraitDemo extends React.Component {
             value={ this.value('shape') }
             onChange={ this.action.bind(this, 'shape') }
           />
-        </Row>
-        <Row>
-          <Button
-            onClick={ this.forceRender }
-          >
-            Force ReRender
-          </Button>
+          <Checkbox
+            label="Use Initials"
+            value={ this.value('useInitials') }
+            onChange={ this.action.bind(this, 'useInitials') }
+          />
         </Row>
       </div>
     );
-  }
-
-  forceRender = (ev) => {
-    debugger
-    this.refs.portrait.setState({ error: false });    
-    this.refs.portrait.forceUpdate();
   }
 
   /**

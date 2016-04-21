@@ -42,22 +42,14 @@ class Portrait extends React.Component {
 
     /**
      * Source of the image
-     * Required unless gravatar is provided
      *
      * @property src
      * @type {String}
      */
-    src: function(props) {
-      if (!props.gravatar && !props.src) {
-        throw new Error(`Portrait requires a prop of 'src' OR a prop of 'gravatar'`);
-      } else if (props.gravatar && props.src) {
-        throw new Error(`Portrait requires a prop of 'src' OR a prop of 'gravatar' but not both`);
-      }
-    },
+    src: React.PropTypes.string, 
 
     /**
      * Gravatar email
-     * Required unless src is provided
      *
      * @property src
      * @type {String}
@@ -83,19 +75,28 @@ class Portrait extends React.Component {
 
     /**
      * Initials to display as image
-     * if src throws an error
      *
      * @property initials
      * @type {String}
      * @default 'U'
      */
-    initials: React.PropTypes.string
+    initials: React.PropTypes.string,
+
+    /**
+     * Forces the user of initials
+     *
+     * @property useInitials
+     * @type {Boolean}
+     * @default false
+     */
+    useInitials: React.PropTypes.bool
   }
 
   static defaultProps = {
     size: 'lmed',
     shape: 'standard',
-    initials: 'U'
+    initials: 'U',
+    useInitials: false
   };
 
   state = {
@@ -177,7 +178,7 @@ class Portrait extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    if (this.state.error) {
+    if (this.props.useInitials || this.state.error) {
       return (
         <PortraitInitials
           className={ this.props.className }

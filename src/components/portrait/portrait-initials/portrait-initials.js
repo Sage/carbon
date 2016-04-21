@@ -123,11 +123,6 @@ class Portrait extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    // return (
-    //   <div className='ui-portrait-initials'>
-    //     { this.props.initials }
-    //   </div>
-    // );
     return (
       <img
         className={ this.mainClasses }
