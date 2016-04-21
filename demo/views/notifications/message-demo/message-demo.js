@@ -32,6 +32,8 @@ class MessageDemo extends React.Component {
     return (
       <Message
         as={ this.value('as') }
+        open={ true }
+        title={ this.value('title') }
       >
         { this.value('text') || " " }
       </Message>
@@ -46,6 +48,8 @@ class MessageDemo extends React.Component {
 
     html += "<Message";
     html += `\n  as='${this.value('as')}'`;
+    html += `\n  open='${true}'`;
+    html += `\n  title='${this.value('title')}'`;
     html += "\n>\n";
     html += `  ${this.value('text')}`;
     html += "\n</Message>\n\n";
@@ -59,6 +63,13 @@ class MessageDemo extends React.Component {
   get controls() {
     return (
       <div>
+        <Row>
+          <Textarea
+            label="Title"
+            value={ this.value('title') }
+            onChange={ this.action.bind(this, 'title') }
+          />
+        </Row>
         <Row>
           <Textarea
             label="Content"
