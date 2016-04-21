@@ -1,59 +1,73 @@
 @import 'colors';
-@import 'general';
-@import 'input-field';
+@import 'z-index';
+
+$banner-border: 1px solid !default;
+$banner-border-radius: 4px !default;
+$banner-width: 300px !default;
 
 .ui-banner {
-  color: white;
-  width: 100%;
+  position: relative;
+  border: $banner-border;
+  margin-bottom: 20px;
+}
+
+.ui-banner__type {
+  height: 100%;
+  margin-top: 0;
+  position: absolute;
+  width: 30px;
+  text-align: center;
+
+  .ui-banner__type-icon {
+    display: block;
+    position: relative;
+    top: 50%;
+
+    &:before {
+      color: #FFF;
+      display: block;
+      font-size: 24px;
+      margin-top: -6px;
+    }
+  }
+
+  .ui-icon__svg {
+    height: 24px;
+    margin-top: -12px;
+    width: 30px;
+
+    .ui-icon__svg-group {
+      fill: $white;
+    }
+  }
+}
+
+.ui-banner__close {
+  cursor: pointer;
 }
 
 .ui-banner__content {
-  box-sizing: border-box;
-  height: ($input-common-height - 2) + ($grid-margin * 2);
-  margin: 0 auto;
-  padding: $grid-margin ($grid-margin * 2);
-}
-
-.ui-banner__icon,
-.ui-banner__info,
-.ui-banner__action {
-  display: inline-block;
-  position: relative;
-}
-
-.ui-banner__icon {
-  float: left;
-  text-align: center;
-  top: -5px;
-
-  &:before {
-    font-size: 50px;
-    position: relative;
-    top: 11px;
-  }
+  padding: 15px 50px;
+  white-space: pre-wrap;
 }
 
 .ui-banner__title {
   font-weight: bold;
 }
 
-.ui-banner__info {
-  margin-left: $grid-margin;
-}
-
-.ui-banner__action {
-  background-color: white;
-  border: none;
-  float: right;
-}
-
 @mixin banner-theme($type, $color, $border, $background, $color-hover) {
   .ui-banner--#{$type} {
-    background-color: $color;
-  }
+    background-color: $background;
+    border-color: $border;
 
-  .ui-banner__action--#{$type} {
-    color: $color;
+    .ui-banner__type {
+      background-color: $color;
+    }
+
+    .ui-banner__title {
+      color: $color;
+      margin-bottom:3px;
+    }
   }
 }
 

@@ -6,6 +6,11 @@ import Immutable from 'immutable';
 import FormInputHelper from './../helpers/form-input-helper';
 
 let data = ImmutableHelper.parseJSON({
+  banner: {
+    as: "error",
+    title: "Lorem ipsum dolor",
+    text: "Nullam id dolor id nibh ultricies vehicula ut id elit."
+  },
   button: {
     text: "Action"
   },

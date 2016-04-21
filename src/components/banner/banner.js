@@ -1,7 +1,6 @@
 import React from 'react';
-import Button from './../button';
-import classNames from 'classnames';
 import Icon from './../icon';
+import classNames from 'classnames';
 
 /**
  * A Banner widget.
@@ -14,10 +13,9 @@ import Icon from './../icon';
  *
  * To render the Banner:
  *
- *   <Banner
- *      title="This is a title"
- *      message="This is my message."
- *      buttonAction={ this.handleButtonClick } />
+ *   <Banner title="This is a title" open={ true }>
+ *     My banner content
+ *   </Banner>
  *
  * Additionally you can pass optional props to the Banner component
  *
@@ -34,108 +32,71 @@ class Banner extends React.Component {
   static propTypes = {
 
     /**
-     * Customizes the appearance through icon and colour
+     * Customizes the appearance through colour
      * (see the 'iconColorSets' for possible values)
      *
      * @property as
      * @type {String}
-     * @default 'info'
+     * @default 'error'
      */
     as: React.PropTypes.string,
 
     /**
-     * Title to be displayed.
+     * Determines if the banner is open.
      *
-     * @property title
-     * @type {String}
+     * @property open
+     * @type {Boolean}
+     * @default true
      */
-    title: React.PropTypes.string.isRequired,
-
-    /**
-     * Message to be displayed.
-     *
-     * @property message
-     * @type {String}
-     */
-    message: React.PropTypes.string.isRequired,
-
-    /**
-     * Text to display on button.
-     *
-     * @property buttonText
-     * @type {String}
-     * @default 'Got it!'
-     */
-    buttonText: React.PropTypes.string,
-
-    /**
-     * The action to trigger on click.
-     *
-     * @property buttonAction
-     * @type {func}
-     */
-    buttonAction: React.PropTypes.func.isRequired
+    open: React.PropTypes.bool
   }
 
   static defaultProps = {
-    as: 'info',
-    buttonText: 'Got it!'
+    as: 'error',
+    open: true
   }
 
   /**
-   * Classes for the banner
+   * Classes to be applied to the component.
    *
-   * @method mainClasses
-   * @return {String} Main className
+   * @method componentClasses
    */
-  get mainClasses() {
+  get componentClasses() {
     return classNames(
       'ui-banner',
-      `ui-banner--${this.props.as}`,
-      this.props.className
+      this.props.className,
+      'ui-banner--' + this.props.as
     );
   }
 
-  /**
-   * Classes for the button action
-   *
-   * @method buttonClasses
-   * @return {String} classNames for button
-   */
-  get buttonClasses() {
-    return classNames(
-      'ui-banner__action',
-      `ui-banner__action--${this.props.as}`
-    );
+  get titleHTML() {
+    if (this.props.title) {
+      return(
+        <div className='ui-banner__title'>
+          { this.props.title }
+        </div>
+      );
+    }
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   */
-  render() {
-    return (
-      <div className={ this.mainClasses }>
+  get bannerContent() {
+    return this.props.open ? (
+      <div className={ this.componentClasses }>
+        <div className="ui-banner__type">
+          <Icon className="ui-banner__type-icon" type={ this.props.as } />
+        </div>
         <div className="ui-banner__content">
-          <Icon className="ui-banner__icon" type={ this.props.as } />
-
-          <div className='ui-banner__info'>
-            <div className='ui-banner__title'>
-              { this.props.title }
-            </div>
-
-            <div className='ui-banner__message'>
-              { this.props.message }
-            </div>
+          { this.titleHTML }
+          <div className="ui-banner__body">
+            { this.props.children }
           </div>
-
-          <Button onClick={ this.props.buttonAction } className={ this.buttonClasses }>
-            { this.props.buttonText }
-          </Button>
         </div>
       </div>
-    );
+    ) : null;
+  }
+
+  render() {
+    return (this.bannerContent);
   }
 }
 

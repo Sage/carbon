@@ -1,66 +1,64 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Banner from './banner';
 
 describe('Banner', () => {
-  let infoInstance, newInstance, warningInstance;
-  let spy;
+  let warningInstance, infoInstance, errorInstance, customInstance;
 
   beforeEach(() => {
-    spy = jasmine.createSpy('click');
+    warningInstance = TestUtils.renderIntoDocument(
+      <Banner as='warning' open={true} title='My Title'>Some warning</Banner>
+    )
 
     infoInstance = TestUtils.renderIntoDocument(
-      <Banner
-        as='info'
-        title='Info'
-        className='customClass'
-        message="Info Message."
-        buttonAction={ spy } />
-    );
+      <Banner as='info' open={true}>Some information</Banner>
+    )
 
-    newInstance = TestUtils.renderIntoDocument(
-      <Banner
-        as='new'
-        title="New"
-        message="New Message."
-        buttonAction={ spy } />
-    );
+    errorInstance = TestUtils.renderIntoDocument(
+      <Banner as='error' open={true}>Some error</Banner>
+    )
 
-    warningInstance = TestUtils.renderIntoDocument(
-      <Banner
-        as='warning'
-        title="Warning"
-        message="Warning Message."
-        buttonText="Button Text"
-        buttonAction={ spy } />
-    );
+    customInstance = TestUtils.renderIntoDocument(
+      <Banner className='fancy' as='info' open={true}>Some information</Banner>
+    )
   });
 
-  describe('mainClasses', () => {
-    it('returns the base banner class', () => {
-      expect(newInstance.mainClasses).toEqual('ui-banner ui-banner--new');
+  describe('A Banner instance', () => {
+    it('renders children passed to it', () => {
+      expect(warningInstance.props.children).toEqual('Some warning');
     });
 
-    describe('when passed extra classes via props', () => {
-      it('appends the extra classes to the base class', () => {
-        expect(infoInstance.mainClasses).toEqual('ui-banner ui-banner--info customClass');
-      });
+    it('sets a dialog header', () => {
+      let header = TestUtils.findRenderedDOMComponentWithClass(warningInstance, 'ui-banner__title');
+      expect(header.textContent).toEqual('My Title');
+    });
+
+    it('renders type icon', () => {
+      let icon = TestUtils.findRenderedDOMComponentWithClass(errorInstance, 'ui-banner__type-icon');
+      expect(icon.className).toEqual("ui-banner__type-icon icon-error");
     });
   });
 
-  describe('buttonClasses', () => {
-    it('returns the class for the button depending on the as prop', () => {
-      expect(infoInstance.buttonClasses).toEqual('ui-banner__action ui-banner__action--info');
-      expect(newInstance.buttonClasses).toEqual('ui-banner__action ui-banner__action--new');
-      expect(warningInstance.buttonClasses).toEqual('ui-banner__action ui-banner__action--warning');
-    });
-  });
+  describe('class names', () => {
+    let warningDOM, infoDOM, customDOM;
 
-  describe('render', () => {
-    it('renders a content, information and a action', () => {
-      expect(TestUtils.scryRenderedDOMComponentsWithClass(infoInstance, 'ui-banner__content').length).toEqual(1);
-      expect(TestUtils.scryRenderedDOMComponentsWithClass(infoInstance, 'ui-banner__info').length).toEqual(1);
-      expect(TestUtils.scryRenderedDOMComponentsWithClass(infoInstance, 'ui-banner__action').length).toEqual(1);
+    beforeEach(() => {
+      warningDOM = ReactDOM.findDOMNode(warningInstance);
+      infoDOM = ReactDOM.findDOMNode(infoInstance);
+      customDOM = ReactDOM.findDOMNode(customInstance);
+    });
+
+    it('adds a className of ui-banner--warning when type is warning', () => {
+      expect(warningDOM.className).toEqual('ui-banner ui-banner--warning');
+    });
+
+    it('adds a className of ui-banner--info when type is info', () => {
+      expect(infoDOM.className).toEqual('ui-banner ui-banner--info');
+    });
+
+    it('adds any additional classes passed', () => {
+      expect(customDOM.className).toEqual('ui-banner fancy ui-banner--info');
     });
   });
 });
