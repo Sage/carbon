@@ -33,7 +33,7 @@ import Events from './../../utils/helpers/events';
  * @constructor
  */
 class Modal extends React.Component {
-  
+
   /**
    * Tracks if event listeners are on for modal
    *
