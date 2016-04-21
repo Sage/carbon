@@ -2,6 +2,8 @@ import React from 'react';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
+import { startCase } from 'lodash';
+import { pixelValue, styleElement } from './../../ether';
 
 /**
  * TooltipDecorator.
@@ -93,7 +95,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
   onShow = () => {
     this.timeout = setTimeout(() => {
       this.setState({ isVisible: true });
-      this.positionTooltip();
+      this.positionTooltip(this.getTooltip(), this.getTarget());
     }, 100 );
   };
 
@@ -134,39 +136,49 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @method positionTooltip
    * @return {Void}
    */
-  positionTooltip = () => {
+  positionTooltip = (tooltip, target) => {
     if (this.state.isVisible) {
-      let target  = this.getTarget(),
-          tooltip = this.getTooltip();
-
-      let position      = this.props.tooltipPosition || 'top',
-          tooltipWidth  = tooltip.offsetWidth,
+      let tooltipWidth  = tooltip.offsetWidth,
           tooltipHeight = tooltip.offsetHeight,
+          pointerDimension = 15,
           // hardcode height & width since span has no dimensions
-          pointerHeight = 15,
-          pointerWidth = 15,
+          pointerOffset = 11,
           targetWidth   = target.offsetWidth,
-          targetHeight  = target.offsetHeight;
+          targetHeight  = target.offsetHeight,
+          alignment = this.pointerProps.pointerAlign,
+          position = this.props.tooltipPosition;
 
-      switch (position) {
+          let shifts = {
+            verticalY: -tooltipHeight - pointerDimension / 2,
+            verticalCenter:  -tooltipWidth / 2 + targetWidth / 2,
+            verticalRight:  pointerDimension + pointerOffset - tooltipWidth,
+            verticalLeft:   -targetHeight / 2,
+            rightHorizontal: pointerDimension + targetWidth /2,
+            leftHorizontal: pointerDimension + targetWidth / 2,
+            sideTop: -targetHeight / 2,
+            sideBottom: -tooltipHeight + pointerOffset + pointerDimension,
+            sideCenter: targetHeight / 2 - tooltipHeight / 2
+          }
+
+      switch (this.props.tooltipPosition) {
         case "top":
-          tooltip.style.top = String(-tooltipHeight - pointerHeight / 2) + 'px';
-          tooltip.style.left = String(-tooltipWidth / 2 + targetWidth / 2) + 'px';
+          styleElement(tooltip, 'top', pixelValue(shifts.verticalY));
+          styleElement(tooltip, 'left', pixelValue(shifts[`vertical${startCase(alignment)}`]));
           break;
 
         case "bottom":
-          tooltip.style.bottom = String(-tooltipHeight - pointerHeight / 2) + 'px';
-          tooltip.style.left = String(-tooltipWidth / 2 + targetWidth / 2) + 'px';
+          styleElement(tooltip, 'bottom', pixelValue(shifts.verticalY));
+          styleElement(tooltip, 'left', pixelValue(shifts[`vertical${startCase(alignment)}`]));
           break;
 
         case "left":
-          tooltip.style.left = String(-tooltipWidth - pointerWidth / 2) + 'px';
-          tooltip.style.top = String((targetHeight / 2) - (tooltipHeight / 2)) + 'px';
+          styleElement(tooltip, 'right', pixelValue(shifts[`${position}Horizontal`]));
+          styleElement(tooltip, 'top', pixelValue(shifts[`side${startCase(alignment)}`]));
           break;
 
         case "right":
-          tooltip.style.left = String(targetWidth + pointerWidth / 2) + 'px';
-          tooltip.style.top = String((targetHeight / 2) - (tooltipHeight / 2)) + 'px';
+          styleElement(tooltip, 'left', pixelValue(shifts[`${position}Horizontal`]));
+          styleElement(tooltip, 'top', pixelValue(shifts[`side${startCase(alignment)}`]));
       }
     }
   };
@@ -224,7 +236,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
           props.pointerPosition = 'bottom';
       }
 
-      props.pointerAlign = this.props.pointerAlign;
+      props.pointerAlign = this.props.pointerAlign || 'center';
 
       return props;
     }
