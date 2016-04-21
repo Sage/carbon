@@ -2,6 +2,7 @@ import React from 'react';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
+import { styleElement, pixelValue } from './../../ether/ether.js';
 
 /**
  * TooltipDecorator.
@@ -93,7 +94,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
   onShow = () => {
     this.timeout = setTimeout(() => {
       this.setState({ isVisible: true });
-      this.positionTooltip();
+      this.positionTooltip(this.getTooltip(), this.getTarget());
     }, 100 );
   };
 
@@ -134,39 +135,35 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @method positionTooltip
    * @return {Void}
    */
-  positionTooltip = () => {
+  positionTooltip = (element, target) => {
     if (this.state.isVisible) {
-      let target  = this.getTarget(),
-          tooltip = this.getTooltip();
+      // hardcode value as span has no dimensions
+      let pointerDimension = 15;
 
-      let position      = this.props.tooltipPosition || 'top',
-          tooltipWidth  = tooltip.offsetWidth,
-          tooltipHeight = tooltip.offsetHeight,
-          // hardcode height & width since span has no dimensions
-          pointerHeight = 15,
-          pointerWidth = 15,
-          targetWidth   = target.offsetWidth,
-          targetHeight  = target.offsetHeight;
+      let verticalCenter     = -element.offsetHeight - pointerDimension / 2,
+          horizontalCenter   = -element.offsetWidth / 2 + target.offsetWidth / 2,
+          sideVerticalCenter = target.offsetHeight / 2 - element.offsetHeight / 2;
 
-      switch (position) {
-        case "top":
-          tooltip.style.top = String(-tooltipHeight - pointerHeight / 2) + 'px';
-          tooltip.style.left = String(-tooltipWidth / 2 + targetWidth / 2) + 'px';
-          break;
-
+      switch (this.props.tooltipPosition) {
         case "bottom":
-          tooltip.style.bottom = String(-tooltipHeight - pointerHeight / 2) + 'px';
-          tooltip.style.left = String(-tooltipWidth / 2 + targetWidth / 2) + 'px';
+          styleElement(element, 'bottom', pixelValue(verticalCenter));
+          styleElement(element, 'left', pixelValue(horizontalCenter));
           break;
 
         case "left":
-          tooltip.style.left = String(-tooltipWidth - pointerWidth / 2) + 'px';
-          tooltip.style.top = String((targetHeight / 2) - (tooltipHeight / 2)) + 'px';
+          styleElement(element, 'top', pixelValue(sideVerticalCenter));
+          styleElement(element, 'left', pixelValue(element.offsetWidth - pointerDimension / 2));
           break;
 
         case "right":
-          tooltip.style.left = String(targetWidth + pointerWidth / 2) + 'px';
-          tooltip.style.top = String((targetHeight / 2) - (tooltipHeight / 2)) + 'px';
+          styleElement(element, 'top', pixelValue(sideVerticalCenter));
+          styleElement(element, 'left', pixelValue(target.offsetWidth + pointerDimension / 2));
+          break;
+
+        default:
+        // top
+          styleElement(element, 'top', pixelValue(verticalCenter));
+          styleElement(element, 'left', pixelValue(horizontalCenter));
       }
     }
   };
