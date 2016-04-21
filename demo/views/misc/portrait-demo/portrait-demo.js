@@ -47,7 +47,7 @@ class PortraitDemo extends React.Component {
             <Portrait
               { ...props }
               src='https://facebook.github.io/react/img/logo.svg'
-              initials='FB'
+              initials={ this.value('initials') }
             />
           </span>
           <span>
@@ -55,7 +55,7 @@ class PortraitDemo extends React.Component {
             <Portrait
               { ...props }
               gravatar='chris.barber@sage.com'
-              initials='CB'
+              initials={ this.value('initials') }
             />
           </span>
         </Row>
@@ -66,7 +66,7 @@ class PortraitDemo extends React.Component {
             <Portrait
               { ...props }
               gravatar='foo'
-              initials='CB'
+              initials={ this.value('initials') }
             />
           </span>
           <span>
@@ -130,7 +130,6 @@ class PortraitDemo extends React.Component {
             value={ this.value('size') }
             onChange={ this.action.bind(this, 'size') }
           />
-
           <Textbox
             label="Alt"
             value={ this.value('alt') }
@@ -146,10 +145,20 @@ class PortraitDemo extends React.Component {
             value={ this.value('shape') }
             onChange={ this.action.bind(this, 'shape') }
           />
+        </Row>
+        <Row>
           <Checkbox
             label="Use Initials"
+            reverse={ true }
             value={ this.value('useInitials') }
             onChange={ this.action.bind(this, 'useInitials') }
+          />
+          <Textbox
+            label="Initials"
+            value={ this.value('initials') }
+            labelInline={ true }
+            maxLength={ 3 }
+            onChange={ this.action.bind(this, 'initials') }
           />
         </Row>
       </div>

@@ -88,6 +88,7 @@ class Portrait extends React.Component {
     let canvas = document.createElement('canvas');
     let context = canvas.getContext("2d");
     let size = this.numericSizes[this.props.size];
+    let letters = this.props.initials || 'U'
  
     // Generate a random color every time function is called
     let color =  "#" + (Math.random() * 0xFFFFFF << 0).toString(16);
@@ -105,7 +106,7 @@ class Portrait extends React.Component {
     context.fillStyle = color;
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = "#FFF";
-    context.fillText(this.props.initials, size / 2, size / 1.5);
+    context.fillText(letters, size / 2, size / 1.5);
  
     // Set image representation in default format (png)
     let dataURI = canvas.toDataURL();
