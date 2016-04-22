@@ -70,7 +70,7 @@ class TooltipDemo extends React.Component {
     return(
       <div>
         <Row className='tooltip-demo__row--props'>
-          <h5 className='.tooltip-demo__row-label'>Tooltip Position</h5>
+          <h5 className='.tooltip-demo__row-label'>Pointer Position</h5>
           <RadioButton
             label='Left'
             name='pointerPosition'
@@ -78,13 +78,13 @@ class TooltipDemo extends React.Component {
             value='left'
           />
           <RadioButton
+            defaultChecked={ true }
             label='Bottom'
             name='pointerPosition'
             onChange={ this.action.bind(this, 'pointerPosition')}
             value='bottom'
           />
           <RadioButton
-            defaultChecked={ true }
             label='Top'
             name='pointerPosition'
             onChange={ this.action.bind(this, 'pointerPosition')}

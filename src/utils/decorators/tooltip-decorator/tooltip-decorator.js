@@ -134,6 +134,8 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * Positions tooltip relative to target
    *
    * @method positionTooltip
+   * @param {Object} tooltip
+   * @param {Object} target
    * @return {Void}
    */
   positionTooltip = (tooltip, target) => {
@@ -148,17 +150,17 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
           alignment = this.pointerProps.pointerAlign,
           position = this.props.tooltipPosition;
 
-          let shifts = {
-            verticalY: -tooltipHeight - pointerDimension / 2,
-            verticalCenter:  -tooltipWidth / 2 + targetWidth / 2,
-            verticalRight:  pointerDimension + pointerOffset - tooltipWidth,
-            verticalLeft:   -targetHeight / 2,
-            rightHorizontal: pointerDimension + targetWidth /2,
-            leftHorizontal: pointerDimension + targetWidth / 2,
-            sideTop: -targetHeight / 2,
-            sideBottom: -tooltipHeight + pointerOffset + pointerDimension,
-            sideCenter: targetHeight / 2 - tooltipHeight / 2
-          }
+        let shifts = {
+          verticalY:       -tooltipHeight - pointerDimension * 0.5,
+          verticalCenter:  -tooltipWidth * 0.5 + targetWidth * 0.5,
+          verticalRight:   pointerDimension + pointerOffset - tooltipWidth,
+          verticalLeft:    -pointerDimension * 0.5,
+          rightHorizontal: targetWidth + 0.5 * pointerDimension,
+          leftHorizontal:  -pointerDimension * 0.5 - tooltipWidth,
+          sideTop:         -pointerOffset,
+          sideBottom:      -tooltipHeight + targetHeight + pointerOffset,
+          sideCenter:      targetHeight * 0.5 - tooltipHeight * 0.5
+        };
 
       switch (this.props.tooltipPosition) {
         case "top":
@@ -172,7 +174,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
           break;
 
         case "left":
-          styleElement(tooltip, 'right', pixelValue(shifts[`${position}Horizontal`]));
+          styleElement(tooltip, 'left', pixelValue(shifts[`${position}Horizontal`]));
           styleElement(tooltip, 'top', pixelValue(shifts[`side${startCase(alignment)}`]));
           break;
 

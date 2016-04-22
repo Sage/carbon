@@ -12,6 +12,9 @@ let Ether = {
    * Sets style on element
    *
    * @method styleElement
+   * @param {Object} element
+   * @param {String} attribute
+   * @param {Number} value
    * @return {Object} Styled Element
    */
   styleElement: (element, attribute, value) => {
@@ -22,6 +25,7 @@ let Ether = {
    * Returns value as string pixel value
    *
    * @method pixelValue
+   * @param {Number} value
    * @return {String}
    */
   pixelValue: (value) => {
@@ -32,6 +36,7 @@ let Ether = {
    * Returns value as string percent value
    *
    * @method percentValue
+   * @param {Number} value
    * @return {String}
    */
   percentValue: (value) => {
