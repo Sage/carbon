@@ -21,6 +21,7 @@
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
 
+* Message style has changed to follow toast style
 * Pill style has changed
 
 ## Improved Dialog
