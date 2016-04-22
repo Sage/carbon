@@ -34,7 +34,7 @@ class Message extends React.Component {
      *
      * @property as
      * @type {String}
-     * @default 'error'
+     * @default 'info'
      */
     as: React.PropTypes.string,
 
