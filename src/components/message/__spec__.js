@@ -4,11 +4,13 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Message from './message';
 
 describe('Message', () => {
-  let warningMessage, infoMessage, errorMessage, customMessage;
+  let warningMessage, infoMessage, errorMessage, customMessage, spy;
 
   beforeEach(() => {
+    spy = jasmine.createSpy('dismiss');
+
     warningMessage = TestUtils.renderIntoDocument(
-      <Message as='warning' open={true} title='My Title'>Some warning</Message>
+      <Message as='warning' onDismiss={ spy } open={true} title='My Title'>Some warning</Message>
     )
 
     infoMessage = TestUtils.renderIntoDocument(
@@ -37,6 +39,20 @@ describe('Message', () => {
     it('renders type icon', () => {
       let icon = TestUtils.findRenderedDOMComponentWithClass(errorMessage, 'ui-message__type-icon');
       expect(icon.className).toEqual("ui-message__type-icon icon-error");
+    });
+
+    describe('dismiss', () => {
+      describe('when onDismiss is passed', () => {
+        it('adds a close icon', () => {
+          expect(TestUtils.findRenderedDOMComponentWithClass(warningMessage, 'ui-message__close')).toBeDefined();
+        });
+      });
+
+      describe('when onDismiss is not passed', () => {
+        it('does not add a close icon', () => {
+          expect(TestUtils.scryRenderedDOMComponentsWithClass(errorMessage, 'ui-message__close').length).toEqual(0);
+        });
+      });
     });
   });
 

@@ -29,11 +29,18 @@ class MessageDemo extends React.Component {
    * @method demo
    */
   get demo() {
+    let props = {}
+
+    if (this.value('dismissable')) {
+      props.onDismiss = this.action.bind(this, 'open', { target: { value: false } });
+    }
+
     return (
       <Message
         as={ this.value('as') }
-        open={ true }
+        open={ this.value('open') }
         title={ this.value('title') }
+        { ...props }
       >
         { this.value('text') || " " }
       </Message>
@@ -82,6 +89,16 @@ class MessageDemo extends React.Component {
           <AsDropdown
             value={ this.value('as') }
             onChange={ this.action.bind(this, 'as') }
+          />
+          <Checkbox
+            label="Open"
+            value={ this.value('open') }
+            onChange={ this.action.bind(this, 'open') }
+          />
+          <Checkbox
+            label="Dismissable"
+            value={ this.value('dismissable') }
+            onChange={ this.action.bind(this, 'dismissable') }
           />
         </Row>
       </div>

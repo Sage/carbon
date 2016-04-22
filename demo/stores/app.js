@@ -33,6 +33,8 @@ let data = ImmutableHelper.parseJSON({
     text: "Sample Link"
   },
   message: {
+    dismissable: true,
+    open: true,
     as: "error",
     title: "Lorem ipsum dolor",
     text: "Nullam id dolor id nibh ultricies vehicula ut id elit."

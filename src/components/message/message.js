@@ -45,11 +45,19 @@ class Message extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    open: React.PropTypes.bool
+    open: React.PropTypes.bool,
+
+    /**
+     * Callback for when dismissed.
+     *
+     * @property onDismiss
+     * @type {Function}
+     */
+    onDismiss: React.PropTypes.func
   }
 
   static defaultProps = {
-    as: 'error',
+    as: 'info',
     open: true
   }
 
@@ -67,18 +75,27 @@ class Message extends React.Component {
   }
 
   /**
+   * Content rendered for dismiss X
+   *
+   * @method dismissIcon
+   */
+  get dismissIcon() {
+    return this.props.onDismiss ? (
+      <Icon className="ui-message__close" type="close" onClick={ this.props.onDismiss } />
+    ) : null;
+  }
+
+  /**
   * HTML for the title
   *
   * @method titleHTML
   */
   get titleHTML() {
-    if (this.props.title) {
-      return(
-        <div className='ui-message__title'>
-          { this.props.title }
-        </div>
-      );
-    }
+    return this.props.title ? (
+      <div className='ui-message__title'>
+        { this.props.title }
+      </div>
+    ) : null;
   }
 
   /**
@@ -98,6 +115,8 @@ class Message extends React.Component {
             { this.props.children }
           </div>
         </div>
+
+        { this.dismissIcon }
       </div>
     ) : null;
   }
