@@ -110,6 +110,7 @@ let data = ImmutableHelper.parseJSON({
     tabData: [{}, {}]
   },
   toast: {
+    dismissable: true,
     as: "warning",
     open: true,
     text: "Sample toast notification."
