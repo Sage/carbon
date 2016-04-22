@@ -19,4 +19,4 @@ import Toast from 'carbon/lib/components/toast';
 | ------------- |  ------------- |  ------------- | ------------- | ------------- |
 | `as`          | `false`        | `String`       | `warning`     | The as property defines the toast colour. This can be `info`, `new` or `warning`  |
 | `open`        | `false`        | `Boolean`      | `true`        | Determines in the toast is open or closed.  |
-| `onDismiss`   | `true`         | `Function`     |               | Callback for when notification is dismissed.  |
+| `onDismiss`   | `false`        | `Function`     |               | Callback for when notification is dismissed.  |

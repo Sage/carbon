@@ -21,6 +21,7 @@
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
 
+* Message style has changed to follow toast style
 * Pill style has changed
 
 ## Improved Dialog
@@ -33,6 +34,7 @@
 * Allow Tables to shrink in size using the `shrink` prop.
 * Link component can now display with an icon.
 * Child components of Row can now use a `columnAlign` prop.
+* Toast onDismiss is now optional
 
 ## Bug Fixes
 
