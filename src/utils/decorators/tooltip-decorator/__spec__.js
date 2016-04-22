@@ -3,6 +3,7 @@ import Icon from 'components/icon'
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import TooltipDecorator from './tooltip-decorator';
+// import { styleElement, pix} from './../../ether';
 
 class BasicClass extends React.Component {
   onBlur = () => {
@@ -43,7 +44,7 @@ describe('tooltip-decorator', () => {
 
   beforeEach(() => {
     let DecoratedClassOne = TooltipDecorator(BasicClass);
-    topTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello'/>);
+    topTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='top'/>);
 
     let DecoratedClassTwo = TooltipDecorator(BasicClass);
     bottomTooltip = TestUtils.renderIntoDocument(<DecoratedClassTwo tooltipMessage='Hello' tooltipPosition='bottom'/>);
@@ -79,7 +80,7 @@ describe('tooltip-decorator', () => {
     it('calls positionTooltip after a timeout', () => {
       topTooltip.onShow();
       jasmine.clock().tick(300);
-      expect(topTooltip.positionTooltip).toHaveBeenCalled();
+      expect(topTooltip.positionTooltip).toHaveBeenCalledWith(topTooltip.getTooltip(), topTooltip.getTarget());
     });
   });
 
@@ -118,17 +119,59 @@ describe('tooltip-decorator', () => {
     describe('when positioned above the target', () => {
       beforeEach(()  => {
         spyOn(topTooltip, 'getTarget').and.returnValue(
+          {
+            offsetWidth: 30,
+            offsetHeight: 30
+          }
+        );
+
+        spyOn(topTooltip, 'getTooltip').and.returnValue(
+          {
+            offsetWidth: 100,
+            offsetHeight: 50,
+            style: { left: 0, top: 0},
+            children:
+              [
+                { foo: 'bar' },
+                {
+                  offsetHeight: 7
+                }
+              ]
+          }
+        );
+      });
+
+      it('sets the top and left styles', () => {
+        topTooltip.onShow();
+        jasmine.clock().tick(100);
+        let tooltip = topTooltip.getTooltip();
+        let target = topTooltip.getTarget();
+        topTooltip.positionTooltip(tooltip, target);
+        expect(tooltip.style.left).toEqual('-35px');
+        expect(tooltip.style.top).toEqual('-57.5px');
+      });
+
+      describe('when the pointer is aligned to the right', () => {
+        let rightTopTooltip;
+
+        beforeEach(()  => {
+          let DecoratedClass = TooltipDecorator(BasicClass);
+          rightTopTooltip = TestUtils.renderIntoDocument(
+            <DecoratedClass tooltipMessage='Hello' tooltipPosition='top' pointerAlign='right'/>
+          );
+
+          spyOn(rightTopTooltip, 'getTarget').and.returnValue(
             {
               offsetWidth: 30,
               offsetHeight: 30
             }
-        );
+          );
 
-        spyOn(topTooltip, 'getTooltip').and.returnValue(
+          spyOn(rightTopTooltip, 'getTooltip').and.returnValue(
             {
               offsetWidth: 100,
               offsetHeight: 50,
-              style: {},
+              style: { left: 0, top: 0},
               children:
                 [
                   { foo: 'bar' },
@@ -137,15 +180,62 @@ describe('tooltip-decorator', () => {
                   }
                 ]
             }
-        );
+          );
+        });
+
+        it('sets the correct top and left styles', () => {
+          rightTopTooltip.onShow();
+          jasmine.clock().tick(100);
+          let alignedTooltip = rightTopTooltip.getTooltip();
+          let target = rightTopTooltip.getTarget();
+          debugger
+          rightTopTooltip.positionTooltip(alignedTooltip, target);
+          expect(alignedTooltip.style.left).toEqual('-74px');
+          expect(alignedTooltip.style.top).toEqual('-57.5px');
+        });
       });
 
-      it('sets the top and left styles', () => {
-        topTooltip.onShow();
-        jasmine.clock().tick(300);
-        let positionedTooltip = topTooltip.getTooltip()
-        expect(positionedTooltip.style.left).toEqual('-35px');
-        expect(positionedTooltip.style.top).toEqual('-57.5px');
+      describe('when the pointer is aligned to the left', () => {
+        let leftTopTooltip;
+
+        beforeEach(()  => {
+          let DecoratedClass = TooltipDecorator(BasicClass);
+          leftTopTooltip = TestUtils.renderIntoDocument(
+            <DecoratedClass tooltipMessage='Hello' tooltipPosition='top' pointerAlign='left'/>
+          );
+
+          spyOn(leftTopTooltip, 'getTarget').and.returnValue(
+            {
+              offsetWidth: 30,
+              offsetHeight: 30
+            }
+          );
+
+          spyOn(leftTopTooltip, 'getTooltip').and.returnValue(
+            {
+              offsetWidth: 100,
+              offsetHeight: 50,
+              style: { left: 0, top: 0},
+              children:
+                [
+                  { foo: 'bar' },
+                  {
+                    offsetHeight: 7
+                  }
+                ]
+            }
+          );
+        });
+
+        it('sets the correct top and left styles', () => {
+          leftTopTooltip.onShow();
+          jasmine.clock().tick(100);
+          let alignedTooltip = leftTopTooltip.getTooltip();
+          let target = leftTopTooltip.getTarget();
+          leftTopTooltip.positionTooltip(alignedTooltip, target);
+          expect(alignedTooltip.style.left).toEqual('-7.5px');
+          expect(alignedTooltip.style.top).toEqual('-57.5px');
+        });
       });
     });
 
@@ -176,11 +266,14 @@ describe('tooltip-decorator', () => {
 
       it('sets the top and left styles', () => {
         bottomTooltip.onShow();
-        jasmine.clock().tick(300);
-        let positionedTooltip = bottomTooltip.getTooltip()
-        expect(positionedTooltip.style.left).toEqual('-35px');
-        expect(positionedTooltip.style.bottom).toEqual('-57.5px');
+        jasmine.clock().tick(100);
+        let tooltip = bottomTooltip.getTooltip();
+        let target = bottomTooltip.getTarget();
+        bottomTooltip.positionTooltip(tooltip, target);
+        expect(tooltip.style.left).toEqual('-35px');
+        expect(tooltip.style.bottom).toEqual('-57.5px');
       });
+
     });
 
     describe('when positioned right of the target', () => {
@@ -210,10 +303,98 @@ describe('tooltip-decorator', () => {
 
       it('sets the top and left styles', () => {
         rightTooltip.onShow();
-        jasmine.clock().tick(300);
-        let positionedTooltip = rightTooltip.getTooltip()
-        expect(positionedTooltip.style.left).toEqual('37.5px');
-        expect(positionedTooltip.style.top).toEqual('-10px');
+        jasmine.clock().tick(100);
+        let tooltip = rightTooltip.getTooltip();
+        let target = rightTooltip.getTarget();
+        rightTooltip.positionTooltip(tooltip, target);
+        expect(tooltip.style.left).toEqual('37.5px');
+        expect(tooltip.style.top).toEqual('-10px');
+      });
+
+      describe('when the pointer is aligned to the top', () => {
+        let topRightTooltip;
+
+        beforeEach(()  => {
+          let DecoratedClass = TooltipDecorator(BasicClass);
+          topRightTooltip = TestUtils.renderIntoDocument(
+            <DecoratedClass tooltipMessage='Hello' tooltipPosition='right' pointerAlign='top'/>
+          );
+
+          spyOn(topRightTooltip, 'getTarget').and.returnValue(
+            {
+              offsetWidth: 30,
+              offsetHeight: 30
+            }
+          );
+
+          spyOn(topRightTooltip, 'getTooltip').and.returnValue(
+            {
+              offsetWidth: 100,
+              offsetHeight: 50,
+              style: { left: 0, top: 0},
+              children:
+                [
+                  { foo: 'bar' },
+                  {
+                    offsetHeight: 7
+                  }
+                ]
+            }
+          );
+        });
+
+        it('sets the correct top and left styles', () => {
+          topRightTooltip.onShow();
+          jasmine.clock().tick(100);
+          let alignedTooltip = topRightTooltip.getTooltip();
+          let target = topRightTooltip.getTarget();
+          topRightTooltip.positionTooltip(alignedTooltip, target);
+          expect(alignedTooltip.style.left).toEqual('37.5px');
+          expect(alignedTooltip.style.top).toEqual('-11px');
+        });
+      });
+
+      describe('when the pointer is aligned to the bottom', () => {
+        let bottomRightTooltip;
+
+        beforeEach(()  => {
+          let DecoratedClass = TooltipDecorator(BasicClass);
+          bottomRightTooltip = TestUtils.renderIntoDocument(
+            <DecoratedClass tooltipMessage='Hello' tooltipPosition='right' pointerAlign='bottom'/>
+          );
+
+          spyOn(bottomRightTooltip, 'getTarget').and.returnValue(
+            {
+              offsetWidth: 30,
+              offsetHeight: 30
+            }
+          );
+
+          spyOn(bottomRightTooltip, 'getTooltip').and.returnValue(
+            {
+              offsetWidth: 100,
+              offsetHeight: 50,
+              style: { left: 0, top: 0},
+              children:
+                [
+                  { foo: 'bar' },
+                  {
+                    offsetHeight: 7
+                  }
+                ]
+            }
+          );
+        });
+
+        it('sets the correct top and left styles', () => {
+          bottomRightTooltip.onShow();
+          jasmine.clock().tick(100);
+          let alignedTooltip = bottomRightTooltip.getTooltip();
+          let target = bottomRightTooltip.getTarget();
+          bottomRightTooltip.positionTooltip(alignedTooltip, target);
+          expect(alignedTooltip.style.left).toEqual('37.5px');
+          expect(alignedTooltip.style.top).toEqual('-9px');
+        });
       });
     });
 
@@ -244,10 +425,12 @@ describe('tooltip-decorator', () => {
 
       it('sets the top and left styles', () => {
         leftTooltip.onShow();
-        jasmine.clock().tick(300);
-        let positionedTooltip = leftTooltip.getTooltip()
-        expect(positionedTooltip.style.left).toEqual('-107.5px');
-        expect(positionedTooltip.style.top).toEqual('-10px');
+        jasmine.clock().tick(100);
+        let tooltip = leftTooltip.getTooltip();
+        let target = leftTooltip.getTarget();
+        leftTooltip.positionTooltip(tooltip, target);
+        expect(tooltip.style.left).toEqual('-107.5px');
+        expect(tooltip.style.top).toEqual('-10px');
       });
     });
 

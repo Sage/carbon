@@ -142,25 +142,26 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
     if (this.state.isVisible) {
       let tooltipWidth  = tooltip.offsetWidth,
           tooltipHeight = tooltip.offsetHeight,
-          pointerDimension = 15,
           // hardcode height & width since span has no dimensions
+          pointerDimension = 15,
+          // hardcode offest of pointer when positioned right or left
           pointerOffset = 11,
           targetWidth   = target.offsetWidth,
           targetHeight  = target.offsetHeight,
           alignment = this.pointerProps.pointerAlign,
           position = this.props.tooltipPosition;
 
-        let shifts = {
-          verticalY:       -tooltipHeight - pointerDimension * 0.5,
-          verticalCenter:  -tooltipWidth * 0.5 + targetWidth * 0.5,
-          verticalRight:   pointerDimension + pointerOffset - tooltipWidth,
-          verticalLeft:    -pointerDimension * 0.5,
-          rightHorizontal: targetWidth + 0.5 * pointerDimension,
-          leftHorizontal:  -pointerDimension * 0.5 - tooltipWidth,
-          sideTop:         -pointerOffset,
-          sideBottom:      -tooltipHeight + targetHeight + pointerOffset,
-          sideCenter:      targetHeight * 0.5 - tooltipHeight * 0.5
-        };
+      let shifts = {
+        verticalY:       -tooltipHeight - pointerDimension * 0.5,
+        verticalCenter:  -tooltipWidth * 0.5 + targetWidth * 0.5,
+        verticalRight:   pointerDimension + pointerOffset - tooltipWidth,
+        verticalLeft:    -pointerDimension * 0.5,
+        rightHorizontal: targetWidth + 0.5 * pointerDimension,
+        leftHorizontal:  -pointerDimension * 0.5 - tooltipWidth,
+        sideTop:         -pointerOffset,
+        sideBottom:      -tooltipHeight + targetHeight + pointerOffset,
+        sideCenter:      targetHeight * 0.5 - tooltipHeight * 0.5
+      };
 
       switch (this.props.tooltipPosition) {
         case "top":
