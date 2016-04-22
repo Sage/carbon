@@ -93,28 +93,36 @@ describe('Pod', () => {
   describe('render', () => {
     it('renders a parent div with a pod CSS class', () => {
       instance = TestUtils.renderIntoDocument(<Pod/>);
-      let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
+      let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(podNode.className).toEqual('ui-pod ui-pod--primary ui-pod--padding-medium');
     });
 
     it('renders a parent div with an as CSS class', () => {
       instance = TestUtils.renderIntoDocument(<Pod as="secondary"/>);
-      let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
+      let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(podNode.className).toEqual('ui-pod ui-pod--secondary ui-pod--padding-medium');
     });
 
     describe('when a custom className is passed', () => {
       it('adds the class to the surrounding parent div', () => {
         instance = TestUtils.renderIntoDocument(<Pod className="CustomClass"/>);
-        let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
+        let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
         expect(podNode.className).toEqual('ui-pod CustomClass ui-pod--primary ui-pod--padding-medium');
+      });
+
+      describe('when it is an action pod', () => {
+        it('adds overrides the base class', () => {
+          instance = TestUtils.renderIntoDocument(<Pod as='action' />);
+          let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+          expect(podNode.className).toEqual('ui-pod--action ui-pod--padding-medium');
+        });
       });
     });
 
     describe('when border is disabled', () => {
       it('adds class to disable border', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false }/>);
-        let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
+        let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
         expect(podNode.className).toEqual('ui-pod ui-pod--primary ui-pod--padding-medium ui-pod--no-border');
       });
     });
@@ -122,7 +130,7 @@ describe('Pod', () => {
     describe('when a custom padding size is provided', () => {
       it('adds class to use padding size', () => {
         instance = TestUtils.renderIntoDocument(<Pod padding="small" />);
-        let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
+        let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
         expect(podNode.className).toEqual('ui-pod ui-pod--primary ui-pod--padding-small');
       });
     });

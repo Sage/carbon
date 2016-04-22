@@ -187,8 +187,10 @@ class Pod extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
+    let baseClass = this.props.as === 'action' ? '' : 'ui-pod';
+
     return classNames(
-      'ui-pod',
+      baseClass,
       this.props.className,
       `ui-pod--${this.props.as}`,
       `ui-pod--padding-${this.props.padding}`, {
