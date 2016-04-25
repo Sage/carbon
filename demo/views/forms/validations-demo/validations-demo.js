@@ -5,6 +5,7 @@ import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
 import FormInputHelper from './../../../helpers/form-input-helper';
 import Immutable from 'immutable';
+import { startCase } from 'lodash';
 
 import Textbox from 'components/textbox';
 import Dropdown from 'components/dropdown';
@@ -17,7 +18,7 @@ import EmailValidator from 'utils/validations/email';
 import NumeralValidator from 'utils/validations/numeral';
 import LengthValidator from 'utils/validations/length';
 
-class TextboxDemo extends React.Component {
+class ValidationsDemo extends React.Component {
 
   /**
    * @method value
@@ -94,7 +95,8 @@ class TextboxDemo extends React.Component {
    * @method code
    */
   get code() {
-    let html = "import Textbox from 'carbon/lib/components/textbox';\n\n";
+    let html = "import Textbox from 'carbon/lib/components/textbox';\n";
+    html += `import ${ startCase(this.value('validator')) }Validator from 'utils/validations/presence'\n\n`;
 
     html += "<Textbox";
 
@@ -252,4 +254,4 @@ class TextboxDemo extends React.Component {
   }
 }
 
-export default connect(TextboxDemo, AppStore);
+export default connect(ValidationsDemo, AppStore);
