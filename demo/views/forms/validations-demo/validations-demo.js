@@ -96,7 +96,7 @@ class ValidationsDemo extends React.Component {
    */
   get code() {
     let html = "import Textbox from 'carbon/lib/components/textbox';\n";
-    html += `import ${ startCase(this.value('validator')) }Validator from 'utils/validations/presence'\n\n`;
+    html += `import ${ startCase(this.value('validator')) }Validator from 'utils/validations/${ this.value('validator') }'\n\n`;
 
     html += "<Textbox";
 
