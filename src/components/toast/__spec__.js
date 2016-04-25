@@ -18,7 +18,7 @@ describe('Toast', () => {
     });
   });
 
-  describe('when toast is open', () => {
+  describe('when toast is open with onDismiss prop', () => {
     beforeEach(() => {
       onDismissSpy = jasmine.createSpy();
       instance = TestUtils.renderIntoDocument(
@@ -57,6 +57,22 @@ describe('Toast', () => {
       let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-toast__close');
       TestUtils.Simulate.click(icon);
       expect(onDismissSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('when toast is open without onDismiss prop', () => {
+    beforeEach(() => {
+      onDismissSpy = jasmine.createSpy();
+      instance = TestUtils.renderIntoDocument(
+        <Toast open={ true } as="info" className="custom">
+          foobar
+        </Toast>
+      );
+    });
+
+    it('does not renders close icon', () => {
+      let icon = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-toast__close');
+      expect(icon.length).toEqual(0);
     });
   });
 });

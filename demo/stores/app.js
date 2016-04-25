@@ -33,8 +33,11 @@ let data = ImmutableHelper.parseJSON({
     text: "Sample Link"
   },
   message: {
-    as: "warning",
-    text: "Sample message."
+    dismissable: true,
+    open: true,
+    as: "error",
+    title: "Lorem ipsum dolor",
+    text: "Nullam id dolor id nibh ultricies vehicula ut id elit."
   },
   pill: {
     as: 'new',
@@ -49,6 +52,13 @@ let data = ImmutableHelper.parseJSON({
     border: true,
     padding: "medium",
     as: "primary"
+  },
+  radio_button: {
+    columnData: [
+      { name: 'access', value: 'full', label: 'Full Access'},
+      { name: 'access', value: 'limited', label: 'Limited Access'},
+      { name: 'access', value: 'no-access', label: 'No Access'}
+    ]
   },
   rainbow: {
     data: [{
@@ -100,6 +110,7 @@ let data = ImmutableHelper.parseJSON({
     tabData: [{}, {}]
   },
   toast: {
+    dismissable: true,
     as: "warning",
     open: true,
     text: "Sample toast notification."
