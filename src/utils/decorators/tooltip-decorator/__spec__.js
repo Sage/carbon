@@ -80,7 +80,7 @@ describe('tooltip-decorator', () => {
     it('calls positionTooltip after a timeout', () => {
       topTooltip.onShow();
       jasmine.clock().tick(300);
-      expect(topTooltip.positionTooltip).toHaveBeenCalledWith(topTooltip.getTooltip(), topTooltip.getTarget());
+      expect(topTooltip.positionTooltip).toHaveBeenCalled();
     });
   });
 

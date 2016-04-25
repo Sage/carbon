@@ -2,7 +2,7 @@ import React from 'react';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
-import { startCase } from 'lodash';
+import { startCase, memoize } from 'lodash';
 import { pixelValue, styleElement } from './../../ether';
 
 /**
@@ -95,7 +95,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
   onShow = () => {
     this.timeout = setTimeout(() => {
       this.setState({ isVisible: true });
-      this.positionTooltip(this.getTooltip(), this.getTarget());
+      this.positionTooltip();
     }, 100 );
   };
 
@@ -131,6 +131,36 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
   }
 
   /**
+   * Calculates position for tooltip, first result cached.
+   *
+   * @method calculatePosition
+   * @param {Object} tooltip
+   * @param {Object} target
+   * @return {Object} shifts calculated
+   */
+  calculatePosition = memoize((tooltip, target) => {
+    let tooltipWidth  = tooltip.offsetWidth,
+        tooltipHeight = tooltip.offsetHeight,
+        pointerDimension = 15,
+        // hardcode height & width since span has no dimensions
+        pointerOffset = 11,
+        targetWidth   = target.offsetWidth,
+        targetHeight  = target.offsetHeight;
+
+    return {
+      verticalY:       -tooltipHeight - pointerDimension * 0.5,
+      verticalCenter:  -tooltipWidth * 0.5 + targetWidth * 0.5,
+      verticalRight:   pointerDimension + pointerOffset - tooltipWidth,
+      verticalLeft:    -pointerDimension * 0.5,
+      rightHorizontal: targetWidth + 0.5 * pointerDimension,
+      leftHorizontal:  -pointerDimension * 0.5 - tooltipWidth,
+      sideTop:         -pointerOffset,
+      sideBottom:      -tooltipHeight + targetHeight + pointerOffset,
+      sideCenter:      targetHeight * 0.5 - tooltipHeight * 0.5
+    };
+  });
+
+  /**
    * Positions tooltip relative to target
    *
    * @method positionTooltip
@@ -138,32 +168,14 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @param {Object} target
    * @return {Void}
    */
-  positionTooltip = (tooltip, target) => {
+  positionTooltip = () => {
     if (this.state.isVisible) {
-      let tooltipWidth  = tooltip.offsetWidth,
-          tooltipHeight = tooltip.offsetHeight,
-          // hardcode height & width since span has no dimensions
-          pointerDimension = 15,
-          // hardcode offest of pointer when positioned right or left
-          pointerOffset = 11,
-          targetWidth   = target.offsetWidth,
-          targetHeight  = target.offsetHeight,
+      let tooltip = this.getTooltip(),
           alignment = this.pointerProps.pointerAlign,
-          position = this.props.tooltipPosition;
+          position = this.props.tooltipPosition,
+          shifts = this.calculatePosition(tooltip, this.getTarget());
 
-      let shifts = {
-        verticalY:       -tooltipHeight - pointerDimension * 0.5,
-        verticalCenter:  -tooltipWidth * 0.5 + targetWidth * 0.5,
-        verticalRight:   pointerDimension + pointerOffset - tooltipWidth,
-        verticalLeft:    -pointerDimension * 0.5,
-        rightHorizontal: targetWidth + 0.5 * pointerDimension,
-        leftHorizontal:  -pointerDimension * 0.5 - tooltipWidth,
-        sideTop:         -pointerOffset,
-        sideBottom:      -tooltipHeight + targetHeight + pointerOffset,
-        sideCenter:      targetHeight * 0.5 - tooltipHeight * 0.5
-      };
-
-      switch (this.props.tooltipPosition) {
+      switch (position) {
         case "top":
           styleElement(tooltip, 'top', pixelValue(shifts.verticalY));
           styleElement(tooltip, 'left', pixelValue(shifts[`vertical${startCase(alignment)}`]));
