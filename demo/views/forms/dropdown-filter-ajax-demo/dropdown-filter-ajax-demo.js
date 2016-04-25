@@ -45,7 +45,7 @@ class DropdownFilterAjaxDemo extends React.Component {
 
     html += "<DropdownFilterAjax\n";
     html += "  options={opts}";
-    html += "  path='/countries';
+    html += "  path='/countries'";
     html = FormInputHelper.codeProps(this, html);
     html += "/>\n\n";
 
