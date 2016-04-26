@@ -132,7 +132,7 @@ class Form extends React.Component {
   }
 
   static contextTypes = {
-    dialog: React.PropTypes.object
+    modal: React.PropTypes.object
   }
 
   /**
@@ -296,7 +296,7 @@ class Form extends React.Component {
   }
 
   /**
-   * Redirects to the previous page; uses React Router history, or uses dialog cancel handler.
+   * Redirects to the previous page; uses React Router history, or uses modalcancel handler.
    *
    * @method cancelForm
    * @return {void}
@@ -304,8 +304,8 @@ class Form extends React.Component {
   cancelForm = () => {
     if (this.props.onCancel) {
       this.props.onCancel();
-    } else if (this.context.dialog) {
-      this.context.dialog.onCancel();
+    } else if (this.context.modal) {
+      this.context.modal.onCancel();
     } else {
       // history comes from react router
       if (!this._window.history) {

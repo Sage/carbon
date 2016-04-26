@@ -6,11 +6,21 @@ import Immutable from 'immutable';
 import FormInputHelper from './../helpers/form-input-helper';
 
 let data = ImmutableHelper.parseJSON({
+  alert: {
+    title: 'Alert!'
+  },
   button: {
     text: "Action"
   },
+  confirm: {
+    title: 'Are you sure?'
+  },
   collapsible_pod: {
     title: 'Hello World!'
+  },
+  content: {
+    title: 'Example Content',
+    body: 'This is some example content\nfor the Content component.'
   },
   dialog: {
     open: false,
@@ -34,12 +44,15 @@ let data = ImmutableHelper.parseJSON({
     text: "Sample Link"
   },
   message: {
-    as: "warning",
-    text: "Sample message."
+    dismissable: true,
+    open: true,
+    as: "error",
+    title: "Lorem ipsum dolor",
+    text: "Nullam id dolor id nibh ultricies vehicula ut id elit."
   },
   pill: {
-    as: 'info',
-    text: 'Pill'
+    as: 'new',
+    text: 'PILL'
   },
   portrait: {
     size: 'lmed',
@@ -50,6 +63,13 @@ let data = ImmutableHelper.parseJSON({
     border: true,
     padding: "medium",
     as: "primary"
+  },
+  radio_button: {
+    columnData: [
+      { name: 'access', value: 'full', label: 'Full Access'},
+      { name: 'access', value: 'limited', label: 'Limited Access'},
+      { name: 'access', value: 'no-access', label: 'No Access'}
+    ]
   },
   rainbow: {
     data: [{
@@ -67,6 +87,9 @@ let data = ImmutableHelper.parseJSON({
   },
   row: {
     columnData: [{}, {}, {}, {}]
+  },
+  sidebar: {
+    open: false
   },
   spinner: {
     as: 'info',
@@ -101,6 +124,7 @@ let data = ImmutableHelper.parseJSON({
     tabData: [{}, {}]
   },
   toast: {
+    dismissable: true,
     as: "warning",
     open: true,
     text: "Sample toast notification."

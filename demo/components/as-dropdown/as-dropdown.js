@@ -27,6 +27,10 @@ class AsDropdown extends React.Component {
       name: "Warning"
     }]);
 
+    if (this.props.extraOpts) {
+      opts = opts.concat(this.props.extraOpts);
+    }
+
     return (
       <Dropdown
         options={ opts }

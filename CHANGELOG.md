@@ -3,19 +3,27 @@
 ## Improvements
 
 * Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
+* Label can now have a subtitle. Pass `labelHelp='help message'` to any label enabled input
 * Add `tableHeader` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
+* Add `thead` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
 
 ## New Components
 
+* Sidebar - with sidebar header
 * Portrait
+* Content
 * Tile - an alternative to Pod, with a drop shadow.
 
 ## Layout Updates
 
 * Row margin has been reduced to `15px`.
 * Pod component now receives two additional props:
+
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
+
+* Message style has changed to follow toast style
+* Pill style has changed
 
 ## Improved Dialog
 
@@ -23,13 +31,16 @@
 
 ## Misc
 
+* Format i18n error number for numeric validation.
 * Allow Tables to shrink in size using the `shrink` prop.
 * Link component can now display with an icon.
 * Child components of Row can now use a `columnAlign` prop.
+* Toast onDismiss is now optional
 
 ## Bug Fixes
 
 * Fixes alignment issue with SplitButton when using anchors.
+* Row component will not break with children of `null` or `undefined`.
 
 # 0.7.1
 
