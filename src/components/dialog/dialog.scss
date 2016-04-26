@@ -2,8 +2,6 @@
 @import 'z-index';
 
 $dialog-padding: 20px;
-$dialog-initial-position: 60px;
-$dialog-animation-length: 300ms;
 
 .ui-dialog__dialog {
   background-color: $grey-light;
@@ -45,28 +43,4 @@ $dialog-animation-length: 300ms;
   &:hover {
     color: $blue;
   }
-}
-
-// dialog animation:
-
-.dialog-enter {
-  opacity: 0;
-  margin-top: $dialog-initial-position;
-}
-
-.dialog-enter.dialog-enter-active {
-  opacity: 1;
-  margin-top: 0;
-  transition: all $dialog-animation-length 100ms ease-in;
-}
-
-.dialog-leave {
-  opacity: 1;
-  margin-top: 0;
-}
-
-.dialog-leave.dialog-leave-active {
-  opacity: 0;
-  margin-top: $dialog-initial-position;
-  transition: all $dialog-animation-length ease-in;
 }

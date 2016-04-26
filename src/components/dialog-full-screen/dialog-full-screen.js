@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from './../icon';
-import Dialog from './../dialog';
+import Modal from './../modal';
 import classNames from 'classnames';
 
 /**
@@ -23,46 +23,33 @@ import classNames from 'classnames';
  * @class DialogFullScreen
  * @constructor
  */
-class DialogFullScreen extends Dialog {
+class DialogFullScreen extends Modal {
 
-  /**
-   * A lifecycle method to update the component on initialize
-   * @override
-   *
-   * @method componentDidMount
-   * @return {void}
-   */
-  componentDidMount() {
+  static defaultProps = {
+    open: false,
+    enableBackgroundUI: true
   }
 
   /**
-   * A lifecycle method to update the component after it is re-rendered
-   * @override
+   * Returns classes for the dialog.
    *
-   * @method componentDidUpdate
-   * @return {void}
+   * @method dialogClasses
+   * @return {String} dialog className
    */
-  componentDidUpdate() {
-    if (this.props.open && !this.listening) {
-      this.listening = true;
-      window.addEventListener('keyup', this.closeDialog);
-    } else if (!this.props.open) {
-      this.listening = false;
-      window.removeEventListener('keyup', this.closeDialog);
-    }
+  get dialogClasses() {
+    return 'ui-dialog-full-screen__dialog';
   }
 
   /**
    * Returns main classes for the component combined with
    * Dialog main classes.
-   * @override
    *
    * @method mainClasses
    * @return {String} Main className
    */
   get mainClasses() {
     return classNames(
-      super.mainClasses,
+      this.props.className,
       'ui-dialog-full-screen'
     );
   }
@@ -71,18 +58,18 @@ class DialogFullScreen extends Dialog {
    * Returns the computed HTML for the dialog.
    * @override
    *
-   * @method dialogHTML
+   * @method modalHTML
    * @return {Object} JSX for dialog
    */
-  get dialogHTML() {
+  get modalHTML() {
     return (
-      <div ref={ (dialog) => this._dialog = dialog } className={ this.dialogClasses }>
-        <div className="ui-dialog__header">
-          { this.dialogTitle }
-          <Icon className="ui-dialog__close" type="close" onClick={ this.props.onCancel } />
+      <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
+        <div className="ui-dialog-full-screen__header">
+          <h2 className="ui-dialog-full-screen__title">{ this.props.title }</h2>
+          <Icon className="ui-dialog-full-screen__close" type="close" onClick={ this.props.onCancel } />
         </div>
 
-        <div className='ui-dialog__content'>
+        <div className='ui-dialog-full-screen__content'>
           { this.props.children }
         </div>
       </div>

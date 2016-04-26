@@ -170,7 +170,7 @@ class Dialog extends Modal {
    * Returns classes for the dialog.
    * @override
    *
-   * @method modalClasses
+   * @method dialogClasses
    * @return {String} dialog className
    */
   get dialogClasses() {
@@ -199,16 +199,6 @@ class Dialog extends Modal {
         </div>
       </div>
     );
-  }
-
-  /**
-   * Transisiton group name
-   *
-   * @method transitionName
-   * @return {String}
-   */
-  get transitionName() {
-    return 'dialog';
   }
 }
 

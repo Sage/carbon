@@ -6,182 +6,60 @@ import Bowser from 'bowser';
 import Button from './../button';
 
 describe('DialogFullScreen', () => {
-  let instance;
-  let onCancel = jasmine.createSpy('cancel');
+  let instance,
+      onCancel = jasmine.createSpy('cancel');
 
-  describe('Lifecycle functions', () => {
-    describe('componentDidUpdate', () => {
-      describe('when the dialog is open', () => {
-        beforeEach(() => {
-          instance = TestUtils.renderIntoDocument(
-            <DialogFullScreen open={ true } onCancel={ onCancel } />
-          );
-        });
+  beforeEach(() => {
+    instance = TestUtils.renderIntoDocument(
+      <DialogFullScreen
+        onCancel={ onCancel }
+        className="foo"
+        open={ true }
+      >
+        <Button>Button</Button>
+        <Button>Button</Button>
+      </DialogFullScreen>
+    );
+  });
 
-        it('sets up an event listener to close the dialog', () => {
-          let spy = spyOn(window, 'addEventListener');
-          instance.componentDidUpdate();
-          expect(spy.calls.count()).toEqual(1);
-          expect(window.addEventListener).toHaveBeenCalledWith('keyup', instance.closeDialog);
-        });
-
-        describe('when the dialog is already listening', () => {
-          it('does not set up event listeners', () => {
-            let spy = spyOn(window, 'addEventListener');
-            instance.listening = true;
-            instance.componentDidUpdate();
-            expect(spy.calls.count()).toEqual(0);
-            expect(window.addEventListener).not.toHaveBeenCalled();
-          });
-        });
-      });
-
-      describe('when the dialog is closed', () => {
-        beforeEach(() => {
-          instance = TestUtils.renderIntoDocument(
-            <DialogFullScreen onCancel={ onCancel } />
-          );
-        });
-
-        it('removes the event listener for closing', () => {
-          let spy = spyOn(window, 'removeEventListener');
-          instance.componentDidUpdate();
-          expect(spy.calls.count()).toEqual(1);
-          expect(window.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeDialog);
-        });
-      });
+  describe('default props', () => {
+    it('sets enableBackgroundUI to true', () => {
+      expect(instance.props.enableBackgroundUI).toBeTruthy();
     });
   });
 
-  describe('closeDialog', () => {
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <DialogFullScreen open={ true } onCancel={ onCancel } />
-      );
-    });
-
-    describe('when the esc key is released', () => {
-      it('calls the cancel dialog handler', () => {
-        instance.closeDialog({ keyCode: 27 });
-        expect(onCancel).toHaveBeenCalled();
-      });
-    });
-
-    describe('when any other key is released', () => {
-      it('calls the cancel dialog handler', () => {
-        instance.closeDialog({ keyCode: 8 });
-        expect(onCancel).toHaveBeenCalled();
-      });
+  describe('dialogClasses', () => {
+    it('returns the full screen dialog class', () => {
+      expect(instance.dialogClasses).toEqual('ui-dialog-full-screen__dialog');
     });
   });
 
-  describe('dialogTitle', () => {
-    describe('when a props title is passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
-          <DialogFullScreen
-            onCancel={ onCancel }
-            open={ true }
-            title="Dialog title" />
-        );
-      });
-
-      it('sets a dialog header', () => {
-        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
-        expect(header.classList[0]).toEqual('ui-dialog__title');
-        expect(header.textContent).toEqual('Dialog title');
-      });
-    });
-
-    describe('when a props title is not passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
-          <DialogFullScreen
-            onCancel={ onCancel }
-            open={ true } />
-        );
-      });
-
-      it('defaults to null', () => {
-        expect(instance.dialogTitle).toBeFalsy();
-      });
+  describe('mainClasses', () => {
+    it('returns the full screen dialog class and custom class', () => {
+      expect(instance.mainClasses).toEqual('foo ui-dialog-full-screen');
     });
   });
 
-  describe('backgroundHTML', () => {
-    describe('when disableBackground is true', () => {
-      it('returns a background div', () => {
-        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dialog__background')).toBeTruthy();
-      });
+  describe('modalHTML', () => {
+    it('renders a parent div with mainClasses attached', () => {
+      let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      expect(dialogNode.className).toEqual('foo ui-dialog-full-screen');
     });
 
-    describe('when disableBackground is false', () => {
-      it('returns null', () => {
-        instance = TestUtils.renderIntoDocument(
-          <DialogFullScreen
-            onCancel={ onCancel }
-            open={ true }
-            disableBackground={ false }
-          />
-        );
-
-        expect(instance.backgroundHTML).toBeFalsy();
-      });
-    });
-  });
-
-  describe('dialogTitleClasses', () => {
-    it('returns the class for the dialog title', () => {
-      expect(instance.dialogTitleClasses).toEqual('ui-dialog__title');
-    });
-  });
-
-  describe('render', () => {
-    describe('when dialog is open', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
-          <DialogFullScreen
-            onCancel={ onCancel }
-            className="foo"
-            open={ true } >
-
-            <Button>Button</Button>
-            <Button>Button</Button>
-          </DialogFullScreen>
-        );
-      });
-
-      it('renders a parent div with mainClasses attached', () => {
-        let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(dialogNode.className).toEqual('ui-dialog foo ui-dialog-full-screen');
-      });
-
-      it('renders the dialog', () => {
-        expect(instance._dialog).toBeTruthy();
-        expect(instance._dialog.classList[0]).toEqual('ui-dialog__dialog');
-      });
-
-      it('closes when the exit icon is click', () => {
-        let closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dialog__close');
-        TestUtils.Simulate.click(closeIcon);
-        expect(onCancel).toHaveBeenCalled();
-      });
-
-      it('renders the children passed to it', () => {
-        let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-        expect(buttons.length).toEqual(2);
-      });
+    it('renders the dialog', () => {
+      expect(instance._dialog).toBeTruthy();
+      expect(instance._dialog.classList[0]).toEqual('ui-dialog-full-screen__dialog');
     });
 
-    describe('when dialog is closed', () => {
-      instance = TestUtils.renderIntoDocument(
-        <DialogFullScreen onCancel={ onCancel } />
-      );
+    it('closes when the exit icon is click', () => {
+      let closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dialog-full-screen__close');
+      TestUtils.Simulate.click(closeIcon);
+      expect(onCancel).toHaveBeenCalled();
+    });
 
-      it('renders a parent div with mainClasses attached', () => {
-        let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(dialogNode.classList[0]).toEqual('ui-dialog');
-      });
+    it('renders the children passed to it', () => {
+      let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
+      expect(buttons.length).toEqual(2);
     });
   });
 });
