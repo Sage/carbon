@@ -6,26 +6,26 @@ import Example from './../../../components/example';
 import AsDropdown from './../../../components/as-dropdown';
 import SizeDropdown from './../../../components/size-dropdown';
 
-import Dialog from 'components/dialog';
+import Confirm from 'components/confirm';
 import Row from 'components/row';
 import Button from 'components/button';
 import Textbox from 'components/textbox';
 import Checkbox from 'components/checkbox';
 
-class DialogDemo extends React.Component {
+class ConfirmDemo extends React.Component {
 
   /**
    * @method value
    */
   value = (key) => {
-    return this.state.appStore.getIn(['dialog', key]);
+    return this.state.appStore.getIn(['confirm', key]);
   }
 
   /**
    * @method action
    */
   get action() {
-    return AppActions.appValueUpdated.bind(this, 'dialog');
+    return AppActions.appValueUpdated.bind(this, 'confirm');
   }
 
   /**
@@ -35,19 +35,17 @@ class DialogDemo extends React.Component {
     return (
       <div>
         <Button onClick={ this.action.bind(this, 'open', { target: { value: true } } ) } >
-          Click me to Open Dialog
+          Click me to Open Confirm!
         </Button>
-        <Dialog
+        <Confirm
           open={ this.value('open') }
+          onConfirm={ this.action.bind(this, 'open', { target: { value: false } } ) }
           onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
           title={ this.value('title') }
           enableBackgroundUI={ this.value('enableBackgroundUI') }
         >
-          <Row>
-            <Textbox />
-            <Textbox />
-          </Row>
-        </Dialog>
+          Are you really sure?
+        </Confirm>
       </div>
     );
   }
@@ -56,9 +54,9 @@ class DialogDemo extends React.Component {
    * @method code
    */
   get code() {
-    let html = "import Dialog from 'carbon/lib/components/dialog';\n\n";
+    let html = "import Confirm from 'carbon/lib/components/confirm';\n\n";
 
-    html += "<Dialog\n";
+    html += "<Confirm\n";
     html += `  open={ ${ this.value('open') } }\n`
     html += `  title="${ this.value('title') }"\n`;
 
@@ -101,8 +99,8 @@ class DialogDemo extends React.Component {
   render() {
     return (
       <Example
-        title="Dialog"
-        readme="components/dialog"
+        title="Confirm"
+        readme="components/confirm"
         demo={ this.demo }
         code={ this.code }
         controls={ this.controls }
@@ -111,4 +109,4 @@ class DialogDemo extends React.Component {
   }
 }
 
-export default connect(DialogDemo, AppStore);
+export default connect(ConfirmDemo, AppStore);

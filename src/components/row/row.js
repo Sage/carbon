@@ -11,7 +11,7 @@ import { compact } from 'lodash';
  *
  * In your file
  *
- *   import Row from 'carbon/lib/components/Row';
+ *   import Row from 'carbon/lib/components/row';
  *
  * To render the Row:
  *
