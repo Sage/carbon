@@ -4,7 +4,10 @@
 .ui-table__wrapper {
   border-radius: $tables__border-radius;
   border: 1px solid $border-color;
-  overflow-x: auto;
+  overflow-x:scroll;
+  overflow-y:visible;
+  width:250px;
+  margin-left: 120px;
 }
 
 .ui-table__table {
@@ -20,4 +23,11 @@
 .ui-table--pager {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+th:first-child {
+  border-right: none;
+  left: 50px;
+  position: absolute;
+  width: 75px;
 }

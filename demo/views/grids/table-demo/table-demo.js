@@ -251,6 +251,48 @@ class TableDemo extends React.Component {
         <TableHeader sortable={ this.value('sortable') } name="value">
           Code
         </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
+          Country
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="value">
+          Code
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
+          Country
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="value">
+          Code
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
+          Country
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="value">
+          Code
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
+          Country
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="value">
+          Code
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
+          Country
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="value">
+          Code
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
+          Country
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="value">
+          Code
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
+          Country
+        </TableHeader>
+        <TableHeader sortable={ this.value('sortable') } name="value">
+          Code
+        </TableHeader>
       </TableRow>
     );
   }
@@ -266,6 +308,20 @@ class TableDemo extends React.Component {
         <TableRow key={ index }>
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
+          <TableCell>{ row.get('name') }</TableCell>
+          <TableCell>{ row.get('value') }</TableCell>
+          <TableCell>{ row.get('name') }</TableCell>
+          <TableCell>{ row.get('value') }</TableCell>
+          <TableCell>{ row.get('name') }</TableCell>
+          <TableCell>{ row.get('value') }</TableCell>
+          <TableCell>{ row.get('name') }</TableCell>
+          <TableCell>{ row.get('value') }</TableCell>
+            <TableCell>{ row.get('name') }</TableCell>
+            <TableCell>{ row.get('value') }</TableCell>
+              <TableCell>{ row.get('name') }</TableCell>
+              <TableCell>{ row.get('value') }</TableCell>
+                <TableCell>{ row.get('name') }</TableCell>
+                <TableCell>{ row.get('value') }</TableCell>
         </TableRow>
       );
     });
