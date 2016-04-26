@@ -172,7 +172,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
     if (this.state.isVisible) {
       let tooltip = this.getTooltip(),
           alignment = this.pointerProps.pointerAlign,
-          position = this.props.tooltipPosition,
+          position = this.props.tooltipPosition || 'top',
           shifts = this.calculatePosition(tooltip, this.getTarget());
 
       switch (position) {
