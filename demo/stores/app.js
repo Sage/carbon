@@ -6,8 +6,14 @@ import Immutable from 'immutable';
 import FormInputHelper from './../helpers/form-input-helper';
 
 let data = ImmutableHelper.parseJSON({
+  alert: {
+    title: 'Alert!'
+  },
   button: {
     text: "Action"
+  },
+  confirm: {
+    title: 'Are you sure?'
   },
   collapsible_pod: {
     title: 'Hello World!'
@@ -76,6 +82,9 @@ let data = ImmutableHelper.parseJSON({
   },
   row: {
     columnData: [{}, {}, {}, {}]
+  },
+  sidebar: {
+    open: false
   },
   spinner: {
     as: 'info',

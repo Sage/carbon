@@ -9,6 +9,7 @@
 
 ## New Components
 
+* Sidebar - with sidebar header
 * Portrait
 * Content
 * Tile - an alternative to Pod, with a drop shadow.

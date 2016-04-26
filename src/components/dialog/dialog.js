@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './../icon';
+import Modal from './../modal';
 import Bowser from 'bowser';
 import classNames from 'classnames';
 
@@ -24,9 +24,7 @@ import classNames from 'classnames';
  * @class Dialog
  * @constructor
  */
-class Dialog extends React.Component {
-
-  listening = false;
+class Dialog extends Modal {
 
   static propTypes = {
     /**
@@ -58,41 +56,11 @@ class Dialog extends React.Component {
      * Determines if the background is disabled
      * when the dialog is open
      *
-     * @property disableBackground
+     * @property enableBackgroundUI
      * @type {Boolean}
      * @default true
      */
-    disableBackground: React.PropTypes.bool
-  }
-
-  static defaultProps = {
-    open: false,
-    disableBackground: true
-  }
-
-  static childContextTypes = {
-    /**
-     * Defines a context object for child components of the dialog component.
-     * https://facebook.github.io/react/docs/context.html
-     *
-     * @property dialog
-     * @type {Object}
-     */
-    dialog: React.PropTypes.object
-  }
-
-  /**
-   * Returns dialog object to child components. Used to override form cancel button functionality.
-   *
-   * @method getChildContext
-   * @return {void}
-   */
-  getChildContext() {
-    return {
-      dialog: {
-        onCancel: this.props.onCancel
-      }
-    };
+    enableBackgroundUI: React.PropTypes.bool
   }
 
   /**
@@ -108,35 +76,28 @@ class Dialog extends React.Component {
   }
 
   /**
-   * A lifecycle method to update the component after it is re-rendered
+   * Called by ComponentDidUpdate when
+   * Dialog is opened
+   * @override
    *
-   * @method componentDidUpdate
-   * @return {void}
+   * @method onOpening
+   * @return {Void}
    */
-  componentDidUpdate() {
-    if (this.props.open && !this.listening) {
-      this.centerDialog();
-      this.listening = true;
-      window.addEventListener('resize', this.centerDialog);
-      window.addEventListener('keyup', this.closeDialog);
-    } else if (!this.props.open) {
-      this.listening = false;
-      window.removeEventListener('resize', this.centerDialog);
-      window.removeEventListener('keyup', this.closeDialog);
-    }
+  get onOpening() {
+    this.centerDialog();
+    window.addEventListener('resize', this.centerDialog);
   }
 
   /**
-   * Triggers the custom close event handler on ESC
+   * Called by ComponentDidUpdate when
+   * Dialog is closed
+   * @override
    *
-   * @method closeDialog
-   * @param {Object} ev event
-   * @return {void}
+   * @method onClosing
+   * @return {Void}
    */
-  closeDialog = (ev) => {
-    if (ev.keyCode === 27) {
-      this.props.onCancel();
-    }
+  get onClosing() {
+    window.removeEventListener('resize', this.centerDialog);
   }
 
   /**
@@ -146,8 +107,8 @@ class Dialog extends React.Component {
    * @return {void}
    */
   centerDialog = () => {
-    let height = this.refs.dialog.offsetHeight / 2,
-        width = this.refs.dialog.offsetWidth / 2,
+    let height = this._dialog.offsetHeight / 2,
+        width = this._dialog.offsetWidth / 2,
         midPointY = window.innerHeight / 2 + window.pageYOffset,
         midPointX = window.innerWidth / 2 + window.pageXOffset;
 
@@ -164,8 +125,8 @@ class Dialog extends React.Component {
       midPointX = 20;
     }
 
-    this.refs.dialog.style.top = midPointY + "px";
-    this.refs.dialog.style.left = midPointX + "px";
+    this._dialog.style.top = midPointY + "px";
+    this._dialog.style.left = midPointX + "px";
   }
 
   /**
@@ -183,18 +144,6 @@ class Dialog extends React.Component {
   }
 
   /**
-   * Returns HTML for the background.
-   *
-   * @method backgroundHTML
-   * @return {Object} JSX
-   */
-  get backgroundHTML() {
-    if (this.props.disableBackground) {
-      return <div className="ui-dialog__background"></div>;
-    }
-  }
-
-  /**
    * Returns classes for the dialog title.
    *
    * @method dialogTitleClasses
@@ -205,6 +154,7 @@ class Dialog extends React.Component {
 
   /**
    * Returns classes for the component.
+   * @override
    *
    * @method mainClasses
    * @return {String} Main className
@@ -218,8 +168,9 @@ class Dialog extends React.Component {
 
   /**
    * Returns classes for the dialog.
+   * @override
    *
-   * @method dialogClasses
+   * @method modalClasses
    * @return {String} dialog className
    */
   get dialogClasses() {
@@ -237,9 +188,9 @@ class Dialog extends React.Component {
    * @method dialogHTML
    * @return {Object} JSX for dialog
    */
-  get dialogHTML() {
+  get modalHTML() {
     return (
-      <div ref="dialog" className={ this.dialogClasses }>
+      <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
         { this.dialogTitle }
         <Icon className="ui-dialog__close" type="close" onClick={ this.props.onCancel } />
 
@@ -251,37 +202,13 @@ class Dialog extends React.Component {
   }
 
   /**
-   * Renders the component.
+   * Transisiton group name
    *
-   * @method render
-   * @return {Object} JSX
+   * @method transitionName
+   * @return {String}
    */
-  render() {
-    let backgroundHTML,
-        dialogHTML;
-
-    if (this.props.open) {
-      backgroundHTML = this.backgroundHTML;
-      dialogHTML = this.dialogHTML;
-    }
-
-    return (
-      <div className={ this.mainClasses }>
-        <ReactCSSTransitionGroup
-          transitionName="dialog"
-          transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 } >
-          { dialogHTML }
-        </ReactCSSTransitionGroup>
-
-        <ReactCSSTransitionGroup
-          transitionName="dialog-background"
-          transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 } >
-          { backgroundHTML }
-        </ReactCSSTransitionGroup>
-      </div>
-    );
+  get transitionName() {
+    return 'dialog';
   }
 }
 
