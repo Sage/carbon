@@ -5,7 +5,9 @@ $sidebar-border-color: lighten($border-color, 8%);
 .ui-sidebar-header {
   background-color: $white;
   border-bottom: solid 4px $sidebar-border-color;
-  box-sizing: border-box;
+  margin-left: -20px;
   padding: 20px;
+  position: relative;
+  top: -20px;
   width: 100%;
 }

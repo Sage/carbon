@@ -15,7 +15,7 @@ describe('Confirm', () => {
         onCancel={ onCancel }
         onConfirm={ onConfirm }
         open={ true }
-        title="Confrim title"
+        title="Confirm title"
       />
     );
   });

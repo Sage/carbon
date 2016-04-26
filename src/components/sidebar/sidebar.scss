@@ -10,6 +10,7 @@ $sidebar-background-animation-length: 250ms;
   background-color: $grey-light;
   border-radius: 1px;
   height: 100%;
+  padding: 20px;
   position: fixed;
   top: 0;
   width: 400px;
@@ -17,12 +18,14 @@ $sidebar-background-animation-length: 250ms;
 }
 
 .ui-sidebar__sidebar--right {
-  @include box-shadow(-1px 0 0 0 $grey-dark-blue-20) 
+  @include box-shadow(-10px 0 15px rgba(0, 0, 0, 0.05));
+  border-left: 1px solid $border-color;
   right: 0;
 }
 
 .ui-sidebar__sidebar--left {
-  @include box-shadow(1px 0 0 0 $grey-dark-blue-20) 
+  @include box-shadow(10px 0 15px rgba(0, 0, 0, 0.05));
+  border-right: 1px solid $border-color;
   left: 0;
 }
 

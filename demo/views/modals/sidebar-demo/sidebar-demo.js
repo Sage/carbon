@@ -60,8 +60,10 @@ class SidebarDemo extends React.Component {
           position={ position }
         >
           <SidebarHeader>
-            Sean Armstrong
+            <h3>Header for sidebar.</h3>
           </SidebarHeader>
+
+          Content for sidebar.
         </Sidebar>
       </div>
     );
