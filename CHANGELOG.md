@@ -29,6 +29,10 @@
 
 * Dialog now takes a prop of `disableBackground` which is true by default.
 
+## New Validators
+
+* Inclusion
+
 ## Misc
 
 * Format i18n error number for numeric validation.
