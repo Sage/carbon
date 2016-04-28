@@ -32,6 +32,7 @@
 ## New Validators
 
 * Inclusion
+* Exclusion
 
 ## Misc
 
