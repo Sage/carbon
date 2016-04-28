@@ -1,0 +1,36 @@
+@import 'colors';
+@import 'z-index';
+
+$modal-background-opacity: 0.6;
+$modal-background-animation-length: 300ms;
+
+.ui-modal__background {
+  background-color: #3C424F;
+  bottom: 0;
+  left: 0;
+  opacity: $modal-background-opacity;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: $z-modal-background;
+}
+
+// modal background animation:
+
+.modal-background-enter {
+  opacity: 0;
+}
+
+.modal-background-enter.modal-background-enter-active {
+  opacity: $modal-background-opacity;
+  transition: opacity $modal-background-animation-length ease-in;
+}
+
+.modal-background-leave {
+  opacity: $modal-background-opacity;
+}
+
+.modal-background-leave.modal-background-leave-active {
+  opacity: 0;
+  transition: opacity $modal-background-animation-length 100ms ease-in;
+}

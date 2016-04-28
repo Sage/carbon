@@ -6,48 +6,65 @@ import Example from './../../../components/example';
 import AsDropdown from './../../../components/as-dropdown';
 import SizeDropdown from './../../../components/size-dropdown';
 
-import Dialog from 'components/dialog';
+import { Sidebar, SidebarHeader } from 'components/sidebar';
 import Row from 'components/row';
 import Button from 'components/button';
 import Textbox from 'components/textbox';
 import Checkbox from 'components/checkbox';
 
-class DialogDemo extends React.Component {
+class SidebarDemo extends React.Component {
 
   /**
    * @method value
    */
   value = (key) => {
-    return this.state.appStore.getIn(['dialog', key]);
+    return this.state.appStore.getIn(['sidebar', key]);
   }
 
   /**
    * @method action
    */
   get action() {
-    return AppActions.appValueUpdated.bind(this, 'dialog');
+    return AppActions.appValueUpdated.bind(this, 'sidebar');
   }
 
   /**
    * @method demo
    */
   get demo() {
+    let button;
+
+    if (this.value('open')) {
+      button = (
+        <Button onClick={ this.action.bind(this, 'open', { target: { value: false } } ) } >
+          Click me to Close Sidebar
+        </Button>
+      );
+    } else {
+      button = (
+        <Button onClick={ this.action.bind(this, 'open', { target: { value: true } } ) } >
+          Click me to Open Sidebar 
+        </Button>
+      );
+    }
+
+    let position = this.value('positionLeft') ? 'left' : 'right';
+
     return (
       <div>
-        <Button onClick={ this.action.bind(this, 'open', { target: { value: true } } ) } >
-          Click me to Open Dialog
-        </Button>
-        <Dialog
+        { button }
+        <Sidebar
           open={ this.value('open') }
           onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
-          title={ this.value('title') }
           enableBackgroundUI={ this.value('enableBackgroundUI') }
+          position={ position }
         >
-          <Row>
-            <Textbox />
-            <Textbox />
-          </Row>
-        </Dialog>
+          <SidebarHeader>
+            <h3>Header for sidebar.</h3>
+          </SidebarHeader>
+
+          Content for sidebar.
+        </Sidebar>
       </div>
     );
   }
@@ -56,16 +73,18 @@ class DialogDemo extends React.Component {
    * @method code
    */
   get code() {
-    let html = "import Dialog from 'carbon/lib/components/dialog';\n\n";
+    let html = "import Sidebar from 'carbon/lib/components/sidebar';\n\n";
 
-    html += "<Dialog\n";
+    html += "<Sidebar\n";
     html += `  open={ ${ this.value('open') } }\n`
-    html += `  title="${ this.value('title') }"\n`;
 
-    if (this.value('enableBackgroundUI')) {
-      html += `  enableBackgroundUI={ true }\n`;
+    if (!this.value('enableBackgroundUI')) {
+      html += `  enableBackgroundUI={ false }\n`
     }
 
+    if (this.value('positionLeft')) {
+      html += `  position='left'\n`
+    }
     html += "/>\n\n";
 
     return html;
@@ -78,17 +97,17 @@ class DialogDemo extends React.Component {
     return (
       <div>
         <Row>
-          <Textbox
-            label="Title"
-            labelInline={ true }
-            value={ this.value('title') }
-            onChange={ this.action.bind(this, 'title') }
-          />
           <Checkbox
             label="Enable Background UI"
             value={ this.value('enableBackgroundUI') }
             reverse={ true }
             onChange={ this.action.bind(this, 'enableBackgroundUI') }
+          />
+          <Checkbox
+            label="Position Left"
+            value={ this.value('positionLeft') }
+            reverse={ true }
+            onChange={ this.action.bind(this, 'positionLeft') }
           />
         </Row>
       </div>
@@ -101,8 +120,8 @@ class DialogDemo extends React.Component {
   render() {
     return (
       <Example
-        title="Dialog"
-        readme="components/dialog"
+        title="Sidebar"
+        readme="components/sidebar"
         demo={ this.demo }
         code={ this.code }
         controls={ this.controls }
@@ -111,4 +130,4 @@ class DialogDemo extends React.Component {
   }
 }
 
-export default connect(DialogDemo, AppStore);
+export default connect(SidebarDemo, AppStore);
