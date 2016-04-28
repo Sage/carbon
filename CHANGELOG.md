@@ -29,6 +29,10 @@
 
 * Dialog now takes a prop of `disableBackground` which is true by default.
 
+## New Validators
+
+* Inclusion
+
 ## Misc
 
 * Format i18n error number for numeric validation.
@@ -40,7 +44,7 @@
 ## Bug Fixes
 
 * Fixes alignment issue with SplitButton when using anchors.
-* Row component will not break with children of `null` or `undefined`.
+* Row component will not break with zero children or children of `null` or `undefined`.
 
 # 0.7.1
 

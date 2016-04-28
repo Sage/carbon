@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import ReactDOM from 'react-dom';
 import Content from './content';
 
 describe('Content', () => {
@@ -25,6 +26,17 @@ describe('Content', () => {
     it('renders custom classes', () => {
       let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-content');
       expect(div.className).toEqual('ui-content foobar');
+    });
+  });
+
+  describe('with no children', () => {
+    it('renders nothing', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Content title="foo">{ null }</Content>
+      );
+
+      let div = ReactDOM.findDOMNode(instance);
+      expect(div).toBe(null);
     });
   });
 });
