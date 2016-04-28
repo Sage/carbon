@@ -52,7 +52,7 @@ describe('Icon', () => {
     it('renders with an icon of tick', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='success' />);
       span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
-      expect(span.className).toEqual('icon-tick');
+      expect(span.className).toEqual('ui-icon icon-tick');
     });
   });
 
@@ -63,7 +63,7 @@ describe('Icon', () => {
     });
 
     it('renders with a class of icon-settings', () => {
-      expect(span.className).toEqual('icon-foo');
+      expect(span.className).toEqual('ui-icon icon-foo');
     });
   });
 
@@ -75,7 +75,7 @@ describe('Icon', () => {
       });
 
       it('renders with a class of icon-settings and test', () => {
-        expect(span.className).toEqual('custom icon-foo');
+        expect(span.className).toEqual('ui-icon custom icon-foo');
       });
     });
   });

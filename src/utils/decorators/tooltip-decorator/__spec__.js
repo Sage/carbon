@@ -44,7 +44,7 @@ describe('tooltip-decorator', () => {
 
   beforeEach(() => {
     let DecoratedClassOne = TooltipDecorator(BasicClass);
-    topTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='top'/>);
+    topTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello'/>);
 
     let DecoratedClassTwo = TooltipDecorator(BasicClass);
     bottomTooltip = TestUtils.renderIntoDocument(<DecoratedClassTwo tooltipMessage='Hello' tooltipPosition='bottom'/>);
@@ -116,6 +116,7 @@ describe('tooltip-decorator', () => {
   });
 
   describe('positionTooltip', () => {
+
     describe('when positioned above the target', () => {
       beforeEach(()  => {
         spyOn(topTooltip, 'getTarget').and.returnValue(
