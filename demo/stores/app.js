@@ -80,7 +80,8 @@ let data = ImmutableHelper.parseJSON({
   portrait: {
     size: 'lmed',
     shape: 'standard',
-    email: 'Email'
+    email: 'Email',
+    initials: 'CB'
   },
   pod: {
     border: true,
