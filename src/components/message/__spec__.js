@@ -38,7 +38,7 @@ describe('Message', () => {
 
     it('renders type icon', () => {
       let icon = TestUtils.findRenderedDOMComponentWithClass(errorMessage, 'ui-message__type-icon');
-      expect(icon.className).toEqual("ui-message__type-icon icon-error");
+      expect(icon.className).toEqual("ui-icon ui-message__type-icon icon-error");
     });
 
     describe('dismiss', () => {
