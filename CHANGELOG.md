@@ -41,6 +41,7 @@
 
 ## Misc
 
+* Added utility classes for styling text.
 * Format i18n error number for numeric validation.
 * Allow Tables to shrink in size using the `shrink` prop.
 * Link component can now display with an icon.
