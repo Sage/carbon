@@ -9,6 +9,7 @@
 
 ## New Components
 
+* Sidebar - with sidebar header
 * Portrait
 * Content
 * Help - An info icon with a tooltip.
@@ -22,17 +23,25 @@
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
 
+* Message style has changed to follow toast style
 * Pill style has changed
 
 ## Improved Dialog
 
 * Dialog now takes a prop of `disableBackground` which is true by default.
 
+## New Validators
+
+* Inclusion
+* Exclusion
+
 ## Misc
 
+* Format i18n error number for numeric validation.
 * Allow Tables to shrink in size using the `shrink` prop.
 * Link component can now display with an icon.
 * Child components of Row can now use a `columnAlign` prop.
+* Toast onDismiss is now optional
 
 ## New Decorators
 
@@ -41,7 +50,7 @@
 ## Bug Fixes
 
 * Fixes alignment issue with SplitButton when using anchors.
-* Row component will not break with children of `null` or `undefined`.
+* Row component will not break with zero children or children of `null` or `undefined`.
 
 # 0.7.1
 

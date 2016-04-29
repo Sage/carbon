@@ -6,6 +6,9 @@ import Immutable from 'immutable';
 import FormInputHelper from './../helpers/form-input-helper';
 
 let data = ImmutableHelper.parseJSON({
+  alert: {
+    title: 'Alert!'
+  },
   button: {
     text: "Action"
   },
@@ -13,6 +16,9 @@ let data = ImmutableHelper.parseJSON({
     label: "Checkbox",
     labelHelp: "Example label help.",
     fieldHelp: "Example field help."
+  },
+  confirm: {
+    title: 'Are you sure?'
   },
   collapsible_pod: {
     title: 'Hello World!'
@@ -41,6 +47,11 @@ let data = ImmutableHelper.parseJSON({
     labelHelp: "Example label help.",
     fieldHelp: "Example field help."
   },
+  dialog_full_screen: {
+    open: false,
+    title: 'Your Header Goes Here',
+    disableBackground: true
+  },
   flash: {
     as: "warning",
     open: true,
@@ -56,8 +67,11 @@ let data = ImmutableHelper.parseJSON({
     text: "Sample Link"
   },
   message: {
-    as: "warning",
-    text: "Sample message."
+    dismissable: true,
+    open: true,
+    as: "error",
+    title: "Lorem ipsum dolor",
+    text: "Nullam id dolor id nibh ultricies vehicula ut id elit."
   },
   pill: {
     as: 'new',
@@ -94,6 +108,9 @@ let data = ImmutableHelper.parseJSON({
   },
   row: {
     columnData: [{}, {}, {}, {}]
+  },
+  sidebar: {
+    open: false
   },
   spinner: {
     as: 'info',
@@ -133,6 +150,7 @@ let data = ImmutableHelper.parseJSON({
     fieldHelp: "Example field help."
   },
   toast: {
+    dismissable: true,
     as: "warning",
     open: true,
     text: "Sample toast notification."
