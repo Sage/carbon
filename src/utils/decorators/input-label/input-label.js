@@ -1,6 +1,7 @@
 import React from 'react';
 import { find, startCase, assign } from 'lodash';
 import classNames from 'classnames';
+import Help from './../../../components/help';
 
 /**
  * InputLabel decorator.
@@ -75,14 +76,14 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     return classNames(
       'common-input__label', {
         'common-input__label--inline': this.props.labelInline,
-        'common-input__label--help': this.props.labelHelp
+        'common-input__label--help': this.props.fieldHelp
       }
     );
   }
 
-  get labelHelpClasses() {
+  get fieldHelpClasses() {
     return classNames(
-      super.labelHelpClasses,
+      super.fieldHelpClasses,
       'common-input__help-text', {
         'common-input__help-text--inline': this.props.labelInline
       }
@@ -120,22 +121,55 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
 
     // add label width if defined
     let labelStyle = this.props.labelWidth ? { width: `${this.props.labelWidth}%` } : null;
-
     return (
       <label
         style={ labelStyle }
         className={ this.labelClasses }
-        htmlFor={ this.inputProps.id }>
+        htmlFor={ this.inputProps.id }
+      >
         { labelText }
+        { this.labelHelpHTML }
       </label>
     );
   }
 
+  /**
+   * Supplies the HTML for help component
+   *
+   * @method labelHelpHTML
+   * @return {Object} JSX for help
+   */
   get labelHelpHTML() {
     if (this.props.labelHelp) {
       return (
-        <span className={ this.labelHelpClasses }>
+        <Help
+          tooltipPosition={ this.props.labelHelpPosition }
+          tooltipAlign={ this.props.labelHelpAlign }
+          href={ this.props.labelHelpHref }
+        >
           { this.props.labelHelp }
+        </Help>
+      );
+    }
+  }
+
+  /**
+   * Supplies the HTML label help
+   *
+   * @method fieldHelpHTML
+   * @return {Object} JSX for label help
+   */
+  get fieldHelpHTML() {
+    if (this.props.fieldHelp) {
+      let style = {};
+
+      if (this.props.labelInline) {
+        style.marginLeft = `${this.props.labelWidth}%`;
+      }
+
+      return (
+        <span className={ this.fieldHelpClasses } style={ style }>
+          { this.props.fieldHelp }
         </span>
       );
     }

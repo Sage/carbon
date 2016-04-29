@@ -35,21 +35,9 @@ class RadiButtonDemo extends React.Component {
    */
   get demo() {
     return (
-      <div>
-        {
-          this.value('columnData').map((data, index) => {
-            return(
-              <RadioButton
-                key={ index }
-                name={ data.get('name') }
-                value={ data.get('value') }
-                label={ data.get('label') }
-                labelHelp={ data.get('labelHelp') }
-              />
-            );
-          }).toJS()
-        }
-      </div>
+      <RadioButton
+        { ...FormInputHelper.demoProps(this, this.action) }
+      />
     );
   }
 
@@ -59,15 +47,11 @@ class RadiButtonDemo extends React.Component {
   get code() {
     let html = "import RadioButton from 'carbon/lib/components/radio-button';\n\n";
 
+    html += "<RadioButton";
 
-    this.value('columnData').forEach((data, index) => {
-      html += "<RadioButton";
-      html += `\n  name='${ data.get('name') || '' }'`
-      html += `\n  value='${ data.get('value') || '' }'`
-      html += `\n  label='${ data.get('label') || '' }'`
-      html += `\n  labelHelp='${ data.get('labelHelp') || '' }'`
-      html += '\n/>\n\n';
-    });
+    html = FormInputHelper.codeProps(this, html);
+
+    html += "/>\n\n";
 
     return html;
   }
@@ -76,82 +60,9 @@ class RadiButtonDemo extends React.Component {
    * @method controls
    */
   get controls() {
-    let tableRows = Immutable.List(),
-        length = this.value('columnData').count();
-
-    // table rows:
-    tableRows = this.value('columnData').map((data, index) => {
-      let deleteCell = length == 1 ?
-        null : <Icon type="delete" onClick={ AppActions.appDeleteRow.bind(this, ['radio_button', 'columnData', index]) } />;
-
-      return (
-        <TableRow key={ index }>
-          <TableCell action={ true }>
-            { deleteCell }
-          </TableCell>
-
-          <TableCell>
-            <Textbox
-              label={ false }
-              value={ data.get('name') }
-              onChange={ this.action.bind(this, ['columnData', index, 'name']) }
-            />
-          </TableCell>
-
-          <TableCell>
-            <Textbox
-              label={ false }
-              value={ data.get('value') }
-              onChange={ this.action.bind(this, ['columnData', index, 'value']) }
-            />
-          </TableCell>
-
-          <TableCell>
-            <Textbox
-              label={ false }
-              value={ data.get('label') }
-              onChange={ this.action.bind(this, ['columnData', index, 'label']) }
-            />
-          </TableCell>
-
-          <TableCell>
-            <Textbox
-              label={ false }
-              value={ data.get('labelHelp') }
-              onChange={ this.action.bind(this, ['columnData', index, 'labelHelp']) }
-            />
-          </TableCell>
-        </TableRow>
-      );
-    });
-
-    // table header:
-    tableRows = tableRows.unshift(
-      <TableRow key="header">
-        <TableHeader />
-        <TableHeader>Name</TableHeader>
-        <TableHeader>Value</TableHeader>
-        <TableHeader>Label</TableHeader>
-        <TableHeader>LabelHelp</TableHeader>
-      </TableRow>
-    );
-
-    tableRows = tableRows.push(
-      <TableRow key={ length }>
-        <TableCell />
-        <TableCell>
-          <Button onClick={ this.action.bind(this, ['columnData', length, 'foo']) } disabled={ length == 12 }>Add Radio Button</Button>
-        </TableCell>
-        <TableCell />
-        <TableCell />
-      </TableRow>
-    );
-
     return (
       <div>
-        <Row>
-          <Table>{ tableRows }</Table>
-        </Row>
+        { FormInputHelper.controls(this, this.action) }
       </div>
     );
   }
