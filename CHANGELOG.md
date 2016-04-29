@@ -30,6 +30,10 @@
 
 * Dialog now takes a prop of `disableBackground` which is true by default.
 
+## Improved Form
+
+* `validate()` can now be called via `this.context.form`
+
 ## New Validators
 
 * Inclusion
