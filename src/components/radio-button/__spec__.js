@@ -50,7 +50,7 @@ describe('RadioButton', () => {
 
   describe('fieldHelpClasses', () => {
     it('returns ui-radio-button__help-text', () => {
-      expect(instance.fieldHelpClasses).toEqual('ui-radio-button__help-text');
+      expect(instance.fieldHelpClasses).toEqual('ui-radio-button__help-text common-input__help-text');
     });
   });
 });
