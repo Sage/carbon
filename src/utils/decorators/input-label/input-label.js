@@ -76,14 +76,14 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     return classNames(
       'common-input__label', {
         'common-input__label--inline': this.props.labelInline,
-        'common-input__label--help': this.props.labelHelp
+        'common-input__label--help': this.props.fieldHelp
       }
     );
   }
 
-  get labelHelpClasses() {
+  get fieldHelpClasses() {
     return classNames(
-      super.labelHelpClasses,
+      super.fieldHelpClasses,
       'common-input__help-text', {
         'common-input__help-text--inline': this.props.labelInline
       }
@@ -121,14 +121,14 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
 
     // add label width if defined
     let labelStyle = this.props.labelWidth ? { width: `${this.props.labelWidth}%` } : null;
-
     return (
       <label
         style={ labelStyle }
         className={ this.labelClasses }
-        htmlFor={ this.inputProps.id }>
+        htmlFor={ this.inputProps.id }
+      >
         { labelText }
-        { this.helpHTML }
+        { this.labelHelpHTML }
       </label>
     );
   }
@@ -136,14 +136,18 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   /**
    * Supplies the HTML for help component
    *
-   * @method helpHTML
+   * @method labelHelpHTML
    * @return {Object} JSX for help
    */
-  get helpHTML() {
-    if (this.props.helpMessage) {
+  get labelHelpHTML() {
+    if (this.props.labelHelp) {
       return (
         <Help
-          { ...this.props }>
+          tooltipPosition={ this.props.labelHelpPosition }
+          tooltipAlign={ this.props.labelHelpAlign }
+          href={ this.props.labelHelpHref }
+        >
+          { this.props.labelHelp }
         </Help>
       );
     }
@@ -152,14 +156,20 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   /**
    * Supplies the HTML label help
    *
-   * @method labelHelpHTML
+   * @method fieldHelpHTML
    * @return {Object} JSX for label help
    */
-  get labelHelpHTML() {
-    if (this.props.labelHelp) {
+  get fieldHelpHTML() {
+    if (this.props.fieldHelp) {
+      let style = {};
+
+      if (this.props.labelInline) {
+        style.marginLeft = `${this.props.labelWidth}%`;
+      }
+
       return (
-        <span className={ this.labelHelpClasses }>
-          { this.props.labelHelp }
+        <span className={ this.fieldHelpClasses } style={ style }>
+          { this.props.fieldHelp }
         </span>
       );
     }

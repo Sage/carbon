@@ -52,9 +52,9 @@ describe('Textbox', () => {
     });
   });
 
-  describe('labelHelperClasses', () => {
+  describe('fieldHelperClasses', () => {
     it('returns the classNames to apply to the label help text', () => {
-      expect(instance.labelHelpClasses).toMatch('ui-textbox__help-text');
+      expect(instance.fieldHelpClasses).toMatch('ui-textbox__help-text');
     });
 
     describe('when label is inline', () => {
@@ -69,7 +69,7 @@ describe('Textbox', () => {
             onChange={ spy }
           />
         );
-        expect(instance.labelHelpClasses).toMatch('ui-textbox__help-text ui-textbox__help-text--inline');
+        expect(instance.fieldHelpClasses).toMatch('ui-textbox__help-text ui-textbox__help-text--inline');
       });
     });
   });

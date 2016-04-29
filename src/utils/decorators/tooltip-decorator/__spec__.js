@@ -6,19 +6,12 @@ import TooltipDecorator from './tooltip-decorator';
 // import { styleElement, pix} from './../../ether';
 
 class BasicClass extends React.Component {
-  onBlur = () => {
-  }
-
-  onFocus = () => {
-  }
-
-  onMouseEnter = () => {
-
-  }
-
-  onMouseLeave = () => {
-
-  }
+  componentWillUpdate() {}
+  componentDidUpdate() {}
+  onBlur = () => {}
+  onFocus = () => {}
+  onMouseEnter = () => {}
+  onMouseLeave = () => {}
 
   get componentProps() {
     return {
@@ -65,6 +58,50 @@ describe('tooltip-decorator', () => {
     jasmine.clock().uninstall();
   });
 
+  describe('componentWillUpdate', () => {
+    let props;
+
+    beforeEach(() => {
+      props = {
+        tooltipMessage: topTooltip.props.tooltipMessage,
+        tooltipPosition: topTooltip.props.tooltipPosition,
+        tooltipAlign: topTooltip.props.tooltipAlign
+      };
+      topTooltip._memoizedShifts = 'foo';
+    });
+
+    describe('if message has changed', () => {
+      it('nulls the memoized shifts', () => {
+        props.tooltipMessage = 'new';
+        topTooltip.componentWillUpdate(props);
+        expect(topTooltip._memoizedShifts).toEqual(null);
+      });
+    });
+
+    describe('if position has changed', () => {
+      it('nulls the memoized shifts', () => {
+        props.tooltipPosition = 'new';
+        topTooltip.componentWillUpdate(props);
+        expect(topTooltip._memoizedShifts).toEqual(null);
+      });
+    });
+
+    describe('if align has changed', () => {
+      it('nulls the memoized shifts', () => {
+        props.tooltipAlign = 'new';
+        topTooltip.componentWillUpdate(props);
+        expect(topTooltip._memoizedShifts).toEqual(null);
+      });
+    });
+
+    describe('if nothing has changed', () => {
+      it('keeps memoized shifts', () => {
+        topTooltip.componentWillUpdate(props);
+        expect(topTooltip._memoizedShifts).toEqual('foo');
+      });
+    });
+  });
+
   describe('on show', () => {
     beforeEach(() => {
       spyOn(topTooltip, 'positionTooltip');
@@ -95,7 +132,7 @@ describe('tooltip-decorator', () => {
       jasmine.clock().uninstall();
       spyOn(window, 'clearTimeout');
       topTooltip.onHide();
-      expect(window.clearTimeout).toHaveBeenCalledWith(topTooltip.timeout);
+      expect(window.clearTimeout).toHaveBeenCalledWith(topTooltip._tooltipTimeout);
     });
   });
 
@@ -115,8 +152,16 @@ describe('tooltip-decorator', () => {
     });
   });
 
-  describe('positionTooltip', () => {
+  describe('calculatePosition', () => {
+    describe('if memoized', () => {
+      it('returns memoized shifts', () => {
+        topTooltip._memoizedShifts = 'foo';
+        expect(topTooltip.calculatePosition(0, 0)).toEqual('foo');
+      });
+    });
+  });
 
+  describe('positionTooltip', () => {
     describe('when positioned above the target', () => {
       beforeEach(()  => {
         spyOn(topTooltip, 'getTarget').and.returnValue(
@@ -158,7 +203,7 @@ describe('tooltip-decorator', () => {
         beforeEach(()  => {
           let DecoratedClass = TooltipDecorator(BasicClass);
           rightTopTooltip = TestUtils.renderIntoDocument(
-            <DecoratedClass tooltipMessage='Hello' tooltipPosition='top' pointerAlign='right'/>
+            <DecoratedClass tooltipMessage='Hello' tooltipPosition='top' tooltipAlign='right'/>
           );
 
           spyOn(rightTopTooltip, 'getTarget').and.returnValue(
@@ -189,7 +234,6 @@ describe('tooltip-decorator', () => {
           jasmine.clock().tick(100);
           let alignedTooltip = rightTopTooltip.getTooltip();
           let target = rightTopTooltip.getTarget();
-          debugger
           rightTopTooltip.positionTooltip(alignedTooltip, target);
           expect(alignedTooltip.style.left).toEqual('-74px');
           expect(alignedTooltip.style.top).toEqual('-57.5px');
@@ -202,7 +246,7 @@ describe('tooltip-decorator', () => {
         beforeEach(()  => {
           let DecoratedClass = TooltipDecorator(BasicClass);
           leftTopTooltip = TestUtils.renderIntoDocument(
-            <DecoratedClass tooltipMessage='Hello' tooltipPosition='top' pointerAlign='left'/>
+            <DecoratedClass tooltipMessage='Hello' tooltipPosition='top' tooltipAlign='left'/>
           );
 
           spyOn(leftTopTooltip, 'getTarget').and.returnValue(
@@ -318,7 +362,7 @@ describe('tooltip-decorator', () => {
         beforeEach(()  => {
           let DecoratedClass = TooltipDecorator(BasicClass);
           topRightTooltip = TestUtils.renderIntoDocument(
-            <DecoratedClass tooltipMessage='Hello' tooltipPosition='right' pointerAlign='top'/>
+            <DecoratedClass tooltipMessage='Hello' tooltipPosition='right' tooltipAlign='top'/>
           );
 
           spyOn(topRightTooltip, 'getTarget').and.returnValue(
@@ -361,7 +405,7 @@ describe('tooltip-decorator', () => {
         beforeEach(()  => {
           let DecoratedClass = TooltipDecorator(BasicClass);
           bottomRightTooltip = TestUtils.renderIntoDocument(
-            <DecoratedClass tooltipMessage='Hello' tooltipPosition='right' pointerAlign='bottom'/>
+            <DecoratedClass tooltipMessage='Hello' tooltipPosition='right' tooltipAlign='bottom'/>
           );
 
           spyOn(bottomRightTooltip, 'getTarget').and.returnValue(
@@ -481,6 +525,7 @@ describe('tooltip-decorator', () => {
     it('adds a touchEnd handler that toggles the tooltip on or off', () => {
       spyOn(topTooltip, 'onShow');
       spyOn(topTooltip, 'onHide');
+      spyOn(topTooltip, 'positionTooltip');
 
       topTooltip.setState({ isVisible: true });
       topTooltip.componentProps.onTouchEnd();
@@ -526,34 +571,6 @@ describe('tooltip-decorator', () => {
 
       it('does not add a touchEnd handler', () => {
         expect(noTooltip.componentProps.onTouchEnd).not.toBeDefined();
-      });
-    });
-  });
-
-  describe('pointerProps', () => {
-    it('sets the pointer to top when the tooltip is on bottom', () => {
-      let props = bottomTooltip.pointerProps;
-      expect(props.pointerPosition).toEqual('top');
-    });
-
-    it('sets the pointer to left when the tooltip is on right', () => {
-      let props = rightTooltip.pointerProps;
-      expect(props.pointerPosition).toEqual('left');
-    });
-
-    it('sets the pointer to right when the tooltip is on left', () => {
-      let props = leftTooltip.pointerProps;
-      expect(props.pointerPosition).toEqual('right');
-    });
-
-    it('defaults the pointer to bottom', () => {
-      let props = topTooltip.pointerProps;
-      expect(props.pointerPosition).toEqual('bottom');
-    });
-
-    describe('when no tooltip message is provided', () => {
-      it('does not return custom props', () => {
-        expect(noTooltip.pointerProps).not.toBeDefined();
       });
     });
   });

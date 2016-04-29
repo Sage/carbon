@@ -9,6 +9,11 @@ let data = ImmutableHelper.parseJSON({
   button: {
     text: "Action"
   },
+  checkbox: {
+    label: "Checkbox",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
+  },
   collapsible_pod: {
     title: 'Hello World!'
   },
@@ -16,15 +21,33 @@ let data = ImmutableHelper.parseJSON({
     title: 'Example Content',
     body: 'This is some example content\nfor the Content component.'
   },
+  date: {
+    label: "Date",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
+  },
+  decimal: {
+    label: "Decimal",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
+  },
   dialog: {
     open: false,
     title: 'Hello World!',
     disableBackground: true
   },
+  dropdown: {
+    label: "Dropdown",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
+  },
   flash: {
     as: "warning",
     open: true,
     text: "Sample flash notification."
+  },
+  help: {
+    message: "This is an example of a help tooltip."
   },
   icon: {
     type: 'info'
@@ -51,11 +74,9 @@ let data = ImmutableHelper.parseJSON({
     as: "primary"
   },
   radio_button: {
-    columnData: [
-      { name: 'access', value: 'full', label: 'Full Access'},
-      { name: 'access', value: 'limited', label: 'Limited Access'},
-      { name: 'access', value: 'no-access', label: 'No Access'}
-    ]
+    label: "Radio Button",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
   },
   rainbow: {
     data: [{
@@ -105,6 +126,11 @@ let data = ImmutableHelper.parseJSON({
   },
   tabs: {
     tabData: [{}, {}]
+  },
+  textbox: {
+    label: "Textbox",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
   },
   toast: {
     as: "warning",

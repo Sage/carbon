@@ -32,9 +32,10 @@ class TooltipDemo extends React.Component {
     return (
       <div className='tooltip-demo'>
         <Tooltip
-          pointerAlign={ this.value('pointerAlign') }
-          pointerPosition={ this.value('pointerPosition') }
-          isVisible={ true }>
+          align={ this.value('align') }
+          position={ this.value('position') }
+          isVisible={ true }
+        >
           { this.value('message') }
         </Tooltip>
       </div>
@@ -50,11 +51,11 @@ class TooltipDemo extends React.Component {
     html += '<Tooltip\n'
     html += '  isVisible={ toggleTooltipHandler }\n';
 
-    if (this.value('pointerAlign')){
-      html += '  pointerAlign={ this.props.pointerAlign }\n'
+    if (this.value('align')){
+      html += '  align={ this.props.align }\n'
     }
-    if (this.value('pointerPosition')) {
-      html += '  pointerPosition={ this.props.pointerPosition }\n'
+    if (this.value('position')) {
+      html += '  position={ this.props.position }\n'
     }
     html += '>\n'
     html += '  Tooltips are a fundamental part of the user experience.\n';
@@ -70,68 +71,68 @@ class TooltipDemo extends React.Component {
     return(
       <div>
         <Row className='tooltip-demo__row--props'>
-          <h5 className='.tooltip-demo__row-label'>Pointer Position</h5>
+          <h5 className='.tooltip-demo__row-label'>Position</h5>
           <RadioButton
             label='Left'
-            name='pointerPosition'
-            onChange={ this.action.bind(this, 'pointerPosition')}
+            name='position'
+            onChange={ this.action.bind(this, 'position')}
             value='left'
           />
           <RadioButton
             defaultChecked={ true }
             label='Bottom'
-            name='pointerPosition'
-            onChange={ this.action.bind(this, 'pointerPosition')}
+            name='position'
+            onChange={ this.action.bind(this, 'position')}
             value='bottom'
           />
           <RadioButton
             label='Top'
-            name='pointerPosition'
-            onChange={ this.action.bind(this, 'pointerPosition')}
+            name='position'
+            onChange={ this.action.bind(this, 'position')}
             value='top'
           />
           <RadioButton
             label='Right'
-            name='pointerPosition'
-            onChange={ this.action.bind(this, 'pointerPosition')}
+            name='position'
+            onChange={ this.action.bind(this, 'position')}
             value='right'
           />
         </Row>
         <Row className='tooltip-demo__row--props'>
-          <h5 className='.tooltip-demo__row-label'>Pointer Alignment</h5>
+          <h5 className='.tooltip-demo__row-label'>Alignment</h5>
           <RadioButton
-            disabled={ this.value('pointerPosition') === 'right' || this.value('pointerPosition') === 'left'}
+            disabled={ this.value('position') === 'right' || this.value('position') === 'left'}
             label='Left'
-            name='pointerAlign'
-            onChange={ this.action.bind(this, 'pointerAlign')}
+            name='align'
+            onChange={ this.action.bind(this, 'align')}
             value='left'
           />
           <RadioButton
             defaultChecked={ true }
             label='Center'
-            name='pointerAlign'
-            onChange={ this.action.bind(this, 'pointerAlign')}
+            name='align'
+            onChange={ this.action.bind(this, 'align')}
             value='center'
           />
           <RadioButton
-            disabled={ this.value('pointerPosition') === 'right' || this.value('pointerPosition') === 'left'}
+            disabled={ this.value('position') === 'right' || this.value('position') === 'left'}
             label='Right'
-            name='pointerAlign'
-            onChange={ this.action.bind(this, 'pointerAlign')}
+            name='align'
+            onChange={ this.action.bind(this, 'align')}
             value='right'
           />
           <RadioButton
-            disabled={ this.value('pointerPosition') === 'bottom' || this.value('pointerPosition') === 'top'}
+            disabled={ this.value('position') === 'bottom' || this.value('position') === 'top'}
             label='Top'
-            name='pointerAlign'
-            onChange={ this.action.bind(this, 'pointerAlign')}
+            name='align'
+            onChange={ this.action.bind(this, 'align')}
             value='top'
           />
           <RadioButton
-            disabled={ this.value('pointerPosition') === 'bottom' || this.value('pointerPosition') === 'top'}
+            disabled={ this.value('position') === 'bottom' || this.value('position') === 'top'}
             label='Bottom'
-            name='pointerAlign'
-            onChange={ this.action.bind(this, 'pointerAlign')}
+            name='align'
+            onChange={ this.action.bind(this, 'align')}
             value='bottom'
           />
         </Row>
@@ -139,7 +140,9 @@ class TooltipDemo extends React.Component {
           <TextArea
             name='message'
             label='Tooltip Message'
-            onChange={ this.action.bind(this, 'message') }/>
+            onChange={ this.action.bind(this, 'message') }
+            value={ this.value('message') }
+          />
         </Row>
       </div>
     );

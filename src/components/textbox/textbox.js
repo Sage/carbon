@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
-import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
 
 /**
  * A textbox widget.
@@ -22,7 +21,7 @@ import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
  * @constructor
  * @decorators {Input,InputLabel,InputValidation}
  */
-const Textbox = Input(InputLabel(InputValidation(TooltipDecorator(
+const Textbox = Input(InputLabel(InputValidation(
 class Textbox extends React.Component {
 
   /**
@@ -42,14 +41,6 @@ class Textbox extends React.Component {
    */
   get inputClasses() {
     return 'ui-textbox__input';
-  }
-
-  get labelHelpClasses() {
-    return classNames(
-      'ui-textbox__help-text', {
-        'ui-textbox__help-text--inline': this.props.labelInline
-      }
-    );
   }
 
   /**
@@ -75,15 +66,14 @@ class Textbox extends React.Component {
     return (
       <div className={ this.mainClasses }
            ref={ (comp) => this._target = comp }>
-        { this.tooltipHTML }
         { this.labelHTML }
         { this.inputHTML }
         { this.validationHTML }
-        { this.labelHelpHTML }
+        { this.fieldHelpHTML }
       </div>
     );
   }
 }
-))));
+)));
 
 export default Textbox;

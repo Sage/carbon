@@ -112,6 +112,7 @@ class Number extends React.Component {
         { this.labelHTML }
         { this.inputHTML }
         { this.validationHTML }
+        { this.fieldHelpHTML }
 
       </div>
     );

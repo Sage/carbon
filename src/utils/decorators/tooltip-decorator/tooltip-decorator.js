@@ -2,7 +2,7 @@ import React from 'react';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
-import { startCase, memoize } from 'lodash';
+import { startCase } from 'lodash';
 import { pixelValue, styleElement } from './../../ether';
 
 /**
@@ -71,9 +71,42 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
   /**
    * Timeout for firing ajax request
    *
-   * @property timeout
+   * @property _tooltipTimeout
    */
-  timeout = null;
+  _tooltipTimeout = null;
+
+  /**
+   * Cache the shifts calculations (used for positioning)
+   *
+   * @property _memoizedShifts
+   */
+  _memoizedShifts = null;
+
+  /**
+   * @method componentWillUpdate
+   * @return {Void}
+   */
+  componentWillUpdate(nextProps, nextState) {
+    if (super.componentWillUpdate) { super.componentWillUpdate(nextProps, nextState); }
+
+    if (nextProps.tooltipMessage != this.props.tooltipMessage ||
+        nextProps.tooltipPosition != this.props.tooltipPosition ||
+        nextProps.tooltipAlign != this.props.tooltipAlign) {
+      this._memoizedShifts = null;
+    }
+  }
+
+  /**
+   * @method componentDidUpdate
+   * @return {Void}
+   */
+  componentDidUpdate(prevProps) {
+    if (super.componentDidUpdate) { super.componentDidUpdate(prevProps); }
+
+    if (this.props.tooltipMessage && !this._memoizedShifts && this.state.isVisible) {
+      this.positionTooltip();
+    }
+  }
 
   state = {
     /**
@@ -93,10 +126,10 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @return {void}
    */
   onShow = () => {
-    this.timeout = setTimeout(() => {
+    this._tooltipTimeout = setTimeout(() => {
       this.setState({ isVisible: true });
       this.positionTooltip();
-    }, 100 );
+    }, 100);
   };
 
   /**
@@ -106,7 +139,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @return {void}
    */
   onHide = () => {
-    clearTimeout(this.timeout);
+    clearTimeout(this._tooltipTimeout);
     this.setState({ isVisible: false });
   };
 
@@ -138,7 +171,9 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @param {Object} target
    * @return {Object} shifts calculated
    */
-  calculatePosition = memoize((tooltip, target) => {
+  calculatePosition = (tooltip, target) => {
+    if (this._memoizedShifts) { return this._memoizedShifts; }
+
     let tooltipWidth  = tooltip.offsetWidth,
         tooltipHeight = tooltip.offsetHeight,
         pointerDimension = 15,
@@ -158,7 +193,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
       sideBottom:      -tooltipHeight + targetHeight + pointerOffset,
       sideCenter:      targetHeight * 0.5 - tooltipHeight * 0.5
     };
-  });
+  };
 
   /**
    * Positions tooltip relative to target
@@ -171,29 +206,34 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
   positionTooltip = () => {
     if (this.state.isVisible) {
       let tooltip = this.getTooltip(),
-          alignment = this.pointerProps.pointerAlign,
+          alignment = this.props.tooltipAlign || 'center',
           position = this.props.tooltipPosition || 'top',
           shifts = this.calculatePosition(tooltip, this.getTarget());
 
       switch (position) {
         case "top":
           styleElement(tooltip, 'top', pixelValue(shifts.verticalY));
+          styleElement(tooltip, 'right', 'auto');
+          styleElement(tooltip, 'bottom', 'auto');
           styleElement(tooltip, 'left', pixelValue(shifts[`vertical${startCase(alignment)}`]));
           break;
 
         case "bottom":
+          styleElement(tooltip, 'top', 'auto');
           styleElement(tooltip, 'bottom', pixelValue(shifts.verticalY));
           styleElement(tooltip, 'left', pixelValue(shifts[`vertical${startCase(alignment)}`]));
           break;
 
         case "left":
-          styleElement(tooltip, 'left', pixelValue(shifts[`${position}Horizontal`]));
           styleElement(tooltip, 'top', pixelValue(shifts[`side${startCase(alignment)}`]));
+          styleElement(tooltip, 'bottom', 'auto');
+          styleElement(tooltip, 'left', pixelValue(shifts[`${position}Horizontal`]));
           break;
 
         case "right":
-          styleElement(tooltip, 'left', pixelValue(shifts[`${position}Horizontal`]));
           styleElement(tooltip, 'top', pixelValue(shifts[`side${startCase(alignment)}`]));
+          styleElement(tooltip, 'bottom', 'auto');
+          styleElement(tooltip, 'left', pixelValue(shifts[`${position}Horizontal`]));
       }
     }
   };
@@ -205,7 +245,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @return {Object} props
    */
   get componentProps() {
-    let props = super.componentProps || super.inputProps;
+    let props = super.componentProps;
 
     if (this.props.tooltipMessage) {
       props.onMouseEnter = chainFunctions(this.onShow, props.onMouseEnter);
@@ -215,46 +255,6 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
       props.onTouchEnd = this.state.isVisible ? this.onHide : this.onShow;
     }
     return props;
-  }
-
-  /**
-   * Alias for componentProps if component is an input
-   *
-   * @method inputProps
-   * @return {Function} componentProps
-   */
-  get inputProps() {
-    return this.componentProps;
-  }
-
-  /**
-   * Calculated props for pointer
-   *
-   * @method pointerProps
-   * @return {Object} props
-   */
-  get pointerProps() {
-    if (this.props.tooltipMessage) {
-      let props = {};
-
-      switch (this.props.tooltipPosition) {
-        case 'bottom':
-          props.pointerPosition = 'top';
-          break;
-        case 'right':
-          props.pointerPosition = 'left';
-          break;
-        case 'left':
-          props.pointerPosition = 'right';
-          break;
-        default:
-          props.pointerPosition = 'bottom';
-      }
-
-      props.pointerAlign = this.props.pointerAlign || 'center';
-
-      return props;
-    }
   }
 
   /**
@@ -269,7 +269,9 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
         <Tooltip
           ref={ (comp) => this._tooltip = comp }
           isVisible={ this.state.isVisible }
-          { ...this.pointerProps }>
+          position={ this.props.tooltipPosition }
+          align={ this.props.tooltipAlign }
+        >
           { this.props.tooltipMessage }
         </Tooltip>
       );

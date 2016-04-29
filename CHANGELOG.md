@@ -3,15 +3,14 @@
 ## Improvements
 
 * Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
-* Label can now have a subtitle. Pass `labelHelp='help message'` to any label enabled input
-* Add `tableHeader` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
+* Inputs can now have field help. Pass `fieldHelp='help message'` to any input.
+* Inputs can now have label help. Pass `labelHelp='help message'` to any input.
 * Add `thead` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
 
 ## New Components
 
 * Portrait
 * Content
-* Tile - an alternative to Pod, with a drop shadow.
 * Help - An info icon with a tooltip.
 * Tooltip
 
@@ -34,7 +33,6 @@
 * Allow Tables to shrink in size using the `shrink` prop.
 * Link component can now display with an icon.
 * Child components of Row can now use a `columnAlign` prop.
-
 
 ## New Decorators
 

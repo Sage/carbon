@@ -13,9 +13,9 @@ import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
  *
  * To render a help component:
  *
- *   <Help helpMessage={ this.props.helpMessage } />
+ *   <Help>{ this.props.helpMessage }</Help>
  *
- *  You can also pass additional props of tooltipPosition and pointerAlign.
+ *  You can also pass additional props of tooltipPosition and tooltipAlign.
  *
  * @class Help
  * @constructor
@@ -27,10 +27,10 @@ const Help = TooltipDecorator(class Help extends React.Component{
     /**
      * Message to display in tooltip
      *
-     * @property helpMessage
+     * @property children
      * @type {String}
      */
-    helpMessage: React.PropTypes.string.isRequired,
+    children: React.PropTypes.string.isRequired,
 
     /**
      * Position of tooltip relative to target
@@ -44,11 +44,11 @@ const Help = TooltipDecorator(class Help extends React.Component{
     /**
      * Aligment of pointer
      *
-     * @property pointerAlign
+     * @property tooltipAlign
      * @type {String} Options: { top, bottom, right, left, center }
      * @default center
      */
-    pointerAlign: React.PropTypes.string,
+    tooltipAlign: React.PropTypes.string,
 
     /**
      * A path for the anchor
@@ -61,7 +61,7 @@ const Help = TooltipDecorator(class Help extends React.Component{
 
   static defaultProps = {
     tooltipPosition: 'top',
-    pointerAlign: 'center'
+    tooltipAlign: 'center'
   }
   /**
    * Return component classes
@@ -88,9 +88,10 @@ const Help = TooltipDecorator(class Help extends React.Component{
       <a className={ this.mainClasses } href={ this.props.href }>
         <Icon
           type='info'
-          tooltipMessage={ this.props.helpMessage }
+          tooltipMessage={ this.props.children }
           tooltipPosition={ this.props.tooltipPosition }
-          pointerAlign={ this.props.pointerAlign } />
+          tooltipAlign={ this.props.tooltipAlign }
+        />
       </a>
     );
   }

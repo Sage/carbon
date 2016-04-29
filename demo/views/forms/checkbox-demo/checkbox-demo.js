@@ -33,13 +33,9 @@ class CheckboxDemo extends React.Component {
   get demo() {
     return (
       <Checkbox
-        value={ this.value('value') }
-        label={ this.value('label') }
-        labelHelp={ this.value('labelHelp') }
-        labelHelpInline={ this.value('helpInline') }
+        { ...FormInputHelper.demoProps(this, this.action) }
         reverse={ this.value('reverse') }
-        disabled={ this.value('disabled') }
-        helpMessage={ this.value('helpMessage')}
+        fieldHelpInline={ this.value('fieldHelpInline') }
       />
     );
   }
@@ -52,37 +48,15 @@ class CheckboxDemo extends React.Component {
 
     html += "<Checkbox";
 
-    if (this.value('label')) {
-      html += `\n  label='${this.value('label')}'`;
-
-      if (this.value('labelHelp')) {
-        html += `\n  labelHelp='${this.value('labelHelp')}'`;
-      }
-
-      if (this.value('helpInline')) {
-        html += `\n  labelHelpInline={ true }`;
-      }
-    }
-
-    if (this.value('disabled')) {
-      html += `\n  disabled={${this.value('disabled')}}`;
+    if (this.value('fieldHelpInline')) {
+      html += `\n  fieldHelpInline={ true }`;
     }
 
     if (this.value('reverse')) {
       html += `\n  reverse={${this.value('reverse')}}`;
     }
 
-    if (this.value('helpMessage')) {
-      html += `\n  helpMessage="${this.value('helpMessage')}"`;
-    }
-
-    // determine if we need extra space
-    let splitHtml = html.split("\n  ");
-    if (splitHtml.length == 1) {
-      html += " ";
-    } else {
-      html += "\n";
-    }
+    html = FormInputHelper.codeProps(this, html);
 
     html += "/>\n\n";
 
@@ -95,33 +69,9 @@ class CheckboxDemo extends React.Component {
   get controls() {
     return (
       <div>
+        { FormInputHelper.controls(this, this.action) }
+
         <Row>
-          <Textbox
-            label="Label"
-            labelInline={ true }
-            value={ this.value('label') }
-            onChange={ this.action.bind(this, 'label') }
-          />
-          <Checkbox
-            label="Disabled"
-            value={ this.value('disabled') }
-            onChange={ this.action.bind(this, 'disabled') }
-          />
-          <TextArea
-            label="Help"
-            labelInline={ false }
-            value={ this.value('helpMessage') }
-            onChange={ this.action.bind(this, 'helpMessage') }
-          />
-        </Row>
-        <Row>
-          <Textbox
-            label="Label Help"
-            labelInline={ true }
-            disabled={ !this.value('label') }
-            value={ this.value('labelHelp') }
-            onChange={ this.action.bind(this, 'labelHelp') }
-          />
           <Checkbox
             label="Reverse Label"
             disabled={ !this.value('label') }
@@ -130,9 +80,8 @@ class CheckboxDemo extends React.Component {
           />
           <Checkbox
             label="Help Label Inline"
-            disabled={ !this.value('labelHelp') }
-            value={ this.value('helpInline') }
-            onChange={ this.action.bind(this, 'helpInline') }
+            value={ this.value('fieldHelpInline') }
+            onChange={ this.action.bind(this, 'fieldHelpInline') }
           />
         </Row>
       </div>
