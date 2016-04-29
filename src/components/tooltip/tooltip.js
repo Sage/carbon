@@ -18,9 +18,9 @@ import classNames from 'classnames';
 *
 * You must pass a prop of 'isVisible' which is toggled to true or false.
 *
-* You can pass a prop of 'pointerAlign' to the component which shifts the alignment of the pointer.
+* You can pass a prop of 'align' to the component which shifts the alignment of the pointer.
 * This defaults to 'center'.
-* You can also pass a prop of 'pointerPosition' to the component which shifts the position of the pointer.
+* You can also pass a prop of 'position' to the component which shifts the position of the pointer.
 * This defaults to 'bottom'
 *
 * @class Tooltip
@@ -34,11 +34,11 @@ class Tooltip extends React.Component {
      *
      * Options: top, bottom, center, right, left
      *
-     * @property pointerAlign
+     * @property align
      * @type {String}
      * @default 'center'
      */
-    pointerAlign: React.PropTypes.string,
+    align: React.PropTypes.string,
 
     /**
      * Sets position of the tooltip
@@ -46,11 +46,11 @@ class Tooltip extends React.Component {
      *
      * Options: top, bottom, right, left
      *
-     * @property pointerPosition
+     * @property position
      * @type {String}
      * @default 'bottom'
      */
-    pointerPosition: React.PropTypes.string,
+    position: React.PropTypes.string,
 
     /**
      * Whether to to show the Tooltip
@@ -63,24 +63,10 @@ class Tooltip extends React.Component {
   };
 
   static defaultProps = {
-    pointerAlign: 'center',
-    pointerPosition: 'bottom',
+    align: 'center',
+    position: 'top',
     isVisible: false
   };
-
-  /**
-   * Pointer classes
-   *
-   * @method pointerClasses
-   * @return {String} classNames for pointer
-   */
-  get pointerClasses() {
-    return classNames(
-      'ui-tooltip__pointer',
-      'ui-tooltip__pointer--align-' + this.props.pointerAlign,
-      'ui-tooltip__pointer--position-' + this.props.pointerPosition,
-    );
-  }
 
   /**
    * Main classes
@@ -91,6 +77,8 @@ class Tooltip extends React.Component {
   get mainClasses() {
     return classNames(
       'ui-tooltip',
+      `ui-tooltip--position-${this.props.position}`,
+      `ui-tooltip--pointer-align-${this.props.align}`,
       this.props.className
     );
   }
@@ -104,14 +92,16 @@ class Tooltip extends React.Component {
   get tooltipHTML() {
     let contents = [
       this.props.children,
-      <span key='pointer' className={ this.pointerClasses }></span>
+      <span key='pointer' className='ui-tooltip__pointer'></span>
     ];
 
     return (
       <div className={ this.mainClasses }>
-        { contents }
-       </div>
-     );
+        <div className="ui-tooltip__container">
+          { contents }
+        </div>
+      </div>
+    );
   }
 
   /**

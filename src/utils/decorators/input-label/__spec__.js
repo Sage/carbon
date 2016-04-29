@@ -91,7 +91,7 @@ class LabelHelpClass {
   props = {
     name: 'foo',
     label: 'test label',
-    labelHelp: 'help label',
+    fieldHelp: 'help label',
     labelInline: true,
     labelWidth: 20
   };
@@ -145,7 +145,7 @@ describe('InputLabel', () => {
     instanceLabelHelp = new ExtendedClassSeven();
 
     let ExtendedClassEight = InputLabel(HelpClass);
-    instanceHelp = TestUtils.renderIntoDocument(<ExtendedClassEight helpMessage='Some Helpful Content'/>);
+    instanceHelp = TestUtils.renderIntoDocument(<ExtendedClassEight labelHelp='Some Helpful Content'/>);
   });
 
   describe('labelHTML', () => {
@@ -196,19 +196,19 @@ describe('InputLabel', () => {
     });
   });
 
-  describe('helpHTML', () => {
+  describe('labelHelpHTML', () => {
     describe('when a helpmessage is provided', () => {
       it('renders a help component', () => {
-        let help = instanceHelp.helpHTML;
-        expect(help.props.helpMessage).toEqual('Some Helpful Content');
+        let help = instanceHelp.labelHelpHTML;
+        expect(help.props.children).toEqual('Some Helpful Content');
       });
     });
   })
 
-  describe('labelHelpHTML', () => {
+  describe('fieldHelpHTML', () => {
     describe('when label help is provided', () => {
       it('renders the help within a span', () => {
-        let help = instanceLabelHelp.labelHelpHTML;
+        let help = instanceLabelHelp.fieldHelpHTML;
         expect(help.type).toEqual('span');
         expect(help.props.children).toEqual('help label');
       });
@@ -216,7 +216,7 @@ describe('InputLabel', () => {
 
     describe('when label help is not provided', () => {
       it('does not return a help span', () => {
-        expect(instanceBasic.labelHelpHTML).toBeUndefined();
+        expect(instanceBasic.fieldHelpHTML).toBeUndefined();
       });
     });
   });

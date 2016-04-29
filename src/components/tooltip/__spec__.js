@@ -13,13 +13,13 @@ describe('tooltip', () => {
       </Tooltip>
     );
     alignedInstance = TestUtils.renderIntoDocument(
-      <Tooltip isVisible={ true } pointerAlign='left'>
+      <Tooltip isVisible={ true } align='left'>
         Some Helpful Content
       </Tooltip>
     );
 
     positionedInstance = TestUtils.renderIntoDocument(
-      <Tooltip isVisible={ true } pointerPosition='top'>
+      <Tooltip isVisible={ true } position='top'>
         Some Helpful Content
       </Tooltip>
     );
@@ -46,27 +46,27 @@ describe('tooltip', () => {
       });
 
       it('renders a pointer span', () => {
-        expect(tooltip.children[1].classList[0]).toEqual('ui-tooltip__pointer');
+        expect(tooltip.children[0].children[1].classList[0]).toEqual('ui-tooltip__pointer');
       });
 
       it('aligns the pointer to center', () => {
-        expect(tooltip.children[1].classList[1]).toEqual('ui-tooltip__pointer--align-center');
+        expect(tooltip.classList[2]).toEqual('ui-tooltip--pointer-align-center');
       });
 
-      it('positions the pointer on the bottom', () => {
-        expect(tooltip.children[1].classList[2]).toEqual('ui-tooltip__pointer--position-bottom');
+      it('positions the pointer on the top', () => {
+        expect(tooltip.classList[1]).toEqual('ui-tooltip--position-top');
       });
     });
 
     describe('when a prop of align is passed', () => {
       it('adds the appropriate class', () => {
-        expect(alignedTooltip.children[1].classList[1]).toEqual('ui-tooltip__pointer--align-left');
+        expect(alignedTooltip.classList[2]).toEqual('ui-tooltip--pointer-align-left');
       });
     });
 
     describe('when a prop of position is passed', () => {
       it('adds the appropriate class', () => {
-        expect(positionedTooltip.children[1].classList[2]).toEqual('ui-tooltip__pointer--position-top');
+        expect(positionedTooltip.classList[1]).toEqual('ui-tooltip--position-top');
       });
     });
   });

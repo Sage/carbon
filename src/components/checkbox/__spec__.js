@@ -95,16 +95,16 @@ describe('Checkbox', () => {
     });
   });
 
-  describe('labelHelperClasses', () => {
+  describe('fieldHelperClasses', () => {
     it('returns the classNames to apply to the label help text', () => {
       instance = TestUtils.renderIntoDocument(
         <Checkbox
           name='checkbox'
           label='checkbox'
-          labelHelp='foo'
+          fieldHelp='foo'
         />
       );
-      expect(instance.labelHelpClasses).toMatch('ui-checkbox__help-text');
+      expect(instance.fieldHelpClasses).toMatch('ui-checkbox__help-text');
     });
 
     describe('when label is inline', () => {
@@ -113,12 +113,12 @@ describe('Checkbox', () => {
           <Checkbox
             name='checkbox'
             label='checkbox'
-            labelHelp='foo'
+            fieldHelp='foo'
             reverse={ true }
-            labelHelpInline={ true }
+            fieldHelpInline={ true }
           />
         );
-        expect(instance.labelHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--reverse ui-checkbox__help-text--inline');
+        expect(instance.fieldHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--reverse ui-checkbox__help-text--inline');
       });
     });
 
@@ -128,11 +128,11 @@ describe('Checkbox', () => {
           <Checkbox
             name='checkbox'
             label='checkbox'
-            labelHelp='foo'
+            fieldHelp='foo'
             reverse={ true }
           />
         );
-        expect(instance.labelHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--reverse');
+        expect(instance.fieldHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--reverse');
       });
     });
   });

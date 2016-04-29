@@ -9,23 +9,23 @@ describe('Help', () => {
 
   beforeEach(() => {
     basicInstance = TestUtils.renderIntoDocument(
-      <Help helpMessage="Helpful Content" />
+      <Help>Helpful Content</Help>
     );
 
     positionedInstance = TestUtils.renderIntoDocument(
-      <Help helpMessage="Helpful Content" tooltipPosition='right' />
+      <Help tooltipPosition='right'>Helpful Content</Help>
     );
 
     alignedInstance = TestUtils.renderIntoDocument(
-      <Help helpMessage="Helpful Content" pointerAlign='left' />
+      <Help pointerAlign='left'>Helpful Content</Help>
     );
 
     customStyleInstance = TestUtils.renderIntoDocument(
-      <Help helpMessage="Helpful Content" className='fancy-pants' />
+      <Help className='fancy-pants'>Helpful Content</Help>
     );
 
     linkInstance = TestUtils.renderIntoDocument(
-      <Help helpMessage="Helpful Content" href='www.foo.com' />
+      <Help href='www.foo.com'>Helpful Content</Help>
     );
   });
 
@@ -63,7 +63,7 @@ describe('Help', () => {
       expect(icon.props.type).toEqual('info');
     });
 
-    it('passes the helpMessage as a prop', () => {
+    it('passes the children as a prop', () => {
       expect(icon.props.tooltipMessage).toEqual('Helpful Content');
     });
 

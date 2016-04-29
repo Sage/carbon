@@ -18,6 +18,11 @@
   .common-input__message {
     margin-bottom: 6px;
   }
+
+  .common-input__help-text {
+    margin-left: 30%;
+    padding-left: $grid-margin;
+  }
 }
 
 .common-input__label--inline {
@@ -33,11 +38,12 @@
     padding-left: $grid-margin;
     width: 70%;
   }
-
 }
 
 .common-input__help-text {
   color: $grey-mid;
+  display: block;
   line-height: 14px;
+  margin-left: 6px;
   margin-top: 5px;
 }

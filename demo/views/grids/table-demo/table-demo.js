@@ -72,7 +72,7 @@ class TableDemo extends React.Component {
           totalRecords={ this.value('total_records') }
           sortOrder={ this.value('sort_order') }
           sortedColumn={ this.value('sorted_column') }
-          tableHeader={ this.tableHeaderRow }
+          thead={ this.tableHeaderRow }
         >
           { this.tableRows }
         </Table>

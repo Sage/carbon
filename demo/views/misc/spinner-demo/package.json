@@ -1,4 +1,3 @@
 {
-  "main": "./spinner-demo.js",
-  "style": "spinner-demo.scss"
+  "main": "./spinner-demo.js"
 }
