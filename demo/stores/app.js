@@ -119,6 +119,9 @@ let data = ImmutableHelper.parseJSON({
   split_button: {
     text: "Main Action"
   },
+  text: {
+    content: "Example of stylised text content."
+  },
   table: {
     current_page: "1",
     data: [],
