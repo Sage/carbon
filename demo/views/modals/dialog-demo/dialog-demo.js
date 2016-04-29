@@ -41,7 +41,7 @@ class DialogDemo extends React.Component {
           open={ this.value('open') }
           onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
           title={ this.value('title') }
-          disableBackground={ this.value('disableBackground') }
+          enableBackgroundUI={ this.value('enableBackgroundUI') }
         >
           <Row>
             <Textbox />
@@ -62,8 +62,8 @@ class DialogDemo extends React.Component {
     html += `  open={ ${ this.value('open') } }\n`
     html += `  title="${ this.value('title') }"\n`;
 
-    if (this.value('disableBackground')) {
-      html += `  disableBackground={ true }\n`;
+    if (this.value('enableBackgroundUI')) {
+      html += `  enableBackgroundUI={ true }\n`;
     }
 
     html += "/>\n\n";
@@ -85,10 +85,10 @@ class DialogDemo extends React.Component {
             onChange={ this.action.bind(this, 'title') }
           />
           <Checkbox
-            label="Disable Background"
-            value={ this.value('disableBackground') }
+            label="Enable Background UI"
+            value={ this.value('enableBackgroundUI') }
             reverse={ true }
-            onChange={ this.action.bind(this, 'disableBackground') }
+            onChange={ this.action.bind(this, 'enableBackgroundUI') }
           />
         </Row>
       </div>

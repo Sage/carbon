@@ -33,12 +33,12 @@ class Content extends React.Component {
   render() {
     let classes = classNames("ui-content", this.props.className);
 
-    return (
+    return this.props.children ? (
       <div className={ classes }>
         <div className="ui-content__title">{ this.props.title }</div>
         <div className="ui-content__body">{ this.props.children }</div>
       </div>
-    );
+    ) : null;
   }
 }
 

@@ -114,10 +114,10 @@ class Portrait extends React.Component {
       return this.gravatarProps;
     }
 
-    let props = {};
-    props.src = this.props.src;
-    props.alt = this.props.alt;
-    return props;
+    return {
+      src: this.props.src,
+      alt: this.props.alt
+    };
   }
 
   /**
@@ -127,14 +127,14 @@ class Portrait extends React.Component {
    * @return {Object}
    */
   get gravatarProps() {
-    let base = 'http://www.gravatar.com/avatar/';
-    let hash = MD5(this.props.gravatar.toLowerCase());
-    let size = this.numericSizes[this.props.size];
+    let base = 'http://www.gravatar.com/avatar/',
+        hash = MD5(this.props.gravatar.toLowerCase()),
+        size = this.numericSizes[this.props.size];
 
-    let props = {};
-    props.src = `${base}${hash}?s=${size}&d=404`;
-    props.alt = this.props.alt || this.props.gravatar;
-    return props;
+    return {
+      src: `${base}${hash}?s=${size}`,
+      alt: this.props.alt || this.props.gravatar
+    };
   }
 
   /**
@@ -145,7 +145,7 @@ class Portrait extends React.Component {
    */
   get numericSizes() {
     return {
-      small: '30',
+      small: '25',
       smed: '50',
       lmed: '70',
       large: '100'
