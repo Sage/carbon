@@ -58,7 +58,7 @@ class TableAjaxDemo extends React.Component {
           paginate={ this.value('paginate') }
           path="/countries"
           onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
-          tableHeader={ this.tableHeaderRow }
+          thead={ this.tableHeaderRow }
         >
           { this.tableRows }
         </TableAjax>
