@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import PortraitInitials from './portrait-initials';
 import MD5 from 'crypto-js/md5';
 
 /**
@@ -46,7 +45,13 @@ class Portrait extends React.Component {
      * @property src
      * @type {String}
      */
-    src: React.PropTypes.string, 
+    src: (props) => {
+      if (!props.gravatar && !props.src) {
+        throw new Error(`Portrait requires a prop of 'src' OR a prop of 'gravatar'`);
+      } else if (props.gravatar && props.src) {
+        throw new Error(`Portrait requires a prop of 'src' OR a prop of 'gravatar' but not both`);
+      }
+    },
 
     /**
      * Gravatar email
@@ -80,61 +85,98 @@ class Portrait extends React.Component {
      * @type {String}
      * @default 'U'
      */
-    initials: React.PropTypes.string,
-
-    /**
-     * Forces the user of initials
-     *
-     * @property useInitials
-     * @type {Boolean}
-     * @default false
-     */
-    useInitials: React.PropTypes.bool
+    initials: React.PropTypes.string
   }
 
   static defaultProps = {
     size: 'lmed',
-    shape: 'standard',
-    initials: 'U',
-    useInitials: false
+    shape: 'standard'
   };
 
-  state = {
-    error: false
+  /**
+   * Cache the initials graphic.
+   *
+   * @param memoizeInitials
+   * @type {String}
+   */
+  memoizeInitials = null
+
+  /**
+   * @method componentWillReceiveProps
+   * @param {Object}
+   * @return {Void}
+   */
+  componentWillReceiveProps(nextProps) {
+    if (this.props.initials != nextProps.initials ||
+        this.props.size != nextProps.size) {
+      this.memoizeInitials = null;
+    }
   }
 
   /**
    * Props for the HTML Img
    *
-   * @method imgProps
-   * @return {Object} props
+   * @method imgSrc
+   * @return {String}
    */
-  get imgProps() {
-    if (this.props.gravatar) {
-      return this.gravatarProps;
-    }
-
-    return {
-      src: this.props.src,
-      alt: this.props.alt
-    };
+  get imgSrc() {
+    if (this.props.gravatar) { return this.gravatarSrc; }
+    return this.props.src;
   }
 
   /**
    * Gets src url based on passed gravatar email
    *
-   * @method gravatarProps
-   * @return {Object}
+   * @method gravatarSrc
+   * @return {String}
    */
-  get gravatarProps() {
+  get gravatarSrc() {
     let base = 'http://www.gravatar.com/avatar/',
         hash = MD5(this.props.gravatar.toLowerCase()),
         size = this.numericSizes[this.props.size];
 
-    return {
-      src: `${base}${hash}?s=${size}`,
-      alt: this.props.alt || this.props.gravatar
-    };
+    return `${base}${hash}?s=${size}&d=blank`;
+  }
+
+  /**
+   * Generates a graphic with initials.
+   *
+   * @method generateInitials
+   * @return {String}
+   */
+  get generateInitials() {
+    if (this.memoizeInitials) { return this.memoizeInitials; }
+
+    let canvas = document.createElement('canvas'),
+        context = canvas.getContext("2d"),
+        size = this.numericSizes[this.props.size],
+        letters = this.props.initials || "",
+        color =  "#CCC";
+
+    // Set canvas with & height
+    canvas.width = size;
+    canvas.height = size;
+
+    // Select a font family to support different language characters
+    // like Arial
+    context.font = Math.round(canvas.width / 2) + "px Arial";
+    context.textAlign = "center";
+
+    // Setup background and front color
+    context.fillStyle = color;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "#FFF";
+    context.fillText(letters, size / 2, size / 1.5);
+
+    // Set image representation in default format (png)
+    let dataURI = canvas.toDataURL();
+
+    // Dispose canvas element
+    canvas = null;
+
+    this.memoizeInitials = dataURI;
+
+    return this.memoizeInitials;
   }
 
   /**
@@ -161,14 +203,46 @@ class Portrait extends React.Component {
   get mainClasses() {
     return classNames(
       'ui-portrait',
+      'ui-portrait--image',
       `ui-portrait--${ this.props.size }`,
       `ui-portrait--${ this.props.shape }`,
       this.props.className
     );
   }
 
-  onError = (ev) => {
-    this.setState({ error: true });
+  /**
+   * Return the html for the initials image.
+   *
+   * @method initialsImage
+   * @return {Object}
+   */
+  get initialsImage() {
+    // if not using src, generate initials for potential fallback
+    if (this.props.src) { return null; }
+
+    return (
+      <img
+        className="ui-portrait__img ui-portrait__initials"
+        src={ this.generateInitials }
+        alt={ this.props.alt }
+      />
+    );
+  }
+
+  /**
+   * Return the html for the avatar image.
+   *
+   * @method avatarImage
+   * @return {Object}
+   */
+  get avatarImage() {
+    return (
+      <img
+        className="ui-portrait__img ui-portrait__avatar"
+        src={ this.imgSrc }
+        alt={ this.props.alt }
+      />
+    );
   }
 
   /**
@@ -178,25 +252,12 @@ class Portrait extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    if (this.props.useInitials || this.state.error) {
-      return (
-        <PortraitInitials
-          className={ this.props.className }
-          alt={ this.props.alt }
-          size={ this.props.size }
-          shape={ this.props.shape }
-          initials={ this.props.initials }
-        />
-      );
-    } else {
-      return (
-        <img
-          className={ this.mainClasses }
-          { ...this.imgProps }
-          onError={ this.onError }
-        />
-      );
-    }
+    return (
+      <div className={ this.mainClasses }>
+        { this.initialsImage }
+        { this.avatarImage }
+      </div>
+    );
   }
 }
 

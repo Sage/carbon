@@ -42,40 +42,40 @@ class PortraitDemo extends React.Component {
     return (
       <div ref={(c) => this._portrait = c} className='portrait-demo' >
         <Row>
-          <span>
-            <h2>src image</h2>
+          <div>
+            <h2>src:</h2>
             <Portrait
               { ...props }
               src='https://facebook.github.io/react/img/logo.svg'
               initials={ this.value('initials') }
             />
-          </span>
-          <span>
-            <h2>Gravatar Image</h2>
+          </div>
+          <div>
+            <h2>Gravatar:</h2>
             <Portrait
               { ...props }
               gravatar='chris.barber@sage.com'
               initials={ this.value('initials') }
             />
-          </span>
+          </div>
         </Row>
 
         <Row>
-          <span>
-            <h2>Initials Fallback Image</h2>
+          <div>
+            <h2>Gravatar fallback (with initials):</h2>
             <Portrait
               { ...props }
               gravatar='foo'
               initials={ this.value('initials') }
             />
-          </span>
-          <span>
-            <h2>Final Fallback</h2>
+          </div>
+          <div>
+            <h2>Gravatar fallback (without initials):</h2>
             <Portrait
               { ...props }
               gravatar='foo'
             />
-          </span>
+          </div>
         </Row>
       </div>
     );
@@ -137,6 +137,7 @@ class PortraitDemo extends React.Component {
             onChange={ this.action.bind(this, 'alt') }
           />
         </Row>
+
         <Row>
           <Dropdown
             options={ shapes }
@@ -144,14 +145,6 @@ class PortraitDemo extends React.Component {
             labelInline={ true }
             value={ this.value('shape') }
             onChange={ this.action.bind(this, 'shape') }
-          />
-        </Row>
-        <Row>
-          <Checkbox
-            label="Use Initials"
-            reverse={ true }
-            value={ this.value('useInitials') }
-            onChange={ this.action.bind(this, 'useInitials') }
           />
           <Textbox
             label="Initials"
