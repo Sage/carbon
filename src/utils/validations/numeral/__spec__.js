@@ -1,6 +1,7 @@
 import TestUtils from 'react/lib/ReactTestUtils';
 import Validator from './numeral';
 import I18n from 'i18n-js';
+import I18nHelper from './../../helpers/i18n';
 
 describe('Numeral Validator', () => {
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe('Numeral Validator', () => {
       }
     };
   });
-  
+
   describe('getDescriptiveMessage', () => {
     describe('when passed nothing', () => {
       it('validates the decimal', () => {
@@ -42,9 +43,14 @@ describe('Numeral Validator', () => {
     });
 
     describe('when correct type', () => {
-      it('outputs the correct i18n string with the options', () => {
+      it('outputs the correct i18n string with the options of integer', () => {
         let numeralValidator = new Validator({ integer: true, is: 5 });
         expect(numeralValidator.message(1)).toEqual('Must equal 5');
+      });
+
+      it('outputs the correct i18n string without the options of integer', () => {
+        let numeralValidator = new Validator({ is: 5 });
+        expect(numeralValidator.message(1)).toEqual('Must equal 5.00');
       });
     });
   });
@@ -58,7 +64,7 @@ describe('Numeral Validator', () => {
 
     describe('message', () => {
       it('returns the correct message function', () => {
-        expect(numeralValidator.message()).toEqual("Must equal 5");
+        expect(numeralValidator.message()).toEqual("Must equal 5.00");
       });
     });
 
@@ -97,7 +103,7 @@ describe('Numeral Validator', () => {
 
     describe('when no input type is specified', () => {
       it('returns the correct message function', () => {
-        expect(lessThanValidator.message()).toEqual("Must equal 5 or less");
+        expect(lessThanValidator.message()).toEqual("Must equal 5.00 or less");
       });
 
       describe('when the value is greater than the maximum', () => {
@@ -144,7 +150,7 @@ describe('Numeral Validator', () => {
       });
 
       it('returns the correct message function', () => {
-        expect(greaterThanValidator.message()).toEqual("Must equal 10 or more");
+        expect(greaterThanValidator.message()).toEqual("Must equal 10.00 or more");
       });
 
       describe('when the value is less than the minimum', () => {
@@ -190,7 +196,7 @@ describe('Numeral Validator', () => {
 
       describe('when the value is less than the minimum', () => {
         it('returns the correct message function', () => {
-          expect(rangeValidator.message(1)).toEqual("Must equal 5 or more");
+          expect(rangeValidator.message(1)).toEqual("Must equal 5.00 or more");
         });
 
         it('returns false', () => {
@@ -200,7 +206,7 @@ describe('Numeral Validator', () => {
 
       describe('when the value is greater than the maximum', () => {
         it('returns the correct message function', () => {
-          expect(rangeValidator.message(14)).toEqual("Must equal 10 or less");
+          expect(rangeValidator.message(14)).toEqual("Must equal 10.00 or less");
         });
 
         it('returns false', () => {

@@ -368,6 +368,7 @@ class Date extends React.Component {
         <input { ...this.hiddenInputProps } />
         { datePicker }
         { this.validationHTML }
+        { this.fieldHelpHTML }
 
       </div>
     );

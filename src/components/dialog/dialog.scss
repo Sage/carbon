@@ -2,21 +2,6 @@
 @import 'z-index';
 
 $dialog-padding: 20px;
-$dialog-initial-position: 60px;
-$dialog-animation-length: 300ms;
-$dialog-background-opacity: 0.6;
-$dialog-background-animation-length: 300ms;
-
-.ui-dialog__background {
-  background-color: #3C424F;
-  bottom: 0;
-  left: 0;
-  opacity: $dialog-background-opacity;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: $z-dialog-background;
-}
 
 .ui-dialog__dialog {
   background-color: $grey-light;
@@ -58,48 +43,4 @@ $dialog-background-animation-length: 300ms;
   &:hover {
     color: $blue;
   }
-}
-
-// dialog animation:
-
-.dialog-enter {
-  opacity: 0;
-  margin-top: $dialog-initial-position;
-}
-
-.dialog-enter.dialog-enter-active {
-  opacity: 1;
-  margin-top: 0;
-  transition: all $dialog-animation-length 100ms ease-in;
-}
-
-.dialog-leave {
-  opacity: 1;
-  margin-top: 0;
-}
-
-.dialog-leave.dialog-leave-active {
-  opacity: 0;
-  margin-top: $dialog-initial-position;
-  transition: all $dialog-animation-length ease-in;
-}
-
-// dialog background animation:
-
-.dialog-background-enter {
-  opacity: 0;
-}
-
-.dialog-background-enter.dialog-background-enter-active {
-  opacity: $dialog-background-opacity;
-  transition: opacity $dialog-background-animation-length ease-in;
-}
-
-.dialog-background-leave {
-  opacity: $dialog-background-opacity;
-}
-
-.dialog-background-leave.dialog-background-leave-active {
-  opacity: 0;
-  transition: opacity $dialog-background-animation-length 100ms ease-in;
 }

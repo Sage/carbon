@@ -79,7 +79,7 @@ describe('Portrait', () => {
 
   describe('numericSizes', () => {
     it('returns a object mapping size to numeric value', () => {
-      expect(instance.numericSizes.small).toEqual('30');
+      expect(instance.numericSizes.small).toEqual('25');
     });
   });
 

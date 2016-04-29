@@ -1,4 +1,3 @@
 {
-  "main": "./pill-demo.js",
-  "style": "./pill-demo.scss"
+  "main": "./pill-demo.js"
 }

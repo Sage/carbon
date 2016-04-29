@@ -113,8 +113,8 @@ class Confirm extends Dialog {
    *
    * @method dialogTitle
    */
-  get dialogHTML() {
-    let dialog = super.dialogHTML;
+  get modalHTML() {
+    let dialog = super.modalHTML;
     dialog.props.children.push(this.confirmButtons);
     return dialog;
   }
