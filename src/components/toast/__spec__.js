@@ -40,7 +40,7 @@ describe('Toast', () => {
 
     it('renders type icon', () => {
       let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-toast__type-icon');
-      expect(icon.className).toEqual("ui-toast__type-icon icon-info");
+      expect(icon.className).toEqual("ui-icon ui-toast__type-icon icon-info");
     });
 
     it('renders child content', () => {
@@ -50,7 +50,7 @@ describe('Toast', () => {
 
     it('renders close icon', () => {
       let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-toast__close');
-      expect(icon.className).toEqual('ui-toast__close icon-close');
+      expect(icon.className).toEqual('ui-icon ui-toast__close icon-close');
     });
 
     it('calls onDismiss method when clicking close', () => {

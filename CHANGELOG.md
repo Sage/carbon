@@ -3,8 +3,8 @@
 ## Improvements
 
 * Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
-* Label can now have a subtitle. Pass `labelHelp='help message'` to any label enabled input
-* Add `tableHeader` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
+* Inputs can now have field help. Pass `fieldHelp='help message'` to any input.
+* Inputs can now have label help. Pass `labelHelp='help message'` to any input.
 * Add `thead` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
 
 ## New Components
@@ -12,7 +12,8 @@
 * Sidebar - with sidebar header
 * Portrait
 * Content
-* Tile - an alternative to Pod, with a drop shadow.
+* Help - An info icon with a tooltip.
+* Tooltip
 
 ## Layout Updates
 
@@ -42,6 +43,10 @@
 * Child components of Row can now use a `columnAlign` prop.
 * Toast onDismiss is now optional
 
+## New Decorators
+
+* Tooltip Decorator - currently available on Icon and Textbox.
+
 ## Bug Fixes
 
 * Fixes alignment issue with SplitButton when using anchors.
@@ -53,6 +58,7 @@
 
 * Moves the validation logic in Form component to its own method.
 * Adds `validateOnMount` prop to Forms.
+* Help Components on inputs with labels.
 
 # 0.7.0
 

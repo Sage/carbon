@@ -125,19 +125,19 @@ class Checkbox extends React.Component {
    */
   get checkboxSprite() {
     return(
-        <svg width="15" height="15" viewBox="0 0 15 15">
-          <rect className="checkbox-outline" fill="#AFAFAF" x="0" y="0" width="15" height="15"></rect>
-          <rect className="checkbox-fill" fill="#FFFFFF" x="1" y="1" width="13" height="13"></rect>
-          <path d="M5.06079081,11.805307 L2.2548404,9.4508351 C1.95287351,9.19745479 1.91372172,
-          8.74748731 2.16708208,8.44554418 L3.08395978,7.35285189 C3.3376225,7.05054844 3.78738919,
-          7.01144632 4.08921714,7.26471004 L6.46118447,9.25502694 L11.4959248,3.25485701 C11.7492184,
-          2.95299356 12.1993451,2.91365198 12.5012882,3.16701234 L13.5939805,4.08389004 C13.896284,
-          4.33755276 13.9353536,4.78735811 13.6820499,5.08923375 L8.30934217,11.4921775 C8.28333213,
-          11.5485068 8.24949267,11.6023543 8.20769039,11.6521724 L7.2908127,12.7448647 C7.12011041,
-          12.9482997 6.86060017,13.032541 6.61713008,12.9887006 C6.48855215,12.9709764 6.36324771,
-          12.9179844 6.25647356,12.8283903 L5.16378128,11.9115126 C5.12512704,11.8790778 5.09077658,
-          11.8434362 5.06079081,11.805307 L5.06079081,11.805307 Z" className="checkbox-check" fill="#FFFFFF"></path>
-        </svg>
+      <svg width="15" height="15" viewBox="0 0 15 15">
+        <rect className="checkbox-outline" fill="#AFAFAF" x="0" y="0" width="15" height="15"></rect>
+        <rect className="checkbox-fill" fill="#FFFFFF" x="1" y="1" width="13" height="13"></rect>
+        <path d="M5.06079081,11.805307 L2.2548404,9.4508351 C1.95287351,9.19745479 1.91372172,
+        8.74748731 2.16708208,8.44554418 L3.08395978,7.35285189 C3.3376225,7.05054844 3.78738919,
+        7.01144632 4.08921714,7.26471004 L6.46118447,9.25502694 L11.4959248,3.25485701 C11.7492184,
+        2.95299356 12.1993451,2.91365198 12.5012882,3.16701234 L13.5939805,4.08389004 C13.896284,
+        4.33755276 13.9353536,4.78735811 13.6820499,5.08923375 L8.30934217,11.4921775 C8.28333213,
+        11.5485068 8.24949267,11.6023543 8.20769039,11.6521724 L7.2908127,12.7448647 C7.12011041,
+        12.9482997 6.86060017,13.032541 6.61713008,12.9887006 C6.48855215,12.9709764 6.36324771,
+        12.9179844 6.25647356,12.8283903 L5.16378128,11.9115126 C5.12512704,11.8790778 5.09077658,
+        11.8434362 5.06079081,11.805307 L5.06079081,11.805307 Z" className="checkbox-check" fill="#FFFFFF"></path>
+      </svg>
     );
   }
 
@@ -151,11 +151,17 @@ class Checkbox extends React.Component {
     return this.checkboxSprite;
   }
 
-  get labelHelpClasses() {
+  /**
+   * Returns classes for field help.
+   *
+   * @method fieldHelpClasses
+   * @return {String}
+   */
+  get fieldHelpClasses() {
     return classNames(
       'ui-checkbox__help-text', {
         'ui-checkbox__help-text--reverse': this.props.reverse,
-        'ui-checkbox__help-text--inline': this.props.labelHelpInline
+        'ui-checkbox__help-text--inline': this.props.fieldHelpInline
       }
     );
   }
@@ -167,15 +173,15 @@ class Checkbox extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let labelRight, labelLeft, labelHelpLeft,
-        labelHelpRight = this.labelHelpHTML;
+    let labelRight, labelLeft, fieldHelpLeft,
+        fieldHelpRight = this.fieldHelpHTML;
 
     if (this.props.reverse) {
       labelLeft = this.labelHTML;
 
-      if (this.props.labelHelpInline) {
-        labelHelpLeft = this.labelHelpHTML;
-        labelHelpRight = null;
+      if (this.props.fieldHelpInline) {
+        fieldHelpLeft = this.fieldHelpHTML;
+        fieldHelpRight = null;
       }
     } else {
       labelRight = this.labelHTML;
@@ -184,11 +190,11 @@ class Checkbox extends React.Component {
     return(
       <div className={ this.mainClasses }>
         { labelLeft }
-        { labelHelpLeft }
+        { fieldHelpLeft }
         <input { ...this.hiddenInputProps } />
         { this.inputHTML }
         { labelRight }
-        { labelHelpRight }
+        { fieldHelpRight }
         { this.validationHTML }
       </div>
     );

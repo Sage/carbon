@@ -249,13 +249,7 @@ class Decimal extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    let classes = 'ui-decimal';
-
-    if (this.props.className) {
-      classes += ` ${this.props.className}`;
-    }
-
-    return classes;
+    return 'ui-decimal';
   }
 
   /**
@@ -282,6 +276,7 @@ class Decimal extends React.Component {
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { this.validationHTML }
+        { this.fieldHelpHTML }
 
       </div>
     );
