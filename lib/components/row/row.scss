@@ -4,19 +4,26 @@ $max-columns: 12 !default;
 
 .ui-row {
   clear: both;
+  margin-bottom: -($grid-margin);
   margin-left: -($grid-margin);
   position: relative;
-
-  + .ui-row {
-    margin-top: 10px;
-  }
 
   .ui-row__column {
     box-sizing: border-box;
     float: left;
+    margin-bottom: $grid-margin;
     min-height: 1px;
     padding-left: $grid-margin;
     width: 100%;
+
+    &.ui-row__column--align-center,
+    &.ui-row__column--align-middle {
+      text-align: center;
+    }
+
+    &.ui-row__column--align-right {
+      text-align: right;
+    }
   }
 
   @for $i from 2 through $max-columns {
