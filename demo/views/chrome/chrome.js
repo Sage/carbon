@@ -19,8 +19,8 @@ class Chrome extends React.Component {
               <Link to="/notifications">Notifications</Link>
               <Link to="/modals">Modals</Link>
               <Link to="/layout">Layout</Link>
-              <Link to="/misc">Misc</Link>
               <Link to="/design">Design</Link>
+              <Link to="/misc">Misc</Link>
             </div>
           </div>
         </div>

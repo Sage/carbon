@@ -3,10 +3,12 @@ import { connect } from 'utils/flux';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
+import classNames from 'classnames';
 
-import TextArea from 'components/textarea';
-import TextDropdown from './../../../components/text-dropdown';
+import Textbox from 'components/textbox';
 import Row from 'components/row';
+import Checkbox from 'components/checkbox';
+import AsDropdown from './../../../components/as-dropdown';
 
 class TextDemo extends React.Component {
 
@@ -24,14 +26,79 @@ class TextDemo extends React.Component {
     return AppActions.appValueUpdated.bind(this, 'text');
   }
 
+  get classes() {
+    let asClass;
+
+    if (this.value('as') != 'null') {
+      asClass = `text--${this.value('as')}`;
+    }
+
+    let classes = classNames(asClass, {
+      'text--tag': this.value('textTag'),
+      'text--bold': this.value('textBold'),
+      'text--italic': this.value('textItalic'),
+      'text--secondary': this.value('textSecondary'),
+      'text--inactive': this.value('textInactive')
+    });
+
+    return classes;
+  }
+
   /**
    * @method demo
    */
   get demo() {
     return (
-      <p className={ this.value('className')}>
-        { this.value('content') }
-      </p>
+      <div>
+        <Row columns="4">
+          <p>Paragraph:</p>
+          <p columnSpan="3" className={ this.classes }>
+            { this.value('content') }
+          </p>
+        </Row>
+
+        <Row columns="4">
+          <p>h1:</p>
+          <h1 columnSpan="3" className={ this.classes }>
+            { this.value('content') }
+          </h1>
+        </Row>
+
+        <Row columns="4">
+          <p>h2:</p>
+          <h2 columnSpan="3" className={ this.classes }>
+            { this.value('content') }
+          </h2>
+        </Row>
+
+        <Row columns="4">
+          <p>h3:</p>
+          <h3 columnSpan="3" className={ this.classes }>
+            { this.value('content') }
+          </h3>
+        </Row>
+
+        <Row columns="4">
+          <p>h4:</p>
+          <h4 columnSpan="3" className={ this.classes }>
+            { this.value('content') }
+          </h4>
+        </Row>
+
+        <Row columns="4">
+          <p>h5:</p>
+          <h5 columnSpan="3" className={ this.classes }>
+            { this.value('content') }
+          </h5>
+        </Row>
+
+        <Row columns="4">
+          <p>h6:</p>
+          <h6 columnSpan="3" className={ this.classes }>
+            { this.value('content') }
+          </h6>
+        </Row>
+      </div>
     );
   }
 
@@ -39,48 +106,13 @@ class TextDemo extends React.Component {
    * @method code
    */
   get code() {
-    let html = "@import 'text';\n\n";
-
-    html += "<p className=" + (this.value('className')) + ">\n";
-    html += "  My Content\n";
-    html += "</p>\n\n"
-
-    html += "CSS Applied\n\n"
-    switch (this.value('className')) {
-      case "standard-medium":
-        html += ".standard-medium {\n";
-        html += "  color: $grey-dark;\n";
-        html += "  font-family: HelveticaNeue-Medium;\n";
-        html += "  font-size: 12px;\n";
-        html += "}"
-        break;
-
-      case "inactive-standard-small":
-        html += ".inactive-standard-small {\n";
-        html += "  color: $grey-dark-blue-50;\n";
-        html += "  font-family: HelveticaNeue-Bold;\n";
-        html += "  font-size: 10px;\n";
-        html += "  letter-spacing: 0.3px;\n";
-        html += "}"
-        break;
-
-      case "inactive-standard-medium":
-        html += ".inactive-standard-medium {\n";
-        html += "  color: $grey-dark-blue-50;\n";
-        html += "  font-family: HelveticaNeue-Bold;\n";
-        html += "  letter-spacing: 0.4px;\n";
-        html += "}"
-        break;
-
-      case "inactive-italic-medium":
-        html += ".inactive-italic-medium {\n";
-        html += "  color: $grey-dark-blue-50;\n";
-        html += "  font-family: HelveticaNeue-MediumItalic;\n";
-        html += "  font-size: 12px;\n";
-        html += "}"
-        break;
-
+    let html = '<p';
+    if (this.classes) {
+      html += ` className="${this.classes}"`;
     }
+    html += '>';
+    html += this.value('content');
+    html += '</p>';
 
     return html;
   }
@@ -92,15 +124,50 @@ class TextDemo extends React.Component {
     return (
       <div>
         <Row>
-          <TextArea
+          <Textbox
             label="Content"
-            labelInline={ false }
+            labelInline={ true }
             value={ this.value('content') }
             onChange={ this.action.bind(this, 'content') }
           />
-        <TextDropdown
-            value={ this.value('className') }
-            onChange={ this.action.bind(this, 'className') }
+
+          <AsDropdown
+            value={ this.value('as') }
+            onChange={ this.action.bind(this, 'as') }
+          />
+        </Row>
+
+        <Row columns="3">
+          <Checkbox
+            label="text--tag"
+            value={ this.value('textTag') }
+            onChange={ this.action.bind(this, 'textTag') }
+          />
+
+          <Checkbox
+            label="text--bold"
+            value={ this.value('textBold') }
+            onChange={ this.action.bind(this, 'textBold') }
+          />
+
+          <Checkbox
+            label="text--italic"
+            value={ this.value('textItalic') }
+            onChange={ this.action.bind(this, 'textItalic') }
+          />
+        </Row>
+
+        <Row columns="3">
+          <Checkbox
+            label="text--secondary"
+            value={ this.value('textSecondary') }
+            onChange={ this.action.bind(this, 'textSecondary') }
+          />
+
+          <Checkbox
+            label="text--inactive"
+            value={ this.value('textInactive') }
+            onChange={ this.action.bind(this, 'textInactive') }
           />
         </Row>
       </div>

@@ -23,8 +23,8 @@ var routes = (
     <Route path="/notifications" component={ Notifications } />
     <Route path="/modals" component={ Modals } />
     <Route path="/layout" component={ Layout } />
-    <Route path="/misc" component={ Misc } />
     <Route path="/design" component={ Design } />
+    <Route path="/misc" component={ Misc } />
   </Route>
 );
 

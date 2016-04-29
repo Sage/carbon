@@ -1,4 +1,3 @@
 {
-  "main": "./text-demo.js",
-  "style": "text-demo.scss"
+  "main": "./text-demo.js"
 }
