@@ -188,7 +188,12 @@ class Table extends React.Component {
      * @property childContextTypes
      * @type {Object}
      */
+    attachToTable: React.PropTypes.func,
+    detachFromTable: React.PropTypes.func,
+    isSelected: React.PropTypes.func,
     onSort: React.PropTypes.func,
+    selectAll: React.PropTypes.func,
+    selectRow: React.PropTypes.func,
     sortedColumn: React.PropTypes.string,
     sortOrder: React.PropTypes.string
   }
@@ -201,10 +206,74 @@ class Table extends React.Component {
    */
   getChildContext = () => {
     return {
+      attachToTable: this.attachToTable,
+      detachFromTable: this.detachFromTable,
+      isSelected: this.isSelected,
       onSort: this.onSort,
+      selectAll: this.selectAll,
+      selectRow: this.selectRow,
       sortedColumn: this.sortedColumn,
       sortOrder: this.sortOrder
     };
+  }
+
+  rows = {}
+
+  selectedRows = {}
+
+  attachToTable = (id, row) => {
+    this.rows[id] = row;
+  }
+
+  detachFromTable = (id) => {
+    delete this.rows[id];
+  }
+
+  selectRow = (id, row, state) => {
+    let selectable = row.props.selectable,
+        multiSelectable = row.props.multiSelectable,
+        isSelected = this.selectedRows[id];
+
+    if (selectable && isSelected) { return false; }
+
+    if (multiSelectable) {
+      if (!state && isSelected) {
+        delete this.selectedRows[id];
+      } else {
+        this.selectedRows[id] = row;
+      }
+    } else {
+      // reset rows selected
+      for (let key in this.selectedRows) {
+        let r = this.selectedRows[key];
+        r.setState({ selected: false });
+      }
+
+      this.selectedRows = {
+        [id]: row
+      };
+    }
+
+    row.setState({ selected: state });
+  }
+
+  selectAll = (row) => {
+    let selectState = !row.state.selected;
+
+    for (let key in this.rows) {
+      let r = this.rows[key];
+      this.selectRow(r.props.uniqueID, r, selectState);
+    }
+  }
+
+  isSelected = (id, row) => {
+    let isSelected = this.selectedRows[id];
+
+    if (isSelected && !row.state.selected) {
+      row.setState({ selected: true });
+    } else if (!isSelected && row.state.selected) {
+      row.setState({ selected: false });
+    }
   }
 
   /**

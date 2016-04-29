@@ -244,7 +244,7 @@ class TableDemo extends React.Component {
    */
   get tableHeaderRow() {
     return(
-      <TableRow key="header">
+      <TableRow key="header" multiSelectable={ true } header={ true } uniqueID="fdsf">
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>
@@ -255,6 +255,10 @@ class TableDemo extends React.Component {
     );
   }
 
+  foo = (name) => {
+    console.log(name);
+  }
+
   /**
    * @method tableRows
    */
@@ -263,7 +267,7 @@ class TableDemo extends React.Component {
 
     return data.map((row, index) => {
       return (
-        <TableRow key={ index }>
+        <TableRow key={ index } onClick={ this.foo.bind(this, row.get('name')) } selectable={ true } multiSelectable={ false }>
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
         </TableRow>
