@@ -21,15 +21,10 @@ describe('Ether', () => {
     });
   });
 
-  describe('pixelValue', () => {
+  describe('append', () => {
     it('returns a string value with px appended', () => {
-      expect(Ether.pixelValue(20)).toEqual('20px');
-    });
-  });
-
-  describe('percentValue', () => {
-    it('returns a string value with % appended', () => {
-      expect(Ether.percentValue(20)).toEqual('20%');
+      expect(Ether.append(20, "px")).toEqual('20px');
+      expect(Ether.append("20", "%")).toEqual('20%');
     });
   });
 });

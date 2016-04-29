@@ -3,7 +3,7 @@ import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
 import { startCase } from 'lodash';
-import { pixelValue, styleElement } from './../../ether';
+import { append, styleElement } from './../../ether';
 
 /**
  * TooltipDecorator.
@@ -212,28 +212,28 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
 
       switch (position) {
         case "top":
-          styleElement(tooltip, 'top', pixelValue(shifts.verticalY));
+          styleElement(tooltip, 'top', append(shifts.verticalY, 'px'));
           styleElement(tooltip, 'right', 'auto');
           styleElement(tooltip, 'bottom', 'auto');
-          styleElement(tooltip, 'left', pixelValue(shifts[`vertical${startCase(alignment)}`]));
+          styleElement(tooltip, 'left', append(shifts[`vertical${startCase(alignment)}`], 'px'));
           break;
 
         case "bottom":
           styleElement(tooltip, 'top', 'auto');
-          styleElement(tooltip, 'bottom', pixelValue(shifts.verticalY));
-          styleElement(tooltip, 'left', pixelValue(shifts[`vertical${startCase(alignment)}`]));
+          styleElement(tooltip, 'bottom', append(shifts.verticalY, 'px'));
+          styleElement(tooltip, 'left', append(shifts[`vertical${startCase(alignment)}`], 'px'));
           break;
 
         case "left":
-          styleElement(tooltip, 'top', pixelValue(shifts[`side${startCase(alignment)}`]));
+          styleElement(tooltip, 'top', append(shifts[`side${startCase(alignment)}`], 'px'));
           styleElement(tooltip, 'bottom', 'auto');
-          styleElement(tooltip, 'left', pixelValue(shifts[`${position}Horizontal`]));
+          styleElement(tooltip, 'left', append(shifts[`${position}Horizontal`], 'px'));
           break;
 
         case "right":
-          styleElement(tooltip, 'top', pixelValue(shifts[`side${startCase(alignment)}`]));
+          styleElement(tooltip, 'top', append(shifts[`side${startCase(alignment)}`], 'px'));
           styleElement(tooltip, 'bottom', 'auto');
-          styleElement(tooltip, 'left', pixelValue(shifts[`${position}Horizontal`]));
+          styleElement(tooltip, 'left', append(shifts[`${position}Horizontal`], 'px'));
       }
     }
   };

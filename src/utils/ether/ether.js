@@ -22,25 +22,15 @@ let Ether = {
   },
 
   /**
-   * Returns value as string pixel value
+   * Stringifies and appends content to value.
    *
-   * @method pixelValue
-   * @param {Number} value
+   * @method append
+   * @param {String} value
+   * @param {String} content
    * @return {String}
    */
-  pixelValue: (value) => {
-    return `${value}px`;
-  },
-
-  /**
-   * Returns value as string percent value
-   *
-   * @method percentValue
-   * @param {Number} value
-   * @return {String}
-   */
-  percentValue: (value) => {
-    return `${value}%`;
+  append: (value, content) => {
+    return `${value}${content}`;
   }
 };
 
