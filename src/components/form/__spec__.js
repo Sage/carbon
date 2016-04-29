@@ -40,6 +40,23 @@ describe('Form', () => {
     });
   });
 
+  describe('getChildContext', () => {
+    it('returns an object that exposes public functions', () => {
+      expect(instance.getChildContext()).toEqual(
+        {
+          form: {
+            attachToForm: instance.attachToForm,
+            detachFromForm: instance.detachFromForm,
+            incrementErrorCount: instance.incrementErrorCount,
+            decrementErrorCount: instance.decrementErrorCount,
+            inputs: instance.inputs,
+            validate: instance.validate
+          }
+        }
+      );
+    });
+  });
+
   describe('incrementErrorCount', () => {
     it('increments the state error count', () => {
       instance.setState({ errorCount: 2 });
