@@ -3,7 +3,7 @@ import { connect } from 'utils/flux';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
-import { Table, TableHeader, TableRow, TableCell } from 'components/table';
+import { Table, TableHeader, TableHeaderRow, TableRow, TableCell } from 'components/table';
 
 import Row from 'components/row';
 import Checkbox from 'components/checkbox';
@@ -70,6 +70,7 @@ class TableDemo extends React.Component {
           paginate={ this.value('paginate') }
           showPageSizeSelection={ this.value('show_page_size_selection') }
           totalRecords={ this.value('total_records') }
+          multiSelectable={ true }
           sortOrder={ this.value('sort_order') }
           sortedColumn={ this.value('sorted_column') }
           thead={ this.tableHeaderRow }
@@ -244,14 +245,14 @@ class TableDemo extends React.Component {
    */
   get tableHeaderRow() {
     return(
-      <TableRow key="header" multiSelectable={ true } header={ true } uniqueID="fdsf">
+      <TableHeaderRow key="header" header={ true } uniqueID='header'>
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>
         <TableHeader sortable={ this.value('sortable') } name="value">
           Code
         </TableHeader>
-      </TableRow>
+      </TableHeaderRow>
     );
   }
 
@@ -267,7 +268,7 @@ class TableDemo extends React.Component {
 
     return data.map((row, index) => {
       return (
-        <TableRow key={ index } onClick={ this.foo.bind(this, row.get('name')) } selectable={ true } multiSelectable={ false }>
+        <TableRow key={ index } onClick={ this.foo.bind(this, row.get('name')) } uniqueID={ row.get('name') }>
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
         </TableRow>

@@ -50,8 +50,9 @@ class TableRow extends React.Component {
   static contextTypes = {
     attachToTable: React.PropTypes.func,
     detachFromTable: React.PropTypes.func,
-    isSelected: React.PropTypes.func,
-    selectAll: React.PropTypes.func,
+    checkSelection: React.PropTypes.func,
+    selectable: React.PropTypes.bool,
+    multiSelectable: React.PropTypes.bool,
     selectRow: React.PropTypes.func
   }
 
@@ -60,8 +61,13 @@ class TableRow extends React.Component {
   }
 
   componentWillMount() {
+    if (this.context.selectable && !this.props.uniqueID) {
+      throw new Error("A selectable TableRow must provide a uniqueID prop to track itself within the Table.");
+    }
+
     if (this.context.attachToTable && this.props.uniqueID) {
       this.context.attachToTable(this.props.uniqueID, this);
+      this.context.checkSelection(this.props.uniqueID, this);
     }
   }
 
@@ -73,7 +79,7 @@ class TableRow extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.uniqueID != nextProps.uniqueID) {
-      this.context.isSelected(nextProps.uniqueID, this);
+      this.context.checkSelection(nextProps.uniqueID, this);
     }
   }
 
@@ -84,10 +90,6 @@ class TableRow extends React.Component {
 
   onMultiSelect = () => {
     this.context.selectRow(this.props.uniqueID, this, !this.state.selected);
-  }
-
-  selectAll = () => {
-    this.context.selectAll(this);
   }
 
   /**
@@ -110,7 +112,7 @@ class TableRow extends React.Component {
 
     props.className = this.mainClasses;
 
-    if (this.props.selectable) {
+    if (this.context.selectable || this.props.selectable) {
       props.onClick = this.onRowClick;
     }
 
@@ -125,17 +127,11 @@ class TableRow extends React.Component {
   render() {
     let content = [this.props.children];
 
-    if (this.props.multiSelectable && !this.props.header) {
+    if (this.context.multiSelectable || this.props.multiSelectable) {
       content.unshift(
-        <TableCell>
+        <TableCell key="select" className="ui-table-cell--select">
           <Checkbox onChange={ this.onMultiSelect } checked={ this.state.selected } />
         </TableCell>
-      );
-    } else if (this.props.multiSelectable && this.props.header) {
-      content.unshift(
-        <TableHeader>
-          <Checkbox onChange={ this.selectAll } checked={ this.state.selected } />
-        </TableHeader>
       );
     }
 

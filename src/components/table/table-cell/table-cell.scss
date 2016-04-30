@@ -51,6 +51,17 @@
   }
 }
 
+.ui-table-header-row .ui-table-cell--select,
+.ui-table-cell--select {
+  text-align: center;
+  width: 18px;
+
+  .ui-checkbox {
+    height: 15px;
+    padding-top: 0;
+  }
+}
+
 .ui-table-cell--action {
   width: 18px;
 

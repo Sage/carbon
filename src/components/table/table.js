@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
+import TableHeaderRow from './table-header-row';
 import Pager from './../pager';
 
 /**
@@ -190,8 +191,10 @@ class Table extends React.Component {
      */
     attachToTable: React.PropTypes.func,
     detachFromTable: React.PropTypes.func,
-    isSelected: React.PropTypes.func,
+    checkSelection: React.PropTypes.func,
     onSort: React.PropTypes.func,
+    selectable: React.PropTypes.bool,
+    multiSelectable: React.PropTypes.bool,
     selectAll: React.PropTypes.func,
     selectRow: React.PropTypes.func,
     sortedColumn: React.PropTypes.string,
@@ -208,8 +211,10 @@ class Table extends React.Component {
     return {
       attachToTable: this.attachToTable,
       detachFromTable: this.detachFromTable,
-      isSelected: this.isSelected,
+      checkSelection: this.checkSelection,
       onSort: this.onSort,
+      selectable: this.props.selectable,
+      multiSelectable: this.props.multiSelectable,
       selectAll: this.selectAll,
       selectRow: this.selectRow,
       sortedColumn: this.sortedColumn,
@@ -221,6 +226,8 @@ class Table extends React.Component {
 
   selectedRows = {}
 
+  headerSelect = null
+
   attachToTable = (id, row) => {
     this.rows[id] = row;
   }
@@ -230,9 +237,14 @@ class Table extends React.Component {
   }
 
   selectRow = (id, row, state) => {
-    let selectable = row.props.selectable,
-        multiSelectable = row.props.multiSelectable,
+    let selectable = this.props.selectable || row.props.selectable,
+        multiSelectable = this.props.multiSelectable || row.props.multiSelectable,
         isSelected = this.selectedRows[id];
+
+    if (this.headerSelect) {
+      this.headerSelect.setState({ selected: false });
+      this.headerSelect = null;
+    }
 
     if (selectable && isSelected) { return false; }
 
@@ -264,9 +276,17 @@ class Table extends React.Component {
       let r = this.rows[key];
       this.selectRow(r.props.uniqueID, r, selectState);
     }
+
+    row.setState({ selected: selectState });
+
+    if (selectState) {
+      this.headerSelect = row;
+    } else {
+      this.headerSelect = null;
+    }
   }
 
-  isSelected = (id, row) => {
+  checkSelection = (id, row) => {
     let isSelected = this.selectedRows[id];
 
     if (isSelected && !row.state.selected) {
@@ -367,6 +387,10 @@ class Table extends React.Component {
    * @return {Void}
    */
   emitOnChangeCallback = (element, options) => {
+    if (this.headerSelect) {
+      this.headerSelect.setState({ selected: false });
+      this.headerSelect = null;
+    }
     this.props.onChange(element, options);
   }
 
@@ -568,5 +592,6 @@ export {
   Table,
   TableRow,
   TableCell,
-  TableHeader
+  TableHeader,
+  TableHeaderRow
 };
