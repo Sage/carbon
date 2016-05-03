@@ -62,18 +62,19 @@ class TableDemo extends React.Component {
         { filterHtml }
 
         <Table
-          shrink={ this.value('shrink') }
-          filter={ filter }
           currentPage={ this.value('current_page') }
+          filter={ filter }
+          multiSelectable={ this.value('multi_selectable') }
           onChange={ AppActions.appTableManuallyUpdated.bind(this, 'table') }
           pageSize={ this.value('page_size') }
           paginate={ this.value('paginate') }
+          selectable={ this.value('selectable') }
           showPageSizeSelection={ this.value('show_page_size_selection') }
-          totalRecords={ this.value('total_records') }
-          multiSelectable={ true }
+          shrink={ this.value('shrink') }
           sortOrder={ this.value('sort_order') }
           sortedColumn={ this.value('sorted_column') }
           thead={ this.tableHeaderRow }
+          totalRecords={ this.value('total_records') }
         >
           { this.tableRows }
         </Table>
@@ -233,6 +234,20 @@ class TableDemo extends React.Component {
             label="Shrink (allow table to shrink with few results)"
             value={ this.value('shrink') }
             onChange={ this.action.bind(this, 'shrink') }
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Selectable"
+            value={ this.value('selectable') }
+            onChange={ this.action.bind(this, 'selectable') }
+            disabled={ this.value('multi_selectable') }
+          />
+          <Checkbox
+            label="Multi-Selectable"
+            value={ this.value('multi_selectable') }
+            onChange={ this.action.bind(this, 'multi_selectable') }
+            disabled={ this.value('selectable') }
           />
         </Row>
         { warning }

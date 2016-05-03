@@ -73,6 +73,20 @@ class TableHeaderRow extends React.Component {
     );
   }
 
+  get multiSelect() {
+    if (this.props.hideMultiselect) { return null; }
+
+    return <Checkbox onChange={ this.selectAll } checked={ this.state.selected } />;
+  }
+
+  get isMultiSelectable() {
+    if (this.props.multiSelectable === false) {
+      return false;
+    }
+
+    return this.context.multiSelectable || this.props.multiSelectable;
+  }
+
   /**
    * Renders the component.
    *
@@ -81,10 +95,10 @@ class TableHeaderRow extends React.Component {
   render() {
     let content = [this.props.children];
 
-    if (this.context.multiSelectable || this.props.multiSelectable) {
+    if (this.isMultiSelectable) {
       content.unshift(
         <TableHeader key="select" className="ui-table-cell--select">
-          <Checkbox onChange={ this.selectAll } checked={ this.state.selected } />
+          { this.multiSelect }
         </TableHeader>
       );
     }

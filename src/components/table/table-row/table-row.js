@@ -69,6 +69,10 @@ class TableRow extends React.Component {
       this.context.attachToTable(this.props.uniqueID, this);
       this.context.checkSelection(this.props.uniqueID, this);
     }
+
+    if (this.props.selected) {
+      this.setState({ selected: true });
+    }
   }
 
   componentWillUnmount() {
@@ -80,6 +84,10 @@ class TableRow extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.uniqueID != nextProps.uniqueID) {
       this.context.checkSelection(nextProps.uniqueID, this);
+    }
+
+    if (this.props.selected != nextProps.selected) {
+      this.setState({ selected: nextProps.selected });
     }
   }
 

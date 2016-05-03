@@ -6,6 +6,7 @@ import TableCell from './table-cell';
 import TableHeader from './table-header';
 import TableHeaderRow from './table-header-row';
 import Pager from './../pager';
+import BulkActions from './../bulk-actions';
 
 /**
  * A Table widget.
@@ -222,6 +223,10 @@ class Table extends React.Component {
     };
   }
 
+  state = {
+    count: 0
+  }
+
   rows = {}
 
   selectedRows = {}
@@ -234,6 +239,10 @@ class Table extends React.Component {
 
   detachFromTable = (id) => {
     delete this.rows[id];
+  }
+
+  get numberOfRowsSelected() {
+    return Object.keys(this.selectedRows).length;
   }
 
   selectRow = (id, row, state) => {
@@ -266,6 +275,7 @@ class Table extends React.Component {
       };
     }
 
+    this.setState({ count: this.numberOfRowsSelected });
     row.setState({ selected: state });
   }
 
@@ -284,6 +294,8 @@ class Table extends React.Component {
     } else {
       this.headerSelect = null;
     }
+
+    this.setState({ count: this.numberOfRowsSelected });
   }
 
   checkSelection = (id, row) => {
@@ -574,6 +586,7 @@ class Table extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
+        <BulkActions count={ this.state.count } />
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
             { this.thead }
