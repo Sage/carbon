@@ -167,7 +167,7 @@ class TableRow extends React.Component {
     // trigger selectRow method on the table
     this.context.selectRow(this.props.uniqueID, this, !this.state.selected);
     // trigger any custom onClick event the developer may have set
-    this.props.onClick(...args);
+    if (this.props.onClick) { this.props.onClick(...args); }
   }
 
   /**

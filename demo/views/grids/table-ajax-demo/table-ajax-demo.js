@@ -51,13 +51,15 @@ class TableAjaxDemo extends React.Component {
         { filterHtml }
 
         <TableAjax
-          shrink={ this.value('shrink') }
           filter={ filter }
-          showPageSizeSelection={ this.value('show_page_size_selection') }
+          onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
           pageSize={ this.value('page_size') }
           paginate={ this.value('paginate') }
           path="/countries"
-          onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
+          selectable={ this.value('selectable') }
+          multiSelectable={ this.value('multi_selectable') }
+          showPageSizeSelection={ this.value('show_page_size_selection') }
+          shrink={ this.value('shrink') }
           thead={ this.tableHeaderRow }
         >
           { this.tableRows }
@@ -201,6 +203,20 @@ class TableAjaxDemo extends React.Component {
             onChange={ this.action.bind(this, 'shrink') }
           />
         </Row>
+        <Row>
+          <Checkbox
+            label="Selectable"
+            value={ this.value('selectable') }
+            onChange={ this.action.bind(this, 'selectable') }
+            disabled={ this.value('multi_selectable') }
+          />
+          <Checkbox
+            label="Multi-Selectable"
+            value={ this.value('multi_selectable') }
+            onChange={ this.action.bind(this, 'multi_selectable') }
+            disabled={ this.value('selectable') }
+          />
+        </Row>
       </div>
     );
   }
@@ -210,7 +226,7 @@ class TableAjaxDemo extends React.Component {
    */
   get tableHeaderRow() {
     return(
-      <TableRow key="header">
+      <TableRow key="header" uniqueID='header' as='header' selectAll={ this.value('multi_selectable') }>
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>
@@ -229,7 +245,7 @@ class TableAjaxDemo extends React.Component {
 
     return data.map((row, index) => {
       return (
-        <TableRow key={ index }>
+        <TableRow key={ index } uniqueID={ row.get('name') }>
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
         </TableRow>
