@@ -5,7 +5,6 @@ import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import Pager from './../pager';
-import BulkActions from './../bulk-actions';
 
 /**
  * A Table widget.
@@ -585,7 +584,6 @@ class Table extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
-        <BulkActions count={ this.state.count } />
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
             { this.thead }
