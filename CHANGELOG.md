@@ -1,3 +1,9 @@
+# 0.8.2
+
+## Misc
+
+* Added 'small' button option - renders pill-like secondary button.
+
 # 0.8.1
 
 ## Bug Fixes
