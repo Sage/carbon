@@ -160,6 +160,14 @@ class Table extends React.Component {
     },
 
     /**
+     * A callback for when a row is selected.
+     *
+     * @property onSelect
+     * @type {Function}
+     */
+    onSelect: React.PropTypes.func,
+
+    /**
      * Pagination
      * Total number of records in the grid
      *
@@ -370,6 +378,11 @@ class Table extends React.Component {
 
     // set new state for the row
     row.setState({ selected: state });
+
+    if (this.props.onSelect) {
+      // trigger onSelect event
+      this.props.onSelect(row, state, Object.keys(this.selectedRows));
+    }
   }
 
   /**
@@ -474,9 +487,11 @@ class Table extends React.Component {
    */
   emitOnChangeCallback = (element, options) => {
     if (this.selectAllComponent) {
+      // reset the select all component
       this.selectAllComponent.setState({ selected: false });
       this.selectAllComponent = null;
     }
+
     this.props.onChange(element, options);
   }
 
@@ -549,6 +564,7 @@ class Table extends React.Component {
       currentPage: currentPage,
       filter: props.filter ? props.filter.toJS() : {},
       pageSize: props.pageSize || '',
+      selected: Object.keys(this.selectedRows),
       sortOrder: props.sortOrder || '',
       sortedColumn: props.sortedColumn || ''
     };

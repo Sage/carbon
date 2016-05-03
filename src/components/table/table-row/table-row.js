@@ -162,7 +162,11 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   onRowClick = (...args) => {
+    // trigger onSelect callback if defined
+    if (this.props.onSelect) { this.props.onSelect(this, !this.state.selected); }
+    // trigger selectRow method on the table
     this.context.selectRow(this.props.uniqueID, this, !this.state.selected);
+    // trigger any custom onClick event the developer may have set
     this.props.onClick(...args);
   }
 
@@ -173,6 +177,9 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   onMultiSelect = () => {
+    // trigger onSelect callback if defined
+    if (this.props.onSelect) { this.props.onSelect(this, !this.state.selected); }
+    // trigger selectRow method on the table
     this.context.selectRow(this.props.uniqueID, this, !this.state.selected);
   }
 
