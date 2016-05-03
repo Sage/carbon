@@ -5,12 +5,9 @@ import Button from './button';
 
 describe('Button', () => {
 
-  var defaultButton;
-  var primary;
-  var secondary;
-  var disabled;
-  var anchor;
-  var spy = jasmine.createSpy('spy')
+  let defaultButton, primary, secondary, small, disabled;
+  let anchor;
+  let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
 
@@ -31,6 +28,13 @@ describe('Button', () => {
         name="Secondary Button"
         className="customClass"
       >Secondary</Button>
+    );
+
+    small = TestUtils.renderIntoDocument(
+      <Button
+        name="Small Button"
+        as='small'
+      >Small</Button>
     );
 
     disabled = TestUtils.renderIntoDocument(
@@ -71,6 +75,15 @@ describe('Button', () => {
     });
   });
 
+  describe('A small button', () => {
+    it('renders a small button', () => {
+      expect(small.props.name).toEqual('Small Button');
+      expect(small.props.as).toEqual('small');
+      expect(small.props.children).toEqual('Small');
+      expect(small.props.disabled).toEqual(false);
+    });
+  });
+
   describe('A disabled button', () => {
     it('renders a disabled button', () => {
       expect(disabled.props.name).toEqual('Disabled Button');
@@ -85,24 +98,28 @@ describe('Button', () => {
     let disabledDOM;
     let primaryDOM;
     let secondaryDOM;
+    let smallDOM;
 
     beforeEach(() => {
-      defaultDOM = ReactDOM.findDOMNode(defaultButton)
-      primaryDOM = ReactDOM.findDOMNode(primary)
-      secondaryDOM = ReactDOM.findDOMNode(secondary)
-      disabledDOM = ReactDOM.findDOMNode(disabled)
+      defaultDOM = ReactDOM.findDOMNode(defaultButton);
+      primaryDOM = ReactDOM.findDOMNode(primary);
+      secondaryDOM = ReactDOM.findDOMNode(secondary);
+      smallDOM = ReactDOM.findDOMNode(small);
+      disabledDOM = ReactDOM.findDOMNode(disabled);
     });
 
     it('adds a className of ui-button to all buttons', () => {
-      expect(defaultDOM.classList[0]).toEqual('ui-button')
-      expect(primaryDOM.classList[0]).toEqual('ui-button')
-      expect(secondaryDOM.classList[0]).toEqual('ui-button')
-      expect(disabledDOM.classList[0]).toEqual('ui-button')
+      expect(defaultDOM.classList[0]).toEqual('ui-button');
+      expect(primaryDOM.classList[0]).toEqual('ui-button');
+      expect(secondaryDOM.classList[0]).toEqual('ui-button');
+      expect(disabledDOM.classList[0]).toEqual('ui-button');
+      expect(smallDOM.classList[0]).toEqual('ui-button');
     });
 
     it('adds a secondary class depending on its type', () => {
       expect(primaryDOM.classList[1]).toEqual('ui-button--primary')
       expect(secondaryDOM.classList[1]).toEqual('ui-button--secondary')
+      expect(smallDOM.classList[1]).toEqual('ui-button--small')
     });
 
     it('adds a disabled class if the button is disabled', () => {
