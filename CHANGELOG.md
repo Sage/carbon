@@ -1,3 +1,9 @@
+# 0.8.2
+
+## Misc
+
+* Made portrait inline-block to allow label to sit inline. 
+
 # 0.8.1
 
 ## Bug Fixes
