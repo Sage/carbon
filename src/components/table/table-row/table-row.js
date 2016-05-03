@@ -20,6 +20,12 @@ import Checkbox from './../../checkbox';
 class TableRow extends React.Component {
 
   static propTypes = {
+    /**
+     * Enables multi-selectable table rows.
+     *
+     * @property multiSelectable
+     * @type {Boolean}
+     */
     multiSelectable: (props) => {
       if (props.selectable && props.multiSelectable) {
         throw new Error("A TableRow can only either be 'selectable' or 'multiSelectable' - not both.");
@@ -30,6 +36,12 @@ class TableRow extends React.Component {
       }
     },
 
+    /**
+     * Enables selectable table rows.
+     *
+     * @property selectable
+     * @type {Boolean}
+     */
     selectable: (props) => {
       if (props.selectable && props.multiSelectable) {
         throw new Error("A TableRow can only either be 'selectable' or 'multiSelectable' - not both.");
@@ -38,7 +50,23 @@ class TableRow extends React.Component {
       if (props.selectable && !props.uniqueID) {
         throw new Error("A selectable TableRow must provide a uniqueID prop to track itself within the Table.");
       }
-    }
+    },
+
+    /**
+     * Allows developers to manually control selected state for the row.
+     *
+     * @property selected
+     * @type {Boolean}
+     */
+    selected: React.PropTypes.bool,
+
+    /**
+     * Define a unique ID so the table can track the row (useful for selectable rows).
+     *
+     * @property uniqueID
+     * @type {String}
+     */
+    uniqueID: React.PropTypes.string
   }
 
   /**
@@ -48,59 +76,102 @@ class TableRow extends React.Component {
    * @type {Function}
    */
   static contextTypes = {
-    attachToTable: React.PropTypes.func,
-    detachFromTable: React.PropTypes.func,
-    checkSelection: React.PropTypes.func,
-    selectAll: React.PropTypes.func,
-    selectable: React.PropTypes.bool,
-    multiSelectable: React.PropTypes.bool,
-    selectRow: React.PropTypes.func
+    attachToTable: React.PropTypes.func, // attach the row to the table
+    detachFromTable: React.PropTypes.func, // detach the row from the table
+    checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
+    selectAll: React.PropTypes.func, // a callback function for when all visible rows are selected
+    selectable: React.PropTypes.bool, // table can enable all rows to be selectable
+    multiSelectable: React.PropTypes.bool, // table can enable all rows to be multi-selectable
+    selectRow: React.PropTypes.func // a callback function for when a row is selected
   }
 
   state = {
+    /**
+     * Internal state to track if the row is currently selected.
+     *
+     * @property selected
+     * @type {Boolean}
+     * @default false
+     */
     selected: false
   }
 
+  /**
+   * @method componentWillMount
+   * @return {Void}
+   */
   componentWillMount() {
-    if (this.context.selectable && !this.props.uniqueID) {
+    if ((this.context.selectable || this.context.multiSelectable) && !this.props.uniqueID) {
+      // if table sets all rows to be selectable, we need a unique id to be set
       throw new Error("A selectable TableRow must provide a uniqueID prop to track itself within the Table.");
     }
 
     if (this.context.attachToTable && this.props.uniqueID) {
+      // only attach to the table if we have a unique id
       this.context.attachToTable(this.props.uniqueID, this);
+      // also check if row is already selected
       this.context.checkSelection(this.props.uniqueID, this);
     }
 
     if (this.props.selected) {
+      // if developer is controlling selected state - set it
       this.setState({ selected: true });
     }
   }
 
+  /**
+   * @method componentWillUnmount
+   * @return {Void}
+   */
   componentWillUnmount() {
     if (this.context.detachFromTable && this.props.uniqueID) {
       this.context.detachFromTable(this.props.uniqueID);
     }
   }
 
+  /**
+   * @method componentWillReceiveProps
+   * @return {Void}
+   */
   componentWillReceiveProps(nextProps) {
     if (this.props.uniqueID != nextProps.uniqueID) {
+      // if unique id has changed, check if the table has the new id as selected or not
       this.context.checkSelection(nextProps.uniqueID, this);
     }
 
     if (this.props.selected != nextProps.selected) {
+      // if developer is controlling selected state - set it
       this.setState({ selected: nextProps.selected });
     }
   }
 
+  /**
+   * Call the selectAll callback.
+   *
+   * @method onSelectAll
+   * @return {Void}
+   */
   onSelectAll = () => {
     this.context.selectAll(this);
   }
 
+  /**
+   * Call the selectRow callback and call any custom event the developer may have set.
+   *
+   * @method onRowClick
+   * @return {Void}
+   */
   onRowClick = (...args) => {
     this.context.selectRow(this.props.uniqueID, this, !this.state.selected);
     this.props.onClick(...args);
   }
 
+  /**
+   * Call the selectRow callback.
+   *
+   * @method onMultiSelect
+   * @return {Void}
+   */
   onMultiSelect = () => {
     this.context.selectRow(this.props.uniqueID, this, !this.state.selected);
   }
@@ -113,7 +184,6 @@ class TableRow extends React.Component {
   get mainClasses() {
     return classNames(
       'ui-table-row',
-      `ui-table-row--${this.props.as}`,
       this.props.className, {
         'ui-table-row--clickable':  this.props.onClick,
         'ui-table-row--selected':  this.state.selected
@@ -121,6 +191,12 @@ class TableRow extends React.Component {
     );
   }
 
+  /**
+   * Sets additional props to the row.
+   *
+   * @method rowProps
+   * @return {Object}
+   */
   get rowProps() {
     let { ...props } = this.props;
 
@@ -133,30 +209,44 @@ class TableRow extends React.Component {
     return props;
   }
 
-  get multiSelect() {
-    if (this.props.hideMultiSelect) { return null; }
-
-    let action;
-
-    if (this.props.selectAll) {
-      action = this.onSelectAll;
-    } else if (this.context.multiSelectable || this.props.multiSelectable) {
-      action = this.onMultiSelect;
-    }
-
-    return <Checkbox onChange={ action } checked={ this.state.selected } />;
-  }
-
+  /**
+   * Determines if the developer has flagged this row as a header.
+   *
+   * @method isHeader
+   * @return {Boolean}
+   */
   get isHeader() {
     return this.props.as === "header";
   }
 
+  /**
+   * Determines what kind of cell to render for the checkbox.
+   *
+   * @method multiSelectCell
+   * @return {Object} JSX
+   */
   get multiSelectCell() {
+    // renders a TableHeader if row is flagged as a header.
     let cell = this.isHeader ? TableHeader : TableCell;
 
     return React.createElement(cell, {
       key: "select", className: "ui-table-cell--select"
     }, this.multiSelect);
+  }
+
+  /**
+   * Returns the checkbox for the select action.
+   *
+   * @method multiSelect
+   * @return {Object} JSX
+   */
+  get multiSelect() {
+    if (this.props.hideMultiSelect) { return null; }
+
+    // determines which action to use (multi-select or select-all)
+    let action = this.props.selectAll ? this.onSelectAll : this.onMultiSelect;
+
+    return <Checkbox onChange={ action } checked={ this.state.selected } />;
   }
 
   /**
@@ -168,6 +258,7 @@ class TableRow extends React.Component {
     let content = [this.props.children];
 
     if (this.props.selectAll || this.context.multiSelectable || this.props.multiSelectable) {
+      // if multi-seletable, add the checkbox cell
       content.unshift(this.multiSelectCell);
     }
 
