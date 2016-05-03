@@ -355,6 +355,12 @@ class Table extends React.Component {
     delete this.rows[id];
   }
 
+  /**
+   * Resets the highlighted row.
+   *
+   * @method resetHighlightedRow
+   * @return {Void}
+   */
   resetHighlightedRow = () => {
     if (this.highlightedRow.row && this.rows[this.highlightedRow.row.rowID]) {
       this.highlightedRow.row.setState({ highlighted: false });
@@ -363,7 +369,7 @@ class Table extends React.Component {
     this.highlightedRow = {
       id: null,
       row: null
-    }
+    };
   }
 
   /**

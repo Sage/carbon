@@ -196,10 +196,10 @@ class TableRow extends React.Component {
   /**
    * Call the selectRow callback.
    *
-   * @method onMultiSelect
+   * @method onSelect
    * @return {Void}
    */
-  onMultiSelect = () => {
+  onSelect = () => {
     // trigger onSelect callback if defined
     if (this.props.onSelect) { this.props.onSelect(this, !this.state.selected); }
     // trigger selectRow method on the table
@@ -274,7 +274,7 @@ class TableRow extends React.Component {
     if (this.props.hideMultiSelect) { return null; }
 
     // determines which action to use (multi-select or select-all)
-    let action = this.props.selectAll ? this.onSelectAll : this.onMultiSelect;
+    let action = this.props.selectAll ? this.onSelectAll : this.onSelect;
 
     return <Checkbox onChange={ action } checked={ this.state.selected } />;
   }

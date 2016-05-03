@@ -268,12 +268,12 @@ describe('TableRow', () => {
     });
   });
 
-  describe('onMultiSelect', () => {
+  describe('onSelect', () => {
     it('calls selectRow via context', () => {
       instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo"></TableRow></Table>);
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
       spyOn(row.context, 'selectRow');
-      row.onMultiSelect();
+      row.onSelect();
       expect(row.context.selectRow).toHaveBeenCalledWith("foo", row, true);
     });
 
@@ -282,7 +282,7 @@ describe('TableRow', () => {
         let spy = jasmine.createSpy();
         instance = TestUtils.renderIntoDocument(<Table><TableRow onSelect={ spy }></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
-        row.onMultiSelect();
+        row.onSelect();
         expect(spy).toHaveBeenCalledWith(row, true);
       });
     });
@@ -346,7 +346,7 @@ describe('TableRow', () => {
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         let checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
         expect(row.children.length).toEqual(3);
-        expect(checkbox.props.onChange).toEqual(tr.onMultiSelect);
+        expect(checkbox.props.onChange).toEqual(tr.onSelect);
       });
     });
 
@@ -357,7 +357,7 @@ describe('TableRow', () => {
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         let checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
         expect(row.children.length).toEqual(3);
-        expect(checkbox.props.onChange).toEqual(tr.onMultiSelect);
+        expect(checkbox.props.onChange).toEqual(tr.onSelect);
       });
     });
 
