@@ -1,3 +1,9 @@
+# 0.8.1
+
+## Bug Fixes
+
+* Fixed CSS load order issue which caused icons to break their positioning.
+
 # 0.8.0
 
 ## Improvements
