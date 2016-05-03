@@ -260,7 +260,7 @@ class TableDemo extends React.Component {
    */
   get tableHeaderRow() {
     return(
-      <TableRow key='header' as='header' uniqueID='header' selectAll={ true }>
+      <TableRow key='header' as='header' uniqueID='header' selectAll={ this.value('multi_selectable') }>
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>

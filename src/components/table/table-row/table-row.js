@@ -192,8 +192,8 @@ class TableRow extends React.Component {
     return classNames(
       'ui-table-row',
       this.props.className, {
-        'ui-table-row--clickable':  this.props.onClick,
-        'ui-table-row--selected':  this.state.selected
+        'ui-table-row--clickable': this.props.onClick || this.props.selectable || this.context.selectable,
+        'ui-table-row--selected': this.state.selected
       }
     );
   }
