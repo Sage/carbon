@@ -4,7 +4,6 @@ import Immutable from 'immutable';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
-import TableHeaderRow from './table-header-row';
 import Pager from './../pager';
 import BulkActions from './../bulk-actions';
 
@@ -605,6 +604,5 @@ export {
   Table,
   TableRow,
   TableCell,
-  TableHeader,
-  TableHeaderRow
+  TableHeader
 };

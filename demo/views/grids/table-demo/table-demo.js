@@ -3,7 +3,7 @@ import { connect } from 'utils/flux';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
-import { Table, TableHeader, TableHeaderRow, TableRow, TableCell } from 'components/table';
+import { Table, TableHeader, TableRow, TableCell } from 'components/table';
 
 import Row from 'components/row';
 import Checkbox from 'components/checkbox';
@@ -260,14 +260,14 @@ class TableDemo extends React.Component {
    */
   get tableHeaderRow() {
     return(
-      <TableHeaderRow key="header" header={ true } uniqueID='header'>
+      <TableRow key='header' as='header' uniqueID='header' selectAll={ true }>
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>
         <TableHeader sortable={ this.value('sortable') } name="value">
           Code
         </TableHeader>
-      </TableHeaderRow>
+      </TableRow>
     );
   }
 

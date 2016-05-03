@@ -51,6 +51,7 @@ class TableRow extends React.Component {
     attachToTable: React.PropTypes.func,
     detachFromTable: React.PropTypes.func,
     checkSelection: React.PropTypes.func,
+    selectAll: React.PropTypes.func,
     selectable: React.PropTypes.bool,
     multiSelectable: React.PropTypes.bool,
     selectRow: React.PropTypes.func
@@ -91,6 +92,10 @@ class TableRow extends React.Component {
     }
   }
 
+  onSelectAll = () => {
+    this.context.selectAll(this);
+  }
+
   onRowClick = (...args) => {
     this.context.selectRow(this.props.uniqueID, this, !this.state.selected);
     this.props.onClick(...args);
@@ -108,6 +113,7 @@ class TableRow extends React.Component {
   get mainClasses() {
     return classNames(
       'ui-table-row',
+      `ui-table-row--${this.props.as}`,
       this.props.className, {
         'ui-table-row--clickable':  this.props.onClick,
         'ui-table-row--selected':  this.state.selected
@@ -127,20 +133,42 @@ class TableRow extends React.Component {
     return props;
   }
 
+  get multiSelect() {
+    if (this.props.hideMultiSelect) { return null; }
+
+    let action;
+
+    if (this.props.selectAll) {
+      action = this.onSelectAll;
+    } else if (this.context.multiSelectable || this.props.multiSelectable) {
+      action = this.onMultiSelect;
+    }
+
+    return <Checkbox onChange={ action } checked={ this.state.selected } />;
+  }
+
+  get isHeader() {
+    return this.props.as === "header";
+  }
+
+  get multiSelectCell() {
+    let cell = this.isHeader ? TableHeader : TableCell;
+
+    return React.createElement(cell, {
+      key: "select", className: "ui-table-cell--select"
+    }, this.multiSelect);
+  }
+
   /**
-   * Renders the component.
+   * Renders the component
    *
    * @method render
    */
   render() {
     let content = [this.props.children];
 
-    if (this.context.multiSelectable || this.props.multiSelectable) {
-      content.unshift(
-        <TableCell key="select" className="ui-table-cell--select">
-          <Checkbox onChange={ this.onMultiSelect } checked={ this.state.selected } />
-        </TableCell>
-      );
+    if (this.props.selectAll || this.context.multiSelectable || this.props.multiSelectable) {
+      content.unshift(this.multiSelectCell);
     }
 
     return (
