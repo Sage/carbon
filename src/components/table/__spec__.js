@@ -62,6 +62,184 @@ describe('Table', () => {
     );
   });
 
+  describe('attachToTable', () => {
+    it('adds itself to the object', () => {
+      instance.attachToTable('foo', 'bar');
+      expect(instance.rows['foo']).toEqual('bar');
+    });
+  });
+
+  describe('detachFromTable', () => {
+    it('removes itself from the object', () => {
+      instance.rows = {
+        foo: 'bar'
+      }
+      instance.detachFromTable('foo');
+      expect(instance.rows['foo']).toBe(undefined);
+    });
+  });
+
+  describe('selectRow', () => {
+    let row;
+
+    beforeEach(() => {
+      row = TestUtils.findRenderedComponentWithType(instance, TableRow);
+      spyOn(row, 'setState');
+    });
+
+    describe('if there is a selectAllComponent', () => {
+      it('resets the select all component', () => {
+        let spy = jasmine.createSpy();
+        instance.selectAllComponent = {
+          setState: spy
+        };
+        instance.selectRow('foo', row, true);
+        expect(spy).toHaveBeenCalledWith({ selected: false });
+        expect(instance.selectAllComponent).toBe(null);
+      });
+    });
+
+    describe('if multi select', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(<Table multiSelectable={ true }><TableRow uniqueID="foo" /></Table>);
+        row = TestUtils.findRenderedComponentWithType(instance, TableRow);
+        spyOn(row, 'setState');
+      });
+
+      describe('if row is to be unselected', () => {
+        it('removes the row', () => {
+          instance.selectedRows["foo"] = "bar";
+          instance.selectRow('foo', row, false);
+          expect(instance.selectedRows["foo"]).toBe(undefined);
+        });
+      });
+
+      describe('if row is to be selected', () => {
+        it('adds the row', () => {
+          instance.selectRow('foo', row, true);
+          expect(instance.selectedRows["foo"]).toEqual(row);
+        });
+      });
+    });
+
+    describe('if single select', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow uniqueID="foo" /></Table>);
+        row = TestUtils.findRenderedComponentWithType(instance, TableRow);
+        spyOn(row, 'setState');
+      });
+
+      it('unselects all other rows', () => {
+        let spy = jasmine.createSpy();
+        instance.selectedRows["bar"] = {
+          setState: spy
+        };
+        instance.selectRow('foo', row, true);
+        expect(spy).toHaveBeenCalledWith({ selected: false });
+      });
+
+      it('selects the row', () => {
+        instance.selectRow('bar', row, true);
+        expect(instance.selectedRows["bar"]).toEqual(row);
+      });
+    });
+
+    it('calls set state', () => {
+      instance.selectRow('foo', row, true);
+      expect(row.setState).toHaveBeenCalledWith({ selected: true });
+    });
+
+    describe('if it is selected', () => {
+      it('returns early', () => {
+        instance.selectedRows['foo'] = true;
+        instance.selectRow('foo', row, true);
+        expect(row.setState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if there is an onSelect callback', () => {
+      it('calls the callback', () => {
+        let spy = jasmine.createSpy();
+        instance = TestUtils.renderIntoDocument(<Table selectable={ true } onSelect={ spy }><TableRow uniqueID="foo" /></Table>);
+        row = TestUtils.findRenderedComponentWithType(instance, TableRow);
+        instance.selectRow('foo', row, true);
+        expect(spy).toHaveBeenCalledWith(row, true, ['foo']);
+      });
+    });
+  });
+
+  describe('selectAll', () => {
+    let row;
+
+    beforeEach(() => {
+      row = TestUtils.findRenderedComponentWithType(instance, TableRow);
+      instance.rows = {
+        foo: { props: { uniqueID: "foo" } },
+        bar: { props: { uniqueID: "bar" } }
+      };
+    });
+
+    it('calls selectRow for item in row array', () => {
+      spyOn(instance, 'selectRow');
+      instance.selectAll(row);
+      expect(instance.selectRow).toHaveBeenCalledWith("foo", instance.rows["foo"], true);
+      expect(instance.selectRow).toHaveBeenCalledWith("bar", instance.rows["bar"], true);
+    });
+
+    it('calls setState on the row', () => {
+      let spy = jasmine.createSpy();
+      row = { setState: spy, state: { selected: true } };
+      instance.selectAll(row);
+      expect(row.setState).toHaveBeenCalledWith({ selected: false });
+    });
+
+    describe('if state is truthy', () => {
+      it('sets the selectAllComponent', () => {
+        instance.rows = {};
+        row = { setState: () => {}, state: { selected: false } };
+        instance.selectAll(row);
+        expect(instance.selectAllComponent).toEqual(row);
+      });
+    });
+
+    describe('if state is falsy', () => {
+      it('nulls the selectAllComponent', () => {
+        instance.rows = {};
+        row = { setState: () => {}, state: { selected: true } };
+        instance.selectAll(row);
+        expect(instance.selectAllComponent).toBe(null);
+      });
+    });
+  });
+
+  describe('checkSelection', () => {
+    describe('if isSelected does not equal current state', () => {
+      it('calls setState', () => {
+        let spy = jasmine.createSpy();
+        let row = { setState: spy, state: { selected: true } };
+        instance.checkSelection('foo', row);
+        expect(spy).toHaveBeenCalledWith({ selected: false });
+      });
+    });
+
+    describe('if isSelected equals current state', () => {
+      it('does not call setState', () => {
+        let spy = jasmine.createSpy();
+        let row = { setState: spy, state: { selected: false } };
+        instance.checkSelection('foo', row);
+        expect(spy).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('selectable and multiSelectable', () => {
+    it('throws an error if both are true', () => {
+      spyOn(console, 'error');
+      <Table selectable={ true } multiSelectable={ true }></Table>;
+      expect(console.error).toHaveBeenCalledWith("Warning: Failed propType: A Table can only either be 'selectable' or 'multiSelectable' - not both.");
+    });
+  });
+
   describe('componentWillReceiveProps', () => {
     let data;
 
@@ -233,6 +411,16 @@ describe('Table', () => {
   });
 
   describe('emitOnChangeCallback', () => {
+    it('resets select all component', () => {
+      let spy = jasmine.createSpy();
+      instancePager.selectAllComponent = {
+        setState: spy
+      };
+      instancePager.emitOnChangeCallback('foo', { foo: 'bar' });
+      expect(spy).toHaveBeenCalledWith({ selected: false });
+      expect(instancePager.selectAllComponent).toBe(null);
+    });
+
     it('emits the passed element and options', () => {
       instancePager.emitOnChangeCallback('foo', { foo: 'bar' });
       expect(spy).toHaveBeenCalledWith('foo', { foo: 'bar' });

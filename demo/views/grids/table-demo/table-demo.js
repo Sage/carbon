@@ -271,11 +271,6 @@ class TableDemo extends React.Component {
     );
   }
 
-  foo = (name) => {
-    debugger
-    console.log(name);
-  }
-
   /**
    * @method tableRows
    */
@@ -284,7 +279,7 @@ class TableDemo extends React.Component {
 
     return data.map((row, index) => {
       return (
-        <TableRow key={ index } onSelect={ this.foo.bind(this, row.get('name')) } uniqueID={ row.get('name') }>
+        <TableRow key={ index } uniqueID={ row.get('name') }>
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
         </TableRow>

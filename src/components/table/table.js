@@ -153,11 +153,7 @@ class Table extends React.Component {
      * @property selectable
      * @type {Boolean}
      */
-    selectable: (props) => {
-      if (props.selectable && props.multiSelectable) {
-        throw new Error("A Table can only either be 'selectable' or 'multiSelectable' - not both.");
-      }
-    },
+    selectable: React.PropTypes.bool,
 
     /**
      * A callback for when a row is selected.
@@ -339,9 +335,8 @@ class Table extends React.Component {
    * @return {Void}
    */
   selectRow = (id, row, state) => {
-    // determines if the row is selectable or multi-selectable
-    let selectable = this.props.selectable || row.props.selectable,
-        multiSelectable = this.props.multiSelectable || row.props.multiSelectable,
+    // determines if the row is multi-selectable
+    let multiSelectable = this.props.multiSelectable || row.props.multiSelectable,
         isSelected = this.selectedRows[id] !== undefined;
 
     // if row state has not changed - return early
@@ -564,7 +559,6 @@ class Table extends React.Component {
       currentPage: currentPage,
       filter: props.filter ? props.filter.toJS() : {},
       pageSize: props.pageSize || '',
-      selected: Object.keys(this.selectedRows),
       sortOrder: props.sortOrder || '',
       sortedColumn: props.sortedColumn || ''
     };

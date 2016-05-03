@@ -43,10 +43,6 @@ class TableRow extends React.Component {
      * @type {Boolean}
      */
     selectable: (props) => {
-      if (props.selectable && props.multiSelectable) {
-        throw new Error("A TableRow can only either be 'selectable' or 'multiSelectable' - not both.");
-      }
-
       if (props.selectable && !props.uniqueID) {
         throw new Error("A selectable TableRow must provide a uniqueID prop to track itself within the Table.");
       }
