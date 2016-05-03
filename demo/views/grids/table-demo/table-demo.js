@@ -64,11 +64,11 @@ class TableDemo extends React.Component {
         <Table
           currentPage={ this.value('current_page') }
           filter={ filter }
-          multiSelectable={ this.value('multi_selectable') }
+          selectable={ this.value('selectable') }
           onChange={ AppActions.appTableManuallyUpdated.bind(this, 'table') }
           pageSize={ this.value('page_size') }
           paginate={ this.value('paginate') }
-          selectable={ this.value('selectable') }
+          highlightable={ this.value('highlightable') }
           showPageSizeSelection={ this.value('show_page_size_selection') }
           shrink={ this.value('shrink') }
           sortOrder={ this.value('sort_order') }
@@ -238,16 +238,14 @@ class TableDemo extends React.Component {
         </Row>
         <Row>
           <Checkbox
+            label="Highlightable"
+            value={ this.value('highlightable') }
+            onChange={ this.action.bind(this, 'highlightable') }
+          />
+          <Checkbox
             label="Selectable"
             value={ this.value('selectable') }
             onChange={ this.action.bind(this, 'selectable') }
-            disabled={ this.value('multi_selectable') }
-          />
-          <Checkbox
-            label="Multi-Selectable"
-            value={ this.value('multi_selectable') }
-            onChange={ this.action.bind(this, 'multi_selectable') }
-            disabled={ this.value('selectable') }
           />
         </Row>
         { warning }
@@ -260,7 +258,7 @@ class TableDemo extends React.Component {
    */
   get tableHeaderRow() {
     return(
-      <TableRow key='header' as='header' uniqueID='header' selectAll={ this.value('multi_selectable') }>
+      <TableRow key='header' as='header' uniqueID='header' selectAll={ this.value('selectable') }>
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>

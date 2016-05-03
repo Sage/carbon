@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import TableCell from './../table-cell';
 import TableHeader from './../table-header';
 import Checkbox from './../../checkbox';
+import guid from './../../../utils/helpers/guid';
 
 /**
  * A TableRow widget.
@@ -23,28 +24,24 @@ class TableRow extends React.Component {
     /**
      * Enables multi-selectable table rows.
      *
-     * @property multiSelectable
-     * @type {Boolean}
-     */
-    multiSelectable: (props) => {
-      if (props.selectable && props.multiSelectable) {
-        throw new Error("A TableRow can only either be 'selectable' or 'multiSelectable' - not both.");
-      }
-
-      if (props.multiSelectable && !props.uniqueID) {
-        throw new Error("A multiSelectable TableRow must provide a uniqueID prop to track itself within the Table.");
-      }
-    },
-
-    /**
-     * Enables selectable table rows.
-     *
      * @property selectable
      * @type {Boolean}
      */
     selectable: (props) => {
       if (props.selectable && !props.uniqueID) {
         throw new Error("A selectable TableRow must provide a uniqueID prop to track itself within the Table.");
+      }
+    },
+
+    /**
+     * Enables highlightable table rows.
+     *
+     * @property highlightable
+     * @type {Boolean}
+     */
+    highlightable: (props) => {
+      if (props.highlightable && !props.uniqueID) {
+        throw new Error("A highlightable TableRow must provide a uniqueID prop to track itself within the Table.");
       }
     },
 
@@ -57,7 +54,15 @@ class TableRow extends React.Component {
     selected: React.PropTypes.bool,
 
     /**
-     * Define a unique ID so the table can track the row (useful for selectable rows).
+     * Allows developers to manually control highlighted state for the row.
+     *
+     * @property highlighted
+     * @type {Boolean}
+     */
+    highlighted: React.PropTypes.bool,
+
+    /**
+     * Define a unique ID so the table can track the row (useful for highlightable or selectable rows).
      *
      * @property uniqueID
      * @type {String}
@@ -75,13 +80,23 @@ class TableRow extends React.Component {
     attachToTable: React.PropTypes.func, // attach the row to the table
     detachFromTable: React.PropTypes.func, // detach the row from the table
     checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
+    highlightRow: React.PropTypes.func, // highlights the row
     selectAll: React.PropTypes.func, // a callback function for when all visible rows are selected
-    selectable: React.PropTypes.bool, // table can enable all rows to be selectable
-    multiSelectable: React.PropTypes.bool, // table can enable all rows to be multi-selectable
+    highlightable: React.PropTypes.bool, // table can enable all rows to be highlightable
+    selectable: React.PropTypes.bool, // table can enable all rows to be multi-selectable
     selectRow: React.PropTypes.func // a callback function for when a row is selected
   }
 
   state = {
+    /**
+     * Internal state to track if the row is currently highlighted.
+     *
+     * @property highlighted
+     * @type {Boolean}
+     * @default false
+     */
+    highlighted: false,
+
     /**
      * Internal state to track if the row is currently selected.
      *
@@ -97,21 +112,28 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   componentWillMount() {
-    if ((this.context.selectable || this.context.multiSelectable) && !this.props.uniqueID) {
+    if ((this.context.highlightable || this.context.selectable) && !this.props.uniqueID) {
       // if table sets all rows to be selectable, we need a unique id to be set
       throw new Error("A selectable TableRow must provide a uniqueID prop to track itself within the Table.");
     }
 
     if (this.context.attachToTable && this.props.uniqueID) {
+      // generate row id
+      this.rowID = guid();
       // only attach to the table if we have a unique id
-      this.context.attachToTable(this.props.uniqueID, this);
-      // also check if row is already selected
+      this.context.attachToTable(this.rowID, this);
+      // also check if row is already selected/highlighted
       this.context.checkSelection(this.props.uniqueID, this);
     }
 
     if (this.props.selected) {
       // if developer is controlling selected state - set it
       this.setState({ selected: true });
+    }
+
+    if (this.props.highlighted) {
+      // if developer is controlling highlighted state - set it
+      this.setState({ highlighted: true });
     }
   }
 
@@ -120,8 +142,8 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   componentWillUnmount() {
-    if (this.context.detachFromTable && this.props.uniqueID) {
-      this.context.detachFromTable(this.props.uniqueID);
+    if (this.context.detachFromTable) {
+      this.context.detachFromTable(this.rowID);
     }
   }
 
@@ -138,6 +160,11 @@ class TableRow extends React.Component {
     if (this.props.selected != nextProps.selected) {
       // if developer is controlling selected state - set it
       this.setState({ selected: nextProps.selected });
+    }
+
+    if (this.props.highlighted != nextProps.highlighted) {
+      // if developer is controlling highlighted state - set it
+      this.setState({ highlighted: nextProps.highlighted });
     }
   }
 
@@ -158,10 +185,10 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   onRowClick = (...args) => {
-    // trigger onSelect callback if defined
-    if (this.props.onSelect) { this.props.onSelect(this, !this.state.selected); }
-    // trigger selectRow method on the table
-    this.context.selectRow(this.props.uniqueID, this, !this.state.selected);
+    // trigger onHighlight callback if defined
+    if (this.props.onHighlight) { this.props.onHighlight(this, !this.state.highlighted); }
+    // trigger highlightRow method on the table
+    this.context.highlightRow(this.props.uniqueID, this);
     // trigger any custom onClick event the developer may have set
     if (this.props.onClick) { this.props.onClick(...args); }
   }
@@ -188,8 +215,8 @@ class TableRow extends React.Component {
     return classNames(
       'ui-table-row',
       this.props.className, {
-        'ui-table-row--clickable': this.props.onClick || this.props.selectable || this.context.selectable,
-        'ui-table-row--selected': this.state.selected
+        'ui-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
+        'ui-table-row--selected': this.state.selected || this.state.highlighted
       }
     );
   }
@@ -205,7 +232,7 @@ class TableRow extends React.Component {
 
     props.className = this.mainClasses;
 
-    if (this.context.selectable || this.props.selectable) {
+    if (this.context.highlightable || this.props.highlightable) {
       props.onClick = this.onRowClick;
     }
 
@@ -260,7 +287,7 @@ class TableRow extends React.Component {
   render() {
     let content = [this.props.children];
 
-    if (this.props.selectAll || this.context.multiSelectable || this.props.multiSelectable) {
+    if (this.props.selectAll || this.context.selectable || this.props.selectable) {
       // if multi-seletable, add the checkbox cell
       content.unshift(this.multiSelectCell);
     }

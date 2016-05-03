@@ -27,27 +27,41 @@ describe('TableRow', () => {
     );
   });
 
-  describe('selectable and multiSelectable', () => {
+  describe('highlightable and selectable', () => {
+    it('throws an error if highlightable and no id', () => {
+      spyOn(console, 'error');
+      <TableRow highlightable={ true }></TableRow>;
+      expect(console.error).toHaveBeenCalledWith("Warning: Failed propType: A highlightable TableRow must provide a uniqueID prop to track itself within the Table.");
+    });
+
     it('throws an error if selectable and no id', () => {
       spyOn(console, 'error');
       <TableRow selectable={ true }></TableRow>;
       expect(console.error).toHaveBeenCalledWith("Warning: Failed propType: A selectable TableRow must provide a uniqueID prop to track itself within the Table.");
     });
-
-    it('throws an error if both are true', () => {
-      spyOn(console, 'error');
-      <TableRow selectable={ true } multiSelectable={ true }></TableRow>;
-      expect(console.error).toHaveBeenCalledWith("Warning: Failed propType: A TableRow can only either be 'selectable' or 'multiSelectable' - not both.");
-    });
-
-    it('throws an error if multiSelectable and no id', () => {
-      spyOn(console, 'error');
-      <TableRow multiSelectable={ true }></TableRow>;
-      expect(console.error).toHaveBeenCalledWith("Warning: Failed propType: A multiSelectable TableRow must provide a uniqueID prop to track itself within the Table.");
-    });
   });
 
   describe('componentWillMount', () => {
+    describe('if highlightable via context', () => {
+      describe('if no unique id', () => {
+        it('throws error', () => {
+          var render = function() {
+            TestUtils.renderIntoDocument(<Table highlightable={ true }><TableRow></TableRow></Table>);
+          }
+          expect(render).toThrowError('A selectable TableRow must provide a uniqueID prop to track itself within the Table.');
+        });
+      });
+
+      describe('if unique id', () => {
+        it('does not throw error', () => {
+          var render = function() {
+            TestUtils.renderIntoDocument(<Table highlightable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
+          }
+          expect(render).not.toThrowError();
+        });
+      });
+    });
+
     describe('if selectable via context', () => {
       describe('if no unique id', () => {
         it('throws error', () => {
@@ -68,27 +82,7 @@ describe('TableRow', () => {
       });
     });
 
-    describe('if multiSelectable via context', () => {
-      describe('if no unique id', () => {
-        it('throws error', () => {
-          var render = function() {
-            TestUtils.renderIntoDocument(<Table multiSelectable={ true }><TableRow></TableRow></Table>);
-          }
-          expect(render).toThrowError('A selectable TableRow must provide a uniqueID prop to track itself within the Table.');
-        });
-      });
-
-      describe('if unique id', () => {
-        it('does not throw error', () => {
-          var render = function() {
-            TestUtils.renderIntoDocument(<Table multiSelectable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
-          }
-          expect(render).not.toThrowError();
-        });
-      });
-    });
-
-    describe('if neither selectable or multiSelectable', () => {
+    describe('if neither highlightable or selectable', () => {
       it('does not throw error', () => {
         var render = function() {
           TestUtils.renderIntoDocument(<Table><TableRow></TableRow></Table>);
@@ -136,27 +130,37 @@ describe('TableRow', () => {
         expect(row.setState).toHaveBeenCalledWith({ selected: true });
       });
     });
+
+    describe('if highlighted via props', () => {
+      it('calls setState', () => {
+        instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted={ true }></TableRow></Table>);
+        row = TestUtils.findRenderedComponentWithType(instance, TableRow);
+        spyOn(row, 'setState');
+        row.componentWillMount();
+        expect(row.setState).toHaveBeenCalledWith({ highlighted: true });
+      });
+    });
   });
 
   describe('componentWillUnmount', () => {
     describe('if detachFromTable', () => {
-      describe('if uniqueID', () => {
+      describe('if context', () => {
         it('calls detachFromTable', () => {
           instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo"></TableRow></Table>);
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
           spyOn(row.context, 'detachFromTable');
           row.componentWillUnmount();
-          expect(row.context.detachFromTable).toHaveBeenCalledWith('foo');
+          expect(row.context.detachFromTable).toHaveBeenCalledWith(row.rowID);
         });
       });
 
-      describe('if no uniqueID', () => {
-        it('calls detachFromTable', () => {
-          instance = TestUtils.renderIntoDocument(<Table><TableRow></TableRow></Table>);
+      describe('if no context', () => {
+        it('does not throw error', () => {
+          instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo"></TableRow></Table>);
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
-          spyOn(row.context, 'detachFromTable');
+          row.context = {};
           row.componentWillUnmount();
-          expect(row.context.detachFromTable).not.toHaveBeenCalled();
+          expect(row.context).toEqual({});
         });
       });
     });
@@ -202,6 +206,26 @@ describe('TableRow', () => {
         expect(row.setState).not.toHaveBeenCalled();
       });
     });
+
+    describe('when highlighted prop does not match', () => {
+      it('calls setState', () => {
+        instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted={ true }></TableRow></Table>);
+        row = TestUtils.findRenderedComponentWithType(instance, TableRow);
+        spyOn(row, 'setState');
+        row.componentWillReceiveProps({ highlighted: false });
+        expect(row.setState).toHaveBeenCalledWith({ highlighted: false });
+      });
+    });
+
+    describe('when highlighted prop matches', () => {
+      it('does not call checkSelection', () => {
+        instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted={ true }></TableRow></Table>);
+        row = TestUtils.findRenderedComponentWithType(instance, TableRow);
+        spyOn(row, 'setState');
+        row.componentWillReceiveProps({ highlighted: true });
+        expect(row.setState).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('onSelectAll', () => {
@@ -215,18 +239,18 @@ describe('TableRow', () => {
   });
 
   describe('onRowClick', () => {
-    it('calls selectRow via context', () => {
-      instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo"></TableRow></Table>);
+    it('calls highlightRow via context', () => {
+      instance = TestUtils.renderIntoDocument(<Table highlightable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
-      spyOn(row.context, 'selectRow');
+      spyOn(row.context, 'highlightRow');
       row.onRowClick();
-      expect(row.context.selectRow).toHaveBeenCalledWith("foo", row, true);
+      expect(row.context.highlightRow).toHaveBeenCalledWith("foo", row);
     });
 
-    describe('if onSelect is defined as a prop', () => {
+    describe('if onHighlight is defined as a prop', () => {
       it('calls onSelect', () => {
         let spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table><TableRow onSelect={ spy }></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow onHighlight={ spy }></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         row.onRowClick();
         expect(spy).toHaveBeenCalledWith(row, true);
@@ -315,9 +339,9 @@ describe('TableRow', () => {
       });
     });
 
-    describe('with multiSelectable via context', () => {
+    describe('with selectable via context', () => {
       it('renders a multi select cell', () => {
-        instance = TestUtils.renderIntoDocument(<Table multiSelectable={ true }><TableRow uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         let checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
@@ -326,9 +350,9 @@ describe('TableRow', () => {
       });
     });
 
-    describe('with multiSelectable via prop', () => {
+    describe('with selectable via prop', () => {
       it('renders a multi select cell', () => {
-        instance = TestUtils.renderIntoDocument(<Table><TableRow multiSelectable={ true } uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow selectable={ true } uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         let checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
@@ -339,7 +363,7 @@ describe('TableRow', () => {
 
     describe('with hideMultiSelect', () => {
       it('renders a multi select cell without a checkbox', () => {
-        instance = TestUtils.renderIntoDocument(<Table multiSelectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         expect(row.children.length).toEqual(3);
@@ -349,7 +373,7 @@ describe('TableRow', () => {
 
     describe('if is header', () => {
       it('renders a table header', () => {
-        instance = TestUtils.renderIntoDocument(<Table multiSelectable={ true }><TableRow as="header" uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow as="header" uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
         expect(th).toBeTruthy();

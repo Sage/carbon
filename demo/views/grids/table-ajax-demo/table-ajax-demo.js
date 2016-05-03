@@ -57,7 +57,7 @@ class TableAjaxDemo extends React.Component {
           paginate={ this.value('paginate') }
           path="/countries"
           selectable={ this.value('selectable') }
-          multiSelectable={ this.value('multi_selectable') }
+          highlightable={ this.value('highlightable') }
           showPageSizeSelection={ this.value('show_page_size_selection') }
           shrink={ this.value('shrink') }
           thead={ this.tableHeaderRow }
@@ -205,16 +205,14 @@ class TableAjaxDemo extends React.Component {
         </Row>
         <Row>
           <Checkbox
+            label="Highlightable"
+            value={ this.value('highlightable') }
+            onChange={ this.action.bind(this, 'highlightable') }
+          />
+          <Checkbox
             label="Selectable"
             value={ this.value('selectable') }
             onChange={ this.action.bind(this, 'selectable') }
-            disabled={ this.value('multi_selectable') }
-          />
-          <Checkbox
-            label="Multi-Selectable"
-            value={ this.value('multi_selectable') }
-            onChange={ this.action.bind(this, 'multi_selectable') }
-            disabled={ this.value('selectable') }
           />
         </Row>
       </div>
@@ -226,7 +224,7 @@ class TableAjaxDemo extends React.Component {
    */
   get tableHeaderRow() {
     return(
-      <TableRow key="header" uniqueID='header' as='header' selectAll={ this.value('multi_selectable') }>
+      <TableRow key="header" uniqueID='header' as='header' selectAll={ this.value('selectable') }>
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>

@@ -148,10 +148,11 @@ class TableAjax extends Table {
     attachToTable: React.PropTypes.func, // attach the row to the table
     checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
     detachFromTable: React.PropTypes.func, // detach the row from the table
-    multiSelectable: React.PropTypes.bool, // table can enable all rows to be multi-selectable
+    highlightable: React.PropTypes.bool, // table can enable all rows to be highlightable
     onSort: React.PropTypes.func, // a callback function for when a sort order is updated
     selectAll: React.PropTypes.func, // a callback function for when all visible rows are selected
     selectRow: React.PropTypes.func, // a callback function for when a row is selected
+    highlightRow: React.PropTypes.func, // a callback function for when a row is highlighted
     selectable: React.PropTypes.bool, // table can enable all rows to be selectable
     sortOrder: React.PropTypes.string, // the current sort order applied
     sortedColumn: React.PropTypes.string // the currently sorted column
@@ -170,9 +171,10 @@ class TableAjax extends Table {
       checkSelection: this.checkSelection,
       onSort: this.onSort,
       selectable: this.props.selectable,
-      multiSelectable: this.props.multiSelectable,
+      highlightable: this.props.highlightable,
       selectAll: this.selectAll,
       selectRow: this.selectRow,
+      highlightRow: this.highlightRow,
       sortedColumn: this.sortedColumn,
       sortOrder: this.sortOrder
     };

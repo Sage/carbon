@@ -138,22 +138,18 @@ class Table extends React.Component {
     /**
      * Enables multi-selectable table rows.
      *
-     * @property multiSelectable
-     * @type {Boolean}
-     */
-    multiSelectable: (props) => {
-      if (props.selectable && props.multiSelectable) {
-        throw new Error("A Table can only either be 'selectable' or 'multiSelectable' - not both.");
-      }
-    },
-
-    /**
-     * Enables selectable table rows.
-     *
      * @property selectable
      * @type {Boolean}
      */
     selectable: React.PropTypes.bool,
+
+    /**
+     * Enables highlightable table rows.
+     *
+     * @property highlightable
+     * @type {Boolean}
+     */
+    highlightable: React.PropTypes.bool,
 
     /**
      * A callback for when a row is selected.
@@ -162,6 +158,14 @@ class Table extends React.Component {
      * @type {Function}
      */
     onSelect: React.PropTypes.func,
+
+    /**
+     * A callback for when a row is highlighted.
+     *
+     * @property onHighlight
+     * @type {Function}
+     */
+    onHighlight: React.PropTypes.func,
 
     /**
      * Pagination
@@ -212,6 +216,19 @@ class Table extends React.Component {
     if (!Immutable.is(this.props.filter, nextProps.filter)) {
       this.emitOnChangeCallback('filter', this.emitOptions(nextProps));
     }
+
+    if (this.props.highlightable && nextProps.highlightable === false) {
+      this.resetHighlightedRow();
+    }
+
+    if (this.props.selectable && nextProps.selectable === false) {
+      for (let key in this.rows) {
+        // update all the rows with the new state
+        let row = this.rows[key];
+        this.selectRow(row.props.uniqueID, row, false);
+      }
+      this.selectedRows = {};
+    }
   }
 
   /**
@@ -241,11 +258,12 @@ class Table extends React.Component {
     attachToTable: React.PropTypes.func, // attach the row to the table
     checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
     detachFromTable: React.PropTypes.func, // detach the row from the table
-    multiSelectable: React.PropTypes.bool, // table can enable all rows to be multi-selectable
+    highlightRow: React.PropTypes.func, // highlights the row
+    selectable: React.PropTypes.bool, // table can enable all rows to be multi-selectable
     onSort: React.PropTypes.func, // a callback function for when a sort order is updated
     selectAll: React.PropTypes.func, // a callback function for when all visible rows are selected
     selectRow: React.PropTypes.func, // a callback function for when a row is selected
-    selectable: React.PropTypes.bool, // table can enable all rows to be selectable
+    highlightable: React.PropTypes.bool, // table can enable all rows to be highlightable
     sortOrder: React.PropTypes.string, // the current sort order applied
     sortedColumn: React.PropTypes.string // the currently sorted column
   }
@@ -261,9 +279,10 @@ class Table extends React.Component {
       attachToTable: this.attachToTable,
       detachFromTable: this.detachFromTable,
       checkSelection: this.checkSelection,
+      highlightRow: this.highlightRow,
       onSort: this.onSort,
+      highlightable: this.props.highlightable,
       selectable: this.props.selectable,
-      multiSelectable: this.props.multiSelectable,
       selectAll: this.selectAll,
       selectRow: this.selectRow,
       sortedColumn: this.sortedColumn,
@@ -286,6 +305,17 @@ class Table extends React.Component {
    * @type {Object}
    */
   rows = {};
+
+  /**
+   * Tracks the currently highlighted row.
+   *
+   * @property highlightedRow
+   * @type {String}
+   */
+  highlightedRow = {
+    id: null,
+    row: null
+  };
 
   /**
    * Tracks the rows which are currently selected.
@@ -325,6 +355,53 @@ class Table extends React.Component {
     delete this.rows[id];
   }
 
+  resetHighlightedRow = () => {
+    if (this.highlightedRow.row && this.rows[this.highlightedRow.row.rowID]) {
+      this.highlightedRow.row.setState({ highlighted: false });
+    }
+
+    this.highlightedRow = {
+      id: null,
+      row: null
+    }
+  }
+
+  /**
+   * Highlights the row in the table.
+   *
+   * @method highlightRow
+   * @param {String} unique id
+   * @param {Object} the row
+   * @return {Void}
+   */
+  highlightRow = (id, row) => {
+    let state = true;
+
+    if (this.highlightedRow.id !== null) {
+      if (id === this.highlightedRow.id) {
+        // is the same row - toggle the current state
+        state = !row.state.highlighted;
+      } else {
+        // is a different row - reset the old row
+        this.resetHighlightedRow();
+      }
+    }
+
+    // set state of the highlighted row
+    row.setState({ highlighted: state });
+
+    // update the current highlighted row
+    this.highlightedRow = {
+      id: id,
+      row: row
+    };
+
+    if (this.props.onHighlight) {
+      // trigger onHighlight event
+      this.props.onHighlight(id, state, row);
+    }
+  }
+
   /**
    * Selects the row in the table.
    *
@@ -332,12 +409,11 @@ class Table extends React.Component {
    * @param {String} unique id
    * @param {Object} the row
    * @param {Boolean} the new selected state
+   * @param {Boolean} should method skip the callback
    * @return {Void}
    */
-  selectRow = (id, row, state) => {
-    // determines if the row is multi-selectable
-    let multiSelectable = this.props.multiSelectable || row.props.multiSelectable,
-        isSelected = this.selectedRows[id] !== undefined;
+  selectRow = (id, row, state, skipCallback) => {
+    let isSelected = this.selectedRows[id] !== undefined;
 
     // if row state has not changed - return early
     if (state === isSelected) { return; }
@@ -348,35 +424,20 @@ class Table extends React.Component {
       this.selectAllComponent = null;
     }
 
-    if (multiSelectable) {
-      // MULTI SELECT
-      if (!state && isSelected) {
-        // if unselecting the row, delete it from the object
-        delete this.selectedRows[id];
-      } else {
-        // add current row to the list of selected rows
-        this.selectedRows[id] = row;
-      }
+    if (!state && isSelected) {
+      // if unselecting the row, delete it from the object
+      delete this.selectedRows[id];
     } else {
-      // SINGLE SELECT
-      for (let key in this.selectedRows) {
-        // reset any selected rows
-        let _row = this.selectedRows[key];
-        _row.setState({ selected: false });
-      }
-
-      // add current row as the only selected row
-      this.selectedRows = {
-        [id]: row
-      };
+      // add current row to the list of selected rows
+      this.selectedRows[id] = row;
     }
 
     // set new state for the row
     row.setState({ selected: state });
 
-    if (this.props.onSelect) {
+    if (this.props.onSelect && !skipCallback) {
       // trigger onSelect event
-      this.props.onSelect(row, state, Object.keys(this.selectedRows));
+      this.props.onSelect(Object.keys(this.selectedRows));
     }
   }
 
@@ -393,7 +454,7 @@ class Table extends React.Component {
     for (let key in this.rows) {
       // update all the rows with the new state
       let _row = this.rows[key];
-      this.selectRow(_row.props.uniqueID, _row, selectState);
+      this.selectRow(_row.props.uniqueID, _row, selectState, true);
     }
 
     // update the row with the new state
@@ -401,6 +462,11 @@ class Table extends React.Component {
 
     // if select state is true, track the select all component
     this.selectAllComponent = selectState ? row : null;
+
+    if (this.props.onSelect) {
+      // trigger onSelect event
+      this.props.onSelect(Object.keys(this.selectedRows));
+    }
   }
 
   /**
@@ -413,10 +479,15 @@ class Table extends React.Component {
    * @return {Void}
    */
   checkSelection = (id, row) => {
-    let isSelected = this.selectedRows[id] !== undefined;
+    let isSelected = this.selectedRows[id] !== undefined,
+        isHighlighted = this.highlightedRow.id === id;
 
     if (isSelected !== row.state.selected) {
       row.setState({ selected: isSelected });
+    }
+
+    if (isHighlighted !== row.state.highlighted) {
+      row.setState({ highlighted: isHighlighted });
     }
   }
 

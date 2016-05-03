@@ -100,8 +100,11 @@ describe('Table', () => {
     });
 
     describe('if multi select', () => {
+      let spy;
+
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(<Table multiSelectable={ true }><TableRow uniqueID="foo" /></Table>);
+        spy = jasmine.createSpy();
+        instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable={ true }><TableRow uniqueID="foo" /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
       });
@@ -120,50 +123,94 @@ describe('Table', () => {
           expect(instance.selectedRows["foo"]).toEqual(row);
         });
       });
+
+      it('calls setState', () => {
+        instance.selectRow('foo', row, true);
+        expect(row.setState).toHaveBeenCalledWith({ selected: true });
+      });
+
+      it('calls onSelect callback', () => {
+        instance.selectRow('foo', row, true);
+        expect(spy).toHaveBeenCalledWith(['foo']);
+      });
+
+      it('skips the onSelect callback', () => {
+        instance.selectRow('foo', row, true, true);
+        expect(spy).not.toHaveBeenCalled();
+      });
     });
 
-    describe('if single select', () => {
+    describe('if highlight row', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow uniqueID="foo" /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table highlightable={ true }><TableRow uniqueID="foo" /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
       });
 
       it('unselects all other rows', () => {
         let spy = jasmine.createSpy();
-        instance.selectedRows["bar"] = {
-          setState: spy
+        instance.rows = {
+          foo: true
         };
-        instance.selectRow('foo', row, true);
-        expect(spy).toHaveBeenCalledWith({ selected: false });
+        instance.highlightedRow = {
+          id: 'bar',
+          row: {
+            setState: spy,
+            rowID: 'foo'
+          }
+        };
+        instance.highlightRow('foo', row);
+        expect(spy).toHaveBeenCalledWith({ highlighted: false });
       });
 
-      it('selects the row', () => {
-        instance.selectRow('bar', row, true);
-        expect(instance.selectedRows["bar"]).toEqual(row);
+      it('does not unselect if no other rows', () => {
+        let spy = jasmine.createSpy();
+        instance.rows = {};
+        instance.highlightedRow = {
+          id: 'bar',
+          row: {
+            setState: spy,
+            rowID: 'foo'
+          }
+        };
+        instance.highlightRow('foo', row);
+        expect(spy).not.toHaveBeenCalled();
+      });
+
+      it('toggles the state if it is the same id', () => {
+        let spy = jasmine.createSpy();
+        instance.highlightedRow = {
+          id: 'bar'
+        };
+        row = {
+          state: { highlighted: true },
+          setState: spy
+        };
+        instance.highlightRow('bar', row);
+        expect(spy).toHaveBeenCalledWith({ highlighted: false });
+      });
+
+      it('highlights the row', () => {
+        instance.highlightRow('bar', row);
+        expect(instance.highlightedRow).toEqual({
+          id: 'bar',
+          row: row
+        });
       });
     });
 
     it('calls set state', () => {
-      instance.selectRow('foo', row, true);
-      expect(row.setState).toHaveBeenCalledWith({ selected: true });
+      instance.highlightRow('foo', row);
+      expect(row.setState).toHaveBeenCalledWith({ highlighted: true });
     });
 
-    describe('if it is selected', () => {
-      it('returns early', () => {
-        instance.selectedRows['foo'] = true;
-        instance.selectRow('foo', row, true);
-        expect(row.setState).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('if there is an onSelect callback', () => {
+    describe('if there is an onHighlight callback', () => {
       it('calls the callback', () => {
         let spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table selectable={ true } onSelect={ spy }><TableRow uniqueID="foo" /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table highlightable={ true } onHighlight={ spy }><TableRow uniqueID="foo" /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
-        instance.selectRow('foo', row, true);
-        expect(spy).toHaveBeenCalledWith(row, true, ['foo']);
+        instance.highlightRow('foo', row, true);
+        expect(spy).toHaveBeenCalledWith('foo', true, row);
       });
     });
   });
@@ -182,8 +229,8 @@ describe('Table', () => {
     it('calls selectRow for item in row array', () => {
       spyOn(instance, 'selectRow');
       instance.selectAll(row);
-      expect(instance.selectRow).toHaveBeenCalledWith("foo", instance.rows["foo"], true);
-      expect(instance.selectRow).toHaveBeenCalledWith("bar", instance.rows["bar"], true);
+      expect(instance.selectRow).toHaveBeenCalledWith("foo", instance.rows["foo"], true, true);
+      expect(instance.selectRow).toHaveBeenCalledWith("bar", instance.rows["bar"], true, true);
     });
 
     it('calls setState on the row', () => {
@@ -210,6 +257,19 @@ describe('Table', () => {
         expect(instance.selectAllComponent).toBe(null);
       });
     });
+
+    describe('if there is an onSelect callback', () => {
+      it('calls the callback', () => {
+        let spy = jasmine.createSpy();
+        instance = TestUtils.renderIntoDocument(
+          <Table onSelect={ spy } />
+        );
+        instance.rows = {};
+        row = { state: {}, setState: () => {} };
+        instance.selectAll(row);
+        expect(spy).toHaveBeenCalledWith([]);
+      });
+    });
   });
 
   describe('checkSelection', () => {
@@ -225,18 +285,10 @@ describe('Table', () => {
     describe('if isSelected equals current state', () => {
       it('does not call setState', () => {
         let spy = jasmine.createSpy();
-        let row = { setState: spy, state: { selected: false } };
+        let row = { setState: spy, state: { selected: false, highlighted: false } };
         instance.checkSelection('foo', row);
         expect(spy).not.toHaveBeenCalled();
       });
-    });
-  });
-
-  describe('selectable and multiSelectable', () => {
-    it('throws an error if both are true', () => {
-      spyOn(console, 'error');
-      <Table selectable={ true } multiSelectable={ true }></Table>;
-      expect(console.error).toHaveBeenCalledWith("Warning: Failed propType: A Table can only either be 'selectable' or 'multiSelectable' - not both.");
     });
   });
 
@@ -269,6 +321,31 @@ describe('Table', () => {
           sortOrder: '',
           sortedColumn: ''
         });
+      });
+    });
+
+    describe('when highlightable is disabled', () => {
+      it('resets the highlighted row', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Table highlightable={ true } />
+        );
+        spyOn(instance, 'resetHighlightedRow');
+        instance.componentWillReceiveProps({ highlightable: false });
+        expect(instance.resetHighlightedRow).toHaveBeenCalled();
+      });
+    });
+
+    describe('when selectable is disabled', () => {
+      it('resets the selectable rows', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Table selectable={ true } />
+        );
+        instance.rows = {
+          foo: { props: { uniqueID: 'foo' } }
+        };
+        spyOn(instance, 'selectRow');
+        instance.componentWillReceiveProps({ selectable: false });
+        expect(instance.selectRow).toHaveBeenCalledWith('foo', instance.rows.foo, false);
       });
     });
   });
