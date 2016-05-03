@@ -5,7 +5,7 @@ import Button from './button';
 
 describe('Button', () => {
 
-  let defaultButton, primary, secondary, small, disabled;
+  let defaultButton, primary, secondary, small, disabled, multiple;
   let anchor;
   let spy = jasmine.createSpy('spy')
 
@@ -42,6 +42,13 @@ describe('Button', () => {
         name="Disabled Button"
         disabled={ true }
       >Disabled</Button>
+    );
+
+    multiple = TestUtils.renderIntoDocument(
+      <Button
+        name="Multiple As"
+        as={[ 'foo', 'bar' ]}
+      >Multiple</Button>
     );
 
     anchor = TestUtils.renderIntoDocument(
@@ -99,12 +106,14 @@ describe('Button', () => {
     let primaryDOM;
     let secondaryDOM;
     let smallDOM;
+    let multipleDOM;
 
     beforeEach(() => {
       defaultDOM = ReactDOM.findDOMNode(defaultButton);
       primaryDOM = ReactDOM.findDOMNode(primary);
       secondaryDOM = ReactDOM.findDOMNode(secondary);
       smallDOM = ReactDOM.findDOMNode(small);
+      multipleDOM = ReactDOM.findDOMNode(multiple);
       disabledDOM = ReactDOM.findDOMNode(disabled);
     });
 
@@ -120,6 +129,10 @@ describe('Button', () => {
       expect(primaryDOM.classList[1]).toEqual('ui-button--primary')
       expect(secondaryDOM.classList[1]).toEqual('ui-button--secondary')
       expect(smallDOM.classList[1]).toEqual('ui-button--small')
+    });
+
+    it('adds all variations of as', () => {
+      expect(multipleDOM.className).toEqual('ui-button ui-button--foo ui-button--bar')
     });
 
     it('adds a disabled class if the button is disabled', () => {
