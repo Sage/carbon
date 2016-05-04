@@ -10,7 +10,7 @@ import Icon from './../../icon';
  * See documentation for Table component.
  *
  * You can set a property of 'align' which should be a string. This will
- * align the content to either "left" or "right".
+ * align the content to either "left", "right" or "center"
  *
  * == Sortable Columns:
  *
@@ -32,7 +32,7 @@ class TableHeader extends React.Component {
   static propTypes = {
 
     /**
-     * Aligns the content of the cell (can be "left" or "right").
+     * Aligns the content of the cell (can be "left", "right" or "center").
      *
      * @property align
      * @type {String}

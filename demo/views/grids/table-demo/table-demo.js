@@ -182,7 +182,7 @@ class TableDemo extends React.Component {
    * @method controls
    */
   get controls() {
-    let warning = null;
+    let warning = null, selectedCountProps = {};
 
     if (this.value('paginate') || this.value('enable_filter') || this.value('sortable')) {
       warning = (
@@ -190,6 +190,10 @@ class TableDemo extends React.Component {
           <Message as="warning">If you want to use data controls, we recommend you use TableAjax instead as it will do a lot of the work for you.</Message>
         </Row>
       );
+    }
+
+    if (this.value('selectable')) {
+      selectedCountProps.labelHelp = `Rows Selected: ${ this.value('selectedCount') }`;
     }
 
     return (
@@ -226,6 +230,12 @@ class TableDemo extends React.Component {
             value={ this.value('sortable') }
             onChange={ this.action.bind(this, 'sortable') }
           />
+          <Checkbox
+            label="Selectable"
+            { ...selectedCountProps }
+            value={ this.value('selectable') }
+            onChange={ this.action.bind(this, 'selectable') }
+          />
         </Row>
         <Row>
           <Checkbox
@@ -239,12 +249,41 @@ class TableDemo extends React.Component {
     );
   }
 
+  get selectHeader() {
+    if (this.value('selectable')) {
+      return (
+        <TableHeader action={ true }>
+          <Checkbox
+            checked={ this.value('selectedAll') }
+            onChange={ AppActions.allTableRowsSelected.bind(this, 'table') }
+          />
+        </TableHeader>
+      );
+    }
+  }
+
+  selectCell = (id) => {
+    if (this.value('selectable')) {
+      let selected = this.state.appStore.getIn(['table', 'selected']);
+      return (
+        <TableCell action={ true }>
+          <Checkbox
+            className='table-select-cell'
+            checked={ selected.get(id) }
+            onChange={ AppActions.tableRowSelected.bind(this, 'table', id) }
+          />
+        </TableCell>
+      );
+    }
+  }
+
   /**
    * @method tableHeaderRow
    */
   get tableHeaderRow() {
     return(
       <TableRow key="header">
+        { this.selectHeader }
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>
@@ -264,6 +303,7 @@ class TableDemo extends React.Component {
     return data.map((row, index) => {
       return (
         <TableRow key={ index }>
+          { this.selectCell(row.get('id')) }
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
         </TableRow>

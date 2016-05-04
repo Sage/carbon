@@ -6,4 +6,4 @@ Renders a table cell (`td`).
 
 | Name          | Required    | Type          | Default       | Description   |
 | ------------- | ----------- | ------------- | ------------- | ------------- |
-| align         | false       | String        |               | Aligns content (can be `left` or `right`. |
+| align         | false       | String        |               | Aligns content (can be `left`, `right` or `center`. |
