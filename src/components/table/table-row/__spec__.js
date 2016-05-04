@@ -27,20 +27,6 @@ describe('TableRow', () => {
     );
   });
 
-  describe('highlightable and selectable', () => {
-    it('throws an error if highlightable and no id', () => {
-      spyOn(console, 'error');
-      <TableRow highlightable={ true }></TableRow>;
-      expect(console.error).toHaveBeenCalledWith("Warning: Failed propType: A highlightable TableRow must provide a uniqueID prop to track itself within the Table.");
-    });
-
-    it('throws an error if selectable and no id', () => {
-      spyOn(console, 'error');
-      <TableRow selectable={ true }></TableRow>;
-      expect(console.error).toHaveBeenCalledWith("Warning: Failed propType: A selectable TableRow must provide a uniqueID prop to track itself within the Table.");
-    });
-  });
-
   describe('componentWillMount', () => {
     describe('if highlightable via context', () => {
       describe('if no unique id', () => {
@@ -48,7 +34,7 @@ describe('TableRow', () => {
           var render = function() {
             TestUtils.renderIntoDocument(<Table highlightable={ true }><TableRow></TableRow></Table>);
           }
-          expect(render).toThrowError('A selectable TableRow must provide a uniqueID prop to track itself within the Table.');
+          expect(render).toThrowError('A TableRow which is selectable or highlightable should provide a uniqueID.');
         });
       });
 
@@ -68,7 +54,7 @@ describe('TableRow', () => {
           var render = function() {
             TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow></TableRow></Table>);
           }
-          expect(render).toThrowError('A selectable TableRow must provide a uniqueID prop to track itself within the Table.');
+          expect(render).toThrowError('A TableRow which is selectable or highlightable should provide a uniqueID.');
         });
       });
 
@@ -250,10 +236,10 @@ describe('TableRow', () => {
     describe('if onHighlight is defined as a prop', () => {
       it('calls onSelect', () => {
         let spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table><TableRow onHighlight={ spy }></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow onHighlight={ spy } uniqueID="foo"></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         row.onRowClick();
-        expect(spy).toHaveBeenCalledWith(row, true);
+        expect(spy).toHaveBeenCalledWith("foo", true, row);
       });
     });
 
@@ -280,10 +266,10 @@ describe('TableRow', () => {
     describe('if onSelect is defined as a prop', () => {
       it('calls onSelect', () => {
         let spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table><TableRow onSelect={ spy }></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo" onSelect={ spy }></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
-        row.onSelect();
-        expect(spy).toHaveBeenCalledWith(row, true);
+        row.onSelect({ target: { value: true } });
+        expect(spy).toHaveBeenCalledWith("foo", true, row);
       });
     });
   });

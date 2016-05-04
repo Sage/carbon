@@ -27,11 +27,7 @@ class TableRow extends React.Component {
      * @property selectable
      * @type {Boolean}
      */
-    selectable: (props) => {
-      if (props.selectable && !props.uniqueID) {
-        throw new Error("A selectable TableRow must provide a uniqueID prop to track itself within the Table.");
-      }
-    },
+    selectable: React.PropTypes.bool,
 
     /**
      * Enables highlightable table rows.
@@ -39,11 +35,7 @@ class TableRow extends React.Component {
      * @property highlightable
      * @type {Boolean}
      */
-    highlightable: (props) => {
-      if (props.highlightable && !props.uniqueID) {
-        throw new Error("A highlightable TableRow must provide a uniqueID prop to track itself within the Table.");
-      }
-    },
+    highlightable: React.PropTypes.bool,
 
     /**
      * Allows developers to manually control selected state for the row.
@@ -112,9 +104,8 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   componentWillMount() {
-    if ((this.context.highlightable || this.context.selectable) && !this.props.uniqueID) {
-      // if table sets all rows to be selectable, we need a unique id to be set
-      throw new Error("A selectable TableRow must provide a uniqueID prop to track itself within the Table.");
+    if ((this.props.selectable || this.props.highlightable || this.context.selectable || this.context.highlightable) && !this.props.uniqueID) {
+      throw new Error("A TableRow which is selectable or highlightable should provide a uniqueID.");
     }
 
     if (this.context.attachToTable && this.props.uniqueID) {
@@ -185,10 +176,14 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   onRowClick = (...args) => {
-    // trigger onHighlight callback if defined
-    if (this.props.onHighlight) { this.props.onHighlight(this, !this.state.highlighted); }
-    // trigger highlightRow method on the table
-    this.context.highlightRow(this.props.uniqueID, this);
+    if (this.props.onHighlight) {
+      // trigger onHighlight callback if defined
+      this.props.onHighlight(this.props.uniqueID, !this.state.highlighted, this);
+    } else {
+      // trigger highlightRow method on the table
+      this.context.highlightRow(this.props.uniqueID, this);
+    }
+
     // trigger any custom onClick event the developer may have set
     if (this.props.onClick) { this.props.onClick(...args); }
   }
@@ -199,11 +194,14 @@ class TableRow extends React.Component {
    * @method onSelect
    * @return {Void}
    */
-  onSelect = () => {
-    // trigger onSelect callback if defined
-    if (this.props.onSelect) { this.props.onSelect(this, !this.state.selected); }
-    // trigger selectRow method on the table
-    this.context.selectRow(this.props.uniqueID, this, !this.state.selected);
+  onSelect = (ev) => {
+    if (this.props.onSelect) {
+      // trigger onSelect callback if defined
+      this.props.onSelect(this.props.uniqueID, ev.target.value, this);
+    } else {
+      // trigger selectRow method on the table
+      this.context.selectRow(this.props.uniqueID, this, !this.state.selected);
+    }
   }
 
   /**
