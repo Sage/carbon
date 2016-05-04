@@ -1,4 +1,3 @@
 {
-  "main": "./icon-demo.js",
-  "style": "icon-demo.scss"
+  "main": "./icon-demo.js"
 }

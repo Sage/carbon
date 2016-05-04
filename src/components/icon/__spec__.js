@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Icon from './icon';
+import Tooltip from 'components/tooltip'
 
 describe('Icon', () => {
   let instance, span, svg;
@@ -51,7 +52,7 @@ describe('Icon', () => {
     it('renders with an icon of tick', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='success' />);
       span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
-      expect(span.className).toEqual('icon-tick');
+      expect(span.className).toEqual('ui-icon icon-tick');
     });
   });
 
@@ -62,18 +63,28 @@ describe('Icon', () => {
     });
 
     it('renders with a class of icon-settings', () => {
-      expect(span.className).toEqual('icon-foo');
+      expect(span.className).toEqual('ui-icon icon-foo');
     });
   });
 
-  describe('with custom class name', () => {
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(<Icon type='foo' className='custom' />);
-      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
-    });
+  describe ('mainClasses', () => {
+    describe('with custom class name', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(<Icon type='foo' className='custom' />);
+        span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      });
 
-    it('renders with a class of icon-settings and test', () => {
-      expect(span.className).toEqual('custom icon-foo');
+      it('renders with a class of icon-settings and test', () => {
+        expect(span.className).toEqual('ui-icon custom icon-foo');
+      });
+    });
+  });
+
+  describe('when passed a tooltipMessage', () => {
+    it('renders a tooltip', () => {
+      let helpInstance = TestUtils.renderIntoDocument(<Icon type='info' tooltipMessage='Helpful content' />);
+      let tooltip = TestUtils.findRenderedComponentWithType(helpInstance, Tooltip);
+      expect(tooltip).toBeDefined();
     });
   });
 });

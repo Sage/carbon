@@ -55,7 +55,7 @@ class Toast extends React.Component {
      * @property onDismiss
      * @type {Function}
      */
-    onDismiss: React.PropTypes.func.isRequired
+    onDismiss: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -77,6 +77,17 @@ class Toast extends React.Component {
   }
 
   /**
+   * Content rendered for dismiss X
+   *
+   * @method dismissIcon
+   */
+  get dismissIcon() {
+    return this.props.onDismiss ? (
+      <Icon className="ui-toast__close" type="close" onClick={ this.props.onDismiss } />
+    ) : null;
+  }
+
+  /**
    * Content rendered for the toast.
    *
    * @method toastContent
@@ -90,7 +101,7 @@ class Toast extends React.Component {
           { this.props.children }
         </div>
 
-        <Icon className="ui-toast__close" type="close" onClick={ this.props.onDismiss } />
+        { this.dismissIcon }
       </div>
     ) : null;
   }

@@ -108,6 +108,16 @@ describe('TableAjax', () => {
       jasmine.clock().uninstall();
     });
 
+    it('resets the select all component', () => {
+      let selectAllComponent = {
+        setState: jasmine.createSpy()
+      };
+      instance.selectAllComponent = selectAllComponent;
+      instance.emitOnChangeCallback('data', options);
+      expect(selectAllComponent.setState).toHaveBeenCalledWith({ selected: false });
+      expect(instance.selectAllComponent).toBe(null);
+    });
+
     it('Sets the new pageSize and currentPage in state', () => {
       spyOn(instance, 'setState');
       instance.emitOnChangeCallback('data', options);

@@ -73,14 +73,6 @@ import Pager from './../pager';
  */
 class Table extends React.Component {
 
-  /**
-   * Maintains the height of the table
-   *
-   * @property tableHeight
-   * @type {Number}
-   */
-  tableHeight = 0;
-
   static propTypes = {
     /**
      * Data used to filter the data
@@ -144,6 +136,38 @@ class Table extends React.Component {
     showPageSizeSelection: React.PropTypes.bool,
 
     /**
+     * Enables multi-selectable table rows.
+     *
+     * @property selectable
+     * @type {Boolean}
+     */
+    selectable: React.PropTypes.bool,
+
+    /**
+     * Enables highlightable table rows.
+     *
+     * @property highlightable
+     * @type {Boolean}
+     */
+    highlightable: React.PropTypes.bool,
+
+    /**
+     * A callback for when a row is selected.
+     *
+     * @property onSelect
+     * @type {Function}
+     */
+    onSelect: React.PropTypes.func,
+
+    /**
+     * A callback for when a row is highlighted.
+     *
+     * @property onHighlight
+     * @type {Function}
+     */
+    onHighlight: React.PropTypes.func,
+
+    /**
      * Pagination
      * Total number of records in the grid
      *
@@ -180,33 +204,6 @@ class Table extends React.Component {
     this.resizeTable();
   }
 
-  static childContextTypes = {
-    /**
-     * Defines a context object for child components of the table component.
-     * https://facebook.github.io/react/docs/context.html
-     *
-     * @property childContextTypes
-     * @type {Object}
-     */
-    onSort: React.PropTypes.func,
-    sortedColumn: React.PropTypes.string,
-    sortOrder: React.PropTypes.string
-  }
-
-  /**
-   * Returns table object to child components.
-   *
-   * @method getChildContext
-   * @return {void}
-   */
-  getChildContext = () => {
-    return {
-      onSort: this.onSort,
-      sortedColumn: this.sortedColumn,
-      sortOrder: this.sortOrder
-    };
-  }
-
   /**
    * Lifecycle for after a update has happened
    * If filter has changed then emit the on change event.
@@ -218,6 +215,19 @@ class Table extends React.Component {
     // if filter has changed, update the data
     if (!Immutable.is(this.props.filter, nextProps.filter)) {
       this.emitOnChangeCallback('filter', this.emitOptions(nextProps));
+    }
+
+    if (this.props.highlightable && nextProps.highlightable === false) {
+      this.resetHighlightedRow();
+    }
+
+    if (this.props.selectable && nextProps.selectable === false) {
+      for (let key in this.rows) {
+        // update all the rows with the new state
+        let row = this.rows[key];
+        this.selectRow(row.props.uniqueID, row, false);
+      }
+      this.selectedRows = {};
     }
   }
 
@@ -234,6 +244,256 @@ class Table extends React.Component {
       this.resetTableHeight();
     } else {
       this.resizeTable();
+    }
+  }
+
+  static childContextTypes = {
+    /**
+     * Defines a context object for child components of the table component.
+     * https://facebook.github.io/react/docs/context.html
+     *
+     * @property childContextTypes
+     * @type {Object}
+     */
+    attachToTable: React.PropTypes.func, // attach the row to the table
+    checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
+    detachFromTable: React.PropTypes.func, // detach the row from the table
+    highlightRow: React.PropTypes.func, // highlights the row
+    selectable: React.PropTypes.bool, // table can enable all rows to be multi-selectable
+    onSort: React.PropTypes.func, // a callback function for when a sort order is updated
+    selectAll: React.PropTypes.func, // a callback function for when all visible rows are selected
+    selectRow: React.PropTypes.func, // a callback function for when a row is selected
+    highlightable: React.PropTypes.bool, // table can enable all rows to be highlightable
+    sortOrder: React.PropTypes.string, // the current sort order applied
+    sortedColumn: React.PropTypes.string // the currently sorted column
+  }
+
+  /**
+   * Returns table object to child components.
+   *
+   * @method getChildContext
+   * @return {void}
+   */
+  getChildContext = () => {
+    return {
+      attachToTable: this.attachToTable,
+      detachFromTable: this.detachFromTable,
+      checkSelection: this.checkSelection,
+      highlightRow: this.highlightRow,
+      onSort: this.onSort,
+      highlightable: this.props.highlightable,
+      selectable: this.props.selectable,
+      selectAll: this.selectAll,
+      selectRow: this.selectRow,
+      sortedColumn: this.sortedColumn,
+      sortOrder: this.sortOrder
+    };
+  }
+
+  /**
+   * Maintains the height of the table
+   *
+   * @property tableHeight
+   * @type {Number}
+   */
+  tableHeight = 0;
+
+  /**
+   * The rows currently attached to the table.
+   *
+   * @property rows
+   * @type {Object}
+   */
+  rows = {};
+
+  /**
+   * Tracks the currently highlighted row.
+   *
+   * @property highlightedRow
+   * @type {String}
+   */
+  highlightedRow = {
+    id: null,
+    row: null
+  };
+
+  /**
+   * Tracks the rows which are currently selected.
+   *
+   * @property selectedRows
+   * @type {Object}
+   */
+  selectedRows = {};
+
+  /**
+   * Tracks the component used for select all.
+   * @property selectAllComponent
+   * @type {Object}
+   */
+  selectAllComponent = null;
+
+  /**
+   * Attaches a row to the table.
+   *
+   * @method attachToTable
+   * @param {String} unique id
+   * @param {Object} the row
+   * @return {Void}
+   */
+  attachToTable = (id, row) => {
+    this.rows[id] = row;
+  }
+
+  /**
+   * Detaches a row from the table.
+   *
+   * @method detachFromTable
+   * @param {String} unique id
+   * @return {Void}
+   */
+  detachFromTable = (id) => {
+    delete this.rows[id];
+  }
+
+  /**
+   * Resets the highlighted row.
+   *
+   * @method resetHighlightedRow
+   * @return {Void}
+   */
+  resetHighlightedRow = () => {
+    if (this.highlightedRow.row && this.rows[this.highlightedRow.row.rowID]) {
+      this.highlightedRow.row.setState({ highlighted: false });
+    }
+
+    this.highlightedRow = {
+      id: null,
+      row: null
+    };
+  }
+
+  /**
+   * Highlights the row in the table.
+   *
+   * @method highlightRow
+   * @param {String} unique id
+   * @param {Object} the row
+   * @return {Void}
+   */
+  highlightRow = (id, row) => {
+    let state = true;
+
+    if (this.highlightedRow.id !== null) {
+      if (id === this.highlightedRow.id) {
+        // is the same row - toggle the current state
+        state = !row.state.highlighted;
+      } else {
+        // is a different row - reset the old row
+        this.resetHighlightedRow();
+      }
+    }
+
+    // set state of the highlighted row
+    row.setState({ highlighted: state });
+
+    // update the current highlighted row
+    this.highlightedRow = {
+      id: id,
+      row: row
+    };
+
+    if (this.props.onHighlight) {
+      // trigger onHighlight event
+      this.props.onHighlight(id, state, row);
+    }
+  }
+
+  /**
+   * Selects the row in the table.
+   *
+   * @method selectRow
+   * @param {String} unique id
+   * @param {Object} the row
+   * @param {Boolean} the new selected state
+   * @param {Boolean} should method skip the callback
+   * @return {Void}
+   */
+  selectRow = (id, row, state, skipCallback) => {
+    let isSelected = this.selectedRows[id] !== undefined;
+
+    // if row state has not changed - return early
+    if (state === isSelected) { return; }
+
+    if (this.selectAllComponent) {
+      // if there is a select all component, reset it
+      this.selectAllComponent.setState({ selected: false });
+      this.selectAllComponent = null;
+    }
+
+    if (!state && isSelected) {
+      // if unselecting the row, delete it from the object
+      delete this.selectedRows[id];
+    } else {
+      // add current row to the list of selected rows
+      this.selectedRows[id] = row;
+    }
+
+    // set new state for the row
+    row.setState({ selected: state });
+
+    if (this.props.onSelect && !skipCallback) {
+      // trigger onSelect event
+      this.props.onSelect(Object.keys(this.selectedRows));
+    }
+  }
+
+  /**
+   * Selects all the currently visible rows.
+   *
+   * @method selectAll
+   * @param {Object} the select all row (usually the header)
+   * @return {Void}
+   */
+  selectAll = (row) => {
+    let selectState = !row.state.selected;
+
+    for (let key in this.rows) {
+      // update all the rows with the new state
+      let _row = this.rows[key];
+      this.selectRow(_row.props.uniqueID, _row, selectState, true);
+    }
+
+    // update the row with the new state
+    row.setState({ selected: selectState });
+
+    // if select state is true, track the select all component
+    this.selectAllComponent = selectState ? row : null;
+
+    if (this.props.onSelect) {
+      // trigger onSelect event
+      this.props.onSelect(Object.keys(this.selectedRows));
+    }
+  }
+
+  /**
+   * Checks the rows status using the table's stored checked rows and updates
+   * its status based on this.
+   *
+   * @method checkSelection
+   * @param {String} unique id
+   * @param {Object} the row
+   * @return {Void}
+   */
+  checkSelection = (id, row) => {
+    let isSelected = this.selectedRows[id] !== undefined,
+        isHighlighted = this.highlightedRow.id === id;
+
+    if (isSelected !== row.state.selected) {
+      row.setState({ selected: isSelected });
+    }
+
+    if (isHighlighted !== row.state.highlighted) {
+      row.setState({ highlighted: isHighlighted });
     }
   }
 
@@ -298,6 +558,12 @@ class Table extends React.Component {
    * @return {Void}
    */
   emitOnChangeCallback = (element, options) => {
+    if (this.selectAllComponent) {
+      // reset the select all component
+      this.selectAllComponent.setState({ selected: false });
+      this.selectAllComponent = null;
+    }
+
     this.props.onChange(element, options);
   }
 
