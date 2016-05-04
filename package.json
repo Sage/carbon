@@ -3,9 +3,6 @@
   "version": "0.8.1",
   "description": "Fundamental building blocks.",
   "main": "index.js",
-  "style": [
-    "./src/style-base/general.scss"
-  ],
   "engineStrict": true,
   "engines": {
     "npm": "^3.0.0"

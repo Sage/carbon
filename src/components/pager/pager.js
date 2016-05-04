@@ -1,3 +1,4 @@
+import css from './../../utils/css';
 import React from 'react';
 import Icon from './../icon';
 import NumberComponent from './../number';
@@ -295,13 +296,13 @@ class Pager extends React.Component {
     if (this.props.showPageSizeSelection) {
       return (
         <div>
-          <span className='unselectable'>{ showSizeText() }</span>
+          <span className={ css.unselectable }>{ showSizeText() }</span>
           <Dropdown
             options={ this.props.pageSizeSelectionOptions }
             value={ this.props.pageSize }
             onChange={ this.emitChangeCallback.bind(this, 'size') }
           />
-          <span className='unselectable'>{ recordsText(this.props.pageSize) }</span>
+          <span className={ css.unselectable }>{ recordsText(this.props.pageSize) }</span>
         </div>
       );
     }
@@ -323,9 +324,9 @@ class Pager extends React.Component {
 
         <div className='ui-pager__navigation' >
           { this.previousArrow }
-          <span className='unselectable'>{ pageX() }</span>
+          <span className={ css.unselectable }>{ pageX() }</span>
           { this.currentPageInput }
-          <span className='unselectable'>{ ofY() }{ this.maxPage }</span>
+          <span className={ css.unselectable }>{ ofY() }{ this.maxPage }</span>
           { this.nextArrow }
         </div>
 
