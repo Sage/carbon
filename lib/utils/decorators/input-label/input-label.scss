@@ -4,7 +4,7 @@
 .common-input__label {
   color: $grey-dark;
   cursor: pointer;
-  display: block;
+  display: inline-block;
   font-weight: bold;
   line-height: 14px;
   margin: 0 0 5px 0;
@@ -18,6 +18,11 @@
   .common-input__message {
     margin-bottom: 6px;
   }
+
+  .common-input__help-text {
+    margin-left: 30%;
+    padding-left: $grid-margin;
+  }
 }
 
 .common-input__label--inline {
@@ -27,10 +32,18 @@
   padding: 0 0 0 $grid-margin;
   width: 30%;
 
-  + .common-input__field {
+  ~ .common-input__field {
     box-sizing: border-box;
     display: inline-block;
     padding-left: $grid-margin;
     width: 70%;
   }
+}
+
+.common-input__help-text {
+  color: $grey-mid;
+  display: block;
+  line-height: 14px;
+  margin-left: 6px;
+  margin-top: 5px;
 }
