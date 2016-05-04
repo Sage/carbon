@@ -4,6 +4,8 @@ import DecimalDemo from './decimal-demo';
 import NumberDemo from './number-demo';
 import TextareaDemo from './textarea-demo';
 import DropdownDemo from './dropdown-demo';
+import DropdownFilterDemo from './dropdown-filter-demo';
+import DropdownFilterAjaxDemo from './dropdown-filter-ajax-demo';
 import DateDemo from './date-demo';
 import CheckboxDemo from './checkbox-demo';
 import RadioButtonDemo from './radio-button-demo';
@@ -24,6 +26,7 @@ class Forms extends React.Component {
         <DateDemo />
         <DropdownDemo />
         <TextareaDemo />
+        <DropdownFilterDemo />
       </div>
     );
   }

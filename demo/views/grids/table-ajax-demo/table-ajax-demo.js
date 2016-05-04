@@ -51,14 +51,16 @@ class TableAjaxDemo extends React.Component {
         { filterHtml }
 
         <TableAjax
-          shrink={ this.value('shrink') }
           filter={ filter }
-          showPageSizeSelection={ this.value('show_page_size_selection') }
+          onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
           pageSize={ this.value('page_size') }
           paginate={ this.value('paginate') }
           path="/countries"
-          onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
-          tableHeader={ this.tableHeaderRow }
+          selectable={ this.value('selectable') }
+          highlightable={ this.value('highlightable') }
+          showPageSizeSelection={ this.value('show_page_size_selection') }
+          shrink={ this.value('shrink') }
+          thead={ this.tableHeaderRow }
         >
           { this.tableRows }
         </TableAjax>
@@ -201,6 +203,18 @@ class TableAjaxDemo extends React.Component {
             onChange={ this.action.bind(this, 'shrink') }
           />
         </Row>
+        <Row>
+          <Checkbox
+            label="Highlightable"
+            value={ this.value('highlightable') }
+            onChange={ this.action.bind(this, 'highlightable') }
+          />
+          <Checkbox
+            label="Selectable"
+            value={ this.value('selectable') }
+            onChange={ this.action.bind(this, 'selectable') }
+          />
+        </Row>
       </div>
     );
   }
@@ -210,7 +224,7 @@ class TableAjaxDemo extends React.Component {
    */
   get tableHeaderRow() {
     return(
-      <TableRow key="header">
+      <TableRow key="header" uniqueID='header' as='header' selectAll={ this.value('selectable') }>
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>
@@ -229,7 +243,7 @@ class TableAjaxDemo extends React.Component {
 
     return data.map((row, index) => {
       return (
-        <TableRow key={ index }>
+        <TableRow key={ index } uniqueID={ row.get('name') }>
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
         </TableRow>

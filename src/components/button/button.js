@@ -26,10 +26,13 @@ class Button extends React.Component {
      * Customizes the appearance, can be set to 'primary' or 'secondary'.
      *
      * @property as
-     * @type {String}
+     * @type {String|Array}
      * @default 'secondary'
      */
-    as: React.PropTypes.string,
+    as: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.array
+    ]),
 
     /**
      * A required prop. This is what the button will display.
@@ -63,11 +66,20 @@ class Button extends React.Component {
   get element() {
     let {...props} = this.props,
         // if props.href then render an anchor instead
-        el = props.href ? 'a' : 'button';
+        el = props.href ? 'a' : 'button',
+        as = this.props.as;
+
+    if (as.constructor === Array) {
+      as = as.map((klass) => {
+        return `ui-button--${klass}`;
+      });
+    } else {
+      as = [`ui-button--${as}`];
+    }
 
     props.className = classNames(
       'ui-button',
-      'ui-button--' + this.props.as,
+      ...as,
       props.className, {
         'ui-button--disabled': this.props.disabled
       }

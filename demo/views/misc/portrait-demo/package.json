@@ -1,4 +1,3 @@
 {
-  "main": "./portrait-demo.js",
-  "style": "portrait-demo.scss"
+  "main": "./portrait-demo.js"
 }

@@ -1,0 +1,5 @@
+{
+  "name": "dialog-full-screen",
+  "style": "dialog-full-screen.scss",
+  "main": "./dialog-full-screen.js"
+}
