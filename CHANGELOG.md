@@ -1,17 +1,36 @@
+# 0.9.0
+
+## Selectable Table Rows
+
+* Table and TableAjax now have props of `selectable` and `highlightable`, enabling selectable or highlightable rows. Each event also emits events which can be used by developers with props of `onSelect` or `onHighlight`. Developers can also manually control the highlighting or selecting of rows using the same props on TableRow components.
+
+## Misc
+
+* Added 'small' button option - renders pill-like secondary button.
+* Made portrait inline-block to allow label to sit inline. 
+
+# 0.8.1
+
+## Bug Fixes
+
+* Fixed CSS load order issue which caused icons to break their positioning.
+
 # 0.8.0
 
 ## Improvements
 
 * Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
-* Label can now have a subtitle. Pass `labelHelp='help message'` to any label enabled input
-* Add `tableHeader` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
+* Inputs can now have field help. Pass `fieldHelp='help message'` to any input.
+* Inputs can now have label help. Pass `labelHelp='help message'` to any input.
 * Add `thead` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
 
 ## New Components
 
+* Sidebar - with sidebar header
 * Portrait
 * Content
-* Tile - an alternative to Pod, with a drop shadow.
+* Help - An info icon with a tooltip.
+* Tooltip
 
 ## Layout Updates
 
@@ -28,18 +47,32 @@
 
 * Dialog now takes a prop of `disableBackground` which is true by default.
 
+## Improved Form
+
+* `validate()` can now be called via `this.context.form`
+
+## New Validators
+
+* Inclusion
+* Exclusion
+
 ## Misc
 
+* Added utility classes for styling text.
 * Format i18n error number for numeric validation.
 * Allow Tables to shrink in size using the `shrink` prop.
 * Link component can now display with an icon.
 * Child components of Row can now use a `columnAlign` prop.
 * Toast onDismiss is now optional
 
+## New Decorators
+
+* Tooltip Decorator - currently available on Icon and Textbox.
+
 ## Bug Fixes
 
 * Fixes alignment issue with SplitButton when using anchors.
-* Row component will not break with children of `null` or `undefined`.
+* Row component will not break with zero children or children of `null` or `undefined`.
 
 # 0.7.1
 
@@ -47,6 +80,7 @@
 
 * Moves the validation logic in Form component to its own method.
 * Adds `validateOnMount` prop to Forms.
+* Help Components on inputs with labels.
 
 # 0.7.0
 

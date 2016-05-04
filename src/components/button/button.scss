@@ -35,14 +35,17 @@ $ui-button__background-color--secondary--active: $blue-dark !default;
 $ui-button__border-color--secondary--active: $blue-dark !default;
 $ui-button__text-color--secondary--active: $white !default;
 
-/* ui-button--disabled */ 
+/* ui-button--disabled */
 $ui-button__background-color--disabled: #DBDCDE !default;
 $ui-button__border-color--disabled: transparent !default;
 $ui-button__color--disabled: #A4A6AA !default;
 
 
 .ui-button {
+  background-color: $ui-button__background-color--secondary;
+  border: $ui-button__border--secondary;
   border-radius: $ui-button__border-radius;
+  color: $ui-button__text-color--secondary;
   cursor: pointer;
   display: inline-block;
   font-size: $app-font-size;
@@ -54,6 +57,20 @@ $ui-button__color--disabled: #A4A6AA !default;
   &:focus {
     @include transition(box-shadow linear 0.1s)
     box-shadow: 0 0 6px rgba(25,99,246,0.6);
+  }
+
+  &:focus,
+  &:hover {
+    background-color: $ui-button__background-color--secondary--hover;
+    border-color: $ui-button__border-color--secondary--hover;
+    color: $ui-button__text-color--secondary--hover;
+  }
+
+  &:not(.ui-button--disabled):active {
+    background-color: $ui-button__background-color--primary--active;
+    background-color: $ui-button__background-color--secondary--active;
+    border-color: $ui-button__border-color--secondary--active;
+    color: $ui-button__text-color--secondary--active;
   }
 }
 
@@ -74,24 +91,12 @@ $ui-button__color--disabled: #A4A6AA !default;
   }
 }
 
-.ui-button--secondary {
-  background-color: $ui-button__background-color--secondary;
-  border: $ui-button__border--secondary;
-  color: $ui-button__text-color--secondary;
-
-  &:focus,
-  &:hover {
-    background-color: $ui-button__background-color--secondary--hover;
-    border-color: $ui-button__border-color--secondary--hover;
-    color: $ui-button__text-color--secondary--hover;
-  }
-
-  &:not(.ui-button--disabled):active {
-    background-color: $ui-button__background-color--primary--active;
-    background-color: $ui-button__background-color--secondary--active;
-    border-color: $ui-button__border-color--secondary--active;
-    color: $ui-button__text-color--secondary--active;
-  }
+.ui-button--small {
+  border-radius: 3px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  padding: 2px 15px 2px 15px;
+  text-transform: uppercase;
 }
 
 .ui-button--disabled,

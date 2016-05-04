@@ -4,17 +4,19 @@ import Dialog from './../dialog'
 import Confirm from './confirm';
 
 describe('Confirm', () => {
-  let instance;
-  let onCancel = jasmine.createSpy('cancel');
-  let onConfirm = jasmine.createSpy('confirm');
+  let instance, onCancel, onConfirm;
 
   beforeEach(() => {
+    onCancel = jasmine.createSpy('cancel');
+    onConfirm = jasmine.createSpy('confirm');
+
     instance = TestUtils.renderIntoDocument(
       <Confirm
         onCancel={ onCancel }
         onConfirm={ onConfirm }
         open={ true }
-        title="Confrim title" />
+        title="Confirm title"
+      />
     );
   });
 

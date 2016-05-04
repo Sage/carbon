@@ -52,7 +52,7 @@ describe('Number', () => {
         TestUtils.Simulate.change(input, {
           target: {
             value: 'abcdefghij',
-            setSelectionRange: setSelectionSpy 
+            setSelectionRange: setSelectionSpy
           }
         });
       });

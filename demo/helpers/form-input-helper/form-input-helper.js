@@ -10,22 +10,27 @@ let FormInputHelper = {
       onChange: onChange.bind(scope, 'value'),
       value: scope.value('value'),
       label: scope.value('label'),
-      labelHelp: scope.value('labelHelp'),
       labelInline: scope.value('labelInline'),
       labelWidth: scope.value('labelInline') ? scope.value('labelWidth') : '',
       disabled: scope.value('disabled'),
       readOnly: scope.value('readOnly'),
-      prefix: scope.value('prefix')
+      prefix: scope.value('prefix'),
+      fieldHelp: scope.value('fieldHelp'),
+      labelHelp: scope.value('labelHelp')
     };
   },
 
   codeProps: (scope, html) => {
     if (scope.value('label')) {
       html += `\n  label='${scope.value('label')}'`;
+    }
 
-      if (scope.value('labelHelp')) {
-        html += `\n  labelHelp='${scope.value('labelHelp')}'`;
-      }
+    if (scope.value('fieldHelp')) {
+      html += `\n  fieldHelp='${scope.value('fieldHelp')}'`;
+    }
+
+    if (scope.value('labelHelp')) {
+      html += `\n  labelHelp='${scope.value('labelHelp')}'`;
     }
 
     if (scope.value('labelInline')) {
@@ -48,6 +53,10 @@ let FormInputHelper = {
       html += `\n  prefix='${scope.value('prefix')}'`;
     }
 
+    if (scope.value('helpMessage')) {
+      html += `\n  helpMessage='${scope.value('helpMessage')}'`;
+    }
+
     // determine if we need extra space
     let splitHtml = html.split("\n  ");
     if (splitHtml.length == 1) {
@@ -67,13 +76,13 @@ let FormInputHelper = {
             label="Label"
             labelInline={ true }
             value={ scope.value('label') }
-            onChange={ onChange.bind(scope, 'label') }
+            onChange={ onChange.bind(scope, 'label')}
           />
           <Textbox
             label="Label Help"
             labelInline={ true }
             value={ scope.value('labelHelp') }
-            onChange={ scope.action.bind(scope, 'labelHelp') }
+            onChange={ onChange.bind(scope, 'labelHelp') }
           />
         </Row>
 
@@ -94,6 +103,16 @@ let FormInputHelper = {
             columnSpan="2"
           />
         </Row>
+
+        <Row>
+          <Textbox
+            label="Field Help"
+            labelInline={ true }
+            value={ scope.value('fieldHelp') }
+            onChange={ scope.action.bind(scope, 'fieldHelp') }
+          />
+        </Row>
+
         <Row>
           <Checkbox
             label="Disabled"

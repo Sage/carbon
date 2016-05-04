@@ -526,6 +526,7 @@ class Dropdown extends React.Component {
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { this.validationHTML }
+        { this.fieldHelpHTML }
 
       </div>
     );

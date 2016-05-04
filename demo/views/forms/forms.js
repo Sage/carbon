@@ -1,7 +1,11 @@
 import React from 'react';
 import TextboxDemo from './textbox-demo';
 import DecimalDemo from './decimal-demo';
+import NumberDemo from './number-demo';
+import TextareaDemo from './textarea-demo';
 import DropdownDemo from './dropdown-demo';
+import DropdownFilterDemo from './dropdown-filter-demo';
+import DropdownFilterAjaxDemo from './dropdown-filter-ajax-demo';
 import DateDemo from './date-demo';
 import CheckboxDemo from './checkbox-demo';
 import ValidationsDemo from './validations-demo';
@@ -18,9 +22,12 @@ class Forms extends React.Component {
         <CheckboxDemo />
         <RadioButtonDemo/>
         <TextboxDemo />
+        <NumberDemo />
         <DecimalDemo />
         <DateDemo />
         <DropdownDemo />
+        <TextareaDemo />
+        <DropdownFilterDemo />
         <ValidationsDemo />
       </div>
     );
