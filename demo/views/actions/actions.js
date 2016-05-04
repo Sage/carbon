@@ -2,6 +2,7 @@ import React from 'react';
 import ButtonDemo from './button-demo';
 import LinkDemo from './link-demo';
 import SplitButtonDemo from './split-button-demo';
+import AnimatedMenuButtonDemo from './animated-menu-button-demo';
 
 class Actions extends React.Component {
   /**
@@ -14,6 +15,7 @@ class Actions extends React.Component {
         <ButtonDemo />
         <LinkDemo />
         <SplitButtonDemo />
+        <AnimatedMenuButtonDemo />
       </div>
     );
   }
