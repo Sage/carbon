@@ -145,9 +145,17 @@ class TableAjax extends Table {
      * @property childContextTypes
      * @type {Object}
      */
-    onSort: React.PropTypes.func,
-    sortedColumn: React.PropTypes.string,
-    sortOrder: React.PropTypes.string
+    attachToTable: React.PropTypes.func, // attach the row to the table
+    checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
+    detachFromTable: React.PropTypes.func, // detach the row from the table
+    highlightable: React.PropTypes.bool, // table can enable all rows to be highlightable
+    onSort: React.PropTypes.func, // a callback function for when a sort order is updated
+    selectAll: React.PropTypes.func, // a callback function for when all visible rows are selected
+    selectRow: React.PropTypes.func, // a callback function for when a row is selected
+    highlightRow: React.PropTypes.func, // a callback function for when a row is highlighted
+    selectable: React.PropTypes.bool, // table can enable all rows to be selectable
+    sortOrder: React.PropTypes.string, // the current sort order applied
+    sortedColumn: React.PropTypes.string // the currently sorted column
   }
 
   /**
@@ -158,7 +166,15 @@ class TableAjax extends Table {
    */
   getChildContext = () => {
     return {
+      attachToTable: this.attachToTable,
+      detachFromTable: this.detachFromTable,
+      checkSelection: this.checkSelection,
       onSort: this.onSort,
+      selectable: this.props.selectable,
+      highlightable: this.props.highlightable,
+      selectAll: this.selectAll,
+      selectRow: this.selectRow,
+      highlightRow: this.highlightRow,
       sortedColumn: this.sortedColumn,
       sortOrder: this.sortOrder
     };
@@ -205,6 +221,12 @@ class TableAjax extends Table {
    * @return {Void}
    */
   emitOnChangeCallback = (element, options, timeout = 250) => {
+    if (this.selectAllComponent) {
+      // reset the select all component
+      this.selectAllComponent.setState({ selected: false });
+      this.selectAllComponent = null;
+    }
+
     let resetHeight = Number(options.pageSize) < Number(this.pageSize),
         currentPage = (element === "filter") ? "1" : options.currentPage;
 
