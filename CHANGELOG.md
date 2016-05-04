@@ -1,7 +1,12 @@
-# 0.8.2
+# 0.9.0
+
+## Selectable Table Rows
+
+* Table and TableAjax now have props of `selectable` and `highlightable`, enabling selectable or highlightable rows. Each event also emits events which can be used by developers with props of `onSelect` or `onHighlight`. Developers can also manually control the highlighting or selecting of rows using the same props on TableRow components.
 
 ## Misc
 
+* Added 'small' button option - renders pill-like secondary button.
 * Made portrait inline-block to allow label to sit inline. 
 
 # 0.8.1
