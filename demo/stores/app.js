@@ -73,6 +73,9 @@ let data = ImmutableHelper.parseJSON({
     title: "Lorem ipsum dolor",
     text: "Nullam id dolor id nibh ultricies vehicula ut id elit."
   },
+  number: {
+    value: 0
+  },
   pill: {
     as: 'new',
     text: 'PILL'
