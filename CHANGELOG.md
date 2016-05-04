@@ -8,6 +8,7 @@
 
 * Added 'small' button option - renders pill-like secondary button.
 * Updated portrait colour for when no image is loaded.
+* Made portrait inline-block to allow label to sit inline. 
 
 # 0.8.1
 
