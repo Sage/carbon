@@ -9,6 +9,10 @@ let data = ImmutableHelper.parseJSON({
   alert: {
     title: 'Alert!'
   },
+  animated_menu_button: {
+    alignRight: true,
+    size: 'large'
+  },
   button: {
     text: "Action"
   },
@@ -72,6 +76,9 @@ let data = ImmutableHelper.parseJSON({
     as: "error",
     title: "Lorem ipsum dolor",
     text: "Nullam id dolor id nibh ultricies vehicula ut id elit."
+  },
+  number: {
+    value: 0
   },
   pill: {
     as: 'new',

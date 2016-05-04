@@ -1,7 +1,7 @@
 {
   "name": "carbon",
   "version": "0.8.1",
-  "description": "Fundamental building blocks.",
+  "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "main": "index.js",
   "engineStrict": true,
   "engines": {
@@ -15,10 +15,14 @@
     "type": "git",
     "url": "git+ssh://git@github.com/Sage/carbon.git"
   },
-  "author": "",
+  "author": "The Sage Group plc",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Sage/carbon/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sage/carbon"
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
