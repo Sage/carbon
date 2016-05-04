@@ -151,7 +151,7 @@ class Portrait extends React.Component {
         context = canvas.getContext("2d"),
         size = this.numericSizes[this.props.size],
         letters = this.props.initials || "",
-        color =  "#CCC";
+        color =  "#9DA0A7";
 
     // Set canvas with & height
     canvas.width = size;

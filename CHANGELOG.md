@@ -1,3 +1,9 @@
+# 0.9.0
+
+## Misc
+
+* Updated portrait colour for when no image is loaded.
+
 # 0.8.1
 
 ## Bug Fixes
