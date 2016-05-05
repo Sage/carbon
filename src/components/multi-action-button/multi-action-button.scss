@@ -1,0 +1,18 @@
+@import 'colors';
+
+.ui-multi-action-button__toggle {
+  width: auto;
+  border: 1px solid $blue-light;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 7px 18px;
+
+  .ui-multi-action-button--open & {
+    border-color: $blue-bright;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.ui-multi-action-button__additional-buttons {
+  border-top-left-radius: 0;
+}
