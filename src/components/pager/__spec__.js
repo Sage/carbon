@@ -311,5 +311,9 @@ describe('Pager', () => {
         expect(instance2.sizeSelectionDropdown).toBeFalsy();
       });
     });
+
+    it('adds a class of unselectable', () => {
+      expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'unselectable').length).toBeTruthy();
+    });
   });
 });
