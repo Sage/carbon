@@ -9,7 +9,7 @@ import classNames from 'classnames';
  * See documentation for Table component.
  *
  * You can set a property of 'align' which should be a string. This will
- * align the content to either "left" or "right".
+ * align the content to either "left", "center" or "right".
  *
  * You can set a property of 'action' which should be a boolean. This will
  * set styling options for the cell used for action such as delete.
@@ -21,7 +21,7 @@ class TableCell extends React.Component {
 
   static propTypes = {
     /**
-     * Defines the alignment of the cell (eg "left" or "right").
+     * Defines the alignment of the cell (eg "left", "center" or "right").
      *
      * @property align
      * @type {String}
