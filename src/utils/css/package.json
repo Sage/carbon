@@ -1,4 +1,4 @@
 {
-  "main": "./package.json",
-  "style": "./css.scss"
+  "main": "./css.js",
+  "style": "css.scss"
 }
