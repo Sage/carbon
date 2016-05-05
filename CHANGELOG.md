@@ -7,6 +7,7 @@
 ## Misc
 
 * Added 'small' button option - renders pill-like secondary button.
+* Form component can now set custom `saveText` as a prop.
 * Made portrait inline-block to allow label to sit inline. 
 
 # 0.8.1
