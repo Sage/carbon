@@ -14,8 +14,6 @@
   white-space: nowrap;
 
   .ui-table-row:first-child & {
-    border-bottom: none;
-
     &:first-child {
       border-radius: $tables__border-radius 0 0 0;
     }
@@ -26,7 +24,7 @@
   }
 
   .ui-table-row:last-child & {
-    border-bottom: none;
+    border-bottom-color: transparent;
 
     &:first-child {
       border-radius: 0 0 0 $tables__border-radius;
@@ -50,6 +48,16 @@
     margin-left: -6px;
     margin-right: -6px;
     margin-top: -4px;
+  }
+}
+
+.ui-table-cell--select {
+  text-align: center;
+  width: 18px;
+
+  .ui-checkbox {
+    height: 15px;
+    padding-top: 0;
   }
 }
 
