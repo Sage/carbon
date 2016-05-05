@@ -33,24 +33,34 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @method renderIcon
    * @return {HTML}
    */
-  get renderIcon() {
-    switch(this.type) {
-      case 'warning':
-        return this.renderWarningIcon;
-      case 'new':
-        return this.renderNewIcon;
-      case 'maintenance':
-        return this.renderMaintenanceIcon;
-      case 'sort-up':
-        return this.renderSortUpIcon;
-      case 'sort-down':
-        return this.renderSortDownIcon;
-      case 'refresh':
-        return this.renderRefreshIcon;
-      default:
-        return null;
-    }
-  }
+   get renderIcon() {
+     let icon;
+
+     switch(this.type) {
+       case 'warning':
+         icon = this.renderWarningIcon;
+         break;
+       case 'new':
+         icon = this.renderNewIcon;
+         break;
+       case 'maintenance':
+         icon = this.renderMaintenanceIcon;
+         break;
+       case 'sort-up':
+         icon = this.renderSortUpIcon;
+         break;
+       case 'sort-down':
+         icon = this.renderSortDownIcon;
+         break;
+       case 'refresh':
+         return this.renderRefreshIcon;
+         break;
+       default:
+         return null;
+     }
+
+     return icon;
+   }
 
   /**
    * Return component props
@@ -220,12 +230,12 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderRefreshIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--refresh" width="13px" height="16px" viewBox="0 0 13 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+        '<svg class="ui-icon__svg ui-icon__svg--refresh" width="13px" height="16px" viewBox="0 0 13 16">' +
             '<g class="ui-icon__svg-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
                 '<g id="Clients-to-Invite---highlight-state" transform="translate(-1029.000000, -227.000000)" fill="#42AE42">' +
                     '<g id="Tags" transform="translate(505.000000, 227.000000)">' +
                         '<g id="resend-invitation" transform="translate(524.000000, 0.000000)">' +
-                            '<path d="M7.00097862,2.70098912 C10.3528746,2.9650394 12.9924827,5.8368169 12.9924827,9.34059286 C12.9924827,13.0184819 10.0840164,16 6.49624136,16 C2.90846633,16 0,13.0184819 0,9.34059286 C0,8.86925873' + '0.0477666277,8.40936132 0.138608168,7.96571016 L1.99884343,7.96571016 C1.99884343,7.96571016 1.9988435,8.68664161 1.9988435,9.34059286 C1.9988435,11.8868237 4.01239711,13.9509517 6.49624136,13.9509517' + 'C8.98008562,13.9509517 10.9936392,11.8868237 10.9936392,9.34059286 C10.9936392,6.96927971 9.24723222,5.01610685 7.00097862,4.75894453 L7.00097862,8 L2.00097862,3.5 L7.00097862,1.77635684e-14 L7.00097862,2.70098912 Z" id="Icon-path">' +
+                            '<path d="M7.00097862,2.70098912 C10.3528746,2.9650394 12.9924827,5.8368169 12.9924827,9.34059286 C12.9924827,13.0184819 10.0840164,16 6.49624136,16 C2.90846633,16 0,13.0184819 0,9.34059286 C0,8.86925873 0.0477666277,8.40936132 0.138608168,7.96571016 L1.99884343,7.96571016 C1.99884343,7.96571016 1.9988435,8.68664161 1.9988435,9.34059286 C1.9988435,11.8868237 4.01239711,13.9509517 6.49624136,13.9509517 C8.98008562,13.9509517 10.9936392,11.8868237 10.9936392,9.34059286 C10.9936392,6.96927971 9.24723222,5.01610685 7.00097862,4.75894453 L7.00097862,8 L2.00097862,3.5 L7.00097862,1.77635684e-14 L7.00097862,2.70098912 Z" id="Icon-path">' +
                             '</path>' +
                         '</g>' +
                     '</g>' +
