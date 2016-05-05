@@ -33,34 +33,34 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @method renderIcon
    * @return {HTML}
    */
-   get renderIcon() {
-     let icon;
+  get renderIcon() {
+    let icon;
 
-     switch(this.type) {
-       case 'warning':
-         icon = this.renderWarningIcon;
-         break;
-       case 'new':
-         icon = this.renderNewIcon;
-         break;
-       case 'maintenance':
-         icon = this.renderMaintenanceIcon;
-         break;
-       case 'sort-up':
-         icon = this.renderSortUpIcon;
-         break;
-       case 'sort-down':
-         icon = this.renderSortDownIcon;
-         break;
-       case 'refresh':
-         return this.renderRefreshIcon;
-         break;
-       default:
-         return null;
-     }
+    switch(this.type) {
+      case 'warning':
+        icon = this.renderWarningIcon;
+        break;
+      case 'new':
+        icon = this.renderNewIcon;
+        break;
+      case 'maintenance':
+        icon = this.renderMaintenanceIcon;
+        break;
+      case 'sort-up':
+        icon = this.renderSortUpIcon;
+        break;
+      case 'sort-down':
+        icon = this.renderSortDownIcon;
+        break;
+      case 'refresh':
+        icon = this.renderRefreshIcon;
+        break;
+      default:
+        return null;
+    }
 
-     return icon;
-   }
+    return icon;
+  }
 
   /**
    * Return component props
