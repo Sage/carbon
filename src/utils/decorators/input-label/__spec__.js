@@ -168,7 +168,7 @@ describe('InputLabel', () => {
     describe('when align right', () => {
       it('adds the relevant class', () => {
         let ExtendedClassOne = InputLabel(HelpClass);
-        let instance = TestUtils.renderIntoDocument(<ExtendedClassOne labelAlign={ true } />);
+        let instance = TestUtils.renderIntoDocument(<ExtendedClassOne labelAlign='right' />);
         expect(instance.labelClasses).toEqual('common-input__label common-input__label--align-right');
       });
     });
