@@ -53,7 +53,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         icon = this.renderSortDownIcon;
         break;
       case 'refresh':
-        return this.renderRefreshIcon;
+        icon = this.renderRefreshIcon;
         break;
       default:
         return null;
