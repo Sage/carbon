@@ -100,9 +100,18 @@ class Form extends React.Component {
      *
      * @property cancelText
      * @type {String}
-     * @default true
+     * @default "Cancel"
      */
     cancelText: React.PropTypes.string,
+
+    /**
+     * Text for the save button
+     *
+     * @property saveText
+     * @type {String}
+     * @default "Save"
+     */
+    saveText: React.PropTypes.string,
 
     /**
      * Custom function for Cancel button onClick
@@ -116,6 +125,7 @@ class Form extends React.Component {
   static defaultProps = {
     cancelText: I18n.t('actions.cancel', { defaultValue: 'Cancel' }),
     cancel: true,
+    saveText: I18n.t('actions.save', { defaultValue: 'Save' }),
     saving: false,
     validateOnMount: false
   }
@@ -379,7 +389,7 @@ class Form extends React.Component {
           <div className={ saveClasses }>
             { errorCount }
             <Button as="primary" disabled={ this.props.saving }>
-              { saveText() }
+              { this.props.saveText }
             </Button>
           </div>
 
@@ -434,10 +444,6 @@ function errorMessage(count) {
   });
 
   return { __html: errorMessage };
-}
-
-function saveText() {
-  return I18n.t('actions.save', { defaultValue: 'Save' });
 }
 
 export default Form;
