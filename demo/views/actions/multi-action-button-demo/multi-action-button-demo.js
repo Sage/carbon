@@ -54,8 +54,8 @@ class MultiActionButtonDemo extends React.Component {
 
     html += `\n  text='${this.value('text')}'`;
 
-    if (this.value('primary')) {
-      html += "\n  as='primary'";
+    if (this.value('as') !== 'secondary' ) {
+      html += `\n  as='${ this.value('as') }'`;
     }
 
     if (this.value('disabled')) {
