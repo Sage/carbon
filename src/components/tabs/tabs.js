@@ -107,12 +107,21 @@ class Tabs extends React.Component {
      * @property align
      * @type {String}
      */
-    align: React.PropTypes.string
+    align: React.PropTypes.string,
+
+    /**
+     * The position of tabs with respect to the content (top (default) or left)
+     *
+     * @property position
+     * @type {String}
+     */
+    position: React.PropTypes.string
   }
 
   static defaultProps = {
     renderHiddenTabs: true,
-    align: 'left'
+    align: 'left',
+    position: 'top'
   }
 
   static childContextTypes = {

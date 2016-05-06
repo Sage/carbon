@@ -134,13 +134,13 @@ describe('Tabs', () => {
   describe('tabHeaderClasses', () => {
     it('adds a ui-tabs__header class to the tab', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.className).toEqual('ui-tabs__headers__header'); 
+      expect(secondTab.className).toEqual('ui-tabs__headers__header');
     });
 
     describe('when tab is selected tab', () => {
       it('adds a selected class to the header', () => {
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[0];
-        expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--selected'); 
+        expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--selected');
       });
     });
 
@@ -148,7 +148,7 @@ describe('Tabs', () => {
       it('adds a error class to the header', () => {
         instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--error'); 
+        expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--error');
       });
     });
   });
@@ -189,9 +189,24 @@ describe('Tabs', () => {
             </Tab>
           </Tabs>
         );
-        
+
         let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
         expect(headers.className).toEqual('ui-tabs__headers ui-tabs__headers--align-right');
+      });
+    });
+
+    describe('when a position prop is passed', () => {
+      it('adds a position class', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs position='left'>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+
+        let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
+        expect(headers.className).toEqual('ui-tabs__headers ui-tabs__headers--position-left');
       });
     });
   });
