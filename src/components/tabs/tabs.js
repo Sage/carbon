@@ -246,7 +246,7 @@ class Tabs extends React.Component {
     });
 
     return(
-      <ul className={ `ui-tabs__headers ui-tabs__headers--align-${ this.props.align }` } >
+      <ul className={ `ui-tabs__headers ui-tabs__headers--align-${ this.props.align } ui-tabs__headers ui-tabs__headers--position-${ this.props.position }` } >
         { tabTitles }
       </ul>
     );

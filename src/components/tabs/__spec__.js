@@ -191,7 +191,7 @@ describe('Tabs', () => {
         );
 
         let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
-        expect(headers.className).toEqual('ui-tabs__headers ui-tabs__headers--align-right');
+        expect(headers.className).toMatch('ui-tabs__headers ui-tabs__headers--align-right');
       });
     });
 
@@ -206,7 +206,7 @@ describe('Tabs', () => {
         );
 
         let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
-        expect(headers.className).toEqual('ui-tabs__headers ui-tabs__headers--position-left');
+        expect(headers.className).toMatch('ui-tabs__headers ui-tabs__headers--position-left');
       });
     });
   });
@@ -294,7 +294,7 @@ describe('Tabs', () => {
     it('renders the tab headers', () => {
       let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
       let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
-      expect(list.className).toEqual('ui-tabs__headers ui-tabs__headers--align-left');
+      expect(list.className).toEqual('ui-tabs__headers ui-tabs__headers--align-left ui-tabs__headers ui-tabs__headers--position-top');
       expect(items.length).toEqual(2);
     });
   });
