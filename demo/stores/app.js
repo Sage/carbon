@@ -77,6 +77,9 @@ let data = ImmutableHelper.parseJSON({
     title: "Lorem ipsum dolor",
     text: "Nullam id dolor id nibh ultricies vehicula ut id elit."
   },
+  multi_action_button: {
+    text: 'Multi Action Button'
+  },
   number: {
     value: 0
   },
