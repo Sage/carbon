@@ -343,7 +343,7 @@ function showSizeText() {
 }
 
 function recordsText(numberOfRecords) {
-  return I18n.t('pager.records', { count: numberOfRecords, defaultValue: ' records' });
+  return I18n.t('pager.records', { count: Number(numberOfRecords), defaultValue: ' records' });
 }
 
 function pageX() {
