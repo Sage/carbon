@@ -36,10 +36,6 @@ class TableDemo extends React.Component {
     return AppActions.appValueUpdated.bind(this, 'table');
   }
 
-  onDelete = (keys) => {
-    console.log(keys);
-  }
-
   /**
    * @method demo
    */
@@ -63,11 +59,9 @@ class TableDemo extends React.Component {
 
     let actions = [{
       text: "Add Subscriptions",
-      onClick: this.onDelete,
       icon: "basket"
     }, {
       text: "Delete",
-      onClick: this.onDelete,
       icon: "bin"
     }];
 
@@ -79,7 +73,7 @@ class TableDemo extends React.Component {
           actions={ actions }
           currentPage={ this.value('current_page') }
           filter={ filter }
-          selectable={ true }
+          selectable={ this.value('selectable') }
           onChange={ AppActions.appTableManuallyUpdated.bind(this, 'table') }
           pageSize={ this.value('page_size') }
           paginate={ this.value('paginate') }
@@ -273,7 +267,7 @@ class TableDemo extends React.Component {
    */
   get tableHeaderRow() {
     return(
-      <TableRow key='header' as='header' uniqueID='header' selectAll={ true }>
+      <TableRow key='header' as='header' uniqueID='header' selectAll={ this.value('selectable') }>
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>
