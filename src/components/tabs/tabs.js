@@ -115,7 +115,16 @@ class Tabs extends React.Component {
      * @property position
      * @type {String}
      */
-    position: React.PropTypes.string
+    position: React.PropTypes.string,
+
+    /**
+     * defines a custom event handler to override
+     * default tab click behaviour
+     *
+     * @property onClick
+     * @type {function}
+     */
+    onClick: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -237,7 +246,7 @@ class Tabs extends React.Component {
       return(
         <li
           className={ this.tabHeaderClasses(child) }
-          onClick={ this.handleTabClick }
+          onClick={ this.props.onClick || this.handleTabClick }
           key={ child.props.tabId }
           data-tabid={ child.props.tabId } >
             { child.props.title }

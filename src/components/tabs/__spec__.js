@@ -109,6 +109,30 @@ describe('Tabs', () => {
 
       expect(secondTab.classList[1]).toEqual('ui-tabs__headers__header--selected');
     });
+
+    describe('with a custom click handler', () => {
+      let handlerCalled = false;
+      const customHandler = () => {
+        console.log('customHandler');
+        handlerCalled = true;
+      };
+
+      let instanceWithCustomClickHandler = TestUtils.renderIntoDocument(
+        <Tabs renderHiddenTabs={ false } onClick={ customHandler }>
+          { null }
+          <Tab title='Tab Title 1' tabId='uniqueid1'>
+            <Textbox name='foo'/>
+            <Textbox name='bar'/>
+          </Tab>
+        </Tabs>
+      );
+
+      it('calls the given event handler', () => {
+        let firstTab = TestUtils.scryRenderedDOMComponentsWithTag(instanceWithCustomClickHandler, 'li')[0];
+        TestUtils.Simulate.click(firstTab);
+        expect(handlerCalled).toBeTruthy();
+      });
+    });
   });
 
   describe('mainClasses', () => {
