@@ -191,10 +191,39 @@ class Pod extends React.Component {
     return classNames(
       'ui-pod',
       this.props.className,
-      `ui-pod--${this.props.as}`,
+      `ui-pod--${this.props.as}`, {
+        'ui-pod--no-border': !this.props.border,
+        'ui-pod--action': this.props.actionContent
+      }
+    );
+  }
+
+  get contentClasses() {
+    return classNames(
+      'ui-pod__content',
+      `ui-pod__content--${this.props.as}`,
+      `ui-pod--padding-${this.props.padding}`, {
+        'ui-pod__content--action': this.props.actionContent,
+        'ui-pod--no-border': !this.props.border
+      }
+    );
+  }
+
+  get podActionClasses() {
+    return classNames(
+      'ui-pod__action',
+      `ui-pod__action--${this.props.as}`,
       `ui-pod--padding-${this.props.padding}`, {
         'ui-pod--no-border': !this.props.border
       }
+    );
+  }
+
+  get podAction() {
+    return (
+      <div className={ this.podActionClasses }>
+        { this.props.actionContent }
+      </div>
     );
   }
 
@@ -205,14 +234,18 @@ class Pod extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let content;
+    let content, action;
 
-    if(!this.state.collapsed) { content = this.podContent; }
+    if (!this.state.collapsed) { content = this.podContent; }
+    if (this.props.actionContent) { action = this.podAction; }
 
     return (
-      <div className={ this.mainClasses } >
-        { this.podHeader }
-        { content }
+      <div className={ this.mainClasses }>
+        <div className={ this.contentClasses } >
+          { this.podHeader }
+          { content }
+        </div>
+          { action }
       </div>
     );
   }

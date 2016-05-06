@@ -171,5 +171,33 @@ describe('Pod', () => {
       let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
       expect(buttons.length).toEqual(3);
     });
+
+    describe('actionContent is not passed', () => {
+      it('does not display an action footer', () => {
+        expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pod__action').length).toEqual(0);
+      });
+    });
+
+    describe('when actionContent is a passed prop', () => {
+      let action = <div className='action-test'>Foobar</div>
+
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Pod actionContent={ action }>
+            <Button>Button</Button>
+            <Button>Button</Button>
+            <Button>Button</Button>
+          </Pod>
+        );
+      });
+
+      it('renders an action footer', () => {
+        expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pod__action').length).toEqual(1);
+      });
+
+      it('renders the passed content', () => {
+        expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'action-test').length).toEqual(1);
+      });
+    });
   });
 });
