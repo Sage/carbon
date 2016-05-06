@@ -471,7 +471,7 @@ class Table extends React.Component {
     if (!state && isSelected) {
       // if unselecting the row, delete it from the object
       delete this.selectedRows[id];
-    } else {
+    } else if (!row.props.selectAll) {
       // add current row to the list of selected rows
       this.selectedRows[id] = row;
     }
