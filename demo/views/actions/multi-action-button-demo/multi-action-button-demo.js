@@ -31,9 +31,11 @@ class MultiActionButtonDemo extends React.Component {
   get demo() {
     let props = {};
 
-    if (this.value('primary')) {
-      props.as = "primary";
-    }
+    // if (this.value('primary')) {
+    //   props.as = "primary";
+    // }
+
+    props.as = 'transparent';
 
     return (
       <MultiActionButton

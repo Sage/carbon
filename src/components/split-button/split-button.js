@@ -65,7 +65,7 @@ class SplitButton extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    showAdditionalButtons: false
+    showAdditionalButtons: true
   }
 
   /**

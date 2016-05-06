@@ -49,7 +49,8 @@ class MultiActionButton extends SplitButton {
    */
   get additionalButtonsClasses() {
     return super.additionalButtonsClasses +
-      ' ui-multi-action-button__additional-buttons';
+      ' ui-multi-action-button__additional-buttons' +
+      ' ui-multi-action-button__additional-buttons--' + this.props.as;
   }
 
   /**
@@ -61,7 +62,8 @@ class MultiActionButton extends SplitButton {
    */
   get toggleButtonClasses() {
     return super.toggleButtonClasses +
-      ' ui-multi-action-button__toggle';
+      ' ui-multi-action-button__toggle' +
+      ' ui-multi-action-button__toggle--' + this.props.as;
   }
 
   /**
