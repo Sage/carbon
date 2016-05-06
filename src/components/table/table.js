@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Immutable from 'immutable';
+import ActionToolbar from './../action-toolbar';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
@@ -255,6 +256,8 @@ class Table extends React.Component {
      * @property childContextTypes
      * @type {Object}
      */
+    attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
+    detachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
     attachToTable: React.PropTypes.func, // attach the row to the table
     checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
     detachFromTable: React.PropTypes.func, // detach the row from the table
@@ -276,6 +279,8 @@ class Table extends React.Component {
    */
   getChildContext = () => {
     return {
+      attachActionToolbar: this.attachActionToolbar,
+      detachActionToolbar: this.detachActionToolbar,
       attachToTable: this.attachToTable,
       detachFromTable: this.detachFromTable,
       checkSelection: this.checkSelection,
@@ -288,6 +293,10 @@ class Table extends React.Component {
       sortedColumn: this.sortedColumn,
       sortOrder: this.sortOrder
     };
+  }
+
+  state = {
+    selectedCount: 0
   }
 
   /**
@@ -327,10 +336,39 @@ class Table extends React.Component {
 
   /**
    * Tracks the component used for select all.
+   *
    * @property selectAllComponent
    * @type {Object}
    */
   selectAllComponent = null;
+
+  /**
+   * Tracks the action toolbar component.
+   *
+   * @property actionToolbarComponent
+   * @type {Object}
+   */
+  actionToolbarComponent = null;
+
+  /**
+   * Attaches action toolbar to the table.
+   *
+   * @method attachActionToolbar
+   * @param {Object}
+   */
+  attachActionToolbar = (comp) => {
+    this.actionToolbarComponent = comp;
+  }
+
+  /**
+   * Detaches action toolbar to the table.
+   *
+   * @method detachActionToolbar
+   * @param {Object}
+   */
+  detachActionToolbar = () => {
+    this.actionToolbarComponent = null;
+  }
 
   /**
    * Attaches a row to the table.
@@ -441,9 +479,19 @@ class Table extends React.Component {
     // set new state for the row
     row.setState({ selected: state });
 
+    let keys = Object.keys(this.selectedRows);
+
+    if (this.actionToolbarComponent && !skipCallback) {
+      // update action toolbar
+      this.actionToolbarComponent.setState({
+        total: keys.length,
+        selected: keys
+      });
+    }
+
     if (this.props.onSelect && !skipCallback) {
       // trigger onSelect event
-      this.props.onSelect(Object.keys(this.selectedRows));
+      this.props.onSelect(keys);
     }
   }
 
@@ -469,9 +517,19 @@ class Table extends React.Component {
     // if select state is true, track the select all component
     this.selectAllComponent = selectState ? row : null;
 
+    let keys = Object.keys(this.selectedRows);
+
+    if (this.actionToolbarComponent) {
+      // update action toolbar
+      this.actionToolbarComponent.setState({
+        total: keys.length,
+        selected: keys
+      });
+    }
+
     if (this.props.onSelect) {
       // trigger onSelect event
-      this.props.onSelect(Object.keys(this.selectedRows));
+      this.props.onSelect(keys);
     }
   }
 
@@ -722,7 +780,6 @@ class Table extends React.Component {
     return 'ui-table__table';
   }
 
-
   /**
    * Returns thead content wrapped in <thead>
    *
@@ -740,6 +797,20 @@ class Table extends React.Component {
   }
 
   /**
+   * Returns the component for the action toolbar.
+   *
+   * @method actionToolbar
+   * @return {JSX}
+   */
+  get actionToolbar() {
+    if (!this.props.selectable) { return null; }
+
+    return (
+      <ActionToolbar total={ this.state.selectedCount } actions={ this.props.actions } />
+    );
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -747,6 +818,7 @@ class Table extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
+        { this.actionToolbar }
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
             { this.thead }

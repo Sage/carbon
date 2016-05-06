@@ -108,7 +108,7 @@ class TableRow extends React.Component {
       throw new Error("A TableRow which is selectable or highlightable should provide a uniqueID.");
     }
 
-    if (this.context.attachToTable && this.props.uniqueID) {
+    if (this.context.attachToTable && this.props.uniqueID && !this.props.selectAll) {
       // generate row id
       this.rowID = guid();
       // only attach to the table if we have a unique id

@@ -79,6 +79,21 @@ describe('Table', () => {
     });
   });
 
+  describe('attachActionToolbar', () => {
+    it('adds itself to the object', () => {
+      instance.attachActionToolbar('foo');
+      expect(instance.actionToolbarComponent).toEqual('foo');
+    });
+  });
+
+  describe('detachActionToolbar', () => {
+    it('removes itself from the object', () => {
+      instance.actionToolbarComponent = "foo";
+      instance.detachActionToolbar();
+      expect(instance.actionToolbarComponent).toBe(null);
+    });
+  });
+
   describe('selectRow', () => {
     let row;
 
@@ -268,6 +283,25 @@ describe('Table', () => {
         row = { state: {}, setState: () => {} };
         instance.selectAll(row);
         expect(spy).toHaveBeenCalledWith([]);
+      });
+    });
+
+    describe('if there is an actionToolbarComponent', () => {
+      it('calls setState', () => {
+        let spy = jasmine.createSpy();
+        instance = TestUtils.renderIntoDocument(
+          <Table />
+        );
+        instance.actionToolbarComponent = {
+          setState: spy
+        };
+        instance.selectedRows = { foo: {}, bar: {}};
+        row = { state: {}, setState: () => {} };
+        instance.selectAll(row);
+        expect(instance.actionToolbarComponent.setState).toHaveBeenCalledWith({
+          total: 2,
+          selected: ['foo', 'bar']
+        });
       });
     });
   });
