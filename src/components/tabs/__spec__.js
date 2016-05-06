@@ -113,7 +113,6 @@ describe('Tabs', () => {
     describe('with a custom click handler', () => {
       let handlerCalled = false;
       const customHandler = () => {
-        console.log('customHandler');
         handlerCalled = true;
       };
 
