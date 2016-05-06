@@ -3,6 +3,30 @@ import classNames from 'classnames';
 import I18n from 'i18n-js';
 import Link from './../link';
 
+/**
+ * A ActionToolbar widget.
+ *
+ * == How to use a ActionToolbar in a component:
+ *
+ * In your file
+ *
+ *   import ActionToolbar from 'carbon/lib/components/action-toolbar';
+ *
+ * To render a ActionToolbar:
+ *
+ *   let actions = [{
+ *     text: "Add Subscriptions",
+ *     icon: "basket"
+ *   }, {
+ *     text: "Delete",
+ *     icon: "bin"
+ *   }];
+ *
+ *   <ActionToolbar total={ count } actions={ actions } />
+ *
+ * @class ActionToolbar
+ * @constructor
+ */
 class ActionToolbar extends React.Component {
   static contextTypes = {
     attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
