@@ -3,7 +3,9 @@ import { connect } from 'utils/flux';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
+import Immutable from 'immutable';
 
+import Dropdown from 'components/dropdown';
 import MultiActionButton from 'components/multi-action-button';
 import Button from 'components/button';
 import Row from 'components/row';
@@ -29,19 +31,11 @@ class MultiActionButtonDemo extends React.Component {
    * @method demo
    */
   get demo() {
-    let props = {};
-
-    // if (this.value('primary')) {
-    //   props.as = "primary";
-    // }
-
-    props.as = 'transparent';
-
     return (
       <MultiActionButton
         text={ this.value('text') || " " }
         disabled={ this.value('disabled') }
-        { ...props }
+        as={ this.value('as') }
       >
         <Button>Action One</Button>
         <Button>Action Two</Button>
@@ -81,8 +75,19 @@ class MultiActionButtonDemo extends React.Component {
    * @method controls
    */
   get controls() {
+    let opts = Immutable.fromJS([{
+      id: "primary",
+      name: "Primary"
+    }, {
+      id: "secondary",
+      name: "Secondary"
+    }, {
+      id: "transparent",
+      name: "Transparent"
+    }]);
+
     return (
-      <Row columns="4">
+      <Row columns="5">
         <Textbox
           label="Text"
           value={ this.value('text') }
@@ -91,10 +96,13 @@ class MultiActionButtonDemo extends React.Component {
           columnSpan="2"
         />
 
-        <Checkbox
-          label="Primary"
-          value={ this.value('primary') }
-          onChange={ this.action.bind(this, 'primary') }
+        <Dropdown
+          options={ opts }
+          label="As"
+          labelInline={ true }
+          value={ this.value('as') }
+          onChange={ this.action.bind(this, 'as') }
+          columnSpan="2"
         />
 
         <Checkbox
