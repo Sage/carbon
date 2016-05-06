@@ -76,7 +76,8 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     return classNames(
       'common-input__label', {
         'common-input__label--inline': this.props.labelInline,
-        'common-input__label--help': this.props.fieldHelp
+        'common-input__label--help': this.props.fieldHelp,
+        'common-input__label--align-right': this.props.labelAlign === 'right'
       }
     );
   }

@@ -40,6 +40,10 @@
   }
 }
 
+.common-input__label--align-right {
+  text-align: right;
+}
+
 .common-input__help-text {
   color: $grey-mid;
   display: block;

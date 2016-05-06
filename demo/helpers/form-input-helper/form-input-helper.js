@@ -16,13 +16,18 @@ let FormInputHelper = {
       readOnly: scope.value('readOnly'),
       prefix: scope.value('prefix'),
       fieldHelp: scope.value('fieldHelp'),
-      labelHelp: scope.value('labelHelp')
+      labelHelp: scope.value('labelHelp'),
+      labelAlign: (scope.value('labelAlign') ? 'right' : null)
     };
   },
 
   codeProps: (scope, html) => {
     if (scope.value('label')) {
       html += `\n  label='${scope.value('label')}'`;
+    }
+
+    if (scope.value('label') && scope.value('labelAlign')) {
+      html += `\n  labelAlign='right'`;
     }
 
     if (scope.value('fieldHelp')) {
@@ -86,11 +91,17 @@ let FormInputHelper = {
           />
         </Row>
 
-        <Row columns="3">
+        <Row columns="4">
           <Checkbox
             label="Label Inline"
             value={ scope.value('labelInline') }
             onChange={ onChange.bind(scope, 'labelInline') }
+          />
+
+          <Checkbox
+            label="Label Align Right"
+            value={ scope.value('labelAlign') }
+            onChange={ onChange.bind(scope, 'labelAlign') }
           />
 
           <Number
