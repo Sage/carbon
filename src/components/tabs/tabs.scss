@@ -60,6 +60,15 @@ $ui-tabs__header__color: $grey-dark !default;
 .ui-tabs__headers--position-left {
   float: left;
   li {
+    border-right: 2px solid $ui-tabs__header__border-color;
+    border-bottom: none;
     display: block;
+    margin: 2px 0 0 0;
+  }
+  li.ui-tabs__headers__header--selected {
+    border-right-color: $ui-tabs__header--selected_border-color;
+  }
+  li:hover {
+    border-right-color: $ui-tabs__header--selected_border-color;
   }
 }
