@@ -46,11 +46,20 @@ class TableAjaxDemo extends React.Component {
       );
     }
 
+    let actions = [{
+      text: "Add Subscriptions",
+      icon: "basket"
+    }, {
+      text: "Delete",
+      icon: "bin"
+    }];
+
     return (
       <div>
         { filterHtml }
 
         <TableAjax
+          actions={ actions }
           filter={ filter }
           onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
           pageSize={ this.value('page_size') }

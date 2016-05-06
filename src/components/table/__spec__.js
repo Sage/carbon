@@ -139,6 +139,15 @@ describe('Table', () => {
         });
       });
 
+      describe('if row is to be selected but is selectAll', () => {
+        it('does not add the row', () => {
+          instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable={ true }><TableRow uniqueID="foo" selectAll={ true } /></Table>);
+          row = TestUtils.findRenderedComponentWithType(instance, TableRow);
+          instance.selectRow('foo', row, true);
+          expect(instance.selectedRows["foo"]).toBe(undefined);
+        });
+      });
+
       it('calls setState', () => {
         instance.selectRow('foo', row, true);
         expect(row.setState).toHaveBeenCalledWith({ selected: true });
