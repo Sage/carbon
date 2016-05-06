@@ -64,7 +64,7 @@ class TableDemo extends React.Component {
     let actions = [{
       text: "Add Subscriptions",
       onClick: this.onDelete,
-      icon: "basket"
+      icon: "warning"
     }, {
       text: "Delete",
       onClick: this.onDelete,
