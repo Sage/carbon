@@ -268,6 +268,21 @@ describe('Form', () => {
     });
   });
 
+  describe('saveText', () => {
+    describe('if prop is passed', () => {
+      it('returns the prop value', () => {
+        instance = TestUtils.renderIntoDocument(<Form saveText="custom" />)
+        expect(instance.props.saveText).toEqual('custom');
+      });
+    });
+
+    describe('if no prop is passed', () => {
+      it('returns i18n value', () => {
+        expect(instance.props.saveText).toEqual('Save');
+      });
+    });
+  });
+
   describe('render', () => {
     it('renders a parent form', () => {
       let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form')

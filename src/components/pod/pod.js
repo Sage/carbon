@@ -1,3 +1,4 @@
+import css from './../../utils/css';
 import React from 'react';
 import Icon from './../icon';
 import classNames from 'classnames';
@@ -113,7 +114,7 @@ class Pod extends React.Component {
     let pod,
         headerProps = {};
 
-    headerProps.className = "ui-pod__header unselectable";
+    headerProps.className = `ui-pod__header ${css.unselectable}`;
 
     if (this.state.collapsed !== undefined) {
       pod = this.podCollapsible;
