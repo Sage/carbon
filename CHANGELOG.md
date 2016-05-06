@@ -3,6 +3,7 @@
 ## Selectable Table Rows
 
 * Table and TableAjax now have props of `selectable` and `highlightable`, enabling selectable or highlightable rows. Each event also emits events which can be used by developers with props of `onSelect` or `onHighlight`. Developers can also manually control the highlighting or selecting of rows using the same props on TableRow components.
+* Selectable rows also enables an action toolbar for the table, for which actions can be defined using the `actions` prop.
 
 ## CSS
 

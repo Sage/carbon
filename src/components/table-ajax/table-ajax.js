@@ -145,6 +145,8 @@ class TableAjax extends Table {
      * @property childContextTypes
      * @type {Object}
      */
+    attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
+    detachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
     attachToTable: React.PropTypes.func, // attach the row to the table
     checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
     detachFromTable: React.PropTypes.func, // detach the row from the table
@@ -166,6 +168,8 @@ class TableAjax extends Table {
    */
   getChildContext = () => {
     return {
+      attachActionToolbar: this.attachActionToolbar,
+      detachActionToolbar: this.detachActionToolbar,
       attachToTable: this.attachToTable,
       detachFromTable: this.detachFromTable,
       checkSelection: this.checkSelection,
