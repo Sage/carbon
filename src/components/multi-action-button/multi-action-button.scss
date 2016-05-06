@@ -26,7 +26,7 @@
   color: $grey-dark-blue-80;
 
   .ui-multi-action-button--open & {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
     color: $grey-dark-blue-80;
     background-color: white;
   }
@@ -34,7 +34,7 @@
 
 .ui-multi-action-button__additional-buttons--transparent {
   background-color: white;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
 
   .ui-button {
     color: $grey-dark-blue-80;

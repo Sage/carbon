@@ -25,6 +25,34 @@ import SplitButton from './../split-button';
  */
 class MultiActionButton extends SplitButton {
 
+  static propTypes = {
+    /**
+     * Customizes the appearance, can be set to 'primary', 'secondary' or 'transparent'.
+     *
+     * @property as
+     * @type {String}
+     * @default 'secondary'
+     */
+    as: React.PropTypes.string,
+
+    /**
+     * The text to be displayed in the SplitButton.
+     *
+     * @property text
+     * @type {String}
+     */
+    text: React.PropTypes.string.isRequired,
+
+    /**
+     * Gives the button a disabled state.
+     *
+     * @property boolean
+     * @type {Boolean}
+     * @default false
+     */
+    disabled: React.PropTypes.bool
+  }
+
   /**
    * Returns classes for the component.
    * @override
