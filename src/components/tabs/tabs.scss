@@ -56,3 +56,10 @@ $ui-tabs__header__color: $grey-dark !default;
 .ui-tabs__headers__header--error {
   border-bottom-color: $red;
 }
+
+.ui-tabs__headers--position-left {
+  float: left;
+  li {
+    display: block;
+  }
+}
