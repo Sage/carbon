@@ -34,38 +34,26 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {HTML}
    */
   get renderIcon() {
-    let icon;
-
     switch(this.type) {
       case 'warning':
-        icon = this.renderWarningIcon;
-        break;
+        return this.renderWarningIcon;
       case 'new':
-        icon = this.renderNewIcon;
-        break;
+        return this.renderNewIcon;
       case 'maintenance':
-        icon = this.renderMaintenanceIcon;
-        break;
+        return this.renderMaintenanceIcon;
       case 'sort-up':
-        icon = this.renderSortUpIcon;
-        break;
+        return this.renderSortUpIcon;
       case 'sort-down':
-        icon = this.renderSortDownIcon;
-        break;
+        return this.renderSortDownIcon;
       case 'refresh':
-        icon = this.renderRefreshIcon;
-        break;
+        return this.renderRefreshIcon;
       case 'bin':
-        icon = this.renderBinIcon;
-        break;
+        return this.renderBinIcon;
       case 'basket':
-        icon = this.renderBasketIcon;
-        break;
+        return this.renderBasketIcon;
       default:
         null;
     }
-
-    return icon;
   }
 
   /**
@@ -196,13 +184,13 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     return {
       __html:
         '<svg class="ui-icon__svg ui-icon__svg--new" width="50px" height="40px" viewBox="0 0 50 40">' +
-        '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-          '<g class="ui-icon__svg-group" fill="currentColor">' +
-            '<path d="M12,20 L21,20 L21,33 L12,33 L12,20 Z M29,20 L38,20 L38,33 L29,33 L29,20 Z M22,12 L28,12 L28,33 L22,33 L22,12 Z M11,12 L21,12 L21,19 L11,19 L11,12 Z M29,12 L39,12 L39,19 L29,19 L29,12 Z M23,8 L27,8 L27,11 L23,11 L23,8 Z M14,5 C16.1114562,4.20820393 22,8 22,8 L22,11 L14,11 C14,11 11.8885438,5.79179607 14,5 Z M36.061575,5 C33.9501189,4.20820393 28.061575,8 28.061575,8 L28.061575,11 L36.061575,11 C36.061575,11 38.1730312,5.79179607 36.061575,5 Z" id="Icon-path">' +
-          '</path>' +
-        '</g>' +
-      '</g>' +
-    '</svg>'
+          '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+            '<g class="ui-icon__svg-group" fill="currentColor">' +
+              '<path d="M12,20 L21,20 L21,33 L12,33 L12,20 Z M29,20 L38,20 L38,33 L29,33 L29,20 Z M22,12 L28,12 L28,33 L22,33 L22,12 Z M11,12 L21,12 L21,19 L11,19 L11,12 Z M29,12 L39,12 L39,19 L29,19 L29,12 Z M23,8 L27,8 L27,11 L23,11 L23,8 Z M14,5 C16.1114562,4.20820393 22,8 22,8 L22,11 L14,11 C14,11 11.8885438,5.79179607 14,5 Z M36.061575,5 C33.9501189,4.20820393 28.061575,8 28.061575,8 L28.061575,11 L36.061575,11 C36.061575,11 38.1730312,5.79179607 36.061575,5 Z" id="Icon-path">' +
+              '</path>' +
+            '</g>' +
+          '</g>' +
+        '</svg>'
     };
   }
 
@@ -228,7 +216,6 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   }
 
   /**
-<<<<<<< HEAD
    * Returns the 'info' icon
    *
    * @method renderRefreshIcon
@@ -248,7 +235,11 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
                     '</g>' +
                 '</g>' +
             '</g>' +
+       '</svg>'
+    };
+  }
 
+  /**
    * Returns the 'bin' icon
    * TODO: Waiting on release of https://github.com/facebook/react/pull/5714
    *
