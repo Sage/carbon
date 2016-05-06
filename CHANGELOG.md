@@ -7,7 +7,8 @@
 ## Misc
 
 * Added 'small' button option - renders pill-like secondary button.
-* Made portrait inline-block to allow label to sit inline. 
+* Made portrait inline-block to allow label to sit inline.
+* Added a 'refresh' svg icon to the icon component.
 
 # 0.8.1
 
