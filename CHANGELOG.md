@@ -16,8 +16,13 @@
 * Made portrait inline-block to allow label to sit inline.
 * Added a 'refresh' svg icon to the icon component.
 * Form component can now set custom `saveText` as a prop.
-* Made portrait inline-block to allow label to sit inline. 
+* Pill styling tweaked slightly.
+* Made portrait inline-block to allow label to sit inline.
 * Updated portrait colour for when no image is loaded.
+
+## Bug Fixes
+* Allow tooltip to decorate class that lacks componentProps method.
+* Records value typecast to number for i18n in Pager
 
 # 0.8.1
 
