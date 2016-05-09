@@ -3,7 +3,7 @@
 
 $ui-tabs__header__background-color: #F5F6F7 !default;
 $ui-tabs__header__border-color: $grey-dark-blue-20 !default;
-$ui-tabs__header--selected_border-color: $blue-bright !default;
+$ui-tabs__header--selected-border-color: $blue-bright !default;
 $ui-tabs__header__color: $grey-dark !default;
 
 .ui-tabs {
@@ -37,15 +37,15 @@ $ui-tabs__header__color: $grey-dark !default;
   }
 
   &:hover {
-    background: $ui-tabs__header--selected_border-color;
-    border-bottom-color: $ui-tabs__header--selected_border-color;
+    background: $ui-tabs__header--selected-border-color;
+    border-bottom-color: $ui-tabs__header--selected-border-color;
     color: $white;
   }
 }
 
 .ui-tabs__headers__header--selected {
   background-color: $white;
-  border-bottom-color: $ui-tabs__header--selected_border-color;
+  border-bottom-color: $ui-tabs__header--selected-border-color;
 
   &:hover {
     background: $white;
@@ -59,16 +59,17 @@ $ui-tabs__header__color: $grey-dark !default;
 
 .ui-tabs__headers--position-left {
   float: left;
-  li {
+  .ui-tabs__headers__header {
     border-right: 2px solid $ui-tabs__header__border-color;
     border-bottom: none;
     display: block;
     margin: 2px 0 0 0;
+
+    &:hover {
+      border-right-color: $ui-tabs__header--selected-border-color;
+    }
   }
-  li.ui-tabs__headers__header--selected {
-    border-right-color: $ui-tabs__header--selected_border-color;
-  }
-  li:hover {
-    border-right-color: $ui-tabs__header--selected_border-color;
+  .ui-tabs__headers__header--selected {
+    border-right-color: $ui-tabs__header--selected-border-color;
   }
 }
