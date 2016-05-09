@@ -71,11 +71,12 @@ To render a Tabs Widget with Options:
 | renderHiddenTabs      | false       | Boolean        | true          | Hidden tabs will be rendered (maintain form errors) |
 | initialSelectedTabId  | false       | String         | (first tab)   | Which tab is selected on page load |
 | position              | false       | String         | top           | Position of the tabs wrt content |
-| onClick               | false       | func           | undefined     | Custom event handler to override the default tab click handler |
 
 ### Tab Props
 | Name       | Required    | Type           | Default       | Description   |
 | ---------- | ----------- | -------------  | ------------- | ------------- |
 | title      | true        | String         |               | Title to be shown in tab header |
 | tabId      | true        | String         |               | unique id for the tab |
+| href       | false       | String         |               | optional link URL |
+| target     | false       | String         |               | sets the `target` attribute on `Tab` components with an `href` |
 
