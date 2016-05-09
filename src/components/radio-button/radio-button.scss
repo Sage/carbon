@@ -73,7 +73,7 @@
   }
 
   &[disabled]:checked + .ui-radio-button__sprite .radio-button-check {
-    fill: $grey;
+    fill: $grey-dark-blue-50;
   }
 }
 

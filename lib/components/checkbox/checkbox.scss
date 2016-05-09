@@ -68,7 +68,7 @@
   }
 
   &[disabled]:checked + svg .checkbox-check {
-    fill: $grey;
+    fill: $grey-dark-blue-50;
   }
 }
 

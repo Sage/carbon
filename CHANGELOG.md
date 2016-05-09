@@ -1,4 +1,14 @@
+# 0.10.0
+
+## Misc
+
+* Added `position` prop to `Tabs` and `href`/`target` props to `Tab`.
+
 # 0.9.0
+
+## New Components
+
+* Multi Action Button 
 
 ## Selectable Table Rows
 
@@ -13,14 +23,16 @@
 
 * Inline labels can now be aligned right.
 * Added 'small' button option - renders pill-like secondary button.
+* Made portrait inline-block to allow label to sit inline.
+* Added a 'refresh' svg icon to the icon component.
 * Form component can now set custom `saveText` as a prop.
 * Pill styling tweaked slightly.
 * Made portrait inline-block to allow label to sit inline.
 * Updated portrait colour for when no image is loaded.
-* Added `position` and `onClick` props to `Tabs`.
+* Update Radio Button and Checkbox colour when disabled and checked.
 
 ## Bug Fixes
-
+* Allow tooltip to decorate class that lacks componentProps method.
 * Records value typecast to number for i18n in Pager
 
 # 0.8.1
