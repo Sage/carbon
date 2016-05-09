@@ -37,7 +37,7 @@ class TabsDemo extends React.Component {
           content = `This is the content for tab ${index + 1}`;
 
       return (
-        <Tab title={ title } key={ id } tabId={ id } >
+        <Tab title={ title } key={ id } tabId={ id } href={ data.get('href') } >
           { content }
         </Tab>
       );
@@ -142,6 +142,15 @@ class TabsDemo extends React.Component {
             />
           </TableCell>
 
+          <TableCell>
+            <Textbox
+              label={ false }
+              value={ data.get('href') }
+              onChange={ this.action.bind(this, ['tabData', index, 'href']) }
+              placeholder={ `Enter href (optional)` }
+            />
+          </TableCell>
+
         </TableRow>
       );
     });
@@ -151,6 +160,7 @@ class TabsDemo extends React.Component {
       <TableRow key="header">
         <TableHeader />
         <TableHeader>Title</TableHeader>
+        <TableHeader>href</TableHeader>
       </TableRow>
     );
 
