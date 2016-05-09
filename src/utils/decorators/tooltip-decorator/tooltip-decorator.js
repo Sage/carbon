@@ -245,7 +245,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    * @return {Object} props
    */
   get componentProps() {
-    let props = super.componentProps;
+    let props = super.componentProps || {};
 
     if (this.props.tooltipMessage) {
       props.onMouseEnter = chainFunctions(this.onShow, props.onMouseEnter);
