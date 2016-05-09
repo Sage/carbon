@@ -225,6 +225,12 @@ class Tabs extends React.Component {
     );
   }
 
+  /**
+   * Classes to be applied to the tab header list item element
+   *
+   * @method tabHeaderClasses
+   * @return {String} CSS classes
+   */
   tabHeaderClasses = (tab) => {
     return classNames(
       'ui-tabs__headers__header',
@@ -235,6 +241,12 @@ class Tabs extends React.Component {
     );
   }
 
+  /**
+   * Classes to be applied to the tab header unordered list element
+   *
+   * @method tabListClasses
+   * @return {String} CSS classes
+   */
   tabListClasses = () => {
     return classNames(
       'ui-tabs__headers',
