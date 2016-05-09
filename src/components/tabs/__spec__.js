@@ -98,8 +98,25 @@ describe('Tabs', () => {
     });
   });
 
+  describe('tabs with href and target props', () => {
+    it('renders a hyperlink', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Tabs initialTabId='uniqueid2'>
+          <Tab title='Tab Title 1' tabId='uniqueid1' href='/foo'>
+          </Tab>
+          <Tab title='Tab Title 2' tabId='uniqueid2' href='/bar' target='_blank'>
+          </Tab>
+        </Tabs>);
+
+      let [firstLink, secondLink] = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'a');
+      expect(firstLink.href).toMatch('/foo$');
+      expect(secondLink.href).toMatch('/bar$');
+      expect(secondLink.target).toEqual('_blank');
+    });
+  });
+
   describe('handleTabClick', () => {
-    it('sets the state to teh currently selected tabId', () => {
+    it('sets the state to the currently selected tabId', () => {
       spyOn(instance, 'handleTabClick');
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
 
@@ -108,29 +125,6 @@ describe('Tabs', () => {
       TestUtils.Simulate.click(secondTab);
 
       expect(secondTab.classList[1]).toEqual('ui-tabs__headers__header--selected');
-    });
-
-    describe('with a custom click handler', () => {
-      let handlerCalled = false;
-      const customHandler = () => {
-        handlerCalled = true;
-      };
-
-      let instanceWithCustomClickHandler = TestUtils.renderIntoDocument(
-        <Tabs renderHiddenTabs={ false } onClick={ customHandler }>
-          { null }
-          <Tab title='Tab Title 1' tabId='uniqueid1'>
-            <Textbox name='foo'/>
-            <Textbox name='bar'/>
-          </Tab>
-        </Tabs>
-      );
-
-      it('calls the given event handler', () => {
-        let firstTab = TestUtils.scryRenderedDOMComponentsWithTag(instanceWithCustomClickHandler, 'li')[0];
-        TestUtils.Simulate.click(firstTab);
-        expect(handlerCalled).toBeTruthy();
-      });
     });
   });
 

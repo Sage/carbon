@@ -115,16 +115,7 @@ class Tabs extends React.Component {
      * @property position
      * @type {String}
      */
-    position: React.PropTypes.string,
-
-    /**
-     * defines a custom event handler to override
-     * default tab click behaviour
-     *
-     * @property onClick
-     * @type {function}
-     */
-    onClick: React.PropTypes.func
+    position: React.PropTypes.string
   }
 
   static defaultProps = {
@@ -210,7 +201,11 @@ class Tabs extends React.Component {
    * @param {Event} ev Click Event
    */
   handleTabClick = (ev) => {
-    this.setState({ selectedTabId: ev.target.dataset.tabid });
+    if (ev.target.dataset.href) {
+      // TODO:
+    } else {
+      this.setState({ selectedTabId: ev.target.dataset.tabid });
+    }
   }
 
   /**
@@ -263,15 +258,28 @@ class Tabs extends React.Component {
    */
   get tabHeaders() {
     let tabTitles = compact(React.Children.toArray(this.props.children)).map((child) => {
-      return(
-        <li
-          className={ this.tabHeaderClasses(child) }
-          onClick={ this.props.onClick || this.handleTabClick }
-          key={ child.props.tabId }
-          data-tabid={ child.props.tabId } >
-            { child.props.title }
-        </li>
-      );
+      if (child.props.href) {
+        return(
+          <li
+            className={ this.tabHeaderClasses(child) }
+            key={ child.props.tabId }
+            data-tabid={ child.props.tabId } >
+            <a href={ child.props.href } target={ child.props.target }>
+              { child.props.title }
+            </a>
+          </li>
+        );
+      } else {
+        return(
+          <li
+            className={ this.tabHeaderClasses(child) }
+            onClick={ this.handleTabClick }
+            key={ child.props.tabId }
+            data-tabid={ child.props.tabId } >
+              { child.props.title }
+          </li>
+        );
+      }
     });
 
     return(
