@@ -47,10 +47,10 @@ class PodDemo extends React.Component {
    * @method demo
    */
   get demo() {
-    let action;
+    let footer;
 
-    if (this.value('action')) {
-      action = <div><Link href='#'>Action 1</Link></div>;
+    if (this.value('footer')) {
+      footer = <Link href='#'>Action 1</Link>;
     }
 
     return (
@@ -61,7 +61,7 @@ class PodDemo extends React.Component {
         padding={ this.value('padding') }
         border={ this.value('border') }
         as={ this.value('as') }
-        actionContent={ action }
+        footer={ footer }
       >
         <Row>
           <Textbox />
@@ -206,9 +206,9 @@ class PodDemo extends React.Component {
             onChange={ this.action.bind(this, 'border') }
           />
           <Checkbox
-            label="Action"
-            value={ this.value('action') }
-            onChange={ this.action.bind(this, 'action') }
+            label="Footer"
+            value={ this.value('footer') }
+            onChange={ this.action.bind(this, 'footer') }
           />
         </Row>
       </div>
