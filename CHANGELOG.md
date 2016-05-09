@@ -21,6 +21,7 @@
 * Pill styling tweaked slightly.
 * Made portrait inline-block to allow label to sit inline.
 * Updated portrait colour for when no image is loaded.
+* Update Radio Button and Checkbox colour when disabled and checked.
 
 ## Bug Fixes
 * Allow tooltip to decorate class that lacks componentProps method.
