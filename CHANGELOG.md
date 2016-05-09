@@ -19,7 +19,7 @@
 * Updated portrait colour for when no image is loaded.
 
 ## Bug Fixes
-
+* Allow tooltip to decorate class that lacks componentProps method.
 * Records value typecast to number for i18n in Pager
 
 # 0.8.1
