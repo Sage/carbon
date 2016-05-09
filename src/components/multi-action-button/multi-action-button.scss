@@ -1,5 +1,6 @@
 @import 'colors';
 @import 'buttons';
+@import 'z-index';
 
 .ui-multi-action-button__toggle {
   width: auto;
@@ -8,7 +9,7 @@
   box-sizing: border-box;
   padding: 7px 8px 7px 15px;
   position: relative;
-  z-index: 1;
+  z-index: $z-split-button + 1;
 
   &.ui-button--disabled {
     border-color: $ui-button__border-color--disabled;
@@ -24,7 +25,6 @@
   border-radius: $ui-button__border-radius;
   padding-top: 35px;
   top: 0;
-  z-index: 0;
 
   .ui-button {
     padding-left: 15px;
