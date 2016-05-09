@@ -36,6 +36,7 @@ class MultiActionButtonDemo extends React.Component {
         text={ this.value('text') || " " }
         disabled={ this.value('disabled') }
         as={ this.value('as') }
+        align={ this.value('align_right') ? "right" : "" }
       >
         <Button>Action One</Button>
         <Button>Action Two</Button>
@@ -87,7 +88,7 @@ class MultiActionButtonDemo extends React.Component {
     }]);
 
     return (
-      <Row columns="5">
+      <Row columns="6">
         <Textbox
           label="Text"
           value={ this.value('text') }
@@ -109,6 +110,12 @@ class MultiActionButtonDemo extends React.Component {
           label="Disabled"
           value={ this.value('disabled') }
           onChange={ this.action.bind(this, 'disabled') }
+        />
+
+        <Checkbox
+          label="Align Right"
+          value={ this.value('align_right') }
+          onChange={ this.action.bind(this, 'align_right') }
         />
       </Row>
     );

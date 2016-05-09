@@ -63,8 +63,10 @@ class MultiActionButton extends SplitButton {
   get mainClasses() {
     return classNames(
       super.mainClasses,
-      'ui-multi-action-button',
-      { 'ui-multi-action-button--open': this.state.showAdditionalButtons }
+      'ui-multi-action-button', {
+        'ui-multi-action-button--open': this.state.showAdditionalButtons,
+        'ui-multi-action-button--align-right': this.props.align === "right"
+      }
     );
   }
 
@@ -103,12 +105,10 @@ class MultiActionButton extends SplitButton {
    */
   get renderMainButton() {
     return (
-      <div>
-        <Button { ...this.toggleButtonProps } >
-          { this.props.text}
-          <Icon type='dropdown' />
-        </Button>
-      </div>
+      <Button { ...this.toggleButtonProps } >
+        { this.props.text}
+        <Icon type='dropdown' />
+      </Button>
     );
   }
 }

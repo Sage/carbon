@@ -52,6 +52,11 @@ describe('SplitButton', () => {
     it('adds multi action button classes', () => {
       expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-multi-action-button').length).toEqual(1);
     });
+
+    it('adds right aligned class', () => {
+      instance = TestUtils.renderIntoDocument(<MultiActionButton align="right" />);
+      expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-multi-action-button--align-right').length).toEqual(1);
+    });
   });
 
   describe('toggleButtonClasses', () => {
