@@ -7,6 +7,7 @@
 ## Selectable Table Rows
 
 * Table and TableAjax now have props of `selectable` and `highlightable`, enabling selectable or highlightable rows. Each event also emits events which can be used by developers with props of `onSelect` or `onHighlight`. Developers can also manually control the highlighting or selecting of rows using the same props on TableRow components.
+* Selectable rows also enables an action toolbar for the table, for which actions can be defined using the `actions` prop.
 
 ## CSS
 
@@ -17,8 +18,13 @@
 * Inline labels can now be aligned right.
 * Added 'small' button option - renders pill-like secondary button.
 * Form component can now set custom `saveText` as a prop.
-* Made portrait inline-block to allow label to sit inline. 
+* Pill styling tweaked slightly.
+* Made portrait inline-block to allow label to sit inline.
 * Updated portrait colour for when no image is loaded.
+
+## Bug Fixes
+* Allow tooltip to decorate class that lacks componentProps method.
+* Records value typecast to number for i18n in Pager
 
 # 0.8.1
 

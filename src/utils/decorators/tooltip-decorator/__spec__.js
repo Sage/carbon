@@ -31,25 +31,39 @@ class BasicClass extends React.Component {
   }
 };
 
+class StrippedClass extends React.Component {
+  componentWillUpdate() {}
+  componentDidUpdate() {}
+  onBlur = () => {}
+  onFocus = () => {}
+  onMouseEnter = () => {}
+  onMouseLeave = () => {}
+
+  render() {
+    return (
+      <div tooltipMessage={ this.props.tooltipMessage } tooltipPosition={ this.props.tooltipPosition } tooltipAlign={ this.props.tooltipAlign }>
+        {this.tooltipHTML }
+      </div>
+    )
+  }
+};
+
+
 
 describe('tooltip-decorator', () => {
-  let topTooltip, bottomTooltip, rightTooltip, leftTooltip, bottomAlignTooltip, noTooltip;
+  let topTooltip, bottomTooltip, rightTooltip, leftTooltip, bottomAlignTooltip, noTooltip, strippedTooltip;
 
   beforeEach(() => {
     let DecoratedClassOne = TooltipDecorator(BasicClass);
+    let DecoratedClassTwo = TooltipDecorator(StrippedClass);
+
     topTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello'/>);
+    bottomTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='bottom'/>);
+    rightTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='right'/>);
+    leftTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='left'/>);
+    noTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne/>);
 
-    let DecoratedClassTwo = TooltipDecorator(BasicClass);
-    bottomTooltip = TestUtils.renderIntoDocument(<DecoratedClassTwo tooltipMessage='Hello' tooltipPosition='bottom'/>);
-
-    let DecoratedClassThree = TooltipDecorator(BasicClass);
-    rightTooltip = TestUtils.renderIntoDocument(<DecoratedClassThree tooltipMessage='Hello' tooltipPosition='right'/>);
-
-    let DecoratedClassFour = TooltipDecorator(BasicClass);
-    leftTooltip = TestUtils.renderIntoDocument(<DecoratedClassFour tooltipMessage='Hello' tooltipPosition='left'/>);
-
-    let DecoratedClassFive = TooltipDecorator(BasicClass);
-    noTooltip = TestUtils.renderIntoDocument(<DecoratedClassFive/>);
+    strippedTooltip = TestUtils.renderIntoDocument(<DecoratedClassTwo />);
 
     jasmine.clock().install();
   });
@@ -571,6 +585,12 @@ describe('tooltip-decorator', () => {
 
       it('does not add a touchEnd handler', () => {
         expect(noTooltip.componentProps.onTouchEnd).not.toBeDefined();
+      });
+    });
+
+    describe('when the super class lacks a componentProps method', () => {
+      it('sets props to an empty object', () => {
+        expect(strippedTooltip.componentProps).toEqual({});
       });
     });
   });
