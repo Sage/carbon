@@ -57,11 +57,20 @@ class TableDemo extends React.Component {
       );
     }
 
+    let actions = [{
+      text: "Add Subscriptions",
+      icon: "basket"
+    }, {
+      text: "Delete",
+      icon: "bin"
+    }];
+
     return (
       <div>
         { filterHtml }
 
         <Table
+          actions={ actions }
           currentPage={ this.value('current_page') }
           filter={ filter }
           selectable={ this.value('selectable') }
