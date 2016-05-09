@@ -69,13 +69,15 @@
   }
 }
 
-.ui-icon__svg {
-  height: 40px;
-  width: 50px;
-}
+.ui-flash__icon {
+  .ui-icon__svg {
+    height: 40px;
+    width: 50px;
+  }
 
-.ui-icon__svg-group {
-  fill: $white;
+  .ui-icon__svg-group {
+    fill: $white;
+  }
 }
 
 .ui-flash__close-icon {

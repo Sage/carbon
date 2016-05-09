@@ -8,3 +8,19 @@
 .ui-table-row--clickable {
   cursor: pointer;
 }
+
+.ui-table-row--selected .ui-table-cell {
+  background-color: $row-hover-color !important;
+  border-bottom-color: $blue-navy;
+  position: relative;
+
+  &:before {
+    background-color: $blue-navy;
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: -1px;
+    width: 100%;
+  }
+}
