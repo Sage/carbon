@@ -17,6 +17,8 @@
 
 * Inline labels can now be aligned right.
 * Added 'small' button option - renders pill-like secondary button.
+* Made portrait inline-block to allow label to sit inline.
+* Added a 'refresh' svg icon to the icon component.
 * Form component can now set custom `saveText` as a prop.
 * Pill styling tweaked slightly.
 * Made portrait inline-block to allow label to sit inline.

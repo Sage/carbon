@@ -47,6 +47,14 @@ describe('Icon', () => {
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--sort-up");
     });
 
+    it('calls the render refresh icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='refresh' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--refresh");
+    });
+
     it('calls the render bin icon method', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='bin' />);
       instance.renderIcon;
