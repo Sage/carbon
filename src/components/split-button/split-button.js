@@ -103,6 +103,26 @@ class SplitButton extends React.Component {
   }
 
   /**
+   * Returns classes for the additional actions.
+   *
+   * @method mainClasses
+   * @return {String} Main className
+   */
+  get additionalButtonsClasses() {
+    return 'ui-split-button__additional-buttons';
+  }
+
+  /**
+   * Returns classes for toggle button.
+   *
+   * @method mainClasses
+   * @return {String} Main className
+   */
+  get toggleButtonClasses() {
+    return 'ui-split-button__toggle';
+  }
+
+  /**
    * Returns props for the main button.
    *
    * @method mainButtonProps
@@ -126,7 +146,7 @@ class SplitButton extends React.Component {
       disabled: this.props.disabled,
       as: this.props.as,
       onClick: (ev) => { ev.preventDefault(); },
-      className: "ui-split-button__toggle"
+      className: this.toggleButtonClasses
     };
 
     if (!this.props.disabled) {
@@ -164,7 +184,7 @@ class SplitButton extends React.Component {
    */
   get renderAdditionalButtons() {
     return (
-      <div className='ui-split-button__additional-buttons'>
+      <div className={ this.additionalButtonsClasses }>
         { this.props.children }
       </div>
     );
