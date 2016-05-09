@@ -50,7 +50,15 @@ class MultiActionButton extends SplitButton {
      * @type {Boolean}
      * @default false
      */
-    disabled: React.PropTypes.bool
+    disabled: React.PropTypes.bool,
+
+    /**
+     * Aligns the button's options, can be set to `right`.
+     *
+     * @property align
+     * @type {String}
+     */
+    align: React.PropTypes.string
   }
 
   /**
