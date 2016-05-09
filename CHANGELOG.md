@@ -14,12 +14,13 @@
 * Inline labels can now be aligned right.
 * Added 'small' button option - renders pill-like secondary button.
 * Form component can now set custom `saveText` as a prop.
+* Pill styling tweaked slightly.
 * Made portrait inline-block to allow label to sit inline.
 * Updated portrait colour for when no image is loaded.
 
 ## Bug Fixes
-
 * Allow tooltip to decorate class that lacks componentProps method.
+* Records value typecast to number for i18n in Pager
 
 # 0.8.1
 
