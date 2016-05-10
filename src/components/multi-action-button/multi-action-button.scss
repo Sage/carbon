@@ -19,6 +19,10 @@
     border-color: $ui-button__background-color--primary--hover;
     border-bottom-left-radius: 0;
   }
+
+  .ui-icon {
+    top: -1px;
+  }
 }
 
 .ui-multi-action-button__additional-buttons {
