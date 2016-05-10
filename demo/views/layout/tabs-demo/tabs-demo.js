@@ -53,12 +53,16 @@ class TabsDemo extends React.Component {
     return this.value('position') || 'top';
   }
 
+  get titleSize() {
+    return this.value('titleSize') || 'medium';
+  }
+
   /**
    * @method demo
    */
   get demo() {
     return (
-      <Tabs align={ this.align } position={ this.position }>
+      <Tabs align={ this.align } position={ this.position } titleSize={ this.titleSize }>
         { this.tabs }
       </Tabs>
     );
@@ -78,6 +82,10 @@ class TabsDemo extends React.Component {
 
     if (this.value('position')) {
       html += ` position='${this.value('position')}'`
+    }
+
+    if (this.value('titleSize')) {
+      html += ` titleSize='${this.value('titleSize')}'`
     }
 
     html += ' >\n\n'
@@ -111,6 +119,19 @@ class TabsDemo extends React.Component {
     }, {
       id: "left",
       name: "Left"
+    }]);
+  }
+
+  /**
+   * @method titleSizeOptions
+   */
+  get titleSizeOptions() {
+    return Immutable.fromJS([{
+      id: "medium",
+      name: "Medium"
+    }, {
+      id: "large",
+      name: "Large"
     }]);
   }
 
@@ -192,6 +213,15 @@ class TabsDemo extends React.Component {
             value={ this.value('position') }
             onChange={ this.action.bind(this, 'position') }
             options={ this.positionOptions }
+          />
+        </Row>
+        <Row>
+          <Dropdown
+            label="Title Size"
+            labelInline={ true }
+            value={ this.value('titleSize') }
+            onChange={ this.action.bind(this, 'titleSize') }
+            options={ this.titleSizeOptions }
           />
         </Row>
         <Row>
