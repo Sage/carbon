@@ -271,29 +271,22 @@ class Tabs extends React.Component {
     };
 
     let tabTitles = compact(React.Children.toArray(this.props.children)).map((child) => {
-      if (child.props.href) {
-        return(
-          <li
-            className={ this.tabHeaderClasses(child) }
-            key={ child.props.tabId }
-            data-tabid={ child.props.tabId } >
-            <a href={ child.props.href } target={ child.props.target } className='ui-tabs__anchor'>
-              { child.props.title }
-              { iconFor(child) }
-            </a>
-          </li>
-        );
-      } else {
-        return(
-          <li
-            className={ this.tabHeaderClasses(child) }
-            onClick={ this.handleTabClick }
-            key={ child.props.tabId }
-            data-tabid={ child.props.tabId } >
-              { child.props.title }
-          </li>
-        );
-      }
+      let liContent = child.props.href ? (
+        <a href={ child.props.href } target={ child.props.target } className='ui-tabs__anchor'>
+          { child.props.title }
+          { iconFor(child) }
+        </a>
+      ) : child.props.title;
+
+      return(
+        <li
+          className={ this.tabHeaderClasses(child) }
+          onClick={ this.handleTabClick }
+          key={ child.props.tabId }
+          data-tabid={ child.props.tabId } >
+            { liContent }
+        </li>
+      );
     });
 
     return(
