@@ -211,11 +211,7 @@ class Tabs extends React.Component {
    * @param {Event} ev Click Event
    */
   handleTabClick = (ev) => {
-    if (ev.target.dataset.href) {
-      // TODO:
-    } else {
-      this.setState({ selectedTabId: ev.target.dataset.tabid });
-    }
+    this.setState({ selectedTabId: ev.target.dataset.tabid });
   }
 
   /**
