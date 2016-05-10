@@ -1,6 +1,7 @@
 import React from 'react';
 import Immutable from 'immutable';
 import Tab from './tab';
+import Icon from '../icon';
 import { compact } from 'lodash';
 import classNames from 'classnames';
 
@@ -267,6 +268,12 @@ class Tabs extends React.Component {
    * @return Unordered list of tab titles
    */
   get tabHeaders() {
+    let iconFor = (tab) => {
+      if (tab.props.href && tab.props.target === '_blank') {
+        return (<Icon type='logout'/>);
+      }
+    };
+
     let tabTitles = compact(React.Children.toArray(this.props.children)).map((child) => {
       if (child.props.href) {
         return(
@@ -276,6 +283,7 @@ class Tabs extends React.Component {
             data-tabid={ child.props.tabId } >
             <a href={ child.props.href } target={ child.props.target } className='ui-tabs__anchor'>
               { child.props.title }
+              { iconFor(child) }
             </a>
           </li>
         );

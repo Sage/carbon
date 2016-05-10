@@ -40,6 +40,10 @@ $ui-tabs__header__color: $grey-dark !default;
     background: $ui-tabs__header--selected-border-color;
     border-bottom-color: $ui-tabs__header--selected-border-color;
     color: $white;
+
+    .ui-tabs__anchor {
+      color: $white;
+    }
   }
 }
 
@@ -50,6 +54,10 @@ $ui-tabs__header__color: $grey-dark !default;
   &:hover {
     background: $white;
     color: $grey-dark;
+
+    .ui-tabs__anchor {
+      color: $grey-dark;
+    }
   }
 }
 
@@ -86,8 +94,12 @@ $ui-tabs__header__color: $grey-dark !default;
 .ui-tabs__anchor {
   text-decoration: none;
   color: $ui-tabs__header__color;
+  display: block;
+  position: relative;
+  padding-right: 50px;
 
-  &:hover {
-    color: $white;
+  .ui-icon {
+    position: absolute;
+    right: 0px;
   }
 }
