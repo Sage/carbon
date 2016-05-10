@@ -264,7 +264,7 @@ class Tabs extends React.Component {
             className={ this.tabHeaderClasses(child) }
             key={ child.props.tabId }
             data-tabid={ child.props.tabId } >
-            <a href={ child.props.href } target={ child.props.target }>
+            <a href={ child.props.href } target={ child.props.target } className='ui-tabs__anchor'>
               { child.props.title }
             </a>
           </li>

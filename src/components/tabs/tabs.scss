@@ -69,7 +69,17 @@ $ui-tabs__header__color: $grey-dark !default;
       border-right-color: $ui-tabs__header--selected-border-color;
     }
   }
+
   .ui-tabs__headers__header--selected {
     border-right-color: $ui-tabs__header--selected-border-color;
+  }
+}
+
+.ui-tabs__anchor {
+  text-decoration: none;
+  color: $ui-tabs__header__color;
+
+  &:hover {
+    color: $white;
   }
 }
