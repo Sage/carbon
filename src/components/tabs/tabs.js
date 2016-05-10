@@ -115,13 +115,22 @@ class Tabs extends React.Component {
      * @property position
      * @type {String}
      */
-    position: React.PropTypes.string
+    position: React.PropTypes.string,
+
+    /**
+     * The size of tab titles - medium (default) or large
+     *
+     * @property titleSize
+     * @type {String}
+     */
+    titleSize: React.PropTypes.string
   }
 
   static defaultProps = {
     renderHiddenTabs: true,
     align: 'left',
-    position: 'top'
+    position: 'top',
+    titleSize: 'medium'
   }
 
   static childContextTypes = {
@@ -246,6 +255,7 @@ class Tabs extends React.Component {
     return classNames(
       'ui-tabs__headers',
       `ui-tabs__headers--align-${ this.props.align }`,
+      `ui-tabs__headers--title-size-${ this.props.titleSize }`,
       `ui-tabs__headers--position-${ this.props.position }`
     );
   }

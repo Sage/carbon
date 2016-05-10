@@ -226,6 +226,36 @@ describe('Tabs', () => {
         expect(headers.className).toMatch('ui-tabs__headers--position-left');
       });
     });
+
+    describe('when a titleSize prop is specified', () => {
+      it('adds a title-size css class', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs titleSize='large'>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+
+        let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
+        expect(headers.className).toMatch('ui-tabs__headers--title-size-large');
+      });
+    });
+
+    describe('when no titleSize prop is specified', () => {
+      it('adds the default title-size css class', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+
+        let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
+        expect(headers.className).toMatch('ui-tabs__headers--title-size-medium');
+      });
+    });
   });
 
   describe('visibleTab', () => {
@@ -311,7 +341,7 @@ describe('Tabs', () => {
     it('renders the tab headers', () => {
       let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
       let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
-      expect(list.className).toEqual('ui-tabs__headers ui-tabs__headers--align-left ui-tabs__headers--position-top');
+      expect(list.className).toEqual('ui-tabs__headers ui-tabs__headers--align-left ui-tabs__headers--title-size-medium ui-tabs__headers--position-top');
       expect(items.length).toEqual(2);
     });
   });
