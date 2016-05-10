@@ -266,7 +266,7 @@ class Tabs extends React.Component {
   get tabHeaders() {
     let iconFor = (tab) => {
       if (tab.props.href && tab.props.target === '_blank') {
-        return (<Icon type='logout'/>);
+        return (<Icon type='newtab'/>);
       }
     };
 
