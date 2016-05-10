@@ -1,3 +1,7 @@
+# 0.9.2
+
+* MulitActionButton Classes more specific
+
 # 0.9.1
 
 ## Bug Fixes
