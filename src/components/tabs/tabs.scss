@@ -75,6 +75,14 @@ $ui-tabs__header__color: $grey-dark !default;
   }
 }
 
+.ui-tabs__headers--title-size-large {
+  .ui-tabs__headers__header {
+    font-size: 1.4em;
+    padding: 20px 20px 19px;
+    font-weight: 300;
+  }
+}
+
 .ui-tabs__anchor {
   text-decoration: none;
   color: $ui-tabs__header__color;
