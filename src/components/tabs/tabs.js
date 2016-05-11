@@ -211,7 +211,7 @@ class Tabs extends React.Component {
    * @param {Event} ev Click Event
    */
   handleTabClick = (ev) => {
-    this.setState({ selectedTabId: ev.target.dataset.tabid });
+    this.setState({ selectedTabId: ev.currentTarget.dataset.tabid });
   }
 
   /**
@@ -271,20 +271,17 @@ class Tabs extends React.Component {
     };
 
     let tabTitles = compact(React.Children.toArray(this.props.children)).map((child) => {
-      let liContent = child.props.href ? (
-        <a href={ child.props.href } target={ child.props.target } className='ui-tabs__anchor'>
-          { child.props.title }
-          { iconFor(child) }
-        </a>
-      ) : child.props.title;
-
       return(
-        <li
-          className={ this.tabHeaderClasses(child) }
-          onClick={ this.handleTabClick }
-          key={ child.props.tabId }
-          data-tabid={ child.props.tabId } >
-            { liContent }
+        <li key={ child.props.tabId }
+          className='ui-tabs__header' >
+          <a href={ child.props.href || '#' }
+            data-tabid={ child.props.tabId }
+            target={ child.props.target }
+            className={ this.tabHeaderClasses(child) }
+            onClick={ this.handleTabClick }>
+              { child.props.title }
+              { iconFor(child) }
+          </a>
         </li>
       );
     });

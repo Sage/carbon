@@ -22,15 +22,20 @@ $ui-tabs__header__color: $grey-dark !default;
   text-align: right;
 }
 
+.ui-tabs__header {
+  display: inline-block;
+}
+
 .ui-tabs__headers__header {
   background-color: $ui-tabs__header__background-color;
   border-bottom: 2px solid $ui-tabs__header__border-color;
   color: $ui-tabs__header__color;
-  display: inline-block;
   font-weight: bold;
   height: 100%;
   margin-left: 2px;
   padding: 11px 15px 10px;
+  text-decoration: none;
+  display: inline-block;
 
   &:first-child {
     margin-left: 0;
@@ -67,6 +72,11 @@ $ui-tabs__header__color: $grey-dark !default;
 
 .ui-tabs__headers--position-left {
   float: left;
+
+  .ui-tabs__header {
+    display: block;
+  }
+
   .ui-tabs__headers__header {
     border-right: 2px solid $ui-tabs__header__border-color;
     border-bottom: none;
