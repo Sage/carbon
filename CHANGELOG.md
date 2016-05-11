@@ -4,6 +4,20 @@
 
 * Added `position` prop to `Tabs` and `href`/`target` props to `Tab`.
 
+# 0.9.2
+
+* MulitActionButton Classes more specific
+
+# 0.9.1
+
+## Bug Fixes
+
+* Various UI Fixes:
+  * MultiActionButton toggle placement.
+  * Removed Tab padding.
+  * Fixed Button height to 31px.
+
+
 # 0.9.0
 
 ## New Components

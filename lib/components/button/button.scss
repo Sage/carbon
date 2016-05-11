@@ -1,5 +1,6 @@
 @import 'colors';
 @import 'general';
+@import "input-field";
 @import 'mixins';
 @import 'buttons';
 
@@ -12,6 +13,7 @@
   display: inline-block;
   font-size: $app-font-size;
   font-weight: $ui-button__font-weight;
+  height: $input-common-height;
   padding: $ui-button__padding;
   outline: none;
   text-decoration: none;
@@ -51,6 +53,11 @@
     border-color: $ui-button__border-color--primary--active;
     color: $ui-button__text-color--primary--active;
   }
+}
+
+// fixes specific css that comes from platform
+a.ui-button--primary {
+  color: $ui-button__text-color--primary;
 }
 
 .ui-button--small {
