@@ -118,7 +118,7 @@ describe('Tabs', () => {
   describe('handleTabClick', () => {
     it('sets the state to the currently selected tabId', () => {
       spyOn(instance, 'handleTabClick');
-      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'a')[1];
 
       expect(secondTab.classList[1]).toBeFalsy();
 
@@ -150,13 +150,13 @@ describe('Tabs', () => {
 
   describe('tabHeaderClasses', () => {
     it('adds a ui-tabs__header class to the tab', () => {
-      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'a')[1];
       expect(secondTab.className).toEqual('ui-tabs__anchor');
     });
 
     describe('when tab is selected tab', () => {
       it('adds a selected class to the header', () => {
-        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[0];
+        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'a')[0];
         expect(secondTab.className).toEqual('ui-tabs__anchor ui-tabs__anchor--selected');
       });
     });
@@ -164,7 +164,7 @@ describe('Tabs', () => {
     describe('when tab is inValid', () => {
       it('adds a error class to the header', () => {
         instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
-        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'a')[1];
         expect(secondTab.className).toEqual('ui-tabs__anchor ui-tabs__anchor--error');
       });
     });
@@ -179,8 +179,8 @@ describe('Tabs', () => {
       expect(instance.tabHeaders.props.children.length).toEqual(2);
     });
 
-    it('adds a data-tabid to each list item', () => {
-      expect(instance.tabHeaders.props.children[0].props['data-tabid']).toEqual('uniqueid1');
+    it('adds a data-tabid to each anchor', () => {
+      expect(instance.tabHeaders.props.children[0].props.children.props['data-tabid']).toEqual('uniqueid1');
     });
 
     describe('when passed a null child', () => {
