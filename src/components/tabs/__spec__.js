@@ -124,7 +124,7 @@ describe('Tabs', () => {
 
       TestUtils.Simulate.click(secondTab);
 
-      expect(secondTab.classList[1]).toEqual('ui-tabs__headers__header--selected');
+      expect(secondTab.classList[1]).toEqual('ui-tabs__anchor--selected');
     });
   });
 
@@ -151,13 +151,13 @@ describe('Tabs', () => {
   describe('tabHeaderClasses', () => {
     it('adds a ui-tabs__header class to the tab', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.className).toEqual('ui-tabs__headers__header');
+      expect(secondTab.className).toEqual('ui-tabs__anchor');
     });
 
     describe('when tab is selected tab', () => {
       it('adds a selected class to the header', () => {
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[0];
-        expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--selected');
+        expect(secondTab.className).toEqual('ui-tabs__anchor ui-tabs__anchor--selected');
       });
     });
 
@@ -165,7 +165,7 @@ describe('Tabs', () => {
       it('adds a error class to the header', () => {
         instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--error');
+        expect(secondTab.className).toEqual('ui-tabs__anchor ui-tabs__anchor--error');
       });
     });
   });
@@ -185,14 +185,14 @@ describe('Tabs', () => {
 
     describe('when passed a null child', () => {
       it('ignores the null child', () => {
-        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'ui-tabs__headers__header')
+        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'ui-tabs__anchor')
         expect(headers.length).toEqual(1);
       });
     });
 
     describe('when there is only one child', () => {
       it('renders a single header', () => {
-        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'ui-tabs__headers__header')
+        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'ui-tabs__anchor')
         expect(headers.length).toEqual(1);
       });
     });

@@ -26,7 +26,7 @@ $ui-tabs__header__color: $grey-dark !default;
   display: inline-block;
 }
 
-.ui-tabs__headers__header {
+.ui-tabs__anchor {
   background-color: $ui-tabs__header__background-color;
   border-bottom: 2px solid $ui-tabs__header__border-color;
   color: $ui-tabs__header__color;
@@ -45,28 +45,20 @@ $ui-tabs__header__color: $grey-dark !default;
     background: $ui-tabs__header--selected-border-color;
     border-bottom-color: $ui-tabs__header--selected-border-color;
     color: $white;
-
-    .ui-tabs__anchor {
-      color: $white;
-    }
   }
 }
 
-.ui-tabs__headers__header--selected {
+.ui-tabs__anchor--selected {
   background-color: $white;
   border-bottom-color: $ui-tabs__header--selected-border-color;
 
   &:hover {
     background: $white;
     color: $grey-dark;
-
-    .ui-tabs__anchor {
-      color: $grey-dark;
-    }
   }
 }
 
-.ui-tabs__headers__header--error {
+.ui-tabs__anchor--error {
   border-bottom-color: $red;
 }
 
@@ -77,7 +69,7 @@ $ui-tabs__header__color: $grey-dark !default;
     display: block;
   }
 
-  .ui-tabs__headers__header {
+  .ui-tabs__anchor {
     border-right: 2px solid $ui-tabs__header__border-color;
     border-bottom: none;
     display: block;
@@ -88,28 +80,15 @@ $ui-tabs__header__color: $grey-dark !default;
     }
   }
 
-  .ui-tabs__headers__header--selected {
+  .ui-tabs__anchor--selected {
     border-right-color: $ui-tabs__header--selected-border-color;
   }
 }
 
 .ui-tabs__headers--title-size-large {
-  .ui-tabs__headers__header {
+  .ui-tabs__anchor {
     font-size: 1.4em;
     padding: 20px 20px 19px;
     font-weight: 300;
-  }
-}
-
-.ui-tabs__anchor {
-  text-decoration: none;
-  color: $ui-tabs__header__color;
-  display: block;
-  position: relative;
-  padding-right: 50px;
-
-  .ui-icon {
-    position: absolute;
-    right: 0px;
   }
 }

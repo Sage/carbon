@@ -234,10 +234,10 @@ class Tabs extends React.Component {
    */
   tabHeaderClasses = (tab) => {
     return classNames(
-      'ui-tabs__headers__header',
+      'ui-tabs__anchor',
       {
-        'ui-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
-        'ui-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
+        'ui-tabs__anchor--error': this.state.tabValidity.get(tab.props.tabId) == false,
+        'ui-tabs__anchor--selected': tab.props.tabId === this.state.selectedTabId
       }
     );
   }
