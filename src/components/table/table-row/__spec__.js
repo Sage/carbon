@@ -314,6 +314,14 @@ describe('TableRow', () => {
       });
     });
 
+    describe('without selectability on the table but disabled on the row', () => {
+      it('renders its children', () => {
+        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow selectable={ false }><td /><td /></TableRow></Table>);
+        row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
+        expect(row.children.length).toEqual(2);
+      });
+    });
+
     describe('with selectAll', () => {
       it('renders a select all cell', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow selectAll={ true }><td /><td /></TableRow></Table>);

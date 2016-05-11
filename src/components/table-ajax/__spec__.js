@@ -32,6 +32,14 @@ describe('TableAjax', () => {
     );
   });
 
+  describe('componentWillUnmount', () => {
+    it('calls stopTimeout', () => {
+      spyOn(instance, 'stopTimeout');
+      instance.componentWillUnmount();
+      expect(instance.stopTimeout).toHaveBeenCalled();
+    });
+  });
+
   describe('componentDidMount', () => {
     it('calls emitOnChange to get initial table data', () => {
       spyOn(instance, 'emitOnChangeCallback');
@@ -154,6 +162,14 @@ describe('TableAjax', () => {
       expect(request.url).toEqual('/test?page=1&rows=10');
     });
 
+    it('stores the request', () => {
+      expect(instance._request).toBe(null);
+      instance.emitOnChangeCallback('data', options);
+      jasmine.clock().tick(251);
+      request = jasmine.Ajax.requests.mostRecent();
+      expect(instance._request).toBeDefined();
+    });
+
     it('on success emits the returned data', () => {
         instance.emitOnChangeCallback('data', options);
         jasmine.clock().tick(251);
@@ -207,6 +223,17 @@ describe('TableAjax', () => {
         instance.timeout = 'foo'
         instance.stopTimeout();
         expect(window.clearTimeout).toHaveBeenCalledWith('foo');
+      });
+    });
+
+    describe('when request is present', () => {
+      it('aborts the request', () => {
+        let spy = jasmine.createSpy(),
+            req = { abort: spy };
+
+        instance._request = req;
+        instance.stopTimeout();
+        expect(spy).toHaveBeenCalled();
       });
     });
   });

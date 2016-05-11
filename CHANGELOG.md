@@ -1,3 +1,12 @@
+# 0.10.0
+
+* Adds loading and empty data states to Table component.
+
+## Bug Fixes
+
+* CSS fixes to Portrait.
+* CSS fixes to Spinner.
+
 # 0.9.2
 
 * MulitActionButton Classes more specific

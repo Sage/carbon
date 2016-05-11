@@ -726,6 +726,79 @@ describe('Table', () => {
     });
   });
 
+  describe('tableContent', () => {
+    describe('if there are children that are not immutable', () => {
+      it('returns the children', () => {
+        instance = TestUtils.renderIntoDocument(<Table><tr /></Table>);
+        expect(instance.tableContent).toEqual(instance.props.children);
+      });
+    });
+
+    describe('if there are children that are immutable', () => {
+      it('returns the children if there are children', () => {
+        let data = Immutable.fromJS([{ foo: 1 }, { foo: 2 }]),
+            children = data.map((child, index) => { return <tr key={ index }></tr>; });
+        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
+
+        expect(instance.tableContent).toEqual(children);
+      });
+
+      it('returns the loadingRow if no children and not yet received data', () => {
+        let data = Immutable.fromJS([]),
+            children = data.map((child, index) => { return <tr key={ index }></tr>; });
+        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
+        instance._hasRetreivedData = false;
+
+        expect(instance.tableContent).toEqual(instance.loadingRow);
+      });
+
+      it('returns the emptyRow if no children and has received data', () => {
+        let data = Immutable.fromJS([]),
+            children = data.map((child, index) => { return <tr key={ index }></tr>; });
+        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
+        instance._hasRetreivedData = true;
+
+        expect(instance.tableContent).toEqual(instance.emptyRow);
+      });
+
+      it('returns the children with the loading row if only row is a header and has not yet received data', () => {
+        let data = Immutable.fromJS([]),
+            children = data.push(<tr as='header' key='header'></tr>);
+        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
+        instance._hasRetreivedData = false;
+
+        expect(instance.tableContent.get(0)).toEqual(instance.props.children.get(0));
+        expect(instance.tableContent.get(1)).toEqual(instance.loadingRow);
+      });
+
+      it('returns the children with the empty row if only row is a header and has received data', () => {
+        let data = Immutable.fromJS([]),
+            children = data.push(<tr as='header' key='header'></tr>);
+        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
+        instance._hasRetreivedData = true;
+
+        expect(instance.tableContent.get(0)).toEqual(instance.props.children.get(0));
+        expect(instance.tableContent.get(1)).toEqual(instance.emptyRow);
+      });
+    });
+
+    describe('if children count is 0 and has not yet retrieved data', () => {
+      it('will return the loading row', () => {
+        instance = TestUtils.renderIntoDocument(<Table></Table>);
+        instance._hasRetreivedData = false;
+        expect(instance.tableContent).toEqual(instance.loadingRow);
+      });
+    });
+
+    describe('if children count is 0 and has retrieved data', () => {
+      it('will return the empty row', () => {
+        instance = TestUtils.renderIntoDocument(<Table></Table>);
+        instance._hasRetreivedData = true;
+        expect(instance.tableContent).toEqual(instance.emptyRow);
+      });
+    });
+  });
+
   describe('render', () => {
     it('renders a table with correct classes', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];

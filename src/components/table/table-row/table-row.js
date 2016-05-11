@@ -104,7 +104,7 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   componentWillMount() {
-    if ((this.props.selectable || this.props.highlightable || this.context.selectable || this.context.highlightable) && !this.props.uniqueID) {
+    if (this.props.selectable !== false && (this.props.selectable || this.props.highlightable || this.context.selectable || this.context.highlightable) && !this.props.uniqueID) {
       throw new Error("A TableRow which is selectable or highlightable should provide a uniqueID.");
     }
 
@@ -285,9 +285,12 @@ class TableRow extends React.Component {
   render() {
     let content = [this.props.children];
 
-    if (this.props.selectAll || this.context.selectable || this.props.selectable) {
-      // if multi-seletable, add the checkbox cell
-      content.unshift(this.multiSelectCell);
+    // if component specifically disables selectable, don't put the cell in
+    if (this.props.selectable !== false) {
+      if (this.props.selectAll || this.context.selectable || this.props.selectable) {
+        // if multi-seletable, add the checkbox cell
+        content.unshift(this.multiSelectCell);
+      }
     }
 
     return (

@@ -1,11 +1,14 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames';
 import Immutable from 'immutable';
+import I18n from 'i18n-js';
 import ActionToolbar from './../action-toolbar';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import Pager from './../pager';
+import Spinner from './../spinner';
 
 /**
  * A Table widget.
@@ -811,6 +814,83 @@ class Table extends React.Component {
   }
 
   /**
+   * Returns a row to be used for loading.
+   *
+   * @method loadingRow
+   * @return {Object} JSX
+   */
+  get loadingRow() {
+    return (
+      <TableRow key="__loading__" selectable={ false } highlightable={ false } hideMultiSelect={ true }>
+        <TableCell colSpan="9999" align="center">
+          <ReactCSSTransitionGroup
+            transitionName="table-loading"
+            transitionEnterTimeout={ 300 }
+            transitionLeaveTimeout={ 300 }
+            transitionAppearTimeout={ 300 }
+            transitionAppear={ true }
+          >
+            <Spinner size="small" />
+          </ReactCSSTransitionGroup>
+        </TableCell>
+      </TableRow>
+    );
+  }
+
+  /**
+   * Returns a row to be used for no data.
+   *
+   * @method emptyRow
+   * @return {Object} JSX
+   */
+  get emptyRow() {
+    return (
+      <TableRow key="__loading__" selectable={ false } highlightable={ false }>
+        <TableCell colSpan="9999" align="center">
+          { I18n.t("table.no_data", { defaultValue: "No results to display" }) }
+        </TableCell>
+      </TableRow>
+    );
+  }
+
+  /**
+   * Works out what content to display in the table.
+   *
+   * @method tableContent
+   * @return {Object} JSX
+   */
+  get tableContent() {
+    let children = this.props.children,
+        hasChildren = children;
+
+    // if using immutable js we can count the children
+    if (children && children.count) {
+      let numOfChildren = children.count();
+
+      if (numOfChildren === 1 && children.first().props.as === "header") {
+        if (this._hasRetreivedData) {
+          // if already retreived data then show empty row
+          children = children.push(this.emptyRow);
+        } else {
+          // if not yet retreived data then show loading row
+          children = children.push(this.loadingRow);
+        }
+      } else {
+        // check if there actually are any children
+        hasChildren = numOfChildren > 0;
+      }
+    }
+
+    if (hasChildren) {
+      return children;
+    } else if (this._hasRetreivedData) {
+      return this.emptyRow;
+    } else {
+      return this.loadingRow;
+    }
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -823,7 +903,7 @@ class Table extends React.Component {
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
             { this.thead }
             <tbody>
-              { this.props.children }
+              { this.tableContent }
             </tbody>
           </table>
         </div>
