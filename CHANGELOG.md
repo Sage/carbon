@@ -6,6 +6,7 @@
 
 * CSS fixes to Portrait.
 * CSS fixes to Spinner.
+* CSS fixes to Pill.
 
 # 0.9.2
 
