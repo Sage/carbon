@@ -46,6 +46,10 @@ $ui-tabs__header__color: $grey-dark !default;
     border-bottom-color: $ui-tabs__header--selected-border-color;
     color: $white;
   }
+
+  .ui-icon {
+    margin: 0 0 0 25px;
+  }
 }
 
 .ui-tabs__anchor--selected {
