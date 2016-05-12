@@ -1,3 +1,8 @@
+.ui-portrait {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .ui-portrait__initials {
   position: absolute;
 }
@@ -45,8 +50,4 @@
 .ui-portrait--large .ui-portrait__img {
   width: 100px;
   height: 100px;
-}
-
-.ui-portrait {
-  display: inline-block;
 }
