@@ -865,9 +865,10 @@ class Table extends React.Component {
 
     // if using immutable js we can count the children
     if (children && children.count) {
-      let numOfChildren = children.count();
+      let numOfChildren = children.count(),
+          onlyChildIsHeader = numOfChildren === 1 && children.first().props.as === "header";
 
-      if (numOfChildren === 1 && children.first().props.as === "header") {
+      if (onlyChildIsHeader) {
         if (this._hasRetreivedData) {
           // if already retreived data then show empty row
           children = children.push(this.emptyRow);

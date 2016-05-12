@@ -104,7 +104,7 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   componentWillMount() {
-    if (this.props.selectable !== false && (this.props.selectable || this.props.highlightable || this.context.selectable || this.context.highlightable) && !this.props.uniqueID) {
+    if (this.requiresUniqueID && !this.props.uniqueID) {
       throw new Error("A TableRow which is selectable or highlightable should provide a uniqueID.");
     }
 
@@ -278,6 +278,37 @@ class TableRow extends React.Component {
   }
 
   /**
+   * Determines if the row should have a multi select column.
+   *
+   * @method shouldHaveMultiSelectColumn
+   * @return {Boolean}
+   */
+  get shouldHaveMultiSelectColumn() {
+    // if component specifically disables selectable, don't put the cell in
+    if (this.props.selectable !== false) {
+      // if multi-seletable, add the checkbox cell
+      if (this.props.selectAll || this.context.selectable || this.props.selectable) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Determines if the row requires a unique ID.
+   *
+   * @method requiresUniqueID
+   * @return {Boolean}
+   */
+  get requiresUniqueID() {
+    let highlightable = this.props.highlightable !== false && (this.props.highlightable || this.context.highlightable),
+        selectable = this.props.selectable !== false && (this.props.selectable || this.context.selectable);
+
+    return highlightable || selectable;
+  }
+
+  /**
    * Renders the component
    *
    * @method render
@@ -285,12 +316,8 @@ class TableRow extends React.Component {
   render() {
     let content = [this.props.children];
 
-    // if component specifically disables selectable, don't put the cell in
-    if (this.props.selectable !== false) {
-      if (this.props.selectAll || this.context.selectable || this.props.selectable) {
-        // if multi-seletable, add the checkbox cell
-        content.unshift(this.multiSelectCell);
-      }
+    if (this.shouldHaveMultiSelectColumn) {
+      content.unshift(this.multiSelectCell);
     }
 
     return (
