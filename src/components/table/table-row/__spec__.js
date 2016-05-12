@@ -346,12 +346,15 @@ describe('TableRow', () => {
 
     describe('with selectable via prop', () => {
       it('renders a multi select cell', () => {
+        let spy = jasmine.createSpy();
         instance = TestUtils.renderIntoDocument(<Table><TableRow selectable={ true } uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         let checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
         expect(row.children.length).toEqual(3);
         expect(checkbox.props.onChange).toEqual(tr.onSelect);
+        checkbox.props.onClick({ stopPropagation: spy });
+        expect(spy).toHaveBeenCalled();
       });
     });
 
