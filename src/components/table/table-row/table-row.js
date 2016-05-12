@@ -274,7 +274,7 @@ class TableRow extends React.Component {
     // determines which action to use (multi-select or select-all)
     let action = this.props.selectAll ? this.onSelectAll : this.onSelect;
 
-    return <Checkbox onChange={ action } checked={ this.state.selected } />;
+    return <Checkbox onClick={ (ev) => ev.stopPropagation() } onChange={ action } checked={ this.state.selected } />;
   }
 
   /**
