@@ -35,6 +35,13 @@ class TableAjax extends Table {
    */
   timeout = null;
 
+  /**
+   * Tracks the ajax request
+   *
+   * @property _request
+   */
+  _request = null;
+
   static propTypes = {
     /**
      * Data used to filter the data
@@ -92,7 +99,7 @@ class TableAjax extends Table {
      * @property totalRecords
      * @type {String}
      */
-    totalRecords: '0',
+    totalRecords: this.props.totalRecords || '0',
 
     /**
      * Sorting
@@ -135,6 +142,17 @@ class TableAjax extends Table {
    */
   componentDidUpdate() {
     this.resizeTable();
+  }
+
+  /**
+   * Lifecycle for when a component unmounts
+   * Clears any deferred tasks
+   *
+   * @method componentWillUnmount
+   * @return {Void}
+   */
+  componentWillUnmount() {
+    this.stopTimeout();
   }
 
   static childContextTypes = {
@@ -243,11 +261,13 @@ class TableAjax extends Table {
 
     this.stopTimeout();
     this.timeout = setTimeout(() => {
-      Request
+      // track the request incase we need to abort it
+      this._request = Request
         .get(this.props.path)
         .set('Accept', 'application/json')
         .query(this.queryParams(element, options))
         .end((err, response) => {
+          this._hasRetreivedData = true;
           this.handleResponse(err, response);
           if (resetHeight) { this.resetTableHeight(); }
         });
@@ -263,6 +283,10 @@ class TableAjax extends Table {
   stopTimeout = () => {
     if (this.timeout) {
       clearTimeout(this.timeout);
+    }
+
+    if (this._request) {
+      this._request.abort();
     }
   }
 
