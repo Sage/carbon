@@ -1,3 +1,7 @@
+# 0.11.0
+
+* Tabs remember the last one they were on when going back in the browser.
+
 # 0.10.0
 
 * Adds loading and empty data states to Table component.
