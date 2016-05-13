@@ -1,3 +1,13 @@
+# 0.12.0
+
+## Minor Improvements
+
+* Tabs emits a onTabClick event when on the headers is clicked
+
+## Bug Fixes
+
+* CSS prevent multi action siblings overlapping
+
 # 0.11.0
 
 * Tabs remember the last one they were on when going back in the browser.
@@ -34,7 +44,7 @@
 
 ## New Components
 
-* Multi Action Button 
+* Multi Action Button
 
 ## Selectable Table Rows
 
