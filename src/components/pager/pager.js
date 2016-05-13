@@ -195,7 +195,7 @@ class Pager extends React.Component {
    */
   get maxPage() {
     if (this.props.pageSize && this.props.pageSize !== '0') {
-      return Math.ceil(this.props.totalRecords / this.props.pageSize);
+      return Math.ceil(this.props.totalRecords / this.props.pageSize) || 1;
     }
     return 1;
   }
