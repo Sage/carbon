@@ -1,5 +1,9 @@
 # 0.12.0
 
+## Minor Improvements
+
+* Tabs emits a onTabClick event when on the headers is clicked
+
 ## Bug Fixes
 
 * CSS prevent multi action siblings overlapping

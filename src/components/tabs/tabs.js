@@ -115,7 +115,15 @@ class Tabs extends React.Component {
      * @property align
      * @type {String}
      */
-    align: React.PropTypes.string
+    align: React.PropTypes.string,
+
+    /**
+     * Emitted when a tab header is clicked
+     *
+     * @property onTabClick
+     * @type {Func}
+     */
+    onTabClick: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -219,6 +227,10 @@ class Tabs extends React.Component {
     let tabid = ev.target.dataset.tabid;
     this._window.location = `#${tabid}`;
     this.setState({ selectedTabId: tabid });
+
+    if (this.props.onTabClick) {
+      this.props.onTabClick(tabid);
+    }
   }
 
   /**
