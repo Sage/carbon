@@ -397,6 +397,22 @@ class Table extends React.Component {
   }
 
   /**
+   * Refreshes the grid and resets any selected rows.
+   *
+   * @method refresh
+   * @return {Void}
+   */
+  refresh = () => {
+    this.resetHighlightedRow();
+    this.selectedRows = [];
+    this.actionToolbarComponent.setState({
+      total: 0,
+      selected: []
+    });
+    this.emitOnChangeCallback('refresh', this.emitOptions());
+  }
+
+  /**
    * Resets the highlighted row.
    *
    * @method resetHighlightedRow
