@@ -5,6 +5,7 @@
 ## Bug Fixes
 
 * Selectable Tables stopPropagation when selecting checkboxes.
+* Page size sets 1 of 1 when there are no records.
 
 # 0.10.0
 
