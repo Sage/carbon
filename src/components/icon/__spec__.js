@@ -70,6 +70,38 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--basket");
     });
+
+    it('calls the render phone icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='phone' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--phone");
+    });
+
+    it('calls the render mobile icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='mobile' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--mobile");
+    });
+
+    it('calls the render location icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='location' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--location");
+    });
+
+    it('calls the render email icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='email' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--email");
+    });
   });
 
   describe('success', () => {

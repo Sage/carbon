@@ -3,6 +3,7 @@
 ## Minor Improvements
 
 * Tabs emits a onTabClick event when on the headers is clicked
+* Add phone, email, location and mobile icons
 * Table now has a `refresh` method to force retrieve data.
 
 ## Bug Fixes
