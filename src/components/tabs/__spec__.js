@@ -147,6 +147,29 @@ describe('Tabs', () => {
       instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
       expect(instance._window.location).toEqual('#foo');
     });
+
+    describe('when a onTabClick prop is passed', () => {
+      it('calls the prop', () => {
+        let clickSpy = jasmine.createSpy('tabClick');
+
+        console.log('test', clickSpy);
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs onTabClick={ clickSpy } >
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='foo'/>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+
+        instance._window = {
+          location: ''
+        };
+
+        instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
+        expect(clickSpy).toHaveBeenCalledWith('foo');
+      });
+    });
   });
 
   describe('mainClasses', () => {
