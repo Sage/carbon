@@ -1,8 +1,33 @@
+# 0.12.0
+
+## Minor Improvements
+
+* Tabs emits a onTabClick event when on the headers is clicked
+* Added `position` prop to `Tabs` and `href`/`target` props to `Tab`.
+
+## Bug Fixes
+
+* CSS prevent multi action siblings overlapping
+* Page size sets 1 of 1 when there are no records.
+
+# 0.11.0
+
+* Tabs remember the last one they were on when going back in the browser.
+
+## Bug Fixes
+
+* Selectable Tables stopPropagation when selecting checkboxes.
+
 # 0.10.0
 
-## Misc
+* Adds loading and empty data states to Table component.
 
-* Added `position` prop to `Tabs` and `href`/`target` props to `Tab`.
+## Bug Fixes
+
+* CSS fixes to Portrait.
+* CSS fixes to Spinner.
+* CSS fixes to Pill.
+>>>>>>> origin/master
 
 # 0.9.2
 
@@ -22,7 +47,7 @@
 
 ## New Components
 
-* Multi Action Button 
+* Multi Action Button
 
 ## Selectable Table Rows
 

@@ -30,8 +30,9 @@
 
 .ui-pager__summary {
   display: inline-block;
-  float: right;
   padding-top: 8px;
+  position: absolute;
+  right: 8px;
 }
 
 .ui-pager__current-page {

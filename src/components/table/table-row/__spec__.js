@@ -314,6 +314,14 @@ describe('TableRow', () => {
       });
     });
 
+    describe('without selectability on the table but disabled on the row', () => {
+      it('renders its children', () => {
+        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow selectable={ false }><td /><td /></TableRow></Table>);
+        row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
+        expect(row.children.length).toEqual(2);
+      });
+    });
+
     describe('with selectAll', () => {
       it('renders a select all cell', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow selectAll={ true }><td /><td /></TableRow></Table>);
@@ -338,12 +346,15 @@ describe('TableRow', () => {
 
     describe('with selectable via prop', () => {
       it('renders a multi select cell', () => {
+        let spy = jasmine.createSpy();
         instance = TestUtils.renderIntoDocument(<Table><TableRow selectable={ true } uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         let checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
         expect(row.children.length).toEqual(3);
         expect(checkbox.props.onChange).toEqual(tr.onSelect);
+        checkbox.props.onClick({ stopPropagation: spy });
+        expect(spy).toHaveBeenCalled();
       });
     });
 
