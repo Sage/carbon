@@ -145,6 +145,19 @@ describe('Pager', () => {
       expect(instance.maxPage).toEqual(10);
     });
 
+    describe('when total records is 0', () => {
+      it('defaults the maxPage to 1', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Pager
+            currentPage='1'
+            pageSize='10'
+            totalRecords='0'
+          />
+        );
+        expect(instance.maxPage).toEqual(1);
+      });
+    });
+
     describe('when pageSize is undefined', () => {
       it('returns 1', () => {
         instance = TestUtils.renderIntoDocument(
