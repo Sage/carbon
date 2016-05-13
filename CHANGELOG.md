@@ -3,6 +3,7 @@
 ## Minor Improvements
 
 * Tabs emits a onTabClick event when on the headers is clicked
+* Table now has a `refresh` method to force retrieve data.
 
 ## Bug Fixes
 

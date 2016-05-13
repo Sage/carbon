@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
+import ActionToolbar from './../action-toolbar';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy;
@@ -91,6 +92,35 @@ describe('Table', () => {
       instance.actionToolbarComponent = "foo";
       instance.detachActionToolbar();
       expect(instance.actionToolbarComponent).toBe(null);
+    });
+  });
+
+  describe('refresh', () => {
+    beforeEach(() => {
+      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar />);
+      spyOn(instance, 'resetHighlightedRow');
+      spyOn(instance.actionToolbarComponent, 'setState');
+      spyOn(instance, 'emitOnChangeCallback');
+      instance.refresh();
+    });
+
+    it('calls resetHighlightedRow', () => {
+      expect(instance.resetHighlightedRow).toHaveBeenCalled();
+    });
+
+    it('resets the selectedRows array', () => {
+      expect(instance.selectedRows).toEqual([]);
+    });
+
+    it('calls set state on the actionToolbarComponent', () => {
+      expect(instance.actionToolbarComponent.setState).toHaveBeenCalledWith({
+        total: 0,
+        selected: []
+      });
+    });
+
+    it('emits the onChange callback', () => {
+      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('refresh', instance.emitOptions());
     });
   });
 
