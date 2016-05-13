@@ -9,6 +9,7 @@
 ## Bug Fixes
 
 * CSS prevent multi action siblings overlapping
+* First columns in tables have additional left padding.
 * Page size sets 1 of 1 when there are no records.
 
 # 0.11.0
