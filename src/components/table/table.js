@@ -396,6 +396,12 @@ class Table extends React.Component {
     delete this.rows[id];
   }
 
+  refresh = () => {
+    this.resetHighlightedRow();
+    this.selectedRows = [];
+    this.emitOnChangeCallback('refresh', this.emitOptions());
+  }
+
   /**
    * Resets the highlighted row.
    *
