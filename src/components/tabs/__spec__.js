@@ -152,7 +152,6 @@ describe('Tabs', () => {
       it('calls the prop', () => {
         let clickSpy = jasmine.createSpy('tabClick');
 
-        console.log('test', clickSpy);
         let instance = TestUtils.renderIntoDocument(
           <Tabs onTabClick={ clickSpy } >
             <Tab title='Tab Title 1' tabId='uniqueid1'>
