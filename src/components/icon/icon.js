@@ -59,6 +59,10 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderLocationIcon;
       case 'email':
         return this.renderEmailIcon;
+      case 'minus':
+        return this.renderMinusIcon;
+      case 'plus':
+        return this.renderPlusIcon;
       default:
         null;
     }
@@ -300,12 +304,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderPhoneIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--phone" width="16px" height="16px" viewBox="0 0 16 16">' +
-            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                '<g id="Phone" fill="#B1B3B9">' +
-                    '<path d="M12.0107283,0.0107283407 C11.6773752,-0.0263820644 11.4921892,0.0476923486 11.0107283,0.0107283407 L9.01072834,5.01072834 C9.15884514,4.69586176 11.0107283,7.01072834 11.0107283,7.01072834 C10.3255171,8.84402889 8.84402889,10.3440357 7.01072834,11.0107283 L5.01072834,9.01072834 C4.84401059,9.19588235 0.0107283407,11.0107283 0.0107283407,11.0107283 C0.0476923486,11.4921892 -0.0263820644,11.6773752 0.0107283407,12.0107283 L2.01072834,16.0107283 C9.30699397,15.0847982 15.0847982,9.32551257 16.0107283,2.01072834 C15.9551725,1.71436664 12.0107283,0.0107283407 12.0107283,0.0107283407 Z" id="phone"></path>' +
-                '</g>' +
-            '</g>' +
+        '<svg width="16" height="16" viewBox="0 0 16 16">' +
+          '<path d="M12.01.01c-.333-.036-.518.038-1 0l-2 5c.15-.314 2 2 2 2-.684 1.834-2.166 3.334-4 4l-2-2c-.166.186-5 2-5 2 .038.482-.036.667 0 1l2 4c7.297-.925 13.075-6.684 14-14-.055-.296-4-2-4-2z" fill="#B1B3B9" fill-rule="evenodd"/>' +
         '</svg>'
     };
   }
@@ -319,12 +319,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderMobileIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--mobile" width="16px" height="16px" viewBox="0 0 16 16">' +
-            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                '<g id="Mobile" fill="#B1B3B9">' +
-                    '<path d="M2,1.00087166 C2,0.448105505 2.45576096,0 3.00247329,0 L12.9975267,0 C13.5511774,0 14,0.444630861 14,1.00087166 L14,14.9991283 C14,15.5518945 13.544239,16 12.9975267,16 L3.00247329,16 C2.44882258,16 2,15.5553691 2,14.9991283 L2,1.00087166 Z M4,2 L12,2 L12,12 L4,12 L4,2 Z M7,13 L9,13 L9,15 L7,15 L7,13 Z" id="mobile"></path>' +
-                '</g>' +
-            '</g>' +
+        '<svg width="16" height="16" viewBox="0 0 16 16">' +
+          '<path d="M2 1c0-.552.456-1 1.002-1h9.996C13.55 0 14 .445 14 1v14c0 .552-.456 1-1.002 1H3.002C2.45 16 2 15.555 2 15V1zm2 1h8v10H4V2zm3 11h2v2H7v-2z" fill="#B1B3B9" fill-rule="evenodd"/>' +
         '</svg>'
     };
   }
@@ -338,12 +334,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderLocationIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--location" width="16px" height="16px" viewBox="0 0 16 16">' +
-            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                '<g id="Location" fill="#B1B3B9">' +
-                    '<path d="M9,7.87134308 C9.34393668,7.66881234 9.6231266,7.36501414 9.79822502,7 L10,7 L10,5 L9.67829779,5 C9.50642746,4.7307295 9.27371764,4.50540953 9,4.34422802 L9,4 L7,4 L7,4.34422802 C6.72628236,4.50540953 6.49357254,4.7307295 6.32170221,5 L6,5 L6,7 L6.20177498,7 C6.3768734,7.36501414 6.65606332,7.66881234 7,7.87134308 L7,8 L7.2604644,8 C7.4892256,8.09272873 7.73876374,8.14371406 8,8.14371406 C8.26123626,8.14371406 8.5107744,8.09272873 8.7395356,8 L9,8 L9,7.87134308 Z M13.6875603,8.05824939 C13.8901806,7.44575465 14,6.78982533 14,6.10778555 C14,2.73454873 11.3137085,0 8,0 C4.6862915,0 2,2.73454873 2,6.10778555 C2,6.80321636 2.11417403,7.47150135 2.32448148,8.09427582 C2.30622232,8.10455399 2.29833976,8.1145496 2.30151367,8.12420477 C3.26623535,11.0589291 7.99531064,15.5 7.99531064,15.5 C7.99531064,15.5 12.6048587,11.1498898 13.6818852,8.12420477 C13.6900203,8.10135074 13.6918167,8.07937373 13.6875603,8.05824939 Z" id="location"></path>' +
-                '</g>' +
-            '</g>' +
+        '<svg width="16" height="16" viewBox="0 0 16 16">' +
+          '<path d="M9 7.87c.344-.2.623-.505.798-.87H10V5h-.322c-.172-.27-.404-.495-.678-.656V4H7v.344c-.274.16-.506.387-.678.656H6v2h.202c.175.365.454.67.798.87V8h.26c.23.093.48.144.74.144s.51-.05.74-.144H9v-.13zm4.688.188c.202-.612.312-1.268.312-1.95C14 2.735 11.314 0 8 0S2 2.735 2 6.108c0 .695.114 1.364.324 1.986-.018.01-.026.02-.022.03.964 2.935 5.693 7.376 5.693 7.376s4.61-4.35 5.687-7.376c.008-.023.01-.045.006-.066z" fill="#B1B3B9" fill-rule="evenodd"/>' +
         '</svg>'
     };
   }
@@ -357,12 +349,44 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderEmailIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--email" width="16px" height="16px" viewBox="0 0 16 16">' +
-            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                '<g id="email" fill="#B1B3B9">' +
-                    '<path d="M16,4.40248228 L16,3.00247329 C16,2.45576096 15.5518945,2 14.9991283,2 L1.00087166,2 C0.444630861,2 0,2.44882258 0,3.00247329 L0,4.40206403 L8.00452271,9 L16,4.40248228 Z M16,6.40227305 L16,12.9975267 C16,13.5511774 15.5553691,14 14.9991283,14 L1.00087166,14 C0.448105505,14 0,13.544239 0,12.9975267 L0,6.40227305 L8,11 L16,6.40227305 Z"></path>' +
-                '</g>' +
-            '</g>' +
+        '<svg width="16" height="16" viewBox="0 0 16 16">' +
+          '<path d="M16 4.402v-1.4C16 2.456 15.552 2 15 2H1c-.555 0-1 .45-1 1.002v1.4L8.005 9 16 4.402zm0 2v6.596C16 13.55 15.555 14 15 14H1c-.552 0-1-.456-1-1.002V6.402L8 11l8-4.598z" fill="#B1B3B9" fill-rule="evenodd"/>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'minus' icon
+   *
+   * @method renderMinusIcon
+   * @return {Object} Minus Icon svg
+   */
+  get renderMinusIcon() {
+    return {
+      __html:
+        '<svg width="8" height="2" viewBox="0 0 8 2">' +
+          '<path d="M0 0h8v2H0z" fill="#193E90" fill-rule="evenodd"/>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'plus' icon
+   *
+   * @method renderPlusIcon
+   * @return {Object} Plus Icon svg
+   */
+  get renderPlusIcon() {
+    return {
+      __html:
+        '<svg width="8" height="8">' +
+          '<defs>' +
+            '<path id="a" d="M96 101v-3h-2v3h-3v2h3v3h2v-3h3v-2h-3z"/>' +
+            '<mask id="b" width="8" height="8" x="0" y="0" fill="#fff">' +
+              '<use xlink:href="#a"/>' +
+            '</mask>' +
+          '</defs>' +
+          '<use fill="#D8D8D8" fill-rule="evenodd" stroke="#979797" stroke-width="2" mask="url(#b)" xlink:href="#a" transform="translate(-91 -98)"/>' +
         '</svg>'
     };
   }
