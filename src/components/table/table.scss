@@ -5,7 +5,7 @@
   background-color: $row-alt-color;
   border-radius: $tables__border-radius;
   border: 1px solid $border-color;
-  overflow-x: auto;
+  overflow: visible;
 }
 
 .ui-table__table {
