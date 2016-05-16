@@ -4,10 +4,13 @@
 
 * Tabs emits a onTabClick event when on the headers is clicked
 * Added `position` prop to `Tabs` and `href`/`target` props to `Tab`.
+* Add phone, email, location and mobile icons
+* Table now has a `refresh` method to force retrieve data.
 
 ## Bug Fixes
 
 * CSS prevent multi action siblings overlapping
+* First columns in tables have additional left padding.
 * Page size sets 1 of 1 when there are no records.
 
 # 0.11.0
@@ -27,7 +30,6 @@
 * CSS fixes to Portrait.
 * CSS fixes to Spinner.
 * CSS fixes to Pill.
->>>>>>> origin/master
 
 # 0.9.2
 

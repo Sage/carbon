@@ -27,17 +27,13 @@
     &.ui-button--disabled {
       border-color: $ui-button__border-color--disabled;
     }
-
-    .ui-multi-action-button--open & {
-      border-color: $ui-button__background-color--primary--hover;
-      border-bottom-left-radius: 0;
-    }
   }
 
   .ui-multi-action-button__additional-buttons {
     border-radius: $ui-button__border-radius;
     padding-top: 35px;
     top: 0;
+    z-index: $z-split-button + 2;
 
     .ui-button {
       padding-left: 15px;
@@ -87,5 +83,13 @@
         color: $blue-light;
       }
     }
+  }
+}
+
+.ui-multi-action-button--open {
+  .ui-multi-action-button__toggle {
+    border-color: $ui-button__background-color--primary--hover;
+    border-bottom-left-radius: 0;
+    z-index: $z-split-button + 3;
   }
 }

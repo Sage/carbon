@@ -99,7 +99,16 @@ class IconDemo extends React.Component {
       { name: 'Dropdown K',       id: 'dropdown' },
       { name: 'Add +',            id: 'add' },
       { name: 'Warning',          id: 'warning' },
-      { name: 'Maintenance',      id: 'maintenance' }
+      { name: 'Maintenance',      id: 'maintenance' },
+      { name: 'Sort Up',          id: 'sort-up' },
+      { name: 'Sort Down',        id: 'sort-down' },
+      { name: 'Refresh',          id: 'refresh' },
+      { name: 'Bin',              id: 'bin' },
+      { name: 'Basket',           id: 'basket' },
+      { name: 'Phone',            id: 'phone' },
+      { name: 'Mobile',           id: 'mobile' },
+      { name: 'Location',         id: 'location' },
+      { name: 'Email',            id: 'email' }
     ]);
 
     return (

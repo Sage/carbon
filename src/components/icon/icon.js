@@ -53,6 +53,14 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderBasketIcon;
       case 'newtab':
         return this.renderNewTabIcon;
+      case 'phone':
+        return this.renderPhoneIcon;
+      case 'mobile':
+        return this.renderMobileIcon;
+      case 'location':
+        return this.renderLocationIcon;
+      case 'email':
+        return this.renderEmailIcon;
       default:
         null;
     }
@@ -121,7 +129,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
 
   /**
    * Returns the 'warning' icon
-   * TODO: Waiting on release of https://github.com/facebook/react/pull/5714
+   * TODO: React UPGRADE v15.0.0
    *
    * @method renderWarningIcon
    * @return {Object} warningIcon svg
@@ -177,7 +185,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
 
   /**
    * Returns the 'new' icon
-   * TODO: Waiting on release of https://github.com/facebook/react/pull/5714
+   * TODO: React UPGRADE v15.0.0
    *
    * @method renderNewIcon
    * @return {Object} newIcon svg
@@ -198,7 +206,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
 
   /**
    * Returns the 'info' icon
-   * TODO: Waiting on release of https://github.com/facebook/react/pull/5714
+   * TODO: React UPGRADE v15.0.0
    *
    * @method renderMaintenanceIcon
    * @return {Object} infoIcon svg
@@ -219,6 +227,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
 
   /**
    * Returns the 'info' icon
+   * TODO: React UPGRADE v15.0.0
    *
    * @method renderRefreshIcon
    * @return {Object} refreshIcon svg
@@ -243,7 +252,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
 
   /**
    * Returns the 'bin' icon
-   * TODO: Waiting on release of https://github.com/facebook/react/pull/5714
+   * TODO: React UPGRADE v15.0.0
    *
    * @method renderBinIcon
    * @return {Object} binIcon svg
@@ -263,7 +272,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
 
   /**
    * Returns the 'basket' icon
-   * TODO: Waiting on release of https://github.com/facebook/react/pull/5714
+   * TODO: React UPGRADE v15.0.0
    *
    * @method renderBasketIcon
    * @return {Object} basketIcon svg
@@ -295,6 +304,82 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
       __html:
         '<svg class="ui-icon__svg ui-icon__svg--newtab" width="16px" height="16px" viewBox="0 0 16 16">' +
           '<path fill="#9DA0A7" fill-rule="evenodd" d="M7 0H1.994C.894 0 0 .893 0 1.994v12.012C0 15.106.893 16 1.994 16h12.012c1.1 0 1.994-.893 1.994-1.994V9h-2v3.998C14 13.55 13.544 14 12.998 14H3.002C2.45 14 2 13.544 2 12.998V3.002C2 2.45 2.456 2 3.002 2H7V0zm8.414 2H16V0H9v2h3.586l-8.243 8.243 1.414 1.414L14 3.414V7h2V2h-.586z"/>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'phone' icon
+   *
+   * @method renderPhoneIcon
+   * @return {Object} phoneIcon svg
+   */
+  get renderPhoneIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--phone" width="16px" height="16px" viewBox="0 0 16 16">' +
+            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                '<g id="Phone" fill="#B1B3B9">' +
+                    '<path d="M12.0107283,0.0107283407 C11.6773752,-0.0263820644 11.4921892,0.0476923486 11.0107283,0.0107283407 L9.01072834,5.01072834 C9.15884514,4.69586176 11.0107283,7.01072834 11.0107283,7.01072834 C10.3255171,8.84402889 8.84402889,10.3440357 7.01072834,11.0107283 L5.01072834,9.01072834 C4.84401059,9.19588235 0.0107283407,11.0107283 0.0107283407,11.0107283 C0.0476923486,11.4921892 -0.0263820644,11.6773752 0.0107283407,12.0107283 L2.01072834,16.0107283 C9.30699397,15.0847982 15.0847982,9.32551257 16.0107283,2.01072834 C15.9551725,1.71436664 12.0107283,0.0107283407 12.0107283,0.0107283407 Z" id="phone"></path>' +
+                '</g>' +
+            '</g>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'mobile' icon
+   *
+   * @method renderMobileIcon
+   * @return {Object} MobileIcon svg
+   */
+  get renderMobileIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--mobile" width="16px" height="16px" viewBox="0 0 16 16">' +
+            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                '<g id="Mobile" fill="#B1B3B9">' +
+                    '<path d="M2,1.00087166 C2,0.448105505 2.45576096,0 3.00247329,0 L12.9975267,0 C13.5511774,0 14,0.444630861 14,1.00087166 L14,14.9991283 C14,15.5518945 13.544239,16 12.9975267,16 L3.00247329,16 C2.44882258,16 2,15.5553691 2,14.9991283 L2,1.00087166 Z M4,2 L12,2 L12,12 L4,12 L4,2 Z M7,13 L9,13 L9,15 L7,15 L7,13 Z" id="mobile"></path>' +
+                '</g>' +
+            '</g>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'location' icon
+   *
+   * @method renderLocationIcon
+   * @return {Object} LocationIcon svg
+   */
+  get renderLocationIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--location" width="16px" height="16px" viewBox="0 0 16 16">' +
+            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                '<g id="Location" fill="#B1B3B9">' +
+                    '<path d="M9,7.87134308 C9.34393668,7.66881234 9.6231266,7.36501414 9.79822502,7 L10,7 L10,5 L9.67829779,5 C9.50642746,4.7307295 9.27371764,4.50540953 9,4.34422802 L9,4 L7,4 L7,4.34422802 C6.72628236,4.50540953 6.49357254,4.7307295 6.32170221,5 L6,5 L6,7 L6.20177498,7 C6.3768734,7.36501414 6.65606332,7.66881234 7,7.87134308 L7,8 L7.2604644,8 C7.4892256,8.09272873 7.73876374,8.14371406 8,8.14371406 C8.26123626,8.14371406 8.5107744,8.09272873 8.7395356,8 L9,8 L9,7.87134308 Z M13.6875603,8.05824939 C13.8901806,7.44575465 14,6.78982533 14,6.10778555 C14,2.73454873 11.3137085,0 8,0 C4.6862915,0 2,2.73454873 2,6.10778555 C2,6.80321636 2.11417403,7.47150135 2.32448148,8.09427582 C2.30622232,8.10455399 2.29833976,8.1145496 2.30151367,8.12420477 C3.26623535,11.0589291 7.99531064,15.5 7.99531064,15.5 C7.99531064,15.5 12.6048587,11.1498898 13.6818852,8.12420477 C13.6900203,8.10135074 13.6918167,8.07937373 13.6875603,8.05824939 Z" id="location"></path>' +
+                '</g>' +
+            '</g>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'email' icon
+   *
+   * @method renderEmailIcon
+   * @return {Object} Email Icon svg
+   */
+  get renderEmailIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--email" width="16px" height="16px" viewBox="0 0 16 16">' +
+            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                '<g id="email" fill="#B1B3B9">' +
+                    '<path d="M16,4.40248228 L16,3.00247329 C16,2.45576096 15.5518945,2 14.9991283,2 L1.00087166,2 C0.444630861,2 0,2.44882258 0,3.00247329 L0,4.40206403 L8.00452271,9 L16,4.40248228 Z M16,6.40227305 L16,12.9975267 C16,13.5511774 15.5553691,14 14.9991283,14 L1.00087166,14 C0.448105505,14 0,13.544239 0,12.9975267 L0,6.40227305 L8,11 L16,6.40227305 Z"></path>' +
+                '</g>' +
+            '</g>' +
         '</svg>'
     };
   }
