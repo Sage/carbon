@@ -1,3 +1,8 @@
+# 0.12.1
+
+* Fixes overflow bug on Table component.
+* Fixes colors for recently added icons.
+
 # 0.12.0
 
 ## Minor Improvements
