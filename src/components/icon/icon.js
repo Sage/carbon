@@ -59,6 +59,9 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderLocationIcon;
       case 'email':
         return this.renderEmailIcon;
+      case 'indivdual':
+        return this.renderEmailIcon;
+
       default:
         null;
     }
@@ -366,6 +369,43 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         '</svg>'
     };
   }
+  /**
+   * Returns the 'business' icon
+   *
+   * @method renderBusinessIcon
+   * @return {Object} Business Icon svg
+   */
+  get renderBusinessIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--business" width="16px" height="16px" viewBox="0 0 16 16">' +
+            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                '<g id="email" fill="currentColor">' +
+                    '<path d="M16,4.40248228 L16,3.00247329 C16,2.45576096 15.5518945,2 14.9991283,2 L1.00087166,2 C0.444630861,2 0,2.44882258 0,3.00247329 L0,4.40206403 L8.00452271,9 L16,4.40248228 Z M16,6.40227305 L16,12.9975267 C16,13.5511774 15.5553691,14 14.9991283,14 L1.00087166,14 C0.448105505,14 0,13.544239 0,12.9975267 L0,6.40227305 L8,11 L16,6.40227305 Z"></path>' +
+                '</g>' +
+            '</g>' +
+        '</svg>'
+    };
+  }
+  /**
+   * Returns the 'individual' icon
+   *
+   * @method renderIndividualIcon
+   * @return {Object} Individual Icon svg
+   */
+  get renderIndividualIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--individual" width="16px" height="16px" viewBox="0 0 16 16">' +
+            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                '<g id="email" fill="currentColor">' +
+                    '<path d="M16,4.40248228 L16,3.00247329 C16,2.45576096 15.5518945,2 14.9991283,2 L1.00087166,2 C0.444630861,2 0,2.44882258 0,3.00247329 L0,4.40206403 L8.00452271,9 L16,4.40248228 Z M16,6.40227305 L16,12.9975267 C16,13.5511774 15.5553691,14 14.9991283,14 L1.00087166,14 C0.448105505,14 0,13.544239 0,12.9975267 L0,6.40227305 L8,11 L16,6.40227305 Z"></path>' +
+                '</g>' +
+            '</g>' +
+        '</svg>'
+    };
+  }
+
 });
 
 export default Icon;
