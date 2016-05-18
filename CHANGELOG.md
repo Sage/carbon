@@ -1,3 +1,7 @@
+# 0.12.2
+
+* Fixes translation issues with Save and Cancel buttons in Form component.
+
 # 0.12.1
 
 * Fixes overflow bug on Table component.
