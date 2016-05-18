@@ -63,7 +63,6 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderBusinessIcon;
       case 'individual':
         return this.renderIndividualIcon;
-
       default:
         null;
     }
@@ -407,7 +406,6 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         '</svg>'
     };
   }
-
 });
 
 export default Icon;
