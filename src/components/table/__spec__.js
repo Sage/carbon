@@ -122,6 +122,21 @@ describe('Table', () => {
     it('emits the onChange callback', () => {
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('refresh', instance.emitOptions());
     });
+
+    describe('no actiontoolbar', () => {
+      beforeEach(() => {
+        instance.actionToolbarComponent = null;
+        instance.refresh();
+      });
+
+      it('calls resetHighlightedRow', () => {
+        expect(instance.resetHighlightedRow).toHaveBeenCalled();
+      });
+
+      it('resets the selectedRows array', () => {
+        expect(instance.selectedRows).toEqual([]);
+      });
+    });
   });
 
   describe('selectRow', () => {

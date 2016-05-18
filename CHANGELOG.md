@@ -1,6 +1,7 @@
 # 0.12.2
 
 * Fixes translation issues with Save and Cancel buttons in Form component.
+* Fixes error with refresh method on Table, when Table does not have an ActionToolbar.
 
 # 0.12.1
 

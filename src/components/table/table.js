@@ -405,10 +405,12 @@ class Table extends React.Component {
   refresh = () => {
     this.resetHighlightedRow();
     this.selectedRows = [];
-    this.actionToolbarComponent.setState({
-      total: 0,
-      selected: []
-    });
+    if (this.actionToolbarComponent) {
+      this.actionToolbarComponent.setState({
+        total: 0,
+        selected: []
+      });
+    }
     this.emitOnChangeCallback('refresh', this.emitOptions());
   }
 
