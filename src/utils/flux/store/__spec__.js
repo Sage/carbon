@@ -129,15 +129,15 @@ describe('Store', () => {
 
       describe('when an invalid action is dispatched', () => {
         it('throws an error for empty string', () => {
-          expect(function() { instance.dispatcherCallback({ actionType: '' }) }).toThrowError("You are subscribed to an invalid action (maybe the constant is incorrect or missing). Check Store.");
+          expect(function() { instance.dispatcherCallback({ actionType: '' }) }).toThrowError("You are dispatching an invalid action (maybe the constant is incorrect or missing)");
         });
 
         it('throws an error for null', () => {
-          expect(function() { instance.dispatcherCallback({ actionType: null }) }).toThrowError("You are subscribed to an invalid action (maybe the constant is incorrect or missing). Check Store.");
+          expect(function() { instance.dispatcherCallback({ actionType: null }) }).toThrowError("You are dispatching an invalid action (maybe the constant is incorrect or missing)");
         });
 
         it('throws an error for undefined', () => {
-          expect(function() { instance.dispatcherCallback({ actionType: undefined }) }).toThrowError("You are subscribed to an invalid action (maybe the constant is incorrect or missing). Check Store.");
+          expect(function() { instance.dispatcherCallback({ actionType: undefined }) }).toThrowError("You are dispatching an invalid action (maybe the constant is incorrect or missing)");
         });
       });
     });
