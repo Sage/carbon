@@ -28,7 +28,7 @@ describe('Confirm', () => {
 
   describe('dialogClasses', () => {
     it('returns the dialog class along with the  class', () => {
-      expect(instance.dialogClasses).toEqual('ui-dialog__dialog ui-confirm__confirm');
+      expect(instance.dialogClasses).toEqual('ui-dialog__dialog ui-dialog__dialog--xsmall ui-confirm__confirm');
     });
   });
 
@@ -37,7 +37,7 @@ describe('Confirm', () => {
 
     describe('yes button', () => {
       beforeEach(() => {
-        yes = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-confirm__button')[1] 
+        yes = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-confirm__button')[1]
         yesButton = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
       });
 
@@ -53,7 +53,7 @@ describe('Confirm', () => {
 
     describe('no button', () => {
       beforeEach(() => {
-        no = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-confirm__button')[0] 
+        no = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-confirm__button')[0]
         noButton = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
       });
 
