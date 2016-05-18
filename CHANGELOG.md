@@ -1,5 +1,6 @@
 # 0.12.2
 
+* Stores will now throw an error if they are subscribed to an invalid constant and that constant is called.
 * Fixes translation issues with Save and Cancel buttons in Form component.
 * Fixes error with refresh method on Table, when Table does not have an ActionToolbar.
 
