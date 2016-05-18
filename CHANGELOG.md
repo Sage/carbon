@@ -1,7 +1,12 @@
 # 0.12.2
 
+* Stores will now throw an error if an invalid action is dispatched.
 * Fixes translation issues with Save and Cancel buttons in Form component.
 * Fixes error with refresh method on Table, when Table does not have an ActionToolbar.
+
+### Modal Updates
+
+* Alert and Confirm have been updated to accept the dialog size prop. Default sizes remain unchanged. 
 
 # 0.12.1
 

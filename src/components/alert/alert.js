@@ -27,6 +27,10 @@ class Alert extends Dialog {
     super();
   }
 
+  static defaultProps = {
+    size: 'xsmall'
+  }
+
   /**
    * Returns classes title for the confirm, combines with dialog class names.
    *
