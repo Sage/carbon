@@ -110,6 +110,22 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--email");
     });
+    
+    it('calls the render business icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='business' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--business");
+    });
+
+    it('calls the render individual icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='individual' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--individual");
+    });
   });
 
   describe('success', () => {

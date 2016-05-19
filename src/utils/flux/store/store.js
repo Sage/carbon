@@ -156,6 +156,10 @@ export default class Store extends EventEmitter {
    * @return {void}
    */
   dispatcherCallback = (action) => {
+    if (!action.actionType) {
+      throw new Error("You are dispatching an invalid action (maybe the constant is incorrect or missing)");
+    }
+
     // We determine if the store has the actionType available as a function.
     // In traditional flux this normally uses a switch/case statement.
     if (this[action.actionType]) {

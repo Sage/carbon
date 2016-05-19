@@ -10,12 +10,13 @@ $dialog-padding: 20px;
   padding: $dialog-padding;
   position: absolute;
   top: 50%;
-  width: 750px;
   z-index: $z-dialog;
 }
 
+.ui-dialog__dialog--xsmall  { width: 300px; }
 .ui-dialog__dialog--small   { width: 380px; }
 .ui-dialog__dialog--smed    { width: 540px; }
+.ui-dialog__dialog--med     { width: 750px; }
 .ui-dialog__dialog--lmed    { width: 850px; }
 .ui-dialog__dialog--large   { width: 960px; }
 

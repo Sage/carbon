@@ -272,13 +272,16 @@ describe('Form', () => {
     describe('if prop is passed', () => {
       it('returns the prop value', () => {
         instance = TestUtils.renderIntoDocument(<Form saveText="custom" />)
-        expect(instance.props.saveText).toEqual('custom');
+        let save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        expect(save.textContent).toEqual('custom');
       });
     });
 
     describe('if no prop is passed', () => {
       it('returns i18n value', () => {
-        expect(instance.props.saveText).toEqual('Save');
+        instance = TestUtils.renderIntoDocument(<Form />)
+        let save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        expect(save.textContent).toEqual('Save');
       });
     });
   });
