@@ -6,6 +6,7 @@ import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
 
 import Pod from 'components/pod';
+import Link from 'components/link';
 import Textbox from 'components/textbox';
 import Checkbox from 'components/checkbox';
 import Dropdown from 'components/dropdown';
@@ -46,6 +47,12 @@ class PodDemo extends React.Component {
    * @method demo
    */
   get demo() {
+    let footer;
+
+    if (this.value('footer')) {
+      footer = <Link href='#'>Action 1</Link>;
+    }
+
     return (
       <Pod
         collapsed={ this.props.collapsed }
@@ -54,6 +61,7 @@ class PodDemo extends React.Component {
         padding={ this.value('padding') }
         border={ this.value('border') }
         as={ this.value('as') }
+        footer={ footer }
       >
         <Row>
           <Textbox />
@@ -196,6 +204,11 @@ class PodDemo extends React.Component {
             label="Border"
             value={ this.value('border') }
             onChange={ this.action.bind(this, 'border') }
+          />
+          <Checkbox
+            label="Footer"
+            value={ this.value('footer') }
+            onChange={ this.action.bind(this, 'footer') }
           />
         </Row>
       </div>

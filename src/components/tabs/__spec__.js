@@ -37,6 +37,7 @@ describe('Tabs', () => {
           <Textbox name='bax'/>
         </Tab>
       </Tabs>);
+    instance._window = { location: "" };
   });
 
   describe('initialize', () => {
@@ -59,9 +60,38 @@ describe('Tabs', () => {
                 <Textbox name='baz'/>
                 <Textbox name='bax'/>
               </Tab>
-            </Tabs>);
-
+            </Tabs>
+          );
           expect(instance.state.selectedTabId).toEqual('uniqueid2');
+        });
+      });
+
+      describe('detects a hash', () => {
+        beforeEach(() => {
+          instance = TestUtils.renderIntoDocument(
+            <Tabs>
+              <Tab title='Tab Title 1' tabId='uniqueid1'>
+                <Textbox name='foo'/>
+                <Textbox name='bar'/>
+              </Tab>
+              <Tab title='Tab Title 2' tabId='uniqueid2'>
+                <Textbox name='baz'/>
+                <Textbox name='bax'/>
+              </Tab>
+            </Tabs>
+          );
+        });
+
+        it('matches the hash so uses the tab', () => {
+          instance._window = { location: { hash: "#uniqueid2" }};
+          instance.componentWillMount();
+          expect(instance.state.selectedTabId).toEqual('uniqueid2');
+        });
+
+        it('does not match the hash so uses first tab', () => {
+          instance._window = { location: { hash: "#foo" }};
+          instance.componentWillMount();
+          expect(instance.state.selectedTabId).toEqual('uniqueid1');
         });
       });
 
@@ -108,6 +138,36 @@ describe('Tabs', () => {
       TestUtils.Simulate.click(secondTab);
 
       expect(secondTab.classList[1]).toEqual('ui-tabs__headers__header--selected');
+    });
+
+    it('sets the location', () => {
+      instance._window = {
+        location: ''
+      };
+      instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
+      expect(instance._window.location).toEqual('#foo');
+    });
+
+    describe('when a onTabClick prop is passed', () => {
+      it('calls the prop', () => {
+        let clickSpy = jasmine.createSpy('tabClick');
+
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs onTabClick={ clickSpy } >
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='foo'/>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+
+        instance._window = {
+          location: ''
+        };
+
+        instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
+        expect(clickSpy).toHaveBeenCalledWith('foo');
+      });
     });
   });
 

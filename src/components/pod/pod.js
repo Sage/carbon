@@ -1,3 +1,4 @@
+import css from './../../utils/css';
 import React from 'react';
 import Icon from './../icon';
 import classNames from 'classnames';
@@ -81,7 +82,15 @@ class Pod extends React.Component {
      * @property title
      * @type {String}
      */
-    description: React.PropTypes.string
+    description: React.PropTypes.string,
+
+    /**
+     * A component to render as a Pod footer.
+     *
+     * @property footer
+     * @type {String}
+     */
+    footer: React.PropTypes.object
   }
 
   static defaultProps = {
@@ -113,7 +122,7 @@ class Pod extends React.Component {
     let pod,
         headerProps = {};
 
-    headerProps.className = "ui-pod__header unselectable";
+    headerProps.className = `ui-pod__header ${css.unselectable}`;
 
     if (this.state.collapsed !== undefined) {
       pod = this.podCollapsible;
@@ -190,10 +199,59 @@ class Pod extends React.Component {
     return classNames(
       'ui-pod',
       this.props.className,
-      `ui-pod--${this.props.as}`,
+      `ui-pod--${this.props.as}`, {
+        'ui-pod--no-border': !this.props.border,
+        'ui-pod--footer': this.props.footer
+      }
+    );
+  }
+
+  /**
+   * Classes for the content.
+   *
+   * @method contentClasses
+   * @return {String}
+   */
+  get contentClasses() {
+    return classNames(
+      'ui-pod__content',
+      `ui-pod__content--${this.props.as}`,
+      `ui-pod--padding-${this.props.padding}`, {
+        'ui-pod__content--footer': this.props.footer,
+        'ui-pod--no-border': !this.props.border
+      }
+    );
+  }
+
+  /**
+   * Classes for the footer.
+   *
+   * @method footerClasses
+   * @return {String}
+   */
+  get footerClasses() {
+    return classNames(
+      'ui-pod__footer',
+      `ui-pod__footer--${this.props.as}`,
       `ui-pod--padding-${this.props.padding}`, {
         'ui-pod--no-border': !this.props.border
       }
+    );
+  }
+
+  /**
+   * Returns the footer component.
+   *
+   * @method footer
+   * @return {String}
+   */
+  get footer() {
+    if (!this.props.footer) { return null; }
+
+    return (
+      <div className={ this.footerClasses }>
+        { this.props.footer }
+      </div>
     );
   }
 
@@ -206,12 +264,15 @@ class Pod extends React.Component {
   render() {
     let content;
 
-    if(!this.state.collapsed) { content = this.podContent; }
+    if (!this.state.collapsed) { content = this.podContent; }
 
     return (
-      <div className={ this.mainClasses } >
-        { this.podHeader }
-        { content }
+      <div className={ this.mainClasses }>
+        <div className={ this.contentClasses } >
+          { this.podHeader }
+          { content }
+        </div>
+        { this.footer }
       </div>
     );
   }

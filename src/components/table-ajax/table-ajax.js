@@ -35,6 +35,13 @@ class TableAjax extends Table {
    */
   timeout = null;
 
+  /**
+   * Tracks the ajax request
+   *
+   * @property _request
+   */
+  _request = null;
+
   static propTypes = {
     /**
      * Data used to filter the data
@@ -92,7 +99,7 @@ class TableAjax extends Table {
      * @property totalRecords
      * @type {String}
      */
-    totalRecords: '0',
+    totalRecords: this.props.totalRecords || '0',
 
     /**
      * Sorting
@@ -137,6 +144,17 @@ class TableAjax extends Table {
     this.resizeTable();
   }
 
+  /**
+   * Lifecycle for when a component unmounts
+   * Clears any deferred tasks
+   *
+   * @method componentWillUnmount
+   * @return {Void}
+   */
+  componentWillUnmount() {
+    this.stopTimeout();
+  }
+
   static childContextTypes = {
     /**
      * Defines a context object for child components of the table-ajax component.
@@ -145,6 +163,8 @@ class TableAjax extends Table {
      * @property childContextTypes
      * @type {Object}
      */
+    attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
+    detachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
     attachToTable: React.PropTypes.func, // attach the row to the table
     checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
     detachFromTable: React.PropTypes.func, // detach the row from the table
@@ -166,6 +186,8 @@ class TableAjax extends Table {
    */
   getChildContext = () => {
     return {
+      attachActionToolbar: this.attachActionToolbar,
+      detachActionToolbar: this.detachActionToolbar,
       attachToTable: this.attachToTable,
       detachFromTable: this.detachFromTable,
       checkSelection: this.checkSelection,
@@ -239,11 +261,13 @@ class TableAjax extends Table {
 
     this.stopTimeout();
     this.timeout = setTimeout(() => {
-      Request
+      // track the request incase we need to abort it
+      this._request = Request
         .get(this.props.path)
         .set('Accept', 'application/json')
         .query(this.queryParams(element, options))
         .end((err, response) => {
+          this._hasRetreivedData = true;
           this.handleResponse(err, response);
           if (resetHeight) { this.resetTableHeight(); }
         });
@@ -259,6 +283,10 @@ class TableAjax extends Table {
   stopTimeout = () => {
     if (this.timeout) {
       clearTimeout(this.timeout);
+    }
+
+    if (this._request) {
+      this._request.abort();
     }
   }
 

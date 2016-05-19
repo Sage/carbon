@@ -268,6 +268,24 @@ describe('Form', () => {
     });
   });
 
+  describe('saveText', () => {
+    describe('if prop is passed', () => {
+      it('returns the prop value', () => {
+        instance = TestUtils.renderIntoDocument(<Form saveText="custom" />)
+        let save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        expect(save.textContent).toEqual('custom');
+      });
+    });
+
+    describe('if no prop is passed', () => {
+      it('returns i18n value', () => {
+        instance = TestUtils.renderIntoDocument(<Form />)
+        let save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        expect(save.textContent).toEqual('Save');
+      });
+    });
+  });
+
   describe('render', () => {
     it('renders a parent form', () => {
       let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form')

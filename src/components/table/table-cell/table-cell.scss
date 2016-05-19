@@ -1,6 +1,13 @@
 @import "tables";
 @import "colors";
 
+.ui-table-cell,
+.ui-table-header {
+  &:not(.ui-table-cell--select):first-child {
+    padding-left: 15px;
+  }
+}
+
 .ui-table-cell {
   background-color: $row-alt-color;
   border-bottom: 1px solid $table-border-color;
@@ -83,4 +90,8 @@
 
 .ui-table-cell--align-right {
   text-align: right;
+}
+
+.ui-table-cell--align-center {
+  text-align: center;
 }

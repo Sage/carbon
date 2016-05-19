@@ -1,13 +1,94 @@
+# 0.12.2
+
+* Stores will now throw an error if an invalid action is dispatched.
+* Fixes translation issues with Save and Cancel buttons in Form component.
+* Fixes error with refresh method on Table, when Table does not have an ActionToolbar.
+* Adds `business` and `individual` icons.
+
+### Modal Updates
+
+* Alert and Confirm have been updated to accept the dialog size prop. Default sizes remain unchanged. 
+
+# 0.12.1
+
+* Fixes overflow bug on Table component.
+* Fixes colors for recently added icons.
+
+# 0.12.0
+
+## Minor Improvements
+
+* Tabs emits a onTabClick event when on the headers is clicked
+* Add phone, email, location and mobile icons
+* Table now has a `refresh` method to force retrieve data.
+
+## Bug Fixes
+
+* CSS prevent multi action siblings overlapping
+* First columns in tables have additional left padding.
+* Page size sets 1 of 1 when there are no records.
+
+# 0.11.0
+
+* Tabs remember the last one they were on when going back in the browser.
+
+## Bug Fixes
+
+* Selectable Tables stopPropagation when selecting checkboxes.
+
+# 0.10.0
+
+* Adds loading and empty data states to Table component.
+
+## Bug Fixes
+
+* CSS fixes to Portrait.
+* CSS fixes to Spinner.
+* CSS fixes to Pill.
+
+# 0.9.2
+
+* MulitActionButton Classes more specific
+
+# 0.9.1
+
+## Bug Fixes
+
+* Various UI Fixes:
+  * MultiActionButton toggle placement.
+  * Removed Tab padding.
+  * Fixed Button height to 31px.
+
 # 0.9.0
+
+## New Components
+
+* Multi Action Button
 
 ## Selectable Table Rows
 
 * Table and TableAjax now have props of `selectable` and `highlightable`, enabling selectable or highlightable rows. Each event also emits events which can be used by developers with props of `onSelect` or `onHighlight`. Developers can also manually control the highlighting or selecting of rows using the same props on TableRow components.
+* Selectable rows also enables an action toolbar for the table, for which actions can be defined using the `actions` prop.
+
+## CSS
+
+* Created CSS utility to handle generic CSS.
 
 ## Misc
 
+* Inline labels can now be aligned right.
 * Added 'small' button option - renders pill-like secondary button.
-* Made portrait inline-block to allow label to sit inline. 
+* Made portrait inline-block to allow label to sit inline.
+* Added a 'refresh' svg icon to the icon component.
+* Form component can now set custom `saveText` as a prop.
+* Pill styling tweaked slightly.
+* Made portrait inline-block to allow label to sit inline.
+* Updated portrait colour for when no image is loaded.
+* Update Radio Button and Checkbox colour when disabled and checked.
+
+## Bug Fixes
+* Allow tooltip to decorate class that lacks componentProps method.
+* Records value typecast to number for i18n in Pager
 
 # 0.8.1
 

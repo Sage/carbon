@@ -1,3 +1,8 @@
+.ui-portrait {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .ui-portrait__initials {
   position: absolute;
 }
@@ -5,6 +10,10 @@
 .ui-portrait__avatar {
   display: inline-block;
   position: relative;
+}
+
+.ui-portrait__img {
+  float: left;
 }
 
 .ui-portrait--standard .ui-portrait__img {
@@ -19,21 +28,25 @@
   border-radius: 10% 40% 10%;
 }
 
+.ui-portrait--small,
 .ui-portrait--small .ui-portrait__img {
   width: 30px;
   height: 30px;
 }
 
+.ui-portrait--smed,
 .ui-portrait--smed .ui-portrait__img {
   width: 50px;
   height: 50px;
 }
 
+.ui-portrait--lmed,
 .ui-portrait--lmed .ui-portrait__img {
   width: 70px;
   height: 70px;
 }
 
+.ui-portrait--large,
 .ui-portrait--large .ui-portrait__img {
   width: 100px;
   height: 100px;

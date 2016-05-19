@@ -2,9 +2,10 @@
 @import "colors";
 
 .ui-table__wrapper {
+  background-color: $row-alt-color;
   border-radius: $tables__border-radius;
   border: 1px solid $border-color;
-  overflow-x: auto;
+  overflow: visible;
 }
 
 .ui-table__table {
@@ -20,4 +21,21 @@
 .ui-table--pager {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+// loading animation:
+
+.ui-spinner {
+  height: 8px;
+  width: 8px;
+  margin-bottom: -4px;
+}
+
+.table-loading-appear {
+  opacity: 0;
+}
+
+.table-loading-appear.table-loading-appear-active {
+  opacity: 1;
+  transition: opacity 200ms 50ms ease-in;
 }

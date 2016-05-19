@@ -1,10 +1,14 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames';
 import Immutable from 'immutable';
+import I18n from 'i18n-js';
+import ActionToolbar from './../action-toolbar';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import Pager from './../pager';
+import Spinner from './../spinner';
 
 /**
  * A Table widget.
@@ -255,6 +259,8 @@ class Table extends React.Component {
      * @property childContextTypes
      * @type {Object}
      */
+    attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
+    detachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
     attachToTable: React.PropTypes.func, // attach the row to the table
     checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
     detachFromTable: React.PropTypes.func, // detach the row from the table
@@ -276,6 +282,8 @@ class Table extends React.Component {
    */
   getChildContext = () => {
     return {
+      attachActionToolbar: this.attachActionToolbar,
+      detachActionToolbar: this.detachActionToolbar,
       attachToTable: this.attachToTable,
       detachFromTable: this.detachFromTable,
       checkSelection: this.checkSelection,
@@ -288,6 +296,10 @@ class Table extends React.Component {
       sortedColumn: this.sortedColumn,
       sortOrder: this.sortOrder
     };
+  }
+
+  state = {
+    selectedCount: 0
   }
 
   /**
@@ -327,10 +339,39 @@ class Table extends React.Component {
 
   /**
    * Tracks the component used for select all.
+   *
    * @property selectAllComponent
    * @type {Object}
    */
   selectAllComponent = null;
+
+  /**
+   * Tracks the action toolbar component.
+   *
+   * @property actionToolbarComponent
+   * @type {Object}
+   */
+  actionToolbarComponent = null;
+
+  /**
+   * Attaches action toolbar to the table.
+   *
+   * @method attachActionToolbar
+   * @param {Object}
+   */
+  attachActionToolbar = (comp) => {
+    this.actionToolbarComponent = comp;
+  }
+
+  /**
+   * Detaches action toolbar to the table.
+   *
+   * @method detachActionToolbar
+   * @param {Object}
+   */
+  detachActionToolbar = () => {
+    this.actionToolbarComponent = null;
+  }
 
   /**
    * Attaches a row to the table.
@@ -353,6 +394,24 @@ class Table extends React.Component {
    */
   detachFromTable = (id) => {
     delete this.rows[id];
+  }
+
+  /**
+   * Refreshes the grid and resets any selected rows.
+   *
+   * @method refresh
+   * @return {Void}
+   */
+  refresh = () => {
+    this.resetHighlightedRow();
+    this.selectedRows = [];
+    if (this.actionToolbarComponent) {
+      this.actionToolbarComponent.setState({
+        total: 0,
+        selected: []
+      });
+    }
+    this.emitOnChangeCallback('refresh', this.emitOptions());
   }
 
   /**
@@ -433,7 +492,7 @@ class Table extends React.Component {
     if (!state && isSelected) {
       // if unselecting the row, delete it from the object
       delete this.selectedRows[id];
-    } else {
+    } else if (!row.props.selectAll) {
       // add current row to the list of selected rows
       this.selectedRows[id] = row;
     }
@@ -441,9 +500,19 @@ class Table extends React.Component {
     // set new state for the row
     row.setState({ selected: state });
 
+    let keys = Object.keys(this.selectedRows);
+
+    if (this.actionToolbarComponent && !skipCallback) {
+      // update action toolbar
+      this.actionToolbarComponent.setState({
+        total: keys.length,
+        selected: keys
+      });
+    }
+
     if (this.props.onSelect && !skipCallback) {
       // trigger onSelect event
-      this.props.onSelect(Object.keys(this.selectedRows));
+      this.props.onSelect(keys);
     }
   }
 
@@ -469,9 +538,19 @@ class Table extends React.Component {
     // if select state is true, track the select all component
     this.selectAllComponent = selectState ? row : null;
 
+    let keys = Object.keys(this.selectedRows);
+
+    if (this.actionToolbarComponent) {
+      // update action toolbar
+      this.actionToolbarComponent.setState({
+        total: keys.length,
+        selected: keys
+      });
+    }
+
     if (this.props.onSelect) {
       // trigger onSelect event
-      this.props.onSelect(Object.keys(this.selectedRows));
+      this.props.onSelect(keys);
     }
   }
 
@@ -722,7 +801,6 @@ class Table extends React.Component {
     return 'ui-table__table';
   }
 
-
   /**
    * Returns thead content wrapped in <thead>
    *
@@ -740,6 +818,98 @@ class Table extends React.Component {
   }
 
   /**
+   * Returns the component for the action toolbar.
+   *
+   * @method actionToolbar
+   * @return {JSX}
+   */
+  get actionToolbar() {
+    if (!this.props.selectable) { return null; }
+
+    return (
+      <ActionToolbar total={ this.state.selectedCount } actions={ this.props.actions } />
+    );
+  }
+
+  /**
+   * Returns a row to be used for loading.
+   *
+   * @method loadingRow
+   * @return {Object} JSX
+   */
+  get loadingRow() {
+    return (
+      <TableRow key="__loading__" selectable={ false } highlightable={ false } hideMultiSelect={ true }>
+        <TableCell colSpan="9999" align="center">
+          <ReactCSSTransitionGroup
+            transitionName="table-loading"
+            transitionEnterTimeout={ 300 }
+            transitionLeaveTimeout={ 300 }
+            transitionAppearTimeout={ 300 }
+            transitionAppear={ true }
+          >
+            <Spinner size="small" />
+          </ReactCSSTransitionGroup>
+        </TableCell>
+      </TableRow>
+    );
+  }
+
+  /**
+   * Returns a row to be used for no data.
+   *
+   * @method emptyRow
+   * @return {Object} JSX
+   */
+  get emptyRow() {
+    return (
+      <TableRow key="__loading__" selectable={ false } highlightable={ false }>
+        <TableCell colSpan="9999" align="center">
+          { I18n.t("table.no_data", { defaultValue: "No results to display" }) }
+        </TableCell>
+      </TableRow>
+    );
+  }
+
+  /**
+   * Works out what content to display in the table.
+   *
+   * @method tableContent
+   * @return {Object} JSX
+   */
+  get tableContent() {
+    let children = this.props.children,
+        hasChildren = children;
+
+    // if using immutable js we can count the children
+    if (children && children.count) {
+      let numOfChildren = children.count(),
+          onlyChildIsHeader = numOfChildren === 1 && children.first().props.as === "header";
+
+      if (onlyChildIsHeader) {
+        if (this._hasRetreivedData) {
+          // if already retreived data then show empty row
+          children = children.push(this.emptyRow);
+        } else {
+          // if not yet retreived data then show loading row
+          children = children.push(this.loadingRow);
+        }
+      } else {
+        // check if there actually are any children
+        hasChildren = numOfChildren > 0;
+      }
+    }
+
+    if (hasChildren) {
+      return children;
+    } else if (this._hasRetreivedData) {
+      return this.emptyRow;
+    } else {
+      return this.loadingRow;
+    }
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -747,11 +917,12 @@ class Table extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
+        { this.actionToolbar }
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
             { this.thead }
             <tbody>
-              { this.props.children }
+              { this.tableContent }
             </tbody>
           </table>
         </div>

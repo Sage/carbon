@@ -16,7 +16,7 @@ $std-speed: 0.7s;
 .ui-spinner {
   @include animation(rotate360 $std-speed linear forwards infinite);
   border-radius: 50%;
-
+  box-sizing: content-box;
   display: inline-block;
 }
 

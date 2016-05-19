@@ -1,5 +1,4 @@
 {
   "name": "alert",
-  "style": "./alert.scss",
   "main": "./alert.js"
 }
