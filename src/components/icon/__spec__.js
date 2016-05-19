@@ -117,6 +117,7 @@ describe('Icon', () => {
       span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--plus");
+    });
     
     it('calls the render business icon method', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='business' />);
