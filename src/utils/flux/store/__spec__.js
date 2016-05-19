@@ -126,6 +126,19 @@ describe('Store', () => {
           });
         });
       });
+
+      describe('when an invalid action is dispatched', () => {
+        let message = "You are dispatching an invalid action (maybe the constant is incorrect or missing)",
+            invalid = ['', null, undefined];
+
+        for (let index in invalid) {
+          let value = invalid[index];
+
+          it(`throws an error for ${value}`, () => {
+            expect(function() { instance.dispatcherCallback({ actionType: value }) }).toThrowError(message);
+          });
+        }
+      });
     });
 
     describe('undo', () => {

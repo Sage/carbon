@@ -60,7 +60,20 @@ class Dialog extends Modal {
      * @type {Boolean}
      * @default true
      */
-    enableBackgroundUI: React.PropTypes.bool
+    enableBackgroundUI: React.PropTypes.bool,
+
+    /**
+     * Size of dialog, default size is 750px
+     *
+     * @property size
+     * @type {String}
+     * @default med
+     */
+    size: React.PropTypes.string
+  }
+
+  static defaultProps = {
+    size: 'med'
   }
 
   /**

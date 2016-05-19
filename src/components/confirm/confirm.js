@@ -45,6 +45,10 @@ class Confirm extends Dialog {
     onConfirm: React.PropTypes.func.isRequired
   }
 
+  static defaultProps = {
+    size: 'xsmall'
+  }
+
   constructor() {
     super();
   }

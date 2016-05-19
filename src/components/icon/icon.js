@@ -63,6 +63,10 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderMinusIcon;
       case 'plus':
         return this.renderPlusIcon;
+      case 'business':
+        return this.renderBusinessIcon;
+      case 'individual':
+        return this.renderIndividualIcon;
       default:
         null;
     }
@@ -387,6 +391,42 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
             '</mask>' +
           '</defs>' +
           '<use fill="#D8D8D8" fill-rule="evenodd" stroke="#979797" stroke-width="2" mask="url(#b)" xlink:href="#a" transform="translate(-91 -98)"/>' +
+        '</svg>'
+    };
+  }
+  /**
+   * Returns the 'business' icon
+   *
+   * @method renderBusinessIcon
+   * @return {Object} Business Icon svg
+   */
+  get renderBusinessIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--business" width="16px" height="16px" viewBox="0 0 16 16">' +
+            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                '<g id="business" fill="currentColor">' +
+                  '<path fill="currentColor" fill-rule="evenodd" d="M7 16h7.993155C15.550051 16 16 15.553384 16 15.0024554V7H2v8.0024554C2 15.5536886 2.45078 16 3.006845 16H5v-6h2v6zm2-6h4v3H9v-3zM5.399994 0h7.200012L18 6H0l5.399994-6z"/>' +
+                '</g>' +
+            '</g>' +
+        '</svg>'
+    };
+  }
+  /**
+   * Returns the 'individual' icon
+   *
+   * @method renderIndividualIcon
+   * @return {Object} Individual Icon svg
+   */
+  get renderIndividualIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--individual" width="16px" height="16px" viewBox="0 0 16 16">' +
+            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                '<g id="individual" fill="currentColor">' +
+                  '<path fill="currentColor" fill-rule="evenodd" d="M15.98642 11.2560819c.006876-.0499498.011419-.1002324.01358-.1508295C15.917431 9.401891 12.143433 8 8 8S.023747 9.401891 0 11.2603787c.001017.0761355.008515.1517135.022283.2266423l-.010409 1.64102C.00527 14.1691032.835758 15 1.866717 15h12.266566C15.162298 15 16 14.1618954 16 13.128041v-1.8719591h-.01358zM8 6c1.656854 0 3-1.3431458 3-3S9.656854 0 8 0 5 1.3431458 5 3s1.343146 3 3 3z"/>' +
+                '</g>' +
+            '</g>' +
         '</svg>'
     };
   }

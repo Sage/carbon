@@ -24,7 +24,7 @@ describe('Alert', () => {
 
   describe('dialogClasses', () => {
     it('returns the dialog class along with the alert class', () => {
-      expect(instance.dialogClasses).toEqual('ui-dialog__dialog ui-alert__alert');
+      expect(instance.dialogClasses).toEqual('ui-dialog__dialog ui-dialog__dialog--xsmall ui-alert__alert');
     });
   });
 });

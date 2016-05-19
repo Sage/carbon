@@ -123,9 +123,7 @@ class Form extends React.Component {
   }
 
   static defaultProps = {
-    cancelText: I18n.t('actions.cancel', { defaultValue: 'Cancel' }),
     cancel: true,
-    saveText: I18n.t('actions.save', { defaultValue: 'Save' }),
     saving: false,
     validateOnMount: false
   }
@@ -350,7 +348,7 @@ class Form extends React.Component {
 
     return (<div className={ cancelClasses }>
       <Button type='button' onClick={ this.cancelForm } >
-        { this.props.cancelText }
+        { this.props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' }) }
       </Button>
     </div>);
   }
@@ -389,7 +387,7 @@ class Form extends React.Component {
           <div className={ saveClasses }>
             { errorCount }
             <Button as="primary" disabled={ this.props.saving }>
-              { this.props.saveText }
+              { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
             </Button>
           </div>
 
