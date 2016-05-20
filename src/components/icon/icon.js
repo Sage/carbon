@@ -63,6 +63,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderBusinessIcon;
       case 'individual':
         return this.renderIndividualIcon;
+      case 'external-link':
+        return this.renderExternalLinkIcon;
       default:
         null;
     }
@@ -403,6 +405,21 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
                   '<path fill="currentColor" fill-rule="evenodd" d="M15.98642 11.2560819c.006876-.0499498.011419-.1002324.01358-.1508295C15.917431 9.401891 12.143433 8 8 8S.023747 9.401891 0 11.2603787c.001017.0761355.008515.1517135.022283.2266423l-.010409 1.64102C.00527 14.1691032.835758 15 1.866717 15h12.266566C15.162298 15 16 14.1618954 16 13.128041v-1.8719591h-.01358zM8 6c1.656854 0 3-1.3431458 3-3S9.656854 0 8 0 5 1.3431458 5 3s1.343146 3 3 3z"/>' +
                 '</g>' +
             '</g>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'external-link' icon
+   *
+   * @method renderExternalLinkIcon
+   * @return {Object} externalLink icon svg
+   */
+  get renderExternalLinkIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--external-link" width="16px" height="16px" viewBox="0 0 16 16">' +
+          '<path fill="#9DA0A7" fill-rule="evenodd" d="M7 0H1.994C.894 0 0 .893 0 1.994v12.012C0 15.106.893 16 1.994 16h12.012c1.1 0 1.994-.893 1.994-1.994V9h-2v3.998C14 13.55 13.544 14 12.998 14H3.002C2.45 14 2 13.544 2 12.998V3.002C2 2.45 2.456 2 3.002 2H7V0zm8.414 2H16V0H9v2h3.586l-8.243 8.243 1.414 1.414L14 3.414V7h2V2h-.586z"/>' +
         '</svg>'
     };
   }
