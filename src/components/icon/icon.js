@@ -53,6 +53,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderBasketIcon;
       case 'phone':
         return this.renderPhoneIcon;
+      case 'processing':
+        return this.renderProcessingIcon;
       case 'mobile':
         return this.renderMobileIcon;
       case 'location':
@@ -294,6 +296,25 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
                       '<path d="M11.2490328,9.98677324 L13.3894251,7.19607664 C13.7305431,6.75131854 13.6812982,6.0812921 13.2881596,5.68815351 L8.71184039,1.11183429 C8.32258606,0.722579956 7.6812982,0.718695695 7.28815961,1.11183429 L2.71184039,5.68815351 C2.32258606,6.07740784 2.27628578,6.74998266 2.61710155,7.18171568 L7.4694029,13.3284345 C7.56110619,13.4446008 7.6681764,13.5290423 7.78226818,13.5817768 L4.21712756,7.84506121 C3.92708311,7.37834679 4.00177955,6.66917891 4.37457806,6.27111536 L7.31737756,3.12887854 C7.69437952,2.72632667 8.30939903,2.72345739 8.68749905,3.11874485 L11.7124949,6.28124905 C12.0921901,6.67820424 12.2392384,7.41716468 12.0433089,7.92560655 L11.2490328,9.98677324 Z"></path>' +
                   '</g>' +
               '</g>' +
+          '</g>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'processing' icon
+   * TODO: React UPGRADE v15.0.0
+   *
+   * @method renderProcessingIcon
+   * @return {Object} processingIcon svg
+   */
+  get renderProcessingIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--processing" xmlns="http://www.w3.org/2000/svg" width="18" height="18">' +
+          '<g fill="none" fill-rule="evenodd">' +
+            '<path fill="#FFF" fill-opacity=".2" stroke="#FFAB00" d="M9 17c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-3c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5z"/>' +
+            '<path fill="#FFAB00" d="M4.774 11.673L2.52 13.69C3.972 15.697 6.333 17 9 17c4.418 0 8-3.582 8-8s-3.582-8-8-8v3c2.76 0 5 2.24 5 5s-2.24 5-5 5c-1.778 0-3.34-.93-4.226-2.327z"/>' +
           '</g>' +
         '</svg>'
     };

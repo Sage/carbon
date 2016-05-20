@@ -71,6 +71,14 @@ describe('Icon', () => {
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--basket");
     });
 
+    it('calls the render processing icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='processing' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--processing");
+    });
+
     it('calls the render phone icon method', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='phone' />);
       instance.renderIcon;
