@@ -15,14 +15,12 @@
     margin-top: 10px;
   }
 
-  &:hover .common-input__field .fake-input,
   &:hover .common-input__field .common-input__input {
     border-color: $input-active-border-color;
   }
 }
 
 .common-input--readonly {
-  .fake-input,
   .common-input__input {
     background-color: transparent;
     border: none;
@@ -35,7 +33,6 @@
 }
 
 .common-input--align-left {
-  .fake-input,
   .common-input__input {
     text-align: left;
   }
@@ -47,7 +44,6 @@
 }
 
 .common-input--align-right {
-  .fake-input,
   .common-input__input {
     text-align: right;
   }
@@ -62,7 +58,6 @@
   position: relative;
 }
 
-.fake-input,
 .common-input__input {
   background-color: $white;
   border-radius: $input-border-radius;
@@ -176,8 +171,6 @@
   color: $error;
 }
 
-.common-input--error .fake-input,
-.common-input--error .fake-input:hover,
 .common-input__input--error,
 .common-input__input--error:hover {
   border-color: $error !important; // this is the correct use of !important
@@ -195,7 +188,7 @@
   top: 8px;
 }
 
-.fake-input {
+.common-input__input--fake {
   text-align: left;
   overflow: hidden;
 }

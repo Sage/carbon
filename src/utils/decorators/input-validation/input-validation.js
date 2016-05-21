@@ -105,19 +105,12 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   /**
-   * A lifecycle method for when the component has re-rendered.
+   * Positions the message relative to the icon.
    *
-   * @method componentDidUpdate
-   * @return {void}
+   * @method positionMessage
+   * @return {Void}
    */
-  // componentDidUpdate(prevProps, prevState) {
-  //   // call the components super method if it exists
-  //   if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
-  //
-  //   this.positionTooltip();
-  // }
-
-  positionTooltip = () => {
+  positionMessage = () => {
     if (!this.state.valid) {
       // calculate the position for the message relative to the icon
       let icon = ReactDOM.findDOMNode(this.refs.validationIcon),
@@ -258,7 +251,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    */
   _handleFocus = () => {
     if (!this.state.valid) {
-      this.positionTooltip();
+      this.positionMessage();
 
       if (!this.state.messageLocked) {
         this.setState({ messageLocked: true });
@@ -361,7 +354,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   get inputProps() {
     let inputProps = super.inputProps || {};
 
-    inputProps.onMouseOver = chainFunctions(this.positionTooltip, inputProps.onMouseOver);
+    inputProps.onMouseOver = chainFunctions(this.positionMessage, inputProps.onMouseOver);
     inputProps.onFocus = chainFunctions(this._handleFocus, inputProps.onFocus);
     inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
     inputProps.onKeyDown = chainFunctions(this._handleContentChange, inputProps.onKeyDown);
