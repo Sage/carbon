@@ -194,7 +194,8 @@ class Table extends React.Component {
      * @property thead
      * @type {Object}
      */
-    thead: React.PropTypes.object
+    thead: React.PropTypes.object,
+    tbody: React.PropTypes.bool
   }
 
   /**
@@ -909,6 +910,18 @@ class Table extends React.Component {
     }
   }
 
+  get tbody() {
+    if (this.props.tbody === false) {
+      return this.tableContent;
+    } else {
+      return (
+        <tbody>
+          { this.tableContent }
+        </tbody>
+      );
+    }
+  }
+
   /**
    * Renders the component.
    *
@@ -921,9 +934,7 @@ class Table extends React.Component {
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
             { this.thead }
-            <tbody>
-              { this.tableContent }
-            </tbody>
+            { this.tbody }
           </table>
         </div>
         { this.pager }

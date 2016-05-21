@@ -249,8 +249,14 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {HTML} HTML for input
    */
   get inputHTML() {
-    // builds the input with a variable input type - see `inputType`
-    let input = React.createElement(this.inputType, { ...this.inputProps });
+    let input;
+
+    if (this.props.textOnly) {
+      input = <div className="fake-input">{ this.inputProps.value || this.inputProps.placeholder }</div>;
+    } else {
+      // builds the input with a variable input type - see `inputType`
+      input = React.createElement(this.inputType, { ...this.inputProps });
+    }
 
     return (
       <div { ...this.fieldProps }>
