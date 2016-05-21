@@ -121,8 +121,8 @@
   border-radius: 3px 3px 3px 0;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   box-sizing: border-box;
-  display: table;
-  left: 100%;
+  display: none;
+  left: 9999px;
   margin-top: $arrow-size;
   max-width: 260px;
   min-width: 50px;
@@ -142,10 +142,6 @@
     left: 0;
     bottom: -14px;
   }
-}
-
-.common-input__message--hidden {
-  display: none;
 }
 
 .common-input__message--locked {

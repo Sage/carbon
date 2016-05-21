@@ -110,10 +110,14 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @method componentDidUpdate
    * @return {void}
    */
-  componentDidUpdate(prevProps, prevState) {
-    // call the components super method if it exists
-    if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
+  // componentDidUpdate(prevProps, prevState) {
+  //   // call the components super method if it exists
+  //   if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
+  //
+  //   this.positionTooltip();
+  // }
 
+  positionTooltip = () => {
     if (!this.state.valid) {
       // calculate the position for the message relative to the icon
       let icon = ReactDOM.findDOMNode(this.refs.validationIcon),
@@ -136,9 +140,6 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
           message.style.left = `${messagePositionLeft}px`;
           message.className += " common-input__message--flipped";
         }
-
-        // hide the message
-        message.className += " common-input__message--hidden";
       }
     }
   }
@@ -256,8 +257,12 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {void}
    */
   _handleFocus = () => {
-    if (!this.state.valid && !this.state.messageLocked) {
-      this.setState({ messageLocked: true });
+    if (!this.state.valid) {
+      this.positionTooltip();
+
+      if (!this.state.messageLocked) {
+        this.setState({ messageLocked: true });
+      }
     }
   }
 
@@ -356,6 +361,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   get inputProps() {
     let inputProps = super.inputProps || {};
 
+    inputProps.onMouseOver = chainFunctions(this.positionTooltip, inputProps.onMouseOver);
     inputProps.onFocus = chainFunctions(this._handleFocus, inputProps.onFocus);
     inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
     inputProps.onKeyDown = chainFunctions(this._handleContentChange, inputProps.onKeyDown);
