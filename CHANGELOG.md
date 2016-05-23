@@ -1,6 +1,8 @@
 # 0.13.0
 
+* Adds external link icon.
 * Adds `$app-light-font-family` Sass variable.
+* Adds new colors: `$grey-dark-blue-5`, `$grey-header`.
 
 # 0.12.2
 
