@@ -1,3 +1,8 @@
+# 0.13.0
+
+* Adds external link icon.
+* Adds new colors: `$grey-dark-blue-5`, `$grey-header`.
+
 # 0.12.2
 
 * Stores will now throw an error if an invalid action is dispatched.
