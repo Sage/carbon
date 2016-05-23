@@ -2,6 +2,7 @@
 
 * Number does not show undefined when value props is not provided and user enter alphabets 
 * Adds external link icon.
+* Adds `$app-light-font-family` Sass variable.
 * Adds new colors: `$grey-dark-blue-5`, `$grey-header`.
 
 # 0.12.2
