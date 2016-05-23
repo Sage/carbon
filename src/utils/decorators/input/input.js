@@ -251,9 +251,14 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   get inputHTML() {
     let input;
 
-    if (this.props.textOnly) {
-      let classes = `${this.inputProps.className} common-input__input--fake`;
-      input = <div className={ classes } onMouseOver={ this.inputProps.onMouseOver }>{ this.inputProps.value || this.inputProps.placeholder }</div>;
+    if (this.props.fakeInput) {
+      // renders a fake input - useful for screens with lots of inputs
+      let classes = classNames(this.inputProps.className, 'common-input__input--fake');
+      input = (
+        <div className={ classes } onMouseOver={ this.inputProps.onMouseOver }>
+          { this.inputProps.value || this.inputProps.placeholder }
+        </div>
+      );
     } else {
       // builds the input with a variable input type - see `inputType`
       input = React.createElement(this.inputType, { ...this.inputProps });

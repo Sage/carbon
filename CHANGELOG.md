@@ -1,3 +1,9 @@
+# 0.13.0
+
+* A developer can choose for a Table to not automatically render with a `tbody`, allowing them to manually render it `<Table tbody={ false }>`.
+* Performance improvements for validation messages.
+* Inputs can be rendered with fake inputs, useful for pages with lots of inputs where performance can be an issue.
+
 # 0.12.2
 
 * Stores will now throw an error if an invalid action is dispatched.

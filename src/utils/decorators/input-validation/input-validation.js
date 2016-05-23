@@ -105,39 +105,6 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   /**
-   * Positions the message relative to the icon.
-   *
-   * @method positionMessage
-   * @return {Void}
-   */
-  positionMessage = () => {
-    if (!this.state.valid) {
-      // calculate the position for the message relative to the icon
-      let icon = ReactDOM.findDOMNode(this.refs.validationIcon),
-          message = this.refs.validationMessage;
-
-      if (icon && message && message.offsetHeight) {
-        let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2)),
-            topOffset = icon.offsetTop - icon.offsetHeight;
-
-        // set initial position for message
-        message.style.left = `${messagePositionLeft}px`;
-        message.style.top = `-${message.offsetHeight - topOffset}px`;
-
-        // figure out if the message is positioned offscreen
-        let messageScreenPosition = message.getBoundingClientRect().left + message.offsetWidth;
-
-        // change the position if it is offscreen
-        if (messageScreenPosition > this._window.innerWidth) {
-          messagePositionLeft -= message.offsetWidth;
-          message.style.left = `${messagePositionLeft}px`;
-          message.className += " common-input__message--flipped";
-        }
-      }
-    }
-  }
-
-  /**
    * A lifecycle method for when the component is added to the page.
    *
    * @method componentWillMount
@@ -171,6 +138,39 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
       // detach the input to the form so the form
       this.context.form.detachFromForm(this);
+    }
+  }
+
+  /**
+   * Positions the message relative to the icon.
+   *
+   * @method positionMessage
+   * @return {Void}
+   */
+  positionMessage = () => {
+    if (!this.state.valid) {
+      // calculate the position for the message relative to the icon
+      let icon = ReactDOM.findDOMNode(this.refs.validationIcon),
+          message = this.refs.validationMessage;
+
+      if (icon && message && message.offsetHeight) {
+        let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2)),
+            topOffset = icon.offsetTop - icon.offsetHeight;
+
+        // set initial position for message
+        message.style.left = `${messagePositionLeft}px`;
+        message.style.top = `-${message.offsetHeight - topOffset}px`;
+
+        // figure out if the message is positioned offscreen
+        let messageScreenPosition = message.getBoundingClientRect().left + message.offsetWidth;
+
+        // change the position if it is offscreen
+        if (messageScreenPosition > this._window.innerWidth) {
+          messagePositionLeft -= message.offsetWidth;
+          message.style.left = `${messagePositionLeft}px`;
+          message.className += " common-input__message--flipped";
+        }
+      }
     }
   }
 

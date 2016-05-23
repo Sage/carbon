@@ -195,6 +195,13 @@ class Table extends React.Component {
      * @type {Object}
      */
     thead: React.PropTypes.object,
+
+    /**
+     * Determines if you want the table to automatically render a tbody.
+     *
+     * @property tbody
+     * @type {Object}
+     */
     tbody: React.PropTypes.bool
   }
 
@@ -910,6 +917,12 @@ class Table extends React.Component {
     }
   }
 
+  /**
+   * Returns the content, wrapped in a tbody.
+   *
+   * @method tbody
+   * @return {Object} JSX
+   */
   get tbody() {
     if (this.props.tbody === false) {
       return this.tableContent;
