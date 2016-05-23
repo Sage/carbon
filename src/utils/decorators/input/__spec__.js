@@ -277,4 +277,17 @@ describe('Input', () => {
       });
     });
   });
+
+  describe('fakeInput', () => {
+    it('renders a div with classes and mouse over event', () => {
+      instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+        fakeInput: true
+      }));
+
+      let input = instance.inputHTML.props.children[1];
+
+      expect(input.props.className).toEqual('common-input__input--fake');
+      expect(input.props.onMouseOver).toEqual(instance.inputProps.onMouseOver);
+    });
+  });
 });

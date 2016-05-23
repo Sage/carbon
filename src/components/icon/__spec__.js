@@ -142,6 +142,14 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--individual");
     });
+
+    it('calls the render external link icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='external-link' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--external-link");
+    });
   });
 
   describe('success', () => {
