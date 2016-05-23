@@ -482,7 +482,7 @@ describe('InputValidation', () => {
 
     describe('when the input is invalid and the field gets focus but message is already locked', () => {
       it('should not call setState', () => {
-        instance.setState({ valid: true, messageLocked: true });
+        instance.setState({ valid: false, messageLocked: true });
         spyOn(instance, 'setState');
         instance._handleFocus();
         expect(instance.setState).not.toHaveBeenCalled();
