@@ -3,6 +3,7 @@
 !! BREAKING CHANGE !!
 
 * Selectable table rows now emit an object instead of an array, containing more information about the selected rows.
+* Adds `$app-light-font-family` Sass variable.
 
 # 0.13.0
 
@@ -11,7 +12,6 @@
 * Inputs can be rendered with fake inputs, useful for pages with lots of inputs where performance can be an issue.
 * Number does not show undefined when value props is not provided and user enter alphabets 
 * Adds external link icon.
-* Adds `$app-light-font-family` Sass variable.
 * Adds new colors: `$grey-dark-blue-5`, `$grey-header`.
 
 # 0.12.2
