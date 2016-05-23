@@ -1,3 +1,9 @@
+# 0.14.0
+
+!! BREAKING CHANGE !!
+
+* Selectable table rows now emit an object instead of an array, containing more information about the selected rows.
+
 # 0.13.0
 
 * A developer can choose for a Table to not automatically render with a `tbody`, allowing them to manually render it `<Table tbody={ false }>`.
