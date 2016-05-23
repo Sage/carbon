@@ -61,8 +61,29 @@ describe('Number', () => {
         expect(instance._handleOnChange).not.toHaveBeenCalled();
       });
 
+      it('does not update the input value', () => {
+        expect(input.value).toEqual(instance.props.value);
+      });
+
       it('calls setSelectionRange', () => {
         expect(setSelectionSpy).toHaveBeenCalledWith(2, 4);
+      });
+    });
+
+    describe('when the value porp is undefined', () => {
+      it('sets input value to be null', () => {
+        instance = TestUtils.renderIntoDocument(<Number
+          name="Dummy Number"
+          label={ 'Label' }
+          onChange={ spy }
+        />);
+        input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
+
+        let setSelectionSpy = jasmine.createSpy();
+        TestUtils.Simulate.change(input, { target: {value: 'A', setSelectionRange: setSelectionSpy}});
+        it('sets the input value to be null', () => {
+          expect(input.value).toBeNull();
+        });
       });
     });
   });

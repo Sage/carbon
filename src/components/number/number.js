@@ -60,7 +60,7 @@ class Number extends React.Component {
       this._handleOnChange(ev);
     } else {
       // reset the value
-      ev.target.value = this.props.value;
+      ev.target.value = this.props.value || null;
       // reset the selection range
       ev.target.setSelectionRange(this.selectionStart, this.selectionEnd);
     }
