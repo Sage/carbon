@@ -1,5 +1,6 @@
 # 0.13.0
 
+* Number does not show undefined when value props is not provided and user enter alphabets 
 * Adds external link icon.
 * Adds new colors: `$grey-dark-blue-5`, `$grey-header`.
 
@@ -12,7 +13,7 @@
 
 ### Modal Updates
 
-* Alert and Confirm have been updated to accept the dialog size prop. Default sizes remain unchanged. 
+* Alert and Confirm have been updated to accept the dialog size prop. Default sizes remain unchanged.
 
 # 0.12.1
 
