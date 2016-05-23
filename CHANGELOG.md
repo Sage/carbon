@@ -1,8 +1,8 @@
 # 0.13.0
 
-## Bug Fixes
-
 * Number does not show undefined when value props is not provided and user enter alphabets 
+* Adds external link icon.
+* Adds new colors: `$grey-dark-blue-5`, `$grey-header`.
 
 # 0.12.2
 
