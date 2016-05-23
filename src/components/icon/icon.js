@@ -374,8 +374,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderEmailIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--email" width="16" height="16" viewBox="0 0 16 16">' +
-          '<path d="M16 4.402v-1.4C16 2.456 15.552 2 15 2H1c-.555 0-1 .45-1 1.002v1.4L8.005 9 16 4.402zm0 2v6.596C16 13.55 15.555 14 15 14H1c-.552 0-1-.456-1-1.002V6.402L8 11l8-4.598z" fill="currentColor" fill-rule="evenodd"/>' +
+        '<svg class="ui-icon__svg ui-icon__svg--email" xmlns="http://www.w3.org/2000/svg" width="16" height="12">' +
+          '<path fill="currentColor" fill-rule="evenodd" d="M.2696 1C.6154.402 1.259 0 1.994 0h12.012c.7358 0 1.3785.4027 1.724 1H16v8.9916C16 11.1006 15.1055 12 14.006 12H1.994C.893 12 0 11.098 0 9.9915V1h.2696zM2 3.01l5.1497 2.355c.502.2296 1.311.2344 1.8196.0048L14 3.0993v1.741L8.924 6.919c-.5103.209-1.3446.2047-1.843-.001L2 4.8197v-1.81z"/>' +
         '</svg>'
     };
   }
@@ -389,8 +389,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderMinusIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--minus" width="8" height="2" viewBox="0 0 8 2">' +
-          '<path d="M0 0h8v2H0z" fill="currentColor" fill-rule="evenodd"/>' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="4">' +
+          '<path fill-rule="evenodd" d="M0 0h16v4H0z"/>' +
         '</svg>'
     };
   }
@@ -404,14 +404,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderPlusIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--plus" width="8" height="8">' +
-          '<defs>' +
-            '<path id="a" d="M96 101v-3h-2v3h-3v2h3v3h2v-3h3v-2h-3z"/>' +
-            '<mask id="b" width="8" height="8" x="0" y="0" fill="currentColor">' +
-              '<use xlink:href="#a"/>' +
-            '</mask>' +
-          '</defs>' +
-          '<use fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-width="2" mask="url(#b)" xlink:href="#a" transform="translate(-91 -98)"/>' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">' +
+          '<path fill-rule="evenodd" d="M10 6V0H6v6H0v4h6v6h4v-6h6V6h-6z"/>' +
         '</svg>'
     };
   }
