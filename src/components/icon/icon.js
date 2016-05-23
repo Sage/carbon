@@ -391,7 +391,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderMinusIcon() {
     return {
       __html:
-        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="4">' +
+        '<svg class="ui-icon__svg ui-icon__svg--minus" xmlns="http://www.w3.org/2000/svg" width="16" height="4">' +
           '<path fill-rule="evenodd" d="M0 0h16v4H0z"/>' +
         '</svg>'
     };
@@ -406,7 +406,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderPlusIcon() {
     return {
       __html:
-        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">' +
+        '<svg class="ui-icon__svg ui-icon__svg--plus" xmlns="http://www.w3.org/2000/svg" width="16" height="16">' +
           '<path fill-rule="evenodd" d="M10 6V0H6v6H0v4h6v6h4v-6h6V6h-6z"/>' +
         '</svg>'
     };
