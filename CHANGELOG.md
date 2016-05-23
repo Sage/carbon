@@ -5,6 +5,7 @@
 * Inputs can be rendered with fake inputs, useful for pages with lots of inputs where performance can be an issue.
 * Number does not show undefined when value props is not provided and user enter alphabets 
 * Adds external link icon.
+* Adds `$app-light-font-family` Sass variable.
 * Adds new colors: `$grey-dark-blue-5`, `$grey-header`.
 
 # 0.12.2
