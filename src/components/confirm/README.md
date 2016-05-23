@@ -30,6 +30,8 @@ import Confirm from 'carbon/lib/components/confirm';
 | ------------- |  ------------- |  ------------- | ------------- | ------------- |
 | title         | false          | String         |               | Confirm dialog title  |
 | onConfirm     | false          | Function       |               | Callback for when the yes button is clicked  |
+| confirmLabel  | false          | String         | 'Yes'         | Label text for the confirm button  |
 | onCancel      | false          | Function       |               | Callback for when the no button is clicked |
+| cancelLabel   | false          | String         | 'No'          | Label text for the cancel button |
 | open          | false          | Boolean        |               | Pass true if you want the confirm to open |
 | children      | false          | String         |               | Confirm dialog content to show to the user |
