@@ -757,6 +757,17 @@ describe('Table', () => {
     });
   });
 
+  describe('tbody', () => {
+    it('returns content wrapped in a tbody', () => {
+      expect(instance.tbody.type).toEqual('tbody');
+    });
+
+    it('returns custom tbody when setting tbody prop to false', () => {
+      instance = TestUtils.renderIntoDocument(<Table tbody={ false }><tbody className="custom"><tr><td></td></tr></tbody></Table>);
+      expect(instance.tbody.props.className).toEqual("custom");
+    });
+  });
+
   describe('pager', () => {
     describe('when paginate is true', () => {
       it('returns the pager', () => {

@@ -161,11 +161,11 @@ describe('InputValidation', () => {
     });
   });
 
-  describe('componentDidUpdate', () => {
+  describe('positionMessage', () => {
     describe('when the component is valid', () => {
       it('does nothing', () => {
         instance.setState({ valid: true });
-        expect(instance.componentDidUpdate.bind(instance)).not.toThrow();
+        expect(instance.positionMessage.bind(instance)).not.toThrow();
       });
     });
 
@@ -174,7 +174,7 @@ describe('InputValidation', () => {
         it('does nothing', () => {
           instance.setState({ valid: false });
           spyOn(ReactDOM, 'findDOMNode').and.returnValue(null);
-          expect(instance.componentDidUpdate.bind(instance)).not.toThrow();
+          expect(instance.positionMessage.bind(instance)).not.toThrow();
         });
       });
 
@@ -199,7 +199,7 @@ describe('InputValidation', () => {
               offsetWidth: 10,
               offsetTop: 30
             });
-            instance.componentDidUpdate();
+            instance.positionMessage();
             expect(instance.refs.validationMessage.style.left).toEqual('25px');
           });
         });
@@ -228,7 +228,7 @@ describe('InputValidation', () => {
             instance._window = {
               innerWidth: -1
             };
-            instance.componentDidUpdate();
+            instance.positionMessage();
             expect(instance.refs.validationMessage.className).toContain('common-input__message--flipped');
           });
         });
@@ -471,6 +471,22 @@ describe('InputValidation', () => {
         instance._handleFocus();
         expect(instance.setState).toHaveBeenCalledWith({ messageLocked: true });
       });
+
+      it('should position the message', () => {
+        instance.setState({ valid: false });
+        spyOn(instance, 'positionMessage');
+        instance._handleFocus();
+        expect(instance.positionMessage).toHaveBeenCalled();
+      });
+    });
+
+    describe('when the input is invalid and the field gets focus but message is already locked', () => {
+      it('should not call setState', () => {
+        instance.setState({ valid: false, messageLocked: true });
+        spyOn(instance, 'setState');
+        instance._handleFocus();
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
     });
 
     describe('when the input is valid and the field gets focus', () => {
@@ -480,6 +496,14 @@ describe('InputValidation', () => {
         instance._handleFocus();
         expect(instance.setState).not.toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('onMouseOver', () => {
+    it('calls positionMessage', () => {
+      spyOn(instance, 'positionMessage');
+      instance.inputProps.onMouseOver();
+      expect(instance.positionMessage).toHaveBeenCalled();
     });
   });
 
