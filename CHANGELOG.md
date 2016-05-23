@@ -1,3 +1,7 @@
+# 0.13.0
+
+* Adds `$app-light-font-family` Sass variable.
+
 # 0.12.2
 
 * Stores will now throw an error if an invalid action is dispatched.
