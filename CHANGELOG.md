@@ -2,9 +2,10 @@
 
 ## !! BREAKING CHANGE !!
 
+* Selectable table rows now emit an object instead of an array, containing more information about the selected rows.
+
 ## Minor Changes
 
-* Selectable table rows now emit an object instead of an array, containing more information about the selected rows.
 * Adds `$app-light-font-family` Sass variable.
 * Icons - plus, minus, processing. Update contact icons
 * Improve tile footer style
