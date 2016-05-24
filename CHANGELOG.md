@@ -1,3 +1,9 @@
+# 0.14.1
+
+## Minor Changes
+
+* Fixes scrollbar fixed height.
+
 # 0.14.0
 
 ## !! BREAKING CHANGE !!
