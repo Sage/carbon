@@ -2,6 +2,7 @@
 
 ## Minor Changes
 
+* Add ability to set custom labels on Confirm dialog.
 * Fixes scrollbar fixed height.
 * Fixes word break on tooltips.
 
@@ -18,7 +19,6 @@
 * Adds `$app-medium-font-family` Sass variable.
 * Icons - plus, minus, processing. Update contact icons
 * Improve tile footer style
-* Add ability to set custom labels on Confirm dialog.
 
 # 0.13.0
 
