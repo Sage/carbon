@@ -508,19 +508,19 @@ class Table extends React.Component {
     // set new state for the row
     row.setState({ selected: state });
 
-    let keys = Object.keys(this.selectedRows);
-
     if (this.actionToolbarComponent && !skipCallback) {
+      let keys = Object.keys(this.selectedRows);
+
       // update action toolbar
       this.actionToolbarComponent.setState({
         total: keys.length,
-        selected: keys
+        selected: this.selectedRows
       });
     }
 
     if (this.props.onSelect && !skipCallback) {
       // trigger onSelect event
-      this.props.onSelect(keys);
+      this.props.onSelect(this.selectedRows);
     }
   }
 
@@ -546,19 +546,20 @@ class Table extends React.Component {
     // if select state is true, track the select all component
     this.selectAllComponent = selectState ? row : null;
 
-    let keys = Object.keys(this.selectedRows);
 
     if (this.actionToolbarComponent) {
+      let keys = Object.keys(this.selectedRows);
+
       // update action toolbar
       this.actionToolbarComponent.setState({
         total: keys.length,
-        selected: keys
+        selected: this.selectedRows
       });
     }
 
     if (this.props.onSelect) {
       // trigger onSelect event
-      this.props.onSelect(keys);
+      this.props.onSelect(this.selectedRows);
     }
   }
 
