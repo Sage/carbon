@@ -1,5 +1,7 @@
 # 0.13.1
+
 * Adds `$app-light-font-family` Sass variable.
+* Sidebar now scrolls on overflow
 
 # 0.13.0
 
