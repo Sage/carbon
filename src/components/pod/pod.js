@@ -233,7 +233,7 @@ class Pod extends React.Component {
     return classNames(
       'ui-pod__footer',
       `ui-pod__footer--${this.props.as}`,
-      `ui-pod--padding-${this.props.padding}`, {
+      `ui-pod__footer--padding-${this.props.padding}`, {
         'ui-pod--no-border': !this.props.border
       }
     );
