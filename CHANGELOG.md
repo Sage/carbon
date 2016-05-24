@@ -9,6 +9,8 @@
 * Sidebar now scrolls on overflow
 * Adds `$app-light-font-family` Sass variable.
 * Adds `$app-medium-font-family` Sass variable.
+* Icons - plus, minus, processing. Update contact icons
+* Improve tile footer style
 
 # 0.13.0
 
