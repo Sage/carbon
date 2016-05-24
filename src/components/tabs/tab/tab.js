@@ -29,7 +29,25 @@ class Tab extends React.Component {
      * @property tabId
      * @type {String}
      */
-    tabId: React.PropTypes.string.isRequired
+    tabId: React.PropTypes.string.isRequired,
+
+    /**
+     * used to specify a link to navigate to (rather than just show the
+     * given tab).
+     *
+     * @property href
+     * @type {String}
+     */
+    href: React.PropTypes.string,
+
+    /**
+     * used in conjunction with the `href` prop to specify the behviour
+     * of link (e.g. `_blank` to open in a new browser window or tab)
+     *
+     * @property target
+     * @type {String}
+     */
+    target: React.PropTypes.string
   }
 
   static contextTypes = {

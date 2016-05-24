@@ -36,6 +36,7 @@
 ## Minor Improvements
 
 * Tabs emits a onTabClick event when on the headers is clicked
+* Added `position` prop to `Tabs` and `href`/`target` props to `Tab`.
 * Add phone, email, location and mobile icons
 * Table now has a `refresh` method to force retrieve data.
 
@@ -75,6 +76,7 @@
   * MultiActionButton toggle placement.
   * Removed Tab padding.
   * Fixed Button height to 31px.
+
 
 # 0.9.0
 

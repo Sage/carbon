@@ -3,7 +3,7 @@
 
 $ui-tabs__header__background-color: #F5F6F7 !default;
 $ui-tabs__header__border-color: $grey-dark-blue-20 !default;
-$ui-tabs__header--selected_border-color: $blue-bright !default;
+$ui-tabs__header--selected-border-color: $blue-bright !default;
 $ui-tabs__header__color: $grey-dark !default;
 
 .ui-tabs {
@@ -22,30 +22,39 @@ $ui-tabs__header__color: $grey-dark !default;
   text-align: right;
 }
 
-.ui-tabs__headers__header {
+.ui-tabs__header {
+  display: inline-block;
+}
+
+.ui-tabs__anchor {
   background-color: $ui-tabs__header__background-color;
   border-bottom: 2px solid $ui-tabs__header__border-color;
   color: $ui-tabs__header__color;
-  display: inline-block;
   font-weight: bold;
   height: 100%;
   margin-left: 2px;
   padding: 11px 15px 10px;
+  text-decoration: none;
+  display: inline-block;
 
   &:first-child {
     margin-left: 0;
   }
 
   &:hover {
-    background: $ui-tabs__header--selected_border-color;
-    border-bottom-color: $ui-tabs__header--selected_border-color;
+    background: $ui-tabs__header--selected-border-color;
+    border-bottom-color: $ui-tabs__header--selected-border-color;
     color: $white;
+  }
+
+  .ui-icon {
+    margin: 0 0 0 25px;
   }
 }
 
-.ui-tabs__headers__header--selected {
+.ui-tabs__anchor--selected {
   background-color: $white;
-  border-bottom-color: $ui-tabs__header--selected_border-color;
+  border-bottom-color: $ui-tabs__header--selected-border-color;
 
   &:hover {
     background: $white;
@@ -53,6 +62,37 @@ $ui-tabs__header__color: $grey-dark !default;
   }
 }
 
-.ui-tabs__headers__header--error {
+.ui-tabs__anchor--error {
   border-bottom-color: $red;
+}
+
+.ui-tabs__headers--position-left {
+  float: left;
+
+  .ui-tabs__header {
+    display: block;
+  }
+
+  .ui-tabs__anchor {
+    border-right: 2px solid $ui-tabs__header__border-color;
+    border-bottom: none;
+    display: block;
+    margin: 2px 0 0 0;
+
+    &:hover {
+      border-right-color: $ui-tabs__header--selected-border-color;
+    }
+  }
+
+  .ui-tabs__anchor--selected {
+    border-right-color: $ui-tabs__header--selected-border-color;
+  }
+}
+
+.ui-tabs__headers--title-size-large {
+  .ui-tabs__anchor {
+    font-size: 1.4em;
+    padding: 20px 20px 19px;
+    font-weight: 300;
+  }
 }

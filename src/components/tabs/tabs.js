@@ -1,6 +1,7 @@
 import React from 'react';
 import Immutable from 'immutable';
 import Tab from './tab';
+import Icon from '../icon';
 import { compact } from 'lodash';
 import classNames from 'classnames';
 
@@ -118,6 +119,22 @@ class Tabs extends React.Component {
     align: React.PropTypes.string,
 
     /**
+     * The position of tabs with respect to the content (top (default) or left)
+     *
+     * @property position
+     * @type {String}
+     */
+    position: React.PropTypes.string,
+
+    /**
+     * The size of tab titles - medium (default) or large
+     *
+     * @property titleSize
+     * @type {String}
+     */
+    titleSize: React.PropTypes.string,
+
+    /**
      * Emitted when a tab header is clicked
      *
      * @property onTabClick
@@ -128,7 +145,9 @@ class Tabs extends React.Component {
 
   static defaultProps = {
     renderHiddenTabs: true,
-    align: 'left'
+    align: 'left',
+    position: 'top',
+    titleSize: 'medium'
   }
 
   static childContextTypes = {
@@ -245,13 +264,34 @@ class Tabs extends React.Component {
     );
   }
 
+  /**
+   * Classes to be applied to the tab header list item element
+   *
+   * @method tabHeaderClasses
+   * @return {String} CSS classes
+   */
   tabHeaderClasses = (tab) => {
     return classNames(
-      'ui-tabs__headers__header',
+      'ui-tabs__anchor',
       {
-        'ui-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
-        'ui-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
+        'ui-tabs__anchor--error': this.state.tabValidity.get(tab.props.tabId) == false,
+        'ui-tabs__anchor--selected': tab.props.tabId === this.state.selectedTabId
       }
+    );
+  }
+
+  /**
+   * Classes to be applied to the tab header unordered list element
+   *
+   * @method tabListClasses
+   * @return {String} CSS classes
+   */
+  tabListClasses = () => {
+    return classNames(
+      'ui-tabs__headers',
+      `ui-tabs__headers--align-${ this.props.align }`,
+      `ui-tabs__headers--title-size-${ this.props.titleSize }`,
+      `ui-tabs__headers--position-${ this.props.position }`
     );
   }
 
@@ -262,20 +302,30 @@ class Tabs extends React.Component {
    * @return Unordered list of tab titles
    */
   get tabHeaders() {
+    let iconFor = (tab) => {
+      if (tab.props.href && tab.props.target === '_blank') {
+        return (<Icon type='newtab'/>);
+      }
+    };
+
     let tabTitles = compact(React.Children.toArray(this.props.children)).map((child) => {
       return(
-        <li
-          className={ this.tabHeaderClasses(child) }
-          onClick={ this.handleTabClick }
-          key={ child.props.tabId }
-          data-tabid={ child.props.tabId } >
-            { child.props.title }
+        <li key={ child.props.tabId }
+          className='ui-tabs__header' >
+          <a href={ child.props.href || '#' }
+            data-tabid={ child.props.tabId }
+            target={ child.props.target }
+            className={ this.tabHeaderClasses(child) }
+            onClick={ this.handleTabClick }>
+              { child.props.title }
+              { iconFor(child) }
+          </a>
         </li>
       );
     });
 
     return(
-      <ul className={ `ui-tabs__headers ui-tabs__headers--align-${ this.props.align }` } >
+      <ul className={ this.tabListClasses() } >
         { tabTitles }
       </ul>
     );

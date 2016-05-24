@@ -128,16 +128,33 @@ describe('Tabs', () => {
     });
   });
 
+  describe('tabs with href and target props', () => {
+    it('renders a hyperlink', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Tabs initialTabId='uniqueid2'>
+          <Tab title='Tab Title 1' tabId='uniqueid1' href='/foo'>
+          </Tab>
+          <Tab title='Tab Title 2' tabId='uniqueid2' href='/bar' target='_blank'>
+          </Tab>
+        </Tabs>);
+
+      let [firstLink, secondLink] = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'a');
+      expect(firstLink.href).toMatch('/foo$');
+      expect(secondLink.href).toMatch('/bar$');
+      expect(secondLink.target).toEqual('_blank');
+    });
+  });
+
   describe('handleTabClick', () => {
-    it('sets the state to teh currently selected tabId', () => {
+    it('sets the state to the currently selected tabId', () => {
       spyOn(instance, 'handleTabClick');
-      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'a')[1];
 
       expect(secondTab.classList[1]).toBeFalsy();
 
       TestUtils.Simulate.click(secondTab);
 
-      expect(secondTab.classList[1]).toEqual('ui-tabs__headers__header--selected');
+      expect(secondTab.classList[1]).toEqual('ui-tabs__anchor--selected');
     });
 
     it('sets the location', () => {
@@ -193,22 +210,22 @@ describe('Tabs', () => {
 
   describe('tabHeaderClasses', () => {
     it('adds a ui-tabs__header class to the tab', () => {
-      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.className).toEqual('ui-tabs__headers__header'); 
+      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'a')[1];
+      expect(secondTab.className).toEqual('ui-tabs__anchor');
     });
 
     describe('when tab is selected tab', () => {
       it('adds a selected class to the header', () => {
-        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[0];
-        expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--selected'); 
+        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'a')[0];
+        expect(secondTab.className).toEqual('ui-tabs__anchor ui-tabs__anchor--selected');
       });
     });
 
     describe('when tab is inValid', () => {
       it('adds a error class to the header', () => {
         instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
-        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--error'); 
+        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'a')[1];
+        expect(secondTab.className).toEqual('ui-tabs__anchor ui-tabs__anchor--error');
       });
     });
   });
@@ -222,20 +239,20 @@ describe('Tabs', () => {
       expect(instance.tabHeaders.props.children.length).toEqual(2);
     });
 
-    it('adds a data-tabid to each list item', () => {
-      expect(instance.tabHeaders.props.children[0].props['data-tabid']).toEqual('uniqueid1');
+    it('adds a data-tabid to each anchor', () => {
+      expect(instance.tabHeaders.props.children[0].props.children.props['data-tabid']).toEqual('uniqueid1');
     });
 
     describe('when passed a null child', () => {
       it('ignores the null child', () => {
-        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'ui-tabs__headers__header')
+        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'ui-tabs__anchor')
         expect(headers.length).toEqual(1);
       });
     });
 
     describe('when there is only one child', () => {
       it('renders a single header', () => {
-        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'ui-tabs__headers__header')
+        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'ui-tabs__anchor')
         expect(headers.length).toEqual(1);
       });
     });
@@ -249,9 +266,54 @@ describe('Tabs', () => {
             </Tab>
           </Tabs>
         );
-        
+
         let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
-        expect(headers.className).toEqual('ui-tabs__headers ui-tabs__headers--align-right');
+        expect(headers.className).toMatch('ui-tabs__headers ui-tabs__headers--align-right');
+      });
+    });
+
+    describe('when a position prop is passed', () => {
+      it('adds a position class', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs position='left'>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+
+        let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
+        expect(headers.className).toMatch('ui-tabs__headers--position-left');
+      });
+    });
+
+    describe('when a titleSize prop is specified', () => {
+      it('adds a title-size css class', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs titleSize='large'>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+
+        let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
+        expect(headers.className).toMatch('ui-tabs__headers--title-size-large');
+      });
+    });
+
+    describe('when no titleSize prop is specified', () => {
+      it('adds the default title-size css class', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+
+        let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
+        expect(headers.className).toMatch('ui-tabs__headers--title-size-medium');
       });
     });
   });
@@ -339,7 +401,7 @@ describe('Tabs', () => {
     it('renders the tab headers', () => {
       let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
       let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
-      expect(list.className).toEqual('ui-tabs__headers ui-tabs__headers--align-left');
+      expect(list.className).toEqual('ui-tabs__headers ui-tabs__headers--align-left ui-tabs__headers--title-size-medium ui-tabs__headers--position-top');
       expect(items.length).toEqual(2);
     });
   });

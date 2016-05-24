@@ -8,6 +8,7 @@ import Example from './../../../components/example';
 import { Tabs, Tab } from 'components/tabs';
 import Textbox from 'components/textbox';
 import Checkbox from 'components/checkbox';
+import Dropdown from 'components/dropdown';
 import Icon from 'components/icon';
 import Button from 'components/button';
 import Row from 'components/row';
@@ -36,7 +37,7 @@ class TabsDemo extends React.Component {
           content = `This is the content for tab ${index + 1}`;
 
       return (
-        <Tab title={ title } key={ id } tabId={ id } >
+        <Tab title={ title } key={ id } tabId={ id } href={ data.get('href') } >
           { content }
         </Tab>
       );
@@ -48,12 +49,20 @@ class TabsDemo extends React.Component {
     return this.value('align') ? 'right' : 'left';
   }
 
+  get position() {
+    return this.value('position') || 'top';
+  }
+
+  get titleSize() {
+    return this.value('titleSize') || 'medium';
+  }
+
   /**
    * @method demo
    */
   get demo() {
     return (
-      <Tabs align={ this.align }>
+      <Tabs align={ this.align } position={ this.position } titleSize={ this.titleSize }>
         { this.tabs }
       </Tabs>
     );
@@ -69,6 +78,14 @@ class TabsDemo extends React.Component {
 
     if (this.value('align')) {
       html += ` align='right'`
+    }
+
+    if (this.value('position')) {
+      html += ` position='${this.value('position')}'`
+    }
+
+    if (this.value('titleSize')) {
+      html += ` titleSize='${this.value('titleSize')}'`
     }
 
     html += ' >\n\n'
@@ -90,6 +107,32 @@ class TabsDemo extends React.Component {
     html += '</Tabs>'
 
     return html;
+  }
+
+  /**
+   * @method positionOptions
+   */
+  get positionOptions() {
+    return Immutable.fromJS([{
+      id: "top",
+      name: "Top"
+    }, {
+      id: "left",
+      name: "Left"
+    }]);
+  }
+
+  /**
+   * @method titleSizeOptions
+   */
+  get titleSizeOptions() {
+    return Immutable.fromJS([{
+      id: "medium",
+      name: "Medium"
+    }, {
+      id: "large",
+      name: "Large"
+    }]);
   }
 
   /**
@@ -120,6 +163,15 @@ class TabsDemo extends React.Component {
             />
           </TableCell>
 
+          <TableCell>
+            <Textbox
+              label={ false }
+              value={ data.get('href') }
+              onChange={ this.action.bind(this, ['tabData', index, 'href']) }
+              placeholder={ `Enter href (optional)` }
+            />
+          </TableCell>
+
         </TableRow>
       );
     });
@@ -129,6 +181,7 @@ class TabsDemo extends React.Component {
       <TableRow key="header">
         <TableHeader />
         <TableHeader>Title</TableHeader>
+        <TableHeader>href</TableHeader>
       </TableRow>
     );
 
@@ -151,6 +204,24 @@ class TabsDemo extends React.Component {
             value={ this.value('align') }
             reverse={ true }
             onChange={ this.action.bind(this, 'align') }
+          />
+        </Row>
+        <Row>
+          <Dropdown
+            label="Position"
+            labelInline={ true }
+            value={ this.value('position') }
+            onChange={ this.action.bind(this, 'position') }
+            options={ this.positionOptions }
+          />
+        </Row>
+        <Row>
+          <Dropdown
+            label="Title Size"
+            labelInline={ true }
+            value={ this.value('titleSize') }
+            onChange={ this.action.bind(this, 'titleSize') }
+            options={ this.titleSizeOptions }
           />
         </Row>
         <Row>
