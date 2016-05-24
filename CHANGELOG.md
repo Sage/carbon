@@ -3,6 +3,7 @@
 ## Minor Changes
 
 * Fixes scrollbar fixed height.
+* Fixes word break on tooltips.
 
 # 0.14.0
 
