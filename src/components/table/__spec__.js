@@ -200,7 +200,7 @@ describe('Table', () => {
 
       it('calls onSelect callback', () => {
         instance.selectRow('foo', row, true);
-        expect(spy).toHaveBeenCalledWith(['foo']);
+        expect(spy).toHaveBeenCalledWith({'foo': row});
       });
 
       it('skips the onSelect callback', () => {
@@ -336,7 +336,7 @@ describe('Table', () => {
         instance.rows = {};
         row = { state: {}, setState: () => {} };
         instance.selectAll(row);
-        expect(spy).toHaveBeenCalledWith([]);
+        expect(spy).toHaveBeenCalledWith({});
       });
     });
 
@@ -354,7 +354,7 @@ describe('Table', () => {
         instance.selectAll(row);
         expect(instance.actionToolbarComponent.setState).toHaveBeenCalledWith({
           total: 2,
-          selected: ['foo', 'bar']
+          selected: {'foo': {}, 'bar': {}}
         });
       });
     });
@@ -754,6 +754,17 @@ describe('Table', () => {
           </thead>
         )
       });
+    });
+  });
+
+  describe('tbody', () => {
+    it('returns content wrapped in a tbody', () => {
+      expect(instance.tbody.type).toEqual('tbody');
+    });
+
+    it('returns custom tbody when setting tbody prop to false', () => {
+      instance = TestUtils.renderIntoDocument(<Table tbody={ false }><tbody className="custom"><tr><td></td></tr></tbody></Table>);
+      expect(instance.tbody.props.className).toEqual("custom");
     });
   });
 

@@ -1,3 +1,24 @@
+# 0.14.0
+
+## !! BREAKING CHANGE !!
+
+* Selectable table rows now emit an object instead of an array, containing more information about the selected rows.
+
+## Minor Changes
+
+* Sidebar now scrolls on overflow
+* Adds `$app-light-font-family` Sass variable.
+* Adds `$app-medium-font-family` Sass variable.
+
+# 0.13.0
+
+* A developer can choose for a Table to not automatically render with a `tbody`, allowing them to manually render it `<Table tbody={ false }>`.
+* Performance improvements for validation messages.
+* Inputs can be rendered with fake inputs, useful for pages with lots of inputs where performance can be an issue.
+* Number does not show undefined when value props is not provided and user enter alphabets
+* Adds external link icon.
+* Adds new colors: `$grey-dark-blue-5`, `$grey-header`.
+
 # 0.12.2
 
 * Stores will now throw an error if an invalid action is dispatched.
@@ -7,7 +28,7 @@
 
 ### Modal Updates
 
-* Alert and Confirm have been updated to accept the dialog size prop. Default sizes remain unchanged. 
+* Alert and Confirm have been updated to accept the dialog size prop. Default sizes remain unchanged.
 
 # 0.12.1
 
