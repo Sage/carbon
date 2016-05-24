@@ -7,6 +7,7 @@
 ## Minor Changes
 
 * Adds `$app-light-font-family` Sass variable.
+* Adds `$app-medium-font-family` Sass variable.
 * Icons - plus, minus, processing. Update contact icons
 * Improve tile footer style
 
@@ -15,7 +16,7 @@
 * A developer can choose for a Table to not automatically render with a `tbody`, allowing them to manually render it `<Table tbody={ false }>`.
 * Performance improvements for validation messages.
 * Inputs can be rendered with fake inputs, useful for pages with lots of inputs where performance can be an issue.
-* Number does not show undefined when value props is not provided and user enter alphabets 
+* Number does not show undefined when value props is not provided and user enter alphabets
 * Adds external link icon.
 * Adds new colors: `$grey-dark-blue-5`, `$grey-header`.
 
