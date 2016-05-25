@@ -875,7 +875,7 @@ class Table extends React.Component {
   get emptyRow() {
     return (
       <TableRow key="__loading__" selectable={ false } highlightable={ false }>
-        <TableCell colSpan="9999" align="center">
+        <TableCell colSpan="42" align="center">
           { I18n.t("table.no_data", { defaultValue: "No results to display" }) }
         </TableCell>
       </TableRow>
