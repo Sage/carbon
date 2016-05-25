@@ -3,6 +3,7 @@
 ## Bug Fixes
 
 * Fixes no results row in Table to span all columns.
+* Fixes issue in Tabs where initialSelectedTabId was ignored
 
 # 0.14.3
 
