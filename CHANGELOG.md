@@ -1,3 +1,9 @@
+# 0.14.4
+
+## Bug Fixes
+
+* Fixes no results row in Table to span all columns.
+
 # 0.14.3
 
 ## Bug Fixes
