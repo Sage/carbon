@@ -1,7 +1,7 @@
 # Description
 
 # TODO
-[ ] Release notes
+- [] Release notes
 
 # Related Issues / Pull Requests
 
