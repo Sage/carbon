@@ -1,3 +1,9 @@
+# 0.14.3
+
+## Bug Fixes
+
+* Fixes a loading row in Table to span all columns.
+
 # 0.14.2
 
 ## Minor Changes

@@ -851,7 +851,7 @@ class Table extends React.Component {
   get loadingRow() {
     return (
       <TableRow key="__loading__" selectable={ false } highlightable={ false } hideMultiSelect={ true }>
-        <TableCell colSpan="9999" align="center">
+        <TableCell colSpan="42" align="center">
           <ReactCSSTransitionGroup
             transitionName="table-loading"
             transitionEnterTimeout={ 300 }
