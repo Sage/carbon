@@ -290,8 +290,8 @@ describe('Table', () => {
     beforeEach(() => {
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
       instance.rows = {
-        foo: { props: { uniqueID: "foo" } },
-        bar: { props: { uniqueID: "bar" } }
+        foo: { props: { uniqueID: "foo" }, shouldHaveMultiSelectColumn: true },
+        bar: { props: { uniqueID: "bar" }, shouldHaveMultiSelectColumn: true }
       };
     });
 
@@ -356,6 +356,21 @@ describe('Table', () => {
           total: 2,
           selected: {'foo': {}, 'bar': {}}
         });
+      });
+    });
+
+    describe('when one of the rows cannot be selected', () => {
+      it('only selects rows that can be selected', () => {
+        row = TestUtils.findRenderedComponentWithType(instance, TableRow);
+        instance.rows = {
+          foo: { props: { uniqueID: "foo" }, shouldHaveMultiSelectColumn: false },
+          bar: { props: { uniqueID: "bar" }, shouldHaveMultiSelectColumn: true }
+        };
+
+        spyOn(instance, 'selectRow');
+        instance.selectAll(row);
+        expect(instance.selectRow).not.toHaveBeenCalledWith("foo", instance.rows["foo"], true, true);
+        expect(instance.selectRow).toHaveBeenCalledWith("bar", instance.rows["bar"], true, true);
       });
     });
   });

@@ -537,7 +537,7 @@ class Table extends React.Component {
     for (let key in this.rows) {
       // update all the rows with the new state
       let _row = this.rows[key];
-      if (_row.props.selectable) {
+      if (_row.shouldHaveMultiSelectColumn) {
         this.selectRow(_row.props.uniqueID, _row, selectState, true);
       }
     }
