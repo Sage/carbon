@@ -1,3 +1,9 @@
+# 0.14.2
+
+## Minor Changes
+
+* Disable multi select for single row in a table
+
 # 0.14.1
 
 ## Minor Changes
