@@ -126,43 +126,16 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     }
   }
 
-  /**
-   * A lifecycle method for when the component has re-rendered.
-   *
-   * @method componentDidUpdate
-   * @return {void}
-   */
+  // /**
+  //  * A lifecycle method for when the component has re-rendered.
+  //  *
+  //  * @method componentDidUpdate
+  //  * @return {void}
+  //  */
   componentDidUpdate(prevProps, prevState) {
     // call the components super method if it exists
     if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
-
-    if (!this.state.valid || this.state.warning) {
-      // calculate the position for the message relative to the icon
-      let icon = ReactDOM.findDOMNode(this.refs.validationIcon),
-          message = this.refs.validationMessage;
-
-      if (icon && message && message.offsetHeight) {
-        let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2)),
-            topOffset = (icon.offsetTop - icon.offsetHeight) / 2;
-
-        // set initial position for message
-        message.style.left = `${messagePositionLeft}px`;
-        message.style.top = `-${message.offsetHeight - topOffset}px`;
-
-        // figure out if the message is positioned offscreen
-        let messageScreenPosition = message.getBoundingClientRect().left + message.offsetWidth;
-
-        // change the position if it is offscreen
-        if (messageScreenPosition > this._window.innerWidth) {
-          messagePositionLeft -= message.offsetWidth;
-          message.style.left = `${messagePositionLeft}px`;
-          message.className += " common-input__message--flipped";
-        }
-
-        // hide the message
-        message.className += " common-input__message--hidden";
-      }
-    }
+    this.positionMessage();
   }
 
   /**
@@ -214,7 +187,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {Void}
    */
   positionMessage = () => {
-    if (!this.state.valid) {
+    if (!this.state.valid || this.state.warning) {
       // calculate the position for the message relative to the icon
       let icon = ReactDOM.findDOMNode(this.refs.validationIcon),
           message = this.refs.validationMessage;

@@ -44,12 +44,24 @@ let warningOne = {
   }
 };
 
+let warningTwo = {
+  warning: function(value, props, updateWarning) {
+    return false;
+  },
+
+  message: function() {
+    return 'foo';
+  }
+};
+
 let form = {
   model: 'model_2',
   attachToForm: function() {},
   detachFromForm: function() {},
   decrementErrorCount: function() {},
   incrementErrorCount: function() {},
+  incrementWarningCount: function() {},
+  decrementWarningCount: function() {},
   inputs: { "123": {} }
 }
 
@@ -100,7 +112,9 @@ describe('InputValidation', () => {
   describe('constructor', () => {
     it('instatiates state with some defaults', () => {
       expect(instance.state.valid).toBeTruthy();
+      expect(instance.state.warning).toBeFalsy();
       expect(instance.state.errorMessage).toBe(null);
+      expect(instance.state.warningMessage).toBe(null);
     });
   });
 
@@ -329,6 +343,13 @@ describe('InputValidation', () => {
           instance.componentWillUnmount();
           expect(instance.context.form.decrementErrorCount).toHaveBeenCalled();
         });
+
+        it('decrements the warning count', () => {
+          instance.state.warning = true;
+          spyOn(instance.context.form, 'decrementWarningCount');
+          instance.componentWillUnmount();
+          expect(instance.context.form.decrementWarningCount).toHaveBeenCalled();
+        });
       });
 
       describe('when the input is valid', () => {
@@ -412,7 +433,7 @@ describe('InputValidation', () => {
             it('sets the notfies the tab that it is invalid', () => {
               let spy = jasmine.createSpy();
               instance.context.tab = { setValidity: spy };
-              instance.validate()
+              instance.validate();
 
               expect(spy).toHaveBeenCalledWith(false);
             });
@@ -437,6 +458,97 @@ describe('InputValidation', () => {
             instance.setState({ valid: false });
             spyOn(instance, 'setState');
             instance.validate();
+            expect(instance.setState).not.toHaveBeenCalled();
+          });
+        });
+      });
+    });
+
+    describe('when no validations have been set on the input', () => {
+      it('defaults the input validity to true', () => {
+        let valid = instance.validate();
+        expect(valid).toBeTruthy();
+      });
+    });
+  });
+
+  describe('warning', () => {
+    describe('when warnings are present on the input', () => {
+      describe('when the input has a value', () => {
+        beforeEach(() => {
+          instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+            warnings: [warningTwo, warningOne],
+            value: 'foo'
+          }));
+          instance.context.form = form;
+          spyOn(warningOne, 'warning').and.callThrough();
+          spyOn(warningTwo, 'warning').and.callThrough();
+        });
+
+        it('calls warning for each warning', () => {
+          instance.warning();
+          expect(warningOne.warning).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateWarning);
+          expect(warningTwo.warning).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateWarning);
+        });
+
+        describe('when the first warning fails', () => {
+          it('stops warning', () => {
+            instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+              warnings: [warningOne, validationTwo],
+              value: 'foo'
+            }));
+            instance.warning();
+            expect(warningOne.warning).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateWarning);
+            expect(warningTwo.warning).not.toHaveBeenCalled();
+          });
+        });
+
+        describe('when called with a custom value', () => {
+          it('calls warning for each warning', () => {
+            instance.warning('bar');
+            expect(warningOne.warning).toHaveBeenCalledWith('bar', instance.props, instance.updateWarning);
+            expect(warningTwo.warning).toHaveBeenCalledWith('bar', instance.props, instance.updateWarning);
+          });
+        });
+
+        describe('when the inputs state is currently no warning', () => {
+          describe('when the input has a form', () => {
+            it('calls incrementWarningCount', () => {
+              spyOn(instance.context.form, 'incrementWarningCount');
+              instance.warning();
+              expect(instance.context.form.incrementWarningCount).toHaveBeenCalled();
+            });
+          });
+
+          describe('when the input is within a tab', () => {
+            it('sets the notfies the tab that there is warning', () => {
+              let spy = jasmine.createSpy('warningSpy');
+              instance.context.tab = { setWarning: spy };
+              instance.warning();
+
+              expect(spy).toHaveBeenCalledWith(true);
+            });
+          });
+
+          describe('when the input does not have a form', () => {
+            it('is still able to set warning', () => {
+              instance.context.form = null;
+              expect(instance.warning()).toBeTruthy();
+            });
+          });
+
+          it('calls setState', () => {
+            spyOn(instance, 'setState');
+            instance.warning();
+            expect(instance.setState).toHaveBeenCalledWith({ warningMessage: 'foo', warning: true });
+          });
+        });
+
+        describe('when the inputs state has warning', () => {
+          it('does not call setState', () => {
+            instance.setState({ warning: true });
+            spyOn(instance, 'setState');
+            instance.warning();
             expect(instance.setState).not.toHaveBeenCalled();
           });
         });
@@ -534,7 +646,7 @@ describe('InputValidation', () => {
   describe('_handleContentChange', () => {
     describe('when the input is invalid and key down occurs', () => {
       it('should call setState to lock the message', () => {
-        instance.setState({ valid: false });
+        instance.setState({ valid: false, warning: true });
         spyOn(instance, 'setState');
         instance._handleContentChange();
         expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, valid: true, warning: false });
@@ -543,7 +655,7 @@ describe('InputValidation', () => {
 
     describe('when the input is valid and key down occurs', () => {
       it('should not call setState', () => {
-        instance.setState({ valid: true });
+        instance.setState({ valid: true, warning: false });
         spyOn(instance, 'setState');
         instance._handleContentChange();
         expect(instance.setState).not.toHaveBeenCalled();
@@ -559,6 +671,16 @@ describe('InputValidation', () => {
 
         expect(instance.context.form.decrementErrorCount).toHaveBeenCalled();
       });
+
+      it('should call decrementWarningCount', () => {
+        instance.setState({ warning: true });
+        instance.context.form = form;
+        spyOn(instance.context.form, 'decrementWarningCount');
+        instance._handleContentChange();
+
+        expect(instance.context.form.decrementWarningCount).toHaveBeenCalled();
+      });
+
     });
 
     describe('when the input is within a tab', () => {
@@ -570,11 +692,20 @@ describe('InputValidation', () => {
 
         expect(spy).toHaveBeenCalledWith(true);
       });
+
+      it('notifies the tab of the new warnings state', () => {
+        instance.setState({ warning: true });
+        let spy = jasmine.createSpy('warningSpy');
+        instance.context.tab = { setWarning: spy };
+        instance._handleContentChange();
+
+        expect(spy).toHaveBeenCalledWith(false);
+      });
     });
 
     describe('when the input does not have a form', () => {
       it('should not throw an error', () => {
-        instance.setState({ valid: false });
+        instance.setState({ valid: false, warning: true });
         expect(instance._handleContentChange).not.toThrow();
       });
     });
