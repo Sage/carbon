@@ -49,6 +49,8 @@ describe('Form', () => {
             detachFromForm: instance.detachFromForm,
             incrementErrorCount: instance.incrementErrorCount,
             decrementErrorCount: instance.decrementErrorCount,
+            incrementWarningCount: instance.incrementWarningCount,
+            decrementWarningCount: instance.decrementWarningCount,
             inputs: instance.inputs,
             validate: instance.validate
           }

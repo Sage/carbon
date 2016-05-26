@@ -116,7 +116,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     // if value changes and the input is currently invalid, re-assess its validity
     if (!this.state.valid && (nextProps.value != this.props.value)) {
-      if (this.warning(nextProps.value)) {
+      if (!this.warning(nextProps.value)) {
         this.setState({ warning: false });
       }
 
@@ -243,12 +243,11 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   /**
    * Checks for validations and returns boolean defining if field valid.
    *
-   * @method validate
+   * @method warning
    * @return {Boolean} if the field/fields is/are valid
    */
   warning = (value = this.props.value) => {
     let shouldWarn = false;
-
     // if there are no validation, return truthy
     if (!this.props.warnings || !this.state.valid) {
       return false;

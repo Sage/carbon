@@ -34,6 +34,16 @@ let validationThree = {
   }
 };
 
+let warningOne = {
+  warning: function(value, props, updateWarning) {
+    return true;
+  },
+
+  message: function() {
+    return 'foo';
+  }
+};
+
 let form = {
   model: 'model_2',
   attachToForm: function() {},
@@ -97,14 +107,14 @@ describe('InputValidation', () => {
   describe('componentWillReceiveProps', () => {
     describe('when invalid', () => {
       beforeEach(() => {
-        instance.setState({ valid: false });
+        instance.setState({ valid: false, warning: true});
         spyOn(instance, 'setState');
       });
 
       describe('when becoming disabled', () => {
         it('calls setState', () => {
           instance.componentWillReceiveProps({ disabled: true });
-          expect(instance.setState).toHaveBeenCalledWith({ valid: true });
+          expect(instance.setState).toHaveBeenCalledWith({ valid: true, warning: false });
         });
       });
 
@@ -130,20 +140,34 @@ describe('InputValidation', () => {
           expect(instance.validate).toHaveBeenCalledWith('foo');
         });
 
+        it('calls warning with the next value', () => {
+          spyOn(instance, 'warning');
+          instance.componentWillReceiveProps({ value: 'foo' });
+          expect(instance.warning).toHaveBeenCalledWith('foo');
+        });
+
         describe('when it returns valid', () => {
           it('resets valid to be truthy', () => {
             spyOn(instance, 'validate').and.returnValue(true);
             instance.componentWillReceiveProps({ value: 'foo' });
             expect(instance.setState).toHaveBeenCalledWith({ valid: true });
           });
+
+          it('resets warning to be false', () => {
+            spyOn(instance, 'warning').and.returnValue(false);
+            instance.componentWillReceiveProps({ value: 'foo' });
+            expect(instance.setState).toHaveBeenCalledWith({ warning: false });
+          });
         });
 
         describe('when it returns invalid', () => {
           it('does not modify the validity', () => {
             spyOn(instance, 'validate').and.returnValue(false);
+            spyOn(instance, 'warning').and.returnValue(true);
             instance.componentWillReceiveProps({ value: 'foo' });
             expect(instance.setState).not.toHaveBeenCalled();
           });
+
         });
       });
     });
@@ -513,7 +537,7 @@ describe('InputValidation', () => {
         instance.setState({ valid: false });
         spyOn(instance, 'setState');
         instance._handleContentChange();
-        expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, valid: true });
+        expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, valid: true, warning: false });
       });
     });
 
@@ -557,16 +581,9 @@ describe('InputValidation', () => {
   });
 
   describe('validationHTML', () => {
-    describe('there is no error message', () => {
-      it('returns null', () => {
-        instance.setState({ valid: false });
-        expect(instance.validationHTML).toBe(null);
-      });
-    });
-
     describe('the field is valid', () => {
       it('returns null', () => {
-        instance.setState({ valid: true });
+        instance.setState({ valid: true, warning: false});
         expect(instance.validationHTML).toBe(null);
       });
     });
@@ -600,6 +617,37 @@ describe('InputValidation', () => {
         });
       });
     });
+
+    describe('there is an warning', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+          warnings: [warningOne],
+          value: 'foo'
+        }));
+
+        instance.warning();
+      });
+
+      it('returns an warning icon', () => {
+        expect(instance.validationHTML[0].props.type).toEqual('warning');
+        expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--warning');
+      });
+
+      it('returns a div for the warning message', () => {
+        expect(instance.validationHTML[1].props.className).toEqual('common-input__message-wrapper');
+
+        expect(instance.validationHTML[1].props.children.props.className).toEqual('common-input__message common-input__message--warning');
+        expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
+      });
+
+      describe('when the message is locked', () => {
+        it('adds a locked class', () => {
+          instance.setState({ messageLocked: true });
+          expect(instance.refs.validationMessage.classList).toContain('common-input__message--locked');
+        });
+      });
+    });
+
   });
 
   describe('mainClasses', () => {
