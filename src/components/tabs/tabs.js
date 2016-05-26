@@ -176,8 +176,8 @@ class Tabs extends React.Component {
   componentWillMount() {
     let initialSelectedTabId;
 
-    if (this.props.initialTabId) {
-      initialSelectedTabId = this.props.initialTabId;
+    if (this.props.initialSelectedTabId) {
+      initialSelectedTabId = this.props.initialSelectedTabId;
     } else {
       let hash = this._window.location.hash.substring(1);
 
