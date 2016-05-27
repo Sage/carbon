@@ -11,6 +11,11 @@ const itemSource = {
       id: props.id,
       index: props.index
     };
+  },
+  endDrag(props, monitor) {
+    if (monitor.didDrop()) {
+      props.onDrop()
+    }
   }
 };
 
@@ -80,7 +85,7 @@ class DndItem extends React.Component {
   }
 
   render() {
-    const { text, connectDragSource, connectDropTarget } = this.props;
+    const { connectDragSource, connectDropTarget } = this.props;
 
     return connectDragSource(connectDropTarget(
       <div className={ this.mainClasses }>

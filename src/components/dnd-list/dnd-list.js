@@ -3,7 +3,6 @@ import update from 'react/lib/update';
 import DndItem from './dnd-item';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import Immutable from 'immutable';
 
 class DndList extends React.Component {
   constructor(props) {
@@ -15,19 +14,19 @@ class DndList extends React.Component {
         id: child.props.id,
         child: child
       })
-
-      rank.push(child.props.id);
     })
 
     this.state = {
-      items: items,
-      rank: rank
+      items: items
     };
   }
 
-  componentWillUpdate = (nextProps, nextState) => {
-    if (nextState.rank !== this.state.rank) {
-      if (this.props.onChange) { this.props.onChange(nextState.rank); }
+  handleDrop = () => {
+    console.log('DROPPED')
+    if (this.props.onChange) {
+      this.props.onChange(this.state.items.map((rank) => {
+        return rank.id
+      }));
     }
   }
 
@@ -41,12 +40,6 @@ class DndList extends React.Component {
         $splice: [
           [dragIndex, 1],
           [hoverIndex, 0, dragItem]
-        ]
-      },
-      rank: {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, dragItem.id]
         ]
       }
     }));
@@ -65,6 +58,7 @@ class DndList extends React.Component {
               index={ index }
               id={ item.id }
               moveItem={ this.moveItem }
+              onDrop={ this.handleDrop.bind(this) }
               child={ item.child }
             />
           );
