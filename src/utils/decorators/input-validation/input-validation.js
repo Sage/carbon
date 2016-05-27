@@ -59,6 +59,8 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     /**
      * The inputs warning state.
+     * true: has warning
+     * false: has no warning
      *
      * @property warning
      * @type {Boolean}
@@ -116,7 +118,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     // if value changes and the input is currently invalid, re-assess its validity
     if (!this.state.valid && (nextProps.value != this.props.value)) {
-      if (!this.warning(nextProps.value)) {
+      if (this.warning(nextProps.value)) {
         this.setState({ warning: false });
       }
 
@@ -124,18 +126,6 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
         this.setState({ valid: true });
       }
     }
-  }
-
-  // /**
-  //  * A lifecycle method for when the component has re-rendered.
-  //  *
-  //  * @method componentDidUpdate
-  //  * @return {void}
-  //  */
-  componentDidUpdate(prevProps, prevState) {
-    // call the components super method if it exists
-    if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
-    this.positionMessage();
   }
 
   /**
@@ -217,13 +207,13 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * Checks for validations and returns boolean defining if field valid.
    *
    * @method warning
-   * @return {Boolean} if the field/fields is/are valid
+   * @return {Boolean} if the field/fields is/are valid, this function returns true
    */
   warning = (value = this.props.value) => {
-    let shouldWarn = false;
-    // if there are no validation, return truthy
+    let valid = true;
+    // if there are no warnings or there is an error on the input, return truthy
     if (!this.props.warnings || !this.state.valid) {
-      return false;
+      return true;
     }
 
     // iterate through each validation applied to the input
@@ -231,20 +221,18 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       let warning = this.props.warnings[i];
 
       // run this validation
-      shouldWarn = warning.warning(value, this.props, this.updateWarning);
-
-      this.updateWarning(shouldWarn, value, warning);
-
-      if (shouldWarn) { break; }
+      valid = warning.validate(value, this.props, this.updateWarning);
+      this.updateWarning(valid, value, warning);
+      if (!valid) { break; }
     }
 
     // return the result of the validation
-    return shouldWarn;
+    return valid;
   }
 
-  updateWarning = (shouldWarn, value, warning) => {
+  updateWarning = (valid, value, warning) => {
     // if validation fails
-    if (shouldWarn) {
+    if (!valid) {
       // if input currently thinks it is valid
       if (!this.state.warning) {
         // if input has a form

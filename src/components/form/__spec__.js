@@ -68,7 +68,7 @@ describe('Form', () => {
   });
 
   describe('decrementErrorCount', () => {
-    it('decrease the state error count', () => {
+    it('decreases the state error count', () => {
       instance.setState({ errorCount: 2 });
       instance.decrementErrorCount();
       expect(instance.state.errorCount).toEqual(1);
