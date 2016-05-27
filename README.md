@@ -43,7 +43,7 @@ To run the example, do the following steps:
   2. cd carbon
   3. npm install
   4. gulp
-  5. Navigate to `http://localhost:8080` in your favourite browser
+  5. Navigate to [http://localhost:8080/](http://localhost:8080/) in your favourite browser
 
 ## Technologies
 
