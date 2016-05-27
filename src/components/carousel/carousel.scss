@@ -8,10 +8,10 @@
   position: relative;
 }
 
-.ui-carousel__previous {
+.ui-carousel__navigation {
   position: absolute;
   top: 50%;
-  bottom: 50%;
+  margin-top: -22.5px;
 }
 
 .ui-carousel__previous-arrow {
@@ -24,12 +24,13 @@
 .ui-slide {
   display: inline-block;
   width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
   height: 200px;
-  background-color: $grey-light;
 }
 
 .ui-carousel__next {
-  position: absolute;
+  right: 0;
 }
 
 .ui-carousel__next-arrow {
@@ -39,6 +40,45 @@
   transform: rotate(-90deg);
 }
 
+.ui-carousel__buttons {
+  border: none;
+  width: 45px;
+  height: 45px;
+  background-color: $grey-light;
+
+  &:focus {
+    outline: none;
+  }
+}
+
 .ui-carousel__selector {
   text-align: center;
+
 }
+
+.ui-carousel__selector-input {
+  display: none;
+}
+
+.ui-carousel__selector-label {
+  margin: 0px 5px 0 5px;
+  display: inline-block;
+  background: #ddd;
+  border-radius: 100%;
+  width: 6px;
+  height: 6px;
+  box-shadow: inset 0 1px 1px 0 #999;
+
+  &:hover {
+    background: #bbb;
+    cursor: pointer;
+    box-shadow: inset 0 1px 1px 0 #777;
+  }
+}
+
+.ui-carousel__selector input:checked + .ui-carousel__selector-label {
+  background: $blue;
+  width: 10px;
+  height: 10px;
+}
+

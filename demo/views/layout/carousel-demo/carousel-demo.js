@@ -34,7 +34,9 @@ class CarouselDemo extends React.Component {
     return (
       <Carousel>
         <Slide>
-          Fofipdshfpispspfjsdapofhsdopajfposda
+          <div>
+            Fofipdshfpispspfjsdapofhsdopajfposda
+          </div>
         </Slide>
         <Slide>
           Barfjdsapfhjdsapojfsdpojf

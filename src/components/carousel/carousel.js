@@ -67,12 +67,14 @@ class Carousel extends React.Component {
 
   get nextClasses() {
     return classNames(
+      'ui-carousel__navigation',
       'ui-carousel__next'
     );
   }
 
   get previousClasses() {
     return classNames(
+      'ui-carousel__navigation',
       'ui-carousel__previous'
     );
   }
@@ -103,7 +105,6 @@ class Carousel extends React.Component {
 
   get visibleSlide() {
     let visibleSlide = compact(React.Children.toArray(this.props.children))[this.state.selectedSlideIndex]
-
     return React.cloneElement(visibleSlide, { className: 'ui-slide ui-slide--active' });
   }
 
@@ -114,13 +115,18 @@ class Carousel extends React.Component {
       buttons.push(
         <span key={ i }>
           <input
+            className='ui-carousel__selector-input'
             name='carousel-slide'
             id={ `carousel-slide-${i}` }
             type='radio' value={ i }
             onChange={ this.onSlideSelection }
             checked={ this.state.selectedSlideIndex === i }
           />
-          <label name='carousel-slide' htmlFor={ `carousel-slide-${i}` }/>
+          <label
+            className='ui-carousel__selector-label'
+            htmlFor={ `carousel-slide-${i}` }
+          >
+          </label>
         </span>
       );
     }
