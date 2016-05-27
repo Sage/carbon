@@ -1,0 +1,44 @@
+@import 'colors';
+
+.ui-carousel {
+
+}
+
+.ui-carousel__content {
+  position: relative;
+}
+
+.ui-carousel__previous {
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+}
+
+.ui-carousel__previous-arrow {
+  display: inline-block;
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+  transform: rotate(90deg);
+}
+
+.ui-slide {
+  display: inline-block;
+  width: 100%;
+  height: 200px;
+  background-color: $grey-light;
+}
+
+.ui-carousel__next {
+  position: absolute;
+}
+
+.ui-carousel__next-arrow {
+  display: inline-block;
+  -ms-transform: rotate(-90deg); /* IE 9 */
+  -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+  transform: rotate(-90deg);
+}
+
+.ui-carousel__selector {
+  text-align: center;
+}

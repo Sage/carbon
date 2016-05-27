@@ -3,6 +3,7 @@ import Immutable from 'immutable';
 import { compact } from 'lodash';
 import classNames from 'classnames';
 import Button from './../button';
+import Icon from './../icon';
 
 class Carousel extends React.Component {
 
@@ -58,6 +59,44 @@ class Carousel extends React.Component {
     this.setState({ selectedSlideIndex: Number(ev.target.value) });
   }
 
+  get mainClasses() {
+    return classNames(
+      'ui-carousel'
+    );
+  }
+
+  get nextClasses() {
+    return classNames(
+      'ui-carousel__next'
+    );
+  }
+
+  get previousClasses() {
+    return classNames(
+      'ui-carousel__previous'
+    );
+  }
+
+  get previousButtonClasses() {
+    return classNames(
+      'ui-carousel__buttons',
+      'ui-carousel__previous-button'
+    );
+  }
+
+  get nextButtonClasses() {
+    return classNames(
+      'ui-carousel__buttons',
+      'ui-carousel__next-button'
+    );
+  }
+
+  get slideSelectorClasses() {
+    return classNames(
+      'ui-carousel__selector'
+    );
+  }
+
   get numOfSlides() {
     return Array.isArray(this.props.children) ? compact(this.props.children).length : 1;
   }
@@ -65,7 +104,7 @@ class Carousel extends React.Component {
   get visibleSlide() {
     let visibleSlide = compact(React.Children.toArray(this.props.children))[this.state.selectedSlideIndex]
 
-    return React.cloneElement(visibleSlide, { className: 'ui-slide--active' });
+    return React.cloneElement(visibleSlide, { className: 'ui-slide ui-slide--active' });
   }
 
   get slideSelector() {
@@ -91,15 +130,28 @@ class Carousel extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <Button onClick={ this.onPreviousClick }>Previous</Button>
+      <div className={ this.mainClasses }>
+
+        <div className='ui-carousel__content'>
+          <div className={ this.previousClasses }>
+            <button onClick={ this.onPreviousClick } className={ this.previousButtonClasses } >
+              <Icon className='ui-carousel__previous-arrow' type='dropdown' />
+            </button>
+          </div>
+
+          { this.visibleSlide }
+
+          <div className={ this.nextClasses }>
+            <button onClick={ this.onNextClick } className={ this.nextButtonClasses } >
+              <Icon className='ui-carousel__next-arrow' type='dropdown' />
+            </button>
+          </div>
         </div>
-        { this.visibleSlide }
-        <div>
-          <Button onClick={ this.onNextClick }>Next</Button>
+
+        <div className={ this.slideSelectorClasses }>
+          { this.slideSelector }
         </div>
-        { this.slideSelector }
+
       </div>
     );
   }
