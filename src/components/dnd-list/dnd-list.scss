@@ -1,0 +1,12 @@
+.ui-dnd-list {
+
+  .ui-dnd-item {
+    margin-bottom: '.5rem';
+    opacity: 1;
+    cursor: move;
+  }
+
+  .ui-dnd-item--dragging {
+    opacity: 0;
+  }
+}
