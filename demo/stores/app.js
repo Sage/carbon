@@ -61,6 +61,9 @@ let data = ImmutableHelper.parseJSON({
     open: true,
     text: "Sample flash notification."
   },
+  form: {
+    cancel: true
+  },
   help: {
     message: "This is an example of a help tooltip."
   },
