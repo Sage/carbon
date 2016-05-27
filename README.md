@@ -36,7 +36,13 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 
 ## Running the Example
 
-Carbon has an example page, which demonstrates most of the components with a Flux implementation. This can be used to quickly see a demonstration of the components and/or as an area to test while developing with the components. To run the example, simply run `gulp` from the root directory of the Carbon repository and navigate to [http://localhost:8080/](http://localhost:8080/).
+Carbon has an example page, which demonstrates most of the components with a Flux implementation. This can be used to quickly see a demonstration of the components and/or as an area to test while developing with the components. 
+To run the example, do the followinf steps
+  1.- Clone the carbon repository (git clone git@github.com:Sage/carbon.git)
+  2.- cd carbon
+  3.- npm install
+  4.- gulp
+  5.- Navigate to http://localhost:8080 in your favourite browser
 
 ## Technologies
 
