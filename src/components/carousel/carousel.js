@@ -4,8 +4,15 @@ import { compact } from 'lodash';
 import classNames from 'classnames';
 import Button from './../button';
 import Icon from './../icon';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
+const NEXT = 'next';
+const PREVIOUS = 'previous';
 
 class Carousel extends React.Component {
+
+
+  transitionDirection = NEXT; 
 
   static propTypes = {
 
@@ -47,11 +54,13 @@ class Carousel extends React.Component {
     if (newIndex < 0) {
       newIndex = this.numOfSlides - 1;
     }
+    this.transitionDirection = PREVIOUS;
     this.setState({ selectedSlideIndex: newIndex });
   }
 
   onNextClick = () => {
     let newIndex = (this.state.selectedSlideIndex + 1) % this.numOfSlides;
+    this.transitionDirection = NEXT;
     this.setState({ selectedSlideIndex: newIndex });
   }
 
@@ -104,8 +113,9 @@ class Carousel extends React.Component {
   }
 
   get visibleSlide() {
-    let visibleSlide = compact(React.Children.toArray(this.props.children))[this.state.selectedSlideIndex]
-    return React.cloneElement(visibleSlide, { className: 'ui-slide ui-slide--active' });
+    let index = this.state.selectedSlideIndex;
+    let visibleSlide = compact(React.Children.toArray(this.props.children))[index]
+    return React.cloneElement(visibleSlide, { key: `ui-slide-${ index }`, className: 'ui-slide ui-slide--active' });
   }
 
   get slideSelector() {
@@ -113,7 +123,7 @@ class Carousel extends React.Component {
 
     for(let i = 0; i < this.numOfSlides; i++) {
       buttons.push(
-        <span key={ i }>
+        <span className='ui-carousel__selector-inputs' key={ i }>
           <input
             className='ui-carousel__selector-input'
             name='carousel-slide'
@@ -145,7 +155,13 @@ class Carousel extends React.Component {
             </button>
           </div>
 
-          { this.visibleSlide }
+          <ReactCSSTransitionGroup
+            transitionName={ `slide-${ this.transitionDirection }` }
+            transitionEnterTimeout={ 800 }
+            transitionLeaveTimeout={ 800 }
+          >
+            { this.visibleSlide }
+          </ReactCSSTransitionGroup>
 
           <div className={ this.nextClasses }>
             <button onClick={ this.onNextClick } className={ this.nextButtonClasses } >

@@ -1,15 +1,16 @@
 @import 'colors';
 
 .ui-carousel {
-
 }
 
 .ui-carousel__content {
   position: relative;
+  overflow: hidden;
 }
 
 .ui-carousel__navigation {
   position: absolute;
+  z-index: 10;
   top: 50%;
   margin-top: -22.5px;
 }
@@ -23,10 +24,11 @@
 
 .ui-slide {
   display: inline-block;
+  position: relative;
   width: 100%;
   box-sizing: border-box;
-  padding: 0 20px;
-  height: 200px;
+  padding: 0 60px;
+  height: 100px;
 }
 
 .ui-carousel__next {
@@ -53,7 +55,12 @@
 
 .ui-carousel__selector {
   text-align: center;
+  height: 20px;
+}
 
+.ui-carousel__selector-inputs {
+  line-height: 20px;
+  vertical-align: middle;
 }
 
 .ui-carousel__selector-input {
@@ -78,7 +85,53 @@
 
 .ui-carousel__selector input:checked + .ui-carousel__selector-label {
   background: $blue;
+  position: relative;
+  top: 2px;
   width: 10px;
   height: 10px;
 }
 
+// slide animation:
+$slide-animation-length: 800ms;
+
+// NEXT
+
+.slide-next-enter {
+  left: 100%;
+  position: absolute;
+}
+
+.slide-next-enter.slide-next-enter-active {
+  left: 0;
+  transition: all $slide-animation-length ease;
+}
+
+.slide-next-leave {
+  left: 0;
+}
+
+.slide-next-leave.slide-next-leave-active {
+  left: -100%;
+  transition: all $slide-animation-length ease;
+}
+
+// PREVIOUS
+
+.slide-previous-enter {
+  left: -100%;
+  position: absolute;
+}
+
+.slide-previous-enter.slide-previous-enter-active {
+  left: 0;
+  transition: all $slide-animation-length ease;
+}
+
+.slide-previous-leave {
+  left: 0;
+}
+
+.slide-previous-leave.slide-previous-leave-active {
+  left: 100%;
+  transition: all $slide-animation-length ease;
+}
