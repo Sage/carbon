@@ -103,7 +103,7 @@ $slide-animation-length: 800ms;
 
 .slide-next-enter.slide-next-enter-active {
   left: 0;
-  transition: all $slide-animation-length ease;
+  transition: all $slide-animation-length cubic-bezier(0.125, 0.460, 0.000, 1.00);
 }
 
 .slide-next-leave {
@@ -112,7 +112,7 @@ $slide-animation-length: 800ms;
 
 .slide-next-leave.slide-next-leave-active {
   left: -100%;
-  transition: all $slide-animation-length ease;
+  transition: all $slide-animation-length cubic-bezier(0.125, 0.460, 0.000, 1.00);
 }
 
 // PREVIOUS
@@ -124,7 +124,7 @@ $slide-animation-length: 800ms;
 
 .slide-previous-enter.slide-previous-enter-active {
   left: 0;
-  transition: all $slide-animation-length ease;
+  transition: all $slide-animation-length cubic-bezier(0.125, 0.460, 0.000, 1.00);
 }
 
 .slide-previous-leave {
@@ -133,5 +133,5 @@ $slide-animation-length: 800ms;
 
 .slide-previous-leave.slide-previous-leave-active {
   left: 100%;
-  transition: all $slide-animation-length ease;
+  transition: all $slide-animation-length cubic-bezier(0.125, 0.460, 0.000, 1.00);
 }
