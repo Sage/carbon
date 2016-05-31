@@ -5,10 +5,8 @@ import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
 import FormInputHelper from './../../../helpers/form-input-helper';
 
-import ButtonToggle from 'components/button-toggle';
 import Textbox from 'components/textbox';
 import Row from 'components/row';
-import Icon from 'components/icon';
 
 class TextboxDemo extends React.Component {
 
@@ -26,36 +24,14 @@ class TextboxDemo extends React.Component {
     return AppActions.appValueUpdated.bind(this, 'textbox');
   }
 
-  foo = (ev) => {
-    // debugger
-  }
-
   /**
    * @method demo
    */
   get demo() {
     return (
-      <div>
-        <Row>
-      <div>
-        <ButtonToggle name="foo" onChange={ this.foo } value="foo" icon="company" iconSize="large">
-          My Company
-        </ButtonToggle>
-
-        <ButtonToggle name="foo" value="bar">
-          The Client
-        </ButtonToggle>
-
-        <ButtonToggle name="foo" value="bar" disabled={ true }>
-          Other Option
-        </ButtonToggle>
-      </div>
-        </Row>
-
-        <Textbox
-          { ...FormInputHelper.demoProps(this, this.action) }
-        />
-      </div>
+      <Textbox
+        { ...FormInputHelper.demoProps(this, this.action) }
+      />
     );
   }
 

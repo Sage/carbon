@@ -4,10 +4,26 @@ import Icon from './../icon';
 import css from './../../utils/css';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
-import InputValidation from './../../utils/decorators/input-validation';
 
-const ButtonToggle = Input(InputLabel(InputValidation(
+const ButtonToggle = Input(InputLabel(
 class ButtonToggle extends React.Component {
+  static propTypes = {
+    /**
+     * Which icon the button should render.
+     *
+     * @property icon
+     * @type {String}
+     */
+    icon: React.PropTypes.string,
+
+    /**
+     * Sets the size of the icon (eg. large)
+     *
+     * @property iconSize
+     * @type {String}
+     */
+    iconSize: React.PropTypes.string
+  }
 
   /**
    * Main Class getter
@@ -29,6 +45,12 @@ class ButtonToggle extends React.Component {
     return classNames('ui-button-toggle__input', css.hidden);
   }
 
+  /**
+   * Returns the markup for the icon.
+   *
+   * @method icon
+   * @return {Object} JSX
+   */
   get icon() {
     if (!this.props.icon) { return null; }
 
@@ -57,6 +79,12 @@ class ButtonToggle extends React.Component {
     return props;
   }
 
+  /**
+   * Returns additional content to sit inline with the input.
+   *
+   * @method additionalInputContent
+   * @return {Object} JSX
+   */
   get additionalInputContent() {
     let classes = classNames("ui-button-toggle__label", {
       ["ui-button-toggle__label--disabled"]: this.props.disabled
@@ -70,6 +98,10 @@ class ButtonToggle extends React.Component {
     );
   }
 
+  /**
+   * @method render
+   * @return {Object} JSX
+   */
   render() {
     return (
       <div className={ this.mainClasses }>
@@ -78,6 +110,6 @@ class ButtonToggle extends React.Component {
     );
   }
 }
-)));
+));
 
 export default ButtonToggle;
