@@ -135,8 +135,8 @@ class ButtonToggleDemo extends React.Component {
   render() {
     return (
       <Example
-        title="Button"
-        readme="components/button"
+        title="Button Toggle"
+        readme="components/button-toggle"
         demo={ this.demo }
         code={ this.code }
         controls={ this.controls }
