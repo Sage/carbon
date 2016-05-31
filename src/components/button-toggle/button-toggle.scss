@@ -27,8 +27,8 @@
 
 .ui-button-toggle__label--disabled,
 .ui-button-toggle__label--disabled:hover {
-  background-color: $ui-button__background-color--disabled;
-  color: $ui-button__color--disabled;
+  background-color: $ui-button__background-color--disabled !important;
+  color: $ui-button__color--disabled !important;
   cursor: initial;
 }
 
