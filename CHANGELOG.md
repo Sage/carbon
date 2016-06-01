@@ -7,6 +7,7 @@
 ## Bug Fixes
 
 * CSS fixes to input error icon and error message.
+* CSS fixes to input placeholder text for IE11.
 
 # 0.14.4
 
