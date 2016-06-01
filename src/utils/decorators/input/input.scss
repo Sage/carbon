@@ -37,7 +37,7 @@
     text-align: left;
   }
 
-  .common-input__icon {
+  .ui-icon.common-input__icon {
     right: 0;
     left: auto;
   }
@@ -48,7 +48,7 @@
     text-align: right;
   }
 
-  .common-input__icon {
+  .ui-icon.common-input__icon {
     left: 0;
     right: auto;
   }
@@ -160,7 +160,6 @@
   margin: 7px 5px;
   position: absolute;
   right: 0;
-  width: 20px;
 
   &:before {
     font-size: 20px;
