@@ -8,6 +8,10 @@
 
 * ButtonToggle.
 
+## Bug Fixes
+
+* CSS fixes to input placeholder text for IE11.
+
 # 0.14.4
 
 ## Bug Fixes
