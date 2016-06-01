@@ -198,6 +198,10 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
           messagePositionLeft -= message.offsetWidth;
           message.style.left = `${messagePositionLeft}px`;
           message.className += " common-input__message--flipped";
+          this.flipped = true;
+        } else {
+          message.classList.remove("common-input__message--flipped");
+          this.flipped = false;
         }
       }
     }
@@ -404,6 +408,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
         iconClasses = `common-input__icon common-input__icon--${type}`;
 
     if (this.state.messageLocked) { messageClasses += " common-input__message--locked"; }
+    if (this.flipped) { messageClasses += " common-input__message--flipped"; }
 
     return [
       <Icon key="0" ref="validationIcon" type={ type } className={ iconClasses } />,

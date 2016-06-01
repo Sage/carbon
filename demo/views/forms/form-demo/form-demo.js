@@ -12,6 +12,7 @@ import DateField from 'components/date';
 import Presence from 'utils/validations/presence';
 import Length from 'utils/validations/length';
 import Row from 'components/row';
+import FooWarning from './../../../warnings/foo-warning';
 
 class FormDemo extends React.Component {
 
@@ -45,6 +46,7 @@ class FormDemo extends React.Component {
             value={ this.value('firstName') }
             onChange={ this.action.bind(this, 'firstName') }
             validations={ [ new Presence() ] }
+            warnings={ [new FooWarning()] }
           />
           <Textbox
             label='Last Name'

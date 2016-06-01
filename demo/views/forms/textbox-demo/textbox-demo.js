@@ -5,6 +5,7 @@ import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
 import FormInputHelper from './../../../helpers/form-input-helper';
 
+import Presence from 'utils/validations/presence';
 import Textbox from 'components/textbox';
 import Row from 'components/row';
 
@@ -30,6 +31,7 @@ class TextboxDemo extends React.Component {
   get demo() {
     return (
       <Textbox
+      validations={[ new Presence ]}
         { ...FormInputHelper.demoProps(this, this.action) }
       />
     );

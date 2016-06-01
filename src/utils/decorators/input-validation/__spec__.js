@@ -218,9 +218,14 @@ describe('InputValidation', () => {
 
       describe('when there is an icon and message', () => {
         describe('when onscreen', () => {
-          it('sets the correct left position', () => {
+          it('sets the correct left position and removes flipped class', () => {
+            let removeSpy = jasmine.createSpy();
+
             instance.setState({ valid: false, errorMessage: 'foo' });
             instance.refs.validationMessage = {
+              classList: {
+                remove: removeSpy
+              },
               offsetHeight: 30,
               style: {
                 left: 10,
@@ -239,6 +244,7 @@ describe('InputValidation', () => {
             });
             instance.positionMessage();
             expect(instance.refs.validationMessage.style.left).toEqual('25px');
+            expect(removeSpy).toHaveBeenCalledWith('common-input__message--flipped');
           });
         });
 
@@ -743,6 +749,22 @@ describe('InputValidation', () => {
         it('adds a locked class', () => {
           instance.setState({ messageLocked: true });
           expect(instance.refs.validationMessage.classList).toContain('common-input__message--locked');
+        });
+      });
+
+      describe('when the message not flipped', () => {
+        it('does not have flipped class', () => {
+          instance.flipped = false;
+          instance.setState({ messageLocked: true });
+          expect(instance.refs.validationMessage.classList).not.toContain('common-input__message--flipped');
+        });
+      });
+
+      describe('when the message is flipped', () => {
+        it('does have flipped class', () => {
+          instance.flipped = true;
+          instance.setState({ messageLocked: true });
+          expect(instance.refs.validationMessage.classList).toContain('common-input__message--flipped');
         });
       });
     });
