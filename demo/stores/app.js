@@ -16,6 +16,9 @@ let data = ImmutableHelper.parseJSON({
   button: {
     text: "Action"
   },
+  button_toggle: {
+    option_one: "Option One"
+  },
   checkbox: {
     label: "Checkbox",
     labelHelp: "Example label help.",
