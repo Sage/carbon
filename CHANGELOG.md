@@ -4,6 +4,14 @@
 
 * ButtonToggle.
 
+## New Features
+
+* Warnings are now ready to use on form inputs, using the same API as validations you can supply an array as a prop to an input:
+
+```
+<Textbox warnings={[ new MyWarning ]} />
+```
+
 ## Bug Fixes
 
 * CSS fixes to input error icon and error message.
