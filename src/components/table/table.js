@@ -194,7 +194,15 @@ class Table extends React.Component {
      * @property thead
      * @type {Object}
      */
-    thead: React.PropTypes.object
+    thead: React.PropTypes.object,
+
+    /**
+     * Determines if you want the table to automatically render a tbody.
+     *
+     * @property tbody
+     * @type {Object}
+     */
+    tbody: React.PropTypes.bool
   }
 
   /**
@@ -500,19 +508,19 @@ class Table extends React.Component {
     // set new state for the row
     row.setState({ selected: state });
 
-    let keys = Object.keys(this.selectedRows);
-
     if (this.actionToolbarComponent && !skipCallback) {
+      let keys = Object.keys(this.selectedRows);
+
       // update action toolbar
       this.actionToolbarComponent.setState({
         total: keys.length,
-        selected: keys
+        selected: this.selectedRows
       });
     }
 
     if (this.props.onSelect && !skipCallback) {
       // trigger onSelect event
-      this.props.onSelect(keys);
+      this.props.onSelect(this.selectedRows);
     }
   }
 
@@ -529,7 +537,9 @@ class Table extends React.Component {
     for (let key in this.rows) {
       // update all the rows with the new state
       let _row = this.rows[key];
-      this.selectRow(_row.props.uniqueID, _row, selectState, true);
+      if (_row.shouldHaveMultiSelectColumn) {
+        this.selectRow(_row.props.uniqueID, _row, selectState, true);
+      }
     }
 
     // update the row with the new state
@@ -538,19 +548,20 @@ class Table extends React.Component {
     // if select state is true, track the select all component
     this.selectAllComponent = selectState ? row : null;
 
-    let keys = Object.keys(this.selectedRows);
 
     if (this.actionToolbarComponent) {
+      let keys = Object.keys(this.selectedRows);
+
       // update action toolbar
       this.actionToolbarComponent.setState({
         total: keys.length,
-        selected: keys
+        selected: this.selectedRows
       });
     }
 
     if (this.props.onSelect) {
       // trigger onSelect event
-      this.props.onSelect(keys);
+      this.props.onSelect(this.selectedRows);
     }
   }
 
@@ -840,7 +851,7 @@ class Table extends React.Component {
   get loadingRow() {
     return (
       <TableRow key="__loading__" selectable={ false } highlightable={ false } hideMultiSelect={ true }>
-        <TableCell colSpan="9999" align="center">
+        <TableCell colSpan="42" align="center">
           <ReactCSSTransitionGroup
             transitionName="table-loading"
             transitionEnterTimeout={ 300 }
@@ -864,7 +875,7 @@ class Table extends React.Component {
   get emptyRow() {
     return (
       <TableRow key="__loading__" selectable={ false } highlightable={ false }>
-        <TableCell colSpan="9999" align="center">
+        <TableCell colSpan="42" align="center">
           { I18n.t("table.no_data", { defaultValue: "No results to display" }) }
         </TableCell>
       </TableRow>
@@ -910,6 +921,24 @@ class Table extends React.Component {
   }
 
   /**
+   * Returns the content, wrapped in a tbody.
+   *
+   * @method tbody
+   * @return {Object} JSX
+   */
+  get tbody() {
+    if (this.props.tbody === false) {
+      return this.tableContent;
+    } else {
+      return (
+        <tbody>
+          { this.tableContent }
+        </tbody>
+      );
+    }
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -921,9 +950,7 @@ class Table extends React.Component {
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
             { this.thead }
-            <tbody>
-              { this.tableContent }
-            </tbody>
+            { this.tbody }
           </table>
         </div>
         { this.pager }

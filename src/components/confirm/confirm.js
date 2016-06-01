@@ -42,7 +42,23 @@ class Confirm extends Dialog {
      * @property onConfirm
      * @type {Function}
      */
-    onConfirm: React.PropTypes.func.isRequired
+    onConfirm: React.PropTypes.func.isRequired,
+
+    /**
+     * Customise the confirm button label
+     *
+     * @property onConfirm
+     * @type {String}
+     */
+    confirmLabel: React.PropTypes.string,
+
+    /**
+     * Customise the cancel button label
+     *
+     * @property onConfirm
+     * @type {String}
+     */
+    cancelLabel: React.PropTypes.string
   }
 
   static defaultProps = {
@@ -101,11 +117,15 @@ class Confirm extends Dialog {
     return (
       <div className='ui-confirm__buttons' >
         <div className='ui-confirm__button ui-confirm__no'>
-          <Button as='secondary' onClick={ this.props.onCancel }>{ cancelText() }</Button>
+          <Button as='secondary' onClick={ this.props.onCancel }>
+            { this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' }) }
+          </Button>
         </div>
 
         <div className='ui-confirm__button ui-confirm__yes'>
-          <Button as='primary' onClick={ this.props.onConfirm }>{ confirmText() }</Button>
+          <Button as='primary' onClick={ this.props.onConfirm }>
+            { this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' }) }
+          </Button>
         </div>
       </div>
     );
@@ -122,14 +142,6 @@ class Confirm extends Dialog {
     dialog.props.children.push(this.confirmButtons);
     return dialog;
   }
-}
-
-function confirmText() {
-  return I18n.t('confirm.yes', { defaultValue: 'Yes' });
-}
-
-function cancelText() {
-  return I18n.t('confirm.no', { defaultValue: 'No' });
 }
 
 export default Confirm;

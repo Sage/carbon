@@ -62,8 +62,6 @@ describe('Pill', () => {
               children='My Text'
             />
           );
-          let foo = TestUtils;
-          debugger;
           expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill--info--fill').length).toEqual(1);
         });
       });
