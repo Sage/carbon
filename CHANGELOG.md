@@ -2,11 +2,11 @@
 
 ## New Components
 
+* ButtonToggle.
+
 ## Bug Fixes
 
 * CSS fixes to input error icon and error message.
-
-* ButtonToggle.
 
 # 0.14.4
 
