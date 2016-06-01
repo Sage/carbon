@@ -1,3 +1,9 @@
+# 0.15.0
+
+## New Components
+
+* ButtonToggle.
+
 # 0.14.4
 
 ## Bug Fixes
