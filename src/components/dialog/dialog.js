@@ -50,7 +50,10 @@ class Dialog extends Modal {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.string,
+    title: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.object
+    ]),
 
     /**
      * Determines if the background is disabled
