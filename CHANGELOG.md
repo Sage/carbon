@@ -1,3 +1,9 @@
+# 0.14.2
+
+## Minor Changes
+
+* Authorize Objects in dialog title
+
 # 0.14.4
 
 ## Bug Fixes
