@@ -156,18 +156,24 @@ describe('Dialog', () => {
 
     describe('when a props object title is passed', () => {
       beforeEach(() => {
-        spyOn(console, 'error');
-      });
-
-      it('sets a dialog header', () => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
             onCancel={ onCancel }
             open={ true }
-            title={<Row></Row>}
+            title={
+              <Row>
+                <div>Row1</div>
+                <div>Row2</div>
+              </Row>
+            }
           />
         );
-        expect(console.error).not.toHaveBeenCalled();
+      });
+
+      it('sets a dialog header', () => {
+        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
+        expect(header.classList[0]).toEqual('ui-dialog__title');
+        expect(header.textContent).toEqual('Row1Row2');
       });
     });
 
