@@ -1,3 +1,9 @@
+# 0.16.0
+
+## Minor Improvments
+
+* Adding user class names to tabs.
+
 # 0.15.0
 
 ## New Components
@@ -5,7 +11,6 @@
 * ButtonToggle.
 
 ## New Features
-  Adding user class names to tabs.
 
 * Warnings are now ready to use on form inputs, using the same API as validations you can supply an array as a prop to an input:
 
