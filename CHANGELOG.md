@@ -1,3 +1,9 @@
+# 0.16.0
+
+## Minor Improvments
+
+* Adding user class names to tabs.
+
 # 0.15.0
 
 ## New Components
