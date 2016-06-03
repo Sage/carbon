@@ -1,0 +1,60 @@
+@import "buttons";
+@import "colors";
+
+.ui-button-toggle {
+  display: inline-block;
+
+  + .ui-button-toggle {
+    margin-left: 10px;
+  }
+}
+
+.ui-button-toggle__label {
+  background-color: $white;
+  border-radius: $ui-button__border-radius;
+  border: 1px solid $grey-dark-blue-20;
+  color: $grey-dark-blue-60;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+  padding: 15px 25px;
+  text-align: center;
+
+  &:hover {
+    background-color: $pod-footer;
+  }
+}
+
+.ui-button-toggle__label--disabled,
+.ui-button-toggle__label--disabled:hover {
+  background-color: $ui-button__background-color--disabled !important;
+  color: $ui-button__color--disabled !important;
+  cursor: initial;
+}
+
+.ui-button-toggle__input:checked ~ .ui-button-toggle__label {
+  background-color: $blue-sky;
+  border-color: $blue-sky-20;
+  color: $white;
+}
+
+.ui-button-toggle__icon {
+  display: inline-block;
+  top: -2px;
+  margin-right: 3px;
+  position: relative;
+}
+
+.ui-button-toggle__icon--large {
+  display: block;
+
+  .ui-icon:before {
+    font-size: 60px;
+    line-height: 60px;
+  }
+
+  .ui-icon__svg {
+    height: 64px;
+    width: 64x;
+  }
+}

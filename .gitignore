@@ -5,3 +5,4 @@ coverage/
 demo/assets
 .DS_Store
 .browser-preferences/
+.idea
