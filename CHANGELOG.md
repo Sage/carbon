@@ -4,6 +4,15 @@
 
 * Adding user class names to tabs.
 
+## Browser Helper
+
+Added a redirect action made by the browser. It's now easier to redirect to url
+
+```
+Browser.redirectTo(url)
+```
+Into: lib/utils/helpers/browser
+
 # 0.15.0
 
 ## New Components
