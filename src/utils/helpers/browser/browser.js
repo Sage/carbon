@@ -11,6 +11,7 @@ var Browser = {
   *
   * @method redirectUrl
   * @param url => URL string format
+  * @param window global window object, set default so overrideable in tests.
   */
   redirectUrl: (url, win = window) => {
     win.location = url;
