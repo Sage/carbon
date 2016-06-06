@@ -9,9 +9,10 @@
 Added a redirect action made by the browser. It's now easier to redirect to url
 
 ```
+import Browser from 'carbon/lib/utils/helpers/browser';
+
 Browser.redirectTo(url)
 ```
-Into: lib/utils/helpers/browser
 
 # 0.15.0
 
