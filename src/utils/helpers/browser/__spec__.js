@@ -1,6 +1,6 @@
 import Browser from './browser.js'
 
-fdescribe('Browser', () => {
+describe('Browser', () => {
   let _window;
 
   beforeEach(() => {

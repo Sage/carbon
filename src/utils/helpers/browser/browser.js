@@ -4,7 +4,7 @@
 * Provides helper methods for working with Browser behavior.
 *
 */
-var Browser = {
+const Browser = {
 
   /**
   * Redirect to URL
