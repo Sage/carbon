@@ -48,7 +48,7 @@ class Dialog extends Modal {
      * Title displayed at top of dialog
      *
      * @property title
-     * @type {String}
+     * @type {Object}
      */
     title: React.PropTypes.oneOfType([
       React.PropTypes.string,
