@@ -1,6 +1,6 @@
 # 0.16.0
 
-## Minor Improvments
+## Minor Improvements
 
 * Adding user class names to tabs.
 * Authorize Objects in dialog title
