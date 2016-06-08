@@ -22,7 +22,7 @@ describe('Browser', () => {
     });
   });
 
-  describe('bWindow getter', () => {
+  describe('getWindow', () => {
     it('returns the window object', () => {
       expect(Browser.getWindow()).toEqual(window);
     });
