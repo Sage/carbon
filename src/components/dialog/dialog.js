@@ -48,9 +48,12 @@ class Dialog extends Modal {
      * Title displayed at top of dialog
      *
      * @property title
-     * @type {String}
+     * @type {Object}
      */
-    title: React.PropTypes.string,
+    title: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.object
+    ]),
 
     /**
      * Determines if the background is disabled
