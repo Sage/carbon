@@ -3,6 +3,7 @@
 ## Minor Improvments
 
 * Adding user class names to tabs.
+* Authorize Objects in dialog title
 
 ## Browser Helper
 
@@ -13,16 +14,6 @@ import Browser from 'carbon/lib/utils/helpers/browser';
 
 Browser.redirectTo(url)
 ```
-
-## Minor Improvments
-
-* Adding user class names to tabs.
-
-# 0.15.1
-
-## Minor Changes
-
-* Authorize Objects in dialog title
 
 # 0.15.0
 
