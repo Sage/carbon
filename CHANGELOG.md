@@ -1,13 +1,15 @@
-
 # 0.16.0
 
+<<<<<<< HEAD
 ## Minor Improvments
 
 * Adding user class names to tabs.
 
+=======
+>>>>>>> 1d30d163042120ba96e9373c2c72b8dc6e2c8a49
 ## Browser Helper
 
-Added a redirect action made by the browser. It's now easier to redirect to url
+Added a redirect action made by the browser. It is now easier to redirect to url
 
 ```
 import Browser from 'carbon/lib/utils/helpers/browser';
@@ -15,6 +17,13 @@ import Browser from 'carbon/lib/utils/helpers/browser';
 Browser.redirectTo(url)
 ```
 
+<<<<<<< HEAD
+=======
+## Minor Improvments
+
+* Adding user class names to tabs.
+
+>>>>>>> 1d30d163042120ba96e9373c2c72b8dc6e2c8a49
 # 0.15.1
 
 ## Minor Changes
