@@ -1,3 +1,4 @@
+
 # 0.16.0
 
 ## Minor Improvments
@@ -13,6 +14,12 @@ import Browser from 'carbon/lib/utils/helpers/browser';
 
 Browser.redirectTo(url)
 ```
+
+# 0.15.1
+
+## Minor Changes
+
+* Authorize Objects in dialog title
 
 # 0.15.0
 
