@@ -1,8 +1,15 @@
+
 # 0.16.0
 
 ## Minor Improvements
 
 * Adding header class names to tab.
+
+# 0.15.1
+
+## Minor Changes
+
+* Authorize Objects in dialog title
 
 # 0.15.0
 
