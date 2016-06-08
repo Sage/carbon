@@ -10,6 +10,7 @@ import Row from 'components/row';
 import Button from 'components/button';
 import Textbox from 'components/textbox';
 import Number from 'components/number';
+import Dropdown from 'components/dropdown';
 import { Table, TableRow, TableCell, TableHeader } from 'components/table';
 
 class RowDemo extends React.Component {
@@ -37,11 +38,12 @@ class RowDemo extends React.Component {
         {
           this.value('columnData').map((data, index) => {
             return (
-              <Textbox
+              <div
                 key={ index }
                 columnOffset={ data.get('columnOffset') }
                 columnSpan={ data.get('columnSpan') }
-              />
+                columnAlign={ data.get('columnAlign') }
+              >Foobar</div>
             );
           }).toJS()
         }
@@ -66,6 +68,10 @@ class RowDemo extends React.Component {
     this.value('columnData').forEach((data, index) => {
       html += "  <Textbox";
 
+      if (data.get('columnAlign')) {
+        html += `\n    columnAlign='${data.get('columnAlign')}'`;
+      }
+
       if (data.get('columnOffset')) {
         html += `\n    columnOffset='${data.get('columnOffset')}'`;
       }
@@ -74,7 +80,7 @@ class RowDemo extends React.Component {
         html += `\n    columnSpan='${data.get('columnSpan')}'`;
       }
 
-      if (data.get('columnSpan') || data.get('columnOffset')) {
+      if (data.get('columnSpan') || data.get('columnOffset') || data.get('columnAlign')) {
         html += "\n ";
       }
 
@@ -84,6 +90,23 @@ class RowDemo extends React.Component {
     html += "</Row>\n\n";
 
     return html;
+  }
+
+  /**
+   * @method alignOptions
+   * @return {Object}
+   */
+  get alignOptions() {
+    return Immutable.fromJS([{
+      id: 'left',
+      name: 'Left'
+    }, {
+      id: 'center',
+      name: 'Center'
+    }, {
+      id: 'right',
+      name: 'Right'
+    }]);
   }
 
   /**
@@ -121,6 +144,15 @@ class RowDemo extends React.Component {
               placeholder={ `Enter 2-${length - 1}` }
             />
           </TableCell>
+
+          <TableCell>
+            <Dropdown
+              label={ false }
+              value={ data.get('columnAlign') }
+              onChange={ this.action.bind(this, ['columnData', index, 'columnAlign']) }
+              options={ this.alignOptions }
+            />
+          </TableCell>
         </TableRow>
       );
     });
@@ -131,6 +163,7 @@ class RowDemo extends React.Component {
         <TableHeader />
         <TableHeader>Column Offset</TableHeader>
         <TableHeader>Column Span</TableHeader>
+        <TableHeader>Column Align</TableHeader>
       </TableRow>
     );
 
@@ -141,6 +174,7 @@ class RowDemo extends React.Component {
         <TableCell>
           <Button onClick={ this.action.bind(this, ['columnData', length, 'foo']) } disabled={ length == 12 }>Add Column</Button>
         </TableCell>
+        <TableCell />
         <TableCell />
       </TableRow>
     );

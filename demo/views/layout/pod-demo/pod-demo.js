@@ -6,8 +6,10 @@ import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
 
 import Pod from 'components/pod';
+import Link from 'components/link';
 import Textbox from 'components/textbox';
 import Checkbox from 'components/checkbox';
+import Dropdown from 'components/dropdown';
 import Row from 'components/row';
 import { startCase } from 'lodash';
 
@@ -45,11 +47,21 @@ class PodDemo extends React.Component {
    * @method demo
    */
   get demo() {
+    let footer;
+
+    if (this.value('footer')) {
+      footer = <Link href='#'>Action 1</Link>;
+    }
+
     return (
       <Pod
         collapsed={ this.props.collapsed }
         title={ this.value('title') }
         description={ this.value('description') }
+        padding={ this.value('padding') }
+        border={ this.value('border') }
+        as={ this.value('as') }
+        footer={ footer }
       >
         <Row>
           <Textbox />
@@ -66,11 +78,14 @@ class PodDemo extends React.Component {
   get code() {
     let collapsible = this.collapsible,
         title = this.value('title'),
-        description = this.value('description');
+        description = this.value('description'),
+        border = this.value('border'),
+        padding = this.value('padding'),
+        as = this.value('as');
 
     let html = "import Pod from 'carbon/lib/components/pod';\n\n";
 
-    if (!collapsible && !title && !description) {
+    if (!collapsible && !title && !description && border && padding == "medium") {
       html += '<Pod>';
     } else {
       html += '<Pod';
@@ -87,6 +102,18 @@ class PodDemo extends React.Component {
         html += `\n  description={ ${this.value('description')} }`
       }
 
+      if (!border) {
+        html += "\n  border={ false }";
+      }
+
+      if (padding !== "medium") {
+        html += `\n  padding='${padding}'`
+      }
+
+      if (as !== "primary") {
+        html += `\n  as='${as}'`
+      }
+
       html += '\n>'
     }
     html += '\n  <Row>'
@@ -97,6 +124,41 @@ class PodDemo extends React.Component {
     html += '\n</Pod>'
 
     return html;
+  }
+
+  /**
+   * @method paddingOptions
+   */
+  get paddingOptions() {
+    return Immutable.fromJS([{
+      id: "none",
+      name: "None"
+    }, {
+      id: "small",
+      name: "Small"
+    }, {
+      id: "medium",
+      name: "Medium"
+    }, {
+      id: "large",
+      name: "Large"
+    }]);
+  }
+
+  /**
+   * @method asOptions
+   */
+  get asOptions() {
+    return Immutable.fromJS([{
+      id: "primary",
+      name: "Primary"
+    }, {
+      id: "secondary",
+      name: "Secondary"
+    }, {
+      id: "tile",
+      name: "Tile"
+    }]);
   }
 
   /**
@@ -119,6 +181,34 @@ class PodDemo extends React.Component {
             labelInline={ true }
             value={ this.value('description') }
             onChange={ this.action.bind(this, 'description') }
+          />
+        </Row>
+        <Row>
+          <Dropdown
+            label="As"
+            labelInline={ true }
+            value={ this.value('as') }
+            onChange={ this.action.bind(this, 'as') }
+            options={ this.asOptions }
+          />
+          <Dropdown
+            label="Padding Size"
+            labelInline={ true }
+            value={ this.value('padding') }
+            onChange={ this.action.bind(this, 'padding') }
+            options={ this.paddingOptions }
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Border"
+            value={ this.value('border') }
+            onChange={ this.action.bind(this, 'border') }
+          />
+          <Checkbox
+            label="Footer"
+            value={ this.value('footer') }
+            onChange={ this.action.bind(this, 'footer') }
           />
         </Row>
       </div>

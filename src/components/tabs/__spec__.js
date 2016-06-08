@@ -28,15 +28,20 @@ describe('Tabs', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Tabs>
-        <Tab title='Tab Title 1' tabId='uniqueid1'>
+        <Tab title='Tab Title 1' tabId='uniqueid1' className='class1' headerClassName='headerClass1'>
           <Textbox name='foo'/>
           <Textbox name='bar'/>
         </Tab>
-        <Tab title='Tab Title 2' tabId='uniqueid2'>
+        <Tab title='Tab Title 2' tabId='uniqueid2' className='class2' headerClassName='headerClass2'>
           <Textbox name='baz'/>
           <Textbox name='bax'/>
         </Tab>
+        <Tab title='Tab Title 3' tabId='uniqueid3' className='class3 class4' headerClassName='headerClass3 headerClass4'>
+          <Textbox name='bar'/>
+          <Textbox name='bap'/>
+        </Tab>
       </Tabs>);
+    instance._window = { location: "" };
   });
 
   describe('initialize', () => {
@@ -48,9 +53,9 @@ describe('Tabs', () => {
   describe('componentWillMount', () => {
     describe('initial selected tab', () => {
       describe('when passed as props', () => {
-        it('it uses the prop as the initialSelectedId', () => {
+        it('uses the prop as initialSelectedTabId and takes precendent over hash', () => {
           instance = TestUtils.renderIntoDocument(
-            <Tabs initialTabId='uniqueid2'>
+            <Tabs initialSelectedTabId='uniqueid2'>
               <Tab title='Tab Title 1' tabId='uniqueid1'>
                 <Textbox name='foo'/>
                 <Textbox name='bar'/>
@@ -59,9 +64,40 @@ describe('Tabs', () => {
                 <Textbox name='baz'/>
                 <Textbox name='bax'/>
               </Tab>
-            </Tabs>);
+            </Tabs>
+          );
+          instance._window = { location: "#uniqueid1" };
 
           expect(instance.state.selectedTabId).toEqual('uniqueid2');
+        });
+      });
+
+      describe('detects a hash', () => {
+        beforeEach(() => {
+          instance = TestUtils.renderIntoDocument(
+            <Tabs>
+              <Tab title='Tab Title 1' tabId='uniqueid1'>
+                <Textbox name='foo'/>
+                <Textbox name='bar'/>
+              </Tab>
+              <Tab title='Tab Title 2' tabId='uniqueid2'>
+                <Textbox name='baz'/>
+                <Textbox name='bax'/>
+              </Tab>
+            </Tabs>
+          );
+        });
+
+        it('matches the hash so uses the tab', () => {
+          instance._window = { location: { hash: "#uniqueid2" }};
+          instance.componentWillMount();
+          expect(instance.state.selectedTabId).toEqual('uniqueid2');
+        });
+
+        it('does not match the hash so uses first tab', () => {
+          instance._window = { location: { hash: "#foo" }};
+          instance.componentWillMount();
+          expect(instance.state.selectedTabId).toEqual('uniqueid1');
         });
       });
 
@@ -99,15 +135,45 @@ describe('Tabs', () => {
   });
 
   describe('handleTabClick', () => {
-    it('sets the state to teh currently selected tabId', () => {
+    it('sets the state to the currently selected tabId', () => {
       spyOn(instance, 'handleTabClick');
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
 
-      expect(secondTab.classList[1]).toBeFalsy();
+      expect(secondTab.classList.contains('ui-tabs__headers__header--selected')).toEqual(false);
 
       TestUtils.Simulate.click(secondTab);
 
-      expect(secondTab.classList[1]).toEqual('ui-tabs__headers__header--selected');
+      expect(secondTab.classList.contains('ui-tabs__headers__header--selected')).toEqual(true);
+    });
+
+    it('sets the location', () => {
+      instance._window = {
+        location: ''
+      };
+      instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
+      expect(instance._window.location).toEqual('#foo');
+    });
+
+    describe('when a onTabClick prop is passed', () => {
+      it('calls the prop', () => {
+        let clickSpy = jasmine.createSpy('tabClick');
+
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs onTabClick={ clickSpy } >
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='foo'/>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+
+        instance._window = {
+          location: ''
+        };
+
+        instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
+        expect(clickSpy).toHaveBeenCalledWith('foo');
+      });
     });
   });
 
@@ -134,13 +200,29 @@ describe('Tabs', () => {
   describe('tabHeaderClasses', () => {
     it('adds a ui-tabs__header class to the tab', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.className).toEqual('ui-tabs__headers__header'); 
+      expect(secondTab.classList.contains('ui-tabs__headers__header')).toEqual(true);
+    });
+
+    it('adds the className included in the props to the tab', () => {
+      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+      expect(secondTab.classList.contains('headerClass2')).toEqual(true);
+    });
+    
+    it('adds the className included in the props as an array to the tab', () => {
+      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[2];
+      expect(secondTab.classList.contains('headerClass3')).toEqual(true);
+      expect(secondTab.classList.contains('headerClass4')).toEqual(true);
+    });
+    
+    it('does not addsa selected class to the header', () => {
+      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+      expect(secondTab.classList.contains('ui-tabs__headers__header--selected')).toEqual(false);
     });
 
     describe('when tab is selected tab', () => {
       it('adds a selected class to the header', () => {
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[0];
-        expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--selected'); 
+        expect(secondTab.classList.contains('ui-tabs__headers__header--selected')).toEqual(true);
       });
     });
 
@@ -148,7 +230,7 @@ describe('Tabs', () => {
       it('adds a error class to the header', () => {
         instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('ui-tabs__headers__header ui-tabs__headers__header--error'); 
+        expect(secondTab.className).toEqual('ui-tabs__headers__header headerClass2 ui-tabs__headers__header--error');
       });
     });
   });
@@ -159,7 +241,7 @@ describe('Tabs', () => {
     });
 
     it('renders a list item for each tab passed to the tabs', () => {
-      expect(instance.tabHeaders.props.children.length).toEqual(2);
+      expect(instance.tabHeaders.props.children.length).toEqual(3);
     });
 
     it('adds a data-tabid to each list item', () => {
@@ -189,7 +271,7 @@ describe('Tabs', () => {
             </Tab>
           </Tabs>
         );
-        
+
         let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
         expect(headers.className).toEqual('ui-tabs__headers ui-tabs__headers--align-right');
       });
@@ -225,7 +307,7 @@ describe('Tabs', () => {
   describe('tabs', () => {
     describe('when renderHiddenTabs is set to true', () => {
       it('returns an array of all child components', () => {
-        expect(instance.tabs.length).toEqual(2);
+        expect(instance.tabs.length).toEqual(3);
       });
 
       it('adds a selected class to the visible tab', () => {
@@ -280,7 +362,7 @@ describe('Tabs', () => {
       let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
       let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
       expect(list.className).toEqual('ui-tabs__headers ui-tabs__headers--align-left');
-      expect(items.length).toEqual(2);
+      expect(items.length).toEqual(3);
     });
   });
 });

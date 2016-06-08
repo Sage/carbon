@@ -1,6 +1,13 @@
 @import "tables";
 @import "colors";
 
+.ui-table-cell,
+.ui-table-header {
+  &:not(.ui-table-cell--select):first-child {
+    padding-left: 15px;
+  }
+}
+
 .ui-table-cell {
   background-color: $row-alt-color;
   border-bottom: 1px solid $table-border-color;
@@ -14,8 +21,6 @@
   white-space: nowrap;
 
   .ui-table-row:first-child & {
-    border-bottom: none;
-
     &:first-child {
       border-radius: $tables__border-radius 0 0 0;
     }
@@ -26,7 +31,7 @@
   }
 
   .ui-table-row:last-child & {
-    border-bottom: none;
+    border-bottom-color: transparent;
 
     &:first-child {
       border-radius: 0 0 0 $tables__border-radius;
@@ -53,6 +58,16 @@
   }
 }
 
+.ui-table-cell--select {
+  text-align: center;
+  width: 18px;
+
+  .ui-checkbox {
+    height: 15px;
+    padding-top: 0;
+  }
+}
+
 .ui-table-cell--action {
   width: 18px;
 
@@ -75,4 +90,8 @@
 
 .ui-table-cell--align-right {
   text-align: right;
+}
+
+.ui-table-cell--align-center {
+  text-align: center;
 }

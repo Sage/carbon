@@ -68,6 +68,16 @@ class RadioButton extends React.Component {
   }
 
   /**
+   * Returns classes for field help.
+   *
+   * @method fieldHelpClasses
+   * @return {String}
+   */
+  get fieldHelpClasses() {
+    return 'ui-radio-button__help-text';
+  }
+
+  /**
    * A getter that combines props passed down from the input decorator with
    * radiobutton specific props.
    *
@@ -131,6 +141,7 @@ class RadioButton extends React.Component {
       <div className={ this.mainClasses }>
         { this.inputHTML }
         { this.labelHTML }
+        { this.fieldHelpHTML }
         { this.validationHTML }
       </div>
     );

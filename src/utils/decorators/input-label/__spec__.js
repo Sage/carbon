@@ -1,5 +1,7 @@
 import React from 'react';
+import TestUtils from 'react/lib/ReactTestUtils';
 import InputLabel from './input-label';
+import Help from 'components/help';
 
 class BasicClass {
   props = {
@@ -84,8 +86,41 @@ class NamelessClass {
   };
 }
 
+
+class LabelHelpClass {
+  props = {
+    name: 'foo',
+    label: 'test label',
+    fieldHelp: 'help label',
+    labelInline: true,
+    labelWidth: 20
+  };
+
+  context = {
+    form: {
+      model: 'model_1'
+    }
+  };
+}
+
+class HelpClass extends React.Component {
+  context = {
+    form: {
+      model: 'model_1'
+    }
+  };
+
+  render() {
+    return (
+      <div name='foo' helpMessage={ this.props.helpMessage } label='test label' />
+    );
+  }
+}
+
 describe('InputLabel', () => {
-  let instanceBasic, instanceFalse, instanceUnNamed, instanceValidation, instanceAltValidation, instanceNameless;
+  let instanceBasic, instanceFalse, instanceUnNamed,
+      instanceValidation, instanceAltValidation, instanceNameless,
+      instanceLabelHelp, instanceHelp;
 
   beforeEach(() => {
     let ExtendedClassOne = InputLabel(BasicClass);
@@ -105,6 +140,38 @@ describe('InputLabel', () => {
 
     let ExtendedClassSix = InputLabel(NamelessClass);
     instanceNameless = new ExtendedClassSix();
+
+    let ExtendedClassSeven = InputLabel(LabelHelpClass);
+    instanceLabelHelp = new ExtendedClassSeven();
+
+    let ExtendedClassEight = InputLabel(HelpClass);
+    instanceHelp = TestUtils.renderIntoDocument(<ExtendedClassEight labelHelp='Some Helpful Content'/>);
+  });
+
+  describe('labelClasses', () => {
+    describe('when inline', () => {
+      it('adds the relevant class', () => {
+        let ExtendedClassOne = InputLabel(HelpClass);
+        let instance = TestUtils.renderIntoDocument(<ExtendedClassOne labelInline={ true } />);
+        expect(instance.labelClasses).toEqual('common-input__label common-input__label--inline');
+      });
+    });
+
+    describe('when help is enabled', () => {
+      it('adds the relevant class', () => {
+        let ExtendedClassOne = InputLabel(HelpClass);
+        let instance = TestUtils.renderIntoDocument(<ExtendedClassOne fieldHelp={ true } />);
+        expect(instance.labelClasses).toEqual('common-input__label common-input__label--help');
+      });
+    });
+
+    describe('when align right', () => {
+      it('adds the relevant class', () => {
+        let ExtendedClassOne = InputLabel(HelpClass);
+        let instance = TestUtils.renderIntoDocument(<ExtendedClassOne labelAlign='right' />);
+        expect(instance.labelClasses).toEqual('common-input__label common-input__label--align-right');
+      });
+    });
   });
 
   describe('labelHTML', () => {
@@ -122,28 +189,28 @@ describe('InputLabel', () => {
 
     describe('when no label is provided', () => {
       it('titleizes the name to provide the label text', () => {
-        var label = instanceUnNamed.labelHTML;
-        expect(label.props.children).toEqual('Bar Qux');
+        let label = instanceUnNamed.labelHTML;
+        expect(label.props.children).toMatch('Bar Qux');
       });
     });
 
     describe('when the input has a label', () => {
       it('sets the labelText to the passed in label', () => {
-        var label = instanceBasic.labelHTML;
-        expect(label.props.children).toEqual('test label');
+        let label = instanceBasic.labelHTML;
+        expect(label.props.children).toMatch('test label');
       });
 
       describe('when the input has a validation with asterisk enabled', () => {
         it('adds additional symbols to the label', () => {
-          var label = instanceValidation.labelHTML;
-          expect(label.props.children).toEqual('Validate Label*');
+          let label = instanceValidation.labelHTML;
+          expect(label.props.children).toMatch('Validate Label*');
         });
       });
 
       describe('when the input does not have a validation with asterisk enabled', () => {
         it('does not add additional symbols to the label', () => {
-          var label = instanceAltValidation.labelHTML;
-          expect(label.props.children).toEqual('Validate Label');
+          let label = instanceAltValidation.labelHTML;
+          expect(label.props.children).toMatch('Validate Label');
         });
       });
     });
@@ -151,6 +218,31 @@ describe('InputLabel', () => {
     describe('when label width is passed', () => {
       it('sets a width for the label', () => {
         expect(instanceBasic.labelHTML.props.style.width).toEqual('20%');
+      });
+    });
+  });
+
+  describe('labelHelpHTML', () => {
+    describe('when a helpmessage is provided', () => {
+      it('renders a help component', () => {
+        let help = instanceHelp.labelHelpHTML;
+        expect(help.props.children).toEqual('Some Helpful Content');
+      });
+    });
+  })
+
+  describe('fieldHelpHTML', () => {
+    describe('when label help is provided', () => {
+      it('renders the help within a span', () => {
+        let help = instanceLabelHelp.fieldHelpHTML;
+        expect(help.type).toEqual('span');
+        expect(help.props.children).toEqual('help label');
+      });
+    });
+
+    describe('when label help is not provided', () => {
+      it('does not return a help span', () => {
+        expect(instanceBasic.fieldHelpHTML).toBeUndefined();
       });
     });
   });

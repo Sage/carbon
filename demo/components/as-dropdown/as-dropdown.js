@@ -5,6 +5,9 @@ import Dropdown from 'components/dropdown';
 class AsDropdown extends React.Component {
   render() {
     let opts = Immutable.fromJS([{
+      id: null,
+      name: "Please Select"
+    }, {
       id: "error",
       name: "Error"
     }, {
@@ -27,8 +30,11 @@ class AsDropdown extends React.Component {
       name: "Warning"
     }]);
 
+    if (this.props.extraOpts) { opts = opts.concat(this.props.extraOpts); }
+
     return (
       <Dropdown
+        placeholder="Please Select"
         options={ opts }
         label="As"
         labelInline={ true }

@@ -63,12 +63,12 @@ class Textbox extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
-
+      <div className={ this.mainClasses }
+           ref={ (comp) => this._target = comp }>
         { this.labelHTML }
         { this.inputHTML }
         { this.validationHTML }
-
+        { this.fieldHelpHTML }
       </div>
     );
   }

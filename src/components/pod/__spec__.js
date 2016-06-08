@@ -44,7 +44,7 @@ describe('Pod', () => {
 
         it('Adds a additional collaspsible arrow to the the header', () => {
           let arrow = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__arrow');
-          expect(arrow.className).toEqual('ui-pod__arrow ui-pod__arrow--true icon-dropdown');
+          expect(arrow.className).toEqual('ui-icon ui-pod__arrow ui-pod__arrow--true icon-dropdown');
         });
 
         it('Adds a additonal class header', () => {
@@ -90,21 +90,72 @@ describe('Pod', () => {
     });
   });
 
-  describe('render', () => {
-    it('renders a parent div with a pod CSS class', () => {
-      instance = TestUtils.renderIntoDocument(<Pod/>);
-      let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
-      expect(podNode.className).toEqual('ui-pod');
-    });
-
-    describe('when a custom className is passed', () => {
-      it('adds the class to the surrounding parent div', () => {
-        instance = TestUtils.renderIntoDocument(<Pod className="CustomClass"/>);
-        let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
-        expect(podNode.className).toEqual('ui-pod CustomClass');
+  describe('mainClasses', () => {
+    describe('if border is enabled and there is no footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod />);
+        expect(instance.mainClasses).toEqual('ui-pod ui-pod--primary');
       });
     });
 
+    describe('if border is disabled and there is a footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
+        expect(instance.mainClasses).toEqual('ui-pod ui-pod--primary ui-pod--no-border ui-pod--footer');
+      });
+    });
+  });
+
+  describe('contentClasses', () => {
+    describe('if border is enabled and there is no footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod />);
+        expect(instance.contentClasses).toEqual('ui-pod__content ui-pod__content--primary ui-pod--padding-medium');
+      });
+    });
+
+    describe('if border is disabled and there is a footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
+        expect(instance.contentClasses).toEqual('ui-pod__content ui-pod__content--primary ui-pod--padding-medium ui-pod__content--footer ui-pod--no-border');
+      });
+    });
+  });
+
+  describe('footerClasses', () => {
+    describe('if border is enabled and there is no footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod />);
+        expect(instance.footerClasses).toEqual('ui-pod__footer ui-pod__footer--primary ui-pod__footer--padding-medium');
+      });
+    });
+
+    describe('if border is disabled and there is a footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod border={ false } />);
+        expect(instance.footerClasses).toEqual('ui-pod__footer ui-pod__footer--primary ui-pod__footer--padding-medium ui-pod--no-border');
+      });
+    });
+  });
+
+  describe('footer', () => {
+    describe('if there is no footer', () => {
+      it('returns null', () => {
+        instance = TestUtils.renderIntoDocument(<Pod />);
+        expect(instance.footer).toBe(null);
+      });
+    });
+
+    describe('if there is a footer', () => {
+      it('returns the footer', () => {
+        instance = TestUtils.renderIntoDocument(<Pod footer={ <div /> } />);
+        let footer = instance.footer;
+        expect(footer.props.className).toEqual(instance.footerClasses);
+      });
+    });   
+  });
+
+  describe('render', () => {
     describe('pod content', () => {
       describe('when pod is closed', () => {
         it('does not render the pods content', () => {

@@ -13,7 +13,8 @@ describe('Pill', () => {
       <Pill
         children='My Text'
         className='customClass'
-        onClick={ spy } />
+        onClick={ spy }
+      />
     );
   });
 
@@ -39,7 +40,7 @@ describe('Pill', () => {
     describe('as', () => {
       describe('when using the default', () => {
         it('adds a class of ui-pill--info', () => {
-          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill--info').length).toEqual(1);
+          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill--info--empty').length).toEqual(1);
         });
       });
 
@@ -48,9 +49,20 @@ describe('Pill', () => {
           instance = TestUtils.renderIntoDocument(
             <Pill
               as='warning'
-              children='My Text'/>
+              children='My Text'
+            />
           );
-          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill--warning').length).toEqual(1);
+          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill--warning--empty').length).toEqual(1);
+        });
+
+        it('uses the passed fill', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Pill
+              fill={ true }
+              children='My Text'
+            />
+          );
+          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill--info--fill').length).toEqual(1);
         });
       });
     });

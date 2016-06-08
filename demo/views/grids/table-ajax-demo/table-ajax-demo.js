@@ -46,17 +46,30 @@ class TableAjaxDemo extends React.Component {
       );
     }
 
+    let actions = [{
+      text: "Add Subscriptions",
+      icon: "basket"
+    }, {
+      text: "Delete",
+      icon: "bin"
+    }];
+
     return (
       <div>
         { filterHtml }
 
         <TableAjax
+          actions={ actions }
           filter={ filter }
-          showPageSizeSelection={ this.value('show_page_size_selection') }
+          onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
           pageSize={ this.value('page_size') }
           paginate={ this.value('paginate') }
           path="/countries"
-          onChange={ AppActions.appTableUpdated.bind(this, "table_ajax") }
+          selectable={ this.value('selectable') }
+          highlightable={ this.value('highlightable') }
+          showPageSizeSelection={ this.value('show_page_size_selection') }
+          shrink={ this.value('shrink') }
+          thead={ this.tableHeaderRow }
         >
           { this.tableRows }
         </TableAjax>
@@ -124,6 +137,10 @@ class TableAjaxDemo extends React.Component {
 
     html += "<TableAjax\n";
 
+    if (this.value('shrink')) {
+      html += '  shrink={ true }\n';
+    }
+
     if (this.value('enable_filter')) {
       html += "  filter={this.state.store.get('filter')}\n";
     }
@@ -188,19 +205,35 @@ class TableAjaxDemo extends React.Component {
             onChange={ this.action.bind(this, 'sortable') }
           />
         </Row>
+        <Row>
+          <Checkbox
+            label="Shrink (allow table to shrink with few results)"
+            value={ this.value('shrink') }
+            onChange={ this.action.bind(this, 'shrink') }
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Highlightable"
+            value={ this.value('highlightable') }
+            onChange={ this.action.bind(this, 'highlightable') }
+          />
+          <Checkbox
+            label="Selectable"
+            value={ this.value('selectable') }
+            onChange={ this.action.bind(this, 'selectable') }
+          />
+        </Row>
       </div>
     );
   }
 
   /**
-   * @method tableRows
+   * @method tableHeaderRow
    */
-  get tableRows() {
-    let data = this.state.appStore.getIn(['table_ajax', 'data']),
-        rows = [];
-
-    rows.push(
-      <TableRow key="header">
+  get tableHeaderRow() {
+    return(
+      <TableRow key="header" uniqueID='header' as='header' selectAll={ this.value('selectable') }>
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>
@@ -209,15 +242,22 @@ class TableAjaxDemo extends React.Component {
         </TableHeader>
       </TableRow>
     );
+  }
 
-    return rows.concat(data.map((row, index) => {
+  /**
+   * @method tableRows
+   */
+  get tableRows() {
+    let data = this.state.appStore.getIn(['table_ajax', 'data']);
+
+    return data.map((row, index) => {
       return (
-        <TableRow key={ index }>
+        <TableRow key={ index } uniqueID={ row.get('name') }>
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
         </TableRow>
       );
-    }));
+    });
   }
 
   /**

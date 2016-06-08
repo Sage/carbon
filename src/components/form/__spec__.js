@@ -6,6 +6,7 @@ import Textbox from './../textbox';
 import Validation from './../../utils/validations/presence';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import Dialog from './../dialog';
+import I18n from "i18n-js";
 
 describe('Form', () => {
   let instance;
@@ -39,6 +40,25 @@ describe('Form', () => {
     });
   });
 
+  describe('getChildContext', () => {
+    it('returns an object that exposes public functions', () => {
+      expect(instance.getChildContext()).toEqual(
+        {
+          form: {
+            attachToForm: instance.attachToForm,
+            detachFromForm: instance.detachFromForm,
+            incrementErrorCount: instance.incrementErrorCount,
+            decrementErrorCount: instance.decrementErrorCount,
+            incrementWarningCount: instance.incrementWarningCount,
+            decrementWarningCount: instance.decrementWarningCount,
+            inputs: instance.inputs,
+            validate: instance.validate
+          }
+        }
+      );
+    });
+  });
+
   describe('incrementErrorCount', () => {
     it('increments the state error count', () => {
       instance.setState({ errorCount: 2 });
@@ -48,10 +68,26 @@ describe('Form', () => {
   });
 
   describe('decrementErrorCount', () => {
-    it('increments the state error count', () => {
+    it('decreases the state error count', () => {
       instance.setState({ errorCount: 2 });
       instance.decrementErrorCount();
       expect(instance.state.errorCount).toEqual(1);
+    });
+  });
+
+  describe('incrementWarningCount', () => {
+    it('increments the state warning count', () => {
+      instance.setState({ warningCount: 2 });
+      instance.incrementWarningCount();
+      expect(instance.state.warningCount).toEqual(3);
+    });
+  });
+
+  describe('decrementWarningCount', () => {
+    it('decreases the state warning count', () => {
+      instance.setState({ warningCount: 2 });
+      instance.decrementWarningCount();
+      expect(instance.state.warningCount).toEqual(1);
     });
   });
 
@@ -228,11 +264,43 @@ describe('Form', () => {
         expect(spy).toHaveBeenCalled();
       });
     });
+
+    describe('when an onCancel prop is passed', () => {
+      it('calls onCancel', () => {
+        let spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form onCancel={ spy }>
+            <Textbox />
+          </Form>
+        );
+        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
+        TestUtils.Simulate.click(cancel);
+        expect(spy).toHaveBeenCalled();
+      });
+    });
   });
 
   describe('mainClasses', () => {
     it('returns the ui-form class', () => {
       expect(instance.mainClasses).toEqual('ui-form');
+    });
+  });
+
+  describe('saveText', () => {
+    describe('if prop is passed', () => {
+      it('returns the prop value', () => {
+        instance = TestUtils.renderIntoDocument(<Form saveText="custom" />)
+        let save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        expect(save.textContent).toEqual('custom');
+      });
+    });
+
+    describe('if no prop is passed', () => {
+      it('returns i18n value', () => {
+        instance = TestUtils.renderIntoDocument(<Form />)
+        let save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        expect(save.textContent).toEqual('Save');
+      });
     });
   });
 
@@ -294,6 +362,20 @@ describe('Form', () => {
         expect(buttonContainers[2].className).toEqual('ui-form__cancel');
       });
 
+      it('when cancelText prop is passed it renders the secondary button with the prop', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form cancelText={'Foo'} />
+        );
+        buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+        expect(buttons[1].innerHTML).toEqual('Foo');
+      });
+
+      it('when cancelText prop is not passed it renders the secondary button with default text', () => {
+        expect(buttons[1].innerHTML).toEqual(
+          I18n.t('actions.cancel', { defaultValue: 'Cancel' })
+        );
+      });
+
       it('renders a primary save button with saveClasses', () => {
         expect(buttons[0].className).toEqual('ui-button ui-button--primary');
         expect(buttonContainers[1].className).toEqual('ui-form__save');
@@ -349,5 +431,38 @@ describe('Form', () => {
         expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
       });
     });
+
+    describe('warningMessage', () => {
+      beforeEach(() => {
+        instance.setState({ warningCount: 2 });
+      });
+
+      it('displays a warning message', () => {
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        expect(summary.textContent).toEqual('There are 2 warnings');
+      });
+
+      it('adds a invalid CSS class on the Save button div', () => {
+        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
+        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+      });
+    });
+
+    describe('warning and error message', () => {
+      beforeEach(() => {
+        instance.setState({ errorCount: 2, warningCount: 2});
+      });
+
+      it('displays a warning message', () => {
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        expect(summary.textContent).toEqual('There are 2 errors and 2 warnings');
+      });
+
+      it('adds a invalid CSS class on the Save button div', () => {
+        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
+        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+      });
+    });
+
   });
 });

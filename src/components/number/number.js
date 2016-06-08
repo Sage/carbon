@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -31,7 +32,10 @@ class Number extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return 'ui-number';
+    return classNames(
+      'ui-number',
+      this.props.className
+    );
   }
 
   /**
@@ -56,7 +60,7 @@ class Number extends React.Component {
       this._handleOnChange(ev);
     } else {
       // reset the value
-      ev.target.value = this.props.value;
+      ev.target.value = this.props.value || null;
       // reset the selection range
       ev.target.setSelectionRange(this.selectionStart, this.selectionEnd);
     }
@@ -108,6 +112,7 @@ class Number extends React.Component {
         { this.labelHTML }
         { this.inputHTML }
         { this.validationHTML }
+        { this.fieldHelpHTML }
 
       </div>
     );

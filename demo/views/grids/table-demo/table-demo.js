@@ -57,20 +57,33 @@ class TableDemo extends React.Component {
       );
     }
 
+    let actions = [{
+      text: "Add Subscriptions",
+      icon: "basket"
+    }, {
+      text: "Delete",
+      icon: "bin"
+    }];
+
     return (
       <div>
         { filterHtml }
 
         <Table
-          filter={ filter }
+          actions={ actions }
           currentPage={ this.value('current_page') }
+          filter={ filter }
+          selectable={ this.value('selectable') }
           onChange={ AppActions.appTableManuallyUpdated.bind(this, 'table') }
           pageSize={ this.value('page_size') }
           paginate={ this.value('paginate') }
+          highlightable={ this.value('highlightable') }
           showPageSizeSelection={ this.value('show_page_size_selection') }
-          totalRecords={ this.value('total_records') }
+          shrink={ this.value('shrink') }
           sortOrder={ this.value('sort_order') }
           sortedColumn={ this.value('sorted_column') }
+          thead={ this.tableHeaderRow }
+          totalRecords={ this.value('total_records') }
         >
           { this.tableRows }
         </Table>
@@ -138,6 +151,11 @@ class TableDemo extends React.Component {
     }
 
     html += "<Table\n";
+
+    if (this.value('shrink')) {
+      additionalProps = true;
+      html += '  shrink={ true }\n';
+    }
 
     if (this.value('sortable')) {
       additionalProps = true;
@@ -220,20 +238,36 @@ class TableDemo extends React.Component {
             onChange={ this.action.bind(this, 'sortable') }
           />
         </Row>
+        <Row>
+          <Checkbox
+            label="Shrink (allow table to shrink with few results)"
+            value={ this.value('shrink') }
+            onChange={ this.action.bind(this, 'shrink') }
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Highlightable"
+            value={ this.value('highlightable') }
+            onChange={ this.action.bind(this, 'highlightable') }
+          />
+          <Checkbox
+            label="Selectable"
+            value={ this.value('selectable') }
+            onChange={ this.action.bind(this, 'selectable') }
+          />
+        </Row>
         { warning }
       </div>
     );
   }
 
   /**
-   * @method tableRows
+   * @method tableHeaderRow
    */
-  get tableRows() {
-    let data = this.state.appStore.getIn(['table', 'data']),
-        rows = [];
-
-    rows.push(
-      <TableRow key="header">
+  get tableHeaderRow() {
+    return(
+      <TableRow key='header' as='header' uniqueID='header' selectAll={ this.value('selectable') }>
         <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
         </TableHeader>
@@ -242,15 +276,22 @@ class TableDemo extends React.Component {
         </TableHeader>
       </TableRow>
     );
+  }
 
-    return rows.concat(data.map((row, index) => {
+  /**
+   * @method tableRows
+   */
+  get tableRows() {
+    let data = this.state.appStore.getIn(['table', 'data']);
+
+    return data.map((row, index) => {
       return (
-        <TableRow key={ index }>
+        <TableRow key={ index } uniqueID={ row.get('name') }>
           <TableCell>{ row.get('name') }</TableCell>
           <TableCell>{ row.get('value') }</TableCell>
         </TableRow>
       );
-    }));
+    });
   }
 
   /**

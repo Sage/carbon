@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Checkbox from './checkbox';
+import Help from './../help';
 
 describe('Checkbox', () => {
   let instance;
@@ -11,7 +12,7 @@ describe('Checkbox', () => {
         name='checkbox'
         label='checkbox'
       />
-    )
+    );
   });
 
   describe('render', () => {
@@ -91,6 +92,48 @@ describe('Checkbox', () => {
       let label = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'label')[0];
       expect(label.previousSibling).toBe(null);
       expect(label.nextSibling.name).toEqual('checkbox');
+    });
+  });
+
+  describe('fieldHelperClasses', () => {
+    it('returns the classNames to apply to the label help text', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Checkbox
+          name='checkbox'
+          label='checkbox'
+          fieldHelp='foo'
+        />
+      );
+      expect(instance.fieldHelpClasses).toMatch('ui-checkbox__help-text');
+    });
+
+    describe('when label is inline', () => {
+      it('returns a modified inline class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Checkbox
+            name='checkbox'
+            label='checkbox'
+            fieldHelp='foo'
+            reverse={ true }
+            fieldHelpInline={ true }
+          />
+        );
+        expect(instance.fieldHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--reverse ui-checkbox__help-text--inline');
+      });
+    });
+
+    describe('when the label is reversed', () => {
+      it('returns a modified reverse class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Checkbox
+            name='checkbox'
+            label='checkbox'
+            fieldHelp='foo'
+            reverse={ true }
+          />
+        );
+        expect(instance.fieldHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--reverse');
+      });
     });
   });
 });

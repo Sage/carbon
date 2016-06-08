@@ -14,13 +14,28 @@ let FormInputHelper = {
       labelWidth: scope.value('labelInline') ? scope.value('labelWidth') : '',
       disabled: scope.value('disabled'),
       readOnly: scope.value('readOnly'),
-      prefix: scope.value('prefix')
+      prefix: scope.value('prefix'),
+      fieldHelp: scope.value('fieldHelp'),
+      labelHelp: scope.value('labelHelp'),
+      labelAlign: (scope.value('labelAlign') ? 'right' : null)
     };
   },
 
   codeProps: (scope, html) => {
     if (scope.value('label')) {
       html += `\n  label='${scope.value('label')}'`;
+    }
+
+    if (scope.value('label') && scope.value('labelAlign')) {
+      html += `\n  labelAlign='right'`;
+    }
+
+    if (scope.value('fieldHelp')) {
+      html += `\n  fieldHelp='${scope.value('fieldHelp')}'`;
+    }
+
+    if (scope.value('labelHelp')) {
+      html += `\n  labelHelp='${scope.value('labelHelp')}'`;
     }
 
     if (scope.value('labelInline')) {
@@ -43,6 +58,10 @@ let FormInputHelper = {
       html += `\n  prefix='${scope.value('prefix')}'`;
     }
 
+    if (scope.value('helpMessage')) {
+      html += `\n  helpMessage='${scope.value('helpMessage')}'`;
+    }
+
     // determine if we need extra space
     let splitHtml = html.split("\n  ");
     if (splitHtml.length == 1) {
@@ -62,15 +81,27 @@ let FormInputHelper = {
             label="Label"
             labelInline={ true }
             value={ scope.value('label') }
-            onChange={ onChange.bind(scope, 'label') }
+            onChange={ onChange.bind(scope, 'label')}
+          />
+          <Textbox
+            label="Label Help"
+            labelInline={ true }
+            value={ scope.value('labelHelp') }
+            onChange={ onChange.bind(scope, 'labelHelp') }
           />
         </Row>
 
-        <Row columns="3">
+        <Row columns="4">
           <Checkbox
             label="Label Inline"
             value={ scope.value('labelInline') }
             onChange={ onChange.bind(scope, 'labelInline') }
+          />
+
+          <Checkbox
+            label="Label Align Right"
+            value={ scope.value('labelAlign') }
+            onChange={ onChange.bind(scope, 'labelAlign') }
           />
 
           <Number
@@ -81,6 +112,15 @@ let FormInputHelper = {
             onChange={ onChange.bind(scope, 'labelWidth') }
             placeholder="In percent"
             columnSpan="2"
+          />
+        </Row>
+
+        <Row>
+          <Textbox
+            label="Field Help"
+            labelInline={ true }
+            value={ scope.value('fieldHelp') }
+            onChange={ scope.action.bind(scope, 'fieldHelp') }
           />
         </Row>
 
