@@ -14,9 +14,17 @@ describe('Browser', () => {
       let urlsample = 'http://bla';
 
       it('redirects to url', () => {
-        Browser.redirectUrl(urlsample, _window);
+        spyOn(Browser, 'getWindow').and.returnValue(_window);
+
+        Browser.redirectUrl(urlsample);
         expect(_window.location).toEqual(urlsample);
       });
+    });
+  });
+
+  describe('bWindow getter', () => {
+    it('returns the window object', () => {
+      expect(Browser.getWindow()).toEqual(window);
     });
   });
 });

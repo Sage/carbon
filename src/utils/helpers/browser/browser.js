@@ -6,6 +6,10 @@
 */
 const Browser = {
 
+  getWindow: () => {
+    return window;
+  },
+
   /**
   * Redirect to URL
   *
@@ -13,10 +17,9 @@ const Browser = {
   * @param url => URL string format
   * @param window global window object, set default so overrideable in tests.
   */
-  redirectUrl: (url, win = window) => {
-    win.location = url;
+  redirectUrl: (url) => {
+    Browser.getWindow().location = url;
   }
-
 };
 
 export default Browser;
