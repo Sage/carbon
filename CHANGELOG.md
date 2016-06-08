@@ -1,8 +1,8 @@
 # 0.16.0
 
-## Minor Improvments
+## Minor Improvements
 
-* Adding user class names to tabs.
+* Adding header class names to tab.
 
 ## Browser Helper
 
