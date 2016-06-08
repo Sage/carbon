@@ -1,9 +1,22 @@
-
 # 0.16.0
 
 ## Minor Improvements
 
 * Adding header class names to tab.
+
+## Browser Helper
+
+Added a redirect action made by the browser. It is now easier to redirect to url
+
+```
+import Browser from 'carbon/lib/utils/helpers/browser';
+
+Browser.redirectTo(url)
+```
+
+## Minor Improvments
+
+* Adding user class names to tabs.
 
 # 0.15.1
 
