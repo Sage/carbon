@@ -1,11 +1,8 @@
 @import 'colors';
 
-$orange-mid:                 #FF9900;
-$green-bright-dull:          #38C72A !default;
-
 .multi-step-wizard-step {
   display: table;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .multi-step-wizard-step--disabled {
@@ -62,9 +59,9 @@ $green-bright-dull:          #38C72A !default;
 .multi-step-wizard-step__indicator-placeholder {
   display: inline-block;
   width: 26px;
-  height: 40px;
+  height: 36px;
   margin-left: -14px;
-  background-color: $grey-light;
+  background-color: $white;
 }
 
 .multi-step-wizard-step__indicator-icon__content {
@@ -88,7 +85,7 @@ $green-bright-dull:          #38C72A !default;
   background-color: $green-bright-dull;
 }
 
-.multi-step-wizard-step__indicator-icon__content img {
+.multi-step-wizard-step__indicator-icon__content svg {
   vertical-align: middle;
   padding: 0px;
 }
@@ -102,9 +99,9 @@ $green-bright-dull:          #38C72A !default;
 }
 
 .multi-step-wizard-step-final .multi-step-wizard-step__indicator-bar {
-  background-color: $grey-light;
+  background-color: transparent;
 
-  .multi-step-wizard-step__indicator-background { background-color: $grey-light; }
+  .multi-step-wizard-step__indicator-background { background-color: transparent; }
 }
 
 .multi-step-wizard-step--processed--disabled .multi-step-wizard-step__button {

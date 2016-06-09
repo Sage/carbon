@@ -112,6 +112,10 @@ class MultiStepWizard extends React.Component {
     let nextStep = nextProps.currentStep,
         validStep;
 
+    if (nextProps.completed) {
+      nextStep = nextProps.steps.length;
+    }
+
     if (nextStep && this.state.currentStep != nextStep) {
       validStep = this.validateCurrentStep(nextStep);
       this.setState({ currentStep: validStep });

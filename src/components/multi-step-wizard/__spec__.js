@@ -25,6 +25,13 @@ describe('MultiStepWizard', () => {
         });
       });
 
+      describe('when the completed prop changes', () => {
+        it('change currentStep state', () => {
+          instance.componentWillReceiveProps({ completed: true });
+          expect(instance.setState).toHaveBeenCalledWith({ currentStep: 2 });
+        });
+      });
+
       describe('when the currentStep prop changes', () => {
         it('change currentStep state', () => {
           instance.componentWillReceiveProps({ currentStep: 2 });

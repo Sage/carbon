@@ -81,6 +81,11 @@ let data = ImmutableHelper.parseJSON({
     text: 'Multi Action Button',
     as: 'secondary'
   },
+  multi_step_wizard: {
+    currentStep: 1,
+    enableInactiveSteps: false,
+    completed: false
+  },
   number: {
     value: 0
   },
