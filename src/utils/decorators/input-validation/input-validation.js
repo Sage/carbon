@@ -282,7 +282,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       let validation = this.props.validations[i];
 
       // run this validation
-      valid = validation.validate(value, this.props);
+      valid = validation.validate(value, this.props, this.updateValidation);
       this.updateValidation(valid, value, validation);
       // if validation fails
       if (!valid) {
