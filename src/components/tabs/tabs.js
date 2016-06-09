@@ -176,8 +176,8 @@ class Tabs extends React.Component {
   componentWillMount() {
     let initialSelectedTabId;
 
-    if (this.props.initialTabId) {
-      initialSelectedTabId = this.props.initialTabId;
+    if (this.props.initialSelectedTabId) {
+      initialSelectedTabId = this.props.initialSelectedTabId;
     } else {
       let hash = this._window.location.hash.substring(1);
 
@@ -248,6 +248,7 @@ class Tabs extends React.Component {
   tabHeaderClasses = (tab) => {
     return classNames(
       'ui-tabs__headers__header',
+      tab.props.headerClassName,
       {
         'ui-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
         'ui-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId

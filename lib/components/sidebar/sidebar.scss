@@ -9,7 +9,8 @@ $sidebar-background-animation-length: 250ms;
 .ui-sidebar__sidebar {
   background-color: $grey-light;
   border-radius: 1px;
-  height: 100%;
+  bottom: 0;
+  overflow: auto;
   padding: 20px;
   position: fixed;
   top: 0;

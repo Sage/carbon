@@ -126,14 +126,14 @@ describe('Pod', () => {
     describe('if border is enabled and there is no footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod />);
-        expect(instance.footerClasses).toEqual('ui-pod__footer ui-pod__footer--primary ui-pod--padding-medium');
+        expect(instance.footerClasses).toEqual('ui-pod__footer ui-pod__footer--primary ui-pod__footer--padding-medium');
       });
     });
 
     describe('if border is disabled and there is a footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false } />);
-        expect(instance.footerClasses).toEqual('ui-pod__footer ui-pod__footer--primary ui-pod--padding-medium ui-pod--no-border');
+        expect(instance.footerClasses).toEqual('ui-pod__footer ui-pod__footer--primary ui-pod__footer--padding-medium ui-pod--no-border');
       });
     });
   });

@@ -49,6 +49,8 @@ describe('Form', () => {
             detachFromForm: instance.detachFromForm,
             incrementErrorCount: instance.incrementErrorCount,
             decrementErrorCount: instance.decrementErrorCount,
+            incrementWarningCount: instance.incrementWarningCount,
+            decrementWarningCount: instance.decrementWarningCount,
             inputs: instance.inputs,
             validate: instance.validate
           }
@@ -66,10 +68,26 @@ describe('Form', () => {
   });
 
   describe('decrementErrorCount', () => {
-    it('increments the state error count', () => {
+    it('decreases the state error count', () => {
       instance.setState({ errorCount: 2 });
       instance.decrementErrorCount();
       expect(instance.state.errorCount).toEqual(1);
+    });
+  });
+
+  describe('incrementWarningCount', () => {
+    it('increments the state warning count', () => {
+      instance.setState({ warningCount: 2 });
+      instance.incrementWarningCount();
+      expect(instance.state.warningCount).toEqual(3);
+    });
+  });
+
+  describe('decrementWarningCount', () => {
+    it('decreases the state warning count', () => {
+      instance.setState({ warningCount: 2 });
+      instance.decrementWarningCount();
+      expect(instance.state.warningCount).toEqual(1);
     });
   });
 
@@ -413,5 +431,38 @@ describe('Form', () => {
         expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
       });
     });
+
+    describe('warningMessage', () => {
+      beforeEach(() => {
+        instance.setState({ warningCount: 2 });
+      });
+
+      it('displays a warning message', () => {
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        expect(summary.textContent).toEqual('There are 2 warnings');
+      });
+
+      it('adds a invalid CSS class on the Save button div', () => {
+        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
+        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+      });
+    });
+
+    describe('warning and error message', () => {
+      beforeEach(() => {
+        instance.setState({ errorCount: 2, warningCount: 2});
+      });
+
+      it('displays a warning message', () => {
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        expect(summary.textContent).toEqual('There are 2 errors and 2 warnings');
+      });
+
+      it('adds a invalid CSS class on the Save button div', () => {
+        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
+        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+      });
+    });
+
   });
 });
