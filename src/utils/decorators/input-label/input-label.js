@@ -169,9 +169,11 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
       }
 
       return (
-        <span className={ this.fieldHelpClasses } style={ style }>
-          { this.props.fieldHelp }
-        </span>
+        <span
+          className={ this.fieldHelpClasses }
+          style={ style }
+          dangerouslySetInnerHTML={ { __html: this.props.fieldHelp } }
+        />
       );
     }
   }

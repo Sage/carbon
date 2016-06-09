@@ -91,7 +91,7 @@ class LabelHelpClass {
   props = {
     name: 'foo',
     label: 'test label',
-    fieldHelp: 'help label',
+    fieldHelp: 'help label <span>hello</span>',
     labelInline: true,
     labelWidth: 20
   };
@@ -236,7 +236,7 @@ describe('InputLabel', () => {
       it('renders the help within a span', () => {
         let help = instanceLabelHelp.fieldHelpHTML;
         expect(help.type).toEqual('span');
-        expect(help.props.children).toEqual('help label');
+        expect(help.props.dangerouslySetInnerHTML.__html).toEqual('help label <span>hello</span>');
       });
     });
 
