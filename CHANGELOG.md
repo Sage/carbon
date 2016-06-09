@@ -1,3 +1,9 @@
+# 0.17.0
+
+## Minor Improvements
+
+* Add reload function to browser helper
+
 # 0.16.0
 
 ## Minor Improvements
