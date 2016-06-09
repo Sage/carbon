@@ -1,3 +1,9 @@
+# 0.17.0
+
+## Minor Improvements
+
+* Allow fieldHelp to render HTML
+
 # 0.16.0
 
 ## Minor Improvements
