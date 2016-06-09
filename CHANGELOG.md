@@ -1,3 +1,7 @@
+## Minor Improvements
+
+* Supports Ajax call for error validation
+
 # 0.17.0
 
 ## Minor Improvements
