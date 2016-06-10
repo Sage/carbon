@@ -92,7 +92,6 @@ class MultiStepWizardDemo extends React.Component {
           labelInline={ true }
           value={ this.value('currentStep') }
           onChange={ this.action.bind(this, 'currentStep') }
-          columnSpan="2"
         />
 
         <Checkbox

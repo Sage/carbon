@@ -1,3 +1,9 @@
+# 0.17.0
+
+## New Components
+
+* Multi Step Wizard
+
 # 0.16.0
 
 ## Minor Improvements
