@@ -298,7 +298,7 @@ describe('Step', () => {
       it('returns the step number', () => {
         stepContext.wizard.currentStep = 2;
         let indicator = instance.indicatorHTML;
-        expect(indicator.props.dangerouslySetInnerHTML).not.toBeNull();
+        expect(indicator.props.type).toEqual('white-tick');
       });
     });
   });

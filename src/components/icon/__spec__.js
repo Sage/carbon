@@ -158,6 +158,14 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--edit");
     });
+
+    it('calls the render white tick method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='white-tick' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--white-tick");
+    });
   });
 
   describe('success', () => {
