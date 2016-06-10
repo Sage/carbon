@@ -1,3 +1,9 @@
+# 0.17.0
+
+## Minor Improvements
+
+* Add edit SVG to Icon
+
 # 0.16.0
 
 ## Minor Improvements
