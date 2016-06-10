@@ -13,53 +13,20 @@ describe('MultiStepWizard', () => {
   });
 
   describe('lifecycle', () => {
-    describe('componentWillReceiveProps', () => {
-      beforeEach(() => {
-        spyOn(instance, 'setState');
-      });
-
-      describe('when the currentStep prop does not changes', () => {
-        it('does not change the state', () => {
-          instance.componentWillReceiveProps({});
-          expect(instance.setState).not.toHaveBeenCalled();
-        });
-      });
-
-      describe('when the completed prop changes', () => {
-        it('change currentStep state', () => {
-          instance.componentWillReceiveProps({ completed: true });
-          expect(instance.setState).toHaveBeenCalledWith({ currentStep: 2 });
-        });
-      });
-
-      describe('when the currentStep prop changes', () => {
-        it('change currentStep state', () => {
-          instance.componentWillReceiveProps({ currentStep: 2 });
-          expect(instance.setState).toHaveBeenCalledWith({ currentStep: 2 });
-        });
+    describe('componentWillMount', () => {
+      it('sets the states', () => {
+        spyOn(instance, 'validateStepProps').and.returnValue({ currentStep: 1, completed: false });
+        expect(instance.state.currentStep).toEqual(1);
+        expect(instance.state.completed).toEqual(false);
       });
     });
 
-    describe('componentWillMount', () => {
-      it('sets the currentStep state', () => {
-        spyOn(instance, 'currentStep').and.returnValue(2);
-        expect(instance.state.currentStep).toEqual(2);
-      });
-
-      describe('when completed is passed as a prop', () => {
-        it('sets the completed state to the passed value', () => {
-          instance = TestUtils.renderIntoDocument(
-            <MultiStepWizard steps={ [<div>Step 1</div>, <div>Step 2</div>] }
-                             onSubmit={ spySubmitHandler }
-                             completed={ true } />);
-          expect(instance.state.completed).toBeTruthy();
-        });
-      });
-
-      describe('when completed is not passed as a prop', () => {
-        it('sets the completed state to the default value', () => {
-          expect(instance.state.completed).toBeFalsy();
-        });
+    describe('componentWillReceiveProps', () => {
+      it('sets the states', () => {
+        spyOn(instance, 'validateStepProps').and.returnValue({ currentStep: 3, completed: true });
+        instance.componentWillReceiveProps({ });
+        expect(instance.state.currentStep).toEqual(3);
+        expect(instance.state.completed).toEqual(true);
       });
     });
   });
@@ -74,90 +41,50 @@ describe('MultiStepWizard', () => {
     });
   });
 
-  describe('currentStep', () => {
-    describe('when the currentStep prop is not passed', () => {
-      it('returns 1', () => {
-        expect(instance.currentStep).toEqual(1);
-      });
-    });
-
-    describe('when completed is passed as a prop', () => {
-      it('returns the number of total steps', () => {
-        instance = TestUtils.renderIntoDocument(
-          <MultiStepWizard steps={ [<div>Step 1</div>, <div>Step 2</div>] }
-                           completed={ true }
-                           onSubmit={ spySubmitHandler } />);
-        expect(instance.currentStep).toEqual(2);
-      });
-    });
-
-    describe('when a valid currentStep prop is passed', () => {
-      it('returns the currentStep prop', () => {
-        instance = TestUtils.renderIntoDocument(
-            <MultiStepWizard steps={ [<div>Step 1</div>, <div>Step 2</div>] }
-                             currentStep={ 2 }
-                             onSubmit={ spySubmitHandler } />);
-        expect(instance.currentStep).toEqual(2);
-      });
-    });
-
-    describe('when an invalid currentStep prop is passed', () => {
-      describe('when the currentStep prop is less than 1', () => {
-        it('returns 1', () => {
-          instance = TestUtils.renderIntoDocument(
-              <MultiStepWizard steps={ [<div>Step 1</div>, <div>Step 2</div>] }
-                               currentStep={ 0 }
-                               onSubmit={ spySubmitHandler } />);
-          expect(instance.currentStep).toEqual(1);
-        });
-      });
-
-      describe('when the currentStep prop is larger than total number of steps', () => {
-        it('returns 1', () => {
-          instance = TestUtils.renderIntoDocument(
-              <MultiStepWizard steps={ [<div>Step 1</div>, <div>Step 2</div>] }
-                               currentStep={ 3 }
-                               onSubmit={ spySubmitHandler } />);
-          expect(instance.currentStep).toEqual(1);
-        });
-      });
-    });
-  });
-
   describe('totalSteps', () => {
     it('returns the total number of steps', () => {
       expect(instance.totalSteps).toEqual(2);
     });
   });
 
-  describe('validateCurrentStep', () => {
-    describe('when the step is not present', () => {
-      it('returns 1', () => {
-        let total = instance.validateCurrentStep();
-        expect(total).toEqual(1);
+  describe('validateStepProps', () => {
+    describe('when the completed prop equals to true', () => {
+      it('returns the valid props', () => {
+        let props = instance.validateStepProps({ completed: true, steps: [1, 2, 3] });
+        expect(props.currentStep).toEqual(3);
+        expect(props.completed).toEqual(true);
       });
     });
 
-    describe('when the step number is present', () => {
-      describe('when the step number is valid', () => {
-        it('returns the step number', () => {
-          let total = instance.validateCurrentStep(2);
-          expect(total).toEqual(2);
-        });
+    describe('when the currentStep prop is not number', () => {
+      it('returns the valid props', () => {
+        let props = instance.validateStepProps({ currentStep: 'test', steps: [1, 2, 3] });
+        expect(props.currentStep).toEqual(1);
+        expect(props.completed).toEqual(false);
       });
+    });
 
-      describe('when the step is less than 1', () => {
-        it('returns 1', () => {
-          let total = instance.validateCurrentStep(0);
-          expect(total).toEqual(1);
-        });
+    describe('when the currentStep prop is less than 1', () => {
+      it('returns the valid props', () => {
+        let props = instance.validateStepProps({ currentStep: 0, steps: [1, 2, 3] });
+        expect(props.currentStep).toEqual(1);
+        expect(props.completed).toEqual(false);
       });
+    });
 
-      describe('when the step number is larger than the total of steps', () => {
-        it('returns 1', () => {
-          let total = instance.validateCurrentStep(3);
-          expect(total).toEqual(1);
-        });
+    describe('when the currentStep prop is larger than the total of steps', () => {
+      it('returns the valid props', () => {
+        let props = instance.validateStepProps({ currentStep: 4, steps: [1, 2, 3] });
+        expect(props.currentStep).toEqual(1);
+        expect(props.completed).toEqual(false);
+      });
+    });
+
+    describe('when the currentStep prop is valid', () => {
+      it('returns the valid props', () => {
+        let props = instance.validateStepProps({ currentStep: 2, steps: [1, 2, 3] });
+        expect(props.currentStep).toEqual(2);
+        expect(props.completed).toEqual(false);
       });
     });
   });

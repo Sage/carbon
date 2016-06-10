@@ -159,7 +159,7 @@ class Step extends React.Component {
    * @return {Boolean}
    */
   get stepsCompleted() {
-    return this.wizard.completed;
+    return (this.wizard.completed === true);
   }
 
   /**
@@ -169,10 +169,12 @@ class Step extends React.Component {
    * @return {Object} JSX
    */
   get stepHTML() {
-    return (<div className='multi-step-wizard-step__content'>
-              { this.props.stepContent }
-              { this.buttonHTML }
-            </div>);
+    return (
+      <div className='multi-step-wizard-step__content'>
+        { this.props.stepContent }
+        { this.buttonHTML }
+      </div>
+    );
   }
 
   /**
@@ -282,7 +284,7 @@ class Step extends React.Component {
   get extraButtonHTML() {
     let extraButtons = (this.props.extraButtons || []);
 
-    return extraButtons.map(function(button, index) {
+    return extraButtons.map((button, index) => {
       return (<span key={ index }>
                 { button }
               </span>

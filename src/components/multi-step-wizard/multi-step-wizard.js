@@ -91,14 +91,14 @@ class MultiStepWizard extends React.Component {
   }
 
   /**
-   * A lifecycle method that is called after before initial render.
-   * Can set up state of component without causing a re-render
+   * A lifecycle method that is called before initial render.
+   * Can set up state of component without causing a re-render.
    *
    * @method componentWillMount
    */
   componentWillMount() {
-    this.setState({ currentStep: this.currentStep });
-    this.setState({ completed: this.props.completed });
+    let validProps = this.validateStepProps(this.props);
+    this.setState({ currentStep: validProps.currentStep, completed: validProps.completed });
   }
 
   /**
@@ -109,17 +109,8 @@ class MultiStepWizard extends React.Component {
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
-    let nextStep = nextProps.currentStep,
-        validStep;
-
-    if (nextProps.completed) {
-      nextStep = nextProps.steps.length;
-    }
-
-    if (nextStep && this.state.currentStep != nextStep) {
-      validStep = this.validateCurrentStep(nextStep);
-      this.setState({ currentStep: validStep });
-    }
+    let validProps = this.validateStepProps(nextProps);
+    this.setState({ currentStep: validProps.currentStep, completed: validProps.completed });
   }
 
   static childContextTypes = {
@@ -156,22 +147,23 @@ class MultiStepWizard extends React.Component {
   }
 
   /**
-   * Get current step
+   * Validate step props
    *
-   * @method currentStep
-   * @return {Number}
+   * @method validateStepProps
+   * @return {Object}
    */
-  get currentStep() {
-    let current = this.props.currentStep,
-        completed = this.props.completed;
+  validateStepProps = (stepProps) => {
+    let step = stepProps.currentStep,
+        completed = stepProps.completed,
+        totalSteps = stepProps.steps.length;
 
-    if (completed) {
-      return this.totalSteps;
-    } else if (current < 1 || current > this.totalSteps) {
-      return 1;
+    if (completed === true) {
+      return { currentStep: totalSteps, completed: true };
+    } else if (parseInt(step) !== step || step < 1 || step > totalSteps) {
+      return { currentStep: 1, completed: false };
+    } else {
+      return { currentStep: step, completed: false };
     }
-
-    return current;
   }
 
   /**
@@ -182,19 +174,6 @@ class MultiStepWizard extends React.Component {
    */
   get totalSteps() {
     return this.props.steps.length;
-  }
-
-  /**
-   * Validate current step
-   *
-   * @method currentStep
-   * @return {Number}
-   */
-  validateCurrentStep = (step) => {
-    if (!step || step < 1 || step > this.totalSteps) {
-      return this.state.currentStep;
-    }
-    return step;
   }
 
   /**
@@ -242,10 +221,12 @@ class MultiStepWizard extends React.Component {
   get wizardStepsHTML() {
     return this.props.steps.map((step, index) => {
       return (
-          <Step stepContent={ step }
-                stepNumber={ index + 1 }
-                key={ index }
-                { ...step.props } />
+        <Step
+          stepContent={ step }
+          stepNumber={ index + 1 }
+          key={ index }
+          { ...step.props }
+        />
       );
     });
   }
