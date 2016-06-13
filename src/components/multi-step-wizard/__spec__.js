@@ -164,12 +164,11 @@ describe('MultiStepWizard', () => {
         let steps = instance.wizardStepsHTML,
             step1 = steps[0],
             step2 = steps[1];
-
         expect(steps.length).toEqual(2);
-        expect(step1.props.stepContent.props.children).toEqual('Step 1');
+        expect(step1.props.children.props.children).toEqual('Step 1');
         expect(step1.props.stepNumber).toEqual(1);
         expect(step1.props.defaultButton).toEqual(true);
-        expect(step2.props.stepContent.props.children).toEqual('Step 2');
+        expect(step2.props.children.props.children).toEqual('Step 2');
         expect(step2.props.stepNumber).toEqual(2);
         expect(step2.props.defaultButton).toEqual(true);
       });
@@ -178,8 +177,8 @@ describe('MultiStepWizard', () => {
     describe('when not passing the steps prop', () => {
       it('does not returns step components', () => {
         instance = TestUtils.renderIntoDocument(
-            <MultiStepWizard steps={ [] }
-                             onSubmit={ spySubmitHandler } />);
+          <MultiStepWizard steps={ [] }
+                           onSubmit={ spySubmitHandler } />);
         expect(instance.wizardStepsHTML).toEqual([]);
       });
     });
@@ -193,8 +192,8 @@ describe('MultiStepWizard', () => {
     describe('when passing custom classNames', () => {
       it('adds it to the main class', () => {
         instance = TestUtils.renderIntoDocument(
-            <MultiStepWizard steps={ [<div>Step 1</div>, <div>Step 2</div>] }
-                             onSubmit={ spySubmitHandler } className='taxReturn' />);
+          <MultiStepWizard steps={ [<div>Step 1</div>, <div>Step 2</div>] }
+                           onSubmit={ spySubmitHandler } className='taxReturn' />);
         expect(instance.mainClasses).toContain('taxReturn');
       });
     });

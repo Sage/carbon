@@ -30,8 +30,7 @@ describe('Step', () => {
     };
 
     instance = TestUtils.renderIntoDocument(
-        <Step stepContent={ 'Demo Step' }
-              stepNumber={ stepNumber } />
+      <Step stepNumber={ stepNumber }>Demo Step</Step>
     );
 
     instance.context = stepContext;
@@ -53,9 +52,9 @@ describe('Step', () => {
     describe('when defaultButton props is false', () => {
       it('does nothing', () => {
         instance = TestUtils.renderIntoDocument(
-            <Step stepContent={ 'Demo Step' }
-                  stepNumber={ 1 }
-                  defaultButton={ false } />
+          <Step stepNumber={ 1 } defaultButton={ false }>
+            Demo Step
+          </Step>
         );
         instance.context = stepContext;
         instance.handleOnNext();
@@ -75,9 +74,9 @@ describe('Step', () => {
     describe('when defaultButton props is false', () => {
       it('does nothing', () => {
         instance = TestUtils.renderIntoDocument(
-            <Step stepContent={ 'Demo Step' }
-                  stepNumber={ 1 }
-                  defaultButton={ false } />
+          <Step stepNumber={ 1 } defaultButton={ false }>
+            Demo Step
+          </Step>
         );
         instance.context = stepContext;
         instance.handleOnBack();
@@ -115,8 +114,7 @@ describe('Step', () => {
     describe('when not at the first step', () => {
       it('returns false', () => {
         instance = TestUtils.renderIntoDocument(
-            <Step stepContent={ 'Demo Step' }
-                  stepNumber={ 2 } />
+          <Step stepNumber={ 2 }>Demo Step</Step>
         );
         instance.context = stepContext;
         expect(instance.isFirstStep).toBeFalsy();
@@ -128,8 +126,7 @@ describe('Step', () => {
     describe('when at the last step', () => {
       it('returns true', () => {
         instance = TestUtils.renderIntoDocument(
-            <Step stepContent={ 'Demo Step' }
-                  stepNumber={ 3 } />
+          <Step stepNumber={ 3 }>Demo Step</Step>
         );
         instance.context = stepContext;
         expect(instance.isLastStep).toBeTruthy();
@@ -161,8 +158,7 @@ describe('Step', () => {
     describe('when step number is not equal to current step', () => {
       it('returns true', () => {
         instance = TestUtils.renderIntoDocument(
-            <Step stepContent={ 'Demo Step' }
-                  stepNumber={ 2 } />
+          <Step stepNumber={ 2 }>Demo Step</Step>
         );
         instance.context = stepContext;
         expect(instance.stepDisabled).toBeTruthy();
@@ -174,8 +170,7 @@ describe('Step', () => {
     describe('when at the last step', () => {
       it('returns parent wizard completion status', () => {
         instance = TestUtils.renderIntoDocument(
-            <Step stepContent={ 'Demo Step' }
-                  stepNumber={ 3 } />
+          <Step stepNumber={ 3 }>Demo Step</Step>
         );
         instance.context = stepContext;
         expect(instance.stepProcessed).toEqual(completed);
@@ -209,8 +204,7 @@ describe('Step', () => {
       describe('when at the last step', () => {
         it('returns the Submit and Back buttons', () => {
           instance = TestUtils.renderIntoDocument(
-              <Step stepContent={ 'Demo Step' }
-                    stepNumber={ 3 } />
+            <Step stepNumber={ 3 }>Demo Step</Step>
           );
           instance.context = stepContext;
           let buttons = instance.buttonHTML.props.children,
@@ -232,8 +226,7 @@ describe('Step', () => {
       describe('when not at the last step and not at the first step', () => {
         it('returns the Next and Back buttons', () => {
           instance = TestUtils.renderIntoDocument(
-              <Step stepContent={ 'Demo Step' }
-                    stepNumber={ 2 } />
+            <Step stepNumber={ 2 }>Demo Step</Step>
           );
           instance.context = stepContext;
           let buttons = instance.buttonHTML.props.children,
@@ -273,10 +266,11 @@ describe('Step', () => {
     describe('when defaultButton props is false', () => {
       it('returns the Extra buttons', () => {
         instance = TestUtils.renderIntoDocument(
-            <Step stepContent={ 'Demo Step' }
-                  stepNumber={ 2 }
-                  defaultButton={ false }
-                  extraButtons={ [<Button>Extra Buttons</Button>] } />
+          <Step stepNumber={ 2 }
+                defaultButton={ false }
+                extraButtons={ [<Button>Extra Buttons</Button>] }>
+            Demo Step
+          </Step>
         );
         instance.context = stepContext;
         let extraButton = instance.buttonHTML[0],
@@ -331,8 +325,7 @@ describe('Step', () => {
 
     it('adds a className if the step is pending', () => {
       instance = TestUtils.renderIntoDocument(
-          <Step stepContent={ 'Demo Step' }
-                stepNumber={ 2 } />
+        <Step stepNumber={ 2 }>Demo Step</Step>
       );
       instance.context = stepContext;
       expect(instance.mainClasses).toContain('multi-step-wizard-step--pending');
@@ -340,8 +333,7 @@ describe('Step', () => {
 
     it('adds a className if the step is disabled', () => {
       instance = TestUtils.renderIntoDocument(
-          <Step stepContent={ 'Demo Step' }
-                stepNumber={ 2 } />
+        <Step stepNumber={ 2 }>Demo Step</Step>
       );
       instance.context = stepContext;
       expect(instance.mainClasses).toContain('multi-step-wizard-step--disabled');
@@ -349,8 +341,7 @@ describe('Step', () => {
 
     it('adds a className if the step is the last step', () => {
       instance = TestUtils.renderIntoDocument(
-          <Step stepContent={ 'Demo Step' }
-                stepNumber={ 3 } />
+        <Step stepNumber={ 3 }>Demo Step</Step>
       );
       instance.context = stepContext;
       expect(instance.mainClasses).toContain('multi-step-wizard-step-final');

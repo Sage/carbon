@@ -172,7 +172,7 @@ class Step extends React.Component {
   get stepHTML() {
     return (
       <div className='multi-step-wizard-step__content'>
-        { this.props.stepContent }
+        { this.props.children }
         { this.buttonHTML }
       </div>
     );

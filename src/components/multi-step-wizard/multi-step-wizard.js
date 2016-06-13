@@ -16,7 +16,8 @@ import Step from './step';
  *  <MultiStepWizard steps={ [<Step1 />, <Step2 />, ...] } />
  *
  * The component rendering the wizard must pass down a prop of 'steps' where you need to provide an array of custom
- * step components. Note that Step components must be objects, e.g. <Row />, <Form />, <Textbox />.
+ * step components. Note that Step components must be objects and you can pass props to Step components, e.g.
+ * <MultiStepWizard steps={ [<Textbox onChange={ this.updateTextboxValue } />, <div className='some-style' />] } />
  *
  * You also need to provide a 'onSubmit' handler to handle a submit event.
  *
@@ -221,12 +222,9 @@ class MultiStepWizard extends React.Component {
   get wizardStepsHTML() {
     return this.props.steps.map((step, index) => {
       return (
-        <Step
-          stepContent={ step }
-          stepNumber={ index + 1 }
-          key={ index }
-          { ...step.props }
-        />
+        <Step stepNumber={ index + 1 } key={ index } { ...step.props }>
+          { step }
+        </Step>
       );
     });
   }

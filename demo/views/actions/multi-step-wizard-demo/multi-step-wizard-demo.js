@@ -29,9 +29,9 @@ class MultiStepWizardDemo extends React.Component {
    * @method steps
    */
   get steps() {
-    let step1 = (<div>Step 1</div>),
-        step2 = (<div>Step 2</div>),
-        step3 = (<div>Step 3</div>);
+    let step1 = (<div className="step1">Step 1</div>),
+        step2 = (<div className="step2">Step 2</div>),
+        step3 = (<div className="step3">Step 3</div>);
     return [step1, step2, step3];
   }
 
@@ -58,7 +58,7 @@ class MultiStepWizardDemo extends React.Component {
 
     html += "<MultiStepWizard";
 
-    html += "\n  steps='\[\<div\>Step 1\<\/div\>, \<div\>Step 2\<\/div\>, \<div\>Step 3\<\/div\>\]'";
+    html += "\n  steps=\{ \[\<div className\=\"step1\"\>Step 1\<\/div\>, \<div className\=\"step2\"\>Step 2\<\/div\>, \<div className\=\"step3\"\>Step 3\<\/div\>\] \}";
     html += "\n  onSubmit='' \/\/Define the custom method";
     html += `\n  currentStep='${this.value('currentStep')}'`;
     html += `\n  enableInactiveSteps='${this.value('enableInactiveSteps')}'`;
