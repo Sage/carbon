@@ -27,4 +27,16 @@ describe('Browser', () => {
       expect(Browser.getWindow()).toEqual(window);
     });
   });
+
+  describe('reload', () => {
+    it('calls the windows location relaod method', () => {
+      let spy = jasmine.createSpy('reload');
+      _window = { location: { reload: spy } };
+
+      spyOn(Browser, 'getWindow').and.returnValue(_window);
+
+      Browser.reload();
+      expect(spy).toHaveBeenCalled();
+    });
+  });
 });
