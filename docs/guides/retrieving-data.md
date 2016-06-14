@@ -7,7 +7,7 @@ We recommend retrieving data in your application based on two scenarios:
 
 ## On Page Load
 
-The easiest way to provide the data from the server on page load is to render it to the page as JSON. This means your stores can read the data straight from the page and not require to perform an additional request to the server for the data.
+The easiest way to provide the data from the server on page load is to render it to the page as JSON. This means your stores can read the data straight from the page and are not required to perform additional requests to the server for the data.
 
 If you are using a Sage One Platform application, you can do this by assigning your JSON data to an instance variable labelled `@view_data`. The platform will automatically render this object to the browser.
 
