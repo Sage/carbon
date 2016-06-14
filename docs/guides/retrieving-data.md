@@ -38,17 +38,17 @@ If you do not need the data on page load, then you should retrieve the data via 
 Once you have your JSON endpoint, in your React component you can tell it to retrieve the data when the component mounts:
 
 ```js
-componentWillMount() {
+componentDidMount() {
   MyActions.getData(); // this action will use AJAX to retrieve your data
 }
 ```
 
 ## Mixing Both Methods
 
-For a fully flexible component, that may render on page load in some areas or may render after a user interaction, we could even mix both methods. You only need to update the `componentWillMount` method to perform a check before triggering the AJAX action:
+For a fully flexible component, that may render on page load in some areas or may render after a user interaction, we could even mix both methods. You only need to update the `componentDidMount` method to perform a check before triggering the AJAX action:
 
 ```js
-componentWillMount() {
+componentDidMount() {
   // only get the data from the server if the data is not rendered to the global namespace
   if (!global.VIEW_DATA.my_data) {
     MyActions.getData();
