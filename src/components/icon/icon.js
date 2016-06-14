@@ -71,6 +71,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderIndividualIcon;
       case 'external-link':
         return this.renderExternalLinkIcon;
+      case 'edit':
+        return this.renderEditIcon;
       default:
         null;
     }
@@ -459,6 +461,27 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
       __html:
         '<svg class="ui-icon__svg ui-icon__svg--external-link" width="16px" height="16px" viewBox="0 0 16 16">' +
           '<path fill="currentColor" fill-rule="evenodd" d="M7 0H1.994C.894 0 0 .893 0 1.994v12.012C0 15.106.893 16 1.994 16h12.012c1.1 0 1.994-.893 1.994-1.994V9h-2v3.998C14 13.55 13.544 14 12.998 14H3.002C2.45 14 2 13.544 2 12.998V3.002C2 2.45 2.456 2 3.002 2H7V0zm8.414 2H16V0H9v2h3.586l-8.243 8.243 1.414 1.414L14 3.414V7h2V2h-.586z"/>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'edit' icon
+   *
+   * @method renderExternalLinkIcon
+   * @return {Object} renderEditIcon icon svg
+   */
+  get renderEditIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--edit" width="13px" height="13px" viewBox="0 0 13 13">' +
+          '<g id="edit-copy__icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+            '<g transform="translate(-673.000000, -259.000000)">' +
+              '<g transform="translate(673.000000, 258.000000)">' +
+                '<path fill="currentColor" d="M0.0048828125,14 L0,11 L3,14 L0.0048828125,14 Z M1.00048828,10 L4.00048828,13 L11.0004883,6 L8.00048828,3 L1.00048828,10 Z M9,2 L12,5 L13,4 L10,1 L9,2 Z"/>' +
+              '</g>' +
+            '</g>' +
+          '</g>' +
         '</svg>'
     };
   }

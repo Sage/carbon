@@ -28,15 +28,15 @@ describe('Tabs', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Tabs>
-        <Tab title='Tab Title 1' tabId='uniqueid1' className='class1'>
+        <Tab title='Tab Title 1' tabId='uniqueid1' className='class1' headerClassName='headerClass1'>
           <Textbox name='foo'/>
           <Textbox name='bar'/>
         </Tab>
-        <Tab title='Tab Title 2' tabId='uniqueid2' className='class2'>
+        <Tab title='Tab Title 2' tabId='uniqueid2' className='class2' headerClassName='headerClass2'>
           <Textbox name='baz'/>
           <Textbox name='bax'/>
         </Tab>
-        <Tab title='Tab Title 3' tabId='uniqueid3' className='class3 class4'>
+        <Tab title='Tab Title 3' tabId='uniqueid3' className='class3 class4' headerClassName='headerClass3 headerClass4'>
           <Textbox name='bar'/>
           <Textbox name='bap'/>
         </Tab>
@@ -205,13 +205,13 @@ describe('Tabs', () => {
 
     it('adds the className included in the props to the tab', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.classList.contains('class2')).toEqual(true);
+      expect(secondTab.classList.contains('headerClass2')).toEqual(true);
     });
     
     it('adds the className included in the props as an array to the tab', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[2];
-      expect(secondTab.classList.contains('class3')).toEqual(true);
-      expect(secondTab.classList.contains('class4')).toEqual(true);
+      expect(secondTab.classList.contains('headerClass3')).toEqual(true);
+      expect(secondTab.classList.contains('headerClass4')).toEqual(true);
     });
     
     it('does not addsa selected class to the header', () => {
@@ -230,7 +230,7 @@ describe('Tabs', () => {
       it('adds a error class to the header', () => {
         instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('ui-tabs__headers__header class2 ui-tabs__headers__header--error');
+        expect(secondTab.className).toEqual('ui-tabs__headers__header headerClass2 ui-tabs__headers__header--error');
       });
     });
   });

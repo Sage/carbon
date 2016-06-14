@@ -1,8 +1,25 @@
+# 0.17.0
+
+## Minor Improvements
+
+* Add edit SVG to Icon
+
 # 0.16.0
 
-## Minor Improvments
+## Minor Improvements
 
 * Adding user class names to tabs.
+* Authorize Objects in dialog title
+
+## Browser Helper
+
+Added a redirect action made by the browser. It is now easier to redirect to url
+
+```
+import Browser from 'carbon/lib/utils/helpers/browser';
+
+Browser.redirectTo(url)
+```
 
 # 0.15.0
 
