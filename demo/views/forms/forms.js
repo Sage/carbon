@@ -1,4 +1,5 @@
 import React from 'react';
+import FormDemo from './form-demo';
 import TextboxDemo from './textbox-demo';
 import DecimalDemo from './decimal-demo';
 import NumberDemo from './number-demo';
@@ -18,6 +19,7 @@ class Forms extends React.Component {
     return (
       <div>
         <h1>Forms</h1>
+        <FormDemo />
         <CheckboxDemo />
         <RadioButtonDemo/>
         <TextboxDemo />

@@ -16,6 +16,9 @@ let data = ImmutableHelper.parseJSON({
   button: {
     text: "Action"
   },
+  button_toggle: {
+    option_one: "Option One"
+  },
   carousel: {
     slideData: [{}, {}]
   },
@@ -63,6 +66,9 @@ let data = ImmutableHelper.parseJSON({
     as: "warning",
     open: true,
     text: "Sample flash notification."
+  },
+  form: {
+    cancel: true
   },
   help: {
     message: "This is an example of a help tooltip."

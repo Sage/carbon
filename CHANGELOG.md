@@ -1,3 +1,45 @@
+# 0.17.0
+
+## Minor Improvements
+
+* Add edit SVG to Icon
+
+# 0.16.0
+
+## Minor Improvements
+
+* Adding user class names to tabs.
+* Authorize Objects in dialog title
+
+## Browser Helper
+
+Added a redirect action made by the browser. It is now easier to redirect to url
+
+```
+import Browser from 'carbon/lib/utils/helpers/browser';
+
+Browser.redirectTo(url)
+```
+
+# 0.15.0
+
+## New Components
+
+* ButtonToggle.
+
+## New Features
+
+* Warnings are now ready to use on form inputs, using the same API as validations you can supply an array as a prop to an input:
+
+```
+<Textbox warnings={[ new MyWarning ]} />
+```
+
+## Bug Fixes
+
+* CSS fixes to input error icon and error message.
+* CSS fixes to input placeholder text for IE11.
+
 # 0.14.4
 
 ## Bug Fixes
