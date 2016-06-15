@@ -45,6 +45,10 @@ To run the example, do the following steps:
   4. `gulp`
   5. Navigate to [http://localhost:8080/](http://localhost:8080/) in your favourite browser
 
+## Testing Changes Locally in your App
+
+See the guide on [installing unreleased changes](https://github.com/Sage/carbon/blob/master/docs/guides/installing-unreleased-changes.md)
+
 ## Technologies
 
 The following is a list of technologies Carbon utilises:
