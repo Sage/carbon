@@ -157,8 +157,8 @@ class Carousel extends React.Component {
 
           <ReactCSSTransitionGroup
             transitionName={ `slide-${ this.transitionDirection }` }
-            transitionEnterTimeout={ 800 }
-            transitionLeaveTimeout={ 800 }
+            transitionEnterTimeout={ 750 }
+            transitionLeaveTimeout={ 750 }
           >
             { this.visibleSlide }
           </ReactCSSTransitionGroup>
