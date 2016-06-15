@@ -8,7 +8,7 @@ You may need to replace, or add, a React component in the middle of pre-existing
 
 First of all, you need to create your `ContactAddress` component:
 
-```
+```js
 class ContactAddress extends React.Component {
   render() {
     return null;
@@ -18,7 +18,7 @@ class ContactAddress extends React.Component {
 
 Next you should render this component as part of your applications routes, using React Router:
 
-```
+```js
 let routes = (
   <Route path="/contact/:id" component={ ContactAddress } />
 );
@@ -28,13 +28,13 @@ At this point, your empty component should be rendering to the correct page. Nex
 
 In your existing UI, add an empty `div` to the target location - and give it a unique ID. For example:
 
-```
+```html
 <div id="contact-address"></div>
 ```
 
 Back to your original component, we can now use React DOM to render the address to this location:
 
-```
+```js
 class ContactAddress extends React.Component {
   componentDidMount() {
     ReactDOM.render(
@@ -61,7 +61,7 @@ The simplest way to do this is to build your React component normally, and to ex
 
 For example, let's say you want a React dialog to open when a user clicks a button from existing UI. You can build your React dialog connected to your Flux store:
 
-```
+```js
 class MyDialog extends React.Component {
   render() {
     return <Dialog open={ this.store.get('dialog_open') } />;
@@ -83,7 +83,7 @@ global.Carbon = {
 
 Now we can go to our existing UI and legacy JS and trigger this action:
 
-```
+```js
 Carbon.openMyDialog();
 ```
 
@@ -91,7 +91,7 @@ As long as the `MyDialog` component is rendered to that page, it should open.
 
 Further to this, you can pass any additional information you need to the React component when you call these actions, including any callbacks you may need for when the React component has finished and it needs to pass information back the legacy JavaScript:
 
-```
+```js
 function myCallback() {
   // is called when React is finished and passes data back to the legacy UI
 }
