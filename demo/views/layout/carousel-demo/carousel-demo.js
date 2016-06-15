@@ -33,16 +33,16 @@ class CarouselDemo extends React.Component {
   get demo() {
     return (
       <Carousel>
-        <Slide style={ { backgroundColor: 'blue' } }>
+        <Slide>
           SLIDE 1 
         </Slide>
-        <Slide style={ { backgroundColor: 'red' } }>
+        <Slide>
           SLIDE 2 
         </Slide>
-        <Slide style={ { backgroundColor: 'green' } }>
+        <Slide>
           SLIDE 3 
         </Slide>
-        <Slide style={ { backgroundColor: 'yellow' } }>
+        <Slide>
           SLIDE 4 
         </Slide>
       </Carousel>

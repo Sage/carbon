@@ -135,8 +135,7 @@ class Carousel extends React.Component {
           <label
             className='ui-carousel__selector-label'
             htmlFor={ `carousel-slide-${i}` }
-          >
-          </label>
+          />
         </span>
       );
     }
@@ -149,6 +148,8 @@ class Carousel extends React.Component {
       <div className={ this.mainClasses }>
 
         <div className='ui-carousel__content'>
+          <div className='ui-carousel__gradient' />
+
           <div className={ this.previousClasses }>
             <button onClick={ this.onPreviousClick } className={ this.previousButtonClasses } >
               <Icon className='ui-carousel__previous-arrow' type='dropdown' />
