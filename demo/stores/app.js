@@ -16,6 +16,9 @@ let data = ImmutableHelper.parseJSON({
   button: {
     text: "Action"
   },
+  carousel: {
+    slideData: [{}, {}]
+  },
   checkbox: {
     label: "Checkbox",
     labelHelp: "Example label help.",

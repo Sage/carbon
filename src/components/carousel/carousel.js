@@ -1,10 +1,14 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import Immutable from 'immutable';
 import { compact } from 'lodash';
 import classNames from 'classnames';
+
 import Button from './../button';
 import Icon from './../icon';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
+import Slide from './slide';
 
 const NEXT = 'next';
 const PREVIOUS = 'previous';
@@ -236,7 +240,13 @@ class Carousel extends React.Component {
   get visibleSlide() {
     let index = this.state.selectedSlideIndex;
     let visibleSlide = compact(React.Children.toArray(this.props.children))[index]
-    return React.cloneElement(visibleSlide, { key: `ui-slide-${ index }`, className: 'ui-slide ui-slide--active' });
+
+    let additionalProps = {
+      className: classNames('ui-slide ui-slide--active', visibleSlide.props.className),
+      key: `ui-slide-${ index }`
+    }
+
+    return React.cloneElement(visibleSlide, Object.assign({}, visibleSlide.props, additionalProps));
   }
 
   /**
@@ -312,4 +322,4 @@ class Carousel extends React.Component {
   }
 }
 
-export default Carousel
+export default { Carousel, Slide };

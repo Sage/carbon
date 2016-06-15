@@ -5,11 +5,13 @@ import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
 
-import Carousel from 'components/carousel';
-import Slide from 'components/carousel/slide';
+import { Carousel, Slide } from 'components/carousel';
 import Row from 'components/row';
 import Textbox from 'components/textbox';
 import Textarea from 'components/textarea';
+import Button from 'components/button';
+import Icon from 'components/icon';
+import { Table, TableRow, TableCell, TableHeader } from 'components/table';
 
 class CarouselDemo extends React.Component {
 
@@ -27,24 +29,24 @@ class CarouselDemo extends React.Component {
     return AppActions.appValueUpdated.bind(this, 'carousel');
   }
 
+  get slides() {
+    return this.value('slideData').map((data, index) => {
+      let content = data.get('content') || `Slide ${ index + 1 }`
+      return (
+        <Slide key={ index }>
+          { content }
+        </Slide>
+      );
+    }).toJS();
+  }
+
   /**
    * @method demo
    */
   get demo() {
     return (
       <Carousel>
-        <Slide>
-          SLIDE 1 
-        </Slide>
-        <Slide>
-          SLIDE 2 
-        </Slide>
-        <Slide>
-          SLIDE 3 
-        </Slide>
-        <Slide>
-          SLIDE 4 
-        </Slide>
+        { this.slides }
       </Carousel>
     );
   }
@@ -53,16 +55,84 @@ class CarouselDemo extends React.Component {
    * @method code
    */
   get code() {
-    return '';
+    let html = "import { Carousel, Slide } from 'carbon/lib/components/tabs';\n\n";
+
+    html += '<Carousel>\n';
+
+    this.value('slideData').map((data, index) => {
+      let content = data.get('content') || `Slide ${ index + 1 }`
+
+      html += `  <Slide>`;
+
+      html += `\n`;
+      html += '    ' + content;
+      html += `\n`;
+      html += `  </Slide>`;
+      html += `\n`;
+    });
+
+    html += '</Carousel>'
+
+    return html;
   }
 
   /**
    * @method controls
    */
   get controls() {
+    let tableRows = Immutable.List(),
+        length = this.value('slideData').count();
+
+    // table rows:
+    tableRows = this.value('slideData').map((data, index) => {
+      let deleteCell = length == 1 ?
+        null : <Icon type="delete" onClick={ AppActions.appDeleteRow.bind(this, ['carousel', 'slideData', index]) } />;
+
+      return (
+        <TableRow key={ index }>
+
+          <TableCell action={ true }>
+            { deleteCell }
+          </TableCell>
+
+          <TableCell>
+            <Textbox
+              label={ false }
+              value={ data.get('content') }
+              onChange={ this.action.bind(this, ['slideData', index, 'content']) }
+              placeholder='Enter Slide Content'
+            />
+          </TableCell>
+
+        </TableRow>
+      );
+    });
+
+    // table header:
+    tableRows = tableRows.unshift(
+      <TableRow key="header">
+        <TableHeader />
+        <TableHeader>Content</TableHeader>
+      </TableRow>
+    );
+
+    // create row:
+    tableRows = tableRows.push(
+      <TableRow key={ length }>
+        <TableCell />
+        <TableCell>
+          <Button onClick={ this.action.bind(this, ['slideData', length, 'foo']) } disabled={ length == 8 }>Add Column</Button>
+        </TableCell>
+        <TableCell />
+      </TableRow>
+    );
+
     return (
-      <Row>
-      </Row>
+      <div>
+        <Row>
+          <Table>{ tableRows }</Table>
+        </Row>
+      </div>
     );
   }
 
