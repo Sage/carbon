@@ -1,12 +1,9 @@
-## Minor Improvements
-
-* Supports Ajax call for error validation
-
 # 0.17.0
 
 ## Minor Improvements
 
 * Add edit SVG to Icon
+* Supports Ajax call for error validation
 
 # 0.16.0
 
