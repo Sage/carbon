@@ -234,6 +234,12 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     return valid;
   }
 
+  /**
+   * Provides a callback method for warning to support Ajax
+   *
+   * @method updateWarning
+   * @return {void}
+   */
   updateWarning = (valid, value, warning) => {
     // if validation fails
     if (!valid) {
@@ -276,28 +282,10 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       let validation = this.props.validations[i];
 
       // run this validation
-      valid = validation.validate(value, this.props);
-
+      valid = validation.validate(value, this.props, this.updateValidation);
+      this.updateValidation(valid, value, validation);
       // if validation fails
       if (!valid) {
-        // if input currently thinks it is valid
-        if (this.state.valid) {
-          // if input has a form
-          if (this.isAttachedToForm) {
-            // increment the error count on the form
-            this.context.form.incrementErrorCount();
-          }
-
-          // if input has a tab
-          if (this.context.tab) {
-            // Set the validity of the tab to false
-            this.context.tab.setValidity(false);
-          }
-
-          // tell the input it is invalid
-          this.setState({ errorMessage: validation.message(value, this.props), valid: false });
-        }
-
         // a validation has failed, so exit the loop at this point
         break;
       }
@@ -305,6 +293,35 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     // return the result of the validation
     return valid;
+  }
+
+  /**
+   * Provides a callback method for validate to support Ajax
+   *
+   * @method updateValidation
+   * @return {Void}
+   */
+  updateValidation = (valid, value, validation) => {
+    // if validation fails
+    if (!valid) {
+      // if input currently thinks it is valid
+      if (this.state.valid) {
+        // if input has a form
+        if (this.isAttachedToForm) {
+          // increment the error count on the form
+          this.context.form.incrementErrorCount();
+        }
+
+        // if input has a tab
+        if (this.context.tab) {
+          // Set the validity of the tab to false
+          this.context.tab.setValidity(false);
+        }
+
+        // tell the input it is invalid
+        this.setState({ errorMessage: validation.message(value, this.props), valid: false });
+      }
+    }
   }
 
   /**
