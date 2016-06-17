@@ -126,7 +126,7 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--plus");
     });
-    
+
     it('calls the render business icon method', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='business' />);
       instance.renderIcon;
@@ -149,6 +149,22 @@ describe('Icon', () => {
       span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--external-link");
+    });
+
+    it('calls the render edit icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='edit' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--edit");
+    });
+
+    it('calls the render white tick method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='white-tick' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--white-tick");
     });
   });
 

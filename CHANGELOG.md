@@ -1,8 +1,48 @@
+# 0.17.0
+
+## New Components
+
+* Multi Step Wizard
+
+## Minor Improvements
+
+* Add edit SVG to Icon
+* Supports Ajax call for error validation
+
+# 0.16.1
+
+* Add reload function to browser helper
+
+# 0.16.0
+
+## Minor Improvements
+
+* Adding user class names to tabs.
+* Authorize Objects in dialog title
+
+## Browser Helper
+
+Added a redirect action made by the browser. It is now easier to redirect to url
+
+```
+import Browser from 'carbon/lib/utils/helpers/browser';
+
+Browser.redirectTo(url)
+```
+
 # 0.15.0
 
 ## New Components
 
 * ButtonToggle.
+
+## New Features
+
+* Warnings are now ready to use on form inputs, using the same API as validations you can supply an array as a prop to an input:
+
+```
+<Textbox warnings={[ new MyWarning ]} />
+```
 
 ## Bug Fixes
 

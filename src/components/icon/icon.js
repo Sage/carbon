@@ -71,6 +71,10 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderIndividualIcon;
       case 'external-link':
         return this.renderExternalLinkIcon;
+      case 'edit':
+        return this.renderEditIcon;
+      case 'white-tick':
+        return this.renderWhiteTickIcon;
       default:
         null;
     }
@@ -459,6 +463,58 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
       __html:
         '<svg class="ui-icon__svg ui-icon__svg--external-link" width="16px" height="16px" viewBox="0 0 16 16">' +
           '<path fill="currentColor" fill-rule="evenodd" d="M7 0H1.994C.894 0 0 .893 0 1.994v12.012C0 15.106.893 16 1.994 16h12.012c1.1 0 1.994-.893 1.994-1.994V9h-2v3.998C14 13.55 13.544 14 12.998 14H3.002C2.45 14 2 13.544 2 12.998V3.002C2 2.45 2.456 2 3.002 2H7V0zm8.414 2H16V0H9v2h3.586l-8.243 8.243 1.414 1.414L14 3.414V7h2V2h-.586z"/>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'edit' icon
+   *
+   * @method renderExternalLinkIcon
+   * @return {Object} renderEditIcon icon svg
+   */
+  get renderEditIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--edit" width="13px" height="13px" viewBox="0 0 13 13">' +
+          '<g id="edit-copy__icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+            '<g transform="translate(-673.000000, -259.000000)">' +
+              '<g transform="translate(673.000000, 258.000000)">' +
+                '<path fill="currentColor" d="M0.0048828125,14 L0,11 L3,14 L0.0048828125,14 Z M1.00048828,10 L4.00048828,13 L11.0004883,6 L8.00048828,3 L1.00048828,10 Z M9,2 L12,5 L13,4 L10,1 L9,2 Z"/>' +
+              '</g>' +
+            '</g>' +
+          '</g>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'white-tick' icon
+   *
+   * @method renderWhiteTickIcon
+   * @return {Object} whiteTick icon svg
+   */
+  get renderWhiteTickIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--white-tick"  width="15px" height="13px" viewBox="0 0 15 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
+        '  <!-- Generator: Sketch 3.4 (15575) - http://www.bohemiancoding.com/sketch -->' +
+        '  <title>tick</title>' +
+        '  <desc>Created with Sketch.</desc>' +
+        '  <defs></defs>' +
+        '  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">' +
+        '    <g id="QSW---Step-2" sketch:type="MSArtboardGroup" transform="translate(-518.000000, -174.000000)" fill="#FFFFFF">' +
+        '      <g id="Overlay" sketch:type="MSLayerGroup">' +
+        '        <g id="Dialog" transform="translate(433.000000, 60.000000)" sketch:type="MSShapeGroup">' +
+        '          <g id="progress-bar" transform="translate(77.000000, 87.000000)">' +
+        '            <g id="business-basics">' +
+        '              <path d="M12.1349063,38.4860814 L8.81960483,35.6607151 C8.4628233,35.3566587 8.41656446,34.8166977 8.71591615,34.454366 L9.79923038,33.1431352 C10.0989393,32.7803711 10.6303501,32.7334485 10.9869674,33.037365 L13.7895069,35.4257453 L19.7381802,28.2255413 C20.0374529,27.8633052 20.5692891,27.8160953 20.9260425,28.1201277 L22.2170862,29.220381 C22.5742654,29.5247762 22.6204272,30.0645427 22.3211424,30.4267934 L15.9731521,38.1103259 C15.9424206,38.1779211 15.9024384,38.2425382 15.8530479,38.3023198 L14.7697337,39.6135505 C14.5680446,39.8576726 14.2614267,39.9587622 13.9737606,39.9061537 C13.8218425,39.8848846 13.6737922,39.8212943 13.5476358,39.7137813 L12.2565922,38.613528 C12.2109212,38.5746063 12.1703353,38.5318364 12.1349063,38.4860814 L12.1349063,38.4860814 Z" id="tick"></path>' +
+        '            </g>' +
+        '          </g>' +
+        '        </g>' +
+        '      </g>' +
+        '    </g>' +
+        '  </g>' +
         '</svg>'
     };
   }

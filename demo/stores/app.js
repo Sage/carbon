@@ -64,6 +64,9 @@ let data = ImmutableHelper.parseJSON({
     open: true,
     text: "Sample flash notification."
   },
+  form: {
+    cancel: true
+  },
   help: {
     message: "This is an example of a help tooltip."
   },
@@ -83,6 +86,11 @@ let data = ImmutableHelper.parseJSON({
   multi_action_button: {
     text: 'Multi Action Button',
     as: 'secondary'
+  },
+  multi_step_wizard: {
+    currentStep: 1,
+    enableInactiveSteps: false,
+    completed: false
   },
   number: {
     value: 0
