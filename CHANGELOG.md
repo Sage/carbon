@@ -1,8 +1,17 @@
 # 0.17.0
 
+## New Components
+
+* Multi Step Wizard
+
 ## Minor Improvements
 
 * Add edit SVG to Icon
+* Supports Ajax call for error validation
+
+# 0.16.1
+
+* Add reload function to browser helper
 
 # 0.16.0
 
