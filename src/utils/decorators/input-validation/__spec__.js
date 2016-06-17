@@ -399,9 +399,9 @@ describe('InputValidation', () => {
 
         it('calls validate for each validation', () => {
           instance.validate();
-          expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
-          expect(validationTwo.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
-          expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
+          expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
+          expect(validationTwo.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
+          expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
         });
 
         describe('when the second validation fails', () => {
@@ -411,8 +411,8 @@ describe('InputValidation', () => {
               value: 'foo'
             }));
             instance.validate();
-            expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
-            expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props);
+            expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
+            expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
             expect(validationTwo.validate).not.toHaveBeenCalled();
           });
         });
@@ -420,9 +420,9 @@ describe('InputValidation', () => {
         describe('when called with a custom value', () => {
           it('calls validate for each validation', () => {
             instance.validate('foo');
-            expect(validationOne.validate).toHaveBeenCalledWith('foo', instance.props);
-            expect(validationTwo.validate).toHaveBeenCalledWith('foo', instance.props);
-            expect(validationThree.validate).toHaveBeenCalledWith('foo', instance.props);
+            expect(validationOne.validate).toHaveBeenCalledWith('foo', instance.props, instance.updateValidation);
+            expect(validationTwo.validate).toHaveBeenCalledWith('foo', instance.props, instance.updateValidation);
+            expect(validationThree.validate).toHaveBeenCalledWith('foo', instance.props, instance.updateValidation);
           });
         });
 
