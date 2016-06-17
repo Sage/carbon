@@ -1,5 +1,9 @@
 # 0.17.0
 
+## New Components
+
+* Multi Step Wizard
+
 ## Minor Improvements
 
 * Add edit SVG to Icon
