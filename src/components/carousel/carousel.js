@@ -1,18 +1,15 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import Immutable from 'immutable';
-import { compact } from 'lodash';
+import { compact, assign } from 'lodash';
 import classNames from 'classnames';
 
-import Button from './../button';
 import Icon from './../icon';
 
 import Slide from './slide';
 
 const NEXT = 'next';
 const PREVIOUS = 'previous';
-const ANIMATION_LENGTH = '750'
 
 class Carousel extends React.Component {
 
@@ -24,11 +21,11 @@ class Carousel extends React.Component {
   timeout = null;
 
   /**
-   * Direction of animation 
+   * Direction of animation
    *
-   * @property transistionDirection
+   * @property transitionDirection
    */
-  transitionDirection = NEXT; 
+  transitionDirection = NEXT;
 
   static propTypes = {
 
@@ -65,12 +62,12 @@ class Carousel extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
-    let selectedIndex = this.props.initialSlideIndex || 0
+    let selectedIndex = this.props.initialSlideIndex || 0;
 
     this.setState({ selectedSlideIndex: selectedIndex });
   }
 
-  /** 
+  /**
    * Re-enables the next and previous buttons after timeout
    *
    * @method enableButtonsAfterTimeout
@@ -115,7 +112,9 @@ class Carousel extends React.Component {
    * @method onSlideSelection
    */
   onSlideSelection = (ev) => {
-    this.setState({ disabled: true, selectedSlideIndex: Number(ev.target.value) });
+    let newSlideSelection = Number(ev.target.value);
+    this.transitionDirection = newSlideSelection > this.state.selectedSlideIndex ? NEXT : PREVIOUS;
+    this.setState({ disabled: true, selectedSlideIndex: newSlideSelection });
     this.enableButtonsAfterTimeout();
   }
 
@@ -126,7 +125,8 @@ class Carousel extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-carousel'
+      'ui-carousel',
+      this.props.className
     );
   }
 
@@ -190,7 +190,7 @@ class Carousel extends React.Component {
   }
 
   /**
-   * Gets the props for the previous button 
+   * Gets the props for the previous button
    *
    * @method previousButtonProps
    */
@@ -200,14 +200,14 @@ class Carousel extends React.Component {
     };
 
     if (!this.state.disabled) {
-      props.onClick = this.onPreviousClick
+      props.onClick = this.onPreviousClick;
     }
-    
+
     return props;
   }
 
   /**
-   * Gets the props for the next button 
+   * Gets the props for the next button
    *
    * @method nextButtonProps
    */
@@ -217,9 +217,9 @@ class Carousel extends React.Component {
     };
 
     if (!this.state.disabled) {
-      props.onClick = this.onNextClick
+      props.onClick = this.onNextClick;
     }
-    
+
     return props;
   }
 
@@ -233,24 +233,24 @@ class Carousel extends React.Component {
   }
 
   /**
-   * Gets the currently visible slide 
+   * Gets the currently visible slide
    *
    * @method visibleSlide
    */
   get visibleSlide() {
     let index = this.state.selectedSlideIndex;
-    let visibleSlide = compact(React.Children.toArray(this.props.children))[index]
+    let visibleSlide = compact(React.Children.toArray(this.props.children))[index];
 
     let additionalProps = {
       className: classNames('ui-slide ui-slide--active', visibleSlide.props.className),
       key: `ui-slide-${ index }`
-    }
+    };
 
-    return React.cloneElement(visibleSlide, Object.assign({}, visibleSlide.props, additionalProps));
+    return React.cloneElement(visibleSlide, assign({}, visibleSlide.props, additionalProps));
   }
 
   /**
-   * Renders the slideSelector footer 
+   * Renders the slideSelector footer
    *
    * @method slideSelector
    */
