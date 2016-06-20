@@ -30,7 +30,7 @@ var ImmutableHelper = {
         return Immutable.Seq(js).map(ImmutableHelper.parseJSON).toList();
       } else {
         // create the immutable object
-        return Immutable.Seq(js).map(ImmutableHelper.parseJSON).toOrderedMap();
+        return Immutable.Seq(js).map(ImmutableHelper.parseJSON).toMap();
       }
     }
   }
