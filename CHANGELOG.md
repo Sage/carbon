@@ -5,6 +5,10 @@
 * ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
 * If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
 
+## Minor Improvements
+
+* Add paperclip SVG to Icon
+
 # 0.17.0
 
 ## New Components
