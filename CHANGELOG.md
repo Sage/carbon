@@ -1,3 +1,9 @@
+# 0.18.0
+
+## Minor Improvements
+
+* Add paperclip SVG to Icon
+
 # 0.17.0
 
 ## New Components
