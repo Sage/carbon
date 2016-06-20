@@ -31,10 +31,10 @@ class CarouselDemo extends React.Component {
 
   get slides() {
     return this.value('slideData').map((data, index) => {
-      let content = data.get('content') || `Slide ${ index + 1 }`
+      let content = data.get('content') || 'https://cdn.auth0.com/blog/react-js/react.png'
       return (
-        <Slide key={ index }>
-          { content }
+        <Slide style={ { textAlign: 'center' } } key={ index }>
+          <img width={ 200 } src={ content } />
         </Slide>
       );
     }).toJS();
@@ -100,7 +100,7 @@ class CarouselDemo extends React.Component {
               label={ false }
               value={ data.get('content') }
               onChange={ this.action.bind(this, ['slideData', index, 'content']) }
-              placeholder='Enter Slide Content'
+              placeholder='https://cdn.auth0.com/blog/react-js/react.png'
             />
           </TableCell>
 
@@ -112,7 +112,7 @@ class CarouselDemo extends React.Component {
     tableRows = tableRows.unshift(
       <TableRow key="header">
         <TableHeader />
-        <TableHeader>Content</TableHeader>
+        <TableHeader>Image</TableHeader>
       </TableRow>
     );
 
