@@ -47,12 +47,15 @@ class Carousel extends React.Component {
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object
-    ])
+    ]),
+
+    showFade: React.PropTypes.bool
   }
 
   state = {
     selectedSlideIndex: null, // Currently selected slide
-    disabled: false // Next/Previous buttons disabled state
+    disabled: false, // Next/Previous buttons disabled state
+    showFade: false
   }
 
   /**
@@ -280,6 +283,12 @@ class Carousel extends React.Component {
     return buttons;
   }
 
+  get fade() {
+    if (this.props.showFade) {
+      return <div className='ui-carousel__gradient' />;
+    }
+  }
+
   /**
    * Renders the Slide Component
    *
@@ -290,7 +299,7 @@ class Carousel extends React.Component {
       <div className={ this.mainClasses }>
 
         <div className='ui-carousel__content'>
-          <div className='ui-carousel__gradient' />
+          { this.fade }
 
           <div className={ this.previousClasses }>
             <button { ...this.previousButtonProps }>

@@ -72,11 +72,21 @@ class Dialog extends Modal {
      * @type {String}
      * @default med
      */
-    size: React.PropTypes.string
+    size: React.PropTypes.string,
+
+    /**
+     * Determins if the close icon is shown
+     *
+     * @property showCloseIcon
+     * @type {Boolean}
+     * @default true
+     */
+    showCloseIcon: React.PropTypes.bool
   }
 
   static defaultProps = {
-    size: 'med'
+    size: 'med',
+    showCloseIcon: true
   }
 
   /**
@@ -198,6 +208,12 @@ class Dialog extends Modal {
     );
   }
 
+  get closeIcon() {
+    if (this.props.showCloseIcon) {
+      return <Icon className="ui-dialog__close" type="close" onClick={ this.props.onCancel } />;
+    }
+  }
+
   /**
    * Returns the computed HTML for the dialog.
    *
@@ -208,7 +224,7 @@ class Dialog extends Modal {
     return (
       <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
         { this.dialogTitle }
-        <Icon className="ui-dialog__close" type="close" onClick={ this.props.onCancel } />
+        { this.closeIcon }
 
         <div className='ui-dialog__content'>
           { this.props.children }
