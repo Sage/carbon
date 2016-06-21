@@ -155,7 +155,45 @@ describe('Pod', () => {
     });   
   });
 
+  describe('edit', () => {
+    describe('if no prop is passed', () => {
+      it('returns nothing', () => {
+        expect(instance.edit).toBe(null);
+      });
+    });
+
+    describe('if a string is passed', () => {
+      it('returns a link with a href prop', () => {
+        instance = TestUtils.renderIntoDocument(<Pod onEdit="foo" />);
+        expect(instance.edit.props.to).toEqual('foo');
+      });
+    });
+
+    describe('if a function is passed', () => {
+      it('returns a link with an onClick prop', () => {
+        let foo = () => {};
+        instance = TestUtils.renderIntoDocument(<Pod onEdit={ foo } />);
+        expect(instance.edit.props.onClick).toEqual(foo);
+      });
+    });
+
+    describe('if an object is passed', () => {
+      it('returns a link with a object as props', () => {
+        let foo = { foo: "foo", bar: "bar" };
+        instance = TestUtils.renderIntoDocument(<Pod onEdit={ foo } />);
+        expect(instance.edit.props.foo).toEqual("foo");
+        expect(instance.edit.props.bar).toEqual("bar");
+      });
+    });
+  });
+
   describe('render', () => {
+    it('applies all props to the pod', () => {
+      instance = TestUtils.renderIntoDocument(<Pod foo="bar" />);
+      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      expect(div.props.foo).toEqual("bar");
+    });
+
     describe('pod content', () => {
       describe('when pod is closed', () => {
         it('does not render the pods content', () => {
