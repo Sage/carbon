@@ -3,6 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Modal from './modal';
 import I18n from 'i18n-js';
 import Bowser from 'bowser';
+import Events from './../../utils/helpers/events';
 import Button from './../button';
 
 describe('Modal', () => {
@@ -62,14 +63,16 @@ describe('Modal', () => {
 
       describe('when the esc key is released', () => {
         it('calls the cancel modal handler', () => {
-          instance.closeModal({ which: 27 });
+          spyOn(Events, 'isEscKey').and.returnValue(true);
+          instance.closeModal({});
           expect(onCancel).toHaveBeenCalled();
         });
       });
 
       describe('when any other key is released', () => {
         it('calls the cancel modal handler', () => {
-          instance.closeModal({ which: 8 });
+          spyOn(Events, 'isEscKey').and.returnValue(false);
+          instance.closeModal({});
           expect(onCancel).not.toHaveBeenCalled();
         });
       });
