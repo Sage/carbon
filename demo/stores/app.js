@@ -183,6 +183,22 @@ let data = ImmutableHelper.parseJSON({
   },
   tooltip: {
     message: 'Some Helpful Content'
+  },
+  validations: {
+    validator: 'presence',
+    length: {
+      setIs: false,
+      min: 0,
+      is: 5,
+      max: 5 
+    },
+    numeral: {
+      integer: false,
+      setIs: false,
+      min: 0,
+      is: 5,
+      max: 10
+    }
   }
 });
 

@@ -1,9 +1,32 @@
 # 0.18.0
 
-## !! BREAKING CHANGE !!
+## !! BREAKING CHANGES!!
+
+### Immutable Helper
 
 * ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
 * If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
+
+### Browser Helper
+
+* Renamed Browser `redirectUrl` method to `redirectTo`
+
+## Link (React Router)
+
+Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
+
+## Pod Updates
+
+* Pod can now receive a prop of `onEdit` - if this is a String it will use it as a `to` prop on a Link component, if it is a Function it will apply it as an `onClick` handler, if it is an object it will apply it's props to the Link.
+* Pod has an additional padding size added of `extra-large`.
+* Pod now applies any additional props to it's top most child element.
+* We have added a tertiary pod theme.
+
+## Content Updates
+
+Content now has a `secondary` theme which can be applied using the `as` prop.
+
+# 0.17.1
 
 ## Minor Improvements
 
@@ -38,7 +61,7 @@ Added a redirect action made by the browser. It is now easier to redirect to url
 ```
 import Browser from 'carbon/lib/utils/helpers/browser';
 
-Browser.redirectTo(url)
+Browser.redirectUrl(url)
 ```
 
 # 0.15.0

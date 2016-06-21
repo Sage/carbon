@@ -9,14 +9,14 @@ describe('Browser', () => {
     }
   });
 
-  describe('redirectUrl', () => {
+  describe('redirectTo', () => {
     describe('when url is passed', () => {
       let urlsample = 'http://bla';
 
       it('redirects to url', () => {
         spyOn(Browser, 'getWindow').and.returnValue(_window);
 
-        Browser.redirectUrl(urlsample);
+        Browser.redirectTo(urlsample);
         expect(_window.location).toEqual(urlsample);
       });
     });

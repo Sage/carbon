@@ -62,6 +62,7 @@ class PodDemo extends React.Component {
         border={ this.value('border') }
         as={ this.value('as') }
         footer={ footer }
+        onEdit={ this.value('edit') }
       >
         <Row>
           <Textbox />
@@ -81,7 +82,8 @@ class PodDemo extends React.Component {
         description = this.value('description'),
         border = this.value('border'),
         padding = this.value('padding'),
-        as = this.value('as');
+        as = this.value('as'),
+        edit = this.value('edit');
 
     let html = "import Pod from 'carbon/lib/components/pod';\n\n";
 
@@ -114,6 +116,10 @@ class PodDemo extends React.Component {
         html += `\n  as='${as}'`
       }
 
+      if (edit) {
+        html += `\n  onEdit='${edit}'`
+      }
+
       html += '\n>'
     }
     html += '\n  <Row>'
@@ -142,6 +148,9 @@ class PodDemo extends React.Component {
     }, {
       id: "large",
       name: "Large"
+    }, {
+      id: "extra-large",
+      name: "Extra Large"
     }]);
   }
 
@@ -155,6 +164,9 @@ class PodDemo extends React.Component {
     }, {
       id: "secondary",
       name: "Secondary"
+    }, {
+      id: "tertiary",
+      name: "Tertiary"
     }, {
       id: "tile",
       name: "Tile"
@@ -197,6 +209,12 @@ class PodDemo extends React.Component {
             value={ this.value('padding') }
             onChange={ this.action.bind(this, 'padding') }
             options={ this.paddingOptions }
+          />
+          <Textbox
+            label="On Edit"
+            labelInline={ true }
+            value={ this.value('edit') }
+            onChange={ this.action.bind(this, 'edit') }
           />
         </Row>
         <Row>
