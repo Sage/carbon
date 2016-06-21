@@ -1,3 +1,9 @@
+# 0.18.0
+
+## !! BREAKING CHANGE !!
+
+* Renamed Browser `redirectUrl` method to `redirectTo`
+
 # 0.17.1
 
 ## Minor Improvements
@@ -33,7 +39,7 @@ Added a redirect action made by the browser. It is now easier to redirect to url
 ```
 import Browser from 'carbon/lib/utils/helpers/browser';
 
-Browser.redirectTo(url)
+Browser.redirectUrl(url)
 ```
 
 # 0.15.0
