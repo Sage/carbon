@@ -25,7 +25,7 @@ describe('Content', () => {
 
     it('renders custom classes', () => {
       let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-content');
-      expect(div.className).toEqual('ui-content foobar');
+      expect(div.className).toEqual('ui-content foobar ui-content--primary');
     });
   });
 

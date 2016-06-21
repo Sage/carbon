@@ -1,23 +1,44 @@
 # 0.18.0
 
-## BREAKING CHANGE
+## !! BREAKING CHANGE !!
 
-* Modal - Also effects Dialog, Sidebar etc - Two additional props added. closeOnBackgroundClick and closeOnESCKey
-    Both of these new props are defaulted to false. Therefore dialog will no longer close with ESC key or by clicking
-    the background.
+* Renamed Browser `redirectUrl` method to `redirectTo`
 
 ## New Components
 
 * Carousel
 
-## Minor Improvements
+## Link (React Router)
 
-* Dialog - can receive a showCloseIcon prop (defaulted to true) which show and hides the close icon
+Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
 
-* Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by
+## Pod Updates
+
+* Pod can now receive a prop of `onEdit` - if this is a String it will use it as a `to` prop on a Link component, if it is a Function it will apply it as an `onClick` handler, if it is an object it will apply it's props to the Link.
+* Pod has an additional padding size added of `extra-large`.
+* Pod now applies any additional props to it's top most child element.
+* We have added a tertiary pod theme.
+
+## Content Updates
+
+Content now has a `secondary` theme which can be applied using the `as` prop.
+
+## Modal Updates
+
+### Change in functionality!
+
+Modal - Also effects Dialog, Sidebar etc
+  Two additional props added. `closeOnBackgroundClick` and `closeOnESCKey`
+  closeOnBackgroundClick - defaulted to false - Currently true by default
+  closeOnESCKey - defaulted to true - currently true by default
+
+Dialog - can receive a showCloseIcon prop (defaulted to true) which show and hides the close icon
+
+## Promises
+Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by
 
 ```javascript
-  import ES6Promise from 'carbon/lib/utils/promises/';
+  import from 'carbon/lib/utils/promises/';
 ```
 
 # 0.17.1
@@ -55,7 +76,7 @@ Added a redirect action made by the browser. It is now easier to redirect to url
 ```
 import Browser from 'carbon/lib/utils/helpers/browser';
 
-Browser.redirectTo(url)
+Browser.redirectUrl(url)
 ```
 
 # 0.15.0

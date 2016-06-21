@@ -77,16 +77,25 @@ class Modal extends React.Component {
      *
      * @property closeOnBackgroundClick
      * @type {Boolean}
+     * @default false
+     */
+    closeOnBackgroundClick: React.PropTypes.bool,
+
+    /**
+     * Determines if the ESC Key closes the modal 
+     *
+     * @property closeOnESCKey
+     * @type {Boolean}
      * @default true
      */
-    closeOnBackgroundClick: React.PropTypes.bool
+    closeOnESCKey: React.PropTypes.bool
   }
 
   static defaultProps = {
     open: false,
     enableBackgroundUI: false,
     closeOnBackgroundClick: false,
-    closeOnESCKey: false
+    closeOnESCKey: true
   }
 
   static childContextTypes = {
