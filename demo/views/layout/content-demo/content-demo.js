@@ -31,7 +31,7 @@ class ContentDemo extends React.Component {
    */
   get demo() {
     return (
-      <Content title={ this.value('title') }>
+      <Content title={ this.value('title') } as={ this.value('as') }>
         { this.value('body') }
       </Content>
     );
@@ -43,7 +43,7 @@ class ContentDemo extends React.Component {
   get code() {
     let html = "import Content from 'carbon/lib/components/content';\n\n";
 
-    html += `<Content title='${this.value('title')}'>\n`;
+    html += `<Content title='${this.value('title')}' as='${this.value('as')}'>\n`;
     html += `  ${this.value('body')}\n`;
     html += "</Content>\n\n";
 
@@ -66,6 +66,11 @@ class ContentDemo extends React.Component {
           label="Body"
           value={ this.value('body') }
           onChange={ this.action.bind(this, 'body') }
+        />
+        <Textbox
+          label="As"
+          value={ this.value('as') }
+          onChange={ this.action.bind(this, 'as') }
         />
       </Row>
     );
