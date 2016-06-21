@@ -14,6 +14,12 @@
 
 * Dialog - can receive a showCloseIcon prop (defaulted to true) which show and hides the close icon
 
+* Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by
+
+```javascript
+  import ES6Promise from 'carbon/lib/utils/promises/';
+```
+
 # 0.17.1
 
 ## Minor Improvements
