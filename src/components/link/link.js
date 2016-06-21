@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
+import { Link } from 'react-router';
 
 /**
  * A link widget.
@@ -20,7 +21,7 @@ import Icon from './../icon';
  * @class Link
  * @constructor
  */
-class Link extends React.Component {
+class _Link extends React.Component {
 
   static propTypes = {
 
@@ -40,7 +41,25 @@ class Link extends React.Component {
      * @type {String}
      * @default undefined
      */
-    icon: React.PropTypes.string
+    icon: React.PropTypes.string,
+
+    /**
+     * Use `to` to use the React Router link.
+     *
+     * @property to
+     * @type {String}
+     * @default undefined
+     */
+    to: React.PropTypes.string,
+
+    /**
+     * Use `href` to use a generic anchor.
+     *
+     * @property href
+     * @type {String}
+     * @default undefined
+     */
+    href: React.PropTypes.string
   }
 
   /**
@@ -84,16 +103,21 @@ class Link extends React.Component {
    * @method render
    */
   render() {
+    // if using `to` - use React Router Link - otherwise use generic anchor
+    let element = this.props.to ? Link : "a";
+
     return (
-      <a { ...this.componentProps }>
-        { this.icon }
-        <span className="ui-link__content">
-          { this.props.children }
+      React.createElement(element, this.componentProps, (
+        <span>
+          { this.icon }
+          <span className="ui-link__content">
+            { this.props.children }
+          </span>
         </span>
-      </a>
+      ))
     );
   }
 
 }
 
-export default Link;
+export default _Link;

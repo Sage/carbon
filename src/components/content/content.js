@@ -23,7 +23,21 @@ class Content extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.string
+    title: React.PropTypes.string,
+
+    /**
+     * Applies a theme to the Content
+     * Value: primary, secondary
+     *
+     * @property as
+     * @type {String}
+     * @default primary
+     */
+    as: React.PropTypes.string
+  }
+
+  static defaultProps = {
+    as: "primary"
   }
 
   /**
@@ -31,7 +45,7 @@ class Content extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let classes = classNames("ui-content", this.props.className);
+    let classes = classNames("ui-content", this.props.className, `ui-content--${this.props.as}`);
 
     return this.props.children ? (
       <div className={ classes }>
