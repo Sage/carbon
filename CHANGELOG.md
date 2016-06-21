@@ -4,6 +4,17 @@
 
 * Renamed Browser `redirectUrl` method to `redirectTo`
 
+## Link (React Router)
+
+Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
+
+## Pod Updates
+
+* Pod can now receive a prop of `onEdit` - if this is a String it will use it as a `to` prop on a Link component, if it is a Function it will apply it as an `onClick` handler, if it is an object it will apply it's props to the Link.
+* Pod has an additional padding size added of `extra-large`.
+* Pod now applies any additional props to it's top most child element.
+>>>>>>> master
+
 # 0.17.1
 
 ## Minor Improvements
