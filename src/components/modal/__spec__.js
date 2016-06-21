@@ -52,23 +52,37 @@ describe('Modal', () => {
   });
 
   describe('closeModal', () => {
-    beforeEach(() => {
+    describe('when closeOnESCKey is true', () => {
+      beforeEach(() => {
+        onCancel = jasmine.createSpy('cancel');
+        instance = TestUtils.renderIntoDocument(
+          <Modal closeOnESCKey={ true } open={ true } onCancel={ onCancel } />
+        );
+      });
+
+      describe('when the esc key is released', () => {
+        it('calls the cancel modal handler', () => {
+          instance.closeModal({ which: 27 });
+          expect(onCancel).toHaveBeenCalled();
+        });
+      });
+
+      describe('when any other key is released', () => {
+        it('calls the cancel modal handler', () => {
+          instance.closeModal({ which: 8 });
+          expect(onCancel).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('when closeOnESCKey is false', () => {
       onCancel = jasmine.createSpy('cancel');
       instance = TestUtils.renderIntoDocument(
         <Modal open={ true } onCancel={ onCancel } />
       );
-    });
 
-    describe('when the esc key is released', () => {
-      it('calls the cancel modal handler', () => {
-        instance.closeModal({ which: 27 });
-        expect(onCancel).toHaveBeenCalled();
-      });
-    });
-
-    describe('when any other key is released', () => {
-      it('calls the cancel modal handler', () => {
-        instance.closeModal({ which: 8 });
+      it('does not call onCancel', () => {
+        instance.closeModal({ which: 12 });
         expect(onCancel).not.toHaveBeenCalled();
       });
     });
@@ -80,9 +94,24 @@ describe('Modal', () => {
       it('returns a background div', () => {
         expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-modal__background')).toBeTruthy();
       });
+
+      describe('when closeOnBackgroundClick is true', () => {
+        it('adds a onClick', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Modal
+              onCancel={ onCancel }
+              open={ true }
+              closeOnBackgroundClick={ true }
+            />
+          );
+          let background = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-modal__background');
+          TestUtils.Simulate.click(background);
+          expect(onCancel).toHaveBeenCalled();
+        });
+      });
     });
 
-    describe('when enableBackgroundUI is true', () => {
+    describe('when enableBackgroundUI is false', () => {
       it('returns null', () => {
         instance = TestUtils.renderIntoDocument(
           <Modal

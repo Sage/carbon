@@ -252,6 +252,25 @@ describe('Carousel', () => {
     });
   });
 
+  describe('fade', () => {
+    describe('when showFade is true', () => {
+      it('returns a gradient div', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Carousel showFade={ true }>
+            <Slide />
+          </Carousel>
+        );
+        TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-carousel__gradient');
+      });
+    });
+
+    describe('when showFade is false', () => {
+      it('does not return a div', () => {
+        expect(instance.showFade).toBeFalsy();
+      });
+    });
+  });
+
   describe('slideSelector', () => {
     it('renders a button for each slide', () => {
       let buttons = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-carousel__selector-input'); 

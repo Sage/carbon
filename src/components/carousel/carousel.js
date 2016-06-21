@@ -55,7 +55,7 @@ class Carousel extends React.Component {
   state = {
     selectedSlideIndex: null, // Currently selected slide
     disabled: false, // Next/Previous buttons disabled state
-    showFade: false
+    showFade: false // Gradient fade on sides of carousel
   }
 
   /**
@@ -253,6 +253,18 @@ class Carousel extends React.Component {
   }
 
   /**
+   * Returns a white gradient on both sides
+   * of the carousel. For fading effect
+   *
+   * @method fade
+   */
+  get fade() {
+    if (this.props.showFade) {
+      return <div className='ui-carousel__gradient' />;
+    }
+  }
+
+  /**
    * Renders the slideSelector footer
    *
    * @method slideSelector
@@ -281,12 +293,6 @@ class Carousel extends React.Component {
     }
 
     return buttons;
-  }
-
-  get fade() {
-    if (this.props.showFade) {
-      return <div className='ui-carousel__gradient' />;
-    }
   }
 
   /**
