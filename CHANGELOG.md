@@ -10,6 +10,10 @@ Our Link component now supports the React Router. Instead of passing a `href` pr
 * Pod has an additional padding size added of `extra-large`.
 * Pod now applies any additional props to it's top most child element.
 
+## Content Updates
+
+Content now has a `secondary` theme which can be applied using the `as` prop.
+
 # 0.17.1
 
 ## Minor Improvements

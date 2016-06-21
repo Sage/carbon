@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import ReactDOM from 'react-dom';
 import Content from './content';
 
-describe('Content', () => {
+fdescribe('Content', () => {
   let instance;
 
   beforeEach(() => {
@@ -25,7 +25,7 @@ describe('Content', () => {
 
     it('renders custom classes', () => {
       let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-content');
-      expect(div.className).toEqual('ui-content foobar');
+      expect(div.className).toEqual('ui-content foobar ui-content--primary');
     });
   });
 
