@@ -165,7 +165,7 @@ describe('Pod', () => {
     describe('if a string is passed', () => {
       it('returns a link with a href prop', () => {
         instance = TestUtils.renderIntoDocument(<Pod onEdit="foo" />);
-        expect(instance.edit.props.href).toEqual('foo');
+        expect(instance.edit.props.to).toEqual('foo');
       });
     });
 
@@ -174,6 +174,15 @@ describe('Pod', () => {
         let foo = () => {};
         instance = TestUtils.renderIntoDocument(<Pod onEdit={ foo } />);
         expect(instance.edit.props.onClick).toEqual(foo);
+      });
+    });
+
+    describe('if an object is passed', () => {
+      it('returns a link with a object as props', () => {
+        let foo = { foo: "foo", bar: "bar" };
+        instance = TestUtils.renderIntoDocument(<Pod onEdit={ foo } />);
+        expect(instance.edit.props.foo).toEqual("foo");
+        expect(instance.edit.props.bar).toEqual("bar");
       });
     });
   });

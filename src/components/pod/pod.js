@@ -98,11 +98,12 @@ class Pod extends React.Component {
      * Supplies an edit action to the pod.
      *
      * @property onEdit
-     * @type {String|Function}
+     * @type {String|Function|Object}
      */
     onEdit: React.PropTypes.oneOfType([
       React.PropTypes.string,
-      React.PropTypes.func
+      React.PropTypes.func,
+      React.PropTypes.object
     ])
   }
 
@@ -280,7 +281,9 @@ class Pod extends React.Component {
     let props = {};
 
     if (typeof this.props.onEdit === "string") {
-      props.href = this.props.onEdit;
+      props.to = this.props.onEdit;
+    } else if (typeof this.props.onEdit === "object") {
+      props = this.props.onEdit;
     } else {
       props.onClick = this.props.onEdit;
     }
