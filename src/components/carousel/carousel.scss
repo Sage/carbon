@@ -22,12 +22,16 @@
   z-index: 20;
 }
 
+.ui-carousel__previous-button {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
 .ui-carousel__previous-arrow {
   @include transform(rotate(90deg))
 
   cursor: pointer;
   display: inline-block;
-  top: 2px;
 
   &::before {
     font-size: 25px;
@@ -37,7 +41,6 @@
 .ui-slide {
   box-sizing: border-box;
   display: inline-block;
-  height: 100px;
   padding: 0 60px;
   position: relative;
   width: 100%;
@@ -48,9 +51,13 @@
   right: 0;
 }
 
+.ui-carousel__next-button {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
 .ui-carousel__next-arrow {
   @include transform(rotate(-90deg))
-  top: 2px;
   display: inline-block;
   cursor: pointer;
 
@@ -67,7 +74,7 @@
 
   &:hover {
     color: $blue;
-    background-color: $grey-mid;
+    background-color: $grey-dark-blue-40;
   }
 
   &:focus {
@@ -85,7 +92,7 @@
   display: inline-block;
   line-height: 20px;
   vertical-align: middle;
-  width: 20px;
+  width: 22px;
 }
 
 .ui-carousel__selector-input {
@@ -94,11 +101,11 @@
 
 .ui-carousel__selector-label {
   border-radius: 100%;
-  border: 1px solid $grey;
+  border: 1px solid $grey-dark-blue-70;
   display: inline-block;
-  height: 6px;
+  height: 8px;
   margin: 0px 5px;
-  width: 6px;
+  width: 8px;
 
   &:hover {
     cursor: pointer;
@@ -108,10 +115,10 @@
 .ui-carousel__selector input:checked + .ui-carousel__selector-label {
   background: $blue;
   border-color: transparent;
-  height: 8px;
+  height: 10px;
   position: relative;
   top: 1px;
-  width: 8px;
+  width: 10px;
 }
 
 $slide-animation-length: 750ms;
