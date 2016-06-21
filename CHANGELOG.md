@@ -1,3 +1,19 @@
+# 0.18.0
+
+## BREAKING CHANGE
+
+* Modal - Also effects Dialog, Sidebar etc - Two additional props added. closeOnBackgroundClick and closeOnESCKey
+    Both of these new props are defaulted to false. Therefore dialog will no longer close with ESC key or by clicking
+    the background.
+
+## New Components
+
+* Carousel
+
+## Minor Improvements
+
+* Dialog - can receive a showCloseIcon prop (defaulted to true) which show and hides the close icon
+
 # 0.17.1
 
 ## Minor Improvements
