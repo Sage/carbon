@@ -51,7 +51,7 @@ class Pod extends React.Component {
      * Value: primary, secondary, tile
      *
      * @property as
-     * @type {Boolean}
+     * @type {String}
      * @default primary
      */
     as: React.PropTypes.string,
