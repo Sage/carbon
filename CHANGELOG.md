@@ -27,10 +27,13 @@ Content now has a `secondary` theme which can be applied using the `as` prop.
 
 ### Change in functionality!
 
-Modal - Also effects Dialog, Sidebar etc
-  Two additional props added. `closeOnBackgroundClick` and `closeOnESCKey`
-  closeOnBackgroundClick - defaulted to false - Currently true by default
-  closeOnESCKey - defaulted to true - currently true by default
+Modal - Two additional props added. `closeOnBackgroundClick` and `closeOnESCKey`
+
+  * closeOnBackgroundClick - defaulted to false - Currently true by default
+
+  * closeOnESCKey - defaulted to true - currently true by default
+
+  * Changes will also effect Dialog, Sidebar etc...
 
 Dialog - can receive a showCloseIcon prop (defaulted to true) which show and hides the close icon
 
