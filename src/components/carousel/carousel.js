@@ -10,15 +10,9 @@ import Slide from './slide';
 
 const NEXT = 'next';
 const PREVIOUS = 'previous';
+const TRANSITION_TIME = 750;
 
 class Carousel extends React.Component {
-
-  /**
-   * Timeout for firing ajax request
-   *
-   * @property timeout
-   */
-  timeout = null;
 
   /**
    * Direction of animation
@@ -47,15 +41,12 @@ class Carousel extends React.Component {
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object
-    ]),
-
-    showFade: React.PropTypes.bool
+    ])
   }
 
   state = {
     selectedSlideIndex: null, // Currently selected slide
-    disabled: false, // Next/Previous buttons disabled state
-    showFade: false // Gradient fade on sides of carousel
+    disabled: false // Next/Previous buttons disabled state
   }
 
   /**
@@ -79,7 +70,7 @@ class Carousel extends React.Component {
   enableButtonsAfterTimeout() {
     setTimeout(() => {
       this.setState({ disabled: false });
-    }, 750);
+    }, TRANSITION_TIME);
   }
 
   /**
@@ -253,18 +244,6 @@ class Carousel extends React.Component {
   }
 
   /**
-   * Returns a white gradient on both sides
-   * of the carousel. For fading effect
-   *
-   * @method fade
-   */
-  get fade() {
-    if (this.props.showFade) {
-      return <div className='ui-carousel__gradient' />;
-    }
-  }
-
-  /**
    * Renders the slideSelector footer
    *
    * @method slideSelector
@@ -305,7 +284,6 @@ class Carousel extends React.Component {
       <div className={ this.mainClasses }>
 
         <div className='ui-carousel__content'>
-          { this.fade }
 
           <div className={ this.previousClasses }>
             <button { ...this.previousButtonProps }>
@@ -315,8 +293,8 @@ class Carousel extends React.Component {
 
           <ReactCSSTransitionGroup
             transitionName={ `slide-${ this.transitionDirection }` }
-            transitionEnterTimeout={ 750 }
-            transitionLeaveTimeout={ 750 }
+            transitionEnterTimeout={ TRANSITION_TIME }
+            transitionLeaveTimeout={ TRANSITION_TIME }
           >
             { this.visibleSlide }
           </ReactCSSTransitionGroup>

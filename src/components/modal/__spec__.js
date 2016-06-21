@@ -97,21 +97,6 @@ describe('Modal', () => {
       it('returns a background div', () => {
         expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-modal__background')).toBeTruthy();
       });
-
-      describe('when closeOnBackgroundClick is true', () => {
-        it('adds a onClick', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Modal
-              onCancel={ onCancel }
-              open={ true }
-              closeOnBackgroundClick={ true }
-            />
-          );
-          let background = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-modal__background');
-          TestUtils.Simulate.click(background);
-          expect(onCancel).toHaveBeenCalled();
-        });
-      });
     });
 
     describe('when enableBackgroundUI is false', () => {

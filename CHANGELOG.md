@@ -27,15 +27,14 @@ Content now has a `secondary` theme which can be applied using the `as` prop.
 
 ### Change in functionality!
 
-Modal - Two additional props added. `closeOnBackgroundClick` and `closeOnESCKey`
+Modal
 
-  * closeOnBackgroundClick - defaulted to false - Currently true by default
-
-  * closeOnESCKey - defaulted to true - currently true by default
-
+  * Modal no longer closes on background click
+  * New prop `closeOnESCKey` is defaulted to true but can be switched off 
   * Changes will also effect Dialog, Sidebar etc...
 
-Dialog - can receive a showCloseIcon prop (defaulted to true) which show and hides the close icon
+Dialog
+  * New props `showCloseIcon` (defaulted to true) which show and hides the close icon
 
 ## Promises
 Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by

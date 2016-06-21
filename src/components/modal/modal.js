@@ -72,17 +72,7 @@ class Modal extends React.Component {
     enableBackgroundUI: React.PropTypes.bool,
 
     /**
-     * Determines if the clicking on the background
-     * closes the modal
-     *
-     * @property closeOnBackgroundClick
-     * @type {Boolean}
-     * @default false
-     */
-    closeOnBackgroundClick: React.PropTypes.bool,
-
-    /**
-     * Determines if the ESC Key closes the modal 
+     * Determines if the ESC Key closes the modal
      *
      * @property closeOnESCKey
      * @type {Boolean}
@@ -94,7 +84,6 @@ class Modal extends React.Component {
   static defaultProps = {
     open: false,
     enableBackgroundUI: false,
-    closeOnBackgroundClick: false,
     closeOnESCKey: true
   }
 
@@ -164,7 +153,6 @@ class Modal extends React.Component {
     if (!this.props.enableBackgroundUI) {
       return (
         <div
-          onClick={ this.props.closeOnBackgroundClick ? this.props.onCancel : null }
           className="ui-modal__background"
         />
       );
