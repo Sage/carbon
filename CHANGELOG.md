@@ -1,3 +1,10 @@
+# 0.18.0
+
+## Pod Updates
+
+* Pod can now receive a prop of `onEdit` - if this is a String it will use it as a `href` link, if it is a Function it will apply it as an `onClick` handler.
+* Pod has an additional padding size added of `extra-large`.
+
 # 0.17.1
 
 ## Minor Improvements

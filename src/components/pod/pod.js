@@ -1,6 +1,7 @@
 import css from './../../utils/css';
 import React from 'react';
 import Icon from './../icon';
+import Link from './../link';
 import classNames from 'classnames';
 
 /**
@@ -90,7 +91,18 @@ class Pod extends React.Component {
      * @property footer
      * @type {String}
      */
-    footer: React.PropTypes.object
+    footer: React.PropTypes.object,
+
+    /**
+     * Supplies an edit action to the pod.
+     *
+     * @property onEdit
+     * @type {String|Function}
+     */
+    onEdit: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.func
+    ])
   }
 
   static defaultProps = {
@@ -256,6 +268,30 @@ class Pod extends React.Component {
   }
 
   /**
+   * Returns the edit action if defined.
+   *
+   * @method edit
+   * @return {Object} JSX
+   */
+  get edit() {
+    if (!this.props.onEdit) { return null; }
+
+    let props = {};
+
+    if (typeof this.props.onEdit === "string") {
+      props.href = this.props.onEdit;
+    } else {
+      props.onClick = this.props.onEdit;
+    }
+
+    return (
+      <Link icon="edit" className="ui-pod__edit-action" { ...props }>
+        Edit
+      </Link>
+    );
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -268,6 +304,7 @@ class Pod extends React.Component {
 
     return (
       <div className={ this.mainClasses }>
+        { this.edit }
         <div className={ this.contentClasses } >
           { this.podHeader }
           { content }
