@@ -2,6 +2,7 @@ import css from './../../utils/css';
 import React from 'react';
 import Icon from './../icon';
 import Link from './../link';
+import I18n from 'i18n-js';
 import classNames from 'classnames';
 
 /**
@@ -286,7 +287,7 @@ class Pod extends React.Component {
 
     return (
       <Link icon="edit" className="ui-pod__edit-action" { ...props }>
-        Edit
+        { I18n.t("components.pod.edit", { defaultValue: "Edit" }) }
       </Link>
     );
   }
