@@ -19,7 +19,7 @@ const Browser = {
   /**
   * Redirect to URL
   *
-  * @method redirectUrl
+  * @method redirectTo
   * @param url => URL string format
   */
   redirectTo: (url) => {
