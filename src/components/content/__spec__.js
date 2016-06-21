@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import ReactDOM from 'react-dom';
 import Content from './content';
 
-fdescribe('Content', () => {
+describe('Content', () => {
   let instance;
 
   beforeEach(() => {
