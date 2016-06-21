@@ -166,6 +166,14 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--white-tick");
     });
+
+    it('calls the render peperclip icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='paperclip' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--paperclip");
+    });
   });
 
   describe('success', () => {
