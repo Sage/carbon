@@ -108,7 +108,8 @@ class IconDemo extends React.Component {
       { name: 'Phone',            id: 'phone' },
       { name: 'Mobile',           id: 'mobile' },
       { name: 'Location',         id: 'location' },
-      { name: 'Email',            id: 'email' }
+      { name: 'Email',            id: 'email' },
+      { name: 'Paperclip',        id: 'paperclip' }
     ]);
 
     return (
