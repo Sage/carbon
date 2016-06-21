@@ -112,13 +112,17 @@
   }
 }
 
-.ui-carousel__selector input:checked + .ui-carousel__selector-label {
-  background: $blue;
-  border-color: transparent;
-  height: 10px;
-  position: relative;
-  top: 1px;
-  width: 10px;
+.ui-carousel__selector {
+  .ui-carousel__selector-input:checked {
+    + .ui-carousel__selector-label {
+      background: $blue;
+      border-color: transparent;
+      height: 10px;
+      position: relative;
+      top: 1px;
+      width: 10px;
+    }
+  }
 }
 
 $slide-animation-length: 750ms;
