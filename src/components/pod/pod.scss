@@ -30,6 +30,10 @@
   padding: 30px 25px;
 }
 
+.ui-pod--padding-extra-large {
+  padding: 40px;
+}
+
 .ui-pod__content--footer.ui-pod__content--tile {
   border-bottom: 1px solid $border-color; 
 }
@@ -52,6 +56,11 @@
 .ui-pod__footer--padding-large {
   padding: 15px 25px;
 }
+
+.ui-pod__footer--padding-extra-large {
+  padding: 20px 40px;
+}
+
 .ui-pod__header {
   margin-bottom: 10px;
 }
@@ -89,4 +98,9 @@
   -ms-transform: rotate(180deg); /* IE 9 */
   -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
   transform: rotate(180deg);
+}
+
+.ui-pod__edit-action {
+  float: right;
+  margin: 20px 20px 10px 0;
 }
