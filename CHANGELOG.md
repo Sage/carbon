@@ -1,5 +1,9 @@
 # 0.18.0
 
+## !! BREAKING CHANGE !!
+
+* Renamed Browser `redirectUrl` method to `redirectTo`
+
 ## Link (React Router)
 
 Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
@@ -46,7 +50,7 @@ Added a redirect action made by the browser. It is now easier to redirect to url
 ```
 import Browser from 'carbon/lib/utils/helpers/browser';
 
-Browser.redirectTo(url)
+Browser.redirectUrl(url)
 ```
 
 # 0.15.0
