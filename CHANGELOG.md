@@ -40,7 +40,7 @@ Dialog
 Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by
 
 ```javascript
-  import from 'carbon/lib/utils/promises/';
+  import from 'carbon/lib/utils/promises';
 ```
 
 # 0.17.1
