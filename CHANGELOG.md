@@ -8,6 +8,10 @@
 
 * Carousel
 
+## CSS Module Update
+
+Added margin and padding `0` to the base CSS.
+
 ## Link (React Router)
 
 Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
