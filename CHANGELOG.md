@@ -39,7 +39,12 @@ Modal
   * Changes will also effect Dialog, Sidebar etc...
 
 Dialog
+
   * New props `showCloseIcon` (defaulted to true) which show and hides the close icon
+
+Message
+
+  * New props `transparent` (defaulted to false) which if set to true sets the background to transparent
 
 ## Promises
 Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by
