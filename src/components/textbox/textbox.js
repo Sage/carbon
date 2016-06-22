@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
@@ -22,6 +23,13 @@ import InputValidation from './../../utils/decorators/input-validation';
  */
 const Textbox = Input(InputLabel(InputValidation(
 class Textbox extends React.Component {
+
+  // What types should these be?
+  labelHTML: Array<any>;
+  inputHTML: Array<any>;
+  validationHTML: Array<any>;
+  fieldHelpHTML: Array<any>;
+  _target: Component;
 
   /**
    * Main Class getter

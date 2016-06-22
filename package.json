@@ -9,25 +9,23 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
+    "release": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
+    "flow": "flow; test $? -eq 0 -o $? -eq 2"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Sage/carbon.git"
+    "url": "https://github.com/Sage/carbon"
   },
   "author": "The Sage Group plc",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Sage/carbon/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Sage/carbon"
-  },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
     "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.0.12",
     "express": "~4.13.3",
+    "flow-bin": "^0.27.0",
     "flux": "~2.1.1",
     "gulp": "~3.9.0",
     "highlight.js": "~8.4.0",

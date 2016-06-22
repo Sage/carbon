@@ -1,0 +1,12 @@
+[ignore]
+.*/__tests__/.*
+.*/node_modules/*
+.*/lib/*
+
+[options]
+esproposal.decorators=ignore
+# Why is this unsafe?
+unsafe.enable_getters_and_setters=true
+
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
