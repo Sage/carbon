@@ -26,7 +26,11 @@ class Fieldset extends React.Component {
   get legend() {
     if (!this.props.legend) { return null; }
 
-    return <legend className="ui-fieldset__legend common-input__label">{ this.props.legend }</legend>;
+    return (
+      <legend className="ui-fieldset__legend common-input__label">
+        { this.props.legend }
+      </legend>
+    );
   }
 
   /**

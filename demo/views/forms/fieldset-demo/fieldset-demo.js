@@ -71,15 +71,13 @@ class FieldsetDemo extends React.Component {
    */
   get controls() {
     return (
-      <div>
-        <Row>
-          <Textbox
-            label="Legend"
-            value={ this.value('legend') }
-            onChange={ this.action.bind(this, 'legend') }
-          />
-        </Row>
-      </div>
+      <Row>
+        <Textbox
+          label="Legend"
+          value={ this.value('legend') }
+          onChange={ this.action.bind(this, 'legend') }
+        />
+      </Row>
     );
   }
 
