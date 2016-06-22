@@ -1,5 +1,6 @@
 import React from 'react';
 import FormDemo from './form-demo';
+import Fieldset from './fieldset-demo';
 import TextboxDemo from './textbox-demo';
 import DecimalDemo from './decimal-demo';
 import NumberDemo from './number-demo';
@@ -30,6 +31,7 @@ class Forms extends React.Component {
         <DropdownDemo />
         <TextareaDemo />
         <DropdownFilterDemo />
+        <Fieldset />
         <ValidationsDemo />
       </div>
     );

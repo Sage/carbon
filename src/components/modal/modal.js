@@ -50,7 +50,7 @@ class Modal extends React.Component {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func.isRequired,
+    onCancel: React.PropTypes.func,
 
     /**
      * Sets the open state of the modal
@@ -69,12 +69,22 @@ class Modal extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    enableBackgroundUI: React.PropTypes.bool
+    enableBackgroundUI: React.PropTypes.bool,
+
+    /**
+     * Determines if the Esc Key closes the modal
+     *
+     * @property disableEscKey
+     * @type {Boolean}
+     * @default true
+     */
+    disableEscKey: React.PropTypes.bool
   }
 
   static defaultProps = {
     open: false,
-    enableBackgroundUI: false
+    enableBackgroundUI: false,
+    disableEscKey: false
   }
 
   static childContextTypes = {
@@ -121,14 +131,14 @@ class Modal extends React.Component {
   }
 
   /**
-   * Triggers the custom close event handler on ESC
+   * Triggers the custom close event handler on Esc
    *
    * @method closeModal
    * @param {Object} ev event
    * @return {void}
    */
   closeModal = (ev) => {
-    if (Events.isEscKey(ev)) {
+    if (!this.props.disableEscKey && Events.isEscKey(ev)) {
       this.props.onCancel();
     }
   }
@@ -143,7 +153,6 @@ class Modal extends React.Component {
     if (!this.props.enableBackgroundUI) {
       return (
         <div
-          onClick={ this.props.onCancel }
           className="ui-modal__background"
         />
       );

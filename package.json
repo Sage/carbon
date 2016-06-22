@@ -13,16 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Sage/carbon.git"
+    "url": "https://github.com/Sage/carbon"
   },
   "author": "The Sage Group plc",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Sage/carbon/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Sage/carbon"
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
@@ -46,6 +42,7 @@
     "bowser": "~1.0.0",
     "classnames": "~2.2.3",
     "crypto-js": "^3.1.6",
+    "es6-promise": "^3.2.1",
     "escape-string-regexp": "^1.0.5",
     "events": "~1.0.2",
     "form-serialize": "~0.7.0",

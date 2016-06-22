@@ -42,6 +42,9 @@ class DialogDemo extends React.Component {
           onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
           title={ this.value('title') }
           enableBackgroundUI={ this.value('enableBackgroundUI') }
+          showCloseIcon={ this.value('showCloseIcon') }
+          closeOnBackgroundClick={ this.value('closeOnBackgroundClick') }
+          closeOnESCKey={ this.value('closeOnESCKey') }
         >
           <Row>
             <Textbox />
@@ -61,6 +64,14 @@ class DialogDemo extends React.Component {
     html += "<Dialog\n";
     html += `  open={ ${ this.value('open') } }\n`
     html += `  title="${ this.value('title') }"\n`;
+
+    if (!this.value('showCloseIcon')) {
+      html += `  showCloseIcon={ false }\n`;
+    }
+
+    if (!this.value('closeOnBackgroundClick')) {
+      html += `  closeOnBackgroundClick={ false }\n`;
+    }
 
     if (this.value('enableBackgroundUI')) {
       html += `  enableBackgroundUI={ true }\n`;
@@ -89,6 +100,27 @@ class DialogDemo extends React.Component {
             value={ this.value('enableBackgroundUI') }
             reverse={ true }
             onChange={ this.action.bind(this, 'enableBackgroundUI') }
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Close on ESC Key"
+            value={ this.value('closeOnESCKey') }
+            reverse={ true }
+            onChange={ this.action.bind(this, 'closeOnESCKey') }
+          />
+          <Checkbox
+            label="Close on Background Click"
+            value={ this.value('closeOnBackgroundClick') }
+            disabled={ this.value('enableBackgroundUI') }
+            reverse={ true }
+            onChange={ this.action.bind(this, 'closeOnBackgroundClick') }
+          />
+          <Checkbox
+            label="Show Close Icon"
+            value={ this.value('showCloseIcon') }
+            reverse={ true }
+            onChange={ this.action.bind(this, 'showCloseIcon') }
           />
         </Row>
       </div>

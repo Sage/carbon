@@ -11,6 +11,15 @@
 
 * Renamed Browser `redirectUrl` method to `redirectTo`
 
+## New Components
+
+* Fieldset - stacks inputs rendered as children to the `Fieldset` component.
+* Carousel - can be used to display a gallery of slides.
+
+## CSS Module Update
+
+Added margin and padding `0` to the base CSS.
+
 ## Link (React Router)
 
 Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
@@ -25,6 +34,26 @@ Our Link component now supports the React Router. Instead of passing a `href` pr
 ## Content Updates
 
 Content now has a `secondary` theme which can be applied using the `as` prop.
+
+## Modal Updates
+
+### Change in functionality!
+
+Modal
+
+  * Modal no longer closes on background click
+  * New prop `disableEscKey` is defaulted to false
+  * Changes will also effect Dialog, Sidebar etc...
+
+Dialog
+  * New props `showCloseIcon` (defaulted to true) which show and hides the close icon
+
+## Promises
+Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by
+
+```javascript
+  import from 'carbon/lib/utils/promises';
+```
 
 # 0.17.1
 
