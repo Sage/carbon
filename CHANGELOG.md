@@ -9,6 +9,10 @@
 * Fieldset - stacks inputs rendered as children to the `Fieldset` component.
 * Carousel - can be used to display a gallery of slides.
 
+## CSS Module Update
+
+Added margin and padding `0` to the base CSS.
+
 ## Link (React Router)
 
 Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
