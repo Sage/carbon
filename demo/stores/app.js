@@ -19,6 +19,9 @@ let data = ImmutableHelper.parseJSON({
   button_toggle: {
     option_one: "Option One"
   },
+  carousel: {
+    slideData: [{}, {}]
+  },
   checkbox: {
     label: "Checkbox",
     labelHelp: "Example label help.",
@@ -45,6 +48,9 @@ let data = ImmutableHelper.parseJSON({
     fieldHelp: "Example field help."
   },
   dialog: {
+    closeOnESCKey: false,
+    showCloseIcon: true,
+    closeOnBackgroundClick: false,
     open: false,
     title: 'Hello World!',
     disableBackground: true
