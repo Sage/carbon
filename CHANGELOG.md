@@ -6,7 +6,8 @@
 
 ## New Components
 
-* Carousel
+* Fieldset - stacks inputs rendered as children to the `Fieldset` component.
+* Carousel - can be used to display a gallery of slides.
 
 ## CSS Module Update
 
