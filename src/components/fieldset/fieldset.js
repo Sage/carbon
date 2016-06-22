@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 /**
  * Fieldset component.
@@ -32,8 +33,11 @@ class Fieldset extends React.Component {
    * @method render
    */
   render() {
+    let { className, ...props } = this.props,
+        classes = classNames("ui-fieldset", className);
+
     return (
-      <fieldset className="ui-fieldset">
+      <fieldset className={ classes } { ...props }>
         { this.legend }
         { this.props.children }
       </fieldset>
