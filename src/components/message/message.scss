@@ -86,3 +86,7 @@ $message-width: 300px !default;
 @each $set in $colorIconSets {
   @include message-theme($set...);
 }
+
+.ui-message-transparent {
+  background-color: transparent;
+}
