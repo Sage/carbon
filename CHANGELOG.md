@@ -4,6 +4,10 @@
 
 * Renamed Browser `redirectUrl` method to `redirectTo`
 
+## New Components
+
+* Fieldset - stacks inputs rendered as children to the `Fieldset` component.
+
 ## Link (React Router)
 
 Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
