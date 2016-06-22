@@ -53,11 +53,11 @@ describe('Modal', () => {
   });
 
   describe('closeModal', () => {
-    describe('when closeOnESCKey is true', () => {
+    describe('when disableEscKey is false', () => {
       beforeEach(() => {
         onCancel = jasmine.createSpy('cancel');
         instance = TestUtils.renderIntoDocument(
-          <Modal closeOnESCKey={ true } open={ true } onCancel={ onCancel } />
+          <Modal open={ true } onCancel={ onCancel } />
         );
       });
 
@@ -78,10 +78,10 @@ describe('Modal', () => {
       });
     });
 
-    describe('when closeOnESCKey is false', () => {
+    describe('when disableEscKey is true', () => {
       onCancel = jasmine.createSpy('cancel');
       instance = TestUtils.renderIntoDocument(
-        <Modal open={ true } onCancel={ onCancel } />
+        <Modal disableEscKey={ true } open={ true } onCancel={ onCancel } />
       );
 
       it('does not call onCancel', () => {

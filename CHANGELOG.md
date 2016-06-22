@@ -31,7 +31,7 @@ Content now has a `secondary` theme which can be applied using the `as` prop.
 Modal
 
   * Modal no longer closes on background click
-  * New prop `closeOnESCKey` is defaulted to true but can be switched off 
+  * New prop `disableEscKey` is defaulted to false
   * Changes will also effect Dialog, Sidebar etc...
 
 Dialog
