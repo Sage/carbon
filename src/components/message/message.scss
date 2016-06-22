@@ -81,12 +81,35 @@ $message-width: 300px !default;
       color: $color;
     }
   }
+
+  .ui-message--#{$type}.ui-message--transparent {
+    background-color: transparent;
+    border: none;
+    margin-bottom: 0px;
+
+    .ui-message__content{
+      padding: 2px 40px;
+    }
+
+    .ui-message__type {
+      background-color: transparent;
+
+      .ui-icon__svg {
+        .ui-icon__svg-group {
+          fill: $color;
+        }
+      }
+
+      .ui-message__type-icon {
+        top: 20%;
+        &:before {
+          color: $color;
+        }
+      }
+    }
+  }
 }
 
 @each $set in $colorIconSets {
   @include message-theme($set...);
-}
-
-.ui-message-transparent {
-  background-color: transparent;
 }

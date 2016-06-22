@@ -81,7 +81,7 @@ class Message extends React.Component {
       'ui-message',
       this.props.className,
       'ui-message--' + this.props.as,
-      { 'ui-message-transparent': this.props.transparent
+      { 'ui-message--transparent': this.props.transparent
     });
   }
 

@@ -5,10 +5,6 @@ $message-border: 1px solid !default;
 $message-border-radius: 3px !default;
 $message-width: 300px !default;
 
-.ui-message-transparent {
-  background-color: transparent !important;
-}
-
 .ui-message {
   border-radius: $message-border-radius;
   position: relative;
