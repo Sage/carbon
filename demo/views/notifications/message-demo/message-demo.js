@@ -38,6 +38,7 @@ class MessageDemo extends React.Component {
     return (
       <Message
         as={ this.value('as') }
+        transparent={ this.value('transparent') }
         open={ this.value('open') }
         title={ this.value('title') }
         { ...props }
@@ -55,6 +56,7 @@ class MessageDemo extends React.Component {
 
     html += "<Message";
     html += `\n  as='${this.value('as')}'`;
+    html += `\n  transparent='${false}'`;
     html += `\n  open='${true}'`;
     html += `\n  title='${this.value('title')}'`;
     html += "\n>\n";
@@ -89,6 +91,11 @@ class MessageDemo extends React.Component {
           <AsDropdown
             value={ this.value('as') }
             onChange={ this.action.bind(this, 'as') }
+          />
+          <Checkbox
+            label="Transparent"
+            value={ this.value('transparent') }
+            onChange={ this.action.bind(this, 'transparent') }
           />
           <Checkbox
             label="Open"
