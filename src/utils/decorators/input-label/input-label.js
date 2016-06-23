@@ -202,11 +202,16 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   get fieldProps() {
     let fieldProps = super.fieldProps || {};
 
-    // add input width if label width is defined
-    if (this.props.labelWidth) {
-      let inputWidth = `${100 - this.props.labelWidth}%`;
+    let labelWidth = this.props.labelWidth;
+    let inputWidth = this.props.inputWidth;
+
+    if (labelWidth && !inputWidth) {
+      inputWidth = 100 - labelWidth;
+    }
+
+    if (inputWidth) {
       fieldProps.style = fieldProps.style || {};
-      fieldProps.style.width = inputWidth;
+      fieldProps.style.width = `${inputWidth}%`;
     }
 
     return fieldProps;
