@@ -33,7 +33,9 @@ class FalseLabelClass {
 
 class UnnamedClass {
   props = {
-    name: 'bar qux'
+   inputWidth: 20,
+   labelInline: true,
+   name: 'bar qux'
   };
 
   context = {
@@ -257,8 +259,16 @@ describe('InputLabel', () => {
 
   describe('fieldProps', () => {
     describe('when label has a width', () => {
-      it('sets a width for the field', () => {
-        expect(instanceBasic.fieldProps.style.width).toEqual('80%');
+      describe('and the input does not have a width', () => {
+        it('sets a width for the field', () => {
+          expect(instanceBasic.fieldProps.style.width).toEqual('80%');
+        });
+      });
+
+      describe('and the input does have a width', () => {
+        it('sets a width for the field', () => {
+          expect(instanceUnNamed.fieldProps.style.width).toEqual('20%');
+        });
       });
     });
 

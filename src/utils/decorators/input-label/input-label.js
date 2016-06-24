@@ -38,6 +38,8 @@ import Help from './../../../components/help';
  *  * `labelInline` - pass true to format the input/label inline
  *  * `labelWidth` - pass a percentage to define the width of the label when it
  *  is displayed inline.
+ *  * `inputWidth` - pass a percentage to define the width of the input when it
+ *  is displayed inline.
  *
  * @method InputIcon
  * @param {Class} ComposedComponent class to decorate
@@ -202,8 +204,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   get fieldProps() {
     let fieldProps = super.fieldProps || {};
 
-    let labelWidth = this.props.labelWidth;
-    let inputWidth = this.props.inputWidth;
+    let { labelWidth, inputWidth } = this.props;
 
     if (labelWidth && !inputWidth) {
       inputWidth = 100 - labelWidth;
