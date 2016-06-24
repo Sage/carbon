@@ -93,6 +93,10 @@
 
       /******* Size Options ****/
 
+      .ui-animated-menu-button--xsmall#{&} {
+        min-width: 100px;
+      }
+
       .ui-animated-menu-button--small#{&} {
         min-width: 150px;
       }
@@ -101,11 +105,11 @@
         min-width: 400px;
       }
 
-      .ui-animated-menu-button--medium#{&} {
+      .ui-animated-menu-button--med#{&} {
         min-width: 550px;
       }
 
-      .ui-animated-menu-button--mlarge#{&} {
+      .ui-animated-menu-button--lmed#{&} {
         min-width: 700px;
       }
 

@@ -13,6 +13,21 @@
 
 Added margin and padding `0` to the base CSS.
 
+## Uniform of Sizing
+
+### Animated Menu Button
+  * Added `xsmall`
+  * !! CHANGED - `medium` to `med`
+  * !! CHANGED - `mlarge` to `lmed`
+
+### Portrait
+  * Added `xsmall` 
+  * Added `med`
+
+### Spinner
+  * Added `xsmall`
+  * Added `med`
+
 ## Link (React Router)
 
 Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
