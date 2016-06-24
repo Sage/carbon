@@ -55,6 +55,10 @@ Message
 
   * New props `transparent` (defaulted to false) which if set to true sets the background to transparent
 
+## Split Button
+
+ * Small CSS change to remove gap in Safari
+
 # 0.17.1
 
 ## Minor Improvements
