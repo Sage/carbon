@@ -13,20 +13,26 @@
 
 Added margin and padding `0` to the base CSS.
 
-## Uniform of Sizing
+## Uniform Sizing
 
 ### Animated Menu Button
   * Added `xsmall`
   * !! CHANGED - `medium` to `med`
   * !! CHANGED - `mlarge` to `lmed`
+  * Added `xlarge`
 
 ### Portrait
   * Added `xsmall` 
   * Added `med`
 
 ### Spinner
+  * !! CHANGED - Removed ui-table override to reduce border width. Spinner will now appear larger by default and thinner
   * Added `xsmall`
   * Added `med`
+  * Added `xlarge`
+
+### Dialog
+  * Added `xlarge`
 
 ## Link (React Router)
 

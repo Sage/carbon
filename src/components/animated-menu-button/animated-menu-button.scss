@@ -116,6 +116,10 @@
       .ui-animated-menu-button--large#{&} {
         min-width: 1050px;
       }
+
+      .ui-animated-menu-button--xlarge#{&} {
+        min-width: 1200px;
+      }
     }
 
     .icon-close {

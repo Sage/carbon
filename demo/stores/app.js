@@ -7,6 +7,7 @@ import FormInputHelper from './../helpers/form-input-helper';
 
 let data = ImmutableHelper.parseJSON({
   alert: {
+    size: 'xsmall',
     title: 'Alert!'
   },
   animated_menu_button: {
@@ -28,6 +29,7 @@ let data = ImmutableHelper.parseJSON({
     fieldHelp: "Example field help."
   },
   confirm: {
+    size: 'xsmall',
     title: 'Are you sure?'
   },
   collapsible_pod: {
@@ -48,6 +50,7 @@ let data = ImmutableHelper.parseJSON({
     fieldHelp: "Example field help."
   },
   dialog: {
+    size: 'med',
     closeOnESCKey: false,
     showCloseIcon: true,
     closeOnBackgroundClick: false,
