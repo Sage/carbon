@@ -166,8 +166,8 @@ class Dropdown extends React.Component {
    * @method handleSelect
    * @param {Object} ev event
    */
-  handleSelect = (ev) => {
-    this.selectValue(ev.currentTarget.getAttribute('value'), ev.currentTarget.textContent);
+  handleSelect = (id, name) => {
+    this.selectValue(id, name);
   }
 
   /**
@@ -176,8 +176,8 @@ class Dropdown extends React.Component {
    * @method handleMouseOverListItem
    * @param {Object} ev event
    */
-  handleMouseOverListItem = (ev) => {
-    this.setState({ highlighted: ev.currentTarget.getAttribute('value') });
+  handleMouseOverListItem = (id) => {
+    this.setState({ highlighted: id });
   }
 
   /*
@@ -464,7 +464,7 @@ class Dropdown extends React.Component {
     let className = 'ui-dropdown__list__item',
         highlighted = this.highlighted(options);
 
-    let results = options.map((option) => {
+    let results = options.map((option, index) => {
       let klass = className;
 
       // add highlighted class
@@ -480,9 +480,9 @@ class Dropdown extends React.Component {
       return (
         <li
           key={ option.name + option.id }
-          value={ option.id }
-          onClick={ this.handleSelect }
-          onMouseOver={ this.handleMouseOverListItem }
+          value={ index }
+          onClick={ this.handleSelect.bind(this, option.id, option.name) }
+          onMouseOver={ this.handleMouseOverListItem.bind(this, option.id) }
           className={ klass }>
             { option.name }
         </li>
