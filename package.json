@@ -34,7 +34,7 @@
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "~3.7.5",
     "ncp": "~2.0.0",
-    "react": "~15.0.1",
+    "react": "~15.1.0",
     "react-addons-css-transition-group": "~15.0.0",
     "react-dom": "~15.0.0",
     "react-highlight": "~0.8.0",
