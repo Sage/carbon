@@ -25,6 +25,10 @@ class MultiStepWizardDemo extends React.Component {
     return AppActions.appValueUpdated.bind(this, 'multi_step_wizard');
   }
 
+  submitMultiStep = () => {
+    console.log('Submitting Mutli Step');
+  }
+
   /**
    * @method steps
    */
@@ -45,7 +49,7 @@ class MultiStepWizardDemo extends React.Component {
         currentStep={ parseInt(this.value('currentStep')) }
         enableInactiveSteps={ this.value('enableInactiveSteps') }
         completed={ this.value('completed') }
-        onSubmit={ void(0) }
+        onSubmit={ this.submitMultiStep }
       />
     );
   }
@@ -96,13 +100,13 @@ class MultiStepWizardDemo extends React.Component {
 
         <Checkbox
           label="Enable Inactive Steps"
-          value={ this.value('enableInactiveSteps') }
+          checked={ this.value('enableInactiveSteps') }
           onChange={ this.action.bind(this, 'enableInactiveSteps') }
         />
 
         <Checkbox
           label="Completed"
-          value={ this.value('completed') }
+          checked={ this.value('completed') }
           onChange={ this.action.bind(this, 'completed') }
         />
       </Row>

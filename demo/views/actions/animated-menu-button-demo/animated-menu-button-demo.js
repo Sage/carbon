@@ -106,7 +106,7 @@ class AnimatedMenuButtonDemo extends React.Component {
           />
           <Checkbox
             label="Align Right"
-            value={ this.value('alignRight') }
+            checked={ this.value('alignRight') }
             onChange={ this.action.bind(this, 'alignRight') }
           />
         </Row>

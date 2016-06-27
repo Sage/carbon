@@ -28,11 +28,11 @@ class Checkbox extends React.Component {
     /**
      * Sets the checked state of the checkbox
      *
-     * @property defaultChecked
+     * @property checked
      * @type {Boolean}
      * @default false
      */
-    defaultChecked: React.PropTypes.bool,
+    checked: React.PropTypes.bool,
 
     /**
      * Reverses label and checkbox display
@@ -45,7 +45,7 @@ class Checkbox extends React.Component {
   }
 
   static defaultProps = {
-    defaultChecked: false,
+    checked: false,
     reverse: false
   }
 
