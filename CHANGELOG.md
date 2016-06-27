@@ -28,6 +28,10 @@ Our Link component now supports the React Router. Instead of passing a `href` pr
 
 Content now has a `secondary` theme which can be applied using the `as` prop.
 
+## Label Updates
+
+* You can supply a `input-width` prop to any input to define its width.
+
 ## Modal Updates
 
 ### Change in functionality!
@@ -59,6 +63,10 @@ Message
 ## Decimal
 
 * Decimal can now receive a prop of precision
+
+## Split Button
+
+ * Small CSS change to remove gap in Safari
 
 # 0.17.1
 
