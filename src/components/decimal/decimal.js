@@ -43,8 +43,7 @@ class Decimal extends React.Component {
    */
   highlighted = false;
 
-
-  static defaultProps = {
+  static propTypes = {
     /**
      * Sets the default value of the decimal field
      *
@@ -52,7 +51,7 @@ class Decimal extends React.Component {
      * @type {String}
      * @default '0.00'
      */
-    defaultValue: '0.00',
+    defaultValue: React.PropTypes.string,
 
     /**
      * Sets the default value alignment
@@ -61,7 +60,23 @@ class Decimal extends React.Component {
      * @type {String}
      * @default 'right'
      */
-    align: "right"
+    align: React.PropTypes.string,
+
+    /**
+     * Sets the pricision of the field
+     *
+     * @property precision
+     * @type {Integer}
+     * @default 2
+     */
+    precision: React.PropTypes.number
+  }
+
+
+  static defaultProps = {
+    defaultValue: '0.00',
+    align: "right",
+    precision: 2
   }
 
   state = {
@@ -71,7 +86,7 @@ class Decimal extends React.Component {
      * @property visibleValue
      * @type {String}
      */
-    visibleValue: I18nHelper.formatDecimal(this.value)
+    visibleValue: I18nHelper.formatDecimal(this.value, this.props.precision)
   }
 
   /**
@@ -85,7 +100,7 @@ class Decimal extends React.Component {
   componentWillReceiveProps(props) {
     if (this._document.activeElement != this._input) {
       let value = props.value || props.defaultValue;
-      this.setState({ visibleValue: I18nHelper.formatDecimal(value) });
+      this.setState({ visibleValue: I18nHelper.formatDecimal(value, this.props.precision) });
     }
   }
 
@@ -147,7 +162,7 @@ class Decimal extends React.Component {
    * @return {void}
    */
   handleBlur = () => {
-    this.setState({ visibleValue: I18nHelper.formatDecimal(this.value) });
+    this.setState({ visibleValue: I18nHelper.formatDecimal(this.value, this.props.precision) });
     this.highlighted = false;
   }
 

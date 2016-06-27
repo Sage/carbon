@@ -45,7 +45,8 @@ let data = ImmutableHelper.parseJSON({
   decimal: {
     label: "Decimal",
     labelHelp: "Example label help.",
-    fieldHelp: "Example field help."
+    fieldHelp: "Example field help.",
+    precision: 3
   },
   dialog: {
     closeOnESCKey: false,

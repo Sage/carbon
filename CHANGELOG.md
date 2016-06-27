@@ -47,6 +47,7 @@ Dialog
   * New props `showCloseIcon` (defaulted to true) which show and hides the close icon
 
 ## Promises
+
 Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by
 
 ```javascript
@@ -58,6 +59,10 @@ Promises Polyfill. Carbon now contains a ES6 Promises helper which can be import
 Message
 
   * New props `transparent` (defaulted to false) which if set to true sets the background to transparent
+
+## Decimal
+
+* Decimal can now receive a prop of precision
 
 ## Split Button
 
