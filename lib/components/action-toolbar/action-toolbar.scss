@@ -1,0 +1,25 @@
+@import "colors";
+
+.ui-action-toolbar,
+.ui-action-toolbar__total,
+.ui-action-toolbar__actions {
+  display: inline-block;
+}
+
+.ui-action-toolbar {
+  padding: 15px 0;
+}
+
+.ui-action-toolbar__total {
+  margin-right: 5px;
+  min-width: 80px;
+  text-align: center;
+}
+
+.ui-action-toolbar__action {
+  margin: 0 10px;
+
+  &.ui-link__anchor--disabled {
+    color: $grey-dark-blue-30;
+  }
+}

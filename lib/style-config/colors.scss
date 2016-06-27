@@ -1,6 +1,7 @@
 // Brand Colours - These are named by their colour.
 $white:                      #FFF !default;
 $black:                      #000 !default;
+$grey-dark-plus:             #1B1D21 !default;
 $grey:                       #D0D0D0 !default;
 $grey-dark-blue:             #3C424F !default;
 $grey-dark-blue-90:          #4F5460 !default;
@@ -12,13 +13,16 @@ $grey-dark-blue-40:          #B1B3B9 !default;
 $grey-dark-blue-30:          #C4C6CA !default;
 $grey-dark-blue-20:          #D8D9DC !default;
 $grey-dark-blue-10:          #EBECED !default;
+$grey-dark-blue-5:           #F5F6F7 !default;
 $grey-dark:                  #4D4F53 !default;
 $grey-mid:                   #AFAFAF !default;
 $grey-light:                 #EBEDEF !default;
 $grey-background:            $grey-light !default;
+$grey-header:                #F2F3F6 !default;
 $green:                      #007F64 !default;
 $green-mid:                  #42AE42 !default;
 $green-bright:               #00DC00 !default;
+$green-bright-dull:          #38C72A !default;
 $green-apple:                #42AE42 !default;
 $green-apple-05:             #F5FBF5 !default;
 $green-apple-20:             #D9EFD9 !default;
@@ -26,6 +30,7 @@ $orange:                     #FF5400 !default;
 $orange-bright:              #FF5800 !default;
 $orange-bright-05:           #FFF6F2 !default;
 $orange-bright-20:           #FFDDCC !default;
+$orange-mid:                 #FF9900 !default;
 $blue:                       #255BC7 !default;
 $blue-dark:                  #193E90 !default;
 $blue-bright:                #1963F6 !default;
@@ -92,6 +97,8 @@ $colorIconSets: (
 
 $border-color:               #CCD1DC !default;
 $table-border-color:         #E4E7EA !default;
+$background-alt:             #F5F5F6 !default;
+$pod-footer:                 #F8F8F8 !default;
 
 $row-alt-color:              #F8F9FB !default;
 $row-hover-color:            #EDF4FB !default;

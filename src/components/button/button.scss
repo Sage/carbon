@@ -1,52 +1,19 @@
 @import 'colors';
 @import 'general';
+@import "input-field";
 @import 'mixins';
-
-/* ui-button */
-$ui_button__border-radius: 4px !default;
-$ui-button__font-weight: bold !default;
-$ui-button__padding: 7px 18px !default;
-
-/* ui-button--primary */
-$ui-button__background-color--primary: $blue !default;
-$ui-button__border--primary: 1px solid transparent !default;
-$ui-button__text-color--primary: $white !default;
-
-/* ui-button--primary--hover */
-$ui-button__background-color--primary--hover: $blue-bright !default;
-
-/* ui-button--primary--active */
-$ui-button__background-color--primary--active: $blue-dark !default;
-$ui-button__border-color--primary--active: $blue-dark !default;
-$ui-button__text-color--primary--active: $white !default;
-
-/* ui-button--secondary */
-$ui-button__background-color--secondary: transparent !default;
-$ui-button__border--secondary: 1px solid $blue !default;
-$ui-button__text-color--secondary: $blue !default;
-
-/* ui-button--secondary--hover */
-$ui-button__background-color--secondary--hover: $blue-bright !default;
-$ui-button__border-color--secondary--hover: $blue-bright !default;
-$ui-button__text-color--secondary--hover: $white !default;
-
-/* ui-button--secondary--active */
-$ui-button__background-color--secondary--active: $blue-dark !default;
-$ui-button__border-color--secondary--active: $blue-dark !default;
-$ui-button__text-color--secondary--active: $white !default;
-
-/* ui-button--disabled */ 
-$ui-button__background-color--disabled: #DBDCDE !default;
-$ui-button__border-color--disabled: transparent !default;
-$ui-button__color--disabled: #A4A6AA !default;
-
+@import 'buttons';
 
 .ui-button {
+  background-color: $ui-button__background-color--secondary;
+  border: $ui-button__border--secondary;
   border-radius: $ui-button__border-radius;
+  color: $ui-button__text-color--secondary;
   cursor: pointer;
   display: inline-block;
   font-size: $app-font-size;
   font-weight: $ui-button__font-weight;
+  height: $input-common-height;
   padding: $ui-button__padding;
   outline: none;
   text-decoration: none;
@@ -54,6 +21,20 @@ $ui-button__color--disabled: #A4A6AA !default;
   &:focus {
     @include transition(box-shadow linear 0.1s)
     box-shadow: 0 0 6px rgba(25,99,246,0.6);
+  }
+
+  &:focus,
+  &:hover {
+    background-color: $ui-button__background-color--secondary--hover;
+    border-color: $ui-button__border-color--secondary--hover;
+    color: $ui-button__text-color--secondary--hover;
+  }
+
+  &:not(.ui-button--disabled):active {
+    background-color: $ui-button__background-color--primary--active;
+    background-color: $ui-button__background-color--secondary--active;
+    border-color: $ui-button__border-color--secondary--active;
+    color: $ui-button__text-color--secondary--active;
   }
 }
 
@@ -74,24 +55,17 @@ $ui-button__color--disabled: #A4A6AA !default;
   }
 }
 
-.ui-button--secondary {
-  background-color: $ui-button__background-color--secondary;
-  border: $ui-button__border--secondary;
-  color: $ui-button__text-color--secondary;
+// fixes specific css that comes from platform
+a.ui-button--primary {
+  color: $ui-button__text-color--primary;
+}
 
-  &:focus,
-  &:hover {
-    background-color: $ui-button__background-color--secondary--hover;
-    border-color: $ui-button__border-color--secondary--hover;
-    color: $ui-button__text-color--secondary--hover;
-  }
-
-  &:not(.ui-button--disabled):active {
-    background-color: $ui-button__background-color--primary--active;
-    background-color: $ui-button__background-color--secondary--active;
-    border-color: $ui-button__border-color--secondary--active;
-    color: $ui-button__text-color--secondary--active;
-  }
+.ui-button--small {
+  border-radius: 3px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  padding: 2px 15px 2px 15px;
+  text-transform: uppercase;
 }
 
 .ui-button--disabled,

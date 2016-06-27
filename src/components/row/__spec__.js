@@ -13,6 +13,7 @@ describe('Row', () => {
         <Row className="foobar">
           <div columnOffset={2}>Foo</div>
           <div columnSpan={3}>Bar</div>
+          { null }
           <div columnClasses='extra-class'>Bar</div>
           <div columnAlign='center'>Bar</div>
         </Row>
@@ -29,6 +30,27 @@ describe('Row', () => {
 
       it('renders the correct amount of columns', () => {
         expect(columns.length).toEqual(4);
+      });
+    });
+
+    describe('with no children', () => {
+      it('allows render', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Row>{ null }</Row>
+        );
+        let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-row')
+        expect(rowNode).toBeTruthy();
+      });
+    });
+
+    describe('with no children in an array', () => {
+      it('allows render', () => {
+        let children = [];
+        instance = TestUtils.renderIntoDocument(
+          <Row>{ children }</Row>
+        );
+        let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-row')
+        expect(rowNode).toBeTruthy();
       });
     });
 

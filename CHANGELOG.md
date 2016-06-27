@@ -1,14 +1,281 @@
+# 0.18.0
+
+## !! BREAKING CHANGE !!
+
+* Renamed Browser `redirectUrl` method to `redirectTo`
+
+## New Components
+
+* Fieldset - stacks inputs rendered as children to the `Fieldset` component.
+* Carousel - can be used to display a gallery of slides.
+
+## CSS Module Update
+
+Added margin and padding `0` to the base CSS.
+
+## Link (React Router)
+
+Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
+
+## Pod Updates
+
+* Pod can now receive a prop of `onEdit` - if this is a String it will use it as a `to` prop on a Link component, if it is a Function it will apply it as an `onClick` handler, if it is an object it will apply it's props to the Link.
+* Pod has an additional padding size added of `extra-large`.
+* Pod now applies any additional props to it's top most child element.
+* We have added a tertiary pod theme.
+
+## Content Updates
+
+Content now has a `secondary` theme which can be applied using the `as` prop.
+
+## Modal Updates
+
+### Change in functionality!
+
+Modal
+
+  * Modal no longer closes on background click
+  * New prop `disableEscKey` is defaulted to false
+  * Changes will also effect Dialog, Sidebar etc...
+
+Dialog
+
+  * New props `showCloseIcon` (defaulted to true) which show and hides the close icon
+
+## Promises
+Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by
+
+```javascript
+  import from 'carbon/lib/utils/promises';
+```
+
+## Notifications Updates
+
+Message
+
+  * New props `transparent` (defaulted to false) which if set to true sets the background to transparent
+
+# 0.17.1
+
+## Minor Improvements
+
+* Add paperclip SVG to Icon
+
+# 0.17.0
+
+## New Components
+
+* Multi Step Wizard
+
+## Minor Improvements
+
+* Add edit SVG to Icon
+* Supports Ajax call for error validation
+
+# 0.16.1
+
+* Add reload function to browser helper
+
+# 0.16.0
+
+## Minor Improvements
+
+* Adding user class names to tabs.
+* Authorize Objects in dialog title
+
+## Browser Helper
+
+Added a redirect action made by the browser. It is now easier to redirect to url
+
+```
+import Browser from 'carbon/lib/utils/helpers/browser';
+
+Browser.redirectUrl(url)
+```
+
+# 0.15.0
+
+## New Components
+
+* ButtonToggle.
+
+## New Features
+
+* Warnings are now ready to use on form inputs, using the same API as validations you can supply an array as a prop to an input:
+
+```
+<Textbox warnings={[ new MyWarning ]} />
+```
+
+## Bug Fixes
+
+* CSS fixes to input error icon and error message.
+* CSS fixes to input placeholder text for IE11.
+
+# 0.14.4
+
+## Bug Fixes
+
+* Fixes no results row in Table to span all columns.
+* Fixes issue in Tabs where initialSelectedTabId was ignored
+
+# 0.14.3
+
+## Bug Fixes
+
+* Fixes a loading row in Table to span all columns.
+
+# 0.14.2
+
+## Minor Changes
+
+* Disable multi select for single row in a table
+
+# 0.14.1
+
+## Minor Changes
+
+* Add ability to set custom labels on Confirm dialog.
+* Fixes scrollbar fixed height.
+* Fixes word break on tooltips.
+
+# 0.14.0
+
+## !! BREAKING CHANGE !!
+
+* Selectable table rows now emit an object instead of an array, containing more information about the selected rows.
+
+## Minor Changes
+
+* Sidebar now scrolls on overflow
+* Adds `$app-light-font-family` Sass variable.
+* Adds `$app-medium-font-family` Sass variable.
+* Icons - plus, minus, processing. Update contact icons
+* Improve tile footer style
+
+# 0.13.0
+
+* A developer can choose for a Table to not automatically render with a `tbody`, allowing them to manually render it `<Table tbody={ false }>`.
+* Performance improvements for validation messages.
+* Inputs can be rendered with fake inputs, useful for pages with lots of inputs where performance can be an issue.
+* Number does not show undefined when value props is not provided and user enter alphabets
+* Adds external link icon.
+* Adds new colors: `$grey-dark-blue-5`, `$grey-header`.
+
+# 0.12.2
+
+* Stores will now throw an error if an invalid action is dispatched.
+* Fixes translation issues with Save and Cancel buttons in Form component.
+* Fixes error with refresh method on Table, when Table does not have an ActionToolbar.
+* Adds `business` and `individual` icons.
+
+### Modal Updates
+
+* Alert and Confirm have been updated to accept the dialog size prop. Default sizes remain unchanged.
+
+# 0.12.1
+
+* Fixes overflow bug on Table component.
+* Fixes colors for recently added icons.
+
+# 0.12.0
+
+## Minor Improvements
+
+* Tabs emits a onTabClick event when on the headers is clicked
+* Add phone, email, location and mobile icons
+* Table now has a `refresh` method to force retrieve data.
+
+## Bug Fixes
+
+* CSS prevent multi action siblings overlapping
+* First columns in tables have additional left padding.
+* Page size sets 1 of 1 when there are no records.
+
+# 0.11.0
+
+* Tabs remember the last one they were on when going back in the browser.
+
+## Bug Fixes
+
+* Selectable Tables stopPropagation when selecting checkboxes.
+
+# 0.10.0
+
+* Adds loading and empty data states to Table component.
+
+## Bug Fixes
+
+* CSS fixes to Portrait.
+* CSS fixes to Spinner.
+* CSS fixes to Pill.
+
+# 0.9.2
+
+* MulitActionButton Classes more specific
+
+# 0.9.1
+
+## Bug Fixes
+
+* Various UI Fixes:
+  * MultiActionButton toggle placement.
+  * Removed Tab padding.
+  * Fixed Button height to 31px.
+
+# 0.9.0
+
+## New Components
+
+* Multi Action Button
+
+## Selectable Table Rows
+
+* Table and TableAjax now have props of `selectable` and `highlightable`, enabling selectable or highlightable rows. Each event also emits events which can be used by developers with props of `onSelect` or `onHighlight`. Developers can also manually control the highlighting or selecting of rows using the same props on TableRow components.
+* Selectable rows also enables an action toolbar for the table, for which actions can be defined using the `actions` prop.
+
+## CSS
+
+* Created CSS utility to handle generic CSS.
+
+## Misc
+
+* Inline labels can now be aligned right.
+* Added 'small' button option - renders pill-like secondary button.
+* Made portrait inline-block to allow label to sit inline.
+* Added a 'refresh' svg icon to the icon component.
+* Form component can now set custom `saveText` as a prop.
+* Pill styling tweaked slightly.
+* Made portrait inline-block to allow label to sit inline.
+* Updated portrait colour for when no image is loaded.
+* Update Radio Button and Checkbox colour when disabled and checked.
+
+## Bug Fixes
+* Allow tooltip to decorate class that lacks componentProps method.
+* Records value typecast to number for i18n in Pager
+
+# 0.8.1
+
+## Bug Fixes
+
+* Fixed CSS load order issue which caused icons to break their positioning.
+
 # 0.8.0
 
 ## Improvements
 
 * Improved store reset. `store.reset()` will now reset the store to its initial data, whether or not history is enabled.
-* Add `tableHeader` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
+* Inputs can now have field help. Pass `fieldHelp='help message'` to any input.
+* Inputs can now have label help. Pass `labelHelp='help message'` to any input.
+* Add `thead` prop to `Table` component that allows you to set a row wrapped in a `thead` tag.
 
 ## New Components
 
+* Sidebar - with sidebar header
 * Portrait
-* Tile - an alternative to Pod, with a drop shadow.
+* Content
+* Help - An info icon with a tooltip.
+* Tooltip
 
 ## Layout Updates
 
@@ -18,21 +285,39 @@
   * `border` - allows developers to disable border.
   * `padding` - allows developers to have control over padding size.
 
+* Message style has changed to follow toast style
 * Pill style has changed
 
 ## Improved Dialog
 
 * Dialog now takes a prop of `disableBackground` which is true by default.
 
+## Improved Form
+
+* `validate()` can now be called via `this.context.form`
+
+## New Validators
+
+* Inclusion
+* Exclusion
+
 ## Misc
 
+* Added utility classes for styling text.
+* Format i18n error number for numeric validation.
 * Allow Tables to shrink in size using the `shrink` prop.
 * Link component can now display with an icon.
 * Child components of Row can now use a `columnAlign` prop.
+* Toast onDismiss is now optional
+
+## New Decorators
+
+* Tooltip Decorator - currently available on Icon and Textbox.
 
 ## Bug Fixes
 
 * Fixes alignment issue with SplitButton when using anchors.
+* Row component will not break with zero children or children of `null` or `undefined`.
 
 # 0.7.1
 
@@ -40,6 +325,7 @@
 
 * Moves the validation logic in Form component to its own method.
 * Adds `validateOnMount` prop to Forms.
+* Help Components on inputs with labels.
 
 # 0.7.0
 

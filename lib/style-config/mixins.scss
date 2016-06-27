@@ -234,3 +234,9 @@
   -ms-transform: $transforms;
   transform: $transforms;
 }
+
+@mixin calc($attr, $sum) {
+  #{$attr}: -webkit-calc(#{$sum});
+  #{$attr}:    -moz-calc(#{$sum});
+  #{$attr}:         calc(#{$sum});
+}

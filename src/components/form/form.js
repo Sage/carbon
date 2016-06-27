@@ -100,9 +100,18 @@ class Form extends React.Component {
      *
      * @property cancelText
      * @type {String}
-     * @default true
+     * @default "Cancel"
      */
     cancelText: React.PropTypes.string,
+
+    /**
+     * Text for the save button
+     *
+     * @property saveText
+     * @type {String}
+     * @default "Save"
+     */
+    saveText: React.PropTypes.string,
 
     /**
      * Custom function for Cancel button onClick
@@ -114,7 +123,6 @@ class Form extends React.Component {
   }
 
   static defaultProps = {
-    cancelText: I18n.t('actions.cancel', { defaultValue: 'Cancel' }),
     cancel: true,
     saving: false,
     validateOnMount: false
@@ -132,7 +140,7 @@ class Form extends React.Component {
   }
 
   static contextTypes = {
-    dialog: React.PropTypes.object
+    modal: React.PropTypes.object
   }
 
   /**
@@ -148,7 +156,10 @@ class Form extends React.Component {
         detachFromForm: this.detachFromForm,
         incrementErrorCount: this.incrementErrorCount,
         decrementErrorCount: this.decrementErrorCount,
-        inputs: this.inputs
+        incrementWarningCount: this.incrementWarningCount,
+        decrementWarningCount: this.decrementWarningCount,
+        inputs: this.inputs,
+        validate: this.validate
       }
     };
   }
@@ -160,7 +171,15 @@ class Form extends React.Component {
      * @property errorCount
      * @type {Number}
      */
-    errorCount: 0
+    errorCount: 0,
+
+    /**
+     * Tracks the number of warnings in the form
+     *
+     * @property warningCount
+     * @type {Number}
+     */
+    warningCount: 0
   }
 
   /**
@@ -202,6 +221,26 @@ class Form extends React.Component {
    */
   decrementErrorCount = () => {
     this.setState({ errorCount: this.state.errorCount - 1 });
+  }
+
+  /**
+   * Increase current warning count in state by 1.
+   *
+   * @method incrementWarningCount
+   * @return {void}
+   */
+  incrementWarningCount = () => {
+    this.setState({ warningCount: this.state.warningCount + 1 });
+  }
+
+  /**
+   * Decreases the current warning count in state by 1.
+   *
+   * @method decrementWarningCount
+   * @return {void}
+   */
+  decrementWarningCount = () => {
+    this.setState({ warningCount: this.state.warningCount - 1 });
   }
 
   /**
@@ -296,7 +335,7 @@ class Form extends React.Component {
   }
 
   /**
-   * Redirects to the previous page; uses React Router history, or uses dialog cancel handler.
+   * Redirects to the previous page; uses React Router history, or uses modalcancel handler.
    *
    * @method cancelForm
    * @return {void}
@@ -304,8 +343,8 @@ class Form extends React.Component {
   cancelForm = () => {
     if (this.props.onCancel) {
       this.props.onCancel();
-    } else if (this.context.dialog) {
-      this.context.dialog.onCancel();
+    } else if (this.context.modal) {
+      this.context.modal.onCancel();
     } else {
       // history comes from react router
       if (!this._window.history) {
@@ -339,7 +378,7 @@ class Form extends React.Component {
 
     return (<div className={ cancelClasses }>
       <Button type='button' onClick={ this.cancelForm } >
-        { this.props.cancelText }
+        { this.props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' }) }
       </Button>
     </div>);
   }
@@ -355,10 +394,10 @@ class Form extends React.Component {
         errorCount,
         saveClasses = "ui-form__save";
 
-    if (this.state.errorCount) {
+    if (this.state.errorCount || this.state.warningCount) {
       // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
       errorCount = (
-        <span className="ui-form__summary" dangerouslySetInnerHTML={ errorMessage(this.state.errorCount) } />
+        <span className="ui-form__summary" dangerouslySetInnerHTML={ renderMessage(this.state.errorCount, this.state.warningCount) } />
       );
 
       saveClasses += " ui-form__save--invalid";
@@ -378,7 +417,7 @@ class Form extends React.Component {
           <div className={ saveClasses }>
             { errorCount }
             <Button as="primary" disabled={ this.props.saving }>
-              { saveText() }
+              { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
             </Button>
           </div>
 
@@ -416,27 +455,46 @@ function generateCSRFToken(doc) {
 }
 
 /**
- *  Constructs validations error message
+ * Constructs validations error message
  *
  * @private
- * @method errorMessage
+ * @method renderMessage
  * @param {Integer} count number of errors
+ * @param {Integer} count number of warnings
  * @return {Object} JSX Error message
  */
-function errorMessage(count) {
-  let errorMessage =  I18n.t("errors.messages.form_summary.errors", {
-    defaultValue: {
-      one: `There is ${ count } error`,
-      other: `There are ${ count } errors`
-    },
-    count: count
-  });
+function renderMessage(errors, warnings) {
+  let message;
 
-  return { __html: errorMessage };
-}
+  if (errors) {
+    message =  I18n.t("errors.messages.form_summary.errors", {
+      defaultValue: {
+        one: `There is ${ errors } error`,
+        other: `There are ${ errors } errors`
+      },
+      count: errors
+    });
+  }
 
-function saveText() {
-  return I18n.t('actions.save', { defaultValue: 'Save' });
+  if (errors && warnings) {
+    message +=  I18n.t("errors.messages.form_summary.errors_and_warnings", {
+      defaultValue: {
+        one: ` and ${ warnings } warning`,
+        other: ` and ${ warnings } warnings`
+      },
+      count: warnings
+    });
+  } else if (warnings) {
+    message =  I18n.t("errors.messages.form_summary.warnings", {
+      defaultValue: {
+        one: `There is ${ warnings } warning`,
+        other: `There are ${ warnings } warnings`
+      },
+      count: warnings
+    });
+  }
+
+  return { __html: message };
 }
 
 export default Form;

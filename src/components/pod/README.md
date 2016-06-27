@@ -29,4 +29,5 @@ to be collapsible. If the prop is not passed the pod will not be collapsible.
 | collapsed     | false       | Boolean        |               | Setting to true or false will set the intial state and allow the pod to be collapsed
 | title         | false       | String         |               | Pod Title h2 element |
 | description   | false       | String         |               | Pod Description |
+| onEdit        | false       | String | Function | Object       |               | Adds an edit link to the Pod |
 

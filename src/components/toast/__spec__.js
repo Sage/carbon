@@ -18,7 +18,7 @@ describe('Toast', () => {
     });
   });
 
-  describe('when toast is open', () => {
+  describe('when toast is open with onDismiss prop', () => {
     beforeEach(() => {
       onDismissSpy = jasmine.createSpy();
       instance = TestUtils.renderIntoDocument(
@@ -40,7 +40,7 @@ describe('Toast', () => {
 
     it('renders type icon', () => {
       let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-toast__type-icon');
-      expect(icon.className).toEqual("ui-toast__type-icon icon-info");
+      expect(icon.className).toEqual("ui-icon ui-toast__type-icon icon-info");
     });
 
     it('renders child content', () => {
@@ -50,13 +50,29 @@ describe('Toast', () => {
 
     it('renders close icon', () => {
       let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-toast__close');
-      expect(icon.className).toEqual('ui-toast__close icon-close');
+      expect(icon.className).toEqual('ui-icon ui-toast__close icon-close');
     });
 
     it('calls onDismiss method when clicking close', () => {
       let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-toast__close');
       TestUtils.Simulate.click(icon);
       expect(onDismissSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('when toast is open without onDismiss prop', () => {
+    beforeEach(() => {
+      onDismissSpy = jasmine.createSpy();
+      instance = TestUtils.renderIntoDocument(
+        <Toast open={ true } as="info" className="custom">
+          foobar
+        </Toast>
+      );
+    });
+
+    it('does not renders close icon', () => {
+      let icon = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-toast__close');
+      expect(icon.length).toEqual(0);
     });
   });
 });

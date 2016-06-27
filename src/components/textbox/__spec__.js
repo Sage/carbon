@@ -23,7 +23,7 @@ describe('Textbox', () => {
     });
 
     it('renders with a visible input', () => {
-      let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input')
+      let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
       expect(input.tagName).toEqual("INPUT");
       expect(input.getAttribute('label')).toBe('Label');
     });

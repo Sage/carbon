@@ -1,0 +1,5 @@
+{
+  "name": "multi-step-wizard",
+  "style": "multi-step-wizard.scss",
+  "main": "./multi-step-wizard.js"
+}

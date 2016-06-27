@@ -1,11 +1,8 @@
 {
   "name": "carbon",
-  "version": "0.7.1",
-  "description": "Fundamental building blocks.",
+  "version": "0.17.1",
+  "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "main": "index.js",
-  "style": [
-    "./src/style-base/general.scss"
-  ],
   "engineStrict": true,
   "engines": {
     "npm": "^3.0.0"
@@ -16,9 +13,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Sage/carbon.git"
+    "url": "https://github.com/Sage/carbon"
   },
-  "author": "",
+  "author": "The Sage Group plc",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Sage/carbon/issues"
@@ -45,6 +42,7 @@
     "bowser": "~1.0.0",
     "classnames": "~2.2.3",
     "crypto-js": "^3.1.6",
+    "es6-promise": "^3.2.1",
     "escape-string-regexp": "^1.0.5",
     "events": "~1.0.2",
     "form-serialize": "~0.7.0",

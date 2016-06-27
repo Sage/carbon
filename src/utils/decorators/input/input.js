@@ -1,3 +1,4 @@
+import css from './../../css';
 import React from 'react';
 import shouldComponentUpdate from './../../helpers/should-component-update';
 import { assign } from 'lodash';
@@ -148,11 +149,11 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   get mainClasses() {
     let classes = super.mainClasses;
 
-    return classNames(classes, this.props.className, 'common-input', {
-      'common-input--readonly': this.props.readOnly,
-      [`common-input--align-${this.props.align}`]: this.props.align,
-      'common-input--with-prefix': this.props.prefix,
-      'common-input--disabled': this.props.disabled
+    return classNames(classes, this.props.className, css.input, {
+      [`${css.input}--readonly`]: this.props.readOnly,
+      [`${css.input}--align-${this.props.align}`]: this.props.align,
+      [`${css.input}--with-prefix`]: this.props.prefix,
+      [`${css.input}--disabled`]: this.props.disabled
     });
   }
 
@@ -248,8 +249,20 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {HTML} HTML for input
    */
   get inputHTML() {
-    // builds the input with a variable input type - see `inputType`
-    let input = React.createElement(this.inputType, { ...this.inputProps });
+    let input;
+
+    if (this.props.fakeInput) {
+      // renders a fake input - useful for screens with lots of inputs
+      let classes = classNames(this.inputProps.className, 'common-input__input--fake');
+      input = (
+        <div className={ classes } onMouseOver={ this.inputProps.onMouseOver }>
+          { this.inputProps.value || this.inputProps.placeholder }
+        </div>
+      );
+    } else {
+      // builds the input with a variable input type - see `inputType`
+      input = React.createElement(this.inputType, { ...this.inputProps });
+    }
 
     return (
       <div { ...this.fieldProps }>

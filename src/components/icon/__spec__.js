@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Icon from './icon';
+import Tooltip from 'components/tooltip'
 
 describe('Icon', () => {
   let instance, span, svg;
@@ -45,13 +46,141 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--sort-up");
     });
+
+    it('calls the render refresh icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='refresh' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--refresh");
+    });
+
+    it('calls the render bin icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='bin' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--bin");
+    });
+
+    it('calls the render basket icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='basket' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--basket");
+    });
+
+    it('calls the render processing icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='processing' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--processing");
+    });
+
+    it('calls the render phone icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='phone' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--phone");
+    });
+
+    it('calls the render mobile icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='mobile' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--mobile");
+    });
+
+    it('calls the render location icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='location' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--location");
+    });
+
+    it('calls the render email icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='email' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--email");
+    });
+
+    it('calls the render minus icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='minus' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--minus");
+    });
+
+    it('calls the render minus icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='plus' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--plus");
+    });
+
+    it('calls the render business icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='business' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--business");
+    });
+
+    it('calls the render individual icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='individual' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--individual");
+    });
+
+    it('calls the render external link icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='external-link' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--external-link");
+    });
+
+    it('calls the render edit icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='edit' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--edit");
+    });
+
+    it('calls the render white tick method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='white-tick' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--white-tick");
+    });
+
+    it('calls the render peperclip icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='paperclip' />);
+      instance.renderIcon;
+      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--paperclip");
+    });
   });
 
   describe('success', () => {
     it('renders with an icon of tick', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='success' />);
       span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
-      expect(span.className).toEqual('icon-tick');
+      expect(span.className).toEqual('ui-icon icon-tick');
     });
   });
 
@@ -62,18 +191,28 @@ describe('Icon', () => {
     });
 
     it('renders with a class of icon-settings', () => {
-      expect(span.className).toEqual('icon-foo');
+      expect(span.className).toEqual('ui-icon icon-foo');
     });
   });
 
-  describe('with custom class name', () => {
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(<Icon type='foo' className='custom' />);
-      span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
-    });
+  describe ('mainClasses', () => {
+    describe('with custom class name', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(<Icon type='foo' className='custom' />);
+        span = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+      });
 
-    it('renders with a class of icon-settings and test', () => {
-      expect(span.className).toEqual('custom icon-foo');
+      it('renders with a class of icon-settings and test', () => {
+        expect(span.className).toEqual('ui-icon custom icon-foo');
+      });
+    });
+  });
+
+  describe('when passed a tooltipMessage', () => {
+    it('renders a tooltip', () => {
+      let helpInstance = TestUtils.renderIntoDocument(<Icon type='info' tooltipMessage='Helpful content' />);
+      let tooltip = TestUtils.findRenderedComponentWithType(helpInstance, Tooltip);
+      expect(tooltip).toBeDefined();
     });
   });
 });

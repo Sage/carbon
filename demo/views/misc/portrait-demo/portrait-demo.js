@@ -8,6 +8,7 @@ import Immutable from 'immutable';
 
 import Portrait from 'components/portrait';
 import Checkbox from 'components/checkbox';
+import Button from 'components/button';
 import Row from 'components/row';
 import Dropdown from 'components/dropdown';
 import Textbox from 'components/textbox';
@@ -31,22 +32,51 @@ class PortraitDemo extends React.Component {
    * @method demo
    */
   get demo() {
-    let props = {};
-    props.size = this.value('size');
-    props.alt = this.value('alt');
-    props.shape = this.value('shape');
-
-    if (this.value('gravatar')) {
-      props.gravatar = this.value('email'); 
-    } else {
-      props.src='https://facebook.github.io/react/img/logo.svg';
-    }
+    let props = {
+      size: this.value('size'),
+      alt: this.value('alt'),
+      shape: this.value('shape'),
+      useInitials: this.value('useInitials')
+    };
 
     return (
-      <div className='portrait-demo' >
-        <Portrait
-          { ...props }
-        />
+      <div ref={(c) => this._portrait = c} className='portrait-demo' >
+        <Row>
+          <div>
+            <h2>src:</h2>
+            <Portrait
+              { ...props }
+              src='https://facebook.github.io/react/img/logo.svg'
+              initials={ this.value('initials') }
+            />
+          </div>
+          <div>
+            <h2>Gravatar:</h2>
+            <Portrait
+              { ...props }
+              gravatar='chris.barber@sage.com'
+              initials={ this.value('initials') }
+            />
+          </div>
+        </Row>
+
+        <Row>
+          <div>
+            <h2>Gravatar fallback (with initials):</h2>
+            <Portrait
+              { ...props }
+              gravatar='foo'
+              initials={ this.value('initials') }
+            />
+          </div>
+          <div>
+            <h2>Gravatar fallback (without initials):</h2>
+            <Portrait
+              { ...props }
+              gravatar='foo'
+            />
+          </div>
+        </Row>
       </div>
     );
   }
@@ -100,7 +130,6 @@ class PortraitDemo extends React.Component {
             value={ this.value('size') }
             onChange={ this.action.bind(this, 'size') }
           />
-
           <Textbox
             label="Alt"
             value={ this.value('alt') }
@@ -108,20 +137,7 @@ class PortraitDemo extends React.Component {
             onChange={ this.action.bind(this, 'alt') }
           />
         </Row>
-        <Row>
-          <Checkbox
-            label="Gravatar"
-            value={ this.value('gravatar') }
-            onChange={ this.action.bind(this, 'gravatar') }
-          />
 
-          <Textbox
-            label="Gravatar"
-            value={ this.value('email') }
-            labelInline={ true }
-            onChange={ this.action.bind(this, 'email') }
-          />
-        </Row>
         <Row>
           <Dropdown
             options={ shapes }
@@ -129,6 +145,13 @@ class PortraitDemo extends React.Component {
             labelInline={ true }
             value={ this.value('shape') }
             onChange={ this.action.bind(this, 'shape') }
+          />
+          <Textbox
+            label="Initials"
+            value={ this.value('initials') }
+            labelInline={ true }
+            maxLength={ 3 }
+            onChange={ this.action.bind(this, 'initials') }
           />
         </Row>
       </div>

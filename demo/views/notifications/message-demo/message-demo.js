@@ -29,9 +29,19 @@ class MessageDemo extends React.Component {
    * @method demo
    */
   get demo() {
+    let props = {}
+
+    if (this.value('dismissable')) {
+      props.onDismiss = this.action.bind(this, 'open', { target: { value: false } });
+    }
+
     return (
       <Message
         as={ this.value('as') }
+        transparent={ this.value('transparent') }
+        open={ this.value('open') }
+        title={ this.value('title') }
+        { ...props }
       >
         { this.value('text') || " " }
       </Message>
@@ -46,6 +56,9 @@ class MessageDemo extends React.Component {
 
     html += "<Message";
     html += `\n  as='${this.value('as')}'`;
+    html += `\n  transparent='${false}'`;
+    html += `\n  open='${true}'`;
+    html += `\n  title='${this.value('title')}'`;
     html += "\n>\n";
     html += `  ${this.value('text')}`;
     html += "\n</Message>\n\n";
@@ -61,6 +74,13 @@ class MessageDemo extends React.Component {
       <div>
         <Row>
           <Textarea
+            label="Title"
+            value={ this.value('title') }
+            onChange={ this.action.bind(this, 'title') }
+          />
+        </Row>
+        <Row>
+          <Textarea
             label="Content"
             value={ this.value('text') }
             onChange={ this.action.bind(this, 'text') }
@@ -71,6 +91,21 @@ class MessageDemo extends React.Component {
           <AsDropdown
             value={ this.value('as') }
             onChange={ this.action.bind(this, 'as') }
+          />
+          <Checkbox
+            label="Transparent"
+            value={ this.value('transparent') }
+            onChange={ this.action.bind(this, 'transparent') }
+          />
+          <Checkbox
+            label="Open"
+            value={ this.value('open') }
+            onChange={ this.action.bind(this, 'open') }
+          />
+          <Checkbox
+            label="Dismissable"
+            value={ this.value('dismissable') }
+            onChange={ this.action.bind(this, 'dismissable') }
           />
         </Row>
       </div>

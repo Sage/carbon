@@ -73,6 +73,12 @@
   }
 
   &[disabled]:checked + .ui-radio-button__sprite .radio-button-check {
-    fill: $grey;
+    fill: $grey-dark-blue-50;
   }
+}
+
+.ui-radio-button__help-text {
+  display: block;
+  margin-top: 0;
+  margin-left: 21px;
 }

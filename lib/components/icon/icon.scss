@@ -1,3 +1,11 @@
+.ui-icon {
+  position: relative;
+}
+
+.ui-icon__svg {
+  fill: currentColor;
+}
+
 @font-face {
   font-family: 'CarbonIcons';
   src: url('/assets/fonts/carbon-icons-webfont.eot');

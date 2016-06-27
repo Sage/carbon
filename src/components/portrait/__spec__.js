@@ -4,7 +4,7 @@ import Portrait from './portrait';
 import MD5 from 'crypto-js/md5';
 
 describe('Portrait', () => {
-  let instance, gravatarInstance;
+  let instance, gravatarInstance, initialsInstance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -20,6 +20,49 @@ describe('Portrait', () => {
         gravatar='foo'
       />
     );
+
+    initialsInstance = TestUtils.renderIntoDocument(
+      <Portrait
+        gravatar='foo'
+        initials="foo"
+        size="small"
+      />
+    );
+  });
+
+  describe('componentWillReceiveProps', () => {
+    let props;
+
+    beforeEach(() => {
+      initialsInstance.memoizeInitials = "foobar";
+      props = {
+        initials: "foo",
+        size: "small"
+      };
+    });
+
+    describe('if initials are different', () => {
+      it('nulls the cache', () => {
+        props.initials = "bar";
+        initialsInstance.componentWillReceiveProps(props);
+        expect(initialsInstance.memoizeInitials).toEqual(null);
+      });
+    });
+
+    describe('if size is different', () => {
+      it('nulls the cache', () => {
+        props.size = "medium";
+        initialsInstance.componentWillReceiveProps(props);
+        expect(initialsInstance.memoizeInitials).toEqual(null);
+      });
+    });
+
+    describe('if nothing changes', () => {
+      it('keeps the cache', () => {
+        initialsInstance.componentWillReceiveProps(props);
+        expect(initialsInstance.memoizeInitials).toEqual("foobar");
+      });
+    });
   });
 
   describe('custome props function', () => {
@@ -57,39 +100,54 @@ describe('Portrait', () => {
     });
   });
 
+  describe('generateInitials', () => {
+    describe('if cached', () => {
+      it('returns the cached result', () => {
+        gravatarInstance.memoizeInitials = 'foo';
+        expect(gravatarInstance.generateInitials).toEqual('foo');
+      });
+    });
+
+    describe('if not cached', () => {
+      it('returns new image', () => {
+        expect(gravatarInstance.generateInitials).toMatch('data:image/png');
+      });
+    });
+  });
+
   describe('imgProps', () => {
     describe('when a gravatar is passed', () => {
-      it('returns gravatar props', () => {
-        let props = gravatarInstance.imgProps;
+      it('returns gravatar src', () => {
+        let src = gravatarInstance.imgSrc;
         let base = 'http://www.gravatar.com/avatar/';
         let hash = MD5('foo');
         let size = '70'
 
-        expect(props.src).toEqual(`${base}${hash}?s=${size}`);
+        expect(src).toEqual(`${base}${hash}?s=${size}&d=blank`);
       });
     });
 
     describe('when a src is passed', () => {
       it('returns the passed src as the image source', () => {
-        let props = instance.imgProps;
-        expect(props.src).toEqual('foo');
+        let src = instance.imgSrc;
+        expect(src).toEqual('foo');
       });
     });
   });
 
   describe('numericSizes', () => {
     it('returns a object mapping size to numeric value', () => {
-      expect(instance.numericSizes.small).toEqual('30');
+      expect(instance.numericSizes.small).toEqual('25');
     });
   });
 
   describe('mainClasses', () => {
     it('adds a ui-portrait classes', () => {
-      expect(gravatarInstance.mainClasses).toEqual('ui-portrait ui-portrait--lmed ui-portrait--standard');
+      expect(gravatarInstance.mainClasses).toEqual('ui-portrait ui-portrait--image ui-portrait--lmed ui-portrait--standard');
     });
 
     it('appends additional passed classNames', () => {
-      expect(instance.mainClasses).toEqual('ui-portrait ui-portrait--lmed ui-portrait--standard custom-class');
+      expect(instance.mainClasses).toEqual('ui-portrait ui-portrait--image ui-portrait--lmed ui-portrait--standard custom-class');
     });
   });
 

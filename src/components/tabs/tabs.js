@@ -69,6 +69,14 @@ import classNames from 'classnames';
  */
 class Tabs extends React.Component {
 
+  /**
+   * Store the window object as property.
+   *
+   * @property _window
+   * @type {Object}
+   */
+  _window = window
+
   static propTypes = {
 
     /**
@@ -107,7 +115,15 @@ class Tabs extends React.Component {
      * @property align
      * @type {String}
      */
-    align: React.PropTypes.string
+    align: React.PropTypes.string,
+
+    /**
+     * Emitted when a tab header is clicked
+     *
+     * @property onTabClick
+     * @type {Func}
+     */
+    onTabClick: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -160,11 +176,27 @@ class Tabs extends React.Component {
   componentWillMount() {
     let initialSelectedTabId;
 
-    if (this.props.initialTabId) {
-      initialSelectedTabId = this.props.initialTabId;
+    if (this.props.initialSelectedTabId) {
+      initialSelectedTabId = this.props.initialSelectedTabId;
     } else {
+      let hash = this._window.location.hash.substring(1);
+
       if (Array.isArray(this.props.children)) {
-        initialSelectedTabId = compact(this.props.children)[0].props.tabId;
+        let children = compact(this.props.children),
+            useHash = false;
+
+        if (hash) {
+          for (let index in children) {
+            let child = children[index];
+
+            if (child.props.tabId == hash) {
+              useHash = true;
+              break;
+            }
+          }
+        }
+
+        initialSelectedTabId = useHash ? hash : children[0].props.tabId;
       } else {
         initialSelectedTabId = this.props.children.props.tabId;
       }
@@ -192,7 +224,13 @@ class Tabs extends React.Component {
    * @param {Event} ev Click Event
    */
   handleTabClick = (ev) => {
-    this.setState({ selectedTabId: ev.target.dataset.tabid });
+    let tabid = ev.target.dataset.tabid;
+    this._window.location = `#${tabid}`;
+    this.setState({ selectedTabId: tabid });
+
+    if (this.props.onTabClick) {
+      this.props.onTabClick(tabid);
+    }
   }
 
   /**
@@ -210,6 +248,7 @@ class Tabs extends React.Component {
   tabHeaderClasses = (tab) => {
     return classNames(
       'ui-tabs__headers__header',
+      tab.props.headerClassName,
       {
         'ui-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
         'ui-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId

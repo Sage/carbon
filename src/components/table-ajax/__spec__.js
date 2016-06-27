@@ -32,6 +32,14 @@ describe('TableAjax', () => {
     );
   });
 
+  describe('componentWillUnmount', () => {
+    it('calls stopTimeout', () => {
+      spyOn(instance, 'stopTimeout');
+      instance.componentWillUnmount();
+      expect(instance.stopTimeout).toHaveBeenCalled();
+    });
+  });
+
   describe('componentDidMount', () => {
     it('calls emitOnChange to get initial table data', () => {
       spyOn(instance, 'emitOnChangeCallback');
@@ -108,6 +116,16 @@ describe('TableAjax', () => {
       jasmine.clock().uninstall();
     });
 
+    it('resets the select all component', () => {
+      let selectAllComponent = {
+        setState: jasmine.createSpy()
+      };
+      instance.selectAllComponent = selectAllComponent;
+      instance.emitOnChangeCallback('data', options);
+      expect(selectAllComponent.setState).toHaveBeenCalledWith({ selected: false });
+      expect(instance.selectAllComponent).toBe(null);
+    });
+
     it('Sets the new pageSize and currentPage in state', () => {
       spyOn(instance, 'setState');
       instance.emitOnChangeCallback('data', options);
@@ -142,6 +160,14 @@ describe('TableAjax', () => {
       jasmine.clock().tick(251);
       request = jasmine.Ajax.requests.mostRecent();
       expect(request.url).toEqual('/test?page=1&rows=10');
+    });
+
+    it('stores the request', () => {
+      expect(instance._request).toBe(null);
+      instance.emitOnChangeCallback('data', options);
+      jasmine.clock().tick(251);
+      request = jasmine.Ajax.requests.mostRecent();
+      expect(instance._request).toBeDefined();
     });
 
     it('on success emits the returned data', () => {
@@ -197,6 +223,17 @@ describe('TableAjax', () => {
         instance.timeout = 'foo'
         instance.stopTimeout();
         expect(window.clearTimeout).toHaveBeenCalledWith('foo');
+      });
+    });
+
+    describe('when request is present', () => {
+      it('aborts the request', () => {
+        let spy = jasmine.createSpy(),
+            req = { abort: spy };
+
+        instance._request = req;
+        instance.stopTimeout();
+        expect(spy).toHaveBeenCalled();
       });
     });
   });

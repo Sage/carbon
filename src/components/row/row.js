@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { compact } from 'lodash';
 
 /**
  * A row widget.
@@ -10,7 +11,7 @@ import classNames from 'classnames';
  *
  * In your file
  *
- *   import Row from 'carbon/lib/components/Row';
+ *   import Row from 'carbon/lib/components/row';
  *
  * To render the Row:
  *
@@ -31,7 +32,7 @@ class Row extends React.Component {
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object
-    ]).isRequired
+    ])
   }
 
   /**
@@ -41,14 +42,17 @@ class Row extends React.Component {
    * @return {Array} array of built columns
    */
   buildColumns = () => {
-    let columns = [];
+    if (!this.props.children) { return null; }
 
-    if (this.props.children.length) {
-      this.props.children.forEach((child, index) => {
+    let columns = [],
+        children = (this.props.children.constructor === Array) ? compact(this.props.children) : this.props.children;
+
+    if (children.constructor === Array && children.length) {
+      children.forEach((child, index) => {
         columns.push(this.buildColumn(child, index));
       });
-    } else {
-      columns.push(this.buildColumn(this.props.children, 0));
+    } else if (children.constructor !== Array) {
+      columns.push(this.buildColumn(children, 0));
     }
 
     return columns;
@@ -90,8 +94,8 @@ class Row extends React.Component {
 
     if (this.props.columns) {
       columns = this.props.columns;
-    } else if (this.props.children.constructor === Array) {
-      columns = this.props.children.length;
+    } else if (this.props.children && this.props.children.constructor === Array) {
+      columns = compact(this.props.children).length;
     }
 
     return classNames(

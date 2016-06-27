@@ -1,6 +1,6 @@
-# Carbon
+# Carbon [ ![Codeship Status for Sage/carbon](https://codeship.com/projects/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad/status?branch=master)](https://codeship.com/projects/115478)
 
-[ ![Codeship Status for Sage/carbon](https://codeship.com/projects/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad/status?branch=master)](https://codeship.com/projects/115478)
+<img src="https://raw.githubusercontent.com/Sage/carbon/master/logo/carbon-logo.png?token=ABlz8AY2cEu6mf55GIDn6nlzLiovc9zFks5XbPWBwA%3D%3D" width="50">
 
 Carbon is a library of reusable [React](https://facebook.github.io/react/) components and an interface for easily building user interfaces based on [Flux](https://facebook.github.io/flux/).
 
@@ -36,7 +36,18 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 
 ## Running the Example
 
-Carbon has an example page, which demonstrates most of the components with a Flux implementation. This can be used to quickly see a demonstration of the components and/or as an area to test while developing with the components. To run the example, simply run `gulp` from the root directory of the Carbon repository and navigate to [http://localhost:8080/](http://localhost:8080/).
+Carbon has an example page, which demonstrates most of the components with a Flux implementation. This can be used to quickly see a demonstration of the components and/or as an area to test while developing with the components.
+
+To run the example, do the following steps:
+  1. Clone the carbon repository (`git clone git@github.com:Sage/carbon.git`)
+  2. `cd carbon`
+  3. `npm install`
+  4. `gulp`
+  5. Navigate to [http://localhost:8080/](http://localhost:8080/) in your favourite browser
+
+## Testing Changes Locally in your App
+
+See the guide on [installing unreleased changes](https://github.com/Sage/carbon/blob/master/docs/guides/installing-unreleased-changes.md)
 
 ## Technologies
 

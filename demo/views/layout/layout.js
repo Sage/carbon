@@ -2,6 +2,8 @@ import React from 'react';
 import RowDemo from './row-demo';
 import TabsDemo from './tabs-demo';
 import PodDemo from './pod-demo';
+import ContentDemo from './content-demo';
+import CarouselDemo from './carousel-demo';
 
 class Layout extends React.Component {
   /**
@@ -12,9 +14,11 @@ class Layout extends React.Component {
       <div>
         <h1>Layout</h1>
         <RowDemo />
+        <CarouselDemo />
         <TabsDemo />
         <PodDemo />
-        <PodDemo collapsed={ true }/>
+        <PodDemo collapsed={ true } />
+        <ContentDemo />
       </div>
     );
   }

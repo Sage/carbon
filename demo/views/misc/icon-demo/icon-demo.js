@@ -31,7 +31,7 @@ class IconDemo extends React.Component {
     let type = this.value('type')
     return (
       <div className='icon-demo__icon'>
-        <Icon type={ type } />
+        <Icon type={ type } tooltipMessage="fsdfds" pointerAlign="left" />
       </div>
     );
   }
@@ -99,7 +99,17 @@ class IconDemo extends React.Component {
       { name: 'Dropdown K',       id: 'dropdown' },
       { name: 'Add +',            id: 'add' },
       { name: 'Warning',          id: 'warning' },
-      { name: 'Maintenance',      id: 'maintenance' }
+      { name: 'Maintenance',      id: 'maintenance' },
+      { name: 'Sort Up',          id: 'sort-up' },
+      { name: 'Sort Down',        id: 'sort-down' },
+      { name: 'Refresh',          id: 'refresh' },
+      { name: 'Bin',              id: 'bin' },
+      { name: 'Basket',           id: 'basket' },
+      { name: 'Phone',            id: 'phone' },
+      { name: 'Mobile',           id: 'mobile' },
+      { name: 'Location',         id: 'location' },
+      { name: 'Email',            id: 'email' },
+      { name: 'Paperclip',        id: 'paperclip' }
     ]);
 
     return (

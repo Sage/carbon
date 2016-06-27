@@ -6,21 +6,75 @@ import Immutable from 'immutable';
 import FormInputHelper from './../helpers/form-input-helper';
 
 let data = ImmutableHelper.parseJSON({
+  alert: {
+    title: 'Alert!'
+  },
+  animated_menu_button: {
+    alignRight: true,
+    size: 'large'
+  },
   button: {
     text: "Action"
+  },
+  button_toggle: {
+    option_one: "Option One"
+  },
+  carousel: {
+    slideData: [{}, {}]
+  },
+  checkbox: {
+    label: "Checkbox",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
+  },
+  confirm: {
+    title: 'Are you sure?'
   },
   collapsible_pod: {
     title: 'Hello World!'
   },
+  content: {
+    title: 'Example Content',
+    body: 'This is some example content\nfor the Content component.'
+  },
+  date: {
+    label: "Date",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
+  },
+  decimal: {
+    label: "Decimal",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
+  },
   dialog: {
+    closeOnESCKey: false,
+    showCloseIcon: true,
+    closeOnBackgroundClick: false,
     open: false,
     title: 'Hello World!',
+    disableBackground: true
+  },
+  dropdown: {
+    label: "Dropdown",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
+  },
+  dialog_full_screen: {
+    open: false,
+    title: 'Your Header Goes Here',
     disableBackground: true
   },
   flash: {
     as: "warning",
     open: true,
     text: "Sample flash notification."
+  },
+  form: {
+    cancel: true
+  },
+  help: {
+    message: "This is an example of a help tooltip."
   },
   icon: {
     type: 'info'
@@ -29,8 +83,23 @@ let data = ImmutableHelper.parseJSON({
     text: "Sample Link"
   },
   message: {
-    as: "warning",
-    text: "Sample message."
+    dismissable: true,
+    open: true,
+    as: "error",
+    title: "Lorem ipsum dolor",
+    text: "Nullam id dolor id nibh ultricies vehicula ut id elit."
+  },
+  multi_action_button: {
+    text: 'Multi Action Button',
+    as: 'secondary'
+  },
+  multi_step_wizard: {
+    currentStep: 1,
+    enableInactiveSteps: false,
+    completed: false
+  },
+  number: {
+    value: 0
   },
   pill: {
     as: 'new',
@@ -39,12 +108,18 @@ let data = ImmutableHelper.parseJSON({
   portrait: {
     size: 'lmed',
     shape: 'standard',
-    email: 'Email'
+    email: 'Email',
+    initials: 'CB'
   },
   pod: {
     border: true,
     padding: "medium",
     as: "primary"
+  },
+  radio_button: {
+    label: "Radio Button",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
   },
   rainbow: {
     data: [{
@@ -63,12 +138,18 @@ let data = ImmutableHelper.parseJSON({
   row: {
     columnData: [{}, {}, {}, {}]
   },
+  sidebar: {
+    open: false
+  },
   spinner: {
     as: 'info',
     size: 'lmed'
   },
   split_button: {
     text: "Main Action"
+  },
+  text: {
+    content: "Example of stylised text content."
   },
   table: {
     current_page: "1",
@@ -95,10 +176,35 @@ let data = ImmutableHelper.parseJSON({
   tabs: {
     tabData: [{}, {}]
   },
+  textbox: {
+    label: "Textbox",
+    labelHelp: "Example label help.",
+    fieldHelp: "Example field help."
+  },
   toast: {
+    dismissable: true,
     as: "warning",
     open: true,
     text: "Sample toast notification."
+  },
+  tooltip: {
+    message: 'Some Helpful Content'
+  },
+  validations: {
+    validator: 'presence',
+    length: {
+      setIs: false,
+      min: 0,
+      is: 5,
+      max: 5 
+    },
+    numeral: {
+      integer: false,
+      setIs: false,
+      min: 0,
+      is: 5,
+      max: 10
+    }
   }
 });
 
