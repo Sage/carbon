@@ -76,7 +76,6 @@ class DecimalDemo extends React.Component {
    * @method render
    */
   render() {
-    console.log(this.value('precision'))
     return (
       <Example
         title="Decimal"
