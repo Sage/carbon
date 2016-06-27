@@ -28,6 +28,10 @@ Our Link component now supports the React Router. Instead of passing a `href` pr
 
 Content now has a `secondary` theme which can be applied using the `as` prop.
 
+## Label Updates
+
+* You can supply a `input-width` prop to any input to define its width.
+
 ## Modal Updates
 
 ### Change in functionality!
