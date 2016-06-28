@@ -15,23 +15,47 @@ Added margin and padding `0` to the base CSS.
 
 ## Uniform Sizing
 
+All components that take a Size Prop have been unfied to accept the following
+
+If you are using the default size of a component there is no change needed except for the `Spinner`
+
+```
+extra-small
+small
+medium-small
+medium
+medium-large
+large
+extra-large
+```
+
 ### Animated Menu Button
-  * Added `xsmall`
-  * !! CHANGED - `medium` to `med`
-  * !! CHANGED - `mlarge` to `lmed`
+  * Added `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * !! CHANGED - `mlarge` to `medium-large`
   * Added `xlarge`
 
 ### Portrait
-  * Added `xsmall` 
-  * Added `med`
+  * Added `extra-small` 
+  * !! CHANGED - `smed to `medium-small`
+  * Added `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
 
 ### Spinner
-  * !! CHANGED - Removed ui-table override to reduce border width. Spinner will now appear larger by default and thinner
-  * Added `xsmall`
-  * Added `med`
+  * !! CHANGED - default is now `medium`
+
+  * Added `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * Added `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
   * Added `xlarge`
 
 ### Dialog
+  * !! CHANGED - `xsmall` to `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * !! CHANGED - `med` to `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
   * Added `xlarge`
 
 ## Link (React Router)
