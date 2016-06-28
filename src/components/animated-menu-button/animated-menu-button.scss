@@ -93,7 +93,7 @@
 
       /******* Size Options ****/
 
-      .ui-animated-menu-button--xsmall#{&} {
+      .ui-animated-menu-button--extra-small#{&} {
         min-width: 100px;
       }
 
@@ -101,15 +101,15 @@
         min-width: 150px;
       }
 
-      .ui-animated-menu-button--smed#{&} {
+      .ui-animated-menu-button--medium-small#{&} {
         min-width: 400px;
       }
 
-      .ui-animated-menu-button--med#{&} {
+      .ui-animated-menu-button--medium#{&} {
         min-width: 550px;
       }
 
-      .ui-animated-menu-button--lmed#{&} {
+      .ui-animated-menu-button--medium-large#{&} {
         min-width: 700px;
       }
 
@@ -117,7 +117,7 @@
         min-width: 1050px;
       }
 
-      .ui-animated-menu-button--xlarge#{&} {
+      .ui-animated-menu-button--extra-large#{&} {
         min-width: 1200px;
       }
     }

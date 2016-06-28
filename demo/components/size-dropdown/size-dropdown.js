@@ -5,26 +5,26 @@ import Dropdown from 'components/dropdown';
 class SizeDropdown extends React.Component {
   render() {
     let opts = Immutable.fromJS([{
-      id: "xsmall",
-      name: "XSmall"
+      id: "extra-small",
+      name: "Extra Small"
     }, {
       id: "small",
       name: "Small"
     }, {
-      id: "smed",
-      name: "Smed"
+      id: "medium-small",
+      name: "Medium Small"
     }, {
-      id: "med",
-      name: "Med"
+      id: "medium",
+      name: "Medium"
     }, {
-      id: "lmed",
-      name: "Lmed"
+      id: "medium-large",
+      name: "Medium Large"
     }, {
       id: "large",
       name: "Large"
     }, {
-      id: "xlarge",
-      name: "XLarge"
+      id: "extra-large",
+      name: "Extra Large"
     }]);
 
     return (

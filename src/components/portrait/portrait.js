@@ -89,7 +89,7 @@ class Portrait extends React.Component {
   }
 
   static defaultProps = {
-    size: 'lmed',
+    size: 'medium',
     shape: 'standard'
   };
 
