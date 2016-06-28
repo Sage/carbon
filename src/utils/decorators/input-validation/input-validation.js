@@ -424,11 +424,16 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     let messageClasses = `common-input__message common-input__message--${type}`,
         iconClasses = `common-input__icon common-input__icon--${type}`;
 
+    // position icon relative to width of label
+    let iconStyle = this.props.labelWidth ?
+      { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` } :
+      null;
+
     if (this.state.messageLocked) { messageClasses += " common-input__message--locked"; }
     if (this.flipped) { messageClasses += " common-input__message--flipped"; }
 
     return [
-      <Icon key="0" ref="validationIcon" type={ type } className={ iconClasses } />,
+      <Icon key="0" ref="validationIcon" type={ type } className={ iconClasses } style={ iconStyle } />,
       <div key="1" className="common-input__message-wrapper">
         <div ref="validationMessage" className={ messageClasses }>
           { this.state.errorMessage || this.state.warningMessage }

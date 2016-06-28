@@ -49,8 +49,16 @@
   }
 
   .ui-icon.common-input__icon {
-    left: 0;
     right: auto;
+    left: 0;
+  }
+}
+
+.common-input--align-right.common-input--label-inline {
+  .ui-icon.common-input__icon {
+    right: 70%;
+    left: auto;
+    margin: 7px -40px;
   }
 }
 
