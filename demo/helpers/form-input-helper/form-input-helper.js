@@ -16,7 +16,7 @@ let FormInputHelper = {
       readOnly: scope.value('readOnly'),
       prefix: scope.value('prefix'),
       fieldHelp: scope.value('fieldHelp'),
-      inputWidth: scope.value('inputWidth'),
+      inputWidth: scope.value('labelInline') ? scope.value('inputWidth') : '',
       labelHelp: scope.value('labelHelp'),
       labelAlign: (scope.value('labelAlign') ? 'right' : null)
     };
