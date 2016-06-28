@@ -48,6 +48,15 @@ describe('Decimal', () => {
       expect(instance.state.visibleValue).toEqual("1,000,000.00");
     });
 
+    describe('when precision is passed', () => {
+      it('sets the visibleValue state to teh formatted version using i18n opts', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Decimal name="total" value="12345.67891" precision={ 5 } />
+        );
+        expect(instance.state.visibleValue).toEqual("12,345.67891");
+      });
+    });
+
     describe('with alternative I18n options', () => {
       beforeEach(() => {
         I18n.translations = { en: { number: { format: {

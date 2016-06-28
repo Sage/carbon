@@ -16,6 +16,7 @@ let FormInputHelper = {
       readOnly: scope.value('readOnly'),
       prefix: scope.value('prefix'),
       fieldHelp: scope.value('fieldHelp'),
+      inputWidth: scope.value('labelInline') ? scope.value('inputWidth') : '',
       labelHelp: scope.value('labelHelp'),
       labelAlign: (scope.value('labelAlign') ? 'right' : null)
     };
@@ -42,8 +43,14 @@ let FormInputHelper = {
       html += `\n  labelInline={${scope.value('labelInline')}}`;
     }
 
-    if (scope.value('labelInline') && scope.value('labelWidth')) {
-      html += `\n  labelWidth='${scope.value('labelWidth')}'`;
+    if (scope.value('labelInline')) {
+      if (scope.value('labelWidth')) {
+        html += `\n  labelWidth='${scope.value('labelWidth')}'`;
+      }
+
+      if (scope.value('inputWidth')) {
+        html += `\n  inputWidth='${scope.value('inputWidth')}'`;
+      }
     }
 
     if (scope.value('disabled')) {
@@ -111,7 +118,17 @@ let FormInputHelper = {
             disabled={ !scope.value('labelInline') }
             onChange={ onChange.bind(scope, 'labelWidth') }
             placeholder="In percent"
-            columnSpan="2"
+            columnSpan="1"
+          />
+
+          <Number
+            label="Input Width"
+            labelInline={ true }
+            value={ scope.value('inputWidth') }
+            disabled={ !scope.value('labelInline') }
+            onChange={ onChange.bind(scope, 'inputWidth') }
+            placeholder="In percent"
+            columnSpan="1"
           />
         </Row>
 

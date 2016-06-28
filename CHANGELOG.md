@@ -73,6 +73,10 @@ Our Link component now supports the React Router. Instead of passing a `href` pr
 
 Content now has a `secondary` theme which can be applied using the `as` prop.
 
+## Label Updates
+
+* You can supply a `input-width` prop to any input to define its width.
+
 ## Modal Updates
 
 ### Change in functionality!
@@ -88,6 +92,7 @@ Dialog
   * New props `showCloseIcon` (defaulted to true) which show and hides the close icon
 
 ## Promises
+
 Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by
 
 ```javascript
@@ -99,6 +104,14 @@ Promises Polyfill. Carbon now contains a ES6 Promises helper which can be import
 Message
 
   * New props `transparent` (defaulted to false) which if set to true sets the background to transparent
+
+## Decimal
+
+* Decimal can now receive a prop of precision
+
+## Split Button
+
+ * Small CSS change to remove gap in Safari
 
 # 0.17.1
 
