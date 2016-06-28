@@ -6,6 +6,7 @@ import Icon from 'components/icon';
 
 describe('Help', () => {
   let basicInstance, positionedInstance, alignedInstance, customStyleInstance, linkInstance;
+  let base = document.location.origin;
 
   beforeEach(() => {
     basicInstance = TestUtils.renderIntoDocument(
@@ -76,7 +77,7 @@ describe('Help', () => {
     });
 
     it('passes the href if provided', () => {
-      expect(hrefAnchor.props.href).toEqual('www.foo.com');
+      expect(hrefAnchor.href).toEqual(base + '/www.foo.com');
     });
   });
 });

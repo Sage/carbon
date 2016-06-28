@@ -127,13 +127,7 @@ describe('Dropdown', () => {
   describe('handleSelect', () => {
     it('calls selectValue', () => {
       spyOn(instance, 'selectValue');
-      instance.handleSelect({
-        currentTarget: {
-          getAttribute: function() { return 'foo' },
-          textContent: 'bar'
-        }
-      });
-
+      instance.handleSelect('foo', 'bar');
       expect(instance.selectValue).toHaveBeenCalledWith('foo', 'bar');
     });
   });
@@ -141,12 +135,7 @@ describe('Dropdown', () => {
   describe('handleMouseOverListItem', () => {
     it('calls setState', () => {
       spyOn(instance, 'setState');
-      instance.handleMouseOverListItem({
-        currentTarget: {
-          getAttribute: function() { return 'foo' }
-        }
-      });
-
+      instance.handleMouseOverListItem('foo');
       expect(instance.setState).toHaveBeenCalledWith({ highlighted: 'foo' });
     });
   });

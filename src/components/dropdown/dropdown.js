@@ -297,30 +297,34 @@ class Dropdown extends React.Component {
       case 13: // return
         if (element) {
           ev.preventDefault();
-          this.selectValue(element.getAttribute('value'), element.textContent);
+          this.selectValue(this.getIdByIndex(element.value), element.textContent);
         }
         break;
       case 38: // up arrow
         ev.preventDefault();
-        nextVal = list.lastChild.getAttribute('value');
+        nextVal = list.lastChild.value;
 
         if (element && element.previousElementSibling) {
-          nextVal = element.previousElementSibling.getAttribute('value');
+          nextVal = element.previousElementSibling.value;
         }
 
-        this.setState({ highlighted: nextVal });
+        this.setState({ highlighted: this.getIdByIndex(nextVal) });
         break;
       case 40: // down arrow
         ev.preventDefault();
-        nextVal = list.firstChild.getAttribute('value');
+        nextVal = list.firstChild.value;
 
         if (element && element.nextElementSibling) {
-          nextVal = element.nextElementSibling.getAttribute('value');
+          nextVal = element.nextElementSibling.value;
         }
 
-        this.setState({ highlighted: nextVal });
+        this.setState({ highlighted: this.getIdByIndex(nextVal) });
         break;
     }
+  }
+
+  getIdByIndex = (index) => {
+    return String(this.props.options.getIn([index, 'id']));
   }
 
   /**
