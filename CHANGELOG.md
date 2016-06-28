@@ -16,9 +16,7 @@ Added margin and padding `0` to the base CSS.
 
 ## Uniform Sizing
 
-All components that take a Size Prop have been unfied to accept the following
-
-If you are using the default size of a component there is no change needed except for the `Spinner`
+All components that take a Size Prop have been unified to accept the following
 
 ```
 extra-small
@@ -30,20 +28,24 @@ large
 extra-large
 ```
 
-### Animated Menu Button
+If you are using the default size of a component there is no change needed except for the `Spinner`
+
+### Component Breakdown
+
+#### Animated Menu Button
   * Added `extra-small`
   * !! CHANGED - `smed to `medium-small`
   * !! CHANGED - `mlarge` to `medium-large`
   * Added `xlarge`
 
-### Portrait
+#### Portrait
   * Added `extra-small` 
   * !! CHANGED - `smed to `medium-small`
   * Added `medium`
   * !! CHANGED - `mlarge` to `medium-large`
   * Added `xlarge`
 
-### Spinner
+#### Spinner
   * !! CHANGED - default is now `medium`
 
   * Added `extra-small`
@@ -52,7 +54,7 @@ extra-large
   * !! CHANGED - `mlarge` to `medium-large`
   * Added `xlarge`
 
-### Dialog
+#### Dialog
   * !! CHANGED - `xsmall` to `extra-small`
   * !! CHANGED - `smed to `medium-small`
   * !! CHANGED - `med` to `medium`
