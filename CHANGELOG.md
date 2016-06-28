@@ -1,5 +1,6 @@
 # 0.18.0
 
+
 ## !! BREAKING CHANGE !!
 
 * Renamed Browser `redirectUrl` method to `redirectTo`
@@ -67,6 +68,10 @@ Message
 ## Split Button
 
  * Small CSS change to remove gap in Safari
+
+## Input Validation
+
+* Validation icons now position themselves relative to width of input field when label is inline.
 
 # 0.17.1
 
