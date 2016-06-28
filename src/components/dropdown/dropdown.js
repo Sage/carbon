@@ -304,7 +304,12 @@ class Dropdown extends React.Component {
         ev.preventDefault();
         nextVal = list.lastChild.getAttribute('value');
 
-        if (element && element.previousElementSibling) {
+        // handle looping through the list first
+        if (element === list.firstChild) {
+          this.updateScroll(list, list.lastChild);
+          nextVal = list.lastChild.getAttribute('value');
+        } else if (element && element.previousElementSibling) {
+          this.updateScroll(list, element.previousElementSibling);
           nextVal = element.previousElementSibling.getAttribute('value');
         }
 
@@ -314,12 +319,36 @@ class Dropdown extends React.Component {
         ev.preventDefault();
         nextVal = list.firstChild.getAttribute('value');
 
-        if (element && element.nextElementSibling) {
+        if (element === list.lastChild) {
+          this.updateScroll(list, list.firstChild);
+          nextVal = list.firstChild.getAttribute('value');
+        } else if (element && element.nextElementSibling) {
+          this.updateScroll(list, element.nextElementSibling);
           nextVal = element.nextElementSibling.getAttribute('value');
         }
 
         this.setState({ highlighted: nextVal });
         break;
+    }
+  }
+
+  /**
+   * Sets the scroll position for the list
+   *
+   * @method updateScroll
+   * @param {HTML} ul list element
+   * @param {HTML} next li element to be selected
+   * @return {Void}
+   */
+  updateScroll(list, nextItem) {
+    let firstTop = list.firstChild.offsetTop,
+        itemHeight = nextItem.offsetHeight,
+        listHeight = list.offsetHeight;
+
+    if (nextItem.offsetTop + itemHeight > listHeight) {
+      list.scrollTop = nextItem.offsetTop - firstTop - (listHeight - itemHeight);
+    } else if (nextItem.offsetTop === 1) {
+      list.scrollTop = nextItem.offsetTop - firstTop;
     }
   }
 

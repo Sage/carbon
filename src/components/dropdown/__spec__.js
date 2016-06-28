@@ -335,6 +335,8 @@ describe('Dropdown', () => {
       instance = TestUtils.renderIntoDocument(
         <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value="" />
       );
+
+      spyOn(instance, 'updateScroll');
     });
 
     describe('if there is no list', () => {
@@ -436,6 +438,14 @@ describe('Dropdown', () => {
             TestUtils.Simulate.keyDown(instance._input, opts);
             expect(instance.setState).toHaveBeenCalledWith({ highlighted: '2' });
           });
+
+          it('it calls updateScroll with the list and the next sibling', () => {
+            instance.setState({ highlighted: 1 });
+            let list = instance.refs.list;
+            let element = list.getElementsByClassName('ui-dropdown__list__item--highlighted')[0];
+            TestUtils.Simulate.keyDown(instance._input, opts);
+            expect(instance.updateScroll).toHaveBeenCalledWith(list, element.nextElementSibling);
+          });
         });
 
         describe('if there is no next sibling', () => {
@@ -444,6 +454,13 @@ describe('Dropdown', () => {
             spyOn(instance, 'setState');
             TestUtils.Simulate.keyDown(instance._input, opts);
             expect(instance.setState).toHaveBeenCalledWith({ highlighted: '1' });
+          });
+
+          it('it calls updateScroll with the list and the last list element', () => {
+            instance.setState({ highlighted: 1 });
+            let list = instance.refs.list;
+            TestUtils.Simulate.keyDown(instance._input, opts);
+            expect(instance.updateScroll).toHaveBeenCalledWith(list, list.lastChild);
           });
         });
       });
@@ -468,14 +485,29 @@ describe('Dropdown', () => {
             TestUtils.Simulate.keyDown(instance._input, opts);
             expect(instance.setState).toHaveBeenCalledWith({ highlighted: '1' });
           });
+
+          it('it calls updateScroll with the list and the previous sibling', () => {
+            instance.setState({ highlighted: 2 });
+            let list = instance.refs.list;
+            let element = list.getElementsByClassName('ui-dropdown__list__item--highlighted')[0];
+            TestUtils.Simulate.keyDown(instance._input, opts);
+            expect(instance.updateScroll).toHaveBeenCalledWith(list, element.previousElementSibling);
+          });
         });
 
-        describe('if there is no next sibling', () => {
+        describe('if there is no previous sibling', () => {
           it('calls setState with the correct values', () => {
             instance.setState({ highlighted: 1 });
             spyOn(instance, 'setState');
             TestUtils.Simulate.keyDown(instance._input, opts);
             expect(instance.setState).toHaveBeenCalledWith({ highlighted: '2' });
+          });
+
+          it('it calls updateScroll with the list and the first list element', () => {
+            instance.setState({ highlighted: 2 });
+            let list = instance.refs.list;
+            TestUtils.Simulate.keyDown(instance._input, opts);
+            expect(instance.updateScroll).toHaveBeenCalledWith(list, list.firstChild);
           });
         });
 
@@ -493,6 +525,35 @@ describe('Dropdown', () => {
             expect(instance.setState).toHaveBeenCalledWith({ highlighted: 'foo' });
           });
         });
+      });
+    });
+  });
+
+  describe('updateScroll', () => {
+    describe('when moving down to a hidden element', () => {
+      it('sets the scrollTop correctly', () => {
+        let list = { firstChild: { offsetTop: 1 }, offsetHeight: 5 , scrollTop: 1};
+        let nextItem = { offsetHeight: 2, offsetTop: 6};
+        instance.updateScroll(list, nextItem);
+        expect(list.scrollTop).toEqual(2);
+      });
+    });
+
+    describe('when moving to top of list', () => {
+      it('sets the scrollTop correctly', () => {
+        let list = { firstChild: { offsetTop: 1 }, offsetHeight: 10 , scrollTop: 1};
+        let nextItem = { offsetHeight: 2, offsetTop: 1};
+        instance.updateScroll(list, nextItem);
+        expect(list.scrollTop).toEqual(0);
+      });
+    });
+
+    describe('if neither conditions are met', () => {
+      it('does not update the scrollTop', () => {
+        let list = { firstChild: { offsetTop: 1 }, offsetHeight: 10 , scrollTop: 1};
+        let nextItem = { offsetHeight: 2, offsetTop: 3};
+        instance.updateScroll(list, nextItem);
+        expect(list.scrollTop).toEqual(1);
       });
     });
   });
