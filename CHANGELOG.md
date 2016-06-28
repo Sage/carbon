@@ -32,6 +32,10 @@ Content now has a `secondary` theme which can be applied using the `as` prop.
 
 * You can supply a `input-width` prop to any input to define its width.
 
+## Dropdown Updates
+
+* Keying up and down through list now moves scrollbar
+
 ## Modal Updates
 
 ### Change in functionality!
