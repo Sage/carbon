@@ -1,5 +1,11 @@
-# 0.18.0
+# 0.18.1
 
+## Minor Changes
+
+* Disabled Pill's colours have been updated.
+* Individual and Business SVGs have been updated in Icon.
+
+# 0.18.0
 
 ## !! BREAKING CHANGE !!
 
