@@ -8,6 +8,7 @@ import FormInputHelper from './../helpers/form-input-helper';
 let data = ImmutableHelper.parseJSON({
   alert: {
     open: false,
+    size: 'extra-small',
     title: 'Alert!'
   },
   animated_menu_button: {
@@ -32,6 +33,7 @@ let data = ImmutableHelper.parseJSON({
     value: false
   },
   confirm: {
+    size: 'extra-small',
     title: 'Are you sure?'
   },
   collapsible_pod: {
@@ -57,8 +59,10 @@ let data = ImmutableHelper.parseJSON({
     labelHelp: "Example label help.",
     fieldHelp: "Example field help.",
     value: '0.00'
+    precision: 3
   },
   dialog: {
+    size: 'medium',
     closeOnESCKey: false,
     showCloseIcon: true,
     closeOnBackgroundClick: false,
@@ -133,7 +137,7 @@ let data = ImmutableHelper.parseJSON({
   },
   portrait: {
     alt: '',
-    size: 'lmed',
+    size: 'small',
     shape: 'standard',
     email: 'Email',
     initials: 'CB'
@@ -181,7 +185,7 @@ let data = ImmutableHelper.parseJSON({
   },
   spinner: {
     as: 'info',
-    size: 'lmed'
+    size: 'medium'
   },
   split_button: {
     text: "Main Action"

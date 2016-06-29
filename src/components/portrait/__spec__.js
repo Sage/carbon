@@ -121,7 +121,7 @@ describe('Portrait', () => {
         let src = gravatarInstance.imgSrc;
         let base = 'http://www.gravatar.com/avatar/';
         let hash = MD5('foo');
-        let size = '70'
+        let size = '60'
 
         expect(src).toEqual(`${base}${hash}?s=${size}&d=blank`);
       });
@@ -137,17 +137,17 @@ describe('Portrait', () => {
 
   describe('numericSizes', () => {
     it('returns a object mapping size to numeric value', () => {
-      expect(instance.numericSizes.small).toEqual('25');
+      expect(instance.numericSizes.small).toEqual('30');
     });
   });
 
   describe('mainClasses', () => {
     it('adds a ui-portrait classes', () => {
-      expect(gravatarInstance.mainClasses).toEqual('ui-portrait ui-portrait--image ui-portrait--lmed ui-portrait--standard');
+      expect(gravatarInstance.mainClasses).toEqual('ui-portrait ui-portrait--image ui-portrait--medium ui-portrait--standard');
     });
 
     it('appends additional passed classNames', () => {
-      expect(instance.mainClasses).toEqual('ui-portrait ui-portrait--image ui-portrait--lmed ui-portrait--standard custom-class');
+      expect(instance.mainClasses).toEqual('ui-portrait ui-portrait--image ui-portrait--medium ui-portrait--standard custom-class');
     });
   });
 

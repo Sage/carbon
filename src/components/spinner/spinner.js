@@ -49,7 +49,7 @@ class Spinner extends React.Component {
 
   static defaultProps = {
     as: 'info',
-    size: 'lmed'
+    size: 'medium'
   };
 
   /**
