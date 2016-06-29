@@ -3,6 +3,7 @@
 ## Minor Tweaks
 
 * Portrait extra small size has been changed from `20px` to `25px`.
+* Portrait can have a dark background.
 
 # 0.18.0
 
