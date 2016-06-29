@@ -2,6 +2,8 @@
 
 ## Minor Changes
 
+* Portrait extra small size has been changed from `20px` to `25px`.
+* Portrait can have a dark background.
 * Disabled Pill's colours have been updated.
 * Individual and Business SVGs have been updated in Icon.
 
