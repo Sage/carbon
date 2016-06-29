@@ -29,8 +29,8 @@
 }
 
 .ui-pill--disabled--fill {
-  background-color: $grey-mid;
-  color: $white;
+  background-color: $grey-dark-blue-20;
+  color: $grey-dark-blue-60;
 }
 
 @each $set in $colorIconSets {
