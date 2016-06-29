@@ -1,5 +1,10 @@
-# 0.18.0
+# 0.18.1
 
+## Minor Tweaks
+
+* Portrait extra small size has been changed from `20px` to `25px`.
+
+# 0.18.0
 
 ## !! BREAKING CHANGE !!
 
