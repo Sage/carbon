@@ -4,6 +4,15 @@
 
 * All dropdowns now allow keying up and down through the list
 
+# 0.18.1
+
+## Minor Changes
+
+* Portrait extra small size has been changed from `20px` to `25px`.
+* Portrait can have a dark background.
+* Disabled Pill's colours have been updated.
+* Individual and Business SVGs have been updated in Icon.
+
 # 0.18.0
 
 ## !! BREAKING CHANGE !!

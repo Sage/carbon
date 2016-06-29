@@ -48,6 +48,7 @@ class PortraitDemo extends React.Component {
               { ...props }
               src='https://facebook.github.io/react/img/logo.svg'
               initials={ this.value('initials') }
+              darkBackground={ this.value('darkBackground') }
             />
           </div>
           <div>
@@ -56,6 +57,7 @@ class PortraitDemo extends React.Component {
               { ...props }
               gravatar='chris.barber@sage.com'
               initials={ this.value('initials') }
+              darkBackground={ this.value('darkBackground') }
             />
           </div>
         </Row>
@@ -67,6 +69,7 @@ class PortraitDemo extends React.Component {
               { ...props }
               gravatar='foo'
               initials={ this.value('initials') }
+              darkBackground={ this.value('darkBackground') }
             />
           </div>
           <div>
@@ -74,6 +77,7 @@ class PortraitDemo extends React.Component {
             <Portrait
               { ...props }
               gravatar='foo'
+              darkBackground={ this.value('darkBackground') }
             />
           </div>
         </Row>
@@ -96,6 +100,10 @@ class PortraitDemo extends React.Component {
 
     if (this.value('shape') !== 'standard') {
       html += `  shape="${ this.value('shape') }"\n`
+    }
+
+    if (this.value('darkBackground')) {
+      html += `  darkBackground={ true }"\n`
     }
 
     if (this.value('gravatar')) {
@@ -152,6 +160,13 @@ class PortraitDemo extends React.Component {
             labelInline={ true }
             maxLength={ 3 }
             onChange={ this.action.bind(this, 'initials') }
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Dark Background"
+            value={ this.value('darkBackground') }
+            onChange={ this.action.bind(this, 'darkBackground') }
           />
         </Row>
       </div>
