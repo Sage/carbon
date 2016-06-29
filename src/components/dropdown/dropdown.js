@@ -256,7 +256,6 @@ class Dropdown extends React.Component {
   nameByID = () => {
     if (this.props.options) {
       this.visibleValue = '';
-
       // if no value selected, no match possible
       if (!this.props.value) { return this.visibleValue; }
 
@@ -264,7 +263,6 @@ class Dropdown extends React.Component {
       let option = this.props.options.find((item) => {
         return item.get('id') == this.props.value;
       });
-
       // If match is found, set visibleValue to option's name;
       if (option) { this.visibleValue = option.get('name'); }
     }
@@ -281,7 +279,6 @@ class Dropdown extends React.Component {
    */
   handleKeyDown = (ev) => {
     ev.stopPropagation();
-    ev.preventDefault();
 
     if (!this.refs.list) {
       // if up/down/space then open list
@@ -299,13 +296,16 @@ class Dropdown extends React.Component {
     switch(ev.which) {
       case 13: // return
         if (element) {
+          ev.preventDefault();
           this.selectValue(element.getAttribute('value'), element.textContent);
         }
         break;
       case 38: // up arrow
+        ev.preventDefault();
         nextVal = this.onUpArrow(list, element);
         break;
       case 40: // down arrow
+        ev.preventDefault();
         nextVal = this.onDownArrow(list, element);
         break;
     }
@@ -420,7 +420,6 @@ class Dropdown extends React.Component {
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
     }
-
     return props;
   }
 
