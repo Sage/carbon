@@ -1,5 +1,10 @@
-# 0.18.0
+# 0.19.0
 
+## Dropdown component updates
+
+* All dropdowns now allow keying up and down through the list
+
+# 0.18.0
 
 ## !! BREAKING CHANGE !!
 
@@ -39,7 +44,7 @@ If you are using the default size of a component there is no change needed excep
   * Added `xlarge`
 
 #### Portrait
-  * Added `extra-small` 
+  * Added `extra-small`
   * !! CHANGED - `smed to `medium-small`
   * Added `medium`
   * !! CHANGED - `mlarge` to `medium-large`

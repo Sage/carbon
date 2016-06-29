@@ -604,7 +604,7 @@ describe('Dropdown', () => {
     describe('if the list was closed', () => {
       it('returns the value of the last item in the list', () => {
         list = instance.refs.list;
-        let nextValue = instance.onUpArrow(list, null);
+        let nextValue = instance.onDownArrow(list, null);
         expect(nextValue).toEqual(list.firstChild.getAttribute('value'));
       });
     });
