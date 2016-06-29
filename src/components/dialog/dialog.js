@@ -85,7 +85,7 @@ class Dialog extends Modal {
   }
 
   static defaultProps = {
-    size: 'med',
+    size: 'medium',
     showCloseIcon: true
   }
 

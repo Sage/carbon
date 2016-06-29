@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import InputValidation from './input-validation';
+import InputLabel from './../input-label';
 import Form from 'components/form';
 
 let validationOne = {
@@ -98,6 +99,15 @@ class DummyInput extends DummyInputWithoutLifecycleMethods {
     };
   }
 }
+
+class LabelClass extends React.Component {
+  render() {
+    return <div>{ this.validationHTML }</div>;
+  }
+}
+
+// Required to test icon positioning
+let LabelComponent = InputLabel(InputValidation(LabelClass));
 
 let SimpleComponent = InputValidation(DummyInputWithoutLifecycleMethods);
 let Component = InputValidation(DummyInput);
@@ -743,6 +753,30 @@ describe('InputValidation', () => {
 
         expect(instance.validationHTML[1].props.children.props.className).toEqual('common-input__message common-input__message--error');
         expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
+      });
+
+      describe('if a label width prop has been applied', () => {
+        describe('when the label is right aligned', () => {
+          it('sets the appropriate right style', () => {
+            let instanceLabel = TestUtils.renderIntoDocument(
+              <LabelComponent labelWidth={ 20 } align='right' validations={ [validationThree] } value='foo'/>
+            );
+            instanceLabel.validate();
+            let icon = instanceLabel.refs.validationIcon
+            expect(icon.props.style.right).toEqual('80%');
+          });
+        });
+
+        describe('when the label is left aligned', () => {
+          it('sets the appropriate left style', () => {
+            let instanceLabel = TestUtils.renderIntoDocument(
+              <LabelComponent labelWidth={ 20 } align='left' validations={ [validationThree] } value='foo'/>
+            );
+            instanceLabel.validate();
+            let icon = instanceLabel.refs.validationIcon
+            expect(icon.props.style.left).toEqual('80%');
+          });
+        });
       });
 
       describe('when the message is locked', () => {

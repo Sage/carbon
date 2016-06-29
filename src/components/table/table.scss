@@ -16,19 +16,19 @@
   table-layout: fixed;
   width: auto;
   word-break: break-all;
+
+  // loading animation:
+
+  .ui-spinner {
+    height: 8px;
+    width: 8px;
+    margin-bottom: -4px;
+  }
 }
 
 .ui-table--pager {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-}
-
-// loading animation:
-
-.ui-spinner {
-  height: 8px;
-  width: 8px;
-  margin-bottom: -4px;
 }
 
 .table-loading-appear {
