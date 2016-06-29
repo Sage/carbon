@@ -330,44 +330,77 @@ describe('Dropdown', () => {
     let ev;
 
     beforeEach(() => {
-      ev = { which: "" };
+      ev = { which: "", stopPropagation: () => {}, preventDefault: () => {} };
 
       instance = TestUtils.renderIntoDocument(
         <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value="" />
       );
 
       spyOn(instance, 'updateScroll');
+      spyOn(ev, 'stopPropagation');
+      spyOn(instance, 'onUpArrow').and.returnValue('foo');
+      spyOn(instance, 'onDownArrow').and.returnValue('bar');
+    });
+
+    it('stops propagation of the event', () => {
+      instance.handleKeyDown(ev);
+      expect(ev.stopPropagation).toHaveBeenCalled();
     });
 
     describe('if there is no list', () => {
       beforeEach(() => {
         spyOn(instance, 'setState');
+        spyOn(ev, 'preventDefault');
       });
 
       describe('if up key', () => {
-        it('opens the list', () => {
+        beforeEach(() => {
           spyOn(Events, 'isUpKey').and.returnValue(true);
+        });
+
+        it('opens the list', () => {
           let result = instance.handleKeyDown(ev);
           expect(instance.setState).toHaveBeenCalledWith({ open: true });
           expect(result).toBe(undefined);
+        });
+
+        it('prevents Default', () => {
+          instance.handleKeyDown(ev);
+          expect(ev.preventDefault).toHaveBeenCalled();
         });
       });
 
       describe('if down key', () => {
-        it('opens the list', () => {
+        beforeEach(() => {
           spyOn(Events, 'isDownKey').and.returnValue(true);
+        });
+
+        it('opens the list', () => {
           let result = instance.handleKeyDown(ev);
           expect(instance.setState).toHaveBeenCalledWith({ open: true });
           expect(result).toBe(undefined);
         });
+
+        it('prevents Default', () => {
+          instance.handleKeyDown(ev);
+          expect(ev.preventDefault).toHaveBeenCalled();
+        });
       });
 
       describe('if space key', () => {
-        it('opens the list', () => {
+        beforeEach(() => {
           spyOn(Events, 'isSpaceKey').and.returnValue(true);
+        });
+
+        it('opens the list', () => {
           let result = instance.handleKeyDown(ev);
           expect(instance.setState).toHaveBeenCalledWith({ open: true });
           expect(result).toBe(undefined);
+        });
+
+        it('prevents Default', () => {
+          instance.handleKeyDown(ev);
+          expect(ev.preventDefault).toHaveBeenCalled();
         });
       });
 
@@ -436,15 +469,7 @@ describe('Dropdown', () => {
             instance.setState({ highlighted: 1 });
             spyOn(instance, 'setState');
             TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '2' });
-          });
-
-          it('it calls updateScroll with the list and the next sibling', () => {
-            instance.setState({ highlighted: 1 });
-            let list = instance.refs.list;
-            let element = list.getElementsByClassName('ui-dropdown__list__item--highlighted')[0];
-            TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.updateScroll).toHaveBeenCalledWith(list, element.nextElementSibling);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 'foo' });
           });
         });
 
@@ -453,14 +478,7 @@ describe('Dropdown', () => {
             instance.setState({ highlighted: 2 });
             spyOn(instance, 'setState');
             TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '1' });
-          });
-
-          it('it calls updateScroll with the list and the last list element', () => {
-            instance.setState({ highlighted: 1 });
-            let list = instance.refs.list;
-            TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.updateScroll).toHaveBeenCalledWith(list, list.lastChild);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 'foo' });
           });
         });
       });
@@ -483,15 +501,7 @@ describe('Dropdown', () => {
             instance.setState({ highlighted: 2 });
             spyOn(instance, 'setState');
             TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '1' });
-          });
-
-          it('it calls updateScroll with the list and the previous sibling', () => {
-            instance.setState({ highlighted: 2 });
-            let list = instance.refs.list;
-            let element = list.getElementsByClassName('ui-dropdown__list__item--highlighted')[0];
-            TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.updateScroll).toHaveBeenCalledWith(list, element.previousElementSibling);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 'bar' });
           });
         });
 
@@ -500,14 +510,7 @@ describe('Dropdown', () => {
             instance.setState({ highlighted: 1 });
             spyOn(instance, 'setState');
             TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.setState).toHaveBeenCalledWith({ highlighted: '2' });
-          });
-
-          it('it calls updateScroll with the list and the first list element', () => {
-            instance.setState({ highlighted: 2 });
-            let list = instance.refs.list;
-            TestUtils.Simulate.keyDown(instance._input, opts);
-            expect(instance.updateScroll).toHaveBeenCalledWith(list, list.firstChild);
+            expect(instance.setState).toHaveBeenCalledWith({ highlighted: 'bar' });
           });
         });
 
@@ -525,6 +528,63 @@ describe('Dropdown', () => {
             expect(instance.setState).toHaveBeenCalledWith({ highlighted: 'foo' });
           });
         });
+      });
+    });
+  });
+
+  describe('onUpArrow', () => {
+    let list, element;
+
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value="" />
+      );
+
+      spyOn(instance, 'updateScroll');
+      instance.setState({ open: true });
+      instance.setState({ highlighted: 1 });
+      list = instance.refs.list;
+      element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+      instance.onUpArrow(list, element);
+    });
+
+    describe('if there is a next sibling', () => {
+      it('it calls updateScroll with the list and the next sibling', () => {
+        expect(instance.updateScroll).toHaveBeenCalledWith(list, element.nextElementSibling);
+      });
+    });
+
+    describe('if there is no next sibling', () => {
+      it('it calls updateScroll with the list and the last list element', () => {
+        expect(instance.updateScroll).toHaveBeenCalledWith(list, list.lastChild);
+      });
+    });
+  });
+
+  describe('onDownArrow', () => {
+    let list, element;
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value="" />
+      );
+
+      spyOn(instance, 'updateScroll');
+      instance.setState({ open: true });
+      instance.setState({ highlighted: 2 });
+      list = instance.refs.list;
+      element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+      instance.onDownArrow(list, element);
+    });
+
+    describe('if there is a previous sibling', () => {
+      it('it calls updateScroll with the list and the previous sibling', () => {
+        expect(instance.updateScroll).toHaveBeenCalledWith(list, element.previousElementSibling);
+      });
+    });
+
+    describe('if there is no previous sibling', () => {
+      it('it calls updateScroll with the list and the first list element', () => {
+        expect(instance.updateScroll).toHaveBeenCalledWith(list, list.firstChild);
       });
     });
   });
@@ -700,12 +760,12 @@ describe('Dropdown', () => {
     });
 
     it('adds selected class', () => {
-      expect(instance.results(instance.options)[0].props.className).toEqual('ui-dropdown__list__item ui-dropdown__list__item--highlighted ui-dropdown__list__item--selected');
+      expect(instance.results(instance.options)[0].props.className).toEqual('ui-dropdown__list-item ui-dropdown__list-item--highlighted ui-dropdown__list-item--selected');
     });
 
     it('adds highlighted class', () => {
       instance.setState({ highlighted: 2 });
-      expect(instance.results(instance.options)[1].props.className).toEqual('ui-dropdown__list__item ui-dropdown__list__item--highlighted');
+      expect(instance.results(instance.options)[1].props.className).toEqual('ui-dropdown__list-item ui-dropdown__list-item--highlighted');
     });
   });
 

@@ -283,6 +283,7 @@ class Dropdown extends React.Component {
     if (!this.refs.list) {
       // if up/down/space then open list
       if (Events.isUpKey(ev) || Events.isDownKey(ev) || Events.isSpaceKey(ev)) {
+        ev.preventDefault();
         this.setState({ open: true });
       }
 
@@ -290,7 +291,7 @@ class Dropdown extends React.Component {
     }
 
     let list = this.refs.list,
-        element = list.getElementsByClassName('ui-dropdown__list__item--highlighted')[0],
+        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0],
         nextVal;
 
     switch(ev.which) {
@@ -510,7 +511,7 @@ class Dropdown extends React.Component {
    * @method results
    */
   results(options) {
-    let className = 'ui-dropdown__list__item',
+    let className = 'ui-dropdown__list-item',
         highlighted = this.highlighted(options);
 
     let results = options.map((option) => {

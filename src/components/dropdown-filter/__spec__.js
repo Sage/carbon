@@ -355,7 +355,7 @@ describe('DropdownFilter', () => {
       it('adds no items option', () => {
         instance.setState({ filter: 'foo' });
         expect(instance.results([]).type).toEqual('li');
-        expect(instance.results([]).props.className).toEqual('ui-dropdown__list__item ui-dropdown__list__item--no-results');
+        expect(instance.results([]).props.className).toEqual('ui-dropdown__list-item ui-dropdown__list-item--no-results');
         expect(instance.results([]).props.children).toEqual('No results match "foo"');
       });
     });
