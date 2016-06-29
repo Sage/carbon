@@ -28,6 +28,8 @@ class Chrome extends React.Component {
         <div className="ui-demo__content">
           { this.props.children }
         </div>
+        <div className='ui-demo__footer'>
+        </div>
       </div>
     );
   }
