@@ -31,6 +31,7 @@ class Forms extends React.Component {
         <DropdownDemo />
         <TextareaDemo />
         <DropdownFilterDemo />
+        <DropdownFilterAjaxDemo />
         <Fieldset />
         <ValidationsDemo />
       </div>

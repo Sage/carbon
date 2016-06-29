@@ -35,7 +35,8 @@ exports.countries = function(query) {
   return {
     rows: filteredCountries.toJS(),
     records: numberOfResults,
-    current_page: page
+    current_page: page,
+    data:  [{items: filteredCountries, page: page, records: numberOfResults }]
   };
 };
 
