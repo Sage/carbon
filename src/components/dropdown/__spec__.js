@@ -542,27 +542,56 @@ describe('Dropdown', () => {
 
       spyOn(instance, 'updateScroll');
       instance.setState({ open: true });
-      instance.setState({ highlighted: 1 });
-      list = instance.refs.list;
-      element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
-      instance.onUpArrow(list, element);
     });
 
-    describe('if there is a next sibling', () => {
-      it('it calls updateScroll with the list and the next sibling', () => {
-        expect(instance.updateScroll).toHaveBeenCalledWith(list, element.nextElementSibling);
+    describe('if the list was closed', () => {
+      it('returns the value of the last item in the list', () => {
+        list = instance.refs.list;
+        let nextValue = instance.onUpArrow(list, null);
+        expect(nextValue).toEqual(list.lastChild.getAttribute('value'));
       });
     });
 
-    describe('if there is no next sibling', () => {
+    describe('if the element is the first in the list', () => {
       it('it calls updateScroll with the list and the last list element', () => {
+        instance.setState({ highlighted: 1 });
+        list = instance.refs.list;
+        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        instance.onUpArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, list.lastChild);
+      });
+
+      it('returns the next highlighted value', () => {
+        instance.setState({ highlighted: 1 });
+        list = instance.refs.list;
+        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        let nextValue = instance.onUpArrow(list, element);
+        expect(nextValue).toEqual(list.lastChild.getAttribute('value'));
+      });
+    });
+
+    describe('if there is a next sibling', () => {
+      it('it calls updateScroll with the list and the last list element', () => {
+        instance.setState({ highlighted: 2 });
+        list = instance.refs.list;
+        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        instance.onUpArrow(list, element);
+        expect(instance.updateScroll).toHaveBeenCalledWith(list, element.previousElementSibling);
+      });
+
+      it('returns the next highlighted value', () => {
+        instance.setState({ highlighted: 2 });
+        list = instance.refs.list;
+        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        let nextValue = instance.onUpArrow(list, element);
+        expect(nextValue).toEqual(element.previousElementSibling.getAttribute('value'));
       });
     });
   });
 
   describe('onDownArrow', () => {
     let list, element;
+
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
         <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value="" />
@@ -570,21 +599,33 @@ describe('Dropdown', () => {
 
       spyOn(instance, 'updateScroll');
       instance.setState({ open: true });
-      instance.setState({ highlighted: 2 });
-      list = instance.refs.list;
-      element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
-      instance.onDownArrow(list, element);
     });
 
-    describe('if there is a previous sibling', () => {
-      it('it calls updateScroll with the list and the previous sibling', () => {
-        expect(instance.updateScroll).toHaveBeenCalledWith(list, element.previousElementSibling);
+    describe('if the list was closed', () => {
+      it('returns the value of the last item in the list', () => {
+        list = instance.refs.list;
+        let nextValue = instance.onUpArrow(list, null);
+        expect(nextValue).toEqual(list.firstChild.getAttribute('value'));
       });
     });
 
-    describe('if there is no previous sibling', () => {
-      it('it calls updateScroll with the list and the first list element', () => {
+    describe('if the element is the last in the list', () => {
+      it('it calls updateScroll with the list and the previous sibling', () => {
+        instance.setState({ highlighted: 2 });
+        list = instance.refs.list;
+        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        instance.onDownArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, list.firstChild);
+      });
+    });
+
+    describe('if there is a next sibling', () => {
+      it('it calls updateScroll with the list and next element', () => {
+        instance.setState({ highlighted: 1 });
+        list = instance.refs.list;
+        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        instance.onDownArrow(list, element);
+        expect(instance.updateScroll).toHaveBeenCalledWith(list, element.nextElementSibling);
       });
     });
   });
