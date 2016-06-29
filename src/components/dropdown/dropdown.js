@@ -280,6 +280,9 @@ class Dropdown extends React.Component {
    * @param {Object} ev event
    */
   handleKeyDown = (ev) => {
+    ev.stopPropagation();
+    ev.preventDefault();
+
     if (!this.refs.list) {
       // if up/down/space then open list
       if (Events.isUpKey(ev) || Events.isDownKey(ev) || Events.isSpaceKey(ev)) {
@@ -296,48 +299,67 @@ class Dropdown extends React.Component {
     switch(ev.which) {
       case 13: // return
         if (element) {
-          ev.preventDefault();
           this.selectValue(element.getAttribute('value'), element.textContent);
         }
         break;
       case 38: // up arrow
-        ev.preventDefault();
-        nextVal = list.lastChild.getAttribute('value');
-
-        // handle looping through the list first
-        if (element === list.firstChild) {
-          this.updateScroll(list, list.lastChild);
-          nextVal = list.lastChild.getAttribute('value');
-        } else if (element && element.previousElementSibling) {
-          this.updateScroll(list, element.previousElementSibling);
-          nextVal = element.previousElementSibling.getAttribute('value');
-        }
-
-        this.setState({ highlighted: nextVal });
+        nextVal = this.onUpArrow(list, element);
         break;
       case 40: // down arrow
-        ev.preventDefault();
-        nextVal = list.firstChild.getAttribute('value');
-
-        if (element === list.lastChild) {
-          this.updateScroll(list, list.firstChild);
-          nextVal = list.firstChild.getAttribute('value');
-        } else if (element && element.nextElementSibling) {
-          this.updateScroll(list, element.nextElementSibling);
-          nextVal = element.nextElementSibling.getAttribute('value');
-        }
-
-        this.setState({ highlighted: nextVal });
+        nextVal = this.onDownArrow(list, element);
         break;
     }
+    this.setState({ highlighted: nextVal });
+  }
+
+  /**
+   * Gets the previous item on up arrow
+   *
+   * @method onDownArrow
+   * @param {HTML} list ul element
+   * @param {HTML} element current li element
+   * @return {HTML} nextVal next li element to be selected
+   */
+  onUpArrow = (list, element) => {
+    let nextVal = list.lastChild.getAttribute('value');
+
+    if (element === list.firstChild) {
+      this.updateScroll(list, list.lastChild);
+      nextVal = list.lastChild.getAttribute('value');
+    } else if (element && element.previousElementSibling) {
+      this.updateScroll(list, element.previousElementSibling);
+      nextVal = element.previousElementSibling.getAttribute('value');
+    }
+    return nextVal;
+  }
+
+  /**
+   * Gets the next item on down arrow
+   *
+   * @method onDownArrow
+   * @param {HTML} list ul element
+   * @param {HTML} element current li element
+   * @return {HTML} nextVal next li element to be selected
+   */
+  onDownArrow = (list, element) => {
+    let nextVal = list.firstChild.getAttribute('value');
+
+    if (element === list.lastChild) {
+      this.updateScroll(list, list.firstChild);
+      nextVal = list.firstChild.getAttribute('value');
+    } else if (element && element.nextElementSibling) {
+      this.updateScroll(list, element.nextElementSibling);
+      nextVal = element.nextElementSibling.getAttribute('value');
+    }
+    return nextVal;
   }
 
   /**
    * Sets the scroll position for the list
    *
    * @method updateScroll
-   * @param {HTML} ul list element
-   * @param {HTML} next li element to be selected
+   * @param {HTML} list ul element
+   * @param {HTML} element current li element
    * @return {Void}
    */
   updateScroll(list, nextItem) {
@@ -476,7 +498,6 @@ class Dropdown extends React.Component {
    */
   get listHTML() {
     if (!this.state.open) { return null; }
-
     return (
       <ul { ...this.listProps }>
         { this.results(this.options) }
