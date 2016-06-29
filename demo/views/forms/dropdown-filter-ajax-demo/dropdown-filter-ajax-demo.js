@@ -28,9 +28,11 @@ class DropdownFilterAjaxDemo extends React.Component {
    * @method demo
    */
   get demo() {
+    // debugger
     return (
       <DropdownFilterAjax
         { ...FormInputHelper.demoProps(this, this.action) }
+        visibleValue={ this.value('value') }
         path="/countries"
       />
     );
