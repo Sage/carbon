@@ -16,7 +16,7 @@
     "url": "https://github.com/Sage/carbon"
   },
   "author": "The Sage Group plc",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Sage/carbon/issues"
   },
