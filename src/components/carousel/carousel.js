@@ -315,4 +315,4 @@ class Carousel extends React.Component {
   }
 }
 
-export default { Carousel, Slide };
+export { Carousel, Slide };
