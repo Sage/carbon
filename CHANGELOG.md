@@ -14,6 +14,53 @@
 
 Added margin and padding `0` to the base CSS.
 
+## Uniform Sizing
+
+All components that take a Size Prop have been unified to accept the following
+
+```
+extra-small
+small
+medium-small
+medium
+medium-large
+large
+extra-large
+```
+
+If you are using the default size of a component there is no change needed except for the `Spinner`
+
+### Component Breakdown
+
+#### Animated Menu Button
+  * Added `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
+#### Portrait
+  * Added `extra-small` 
+  * !! CHANGED - `smed to `medium-small`
+  * Added `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
+#### Spinner
+  * !! CHANGED - default is now `medium`
+
+  * Added `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * Added `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
+#### Dialog
+  * !! CHANGED - `xsmall` to `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * !! CHANGED - `med` to `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
 ## Link (React Router)
 
 Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.

@@ -45,6 +45,7 @@ class DialogDemo extends React.Component {
           showCloseIcon={ this.value('showCloseIcon') }
           closeOnBackgroundClick={ this.value('closeOnBackgroundClick') }
           closeOnESCKey={ this.value('closeOnESCKey') }
+          size={ this.value('size') }
         >
           <Row>
             <Textbox />
@@ -67,6 +68,10 @@ class DialogDemo extends React.Component {
 
     if (!this.value('showCloseIcon')) {
       html += `  showCloseIcon={ false }\n`;
+    }
+
+    if (this.value('size') !== 'med') {
+      html += `  size='${ this.value('size') }'\n`;
     }
 
     if (!this.value('closeOnBackgroundClick')) {
@@ -100,6 +105,11 @@ class DialogDemo extends React.Component {
             value={ this.value('enableBackgroundUI') }
             reverse={ true }
             onChange={ this.action.bind(this, 'enableBackgroundUI') }
+          />
+          <SizeDropdown
+            label="Size"
+            value={ this.value('size') }
+            onChange={ this.action.bind(this, 'size') }
           />
         </Row>
         <Row>

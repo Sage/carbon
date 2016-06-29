@@ -89,7 +89,7 @@ class Portrait extends React.Component {
   }
 
   static defaultProps = {
-    size: 'lmed',
+    size: 'medium',
     shape: 'standard'
   };
 
@@ -133,7 +133,7 @@ class Portrait extends React.Component {
   get gravatarSrc() {
     let base = 'http://www.gravatar.com/avatar/',
         hash = MD5(this.props.gravatar.toLowerCase()),
-        size = this.numericSizes[this.props.size];
+        size = this.numericSizes[this.props.size.replace('-', '_')];
 
     return `${base}${hash}?s=${size}&d=blank`;
   }
@@ -187,10 +187,13 @@ class Portrait extends React.Component {
    */
   get numericSizes() {
     return {
-      small: '25',
-      smed: '50',
-      lmed: '70',
-      large: '100'
+      extra_small: '20',
+      small: '30',
+      medium_small: '50',
+      medium: '60',
+      medium_large: '70',
+      large: '100',
+      extra_large: '120'
     };
   }
 
