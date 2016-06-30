@@ -228,7 +228,7 @@ class DropdownFilter extends Dropdown {
 
     if (!items.length) {
       items = (
-        <li className={ 'ui-dropdown__list__item ui-dropdown__list__item--no-results' }>
+        <li className={ 'ui-dropdown__list-item ui-dropdown__list-item--no-results' }>
           {
             I18n.t("dropdownlist.no_results", {
               defaultValue: "No results match \"%{term}\"",
