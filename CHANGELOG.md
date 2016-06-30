@@ -3,6 +3,7 @@
 ## New Components
 
 * AppWrapper - confines your content to the width of your application.
+* NavigationBar
 
 ## Dropdown component updates
 
