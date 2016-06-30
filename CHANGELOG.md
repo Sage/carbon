@@ -2,7 +2,11 @@
 
 ## New Components
 
-* PortraitContainer - User to show portrait with title and subtitle.
+* Profile - User to show portrait with name and email.
+
+## Acronymize Function
+
+* We have added an `acronymize` function to the Ether util, which will create an acronym from a given string.
 
 # 0.18.1
 

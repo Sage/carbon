@@ -120,6 +120,10 @@ let data = ImmutableHelper.parseJSON({
     padding: "medium",
     as: "primary"
   },
+  profile: {
+    name: "Andrew Tait",
+    email: "andrew.tait@sage.com"
+  },
   radio_button: {
     label: "Radio Button",
     labelHelp: "Example label help.",
