@@ -1,3 +1,13 @@
+# 0.19.0
+
+## New Components
+
+* AppWrapper - confines your content to the width of your application.
+
+## Dropdown component updates
+
+* All dropdowns now allow keying up and down through the list
+
 # 0.18.1
 
 ## Minor Changes
@@ -48,7 +58,7 @@ If you are using the default size of a component there is no change needed excep
   * Added `xlarge`
 
 #### Portrait
-  * Added `extra-small` 
+  * Added `extra-small`
   * !! CHANGED - `smed to `medium-small`
   * Added `medium`
   * !! CHANGED - `mlarge` to `medium-large`
