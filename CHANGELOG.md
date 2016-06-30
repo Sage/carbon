@@ -1,5 +1,9 @@
 # 0.19.0
 
+## New Components
+
+* AppWrapper - confines your content to the width of your application.
+
 ## Dropdown component updates
 
 * All dropdowns now allow keying up and down through the list

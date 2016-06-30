@@ -14,6 +14,9 @@ let data = ImmutableHelper.parseJSON({
     alignRight: true,
     size: 'large'
   },
+  app_wrapper: {
+    body: "This component contains your content within the confines of the width of your application."
+  },
   button: {
     text: "Action"
   },
