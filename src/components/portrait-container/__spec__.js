@@ -58,6 +58,19 @@ describe('PortraitContainer', () => {
         );
         expect(instance.getInitials).toEqual('DR');
       });
+
+      it('returns 1 initial if a single string', () => {
+        instance = TestUtils.renderIntoDocument(
+          <PortraitContainer
+            gravatar={ 'madeup@home.com' }
+            size={ 'medium-small' }
+            containerTitle={ 'Fred' }
+            containerInitials={ '' }
+            containerSubtitle={ 'A subtitle' }
+            />
+        );
+        expect(instance.getInitials).toEqual('F');
+      });
     });
   });
 });
