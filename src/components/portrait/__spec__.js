@@ -113,6 +113,20 @@ describe('Portrait', () => {
         expect(gravatarInstance.generateInitials).toMatch('data:image/png');
       });
     });
+
+    describe('darkBackground', () => {
+      it('uses a dark background color', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Portrait
+            src='foo'
+            darkBackground={ true }
+          />
+        );
+        let context = { fillRect: () => {} };
+        instance.applyBackground(context);
+        expect(context.fillStyle).toEqual("#4E545F");
+      });
+    });
   });
 
   describe('imgProps', () => {
