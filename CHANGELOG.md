@@ -1,3 +1,9 @@
+# 0.19.0
+
+## New Components
+
+* AppWrapper - confines your content to the width of your application.
+
 # 0.18.1
 
 ## Minor Changes
