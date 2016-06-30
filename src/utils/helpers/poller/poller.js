@@ -24,7 +24,7 @@ import './../promises';
  * ajaxPoller(options, timeout, conditionMet, callback, handleError);
  *
  */
-poller(options, timeout, conditionMet, callback, handleError) {
+poller(options, timeout, conditionMet, callback, handleError) => {
   return new Promise((resolve, reject) => {
     (poll() => {
        Request
