@@ -1,3 +1,9 @@
+# 0.19.0
+
+## New Components
+
+* PortraitContainer - User to show portrait with title and subtitle.
+
 # 0.18.1
 
 ## Minor Changes
@@ -48,7 +54,7 @@ If you are using the default size of a component there is no change needed excep
   * Added `xlarge`
 
 #### Portrait
-  * Added `extra-small` 
+  * Added `extra-small`
   * !! CHANGED - `smed to `medium-small`
   * Added `medium`
   * !! CHANGED - `mlarge` to `medium-large`
