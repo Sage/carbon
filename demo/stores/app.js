@@ -14,6 +14,9 @@ let data = ImmutableHelper.parseJSON({
     alignRight: true,
     size: 'large'
   },
+  app_wrapper: {
+    body: "This component contains your content within the confines of the width of your application."
+  },
   button: {
     text: "Action"
   },
@@ -204,7 +207,7 @@ let data = ImmutableHelper.parseJSON({
       setIs: false,
       min: 0,
       is: 5,
-      max: 5 
+      max: 5
     },
     numeral: {
       integer: false,
@@ -223,7 +226,11 @@ class AppStore extends Store {
   [AppConstants.APP_VALUE_UPDATED](action) {
     let arr = [action.component].concat(action.key);
     this.data = this.data.setIn(arr, action.value);
-  }
+
+    if (action.component === 'dropdown_filter_ajax') {
+      this.data = this.data.setIn(arr, action.visibleValue);
+    }
+   }
 
   /**
    * @method APP_DELETE_ROW

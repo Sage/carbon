@@ -3,10 +3,15 @@
 ## New Components
 
 * Profile - User to show portrait with name and email.
+* AppWrapper - confines your content to the width of your application.
 
 ## Acronymize Function
 
 * We have added an `acronymize` function to the Ether util, which will create an acronym from a given string.
+
+## Dropdown component updates
+
+* All dropdowns now allow keying up and down through the list
 
 # 0.18.1
 
