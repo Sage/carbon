@@ -7,11 +7,15 @@ import FormInputHelper from './../helpers/form-input-helper';
 
 let data = ImmutableHelper.parseJSON({
   alert: {
+    size: 'extra-small',
     title: 'Alert!'
   },
   animated_menu_button: {
     alignRight: true,
     size: 'large'
+  },
+  app_wrapper: {
+    body: "This component contains your content within the confines of the width of your application."
   },
   button: {
     text: "Action"
@@ -28,6 +32,7 @@ let data = ImmutableHelper.parseJSON({
     fieldHelp: "Example field help."
   },
   confirm: {
+    size: 'extra-small',
     title: 'Are you sure?'
   },
   collapsible_pod: {
@@ -45,9 +50,11 @@ let data = ImmutableHelper.parseJSON({
   decimal: {
     label: "Decimal",
     labelHelp: "Example label help.",
-    fieldHelp: "Example field help."
+    fieldHelp: "Example field help.",
+    precision: 3
   },
   dialog: {
+    size: 'medium',
     closeOnESCKey: false,
     showCloseIcon: true,
     closeOnBackgroundClick: false,
@@ -106,7 +113,7 @@ let data = ImmutableHelper.parseJSON({
     text: 'PILL'
   },
   portrait: {
-    size: 'lmed',
+    size: 'small',
     shape: 'standard',
     email: 'Email',
     initials: 'CB'
@@ -115,6 +122,10 @@ let data = ImmutableHelper.parseJSON({
     border: true,
     padding: "medium",
     as: "primary"
+  },
+  profile: {
+    name: "Andrew Tait",
+    email: "andrew.tait@sage.com"
   },
   radio_button: {
     label: "Radio Button",
@@ -143,7 +154,7 @@ let data = ImmutableHelper.parseJSON({
   },
   spinner: {
     as: 'info',
-    size: 'lmed'
+    size: 'medium'
   },
   split_button: {
     text: "Main Action"
@@ -196,7 +207,7 @@ let data = ImmutableHelper.parseJSON({
       setIs: false,
       min: 0,
       is: 5,
-      max: 5 
+      max: 5
     },
     numeral: {
       integer: false,
@@ -215,7 +226,11 @@ class AppStore extends Store {
   [AppConstants.APP_VALUE_UPDATED](action) {
     let arr = [action.component].concat(action.key);
     this.data = this.data.setIn(arr, action.value);
-  }
+
+    if (action.component === 'dropdown_filter_ajax') {
+      this.data = this.data.setIn(arr, action.visibleValue);
+    }
+   }
 
   /**
    * @method APP_DELETE_ROW

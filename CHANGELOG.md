@@ -1,3 +1,29 @@
+# 0.19.0
+
+## New Components
+
+* Profile - User to show portrait with name and email.
+* AppWrapper - confines your content to the width of your application.
+* NavigationBar
+
+## Acronymize Function
+
+* We have added an `acronymize` function to the Ether util, which will create an acronym from a given string.
+
+## Dropdown component updates
+
+* All dropdowns now allow keying up and down through the list
+
+# 0.18.1
+
+## Minor Changes
+
+* Portrait extra small size has been changed from `20px` to `25px`.
+* Portrait can have a dark background.
+* Fixes issue with Portrait size when image would not render.
+* Disabled Pill's colours have been updated.
+* Individual and Business SVGs have been updated in Icon.
+
 # 0.18.0
 
 ## !! BREAKING CHANGES!!
@@ -20,6 +46,53 @@
 
 Added margin and padding `0` to the base CSS.
 
+## Uniform Sizing
+
+All components that take a Size Prop have been unified to accept the following
+
+```
+extra-small
+small
+medium-small
+medium
+medium-large
+large
+extra-large
+```
+
+If you are using the default size of a component there is no change needed except for the `Spinner`
+
+### Component Breakdown
+
+#### Animated Menu Button
+  * Added `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
+#### Portrait
+  * Added `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * Added `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
+#### Spinner
+  * !! CHANGED - default is now `medium`
+
+  * Added `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * Added `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
+#### Dialog
+  * !! CHANGED - `xsmall` to `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * !! CHANGED - `med` to `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
 ## Link (React Router)
 
 Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
@@ -35,6 +108,10 @@ Our Link component now supports the React Router. Instead of passing a `href` pr
 
 Content now has a `secondary` theme which can be applied using the `as` prop.
 
+## Label Updates
+
+* You can supply a `input-width` prop to any input to define its width.
+
 ## Modal Updates
 
 ### Change in functionality!
@@ -46,14 +123,34 @@ Modal
   * Changes will also effect Dialog, Sidebar etc...
 
 Dialog
+
   * New props `showCloseIcon` (defaulted to true) which show and hides the close icon
 
 ## Promises
+
 Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by
 
 ```javascript
   import from 'carbon/lib/utils/promises';
 ```
+
+## Notifications Updates
+
+Message
+
+  * New props `transparent` (defaulted to false) which if set to true sets the background to transparent
+
+## Decimal
+
+* Decimal can now receive a prop of precision
+
+## Split Button
+
+ * Small CSS change to remove gap in Safari
+
+## Input Validation
+
+* Validation icons now position themselves relative to width of input field when label is inline.
 
 # 0.17.1
 

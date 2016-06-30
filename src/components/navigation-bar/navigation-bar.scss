@@ -1,0 +1,28 @@
+@import "colors";
+
+$navigation-height: 40px !default;
+
+.ui-navigation-bar {
+  min-height: $navigation-height;
+
+  .ui-logo {
+    margin-right: 10px;
+  }
+}
+
+.ui-navigation-bar--primary {
+  background-color: $grey-dark-blue;
+  color: $white;
+}
+
+.ui-navigation-bar--secondary {
+  background-color: $white;
+}
+
+.ui-navigation-bar__content > * {
+  box-sizing: border-box;
+  display: inline-block;
+  height: $navigation-height;
+  line-height: $navigation-height;
+  vertical-align: middle;
+}

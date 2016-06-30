@@ -13,12 +13,13 @@ $dialog-padding: 20px;
   z-index: $z-dialog;
 }
 
-.ui-dialog__dialog--xsmall  { width: 300px; }
-.ui-dialog__dialog--small   { width: 380px; }
-.ui-dialog__dialog--smed    { width: 540px; }
-.ui-dialog__dialog--med     { width: 750px; }
-.ui-dialog__dialog--lmed    { width: 850px; }
-.ui-dialog__dialog--large   { width: 960px; }
+.ui-dialog__dialog--extra-small   { width: 300px; }
+.ui-dialog__dialog--small         { width: 380px; }
+.ui-dialog__dialog--medium-small  { width: 540px; }
+.ui-dialog__dialog--medium        { width: 750px; }
+.ui-dialog__dialog--medium-large  { width: 850px; }
+.ui-dialog__dialog--large         { width: 960px; }
+.ui-dialog__dialog--extra-large   { width: 1080px; }
 
 .ui-dialog__title {
   background: none;

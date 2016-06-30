@@ -11,6 +11,7 @@ let AppActions = {
     Dispatcher.dispatch({
       actionType: AppConstants.APP_VALUE_UPDATED,
       value: ev.target.value,
+      visibleValue: ev.target.visibleValue,
       key: key,
       component: component
     });

@@ -42,6 +42,7 @@ class AlertDemo extends React.Component {
           onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
           title={ this.value('title') }
           enableBackgroundUI={ this.value('enableBackgroundUI') }
+          size={ this.value('size') }
         >
         Thought we should alert you
         </Alert>
@@ -61,6 +62,10 @@ class AlertDemo extends React.Component {
 
     if (this.value('enableBackgroundUI')) {
       html += `  enableBackgroundUI={ true }\n`;
+    }
+
+    if (this.value('size') !== 'xsmall') {
+      html += `  size='${ this.value('size') }'\n`;
     }
 
     html += "/>\n\n";
@@ -86,6 +91,11 @@ class AlertDemo extends React.Component {
             value={ this.value('enableBackgroundUI') }
             reverse={ true }
             onChange={ this.action.bind(this, 'enableBackgroundUI') }
+          />
+          <SizeDropdown
+            label="Size"
+            value={ this.value('size') }
+            onChange={ this.action.bind(this, 'size') }
           />
         </Row>
       </div>
