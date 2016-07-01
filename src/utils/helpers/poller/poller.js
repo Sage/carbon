@@ -1,5 +1,5 @@
-import { Request } from 'superagent';
-import './../promises';
+import Request from 'superagent';
+import './../../promises';
 
 /**
  * A helper to make poll an endpoint with a GET request
@@ -28,23 +28,50 @@ import './../promises';
  *
  * poller(options, timeout, conditionMet, callback, handleError);
  *
- */
-poller(queryOptions, timeout, functions) => {
+//  */
+// export default (queryOptions, functions, options) => {
+//   return new Promise((resolve, reject) => {
+//     (poll => {
+//        Request
+//          .get(queryOptions.url)
+//          .query(queryOptions.data)
+//          .set(queryOptions.headers)
+//          .end((err, response) => {
+//            if (err) {
+//              reject(functions.handleError(err));
+//            } else {
+//              if (!options.permanent) {
+//                if (functions.conditionMet(response)) return resolve(functions.callback(response));
+//              } else {
+//                functions.callback(reponse);
+//              }
+//              setTimeout(poll, options.timeout);
+//            }
+//          })
+//      })();
+//   });
+// }
+
+export default (queryOptions, functions, options) => {
   return new Promise((resolve, reject) => {
-    (poll() => {
+    (function poll() {
+      console.log(queryOptions)
        Request
          .get(queryOptions.url)
-         .data(queryOptions.data)
+         .query(queryOptions.data)
+         .set(queryOptions.headers)
          .end((err, response) => {
            if (err) {
-             reject(functions.handleError(err));
+             functions.handleError(err);
            } else {
-             if (functions.conditionMet(response)) return resolve(functions.callback(response));
-             setTimeout(poll, timeout);
+             if (!options.permanent) {
+               if (functions.conditionMet(response)) return functions.callback(response);
+             } else {
+               functions.callback(response);
+             }
+             setTimeout(poll, options.timeout);
            }
          })
      })();
   });
 }
-
-export default poller;
