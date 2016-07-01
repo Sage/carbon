@@ -3,7 +3,7 @@ import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
 import { startCase } from 'lodash';
-import { append, styleElement } from './../../ether';
+import { styleElement, append } from './../../ether';
 
 /**
  * TooltipDecorator.
