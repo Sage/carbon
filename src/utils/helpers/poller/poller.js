@@ -5,11 +5,14 @@ import './../promises';
  * A helper to make poll an endpoint with a GET request
  *
  * The helper takes the following params
- * - options: an object containing the url and optional data object with additional params
- * - timeout: the time period at which the request is re-submitted
- * - conditionMet: a function that accepts the ajax response. Use this to return a test a desired condition and return a boolean.
- * - callback: A callback function to call when the conditionMet returns true
- * - handleError: a callback function that takes an error and handles it.
+ * - queryOptions: an object containing the url and optional data object with additional params
+ * -- url,
+ * -- data
+ * - timeout: the time period after which the request is re-submitted
+ * - functions: An object containing the custom functions
+ * --  conditionMet: Use this to return a test a desired condition and return a boolean.
+ * --  callback: A callback function to call when the conditionMet returns true
+ * --  handleError: a callback function that takes an error and handles it.
  *
  * ===Example Usage===
  *
@@ -17,25 +20,27 @@ import './../promises';
  *
  * let options = {url: 'http://foo/bar/1'};
  * let timeout = 10000;
- * let conditionMet = function(response) => { return response.body.status === 'complete' };
- * let callback = function(response) => { doSomethingFancy(reponse) };
- * let handleError = function(err) => { FlashMessage("Failed", err) };
+ * let functions = {
+ *   conditionMet: function(response) => { return response.body.status === 'complete' };
+ *   callback: function(response) => { doSomethingFancy(reponse) };
+ *   handleError: function(err) => { FlashMessage("Failed", err) };
+ *}
  *
- * ajaxPoller(options, timeout, conditionMet, callback, handleError);
+ * poller(options, timeout, conditionMet, callback, handleError);
  *
  */
-poller(options, timeout, conditionMet, callback, handleError) => {
+poller(queryOptions, timeout, functions) => {
   return new Promise((resolve, reject) => {
     (poll() => {
        Request
-         .get(options.url)
-         .data(options.data)
+         .get(queryOptions.url)
+         .data(queryOptions.data)
          .end((err, response) => {
-           if (!err) {
-             if (conditionMet(response)) return resolve(callback(response));
-             setTimeout(poll, timeout);
+           if (err) {
+             reject(functions.handleError(err));
            } else {
-             reject(handleError(err))
+             if (functions.conditionMet(response)) return resolve(functions.callback(response));
+             setTimeout(poll, timeout);
            }
          })
      })();
