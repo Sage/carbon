@@ -20,10 +20,10 @@ describe('RadioButton', () => {
       expect(radioButtonNode.classList[0]).toEqual('ui-radio-button');
     });
 
-    it('renders a input with type radiobutton and a value of 1', () => {
+    it('renders an input with type radiobutton and a checked value of false', () => {
       let radiobutton = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0];
       expect(radiobutton.type).toEqual('radio');
-      expect(radiobutton.value).toEqual('');
+      expect(radiobutton.checked).toBeFalsy();
     });
 
    it('renders a radiobuttonSprite to be used as the visible input', () => {

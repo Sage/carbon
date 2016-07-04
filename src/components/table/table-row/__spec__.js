@@ -360,11 +360,14 @@ describe('TableRow', () => {
 
     describe('with hideMultiSelect', () => {
       it('renders a multi select cell without a checkbox', () => {
-        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(
+          <Table selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>
+        );
+        debugger
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         expect(row.children.length).toEqual(3);
-        expect(row.children[0].children()).toBe(undefined);
+        expect(TestUtils.scryRenderedComponentsWithType(instance, Checkbox).length).toEqual(0);
       });
     });
 
