@@ -97,6 +97,9 @@ class Checkbox extends React.Component {
     props.checked = this.props.checked || this.props.value;
     props.value = "1";
     props.onChange = this.handleOnChange;
+
+    delete props.reverse;
+
     return props;
   }
 

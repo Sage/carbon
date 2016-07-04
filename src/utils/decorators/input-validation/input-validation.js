@@ -487,6 +487,8 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     inputProps.onKeyDown = chainFunctions(this._handleContentChange, inputProps.onKeyDown);
     inputProps.onPaste = chainFunctions(this._handleContentChange, inputProps.onKeyDown);
 
+    delete inputProps.validations;
+
     return inputProps;
   }
 

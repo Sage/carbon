@@ -139,6 +139,9 @@ class Textarea extends React.Component {
     props.className = this.inputClasses;
     props.rows = this.props.rows;
     props.cols = this.props.cols;
+
+    delete props.expandable;
+
     return props;
   }
 
