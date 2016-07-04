@@ -1,5 +1,30 @@
-# 0.18.0
+# 0.19.0
 
+## New Components
+
+* Profile - User to show portrait with name and email.
+* AppWrapper - confines your content to the width of your application.
+* NavigationBar
+
+## Acronymize Function
+
+* We have added an `acronymize` function to the Ether util, which will create an acronym from a given string.
+
+## Dropdown component updates
+
+* All dropdowns now allow keying up and down through the list
+
+# 0.18.1
+
+## Minor Changes
+
+* Portrait extra small size has been changed from `20px` to `25px`.
+* Portrait can have a dark background.
+* Fixes issue with Portrait size when image would not render.
+* Disabled Pill's colours have been updated.
+* Individual and Business SVGs have been updated in Icon.
+
+# 0.18.0
 
 ## !! BREAKING CHANGE !!
 
@@ -39,7 +64,7 @@ If you are using the default size of a component there is no change needed excep
   * Added `xlarge`
 
 #### Portrait
-  * Added `extra-small` 
+  * Added `extra-small`
   * !! CHANGED - `smed to `medium-small`
   * Added `medium`
   * !! CHANGED - `mlarge` to `medium-large`

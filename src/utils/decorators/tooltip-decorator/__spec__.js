@@ -3,7 +3,6 @@ import Icon from 'components/icon'
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import TooltipDecorator from './tooltip-decorator';
-// import { styleElement, pix} from './../../ether';
 
 class BasicClass extends React.Component {
   componentWillUpdate() {}
