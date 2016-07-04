@@ -295,6 +295,22 @@ class Pod extends React.Component {
     );
   }
 
+  get podProps() {
+    let { ...props } = this.props;
+
+    delete props.border;
+    delete props.as;
+    delete props.padding;
+    delete props.collasped;
+    delete props.description;
+    delete props.footer;
+    delete props.footer;
+    delete props.onEdit;
+
+    props.className = this.mainClasses;
+    return props;
+  }
+
   /**
    * Renders the component.
    *
@@ -302,13 +318,12 @@ class Pod extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let content,
-        { className, ...props } = this.props;
+    let content;
 
     if (!this.state.collapsed) { content = this.podContent; }
 
     return (
-      <div className={ this.mainClasses } { ...props }>
+      <div { ...this.podProps } >
         { this.edit }
         <div className={ this.contentClasses } >
           { this.podHeader }

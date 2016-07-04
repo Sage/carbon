@@ -37,7 +37,7 @@ class Fieldset extends React.Component {
    * @method render
    */
   render() {
-    let { className, ...props } = this.props,
+    let { className, legend, ...props } = this.props,
         classes = classNames("ui-fieldset", className);
 
     return (

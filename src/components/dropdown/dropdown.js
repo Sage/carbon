@@ -389,10 +389,8 @@ class Dropdown extends React.Component {
 
     if (this.state.highlighted) {
       return this.state.highlighted;
-    } else {
-      if (this.props.value) {
-        return this.props.value;
-      }
+    } else if (this.props.value) {
+      return this.props.value;
     }
 
     return highlighted;

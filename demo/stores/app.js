@@ -61,7 +61,7 @@ let data = ImmutableHelper.parseJSON({
     label: "Decimal",
     labelHelp: "Example label help.",
     fieldHelp: "Example field help.",
-    value: '0.00'
+    value: '0.00',
     precision: 3
   },
   dialog: {

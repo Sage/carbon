@@ -291,6 +291,10 @@ class DropdownFilterAjax extends DropdownFilter {
   get inputProps() {
     let props = super.inputProps;
 
+    delete props.path;
+    delete props.visibleValue;
+    delete props.rowsPerRequest;
+
     if (typeof this.state.filter !== 'string') {
       props.value = this.props.visibleValue;
     } else {
