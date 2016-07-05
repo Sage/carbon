@@ -232,6 +232,10 @@ class Decimal extends React.Component {
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
     props.onKeyDown = this.handleKeyDown;
+
+    delete props.align;
+    delete props.precision;
+
     return props;
   }
 
