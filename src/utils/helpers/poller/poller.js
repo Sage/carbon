@@ -5,9 +5,10 @@ import './../../promises';
  * A helper to make poll an endpoint with a GET request
  *
  * The helper takes the following params
- * - queryOptions: an object containing the url and optional data object with additional params
+ * - queryOptions: an object containing the url, optional data object with additional params, and a headers object
  * -- url,
- * -- data
+ * -- data,
+ * -- headers
  * - timeout: the time period after which the request is re-submitted
  * - functions: An object containing the custom functions
  * --  conditionMet: Use this to return a test a desired condition and return a boolean.
@@ -28,50 +29,89 @@ import './../../promises';
  *
  * poller(options, timeout, conditionMet, callback, handleError);
  *
-//  */
-// export default (queryOptions, functions, options) => {
-//   return new Promise((resolve, reject) => {
-//     (poll => {
-//        Request
-//          .get(queryOptions.url)
-//          .query(queryOptions.data)
-//          .set(queryOptions.headers)
-//          .end((err, response) => {
-//            if (err) {
-//              reject(functions.handleError(err));
-//            } else {
-//              if (!options.permanent) {
-//                if (functions.conditionMet(response)) return resolve(functions.callback(response));
-//              } else {
-//                functions.callback(reponse);
-//              }
-//              setTimeout(poll, options.timeout);
-//            }
-//          })
-//      })();
-//   });
-// }
+ */
+
+function getQueryOptions(queryOptions) {
+  return {
+    url: queryOptions.url,
+    data: queryOptions.data || {},
+    headers: queryOptions.headers || {}
+  }
+}
+
+function getOptions(options) {
+  return {
+    interval: options.interval || 3000,
+    endTime:  Number(new Date()) + options.endTime || Infinity,
+    retries: options.retries || Infinity
+  }
+}
+
+function getFunctions(functions) {
+  return {
+    callback: functions.callback,
+    handleError: functions.handleError || null,
+    conditionMet: functions.conditionMet || () => { return false },
+    terminate: functions.terminate || () => { return false }
+  }
+}
+
+function setupValid(queryOptions, functions) {
+  if (queryOptions === null || typeof queryOptions.url === 'undefined') {
+    console.error('You must provide a url to the poller');
+    return false;
+  }
+
+  if (typeof functions.callback === 'undefined') {
+    console.error('You must provide a callback function to the poller');
+    return false;
+  }
+  return true;
+}
 
 export default (queryOptions, functions, options) => {
+  if (!setupValid(queryOptions, functions)) {
+    return;
+  }
+
+  // set default options for unprovided options
+  queryOptions = getQueryOptions(queryOptions);
+  functions = getFunctions(functions);
+  options = getOptions(options);
+
   return new Promise((resolve, reject) => {
+    let pollCount = 1;
+
     (function poll() {
-      console.log(queryOptions)
-       Request
-         .get(queryOptions.url)
-         .query(queryOptions.data)
-         .set(queryOptions.headers)
-         .end((err, response) => {
-           if (err) {
-             functions.handleError(err);
-           } else {
-             if (!options.permanent) {
-               if (functions.conditionMet(response)) return functions.callback(response);
-             } else {
-               functions.callback(response);
-             }
-             setTimeout(poll, options.timeout);
-           }
-         })
-     })();
+      if (pollCount > options.retries || Number(new Date()) > options.endTime) {
+        console.warn('The poller has made too many requests - terminating poll');
+        return;
+      }
+      Request
+        .get(queryOptions.url)
+        .query(queryOptions.data)
+        .set(queryOptions.headers)
+        .end((err, response) => {
+          if (err) {
+            if(functions.handleError) {
+              return reject(functions.handleError(err));
+            } else {
+              debugger
+              return reject(err.message);
+            }
+            return;
+          } else if (functions.terminate(response)) {
+              return reject(response);
+          } else if (functions.conditionMet(response)) {
+            return resolve(functions.callback(response));
+          } else {
+            pollCount++;
+            setTimeout(poll, options.interval);
+          }
+        })
+    })();
+  })
+  .catch((err) => {
+    console.error(err,': There was a server error');
   });
 }
