@@ -4,6 +4,7 @@
 
 * Profile - User to show portrait with name and email.
 * AppWrapper - confines your content to the width of your application.
+* Menu
 * NavigationBar
 
 ## Acronymize Function
