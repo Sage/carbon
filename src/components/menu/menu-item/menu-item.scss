@@ -101,6 +101,10 @@
   .ui-menu--primary & {
     background-color: $white;
     padding-top: 5px;
+
+    .ui-menu-item--selected {
+      color: $green-bright-dull;
+    }
   }
 
   .ui-menu--secondary & {
