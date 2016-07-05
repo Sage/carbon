@@ -15,8 +15,11 @@
     font-weight: 500;
 
     &.ui-link__anchor:hover .ui-link__content {
-      color: $blue-bright;
       text-decoration: none;
+    }
+
+    .ui-menu-item__submenu .ui-link__anchor:hover .ui-link__content {
+      color: $blue-bright;
     }
 
     &:after {
