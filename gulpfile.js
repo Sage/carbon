@@ -1,6 +1,6 @@
 var gulp = require('gulp');
-var BuildTask = require('carbon-factory/lib/gulp/build');
-var SpecTask = require('carbon-factory/lib/gulp/spec');
+var BuildTask = require('carbon-factory/lib/gulp/build').default;
+var SpecTask = require('carbon-factory/lib/gulp/spec').default;
 var express = require('express');
 var api = require('./demo/api');
 

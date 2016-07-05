@@ -91,7 +91,7 @@ class Confirm extends Dialog {
   get dialogTitleClasses() {
     return classNames(
       super.dialogTitleClasses,
-      'ui-confirm__title',
+      'ui-confirm__title'
     );
   }
 

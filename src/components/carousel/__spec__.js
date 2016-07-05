@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import { Carousel, Slide } from './';
+import { Carousel, Slide } from './carousel';
 
 describe('Carousel', () => {
   let instance;
