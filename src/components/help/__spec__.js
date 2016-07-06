@@ -60,7 +60,7 @@ describe('Help', () => {
     });
 
     it('renders an icon', () => {
-      expect(icon.props.type).toEqual('info');
+      expect(icon.props.type).toEqual('help');
     });
 
     it('passes the children as a prop', () => {
