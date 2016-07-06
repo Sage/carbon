@@ -32,19 +32,19 @@ class MenuDemo extends React.Component {
 
     return (
       <Menu as={ as }>
-        <MenuItem>First Menu Item</MenuItem>
-        <MenuItem>Second Menu Item</MenuItem>
-        <MenuItem>Third Menu Item</MenuItem>
+        <MenuItem href="/">First Menu Item</MenuItem>
+        <MenuItem href="/">Second Menu Item</MenuItem>
+        <MenuItem href="/">Third Menu Item</MenuItem>
         <MenuItem selected={ true } submenu="Fourth Menu Item">
-          <MenuItem>First Submenu Item</MenuItem>
-          <MenuItem selected={ true }>Second Submenu Item</MenuItem>
-          <MenuItem>Third Submenu Item</MenuItem>
+          <MenuItem href="/">First Submenu Item</MenuItem>
+          <MenuItem href="/" selected={ true }>Second Submenu Item</MenuItem>
+          <MenuItem href="/">Third Submenu Item</MenuItem>
         </MenuItem>
-        <MenuItem submenu="Fifth Menu Item" submenuDirection="left">
-          <MenuItem>First Submenu Item</MenuItem>
-          <MenuItem>Second Submenu Item</MenuItem>
-          <MenuItem>Third Submenu Item</MenuItem>
-          <MenuItem divide={ true }>Fourth Submenu Item</MenuItem>
+        <MenuItem href="/" submenu="Fifth Menu Item" submenuDirection="left">
+          <MenuItem href="/">First Submenu Item</MenuItem>
+          <MenuItem href="/">Second Submenu Item</MenuItem>
+          <MenuItem href="/">Third Submenu Item</MenuItem>
+          <MenuItem href="/" divide={ true }>Fourth Submenu Item</MenuItem>
         </MenuItem>
       </Menu>
     );

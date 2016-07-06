@@ -40,7 +40,31 @@ class MenuItem extends React.Component {
     submenu: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.object
-    ])
+    ]),
+
+    /**
+     * The href to use for the menu item.
+     *
+     * @property href
+     * @type {String}
+     */
+    href: React.PropTypes.string,
+
+    /**
+     * The to link to use for the menu item.
+     *
+     * @property to
+     * @type {String}
+     */
+    to: React.PropTypes.string,
+
+    /**
+     * The target to use for the menu item.
+     *
+     * @property target
+     * @type {String}
+     */
+    target: React.PropTypes.string
   }
 
   static defaultProps = {
@@ -85,6 +109,7 @@ class MenuItem extends React.Component {
     return classNames(
       "ui-menu-item",
       this.props.className, {
+        ["ui-menu-item--has-link"]: this.props.href || this.props.to,
         ["ui-menu-item--has-submenu"]: this.props.submenu,
         ["ui-menu-item--selected"]: this.props.selected,
         ["ui-menu-item--divide"]: this.props.divide
@@ -104,7 +129,8 @@ class MenuItem extends React.Component {
         {
           className: this.classes,
           href: this.props.href,
-          to: this.props.to
+          to: this.props.to,
+          target: this.props.target
         },
         this.content
       )
