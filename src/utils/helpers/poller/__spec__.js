@@ -2,7 +2,7 @@ import Request from 'superagent';
 import Poller from './poller';
 import './../../promises';
 
-describe('poller', () => {
+fdescribe('poller', () => {
   let functions, url;
 
   beforeEach(() => {
@@ -36,10 +36,10 @@ describe('poller', () => {
     });
   });
 
-  describe('when no callback function is provided', () => {
+  describe('when no callback function is provided and a conditionMet function has been provided', () => {
     it('throws a no callback error', () => {
-      Poller({ url: url }, {}, {});
-      expect(console.error).toHaveBeenCalledWith('You must provide a callback function to the poller');
+      Poller({ url: url }, { conditionMet: () => {} }, {});
+      expect(console.error).toHaveBeenCalledWith('You must provide a callback function if you are testing a condition with conditionMet');
     });
   });
 

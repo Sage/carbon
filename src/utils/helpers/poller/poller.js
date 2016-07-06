@@ -25,7 +25,6 @@ import './../../promises';
  *
  * ===Example Usage===
  *
- * import poller from 'carbon/lib/utils/helpers/poller';
  * import Poller from 'carbon/lib/utils/helpers/poller';
  *
  * let queryOptions = {  url: '/foo/bar/1' }
