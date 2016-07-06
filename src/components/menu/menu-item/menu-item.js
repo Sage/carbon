@@ -40,7 +40,31 @@ class MenuItem extends React.Component {
     submenu: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.object
-    ])
+    ]),
+
+    /**
+     * The href to use for the menu item.
+     *
+     * @property href
+     * @type {String}
+     */
+    href: React.PropTypes.string,
+
+    /**
+     * The to link to use for the menu item.
+     *
+     * @property to
+     * @type {String}
+     */
+    to: React.PropTypes.string,
+
+    /**
+     * The target to use for the menu item.
+     *
+     * @property target
+     * @type {String}
+     */
+    target: React.PropTypes.string
   }
 
   static defaultProps = {
