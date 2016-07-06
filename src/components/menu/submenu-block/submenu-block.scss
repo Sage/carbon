@@ -1,0 +1,25 @@
+@import "colors";
+
+.ui-submenu-block {
+  padding: 5px 0 !important;
+  margin: 10px 0 5px;
+
+  .ui-menu--primary & {
+    background-color: $grey-dark-blue-10;
+  }
+
+  .ui-menu--secondary & {
+    background-color: $grey-dark-blue-90;
+  }
+
+  .ui-menu-item.ui-link__anchor,
+  .ui-menu-item {
+    .ui-menu--primary & {
+      background-color: $grey-dark-blue-10;
+    }
+
+    .ui-menu--secondary & {
+      background-color: $grey-dark-blue-90;
+    }
+  }
+}
