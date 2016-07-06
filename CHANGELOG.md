@@ -6,6 +6,15 @@
 * AppWrapper - confines your content to the width of your application.
 * NavigationBar
 
+## Input Label Padding
+
+* All input label padding has been slightly increased.
+
+## Help Updates
+
+* Help component has been updated with a new icon.
+* Input Label decorator has been fixed to render the help class for labelHelp.
+
 ## Acronymize Function
 
 * We have added an `acronymize` function to the Ether util, which will create an acronym from a given string.
