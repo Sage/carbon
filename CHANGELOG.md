@@ -24,6 +24,11 @@
 
 * All dropdowns now allow keying up and down through the list
 
+## New Icons
+
+* Help
+* Chevron
+
 # 0.18.1
 
 ## Minor Changes

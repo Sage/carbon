@@ -174,6 +174,22 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--paperclip");
     });
+
+    it('calls the render help icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='help' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--help");
+    });
+
+    it('calls the render chevron icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='chevron' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--chevron");
+    });
   });
 
   describe('success', () => {
