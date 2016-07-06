@@ -28,6 +28,11 @@
 
 * A polling helper has been added that performs customizable ajax polling.
 
+## New Icons
+
+* Help
+* Chevron
+
 # 0.18.1
 
 ## Minor Changes
