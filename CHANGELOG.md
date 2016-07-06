@@ -14,6 +14,10 @@
 
 * All dropdowns now allow keying up and down through the list
 
+## Polling helper
+
+* A polling helper has been added that performs customizable ajax polling.
+
 # 0.18.1
 
 ## Minor Changes
