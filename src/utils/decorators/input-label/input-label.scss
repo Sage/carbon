@@ -7,9 +7,13 @@
   display: inline-block;
   font-weight: bold;
   line-height: 14px;
-  margin: 0 0 5px 0;
+  margin: 0 0 8px 0;
   padding: 0 6px;
   vertical-align: middle;
+
+  .ui-help {
+    margin-top: -5px;
+  }
 }
 
 .common-input--label-inline {

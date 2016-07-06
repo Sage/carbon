@@ -1,5 +1,10 @@
 .ui-icon {
+  display: inline-block;
   position: relative;
+}
+
+.ui-icon__svg-icon {
+  display: inline-block;
 }
 
 .ui-icon__svg {
