@@ -2,7 +2,7 @@ import Request from 'superagent';
 import Poller from './poller';
 import './../../promises';
 
-fdescribe('poller', () => {
+describe('poller', () => {
   let functions, url;
 
   beforeEach(() => {
@@ -21,11 +21,6 @@ fdescribe('poller', () => {
     jasmine.Ajax.uninstall();
     jasmine.clock().uninstall();
   });
-
-//   it('returns a Promise object', () => {
-// debugger
-//     let promise = Poller({ url: url, data: { foo: 'bar', headers: { Accept: 'application/json' }} }, functions, { interval: 1000 });
-//   });
 
   describe('when no url has been provided', () => {
     it('logs a no url error', () => {
@@ -48,6 +43,39 @@ fdescribe('poller', () => {
     });
   });
 
+  describe('default options', () => {
+    it('defaults the interval to 3 seconds if none is provided', () => {
+      Poller({ url: url }, functions, {});
+
+      let request = jasmine.Ajax.requests.mostRecent();
+      request.respondWith({
+        "status": 200,
+        "contentType": 'application/json',
+        "responseText": "{\"message_type\": \"success\"}"
+      });
+
+      let callCount = jasmine.Ajax.requests.filter((request) => {
+        return request.url === url
+      }).length;
+
+      expect(callCount).toEqual(1);
+      jasmine.clock().tick(1000);
+
+      callCount = jasmine.Ajax.requests.filter((request) => {
+        return request.url === url
+      }).length;
+
+      expect(callCount).toEqual(1);
+      jasmine.clock().tick(2001);
+
+      callCount = jasmine.Ajax.requests.filter((request) => {
+        return request.url === url
+      }).length;
+
+      expect(callCount).toEqual(2);
+    });
+  });
+
   describe('poll', () => {
     describe('when the pollCount exceeds the specified number of retries', () => {
       it('logs a too many requests warning', () => {
@@ -59,7 +87,7 @@ fdescribe('poller', () => {
           request.respondWith({
             "status": 200,
             "contentType": 'application/json',
-            "responseText": JSON.stringify({ processing_done: false })
+            "responseText": "{\"message_type\": \"success\"}"
           });
           jasmine.clock().tick(1000);
         }
@@ -67,17 +95,18 @@ fdescribe('poller', () => {
       });
     });
 
-    xdescribe('when time exceeds the specified endTime',() => {
+    describe('when time exceeds the specified endTime',() => {
       it('logs a too many requests warningh', () => {
-        Poller({ url: url }, functions, { interval: 1000, endTime: 100 });
-        jasmine.clock().tick(10000);
+        let startTime = Number(new Date());
+        jasmine.clock().mockDate(startTime);
 
-        for (let i = 0; i < 10; i++) {
+        Poller({ url: url }, functions, { interval: 1000, endTime: 3000 });
+        for (let i = 0; i < 4; i++) {
           let request = jasmine.Ajax.requests.mostRecent();
           request.respondWith({
             "status": 200,
             "contentType": 'application/json',
-            "responseText": JSON.stringify({ processing_done: false })
+            "responseText": "{\"message_type\": \"success\"}"
           });
           jasmine.clock().tick(1000);
         }
@@ -93,7 +122,7 @@ fdescribe('poller', () => {
         request.respondWith({
           "status": 200,
           "contentType": 'application/json',
-          "responseText": JSON.stringify({ processing_done: false })
+          "responseText": "{\"message_type\": \"success\"}"
         });
         expect(request.url).toEqual('foo/bar?foo=bar&headers=%5Bobject%20Object%5D');
       });
@@ -101,33 +130,183 @@ fdescribe('poller', () => {
 
     describe('if there is an error', () => {
       describe('if a handleError function is provided', () => {
-        it('calls the handleError with the error', () => {
+        beforeEach(() => {
           functions.handleError = jasmine.createSpy('handleError');
 
           Poller({ url: url }, functions, { interval: 1000 });
 
           let request = jasmine.Ajax.requests.mostRecent();
-
           request.respondWith({
             "status": 500,
             "contentType": 'application/json',
             "responseText": "{\"message_type\": \"error\"}"
           });
+        });
 
+        it('calls the handleError with the error', () => {
           expect(functions.handleError.calls.mostRecent().args.toString()).toEqual('Error: Unsuccessful HTTP response');
         });
       });
 
       describe('if no custom handleError function is avaliable', () => {
-        Poller({ url: 'foo/bar' }, { callback: jasmine.createSpy('callback') }, { interval: 1000 });
-        let request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          "status": 500,
-          "contentType": 'application/json',
-          "responseText": "{\"message_type\": \"error\"}"
+        beforeEach(() => {
+          Poller({ url: url }, functions, { interval: 1000 });
+
+          let request = jasmine.Ajax.requests.mostRecent();
+          request.respondWith({
+            "status": 500,
+            "contentType": 'application/json',
+            "responseText": "{\"message_type\": \"error\"}"
+          });
         });
 
-        expect(console.error).toHaveBeenCalledWith('Err');
+        it('logs the error', () => {
+          expect(console.error).toHaveBeenCalledWith('Unsuccessful HTTP response');
+        });
+      });
+    });
+
+    describe('terminating function', () => {
+      describe('if a terminating condition function is provided', () => {
+        describe('when the terminating condition is met', () => {
+          beforeEach(() => {
+            functions.terminate = () => {};
+            spyOn(functions, 'terminate').and.returnValue(true);
+            Poller({ url: url }, functions, { interval: 1000 });
+
+            let request = jasmine.Ajax.requests.mostRecent();
+            request.respondWith({
+              "status": 200,
+              "contentType": 'application/json',
+              "responseText": "{\"message_type\": \"success\"}"
+            });
+          });
+
+
+          it('checks the response with terminate function', () => {
+            expect(functions.terminate).toHaveBeenCalledWith(jasmine.any(Object));
+          });
+        });
+
+        describe('if the terminating condition has not been met', () => {
+          beforeEach(() => {
+            functions.terminate = () => {};
+            spyOn(functions, 'terminate').and.returnValue(false);
+            Poller({ url: url }, functions, { interval: 1000 });
+
+            let request = jasmine.Ajax.requests.mostRecent();
+            request.respondWith({
+              "status": 200,
+              "contentType": 'application/json',
+              "responseText": "{\"message_type\": \"success\"}"
+            });
+          });
+
+          it('checks the response with terminate function', () => {
+            expect(functions.terminate).toHaveBeenCalledWith(jasmine.any(Object));
+          });
+        });
+      });
+    });
+
+    describe('conditionMet function', () => {
+      it('calls the conditionMet function with the response', () => {
+        functions.conditionMet = () => {};
+        spyOn(functions, 'conditionMet')
+        Poller({ url: url }, functions, { interval: 1000 });
+
+        let request = jasmine.Ajax.requests.mostRecent();
+        request.respondWith({
+          "status": 200,
+          "contentType": 'application/json',
+          "responseText": "{\"message_type\": \"success\"}"
+        });
+
+        expect(functions.conditionMet).toHaveBeenCalledWith(jasmine.any(Object));
+      });
+
+      describe('when a custom conditionMet function has been provided', () => {
+        describe('when the condition has been met', () => {
+          it('calls the callback with the response', () => {
+            functions.conditionMet = () => {};
+            spyOn(functions, 'conditionMet').and.returnValue(true)
+            Poller({ url: url }, functions, { interval: 1000 });
+
+            let request = jasmine.Ajax.requests.mostRecent();
+            request.respondWith({
+              "status": 200,
+              "contentType": 'application/json',
+              "responseText": "{\"message_type\": \"success\"}"
+            });
+
+            expect(functions.callback).toHaveBeenCalledWith(jasmine.any(Object));
+          });
+        });
+
+        describe('when the condition has not been met', () => {
+          it('calls the callback with the response', () => {
+            functions.conditionMet = () => {};
+            spyOn(functions, 'conditionMet').and.returnValue(false)
+            Poller({ url: url }, functions, { interval: 1000 });
+
+            let request = jasmine.Ajax.requests.mostRecent();
+            request.respondWith({
+              "status": 200,
+              "contentType": 'application/json',
+              "responseText": "{\"message_type\": \"success\"}"
+            });
+
+            expect(functions.callback).not.toHaveBeenCalled();
+          });
+        });
+      });
+
+      describe('when a custom conditionMet function has not been provided', () => {
+        it('never calls the callback', () => {
+          Poller({ url: url }, functions, { interval: 1000 });
+
+          let request = jasmine.Ajax.requests.mostRecent();
+          request.respondWith({
+            "status": 200,
+            "contentType": 'application/json',
+            "responseText": "{\"message_type\": \"success\"}"
+          });
+
+          expect(functions.callback).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('when the promise has not been resolved or rejected', () => {
+      it('calls the poll again after the specified interval', () => {
+        Poller({ url: url }, functions, { interval: 1000});
+
+        let request = jasmine.Ajax.requests.mostRecent();
+        request.respondWith({
+          "status": 200,
+          "contentType": 'application/json',
+          "responseText": "{\"message_type\": \"success\"}"
+        });
+
+        let callCount = jasmine.Ajax.requests.filter((request) => {
+          return request.url === url
+        }).length;
+
+        expect(callCount).toEqual(1);
+        jasmine.clock().tick(500);
+
+        callCount = jasmine.Ajax.requests.filter((request) => {
+          return request.url === url
+        }).length;
+
+        expect(callCount).toEqual(1);
+        jasmine.clock().tick(501);
+
+        callCount = jasmine.Ajax.requests.filter((request) => {
+          return request.url === url
+        }).length;
+
+        expect(callCount).toEqual(2);
       });
     });
   });

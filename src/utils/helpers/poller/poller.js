@@ -36,7 +36,7 @@ function getQueryOptions(queryOptions) {
     url: queryOptions.url,
     data: queryOptions.data || {},
     headers: queryOptions.headers || {}
-  }
+  };
 }
 
 function getOptions(options) {
@@ -44,26 +44,26 @@ function getOptions(options) {
     interval: options.interval || 3000,
     endTime:  Number(new Date()) + options.endTime || Infinity,
     retries: options.retries || Infinity
-  }
+  };
 }
 
 function getFunctions(functions) {
   return {
     callback: functions.callback,
     handleError: functions.handleError || null,
-    conditionMet: functions.conditionMet || () => { return false },
-    terminate: functions.terminate || () => { return false }
-  }
+    conditionMet: functions.conditionMet || (() => { return false; }),
+    terminate: functions.terminate || (() => { return false; })
+  };
 }
 
 function setupValid(queryOptions, functions) {
   if (queryOptions === null || typeof queryOptions.url === 'undefined') {
-    console.error('You must provide a url to the poller');
+    console.error('You must provide a url to the poller'); // eslint-disable-line no-console
     return false;
   }
 
   if (typeof functions.callback === 'undefined') {
-    console.error('You must provide a callback function to the poller');
+    console.error('You must provide a callback function to the poller'); // eslint-disable-line no-console
     return false;
   }
   return true;
@@ -84,7 +84,7 @@ export default (queryOptions, functions, options) => {
 
     (function poll() {
       if (pollCount > options.retries || Number(new Date()) > options.endTime) {
-        console.warn('The poller has made too many requests - terminating poll');
+        console.warn('The poller has made too many requests - terminating poll'); // eslint-disable-line no-console
         return;
       }
       Request
@@ -96,22 +96,20 @@ export default (queryOptions, functions, options) => {
             if(functions.handleError) {
               return reject(functions.handleError(err));
             } else {
-              debugger
-              return reject(err.message);
+              return reject(console.error(err.message)); // eslint-disable-line no-console
             }
-            return;
           } else if (functions.terminate(response)) {
-              return reject(response);
+            return resolve(response);
           } else if (functions.conditionMet(response)) {
             return resolve(functions.callback(response));
           } else {
             pollCount++;
             setTimeout(poll, options.interval);
           }
-        })
+        });
     })();
   })
-  .catch((err) => {
-    console.error(err,': There was a server error');
-  });
-}
+    .catch((err) => {
+      console.error(err); // eslint-disable-line no-console
+    });
+};
