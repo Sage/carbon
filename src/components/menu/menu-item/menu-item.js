@@ -85,6 +85,7 @@ class MenuItem extends React.Component {
     return classNames(
       "ui-menu-item",
       this.props.className, {
+        ["ui-menu-item--has-link"]: this.props.href || this.props.to,
         ["ui-menu-item--has-submenu"]: this.props.submenu,
         ["ui-menu-item--selected"]: this.props.selected,
         ["ui-menu-item--divide"]: this.props.divide

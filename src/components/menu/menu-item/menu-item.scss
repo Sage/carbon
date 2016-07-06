@@ -14,11 +14,16 @@
     color: $grey-dark-blue;
     font-weight: 500;
 
-    &.ui-link__anchor:hover .ui-link__content {
-      text-decoration: none;
+    &.ui-link__anchor:hover {
+      cursor: initial;
+
+      .ui-link__content {
+        text-decoration: none;
+      }
     }
 
-    .ui-menu-item__submenu .ui-link__anchor:hover .ui-link__content {
+    .ui-menu-item__submenu .ui-menu-item--has-link:hover {
+      cursor: pointer;
       color: $blue-bright;
     }
 
@@ -53,9 +58,17 @@
     color: $white;
     font-weight: normal;
 
-    &.ui-link__anchor:hover .ui-link__content {
+    &.ui-link__anchor:hover {
+      cursor: initial;
+
+      .ui-link__content {
+        text-decoration: none;
+      }
+    }
+
+    &.ui-menu-item--has-link:hover {
+      cursor: pointer;
       color: $green-bright-dull;
-      text-decoration: none;
     }
   }
 
