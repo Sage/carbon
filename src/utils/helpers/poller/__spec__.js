@@ -43,6 +43,31 @@ describe('poller', () => {
     });
   });
 
+  describe('when no callback function is provided', () => {
+    let request, callCount;
+
+    it('polls continuously', () => {
+      Poller({ url: url }, {}, {});
+
+      for (let i = 1; i < 10; i++) {
+        request = jasmine.Ajax.requests.mostRecent();
+        request.respondWith({
+          "status": 200,
+          "contentType": 'application/json',
+          "responseText": "{\"message_type\": \"success\"}"
+        });
+
+        jasmine.clock().tick(3001);
+
+        callCount = jasmine.Ajax.requests.filter((request) => {
+          return request.url === url
+        }).length;
+      }
+
+      expect(callCount).toEqual(10);
+    });
+  });
+
   describe('default options', () => {
     it('defaults the interval to 3 seconds if none is provided', () => {
       Poller({ url: url }, functions, {});
