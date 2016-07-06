@@ -32,6 +32,10 @@
 
 * All dropdowns now allow keying up and down through the list
 
+## Polling helper
+
+* A polling helper has been added that performs customizable ajax polling.
+
 ## New Icons
 
 * Help
