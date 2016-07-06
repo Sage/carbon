@@ -1,5 +1,13 @@
 # 0.19.0
 
+## Major Changes
+
+!! Babel upgraded to Version 6
+* When updating the latest version it is recommend to remove node modules `rm -rf node_modules` and reinstall `npm install`
+
+!! Phantom JS Upgraded to version 2
+* This may cause a few tests that were giving false positives to fail
+
 ## New Components
 
 * Profile - User to show portrait with name and email.
