@@ -40,7 +40,7 @@ class MenuItem extends React.Component {
     submenu: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.object
-    }]
+    ])
   }
 
   static defaultProps = {
