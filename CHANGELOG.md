@@ -12,7 +12,17 @@
 
 * Profile - User to show portrait with name and email.
 * AppWrapper - confines your content to the width of your application.
+* Menu
 * NavigationBar
+
+## Input Label Padding
+
+* All input label padding has been slightly increased.
+
+## Help Updates
+
+* Help component has been updated with a new icon.
+* Input Label decorator has been fixed to render the help class for labelHelp.
 
 ## Acronymize Function
 
@@ -21,6 +31,11 @@
 ## Dropdown component updates
 
 * All dropdowns now allow keying up and down through the list
+
+## New Icons
+
+* Help
+* Chevron
 
 # 0.18.1
 
