@@ -16,7 +16,7 @@ let functions = {
  handleError: function(err) => { FlashMessage("Failed", err) };
 }
 
- Poller(options, timeout, conditionMet, callback, handleError);
+ Poller(queryOptions, functions);
 ```
 
 ## Params

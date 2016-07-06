@@ -2,7 +2,7 @@ import Request from 'superagent';
 import Poller from './poller';
 import './../../promises';
 
-fdescribe('poller', () => {
+describe('poller', () => {
   let functions, url;
 
   beforeEach(() => {

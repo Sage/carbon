@@ -35,7 +35,7 @@ import './../../promises';
  *   handleError: function(err) => { FlashMessage("Failed", err) };
  * }
  *
- * Poller(options, timeout, conditionMet, callback, handleError);
+ * Poller(queryOptions, functions);
  */
 export default (queryOptions, functions, options) => {
   if (!setupValid(queryOptions, functions)) {
