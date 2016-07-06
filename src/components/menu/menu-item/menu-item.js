@@ -104,7 +104,8 @@ class MenuItem extends React.Component {
         {
           className: this.classes,
           href: this.props.href,
-          to: this.props.to
+          to: this.props.to,
+          target: this.props.target
         },
         this.content
       )
