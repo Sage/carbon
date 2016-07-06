@@ -34,10 +34,13 @@ class MenuItem extends React.Component {
     /**
      * A title for the menu item that has a submenu.
      *
-     * @property string
-     * @type {Boolean}
+     * @property submenu
+     * @type {String | Object}
      */
-    submenu: React.PropTypes.string
+    submenu: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.object
+    }]
   }
 
   static defaultProps = {

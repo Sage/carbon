@@ -33,11 +33,11 @@ class MenuDemo extends React.Component {
     return (
       <Menu as={ as }>
         <MenuItem>First Menu Item</MenuItem>
-        <MenuItem selected={ true }>Second Menu Item</MenuItem>
+        <MenuItem>Second Menu Item</MenuItem>
         <MenuItem>Third Menu Item</MenuItem>
-        <MenuItem submenu="Fourth Menu Item">
+        <MenuItem selected={ true } submenu="Fourth Menu Item">
           <MenuItem>First Submenu Item</MenuItem>
-          <MenuItem>Second Submenu Item</MenuItem>
+          <MenuItem selected={ true }>Second Submenu Item</MenuItem>
           <MenuItem>Third Submenu Item</MenuItem>
         </MenuItem>
         <MenuItem submenu="Fifth Menu Item" submenuDirection="left">
