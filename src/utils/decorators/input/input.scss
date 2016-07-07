@@ -11,6 +11,8 @@
     display: table;
   }
 
+  .ui-fieldset + &,
+  + .ui-fieldset,
   + .common-input {
     margin-top: 10px;
   }
