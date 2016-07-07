@@ -1,3 +1,9 @@
+# 0.20.0
+
+## New Components
+
+* Heading - useful for page titles.
+
 # 0.19.0
 
 ## Major Changes

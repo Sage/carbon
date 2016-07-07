@@ -80,6 +80,13 @@ let data = ImmutableHelper.parseJSON({
   form: {
     cancel: true
   },
+  heading: {
+    title: "Page Information Example",
+    subheading: "This is an example of the page heading component.",
+    help: "This is an example of help text.",
+    help_link: "#",
+    back_link_href: "#"
+  },
   help: {
     message: "This is an example of a help tooltip."
   },
