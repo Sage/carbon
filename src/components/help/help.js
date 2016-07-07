@@ -25,14 +25,6 @@ const Help = TooltipDecorator(class Help extends React.Component{
 
   static propTypes = {
     /**
-     * Message to display in tooltip
-     *
-     * @property children
-     * @type {String}
-     */
-    children: React.PropTypes.string.isRequired,
-
-    /**
      * Position of tooltip relative to target
      *
      * @property tooltipPosition

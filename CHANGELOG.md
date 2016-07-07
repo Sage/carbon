@@ -4,6 +4,10 @@
 
 * Heading - useful for page titles.
 
+## Minor Changes
+
+* The `children` prop for the Help component is no longer required.
+
 # 0.19.0
 
 ## Major Changes
