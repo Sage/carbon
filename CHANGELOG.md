@@ -4,6 +4,11 @@
 
 * Heading - useful for page titles.
 
+## Minor Changes
+
+* Pod title size has been reduced to more accurately match the demo.
+* Secondary Content components font weight has been normalised.
+
 # 0.19.0
 
 ## Major Changes
