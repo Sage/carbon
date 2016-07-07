@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Heading from './heading;
+import Heading from './heading';
 import Help from './../help';
 import Link from './../link';
 
