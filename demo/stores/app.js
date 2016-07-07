@@ -149,6 +149,22 @@ let data = ImmutableHelper.parseJSON({
   row: {
     columnData: [{}, {}, {}, {}]
   },
+  show_edit_pod: {
+    address_1: '21 North Park',
+    address_2: '',
+    city: 'Newcastle upon Tyne',
+    county: 'Tyne and Wear',
+    country: 'United Kingdom',
+    postcode: 'NE',
+    edit: {
+      address_1: '',
+      address_2: '',
+      city: '',
+      county: '',
+      country: '',
+      postcode: '',
+    }
+  },
   sidebar: {
     open: false
   },
@@ -230,7 +246,7 @@ class AppStore extends Store {
     if (action.component === 'dropdown_filter_ajax') {
       this.data = this.data.setIn(arr, action.visibleValue);
     }
-   }
+  }
 
   /**
    * @method APP_DELETE_ROW
@@ -245,6 +261,18 @@ class AppStore extends Store {
   [AppConstants.APP_TABLE_UPDATED](action) {
     let data = ImmutableHelper.parseJSON(action.items);
     this.data = this.data.setIn([action.component, "data"], data);
+  }
+
+  [AppConstants.APP_EDIT_CONTENT](action) {
+    this.data = this.data.setIn([action.component, 'edit'],
+      this.data.get(action.component)
+    );
+  }
+
+  [AppConstants.APP_SAVE_EDITED_CONTENT](action) {
+    this.data = this.data.set(action.component,
+      this.data.getIn([action.component, 'edit'])
+    );
   }
 
   /**
