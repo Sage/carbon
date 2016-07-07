@@ -8,7 +8,9 @@ class BasicClass {
     name: 'foo',
     label: 'test label',
     labelInline: true,
-    labelWidth: 20
+    labelWidth: 20,
+    labelHelp: "foo",
+    fieldHelp: "bar"
   };
 
   context = {
@@ -244,7 +246,7 @@ describe('InputLabel', () => {
 
     describe('when label help is not provided', () => {
       it('does not return a help span', () => {
-        expect(instanceBasic.fieldHelpHTML).toBeUndefined();
+        expect(instanceFalse.fieldHelpHTML).toBeUndefined();
       });
     });
   });
@@ -280,8 +282,8 @@ describe('InputLabel', () => {
   });
 
   describe('mainClasses', () => {
-    it('adds the label inline class if input is inline', () => {
-      expect(instanceBasic.mainClasses).toEqual('common-input--label-inline');
+    it('adds the label inline class and help classes if input if active', () => {
+      expect(instanceBasic.mainClasses).toEqual('common-input--label-inline common-input--has-label-help common-input--has-field-help');
     });
 
     it('does not add the label inline class if input is inline', () => {
