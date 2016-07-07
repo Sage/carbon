@@ -119,7 +119,16 @@ class Form extends React.Component {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func
+    onCancel: React.PropTypes.func,
+
+    /**
+     * Additional actions rendered next to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    additionalActions: React.PropTypes.node
+
   }
 
   static defaultProps = {
@@ -391,6 +400,14 @@ class Form extends React.Component {
     </div>);
   }
 
+  get additionalActions() {
+    return (
+      <div className='ui-form__additional-actions' >
+        { this.props.additionalActions } 
+      </div>
+    );
+  }
+
    /**
    * Renders the component.
    *
@@ -430,6 +447,8 @@ class Form extends React.Component {
           </div>
 
           { cancelButton }
+
+          { this.additionalActions }
         </div>
       </form>
     );

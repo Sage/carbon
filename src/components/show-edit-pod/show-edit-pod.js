@@ -1,6 +1,9 @@
 import React from 'react';
 import Pod from './../pod';
 import Form from './../form';
+import Link from './../link';
+import classNames from 'classnames';
+import I18n from 'i18n-js';
 
 class ShowEditPod extends React.Component {
 
@@ -22,7 +25,7 @@ class ShowEditPod extends React.Component {
 
   onSaveEditForm = (ev) => {
     ev.preventDefault();
-    this.props.onSave(ev);
+    this.props.afterFormValidation(ev);
     this.setState({ editing: false });
   }
 
@@ -31,8 +34,18 @@ class ShowEditPod extends React.Component {
     this.setState({ editing: false });
   }
 
+  get mainClasses() {
+    return classNames(
+      'ui-show-edit-pod'
+    );
+  }
+
   get deleteButton() {
-    return 'delete';
+    return (
+      <Link as='error' className='ui-show-edit-pod__delete' onClick={ this.props.onDelete }>
+        { this.props.deleteText || I18n.t('actions.delete', { defaultValue: 'Delete' }) }
+      </Link>
+    )
   }
 
   get editContent() {
@@ -46,14 +59,18 @@ class ShowEditPod extends React.Component {
       <div>
         <Form
           afterFormValidation={ this.onSaveEditForm }
-          onCancel={ this.onCancelEditForm }
+          beforeFormValidation={ this.beforeFormValidation }
           buttonAlign={ 'left' }
-          saveText={ this.props.saveText }
+          cancel={ this.props.cancel }
           cancelText={ this.props.cancelText }
+          onCancel={ this.onCancelEditForm }
+          saveText={ this.props.saveText }
+          saving={ this.props.saving }
+          validateOnMount={ this.props.validateOnMount }
+          additionalActions={ this.props.onDelete ? this.deleteButton : null }
         >
           { this.props.editFields }
         </Form>
-        { deleteButton }
       </div>
     );
   }
@@ -84,7 +101,7 @@ class ShowEditPod extends React.Component {
 
   render() {
     return (
-      <Pod { ...this.podProps } >
+      <Pod className={ this.mainClasses } { ...this.podProps } >
         { this.content }
       </Pod>
     );

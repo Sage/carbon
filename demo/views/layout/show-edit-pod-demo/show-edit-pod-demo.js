@@ -79,6 +79,7 @@ class ShowEditPodDemo extends React.Component {
         onEdit={ this.onEdit }
         onCancel={ (() => {} ) }
         saveText='Save Address'
+        onDelete={ () => {} }
       >
         <Content title='Company Name'>
           { content }
