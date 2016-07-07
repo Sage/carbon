@@ -125,7 +125,8 @@ class Form extends React.Component {
   static defaultProps = {
     cancel: true,
     saving: false,
-    validateOnMount: false
+    validateOnMount: false,
+    buttonAlign: 'right' 
   }
 
   static childContextTypes = {
@@ -367,6 +368,13 @@ class Form extends React.Component {
     );
   }
 
+  get buttonClasses() {
+    return classNames(
+      'ui-form__buttons',
+      `ui-form__buttons--${ this.props.buttonAlign }`
+    );
+  }
+
   /**
    * Gets the cancel button for the form
    *
@@ -413,7 +421,7 @@ class Form extends React.Component {
 
         { this.props.children }
 
-        <div className="ui-form__buttons">
+        <div className={ this.buttonClasses }>
           <div className={ saveClasses }>
             { errorCount }
             <Button as="primary" disabled={ this.props.saving }>

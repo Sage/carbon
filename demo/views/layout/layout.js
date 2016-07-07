@@ -7,6 +7,7 @@ import AppWrapperDemo from './app-wrapper-demo';
 import HeadingDemo from './heading-demo';
 import NavigationBarDemo from './navigation-bar-demo';
 import CarouselDemo from './carousel-demo';
+import ShowEditPodDemo from './show-edit-pod-demo';
 
 class Layout extends React.Component {
   /**
@@ -16,6 +17,7 @@ class Layout extends React.Component {
     return (
       <div>
         <h1>Layout</h1>
+        <ShowEditPodDemo />
         <RowDemo />
         <CarouselDemo />
         <TabsDemo />
