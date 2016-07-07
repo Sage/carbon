@@ -8,6 +8,7 @@
   background-color: $ui-button__background-color--secondary;
   border: $ui-button__border--secondary;
   border-radius: $ui-button__border-radius;
+  box-sizing: border-box;
   color: $ui-button__text-color--secondary;
   cursor: pointer;
   display: inline-block;

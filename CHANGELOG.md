@@ -7,6 +7,7 @@
 ## Minor Changes
 
 * Sibling Content components now have a top margin for spacing.
+* Button height has been fixed for buttons that behave like links.
 
 # 0.19.0
 
