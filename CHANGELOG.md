@@ -7,6 +7,7 @@
 ## Minor Changes
 
 * Sibling Content components now have a top margin for spacing.
+* Radio Button sprite has been given a fixed size.
 
 # 0.19.0
 
