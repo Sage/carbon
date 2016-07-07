@@ -114,7 +114,7 @@ class Heading extends React.Component {
    */
   get classes() {
     return classNames(
-      "ui-heading", {
+      "ui-heading", this.props.className, {
         ["ui-heading--has-subheader"]: this.props.subheader,
         ["ui-heading--has-back"]: this.props.backLinkHref || this.props.backLinkTo
       }

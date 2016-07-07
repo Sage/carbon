@@ -10,6 +10,7 @@ describe('Heading', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Heading
+        className="custom"
         title="foo"
         subheader="subheader"
         help="bar"
@@ -21,7 +22,7 @@ describe('Heading', () => {
 
   it('renders with main classes', () => {
     let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-heading');
-    expect(div.className).toEqual('ui-heading ui-heading--has-subheader ui-heading--has-back');
+    expect(div.className).toEqual('ui-heading custom ui-heading--has-subheader ui-heading--has-back');
   });
 
   it('renders a h1 with the title', () => {
