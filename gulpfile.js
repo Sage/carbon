@@ -17,7 +17,7 @@ gulp.task('webserver', function() {
     res.sendFile(__dirname + '/demo/index.html');
   });
   // run server
-  app.listen(8082);
+  app.listen(8080);
 });
 
 gulp.task('build', BuildTask({
