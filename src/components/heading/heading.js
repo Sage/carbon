@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Help from './../help';
 import Link from './../link';
 import Icon from './../icon';
@@ -56,7 +57,7 @@ class Heading extends React.Component {
    * @return {Object} JSX
    */
   get help() {
-    if (!this.props.help) { return null; }
+    if (!this.props.help && !this.props.helpLink) { return null; }
 
     return (
       <Help
@@ -90,6 +91,37 @@ class Heading extends React.Component {
   }
 
   /**
+   * Returns the subheader.
+   *
+   * @method subheader
+   * @return {Object} JSX
+   */
+  get subheader() {
+    if (!this.props.subheader) { return null; }
+
+    return (
+      <div className="ui-heading__subheader">
+        { this.props.subheader }
+      </div>
+    );
+  }
+
+  /**
+   * Returns the classes for the component.
+   *
+   * @method classes
+   * @return {String}
+   */
+  get classes() {
+    return classNames(
+      "ui-heading", {
+        ["ui-heading--has-subheader"]: this.props.subheader,
+        ["ui-heading--has-back"]: this.props.backLinkHref || this.props.backLinkTo
+      }
+    );
+  }
+
+  /**
    * @method render
    * @return {Object} JSX
    */
@@ -97,15 +129,21 @@ class Heading extends React.Component {
     if (!this.props.title) { return null; }
 
     return (
-      <div className="ui-heading">
+      <div className={ this.classes }>
         <div className="ui-heading__header">
           { this.back }
 
-          <h1 className="ui-heading__title">
-            { this.props.title }
-          </h1>
+          <div className="ui-heading__headers">
+            <div className="ui-heading__main-header">
+              <h1 className="ui-heading__title">
+                { this.props.title }
+              </h1>
 
-          { this.help }
+              { this.help }
+            </div>
+
+            { this.subheader }
+          </div>
         </div>
 
         { this.props.children }

@@ -6,10 +6,19 @@
   border-bottom: 1px solid $border-color;
   padding-bottom: 10px;
   margin-bottom: 20px;
+  position: relative;
 
   .ui-tooltip {
     z-index: $z-modal-background - 1;
   }
+}
+
+.ui-heading__subheader {
+  margin-top: 5px;
+}
+
+.ui-heading--has-back .ui-heading__headers {
+  margin-left: 30px;
 }
 
 .ui-heading__title {
@@ -27,9 +36,9 @@
 }
 
 .ui-heading__back {
-  margin-right: 15px;
-  top: 6px;
-  position: relative;
+  top: 50%;
+  margin-top: -11px;
+  position: absolute;
 
   .ui-icon {
     color: $grey-dark-blue-30;
