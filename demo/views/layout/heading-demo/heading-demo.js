@@ -32,12 +32,13 @@ class HeadingDemo extends React.Component {
     return (
       <Heading
         title={ this.value('title') }
-        subheading={ this.value('subheading') }
         helpLink={ this.value('help_link') }
         help={ this.value('help') }
         backLinkHref={ this.value('back_link_href') }
         backLinkTo={ this.value('back_link_to') }
-      />
+      >
+        { this.value('content') }
+      </Heading>
     )
   }
 
@@ -51,10 +52,6 @@ class HeadingDemo extends React.Component {
 
     if (this.value('title')) {
       html += `\n  title='${this.value('title')}'`
-    }
-
-    if (this.value('subheading')) {
-      html += `\n  subheading='${this.value('subheading')}'`
     }
 
     if (this.value('help_link')) {
@@ -73,7 +70,15 @@ class HeadingDemo extends React.Component {
       html += `\n  backLinkTo='${this.value('back_link_to')}'`
     }
 
-    html += '\n/>'
+    if (this.value('content')) {
+      html += `\n>`;
+      html += `\n  ${this.value('content')}`
+      html += `\n</Heading>`
+    }
+
+    if (!this.value('content')) {
+      html += '\n/>';
+    }
 
     return html;
   }
@@ -92,10 +97,10 @@ class HeadingDemo extends React.Component {
             onChange={ this.action.bind(this, 'title') }
           />
           <Textbox
-            label="Subheading"
+            label="Content"
             labelInline={ true }
-            value={ this.value('subheading') }
-            onChange={ this.action.bind(this, 'subheading') }
+            value={ this.value('content') }
+            onChange={ this.action.bind(this, 'content') }
           />
         </Row>
 

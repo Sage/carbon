@@ -17,14 +17,6 @@ class Heading extends React.Component {
     title: React.PropTypes.string,
 
     /**
-     * Defines the subheading for the heading.
-     *
-     * @property subheading
-     * @type {String}
-     */
-    subheading: React.PropTypes.string,
-
-    /**
      * Defines the help text for the heading.
      *
      * @property help
@@ -98,20 +90,6 @@ class Heading extends React.Component {
   }
 
   /**
-   * Returns the subheading.
-   *
-   * @method subheading
-   * @return {Object} JSX
-   */
-  get subheading() {
-    if (!this.props.subheading) { return null; }
-
-    return (
-      <p className="ui-heading__subheading">{ this.props.subheading }</p>
-    );
-  }
-
-  /**
    * @method render
    * @return {Object} JSX
    */
@@ -130,7 +108,7 @@ class Heading extends React.Component {
           { this.help }
         </div>
 
-        { this.subheading }
+        { this.props.children }
       </div>
     );
   }

@@ -11,7 +11,6 @@ describe('Heading', () => {
     instance = TestUtils.renderIntoDocument(
       <Heading
         title="foo"
-        subheading="foobar"
         help="bar"
         helpLink="/bar"
         backLinkHref="/foobar"
@@ -36,27 +35,12 @@ describe('Heading', () => {
     expect(link.props.href).toEqual('/foobar');
   });
 
-  it('renders a subheading', () => {
-    let link = TestUtils.findRenderedDOMComponentWithTag(instance, 'p');
-    expect(link.props.className).toEqual('ui-heading__subheading');
-    expect(link.props.children).toEqual('foobar');
-  });
-
-  describe('no subheading', () => {
-    it('returns nothing', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Heading />
-      );
-      expect(TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p').length).toEqual(0);
-    });
-  });
-
   describe('no title', () => {
     it('returns nothing', () => {
       instance = TestUtils.renderIntoDocument(
         <Heading />
       );
-      expect(TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div').length).toEqual(0);
+      expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-heading__title').length).toEqual(0);
     });
   });
 
