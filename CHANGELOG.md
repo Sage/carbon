@@ -8,6 +8,7 @@
 
 * Pod title size has been reduced to more accurately match the demo.
 * Secondary Content components font weight has been normalised.
+* Sibling Content components now have a top margin for spacing.
 
 # 0.19.0
 
