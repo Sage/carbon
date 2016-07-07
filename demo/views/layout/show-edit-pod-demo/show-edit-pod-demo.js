@@ -75,7 +75,7 @@ class ShowEditPodDemo extends React.Component {
     return (
       <ShowEditPod
         editFields={ editFields }
-        onSave={ this.onSave }
+        afterFormValidation={ this.onSave }
         onEdit={ this.onEdit }
         onCancel={ (() => {} ) }
         saveText='Save Address'
