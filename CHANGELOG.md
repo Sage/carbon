@@ -4,6 +4,10 @@
 
 * Heading - useful for page titles.
 
+## Minor Changes
+
+* Sibling Content components now have a top margin for spacing.
+
 # 0.19.0
 
 ## Major Changes
