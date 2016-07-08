@@ -69,7 +69,7 @@ class Pod extends React.Component {
     collapsed: React.PropTypes.bool,
 
     /**
-     * Title for the pod h2 element
+     * Title for the pod h4 element
      * always shown
      *
      * @property title
@@ -146,7 +146,7 @@ class Pod extends React.Component {
 
     return (
       <div { ...headerProps }>
-        <h2 className="ui-pod__title" >{ this.props.title }</h2>
+        <h4 className="ui-pod__title" >{ this.props.title }</h4>
         { pod }
       </div>
     );

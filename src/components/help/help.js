@@ -30,7 +30,7 @@ const Help = TooltipDecorator(class Help extends React.Component{
      * @property children
      * @type {String}
      */
-    children: React.PropTypes.string.isRequired,
+    children: React.PropTypes.string,
 
     /**
      * Position of tooltip relative to target
