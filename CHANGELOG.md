@@ -13,6 +13,7 @@
 * Radio Button sprite has been given a fixed size.
 * Fixes fieldset and input margin when rendered on top of one another.
 * Fixes position of icon in dropdown button.
+* Fixes error icon position for inputs with field help.
 
 # 0.19.0
 
