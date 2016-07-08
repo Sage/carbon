@@ -6,6 +6,9 @@
 
 ## Minor Changes
 
+* Pod title size has been reduced to more accurately match the demo.
+* Secondary Content components font weight has been normalised.
+* The `children` prop for the Help component is no longer required.
 * Sibling Content components now have a top margin for spacing.
 * Radio Button sprite has been given a fixed size.
 * Fixes fieldset and input margin when rendered on top of one another.
