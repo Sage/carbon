@@ -86,9 +86,11 @@
 
   &.ui-checkbox__help-text--inline {
     display: inline;
-    padding-left: 0;
+    left: 21px;
+    margin-left: -21px;
     margin-right: 5px;
-    margin-left: 0px;
-    line-height: 17px;
+    padding-left: 0;
+    position: relative;
+    top: -1px;
   }
 }
