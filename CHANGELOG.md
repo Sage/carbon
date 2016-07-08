@@ -8,6 +8,8 @@
 
 * Sibling Content components now have a top margin for spacing.
 * Radio Button sprite has been given a fixed size.
+* Fixes fieldset and input margin when rendered on top of one another.
+* Fixes position of icon in dropdown button.
 
 # 0.19.0
 
