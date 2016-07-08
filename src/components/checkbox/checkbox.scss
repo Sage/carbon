@@ -72,19 +72,23 @@
   }
 }
 
-.ui-checkbox__help-text {
-  display: block;
-  margin-top: 0;
-  margin-left: 21px;
-}
+// extra specificity is required here
+.common-input__help-text {
+  &.ui-checkbox__help-text {
+    display: block;
+    margin-top: 0;
+    margin-left: 21px;
+  }
 
-.ui-checkbox__help-text--reverse {
-  margin-left: 6px;
-}
+  &.ui-checkbox__help-text--reverse {
+    margin-left: 6px;
+  }
 
-.ui-checkbox__help-text--inline {
-  display: inline;
-  padding-left: 0;
-  margin-right: 5px;
-  margin-left: 0px;
+  &.ui-checkbox__help-text--inline {
+    display: inline;
+    padding-left: 0;
+    margin-right: 5px;
+    margin-left: 0px;
+    line-height: 17px;
+  }
 }

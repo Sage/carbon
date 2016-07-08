@@ -7,6 +7,8 @@
 ## Minor Changes
 
 * Sibling Content components now have a top margin for spacing.
+* Adds inline help for radio button.
+* Fixes inline help for checkboxes.
 * Fixes fieldset and input margin when rendered on top of one another.
 * Fixes position of icon in dropdown button.
 
