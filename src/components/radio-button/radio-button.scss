@@ -18,6 +18,11 @@
   }
 }
 
+.ui-radio-button__sprite {
+  height: 15px;
+  width: 15px;
+}
+
 .ui-radio-button__input.common-input__input {
   cursor: pointer;
   height: 15px;
@@ -39,8 +44,6 @@
   &:focus + .ui-radio-button__sprite {
     box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
     border-radius: 100%;
-    height: 15px;
-    width: 15px;
     @include transition(border linear 0.1s, box-shadow linear 0.1s);
 
     .radio-button-outline {
