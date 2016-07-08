@@ -180,16 +180,11 @@
 }
 
 .ui-icon.common-input__icon {
-  bottom: 1px;
   color: red;
   height: 15px;
-  margin: 7px 5px;
+  margin: -23px 5px;
   position: absolute;
   right: 0;
-
-  .common-input--has-field-help & {
-    bottom: 20px;
-  }
 
   &:before {
     font-size: 20px;

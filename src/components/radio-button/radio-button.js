@@ -74,7 +74,11 @@ class RadioButton extends React.Component {
    * @return {String}
    */
   get fieldHelpClasses() {
-    return 'ui-radio-button__help-text';
+    return classNames(
+      'ui-radio-button__help-text', {
+        'ui-radio-button__help-text--inline': this.props.fieldHelpInline
+      }
+    );
   }
 
   /**

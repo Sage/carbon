@@ -16,6 +16,16 @@
     padding-top: 1px;
     padding-bottom: 5px;
   }
+
+  &.common-input--has-field-help {
+    .common-input__label {
+      padding-bottom: 0px;
+    }
+
+    .ui-radio-button__help-text {
+      padding-bottom: 5px;
+    }
+  }
 }
 
 .ui-radio-button__sprite {
@@ -80,8 +90,21 @@
   }
 }
 
-.ui-radio-button__help-text {
-  display: block;
-  margin-top: 0;
-  margin-left: 21px;
+// extra specificity is required here
+.common-input__help-text {
+  &.ui-radio-button__help-text {
+    display: block;
+    margin-top: 0;
+    margin-left: 21px;
+  }
+
+  &.ui-radio-button__help-text--inline {
+    display: inline;
+    left: 21px;
+    margin-left: -21px;
+    margin-right: 5px;
+    padding-left: 0;
+    position: relative;
+    top: -2px;
+  }
 }

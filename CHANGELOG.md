@@ -10,6 +10,8 @@
 * Secondary Content components font weight has been normalised.
 * The `children` prop for the Help component is no longer required.
 * Sibling Content components now have a top margin for spacing.
+* Adds inline help for radio button.
+* Fixes inline help for checkboxes.
 * Radio Button sprite has been given a fixed size.
 * Fixes fieldset and input margin when rendered on top of one another.
 * Fixes position of icon in dropdown button.
