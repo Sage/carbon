@@ -166,8 +166,8 @@ class Dropdown extends React.Component {
    * @method handleSelect
    * @param {Object} ev event
    */
-  handleSelect = (ev) => {
-    this.selectValue(ev.currentTarget.getAttribute('value'), ev.currentTarget.textContent);
+  handleSelect = (id, name) => {
+    this.selectValue(id, name);
   }
 
   /**
@@ -176,8 +176,8 @@ class Dropdown extends React.Component {
    * @method handleMouseOverListItem
    * @param {Object} ev event
    */
-  handleMouseOverListItem = (ev) => {
-    this.setState({ highlighted: ev.currentTarget.getAttribute('value') });
+  handleMouseOverListItem = (id) => {
+    this.setState({ highlighted: id });
   }
 
   /*
@@ -298,7 +298,7 @@ class Dropdown extends React.Component {
       case 13: // return
         if (element) {
           ev.preventDefault();
-          this.selectValue(element.getAttribute('value'), element.textContent);
+          this.selectValue(this.getIdByIndex(element.value), element.textContent);
         }
         break;
       case 38: // up arrow
@@ -331,7 +331,7 @@ class Dropdown extends React.Component {
       this.updateScroll(list, element.previousElementSibling);
       nextVal = element.previousElementSibling.getAttribute('value');
     }
-    return nextVal;
+    return this.getIdByIndex(nextVal);
   }
 
   /**
@@ -352,7 +352,7 @@ class Dropdown extends React.Component {
       this.updateScroll(list, element.nextElementSibling);
       nextVal = element.nextElementSibling.getAttribute('value');
     }
-    return nextVal;
+    return this.getIdByIndex(nextVal);
   }
 
   /**
@@ -375,6 +375,10 @@ class Dropdown extends React.Component {
     }
   }
 
+  getIdByIndex = (index) => {
+    return String(this.props.options.getIn([index, 'id']));
+  }
+
   /**
    * Return the list item which should be highlighted by default.
    *
@@ -385,10 +389,8 @@ class Dropdown extends React.Component {
 
     if (this.state.highlighted) {
       return this.state.highlighted;
-    } else {
-      if (this.props.value) {
-        return this.props.value;
-      }
+    } else if (this.props.value) {
+      return this.props.value;
     }
 
     return highlighted;
@@ -421,6 +423,10 @@ class Dropdown extends React.Component {
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
     }
+
+    delete props.suggest;
+    delete props.options;
+
     return props;
   }
 
@@ -514,7 +520,7 @@ class Dropdown extends React.Component {
     let className = 'ui-dropdown__list-item',
         highlighted = this.highlighted(options);
 
-    let results = options.map((option) => {
+    let results = options.map((option, index) => {
       let klass = className;
 
       // add highlighted class
@@ -530,9 +536,9 @@ class Dropdown extends React.Component {
       return (
         <li
           key={ option.name + option.id }
-          value={ option.id }
-          onClick={ this.handleSelect }
-          onMouseOver={ this.handleMouseOverListItem }
+          value={ index }
+          onClick={ this.handleSelect.bind(this, option.id, option.name) }
+          onMouseOver={ this.handleMouseOverListItem.bind(this, option.id) }
           className={ klass }>
             { option.name }
         </li>

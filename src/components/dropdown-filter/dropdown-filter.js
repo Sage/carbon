@@ -334,6 +334,8 @@ class DropdownFilter extends Dropdown {
 
     let value = props.value;
 
+    delete props.create;
+
     if (typeof this.state.filter === 'string') {
       // if filter has a value, use that instead
       value = this.state.filter;

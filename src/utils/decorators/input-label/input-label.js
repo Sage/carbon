@@ -192,6 +192,9 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
       inputProps.id = this.labelID;
     }
 
+    delete inputProps.fieldHelp;
+    delete inputProps.fieldHelpInline;
+
     return inputProps;
   }
 

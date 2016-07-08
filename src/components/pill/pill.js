@@ -58,17 +58,17 @@ class Pill extends React.Component {
    * @method render
    */
   render() {
-    let { className, ...props } = this.props;
+    let { className, as, fill, children,  ...props } = this.props;
 
     className = classNames(
       'ui-pill',
       className,
-      'ui-pill--' + this.props.as + (this.props.fill ? '--fill' : '--empty')
+      'ui-pill--' + as + (fill ? '--fill' : '--empty')
     );
 
     return(
       <span { ...props } className={ className }>
-        {this.props.children}
+        { children }
       </span>
     );
   }

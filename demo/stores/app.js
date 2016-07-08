@@ -7,12 +7,14 @@ import FormInputHelper from './../helpers/form-input-helper';
 
 let data = ImmutableHelper.parseJSON({
   alert: {
+    open: false,
     size: 'extra-small',
     title: 'Alert!'
   },
   animated_menu_button: {
     alignRight: true,
-    size: 'large'
+    size: 'large',
+    label: ''
   },
   app_wrapper: {
     body: "This component contains your content within the confines of the width of your application."
@@ -21,24 +23,32 @@ let data = ImmutableHelper.parseJSON({
     text: "Action"
   },
   button_toggle: {
-    option_one: "Option One"
+    option_one: "Option One",
+    icon: ''
   },
   carousel: {
-    slideData: [{}, {}]
+    slideData: [{ content: '' }, { content: '' }]
   },
   checkbox: {
     label: "Checkbox",
     labelHelp: "Example label help.",
-    fieldHelp: "Example field help."
+    fieldHelp: "Example field help.",
+    value: false
   },
   confirm: {
     size: 'extra-small',
     title: 'Are you sure?'
   },
   collapsible_pod: {
-    title: 'Hello World!'
+    title: 'Hello World!',
+    descriptions: '',
+    edit: '',
+    border: true,
+    padding: "medium",
+    as: "primary"
   },
   content: {
+    as: '',
     title: 'Example Content',
     body: 'This is some example content\nfor the Content component.'
   },
@@ -51,6 +61,7 @@ let data = ImmutableHelper.parseJSON({
     label: "Decimal",
     labelHelp: "Example label help.",
     fieldHelp: "Example field help.",
+    value: '0.00',
     precision: 3
   },
   dialog: {
@@ -65,7 +76,11 @@ let data = ImmutableHelper.parseJSON({
   dropdown: {
     label: "Dropdown",
     labelHelp: "Example label help.",
-    fieldHelp: "Example field help."
+    fieldHelp: "Example field help.",
+    value: '1'
+  },
+  dropdown_filter: {
+    value: '1'
   },
   dialog_full_screen: {
     open: false,
@@ -78,7 +93,12 @@ let data = ImmutableHelper.parseJSON({
     text: "Sample flash notification."
   },
   form: {
-    cancel: true
+    firstName: '',
+    lastName: '',
+    telephone: '',
+    cancel: true,
+    saveText: '',
+    cancelText: ''
   },
   heading: {
     title: "Heading Example",
@@ -88,13 +108,19 @@ let data = ImmutableHelper.parseJSON({
     back_link_href: "#"
   },
   help: {
-    message: "This is an example of a help tooltip."
+    message: "This is an example of a help tooltip.",
+    href: '',
+    tooltip_align: '',
+    tooltip_position: ''
   },
   icon: {
     type: 'info'
   },
   link: {
-    text: "Sample Link"
+    text: "Sample Link",
+    href: '',
+    to: '',
+    icon: 'settings'
   },
   message: {
     dismissable: true,
@@ -120,12 +146,16 @@ let data = ImmutableHelper.parseJSON({
     text: 'PILL'
   },
   portrait: {
+    alt: '',
     size: 'small',
     shape: 'standard',
     email: 'Email',
     initials: 'CB'
   },
   pod: {
+    title: '',
+    descriptions: '',
+    edit: '',
     border: true,
     padding: "medium",
     as: "primary"
@@ -137,24 +167,32 @@ let data = ImmutableHelper.parseJSON({
   radio_button: {
     label: "Radio Button",
     labelHelp: "Example label help.",
-    fieldHelp: "Example field help."
+    fieldHelp: "Example field help.",
+    value: false
   },
   rainbow: {
     data: [{
       y: "50",
       name: "First Bit",
       label: "bit 1!",
-      tooltip: "more info about the first bit"
+      tooltip: "more info about the first bit",
+      color: ''
     }, {
       y: "50",
       name: "Second Bit",
       label: "bit 2!",
-      tooltip: "more info about the second bit"
+      tooltip: "more info about the second bit",
+      color: ''
     }],
     title: "A Rainbow Chart"
   },
   row: {
-    columnData: [{}, {}, {}, {}]
+    columnData: [
+      { columnOffset: '', columnSpan: '', columnAlign: 'left' },
+      { columnOffset: '', columnSpan: '', columnAlign: 'left' },
+      { columnOffset: '', columnSpan: '', columnAlign: 'left' },
+      { columnOffset: '', columnSpan: '', columnAlign: 'left' },
+    ]
   },
   sidebar: {
     open: false
@@ -165,9 +203,6 @@ let data = ImmutableHelper.parseJSON({
   },
   split_button: {
     text: "Main Action"
-  },
-  text: {
-    content: "Example of stylised text content."
   },
   table: {
     current_page: "1",
@@ -192,12 +227,24 @@ let data = ImmutableHelper.parseJSON({
     sortable: true
   },
   tabs: {
-    tabData: [{}, {}]
+    tabData: [
+      { title: '' },
+      { title: '' }
+    ]
+  },
+  text: {
+    content: "Example of stylised text content.",
+    as: ''
+  },
+  textarea: {
+    label: '',
+    prefix: ''
   },
   textbox: {
     label: "Textbox",
     labelHelp: "Example label help.",
-    fieldHelp: "Example field help."
+    fieldHelp: "Example field help.",
+    value: ''
   },
   toast: {
     dismissable: true,
@@ -209,6 +256,7 @@ let data = ImmutableHelper.parseJSON({
     message: 'Some Helpful Content'
   },
   validations: {
+    value: '',
     validator: 'presence',
     length: {
       setIs: false,

@@ -31,10 +31,10 @@
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "~3.7.5",
     "ncp": "~2.0.0",
-    "react": "~0.14.0",
-    "react-addons-css-transition-group": "~0.14.0",
-    "react-dom": "~0.14.0",
-    "react-highlight": "~0.6.1",
+    "react": "~15.2.0",
+    "react-addons-css-transition-group": "~15.2.0",
+    "react-dom": "~15.2.0",
+    "react-highlight": "~0.8.0",
     "react-router": "~1.0.0"
   },
   "dependencies": {
@@ -48,8 +48,8 @@
     "form-serialize": "~0.7.0",
     "lodash": "~3.10.1",
     "moment": "~2.10.6",
-    "react-date-picker": "~3.1.5",
-    "react-highcharts": "~5.0.4",
+    "react-date-picker": "~3.1.7",
+    "react-highcharts": "~8.4.1",
     "superagent": "~1.4.0"
   }
 }

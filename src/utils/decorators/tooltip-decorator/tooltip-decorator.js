@@ -254,6 +254,11 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
       props.onBlur = chainFunctions(this.onHide, props.onBlur);
       props.onTouchEnd = this.state.isVisible ? this.onHide : this.onShow;
     }
+
+    delete props.tooltipMessage;
+    delete props.tooltipPosition;
+    delete props.tooltipAlign;
+
     return props;
   }
 

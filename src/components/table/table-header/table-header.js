@@ -140,7 +140,7 @@ class TableHeader extends React.Component {
    * @return {Object}
    */
   get tableHeaderProps() {
-    let { children, ...props } = this.props;
+    let { children, sortable, ...props } = this.props;
     props.className = this.tableHeaderClasses;
     props.onClick = this.props.sortable ? this.emitSortEvent.bind(this) : '';
 

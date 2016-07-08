@@ -64,10 +64,9 @@ class Button extends React.Component {
    * @return {Object} JSX
    */
   get element() {
-    let {...props} = this.props,
+    let { as, ...props } = this.props,
         // if props.href then render an anchor instead
-        el = props.href ? 'a' : 'button',
-        as = this.props.as;
+        el = props.href ? 'a' : 'button';
 
     if (as.constructor === Array) {
       as = as.map((klass) => {

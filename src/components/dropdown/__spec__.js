@@ -127,13 +127,7 @@ describe('Dropdown', () => {
   describe('handleSelect', () => {
     it('calls selectValue', () => {
       spyOn(instance, 'selectValue');
-      instance.handleSelect({
-        currentTarget: {
-          getAttribute: function() { return 'foo' },
-          textContent: 'bar'
-        }
-      });
-
+      instance.handleSelect('foo', 'bar');
       expect(instance.selectValue).toHaveBeenCalledWith('foo', 'bar');
     });
   });
@@ -141,12 +135,7 @@ describe('Dropdown', () => {
   describe('handleMouseOverListItem', () => {
     it('calls setState', () => {
       spyOn(instance, 'setState');
-      instance.handleMouseOverListItem({
-        currentTarget: {
-          getAttribute: function() { return 'foo' }
-        }
-      });
-
+      instance.handleMouseOverListItem('foo');
       expect(instance.setState).toHaveBeenCalledWith({ highlighted: 'foo' });
     });
   });
@@ -537,7 +526,7 @@ describe('Dropdown', () => {
 
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Dropdown name="foo" options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value="" />
+        <Dropdown name="foo" options={ Immutable.fromJS([{ id: 'foo', name: 'foo' }, { id: 'bar', name: 'bar' }]) } value="" />
       );
 
       spyOn(instance, 'updateScroll');
@@ -548,13 +537,13 @@ describe('Dropdown', () => {
       it('returns the value of the last item in the list', () => {
         list = instance.refs.list;
         let nextValue = instance.onUpArrow(list, null);
-        expect(nextValue).toEqual(list.lastChild.getAttribute('value'));
+        expect(nextValue).toEqual('bar');
       });
     });
 
     describe('if the element is the first in the list', () => {
       it('it calls updateScroll with the list and the last list element', () => {
-        instance.setState({ highlighted: 1 });
+        instance.setState({ highlighted: 'foo' });
         list = instance.refs.list;
         element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
         instance.onUpArrow(list, element);
@@ -562,17 +551,17 @@ describe('Dropdown', () => {
       });
 
       it('returns the next highlighted value', () => {
-        instance.setState({ highlighted: 1 });
+        instance.setState({ highlighted: 'foo' });
         list = instance.refs.list;
         element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
         let nextValue = instance.onUpArrow(list, element);
-        expect(nextValue).toEqual(list.lastChild.getAttribute('value'));
+        expect(nextValue).toEqual('bar');
       });
     });
 
     describe('if there is a next sibling', () => {
       it('it calls updateScroll with the list and the last list element', () => {
-        instance.setState({ highlighted: 2 });
+        instance.setState({ highlighted: 'bar' });
         list = instance.refs.list;
         element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
         instance.onUpArrow(list, element);
@@ -580,11 +569,11 @@ describe('Dropdown', () => {
       });
 
       it('returns the next highlighted value', () => {
-        instance.setState({ highlighted: 2 });
+        instance.setState({ highlighted: 'bar' });
         list = instance.refs.list;
         element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
         let nextValue = instance.onUpArrow(list, element);
-        expect(nextValue).toEqual(element.previousElementSibling.getAttribute('value'));
+        expect(nextValue).toEqual('foo');
       });
     });
   });
@@ -605,7 +594,7 @@ describe('Dropdown', () => {
       it('returns the value of the last item in the list', () => {
         list = instance.refs.list;
         let nextValue = instance.onDownArrow(list, null);
-        expect(nextValue).toEqual(list.firstChild.getAttribute('value'));
+        expect(nextValue).toEqual('1');
       });
     });
 

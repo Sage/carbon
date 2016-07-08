@@ -34,6 +34,7 @@ class CheckboxDemo extends React.Component {
     return (
       <Checkbox
         { ...FormInputHelper.demoProps(this, this.action) }
+        checked={ this.value('value') }
         reverse={ this.value('reverse') }
         fieldHelpInline={ this.value('fieldHelpInline') }
       />

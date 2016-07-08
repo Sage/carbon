@@ -46,6 +46,7 @@ describe('tooltip', () => {
       });
 
       it('renders a pointer span', () => {
+        debugger
         expect(tooltip.children[0].children[1].classList[0]).toEqual('ui-tooltip__pointer');
       });
 

@@ -74,6 +74,9 @@ class ButtonToggle extends React.Component {
    */
   get inputProps() {
     let { children, ...props } = this.props;
+
+    delete props.iconSize;
+
     props.className = this.inputClasses;
     props.type = "radio";
     return props;

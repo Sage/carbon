@@ -226,9 +226,9 @@ class TableRow extends React.Component {
    * @return {Object}
    */
   get rowProps() {
-    let { ...props } = this.props;
-
-    props.className = this.mainClasses;
+    let props = {
+      className: this.mainClasses
+    };
 
     if (this.context.highlightable || this.props.highlightable) {
       props.onClick = this.onRowClick;

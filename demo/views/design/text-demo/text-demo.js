@@ -29,7 +29,7 @@ class TextDemo extends React.Component {
   get classes() {
     let asClass;
 
-    if (this.value('as') != 'null') {
+    if (this.value('as')) {
       asClass = `text--${this.value('as')}`;
     }
 
