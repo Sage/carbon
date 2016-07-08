@@ -16,6 +16,16 @@
     padding-top: 1px;
     padding-bottom: 5px;
   }
+
+  &.common-input--has-field-help {
+    .common-input__label {
+      padding-bottom: 0px;
+    }
+
+    .ui-checkbox__help-text {
+      padding-bottom: 5px;
+    }
+  }
 }
 
 .ui-checkbox__input.common-input__input {
@@ -91,6 +101,6 @@
     margin-right: 5px;
     padding-left: 0;
     position: relative;
-    top: -1px;
+    top: -2px;
   }
 }
