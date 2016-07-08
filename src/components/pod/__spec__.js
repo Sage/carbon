@@ -33,7 +33,7 @@ describe('Pod', () => {
     describe('when title is passed as a prop', () => {
       it('Adds a title to the pod', () => {
         instance = TestUtils.renderIntoDocument(<Pod title='Title'/>);
-        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
+        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h4');
         expect(header.textContent).toEqual('Title');
       });
 
