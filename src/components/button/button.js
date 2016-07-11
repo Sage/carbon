@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Link from './../link';
 
 /**
  * A button widget.
@@ -66,7 +67,7 @@ class Button extends React.Component {
   get element() {
     let {...props} = this.props,
         // if props.href then render an anchor instead
-        el = props.href ? 'a' : 'button',
+        el = props.href || props.to ? Link : 'button',
         as = this.props.as;
 
     if (as.constructor === Array) {
