@@ -135,7 +135,7 @@ class Form extends React.Component {
     cancel: true,
     saving: false,
     validateOnMount: false,
-    buttonAlign: 'right' 
+    buttonAlign: 'right'
   }
 
   static childContextTypes = {
@@ -403,7 +403,7 @@ class Form extends React.Component {
   get additionalActions() {
     return (
       <div className='ui-form__additional-actions' >
-        { this.props.additionalActions } 
+        { this.props.additionalActions }
       </div>
     );
   }

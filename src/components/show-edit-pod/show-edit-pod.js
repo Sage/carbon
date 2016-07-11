@@ -9,7 +9,7 @@ class ShowEditPod extends React.Component {
 
   static propTypes = {
     /**
-     * Callback when edit button is clicked 
+     * Callback when edit button is clicked
      *
      * @property onEdit
      * @type {Function}
@@ -29,14 +29,6 @@ class ShowEditPod extends React.Component {
      * JSX of fields to appear when in edit mode
      *
      * @property editFields
-     * @type {JSX}
-     */
-    editFields: React.PropTypes.node,
-
-    /**
-     * JSX of content to appear when in show mode
-     *
-     * @property children
      * @type {JSX}
      */
     editFields: React.PropTypes.node,
@@ -87,7 +79,7 @@ class ShowEditPod extends React.Component {
 
   /**
    * Emits the afterFormValidation Callback
-   * when valid 
+   * when valid
    *
    * @method onSaveEditForm
    */
@@ -125,7 +117,7 @@ class ShowEditPod extends React.Component {
   }
 
   /**
-   * Returns the delete button 
+   * Returns the delete button
    *
    * @method mainClasses
    */
@@ -134,7 +126,7 @@ class ShowEditPod extends React.Component {
       <Link as='error' className='ui-show-edit-pod__delete' onClick={ this.props.onDelete }>
         { this.props.deleteText || I18n.t('actions.delete', { defaultValue: 'Delete' }) }
       </Link>
-    )
+    );
   }
 
   /**
@@ -143,12 +135,6 @@ class ShowEditPod extends React.Component {
    * @method editContent
    */
   get editContent() {
-    let deleteButton;
-
-    if (this.props.onDelete) {
-      deleteButton = this.deleteButton; 
-    }
-
     return (
       <div>
         <Form
@@ -179,7 +165,7 @@ class ShowEditPod extends React.Component {
   }
 
   /**
-   * Determines props for show content 
+   * Determines props for show content
    *
    * @method content
    */
@@ -192,7 +178,7 @@ class ShowEditPod extends React.Component {
   }
 
   /**
-   * Determines props for edit content 
+   * Determines props for edit content
    *
    * @method content
    */
