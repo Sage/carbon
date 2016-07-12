@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Button from './button';
+import Link from './../link';
 
 describe('Button', () => {
 
-  let defaultButton, primary, secondary, small, disabled, multiple;
-  let anchor;
+  let defaultButton, primary, secondary, small, disabled, multiple, anchor, to;
   let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
@@ -53,6 +53,10 @@ describe('Button', () => {
 
     anchor = TestUtils.renderIntoDocument(
       <Button href="/foo">Anchor</Button>
+    );
+
+    to = TestUtils.renderIntoDocument(
+      <Button to="/foo">To</Button>
     );
   });
 
@@ -164,8 +168,13 @@ describe('Button', () => {
 
     describe('with href', () => {
       it('renders an anchor', () => {
-        let b = TestUtils.findRenderedDOMComponentWithClass(anchor, 'ui-button');
-        expect(b.tagName).toEqual('A');
+        expect(TestUtils.findRenderedComponentWithType(anchor, Link)).toBeDefined();
+      });
+    });
+
+    describe('with to', () => {
+      it('renders an anchor', () => {
+        expect(TestUtils.findRenderedComponentWithType(to, Link)).toBeDefined();
       });
     });
   });

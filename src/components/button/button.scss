@@ -30,6 +30,10 @@
     background-color: $ui-button__background-color--secondary--hover;
     border-color: $ui-button__border-color--secondary--hover;
     color: $ui-button__text-color--secondary--hover;
+
+   .ui-link__content {
+      text-decoration: none;
+   }
   }
 
   &:not(.ui-button--disabled):active {

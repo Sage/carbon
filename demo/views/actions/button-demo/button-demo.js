@@ -37,6 +37,8 @@ class ButtonDemo extends React.Component {
     return (
       <Button
         disabled={ this.value('disabled') }
+        href={ this.value('href') }
+        to={ this.value('to') }
         { ...props }
       >
         { this.value('text') || " " }
@@ -59,6 +61,16 @@ class ButtonDemo extends React.Component {
 
     if (this.value('disabled')) {
       html += "\n  disabled={true}";
+      additionalProps = true;
+    }
+
+    if (this.value('href')) {
+      html += `\n  href=${this.value('href')}`;
+      additionalProps = true;
+    }
+
+    if (this.value('to')) {
+      html += `\n  to=${this.value('to')}`;
       additionalProps = true;
     }
 
@@ -88,27 +100,47 @@ class ButtonDemo extends React.Component {
    */
   get controls() {
     return (
-      <Row columns="4">
-        <Textbox
-          label="Text"
-          value={ this.value('text') }
-          labelInline={ true }
-          onChange={ this.action.bind(this, 'text') }
-          columnSpan="2"
-        />
+      <div>
+        <Row columns="4">
+          <Textbox
+            label="Text"
+            value={ this.value('text') }
+            labelInline={ true }
+            onChange={ this.action.bind(this, 'text') }
+            columnSpan="2"
+          />
 
-        <Checkbox
-          label="Primary"
-          value={ this.value('primary') }
-          onChange={ this.action.bind(this, 'primary') }
-        />
+          <Checkbox
+            label="Primary"
+            value={ this.value('primary') }
+            onChange={ this.action.bind(this, 'primary') }
+          />
 
-        <Checkbox
-          label="Disabled"
-          value={ this.value('disabled') }
-          onChange={ this.action.bind(this, 'disabled') }
-        />
-      </Row>
+          <Checkbox
+            label="Disabled"
+            value={ this.value('disabled') }
+            onChange={ this.action.bind(this, 'disabled') }
+          />
+        </Row>
+
+        <Row>
+          <Textbox
+            label="href"
+            value={ this.value('href') }
+            labelInline={ true }
+            onChange={ this.action.bind(this, 'href') }
+            columnSpan="2"
+          />
+
+          <Textbox
+            label="to"
+            value={ this.value('to') }
+            labelInline={ true }
+            onChange={ this.action.bind(this, 'to') }
+            columnSpan="2"
+          />
+        </Row>
+      </div>
     );
   }
 
