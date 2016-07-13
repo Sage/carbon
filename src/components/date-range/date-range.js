@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import Date from './../date';
 import moment from 'moment';
-import DateRangeValidator from 'utils/validations/date-range';
+import DateRangeValidator from './../../utils/validations/date-range';
 import InputValidation from './../../utils/decorators/input-validation';
 
 class DateRange extends React.Component {
