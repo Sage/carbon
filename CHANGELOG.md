@@ -4,6 +4,20 @@
 
 * Heading - useful for page titles.
 
+## History and Browser Status
+
+The router's history object is now accessible:
+
+```js
+import { history } from 'carbon/lib/utils/router';
+```
+
+With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
+
+## Router transitions
+
+* The window will automatically scroll to the top when the route is transitioned
+
 ## Minor Changes
 
 * Pod title size has been reduced to more accurately match the demo.

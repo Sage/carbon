@@ -29,6 +29,13 @@ describe('startRouter', () => {
     it('sets the routes of the router', () => {
       expect(router.props.children).toEqual(routes);
     });
+
+    it('sets the router onUpdate to scroll to top', () => {
+      window.scrollTo(1, 1);
+      router.props.onUpdate();
+      expect(window.screenX).toEqual(0);
+      expect(window.screenY).toEqual(0);
+    })
   });
 
   describe('with custom target', () => {
