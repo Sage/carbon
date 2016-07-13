@@ -63,6 +63,30 @@ describe('Date', () => {
         });
       });
     });
+
+    describe('componentDidUpdate', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Date name='date' label='Date' value='foo' />
+        );
+      });
+
+      describe('when the if condition is true', () => {
+        beforeEach(() => {
+          spyOn(instance, '_handleBlur')
+          instance.blockBlur = true;
+          instance.componentDidUpdate({ value: 'bar'})
+        });
+
+        it('sets blockBlur to false', () => {
+          expect(instance.blockBlur).toBeFalsy();
+        });
+
+        it('calls handleBlur', () => {
+          expect(instance._handleBlur).toHaveBeenCalled();
+        });
+      });
+    });
   });
 
   describe('emitOnChangeCallback', () => {
@@ -206,6 +230,11 @@ describe('Date', () => {
   describe('handleDateSelect', () => {
     beforeEach(() => {
       instance.setState({ open: true });
+    });
+
+    it('sets blockBlur to true', () => {
+      instance.refs.datepicker.handleChange();
+      expect(instance.blockBlur).toBeTruthy();
     });
 
     it('closes the date picker', () => {

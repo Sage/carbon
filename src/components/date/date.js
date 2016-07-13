@@ -107,6 +107,13 @@ class Date extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.blockBlur && this.props.value && prevProps.value != this.props.value) {
+      this.blockBlur = false;
+      this._handleBlur();
+    }
+  }
+
   /**
    * Callback to update the hidden field on change.
    *
@@ -203,6 +210,7 @@ class Date extends React.Component {
    * @return {void}
    */
   handleDateSelect = (val) => {
+    this.blockBlur = true;
     this.closeDatePicker();
     this.emitOnChangeCallback(val);
     this.updateVisibleValue();
