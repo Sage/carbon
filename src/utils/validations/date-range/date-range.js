@@ -12,7 +12,7 @@ class DateRangeValidator {
      * @property messageText
      * @type {String}
      */
-    this.messageText = '';
+    this.messageText = params.messageText;
 
     /**
      * The current endDate, used to compare to the new startDate
@@ -40,16 +40,14 @@ class DateRangeValidator {
    * @param {String} value to compare
    * @return {Boolean} true if check is valid
    */
-  validate = (value) => {
-    if(this.endDate && value > this.endDate) {
-      this.messageText = 'Start date cannot be later than end date';
-      return false;
-    } else if (this.startDate && value < this.startDate) {
-      this.messageText = 'End date cannot be before the start date';
-      return false;
-    }
-    return true;
-  }
+   validate = (value) => {
+     if(this.endDate && value > this.endDate) {
+       return false;
+     } else if (this.startDate && value < this.startDate) {
+       return false;
+     }
+     return true;
+   }
 
   /**
    * This is the message returned when this validation fails.
