@@ -32,6 +32,7 @@ With the history object you can control the DOM for any UI that uses React Route
 * Fixes fieldset and input margin when rendered on top of one another.
 * Fixes position of icon in dropdown button.
 * Fixes error icon position for inputs with field help.
+* AppWrapper has been increased to 1600px and some padding has been added.
 
 # 0.19.0
 
