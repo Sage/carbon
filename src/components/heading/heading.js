@@ -36,18 +36,10 @@ class Heading extends React.Component {
     /**
      * Defines the a href for the back link.
      *
-     * @property backLinkHref
+     * @property backLink
      * @type {String}
      */
-    backLinkHref: React.PropTypes.string,
-
-    /**
-     * Defines the a react router link for the back link.
-     *
-     * @property backLinkTo
-     * @type {String}
-     */
-    backLinkTo: React.PropTypes.string
+    backLink: React.PropTypes.string
   }
 
   /**
@@ -77,13 +69,12 @@ class Heading extends React.Component {
    * @return {Object} JSX
    */
   get back() {
-    if (!this.props.backLinkHref && !this.props.backLinkTo) { return null; }
+    if (!this.props.backLink) { return null; }
 
     return (
       <Link
         className="ui-heading__back"
-        href={ this.props.backLinkHref }
-        to={ this.props.backLinkTo }
+        href={ this.props.backLink }
       >
         <Icon type="chevron" />
       </Link>
@@ -116,7 +107,7 @@ class Heading extends React.Component {
     return classNames(
       "ui-heading", this.props.className, {
         ["ui-heading--has-subheader"]: this.props.subheader,
-        ["ui-heading--has-back"]: this.props.backLinkHref || this.props.backLinkTo
+        ["ui-heading--has-back"]: this.props.backLink
       }
     );
   }
