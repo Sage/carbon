@@ -3,6 +3,7 @@
 ## New Components
 
 * Heading - useful for page titles.
+* Date Range - Allows start and end date setting with validation for invalid date combinations.
 
 ## Minor Changes
 
