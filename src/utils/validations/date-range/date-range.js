@@ -1,5 +1,28 @@
 import ValidationsHelper from './../../helpers/validations';
-
+/**
+ * A DateRangeValidator object.
+ *
+ * This validator compares to date fields and asserts that a start date is earlier than the end date.
+ *
+ * == How to use this validator ==
+ *
+ * Import the validator into your component:
+ *
+ *  `import DateRangeValidator from 'utils/validations/date-range'`
+ *
+ * Assign the validator to the two Date fields being compared.
+ * Pass the alternative date value to the validator.
+ * i.e. Pass the start date value to the EndDate validator, and vice versa.
+ *
+ *  validations={ [ new DateRangeValidator({
+      startDate: this.props.value[0],
+      messageText: this.endMessage
+    })] }
+ *
+ * You must pass a messageText string if you want an error message displayed.
+ *
+ * @constructor DateRangeValidator
+ */
 class DateRangeValidator {
   /**
    * @method constructor
@@ -29,7 +52,7 @@ class DateRangeValidator {
      * @property startDate
      * @type {String}
      */
-    this.startDate = params.startDate
+    this.startDate = params.startDate;
   }
 
 

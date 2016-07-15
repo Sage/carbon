@@ -3,6 +3,14 @@ import ValidationsHelper from './../../helpers/validations';
 import Validator from './date-range';
 
 describe('DateRangeValidator', () => {
+
+  describe('constructor', () => {
+    it('creates a new instance even when no params are passed', () => {
+      let validator = new Validator();
+      expect(validator).toBeDefined();
+    });
+  });
+
   describe('validate', () => {
     describe('when the startDate has changed', () => {
       let validator;

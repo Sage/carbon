@@ -17,16 +17,26 @@ class DateRange extends React.Component {
     let newValue = ev.target.value;
 
     if(changedDate === 'startDate') {
-      this.props.onChange([newValue, this.props.value[1]]);
+      this.props.onChange([newValue, this.endDate]);
       this._endDate._handleContentChange();
-    } else if (changedDate === 'endDate') {
-      this.props.onChange([this.props.value[0], newValue]);
+    }
+
+    if (changedDate === 'endDate') {
+      this.props.onChange([this.startDate, newValue]);
       this._startDate._handleContentChange();
     }
+
     this._startDate._handleBlur();
     this._endDate._handleBlur();
   }
 
+  get startDate() {
+    return this.props.value[0];
+  }
+
+  get endDate() {
+    return this.props.value[1];
+  }
 
   get startMessage() {
     return this.props.startMessage || I18n.t('errors.messages.date_range');
@@ -46,10 +56,10 @@ class DateRange extends React.Component {
           onChange={ this._onChange.bind(null, 'startDate') }
           ref={ (c) => { this._startDate = c; } }
           validations={ [ new DateRangeValidator({
-            endDate: this.props.value[1],
+            endDate: this.endDate,
             messageText: this.startMessage
           })] }
-          value={ this.props.value[0] }
+          value={ this.startDate }
         />
         <Date
           className='ui-date-range'
@@ -58,10 +68,10 @@ class DateRange extends React.Component {
           onChange={ this._onChange.bind(null, 'endDate') }
           ref={ (c) => { this._endDate = c; } }
           validations={ [ new DateRangeValidator({
-             startDate: this.props.value[0],
-             messageText: this.endMessage
-            })] }
-          value={ this.props.value[1] }
+            startDate: this.startDate,
+            messageText: this.endMessage
+          })] }
+          value={ this.endDate }
         />
       </div>
     );
