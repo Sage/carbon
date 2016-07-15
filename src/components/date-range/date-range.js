@@ -1,15 +1,16 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
+import I18n from 'i18n-js';
 import Date from './../date';
-import moment from 'moment';
 import DateRangeValidator from './../../utils/validations/date-range';
-import InputValidation from './../../utils/decorators/input-validation';
 
 class DateRange extends React.Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.array.isRequired,
-    startDateLabel: PropTypes.string,
-    endDateLabel: PropTypes.string
+    startLabel: PropTypes.string,
+    endLabel: PropTypes.string,
+    startMessage: PropTypes.string,
+    endMessage: PropTypes.string
   };
 
   _onChange = (changedDate, ev) => {
@@ -22,8 +23,17 @@ class DateRange extends React.Component {
       this.props.onChange([this.props.value[0], newValue]);
       this._startDate._handleContentChange();
     }
-      this._startDate._handleBlur();
-      this._endDate._handleBlur();
+    this._startDate._handleBlur();
+    this._endDate._handleBlur();
+  }
+
+
+  get startMessage() {
+    return this.props.startMessage || I18n.t('errors.messages.date_range');
+  }
+
+  get endMessage() {
+    return this.props.endMessage || I18n.t('errors.messages.date_range');
   }
 
   render () {
@@ -31,20 +41,26 @@ class DateRange extends React.Component {
       <div>
         <Date
           className='ui-date-range'
-          label={ this.props.startDateLabel }
+          label={ this.props.startLabel }
           labelInline={ true }
           onChange={ this._onChange.bind(null, 'startDate') }
-          ref={ (c) => { this._startDate = c } }
-          validations={ [ new DateRangeValidator({ endDate: this.props.value[1], messageText: 'Start date cannot be later than end date' }) ] }
+          ref={ (c) => { this._startDate = c; } }
+          validations={ [ new DateRangeValidator({
+            endDate: this.props.value[1],
+            messageText: this.startMessage
+          })] }
           value={ this.props.value[0] }
         />
         <Date
           className='ui-date-range'
-          label={ this.props.endDateLabel }
+          label={ this.props.endLabel }
           labelInline={ true }
           onChange={ this._onChange.bind(null, 'endDate') }
-          ref={ (c) => { this._endDate = c } }
-          validations={ [ new DateRangeValidator({ startDate: this.props.value[0], messageText: 'End date cannot be before the start date'}) ] }
+          ref={ (c) => { this._endDate = c; } }
+          validations={ [ new DateRangeValidator({
+             startDate: this.props.value[0],
+             messageText: this.endMessage
+            })] }
           value={ this.props.value[1] }
         />
       </div>
