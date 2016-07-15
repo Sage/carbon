@@ -4,6 +4,10 @@
 
 * Heading - useful for page titles.
 
+## Router transitions
+
+* The window will automatically scroll to the top when the route is transitioned
+
 ## Minor Changes
 
 * Pod title size has been reduced to more accurately match the demo.
