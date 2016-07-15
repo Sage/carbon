@@ -3,7 +3,6 @@ import ValidationsHelper from './../../helpers/validations';
 import Validator from './date-range';
 
 describe('DateRangeValidator', () => {
-
   describe('constructor', () => {
     it('creates a new instance even when no params are passed', () => {
       let validator = new Validator();
@@ -13,11 +12,7 @@ describe('DateRangeValidator', () => {
 
   describe('validate', () => {
     describe('when the startDate has changed', () => {
-      let validator;
-
-      beforeAll(() => {
-        validator = new Validator({endDate: '2016-10-31'});
-      });
+      let validator = new Validator({endDate: '2016-10-31'});
 
       describe('when the startDate is earlier than the endDate', () => {
         it('returns true', () => {
@@ -33,11 +28,7 @@ describe('DateRangeValidator', () => {
     });
 
     describe('when the endDate has changed', () => {
-      let validator;
-
-      beforeAll(() => {
-        validator = new Validator({startDate: '2016-12-25'});
-      });
+      let validator = new Validator({startDate: '2016-12-25'});
 
       describe('when the endDate is later than the startDate', () => {
         it('returns true', () => {
@@ -60,7 +51,6 @@ describe('DateRangeValidator', () => {
       validator = new Validator({messageText: 'Are you sure? Why not choose a more realistic date?'})
       spyOn(ValidationsHelper, 'validationMessage');
     });
-
 
     it('calls the ValidationsHelper with the passed in message', () => {
       validator.message();

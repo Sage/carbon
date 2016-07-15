@@ -52,7 +52,7 @@ class DateRange extends React.Component {
      * @property endDate
      * @type {String}
      */
-    endMessage: PropTypes.string
+    endMessage: PropTypes.string,
 
     /**
      * Display labels inline
