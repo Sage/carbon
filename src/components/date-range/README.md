@@ -25,3 +25,4 @@ import DateRange from 'carbon/lib/components/date-range';
 | startLabel    | false    | String    |                | A label for the start date field |
 | endMessage    | false    | String    | 'start date must not be later than end date' | Error message for the start date field  |
 | startMessage  | false    | String    | 'start date must not be later than end date' | Error message for the start date field  |  
+| labelsInline  | false    | Boolean   |                | Display labels inline  |  

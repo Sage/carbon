@@ -108,7 +108,7 @@ class Date extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.blockBlur && this.props.value && prevProps.value != this.props.value) {
+    if (this.blockBlur && this.props.value && prevProps.value !== this.props.value) {
       this.blockBlur = false;
       this._handleBlur();
     }

@@ -53,6 +53,14 @@ class DateRange extends React.Component {
      * @type {String}
      */
     endMessage: PropTypes.string
+
+    /**
+     * Display labels inline
+     *
+     * @property labelsInline
+     * @type {Boolean}
+     */
+    labelsInline: PropTypes.bool
   };
 
   /**
@@ -129,7 +137,7 @@ class DateRange extends React.Component {
         <Date
           className='ui-date-range ui-date-range__start'
           label={ this.props.startLabel }
-          labelInline={ true }
+          labelInline={ this.props.labelsInline }
           onChange={ this._onChange.bind(null, 'startDate') }
           ref={ (c) => { this._startDate = c; } }
           validations={ [ new DateRangeValidator({
@@ -141,7 +149,7 @@ class DateRange extends React.Component {
         <Date
           className='ui-date-range'
           label={ this.props.endLabel }
-          labelInline={ true }
+          labelInline={ this.props.labelsInline }
           onChange={ this._onChange.bind(null, 'endDate') }
           ref={ (c) => { this._endDate = c; } }
           validations={ [ new DateRangeValidator({
