@@ -107,11 +107,29 @@ class Date extends React.Component {
     }
   }
 
+  /**
+   * A lifecycle method to check whether the component has been updated
+   *
+   * @method componentDidUpdate
+   * @param {Object} prevProps The previous props passed down to the component
+   * @return {void}
+   */
   componentDidUpdate(prevProps) {
-    if (this.blockBlur && this.props.value && prevProps.value != this.props.value) {
+    if (this.datePickerValueChanged(prevProps)) {
       this.blockBlur = false;
       this._handleBlur();
     }
+  }
+
+  /**
+   *  Checks that the datepicker selected value has changed
+   *
+   * @method datePickerValueChanged
+   * @param {Object} prevProps The previous props passed down to the component
+   * @return {Boolean}
+   */
+  datePickerValueChanged = (prevProps) => {
+    return this.blockBlur && this.props.value && prevProps.value !== this.props.value;
   }
 
   /**
