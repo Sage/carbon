@@ -65,7 +65,7 @@ describe('Date', () => {
     });
 
     describe('componentDidUpdate', () => {
-      beforeEach(() => {
+      beforeAll(() => {
         instance = TestUtils.renderIntoDocument(
           <Date name='date' label='Date' value='foo' />
         );
@@ -73,9 +73,13 @@ describe('Date', () => {
 
       describe('when the if condition is true', () => {
         beforeEach(() => {
-          spyOn(instance, '_handleBlur')
-          instance.blockBlur = true;
+          spyOn(instance, '_handleBlur');
+          spyOn(instance, 'datePickerValueChanged').and.returnValue(true);
           instance.componentDidUpdate({ value: 'bar'})
+        });
+
+        it('checks whether the value has changed', () => {
+          expect(instance.datePickerValueChanged).toHaveBeenCalled();
         });
 
         it('sets blockBlur to false', () => {
@@ -86,6 +90,23 @@ describe('Date', () => {
           expect(instance._handleBlur).toHaveBeenCalled();
         });
       });
+    });
+  });
+
+  describe('datePickerValueChanged', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Date name='date' label='Date' value='foo' />
+      );
+      instance.blockBlur = true;
+    });
+
+    it('returns true if the date picker value has changed', () => {
+      expect(instance.datePickerValueChanged({ value: 'bar' })).toBeTruthy();
+    });
+
+    it('returns false is the date picker has not changed', () => {
+      expect(instance.datePickerValueChanged({ value: 'foo' })).toBeFalsy();
     });
   });
 
@@ -230,6 +251,11 @@ describe('Date', () => {
   describe('handleDateSelect', () => {
     beforeEach(() => {
       instance.setState({ open: true });
+    });
+
+    it('sets blockBlur to true', () => {
+      instance.refs.datepicker.handleChange();
+      expect(instance.blockBlur).toBeTruthy();
     });
 
     it('closes the date picker', () => {
