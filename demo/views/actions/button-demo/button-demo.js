@@ -1,4 +1,5 @@
 import React from 'react';
+import Immutable from 'immutable';
 import { connect } from 'utils/flux';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
@@ -8,6 +9,7 @@ import Button from 'components/button';
 import Row from 'components/row';
 import Textbox from 'components/textbox';
 import Checkbox from 'components/checkbox';
+import Dropdown from 'components/dropdown';
 
 class ButtonDemo extends React.Component {
   /**
@@ -28,18 +30,12 @@ class ButtonDemo extends React.Component {
    * @method demo
    */
   get demo() {
-    let props = {};
-
-    if (this.value('primary')) {
-      props.as = "primary";
-    }
-
     return (
       <Button
         disabled={ this.value('disabled') }
         href={ this.value('href') }
         to={ this.value('to') }
-        { ...props }
+        as={ this.value('as') }
       >
         { this.value('text') || " " }
       </Button>
@@ -54,8 +50,8 @@ class ButtonDemo extends React.Component {
 
     html += "<Button";
 
-    if (this.value('primary')) {
-      html += "\n  as='primary'";
+    if (this.value('as')) {
+      html += `\n  as='${this.value('as')}'`;
       additionalProps = true;
     }
 
@@ -111,12 +107,6 @@ class ButtonDemo extends React.Component {
           />
 
           <Checkbox
-            label="Primary"
-            value={ this.value('primary') }
-            onChange={ this.action.bind(this, 'primary') }
-          />
-
-          <Checkbox
             label="Disabled"
             value={ this.value('disabled') }
             onChange={ this.action.bind(this, 'disabled') }
@@ -129,7 +119,6 @@ class ButtonDemo extends React.Component {
             value={ this.value('href') }
             labelInline={ true }
             onChange={ this.action.bind(this, 'href') }
-            columnSpan="2"
           />
 
           <Textbox
@@ -137,7 +126,26 @@ class ButtonDemo extends React.Component {
             value={ this.value('to') }
             labelInline={ true }
             onChange={ this.action.bind(this, 'to') }
-            columnSpan="2"
+          />
+
+          <Dropdown
+            label="As"
+            value={ this.value('as') }
+            labelInline={ true }
+            onChange={ this.action.bind(this, 'as') }
+            options={ Immutable.fromJS([{
+              id: 'primary',
+              name: 'Primary'
+            }, {
+              id: 'secondary',
+              name: 'Secondary'
+            }, {
+              id: 'green',
+              name: 'Green'
+            }, {
+              id: 'red',
+              name: 'Red'
+            }]) }
           />
         </Row>
       </div>

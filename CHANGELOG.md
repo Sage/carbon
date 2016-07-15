@@ -4,9 +4,23 @@
 
 * Heading - useful for page titles.
 
+## History and Browser Status
+
+The router's history object is now accessible:
+
+```js
+import { history } from 'carbon/lib/utils/router';
+```
+
+With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
+
 ## Router transitions
 
 * The window will automatically scroll to the top when the route is transitioned
+
+## Red and Green Buttons
+
+The `Button` component can now have red and green themes, set using the `as` prop.
 
 ## Minor Changes
 
@@ -22,6 +36,7 @@
 * Fixes fieldset and input margin when rendered on top of one another.
 * Fixes position of icon in dropdown button.
 * Fixes error icon position for inputs with field help.
+* AppWrapper has been increased to 1600px and some padding has been added.
 
 # 0.19.0
 

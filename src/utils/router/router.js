@@ -8,6 +8,15 @@ let scrollToTop = () => {
 };
 
 /**
+ * Exposes the history object to allow developers to redirect and control the
+ * route state (see https://github.com/ReactJSTraining/history/tree/master/docs)
+ *
+ * @property history
+ * @type {Object}
+ */
+export const history = createBrowserHistory();
+
+/**
  * Handles boilerplate for starting the React Router with the given routes.
  *
  * You can import this function with the following:
@@ -32,8 +41,6 @@ let scrollToTop = () => {
  * @return {void}
  */
 export function startRouter(routes, target = document.getElementById('app')) {
-  let history = createBrowserHistory();
-
   // render the router into the DOM
   if (target) {
     ReactDOM.render((
@@ -43,3 +50,4 @@ export function startRouter(routes, target = document.getElementById('app')) {
     ), target);
   }
 }
+
