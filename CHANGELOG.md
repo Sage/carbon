@@ -18,6 +18,10 @@ With the history object you can control the DOM for any UI that uses React Route
 
 * The window will automatically scroll to the top when the route is transitioned
 
+## Red and Green Buttons
+
+The `Button` component can now have red and green themes, set using the `as` prop.
+
 ## Minor Changes
 
 * Pod title size has been reduced to more accurately match the demo.
