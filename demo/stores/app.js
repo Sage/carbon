@@ -18,7 +18,8 @@ let data = ImmutableHelper.parseJSON({
     body: "This component contains your content within the confines of the width of your application."
   },
   button: {
-    text: "Action"
+    text: "Action",
+    as: "secondary"
   },
   button_toggle: {
     option_one: "Option One"
