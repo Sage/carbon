@@ -5,7 +5,7 @@ import DateRange from './date-range';
 import Date from './../date';
 import DateRangeValidator from './../../utils/validations/date-range';
 
-fdescribe('DateRange', () => {
+describe('DateRange', () => {
   let instance, customOnChange;
 
   beforeAll(() => {

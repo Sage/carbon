@@ -40,7 +40,7 @@ class DateRange extends React.Component {
     return(
       <div>
         <Date
-          className='ui-date-range'
+          className='ui-date-range ui-date-range__start'
           label={ this.props.startLabel }
           labelInline={ true }
           onChange={ this._onChange.bind(null, 'startDate') }

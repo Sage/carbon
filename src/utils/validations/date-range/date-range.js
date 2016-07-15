@@ -56,7 +56,7 @@ class DateRangeValidator {
    * @return {String} the error message to display
    */
   message = () => {
-    return ValidationsHelper.validationMessage(this.customMessage, this.messageText);
+    return ValidationsHelper.validationMessage(this.messageText);
   }
 }
 
