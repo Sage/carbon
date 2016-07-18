@@ -51,7 +51,7 @@
   }
 
   .ui-icon.common-input__icon {
-    left: 0;
+    left: 5px;
     right: auto;
   }
 }
@@ -61,6 +61,9 @@
     left: auto;
     margin: 7px -40px;
     right: 70%;
+    &.icon-error {
+      top: 0;
+    }
   }
 }
 
@@ -182,9 +185,9 @@
 .ui-icon.common-input__icon {
   color: red;
   height: 15px;
-  margin: -23px 5px;
   position: absolute;
-  right: 0;
+  right: 5px;
+  top: 29px;
 
   &:before {
     font-size: 20px;
@@ -198,6 +201,13 @@
     .ui-icon__svg-group {
       fill: $warning;
     }
+  }
+}
+
+.common-input--label-inline {
+  .icon-error {
+    right: 5px;
+    top: 7px;
   }
 }
 
