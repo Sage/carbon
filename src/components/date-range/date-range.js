@@ -74,7 +74,7 @@ class DateRange extends React.Component {
   _onChange = (changedDate, ev) => {
     let newValue = ev.target.value;
 
-    if(changedDate === 'startDate') {
+    if (changedDate === 'startDate') {
       this.props.onChange([newValue, this.endDate]);
       // resets validations on opposing field
       this._endDate._handleContentChange();
@@ -118,7 +118,7 @@ class DateRange extends React.Component {
    * @return {String}
    */
   get startMessage() {
-    return this.props.startMessage || I18n.t('errors.messages.date_range');
+    return this.props.startMessage || I18n.t('errors.messages.date_range') || 'start date must not be later than end date';
   }
 
   /**
@@ -128,7 +128,7 @@ class DateRange extends React.Component {
    * @return {String}
    */
   get endMessage() {
-    return this.props.endMessage || I18n.t('errors.messages.date_range');
+    return this.props.endMessage || I18n.t('errors.messages.date_range') || 'start date must not be later than end date';
   }
 
   render () {
