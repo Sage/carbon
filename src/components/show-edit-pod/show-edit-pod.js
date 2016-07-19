@@ -57,7 +57,7 @@ class ShowEditPod extends React.Component {
 
   state = {
     /**
-     * Determins if the component is in edit mode
+     * Determines if the component is in edit mode
      *
      * @property editing
      */
