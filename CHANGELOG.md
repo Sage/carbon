@@ -15,6 +15,16 @@ import { history } from 'carbon/lib/utils/router';
 
 With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
 
+## History and Browser Status
+
+The router's history object is now accessible:
+
+```js
+import { history } from 'carbon/lib/utils/router';
+```
+
+With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
+
 ## Router transitions
 
 * The window will automatically scroll to the top when the route is transitioned
@@ -25,6 +35,7 @@ The `Button` component can now have red and green themes, set using the `as` pro
 
 ## Minor Changes
 
+* A Sass variable has been introduced to define the path where fonts are located.
 * Pod title size has been reduced to more accurately match the demo.
 * Secondary Content components font weight has been normalised.
 * The `children` prop for the Help component is no longer required.
