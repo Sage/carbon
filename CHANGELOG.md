@@ -3,6 +3,17 @@
 ## New Components
 
 * Heading - useful for page titles.
+* Date Range - Allows start and end date setting with validation for invalid date combinations.
+
+## History and Browser Status
+
+The router's history object is now accessible:
+
+```js
+import { history } from 'carbon/lib/utils/router';
+```
+
+With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
 
 ## History and Browser Status
 
