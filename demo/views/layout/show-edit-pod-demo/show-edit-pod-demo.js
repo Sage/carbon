@@ -6,6 +6,7 @@ import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
 
 import Textbox from 'components/textbox';
+import Checkbox from 'components/checkbox';
 import FieldSet from 'components/fieldset';
 import ShowEditPod from 'components/show-edit-pod';
 import Content from 'components/content';
@@ -72,6 +73,8 @@ class ShowEditPodDemo extends React.Component {
     if (this.value('country')) { content += '\n' + this.value('country'); }
     if (this.value('postcode')) { content += '\n' + this.value('postcode'); }
 
+    let onDelete = this.value('deletable') ? (() => {} ) : null;
+
     return (
       <ShowEditPod
         editFields={ editFields }
@@ -79,7 +82,7 @@ class ShowEditPodDemo extends React.Component {
         onEdit={ this.onEdit }
         onCancel={ (() => {} ) }
         saveText='Save Address'
-        onDelete={ () => {} }
+        onDelete={ onDelete }
       >
         <Content title='Company Name'>
           { content }
@@ -101,7 +104,13 @@ class ShowEditPodDemo extends React.Component {
    * @method controls
    */
   get controls() {
-    return null;
+    return (
+      <Checkbox
+        label="Deletable?"
+        value={ this.value('deletable') }
+        onChange={ this.action.bind(this, 'deletable') }
+      />
+    );
   }
 
   /**

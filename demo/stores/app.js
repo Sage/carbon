@@ -158,6 +158,7 @@ let data = ImmutableHelper.parseJSON({
     columnData: [{}, {}, {}, {}]
   },
   show_edit_pod: {
+    deletable: false,
     address_1: '21 North Park',
     address_2: '',
     city: 'Newcastle upon Tyne',
