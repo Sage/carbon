@@ -64,7 +64,7 @@ class DateRangeValidator {
    * @return {Boolean} true if check is valid
    */
    validate = (value) => {
-     if(this.endDate && value > this.endDate) {
+     if (this.endDate && value > this.endDate) {
        return false;
      } else if (this.startDate && value < this.startDate) {
        return false;

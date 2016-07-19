@@ -102,7 +102,7 @@ class DateRange extends React.Component {
   }
 
   /**
-   * The ednDate value
+   * The endDate value
    *
    * @method endDate
    * @return {String} the value of the end date
@@ -118,7 +118,7 @@ class DateRange extends React.Component {
    * @return {String}
    */
   get startMessage() {
-    return this.props.startMessage || I18n.t('errors.messages.date_range') || 'start date must not be later than end date';
+    return this.props.startMessage || I18n.t('errors.messages.date_range', { defaultValue: 'Start date must not be later than the end date' });
   }
 
   /**
@@ -128,7 +128,29 @@ class DateRange extends React.Component {
    * @return {String}
    */
   get endMessage() {
-    return this.props.endMessage || I18n.t('errors.messages.date_range') || 'start date must not be later than end date';
+    return this.props.endMessage ||
+           I18n.t('errors.messages.date_range', { defaultValue: 'End date cannot be earlier than the start date' });
+  }
+
+
+  /**
+   * Handle focus on start date field
+   *
+   * @method focusStart
+   * @return {Void}
+   */
+  focusStart = () => {
+    this._endDate.closeDatePicker();
+  }
+
+  /**
+   * Handle focus on end date field
+   *
+   * @method focusEnd
+   * @return {Void}
+   */
+  focusEnd = () => {
+    this._startDate.closeDatePicker();
   }
 
   render () {
@@ -139,6 +161,7 @@ class DateRange extends React.Component {
           label={ this.props.startLabel }
           labelInline={ this.props.labelsInline }
           onChange={ this._onChange.bind(null, 'startDate') }
+          onFocus={ this.focusStart }
           ref={ (c) => { this._startDate = c; } }
           validations={ [ new DateRangeValidator({
             endDate: this.endDate,
@@ -151,6 +174,7 @@ class DateRange extends React.Component {
           label={ this.props.endLabel }
           labelInline={ this.props.labelsInline }
           onChange={ this._onChange.bind(null, 'endDate') }
+          onFocus={ this.focusEnd }
           ref={ (c) => { this._endDate = c; } }
           validations={ [ new DateRangeValidator({
             startDate: this.startDate,

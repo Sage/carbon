@@ -54,14 +54,36 @@ describe('DateRange', () => {
     });
   });
 
+  describe('startDate getter', () => {
+    it('returns the start date', () => {
+      expect(instance.startDate).toEqual('2016-10-10');
+    });
+  });
+
+  describe('endDate getter', () => {
+    it('returns the end date', () => {
+      expect(instance.endDate).toEqual('2016-11-11');
+    });
+  });
+
   describe('startMessage getter', () => {
     it('returns a default message', () => {
+      I18n.translations = {
+        en: {
+          errors: {
+            messages: {
+              date_range: 'start date cannot be earlier than end date'
+            }
+          }
+        }
+      };
+
       expect(instance.startMessage).toEqual(I18n.t('errors.messages.date_range'));
     });
 
     describe('when a custom message is provided', () => {
       it('returns the custom message', () => {
-        let customInstance =  TestUtils.renderIntoDocument(
+        let customInstance = TestUtils.renderIntoDocument(
           <DateRange
             onChange={ customOnChange }
             value={ ['2016-10-10','2016-11-11'] }
@@ -71,10 +93,34 @@ describe('DateRange', () => {
         expect(customInstance.startMessage).toEqual("That's in the past, live for the future");
       });
     });
+
+    describe('when no translation is available and no custom message was passed', () => {
+      it('returns a default english sentence', () => {
+        I18n.translations = {};
+
+        let noMessageInstance = TestUtils.renderIntoDocument(
+          <DateRange
+            onChange={ customOnChange }
+            value={ ['2016-10-10','2016-11-11'] }
+          />
+        );
+        expect(noMessageInstance.startMessage).toEqual('Start date must not be later than the end date');
+      });
+    });
   });
 
   describe('endMessage getter', () => {
     it('returns a default message', () => {
+      I18n.translations = {
+        en: {
+          errors: {
+            messages: {
+              date_range: 'start date cannot be earlier than end date'
+            }
+          }
+        }
+      };
+
       expect(instance.endMessage).toEqual(I18n.t('errors.messages.date_range'));
     });
 
@@ -89,6 +135,36 @@ describe('DateRange', () => {
         );
         expect(customInstance.endMessage).toEqual("That's in the future, live in the present");
       });
+    });
+
+    describe('when no translation is available and no custom message was passed', () => {
+      it('returns a default english sentence', () => {
+        I18n.translations = {};
+
+        let noMessageInstance = TestUtils.renderIntoDocument(
+          <DateRange
+            onChange={ customOnChange }
+            value={ ['2016-10-10','2016-11-11'] }
+          />
+        );
+        expect(noMessageInstance.endMessage).toEqual('End date cannot be earlier than the start date');
+      });
+    });
+  });
+
+  describe('focusStart', () => {
+    it('closes the other datepicker', () => {
+      spyOn( instance._endDate, 'closeDatePicker');
+      instance.focusStart();
+      expect(instance._endDate.closeDatePicker).toHaveBeenCalled();
+    });
+  });
+
+  describe('endDate', () => {
+    it('closes the other datepicker', () => {
+      spyOn( instance._startDate, 'closeDatePicker');
+      instance.focusEnd();
+      expect(instance._startDate.closeDatePicker).toHaveBeenCalled();
     });
   });
 
