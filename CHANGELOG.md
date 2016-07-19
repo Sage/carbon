@@ -24,6 +24,7 @@ The `Button` component can now have red and green themes, set using the `as` pro
 
 ## Minor Changes
 
+* A Sass variable has been introduced to define the path where fonts are located.
 * Pod title size has been reduced to more accurately match the demo.
 * Secondary Content components font weight has been normalised.
 * The `children` prop for the Help component is no longer required.
