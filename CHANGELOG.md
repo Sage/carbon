@@ -3,6 +3,7 @@
 ## New Components
 
 * Heading - useful for page titles.
+* ShowEditPod - Inline editing of fields
 
 ## History and Browser Status
 
