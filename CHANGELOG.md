@@ -33,6 +33,11 @@ With the history object you can control the DOM for any UI that uses React Route
 
 The `Button` component can now have red and green themes, set using the `as` prop.
 
+## New Icons
+
+* Information
+* Sync
+
 ## Minor Changes
 
 * A Sass variable has been introduced to define the path where fonts are located.
