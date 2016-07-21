@@ -49,6 +49,7 @@ The `Button` component can now have red and green themes, set using the `as` pro
 * Adds inline help for radio button.
 * Fixes inline help for checkboxes.
 * Radio Button sprite has been given a fixed size.
+* Increase textTag font-spacing from 0.5 to 0.8.
 * Button can receive a prop of `to`.
 * Fixes fieldset and input margin when rendered on top of one another.
 * Fixes position of icon in dropdown button.
