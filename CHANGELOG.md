@@ -15,13 +15,6 @@ import { history } from 'carbon/lib/utils/router';
 
 With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
 
-## History and Browser Status
-
-The router's history object is now accessible:
-
-```js
-import { history } from 'carbon/lib/utils/router';
-```
 
 With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
 
@@ -55,6 +48,7 @@ The `Button` component can now have red and green themes, set using the `as` pro
 * Fixes position of icon in dropdown button.
 * Fixes error icon position for inputs with field help.
 * AppWrapper has been increased to 1600px and some padding has been added.
+* Form now accepts a prop of `showSave` which can be used to hide the save button.
 
 # 0.19.0
 

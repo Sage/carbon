@@ -396,22 +396,34 @@ describe('Form', () => {
 
     describe('Cancel Button', () => {
       describe('when cancel prop is false', () => {
-        beforeEach(() => {
-          instance = TestUtils.renderIntoDocument(
-            <Form cancel={false} />
-          );
-        });
-
         it('does not show a cancel button', () => {
-          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+          let instance = TestUtils.renderIntoDocument(<Form cancel={ false } />);
+          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
           expect(buttons.length).toEqual(1);
         });
       });
 
       describe('when cancel props is true (default)', () => {
         it('does show a cancel button', () => {
-          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-          expect(buttons.length).toEqual(2);
+          let buttons = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__cancel');
+          expect(buttons).toBeDefined();
+        });
+      });
+    });
+
+    describe('Save Button', () => {
+      describe('when showSave is true or is not set to false', () => {
+        it('shows a save button', () => {
+          let instance = TestUtils.renderIntoDocument(<Form showSave={ true }/>);
+          let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__save')
+        });
+      });
+
+      describe('when showSave is set to false', () => {
+        it('does not show a save button', () => {
+          let instance = TestUtils.renderIntoDocument(<Form showSave={ false }/>);
+          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
+          expect(buttons.length).toEqual(1);
         });
       });
     });

@@ -119,12 +119,21 @@ class Form extends React.Component {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func
+    onCancel: React.PropTypes.func,
+
+    /**
+     * Hide or show the save button
+     *
+     * @property saveFalse
+     * @type {Boolean}
+     */
+    showSave: React.PropTypes.bool
   }
 
   static defaultProps = {
     cancel: true,
     saving: false,
+    showSave: true,
     validateOnMount: false
   }
 
@@ -383,6 +392,42 @@ class Form extends React.Component {
     </div>);
   }
 
+  /**
+   * Gets the save button for the form
+   *
+   * @method saveButton
+   * @return {Object} JSX save button
+   */
+  get saveButton() {
+    let errorCount;
+
+    let saveClasses = classNames(
+      "ui-form__save",
+        {
+          "ui-form__save--invalid": this.state.errorCount || this.state.warningCount
+        }
+    );
+
+    if (this.state.errorCount || this.state.warningCount) {
+      // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
+      errorCount = (
+        <span
+          className="ui-form__summary"
+          dangerouslySetInnerHTML={ renderMessage(this.state.errorCount, this.state.warningCount) }
+        />
+      );
+    }
+
+    return (
+      <div className={ saveClasses }>
+        { errorCount }
+        <Button as="primary" disabled={ this.props.saving }>
+          { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
+        </Button>
+      </div>
+    );
+  }
+
    /**
    * Renders the component.
    *
@@ -390,21 +435,14 @@ class Form extends React.Component {
    * @return {Object} JSX form
    */
   render() {
-    let cancelButton,
-        errorCount,
-        saveClasses = "ui-form__save";
-
-    if (this.state.errorCount || this.state.warningCount) {
-      // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
-      errorCount = (
-        <span className="ui-form__summary" dangerouslySetInnerHTML={ renderMessage(this.state.errorCount, this.state.warningCount) } />
-      );
-
-      saveClasses += " ui-form__save--invalid";
-    }
+    let cancelButton, saveButton;
 
     if (this.props.cancel) {
       cancelButton = this.cancelButton;
+    }
+
+    if (this.props.showSave) {
+      saveButton = this.saveButton;
     }
 
     return (
@@ -412,15 +450,8 @@ class Form extends React.Component {
         { generateCSRFToken(this._document) }
 
         { this.props.children }
-
         <div className="ui-form__buttons">
-          <div className={ saveClasses }>
-            { errorCount }
-            <Button as="primary" disabled={ this.props.saving }>
-              { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
-            </Button>
-          </div>
-
+          { saveButton }
           { cancelButton }
         </div>
       </form>

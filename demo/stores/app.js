@@ -79,7 +79,8 @@ let data = ImmutableHelper.parseJSON({
     text: "Sample flash notification."
   },
   form: {
-    cancel: true
+    cancel: true,
+    showSave: true
   },
   heading: {
     title: "Heading Example",
