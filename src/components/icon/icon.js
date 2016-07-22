@@ -613,7 +613,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     return {
       __html:
         '<svg class="ui-icon__svg ui-icon__svg--progress" width="16" height="16" viewBox="0 0 16 16">' +
-          '<path fill="#9DA0A7" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM3 7h2v2H3V7zm4 0h2v2H7V7zm4 0h2v2h-2V7z"/>' +
+          '<path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM3 7h2v2H3V7zm4 0h2v2H7V7zm4 0h2v2h-2V7z"/>' +
         '</svg>'
     };
   }
@@ -628,7 +628,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     return {
       __html:
       '<svg class="ui-icon__svg ui-icon__svg--submitted" width="16" height="16" viewBox="0 0 16 16">' +
-        '<path fill="#9DA0A7" fill-rule="evenodd" d="M9 7.038H1.007c-.557 0-1.007.448-1.007 1 0 .556.45 1 1.007 1H9v4.5c0 .552.336.705.75.342l5.9-5.172c.413-.363.414-.954 0-1.318l-5.9-5.192c-.413-.363-.75-.213-.75.338v4.502z"/>' +
+        '<path fill="currentColor" fill-rule="evenodd" d="M9 7.038H1.007c-.557 0-1.007.448-1.007 1 0 .556.45 1 1.007 1H9v4.5c0 .552.336.705.75.342l5.9-5.172c.413-.363.414-.954 0-1.318l-5.9-5.192c-.413-.363-.75-.213-.75.338v4.502z"/>' +
       '</svg>'
     };
   }
@@ -643,7 +643,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     return {
       __html:
         '<svg class="ui-icon__svg ui-icon__svg--completed" width="16" height="16" viewBox="0 0 16 16">' +
-          '<path fill="#9DA0A7" fill-rule="evenodd" d="M2.9 8.3c-.404-.396-1.043-.4-1.445-.024L.318 9.5c-.407.38-.41.998-.017 1.39l3.92 3.803c.4.398 1.04.405 1.447.03l10.1-9.98c.312-.368.308-.9-.012-1.255L14.63 2.262c-.395-.36-1.05-.35-1.443.04L5.03 10.52 2.9 8.3z"/>' +
+          '<path fill="currentColor" fill-rule="evenodd" d="M2.9 8.3c-.404-.396-1.043-.4-1.445-.024L.318 9.5c-.407.38-.41.998-.017 1.39l3.92 3.803c.4.398 1.04.405 1.447.03l10.1-9.98c.312-.368.308-.9-.012-1.255L14.63 2.262c-.395-.36-1.05-.35-1.443.04L5.03 10.52 2.9 8.3z"/>' +
         '</svg>'
     };
   }
