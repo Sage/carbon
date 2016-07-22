@@ -16,7 +16,7 @@ With the history object you can control the DOM for any UI that uses React Route
 
 ## Link Prefixes
 
-The `Link` component can now have it's `href` or `to` props prefixed to customise the type of link it is (regular or react router).
+The `Link` component can now have its `href` or `to` props prefixed to customise the type of link it is (regular or react router).
 
 For example:
 
