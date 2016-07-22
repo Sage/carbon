@@ -81,6 +81,10 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderHelpIcon;
       case 'chevron':
         return this.renderChevronIcon;
+      case 'information':
+        return this.renderInformationIcon;
+      case 'sync':
+        return this.renderSyncIcon;
       default:
         null;
     }
@@ -564,6 +568,32 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         '<svg class="ui-icon__svg ui-icon__svg--chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">' +
         '  <path fill="currentColor" fill-rule="evenodd" d="M7.3 8.01l4.845-4.43c.395-.384.396-1.01.002-1.4l-.77-.87c-.393-.388-1.038-.404-1.455-.02L3.358 7.317c-.41.377-.45 1.027-.03 1.37l6.598 6.02c.41.375 1.058.36 1.452-.028l.776-.788c.393-.388.39-1.014-.007-1.397L7.3 8.01z" />' +
         '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'information' icon
+   *
+   * @method renderInformationIcon
+   * @return {Object} information icon svg
+   */
+  get renderInformationIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--information" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM7 6h2v7H7V6zm0-3h2v2H7V3z"/></svg>'
+    };
+  }
+
+  /**
+   * Returns the 'sync' icon
+   *
+   * @method renderSyncIcon
+   * @return {Object} sync icon svg
+   */
+  get renderSyncIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--sync" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M2.343 2.343C3.79.895 5.79 0 8 0c4.08 0 7.446 3.054 7.938 7h-2.02C13.44 4.162 10.972 2 8 2c-1.657 0-3.157.672-4.243 1.757L7 7l-7 .005V0l2.343 2.343zm11.315 11.312C12.21 15.105 10.21 16 8 16 3.92 16 .554 12.946.062 9h2.02C2.56 11.838 5.028 14 8 14c1.657 0 3.158-.672 4.244-1.758L9 9h7v6.996l-2.342-2.34z"/></svg>'
     };
   }
 });
