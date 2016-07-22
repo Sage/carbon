@@ -119,13 +119,23 @@ class Form extends React.Component {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func
+    onCancel: React.PropTypes.func,
+
+    /**
+     * Additional actions rendered next to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    additionalActions: React.PropTypes.node
+
   }
 
   static defaultProps = {
     cancel: true,
     saving: false,
-    validateOnMount: false
+    validateOnMount: false,
+    buttonAlign: 'right'
   }
 
   static childContextTypes = {
@@ -367,6 +377,13 @@ class Form extends React.Component {
     );
   }
 
+  get buttonClasses() {
+    return classNames(
+      'ui-form__buttons',
+      `ui-form__buttons--${ this.props.buttonAlign }`
+    );
+  }
+
   /**
    * Gets the cancel button for the form
    *
@@ -381,6 +398,14 @@ class Form extends React.Component {
         { this.props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' }) }
       </Button>
     </div>);
+  }
+
+  get additionalActions() {
+    return (
+      <div className='ui-form__additional-actions' >
+        { this.props.additionalActions }
+      </div>
+    );
   }
 
    /**
@@ -413,7 +438,7 @@ class Form extends React.Component {
 
         { this.props.children }
 
-        <div className="ui-form__buttons">
+        <div className={ this.buttonClasses }>
           <div className={ saveClasses }>
             { errorCount }
             <Button as="primary" disabled={ this.props.saving }>
@@ -422,6 +447,8 @@ class Form extends React.Component {
           </div>
 
           { cancelButton }
+
+          { this.additionalActions }
         </div>
       </form>
     );
