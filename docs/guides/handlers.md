@@ -13,11 +13,13 @@ import React from 'react';
 
 class App extends React.Component {
   // define the default footer links
-  footerLinks = [
-    <a key="1">link 1</a>,
-    <a key="2">link 2</a>,
-    <a key="3">link 3</a>
-  ]
+  get footerLinks() {
+    return [
+      <a key="1">link 1</a>,
+      <a key="2">link 2</a>,
+      <a key="3">link 3</a>
+    ];
+  }
 
   // function to render the footer menu
   get renderFooterLinks() {
@@ -98,11 +100,13 @@ import React from 'react';
 import FooterLinksRegistry from './footer-links-registry';
 
 class App extends React.Component {
-  footerLinks = [
-    <a key="1">link 1</a>,
-    <a key="2">link 2</a>,
-    <a key="3">link 3</a>
-  ]
+  get footerLinks() {
+    return [
+      <a key="1">link 1</a>,
+      <a key="2">link 2</a>,
+      <a key="3">link 3</a>
+    ];
+  }
 
   // as well as importing the new registry, this function is the only thing we
   // have modified, we obtain any relevant handlers, and call them with the default links
