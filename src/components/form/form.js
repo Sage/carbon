@@ -127,13 +127,13 @@ class Form extends React.Component {
      * @property saveFalse
      * @type {Boolean}
      */
-    showSave: React.PropTypes.bool
+    save: React.PropTypes.bool
   }
 
   static defaultProps = {
     cancel: true,
     saving: false,
-    showSave: true,
+    save: true,
     validateOnMount: false
   }
 
@@ -441,7 +441,7 @@ class Form extends React.Component {
       cancelButton = this.cancelButton;
     }
 
-    if (this.props.showSave) {
+    if (this.props.save) {
       saveButton = this.saveButton;
     }
 

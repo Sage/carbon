@@ -80,7 +80,7 @@ let data = ImmutableHelper.parseJSON({
   },
   form: {
     cancel: true,
-    showSave: true
+    save: true
   },
   heading: {
     title: "Heading Example",

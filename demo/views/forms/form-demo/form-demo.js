@@ -39,7 +39,7 @@ class FormDemo extends React.Component {
         cancel={ this.value('cancel') }
         saveText={ this.value('saveText') }
         cancelText={ this.value('cancelText') }
-        showSave={ this.value('showSave') }
+        save={ this.value('save') }
       >
         <Row>
           <Textbox
@@ -91,9 +91,9 @@ class FormDemo extends React.Component {
       html += '\n cancel={ false }'
     }
 
-    if (!this.value('showSave')) {
+    if (!this.value('save')) {
       dropline = true;
-      html += '\n showSave={ false }'
+      html += '\n save={ false }'
     }
 
     if (this.value('saveText')) {
@@ -152,8 +152,8 @@ class FormDemo extends React.Component {
           />
           <Checkbox
             label="Save Button"
-            value={ this.value('showSave') }
-            onChange={ this.action.bind(this, 'showSave') }
+            value={ this.value('save') }
+            onChange={ this.action.bind(this, 'save') }
           />
           <Textbox
             label="Cancel Text"

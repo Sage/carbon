@@ -412,16 +412,16 @@ describe('Form', () => {
     });
 
     describe('Save Button', () => {
-      describe('when showSave is true or is not set to false', () => {
+      describe('when save is true or is not set to false', () => {
         it('shows a save button', () => {
-          let instance = TestUtils.renderIntoDocument(<Form showSave={ true }/>);
+          let instance = TestUtils.renderIntoDocument(<Form save={ true }/>);
           let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__save')
         });
       });
 
-      describe('when showSave is set to false', () => {
+      describe('when save is set to false', () => {
         it('does not show a save button', () => {
-          let instance = TestUtils.renderIntoDocument(<Form showSave={ false }/>);
+          let instance = TestUtils.renderIntoDocument(<Form save={ false }/>);
           let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
           expect(buttons.length).toEqual(1);
         });
