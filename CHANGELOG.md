@@ -1,5 +1,9 @@
 # 0.20.0
 
+## Breaking Changes
+
+* The CSS for inputs and icons associated with inputs has changed. If you have overridden this CSS in you code, this may break your input CSS.
+
 ## New Components
 
 * Heading - useful for page titles.
