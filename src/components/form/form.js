@@ -127,13 +127,21 @@ class Form extends React.Component {
      * @property saveFalse
      * @type {Boolean}
      */
-    save: React.PropTypes.bool
+    save: React.PropTypes.bool,
+
+     /* Additional actions rendered next to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    additionalActions: React.PropTypes.node
   }
 
   static defaultProps = {
+    buttonAlign: 'right',
     cancel: true,
-    saving: false,
     save: true,
+    saving: false,
     validateOnMount: false
   }
 
@@ -376,6 +384,13 @@ class Form extends React.Component {
     );
   }
 
+  get buttonClasses() {
+    return classNames(
+      'ui-form__buttons',
+      `ui-form__buttons--${ this.props.buttonAlign }`
+    );
+  }
+
   /**
    * Gets the cancel button for the form
    *
@@ -392,9 +407,16 @@ class Form extends React.Component {
     </div>);
   }
 
+  get additionalActions() {
+    return (
+      <div className='ui-form__additional-actions' >
+        { this.props.additionalActions }
+      </div>
+    );
+  }
+
   /**
    * Gets the save button for the form
-   *
    * @method saveButton
    * @return {Object} JSX save button
    */
@@ -428,7 +450,7 @@ class Form extends React.Component {
     );
   }
 
-   /**
+  /**
    * Renders the component.
    *
    * @method render
@@ -450,9 +472,11 @@ class Form extends React.Component {
         { generateCSRFToken(this._document) }
 
         { this.props.children }
+
         <div className="ui-form__buttons">
           { saveButton }
           { cancelButton }
+          { this.additionalActions }
         </div>
       </form>
     );

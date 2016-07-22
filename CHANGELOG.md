@@ -7,6 +7,7 @@
 ## New Components
 
 * Heading - useful for page titles.
+* ShowEditPod - Inline editing of fields
 * Date Range - Allows start and end date setting with validation for invalid date combinations.
 
 ## History and Browser Status
