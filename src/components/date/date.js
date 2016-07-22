@@ -8,6 +8,8 @@ import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
+import chainFunctions from './../../utils/helpers/chain-functions';
+
 
 /**
  * A Date widget.
@@ -306,7 +308,7 @@ class Date extends React.Component {
 
   /**
    * A getter that combines props passed down from the input decorator with
-   * textbox specific props.
+   * date specific props.
    *
    * @method inputProps
    * @return {Object} props for the visible input
@@ -320,7 +322,7 @@ class Date extends React.Component {
     props.onKeyDown = this.handleKeyDown;
 
     if (!this.props.readOnly && !this.props.disabled) {
-      props.onFocus = this.handleFocus;
+      props.onFocus = chainFunctions(this.handleFocus, props.onFocus);
     }
 
     return props;

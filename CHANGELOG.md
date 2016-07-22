@@ -7,6 +7,17 @@
 ## New Components
 
 * Heading - useful for page titles.
+* Date Range - Allows start and end date setting with validation for invalid date combinations.
+
+## History and Browser Status
+
+The router's history object is now accessible:
+
+```js
+import { history } from 'carbon/lib/utils/router';
+```
+
+With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
 
 ## History and Browser Status
 
@@ -26,8 +37,14 @@ With the history object you can control the DOM for any UI that uses React Route
 
 The `Button` component can now have red and green themes, set using the `as` prop.
 
+## New Icons
+
+* Information
+* Sync
+
 ## Minor Changes
 
+* A Sass variable has been introduced to define the path where fonts are located.
 * Pod title size has been reduced to more accurately match the demo.
 * Secondary Content components font weight has been normalised.
 * The `children` prop for the Help component is no longer required.
@@ -36,6 +53,7 @@ The `Button` component can now have red and green themes, set using the `as` pro
 * Adds inline help for radio button.
 * Fixes inline help for checkboxes.
 * Radio Button sprite has been given a fixed size.
+* Increase textTag font-spacing from 0.5 to 0.8.
 * Button can receive a prop of `to`.
 * Fixes fieldset and input margin when rendered on top of one another.
 * Fixes position of icon in dropdown button.
