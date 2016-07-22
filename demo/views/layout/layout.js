@@ -17,12 +17,12 @@ class Layout extends React.Component {
     return (
       <div>
         <h1>Layout</h1>
-        <ShowEditPodDemo />
         <RowDemo />
         <CarouselDemo />
         <TabsDemo />
         <PodDemo />
         <PodDemo collapsed={ true } />
+        <ShowEditPodDemo />
         <AppWrapperDemo />
         <HeadingDemo />
         <NavigationBarDemo />

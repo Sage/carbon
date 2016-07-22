@@ -97,6 +97,41 @@ class ShowEditPodDemo extends React.Component {
   get code() {
     let html = "import ShowEditPod from 'carbon/lib/components/show-edit-pod';\n\n";
 
+    html += 'let fields = [\n';
+    html += '  <FieldSet key="foo">\n';
+    html += '    <Textbox { ...this.demoFieldProps("address_1") } />\n';
+    html += '    <Textbox { ...this.demoFieldProps("address_2") } />\n';
+    html += '    <Textbox { ...this.demoFieldProps("city") } />\n';
+    html += '    <Textbox { ...this.demoFieldProps("county") } />\n';
+    html += '    <Textbox { ...this.demoFieldProps("country") } />\n';
+    html += '    <Textbox { ...this.demoFieldProps("postcode") } />\n';
+    html += '  </FieldSet>\n';
+    html += '];\n\n';
+
+    html += 'return (\n';
+    html += '  <ShowEditPod\n';
+    html += '    editFields={ fields }\n';
+    html += '    afterFormValidation={ this.onSave }\n';
+    html += '    onEdit={ this.onEdit }\n';
+    html += '    onCancel={ this.onCancel }\n';
+    html += '    saveText="Save Address"\n';
+
+    if (this.value('deletable')) {
+      html += '    onDelete={ this.onDelete }\n';
+    }
+
+    html += '  >\n';
+    html += '    <Content title="Company Name">\n';
+    html += '      { this.value("address_1") }\n';
+    html += '      { this.value("address_2") }\n';
+    html += '      { this.value("city") }\n';
+    html += '      { this.value("county") }\n';
+    html += '      { this.value("country") }\n';
+    html += '      { this.value("postcode") }\n';
+    html += '    </Content>\n';
+    html += '  </ShowEditPod>\n';
+    html += ');\n';
+
     return html;
   }
 
