@@ -1,9 +1,5 @@
 import React from 'react';
 import Pod from 'components/pod';
-import MultiActionButton from 'components/multi-action-button';
-import ShowEditPod from 'components/show-edit-pod';
-import Textbox from 'components/textbox';
-import FieldSet from 'components/fieldset';
 
 class Homepage extends React.Component {
   /**
@@ -11,7 +7,9 @@ class Homepage extends React.Component {
    */
   render() {
     return (
-      Carbon
+      <Pod className="ui-homepage">
+        Carbon
+      </Pod>
     );
   }
 }
