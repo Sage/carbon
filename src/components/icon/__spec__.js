@@ -206,6 +206,30 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--sync");
     });
+
+    it('calls the render progress icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='progress' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--progress");
+    });
+
+    it('calls the render submitted icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='submitted' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--submitted");
+    });
+
+    it('calls the render completed icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='completed' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--completed");
+    });
   });
 
   describe('success', () => {
