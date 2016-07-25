@@ -32,6 +32,9 @@ The `Button` component can now have red and green themes, set using the `as` pro
 
 * Information
 * Sync
+* Progress
+* Submitted
+* Completed
 
 ## Minor Changes
 
