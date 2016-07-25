@@ -18,6 +18,10 @@
   background-color: $grey-dark-blue-10;
 }
 
+.ui-pod--transparent {
+  background-color: transparent;
+}
+
 .ui-pod--tile {
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
 }
@@ -66,7 +70,7 @@
 }
 
 .ui-pod__header {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .ui-pod__header--true {
@@ -82,7 +86,7 @@
   background: none;
   color: $grey-dark;
   display: inline;
-  font-size: 1.8em;
+  font-size: 1.4em;
   font-weight: 300;
 }
 
