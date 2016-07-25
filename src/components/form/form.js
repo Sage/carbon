@@ -473,7 +473,7 @@ class Form extends React.Component {
 
         { this.props.children }
 
-        <div className="ui-form__buttons">
+        <div className={ this.buttonClasses }>
           { saveButton }
           { cancelButton }
           { this.additionalActions }
