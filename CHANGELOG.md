@@ -20,6 +20,16 @@ import { history } from 'carbon/lib/utils/router';
 
 With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
 
+## Link Prefixes
+
+The `Link` component can now have its `href` or `to` props prefixed to customise the type of link it is (regular or react router).
+
+For example:
+
+```js
+<Link href="to:/foobar">My React Router Link</Link>
+```
+
 ## Router transitions
 
 * The window will automatically scroll to the top when the route is transitioned
