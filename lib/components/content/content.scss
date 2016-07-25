@@ -1,4 +1,9 @@
 @import "colors";
+@import 'general';
+
+.ui-content + .ui-content {
+  margin-top: $grid-margin;
+}
 
 .ui-content__title {
   font-weight: bold;
@@ -11,4 +16,5 @@
 
 .ui-content--secondary .ui-content__title {
   color: $grey-dark-blue-60;
+  font-weight: normal;
 }
