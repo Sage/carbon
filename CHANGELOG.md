@@ -6,6 +6,7 @@
 * Add character count to textarea
 * Form now accepts a `onSubmit` prop which is only called when the form is valid.
 * AppWrapper now has a minium width of 958px.
+* SUG-19: Change padding for the MessageComponent when transparent and non dismissable. When transparent is applied the padding reduces to 2px, but if it's dismissable it enlarges to it's original to prevent overlap.
 
 # 0.20.0
 
