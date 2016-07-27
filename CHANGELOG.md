@@ -3,6 +3,7 @@
 ## Minor Changes
 
 * Form now accepts a `onSubmit` prop which is only called when the form is valid.
+* AppWrapper now has a minium width of 958px.
 
 # 0.20.0
 
