@@ -1,3 +1,9 @@
+# 0.21.0
+
+## Minor Improvements
+
+* Add character count to textarea
+
 # 0.20.0
 
 ## Breaking Changes

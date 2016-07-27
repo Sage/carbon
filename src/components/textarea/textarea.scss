@@ -3,3 +3,12 @@
   resize: none;
   overflow: hidden;
 }
+
+.ui-textarea__character-limit {
+  text-align: right;
+}
+
+.ui-textarea__limit-used,
+.ui-textarea__limit-max {
+  font-weight: bold;
+}
