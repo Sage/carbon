@@ -33,6 +33,14 @@ class ShowEditPod extends React.Component {
      */
     editFields: React.PropTypes.node,
 
+    /**
+     * Title to display in pod
+     *
+     * @property title
+     * @type {String}
+     */
+    title: React.PropTypes.string,
+
     // Props passed to Form
     afterFormValidation: React.PropTypes.func,
     beforeFormValidation: React.PropTypes.func,
@@ -206,7 +214,7 @@ class ShowEditPod extends React.Component {
    */
   render() {
     return (
-      <Pod className={ this.mainClasses } { ...this.podProps } >
+      <Pod className={ this.mainClasses } { ...this.podProps }>
         { this.content }
       </Pod>
     );
