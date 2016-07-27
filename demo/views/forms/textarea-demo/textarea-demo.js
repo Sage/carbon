@@ -73,6 +73,10 @@ class TextareaDemo extends React.Component {
       html += `\n  characterLimit='${this.value('characterLimit')}'`;
     }
 
+    if (!this.value('enforceCharacterLimit')) {
+      html += `\n  enforceCharacterLimit={ false }`;
+    }
+
     // determine if we need extra space
     let splitHtml = html.split("\n  ");
     if (splitHtml.length == 1) {
