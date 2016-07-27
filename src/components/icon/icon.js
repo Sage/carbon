@@ -81,6 +81,16 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderHelpIcon;
       case 'chevron':
         return this.renderChevronIcon;
+      case 'information':
+        return this.renderInformationIcon;
+      case 'sync':
+        return this.renderSyncIcon;
+      case 'progress':
+        return this.renderProgressIcon;
+      case 'submitted':
+        return this.renderSubmittedIcon;
+      case 'completed':
+        return this.renderCompletedIcon;
       default:
         null;
     }
@@ -566,6 +576,78 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         '</svg>'
     };
   }
+
+  /**
+   * Returns the 'information' icon
+   *
+   * @method renderInformationIcon
+   * @return {Object} information icon svg
+   */
+  get renderInformationIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--information" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM7 6h2v7H7V6zm0-3h2v2H7V3z"/></svg>'
+    };
+  }
+
+  /**
+   * Returns the 'sync' icon
+   *
+   * @method renderSyncIcon
+   * @return {Object} sync icon svg
+   */
+  get renderSyncIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--sync" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M2.343 2.343C3.79.895 5.79 0 8 0c4.08 0 7.446 3.054 7.938 7h-2.02C13.44 4.162 10.972 2 8 2c-1.657 0-3.157.672-4.243 1.757L7 7l-7 .005V0l2.343 2.343zm11.315 11.312C12.21 15.105 10.21 16 8 16 3.92 16 .554 12.946.062 9h2.02C2.56 11.838 5.028 14 8 14c1.657 0 3.158-.672 4.244-1.758L9 9h7v6.996l-2.342-2.34z"/></svg>'
+    };
+  }
+
+  /**
+   * Returns the 'progess' icon
+   *
+   * @method renderProgressIcon
+   * @return {Object} progress icon svg
+   */
+  get renderProgressIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--progress" width="16" height="16" viewBox="0 0 16 16">' +
+          '<path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM3 7h2v2H3V7zm4 0h2v2H7V7zm4 0h2v2h-2V7z"/>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'submitted' icon
+   *
+   * @method renderSubmittedIcon
+   * @return {Object} submitted icon svg
+   */
+  get renderSubmittedIcon() {
+    return {
+      __html:
+      '<svg class="ui-icon__svg ui-icon__svg--submitted" width="16" height="16" viewBox="0 0 16 16">' +
+        '<path fill="currentColor" fill-rule="evenodd" d="M9 7.038H1.007c-.557 0-1.007.448-1.007 1 0 .556.45 1 1.007 1H9v4.5c0 .552.336.705.75.342l5.9-5.172c.413-.363.414-.954 0-1.318l-5.9-5.192c-.413-.363-.75-.213-.75.338v4.502z"/>' +
+      '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'completed' icon
+   *
+   * @method renderCompletedIcon
+   * @return {Object} completed icon svg
+   */
+  get renderCompletedIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--completed" width="16" height="16" viewBox="0 0 16 16">' +
+          '<path fill="currentColor" fill-rule="evenodd" d="M2.9 8.3c-.404-.396-1.043-.4-1.445-.024L.318 9.5c-.407.38-.41.998-.017 1.39l3.92 3.803c.4.398 1.04.405 1.447.03l10.1-9.98c.312-.368.308-.9-.012-1.255L14.63 2.262c-.395-.36-1.05-.35-1.443.04L5.03 10.52 2.9 8.3z"/>' +
+        '</svg>'
+    };
+  }
+
 });
 
 export default Icon;

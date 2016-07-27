@@ -8,6 +8,9 @@
   .ui-icon.ui-input-icon,
   .common-input__icon {
     z-index: 2;
+    &.icon-error {
+      top: 7px;
+    }
   }
 
   .common-input__input--error {

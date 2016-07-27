@@ -15,7 +15,7 @@ describe('Heading', () => {
         subheader="subheader"
         help="bar"
         helpLink="/bar"
-        backLinkHref="/foobar"
+        backLink="/foobar"
       />
     );
   });
@@ -85,18 +85,7 @@ describe('Heading', () => {
     });
   });
 
-  describe('no back href but a back to link', () => {
-    it('returns no back link', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Heading title="foo" backLinkTo="/foobar" />
-      );
-      let link = TestUtils.findRenderedComponentWithType(instance, Link);
-      expect(link.props.className).toEqual('ui-heading__back');
-      expect(link.props.to).toEqual('/foobar');
-    });
-  });
-
-  describe('no back href or to', () => {
+  describe('no back href', () => {
     it('returns no back link', () => {
       instance = TestUtils.renderIntoDocument(
         <Heading title="foo" />

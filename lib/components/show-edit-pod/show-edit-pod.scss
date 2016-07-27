@@ -1,0 +1,9 @@
+@import 'colors';
+
+.ui-show-edit-pod__delete {
+  color: $red;
+
+  &:hover {
+    color: $error-hover;
+  }
+}

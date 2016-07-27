@@ -1,8 +1,14 @@
 # 0.20.0
 
+## Breaking Changes
+
+* The CSS for inputs and icons associated with inputs has changed. If you have overridden this CSS in you code, this may break your input CSS.
+
 ## New Components
 
 * Heading - useful for page titles.
+* ShowEditPod - Inline editing of fields
+* Date Range - Allows start and end date setting with validation for invalid date combinations.
 
 ## History and Browser Status
 
@@ -14,6 +20,16 @@ import { history } from 'carbon/lib/utils/router';
 
 With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
 
+## Link Prefixes
+
+The `Link` component can now have its `href` or `to` props prefixed to customise the type of link it is (regular or react router).
+
+For example:
+
+```js
+<Link href="to:/foobar">My React Router Link</Link>
+```
+
 ## Router transitions
 
 * The window will automatically scroll to the top when the route is transitioned
@@ -22,21 +38,32 @@ With the history object you can control the DOM for any UI that uses React Route
 
 The `Button` component can now have red and green themes, set using the `as` prop.
 
+## New Icons
+
+* Information
+* Sync
+* Progress
+* Submitted
+* Completed
+
 ## Minor Changes
 
+* A Sass variable has been introduced to define the path where fonts are located.
 * Pod title size has been reduced to more accurately match the demo.
-* Secondary Content components font weight has been normalised.
+* Secondary Content components font weight has been standardised.
 * The `children` prop for the Help component is no longer required.
 * Sibling Content components now have a top margin for spacing.
 * Button height has been fixed for buttons that behave like links.
 * Adds inline help for radio button.
 * Fixes inline help for checkboxes.
 * Radio Button sprite has been given a fixed size.
+* Increase textTag font-spacing from 0.5 to 0.8.
 * Button can receive a prop of `to`.
 * Fixes fieldset and input margin when rendered on top of one another.
 * Fixes position of icon in dropdown button.
 * Fixes error icon position for inputs with field help.
 * AppWrapper has been increased to 1600px and some padding has been added.
+* Form now accepts a prop of `save` which can be used to hide the save button.
 
 # 0.19.0
 

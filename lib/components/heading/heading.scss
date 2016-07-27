@@ -1,0 +1,50 @@
+@import "general";
+@import "colors";
+@import 'z-index';
+
+.ui-heading__header {
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  position: relative;
+
+  .ui-tooltip {
+    z-index: $z-modal-background - 1;
+  }
+}
+
+.ui-heading__subheader {
+  margin-top: 5px;
+}
+
+.ui-heading--has-back .ui-heading__headers {
+  margin-left: 30px;
+}
+
+.ui-heading__title {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 26px;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.ui-heading__help {
+  line-height: $app-line-height;
+  margin-left: 10px;
+  top: 6px;
+}
+
+.ui-heading__back {
+  top: 50%;
+  margin-top: -11px;
+  position: absolute;
+
+  .ui-icon {
+    color: $grey-dark-blue-30;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+}
