@@ -1,3 +1,9 @@
+# 0.21.0
+
+## Minor Changes
+
+* Form now accepts a `onSubmit` prop which is only called when the form is valid.
+
 # 0.20.0
 
 ## Breaking Changes
