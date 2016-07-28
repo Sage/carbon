@@ -241,6 +241,16 @@ describe('Input', () => {
         expect(instanceTwo.inputProps.onChange).toEqual(instanceTwo._handleOnChange);
       });
     });
+
+    describe('when the component has its own onPaste handler', () => {
+      it('passes the paste event to the input element', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          onPaste: () => {}
+        }));
+
+        expect(instance.inputProps.onPaste).toEqual(instance.props.onPaste);
+      });
+    });
   });
 
   describe('fieldProps', () => {

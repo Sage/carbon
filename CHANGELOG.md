@@ -1,3 +1,9 @@
+# 0.21.0
+
+## Enhancement
+
+* Input components now accept an onPaste prop.
+
 # 0.20.0
 
 ## Breaking Changes
