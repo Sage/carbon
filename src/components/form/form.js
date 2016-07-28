@@ -129,12 +129,21 @@ class Form extends React.Component {
      */
     save: React.PropTypes.bool,
 
-     /* Additional actions rendered next to the save and cancel buttons
+    /**
+     * Additional actions rendered next to the save and cancel buttons
      *
      * @property additionalActions
      * @type {String|JSX}
      */
-    additionalActions: React.PropTypes.node
+    additionalActions: React.PropTypes.node,
+
+    /**
+     * Custom callback for when form will submit
+     *
+     * @property onSubmit
+     * @type {Function}
+     */
+    onSubmit: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -301,6 +310,10 @@ class Form extends React.Component {
     if (this.props.afterFormValidation) {
       this.props.afterFormValidation(ev, valid);
     }
+
+    if (valid && this.props.onSubmit) {
+      this.props.onSubmit(ev);
+    }
   }
 
   /**
@@ -346,7 +359,7 @@ class Form extends React.Component {
    * @return {Object} props for form element
    */
   htmlProps = () => {
-    let { ...props } = this.props;
+    let { onSubmit, ...props } = this.props;
     props.className = this.mainClasses;
     return props;
   }
