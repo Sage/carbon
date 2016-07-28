@@ -95,7 +95,7 @@ class ShowEditPod extends React.Component {
     ev.preventDefault();
 
     if (valid) {
-      this.props.afterFormValidation(ev);
+      this.props.afterFormValidation(ev, valid);
       this.setState({ editing: false });
     }
   }
