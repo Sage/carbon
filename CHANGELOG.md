@@ -1,3 +1,9 @@
+# 0.21.0
+
+## Minor Improvements
+
+* Show edit pod can now be controlled via props
+
 # 0.20.0
 
 ## Breaking Changes
