@@ -88,7 +88,7 @@ $message-width: 300px !default;
     margin-bottom: 0px;
 
     .ui-message__content{
-      padding: 2px 35px;
+      padding: 2px 5px 2px 35px;
     }
 
     .ui-message__type {
@@ -112,7 +112,14 @@ $message-width: 300px !default;
       top: 8px;
     }
   }
+
+  .ui-message--#{$type}.ui-message--transparent.ui-message--dismissable {
+    .ui-message__content{
+      padding: 2px 35px;
+    }
+  }
 }
+
 
 @each $set in $colorIconSets {
   @include message-theme($set...);
