@@ -94,7 +94,15 @@ class _Link extends React.Component {
 
   get icon() {
     if (!this.props.icon) { return null; }
-    return <Icon type={ this.props.icon } className="ui-link__icon" />;
+    return (
+      <Icon
+        type={ this.props.icon }
+        className="ui-link__icon"
+        tooltipMessage={ this.props.tooltipMessage }
+        tooltipAlign={ this.props.tooltipAlign }
+        tooltipPosition={ this.props.tooltipPosition }
+      />
+    );
   }
 
   /**

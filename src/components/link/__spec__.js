@@ -55,6 +55,15 @@ describe('Link', () => {
       expect(icon.props.className).toEqual('ui-link__icon');
       expect(icon.props.type).toEqual('foo');
     });
+
+    it('passes on any tooltip props', () => {
+      let instance = TestUtils.renderIntoDocument(
+        <Link icon="foo" tooltipMessage='Hi Everybody' tooltipAlign='center'>My Link</Link>
+      );
+      let icon = TestUtils.findRenderedComponentWithType(instance, Icon);
+      expect(icon.props.tooltipMessage).toEqual('Hi Everybody');
+      expect(icon.props.tooltipAlign).toEqual('center');
+    });
   });
 
   describe('class names', () => {

@@ -647,7 +647,6 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         '</svg>'
     };
   }
-
 });
 
 export default Icon;
