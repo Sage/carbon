@@ -1,5 +1,8 @@
 # 0.21.0
 
+## CSS Changes
+ * Fieldset inputs have had `position: relative` removed from hover/focus and from error-icons.
+
 ## Minor Improvements
 
 * Input components now accept an onPaste prop.

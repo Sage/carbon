@@ -14,13 +14,11 @@
   }
 
   .common-input__input--error {
-    position: relative;
     z-index: 1;
   }
 
   .common-input__input:focus,
   .common-input__input:hover {
-    position: relative;
     z-index: 2;
   }
 
