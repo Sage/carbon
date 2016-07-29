@@ -1,5 +1,12 @@
 # 0.21.0
 
+## New Icons
+
+* Print
+* Pdf
+* Csv
+* Message
+
 ## Minor Improvements
 
 * Action toolbar now accepts tooltip props to apply a tooltip to the icon.
