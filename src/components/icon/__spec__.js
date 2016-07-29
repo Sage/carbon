@@ -254,6 +254,14 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--print");
     });
+
+    it('calls the render message icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='message' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--message");
+    });
   });
 
   describe('success', () => {
