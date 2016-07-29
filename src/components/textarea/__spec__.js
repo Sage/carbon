@@ -25,6 +25,7 @@ describe('Textarea', () => {
       expandable={ true }
       cols={10}
       rows={10}
+      characterLimit='100'
       onChange={ spy }
     />);
   });
@@ -150,6 +151,21 @@ describe('Textarea', () => {
     });
   });
 
+  describe('characterCount', () => {
+    describe('when characterLimit is set', () => {
+      it('returns character limit div', () => {
+        let counter = TestUtils.findRenderedDOMComponentWithClass(expandableInstance, 'ui-textarea__character-limit');
+        expect(counter.textContent).toEqual('You have used 3 of 100 characters');
+      });
+    });
+
+    describe('when characterLimit is not set', () => {
+      it('returns null', () => {
+        expect(baseInstance.characterCount).toBeUndefined();
+      });
+    });
+  });
+
   describe('render', () => {
     it('renders a parent div', () => {
       let textareaNode = TestUtils.scryRenderedDOMComponentsWithTag(baseInstance, 'div')[0];
@@ -173,6 +189,30 @@ describe('Textarea', () => {
       baseInstance.setState({errorMessage: 'Error', valid: false});
       let errorDiv = TestUtils.findRenderedDOMComponentWithClass(baseInstance, 'common-input__message--error')
       expect(errorDiv.textContent).toEqual('Error')
+    });
+
+    describe('when characterLimit is set', () => {
+      describe('and enforceCharacterLimit is true', () => {
+        it('sets a maxLength on the input', () => {
+          let input = TestUtils.findRenderedDOMComponentWithTag(expandableInstance, 'textarea')
+          expect(input.maxLength).toEqual(100);
+        });
+      });
+
+      describe('and enforceCharacterLimit is false', () => {
+        it('does not set a maxLength on the input', () => {
+          let instance = TestUtils.renderIntoDocument(
+            <Textarea
+              name="Dummy Area"
+              label={ 'Label' }
+              characterLimit='100'
+              enforceCharacterLimit={ false }
+            />
+          );
+          let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'textarea')
+          expect(input.maxLength).toEqual(-1);
+        });
+      });
     });
   });
 

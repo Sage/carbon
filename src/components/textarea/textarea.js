@@ -2,6 +2,7 @@ import React from 'react';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
+import I18n from 'i18n-js';
 
 /**
  * A textarea widget.
@@ -36,11 +37,29 @@ class Textarea extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    expandable: React.PropTypes.bool
+    expandable: React.PropTypes.bool,
+
+    /**
+     * Character limit of the textarea
+     *
+     * @property characterLimit
+     * @type {String}
+     */
+    characterLimit: React.PropTypes.string,
+
+    /**
+     * Stop the user typing over the characterLimit
+     *
+     * @property enforceCharacterLimit
+     * @type {Boolean}
+     * @default true
+     */
+    enforceCharacterLimit: React.PropTypes.bool
   }
 
   static defaultProps = {
-    expandable: false
+    expandable: false,
+    enforceCharacterLimit: true
   }
 
   /**
@@ -139,7 +158,22 @@ class Textarea extends React.Component {
     props.className = this.inputClasses;
     props.rows = this.props.rows;
     props.cols = this.props.cols;
+
+    if (this.props.characterLimit && this.props.enforceCharacterLimit) {
+      props.maxLength = this.props.characterLimit;
+    }
+
     return props;
+  }
+
+  /**
+   * I18n options for character count number
+   *
+   * @method i18nNumberOpts
+   * @return {Object}
+   */
+  get i18nNumberOpts() {
+    return { precision: 0 };
   }
 
   /**
@@ -151,6 +185,31 @@ class Textarea extends React.Component {
   get inputType() {
     return 'textarea';
   }
+
+  /**
+   * Returns character count jsx if limit is set
+   *
+   * @method characterCount
+   * @return {JSX}
+   */
+  get characterCount() {
+    if (this.props.characterLimit) {
+      return (
+        <div className="ui-textarea__character-limit">
+          { I18n.t("textarea.limit.prefix", { defaultValue: 'You have used ' } ) }
+          <span className="ui-textarea__limit-used">
+            { I18n.toNumber(calculateCharacterCount(this.props.value), this.i18nNumberOpts) }
+          </span>
+          { I18n.t("textarea.limit.middle", { defaultValue: ' of ' } ) }
+          <span className="ui-textarea__limit-max">
+            { I18n.toNumber(this.props.characterLimit, this.i18nNumberOpts) }
+          </span>
+          { I18n.t("textarea.limit.suffix", { defaultValue: ' characters' } ) }
+        </div>
+      );
+    }
+  }
+
 
   /**
    * Renders the component.
@@ -166,11 +225,20 @@ class Textarea extends React.Component {
         { this.inputHTML }
         { this.validationHTML }
         { this.fieldHelpHTML }
+        { this.characterCount }
 
       </div>
     );
   }
 }
 )));
+
+let calculateCharacterCount = (value) => {
+  if (!value) { return 0; }
+
+  let limitUsed = value.length.toString(),
+      numberOfLineBreaks = (value.match(/\n/g) || []).length;
+  return parseInt(limitUsed) + numberOfLineBreaks;
+};
 
 export default Textarea;
