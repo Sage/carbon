@@ -5,6 +5,7 @@
 * Print
 * Pdf
 * Csv
+* Message
 
 ## Minor Improvements
 
