@@ -167,6 +167,36 @@ describe('Form', () => {
         expect(spy).toHaveBeenCalled();
       });
     });
+
+    describe('when a onSubmit prop is passed', () => {
+      describe('and the form is valid', () => {
+        it('calls the onSubmit prop', () => {
+          let spy = jasmine.createSpy('spy');
+          instance = TestUtils.renderIntoDocument(
+            <Form onSubmit={ spy }>
+              <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+            </Form>
+          );
+          let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+          TestUtils.Simulate.submit(form);
+          expect(spy).toHaveBeenCalled();
+        });
+      });
+
+      describe('and the form is invalid', () => {
+        it('does not call the onSubmit prop', () => {
+          let spy = jasmine.createSpy('spy');
+          instance = TestUtils.renderIntoDocument(
+            <Form onSubmit={ spy }>
+              <Textbox validations={ [new Validation()] } name='test' value='' />
+            </Form>
+          );
+          let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+          TestUtils.Simulate.submit(form);
+          expect(spy).not.toHaveBeenCalled();
+        });
+      });
+    });
   });
 
   describe('validate', () => {
