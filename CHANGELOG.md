@@ -1,7 +1,8 @@
 # 0.21.0
 
-## Minor Changes
+## Minor Improvements
 
+* Add character count to textarea
 * Form now accepts a `onSubmit` prop which is only called when the form is valid.
 * AppWrapper now has a minium width of 958px.
 
