@@ -1,8 +1,11 @@
 # 0.21.0
 
-## Enhancement
+## Minor Improvements
 
 * Input components now accept an onPaste prop.
+* Add character count to textarea
+* Form now accepts a `onSubmit` prop which is only called when the form is valid.
+* AppWrapper now has a minium width of 958px.
 
 # 0.20.0
 

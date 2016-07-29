@@ -6,6 +6,7 @@ import Example from './../../../components/example';
 import FormInputHelper from './../../../helpers/form-input-helper';
 
 import Textarea from 'components/textarea';
+import NumberComponent from 'components/number';
 import Row from 'components/row';
 import Textbox from 'components/textbox';
 import Checkbox from 'components/checkbox';
@@ -34,6 +35,8 @@ class TextareaDemo extends React.Component {
       <Textarea
         { ...FormInputHelper.demoProps(this, this.action) }
         expandable={ this.value('expandable') }
+        characterLimit={ this.value('characterLimit') }
+        enforceCharacterLimit={ this.value('enforceCharacterLimit') }
       />
     );
   }
@@ -64,6 +67,14 @@ class TextareaDemo extends React.Component {
 
     if (this.value('expandable')) {
       html += `\n  expandable='${this.value('expandable')}'`;
+    }
+
+    if (this.value('characterLimit')) {
+      html += `\n  characterLimit='${this.value('characterLimit')}'`;
+    }
+
+    if (!this.value('enforceCharacterLimit')) {
+      html += `\n  enforceCharacterLimit={ false }`;
     }
 
     // determine if we need extra space
@@ -115,6 +126,19 @@ class TextareaDemo extends React.Component {
             label="Expandable"
             value={ this.value('expandable') }
             onChange={ this.action.bind(this, 'expandable') }
+          />
+        </Row>
+        <Row>
+          <NumberComponent
+            label="Character Limit"
+            labelInline={ true }
+            value={ this.value('characterLimit') }
+            onChange={ this.action.bind(this, 'characterLimit') }
+          />
+          <Checkbox
+            label="Enforce Character Limit"
+            value={ this.value('enforceCharacterLimit') }
+            onChange={ this.action.bind(this, 'enforceCharacterLimit') }
           />
         </Row>
       </div>

@@ -188,6 +188,10 @@ let data = ImmutableHelper.parseJSON({
   text: {
     content: "Example of stylised text content."
   },
+  textarea: {
+    characterLimit: 100,
+    enforceCharacterLimit: true
+  },
   table: {
     current_page: "1",
     data: [],
