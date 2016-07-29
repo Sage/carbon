@@ -1,5 +1,11 @@
 # 0.21.0
 
+## New Icons
+
+* Print
+* Pdf
+* Csv
+
 ## Minor Improvements
 
 * Input components now accept an onPaste prop.

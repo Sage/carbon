@@ -91,6 +91,12 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderSubmittedIcon;
       case 'completed':
         return this.renderCompletedIcon;
+      case 'print':
+        return this.renderPrintIcon;
+      case 'pdf':
+        return this.renderPdfIcon;
+      case 'csv':
+        return this.renderCsvIcon;
       default:
         null;
     }
@@ -648,6 +654,44 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     };
   }
 
+  /**
+   * Returns the 'print' icon
+   *
+   * @method renderPrintIcon
+   * @return {Object} print icon svg
+   */
+  get renderPrintIcon() {
+    return {
+      __html:
+      '<svg class="ui-icon__svg ui-icon__svg--print" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#A8AAB1" fill-rule="evenodd" d="M14 12h1c.555 0 1-.446 1-.997V4.997C16 4.453 15.552 4 15 4H1c-.555 0-1 .446-1 .997v6.006C0 11.547.448 12 1 12h1v3.01c0 .54.45.99 1.002.99h9.996c.546 0 1.002-.444 1.002-.99V12zM3 0h10v3H3V0zm9 6h2v1h-2V6zm-8 4h8v4H4v-4z"/></svg>'
+    };
+  }
+
+  /**
+   * Returns the 'pdf' icon
+   *
+   * @method renderPdfIcon
+   * @return {Object} pdf icon svg
+   */
+  get renderPdfIcon() {
+    return {
+      __html:
+      '<svg class="ui-icon__svg ui-icon__svg--pdf" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#A8AAB1" fill-rule="evenodd" d="M15 1c0-.552-.456-1-.995-1H5L1 4v10.998C1 15.55 1.45 16 2.007 16h11.986C14.55 16 15 15.555 15 15V1zM4 8h8v1H4V8zm0-3h8v1H4V5zm0 6h8v1H4v-1z"/></svg>'
+    };
+  }
+
+  /**
+   * Returns the 'csv' icon
+   *
+   * @method renderCsvIcon
+   * @return {Object} csv icon svg
+   */
+  get renderCsvIcon() {
+    return {
+      __html:
+      '<svg class="ui-icon__svg ui-icon__svg--csv" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#A8AAB1" fill-rule="evenodd" d="M1 1c0-.552.45-1 1.007-1h11.986C14.55 0 15 .445 15 1v14c0 .552-.45 1-1.007 1H2.007C1.45 16 1 15.555 1 15V1zm2 3h3V2H3v2zm0 3h3V5H3v2zm0 7h3V8H3v6zM7 4h6V2H7v2zm0 3h6V5H7v2zm0 7h6V8H7v6z"/></svg>'
+    };
+  }
 });
 
 export default Icon;

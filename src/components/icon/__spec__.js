@@ -230,6 +230,30 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--completed");
     });
+
+    it('calls the render pdf icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='pdf' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--pdf");
+    });
+
+    it('calls the render csv icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='csv' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--csv");
+    });
+
+    it('calls the render print icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='print' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--print");
+    });
   });
 
   describe('success', () => {
