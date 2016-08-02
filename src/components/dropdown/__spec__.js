@@ -233,14 +233,6 @@ describe('Dropdown', () => {
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
       });
-
-      describe('if highlighted does not match value', () => {
-        it('emits change', () => {
-          spyOn(instance, 'highlighted').and.returnValue('2');
-          TestUtils.Simulate.blur(instance._input);
-          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('2', 'bar');
-        });
-      });
     });
   });
 
