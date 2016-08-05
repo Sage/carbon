@@ -130,7 +130,8 @@ let data = ImmutableHelper.parseJSON({
   pod: {
     border: true,
     padding: "medium",
-    as: "primary"
+    as: "primary",
+    centreTitle: false
   },
   profile: {
     name: "Andrew Tait",

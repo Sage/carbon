@@ -37,6 +37,14 @@ describe('Pod', () => {
         expect(header.textContent).toEqual('Title');
       });
 
+      describe('when centreTitle prop is passed', () => {
+        it('adds a centre class', () => {
+          instance = TestUtils.renderIntoDocument(<Pod title='Title' centreTitle={ true } />);
+          let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__header');
+          expect(header.className).toMatch('ui-pod__header--centre');
+        });
+      });
+
       describe('when pod is collapsible', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(<Pod title='Title' collapsed={true} />);

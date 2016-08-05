@@ -1,3 +1,9 @@
+# 0.22.0
+
+## Minor Improvements
+
+* Pod component now accepts a alignTitle prop.
+
 # 0.21.1
 
 ## Minor Improvements

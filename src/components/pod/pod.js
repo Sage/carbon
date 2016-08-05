@@ -78,6 +78,14 @@ class Pod extends React.Component {
     title: React.PropTypes.string,
 
     /**
+     * Centres the pod title
+     *
+     * @property title
+     * @type {String}
+     */
+    centreTitle: React.PropTypes.bool,
+
+    /**
      * Description for the pod
      * Not shown if collapsed
      *
@@ -110,7 +118,8 @@ class Pod extends React.Component {
   static defaultProps = {
     border: true,
     as: "primary",
-    padding: "medium"
+    padding: "medium",
+    centreTitle: false
   }
 
   /**
@@ -133,16 +142,15 @@ class Pod extends React.Component {
    */
   get podHeader() {
     if (!this.props.title) { return; }
-    let pod,
-        headerProps = {};
 
-    headerProps.className = `ui-pod__header ${css.unselectable}`;
+    let pod, headerProps = {};
 
     if (this.state.collapsed !== undefined) {
       pod = this.podCollapsible;
       headerProps.onClick = this.toggleCollapse;
-      headerProps.className += " ui-pod__header--" + this.state.collapsed;
     }
+
+    headerProps.className = this.headerClasses;
 
     return (
       <div { ...headerProps }>
@@ -216,6 +224,23 @@ class Pod extends React.Component {
       `ui-pod--${this.props.as}`, {
         'ui-pod--no-border': !this.props.border,
         'ui-pod--footer': this.props.footer
+      }
+    );
+  }
+
+  /**
+   * Header classes getter
+   *
+   * @method headerClasses
+   * @return {String} header className
+   */
+  get headerClasses() {
+    return classNames(
+      `ui-pod__header`,
+      css.unselectable,
+      {
+        [`ui-pod__header--${ this.state.collapsed }`]: this.state.collapsed !== undefined,
+        [`ui-pod__header--centre`]: this.props.centreTitle
       }
     );
   }

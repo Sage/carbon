@@ -63,6 +63,7 @@ class PodDemo extends React.Component {
         as={ this.value('as') }
         footer={ footer }
         onEdit={ this.value('edit') }
+        centreTitle={ this.value('centreTitle') }
       >
         <Row>
           <Textbox />
@@ -83,7 +84,8 @@ class PodDemo extends React.Component {
         border = this.value('border'),
         padding = this.value('padding'),
         as = this.value('as'),
-        edit = this.value('edit');
+        edit = this.value('edit'),
+        centre = this.value('centreTitle');
 
     let html = "import Pod from 'carbon/lib/components/pod';\n\n";
 
@@ -118,6 +120,10 @@ class PodDemo extends React.Component {
 
       if (edit) {
         html += `\n  onEdit='${edit}'`
+      }
+
+      if (centre) {
+        html += `\n  centreTitle='true'`
       }
 
       html += '\n>'
@@ -227,6 +233,12 @@ class PodDemo extends React.Component {
             label="Footer"
             value={ this.value('footer') }
             onChange={ this.action.bind(this, 'footer') }
+          />
+          <Checkbox
+            label="Centre Title"
+            value={ this.value('centreTitle') }
+            onChange={ this.action.bind(this, 'centreTitle') }
+            disabled={ !this.value('title') }
           />
         </Row>
       </div>
