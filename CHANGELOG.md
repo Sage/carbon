@@ -9,7 +9,7 @@
 
 ## Minor Improvements
 
-* Action toolbar now accepts tooltip props to apply a tooltip to the icon.
+* Link now accepts tooltip props to apply a tooltip to the link. This can be used with the Action Toolbar to apply tooltips to the icon links.
 * Input components now accept an onPaste prop.
 * Add character count to textarea
 * Form now accepts a `onSubmit` prop which is only called when the form is valid.
