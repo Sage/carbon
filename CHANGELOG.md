@@ -1,3 +1,9 @@
+# 0.22.0
+
+## Minor Improvements
+
+* makes heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
+
 # 0.21.1
 
 ## Minor Improvements
