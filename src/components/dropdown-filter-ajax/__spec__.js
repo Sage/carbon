@@ -92,14 +92,6 @@ describe('DropdownFilterAjax', () => {
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
       });
-
-      describe('if highlighted does not match value', () => {
-        it('emits change', () => {
-          spyOn(instance, 'highlighted').and.returnValue(90);
-          instance.handleBlur();
-          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(90, 'foo');
-        });
-      });
     });
   });
 

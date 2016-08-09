@@ -155,17 +155,7 @@ class DropdownFilter extends Dropdown {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      let filter = this.props.create ? this.state.filter : null,
-          highlighted = this.highlighted(this.options);
-
-      if (highlighted && highlighted !== String(this.props.value)) {
-        let item = this.props.options.find((item) => {
-          return String(item.get('id')) === String(highlighted);
-        });
-
-        this.emitOnChangeCallback(highlighted, item.get('name'));
-      }
-
+      let filter = this.props.create ? this.state.filter : null;
       this.setState({ open: false, filter: filter });
     }
   }

@@ -220,16 +220,6 @@ class Dropdown extends React.Component {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      let highlighted = this.highlighted(this.options);
-
-      if (highlighted != this.props.value) {
-        let item = this.props.options.find((item) => {
-          return item.get('id') == highlighted;
-        });
-
-        this.emitOnChangeCallback(highlighted, item.get('name'));
-      }
-
       this.setState({ open: false });
     }
   }
