@@ -12,7 +12,7 @@ We recommend you get familiar with Immutable.js through their [websites document
 
 Some of our components require immutable data to function correctly - so we recommend you use it to store your data.
 
-We have provided an object of helper functions when working with Immutable.js, which take care of some tricky tasks for you. You can import the helper like this:
+We have provided an object of helper functions when working with Immutable.js, which parses your data in a recommended format:
 
 ```js
 import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
@@ -22,9 +22,3 @@ Available functions:
 
 * `parseJSON`
    - When initializing your data, use the `parseJSON` function. This ensures your data object is setup correctly.
-* `updateLineItem`
-   - As a collection is usually an array of objects, when we want to update a particular object in the array we need to know the index of where it sits. Instead, `updateLineItem` takes the ID of the object, finds it in the array and updates the specified value for you.
-* `deleteLineItem`
-   - Again, as a collection is usually an array we need to know the objects index. `deleteLineItem` will take the ID of the object and look it up and delete the object for you.
-* `getLineItemIndex`
-   - This is the function used to find the object in the array with a particular ID.
