@@ -133,12 +133,13 @@ describe('InputValidation', () => {
       beforeEach(() => {
         instance.setState({ valid: false, warning: true});
         spyOn(instance, 'setState');
+        spyOn(instance, '_handleContentChange');
       });
 
       describe('when becoming disabled', () => {
         it('calls setState', () => {
           instance.componentWillReceiveProps({ disabled: true });
-          expect(instance.setState).toHaveBeenCalledWith({ valid: true, warning: false });
+          expect(instance._handleContentChange).toHaveBeenCalled();
         });
       });
 
