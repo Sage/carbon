@@ -112,7 +112,7 @@ class _Link extends React.Component {
    * @return {Regex}
    */
   get typeRegex() {
-    return /^href:|to:/;
+    return /^href:|^to:/;
   }
 
   /**

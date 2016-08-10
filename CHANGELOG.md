@@ -15,6 +15,7 @@
 * Form now accepts a `onSubmit` prop which is only called when the form is valid.
 * AppWrapper now has a minimum width of 958px.
 * SUG-19: Change padding for the MessageComponent when transparent and non dismissable. When transparent is applied the padding reduces to 2px, but if it's dismissable it enlarges to it's original to prevent overlap.
+* allows `Link` component to handle `mailto:` as an href prefix, previously the `to:` would have been stripped from the string
 
 # 0.20.0
 
