@@ -4,6 +4,7 @@
   background-color: $white;
   border: 1px solid $border-color;
   border-radius: 4px;
+  position: relative;
 }
 
 .ui-pod--no-border {
@@ -43,7 +44,7 @@
 }
 
 .ui-pod__content--footer.ui-pod__content--tile {
-  border-bottom: 1px solid $border-color; 
+  border-bottom: 1px solid $border-color;
 }
 
 .ui-pod__footer {
@@ -109,6 +110,7 @@
 }
 
 .ui-pod__edit-action {
-  float: right;
-  margin: 20px 20px 10px 0;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }

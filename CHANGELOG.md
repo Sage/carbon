@@ -13,6 +13,8 @@
 * Input components now accept an onPaste prop.
 * Add character count to textarea
 * Form now accepts a `onSubmit` prop which is only called when the form is valid.
+* Show Edit Pod form buttons are right aligned by default
+* Show Edit Pod edit button is now set via absolute position instead of float
 * AppWrapper now has a minimum width of 958px.
 * SUG-19: Change padding for the MessageComponent when transparent and non dismissable. When transparent is applied the padding reduces to 2px, but if it's dismissable it enlarges to it's original to prevent overlap.
 
