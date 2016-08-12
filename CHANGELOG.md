@@ -16,6 +16,7 @@
 * AppWrapper now has a minimum width of 958px.
 * SUG-19: Change padding for the MessageComponent when transparent and non dismissable. When transparent is applied the padding reduces to 2px, but if it's dismissable it enlarges to it's original to prevent overlap.
 * allows `Link` component to handle `mailto:` as an href prefix, previously the `to:` would have been stripped from the string
+* SOIGAC-189: (https://sageone.atlassian.net/browse/SOIGAC-189) fix error count, when input get disabled
 
 # 0.20.0
 
