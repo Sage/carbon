@@ -1,5 +1,12 @@
+@import "assets";
+
 .ui-icon {
+  display: inline-block;
   position: relative;
+}
+
+.ui-icon__svg-icon {
+  display: inline-block;
 }
 
 .ui-icon__svg {
@@ -8,11 +15,11 @@
 
 @font-face {
   font-family: 'CarbonIcons';
-  src: url('/assets/fonts/carbon-icons-webfont.eot');
-  src: url('/assets/fonts/carbon-icons-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/assets/fonts/carbon-icons-webfont.woff') format('woff'),
-       url('/assets/fonts/carbon-icons-webfont.ttf') format('truetype'),
-       url('/assets/fonts/carbon-icons-webfont.svg#CarbonIcons') format('svg');
+  src: url('#{$font-path}/carbon-icons-webfont.eot');
+  src: url('#{$font-path}/carbon-icons-webfont.eot?#iefix') format('embedded-opentype'),
+       url('#{$font-path}/carbon-icons-webfont.woff') format('woff'),
+       url('#{$font-path}/carbon-icons-webfont.ttf') format('truetype'),
+       url('#{$font-path}/carbon-icons-webfont.svg#CarbonIcons') format('svg');
   font-weight: normal;
   font-style: normal;
 }

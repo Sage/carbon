@@ -28,20 +28,32 @@
   border-radius: 10% 40% 10%;
 }
 
+.ui-portrait--extra-small,
+.ui-portrait--extra-small .ui-portrait__img {
+  width: 25px;
+  height: 25px;
+}
+
 .ui-portrait--small,
 .ui-portrait--small .ui-portrait__img {
   width: 30px;
   height: 30px;
 }
 
-.ui-portrait--smed,
-.ui-portrait--smed .ui-portrait__img {
+.ui-portrait--medium-small,
+.ui-portrait--medium-small .ui-portrait__img {
   width: 50px;
   height: 50px;
 }
 
-.ui-portrait--lmed,
-.ui-portrait--lmed .ui-portrait__img {
+.ui-portrait--medium,
+.ui-portrait--medium .ui-portrait__img {
+  width: 60px;
+  height: 60px;
+}
+
+.ui-portrait--medium-large,
+.ui-portrait--medium-large .ui-portrait__img {
   width: 70px;
   height: 70px;
 }
@@ -50,4 +62,10 @@
 .ui-portrait--large .ui-portrait__img {
   width: 100px;
   height: 100px;
+}
+
+.ui-portrait--extra-large,
+.ui-portrait--extra-large .ui-portrait__img {
+  width: 120px;
+  height: 120px;
 }

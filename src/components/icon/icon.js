@@ -71,6 +71,34 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderIndividualIcon;
       case 'external-link':
         return this.renderExternalLinkIcon;
+      case 'edit':
+        return this.renderEditIcon;
+      case 'white-tick':
+        return this.renderWhiteTickIcon;
+      case 'paperclip':
+        return this.renderPaperclipIcon;
+      case 'help':
+        return this.renderHelpIcon;
+      case 'chevron':
+        return this.renderChevronIcon;
+      case 'information':
+        return this.renderInformationIcon;
+      case 'sync':
+        return this.renderSyncIcon;
+      case 'progress':
+        return this.renderProgressIcon;
+      case 'submitted':
+        return this.renderSubmittedIcon;
+      case 'completed':
+        return this.renderCompletedIcon;
+      case 'print':
+        return this.renderPrintIcon;
+      case 'pdf':
+        return this.renderPdfIcon;
+      case 'csv':
+        return this.renderCsvIcon;
+      case 'message':
+        return this.renderMessageIcon;
       default:
         null;
     }
@@ -130,8 +158,9 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
       <span
         className={ this.mainClasses }
         { ...this.componentProps }
-        dangerouslySetInnerHTML={ this.renderIcon }
-        ref={ (comp) => this._target = comp }>
+        ref={ (comp) => this._target = comp }
+      >
+        <span className="ui-icon__svg-icon" dangerouslySetInnerHTML={ this.renderIcon } />
         { this.tooltipHTML }
       </span>
     );
@@ -420,12 +449,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderBusinessIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--business" width="16px" height="16px" viewBox="0 0 16 16">' +
-            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                '<g id="business" fill="currentColor">' +
-                  '<path fill="currentColor" fill-rule="evenodd" d="M7 16h7.993155C15.550051 16 16 15.553384 16 15.0024554V7H2v8.0024554C2 15.5536886 2.45078 16 3.006845 16H5v-6h2v6zm2-6h4v3H9v-3zM5.399994 0h7.200012L18 6H0l5.399994-6z"/>' +
-                '</g>' +
-            '</g>' +
+        '<svg class="ui-icon__svg ui-icon__svg--business" width="16" height="16" viewBox="0 0 16 16">' +
+          '<path id="business" fill="currentColor" fill-rule="evenodd" d="M14 8v7.002c0 .55-.456.998-1.002.998H3.002C2.45 16 2 15.554 2 15.002V8H0l2-5h12l2 5h-2zM4 10h2v6H4v-6zm4 0h4v3H8v-3zM3 1c0-.552.456-1 .995-1h8.01c.55 0 .995.444.995 1v1H3V1z"/>' +
         '</svg>'
     };
   }
@@ -438,12 +463,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderIndividualIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--individual" width="16px" height="16px" viewBox="0 0 16 16">' +
-            '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                '<g id="individual" fill="currentColor">' +
-                  '<path fill="currentColor" fill-rule="evenodd" d="M15.98642 11.2560819c.006876-.0499498.011419-.1002324.01358-.1508295C15.917431 9.401891 12.143433 8 8 8S.023747 9.401891 0 11.2603787c.001017.0761355.008515.1517135.022283.2266423l-.010409 1.64102C.00527 14.1691032.835758 15 1.866717 15h12.266566C15.162298 15 16 14.1618954 16 13.128041v-1.8719591h-.01358zM8 6c1.656854 0 3-1.3431458 3-3S9.656854 0 8 0 5 1.3431458 5 3s1.343146 3 3 3z"/>' +
-                '</g>' +
-            '</g>' +
+        '<svg class="ui-icon__svg ui-icon__svg--individual" width="16" height="16">' +
+          '<path fill="currentColor" fill-rule="evenodd" d="M15.986 12.256c.007-.05.012-.1.014-.15-.083-1.704-3.886-4.195-8.03-4.195-4.143 0-7.946 2.493-7.97 4.35 0 .078.01.153.022.228l-.016 2.51C.003 15.558.448 16 1 16h14c.555 0 1-.45 1-1.003v-2.74h-.014zM8 6c1.657 0 3-1.343 3-3S9.657 0 8 0 5 1.343 5 3s1.343 3 3 3z"/>' +
         '</svg>'
     };
   }
@@ -460,6 +481,230 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         '<svg class="ui-icon__svg ui-icon__svg--external-link" width="16px" height="16px" viewBox="0 0 16 16">' +
           '<path fill="currentColor" fill-rule="evenodd" d="M7 0H1.994C.894 0 0 .893 0 1.994v12.012C0 15.106.893 16 1.994 16h12.012c1.1 0 1.994-.893 1.994-1.994V9h-2v3.998C14 13.55 13.544 14 12.998 14H3.002C2.45 14 2 13.544 2 12.998V3.002C2 2.45 2.456 2 3.002 2H7V0zm8.414 2H16V0H9v2h3.586l-8.243 8.243 1.414 1.414L14 3.414V7h2V2h-.586z"/>' +
         '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'edit' icon
+   *
+   * @method renderExternalLinkIcon
+   * @return {Object} renderEditIcon icon svg
+   */
+  get renderEditIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--edit" width="13px" height="13px" viewBox="0 0 13 13">' +
+          '<g id="edit-copy__icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+            '<g transform="translate(-673.000000, -259.000000)">' +
+              '<g transform="translate(673.000000, 258.000000)">' +
+                '<path fill="currentColor" d="M0.0048828125,14 L0,11 L3,14 L0.0048828125,14 Z M1.00048828,10 L4.00048828,13 L11.0004883,6 L8.00048828,3 L1.00048828,10 Z M9,2 L12,5 L13,4 L10,1 L9,2 Z"/>' +
+              '</g>' +
+            '</g>' +
+          '</g>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'paperclip' icon
+   *
+   * @method renderPaperclipIcon
+   * @return {Object} paperclipIcon icon svg
+   */
+  get renderPaperclipIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--paperclip" width="19px" height="20px" viewBox="0 0 19 20">' +
+          '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+            '<g id="paperclip" transform="translate(-1186.000000, -662.000000)" stroke="#255BC7">' +
+              '<path d="M1188.29912,679.541094 C1186.56693,677.808725 1186.56693,674.990161 1188.2993,673.258149 L1197.61304,663.944766 C1198.2222,663.335424 1199.03162,663 1199.89199,663 C1200.75237,663 1201.56196,663.335424 1202.17112,663.944766 C1202.78672,664.560545 1203.12233,665.369961 1203.12233,666.230513 C1203.12233,667.091066 1202.78672,667.900482 1202.17738,668.509645 L1193.58813,677.098541 L1193.47263,677.202065 C1192.77693,677.888647 1191.65265,677.885787 1190.96088,677.194555 C1190.61115,676.844827 1190.42574,676.397476 1190.42574,675.921696 C1190.42574,675.446273 1190.61133,674.998922 1190.94801,674.662246 L1195.41169,670.198745 C1195.55133,670.059104 1195.77768,670.059104 1195.91732,670.198745 C1196.05697,670.338386 1196.05697,670.564744 1195.91732,670.704385 L1191.45364,675.167886 C1191.25196,675.369748 1191.14093,675.637229 1191.14093,675.921875 C1191.14093,676.206342 1191.25196,676.474001 1191.45364,676.675864 C1191.88204,677.104263 1192.55861,677.103905 1192.97432,676.688737 L1201.67174,668.004006 C1202.14591,667.529835 1202.40714,666.899931 1202.40714,666.230513 C1202.40714,665.561096 1202.14591,664.931192 1201.67174,664.4572 C1201.19131,663.976234 1200.56141,663.71519 1199.89199,663.71519 C1199.22258,663.71519 1198.59267,663.976234 1198.11868,664.450405 L1188.80494,673.763968 C1187.35149,675.217234 1187.35149,677.58201 1188.80476,679.035454 C1190.25785,680.488363 1192.6228,680.488899 1194.07643,679.035454 L1203.38963,669.721714 C1203.52927,669.582073 1203.75563,669.582073 1203.89527,669.721714 C1204.03491,669.861354 1204.03491,670.087712 1203.89527,670.227353 L1194.58206,679.541094 C1193.71597,680.407189 1192.5781,680.840237 1191.44059,680.840237 C1190.3029,680.840237 1189.16504,680.407189 1188.29912,679.541094 Z" id="Shape"></path>' +
+            '</g>' +
+          '</g>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'white-tick' icon
+   *
+   * @method renderWhiteTickIcon
+   * @return {Object} whiteTick icon svg
+   */
+  get renderWhiteTickIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--white-tick"  width="15px" height="13px" viewBox="0 0 15 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
+        '  <!-- Generator: Sketch 3.4 (15575) - http://www.bohemiancoding.com/sketch -->' +
+        '  <title>tick</title>' +
+        '  <desc>Created with Sketch.</desc>' +
+        '  <defs></defs>' +
+        '  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">' +
+        '    <g id="QSW---Step-2" sketch:type="MSArtboardGroup" transform="translate(-518.000000, -174.000000)" fill="#FFFFFF">' +
+        '      <g id="Overlay" sketch:type="MSLayerGroup">' +
+        '        <g id="Dialog" transform="translate(433.000000, 60.000000)" sketch:type="MSShapeGroup">' +
+        '          <g id="progress-bar" transform="translate(77.000000, 87.000000)">' +
+        '            <g id="business-basics">' +
+        '              <path d="M12.1349063,38.4860814 L8.81960483,35.6607151 C8.4628233,35.3566587 8.41656446,34.8166977 8.71591615,34.454366 L9.79923038,33.1431352 C10.0989393,32.7803711 10.6303501,32.7334485 10.9869674,33.037365 L13.7895069,35.4257453 L19.7381802,28.2255413 C20.0374529,27.8633052 20.5692891,27.8160953 20.9260425,28.1201277 L22.2170862,29.220381 C22.5742654,29.5247762 22.6204272,30.0645427 22.3211424,30.4267934 L15.9731521,38.1103259 C15.9424206,38.1779211 15.9024384,38.2425382 15.8530479,38.3023198 L14.7697337,39.6135505 C14.5680446,39.8576726 14.2614267,39.9587622 13.9737606,39.9061537 C13.8218425,39.8848846 13.6737922,39.8212943 13.5476358,39.7137813 L12.2565922,38.613528 C12.2109212,38.5746063 12.1703353,38.5318364 12.1349063,38.4860814 L12.1349063,38.4860814 Z" id="tick"></path>' +
+        '            </g>' +
+        '          </g>' +
+        '        </g>' +
+        '      </g>' +
+        '    </g>' +
+        '  </g>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'help' icon
+   *
+   * @method renderHelpIcon
+   * @return {Object} help icon svg
+   */
+  get renderHelpIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--help" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">' +
+        '  <path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm1-3.234c0 .13-.102.234-.228.234H7.228C7.102 13 7 12.896 7 12.766v-1.532c0-.13.102-.234.228-.234h1.544c.126 0 .228.104.228.234v1.532zm.915-4.877l-.497.394c-.192.15-.315.314-.375.506-.027.085-.026.59-.03.96-.003.146-.12.263-.267.263h-1.48c-.074 0-.143-.03-.193-.082-.05-.05-.077-.12-.075-.193.025-.72.013-1.555.13-1.848.124-.308.416-.638.89-1.01l.447-.348c.12-.09.216-.188.293-.3.128-.177.254-.462.254-.67 0-.254.107-.794-.993-.794s-.994.69-.994.978c0 .147-.12.266-.266.266H5.27c-.072 0-.14-.03-.192-.082-.05-.052-.077-.123-.073-.196.05-1.235.16-2 .988-2.527.517-.333 1.284-.242 2.026-.242.962 0 1.54-.08 2.188.387.673.486.822 1.158.822 2.1 0 .58-.022 1.158-.313 1.56 0 0-.34.52-.802.877z" />' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'chevron' icon
+   *
+   * @method renderChevronIcon
+   * @return {Object} chevron icon svg
+   */
+  get renderChevronIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">' +
+        '  <path fill="currentColor" fill-rule="evenodd" d="M7.3 8.01l4.845-4.43c.395-.384.396-1.01.002-1.4l-.77-.87c-.393-.388-1.038-.404-1.455-.02L3.358 7.317c-.41.377-.45 1.027-.03 1.37l6.598 6.02c.41.375 1.058.36 1.452-.028l.776-.788c.393-.388.39-1.014-.007-1.397L7.3 8.01z" />' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'information' icon
+   *
+   * @method renderInformationIcon
+   * @return {Object} information icon svg
+   */
+  get renderInformationIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--information" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM7 6h2v7H7V6zm0-3h2v2H7V3z"/></svg>'
+    };
+  }
+
+  /**
+   * Returns the 'sync' icon
+   *
+   * @method renderSyncIcon
+   * @return {Object} sync icon svg
+   */
+  get renderSyncIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--sync" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M2.343 2.343C3.79.895 5.79 0 8 0c4.08 0 7.446 3.054 7.938 7h-2.02C13.44 4.162 10.972 2 8 2c-1.657 0-3.157.672-4.243 1.757L7 7l-7 .005V0l2.343 2.343zm11.315 11.312C12.21 15.105 10.21 16 8 16 3.92 16 .554 12.946.062 9h2.02C2.56 11.838 5.028 14 8 14c1.657 0 3.158-.672 4.244-1.758L9 9h7v6.996l-2.342-2.34z"/></svg>'
+    };
+  }
+
+  /**
+   * Returns the 'progess' icon
+   *
+   * @method renderProgressIcon
+   * @return {Object} progress icon svg
+   */
+  get renderProgressIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--progress" width="16" height="16" viewBox="0 0 16 16">' +
+          '<path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM3 7h2v2H3V7zm4 0h2v2H7V7zm4 0h2v2h-2V7z"/>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'submitted' icon
+   *
+   * @method renderSubmittedIcon
+   * @return {Object} submitted icon svg
+   */
+  get renderSubmittedIcon() {
+    return {
+      __html:
+      '<svg class="ui-icon__svg ui-icon__svg--submitted" width="16" height="16" viewBox="0 0 16 16">' +
+        '<path fill="currentColor" fill-rule="evenodd" d="M9 7.038H1.007c-.557 0-1.007.448-1.007 1 0 .556.45 1 1.007 1H9v4.5c0 .552.336.705.75.342l5.9-5.172c.413-.363.414-.954 0-1.318l-5.9-5.192c-.413-.363-.75-.213-.75.338v4.502z"/>' +
+      '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'completed' icon
+   *
+   * @method renderCompletedIcon
+   * @return {Object} completed icon svg
+   */
+  get renderCompletedIcon() {
+    return {
+      __html:
+        '<svg class="ui-icon__svg ui-icon__svg--completed" width="16" height="16" viewBox="0 0 16 16">' +
+          '<path fill="currentColor" fill-rule="evenodd" d="M2.9 8.3c-.404-.396-1.043-.4-1.445-.024L.318 9.5c-.407.38-.41.998-.017 1.39l3.92 3.803c.4.398 1.04.405 1.447.03l10.1-9.98c.312-.368.308-.9-.012-1.255L14.63 2.262c-.395-.36-1.05-.35-1.443.04L5.03 10.52 2.9 8.3z"/>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'print' icon
+   *
+   * @method renderPrintIcon
+   * @return {Object} print icon svg
+   */
+  get renderPrintIcon() {
+    return {
+      __html:
+      '<svg class="ui-icon__svg ui-icon__svg--print" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M14 12h1c.555 0 1-.446 1-.997V4.997C16 4.453 15.552 4 15 4H1c-.555 0-1 .446-1 .997v6.006C0 11.547.448 12 1 12h1v3.01c0 .54.45.99 1.002.99h9.996c.546 0 1.002-.444 1.002-.99V12zM3 0h10v3H3V0zm9 6h2v1h-2V6zm-8 4h8v4H4v-4z"/></svg>'
+    };
+  }
+
+  /**
+   * Returns the 'pdf' icon
+   *
+   * @method renderPdfIcon
+   * @return {Object} pdf icon svg
+   */
+  get renderPdfIcon() {
+    return {
+      __html:
+      '<svg class="ui-icon__svg ui-icon__svg--pdf" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M15 1c0-.552-.456-1-.995-1H5L1 4v10.998C1 15.55 1.45 16 2.007 16h11.986C14.55 16 15 15.555 15 15V1zM4 8h8v1H4V8zm0-3h8v1H4V5zm0 6h8v1H4v-1z"/></svg>'
+    };
+  }
+
+  /**
+   * Returns the 'csv' icon
+   *
+   * @method renderCsvIcon
+   * @return {Object} csv icon svg
+   */
+  get renderCsvIcon() {
+    return {
+      __html:
+      '<svg class="ui-icon__svg ui-icon__svg--csv" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M1 1c0-.552.45-1 1.007-1h11.986C14.55 0 15 .445 15 1v14c0 .552-.45 1-1.007 1H2.007C1.45 16 1 15.555 1 15V1zm2 3h3V2H3v2zm0 3h3V5H3v2zm0 7h3V8H3v6zM7 4h6V2H7v2zm0 3h6V5H7v2zm0 7h6V8H7v6z"/></svg>'
+    };
+  }
+
+  /**
+   * Returns the 'csv' icon
+   *
+   * @method renderCsvIcon
+   * @return {Object} csv icon svg
+   */
+  get renderMessageIcon() {
+    return {
+      __html:
+      '<svg class="ui-icon__svg ui-icon__svg--message" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M0 3.002C0 2.45.445 2 1 2h14c.552 0 1 .456 1 1.002v9.996C16 13.55 15.555 14 15 14H1c-.552 0-1-.456-1-1.002V3.002zM0 4l7.067 2.832c.515.207 1.34.21 1.866 0L16 4v2L8.946 8.844c-.514.207-1.34.21-1.85.006L0 6V4z"/></svg>'
     };
   }
 });

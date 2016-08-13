@@ -1,21 +1,20 @@
 @import 'colors';
 
 .ui-help {
-  color: $grey-dark-blue-70;
+  color: $grey-dark-blue-30;
   cursor: default;
   display: inline-block;
   position: relative;
-  top: -2px;
-  margin-left: 4px;
+  margin-left: 8px;
+  top: 3px;
 }
 
 .ui-help__href {
-  color: $blue;
   cursor: pointer;
   text-decoration: none;
 
   &:hover {
-    color: $blue-dark;
+    color: $blue;
     text-decoration: underline;
   }
 }

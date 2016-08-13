@@ -4,6 +4,7 @@ import Dialog from './dialog';
 import I18n from 'i18n-js';
 import Bowser from 'bowser';
 import Button from './../button';
+import Row from './../row'
 
 describe('Dialog', () => {
   let instance, onCancel;
@@ -150,6 +151,29 @@ describe('Dialog', () => {
         let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
         expect(header.classList[0]).toEqual('ui-dialog__title');
         expect(header.textContent).toEqual('Dialog title');
+      });
+    });
+
+    describe('when a props object title is passed', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Dialog
+            onCancel={ onCancel }
+            open={ true }
+            title={
+              <Row>
+                <div>Row1</div>
+                <div>Row2</div>
+              </Row>
+            }
+          />
+        );
+      });
+
+      it('sets a dialog header', () => {
+        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
+        expect(header.classList[0]).toEqual('ui-dialog__title');
+        expect(header.textContent).toEqual('Row1Row2');
       });
     });
 

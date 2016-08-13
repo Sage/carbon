@@ -39,6 +39,15 @@ class Message extends React.Component {
     as: React.PropTypes.string,
 
     /**
+     * Determines if the message background is transparent or filled defined by the as property.
+     *
+     * @property transparent
+     * @type {Boolean}
+     * @default false
+     */
+    transparent: React.PropTypes.bool,
+
+    /**
      * Determines if the message is open.
      *
      * @property open
@@ -58,6 +67,7 @@ class Message extends React.Component {
 
   static defaultProps = {
     as: 'info',
+    transparent: false,
     open: true
   }
 
@@ -70,8 +80,10 @@ class Message extends React.Component {
     return classNames(
       'ui-message',
       this.props.className,
-      'ui-message--' + this.props.as
-    );
+      'ui-message--' + this.props.as,
+      { 'ui-message--transparent': this.props.transparent,
+        'ui-message--dismissable': this.props.onDismiss
+    });
   }
 
   /**

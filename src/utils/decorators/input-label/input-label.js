@@ -38,6 +38,8 @@ import Help from './../../../components/help';
  *  * `labelInline` - pass true to format the input/label inline
  *  * `labelWidth` - pass a percentage to define the width of the label when it
  *  is displayed inline.
+ *  * `inputWidth` - pass a percentage to define the width of the input when it
+ *  is displayed inline.
  *
  * @method InputIcon
  * @param {Class} ComposedComponent class to decorate
@@ -61,8 +63,11 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    */
   get mainClasses() {
     return classNames(
-      super.mainClasses,
-      { 'common-input--label-inline': this.props.labelInline }
+      super.mainClasses, {
+        'common-input--label-inline': this.props.labelInline,
+        'common-input--has-label-help': this.props.labelHelp,
+        'common-input--has-field-help': this.props.fieldHelp
+      }
     );
   }
 
@@ -76,7 +81,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     return classNames(
       'common-input__label', {
         'common-input__label--inline': this.props.labelInline,
-        'common-input__label--help': this.props.fieldHelp,
+        'common-input__label--help': this.props.labelHelp,
         'common-input__label--align-right': this.props.labelAlign === 'right'
       }
     );
@@ -202,11 +207,15 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   get fieldProps() {
     let fieldProps = super.fieldProps || {};
 
-    // add input width if label width is defined
-    if (this.props.labelWidth) {
-      let inputWidth = `${100 - this.props.labelWidth}%`;
+    let { labelWidth, inputWidth } = this.props;
+
+    if (labelWidth && !inputWidth) {
+      inputWidth = 100 - labelWidth;
+    }
+
+    if (inputWidth) {
       fieldProps.style = fieldProps.style || {};
-      fieldProps.style.width = inputWidth;
+      fieldProps.style.width = `${inputWidth}%`;
     }
 
     return fieldProps;

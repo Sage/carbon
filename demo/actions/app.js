@@ -11,6 +11,7 @@ let AppActions = {
     Dispatcher.dispatch({
       actionType: AppConstants.APP_VALUE_UPDATED,
       value: ev.target.value,
+      visibleValue: ev.target.visibleValue,
       key: key,
       component: component
     });
@@ -69,6 +70,20 @@ let AppActions = {
           });
         }
       });
+  },
+
+  editContent: (component) => {
+    Dispatcher.dispatch({
+      actionType: AppConstants.APP_EDIT_CONTENT,
+      component: component
+    });
+  },
+
+  saveEditedContent: (component) => {
+    Dispatcher.dispatch({
+      actionType: AppConstants.APP_SAVE_EDITED_CONTENT,
+      component: component
+    });
   }
 };
 

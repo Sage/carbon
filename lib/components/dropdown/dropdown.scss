@@ -42,20 +42,21 @@ $dropdown-input-icon-width: 20px !default;
   }
 }
 
-.ui-dropdown__list__item {
+.ui-dropdown__list-item {
   padding: 5px 6px;
 }
 
-.ui-dropdown__list__item--highlighted {
+.ui-dropdown__list-item--highlighted {
   background-color: #E6E9E7;
 }
 
 .ui-dropdown {
   .common-input__icon {
-    right: 21px;
+    right: 26px;
   }
 
   .icon-dropdown {
+    line-height: 17px;
     width: $dropdown-input-icon-width;
   }
 }

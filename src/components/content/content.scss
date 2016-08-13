@@ -1,3 +1,10 @@
+@import "colors";
+@import 'general';
+
+.ui-content + .ui-content {
+  margin-top: $grid-margin;
+}
+
 .ui-content__title {
   font-weight: bold;
 }
@@ -5,4 +12,9 @@
 .ui-content__body {
   margin-top: 2px;
   white-space: pre-wrap;
+}
+
+.ui-content--secondary .ui-content__title {
+  color: $grey-dark-blue-60;
+  font-weight: normal;
 }

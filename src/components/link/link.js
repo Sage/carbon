@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
+import { Link } from 'react-router';
 
 /**
  * A link widget.
@@ -20,7 +21,7 @@ import Icon from './../icon';
  * @class Link
  * @constructor
  */
-class Link extends React.Component {
+class _Link extends React.Component {
 
   static propTypes = {
 
@@ -40,7 +41,27 @@ class Link extends React.Component {
      * @type {String}
      * @default undefined
      */
-    icon: React.PropTypes.string
+    icon: React.PropTypes.string,
+
+    /**
+     * Use `to` to use the React Router link. You can also prefix your value
+     * with `to:` or `href:` to override the prop type.
+     *
+     * @property to
+     * @type {String}
+     * @default undefined
+     */
+    to: React.PropTypes.string,
+
+    /**
+     * Use `href` to use a generic anchor. You can also prefix your value
+     * with `to:` or `href:` to override the prop type.
+     *
+     * @property href
+     * @type {String}
+     * @default undefined
+     */
+    href: React.PropTypes.string
   }
 
   /**
@@ -50,8 +71,9 @@ class Link extends React.Component {
    * @return {Object} props
    */
   get componentProps() {
-    let { ...props } = this.props;
+    let { href, to, ...props } = this.props;
     props.className = this.componentClasses;
+    props[this.linkType.prop] = this.url;
 
     return props;
   }
@@ -71,11 +93,83 @@ class Link extends React.Component {
   }
 
   get icon() {
-    if (this.props.icon) {
-      return <Icon type={ this.props.icon } className="ui-link__icon" />;
-    } else {
-      return null;
+    if (!this.props.icon) { return null; }
+    return (
+      <Icon
+        type={ this.props.icon }
+        className="ui-link__icon"
+        tooltipMessage={ this.props.tooltipMessage }
+        tooltipAlign={ this.props.tooltipAlign }
+        tooltipPosition={ this.props.tooltipPosition }
+      />
+    );
+  }
+
+  /**
+   * Regex for finding 'href:' or 'to:',
+   *
+   * @method typeRegex
+   * @return {Regex}
+   */
+  get typeRegex() {
+    return /^href:|^to:/;
+  }
+
+  /**
+   * A hash of the different link types.
+   *
+   * @method linkTypes
+   * @return {Object}
+   */
+  get linkTypes() {
+    return {
+      to: {
+        prop: "to",
+        component: Link
+      },
+      href: {
+        prop: "href",
+        component: "a"
+      }
+    };
+  }
+
+  /**
+   * Returns the correct link type based on the given props.
+   *
+   * @method linkType
+   * @return {Object}
+   */
+  get linkType() {
+    let url = this.props.href || this.props.to,
+        type = "href";
+
+    if (url) {
+      let match = url.match(this.typeRegex);
+
+      if (match) {
+        type = match[0].substr(0, match[0].length - 1);
+      } else if (this.props.href) {
+        type = "href";
+      } else {
+        type = "to";
+      }
     }
+
+    return this.linkTypes[type];
+  }
+
+  /**
+   * Returns the parsed URL for the link.
+   *
+   * @method url
+   * @return {String}
+   */
+  get url() {
+    let url = this.props.href || this.props.to;
+    if (!url) { return null; }
+
+    return url.replace(this.typeRegex, "");
   }
 
   /**
@@ -85,15 +179,17 @@ class Link extends React.Component {
    */
   render() {
     return (
-      <a { ...this.componentProps }>
-        { this.icon }
-        <span className="ui-link__content">
-          { this.props.children }
+      React.createElement(this.linkType.component, this.componentProps, (
+        <span>
+          { this.icon }
+          <span className="ui-link__content">
+            { this.props.children }
+          </span>
         </span>
-      </a>
+      ))
     );
   }
 
 }
 
-export default Link;
+export default _Link;

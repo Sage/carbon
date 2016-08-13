@@ -220,16 +220,6 @@ class Dropdown extends React.Component {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      let highlighted = this.highlighted(this.options);
-
-      if (highlighted != this.props.value) {
-        let item = this.props.options.find((item) => {
-          return item.get('id') == highlighted;
-        });
-
-        this.emitOnChangeCallback(highlighted, item.get('name'));
-      }
-
       this.setState({ open: false });
     }
   }
@@ -256,7 +246,6 @@ class Dropdown extends React.Component {
   nameByID = () => {
     if (this.props.options) {
       this.visibleValue = '';
-
       // if no value selected, no match possible
       if (!this.props.value) { return this.visibleValue; }
 
@@ -264,7 +253,6 @@ class Dropdown extends React.Component {
       let option = this.props.options.find((item) => {
         return item.get('id') == this.props.value;
       });
-
       // If match is found, set visibleValue to option's name;
       if (option) { this.visibleValue = option.get('name'); }
     }
@@ -280,9 +268,12 @@ class Dropdown extends React.Component {
    * @param {Object} ev event
    */
   handleKeyDown = (ev) => {
+    ev.stopPropagation();
+
     if (!this.refs.list) {
       // if up/down/space then open list
       if (Events.isUpKey(ev) || Events.isDownKey(ev) || Events.isSpaceKey(ev)) {
+        ev.preventDefault();
         this.setState({ open: true });
       }
 
@@ -290,7 +281,7 @@ class Dropdown extends React.Component {
     }
 
     let list = this.refs.list,
-        element = list.getElementsByClassName('ui-dropdown__list__item--highlighted')[0],
+        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0],
         nextVal;
 
     switch(ev.which) {
@@ -302,24 +293,75 @@ class Dropdown extends React.Component {
         break;
       case 38: // up arrow
         ev.preventDefault();
-        nextVal = list.lastChild.getAttribute('value');
-
-        if (element && element.previousElementSibling) {
-          nextVal = element.previousElementSibling.getAttribute('value');
-        }
-
-        this.setState({ highlighted: nextVal });
+        nextVal = this.onUpArrow(list, element);
         break;
       case 40: // down arrow
         ev.preventDefault();
-        nextVal = list.firstChild.getAttribute('value');
-
-        if (element && element.nextElementSibling) {
-          nextVal = element.nextElementSibling.getAttribute('value');
-        }
-
-        this.setState({ highlighted: nextVal });
+        nextVal = this.onDownArrow(list, element);
         break;
+    }
+    this.setState({ highlighted: nextVal });
+  }
+
+  /**
+   * Gets the previous item on up arrow
+   *
+   * @method onDownArrow
+   * @param {HTML} list ul element
+   * @param {HTML} element current li element
+   * @return {HTML} nextVal next li element to be selected
+   */
+  onUpArrow = (list, element) => {
+    let nextVal = list.lastChild.getAttribute('value');
+
+    if (element === list.firstChild) {
+      this.updateScroll(list, list.lastChild);
+      nextVal = list.lastChild.getAttribute('value');
+    } else if (element && element.previousElementSibling) {
+      this.updateScroll(list, element.previousElementSibling);
+      nextVal = element.previousElementSibling.getAttribute('value');
+    }
+    return nextVal;
+  }
+
+  /**
+   * Gets the next item on down arrow
+   *
+   * @method onDownArrow
+   * @param {HTML} list ul element
+   * @param {HTML} element current li element
+   * @return {HTML} nextVal next li element to be selected
+   */
+  onDownArrow = (list, element) => {
+    let nextVal = list.firstChild.getAttribute('value');
+
+    if (element === list.lastChild) {
+      this.updateScroll(list, list.firstChild);
+      nextVal = list.firstChild.getAttribute('value');
+    } else if (element && element.nextElementSibling) {
+      this.updateScroll(list, element.nextElementSibling);
+      nextVal = element.nextElementSibling.getAttribute('value');
+    }
+    return nextVal;
+  }
+
+  /**
+   * Sets the scroll position for the list
+   *
+   * @method updateScroll
+   * @param {HTML} list ul element
+   * @param {HTML} element current li element
+   * @return {Void}
+   */
+  updateScroll(list, nextItem) {
+    let firstTop = list.firstChild.offsetTop,
+        itemHeight = nextItem.offsetHeight,
+        listHeight = list.offsetHeight;
+
+    if (nextItem.offsetTop + itemHeight > listHeight) {
+      list.scrollTop = nextItem.offsetTop - firstTop - (listHeight - itemHeight);
+    } else if (nextItem.offsetTop === 1) {
+      list.scrollTop = nextItem.offsetTop - firstTop;
     }
   }
 
@@ -369,7 +411,6 @@ class Dropdown extends React.Component {
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
     }
-
     return props;
   }
 
@@ -447,7 +488,6 @@ class Dropdown extends React.Component {
    */
   get listHTML() {
     if (!this.state.open) { return null; }
-
     return (
       <ul { ...this.listProps }>
         { this.results(this.options) }
@@ -461,7 +501,7 @@ class Dropdown extends React.Component {
    * @method results
    */
   results(options) {
-    let className = 'ui-dropdown__list__item',
+    let className = 'ui-dropdown__list-item',
         highlighted = this.highlighted(options);
 
     let results = options.map((option) => {

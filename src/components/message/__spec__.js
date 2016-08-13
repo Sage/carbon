@@ -10,7 +10,7 @@ describe('Message', () => {
     spy = jasmine.createSpy('dismiss');
 
     warningMessage = TestUtils.renderIntoDocument(
-      <Message as='warning' onDismiss={ spy } open={true} title='My Title'>Some warning</Message>
+      <Message as='warning' onDismiss={ spy } open={true} title='My Title' transparent={true}>Some warning</Message>
     )
 
     infoMessage = TestUtils.renderIntoDocument(
@@ -65,8 +65,16 @@ describe('Message', () => {
       customDOM = ReactDOM.findDOMNode(customMessage);
     });
 
-    it('adds a className of ui-message--warning when type is warning', () => {
-      expect(warningDOM.className).toEqual('ui-message ui-message--warning');
+    it("adds a className ui-message--warning when type is warning", () =>{
+      expect(warningDOM.className.indexOf('ui-message--warning')).not.toEqual(-1);
+    });
+
+    it("adds a className ui-message--transparent when transparent is true", () =>{
+      expect(warningDOM.className.indexOf('ui-message--transparent')).not.toEqual(-1);
+    });
+
+    it("adds a className ui-message--dismissable when onDismiss is defined", () =>{
+      expect(warningDOM.className.indexOf('ui-message--dismissable')).not.toEqual(-1);
     });
 
     it('adds a className of ui-message--info when type is info', () => {

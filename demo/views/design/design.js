@@ -1,5 +1,6 @@
 import React from 'react';
 import Text from './text-demo';
+import Colours from './colours-demo';
 
 class Design extends React.Component {
   /**
@@ -9,6 +10,7 @@ class Design extends React.Component {
     return (
       <div>
         <h1>Design</h1>
+        <Colours />
         <Text />
       </div>
     );

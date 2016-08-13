@@ -6,6 +6,7 @@ import Example from './../../../components/example';
 import FormInputHelper from './../../../helpers/form-input-helper';
 
 import Decimal from 'components/decimal';
+import NumberComponent from 'components/number';
 
 class DecimalDemo extends React.Component {
 
@@ -30,7 +31,9 @@ class DecimalDemo extends React.Component {
     return (
       <Decimal
         { ...FormInputHelper.demoProps(this, this.action) }
-        helpMessage={ this.value('helpMessage')} />
+        helpMessage={ this.value('helpMessage')}
+        precision={ Number(this.value('precision')) }
+      />
     );
   }
 
@@ -42,6 +45,11 @@ class DecimalDemo extends React.Component {
 
     html += "<Decimal";
     html = FormInputHelper.codeProps(this, html);
+    
+    if (this.value('precision') !== 2) {
+      html += `  precision={ ${ this.value('precision') } }`
+    }
+
     html += "/>\n\n";
 
     return html;
@@ -51,7 +59,17 @@ class DecimalDemo extends React.Component {
    * @method controls
    */
   get controls() {
-    return FormInputHelper.controls(this, this.action);
+    return (
+      <div>
+        { FormInputHelper.controls(this, this.action) }
+        <NumberComponent
+          label="Precision"
+          labelInline={ true }
+          value={ this.value('precision') }
+          onChange={ this.action.bind(this, 'precision') }
+        />
+      </div>
+    )
   }
 
   /**

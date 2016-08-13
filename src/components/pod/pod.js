@@ -1,6 +1,8 @@
 import css from './../../utils/css';
 import React from 'react';
 import Icon from './../icon';
+import Link from './../link';
+import I18n from 'i18n-js';
 import classNames from 'classnames';
 
 /**
@@ -49,7 +51,7 @@ class Pod extends React.Component {
      * Value: primary, secondary, tile
      *
      * @property as
-     * @type {Boolean}
+     * @type {String}
      * @default primary
      */
     as: React.PropTypes.string,
@@ -67,7 +69,7 @@ class Pod extends React.Component {
     collapsed: React.PropTypes.bool,
 
     /**
-     * Title for the pod h2 element
+     * Title for the pod h4 element
      * always shown
      *
      * @property title
@@ -90,7 +92,19 @@ class Pod extends React.Component {
      * @property footer
      * @type {String}
      */
-    footer: React.PropTypes.object
+    footer: React.PropTypes.object,
+
+    /**
+     * Supplies an edit action to the pod.
+     *
+     * @property onEdit
+     * @type {String|Function|Object}
+     */
+    onEdit: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.func,
+      React.PropTypes.object
+    ])
   }
 
   static defaultProps = {
@@ -132,7 +146,7 @@ class Pod extends React.Component {
 
     return (
       <div { ...headerProps }>
-        <h2 className="ui-pod__title" >{ this.props.title }</h2>
+        <h4 className="ui-pod__title" >{ this.props.title }</h4>
         { pod }
       </div>
     );
@@ -256,18 +270,46 @@ class Pod extends React.Component {
   }
 
   /**
+   * Returns the edit action if defined.
+   *
+   * @method edit
+   * @return {Object} JSX
+   */
+  get edit() {
+    if (!this.props.onEdit) { return null; }
+
+    let props = {};
+
+    if (typeof this.props.onEdit === "string") {
+      props.to = this.props.onEdit;
+    } else if (typeof this.props.onEdit === "object") {
+      props = this.props.onEdit;
+    } else {
+      props.onClick = this.props.onEdit;
+    }
+
+    return (
+      <Link icon="edit" className="ui-pod__edit-action" { ...props }>
+        { I18n.t("components.pod.edit", { defaultValue: "Edit" }) }
+      </Link>
+    );
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
    * @return {Object} JSX
    */
   render() {
-    let content;
+    let content,
+        { className, ...props } = this.props;
 
     if (!this.state.collapsed) { content = this.podContent; }
 
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...props }>
+        { this.edit }
         <div className={ this.contentClasses } >
           { this.podHeader }
           { content }

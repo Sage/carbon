@@ -11,6 +11,8 @@
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   height: $input-common-height;
+  margin-right: 0px; // Safari fix
+  margin-left: 0px; // Safari fix
 }
 
 .ui-split-button__toggle {

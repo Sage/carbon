@@ -3,6 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Modal from './modal';
 import I18n from 'i18n-js';
 import Bowser from 'bowser';
+import Events from './../../utils/helpers/events';
 import Button from './../button';
 
 describe('Modal', () => {
@@ -52,23 +53,39 @@ describe('Modal', () => {
   });
 
   describe('closeModal', () => {
-    beforeEach(() => {
-      onCancel = jasmine.createSpy('cancel');
-      instance = TestUtils.renderIntoDocument(
-        <Modal open={ true } onCancel={ onCancel } />
-      );
-    });
+    describe('when disableEscKey is false', () => {
+      beforeEach(() => {
+        onCancel = jasmine.createSpy('cancel');
+        instance = TestUtils.renderIntoDocument(
+          <Modal open={ true } onCancel={ onCancel } />
+        );
+      });
 
-    describe('when the esc key is released', () => {
-      it('calls the cancel modal handler', () => {
-        instance.closeModal({ which: 27 });
-        expect(onCancel).toHaveBeenCalled();
+      describe('when the esc key is released', () => {
+        it('calls the cancel modal handler', () => {
+          spyOn(Events, 'isEscKey').and.returnValue(true);
+          instance.closeModal({});
+          expect(onCancel).toHaveBeenCalled();
+        });
+      });
+
+      describe('when any other key is released', () => {
+        it('calls the cancel modal handler', () => {
+          spyOn(Events, 'isEscKey').and.returnValue(false);
+          instance.closeModal({});
+          expect(onCancel).not.toHaveBeenCalled();
+        });
       });
     });
 
-    describe('when any other key is released', () => {
-      it('calls the cancel modal handler', () => {
-        instance.closeModal({ which: 8 });
+    describe('when disableEscKey is true', () => {
+      onCancel = jasmine.createSpy('cancel');
+      instance = TestUtils.renderIntoDocument(
+        <Modal disableEscKey={ true } open={ true } onCancel={ onCancel } />
+      );
+
+      it('does not call onCancel', () => {
+        instance.closeModal({ which: 12 });
         expect(onCancel).not.toHaveBeenCalled();
       });
     });
@@ -82,7 +99,7 @@ describe('Modal', () => {
       });
     });
 
-    describe('when enableBackgroundUI is true', () => {
+    describe('when enableBackgroundUI is false', () => {
       it('returns null', () => {
         instance = TestUtils.renderIntoDocument(
           <Modal

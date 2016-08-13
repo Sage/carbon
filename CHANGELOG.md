@@ -1,3 +1,321 @@
+# 0.21.0
+
+## New Icons
+
+* Print
+* Pdf
+* Csv
+* Message
+
+## Minor Improvements
+
+* Link now accepts tooltip props to apply a tooltip to the link. This can be used with the Action Toolbar to apply tooltips to the icon links.
+* Input components now accept an onPaste prop.
+* Add character count to textarea
+* Form now accepts a `onSubmit` prop which is only called when the form is valid.
+* AppWrapper now has a minimum width of 958px.
+* SUG-19: Change padding for the MessageComponent when transparent and non dismissable. When transparent is applied the padding reduces to 2px, but if it's dismissable it enlarges to it's original to prevent overlap.
+* allows `Link` component to handle `mailto:` as an href prefix, previously the `to:` would have been stripped from the string
+* SOIGAC-189: (https://sageone.atlassian.net/browse/SOIGAC-189) fix error count, when input get disabled
+
+# 0.20.0
+
+## Breaking Changes
+
+* The CSS for inputs and icons associated with inputs has changed. If you have overridden this CSS in you code, this may break your input CSS.
+
+## New Components
+
+* Heading - useful for page titles.
+* ShowEditPod - Inline editing of fields
+* Date Range - Allows start and end date setting with validation for invalid date combinations.
+
+## History and Browser Status
+
+The router's history object is now accessible:
+
+```js
+import { history } from 'carbon/lib/utils/router';
+```
+
+With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
+
+## Link Prefixes
+
+The `Link` component can now have its `href` or `to` props prefixed to customise the type of link it is (regular or react router).
+
+For example:
+
+```js
+<Link href="to:/foobar">My React Router Link</Link>
+```
+
+## Router transitions
+
+* The window will automatically scroll to the top when the route is transitioned
+
+## Red and Green Buttons
+
+The `Button` component can now have red and green themes, set using the `as` prop.
+
+## New Icons
+
+* Information
+* Sync
+* Progress
+* Submitted
+* Completed
+
+## Minor Changes
+
+* A Sass variable has been introduced to define the path where fonts are located.
+* Pod title size has been reduced to more accurately match the demo.
+* Secondary Content components font weight has been standardised.
+* The `children` prop for the Help component is no longer required.
+* Sibling Content components now have a top margin for spacing.
+* Button height has been fixed for buttons that behave like links.
+* Adds inline help for radio button.
+* Fixes inline help for checkboxes.
+* Radio Button sprite has been given a fixed size.
+* Increase textTag font-spacing from 0.5 to 0.8.
+* Button can receive a prop of `to`.
+* Fixes fieldset and input margin when rendered on top of one another.
+* Fixes position of icon in dropdown button.
+* Fixes error icon position for inputs with field help.
+* AppWrapper has been increased to 1600px and some padding has been added.
+* Form now accepts a prop of `save` which can be used to hide the save button.
+
+# 0.19.0
+
+## Major Changes
+
+!! Babel upgraded to Version 6
+* When updating the latest version it is recommend to remove node modules `rm -rf node_modules` and reinstall `npm install`
+
+!! Phantom JS Upgraded to version 2
+* This may cause a few tests that were giving false positives to fail
+
+## New Components
+
+* Profile - User to show portrait with name and email.
+* AppWrapper - confines your content to the width of your application.
+* Menu
+* NavigationBar
+
+## Input Label Padding
+
+* All input label padding has been slightly increased.
+
+## Help Updates
+
+* Help component has been updated with a new icon.
+* Input Label decorator has been fixed to render the help class for labelHelp.
+
+## Acronymize Function
+
+* We have added an `acronymize` function to the Ether util, which will create an acronym from a given string.
+
+## Dropdown component updates
+
+* All dropdowns now allow keying up and down through the list
+
+## Polling helper
+
+* A polling helper has been added that performs customizable ajax polling.
+
+## New Icons
+
+* Help
+* Chevron
+
+# 0.18.1
+
+## Minor Changes
+
+* Portrait extra small size has been changed from `20px` to `25px`.
+* Portrait can have a dark background.
+* Fixes issue with Portrait size when image would not render.
+* Disabled Pill's colours have been updated.
+* Individual and Business SVGs have been updated in Icon.
+
+# 0.18.0
+
+## !! BREAKING CHANGE !!
+
+* Renamed Browser `redirectUrl` method to `redirectTo`
+
+## New Components
+
+* Fieldset - stacks inputs rendered as children to the `Fieldset` component.
+* Carousel - can be used to display a gallery of slides.
+
+## CSS Module Update
+
+Added margin and padding `0` to the base CSS.
+
+## Uniform Sizing
+
+All components that take a Size Prop have been unified to accept the following
+
+```
+extra-small
+small
+medium-small
+medium
+medium-large
+large
+extra-large
+```
+
+If you are using the default size of a component there is no change needed except for the `Spinner`
+
+### Component Breakdown
+
+#### Animated Menu Button
+  * Added `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
+#### Portrait
+  * Added `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * Added `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
+#### Spinner
+  * !! CHANGED - default is now `medium`
+
+  * Added `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * Added `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
+#### Dialog
+  * !! CHANGED - `xsmall` to `extra-small`
+  * !! CHANGED - `smed to `medium-small`
+  * !! CHANGED - `med` to `medium`
+  * !! CHANGED - `mlarge` to `medium-large`
+  * Added `xlarge`
+
+## Link (React Router)
+
+Our Link component now supports the React Router. Instead of passing a `href` prop, pass a `to` prop and it will use React Router to navigate.
+
+## Pod Updates
+
+* Pod can now receive a prop of `onEdit` - if this is a String it will use it as a `to` prop on a Link component, if it is a Function it will apply it as an `onClick` handler, if it is an object it will apply it's props to the Link.
+* Pod has an additional padding size added of `extra-large`.
+* Pod now applies any additional props to it's top most child element.
+* We have added a tertiary pod theme.
+
+## Content Updates
+
+Content now has a `secondary` theme which can be applied using the `as` prop.
+
+## Label Updates
+
+* You can supply a `input-width` prop to any input to define its width.
+
+## Modal Updates
+
+### Change in functionality!
+
+Modal
+
+  * Modal no longer closes on background click
+  * New prop `disableEscKey` is defaulted to false
+  * Changes will also effect Dialog, Sidebar etc...
+
+Dialog
+
+  * New props `showCloseIcon` (defaulted to true) which show and hides the close icon
+
+## Promises
+
+Promises Polyfill. Carbon now contains a ES6 Promises helper which can be imported by
+
+```javascript
+  import from 'carbon/lib/utils/promises';
+```
+
+## Notifications Updates
+
+Message
+
+  * New props `transparent` (defaulted to false) which if set to true sets the background to transparent
+
+## Decimal
+
+* Decimal can now receive a prop of precision
+
+## Split Button
+
+ * Small CSS change to remove gap in Safari
+
+## Input Validation
+
+* Validation icons now position themselves relative to width of input field when label is inline.
+
+# 0.17.1
+
+## Minor Improvements
+
+* Add paperclip SVG to Icon
+
+# 0.17.0
+
+## New Components
+
+* Multi Step Wizard
+
+## Minor Improvements
+
+* Add edit SVG to Icon
+* Supports Ajax call for error validation
+
+# 0.16.1
+
+* Add reload function to browser helper
+
+# 0.16.0
+
+## Minor Improvements
+
+* Adding user class names to tabs.
+* Authorize Objects in dialog title
+
+## Browser Helper
+
+Added a redirect action made by the browser. It is now easier to redirect to url
+
+```
+import Browser from 'carbon/lib/utils/helpers/browser';
+
+Browser.redirectUrl(url)
+```
+
+# 0.15.0
+
+## New Components
+
+* ButtonToggle.
+
+## New Features
+
+* Warnings are now ready to use on form inputs, using the same API as validations you can supply an array as a prop to an input:
+
+```
+<Textbox warnings={[ new MyWarning ]} />
+```
+
+## Bug Fixes
+
+* CSS fixes to input error icon and error message.
+* CSS fixes to input placeholder text for IE11.
+
 # 0.14.4
 
 ## Bug Fixes

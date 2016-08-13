@@ -49,6 +49,8 @@ describe('Form', () => {
             detachFromForm: instance.detachFromForm,
             incrementErrorCount: instance.incrementErrorCount,
             decrementErrorCount: instance.decrementErrorCount,
+            incrementWarningCount: instance.incrementWarningCount,
+            decrementWarningCount: instance.decrementWarningCount,
             inputs: instance.inputs,
             validate: instance.validate
           }
@@ -66,10 +68,26 @@ describe('Form', () => {
   });
 
   describe('decrementErrorCount', () => {
-    it('increments the state error count', () => {
+    it('decreases the state error count', () => {
       instance.setState({ errorCount: 2 });
       instance.decrementErrorCount();
       expect(instance.state.errorCount).toEqual(1);
+    });
+  });
+
+  describe('incrementWarningCount', () => {
+    it('increments the state warning count', () => {
+      instance.setState({ warningCount: 2 });
+      instance.incrementWarningCount();
+      expect(instance.state.warningCount).toEqual(3);
+    });
+  });
+
+  describe('decrementWarningCount', () => {
+    it('decreases the state warning count', () => {
+      instance.setState({ warningCount: 2 });
+      instance.decrementWarningCount();
+      expect(instance.state.warningCount).toEqual(1);
     });
   });
 
@@ -147,6 +165,36 @@ describe('Form', () => {
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
         expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('when a onSubmit prop is passed', () => {
+      describe('and the form is valid', () => {
+        it('calls the onSubmit prop', () => {
+          let spy = jasmine.createSpy('spy');
+          instance = TestUtils.renderIntoDocument(
+            <Form onSubmit={ spy }>
+              <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+            </Form>
+          );
+          let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+          TestUtils.Simulate.submit(form);
+          expect(spy).toHaveBeenCalled();
+        });
+      });
+
+      describe('and the form is invalid', () => {
+        it('does not call the onSubmit prop', () => {
+          let spy = jasmine.createSpy('spy');
+          instance = TestUtils.renderIntoDocument(
+            <Form onSubmit={ spy }>
+              <Textbox validations={ [new Validation()] } name='test' value='' />
+            </Form>
+          );
+          let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+          TestUtils.Simulate.submit(form);
+          expect(spy).not.toHaveBeenCalled();
+        });
       });
     });
   });
@@ -378,22 +426,34 @@ describe('Form', () => {
 
     describe('Cancel Button', () => {
       describe('when cancel prop is false', () => {
-        beforeEach(() => {
-          instance = TestUtils.renderIntoDocument(
-            <Form cancel={false} />
-          );
-        });
-
         it('does not show a cancel button', () => {
-          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+          let instance = TestUtils.renderIntoDocument(<Form cancel={ false } />);
+          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
           expect(buttons.length).toEqual(1);
         });
       });
 
       describe('when cancel props is true (default)', () => {
         it('does show a cancel button', () => {
-          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-          expect(buttons.length).toEqual(2);
+          let buttons = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__cancel');
+          expect(buttons).toBeDefined();
+        });
+      });
+    });
+
+    describe('Save Button', () => {
+      describe('when save is true or is not set to false', () => {
+        it('shows a save button', () => {
+          let instance = TestUtils.renderIntoDocument(<Form save={ true }/>);
+          let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__save')
+        });
+      });
+
+      describe('when save is set to false', () => {
+        it('does not show a save button', () => {
+          let instance = TestUtils.renderIntoDocument(<Form save={ false }/>);
+          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
+          expect(buttons.length).toEqual(1);
         });
       });
     });
@@ -413,5 +473,38 @@ describe('Form', () => {
         expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
       });
     });
+
+    describe('warningMessage', () => {
+      beforeEach(() => {
+        instance.setState({ warningCount: 2 });
+      });
+
+      it('displays a warning message', () => {
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        expect(summary.textContent).toEqual('There are 2 warnings');
+      });
+
+      it('adds a invalid CSS class on the Save button div', () => {
+        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
+        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+      });
+    });
+
+    describe('warning and error message', () => {
+      beforeEach(() => {
+        instance.setState({ errorCount: 2, warningCount: 2});
+      });
+
+      it('displays a warning message', () => {
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        expect(summary.textContent).toEqual('There are 2 errors and 2 warnings');
+      });
+
+      it('adds a invalid CSS class on the Save button div', () => {
+        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
+        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+      });
+    });
+
   });
 });

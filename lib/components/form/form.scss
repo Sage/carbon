@@ -21,6 +21,11 @@
   padding: 5px 0 5px 5px;
 }
 
-.ui-form__buttons {
+.ui-form__additional-actions {
+  padding-left: 10px;
+  display: inline-block;
+}
+
+.ui-form__buttons--right {
   text-align: right;
 }

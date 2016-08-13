@@ -14,6 +14,14 @@
   background-color: $background-alt;
 }
 
+.ui-pod--tertiary {
+  background-color: $grey-dark-blue-10;
+}
+
+.ui-pod--transparent {
+  background-color: transparent;
+}
+
 .ui-pod--tile {
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
 }
@@ -28,6 +36,10 @@
 
 .ui-pod--padding-large {
   padding: 30px 25px;
+}
+
+.ui-pod--padding-extra-large {
+  padding: 40px;
 }
 
 .ui-pod__content--footer.ui-pod__content--tile {
@@ -52,8 +64,13 @@
 .ui-pod__footer--padding-large {
   padding: 15px 25px;
 }
+
+.ui-pod__footer--padding-extra-large {
+  padding: 20px 40px;
+}
+
 .ui-pod__header {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .ui-pod__header--true {
@@ -69,7 +86,7 @@
   background: none;
   color: $grey-dark;
   display: inline;
-  font-size: 1.8em;
+  font-size: 1.4em;
   font-weight: 300;
 }
 
@@ -89,4 +106,9 @@
   -ms-transform: rotate(180deg); /* IE 9 */
   -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
   transform: rotate(180deg);
+}
+
+.ui-pod__edit-action {
+  float: right;
+  margin: 20px 20px 10px 0;
 }

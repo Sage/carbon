@@ -55,6 +55,15 @@ describe('Link', () => {
       expect(icon.props.className).toEqual('ui-link__icon');
       expect(icon.props.type).toEqual('foo');
     });
+
+    it('passes on any tooltip props', () => {
+      let instance = TestUtils.renderIntoDocument(
+        <Link icon="foo" tooltipMessage='Hi Everybody' tooltipAlign='center'>My Link</Link>
+      );
+      let icon = TestUtils.findRenderedComponentWithType(instance, Icon);
+      expect(icon.props.tooltipMessage).toEqual('Hi Everybody');
+      expect(icon.props.tooltipAlign).toEqual('center');
+    });
   });
 
   describe('class names', () => {
@@ -85,6 +94,70 @@ describe('Link', () => {
       let link = ReactDOM.findDOMNode(actionLink);
       TestUtils.Simulate.click(link);
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('linkType', () => {
+    let instance;
+
+    describe('no url', () => {
+      it('returns href type set', () => {
+        instance = TestUtils.renderIntoDocument(<Link />);
+        expect(instance.linkType).toEqual(instance.linkTypes.href);
+      });
+    });
+
+    describe('with href and prefix', () => {
+      it('returns to type set', () => {
+        instance = TestUtils.renderIntoDocument(<Link href="to:/foo" />);
+        expect(instance.linkType).toEqual(instance.linkTypes.to);
+      });
+    });
+
+    describe('with href and no prefix', () => {
+      it('returns href type set', () => {
+        instance = TestUtils.renderIntoDocument(<Link href="/foo" />);
+        expect(instance.linkType).toEqual(instance.linkTypes.href);
+      });
+    });
+
+    describe('with to and prefix', () => {
+      it('returns href type set', () => {
+        instance = TestUtils.renderIntoDocument(<Link to="href:/foo" />);
+        expect(instance.linkType).toEqual(instance.linkTypes.href);
+      });
+    });
+
+    describe('with to and no prefix', () => {
+      it('returns to type set', () => {
+        instance = TestUtils.renderIntoDocument(<Link to="/foo" />);
+        expect(instance.linkType).toEqual(instance.linkTypes.to);
+      });
+    });
+  });
+
+  describe('url', () => {
+    let instance;
+
+    describe('no url', () => {
+      it('returns null', () => {
+        instance = TestUtils.renderIntoDocument(<Link />);
+        expect(instance.url).toBe(null);
+      });
+    });
+
+    describe('with a href', () => {
+      it('it replaces the prefix', () => {
+        instance = TestUtils.renderIntoDocument(<Link href="to:/foo" />);
+        expect(instance.url).toBe("/foo");
+      });
+    });
+
+    describe('with a to', () => {
+      it('it replaces the prefix', () => {
+        instance = TestUtils.renderIntoDocument(<Link to="href:/foo" />);
+        expect(instance.url).toBe("/foo");
+      });
     });
   });
 });

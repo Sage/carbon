@@ -162,24 +162,6 @@ describe('DropdownFilter', () => {
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
       });
-
-      describe('if highlighted does not match value', () => {
-        it('does calls emitOnChangeCallback', () => {
-          let opts = Immutable.fromJS([{
-            id: '90',
-            name: 'foo'
-          }]);
-
-          instance = TestUtils.renderIntoDocument(
-            <DropdownFilter name="foo" options={ opts } value="1" suggest={ true } />
-          );
-
-          spyOn(instance, 'highlighted').and.returnValue(90);
-          spyOn(instance, 'emitOnChangeCallback');
-          instance.handleBlur();
-          expect(instance.emitOnChangeCallback).toHaveBeenCalled();
-        });
-      });
     });
   });
 
@@ -355,7 +337,7 @@ describe('DropdownFilter', () => {
       it('adds no items option', () => {
         instance.setState({ filter: 'foo' });
         expect(instance.results([]).type).toEqual('li');
-        expect(instance.results([]).props.className).toEqual('ui-dropdown__list__item ui-dropdown__list__item--no-results');
+        expect(instance.results([]).props.className).toEqual('ui-dropdown__list-item ui-dropdown__list-item--no-results');
         expect(instance.results([]).props.children).toEqual('No results match "foo"');
       });
     });

@@ -81,7 +81,45 @@ $message-width: 300px !default;
       color: $color;
     }
   }
+
+  .ui-message--#{$type}.ui-message--transparent {
+    background-color: transparent;
+    border: none;
+    margin-bottom: 0px;
+
+    .ui-message__content{
+      padding: 2px 5px 2px 35px;
+    }
+
+    .ui-message__type {
+      background-color: transparent;
+
+      .ui-icon__svg {
+        .ui-icon__svg-group {
+          fill: $color;
+        }
+      }
+
+      .ui-message__type-icon {
+        top: 8px;
+        &:before {
+          color: $color;
+        }
+      }
+    }
+
+    .ui-message__close{
+      top: 8px;
+    }
+  }
+
+  .ui-message--#{$type}.ui-message--transparent.ui-message--dismissable {
+    .ui-message__content{
+      padding: 2px 35px;
+    }
+  }
 }
+
 
 @each $set in $colorIconSets {
   @include message-theme($set...);

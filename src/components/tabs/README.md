@@ -72,8 +72,10 @@ To render a Tabs Widget with Options:
 | initialSelectedTabId  | false       | String         | (first tab)   | Which tab is selected on page load |
 
 ### Tab Props
-| Name       | Required    | Type           | Default       | Description   |
-| ---------- | ----------- | -------------  | ------------- | ------------- |
-| title      | true        | String         |               | Title to be shown in tab header |
-| tabId      | true        | String         |               | unique id for the tab |
+| Name             | Required    | Type           | Default       | Description   |
+| ----------       | ----------- | -------------  | ------------- | ------------- |
+| title            | true        | String         |               | Title to be shown in tab header |
+| tabId            | true        | String         |               | unique id for the tab |
+| headerClassname  | false       | String         |               | className for tab header li |
+
 

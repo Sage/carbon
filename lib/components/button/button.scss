@@ -8,9 +8,11 @@
   background-color: $ui-button__background-color--secondary;
   border: $ui-button__border--secondary;
   border-radius: $ui-button__border-radius;
+  box-sizing: border-box;
   color: $ui-button__text-color--secondary;
   cursor: pointer;
   display: inline-block;
+  line-height: 16px;
   font-size: $app-font-size;
   font-weight: $ui-button__font-weight;
   height: $input-common-height;
@@ -28,6 +30,10 @@
     background-color: $ui-button__background-color--secondary--hover;
     border-color: $ui-button__border-color--secondary--hover;
     color: $ui-button__text-color--secondary--hover;
+
+   .ui-link__content {
+      text-decoration: none;
+   }
   }
 
   &:not(.ui-button--disabled):active {
@@ -55,7 +61,51 @@
   }
 }
 
+.ui-button--green {
+  background-color: $green-mid;
+  border: $green-mid;
+  color: $white;
+
+  &:focus,
+  &:hover {
+    background-color: $green-bright-dull;
+  }
+
+  &:not(.ui-button--disabled):active {
+    background-color: $green;
+    border-color: $green;
+    color: $white;
+  }
+}
+
+.ui-button--red {
+  background-color: $white;
+  border-color: $error;
+  color: $error;
+
+  &:focus,
+  &:hover {
+    background-color: $error;
+    border-color: $error;
+    color: $white;
+  }
+
+  &:not(.ui-button--disabled):active {
+    background-color: $error-hover;
+    border-color: $error-hover;
+    color: $white;
+  }
+}
+
 // fixes specific css that comes from platform
+a.ui-button--red {
+  color: $error;
+}
+
+a.ui-button--green {
+  color: $white;
+}
+
 a.ui-button--primary {
   color: $ui-button__text-color--primary;
 }
