@@ -4,6 +4,7 @@ import Store from 'utils/flux/store';
 import ImmutableHelper from 'utils/helpers/immutable';
 import Immutable from 'immutable';
 import FormInputHelper from './../helpers/form-input-helper';
+import TableFormConstants from './../views/grids/table-form-demo/constants';
 
 let data = ImmutableHelper.parseJSON({
   alert: {
@@ -214,6 +215,10 @@ let data = ImmutableHelper.parseJSON({
     show_page_size_selection: false,
     sortable: true
   },
+  table_form: {
+    data: TableFormConstants.data,
+    filter: {}
+  },
   tabs: {
     tabData: [{}, {}]
   },
@@ -260,6 +265,14 @@ class AppStore extends Store {
     if (action.component === 'dropdown_filter_ajax') {
       this.data = this.data.setIn(arr, action.visibleValue);
     }
+  }
+
+  /**
+   * @method APP_TABLE_CELL_VALUE_UPDATED
+   */
+  [AppConstants.APP_TABLE_CELL_VALUE_UPDATED](action) {
+    let arr = [action.component, 'data', action.index].concat(action.key);
+    this.data = this.data.setIn(arr, action.value);
   }
 
   /**
