@@ -85,7 +85,7 @@ describe('ShowEditPod', () => {
         expect(instance.state.editing).toBeFalsy();
       });
     });
-    
+
     describe('when onCancel does not exits', () => {
       it('sets editing to false', () => {
         instance = TestUtils.renderIntoDocument(
@@ -165,7 +165,15 @@ describe('ShowEditPod', () => {
       let props = instance.contentProps;
       expect(props.onEdit).toEqual(instance.onEdit);
     });
-    
+
+    it("leaves onEdit as false if false is sent in", () => {
+      let falseEditInstance = TestUtils.renderIntoDocument(
+        <ShowEditPod onEdit={ false } />
+      );
+      let props = falseEditInstance.contentProps;
+      expect(props.onEdit).toBeUndefined();
+    });
+
     it('strips out the className prop', () => {
       let props = instance.contentProps;
       expect(props.className).toBeUndefined();

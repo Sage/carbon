@@ -14,7 +14,10 @@ class ShowEditPod extends React.Component {
      * @property onEdit
      * @type {Function}
      */
-    onEdit: React.PropTypes.func,
+    onEdit: React.PropTypes.oneOfType([
+      React.PropTypes.func,
+      React.PropTypes.bool
+    ]),
 
     /**
      * Shows delete button when provided
@@ -180,7 +183,9 @@ class ShowEditPod extends React.Component {
   get contentProps() {
     let { className, onEdit, ...props } = this.props;
 
-    props.onEdit = this.onEdit;
+    if (this.props.onEdit !== false) {
+      props.onEdit = this.onEdit;
+    }
 
     return props;
   }
