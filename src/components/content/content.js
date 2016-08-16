@@ -45,12 +45,12 @@ class Content extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let classes = classNames("ui-content", this.props.className, `ui-content--${this.props.as}`);
+    let classes = classNames("carbon-content", this.props.className, `carbon-content--${this.props.as}`);
 
     return this.props.children ? (
       <div className={ classes }>
-        <div className="ui-content__title">{ this.props.title }</div>
-        <div className="ui-content__body">{ this.props.children }</div>
+        <div className="carbon-content__title">{ this.props.title }</div>
+        <div className="carbon-content__body">{ this.props.children }</div>
       </div>
     ) : null;
   }

@@ -356,7 +356,7 @@ class Date extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return 'ui-date';
+    return 'carbon-date';
   }
 
   /**
@@ -366,7 +366,7 @@ class Date extends React.Component {
    * @return {String} input className
    */
   get inputClasses() {
-    return 'ui-date__input';
+    return 'carbon-date__input';
   }
 
   /**

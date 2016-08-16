@@ -17,7 +17,7 @@ describe('MenuItem', () => {
 
     it('renders a link with correct classes', () => {
       let item = TestUtils.findRenderedComponentWithType(instance, Link);
-      expect(item.props.className).toEqual('ui-menu-item foobar');
+      expect(item.props.className).toEqual('carbon-menu-item foobar');
     });
   });
 
@@ -32,12 +32,12 @@ describe('MenuItem', () => {
 
     it('renders a div with correct classes', () => {
       let item = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(item.props.className).toEqual('ui-menu-item foobar ui-menu-item--has-submenu');
+      expect(item.props.className).toEqual('carbon-menu-item foobar carbon-menu-item--has-submenu');
     });
 
     it('renders a submenu with classes', () => {
       let submenu = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[2];
-      expect(submenu.props.className).toEqual('ui-menu-item__submenu ui-menu-item__submenu--left');
+      expect(submenu.props.className).toEqual('carbon-menu-item__submenu carbon-menu-item__submenu--left');
     });
   });
 
@@ -52,7 +52,7 @@ describe('MenuItem', () => {
 
     it('renders with selected class', () => {
       let item = TestUtils.findRenderedComponentWithType(instance, Link);
-      expect(item.props.className).toEqual('ui-menu-item ui-menu-item--selected');
+      expect(item.props.className).toEqual('carbon-menu-item carbon-menu-item--selected');
     });
   });
 
@@ -67,7 +67,7 @@ describe('MenuItem', () => {
 
     it('renders with divide class', () => {
       let item = TestUtils.findRenderedComponentWithType(instance, Link);
-      expect(item.props.className).toEqual('ui-menu-item ui-menu-item--divide');
+      expect(item.props.className).toEqual('carbon-menu-item carbon-menu-item--divide');
     });
   });
 });

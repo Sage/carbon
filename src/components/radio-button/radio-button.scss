@@ -2,7 +2,7 @@
 @import 'input-field';
 @import 'mixins';
 
-.ui-radio-button {
+.carbon-radio-button {
   padding-top: 8px;
 
   .common-input__field,
@@ -22,18 +22,18 @@
       padding-bottom: 0px;
     }
 
-    .ui-radio-button__help-text {
+    .carbon-radio-button__help-text {
       padding-bottom: 5px;
     }
   }
 }
 
-.ui-radio-button__sprite {
+.carbon-radio-button__sprite {
   height: 15px;
   width: 15px;
 }
 
-.ui-radio-button__input.common-input__input {
+.carbon-radio-button__input.common-input__input {
   cursor: pointer;
   height: 15px;
   opacity: 0;
@@ -41,7 +41,7 @@
   vertical-align: middle;
   width: 15px;
 
-  ~ .ui-radio-button__sprite {
+  ~ .carbon-radio-button__sprite {
     .radio-button-outline {
       rx: 2;
     }
@@ -51,7 +51,7 @@
     }
   }
 
-  &:focus + .ui-radio-button__sprite {
+  &:focus + .carbon-radio-button__sprite {
     box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
     border-radius: 100%;
     @include transition(border linear 0.1s, box-shadow linear 0.1s);
@@ -61,17 +61,17 @@
     }
   }
 
-  &:hover + .ui-radio-button__sprite .radio-button-outline {
+  &:hover + .carbon-radio-button__sprite .radio-button-outline {
     // the hover colour for the ring
     fill: $input-active-border-color;
   }
 
-  &:checked + .ui-radio-button__sprite .radio-button-check {
+  &:checked + .carbon-radio-button__sprite .radio-button-check {
     // The checked colour in the middle
     fill: $grey-dark;
   }
 
-  &[disabled] + .ui-radio-button__sprite {
+  &[disabled] + .carbon-radio-button__sprite {
     .radio-button-outline {
       fill: $grey;
     }
@@ -85,20 +85,20 @@
     }
   }
 
-  &[disabled]:checked + .ui-radio-button__sprite .radio-button-check {
+  &[disabled]:checked + .carbon-radio-button__sprite .radio-button-check {
     fill: $grey-dark-blue-50;
   }
 }
 
 // extra specificity is required here
 .common-input__help-text {
-  &.ui-radio-button__help-text {
+  &.carbon-radio-button__help-text {
     display: block;
     margin-top: 0;
     margin-left: 21px;
   }
 
-  &.ui-radio-button__help-text--inline {
+  &.carbon-radio-button__help-text--inline {
     display: inline;
     left: 21px;
     margin-left: -21px;

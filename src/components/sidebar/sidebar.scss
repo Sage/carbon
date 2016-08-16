@@ -6,7 +6,7 @@ $sidebar-animation-length: 250ms;
 $sidebar-background-opacity: 0.6;
 $sidebar-background-animation-length: 250ms;
 
-.ui-sidebar__sidebar {
+.carbon-sidebar__sidebar {
   background-color: $grey-light;
   border-radius: 1px;
   bottom: 0;
@@ -18,19 +18,19 @@ $sidebar-background-animation-length: 250ms;
   z-index: $z-sidebar;
 }
 
-.ui-sidebar__sidebar--right {
+.carbon-sidebar__sidebar--right {
   @include box-shadow(-10px 0 15px rgba(0, 0, 0, 0.05));
   border-left: 1px solid $border-color;
   right: 0;
 }
 
-.ui-sidebar__sidebar--left {
+.carbon-sidebar__sidebar--left {
   @include box-shadow(10px 0 15px rgba(0, 0, 0, 0.05));
   border-right: 1px solid $border-color;
   left: 0;
 }
 
-.ui-sidebar__close {
+.carbon-sidebar__close {
   cursor: pointer;
   position: absolute;
   right: 20px;

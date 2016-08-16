@@ -133,7 +133,7 @@ class Textarea extends React.Component {
    * @return {String} main className
    */
   get mainClasses() {
-    return 'ui-textarea';
+    return 'carbon-textarea';
   }
 
   /**
@@ -143,7 +143,7 @@ class Textarea extends React.Component {
    * @return {String} input className
    */
   get inputClasses() {
-    return 'ui-textarea__input';
+    return 'carbon-textarea__input';
   }
 
   /**
@@ -195,13 +195,13 @@ class Textarea extends React.Component {
   get characterCount() {
     if (this.props.characterLimit) {
       return (
-        <div className="ui-textarea__character-limit">
+        <div className="carbon-textarea__character-limit">
           { I18n.t("textarea.limit.prefix", { defaultValue: 'You have used ' } ) }
-          <span className="ui-textarea__limit-used">
+          <span className="carbon-textarea__limit-used">
             { I18n.toNumber(calculateCharacterCount(this.props.value), this.i18nNumberOpts) }
           </span>
           { I18n.t("textarea.limit.middle", { defaultValue: ' of ' } ) }
-          <span className="ui-textarea__limit-max">
+          <span className="carbon-textarea__limit-max">
             { I18n.toNumber(this.props.characterLimit, this.i18nNumberOpts) }
           </span>
           { I18n.t("textarea.limit.suffix", { defaultValue: ' characters' } ) }

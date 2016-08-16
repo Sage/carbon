@@ -16,7 +16,7 @@ describe('NavigationBar', () => {
 
   it('renders with correct classes', () => {
     let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-    expect(div.className).toEqual('ui-navigation-bar foobar ui-navigation-bar--primary');
+    expect(div.className).toEqual('carbon-navigation-bar foobar carbon-navigation-bar--primary');
   });
 
   it('renders with secondary class', () => {
@@ -26,7 +26,7 @@ describe('NavigationBar', () => {
       </NavigationBar>
     );
     let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-    expect(div.className).toEqual('ui-navigation-bar foobar ui-navigation-bar--secondary');
+    expect(div.className).toEqual('carbon-navigation-bar foobar carbon-navigation-bar--secondary');
   });
 
   it('renders an AppWrapper', () => {

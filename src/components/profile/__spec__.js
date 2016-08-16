@@ -20,7 +20,7 @@ describe('PortraitContainer', () => {
 
     describe('classes', () => {
       it('returns the correct classes', () => {
-        expect(instance.classes).toEqual('ui-profile foo');
+        expect(instance.classes).toEqual('carbon-profile foo');
       });
 
       it('renders the large class if applied', () => {
@@ -33,7 +33,7 @@ describe('PortraitContainer', () => {
             large={ true }
           />
         );
-        expect(instance.classes).toEqual('ui-profile foo ui-profile--large');
+        expect(instance.classes).toEqual('carbon-profile foo carbon-profile--large');
       });
     });
 
@@ -56,18 +56,18 @@ describe('PortraitContainer', () => {
     describe('avatar', () => {
       it('returns the portrait component', () => {
         expect(TestUtils.isElementOfType(instance.avatar, Portrait)).toBeTruthy();
-        expect(instance.avatar.props.className).toEqual("ui-profile__avatar");
+        expect(instance.avatar.props.className).toEqual("carbon-profile__avatar");
       });
     });
 
     describe('text', () => {
       it('renders the name', () => {
-        let text = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-profile__name');
+        let text = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-profile__name');
         expect(text.textContent).toEqual('Foo');
       });
 
       it('renders the email', () => {
-        let text = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-profile__email');
+        let text = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-profile__email');
         expect(text.textContent).toEqual('foo@bar.com');
       });
     });

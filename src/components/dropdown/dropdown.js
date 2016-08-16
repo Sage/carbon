@@ -281,7 +281,7 @@ class Dropdown extends React.Component {
     }
 
     let list = this.refs.list,
-        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0],
+        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0],
         nextVal;
 
     switch(ev.which) {
@@ -443,7 +443,7 @@ class Dropdown extends React.Component {
       onMouseDown: this.handleMouseDownOnList,
       onMouseLeave: this.handleMouseLeaveList,
       onMouseEnter: this.handleMouseEnterList,
-      className: 'ui-dropdown__list-block'
+      className: 'carbon-dropdown__list-block'
     };
   }
 
@@ -456,7 +456,7 @@ class Dropdown extends React.Component {
     return {
       key: "list",
       ref: "list",
-      className: 'ui-dropdown__list'
+      className: 'carbon-dropdown__list'
     };
   }
 
@@ -467,8 +467,8 @@ class Dropdown extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-dropdown',
-      { 'ui-dropdown--open': this.state.open }
+      'carbon-dropdown',
+      { 'carbon-dropdown--open': this.state.open }
     );
   }
 
@@ -478,7 +478,7 @@ class Dropdown extends React.Component {
    * @method inputClasses
    */
   get inputClasses() {
-    return 'ui-dropdown__input';
+    return 'carbon-dropdown__input';
   }
 
   /**
@@ -501,7 +501,7 @@ class Dropdown extends React.Component {
    * @method results
    */
   results(options) {
-    let className = 'ui-dropdown__list-item',
+    let className = 'carbon-dropdown__list-item',
         highlighted = this.highlighted(options);
 
     let results = options.map((option) => {

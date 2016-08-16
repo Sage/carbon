@@ -69,7 +69,7 @@ class Checkbox extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return 'ui-checkbox';
+    return 'carbon-checkbox';
   }
 
   /**
@@ -79,7 +79,7 @@ class Checkbox extends React.Component {
    * @return {String} input className
    */
   get inputClasses() {
-    return 'ui-checkbox__input';
+    return 'carbon-checkbox__input';
   }
 
   /**
@@ -159,9 +159,9 @@ class Checkbox extends React.Component {
    */
   get fieldHelpClasses() {
     return classNames(
-      'ui-checkbox__help-text', {
-        'ui-checkbox__help-text--reverse': this.props.reverse,
-        'ui-checkbox__help-text--inline': this.props.fieldHelpInline
+      'carbon-checkbox__help-text', {
+        'carbon-checkbox__help-text--reverse': this.props.reverse,
+        'carbon-checkbox__help-text--inline': this.props.fieldHelpInline
       }
     );
   }
