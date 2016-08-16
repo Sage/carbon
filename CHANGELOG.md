@@ -1,9 +1,24 @@
 # 0.22.0
 
+## Breaking Change - CSS Naming
+
+* We have renamed all of our styles to be prefixed with `carbon-` rather than `ui-`. This is to avoid conflicts with existing open source libraries like jQuery UI.
+
+### Example of the CSS Name Change
+```
+// Before:
+.ui-button-toggle__icon--large
+
+// After:
+.carbon-button-toggle__icon--large
+```
+
+Please ensure you check your application carefully to update any references to these styles when upgrading.
+
 ## Minor Improvements
 
 * makes heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
-* allows ShowEditPod to receive `false` in it's `onEdit` prop to skip rendering of the default edit icon
+* allows ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
 
 # 0.21.1
 
