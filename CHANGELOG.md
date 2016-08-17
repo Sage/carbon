@@ -1,3 +1,9 @@
+# 0.21.1
+
+## Minor Improvements
+
+* PresenceValidator now returns false for strings that consist only of spaces
+
 # 0.21.0
 
 ## New Icons
@@ -17,6 +23,8 @@
 * Show Edit Pod edit button is now set via absolute position instead of float
 * AppWrapper now has a minimum width of 958px.
 * SUG-19: Change padding for the MessageComponent when transparent and non dismissable. When transparent is applied the padding reduces to 2px, but if it's dismissable it enlarges to it's original to prevent overlap.
+* allows `Link` component to handle `mailto:` as an href prefix, previously the `to:` would have been stripped from the string
+* fix error count, when input get disabled
 
 # 0.20.0
 
@@ -912,7 +920,7 @@ export default MyView
 
 ## Bug Fixes
 
-* [CARBON-102](https://sageone.atlassian.net/browse/CARBON-102) - Fixes bug - 'item is undefined triggered when clicking away from dropdown with option highlighted'.
+* Fixes bug - 'item is undefined triggered when clicking away from dropdown with option highlighted'.
 
 # 0.1.6
 
