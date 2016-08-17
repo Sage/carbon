@@ -1,3 +1,10 @@
+# 0.22.0
+
+## Minor Improvements
+
+* PresenceValidator now returns false for strings that consist only of spaces
+* Pod uses 44px click area for edit icon
+
 # 0.21.0
 
 ## New Icons
