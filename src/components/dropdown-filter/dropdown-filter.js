@@ -218,7 +218,7 @@ class DropdownFilter extends Dropdown {
 
     if (!items.length) {
       items = (
-        <li className={ 'ui-dropdown__list-item ui-dropdown__list-item--no-results' }>
+        <li className={ 'carbon-dropdown__list-item carbon-dropdown__list-item--no-results' }>
           {
             I18n.t("dropdownlist.no_results", {
               defaultValue: "No results match \"%{term}\"",
@@ -272,7 +272,7 @@ class DropdownFilter extends Dropdown {
       }
 
       html.push(
-        <a key="dropdown-action" className="ui-dropdown__action" onClick={ this.handleCreate }>{ text }</a>
+        <a key="dropdown-action" className="carbon-dropdown__action" onClick={ this.handleCreate }>{ text }</a>
       );
     }
 
@@ -296,7 +296,7 @@ class DropdownFilter extends Dropdown {
   get mainClasses() {
     return classNames(
       super.mainClasses,
-      'ui-dropdown-filter'
+      'carbon-dropdown-filter'
     );
   }
 
@@ -309,7 +309,7 @@ class DropdownFilter extends Dropdown {
     return classNames(
       super.inputClasses,
       {
-        'ui-dropdown__input--filtered': !this.props.create && typeof this.state.filter === 'string'
+        'carbon-dropdown__input--filtered': !this.props.create && typeof this.state.filter === 'string'
       }
     );
   }

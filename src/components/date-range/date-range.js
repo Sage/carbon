@@ -157,7 +157,7 @@ class DateRange extends React.Component {
     return(
       <div>
         <Date
-          className='ui-date-range ui-date-range__start'
+          className='carbon-date-range carbon-date-range__start'
           label={ this.props.startLabel }
           labelInline={ this.props.labelsInline }
           onChange={ this._onChange.bind(null, 'startDate') }
@@ -170,7 +170,7 @@ class DateRange extends React.Component {
           value={ this.startDate }
         />
         <Date
-          className='ui-date-range'
+          className='carbon-date-range'
           label={ this.props.endLabel }
           labelInline={ this.props.labelsInline }
           onChange={ this._onChange.bind(null, 'endDate') }

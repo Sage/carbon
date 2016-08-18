@@ -83,7 +83,7 @@ class Sidebar extends Modal {
    */
   get mainClasses() {
     return classNames(
-      'ui-sidebar',
+      'carbon-sidebar',
       this.props.className
     );
   }
@@ -96,8 +96,8 @@ class Sidebar extends Modal {
    */
   get sidebarClasses() {
     return classNames(
-      'ui-sidebar__sidebar',
-      `ui-sidebar__sidebar--${this.props.position}`
+      'carbon-sidebar__sidebar',
+      `carbon-sidebar__sidebar--${this.props.position}`
     );
   }
 
@@ -110,8 +110,8 @@ class Sidebar extends Modal {
   get modalHTML() {
     return (
       <div className={ this.sidebarClasses } >
-        <span className={ 'ui-sidebar__close' } >
-          <Icon className="ui-sidebar__close-icon" type="close" onClick={ this.props.onCancel } />
+        <span className={ 'carbon-sidebar__close' } >
+          <Icon className="carbon-sidebar__close-icon" type="close" onClick={ this.props.onCancel } />
         </span>
         { this.props.children }
       </div>

@@ -2,27 +2,27 @@
 @import "mixins";
 @import "z-index";
 
-.ui-menu-item.ui-link__anchor,
-.ui-menu-item {
+.carbon-menu-item.carbon-link__anchor,
+.carbon-menu-item {
   display: inline-block;
   height: 40px;
   padding: 0 12px;
   position: relative;
 
-  .ui-menu--primary & {
+  .carbon-menu--primary & {
     background-color: $white;
     color: $grey-dark-blue;
     font-weight: 500;
 
-    &.ui-link__anchor:hover {
+    &.carbon-link__anchor:hover {
       cursor: initial;
 
-      .ui-link__content {
+      .carbon-link__content {
         text-decoration: none;
       }
     }
 
-    .ui-menu-item__submenu .ui-menu-item--has-link:hover {
+    .carbon-menu-item__submenu .carbon-menu-item--has-link:hover {
       cursor: pointer;
       color: $blue-bright;
     }
@@ -45,7 +45,7 @@
       right: 0% !important;
     }
 
-    &.ui-menu-item--selected:after {
+    &.carbon-menu-item--selected:after {
       left: 10px;
       right: 10px;
       background-color: $green-bright;
@@ -53,31 +53,31 @@
     }
   }
 
-  .ui-menu--secondary & {
+  .carbon-menu--secondary & {
     background-color: $grey-dark-blue;
     color: $white;
     font-weight: normal;
 
-    &.ui-link__anchor:hover {
+    &.carbon-link__anchor:hover {
       cursor: initial;
 
-      .ui-link__content {
+      .carbon-link__content {
         text-decoration: none;
       }
     }
 
-    &.ui-menu-item--has-link:hover {
+    &.carbon-menu-item--has-link:hover {
       cursor: pointer;
       color: $green-bright-dull;
     }
   }
 
-  .ui-menu-item:after {
+  .carbon-menu-item:after {
     display: none;
   }
 }
 
-.ui-menu-item--has-submenu {
+.carbon-menu-item--has-submenu {
   padding: 0;
 
   &:before {
@@ -88,21 +88,21 @@
     position: absolute;
     z-index: 1;
 
-    .ui-menu--primary & {
+    .carbon-menu--primary & {
       @include arrow("down", 4px, $grey-dark-blue);
     }
 
-    .ui-menu--secondary & {
+    .carbon-menu--secondary & {
       @include arrow("down", 4px, $white);
     }
   }
 
-  &:hover .ui-menu-item__submenu {
+  &:hover .carbon-menu-item__submenu {
     display: block;
   }
 }
 
-.ui-menu-item__submenu {
+.carbon-menu-item__submenu {
   border-radius: 0 0 5px 5px;
   box-shadow: 0 4px 8px rgba($black, 0.2);
   display: none;
@@ -111,16 +111,16 @@
   position: absolute;
   z-index: $z-dropdown-list;
 
-  .ui-menu--primary & {
+  .carbon-menu--primary & {
     background-color: $white;
     padding-top: 5px;
 
-    .ui-menu-item--selected {
+    .carbon-menu-item--selected {
       color: $green-bright-dull;
     }
   }
 
-  .ui-menu--secondary & {
+  .carbon-menu--secondary & {
     background-color: $grey-dark-blue;
   }
 
@@ -131,44 +131,44 @@
     top: -5px;
     width: 100%;
 
-    .ui-menu--primary & {
+    .carbon-menu--primary & {
       background-color: transparent;
     }
 
-    .ui-menu--secondary & {
+    .carbon-menu--secondary & {
       background-color: $grey-dark-blue;
     }
   }
 
-  > *:not(.ui-menu-item) {
+  > *:not(.carbon-menu-item) {
     padding: 0 12px;
   }
 
-  .ui-menu-item {
+  .carbon-menu-item {
     display: block;
     height: 30px;
     line-height: 30px;
     white-space: nowrap;
 
-    .ui-menu--primary & {
+    .carbon-menu--primary & {
       background-color: $white;
     }
 
-    .ui-menu--secondary & {
+    .carbon-menu--secondary & {
       background-color: $grey-dark-blue;
     }
   }
 }
 
-.ui-menu-item__submenu--left {
+.carbon-menu-item__submenu--left {
   right: 0;
 }
 
-.ui-menu-item__submenu-title.ui-link__anchor {
+.carbon-menu-item__submenu-title.carbon-link__anchor {
   padding-right: 26px;
 }
 
-.ui-menu-item--divide {
+.carbon-menu-item--divide {
   margin-top: 10px;
 
   &:before {
@@ -179,11 +179,11 @@
     top: -5px;
     position: absolute;
 
-    .ui-menu--primary & {
+    .carbon-menu--primary & {
       background-color: $grey-dark-blue;
     }
 
-    .ui-menu--secondary & {
+    .carbon-menu--secondary & {
       background-color: $grey-dark-blue-50;
     }
   }

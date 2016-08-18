@@ -230,13 +230,13 @@ describe('Pager', () => {
     describe('when disabled', () => {
       it('adds a disabled class', () => {
         previous = instance.previousArrow;
-        expect(previous.props.className).toEqual('ui-pager__previous ui-pager__previous--disabled');
+        expect(previous.props.className).toEqual('carbon-pager__previous carbon-pager__previous--disabled');
       });
     });
 
     describe('when enabled', () => {
       it('adds a onClick handler', () => {
-        let input = TestUtils.findRenderedDOMComponentWithClass(instance2, 'ui-pager__previous'); 
+        let input = TestUtils.findRenderedDOMComponentWithClass(instance2, 'carbon-pager__previous'); 
         TestUtils.Simulate.click(input);
         expect(spy2).toHaveBeenCalled();
       });
@@ -257,13 +257,13 @@ describe('Pager', () => {
 
     it('adds a onChange handler', () => {
       spyOn(instance, 'setState');
-      let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-number__input');
+      let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-number__input');
       TestUtils.Simulate.change(input);
       expect(instance.setState).toHaveBeenCalled();
     });
 
     it('adds a onBlur handler', () => {
-      let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-number__input');
+      let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-number__input');
       TestUtils.Simulate.blur(input);
       expect(spy1).toHaveBeenCalled();
     });
@@ -289,13 +289,13 @@ describe('Pager', () => {
         );
 
         next = instance.nextArrow;
-        expect(next.props.className).toEqual('ui-pager__next ui-pager__next--disabled');
+        expect(next.props.className).toEqual('carbon-pager__next carbon-pager__next--disabled');
       });
     });
 
     describe('when enabled', () => {
       it('adds a onClick handler', () => {
-        let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pager__next'); 
+        let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pager__next'); 
         TestUtils.Simulate.click(input);
         expect(spy1).toHaveBeenCalled();
       });
@@ -313,7 +313,7 @@ describe('Pager', () => {
       });
 
       it('adds a onChange event to the dropdown', () => {
-        dropdown = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dropdown__input'); 
+        dropdown = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dropdown__input'); 
         TestUtils.Simulate.change(dropdown);
         expect(spy1).toHaveBeenCalled();
       });

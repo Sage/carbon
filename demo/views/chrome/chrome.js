@@ -7,10 +7,10 @@ class Chrome extends React.Component {
    */
   render() {
     return (
-      <div className="ui-demo">
-        <div className="ui-demo__header">
-          <div className="ui-demo__header-contents">
-            <div className="ui-demo__menu">
+      <div className="carbon-demo">
+        <div className="carbon-demo__header">
+          <div className="carbon-demo__header-contents">
+            <div className="carbon-demo__menu">
               <Link to="/">Carbon</Link>
               <Link to="/actions">Actions/Navigation</Link>
               <Link to="/forms">Forms</Link>
@@ -25,10 +25,10 @@ class Chrome extends React.Component {
           </div>
         </div>
 
-        <div className="ui-demo__content">
+        <div className="carbon-demo__content">
           { this.props.children }
         </div>
-        <div className='ui-demo__footer'>
+        <div className='carbon-demo__footer'>
         </div>
       </div>
     );

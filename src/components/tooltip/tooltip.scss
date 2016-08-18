@@ -2,13 +2,13 @@
 @import 'general';
 @import 'mixins';
 
-.ui-tooltip {
+.carbon-tooltip {
   position: absolute;
   width: 300px;
   z-index: 20;
 }
 
-.ui-tooltip__container {
+.carbon-tooltip__container {
   background-color: $grey-dark-plus;
   border-radius: 4px;
   color: $white;
@@ -21,32 +21,32 @@
   white-space: pre-wrap;
 }
 
-.ui-tooltip__pointer {
+.carbon-tooltip__pointer {
   position: absolute;
 }
 
-.ui-tooltip--position-bottom,
-.ui-tooltip--position-top {
+.carbon-tooltip--position-bottom,
+.carbon-tooltip--position-top {
   text-align: center;
 
-  &.ui-tooltip--pointer-align-left {
+  &.carbon-tooltip--pointer-align-left {
     text-align: left;
   }
 
-  &.ui-tooltip--pointer-align-right {
+  &.carbon-tooltip--pointer-align-right {
     text-align: right;
   }
 }
 
-.ui-tooltip--position-left {
+.carbon-tooltip--position-left {
   text-align: right;
 }
 
-.ui-tooltip--position-right {
+.carbon-tooltip--position-right {
   text-align: left;
 }
 
-.ui-tooltip--pointer-align-center.ui-tooltip--position-bottom .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-center.carbon-tooltip--position-bottom .carbon-tooltip__pointer {
   @include calc(left, "50% - #{$app-tooltip-pointer-size}");
   top: -15px;
 
@@ -56,7 +56,7 @@
   }
 }
 
-.ui-tooltip--pointer-align-center.ui-tooltip--position-top .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-center.carbon-tooltip--position-top .carbon-tooltip__pointer {
   @include calc(left, "50% - #{$app-tooltip-pointer-size}");
   bottom: 0;
 
@@ -66,7 +66,7 @@
   }
 }
 
-.ui-tooltip--pointer-align-left.ui-tooltip--position-bottom .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-left.carbon-tooltip--position-bottom .carbon-tooltip__pointer {
   top: -15px;
   left: 10px;
 
@@ -76,7 +76,7 @@
   }
 }
 
-.ui-tooltip--pointer-align-left.ui-tooltip--position-top .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-left.carbon-tooltip--position-top .carbon-tooltip__pointer {
   left: 10px;
   bottom: 0;
 
@@ -87,7 +87,7 @@
   }
 }
 
-.ui-tooltip--pointer-align-right.ui-tooltip--position-bottom .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-right.carbon-tooltip--position-bottom .carbon-tooltip__pointer {
   top: -15px;
   right: 25px;
 
@@ -97,7 +97,7 @@
   }
 }
 
-.ui-tooltip--pointer-align-right.ui-tooltip--position-top .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-right.carbon-tooltip--position-top .carbon-tooltip__pointer {
   right: 25px;
   bottom: 0;
 
@@ -107,7 +107,7 @@
   }
 }
 
-.ui-tooltip--pointer-align-center.ui-tooltip--position-left .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-center.carbon-tooltip--position-left .carbon-tooltip__pointer {
   @include calc(top, "50% - #{$app-tooltip-pointer-size}");
   right: 0px;
 
@@ -117,7 +117,7 @@
   }
 }
 
-.ui-tooltip--pointer-align-center.ui-tooltip--position-right .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-center.carbon-tooltip--position-right .carbon-tooltip__pointer {
   @include calc(top, "50% - #{$app-tooltip-pointer-size}");
   left: -15px;
 
@@ -127,7 +127,7 @@
   }
 }
 
-.ui-tooltip--pointer-align-top.ui-tooltip--position-left .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-top.carbon-tooltip--position-left .carbon-tooltip__pointer {
   right: 0px;
   top: 10px;
 
@@ -137,7 +137,7 @@
   }
 }
 
-.ui-tooltip--pointer-align-bottom.ui-tooltip--position-right .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-bottom.carbon-tooltip--position-right .carbon-tooltip__pointer {
   left: -15px;
   bottom: 25px;
 
@@ -147,7 +147,7 @@
   }
 }
 
-.ui-tooltip--pointer-align-bottom.ui-tooltip--position-left .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-bottom.carbon-tooltip--position-left .carbon-tooltip__pointer {
   right: 0px;
   bottom: 25px;
 
@@ -157,7 +157,7 @@
   }
 }
 
-.ui-tooltip--pointer-align-top.ui-tooltip--position-right .ui-tooltip__pointer {
+.carbon-tooltip--pointer-align-top.carbon-tooltip--position-right .carbon-tooltip__pointer {
   left: -15px;
   top: 10px;
 

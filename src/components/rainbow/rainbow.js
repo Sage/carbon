@@ -86,7 +86,7 @@ class Rainbow extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-rainbow',
+      'carbon-rainbow',
       this.props.className
     );
   }

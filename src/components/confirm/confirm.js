@@ -79,7 +79,7 @@ class Confirm extends Dialog {
   get mainClasses() {
     return classNames(
       super.mainClasses,
-      'ui-confirm'
+      'carbon-confirm'
     );
   }
 
@@ -91,7 +91,7 @@ class Confirm extends Dialog {
   get dialogTitleClasses() {
     return classNames(
       super.dialogTitleClasses,
-      'ui-confirm__title'
+      'carbon-confirm__title'
     );
   }
 
@@ -103,7 +103,7 @@ class Confirm extends Dialog {
   get dialogClasses() {
     return classNames(
       super.dialogClasses,
-      'ui-confirm__confirm'
+      'carbon-confirm__confirm'
     );
   }
 
@@ -115,14 +115,14 @@ class Confirm extends Dialog {
    */
   get confirmButtons() {
     return (
-      <div className='ui-confirm__buttons' >
-        <div className='ui-confirm__button ui-confirm__no'>
+      <div className='carbon-confirm__buttons' >
+        <div className='carbon-confirm__button carbon-confirm__no'>
           <Button as='secondary' onClick={ this.props.onCancel }>
             { this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' }) }
           </Button>
         </div>
 
-        <div className='ui-confirm__button ui-confirm__yes'>
+        <div className='carbon-confirm__button carbon-confirm__yes'>
           <Button as='primary' onClick={ this.props.onConfirm }>
             { this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' }) }
           </Button>

@@ -1,15 +1,15 @@
 @import "colors";
 @import "tables";
 
-.ui-table-row:hover .common-input__input {
+.carbon-table-row:hover .common-input__input {
   border-color: $row-hover-input-border;
 }
 
-.ui-table-row--clickable {
+.carbon-table-row--clickable {
   cursor: pointer;
 }
 
-.ui-table-row--selected .ui-table-cell {
+.carbon-table-row--selected .carbon-table-cell {
   background-color: $row-hover-color !important;
   border-bottom-color: $blue-navy;
   position: relative;
