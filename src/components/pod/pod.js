@@ -78,12 +78,13 @@ class Pod extends React.Component {
     title: React.PropTypes.string,
 
     /**
-     * Centres the pod title
+     * Aligns the title to left, right or center
      *
-     * @property title
+     * @property alignTitle
      * @type {String}
+     * @default left
      */
-    centreTitle: React.PropTypes.bool,
+    alignTitle: React.PropTypes.string,
 
     /**
      * Description for the pod
@@ -119,7 +120,7 @@ class Pod extends React.Component {
     border: true,
     as: "primary",
     padding: "medium",
-    centreTitle: false
+    alignTitle: 'left'
   }
 
   /**
@@ -237,10 +238,10 @@ class Pod extends React.Component {
   get headerClasses() {
     return classNames(
       `ui-pod__header`,
+      `ui-pod__header--${ this.props.alignTitle }`,
       css.unselectable,
       {
-        [`ui-pod__header--${ this.state.collapsed }`]: this.state.collapsed !== undefined,
-        [`ui-pod__header--centre`]: this.props.centreTitle
+        [`ui-pod__header--${ this.state.collapsed }`]: this.state.collapsed !== undefined
       }
     );
   }

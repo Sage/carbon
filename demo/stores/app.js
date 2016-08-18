@@ -131,7 +131,7 @@ let data = ImmutableHelper.parseJSON({
     border: true,
     padding: "medium",
     as: "primary",
-    centreTitle: false
+    alignTitle: 'left'
   },
   profile: {
     name: "Andrew Tait",

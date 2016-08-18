@@ -37,11 +37,11 @@ describe('Pod', () => {
         expect(header.textContent).toEqual('Title');
       });
 
-      describe('when centreTitle prop is passed', () => {
-        it('adds a centre class', () => {
-          instance = TestUtils.renderIntoDocument(<Pod title='Title' centreTitle={ true } />);
+      describe('when alignTitle prop is passed', () => {
+        it('adds a align class', () => {
+          instance = TestUtils.renderIntoDocument(<Pod title='Title' alignTitle='center' />);
           let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__header');
-          expect(header.className).toMatch('ui-pod__header--centre');
+          expect(header.className).toMatch('ui-pod__header--center');
         });
       });
 
@@ -57,7 +57,7 @@ describe('Pod', () => {
 
         it('Adds a additonal class header', () => {
           let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__header');
-          expect(header.className).toEqual('ui-pod__header unselectable ui-pod__header--true');
+          expect(header.className).toEqual('ui-pod__header ui-pod__header--left unselectable ui-pod__header--true');
         });
 
         it('Adds a onClick handler to the header', () => {

@@ -63,7 +63,7 @@ class PodDemo extends React.Component {
         as={ this.value('as') }
         footer={ footer }
         onEdit={ this.value('edit') }
-        centreTitle={ this.value('centreTitle') }
+        alignTitle={ this.value('alignTitle') }
       >
         <Row>
           <Textbox />
@@ -85,7 +85,7 @@ class PodDemo extends React.Component {
         padding = this.value('padding'),
         as = this.value('as'),
         edit = this.value('edit'),
-        centre = this.value('centreTitle');
+        alignTitle = this.value('alignTitle');
 
     let html = "import Pod from 'carbon/lib/components/pod';\n\n";
 
@@ -122,8 +122,8 @@ class PodDemo extends React.Component {
         html += `\n  onEdit='${edit}'`
       }
 
-      if (centre) {
-        html += `\n  centreTitle='true'`
+      if (alignTitle !== 'left') {
+        html += `\n  alignTitle='${ alignTitle }'`
       }
 
       html += '\n>'
@@ -176,6 +176,19 @@ class PodDemo extends React.Component {
     }, {
       id: "tile",
       name: "Tile"
+    }]);
+  }
+
+  get alignOptions() {
+    return Immutable.fromJS([{
+      id: "left",
+      name: "Left"
+    }, {
+      id: "center",
+      name: "Center"
+    }, {
+      id: "right",
+      name: "Right"
     }]);
   }
 
@@ -234,10 +247,12 @@ class PodDemo extends React.Component {
             value={ this.value('footer') }
             onChange={ this.action.bind(this, 'footer') }
           />
-          <Checkbox
-            label="Centre Title"
-            value={ this.value('centreTitle') }
-            onChange={ this.action.bind(this, 'centreTitle') }
+          <Dropdown
+            label="Align Title"
+            labelInline={ true }
+            options={ this.alignOptions }
+            value={ this.value('alignTitle') }
+            onChange={ this.action.bind(this, 'alignTitle') }
             disabled={ !this.value('title') }
           />
         </Row>

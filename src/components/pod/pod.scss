@@ -82,8 +82,12 @@
   cursor: pointer;
 }
 
-.ui-pod__header--centre {
+.ui-pod__header--center {
   text-align: center;
+}
+
+.ui-pod__header--right {
+  text-align: right;
 }
 
 .ui-pod__title {
