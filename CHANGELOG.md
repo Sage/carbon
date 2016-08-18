@@ -3,13 +3,13 @@
 ## Minor Improvements
 
 * makes heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
+* allows ShowEditPod to receive `false` in it's `onEdit` prop to skip rendering of the default edit icon
 
 # 0.21.1
 
 ## Minor Improvements
 
 * PresenceValidator now returns false for strings that consist only of spaces
-* allows ShowEditPod to receive `false` in it's `onEdit` prop to skip rendering of the default edit icon
 
 # 0.21.0
 
