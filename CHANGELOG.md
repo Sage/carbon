@@ -21,6 +21,12 @@ Please ensure you check your application carefully to update any references to t
 * allows ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
 * ShowEditPod now animates between the two states
 
+# 0.21.2
+
+## Minor Improvements
+
+* Help component now opens links in a new tab.
+
 # 0.21.1
 
 ## Minor Improvements
