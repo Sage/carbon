@@ -72,17 +72,17 @@ class Button extends React.Component {
 
     if (as.constructor === Array) {
       as = as.map((klass) => {
-        return `ui-button--${klass}`;
+        return `carbon-button--${klass}`;
       });
     } else {
-      as = [`ui-button--${as}`];
+      as = [`carbon-button--${as}`];
     }
 
     props.className = classNames(
-      'ui-button',
+      'carbon-button',
       ...as,
       props.className, {
-        'ui-button--disabled': this.props.disabled
+        'carbon-button--disabled': this.props.disabled
       }
     );
 

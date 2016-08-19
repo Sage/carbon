@@ -20,14 +20,14 @@ describe('Filter', () => {
 
   it('renders with the default classes', () => {
     let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-    expect(form.className).toEqual('ui-filter ui-filter--align-left');
+    expect(form.className).toEqual('carbon-filter carbon-filter--align-left');
   });
 
   describe('when aligned right', () => {
     it('renders with an align right class', () => {
       instance = TestUtils.renderIntoDocument(<Filter align="right">foo</Filter>);
       let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-      expect(form.className).toEqual('ui-filter ui-filter--align-right');
+      expect(form.className).toEqual('carbon-filter carbon-filter--align-right');
     });
   });
 });

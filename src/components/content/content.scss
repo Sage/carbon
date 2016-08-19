@@ -1,20 +1,20 @@
 @import "colors";
 @import 'general';
 
-.ui-content + .ui-content {
+.carbon-content + .carbon-content {
   margin-top: $grid-margin;
 }
 
-.ui-content__title {
+.carbon-content__title {
   font-weight: bold;
 }
 
-.ui-content__body {
+.carbon-content__body {
   margin-top: 2px;
   white-space: pre-wrap;
 }
 
-.ui-content--secondary .ui-content__title {
+.carbon-content--secondary .carbon-content__title {
   color: $grey-dark-blue-60;
   font-weight: normal;
 }

@@ -95,7 +95,7 @@ describe('Modal', () => {
   describe('backgroundHTML', () => {
     describe('when enableBackgroundUI is true', () => {
       it('returns a background div', () => {
-        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-modal__background')).toBeTruthy();
+        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-modal__background')).toBeTruthy();
       });
     });
 

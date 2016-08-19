@@ -40,7 +40,7 @@ describe('Decimal', () => {
     });
 
     it('sets mainClasses to include the custom class', () => {
-      expect(instance.mainClasses).toMatch('ui-decimal');
+      expect(instance.mainClasses).toMatch('carbon-decimal');
       expect(instance.mainClasses).toMatch('foobar');
     });
 
@@ -262,8 +262,8 @@ describe('Decimal', () => {
         }
       });
 
-      it('sets the ui-decimal__input class to the input', () => {
-        expect(instance._input.classList[0]).toEqual('ui-decimal__input');
+      it('sets the carbon-decimal__input class to the input', () => {
+        expect(instance._input.classList[0]).toEqual('carbon-decimal__input');
       });
 
       it('sets value to the visible value', () => {
@@ -308,7 +308,7 @@ describe('Decimal', () => {
     describe('render', () => {
       it('renders its top level div', () => {
         let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(div.classList[0]).toEqual('ui-decimal');
+        expect(div.classList[0]).toEqual('carbon-decimal');
       });
 
       it('renders a visible field', () => {

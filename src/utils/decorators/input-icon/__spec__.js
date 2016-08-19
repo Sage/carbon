@@ -27,7 +27,7 @@ describe('InputIcon', () => {
     });
 
     it('sets a default className', () => {
-      expect(instance.props.children.props.className).toEqual('ui-input-icon');
+      expect(instance.props.children.props.className).toEqual('carbon-input-icon');
     });
   });
 

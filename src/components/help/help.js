@@ -71,8 +71,8 @@ const Help = TooltipDecorator(class Help extends React.Component{
    */
   get mainClasses() {
     return classNames(
-      'ui-help',
-      {'ui-help__href': this.props.href },
+      'carbon-help',
+      {'carbon-help__href': this.props.href },
       this.props.className
     );
   }

@@ -264,7 +264,7 @@ class Decimal extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return 'ui-decimal';
+    return 'carbon-decimal';
   }
 
   /**
@@ -274,7 +274,7 @@ class Decimal extends React.Component {
    * @return {String} Input className
    */
   get inputClasses() {
-    return 'ui-decimal__input';
+    return 'carbon-decimal__input';
   }
 
   /**
