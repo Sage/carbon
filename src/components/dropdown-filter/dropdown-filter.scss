@@ -1,16 +1,16 @@
 @import 'colors';
 @import 'z-index';
 
-.ui-dropdown__list-item--no-results {
+.carbon-dropdown__list-item--no-results {
   font-style: italic;
 }
 
-.ui-dropdown__input--filtered {
+.carbon-dropdown__input--filtered {
   font-style: italic;
   color: #AAA;
 }
 
-.ui-dropdown__action {
+.carbon-dropdown__action {
   background-color: $white;
   border: 1px solid $border-color;
   border-top: none;

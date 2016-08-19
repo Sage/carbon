@@ -29,9 +29,9 @@ class NavigationBar extends React.Component {
    */
   get classes() {
     return classNames(
-      "ui-navigation-bar",
+      "carbon-navigation-bar",
       this.props.className,
-      `ui-navigation-bar--${this.props.as}`
+      `carbon-navigation-bar--${this.props.as}`
     );
   }
 
@@ -41,7 +41,7 @@ class NavigationBar extends React.Component {
   render() {
     return (
       <div className={ this.classes }>
-        <AppWrapper className="ui-navigation-bar__content">
+        <AppWrapper className="carbon-navigation-bar__content">
           { this.props.children }
         </AppWrapper>
       </div>

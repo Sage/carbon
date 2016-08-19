@@ -55,7 +55,7 @@ describe('action toolbar', () => {
         className: 'bar'
       }, 1);
 
-      expect(action.props.className).toEqual('ui-action-toolbar__action bar');
+      expect(action.props.className).toEqual('carbon-action-toolbar__action bar');
       expect(action.props.children).toEqual('foo');
     });
   });
@@ -80,7 +80,7 @@ describe('action toolbar', () => {
 
   describe('mainClasses', () => {
     it('returns the correct classes', () => {
-      expect(instance.mainClasses).toEqual('ui-action-toolbar foo');
+      expect(instance.mainClasses).toEqual('carbon-action-toolbar foo');
     });
   });
 });

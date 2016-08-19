@@ -24,7 +24,7 @@ describe('SplitButton', () => {
     });
 
     it('renders main button', () =>{
-      expect(twoItemsSplitButton.mainClasses).toEqual('ui-split-button test');
+      expect(twoItemsSplitButton.mainClasses).toEqual('carbon-split-button test');
     })
 
     it('renders dropdown icon',() =>{
@@ -45,7 +45,7 @@ describe('SplitButton', () => {
     });
 
     it('renders main button', () =>{
-      expect(multiActionButton.mainClasses).toEqual('ui-split-button');
+      expect(multiActionButton.mainClasses).toEqual('carbon-split-button');
     })
 
   });
@@ -53,7 +53,7 @@ describe('SplitButton', () => {
   describe('mouse click dropdown toggle', () => {
     it('prevents default', () => {
       let ev = jasmine.createSpy();
-      let toggle = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'ui-split-button__toggle');
+      let toggle = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button__toggle');
       TestUtils.Simulate.click(toggle, { preventDefault: ev });
       expect(ev).toHaveBeenCalled();
     });
@@ -61,16 +61,16 @@ describe('SplitButton', () => {
 
   describe('mouse enter dropdown toggle', () => {
     it('changes showAdditionalButtons state', () => {
-      let toggle = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'ui-split-button__toggle');
+      let toggle = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button__toggle');
       TestUtils.Simulate.mouseEnter(toggle);
       expect(twoItemsSplitButton.state.showAdditionalButtons).toEqual(true);
     });
 
     it('renders more buttons', () => {
-      let toggle = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'ui-split-button__toggle');
+      let toggle = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button__toggle');
       TestUtils.Simulate.mouseEnter(toggle);
       twoItemsSplitButton.forceUpdate();
-      let block = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'ui-split-button__additional-buttons');
+      let block = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button__additional-buttons');
       expect(block).not.toBe(null);
     });
 
@@ -80,7 +80,7 @@ describe('SplitButton', () => {
           <Button>Second Button</Button>
         </SplitButton>
       );
-      let toggle = TestUtils.findRenderedDOMComponentWithClass(multiActionButton, 'ui-split-button__toggle');
+      let toggle = TestUtils.findRenderedDOMComponentWithClass(multiActionButton, 'carbon-split-button__toggle');
       TestUtils.Simulate.mouseEnter(toggle);
       expect(twoItemsSplitButton.state.showAdditionalButtons).toEqual(false);
     });
@@ -88,7 +88,7 @@ describe('SplitButton', () => {
 
    describe('mouse leave split-button', () => {
     it('changes showAdditionalButtons state', () => {
-      let block = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'ui-split-button');
+      let block = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button');
       TestUtils.Simulate.mouseLeave(block);
       expect(twoItemsSplitButton.state.showAdditionalButtons).toEqual(false);
     });
@@ -96,7 +96,7 @@ describe('SplitButton', () => {
 
   describe('click button', () => {
     it('the handler should be called', () => {
-      let toggle = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'ui-split-button__toggle');
+      let toggle = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button__toggle');
       TestUtils.Simulate.mouseEnter(toggle);
       twoItemsSplitButton.forceUpdate();
       let button = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'second-button');

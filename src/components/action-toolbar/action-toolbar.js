@@ -74,7 +74,7 @@ class ActionToolbar extends React.Component {
   buildAction = (action, index) => {
     let { onClick, text, className, ...props } = action;
 
-    className = classNames("ui-action-toolbar__action", className);
+    className = classNames("carbon-action-toolbar__action", className);
     onClick = onClick ? onClick.bind(this, this.state.selected) : null;
 
     return (
@@ -118,7 +118,7 @@ class ActionToolbar extends React.Component {
    * @return {String}
    */
   get mainClasses() {
-    return classNames("ui-action-toolbar", this.props.className);
+    return classNames("carbon-action-toolbar", this.props.className);
   }
 
   /**
@@ -128,11 +128,11 @@ class ActionToolbar extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
-        <div className="ui-action-toolbar__total">
+        <div className="carbon-action-toolbar__total">
           <strong>{ this.state.total }</strong> { I18n.t("action_toolbar.selected", { defaultValue: "Selected" }) }
         </div>
 
-        <div className="ui-action-toolbar__actions">
+        <div className="carbon-action-toolbar__actions">
           { this.actions }
         </div>
       </div>

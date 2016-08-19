@@ -21,29 +21,29 @@ describe('Heading', () => {
   });
 
   it('renders with main classes', () => {
-    let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-heading');
-    expect(div.className).toEqual('ui-heading custom ui-heading--has-subheader ui-heading--has-back');
+    let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-heading');
+    expect(div.className).toEqual('carbon-heading custom carbon-heading--has-subheader carbon-heading--has-back');
   });
 
   it('renders a h1 with the title', () => {
-    let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-heading__title');
+    let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-heading__title');
     expect(div.textContent).toEqual('foo');
   });
 
   it('renders a help component', () => {
     let help = TestUtils.findRenderedComponentWithType(instance, Help);
-    expect(help.props.className).toEqual('ui-heading__help');
+    expect(help.props.className).toEqual('carbon-heading__help');
     expect(help.props.href).toEqual('/bar');
   });
 
   it('renders a back link', () => {
     let link = TestUtils.findRenderedComponentWithType(instance, Link);
-    expect(link.props.className).toEqual('ui-heading__back');
+    expect(link.props.className).toEqual('carbon-heading__back');
     expect(link.props.href).toEqual('/foobar');
   });
 
   it('renders a subheader', () => {
-    let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-heading__subheader');
+    let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-heading__subheader');
     expect(div.textContent).toEqual('subheader');
   });
 
@@ -52,7 +52,7 @@ describe('Heading', () => {
       instance = TestUtils.renderIntoDocument(
         <Heading />
       );
-      expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-heading__subheader').length).toEqual(0);
+      expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-heading__subheader').length).toEqual(0);
     });
   });
 
@@ -61,7 +61,7 @@ describe('Heading', () => {
       instance = TestUtils.renderIntoDocument(
         <Heading />
       );
-      expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-heading__title').length).toEqual(0);
+      expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-heading__title').length).toEqual(0);
     });
   });
 
@@ -80,7 +80,7 @@ describe('Heading', () => {
         <Heading title="foo" helpLink="/bar" />
       );
       let help = TestUtils.findRenderedComponentWithType(instance, Help);
-      expect(help.props.className).toEqual('ui-heading__help');
+      expect(help.props.className).toEqual('carbon-heading__help');
       expect(help.props.href).toEqual('/bar');
     });
   });

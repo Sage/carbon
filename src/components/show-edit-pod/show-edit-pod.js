@@ -29,7 +29,10 @@ class ShowEditPod extends React.Component {
      * @property onEdit
      * @type {Function}
      */
-    onEdit: React.PropTypes.func,
+    onEdit: React.PropTypes.oneOfType([
+      React.PropTypes.func,
+      React.PropTypes.bool
+    ]),
 
     /**
      * Shows delete button when provided
@@ -166,7 +169,7 @@ class ShowEditPod extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-show-edit-pod',
+      'carbon-show-edit-pod',
       this.props.className
     );
   }
@@ -178,7 +181,7 @@ class ShowEditPod extends React.Component {
    */
   get deleteButton() {
     return (
-      <Link as='error' className='ui-show-edit-pod__delete' onClick={ this.props.onDelete }>
+      <Link as='error' className='carbon-show-edit-pod__delete' onClick={ this.props.onDelete }>
         { this.props.deleteText || I18n.t('actions.delete', { defaultValue: 'Delete' }) }
       </Link>
     );
@@ -227,7 +230,9 @@ class ShowEditPod extends React.Component {
   get contentProps() {
     let { className, onEdit, ...props } = this.props;
 
-    props.onEdit = this.onEdit;
+    if (this.props.onEdit !== false) {
+      props.onEdit = this.onEdit;
+    }
 
     return props;
   }

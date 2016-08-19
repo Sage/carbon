@@ -2,7 +2,7 @@
 @import 'input-field';
 @import 'mixins';
 
-.ui-checkbox {
+.carbon-checkbox {
   padding-top: 8px;
 
   .common-input__field,
@@ -22,13 +22,13 @@
       padding-bottom: 0px;
     }
 
-    .ui-checkbox__help-text {
+    .carbon-checkbox__help-text {
       padding-bottom: 5px;
     }
   }
 }
 
-.ui-checkbox__input.common-input__input {
+.carbon-checkbox__input.common-input__input {
   cursor: pointer;
   height: 15px;
   opacity: 0;
@@ -84,17 +84,17 @@
 
 // extra specificity is required here
 .common-input__help-text {
-  &.ui-checkbox__help-text {
+  &.carbon-checkbox__help-text {
     display: block;
     margin-top: 0;
     margin-left: 21px;
   }
 
-  &.ui-checkbox__help-text--reverse {
+  &.carbon-checkbox__help-text--reverse {
     margin-left: 6px;
   }
 
-  &.ui-checkbox__help-text--inline {
+  &.carbon-checkbox__help-text--inline {
     display: inline;
     left: 21px;
     margin-left: -21px;

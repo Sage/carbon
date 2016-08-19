@@ -52,8 +52,17 @@ describe('Link', () => {
         <Link icon="foo">My Link</Link>
       );
       let icon = TestUtils.findRenderedComponentWithType(instance, Icon);
-      expect(icon.props.className).toEqual('ui-link__icon');
+      expect(icon.props.className).toEqual('carbon-link__icon');
       expect(icon.props.type).toEqual('foo');
+    });
+
+    it('passes on any tooltip props', () => {
+      let instance = TestUtils.renderIntoDocument(
+        <Link icon="foo" tooltipMessage='Hi Everybody' tooltipAlign='center'>My Link</Link>
+      );
+      let icon = TestUtils.findRenderedComponentWithType(instance, Icon);
+      expect(icon.props.tooltipMessage).toEqual('Hi Everybody');
+      expect(icon.props.tooltipAlign).toEqual('center');
     });
   });
 
@@ -66,13 +75,13 @@ describe('Link', () => {
       customDOM   = ReactDOM.findDOMNode(customLink);
     });
 
-    it('adds a className of ui-link to all links', () => {
-      expect(basicDOM.classList[0]).toEqual('ui-link__anchor');
-      expect(disabledDOM.classList[0]).toEqual('ui-link__anchor');
+    it('adds a className of carbon-link to all links', () => {
+      expect(basicDOM.classList[0]).toEqual('carbon-link__anchor');
+      expect(disabledDOM.classList[0]).toEqual('carbon-link__anchor');
     });
 
     it('adds a disabled class name to a disabled link', () => {
-      expect(disabledDOM.classList[1]).toEqual('ui-link__anchor--disabled');
+      expect(disabledDOM.classList[1]).toEqual('carbon-link__anchor--disabled');
     });
 
     it('adds any additional classes passed', () => {

@@ -38,7 +38,7 @@ class PresenceValidator {
    * @return {Boolean} true if value is valid
    */
   validate = (value) => {
-    if (value) {
+    if (value && !value.match(/^\s*$/)) {
       return true;
     } else {
       return false;

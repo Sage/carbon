@@ -45,10 +45,10 @@ class TableCell extends React.Component {
    */
   get tableCellClasses() {
     return classNames(
-      "ui-table-cell",
+      "carbon-table-cell",
       this.props.className,
-      { [`ui-table-cell--align-${this.props.align}`]: this.props.align },
-      { [`ui-table-cell--action`]: this.props.action }
+      { [`carbon-table-cell--align-${this.props.align}`]: this.props.align },
+      { [`carbon-table-cell--action`]: this.props.action }
     );
   }
 

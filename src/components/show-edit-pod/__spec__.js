@@ -134,7 +134,7 @@ describe('ShowEditPod', () => {
         });
       });
     });
-    
+
     describe('when onCancel does not exits', () => {
       it('sets editing to false', () => {
         instance = TestUtils.renderIntoDocument(
@@ -149,7 +149,7 @@ describe('ShowEditPod', () => {
 
   describe('mainClasses', () => {
     it('returns the base class', () => {
-      expect(instance.mainClasses).toEqual('ui-show-edit-pod')
+      expect(instance.mainClasses).toEqual('carbon-show-edit-pod')
     });
 
     it('returns any passed props', () => {
@@ -159,7 +159,7 @@ describe('ShowEditPod', () => {
         />
       );
 
-      expect(instance.mainClasses).toEqual('ui-show-edit-pod foo')
+      expect(instance.mainClasses).toEqual('carbon-show-edit-pod foo')
     });
   });
 
@@ -174,7 +174,7 @@ describe('ShowEditPod', () => {
       );
       instance.setState({ editing: true });
 
-      TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-show-edit-pod__delete');
+      TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
     });
 
     describe('when delete text is passed', () => {
@@ -189,7 +189,7 @@ describe('ShowEditPod', () => {
         );
 
         instance.setState({ editing: true });
-        let deleteLink = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-show-edit-pod__delete');
+        let deleteLink = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
         expect(deleteLink.textContent).toEqual('foo');
       });
     });
@@ -214,7 +214,15 @@ describe('ShowEditPod', () => {
       let props = instance.contentProps;
       expect(props.onEdit).toEqual(instance.onEdit);
     });
-    
+
+    it("leaves onEdit as false if false is sent in", () => {
+      let falseEditInstance = TestUtils.renderIntoDocument(
+        <ShowEditPod onEdit={ false } />
+      );
+      let props = falseEditInstance.contentProps;
+      expect(props.onEdit).toBeUndefined();
+    });
+
     it('strips out the className prop', () => {
       let props = instance.contentProps;
       expect(props.className).toBeUndefined();

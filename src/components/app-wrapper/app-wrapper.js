@@ -13,7 +13,7 @@ class AppWrapper extends React.Component {
    */
   get classes() {
     return classNames(
-      "ui-app-wrapper",
+      "carbon-app-wrapper",
       this.props.className
     );
   }

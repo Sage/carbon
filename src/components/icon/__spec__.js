@@ -12,7 +12,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--warning");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--warning");
     });
 
     it('calls the render new icon method', () => {
@@ -20,7 +20,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--new");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--new");
     });
 
     it('calls the render maintenance icon method', () => {
@@ -28,7 +28,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--maintenance");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--maintenance");
     });
 
     it('calls the render sort down icon method', () => {
@@ -36,7 +36,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--sort-down");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--sort-down");
     });
 
     it('calls the render sort up icon method', () => {
@@ -44,7 +44,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--sort-up");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--sort-up");
     });
 
     it('calls the render refresh icon method', () => {
@@ -52,7 +52,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--refresh");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--refresh");
     });
 
     it('calls the render bin icon method', () => {
@@ -60,7 +60,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--bin");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--bin");
     });
 
     it('calls the render basket icon method', () => {
@@ -68,7 +68,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--basket");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--basket");
     });
 
     it('calls the render processing icon method', () => {
@@ -76,7 +76,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--processing");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--processing");
     });
 
     it('calls the render phone icon method', () => {
@@ -84,7 +84,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--phone");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--phone");
     });
 
     it('calls the render mobile icon method', () => {
@@ -92,7 +92,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--mobile");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--mobile");
     });
 
     it('calls the render location icon method', () => {
@@ -100,7 +100,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--location");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--location");
     });
 
     it('calls the render email icon method', () => {
@@ -108,7 +108,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--email");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--email");
     });
 
     it('calls the render minus icon method', () => {
@@ -116,7 +116,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--minus");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--minus");
     });
 
     it('calls the render minus icon method', () => {
@@ -124,7 +124,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--plus");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--plus");
     });
 
     it('calls the render business icon method', () => {
@@ -132,7 +132,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--business");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--business");
     });
 
     it('calls the render individual icon method', () => {
@@ -140,7 +140,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--individual");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--individual");
     });
 
     it('calls the render external link icon method', () => {
@@ -148,7 +148,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--external-link");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--external-link");
     });
 
     it('calls the render edit icon method', () => {
@@ -156,7 +156,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--edit");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--edit");
     });
 
     it('calls the render white tick method', () => {
@@ -164,7 +164,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--white-tick");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--white-tick");
     });
 
     it('calls the render peperclip icon method', () => {
@@ -172,7 +172,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--paperclip");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--paperclip");
     });
 
     it('calls the render help icon method', () => {
@@ -180,7 +180,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--help");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--help");
     });
 
     it('calls the render chevron icon method', () => {
@@ -188,7 +188,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--chevron");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--chevron");
     });
 
     it('calls the render information icon method', () => {
@@ -196,7 +196,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--information");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--information");
     });
 
     it('calls the render sync icon method', () => {
@@ -204,7 +204,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--sync");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--sync");
     });
 
     it('calls the render progress icon method', () => {
@@ -212,7 +212,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--progress");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--progress");
     });
 
     it('calls the render submitted icon method', () => {
@@ -220,7 +220,7 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--submitted");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--submitted");
     });
 
     it('calls the render completed icon method', () => {
@@ -228,7 +228,39 @@ describe('Icon', () => {
       instance.renderIcon;
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
       svg = span.children[0];
-      expect(svg.getAttribute('class')).toEqual("ui-icon__svg ui-icon__svg--completed");
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--completed");
+    });
+
+    it('calls the render pdf icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='pdf' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--pdf");
+    });
+
+    it('calls the render csv icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='csv' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--csv");
+    });
+
+    it('calls the render print icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='print' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--print");
+    });
+
+    it('calls the render message icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='message' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--message");
     });
   });
 
@@ -236,7 +268,7 @@ describe('Icon', () => {
     it('renders with an icon of tick', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='success' />);
       span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
-      expect(span.className).toEqual('ui-icon icon-tick');
+      expect(span.className).toEqual('carbon-icon icon-tick');
     });
   });
 
@@ -247,7 +279,7 @@ describe('Icon', () => {
     });
 
     it('renders with a class of icon-settings', () => {
-      expect(span.className).toEqual('ui-icon icon-foo');
+      expect(span.className).toEqual('carbon-icon icon-foo');
     });
   });
 
@@ -259,7 +291,7 @@ describe('Icon', () => {
       });
 
       it('renders with a class of icon-settings and test', () => {
-        expect(span.className).toEqual('ui-icon custom icon-foo');
+        expect(span.className).toEqual('carbon-icon custom icon-foo');
       });
     });
   });

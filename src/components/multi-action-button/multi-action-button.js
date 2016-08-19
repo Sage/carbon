@@ -71,9 +71,9 @@ class MultiActionButton extends SplitButton {
   get mainClasses() {
     return classNames(
       super.mainClasses,
-      'ui-multi-action-button', {
-        'ui-multi-action-button--open': this.state.showAdditionalButtons,
-        'ui-multi-action-button--align-right': this.props.align === "right"
+      'carbon-multi-action-button', {
+        'carbon-multi-action-button--open': this.state.showAdditionalButtons,
+        'carbon-multi-action-button--align-right': this.props.align === "right"
       }
     );
   }
@@ -87,8 +87,8 @@ class MultiActionButton extends SplitButton {
    */
   get additionalButtonsClasses() {
     return super.additionalButtonsClasses +
-      ' ui-multi-action-button__additional-buttons' +
-      ' ui-multi-action-button__additional-buttons--' + this.props.as;
+      ' carbon-multi-action-button__additional-buttons' +
+      ' carbon-multi-action-button__additional-buttons--' + this.props.as;
   }
 
   /**
@@ -100,8 +100,8 @@ class MultiActionButton extends SplitButton {
    */
   get toggleButtonClasses() {
     return super.toggleButtonClasses +
-      ' ui-multi-action-button__toggle' +
-      ' ui-multi-action-button__toggle--' + this.props.as;
+      ' carbon-multi-action-button__toggle' +
+      ' carbon-multi-action-button__toggle--' + this.props.as;
   }
 
   /**

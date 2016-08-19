@@ -61,9 +61,9 @@ class Pill extends React.Component {
     let { className, ...props } = this.props;
 
     className = classNames(
-      'ui-pill',
+      'carbon-pill',
       className,
-      'ui-pill--' + this.props.as + (this.props.fill ? '--fill' : '--empty')
+      'carbon-pill--' + this.props.as + (this.props.fill ? '--fill' : '--empty')
     );
 
     return(

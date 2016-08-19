@@ -764,7 +764,7 @@ describe('Table', () => {
         let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
         expect(parent).toBeDefined();
         expect(instance.thead).toEqual(
-          <thead className="ui-table__header">
+          <thead className="carbon-table__header">
             {header}
           </thead>
         )
@@ -874,7 +874,7 @@ describe('Table', () => {
     it('renders a table with correct classes', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
-      expect(parent.className).toEqual('ui-table foo');
+      expect(parent.className).toEqual('carbon-table foo');
     });
   });
 });

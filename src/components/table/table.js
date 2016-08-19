@@ -783,7 +783,7 @@ class Table extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-table',
+      'carbon-table',
       this.props.className
     );
   }
@@ -796,9 +796,9 @@ class Table extends React.Component {
    */
   get wrapperClasses() {
     return classNames(
-      'ui-table__wrapper',
+      'carbon-table__wrapper',
       this.props.className,
-      { [`ui-table--pager`]: this.props.paginate }
+      { [`carbon-table--pager`]: this.props.paginate }
     );
   }
 
@@ -809,7 +809,7 @@ class Table extends React.Component {
    * @return {String}
    */
   get tableClasses() {
-    return 'ui-table__table';
+    return 'carbon-table__table';
   }
 
   /**
@@ -821,7 +821,7 @@ class Table extends React.Component {
   get thead() {
     if (this.props.thead) {
       return (
-        <thead className="ui-table__header">
+        <thead className="carbon-table__header">
           { this.props.thead }
         </thead>
       );

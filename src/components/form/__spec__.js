@@ -250,7 +250,7 @@ describe('Form', () => {
 
   describe('htmlProps', () => {
     it('sets the className', () => {
-      expect(instance.htmlProps().className).toEqual('ui-form');
+      expect(instance.htmlProps().className).toEqual('carbon-form');
     });
   });
 
@@ -311,8 +311,8 @@ describe('Form', () => {
   });
 
   describe('mainClasses', () => {
-    it('returns the ui-form class', () => {
-      expect(instance.mainClasses).toEqual('ui-form');
+    it('returns the carbon-form class', () => {
+      expect(instance.mainClasses).toEqual('carbon-form');
     });
   });
 
@@ -337,7 +337,7 @@ describe('Form', () => {
   describe('render', () => {
     it('renders a parent form', () => {
       let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form')
-      expect(form.className).toEqual('ui-form');
+      expect(form.className).toEqual('carbon-form');
     });
 
     describe('CSRF', () => {
@@ -388,8 +388,8 @@ describe('Form', () => {
       });
 
       it('renders a secondary cancel button with cancelClasses', () => {
-        expect(buttons[1].className).toEqual('ui-button ui-button--secondary');
-        expect(buttonContainers[2].className).toEqual('ui-form__cancel');
+        expect(buttons[1].className).toEqual('carbon-button carbon-button--secondary');
+        expect(buttonContainers[2].className).toEqual('carbon-form__cancel');
       });
 
       it('when cancelText prop is passed it renders the secondary button with the prop', () => {
@@ -407,8 +407,8 @@ describe('Form', () => {
       });
 
       it('renders a primary save button with saveClasses', () => {
-        expect(buttons[0].className).toEqual('ui-button ui-button--primary');
-        expect(buttonContainers[1].className).toEqual('ui-form__save');
+        expect(buttons[0].className).toEqual('carbon-button carbon-button--primary');
+        expect(buttonContainers[1].className).toEqual('carbon-form__save');
       });
 
       it('renders an undisabled save button if not submitting', () => {
@@ -435,7 +435,7 @@ describe('Form', () => {
 
       describe('when cancel props is true (default)', () => {
         it('does show a cancel button', () => {
-          let buttons = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__cancel');
+          let buttons = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__cancel');
           expect(buttons).toBeDefined();
         });
       });
@@ -445,7 +445,7 @@ describe('Form', () => {
       describe('when save is true or is not set to false', () => {
         it('shows a save button', () => {
           let instance = TestUtils.renderIntoDocument(<Form save={ true }/>);
-          let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__save')
+          let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__save')
         });
       });
 
@@ -464,13 +464,13 @@ describe('Form', () => {
       });
 
       it('displays an error message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
         expect(summary.textContent).toEqual('There are 2 errors');
       });
 
       it('adds a invalid CSS class on the Save button div', () => {
         let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
       });
     });
 
@@ -480,13 +480,13 @@ describe('Form', () => {
       });
 
       it('displays a warning message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
         expect(summary.textContent).toEqual('There are 2 warnings');
       });
 
       it('adds a invalid CSS class on the Save button div', () => {
         let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
       });
     });
 
@@ -496,13 +496,13 @@ describe('Form', () => {
       });
 
       it('displays a warning message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
         expect(summary.textContent).toEqual('There are 2 errors and 2 warnings');
       });
 
       it('adds a invalid CSS class on the Save button div', () => {
         let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
       });
     });
 
