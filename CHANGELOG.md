@@ -20,6 +20,12 @@ Please ensure you check your application carefully to update any references to t
 * makes heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
 * allows ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
 
+# 0.21.2
+
+## Minor Improvements
+
+* Help component now opens links in a new tab.
+
 # 0.21.1
 
 ## Minor Improvements
