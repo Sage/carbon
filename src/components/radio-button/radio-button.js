@@ -52,7 +52,7 @@ class RadioButton extends React.Component {
    */
   get mainClasses() {
     return classNames (
-      'ui-radio-button',
+      'carbon-radio-button',
       this.props.className
     );
   }
@@ -64,7 +64,7 @@ class RadioButton extends React.Component {
    * @return {String} input className
    */
   get inputClasses() {
-    return 'ui-radio-button__input';
+    return 'carbon-radio-button__input';
   }
 
   /**
@@ -75,8 +75,8 @@ class RadioButton extends React.Component {
    */
   get fieldHelpClasses() {
     return classNames(
-      'ui-radio-button__help-text', {
-        'ui-radio-button__help-text--inline': this.props.fieldHelpInline
+      'carbon-radio-button__help-text', {
+        'carbon-radio-button__help-text--inline': this.props.fieldHelpInline
       }
     );
   }
@@ -131,7 +131,7 @@ class RadioButton extends React.Component {
    * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
-    return <div className="ui-radio-button__sprite" dangerouslySetInnerHTML={{ __html: this.radiobuttonSprite }}></div>;
+    return <div className="carbon-radio-button__sprite" dangerouslySetInnerHTML={{ __html: this.radiobuttonSprite }}></div>;
   }
 
   /**

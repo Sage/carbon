@@ -7,14 +7,32 @@ import I18n from 'i18n-js';
 
 class ShowEditPod extends React.Component {
 
+  // Determines if controlled internally via state
+  // Or externally via props
+  control = 'props';
+
   static propTypes = {
+
+    /**
+     * Determines the editing state of the show edit pod
+     * Must be set to true/false onMount if you want to control
+     * the pod externally via props
+     *
+     * @property editing
+     * @type {Boolean}
+     */
+    editing: React.PropTypes.bool,
+
     /**
      * Callback when edit button is clicked
      *
      * @property onEdit
      * @type {Function}
      */
-    onEdit: React.PropTypes.func,
+    onEdit: React.PropTypes.oneOfType([
+      React.PropTypes.func,
+      React.PropTypes.bool
+    ]),
 
     /**
      * Shows delete button when provided
@@ -65,6 +83,7 @@ class ShowEditPod extends React.Component {
 
   state = {
     /**
+     * When controlled by state
      * Determines if the component is in edit mode
      *
      * @property editing
@@ -73,8 +92,20 @@ class ShowEditPod extends React.Component {
   }
 
   /**
+   * Determine if the component is controlled internally or externally
+   * If editing prop is undefined then component is controlled internally
+   *
+   * @method componentWillMount
+   */
+  componentWillMount() {
+    if (typeof this.props.editing === 'undefined') {
+      this.control = 'state';
+    }
+  }
+
+  /**
    * Called when the edit button is clicked
-   * Emits callback when present and changes state
+   * Emits callback when present
    *
    * @method onEdit
    */
@@ -82,7 +113,10 @@ class ShowEditPod extends React.Component {
     if (this.props.onEdit) {
       this.props.onEdit(ev);
     }
-    this.setState({ editing: true });
+
+    if (this.stateControlled) {
+      this.setState({ editing: true });
+    }
   }
 
   /**
@@ -96,7 +130,10 @@ class ShowEditPod extends React.Component {
 
     if (valid) {
       this.props.afterFormValidation(ev);
-      this.setState({ editing: false });
+
+      if (this.stateControlled) {
+        this.setState({ editing: false });
+      }
     }
   }
 
@@ -109,7 +146,20 @@ class ShowEditPod extends React.Component {
     if (this.props.onCancel) {
       this.props.onCancel(ev);
     }
-    this.setState({ editing: false });
+
+    if (this.stateControlled) {
+      this.setState({ editing: false });
+    }
+  }
+
+  /**
+   * True if the component is controlled by state
+   *
+   * @method stateControlled
+   * @return {Boolean}
+   */
+  get stateControlled() {
+    return this.control === 'state';
   }
 
   /**
@@ -119,7 +169,7 @@ class ShowEditPod extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-show-edit-pod',
+      'carbon-show-edit-pod',
       this.props.className
     );
   }
@@ -131,7 +181,7 @@ class ShowEditPod extends React.Component {
    */
   get deleteButton() {
     return (
-      <Link as='error' className='ui-show-edit-pod__delete' onClick={ this.props.onDelete }>
+      <Link as='error' className='carbon-show-edit-pod__delete' onClick={ this.props.onDelete }>
         { this.props.deleteText || I18n.t('actions.delete', { defaultValue: 'Delete' }) }
       </Link>
     );
@@ -169,7 +219,7 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get content() {
-    return this.state.editing ? this.editContent : this.props.children;
+    return this[this.control].editing ? this.editContent : this.props.children;
   }
 
   /**
@@ -180,7 +230,9 @@ class ShowEditPod extends React.Component {
   get contentProps() {
     let { className, onEdit, ...props } = this.props;
 
-    props.onEdit = this.onEdit;
+    if (this.props.onEdit !== false) {
+      props.onEdit = this.onEdit;
+    }
 
     return props;
   }
@@ -204,7 +256,7 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get podProps() {
-    return this.state.editing ? this.editingProps : this.contentProps;
+    return this[this.control].editing ? this.editingProps : this.contentProps;
   }
 
   /**

@@ -20,6 +20,6 @@ describe('SubmenuBlock', () => {
 
   it('renders with correct classes', () => {
     let div = TestUtils.findRenderedDOMComponentWithTag(instance, 'div');
-    expect(div.className).toEqual('ui-submenu-block foobar');
+    expect(div.className).toEqual('carbon-submenu-block foobar');
   });
 });

@@ -20,7 +20,7 @@ describe('Pill', () => {
 
   describe('render', () => {
     it('renders a span tag with the given children', () => {
-      let pill = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill');
+      let pill = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pill');
 
       expect(pill.length).toEqual(1);
       expect(pill[0].textContent).toEqual('My Text');
@@ -29,7 +29,7 @@ describe('Pill', () => {
 
   describe('passing additional props', () => {
     it('adds props to the component', () => {
-      let pill = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pill');
+      let pill = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pill');
 
       TestUtils.Simulate.click(pill);
       expect(spy).toHaveBeenCalled();
@@ -39,8 +39,8 @@ describe('Pill', () => {
   describe('classNames', () => {
     describe('as', () => {
       describe('when using the default', () => {
-        it('adds a class of ui-pill--info', () => {
-          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill--info--empty').length).toEqual(1);
+        it('adds a class of carbon-pill--info', () => {
+          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pill--info--empty').length).toEqual(1);
         });
       });
 
@@ -52,7 +52,7 @@ describe('Pill', () => {
               children='My Text'
             />
           );
-          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill--warning--empty').length).toEqual(1);
+          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pill--warning--empty').length).toEqual(1);
         });
 
         it('uses the passed fill', () => {
@@ -62,7 +62,7 @@ describe('Pill', () => {
               children='My Text'
             />
           );
-          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pill--info--fill').length).toEqual(1);
+          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pill--info--fill').length).toEqual(1);
         });
       });
     });

@@ -155,7 +155,7 @@ class Pod extends React.Component {
 
     return (
       <div { ...headerProps }>
-        <h4 className="ui-pod__title" >{ this.props.title }</h4>
+        <h4 className="carbon-pod__title" >{ this.props.title }</h4>
         { pod }
       </div>
     );
@@ -169,7 +169,7 @@ class Pod extends React.Component {
   get podDescription() {
     return (
         this.props.description ?
-          <div className="ui-pod__description">{ this.props.description }</div> :
+          <div className="carbon-pod__description">{ this.props.description }</div> :
           null
     );
   }
@@ -180,7 +180,7 @@ class Pod extends React.Component {
    * @method podCollapsible
    */
   get podCollapsible() {
-    let className = 'ui-pod__arrow ui-pod__arrow--' + this.state.collapsed;
+    let className = 'carbon-pod__arrow carbon-pod__arrow--' + this.state.collapsed;
 
     return(
       <Icon type='dropdown' className={ className } />
@@ -194,9 +194,9 @@ class Pod extends React.Component {
    */
   get podContent() {
     return(
-      <div className='ui-pod__collapsible-content'>
+      <div className='carbon-pod__collapsible-content'>
         { this.podDescription }
-        <div className='ui-pod__content'>
+        <div className='carbon-pod__content'>
           { this.props.children }
         </div>
       </div>
@@ -220,11 +220,11 @@ class Pod extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-pod',
+      'carbon-pod',
       this.props.className,
-      `ui-pod--${this.props.as}`, {
-        'ui-pod--no-border': !this.props.border,
-        'ui-pod--footer': this.props.footer
+      `carbon-pod--${this.props.as}`, {
+        'carbon-pod--no-border': !this.props.border,
+        'carbon-pod--footer': this.props.footer
       }
     );
   }
@@ -237,11 +237,11 @@ class Pod extends React.Component {
    */
   get headerClasses() {
     return classNames(
-      `ui-pod__header`,
-      `ui-pod__header--${ this.props.alignTitle }`,
+      `carbon-pod__header`,
+      `carbon-pod__header--${ this.props.alignTitle }`,
       css.unselectable,
       {
-        [`ui-pod__header--${ this.state.collapsed }`]: this.state.collapsed !== undefined
+        [`carbon-pod__header--${ this.state.collapsed }`]: this.state.collapsed !== undefined
       }
     );
   }
@@ -254,11 +254,11 @@ class Pod extends React.Component {
    */
   get contentClasses() {
     return classNames(
-      'ui-pod__content',
-      `ui-pod__content--${this.props.as}`,
-      `ui-pod--padding-${this.props.padding}`, {
-        'ui-pod__content--footer': this.props.footer,
-        'ui-pod--no-border': !this.props.border
+      'carbon-pod__content',
+      `carbon-pod__content--${this.props.as}`,
+      `carbon-pod--padding-${this.props.padding}`, {
+        'carbon-pod__content--footer': this.props.footer,
+        'carbon-pod--no-border': !this.props.border
       }
     );
   }
@@ -271,10 +271,10 @@ class Pod extends React.Component {
    */
   get footerClasses() {
     return classNames(
-      'ui-pod__footer',
-      `ui-pod__footer--${this.props.as}`,
-      `ui-pod__footer--padding-${this.props.padding}`, {
-        'ui-pod--no-border': !this.props.border
+      'carbon-pod__footer',
+      `carbon-pod__footer--${this.props.as}`,
+      `carbon-pod__footer--padding-${this.props.padding}`, {
+        'carbon-pod--no-border': !this.props.border
       }
     );
   }
@@ -315,7 +315,7 @@ class Pod extends React.Component {
     }
 
     return (
-      <Link icon="edit" className="ui-pod__edit-action" { ...props }>
+      <Link icon="edit" className="carbon-pod__edit-action" { ...props }>
         { I18n.t("components.pod.edit", { defaultValue: "Edit" }) }
       </Link>
     );

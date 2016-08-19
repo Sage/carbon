@@ -53,7 +53,7 @@ class Heading extends React.Component {
 
     return (
       <Help
-        className="ui-heading__help"
+        className="carbon-heading__help"
         tooltipAlign="left"
         href={ this.props.helpLink }
       >
@@ -73,7 +73,7 @@ class Heading extends React.Component {
 
     return (
       <Link
-        className="ui-heading__back"
+        className="carbon-heading__back"
         href={ this.props.backLink }
       >
         <Icon type="chevron" />
@@ -91,7 +91,7 @@ class Heading extends React.Component {
     if (!this.props.subheader) { return null; }
 
     return (
-      <div className="ui-heading__subheader">
+      <div className="carbon-heading__subheader">
         { this.props.subheader }
       </div>
     );
@@ -105,9 +105,9 @@ class Heading extends React.Component {
    */
   get classes() {
     return classNames(
-      "ui-heading", this.props.className, {
-        ["ui-heading--has-subheader"]: this.props.subheader,
-        ["ui-heading--has-back"]: this.props.backLink
+      "carbon-heading", this.props.className, {
+        ["carbon-heading--has-subheader"]: this.props.subheader,
+        ["carbon-heading--has-back"]: this.props.backLink
       }
     );
   }
@@ -121,12 +121,12 @@ class Heading extends React.Component {
 
     return (
       <div className={ this.classes }>
-        <div className="ui-heading__header">
+        <div className="carbon-heading__header">
           { this.back }
 
-          <div className="ui-heading__headers">
-            <div className="ui-heading__main-header">
-              <h1 className="ui-heading__title">
+          <div className="carbon-heading__headers">
+            <div className="carbon-heading__main-header">
+              <h1 className="carbon-heading__title">
                 { this.props.title }
               </h1>
 

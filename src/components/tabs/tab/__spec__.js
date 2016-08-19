@@ -39,8 +39,8 @@ describe('Tab', () => {
   });
 
   describe('mainClasses', () => {
-    it('returns the base className of ui-tab', () => {
-      expect(instance.mainClasses).toEqual('ui-tab ');
+    it('returns the base className of carbon-tab', () => {
+      expect(instance.mainClasses).toEqual('carbon-tab ');
     });
 
     it('returns any additional added classes', () => {
@@ -49,19 +49,19 @@ describe('Tab', () => {
           <Textbox name='foo'/>
           <Textbox name='bar'/>
         </Tab>);
-      expect(instance.mainClasses).toEqual('ui-tab foo');
+      expect(instance.mainClasses).toEqual('carbon-tab foo');
     });
 
     it('adds an error class when the tab has a error', () => {
       instance.setState({ isValid: false });
-      expect(instance.mainClasses).toEqual('ui-tab  ui-tab--errors');
+      expect(instance.mainClasses).toEqual('carbon-tab  carbon-tab--errors');
     });
   });
 
   describe('render', () => {
     it('renders a surrounding parent div', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(div.className).toEqual('ui-tab ');
+      expect(div.className).toEqual('carbon-tab ');
     });
     
     it('renders all children passed to is', () => {

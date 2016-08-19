@@ -5,19 +5,19 @@ body {
   margin: 0;
 }
 
-.ui-demo__header {
+.carbon-demo__header {
   background-color: $grey-dark-blue;
   color: #FFF;
 }
 
-.ui-demo__header-contents,
-.ui-demo__content {
+.carbon-demo__header-contents,
+.carbon-demo__content {
   margin: 0 auto;
   min-width: 960px;
   max-width: 1400px;
 }
 
-.ui-demo__header-contents {
+.carbon-demo__header-contents {
   a {
     color: #FFF;
     display: inline-block;
@@ -26,6 +26,6 @@ body {
   }
 }
 
-.ui-demo__footer {
+.carbon-demo__footer {
   height: 200px;
 }

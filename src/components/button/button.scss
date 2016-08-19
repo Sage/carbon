@@ -4,19 +4,19 @@
 @import 'mixins';
 @import 'buttons';
 
-.ui-button {
-  background-color: $ui-button__background-color--secondary;
-  border: $ui-button__border--secondary;
-  border-radius: $ui-button__border-radius;
+.carbon-button {
+  background-color: $carbon-button__background-color--secondary;
+  border: $carbon-button__border--secondary;
+  border-radius: $carbon-button__border-radius;
   box-sizing: border-box;
-  color: $ui-button__text-color--secondary;
+  color: $carbon-button__text-color--secondary;
   cursor: pointer;
   display: inline-block;
   line-height: 16px;
   font-size: $app-font-size;
-  font-weight: $ui-button__font-weight;
+  font-weight: $carbon-button__font-weight;
   height: $input-common-height;
-  padding: $ui-button__padding;
+  padding: $carbon-button__padding;
   outline: none;
   text-decoration: none;
 
@@ -27,41 +27,41 @@
 
   &:focus,
   &:hover {
-    background-color: $ui-button__background-color--secondary--hover;
-    border-color: $ui-button__border-color--secondary--hover;
-    color: $ui-button__text-color--secondary--hover;
+    background-color: $carbon-button__background-color--secondary--hover;
+    border-color: $carbon-button__border-color--secondary--hover;
+    color: $carbon-button__text-color--secondary--hover;
 
-   .ui-link__content {
+   .carbon-link__content {
       text-decoration: none;
    }
   }
 
-  &:not(.ui-button--disabled):active {
-    background-color: $ui-button__background-color--primary--active;
-    background-color: $ui-button__background-color--secondary--active;
-    border-color: $ui-button__border-color--secondary--active;
-    color: $ui-button__text-color--secondary--active;
+  &:not(.carbon-button--disabled):active {
+    background-color: $carbon-button__background-color--primary--active;
+    background-color: $carbon-button__background-color--secondary--active;
+    border-color: $carbon-button__border-color--secondary--active;
+    color: $carbon-button__text-color--secondary--active;
   }
 }
 
-.ui-button--primary {
-  background-color: $ui-button__background-color--primary;
-  border: $ui-button__border--primary;
-  color: $ui-button__text-color--primary;
+.carbon-button--primary {
+  background-color: $carbon-button__background-color--primary;
+  border: $carbon-button__border--primary;
+  color: $carbon-button__text-color--primary;
 
   &:focus,
   &:hover {
-    background-color: $ui-button__background-color--primary--hover;
+    background-color: $carbon-button__background-color--primary--hover;
   }
 
-  &:not(.ui-button--disabled):active {
-    background-color: $ui-button__background-color--primary--active;
-    border-color: $ui-button__border-color--primary--active;
-    color: $ui-button__text-color--primary--active;
+  &:not(.carbon-button--disabled):active {
+    background-color: $carbon-button__background-color--primary--active;
+    border-color: $carbon-button__border-color--primary--active;
+    color: $carbon-button__text-color--primary--active;
   }
 }
 
-.ui-button--green {
+.carbon-button--green {
   background-color: $green-mid;
   border: $green-mid;
   color: $white;
@@ -71,14 +71,14 @@
     background-color: $green-bright-dull;
   }
 
-  &:not(.ui-button--disabled):active {
+  &:not(.carbon-button--disabled):active {
     background-color: $green;
     border-color: $green;
     color: $white;
   }
 }
 
-.ui-button--red {
+.carbon-button--red {
   background-color: $white;
   border-color: $error;
   color: $error;
@@ -90,7 +90,7 @@
     color: $white;
   }
 
-  &:not(.ui-button--disabled):active {
+  &:not(.carbon-button--disabled):active {
     background-color: $error-hover;
     border-color: $error-hover;
     color: $white;
@@ -98,19 +98,19 @@
 }
 
 // fixes specific css that comes from platform
-a.ui-button--red {
+a.carbon-button--red {
   color: $error;
 }
 
-a.ui-button--green {
+a.carbon-button--green {
   color: $white;
 }
 
-a.ui-button--primary {
-  color: $ui-button__text-color--primary;
+a.carbon-button--primary {
+  color: $carbon-button__text-color--primary;
 }
 
-.ui-button--small {
+.carbon-button--small {
   border-radius: 3px;
   font-size: 11px;
   letter-spacing: 0.5px;
@@ -118,10 +118,10 @@ a.ui-button--primary {
   text-transform: uppercase;
 }
 
-.ui-button--disabled,
-.ui-button--disabled:hover {
-  background-color: $ui-button__background-color--disabled;
-  border-color: $ui-button__border-color--disabled;
-  color: $ui-button__color--disabled;
+.carbon-button--disabled,
+.carbon-button--disabled:hover {
+  background-color: $carbon-button__background-color--disabled;
+  border-color: $carbon-button__border-color--disabled;
+  color: $carbon-button__color--disabled;
   cursor: default;
 }

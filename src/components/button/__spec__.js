@@ -121,26 +121,26 @@ describe('Button', () => {
       disabledDOM = ReactDOM.findDOMNode(disabled);
     });
 
-    it('adds a className of ui-button to all buttons', () => {
-      expect(defaultDOM.classList[0]).toEqual('ui-button');
-      expect(primaryDOM.classList[0]).toEqual('ui-button');
-      expect(secondaryDOM.classList[0]).toEqual('ui-button');
-      expect(disabledDOM.classList[0]).toEqual('ui-button');
-      expect(smallDOM.classList[0]).toEqual('ui-button');
+    it('adds a className of carbon-button to all buttons', () => {
+      expect(defaultDOM.classList[0]).toEqual('carbon-button');
+      expect(primaryDOM.classList[0]).toEqual('carbon-button');
+      expect(secondaryDOM.classList[0]).toEqual('carbon-button');
+      expect(disabledDOM.classList[0]).toEqual('carbon-button');
+      expect(smallDOM.classList[0]).toEqual('carbon-button');
     });
 
     it('adds a secondary class depending on its type', () => {
-      expect(primaryDOM.classList[1]).toEqual('ui-button--primary')
-      expect(secondaryDOM.classList[1]).toEqual('ui-button--secondary')
-      expect(smallDOM.classList[1]).toEqual('ui-button--small')
+      expect(primaryDOM.classList[1]).toEqual('carbon-button--primary')
+      expect(secondaryDOM.classList[1]).toEqual('carbon-button--secondary')
+      expect(smallDOM.classList[1]).toEqual('carbon-button--small')
     });
 
     it('adds all variations of as', () => {
-      expect(multipleDOM.className).toEqual('ui-button ui-button--foo ui-button--bar')
+      expect(multipleDOM.className).toEqual('carbon-button carbon-button--foo carbon-button--bar')
     });
 
     it('adds a disabled class if the button is disabled', () => {
-      expect(disabledDOM.classList[2]).toEqual('ui-button--disabled')
+      expect(disabledDOM.classList[2]).toEqual('carbon-button--disabled')
       expect(defaultDOM.classList[2]).toBeFalsy();
     });
   });
@@ -161,7 +161,7 @@ describe('Button', () => {
   describe('render', () => {
     describe('default', () => {
       it('renders a button', () => {
-        let b = TestUtils.findRenderedDOMComponentWithClass(defaultButton, 'ui-button');
+        let b = TestUtils.findRenderedDOMComponentWithClass(defaultButton, 'carbon-button');
         expect(b.tagName).toEqual('BUTTON');
       });
     });
