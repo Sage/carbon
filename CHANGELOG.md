@@ -16,7 +16,7 @@
 Please ensure you check your application carefully to update any references to these styles when upgrading.
 
 ## Minor Improvements
-
+* Show edit pod can now be controlled via props
 * makes heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
 * allows ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
 
@@ -42,7 +42,6 @@ Please ensure you check your application carefully to update any references to t
 * Message
 
 ## Minor Improvements
-
 * Link now accepts tooltip props to apply a tooltip to the link. This can be used with the Action Toolbar to apply tooltips to the icon links.
 * Input components now accept an onPaste prop.
 * Add character count to textarea
