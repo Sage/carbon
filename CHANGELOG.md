@@ -1,3 +1,9 @@
+# 0.21.2
+
+## Minor Improvements
+
+* Help component now opens links in a new tab.
+
 # 0.21.1
 
 ## Minor Improvements
