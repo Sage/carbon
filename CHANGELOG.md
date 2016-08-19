@@ -16,6 +16,8 @@
 Please ensure you check your application carefully to update any references to these styles when upgrading.
 
 ## Minor Improvements
+
+* Pod uses 44px click area for edit icon
 * Show edit pod can now be controlled via props
 * makes heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
 * allows ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
@@ -32,6 +34,7 @@ Please ensure you check your application carefully to update any references to t
 
 * PresenceValidator now returns false for strings that consist only of spaces
 
+
 # 0.21.0
 
 ## New Icons
@@ -46,6 +49,8 @@ Please ensure you check your application carefully to update any references to t
 * Input components now accept an onPaste prop.
 * Add character count to textarea
 * Form now accepts a `onSubmit` prop which is only called when the form is valid.
+* Show Edit Pod form buttons are right aligned by default
+* Show Edit Pod edit button is now set via absolute position instead of float
 * AppWrapper now has a minimum width of 958px.
 * SUG-19: Change padding for the MessageComponent when transparent and non dismissable. When transparent is applied the padding reduces to 2px, but if it's dismissable it enlarges to it's original to prevent overlap.
 * allows `Link` component to handle `mailto:` as an href prefix, previously the `to:` would have been stripped from the string

@@ -78,7 +78,8 @@ class ShowEditPod extends React.Component {
 
   static defaultProps = {
     as: 'transparent',
-    border: false
+    border: false,
+    buttonAlign: 'right'
   }
 
   state = {
@@ -198,7 +199,7 @@ class ShowEditPod extends React.Component {
         <Form
           afterFormValidation={ this.onSaveEditForm }
           beforeFormValidation={ this.beforeFormValidation }
-          buttonAlign={ 'left' }
+          buttonAlign={ this.props.buttonAlign }
           cancel={ this.props.cancel }
           cancelText={ this.props.cancelText }
           onCancel={ this.onCancelEditForm }

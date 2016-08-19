@@ -4,6 +4,7 @@
   background-color: $white;
   border: 1px solid $border-color;
   border-radius: 4px;
+  position: relative;
 }
 
 .carbon-pod--no-border {
@@ -43,7 +44,7 @@
 }
 
 .carbon-pod__content--footer.carbon-pod__content--tile {
-  border-bottom: 1px solid $border-color; 
+  border-bottom: 1px solid $border-color;
 }
 
 .carbon-pod__footer {
@@ -109,6 +110,12 @@
 }
 
 .carbon-pod__edit-action {
-  float: right;
-  margin: 20px 20px 10px 0;
+  height: 44px;
+  line-height: 44px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+  vertical-align: middle;
+  width: 44px;
 }
