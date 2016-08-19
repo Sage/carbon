@@ -8,7 +8,22 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class ShowEditPod extends React.Component {
 
+  // Determines if controlled internally via state
+  // Or externally via props
+  control = 'props';
+
   static propTypes = {
+
+    /**
+     * Determines the editing state of the show edit pod
+     * Must be set to true/false onMount if you want to control
+     * the pod externally via props
+     *
+     * @property editing
+     * @type {Boolean}
+     */
+    editing: React.PropTypes.bool,
+
     /**
      * Callback when edit button is clicked
      *
@@ -78,6 +93,7 @@ class ShowEditPod extends React.Component {
 
   state = {
     /**
+     * When controlled by state
      * Determines if the component is in edit mode
      *
      * @property editing
@@ -86,8 +102,20 @@ class ShowEditPod extends React.Component {
   }
 
   /**
+   * Determine if the component is controlled internally or externally
+   * If editing prop is undefined then component is controlled internally
+   *
+   * @method componentWillMount
+   */
+  componentWillMount() {
+    if (typeof this.props.editing === 'undefined') {
+      this.control = 'state';
+    }
+  }
+
+  /**
    * Called when the edit button is clicked
-   * Emits callback when present and changes state
+   * Emits callback when present
    *
    * @method onEdit
    */
@@ -95,7 +123,10 @@ class ShowEditPod extends React.Component {
     if (this.props.onEdit) {
       this.props.onEdit(ev);
     }
-    this.setState({ editing: true });
+
+    if (this.stateControlled) {
+      this.setState({ editing: true });
+    }
   }
 
   /**
@@ -109,7 +140,10 @@ class ShowEditPod extends React.Component {
 
     if (valid) {
       this.props.afterFormValidation(ev);
-      this.setState({ editing: false });
+
+      if (this.stateControlled) {
+        this.setState({ editing: false });
+      }
     }
   }
 
@@ -122,7 +156,20 @@ class ShowEditPod extends React.Component {
     if (this.props.onCancel) {
       this.props.onCancel(ev);
     }
-    this.setState({ editing: false });
+
+    if (this.stateControlled) {
+      this.setState({ editing: false });
+    }
+  }
+
+  /**
+   * True if the component is controlled by state
+   *
+   * @method stateControlled
+   * @return {Boolean}
+   */
+  get stateControlled() {
+    return this.control === 'state';
   }
 
   /**
@@ -219,7 +266,7 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get podProps() {
-    return this.state.editing ? this.editingProps : this.contentProps;
+    return this[this.control].editing ? this.editingProps : this.contentProps;
   }
 
   /**

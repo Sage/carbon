@@ -6,7 +6,7 @@ import Textbox from './../textbox';
 import Pod from './../pod';
 
 describe('ShowEditPod', () => {
-  let instance, spy, cancelSpy;
+  let instance, externalInstance, spy, cancelSpy;
 
   beforeEach(() => {
     let content = <div className='foo'/>,
@@ -22,22 +22,55 @@ describe('ShowEditPod', () => {
         editFields={ editFields }
       />
     );
+
+    externalInstance = TestUtils.renderIntoDocument(
+      <ShowEditPod
+        afterFormValidation={ spy }
+        onCancel={ cancelSpy }
+        editFields={ editFields }
+        editing={ false }
+      />
+    );
+  });
+  
+  describe('componentWillMount', () => {
+    describe('when editing prop is set', () => {
+      it('keeps control as props', () => {
+        expect(externalInstance.control).toEqual('props');
+      });
+    });
+
+    describe('when editing prop is not set', () => {
+      it('sets the control to state', () => {
+        expect(instance.control).toEqual('state');
+      });
+    });
   });
 
   describe('onEdit', () => {
-    it('sets the editing state to true', () => {
-      instance.onEdit();
-      expect(instance.state.editing).toBeTruthy();
+    describe('when controlled by state', () => {
+      it('sets the editing state to true', () => {
+        instance.onEdit();
+        expect(instance.state.editing).toBeTruthy();
+      });
+
+      describe('when edit function is passed', () => {
+        it('calls the onEdit callback', () => {
+          let editSpy = jasmine.createSpy('editSpy');
+
+          instance = TestUtils.renderIntoDocument(<ShowEditPod onEdit={ editSpy } />);
+          instance.onEdit();
+
+          expect(editSpy).toHaveBeenCalled();
+        });
+      });
     });
 
-    describe('when edit function is passed', () => {
-      it('calls the onEdit callback', () => {
-        let editSpy = jasmine.createSpy('editSpy');
-
-        instance = TestUtils.renderIntoDocument(<ShowEditPod onEdit={ editSpy } />);
-        instance.onEdit();
-
-        expect(editSpy).toHaveBeenCalled();
+    describe('when controlled by props', () => {
+      it('does not setState', () => {
+        spyOn(externalInstance, 'setState');
+        externalInstance.onEdit();
+        expect(externalInstance.setState).not.toHaveBeenCalled();
       });
     });
   });
@@ -66,6 +99,14 @@ describe('ShowEditPod', () => {
         expect(instance.state.editing).toBeFalsy();
       });
     });
+
+    describe('when controlled by props', () => {
+      it('does not setState', () => {
+        spyOn(externalInstance, 'setState');
+        externalInstance.onSaveEditForm(ev, true);
+        expect(externalInstance.setState).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('onCancelEditForm', () => {
@@ -83,6 +124,14 @@ describe('ShowEditPod', () => {
 
       it('sets editing to false', () => {
         expect(instance.state.editing).toBeFalsy();
+      });
+
+      describe('when controlled by props', () => {
+        it('does not setState', () => {
+          spyOn(externalInstance, 'setState');
+          externalInstance.onCancelEditForm(ev);
+          expect(externalInstance.setState).not.toHaveBeenCalled();
+        });
       });
     });
 
