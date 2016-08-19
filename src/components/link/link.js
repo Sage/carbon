@@ -86,9 +86,9 @@ class _Link extends React.Component {
    */
   get componentClasses() {
     return classNames (
-      'ui-link__anchor',
+      'carbon-link__anchor',
       this.props.className,
-      { 'ui-link__anchor--disabled': this.props.disabled }
+      { 'carbon-link__anchor--disabled': this.props.disabled }
     );
   }
 
@@ -97,7 +97,7 @@ class _Link extends React.Component {
     return (
       <Icon
         type={ this.props.icon }
-        className="ui-link__icon"
+        className="carbon-link__icon"
         tooltipMessage={ this.props.tooltipMessage }
         tooltipAlign={ this.props.tooltipAlign }
         tooltipPosition={ this.props.tooltipPosition }
@@ -182,7 +182,7 @@ class _Link extends React.Component {
       React.createElement(this.linkType.component, this.componentProps, (
         <span>
           { this.icon }
-          <span className="ui-link__content">
+          <span className="carbon-link__content">
             { this.props.children }
           </span>
         </span>

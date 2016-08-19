@@ -22,17 +22,17 @@ describe('Sidebar Header', () => {
 
   describe('mainClasses', () => {
     it('sets the sidebar header class', () => {
-      expect(instance.mainClasses).toEqual('ui-sidebar-header');
+      expect(instance.mainClasses).toEqual('carbon-sidebar-header');
     });
 
     it('appends any additional passed classes', () => {
-      expect(classInstance.mainClasses).toEqual('ui-sidebar-header custom-class');
+      expect(classInstance.mainClasses).toEqual('carbon-sidebar-header custom-class');
     });
   });
 
   describe('render', () => {
     it('renders a parent div', () => {
-      expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-sidebar-header')).toBeTruthy();
+      expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-sidebar-header')).toBeTruthy();
     });
 
     it('renders any children passed to it', () => {

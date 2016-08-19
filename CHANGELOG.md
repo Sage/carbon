@@ -1,9 +1,39 @@
 # 0.22.0
 
+## Breaking Change - CSS Naming
+
+* We have renamed all of our styles to be prefixed with `carbon-` rather than `ui-`. This is to avoid conflicts with existing open source libraries like jQuery UI.
+
+### Example of the CSS Name Change
+```
+// Before:
+.ui-button-toggle__icon--large
+
+// After:
+.carbon-button-toggle__icon--large
+```
+
+Please ensure you check your application carefully to update any references to these styles when upgrading.
+
+## Minor Improvements
+
+* Pod uses 44px click area for edit icon
+* Show edit pod can now be controlled via props
+* makes heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
+* allows ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
+
+# 0.21.2
+
+## Minor Improvements
+
+* Help component now opens links in a new tab.
+
+# 0.21.1
+
 ## Minor Improvements
 
 * PresenceValidator now returns false for strings that consist only of spaces
-* Pod uses 44px click area for edit icon
+
 
 # 0.21.0
 
@@ -15,7 +45,6 @@
 * Message
 
 ## Minor Improvements
-
 * Link now accepts tooltip props to apply a tooltip to the link. This can be used with the Action Toolbar to apply tooltips to the icon links.
 * Input components now accept an onPaste prop.
 * Add character count to textarea

@@ -18,7 +18,7 @@ describe('Checkbox', () => {
   describe('render', () => {
     it('renders a parent div with a pod CSS class', () => {
       let checkboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(checkboxNode.classList[0]).toEqual('ui-checkbox');
+      expect(checkboxNode.classList[0]).toEqual('carbon-checkbox');
     });
 
     it('renders a input with type checkbox and a value of 1', () => {
@@ -42,14 +42,14 @@ describe('Checkbox', () => {
   });
 
   describe('mainClasses', () => {
-    it('returns ui-checkbox and additional decorated classes', () => {
-      expect(instance.mainClasses).toEqual('ui-checkbox common-input');
+    it('returns carbon-checkbox and additional decorated classes', () => {
+      expect(instance.mainClasses).toEqual('carbon-checkbox common-input');
     });
   });
 
   describe('inputClasses', () => {
-    it('returns ui-checkbox__input and additional decorated classes', () => {
-      expect(instance.inputClasses).toEqual('ui-checkbox__input common-input__input');
+    it('returns carbon-checkbox__input and additional decorated classes', () => {
+      expect(instance.inputClasses).toEqual('carbon-checkbox__input common-input__input');
     });
   });
 
@@ -104,7 +104,7 @@ describe('Checkbox', () => {
           fieldHelp='foo'
         />
       );
-      expect(instance.fieldHelpClasses).toMatch('ui-checkbox__help-text');
+      expect(instance.fieldHelpClasses).toMatch('carbon-checkbox__help-text');
     });
 
     describe('when label is inline', () => {
@@ -118,7 +118,7 @@ describe('Checkbox', () => {
             fieldHelpInline={ true }
           />
         );
-        expect(instance.fieldHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--reverse ui-checkbox__help-text--inline');
+        expect(instance.fieldHelpClasses).toMatch('carbon-checkbox__help-text carbon-checkbox__help-text--reverse carbon-checkbox__help-text--inline');
       });
     });
 
@@ -132,7 +132,7 @@ describe('Checkbox', () => {
             reverse={ true }
           />
         );
-        expect(instance.fieldHelpClasses).toMatch('ui-checkbox__help-text ui-checkbox__help-text--reverse');
+        expect(instance.fieldHelpClasses).toMatch('carbon-checkbox__help-text carbon-checkbox__help-text--reverse');
       });
     });
   });

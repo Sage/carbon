@@ -128,7 +128,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     let icon = this.renderIcon;
 
     let classes = classNames(
-      'ui-icon',
+      'carbon-icon',
       this.props.className, {
         [`icon-${this.type}`]: !icon
       }
@@ -160,7 +160,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         { ...this.componentProps }
         ref={ (comp) => this._target = comp }
       >
-        <span className="ui-icon__svg-icon" dangerouslySetInnerHTML={ this.renderIcon } />
+        <span className="carbon-icon__svg-icon" dangerouslySetInnerHTML={ this.renderIcon } />
         { this.tooltipHTML }
       </span>
     );
@@ -176,9 +176,9 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderWarningIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--warning" width="25px" height="20px" viewBox="0 0 50 40" version="1.1" xmlns="http://www.w3.org/2000/svg">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--warning" width="25px" height="20px" viewBox="0 0 50 40" version="1.1" xmlns="http://www.w3.org/2000/svg">' +
             '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                '<g class="ui-icon__svg-group" fill="currentColor">' +
+                '<g class="carbon-icon__svg-group" fill="currentColor">' +
                     '<path d="M23.4139163,5.53773397 C24.2898861,4.1361822 25.7118106,4.13889694 26.5860837,5.53773397 L43.4139163,32.462266 C44.2898861,33.8638178 43.6576906,35 41.9934988,35 L8.0065012,35 C6.34605644,35 5.71181059,33.8611031 6.58608373,32.462266 L23.4139163,5.53773397 Z M23,12 L27,12 L27,24 L23,24 L23,12 Z M25,32 C26.6568542,32 28,30.6568542 28,29 C28,27.3431458 26.6568542,26 25,26 C23.3431458,26 22,27.3431458 22,29 C22,30.6568542 23.3431458,32 25,32 Z"></path>' +
                 '</g>' +
             '</g>' +
@@ -189,7 +189,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderSortDownIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--sort-down" width="10px" height="11px" viewBox="0 0 10 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--sort-down" width="10px" height="11px" viewBox="0 0 10 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
           '<title>sort-down</title>' +
             '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">' +
               '<g id="Paginated-Grid" sketch:type="MSArtboardGroup" transform="translate(-511.000000, -164.000000)" fill="currentColor">' +
@@ -207,7 +207,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderSortUpIcon() {
     return {
       __html:
-      '<svg class="ui-icon__svg ui-icon__svg--sort-up" width="10px" height="11px" viewBox="0 0 10 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
+      '<svg class="carbon-icon__svg carbon-icon__svg--sort-up" width="10px" height="11px" viewBox="0 0 10 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
         '<title>sort-up</title>' +
           '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">' +
             '<g id="Paginated-Grid" sketch:type="MSArtboardGroup" transform="translate(-511.000000, -164.000000)" fill="currentColor">' +
@@ -232,9 +232,9 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderNewIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--new" width="50px" height="40px" viewBox="0 0 50 40">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--new" width="50px" height="40px" viewBox="0 0 50 40">' +
           '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-            '<g class="ui-icon__svg-group" fill="currentColor">' +
+            '<g class="carbon-icon__svg-group" fill="currentColor">' +
               '<path d="M12,20 L21,20 L21,33 L12,33 L12,20 Z M29,20 L38,20 L38,33 L29,33 L29,20 Z M22,12 L28,12 L28,33 L22,33 L22,12 Z M11,12 L21,12 L21,19 L11,19 L11,12 Z M29,12 L39,12 L39,19 L29,19 L29,12 Z M23,8 L27,8 L27,11 L23,11 L23,8 Z M14,5 C16.1114562,4.20820393 22,8 22,8 L22,11 L14,11 C14,11 11.8885438,5.79179607 14,5 Z M36.061575,5 C33.9501189,4.20820393 28.061575,8 28.061575,8 L28.061575,11 L36.061575,11 C36.061575,11 38.1730312,5.79179607 36.061575,5 Z" id="Icon-path">' +
               '</path>' +
             '</g>' +
@@ -253,9 +253,9 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderMaintenanceIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--maintenance" width="50px" height="40px" viewBox="0 0 50 40">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--maintenance" width="50px" height="40px" viewBox="0 0 50 40">' +
           '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-            '<g class="ui-icon__svg-group" fill="currentColor">' +
+            '<g class="carbon-icon__svg-group" fill="currentColor">' +
               '<path d="M35.2343942,10.801511 C34.4036528,9.97082285 34.4036528,8.61548951 35.2343942,7.78480133 L37.1582163,5.86110239 C37.3768325,5.64250024 37.2456628,5.29273679 36.9396002,5.20529593 C35.0595013,4.68065077 32.917063,5.1615755 31.4304732,6.64807014 C29.8127137,8.26572606 29.4192046,10.5829089 30.1187763,12.5503282 C30.1624995,12.6814895 30.1624995,12.8563713 30.0313298,12.9875325 L18.0074416,25.0106509 C17.876272,25.1418122 17.7451023,25.1418122 17.5702094,25.0980918 C15.5589408,24.3548445 13.2416096,24.7920488 11.6675733,26.4097047 C10.1372603,27.9399198 9.70002798,30.0385004 10.2247067,31.9621994 C10.3121532,32.2682424 10.7056623,32.3556832 10.9242784,32.1370811 L12.8481005,30.2133821 C13.6788419,29.382694 15.034262,29.382694 15.8650034,30.2133821 C16.6957448,31.0440703 16.6957448,32.3994037 15.8650034,33.2300918 L13.9411813,35.1537908 C13.7225651,35.3723929 13.8100116,35.7658768 14.1160742,35.8533177 C15.9961731,36.3779628 18.1386113,35.9407585 19.6252012,34.4105435 C21.2429607,32.7928875 21.6364697,30.4757047 20.936898,28.5082853 C20.8931748,28.3771241 20.8931748,28.2022423 21.0243445,28.071081 L33.0919559,16.0042422 C33.2231256,15.873081 33.3542953,15.873081 33.5291882,15.9168014 C35.5404568,16.6600487 37.857788,16.2228444 39.4318243,14.6051885 C40.9184141,13.1186938 41.3993696,10.9763927 40.8746908,9.09641424 C40.7872444,8.79037123 40.3937353,8.70293037 40.1751192,8.92153252 L38.2075738,10.801511 C37.3768325,11.6759196 36.0651356,11.6759196 35.2343942,10.801511 Z M20.936898,19.633038 L24.6533726,15.9168014 C24.8719887,15.6981992 24.8719887,15.3047154 24.6533726,15.0861132 L15.5589408,5.99226368 C14.3784136,4.81181206 12.2796985,4.68065077 11.0117249,5.86110239 C9.70002798,7.08527444 9.65630475,9.1838551 10.9242784,10.4517476 L20.1061567,19.633038 C20.3247728,19.8516401 20.7182819,19.8516401 20.936898,19.633038 Z M39.4755475,31.8310381 C39.388101,31.7435972 39.3006546,31.6561563 39.2132081,31.6124359 L37.5954486,30.7817477 C37.5517254,30.7380273 37.4642789,30.6943069 37.4205557,30.6505864 L29.5503743,22.780909 C29.3317582,22.5623068 28.9382491,22.5623068 28.719633,22.780909 L27.7577219,23.7427584 C27.5391058,23.9613606 27.5391058,24.3548445 27.7577219,24.5734466 L35.6279033,32.4431241 C35.6716265,32.4868445 35.7153497,32.5742854 35.759073,32.6180058 L36.5898143,34.2356617 C36.6335376,34.3231026 36.720984,34.4105435 36.8084305,34.4979843 L38.9508687,35.9407585 C39.2132081,36.1156402 39.6067172,36.0719198 39.8253333,35.8533177 L40.7872444,34.8914682 C41.0058605,34.672866 41.0495838,34.2793822 40.8746908,34.0170596 L39.4755475,31.8310381 Z" id="Icon-path">' +
               '</path>' +
            '</g>' +
@@ -274,8 +274,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderRefreshIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--refresh" width="13px" height="16px" viewBox="0 0 13 16">' +
-            '<g class="ui-icon__svg-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--refresh" width="13px" height="16px" viewBox="0 0 13 16">' +
+            '<g class="carbon-icon__svg-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
                 '<g transform="translate(-1029.000000, -227.000000)" fill="currentColor">' +
                     '<g id="Tags" transform="translate(505.000000, 227.000000)">' +
                         '<g transform="translate(524.000000, 0.000000)">' +
@@ -299,7 +299,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderBinIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--bin" width="16px" height="16px" viewBox="0 0 16 16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--bin" width="16px" height="16px" viewBox="0 0 16 16">' +
           '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
               '<g fill="currentColor">' +
                   '<path d="M2.17748666,5.97617662 C2.07946348,5.43704916 2.44483697,5 2.9955775,5 L12.0044225,5 C12.5542648,5 12.9191206,5.44483697 12.8225133,5.97617662 L11.1774867,15.0238234 C11.0794635,15.5629508 10.5621186,16 9.99707067,16 L5.00292933,16 C4.44902676,16 3.91912055,15.555163 3.82251334,15.0238234 L2.17748666,5.97617662 Z M1,3 C1,2.44771525 1.44748943,2 1.99850233,2 L13.0014977,2 C13.5529553,2 14,2.44386482 14,3 C14,3.55228475 13.5525106,4 13.0014977,4 L1.99850233,4 C1.44704472,4 1,3.55613518 1,3 Z"></path>' +
@@ -319,7 +319,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderBasketIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--basket" width="16px" height="16px" viewBox="0 0 16 16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--basket" width="16px" height="16px" viewBox="0 0 16 16">' +
           '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
               '<g fill="currentColor">' +
                   '<g>' +
@@ -342,7 +342,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderProcessingIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--processing" xmlns="http://www.w3.org/2000/svg" width="18" height="18">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--processing" xmlns="http://www.w3.org/2000/svg" width="18" height="18">' +
           '<g fill="none" fill-rule="evenodd">' +
             '<path fill="currentColor" fill-opacity=".2" stroke="currentColor" d="M9 17c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-3c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5z"/>' +
             '<path fill="currentColor" d="M4.774 11.673L2.52 13.69C3.972 15.697 6.333 17 9 17c4.418 0 8-3.582 8-8s-3.582-8-8-8v3c2.76 0 5 2.24 5 5s-2.24 5-5 5c-1.778 0-3.34-.93-4.226-2.327z"/>' +
@@ -360,7 +360,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderPhoneIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--phone" width="16" height="16" viewBox="0 0 16 16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--phone" width="16" height="16" viewBox="0 0 16 16">' +
           '<path d="M12.01.01c-.333-.036-.518.038-1 0l-2 5c.15-.314 2 2 2 2-.684 1.834-2.166 3.334-4 4l-2-2c-.166.186-5 2-5 2 .038.482-.036.667 0 1l2 4c7.297-.925 13.075-6.684 14-14-.055-.296-4-2-4-2z" fill="currentColor" fill-rule="evenodd"/>' +
         '</svg>'
     };
@@ -375,7 +375,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderMobileIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--mobile" width="16" height="16" viewBox="0 0 16 16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--mobile" width="16" height="16" viewBox="0 0 16 16">' +
           '<path d="M2 1c0-.552.456-1 1.002-1h9.996C13.55 0 14 .445 14 1v14c0 .552-.456 1-1.002 1H3.002C2.45 16 2 15.555 2 15V1zm2 1h8v10H4V2zm3 11h2v2H7v-2z" fill="currentColor" fill-rule="evenodd"/>' +
         '</svg>'
     };
@@ -390,7 +390,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderLocationIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--location" width="16" height="16" viewBox="0 0 16 16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--location" width="16" height="16" viewBox="0 0 16 16">' +
           '<path d="M9 7.87c.344-.2.623-.505.798-.87H10V5h-.322c-.172-.27-.404-.495-.678-.656V4H7v.344c-.274.16-.506.387-.678.656H6v2h.202c.175.365.454.67.798.87V8h.26c.23.093.48.144.74.144s.51-.05.74-.144H9v-.13zm4.688.188c.202-.612.312-1.268.312-1.95C14 2.735 11.314 0 8 0S2 2.735 2 6.108c0 .695.114 1.364.324 1.986-.018.01-.026.02-.022.03.964 2.935 5.693 7.376 5.693 7.376s4.61-4.35 5.687-7.376c.008-.023.01-.045.006-.066z" fill="currentColor" fill-rule="evenodd"/>' +
         '</svg>'
     };
@@ -405,7 +405,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderEmailIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--email" xmlns="http://www.w3.org/2000/svg" width="16" height="12">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--email" xmlns="http://www.w3.org/2000/svg" width="16" height="12">' +
           '<path fill="currentColor" fill-rule="evenodd" d="M.2696 1C.6154.402 1.259 0 1.994 0h12.012c.7358 0 1.3785.4027 1.724 1H16v8.9916C16 11.1006 15.1055 12 14.006 12H1.994C.893 12 0 11.098 0 9.9915V1h.2696zM2 3.01l5.1497 2.355c.502.2296 1.311.2344 1.8196.0048L14 3.0993v1.741L8.924 6.919c-.5103.209-1.3446.2047-1.843-.001L2 4.8197v-1.81z"/>' +
         '</svg>'
     };
@@ -420,7 +420,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderMinusIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--minus" xmlns="http://www.w3.org/2000/svg" width="16" height="4">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--minus" xmlns="http://www.w3.org/2000/svg" width="16" height="4">' +
           '<path fill-rule="evenodd" d="M0 0h16v4H0z"/>' +
         '</svg>'
     };
@@ -435,7 +435,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderPlusIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--plus" xmlns="http://www.w3.org/2000/svg" width="16" height="16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--plus" xmlns="http://www.w3.org/2000/svg" width="16" height="16">' +
           '<path fill-rule="evenodd" d="M10 6V0H6v6H0v4h6v6h4v-6h6V6h-6z"/>' +
         '</svg>'
     };
@@ -449,7 +449,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderBusinessIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--business" width="16" height="16" viewBox="0 0 16 16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--business" width="16" height="16" viewBox="0 0 16 16">' +
           '<path id="business" fill="currentColor" fill-rule="evenodd" d="M14 8v7.002c0 .55-.456.998-1.002.998H3.002C2.45 16 2 15.554 2 15.002V8H0l2-5h12l2 5h-2zM4 10h2v6H4v-6zm4 0h4v3H8v-3zM3 1c0-.552.456-1 .995-1h8.01c.55 0 .995.444.995 1v1H3V1z"/>' +
         '</svg>'
     };
@@ -463,7 +463,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderIndividualIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--individual" width="16" height="16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--individual" width="16" height="16">' +
           '<path fill="currentColor" fill-rule="evenodd" d="M15.986 12.256c.007-.05.012-.1.014-.15-.083-1.704-3.886-4.195-8.03-4.195-4.143 0-7.946 2.493-7.97 4.35 0 .078.01.153.022.228l-.016 2.51C.003 15.558.448 16 1 16h14c.555 0 1-.45 1-1.003v-2.74h-.014zM8 6c1.657 0 3-1.343 3-3S9.657 0 8 0 5 1.343 5 3s1.343 3 3 3z"/>' +
         '</svg>'
     };
@@ -478,7 +478,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderExternalLinkIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--external-link" width="16px" height="16px" viewBox="0 0 16 16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--external-link" width="16px" height="16px" viewBox="0 0 16 16">' +
           '<path fill="currentColor" fill-rule="evenodd" d="M7 0H1.994C.894 0 0 .893 0 1.994v12.012C0 15.106.893 16 1.994 16h12.012c1.1 0 1.994-.893 1.994-1.994V9h-2v3.998C14 13.55 13.544 14 12.998 14H3.002C2.45 14 2 13.544 2 12.998V3.002C2 2.45 2.456 2 3.002 2H7V0zm8.414 2H16V0H9v2h3.586l-8.243 8.243 1.414 1.414L14 3.414V7h2V2h-.586z"/>' +
         '</svg>'
     };
@@ -493,7 +493,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderEditIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--edit" width="13px" height="13px" viewBox="0 0 13 13">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--edit" width="13px" height="13px" viewBox="0 0 13 13">' +
           '<g id="edit-copy__icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
             '<g transform="translate(-673.000000, -259.000000)">' +
               '<g transform="translate(673.000000, 258.000000)">' +
@@ -514,7 +514,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderPaperclipIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--paperclip" width="19px" height="20px" viewBox="0 0 19 20">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--paperclip" width="19px" height="20px" viewBox="0 0 19 20">' +
           '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
             '<g id="paperclip" transform="translate(-1186.000000, -662.000000)" stroke="#255BC7">' +
               '<path d="M1188.29912,679.541094 C1186.56693,677.808725 1186.56693,674.990161 1188.2993,673.258149 L1197.61304,663.944766 C1198.2222,663.335424 1199.03162,663 1199.89199,663 C1200.75237,663 1201.56196,663.335424 1202.17112,663.944766 C1202.78672,664.560545 1203.12233,665.369961 1203.12233,666.230513 C1203.12233,667.091066 1202.78672,667.900482 1202.17738,668.509645 L1193.58813,677.098541 L1193.47263,677.202065 C1192.77693,677.888647 1191.65265,677.885787 1190.96088,677.194555 C1190.61115,676.844827 1190.42574,676.397476 1190.42574,675.921696 C1190.42574,675.446273 1190.61133,674.998922 1190.94801,674.662246 L1195.41169,670.198745 C1195.55133,670.059104 1195.77768,670.059104 1195.91732,670.198745 C1196.05697,670.338386 1196.05697,670.564744 1195.91732,670.704385 L1191.45364,675.167886 C1191.25196,675.369748 1191.14093,675.637229 1191.14093,675.921875 C1191.14093,676.206342 1191.25196,676.474001 1191.45364,676.675864 C1191.88204,677.104263 1192.55861,677.103905 1192.97432,676.688737 L1201.67174,668.004006 C1202.14591,667.529835 1202.40714,666.899931 1202.40714,666.230513 C1202.40714,665.561096 1202.14591,664.931192 1201.67174,664.4572 C1201.19131,663.976234 1200.56141,663.71519 1199.89199,663.71519 C1199.22258,663.71519 1198.59267,663.976234 1198.11868,664.450405 L1188.80494,673.763968 C1187.35149,675.217234 1187.35149,677.58201 1188.80476,679.035454 C1190.25785,680.488363 1192.6228,680.488899 1194.07643,679.035454 L1203.38963,669.721714 C1203.52927,669.582073 1203.75563,669.582073 1203.89527,669.721714 C1204.03491,669.861354 1204.03491,670.087712 1203.89527,670.227353 L1194.58206,679.541094 C1193.71597,680.407189 1192.5781,680.840237 1191.44059,680.840237 C1190.3029,680.840237 1189.16504,680.407189 1188.29912,679.541094 Z" id="Shape"></path>' +
@@ -533,7 +533,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderWhiteTickIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--white-tick"  width="15px" height="13px" viewBox="0 0 15 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--white-tick"  width="15px" height="13px" viewBox="0 0 15 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
         '  <!-- Generator: Sketch 3.4 (15575) - http://www.bohemiancoding.com/sketch -->' +
         '  <title>tick</title>' +
         '  <desc>Created with Sketch.</desc>' +
@@ -564,7 +564,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderHelpIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--help" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--help" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">' +
         '  <path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm1-3.234c0 .13-.102.234-.228.234H7.228C7.102 13 7 12.896 7 12.766v-1.532c0-.13.102-.234.228-.234h1.544c.126 0 .228.104.228.234v1.532zm.915-4.877l-.497.394c-.192.15-.315.314-.375.506-.027.085-.026.59-.03.96-.003.146-.12.263-.267.263h-1.48c-.074 0-.143-.03-.193-.082-.05-.05-.077-.12-.075-.193.025-.72.013-1.555.13-1.848.124-.308.416-.638.89-1.01l.447-.348c.12-.09.216-.188.293-.3.128-.177.254-.462.254-.67 0-.254.107-.794-.993-.794s-.994.69-.994.978c0 .147-.12.266-.266.266H5.27c-.072 0-.14-.03-.192-.082-.05-.052-.077-.123-.073-.196.05-1.235.16-2 .988-2.527.517-.333 1.284-.242 2.026-.242.962 0 1.54-.08 2.188.387.673.486.822 1.158.822 2.1 0 .58-.022 1.158-.313 1.56 0 0-.34.52-.802.877z" />' +
         '</svg>'
     };
@@ -579,7 +579,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderChevronIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">' +
         '  <path fill="currentColor" fill-rule="evenodd" d="M7.3 8.01l4.845-4.43c.395-.384.396-1.01.002-1.4l-.77-.87c-.393-.388-1.038-.404-1.455-.02L3.358 7.317c-.41.377-.45 1.027-.03 1.37l6.598 6.02c.41.375 1.058.36 1.452-.028l.776-.788c.393-.388.39-1.014-.007-1.397L7.3 8.01z" />' +
         '</svg>'
     };
@@ -594,7 +594,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderInformationIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--information" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM7 6h2v7H7V6zm0-3h2v2H7V3z"/></svg>'
+        '<svg class="carbon-icon__svg carbon-icon__svg--information" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM7 6h2v7H7V6zm0-3h2v2H7V3z"/></svg>'
     };
   }
 
@@ -607,7 +607,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderSyncIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--sync" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M2.343 2.343C3.79.895 5.79 0 8 0c4.08 0 7.446 3.054 7.938 7h-2.02C13.44 4.162 10.972 2 8 2c-1.657 0-3.157.672-4.243 1.757L7 7l-7 .005V0l2.343 2.343zm11.315 11.312C12.21 15.105 10.21 16 8 16 3.92 16 .554 12.946.062 9h2.02C2.56 11.838 5.028 14 8 14c1.657 0 3.158-.672 4.244-1.758L9 9h7v6.996l-2.342-2.34z"/></svg>'
+        '<svg class="carbon-icon__svg carbon-icon__svg--sync" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M2.343 2.343C3.79.895 5.79 0 8 0c4.08 0 7.446 3.054 7.938 7h-2.02C13.44 4.162 10.972 2 8 2c-1.657 0-3.157.672-4.243 1.757L7 7l-7 .005V0l2.343 2.343zm11.315 11.312C12.21 15.105 10.21 16 8 16 3.92 16 .554 12.946.062 9h2.02C2.56 11.838 5.028 14 8 14c1.657 0 3.158-.672 4.244-1.758L9 9h7v6.996l-2.342-2.34z"/></svg>'
     };
   }
 
@@ -620,7 +620,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderProgressIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--progress" width="16" height="16" viewBox="0 0 16 16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--progress" width="16" height="16" viewBox="0 0 16 16">' +
           '<path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM3 7h2v2H3V7zm4 0h2v2H7V7zm4 0h2v2h-2V7z"/>' +
         '</svg>'
     };
@@ -635,7 +635,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderSubmittedIcon() {
     return {
       __html:
-      '<svg class="ui-icon__svg ui-icon__svg--submitted" width="16" height="16" viewBox="0 0 16 16">' +
+      '<svg class="carbon-icon__svg carbon-icon__svg--submitted" width="16" height="16" viewBox="0 0 16 16">' +
         '<path fill="currentColor" fill-rule="evenodd" d="M9 7.038H1.007c-.557 0-1.007.448-1.007 1 0 .556.45 1 1.007 1H9v4.5c0 .552.336.705.75.342l5.9-5.172c.413-.363.414-.954 0-1.318l-5.9-5.192c-.413-.363-.75-.213-.75.338v4.502z"/>' +
       '</svg>'
     };
@@ -650,7 +650,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderCompletedIcon() {
     return {
       __html:
-        '<svg class="ui-icon__svg ui-icon__svg--completed" width="16" height="16" viewBox="0 0 16 16">' +
+        '<svg class="carbon-icon__svg carbon-icon__svg--completed" width="16" height="16" viewBox="0 0 16 16">' +
           '<path fill="currentColor" fill-rule="evenodd" d="M2.9 8.3c-.404-.396-1.043-.4-1.445-.024L.318 9.5c-.407.38-.41.998-.017 1.39l3.92 3.803c.4.398 1.04.405 1.447.03l10.1-9.98c.312-.368.308-.9-.012-1.255L14.63 2.262c-.395-.36-1.05-.35-1.443.04L5.03 10.52 2.9 8.3z"/>' +
         '</svg>'
     };
@@ -665,7 +665,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderPrintIcon() {
     return {
       __html:
-      '<svg class="ui-icon__svg ui-icon__svg--print" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M14 12h1c.555 0 1-.446 1-.997V4.997C16 4.453 15.552 4 15 4H1c-.555 0-1 .446-1 .997v6.006C0 11.547.448 12 1 12h1v3.01c0 .54.45.99 1.002.99h9.996c.546 0 1.002-.444 1.002-.99V12zM3 0h10v3H3V0zm9 6h2v1h-2V6zm-8 4h8v4H4v-4z"/></svg>'
+      '<svg class="carbon-icon__svg carbon-icon__svg--print" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M14 12h1c.555 0 1-.446 1-.997V4.997C16 4.453 15.552 4 15 4H1c-.555 0-1 .446-1 .997v6.006C0 11.547.448 12 1 12h1v3.01c0 .54.45.99 1.002.99h9.996c.546 0 1.002-.444 1.002-.99V12zM3 0h10v3H3V0zm9 6h2v1h-2V6zm-8 4h8v4H4v-4z"/></svg>'
     };
   }
 
@@ -678,7 +678,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderPdfIcon() {
     return {
       __html:
-      '<svg class="ui-icon__svg ui-icon__svg--pdf" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M15 1c0-.552-.456-1-.995-1H5L1 4v10.998C1 15.55 1.45 16 2.007 16h11.986C14.55 16 15 15.555 15 15V1zM4 8h8v1H4V8zm0-3h8v1H4V5zm0 6h8v1H4v-1z"/></svg>'
+      '<svg class="carbon-icon__svg carbon-icon__svg--pdf" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M15 1c0-.552-.456-1-.995-1H5L1 4v10.998C1 15.55 1.45 16 2.007 16h11.986C14.55 16 15 15.555 15 15V1zM4 8h8v1H4V8zm0-3h8v1H4V5zm0 6h8v1H4v-1z"/></svg>'
     };
   }
 
@@ -691,7 +691,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderCsvIcon() {
     return {
       __html:
-      '<svg class="ui-icon__svg ui-icon__svg--csv" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M1 1c0-.552.45-1 1.007-1h11.986C14.55 0 15 .445 15 1v14c0 .552-.45 1-1.007 1H2.007C1.45 16 1 15.555 1 15V1zm2 3h3V2H3v2zm0 3h3V5H3v2zm0 7h3V8H3v6zM7 4h6V2H7v2zm0 3h6V5H7v2zm0 7h6V8H7v6z"/></svg>'
+      '<svg class="carbon-icon__svg carbon-icon__svg--csv" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M1 1c0-.552.45-1 1.007-1h11.986C14.55 0 15 .445 15 1v14c0 .552-.45 1-1.007 1H2.007C1.45 16 1 15.555 1 15V1zm2 3h3V2H3v2zm0 3h3V5H3v2zm0 7h3V8H3v6zM7 4h6V2H7v2zm0 3h6V5H7v2zm0 7h6V8H7v6z"/></svg>'
     };
   }
 
@@ -704,7 +704,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   get renderMessageIcon() {
     return {
       __html:
-      '<svg class="ui-icon__svg ui-icon__svg--message" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M0 3.002C0 2.45.445 2 1 2h14c.552 0 1 .456 1 1.002v9.996C16 13.55 15.555 14 15 14H1c-.552 0-1-.456-1-1.002V3.002zM0 4l7.067 2.832c.515.207 1.34.21 1.866 0L16 4v2L8.946 8.844c-.514.207-1.34.21-1.85.006L0 6V4z"/></svg>'
+      '<svg class="carbon-icon__svg carbon-icon__svg--message" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M0 3.002C0 2.45.445 2 1 2h14c.552 0 1 .456 1 1.002v9.996C16 13.55 15.555 14 15 14H1c-.552 0-1-.456-1-1.002V3.002zM0 4l7.067 2.832c.515.207 1.34.21 1.866 0L16 4v2L8.946 8.844c-.514.207-1.34.21-1.85.006L0 6V4z"/></svg>'
     };
   }
 });

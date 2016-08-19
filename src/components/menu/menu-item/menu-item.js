@@ -82,13 +82,13 @@ class MenuItem extends React.Component {
 
     // if it does have a submenu, render the following:
     let submenuClasses = classNames(
-      "ui-menu-item__submenu",
-      `ui-menu-item__submenu--${this.props.submenuDirection}`
+      "carbon-menu-item__submenu",
+      `carbon-menu-item__submenu--${this.props.submenuDirection}`
     );
 
     return (
       <div>
-        <MenuItem className="ui-menu-item__submenu-title" href={ this.props.href } to={ this.props.to }>
+        <MenuItem className="carbon-menu-item__submenu-title" href={ this.props.href } to={ this.props.to }>
           { this.props.submenu }
         </MenuItem>
 
@@ -107,12 +107,12 @@ class MenuItem extends React.Component {
    */
   get classes() {
     return classNames(
-      "ui-menu-item",
+      "carbon-menu-item",
       this.props.className, {
-        ["ui-menu-item--has-link"]: this.props.href || this.props.to,
-        ["ui-menu-item--has-submenu"]: this.props.submenu,
-        ["ui-menu-item--selected"]: this.props.selected,
-        ["ui-menu-item--divide"]: this.props.divide
+        ["carbon-menu-item--has-link"]: this.props.href || this.props.to,
+        ["carbon-menu-item--has-submenu"]: this.props.submenu,
+        ["carbon-menu-item--selected"]: this.props.selected,
+        ["carbon-menu-item--divide"]: this.props.divide
       }
     );
   }

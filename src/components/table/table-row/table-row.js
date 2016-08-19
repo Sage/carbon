@@ -211,10 +211,10 @@ class TableRow extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-table-row',
+      'carbon-table-row',
       this.props.className, {
-        'ui-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
-        'ui-table-row--selected': this.state.selected || this.state.highlighted
+        'carbon-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
+        'carbon-table-row--selected': this.state.selected || this.state.highlighted
       }
     );
   }
@@ -258,7 +258,7 @@ class TableRow extends React.Component {
     let cell = this.isHeader ? TableHeader : TableCell;
 
     return React.createElement(cell, {
-      key: "select", className: "ui-table-cell--select"
+      key: "select", className: "carbon-table-cell--select"
     }, this.multiSelect);
   }
 

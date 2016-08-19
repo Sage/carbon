@@ -139,11 +139,11 @@ describe('Tabs', () => {
       spyOn(instance, 'handleTabClick');
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
 
-      expect(secondTab.classList.contains('ui-tabs__headers__header--selected')).toEqual(false);
+      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toEqual(false);
 
       TestUtils.Simulate.click(secondTab);
 
-      expect(secondTab.classList.contains('ui-tabs__headers__header--selected')).toEqual(true);
+      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toEqual(true);
     });
 
     it('sets the location', () => {
@@ -179,7 +179,7 @@ describe('Tabs', () => {
 
   describe('mainClasses', () => {
     it('returns the main class for the component', () => {
-      expect(instance.mainClasses).toEqual('ui-tabs');
+      expect(instance.mainClasses).toEqual('carbon-tabs');
     });
 
     describe('when passing custom classNames', () => {
@@ -192,15 +192,15 @@ describe('Tabs', () => {
             </Tab>
           </Tabs>);
 
-        expect(instance.mainClasses).toEqual('ui-tabs 1tab');
+        expect(instance.mainClasses).toEqual('carbon-tabs 1tab');
       });
     });
   });
 
   describe('tabHeaderClasses', () => {
-    it('adds a ui-tabs__header class to the tab', () => {
+    it('adds a carbon-tabs__header class to the tab', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.classList.contains('ui-tabs__headers__header')).toEqual(true);
+      expect(secondTab.classList.contains('carbon-tabs__headers__header')).toEqual(true);
     });
 
     it('adds the className included in the props to the tab', () => {
@@ -216,13 +216,13 @@ describe('Tabs', () => {
     
     it('does not addsa selected class to the header', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.classList.contains('ui-tabs__headers__header--selected')).toEqual(false);
+      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toEqual(false);
     });
 
     describe('when tab is selected tab', () => {
       it('adds a selected class to the header', () => {
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[0];
-        expect(secondTab.classList.contains('ui-tabs__headers__header--selected')).toEqual(true);
+        expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toEqual(true);
       });
     });
 
@@ -230,7 +230,7 @@ describe('Tabs', () => {
       it('adds a error class to the header', () => {
         instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('ui-tabs__headers__header headerClass2 ui-tabs__headers__header--error');
+        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--error');
       });
     });
   });
@@ -250,14 +250,14 @@ describe('Tabs', () => {
 
     describe('when passed a null child', () => {
       it('ignores the null child', () => {
-        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'ui-tabs__headers__header')
+        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'carbon-tabs__headers__header')
         expect(headers.length).toEqual(1);
       });
     });
 
     describe('when there is only one child', () => {
       it('renders a single header', () => {
-        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'ui-tabs__headers__header')
+        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'carbon-tabs__headers__header')
         expect(headers.length).toEqual(1);
       });
     });
@@ -273,7 +273,7 @@ describe('Tabs', () => {
         );
 
         let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
-        expect(headers.className).toEqual('ui-tabs__headers ui-tabs__headers--align-right');
+        expect(headers.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-right');
       });
     });
   });
@@ -300,7 +300,7 @@ describe('Tabs', () => {
     });
 
     it('adds a class of selected to the tab', () => {
-      expect(instance.visibleTab.props.className).toEqual('ui-tab--selected');
+      expect(instance.visibleTab.props.className).toEqual('carbon-tab--selected');
     });
   });
 
@@ -311,7 +311,7 @@ describe('Tabs', () => {
       });
 
       it('adds a selected class to the visible tab', () => {
-        expect(instance.tabs[0].props.className).toEqual('ui-tab--selected');
+        expect(instance.tabs[0].props.className).toEqual('carbon-tab--selected');
       });
 
       it('adds a hidden class to all other tabs', () => {
@@ -320,7 +320,7 @@ describe('Tabs', () => {
 
       describe('when passed a null child', () => {
         it('ignores the null child', () => {
-          let tabs = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'ui-tab')
+          let tabs = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'carbon-tab')
           expect(tabs.length).toEqual(1);
         });
       });
@@ -346,7 +346,7 @@ describe('Tabs', () => {
 
     describe('when there is one child', () => {
       it('renders the only child', () => {
-        let tabs = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'ui-tab')
+        let tabs = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'carbon-tab')
         expect(tabs.length).toEqual(1);
       });
     });
@@ -355,13 +355,13 @@ describe('Tabs', () => {
   describe('render', () => {
     it('creates a parent div for the component', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(div.className).toEqual('ui-tabs');
+      expect(div.className).toEqual('carbon-tabs');
     });
 
     it('renders the tab headers', () => {
       let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
       let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
-      expect(list.className).toEqual('ui-tabs__headers ui-tabs__headers--align-left');
+      expect(list.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-left');
       expect(items.length).toEqual(3);
     });
   });

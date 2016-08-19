@@ -149,7 +149,7 @@ describe('Dialog', () => {
 
       it('sets a dialog header', () => {
         let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
-        expect(header.classList[0]).toEqual('ui-dialog__title');
+        expect(header.classList[0]).toEqual('carbon-dialog__title');
         expect(header.textContent).toEqual('Dialog title');
       });
     });
@@ -172,7 +172,7 @@ describe('Dialog', () => {
 
       it('sets a dialog header', () => {
         let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
-        expect(header.classList[0]).toEqual('ui-dialog__title');
+        expect(header.classList[0]).toEqual('carbon-dialog__title');
         expect(header.textContent).toEqual('Row1Row2');
       });
     });
@@ -195,7 +195,7 @@ describe('Dialog', () => {
 
   describe('dialogTitleClasses', () => {
     it('returns the class for the dialog title', () => {
-      expect(instance.dialogTitleClasses).toEqual('ui-dialog__title');
+      expect(instance.dialogTitleClasses).toEqual('carbon-dialog__title');
     });
   });
 
@@ -216,16 +216,16 @@ describe('Dialog', () => {
 
       it('renders a parent div with mainClasses attached', () => {
         let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(dialogNode.className).toEqual('ui-dialog foo');
+        expect(dialogNode.className).toEqual('carbon-dialog foo');
       });
 
       it('renders the dialog', () => {
         expect(instance._dialog).toBeTruthy();
-        expect(instance._dialog.classList[0]).toEqual('ui-dialog__dialog');
+        expect(instance._dialog.classList[0]).toEqual('carbon-dialog__dialog');
       });
 
       it('closes when the exit icon is click', () => {
-        let closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dialog__close');
+        let closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dialog__close');
         TestUtils.Simulate.click(closeIcon);
         expect(onCancel).toHaveBeenCalled();
       });
@@ -244,7 +244,7 @@ describe('Dialog', () => {
               size='small' />
           );
 
-          expect(instance._dialog.classList[1]).toEqual('ui-dialog__dialog--small');
+          expect(instance._dialog.classList[1]).toEqual('carbon-dialog__dialog--small');
         });
       });
     });
@@ -255,7 +255,7 @@ describe('Dialog', () => {
           <Dialog onCancel={ onCancel } />
         );
         let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(dialogNode.classList[0]).toEqual('ui-dialog');
+        expect(dialogNode.classList[0]).toEqual('carbon-dialog');
       });
     });
   });

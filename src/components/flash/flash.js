@@ -129,19 +129,19 @@ class Flash extends React.Component {
   get flashHTML() {
     let contents = [];
 
-    contents.push(<Icon className='ui-flash__icon' type={ this.iconType } key="icon" />);
+    contents.push(<Icon className='carbon-flash__icon' type={ this.iconType } key="icon" />);
 
-    contents.push(<div className='ui-flash__message' key='message'>
+    contents.push(<div className='carbon-flash__message' key='message'>
                     { this.props.message }
                   </div>);
 
     if (!this.props.timeout) {
-      contents.push(<div className='ui-flash__close-icon' onClick={ this.props.onDismiss } key='close'>
+      contents.push(<div className='carbon-flash__close-icon' onClick={ this.props.onDismiss } key='close'>
                       <Icon type='close' />
                     </div>);
     }
 
-    return <div className='ui-flash__content'>
+    return <div className='carbon-flash__content'>
              { contents }
            </div>;
   }
@@ -154,7 +154,7 @@ class Flash extends React.Component {
    */
   get sliderHTML() {
     return (
-      <div className='ui-flash__slider' key='slider'></div>
+      <div className='carbon-flash__slider' key='slider'></div>
     );
   }
 
@@ -168,9 +168,9 @@ class Flash extends React.Component {
     let flashHTML, sliderHTML, mainClasses;
 
     mainClasses = classNames(
-      'ui-flash',
+      'carbon-flash',
       this.props.className,
-      `ui-flash--${this.props.as}`
+      `carbon-flash--${this.props.as}`
     );
 
     if (this.props.open) {
@@ -181,12 +181,12 @@ class Flash extends React.Component {
     return (
       <div className={ mainClasses }>
         <ReactCSSTransitionGroup
-          transitionName="ui-flash__slider"
+          transitionName="carbon-flash__slider"
           transitionEnterTimeout={ 600 }
           transitionLeaveTimeout={ 600 }>
           { sliderHTML }
           <ReactCSSTransitionGroup
-            transitionName="ui-flash__content"
+            transitionName="carbon-flash__content"
             transitionEnterTimeout={ 800 }
             transitionLeaveTimeout={ 500 } >
             { flashHTML }

@@ -30,29 +30,29 @@ describe('DialogFullScreen', () => {
 
   describe('dialogClasses', () => {
     it('returns the full screen dialog class', () => {
-      expect(instance.dialogClasses).toEqual('ui-dialog-full-screen__dialog');
+      expect(instance.dialogClasses).toEqual('carbon-dialog-full-screen__dialog');
     });
   });
 
   describe('mainClasses', () => {
     it('returns the full screen dialog class and custom class', () => {
-      expect(instance.mainClasses).toEqual('foo ui-dialog-full-screen');
+      expect(instance.mainClasses).toEqual('foo carbon-dialog-full-screen');
     });
   });
 
   describe('modalHTML', () => {
     it('renders a parent div with mainClasses attached', () => {
       let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(dialogNode.className).toEqual('foo ui-dialog-full-screen');
+      expect(dialogNode.className).toEqual('foo carbon-dialog-full-screen');
     });
 
     it('renders the dialog', () => {
       expect(instance._dialog).toBeTruthy();
-      expect(instance._dialog.classList[0]).toEqual('ui-dialog-full-screen__dialog');
+      expect(instance._dialog.classList[0]).toEqual('carbon-dialog-full-screen__dialog');
     });
 
     it('closes when the exit icon is click', () => {
-      let closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dialog-full-screen__close');
+      let closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dialog-full-screen__close');
       TestUtils.Simulate.click(closeIcon);
       expect(onCancel).toHaveBeenCalled();
     });

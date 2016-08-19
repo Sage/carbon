@@ -13,7 +13,7 @@ class SubmenuBlock extends React.Component {
    */
   get classes() {
     return classNames(
-      "ui-submenu-block",
+      "carbon-submenu-block",
       this.props.className
     );
   }

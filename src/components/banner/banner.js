@@ -90,8 +90,8 @@ class Banner extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-banner',
-      `ui-banner--${this.props.as}`,
+      'carbon-banner',
+      `carbon-banner--${this.props.as}`,
       this.props.className
     );
   }
@@ -104,8 +104,8 @@ class Banner extends React.Component {
    */
   get buttonClasses() {
     return classNames(
-      'ui-banner__action',
-      `ui-banner__action--${this.props.as}`
+      'carbon-banner__action',
+      `carbon-banner__action--${this.props.as}`
     );
   }
 
@@ -117,15 +117,15 @@ class Banner extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
-        <div className="ui-banner__content">
-          <Icon className="ui-banner__icon" type={ this.props.as } />
+        <div className="carbon-banner__content">
+          <Icon className="carbon-banner__icon" type={ this.props.as } />
 
-          <div className='ui-banner__info'>
-            <div className='ui-banner__title'>
+          <div className='carbon-banner__info'>
+            <div className='carbon-banner__title'>
               { this.props.title }
             </div>
 
-            <div className='ui-banner__message'>
+            <div className='carbon-banner__message'>
               { this.props.message }
             </div>
           </div>

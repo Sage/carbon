@@ -119,7 +119,7 @@ class Carousel extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-carousel',
+      'carbon-carousel',
       this.props.className
     );
   }
@@ -131,8 +131,8 @@ class Carousel extends React.Component {
    */
   get nextClasses() {
     return classNames(
-      'ui-carousel__navigation',
-      'ui-carousel__next'
+      'carbon-carousel__navigation',
+      'carbon-carousel__next'
     );
   }
 
@@ -143,8 +143,8 @@ class Carousel extends React.Component {
    */
   get previousClasses() {
     return classNames(
-      'ui-carousel__navigation',
-      'ui-carousel__previous'
+      'carbon-carousel__navigation',
+      'carbon-carousel__previous'
     );
   }
 
@@ -155,8 +155,8 @@ class Carousel extends React.Component {
    */
   get previousButtonClasses() {
     return classNames(
-      'ui-carousel__buttons',
-      'ui-carousel__previous-button'
+      'carbon-carousel__buttons',
+      'carbon-carousel__previous-button'
     );
   }
 
@@ -167,8 +167,8 @@ class Carousel extends React.Component {
    */
   get nextButtonClasses() {
     return classNames(
-      'ui-carousel__buttons',
-      'ui-carousel__next-button'
+      'carbon-carousel__buttons',
+      'carbon-carousel__next-button'
     );
   }
 
@@ -179,7 +179,7 @@ class Carousel extends React.Component {
    */
   get slideSelectorClasses() {
     return classNames(
-      'ui-carousel__selector'
+      'carbon-carousel__selector'
     );
   }
 
@@ -236,8 +236,8 @@ class Carousel extends React.Component {
     let visibleSlide = compact(React.Children.toArray(this.props.children))[index];
 
     let additionalProps = {
-      className: classNames('ui-slide ui-slide--active', visibleSlide.props.className),
-      key: `ui-slide-${ index }`
+      className: classNames('carbon-slide carbon-slide--active', visibleSlide.props.className),
+      key: `carbon-slide-${ index }`
     };
 
     return React.cloneElement(visibleSlide, assign({}, visibleSlide.props, additionalProps));
@@ -253,10 +253,10 @@ class Carousel extends React.Component {
 
     for(let i = 0; i < this.numOfSlides; i++) {
       buttons.push(
-        <span className='ui-carousel__selector-inputs' key={ i }>
+        <span className='carbon-carousel__selector-inputs' key={ i }>
           <input
             disabled={ this.state.disabled }
-            className='ui-carousel__selector-input'
+            className='carbon-carousel__selector-input'
             name='carousel-slide'
             id={ `carousel-slide-${i}` }
             type='radio' value={ i }
@@ -264,7 +264,7 @@ class Carousel extends React.Component {
             checked={ this.state.selectedSlideIndex === i }
           />
           <label
-            className='ui-carousel__selector-label'
+            className='carbon-carousel__selector-label'
             htmlFor={ `carousel-slide-${i}` }
           />
         </span>
@@ -283,11 +283,11 @@ class Carousel extends React.Component {
     return (
       <div className={ this.mainClasses }>
 
-        <div className='ui-carousel__content'>
+        <div className='carbon-carousel__content'>
 
           <div className={ this.previousClasses }>
             <button { ...this.previousButtonProps }>
-              <Icon className='ui-carousel__previous-arrow' type='dropdown' />
+              <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
             </button>
           </div>
 
@@ -301,7 +301,7 @@ class Carousel extends React.Component {
 
           <div className={ this.nextClasses }>
             <button { ...this.nextButtonProps }>
-              <Icon className='ui-carousel__next-arrow' type='dropdown' />
+              <Icon className='carbon-carousel__next-arrow' type='dropdown' />
             </button>
           </div>
         </div>

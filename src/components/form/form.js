@@ -392,15 +392,15 @@ class Form extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-form',
+      'carbon-form',
       this.props.className
     );
   }
 
   get buttonClasses() {
     return classNames(
-      'ui-form__buttons',
-      `ui-form__buttons--${ this.props.buttonAlign }`
+      'carbon-form__buttons',
+      `carbon-form__buttons--${ this.props.buttonAlign }`
     );
   }
 
@@ -411,7 +411,7 @@ class Form extends React.Component {
    * @return {Object} JSX cancel button
    */
   get cancelButton() {
-    let cancelClasses = "ui-form__cancel";
+    let cancelClasses = "carbon-form__cancel";
 
     return (<div className={ cancelClasses }>
       <Button type='button' onClick={ this.cancelForm } >
@@ -422,7 +422,7 @@ class Form extends React.Component {
 
   get additionalActions() {
     return (
-      <div className='ui-form__additional-actions' >
+      <div className='carbon-form__additional-actions' >
         { this.props.additionalActions }
       </div>
     );
@@ -437,9 +437,9 @@ class Form extends React.Component {
     let errorCount;
 
     let saveClasses = classNames(
-      "ui-form__save",
+      "carbon-form__save",
         {
-          "ui-form__save--invalid": this.state.errorCount || this.state.warningCount
+          "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
         }
     );
 
@@ -447,7 +447,7 @@ class Form extends React.Component {
       // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
       errorCount = (
         <span
-          className="ui-form__summary"
+          className="carbon-form__summary"
           dangerouslySetInnerHTML={ renderMessage(this.state.errorCount, this.state.warningCount) }
         />
       );
