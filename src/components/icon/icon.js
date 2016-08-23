@@ -730,7 +730,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @method renderPaymentIcon
    * @return {Object} payment svg
    */
-   get renderPaymentIcon() {
+  get renderPaymentIcon() {
     return {
       __html: '<svg class="ui-icon__svg ui-icon__svg--payment" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#9DA0A7" fill-rule="evenodd" d="M16 5V3.002C16 2.456 15.552 2 15 2H1c-.555 0-1 .45-1 1.002V5h16zm0 2v5.998C16 13.55 15.555 14 15 14H1c-.552 0-1-.456-1-1.002V7h16z"/></svg>'
     };
