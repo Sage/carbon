@@ -19,6 +19,7 @@ Please ensure you check your application carefully to update any references to t
 * Show edit pod can now be controlled via props
 * makes heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
 * allows ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
+* Added a 'Payment' icon and a 'Key' icon.
 
 # 0.21.2
 
