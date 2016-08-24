@@ -262,6 +262,22 @@ describe('Icon', () => {
       svg = span.children[0];
       expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--message");
     });
+
+    it('calls the render key icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='key' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--key");
+    });
+
+    it('calls the render payment icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='payment' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--payment");
+    });
   });
 
   describe('success', () => {
