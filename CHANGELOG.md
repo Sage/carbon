@@ -17,8 +17,10 @@ Please ensure you check your application carefully to update any references to t
 
 ## Minor Improvements
 * Show edit pod can now be controlled via props
-* makes heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
-* allows ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
+* Make heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
+* Allow ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
+* Added a 'Payment' icon and a 'Key' icon.TestView
+* ShowEditPod now animates between the two states
 
 # 0.21.2
 
@@ -48,8 +50,8 @@ Please ensure you check your application carefully to update any references to t
 * Form now accepts a `onSubmit` prop which is only called when the form is valid.
 * AppWrapper now has a minimum width of 958px.
 * SUG-19: Change padding for the MessageComponent when transparent and non dismissable. When transparent is applied the padding reduces to 2px, but if it's dismissable it enlarges to it's original to prevent overlap.
-* allows `Link` component to handle `mailto:` as an href prefix, previously the `to:` would have been stripped from the string
-* fix error count, when input get disabled
+* Allows `Link` component to handle `mailto:` as an href prefix, previously the `to:` would have been stripped from the string
+* Fix error count, when input gets disabled
 
 # 0.20.0
 

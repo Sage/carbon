@@ -1,14 +1,14 @@
 @import "tables";
 @import "colors";
 
-.ui-table-cell,
-.ui-table-header {
-  &:not(.ui-table-cell--select):first-child {
+.carbon-table-cell,
+.carbon-table-header {
+  &:not(.carbon-table-cell--select):first-child {
     padding-left: 15px;
   }
 }
 
-.ui-table-cell {
+.carbon-table-cell {
   background-color: $row-alt-color;
   border-bottom: 1px solid $table-border-color;
   border-left: none;
@@ -20,7 +20,7 @@
   vertical-align: middle;
   white-space: nowrap;
 
-  .ui-table-row:first-child & {
+  .carbon-table-row:first-child & {
     &:first-child {
       border-radius: $tables__border-radius 0 0 0;
     }
@@ -30,7 +30,7 @@
     }
   }
 
-  .ui-table-row:last-child & {
+  .carbon-table-row:last-child & {
     border-bottom-color: transparent;
 
     &:first-child {
@@ -42,11 +42,11 @@
     }
   }
 
-  .ui-table-row:nth-child(odd) & {
+  .carbon-table-row:nth-child(odd) & {
     background-color: $white;
   }
 
-  .ui-table-row:hover & {
+  .carbon-table-row:hover & {
     background-color: $row-hover-color;
   }
 
@@ -58,17 +58,17 @@
   }
 }
 
-.ui-table-cell--select {
+.carbon-table-cell--select {
   text-align: center;
   width: 18px;
 
-  .ui-checkbox {
+  .carbon-checkbox {
     height: 15px;
     padding-top: 0;
   }
 }
 
-.ui-table-cell--action {
+.carbon-table-cell--action {
   width: 18px;
 
   .icon-delete:before {
@@ -84,14 +84,14 @@
   }
 }
 
-.ui-table-cell--align-left {
+.carbon-table-cell--align-left {
   text-align: left;
 }
 
-.ui-table-cell--align-right {
+.carbon-table-cell--align-right {
   text-align: right;
 }
 
-.ui-table-cell--align-center {
+.carbon-table-cell--align-center {
   text-align: center;
 }
