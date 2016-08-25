@@ -22,6 +22,11 @@ Please ensure you check your application carefully to update any references to t
 * Added a 'Payment' icon and a 'Key' icon.
 * ShowEditPod now animates between the two states
 
+## New Icons
+
+* Processing New
+* Error New
+
 # 0.21.2
 
 ## Minor Improvements
@@ -1211,8 +1216,3 @@ Utils included:
 * Route Helper (component to provide base route functionality)
 * Store Helper (base class for base store functionality)
 * View Helper (component to provide base view functionality)
-
-## New Icons
-
-* Processing New
-* Error New
