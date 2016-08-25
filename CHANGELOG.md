@@ -1211,3 +1211,8 @@ Utils included:
 * Route Helper (component to provide base route functionality)
 * Store Helper (base class for base store functionality)
 * View Helper (component to provide base view functionality)
+
+## New Icons
+
+* Processing New
+* Error New
