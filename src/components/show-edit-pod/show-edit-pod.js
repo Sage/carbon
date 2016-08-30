@@ -4,6 +4,7 @@ import Form from './../form';
 import Link from './../link';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class ShowEditPod extends React.Component {
 
@@ -59,6 +60,14 @@ class ShowEditPod extends React.Component {
      */
     title: React.PropTypes.string,
 
+    /**
+     * Transition Name, Override for custom state transition
+     *
+     * @property transitionName
+     * @type {String}
+     * @default 'carbon-show-edit-pod__transition'
+     */
+
     // Props passed to Form
     afterFormValidation: React.PropTypes.func,
     beforeFormValidation: React.PropTypes.func,
@@ -78,7 +87,8 @@ class ShowEditPod extends React.Component {
 
   static defaultProps = {
     as: 'transparent',
-    border: false
+    border: false,
+    transitionName: 'carbon-show-edit-pod__transition'
   }
 
   state = {
@@ -194,22 +204,20 @@ class ShowEditPod extends React.Component {
    */
   get editContent() {
     return (
-      <div>
-        <Form
-          afterFormValidation={ this.onSaveEditForm }
-          beforeFormValidation={ this.beforeFormValidation }
-          buttonAlign={ 'left' }
-          cancel={ this.props.cancel }
-          cancelText={ this.props.cancelText }
-          onCancel={ this.onCancelEditForm }
-          saveText={ this.props.saveText }
-          saving={ this.props.saving }
-          validateOnMount={ this.props.validateOnMount }
-          additionalActions={ this.props.onDelete ? this.deleteButton : null }
-        >
-          { this.props.editFields }
-        </Form>
-      </div>
+      <Form
+        afterFormValidation={ this.onSaveEditForm }
+        beforeFormValidation={ this.beforeFormValidation }
+        buttonAlign={ 'left' }
+        cancel={ this.props.cancel }
+        cancelText={ this.props.cancelText }
+        onCancel={ this.onCancelEditForm }
+        saveText={ this.props.saveText }
+        saving={ this.props.saving }
+        validateOnMount={ this.props.validateOnMount }
+        additionalActions={ this.props.onDelete ? this.deleteButton : null }
+      >
+        { this.props.editFields }
+      </Form>
     );
   }
 
@@ -219,7 +227,9 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get content() {
-    return this[this.control].editing ? this.editContent : this.props.children;
+    return this.state.editing ?
+      <div key='edit'>{ this.editContent }</div> :
+      <div key='show'>{ this.props.children }</div>;
   }
 
   /**
@@ -267,7 +277,13 @@ class ShowEditPod extends React.Component {
   render() {
     return (
       <Pod className={ this.mainClasses } { ...this.podProps }>
+        <ReactCSSTransitionGroup
+          transitionName={ this.props.transitionName }
+          transitionEnterTimeout={ 300 }
+          transitionLeaveTimeout={ 50 }
+        >
         { this.content }
+        </ReactCSSTransitionGroup>
       </Pod>
     );
   }

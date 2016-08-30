@@ -1,24 +1,24 @@
 @import "colors";
 
-.ui-submenu-block {
+.carbon-submenu-block {
   padding: 5px 0 !important;
   margin: 10px 0 5px;
 
-  .ui-menu--primary & {
+  .carbon-menu--primary & {
     background-color: $grey-dark-blue-10;
   }
 
-  .ui-menu--secondary & {
+  .carbon-menu--secondary & {
     background-color: $grey-dark-blue-90;
   }
 
-  .ui-menu-item.ui-link__anchor,
-  .ui-menu-item {
-    .ui-menu--primary & {
+  .carbon-menu-item.carbon-link__anchor,
+  .carbon-menu-item {
+    .carbon-menu--primary & {
       background-color: $grey-dark-blue-10;
     }
 
-    .ui-menu--secondary & {
+    .carbon-menu--secondary & {
       background-color: $grey-dark-blue-90;
     }
   }
