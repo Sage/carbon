@@ -1,3 +1,9 @@
+# 0.23.0
+
+## Minor Improvements
+
+* Pod component now accepts a alignTitle prop.
+
 # 0.22.0
 
 ## Breaking Change - CSS Naming
@@ -16,6 +22,7 @@
 Please ensure you check your application carefully to update any references to these styles when upgrading.
 
 ## Minor Improvements
+
 * Show edit pod can now be controlled via props
 * Make heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
 * Allow ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon

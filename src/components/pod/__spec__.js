@@ -37,6 +37,14 @@ describe('Pod', () => {
         expect(header.textContent).toEqual('Title');
       });
 
+      describe('when alignTitle prop is passed', () => {
+        it('adds a align class', () => {
+          instance = TestUtils.renderIntoDocument(<Pod title='Title' alignTitle='center' />);
+          let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
+          expect(header.className).toMatch('carbon-pod__header--center');
+        });
+      });
+
       describe('when pod is collapsible', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(<Pod title='Title' collapsed={true} />);
@@ -49,7 +57,7 @@ describe('Pod', () => {
 
         it('Adds a additonal class header', () => {
           let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
-          expect(header.className).toEqual('carbon-pod__header unselectable carbon-pod__header--true');
+          expect(header.className).toEqual('carbon-pod__header carbon-pod__header--left unselectable carbon-pod__header--true');
         });
 
         it('Adds a onClick handler to the header', () => {
@@ -152,7 +160,7 @@ describe('Pod', () => {
         let footer = instance.footer;
         expect(footer.props.className).toEqual(instance.footerClasses);
       });
-    });   
+    });
   });
 
   describe('edit', () => {
