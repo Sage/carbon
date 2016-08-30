@@ -91,6 +91,10 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         return this.renderSubmittedIcon;
       case 'completed':
         return this.renderCompletedIcon;
+      case 'processing_new':
+        return this.renderProcessingNewIcon;
+      case 'error_new':
+        return this.renderErrorNewIcon;
       case 'print':
         return this.renderPrintIcon;
       case 'pdf':
@@ -656,6 +660,43 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
       __html:
         '<svg class="carbon-icon__svg carbon-icon__svg--completed" width="16" height="16" viewBox="0 0 16 16">' +
           '<path fill="currentColor" fill-rule="evenodd" d="M2.9 8.3c-.404-.396-1.043-.4-1.445-.024L.318 9.5c-.407.38-.41.998-.017 1.39l3.92 3.803c.4.398 1.04.405 1.447.03l10.1-9.98c.312-.368.308-.9-.012-1.255L14.63 2.262c-.395-.36-1.05-.35-1.443.04L5.03 10.52 2.9 8.3z"/>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the new 'processing' icon
+   *
+   * @method renderProcessingNewIcon
+   * @return {Object} processing_new icon svg
+   */
+  get renderProcessingNewIcon() {
+    return {
+      __html:
+        '<svg class="carbon-icon__svg carbon-icon__svg--processing_new" width="16" height="16" viewBox="0 0 16 16">' +
+          '<defs>' +
+            '<path id="a" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-4c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"/>' +
+            '<mask id="b" width="16" height="16" x="0" y="0" fill="#fff"> <use xlink:href="#a"/></mask>' +
+          '</defs>' + '' +
+          '<g fill="none" fill-rule="evenodd">' +
+            '<use fill="#FFF" fill-opacity=".2" stroke="#9DA0A7" stroke-width="2" mask="url(#b)" xlink:href="#a"/>' +
+            '<path fill="currentColor" fill-rule="evenodd" d="M3.656 8H.254c.132 4.165 3.55 7.5 7.746 7.5 4.28 0 7.75-3.47 7.75-7.75C15.75 3.47 12.28 0 8 0v3.44h.027c2.444 0 4.303 1.625 4.303 4.3 0 2.676-1.628 4.63-4.303 4.63-2.552 0-4.222-1.875-4.37-4.37z"/>' +
+          '</g>' +
+        '</svg>'
+    };
+  }
+
+  /**
+   * Returns the 'error_new' icon
+   *
+   * @method renderErrorNewIcon
+   * @return {Object} error_new icon svg
+   */
+  get renderErrorNewIcon() {
+    return {
+      __html:
+        '<svg class="carbon-icon__svg carbon-icon__svg--error_new" width="16" height="16" viewBox="0 0 16 16">' +
+          '<path fill="currentColor" fill-rule="evenodd" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM7.038 2.983h2v7h-2v-7zm0 8h2v2h-2v-2z"/>' +
         '</svg>'
     };
   }

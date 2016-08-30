@@ -231,6 +231,22 @@ describe('Icon', () => {
       expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--completed");
     });
 
+    it('calls the render processing_new icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='processing_new' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--processing_new");
+    });
+
+    it('calls the render error_new icon method', () => {
+      instance = TestUtils.renderIntoDocument(<Icon type='error_new' />);
+      instance.renderIcon;
+      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+      svg = span.children[0];
+      expect(svg.getAttribute('class')).toEqual("carbon-icon__svg carbon-icon__svg--error_new");
+    });
+
     it('calls the render pdf icon method', () => {
       instance = TestUtils.renderIntoDocument(<Icon type='pdf' />);
       instance.renderIcon;

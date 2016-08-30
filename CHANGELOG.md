@@ -29,6 +29,11 @@ Please ensure you check your application carefully to update any references to t
 * Added a 'Payment' icon and a 'Key' icon.
 * ShowEditPod now animates between the two states
 
+## New Icons
+
+* Processing New
+* Error New
+
 # 0.21.2
 
 ## Minor Improvements
