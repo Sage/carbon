@@ -4,6 +4,10 @@
 
 * Pod component now accepts a alignTitle prop.
 
+## Bug Fixes
+
+* Input validation decorator was not re-checking validity for warnings
+
 # 0.22.0
 
 ## Breaking Change - CSS Naming
