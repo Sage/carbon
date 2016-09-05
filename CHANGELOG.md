@@ -3,6 +3,7 @@
 ## Minor Improvements
 
 * Pod component now accepts a alignTitle prop.
+* Tooltip Decorator now protects against no target or tooltip rendered in the DOM 
 
 # 0.22.0
 
