@@ -211,7 +211,7 @@ class Tabs extends React.Component {
   * @param {object} nextProps
   */
   componentWillReceiveProps(nextProps) {
-    if (this.props.selectedTabId != nextProps.selectedTabId) {
+    if (this.props.selectedTabId !== nextProps.selectedTabId) {
       this._window.location = `#${nextProps.selectedTabId}`;
       this.setState({ selectedTabId: nextProps.selectedTabId});
       if (this.props.onTabChange) {
