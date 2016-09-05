@@ -1,3 +1,9 @@
+# 0.22.1
+
+## Bug Fix
+
+* ShowEditPod shows edit content when controlled externally
+
 # 0.22.0
 
 ## Breaking Change - CSS Naming
