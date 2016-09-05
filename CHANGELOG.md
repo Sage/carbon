@@ -3,6 +3,7 @@
 ## Minor Improvements
 
 * Pod component now accepts a alignTitle prop.
+* Checkbox input now has `important` set on position.
 
 # 0.22.0
 
