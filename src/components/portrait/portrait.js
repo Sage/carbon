@@ -240,10 +240,10 @@ class Portrait extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-portrait',
-      'ui-portrait--image',
-      `ui-portrait--${ this.props.size }`,
-      `ui-portrait--${ this.props.shape }`,
+      'carbon-portrait',
+      'carbon-portrait--image',
+      `carbon-portrait--${ this.props.size }`,
+      `carbon-portrait--${ this.props.shape }`,
       this.props.className
     );
   }
@@ -260,7 +260,7 @@ class Portrait extends React.Component {
 
     return (
       <img
-        className="ui-portrait__img ui-portrait__initials"
+        className="carbon-portrait__img carbon-portrait__initials"
         src={ this.generateInitials }
         alt={ this.props.alt }
       />
@@ -276,7 +276,7 @@ class Portrait extends React.Component {
   get avatarImage() {
     return (
       <img
-        className="ui-portrait__img ui-portrait__avatar"
+        className="carbon-portrait__img carbon-portrait__avatar"
         src={ this.imgSrc }
         alt={ this.props.alt }
       />

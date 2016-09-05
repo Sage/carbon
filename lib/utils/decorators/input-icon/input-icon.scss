@@ -8,7 +8,7 @@
   }
 }
 
-.common-input__input:hover ~ label .ui-input-icon {
+.common-input__input:hover ~ label .carbon-input-icon {
   background-color: $blue;
   border-color: $blue;
   color: $white;
@@ -20,14 +20,14 @@
   };
 }
 
-.common-input__input:focus ~ label .ui-input-icon,
-.common-input__input:focus ~ label .ui-input-icon:hover {
+.common-input__input:focus ~ label .carbon-input-icon,
+.common-input__input:focus ~ label .carbon-input-icon:hover {
   background-color: $blue-dark;
   border-color: $blue-dark;
   color: $white;
 }
 
-.ui-icon.ui-input-icon {
+.carbon-icon.carbon-input-icon {
   $button-border-radius: $input-border-radius - 1;
   background-color: $grey-light;
   border-left: 1px solid $grey;

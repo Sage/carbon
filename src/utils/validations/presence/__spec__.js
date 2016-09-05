@@ -16,13 +16,18 @@ describe('Presence Validator', () => {
   });
 
   describe('Validate', () => {
-    it('returns true when an value is present', () => {
-      let value = 'foo'
+    it('returns true when a value is present', () => {
+      let value = 'foo bar'
       expect(new Validator().validate(value)).toBeTruthy();
     });
 
-    it('returns false when an id is NOT present', () => {
+    it('returns false when a value is NOT present', () => {
       let value = null
+      expect(new Validator().validate(value)).toBeFalsy();
+    });
+
+    it('returns false when a value consists only of spaces', () => {
+      let value = '    ';
       expect(new Validator().validate(value)).toBeFalsy();
     });
   });

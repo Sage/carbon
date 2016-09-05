@@ -14,18 +14,18 @@ describe('Content', () => {
 
   describe('render', () => {
     it('renders the title', () => {
-      let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-content__title');
+      let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-content__title');
       expect(div.textContent).toEqual('foo');
     });
 
     it('renders the body', () => {
-      let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-content__body');
+      let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-content__body');
       expect(div.textContent).toEqual('bar');
     });
 
     it('renders custom classes', () => {
-      let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-content');
-      expect(div.className).toEqual('ui-content foobar ui-content--primary');
+      let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-content');
+      expect(div.className).toEqual('carbon-content foobar carbon-content--primary');
     });
   });
 

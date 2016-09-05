@@ -162,7 +162,7 @@ describe('TableHeader', () => {
     it('renders a th with correct classes', () => {
       let th = TestUtils.findRenderedDOMComponentWithTag(instance, 'th');
       expect(th).toBeDefined();
-      expect(th.className).toEqual('ui-table-header foo ui-table-header--align-right');
+      expect(th.className).toEqual('carbon-table-header foo carbon-table-header--align-right');
     });
   });
 });

@@ -78,10 +78,11 @@ class Message extends React.Component {
    */
   get componentClasses() {
     return classNames(
-      'ui-message',
+      'carbon-message',
       this.props.className,
-      'ui-message--' + this.props.as,
-      { 'ui-message--transparent': this.props.transparent
+      'carbon-message--' + this.props.as,
+      { 'carbon-message--transparent': this.props.transparent,
+        'carbon-message--dismissable': this.props.onDismiss
     });
   }
 
@@ -92,7 +93,7 @@ class Message extends React.Component {
    */
   get dismissIcon() {
     return this.props.onDismiss ? (
-      <Icon className="ui-message__close" type="close" onClick={ this.props.onDismiss } />
+      <Icon className="carbon-message__close" type="close" onClick={ this.props.onDismiss } />
     ) : null;
   }
 
@@ -103,7 +104,7 @@ class Message extends React.Component {
   */
   get titleHTML() {
     return this.props.title ? (
-      <div className='ui-message__title'>
+      <div className='carbon-message__title'>
         { this.props.title }
       </div>
     ) : null;
@@ -117,12 +118,12 @@ class Message extends React.Component {
   get messageContent() {
     return this.props.open ? (
       <div className={ this.componentClasses }>
-        <div className="ui-message__type">
-          <Icon className="ui-message__type-icon" type={ this.props.as } />
+        <div className="carbon-message__type">
+          <Icon className="carbon-message__type-icon" type={ this.props.as } />
         </div>
-        <div className="ui-message__content">
+        <div className="carbon-message__content">
           { this.titleHTML }
-          <div className="ui-message__body">
+          <div className="carbon-message__body">
             { this.props.children }
           </div>
         </div>

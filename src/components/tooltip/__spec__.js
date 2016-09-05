@@ -42,31 +42,31 @@ describe('tooltip', () => {
 
     describe('default render', () => {
       it('renders a content div', () => {
-        expect(tooltip.classList[0]).toEqual('ui-tooltip');
+        expect(tooltip.classList[0]).toEqual('carbon-tooltip');
       });
 
       it('renders a pointer span', () => {
-        expect(tooltip.children[0].children[1].classList[0]).toEqual('ui-tooltip__pointer');
+        expect(tooltip.children[0].children[1].classList[0]).toEqual('carbon-tooltip__pointer');
       });
 
       it('aligns the pointer to center', () => {
-        expect(tooltip.classList[2]).toEqual('ui-tooltip--pointer-align-center');
+        expect(tooltip.classList[2]).toEqual('carbon-tooltip--pointer-align-center');
       });
 
       it('positions the pointer on the top', () => {
-        expect(tooltip.classList[1]).toEqual('ui-tooltip--position-top');
+        expect(tooltip.classList[1]).toEqual('carbon-tooltip--position-top');
       });
     });
 
     describe('when a prop of align is passed', () => {
       it('adds the appropriate class', () => {
-        expect(alignedTooltip.classList[2]).toEqual('ui-tooltip--pointer-align-left');
+        expect(alignedTooltip.classList[2]).toEqual('carbon-tooltip--pointer-align-left');
       });
     });
 
     describe('when a prop of position is passed', () => {
       it('adds the appropriate class', () => {
-        expect(positionedTooltip.classList[1]).toEqual('ui-tooltip--position-top');
+        expect(positionedTooltip.classList[1]).toEqual('carbon-tooltip--position-top');
       });
     });
   });

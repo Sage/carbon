@@ -1,24 +1,24 @@
 @import "colors";
 @import "general";
 
-.ui-navigation-bar {
+.carbon-navigation-bar {
   min-height: $app-navigation-height;
 
-  .ui-logo {
+  .carbon-logo {
     margin-right: 10px;
   }
 }
 
-.ui-navigation-bar--primary {
+.carbon-navigation-bar--primary {
   background-color: $white;
 }
 
-.ui-navigation-bar--secondary {
+.carbon-navigation-bar--secondary {
   background-color: $grey-dark-blue;
   color: $white;
 }
 
-.ui-navigation-bar__content > * {
+.carbon-navigation-bar__content > * {
   box-sizing: border-box;
   display: inline-block;
   height: $app-navigation-height;

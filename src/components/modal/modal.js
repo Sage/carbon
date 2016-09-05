@@ -153,7 +153,7 @@ class Modal extends React.Component {
     if (!this.props.enableBackgroundUI) {
       return (
         <div
-          className="ui-modal__background"
+          className="carbon-modal__background"
         />
       );
     }

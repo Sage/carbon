@@ -38,6 +38,10 @@ class ShowEditPodDemo extends React.Component {
   onSave = () => {
     AppActions.saveEditedContent('show_edit_pod')
   }
+  
+  onCancel = () => {
+    this.action('editing', { target: { value: false } });
+  }
 
   demoFieldProps = (key) => {
     return {
@@ -80,9 +84,10 @@ class ShowEditPodDemo extends React.Component {
         editFields={ editFields }
         afterFormValidation={ this.onSave }
         onEdit={ this.onEdit }
-        onCancel={ (() => {} ) }
+        onCancel={ this.onCancel }
         saveText='Save Address'
         onDelete={ onDelete }
+        editing={ this.value('editing') }
       >
         <Content title='Company Name'>
           { content }
@@ -115,6 +120,7 @@ class ShowEditPodDemo extends React.Component {
     html += '    onEdit={ this.onEdit }\n';
     html += '    onCancel={ this.onCancel }\n';
     html += '    saveText="Save Address"\n';
+    html += `    editing={ ${ this.value('editing') } }\n`;
 
     if (this.value('deletable')) {
       html += '    onDelete={ this.onDelete }\n';

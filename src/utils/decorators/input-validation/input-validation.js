@@ -113,7 +113,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     // if disabling the field, reset the validation on it
     if (nextProps.disabled && (!this.state.valid || this.state.warning)) {
-      this.setState({ valid: true, warning: false });
+      this._handleContentChange();
     }
 
     // if value changes and the input is currently invalid, re-assess its validity

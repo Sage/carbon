@@ -23,13 +23,13 @@ describe('Confirm', () => {
 
   describe('dialogTitleClasses', () => {
     it('return the dialog title class along with the confirm title class', () => {
-      expect(instance.dialogTitleClasses).toEqual('ui-dialog__title ui-confirm__title');
+      expect(instance.dialogTitleClasses).toEqual('carbon-dialog__title carbon-confirm__title');
     });
   });
 
   describe('dialogClasses', () => {
     it('returns the dialog class along with the  class', () => {
-      expect(instance.dialogClasses).toEqual('ui-dialog__dialog ui-dialog__dialog--xsmall ui-confirm__confirm');
+      expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--xsmall carbon-confirm__confirm');
     });
   });
 
@@ -38,12 +38,12 @@ describe('Confirm', () => {
 
     describe('yes button', () => {
       beforeEach(() => {
-        yes = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-confirm__button')[1]
+        yes = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-confirm__button')[1]
         yesButton = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
       });
 
       it('returns a yes confirm button', () => {
-        expect(yes.className).toEqual('ui-confirm__button ui-confirm__yes');
+        expect(yes.className).toEqual('carbon-confirm__button carbon-confirm__yes');
       });
 
       it('returns a default Yes label', () => {
@@ -59,12 +59,12 @@ describe('Confirm', () => {
 
     describe('no button', () => {
       beforeEach(() => {
-        no = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-confirm__button')[0]
+        no = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-confirm__button')[0]
         noButton = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
       });
 
       it('returns a no cancel button', () => {
-        expect(no.className).toEqual('ui-confirm__button ui-confirm__no');
+        expect(no.className).toEqual('carbon-confirm__button carbon-confirm__no');
       });
 
       it('returns a default No label', () => {
@@ -89,8 +89,8 @@ describe('Confirm', () => {
             cancelLabel='Cancel'
           />
         );
-        yesButton = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-confirm__yes')[0];
-        noButton = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-confirm__no')[0];
+        yesButton = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-confirm__yes')[0];
+        noButton = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-confirm__no')[0];
       });
 
       it('returns a custom confirm label', () => {

@@ -130,7 +130,8 @@ let data = ImmutableHelper.parseJSON({
   pod: {
     border: true,
     padding: "medium",
-    as: "primary"
+    as: "primary",
+    alignTitle: 'left'
   },
   profile: {
     name: "Andrew Tait",
@@ -159,6 +160,9 @@ let data = ImmutableHelper.parseJSON({
     columnData: [{}, {}, {}, {}]
   },
   show_edit_pod: {
+    // Comment out editing line if you want to
+    // control pod internally with state
+    editing: false,
     deletable: false,
     address_1: '21 North Park',
     address_2: '',
@@ -187,6 +191,10 @@ let data = ImmutableHelper.parseJSON({
   },
   text: {
     content: "Example of stylised text content."
+  },
+  textarea: {
+    characterLimit: 100,
+    enforceCharacterLimit: true
   },
   table: {
     current_page: "1",
@@ -277,12 +285,14 @@ class AppStore extends Store {
     this.data = this.data.setIn([action.component, 'edit'],
       this.data.get(action.component)
     );
+    this.data = this.data.setIn([action.component, 'editing'], true);
   }
 
   [AppConstants.APP_SAVE_EDITED_CONTENT](action) {
     this.data = this.data.set(action.component,
       this.data.getIn([action.component, 'edit'])
     );
+    this.data = this.data.setIn([action.component, 'editing'], false);
   }
 
   /**

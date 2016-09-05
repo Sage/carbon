@@ -39,9 +39,9 @@ class Filter extends React.Component {
    */
   get classes() {
     return classNames(
-      'ui-filter',
+      'carbon-filter',
       this.props.className,
-      `ui-filter--align-${this.props.align}`
+      `carbon-filter--align-${this.props.align}`
     );
   }
 

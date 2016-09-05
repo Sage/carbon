@@ -2,26 +2,26 @@
 @import 'general';
 @import 'input-field';
 
-.ui-banner {
+.carbon-banner {
   color: white;
   width: 100%;
 }
 
-.ui-banner__content {
+.carbon-banner__content {
   box-sizing: border-box;
   height: ($input-common-height - 2) + ($grid-margin * 2);
   margin: 0 auto;
   padding: $grid-margin ($grid-margin * 2);
 }
 
-.ui-banner__icon,
-.ui-banner__info,
-.ui-banner__action {
+.carbon-banner__icon,
+.carbon-banner__info,
+.carbon-banner__action {
   display: inline-block;
   position: relative;
 }
 
-.ui-banner__icon {
+.carbon-banner__icon {
   float: left;
   text-align: center;
   top: -5px;
@@ -33,26 +33,26 @@
   }
 }
 
-.ui-banner__title {
+.carbon-banner__title {
   font-weight: bold;
 }
 
-.ui-banner__info {
+.carbon-banner__info {
   margin-left: $grid-margin;
 }
 
-.ui-banner__action {
+.carbon-banner__action {
   background-color: white;
   border: none;
   float: right;
 }
 
 @mixin banner-theme($type, $color, $border, $background, $color-hover) {
-  .ui-banner--#{$type} {
+  .carbon-banner--#{$type} {
     background-color: $color;
   }
 
-  .ui-banner__action--#{$type} {
+  .carbon-banner__action--#{$type} {
     color: $color;
   }
 }

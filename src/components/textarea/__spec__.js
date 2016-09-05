@@ -25,6 +25,7 @@ describe('Textarea', () => {
       expandable={ true }
       cols={10}
       rows={10}
+      characterLimit='100'
       onChange={ spy }
     />);
   });
@@ -139,21 +140,36 @@ describe('Textarea', () => {
   });
 
   describe('mainClasses', () => {
-    it('returns ui-textarea and additional decorated classes', () => {
-      expect(baseInstance.mainClasses).toEqual('ui-textarea common-input');
+    it('returns carbon-textarea and additional decorated classes', () => {
+      expect(baseInstance.mainClasses).toEqual('carbon-textarea common-input');
     });
   });
 
   describe('inputClasses', () => {
-    it('returns ui-textarea__input and additional decorated classes', () => {
-      expect(baseInstance.inputClasses).toEqual('ui-textarea__input common-input__input');
+    it('returns carbon-textarea__input and additional decorated classes', () => {
+      expect(baseInstance.inputClasses).toEqual('carbon-textarea__input common-input__input');
+    });
+  });
+
+  describe('characterCount', () => {
+    describe('when characterLimit is set', () => {
+      it('returns character limit div', () => {
+        let counter = TestUtils.findRenderedDOMComponentWithClass(expandableInstance, 'carbon-textarea__character-limit');
+        expect(counter.textContent).toEqual('You have used 3 of 100 characters');
+      });
+    });
+
+    describe('when characterLimit is not set', () => {
+      it('returns null', () => {
+        expect(baseInstance.characterCount).toBeUndefined();
+      });
     });
   });
 
   describe('render', () => {
     it('renders a parent div', () => {
       let textareaNode = TestUtils.scryRenderedDOMComponentsWithTag(baseInstance, 'div')[0];
-      expect(textareaNode.classList[0]).toEqual('ui-textarea');
+      expect(textareaNode.classList[0]).toEqual('carbon-textarea');
     });
 
     it('renders with a visible input with rows and columns', () => {
@@ -174,17 +190,41 @@ describe('Textarea', () => {
       let errorDiv = TestUtils.findRenderedDOMComponentWithClass(baseInstance, 'common-input__message--error')
       expect(errorDiv.textContent).toEqual('Error')
     });
+
+    describe('when characterLimit is set', () => {
+      describe('and enforceCharacterLimit is true', () => {
+        it('sets a maxLength on the input', () => {
+          let input = TestUtils.findRenderedDOMComponentWithTag(expandableInstance, 'textarea')
+          expect(input.maxLength).toEqual(100);
+        });
+      });
+
+      describe('and enforceCharacterLimit is false', () => {
+        it('does not set a maxLength on the input', () => {
+          let instance = TestUtils.renderIntoDocument(
+            <Textarea
+              name="Dummy Area"
+              label={ 'Label' }
+              characterLimit='100'
+              enforceCharacterLimit={ false }
+            />
+          );
+          let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'textarea')
+          expect(input.maxLength).toEqual(-1);
+        });
+      });
+    });
   });
 
   describe('mainClasses', () => {
-    it('returns ui-textarea and additional decorated classes', () => {
-      expect(baseInstance.mainClasses).toEqual('ui-textarea common-input');
+    it('returns carbon-textarea and additional decorated classes', () => {
+      expect(baseInstance.mainClasses).toEqual('carbon-textarea common-input');
     });
   });
 
   describe('inputClasses', () => {
-    it('returns ui-textarea__input and additional decorated classes', () => {
-      expect(baseInstance.inputClasses).toEqual('ui-textarea__input common-input__input');
+    it('returns carbon-textarea__input and additional decorated classes', () => {
+      expect(baseInstance.inputClasses).toEqual('carbon-textarea__input common-input__input');
     });
   });
 
