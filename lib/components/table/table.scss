@@ -4,7 +4,7 @@
 .ui-table__wrapper {
   background-color: $row-alt-color;
   border-radius: $tables__border-radius;
-  border: 1px solid $border-color;
+  box-shadow: inset 0px 0px 0px 1px $border-color;
   overflow: visible;
 }
 
