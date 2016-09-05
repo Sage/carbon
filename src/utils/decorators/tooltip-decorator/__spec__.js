@@ -500,6 +500,40 @@ describe('tooltip-decorator', () => {
         expect(topTooltip.getTooltip).not.toHaveBeenCalled();
       });
     });
+
+    describe('when there is no tooltip', () => {
+      it('hides the tooltip', () => {
+        noTooltip.onShow();
+        jasmine.clock().tick(100);
+        expect(noTooltip.state.isVisible).toBeFalsy();
+      });
+    });
+
+    describe('when there is no target', () => {
+      beforeEach(()  => {
+        spyOn(leftTooltip, 'getTarget').and.returnValue(null);
+        spyOn(leftTooltip, 'getTooltip').and.returnValue(
+            {
+              offsetWidth: 100,
+              offsetHeight: 50,
+              style: {},
+              children:
+                [
+                  { foo: 'bar' },
+                  {
+                    offsetHeight: 7
+                  }
+                ]
+            }
+        );
+      });
+
+      it('hides the tooltip', () => {
+        leftTooltip.onShow();
+        jasmine.clock().tick(100);
+        expect(leftTooltip.state.isVisible).toBeFalsy();
+      });
+    });
   });
 
   describe('componentProps', () => {
