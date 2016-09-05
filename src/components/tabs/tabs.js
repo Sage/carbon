@@ -44,11 +44,11 @@ import classNames from 'classnames';
  *
  * The tabs widget also allows you to select a tab on page load. By default this is set
  * to the first tab. To set a different tab on page load pass a tabId to the
- * initialSelectedTabId prop as shown in the example below.
+ * selectedTabId prop as shown in the example below.
  *
  * To render a Tabs Widget with Options:
  *
- *   <Tabs renderHiddenTabs={ false } initialSelectedTabId='uniqueId2' >
+ *   <Tabs renderHiddenTabs={ false } selectedTabId='uniqueId2' >
  *     <Tab title='Title 1' tabId='uniqueId1'>
  *
  *       <Textbox />
@@ -89,14 +89,14 @@ class Tabs extends React.Component {
     renderHiddenTabs: React.PropTypes.bool,
 
     /**
-     * The selected tab on page load
-     * Defaults to the first tab
+     * The tab to be displayed updating this prop will change the visible tab.
+     * Defaults to the first tab upon initial load.
      *
-     * @property initialSelectedTabId
+     * @property selectedTabId
      * @type {String}
      * @default firstTab
      */
-    initialSelectedTabId: React.PropTypes.string,
+    selectedTabId: React.PropTypes.string,
 
     /**
      * Individual tabs
@@ -119,6 +119,7 @@ class Tabs extends React.Component {
 
     /**
      * Emitted when a tab header is clicked
+     * note: is not emitted when the selectedTabId prop is changed
      *
      * @property onTabClick
      * @type {Func}
@@ -174,10 +175,9 @@ class Tabs extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
-    let initialSelectedTabId;
-
-    if (this.props.initialSelectedTabId) {
-      initialSelectedTabId = this.props.initialSelectedTabId;
+    let selectedTabId;
+    if (this.props.selectedTabId) {
+      selectedTabId = this.props.selectedTabId;
     } else {
       let hash = this._window.location.hash.substring(1);
 
@@ -196,13 +196,26 @@ class Tabs extends React.Component {
           }
         }
 
-        initialSelectedTabId = useHash ? hash : children[0].props.tabId;
+        selectedTabId = useHash ? hash : children[0].props.tabId;
       } else {
-        initialSelectedTabId = this.props.children.props.tabId;
+        selectedTabId = this.props.children.props.tabId;
       }
     }
+    this.setState({ selectedTabId: selectedTabId });
+  }
 
-    this.setState({ selectedTabId: initialSelectedTabId });
+  /**
+  * A lifecycle method that is called when props are updated.
+  * Used here to change the visible tab when selectedTabId is updated.
+  *
+  * @method  componentWillReceiveProps
+  * @param {object} nextProps
+  */
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selectedTabId != nextProps.selectedTabId) {
+      this._window.location = `#${nextProps.selectedTabId}`;
+      this.setState({ selectedTabId: nextProps.selectedTabId});
+    }
   }
 
   /**

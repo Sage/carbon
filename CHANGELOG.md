@@ -1,5 +1,10 @@
 # 0.23.0
 
+## Breaking Change - Additional functionality for initialSelectedTabId prop
+
+* Renamed initialSelectedTabId to selectedTabId
+* If selectedTabId is updated the visible tab will change to the value of selectedTabId
+
 ## Minor Improvements
 
 * Pod component now accepts a alignTitle prop.
