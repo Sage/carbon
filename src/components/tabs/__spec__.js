@@ -123,47 +123,67 @@ describe('Tabs', () => {
 
   describe('Change in tab prop', () => {
     let instance, tabs;
-    beforeEach(() => {
-      let TestParent = React.createFactory(React.createClass({
-        getInitialState() {
-          return { selectedTabId: "uniqueid2", align: 'left' };
-        },
-        render() {
-          return (
-            <Tabs { ...this.state }>
-              <Tab title='Tab Title 1' tabId='uniqueid1'>
-                <Textbox name='foo'/>
-                <Textbox name='bar'/>
-              </Tab>
-              <Tab title='Tab Title 2' tabId='uniqueid2'>
-                <Textbox name='baz'/>
-                <Textbox name='bax'/>
-              </Tab>
-            </Tabs>
-          );
-        }
-      }));
-      instance = TestUtils.renderIntoDocument(TestParent());
-      tabs = TestUtils.scryRenderedComponentsWithType(instance, Tab);
-      expect(tabs[0].props.className).toEqual('hidden');
-      expect(tabs[1].props.className).not.toEqual('hidden');
-    });
-
-    it('changes tab to current prop', () => {
-      instance.setState({
-        selectedTabId: "uniqueid1"
+      beforeEach(() => {
+        let TestParent = React.createFactory(React.createClass({
+          getInitialState() {
+            return { selectedTabId: "uniqueid2", align: 'left' };
+          },
+          render() {
+            return (
+              <Tabs { ...this.state }>
+                <Tab title='Tab Title 1' tabId='uniqueid1'>
+                  <Textbox name='foo'/>
+                  <Textbox name='bar'/>
+                </Tab>
+                <Tab title='Tab Title 2' tabId='uniqueid2'>
+                  <Textbox name='baz'/>
+                  <Textbox name='bax'/>
+                </Tab>
+              </Tabs>
+            );
+          }
+        }));
+        instance = TestUtils.renderIntoDocument(TestParent());
+        tabs = TestUtils.scryRenderedComponentsWithType(instance, Tab);
+        expect(tabs[0].props.className).toEqual('hidden');
+        expect(tabs[1].props.className).not.toEqual('hidden');
       });
-      expect(tabs[1].props.className).toEqual('hidden');
-      expect(tabs[0].props.className).not.toEqual('hidden');
-    });
 
-    it('change in other tab', () => {
-      instance.setState({
-        align: 'right'
+      describe('without noTabChange function', () => {
+        it('changes tab to current prop', () => {
+          instance.setState({
+            selectedTabId: "uniqueid1"
+          });
+          expect(tabs[1].props.className).toEqual('hidden');
+          expect(tabs[0].props.className).not.toEqual('hidden');
+        });
+
+        it('change in other tab', () => {
+          instance.setState({
+            align: 'right'
+          });
+          expect(tabs[0].props.className).toEqual('hidden');
+          expect(tabs[1].props.className).not.toEqual('hidden');
+        });
       });
-      expect(tabs[0].props.className).toEqual('hidden');
-      expect(tabs[1].props.className).not.toEqual('hidden');
-    });
+
+      describe('with onTabChange function', () => {
+        let onClick;
+        beforeEach(() => {
+          onClick = jasmine.createSpy('tab change');
+          instance.setState({
+            onTabChange: onClick
+          });
+        });
+
+        it('calls onTabChange function', () => {
+          instance.setState({
+            selectedTabId: "uniqueid1"
+          });
+          expect(onClick).toHaveBeenCalledWith('uniqueid1');
+        });
+      });
+
   });
 
   describe('changeValidity', () => {
@@ -199,12 +219,12 @@ describe('Tabs', () => {
       expect(instance._window.location).toEqual('#foo');
     });
 
-    describe('when a onTabClick prop is passed', () => {
+    describe('when a onTabChange prop is passed', () => {
       it('calls the prop', () => {
         let clickSpy = jasmine.createSpy('tabClick');
 
         let instance = TestUtils.renderIntoDocument(
-          <Tabs onTabClick={ clickSpy } >
+          <Tabs onTabChange={ clickSpy } >
             <Tab title='Tab Title 1' tabId='uniqueid1'>
               <Textbox name='foo'/>
               <Textbox name='bar'/>

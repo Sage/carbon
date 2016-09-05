@@ -118,13 +118,12 @@ class Tabs extends React.Component {
     align: React.PropTypes.string,
 
     /**
-     * Emitted when a tab header is clicked
-     * note: is not emitted when the selectedTabId prop is changed
+     * Emitted when the visible tab is changed
      *
-     * @property onTabClick
+     * @property onTabChange
      * @type {Func}
      */
-    onTabClick: React.PropTypes.func
+    onTabChange: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -215,6 +214,9 @@ class Tabs extends React.Component {
     if (this.props.selectedTabId != nextProps.selectedTabId) {
       this._window.location = `#${nextProps.selectedTabId}`;
       this.setState({ selectedTabId: nextProps.selectedTabId});
+      if (this.props.onTabChange) {
+        this.props.onTabChange(nextProps.selectedTabId);
+      }
     }
   }
 
@@ -241,8 +243,8 @@ class Tabs extends React.Component {
     this._window.location = `#${tabid}`;
     this.setState({ selectedTabId: tabid });
 
-    if (this.props.onTabClick) {
-      this.props.onTabClick(tabid);
+    if (this.props.onTabChange) {
+      this.props.onTabChange(tabid);
     }
   }
 
