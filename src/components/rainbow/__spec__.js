@@ -58,7 +58,7 @@ describe('Rainbow', () => {
 
   describe('mainClasses', () => {
     it('returns the base class', () => {
-      expect(instance.mainClasses).toEqual('ui-rainbow');
+      expect(instance.mainClasses).toEqual('carbon-rainbow');
     });
 
     describe('when a custom class is passed', () => {
@@ -67,7 +67,7 @@ describe('Rainbow', () => {
           <Rainbow title="My Title" data={ data } className='customClass' />
         );
 
-        expect(instance.mainClasses).toEqual('ui-rainbow customClass');
+        expect(instance.mainClasses).toEqual('carbon-rainbow customClass');
       });
     });
   });

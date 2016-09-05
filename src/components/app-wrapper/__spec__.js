@@ -20,6 +20,6 @@ describe('app wrapper', () => {
 
   it('renders with correct classes', () => {
     let div = TestUtils.findRenderedDOMComponentWithTag(instance, 'div');
-    expect(div.className).toEqual('ui-app-wrapper foobar');
+    expect(div.className).toEqual('carbon-app-wrapper foobar');
   });
 });

@@ -6,7 +6,7 @@ import Textbox from './../textbox';
 import Pod from './../pod';
 
 describe('ShowEditPod', () => {
-  let instance, spy, cancelSpy;
+  let instance, externalInstance, spy, cancelSpy;
 
   beforeEach(() => {
     let content = <div className='foo'/>,
@@ -22,22 +22,55 @@ describe('ShowEditPod', () => {
         editFields={ editFields }
       />
     );
+
+    externalInstance = TestUtils.renderIntoDocument(
+      <ShowEditPod
+        afterFormValidation={ spy }
+        onCancel={ cancelSpy }
+        editFields={ editFields }
+        editing={ false }
+      />
+    );
+  });
+  
+  describe('componentWillMount', () => {
+    describe('when editing prop is set', () => {
+      it('keeps control as props', () => {
+        expect(externalInstance.control).toEqual('props');
+      });
+    });
+
+    describe('when editing prop is not set', () => {
+      it('sets the control to state', () => {
+        expect(instance.control).toEqual('state');
+      });
+    });
   });
 
   describe('onEdit', () => {
-    it('sets the editing state to true', () => {
-      instance.onEdit();
-      expect(instance.state.editing).toBeTruthy();
+    describe('when controlled by state', () => {
+      it('sets the editing state to true', () => {
+        instance.onEdit();
+        expect(instance.state.editing).toBeTruthy();
+      });
+
+      describe('when edit function is passed', () => {
+        it('calls the onEdit callback', () => {
+          let editSpy = jasmine.createSpy('editSpy');
+
+          instance = TestUtils.renderIntoDocument(<ShowEditPod onEdit={ editSpy } />);
+          instance.onEdit();
+
+          expect(editSpy).toHaveBeenCalled();
+        });
+      });
     });
 
-    describe('when edit function is passed', () => {
-      it('calls the onEdit callback', () => {
-        let editSpy = jasmine.createSpy('editSpy');
-
-        instance = TestUtils.renderIntoDocument(<ShowEditPod onEdit={ editSpy } />);
-        instance.onEdit();
-
-        expect(editSpy).toHaveBeenCalled();
+    describe('when controlled by props', () => {
+      it('does not setState', () => {
+        spyOn(externalInstance, 'setState');
+        externalInstance.onEdit();
+        expect(externalInstance.setState).not.toHaveBeenCalled();
       });
     });
   });
@@ -66,6 +99,14 @@ describe('ShowEditPod', () => {
         expect(instance.state.editing).toBeFalsy();
       });
     });
+
+    describe('when controlled by props', () => {
+      it('does not setState', () => {
+        spyOn(externalInstance, 'setState');
+        externalInstance.onSaveEditForm(ev, true);
+        expect(externalInstance.setState).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('onCancelEditForm', () => {
@@ -84,8 +125,16 @@ describe('ShowEditPod', () => {
       it('sets editing to false', () => {
         expect(instance.state.editing).toBeFalsy();
       });
+
+      describe('when controlled by props', () => {
+        it('does not setState', () => {
+          spyOn(externalInstance, 'setState');
+          externalInstance.onCancelEditForm(ev);
+          expect(externalInstance.setState).not.toHaveBeenCalled();
+        });
+      });
     });
-    
+
     describe('when onCancel does not exits', () => {
       it('sets editing to false', () => {
         instance = TestUtils.renderIntoDocument(
@@ -100,7 +149,7 @@ describe('ShowEditPod', () => {
 
   describe('mainClasses', () => {
     it('returns the base class', () => {
-      expect(instance.mainClasses).toEqual('ui-show-edit-pod')
+      expect(instance.mainClasses).toEqual('carbon-show-edit-pod')
     });
 
     it('returns any passed props', () => {
@@ -110,7 +159,7 @@ describe('ShowEditPod', () => {
         />
       );
 
-      expect(instance.mainClasses).toEqual('ui-show-edit-pod foo')
+      expect(instance.mainClasses).toEqual('carbon-show-edit-pod foo')
     });
   });
 
@@ -125,7 +174,7 @@ describe('ShowEditPod', () => {
       );
       instance.setState({ editing: true });
 
-      TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-show-edit-pod__delete');
+      TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
     });
 
     describe('when delete text is passed', () => {
@@ -140,7 +189,7 @@ describe('ShowEditPod', () => {
         );
 
         instance.setState({ editing: true });
-        let deleteLink = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-show-edit-pod__delete');
+        let deleteLink = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
         expect(deleteLink.textContent).toEqual('foo');
       });
     });
@@ -165,7 +214,15 @@ describe('ShowEditPod', () => {
       let props = instance.contentProps;
       expect(props.onEdit).toEqual(instance.onEdit);
     });
-    
+
+    it("leaves onEdit as false if false is sent in", () => {
+      let falseEditInstance = TestUtils.renderIntoDocument(
+        <ShowEditPod onEdit={ false } />
+      );
+      let props = falseEditInstance.contentProps;
+      expect(props.onEdit).toBeUndefined();
+    });
+
     it('strips out the className prop', () => {
       let props = instance.contentProps;
       expect(props.className).toBeUndefined();

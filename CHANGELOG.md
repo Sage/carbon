@@ -1,3 +1,27 @@
+# 0.22.0
+
+## Breaking Change - CSS Naming
+
+* We have renamed all of our styles to be prefixed with `carbon-` rather than `ui-`. This is to avoid conflicts with existing open source libraries like jQuery UI.
+
+### Example of the CSS Name Change
+```
+// Before:
+.ui-button-toggle__icon--large
+
+// After:
+.carbon-button-toggle__icon--large
+```
+
+Please ensure you check your application carefully to update any references to these styles when upgrading.
+
+## Minor Improvements
+* Show edit pod can now be controlled via props
+* Make heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
+* Allow ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
+* Added a 'Payment' icon and a 'Key' icon.
+* ShowEditPod now animates between the two states
+
 # 0.21.2
 
 ## Minor Improvements
@@ -20,15 +44,14 @@
 * Message
 
 ## Minor Improvements
-
 * Link now accepts tooltip props to apply a tooltip to the link. This can be used with the Action Toolbar to apply tooltips to the icon links.
 * Input components now accept an onPaste prop.
 * Add character count to textarea
 * Form now accepts a `onSubmit` prop which is only called when the form is valid.
 * AppWrapper now has a minimum width of 958px.
 * SUG-19: Change padding for the MessageComponent when transparent and non dismissable. When transparent is applied the padding reduces to 2px, but if it's dismissable it enlarges to it's original to prevent overlap.
-* allows `Link` component to handle `mailto:` as an href prefix, previously the `to:` would have been stripped from the string
-* fix error count, when input get disabled
+* Allows `Link` component to handle `mailto:` as an href prefix, previously the `to:` would have been stripped from the string
+* Fix error count, when input gets disabled
 
 # 0.20.0
 

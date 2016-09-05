@@ -7,7 +7,7 @@ class Homepage extends React.Component {
    */
   render() {
     return (
-      <Pod className="ui-homepage">
+      <Pod className="carbon-homepage">
         Carbon
       </Pod>
     );

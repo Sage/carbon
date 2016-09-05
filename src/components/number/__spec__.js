@@ -17,14 +17,14 @@ describe('Number', () => {
   });
 
   describe('mainClasses', () => {
-    it('returns ui-number and additional decorated classes', () => {
-      expect(instance.mainClasses).toEqual('ui-number common-input');
+    it('returns carbon-number and additional decorated classes', () => {
+      expect(instance.mainClasses).toEqual('carbon-number common-input');
     });
   });
 
   describe('inputClasses', () => {
-    it('returns ui-number__input and additional decorated classes', () => {
-      expect(instance.inputClasses).toEqual('ui-number__input common-input__input');
+    it('returns carbon-number__input and additional decorated classes', () => {
+      expect(instance.inputClasses).toEqual('carbon-number__input common-input__input');
     });
   });
 
@@ -112,15 +112,15 @@ describe('Number', () => {
   });
 
   describe('inputProps', () => {
-    it('sets the ui-number__input class to the input', () => {
-      expect(input.className).toEqual('ui-number__input common-input__input');
+    it('sets the carbon-number__input class to the input', () => {
+      expect(input.className).toEqual('carbon-number__input common-input__input');
     });
   });
 
   describe('render', () => {
     it('renders its top level div', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(div.classList[0]).toEqual('ui-number');
+      expect(div.classList[0]).toEqual('carbon-number');
     });
 
     it('renders a visible field', () => {

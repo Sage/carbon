@@ -43,18 +43,18 @@ describe('Pod', () => {
         });
 
         it('Adds a additional collaspsible arrow to the the header', () => {
-          let arrow = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__arrow');
-          expect(arrow.className).toEqual('ui-icon ui-pod__arrow ui-pod__arrow--true icon-dropdown');
+          let arrow = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__arrow');
+          expect(arrow.className).toEqual('carbon-icon carbon-pod__arrow carbon-pod__arrow--true icon-dropdown');
         });
 
         it('Adds a additonal class header', () => {
-          let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__header');
-          expect(header.className).toEqual('ui-pod__header unselectable ui-pod__header--true');
+          let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
+          expect(header.className).toEqual('carbon-pod__header unselectable carbon-pod__header--true');
         });
 
         it('Adds a onClick handler to the header', () => {
           spyOn(instance, 'setState');
-          let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__header');
+          let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
           TestUtils.Simulate.click(header);
           expect(instance.setState).toHaveBeenCalledWith({ collapsed: false });
         });
@@ -63,7 +63,7 @@ describe('Pod', () => {
       describe('when pod is NOT collapsible', () => {
         it('does not add additional collapsible arrow', () => {
           instance = TestUtils.renderIntoDocument(<Pod title='Title'/>);
-          let arrows = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pod__arrow');
+          let arrows = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pod__arrow');
           expect(arrows.length).toEqual(0);
         });
       });
@@ -76,7 +76,7 @@ describe('Pod', () => {
         instance = TestUtils.renderIntoDocument(
           <Pod title='Title' description='This is the pod description'/>
         );
-        let description = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__description');
+        let description = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__description');
         expect(description.textContent).toEqual('This is the pod description');
       });
     });
@@ -84,7 +84,7 @@ describe('Pod', () => {
     describe('when description is not passed as a prop', () => {
       it('does not render a description', () => {
         instance = TestUtils.renderIntoDocument(<Pod/>);
-        let description = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pod__description');
+        let description = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pod__description');
         expect(description.length).toEqual(0);
       });
     });
@@ -94,14 +94,14 @@ describe('Pod', () => {
     describe('if border is enabled and there is no footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod />);
-        expect(instance.mainClasses).toEqual('ui-pod ui-pod--primary');
+        expect(instance.mainClasses).toEqual('carbon-pod carbon-pod--primary');
       });
     });
 
     describe('if border is disabled and there is a footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
-        expect(instance.mainClasses).toEqual('ui-pod ui-pod--primary ui-pod--no-border ui-pod--footer');
+        expect(instance.mainClasses).toEqual('carbon-pod carbon-pod--primary carbon-pod--no-border carbon-pod--footer');
       });
     });
   });
@@ -110,14 +110,14 @@ describe('Pod', () => {
     describe('if border is enabled and there is no footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod />);
-        expect(instance.contentClasses).toEqual('ui-pod__content ui-pod__content--primary ui-pod--padding-medium');
+        expect(instance.contentClasses).toEqual('carbon-pod__content carbon-pod__content--primary carbon-pod--padding-medium');
       });
     });
 
     describe('if border is disabled and there is a footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
-        expect(instance.contentClasses).toEqual('ui-pod__content ui-pod__content--primary ui-pod--padding-medium ui-pod__content--footer ui-pod--no-border');
+        expect(instance.contentClasses).toEqual('carbon-pod__content carbon-pod__content--primary carbon-pod--padding-medium carbon-pod__content--footer carbon-pod--no-border');
       });
     });
   });
@@ -126,14 +126,14 @@ describe('Pod', () => {
     describe('if border is enabled and there is no footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod />);
-        expect(instance.footerClasses).toEqual('ui-pod__footer ui-pod__footer--primary ui-pod__footer--padding-medium');
+        expect(instance.footerClasses).toEqual('carbon-pod__footer carbon-pod__footer--primary carbon-pod__footer--padding-medium');
       });
     });
 
     describe('if border is disabled and there is a footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false } />);
-        expect(instance.footerClasses).toEqual('ui-pod__footer ui-pod__footer--primary ui-pod__footer--padding-medium ui-pod--no-border');
+        expect(instance.footerClasses).toEqual('carbon-pod__footer carbon-pod__footer--primary carbon-pod__footer--padding-medium carbon-pod--no-border');
       });
     });
   });

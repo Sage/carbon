@@ -33,7 +33,7 @@ class Number extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-number',
+      'carbon-number',
       this.props.className
     );
   }
@@ -45,7 +45,7 @@ class Number extends React.Component {
    * @return {String} Input className
    */
   get inputClasses() {
-    return 'ui-number__input';
+    return 'carbon-number__input';
   }
 
   /**

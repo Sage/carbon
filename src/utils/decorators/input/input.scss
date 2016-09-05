@@ -11,8 +11,8 @@
     display: table;
   }
 
-  .ui-fieldset + &,
-  + .ui-fieldset,
+  .carbon-fieldset + &,
+  + .carbon-fieldset,
   + .common-input {
     margin-top: 10px;
   }
@@ -39,7 +39,7 @@
     text-align: left;
   }
 
-  .ui-icon.common-input__icon {
+  .carbon-icon.common-input__icon {
     left: auto;
     right: 0;
   }
@@ -50,14 +50,14 @@
     text-align: right;
   }
 
-  .ui-icon.common-input__icon {
+  .carbon-icon.common-input__icon {
     left: 5px;
     right: auto;
   }
 }
 
 .common-input--align-right.common-input--label-inline {
-  .ui-icon.common-input__icon {
+  .carbon-icon.common-input__icon {
     left: auto;
     margin: 7px -40px;
     right: 70%;
@@ -182,7 +182,7 @@
   }
 }
 
-.ui-icon.common-input__icon {
+.carbon-icon.common-input__icon {
   color: red;
   height: 15px;
   position: absolute;
@@ -193,12 +193,12 @@
     font-size: 20px;
   }
 
-  .ui-icon__svg--warning {
+  .carbon-icon__svg--warning {
     height: 20px;
     margin: -2px 0 0 0;
     width: 26px;
 
-    .ui-icon__svg-group {
+    .carbon-icon__svg-group {
       fill: $warning;
     }
   }

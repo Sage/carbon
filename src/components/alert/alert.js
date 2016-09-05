@@ -39,7 +39,7 @@ class Alert extends Dialog {
   get dialogTitleClasses() {
     return classNames(
       super.dialogTitleClasses,
-      'ui-alert__title'
+      'carbon-alert__title'
     );
   }
 
@@ -51,7 +51,7 @@ class Alert extends Dialog {
   get dialogClasses() {
     return classNames(
       super.dialogClasses,
-      'ui-alert__alert'
+      'carbon-alert__alert'
     );
   }
 }

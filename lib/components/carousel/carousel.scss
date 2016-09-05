@@ -1,12 +1,12 @@
 @import 'colors';
 @import 'mixins';
 
-.ui-carousel__content {
+.carbon-carousel__content {
   overflow: hidden;
   position: relative;
 }
 
-.ui-carousel__gradient {
+.carbon-carousel__gradient {
   @include linear-gradient(left,  (rgba(255,255,255,1) 0%, rgba(255,255,255,0) 5%, rgba(255,255,255,0) 95%, rgba(255,255,255,1) 100%));
 
   height: 100%;
@@ -15,19 +15,19 @@
   z-index: 15;
 }
 
-.ui-carousel__navigation {
+.carbon-carousel__navigation {
   margin-top: -22.5px;
   position: absolute;
   top: 50%;
   z-index: 20;
 }
 
-.ui-carousel__previous-button {
+.carbon-carousel__previous-button {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
-.ui-carousel__previous-arrow {
+.carbon-carousel__previous-arrow {
   @include transform(rotate(90deg))
 
   cursor: pointer;
@@ -38,7 +38,7 @@
   }
 }
 
-.ui-slide {
+.carbon-slide {
   box-sizing: border-box;
   display: inline-block;
   padding: 0 60px;
@@ -47,16 +47,16 @@
   z-index: 10;
 }
 
-.ui-carousel__next {
+.carbon-carousel__next {
   right: 0;
 }
 
-.ui-carousel__next-button {
+.carbon-carousel__next-button {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
 
-.ui-carousel__next-arrow {
+.carbon-carousel__next-arrow {
   @include transform(rotate(-90deg))
   display: inline-block;
   cursor: pointer;
@@ -66,7 +66,7 @@
   }
 }
 
-.ui-carousel__buttons {
+.carbon-carousel__buttons {
   border: none;
   width: 45px;
   height: 45px;
@@ -82,24 +82,24 @@
   }
 }
 
-.ui-carousel__selector {
+.carbon-carousel__selector {
   height: 20px;
   margin-top: 5px;
   text-align: center;
 }
 
-.ui-carousel__selector-inputs {
+.carbon-carousel__selector-inputs {
   display: inline-block;
   line-height: 20px;
   vertical-align: middle;
   width: 22px;
 }
 
-.ui-carousel__selector-input {
+.carbon-carousel__selector-input {
   display: none;
 }
 
-.ui-carousel__selector-label {
+.carbon-carousel__selector-label {
   border-radius: 100%;
   border: 1px solid $grey-dark-blue-70;
   display: inline-block;
@@ -112,9 +112,9 @@
   }
 }
 
-.ui-carousel__selector {
-  .ui-carousel__selector-input:checked {
-    + .ui-carousel__selector-label {
+.carbon-carousel__selector {
+  .carbon-carousel__selector-input:checked {
+    + .carbon-carousel__selector-label {
       background: $blue;
       border-color: transparent;
       height: 10px;

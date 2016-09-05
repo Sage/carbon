@@ -37,7 +37,7 @@ class DialogFullScreen extends Modal {
    * @return {String} dialog className
    */
   get dialogClasses() {
-    return 'ui-dialog-full-screen__dialog';
+    return 'carbon-dialog-full-screen__dialog';
   }
 
   /**
@@ -50,7 +50,7 @@ class DialogFullScreen extends Modal {
   get mainClasses() {
     return classNames(
       this.props.className,
-      'ui-dialog-full-screen'
+      'carbon-dialog-full-screen'
     );
   }
 
@@ -64,12 +64,12 @@ class DialogFullScreen extends Modal {
   get modalHTML() {
     return (
       <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
-        <div className="ui-dialog-full-screen__header">
-          <h2 className="ui-dialog-full-screen__title">{ this.props.title }</h2>
-          <Icon className="ui-dialog-full-screen__close" type="close" onClick={ this.props.onCancel } />
+        <div className="carbon-dialog-full-screen__header">
+          <h2 className="carbon-dialog-full-screen__title">{ this.props.title }</h2>
+          <Icon className="carbon-dialog-full-screen__close" type="close" onClick={ this.props.onCancel } />
         </div>
 
-        <div className='ui-dialog-full-screen__content'>
+        <div className='carbon-dialog-full-screen__content'>
           { this.props.children }
         </div>
       </div>

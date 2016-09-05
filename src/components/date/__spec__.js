@@ -384,8 +384,8 @@ describe('Date', () => {
   });
 
   describe('inputProps', () => {
-    it('sets the ui-date__input class on the input', () => {
-      expect(instance._input.classList[0]).toEqual('ui-date__input');
+    it('sets the carbon-date__input class on the input', () => {
+      expect(instance._input.classList[0]).toEqual('carbon-date__input');
     });
 
     it('sets the visible value', () => {
@@ -459,27 +459,27 @@ describe('Date', () => {
 
   describe('mainClasses', () => {
     it('retuns a date class and common input decorated class', () => {
-      expect(instance.mainClasses).toEqual('ui-date common-input--with-icon common-input');
+      expect(instance.mainClasses).toEqual('carbon-date common-input--with-icon common-input');
     });
   });
 
   describe('inputClasses', () => {
     it('retuns a date input class', () => {
-      expect(instance.inputClasses).toEqual('ui-date__input common-input__input');
+      expect(instance.inputClasses).toEqual('carbon-date__input common-input__input');
     });
   });
 
   describe('render', () => {
     it('renders a parent div with a custom click method', () => {
       let spy = jasmine.createSpy('stopImmediatePropagation');
-      let dateNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-date')
+      let dateNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-date')
       TestUtils.Simulate.click(dateNode, { nativeEvent: { stopImmediatePropagation: spy } });
       expect(spy).toHaveBeenCalled();
     });
 
     it('renders a visible input', () => {
       let visibleInput = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[0]
-      expect(visibleInput.classList[0]).toEqual('ui-date__input');
+      expect(visibleInput.classList[0]).toEqual('carbon-date__input');
     });
 
     it('renders a hidden input', () => {

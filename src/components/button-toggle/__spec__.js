@@ -11,13 +11,13 @@ describe('ButtonToggle', () => {
 
   describe('mainClasses', () => {
     it('returns the classes for the component', () => {
-      expect(instance.mainClasses).toEqual('ui-button-toggle common-input');
+      expect(instance.mainClasses).toEqual('carbon-button-toggle common-input');
     });
   });
 
   describe('input classes', () => {
     it('returns the classes for the input', () => {
-      expect(instance.inputClasses).toEqual('ui-button-toggle__input hidden common-input__input');
+      expect(instance.inputClasses).toEqual('carbon-button-toggle__input hidden common-input__input');
     });
   });
 
@@ -34,7 +34,7 @@ describe('ButtonToggle', () => {
       });
 
       it('returns the icon', () => {
-        expect(instance.icon.props.className).toEqual('ui-button-toggle__icon');
+        expect(instance.icon.props.className).toEqual('carbon-button-toggle__icon');
       });
     });
 
@@ -44,20 +44,20 @@ describe('ButtonToggle', () => {
       });
 
       it('returns a large icon', () => {
-        expect(instance.icon.props.className).toEqual('ui-button-toggle__icon ui-button-toggle__icon--large');
+        expect(instance.icon.props.className).toEqual('carbon-button-toggle__icon carbon-button-toggle__icon--large');
       });
     });
   });
 
   describe('additionalInputContent', () => {
     it('returns the label', () => {
-      expect(instance.additionalInputContent.props.className).toEqual('ui-button-toggle__label');
+      expect(instance.additionalInputContent.props.className).toEqual('carbon-button-toggle__label');
     });
 
     describe('if it is disabled', () => {
       it('returns a disabled label', () => {
         instance = TestUtils.renderIntoDocument(<ButtonToggle disabled={ true } />);
-        expect(instance.additionalInputContent.props.className).toEqual('ui-button-toggle__label ui-button-toggle__label--disabled');
+        expect(instance.additionalInputContent.props.className).toEqual('carbon-button-toggle__label carbon-button-toggle__label--disabled');
       });
     });
   });

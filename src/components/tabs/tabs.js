@@ -240,18 +240,18 @@ class Tabs extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-tabs',
+      'carbon-tabs',
       this.props.className
     );
   }
 
   tabHeaderClasses = (tab) => {
     return classNames(
-      'ui-tabs__headers__header',
+      'carbon-tabs__headers__header',
       tab.props.headerClassName,
       {
-        'ui-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
-        'ui-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
+        'carbon-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
+        'carbon-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
       }
     );
   }
@@ -277,7 +277,7 @@ class Tabs extends React.Component {
     });
 
     return(
-      <ul className={ `ui-tabs__headers ui-tabs__headers--align-${ this.props.align }` } >
+      <ul className={ `carbon-tabs__headers carbon-tabs__headers--align-${ this.props.align }` } >
         { tabTitles }
       </ul>
     );
@@ -298,7 +298,7 @@ class Tabs extends React.Component {
       }
     });
 
-    return React.cloneElement(visibleTab, { className: 'ui-tab--selected' });
+    return React.cloneElement(visibleTab, { className: 'carbon-tab--selected' });
   }
 
   /**
@@ -315,7 +315,7 @@ class Tabs extends React.Component {
       let klass = 'hidden';
 
       if (child.props.tabId === this.state.selectedTabId) {
-        klass = 'ui-tab--selected';
+        klass = 'carbon-tab--selected';
       }
 
       return React.cloneElement(child, { className: klass });
