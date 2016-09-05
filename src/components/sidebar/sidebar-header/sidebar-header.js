@@ -46,7 +46,7 @@ class SidebarHeader extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-sidebar-header',
+      'carbon-sidebar-header',
       this.props.className
     );
   }

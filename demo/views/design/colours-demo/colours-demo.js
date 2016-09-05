@@ -17,7 +17,7 @@ class ColoursDemo extends React.Component {
 
   render() {
     return (
-      <Pod className="ui-example" title='Colours'>
+      <Pod className="carbon-example" title='Colours'>
         <Row>
           { this.colourSample('white') } 
           { this.colourSample('black') } 

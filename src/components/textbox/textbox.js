@@ -30,7 +30,7 @@ class Textbox extends React.Component {
    * @return {void}
    */
   get mainClasses() {
-    return 'ui-textbox';
+    return 'carbon-textbox';
   }
 
   /**
@@ -39,7 +39,7 @@ class Textbox extends React.Component {
    * @method inputClasses
    */
   get inputClasses() {
-    return 'ui-textbox__input';
+    return 'carbon-textbox__input';
   }
 
   /**

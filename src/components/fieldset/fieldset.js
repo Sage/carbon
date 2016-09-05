@@ -27,7 +27,7 @@ class Fieldset extends React.Component {
     if (!this.props.legend) { return null; }
 
     return (
-      <legend className="ui-fieldset__legend common-input__label">
+      <legend className="carbon-fieldset__legend common-input__label">
         { this.props.legend }
       </legend>
     );
@@ -38,7 +38,7 @@ class Fieldset extends React.Component {
    */
   render() {
     let { className, ...props } = this.props,
-        classes = classNames("ui-fieldset", className);
+        classes = classNames("carbon-fieldset", className);
 
     return (
       <fieldset className={ classes } { ...props }>

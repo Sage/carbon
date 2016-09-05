@@ -175,7 +175,7 @@ class Dialog extends Modal {
    * @method dialogTitleClasses
    */
   get dialogTitleClasses() {
-    return 'ui-dialog__title';
+    return 'carbon-dialog__title';
   }
 
   /**
@@ -187,7 +187,7 @@ class Dialog extends Modal {
    */
   get mainClasses() {
     return classNames(
-      'ui-dialog',
+      'carbon-dialog',
       this.props.className
     );
   }
@@ -201,16 +201,16 @@ class Dialog extends Modal {
    */
   get dialogClasses() {
     return classNames(
-      'ui-dialog__dialog',
+      'carbon-dialog__dialog',
       {
-        [`ui-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined'
+        [`carbon-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined'
       }
     );
   }
 
   get closeIcon() {
     if (this.props.showCloseIcon) {
-      return <Icon className="ui-dialog__close" type="close" onClick={ this.props.onCancel } />;
+      return <Icon className="carbon-dialog__close" type="close" onClick={ this.props.onCancel } />;
     }
   }
 
@@ -226,7 +226,7 @@ class Dialog extends Modal {
         { this.dialogTitle }
         { this.closeIcon }
 
-        <div className='ui-dialog__content'>
+        <div className='carbon-dialog__content'>
           { this.props.children }
         </div>
       </div>

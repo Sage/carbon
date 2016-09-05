@@ -68,11 +68,11 @@ class Row extends React.Component {
    */
   buildColumn = (child, key) => {
     let columnClass = classNames(
-      "ui-row__column",
+      "carbon-row__column",
       child.props.columnClasses, {
-        [`ui-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
-        [`ui-row__column--span-${child.props.columnSpan}`]: child.props.columnSpan,
-        [`ui-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign
+        [`carbon-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
+        [`carbon-row__column--span-${child.props.columnSpan}`]: child.props.columnSpan,
+        [`carbon-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign
       }
     );
 
@@ -99,9 +99,9 @@ class Row extends React.Component {
     }
 
     return classNames(
-      'ui-row',
+      'carbon-row',
       this.props.className,
-      `ui-row--columns-${columns}`
+      `carbon-row--columns-${columns}`
     );
   }
 

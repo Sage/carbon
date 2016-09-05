@@ -5,7 +5,7 @@
 
 $dropdown-input-icon-width: 20px !default;
 
-.ui-dropdown__list-block {
+.carbon-dropdown__list-block {
   left: 0;
   position: absolute;
   right: 0;
@@ -16,7 +16,7 @@ $dropdown-input-icon-width: 20px !default;
   }
 }
 
-.ui-dropdown__list {
+.carbon-dropdown__list {
   background-color: $white;
   border: 1px solid $border-color;
   box-sizing: border-box;
@@ -42,15 +42,15 @@ $dropdown-input-icon-width: 20px !default;
   }
 }
 
-.ui-dropdown__list-item {
+.carbon-dropdown__list-item {
   padding: 5px 6px;
 }
 
-.ui-dropdown__list-item--highlighted {
+.carbon-dropdown__list-item--highlighted {
   background-color: #E6E9E7;
 }
 
-.ui-dropdown {
+.carbon-dropdown {
   .common-input__icon {
     right: 26px;
   }

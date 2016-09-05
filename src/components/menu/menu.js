@@ -23,9 +23,9 @@ class Menu extends React.Component {
    */
   get classes() {
     return classNames(
-      "ui-menu",
+      "carbon-menu",
       this.props.className,
-      `ui-menu--${this.props.as}`
+      `carbon-menu--${this.props.as}`
     );
   }
 

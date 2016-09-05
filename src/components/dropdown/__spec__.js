@@ -548,7 +548,7 @@ describe('Dropdown', () => {
       it('it calls updateScroll with the list and the last list element', () => {
         instance.setState({ highlighted: 1 });
         list = instance.refs.list;
-        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onUpArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, list.lastChild);
       });
@@ -556,7 +556,7 @@ describe('Dropdown', () => {
       it('returns the next highlighted value', () => {
         instance.setState({ highlighted: 1 });
         list = instance.refs.list;
-        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         let nextValue = instance.onUpArrow(list, element);
         expect(nextValue).toEqual(list.lastChild.getAttribute('value'));
       });
@@ -566,7 +566,7 @@ describe('Dropdown', () => {
       it('it calls updateScroll with the list and the last list element', () => {
         instance.setState({ highlighted: 2 });
         list = instance.refs.list;
-        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onUpArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, element.previousElementSibling);
       });
@@ -574,7 +574,7 @@ describe('Dropdown', () => {
       it('returns the next highlighted value', () => {
         instance.setState({ highlighted: 2 });
         list = instance.refs.list;
-        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         let nextValue = instance.onUpArrow(list, element);
         expect(nextValue).toEqual(element.previousElementSibling.getAttribute('value'));
       });
@@ -605,7 +605,7 @@ describe('Dropdown', () => {
       it('it calls updateScroll with the list and the previous sibling', () => {
         instance.setState({ highlighted: 2 });
         list = instance.refs.list;
-        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onDownArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, list.firstChild);
       });
@@ -615,7 +615,7 @@ describe('Dropdown', () => {
       it('it calls updateScroll with the list and next element', () => {
         instance.setState({ highlighted: 1 });
         list = instance.refs.list;
-        element = list.getElementsByClassName('ui-dropdown__list-item--highlighted')[0];
+        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onDownArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, element.nextElementSibling);
       });
@@ -732,21 +732,21 @@ describe('Dropdown', () => {
   describe('mainClasses', () => {
     describe('if closed', () => {
       it('should return the main class', () => {
-        expect(instance.mainClasses).toEqual('ui-dropdown common-input--with-icon common-input');
+        expect(instance.mainClasses).toEqual('carbon-dropdown common-input--with-icon common-input');
       });
     });
 
     describe('if open', () => {
       it('should return the main classes', () => {
         instance.setState({ open: true });
-        expect(instance.mainClasses).toEqual('ui-dropdown ui-dropdown--open common-input--with-icon common-input');
+        expect(instance.mainClasses).toEqual('carbon-dropdown carbon-dropdown--open common-input--with-icon common-input');
       });
     });
   });
 
   describe('inputClasses', () => {
     it('should return the classes for the input', () => {
-      expect(instance.inputClasses).toEqual('ui-dropdown__input common-input__input');
+      expect(instance.inputClasses).toEqual('carbon-dropdown__input common-input__input');
     });
   });
 
@@ -754,7 +754,7 @@ describe('Dropdown', () => {
     it('should return the correct options', () => {
       expect(instance.listBlockProps.key).toEqual('listBlock');
       expect(instance.listBlockProps.ref).toEqual('listBlock');
-      expect(instance.listBlockProps.className).toEqual('ui-dropdown__list-block');
+      expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block');
     });
   });
 
@@ -762,7 +762,7 @@ describe('Dropdown', () => {
     it('should return the correct options', () => {
       expect(instance.listProps.key).toEqual('list');
       expect(instance.listProps.ref).toEqual('list');
-      expect(instance.listProps.className).toEqual('ui-dropdown__list');
+      expect(instance.listProps.className).toEqual('carbon-dropdown__list');
     });
   });
 
@@ -793,18 +793,18 @@ describe('Dropdown', () => {
     });
 
     it('adds selected class', () => {
-      expect(instance.results(instance.options)[0].props.className).toEqual('ui-dropdown__list-item ui-dropdown__list-item--highlighted ui-dropdown__list-item--selected');
+      expect(instance.results(instance.options)[0].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted carbon-dropdown__list-item--selected');
     });
 
     it('adds highlighted class', () => {
       instance.setState({ highlighted: 2 });
-      expect(instance.results(instance.options)[1].props.className).toEqual('ui-dropdown__list-item ui-dropdown__list-item--highlighted');
+      expect(instance.results(instance.options)[1].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted');
     });
   });
 
   describe('additionalInputContent', () => {
     it('returns the list', () => {
-      expect(instance.additionalInputContent[1].props.className).toEqual('ui-dropdown__list-block');
+      expect(instance.additionalInputContent[1].props.className).toEqual('carbon-dropdown__list-block');
     });
 
     describe('with suggest disabled', () => {
@@ -819,7 +819,7 @@ describe('Dropdown', () => {
           <Dropdown name="foo" options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) } value="1" suggest={ true } />
         );
         expect(instance.additionalInputContent.length).toEqual(1);
-        expect(instance.additionalInputContent[0].props.className).toEqual('ui-dropdown__list-block');
+        expect(instance.additionalInputContent[0].props.className).toEqual('carbon-dropdown__list-block');
       });
     });
   });
@@ -828,7 +828,7 @@ describe('Dropdown', () => {
     let dropdown;
 
     beforeEach(() => {
-      dropdown = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dropdown');
+      dropdown = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dropdown');
     });
 
     it('renders the label', () => {

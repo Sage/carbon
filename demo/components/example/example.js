@@ -40,16 +40,16 @@ class Example extends React.Component {
    */
   get renderHeader() {
     return (
-      <div className="ui-example__header">
+      <div className="carbon-example__header">
         <Checkbox
-          className="ui-example__header-item"
+          className="carbon-example__header-item"
           label="Code"
           value={ this.state.isCodeOpen }
           onChange={ this.toggleCode }
         />
 
         <Checkbox
-          className="ui-example__header-item"
+          className="carbon-example__header-item"
           label="Config"
           value={ this.state.isConfigOpen }
           onChange={ this.toggleConfig }
@@ -57,11 +57,11 @@ class Example extends React.Component {
 
 
         <Link
-          className="ui-example__header-item"
+          className="carbon-example__header-item"
           href={ `https://www.github.com/Sage/carbon/tree/master/src/${this.props.readme}` }
           target="_blank"
         >
-          <Icon type="info" className="ui-example__help-icon" />
+          <Icon type="info" className="carbon-example__help-icon" />
         </Link>
       </div>
     );
@@ -72,14 +72,14 @@ class Example extends React.Component {
    */
   get renderExample() {
     let example = [
-      <div key="demo" className="ui-example__demo">
+      <div key="demo" className="carbon-example__demo">
         { this.props.demo }
       </div>
     ];
 
     if (this.state.isConfigOpen) {
       example.push(
-        <Pod key="controls" className="ui-example__controls">
+        <Pod key="controls" className="carbon-example__controls">
           { this.props.controls }
         </Pod>
       );
@@ -93,7 +93,7 @@ class Example extends React.Component {
    */
   get renderCode() {
     return this.state.isCodeOpen ? (
-      <div className="ui-example__code">
+      <div className="carbon-example__code">
         <Highlight className="javascript">
           { this.props.code }
         </Highlight>
@@ -106,7 +106,7 @@ class Example extends React.Component {
    */
   render() {
     return (
-      <Pod className="ui-example" title={ this.props.title }>
+      <Pod className="carbon-example" title={ this.props.title }>
         { this.renderHeader }
 
         <Row>

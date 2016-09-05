@@ -26,7 +26,7 @@ describe('TableRow', () => {
   it('renders a td with correct classes', () => {
     let td = TestUtils.findRenderedDOMComponentWithTag(instance, 'td');
     expect(td).toBeDefined();
-    expect(td.className).toEqual('ui-table-cell foo ui-table-cell--align-right');
+    expect(td.className).toEqual('carbon-table-cell foo carbon-table-cell--align-right');
   });
 
   describe('with action', () => {
@@ -43,7 +43,7 @@ describe('TableRow', () => {
     it('renders a td with correct classes', () => {
       let td = TestUtils.findRenderedDOMComponentWithTag(instance, 'td');
       expect(td).toBeDefined();
-      expect(td.className).toEqual('ui-table-cell foo ui-table-cell--action');
+      expect(td.className).toEqual('carbon-table-cell foo carbon-table-cell--action');
     });
   });
 });

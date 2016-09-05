@@ -15,7 +15,7 @@ describe('Menu', () => {
 
   it('renders with correct classes', () => {
     let div = TestUtils.findRenderedDOMComponentWithTag(instance, 'div');
-    expect(div.className).toEqual('ui-menu foobar ui-menu--primary');
+    expect(div.className).toEqual('carbon-menu foobar carbon-menu--primary');
   });
 
   it('renders with secondary class', () => {
@@ -25,6 +25,6 @@ describe('Menu', () => {
       </Menu>
     );
     let div = TestUtils.findRenderedDOMComponentWithTag(instance, 'div');
-    expect(div.className).toEqual('ui-menu foobar ui-menu--secondary');
+    expect(div.className).toEqual('carbon-menu foobar carbon-menu--secondary');
   });
 });
