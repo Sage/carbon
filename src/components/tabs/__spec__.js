@@ -121,6 +121,9 @@ describe('Tabs', () => {
     });
   });
 
+
+
+
   describe('Change in tab prop', () => {
     let instance, tabs;
       beforeEach(() => {
