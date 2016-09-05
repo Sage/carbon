@@ -212,11 +212,7 @@ class Tabs extends React.Component {
   */
   componentWillReceiveProps(nextProps) {
     if (this.props.selectedTabId !== nextProps.selectedTabId) {
-      this._window.location = `#${nextProps.selectedTabId}`;
-      this.setState({ selectedTabId: nextProps.selectedTabId});
-      if (this.props.onTabChange) {
-        this.props.onTabChange(nextProps.selectedTabId);
-      }
+      this.updateVisibleTab(nextProps.selectedTabId);
     }
   }
 
@@ -240,6 +236,10 @@ class Tabs extends React.Component {
    */
   handleTabClick = (ev) => {
     let tabid = ev.target.dataset.tabid;
+    this.updateVisibleTab(tabid);
+  }
+
+  updateVisibleTab(tabid) {
     this._window.location = `#${tabid}`;
     this.setState({ selectedTabId: tabid });
 
