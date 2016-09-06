@@ -78,6 +78,15 @@ class Pod extends React.Component {
     title: React.PropTypes.string,
 
     /**
+     * Aligns the title to left, right or center
+     *
+     * @property alignTitle
+     * @type {String}
+     * @default left
+     */
+    alignTitle: React.PropTypes.string,
+
+    /**
      * Description for the pod
      * Not shown if collapsed
      *
@@ -110,7 +119,8 @@ class Pod extends React.Component {
   static defaultProps = {
     border: true,
     as: "primary",
-    padding: "medium"
+    padding: "medium",
+    alignTitle: 'left'
   }
 
   /**
@@ -133,16 +143,15 @@ class Pod extends React.Component {
    */
   get podHeader() {
     if (!this.props.title) { return; }
-    let pod,
-        headerProps = {};
 
-    headerProps.className = `carbon-pod__header ${css.unselectable}`;
+    let pod, headerProps = {};
 
     if (this.state.collapsed !== undefined) {
       pod = this.podCollapsible;
       headerProps.onClick = this.toggleCollapse;
-      headerProps.className += " carbon-pod__header--" + this.state.collapsed;
     }
+
+    headerProps.className = this.headerClasses;
 
     return (
       <div { ...headerProps }>
@@ -216,6 +225,23 @@ class Pod extends React.Component {
       `carbon-pod--${this.props.as}`, {
         'carbon-pod--no-border': !this.props.border,
         'carbon-pod--footer': this.props.footer
+      }
+    );
+  }
+
+  /**
+   * Header classes getter
+   *
+   * @method headerClasses
+   * @return {String} header className
+   */
+  get headerClasses() {
+    return classNames(
+      `carbon-pod__header`,
+      `carbon-pod__header--${ this.props.alignTitle }`,
+      css.unselectable,
+      {
+        [`carbon-pod__header--${ this.state.collapsed }`]: this.state.collapsed !== undefined
       }
     );
   }

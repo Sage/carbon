@@ -14,6 +14,7 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 * [An introduction to Node/npm](docs/guides/an-introduction-to-node-and-npm.md)
 * [Getting started](docs/guides/getting-started.md)
 * [A basic example of Flux](docs/guides/a-basic-example.md)
+* [Running Tests](https://github.com/Sage/carbon-factory/blob/master/docs/running-tests.md)
 
 ### Guides
 

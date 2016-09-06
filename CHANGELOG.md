@@ -1,3 +1,16 @@
+# 0.23.0
+
+## Breaking Change - Additional functionality for initialSelectedTabId prop in Tabs component
+
+* Renamed initialSelectedTabId to selectedTabId and onTabClick to onTabChange in the Tabs component
+* If selectedTabId is updated the visible tab will change to the value of selectedTabId, this will call the onTabChange function if set.
+
+## Minor Improvements
+
+* Pod component now accepts a alignTitle prop.
+* Checkbox input now has `important` set on position.
+* Tooltip Decorator now protects against no target or tooltip rendered in the DOM
+
 # 0.22.1
 
 ## Bug Fix
@@ -22,6 +35,7 @@
 Please ensure you check your application carefully to update any references to these styles when upgrading.
 
 ## Minor Improvements
+
 * Show edit pod can now be controlled via props
 * Make heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
 * Allow ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
