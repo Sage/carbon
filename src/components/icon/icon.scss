@@ -32,68 +32,60 @@
 
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
+  -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
   font: {
     family: CarbonIcons;
-    size: 18px;
+    size: 16px;
     style: normal;
     weight: normal;
   }
-  line-height: 14px;
+
+  line-height: 16px;
   vertical-align: middle;
-  -webkit-font-smoothing: antialiased;
 }
 
-@include icon(feedback,      "");
-@include icon(info,           0);
+@include icon(feedback,       "\e930");
+@include icon(info,           "\e92a");
 @include icon(accounts,       1);
 @include icon(accounts_extra, 1);
 @include icon(cashbook,       1);
 @include icon(payroll,        2);
-@include icon(help,           3);
-@include icon(settings,       4);
-@include icon(logout,         5);
-@include icon(pdf,            6);
-@include icon(csv,            7);
-@include icon(copy,           8);
-@include icon(error,          9);
+@include icon(help,           "\e943");
+@include icon(settings,       "\e91a");
+@include icon(logout,         "\e92e");
+@include icon(pdf,            "\e91f");
+@include icon(csv,            "\e94a");
+@include icon(copy,           "\e91b");
+@include icon(error,          "\e923");
 
 @include icon(insert_row,     A);
 @include icon(plus,           B);
-@include icon(calendar,       C);
+@include icon(calendar,       "\e90e");
 @include icon(book,           D);
 @include icon(analysis,       E);
-@include icon(people,         F);
+@include icon(people,         "\e93b");
 @include icon(bank,           G);
 @include icon(entry,          H);
 @include icon(collaborate,    J);
-@include icon(dropdown,       K);
-@include icon(alert,          L);
-// @include icon(,            M);
-// @include icon(,            N);
-// @include icon(,            O);
-// @include icon(,            P);
-// @include icon(,            Q);
-// @include icon(,            R);
-// @include icon(,            S);
-// @include icon(,            T);
-// @include icon(,            U);
+@include icon(dropdown,       "\e910");
+@include icon(alert,          "\e90b");
+
 @include icon(create,         V);
-// @include icon(,            W);
-// @include icon(,            X);
-// @include icon(,            Y);
-// @include icon(,            Z);
+
 
 @include icon(graph,          a);
 @include icon(pound,          b);
 @include icon(edit,           c);
 @include icon(piggy_bank,     d);
 @include icon(contacts,       e); // Deprecated
-@include icon(person,         e);
+@include icon(person,         "\e93c");
 @include icon(arrow,          f);
-@include icon(search,         g);
-@include icon(cross,          h);
-@include icon(close,          h); //Dialog
-@include icon(delete,         h); //TFFM
+@include icon(search,         "\e92f");
+@include icon(cross,          "\e91d");
+@include icon(close,          "\e91e"); //Dialog
+@include icon(delete,         "\e90c"); //TFFM
 @include icon(settings_old,   i);
 @include icon(go,             j);
 @include icon(new,            k);
@@ -101,20 +93,33 @@
 @include icon(old_warning,    m);
 @include icon(question_mark,  n);
 @include icon(admin,          o);
-@include icon(messages,       p);
-@include icon(email,          p);
-@include icon(edit,           q);
-@include icon(print,          r);
-@include icon(clock,          s);
+@include icon(messages,       "\e922");
+@include icon(email,          "\e922");
+@include icon(edit,           "\e93a");
+@include icon(print,          "\e942");
+@include icon(clock,          "\e919");
 @include icon(euro,           t);
-@include icon(home,           u);
-@include icon(cart,           v);
-@include icon(bulk_destroy,   w);
+@include icon(home,           "\e929");
+@include icon(cart,           "\e90a");
+@include icon(bulk_destroy,   "\e90c");
 @include icon(hide,           w); // Messages
-@include icon(warning,        x);
-@include icon(question,       y);
-@include icon(tick,           z);
+@include icon(warning,        "\e924");
+@include icon(question,       "\e943");
+@include icon(tick,           "\e950");
 
 @include icon(none,           "\ ");
-@include icon(add,            "\+");
+@include icon(add,            "\e940");
 @include icon(services,       "\+");
+
+
+// New
+@include icon(edited,         "\e938");
+@include icon(refresh,        "\e945");
+@include icon(fax,            "\e925");
+@include icon(shop,           "\e947");
+@include icon(attach,         "\e937");
+@include icon(filter,         "\e928");
+@include icon(chat,           "\e914");
+@include icon(duplicate,      "\e921");
+@include icon(call,           "\e93d");
+@include icon(favourite,      "\e94f");
