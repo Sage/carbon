@@ -8,7 +8,8 @@
 ## Minor Improvements
 
 * Pod component now accepts a alignTitle prop.
-* Tooltip Decorator now protects against no target or tooltip rendered in the DOM 
+* Checkbox input now has `important` set on position.
+* Tooltip Decorator now protects against no target or tooltip rendered in the DOM
 
 # 0.22.0
 
