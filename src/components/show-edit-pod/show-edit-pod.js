@@ -227,7 +227,7 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get content() {
-    return this.state.editing ?
+    return this[this.control].editing ?
       <div key='edit'>{ this.editContent }</div> :
       <div key='show'>{ this.props.children }</div>;
   }
