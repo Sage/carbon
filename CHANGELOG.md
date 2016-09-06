@@ -1,5 +1,10 @@
 # 0.23.0
 
+## Breaking Change - Additional functionality for initialSelectedTabId prop in Tabs component
+
+* Renamed initialSelectedTabId to selectedTabId and onTabClick to onTabChange in the Tabs component
+* If selectedTabId is updated the visible tab will change to the value of selectedTabId, this will call the onTabChange function if set.
+
 ## Minor Improvements
 
 * Pod component now accepts a alignTitle prop.
