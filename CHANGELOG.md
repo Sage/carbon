@@ -11,6 +11,12 @@
 * Checkbox input now has `important` set on position.
 * Tooltip Decorator now protects against no target or tooltip rendered in the DOM
 
+# 0.22.1
+
+## Bug Fix
+
+* ShowEditPod shows edit content when controlled externally
+
 # 0.22.0
 
 ## Breaking Change - CSS Naming
