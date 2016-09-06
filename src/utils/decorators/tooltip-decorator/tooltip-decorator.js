@@ -49,6 +49,22 @@ import { styleElement, append } from './../../ether';
  *   );
  * }
  *
+ * The targetted JSX must also have a ref of _target and have the correct componentProps
+ *
+ * e.g.
+ *
+ * render() {
+ *   return (
+ *     <div className='relative-class'>
+ *       <span
+ *         ref={ (comp) => this._target = comp }
+ *         { ...this.componentProps }
+ *       />
+ *       { this.tooltipHTML }
+ *     </div>
+ *   );
+ * }
+ *
  * To activate the tooltip, you must pass a prop of 'tooltipMessage' with some text content.
  *
  * render() {
@@ -205,10 +221,19 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    */
   positionTooltip = () => {
     if (this.state.isVisible) {
+
       let tooltip = this.getTooltip(),
-          alignment = this.props.tooltipAlign || 'center',
+          target = this.getTarget();
+
+      if (!tooltip || !target) {
+        // Can't find the tooltip or target so hide
+        this.setState({ isVisible: false });
+        return;
+      }
+
+      let alignment = this.props.tooltipAlign || 'center',
           position = this.props.tooltipPosition || 'top',
-          shifts = this.calculatePosition(tooltip, this.getTarget());
+          shifts = this.calculatePosition(tooltip, target);
 
       switch (position) {
         case "top":
