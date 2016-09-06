@@ -43,7 +43,7 @@
 }
 
 .carbon-pod__content--footer.carbon-pod__content--tile {
-  border-bottom: 1px solid $border-color; 
+  border-bottom: 1px solid $border-color;
 }
 
 .carbon-pod__footer {
@@ -80,6 +80,14 @@
 
 .carbon-pod__header--false {
   cursor: pointer;
+}
+
+.carbon-pod__header--center {
+  text-align: center;
+}
+
+.carbon-pod__header--right {
+  text-align: right;
 }
 
 .carbon-pod__title {
