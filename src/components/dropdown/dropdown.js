@@ -400,7 +400,10 @@ class Dropdown extends React.Component {
    * @method inputProps
    */
   get inputProps() {
-    let { autoFocus, ...props } = this.props;
+    let { ...props } = this.props;
+
+    delete props.autoFocus;
+
     props.className = this.inputClasses;
     props.value = this.visibleValue || this.nameByID();
     props.name = null;
