@@ -1,5 +1,8 @@
 # 0.24.0
 
+## Carbon Factory Upgrade v0.1.0
+* [Carbon Factory Release Notes](https://github.com/Sage/carbon-factory/releases/tag/v0.1.0)
+
 ## Updated Flash component API
 
 As well as just a string, the Flash component will now receive a message value with the following:
