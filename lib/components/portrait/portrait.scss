@@ -1,0 +1,71 @@
+.carbon-portrait {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.carbon-portrait__initials {
+  position: absolute;
+}
+
+.carbon-portrait__avatar {
+  display: inline-block;
+  position: relative;
+}
+
+.carbon-portrait__img {
+  float: left;
+}
+
+.carbon-portrait--standard .carbon-portrait__img {
+  border-radius: 5px;
+}
+
+.carbon-portrait--circle .carbon-portrait__img {
+  border-radius: 50%;
+}
+
+.carbon-portrait--leaf .carbon-portrait__img {
+  border-radius: 10% 40% 10%;
+}
+
+.carbon-portrait--extra-small,
+.carbon-portrait--extra-small .carbon-portrait__img {
+  width: 25px;
+  height: 25px;
+}
+
+.carbon-portrait--small,
+.carbon-portrait--small .carbon-portrait__img {
+  width: 30px;
+  height: 30px;
+}
+
+.carbon-portrait--medium-small,
+.carbon-portrait--medium-small .carbon-portrait__img {
+  width: 50px;
+  height: 50px;
+}
+
+.carbon-portrait--medium,
+.carbon-portrait--medium .carbon-portrait__img {
+  width: 60px;
+  height: 60px;
+}
+
+.carbon-portrait--medium-large,
+.carbon-portrait--medium-large .carbon-portrait__img {
+  width: 70px;
+  height: 70px;
+}
+
+.carbon-portrait--large,
+.carbon-portrait--large .carbon-portrait__img {
+  width: 100px;
+  height: 100px;
+}
+
+.carbon-portrait--extra-large,
+.carbon-portrait--extra-large .carbon-portrait__img {
+  width: 120px;
+  height: 120px;
+}

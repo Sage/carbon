@@ -1,0 +1,31 @@
+@import "colors";
+
+body {
+  background-color: $grey-background;
+  margin: 0;
+}
+
+.carbon-demo__header {
+  background-color: $grey-dark-blue;
+  color: #FFF;
+}
+
+.carbon-demo__header-contents,
+.carbon-demo__content {
+  margin: 0 auto;
+  min-width: 960px;
+  max-width: 1400px;
+}
+
+.carbon-demo__header-contents {
+  a {
+    color: #FFF;
+    display: inline-block;
+    padding: 10px;
+    text-decoration: none;
+  }
+}
+
+.carbon-demo__footer {
+  height: 200px;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from './../../../components/icon';
+import classNames from 'classnames';
 
 /**
  * InputIcon decorator.
@@ -57,7 +58,7 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
 
     return (
       <label htmlFor={ this.inputProps.id } key="label-icon">
-        <Icon type={ icon } className="ui-input-icon" />
+        <Icon type={ icon } className="carbon-input-icon" />
       </label>
     );
   }
@@ -69,11 +70,11 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
    * @return {String} Main class names
    */
   get mainClasses() {
-    let classes = super.mainClasses || "";
-    classes += " common-input--with-icon";
-    return classes;
+    return classNames(
+      super.mainClasses,
+      'common-input--with-icon'
+    );
   }
-
 };
 
 export default InputIcon;

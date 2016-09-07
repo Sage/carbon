@@ -33,8 +33,16 @@ describe('Pod', () => {
     describe('when title is passed as a prop', () => {
       it('Adds a title to the pod', () => {
         instance = TestUtils.renderIntoDocument(<Pod title='Title'/>);
-        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
+        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h4');
         expect(header.textContent).toEqual('Title');
+      });
+
+      describe('when alignTitle prop is passed', () => {
+        it('adds a align class', () => {
+          instance = TestUtils.renderIntoDocument(<Pod title='Title' alignTitle='center' />);
+          let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
+          expect(header.className).toMatch('carbon-pod__header--center');
+        });
       });
 
       describe('when pod is collapsible', () => {
@@ -43,18 +51,18 @@ describe('Pod', () => {
         });
 
         it('Adds a additional collaspsible arrow to the the header', () => {
-          let arrow = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__arrow');
-          expect(arrow.className).toEqual('ui-pod__arrow ui-pod__arrow--true icon-dropdown');
+          let arrow = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__arrow');
+          expect(arrow.className).toEqual('carbon-icon carbon-pod__arrow carbon-pod__arrow--true icon-dropdown');
         });
 
         it('Adds a additonal class header', () => {
-          let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__header');
-          expect(header.className).toEqual('ui-pod__header unselectable ui-pod__header--true');
+          let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
+          expect(header.className).toEqual('carbon-pod__header carbon-pod__header--left unselectable carbon-pod__header--true');
         });
 
         it('Adds a onClick handler to the header', () => {
           spyOn(instance, 'setState');
-          let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__header');
+          let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
           TestUtils.Simulate.click(header);
           expect(instance.setState).toHaveBeenCalledWith({ collapsed: false });
         });
@@ -63,7 +71,7 @@ describe('Pod', () => {
       describe('when pod is NOT collapsible', () => {
         it('does not add additional collapsible arrow', () => {
           instance = TestUtils.renderIntoDocument(<Pod title='Title'/>);
-          let arrows = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pod__arrow');
+          let arrows = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pod__arrow');
           expect(arrows.length).toEqual(0);
         });
       });
@@ -76,7 +84,7 @@ describe('Pod', () => {
         instance = TestUtils.renderIntoDocument(
           <Pod title='Title' description='This is the pod description'/>
         );
-        let description = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pod__description');
+        let description = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__description');
         expect(description.textContent).toEqual('This is the pod description');
       });
     });
@@ -84,25 +92,114 @@ describe('Pod', () => {
     describe('when description is not passed as a prop', () => {
       it('does not render a description', () => {
         instance = TestUtils.renderIntoDocument(<Pod/>);
-        let description = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-pod__description');
+        let description = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pod__description');
         expect(description.length).toEqual(0);
       });
     });
   });
 
-  describe('render', () => {
-    it('renders a parent div with a pod CSS class', () => {
-      instance = TestUtils.renderIntoDocument(<Pod/>);
-      let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
-      expect(podNode.className).toEqual('ui-pod ');
+  describe('mainClasses', () => {
+    describe('if border is enabled and there is no footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod />);
+        expect(instance.mainClasses).toEqual('carbon-pod carbon-pod--primary');
+      });
     });
 
-    describe('when a custom className is passed', () => {
-      it('adds the class to the surrounding parent div', () => {
-        instance = TestUtils.renderIntoDocument(<Pod className="CustomClass"/>);
-        let podNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0]
-        expect(podNode.className).toEqual('ui-pod CustomClass');
+    describe('if border is disabled and there is a footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
+        expect(instance.mainClasses).toEqual('carbon-pod carbon-pod--primary carbon-pod--no-border carbon-pod--footer');
       });
+    });
+  });
+
+  describe('contentClasses', () => {
+    describe('if border is enabled and there is no footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod />);
+        expect(instance.contentClasses).toEqual('carbon-pod__content carbon-pod__content--primary carbon-pod--padding-medium');
+      });
+    });
+
+    describe('if border is disabled and there is a footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
+        expect(instance.contentClasses).toEqual('carbon-pod__content carbon-pod__content--primary carbon-pod--padding-medium carbon-pod__content--footer carbon-pod--no-border');
+      });
+    });
+  });
+
+  describe('footerClasses', () => {
+    describe('if border is enabled and there is no footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod />);
+        expect(instance.footerClasses).toEqual('carbon-pod__footer carbon-pod__footer--primary carbon-pod__footer--padding-medium');
+      });
+    });
+
+    describe('if border is disabled and there is a footer', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod border={ false } />);
+        expect(instance.footerClasses).toEqual('carbon-pod__footer carbon-pod__footer--primary carbon-pod__footer--padding-medium carbon-pod--no-border');
+      });
+    });
+  });
+
+  describe('footer', () => {
+    describe('if there is no footer', () => {
+      it('returns null', () => {
+        instance = TestUtils.renderIntoDocument(<Pod />);
+        expect(instance.footer).toBe(null);
+      });
+    });
+
+    describe('if there is a footer', () => {
+      it('returns the footer', () => {
+        instance = TestUtils.renderIntoDocument(<Pod footer={ <div /> } />);
+        let footer = instance.footer;
+        expect(footer.props.className).toEqual(instance.footerClasses);
+      });
+    });
+  });
+
+  describe('edit', () => {
+    describe('if no prop is passed', () => {
+      it('returns nothing', () => {
+        expect(instance.edit).toBe(null);
+      });
+    });
+
+    describe('if a string is passed', () => {
+      it('returns a link with a href prop', () => {
+        instance = TestUtils.renderIntoDocument(<Pod onEdit="foo" />);
+        expect(instance.edit.props.to).toEqual('foo');
+      });
+    });
+
+    describe('if a function is passed', () => {
+      it('returns a link with an onClick prop', () => {
+        let foo = () => {};
+        instance = TestUtils.renderIntoDocument(<Pod onEdit={ foo } />);
+        expect(instance.edit.props.onClick).toEqual(foo);
+      });
+    });
+
+    describe('if an object is passed', () => {
+      it('returns a link with a object as props', () => {
+        let foo = { foo: "foo", bar: "bar" };
+        instance = TestUtils.renderIntoDocument(<Pod onEdit={ foo } />);
+        expect(instance.edit.props.foo).toEqual("foo");
+        expect(instance.edit.props.bar).toEqual("bar");
+      });
+    });
+  });
+
+  describe('render', () => {
+    it('applies all props to the pod', () => {
+      instance = TestUtils.renderIntoDocument(<Pod foo="bar" />);
+      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      expect(div.props.foo).toEqual("bar");
     });
 
     describe('pod content', () => {

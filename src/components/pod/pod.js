@@ -1,5 +1,9 @@
+import css from './../../utils/css';
 import React from 'react';
-import Icon from 'components/icon';
+import Icon from './../icon';
+import Link from './../link';
+import I18n from 'i18n-js';
+import classNames from 'classnames';
 
 /**
  * A Pod widget.
@@ -24,6 +28,35 @@ class Pod extends React.Component {
   static propTypes = {
 
     /**
+     * Enables/disables the border around the pod.
+     *
+     * @property border
+     * @type {Boolean}
+     * @default true
+     */
+    border: React.PropTypes.bool,
+
+    /**
+     * Determines the padding around the pod.
+     * Values: "none", "small", "medium" or "large".
+     *
+     * @property padding
+     * @type {String}
+     * @default medium
+     */
+    padding: React.PropTypes.string,
+
+    /**
+     * Applies a theme to the Pod.
+     * Value: primary, secondary, tile
+     *
+     * @property as
+     * @type {String}
+     * @default primary
+     */
+    as: React.PropTypes.string,
+
+    /**
      * The collapsed state of the pod
      *
      * undefined - Pod is not collapsible
@@ -33,7 +66,61 @@ class Pod extends React.Component {
      * @property collapsed
      * @type {Boolean}
      */
-    collapsed: React.PropTypes.bool
+    collapsed: React.PropTypes.bool,
+
+    /**
+     * Title for the pod h4 element
+     * always shown
+     *
+     * @property title
+     * @type {String}
+     */
+    title: React.PropTypes.string,
+
+    /**
+     * Aligns the title to left, right or center
+     *
+     * @property alignTitle
+     * @type {String}
+     * @default left
+     */
+    alignTitle: React.PropTypes.string,
+
+    /**
+     * Description for the pod
+     * Not shown if collapsed
+     *
+     * @property title
+     * @type {String}
+     */
+    description: React.PropTypes.string,
+
+    /**
+     * A component to render as a Pod footer.
+     *
+     * @property footer
+     * @type {String}
+     */
+    footer: React.PropTypes.object,
+
+    /**
+     * Supplies an edit action to the pod.
+     *
+     * @property onEdit
+     * @type {String|Function|Object}
+     */
+    onEdit: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.func,
+      React.PropTypes.object
+    ])
+  }
+
+  static defaultProps = {
+    border: true,
+    as: "primary",
+    padding: "medium",
+    alignTitle: 'left'
   }
 
   /**
@@ -55,21 +142,20 @@ class Pod extends React.Component {
    * @method podHeader
    */
   get podHeader() {
-    if(!this.props.title) { return; }
-    let pod,
-        headerProps = {};
+    if (!this.props.title) { return; }
 
-    headerProps.className = "ui-pod__header unselectable";
+    let pod, headerProps = {};
 
-    if(this.state.collapsed !== undefined) {
+    if (this.state.collapsed !== undefined) {
       pod = this.podCollapsible;
       headerProps.onClick = this.toggleCollapse;
-      headerProps.className += " ui-pod__header--" + this.state.collapsed;
     }
+
+    headerProps.className = this.headerClasses;
 
     return (
       <div { ...headerProps }>
-        <h2 className="ui-pod__title" >{ this.props.title }</h2>
+        <h4 className="carbon-pod__title" >{ this.props.title }</h4>
         { pod }
       </div>
     );
@@ -83,7 +169,7 @@ class Pod extends React.Component {
   get podDescription() {
     return (
         this.props.description ?
-          <div className="ui-pod__description">{ this.props.description }</div> :
+          <div className="carbon-pod__description">{ this.props.description }</div> :
           null
     );
   }
@@ -94,7 +180,7 @@ class Pod extends React.Component {
    * @method podCollapsible
    */
   get podCollapsible() {
-    let className = 'ui-pod__arrow ui-pod__arrow--' + this.state.collapsed;
+    let className = 'carbon-pod__arrow carbon-pod__arrow--' + this.state.collapsed;
 
     return(
       <Icon type='dropdown' className={ className } />
@@ -108,9 +194,9 @@ class Pod extends React.Component {
    */
   get podContent() {
     return(
-      <div className='ui-pod__collapsible-content'>
+      <div className='carbon-pod__collapsible-content'>
         { this.podDescription }
-        <div className='ui-pod__content'>
+        <div className='carbon-pod__content'>
           { this.props.children }
         </div>
       </div>
@@ -127,23 +213,134 @@ class Pod extends React.Component {
   };
 
   /**
+   * Main Class getter
+   *
+   * @method mainClasses
+   * @return {String} Main className
+   */
+  get mainClasses() {
+    return classNames(
+      'carbon-pod',
+      this.props.className,
+      `carbon-pod--${this.props.as}`, {
+        'carbon-pod--no-border': !this.props.border,
+        'carbon-pod--footer': this.props.footer
+      }
+    );
+  }
+
+  /**
+   * Header classes getter
+   *
+   * @method headerClasses
+   * @return {String} header className
+   */
+  get headerClasses() {
+    return classNames(
+      `carbon-pod__header`,
+      `carbon-pod__header--${ this.props.alignTitle }`,
+      css.unselectable,
+      {
+        [`carbon-pod__header--${ this.state.collapsed }`]: this.state.collapsed !== undefined
+      }
+    );
+  }
+
+  /**
+   * Classes for the content.
+   *
+   * @method contentClasses
+   * @return {String}
+   */
+  get contentClasses() {
+    return classNames(
+      'carbon-pod__content',
+      `carbon-pod__content--${this.props.as}`,
+      `carbon-pod--padding-${this.props.padding}`, {
+        'carbon-pod__content--footer': this.props.footer,
+        'carbon-pod--no-border': !this.props.border
+      }
+    );
+  }
+
+  /**
+   * Classes for the footer.
+   *
+   * @method footerClasses
+   * @return {String}
+   */
+  get footerClasses() {
+    return classNames(
+      'carbon-pod__footer',
+      `carbon-pod__footer--${this.props.as}`,
+      `carbon-pod__footer--padding-${this.props.padding}`, {
+        'carbon-pod--no-border': !this.props.border
+      }
+    );
+  }
+
+  /**
+   * Returns the footer component.
+   *
+   * @method footer
+   * @return {String}
+   */
+  get footer() {
+    if (!this.props.footer) { return null; }
+
+    return (
+      <div className={ this.footerClasses }>
+        { this.props.footer }
+      </div>
+    );
+  }
+
+  /**
+   * Returns the edit action if defined.
+   *
+   * @method edit
+   * @return {Object} JSX
+   */
+  get edit() {
+    if (!this.props.onEdit) { return null; }
+
+    let props = {};
+
+    if (typeof this.props.onEdit === "string") {
+      props.to = this.props.onEdit;
+    } else if (typeof this.props.onEdit === "object") {
+      props = this.props.onEdit;
+    } else {
+      props.onClick = this.props.onEdit;
+    }
+
+    return (
+      <Link icon="edit" className="carbon-pod__edit-action" { ...props }>
+        { I18n.t("components.pod.edit", { defaultValue: "Edit" }) }
+      </Link>
+    );
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
    * @return {Object} JSX
    */
   render() {
-    let className = "ui-pod ";
-    let content;
+    let content,
+        { className, ...props } = this.props;
 
-    className += this.props.className ? this.props.className : '';
-
-    if(!this.state.collapsed) { content = this.podContent; }
+    if (!this.state.collapsed) { content = this.podContent; }
 
     return (
-      <div className={ className } >
-        { this.podHeader }
-        { content }
+      <div className={ this.mainClasses } { ...props }>
+        { this.edit }
+        <div className={ this.contentClasses } >
+          { this.podHeader }
+          { content }
+        </div>
+        { this.footer }
       </div>
     );
   }

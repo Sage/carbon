@@ -1,5 +1,9 @@
+import css from './../../css';
 import React from 'react';
-import { isEqual, assign } from 'lodash';
+import shouldComponentUpdate from './../../helpers/should-component-update';
+import { assign } from 'lodash';
+import guid from './../../helpers/guid';
+import classNames from 'classnames';
 
 /**
  * Input decorator.
@@ -32,6 +36,10 @@ import { isEqual, assign } from 'lodash';
  * for example `textarea`, by defining a `inputType` getter method in your
  * components class.
  *
+ * Inputs also accept a prop of `prefix` which outputs a prefix to the input:
+ *
+ *   <Textbox prefix="foo" />
+ *
  * @method Input
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
@@ -40,11 +48,49 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
   constructor(...args) {
     super(...args);
+
+    /**
+     * A unique identifier for the input.
+     *
+     * @prop _guid
+     * @return {String}
+     */
+    this._guid = guid();
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
+
+  /**
+   * A lifecycle method for when the component has rendered.
+   *
+   * @method componentWillReceiveProps
+   * @return {void}
+   */
+  componentDidMount() {
+    // call the components super method if it exists
+    if (super.componentDidMount) { super.componentDidMount(); }
+
+    if (this.props.prefix) {
+      this.setTextIndentation();
+    }
+  }
+
+  /**
+   * A lifecycle method for when the component has re-rendered.
+   *
+   * @method componentDidUpdate
+   * @return {void}
+   */
+  componentDidUpdate(prevProps, prevState) {
+    // call the components super method if it exists
+    if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
+
+    if (this.props.prefix != prevProps.prefix) {
+      this.setTextIndentation();
+    }
+  }
 
   /**
    * A lifecycle method to determine if the component should re-render for better performance.
@@ -61,9 +107,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       false;
 
     // determine if anything has changed that should result in a re-render
-    if (changeDetected ||
-        !isEqual(this.props, nextProps) ||
-        !isEqual(this.state, nextState)) {
+    if (changeDetected || shouldComponentUpdate(this, nextProps, nextState)) {
       return true;
     }
 
@@ -85,27 +129,32 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
+   * Sets indentation of input value based on prefix width.
+   *
+   * @method setTextIndentation
+   * @return {void}
+   */
+  setTextIndentation = () => {
+    if (this._input) {
+      this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
+    }
+  }
+
+  /**
    * Extends main classes to add ones for the input.
    *
    * @method mainClasses
    * @return {String} Main class names
    */
   get mainClasses() {
-    let classes = super.mainClasses || "";
+    let classes = super.mainClasses;
 
-    if (this.props.readOnly) {
-      classes += ' common-input--readonly';
-    }
-
-    if (this.props.className) {
-      classes += ` ${this.props.className}`;
-    }
-
-    if (this.props.align) {
-      classes += ` common-input--align-${this.props.align}`;
-    }
-
-    return `${classes} common-input`;
+    return classNames(classes, this.props.className, css.input, {
+      [`${css.input}--readonly`]: this.props.readOnly,
+      [`${css.input}--align-${this.props.align}`]: this.props.align,
+      [`${css.input}--with-prefix`]: this.props.prefix,
+      [`${css.input}--disabled`]: this.props.disabled
+    });
   }
 
   /**
@@ -128,10 +177,19 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   get inputProps() {
     let inputProps = super.inputProps || {};
 
+    // store ref to input
+    inputProps.ref = (c) => { this._input = c; };
+
+    // disable autoComplete (causes performance issues in IE)
+    inputProps.autoComplete = this.props.autoComplete || "off";
+
     // only thread the onChange event through the handler if the event is defined by the dev
     if (this.props.onChange === inputProps.onChange) {
       inputProps.onChange = this._handleOnChange;
     }
+
+    // Pass onPaste action to input element
+    inputProps.onPaste = this.props.onPaste;
 
     return inputProps;
   }
@@ -172,17 +230,45 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
+   * Adds a prefix if it is defined
+   *
+   * @method prefixHTML
+   * @return {Object}
+   */
+  get prefixHTML() {
+    if (this.props.prefix) {
+      return (
+        <div ref={ (c) => { this._prefix = c; } } className="common-input__prefix">
+          { this.props.prefix }
+        </div>
+      );
+    }
+  }
+
+  /**
    * Returns HTML for the input.
    *
    * @method inputHTML
    * @return {HTML} HTML for input
    */
   get inputHTML() {
-    // builds the input with a variable input type - see `inputType`
-    let input = React.createElement(this.inputType, { ...this.inputProps });
+    let input;
+    if (this.props.fakeInput) {
+      // renders a fake input - useful for screens with lots of inputs
+      let classes = classNames(this.inputProps.className, 'common-input__input--fake');
+      input = (
+        <div className={ classes } onMouseOver={ this.inputProps.onMouseOver }>
+          { this.inputProps.value || this.inputProps.placeholder }
+        </div>
+      );
+    } else {
+      // builds the input with a variable input type - see `inputType`
+      input = React.createElement(this.inputType, { ...this.inputProps });
+    }
 
     return (
       <div { ...this.fieldProps }>
+        { this.prefixHTML }
         { input }
         { this.additionalInputContent }
       </div>

@@ -11,6 +11,8 @@
     display: table;
   }
 
+  .carbon-fieldset + &,
+  + .carbon-fieldset,
   + .common-input {
     margin-top: 10px;
   }
@@ -37,9 +39,9 @@
     text-align: left;
   }
 
-  .common-input__icon {
-    right: 0;
+  .carbon-icon.common-input__icon {
     left: auto;
+    right: 0;
   }
 }
 
@@ -48,9 +50,20 @@
     text-align: right;
   }
 
-  .common-input__icon {
-    left: 0;
+  .carbon-icon.common-input__icon {
+    left: 5px;
     right: auto;
+  }
+}
+
+.common-input--align-right.common-input--label-inline {
+  .carbon-icon.common-input__icon {
+    left: auto;
+    margin: 7px -40px;
+    right: 70%;
+    &.icon-error {
+      top: 0;
+    }
   }
 }
 
@@ -86,6 +99,7 @@
     @include transition(box-shadow linear 0.1s);
   }
 
+  .common-input--disabled &,
   &[disabled] {
     background-color: $grey-light !important; // this is the correct use of !important
     border-color: $grey !important; // this is the correct use of !important
@@ -95,12 +109,21 @@
       box-shadow: none;
     }
   }
+
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder {
+    color: $grey-dark-blue-40;
+  }
+
+  &:-ms-input-placeholder {
+    color: $grey-dark-blue-40;
+  }
 }
 
 .common-input__message-wrapper {
   top: 0;
   position: absolute;
-  width: 250px;
+  width: 260px;
 }
 
 .common-input__message {
@@ -109,10 +132,10 @@
   border-radius: 3px 3px 3px 0;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   box-sizing: border-box;
-  display: table;
-  left: 100%;
+  display: none;
+  left: 9999px; // show offscreen until it is positioned correctly
   margin-top: $arrow-size;
-  max-width: 250px;
+  max-width: 260px;
   min-width: 50px;
   padding: 10px;
   position: absolute;
@@ -122,7 +145,7 @@
   z-index: $z-validation-message;
 
   &:before {
-    border-top: 14px solid #D63F40;
+    border-top: 14px solid transparent;
     border-right: 16px solid transparent;
     content: '';
     display: block;
@@ -130,6 +153,14 @@
     left: 0;
     bottom: -14px;
   }
+}
+
+.common-input__message--warning:before {
+  border-top-color: $warning;
+}
+
+.common-input__message--error:before {
+  border-top-color: $error;
 }
 
 .common-input__message--hidden {
@@ -151,15 +182,32 @@
   }
 }
 
-.common-input__icon {
-  bottom: 1px;
+.carbon-icon.common-input__icon {
   color: red;
-  margin: 7px 5px;
+  height: 15px;
   position: absolute;
-  right: 0;
+  right: 5px;
+  top: 29px;
 
   &:before {
     font-size: 20px;
+  }
+
+  .carbon-icon__svg--warning {
+    height: 20px;
+    margin: -2px 0 0 0;
+    width: 26px;
+
+    .carbon-icon__svg-group {
+      fill: $warning;
+    }
+  }
+}
+
+.common-input--label-inline {
+  .icon-error {
+    right: 5px;
+    top: 7px;
   }
 }
 
@@ -168,12 +216,34 @@
   color: $error;
 }
 
+.common-input__input--warning,
+.common-input__input--warning:hover {
+  border-color: $warning !important; // this is the correct use of !important
+}
+
 .common-input__input--error,
 .common-input__input--error:hover {
   border-color: $error !important; // this is the correct use of !important
 }
 
+.common-input__message--warning {
+  background-color: $warning;
+  color: $white;
+}
+
 .common-input__message--error {
   background-color: $error;
   color: $white;
+}
+
+.common-input__prefix {
+  font-weight: bold;
+  left: 7px;
+  position: absolute;
+  top: 8px;
+}
+
+.common-input__input--fake {
+  text-align: left;
+  overflow: hidden;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from './../icon';
 import Devices from './../../utils/helpers/devices';
+import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 /**
@@ -133,7 +134,7 @@ class AnimatedMenuButton extends React.Component {
    */
   get labelHTML() {
     return this.props.label ?
-           <span key="label" className='ui-animated-menu-button__label'>{ this.props.label }</span> : '';
+           <span key="label" className='carbon-animated-menu-button__label'>{ this.props.label }</span> : '';
   }
 
   /**
@@ -151,7 +152,7 @@ class AnimatedMenuButton extends React.Component {
     contents.push(this.labelHTML);
     contents.push(this.props.children);
 
-    return <div className='ui-animated-menu-button__content'>{ contents }</div>;
+    return <div className='carbon-animated-menu-button__content'>{ contents }</div>;
   }
 
   /**
@@ -161,12 +162,12 @@ class AnimatedMenuButton extends React.Component {
    * @return {String} Classnames
    */
   get mainClasses() {
-    let className = this.props.className ? ' ' + this.props.className : '';
-
-    let classes = 'ui-animated-menu-button ui-animated-menu-button--' + this.props.size +
-                ' ui-animated-menu-button--' + this.props.direction + className;
-
-    return classes;
+    return classNames(
+      this.props.className,
+      'carbon-animated-menu-button',
+      `carbon-animated-menu-button--${this.props.size}`,
+      `carbon-animated-menu-button--${this.props.direction}`
+    );
   }
 
   /**
@@ -218,7 +219,7 @@ class AnimatedMenuButton extends React.Component {
         <Icon type='add'/>
 
         <ReactCSSTransitionGroup
-          transitionName='ui-animated-menu-button'
+          transitionName='carbon-animated-menu-button'
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 } >
           { content }

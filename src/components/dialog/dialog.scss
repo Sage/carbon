@@ -2,39 +2,26 @@
 @import 'z-index';
 
 $dialog-padding: 20px;
-$dialog-initial-position: 60px;
-$dialog-animation-length: 300ms;
-$dialog-background-opacity: 0.6;
-$dialog-background-animation-length: 300ms;
 
-.ui-dialog__background {
-  background-color: #3C424F;
-  bottom: 0;
-  left: 0;
-  opacity: $dialog-background-opacity;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: $z-dialog-background;
-}
-
-.ui-dialog__dialog {
+.carbon-dialog__dialog {
   background-color: $grey-light;
   border-radius: 5px;
   box-shadow: 0 4px 8px #555;
   padding: $dialog-padding;
   position: absolute;
   top: 50%;
-  width: 750px;
   z-index: $z-dialog;
 }
 
-.ui-dialog__dialog--small   { width: 380px; }
-.ui-dialog__dialog--smed    { width: 540px; }
-.ui-dialog__dialog--lmed    { width: 850px; }
-.ui-dialog__dialog--large   { width: 960px; }
+.carbon-dialog__dialog--extra-small   { width: 300px; }
+.carbon-dialog__dialog--small         { width: 380px; }
+.carbon-dialog__dialog--medium-small  { width: 540px; }
+.carbon-dialog__dialog--medium        { width: 750px; }
+.carbon-dialog__dialog--medium-large  { width: 850px; }
+.carbon-dialog__dialog--large         { width: 960px; }
+.carbon-dialog__dialog--extra-large   { width: 1080px; }
 
-.ui-dialog__title {
+.carbon-dialog__title {
   background: none;
   border-bottom: 1px solid $border-color;
   color: $grey-dark;
@@ -44,11 +31,11 @@ $dialog-background-animation-length: 300ms;
   padding-bottom: 20px;
 }
 
-.ui-dialog__content {
+.carbon-dialog__content {
   width: 100%;
 }
 
-.ui-dialog__close {
+.carbon-dialog__close {
   color: $grey-mid;
   cursor: pointer;
   position: absolute;
@@ -58,48 +45,4 @@ $dialog-background-animation-length: 300ms;
   &:hover {
     color: $blue;
   }
-}
-
-// dialog animation:
-
-.dialog-enter {
-  opacity: 0;
-  margin-top: $dialog-initial-position;
-}
-
-.dialog-enter.dialog-enter-active {
-  opacity: 1;
-  margin-top: 0;
-  transition: all $dialog-animation-length 100ms ease-in;
-}
-
-.dialog-leave {
-  opacity: 1;
-  margin-top: 0;
-}
-
-.dialog-leave.dialog-leave-active {
-  opacity: 0;
-  margin-top: $dialog-initial-position;
-  transition: all $dialog-animation-length ease-in;
-}
-
-// dialog background animation:
-
-.dialog-background-enter {
-  opacity: 0;
-}
-
-.dialog-background-enter.dialog-background-enter-active {
-  opacity: $dialog-background-opacity;
-  transition: opacity $dialog-background-animation-length ease-in;
-}
-
-.dialog-background-leave {
-  opacity: $dialog-background-opacity;
-}
-
-.dialog-background-leave.dialog-background-leave-active {
-  opacity: 0;
-  transition: opacity $dialog-background-animation-length 100ms ease-in;
 }

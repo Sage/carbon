@@ -1,7 +1,14 @@
 @import "tables";
 @import "colors";
 
-.ui-table-cell {
+.carbon-table-cell,
+.carbon-table-header {
+  &:not(.carbon-table-cell--select):first-child {
+    padding-left: 15px;
+  }
+}
+
+.carbon-table-cell {
   background-color: $row-alt-color;
   border-bottom: 1px solid $table-border-color;
   border-left: none;
@@ -10,12 +17,10 @@
   font-size: 12px;
   overflow: visible;
   padding: 8px;
-  vertical-align: baseline;
-  width: auto;
+  vertical-align: middle;
+  white-space: nowrap;
 
-  .ui-table-row:first-child & {
-    border-bottom: none;
-
+  .carbon-table-row:first-child & {
     &:first-child {
       border-radius: $tables__border-radius 0 0 0;
     }
@@ -25,8 +30,8 @@
     }
   }
 
-  .ui-table-row:last-child & {
-    border-bottom: none;
+  .carbon-table-row:last-child & {
+    border-bottom-color: transparent;
 
     &:first-child {
       border-radius: 0 0 0 $tables__border-radius;
@@ -37,15 +42,15 @@
     }
   }
 
-  .ui-table-row:nth-child(odd) & {
+  .carbon-table-row:nth-child(odd) & {
     background-color: $white;
   }
 
-  .ui-table-row:hover & {
+  .carbon-table-row:hover & {
     background-color: $row-hover-color;
   }
 
-  .common-input {
+  > .common-input {
     margin-bottom: -4px;
     margin-left: -6px;
     margin-right: -6px;
@@ -53,7 +58,17 @@
   }
 }
 
-.ui-table-cell--action {
+.carbon-table-cell--select {
+  text-align: center;
+  width: 18px;
+
+  .carbon-checkbox {
+    height: 15px;
+    padding-top: 0;
+  }
+}
+
+.carbon-table-cell--action {
   width: 18px;
 
   .icon-delete:before {
@@ -69,10 +84,14 @@
   }
 }
 
-.ui-table-cell--align-left {
+.carbon-table-cell--align-left {
   text-align: left;
 }
 
-.ui-table-cell--align-right {
+.carbon-table-cell--align-right {
   text-align: right;
+}
+
+.carbon-table-cell--align-center {
+  text-align: center;
 }

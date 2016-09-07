@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+import { compact } from 'lodash';
 
 /**
  * A row widget.
@@ -9,7 +11,7 @@ import React from 'react';
  *
  * In your file
  *
- *   import Row from 'carbon/lib/components/Row';
+ *   import Row from 'carbon/lib/components/row';
  *
  * To render the Row:
  *
@@ -30,7 +32,7 @@ class Row extends React.Component {
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object
-    ]).isRequired
+    ])
   }
 
   /**
@@ -40,14 +42,17 @@ class Row extends React.Component {
    * @return {Array} array of built columns
    */
   buildColumns = () => {
-    let columns = [];
+    if (!this.props.children) { return null; }
 
-    if (this.props.children.length) {
-      this.props.children.forEach((child, index) => {
+    let columns = [],
+        children = (this.props.children.constructor === Array) ? compact(this.props.children) : this.props.children;
+
+    if (children.constructor === Array && children.length) {
+      children.forEach((child, index) => {
         columns.push(this.buildColumn(child, index));
       });
-    } else {
-      columns.push(this.buildColumn(this.props.children, 0));
+    } else if (children.constructor !== Array) {
+      columns.push(this.buildColumn(children, 0));
     }
 
     return columns;
@@ -62,24 +67,41 @@ class Row extends React.Component {
    * @return {Object} JSX of build column
    */
   buildColumn = (child, key) => {
-    let columnClass = "ui-row__column";
-
-    if (child.props.columnClasses) {
-      columnClass += " " + child.props.columnClasses;
-    }
-
-    if (child.props.columnOffset) {
-      columnClass += " ui-row__column--offset-" + child.props.columnOffset;
-    }
-
-    if (child.props.columnSpan) {
-      columnClass += " ui-row__column--span-" + child.props.columnSpan;
-    }
+    let columnClass = classNames(
+      "carbon-row__column",
+      child.props.columnClasses, {
+        [`carbon-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
+        [`carbon-row__column--span-${child.props.columnSpan}`]: child.props.columnSpan,
+        [`carbon-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign
+      }
+    );
 
     return (
       <div key={ key } className={ columnClass }>
         { child }
       </div>
+    );
+  }
+
+  /**
+   * Main Class getter
+   *
+   * @method mainClasses
+   * @return {String} Main className
+   */
+  get mainClasses() {
+    let columns = 1;
+
+    if (this.props.columns) {
+      columns = this.props.columns;
+    } else if (this.props.children && this.props.children.constructor === Array) {
+      columns = compact(this.props.children).length;
+    }
+
+    return classNames(
+      'carbon-row',
+      this.props.className,
+      `carbon-row--columns-${columns}`
     );
   }
 
@@ -90,22 +112,8 @@ class Row extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let mainClasses = "ui-row";
-
-    if (this.props.className) {
-      mainClasses += ` ${this.props.className}`;
-    }
-
-    if (this.props.columns) {
-      mainClasses += " ui-row--columns-" + this.props.columns;
-    } else if(this.props.children.constructor === Array) {
-      mainClasses += " ui-row--columns-" + this.props.children.length;
-    } else {
-      mainClasses += " ui-row--columns-1";
-    }
-
     return (
-      <div className={ mainClasses }>
+      <div className={ this.mainClasses }>
         { this.buildColumns() }
       </div>
     );

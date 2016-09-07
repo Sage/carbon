@@ -46,6 +46,52 @@ describe('Input', () => {
     onChange = jasmine.createSpy('onChange');
   });
 
+  describe('componentDidMount', () => {
+    describe('if prefix is not set', () => {
+      it('does not set text indentation', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {}));
+        spyOn(instance, 'setTextIndentation');
+        instance.componentDidMount();
+        expect(instance.setTextIndentation).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if prefix is set', () => {
+      it('sets text indentation', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: "foo"
+        }));
+        spyOn(instance, 'setTextIndentation');
+        instance.componentDidMount();
+        expect(instance.setTextIndentation).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('componentDidUpdate', () => {
+    describe('if prefix has not changed', () => {
+      it('does not set the text indentation', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: "foo"
+        }));
+        spyOn(instance, 'setTextIndentation');
+        instance.componentDidUpdate({ prefix: 'foo' });
+        expect(instance.setTextIndentation).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if prefix has changed', () => {
+      it('sets the text indentation', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: "foo"
+        }));
+        spyOn(instance, 'setTextIndentation');
+        instance.componentDidUpdate({ prefix: 'bar' });
+        expect(instance.setTextIndentation).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('shouldComponentUpdate', () => {
     it('returns true if props have changed', () => {
       let nextProps = { name: 'bar' };
@@ -104,7 +150,7 @@ describe('Input', () => {
           name: 'foo',
           readOnly: true
         }));
-        expect(instance.mainClasses).toEqual('testMain common-input--readonly common-input');
+        expect(instance.mainClasses).toEqual('testMain common-input common-input--readonly');
       });
     });
 
@@ -116,7 +162,7 @@ describe('Input', () => {
 
     describe('When the component does not include any main class names', () => {
       it('returns the decorated class names only', () => {
-        expect(instanceTwo.mainClasses).toEqual(' common-input');
+        expect(instanceTwo.mainClasses).toEqual('common-input');
       });
     });
 
@@ -136,7 +182,25 @@ describe('Input', () => {
           align: 'right',
           name: 'foo'
         }));
-        expect(instance.mainClasses).toEqual('testMain common-input--align-right common-input');
+        expect(instance.mainClasses).toEqual('testMain common-input common-input--align-right');
+      });
+    });
+
+    describe('When a prefix is provided', () => {
+      it('returns with a prefix class', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: 'foo'
+        }));
+        expect(instance.mainClasses).toEqual('testMain common-input common-input--with-prefix');
+      });
+    });
+
+    describe('When disabled', () => {
+      it('returns with a disabled class', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          disabled: true
+        }));
+        expect(instance.mainClasses).toEqual('testMain common-input common-input--disabled');
       });
     });
   });
@@ -156,10 +220,35 @@ describe('Input', () => {
   });
 
   describe('inputProps', () => {
+    describe('when autoComplete is not defined', () => {
+      it('disables autoComplete', () => {
+        expect(instanceTwo.inputProps.autoComplete).toEqual("off");
+      });
+    });
+
+    describe('when autoComplete is defined', () => {
+      it('sets autoComplete', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          autoComplete: 'on'
+        }));
+        expect(instance.inputProps.autoComplete).toEqual("on");
+      });
+    });
+
     describe('when the component has its own onChange handler', () => {
       it('passes the change event through the Input change handler', () => {
         instanceTwo.inputProps.onChange = onChange;
         expect(instanceTwo.inputProps.onChange).toEqual(instanceTwo._handleOnChange);
+      });
+    });
+
+    describe('when the component has its own onPaste handler', () => {
+      it('passes the paste event to the input element', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          onPaste: () => {}
+        }));
+
+        expect(instance.inputProps.onPaste).toEqual(instance.props.onPaste);
       });
     });
   });
@@ -167,6 +256,48 @@ describe('Input', () => {
   describe('fieldProps', () => {
     it('adds a class name', () => {
       expect(instanceTwo.fieldProps.className).toEqual('common-input__field');
+    });
+  });
+
+  describe('setTextIdentation', () => {
+    it('sets the paddingLeft to the width + 3 px', () => {
+      instance._input = { style: {} };
+      instance._prefix = { offsetWidth: 20 };
+      instance.setTextIndentation()
+      expect(instance._input.style.paddingLeft).toEqual("31px");
+    });
+  });
+
+  describe('prefixHTML', () => {
+    describe('when prefix is defined', () => {
+      it('returns a div with a prefix', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: "foo"
+        }));
+        instance.prefixHTML.ref("input");
+        expect(instance.prefixHTML.props.className).toEqual('common-input__prefix');
+        expect(instance._prefix).toEqual('input');
+        expect(instance.prefixHTML.props.children).toEqual('foo');
+      });
+    });
+
+    describe('when prefix is not defined', () => {
+      it('returns nothing', () => {
+        expect(instance.prefixHTML).toBe(undefined);
+      });
+    });
+  });
+
+  describe('fakeInput', () => {
+    it('renders a div with classes and mouse over event', () => {
+      instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+        fakeInput: true
+      }));
+
+      let input = instance.inputHTML.props.children[1];
+
+      expect(input.props.className).toEqual('common-input__input--fake');
+      expect(input.props.onMouseOver).toEqual(instance.inputProps.onMouseOver);
     });
   });
 });

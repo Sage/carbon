@@ -1,18 +1,36 @@
 @import 'colors';
 
-.ui-pill {
-  margin-left: 10px;
-  color: #FFFFFF;
-  font-size: 10px;
+.carbon-pill {
   border-radius: 3px;
-  padding: 0 3px 1.5px 3px;
-  letter-spacing: 0.8px;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 12px;
+  letter-spacing: 1px;
+  padding: 2px 7px;
+  text-align: center;
 }
 
 @mixin pill-theme($type, $color, $border, $background, $color-hover) {
-  .ui-pill--#{$type} {
-    background-color: $color;
+  .carbon-pill--#{$type}--empty {
+    border: 1px solid $color;
+    color: $color;
   }
+
+  .carbon-pill--#{$type}--fill {
+    background-color: $color;
+    color: $white;
+  }
+}
+
+.carbon-pill--disabled--empty {
+  border: 1px solid $grey-mid;
+  color: $grey-mid;
+}
+
+.carbon-pill--disabled--fill {
+  background-color: $grey-dark-blue-20;
+  color: $grey-dark-blue-60;
 }
 
 @each $set in $colorIconSets {

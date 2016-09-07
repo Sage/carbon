@@ -41,7 +41,7 @@ class MyView extends React.Component {
 
     // tableRows is now an array mapped from the data we provided. We also need a table header so
     // lets add that as an additional row in the array (unshift prepends to an array):
-    tableRows.unshift(
+    tableRows = tableRows.unshift(
       <TableRow>
         <TableHeader>Description</TableHeader>
         <TableHeader>Name</TableHeader>
@@ -84,7 +84,7 @@ class MyView extends React.Component {
     });
 
     // Add header.
-    tableRows.unshift(
+    tableRows = tableRows.unshift(
       <TableRow>
         <TableHeader>Description</TableHeader>
         <TableHeader>Name</TableHeader>

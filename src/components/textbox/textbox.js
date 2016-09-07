@@ -30,7 +30,7 @@ class Textbox extends React.Component {
    * @return {void}
    */
   get mainClasses() {
-    return 'ui-textbox';
+    return 'carbon-textbox';
   }
 
   /**
@@ -39,7 +39,7 @@ class Textbox extends React.Component {
    * @method inputClasses
    */
   get inputClasses() {
-    return 'ui-textbox__input';
+    return 'carbon-textbox__input';
   }
 
   /**
@@ -63,12 +63,12 @@ class Textbox extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
-
+      <div className={ this.mainClasses }
+           ref={ (comp) => this._target = comp }>
         { this.labelHTML }
         { this.inputHTML }
         { this.validationHTML }
-
+        { this.fieldHelpHTML }
       </div>
     );
   }

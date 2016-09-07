@@ -8,6 +8,8 @@ import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
+import chainFunctions from './../../utils/helpers/chain-functions';
+
 
 /**
  * A Date widget.
@@ -79,6 +81,18 @@ class Date extends React.Component {
   }
 
   /**
+   * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
+   *
+   * @method componentDidMount
+   */
+  componentDidMount() {
+    if (this.props.autoFocus) {
+      this.blockFocus = true;
+      this._input.focus();
+    }
+  }
+
+  /**
    * A lifecycle method to update the visible value with a formatted version,
    * only when the field is not the active element.
    *
@@ -87,12 +101,37 @@ class Date extends React.Component {
    * @return {void}
    */
   componentWillReceiveProps(props) {
-    if (this._document.activeElement != this.refs.visible) {
+    if (this._document.activeElement != this._input) {
       let value = props.value || props.defaultValue;
       let date = formatVisibleValue(value, this);
 
       this.setState({ visibleValue: date });
     }
+  }
+
+  /**
+   * A lifecycle method to check whether the component has been updated
+   *
+   * @method componentDidUpdate
+   * @param {Object} prevProps The previous props passed down to the component
+   * @return {void}
+   */
+  componentDidUpdate(prevProps) {
+    if (this.datePickerValueChanged(prevProps)) {
+      this.blockBlur = false;
+      this._handleBlur();
+    }
+  }
+
+  /**
+   *  Checks that the datepicker selected value has changed
+   *
+   * @method datePickerValueChanged
+   * @param {Object} prevProps The previous props passed down to the component
+   * @return {Boolean}
+   */
+  datePickerValueChanged = (prevProps) => {
+    return this.blockBlur && this.props.value && prevProps.value !== this.props.value;
   }
 
   /**
@@ -191,6 +230,7 @@ class Date extends React.Component {
    * @return {void}
    */
   handleDateSelect = (val) => {
+    this.blockBlur = true;
     this.closeDatePicker();
     this.emitOnChangeCallback(val);
     this.updateVisibleValue();
@@ -213,7 +253,11 @@ class Date extends React.Component {
    * @return {void}
    */
   handleFocus = () => {
-    this.openDatePicker();
+    if (this.blockFocus) {
+      this.blockFocus = false;
+    } else {
+      this.openDatePicker();
+    }
   }
 
   /**
@@ -233,6 +277,8 @@ class Date extends React.Component {
     props.date = value;
     props.onViewDateChange = this.handleViewDateChange;
     props.viewDate = this.state.viewDate;
+    props.minDate = this.props.minDate;
+    props.maxDate = this.props.maxDate;
     return props;
   }
 
@@ -262,22 +308,21 @@ class Date extends React.Component {
 
   /**
    * A getter that combines props passed down from the input decorator with
-   * textbox specific props.
+   * date specific props.
    *
    * @method inputProps
    * @return {Object} props for the visible input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { autoFocus, ...props } = this.props;
     props.className = this.inputClasses;
-    props.ref = "visible";
     props.onChange = this.handleVisibleInputChange;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
     props.onKeyDown = this.handleKeyDown;
 
     if (!this.props.readOnly && !this.props.disabled) {
-      props.onFocus = this.handleFocus;
+      props.onFocus = chainFunctions(this.handleFocus, props.onFocus);
     }
 
     return props;
@@ -311,7 +356,7 @@ class Date extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return 'ui-date';
+    return 'carbon-date';
   }
 
   /**
@@ -321,7 +366,7 @@ class Date extends React.Component {
    * @return {String} input className
    */
   get inputClasses() {
-    return 'ui-date__input';
+    return 'carbon-date__input';
   }
 
   /**
@@ -351,6 +396,7 @@ class Date extends React.Component {
         <input { ...this.hiddenInputProps } />
         { datePicker }
         { this.validationHTML }
+        { this.fieldHelpHTML }
 
       </div>
     );

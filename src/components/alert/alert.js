@@ -1,4 +1,5 @@
 import Dialog from '../dialog';
+import classNames from 'classnames';
 
 /**
  * A Alert widget.
@@ -26,15 +27,20 @@ class Alert extends Dialog {
     super();
   }
 
+  static defaultProps = {
+    size: 'xsmall'
+  }
+
   /**
    * Returns classes title for the confirm, combines with dialog class names.
    *
    * @method dialogTitleClasses
    */
   get dialogTitleClasses() {
-    let classes = super.dialogTitleClasses;
-    classes += ' ui-alert__title';
-    return classes;
+    return classNames(
+      super.dialogTitleClasses,
+      'carbon-alert__title'
+    );
   }
 
   /**
@@ -43,9 +49,10 @@ class Alert extends Dialog {
    * @method dialogClasses
    */
   get dialogClasses() {
-    let classes = super.dialogClasses;
-    classes += ' ui-alert__alert';
-    return classes;
+    return classNames(
+      super.dialogClasses,
+      'carbon-alert__alert'
+    );
   }
 }
 

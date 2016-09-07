@@ -1,47 +1,58 @@
 @import 'general';
 @import 'colors';
 
-$ui-tabs__header__background-color: #F6F7F8 !default;
-$ui-tabs__header__border-color: #D8D9DC !default;
-$ui-tabs__header__color: #666666 !default;
+$carbon-tabs__header__background-color: #F5F6F7 !default;
+$carbon-tabs__header__border-color: $grey-dark-blue-20 !default;
+$carbon-tabs__header--selected_border-color: $blue-bright !default;
+$carbon-tabs__header__color: $grey-dark !default;
 
-.ui-tabs {
+.carbon-tabs {
   margin-top: 15px;
 }
 
-.ui-tabs__headers {
+.carbon-tabs__headers {
+  box-shadow: inset 0px -2px 0px 0px $carbon-tabs__header__border-color;
   cursor: pointer;
-  line-height: 30px;
   list-style: none;
-  margin: 0;
+  margin: 0 0 10px;
   padding: 0;
 }
 
-.ui-tabs__headers__header {
-  background-color: $ui-tabs__header__background-color;
-  border-bottom: 2px solid $ui-tabs__header__border-color;
-  color: $ui-tabs__header__color;
+.carbon-tabs__headers--align-right {
+  text-align: right;
+}
+
+.carbon-tabs__headers__header {
+  background-color: $carbon-tabs__header__background-color;
+  border-bottom: 2px solid $carbon-tabs__header__border-color;
+  color: $carbon-tabs__header__color;
   display: inline-block;
   font-weight: bold;
   height: 100%;
   margin-left: 2px;
-  padding: 0px 15px;
+  padding: 11px 15px 10px;
 
   &:first-child {
     margin-left: 0;
   }
 
   &:hover {
-    border-bottom-color: $blue-bright;
+    background: $carbon-tabs__header--selected_border-color;
+    border-bottom-color: $carbon-tabs__header--selected_border-color;
+    color: $white;
   }
 }
 
-.ui-tabs__headers__header--selected {
+.carbon-tabs__headers__header--selected {
   background-color: $white;
-  border-bottom-color: $green-bright !important;
-  color: $black;
+  border-bottom-color: $carbon-tabs__header--selected_border-color;
+
+  &:hover {
+    background: $white;
+    color: $grey-dark;
+  }
 }
 
-.ui-tabs__headers__header--error {
+.carbon-tabs__headers__header--error {
   border-bottom-color: $red;
 }

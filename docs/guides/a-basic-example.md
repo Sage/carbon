@@ -78,6 +78,11 @@ import ContactConstants from 'constants/contact';
 import Store from 'carbon/lib/utils/flux/store';
 import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
 
+// data to init your store with
+let data = ImmutableHelper.parseJSON({
+  example_property: true
+});
+
 class ContactStore extends Store {
   // we create a function that uses the constant we defined, this subscribes
   // the store to the this particular action so it will trigger when the
@@ -88,9 +93,6 @@ class ContactStore extends Store {
     this.data = this.data.set('first_name', action.value);
   }
 }
-
-// data to init your store with
-let data = ImmutableHelper.parseJSON({});
 
 // initialize the store (another singleton for your application), you need to
 // initialize it with:

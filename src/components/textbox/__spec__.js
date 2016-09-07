@@ -19,11 +19,11 @@ describe('Textbox', () => {
   describe('render', () => {
     it('renders a parent div', () => {
       let textboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(textboxNode.classList[0]).toEqual('ui-textbox');
+      expect(textboxNode.classList[0]).toEqual('carbon-textbox');
     });
 
     it('renders with a visible input', () => {
-      let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input')
+      let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
       expect(input.tagName).toEqual("INPUT");
       expect(input.getAttribute('label')).toBe('Label');
     });
@@ -41,14 +41,14 @@ describe('Textbox', () => {
   });
 
   describe('mainClasses', () => {
-    it('returns ui-textbox and additional decorated classes', () => {
-      expect(instance.mainClasses).toEqual('ui-textbox common-input');
+    it('returns carbon-textbox and additional decorated classes', () => {
+      expect(instance.mainClasses).toEqual('carbon-textbox common-input');
     });
   });
 
   describe('inputClasses', () => {
-    it('returns ui-textbox__input and additional decorated classes', () => {
-      expect(instance.inputClasses).toEqual('ui-textbox__input common-input__input');
+    it('returns carbon-textbox__input and additional decorated classes', () => {
+      expect(instance.inputClasses).toEqual('carbon-textbox__input common-input__input');
     });
   });
 

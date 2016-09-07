@@ -2,14 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Button from './button';
+import Link from './../link';
 
 describe('Button', () => {
 
-  var defaultButton;
-  var primary;
-  var secondary;
-  var disabled;
-  var spy = jasmine.createSpy('spy')
+  let defaultButton, primary, secondary, small, disabled, multiple, anchor, to;
+  let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
 
@@ -32,11 +30,33 @@ describe('Button', () => {
       >Secondary</Button>
     );
 
+    small = TestUtils.renderIntoDocument(
+      <Button
+        name="Small Button"
+        as='small'
+      >Small</Button>
+    );
+
     disabled = TestUtils.renderIntoDocument(
       <Button
         name="Disabled Button"
         disabled={ true }
       >Disabled</Button>
+    );
+
+    multiple = TestUtils.renderIntoDocument(
+      <Button
+        name="Multiple As"
+        as={[ 'foo', 'bar' ]}
+      >Multiple</Button>
+    );
+
+    anchor = TestUtils.renderIntoDocument(
+      <Button href="/foo">Anchor</Button>
+    );
+
+    to = TestUtils.renderIntoDocument(
+      <Button to="/foo">To</Button>
     );
   });
 
@@ -66,6 +86,15 @@ describe('Button', () => {
     });
   });
 
+  describe('A small button', () => {
+    it('renders a small button', () => {
+      expect(small.props.name).toEqual('Small Button');
+      expect(small.props.as).toEqual('small');
+      expect(small.props.children).toEqual('Small');
+      expect(small.props.disabled).toEqual(false);
+    });
+  });
+
   describe('A disabled button', () => {
     it('renders a disabled button', () => {
       expect(disabled.props.name).toEqual('Disabled Button');
@@ -80,28 +109,38 @@ describe('Button', () => {
     let disabledDOM;
     let primaryDOM;
     let secondaryDOM;
+    let smallDOM;
+    let multipleDOM;
 
     beforeEach(() => {
-      defaultDOM = ReactDOM.findDOMNode(defaultButton)
-      primaryDOM = ReactDOM.findDOMNode(primary)
-      secondaryDOM = ReactDOM.findDOMNode(secondary)
-      disabledDOM = ReactDOM.findDOMNode(disabled)
+      defaultDOM = ReactDOM.findDOMNode(defaultButton);
+      primaryDOM = ReactDOM.findDOMNode(primary);
+      secondaryDOM = ReactDOM.findDOMNode(secondary);
+      smallDOM = ReactDOM.findDOMNode(small);
+      multipleDOM = ReactDOM.findDOMNode(multiple);
+      disabledDOM = ReactDOM.findDOMNode(disabled);
     });
 
-    it('adds a className of ui-button to all buttons', () => {
-      expect(defaultDOM.classList[0]).toEqual('ui-button')
-      expect(primaryDOM.classList[0]).toEqual('ui-button')
-      expect(secondaryDOM.classList[0]).toEqual('ui-button')
-      expect(disabledDOM.classList[0]).toEqual('ui-button')
+    it('adds a className of carbon-button to all buttons', () => {
+      expect(defaultDOM.classList[0]).toEqual('carbon-button');
+      expect(primaryDOM.classList[0]).toEqual('carbon-button');
+      expect(secondaryDOM.classList[0]).toEqual('carbon-button');
+      expect(disabledDOM.classList[0]).toEqual('carbon-button');
+      expect(smallDOM.classList[0]).toEqual('carbon-button');
     });
 
     it('adds a secondary class depending on its type', () => {
-      expect(primaryDOM.classList[1]).toEqual('ui-button--primary')
-      expect(secondaryDOM.classList[1]).toEqual('ui-button--secondary')
+      expect(primaryDOM.classList[1]).toEqual('carbon-button--primary')
+      expect(secondaryDOM.classList[1]).toEqual('carbon-button--secondary')
+      expect(smallDOM.classList[1]).toEqual('carbon-button--small')
+    });
+
+    it('adds all variations of as', () => {
+      expect(multipleDOM.className).toEqual('carbon-button carbon-button--foo carbon-button--bar')
     });
 
     it('adds a disabled class if the button is disabled', () => {
-      expect(disabledDOM.classList[2]).toEqual('ui-button--disabled')
+      expect(disabledDOM.classList[2]).toEqual('carbon-button--disabled')
       expect(defaultDOM.classList[2]).toBeFalsy();
     });
   });
@@ -116,6 +155,27 @@ describe('Button', () => {
     it('triggers when the button is clicked', () => {
       TestUtils.Simulate.click(primaryDOM);
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('render', () => {
+    describe('default', () => {
+      it('renders a button', () => {
+        let b = TestUtils.findRenderedDOMComponentWithClass(defaultButton, 'carbon-button');
+        expect(b.tagName).toEqual('BUTTON');
+      });
+    });
+
+    describe('with href', () => {
+      it('renders an anchor', () => {
+        expect(TestUtils.findRenderedComponentWithType(anchor, Link)).toBeDefined();
+      });
+    });
+
+    describe('with to', () => {
+      it('renders an anchor', () => {
+        expect(TestUtils.findRenderedComponentWithType(to, Link)).toBeDefined();
+      });
     });
   });
 });

@@ -1,6 +1,8 @@
 import React from 'react';
 import Dropdown from './../dropdown';
 import I18n from 'i18n-js';
+import classNames from 'classnames';
+import escapeStringRegexp from 'escape-string-regexp';
 
 /**
  * A dropdown filter widget.
@@ -130,10 +132,10 @@ class DropdownFilter extends Dropdown {
       highlighted: null
     };
 
-    if (this.props.suggest && ev.target.value.length > 0) {
-      state.open = true;
-    } else if (this.props.suggest) {
+    if (this.props.suggest && ev.target.value.length <= 0) {
       state.open = false;
+    } else {
+      state.open = true;
     }
 
     this.setState(state);
@@ -153,17 +155,7 @@ class DropdownFilter extends Dropdown {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      let filter = this.props.create ? this.state.filter : null,
-          highlighted = this.highlighted(this.options);
-
-      if (highlighted != this.props.value) {
-        let item = this.props.options.find((item) => {
-          return String(item.get('id')) === String(highlighted);
-        });
-
-        this.emitOnChangeCallback(highlighted, item.get('name'));
-      }
-
+      let filter = this.props.create ? this.state.filter : null;
       this.setState({ open: false, filter: filter });
     }
   }
@@ -174,11 +166,13 @@ class DropdownFilter extends Dropdown {
    * @method handleFocus
    */
   handleFocus = () => {
-    if (!this.props.suggest) {
+    if (!this.props.suggest && !this.blockFocus) {
       this.setState({ open: true });
+    } else {
+      this.blockFocus = false;
     }
 
-    this.refs.input.setSelectionRange(0, this.refs.input.value.length);
+    this._input.setSelectionRange(0, this._input.value.length);
   }
 
   /**
@@ -200,7 +194,7 @@ class DropdownFilter extends Dropdown {
   prepareList = (options) => {
     if ((this.props.suggest || !this.openingList) && typeof this.state.filter === 'string') {
       let filter = this.state.filter;
-      let regex = new RegExp(filter, 'i');
+      let regex = new RegExp(escapeStringRegexp(filter), 'i');
 
       // if user has entered a search filter
       options = options.filter((option) => {
@@ -224,7 +218,7 @@ class DropdownFilter extends Dropdown {
 
     if (!items.length) {
       items = (
-        <li className={ 'ui-dropdown__list__item ui-dropdown__list__item--no-results' }>
+        <li className={ 'carbon-dropdown__list-item carbon-dropdown__list-item--no-results' }>
           {
             I18n.t("dropdownlist.no_results", {
               defaultValue: "No results match \"%{term}\"",
@@ -278,7 +272,7 @@ class DropdownFilter extends Dropdown {
       }
 
       html.push(
-        <a key="dropdown-action" className="ui-dropdown__action" onClick={ this.handleCreate }>{ text }</a>
+        <a key="dropdown-action" className="carbon-dropdown__action" onClick={ this.handleCreate }>{ text }</a>
       );
     }
 
@@ -300,8 +294,10 @@ class DropdownFilter extends Dropdown {
    * @method mainClasses
    */
   get mainClasses() {
-    let classes = super.mainClasses;
-    return classes + ' ui-dropdown-filter';
+    return classNames(
+      super.mainClasses,
+      'carbon-dropdown-filter'
+    );
   }
 
   /**
@@ -310,13 +306,12 @@ class DropdownFilter extends Dropdown {
    * @method inputClasses
    */
   get inputClasses() {
-    let classes = super.inputClasses;
-
-    if (!this.props.create && typeof this.state.filter === 'string') {
-      classes += ' ui-dropdown__input--filtered';
-    }
-
-    return classes;
+    return classNames(
+      super.inputClasses,
+      {
+        'carbon-dropdown__input--filtered': !this.props.create && typeof this.state.filter === 'string'
+      }
+    );
   }
 
   /**

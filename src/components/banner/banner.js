@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './../button';
+import classNames from 'classnames';
 import Icon from './../icon';
 
 /**
@@ -88,13 +89,11 @@ class Banner extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    let className = `ui-banner ui-banner--${this.props.as}`;
-
-    if (this.props.className) {
-      className += ' ' + this.props.className;
-    }
-
-    return className;
+    return classNames(
+      'carbon-banner',
+      `carbon-banner--${this.props.as}`,
+      this.props.className
+    );
   }
 
   /**
@@ -104,7 +103,10 @@ class Banner extends React.Component {
    * @return {String} classNames for button
    */
   get buttonClasses() {
-    return `ui-banner__action ui-banner__action--${this.props.as}`;
+    return classNames(
+      'carbon-banner__action',
+      `carbon-banner__action--${this.props.as}`
+    );
   }
 
   /**
@@ -115,15 +117,15 @@ class Banner extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
-        <div className="ui-banner__content">
-          <Icon className="ui-banner__icon" type={ this.props.as } />
+        <div className="carbon-banner__content">
+          <Icon className="carbon-banner__icon" type={ this.props.as } />
 
-          <div className='ui-banner__info'>
-            <div className='ui-banner__title'>
+          <div className='carbon-banner__info'>
+            <div className='carbon-banner__title'>
               { this.props.title }
             </div>
 
-            <div className='ui-banner__message'>
+            <div className='carbon-banner__message'>
               { this.props.message }
             </div>
           </div>

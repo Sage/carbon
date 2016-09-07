@@ -1,0 +1,5 @@
+{
+  "name": "filter",
+  "main": "./filter.js",
+  "style": "./filter.scss"
+}

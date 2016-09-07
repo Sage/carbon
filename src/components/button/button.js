@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+import Link from './../link';
 
 /**
  * A button widget.
@@ -25,10 +27,13 @@ class Button extends React.Component {
      * Customizes the appearance, can be set to 'primary' or 'secondary'.
      *
      * @property as
-     * @type {String}
+     * @type {String|Array}
      * @default 'secondary'
      */
-    as: React.PropTypes.string,
+    as: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.array
+    ]),
 
     /**
      * A required prop. This is what the button will display.
@@ -54,23 +59,44 @@ class Button extends React.Component {
   }
 
   /**
+   * Build the element to render.
+   *
+   * @method element
+   * @return {Object} JSX
+   */
+  get element() {
+    let {...props} = this.props,
+        // if props.href then render an anchor instead
+        el = props.href || props.to ? Link : 'button',
+        as = this.props.as;
+
+    if (as.constructor === Array) {
+      as = as.map((klass) => {
+        return `carbon-button--${klass}`;
+      });
+    } else {
+      as = [`carbon-button--${as}`];
+    }
+
+    props.className = classNames(
+      'carbon-button',
+      ...as,
+      props.className, {
+        'carbon-button--disabled': this.props.disabled
+      }
+    );
+
+    return React.createElement(el, props, this.props.children);
+  }
+
+  /**
    * Renders the component with props.
    *
    * @method render
    * @return {Object} JSX
    */
   render() {
-    let {className, ...props} = this.props;
-
-    className = 'ui-button ui-button--' + this.props.as +
-      (this.props.disabled ? ' ui-button--disabled' : '') +
-      (className ? ' ' + className : '');
-
-    return(
-        <button className={ className } { ...props }>
-          { this.props.children }
-        </button>
-    );
+    return this.element;
   }
 }
 

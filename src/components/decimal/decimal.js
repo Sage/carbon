@@ -1,5 +1,5 @@
 import React from 'react';
-import I18n from "i18n-js";
+import I18nHelper from './../../utils/helpers/i18n';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -43,8 +43,7 @@ class Decimal extends React.Component {
    */
   highlighted = false;
 
-
-  static defaultProps = {
+  static propTypes = {
     /**
      * Sets the default value of the decimal field
      *
@@ -52,7 +51,7 @@ class Decimal extends React.Component {
      * @type {String}
      * @default '0.00'
      */
-    defaultValue: '0.00',
+    defaultValue: React.PropTypes.string,
 
     /**
      * Sets the default value alignment
@@ -61,7 +60,23 @@ class Decimal extends React.Component {
      * @type {String}
      * @default 'right'
      */
-    align: "right"
+    align: React.PropTypes.string,
+
+    /**
+     * Sets the pricision of the field
+     *
+     * @property precision
+     * @type {Integer}
+     * @default 2
+     */
+    precision: React.PropTypes.number
+  }
+
+
+  static defaultProps = {
+    defaultValue: '0.00',
+    align: "right",
+    precision: 2
   }
 
   state = {
@@ -71,7 +86,7 @@ class Decimal extends React.Component {
      * @property visibleValue
      * @type {String}
      */
-    visibleValue: formatVisibleValue(this.props.value, this)
+    visibleValue: I18nHelper.formatDecimal(this.value, this.props.precision)
   }
 
   /**
@@ -83,9 +98,9 @@ class Decimal extends React.Component {
    * @return {void}
    */
   componentWillReceiveProps(props) {
-    if (this._document.activeElement != this.refs.visible) {
+    if (this._document.activeElement != this._input) {
       let value = props.value || props.defaultValue;
-      this.setState({ visibleValue: formatVisibleValue(value, this) });
+      this.setState({ visibleValue: I18nHelper.formatDecimal(value, this.props.precision) });
     }
   }
 
@@ -112,9 +127,9 @@ class Decimal extends React.Component {
    * @return {Boolean} true if a valid decimal
    */
   isValidDecimal = (value) => {
-    let del, regex, result, sep;
-    del = i18nFormatting().delimiter;
-    sep = i18nFormatting().separator;
+    let del, regex, result, sep, format = I18nHelper.format();
+    del = format.delimiter;
+    sep = format.separator;
     regex = new RegExp('^[-]?[0-9]*(?:\\' + del + '?[0-9]?)*\\' + sep + '?[0-9]{0,}$');
     result = regex.test(value);
 
@@ -131,7 +146,7 @@ class Decimal extends React.Component {
   handleVisibleInputChange = (ev) => {
     if (this.isValidDecimal(ev.target.value)) {
       this.setState({ visibleValue: ev.target.value });
-      this.emitOnChangeCallback(formatHiddenValue(ev.target.value));
+      this.emitOnChangeCallback(I18nHelper.unformatDecimal(ev.target.value));
     } else {
       // reset the value
       ev.target.value = this.state.visibleValue;
@@ -147,7 +162,7 @@ class Decimal extends React.Component {
    * @return {void}
    */
   handleBlur = () => {
-    this.setState({ visibleValue: formatVisibleValue(this.props.value, this) });
+    this.setState({ visibleValue: I18nHelper.formatDecimal(this.value, this.props.precision) });
     this.highlighted = false;
   }
 
@@ -165,7 +180,7 @@ class Decimal extends React.Component {
       return;
     }
 
-    let input = this.refs.visible;
+    let input = this._input;
     // only do it if the selection is not within the value
     if ((input.selectionStart === 0) && (input.selectionEnd === 0)) {
       input.setSelectionRange(0, input.value.length);
@@ -192,6 +207,16 @@ class Decimal extends React.Component {
   }
 
   /**
+   * Returns the current value or default value.
+   *
+   * @method value
+   * @return {String}
+   */
+  get value() {
+    return this.props.value || getDefaultValue(this);
+  }
+
+  /**
    * A getter that combines props passed down from the input decorator with
    * textbox specific props.
    *
@@ -201,7 +226,6 @@ class Decimal extends React.Component {
   get inputProps() {
     let { ...props } = this.props;
     props.className = this.inputClasses;
-    props.ref = "visible";
     props.onChange = this.handleVisibleInputChange;
     props.onClick = this.handleOnClick;
     props.name = null;
@@ -240,13 +264,7 @@ class Decimal extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    let classes = 'ui-decimal';
-
-    if (this.props.className) {
-      classes += ` ${this.props.className}`;
-    }
-
-    return classes;
+    return 'carbon-decimal';
   }
 
   /**
@@ -256,7 +274,7 @@ class Decimal extends React.Component {
    * @return {String} Input className
    */
   get inputClasses() {
-    return 'ui-decimal__input';
+    return 'carbon-decimal__input';
   }
 
   /**
@@ -273,6 +291,7 @@ class Decimal extends React.Component {
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { this.validationHTML }
+        { this.fieldHelpHTML }
 
       </div>
     );
@@ -281,58 +300,6 @@ class Decimal extends React.Component {
 )));
 
 // Private Methods
-
-/**
- * Formats delimiter and separator through i18n
- *
- * @method i18nFormatting
- * @private
- * @return {Object} Delimeter and separator values
- */
-function i18nFormatting() {
-  return {
-    delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
-    separator: I18n.t("number.format.separator", { defaultValue: "." })
-  };
-}
-
-/**
- * Removes delimiters and separators from value
- *
- * @method formatHiddenValue
- * @private
- * @param {String} valueToFormat Formatted value
- * @return {String} formated hidden value
- */
-function formatHiddenValue(valueToFormat) {
-  let value = valueToFormat;
-  let regex = new RegExp('\\' + i18nFormatting().delimiter, "g");
-
-  value = value.replace(regex, "", "g");
-  value = value.replace(i18nFormatting().separator, ".");
-
-  return value;
-}
-
-/**
- * Adds formatting to the value
- *
- * @method formatVisibleValue
- * @private
- * @param {String} value Unformatted Value
- * @param {Object} scope used to get default value of current scope if value doesn't exist
- * @return {String} formated value
- */
-function formatVisibleValue(value, scope) {
-  value = value || getDefaultValue(scope);
-
-  value = I18n.toNumber(value, {
-    precision: 2,
-    delimiter: i18nFormatting().delimiter,
-    separator: i18nFormatting().separator
-  });
-  return value;
-}
 
 /**
  * Returns defaultValue for specified scope,

@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Checkbox from './checkbox';
+import Help from './../help';
 
 describe('Checkbox', () => {
   let instance;
@@ -11,13 +12,13 @@ describe('Checkbox', () => {
         name='checkbox'
         label='checkbox'
       />
-    )
+    );
   });
 
   describe('render', () => {
     it('renders a parent div with a pod CSS class', () => {
       let checkboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(checkboxNode.classList[0]).toEqual('ui-checkbox');
+      expect(checkboxNode.classList[0]).toEqual('carbon-checkbox');
     });
 
     it('renders a input with type checkbox and a value of 1', () => {
@@ -41,14 +42,14 @@ describe('Checkbox', () => {
   });
 
   describe('mainClasses', () => {
-    it('returns ui-checkbox and additional decorated classes', () => {
-      expect(instance.mainClasses).toEqual('ui-checkbox common-input');
+    it('returns carbon-checkbox and additional decorated classes', () => {
+      expect(instance.mainClasses).toEqual('carbon-checkbox common-input');
     });
   });
 
   describe('inputClasses', () => {
-    it('returns ui-checkbox__input and additional decorated classes', () => {
-      expect(instance.inputClasses).toEqual('ui-checkbox__input common-input__input');
+    it('returns carbon-checkbox__input and additional decorated classes', () => {
+      expect(instance.inputClasses).toEqual('carbon-checkbox__input common-input__input');
     });
   });
 
@@ -91,6 +92,48 @@ describe('Checkbox', () => {
       let label = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'label')[0];
       expect(label.previousSibling).toBe(null);
       expect(label.nextSibling.name).toEqual('checkbox');
+    });
+  });
+
+  describe('fieldHelperClasses', () => {
+    it('returns the classNames to apply to the label help text', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Checkbox
+          name='checkbox'
+          label='checkbox'
+          fieldHelp='foo'
+        />
+      );
+      expect(instance.fieldHelpClasses).toMatch('carbon-checkbox__help-text');
+    });
+
+    describe('when label is inline', () => {
+      it('returns a modified inline class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Checkbox
+            name='checkbox'
+            label='checkbox'
+            fieldHelp='foo'
+            reverse={ true }
+            fieldHelpInline={ true }
+          />
+        );
+        expect(instance.fieldHelpClasses).toMatch('carbon-checkbox__help-text carbon-checkbox__help-text--reverse carbon-checkbox__help-text--inline');
+      });
+    });
+
+    describe('when the label is reversed', () => {
+      it('returns a modified reverse class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Checkbox
+            name='checkbox'
+            label='checkbox'
+            fieldHelp='foo'
+            reverse={ true }
+          />
+        );
+        expect(instance.fieldHelpClasses).toMatch('carbon-checkbox__help-text carbon-checkbox__help-text--reverse');
+      });
     });
   });
 });

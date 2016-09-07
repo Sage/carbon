@@ -1,6 +1,6 @@
 import React from 'react';
 import Request from 'superagent';
-import { find, cloneDeep } from 'lodash';
+import {cloneDeep } from 'lodash';
 import DropdownFilter from './../dropdown-filter';
 
 /**
@@ -146,18 +146,7 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      let filter = this.props.create ? this.state.filter : null,
-          highlighted = this.highlighted(this.options);
-
-      // select highlighted if it is not the current selected value
-      if (highlighted != this.props.value) {
-        let item = find(this.state.options, (item) => {
-          return String(item.id) === String(highlighted);
-        });
-
-        this.emitOnChangeCallback(highlighted, item.name);
-      }
-
+      let filter = this.props.create ? this.state.filter : null;
       // close list and reset filter
       this.setState({ open: false, filter: filter });
     }
@@ -169,11 +158,13 @@ class DropdownFilterAjax extends DropdownFilter {
    * @method handleFocus
    */
   handleFocus = () => {
-    if (!this.props.suggest) {
+    if (!this.props.suggest && !this.blockFocus) {
       this.getData("", 1);
+    } else {
+      this.blockFocus = false;
     }
 
-    this.refs.input.setSelectionRange(0, this.refs.input.value.length);
+    this._input.setSelectionRange(0, this._input.value.length);
   }
 
   /**

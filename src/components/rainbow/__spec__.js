@@ -4,10 +4,10 @@ import Rainbow from './rainbow';
 import Immutable from 'immutable';
 
 describe('Rainbow', () => {
-  var instance;
+  let instance, data;
 
   beforeEach(() => {
-    let data = Immutable.fromJS([
+    data = Immutable.fromJS([
       {
         y: 30,
         name: 'First Bit',
@@ -52,6 +52,22 @@ describe('Rainbow', () => {
         instance.shouldComponentUpdate({ title: instance.props.title, data: instance.props.data  });
         expect(instance.refs.chart.chart.setTitle).not.toHaveBeenCalled();
         expect(instance.refs.chart.chart.series[0].setData).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('mainClasses', () => {
+    it('returns the base class', () => {
+      expect(instance.mainClasses).toEqual('carbon-rainbow');
+    });
+
+    describe('when a custom class is passed', () => {
+      it('returns base and custom class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Rainbow title="My Title" data={ data } className='customClass' />
+        );
+
+        expect(instance.mainClasses).toEqual('carbon-rainbow customClass');
       });
     });
   });

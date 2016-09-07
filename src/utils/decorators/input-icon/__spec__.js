@@ -27,13 +27,13 @@ describe('InputIcon', () => {
     });
 
     it('sets a default className', () => {
-      expect(instance.props.children.props.className).toEqual('ui-input-icon');
+      expect(instance.props.children.props.className).toEqual('carbon-input-icon');
     });
   });
 
   describe('mainClasses', () => {
     it('returns the class', () => {
-      expect(klass.mainClasses).toEqual(' common-input--with-icon');
+      expect(klass.mainClasses).toEqual('common-input--with-icon');
     });
   });
 

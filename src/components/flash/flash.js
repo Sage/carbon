@@ -1,6 +1,6 @@
 import React from 'react';
-import ClassNames from 'classnames';
 import I18n from 'i18n-js';
+import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './../icon';
 import Alert from './../alert';
@@ -357,11 +357,11 @@ class Flash extends React.Component {
     let contents = [];
 
     // add icon
-    contents.push(<Icon className='ui-flash__icon' type={ this.iconType } key="icon" />);
+    contents.push(<Icon className='carbon-flash__icon' type={ this.iconType } key="icon" />);
 
     // add message content
     contents.push(
-      <div className='ui-flash__message' key='message'>
+      <div className='carbon-flash__message' key='message'>
         { this.title }
         { this.formatDescription(this.description) }
       </div>
@@ -370,14 +370,14 @@ class Flash extends React.Component {
     // if auto-dismiss is not enabled, add a close icon
     if (!this.props.timeout) {
       contents.push(
-        <div className='ui-flash__close-icon' onClick={ this.props.onDismiss } key='close'>
+        <div className='carbon-flash__close-icon' onClick={ this.props.onDismiss } key='close'>
           <Icon type='close' />
         </div>
       );
     }
 
     return (
-      <div className='ui-flash__content'>
+      <div className='carbon-flash__content'>
         { contents }
       </div>
     );
@@ -391,7 +391,7 @@ class Flash extends React.Component {
    */
   get sliderHTML() {
     return (
-      <div className='ui-flash__slider' key='slider'></div>
+      <div className='carbon-flash__slider' key='slider'></div>
     );
   }
 
@@ -402,10 +402,12 @@ class Flash extends React.Component {
    * @return {String}
    */
   get classes() {
-    return ClassNames(
-      'ui-flash',
+    let flashHTML, sliderHTML, mainClasses;
+
+    mainClasses = classNames(
+      'carbon-flash',
       this.props.className,
-      `ui-flash--${this.props.as}`
+      `carbon-flash--${this.props.as}`
     );
   }
 
@@ -425,17 +427,16 @@ class Flash extends React.Component {
       <div>
         <div className={ this.classes }>
           <ReactCSSTransitionGroup
-            transitionName="ui-flash__slider"
+            transitionName="carbon-flash__slider"
             transitionEnterTimeout={ 600 }
             transitionLeaveTimeout={ 600 }>
             { sliderHTML }
             <ReactCSSTransitionGroup
-              transitionName="ui-flash__content"
+              transitionName="carbon-flash__content"
               transitionEnterTimeout={ 800 }
               transitionLeaveTimeout={ 500 } >
               { flashHTML }
             </ReactCSSTransitionGroup>
-          </ReactCSSTransitionGroup>
         </div>
 
         { this.dialogs }

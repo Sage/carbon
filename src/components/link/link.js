@@ -1,5 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
+import Icon from './../icon';
+import { Link } from 'react-router';
 
 /**
  * A link widget.
@@ -19,7 +21,7 @@ import classNames from 'classnames';
  * @class Link
  * @constructor
  */
-class Link extends React.Component {
+class _Link extends React.Component {
 
   static propTypes = {
 
@@ -27,10 +29,39 @@ class Link extends React.Component {
      * Gives the link a disabled state.
      *
      * @property disabled
-     * @type {boolean}
+     * @type {Boolean}
      * @default undefined
      */
-    disabled: React.PropTypes.bool
+    disabled: React.PropTypes.bool,
+
+    /**
+     * Renders an icon inline with the link.
+     *
+     * @property icon
+     * @type {String}
+     * @default undefined
+     */
+    icon: React.PropTypes.string,
+
+    /**
+     * Use `to` to use the React Router link. You can also prefix your value
+     * with `to:` or `href:` to override the prop type.
+     *
+     * @property to
+     * @type {String}
+     * @default undefined
+     */
+    to: React.PropTypes.string,
+
+    /**
+     * Use `href` to use a generic anchor. You can also prefix your value
+     * with `to:` or `href:` to override the prop type.
+     *
+     * @property href
+     * @type {String}
+     * @default undefined
+     */
+    href: React.PropTypes.string
   }
 
   /**
@@ -40,8 +71,9 @@ class Link extends React.Component {
    * @return {Object} props
    */
   get componentProps() {
-    let { ...props } = this.props;
+    let { href, to, ...props } = this.props;
     props.className = this.componentClasses;
+    props[this.linkType.prop] = this.url;
 
     return props;
   }
@@ -54,10 +86,90 @@ class Link extends React.Component {
    */
   get componentClasses() {
     return classNames (
-      'ui-link__anchor',
+      'carbon-link__anchor',
       this.props.className,
-      { 'ui-link__anchor--disabled': this.props.disabled }
+      { 'carbon-link__anchor--disabled': this.props.disabled }
     );
+  }
+
+  get icon() {
+    if (!this.props.icon) { return null; }
+    return (
+      <Icon
+        type={ this.props.icon }
+        className="carbon-link__icon"
+        tooltipMessage={ this.props.tooltipMessage }
+        tooltipAlign={ this.props.tooltipAlign }
+        tooltipPosition={ this.props.tooltipPosition }
+      />
+    );
+  }
+
+  /**
+   * Regex for finding 'href:' or 'to:',
+   *
+   * @method typeRegex
+   * @return {Regex}
+   */
+  get typeRegex() {
+    return /^href:|^to:/;
+  }
+
+  /**
+   * A hash of the different link types.
+   *
+   * @method linkTypes
+   * @return {Object}
+   */
+  get linkTypes() {
+    return {
+      to: {
+        prop: "to",
+        component: Link
+      },
+      href: {
+        prop: "href",
+        component: "a"
+      }
+    };
+  }
+
+  /**
+   * Returns the correct link type based on the given props.
+   *
+   * @method linkType
+   * @return {Object}
+   */
+  get linkType() {
+    let url = this.props.href || this.props.to,
+        type = "href";
+
+    if (url) {
+      let match = url.match(this.typeRegex);
+
+      if (match) {
+        type = match[0].substr(0, match[0].length - 1);
+      } else if (this.props.href) {
+        type = "href";
+      } else {
+        type = "to";
+      }
+    }
+
+    return this.linkTypes[type];
+  }
+
+  /**
+   * Returns the parsed URL for the link.
+   *
+   * @method url
+   * @return {String}
+   */
+  get url() {
+    let url = this.props.href || this.props.to;
+    if (!url) { return null; }
+
+    return url.replace(this.typeRegex, "");
   }
 
   /**
@@ -67,12 +179,17 @@ class Link extends React.Component {
    */
   render() {
     return (
-      <a { ...this.componentProps }>
-        { this.props.children }
-      </a>
+      React.createElement(this.linkType.component, this.componentProps, (
+        <span>
+          { this.icon }
+          <span className="carbon-link__content">
+            { this.props.children }
+          </span>
+        </span>
+      ))
     );
   }
 
 }
 
-export default Link;
+export default _Link;

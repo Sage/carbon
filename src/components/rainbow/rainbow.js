@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactHighcharts from 'react-highcharts/dist/bundle/highcharts';
+import classNames from 'classnames';
 
 /**
  * A rainbow chart using the Highcharts API.
@@ -78,6 +79,19 @@ class Rainbow extends React.Component {
   }
 
   /**
+   * Main Class getter
+   *
+   * @method mainClasses
+   * @return {String} Main className
+   */
+  get mainClasses() {
+    return classNames(
+      'carbon-rainbow',
+      this.props.className
+    );
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -87,7 +101,7 @@ class Rainbow extends React.Component {
     let config = generateConfig(this.props.data, this.props.title);
 
     return (
-      <div className="ui-rainbow">
+      <div className={ this.mainClasses }>
         <ReactHighcharts ref="chart" config={config} />
       </div>
     );

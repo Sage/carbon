@@ -2,6 +2,7 @@ import React from 'react';
 import Button from './../button';
 import I18n from "i18n-js";
 import Serialize from "form-serialize";
+import classNames from 'classnames';
 
 /**
  * A Form widget.
@@ -83,12 +84,74 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    saving: React.PropTypes.bool
+    saving: React.PropTypes.bool,
+
+    /**
+     * If true, will validate the form on mount
+     *
+     * @property validateOnMount
+     * @type {Boolean}
+     * @default false
+     */
+    validateOnMount: React.PropTypes.bool,
+
+    /**
+     * Text for the cancel button
+     *
+     * @property cancelText
+     * @type {String}
+     * @default "Cancel"
+     */
+    cancelText: React.PropTypes.string,
+
+    /**
+     * Text for the save button
+     *
+     * @property saveText
+     * @type {String}
+     * @default "Save"
+     */
+    saveText: React.PropTypes.string,
+
+    /**
+     * Custom function for Cancel button onClick
+     *
+     * @property onCancel
+     * @type {Function}
+     */
+    onCancel: React.PropTypes.func,
+
+    /**
+     * Hide or show the save button
+     *
+     * @property saveFalse
+     * @type {Boolean}
+     */
+    save: React.PropTypes.bool,
+
+    /**
+     * Additional actions rendered next to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    additionalActions: React.PropTypes.node,
+
+    /**
+     * Custom callback for when form will submit
+     *
+     * @property onSubmit
+     * @type {Function}
+     */
+    onSubmit: React.PropTypes.func
   }
 
   static defaultProps = {
+    buttonAlign: 'right',
     cancel: true,
-    saving: false
+    save: true,
+    saving: false,
+    validateOnMount: false
   }
 
   static childContextTypes = {
@@ -103,7 +166,7 @@ class Form extends React.Component {
   }
 
   static contextTypes = {
-    dialog: React.PropTypes.object
+    modal: React.PropTypes.object
   }
 
   /**
@@ -118,7 +181,11 @@ class Form extends React.Component {
         attachToForm: this.attachToForm,
         detachFromForm: this.detachFromForm,
         incrementErrorCount: this.incrementErrorCount,
-        decrementErrorCount: this.decrementErrorCount
+        decrementErrorCount: this.decrementErrorCount,
+        incrementWarningCount: this.incrementWarningCount,
+        decrementWarningCount: this.decrementWarningCount,
+        inputs: this.inputs,
+        validate: this.validate
       }
     };
   }
@@ -130,7 +197,15 @@ class Form extends React.Component {
      * @property errorCount
      * @type {Number}
      */
-    errorCount: 0
+    errorCount: 0,
+
+    /**
+     * Tracks the number of warnings in the form
+     *
+     * @property warningCount
+     * @type {Number}
+     */
+    warningCount: 0
   }
 
   /**
@@ -140,6 +215,18 @@ class Form extends React.Component {
    * @type {Object}
    */
   inputs = {
+  }
+
+  /**
+   * Runs once the component has mounted.
+   *
+   * @method componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    if (this.props.validateOnMount) {
+      this.validate();
+    }
   }
 
   /**
@@ -163,6 +250,26 @@ class Form extends React.Component {
   }
 
   /**
+   * Increase current warning count in state by 1.
+   *
+   * @method incrementWarningCount
+   * @return {void}
+   */
+  incrementWarningCount = () => {
+    this.setState({ warningCount: this.state.warningCount + 1 });
+  }
+
+  /**
+   * Decreases the current warning count in state by 1.
+   *
+   * @method decrementWarningCount
+   * @return {void}
+   */
+  decrementWarningCount = () => {
+    this.setState({ warningCount: this.state.warningCount - 1 });
+  }
+
+  /**
    * Attaches child component to form.
    *
    * @method attachToForm
@@ -170,8 +277,7 @@ class Form extends React.Component {
    * @return {void}
    */
   attachToForm = (component) => {
-    let name = component.props.name;
-    this.inputs[name] = component;
+    this.inputs[component._guid] = component;
   }
 
   /**
@@ -182,12 +288,11 @@ class Form extends React.Component {
    * @return {void}
    */
   detachFromForm = (component) => {
-    let name = component.props.name;
-    delete this.inputs[name];
+    delete this.inputs[component._guid];
   }
 
   /**
-   * Handles submit, checks for required fields and updates validations.
+   * Handles submit and runs validation.
    *
    * @method handleOnSubmit
    * @param {Object} ev event
@@ -198,26 +303,41 @@ class Form extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    let valid = true;
-    let errors = 0;
+    let valid = this.validate();
+
+    if (!valid) { ev.preventDefault(); }
+
+    if (this.props.afterFormValidation) {
+      this.props.afterFormValidation(ev, valid);
+    }
+
+    if (valid && this.props.onSubmit) {
+      this.props.onSubmit(ev);
+    }
+  }
+
+  /**
+   * Validates any inputs in the form which have validations.
+   *
+   * @method validate
+   * @return {Boolean} valid status
+   */
+  validate = () => {
+    let valid = true,
+        errors = 0;
 
     for (let key in this.inputs) {
       let input = this.inputs[key];
 
-      if (!input.validate()) {
+      if (!input.props.disabled && !input.validate()) {
         valid = false;
         errors++;
       }
     }
 
-    if (!valid) {
-      ev.preventDefault();
-      this.setState({ errorCount: errors });
-    }
+    if (!valid) { this.setState({ errorCount: errors }); }
 
-    if (this.props.afterFormValidation) {
-      this.props.afterFormValidation(ev, valid);
-    }
+    return valid;
   }
 
   /**
@@ -239,20 +359,22 @@ class Form extends React.Component {
    * @return {Object} props for form element
    */
   htmlProps = () => {
-    let { ...props } = this.props;
+    let { onSubmit, ...props } = this.props;
     props.className = this.mainClasses;
     return props;
   }
 
   /**
-   * Redirects to the previous page; uses React Router history, or uses dialog cancel handler.
+   * Redirects to the previous page; uses React Router history, or uses modalcancel handler.
    *
    * @method cancelForm
    * @return {void}
    */
   cancelForm = () => {
-    if (this.context.dialog) {
-      this.context.dialog.onCancel();
+    if (this.props.onCancel) {
+      this.props.onCancel();
+    } else if (this.context.modal) {
+      this.context.modal.onCancel();
     } else {
       // history comes from react router
       if (!this._window.history) {
@@ -269,7 +391,17 @@ class Form extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return 'ui-form';
+    return classNames(
+      'carbon-form',
+      this.props.className
+    );
+  }
+
+  get buttonClasses() {
+    return classNames(
+      'carbon-form__buttons',
+      `carbon-form__buttons--${ this.props.buttonAlign }`
+    );
   }
 
   /**
@@ -279,37 +411,73 @@ class Form extends React.Component {
    * @return {Object} JSX cancel button
    */
   get cancelButton() {
-    let cancelClasses = "ui-form__cancel";
+    let cancelClasses = "carbon-form__cancel";
 
     return (<div className={ cancelClasses }>
       <Button type='button' onClick={ this.cancelForm } >
-        Cancel
+        { this.props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' }) }
       </Button>
     </div>);
   }
 
-   /**
+  get additionalActions() {
+    return (
+      <div className='carbon-form__additional-actions' >
+        { this.props.additionalActions }
+      </div>
+    );
+  }
+
+  /**
+   * Gets the save button for the form
+   * @method saveButton
+   * @return {Object} JSX save button
+   */
+  get saveButton() {
+    let errorCount;
+
+    let saveClasses = classNames(
+      "carbon-form__save",
+        {
+          "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
+        }
+    );
+
+    if (this.state.errorCount || this.state.warningCount) {
+      // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
+      errorCount = (
+        <span
+          className="carbon-form__summary"
+          dangerouslySetInnerHTML={ renderMessage(this.state.errorCount, this.state.warningCount) }
+        />
+      );
+    }
+
+    return (
+      <div className={ saveClasses }>
+        { errorCount }
+        <Button as="primary" disabled={ this.props.saving }>
+          { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
+        </Button>
+      </div>
+    );
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
    * @return {Object} JSX form
    */
   render() {
-    let cancelButton,
-        errorCount,
-        saveClasses = "ui-form__save";
-
-    if (this.state.errorCount) {
-      // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
-      errorCount = (
-        <span className="ui-form__summary" dangerouslySetInnerHTML={ errorMessage(this.state.errorCount) } />
-      );
-
-      saveClasses += " ui-form__save--invalid";
-    }
+    let cancelButton, saveButton;
 
     if (this.props.cancel) {
       cancelButton = this.cancelButton;
+    }
+
+    if (this.props.save) {
+      saveButton = this.saveButton;
     }
 
     return (
@@ -317,12 +485,11 @@ class Form extends React.Component {
         { generateCSRFToken(this._document) }
 
         { this.props.children }
-        { cancelButton }
-        <div className={ saveClasses }>
-          { errorCount }
-          <Button as="primary" disabled={ this.props.saving }>
-            Save
-          </Button>
+
+        <div className={ this.buttonClasses }>
+          { saveButton }
+          { cancelButton }
+          { this.additionalActions }
         </div>
       </form>
     );
@@ -356,23 +523,46 @@ function generateCSRFToken(doc) {
 }
 
 /**
- *  Constructs validations error message
+ * Constructs validations error message
  *
  * @private
- * @method errorMessage
+ * @method renderMessage
  * @param {Integer} count number of errors
+ * @param {Integer} count number of warnings
  * @return {Object} JSX Error message
  */
-function errorMessage(count) {
-  let errorMessage =  I18n.t("errors.messages.form_summary.errors", {
-    defaultValue: {
-      one: `There is ${ count } error`,
-      other: `There are ${ count } errors`
-    },
-    count: count
-  });
+function renderMessage(errors, warnings) {
+  let message;
 
-  return { __html: errorMessage };
+  if (errors) {
+    message =  I18n.t("errors.messages.form_summary.errors", {
+      defaultValue: {
+        one: `There is ${ errors } error`,
+        other: `There are ${ errors } errors`
+      },
+      count: errors
+    });
+  }
+
+  if (errors && warnings) {
+    message +=  I18n.t("errors.messages.form_summary.errors_and_warnings", {
+      defaultValue: {
+        one: ` and ${ warnings } warning`,
+        other: ` and ${ warnings } warnings`
+      },
+      count: warnings
+    });
+  } else if (warnings) {
+    message =  I18n.t("errors.messages.form_summary.warnings", {
+      defaultValue: {
+        one: `There is ${ warnings } warning`,
+        other: `There are ${ warnings } warnings`
+      },
+      count: warnings
+    });
+  }
+
+  return { __html: message };
 }
 
 export default Form;

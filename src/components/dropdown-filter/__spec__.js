@@ -57,7 +57,7 @@ describe('DropdownFilter', () => {
 
       describe('when character length is 0', () => {
         it('closes the list', () => {
-          TestUtils.Simulate.change(instance.refs.input, {
+          TestUtils.Simulate.change(instance._input, {
             target: { value: '' }
           });
           expect(instance.setState).toHaveBeenCalledWith({
@@ -70,7 +70,7 @@ describe('DropdownFilter', () => {
 
       describe('when character length is greater than 0', () => {
         it('opens the list', () => {
-          TestUtils.Simulate.change(instance.refs.input, {
+          TestUtils.Simulate.change(instance._input, {
             target: { value: 'a' }
           });
           expect(instance.setState).toHaveBeenCalledWith({
@@ -85,12 +85,13 @@ describe('DropdownFilter', () => {
     describe('when not in suggest mode', () => {
       it('calls setState with the filter even with no chars', () => {
         spyOn(instance, 'setState');
-        TestUtils.Simulate.change(instance.refs.input, {
+        TestUtils.Simulate.change(instance._input, {
           target: { value: '' }
         });
         expect(instance.setState).toHaveBeenCalledWith({
           filter: '',
-          highlighted: null
+          highlighted: null,
+          open: true
         });
       });
     });
@@ -101,7 +102,7 @@ describe('DropdownFilter', () => {
           <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" create={ function() {} } />
         );
         spyOn(instance, 'emitOnChangeCallback');
-        TestUtils.Simulate.change(instance.refs.input, {
+        TestUtils.Simulate.change(instance._input, {
           target: { value: 'foo' }
         });
         expect(instance.emitOnChangeCallback).toHaveBeenCalledWith("", 'foo');
@@ -153,21 +154,12 @@ describe('DropdownFilter', () => {
         });
       });
 
-      describe('if highlighted does not match value', () => {
-        it('does calls emitOnChangeCallback', () => {
-          let opts = Immutable.fromJS([{
-            id: '90',
-            name: 'foo'
-          }]);
-
-          instance = TestUtils.renderIntoDocument(
-            <DropdownFilter name="foo" options={ opts } value="1" suggest={ true } />
-          );
-
-          spyOn(instance, 'highlighted').and.returnValue(90);
+      describe('when there is no highlighted option', () => {
+        it('does not call emitOnChangeCallback', () => {
+          spyOn(instance, 'highlighted').and.returnValue(null);
           spyOn(instance, 'emitOnChangeCallback');
           instance.handleBlur();
-          expect(instance.emitOnChangeCallback).toHaveBeenCalled();
+          expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
       });
     });
@@ -175,7 +167,7 @@ describe('DropdownFilter', () => {
 
   describe('handleFocus', () => {
     describe('if in suggest mode', () => {
-      it('calls setState', () => {
+      it('does not call setState', () => {
         instance = TestUtils.renderIntoDocument(
           <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" suggest={ true } />
         );
@@ -186,17 +178,26 @@ describe('DropdownFilter', () => {
     });
 
     describe('if not in suggest mode', () => {
-      it('does not call setState', () => {
+      it('calls setState', () => {
         spyOn(instance, 'setState');
         instance.handleFocus();
         expect(instance.setState).toHaveBeenCalledWith({ open: true });
       });
+
+      describe('but focus is blocked', () => {
+        it('does not call setState', () => {
+          spyOn(instance, 'setState');
+          instance.blockFocus = true;
+          instance.handleFocus();
+          expect(instance.setState).not.toHaveBeenCalled();
+        });
+      });
     });
 
     it('calls setSelectionRange', () => {
-      spyOn(instance.refs.input, 'setSelectionRange');
+      spyOn(instance._input, 'setSelectionRange');
       instance.handleFocus();
-      expect(instance.refs.input.setSelectionRange).toHaveBeenCalledWith(0, instance.refs.input.value.length);
+      expect(instance._input.setSelectionRange).toHaveBeenCalledWith(0, instance._input.value.length);
     });
   });
 
@@ -301,6 +302,13 @@ describe('DropdownFilter', () => {
         });
       });
 
+      describe('if filter contains invalid characters', () => {
+        it('still filters the list', () => {
+          instance.setState({ filter: '[]()$£&%' });
+          expect(instance.prepareList(opts).length).toEqual(0);
+        });
+      });
+
       describe('if in suggest mode and list is opening', () => {
         it('filters the list', () => {
           instance.openingList = true;
@@ -329,7 +337,7 @@ describe('DropdownFilter', () => {
       it('adds no items option', () => {
         instance.setState({ filter: 'foo' });
         expect(instance.results([]).type).toEqual('li');
-        expect(instance.results([]).props.className).toEqual('ui-dropdown__list__item ui-dropdown__list__item--no-results');
+        expect(instance.results([]).props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--no-results');
         expect(instance.results([]).props.children).toEqual('No results match "foo"');
       });
     });
@@ -393,7 +401,7 @@ describe('DropdownFilter', () => {
 
   describe('mainClasses', () => {
     it('returns with filter class', () => {
-      expect(instance.mainClasses).toMatch('ui-dropdown-filter');
+      expect(instance.mainClasses).toMatch('carbon-dropdown-filter');
     });
   });
 
@@ -403,21 +411,21 @@ describe('DropdownFilter', () => {
         instance = TestUtils.renderIntoDocument(
           <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" create={ function() {} } />
         );
-        expect(instance.inputClasses).not.toMatch('ui-dropdown__input--filtered');
+        expect(instance.inputClasses).not.toMatch('carbon-dropdown__input--filtered');
       });
     });
 
     describe('if there is no filter', () => {
       it('does not add the class', () => {
         instance.setState({ filter: null });
-        expect(instance.inputClasses).not.toMatch('ui-dropdown__input--filtered');
+        expect(instance.inputClasses).not.toMatch('carbon-dropdown__input--filtered');
       });
     });
 
     describe('if not in create mode and there is a filter', () => {
       it('does adds the class', () => {
         instance.setState({ filter: 'foo' });
-        expect(instance.inputClasses).toMatch('ui-dropdown__input--filtered');
+        expect(instance.inputClasses).toMatch('carbon-dropdown__input--filtered');
       });
     });
   });

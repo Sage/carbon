@@ -1,6 +1,7 @@
 import React from 'react';
 import { find, startCase, assign } from 'lodash';
-import guid from './../../helpers/guid';
+import classNames from 'classnames';
+import Help from './../../../components/help';
 
 /**
  * InputLabel decorator.
@@ -37,6 +38,8 @@ import guid from './../../helpers/guid';
  *  * `labelInline` - pass true to format the input/label inline
  *  * `labelWidth` - pass a percentage to define the width of the label when it
  *  is displayed inline.
+ *  * `inputWidth` - pass a percentage to define the width of the input when it
+ *  is displayed inline.
  *
  * @method InputIcon
  * @param {Class} ComposedComponent class to decorate
@@ -59,21 +62,48 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    * @return {String} Main class names
    */
   get mainClasses() {
-    let classes = super.mainClasses || "";
-
-    if (this.props.labelInline) {
-      classes += " common-input--label-inline";
-    }
-
-    return classes;
+    return classNames(
+      super.mainClasses, {
+        'common-input--label-inline': this.props.labelInline,
+        'common-input--has-label-help': this.props.labelHelp,
+        'common-input--has-field-help': this.props.fieldHelp
+      }
+    );
   }
 
+  /**
+   * Classes to apply to the label
+   *
+   * @method labelClasses
+   * @return {String} classes
+   */
+  get labelClasses() {
+    return classNames(
+      'common-input__label', {
+        'common-input__label--inline': this.props.labelInline,
+        'common-input__label--help': this.props.labelHelp,
+        'common-input__label--align-right': this.props.labelAlign === 'right'
+      }
+    );
+  }
+
+  get fieldHelpClasses() {
+    return classNames(
+      super.fieldHelpClasses,
+      'common-input__help-text', {
+        'common-input__help-text--inline': this.props.labelInline
+      }
+    );
+  }
+
+  /**
+   * ID used for the label.
+   *
+   * @method labelID
+   * @return {String}
+   */
   get labelID() {
-    if (this._guid) {
-      return this._guid;
-    } else {
-      return this._guid = guid();
-    }
+    return this._guid;
   }
 
   /**
@@ -88,12 +118,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     // either use label supplied by dev, or automatically make one common on input name
     let labelText = this.props.label || startCase(this.props.name);
 
-    // add classes for the label
-    let labelClasses = "common-input__label";
-
-    if (this.props.labelInline) {
-      labelClasses += ` ${labelClasses}--inline`;
-    }
+    if (!labelText) { return; }
 
     // set asterisk if validation is used which uses an asterisk
     if (find(this.props.validations, (v) => { return v.asterisk; })) {
@@ -102,15 +127,58 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
 
     // add label width if defined
     let labelStyle = this.props.labelWidth ? { width: `${this.props.labelWidth}%` } : null;
-
     return (
       <label
         style={ labelStyle }
-        className={ labelClasses }
-        htmlFor={ this.inputProps.id }>
+        className={ this.labelClasses }
+        htmlFor={ this.inputProps.id }
+      >
         { labelText }
+        { this.labelHelpHTML }
       </label>
     );
+  }
+
+  /**
+   * Supplies the HTML for help component
+   *
+   * @method labelHelpHTML
+   * @return {Object} JSX for help
+   */
+  get labelHelpHTML() {
+    if (this.props.labelHelp) {
+      return (
+        <Help
+          tooltipPosition={ this.props.labelHelpPosition }
+          tooltipAlign={ this.props.labelHelpAlign }
+          href={ this.props.labelHelpHref }
+        >
+          { this.props.labelHelp }
+        </Help>
+      );
+    }
+  }
+
+  /**
+   * Supplies the HTML label help
+   *
+   * @method fieldHelpHTML
+   * @return {Object} JSX for label help
+   */
+  get fieldHelpHTML() {
+    if (this.props.fieldHelp) {
+      let style = {};
+
+      if (this.props.labelInline) {
+        style.marginLeft = `${this.props.labelWidth}%`;
+      }
+
+      return (
+        <span className={ this.fieldHelpClasses } style={ style }>
+          { this.props.fieldHelp }
+        </span>
+      );
+    }
   }
 
   /**
@@ -139,11 +207,15 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   get fieldProps() {
     let fieldProps = super.fieldProps || {};
 
-    // add input width if label width is defined
-    if (this.props.labelWidth) {
-      let inputWidth = `${100 - this.props.labelWidth}%`;
+    let { labelWidth, inputWidth } = this.props;
+
+    if (labelWidth && !inputWidth) {
+      inputWidth = 100 - labelWidth;
+    }
+
+    if (inputWidth) {
       fieldProps.style = fieldProps.style || {};
-      fieldProps.style.width = inputWidth;
+      fieldProps.style.width = `${inputWidth}%`;
     }
 
     return fieldProps;

@@ -1,43 +1,54 @@
-# Carbon
+# Carbon [ ![Codeship Status for Sage/carbon](https://codeship.com/projects/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad/status?branch=master)](https://codeship.com/projects/115478)
 
-[ ![Codeship Status for Sage/carbon](https://codeship.com/projects/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad/status?branch=master)](https://codeship.com/projects/115478)
+<img src="./../master/logo/carbon-logo.png" width="50">
 
 Carbon is a library of reusable [React](https://facebook.github.io/react/) components and an interface for easily building user interfaces based on [Flux](https://facebook.github.io/flux/).
 
 [Carbon Factory](https://github.com/sage/carbon-factory) is supplementary to Carbon; providing tools to easily get your environment and project up and running to start building with React. As well as providing a command line interface to build projects, it manages tasks for compiling your assets and running test suites.
 
-## Getting Started
+## Documentation
 
-If you're new to React and/or Node, make sure to see the [Carbon wiki](https://github.com/Sage/carbon/wiki) for learning material.
+### Getting Started
 
-### Installation
+* [Setting up your environment](docs/guides/setting-up-your-environment.md)
+* [An introduction to Node/npm](docs/guides/an-introduction-to-node-and-npm.md)
+* [Getting started](docs/guides/getting-started.md)
+* [A basic example of Flux](docs/guides/a-basic-example.md)
+* [Running Tests](https://github.com/Sage/carbon-factory/blob/master/docs/running-tests.md)
 
-There are instructions on setting up your environment on the [Carbon Factory repository](https://github.com/Sage/carbon-factory/blob/master/docs/first-time-installation.md). We recommend you run through these before continuing with Carbon.
+### Guides
 
-### Documentation
-
-We have a [basic example](docs/guides/a-basic-example.md) to get started with Carbon.
-
-We also have additional guides and tutorials for further information.
-
-#### Guides
-
-* [A Basic Example](docs/guides/a-basic-example.md)
 * [Assets](docs/guides/assets.md)
 * [Flux](docs/guides/flux.md)
 * [Immutable](docs/guides/immutable.md)
 * [Validations](docs/guides/validations.md)
 * [Decorators](docs/guides/decorators.md)
 * [Handlers](docs/guides/handlers.md)
+* [Retrieving Data](docs/guides/retrieving-data.md)
+* [Integrating React & Flux with Other UI](docs/guides/integrating-with-other-ui.md)
 
-#### Tutorials
+### Tutorials
 
-* [Creating an App in Rails](docs/tutorials/creating-an-app-in-rails.md)
-* [Creating a Component](docs/tutorials/creating-a-component.md)
+* Rails:
+  * [Hello world](docs/tutorials/carbon-rails/hello-world.md)
+  * [Introducing data](docs/tutorials/carbon-rails/introducing-data.md)
+  * [Updating data](docs/tutorials/carbon-rails/updating-data.md)
+* [Creating a component](docs/tutorials/creating-a-component.md)
 
-### Running the Example
+## Running the Example
 
-Carbon has an example page, which demonstrates most of the components with a Flux implementation. This can be used to quickly see a demonstration of the components and/or as an area to test while developing with the components. To run the example, simply run `gulp` from the root directory of the Carbon repository and navigate to [http://localhost:8080/](http://localhost:8080/).
+Carbon has an example page, which demonstrates most of the components with a Flux implementation. This can be used to quickly see a demonstration of the components and/or as an area to test while developing with the components.
+
+To run the example, do the following steps:
+  1. Clone the carbon repository (`git clone git@github.com:Sage/carbon.git`)
+  2. `cd carbon`
+  3. `npm install`
+  4. `gulp`
+  5. Navigate to [http://localhost:8080/](http://localhost:8080/) in your favourite browser
+
+## Testing Changes Locally in your App
+
+See the guide on [installing unreleased changes](https://github.com/Sage/carbon/blob/master/docs/guides/installing-unreleased-changes.md)
 
 ## Technologies
 

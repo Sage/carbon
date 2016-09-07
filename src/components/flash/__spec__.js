@@ -189,28 +189,28 @@ fdescribe('Flash', () => {
     let successFlash, alertFlash, timeoutFlash;
 
     beforeEach(() => {
-      successFlash = TestUtils.findRenderedDOMComponentWithClass(successInstance, 'ui-flash');
-      alertFlash = TestUtils.findRenderedDOMComponentWithClass(defaultInstance, 'ui-flash');
-      timeoutFlash = TestUtils.findRenderedDOMComponentWithClass(timeoutInstance, 'ui-flash');
+      successFlash = TestUtils.findRenderedDOMComponentWithClass(successInstance, 'carbon-flash');
+      alertFlash = TestUtils.findRenderedDOMComponentWithClass(defaultInstance, 'carbon-flash');
+      timeoutFlash = TestUtils.findRenderedDOMComponentWithClass(timeoutInstance, 'carbon-flash');
     });
 
     it('adds an icon', () => {
-      expect(successFlash.getElementsByClassName('ui-flash__icon').length).toEqual(1);
+      expect(successFlash.getElementsByClassName('carbon-flash__icon').length).toEqual(1);
     });
 
     it('adds the message', () => {
-      let messageHTML =  alertFlash.getElementsByClassName('ui-flash__message');
+      let messageHTML =  alertFlash.getElementsByClassName('carbon-flash__message');
       expect(messageHTML.length).toEqual(1);
     });
 
     describe('when no timeout is passed', () => {
       it('adds a close icon', () => {
-        let iconHTML = alertFlash.getElementsByClassName('ui-flash__icon');
+        let iconHTML = alertFlash.getElementsByClassName('carbon-flash__icon');
         expect(iconHTML.length).toEqual(1);
       });
 
       it('adds a click handler that closes the flash', () => {
-        let closeIcon = alertFlash.getElementsByClassName('ui-flash__close-icon')[0];
+        let closeIcon = alertFlash.getElementsByClassName('carbon-flash__close-icon')[0];
         TestUtils.Simulate.click(closeIcon);
         expect(dismissHandler).toHaveBeenCalled();
       });
@@ -218,13 +218,13 @@ fdescribe('Flash', () => {
 
     describe('when a timeout is passed', () => {
       it('does not add a close icon', () => {
-        let iconHTML = timeoutFlash.getElementsByClassName('ui-flash__icon');
+        let iconHTML = timeoutFlash.getElementsByClassName('carbon-flash__icon');
         expect(iconHTML.length).toEqual(0);
       });
     });
 
     it('returns a div with the flash class names', () => {
-      let contentHTML = alertFlash.getElementsByClassName('ui-flash__content');
+      let contentHTML = alertFlash.getElementsByClassName('carbon-flash__content');
       expect(contentHTML.length).toEqual(1);
     });
   });
@@ -232,7 +232,7 @@ fdescribe('Flash', () => {
   describe('sliderHTML', () => {
     it('returns a div with the slider class names', () => {
       it('returns a div with the slider class names', () => {
-        expect(defaultInstance.props.className).toMatch('ui-flash__slider');
+        expect(defaultInstance.props.className).toMatch('carbon-flash__slider');
       });
     });
   });
@@ -241,22 +241,22 @@ fdescribe('Flash', () => {
     let flashInstance, outerSlider;
 
     beforeEach(() => {
-      flashInstance = TestUtils.findRenderedDOMComponentWithClass(defaultInstance, 'ui-flash');
+      flashInstance = TestUtils.findRenderedDOMComponentWithClass(defaultInstance, 'carbon-flash');
       outerSlider = flashInstance.firstChild.children[0];
     });
 
     describe('when the flash is open', () => {
       it('renders a parent div with default mainClasses attached', () => {
-        expect(flashInstance.className).toMatch('ui-flash ui-flash--success');
+        expect(flashInstance.className).toMatch('carbon-flash carbon-flash--success');
       });
 
       it('renders an outer slider element', () => {
-        expect(outerSlider.className).toMatch('ui-flash__slider');
+        expect(outerSlider.className).toMatch('carbon-flash__slider');
       });
 
       it('renders an inner flash element', () => {
         let innerFlash = flashInstance.firstChild.children[1].firstChild;
-        expect(innerFlash.className).toMatch('ui-flash__content');
+        expect(innerFlash.className).toMatch('carbon-flash__content');
       });
     });
   });

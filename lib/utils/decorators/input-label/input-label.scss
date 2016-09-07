@@ -4,12 +4,16 @@
 .common-input__label {
   color: $grey-dark;
   cursor: pointer;
-  display: block;
+  display: inline-block;
   font-weight: bold;
   line-height: 14px;
-  margin: 0 0 5px 0;
+  margin: 0 0 8px 0;
   padding: 0 6px;
   vertical-align: middle;
+
+  .carbon-help {
+    margin-top: -5px;
+  }
 }
 
 .common-input--label-inline {
@@ -17,6 +21,11 @@
 
   .common-input__message {
     margin-bottom: 6px;
+  }
+
+  .common-input__help-text {
+    margin-left: 30%;
+    padding-left: $grid-margin;
   }
 }
 
@@ -27,10 +36,23 @@
   padding: 0 0 0 $grid-margin;
   width: 30%;
 
-  + .common-input__field {
+  ~ .common-input__field {
     box-sizing: border-box;
     display: inline-block;
     padding-left: $grid-margin;
     width: 70%;
   }
+}
+
+.common-input__label--align-right {
+  text-align: right;
+}
+
+.common-input__help-text {
+  color: $grey-mid;
+  display: block;
+  line-height: 20px;
+  margin-left: 6px;
+  margin-top: 5px;
+  white-space: pre-wrap;
 }

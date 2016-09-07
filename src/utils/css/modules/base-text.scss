@@ -1,0 +1,19 @@
+body {
+  color: $app-text-color;
+  font-family: $app-font-family;
+  font-size: $app-font-size;
+}
+
+@mixin h1() { font-size: 24px;  font-weight: 300; line-height: 32px; }
+@mixin h2() { font-size: 1.8em; font-weight: 300; margin-bottom: 12px; }
+@mixin h3() { font-size: 1.6em; font-weight: 300; margin-bottom: 16px; }
+@mixin h4() { font-size: 1.4em; font-weight: 300; margin-bottom: 14px; }
+@mixin h5() { font-size: 1.2em; font-weight: 300; margin-bottom: 12px; }
+@mixin h6() { font-size: 1.1em; font-weight: 300; margin-bottom: 11px; }
+
+h1, .h1 { @include h1(); }
+h2, .h2 { @include h2(); }
+h3, .h3 { @include h3(); }
+h4, .h4 { @include h4(); }
+h5, .h5 { @include h5(); }
+h6, .h6 { @include h6(); }

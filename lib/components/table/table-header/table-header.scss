@@ -1,30 +1,32 @@
 @import "tables";
 @import "colors";
 
-.ui-table-header {
+.carbon-table-header {
+  background-color: $grey-dark-blue-80;
   border-bottom: 1px solid $grey-dark-blue-60;
   border-left: 1px solid $grey-dark-blue-60;
   border-right: none;
   border-top: none;
   box-sizing: border-box;
-  background-color: $grey-dark-blue-80;
   color: $white;
   font-weight: normal;
-  height: 36px;
+  height: $tables__header-height;
   line-height: 10px;
   outline: medium none;
   overflow: hidden;
   padding: 8px 8px 6px 8px;
+  position: relative;
   text-align: left;
   text-overflow: ellipsis;
-  vertical-align: middle;
   user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
 
   &:first-child {
     border-left: none;
   }
 
-  .ui-table-row:first-child & {
+  .carbon-table-row:first-child & {
     &:first-child {
       border-radius: $tables__border-radius 0 0 0;
     }
@@ -35,10 +37,35 @@
   }
 }
 
-.ui-table-header--align-left {
+.carbon-table-header--align-left {
   text-align: left;
 }
 
-.ui-table-header--align-right {
+.carbon-table-header--align-right {
   text-align: right;
+}
+
+.carbon-table-header--align-center {
+  text-align: center;
+}
+
+.carbon-table-header__icon {
+  margin: -5px 10px 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+
+  .carbon-icon__svg--sort-down,
+  .carbon-icon__svg--sort-up {
+    height: 11px;
+    width: 10px;
+  }
+}
+
+.carbon-table-header--sortable {
+  cursor: pointer;
+
+  &:hover {
+    background-color: $grey-dark-blue-60;
+  }
 }
