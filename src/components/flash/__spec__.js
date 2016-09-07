@@ -39,7 +39,53 @@ describe('Flash', () => {
     );
   });
 
+  describe('componentWillReceiveProps', () => {
+    beforeEach(() => {
+      spyOn(defaultInstance, 'setState');
+    });
+
+    describe('if open prop has changed', () => {
+      it('calls setState', () => {
+        defaultInstance.componentWillReceiveProps({ open: false });
+        expect(defaultInstance.setState).toHaveBeenCalledWith({ dialogs: {} });
+      });
+    });
+
+    describe('if open prop has not changed', () => {
+      it('does not call setState', () => {
+        defaultInstance.componentWillReceiveProps({ open: true });
+        expect(defaultInstance.setState).not.toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('componentDidUpdate', () => {
+    beforeEach(() => {
+      spyOn(defaultInstance, 'startTimeout');
+    });
+
+    it('resets the dialogs array', () => {
+      defaultInstance.dialogs = [1,2,3];
+      defaultInstance.componentDidUpdate({});
+      expect(defaultInstance.dialogs).toEqual([]);
+    });
+
+    describe('if open prop has changed', () => {
+      it('calls startTimeout', () => {
+        defaultInstance.componentDidUpdate({ open: false });
+        expect(defaultInstance.startTimeout).toHaveBeenCalled();
+      });
+    });
+
+    describe('if open prop has not changed', () => {
+      it('does not call startTimeout', () => {
+        defaultInstance.componentDidUpdate({ open: true });
+        expect(defaultInstance.startTimeout).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('startTimeout', () => {
     beforeEach(() => {
       jasmine.clock().install();
     });
@@ -49,39 +95,19 @@ describe('Flash', () => {
     });
 
     describe('when the flash is open and a timeout was passed', () => {
-      describe('when its open state has changed', () => {
-
-        it('calls the dismissHandler after a timeout', () => {
-          let prevProps = { open: false };
-
-          timeoutInstance = TestUtils.renderIntoDocument(
-            <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
-                   as='warning' timeout= { 2000 }/>);
-          timeoutInstance.componentDidUpdate(prevProps);
-          jasmine.clock().tick(2000);
-          expect(dismissHandler).toHaveBeenCalled();
-        });
-      });
-
-      describe('when its open state has not changed', () => {
-        it('call the dismissHandler', () => {
-          let prevProps = { open: true };
-
-          timeoutInstance = TestUtils.renderIntoDocument(
-            <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
-                   as='warning' timeout= { 2000 }/>);
-
-          timeoutInstance.componentDidUpdate(prevProps);
-          jasmine.clock().tick(2000);
-          expect(dismissHandler).not.toHaveBeenCalled();
-        });
+      it('calls the dismissHandler after a timeout', () => {
+        timeoutInstance = TestUtils.renderIntoDocument(
+          <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
+                 as='warning' timeout= { 2000 }/>);
+        timeoutInstance.startTimeout();
+        jasmine.clock().tick(2000);
+        expect(dismissHandler).toHaveBeenCalled();
       });
     });
 
     describe('when no timeout value is passed', () => {
       it('does not update state or call the dismissHandler', () => {
-        let prevProps = { open: true };
-        defaultInstance.componentDidUpdate(prevProps);
+        defaultInstance.startTimeout();
         jasmine.clock().tick(2000);
         expect(dismissHandler).not.toHaveBeenCalled();
       });
@@ -97,10 +123,99 @@ describe('Flash', () => {
       });
 
       it('does not update state or call the dismissHandler', () => {
-        let prevProps = { open: false };
-        closedInstance.componentDidUpdate(prevProps);
+        closedInstance.startTimeout();
         jasmine.clock().tick(2000);
         expect(dismissHandler).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('stopTimeout', () => {
+    it('clears the timeout', () => {
+      defaultInstance.timeout = "foo";
+      spyOn(window, 'clearTimeout');
+      defaultInstance.stopTimeout();
+      expect(window.clearTimeout).toHaveBeenCalledWith("foo");
+    });
+  });
+
+  describe('toggleDialog', () => {
+    describe("if there is an event", () => {
+      it('calls preventDefault on it', () => {
+        let spy = jasmine.createSpy('preventDefault');
+        defaultInstance.toggleDialog(null, { preventDefault: spy });
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    it('sets the state to the opposite of what it was', () => {
+      defaultInstance.setState({ dialogs: { foo: false }});
+      defaultInstance.toggleDialog('foo');
+      expect(defaultInstance.state.dialogs.foo).toBeTruthy();
+    });
+
+    it('calls startTimeout if the state is truthy', () => {
+      spyOn(defaultInstance, 'startTimeout');
+      defaultInstance.setState({ dialogs: { foo: true }});
+      defaultInstance.toggleDialog('foo');
+      expect(defaultInstance.startTimeout).toHaveBeenCalled();
+    });
+
+    it('calls stopTimeout if the state is falsey', () => {
+      spyOn(defaultInstance, 'stopTimeout');
+      defaultInstance.setState({ dialogs: { foo: false }});
+      defaultInstance.toggleDialog('foo');
+      expect(defaultInstance.stopTimeout).toHaveBeenCalled();
+    });
+  });
+
+  describe('formatDescription', () => {
+    describe('if the item is an array', () => {
+      it('adds each item', () => {
+        let items = defaultInstance.formatDescription(["foo", "bar"]);
+        expect(items.props.children[0].props.children).toEqual("foo");
+        expect(items.props.children[1].props.children).toEqual("bar");
+      });
+    });
+
+    describe('if the item is an object', () => {
+      it('adds each item', () => {
+        let items = defaultInstance.formatDescription({foo: "bar"});
+        expect(items.props.children[0].props.children.props.children[0]).toEqual("foo");
+        expect(items.props.children[0].props.children.props.children[1]).toEqual(": ");
+        expect(items.props.children[0].props.children.props.children[2]).toEqual("bar");
+      });
+    });
+
+    describe('if the item is a string', () => {
+      it('adds the string', () => {
+        let items = defaultInstance.formatDescription("foobar");
+        expect(items).toEqual("foobar");
+      });
+    });
+  });
+
+  describe('findMore', () => {
+    describe('if the text is not a string', () => {
+      it('returns the text', () => {
+        expect(defaultInstance.findMore(["nope"])).toEqual(["nope"]);
+      });
+    });
+
+    describe('if the text does not contain ::more::', () => {
+      it('returns the text', () => {
+        expect(defaultInstance.findMore("nope")).toEqual("nope");
+      });
+    });
+
+    describe('if the text does contains ::more::', () => {
+      it('returns the text and creates an alert', () => {
+        spyOn(defaultInstance, 'toggleDialog');
+        let markup = defaultInstance.findMore("yep ::more:: with dialog");
+        expect(markup.props.children[0]).toEqual("yep");
+        expect(markup.props.children[2].props.className).toEqual("carbon-flash__link");
+        markup.props.children[2].props.onClick();
+        expect(defaultInstance.toggleDialog).toHaveBeenCalled();
       });
     });
   });
@@ -117,6 +232,37 @@ describe('Flash', () => {
     it('returns an warning icon if it is an error or alert flash', () => {
       expect(warningInstance.iconType).toEqual('warning');
       expect(errorInstance.iconType).toEqual('warning');
+    });
+  });
+
+  describe('description', () => {
+    describe('when not an object', () => {
+      it('returns itself', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!" />
+        );
+        expect(instance.description).toEqual("Danger Will Robinson!");
+      });
+    });
+
+    describe('when an object', () => {
+      describe('with no description', () => {
+        it('returns itself', () => {
+          let instance = TestUtils.renderIntoDocument(
+            <Flash open={ true } onDismiss={ dismissHandler } message={{ other: "Danger Will Robinson!" }} />
+          );
+          expect(instance.description).toEqual({ other: "Danger Will Robinson!" });
+        });
+      });
+
+      describe('with a description', () => {
+        it('returns the description', () => {
+          let instance = TestUtils.renderIntoDocument(
+            <Flash open={ true } onDismiss={ dismissHandler } message={{ description: "Danger Will Robinson!" }} />
+          );
+          expect(instance.description).toEqual("Danger Will Robinson!");
+        });
+      });
     });
   });
 
