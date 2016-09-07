@@ -11,10 +11,6 @@ import Checkbox from 'components/checkbox';
 import Textarea from 'components/textarea';
 
 class FlashDemo extends React.Component {
-  get message() {
-    return { description: { first_name: "is required", last_name: "This is too long ::more:: This sentence is proxied to a dialog." } }
-  }
-
   /**
    * @method value
    */
@@ -37,7 +33,7 @@ class FlashDemo extends React.Component {
       <Flash
         as={ this.value('as') }
         open={ this.value('open') }
-        message={ this.message }
+        message={ this.value('text') || " " }
         onDismiss={ this.action.bind(this, 'open', { target: { value: false } }) }
       />
     );

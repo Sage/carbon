@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Flash from './flash';
 
-fdescribe('Flash', () => {
+describe('Flash', () => {
   let defaultInstance, successInstance, errorInstance, warningInstance, timeoutInstance,
       customIconInstance, dismissHandler;
 
@@ -140,12 +140,84 @@ fdescribe('Flash', () => {
   });
 
   describe('toggleDialog', () => {
+    describe("if there is an event", () => {
+      it('calls preventDefault on it', () => {
+        let spy = jasmine.createSpy('preventDefault');
+        defaultInstance.toggleDialog(null, { preventDefault: spy });
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    it('sets the state to the opposite of what it was', () => {
+      defaultInstance.setState({ dialogs: { foo: false }});
+      defaultInstance.toggleDialog('foo');
+      expect(defaultInstance.state.dialogs.foo).toBeTruthy();
+    });
+
+    it('calls startTimeout if the state is truthy', () => {
+      spyOn(defaultInstance, 'startTimeout');
+      defaultInstance.setState({ dialogs: { foo: true }});
+      defaultInstance.toggleDialog('foo');
+      expect(defaultInstance.startTimeout).toHaveBeenCalled();
+    });
+
+    it('calls stopTimeout if the state is falsey', () => {
+      spyOn(defaultInstance, 'stopTimeout');
+      defaultInstance.setState({ dialogs: { foo: false }});
+      defaultInstance.toggleDialog('foo');
+      expect(defaultInstance.stopTimeout).toHaveBeenCalled();
+    });
   });
 
   describe('formatDescription', () => {
+    describe('if the item is an array', () => {
+      it('adds each item', () => {
+        let items = defaultInstance.formatDescription(["foo", "bar"]);
+        expect(items.props.children[0].props.children).toEqual("foo");
+        expect(items.props.children[1].props.children).toEqual("bar");
+      });
+    });
+
+    describe('if the item is an object', () => {
+      it('adds each item', () => {
+        let items = defaultInstance.formatDescription({foo: "bar"});
+        expect(items.props.children[0].props.children.props.children[0]).toEqual("foo");
+        expect(items.props.children[0].props.children.props.children[1]).toEqual(": ");
+        expect(items.props.children[0].props.children.props.children[2]).toEqual("bar");
+      });
+    });
+
+    describe('if the item is a string', () => {
+      it('adds the string', () => {
+        let items = defaultInstance.formatDescription("foobar");
+        expect(items).toEqual("foobar");
+      });
+    });
   });
 
   describe('findMore', () => {
+    describe('if the text is not a string', () => {
+      it('returns the text', () => {
+        expect(defaultInstance.findMore(["nope"])).toEqual(["nope"]);
+      });
+    });
+
+    describe('if the text does not contain ::more::', () => {
+      it('returns the text', () => {
+        expect(defaultInstance.findMore("nope")).toEqual("nope");
+      });
+    });
+
+    describe('if the text does contains ::more::', () => {
+      it('returns the text and creates an alert', () => {
+        spyOn(defaultInstance, 'toggleDialog');
+        let markup = defaultInstance.findMore("yep ::more:: with dialog");
+        expect(markup.props.children[0]).toEqual("yep");
+        expect(markup.props.children[2].props.className).toEqual("carbon-flash__link");
+        markup.props.children[2].props.onClick();
+        expect(defaultInstance.toggleDialog).toHaveBeenCalled();
+      });
+    });
   });
 
   describe('iconType', () => {
@@ -163,23 +235,32 @@ fdescribe('Flash', () => {
     });
   });
 
-  describe('title', () => {
-  });
-
   describe('description', () => {
     describe('when not an object', () => {
       it('returns itself', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!" />
+        );
+        expect(instance.description).toEqual("Danger Will Robinson!");
       });
     });
 
     describe('when an object', () => {
       describe('with no description', () => {
         it('returns itself', () => {
+          let instance = TestUtils.renderIntoDocument(
+            <Flash open={ true } onDismiss={ dismissHandler } message={{ other: "Danger Will Robinson!" }} />
+          );
+          expect(instance.description).toEqual({ other: "Danger Will Robinson!" });
         });
       });
 
       describe('with a description', () => {
         it('returns the description', () => {
+          let instance = TestUtils.renderIntoDocument(
+            <Flash open={ true } onDismiss={ dismissHandler } message={{ description: "Danger Will Robinson!" }} />
+          );
+          expect(instance.description).toEqual("Danger Will Robinson!");
         });
       });
     });

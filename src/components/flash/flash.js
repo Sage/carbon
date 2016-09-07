@@ -34,10 +34,10 @@ import { isObject, isArray, forEach } from 'lodash';
  *
  *  * A string: "Alert"
  *  * An array: ["Message One", "Message Two"]
- *  * An object of title and description: { title: "My title", description: "My description" }
+ *  * An object with description: { description: "My description" }
  *  * An object of key/value pairs: { first_name: "is required", last_name: "is required" }
- *  * An object of title and description with nested key/value pairs:
- *    { title: "My title", description: { first_name: "is required", last_name: "is required" } }
+ *  * An object with description with nested key/value pairs:
+ *    { description: { first_name: "is required", last_name: "is required" } }
  *
  * If a message is too long, it can be proxied to a dialog by adding `::more::` in your description.
  *
@@ -213,6 +213,8 @@ class Flash extends React.Component {
     let object = isObject(description),
         array = isArray(description);
 
+    this.dialogs = [];
+
     if (array || object) {
       let items = [];
 
@@ -265,8 +267,9 @@ class Flash extends React.Component {
         <Alert
           key={ title }
           title={ title }
-          open={ this.state.dialogs[title] }
-          onCancel={ this.toggleDialog.bind(this, title) }>
+          open={ this.state.dialogs[title] || false }
+          onCancel={ this.toggleDialog.bind(this, title) }
+        >
           { desc }
         </Alert>
       );
@@ -275,7 +278,9 @@ class Flash extends React.Component {
       text = (
         <span>
           { title }&nbsp;
-          <Link onClick={ this.toggleDialog.bind(this, title) }>{ info }</Link>
+          <Link onClick={ this.toggleDialog.bind(this, title) } className="carbon-flash__link">
+            { info }
+          </Link>
         </span>
       );
     }
@@ -304,29 +309,6 @@ class Flash extends React.Component {
         break;
     }
     return icon;
-  }
-
-  /**
-   * Parses the message object to get the appropriate title
-   *
-   * @method title
-   * @return {String}
-   */
-  get title() {
-    let message = this.props.message;
-
-    if (isObject(message) && message.title) {
-      // if defined, return title
-      return message.title;
-    }
-
-    if (this.props.as == "error") {
-      // if type error, return default error title
-      return I18n.t("notifications.error.title", { defaultValue: "Error" });
-    } else {
-      // if other type, return default title
-      return I18n.t("notifications.success.title", { defaultValue: "Success" });
-    }
   }
 
   /**
@@ -362,7 +344,6 @@ class Flash extends React.Component {
     // add message content
     contents.push(
       <div className='carbon-flash__message' key='message'>
-        { this.title }
         { this.formatDescription(this.description) }
       </div>
     );
@@ -402,9 +383,7 @@ class Flash extends React.Component {
    * @return {String}
    */
   get classes() {
-    let flashHTML, sliderHTML, mainClasses;
-
-    mainClasses = classNames(
+    return classNames(
       'carbon-flash',
       this.props.className,
       `carbon-flash--${this.props.as}`
@@ -437,6 +416,7 @@ class Flash extends React.Component {
               transitionLeaveTimeout={ 500 } >
               { flashHTML }
             </ReactCSSTransitionGroup>
+          </ReactCSSTransitionGroup>
         </div>
 
         { this.dialogs }
