@@ -1,3 +1,16 @@
+# 0.24.0
+
+## Updated Flash component API
+
+As well as just a string, the Flash component will now receive a message value with the following:
+
+ * A string: `"Alert"`
+ * An array: `["Message One", "Message Two"]`
+ * An object with description: `{ description: "My description" }`
+ * An object of key/value pairs: `{ first_name: "is required", last_name: "is required" }`
+ * An object with description with nested key/value pairs:
+   `{ description: { first_name: "is required", last_name: "is required" } }`
+
 # 0.23.0
 
 ## Breaking Change - Additional functionality for initialSelectedTabId prop in Tabs component

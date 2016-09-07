@@ -24,3 +24,12 @@ To instead have the flash disappear after a given time period, pass a prop of ti
 ```js
  <Flash open={ openStatus } onDismiss={ myOnDismiss } message='Alert!' timeout={ 2000 }/>
 ```
+
+The flash message can be formatted in the following ways:
+
+ * A string: `"Alert"`
+ * An array: `["Message One", "Message Two"]`
+ * An object with description: `{ description: "My description" }`
+ * An object of key/value pairs: `{ first_name: "is required", last_name: "is required" }`
+ * An object with description with nested key/value pairs:
+   `{ description: { first_name: "is required", last_name: "is required" } }`
