@@ -70,18 +70,9 @@ describe('Flash', () => {
       expect(defaultInstance.dialogs).toEqual([]);
     });
 
-    describe('if open prop has changed', () => {
-      it('calls startTimeout', () => {
-        defaultInstance.componentDidUpdate({ open: false });
-        expect(defaultInstance.startTimeout).toHaveBeenCalled();
-      });
-    });
-
-    describe('if open prop has not changed', () => {
-      it('does not call startTimeout', () => {
-        defaultInstance.componentDidUpdate({ open: true });
-        expect(defaultInstance.startTimeout).not.toHaveBeenCalled();
-      });
+    it('calls startTimeout', () => {
+      defaultInstance.componentDidUpdate({ open: false });
+      expect(defaultInstance.startTimeout).toHaveBeenCalled();
     });
   });
 
@@ -108,6 +99,18 @@ describe('Flash', () => {
     describe('when no timeout value is passed', () => {
       it('does not update state or call the dismissHandler', () => {
         defaultInstance.startTimeout();
+        jasmine.clock().tick(2000);
+        expect(dismissHandler).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when a dialog is open', () => {
+      it('does not update state or call the dismissHandler', () => {
+        timeoutInstance = TestUtils.renderIntoDocument(
+          <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
+                 as='warning' timeout= { 2000 }/>);
+        timeoutInstance.setState({ dialogs: { foo: true, bar: false }});
+        timeoutInstance.startTimeout();
         jasmine.clock().tick(2000);
         expect(dismissHandler).not.toHaveBeenCalled();
       });

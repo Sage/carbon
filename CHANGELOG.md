@@ -1,3 +1,7 @@
+# 0.24.1
+
+* Improves Flash component timeout behaviour.
+
 # 0.24.0
 
 ## Carbon Factory Upgrade v0.1.0
