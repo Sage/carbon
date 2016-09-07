@@ -1,5 +1,8 @@
 # 0.24.0
 
+## Carbon Factory Upgrade v0.1.0
+* [Carbon Factory Release Notes](https://github.com/Sage/carbon-factory/releases/tag/v0.1.0)
+
 ## Updated Flash component API
 
 As well as just a string, the Flash component will now receive a message value with the following:
@@ -17,9 +20,6 @@ As well as just a string, the Flash component will now receive a message value w
 
 * Renamed initialSelectedTabId to selectedTabId and onTabClick to onTabChange in the Tabs component
 * If selectedTabId is updated the visible tab will change to the value of selectedTabId, this will call the onTabChange function if set.
-
-## Carbon Factory Upgrade v0.1.0
-* [Carbon Factory Release Notes](https://github.com/Sage/carbon-factory/releases/tag/v0.1.0)
 
 ## Minor Improvements
 
