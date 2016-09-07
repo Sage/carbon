@@ -50,7 +50,7 @@
 
 @include icon(feedback,       "\e930");
 @include icon(info,           "\e92a");
-@include icon(help,           "\e943");
+@include icon(help,           "\e951");
 @include icon(settings,       "\e91a");
 @include icon(logout,         "\e92e");
 @include icon(pdf,            "\e91f", none);
@@ -83,6 +83,7 @@
 @include icon(none,           "\ ");
 @include icon(add,            "\e940");
 @include icon(services,       "\+");
+@include icon(collaborate,    "\e946");
 
 // New
 @include icon(edited,         "\e938");
@@ -152,7 +153,6 @@
 @include icon(book,           D);
 @include icon(bank,           G);
 @include icon(entry,          H);
-@include icon(collaborate,    J);
 @include icon(settings_old,   i);
 @include icon(go,             j);
 @include icon(new,            k);

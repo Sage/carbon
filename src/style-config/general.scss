@@ -1,39 +1,14 @@
 @import 'colors';
 @import 'assets';
+@import 'https://fonts.googleapis.com/css?family=Lato:300,400,700';
 
 @font-face {
   font-family: 'Lato';
-  src: url('#{$font-path}/Lato-Light.woff') format('woff'),
-       url('#{$font-path}/Lato-Light.woff2') format('woff2'),
-       url('#{$font-path}/Lato-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Lato';
-  src: url('#{$font-path}/Lato-Regular.woff') format('woff'),
-       url('#{$font-path}/Lato-Regular.woff2') format('woff2'),
-       url('#{$font-path}/Lato-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Lato';
-  src: url('#{$font-path}/Lato-Semibold.woff') format('woff'),
+  src: local('Lato-Semibold'),
+       local('Lato Semibold'),
        url('#{$font-path}/Lato-Semibold.woff2') format('woff2'),
-       url('#{$font-path}/Lato-Semibold.ttf') format('truetype');
+       url('#{$font-path}/Lato-Semibold.woff') format('woff');
   font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Lato';
-  src: url('#{$font-path}/Lato-Bold.woff') format('woff'),
-       url('#{$font-path}/Lato-Bold.woff2') format('woff2'),
-       url('#{$font-path}/Lato-Bold.ttf') format('truetype');
-  font-weight: 700;
   font-style: normal;
 }
 
