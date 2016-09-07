@@ -71,7 +71,11 @@ class _Link extends React.Component {
    * @return {Object} props
    */
   get componentProps() {
-    let { href, to, ...props } = this.props;
+    let { ...props } = this.props;
+
+    delete props.href;
+    delete props.to;
+
     props.className = this.componentClasses;
     props[this.linkType.prop] = this.url;
 
