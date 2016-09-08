@@ -2,15 +2,6 @@
   "main": "./css.js",
   "style": "css.scss",
   "fonts": [
-    "fonts/Lato-Bold.ttf",
-    "fonts/Lato-Bold.woff",
-    "fonts/Lato-Bold.woff2",
-    "fonts/Lato-Light.ttf",
-    "fonts/Lato-Light.woff",
-    "fonts/Lato-Light.woff2",
-    "fonts/Lato-Regular.ttf",
-    "fonts/Lato-Regular.woff",
-    "fonts/Lato-Regular.woff2",
     "fonts/Lato-Semibold.ttf",
     "fonts/Lato-Semibold.woff",
     "fonts/Lato-Semibold.woff2"
