@@ -147,6 +147,9 @@ class PodDemo extends React.Component {
       id: "none",
       name: "None"
     }, {
+      id: "extra-small",
+      name: "Extra Small"
+    }, {
       id: "small",
       name: "Small"
     }, {

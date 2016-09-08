@@ -135,7 +135,7 @@ describe('Pod', () => {
     describe('if border is disabled', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
-        expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--no-border');
+        expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--padding-medium carbon-pod__edit-action--no-border');
       });
     });
   });
