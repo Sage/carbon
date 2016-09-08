@@ -94,6 +94,9 @@
 @include icon(go,             "\e903");
 @include icon(question_mark,  "\e943");
 @include icon(admin,          "\e94f");
+@include icon(contacts,       "\e93b"); // Deprecated
+@include icon(create,         "\e940");
+@include icon(piggy_bank,     "\e926");
 
 // New
 @include icon(edited,         "\e938");
@@ -161,6 +164,3 @@
 @include icon(bank,           G);
 @include icon(entry,          H);
 @include icon(new,            k);
-@include icon(create,         V);
-@include icon(piggy_bank,     d);
-@include icon(contacts,       e); // Deprecated
