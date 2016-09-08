@@ -328,8 +328,9 @@ class Pod extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let content,
-        { className, ...props } = this.props;
+    let content, { ...props } = this.props;
+
+    delete props.className;
 
     if (!this.state.collapsed) { content = this.podContent; }
 

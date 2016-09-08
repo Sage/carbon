@@ -19,6 +19,14 @@
   }
 }
 
+.carbon-flash__link {
+  color: $white;
+
+  &:hover {
+    color: $white;
+  }
+}
+
 .carbon-flash__slider {
   content: 'h';
   display: inline-block;

@@ -53,9 +53,9 @@ describe('Tabs', () => {
   describe('componentWillMount', () => {
     describe('initial selected tab', () => {
       describe('when passed as props', () => {
-        it('uses the prop as initialSelectedTabId and takes precendent over hash', () => {
+        it('uses the prop as selectedTabId and takes precendent over hash', () => {
           instance = TestUtils.renderIntoDocument(
-            <Tabs initialSelectedTabId='uniqueid2'>
+            <Tabs selectedTabId='uniqueid2'>
               <Tab title='Tab Title 1' tabId='uniqueid1'>
                 <Textbox name='foo'/>
                 <Textbox name='bar'/>
@@ -121,6 +121,74 @@ describe('Tabs', () => {
     });
   });
 
+
+
+
+  describe('Change in tab prop', () => {
+    let instance, tabs;
+      beforeEach(() => {
+        let TestParent = React.createFactory(React.createClass({
+          getInitialState() {
+            return { selectedTabId: "uniqueid2", align: 'left' };
+          },
+          render() {
+            return (
+              <Tabs { ...this.state }>
+                <Tab title='Tab Title 1' tabId='uniqueid1'>
+                  <Textbox name='foo'/>
+                  <Textbox name='bar'/>
+                </Tab>
+                <Tab title='Tab Title 2' tabId='uniqueid2'>
+                  <Textbox name='baz'/>
+                  <Textbox name='bax'/>
+                </Tab>
+              </Tabs>
+            );
+          }
+        }));
+        instance = TestUtils.renderIntoDocument(TestParent());
+        tabs = TestUtils.scryRenderedComponentsWithType(instance, Tab);
+        expect(tabs[0].props.className).toEqual('hidden');
+        expect(tabs[1].props.className).not.toEqual('hidden');
+      });
+
+      describe('without noTabChange function', () => {
+        it('changes tab to current prop', () => {
+          instance.setState({
+            selectedTabId: "uniqueid1"
+          });
+          expect(tabs[1].props.className).toEqual('hidden');
+          expect(tabs[0].props.className).not.toEqual('hidden');
+        });
+
+        it('change in other tab', () => {
+          instance.setState({
+            align: 'right'
+          });
+          expect(tabs[0].props.className).toEqual('hidden');
+          expect(tabs[1].props.className).not.toEqual('hidden');
+        });
+      });
+
+      describe('with onTabChange function', () => {
+        let onClick;
+        beforeEach(() => {
+          onClick = jasmine.createSpy('tab change');
+          instance.setState({
+            onTabChange: onClick
+          });
+        });
+
+        it('calls onTabChange function', () => {
+          instance.setState({
+            selectedTabId: "uniqueid1"
+          });
+          expect(onClick).toHaveBeenCalledWith('uniqueid1');
+        });
+      });
+
+  });
+
   describe('changeValidity', () => {
     beforeEach(() => {
       instance.setState({ tabValidity: Immutable.fromJS({ 'foo': true })});
@@ -154,12 +222,12 @@ describe('Tabs', () => {
       expect(instance._window.location).toEqual('#foo');
     });
 
-    describe('when a onTabClick prop is passed', () => {
+    describe('when a onTabChange prop is passed', () => {
       it('calls the prop', () => {
         let clickSpy = jasmine.createSpy('tabClick');
 
         let instance = TestUtils.renderIntoDocument(
-          <Tabs onTabClick={ clickSpy } >
+          <Tabs onTabChange={ clickSpy } >
             <Tab title='Tab Title 1' tabId='uniqueid1'>
               <Textbox name='foo'/>
               <Textbox name='bar'/>
@@ -207,13 +275,13 @@ describe('Tabs', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
       expect(secondTab.classList.contains('headerClass2')).toEqual(true);
     });
-    
+
     it('adds the className included in the props as an array to the tab', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[2];
       expect(secondTab.classList.contains('headerClass3')).toEqual(true);
       expect(secondTab.classList.contains('headerClass4')).toEqual(true);
     });
-    
+
     it('does not addsa selected class to the header', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
       expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toEqual(false);

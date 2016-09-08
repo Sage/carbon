@@ -1,6 +1,6 @@
 {
   "name": "carbon",
-  "version": "0.22.0",
+  "version": "0.24.1",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "main": "index.js",
   "engineStrict": true,
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
-    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.0.13",
+    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.1.0",
     "express": "~4.13.3",
     "flux": "~2.1.1",
     "gulp": "~3.9.0",

@@ -115,8 +115,9 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {Object} props
    */
   get componentProps() {
-    let { className, ...props } = this.props;
+    let { ...props } = this.props;
 
+    delete props.className;
     props.type = this.type;
 
     return props;

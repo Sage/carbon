@@ -1,8 +1,41 @@
+# 0.24.1
+
+* Improves Flash component timeout behaviour.
+
+# 0.24.0
+
+## Carbon Factory Upgrade v0.1.0
+* [Carbon Factory Release Notes](https://github.com/Sage/carbon-factory/releases/tag/v0.1.0)
+
+## Updated Flash component API
+
+As well as just a string, the Flash component will now receive a message value with the following:
+
+ * A string: `"Alert"`
+ * An array: `["Message One", "Message Two"]`
+ * An object with description: `{ description: "My description" }`
+ * An object of key/value pairs: `{ first_name: "is required", last_name: "is required" }`
+ * An object with description with nested key/value pairs:
+   `{ description: { first_name: "is required", last_name: "is required" } }`
+
 # 0.23.0
+
+## Breaking Change - Additional functionality for initialSelectedTabId prop in Tabs component
+
+* Renamed initialSelectedTabId to selectedTabId and onTabClick to onTabChange in the Tabs component
+* If selectedTabId is updated the visible tab will change to the value of selectedTabId, this will call the onTabChange function if set.
 
 ## Minor Improvements
 
 * Pod component now accepts a alignTitle prop.
+* Checkbox input now has `important` set on position.
+* Tooltip Decorator now protects against no target or tooltip rendered in the DOM
+
+# 0.22.1
+
+## Bug Fix
+
+* ShowEditPod shows edit content when controlled externally
 
 # 0.22.0
 
