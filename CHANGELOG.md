@@ -1,3 +1,11 @@
+# 0.25.0
+
+## CSS and Structural Changes to Pod
+
+The markup structure for pods has been modified, including some adjustments to Pod padding.
+
+The edit action for a Pod has been modified to sit outside of the Pod.
+
 # 0.24.1
 
 * Improves Flash component timeout behaviour.

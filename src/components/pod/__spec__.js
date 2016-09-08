@@ -30,6 +30,14 @@ describe('Pod', () => {
       });
     });
 
+    describe('when subtitle is passed as a prop', () => {
+      it('Adds a subtitle to the pod', () => {
+        instance = TestUtils.renderIntoDocument(<Pod title='Title' subtitle="subtitle" />);
+        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h5');
+        expect(header.textContent).toEqual('subtitle');
+      });
+    });
+
     describe('when title is passed as a prop', () => {
       it('Adds a title to the pod', () => {
         instance = TestUtils.renderIntoDocument(<Pod title='Title'/>);
@@ -57,7 +65,7 @@ describe('Pod', () => {
 
         it('Adds a additonal class header', () => {
           let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
-          expect(header.className).toEqual('carbon-pod__header carbon-pod__header--left unselectable carbon-pod__header--true');
+          expect(header.className).toEqual('carbon-pod__header carbon-pod__header--left carbon-pod__header--true');
         });
 
         it('Adds a onClick handler to the header', () => {
@@ -99,17 +107,35 @@ describe('Pod', () => {
   });
 
   describe('mainClasses', () => {
+    describe('if an onEdit prop is passed', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod onEdit={ () => {} } />);
+        expect(instance.mainClasses).toEqual('carbon-pod clearfix carbon-pod--editable');
+      });
+    });
+  });
+
+  describe('blockClasses', () => {
     describe('if border is enabled and there is no footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod />);
-        expect(instance.mainClasses).toEqual('carbon-pod carbon-pod--primary');
+        expect(instance.blockClasses).toEqual('carbon-pod__block carbon-pod__block--primary');
       });
     });
 
     describe('if border is disabled and there is a footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
-        expect(instance.mainClasses).toEqual('carbon-pod carbon-pod--primary carbon-pod--no-border carbon-pod--footer');
+        expect(instance.blockClasses).toEqual('carbon-pod__block carbon-pod__block--primary carbon-pod__block--no-border carbon-pod__block--footer');
+      });
+    });
+  });
+
+  describe('editActionClasses', () => {
+    describe('if border is disabled', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
+        expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--no-border');
       });
     });
   });
@@ -118,14 +144,14 @@ describe('Pod', () => {
     describe('if border is enabled and there is no footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod />);
-        expect(instance.contentClasses).toEqual('carbon-pod__content carbon-pod__content--primary carbon-pod--padding-medium');
+        expect(instance.contentClasses).toEqual('carbon-pod__content carbon-pod__content--primary carbon-pod__content--padding-medium');
       });
     });
 
     describe('if border is disabled and there is a footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
-        expect(instance.contentClasses).toEqual('carbon-pod__content carbon-pod__content--primary carbon-pod--padding-medium carbon-pod__content--footer carbon-pod--no-border');
+        expect(instance.contentClasses).toEqual('carbon-pod__content carbon-pod__content--primary carbon-pod__content--padding-medium carbon-pod__content--footer carbon-pod--no-border');
       });
     });
   });
@@ -198,7 +224,7 @@ describe('Pod', () => {
   describe('render', () => {
     it('applies all props to the pod', () => {
       instance = TestUtils.renderIntoDocument(<Pod foo="bar" />);
-      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
       expect(div.props.foo).toEqual("bar");
     });
 
