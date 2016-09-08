@@ -84,6 +84,16 @@
 @include icon(add,            "\e940");
 @include icon(services,       "\+");
 @include icon(collaborate,    "\e946");
+@include icon(graph,          "\e912");
+@include icon(plus,           "\e940");
+@include icon(true_tick,      "\e950");
+@include icon(arrow,          "\e904");
+@include icon(old_warning,    "\e924");
+@include icon(pound,          "£");
+@include icon(settings_old,   "\e91a");
+@include icon(go,             "\e903");
+@include icon(question_mark,  "\e943");
+@include icon(admin,          "\e94f");
 
 // New
 @include icon(edited,         "\e938");
@@ -142,27 +152,15 @@
 @include icon(credit_card,    "\e91c");
 @include icon(marker,         "\e93f");
 
-
-
 @include icon(accounts,       1);
 @include icon(accounts_extra, 1);
 @include icon(cashbook,       1);
 @include icon(payroll,        2);
 @include icon(insert_row,     A);
-@include icon(plus,           B);
 @include icon(book,           D);
 @include icon(bank,           G);
 @include icon(entry,          H);
-@include icon(settings_old,   i);
-@include icon(go,             j);
 @include icon(new,            k);
-@include icon(true_tick,      l);
-@include icon(old_warning,    m);
-@include icon(question_mark,  n);
-@include icon(admin,          o);
-@include icon(arrow,          f);
 @include icon(create,         V);
-@include icon(graph,          a);
-@include icon(pound,          b);
 @include icon(piggy_bank,     d);
 @include icon(contacts,       e); // Deprecated
