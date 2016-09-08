@@ -16,10 +16,10 @@
   padding: 15px;
 
   &:hover {
-    background-color: #E2E3E5;
+    background-color: $grey-dark-blue-15;
 
     + .carbon-pod__block {
-      background-color: #E2E3E5;
+      background-color: $grey-dark-blue-15;
     }
   }
 }
