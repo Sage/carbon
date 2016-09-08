@@ -1,4 +1,5 @@
 import React from 'react';
+import shouldComponentUpdate from './../../utils/helpers/should-component-update';
 import I18n from 'i18n-js';
 import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -129,6 +130,17 @@ class Flash extends React.Component {
   }
 
   /**
+   * Determines if the component should be updated or not. Required for this component
+   * as it determines if the timeout should be reset or not.
+   *
+   * @method shouldComponentUpdate
+   * @return {Boolean}
+   */
+  shouldComponentUpdate(nextProps, nextState) {
+    return shouldComponentUpdate(this, nextProps, nextState);
+  }
+
+  /**
    * Resets the dialog open states if flash is opened/closed.
    *
    * @method componentWillReceiveProps
@@ -146,13 +158,10 @@ class Flash extends React.Component {
    * @method componentDidUpdate
    * @return(Void)
    */
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     // reset dialogs to render
     this.dialogs = [];
-
-    if (prevProps.open != this.props.open) {
-      this.startTimeout();
-    }
+    this.startTimeout();
   }
 
   /**
@@ -162,11 +171,33 @@ class Flash extends React.Component {
    * @return(Void)
    */
   startTimeout = () => {
-    if (this.props.timeout && this.props.open === true) {
+    this.stopTimeout();
+
+    if (this.shouldStartTimeout()) {
       this.timeout = setTimeout(() => {
         this.props.onDismiss();
       }, this.props.timeout);
     }
+  }
+
+  /**
+   * Determines if the timeout should be started.
+   *
+   * @method shouldStartTimeout
+   * @return {Boolean}
+   */
+  shouldStartTimeout = () => {
+    if (!this.props.timeout || !this.props.open) { return false; }
+
+    let shouldStartTimeout = true;
+
+    for (let key in this.state.dialogs) {
+      if (this.state.dialogs[key]) {
+        shouldStartTimeout = false;
+      }
+    }
+
+    return shouldStartTimeout;
   }
 
   /**
