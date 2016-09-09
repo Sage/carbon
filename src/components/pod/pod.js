@@ -233,6 +233,7 @@ class Pod extends React.Component {
   get blockClasses() {
     return classNames(
       'carbon-pod__block',
+      `carbon-pod__block--padding-${this.props.padding}`,
       `carbon-pod__block--${this.props.as}`, {
         'carbon-pod__block--no-border': !this.props.border,
         'carbon-pod__block--footer': this.props.footer

@@ -160,6 +160,27 @@
 
 .carbon-pod--editable .carbon-pod__block {
   display: inline-block;
+  max-width: calc(100% - 51px);
+
+  &.carbon-pod__block--no-border {
+    max-width: calc(100% - 47px);
+  }
+
+  &.carbon-pod__block--padding-small {
+    max-width: calc(100% - 41px);
+
+    &.carbon-pod__block--no-border {
+      max-width: calc(100% - 37px);
+    }
+  }
+
+  &.carbon-pod__block--padding-extra-small {
+    max-width: calc(100% - 33px);
+
+    &.carbon-pod__block--no-border {
+      max-width: calc(100% - 29px);
+    }
+  }
 }
 
 .carbon-pod__content {
