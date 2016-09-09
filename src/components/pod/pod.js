@@ -1,4 +1,3 @@
-import css from './../../utils/css';
 import React from 'react';
 import Icon from './../icon';
 import Link from './../link';
@@ -217,9 +216,12 @@ class Pod extends React.Component {
   }
 
   get mainClasses() {
-    return classNames("carbon-pod", this.props.className, css.clearfix, {
-      "carbon-pod--editable": this.props.onEdit
-    });
+    return classNames("carbon-pod", this.props.className,
+      `carbon-pod--${ this.props.alignTitle }`, {
+        "carbon-pod--editable": this.props.onEdit,
+        'carbon-pod--is-hovered': this.state.hoverEdit
+      }
+    );
   }
 
   /**
@@ -327,7 +329,10 @@ class Pod extends React.Component {
   get edit() {
     if (!this.props.onEdit) { return null; }
 
-    let props = {};
+    let props = {
+      onMouseEnter: this.toggleHoverState,
+      onMouseLeave: this.toggleHoverState
+    };
 
     if (typeof this.props.onEdit === "string") {
       props.to = this.props.onEdit;
@@ -340,6 +345,16 @@ class Pod extends React.Component {
     return (
       <Link icon="edit" className={ this.editActionClasses } { ...props } />
     );
+  }
+
+  /**
+   * Toggle the state of hovering the edit button.
+   *
+   * @method toggleHoverState
+   * @return {Void}
+   */
+  toggleHoverState = () => {
+    this.setState({ hoverEdit: !this.state.hoverEdit });
   }
 
   /**
@@ -357,8 +372,6 @@ class Pod extends React.Component {
 
     return (
       <div className={ this.mainClasses }>
-        { this.edit }
-
         <div className={ this.blockClasses } { ...props }>
           <div className={ this.contentClasses } >
             { this.podHeader }
@@ -366,6 +379,8 @@ class Pod extends React.Component {
           </div>
           { this.footer }
         </div>
+
+        { this.edit }
       </div>
     );
   }

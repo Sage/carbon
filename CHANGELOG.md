@@ -1,3 +1,9 @@
+# 0.25.2
+
+## Bug Fix
+
+* Editable Pod is now aligned properly with title.
+
 # 0.25.1
 
 ## Bug Fix
