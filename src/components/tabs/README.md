@@ -43,12 +43,12 @@ form validation can work correctly.
 
 The tabs widget also allows you to select a tab on page load. By default this is set
 to the first tab. To set a different tab on page load pass a `tabId` to the
-`initialSelectedTabId` prop as shown in the example below.
+`selectedTabId` prop as shown in the example below.
 
 To render a Tabs Widget with Options:
 
 ```javascript
-  <Tabs renderHiddenTabs={ false } initialSelectedTabId='uniqueId2' >
+  <Tabs renderHiddenTabs={ false } selectedTabId='uniqueId2' >
     <Tab title='Title 1' tabId='uniqueId1'>
 
       <Textbox />
@@ -69,7 +69,7 @@ To render a Tabs Widget with Options:
 | Name                  | Required    | Type           | Default       | Description   |
 | -------------------   | ----------- | -------------  | ------------- | ------------- |
 | renderHiddenTabs      | false       | Boolean        | true          | Hidden tabs will be rendered (maintain form errors) |
-| initialSelectedTabId  | false       | String         | (first tab)   | Which tab is selected on page load |
+| selectedTabId         | false       | String         | (first tab)   | Currently selected tab (only needed if you want to change tab through props) |
 
 ### Tab Props
 | Name             | Required    | Type           | Default       | Description   |

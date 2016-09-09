@@ -25,8 +25,8 @@ $dialog-padding: 20px;
   background: none;
   border-bottom: 1px solid $border-color;
   color: $grey-dark;
-  font-size: 1.8em;
-  font-weight: 300;
+  font-size: 18px;
+  font-weight: 700;
   margin: 10px 0 15px 0;
   padding-bottom: 20px;
 }
@@ -36,7 +36,7 @@ $dialog-padding: 20px;
 }
 
 .carbon-dialog__close {
-  color: $grey-mid;
+  color: $grey-dark-blue-60;
   cursor: pointer;
   position: absolute;
   right: $dialog-padding;

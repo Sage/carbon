@@ -1,49 +1,82 @@
 @import "colors";
 
-.carbon-pod {
+.carbon-pod__block {
   background-color: $white;
   border: 1px solid $border-color;
   border-radius: 4px;
 }
 
-.carbon-pod--no-border {
+.carbon-pod__edit-action {
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  margin-left: 2px;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+
+  &:hover {
+    background-color: $grey-dark-blue-15;
+
+    + .carbon-pod__block {
+      background-color: $grey-dark-blue-15;
+    }
+  }
+}
+
+.carbon-pod__edit-action--no-border,
+.carbon-pod__block--no-border {
   border: none;
 }
 
-.carbon-pod--secondary {
+.carbon-pod__block--secondary {
   background-color: $background-alt;
 }
 
-.carbon-pod--tertiary {
+.carbon-pod__block--tertiary {
   background-color: $grey-dark-blue-10;
 }
 
-.carbon-pod--transparent {
+.carbon-pod__block--transparent {
   background-color: transparent;
 }
 
-.carbon-pod--tile {
+.carbon-pod__block--tile {
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
 }
 
-.carbon-pod--padding-small {
+.carbon-pod__edit-action--padding-extra-small .carbon-icon__svg--edit {
+  height: 13px;
+  margin-left: 1px;
+  width: 13px;
+}
+
+.carbon-pod__edit-action--padding-extra-small,
+.carbon-pod__content--padding-extra-small {
+  padding: 6px;
+}
+
+.carbon-pod__edit-action--padding-small,
+.carbon-pod__content--padding-small {
   padding: 10px;
 }
 
-.carbon-pod--padding-medium {
-  padding: 20px 15px;
+.carbon-pod__edit-action--padding-extra-large,
+.carbon-pod__edit-action--padding-large,
+.carbon-pod__edit-action--padding-medium,
+.carbon-pod__content--padding-medium {
+  padding: 15px;
 }
 
-.carbon-pod--padding-large {
+.carbon-pod__content--padding-large {
   padding: 30px 25px;
 }
 
-.carbon-pod--padding-extra-large {
+.carbon-pod__content--padding-extra-large {
   padding: 40px;
 }
 
 .carbon-pod__content--footer.carbon-pod__content--tile {
-  border-bottom: 1px solid $border-color; 
+  border-bottom: 1px solid $border-color;
 }
 
 .carbon-pod__footer {
@@ -82,12 +115,26 @@
   cursor: pointer;
 }
 
+.carbon-pod__header--center {
+  text-align: center;
+}
+
+.carbon-pod__header--right {
+  text-align: right;
+}
+
 .carbon-pod__title {
   background: none;
   color: $grey-dark;
   display: inline;
-  font-size: 1.4em;
-  font-weight: 300;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.carbon-pod__subtitle {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: normal;
 }
 
 .carbon-pod__description {
@@ -108,7 +155,7 @@
   transform: rotate(180deg);
 }
 
-.carbon-pod__edit-action {
-  float: right;
-  margin: 20px 20px 10px 0;
+.carbon-pod--editable .carbon-pod__block {
+  display: inline-block;
+  float: left;
 }

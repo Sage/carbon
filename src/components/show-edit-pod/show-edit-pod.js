@@ -207,7 +207,6 @@ class ShowEditPod extends React.Component {
       <Form
         afterFormValidation={ this.onSaveEditForm }
         beforeFormValidation={ this.beforeFormValidation }
-        buttonAlign={ 'left' }
         cancel={ this.props.cancel }
         cancelText={ this.props.cancelText }
         onCancel={ this.onCancelEditForm }
@@ -227,7 +226,7 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get content() {
-    return this.state.editing ?
+    return this[this.control].editing ?
       <div key='edit'>{ this.editContent }</div> :
       <div key='show'>{ this.props.children }</div>;
   }
@@ -238,7 +237,10 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get contentProps() {
-    let { className, onEdit, ...props } = this.props;
+    let { ...props } = this.props;
+
+    delete props.onEdit;
+    delete props.className;
 
     if (this.props.onEdit !== false) {
       props.onEdit = this.onEdit;
@@ -253,7 +255,10 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get editingProps() {
-    let { className, onEdit, ...props } = this.props;
+    let { ...props } = this.props;
+
+    delete props.onEdit;
+    delete props.className;
 
     props.as = 'secondary';
 

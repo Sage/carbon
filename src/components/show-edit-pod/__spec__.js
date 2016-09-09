@@ -6,11 +6,11 @@ import Textbox from './../textbox';
 import Pod from './../pod';
 
 describe('ShowEditPod', () => {
-  let instance, externalInstance, spy, cancelSpy;
+  let instance, externalInstance, spy, cancelSpy,
+      content = <div className='foo'/>,
+      editFields = [ <Textbox key='1' /> ];
 
   beforeEach(() => {
-    let content = <div className='foo'/>,
-        editFields = [ <Textbox key='1' /> ];
 
     spy = jasmine.createSpy('afterFormValidation');
     cancelSpy = jasmine.createSpy('onCancel');
@@ -32,7 +32,7 @@ describe('ShowEditPod', () => {
       />
     );
   });
-  
+
   describe('componentWillMount', () => {
     describe('when editing prop is set', () => {
       it('keeps control as props', () => {
@@ -206,6 +206,27 @@ describe('ShowEditPod', () => {
 
     it('renders the editField', () => {
       TestUtils.findRenderedComponentWithType(instance, Textbox);
+    });
+
+    describe('when controlled by props', () => {
+      beforeEach(() => {
+        externalInstance = TestUtils.renderIntoDocument(
+          <ShowEditPod
+            afterFormValidation={ spy }
+            onCancel={ cancelSpy }
+            editFields={ editFields }
+            editing={ true }
+          />
+        );
+      });
+
+      it('returns a form', () => {
+        TestUtils.findRenderedComponentWithType(externalInstance, Form);
+      });
+
+      it('renders the editField', () => {
+        TestUtils.findRenderedComponentWithType(externalInstance, Textbox);
+      });
     });
   });
 

@@ -183,11 +183,10 @@
 }
 
 .carbon-icon.common-input__icon {
-  color: red;
   height: 15px;
   position: absolute;
   right: 5px;
-  top: 29px;
+  top: 28px;
 
   &:before {
     font-size: 20px;
@@ -207,7 +206,7 @@
 .common-input--label-inline {
   .icon-error {
     right: 5px;
-    top: 7px;
+    top: 6px;
   }
 }
 

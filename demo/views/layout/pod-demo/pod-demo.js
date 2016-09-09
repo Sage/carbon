@@ -57,6 +57,7 @@ class PodDemo extends React.Component {
       <Pod
         collapsed={ this.props.collapsed }
         title={ this.value('title') }
+        subtitle={ this.value('subtitle') }
         description={ this.value('description') }
         padding={ this.value('padding') }
         border={ this.value('border') }
@@ -146,6 +147,9 @@ class PodDemo extends React.Component {
       id: "none",
       name: "None"
     }, {
+      id: "extra-small",
+      name: "Extra Small"
+    }, {
       id: "small",
       name: "Small"
     }, {
@@ -204,6 +208,13 @@ class PodDemo extends React.Component {
             labelInline={ true }
             value={ this.value('title') }
             onChange={ this.action.bind(this, 'title') }
+          />
+
+          <Textbox
+            label="Subtitle"
+            labelInline={ true }
+            value={ this.value('subtitle') }
+            onChange={ this.action.bind(this, 'subtitle') }
           />
         </Row>
         <Row>
