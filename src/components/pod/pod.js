@@ -132,6 +132,18 @@ class Pod extends React.Component {
   }
 
   /**
+   * A lifecycle called immediatly before new props cause a re-render
+   * Resets the hover state if active
+   *
+   * @method componentWillReceiveProps
+   */
+  componentWillReceiveProps = () => {
+    if (this.state.hoverEdit) {
+      this.toggleHoverState(false);
+    }
+  }
+
+  /**
    * Returns HTML and text for the pod header.
    * Includes:
    *    Title

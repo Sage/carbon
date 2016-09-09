@@ -22,6 +22,30 @@ describe('Pod', () => {
     });
   });
 
+  describe('componentWillReceiveProps', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(<Pod />);
+    });
+
+    describe('if not in hover state', () => {
+      it('does not call toggleHoverState', () => {
+        instance.setState({ hoverEdit: false });
+        spyOn(instance, 'toggleHoverState');
+        instance.componentWillReceiveProps();
+        expect(instance.toggleHoverState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if in hover state', () => {
+      it('calls toggleHoverState', () => {
+        instance.setState({ hoverEdit: true });
+        spyOn(instance, 'toggleHoverState');
+        instance.componentWillReceiveProps();
+        expect(instance.toggleHoverState).toHaveBeenCalledWith(false);
+      });
+    });
+  });
+
   describe('podHeader', () => {
     describe('when title is not passed as a prop', () => {
       it('returns null', () => {
