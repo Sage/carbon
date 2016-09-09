@@ -73,7 +73,10 @@ class Pod extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.string,
+    title: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.object
+    ]),
 
     /**
      * Aligns the title to left, right or center
@@ -129,6 +132,18 @@ class Pod extends React.Component {
    */
   componentWillMount = () => {
     this.setState({ collapsed: this.props.collapsed });
+  }
+
+  /**
+   * A lifecycle called immediatly before new props cause a re-render
+   * Resets the hover state if active
+   *
+   * @method componentWillReceiveProps
+   */
+  componentWillReceiveProps = () => {
+    if (this.state.hoverEdit) {
+      this.toggleHoverState(false);
+    }
   }
 
   /**
@@ -233,6 +248,7 @@ class Pod extends React.Component {
   get blockClasses() {
     return classNames(
       'carbon-pod__block',
+      `carbon-pod__block--padding-${this.props.padding}`,
       `carbon-pod__block--${this.props.as}`, {
         'carbon-pod__block--no-border': !this.props.border,
         'carbon-pod__block--footer': this.props.footer
@@ -330,8 +346,8 @@ class Pod extends React.Component {
     if (!this.props.onEdit) { return null; }
 
     let props = {
-      onMouseEnter: this.toggleHoverState,
-      onMouseLeave: this.toggleHoverState
+      onMouseEnter: this.toggleHoverState.bind(this, true),
+      onMouseLeave: this.toggleHoverState.bind(this, false)
     };
 
     if (typeof this.props.onEdit === "string") {
@@ -353,8 +369,8 @@ class Pod extends React.Component {
    * @method toggleHoverState
    * @return {Void}
    */
-  toggleHoverState = () => {
-    this.setState({ hoverEdit: !this.state.hoverEdit });
+  toggleHoverState = (val) => {
+    this.setState({ hoverEdit: val });
   }
 
   /**

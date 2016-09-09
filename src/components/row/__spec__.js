@@ -1,4 +1,5 @@
 import React from 'react';
+import Immutable from 'immutable';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Row from './row';
 
@@ -30,6 +31,29 @@ describe('Row', () => {
 
       it('renders the correct amount of columns', () => {
         expect(columns.length).toEqual(4);
+      });
+    });
+
+    describe('with immutable data', () => {
+      it('renders the correct number of columns', () => {
+        let data = Immutable.fromJS([{
+          name: 'foo'
+        }, {
+          name: 'bar'
+        }]);
+
+        instance = TestUtils.renderIntoDocument(
+          <Row className="foobar">
+            {
+              data.map((item) => {
+                return <div>{ item.get('name') }</div>;
+              })
+            }
+          </Row>
+        );
+
+        columns = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-row__column');
+        expect(columns.length).toEqual(2);
       });
     });
 

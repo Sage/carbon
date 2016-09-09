@@ -22,6 +22,30 @@ describe('Pod', () => {
     });
   });
 
+  describe('componentWillReceiveProps', () => {
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(<Pod />);
+    });
+
+    describe('if not in hover state', () => {
+      it('does not call toggleHoverState', () => {
+        instance.setState({ hoverEdit: false });
+        spyOn(instance, 'toggleHoverState');
+        instance.componentWillReceiveProps();
+        expect(instance.toggleHoverState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if in hover state', () => {
+      it('calls toggleHoverState', () => {
+        instance.setState({ hoverEdit: true });
+        spyOn(instance, 'toggleHoverState');
+        instance.componentWillReceiveProps();
+        expect(instance.toggleHoverState).toHaveBeenCalledWith(false);
+      });
+    });
+  });
+
   describe('podHeader', () => {
     describe('when title is not passed as a prop', () => {
       it('returns null', () => {
@@ -119,14 +143,14 @@ describe('Pod', () => {
     describe('if border is enabled and there is no footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod />);
-        expect(instance.blockClasses).toEqual('carbon-pod__block carbon-pod__block--primary');
+        expect(instance.blockClasses).toEqual('carbon-pod__block carbon-pod__block--padding-medium carbon-pod__block--primary');
       });
     });
 
     describe('if border is disabled and there is a footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
-        expect(instance.blockClasses).toEqual('carbon-pod__block carbon-pod__block--primary carbon-pod__block--no-border carbon-pod__block--footer');
+        expect(instance.blockClasses).toEqual('carbon-pod__block carbon-pod__block--padding-medium carbon-pod__block--primary carbon-pod__block--no-border carbon-pod__block--footer');
       });
     });
   });
@@ -224,7 +248,7 @@ describe('Pod', () => {
   describe('toggleHoverState', () => {
     it('switches the hoverEdit state', () => {
       instance.setState({ hoverEdit: false });
-      instance.toggleHoverState();
+      instance.toggleHoverState(true);
       expect(instance.state.hoverEdit).toBeTruthy();
     });
   });
