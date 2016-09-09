@@ -3,6 +3,7 @@
 ## Bug Fix
 
 * Additional classes were not being applied to the Pod element, this has now been fixed.
+* Added missing icon for "entry".
 
 # 0.25.0
 
