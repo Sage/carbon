@@ -1,6 +1,16 @@
 # 0.25.0
 
-## CSS and Structural Changes to Pod
+## MAJOR VISUAL/LAYOUT CHANGES:
+
+### Updated Carbon Icons Font
+
+New pixel perfect icon font has been added.
+
+### Added Lato as base text font
+
+Lato has now been added as the base font for applications, there are 4 weights introduced, 300(light), 400(regular), 600(semi-bold) and 700(bold). For performance, 3 of the 4 new weights used the Google Font CDN network and the 4th is added via assets.
+
+### CSS and Structural Changes to Pod
 
 The markup structure for pods has been modified, including some adjustments to Pod padding.
 
