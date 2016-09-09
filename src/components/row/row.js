@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { compact } from 'lodash';
+import Immutable from 'immutable';
 
 /**
  * A row widget.
@@ -47,7 +48,7 @@ class Row extends React.Component {
     let columns = [],
         children = (this.props.children.constructor === Array) ? compact(this.props.children) : this.props.children;
 
-    if (children.constructor === Array && children.length) {
+    if ((children.constructor === Array && children.length) || (Immutable.Iterable.isIterable(children))) {
       children.forEach((child, index) => {
         columns.push(this.buildColumn(child, index));
       });
@@ -96,6 +97,8 @@ class Row extends React.Component {
       columns = this.props.columns;
     } else if (this.props.children && this.props.children.constructor === Array) {
       columns = compact(this.props.children).length;
+    } else if (Immutable.Iterable.isIterable(this.props.children)) {
+      columns = this.props.children.size;
     }
 
     return classNames(
