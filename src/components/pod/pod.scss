@@ -9,17 +9,18 @@
 .carbon-pod__edit-action {
   border: 1px solid $border-color;
   border-radius: 4px;
+  box-sizing: content-box;
   margin-left: 2px;
   display: inline-block;
   width: 15px;
   height: 15px;
+  vertical-align: top;
+}
 
-  &:hover {
+.carbon-pod--is-hovered {
+  .carbon-pod__edit-action,
+  .carbon-pod__block {
     background-color: $grey-dark-blue-15;
-
-    + .carbon-pod__block {
-      background-color: $grey-dark-blue-15;
-    }
   }
 }
 
@@ -115,10 +116,12 @@
   cursor: pointer;
 }
 
+.carbon-pod--center,
 .carbon-pod__header--center {
   text-align: center;
 }
 
+.carbon-pod--right,
 .carbon-pod__header--right {
   text-align: right;
 }
@@ -157,5 +160,8 @@
 
 .carbon-pod--editable .carbon-pod__block {
   display: inline-block;
-  float: left;
+}
+
+.carbon-pod__content {
+  text-align: left;
 }

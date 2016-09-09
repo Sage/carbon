@@ -110,7 +110,7 @@ describe('Pod', () => {
     describe('if an onEdit prop is passed', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod onEdit={ () => {} } />);
-        expect(instance.mainClasses).toEqual('carbon-pod clearfix carbon-pod--editable');
+        expect(instance.mainClasses).toEqual('carbon-pod carbon-pod--left carbon-pod--editable');
       });
     });
   });
@@ -218,6 +218,14 @@ describe('Pod', () => {
         expect(instance.edit.props.foo).toEqual("foo");
         expect(instance.edit.props.bar).toEqual("bar");
       });
+    });
+  });
+
+  describe('toggleHoverState', () => {
+    it('switches the hoverEdit state', () => {
+      instance.setState({ hoverEdit: false });
+      instance.toggleHoverState();
+      expect(instance.state.hoverEdit).toBeTruthy();
     });
   });
 
