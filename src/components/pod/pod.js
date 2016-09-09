@@ -217,7 +217,7 @@ class Pod extends React.Component {
   }
 
   get mainClasses() {
-    return classNames("carbon-pod", css.clearfix, {
+    return classNames("carbon-pod", this.props.className, css.clearfix, {
       "carbon-pod--editable": this.props.onEdit
     });
   }
@@ -231,7 +231,6 @@ class Pod extends React.Component {
   get blockClasses() {
     return classNames(
       'carbon-pod__block',
-      this.props.className,
       `carbon-pod__block--${this.props.as}`, {
         'carbon-pod__block--no-border': !this.props.border,
         'carbon-pod__block--footer': this.props.footer

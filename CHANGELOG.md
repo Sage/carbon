@@ -1,3 +1,9 @@
+# 0.25.1
+
+## Bug Fix
+
+* Additional classes were not being applied to the Pod element, this has now been fixed.
+
 # 0.25.0
 
 ## MAJOR VISUAL/LAYOUT CHANGES:
