@@ -125,7 +125,7 @@ describe('Tabs', () => {
 
 
   describe('Change in tab prop', () => {
-    let instance, tabs;
+    let instance, tabs, unique1Tab, unique2Tab;
       beforeEach(() => {
         let TestParent = React.createFactory(React.createClass({
           getInitialState() {
@@ -148,8 +148,10 @@ describe('Tabs', () => {
         }));
         instance = TestUtils.renderIntoDocument(TestParent());
         tabs = TestUtils.scryRenderedComponentsWithType(instance, Tab);
-        expect(tabs[0].props.className).toEqual('hidden');
-        expect(tabs[1].props.className).not.toEqual('hidden');
+        unique1Tab = tabs[0];
+        unique2Tab = tabs[1];
+        expect(unique1Tab.props.className).toEqual('hidden');
+        expect(unique2Tab.props.className).not.toEqual('hidden');
       });
 
       describe('without noTabChange function', () => {
@@ -157,16 +159,31 @@ describe('Tabs', () => {
           instance.setState({
             selectedTabId: "uniqueid1"
           });
-          expect(tabs[1].props.className).toEqual('hidden');
-          expect(tabs[0].props.className).not.toEqual('hidden');
+          expect(unique2Tab.props.className).toEqual('hidden');
+          expect(unique1Tab.props.className).not.toEqual('hidden');
         });
 
         it('change in other tab', () => {
           instance.setState({
             align: 'right'
           });
-          expect(tabs[0].props.className).toEqual('hidden');
-          expect(tabs[1].props.className).not.toEqual('hidden');
+          expect(unique1Tab.props.className).toEqual('hidden');
+          expect(unique2Tab.props.className).not.toEqual('hidden');
+        });
+      });
+
+      describe('when tab already clicked to new prop', () => {
+        it('does not change tab', () => {
+          let tabs = TestUtils.findRenderedComponentWithType(instance, Tabs);
+          spyOn(tabs, 'updateVisibleTab').and.callThrough();
+          let tabHeaders = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-tabs__headers__header')
+          TestUtils.Simulate.click(tabHeaders[0]);
+          expect(tabs.updateVisibleTab).toHaveBeenCalled();
+          tabs.updateVisibleTab.calls.reset();
+          instance.setState({
+            selectedTabId: "uniqueid1"
+          });
+          expect(tabs.updateVisibleTab).not.toHaveBeenCalled();
         });
       });
 
@@ -241,6 +258,25 @@ describe('Tabs', () => {
 
         instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
         expect(clickSpy).toHaveBeenCalledWith('foo');
+      });
+    });
+
+    describe('when an onTabClick prop is passed', () => {
+      it('calls the prop', () => {
+        let clickSpy = jasmine.createSpy('tabClick');
+
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs onTabClick={ clickSpy } >
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='foo'/>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+        let tabHeaders = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-tabs__headers__header');
+        TestUtils.Simulate.click(tabHeaders[0]);
+
+        expect(clickSpy).toHaveBeenCalledWith('uniqueid1');
       });
     });
   });
