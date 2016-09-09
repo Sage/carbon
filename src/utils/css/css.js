@@ -1,4 +1,5 @@
 export default {
+  clearfix: "clearfix",
   input: "common-input",
   hidden: "hidden",
   unselectable: "unselectable",

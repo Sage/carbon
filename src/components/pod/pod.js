@@ -2,7 +2,6 @@ import css from './../../utils/css';
 import React from 'react';
 import Icon from './../icon';
 import Link from './../link';
-import I18n from 'i18n-js';
 import classNames from 'classnames';
 
 /**
@@ -144,7 +143,7 @@ class Pod extends React.Component {
   get podHeader() {
     if (!this.props.title) { return; }
 
-    let pod, headerProps = {};
+    let pod, subtitle, headerProps = {};
 
     if (this.state.collapsed !== undefined) {
       pod = this.podCollapsible;
@@ -153,9 +152,14 @@ class Pod extends React.Component {
 
     headerProps.className = this.headerClasses;
 
+    if (this.props.subtitle) {
+      subtitle = <h5 className="carbon-pod__subtitle" >{ this.props.subtitle }</h5>;
+    }
+
     return (
       <div { ...headerProps }>
         <h4 className="carbon-pod__title" >{ this.props.title }</h4>
+        { subtitle }
         { pod }
       </div>
     );
@@ -210,21 +214,27 @@ class Pod extends React.Component {
    */
   toggleCollapse = () => {
     this.setState({ collapsed: !this.state.collapsed });
-  };
+  }
+
+  get mainClasses() {
+    return classNames("carbon-pod", css.clearfix, {
+      "carbon-pod--editable": this.props.onEdit
+    });
+  }
 
   /**
    * Main Class getter
    *
-   * @method mainClasses
+   * @method blockClasses
    * @return {String} Main className
    */
-  get mainClasses() {
+  get blockClasses() {
     return classNames(
-      'carbon-pod',
+      'carbon-pod__block',
       this.props.className,
-      `carbon-pod--${this.props.as}`, {
-        'carbon-pod--no-border': !this.props.border,
-        'carbon-pod--footer': this.props.footer
+      `carbon-pod__block--${this.props.as}`, {
+        'carbon-pod__block--no-border': !this.props.border,
+        'carbon-pod__block--footer': this.props.footer
       }
     );
   }
@@ -239,7 +249,6 @@ class Pod extends React.Component {
     return classNames(
       `carbon-pod__header`,
       `carbon-pod__header--${ this.props.alignTitle }`,
-      css.unselectable,
       {
         [`carbon-pod__header--${ this.state.collapsed }`]: this.state.collapsed !== undefined
       }
@@ -256,7 +265,7 @@ class Pod extends React.Component {
     return classNames(
       'carbon-pod__content',
       `carbon-pod__content--${this.props.as}`,
-      `carbon-pod--padding-${this.props.padding}`, {
+      `carbon-pod__content--padding-${this.props.padding}`, {
         'carbon-pod__content--footer': this.props.footer,
         'carbon-pod--no-border': !this.props.border
       }
@@ -275,6 +284,21 @@ class Pod extends React.Component {
       `carbon-pod__footer--${this.props.as}`,
       `carbon-pod__footer--padding-${this.props.padding}`, {
         'carbon-pod--no-border': !this.props.border
+      }
+    );
+  }
+
+  /**
+   * Classes for the edit action.
+   *
+   * @method editActionClasses
+   * @return {String}
+   */
+  get editActionClasses() {
+    return classNames(
+      'carbon-pod__edit-action',
+      `carbon-pod__edit-action--padding-${this.props.padding}`, {
+        'carbon-pod__edit-action--no-border': !this.props.border
       }
     );
   }
@@ -315,9 +339,7 @@ class Pod extends React.Component {
     }
 
     return (
-      <Link icon="edit" className="carbon-pod__edit-action" { ...props }>
-        { I18n.t("components.pod.edit", { defaultValue: "Edit" }) }
-      </Link>
+      <Link icon="edit" className={ this.editActionClasses } { ...props } />
     );
   }
 
@@ -335,13 +357,16 @@ class Pod extends React.Component {
     if (!this.state.collapsed) { content = this.podContent; }
 
     return (
-      <div className={ this.mainClasses } { ...props }>
+      <div className={ this.mainClasses }>
         { this.edit }
-        <div className={ this.contentClasses } >
-          { this.podHeader }
-          { content }
+
+        <div className={ this.blockClasses } { ...props }>
+          <div className={ this.contentClasses } >
+            { this.podHeader }
+            { content }
+          </div>
+          { this.footer }
         </div>
-        { this.footer }
       </div>
     );
   }
