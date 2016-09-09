@@ -330,8 +330,8 @@ class Pod extends React.Component {
     if (!this.props.onEdit) { return null; }
 
     let props = {
-      onMouseEnter: this.toggleHoverState,
-      onMouseLeave: this.toggleHoverState
+      onMouseEnter: this.toggleHoverState.bind(this, true),
+      onMouseLeave: this.toggleHoverState.bind(this, false)
     };
 
     if (typeof this.props.onEdit === "string") {
@@ -353,8 +353,8 @@ class Pod extends React.Component {
    * @method toggleHoverState
    * @return {Void}
    */
-  toggleHoverState = () => {
-    this.setState({ hoverEdit: !this.state.hoverEdit });
+  toggleHoverState = (val) => {
+    this.setState({ hoverEdit: val });
   }
 
   /**

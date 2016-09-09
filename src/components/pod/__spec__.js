@@ -224,7 +224,7 @@ describe('Pod', () => {
   describe('toggleHoverState', () => {
     it('switches the hoverEdit state', () => {
       instance.setState({ hoverEdit: false });
-      instance.toggleHoverState();
+      instance.toggleHoverState(true);
       expect(instance.state.hoverEdit).toBeTruthy();
     });
   });
