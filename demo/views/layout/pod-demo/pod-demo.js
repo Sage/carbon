@@ -66,7 +66,11 @@ class PodDemo extends React.Component {
         onEdit={ this.value('edit') }
         alignTitle={ this.value('alignTitle') }
       >
-      fjhskd fhjks fjdishf jdisfjisd fjidshf sdjihf jsdihf jisd jsdihf sdjifhds jifhdsjifdsui fhdsjif hdsuif hdsiufh dsifhdsif hdsifdsi ufdsiufuidsfuidsfiu
+        <Row>
+          <Textbox />
+          <Textbox />
+          <Textbox />
+        </Row>
       </Pod>
     )
   }
