@@ -2,6 +2,8 @@
 
 ## Bug Fix
 
+* Row now supports immutable children.
+* Row columns now clear when there are more columns than the defined number.
 * Editable Pod is now aligned properly with title.
 
 # 0.25.1
