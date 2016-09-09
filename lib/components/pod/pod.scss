@@ -9,6 +9,7 @@
 .carbon-pod__edit-action {
   border: 1px solid $border-color;
   border-radius: 4px;
+  box-sizing: content-box;
   margin-left: 2px;
   display: inline-block;
   width: 15px;
