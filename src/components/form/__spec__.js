@@ -458,6 +458,22 @@ describe('Form', () => {
       });
     });
 
+    describe('additionalActions', () => {
+      describe('if none defined', () => {
+        it('returns null', () => {
+          let instance = TestUtils.renderIntoDocument(<Form />);
+          expect(instance.additionalActions).toBe(null);
+        });
+      });
+
+      describe('if defined', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form additionalActions={ <span /> } />);
+          expect(instance.additionalActions.props.className).toEqual("carbon-form__additional-actions");
+        });
+      });
+    });
+
     describe('errorMessage', () => {
       beforeEach(() => {
         instance.setState({ errorCount: 2});

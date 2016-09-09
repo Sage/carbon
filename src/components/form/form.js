@@ -422,6 +422,8 @@ class Form extends React.Component {
   }
 
   get additionalActions() {
+    if (!this.props.additionalActions) { return null; }
+
     return (
       <div className='carbon-form__additional-actions' >
         { this.props.additionalActions }
