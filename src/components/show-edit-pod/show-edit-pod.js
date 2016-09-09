@@ -58,7 +58,10 @@ class ShowEditPod extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.string,
+    title: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.object
+    ]),
 
     /**
      * Transition Name, Override for custom state transition

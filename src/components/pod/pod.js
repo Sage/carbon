@@ -73,7 +73,10 @@ class Pod extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.string,
+    title: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.object
+    ]),
 
     /**
      * Aligns the title to left, right or center
