@@ -9,12 +9,6 @@ _marked.setOptions({
   sanitize: true
 });
 
-function _render(props, content) {
-  return React.createElement(
-    this.props.inline ? 'span' : 'div', props, content
-  );
-}
-
 /**
  * A widget for internationalisation of text.
  *
@@ -69,31 +63,39 @@ class I18n extends React.Component {
     inline: true
   }
 
-  get marked() {
-    return this.props.inline ? str => _marked.inlineLexer(str, []) : _marked;
-  }
+  constructor(props) {
+    super(props);
 
-  renderMarkdown() {
-    return _render.call(this, {
-      dangerouslySetInnerHTML: {
-        __html: this.marked(i18n.t(this.props.translationKey))
-      }
-    });
-  }
+    const self = this;
+    const marked = self.props.inline ? str => _marked.inlineLexer(str, []) : _marked;
 
-  renderDefault() {
-    return _render.call(this, {}, i18n.t(this.props.translationKey));
-  }
+    function _render(props, content) {
+      return React.createElement(
+        self.props.inline ? 'span' : 'div', props, content
+      );
+    }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   */
-  render() {
-    return this.props.markdown ? this.renderMarkdown() : this.renderDefault();
-  }
+    function renderMarkdown() {
+      return _render({
+        dangerouslySetInnerHTML: {
+          __html: marked(i18n.t(self.props.translationKey))
+        }
+      });
+    }
 
+    function renderDefault() {
+      return _render({}, i18n.t(self.props.translationKey));
+    }
+
+    /**
+     * Renders the component.
+     *
+     * @method render
+     */
+    self.render = function() {
+      return self.props.markdown ? renderMarkdown() : renderDefault();
+    };
+  }
 }
 
 export default I18n;
