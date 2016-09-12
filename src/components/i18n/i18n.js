@@ -63,39 +63,38 @@ class I18n extends React.Component {
     inline: true
   }
 
-  constructor(props) {
-    super(props);
-
-    const self = this;
-    const marked = self.props.inline ? str => _marked.inlineLexer(str, []) : _marked;
-
-    function _render(props, content) {
-      return React.createElement(
-        self.props.inline ? 'span' : 'div', props, content
-      );
-    }
-
-    function renderMarkdown() {
-      return _render({
-        dangerouslySetInnerHTML: {
-          __html: marked(i18n.t(self.props.translationKey))
-        }
-      });
-    }
-
-    function renderDefault() {
-      return _render({}, i18n.t(self.props.translationKey));
-    }
-
-    /**
-     * Renders the component.
-     *
-     * @method render
-     */
-    self.render = function() {
-      return self.props.markdown ? renderMarkdown() : renderDefault();
-    };
+  /**
+   * Renders the component.
+   *
+   * @method render
+   */
+  render() {
+    return (
+      this.props.markdown ? renderMarkdown : renderDefault
+    )(this.props.inline, this.props.translationKey);
   }
+}
+
+function marked(inline) {
+  return inline ? str => _marked.inlineLexer(str, []) : _marked;
+}
+
+function _render(inline, props, content) {
+  return React.createElement(
+    inline ? 'span' : 'div', props, content
+  );
+}
+
+function renderMarkdown(inline, key) {
+  return _render(inline, {
+    dangerouslySetInnerHTML: {
+      __html: marked(inline)(i18n.t(key))
+    }
+  });
+}
+
+function renderDefault(inline, key) {
+  return _render(inline, {}, i18n.t(key));
 }
 
 export default I18n;
