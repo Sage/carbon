@@ -45,7 +45,7 @@ class RowDemo extends React.Component {
                 columnAlign={ data.get('columnAlign') }
               >Foobar</div>
             );
-          }).toJS()
+          })
         }
       </Row>
     );

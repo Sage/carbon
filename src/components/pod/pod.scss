@@ -9,17 +9,18 @@
 .carbon-pod__edit-action {
   border: 1px solid $border-color;
   border-radius: 4px;
+  box-sizing: content-box;
   margin-left: 2px;
   display: inline-block;
   width: 15px;
   height: 15px;
+  vertical-align: top;
+}
 
-  &:hover {
+.carbon-pod--is-hovered {
+  .carbon-pod__edit-action,
+  .carbon-pod__block {
     background-color: $grey-dark-blue-15;
-
-    + .carbon-pod__block {
-      background-color: $grey-dark-blue-15;
-    }
   }
 }
 
@@ -115,10 +116,12 @@
   cursor: pointer;
 }
 
+.carbon-pod--center,
 .carbon-pod__header--center {
   text-align: center;
 }
 
+.carbon-pod--right,
 .carbon-pod__header--right {
   text-align: right;
 }
@@ -128,7 +131,7 @@
   color: $grey-dark;
   display: inline;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .carbon-pod__subtitle {
@@ -157,5 +160,29 @@
 
 .carbon-pod--editable .carbon-pod__block {
   display: inline-block;
-  float: left;
+  max-width: calc(100% - 51px);
+
+  &.carbon-pod__block--no-border {
+    max-width: calc(100% - 47px);
+  }
+
+  &.carbon-pod__block--padding-small {
+    max-width: calc(100% - 41px);
+
+    &.carbon-pod__block--no-border {
+      max-width: calc(100% - 37px);
+    }
+  }
+
+  &.carbon-pod__block--padding-extra-small {
+    max-width: calc(100% - 33px);
+
+    &.carbon-pod__block--no-border {
+      max-width: calc(100% - 29px);
+    }
+  }
+}
+
+.carbon-pod__content {
+  text-align: left;
 }
