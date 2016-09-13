@@ -1,3 +1,10 @@
+
+# 0.25.2
+
+## Minor Improvements
+
+* Added onTabClick props function to Tabs component to provide a way to add functionality which will only be called on tab click.
+
 # 0.25.1
 
 ## Bug Fix
