@@ -9,7 +9,7 @@ import Immutable from 'immutable';
 * @param {String} name
 * @param {Object} form
 */
-var ImmutableHelper = {
+const ImmutableHelper = {
 
   /**
   * Parses a regular JSON object into an Immutable data object, mapping the data
@@ -33,6 +33,16 @@ var ImmutableHelper = {
         return Immutable.Seq(js).map(ImmutableHelper.parseJSON).toOrderedMap();
       }
     }
+  },
+
+  /**
+  * Checks whether passed in collection is Immutable list or ordered map
+  *
+  * @method isImmutable
+  * @param {OrderedMap || List} collection
+  */
+  isImmutable: (collection) => {
+    return Immutable.OrderedMap.isOrderedMap(collection) || Immutable.List.isList(collection);
   }
 
 };
