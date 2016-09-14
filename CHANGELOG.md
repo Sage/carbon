@@ -1,3 +1,9 @@
+# 0.25.3
+
+## Bug Fix
+
+* Added check to componentWillReceiveProps in Tabs to only update if state doesn't match nextProps.selectedTabId
+
 # 0.25.2
 
 ## Bug Fix
