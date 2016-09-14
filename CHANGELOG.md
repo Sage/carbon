@@ -1,3 +1,10 @@
+# 0.25.3
+
+# Bug Fix
+
+* Tooltips now close when component receives new props.
+* Pod lifecycle methods are no longer defined as class properties.
+
 # 0.25.2
 
 ## Bug Fix
