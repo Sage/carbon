@@ -46,7 +46,7 @@ describe('tooltip', () => {
       });
 
       it('renders a pointer span', () => {
-        expect(tooltip.children[0].children[1].classList[0]).toEqual('carbon-tooltip__pointer');
+        expect(tooltip.children[0].children[0].classList[0]).toEqual('carbon-tooltip__pointer');
       });
 
       it('aligns the pointer to center', () => {

@@ -3,6 +3,7 @@ import Icon from './../icon';
 import Link from './../link';
 import classNames from 'classnames';
 import Event from './../../utils/helpers/events';
+import { validProps } from '../../utils/ether';
 
 /**
  * A Pod widget.
@@ -78,6 +79,14 @@ class Pod extends React.Component {
       React.PropTypes.string,
       React.PropTypes.object
     ]),
+
+    /**
+     * Optional subtitle for the pod
+     *
+     * @property subtitle
+     * @type {String}
+     */
+    subtitle: React.PropTypes.string,
 
     /**
      * Aligns the title to left, right or center
@@ -426,7 +435,9 @@ class Pod extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let content = this.props.content;
+    let content, { ...props } = validProps(this);
+
+    delete props.className;
 
     if (!this.state.collapsed) { content = this.podContent; }
 

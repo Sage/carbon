@@ -252,10 +252,9 @@ describe('Pod', () => {
 
     describe('if an object is passed', () => {
       it('returns a link with a object as props', () => {
-        let foo = { foo: "foo", bar: "bar" };
+        let foo = { disabled: true };
         instance = TestUtils.renderIntoDocument(<Pod onEdit={ foo } />);
-        expect(instance.edit.props.foo).toEqual("foo");
-        expect(instance.edit.props.bar).toEqual("bar");
+        expect(instance.edit.props.disabled).toEqual(true);
       });
     });
   });
@@ -327,9 +326,9 @@ describe('Pod', () => {
 
   describe('render', () => {
     it('applies all props to the pod', () => {
-      instance = TestUtils.renderIntoDocument(<Pod content="bar" />);
-      let pod = TestUtils.findRenderedComponentWithType(instance, Pod);
-      expect(pod.props.content).toEqual("bar");
+      instance = TestUtils.renderIntoDocument(<Pod data-foo="bar" />);
+      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
+      expect(div.attributes['data-foo'].value).toEqual("bar");
     });
 
     describe('pod content', () => {

@@ -150,7 +150,7 @@ describe('poller', () => {
           "responseText": "{\"message_type\": \"success\"}"
         });
 
-        expect(request.url).toEqual('foo/bar?foo=bar&headers=%5Bobject%20Object%5D');
+        expect(request.url).toEqual('foo/bar?foo=bar&headers%5BAccept%5D=application%2Fjson');
       });
     });
 

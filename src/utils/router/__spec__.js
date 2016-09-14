@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import { browserHistory } from 'react-router';
 import { startRouter } from './router';
 
 describe('startRouter', () => {
@@ -23,7 +23,7 @@ describe('startRouter', () => {
     });
 
     it('sets history from browser history module', () => {
-      expect(router.props.history.prototype).toEqual(createBrowserHistory().prototype);
+      expect(router.props.history).toEqual(browserHistory);
     });
 
     it('sets the routes of the router', () => {
