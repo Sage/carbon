@@ -313,8 +313,8 @@ fdescribe('Decimal', () => {
       });
     });
 
-    fdescribe("handleOnClick", function() {
-      let visible;
+    describe("handleOnClick", () => {
+      let visible, selectionSpy;
 
       beforeEach(() => {
         selectionSpy = jasmine.createSpy();
@@ -327,11 +327,9 @@ fdescribe('Decimal', () => {
         visible = instance._input;
       });
 
-      fdescribe("when the caret is at the edge of the value", function() {
-        beforeEach(function() {
-          visible.selectionStart = 0;
-          visible.selectionEnd = 0;
-          TestUtils.Simulate.click(visible);
+      describe("when the caret is at the edge of the value", () => {
+        beforeEach(() => {
+          instance.handleOnClick();
         });
 
         it("should call setSelectionRange method", () => {
