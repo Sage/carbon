@@ -1,3 +1,9 @@
+# 0.25.3
+
+# Bug Fixes
+
+* Text Area now scrollable except when expandable
+
 # 0.25.2
 
 ## Bug Fix
