@@ -1,3 +1,9 @@
+# 0.26.0
+
+## Minor Improvements
+
+* Have increased pill font size and weight
+
 # 0.25.2
 
 ## Bug Fix
