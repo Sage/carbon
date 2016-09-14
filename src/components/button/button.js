@@ -89,10 +89,10 @@ class Button extends React.Component {
    * @return {Object} JSX
    */
   get element() {
-
     let { ...props } = validProps(this),
         // if props.href then render an anchor instead
-        el = props.href || props.to ? Link : 'button';
+        el = props.href || props.to ? Link : 'button',
+        as = this.props.as;
 
     props.className = classNames(
       'carbon-button',

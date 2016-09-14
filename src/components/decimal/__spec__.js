@@ -5,7 +5,7 @@ import I18n from "i18n-js";
 import ReactDOM from 'react-dom';
 import Events from './../../utils/helpers/events';
 
-describe('Decimal', () => {
+fdescribe('Decimal', () => {
   var instance;
 
   describe('with no options', () => {
@@ -313,8 +313,8 @@ describe('Decimal', () => {
       });
     });
 
-    describe("handleOnClick", () => {
-      let visible, selectionSpy;
+    fdescribe("handleOnClick", function() {
+      let visible;
 
       beforeEach(() => {
         selectionSpy = jasmine.createSpy();
@@ -327,9 +327,11 @@ describe('Decimal', () => {
         visible = instance._input;
       });
 
-      describe("when the caret is at the edge of the value", () => {
-        beforeEach(() => {
-          instance.handleOnClick();
+      fdescribe("when the caret is at the edge of the value", function() {
+        beforeEach(function() {
+          visible.selectionStart = 0;
+          visible.selectionEnd = 0;
+          TestUtils.Simulate.click(visible);
         });
 
         it("should call setSelectionRange method", () => {

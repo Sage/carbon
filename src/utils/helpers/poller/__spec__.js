@@ -149,7 +149,6 @@ describe('poller', () => {
           "contentType": 'application/json',
           "responseText": "{\"message_type\": \"success\"}"
         });
-
         expect(request.url).toEqual('foo/bar?foo=bar&headers%5BAccept%5D=application%2Fjson');
       });
     });
