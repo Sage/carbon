@@ -1,3 +1,7 @@
+# 0.26.0
+
+* Add isImmutable helper
+
 # 0.25.2
 
 ## Bug Fix

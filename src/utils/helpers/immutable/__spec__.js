@@ -46,7 +46,7 @@ describe('Immutable Helper', () => {
     });
 
     describe('when JSON is a object', () => {
-      let data, expectedData; 
+      let data, expectedData;
 
       beforeEach(() => {
         data = { foo: 'bar', baz: 'qux' };
@@ -98,6 +98,28 @@ describe('Immutable Helper', () => {
           expect(result.toJS()).toEqual(expectedData.toJS());
         });
       });
+    });
+  });
+
+  describe('isImmutable', () => {
+    it('returns true when passed an OrderedMap', () => {
+      let collection = Immutable.OrderedMap();
+      expect(ImmutableHelper.isImmutable(collection)).toBeTruthy();
+    });
+
+    it('returns true when passed a List', () => {
+      let collection = Immutable.OrderedMap();
+      expect(ImmutableHelper.isImmutable(collection)).toBeTruthy();
+    });
+
+    it('returns false when passed a Javascript object', () => {
+      let collection = {};
+      expect(ImmutableHelper.isImmutable(collection)).toBeFalsy();
+    });
+
+    it('returns false when passed an Array', () => {
+      let collection = [];
+      expect(ImmutableHelper.isImmutable(collection)).toBeFalsy();
     });
   });
 });
