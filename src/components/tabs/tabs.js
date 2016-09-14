@@ -99,14 +99,6 @@ class Tabs extends React.Component {
     selectedTabId: React.PropTypes.string,
 
     /**
-    * Emitted when a tab header is clicked
-    *
-    * @property onTabClick
-    * @type {Func}
-    **/
-    onTabClick: React.PropTypes.func,
-
-    /**
      * Individual tabs
      *
      * @property children
@@ -247,9 +239,6 @@ class Tabs extends React.Component {
   handleTabClick = (ev) => {
     let tabid = ev.target.dataset.tabid;
     this.updateVisibleTab(tabid);
-    if (this.props.onTabClick) {
-      this.props.onTabClick(tabid);
-    }
   }
 
   updateVisibleTab(tabid) {

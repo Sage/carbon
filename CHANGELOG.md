@@ -1,3 +1,8 @@
+# 0.25.3
+
+## Bug Fix
+
+* Added check to componentWillReceiveProps in Tabs to only update if state doesn't match nextProps.selectedTabId
 
 # 0.25.2
 
@@ -6,10 +11,6 @@
 * Row now supports immutable children.
 * Row columns now clear when there are more columns than the defined number.
 * Editable Pod is now aligned properly with title.
-
-## Minor Improvements
-
-* Added onTabClick props function to Tabs component to provide a way to add functionality which will only be called on tab click.
 
 # 0.25.1
 

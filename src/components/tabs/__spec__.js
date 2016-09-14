@@ -260,25 +260,6 @@ describe('Tabs', () => {
         expect(clickSpy).toHaveBeenCalledWith('foo');
       });
     });
-
-    describe('when an onTabClick prop is passed', () => {
-      it('calls the prop', () => {
-        let clickSpy = jasmine.createSpy('tabClick');
-
-        let instance = TestUtils.renderIntoDocument(
-          <Tabs onTabClick={ clickSpy } >
-            <Tab title='Tab Title 1' tabId='uniqueid1'>
-              <Textbox name='foo'/>
-              <Textbox name='bar'/>
-            </Tab>
-          </Tabs>
-        );
-        let tabHeaders = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-tabs__headers__header');
-        TestUtils.Simulate.click(tabHeaders[0]);
-
-        expect(clickSpy).toHaveBeenCalledWith('uniqueid1');
-      });
-    });
   });
 
   describe('mainClasses', () => {
