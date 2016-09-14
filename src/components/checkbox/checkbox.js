@@ -3,6 +3,7 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import classNames from 'classnames';
+import { validProps } from '../../utils/ether';
 
 /**
  * A Checkbox widget.
@@ -90,7 +91,7 @@ class Checkbox extends React.Component {
    * @return {Object} Props to be applied to the input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     props.className = this.inputClasses;
     props.type = "checkbox";
     // React uses checked instead of value to define the state of a checkbox

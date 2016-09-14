@@ -4,6 +4,7 @@ import Icon from './../icon';
 import css from './../../utils/css';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
+import { validProps } from '../../utils/ether';
 
 const ButtonToggle = Input(InputLabel(
 class ButtonToggle extends React.Component {
@@ -73,7 +74,7 @@ class ButtonToggle extends React.Component {
    * @return {Object} props for the input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     delete props.children;
     props.className = this.inputClasses;
     props.type = "radio";

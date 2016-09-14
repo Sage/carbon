@@ -82,7 +82,33 @@ class _Link extends React.Component {
      * @type {String}
      * @default undefined
      */
-    href: React.PropTypes.string
+    href: React.PropTypes.string,
+
+    /**
+     * The message for this tooltip
+     *
+     * @property
+     * @type {String}
+     */
+    tooltipMessage: React.PropTypes.string,
+
+    /**
+     * The position of this tooltip: top, bottom, left or right
+     *
+     * @property
+     * @default top
+     * @type {String}
+     */
+    tooltipPosition: React.PropTypes.string,
+
+    /**
+     * The alignment of this tooltip: left, right or center
+     *
+     * @property
+     * @default center
+     * @type {String}
+     */
+    tooltipAlign: React.PropTypes.string
   }
 
   static defaultProps = {

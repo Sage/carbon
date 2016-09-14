@@ -806,22 +806,6 @@ describe('Dropdown', () => {
     it('returns the list', () => {
       expect(instance.additionalInputContent[1].props.className).toEqual('carbon-dropdown__list-block');
     });
-
-    describe('with suggest disabled', () => {
-      it('returns the icon', () => {
-        expect(instance.additionalInputContent[0].key).toEqual('label-icon');
-      });
-    });
-
-    describe('with suggest enabled', () => {
-      it('does not return the icon', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Dropdown name="foo" options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) } value="1" suggest={ true } />
-        );
-        expect(instance.additionalInputContent.length).toEqual(1);
-        expect(instance.additionalInputContent[0].props.className).toEqual('carbon-dropdown__list-block');
-      });
-    });
   });
 
   describe('render', () => {

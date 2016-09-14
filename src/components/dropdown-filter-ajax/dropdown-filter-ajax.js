@@ -125,7 +125,8 @@ class DropdownFilterAjax extends DropdownFilter {
   }
 
   static defaultProps = {
-    rowsPerRequest: 25
+    rowsPerRequest: 25,
+    visibleValue: ''
   }
 
   /*
