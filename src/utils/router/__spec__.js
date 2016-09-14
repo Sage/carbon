@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { browserHistory } from 'react-router';
 import { startRouter } from './router';
 
 describe('startRouter', () => {
@@ -20,10 +19,6 @@ describe('startRouter', () => {
 
     it('renders the router with the element', () => {
       expect(render).toHaveBeenCalledWith(router, document.getElementById('app'));
-    });
-
-    it('sets history from browser history module', () => {
-      expect(router.props.history).toEqual(browserHistory);
     });
 
     it('sets the routes of the router', () => {
