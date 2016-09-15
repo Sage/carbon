@@ -1,3 +1,9 @@
+# 0.26.0
+
+## Minor Improvements
+
+* Add a currencyFormatter helper to the i18n helpers
+
 # 0.25.3
 
 ## Bug Fix
