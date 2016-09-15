@@ -14,10 +14,6 @@ describe('Decimal', () => {
     });
 
     describe('initialize', () => {
-      it('sets defaultValue to 0.00', () => {
-        expect(instance.props.defaultValue).toEqual('0.00');
-      });
-
       it('sets align to right', () => {
         expect(instance.props.align).toEqual('right');
       });
@@ -98,8 +94,8 @@ describe('Decimal', () => {
 
       describe('no value passed', () => {
         it('uses the default value instead', () => {
-          instance.componentWillReceiveProps({ defaultValue: '999.00' });
-          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '999.00' });
+          instance.componentWillReceiveProps({});
+          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '0.00' });
         });
       });
 

@@ -116,7 +116,7 @@ class HelpClass extends React.Component {
 
   render() {
     return (
-      <div name='foo' helpMessage={ this.props.helpMessage } label='test label' />
+      <div name='foo'/>
     );
   }
 }

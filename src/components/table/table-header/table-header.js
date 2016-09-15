@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Icon from './../../icon';
+import { validProps } from '../../../utils/ether';
 
 /**
  * A TableHeader widget.
@@ -155,7 +156,7 @@ class TableHeader extends React.Component {
    * @return {Object}
    */
   get tableHeaderProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
 
     delete props.children;
 

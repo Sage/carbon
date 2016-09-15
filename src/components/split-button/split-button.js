@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
 import Button from './../button';
+import { validProps } from '../../utils/ether';
 
 /**
  * A SplitButton widget.
@@ -129,7 +130,7 @@ class SplitButton extends React.Component {
    * @return {Object}
    */
   get mainButtonProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     props.onMouseEnter = this.hideButtons;
     props.className = "carbon-split-button__main-button";
     return props;

@@ -537,6 +537,10 @@ class Dropdown extends React.Component {
     return results;
   }
 
+  _inputIconHTML(key) {
+    return this.inputIconHTML(key);
+  }
+
   /**
    * Extends the input content to include the input icon.
    *
@@ -545,7 +549,7 @@ class Dropdown extends React.Component {
   get additionalInputContent() {
     let content = [];
 
-    content.push(this.inputIconHTML("dropdown"));
+    content.push(this._inputIconHTML("dropdown"));
 
     content.push(
       <div { ...this.listBlockProps }>
