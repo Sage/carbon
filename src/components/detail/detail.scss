@@ -41,6 +41,7 @@ $carbon-detail-icon-size: 16px;
   font-size: 11px;
   font-style: italic;
   position: absolute;
+  margin-top: -2px;
 
   .carbon-detail--has-icon & {
     margin-left: $carbon-detail-icon-margin + $carbon-detail-icon-size;
