@@ -25,6 +25,8 @@ $carbon-detail-icon-size: 16px;
   vertical-align: top;
 
   .carbon-icon__svg-icon {
+    height: $carbon-detail-icon-size;
+    width: $carbon-detail-icon-size;
     vertical-align: middle;
   }
 }
