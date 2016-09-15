@@ -1,3 +1,9 @@
+# 0.26.0
+
+# Enhancements
+
+* add helper to focus on input field
+
 # 0.25.3
 
 ## Bug Fix
