@@ -5,19 +5,24 @@ $carbon-detail-icon-size: 16px;
 
 .carbon-detail {
   margin-bottom: 22px;
+  position: relative;
 }
 
 .carbon-detail__content {
   display: inline-block;
   line-height: 18px;
   white-space: pre-wrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   .carbon-detail--has-icon & {
-    margin-left: $carbon-detail-icon-margin;
+    margin-left: $carbon-detail-icon-margin + $carbon-detail-icon-size;
   }
 }
 
 .carbon-detail__icon {
+  position: absolute;
   color: $grey-dark-blue-50;
   height: $carbon-detail-icon-size;
   width: $carbon-detail-icon-size;
