@@ -44,6 +44,15 @@ class _Link extends React.Component {
     icon: React.PropTypes.string,
 
     /**
+     * Configures the alignment of the icon (left or right).
+     *
+     * @property iconAlign
+     * @type {String}
+     * @default left
+     */
+    iconAlign: React.PropTypes.string,
+
+    /**
      * Use `to` to use the React Router link. You can also prefix your value
      * with `to:` or `href:` to override the prop type.
      *
@@ -62,6 +71,10 @@ class _Link extends React.Component {
      * @default undefined
      */
     href: React.PropTypes.string
+  }
+
+  static defaultProps = {
+    iconAlign: 'left'
   }
 
   /**
@@ -96,12 +109,44 @@ class _Link extends React.Component {
     );
   }
 
+  /**
+   * Returns the icon if enabled and aligned to the left.
+   *
+   * @method iconLeft
+   * @return {Object} JSX
+   */
+  get iconLeft() {
+    if (!this.props.icon || this.props.iconAlign !== 'left') { return null; }
+    return this.icon;
+  }
+
+  /**
+   * Returns the icon if enabled and aligned to the right.
+   *
+   * @method iconRight
+   * @return {Object} JSX
+   */
+  get iconRight() {
+    if (!this.props.icon || this.props.iconAlign !== 'right') { return null; }
+    return this.icon;
+  }
+
+  /**
+   * Returns the markup for the icon.
+   *
+   * @method icon
+   * @return {Object} JSX
+   */
   get icon() {
-    if (!this.props.icon) { return null; }
+    let classes = classNames(
+      "carbon-link__icon",
+      `carbon-link__icon--align-${this.props.iconAlign}`
+    );
+
     return (
       <Icon
         type={ this.props.icon }
-        className="carbon-link__icon"
+        className={ classes }
         tooltipMessage={ this.props.tooltipMessage }
         tooltipAlign={ this.props.tooltipAlign }
         tooltipPosition={ this.props.tooltipPosition }
@@ -185,10 +230,13 @@ class _Link extends React.Component {
     return (
       React.createElement(this.linkType.component, this.componentProps, (
         <span>
-          { this.icon }
+          { this.iconLeft }
+
           <span className="carbon-link__content">
             { this.props.children }
           </span>
+
+          { this.iconRight }
         </span>
       ))
     );

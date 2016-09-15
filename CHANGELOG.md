@@ -1,3 +1,13 @@
+# 0.26.0
+
+## New Components
+
+* `Create` component supplies a button for creating new artefacts.
+
+## Component Enhancements
+
+* `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
+
 # 0.25.3
 
 ## Bug Fix
