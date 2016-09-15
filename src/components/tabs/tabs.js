@@ -211,7 +211,8 @@ class Tabs extends React.Component {
   * @param {object} nextProps
   */
   componentWillReceiveProps(nextProps) {
-    if (this.props.selectedTabId !== nextProps.selectedTabId) {
+    if (this.props.selectedTabId !== nextProps.selectedTabId &&
+        nextProps.selectedTabId !== this.state.selectedTabId) {
       this.updateVisibleTab(nextProps.selectedTabId);
     }
   }
