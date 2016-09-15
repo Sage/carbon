@@ -18,6 +18,12 @@ As well as just a string, the Flash component will now receive a message value w
  * An object with description with nested key/value pairs:
    `{ description: { first_name: "is required", last_name: "is required" } }`
 
+# 0.23.1
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
 # 0.23.0
 
 ## Breaking Change - Additional functionality for initialSelectedTabId prop in Tabs component
