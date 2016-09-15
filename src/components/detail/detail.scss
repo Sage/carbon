@@ -9,6 +9,7 @@ $carbon-detail-icon-size: 16px;
 
 .carbon-detail__content {
   display: inline-block;
+  line-height: 18px;
   white-space: pre-wrap;
 
   .carbon-detail--has-icon & {
@@ -20,7 +21,7 @@ $carbon-detail-icon-size: 16px;
   color: $grey-dark-blue-50;
   height: $carbon-detail-icon-size;
   width: $carbon-detail-icon-size;
-  top: -2px;
+  top: -1px;
   vertical-align: top;
 }
 

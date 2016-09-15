@@ -31,9 +31,17 @@ class DetailDemo extends React.Component {
    */
   get demo() {
     return (
-      <Detail icon={ this.value('icon') } footnote={ this.value('footnote') }>
-        { this.value('body') }
-      </Detail>
+      <div>
+        <Detail icon={ this.value('icon') } footnote={ this.value('footnote') }>
+          { this.value('body') }
+        </Detail>
+        <Detail icon={ this.value('icon') } footnote={ this.value('footnote') }>
+          { this.value('body') }
+        </Detail>
+        <Detail icon={ this.value('icon') } footnote={ this.value('footnote') }>
+          { this.value('body') }
+        </Detail>
+      </div>
     );
   }
 
