@@ -1,6 +1,20 @@
+# 0.26.0
+
+## Minor Improvements
+
+* Add a currencyFormatter helper to the i18n helpers
+
+## CSS Changes
+
+ * Have increased pill font size and weight
+
+## Bug Fixes
+
+* Text Area now scrollable except when expandable
+
 # 0.25.3
 
-## Bug Fix
+# Bug Fixes
 
 * Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
 

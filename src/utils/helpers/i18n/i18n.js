@@ -13,12 +13,15 @@ const I18nHelper = {
    * Returns format from the defined translations.
    *
    * @method format
-   * @return {Object} Delimeter and separator values
+   * @param {String} locale overrides current locale
+   * @return {Object} Format values for decimal and currency
    */
-  format: () => {
+  format: (locale) => {
     return {
-      delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
-      separator: I18n.t("number.format.separator", { defaultValue: "." })
+      delimiter: I18n.t("number.format.delimiter", { locale: locale, defaultValue: "," }),
+      separator: I18n.t("number.format.separator", { locale: locale, defaultValue: "." }),
+      unit: I18n.t("number.currency.format.unit", { locale: locale, defaultValue: '£' }),
+      format: I18n.t("number.currency.format.format", { locale: locale, defaultValue: '%u%n' })
     };
   },
 
@@ -26,8 +29,8 @@ const I18nHelper = {
    * Adds formatting to the value
    *
    * @method formatDecimal
-   * @param {String} value unformatted Value
-   * @param {Interger} precision
+   * @param {String} valueToFormat unformatted Value
+   * @param {Integer} precision
    * @return {String} formatted value
    */
   formatDecimal: (valueToFormat = 0, precision = 2) => {
@@ -37,6 +40,30 @@ const I18nHelper = {
       precision: precision,
       delimiter: format.delimiter,
       separator: format.separator
+    });
+  },
+
+  /**
+   * Adds currency formatting to the value
+   *
+   * @method formatCurrency
+   * @param {String} valueToFormat unformatted Value
+   * @param {Object} options list of options to overide formatting from locale
+   * @return {String} formatted value
+   */
+  formatCurrency: (valueToFormat = 0, options = {}) => {
+    let locale = options['locale'] || 'en',
+        format = I18nHelper.format(locale),
+        precision = options['precision'] || 2,
+        unit = options['unit'] || format.unit,
+        structure = options['format'] || format.format;
+
+    return  I18n.toCurrency(valueToFormat, {
+      precision: precision,
+      delimiter: format.delimiter,
+      separator: format.separator,
+      unit: unit,
+      format: structure
     });
   },
 
