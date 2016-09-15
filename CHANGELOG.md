@@ -4,6 +4,10 @@
 
 * Add a currencyFormatter helper to the i18n helpers
 
+## CSS Changes
+
+ * Have increased pill font size and weight
+
 # 0.25.3
 
 ## Bug Fix
