@@ -1,3 +1,9 @@
+# 0.23.1
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
 # 0.23.0
 
 ## Breaking Change - Additional functionality for initialSelectedTabId prop in Tabs component
