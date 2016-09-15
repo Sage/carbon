@@ -1,3 +1,9 @@
+# 0.25.3
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
 # 0.25.2
 
 ## Bug Fix
@@ -30,6 +36,12 @@ Lato has now been added as the base font for applications, there are 4 weights i
 The markup structure for pods has been modified, including some adjustments to Pod padding.
 
 The edit action for a Pod has been modified to sit outside of the Pod.
+
+# 0.24.2
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
 
 # 0.24.1
 
