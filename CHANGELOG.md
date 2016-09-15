@@ -11,6 +11,7 @@
 ## Bug Fixes
 
 * Text Area now scrollable except when expandable
+* The CSS for applying clears to Row columns has been fixed.
 
 # 0.25.3
 
