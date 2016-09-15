@@ -1,7 +1,6 @@
 .carbon-textarea__input {
   height: auto;
   resize: none;
-  overflow: hidden;
 }
 
 .carbon-textarea__character-limit {
@@ -11,4 +10,8 @@
 .carbon-textarea__limit-used,
 .carbon-textarea__limit-max {
   font-weight: bold;
+}
+
+.carbon-textarea__input--disable-scroll {
+  overflow: hidden;
 }

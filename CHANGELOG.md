@@ -10,8 +10,9 @@
 
 # 0.25.3
 
-## Bug Fix
+# Bug Fixes
 
+* Text Area now scrollable except when expandable
 * Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
 
 # 0.25.2
