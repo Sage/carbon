@@ -23,6 +23,10 @@ $carbon-detail-icon-size: 16px;
   width: $carbon-detail-icon-size;
   top: -1px;
   vertical-align: top;
+
+  .carbon-icon__svg-icon {
+    vertical-align: middle;
+  }
 }
 
 .carbon-detail__footnote {
