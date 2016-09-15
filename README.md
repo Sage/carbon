@@ -61,3 +61,7 @@ The following is a list of technologies Carbon utilises:
 * [Browserify](http://browserify.org/) - In order to consume the modular components in the browser, the code is compiled through Browserify. This also allows managing other dependencies such as stylesheets and images.
 * [Gulp](http://gulpjs.com/) - To easily run tasks in development, the Gulp task runner is recommended.
 * [Babel](https://babeljs.io/) ([ES6](https://github.com/lukehoban/es6features)) - To benefit from ES6 (and ES7) features, the code is compiled through Babel (this also compiles the JSX).
+
+## Licence
+
+Carbon is licensed under the [Apache-2.0 licence](https://github.com/Sage/carbon/blob/master/LICENSE).
