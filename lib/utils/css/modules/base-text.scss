@@ -4,12 +4,12 @@ body {
   font-size: $app-font-size;
 }
 
-@mixin h1() { font-size: 24px;  font-weight: 300; line-height: 32px; }
-@mixin h2() { font-size: 1.8em; font-weight: 300; margin-bottom: 12px; }
-@mixin h3() { font-size: 1.6em; font-weight: 300; margin-bottom: 16px; }
-@mixin h4() { font-size: 1.4em; font-weight: 300; margin-bottom: 14px; }
-@mixin h5() { font-size: 1.2em; font-weight: 300; margin-bottom: 12px; }
-@mixin h6() { font-size: 1.1em; font-weight: 300; margin-bottom: 11px; }
+@mixin h1() { font-size: 24px;  font-weight: 600; line-height: 32px; }
+@mixin h2() { font-size: 22px; font-weight: 600; margin-bottom: 26px; }
+@mixin h3() { font-size: 20px; font-weight: 600; margin-bottom: 24px; }
+@mixin h4() { font-size: 18px; font-weight: 600; margin-bottom: 22px; }
+@mixin h5() { font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+@mixin h6() { font-size: 14px; font-weight: 600; margin-bottom: 18px; }
 
 h1, .h1 { @include h1(); }
 h2, .h2 { @include h2(); }

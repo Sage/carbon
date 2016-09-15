@@ -57,20 +57,20 @@ class DateRangeValidator {
 
 
   /**
-   * This will validate the given value, and return a valid status.
-   *
-   * @method validate
-   * @param {String} value to compare
-   * @return {Boolean} true if check is valid
-   */
-   validate = (value) => {
-     if (this.endDate && value > this.endDate) {
-       return false;
-     } else if (this.startDate && value < this.startDate) {
-       return false;
-     }
-     return true;
-   }
+  * This will validate the given value, and return a valid status.
+  *
+  * @method validate
+  * @param {String} value to compare
+  * @return {Boolean} true if check is valid
+  */
+  validate = (value) => {
+    if (this.endDate && value > this.endDate) {
+      return false;
+    } else if (this.startDate && value < this.startDate) {
+      return false;
+    }
+    return true;
+  }
 
   /**
    * This is the message returned when this validation fails.

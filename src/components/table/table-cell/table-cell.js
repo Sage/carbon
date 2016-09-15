@@ -59,7 +59,10 @@ class TableCell extends React.Component {
    * @return {Object}
    */
   get tableCellProps() {
-    let { children, ...props } = this.props;
+    let { ...props } = this.props;
+
+    delete props.children;
+
     props.className = this.tableCellClasses;
     return props;
   }

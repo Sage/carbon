@@ -359,7 +359,8 @@ class Form extends React.Component {
    * @return {Object} props for form element
    */
   htmlProps = () => {
-    let { onSubmit, ...props } = this.props;
+    let { ...props } = this.props;
+    delete props.onSubmit;
     props.className = this.mainClasses;
     return props;
   }
@@ -421,6 +422,8 @@ class Form extends React.Component {
   }
 
   get additionalActions() {
+    if (!this.props.additionalActions) { return null; }
+
     return (
       <div className='carbon-form__additional-actions' >
         { this.props.additionalActions }
@@ -437,10 +440,9 @@ class Form extends React.Component {
     let errorCount;
 
     let saveClasses = classNames(
-      "carbon-form__save",
-        {
-          "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
-        }
+      "carbon-form__save", {
+        "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
+      }
     );
 
     if (this.state.errorCount || this.state.warningCount) {

@@ -58,7 +58,10 @@ class ShowEditPod extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.string,
+    title: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.object
+    ]),
 
     /**
      * Transition Name, Override for custom state transition
@@ -207,7 +210,6 @@ class ShowEditPod extends React.Component {
       <Form
         afterFormValidation={ this.onSaveEditForm }
         beforeFormValidation={ this.beforeFormValidation }
-        buttonAlign={ 'left' }
         cancel={ this.props.cancel }
         cancelText={ this.props.cancelText }
         onCancel={ this.onCancelEditForm }
@@ -238,7 +240,10 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get contentProps() {
-    let { className, onEdit, ...props } = this.props;
+    let { ...props } = this.props;
+
+    delete props.onEdit;
+    delete props.className;
 
     if (this.props.onEdit !== false) {
       props.onEdit = this.onEdit;
@@ -253,7 +258,10 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get editingProps() {
-    let { className, onEdit, ...props } = this.props;
+    let { ...props } = this.props;
+
+    delete props.onEdit;
+    delete props.className;
 
     props.as = 'secondary';
 
