@@ -3,6 +3,7 @@ import RowDemo from './row-demo';
 import TabsDemo from './tabs-demo';
 import PodDemo from './pod-demo';
 import ContentDemo from './content-demo';
+import DetailDemo from './detail-demo';
 import AppWrapperDemo from './app-wrapper-demo';
 import HeadingDemo from './heading-demo';
 import NavigationBarDemo from './navigation-bar-demo';
@@ -27,6 +28,7 @@ class Layout extends React.Component {
         <HeadingDemo />
         <NavigationBarDemo />
         <ContentDemo />
+        <DetailDemo />
       </div>
     );
   }

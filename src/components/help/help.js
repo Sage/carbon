@@ -63,6 +63,7 @@ const Help = TooltipDecorator(class Help extends React.Component{
     tooltipPosition: 'top',
     tooltipAlign: 'center'
   }
+
   /**
    * Return component classes
    *

@@ -124,6 +124,20 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
     }
   }
 
+  /**
+   * A lifecycle called immediatly before new props cause a re-render
+   * Resets the hover state if active
+   *
+   * @method componentWillReceiveProps
+   */
+  componentWillReceiveProps(nextProps) {
+    if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
+
+    if (this.state.isVisible) {
+      this.setState({ isVisible: false });
+    }
+  }
+
   state = {
     /**
      * Whether tooltip currently showing

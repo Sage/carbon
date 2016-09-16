@@ -1,12 +1,34 @@
 # 0.26.0
 
-# Enhancements
+## New Components
+
+* `Create` component: supplies a button for creating new artefacts.
+* Detail component
+
+## Component Enhancements
+
+* `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
+
+## Minor Improvements
 
 * add helper to focus on input field
+* Add a currencyFormatter helper to the i18n helpers
+
+## CSS Changes
+
+ * Have increased pill font size and weight
+
+## Bug Fixes
+
+* The CSS for applying clears to Row columns has been fixed.
+* Tooltips now close when component receives new props.
+* Text Area now scrollable except when expandable.
+* Pod lifecycle methods are no longer defined as class properties.
+* Input validation decorator was not re-checking validity for warnings
 
 # 0.25.3
 
-## Bug Fix
+# Bug Fixes
 
 * Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
 

@@ -43,6 +43,9 @@ let data = ImmutableHelper.parseJSON({
     title: 'Example Content',
     body: 'This is some example content\nfor the Content component.'
   },
+  create: {
+    text: "New Item"
+  },
   date: {
     label: "Date",
     labelHelp: "Example label help.",
@@ -53,6 +56,11 @@ let data = ImmutableHelper.parseJSON({
     labelHelp: "Example label help.",
     fieldHelp: "Example field help.",
     precision: 3
+  },
+  detail: {
+    body: "North Park\nNewcastle upon Tyne\nNE13 9AA",
+    icon: "person",
+    footnote: "Headquarters"
   },
   dialog: {
     size: 'medium',
