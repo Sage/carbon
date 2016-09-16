@@ -1,19 +1,34 @@
 @import 'general';
 
 $max-columns: 12 !default;
+$sizes: ("extra-small", $grid-margin-extra-small),
+        ("small", $grid-margin-small),
+        ("medium-small", $grid-margin-medium-small),
+        ("medium", $grid-margin-medium),
+        ("medium-large", $grid-margin-medium-large),
+        ("large", $grid-margin-large),
+        ("extra-large", $grid-margin-extra-large);
 
 .carbon-row {
   clear: both;
-  margin-bottom: -($grid-margin);
-  margin-left: -($grid-margin);
   position: relative;
+
+  @each $name, $size in $sizes {
+    &.carbon-row--gutter-#{$name} {
+      margin-bottom: -($size);
+      margin-left: -($size);
+
+      > .carbon-row__column {
+        margin-bottom: $size;
+        padding-left: $size;
+      }
+    }
+  }
 
   .carbon-row__column {
     box-sizing: border-box;
     float: left;
-    margin-bottom: $grid-margin;
     min-height: 1px;
-    padding-left: $grid-margin;
     width: 100%;
 
     &.carbon-row__column--align-center,
@@ -33,7 +48,7 @@ $max-columns: 12 !default;
       > .carbon-row__column {
         width: $width;
 
-        &:nth-child(#{$i + 1}n) {
+        &:nth-child(#{$i}n+1) {
           clear: both;
         }
       }
