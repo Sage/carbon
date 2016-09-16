@@ -149,6 +149,12 @@ describe('Textarea', () => {
     it('returns carbon-textarea__input and additional decorated classes', () => {
       expect(baseInstance.inputClasses).toEqual('carbon-textarea__input common-input__input');
     });
+
+    describe('if the textarea is expandable', () => {
+      it('returns an additional disable-scroll class', () => {
+        expect(expandableInstance.inputClasses).toEqual('carbon-textarea__input carbon-textarea__input--disable-scroll common-input__input')
+      });
+    });
   });
 
   describe('characterCount', () => {
