@@ -177,12 +177,6 @@ describe('InputValidation', () => {
             instance.componentWillReceiveProps({ value: 'foo' });
             expect(instance.setState).toHaveBeenCalledWith({ valid: true });
           });
-
-          it('resets warning to be false', () => {
-            spyOn(instance, 'warning').and.returnValue(true);
-            instance.componentWillReceiveProps({ value: 'foo' });
-            expect(instance.setState).toHaveBeenCalledWith({ warning: false });
-          });
         });
 
         describe('when it returns invalid', () => {
@@ -192,7 +186,38 @@ describe('InputValidation', () => {
             instance.componentWillReceiveProps({ value: 'foo' });
             expect(instance.setState).not.toHaveBeenCalled();
           });
+        });
 
+
+
+        describe('when it is valid but has a warning warning state', () => {
+          beforeEach(() => {
+            instance.setState({ valid: true, warning: true});
+          });
+
+          it('calls warning with the next value', () => {
+            spyOn(instance, 'warning');
+            instance.componentWillReceiveProps({ value: 'foo' });
+            expect(instance.warning).toHaveBeenCalledWith('foo');
+          });
+
+          describe('when it returns valid', () => {
+            it('resets valid to be truthy', () => {
+              spyOn(instance, 'validate').and.returnValue(true);
+              instance.componentWillReceiveProps({ value: 'foo' });
+              expect(instance.setState).toHaveBeenCalledWith({ valid: true });
+            });
+          });
+
+          describe('when it returns invalid', () => {
+            it('does not modify the validity', () => {
+              instance.setState.calls.reset();
+              spyOn(instance, 'validate').and.returnValue(false);
+              spyOn(instance, 'warning').and.returnValue(false);
+              instance.componentWillReceiveProps({ value: 'foo' });
+              expect(instance.setState).not.toHaveBeenCalled();
+            });
+          });
         });
       });
     });

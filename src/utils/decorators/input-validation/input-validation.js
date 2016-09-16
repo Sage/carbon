@@ -117,7 +117,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     }
 
     // if value changes and the input is currently invalid, re-assess its validity
-    if (!this.state.valid && (nextProps.value != this.props.value)) {
+    if ((!this.state.valid || this.state.warning) && (nextProps.value !== this.props.value)) {
       if (this.warning(nextProps.value)) {
         this.setState({ warning: false });
       }

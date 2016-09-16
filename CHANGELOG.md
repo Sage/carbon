@@ -12,6 +12,7 @@
 
 ## Minor Improvements
 
+* add helper to focus on input field
 * Add a currencyFormatter helper to the i18n helpers
 
 ## CSS Changes
@@ -24,6 +25,7 @@
 * Tooltips now close when component receives new props.
 * Text Area now scrollable except when expandable.
 * Pod lifecycle methods are no longer defined as class properties.
+* Input validation decorator was not re-checking validity for warnings
 
 # 0.25.3
 
