@@ -4,8 +4,11 @@ $carbon-detail-icon-margin: 10px;
 $carbon-detail-icon-size: 16px;
 
 .carbon-detail {
-  margin-bottom: 22px;
   position: relative;
+
+  + .carbon-detail {
+    margin-top: 20px;
+  }
 }
 
 .carbon-detail__content {
