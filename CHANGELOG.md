@@ -19,6 +19,7 @@
 
 ## Bug Fixes
 
+* The CSS for applying clears to Row columns has been fixed.
 * Tooltips now close when component receives new props.
 * Text Area now scrollable except when expandable.
 * Pod lifecycle methods are no longer defined as class properties.

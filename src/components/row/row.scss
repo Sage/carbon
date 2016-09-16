@@ -33,7 +33,7 @@ $max-columns: 12 !default;
       > .carbon-row__column {
         width: $width;
 
-        &:nth-child(#{$i + 1}n) {
+        &:nth-child(#{$i}n+1) {
           clear: both;
         }
       }
