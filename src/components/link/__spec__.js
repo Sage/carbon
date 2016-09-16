@@ -52,7 +52,7 @@ describe('Link', () => {
         <Link icon="foo">My Link</Link>
       );
       let icon = TestUtils.findRenderedComponentWithType(instance, Icon);
-      expect(icon.props.className).toEqual('carbon-link__icon');
+      expect(icon.props.className).toEqual('carbon-link__icon carbon-link__icon--align-left');
       expect(icon.props.type).toEqual('foo');
     });
 
@@ -63,6 +63,16 @@ describe('Link', () => {
       let icon = TestUtils.findRenderedComponentWithType(instance, Icon);
       expect(icon.props.tooltipMessage).toEqual('Hi Everybody');
       expect(icon.props.tooltipAlign).toEqual('center');
+    });
+
+    describe('right aligned link', () => {
+      it('renders a right aligned icon', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Link icon="foo" iconAlign="right">My Link</Link>
+        );
+        let icon = TestUtils.findRenderedComponentWithType(instance, Icon);
+        expect(icon.props.className).toEqual('carbon-link__icon carbon-link__icon--align-right');
+      });
     });
   });
 
