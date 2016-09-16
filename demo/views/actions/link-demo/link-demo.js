@@ -33,6 +33,7 @@ class LinkDemo extends React.Component {
         disabled={ this.value('disabled') }
         href={ this.value('href') }
         icon={ this.value('icon') }
+        iconAlign={ this.value('iconAlign') ? 'right' : 'left' }
         to={ this.value('to') }
       >
         { this.value('text') || " " }
@@ -65,6 +66,11 @@ class LinkDemo extends React.Component {
 
     if (this.value('icon')) {
       html += `\n  icon='${this.value('icon')}'`;
+      additionalProps = true;
+    }
+
+    if (this.value('iconAlign')) {
+      html += `\n  iconAlign='right'`;
       additionalProps = true;
     }
 
@@ -131,6 +137,12 @@ class LinkDemo extends React.Component {
             value={ this.value('icon') }
             labelInline={ true }
             onChange={ this.action.bind(this, 'icon') }
+          />
+
+          <Checkbox
+            label="Icon Align Right"
+            value={ this.value('iconAlign') }
+            onChange={ this.action.bind(this, 'iconAlign') }
           />
         </Row>
       </div>

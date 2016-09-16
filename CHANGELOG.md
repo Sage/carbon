@@ -1,8 +1,118 @@
+# 0.26.0
+
+## New Components
+
+* `Create` component: supplies a button for creating new artefacts.
+* Detail component
+
+## Component Enhancements
+
+* `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
+
+## Minor Improvements
+
+* Add a currencyFormatter helper to the i18n helpers
+
+## CSS Changes
+
+ * Have increased pill font size and weight
+
+## Bug Fixes
+
+* The CSS for applying clears to Row columns has been fixed.
+* Tooltips now close when component receives new props.
+* Text Area now scrollable except when expandable.
+* Pod lifecycle methods are no longer defined as class properties.
+
+# 0.25.3
+
+# Bug Fixes
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
+# 0.25.2
+
+## Bug Fix
+
+* Row now supports immutable children.
+* Row columns now clear when there are more columns than the defined number.
+* Editable Pod is now aligned properly with title.
+
+# 0.25.1
+
+## Bug Fix
+
+* Additional classes were not being applied to the Pod element, this has now been fixed.
+* Added missing icon for "entry".
+
+# 0.25.0
+
+## MAJOR VISUAL/LAYOUT CHANGES:
+
+### Updated Carbon Icons Font
+
+New pixel perfect icon font has been added.
+
+### Added Lato as base text font
+
+Lato has now been added as the base font for applications, there are 4 weights introduced, 300(light), 400(regular), 600(semi-bold) and 700(bold). For performance, 3 of the 4 new weights used the Google Font CDN network and the 4th is added via assets.
+
+### CSS and Structural Changes to Pod
+
+The markup structure for pods has been modified, including some adjustments to Pod padding.
+
+The edit action for a Pod has been modified to sit outside of the Pod.
+
+# 0.24.2
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
+# 0.24.1
+
+* Improves Flash component timeout behaviour.
+
+# 0.24.0
+
+## Carbon Factory Upgrade v0.1.0
+* [Carbon Factory Release Notes](https://github.com/Sage/carbon-factory/releases/tag/v0.1.0)
+
+## Updated Flash component API
+
+As well as just a string, the Flash component will now receive a message value with the following:
+
+ * A string: `"Alert"`
+ * An array: `["Message One", "Message Two"]`
+ * An object with description: `{ description: "My description" }`
+ * An object of key/value pairs: `{ first_name: "is required", last_name: "is required" }`
+ * An object with description with nested key/value pairs:
+   `{ description: { first_name: "is required", last_name: "is required" } }`
+
+# 0.23.1
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
 # 0.23.0
+
+## Breaking Change - Additional functionality for initialSelectedTabId prop in Tabs component
+
+* Renamed initialSelectedTabId to selectedTabId and onTabClick to onTabChange in the Tabs component
+* If selectedTabId is updated the visible tab will change to the value of selectedTabId, this will call the onTabChange function if set.
 
 ## Minor Improvements
 
 * Pod component now accepts a alignTitle prop.
+* Checkbox input now has `important` set on position.
+* Tooltip Decorator now protects against no target or tooltip rendered in the DOM
+
+# 0.22.1
+
+## Bug Fix
+
+* ShowEditPod shows edit content when controlled externally
 
 ## Bug Fixes
 

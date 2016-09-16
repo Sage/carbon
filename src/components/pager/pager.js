@@ -144,7 +144,7 @@ class Pager extends React.Component {
    * @param {Event} ev change event
    */
   emitChangeCallback = (element, ev) => {
-    let newPage;
+    let newPage, newPageSize;
     switch (element) {
       case 'next':
         newPage = String(Number(this.props.currentPage) + 1);
@@ -152,7 +152,6 @@ class Pager extends React.Component {
         break;
 
       case 'input':
-        let maxPage = this.maxPage;
         newPage = ev.target.value;
 
         if (!newPage) {
@@ -160,8 +159,8 @@ class Pager extends React.Component {
           break;
         }
 
-        if (Number(newPage) > maxPage) {
-          newPage = String(maxPage);
+        if (Number(newPage) > this.maxPage) {
+          newPage = String(this.maxPage);
         }
 
         if (Number(newPage) < 1) {
@@ -177,7 +176,7 @@ class Pager extends React.Component {
         break;
 
       case 'size':
-        let newPageSize = ev.target.value;
+        newPageSize = ev.target.value;
         if (!this.props.pageSizeSelectionOptions.find(x => x.get('id') === newPageSize)) {
           break;
         }

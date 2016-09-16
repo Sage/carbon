@@ -32,6 +32,10 @@ $max-columns: 12 !default;
     &.carbon-row--columns-#{$i} {
       > .carbon-row__column {
         width: $width;
+
+        &:nth-child(#{$i}n+1) {
+          clear: both;
+        }
       }
 
       // span columns:
