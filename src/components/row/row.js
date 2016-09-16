@@ -33,7 +33,15 @@ class Row extends React.Component {
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object
-    ])
+    ]),
+
+    /**
+     * Pass a custom value for the gutter (in pixels)
+     *
+     * @property gutter
+     * @type {String}
+     */
+    gutter: React.PropTypes.string
   }
 
   /**
@@ -68,7 +76,7 @@ class Row extends React.Component {
    * @return {Object} JSX of build column
    */
   buildColumn = (child, key) => {
-    let columnClass = classNames(
+    let style = {}, columnClass = classNames(
       "carbon-row__column",
       child.props.columnClasses, {
         [`carbon-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
@@ -77,8 +85,13 @@ class Row extends React.Component {
       }
     );
 
+    if (this.props.gutter) {
+      style.paddingLeft = `${this.props.gutter}px`;
+      style.marginBottom = `${this.props.gutter}px`;
+    }
+
     return (
-      <div key={ key } className={ columnClass }>
+      <div key={ key } className={ columnClass } style={ style }>
         { child }
       </div>
     );
@@ -115,8 +128,15 @@ class Row extends React.Component {
    * @return {Object} JSX
    */
   render() {
+    let style = {};
+
+    if (this.props.gutter) {
+      style.marginLeft = `-${this.props.gutter}px`;
+      style.marginBottom = `-${this.props.gutter}px`;
+    }
+
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } style={ style }>
         { this.buildColumns() }
       </div>
     );

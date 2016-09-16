@@ -121,6 +121,30 @@ describe('Row', () => {
     });
   });
 
+  describe('when a custom gutter is passed', () => {
+    let instance;
+
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Row columns={2} gutter="50">
+          <div>Foo</div>
+          <div>Bar</div>
+        </Row>
+      );
+    });
+
+    it('applies custom css', () => {
+      let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row');
+      expect(rowNode.style.marginLeft).toEqual('-50px');
+      expect(rowNode.style.marginBottom).toEqual('-50px');
+
+      let columnNode = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-row__column')[0];
+
+      expect(columnNode.style.paddingLeft).toEqual('50px');
+      expect(columnNode.style.marginBottom).toEqual('50px');
+    });
+  });
+
   describe('When there is only 1 column', () => {
     let instance;
 
