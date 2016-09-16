@@ -1,8 +1,8 @@
-@import 'colors';
-@import 'general';
-@import "input-field";
-@import 'mixins';
-@import 'buttons';
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
+@import "./../../style-config/input-field";
+@import "./../../style-config/mixins";
+@import "./../../style-config/buttons";
 
 .carbon-button {
   background-color: $carbon-button__background-color--secondary;

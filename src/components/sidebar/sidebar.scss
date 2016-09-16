@@ -1,6 +1,6 @@
-@import 'colors';
-@import 'mixins';
-@import 'z-index';
+@import "./../../style-config/colors";
+@import "./../../style-config/mixins";
+@import "./../../style-config/z-index";
 
 $sidebar-animation-length: 250ms;
 $sidebar-background-opacity: 0.6;

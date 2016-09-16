@@ -18,6 +18,7 @@
 ## CSS Changes
 
  * Have increased pill font size and weight
+ * Carbon Components CSS now imports from relative paths
 
 ## Bug Fixes
 
