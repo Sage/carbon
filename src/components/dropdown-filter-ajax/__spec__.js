@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import DropdownFilterAjax from './dropdown-filter-ajax';
 import Immutable from 'immutable';
+import ImmutableHelper from './../../utils/helpers/immutable';
 
 describe('DropdownFilterAjax', () => {
   let instance;
@@ -18,7 +19,7 @@ describe('DropdownFilterAjax', () => {
     });
 
     it('sets default state', () => {
-      expect(instance.state.options).toEqual([]);
+      expect(instance.state.options).toEqual(Immutable.List());
       expect(instance.state.page).toEqual(1);
       expect(instance.state.pages).toEqual(0);
     });
@@ -59,7 +60,7 @@ describe('DropdownFilterAjax', () => {
         it('calls setState with null filter value', () => {
           spyOn(instance, 'setState');
           instance.handleBlur();
-          expect(instance.setState).toHaveBeenCalledWith({ open: false, filter: null });
+          expect(instance.setState).toHaveBeenCalledWith({ open: false, filter: '' });
         });
       });
 
@@ -68,10 +69,10 @@ describe('DropdownFilterAjax', () => {
           instance = TestUtils.renderIntoDocument(
             <DropdownFilterAjax name="foo" value="1" path="/foobar" create={ function() {} } />
           );
-          instance.setState({ filter: 'foo', options: [{
-            id: '90',
-            name: 'foo'
-          }]});
+
+          let options = ImmutableHelper.parseJSON([{ id: '90', name: 'foo'}]);
+
+          instance.setState({ filter: 'foo', options: options });
           spyOn(instance, 'setState');
           instance.handleBlur();
           expect(instance.setState).toHaveBeenCalledWith({ open: false, filter: 'foo' });
@@ -250,7 +251,7 @@ describe('DropdownFilterAjax', () => {
 
   describe('updateList', () => {
     beforeEach(() => {
-      instance.setState({ options: [0] });
+      instance.setState({ options: ImmutableHelper.parseJSON([0]) });
       spyOn(instance, 'setState');
       spyOn(instance, 'resetScroll');
     });
@@ -260,7 +261,7 @@ describe('DropdownFilterAjax', () => {
         instance.updateList({ records: 100, items: [1], page: 2 });
         expect(instance.setState).toHaveBeenCalledWith({
           open: true,
-          options: [0,1],
+          options: ImmutableHelper.parseJSON([0,1]),
           page: 2,
           pages: 4
         });
@@ -278,7 +279,7 @@ describe('DropdownFilterAjax', () => {
       instance.updateList({ records: 100, items: [1], page: 1 });
       expect(instance.setState).toHaveBeenCalledWith({
         open: true,
-        options: [1],
+        options: ImmutableHelper.parseJSON([1]),
         page: 1,
         pages: 4
       });
@@ -300,12 +301,12 @@ describe('DropdownFilterAjax', () => {
   });
 
   describe('inputProps', () => {
-    describe('when filter is not a string', () => {
+    describe('when filter is empty', () => {
       it('uses the visibleValue', () => {
         instance = TestUtils.renderIntoDocument(
           <DropdownFilterAjax name="foo" value="1" path="/foobar" visibleValue="bar" />
         );
-        instance.setState({ filter: null });
+        instance.setState({ filter: '' });
         expect(instance.inputProps.value).toEqual('bar');
       });
     });

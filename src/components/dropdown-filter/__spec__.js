@@ -2,8 +2,9 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import DropdownFilter from './dropdown-filter';
 import Immutable from 'immutable';
+import ImmutableHelper from './../../utils/helpers/immutable';
 
-describe('DropdownFilter', () => {
+fdescribe('DropdownFilter', () => {
   let instance;
 
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe('DropdownFilter', () => {
     });
 
     it('sets default state', () => {
-      expect(instance.state.filter).toBe(null);
+      expect(instance.state.filter).toBe('');
     });
   });
 
@@ -42,7 +43,7 @@ describe('DropdownFilter', () => {
     it('calls setState', () => {
       spyOn(instance, 'setState');
       instance.selectValue();
-      expect(instance.setState).toHaveBeenCalledWith({ filter: null });
+      expect(instance.setState).toHaveBeenCalledWith({ filter: '' });
     });
   });
 
@@ -141,7 +142,7 @@ describe('DropdownFilter', () => {
           instance.handleBlur();
           expect(instance.setState).toHaveBeenCalledWith({
             open: false,
-            filter: null
+            filter: ''
           });
         });
       });
@@ -227,16 +228,13 @@ describe('DropdownFilter', () => {
     let opts;
 
     beforeEach(() => {
-      opts = [{
-        id: '1',
-        name: 'foo'
-      }, {
-        id: '2',
-        name: 'bar'
-      }];
+      opts = ImmutableHelper.parseJSON([
+        { id: '1', name: 'foo'},
+        { id: '2', name: 'bar'}
+      ]);
 
       instance = TestUtils.renderIntoDocument(
-        <DropdownFilter options={ Immutable.fromJS(opts) } value="50" />
+        <DropdownFilter options={ opts } value="50" />
       );
     });
 
@@ -274,12 +272,12 @@ describe('DropdownFilter', () => {
     let opts;
 
     beforeEach(() => {
-      opts = [{ name: 'foo' }, { name: 'foobar' }, { name: 'nope' }];
+      opts = ImmutableHelper.parseJSON([{ name: 'foo' }, { name: 'foobar' }, { name: 'nope' }]);
     });
 
     describe('if filter is not set', () => {
       it('returns the options passed to it', () => {
-        instance.setState({ filter: null });
+        instance.setState({ filter: '' });
         expect(instance.prepareList(opts)).toEqual(opts);
       });
     });
@@ -298,14 +296,14 @@ describe('DropdownFilter', () => {
 
       describe('if not in suggest mode and list is not opening', () => {
         it('filters the list', () => {
-          expect(instance.prepareList(opts).length).toEqual(2);
+          expect(instance.prepareList(opts).size).toEqual(2);
         });
       });
 
       describe('if filter contains invalid characters', () => {
         it('still filters the list', () => {
           instance.setState({ filter: '[]()$£&%' });
-          expect(instance.prepareList(opts).length).toEqual(0);
+          expect(instance.prepareList(opts).size).toEqual(0);
         });
       });
 
@@ -316,7 +314,7 @@ describe('DropdownFilter', () => {
             <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" suggest={ true } />
           );
           instance.setState({ filter: 'foo' });
-          expect(instance.prepareList(opts).length).toEqual(2);
+          expect(instance.prepareList(opts).size).toEqual(2);
         });
       });
 
@@ -326,7 +324,7 @@ describe('DropdownFilter', () => {
             <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" suggest={ true } />
           );
           instance.setState({ filter: 'foo' });
-          expect(instance.prepareList(opts).length).toEqual(2);
+          expect(instance.prepareList(opts).size).toEqual(2);
         });
       });
     });
@@ -345,7 +343,8 @@ describe('DropdownFilter', () => {
     describe('if there are items', () => {
       it('does not add no items option', () => {
         instance.setState({ filter: 'foo' });
-        expect(instance.results([{}, {}]).length).toEqual(2);
+        let options = ImmutableHelper.parseJSON([{}, {}]);
+        expect(instance.results(options).size).toEqual(2);
       });
     });
   });
@@ -395,7 +394,7 @@ describe('DropdownFilter', () => {
     it('calls prepareList', () => {
       spyOn(instance, 'prepareList');
       instance.options;
-      expect(instance.prepareList).toHaveBeenCalledWith(instance.props.options.toJS());
+      expect(instance.prepareList).toHaveBeenCalledWith(instance.props.options);
     });
   });
 
@@ -417,7 +416,7 @@ describe('DropdownFilter', () => {
 
     describe('if there is no filter', () => {
       it('does not add the class', () => {
-        instance.setState({ filter: null });
+        instance.setState({ filter: '' });
         expect(instance.inputClasses).not.toMatch('carbon-dropdown__input--filtered');
       });
     });
@@ -448,6 +447,7 @@ describe('DropdownFilter', () => {
 
     describe('when filter is not set', () => {
       it('does not use the filter value', () => {
+        debugger
         instance.visibleValue = 'foo';
         expect(instance.inputProps.value).toEqual('foo');
       });
