@@ -1,5 +1,5 @@
-@import 'colors';
-@import 'z-index';
+@import "./../../style-config/colors";
+@import "./../../style-config/z-index";
 
 .carbon-dialog-full-screen__dialog {
   background-color: $grey-light;

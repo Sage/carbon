@@ -1,6 +1,6 @@
-@import 'colors';
-@import 'mixins';
-@import 'input-field';
+@import "./../../../style-config/colors";
+@import "./../../../style-config/input-field";
+@import "./../../../style-config/mixins";
 
 .common-input--with-icon {
   .common-input__icon {

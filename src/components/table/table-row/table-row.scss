@@ -1,5 +1,5 @@
-@import "colors";
-@import "tables";
+@import "./../../../style-config/colors";
+@import "./../../../style-config/tables";
 
 .carbon-table-row:hover .common-input__input {
   border-color: $row-hover-input-border;
