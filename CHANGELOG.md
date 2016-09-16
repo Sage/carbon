@@ -1,5 +1,9 @@
 # 0.26.0
 
+## New Components
+
+* Detail component
+
 ## Minor Improvements
 
 * Add a currencyFormatter helper to the i18n helpers

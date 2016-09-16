@@ -54,6 +54,11 @@ let data = ImmutableHelper.parseJSON({
     fieldHelp: "Example field help.",
     precision: 3
   },
+  detail: {
+    body: "North Park\nNewcastle upon Tyne\nNE13 9AA",
+    icon: "person",
+    footnote: "Headquarters"
+  },
   dialog: {
     size: 'medium',
     closeOnESCKey: false,
