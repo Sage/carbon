@@ -1,7 +1,10 @@
 import Basket from './svgs/basket';
 import Bin from './svgs/bin';
+import Business from './svgs/business';
+import CSV from './svgs/csv';
 import Chevron from './svgs/chevron';
 import Completed from './svgs/completed';
+import Edit from './svgs/edit';
 import Email from './svgs/email';
 import ExternalLink from './svgs/external-link';
 import Help from './svgs/help';
@@ -34,8 +37,11 @@ import WhiteTick from './svgs/white-tick';
 export default {
   basket: Basket,
   bin: Bin,
+  business: Business,
+  csv: CSV,
   chevron: Chevron,
   completed: Completed,
+  edit: Edit,
   email: Email,
   'external-link': ExternalLink,
   help: Help,
@@ -63,4 +69,4 @@ export default {
   sync: Sync,
   warning: Warning,
   'white-tick': WhiteTick
-}
+};

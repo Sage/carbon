@@ -35,7 +35,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {HTML}
    */
   get renderIcon() {
-    return Icons[this.type]
+    return Icons[this.type];
   }
 
   /**
