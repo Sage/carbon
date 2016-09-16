@@ -1,5 +1,9 @@
 # 0.26.0
 
+## New Components
+
+* Detail component
+
 ## Minor Improvements
 
 * Add a currencyFormatter helper to the i18n helpers
@@ -10,8 +14,10 @@
 
 ## Bug Fixes
 
-* Text Area now scrollable except when expandable
 * The CSS for applying clears to Row columns has been fixed.
+* Tooltips now close when component receives new props.
+* Text Area now scrollable except when expandable.
+* Pod lifecycle methods are no longer defined as class properties.
 
 # 0.25.3
 
