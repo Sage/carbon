@@ -1,9 +1,28 @@
-# 0.25.3
+# 0.26.0
 
-# Bug Fix
+## New Components
+
+* Detail component
+
+## Minor Improvements
+
+* Add a currencyFormatter helper to the i18n helpers
+
+## CSS Changes
+
+ * Have increased pill font size and weight
+
+## Bug Fixes
 
 * Tooltips now close when component receives new props.
+* Text Area now scrollable except when expandable.
 * Pod lifecycle methods are no longer defined as class properties.
+
+# 0.25.3
+
+# Bug Fixes
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
 
 # 0.25.2
 
@@ -38,6 +57,12 @@ The markup structure for pods has been modified, including some adjustments to P
 
 The edit action for a Pod has been modified to sit outside of the Pod.
 
+# 0.24.2
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
 # 0.24.1
 
 * Improves Flash component timeout behaviour.
@@ -57,6 +82,12 @@ As well as just a string, the Flash component will now receive a message value w
  * An object of key/value pairs: `{ first_name: "is required", last_name: "is required" }`
  * An object with description with nested key/value pairs:
    `{ description: { first_name: "is required", last_name: "is required" } }`
+
+# 0.23.1
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
 
 # 0.23.0
 

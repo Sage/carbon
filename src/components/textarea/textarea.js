@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -143,7 +144,10 @@ class Textarea extends React.Component {
    * @return {String} input className
    */
   get inputClasses() {
-    return 'carbon-textarea__input';
+    return classNames (
+      'carbon-textarea__input',
+      { 'carbon-textarea__input--disable-scroll': this.props.expandable }
+    );
   }
 
   /**
