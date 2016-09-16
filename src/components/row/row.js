@@ -42,7 +42,15 @@ class Row extends React.Component {
      * @property gutter
      * @type {String}
      */
-    gutter: React.PropTypes.string
+    gutter: React.PropTypes.string,
+
+    /**
+     * Show a divide between columns
+     *
+     * @property columnDivide
+     * @type {String}
+     */
+    columnDivide: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -86,7 +94,8 @@ class Row extends React.Component {
       child.props.columnClasses, {
         [`carbon-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
         [`carbon-row__column--span-${child.props.columnSpan}`]: child.props.columnSpan,
-        [`carbon-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign
+        [`carbon-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign,
+        "carbon-row__column--column-divide": this.props.columnDivide
       }
     );
 
