@@ -33,8 +33,21 @@ class Row extends React.Component {
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object
-    ])
+    ]),
+
+    /**
+     * Pass a custom value for the gutter
+     * (extra-small, small, medium, large or extra-large)
+     *
+     * @property gutter
+     * @type {String}
+     */
+    gutter: React.PropTypes.string
   }
+
+  static defaultProps = {
+    gutter: "medium"
+  };
 
   /**
    * Builds row columns from the children object fields
@@ -103,6 +116,7 @@ class Row extends React.Component {
 
     return classNames(
       'carbon-row',
+      `carbon-row--gutter-${this.props.gutter}`,
       this.props.className,
       `carbon-row--columns-${columns}`
     );
