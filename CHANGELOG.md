@@ -23,6 +23,7 @@
 * Tooltips now close when component receives new props.
 * Text Area now scrollable except when expandable.
 * Pod lifecycle methods are no longer defined as class properties.
+* Input validation decorator was not re-checking validity for warnings
 
 # 0.25.3
 
@@ -113,10 +114,6 @@ As well as just a string, the Flash component will now receive a message value w
 ## Bug Fix
 
 * ShowEditPod shows edit content when controlled externally
-
-## Bug Fixes
-
-* Input validation decorator was not re-checking validity for warnings
 
 # 0.22.0
 
