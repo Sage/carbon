@@ -19,7 +19,9 @@
 
 ## Bug Fixes
 
-* Text Area now scrollable except when expandable
+* Tooltips now close when component receives new props.
+* Text Area now scrollable except when expandable.
+* Pod lifecycle methods are no longer defined as class properties.
 
 # 0.25.3
 
