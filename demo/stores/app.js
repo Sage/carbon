@@ -43,6 +43,9 @@ let data = ImmutableHelper.parseJSON({
     title: 'Example Content',
     body: 'This is some example content\nfor the Content component.'
   },
+  create: {
+    text: "New Item"
+  },
   date: {
     label: "Date",
     labelHelp: "Example label help.",
