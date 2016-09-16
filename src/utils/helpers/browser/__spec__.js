@@ -1,4 +1,5 @@
 import Browser from './browser.js'
+import ReactDOM from 'react-dom';
 
 describe('Browser', () => {
   let _window;
@@ -37,6 +38,16 @@ describe('Browser', () => {
 
       Browser.reload();
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('edit-focus', () => {
+    it('focuses on the input field of the passed in ref', () => {
+      let node = jasmine.createSpyObj(['focus', 'select']);
+      spyOn(ReactDOM, 'findDOMNode').and.returnValue(node);
+      Browser.editFocus('fakeRef');
+      expect(node.focus).toHaveBeenCalled();
+      expect(node.select).toHaveBeenCalled();
     });
   });
 });

@@ -8,9 +8,11 @@
 ## Component Enhancements
 
 * `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
+* `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).
 
 ## Minor Improvements
 
+* add helper to focus on input field
 * Add a currencyFormatter helper to the i18n helpers
 
 ## CSS Changes
