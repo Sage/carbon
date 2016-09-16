@@ -1,19 +1,37 @@
 @import 'general';
 
 $max-columns: 12 !default;
+$grid-margin-extra-small: 5px !default;
+$grid-margin-small: 10px !default;
+$grid-margin-medium: $grid-margin !default;
+$grid-margin-large: 30px !default;
+$grid-margin-extra-large: 60px !default;
+$sizes: ("extra-small", $grid-margin-extra-small),
+        ("small", $grid-margin-small),
+        ("medium", $grid-margin-medium),
+        ("large", $grid-margin-large),
+        ("extra-large", $grid-margin-extra-large);
 
 .carbon-row {
   clear: both;
-  margin-bottom: -($grid-margin);
-  margin-left: -($grid-margin);
   position: relative;
+
+  @each $name, $size in $sizes {
+    &.carbon-row--gutter-#{$name} {
+      margin-bottom: -($size);
+      margin-left: -($size);
+
+      > .carbon-row__column {
+        margin-bottom: $size;
+        padding-left: $size;
+      }
+    }
+  }
 
   .carbon-row__column {
     box-sizing: border-box;
     float: left;
-    margin-bottom: $grid-margin;
     min-height: 1px;
-    padding-left: $grid-margin;
     width: 100%;
 
     &.carbon-row__column--align-center,

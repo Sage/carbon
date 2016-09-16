@@ -115,6 +115,29 @@ class RowDemo extends React.Component {
   }
 
   /**
+   * @method sizeOptions
+   * @return {Object}
+   */
+  get sizeOptions() {
+    return Immutable.fromJS([{
+      id: 'extra-small',
+      name: 'Extra Small'
+    }, {
+      id: 'small',
+      name: 'Small'
+    }, {
+      id: 'medium',
+      name: 'Medium'
+    }, {
+      id: 'large',
+      name: 'Large'
+    }, {
+      id: 'extra-large',
+      name: 'Extra Large'
+    }]);
+  }
+
+  /**
    * @method controls
    */
   get controls() {
@@ -195,12 +218,12 @@ class RowDemo extends React.Component {
             placeholder="Enter a fixed number of columns"
           />
 
-          <Number
+          <Dropdown
             label="Gutter"
             value={ this.value('gutter') }
             labelInline={ true }
             onChange={ this.action.bind(this, 'gutter') }
-            placeholder="Enter width in px for the gutter"
+            options={ this.sizeOptions }
           />
         </Row>
 

@@ -36,13 +36,18 @@ class Row extends React.Component {
     ]),
 
     /**
-     * Pass a custom value for the gutter (in pixels)
+     * Pass a custom value for the gutter
+     * (extra-small, small, medium, large or extra-large)
      *
      * @property gutter
      * @type {String}
      */
     gutter: React.PropTypes.string
   }
+
+  static defaultProps = {
+    gutter: "medium"
+  };
 
   /**
    * Builds row columns from the children object fields
@@ -76,7 +81,7 @@ class Row extends React.Component {
    * @return {Object} JSX of build column
    */
   buildColumn = (child, key) => {
-    let style = {}, columnClass = classNames(
+    let columnClass = classNames(
       "carbon-row__column",
       child.props.columnClasses, {
         [`carbon-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
@@ -85,13 +90,8 @@ class Row extends React.Component {
       }
     );
 
-    if (this.props.gutter) {
-      style.paddingLeft = `${this.props.gutter}px`;
-      style.marginBottom = `${this.props.gutter}px`;
-    }
-
     return (
-      <div key={ key } className={ columnClass } style={ style }>
+      <div key={ key } className={ columnClass }>
         { child }
       </div>
     );
@@ -116,6 +116,7 @@ class Row extends React.Component {
 
     return classNames(
       'carbon-row',
+      `carbon-row--gutter-${this.props.gutter}`,
       this.props.className,
       `carbon-row--columns-${columns}`
     );
@@ -128,15 +129,8 @@ class Row extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let style = {};
-
-    if (this.props.gutter) {
-      style.marginLeft = `-${this.props.gutter}px`;
-      style.marginBottom = `-${this.props.gutter}px`;
-    }
-
     return (
-      <div className={ this.mainClasses } style={ style }>
+      <div className={ this.mainClasses }>
         { this.buildColumns() }
       </div>
     );

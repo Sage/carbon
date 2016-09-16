@@ -26,7 +26,7 @@ describe('Row', () => {
     describe('render', () => {
       it('renders a parent div with calculated CSS classes', () => {
         let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row')
-        expect(rowNode.className).toEqual('carbon-row foobar carbon-row--columns-4');
+        expect(rowNode.className).toEqual('carbon-row carbon-row--gutter-medium foobar carbon-row--columns-4');
       });
 
       it('renders the correct amount of columns', () => {
@@ -117,7 +117,7 @@ describe('Row', () => {
 
     it('renders a parent div with calculated CSS classes', () => {
       let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row')
-      expect(rowNode.className).toEqual('carbon-row carbon-row--columns-2');
+      expect(rowNode.className).toEqual('carbon-row carbon-row--gutter-medium carbon-row--columns-2');
     });
   });
 
@@ -126,22 +126,16 @@ describe('Row', () => {
 
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Row columns={2} gutter="50">
+        <Row columns={2} gutter="small">
           <div>Foo</div>
           <div>Bar</div>
         </Row>
       );
     });
 
-    it('applies custom css', () => {
+    it('applies custom class', () => {
       let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row');
-      expect(rowNode.style.marginLeft).toEqual('-50px');
-      expect(rowNode.style.marginBottom).toEqual('-50px');
-
-      let columnNode = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-row__column')[0];
-
-      expect(columnNode.style.paddingLeft).toEqual('50px');
-      expect(columnNode.style.marginBottom).toEqual('50px');
+      expect(rowNode.className).toEqual('carbon-row carbon-row--gutter-small carbon-row--columns-2');
     });
   });
 
@@ -158,7 +152,7 @@ describe('Row', () => {
 
     it('renders a parent div with calculated CSS classes', () => {
       let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row')
-      expect(rowNode.className).toEqual('carbon-row carbon-row--columns-1');
+      expect(rowNode.className).toEqual('carbon-row carbon-row--gutter-medium carbon-row--columns-1');
     });
   });
 });

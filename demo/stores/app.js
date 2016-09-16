@@ -165,7 +165,8 @@ let data = ImmutableHelper.parseJSON({
     title: "A Rainbow Chart"
   },
   row: {
-    columnData: [{}, {}, {}, {}]
+    columnData: [{}, {}, {}, {}],
+    gutter: 'medium'
   },
   show_edit_pod: {
     // Comment out editing line if you want to
