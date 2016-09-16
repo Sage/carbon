@@ -3,7 +3,9 @@
 $max-columns: 12 !default;
 $sizes: ("extra-small", $grid-margin-extra-small),
         ("small", $grid-margin-small),
+        ("medium-small", $grid-margin-medium-small),
         ("medium", $grid-margin-medium),
+        ("medium-large", $grid-margin-medium-large),
         ("large", $grid-margin-large),
         ("extra-large", $grid-margin-extra-large);
 

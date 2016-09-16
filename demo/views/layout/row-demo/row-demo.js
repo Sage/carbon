@@ -126,8 +126,14 @@ class RowDemo extends React.Component {
       id: 'small',
       name: 'Small'
     }, {
+      id: 'medium-small',
+      name: 'Medium Small'
+    }, {
       id: 'medium',
       name: 'Medium'
+    }, {
+      id: 'medium-large',
+      name: 'Medium Large'
     }, {
       id: 'large',
       name: 'Large'
