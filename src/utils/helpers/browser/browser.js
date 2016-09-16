@@ -1,3 +1,5 @@
+import ReactDOM from 'react-dom';
+
 /**
 * Browser Helper
 
@@ -33,7 +35,18 @@ const Browser = {
   */
   reload: () => {
     Browser.getWindow().location.reload();
-  }
+  },
+
+  /**
+  * Focuses and sets cursor of input field
+  *
+  * @method editFocus
+  */
+  editFocus: ((ref) => {
+    let node = ReactDOM.findDOMNode(ref._input);
+    node.focus();
+    node.select();
+  })
 };
 
 export default Browser;

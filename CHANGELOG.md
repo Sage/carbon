@@ -11,6 +11,7 @@
 
 ## Minor Improvements
 
+* add helper to focus on input field
 * Add a currencyFormatter helper to the i18n helpers
 
 ## CSS Changes
