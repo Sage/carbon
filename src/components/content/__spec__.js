@@ -39,4 +39,32 @@ describe('Content', () => {
       expect(div).toBe(null);
     });
   });
+
+  describe('inline', () => {
+    it('renders with an inline class', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Content inline={ true }>{ null }</Content>
+      );
+      expect(instance.classes).toContain('carbon-content--inline');
+    });
+  });
+
+  describe('inline and center', () => {
+    it('renders with an inline and center class', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Content centerInline={ true }>{ null }</Content>
+      );
+      expect(instance.classes).toContain('carbon-content--inline');
+      expect(instance.classes).toContain('carbon-content--inline-and-center');
+    });
+  });
+
+  describe('titleWidth', () => {
+    it('renders custom styling for the title', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Content titleWidth="40px">{ null }</Content>
+      );
+      expect(instance.titleStyle).toEqual({ width: "40px" });
+    });
+  });
 });
