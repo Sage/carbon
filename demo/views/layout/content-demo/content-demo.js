@@ -32,17 +32,9 @@ class ContentDemo extends React.Component {
    */
   get demo() {
     return (
-      <div>
       <Content title={ this.value('title') } as={ this.value('as') } inline={ this.value('inline') }  centerInline={ this.value('centerInline') } titleWidth={ this.value('titleWidth') }>
         { this.value('body') }
       </Content>
-      <Content title="Some title" as={ this.value('as') } inline={ this.value('inline') }  centerInline={ this.value('centerInline') } titleWidth={ this.value('titleWidth') }>
-        { this.value('body') }
-      </Content>
-      <Content title="A really long title here" as={ this.value('as') } inline={ this.value('inline') }  centerInline={ this.value('centerInline') } titleWidth={ this.value('titleWidth') }>
-        { this.value('body') }
-      </Content>
-      </div>
     );
   }
 
