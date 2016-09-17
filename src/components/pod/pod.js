@@ -129,8 +129,7 @@ class Pod extends React.Component {
     border: true,
     as: "primary",
     padding: "medium",
-    alignTitle: 'left',
-    editContentFullWidth: true
+    alignTitle: 'left'
   }
 
   /**

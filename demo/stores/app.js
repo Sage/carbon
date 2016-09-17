@@ -137,7 +137,6 @@ let data = ImmutableHelper.parseJSON({
   },
   pod: {
     border: true,
-    editContentFullWidth: true,
     padding: "medium",
     as: "primary",
     alignTitle: 'left'
