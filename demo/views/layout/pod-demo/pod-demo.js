@@ -97,8 +97,8 @@ class PodDemo extends React.Component {
     } else {
       html += '<Pod';
 
-      if (!editContentFullWidth) {
-        html += `\n  editContentFullWidth={ false } }`
+      if (editContentFullWidth) {
+        html += `\n  editContentFullWidth={ true } }`
       }
 
       if (collapsible) {
