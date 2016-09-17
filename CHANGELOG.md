@@ -14,6 +14,7 @@
 
 * add helper to focus on input field
 * Add a currencyFormatter helper to the i18n helpers
+* Editable Pod is now full width by default, it can be collapsed by setting the prop `editContentFullWidth` to false.
 
 ## CSS Changes
 

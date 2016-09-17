@@ -55,6 +55,7 @@ class PodDemo extends React.Component {
 
     return (
       <Pod
+        editContentFullWidth={ this.value('editContentFullWidth') }
         collapsed={ this.props.collapsed }
         title={ this.value('title') }
         subtitle={ this.value('subtitle') }
@@ -86,7 +87,8 @@ class PodDemo extends React.Component {
         padding = this.value('padding'),
         as = this.value('as'),
         edit = this.value('edit'),
-        alignTitle = this.value('alignTitle');
+        alignTitle = this.value('alignTitle'),
+        editContentFullWidth = this.value('editContentFullWidth');
 
     let html = "import Pod from 'carbon/lib/components/pod';\n\n";
 
@@ -94,6 +96,10 @@ class PodDemo extends React.Component {
       html += '<Pod>';
     } else {
       html += '<Pod';
+
+      if (!editContentFullWidth) {
+        html += `\n  editContentFullWidth={ false } }`
+      }
 
       if (collapsible) {
         html += `\n  collapsed={ true } }`
@@ -250,13 +256,18 @@ class PodDemo extends React.Component {
         <Row>
           <Checkbox
             label="Border"
-            value={ this.value('border') }
+            checked={ this.value('border') }
             onChange={ this.action.bind(this, 'border') }
           />
           <Checkbox
             label="Footer"
-            value={ this.value('footer') }
+            checked={ this.value('footer') }
             onChange={ this.action.bind(this, 'footer') }
+          />
+          <Checkbox
+            label="Edit content full width"
+            checked={ this.value('editContentFullWidth') }
+            onChange={ this.action.bind(this, 'editContentFullWidth') }
           />
           <Dropdown
             label="Align Title"

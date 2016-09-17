@@ -114,14 +114,23 @@ class Pod extends React.Component {
       React.PropTypes.string,
       React.PropTypes.func,
       React.PropTypes.object
-    ])
+    ]),
+
+    /**
+     * Determines if the editable pod content should be full width.
+     *
+     * @property editContentFullWidth
+     * @type {Boolean}
+     */
+    editContentFullWidth: React.PropTypes.bool
   }
 
   static defaultProps = {
     border: true,
     as: "primary",
     padding: "medium",
-    alignTitle: 'left'
+    alignTitle: 'left',
+    editContentFullWidth: true
   }
 
   /**
@@ -251,6 +260,7 @@ class Pod extends React.Component {
       `carbon-pod__block--padding-${this.props.padding}`,
       `carbon-pod__block--${this.props.as}`, {
         'carbon-pod__block--no-border': !this.props.border,
+        'carbon-pod__block--full-width': this.props.editContentFullWidth,
         'carbon-pod__block--footer': this.props.footer
       }
     );
