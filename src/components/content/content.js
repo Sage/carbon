@@ -93,7 +93,23 @@ class Content extends React.Component {
     let style = {};
 
     if (this.props.titleWidth) {
-      style.width = this.props.titleWidth;
+      style.width = `calc(${this.props.titleWidth}% - 30px)`;
+    }
+
+    return style;
+  }
+
+  /**
+   * Returns styling for the body element.
+   *
+   * @method bodyStyle
+   * @return {Object}
+   */
+  get bodyStyle() {
+    let style = {};
+
+    if (this.props.titleWidth) {
+      style.width = `${100 - Number(this.props.titleWidth)}%`;
     }
 
     return style;
@@ -110,7 +126,7 @@ class Content extends React.Component {
           { this.props.title }
         </div>
 
-        <div className="carbon-content__body">
+        <div className="carbon-content__body" style={ this.bodyStyle }>
           { this.props.children }
         </div>
       </div>

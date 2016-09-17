@@ -62,9 +62,10 @@ describe('Content', () => {
   describe('titleWidth', () => {
     it('renders custom styling for the title', () => {
       instance = TestUtils.renderIntoDocument(
-        <Content titleWidth="40px">{ null }</Content>
+        <Content titleWidth="40">{ null }</Content>
       );
-      expect(instance.titleStyle).toEqual({ width: "40px" });
+      expect(instance.titleStyle).toEqual({ width: "calc(40% - 30px)" });
+      expect(instance.bodyStyle).toEqual({ width: "60%" });
     });
   });
 });
