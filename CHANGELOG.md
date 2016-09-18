@@ -8,7 +8,7 @@
 ## Component Enhancements
 
 * `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
-* 'Content' now has additional display options, to render inline with it's title and to customise the title's width.
+* 'Content' now has additional display options to customise the alignment, to render inline with it's title and to customise the title's width.
 * `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).
 
 ## Minor Improvements

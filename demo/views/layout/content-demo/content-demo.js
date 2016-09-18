@@ -10,6 +10,7 @@ import Row from 'components/row';
 import Textbox from 'components/textbox';
 import Checkbox from 'components/checkbox';
 import Textarea from 'components/textarea';
+import Dropdown from 'components/dropdown';
 
 class ContentDemo extends React.Component {
 
@@ -32,7 +33,7 @@ class ContentDemo extends React.Component {
    */
   get demo() {
     return (
-      <Content title={ this.value('title') } as={ this.value('as') } inline={ this.value('inline') }  centerInline={ this.value('centerInline') } titleWidth={ this.value('titleWidth') }>
+      <Content title={ this.value('title') } as={ this.value('as') } inline={ this.value('inline') } align={ this.value('align') } titleWidth={ this.value('titleWidth') }>
         { this.value('body') }
       </Content>
     );
@@ -44,11 +45,24 @@ class ContentDemo extends React.Component {
   get code() {
     let html = "import Content from 'carbon/lib/components/content';\n\n";
 
-    html += `<Content title='${this.value('title')}' as='${this.value('as')}' inline='${this.value('inline')}' centerInline='${this.value('centerInline')}' titleWidth='${this.value('titleWidth')}'>\n`;
+    html += `<Content title='${this.value('title')}' as='${this.value('as')}' inline='${this.value('inline')}' align='${this.value('align')}' titleWidth='${this.value('titleWidth')}'>\n`;
     html += `  ${this.value('body')}\n`;
     html += "</Content>\n\n";
 
     return html;
+  } 
+
+  get alignOptions() {
+    return Immutable.fromJS([{
+      name: "Left",
+      id: "left"
+    }, {
+      name: "Center",
+      id: "center"
+    }, {
+      name: "Right",
+      id: "right"
+    }]);
   }
 
   /**
@@ -81,10 +95,11 @@ class ContentDemo extends React.Component {
             checked={ this.value('inline') }
             onChange={ this.action.bind(this, 'inline') }
           />
-          <Checkbox
-            label="Center & Inline"
-            checked={ this.value('centerInline') }
-            onChange={ this.action.bind(this, 'centerInline') }
+          <Dropdown
+            label="Align"
+            value={ this.value('align') }
+            onChange={ this.action.bind(this, 'align') }
+            options={ this.alignOptions }
           />
           <Textbox
             label="Title Width"

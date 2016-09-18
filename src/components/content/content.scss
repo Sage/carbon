@@ -11,7 +11,7 @@
   .carbon-content--inline & {
     display: inline-block;
     vertical-align: top;
-    text-align: left;
+    // text-align: left;
   }
 }
 
@@ -32,13 +32,21 @@
   font-weight: normal;
 }
 
-.carbon-content--inline-and-center {
-  .carbon-content__title {
-    text-align: right;
-    width: calc(50% - 30px);
-  }
+.carbon-content--align-center {
+  text-align: center;
 
-  .carbon-content__body {
-    width: 50%;
+  &.carbon-content--inline {
+    .carbon-content__title {
+      text-align: right;
+      width: calc(50% - 30px);
+    }
+
+    .carbon-content__body {
+      width: 50%;
+    }
   }
+}
+
+.carbon-content--align-right {
+  text-align: right;
 }

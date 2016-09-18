@@ -25,7 +25,7 @@ describe('Content', () => {
 
     it('renders custom classes', () => {
       let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-content');
-      expect(div.className).toEqual('carbon-content foobar carbon-content--primary');
+      expect(div.className).toEqual('carbon-content foobar carbon-content--primary carbon-content--align-left');
     });
   });
 
@@ -49,13 +49,12 @@ describe('Content', () => {
     });
   });
 
-  describe('inline and center', () => {
+  describe('center', () => {
     it('renders with an inline and center class', () => {
       instance = TestUtils.renderIntoDocument(
-        <Content centerInline={ true }>{ null }</Content>
+        <Content align="center">{ null }</Content>
       );
-      expect(instance.classes).toContain('carbon-content--inline');
-      expect(instance.classes).toContain('carbon-content--inline-and-center');
+      expect(instance.classes).toContain('carbon-content--align-center');
     });
   });
 

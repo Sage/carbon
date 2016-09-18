@@ -45,13 +45,13 @@ class Content extends React.Component {
     inline: React.PropTypes.bool,
 
     /**
-     * Displays the content inline with it's title and centers it.
+     * Aligns the content (left, center or right).
      *
-     * @property centerInline
-     * @type {Boolean}
-     * @default false
+     * @property align
+     * @type {String}
+     * @default left
      */
-    centerInline: React.PropTypes.bool,
+    align: React.PropTypes.string,
 
     /**
      * Sets a custom width for the title element.
@@ -63,7 +63,8 @@ class Content extends React.Component {
   }
 
   static defaultProps = {
-    as: "primary"
+    as: "primary",
+    align: "left"
   }
 
   /**
@@ -76,9 +77,9 @@ class Content extends React.Component {
     return classNames(
       "carbon-content",
       this.props.className,
-      `carbon-content--${this.props.as}`, {
-        "carbon-content--inline": this.props.inline || this.props.centerInline,
-        "carbon-content--inline-and-center": this.props.centerInline
+      `carbon-content--${this.props.as}`,
+      `carbon-content--align-${this.props.align}`, {
+        "carbon-content--inline": this.props.inline
       }
     );
   }
