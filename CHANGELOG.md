@@ -13,6 +13,7 @@
 ## Minor Improvements
 
 * add helper to focus on input field
+* Table Header - sort column no longer overlaps text when right aligned
 * Add a currencyFormatter helper to the i18n helpers
 
 ## CSS Changes
