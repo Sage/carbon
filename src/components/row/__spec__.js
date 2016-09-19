@@ -139,6 +139,24 @@ describe('Row', () => {
     });
   });
 
+  describe('when columnDivide is enabled', () => {
+    let instance;
+
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Row columns={2} columnDivide={ true }>
+          <div>Foo</div>
+          <div>Bar</div>
+        </Row>
+      );
+    });
+
+    it('applies custom class', () => {
+      let rowNode = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-row__column')[0];
+      expect(rowNode.className).toEqual('carbon-row__column carbon-row__column--column-divide');
+    });
+  });
+
   describe('When there is only 1 column', () => {
     let instance;
 
