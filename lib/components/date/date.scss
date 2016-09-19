@@ -1,6 +1,6 @@
-@import 'colors';
-@import 'z-index';
-@import 'mixins';
+@import "./../../style-config/colors";
+@import "./../../style-config/z-index";
+@import "./../../style-config/mixins";
 
 $date__picker__width: 210px;
 $date__picker__border: #EBEDEF;

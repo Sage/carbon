@@ -1,6 +1,6 @@
-@import 'colors';
-@import 'mixins';
-@import 'z-index';
+@import "./../../style-config/colors";
+@import "./../../style-config/mixins";
+@import "./../../style-config/z-index";
 
 .carbon-animated-menu-button {
   @include border-radius(100%);

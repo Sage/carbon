@@ -1,4 +1,4 @@
-@import "colors";
+@import "./../../style-config/colors";
 
 $carbon-detail-icon-margin: 10px;
 $carbon-detail-icon-size: 16px;
@@ -15,7 +15,6 @@ $carbon-detail-icon-size: 16px;
   display: inline-block;
   line-height: 18px;
   white-space: pre-wrap;
-  width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
 

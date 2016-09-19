@@ -1,4 +1,5 @@
-@import 'general';
+@import "./../../style-config/general";
+@import "./../../style-config/colors";
 
 $max-columns: 12 !default;
 $sizes: ("extra-small", $grid-margin-extra-small),
@@ -21,6 +22,24 @@ $sizes: ("extra-small", $grid-margin-extra-small),
       > .carbon-row__column {
         margin-bottom: $size;
         padding-left: $size;
+
+        &.carbon-row__column--column-divide {
+          position: relative;
+
+          &:before {
+            content: "";
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background-color: $grey-dark-blue-30;
+            left: $size / 2;
+            top: 0;
+          }
+
+          &:first-child:before {
+            display: none;
+          }
+        }
       }
     }
   }
