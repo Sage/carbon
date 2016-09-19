@@ -162,6 +162,10 @@
   display: inline-block;
   max-width: calc(100% - 51px);
 
+  &.carbon-pod__block--full-width {
+    width: 100%;
+  }
+
   &.carbon-pod__block--no-border {
     max-width: calc(100% - 47px);
   }

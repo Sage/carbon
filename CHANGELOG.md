@@ -10,11 +10,13 @@
 * `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
 * 'Content' now has additional display options to customise the alignment, to render inline with it's title and to customise the title's width.
 * `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).
+* `Row` can enable `columnDivide` to add dividing lines between columns.
 
 ## Minor Improvements
 
 * add helper to focus on input field
 * Add a currencyFormatter helper to the i18n helpers
+* Editable Pod width can be set to full width by setting the prop `editContentFullWidth` to true.
 
 ## CSS Changes
 
