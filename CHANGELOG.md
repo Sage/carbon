@@ -15,6 +15,7 @@
 
 * add helper to focus on input field
 * Add a currencyFormatter helper to the i18n helpers
+* Editable Pod width can be set to full width by setting the prop `editContentFullWidth` to true.
 
 ## CSS Changes
 

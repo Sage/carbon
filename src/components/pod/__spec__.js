@@ -147,6 +147,13 @@ describe('Pod', () => {
       });
     });
 
+    describe('if editContentFullWidth is set to false', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod editContentFullWidth={ true } />);
+        expect(instance.blockClasses).toEqual('carbon-pod__block carbon-pod__block--padding-medium carbon-pod__block--primary carbon-pod__block--full-width');
+      });
+    });
+
     describe('if border is disabled and there is a footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
