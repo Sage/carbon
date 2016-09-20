@@ -1,10 +1,6 @@
 export default {
   __html:
-    '<svg class="carbon-icon__svg carbon-icon__svg--white-tick"  width="15px" height="13px" viewBox="0 0 15 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +
-    '  <!-- Generator: Sketch 3.4 (15575) - http://www.bohemiancoding.com/sketch -->' +
-    '  <title>tick</title>' +
-    '  <desc>Created with Sketch.</desc>' +
-    '  <defs></defs>' +
+    '<svg class="carbon-icon__svg carbon-icon__svg--white-tick"  width="15px" height="13px" viewBox="0 0 15 13">' +
     '  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">' +
     '    <g id="QSW---Step-2" sketch:type="MSArtboardGroup" transform="translate(-518.000000, -174.000000)" fill="#FFFFFF">' +
     '      <g id="Overlay" sketch:type="MSLayerGroup">' +

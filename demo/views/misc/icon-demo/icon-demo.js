@@ -116,7 +116,16 @@ class IconDemo extends React.Component {
       { name: 'Sync',             id: 'sync' },
       { name: 'Progress',         id: 'progress' },
       { name: 'Submitted',        id: 'submitted' },
-      { name: 'Completed',        id: 'completed' }
+      { name: 'Completed',        id: 'completed' },
+      { name: 'Business',         id: 'business' },
+      { name: 'External Link',    id: 'external-link' },
+      { name: 'Individual',       id: 'individual' },
+      { name: 'Key',              id: 'key' },
+      { name: 'Message',          id: 'message' },
+      { name: 'Minus',            id: 'minus' },
+      { name: 'Payment',          id: 'payment' },
+      { name: 'Processing',       id: 'processing' },
+      { name: 'White Tick',       id: 'white-tick' }
     ]);
 
     return (
