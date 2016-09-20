@@ -171,6 +171,16 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   /**
+   * Returns the valid state of the component
+   *
+   * @method isValid
+   * @return {Boolean}
+   */
+  isValid = () => {
+    return this.state.valid;
+  }
+
+  /**
    * Positions the message relative to the icon.
    *
    * @method positionMessage
