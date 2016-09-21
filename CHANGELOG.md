@@ -22,8 +22,9 @@
 
 ## CSS Changes
 
- * Have increased pill font size and weight
- * Carbon Components CSS now imports from relative paths
+* Have increased pill font size and weight
+* Carbon Components CSS now imports from relative paths
+* removes uneccessary space from clearfix in `Row` component
 
 ## Bug Fixes
 
