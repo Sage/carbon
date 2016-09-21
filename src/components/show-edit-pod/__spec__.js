@@ -5,6 +5,8 @@ import Form from './../form';
 import Textbox from './../textbox';
 import Pod from './../pod';
 
+import ReactDOM from 'react-dom';
+
 describe('ShowEditPod', () => {
   let instance, externalInstance, spy, cancelSpy,
       content = <div className='foo'/>,
@@ -52,6 +54,15 @@ describe('ShowEditPod', () => {
       it('sets the editing state to true', () => {
         instance.onEdit();
         expect(instance.state.editing).toBeTruthy();
+      });
+
+      it("sets focus on the DOM node", () => {
+        instance.control = 'props';
+        let focusSpy = jasmine.createSpy('focus');
+        spyOn(ReactDOM, 'findDOMNode').and.returnValue({ focus: focusSpy });
+        instance.onEdit();
+        expect(ReactDOM.findDOMNode).toHaveBeenCalled();
+        expect(focusSpy).toHaveBeenCalled();
       });
 
       describe('when edit function is passed', () => {

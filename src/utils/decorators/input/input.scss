@@ -1,8 +1,8 @@
-@import 'colors';
-@import 'general';
-@import 'mixins';
-@import 'z-index';
-@import 'input-field';
+@import "./../../../style-config/colors";
+@import "./../../../style-config/input-field";
+@import "./../../../style-config/mixins";
+@import "./../../../style-config/general";
+@import "./../../../style-config/z-index";
 
 .common-input {
   position: relative;

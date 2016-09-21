@@ -133,7 +133,7 @@ describe('Portrait', () => {
     describe('when a gravatar is passed', () => {
       it('returns gravatar src', () => {
         let src = gravatarInstance.imgSrc;
-        let base = 'http://www.gravatar.com/avatar/';
+        let base = 'https://www.gravatar.com/avatar/';
         let hash = MD5('foo');
         let size = '60'
 

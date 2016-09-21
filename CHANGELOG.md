@@ -8,17 +8,23 @@
 ## Component Enhancements
 
 * `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
+* 'Content' now has additional display options to customise the alignment, to render inline with it's title and to customise the title's width.
 * `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).
+* `Row` can enable `columnDivide` to add dividing lines between columns.
+* `ShowEditPod` requires a tab press to focus on the first field of the contained form rather than automatically focusing on the first field
 
 ## Minor Improvements
 
 * add helper to focus on input field
 * Table Header - sort column no longer overlaps text when right aligned
 * Add a currencyFormatter helper to the i18n helpers
+* Editable Pod width can be set to full width by setting the prop `editContentFullWidth` to true.
+* Ensure portrait component uses https for gravatar images.
 
 ## CSS Changes
 
  * Have increased pill font size and weight
+ * Carbon Components CSS now imports from relative paths
 
 ## Bug Fixes
 
@@ -27,6 +33,7 @@
 * Text Area now scrollable except when expandable.
 * Pod lifecycle methods are no longer defined as class properties.
 * Input validation decorator was not re-checking validity for warnings
+* `Pod` applies props to it's container rather than the first child of that container keeping things consistent
 
 # 0.25.3
 
