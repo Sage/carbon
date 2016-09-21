@@ -214,8 +214,25 @@ class Form extends React.Component {
    * @property inputs
    * @type {Object}
    */
-  inputs = {
-  }
+  inputs = {};
+
+  /**
+   * Tracks current errorCount
+   * Need to track separately from state due to async nature of setState
+   *
+   * @property errorCount
+   * @type {Number}
+   */
+  errorCount = 0;
+
+  /**
+   * Tracks current warningCount
+   * Need to track separately from state due to async nature of setState
+   *
+   * @property errorCount
+   * @type {Number}
+   */
+  warningCount = 0;
 
   /**
    * Runs once the component has mounted.
@@ -236,7 +253,8 @@ class Form extends React.Component {
    * @return {void}
    */
   incrementErrorCount = () => {
-    this.setState({ errorCount: this.state.errorCount + 1 });
+    this.errorCount += 1;
+    this.setState({ errorCount: this.errorCount });
   }
 
   /**
@@ -246,7 +264,8 @@ class Form extends React.Component {
    * @return {void}
    */
   decrementErrorCount = () => {
-    this.setState({ errorCount: this.state.errorCount - 1 });
+    this.errorCount -= 1;
+    this.setState({ errorCount: this.errorCount });
   }
 
   /**
@@ -256,7 +275,8 @@ class Form extends React.Component {
    * @return {void}
    */
   incrementWarningCount = () => {
-    this.setState({ warningCount: this.state.warningCount + 1 });
+    this.warningCount += 1;
+    this.setState({ warningCount: this.warningCount });
   }
 
   /**
@@ -266,7 +286,8 @@ class Form extends React.Component {
    * @return {void}
    */
   decrementWarningCount = () => {
-    this.setState({ warningCount: this.state.warningCount - 1 });
+    this.warningCount -= 1;
+    this.setState({ warningCount: this.warningCount });
   }
 
   /**
