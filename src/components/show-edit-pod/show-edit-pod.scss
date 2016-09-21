@@ -1,5 +1,11 @@
 @import "./../../style-config/colors";
 
+.carbon-show-edit-pod {
+  &:focus {
+    outline: none;
+  }
+}
+
 .carbon-show-edit-pod__delete {
   color: $red;
 

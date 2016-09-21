@@ -263,7 +263,7 @@ describe('Pod', () => {
   describe('render', () => {
     it('applies all props to the pod', () => {
       instance = TestUtils.renderIntoDocument(<Pod foo="bar" />);
-      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
+      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(div.props.foo).toEqual("bar");
     });
 
