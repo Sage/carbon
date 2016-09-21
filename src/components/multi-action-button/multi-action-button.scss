@@ -84,6 +84,12 @@
       }
     }
   }
+
+  .carbon-icon {
+    &.icon-dropdown {
+      top: -1px;
+    }
+  }
 }
 
 .carbon-multi-action-button--open {
