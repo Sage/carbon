@@ -1,5 +1,6 @@
 import React from 'react';
 import FormDemo from './form-demo';
+import FilterDemo from './filter-demo';
 import Fieldset from './fieldset-demo';
 import TextboxDemo from './textbox-demo';
 import DecimalDemo from './decimal-demo';
@@ -22,6 +23,7 @@ class Forms extends React.Component {
       <div>
         <h1>Forms</h1>
         <FormDemo />
+        <FilterDemo />
         <CheckboxDemo />
         <RadioButtonDemo/>
         <TextboxDemo />
