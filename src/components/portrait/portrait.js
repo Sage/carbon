@@ -140,7 +140,7 @@ class Portrait extends React.Component {
    * @return {String}
    */
   get gravatarSrc() {
-    let base = 'http://www.gravatar.com/avatar/',
+    let base = 'https://www.gravatar.com/avatar/',
         hash = MD5(this.props.gravatar.toLowerCase()),
         size = this.numericSizes[this.props.size];
 
