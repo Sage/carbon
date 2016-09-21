@@ -29,13 +29,14 @@
 
 ## Bug Fixes
 
+* Allow carbon to be incorporated into webpack project
 * The CSS for applying clears to Row columns has been fixed.
 * Tooltips now close when component receives new props.
 * Text Area now scrollable except when expandable.
 * Pod lifecycle methods are no longer defined as class properties.
 * Input validation decorator was not re-checking validity for warnings
 * `Pod` applies props to it's container rather than the first child of that container keeping things consistent
-* Allow carbon to be incorporated into webpack project
+* `Pod` filters out any `title` that is not a string before it is applied as an HTML attribute to the underlying element stopping `Object` being output as a browser generated tooltip
 
 # 0.25.3
 
