@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import I18n from 'i18n-js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+import ReactDOM from 'react-dom';
+
 class ShowEditPod extends React.Component {
 
   // Determines if controlled internally via state
@@ -130,6 +132,8 @@ class ShowEditPod extends React.Component {
     if (this.stateControlled) {
       this.setState({ editing: true });
     }
+
+    ReactDOM.findDOMNode(this.refs.podFocus).focus();
   }
 
   /**
@@ -284,7 +288,7 @@ class ShowEditPod extends React.Component {
    */
   render() {
     return (
-      <Pod className={ this.mainClasses } { ...this.podProps }>
+      <Pod className={ this.mainClasses } { ...this.podProps } ref='podFocus' tabIndex='-1'>
         <ReactCSSTransitionGroup
           transitionName={ this.props.transitionName }
           transitionEnterTimeout={ 300 }
