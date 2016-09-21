@@ -396,8 +396,8 @@ class Pod extends React.Component {
     if (!this.state.collapsed) { content = this.podContent; }
 
     return (
-      <div className={ this.mainClasses }>
-        <div className={ this.blockClasses } { ...props }>
+      <div className={ this.mainClasses } { ...props }>
+        <div className={ this.blockClasses }>
           <div className={ this.contentClasses } >
             { this.podHeader }
             { content }

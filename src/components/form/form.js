@@ -253,7 +253,7 @@ class Form extends React.Component {
    * @return {void}
    */
   incrementErrorCount = () => {
-    this.errorCount += 1
+    this.errorCount += 1;
     this.setState({ errorCount: this.errorCount });
   }
 
@@ -264,7 +264,7 @@ class Form extends React.Component {
    * @return {void}
    */
   decrementErrorCount = () => {
-    this.errorCount -= 1
+    this.errorCount -= 1;
     this.setState({ errorCount: this.errorCount });
   }
 
@@ -275,7 +275,7 @@ class Form extends React.Component {
    * @return {void}
    */
   incrementWarningCount = () => {
-    this.warningCount += 1
+    this.warningCount += 1;
     this.setState({ warningCount: this.warningCount });
   }
 
@@ -286,7 +286,7 @@ class Form extends React.Component {
    * @return {void}
    */
   decrementWarningCount = () => {
-    this.warningCount -= 1
+    this.warningCount -= 1;
     this.setState({ warningCount: this.warningCount });
   }
 
