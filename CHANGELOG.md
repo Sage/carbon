@@ -31,6 +31,12 @@
 * Pod lifecycle methods are no longer defined as class properties.
 * Input validation decorator was not re-checking validity for warnings
 
+# 0.25.4
+
+## Bug Fixes
+
+* Form now tracks error and warning count on instance as well as in state.
+
 # 0.25.3
 
 # Bug Fixes
