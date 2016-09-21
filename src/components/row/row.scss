@@ -95,7 +95,7 @@ $sizes: ("extra-small", $grid-margin-extra-small),
   // Clearfix:
   &:before,
   &:after {
-    content: " ";
+    content: "";
     display: table;
   }
   &:after {
