@@ -238,7 +238,7 @@ class Pod extends React.Component {
   podProps = () => {
     let { ...props } = this.props;
 
-    if(!this.titleIsString()) {
+    if (!this.titleIsString()) {
       delete props.title;
     }
 
