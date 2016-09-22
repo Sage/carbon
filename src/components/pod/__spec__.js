@@ -260,6 +260,28 @@ describe('Pod', () => {
     });
   });
 
+  describe("podProps", () => {
+    it("returns props without the title if the title is not a string", () => {
+      let instance, result;
+
+      instance = TestUtils.renderIntoDocument(<Pod title={ [] } onEdit={ () => { } } />);
+      result = instance.podProps();
+      expect(result.title).toBeUndefined();
+      expect(result.onEdit).not.toBeUndefined();
+    });
+  });
+
+  describe("titleIsString", () => {
+    it("returns false if title is not a string", () => {
+      instance = TestUtils.renderIntoDocument(<Pod title={ undefined } />);
+      expect(instance.titleIsString()).toEqual(false);
+    });
+    it("returns true if title is object", () => {
+      instance = TestUtils.renderIntoDocument(<Pod title='testing' />);
+      expect(instance.titleIsString()).toEqual(true);
+    });
+  });
+
   describe('render', () => {
     it('applies all props to the pod', () => {
       instance = TestUtils.renderIntoDocument(<Pod foo="bar" />);
