@@ -6,7 +6,9 @@ import TableHeader from './table-header';
 import Icon from './../../icon';
 
 describe('TableHeader', () => {
-  let instance, instanceSortable, instanceCustomSort, sortableColumn, sortableHeader, changeSpy;
+  let instance, instanceSortable, instanceCustomSort,
+      sortableColumn, sortableHeader, changeSpy, sortableCustomHeader,
+      sortableCustomColumn;
 
   beforeEach(() => {
     changeSpy = jasmine.createSpy('changeSpy');
@@ -30,13 +32,15 @@ describe('TableHeader', () => {
     instanceCustomSort = TestUtils.renderIntoDocument(
       <Table onChange={ changeSpy } sortOrder='desc'>
         <TableRow>
-          <TableHeader sortable={ true } name='name'/>
+          <TableHeader sortable={ true } align='right' name='name'/>
         </TableRow>
       </Table>
     );
 
     sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceSortable, 'th');
     sortableHeader = TestUtils.scryRenderedComponentsWithType(instanceSortable, TableHeader)[0];
+    sortableCustomColumn = TestUtils.findRenderedDOMComponentWithTag(instanceCustomSort, 'th');
+    sortableCustomHeader = TestUtils.scryRenderedComponentsWithType(instanceCustomSort, TableHeader)[0];
   });
 
   describe('prop checking', () => {
@@ -163,6 +167,22 @@ describe('TableHeader', () => {
       let th = TestUtils.findRenderedDOMComponentWithTag(instance, 'th');
       expect(th).toBeDefined();
       expect(th.className).toEqual('carbon-table-header foo carbon-table-header--align-right');
+    });
+
+    it('renders the sort icon with correct classes', () => {
+      sortableHeader.context.sortedColumn = 'name';
+      sortableHeader.forceUpdate();
+      let icon = TestUtils.findRenderedComponentWithType(instanceSortable, Icon);
+      expect(icon.props.className).toEqual('carbon-table-header__icon');
+    });
+
+    describe('when aligned to the right', () => {
+      it('renders the sort icon with correct classes', () => {
+        sortableCustomHeader.context.sortedColumn = 'name';
+        sortableCustomHeader.forceUpdate();
+        let icon = TestUtils.findRenderedComponentWithType(instanceCustomSort, Icon);
+        expect(icon.props.className).toEqual('carbon-table-header__icon carbon-table-header__icon--align-right');
+      });
     });
   });
 });
