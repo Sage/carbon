@@ -198,7 +198,7 @@ class Date extends React.Component {
    */
   handleVisibleInputChange = (ev) => {
     // TODO: This needs more thought i18n with multiple options
-    let formats = [visibleFormat(), "MMM DD YY", "DD-MM", "DD-MM-YYYY"],
+    let formats = [visibleFormat()].concat(validFormats()),
         validDate = moment(ev.target.value, formats).isValid(),
         newState = { visibleValue: ev.target.value };
 
@@ -418,6 +418,17 @@ export default Date;
  */
 function visibleFormat() {
   return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
+}
+
+/**
+ * Formats valid for entry
+ *
+ * @method validFormats
+ * @private
+ * @return {Array} formatted date strings
+ */
+function validFormats() {
+  return I18n.t('date.formats.inputs', { defaultValue: ["MMM DD YY", "DD-MM", "DD-MM-YYYY"] });
 }
 
 /**

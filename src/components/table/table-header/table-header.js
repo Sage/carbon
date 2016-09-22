@@ -112,8 +112,23 @@ class TableHeader extends React.Component {
   get sortIconHTML() {
     if (this.sorted) {
       let type = this.context.sortOrder === 'desc' ? 'sort-up' : 'sort-down';
-      return <Icon type={ type } className='carbon-table-header__icon'/>;
+      return <Icon type={ type } className={ this.sortIconClasses } />;
     }
+  }
+
+  /**
+   * Returns classes to apply to the sort icon
+   *
+   * @method sortIconClasses
+   * @return {JSX} Icon JSX
+   */
+  get sortIconClasses() {
+    return classNames(
+      'carbon-table-header__icon',
+      {
+        [`carbon-table-header__icon--align-${ this.props.align }`]: this.props.align
+      }
+    );
   }
 
   /**
