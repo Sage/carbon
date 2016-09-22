@@ -407,6 +407,15 @@ describe('InputValidation', () => {
           expect(instance.context.form.decrementErrorCount).not.toHaveBeenCalled();
         });
       });
+
+      describe('when the input is in a tab', () => {
+        it('calls resetTab', () => {
+          instance.context.tab = {};
+          spyOn(instance, 'resetTab');
+          instance.componentWillUnmount();
+          expect(instance.resetTab).toHaveBeenCalled();
+        });
+      });
     });
 
     describe('When no validations are present on the input', () => {
@@ -472,7 +481,7 @@ describe('InputValidation', () => {
           });
 
           describe('when the input is within a tab', () => {
-            it('sets the notfies the tab that it is invalid', () => {
+            it('notifies the tab that it is invalid', () => {
               let spy = jasmine.createSpy();
               instance.context.tab = { setValidity: spy };
               instance.validate();
@@ -724,22 +733,12 @@ describe('InputValidation', () => {
     });
 
     describe('when the input is within a tab', () => {
-      it('notifies the tab of the new validations state', () => {
+      it('calls resetTab', () => {
+        instance.context.tab = {};
         instance.setState({ valid: false });
-        let spy = jasmine.createSpy();
-        instance.context.tab = { setValidity: spy };
+        spyOn(instance, 'resetTab');
         instance._handleContentChange();
-
-        expect(spy).toHaveBeenCalledWith(true);
-      });
-
-      it('notifies the tab of the new warnings state', () => {
-        instance.setState({ warning: true });
-        let spy = jasmine.createSpy('warningSpy');
-        instance.context.tab = { setWarning: spy };
-        instance._handleContentChange();
-
-        expect(spy).toHaveBeenCalledWith(false);
+        expect(instance.resetTab).toHaveBeenCalled();
       });
     });
 
@@ -748,6 +747,26 @@ describe('InputValidation', () => {
         instance.setState({ valid: false, warning: true });
         expect(instance._handleContentChange).not.toThrow();
       });
+    });
+  });
+
+  describe('resetTab', () => {
+    it('notifies the tab of the new validations state', () => {
+      instance.setState({ valid: false });
+      let spy = jasmine.createSpy();
+      instance.context.tab = { setValidity: spy };
+      instance.resetTab();
+
+      expect(spy).toHaveBeenCalledWith(true);
+    });
+
+    it('notifies the tab of the new warnings state', () => {
+      instance.setState({ warning: true });
+      let spy = jasmine.createSpy('warningSpy');
+      instance.context.tab = { setWarning: spy };
+      instance.resetTab();
+
+      expect(spy).toHaveBeenCalledWith(false);
     });
   });
 

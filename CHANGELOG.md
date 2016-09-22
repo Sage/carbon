@@ -15,6 +15,7 @@
 
 ## Minor Improvements
 
+* Inputs now reset parent tabs error state when unmounted
 * Valid Date entry formats can be overridden via I18n
 * add helper to focus on input field
 * Table Header - sort column no longer overlaps text when right aligned
