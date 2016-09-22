@@ -17,6 +17,7 @@
 
 * Valid Date entry formats can be overridden via I18n
 * add helper to focus on input field
+* Table Header - sort column no longer overlaps text when right aligned
 * Add a currencyFormatter helper to the i18n helpers
 * Editable Pod width can be set to full width by setting the prop `editContentFullWidth` to true.
 * Refactor Icon component into separate file SVGs
