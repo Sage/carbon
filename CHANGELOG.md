@@ -18,6 +18,7 @@
 * add helper to focus on input field
 * Add a currencyFormatter helper to the i18n helpers
 * Editable Pod width can be set to full width by setting the prop `editContentFullWidth` to true.
+* Refactor Icon component into separate file SVGs
 * Ensure portrait component uses https for gravatar images.
 
 ## CSS Changes
@@ -35,6 +36,7 @@
 * Pod lifecycle methods are no longer defined as class properties.
 * Input validation decorator was not re-checking validity for warnings
 * `Pod` applies props to it's container rather than the first child of that container keeping things consistent
+* Allow carbon to be incorporated into webpack project
 
 # 0.25.3
 
