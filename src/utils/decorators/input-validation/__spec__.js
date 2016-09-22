@@ -375,47 +375,38 @@ describe('InputValidation', () => {
         instance = TestUtils.renderIntoDocument(React.createElement(Component, {
           validations: [validationOne]
         }));
-        instance.context.form = form;
       });
 
       describe('when the input is invalid', () => {
-        it('decrements the error count', () => {
-          instance.state.valid = false;
-          spyOn(instance.context.form, 'decrementErrorCount');
-          instance.componentWillUnmount();
-          expect(instance.context.form.decrementErrorCount).toHaveBeenCalled();
-        });
-
-        it('decrements the warning count', () => {
-          instance.state.warning = true;
-          spyOn(instance.context.form, 'decrementWarningCount');
-          instance.componentWillUnmount();
-          expect(instance.context.form.decrementWarningCount).toHaveBeenCalled();
+        it('calls handleContentChange', () => {
+            instance.state.valid = false;
+            spyOn(instance, '_handleContentChange');
+            instance.componentWillUnmount();
+            expect(instance._handleContentChange).toHaveBeenCalled();
         });
       });
 
-      describe('when the input is valid', () => {
+      describe('when the input has a warning', () => {
+        it('calls handleContentChange', () => {
+            instance.state.warning = true;
+            spyOn(instance, '_handleContentChange');
+            instance.componentWillUnmount();
+            expect(instance._handleContentChange).toHaveBeenCalled();
+        });
+      })
+
+      describe('when the input is in a form', () => {
+        beforeEach(() => {
+          instance.context.form = form;
+        });
+
         it('detaches the input from the form', () => {
           spyOn(instance.context.form, 'detachFromForm');
           instance.componentWillUnmount();
           expect(instance.context.form.detachFromForm).toHaveBeenCalledWith(instance);
         });
-
-        it('does not decrement the error count', () => {
-          spyOn(instance.context.form, 'decrementErrorCount');
-          instance.componentWillUnmount();
-          expect(instance.context.form.decrementErrorCount).not.toHaveBeenCalled();
-        });
       });
 
-      describe('when the input is in a tab', () => {
-        it('calls resetTab', () => {
-          instance.context.tab = {};
-          spyOn(instance, 'resetTab');
-          instance.componentWillUnmount();
-          expect(instance.resetTab).toHaveBeenCalled();
-        });
-      });
     });
 
     describe('When no validations are present on the input', () => {

@@ -154,24 +154,11 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // call the components super method if it exists
     if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
-    if (this.isAttachedToForm && (this.props.validations || this.props.warnings)) {
-      if (!this.state.valid) {
-        // decrement the forms error count if the input is removed
-        this.context.form.decrementErrorCount();
+    if ((this.props.validations || this.props.warnings)) {
+      this._handleContentChange();
+      if (this.isAttachedToForm) {
+        this.context.form.detachFromForm(this);
       }
-
-      if (this.state.warning) {
-        // decrement the forms error count if the input is removed
-        this.context.form.decrementWarningCount();
-      }
-
-      // remove warnings/error state from tab on unmount of children
-      if (this.context.tab) {
-        this.resetTab();
-      }
-
-      // detach the input to the form so the form
-      this.context.form.detachFromForm(this);
     }
   }
 
