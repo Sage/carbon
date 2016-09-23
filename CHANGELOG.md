@@ -47,6 +47,12 @@
 * `Pod` applies props to it's container rather than the first child of that container keeping things consistent
 * `Pod` filters out any `title` that is not a string before it is applied as an HTML attribute to the underlying element stopping `Object` being output as a browser generated tooltip
 
+# 0.25.4
+
+## Bug Fixes
+
+* Form now tracks error and warning count on instance as well as in state.
+
 # 0.25.3
 
 # Bug Fixes

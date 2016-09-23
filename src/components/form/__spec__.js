@@ -61,7 +61,7 @@ describe('Form', () => {
 
   describe('incrementErrorCount', () => {
     it('increments the state error count', () => {
-      instance.setState({ errorCount: 2 });
+      instance.errorCount = 2;
       instance.incrementErrorCount();
       expect(instance.state.errorCount).toEqual(3);
     });
@@ -69,7 +69,7 @@ describe('Form', () => {
 
   describe('decrementErrorCount', () => {
     it('decreases the state error count', () => {
-      instance.setState({ errorCount: 2 });
+      instance.errorCount = 2;
       instance.decrementErrorCount();
       expect(instance.state.errorCount).toEqual(1);
     });
@@ -77,7 +77,7 @@ describe('Form', () => {
 
   describe('incrementWarningCount', () => {
     it('increments the state warning count', () => {
-      instance.setState({ warningCount: 2 });
+      instance.warningCount = 2;
       instance.incrementWarningCount();
       expect(instance.state.warningCount).toEqual(3);
     });
@@ -85,7 +85,7 @@ describe('Form', () => {
 
   describe('decrementWarningCount', () => {
     it('decreases the state warning count', () => {
-      instance.setState({ warningCount: 2 });
+      instance.warningCount = 2;
       instance.decrementWarningCount();
       expect(instance.state.warningCount).toEqual(1);
     });
