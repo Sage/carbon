@@ -154,19 +154,11 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // call the components super method if it exists
     if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
-    if (this.isAttachedToForm && (this.props.validations || this.props.warnings)) {
-      if (!this.state.valid) {
-        // decrement the forms error count if the input is removed
-        this.context.form.decrementErrorCount();
+    if ((this.props.validations || this.props.warnings)) {
+      this._handleContentChange();
+      if (this.isAttachedToForm) {
+        this.context.form.detachFromForm(this);
       }
-
-      if (this.state.warning) {
-        // decrement the forms error count if the input is removed
-        this.context.form.decrementWarningCount();
-      }
-
-      // detach the input to the form so the form
-      this.context.form.detachFromForm(this);
     }
   }
 
@@ -253,7 +245,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
         // if input has a tab
         if (this.context.tab) {
-          // Set the validity of the tab to false
+          // Set the validity of the tab to true
           this.context.tab.setWarning(true);
         }
 
@@ -382,17 +374,28 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
       // if there is tab, remove invalid state
       if (this.context.tab) {
-        if (!this.state.valid) {
-          this.context.tab.setValidity(true);
-        }
-
-        if (this.state.warning) {
-          this.context.tab.setWarning(false);
-        }
+        this.resetTab();
       }
 
       // reset the error state
       this.setState({ errorMessage: null, valid: true, warning: false });
+    }
+  }
+
+
+  /**
+   * Resets tab error state
+   *
+   * @method resetTab
+   * @return {Void}
+   */
+  resetTab = () => {
+    if (!this.state.valid) {
+      this.context.tab.setValidity(true);
+    }
+
+    if (this.state.warning) {
+      this.context.tab.setWarning(false);
     }
   }
 
