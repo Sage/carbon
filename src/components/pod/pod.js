@@ -238,6 +238,8 @@ class Pod extends React.Component {
   podProps = () => {
     let { ...props } = this.props;
 
+    delete props.className;
+
     if (!this.titleIsString()) {
       delete props.title;
     }
@@ -415,9 +417,7 @@ class Pod extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let content, { ...props } = this.props;
-
-    delete props.className;
+    let content = this.props.content;
 
     if (!this.state.collapsed) { content = this.podContent; }
 

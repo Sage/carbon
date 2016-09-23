@@ -46,6 +46,14 @@ describe('Pod', () => {
     });
   });
 
+  describe('pod classes', () => {
+    it('assigns custom classes and maintains its own classes', () => {
+      instance = TestUtils.renderIntoDocument(<Pod className="custom" />);
+      let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod');
+      expect(div.className).toEqual('carbon-pod custom carbon-pod--left');
+    });
+  });
+
   describe('podHeader', () => {
     describe('when title is not passed as a prop', () => {
       it('returns null', () => {
