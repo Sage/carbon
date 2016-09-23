@@ -1,3 +1,15 @@
+# 0.25.4
+
+## Bug Fixes
+
+* Form now tracks error and warning count on instance as well as in state.
+
+# 0.25.3
+
+# Bug Fixes
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
 # 0.25.2
 
 ## Bug Fix
