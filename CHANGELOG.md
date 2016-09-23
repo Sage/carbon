@@ -15,6 +15,7 @@
 
 ## Minor Improvements
 
+* Valid Date entry formats can be overridden via I18n
 * add helper to focus on input field
 * Table Header - sort column no longer overlaps text when right aligned
 * Add a currencyFormatter helper to the i18n helpers
@@ -29,16 +30,21 @@
 * removes uneccessary space from clearfix in `Row` component
 * Aligned MultiActionButton icon to center
 * `Filter` handles it's child inputs more robustly by over-riding widths and margins when children are displayed inline
+* Darken colour of text--secondary
+* Remove italics from text--inactive
+* Have increased pill font size and weight
+* Carbon Components CSS now imports from relative paths
 
 ## Bug Fixes
 
+* Allow carbon to be incorporated into webpack project
 * The CSS for applying clears to Row columns has been fixed.
 * Tooltips now close when component receives new props.
 * Text Area now scrollable except when expandable.
 * Pod lifecycle methods are no longer defined as class properties.
 * Input validation decorator was not re-checking validity for warnings
 * `Pod` applies props to it's container rather than the first child of that container keeping things consistent
-* Allow carbon to be incorporated into webpack project
+* `Pod` filters out any `title` that is not a string before it is applied as an HTML attribute to the underlying element stopping `Object` being output as a browser generated tooltip
 
 # 0.25.3
 
