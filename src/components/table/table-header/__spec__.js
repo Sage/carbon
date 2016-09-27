@@ -135,7 +135,7 @@ describe('TableHeader', () => {
             sortableHeader.context.sortedColumn = 'name';
             sortableHeader.context.sortOrder = 'desc';
             TestUtils.Simulate.click(sortableColumn);
-            expect(sortableHeader.sortIconHTML.props.type).toEqual('sort-up');
+            expect(sortableHeader.sortIconHTML.props.type).toEqual('sort-down');
           });
         });
 
@@ -143,7 +143,7 @@ describe('TableHeader', () => {
           it('adds the sort-down icon', () => {
             sortableHeader.context.sortedColumn = 'name';
             TestUtils.Simulate.click(sortableColumn);
-            expect(sortableHeader.sortIconHTML.props.type).toEqual('sort-down');
+            expect(sortableHeader.sortIconHTML.props.type).toEqual('sort-up');
           });
         })
       });
