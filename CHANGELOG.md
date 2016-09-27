@@ -12,6 +12,7 @@
 * `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).
 * `Row` can enable `columnDivide` to add dividing lines between columns.
 * `ShowEditPod` requires a tab press to focus on the first field of the contained form rather than automatically focusing on the first field
+* `Decimal` component can force the input decimal digits not exceeding the precision setting
 
 ## Minor Improvements
 
