@@ -32,6 +32,7 @@
 * Aligned MultiActionButton icon to center
 * `Filter` handles it's child inputs more robustly by over-riding widths and margins when children are displayed inline
 * Darken colour of text--secondary
+* Fieldset - readonly fields maintain border
 * Remove italics from text--inactive
 * Have increased pill font size and weight
 * Carbon Components CSS now imports from relative paths
