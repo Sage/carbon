@@ -131,7 +131,7 @@ describe('TableHeader', () => {
 
       describe('after a sortable header has been clicked', () => {
         describe('when the sortOrder is descending', () => {
-          it('adds the sort-up icon', () => {
+          it('adds the sort-down icon', () => {
             sortableHeader.context.sortedColumn = 'name';
             sortableHeader.context.sortOrder = 'desc';
             TestUtils.Simulate.click(sortableColumn);
@@ -140,7 +140,7 @@ describe('TableHeader', () => {
         });
 
         describe('when the sortOrder is ascending or not specified', () => {
-          it('adds the sort-down icon', () => {
+          it('adds the sort-up icon', () => {
             sortableHeader.context.sortedColumn = 'name';
             TestUtils.Simulate.click(sortableColumn);
             expect(sortableHeader.sortIconHTML.props.type).toEqual('sort-up');
