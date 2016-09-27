@@ -39,6 +39,7 @@
 ## Bug Fixes
 
 * Allow carbon to be incorporated into webpack project
+* Removed footer from datepicker. This will be reverted in the React 15 Upgrade
 * The CSS for applying clears to Row columns has been fixed.
 * Tooltips now close when component receives new props.
 * Text Area now scrollable except when expandable.
