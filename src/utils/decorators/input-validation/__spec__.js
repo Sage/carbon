@@ -375,38 +375,38 @@ describe('InputValidation', () => {
         instance = TestUtils.renderIntoDocument(React.createElement(Component, {
           validations: [validationOne]
         }));
-        instance.context.form = form;
       });
 
       describe('when the input is invalid', () => {
-        it('decrements the error count', () => {
-          instance.state.valid = false;
-          spyOn(instance.context.form, 'decrementErrorCount');
-          instance.componentWillUnmount();
-          expect(instance.context.form.decrementErrorCount).toHaveBeenCalled();
-        });
-
-        it('decrements the warning count', () => {
-          instance.state.warning = true;
-          spyOn(instance.context.form, 'decrementWarningCount');
-          instance.componentWillUnmount();
-          expect(instance.context.form.decrementWarningCount).toHaveBeenCalled();
+        it('calls handleContentChange', () => {
+            instance.state.valid = false;
+            spyOn(instance, '_handleContentChange');
+            instance.componentWillUnmount();
+            expect(instance._handleContentChange).toHaveBeenCalled();
         });
       });
 
-      describe('when the input is valid', () => {
+      describe('when the input has a warning', () => {
+        it('calls handleContentChange', () => {
+            instance.state.warning = true;
+            spyOn(instance, '_handleContentChange');
+            instance.componentWillUnmount();
+            expect(instance._handleContentChange).toHaveBeenCalled();
+        });
+      })
+
+      describe('when the input is in a form', () => {
+        beforeEach(() => {
+          instance.context.form = form;
+        });
+
         it('detaches the input from the form', () => {
           spyOn(instance.context.form, 'detachFromForm');
           instance.componentWillUnmount();
           expect(instance.context.form.detachFromForm).toHaveBeenCalledWith(instance);
         });
-
-        it('does not decrement the error count', () => {
-          spyOn(instance.context.form, 'decrementErrorCount');
-          instance.componentWillUnmount();
-          expect(instance.context.form.decrementErrorCount).not.toHaveBeenCalled();
-        });
       });
+
     });
 
     describe('When no validations are present on the input', () => {
@@ -472,7 +472,7 @@ describe('InputValidation', () => {
           });
 
           describe('when the input is within a tab', () => {
-            it('sets the notfies the tab that it is invalid', () => {
+            it('notifies the tab that it is invalid', () => {
               let spy = jasmine.createSpy();
               instance.context.tab = { setValidity: spy };
               instance.validate();
@@ -724,22 +724,12 @@ describe('InputValidation', () => {
     });
 
     describe('when the input is within a tab', () => {
-      it('notifies the tab of the new validations state', () => {
+      it('calls resetTab', () => {
+        instance.context.tab = {};
         instance.setState({ valid: false });
-        let spy = jasmine.createSpy();
-        instance.context.tab = { setValidity: spy };
+        spyOn(instance, 'resetTab');
         instance._handleContentChange();
-
-        expect(spy).toHaveBeenCalledWith(true);
-      });
-
-      it('notifies the tab of the new warnings state', () => {
-        instance.setState({ warning: true });
-        let spy = jasmine.createSpy('warningSpy');
-        instance.context.tab = { setWarning: spy };
-        instance._handleContentChange();
-
-        expect(spy).toHaveBeenCalledWith(false);
+        expect(instance.resetTab).toHaveBeenCalled();
       });
     });
 
@@ -748,6 +738,26 @@ describe('InputValidation', () => {
         instance.setState({ valid: false, warning: true });
         expect(instance._handleContentChange).not.toThrow();
       });
+    });
+  });
+
+  describe('resetTab', () => {
+    it('notifies the tab of the new validations state', () => {
+      instance.setState({ valid: false });
+      let spy = jasmine.createSpy();
+      instance.context.tab = { setValidity: spy };
+      instance.resetTab();
+
+      expect(spy).toHaveBeenCalledWith(true);
+    });
+
+    it('notifies the tab of the new warnings state', () => {
+      instance.setState({ warning: true });
+      let spy = jasmine.createSpy('warningSpy');
+      instance.context.tab = { setWarning: spy };
+      instance.resetTab();
+
+      expect(spy).toHaveBeenCalledWith(false);
     });
   });
 

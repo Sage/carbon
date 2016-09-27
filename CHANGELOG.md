@@ -15,6 +15,7 @@
 
 ## Minor Improvements
 
+* Inputs now reset parent tabs error state when unmounted
 * Valid Date entry formats can be overridden via I18n
 * add helper to focus on input field
 * Table Header - sort column no longer overlaps text when right aligned
@@ -38,13 +39,21 @@
 ## Bug Fixes
 
 * Allow carbon to be incorporated into webpack project
+* Removed footer from datepicker. This will be reverted in the React 15 Upgrade
 * The CSS for applying clears to Row columns has been fixed.
 * Tooltips now close when component receives new props.
 * Text Area now scrollable except when expandable.
 * Pod lifecycle methods are no longer defined as class properties.
 * Input validation decorator was not re-checking validity for warnings
+* Table sort arrows now point in the correct direction.
 * `Pod` applies props to it's container rather than the first child of that container keeping things consistent
 * `Pod` filters out any `title` that is not a string before it is applied as an HTML attribute to the underlying element stopping `Object` being output as a browser generated tooltip
+
+# 0.25.4
+
+## Bug Fixes
+
+* Form now tracks error and warning count on instance as well as in state.
 
 # 0.25.3
 
