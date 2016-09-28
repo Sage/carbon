@@ -30,6 +30,7 @@
 * Carbon Components CSS now imports from relative paths
 * removes uneccessary space from clearfix in `Row` component
 * Aligned MultiActionButton icon to center
+* `Content` components now handles wrapping more robustly with single words longer than the content width wrapping correctly
 * `Filter` handles it's child inputs more robustly by over-riding widths and margins when children are displayed inline
 * Darken colour of text--secondary
 * Fieldset - readonly fields maintain border
