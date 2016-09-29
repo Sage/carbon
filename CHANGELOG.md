@@ -40,11 +40,13 @@
 ## Bug Fixes
 
 * Allow carbon to be incorporated into webpack project
+* Removed footer from datepicker. This will be reverted in the React 15 Upgrade
 * The CSS for applying clears to Row columns has been fixed.
 * Tooltips now close when component receives new props.
 * Text Area now scrollable except when expandable.
 * Pod lifecycle methods are no longer defined as class properties.
 * Input validation decorator was not re-checking validity for warnings
+* Table sort arrows now point in the correct direction.
 * `Pod` applies props to it's container rather than the first child of that container keeping things consistent
 * `Pod` filters out any `title` that is not a string before it is applied as an HTML attribute to the underlying element stopping `Object` being output as a browser generated tooltip
 
