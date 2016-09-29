@@ -1,4 +1,4 @@
-@import "general";
+@import "./../../style-config/general";
 
 .carbon-filter {
   margin: ($grid-margin / 2) 0;
@@ -7,12 +7,25 @@
     text-align: right;
   }
 
+  .common-input,
   > * {
     display: inline-block;
-    margin-left: ($grid-margin / 2);
+    margin-left: $grid-margin;
 
     &:first-child {
       margin-left: 0;
+    }
+  }
+
+  .common-input--label-inline {
+    .common-input__field {
+      margin-left: $grid-margin / 2;
+    }
+
+    .common-input__field,
+    .common-input__label {
+      padding-left: 0;
+      width: auto;
     }
   }
 

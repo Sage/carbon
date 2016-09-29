@@ -1,7 +1,7 @@
-@import 'colors';
-@import 'general';
-@import 'input-field';
-@import 'z-index';
+@import "./../../style-config/colors";
+@import "./../../style-config/z-index";
+@import "./../../style-config/general";
+@import "./../../style-config/input-field";
 
 $dropdown-input-icon-width: 20px !default;
 
