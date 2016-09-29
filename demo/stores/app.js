@@ -263,6 +263,16 @@ let data = ImmutableHelper.parseJSON({
 });
 
 class AppStore extends Store {
+
+  constructor(name, data, Dispatcher, opts = {}) {
+    super(name, data, Dispatcher, opts);
+
+    // Store is connected to alot of components
+    // Therefore adds alot of listeners
+    // Setting to 0 allows unlimited
+    this.setMaxListeners(0);
+  }
+
   /**
    * @method APP_VALUE_UPDATED
    */
