@@ -1,5 +1,5 @@
-@import 'general';
-@import 'colors';
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
 
 $carbon-tabs__header__background-color: #F5F6F7 !default;
 $carbon-tabs__header__border-color: $grey-dark-blue-20 !default;

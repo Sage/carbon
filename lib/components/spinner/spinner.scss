@@ -1,5 +1,5 @@
-@import 'colors';
-@import 'mixins';
+@import "./../../style-config/colors";
+@import "./../../style-config/mixins";
 
 @include keyframes(rotate360) {
   0%    {

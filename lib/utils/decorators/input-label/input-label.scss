@@ -1,5 +1,5 @@
-@import 'general';
-@import 'colors';
+@import "./../../../style-config/colors";
+@import "./../../../style-config/general";
 
 .common-input__label {
   color: $grey-dark;
