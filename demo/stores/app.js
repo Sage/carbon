@@ -267,8 +267,8 @@ class AppStore extends Store {
   constructor(name, data, Dispatcher, opts = {}) {
     super(name, data, Dispatcher, opts);
 
-    // Store is connected to alot of components
-    // Therefore adds alot of listeners
+    // Store is connected to a lot of components
+    // Therefore adds a lot of listeners
     // Setting to 0 allows unlimited
     this.setMaxListeners(0);
   }
