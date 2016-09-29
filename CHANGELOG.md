@@ -8,6 +8,7 @@
 ## Component Enhancements
 
 * `Content` now has additional display options to customise the alignment, to render inline with it's title and to customise the title's width.
+* `InputValidation` uses `Form` and `Input` in order to ensure messages stay on screen for a short while unless the user hovers on another field
 * `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
 * `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).
 * `Row` can enable `columnDivide` to add dividing lines between columns.
