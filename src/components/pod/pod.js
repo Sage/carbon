@@ -240,24 +240,6 @@ class Pod extends React.Component {
   }
 
   /**
-   * returns props removing title if it isn't a string (and therefore would break the html title attribute)
-   *
-   * @method podProps
-   * @return {Object} podProps
-   */
-  podProps = () => {
-    let { ...props } = this.props;
-
-    delete props.className;
-
-    if (!this.titleIsString()) {
-      delete props.title;
-    }
-
-    return props;
-  }
-
-  /**
    * Checks that the title is a string rather than something else as it can be JSX
    *
    * @method titleIsString
@@ -439,10 +421,14 @@ class Pod extends React.Component {
 
     delete props.className;
 
+    if (this.titleIsString()) {
+      props.title = this.props.title;
+    }
+
     if (!this.state.collapsed) { content = this.podContent; }
 
     return (
-      <div className={ this.mainClasses } { ...this.podProps() }>
+      <div className={ this.mainClasses } { ...props }>
         <div className={ this.blockClasses }>
           <div className={ this.contentClasses } >
             { this.podHeader }

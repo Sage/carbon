@@ -8,6 +8,7 @@ import FormInputHelper from './../helpers/form-input-helper';
 let data = ImmutableHelper.parseJSON({
   alert: {
     size: 'extra-small',
+    open: false,
     title: 'Alert!'
   },
   animated_menu_button: {
