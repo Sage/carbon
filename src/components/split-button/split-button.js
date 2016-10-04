@@ -58,6 +58,8 @@ class SplitButton extends React.Component {
     disabled: false
   }
 
+  static safeProps = ['disabled', 'as']
+
   state = {
     /**
      * Tracks whether the additional buttons should be visible.
