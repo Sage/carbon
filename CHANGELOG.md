@@ -9,6 +9,7 @@
 
 * `Content` now has additional display options to customise the alignment, to render inline with it's title and to customise the title's width.
 * `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
+* `Pod` enter triggers edit function and edit element is keyboard accessible
 * `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).
 * `Row` can enable `columnDivide` to add dividing lines between columns.
 * `ShowEditPod` requires a tab press to focus on the first field of the contained form rather than automatically focusing on the first field
