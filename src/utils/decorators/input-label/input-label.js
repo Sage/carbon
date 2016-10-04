@@ -87,6 +87,14 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     labelWidth: React.PropTypes.number,
 
     /**
+     * Aligns label content to the right if set
+     *
+     * @property
+     * @type {String}
+     */
+    labelAlign: React.PropTypes.string,
+
+    /**
      * Pass a percentage to define the width of the label when it
      *  is displayed inline
      *
