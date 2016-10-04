@@ -36,10 +36,12 @@ $carbon-tabs__header__color: $grey-dark !default;
     margin-left: 0;
   }
 
+  &:focus,
   &:hover {
     background: $carbon-tabs__header--selected_border-color;
     border-bottom-color: $carbon-tabs__header--selected_border-color;
     color: $white;
+    outline: none;
   }
 }
 

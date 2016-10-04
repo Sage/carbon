@@ -449,4 +449,19 @@ describe('Tabs', () => {
       expect(items.length).toEqual(3);
     });
   });
+
+  describe("handleTabClick() tab trigger isn't going to happen on any keypress", () => {
+    it("doesn't trigger", () => {
+      let ev = {
+        which: 1,
+        type: 'keydown',
+        target: {
+          dataset: {}
+        }
+      };
+      spyOn(instance, 'updateVisibleTab');
+      instance.handleTabClick(ev);
+      expect(instance.updateVisibleTab).not.toHaveBeenCalled();
+    });
+  });
 });

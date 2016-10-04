@@ -12,6 +12,8 @@
 * `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).
 * `Row` can enable `columnDivide` to add dividing lines between columns.
 * `ShowEditPod` requires a tab press to focus on the first field of the contained form rather than automatically focusing on the first field
+* `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
+* `Tabs` focus state is given the same styles as hover state
 
 ## Minor Improvements
 
