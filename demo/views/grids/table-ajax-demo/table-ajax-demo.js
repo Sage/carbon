@@ -3,7 +3,7 @@ import { connect } from 'utils/flux';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
-import { TableAjax, TableHeader, TableRow, TableCell } from 'components/table-ajax';
+import { TableAjax, TableHeader, TableRow, TableCell, TableSubHeader } from 'components/table-ajax';
 
 import Row from 'components/row';
 import Filter from 'components/filter';
@@ -234,9 +234,9 @@ class TableAjaxDemo extends React.Component {
   get tableHeaderRow() {
     return(
       <TableRow key="header" uniqueID='header' as='header' selectAll={ this.value('selectable') }>
-        <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
+        <TableSubHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
           Country
-        </TableHeader>
+        </TableSubHeader>
         <TableHeader sortable={ this.value('sortable') } name="value">
           Code
         </TableHeader>

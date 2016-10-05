@@ -7,6 +7,7 @@ import ActionToolbar from './../action-toolbar';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
+import TableSubHeader from './table-sub-header';
 import Pager from './../pager';
 import Spinner from './../spinner';
 
@@ -963,5 +964,6 @@ export {
   Table,
   TableRow,
   TableCell,
-  TableHeader
+  TableHeader,
+  TableSubHeader
 };

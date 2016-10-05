@@ -3,7 +3,7 @@ import { connect } from 'utils/flux';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
-import { Table, TableHeader, TableRow, TableCell } from 'components/table';
+import { Table, TableHeader, TableRow, TableCell, TableSubHeader } from 'components/table';
 
 import Row from 'components/row';
 import Checkbox from 'components/checkbox';
