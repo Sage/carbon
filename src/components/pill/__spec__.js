@@ -39,8 +39,8 @@ describe('Pill', () => {
   describe('classNames', () => {
     describe('as', () => {
       describe('when using the default', () => {
-        it('adds a class of carbon-pill--info', () => {
-          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pill--info--empty').length).toEqual(1);
+        it('adds a class of carbon-pill--default', () => {
+          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pill--default--empty').length).toEqual(1);
         });
       });
 
@@ -62,7 +62,7 @@ describe('Pill', () => {
               children='My Text'
             />
           );
-          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pill--info--fill').length).toEqual(1);
+          expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-pill--default--fill').length).toEqual(1);
         });
       });
     });
