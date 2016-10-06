@@ -1,7 +1,7 @@
 import React from 'react';
 import Request from 'superagent';
 import serialize from './../../utils/helpers/serialize';
-import { Table, TableRow, TableCell, TableHeader, TableSubHeader } from './../table';
+import { Table, TableRow, TableCell, TableHeader, TableSubheader } from './../table';
 
 /**
  * A Table Ajax Widget
@@ -363,5 +363,5 @@ export {
   TableRow,
   TableCell,
   TableHeader,
-  TableSubHeader
+  TableSubheader
 };

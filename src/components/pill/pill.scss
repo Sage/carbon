@@ -2,6 +2,7 @@
 
 .carbon-pill {
   background-color: $grey-dark-blue-60;
+  color: $white;
   border-radius: 3px;
   display: inline-block;
   font-size: 11px;
@@ -14,6 +15,7 @@
 
 @mixin pill-theme($type, $color, $border, $background, $color-hover) {
   .carbon-pill--#{$type}--empty {
+    background-color: $white;
     border: 1px solid $color;
     color: $color;
   }

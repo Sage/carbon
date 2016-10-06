@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import TableHeader from './../table-header';
 
 /**
- * A TableSubHeader widget.
+ * A TableSubheader widget.
  * An extension of the TableHeader class which caters for differences in styling.
  */
-class TableSubHeader extends TableHeader {
+class TableSubheader extends TableHeader {
   /**
    * Returns classes to be used on the TH element.
    *
@@ -14,10 +14,10 @@ class TableSubHeader extends TableHeader {
    */
   tableHeaderClasses () {
     return classNames(
-      'carbon-table-sub-header',
+      'carbon-table-subheader',
       super.tableHeaderClasses()
     );
   }
 }
 
-export default TableSubHeader;
+export default TableSubheader;
