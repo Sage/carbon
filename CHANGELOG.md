@@ -1,3 +1,9 @@
+# 0.27.0
+
+## Component Enhancements
+
+* Date field uses I18n for formats and sanitizes inputs for passing
+
 # 0.26.0
 
 ## New Components
