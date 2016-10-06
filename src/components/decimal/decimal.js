@@ -131,8 +131,8 @@ class Decimal extends React.Component {
     del = format.delimiter;
     sep = format.separator;
     regex = precision > 0 ?
-        new RegExp('^[-]?[0-9]*(?:\${del}?[0-9]?)*\${sep}?[0-9]{0,${precision}}$') :
-        new RegExp('^[-]?[0-9]*(?:\${del}?[0-9]?)*$');
+        new RegExp(`^[-]?[0-9]*(?:\${del}?[0-9]?)*\${sep}?[0-9]{0,${precision}}$`) :
+        new RegExp(`^[-]?[0-9]*(?:\${del}?[0-9]?)*$`);
     return regex.test(value);
   }
 
