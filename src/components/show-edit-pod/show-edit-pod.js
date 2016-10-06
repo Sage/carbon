@@ -5,6 +5,7 @@ import Link from './../link';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Events from './../../utils/helpers/events';
 
 import ReactDOM from 'react-dom';
 
@@ -170,6 +171,18 @@ class ShowEditPod extends React.Component {
   }
 
   /**
+   * Handles key down events
+   *
+   * @method onKeyDown
+   * @return {Void}
+   */
+  onKeyDown = (ev) => {
+    if (Events.isEscKey(ev)) {
+      this.onCancelEditForm(ev);
+    }
+  }
+
+  /**
    * True if the component is controlled by state
    *
    * @method stateControlled
@@ -268,6 +281,7 @@ class ShowEditPod extends React.Component {
     delete props.className;
 
     props.as = 'secondary';
+    props.onKeyDown = this.onKeyDown;
 
     return props;
   }

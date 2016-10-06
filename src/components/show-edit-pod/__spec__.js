@@ -4,6 +4,7 @@ import ShowEditPod from './show-edit-pod';
 import Form from './../form';
 import Textbox from './../textbox';
 import Pod from './../pod';
+import Events from './../../utils/helpers/events'
 
 import ReactDOM from 'react-dom';
 
@@ -158,6 +159,28 @@ describe('ShowEditPod', () => {
     });
   });
 
+  describe('onKeyDown', () => {
+    beforeEach(() => {
+      spyOn(instance, 'onCancelEditForm');
+    });
+
+    describe('when the escape key is hit', () => {
+      it('calls onCancelEditForm', () => {
+        spyOn(Events, 'isEscKey').and.returnValue(true);
+        instance.onKeyDown({ which: 666 });
+        expect(instance.onCancelEditForm).toHaveBeenCalledWith({ which: 666 });
+      });
+    });
+
+    describe('when the event is not the escape key', () => {
+      it('does not call onCancelEditForm', () => {
+        spyOn(Events, 'isEscKey').and.returnValue(false);
+        instance.onKeyDown({ which: 666 });
+        expect(instance.onCancelEditForm).not.toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('mainClasses', () => {
     it('returns the base class', () => {
       expect(instance.mainClasses).toEqual('carbon-show-edit-pod')
@@ -262,9 +285,10 @@ describe('ShowEditPod', () => {
   });
 
   describe('editingProps', () => {
-    it('returns the secondary as props', () => {
+    it('returns the defined props', () => {
       let props = instance.editingProps;
       expect(props.as).toEqual('secondary');
+      expect(props.onKeyDown).toEqual(instance.onKeyDown);
     });
 
     it('strips out the className and onEdit props', () => {

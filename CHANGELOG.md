@@ -1,3 +1,9 @@
+# 0.27.0
+
+## Component Enhancements
+
+* `ShowEditPod` now closes and cancels editing on Escape keydown
+
 # 0.26.0
 
 ## New Components
