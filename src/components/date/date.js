@@ -48,7 +48,7 @@ class Date extends React.Component {
      * @type {String}
      * @default Today's date
      */
-    defaultValue: moment().format("YYYY/MM/DD")
+    defaultValue: moment().format("YYYY-MM-DD")
   }
 
   state = {
@@ -415,7 +415,7 @@ class Date extends React.Component {
    * @return {String} sanitized input
    */
   _sanitizeDateInput(input) {
-    return input.replace(/[^0-9A-zÀ-ÿ\s\/\.\-]/g, "").replace(/[-.\s]/g, "/").toLowerCase()
+    return input.replace(/[^0-9A-zÀ-ÿ\s\/\.\-]/g, "").replace(/[-.\s]/g, "/").toLowerCase();
   }
 }
 ))));
@@ -443,7 +443,7 @@ function visibleFormat() {
  * @return {Array} formatted date strings
  */
 function validFormats() {
-  return I18n.t('date.formats.inputs', { defaultValue: ["MMM/DD/YY", "DD/MM", "DD/MM/YYYY"] });
+  return I18n.t('date.formats.inputs', { defaultValue: ["MMM/DD/YY", "DD/MM", "DD/MM/YYYY", "DD/MMM/YYYY", "YYYY/MM/DD"] });
 }
 
 /**
