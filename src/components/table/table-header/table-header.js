@@ -111,7 +111,7 @@ class TableHeader extends React.Component {
    */
   get sortIconHTML() {
     if (this.sorted) {
-      let type = this.context.sortOrder === 'desc' ? 'sort-up' : 'sort-down';
+      let type = this.context.sortOrder === 'desc' ? 'sort-down' : 'sort-up';
       return <Icon type={ type } className={ this.sortIconClasses } />;
     }
   }

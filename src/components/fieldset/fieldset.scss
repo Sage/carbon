@@ -44,4 +44,14 @@
       border-radius: 0 0 $input-border-radius $input-border-radius;
     }
   }
+
+  .common-input--readonly {
+    .common-input__input {
+      border: $input-common-border;
+    }
+
+    .common-input__input:hover {
+      border: $input-common-border;
+    }
+  }
 }

@@ -1,6 +1,6 @@
-@import "general";
-@import "colors";
-@import 'z-index';
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
+@import "./../../style-config/z-index";
 
 .carbon-heading__header {
   border-bottom: 1px solid $border-color;

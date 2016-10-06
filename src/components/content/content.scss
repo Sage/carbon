@@ -17,6 +17,7 @@
 .carbon-content__body {
   margin-top: 2px;
   white-space: pre-wrap;
+  word-wrap: break-word;
 
   .carbon-content--inline & {
     display: inline-block;
