@@ -1,3 +1,14 @@
+# Next
+
+## New Components
+
+* Subheader component created to be used with the Table and TableAjax components
+
+## Breaking Change - Default colour for Pill component has changed.
+
+* The default behaviour for the Pill component was to be set as `info`. This is now set as `default` which is a grey colour.
+* Ensure to check for any implementations of the Pill component where the `as` prop is not defined and set this to `as='info'`.
+
 # 0.26.0
 
 ## New Components
