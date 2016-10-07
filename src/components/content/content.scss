@@ -50,3 +50,16 @@
 .carbon-content--align-right {
   text-align: right;
 }
+
+.carbon-content--body-full-width {
+  .carbon-content__title {
+    text-align: right;
+  }
+}
+
+.carbon-content--body-full-width {
+  .carbon-content__body {
+    margin-top: 15px;
+    text-align: left;
+  }
+}
