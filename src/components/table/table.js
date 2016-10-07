@@ -724,7 +724,7 @@ class Table extends React.Component {
     return {
       // What if paginate if false - think about when next change functionality is added
       currentPage: currentPage,
-      filter: props.filter ? props.filter.toJS() : {},
+      filter: props.filter || Immutable.OrderedMap(),
       pageSize: props.pageSize || '',
       sortOrder: props.sortOrder || '',
       sortedColumn: props.sortedColumn || ''

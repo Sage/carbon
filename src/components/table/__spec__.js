@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
+import ImmutableHelper from './../../utils/helpers/immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
 
@@ -399,7 +400,7 @@ describe('Table', () => {
     let data;
 
     beforeEach(() => {
-      data = Immutable.fromJS({ foo: "bar" });
+      data = ImmutableHelper.parseJSON({ foo: "bar" });
       instance = TestUtils.renderIntoDocument(
         <Table filter={ data }></Table>
       );
@@ -419,7 +420,7 @@ describe('Table', () => {
         instance.componentWillReceiveProps({ filter: data });
         expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('filter', {
           currentPage: '',
-          filter: { foo: 'qux' },
+          filter: data,
           pageSize: '',
           sortOrder: '',
           sortedColumn: ''
@@ -635,7 +636,7 @@ describe('Table', () => {
     it('gathers all relevent props to emit', () => {
       expect(instancePager.emitOptions()).toEqual({
         currentPage: '1',
-        filter: {},
+        filter: Immutable.OrderedMap(),
         pageSize: '10',
         sortOrder: '',
         sortedColumn: ''
@@ -654,7 +655,7 @@ describe('Table', () => {
 
         expect(instanceCustomSort.emitOptions(props)).toEqual({
           currentPage: '1',
-          filter: {},
+          filter: Immutable.OrderedMap(),
           pageSize: '10',
           sortOrder: 'asc',
           sortedColumn: 'foo'
@@ -666,7 +667,7 @@ describe('Table', () => {
       it('emits the custom props', () => {
         expect(instanceCustomSort.emitOptions()).toEqual({
           currentPage: '10',
-          filter: {},
+          filter: Immutable.OrderedMap(),
           pageSize: '25',
           sortOrder: 'desc',
           sortedColumn: 'name'
@@ -677,7 +678,7 @@ describe('Table', () => {
     it('gathers all relevent props to emit using passed in props', () => {
       let props = {
         currentPage: '9',
-        filter: Immutable.fromJS({ foo: 'bar' }),
+        filter: ImmutableHelper.parseJSON({ foo: 'bar' }),
         pageSize: '100',
         sortOrder: 'asc',
         sortedColumn: 'foo'
@@ -685,7 +686,7 @@ describe('Table', () => {
 
       expect(instancePager.emitOptions(props)).toEqual({
         currentPage: '9',
-        filter: { foo: 'bar' },
+        filter: props.filter,
         pageSize: '100',
         sortOrder: 'asc',
         sortedColumn: 'foo'

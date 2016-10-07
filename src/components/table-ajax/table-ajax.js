@@ -1,6 +1,7 @@
 import React from 'react';
 import Request from 'superagent';
 import serialize from './../../utils/helpers/serialize';
+import Immutable from 'immutable';
 import { Table, TableRow, TableCell, TableHeader } from './../table';
 
 /**
@@ -314,7 +315,7 @@ class TableAjax extends Table {
    * @return {Object} params for query
    */
   queryParams = (element, options) => {
-    let query = options.filter || {};
+    let query =  { name: options.filter.get('name') || '' };
     query.page = (element === "filter") ? "1" : options.currentPage;
     query.rows = options.pageSize;
     if (options.sortOrder) { query.sord = options.sortOrder; }
@@ -332,7 +333,7 @@ class TableAjax extends Table {
   emitOptions = (props = this.props) => {
     return {
       currentPage: this.state.currentPage,
-      filter: props.filter ? props.filter.toJS() : {},
+      filter: props.filter || Immutable.Map(),
       pageSize: this.state.pageSize,
       sortedColumn: this.state.sortedColumn,
       sortOrder: this.state.sortOrder
