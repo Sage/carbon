@@ -32,12 +32,12 @@ describe('MenuItem', () => {
 
     it('renders a div with correct classes', () => {
       let item = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(item.props.className).toEqual('carbon-menu-item foobar carbon-menu-item--has-submenu');
+      expect(item.classList).toMatch('carbon-menu-item foobar carbon-menu-item--has-submenu');
     });
 
     it('renders a submenu with classes', () => {
       let submenu = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[2];
-      expect(submenu.props.className).toEqual('carbon-menu-item__submenu carbon-menu-item__submenu--left');
+      expect(submenu.classList).toMatch('carbon-menu-item__submenu carbon-menu-item__submenu--left');
     });
   });
 
