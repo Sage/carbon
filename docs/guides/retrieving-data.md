@@ -31,6 +31,16 @@ let data = {
 
 *NOTE:* The platform also provides globally accessible JavaScript variables with useful reusable data for `global.APP_DATA`, `global.USER_DATA` and `global.BUSINESS_DATA`.
 
+If you are using Immutable data this initial data should be wrapped in a parseJSON function:
+
+```js
+import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
+
+let data = ImmutableHelper.parseJSON({
+  contact: global.VIEW_DATA.contact
+});
+```
+
 ## Not On Page Load
 
 If you do not need the data on page load, then you should retrieve the data via a JSON endpoint. This means we are not wasting server load for data we do not immediately need and only ask the server for the information when we need it.

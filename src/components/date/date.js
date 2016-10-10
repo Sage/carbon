@@ -197,14 +197,14 @@ class Date extends React.Component {
    * @return {void}
    */
   handleVisibleInputChange = (ev) => {
-    // TODO: This needs more thought i18n with multiple options
-    let formats = [visibleFormat()].concat(validFormats()),
-        validDate = moment(ev.target.value, formats).isValid(),
+    let input = this._sanitizeDateInput(ev.target.value),
+        formats = [visibleFormat()].concat(validFormats()),
+        validDate = moment(input, formats, I18n.locale, true).isValid(),
         newState = { visibleValue: ev.target.value };
 
     // Updates the hidden value after first formatting to default hidden format
     if (validDate) {
-      let hiddenValue = formatValue(ev.target.value, formats, hiddenFormat());
+      let hiddenValue = formatValue(input, formats, hiddenFormat());
       newState.viewDate = hiddenValue;
       this.emitOnChangeCallback(hiddenValue);
     }
@@ -403,6 +403,20 @@ class Date extends React.Component {
       </div>
     );
   }
+
+  /**
+   * Sanitizes all valid date separators ( . - 'whitespace' ) replacing them
+   * with a slash
+   *
+   * This allows us to compare against one separator in the i18n string. DD/MM/YYYY
+   *
+   * @method _sanitizeDateInput
+   * @private
+   * @return {String} sanitized input
+   */
+  _sanitizeDateInput(input) {
+    return input.replace(/[^0-9A-zÀ-ÿ\s\/\.\-]/g, "").replace(/[-.\s]/g, "/").toLowerCase();
+  }
 }
 ))));
 
@@ -429,7 +443,7 @@ function visibleFormat() {
  * @return {Array} formatted date strings
  */
 function validFormats() {
-  return I18n.t('date.formats.inputs', { defaultValue: ["MMM DD YY", "DD-MM", "DD-MM-YYYY"] });
+  return I18n.t('date.formats.inputs', { defaultValue: ["MMM/DD/YY", "DD/MM", "DD/MM/YYYY", "DD/MMM/YYYY", "YYYY/MM/DD"] });
 }
 
 /**
@@ -454,7 +468,7 @@ function hiddenFormat() {
  * @return {String} formatted date
  */
 function formatValue(val, formatFrom, formatTo) {
-  let date = moment(val, formatFrom);
+  let date = moment(val, formatFrom, I18n.locale, true);
   return date.format(formatTo);
 }
 
