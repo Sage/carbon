@@ -138,9 +138,16 @@ describe('Decimal', () => {
         spyOn(instance, 'isValidDecimal').and.callThrough();
       });
 
-      it('checks if the value is a valid decimal', () => {
+      it('checks if the value is a valid decimal if precision is greater than 0', () => {
         TestUtils.Simulate.change(instance._input, { target: { value: "1,0,0,0.00" } });
-        expect(instance.isValidDecimal).toHaveBeenCalledWith("1,0,0,0.00");
+        expect(instance.isValidDecimal).toHaveBeenCalledWith("1,0,0,0.00", 2);
+      });
+
+      it('checks if the value is a valid integer if precision is 0', () => {
+        instance = TestUtils.renderIntoDocument(<Decimal name="total" value="1000" precision={ 0 } />);
+        spyOn(instance, 'isValidDecimal').and.callThrough();
+        TestUtils.Simulate.change(instance._input, { target: { value: "2,0,0,0" } });
+        expect(instance.isValidDecimal).toHaveBeenCalledWith("2,0,0,0", 0);
       });
 
       describe('when it is as a valid decimal', () => {
