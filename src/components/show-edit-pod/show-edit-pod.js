@@ -271,7 +271,7 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get contentProps() {
-    let { ...props } = validProps(this);
+    let { ...props } = validProps(this, Object.keys(Pod.propTypes));
 
     delete props.onEdit;
     delete props.className;
@@ -289,7 +289,7 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get editingProps() {
-    let { ...props } = validProps(this);
+    let { ...props } = validProps(this, Object.keys(Pod.propTypes));
 
     delete props.onEdit;
     delete props.className;
