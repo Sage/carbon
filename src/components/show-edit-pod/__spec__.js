@@ -50,6 +50,45 @@ describe('ShowEditPod', () => {
     });
   });
 
+  describe('componentDidMount', () => {
+    let focusSpy;
+
+    beforeEach(() => {
+      focusSpy = jasmine.createSpy('focus');
+      spyOn(ReactDOM, 'findDOMNode').and.returnValue({ focus: focusSpy });
+    });
+
+    describe('when the component is not mounted in an editing state', () => {
+      it('does not focus on the pod', () => {
+        instance = TestUtils.renderIntoDocument(
+          <ShowEditPod
+            afterFormValidation={ spy }
+            onCancel={ cancelSpy }
+            editFields={ editFields }
+            editing={ false }
+          />
+        );
+        expect(ReactDOM.findDOMNode).not.toHaveBeenCalled();
+        expect(focusSpy).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when the component is mounted in an editing state', () => {
+      it('focuses on the pod', () => {
+        instance = TestUtils.renderIntoDocument(
+          <ShowEditPod
+            afterFormValidation={ spy }
+            onCancel={ cancelSpy }
+            editFields={ editFields }
+            editing={ true }
+          />
+        );
+        expect(ReactDOM.findDOMNode).toHaveBeenCalled();
+        expect(focusSpy).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('onEdit', () => {
     describe('when controlled by state', () => {
       it('sets the editing state to true', () => {

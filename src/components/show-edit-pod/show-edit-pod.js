@@ -120,6 +120,17 @@ class ShowEditPod extends React.Component {
   }
 
   /**
+   * if component is mounted in editing state, focus on pod
+   *
+   * @method componentDidMount
+   */
+  componentDidMount() {
+    if (this.props.editing) {
+      this.__focusOnPod();
+    }
+  }
+
+  /**
    * Called when the edit button is clicked
    * Emits callback when present
    *
@@ -134,7 +145,7 @@ class ShowEditPod extends React.Component {
       this.setState({ editing: true });
     }
 
-    ReactDOM.findDOMNode(this.refs.podFocus).focus();
+    this.__focusOnPod();
   }
 
   /**
@@ -312,6 +323,10 @@ class ShowEditPod extends React.Component {
         </ReactCSSTransitionGroup>
       </Pod>
     );
+  }
+
+  __focusOnPod = () => {
+    ReactDOM.findDOMNode(this.refs.podFocus).focus();
   }
 }
 

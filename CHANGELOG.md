@@ -2,7 +2,8 @@
 
 ## Component Enhancements
 
-* `ShowEditPod` now closes and cancels editing on Escape keydown
+* `ShowEditPod` now closes and cancels editing on Escape keydown.
+* `ShowEditPod` puts focus on pod if mounted in editing state.
 * `Date` field uses I18n for formats and sanitizes inputs for passing
 * `Decimal` component can prevent decimal value from exceeding the precision setting
 
