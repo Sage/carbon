@@ -25,7 +25,7 @@ describe('Row', () => {
 
     describe('render', () => {
       it('renders a parent div with calculated CSS classes', () => {
-        let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row')
+        let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row');
         expect(rowNode.className).toEqual('carbon-row carbon-row--gutter-medium foobar carbon-row--columns-4');
       });
 
@@ -36,17 +36,15 @@ describe('Row', () => {
 
     describe('with immutable data', () => {
       it('renders the correct number of columns', () => {
-        let data = Immutable.fromJS([{
-          name: 'foo'
-        }, {
-          name: 'bar'
-        }]);
+        let data = Immutable.fromJS([
+          { name: 'foo' }, { name: 'bar' }
+        ]);
 
         instance = TestUtils.renderIntoDocument(
           <Row className="foobar">
             {
-              data.map((item) => {
-                return <div>{ item.get('name') }</div>;
+              data.map((item, index) => {
+                return <div key={`name-${index}`} >{ item.get('name') }</div>;
               })
             }
           </Row>
