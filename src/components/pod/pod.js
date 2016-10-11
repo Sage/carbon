@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from './../icon';
 import Link from './../link';
 import classNames from 'classnames';
+import Event from './../../utils/helpers/events';
 
 /**
  * A Pod widget.
@@ -392,12 +393,20 @@ class Pod extends React.Component {
     } else if (typeof this.props.onEdit === "object") {
       props = this.props.onEdit;
     } else {
-      props.onClick = this.props.onEdit;
+      props.onClick = this.processPodEditEvent;
+      props.onKeyDown = this.processPodEditEvent;
     }
 
     return (
-      <Link icon="edit" className={ this.editActionClasses } { ...props } />
+      <Link icon="edit" className={ this.editActionClasses } { ...props } tabIndex='0'/>
     );
+  }
+
+  processPodEditEvent = (ev) => {
+    if (Event.isEnterKey(ev) || !Event.isEventType(ev, 'keydown')) {
+      ev.preventDefault();
+      this.props.onEdit();
+    }
   }
 
   /**
