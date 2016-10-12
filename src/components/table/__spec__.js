@@ -619,7 +619,7 @@ describe('Table', () => {
       expect(spy).toHaveBeenCalledWith('pager', options);
     });
 
-    describe('if an emitPageSizeChange callback was passed', () => {
+    describe('if an onPageSizeChange callback was passed', () => {
       it('runs the callback with the new page size', () => {
         let callbackSpy = jasmine.createSpy();
         let instanceCallBack = TestUtils.renderIntoDocument(
@@ -628,7 +628,7 @@ describe('Table', () => {
             paginate={ true }
             currentPage='1'
             pageSize='10'
-            emitPageSizeChange={ callbackSpy }
+            onPageSizeChange={ callbackSpy }
             totalRecords='100'
             onChange={ spy }
           >

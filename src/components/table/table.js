@@ -668,8 +668,8 @@ class Table extends React.Component {
    * @return {Void}
    */
   onPagination = (currentPage, pageSize) => {
-    if (this.props.emitPageSizeChange) {
-      this.props.emitPageSizeChange(pageSize);
+    if (this.props.onPageSizeChange) {
+      this.props.onPageSizeChange(pageSize);
     }
     let options = this.emitOptions();
     options.currentPage = currentPage;
