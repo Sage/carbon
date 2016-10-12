@@ -307,8 +307,6 @@ class ShowEditPod extends React.Component {
   }
 
   /**
-   * Render function
-   *
    * @method render
    */
   render() {
@@ -325,6 +323,11 @@ class ShowEditPod extends React.Component {
     );
   }
 
+  /**
+   * Focuses on the pod component.
+   *
+   * @method __focusOnPod
+   */
   __focusOnPod = () => {
     ReactDOM.findDOMNode(this.refs.podFocus).focus();
   }
