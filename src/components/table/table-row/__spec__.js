@@ -363,7 +363,6 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(
           <Table selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>
         );
-        debugger
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         expect(row.children.length).toEqual(3);

@@ -75,7 +75,7 @@ describe('Dialog', () => {
       describe('when the dialog is closed', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog onCancel={ onCancel } />
+            <Dialog open={ false } onCancel={ onCancel } />
           );
         });
 
@@ -252,7 +252,7 @@ describe('Dialog', () => {
     describe('when dialog is closed', () => {
       it('renders a parent div with mainClasses attached', () => {
         instance = TestUtils.renderIntoDocument(
-          <Dialog onCancel={ onCancel } />
+          <Dialog open={ false } onCancel={ onCancel } />
         );
         let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
         expect(dialogNode.classList[0]).toEqual('carbon-dialog');

@@ -76,7 +76,7 @@ describe('Help', () => {
     });
 
     it('passes the href if provided', () => {
-      expect(hrefAnchor.props.href).toEqual('www.foo.com');
+      expect(hrefAnchor.href).toMatch('www.foo.com');
     });
   });
 });
