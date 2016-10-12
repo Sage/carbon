@@ -49,6 +49,7 @@
     "lodash": "~3.10.1",
     "moment": "~2.10.6",
     "react-date-picker": "~3.1.5",
+    "react-dnd": "^2.1.4",
     "react-highcharts": "~5.0.4",
     "superagent": "~1.4.0"
   }
