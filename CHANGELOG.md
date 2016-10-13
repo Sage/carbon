@@ -1,3 +1,8 @@
+# NEXT
+
+## Component Enhancements
+* `Rainbow` expects the Highcharts library to be already loaded.
+
 # 0.27.0
 
 ## :warning: Breaking Change - Default colour for Pill component has changed. :warning:
