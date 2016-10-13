@@ -13,6 +13,7 @@
 
 * `Date` field uses I18n for formats and sanitizes inputs for passing
 * `Decimal` component can prevent decimal value from exceeding the precision setting
+* `Step` wizard sub-component allows to disable itself by passing down new property `disabled`
 
 # 0.26.0
 
