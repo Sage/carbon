@@ -165,13 +165,13 @@ describe('Step', () => {
       });
     });
 
-    describe('when step is disabled', () => {
-      it('returns true', () => {
+    describe('when step is enabled', () => {
+      it('returns false', () => {
         instance = TestUtils.renderIntoDocument(
-          <Step disabled={ true }>Demo Step</Step>
+          <Step enabled={ true }>Demo Step</Step>
         );
         instance.context = stepContext;
-        expect(instance.stepDisabled).toBeTruthy();
+        expect(instance.stepDisabled).toBeFalsy();
       });
     });
   });
