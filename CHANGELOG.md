@@ -1,5 +1,14 @@
 # 0.27.0
 
+## :warning: Breaking Change - Default colour for Pill component has changed. :warning:
+
+* The default behaviour for the Pill component was to previously set as `info`. This is now set as `default` which is a grey colour.
+* Ensure you check for any implementations of the Pill component where the `as` prop is not defined and set this to `as='info'`.
+
+## New Components
+
+* Subheader component created to be used with the Table and TableAjax components
+
 ## Component Enhancements
 
 * `Date` field uses I18n for formats and sanitizes inputs for passing

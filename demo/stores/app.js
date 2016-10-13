@@ -126,7 +126,7 @@ let data = ImmutableHelper.parseJSON({
     value: 0
   },
   pill: {
-    as: 'new',
+    as: 'default',
     text: 'PILL'
   },
   portrait: {
