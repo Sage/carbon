@@ -72,7 +72,7 @@ describe('Pager', () => {
     describe('when element is next', () => {
       it('emits onPagination increasing currentPage by 1', () => {
         instance.emitChangeCallback('next', {});
-        expect(spy1).toHaveBeenCalledWith('2', '10');
+        expect(spy1).toHaveBeenCalledWith('2', '10', 'next');
       });
     });
 
@@ -80,14 +80,14 @@ describe('Pager', () => {
       it('emit a new page from the input field', () => {
         let event = { target: { value: '5' } };
         instance.emitChangeCallback('input', event);
-        expect(spy1).toHaveBeenCalledWith('5', '10');
+        expect(spy1).toHaveBeenCalledWith('5', '10', 'input');
       });
 
       describe('when input is greater than the max page number', () => {
         it('emit a max page as the new current page', () => {
           let event = { target: { value: '100' } };
           instance.emitChangeCallback('input', event);
-          expect(spy1).toHaveBeenCalledWith('10', '10');
+          expect(spy1).toHaveBeenCalledWith('10', '10', 'input');
         });
       });
 
@@ -95,7 +95,7 @@ describe('Pager', () => {
         it('emit first page as the new current page', () => {
           let event = { target: { value: '0' } };
           instance.emitChangeCallback('input', event);
-          expect(spy1).toHaveBeenCalledWith('1', '10');
+          expect(spy1).toHaveBeenCalledWith('1', '10', 'input');
         });
       });
 
@@ -115,7 +115,7 @@ describe('Pager', () => {
     describe('when element is previous', () => {
       it('emits onPagination decreasing currentPage by 1', () => {
         instance2.emitChangeCallback('previous', {});
-        expect(spy2).toHaveBeenCalledWith('1', '10');
+        expect(spy2).toHaveBeenCalledWith('1', '10', 'previous');
       });
     });
 
@@ -123,7 +123,7 @@ describe('Pager', () => {
       it('emits the new page size', () => {
         let event = { target: { value: '50' } };
         instance.emitChangeCallback('size', event);
-        expect(spy1).toHaveBeenCalledWith('1', '50');
+        expect(spy1).toHaveBeenCalledWith('1', '50', 'size');
       });
 
       describe('when page size is not a correct option', () => {

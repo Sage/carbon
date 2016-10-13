@@ -620,9 +620,11 @@ describe('Table', () => {
     });
 
     describe('if an onPageSizeChange callback was passed', () => {
-      it('runs the callback with the new page size', () => {
-        let callbackSpy = jasmine.createSpy();
-        let instanceCallBack = TestUtils.renderIntoDocument(
+      let callbackSpy, instanceCallBack;
+
+      beforeEach(() => {
+        callbackSpy = jasmine.createSpy();
+        instanceCallBack = TestUtils.renderIntoDocument(
           <Table
             className="foo"
             paginate={ true }
@@ -635,9 +637,16 @@ describe('Table', () => {
             foo
           </Table>
         );
+      });
 
-        instanceCallBack.onPagination('2', '50');
+      it('runs the callback with the new page size', () => {
+        instanceCallBack.onPagination('2', '50', 'size');
         expect(callbackSpy).toHaveBeenCalledWith('50');
+      });
+
+      it('does not run the callback if the page size has not changed', () => {
+        instanceCallBack.onPagination('2', '50', 'next');
+        expect(callbackSpy).not.toHaveBeenCalled();
       });
     });
   });
