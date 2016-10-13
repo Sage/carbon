@@ -164,6 +164,16 @@ describe('Step', () => {
         expect(instance.stepDisabled).toBeTruthy();
       });
     });
+
+    describe('when step is disabled', () => {
+      it('returns true', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Step disabled={ true }>Demo Step</Step>
+        );
+        instance.context = stepContext;
+        expect(instance.stepDisabled).toBeTruthy();
+      });
+    });
   });
 
   describe('stepProcessed', () => {
@@ -331,24 +341,12 @@ describe('Step', () => {
       expect(instance.mainClasses).toContain('multi-step-wizard-step--pending');
     });
 
-    describe('when the step is not the current', () => {
-      it('adds a className', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Step stepNumber={ 2 }>Demo Step</Step>
-        );
-        instance.context = stepContext;
-        expect(instance.mainClasses).toContain('multi-step-wizard-step--disabled');
-      });
-    });
-
-    describe('when the step is disabled', () => {
-      it('adds a className', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Step disabled={ true }>Demo Step</Step>
-        );
-        instance.context = stepContext;
-        expect(instance.mainClasses).toContain('multi-step-wizard-step--disabled');
-      });
+    it('adds a className if the step is disabled', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Step stepNumber={ 2 }>Demo Step</Step>
+      );
+      instance.context = stepContext;
+      expect(instance.mainClasses).toContain('multi-step-wizard-step--disabled');
     });
 
     it('adds a className if the step is the last step', () => {

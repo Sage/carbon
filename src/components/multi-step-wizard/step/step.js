@@ -143,8 +143,11 @@ class Step extends React.Component {
    * @return {Boolean}
    */
   get stepDisabled() {
-    if (this.wizard.enableInactiveSteps || this.props.disabled === false) {
+    if (this.wizard.enableInactiveSteps) {
       return false;
+    }
+    if (this.props.disabled === true) {
+      return true;
     }
     return this.props.stepNumber !== this.currentStepNumber;
   }
