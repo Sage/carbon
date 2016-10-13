@@ -13,7 +13,6 @@
 
 * `Date` field uses I18n for formats and sanitizes inputs for passing
 * `Decimal` component can prevent decimal value from exceeding the precision setting
->>>>>>> master
 
 # 0.26.0
 
