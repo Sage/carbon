@@ -4,7 +4,7 @@
 
 * `Date` field uses I18n for formats and sanitizes inputs for passing
 * `Decimal` component can prevent decimal value from exceeding the precision setting
-* `Table` components now accept an `emitPageSizeChange` callback function as a prop.
+* `Table` components now accept an `onPageSizeChange` callback function as a prop.
 
 # 0.26.0
 

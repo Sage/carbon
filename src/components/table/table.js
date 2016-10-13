@@ -172,6 +172,14 @@ class Table extends React.Component {
     onHighlight: React.PropTypes.func,
 
     /**
+     * A callback for when the page size changes.
+     *
+     * @property onPageSizeChange
+     * @type {Function}
+     */
+    onPageSizeChange: React.PropTypes.func,
+
+    /**
      * Pagination
      * Total number of records in the grid
      *
