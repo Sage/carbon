@@ -52,7 +52,7 @@ class Step extends React.Component {
   }
 
   static defaultProps = {
-    defaultButton: true
+    defaultButton: true,
     disabled: false
   }
 
