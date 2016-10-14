@@ -173,6 +173,14 @@ class Table extends React.Component {
     onHighlight: React.PropTypes.func,
 
     /**
+     * A callback for when the page size changes.
+     *
+     * @property onPageSizeChange
+     * @type {Function}
+     */
+    onPageSizeChange: React.PropTypes.func,
+
+    /**
      * Pagination
      * Total number of records in the grid
      *
@@ -668,7 +676,10 @@ class Table extends React.Component {
    * @param {String} pageSize
    * @return {Void}
    */
-  onPagination = (currentPage, pageSize) => {
+  onPagination = (currentPage, pageSize, element) => {
+    if (this.props.onPageSizeChange && element === 'size') {
+      this.props.onPageSizeChange(pageSize);
+    }
     let options = this.emitOptions();
     options.currentPage = currentPage;
     options.pageSize = pageSize;
