@@ -1,0 +1,4 @@
+{
+  "main": "./submenu.js",
+  "style": "./submenu.scss"
+}

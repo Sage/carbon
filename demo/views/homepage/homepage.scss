@@ -1,3 +1,13 @@
+@import "colors";
+
 .carbon-homepage {
   margin-top: 20px;
+}
+
+.home-menu {
+  background-color: $white;
+  max-width: 244px;
+  margin: 0;
+  padding: 20px 35px;
+  width: 20%;
 }
