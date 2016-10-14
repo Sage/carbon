@@ -148,7 +148,7 @@ class Pager extends React.Component {
     switch (element) {
       case 'next':
         newPage = String(Number(this.props.currentPage) + 1);
-        this.props.onPagination(newPage, this.props.pageSize);
+        this.props.onPagination(newPage, this.props.pageSize, element);
         break;
 
       case 'input':
@@ -167,12 +167,12 @@ class Pager extends React.Component {
           newPage = "1";
         }
 
-        this.props.onPagination(newPage, this.props.pageSize);
+        this.props.onPagination(newPage, this.props.pageSize, element);
         break;
 
       case 'previous':
         newPage = String(Number(this.props.currentPage) - 1);
-        this.props.onPagination(newPage, this.props.pageSize);
+        this.props.onPagination(newPage, this.props.pageSize, element);
         break;
 
       case 'size':
@@ -181,7 +181,7 @@ class Pager extends React.Component {
           break;
         }
         // TODO: Clever current page correction
-        this.props.onPagination('1', newPageSize);
+        this.props.onPagination('1', newPageSize, element);
         break;
     }
   }

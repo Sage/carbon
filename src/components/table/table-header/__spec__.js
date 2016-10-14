@@ -32,7 +32,7 @@ describe('TableHeader', () => {
     instanceCustomSort = TestUtils.renderIntoDocument(
       <Table onChange={ changeSpy } sortOrder='desc'>
         <TableRow>
-          <TableHeader sortable={ true } align='right' name='name'/>
+          <TableHeader sortable={ true } align='right' name='name' />
         </TableRow>
       </Table>
     );

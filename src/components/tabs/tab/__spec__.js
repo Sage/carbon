@@ -63,7 +63,7 @@ describe('Tab', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(div.className).toEqual('carbon-tab ');
     });
-    
+
     it('renders all children passed to is', () => {
       let inputs = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
       expect(inputs.length).toEqual(2);
