@@ -31,8 +31,10 @@ import Step from './step';
  * in a step component, you can pass a 'defaultButton' prop in the corresponding step component and set it to false.
  * Also, if you want to add additional buttons beside the default Next and Back buttons, you can pass a 'extraButtons'
  * prop in the corresponding step component with your extra buttons.
+ * Individual Steps can be optionally disabled by a passing a prop of `enabled={ false }`.
  * e.g. <MultiStepWizard steps={ [<Step1 defaultButton={ false } />, <Step2 />] } />
  *      <MultiStepWizard steps={ [<Step1 />, <Step2 extraButtons={ [<Button>Cancel</Button>] }) />] } />
+ *      <MultiStepWizard steps={ [<Step1 />, <Step2 enabled={ false } />] } />
  *
  * If you want to complete the wizard without going through steps, you can pass a 'completed' prop and set it to true.
  *
