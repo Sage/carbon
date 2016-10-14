@@ -1,4 +1,25 @@
-.carbon-app-sidebar .carbon-sidebar__sidebar {
-  background-color: #FFF;
-  box-shadow: none;
+@import 'colors';
+
+.app-sidebar {
+  background-color: $white;
+
+  &__menu {
+    margin: 0;
+    padding: 20px 35px 20px 0;
+    width: 100%;
+
+    .carbon-list-item .carbon-list-item {
+      padding-left: 10px;
+    }
+  }
+
+  .carbon-sidebar__sidebar {
+    background-color: $white;
+    box-shadow: none;
+    border: none;
+  }
+
+  .carbon-sidebar-header {
+    border: none;
+  }
 }

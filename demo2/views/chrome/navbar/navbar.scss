@@ -1,4 +1,10 @@
-.carbon-homepage__navbar {
+.navbar {
   position: fixed;
   z-index: 10;
+}
+
+.navbar__menu-toggle {
+  @media (min-width: 1024px) {
+    display: none;
+  }
 }

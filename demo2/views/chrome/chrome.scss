@@ -1,3 +1,26 @@
-.carbon-demo--desktop .carbon-demo__content {
-  margin-left: 290px; // need to setup some vars for these sizes to share with sidebar
+.chrome {
+  &__menu {
+    @media (min-width: 1024px) {
+      float: left;
+      max-width: 244px;
+      position: relative;
+      width: 17.84%;
+    }
+    .carbon-sidebar__sidebar {
+      @media (min-width: 1024px) {
+        position: relative;
+        width: auto;
+      }
+    }
+  }
+  &__content {
+    @media (min-width: 1024px) {
+      float: right;
+      max-width: 1124px;
+      width: 82.16%;
+    }
+  }
+  margin: 0 auto;
+  max-width: 1368px;
+  width: 100%;
 }
