@@ -15,6 +15,7 @@
 * `Decimal` component can prevent decimal value from exceeding the precision setting
 * `Table` components now accept an `onPageSizeChange` callback function as a prop.
 * `Pager` component now emits which element has changed.
+* `Content` component can take props of `bodyFullWidth` to set component width to 100%;
 
 # 0.26.0
 
