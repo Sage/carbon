@@ -13,7 +13,9 @@
 
 * `Date` field uses I18n for formats and sanitizes inputs for passing
 * `Decimal` component can prevent decimal value from exceeding the precision setting
-* `Step` wizard sub-component allows to enable itself by passing down new property `enabled`
+* `Step` wizard sub-component now accepts a prop of `enabled`.
+* `Table` components now accept an `onPageSizeChange` callback function as a prop.
+* `Pager` component now emits which element has changed.
 
 # 0.26.0
 
