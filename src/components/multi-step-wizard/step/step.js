@@ -39,7 +39,15 @@ class Step extends React.Component {
      * @property extraButtons
      * @type {Array}
      */
-    extraButtons: React.PropTypes.arrayOf(React.PropTypes.object)
+    extraButtons: React.PropTypes.arrayOf(React.PropTypes.object),
+
+    /**
+     * Determines if the step is enabled
+     *
+     * @property enabled
+     * @type {Boolean}
+     */
+    enabled: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -133,7 +141,7 @@ class Step extends React.Component {
    * @return {Boolean}
    */
   get stepDisabled() {
-    if (this.wizard.enableInactiveSteps) {
+    if (this.wizard.enableInactiveSteps || this.props.enabled) {
       return false;
     }
     return this.props.stepNumber !== this.currentStepNumber;

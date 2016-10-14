@@ -48,14 +48,15 @@ describe('Table', () => {
     );
 
     instanceCustomSort = TestUtils.renderIntoDocument(
-      <Table className='baz'
-             onChange={ spy }
-             sortOrder='desc'
-             sortedColumn='name'
-             currentPage='10'
-             pageSize='25'
-             totalRecords='2500'
-        >
+      <Table
+        className='baz'
+        onChange={ spy }
+        sortOrder='desc'
+        sortedColumn='name'
+        currentPage='10'
+        pageSize='25'
+        totalRecords='2500'
+       >
         <TableRow>
           <TableHeader sortable={ true } name='name'/>
         </TableRow>
@@ -616,6 +617,37 @@ describe('Table', () => {
       instancePager.onPagination('2', '25');
 
       expect(spy).toHaveBeenCalledWith('pager', options);
+    });
+
+    describe('if an onPageSizeChange callback was passed', () => {
+      let callbackSpy, instanceCallBack;
+
+      beforeEach(() => {
+        callbackSpy = jasmine.createSpy();
+        instanceCallBack = TestUtils.renderIntoDocument(
+          <Table
+            className="foo"
+            paginate={ true }
+            currentPage='1'
+            pageSize='10'
+            onPageSizeChange={ callbackSpy }
+            totalRecords='100'
+            onChange={ spy }
+          >
+            foo
+          </Table>
+        );
+      });
+
+      it('runs the callback with the new page size', () => {
+        instanceCallBack.onPagination('2', '50', 'size');
+        expect(callbackSpy).toHaveBeenCalledWith('50');
+      });
+
+      it('does not run the callback if the page size has not changed', () => {
+        instanceCallBack.onPagination('2', '50', 'next');
+        expect(callbackSpy).not.toHaveBeenCalled();
+      });
     });
   });
 
