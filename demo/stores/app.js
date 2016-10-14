@@ -126,7 +126,7 @@ let data = ImmutableHelper.parseJSON({
     value: 0
   },
   pill: {
-    as: 'new',
+    as: 'default',
     text: 'PILL'
   },
   portrait: {
@@ -263,6 +263,16 @@ let data = ImmutableHelper.parseJSON({
 });
 
 class AppStore extends Store {
+
+  constructor(name, data, Dispatcher, opts = {}) {
+    super(name, data, Dispatcher, opts);
+
+    // Store is connected to a lot of components
+    // Therefore adds a lot of listeners
+    // Setting to 0 allows unlimited
+    this.setMaxListeners(0);
+  }
+
   /**
    * @method APP_VALUE_UPDATED
    */

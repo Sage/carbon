@@ -5,7 +5,7 @@ import Pager from './pager';
 
 describe('Pager', () => {
   let instance, instance2, spy1, spy2;
-  
+
   beforeEach(() => {
     spy1 = jasmine.createSpy('instance 1 pagination');
     spy2 = jasmine.createSpy('instance 2 pagination');
@@ -32,7 +32,7 @@ describe('Pager', () => {
 
   describe('onInitialise', () => {
     it('sets the currentPage within the state', () => {
-      expect(instance.state.currentPage).toEqual('1'); 
+      expect(instance.state.currentPage).toEqual('1');
     });
   });
 
@@ -41,7 +41,7 @@ describe('Pager', () => {
       instance.setState({ currentPage: '2' });
       instance.componentWillReceiveProps({ currentPage: '1' });
 
-      expect(instance.state.currentPage).toEqual('1'); 
+      expect(instance.state.currentPage).toEqual('1');
     });
   });
 
@@ -121,7 +121,7 @@ describe('Pager', () => {
 
     describe('when element is size', () => {
       it('emits the new page size', () => {
-        let event = { target: { value: '50' } };  
+        let event = { target: { value: '50' } };
         instance.emitChangeCallback('size', event);
         expect(spy1).toHaveBeenCalledWith('1', '50');
       });
@@ -152,6 +152,7 @@ describe('Pager', () => {
             currentPage='1'
             pageSize='10'
             totalRecords='0'
+            onPagination={ spy1 }
           />
         );
         expect(instance.maxPage).toEqual(1);
@@ -169,7 +170,7 @@ describe('Pager', () => {
             onPagination={ spy1 }
           />
         );
-        
+
         expect(instance.maxPage).toEqual(1);
       });
     });
@@ -236,7 +237,7 @@ describe('Pager', () => {
 
     describe('when enabled', () => {
       it('adds a onClick handler', () => {
-        let input = TestUtils.findRenderedDOMComponentWithClass(instance2, 'carbon-pager__previous'); 
+        let input = TestUtils.findRenderedDOMComponentWithClass(instance2, 'carbon-pager__previous');
         TestUtils.Simulate.click(input);
         expect(spy2).toHaveBeenCalled();
       });
@@ -295,7 +296,7 @@ describe('Pager', () => {
 
     describe('when enabled', () => {
       it('adds a onClick handler', () => {
-        let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pager__next'); 
+        let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pager__next');
         TestUtils.Simulate.click(input);
         expect(spy1).toHaveBeenCalled();
       });
@@ -313,7 +314,7 @@ describe('Pager', () => {
       });
 
       it('adds a onChange event to the dropdown', () => {
-        dropdown = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dropdown__input'); 
+        dropdown = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dropdown__input');
         TestUtils.Simulate.change(dropdown);
         expect(spy1).toHaveBeenCalled();
       });
