@@ -12,6 +12,11 @@
 ## Component Enhancements
 
 * `Date` field uses I18n for formats and sanitizes inputs for passing
+
+# 0.26.1
+
+## Component Enhancements
+
 * `Decimal` component can prevent decimal value from exceeding the precision setting
 * `Step` wizard sub-component now accepts a prop of `enabled`.
 * `Table` components now accept an `onPageSizeChange` callback function as a prop.
