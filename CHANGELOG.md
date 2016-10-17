@@ -15,6 +15,10 @@
 * `ShowEditPod` puts focus on pod if mounted in editing state.
 * `Date` field uses I18n for formats and sanitizes inputs for passing
 
+## Dependencies
+
+* Moment JS bumped to version 2.15.1
+
 # 0.26.1
 
 ## Component Enhancements
