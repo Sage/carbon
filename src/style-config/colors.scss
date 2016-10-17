@@ -66,7 +66,12 @@ $error-hover:                darken($red, 20%) !default;
 $info:                       $blue-sky !default;
 $info-text-background:       $blue-sky-05 !default;
 $info-border:                $blue-sky-20 !default;
-$info-hover:                 darken($blue-sky, 20%) !default;;
+$info-hover:                 darken($blue-sky, 20%) !default;
+
+$default:                    $grey-dark-blue-60 !default;
+$default-text-background:    $grey-dark-blue-60 !default;
+$default-border:             $grey-dark-blue-60 !default;
+$default-hover:              darken($grey-dark-blue-60, 20%) !default;
 
 $new:                        $purple !default;
 $new-text-background:        $purple-05 !default;
@@ -88,6 +93,7 @@ $help-hover:                 darken($yellow, 20%) !default;
  */
 $colorIconSets: (
   ("warning", $warning, $warning-border, $warning-text-background, $warning-hover),
+  ("default", $default, $default-border, $default-text-background, $default-hover),
   ("error", $error, $error-border, $error-text-background, $error-hover),
   ("info", $info, $info-border, $info-text-background, $info-hover),
   ("new", $new, $new-border, $new-text-background, $new-hover),

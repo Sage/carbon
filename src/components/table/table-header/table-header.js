@@ -137,7 +137,7 @@ class TableHeader extends React.Component {
    * @method tableHeaderClasses
    * @return {String}
    */
-  get tableHeaderClasses() {
+  tableHeaderClasses() {
     return classNames(
       "carbon-table-header",
       this.props.className,
@@ -159,7 +159,7 @@ class TableHeader extends React.Component {
 
     delete props.children;
 
-    props.className = this.tableHeaderClasses;
+    props.className = this.tableHeaderClasses();
     props.onClick = this.props.sortable ? this.emitSortEvent.bind(this) : '';
 
     return props;

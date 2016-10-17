@@ -1,9 +1,28 @@
 # 0.27.0
 
+## :warning: Breaking Change - Default colour for Pill component has changed. :warning:
+
+* The default behaviour for the Pill component was to previously set as `info`. This is now set as `default` which is a grey colour.
+* Ensure you check for any implementations of the Pill component where the `as` prop is not defined and set this to `as='info'`.
+
+## New Components
+
+* Subheader component created to be used with the Table and TableAjax components
+
 ## Component Enhancements
 
+* `ShowEditPod` now closes and cancels editing on Escape keydown.
+* `ShowEditPod` puts focus on pod if mounted in editing state.
 * `Date` field uses I18n for formats and sanitizes inputs for passing
+
+# 0.26.1
+
+## Component Enhancements
+
 * `Decimal` component can prevent decimal value from exceeding the precision setting
+* `Step` wizard sub-component now accepts a prop of `enabled`.
+* `Table` components now accept an `onPageSizeChange` callback function as a prop.
+* `Pager` component now emits which element has changed.
 
 # 0.26.0
 
