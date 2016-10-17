@@ -19,6 +19,10 @@
 * `Table` components now accept an `onPageSizeChange` callback function as a prop.
 * `Pager` component now emits which element has changed.
 
+## Dependencies
+
+* Moment JS bumped to version 2.15.1
+
 # 0.26.1
 
 ## Component Enhancements
