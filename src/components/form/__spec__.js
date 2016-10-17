@@ -52,6 +52,7 @@ describe('Form', () => {
             incrementWarningCount: instance.incrementWarningCount,
             decrementWarningCount: instance.decrementWarningCount,
             inputs: instance.inputs,
+            setActiveInput: instance.setActiveInput,
             validate: instance.validate
           }
         }
@@ -128,6 +129,19 @@ describe('Form', () => {
         instance.detachFromForm(instance.inputs[excludedTextbox._guid]);
         expect(instance.inputs[excludedTextbox._guid]).toBeFalsy();
       });
+    });
+  });
+
+  describe("setActiveInput()", () => {
+    it("sets the active input to be the input parameter", () => {
+      instance.setActiveInput(1);
+      expect(instance.activeInput).toEqual(1);
+    });
+    it("immediately hides it's message if the input is different from the last", () => {
+      let immediatelyHideMessageSpy = jasmine.createSpy();
+      instance.setActiveInput({ immediatelyHideMessage: immediatelyHideMessageSpy });
+      instance.setActiveInput({  });
+      expect(immediatelyHideMessageSpy).toHaveBeenCalled();
     });
   });
 
