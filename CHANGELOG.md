@@ -11,6 +11,8 @@
 
 ## Component Enhancements
 
+* `ShowEditPod` now closes and cancels editing on Escape keydown.
+* `ShowEditPod` puts focus on pod if mounted in editing state.
 * `Date` field uses I18n for formats and sanitizes inputs for passing
 * `Content` component can take props of `bodyFullWidth` to set component width to 100%;
 * `Step` wizard sub-component now accepts a prop of `enabled`.
@@ -33,6 +35,7 @@
 ## Component Enhancements
 
 * `Content` now has additional display options to customise the alignment, to render inline with it's title and to customise the title's width.
+* `InputValidation` uses `Form` and `Input` in order to ensure messages stay on screen for a short while unless the user hovers on another field
 * `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
 * `Pod` enter triggers edit function and edit element is keyboard accessible
 * `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).

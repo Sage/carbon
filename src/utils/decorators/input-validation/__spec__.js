@@ -63,7 +63,8 @@ let form = {
   incrementErrorCount: function() {},
   incrementWarningCount: function() {},
   decrementWarningCount: function() {},
-  inputs: { "123": {} }
+  inputs: { "123": {} },
+  setActiveInput: function() {}
 }
 
 class DummyInputWithoutLifecycleMethods extends React.Component {
@@ -510,6 +511,104 @@ describe('InputValidation', () => {
       it('defaults the input validity to true', () => {
         let valid = instance.validate();
         expect(valid).toBeTruthy();
+      });
+    });
+  });
+
+  describe("message hide functions", () => {
+    describe("showMessage", () => {
+      beforeEach(() => {
+        instance.context.form = form;
+        spyOn(instance.context.form, 'setActiveInput');
+      })
+      describe("triggers state change and function call", () => {
+        it("if not valid", () => {
+          instance.setState({
+            valid: false,
+            warning: false
+          });
+          spyOn(instance, 'setState');
+          instance.showMessage();
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: true,
+            immediatelyHideMessage: false
+          });
+          expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
+        });
+        it("if warning", () => {
+          instance.setState({
+            valid: true,
+            warning: true
+          });
+          spyOn(instance, 'setState');
+          instance.showMessage();
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: true,
+            immediatelyHideMessage: false
+          });
+          expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
+        });
+      });
+      describe("doesn't trigger state change and function call", () => {
+        it("if valid and not a warning", () => {
+          instance.setState({
+            valid: true,
+            warning: false
+          });
+          spyOn(instance, 'setState');
+          instance.showMessage();
+          expect(instance.setState).not.toHaveBeenCalled();
+          expect(instance.context.form.setActiveInput).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe("hideMessage", () => {
+      describe("triggers state change and function call", () => {
+        it("if not valid", () => {
+          instance.setState({
+            valid: false,
+            warning: false
+          });
+          spyOn(instance, 'setState');
+          instance.hideMessage();
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: false
+          });
+        });
+        it("if warning", () => {
+          instance.setState({
+            valid: true,
+            warning: true
+          });
+          spyOn(instance, 'setState');
+          instance.hideMessage();
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: false
+          });
+        });
+      });
+      describe("doesn't trigger state change and function call", () => {
+        it("if valid and not a warning", () => {
+          instance.setState({
+            valid: true,
+            warning: false
+          });
+          spyOn(instance, 'setState');
+          instance.hideMessage();
+          expect(instance.setState).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe("immediatelyHideMessage", () => {
+      it("sets state to hide message instantly", () => {
+        spyOn(instance, 'setState');
+        instance.immediatelyHideMessage();
+        expect(instance.setState).toHaveBeenCalledWith({
+          messageShown: false,
+          immediatelyHideMessage: true
+        });
       });
     });
   });
