@@ -14,6 +14,7 @@
 * `ShowEditPod` now closes and cancels editing on Escape keydown.
 * `ShowEditPod` puts focus on pod if mounted in editing state.
 * `Date` field uses I18n for formats and sanitizes inputs for passing
+  * To enable multiple language you will need to import them from moment js - http://momentjs.com/docs/#/use-it/browserify/
 
 ## Dependencies
 
