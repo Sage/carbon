@@ -59,12 +59,24 @@ class Content extends React.Component {
      * @property titleWidth
      * @type {String}
      */
-    titleWidth: React.PropTypes.string
+    titleWidth: React.PropTypes.string,
+
+    /**
+     * Over-rides the calculation of body width based on titleWidth
+     * Sometimes we need the body to be full width while keeping a title width similar to other widths
+     *
+     * @property bodyFullWidth
+     * @type {Boolean}
+     * @default false
+     */
+    bodyFullWidth: React.PropTypes.bool
   }
 
   static defaultProps = {
+    align: "left",
     as: "primary",
-    align: "left"
+    bodyFullWidth: false,
+    inline: false
   }
 
   /**
@@ -79,7 +91,8 @@ class Content extends React.Component {
       this.props.className,
       `carbon-content--${this.props.as}`,
       `carbon-content--align-${this.props.align}`, {
-        "carbon-content--inline": this.props.inline
+        "carbon-content--inline": this.props.inline,
+        "carbon-content--body-full-width": this.props.bodyFullWidth
       }
     );
   }
@@ -111,6 +124,10 @@ class Content extends React.Component {
 
     if (this.props.titleWidth) {
       style.width = `${100 - Number(this.props.titleWidth)}%`;
+    }
+
+    if (this.props.bodyFullWidth) {
+      style.width = "100%";
     }
 
     return style;

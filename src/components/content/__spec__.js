@@ -67,4 +67,13 @@ describe('Content', () => {
       expect(instance.bodyStyle).toEqual({ width: "60%" });
     });
   });
+
+  describe("over-ride body width", () => {
+    it("will set body width to 100% if over-ride set", () => {
+      instance = TestUtils.renderIntoDocument(
+        <Content titleWidth="40" bodyFullWidth={ true }>{ null }</Content>
+      );
+      expect(instance.bodyStyle).toEqual({ width: "100%" });
+    });
+  });
 });
