@@ -1,4 +1,5 @@
 import React from 'react';
+import 'utils/css';
 import { Route } from 'react-router';
 import { startRouter } from 'utils/router';
 import Chrome from './views/chrome';
