@@ -13,6 +13,7 @@
 
 * `ShowEditPod` now closes and cancels editing on Escape keydown.
 * `ShowEditPod` puts focus on pod if mounted in editing state.
+* `Sidebar` no longer renders a close icon if there is no `onCancel` prop.
 * `Date` field uses I18n for formats and sanitizes inputs for passing
 * `Content` component can take props of `bodyFullWidth` to set component width to 100%;
 * `Step` wizard sub-component now accepts a prop of `enabled`.

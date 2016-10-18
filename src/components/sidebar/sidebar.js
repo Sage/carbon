@@ -102,6 +102,22 @@ class Sidebar extends Modal {
   }
 
   /**
+   * Returns the markup for the close icon.
+   *
+   * @method closeButton
+   * @return {Object} JSX
+   */
+  get closeButton() {
+    if (this.props.onCancel) {
+      return (
+        <span className={ 'carbon-sidebar__close' } >
+          <Icon className="carbon-sidebar__close-icon" type="close" onClick={ this.props.onCancel } />
+        </span>
+      );
+    }
+  }
+
+  /**
    * Returns the computed HTML for the sidebar.
    *
    * @method sidebarHTML
@@ -110,9 +126,7 @@ class Sidebar extends Modal {
   get modalHTML() {
     return (
       <div className={ this.sidebarClasses } >
-        <span className={ 'carbon-sidebar__close' } >
-          <Icon className="carbon-sidebar__close-icon" type="close" onClick={ this.props.onCancel } />
-        </span>
+        { this.closeButton }
         { this.props.children }
       </div>
     );
