@@ -1,4 +1,3 @@
 {
-  "main": "./homepage.js",
-  "style": "./homepage.scss"
+  "main": "./homepage.js"
 }

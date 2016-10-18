@@ -1,49 +1,28 @@
 import React from 'react';
 import { connect } from 'utils/flux';
 import BrowserStore from './../../stores/browser';
-import { Link } from 'react-router';
+import classNames from 'classnames';
 
-import StaticSidebar from './../../components/static-sidebar';
-import { Sidebar } from 'components/sidebar';
+import AppSidebar from './app-sidebar';
 
 const RESIZE_WIDTH = 1024;
 
 class Chrome extends React.Component {
-
-  sidebarContent = () => {
-    return 'Sidebar Stuff';
+  classes = () => {
+    let tablet = this._isSmallScreen();
+    return classNames("carbon-demo", {
+      "carbon-demo--desktop": !tablet,
+      "carbon-demo--tablet": tablet
+    });
   }
 
-  fullWidth = () => {
-    return (
-      <StaticSidebar>
-        { this.sidebarContent() }
-      </StaticSidebar>
-    )
-  }
-
-  smallWidth = () => {
-    return (
-      <Sidebar position='left' open={ true }>
-        { this.sidebarContent() }
-      </Sidebar>
-    )
-  }
-
-  /**
-   * @method render
-   */
   render() {
-    let contentWrapper = this.fullWidth();
-
-    if (this._isSmallScreen()) {
-      contentWrapper = this.smallWidth();
-    }
-
     return (
-      <div className='carbon-demo'>
-        { contentWrapper }
+      <div className={ this.classes() }>
+        <AppSidebar isTablet={ this._isSmallScreen() } />
+
         <div className='carbon-demo__content'>
+          { this.props.children }
         </div>
       </div>
     );

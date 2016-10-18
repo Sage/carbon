@@ -1,5 +1,4 @@
 import React from 'react';
-import Pod from 'components/pod';
 
 class Homepage extends React.Component {
   /**
@@ -7,9 +6,9 @@ class Homepage extends React.Component {
    */
   render() {
     return (
-      <Pod className="carbon-homepage">
+      <div className="carbon-homepage">
         Carbon
-      </Pod>
+      </div>
     );
   }
 }

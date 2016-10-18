@@ -7,7 +7,7 @@ import ImmutableHelper from 'utils/helpers/immutable';
 import { merge } from 'lodash';
 
 let browserData = merge({}, global.BROWSER_DATA, {
-  width: Browser.getWindow().outerWidth
+  width: Browser.getWindow().innerWidth
 });
 
 let data = ImmutableHelper.parseJSON(browserData);
@@ -25,7 +25,7 @@ class BrowserStore extends Store {
 
     // add event listener for window resize
     _window.addEventListener("resize", () => {
-      BrowserActions.windowResize(_window.outerWidth);
+      BrowserActions.windowResize(_window.innerWidth);
     }, true);
   }
 
