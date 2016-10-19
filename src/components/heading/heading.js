@@ -39,7 +39,20 @@ class Heading extends React.Component {
      * @property backLink
      * @type {String}
      */
-    backLink: React.PropTypes.string
+    backLink: React.PropTypes.string,
+
+    /**
+     * Adds a divider below the heading and the content.
+     *
+     * @property divider
+     * @type {Boolean}
+     * @default true
+     */
+    divider: React.PropTypes.bool
+  }
+
+  static defaultProps = {
+    divider: true
   }
 
   /**
@@ -107,7 +120,8 @@ class Heading extends React.Component {
     return classNames(
       "carbon-heading", this.props.className, {
         ["carbon-heading--has-subheader"]: this.props.subheader,
-        ["carbon-heading--has-back"]: this.props.backLink
+        ["carbon-heading--has-back"]: this.props.backLink,
+        ["carbon-heading--has-divider"]: this.props.divider
       }
     );
   }

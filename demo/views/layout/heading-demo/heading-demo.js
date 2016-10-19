@@ -7,6 +7,7 @@ import Example from './../../../components/example';
 
 import Heading from 'components/heading';
 import Textbox from 'components/textbox';
+import Checkbox from 'components/checkbox';
 import Row from 'components/row';
 
 class HeadingDemo extends React.Component {
@@ -29,14 +30,15 @@ class HeadingDemo extends React.Component {
    * @method demo
    */
   get demo() {
+    console.log(this.value('divider'));
     return (
       <Heading
         title={ this.value('title') }
         subheader={ this.value('subheader') }
         helpLink={ this.value('help_link') }
         help={ this.value('help') }
-        backLinkHref={ this.value('back_link_href') }
-        backLinkTo={ this.value('back_link_to') }
+        backLink={ this.value('back_link') }
+        divider={ this.value('divider') }
       >
         { this.value('content') }
       </Heading>
@@ -67,12 +69,8 @@ class HeadingDemo extends React.Component {
       html += `\n  help='${this.value('help')}'`
     }
 
-    if (this.value('back_link_href')) {
-      html += `\n  backLinkHref='${this.value('back_link_href')}'`
-    }
-
-    if (this.value('back_link_to')) {
-      html += `\n  backLinkTo='${this.value('back_link_to')}'`
+    if (this.value('back_link')) {
+      html += `\n  backLink='${this.value('back_link')}'`
     }
 
     if (this.value('content')) {
@@ -135,16 +133,18 @@ class HeadingDemo extends React.Component {
 
         <Row>
           <Textbox
-            label="Back Link Href"
+            label="Back Link"
             labelInline={ true }
-            value={ this.value('back_link_href') }
-            onChange={ this.action.bind(this, 'back_link_href') }
+            value={ this.value('back_link') }
+            onChange={ this.action.bind(this, 'back_link') }
           />
-          <Textbox
-            label="Back Link To"
-            labelInline={ true }
-            value={ this.value('back_link_to') }
-            onChange={ this.action.bind(this, 'back_link_to') }
+        </Row>
+
+        <Row>
+          <Checkbox
+            label="Divider"
+            value={ this.value('divider') }
+            onChange={ this.action.bind(this, 'divider') }
           />
         </Row>
       </div>
