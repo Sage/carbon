@@ -43,7 +43,7 @@ class SidebarDemo extends React.Component {
     } else {
       button = (
         <Button onClick={ this.action.bind(this, 'open', { target: { value: true } } ) } >
-          Click me to Open Sidebar 
+          Click me to Open Sidebar
         </Button>
       );
     }
@@ -56,6 +56,7 @@ class SidebarDemo extends React.Component {
         <Sidebar
           open={ this.value('open') }
           onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
+          size={ this.value('size') }
           enableBackgroundUI={ this.value('enableBackgroundUI') }
           position={ position }
         >
@@ -108,6 +109,11 @@ class SidebarDemo extends React.Component {
             value={ this.value('positionLeft') }
             reverse={ true }
             onChange={ this.action.bind(this, 'positionLeft') }
+          />
+          <SizeDropdown
+            label="Size"
+            value={ this.value('size') }
+            onChange={ this.action.bind(this, 'size') }
           />
         </Row>
       </div>

@@ -13,6 +13,7 @@
 
 * `ShowEditPod` now closes and cancels editing on Escape keydown.
 * `ShowEditPod` puts focus on pod if mounted in editing state.
+* `Sidebar` no longer renders a close icon if there is no `onCancel` prop.
 * `Date` field uses I18n for formats and sanitizes inputs for passing
 * `Content` component can take props of `bodyFullWidth` to set component width to 100%;
 * `Step` wizard sub-component now accepts a prop of `enabled`.
@@ -22,6 +23,7 @@
 * `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
 * `Tabs` focus state is given the same styles as hover state
 * `Pager` component now emits which element has changed.
+* `Sidebar` now takes a size prop (e.g. `extra-small`, `small`, ...`extra-large`)
 
 # 0.26.1
 
