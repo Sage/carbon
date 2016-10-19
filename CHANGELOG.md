@@ -1,14 +1,16 @@
-# NEXT
-
-## Component Enhancements
-* `Rainbow` expects the Highcharts library to be already loaded.
-
 # 0.27.0
 
 ## :warning: Breaking Change - Default colour for Pill component has changed. :warning:
 
 * The default behaviour for the Pill component was to previously set as `info`. This is now set as `default` which is a grey colour.
 * Ensure you check for any implementations of the Pill component where the `as` prop is not defined and set this to `as='info'`.
+
+## :warning: Breaking Change :warning:
+
+* `Rainbow` expects the Highcharts library to be already loaded. If your project does not include Highcharts, you need to import it before Rainbow.
+```js
+import 'react-highcharts/dist/bundle/highcharts';
+```
 
 ## New Components
 
