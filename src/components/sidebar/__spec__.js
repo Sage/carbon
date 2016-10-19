@@ -26,6 +26,7 @@ describe('Sidebar', () => {
       <Sidebar
         onCancel={ spy }
         open={ true }
+        size='small'
         position='left'
         enableBackgroundUI={ true }
       />
@@ -76,11 +77,15 @@ describe('Sidebar', () => {
 
   describe('sidebarClasses', () => {
     it('returns a base sidebar class', () => {
-      expect(instance.sidebarClasses).toEqual('carbon-sidebar__sidebar carbon-sidebar__sidebar--right');
+      expect(instance.sidebarClasses).toMatch('carbon-sidebar__sidebar carbon-sidebar__sidebar--right carbon-sidebar__sidebar--medium');
     });
 
     it('returns a position modifier class based on props', () => {
-      expect(leftInstance.sidebarClasses).toEqual('carbon-sidebar__sidebar carbon-sidebar__sidebar--left');
+      expect(leftInstance.sidebarClasses).toMatch('carbon-sidebar__sidebar--left');
+    });
+
+    it('returns a size modifier class based on props', () => {
+      expect(leftInstance.sidebarClasses).toMatch('carbon-sidebar__sidebar--small');
     });
   });
 

@@ -68,11 +68,21 @@ class Sidebar extends Modal {
      * @type {String}
      * @default 'right'
      */
-    position: React.PropTypes.string
+    position: React.PropTypes.string,
+
+    /**
+     * Size of dialog, default size is 450px
+     *
+     * @property size
+     * @type {String}
+     * @default medium
+     */
+    size: React.PropTypes.string
   }
 
   static defaultProps = {
-    position: 'right'
+    position: 'right',
+    size: 'medium'
   }
 
   /**
@@ -97,7 +107,8 @@ class Sidebar extends Modal {
   get sidebarClasses() {
     return classNames(
       'carbon-sidebar__sidebar',
-      `carbon-sidebar__sidebar--${this.props.position}`
+      `carbon-sidebar__sidebar--${this.props.position}`,
+      `carbon-sidebar__sidebar--${this.props.size}`
     );
   }
 
