@@ -1,4 +1,5 @@
 import React from 'react';
+import 'react-highcharts/dist/bundle/highcharts';
 import RainbowDemo from './rainbow-demo';
 
 class Charts extends React.Component {
