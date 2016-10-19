@@ -13,9 +13,23 @@ class Heading extends React.Component {
      * Defines the title for the heading.
      *
      * @property title
-     * @type {String}
+     * @type {String|Object}
      */
-    title: React.PropTypes.string,
+    title: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.object
+    ]),
+
+    /**
+     * Defines the subheader for the heading.
+     *
+     * @property subheader
+     * @type {String|Object}
+     */
+    subheader: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.object
+    ]),
 
     /**
      * Defines the help text for the heading.

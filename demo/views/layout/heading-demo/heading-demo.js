@@ -30,7 +30,6 @@ class HeadingDemo extends React.Component {
    * @method demo
    */
   get demo() {
-    console.log(this.value('divider'));
     return (
       <Heading
         title={ this.value('title') }
