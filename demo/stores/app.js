@@ -189,6 +189,7 @@ let data = ImmutableHelper.parseJSON({
     }
   },
   sidebar: {
+    size: 'medium',
     open: false
   },
   spinner: {
