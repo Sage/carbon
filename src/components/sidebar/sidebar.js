@@ -39,7 +39,7 @@ class Sidebar extends Modal {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func.isRequired,
+    onCancel: React.PropTypes.func,
 
     /**
      * Sets the open state of the sidebar

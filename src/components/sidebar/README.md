@@ -12,7 +12,7 @@
 
 ```javascript
   <Sidebar
-    onClose={ closeSidebar }
+    onCancel={ closeSidebar }
     open={ true }
   />
 ```
@@ -42,7 +42,7 @@ To render content within the SidebarHeader pass a children prop
 
 ```javascript
   <Sidebar
-    onClose={ closeSidebar }
+    onCancel={ closeSidebar }
     open={ true }
   >
   <SidebarHeader />
@@ -51,7 +51,7 @@ To render content within the SidebarHeader pass a children prop
 
 | Name               | Required    | Type           | Default       | Description   |
 | -------------      | ----------- | -------------  | ------------- | ------------- |
-| onClose            | true        | Function       |               | Callback for when close icon is clicked |
+| onCancel           | false       | Function       |               | Callback for when close icon is clicked |
 | open               | true        | Boolean        | `false`       | Sets the open state of the sidebar      |
 | enableBackgroundUI | false       | Boolean        | `false`       | Enables background UI behind sidebar so the user can interact    |
-| onClose            | false       | Boolean        | `right`       | 'left' or 'right' position of sidebar   |
+| align              | false       | String         | `right`       | 'left' or 'right' position of sidebar   |
