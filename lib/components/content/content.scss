@@ -45,8 +45,29 @@
       width: 50%;
     }
   }
+
+  .carbon-content__title {
+    text-align: center;
+  }
 }
 
 .carbon-content--align-right {
   text-align: right;
+
+  .carbon-content__title {
+    text-align: right;
+  }
+}
+
+.carbon-content--body-full-width {
+  text-align: left;
+
+  .carbon-content__body {
+    margin-left: 0;
+    text-align: left;
+  }
+
+  &.carbon-content--inline .carbon-content__body {
+    margin-top: $grid-margin-medium;
+  }
 }
