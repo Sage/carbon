@@ -5,6 +5,11 @@
 * The default behaviour for the Pill component was to previously set as `info`. This is now set as `default` which is a grey colour.
 * Ensure you check for any implementations of the Pill component where the `as` prop is not defined and set this to `as='info'`.
 
+## :warning: Breaking Change - Date Component requires importing of locales
+* The Date component now uses Strict mode and a I18n locale for parsing date.
+* If you require multiple locales for your Date component you will need to import them from moment js
+* Please see the [moment js docs](http://momentjs.com/docs/#/use-it/browserify/) for more information
+
 ## New Components
 
 * Subheader component created to be used with the Table and TableAjax components
@@ -13,9 +18,8 @@
 
 * `ShowEditPod` now closes and cancels editing on Escape keydown.
 * `ShowEditPod` puts focus on pod if mounted in editing state.
-* `Date` field uses I18n for formats and sanitizes inputs for passing
-  * To enable multiple language you will need to import them from moment js - http://momentjs.com/docs/#/use-it/browserify/
 * `Content` component can take props of `bodyFullWidth` to set component width to 100%;
+* `Date` field uses I18n for formats and sanitizes inputs for passing
 * `Step` wizard sub-component now accepts a prop of `enabled`.
 * `Table` components now accept an `onPageSizeChange` callback function as a prop.
 * `Pager` component now emits which element has changed.
