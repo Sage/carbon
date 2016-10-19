@@ -25,6 +25,7 @@ import 'react-highcharts/dist/bundle/highcharts';
 * `Step` wizard sub-component now accepts a prop of `enabled`.
 * `Table` components now accept an `onPageSizeChange` callback function as a prop.
 * `Pager` component now emits which element has changed.
+* `Sidebar` now takes a size prop (e.g. `extra-small`, `small`, ...`extra-large`)
 
 # 0.26.1
 
