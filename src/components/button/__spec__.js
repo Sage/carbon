@@ -6,7 +6,7 @@ import Link from './../link';
 
 describe('Button', () => {
 
-  let defaultButton, primary, secondary, small, disabled, multiple, anchor, to;
+  let defaultButton, primary, secondary, small, disabled, anchor, to;
   let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
@@ -27,6 +27,7 @@ describe('Button', () => {
       <Button
         name="Secondary Button"
         className="customClass"
+        theme='red'
       >Secondary</Button>
     );
 
@@ -42,13 +43,6 @@ describe('Button', () => {
         name="Disabled Button"
         disabled={ true }
       >Disabled</Button>
-    );
-
-    multiple = TestUtils.renderIntoDocument(
-      <Button
-        name="Multiple As"
-        as={[ 'foo', 'bar' ]}
-      >Multiple</Button>
     );
 
     anchor = TestUtils.renderIntoDocument(
@@ -110,38 +104,36 @@ describe('Button', () => {
     let primaryDOM;
     let secondaryDOM;
     let smallDOM;
-    let multipleDOM;
 
     beforeEach(() => {
       defaultDOM = ReactDOM.findDOMNode(defaultButton);
       primaryDOM = ReactDOM.findDOMNode(primary);
       secondaryDOM = ReactDOM.findDOMNode(secondary);
       smallDOM = ReactDOM.findDOMNode(small);
-      multipleDOM = ReactDOM.findDOMNode(multiple);
       disabledDOM = ReactDOM.findDOMNode(disabled);
     });
 
     it('adds a className of carbon-button to all buttons', () => {
-      expect(defaultDOM.classList[0]).toEqual('carbon-button');
-      expect(primaryDOM.classList[0]).toEqual('carbon-button');
-      expect(secondaryDOM.classList[0]).toEqual('carbon-button');
-      expect(disabledDOM.classList[0]).toEqual('carbon-button');
-      expect(smallDOM.classList[0]).toEqual('carbon-button');
+      expect(defaultDOM.classList).toMatch('carbon-button');
+      expect(primaryDOM.classList).toMatch('carbon-button');
+      expect(secondaryDOM.classList).toMatch('carbon-button');
+      expect(disabledDOM.classList).toMatch('carbon-button');
+      expect(smallDOM.classList).toMatch('carbon-button');
     });
 
     it('adds a secondary class depending on its type', () => {
-      expect(primaryDOM.classList[1]).toEqual('carbon-button--primary')
-      expect(secondaryDOM.classList[1]).toEqual('carbon-button--secondary')
-      expect(smallDOM.classList[1]).toEqual('carbon-button--small')
-    });
-
-    it('adds all variations of as', () => {
-      expect(multipleDOM.className).toEqual('carbon-button carbon-button--foo carbon-button--bar')
+      expect(primaryDOM.classList).toMatch('carbon-button--primary')
+      expect(secondaryDOM.classList).toMatch('carbon-button--secondary')
+      expect(smallDOM.classList).toMatch('carbon-button--small')
     });
 
     it('adds a disabled class if the button is disabled', () => {
-      expect(disabledDOM.classList[2]).toEqual('carbon-button--disabled')
-      expect(defaultDOM.classList[2]).toBeFalsy();
+      expect(disabledDOM.classList).toMatch('carbon-button--disabled');
+    });
+
+    it('adds a theme class depending on the theme prop', () => {
+      expect(defaultDOM.classList).toMatch('carbon-button--blue');
+      expect(secondaryDOM.classList).toMatch('carbon-button--red');
     });
   });
 

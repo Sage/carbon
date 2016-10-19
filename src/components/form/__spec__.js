@@ -402,7 +402,7 @@ describe('Form', () => {
       });
 
       it('renders a secondary cancel button with cancelClasses', () => {
-        expect(buttons[1].className).toEqual('carbon-button carbon-button--secondary');
+        expect(buttons[1].className).toMatch('carbon-button carbon-button--secondary');
         expect(buttonContainers[2].className).toEqual('carbon-form__cancel');
       });
 
@@ -421,7 +421,7 @@ describe('Form', () => {
       });
 
       it('renders a primary save button with saveClasses', () => {
-        expect(buttons[0].className).toEqual('carbon-button carbon-button--primary');
+        expect(buttons[0].className).toMatch('carbon-button carbon-button--primary');
         expect(buttonContainers[1].className).toEqual('carbon-form__save');
       });
 

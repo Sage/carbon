@@ -5,11 +5,9 @@
 @import "./../../style-config/buttons";
 
 .carbon-button {
-  background-color: $carbon-button__background-color--secondary;
   border: $carbon-button__border--secondary;
   border-radius: $carbon-button__border-radius;
   box-sizing: border-box;
-  color: $carbon-button__text-color--secondary;
   cursor: pointer;
   display: inline-block;
   line-height: 16px;
@@ -24,77 +22,58 @@
     @include transition(box-shadow linear 0.1s)
     box-shadow: 0 0 6px rgba(25,99,246,0.6);
   }
+}
 
-  &:focus,
-  &:hover {
-    background-color: $carbon-button__background-color--secondary--hover;
-    border-color: $carbon-button__border-color--secondary--hover;
-    color: $carbon-button__text-color--secondary--hover;
+@mixin button-theme($theme, $color, $hover, $active, $text-color) {
+  .carbon-button--#{$theme} {
+    border-color: $color;
 
-   .carbon-link__content {
-      text-decoration: none;
-   }
-  }
+    &:focus,
+    &:hover {
+      .carbon-link__content {
+         text-decoration: none;
+      }
+    }
 
-  &:not(.carbon-button--disabled):active {
-    background-color: $carbon-button__background-color--primary--active;
-    background-color: $carbon-button__background-color--secondary--active;
-    border-color: $carbon-button__border-color--secondary--active;
-    color: $carbon-button__text-color--secondary--active;
+    &.carbon-button--primary {
+      background-color: $color;
+      border: $carbon-button__border--primary;
+      color: $text-color;
+
+      &:focus,
+      &:hover {
+        background-color: $hover;
+        border-color: $hover;
+      }
+
+      &:not(.carbon-button--disabled):active {
+        background-color: $active;
+        border-color: $active;
+        color: $text-color;
+      }
+    }
+
+    &.carbon-button--secondary {
+      background-color: transparent;
+      color: $color;
+
+      &:focus,
+      &:hover {
+        background-color: $hover;
+        color: $text-color;
+      }
+
+      &:not(.carbon-button--disabled):active {
+        background-color: $active;
+        border-color: $active;
+        color: $text-color;
+      }
+    }
   }
 }
 
-.carbon-button--primary {
-  background-color: $carbon-button__background-color--primary;
-  border: $carbon-button__border--primary;
-  color: $carbon-button__text-color--primary;
-
-  &:focus,
-  &:hover {
-    background-color: $carbon-button__background-color--primary--hover;
-  }
-
-  &:not(.carbon-button--disabled):active {
-    background-color: $carbon-button__background-color--primary--active;
-    border-color: $carbon-button__border-color--primary--active;
-    color: $carbon-button__text-color--primary--active;
-  }
-}
-
-.carbon-button--green {
-  background-color: $green-mid;
-  border: $green-mid;
-  color: $white;
-
-  &:focus,
-  &:hover {
-    background-color: $green-bright-dull;
-  }
-
-  &:not(.carbon-button--disabled):active {
-    background-color: $green;
-    border-color: $green;
-    color: $white;
-  }
-}
-
-.carbon-button--red {
-  background-color: $white;
-  border-color: $error;
-  color: $error;
-
-  &:focus,
-  &:hover {
-    background-color: $error;
-    border-color: $error;
-    color: $white;
-  }
-
-  &:not(.carbon-button--disabled):active {
-    background-color: $error-hover;
-    border-color: $error-hover;
-    color: $white;
-  }
+@each $set in $buttonColorSets {
+  @include button-theme($set...);
 }
 
 // fixes specific css that comes from platform
@@ -117,6 +96,7 @@ a.carbon-button--primary {
   padding: 2px 15px 2px 15px;
   text-transform: uppercase;
 }
+
 
 .carbon-button--disabled,
 .carbon-button--disabled:hover {
