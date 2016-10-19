@@ -14,9 +14,16 @@ $sidebar-background-animation-length: 250ms;
   padding: 20px;
   position: fixed;
   top: 0;
-  width: 450px;
   z-index: $z-sidebar;
 }
+
+.carbon-sidebar__sidebar--extra-small   { width: 150px; }
+.carbon-sidebar__sidebar--small         { width: 250px; }
+.carbon-sidebar__sidebar--medium-small  { width: 350px; }
+.carbon-sidebar__sidebar--medium        { width: 450px; }
+.carbon-sidebar__sidebar--medium-large  { width: 550px; }
+.carbon-sidebar__sidebar--large         { width: 650px; }
+.carbon-sidebar__sidebar--extra-large   { width: 750px; }
 
 .carbon-sidebar__sidebar--right {
   @include box-shadow(-10px 0 15px rgba(0, 0, 0, 0.05));
