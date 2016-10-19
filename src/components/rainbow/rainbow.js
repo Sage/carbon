@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactHighcharts from 'react-highcharts/dist/bundle/highcharts';
+import ReactHighcharts from 'react-highcharts';
 import classNames from 'classnames';
 
 /**
@@ -10,6 +10,13 @@ import classNames from 'classnames';
  * In your file:
  *
  *   import Rainbow from 'carbon/lib/components/rainbow';
+ *
+ * Note that the Rainbow component expects that you already have the Highcharts
+ * library loaded. This may be true in case of some projects, which already have
+ * that library available for their legacy code.
+ * In other cases, you would need to import Highcharts before importing Rainbow:
+ *
+ *   import 'react-highcharts/dist/bundle/highcharts';
  *
  * To render the Rainbow:
  *
