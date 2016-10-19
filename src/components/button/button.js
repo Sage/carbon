@@ -30,7 +30,7 @@ class Button extends React.Component {
      * @type {String|Array}
      * @default 'secondary'
      */
-    as: React.PropTypes.string
+    as: React.PropTypes.string,
 
     /**
      * A required prop. This is what the button will display.
