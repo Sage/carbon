@@ -163,5 +163,20 @@ describe('Sidebar', () => {
         expect(spy).toHaveBeenCalled();
       });
     });
+
+    describe('when there is no onCancel prop', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Sidebar open={ true }>
+            <Textbox />
+          </Sidebar>
+        );
+      });
+
+      it('does not render a close icon', () => {
+        let icon = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-sidebar__close-icon');
+        expect(icon.length).toEqual(0);
+      });
+    });
   });
 });
