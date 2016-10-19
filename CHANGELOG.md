@@ -5,6 +5,12 @@
 * The default behaviour for the Pill component was to previously set as `info`. This is now set as `default` which is a grey colour.
 * Ensure you check for any implementations of the Pill component where the `as` prop is not defined and set this to `as='info'`.
 
+## :warning: Breaking Change - Date Component requires importing of locales
+
+* The Date component now uses Strict mode and a I18n locale for parsing date.
+* If you require multiple locales for your Date component you will need to import them from moment js
+* Please see the [moment js docs](http://momentjs.com/docs/#/use-it/browserify/) for more information
+
 ## :warning: Breaking Change :warning:
 
 * `Rainbow` expects the Highcharts library to be already loaded. If your project does not include Highcharts, you need to import it before Rainbow.
@@ -23,10 +29,19 @@ import 'react-highcharts/dist/bundle/highcharts';
 * `Sidebar` no longer renders a close icon if there is no `onCancel` prop.
 * `Date` field uses I18n for formats and sanitizes inputs for passing
 * `Content` component can take props of `bodyFullWidth` to set component width to 100%;
+* `Date` field uses I18n for formats and sanitizes inputs for passing
 * `Step` wizard sub-component now accepts a prop of `enabled`.
 * `Table` components now accept an `onPageSizeChange` callback function as a prop.
+* `InputValidation` uses `Form` and `Input` in order to ensure messages stay on screen for a short while unless the user hovers on another field
+* `Pod` enter triggers edit function and edit element is keyboard accessible
+* `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
+* `Tabs` focus state is given the same styles as hover state
 * `Pager` component now emits which element has changed.
 * `Sidebar` now takes a size prop (e.g. `extra-small`, `small`, ...`extra-large`)
+
+## Dependencies
+
+* Moment JS bumped to version 2.15.1
 
 # 0.26.1
 
@@ -44,14 +59,10 @@ import 'react-highcharts/dist/bundle/highcharts';
 ## Component Enhancements
 
 * `Content` now has additional display options to customise the alignment, to render inline with it's title and to customise the title's width.
-* `InputValidation` uses `Form` and `Input` in order to ensure messages stay on screen for a short while unless the user hovers on another field
 * `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
-* `Pod` enter triggers edit function and edit element is keyboard accessible
 * `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).
 * `Row` can enable `columnDivide` to add dividing lines between columns.
 * `ShowEditPod` requires a tab press to focus on the first field of the contained form rather than automatically focusing on the first field
-* `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
-* `Tabs` focus state is given the same styles as hover state
 
 ## Minor Improvements
 
