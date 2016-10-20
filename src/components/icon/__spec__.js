@@ -14,7 +14,7 @@ describe('Icon', () => {
     'chevron',
     'completed',
     'draft',
-    'dribble',
+    'dribbble',
     'edit',
     'email',
     'external-link',
