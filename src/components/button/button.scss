@@ -48,6 +48,7 @@
     &:hover {
       background-color: $hover;
       border-color: $hover;
+      color: $text-color;
 
       .carbon-link__content {
          text-decoration: none;
