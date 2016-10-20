@@ -117,11 +117,7 @@ describe('Button', () => {
   });
 
   describe('Class names', () => {
-    let defaultDOM;
-    let disabledDOM;
-    let primaryDOM;
-    let secondaryDOM;
-    let smallDOM;
+    let defaultDOM, disabledDOM, primaryDOM, secondaryDOM, smallDOM, largeDOM;
 
     beforeEach(() => {
       defaultDOM = ReactDOM.findDOMNode(defaultButton);
@@ -129,6 +125,7 @@ describe('Button', () => {
       secondaryDOM = ReactDOM.findDOMNode(secondary);
       smallDOM = ReactDOM.findDOMNode(small);
       disabledDOM = ReactDOM.findDOMNode(disabled);
+      largeDOM = ReactDOM.findDOMNode(large);
     });
 
     it('adds a className of carbon-button to all buttons', () => {
@@ -137,12 +134,12 @@ describe('Button', () => {
       expect(secondaryDOM.classList).toMatch('carbon-button');
       expect(disabledDOM.classList).toMatch('carbon-button');
       expect(smallDOM.classList).toMatch('carbon-button');
+      expect(largeDOM.classList).toMatch('carbon-button');
     });
 
     it('adds a secondary class depending on its type', () => {
       expect(primaryDOM.classList).toMatch('carbon-button--primary')
       expect(secondaryDOM.classList).toMatch('carbon-button--secondary')
-      expect(smallDOM.classList).toMatch('carbon-button--small')
     });
 
     it('adds a disabled class if the button is disabled', () => {
@@ -152,6 +149,11 @@ describe('Button', () => {
     it('adds a theme class depending on the theme prop', () => {
       expect(defaultDOM.classList).toMatch('carbon-button--blue');
       expect(secondaryDOM.classList).toMatch('carbon-button--red');
+    });
+
+    it('adds a size class depending on size prop', () => {
+      expect(smallDOM.classList).toMatch('carbon-button--small');
+      expect(largeDOM.classList).toMatch('carbon-button--large');
     });
   });
 

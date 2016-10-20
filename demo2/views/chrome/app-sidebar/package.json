@@ -1,0 +1,4 @@
+{
+  "main": "./app-sidebar.js",
+  "style": "./app-sidebar.scss"
+}
