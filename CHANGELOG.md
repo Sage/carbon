@@ -1,3 +1,9 @@
+## 0.29.0
+
+## Component Enhancements
+
+* `Icon`: new Icon added - Draft
+
 ## 0.28.0
 
 ## Component Enhancements
