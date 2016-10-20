@@ -4,7 +4,7 @@ import Business from './svgs/business';
 import CSV from './svgs/csv';
 import Chevron from './svgs/chevron';
 import Completed from './svgs/completed';
-import Dribble from './svgs/dribble';
+import Dribbble from './svgs/dribbble';
 import Edit from './svgs/edit';
 import Email from './svgs/email';
 import ExternalLink from './svgs/external-link';
@@ -44,7 +44,7 @@ export default {
   csv: CSV,
   chevron: Chevron,
   completed: Completed,
-  dribble: Dribble,
+  dribbble: Dribbble,
   edit: Edit,
   email: Email,
   'external-link': ExternalLink,
