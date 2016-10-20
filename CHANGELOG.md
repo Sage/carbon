@@ -1,3 +1,9 @@
+## 0.28.0
+
+## Component Enhancements
+
+* `Icon`: new Icons added - Github, Twitter & Dribble
+
 # 0.27.0
 
 ## :warning: Breaking Change - Default colour for Pill component has changed. :warning:
