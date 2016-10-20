@@ -26,49 +26,43 @@
   &.carbon-button--small {
     border-radius: 3px;
     font-size: 11px;
+    height: 25px;
     letter-spacing: 0.5px;
-    padding: 2px 15px 2px 15px;
+    padding: 2px 10px 2px 10px;
   }
 
   &.carbon-button--large {
-    border-radius: 5px;
     font-size: 16px;
-    height: 40px;
+    height: 43px;
     padding: 12px 20px;
   }
 }
 
 @mixin button-theme($theme, $color, $hover, $active, $text-color) {
   .carbon-button--#{$theme} {
-    border-color: $color;
+    background-color: $color;
+    border: $carbon-button__border--primary;
+    color: $text-color;
 
     &:focus,
     &:hover {
+      background-color: $hover;
+      border-color: $hover;
+
       .carbon-link__content {
          text-decoration: none;
       }
     }
 
-    &.carbon-button--primary {
-      background-color: $color;
-      border: $carbon-button__border--primary;
+    &:not(.carbon-button--disabled):active {
+      background-color: $active;
+      border-color: $active;
       color: $text-color;
-
-      &:focus,
-      &:hover {
-        background-color: $hover;
-        border-color: $hover;
-      }
-
-      &:not(.carbon-button--disabled):active {
-        background-color: $active;
-        border-color: $active;
-        color: $text-color;
-      }
     }
 
-    &.carbon-button--secondary {
+    &.carbon-button--secondary:not(.carbon-button--disabled) {
       background-color: transparent;
+      border-color: $color;
       color: $color;
 
       &:focus,
@@ -77,7 +71,7 @@
         color: $text-color;
       }
 
-      &:not(.carbon-button--disabled):active {
+      &:active {
         background-color: $active;
         border-color: $active;
         color: $text-color;
@@ -89,20 +83,6 @@
 @each $set in $buttonColorSets {
   @include button-theme($set...);
 }
-
-// fixes specific css that comes from platform
-a.carbon-button--red {
-  color: $error;
-}
-
-a.carbon-button--green {
-  color: $white;
-}
-
-a.carbon-button--primary {
-  color: $carbon-button__text-color--primary;
-}
-
 
 .carbon-button--disabled,
 .carbon-button--disabled:hover {

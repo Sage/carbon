@@ -33,7 +33,7 @@
     }
   }
 
-  .carbon-split-button--open & {
+  .carbon-split-button--open &:not(.carbon-button--disabled) {
     background-color: $blue-bright;
     border-bottom-right-radius: 0;
     color: $white;
@@ -54,7 +54,7 @@
   position: absolute;
   z-index: $z-split-button;
 
-  .carbon-button {
+  .carbon-button:not(.carbon-button--disabled) {
     border: none;
     border-radius: 0;
     color: $white;

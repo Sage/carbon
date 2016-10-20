@@ -27,9 +27,9 @@ values are [ background/border color, hover, active, text ]
 */
 $buttonColorSets: (
  ("blue", $blue, $blue-bright, $blue-dark, $white),
- ("magenta", $magenta, $magenta-dull, $magenta-dark, $white),
- ("green", $green-mid, $green, $green-bright-dull, $white ),
- ("red", $red, $red-dark-20, $red-dark, $white ),
- ("grey", $grey-dark-blue, $grey-dark-blue-80, $grey-dark-blue-90, $white ),
- ("white", $white, $grey-dark-blue-30, $grey-dark-blue-50, $black ),
+ ("magenta", $magenta, $magenta-light, $magenta-dull, $white),
+ ("green", $green-mid, $green-bright-dull, $green, $white ),
+ ("red", $red, $red-light, $red-dark, $white ),
+ ("grey", $grey-dark-blue, $grey-dark-blue-90, $grey-dark-plus, $white ),
+ ("white", $white, $grey-dark-blue-10, $grey-dark-blue-40, $black ),
 );

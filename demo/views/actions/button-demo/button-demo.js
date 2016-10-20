@@ -30,15 +30,27 @@ class ButtonDemo extends React.Component {
    * @method demo
    */
   get demo() {
+    let style = {};
+
+    if (this.value('theme') === 'white') {
+      style = {
+        backgroundColor: "black", padding: "40px"
+      }
+    }
+
     return (
-      <Button
-        disabled={ this.value('disabled') }
-        href={ this.value('href') }
-        to={ this.value('to') }
-        as={ this.value('as') }
-      >
-        { this.value('text') || " " }
-      </Button>
+      <div style={ style }>
+        <Button
+          disabled={ this.value('disabled') }
+          href={ this.value('href') }
+          to={ this.value('to') }
+          as={ this.value('as') }
+          theme={ this.value('theme') }
+          size={ this.value('size') }
+        >
+          { this.value('text') || " " }
+        </Button>
+      </div>
     );
   }
 
@@ -147,6 +159,49 @@ class ButtonDemo extends React.Component {
               name: 'Red'
             }]) }
           />
+
+          <Dropdown
+            label="Theme"
+            value={ this.value('theme') }
+            labelInline={ true }
+            onChange={ this.action.bind(this, 'theme') }
+            options={ Immutable.fromJS([{
+              id: 'green',
+              name: 'green'
+            }, {
+              id: 'red',
+              name: 'red'
+            }, {
+              id: 'blue',
+              name: 'blue'
+            }, {
+              id: 'grey',
+              name: 'grey'
+            }, {
+              id: 'magenta',
+              name: 'magenta'
+            }, {
+              id: 'white',
+              name: 'white'
+            }]) }
+          />
+
+          <Dropdown
+            label="Size"
+            value={ this.value('size') }
+            labelInline={ true }
+            onChange={ this.action.bind(this, 'size') }
+            options={ Immutable.fromJS([{
+              id: 'small',
+              name: 'small'
+            }, {
+              id: 'medium',
+              name: 'medium'
+            }, {
+              id: 'large',
+              name: 'large'
+            }]) }
+          />
         </Row>
       </div>
     );
@@ -158,6 +213,7 @@ class ButtonDemo extends React.Component {
   render() {
     return (
       <Example
+        style={{ backgroundColor: "red" }}
         title="Button"
         readme="components/button"
         demo={ this.demo }
