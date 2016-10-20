@@ -4,6 +4,7 @@ import BrowserStore from './../../stores/browser';
 import classNames from 'classnames';
 
 import AppSidebar from './app-sidebar';
+import AppFooter from './app-footer'
 
 const RESIZE_WIDTH = 1024;
 
@@ -23,6 +24,7 @@ class Chrome extends React.Component {
 
         <div className='carbon-demo__content'>
           { this.props.children }
+          <AppFooter />
         </div>
       </div>
     );
