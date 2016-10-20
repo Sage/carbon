@@ -15,6 +15,10 @@ import Link from './../link';
  *
  *   <Button>Save</Button>
  *
+ *  ### Themes
+ *
+ *  Currently available button themese are blue(default), green, red, magenta, grey & white.
+ *
  * For additional properties specific to this component, see propTypes and defaultProps.
  *
  * @class Button
