@@ -56,11 +56,21 @@ class Button extends React.Component {
      * @type {String}
      * @default blue
      */
-    theme: React.PropTypes.string
+    theme: React.PropTypes.string,
+
+    /**
+     * Determines size of button.
+     *
+     * @property size
+     * @type {String}
+     * @default medium
+     */
+    size: React.PropTypes.string
   }
 
   static defaultProps = {
     as: 'secondary',
+    size: 'medium',
     theme: 'blue',
     disabled: false
   }
@@ -80,6 +90,7 @@ class Button extends React.Component {
       'carbon-button',
       `carbon-button--${this.props.as}`,
       `carbon-button--${this.props.theme}`,
+      `carbon-button--${this.props.size}`,
       props.className, {
         'carbon-button--disabled': this.props.disabled
       }

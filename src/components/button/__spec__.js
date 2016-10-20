@@ -6,7 +6,7 @@ import Link from './../link';
 
 describe('Button', () => {
 
-  let defaultButton, primary, secondary, small, disabled, anchor, to;
+  let defaultButton, primary, secondary, small, large, disabled, anchor, to;
   let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
@@ -34,8 +34,15 @@ describe('Button', () => {
     small = TestUtils.renderIntoDocument(
       <Button
         name="Small Button"
-        as='small'
+        size='small'
       >Small</Button>
+    );
+
+    large = TestUtils.renderIntoDocument(
+      <Button
+        name="Large Button"
+        size='large'
+      >Large</Button>
     );
 
     disabled = TestUtils.renderIntoDocument(
@@ -59,6 +66,8 @@ describe('Button', () => {
       expect(defaultButton.props.as).toEqual('secondary');
       expect(defaultButton.props.children).toEqual('Save');
       expect(defaultButton.props.disabled).toEqual(false);
+      expect(defaultButton.props.size).toEqual('medium');
+      expect(defaultButton.props.theme).toEqual('blue');
     });
   });
 
@@ -83,9 +92,18 @@ describe('Button', () => {
   describe('A small button', () => {
     it('renders a small button', () => {
       expect(small.props.name).toEqual('Small Button');
-      expect(small.props.as).toEqual('small');
+      expect(small.props.size).toEqual('small');
       expect(small.props.children).toEqual('Small');
       expect(small.props.disabled).toEqual(false);
+    });
+  });
+
+  describe('A large button', () => {
+    it('renders a large button', () => {
+      expect(large.props.name).toEqual('Large Button');
+      expect(large.props.size).toEqual('large');
+      expect(large.props.children).toEqual('Large');
+      expect(large.props.disabled).toEqual(false);
     });
   });
 

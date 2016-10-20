@@ -17,6 +17,10 @@
 </Button>
 ```
 
+## Component Enhancements
+
+* Button now accepts a size and theme prop to determine size and color respectively.
+
 # 0.27.0
 
 ## :warning: Breaking Change - Default colour for Pill component has changed. :warning:
