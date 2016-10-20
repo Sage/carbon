@@ -45,6 +45,7 @@ export default {
   csv: CSV,
   chevron: Chevron,
   completed: Completed,
+  draft: Draft,
   dribble: Dribble,
   edit: Edit,
   email: Email,

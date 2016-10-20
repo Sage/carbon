@@ -13,6 +13,7 @@ describe('Icon', () => {
     'csv',
     'chevron',
     'completed',
+    'draft',
     'dribble',
     'edit',
     'email',
