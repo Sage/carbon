@@ -4,6 +4,7 @@ import Business from './svgs/business';
 import CSV from './svgs/csv';
 import Chevron from './svgs/chevron';
 import Completed from './svgs/completed';
+import Draft from './svgs/draft';
 import Dribble from './svgs/dribble';
 import Edit from './svgs/edit';
 import Email from './svgs/email';
