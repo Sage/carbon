@@ -13,7 +13,7 @@ class AppFooter extends React.Component {
         </div>
         <div className="app-footer__legal">
           <span className='app-footer__sage-icon' />
-          <span className='legal__text'>{ `\u00A9 Sage(UK) Ltd. ${new Date().getFullYear()}, All rights reserved. Last updated on October 20th 2016` }</span>
+          <span>{ `\u00A9 Sage(UK) Ltd. ${new Date().getFullYear()}, All rights reserved. Last updated on October 20th 2016` }</span>
         </div>
       </div>
     );

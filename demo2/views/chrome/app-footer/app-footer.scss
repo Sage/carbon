@@ -3,18 +3,17 @@
 .app-footer {
   background-color: $grey-dark-blue;
   bottom: 0;
+  box-sizing: border-box;
   color: $white;
   height: 80px;
+  padding: 12px 40px;
   position: relative;
+  white-space: nowrap;
   width: 100%;
-
-  .app-footer__download-button {
-    margin-left: 16px;
-  }
 
   .app-footer__sage-icon {
     background-image: url('/assets/images/sage_logo.svg');
-    background-position-x: 95%;
+    background-position: right;
     background-repeat: no-repeat;
     display: block;
     height: 22px;
@@ -34,7 +33,6 @@
     box-sizing: border-box;
     display: inline-block;
     left: 0;
-    padding-left: 35px;
     position: relative;
     width: 50%;
 
@@ -45,9 +43,5 @@
     .carbon-link__anchor {
       color: currentColor;
     }
-  }
-
-  .legal__text {
-    margin-right: 45px;
   }
 }
