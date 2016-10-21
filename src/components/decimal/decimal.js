@@ -167,8 +167,8 @@ class Decimal extends React.Component {
     this.setState({ visibleValue: currentValue });
     this.highlighted = false;
 
-    if (!this.value) {
-      this.emitOnChangeCallback(I18nHelper.formatDecimal('0', this.props.precision));
+    if (this.value === '') {
+      this.emitOnChangeCallback('0');
     }
   }
 

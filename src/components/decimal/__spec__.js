@@ -2,7 +2,6 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Decimal from './decimal';
 import I18n from "i18n-js";
-import I18nHelper from './../../utils/helpers/i18n';
 import Events from './../../utils/helpers/events';
 
 describe('Decimal', () => {
@@ -305,15 +304,14 @@ describe('Decimal', () => {
         expect(instance.highlighted).toBeFalsy();
       });
 
-      describe('if value is null', () => {
-        it('calls emitOnChangeCallback with the formatted value of 0', () => {
+      describe('if value is undefined', () => {
+        it('calls emitOnChangeCallback with a value of 0', () => {
           instance = TestUtils.renderIntoDocument(
-            <Decimal name="total" value="" precision='3' />
+            <Decimal name="total" value="" />
           );
           spyOn(instance, 'emitOnChangeCallback');
-          spyOn(I18nHelper, 'formatDecimal').and.returnValue('0.000');
           TestUtils.Simulate.blur(instance._input);
-          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('0.000');
+          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('0');
         });
       });
     });
