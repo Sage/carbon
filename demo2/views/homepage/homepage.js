@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './header';
 
 class Homepage extends React.Component {
   /**
@@ -7,7 +8,8 @@ class Homepage extends React.Component {
   render() {
     return (
       <div className="carbon-homepage">
-        Carbon
+        <Header />
+        <div style={ { height: '300px', background: 'grey' } }/>
       </div>
     );
   }
