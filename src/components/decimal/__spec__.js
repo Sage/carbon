@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Decimal from './decimal';
 import I18n from "i18n-js";
+import I18nHelper from './../../utils/helpers/i18n';
 import Events from './../../utils/helpers/events';
 
 describe('Decimal', () => {
@@ -292,15 +293,28 @@ describe('Decimal', () => {
       beforeEach(() => {
         spyOn(instance, 'setState');
         instance.highlighted = true;
-        TestUtils.Simulate.blur(instance._input);
       });
 
       it('calls setState with the formatted visible value', () => {
+        TestUtils.Simulate.blur(instance._input);
         expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "1,000.00" });
       });
 
       it('sets the highlighted property to false', () => {
+        TestUtils.Simulate.blur(instance._input);
         expect(instance.highlighted).toBeFalsy();
+      });
+
+      describe('if value is null', () => {
+        it('calls emitOnChangeCallback with the formatted value of 0', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Decimal name="total" value="" precision='3' />
+          );
+          spyOn(instance, 'emitOnChangeCallback');
+          spyOn(I18nHelper, 'formatDecimal').and.returnValue('0.000');
+          TestUtils.Simulate.blur(instance._input);
+          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('0.000');
+        });
       });
     });
 
