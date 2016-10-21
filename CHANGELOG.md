@@ -1,8 +1,12 @@
-## 0.28.0
+# 0.28.0
 
 ## Component Enhancements
 
 * `Icon`: new Icons added - Draft, Github, Twitter & Dribble
+
+# 0.27.1
+
+* Heading component can now configure it's divider on/off using the prop 'divider'.
 
 # 0.27.0
 
