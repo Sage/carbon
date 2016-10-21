@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from 'components/button';
 import GetStarted from './get-started';
 
 class Homepage extends React.Component {
