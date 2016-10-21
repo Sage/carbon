@@ -32,10 +32,10 @@ class ComponentCodeBuilder {
 
     if (value) {
       this.hasProps = true;
-      if (typeof value === "boolean") {
-        this.code += `\n  ${prop}={ ${value} }`;
-      } else {
+      if (typeof value === "string") {
         this.code += `\n  ${prop}='${value}'`;
+      } else {
+        this.code += `\n  ${prop}={ ${value} }`;
       }
     }
   }
