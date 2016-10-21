@@ -125,7 +125,8 @@ class IconDemo extends React.Component {
       { name: 'Minus',            id: 'minus' },
       { name: 'Payment',          id: 'payment' },
       { name: 'Processing',       id: 'processing' },
-      { name: 'White Tick',       id: 'white-tick' }
+      { name: 'White Tick',       id: 'white-tick' },
+      { name: 'Draft',            id: 'draft' }
     ]);
 
     return (

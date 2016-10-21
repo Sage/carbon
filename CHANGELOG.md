@@ -1,14 +1,8 @@
-## 0.29.0
-
-## Component Enhancements
-
-* `Icon`: new Icon added - Draft
-
 ## 0.28.0
 
 ## Component Enhancements
 
-* `Icon`: new Icons added - Github, Twitter & Dribble
+* `Icon`: new Icons added - Draft, Github, Twitter & Dribble
 
 # 0.27.0
 
