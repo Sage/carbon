@@ -51,7 +51,7 @@ class ComponentCodeBuilder {
     // add spaces to child with code
     if (child.code) {
       child.close();
-      child.code = child.code.replace(/^/gm, "  ");
+      child.code = child.code.replace(/^/gm, spaces);
       spaces = "";
     }
 
