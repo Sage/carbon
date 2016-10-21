@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './header';
 import GetStartedPod from './../get-started-pod';
 
 class Homepage extends React.Component {
@@ -8,9 +9,8 @@ class Homepage extends React.Component {
   render() {
     return (
       <div className="carbon-homepage">
-        Carbon
-        <div className="carbon-homepage__content">
-        </div>
+        <Header />
+        <div style={ { height: '300px', background: 'grey' } }/>
         <GetStartedPod />
       </div>
     );

@@ -1,0 +1,47 @@
+.carbon-homepage__header {
+  background: linear-gradient(37deg, #1e4486, #372159);
+  height: 800px;
+  text-align: center;
+  position: relative;
+
+  &:after {
+    border-right: 100vw solid #FFFFFF;
+    border-top: 400px solid transparent;
+    bottom: 0px;
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+.carbon-homepage__titles {
+  padding: 80px 10% 0 10%;
+  color: white;
+}
+
+.carbon-homepage__heading1 {
+  font-size: 40px;
+  line-height: normal;
+}
+
+.carbon-homepage__heading2 {
+  font-size: 22px;
+  line-height: normal;
+}
+
+.carbon-homepage__version {
+  margin-top: 20px;
+  font-weight: 100;
+  letter-spacing: 0.3px;
+  margin-bottom: 90px;
+}
+
+.carbon-homepage__header__tiles {
+  position: relative;
+  padding: 0 5%;
+  margin-top: 30px;
+}
+
+.carbon-homepage__header__tile {
+}
