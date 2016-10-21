@@ -1,3 +1,7 @@
+# 0.27.1
+
+* Heading component can now configure it's divider on/off using the prop 'divider'.
+
 # 0.27.0
 
 ## :warning: Breaking Change - Default colour for Pill component has changed. :warning:
