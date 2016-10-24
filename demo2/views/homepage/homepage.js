@@ -1,5 +1,5 @@
 import React from 'react';
-import GetStarted from './get-started';
+import GetStartedPod from './../get-started-pod';
 
 class Homepage extends React.Component {
   /**
@@ -11,7 +11,7 @@ class Homepage extends React.Component {
         Carbon
         <div className="carbon-homepage__content">
         </div>
-        <GetStarted />
+        <GetStartedPod />
       </div>
     );
   }
