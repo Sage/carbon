@@ -3,6 +3,7 @@
 ## Component Enhancements
 
 * `Icon`: new Icons added - Draft, Github, Twitter & Dribble
+* `Link`: tabindex default and switch control via a prop
 
 # 0.27.2
 

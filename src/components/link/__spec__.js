@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Link from './link';
+
 import Icon from './../icon';
+import Link from './link';
 
 describe('Link', () => {
   let basicLink, disabledLink, customLink, actionLink, spy;
@@ -43,6 +45,21 @@ describe('Link', () => {
   describe('A disabled link', () => {
     it('renders a link with the disabled attribute', () => {
       expect(disabledLink.props.disabled).toBeTruthy();
+    });
+  });
+
+  describe("tabbable", () => {
+    it("has tabindex by default", () => {
+      let wrapper = shallow(<Link href='#'>My Link</Link>);
+      expect(wrapper.props()['tabIndex']).toEqual('0');
+    });
+    it("disabled over-rides tab index setting", () => {
+      let wrapper = shallow(<Link href='#' tabbable={ true } disabled={ true }>My Link</Link>);
+      expect(wrapper.props()['tabIndex']).toEqual('-1');
+    });
+    it("doesn't have tab index if it is set to not be tabbable", () => {
+      let wrapper = shallow(<Link href='#' tabbable={ false }>My Link</Link>);
+      expect(wrapper.props()['tabIndex']).toEqual('-1');
     });
   });
 
