@@ -124,15 +124,16 @@ class Decimal extends React.Component {
    *
    * @method isValidDecimal
    * @param {String} value new prop value
+   * @param {Integer} precision decimal precision
    * @return {Boolean} true if a valid decimal
    */
   isValidDecimal = (value, precision) => {
     let del, regex, sep, format = I18nHelper.format();
-    del = format.delimiter;
-    sep = format.separator;
+    del = `\\${format.delimiter}`;
+    sep = `\\${format.separator}`;
     regex = precision > 0 ?
-        new RegExp(`^[-]?[0-9]*(?:${del}?[0-9]?)*${sep}?[0-9]{0,${precision}}$`) :
-        new RegExp(`^[-]?[0-9]*(?:${del}?[0-9]?)*$`);
+        new RegExp(`^[-]?\\d*(?:${del}?\\d?)*${sep}?\\d{0,${precision}}$`) :
+        new RegExp(`^[-]?\\d*(?:${del}?\\d?)*$`);
     return regex.test(value);
   }
 
