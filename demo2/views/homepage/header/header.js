@@ -9,11 +9,11 @@ class Header extends React.Component {
       <div className='carbon-homepage__header'>
         <div className='carbon-homepage__titles'>
 
-          <h1 className='carbon-homepage__heading1'>
+          <h1 className='carbon-homepage__h1'>
             Carbon is a library of React components for building great web applications.
           </h1>
 
-          <h2 className='carbon-homepage__heading2'>
+          <h2 className='carbon-homepage__h2'>
             Carbon is open source. It’s hosted, developed, and maintained on Github.
           </h2>
 
@@ -26,17 +26,27 @@ class Header extends React.Component {
             Currently: v1.0.0
           </div>
 
-          <h2 className='carbon-homepage__heading2'>
+          <h2 className='carbon-homepage__h2 carbon-homepage__heading-divider'>
             Building web applications got a whole lot faster
           </h2>
         </div>
 
         <div className='carbon-homepage__header__tiles'>
-          <Row>
-            <InfoTile classnName='carbon-homepage__header__tile' />
-            <InfoTile classnName='carbon-homepage__header__tile' />
-            <InfoTile classnName='carbon-homepage__header__tile' />
-          </Row>
+          <InfoTile
+            className='carbon-homepage__header__tile'
+            title='Ridiculously Quick'
+            description='Carbon helps developers take applications from concept to completion as quickly as possible.'
+          />
+          <InfoTile
+            className='carbon-homepage__header__tile'
+            title='Fully Featured'
+            description='With Carbon you get an extensive and beautiful documentation for common web components.'
+          />
+          <InfoTile
+            className='carbon-homepage__header__tile'
+            title='Ridiculously Quick'
+            description='Carbon helps developers take applications from concept to completion as quickly as possible.'
+          />
         </div>
       </div>
     );

@@ -7,6 +7,7 @@ class AppSidebar extends React.Component {
       <Sidebar
         className="carbon-app-sidebar"
         position="left"
+        size='small'
         open={ true }
         enableBackgroundUI={ !this.props.isTablet }
       >
