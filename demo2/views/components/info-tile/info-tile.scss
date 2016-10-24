@@ -1,2 +1,30 @@
 .info-tile {
+  width: 320px;
+  display: inline-block;
+  margin-right: 15px;
+  margin-top: 15px;
+
+  &:last-child {
+    margin: none;
+  }
+}
+
+.info-tile__content {
+  text-align: center;
+}
+
+.info-tile__image {
+  margin-bottom: 35px;
+
+  .carbon-portrait__img {
+    float: none;
+  }
+}
+
+.info-tile__heading {
+  font-size: 18px;
+}
+
+.info-tile__description {
+  font-size: 16px;
 }
