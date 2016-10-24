@@ -3,6 +3,7 @@
 ## Component Enhancements
 
 * `Icon`: new Icons added - Draft, Github, Twitter & Dribble
+* `Decimal` component can validate properly with alternative i18n settings
 
 # 0.27.1
 
