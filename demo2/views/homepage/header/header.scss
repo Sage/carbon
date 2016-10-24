@@ -43,8 +43,8 @@
     width: 60px;
     left: 0;
     right: 0;
-    bottom: 0;
-    margin: auto auto -25px;
+    bottom: -25px;
+    margin: auto;
   }
 }
 
@@ -55,7 +55,7 @@
   margin-top: 20px;
 }
 
-.carbon-homepage__header__tiles {
+.carbon-homepage__header-tiles {
   padding: 0 5%;
   position: relative;
   z-index: 3;

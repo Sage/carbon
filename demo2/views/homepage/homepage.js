@@ -9,7 +9,6 @@ class Homepage extends React.Component {
     return (
       <div className="carbon-homepage">
         <Header />
-        <div style={ { height: '300px', background: 'grey' } }/>
       </div>
     );
   }
