@@ -2,7 +2,7 @@ import React from 'react';
 
 import Link from 'components/link';
 import { Sidebar, SidebarHeader } from 'components/sidebar';
-import Submenu from 'components/submenu';
+import { MenuListItem, MenuList } from 'components/menu-list';
 
 const components = [
    { name: 'One' },
@@ -19,7 +19,7 @@ class AppSidebar extends React.Component {
    */
   get componentsHTML() {
     return components.map((item, i) => {
-      return <Link key={ i } href='#' name={ item.name }>{ item.name }</Link>;
+      return <MenuListItem><Link key={ i } name={ item.name }>{ item.name }</Link></MenuListItem>;
     });
   }
 
@@ -36,23 +36,23 @@ class AppSidebar extends React.Component {
           Carbon
         </SidebarHeader>
 
-        <Submenu
+        <MenuList
           className='carbon-app-sidebar__menu'
           toggleable={ false }
           initiallyOpen={ true }
         >
-          <Link>Getting Started</Link>
-          <Submenu title='Components' filter={ true }>
+          <MenuListItem><Link tabIndex='10'>Getting Started</Link></MenuListItem>
+          <MenuListItem><MenuList title='Components' filter={ true }>
             { this.componentsHTML }
-          </Submenu>
-          <Submenu title='Patterns' filter={ false }>
-            <Link href='#' name={ 'Items' }>Items</Link>
-            <Link href='#' name={ 'Stuff' }>Stuff</Link>
-            <Link href='#' name={ 'Things' }>Things</Link>
-          </Submenu>
-          <Link>Style</Link>
-          <Link>Articles</Link>
-        </Submenu>
+          </MenuList></MenuListItem>
+          <MenuListItem><MenuList title='Patterns' filter={ false }>
+            <MenuListItem><Link name={ 'Items' }>Items</Link></MenuListItem>
+            <MenuListItem><Link name={ 'Stuff' }>Stuff</Link></MenuListItem>
+            <MenuListItem><Link name={ 'Things' }>Things</Link></MenuListItem>
+          </MenuList></MenuListItem>
+          <MenuListItem><Link tabbable={ false } >Style</Link></MenuListItem>
+          <MenuListItem><Link>Articles</Link></MenuListItem>
+        </MenuList>
 
       </Sidebar>
     );
