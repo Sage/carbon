@@ -31,19 +31,19 @@ class Header extends React.Component {
           </h2>
         </div>
 
-        <div className='carbon-homepage__header__tiles'>
+        <div className='carbon-homepage__header-tiles'>
           <InfoTile
-            className='carbon-homepage__header__tile'
+            className='carbon-homepage__header-tile'
             title='Ridiculously Quick'
             description='Carbon helps developers take applications from concept to completion as quickly as possible.'
           />
           <InfoTile
-            className='carbon-homepage__header__tile'
+            className='carbon-homepage__header-tile'
             title='Fully Featured'
             description='With Carbon you get an extensive and beautiful documentation for common web components.'
           />
           <InfoTile
-            className='carbon-homepage__header__tile'
+            className='carbon-homepage__header-tile'
             title='Ridiculously Quick'
             description='Carbon helps developers take applications from concept to completion as quickly as possible.'
           />
