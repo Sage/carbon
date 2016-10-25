@@ -151,12 +151,6 @@ class ButtonDemo extends React.Component {
             }, {
               id: 'secondary',
               name: 'Secondary'
-            }, {
-              id: 'green',
-              name: 'Green'
-            }, {
-              id: 'red',
-              name: 'Red'
             }]) }
           />
 
@@ -166,9 +160,6 @@ class ButtonDemo extends React.Component {
             labelInline={ true }
             onChange={ this.action.bind(this, 'theme') }
             options={ Immutable.fromJS([{
-              id: 'green',
-              name: 'green'
-            }, {
               id: 'red',
               name: 'red'
             }, {
