@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './header';
+import LearnMore from './learn-more';
 
 class Homepage extends React.Component {
   /**
@@ -9,6 +10,7 @@ class Homepage extends React.Component {
     return (
       <div className="carbon-homepage">
         <Header />
+        <LearnMore />
       </div>
     );
   }
