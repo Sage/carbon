@@ -13,9 +13,12 @@ describe('Icon', () => {
     'csv',
     'chevron',
     'completed',
+    'draft',
+    'dribbble',
     'edit',
     'email',
     'external-link',
+    'github',
     'help',
     'individual',
     'information',
@@ -39,6 +42,7 @@ describe('Icon', () => {
     'sort-up',
     'submitted',
     'sync',
+    'twitter',
     'warning',
     'white-tick'
   ]

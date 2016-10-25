@@ -1,0 +1,4 @@
+{
+  "main": "./app-footer.js",
+  "style": "app-footer.scss"
+}
