@@ -19,7 +19,8 @@
   text-decoration: none;
 
   &:focus {
-    @include transition(box-shadow linear 0.1s)
+    @include transition(box-shadow linear 0.1s);
+
     box-shadow: 0 0 6px rgba(25,99,246,0.6);
   }
 
@@ -55,6 +56,10 @@
       }
     }
 
+    &:focus {
+      box-shadow: 0 0 6px rgba($active,0.6);
+    }
+
     &:not(.carbon-button--disabled):active {
       background-color: $active;
       border-color: $active;
@@ -69,6 +74,7 @@
       &:focus,
       &:hover {
         background-color: $hover;
+        border-color: $hover;
         color: $text-color;
       }
 
