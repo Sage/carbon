@@ -131,6 +131,98 @@ describe('Decimal', () => {
       });
     });
 
+    describe('isValidDecimal', () => {
+      describe('with en I18n options', () => {
+        beforeEach(() => {
+          I18n.translations = { en: { number: { format: {
+            delimiter: ",",
+            separator: "."
+          } } } };
+
+          instance = TestUtils.renderIntoDocument(
+            <Decimal name="total" value="" />
+          );
+        });
+
+        afterEach(() => {
+          I18n.translations = {};
+        });
+
+        it('returns true with valid number and precision', () => {
+          expect(instance.isValidDecimal('100,000.00', 2)).toBe(true);
+          expect(instance.isValidDecimal('100,000.9956', 4)).toBe(true);
+          expect(instance.isValidDecimal('10000.0', 1)).toBe(true);
+          expect(instance.isValidDecimal('1000', 0)).toBe(true);
+        });
+
+        it('returns false with invalid number or precision', () => {
+          expect(instance.isValidDecimal('100 000.00', 2)).toBe(false);
+          expect(instance.isValidDecimal('abc.9956', 4)).toBe(false);
+          expect(instance.isValidDecimal('10000.034', 2)).toBe(false);
+        });
+
+        it('returns true with when decimal precision is less or equal than expected', () => {
+          expect(instance.isValidDecimal('9.00', 2)).toBe(true);
+          expect(instance.isValidDecimal('9.9', 4)).toBe(true);
+          expect(instance.isValidDecimal('1000', 0)).toBe(true);
+        });
+
+        it('returns false with when decimal precision is more than expected', () => {
+          expect(instance.isValidDecimal('9.00', 1)).toBe(false);
+          expect(instance.isValidDecimal('9.9767', 2)).toBe(false);
+          expect(instance.isValidDecimal('1000.', 0)).toBe(false);
+        });
+      });
+
+      describe('with alternative (fr) I18n options', () => {
+        beforeEach(() => {
+          I18n.translations = { en: { number: { format: {
+            delimiter: " ",
+            separator: ","
+          } } } };
+
+          instance = TestUtils.renderIntoDocument(
+            <Decimal name="total" value="" />
+          );
+        });
+
+        afterEach(() => {
+          I18n.translations = {};
+        });
+
+        it('returns true with valid number and precision', () => {
+          expect(instance.isValidDecimal('100 000,00', 2)).toBe(true);
+          expect(instance.isValidDecimal('100 000,9956', 4)).toBe(true);
+          expect(instance.isValidDecimal('10000,0', 1)).toBe(true);
+          expect(instance.isValidDecimal('1 000', 0)).toBe(true);
+        });
+      });
+
+      describe('with alternative (de, es) I18n options', () => {
+        beforeEach(() => {
+          I18n.translations = { en: { number: { format: {
+            delimiter: ".",
+            separator: ","
+          } } } };
+
+          instance = TestUtils.renderIntoDocument(
+            <Decimal name="total" value="" />
+          );
+        });
+
+        afterEach(() => {
+          I18n.translations = {};
+        });
+
+        it('returns true with valid number and precision', () => {
+          expect(instance.isValidDecimal('100.000,00', 2)).toBe(true);
+          expect(instance.isValidDecimal('100.000,9956', 4)).toBe(true);
+          expect(instance.isValidDecimal('10000,0', 1)).toBe(true);
+          expect(instance.isValidDecimal('1.000', 0)).toBe(true);
+        });
+      });
+    });
+
     describe('handleVisibleInputChange', () => {
       beforeEach(() => {
         spyOn(instance, 'setState');
