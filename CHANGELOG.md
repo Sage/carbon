@@ -16,6 +16,9 @@
   Foo
 </Button>
 ```
+## Helpers
+
+* `abbreviateNumber` function is provided for adding 'k' and 'm' style abbreviations for large numbers
 
 ## Component Enhancements
 
