@@ -22,6 +22,10 @@
 * Button now accepts a size and theme prop to determine size and color respectively.
 * `Icon`: new Icons added - Draft, Github, Twitter & Dribble
 
+# 0.27.2
+
+* `Decimal` component can validate properly with alternative i18n settings
+
 # 0.27.1
 
 * Heading component can now configure it's divider on/off using the prop 'divider'.
