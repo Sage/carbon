@@ -18,8 +18,8 @@ class Header extends React.Component {
           </h2>
 
           <div className='carbon-homepage__buttons'>
-            { Buttons.githubButton('get-started__github-button') }
-            { Buttons.downloadButton() }
+            { Buttons.github('get-started__github-button') }
+            { Buttons.download() }
           </div>
 
           <div className='carbon-homepage__version'>

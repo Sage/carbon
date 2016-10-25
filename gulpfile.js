@@ -29,7 +29,8 @@ gulp.task('build', BuildTask({
   src: './' + dir + '/main.js',
   jsDest: './' + dir + '/assets/javascripts',
   cssDest: './' + dir + '/assets/stylesheets',
-  fontDest: './' + dir + '/assets/fonts'
+  fontDest: './' + dir + '/assets/fonts',
+  imageDest: './' + dir + '/assets/images'
 }));
 
 gulp.task('default', ['webserver', 'build']);
