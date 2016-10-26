@@ -21,7 +21,8 @@
   text-decoration: none;
 
   &:focus {
-    @include transition(box-shadow linear 0.1s)
+    @include transition(box-shadow linear 0.1s);
+
     box-shadow: 0 0 6px rgba(25,99,246,0.6);
   }
 
