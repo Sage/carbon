@@ -1,0 +1,30 @@
+@import 'colors';
+
+.carbon-learn-more-content {
+  font-size: 16px;
+}
+
+.carbon-learn-more-content__title {
+  margin-bottom: 30px;
+  position: relative;
+
+  &:after {
+    position: absolute;
+    height: 2px;
+    content: '';
+    background: $grey-dark-blue-60;
+    width: 60px;
+    left: 0;
+    bottom: -15px;
+    margin: auto;
+  }
+}
+
+.carbon-learn-more-content__body {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.carbon-learn-more-content__footer-arrow {
+  margin-left: 5px;
+}
