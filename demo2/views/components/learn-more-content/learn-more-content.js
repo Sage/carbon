@@ -41,13 +41,37 @@ class LearnMoreContent extends React.Component {
     linkProps: React.PropTypes.object,
   }
 
+  constructor(...args) {
+    super(...args);
+
+    this.classes = this.classes.bind(this);
+    this.linkProps = this.linkProps.bind(this);
+    this.footerContent = this.footerContent.bind(this);
+  }
+
+  render() {
+    return (
+      <div className={ this.classes() }>
+        <h1 className="carbon-learn-more-content__title">
+          { this.props.title }
+        </h1>
+
+        <div className="carbon-learn-more-content__body">
+          { this.props.children }
+        </div>
+
+        { this.footerContent() }
+      </div>
+    );
+  }
+
   /**
    * Returns the HTML classes for the component.
    *
    * @method
    * @return {String}
    */
-  get classes() {
+  classes() {
     return classNames(
       "carbon-learn-more-content",
       this.props.className
@@ -60,7 +84,7 @@ class LearnMoreContent extends React.Component {
    * @method
    * @return {Object}
    */
-  get linkProps() {
+  linkProps() {
     let defaultLinkProps = {
       target: "_blank",
       href: this.props.footerHref,
@@ -79,32 +103,16 @@ class LearnMoreContent extends React.Component {
    * @method
    * @return {JSX}
    */
-  get footerContent() {
+  footerContent() {
     if (this.props.footerContent) {
       return (
         <div className="carbon-learn-more-content__footer">
-          <Link { ...this.linkProps } >
+          <Link { ...this.linkProps() } >
             { this.props.footerContent }
           </Link>
         </div>
       );
     }
-  }
-
-  render() {
-    return (
-      <div className={ this.classes }>
-        <h1 className="carbon-learn-more-content__title">
-          { this.props.title }
-        </h1>
-
-        <div className="carbon-learn-more-content__body">
-          { this.props.children }
-        </div>
-
-        { this.footerContent }
-      </div>
-    );
   }
 }
 
