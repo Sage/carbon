@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import AppSidebar from './app-sidebar';
 import AppFooter from './app-footer'
+import Navbar from './navbar';
 
 const RESIZE_WIDTH = 1024;
 
@@ -23,6 +24,7 @@ class Chrome extends React.Component {
         <AppSidebar isTablet={ this._isSmallScreen() } />
 
         <div className='carbon-demo__content'>
+          <Navbar isTablet={ this._isSmallScreen() } />
           { this.props.children }
           <AppFooter />
         </div>
