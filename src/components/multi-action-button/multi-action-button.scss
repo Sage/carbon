@@ -27,6 +27,10 @@
     &.carbon-button--disabled {
       border-color: $carbon-button__border-color--disabled;
     }
+
+    &--primary {
+      border: none;
+    }
   }
 
   .carbon-multi-action-button__additional-buttons {

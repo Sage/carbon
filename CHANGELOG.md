@@ -1,7 +1,25 @@
 # 0.28.0
 
+## :warning: Breaking Change - Button colors
+
+* Button color is now determined by a `theme` prop.
+* If you are using a red or green button, you must pass props of `as` and `theme`.
+* i.e. for a red button
+```js
+<Button theme='red'>
+  Foo
+</Button>
+```
+* For a green button
+```js
+<Button theme='green' as='secondary'>
+  Foo
+</Button>
+```
+
 ## Component Enhancements
 
+* Button now accepts a size and theme prop to determine size and color respectively.
 * `Icon`: new Icons added - Draft, Github, Twitter & Dribble
 * `Link`: tabindex default and switch control via a prop
 
