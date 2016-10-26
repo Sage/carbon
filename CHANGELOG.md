@@ -30,6 +30,10 @@
 
 * `Decimal` component can validate properly with alternative i18n settings
 
+## New Components
+
+* `MenuList`: handles simple `ul` based menus
+
 # 0.27.1
 
 * Heading component can now configure it's divider on/off using the prop 'divider'.

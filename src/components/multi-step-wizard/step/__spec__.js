@@ -168,7 +168,7 @@ describe('Step', () => {
     describe('when step is enabled', () => {
       it('returns false', () => {
         instance = TestUtils.renderIntoDocument(
-          <Step enabled={ true }>Demo Step</Step>
+          <Step stepNumber={ 1 } enabled={ true }>Demo Step</Step>
         );
         instance.context = stepContext;
         expect(instance.stepDisabled).toBeFalsy();
