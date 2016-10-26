@@ -53,6 +53,17 @@ class _Link extends React.Component {
     iconAlign: React.PropTypes.string,
 
     /**
+     * Allows the <a> tag to be set in or out of the tab order of the page
+     * Boolean is used as tabindex > 0 is not really necessary, HTML order should
+     * take precedence
+     *
+     * @property tabbable
+     * @type {Boolean}
+     * @default true
+     */
+    tabbable: React.PropTypes.bool,
+
+    /**
      * Use `to` to use the React Router link. You can also prefix your value
      * with `to:` or `href:` to override the prop type.
      *
@@ -74,7 +85,8 @@ class _Link extends React.Component {
   }
 
   static defaultProps = {
-    iconAlign: 'left'
+    iconAlign: 'left',
+    tabbable: true
   }
 
   /**
@@ -86,7 +98,10 @@ class _Link extends React.Component {
   get componentProps() {
     let { ...props } = this.props;
 
+    props.tabIndex = this.tabIndex;
+
     delete props.href;
+    delete props.tabbable;
     delete props.to;
 
     props.className = this.componentClasses;
@@ -152,6 +167,16 @@ class _Link extends React.Component {
         tooltipPosition={ this.props.tooltipPosition }
       />
     );
+  }
+
+  /**
+   * Returns 0 or -1 for tabindex
+   *
+   * @method tabIndex
+   * @return {String} 0 or -1
+   */
+  get tabIndex() {
+    return this.props.tabbable && !this.props.disabled ? '0' : '-1';
   }
 
   /**
