@@ -24,14 +24,6 @@
     box-shadow: 0 0 6px rgba(25,99,246,0.6);
   }
 
-  &:focus,
-  &:hover {
-    background-color: $carbon-button__background-color--secondary--hover;
-    border-color: $carbon-button__border-color--secondary--hover;
-    color: $carbon-button__text-color--secondary--hover;
-    box-shadow: 0 0 6px rgba(25,99,246,0.6);
-  }
-
   &.carbon-button--small {
     border-radius: 3px;
     font-size: 11px;
