@@ -1,3 +1,8 @@
 {
-  "main": "./homepage.js"
+  "main": "./homepage.js",
+  "style": "homepage.scss",
+  "images": [
+    "./images/background_pattern.svg",
+    "./images/sage_logo.svg"
+  ]
 }
