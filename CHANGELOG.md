@@ -25,6 +25,7 @@
 * Button now accepts a size and theme prop to determine size and color respectively.
 * `Icon`: new Icons added - Draft, Github, Twitter & Dribble
 * `Link`: tabindex default and switch control via a prop
+* `Decimal` now emits value of 0 on blur if cleared.
 
 # 0.27.2
 

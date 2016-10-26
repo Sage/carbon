@@ -292,15 +292,27 @@ describe('Decimal', () => {
       beforeEach(() => {
         spyOn(instance, 'setState');
         instance.highlighted = true;
-        TestUtils.Simulate.blur(instance._input);
       });
 
       it('calls setState with the formatted visible value', () => {
+        TestUtils.Simulate.blur(instance._input);
         expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "1,000.00" });
       });
 
       it('sets the highlighted property to false', () => {
+        TestUtils.Simulate.blur(instance._input);
         expect(instance.highlighted).toBeFalsy();
+      });
+
+      describe('if value is undefined', () => {
+        it('calls emitOnChangeCallback with a value of 0', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Decimal name="total" value="" />
+          );
+          spyOn(instance, 'emitOnChangeCallback');
+          TestUtils.Simulate.blur(instance._input);
+          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('0');
+        });
       });
     });
 
