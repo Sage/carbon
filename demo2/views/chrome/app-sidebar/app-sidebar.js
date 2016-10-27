@@ -8,6 +8,9 @@ import Link from 'components/link';
 import { Sidebar, SidebarHeader } from 'components/sidebar';
 import { MenuListItem, MenuList } from 'components/menu-list';
 
+// Demo Site
+import Buttons from './../../components/common-buttons';
+
 const components = [
    { name: 'One' },
    { name: 'Two' }
@@ -66,6 +69,11 @@ class AppSidebar extends React.Component {
           <MenuListItem><Link>Style</Link></MenuListItem>
           <MenuListItem><Link>Articles</Link></MenuListItem>
         </MenuList>
+
+        <div className='app-sidebar__buttons'>
+          { Buttons.github() }
+          { Buttons.download('grey') }
+        </div>
 
       </Sidebar>
     );
