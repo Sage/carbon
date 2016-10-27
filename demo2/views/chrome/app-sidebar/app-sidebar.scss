@@ -3,6 +3,17 @@
 .app-sidebar {
   background-color: $white;
 
+  &__header {
+    background-color: #f0f0f0;
+    color: $green;
+    font-size: 24px;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
   &__menu {
     margin: 0;
     padding: 20px 0;

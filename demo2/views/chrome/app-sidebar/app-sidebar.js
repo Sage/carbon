@@ -48,7 +48,7 @@ class AppSidebar extends React.Component {
         position="left"
         size='small'
       >
-        <SidebarHeader>
+        <SidebarHeader className='app-sidebar__header'>
           Carbon
         </SidebarHeader>
 
