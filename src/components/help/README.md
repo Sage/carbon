@@ -14,7 +14,7 @@ import Help from 'carbon/lib/components/help';
    <Help>{ 'Helpful Content' }</Help>
 ```
 
- *  You can also pass additional props of tooltipPosition and pointerAlign. The default position is on top with a center aligned pointer.
+ *  You can also pass additional props of tooltipPosition and tooltipAlign. The default position is on top with a center aligned pointer.
 
 | Name           | Required    | Type           | Default       | Options                            | Description  |
 | -------------- | ----------- | -------------  | ------------- | ---------------------------------- | ------------ |
