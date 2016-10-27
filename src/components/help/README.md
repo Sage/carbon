@@ -19,4 +19,4 @@ import Help from 'carbon/lib/components/help';
 | Name           | Required    | Type           | Default       | Options                            | Description  |
 | -------------- | ----------- | -------------  | ------------- | ---------------------------------- | ------------ |
 | tooltipPosition| false       | String         |      top      |  top, bottom, left, right          | position of tooltip relative to icon|
-| tooltipAlign | false       | String         |      center   |  center, right, left, bottom, top  | alignemnt of pointer on tooltip|
+| tooltipAlign | false       | String         |      center   |  center, right, left, bottom, top  | alignment of pointer on tooltip|
