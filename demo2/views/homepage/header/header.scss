@@ -1,29 +1,33 @@
 @import 'colors';
 
 .carbon-homepage__header {
-  background: linear-gradient(37deg, #1E4486, #372159);
   padding: 80px 0 30px 0;
   position: relative;
   text-align: center;
+}
 
-  &:after {
-    border-right: 100vw solid $white;
-    border-top: 25.4vw solid transparent;
-    bottom: 0px;
-    content: '';
-    display: block;
-    position: absolute;
+.carbon-homepage__header-background {
+  position: absolute;
+  top: -80px;
+  height: calc(100% + 80px);
+  width: 100%;
+  z-index: -1;
+  background: linear-gradient(37deg, #1E4486, #372159);
+  @media (min-width: 800px) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 62.6%, 0 100%);
   }
 }
 
 .carbon-homepage__titles {
   color: white;
-  padding: 0 10% 0 10%;
+  padding: 0 4% 0 4%;
 }
 
 .carbon-homepage__h1 {
   font-size: 40px;
   line-height: normal;
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 .carbon-homepage__h2 {

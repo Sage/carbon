@@ -6,6 +6,7 @@ class Header extends React.Component {
   render() {
     return (
       <div className='carbon-homepage__header'>
+        <div className='carbon-homepage__header-background' />
         <div className='carbon-homepage__titles'>
 
           <h1 className='carbon-homepage__h1'>
