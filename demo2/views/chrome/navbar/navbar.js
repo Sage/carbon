@@ -10,7 +10,12 @@ class Navbar extends React.Component {
       <div className='navbar'>
         <Button
           className='navbar__menu-toggle'
-          onClick={ AppActions.toggleMenu }><Icon type='hamburger'/>Menu</Button>
+          onClick={ AppActions.toggleMenu }
+          theme='white'
+        >
+          <Icon type='hamburger' />
+          Menu
+        </Button>
       </div>
     );
   }

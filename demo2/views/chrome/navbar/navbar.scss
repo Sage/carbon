@@ -1,10 +1,12 @@
 .navbar {
+  padding: 40px;
   position: fixed;
+  width: 100%;
   z-index: 10;
-}
 
-.navbar__menu-toggle {
-  @media (min-width: 1024px) {
-    display: none;
+  &__menu-toggle {
+    @media (min-width: 1024px) {
+      display: none;
+    }
   }
 }

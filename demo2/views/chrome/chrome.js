@@ -31,7 +31,7 @@ class Chrome extends React.Component {
 
         <div className='chrome__content'>
           <Navbar isTablet={ this._isSmallScreen() } />
-            { this.props.children }
+          { this.props.children }
           <AppFooter />
         </div>
 
