@@ -1,3 +1,10 @@
+# NEXT
+
+## Component Enhancements
+
+* `Rainbow`: Added the config prop to to be able to control the way
+the chart is displayed.
+
 # 0.28.0
 
 ## :warning: Breaking Change - Button colors
