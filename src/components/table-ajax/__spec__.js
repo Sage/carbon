@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { TableAjax } from './table-ajax';
 
 describe('TableAjax', () => {
-  let instance, customInstance, spy;
+  let instance, customInstance, pageSizeInstance, spy;
 
   beforeEach(() => {
     spy = jasmine.createSpy('onChange spy');
@@ -29,6 +29,18 @@ describe('TableAjax', () => {
       >
        foo
       </TableAjax>
+    );
+
+    pageSizeInstance = TestUtils.renderIntoDocument(
+      <TableAjax
+        className="foo"
+        path='/test'
+        onChange={ spy }
+        pageSize={ '10' }
+      >
+       foo
+      </TableAjax>
+
     );
   });
 
@@ -83,12 +95,39 @@ describe('TableAjax', () => {
   });
 
   describe('componentDidUpdate', () => {
+    it('does not call emitOnChangeCallback with the same pageSize', () => {
+      spyOn(pageSizeInstance, 'emitOnChangeCallback');
+      pageSizeInstance.componentDidUpdate({},{ pageSize: 10 });
+      expect(pageSizeInstance.emitOnChangeCallback).not.toHaveBeenCalled();
+    });
+
+    it('calls emitOnChangeCallback when pageSize changes', () => {
+      spyOn(pageSizeInstance, 'emitOnChangeCallback');
+      pageSizeInstance.componentDidUpdate({},{ pageSize: 20 });
+      expect(pageSizeInstance.emitOnChangeCallback).toHaveBeenCalled();
+    });
+
     it('calls to resize the table', () => {
       spyOn(instance, 'resizeTable');
-      instance.componentDidUpdate();
+      instance.componentDidUpdate({},{});
       expect(instance.resizeTable).toHaveBeenCalled();
     });
   });
+
+  describe('componentWillReceiveProps', () => {
+    it('does not call setState with the same pageSize', () => {
+      spyOn(pageSizeInstance, 'setState');
+      pageSizeInstance.componentWillReceiveProps({pageSize: 10});
+      expect(pageSizeInstance.setState).not.toHaveBeenCalled();
+    });
+
+    it('calls emitOnChangeCallback when pageSize changes', () => {
+      spyOn(pageSizeInstance, 'setState');
+      pageSizeInstance.componentWillReceiveProps({pageSize: 20});
+      expect(pageSizeInstance.setState).toHaveBeenCalledWith({ pageSize: 20 });
+    });
+  });
+
 
   describe('pageSize', () => {
     it('gets the current pageSize', () => {
