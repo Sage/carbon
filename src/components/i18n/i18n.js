@@ -20,7 +20,7 @@ _marked.setOptions({
  *
  * To render the message:
  *
- *  <I18n translationKey='foo' />
+ *  <I18n scope='foo' />
  *
  * For additional properties specific to this component, see propTypes.
  *
@@ -52,15 +52,23 @@ class I18n extends React.Component {
     /**
      * The key to lookup for a localised value
      *
-     * @property translationKey
+     * @property scope
      * @type {String}
      * @default undefined
      */
-    translationKey: React.PropTypes.string
+    scope: React.PropTypes.string
   }
 
   static defaultProps = {
     inline: true
+  }
+
+  constructor(...args) {
+    super(...args);
+
+    this._render = this._render.bind(this);
+    this.renderDefault = this.renderDefault.bind(this);
+    this.renderMarkdown = this.renderMarkdown.bind(this);
   }
 
   /**
@@ -69,32 +77,35 @@ class I18n extends React.Component {
    * @method render
    */
   render() {
+    let { markdown, inline, scope, options, ...props } = { ...this.props }
+
     return (
-      this.props.markdown ? renderMarkdown : renderDefault
-    )(this.props.inline, this.props.translationKey);
+      markdown ? this.renderMarkdown : this.renderDefault
+    )(inline, scope, options, props);
   }
-}
 
-function marked(inline) {
-  return inline ? str => _marked.inlineLexer(str, []) : _marked;
-}
+  marked(inline) {
+    return inline ? str => _marked.inlineLexer(str, []) : _marked;
+  }
 
-function _render(inline, props, content) {
-  return React.createElement(
-    inline ? 'span' : 'div', props, content
-  );
-}
+  _render(inline, props, content) {
+    return React.createElement(
+      inline ? 'span' : 'div', props, content
+    );
+  }
 
-function renderMarkdown(inline, key) {
-  return _render(inline, {
-    dangerouslySetInnerHTML: {
-      __html: marked(inline)(i18n.t(key))
-    }
-  });
-}
+  renderMarkdown(inline, key, options, props) {
+    let targetProps = props;
+    targetProps.dangerouslySetInnerHTML = {
+      __html: this.marked(inline)(i18n.t(key, options))
+    };
 
-function renderDefault(inline, key) {
-  return _render(inline, {}, i18n.t(key));
+    return this._render(inline, targetProps);
+  }
+
+  renderDefault(inline, key, options, props) {
+    return this._render(inline, props, i18n.t(key, options));
+  }
 }
 
 export default I18n;

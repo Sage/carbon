@@ -33,7 +33,7 @@ class I18nDemo extends React.Component {
   get demo() {
     return (
       <I18n
-        translationKey="i18n_test"
+        scope="i18n_test"
         markdown={ this.value('markdown') }
         inline={ this.value('inline') }
       />
@@ -47,7 +47,16 @@ class I18nDemo extends React.Component {
     let html = "import I18n from 'carbon/lib/components/i18n';\n\n"
 
     html += '<I18n';
-    html += " key='i18n_test'";
+    html += "\n  scope='i18n_test'";
+
+    if (this.value('markdown')) {
+      html += "\n  markdown={ true }"
+    }
+
+    if (this.value('inline')) {
+      html += "\n  inline={ true }"
+    }
+
     html += "\n/>\n\n";
 
     return html;
@@ -98,4 +107,4 @@ class I18nDemo extends React.Component {
   }
 }
 
-export default connect(HelpDemo, AppStore);
+export default connect(I18nDemo, AppStore);
