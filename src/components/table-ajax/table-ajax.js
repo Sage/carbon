@@ -60,6 +60,15 @@ class TableAjax extends Table {
     paginate: React.PropTypes.bool,
 
     /**
+     * Pagination
+     * Page Size of grid (number of visible records)
+     *
+     * @property pageSize
+     * @type {String}
+     */
+    pageSize: React.PropTypes.string,
+
+    /**
      * Endpoint to fetch the data for table
      *
      * @property path
