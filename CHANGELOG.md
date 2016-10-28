@@ -1,3 +1,6 @@
+# 0.28.1
+* `TableAjax` now accepts `pageSize` prop.
+
 # 0.28.0
 
 ## :warning: Breaking Change - Button colors
