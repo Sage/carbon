@@ -27,6 +27,10 @@
 * `Link`: tabindex default and switch control via a prop
 * `Decimal` now emits value of 0 on blur if cleared.
 
+## CSS Changes
+
+* Input prefix is now positioned correctly when using inline labels
+
 # 0.27.2
 
 * `Decimal` component can validate properly with alternative i18n settings
