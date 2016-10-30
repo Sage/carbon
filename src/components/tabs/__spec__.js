@@ -48,6 +48,9 @@ describe('Tabs', () => {
     it('sets tabValidity to a empty immutable map', () => {
       expect(instance.state.tabValidity).toEqual(Immutable.Map());
     });
+    it('sets tabWarning to a empty immutable map', () => {
+      expect(instance.state.tabWarning).toEqual(Immutable.Map());
+    });
   });
 
   describe('componentWillMount', () => {
@@ -218,6 +221,19 @@ describe('Tabs', () => {
     });
   });
 
+  describe('changeWarning', () => {
+    beforeEach(() => {
+      instance.setState({ tabWarning: Immutable.fromJS({ 'foo': false })});
+      spyOn(instance, 'setState').and.callThrough();
+      instance.changeWarning('foo', true);
+    });
+
+    it('sets the warning state for the given tab', () => {
+      expect(instance.setState).toHaveBeenCalledWith({ tabWarning: instance.state.tabWarning.set('foo', true) });
+      expect(instance.state.tabWarning.toJS()).toEqual({ 'foo': true });
+    });
+  });
+
   describe('handleTabClick', () => {
     it('sets the state to the currently selected tabId', () => {
       spyOn(instance, 'handleTabClick');
@@ -315,6 +331,14 @@ describe('Tabs', () => {
         instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
         expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--error');
+      });
+    });
+
+    describe('when tab has a warning', () => {
+      it('adds a warning class to the header', () => {
+        instance.setState({ tabWarning: Immutable.fromJS({ 'uniqueid2': true })});
+        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--warning');
       });
     });
   });

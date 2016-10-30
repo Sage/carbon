@@ -58,3 +58,7 @@ $carbon-tabs__header__color: $grey-dark !default;
 .carbon-tabs__headers__header--error {
   border-bottom-color: $red;
 }
+
+.carbon-tabs__headers__header--warning {
+  border-bottom-color: $orange-mid;
+}

@@ -31,6 +31,10 @@
 
 * Input prefix is now positioned correctly when using inline labels
 
+## Bug Fixes
+
+* Ensure tabs and tab component work with warnings correctly
+
 # 0.27.2
 
 * `Decimal` component can validate properly with alternative i18n settings

@@ -65,6 +65,7 @@ class Tab extends React.Component {
     return {
       tab: {
         setValidity: this.setValidity
+        setWarning: this.setWarning
       }
     };
   }
@@ -78,6 +79,14 @@ class Tab extends React.Component {
      * @type {Boolean}
      */
     isValid: true
+
+    /**
+     * Tracks if the tab is a warning state
+     *
+     * @property isWarning
+     * @type {Boolean}
+     */
+    isWarning: false
   }
 
   /**
@@ -94,6 +103,19 @@ class Tab extends React.Component {
   }
 
   /**
+   * Sets warning state to passed param
+   * It notifies the parent context of the change
+   * and sets the current warning state to the new value
+   *
+   * @method setWarning
+   * @param {Boolean} warning updates warning of this tab
+   */
+  setWarning = (warning) => {
+    this.context.tabs.changeWarning(this.props.tabId, warning);
+    this.setState({ isWarning: warning });
+  }
+
+  /**
    * Classes to be applied to the single tab component
    *
    * @method mainClasses Main Class getter
@@ -103,6 +125,10 @@ class Tab extends React.Component {
 
     if (!this.state.isValid) {
       classes += ' carbon-tab--errors';
+    }
+
+    if (!this.state.isWarning) {
+      classes += ' carbon-tab--warnings';
     }
 
     return 'carbon-tab ' + classes;
