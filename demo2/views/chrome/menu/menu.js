@@ -76,12 +76,12 @@ class AppSidebar extends React.Component {
    */
   get componentsHTML() {
     return components.map((item, i) => {
-      return <MenuListItem><Link key={ i } name={ item.name }>{ item.name }</Link></MenuListItem>;
+      return <MenuListItem name={ item.name }><Link key={ i }>{ item.name }</Link></MenuListItem>;
     });
   }
   get stylesHTML() {
     return styles.map((item, i) => {
-      return <MenuListItem><Link key={ i } name={ item.name }>{ item.name }</Link></MenuListItem>;
+      return <MenuListItem name={ item.name }><Link key={ i }>{ item.name }</Link></MenuListItem>;
     });
   }
 
@@ -93,11 +93,9 @@ class AppSidebar extends React.Component {
         onCancel={ this.props.isTablet ? DemoActions.toggleMenu : null }
         open={ this.props.menuOpen || !this.props.isTablet }
         position="left"
-        size='extra-small'
+        size='small'
       >
-        <SidebarHeader className='demo-menu__header'>
-          Carbon
-        </SidebarHeader>
+        <SidebarHeader className='demo-menu__header' />
 
         <MenuList
           className='demo-menu__menu'
