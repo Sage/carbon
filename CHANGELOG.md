@@ -22,7 +22,7 @@
 
 ## I18n Component
 
-We have added a component to handle I18n translations. The component also support markdown, allowing developers to safely add HTML markup to translations such as bold tags or hyperlinks.
+We have added a component to handle I18n translations. The component also supports markdown, allowing developers to safely add HTML markup to translations such as bold tags or hyperlinks.
 
 ```
 <I18n scope="my.translation" options={{ myVar: "foobar" }} markdown={ true } />
