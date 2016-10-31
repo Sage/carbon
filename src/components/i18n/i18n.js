@@ -2,13 +2,6 @@ import React from 'react';
 import i18n from 'i18n-js';
 import _marked from 'marked';
 
-/*
- * Make sure that we sanitize html markup in the MD compiler
- */
-_marked.setOptions({
-  sanitize: true
-});
-
 /**
  * A widget for internationalisation of text.
  *
@@ -56,19 +49,20 @@ class I18n extends React.Component {
      * @type {String}
      * @default undefined
      */
-    scope: React.PropTypes.string
+    scope: React.PropTypes.string,
+
+    /**
+     * Additional options to pass to I18n
+     *
+     * @property options
+     * @type {Object}
+     * @default undefined
+     */
+    options: React.PropTypes.object
   }
 
   static defaultProps = {
     inline: true
-  }
-
-  constructor(...args) {
-    super(...args);
-
-    this._render = this._render.bind(this);
-    this.renderDefault = this.renderDefault.bind(this);
-    this.renderMarkdown = this.renderMarkdown.bind(this);
   }
 
   /**
@@ -77,34 +71,28 @@ class I18n extends React.Component {
    * @method render
    */
   render() {
-    let { markdown, inline, scope, options, ...props } = { ...this.props }
+    let { markdown, inline, scope, options, ...props } = { ...this.props },
+        translation = i18n.t(scope, options);
 
-    return (
-      markdown ? this.renderMarkdown : this.renderDefault
-    )(inline, scope, options, props);
+    if (markdown) {
+      props.dangerouslySetInnerHTML = {
+        __html: this.marked(inline)(translation)
+      };
+      translation = null;
+    }
+
+    return this.renderMarkup(inline, props, translation);
+  }
+
+  renderMarkup(inline, props, translation) {
+    let el = inline ? 'span' : 'div';
+    return React.createElement(el, props, translation);
   }
 
   marked(inline) {
+    // Make sure that we sanitize html markup in the MD compiler
+    _marked.setOptions({ sanitize: true });
     return inline ? str => _marked.inlineLexer(str, []) : _marked;
-  }
-
-  _render(inline, props, content) {
-    return React.createElement(
-      inline ? 'span' : 'div', props, content
-    );
-  }
-
-  renderMarkdown(inline, key, options, props) {
-    let targetProps = props;
-    targetProps.dangerouslySetInnerHTML = {
-      __html: this.marked(inline)(i18n.t(key, options))
-    };
-
-    return this._render(inline, targetProps);
-  }
-
-  renderDefault(inline, key, options, props) {
-    return this._render(inline, props, i18n.t(key, options));
   }
 }
 
