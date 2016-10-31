@@ -26,6 +26,8 @@
 * `Icon`: new Icons added - Draft, Github, Twitter & Dribble
 * `Link`: tabindex default and switch control via a prop
 * `Decimal` now emits value of 0 on blur if cleared.
+* `Rainbow`: Added the config prop to to be able to control the way
+the chart is displayed.
 
 ## CSS Changes
 
