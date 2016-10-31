@@ -163,8 +163,13 @@ class Decimal extends React.Component {
    * @return {void}
    */
   handleBlur = () => {
-    this.setState({ visibleValue: I18nHelper.formatDecimal(this.value, this.props.precision) });
+    let currentValue = I18nHelper.formatDecimal(this.value, this.props.precision);
+    this.setState({ visibleValue: currentValue });
     this.highlighted = false;
+
+    if (this.value === '') {
+      this.emitOnChangeCallback('0');
+    }
   }
 
   /*

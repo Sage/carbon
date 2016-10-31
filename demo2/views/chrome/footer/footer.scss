@@ -1,0 +1,39 @@
+@import "colors";
+
+.demo-footer {
+  background-color: $grey-dark-blue;
+  box-sizing: border-box;
+  color: $white;
+  display: flex;
+  padding: 24px;
+  width: 100%;
+
+  &__right {
+    text-align: right;
+    width: 75%;
+  }
+
+  &__sage-icon {
+    background-image: url('/assets/images/sage_logo.svg');
+    float: right;
+    height: 22px;
+    width: 57px;
+  }
+
+  &__legal {
+    float: right;
+    margin-top: 4px;
+    width: 100%;
+  }
+
+  &__left {
+    width: 25%;
+    .carbon-icon {
+      margin: 4px 24px 4px 4px;
+    }
+
+    .carbon-link__anchor {
+      color: currentColor;
+    }
+  }
+}
