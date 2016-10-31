@@ -58,14 +58,18 @@ class AppSidebar extends React.Component {
           initiallyOpen={ true }
         >
           <MenuListItem><Link tabIndex='10'>Getting Started</Link></MenuListItem>
-          <MenuListItem><MenuList title='Components' filter={ true }>
-            { this.componentsHTML }
-          </MenuList></MenuListItem>
-          <MenuListItem><MenuList title='Patterns' filter={ false }>
-            <MenuListItem><Link name={ 'Items' }>Items</Link></MenuListItem>
-            <MenuListItem><Link name={ 'Stuff' }>Stuff</Link></MenuListItem>
-            <MenuListItem><Link name={ 'Things' }>Things</Link></MenuListItem>
-          </MenuList></MenuListItem>
+          <MenuListItem>
+            <MenuList title='Components' filter={ true }>
+              { this.componentsHTML }
+            </MenuList>
+          </MenuListItem>
+          <MenuListItem>
+            <MenuList title='Patterns' filter={ false }>
+              <MenuListItem><Link name={ 'Items' }>Items</Link></MenuListItem>
+              <MenuListItem><Link name={ 'Stuff' }>Stuff</Link></MenuListItem>
+              <MenuListItem><Link name={ 'Things' }>Things</Link></MenuListItem>
+            </MenuList>
+          </MenuListItem>
           <MenuListItem><Link>Style</Link></MenuListItem>
           <MenuListItem><Link>Articles</Link></MenuListItem>
         </MenuList>

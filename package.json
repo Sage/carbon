@@ -34,7 +34,7 @@
     "ncp": "~2.0.0",
     "react": "~0.14.8",
     "react-addons-css-transition-group": "~0.14.8",
-    "react-addons-test-utils": "^15.3.2",
+    "react-addons-test-utils": "~0.14.8",
     "react-dom": "^0.14.8",
     "react-highlight": "~0.6.1",
     "react-router": "~1.0.0"
