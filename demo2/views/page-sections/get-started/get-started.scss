@@ -1,0 +1,40 @@
+@import "colors";
+
+.get-started {
+  background-color: $dark-blue-plus;
+  background-image: url('/assets/images/background_pattern.svg');
+  bottom: 0;
+  height: 425px;
+  position: relative;
+  width: 100%;
+}
+
+.get-started__actions-pod {
+  color: $white;
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  margin: 0 auto;
+
+  .carbon-pod__content {
+    text-align: center;
+  }
+
+  .carbon-pod__block {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.get-started__text {
+  display: block;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.get-started__checkout-text {
+  display: block;
+  font-size: 22px;
+  margin-bottom: 40px;
+}

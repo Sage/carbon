@@ -1,4 +1,4 @@
-.info-tile {
+.demo-info-tile {
   display: inline-block;
   .carbon-pod__content {
     @media (min-width: 800px) {
@@ -13,11 +13,11 @@
   }
 }
 
-.info-tile__content {
+.demo-info-tile__content {
   text-align: center;
 }
 
-.info-tile__image {
+.demo-info-tile__image {
   margin-bottom: 35px;
 
   .carbon-portrait__img {
@@ -25,10 +25,10 @@
   }
 }
 
-.info-tile__heading {
+.demo-info-tile__heading {
   font-size: 18px;
 }
 
-.info-tile__description {
+.demo-info-tile__description {
   font-size: 16px;
 }
