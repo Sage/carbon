@@ -88,7 +88,7 @@ class Form extends React.Component {
     beforeFormValidation: React.PropTypes.func,
 
     /**
-     * Alignment of submist button
+     * Alignment of submit button
      *
      * @ property
      * @type {String}

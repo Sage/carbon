@@ -138,9 +138,8 @@ class Confirm extends Dialog {
    * @method dialogTitle
    */
   get modalHTML() {
-    let dialog = super.modalHTML;
-    let children = [].concat(dialog.props.children, this.confirmButtons);
-    // dialog.props.children.push(this.confirmButtons);
+    let dialog = super.modalHTML,
+        children = [].concat(dialog.props.children, this.confirmButtons);
     return React.cloneElement(dialog, {}, children);
   }
 }
