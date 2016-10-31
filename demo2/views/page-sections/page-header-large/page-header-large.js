@@ -1,6 +1,7 @@
 import React from 'react';
 
 // Demo Site
+import FlexContainer from '../../chrome/flex-container';
 import GetCodeButtons from '../../components/get-code-buttons';
 import InfoTile from '../../components/info-tile';
 import Wrapper from '../../chrome/wrapper';
@@ -33,7 +34,7 @@ class PageHeaderLarge extends React.Component {
               </h2>
             </div>
 
-            <div className='page-header-large__tiles'>
+            <FlexContainer className='page-header-large__tiles'>
               <InfoTile
                 title='Ridiculously Quick'
                 description='Carbon helps developers take applications from concept to completion as quickly as possible.'
@@ -46,7 +47,7 @@ class PageHeaderLarge extends React.Component {
                 title='Ridiculously Quick'
                 description='Carbon helps developers take applications from concept to completion as quickly as possible.'
               />
-            </div>
+            </FlexContainer>
           </div>
         </Wrapper>
       </div>

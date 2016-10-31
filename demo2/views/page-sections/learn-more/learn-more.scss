@@ -2,19 +2,14 @@
 
 .learn-more {
   background-color: $grey-dark-blue-10;
-}
+  padding: 60px 0 80px;
 
-.learn-more__cell {
-  width: 50%;
-  display: inline-block;
-  padding: 75px;
-  box-sizing: border-box;
+  &__cell {
+    box-sizing: border-box;
+    width: 40%;
 
-  @media (max-width: 900px) {
-    padding: 40px;
-  }
-
-  @media (max-width: 600px) {
-    width: 100%;
+    @media (max-width: 800px) {
+      width: 100%;
+    }
   }
 }

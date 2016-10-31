@@ -24,13 +24,12 @@
   z-index: -1;
   background: linear-gradient(37deg, #1E4486, #372159);
   @media (min-width: 800px) {
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 59.6%, 0 100%);
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 55%, 0 100%);
   }
 }
 
 .page-header-large__titles {
   color: $white;
-  padding: 0 4% 0 4%;
 }
 
 .page-header-large__title {
@@ -46,7 +45,7 @@
 }
 
 .heading-divider {
-  margin-bottom: 40px;
+  margin-bottom: 53px;
   position: relative;
 
   &:after {
@@ -70,7 +69,8 @@
 }
 
 .page-header-large__tiles {
-  padding: 0 5%;
+  display: flex;
+  justify-content: space-between;
   position: relative;
   z-index: 3;
 }

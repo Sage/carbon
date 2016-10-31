@@ -1,16 +1,22 @@
 @import "colors";
 
 .demo-footer {
-  background-color: $grey-dark-blue;
+  display: flex;
+  justify-content: space-between;
+
+  &__background {
+    background-color: $grey-dark-blue;
+    left: 0;
+    right: 0;
+  }
   box-sizing: border-box;
   color: $white;
-  display: flex;
-  padding: 24px;
+  padding: 24px 0;
   width: 100%;
 
   &__right {
     text-align: right;
-    width: 75%;
+    width: 73%;
   }
 
   &__sage-icon {
@@ -27,7 +33,7 @@
   }
 
   &__left {
-    width: 25%;
+    width: 23%;
     .carbon-icon {
       margin: 4px 24px 4px 4px;
     }
