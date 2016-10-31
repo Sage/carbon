@@ -3,6 +3,7 @@ import Immutable from 'immutable';
 import Tab from './tab';
 import { compact } from 'lodash';
 import classNames from 'classnames';
+import Event from './../../utils/helpers/events';
 
 /**
  * A Tabs widget.
@@ -211,7 +212,8 @@ class Tabs extends React.Component {
   * @param {object} nextProps
   */
   componentWillReceiveProps(nextProps) {
-    if (this.props.selectedTabId !== nextProps.selectedTabId) {
+    if (this.props.selectedTabId !== nextProps.selectedTabId &&
+        nextProps.selectedTabId !== this.state.selectedTabId) {
       this.updateVisibleTab(nextProps.selectedTabId);
     }
   }
@@ -235,8 +237,10 @@ class Tabs extends React.Component {
    * @param {Event} ev Click Event
    */
   handleTabClick = (ev) => {
-    let tabid = ev.target.dataset.tabid;
-    this.updateVisibleTab(tabid);
+    if (Event.isEnterKey(ev) || !Event.isEventType(ev, 'keydown')) {
+      let tabid = ev.target.dataset.tabid;
+      this.updateVisibleTab(tabid);
+    }
   }
 
   updateVisibleTab(tabid) {
@@ -283,9 +287,11 @@ class Tabs extends React.Component {
         <li
           className={ this.tabHeaderClasses(child) }
           onClick={ this.handleTabClick }
+          onKeyDown={ this.handleTabClick }
           key={ child.props.tabId }
           ref={ `${child.props.tabId}-tab` }
-          data-tabid={ child.props.tabId } >
+          data-tabid={ child.props.tabId }
+          tabIndex='0'>
             { child.props.title }
         </li>
       );

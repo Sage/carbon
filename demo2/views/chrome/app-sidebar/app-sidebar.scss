@@ -1,0 +1,46 @@
+@import 'colors';
+
+.app-sidebar {
+  background-color: $white;
+
+  &__header {
+    background-color: $grey-light;
+    color: $green;
+    font-size: 24px;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  &__menu {
+    margin: 0;
+    padding: 20px 0;
+    width: 100%;
+
+    .carbon-list-item .carbon-list-item {
+      padding-left: 10px;
+    }
+  }
+
+  .carbon-sidebar__sidebar {
+    background-color: $white;
+    box-shadow: none;
+    border: none;
+  }
+
+  .carbon-sidebar-header {
+    border: none;
+  }
+
+  &__buttons {
+    .carbon-button {
+      margin: 8px 0;
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center;
+      width: 100%;
+    }
+  }
+}

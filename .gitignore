@@ -3,6 +3,7 @@ coverage/
 *.swp
 *.swo
 demo/assets
+demo2/assets
 .DS_Store
 .browser-preferences/
 .idea

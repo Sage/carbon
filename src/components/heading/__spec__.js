@@ -22,7 +22,7 @@ describe('Heading', () => {
 
   it('renders with main classes', () => {
     let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-heading');
-    expect(div.className).toEqual('carbon-heading custom carbon-heading--has-subheader carbon-heading--has-back');
+    expect(div.className).toEqual('carbon-heading custom carbon-heading--has-subheader carbon-heading--has-back carbon-heading--has-divider');
   });
 
   it('renders a h1 with the title', () => {
@@ -53,6 +53,15 @@ describe('Heading', () => {
         <Heading />
       );
       expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-heading__subheader').length).toEqual(0);
+    });
+  });
+
+  describe('no divider', () => {
+    it('returns nothing', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Heading title="foo" divider={ false } />
+      );
+      expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-heading--has-divider').length).toEqual(0);
     });
   });
 

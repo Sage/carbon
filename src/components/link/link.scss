@@ -1,4 +1,4 @@
-@import 'colors';
+@import "./../../style-config/colors";
 
 $link-color: $blue !default;
 $link-hover-color: $blue-dark !default;
@@ -47,4 +47,9 @@ $link-hover-text-decoration: underline !default;
     vertical-align: middle;
     width: 16px;
   }
+}
+
+.carbon-link__icon--align-right {
+  margin-right: 0;
+  margin-left: 5px;
 }

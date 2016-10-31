@@ -25,8 +25,8 @@ describe('Row', () => {
 
     describe('render', () => {
       it('renders a parent div with calculated CSS classes', () => {
-        let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row')
-        expect(rowNode.className).toEqual('carbon-row foobar carbon-row--columns-4');
+        let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row');
+        expect(rowNode.className).toEqual('carbon-row carbon-row--gutter-medium foobar carbon-row--columns-4');
       });
 
       it('renders the correct amount of columns', () => {
@@ -36,17 +36,15 @@ describe('Row', () => {
 
     describe('with immutable data', () => {
       it('renders the correct number of columns', () => {
-        let data = Immutable.fromJS([{
-          name: 'foo'
-        }, {
-          name: 'bar'
-        }]);
+        let data = Immutable.fromJS([
+          { name: 'foo' }, { name: 'bar' }
+        ]);
 
         instance = TestUtils.renderIntoDocument(
           <Row className="foobar">
             {
-              data.map((item) => {
-                return <div>{ item.get('name') }</div>;
+              data.map((item, index) => {
+                return <div key={`name-${index}`} >{ item.get('name') }</div>;
               })
             }
           </Row>
@@ -117,7 +115,43 @@ describe('Row', () => {
 
     it('renders a parent div with calculated CSS classes', () => {
       let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row')
-      expect(rowNode.className).toEqual('carbon-row carbon-row--columns-2');
+      expect(rowNode.className).toEqual('carbon-row carbon-row--gutter-medium carbon-row--columns-2');
+    });
+  });
+
+  describe('when a custom gutter is passed', () => {
+    let instance;
+
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Row columns={2} gutter="small">
+          <div>Foo</div>
+          <div>Bar</div>
+        </Row>
+      );
+    });
+
+    it('applies custom class', () => {
+      let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row');
+      expect(rowNode.className).toEqual('carbon-row carbon-row--gutter-small carbon-row--columns-2');
+    });
+  });
+
+  describe('when columnDivide is enabled', () => {
+    let instance;
+
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Row columns={2} columnDivide={ true }>
+          <div>Foo</div>
+          <div>Bar</div>
+        </Row>
+      );
+    });
+
+    it('applies custom class', () => {
+      let rowNode = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-row__column')[0];
+      expect(rowNode.className).toEqual('carbon-row__column carbon-row__column--column-divide');
     });
   });
 
@@ -134,7 +168,7 @@ describe('Row', () => {
 
     it('renders a parent div with calculated CSS classes', () => {
       let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row')
-      expect(rowNode.className).toEqual('carbon-row carbon-row--columns-1');
+      expect(rowNode.className).toEqual('carbon-row carbon-row--gutter-medium carbon-row--columns-1');
     });
   });
 });

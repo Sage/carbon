@@ -46,6 +46,14 @@ describe('Pod', () => {
     });
   });
 
+  describe('pod classes', () => {
+    it('assigns custom classes and maintains its own classes', () => {
+      instance = TestUtils.renderIntoDocument(<Pod className="custom" />);
+      let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod');
+      expect(div.className).toEqual('carbon-pod custom carbon-pod--left');
+    });
+  });
+
   describe('podHeader', () => {
     describe('when title is not passed as a prop', () => {
       it('returns null', () => {
@@ -147,6 +155,13 @@ describe('Pod', () => {
       });
     });
 
+    describe('if editContentFullWidth is set to false', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod editContentFullWidth={ true } />);
+        expect(instance.blockClasses).toEqual('carbon-pod__block carbon-pod__block--padding-medium carbon-pod__block--primary carbon-pod__block--full-width');
+      });
+    });
+
     describe('if border is disabled and there is a footer', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
@@ -228,10 +243,10 @@ describe('Pod', () => {
     });
 
     describe('if a function is passed', () => {
-      it('returns a link with an onClick prop', () => {
-        let foo = () => {};
-        instance = TestUtils.renderIntoDocument(<Pod onEdit={ foo } />);
-        expect(instance.edit.props.onClick).toEqual(foo);
+      it('onClick and onKeyDown events are set to processPodEditEvent', () => {
+        instance = TestUtils.renderIntoDocument(<Pod onEdit={ () => { } } />);
+        expect(instance.edit.props.onClick).toEqual(instance.processPodEditEvent);
+        expect(instance.edit.props.onKeyDown).toEqual(instance.processPodEditEvent);
       });
     });
 
@@ -245,6 +260,41 @@ describe('Pod', () => {
     });
   });
 
+  describe("processPodEditEvent()", () => {
+    let editSpy;
+
+    beforeEach(() => {
+      editSpy = jasmine.createSpy();
+      instance = TestUtils.renderIntoDocument(<Pod onEdit={ editSpy } />);
+    });
+    it("doesn't trigger anything if the wrong key", () => {
+      let ev = {
+        which: 1,
+        type: 'keydown',
+        target: {
+          dataset: {}
+        },
+        preventDefault: jasmine.createSpy()
+      };
+      instance.processPodEditEvent(ev);
+      expect(ev.preventDefault).not.toHaveBeenCalled();
+      expect(editSpy).not.toHaveBeenCalled();
+    });
+    it("prevents default and triggers on edit if correct key or not key", () => {
+      let ev = {
+        which: 13,
+        type: 'keydown',
+        target: {
+          dataset: {}
+        },
+        preventDefault: jasmine.createSpy()
+      };
+      instance.processPodEditEvent(ev);
+      expect(ev.preventDefault).toHaveBeenCalled();
+      expect(editSpy).toHaveBeenCalled();
+    });
+  });
+
   describe('toggleHoverState', () => {
     it('switches the hoverEdit state', () => {
       instance.setState({ hoverEdit: false });
@@ -253,11 +303,33 @@ describe('Pod', () => {
     });
   });
 
+  describe("podProps", () => {
+    it("returns props without the title if the title is not a string", () => {
+      let instance, result;
+
+      instance = TestUtils.renderIntoDocument(<Pod title={ <Button>Foo</Button> } onEdit={ () => { } } />);
+      result = instance.podProps();
+      expect(result.title).toBeUndefined();
+      expect(result.onEdit).not.toBeUndefined();
+    });
+  });
+
+  describe("titleIsString", () => {
+    it("returns false if title is not a string", () => {
+      instance = TestUtils.renderIntoDocument(<Pod title={ undefined } />);
+      expect(instance.titleIsString()).toEqual(false);
+    });
+    it("returns true if title is object", () => {
+      instance = TestUtils.renderIntoDocument(<Pod title='testing' />);
+      expect(instance.titleIsString()).toEqual(true);
+    });
+  });
+
   describe('render', () => {
     it('applies all props to the pod', () => {
-      instance = TestUtils.renderIntoDocument(<Pod foo="bar" />);
-      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-      expect(div.props.foo).toEqual("bar");
+      instance = TestUtils.renderIntoDocument(<Pod content="bar" />);
+      let pod = TestUtils.findRenderedComponentWithType(instance, Pod);
+      expect(pod.props.content).toEqual("bar");
     });
 
     describe('pod content', () => {

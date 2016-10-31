@@ -1,3 +1,166 @@
+# 0.28.0
+
+## :warning: Breaking Change - Button colors
+
+* Button color is now determined by a `theme` prop.
+* If you are using a red or green button, you must pass props of `as` and `theme`.
+* i.e. for a red button
+```js
+<Button theme='red'>
+  Foo
+</Button>
+```
+* For a green button
+```js
+<Button theme='green' as='secondary'>
+  Foo
+</Button>
+```
+## Helpers
+
+* `abbreviateNumber` function is provided for adding 'k' and 'm' style abbreviations for large numbers
+
+## Component Enhancements
+
+* Button now accepts a size and theme prop to determine size and color respectively.
+* `Icon`: new Icons added - Draft, Github, Twitter & Dribble
+* `Link`: tabindex default and switch control via a prop
+* `Decimal` now emits value of 0 on blur if cleared.
+* `Rainbow`: Added the config prop to to be able to control the way
+the chart is displayed.
+
+## CSS Changes
+
+* Input prefix is now positioned correctly when using inline labels
+
+# 0.27.2
+
+* `Decimal` component can validate properly with alternative i18n settings
+
+## New Components
+
+* `MenuList`: handles simple `ul` based menus
+
+# 0.27.1
+
+* Heading component can now configure it's divider on/off using the prop 'divider'.
+
+# 0.27.0
+
+## :warning: Breaking Change - Default colour for Pill component has changed. :warning:
+
+* The default behaviour for the Pill component was to previously set as `info`. This is now set as `default` which is a grey colour.
+* Ensure you check for any implementations of the Pill component where the `as` prop is not defined and set this to `as='info'`.
+
+## :warning: Breaking Change - Date Component requires importing of locales
+
+* The Date component now uses Strict mode and a I18n locale for parsing date.
+* If you require multiple locales for your Date component you will need to import them from moment js
+* Please see the [moment js docs](http://momentjs.com/docs/#/use-it/browserify/) for more information
+
+## :warning: Breaking Change :warning:
+
+* `Rainbow` expects the Highcharts library to be already loaded. If your project does not include Highcharts, you need to import it before Rainbow.
+```js
+import 'react-highcharts/dist/bundle/highcharts';
+```
+
+## New Components
+
+* Subheader component created to be used with the Table and TableAjax components
+
+## Component Enhancements
+
+* `ShowEditPod` now closes and cancels editing on Escape keydown.
+* `ShowEditPod` puts focus on pod if mounted in editing state.
+* `Sidebar` no longer renders a close icon if there is no `onCancel` prop.
+* `Date` field uses I18n for formats and sanitizes inputs for passing
+* `Content` component can take props of `bodyFullWidth` to set component width to 100%;
+* `Date` field uses I18n for formats and sanitizes inputs for passing
+* `Step` wizard sub-component now accepts a prop of `enabled`.
+* `Table` components now accept an `onPageSizeChange` callback function as a prop.
+* `InputValidation` uses `Form` and `Input` in order to ensure messages stay on screen for a short while unless the user hovers on another field
+* `Pod` enter triggers edit function and edit element is keyboard accessible
+* `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
+* `Tabs` focus state is given the same styles as hover state
+* `Pager` component now emits which element has changed.
+* `Sidebar` now takes a size prop (e.g. `extra-small`, `small`, ...`extra-large`)
+
+## Dependencies
+
+* Moment JS bumped to version 2.15.1
+
+# 0.26.1
+
+## Component Enhancements
+
+* `Decimal` component can prevent decimal value from exceeding the precision setting
+
+# 0.26.0
+
+## New Components
+
+* `Create` component: supplies a button for creating new artefacts.
+* Detail component
+
+## Component Enhancements
+
+* `Content` now has additional display options to customise the alignment, to render inline with it's title and to customise the title's width.
+* `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
+* `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).
+* `Row` can enable `columnDivide` to add dividing lines between columns.
+* `ShowEditPod` requires a tab press to focus on the first field of the contained form rather than automatically focusing on the first field
+
+## Minor Improvements
+
+* Inputs now reset parent tabs error state when unmounted
+* Valid Date entry formats can be overridden via I18n
+* add helper to focus on input field
+* Table Header - sort column no longer overlaps text when right aligned
+* Add a currencyFormatter helper to the i18n helpers
+* Editable Pod width can be set to full width by setting the prop `editContentFullWidth` to true.
+* Refactor Icon component into separate file SVGs
+* Ensure portrait component uses https for gravatar images.
+
+## CSS Changes
+
+* Have increased pill font size and weight
+* Carbon Components CSS now imports from relative paths
+* removes uneccessary space from clearfix in `Row` component
+* Aligned MultiActionButton icon to center
+* `Content` components now handles wrapping more robustly with single words longer than the content width wrapping correctly
+* `Filter` handles it's child inputs more robustly by over-riding widths and margins when children are displayed inline
+* Darken colour of text--secondary
+* Fieldset - readonly fields maintain border
+* Remove italics from text--inactive
+* Have increased pill font size and weight
+* Carbon Components CSS now imports from relative paths
+
+## Bug Fixes
+
+* Allow carbon to be incorporated into webpack project
+* Removed footer from datepicker. This will be reverted in the React 15 Upgrade
+* The CSS for applying clears to Row columns has been fixed.
+* Tooltips now close when component receives new props.
+* Text Area now scrollable except when expandable.
+* Pod lifecycle methods are no longer defined as class properties.
+* Input validation decorator was not re-checking validity for warnings
+* Table sort arrows now point in the correct direction.
+* `Pod` applies props to it's container rather than the first child of that container keeping things consistent
+* `Pod` filters out any `title` that is not a string before it is applied as an HTML attribute to the underlying element stopping `Object` being output as a browser generated tooltip
+
+# 0.25.4
+
+## Bug Fixes
+
+* Form now tracks error and warning count on instance as well as in state.
+
+# 0.25.3
+
+# Bug Fixes
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
 # 0.25.2
 
 ## Bug Fix
@@ -31,6 +194,12 @@ The markup structure for pods has been modified, including some adjustments to P
 
 The edit action for a Pod has been modified to sit outside of the Pod.
 
+# 0.24.2
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
 # 0.24.1
 
 * Improves Flash component timeout behaviour.
@@ -50,6 +219,12 @@ As well as just a string, the Flash component will now receive a message value w
  * An object of key/value pairs: `{ first_name: "is required", last_name: "is required" }`
  * An object with description with nested key/value pairs:
    `{ description: { first_name: "is required", last_name: "is required" } }`
+
+# 0.23.1
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
 
 # 0.23.0
 

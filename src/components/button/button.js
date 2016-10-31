@@ -15,6 +15,10 @@ import Link from './../link';
  *
  *   <Button>Save</Button>
  *
+ *  ### Themes
+ *
+ *  Currently available button themese are blue(default), green, red, magenta, grey & white.
+ *
  * For additional properties specific to this component, see propTypes and defaultProps.
  *
  * @class Button
@@ -30,10 +34,7 @@ class Button extends React.Component {
      * @type {String|Array}
      * @default 'secondary'
      */
-    as: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.array
-    ]),
+    as: React.PropTypes.string,
 
     /**
      * A required prop. This is what the button will display.
@@ -46,15 +47,35 @@ class Button extends React.Component {
     /**
      * Gives the button a disabled state.
      *
-     * @property boolean
+     * @property disabled
      * @type {Boolean}
      * @default false
      */
-    disabled: React.PropTypes.bool
+    disabled: React.PropTypes.bool,
+
+    /**
+     * Gives the button a color.
+     *
+     * @property theme
+     * @type {String}
+     * @default blue
+     */
+    theme: React.PropTypes.string,
+
+    /**
+     * Determines size of button.
+     *
+     * @property size
+     * @type {String}
+     * @default medium
+     */
+    size: React.PropTypes.string
   }
 
   static defaultProps = {
     as: 'secondary',
+    size: 'medium',
+    theme: 'blue',
     disabled: false
   }
 
@@ -67,20 +88,13 @@ class Button extends React.Component {
   get element() {
     let {...props} = this.props,
         // if props.href then render an anchor instead
-        el = props.href || props.to ? Link : 'button',
-        as = this.props.as;
-
-    if (as.constructor === Array) {
-      as = as.map((klass) => {
-        return `carbon-button--${klass}`;
-      });
-    } else {
-      as = [`carbon-button--${as}`];
-    }
+        el = props.href || props.to ? Link : 'button';
 
     props.className = classNames(
       'carbon-button',
-      ...as,
+      `carbon-button--${this.props.as}`,
+      `carbon-button--${this.props.theme}`,
+      `carbon-button--${this.props.size}`,
       props.className, {
         'carbon-button--disabled': this.props.disabled
       }

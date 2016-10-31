@@ -1,0 +1,14 @@
+@import "colors";
+
+.carbon-homepage {
+  width: 100%;
+}
+
+.carbon-homepage__footer {
+  background-color: $dark-blue-plus;
+  background-image: url('/assets/images/background_pattern.svg');
+  bottom: 0;
+  height: 425px;
+  position: relative;
+  width: 100%;
+}

@@ -1,6 +1,6 @@
-@import 'colors';
-@import 'buttons';
-@import 'z-index';
+@import "./../../style-config/colors";
+@import "./../../style-config/buttons";
+@import "./../../style-config/z-index";
 
 .carbon-multi-action-button--align-right {
   .carbon-multi-action-button__additional-buttons {
@@ -26,6 +26,10 @@
 
     &.carbon-button--disabled {
       border-color: $carbon-button__border-color--disabled;
+    }
+
+    &--primary {
+      border: none;
     }
   }
 
@@ -82,6 +86,12 @@
         background-color: $grey-light;
         color: $blue-light;
       }
+    }
+  }
+
+  .carbon-icon {
+    &.icon-dropdown {
+      top: -1px;
     }
   }
 }

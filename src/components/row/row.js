@@ -33,8 +33,29 @@ class Row extends React.Component {
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object
-    ])
+    ]),
+
+    /**
+     * Pass a custom value for the gutter
+     * (extra-small, small, medium, large or extra-large)
+     *
+     * @property gutter
+     * @type {String}
+     */
+    gutter: React.PropTypes.string,
+
+    /**
+     * Show a divide between columns
+     *
+     * @property columnDivide
+     * @type {String}
+     */
+    columnDivide: React.PropTypes.bool
   }
+
+  static defaultProps = {
+    gutter: "medium"
+  };
 
   /**
    * Builds row columns from the children object fields
@@ -73,7 +94,8 @@ class Row extends React.Component {
       child.props.columnClasses, {
         [`carbon-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
         [`carbon-row__column--span-${child.props.columnSpan}`]: child.props.columnSpan,
-        [`carbon-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign
+        [`carbon-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign,
+        "carbon-row__column--column-divide": this.props.columnDivide
       }
     );
 
@@ -103,6 +125,7 @@ class Row extends React.Component {
 
     return classNames(
       'carbon-row',
+      `carbon-row--gutter-${this.props.gutter}`,
       this.props.className,
       `carbon-row--columns-${columns}`
     );

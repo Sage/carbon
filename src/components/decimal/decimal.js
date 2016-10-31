@@ -124,16 +124,17 @@ class Decimal extends React.Component {
    *
    * @method isValidDecimal
    * @param {String} value new prop value
+   * @param {Integer} precision decimal precision
    * @return {Boolean} true if a valid decimal
    */
-  isValidDecimal = (value) => {
-    let del, regex, result, sep, format = I18nHelper.format();
-    del = format.delimiter;
-    sep = format.separator;
-    regex = new RegExp('^[-]?[0-9]*(?:\\' + del + '?[0-9]?)*\\' + sep + '?[0-9]{0,}$');
-    result = regex.test(value);
-
-    return result;
+  isValidDecimal = (value, precision) => {
+    let del, regex, sep, format = I18nHelper.format();
+    del = `\\${format.delimiter}`;
+    sep = `\\${format.separator}`;
+    regex = precision > 0 ?
+        new RegExp(`^[-]?\\d*(?:${del}?\\d?)*${sep}?\\d{0,${precision}}$`) :
+        new RegExp(`^[-]?\\d*(?:${del}?\\d?)*$`);
+    return regex.test(value);
   }
 
   /**
@@ -144,7 +145,7 @@ class Decimal extends React.Component {
    * @return {void}
    */
   handleVisibleInputChange = (ev) => {
-    if (this.isValidDecimal(ev.target.value)) {
+    if (this.isValidDecimal(ev.target.value, this.props.precision)) {
       this.setState({ visibleValue: ev.target.value });
       this.emitOnChangeCallback(I18nHelper.unformatDecimal(ev.target.value));
     } else {
@@ -162,8 +163,13 @@ class Decimal extends React.Component {
    * @return {void}
    */
   handleBlur = () => {
-    this.setState({ visibleValue: I18nHelper.formatDecimal(this.value, this.props.precision) });
+    let currentValue = I18nHelper.formatDecimal(this.value, this.props.precision);
+    this.setState({ visibleValue: currentValue });
     this.highlighted = false;
+
+    if (this.value === '') {
+      this.emitOnChangeCallback('0');
+    }
   }
 
   /*

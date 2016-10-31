@@ -51,6 +51,15 @@ class Form extends React.Component {
   static propTypes = {
 
     /**
+     * currently active input which is used to track which error message to show on the form
+     *
+     * @property activeInput
+     * @type {Input}
+     * @default null
+     */
+    activeInput: React.PropTypes.element,
+
+    /**
      * Cancel button is shown if true
      *
      * @property cancel
@@ -147,6 +156,7 @@ class Form extends React.Component {
   }
 
   static defaultProps = {
+    activeInput: null,
     buttonAlign: 'right',
     cancel: true,
     save: true,
@@ -185,9 +195,34 @@ class Form extends React.Component {
         incrementWarningCount: this.incrementWarningCount,
         decrementWarningCount: this.decrementWarningCount,
         inputs: this.inputs,
+        setActiveInput: this.setActiveInput,
         validate: this.validate
       }
     };
+  }
+
+  /**
+   * sets the active input, calling the hide method if the input is
+   * different from the last (so as to instantly) switch
+   *
+   * @method setActiveInput
+   * @param {Input} input sends itself through
+   * @return {void}
+   */
+  setActiveInput = (input) => {
+    if (input !== this.activeInput && this.activeInputExistsAndHasValidation()) {
+      this.activeInput.immediatelyHideMessage();
+    }
+    this.activeInput = input;
+  }
+
+  /**
+   * @method activeInputHasValidation
+   * @param {}
+   * @return {Boolean} active input exists and is decorated with validation
+   */
+  activeInputExistsAndHasValidation = () => {
+    return this.activeInput && this.activeInput.immediatelyHideMessage;
   }
 
   state = {
@@ -214,8 +249,25 @@ class Form extends React.Component {
    * @property inputs
    * @type {Object}
    */
-  inputs = {
-  }
+  inputs = {};
+
+  /**
+   * Tracks current errorCount
+   * Need to track separately from state due to async nature of setState
+   *
+   * @property errorCount
+   * @type {Number}
+   */
+  errorCount = 0;
+
+  /**
+   * Tracks current warningCount
+   * Need to track separately from state due to async nature of setState
+   *
+   * @property errorCount
+   * @type {Number}
+   */
+  warningCount = 0;
 
   /**
    * Runs once the component has mounted.
@@ -236,7 +288,8 @@ class Form extends React.Component {
    * @return {void}
    */
   incrementErrorCount = () => {
-    this.setState({ errorCount: this.state.errorCount + 1 });
+    this.errorCount += 1;
+    this.setState({ errorCount: this.errorCount });
   }
 
   /**
@@ -246,7 +299,8 @@ class Form extends React.Component {
    * @return {void}
    */
   decrementErrorCount = () => {
-    this.setState({ errorCount: this.state.errorCount - 1 });
+    this.errorCount -= 1;
+    this.setState({ errorCount: this.errorCount });
   }
 
   /**
@@ -256,7 +310,8 @@ class Form extends React.Component {
    * @return {void}
    */
   incrementWarningCount = () => {
-    this.setState({ warningCount: this.state.warningCount + 1 });
+    this.warningCount += 1;
+    this.setState({ warningCount: this.warningCount });
   }
 
   /**
@@ -266,7 +321,8 @@ class Form extends React.Component {
    * @return {void}
    */
   decrementWarningCount = () => {
-    this.setState({ warningCount: this.state.warningCount - 1 });
+    this.warningCount -= 1;
+    this.setState({ warningCount: this.warningCount });
   }
 
   /**

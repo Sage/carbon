@@ -1,0 +1,4 @@
+{
+  "main": "./get-started-pod",
+  "style": "get-started-pod.scss"
+}

@@ -1,4 +1,4 @@
-@import "input-field";
+@import "./../../style-config/input-field";
 
 .carbon-fieldset {
   border: none;
@@ -42,6 +42,16 @@
   .common-input:last-child {
     .common-input__input {
       border-radius: 0 0 $input-border-radius $input-border-radius;
+    }
+  }
+
+  .common-input--readonly {
+    .common-input__input {
+      border: $input-common-border;
+    }
+
+    .common-input__input:hover {
+      border: $input-common-border;
     }
   }
 }

@@ -52,6 +52,7 @@ describe('Form', () => {
             incrementWarningCount: instance.incrementWarningCount,
             decrementWarningCount: instance.decrementWarningCount,
             inputs: instance.inputs,
+            setActiveInput: instance.setActiveInput,
             validate: instance.validate
           }
         }
@@ -61,7 +62,7 @@ describe('Form', () => {
 
   describe('incrementErrorCount', () => {
     it('increments the state error count', () => {
-      instance.setState({ errorCount: 2 });
+      instance.errorCount = 2;
       instance.incrementErrorCount();
       expect(instance.state.errorCount).toEqual(3);
     });
@@ -69,7 +70,7 @@ describe('Form', () => {
 
   describe('decrementErrorCount', () => {
     it('decreases the state error count', () => {
-      instance.setState({ errorCount: 2 });
+      instance.errorCount = 2;
       instance.decrementErrorCount();
       expect(instance.state.errorCount).toEqual(1);
     });
@@ -77,7 +78,7 @@ describe('Form', () => {
 
   describe('incrementWarningCount', () => {
     it('increments the state warning count', () => {
-      instance.setState({ warningCount: 2 });
+      instance.warningCount = 2;
       instance.incrementWarningCount();
       expect(instance.state.warningCount).toEqual(3);
     });
@@ -85,7 +86,7 @@ describe('Form', () => {
 
   describe('decrementWarningCount', () => {
     it('decreases the state warning count', () => {
-      instance.setState({ warningCount: 2 });
+      instance.warningCount = 2;
       instance.decrementWarningCount();
       expect(instance.state.warningCount).toEqual(1);
     });
@@ -128,6 +129,19 @@ describe('Form', () => {
         instance.detachFromForm(instance.inputs[excludedTextbox._guid]);
         expect(instance.inputs[excludedTextbox._guid]).toBeFalsy();
       });
+    });
+  });
+
+  describe("setActiveInput()", () => {
+    it("sets the active input to be the input parameter", () => {
+      instance.setActiveInput(1);
+      expect(instance.activeInput).toEqual(1);
+    });
+    it("immediately hides it's message if the input is different from the last", () => {
+      let immediatelyHideMessageSpy = jasmine.createSpy();
+      instance.setActiveInput({ immediatelyHideMessage: immediatelyHideMessageSpy });
+      instance.setActiveInput({  });
+      expect(immediatelyHideMessageSpy).toHaveBeenCalled();
     });
   });
 
@@ -388,7 +402,7 @@ describe('Form', () => {
       });
 
       it('renders a secondary cancel button with cancelClasses', () => {
-        expect(buttons[1].className).toEqual('carbon-button carbon-button--secondary');
+        expect(buttons[1].className).toMatch('carbon-button carbon-button--secondary');
         expect(buttonContainers[2].className).toEqual('carbon-form__cancel');
       });
 
@@ -407,7 +421,7 @@ describe('Form', () => {
       });
 
       it('renders a primary save button with saveClasses', () => {
-        expect(buttons[0].className).toEqual('carbon-button carbon-button--primary');
+        expect(buttons[0].className).toMatch('carbon-button carbon-button--primary');
         expect(buttonContainers[1].className).toEqual('carbon-form__save');
       });
 

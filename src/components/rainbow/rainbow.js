@@ -1,6 +1,7 @@
 import React from 'react';
-import ReactHighcharts from 'react-highcharts/dist/bundle/highcharts';
+import ReactHighcharts from 'react-highcharts';
 import classNames from 'classnames';
+import { merge } from 'lodash';
 
 /**
  * A rainbow chart using the Highcharts API.
@@ -10,6 +11,13 @@ import classNames from 'classnames';
  * In your file:
  *
  *   import Rainbow from 'carbon/lib/components/rainbow';
+ *
+ * Note that the Rainbow component expects that you already have the Highcharts
+ * library loaded. This may be true in case of some projects, which already have
+ * that library available for their legacy code.
+ * In other cases, you would need to import Highcharts before importing Rainbow:
+ *
+ *   import 'react-highcharts/dist/bundle/highcharts';
  *
  * To render the Rainbow:
  *
@@ -42,7 +50,7 @@ class Rainbow extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string,
 
     /**
      * The data set for the component.
@@ -50,7 +58,15 @@ class Rainbow extends React.Component {
      * @property data
      * @type {Object}
      */
-    data: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired,
+
+    /**
+     * Custom chart config for the component.
+     *
+     * @property config
+     * @type {Object}
+     */
+    config: React.PropTypes.object
   }
 
   /**
@@ -99,6 +115,7 @@ class Rainbow extends React.Component {
    */
   render() {
     let config = generateConfig(this.props.data, this.props.title);
+    merge(config, this.props.config);
 
     return (
       <div className={ this.mainClasses }>
@@ -166,11 +183,10 @@ function generateConfig(immutableData, title) {
     },
     chart: {
       height: 250,
-      plotBackgroundColor: null,
-      plotBorderWidth: 0,
-      plotShadow: false,
-      spacing: [10,0,0,0],
-      width: 400
+      margin: 0,
+      backgroundColor: null,
+      spacing: 0,
+      plotShadow: false
     },
     title: {
       style: {
@@ -201,13 +217,14 @@ function generateConfig(immutableData, title) {
         animation: {
           duration: 400
         },
-        borderWidth: 0,
-        center: ['50%', '100%'],
         colors: ['#01A4CF', '#FFAB02', '#EA433F', '#FFDD4F', '#FF448F'],
+        startAngle: -90,
+        endAngle: 90,
+        center: ['50%', '100%'],
         dataLabels: {
           connectorWidth: 0,
           defer: false,
-          distance: 25,
+          distance: 18,
           enabled: true,
           formatter: function () {
             let display = "display: ";
@@ -223,14 +240,12 @@ function generateConfig(immutableData, title) {
           },
           useHTML: true
         },
-        endAngle: 90,
         point: {
           events: {
             mouseOver: focusSegment,
             mouseOut: unfocusSegment
           }
         },
-        startAngle: -90,
         states: {
           hover: {
             halo: false

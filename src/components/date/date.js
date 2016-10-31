@@ -197,14 +197,14 @@ class Date extends React.Component {
    * @return {void}
    */
   handleVisibleInputChange = (ev) => {
-    // TODO: This needs more thought i18n with multiple options
-    let formats = [visibleFormat(), "MMM DD YY", "DD-MM", "DD-MM-YYYY"],
-        validDate = moment(ev.target.value, formats).isValid(),
+    let input = this._sanitizeDateInput(ev.target.value),
+        formats = [visibleFormat()].concat(validFormats()),
+        validDate = moment(input, formats, I18n.locale, true).isValid(),
         newState = { visibleValue: ev.target.value };
 
     // Updates the hidden value after first formatting to default hidden format
     if (validDate) {
-      let hiddenValue = formatValue(ev.target.value, formats, hiddenFormat());
+      let hiddenValue = formatValue(input, formats, hiddenFormat());
       newState.viewDate = hiddenValue;
       this.emitOnChangeCallback(hiddenValue);
     }
@@ -270,7 +270,8 @@ class Date extends React.Component {
     let value = this.props.value || getDefaultValue(this);
     let props = {};
     props.ref = 'datepicker';
-    props.weekDayNames = ["S", "M", "T", "W", "T", "F", "S"];
+    props.locale = I18n.locale;
+    props.weekDayNames = moment.localeData(I18n.locale)._weekdaysMin;
     props.monthFormat = "MMM";
     props.dateFormat = hiddenFormat();
     props.onChange = this.handleDateSelect;
@@ -279,6 +280,7 @@ class Date extends React.Component {
     props.viewDate = this.state.viewDate;
     props.minDate = this.props.minDate;
     props.maxDate = this.props.maxDate;
+    props.hideFooter = true;
     return props;
   }
 
@@ -402,6 +404,20 @@ class Date extends React.Component {
       </div>
     );
   }
+
+  /**
+   * Sanitizes all valid date separators ( . - 'whitespace' ) replacing them
+   * with a slash
+   *
+   * This allows us to compare against one separator in the i18n string. DD/MM/YYYY
+   *
+   * @method _sanitizeDateInput
+   * @private
+   * @return {String} sanitized input
+   */
+  _sanitizeDateInput(input) {
+    return input.replace(/[^0-9A-zÀ-ÿ\s\/\.\-]/g, "").replace(/[-.\s]/g, "/").toLowerCase();
+  }
 }
 ))));
 
@@ -418,6 +434,17 @@ export default Date;
  */
 function visibleFormat() {
   return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
+}
+
+/**
+ * Formats valid for entry
+ *
+ * @method validFormats
+ * @private
+ * @return {Array} formatted date strings
+ */
+function validFormats() {
+  return I18n.t('date.formats.inputs', { defaultValue: ["MMM/DD/YY", "DD/MM", "DD/MM/YYYY", "DD/MMM/YYYY", "YYYY/MM/DD"] });
 }
 
 /**
@@ -442,7 +469,7 @@ function hiddenFormat() {
  * @return {String} formatted date
  */
 function formatValue(val, formatFrom, formatTo) {
-  let date = moment(val, formatFrom);
+  let date = moment(val, formatFrom, I18n.locale, true);
   return date.format(formatTo);
 }
 

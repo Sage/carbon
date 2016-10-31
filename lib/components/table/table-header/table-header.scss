@@ -1,5 +1,5 @@
-@import "tables";
-@import "colors";
+@import "./../../../style-config/colors";
+@import "./../../../style-config/tables";
 
 .carbon-table-header {
   background-color: $grey-dark-blue-80;
@@ -60,6 +60,11 @@
     height: 11px;
     width: 10px;
   }
+}
+
+.carbon-table-header__icon--align-right {
+  position: relative;
+  top: 0;
 }
 
 .carbon-table-header--sortable {

@@ -1,5 +1,5 @@
-@import "colors";
-@import "general";
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
 
 .carbon-navigation-bar {
   min-height: $app-navigation-height;

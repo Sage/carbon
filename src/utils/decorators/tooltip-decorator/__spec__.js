@@ -7,6 +7,7 @@ import TooltipDecorator from './tooltip-decorator';
 class BasicClass extends React.Component {
   componentWillUpdate() {}
   componentDidUpdate() {}
+  componentWillReceiveProps() {}
   onBlur = () => {}
   onFocus = () => {}
   onMouseEnter = () => {}
@@ -33,6 +34,7 @@ class BasicClass extends React.Component {
 class StrippedClass extends React.Component {
   componentWillUpdate() {}
   componentDidUpdate() {}
+  componentWillReceiveProps() {}
   onBlur = () => {}
   onFocus = () => {}
   onMouseEnter = () => {}
@@ -69,6 +71,27 @@ describe('tooltip-decorator', () => {
 
   afterEach(() => {
     jasmine.clock().uninstall();
+  });
+
+  describe('componentWillReceiveProps', () => {
+    describe('if currently visible', () => {
+      it('calls setState to reset the hover', () => {
+        topTooltip.state.isVisible = true;
+        spyOn(topTooltip, 'setState');
+        topTooltip.componentWillReceiveProps();
+        expect(topTooltip.setState).toHaveBeenCalledWith({
+          isVisible: false
+        });
+      });
+    });
+
+    describe('if not visible', () => {
+      it('does not call setState', () => {
+        spyOn(topTooltip, 'setState');
+        topTooltip.componentWillReceiveProps();
+        expect(topTooltip.setState).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('componentWillUpdate', () => {

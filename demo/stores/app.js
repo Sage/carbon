@@ -43,6 +43,9 @@ let data = ImmutableHelper.parseJSON({
     title: 'Example Content',
     body: 'This is some example content\nfor the Content component.'
   },
+  create: {
+    text: "New Item"
+  },
   date: {
     label: "Date",
     labelHelp: "Example label help.",
@@ -53,6 +56,11 @@ let data = ImmutableHelper.parseJSON({
     labelHelp: "Example label help.",
     fieldHelp: "Example field help.",
     precision: 3
+  },
+  detail: {
+    body: "North Park\nNewcastle upon Tyne\nNE13 9AA",
+    icon: "person",
+    footnote: "Headquarters"
   },
   dialog: {
     size: 'medium',
@@ -87,7 +95,8 @@ let data = ImmutableHelper.parseJSON({
     content: "This is an example of the heading component.",
     help: "This is an example of help text.",
     help_link: "#",
-    back_link_href: "#"
+    back_link_href: "#",
+    divider: true
   },
   help: {
     message: "This is an example of a help tooltip."
@@ -122,7 +131,7 @@ let data = ImmutableHelper.parseJSON({
     value: 0
   },
   pill: {
-    as: 'new',
+    as: 'default',
     text: 'PILL'
   },
   portrait: {
@@ -161,7 +170,8 @@ let data = ImmutableHelper.parseJSON({
     title: "A Rainbow Chart"
   },
   row: {
-    columnData: [{}, {}, {}, {}]
+    columnData: [{}, {}, {}, {}],
+    gutter: 'medium'
   },
   show_edit_pod: {
     // Comment out editing line if you want to
@@ -184,6 +194,7 @@ let data = ImmutableHelper.parseJSON({
     }
   },
   sidebar: {
+    size: 'medium',
     open: false
   },
   spinner: {
@@ -258,6 +269,16 @@ let data = ImmutableHelper.parseJSON({
 });
 
 class AppStore extends Store {
+
+  constructor(name, data, Dispatcher, opts = {}) {
+    super(name, data, Dispatcher, opts);
+
+    // Store is connected to a lot of components
+    // Therefore adds a lot of listeners
+    // Setting to 0 allows unlimited
+    this.setMaxListeners(0);
+  }
+
   /**
    * @method APP_VALUE_UPDATED
    */

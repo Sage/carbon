@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Link from './link';
+
 import Icon from './../icon';
+import Link from './link';
 
 describe('Link', () => {
   let basicLink, disabledLink, customLink, actionLink, spy;
@@ -46,13 +48,28 @@ describe('Link', () => {
     });
   });
 
+  describe("tabbable", () => {
+    it("has tabindex by default", () => {
+      let wrapper = shallow(<Link href='#'>My Link</Link>);
+      expect(wrapper.props()['tabIndex']).toEqual('0');
+    });
+    it("disabled over-rides tab index setting", () => {
+      let wrapper = shallow(<Link href='#' tabbable={ true } disabled={ true }>My Link</Link>);
+      expect(wrapper.props()['tabIndex']).toEqual('-1');
+    });
+    it("doesn't have tab index if it is set to not be tabbable", () => {
+      let wrapper = shallow(<Link href='#' tabbable={ false }>My Link</Link>);
+      expect(wrapper.props()['tabIndex']).toEqual('-1');
+    });
+  });
+
   describe('with an icon', () => {
     it('renders an icon', () => {
       let instance = TestUtils.renderIntoDocument(
         <Link icon="foo">My Link</Link>
       );
       let icon = TestUtils.findRenderedComponentWithType(instance, Icon);
-      expect(icon.props.className).toEqual('carbon-link__icon');
+      expect(icon.props.className).toEqual('carbon-link__icon carbon-link__icon--align-left');
       expect(icon.props.type).toEqual('foo');
     });
 
@@ -63,6 +80,16 @@ describe('Link', () => {
       let icon = TestUtils.findRenderedComponentWithType(instance, Icon);
       expect(icon.props.tooltipMessage).toEqual('Hi Everybody');
       expect(icon.props.tooltipAlign).toEqual('center');
+    });
+
+    describe('right aligned link', () => {
+      it('renders a right aligned icon', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Link icon="foo" iconAlign="right">My Link</Link>
+        );
+        let icon = TestUtils.findRenderedComponentWithType(instance, Icon);
+        expect(icon.props.className).toEqual('carbon-link__icon carbon-link__icon--align-right');
+      });
     });
   });
 

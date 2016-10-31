@@ -1,0 +1,22 @@
+.chrome {
+  &__menu {
+    @media (min-width: 1024px) {
+      float: left;
+      position: relative;
+      width: 18%;
+    }
+    .carbon-sidebar__sidebar {
+      @media (min-width: 1024px) {
+        position: relative;
+        width: auto;
+      }
+    }
+  }
+  &__content {
+    @media (min-width: 1024px) {
+      float: right;
+      width: 82%;
+    }
+  }
+  margin: 0 auto;
+}

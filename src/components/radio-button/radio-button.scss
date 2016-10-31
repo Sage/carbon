@@ -1,6 +1,6 @@
-@import 'colors';
-@import 'input-field';
-@import 'mixins';
+@import "./../../style-config/colors";
+@import "./../../style-config/input-field";
+@import "./../../style-config/mixins";
 
 .carbon-radio-button {
   padding-top: 8px;
