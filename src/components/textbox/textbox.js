@@ -24,8 +24,6 @@ import { validProps } from '../../utils/ether';
 const Textbox = Input(InputLabel(InputValidation(
 class Textbox extends React.Component {
 
-  // static safeProps = ['visible'];
-
   /**
    * Main Class getter
    *

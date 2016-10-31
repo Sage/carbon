@@ -90,7 +90,7 @@ class Decimal extends React.Component {
    */
   componentWillReceiveProps(props) {
     if (this._document.activeElement != this._input) {
-      let value = props.value || 0;
+      let value = props.value || 0.00;
       this.setState({ visibleValue: I18nHelper.formatDecimal(value, this.props.precision) });
     }
   }
