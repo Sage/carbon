@@ -1,12 +1,41 @@
 import React from 'react';
-import CommonButtons from '../common-buttons';
 
-class GetCodeButtons extends React.Component {
-  render() {
+import Button from 'components/button';
+
+const GetCodeButtons = {
+  github: () => {
     return (
-      <div className='get-code-buttons'>
-        { CommonButtons.github() }
-        { CommonButtons.download('white') }
+      <Button
+        as={ 'primary' }
+        className='github'
+        href='https://github.com/Sage/carbon'
+        size='large'
+        theme='magenta'
+      >
+        View on Github
+      </Button>
+    );
+  },
+
+  download: (theme) => {
+    return (
+      <Button
+        as={ 'secondary' }
+        className='download'
+        href='https://github.com/Sage/carbon/releases/tag/v0.27.0'
+        size='large'
+        theme={ theme }
+      >
+        Download Carbon
+      </Button>
+    );
+  },
+
+  pair: () => {
+    return (
+      <div className='demo-get-code-buttons'>
+        { GetCodeButtons.github() }
+        { GetCodeButtons.download('white') }
       </div>
     );
   }
