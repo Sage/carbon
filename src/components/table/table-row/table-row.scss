@@ -10,8 +10,9 @@
 }
 
 .carbon-table-row--selected .carbon-table-cell {
-  background-color: $row-hover-color !important;
-  border-bottom-color: $blue-navy;
+  background-color: $blue-sky !important;
+  border-bottom-color: $blue-sky;
+  color: white;
   position: relative;
 
   &:before {
