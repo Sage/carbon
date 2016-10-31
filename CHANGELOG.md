@@ -29,6 +29,10 @@
 * `Rainbow`: Added the config prop to to be able to control the way
 the chart is displayed.
 
+## CSS Changes
+
+* Input prefix is now positioned correctly when using inline labels
+
 # 0.27.2
 
 * `Decimal` component can validate properly with alternative i18n settings

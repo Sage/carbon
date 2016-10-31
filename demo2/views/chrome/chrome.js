@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'utils/flux';
+import AppStore from './../../stores/app';
 import BrowserStore from './../../stores/browser';
 import classNames from 'classnames';
 
@@ -12,22 +13,28 @@ const RESIZE_WIDTH = 1024;
 class Chrome extends React.Component {
   classes = () => {
     let tablet = this._isSmallScreen();
-    return classNames("carbon-demo", {
-      "carbon-demo--desktop": !tablet,
-      "carbon-demo--tablet": tablet
+    return classNames("chrome", {
+      "chrome--desktop": !tablet,
+      "chrome--tablet": tablet
     });
   }
 
   render() {
     return (
       <div className={ this.classes() }>
-        <AppSidebar isTablet={ this._isSmallScreen() } />
 
-        <div className='carbon-demo__content'>
+        <AppSidebar
+          className='chrome__menu'
+          isTablet={ this._isSmallScreen() }
+          menuOpen={ this.state.appStore.get('menuOpen') }
+        />
+
+        <div className='chrome__content'>
           <Navbar isTablet={ this._isSmallScreen() } />
           { this.props.children }
           <AppFooter />
         </div>
+
       </div>
     );
   }
@@ -37,4 +44,4 @@ class Chrome extends React.Component {
   }
 }
 
-export default connect(Chrome, BrowserStore);
+export default connect(Chrome, [ BrowserStore, AppStore ]);
