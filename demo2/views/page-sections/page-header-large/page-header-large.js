@@ -36,14 +36,17 @@ class PageHeaderLarge extends React.Component {
 
             <FlexContainer className='page-header-large__tiles'>
               <InfoTile
+                src='https://placekitten.com/60/60'
                 title='Ridiculously Quick'
                 description='Carbon helps developers take applications from concept to completion as quickly as possible.'
               />
               <InfoTile
+                gravatar='chris.barber@sage.com'
                 title='Fully Featured'
                 description='With Carbon you get an extensive and beautiful documentation for common web components.'
               />
               <InfoTile
+                gravatar='harpal.singh@sage.com'
                 title='Ridiculously Quick'
                 description='Carbon helps developers take applications from concept to completion as quickly as possible.'
               />

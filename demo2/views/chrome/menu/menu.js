@@ -70,18 +70,18 @@ const styles = [
    { name: 'Text' }
 ];
 
-class AppSidebar extends React.Component {
+class Menu extends React.Component {
   /**
    * @method render
    */
   get componentsHTML() {
     return components.map((item, i) => {
-      return <MenuListItem name={ item.name }><Link key={ i }>{ item.name }</Link></MenuListItem>;
+      return <MenuListItem key={ i } name={ item.name }><Link>{ item.name }</Link></MenuListItem>;
     });
   }
   get stylesHTML() {
     return styles.map((item, i) => {
-      return <MenuListItem name={ item.name }><Link key={ i }>{ item.name }</Link></MenuListItem>;
+      return <MenuListItem key={ i } name={ item.name }><Link>{ item.name }</Link></MenuListItem>;
     });
   }
 
@@ -127,4 +127,4 @@ class AppSidebar extends React.Component {
   }
 }
 
-export default AppSidebar;
+export default Menu;
