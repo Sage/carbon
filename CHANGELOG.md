@@ -5,17 +5,29 @@
 * Button color is now determined by a `theme` prop.
 * If you are using a red or green button, you must pass props of `as` and `theme`.
 * i.e. for a red button
+
 ```js
 <Button theme='red'>
   Foo
 </Button>
 ```
+
 * For a green button
+
 ```js
 <Button theme='green' as='secondary'>
   Foo
 </Button>
 ```
+
+## I18n Component
+
+We have added a component to handle I18n translations. The component also support markdown, allowing developers to safely add HTML markup to translations such as bold tags or hyperlinks.
+
+```
+<I18n scope="my.translation" options={{ myVar: "foobar" }} markdown={ true } />
+```
+
 ## Helpers
 
 * `abbreviateNumber` function is provided for adding 'k' and 'm' style abbreviations for large numbers

@@ -49,6 +49,7 @@
     "events": "~1.0.2",
     "form-serialize": "~0.7.0",
     "lodash": "~3.10.1",
+    "marked": "^0.3.6",
     "moment": "~2.15.1",
     "react-date-picker": "~3.1.5",
     "react-highcharts": "~5.0.4",
