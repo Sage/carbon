@@ -4,7 +4,7 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 // https://github.com/zippyui/react-date-picker
-import { MonthView, Footer, NavBar, HistoryView } from 'react-date-picker';
+import { MonthView, NavBar } from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
@@ -222,7 +222,9 @@ class Date extends React.Component {
    * @return {void}
    */
   handleWidgetClick = (ev) => {
-    ev.nativeEvent.stopImmediatePropagation();
+    if (ev.nativeEvent.stopImmediatePropagation) {
+      ev.nativeEvent.stopImmediatePropagation();
+    }
   }
 
   /**
@@ -365,25 +367,29 @@ class Date extends React.Component {
   }
 
   renderDatePicker() {
-    return <MonthView
-      highlightWeekends={ false }
-      highlightToday={ true }
-      weekNumbers={ false }
-      weekDayNames={ ['S', 'M', 'T', 'W', 'T', 'F', 'S'] }
-      theme={ null }
-      dateFormat={ hiddenFormat() }
-      onChange={ this.handleDateSelect }
-      date={ this.props.value || getDefaultValue(this) }
-      minDate={ this.props.minDate }
-      maxDate={ this.props.maxDate }
-      enableHistoryView={ false }
-    >
-      <NavBar
-        navDateFormat={ 'MMMM YYYY' }
-        arrows={ { prev: '‹', next: '›' } }
+    return (
+      <MonthView
+        highlightWeekends={ false }
+        highlightToday={ true }
+        weekNumbers={ false }
+        monthFormat='MMM'
+        weekDayNames={ ['S', 'M', 'T', 'W', 'T', 'F', 'S'] }
         theme={ null }
-      />
-    </MonthView>
+        dateFormat={ hiddenFormat() }
+        onChange={ this.handleDateSelect }
+        date={ this.props.value || getDefaultValue(this) }
+        minDate={ this.props.minDate }
+        maxDate={ this.props.maxDate }
+        enableHistoryView={ false }
+        ref={ (input) => { this.datepicker = input; } }
+      >
+        <NavBar
+          navDateFormat={ 'MMMM YYYY' }
+          arrows={ { prev: '‹', next: '›' } }
+          theme={ null }
+        />
+      </MonthView>
+    );
   }
 
   /**

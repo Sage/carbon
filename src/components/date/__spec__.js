@@ -4,7 +4,7 @@ import moment from 'moment';
 import Date from './date';
 import Events from './../../utils/helpers/events';
 
-fdescribe('Date', () => {
+describe('Date', () => {
   let instance;
   let today = moment().format("DD MMM YYYY");
   let hiddenToday = moment().format("YYYY-MM-DD");
@@ -254,25 +254,29 @@ fdescribe('Date', () => {
     });
 
     it('sets blockBlur to true', () => {
-      instance.datepicker.handleChange();
+      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
+      TestUtils.Simulate.click(cell);
       expect(instance.blockBlur).toBeTruthy();
     });
 
     it('closes the date picker', () => {
       let spy = spyOn(instance, 'closeDatePicker');
-      instance.datepicker.handleChange();
+      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
+      TestUtils.Simulate.click(cell);
       expect(instance.closeDatePicker).toHaveBeenCalled();
     });
 
     it('emits a onChange callback', () => {
       spyOn(instance, 'emitOnChangeCallback')
-      instance.datepicker.handleChange();
-      expect(instance.emitOnChangeCallback).toHaveBeenCalledWith( hiddenToday );
+      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
+      TestUtils.Simulate.click(cell);
+      expect(instance.emitOnChangeCallback).toHaveBeenCalled();
     });
 
     it('updates the visible value', () => {
       spyOn(instance, 'updateVisibleValue')
-      instance.datepicker.handleChange();
+      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
+      TestUtils.Simulate.click(cell);
       expect(instance.updateVisibleValue).toHaveBeenCalled();
     });
   });
