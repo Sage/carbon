@@ -4,8 +4,14 @@ import AppActions from './../../actions/app';
 import AppConstants from './../../constants/app';
 import ImmutableHelper from 'utils/helpers/immutable';
 
-let data = ImmutableHelper.parseJSON({});
+let data = ImmutableHelper.parseJSON({
+  menuOpen: false
+});
 
-class AppStore extends Store { }
+class AppStore extends Store {
+  [AppConstants.TOGGLE_MENU]() {
+    this.data = this.data.set('menuOpen', !this.data.get('menuOpen'));
+  }
+}
 
-export default new BrowserStore('appStore', data, Dispatcher);
+export default new AppStore('appStore', data, Dispatcher);

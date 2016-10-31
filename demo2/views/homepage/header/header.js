@@ -1,12 +1,12 @@
 import React from 'react';
-import Buttons from './../../components/common-buttons';
-import Row from 'components/row';
+import GetCodeButtons from '../../components/get-code-buttons';
 import InfoTile from './../../components/info-tile';
 
 class Header extends React.Component {
   render() {
     return (
       <div className='carbon-homepage__header'>
+        <div className='carbon-homepage__header-background' />
         <div className='carbon-homepage__titles'>
 
           <h1 className='carbon-homepage__h1'>
@@ -17,10 +17,7 @@ class Header extends React.Component {
             Carbon is open source. It’s hosted, developed, and maintained on Github.
           </h2>
 
-          <div className='carbon-homepage__buttons'>
-            { Buttons.github('get-started__github-button') }
-            { Buttons.download() }
-          </div>
+          <GetCodeButtons />
 
           <div className='carbon-homepage__version'>
             Currently: v1.0.0
