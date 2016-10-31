@@ -4,11 +4,12 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 // https://github.com/zippyui/react-date-picker
-import DatePicker from 'react-date-picker';
+import { MonthView, Footer, NavBar, HistoryView } from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
 import chainFunctions from './../../utils/helpers/chain-functions';
+import { validProps } from '../../utils/ether';
 
 
 /**
@@ -39,6 +40,8 @@ class Date extends React.Component {
    * @type {document}
    */
   _document = document;
+
+  static propTypes = {};
 
   static defaultProps = {
     /**
@@ -260,29 +263,7 @@ class Date extends React.Component {
     }
   }
 
-  /**
-   * A getter that returns datepicker specific props
-   *
-   * @method inputProps
-   * @return {Object} props for the datepicker
-   */
-  get datePickerProps() {
-    let value = this.props.value || getDefaultValue(this);
-    let props = {};
-    props.ref = 'datepicker';
-    props.locale = I18n.locale;
-    props.weekDayNames = moment.localeData(I18n.locale)._weekdaysMin;
-    props.monthFormat = "MMM";
-    props.dateFormat = hiddenFormat();
-    props.onChange = this.handleDateSelect;
-    props.date = value;
-    props.onViewDateChange = this.handleViewDateChange;
-    props.viewDate = this.state.viewDate;
-    props.minDate = this.props.minDate;
-    props.maxDate = this.props.maxDate;
-    props.hideFooter = true;
-    return props;
-  }
+
 
   /**
    * Updates viewDate as hidden input changes.
@@ -316,7 +297,7 @@ class Date extends React.Component {
    * @return {Object} props for the visible input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     delete props.autoFocus;
     props.className = this.inputClasses;
     props.onChange = this.handleVisibleInputChange;
@@ -345,9 +326,10 @@ class Date extends React.Component {
     };
 
     if (typeof this.props.value !== 'undefined') {
-      props.value = this.props.value; }
-    else {
-      props.defaultValue = this.props.defaultValue; }
+      props.value = this.props.value;
+    } else {
+      props.defaultValue = this.props.defaultValue;
+    }
 
     return props;
   }
@@ -382,6 +364,28 @@ class Date extends React.Component {
     return this.inputIconHTML("calendar");
   }
 
+  renderDatePicker() {
+    return <MonthView
+      highlightWeekends={ false }
+      highlightToday={ true }
+      weekNumbers={ false }
+      weekDayNames={ ['S', 'M', 'T', 'W', 'T', 'F', 'S'] }
+      theme={ null }
+      dateFormat={ hiddenFormat() }
+      onChange={ this.handleDateSelect }
+      date={ this.props.value || getDefaultValue(this) }
+      minDate={ this.props.minDate }
+      maxDate={ this.props.maxDate }
+      enableHistoryView={ false }
+    >
+      <NavBar
+        navDateFormat={ 'MMMM YYYY' }
+        arrows={ { prev: '‹', next: '›' } }
+        theme={ null }
+      />
+    </MonthView>
+  }
+
   /**
    * Renders the component.
    *
@@ -389,7 +393,7 @@ class Date extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let datePicker = (this.state.open) ? <DatePicker { ...this.datePickerProps } /> : null;
+    let datePicker = this.state.open ? this.renderDatePicker() : null;
 
     return (
       <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
