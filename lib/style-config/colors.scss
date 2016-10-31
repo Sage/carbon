@@ -1,7 +1,10 @@
 // Brand Colours - These are named by their colour.
 $white:                      #FFF !default;
 $black:                      #000 !default;
+
+// Grey
 $grey-dark-plus:             #1B1D21 !default;
+$dark-blue-plus:             #262A33 !default;
 $grey:                       #D0D0D0 !default;
 $grey-dark-blue:             #3C424F !default;
 $grey-dark-blue-90:          #4F5460 !default;
@@ -20,18 +23,24 @@ $grey-mid:                   #AFAFAF !default;
 $grey-light:                 #EBEDEF !default;
 $grey-background:            $grey-light !default;
 $grey-header:                #F2F3F6 !default;
-$green:                      #007F64 !default;
+
+// Green
+$green:                      #50B848 !default;
 $green-mid:                  #42AE42 !default;
 $green-bright:               #00DC00 !default;
 $green-bright-dull:          #38C72A !default;
 $green-apple:                #42AE42 !default;
 $green-apple-05:             #F5FBF5 !default;
 $green-apple-20:             #D9EFD9 !default;
+
+// Orange
 $orange:                     #FF5400 !default;
 $orange-bright:              #FF5800 !default;
 $orange-bright-05:           #FFF6F2 !default;
 $orange-bright-20:           #FFDDCC !default;
 $orange-mid:                 #FF9900 !default;
+
+// Blue
 $blue:                       #255BC7 !default;
 $blue-dark:                  #193E90 !default;
 $blue-bright:                #1963F6 !default;
@@ -40,19 +49,33 @@ $blue-sky:                   #3592FF !default;
 $blue-sky-05:                #F5F9FF !default;
 $blue-sky-20:                #D7E9FF !default;
 $blue-light:                 #4782F7 !default;
+$azul:                       #004089 !default;
+
+// Red
 $red:                        #D63F40 !default;
+$red-light:                  #E42C2D !default;
+$red-dark:                   #C11E20 !default;
 $red-05:                     #FDF5F5 !default;
 $red-20:                     #F7D9D9 !default;
+
+// Yellow
 $yellow:                     #FFAB00 !default;
 $yellow-05:                  #FFFBF2 !default;
 $yellow-20:                  #FFEECC !default;
+
+// Magenta
 $magenta:                    #ED1C5F !default;
 $magenta-dull:               #CA2A60 !default;
+$magenta-light:              #F32E6D !default;
+
+// Purple
 $purple:                     rebeccapurple !default;
 $purple-05:                  #F7F5FA !default;
 $purple-20:                  #E0D6EB !default;
 
-// Main colours
+////////////////////////////////
+
+// States
 $warning:                    $orange-bright !default;
 $warning-text-background:    $orange-bright-05 !default;
 $warning-border:             $orange-bright-20 !default;
@@ -61,7 +84,7 @@ $warning-hover:              darken($orange-bright, 20%) !default;
 $error:                      $red    !default;
 $error-text-background:      $red-05 !default;
 $error-border:               $red-20 !default;
-$error-hover:                darken($red, 20%) !default;
+$error-hover:                $red-dark !default;
 
 $info:                       $blue-sky !default;
 $info-text-background:       $blue-sky-05 !default;
