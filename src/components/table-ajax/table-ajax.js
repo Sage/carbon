@@ -153,7 +153,7 @@ class TableAjax extends Table {
    * @return {Void}
    */
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.pageSize != prevState.pageSize) {
+    if (this.state.pageSize !== prevState.pageSize) {
       this.emitOnChangeCallback('data', this.emitOptions());
     }
     this.resizeTable();
@@ -168,7 +168,7 @@ class TableAjax extends Table {
    * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.pageSize != nextProps.pageSize) {
+    if (this.props.pageSize !== nextProps.pageSize) {
       this.setState({pageSize: nextProps.pageSize});
     }
   }

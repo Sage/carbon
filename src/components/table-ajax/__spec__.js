@@ -97,13 +97,13 @@ describe('TableAjax', () => {
   describe('componentDidUpdate', () => {
     it('does not call emitOnChangeCallback with the same pageSize', () => {
       spyOn(pageSizeInstance, 'emitOnChangeCallback');
-      pageSizeInstance.componentDidUpdate({},{ pageSize: 10 });
+      pageSizeInstance.componentDidUpdate({},{ pageSize: '10' });
       expect(pageSizeInstance.emitOnChangeCallback).not.toHaveBeenCalled();
     });
 
     it('calls emitOnChangeCallback when pageSize changes', () => {
       spyOn(pageSizeInstance, 'emitOnChangeCallback');
-      pageSizeInstance.componentDidUpdate({},{ pageSize: 20 });
+      pageSizeInstance.componentDidUpdate({},{ pageSize: '20' });
       expect(pageSizeInstance.emitOnChangeCallback).toHaveBeenCalled();
     });
 
@@ -117,14 +117,14 @@ describe('TableAjax', () => {
   describe('componentWillReceiveProps', () => {
     it('does not call setState with the same pageSize', () => {
       spyOn(pageSizeInstance, 'setState');
-      pageSizeInstance.componentWillReceiveProps({pageSize: 10});
+      pageSizeInstance.componentWillReceiveProps({pageSize: '10'});
       expect(pageSizeInstance.setState).not.toHaveBeenCalled();
     });
 
     it('calls emitOnChangeCallback when pageSize changes', () => {
       spyOn(pageSizeInstance, 'setState');
-      pageSizeInstance.componentWillReceiveProps({pageSize: 20});
-      expect(pageSizeInstance.setState).toHaveBeenCalledWith({ pageSize: 20 });
+      pageSizeInstance.componentWillReceiveProps({pageSize: '20'});
+      expect(pageSizeInstance.setState).toHaveBeenCalledWith({ pageSize: '20' });
     });
   });
 
