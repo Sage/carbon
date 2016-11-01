@@ -52,11 +52,31 @@ describe('MenuList', () => {
       expect(title.props().children).toEqual('test');
     });
 
-    it("triggers menu toggle on click", () => {
-      let instance = wrapper.instance();
-      spyOn(instance, 'setState');
-      title.simulate('click');
-      expect(instance.setState).toHaveBeenCalledWith({ open: true });
+    describe("events", () => {
+      let instance,
+          eventStubs = { click:        { type: 'click'              },
+                         enterKeydown: { type: 'keydown', which: 13 },
+                         nonTrigger:   { type: 'testing', which: 15 } }
+
+      beforeEach(() => {
+        instance = wrapper.instance();
+        spyOn(instance, 'setState');
+      });
+
+      it("triggers menu toggle on click", () => {
+        title.simulate('click', eventStubs.click);
+        expect(instance.setState).toHaveBeenCalledWith({ open: true });
+      });
+
+      it("triggers menu with enter keydown", () => {
+        title.simulate('keydown', eventStubs.enterKeydown);
+        expect(instance.setState).toHaveBeenCalledWith({ open: true });
+      });
+
+      it("doesn't trigger if it's not a click or enter press", () => {
+        title.simulate('keydown', eventStubs.nonTrigger);
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
     });
   });
 
