@@ -1,5 +1,15 @@
 # 0.28.0
 
+## :warning: Breaking Changes - Visual Styles
+
+Visual improvements to the design of components, which may impact the colors and font styles used.
+
+* Lato font added
+* Colors updated
+* Table row active and hover styles
+* Font sizes for text
+
+
 ## :warning: Breaking Change - Button colors
 
 * Button color is now determined by a `theme` prop.
