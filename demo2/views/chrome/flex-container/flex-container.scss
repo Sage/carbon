@@ -1,9 +1,11 @@
+@import "../../../demo-variables";
+
 .demo-flex-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  @media (min-width: 800px) {
+  @media (min-width: $response-point-medium) {
     flex-direction: row;
   }
 }

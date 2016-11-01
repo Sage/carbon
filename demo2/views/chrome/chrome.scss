@@ -1,9 +1,9 @@
 .chrome {
-  @media(min-width: 1090px) {
+  @media(min-width: $menu-popout-point) {
     padding-left: 290px;
   }
   .demo-menu {
-    @media(min-width: 1090px) {
+    @media(min-width: $menu-popout-point) {
       position: relative;
     }
   }
