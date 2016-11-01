@@ -1,24 +1,42 @@
 @import "colors";
 
 .demo-footer {
+  box-sizing: border-box;
+  color: $white;
+  padding: 24px 0 10px;
+  width: 100%;
+
   &__background {
     background-color: $grey-dark-blue;
     left: 0;
     right: 0;
   }
-  box-sizing: border-box;
-  color: $white;
-  padding: 24px 0;
-  width: 100%;
 
-  &__right {
-    text-align: right;
-    width: 73%;
+  &__section {
+    text-align: center;
+    width: 100%;
+  }
+
+  &__social {
+    float: left;
+    @media(min-width: 800px) {
+      text-align: left;
+      width: 25%;
+    }
+  }
+
+  &__corporate {
+    float: right;
+    margin-bottom: 15px;
+    @media(min-width: 800px) {
+      text-align: right;
+      width: 71%;
+    }
   }
 
   &__sage-icon {
     background-image: url('/assets/images/sage_logo.svg');
-    float: right;
+    display: inline-block;
     height: 22px;
     width: 57px;
   }
@@ -29,14 +47,11 @@
     width: 100%;
   }
 
-  &__left {
-    width: 23%;
-    .carbon-icon {
-      margin: 4px 24px 4px 4px;
-    }
+  .carbon-icon {
+    margin: 4px 24px 4px 4px;
+  }
 
-    .carbon-link__anchor {
-      color: currentColor;
-    }
+  .carbon-link__anchor {
+    color: currentColor;
   }
 }
