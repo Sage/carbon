@@ -168,6 +168,7 @@ class TableAjax extends Table {
    * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
+    super.componentWillReceiveProps(nextProps);
     if (this.props.pageSize !== nextProps.pageSize) {
       this.setState({pageSize: nextProps.pageSize});
     }
