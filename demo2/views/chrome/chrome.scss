@@ -1,0 +1,10 @@
+.chrome {
+  @media(min-width: 1090px) {
+    padding-left: 290px;
+  }
+  .demo-menu {
+    @media(min-width: 1090px) {
+      position: relative;
+    }
+  }
+}
