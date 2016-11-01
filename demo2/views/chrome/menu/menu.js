@@ -10,23 +10,25 @@ import { MenuListItem, MenuList } from 'components/menu-list';
 
 // Demo Site
 import GetCodeButtons from '../../components/get-code-buttons';
+import ComponentList from './component-list';
 
-const components = [
-   { name: 'One' },
-   { name: 'Two' }
-];
-const patterns = [
-   { name: 'One' },
-   { name: 'Two' }
+const styles = [
+   { name: 'Colours' },
+   { name: 'Text' }
 ];
 
-class AppSidebar extends React.Component {
+class Menu extends React.Component {
   /**
    * @method render
    */
   get componentsHTML() {
-    return components.map((item, i) => {
-      return <MenuListItem><Link key={ i } name={ item.name }>{ item.name }</Link></MenuListItem>;
+    return ComponentList.map((item, i) => {
+      return <MenuListItem key={ i } name={ item.name }><Link>{ item.name }</Link></MenuListItem>;
+    });
+  }
+  get stylesHTML() {
+    return styles.map((item, i) => {
+      return <MenuListItem key={ i } name={ item.name }><Link>{ item.name }</Link></MenuListItem>;
     });
   }
 
@@ -38,31 +40,27 @@ class AppSidebar extends React.Component {
         onCancel={ this.props.isTablet ? DemoActions.toggleMenu : null }
         open={ this.props.menuOpen || !this.props.isTablet }
         position="left"
-        size='extra-small'
+        size='small'
       >
-        <SidebarHeader className='demo-menu__header'>
-          Carbon
-        </SidebarHeader>
+        <SidebarHeader className='demo-menu__header' />
 
         <MenuList
           className='demo-menu__menu'
           toggleable={ false }
           initiallyOpen={ true }
         >
-          <MenuListItem><Link tabIndex='10'>Getting Started</Link></MenuListItem>
+          <MenuListItem><Link>Getting Started</Link></MenuListItem>
           <MenuListItem>
             <MenuList title='Components' filter={ true }>
               { this.componentsHTML }
             </MenuList>
           </MenuListItem>
+          <MenuListItem><Link>Patterns</Link></MenuListItem>
           <MenuListItem>
-            <MenuList title='Patterns' filter={ false }>
-              <MenuListItem><Link name={ 'Items' }>Items</Link></MenuListItem>
-              <MenuListItem><Link name={ 'Stuff' }>Stuff</Link></MenuListItem>
-              <MenuListItem><Link name={ 'Things' }>Things</Link></MenuListItem>
+            <MenuList title='Style' filter={ true }>
+              { this.stylesHTML }
             </MenuList>
           </MenuListItem>
-          <MenuListItem><Link>Style</Link></MenuListItem>
           <MenuListItem><Link>Articles</Link></MenuListItem>
         </MenuList>
 
@@ -76,4 +74,4 @@ class AppSidebar extends React.Component {
   }
 }
 
-export default AppSidebar;
+export default Menu;

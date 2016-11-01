@@ -4,29 +4,21 @@
   background-color: $white;
 
   &__header {
-    background-color: $grey-light;
-    color: $green;
-    font-size: 24px;
-    height: 70px;
-    line-height: 70px;
-    text-align: center;
-    text-transform: uppercase;
-    width: 100%;
+    background-image: url('/assets/images/carbon_logo-1.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 57px;
+    width: 250px;
   }
 
   &__menu {
     margin: 0;
     padding: 20px 0;
     width: 100%;
-
-    .carbon-list-item .carbon-list-item {
-      padding-left: 10px;
-    }
   }
 
   .carbon-sidebar__sidebar {
     background-color: $white;
-    box-shadow: none;
     border: none;
   }
 

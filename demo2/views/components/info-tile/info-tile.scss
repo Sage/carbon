@@ -1,15 +1,14 @@
 .demo-info-tile {
-  display: inline-block;
-  .carbon-pod__content {
-    @media (min-width: 800px) {
-      height: 200px;
-    }
+  box-shadow: 0 0 35px 0 rgba(0,0,0,0.12);
+  .carbon-pod__block--tile {
+    border: none;
+    box-shadow: none;
   }
-  margin: 1.5%;
-  vertical-align: top;
-  width: 92%;
+
+  margin-bottom: 4%;
+  width: 100%;
   @media (min-width: 800px) {
-    width: 30.333%;
+    width: 29.33333%;
   }
 }
 

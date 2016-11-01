@@ -88,7 +88,6 @@ class SimpleContent extends React.Component {
    */
   linkProps() {
     let defaultLinkProps = {
-      target: "_blank",
       href: this.props.footerHref,
       to: this.props.footerTo,
       iconAlign: 'right',
