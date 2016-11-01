@@ -4,17 +4,14 @@
   background-color: $dark-blue-plus;
   background-image: url('/assets/images/background_pattern.svg');
   bottom: 0;
-  height: 425px;
   position: relative;
   width: 100%;
 }
 
 .get-started__actions-pod {
   color: $white;
-  position: absolute;
-  top: 100px;
+  padding: 120px 0 130px;
   width: 100%;
-  margin: 0 auto;
 
   .carbon-pod__content {
     text-align: center;
