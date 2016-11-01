@@ -13,7 +13,12 @@ class InfoTile extends React.Component {
         className={ `demo-info-tile ${ this.props.className }` }
       >
         <div className='demo-info-tile__content'>
-          <Portrait className='demo-info-tile__image' shape='circle' />
+          <Portrait
+            className='demo-info-tile__image'
+            gravatar={ this.props.gravatar }
+            shape='circle'
+            src={ this.props.src }
+          />
           <div className={ `demo-info-tile__heading ${ css.textBold }` }>
             { this.props.title }
           </div>

@@ -1,0 +1,8 @@
+.demo-flex-container {
+  display: block;
+
+  @media (min-width: 800px) {
+    display: flex;
+    justify-content: space-between;
+  }
+}
