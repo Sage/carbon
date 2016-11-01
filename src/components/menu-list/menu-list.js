@@ -94,7 +94,7 @@ class MenuList extends React.Component {
   filterHTML() {
     if (!this.props.filter) { return null; }
 
-    return (<MenuListItem key={ 'filter' }><Textbox onChange={ this.onSearch } value={ this.state.filter } /></MenuListItem>);
+    return (<MenuListItem key={ 'filter' }><Textbox onChange={ this.onSearch } value={ this.state.filter } autoFocus={ true }/></MenuListItem>);
   }
 
   mainClasses() {
