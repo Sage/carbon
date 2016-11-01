@@ -6,10 +6,16 @@
 
   &__cell {
     box-sizing: border-box;
-    width: 40%;
+    &:first-of-type {
+      margin-bottom: 40px;
+      @media (min-width: 800px) {
+        margin-bottom: 0;
+      }
+    }
+    width: 100%;
 
-    @media (max-width: 800px) {
-      width: 100%;
+    @media (min-width: 800px) {
+      width: 40%;
     }
   }
 }
