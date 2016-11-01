@@ -11,12 +11,12 @@ import Footer from './footer'
 import Header from './header';
 import Menu from './menu';
 
-const RESIZE_WIDTH = 1400;
+const RESIZE_WIDTH = 1090;
 
 class Chrome extends React.Component {
   render() {
     return (
-      <div>
+      <div className='chrome'>
         <Menu
           isTablet={ this._isSmallScreen() }
           menuOpen={ this.state.appStore.get('menuOpen') }
