@@ -1,9 +1,6 @@
 @import "colors";
 
 .demo-footer {
-  display: flex;
-  justify-content: space-between;
-
   &__background {
     background-color: $grey-dark-blue;
     left: 0;
