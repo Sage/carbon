@@ -3,13 +3,13 @@
 @import "./../../style-config/mixins";
 
 $date__picker__width: 210px;
-$date__picker__border: #EBEDEF;
-$date__picker__header-color: #8A8E95;
-$date__picker__header-border-color: #636872;
-$date__picker__cell-border-color: #CECECE;
+$date__picker__border: $grey-light;
+$date__picker__header-color: $grey-dark-blue-60;
+$date__picker__header-border-color: $grey-dark-blue-80;
+$date__picker__cell-border-color: $border-color;
 
 .react-date-picker__month-view {
-  color: #888888;
+  color: $date__picker__header-color;
 }
 
 .react-date-picker__month-view {
@@ -67,6 +67,7 @@ $date__picker__cell-border-color: #CECECE;
   .react-date-picker__nav-bar-date {
     border-right: 1px solid $date__picker__header-border-color;
     border-left: 1px solid $date__picker__header-border-color;
+    font-size: 13px;
     text-align: center;
     width: 76%;
   }
@@ -111,10 +112,10 @@ $date__picker__cell-border-color: #CECECE;
 
 .react-date-picker__month-view-day--prev-month,
 .react-date-picker__month-view-day--next-month {
-  background-color: #DEDEDE;
+  background-color: $grey;
 
   &:hover {
     color: $grey-dark;
-    background-color: #EDF4FB;
+    background-color: $row-hover-color;
   }
 }
