@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
 import { Link } from 'react-router';
+import Event from 'utils/helpers/events';
 
 /**
  * A link widget.
@@ -22,6 +23,11 @@ import { Link } from 'react-router';
  * @constructor
  */
 class _Link extends React.Component {
+
+  constructor() {
+    super();
+    this.onKeyDown = this.onKeyDown.bind(this);
+  }
 
   static propTypes = {
 
@@ -106,6 +112,7 @@ class _Link extends React.Component {
 
     props.className = this.componentClasses;
     props[this.linkType.prop] = this.url;
+    props.onKeyDown = this.onKeyDown;
 
     return props;
   }
@@ -244,6 +251,25 @@ class _Link extends React.Component {
     if (!url) { return null; }
 
     return url.replace(this.typeRegex, "");
+  }
+
+  /**
+   * Triggers the onClick event for the enter key
+   *
+   * @method onKeyDown
+   * @param {Object} ev
+   */
+  onKeyDown(ev) {
+    if (this.props.onKeyDown) {
+      this.props.onKeyDown(ev);
+    }
+
+    // return early if there is no onClick or there is a href prop
+    if (!this.props.onClick || this.props.href) { return; }
+    // return early if the event is not an enter key
+    if (!Event.isEnterKey(ev)) { return; }
+
+    this.props.onClick(ev);
   }
 
   /**

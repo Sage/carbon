@@ -5,6 +5,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 
 import Icon from './../icon';
 import Link from './link';
+import Event from 'utils/helpers/events';
 
 describe('Link', () => {
   let basicLink, disabledLink, customLink, actionLink, spy;
@@ -184,6 +185,60 @@ describe('Link', () => {
       it('it replaces the prefix', () => {
         instance = TestUtils.renderIntoDocument(<Link to="href:/foo" />);
         expect(instance.url).toBe("/foo");
+      });
+    });
+  });
+
+  describe('onKeyDown', () => {
+    let instance, spy;
+
+    beforeEach(() => {
+      spy = jasmine.createSpy('link event');
+      instance = TestUtils.renderIntoDocument(<Link />);
+    });
+
+    it('calls onKeyDown class method', () => {
+      spyOn(instance, 'onKeyDown');
+      instance.componentProps.onKeyDown('foo');
+      expect(instance.onKeyDown).toHaveBeenCalledWith('foo');
+    });
+
+    it('calls original onKeyDown if one is provided', () => {
+      instance = TestUtils.renderIntoDocument(<Link onKeyDown={ spy } />);
+      instance.onKeyDown('foo');
+      expect(spy).toHaveBeenCalledWith('foo');
+    });
+
+    describe('an onClick is provided', () => {
+      describe('a href if provided', () => {
+        it('does not call onClick', () => {
+          instance = TestUtils.renderIntoDocument(<Link onClick={ spy } href="#" />);
+          spyOn(Event, 'isEnterKey').and.returnValue(true);
+          instance.onKeyDown('foo');
+          expect(spy).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('a href is not provided', () => {
+        beforeEach(() => {
+          instance = TestUtils.renderIntoDocument(<Link onClick={ spy } />);
+        });
+
+        describe('it is not the enter key', () => {
+          it('does not call onClick', () => {
+            spyOn(Event, 'isEnterKey').and.returnValue(false);
+            instance.onKeyDown('foo');
+            expect(spy).not.toHaveBeenCalled();
+          });
+        });
+
+        describe('it is the enter key', () => {
+          it('does calls the onClick', () => {
+            spyOn(Event, 'isEnterKey').and.returnValue(true);
+            instance.onKeyDown('foo');
+            expect(spy).toHaveBeenCalledWith("foo");
+          });
+        });
       });
     });
   });
