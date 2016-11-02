@@ -373,7 +373,7 @@ class Date extends React.Component {
         highlightToday={ true }
         weekNumbers={ false }
         monthFormat='MMM'
-        weekDayNames={ ['S', 'M', 'T', 'W', 'T', 'F', 'S'] }
+        weekDayNames={ moment.weekdaysMin() }
         theme={ null }
         dateFormat={ hiddenFormat() }
         onChange={ this.handleDateSelect }

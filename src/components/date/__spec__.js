@@ -380,7 +380,7 @@ describe('Date', () => {
 
     it('sets the weekDays and format', () => {
       expect(datepicker.props.weekDayNames).toEqual(
-        ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+        ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
       );
       expect(datepicker.props.monthFormat).toEqual('MMM');
       expect(datepicker.props.dateFormat).toEqual('YYYY-MM-DD');
