@@ -49,7 +49,7 @@ We have added a component to handle I18n translations. The component also suppor
 * `Icon`: new Icons added - Draft, Github, Twitter & Dribble
 * `Link`: tabindex default and switch control via a prop
 * `MenuList`: autofocuses on filter when a menu is opened
-* `MenuList`: pressing `enter` works the same way as a click on the menu list title
+* `Link`: pressing `enter` triggers any `onClick` event
 * `Rainbow`: Added the config prop to to be able to control the way
 the chart is displayed.
 

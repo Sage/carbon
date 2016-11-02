@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import escapeStringRegexp from 'escape-string-regexp';
 import React, { PropTypes } from 'react';
-import Event from 'utils/helpers/events';
 
 import Link from 'components/link';
 import Textbox from 'components/textbox';
@@ -81,10 +80,8 @@ class MenuList extends React.Component {
     this.setState({ filter: ev.target.value, open: true });
   }
 
-  toggleChildren(ev){
-    if (Event.isEnterKey(ev) || Event.isEventType(ev, 'click')) {
-      this.setState({ open: !this.state.open });
-    }
+  toggleChildren(){
+    this.setState({ open: !this.state.open });
   }
 
   /** Helpers **/
@@ -127,11 +124,7 @@ class MenuList extends React.Component {
     if (!this.props.title) { return null; }
 
     return (
-      <Link
-        className='carbon-menu-list__title'
-        onClick={ this.toggleChildren }
-        onKeyDown={ this.toggleChildren }
-      >
+      <Link className='carbon-menu-list__title' onClick={ this.toggleChildren }>
         { this.props.title }
       </Link>
     );
