@@ -49,9 +49,14 @@ We have added a component to handle I18n translations. The component also suppor
 * `Icon`: new Icons added - Draft, Github, Twitter, Dribble and Remove
 * `Link`: tabindex default and switch control via a prop
 * `MenuList`: autofocuses on filter when a menu is opened
+* `Link`: pressing `enter` triggers any `onClick` event
 * `Rainbow`: Added the config prop to to be able to control the way
 the chart is displayed.
 * `TableAjax` now accepts `pageSize` prop.
+
+## Poller Helper
+
+* Added callback to poller helper which is called when the terminating condition is not met
 
 ## CSS Changes
 
