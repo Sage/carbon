@@ -369,19 +369,20 @@ class Date extends React.Component {
   renderDatePicker() {
     return (
       <MonthView
-        highlightWeekends={ false }
-        highlightToday={ true }
-        weekNumbers={ false }
-        monthFormat='MMM'
-        weekDayNames={ moment.weekdaysMin() }
-        theme={ null }
-        dateFormat={ hiddenFormat() }
-        onChange={ this.handleDateSelect }
         date={ this.props.value || getDefaultValue(this) }
-        minDate={ this.props.minDate }
-        maxDate={ this.props.maxDate }
+        dateFormat={ hiddenFormat() }
         enableHistoryView={ false }
+        highlightToday={ true }
+        highlightWeekends={ false }
+        locale={ I18n.locale }
+        maxDate={ this.props.maxDate }
+        minDate={ this.props.minDate }
+        monthFormat='MMM'
+        onChange={ this.handleDateSelect }
         ref={ (input) => { this.datepicker = input; } }
+        theme={ null }
+        weekDayNames={ moment.localeData(I18n.locale)._weekdaysMin }
+        weekNumbers={ false }
       >
         <NavBar
           navDateFormat={ 'MMMM YYYY' }
