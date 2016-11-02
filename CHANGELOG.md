@@ -53,6 +53,10 @@ We have added a component to handle I18n translations. The component also suppor
 the chart is displayed.
 * `TableAjax` now accepts `pageSize` prop.
 
+## Poller Helper
+
+* Added callback to poller helper which is called when the terminating condition is not met
+
 ## CSS Changes
 
 * Input prefix is now positioned correctly when using inline labels
