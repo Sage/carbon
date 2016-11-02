@@ -364,7 +364,7 @@ describe('poller', () => {
       });
     });
 
-    describe('when conditionMet returns true', () => {
+    describe('when conditionMet returns false', () => {
       it('it calls the condition not met function', () => {
         let notMetSpy = jasmine.createSpy('conditionNotMet');
         functions.conditionMet = () => {};
