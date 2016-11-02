@@ -38,6 +38,7 @@ describe('Icon', () => {
     'processing',
     'progress',
     'refresh',
+    'remove',
     'sort-down',
     'sort-up',
     'submitted',

@@ -29,6 +29,7 @@ import Print from './svgs/print';
 import Processing from './svgs/processing';
 import Progress from './svgs/progress';
 import Refresh from './svgs/refresh';
+import Remove from './svgs/remove';
 import SortDown from './svgs/sort-down';
 import SortUp from './svgs/sort-up';
 import Submitted from './svgs/submitted';
@@ -70,6 +71,7 @@ export default {
   processing: Processing,
   progress: Progress,
   refresh: Refresh,
+  remove: Remove,
   'sort-down': SortDown,
   'sort-up': SortUp,
   submitted: Submitted,
