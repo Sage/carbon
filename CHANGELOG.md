@@ -41,6 +41,10 @@ We have added a component to handle I18n translations. The component also suppor
 * `Rainbow`: Added the config prop to to be able to control the way
 the chart is displayed.
 
+## Poller Helper
+
+* Added callback to poller helper which is called when the terminating condition is not met
+
 ## CSS Changes
 
 * Input prefix is now positioned correctly when using inline labels
