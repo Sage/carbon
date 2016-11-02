@@ -9,18 +9,24 @@
   cursor: pointer;
 }
 
-.carbon-table-row--selected .carbon-table-cell {
-  background-color: $row-hover-color !important;
-  border-bottom-color: $blue-navy;
-  position: relative;
+.carbon-table-row--selected,
+.carbon-table-row--selected:nth-child(odd),
+.carbon-table-row--selected:hover {
+  .carbon-table-cell {
+    background-color: $blue-sky;
+    border-bottom-color: $blue-sky;
+    color: white;
+    position: relative;
 
-  &:before {
-    background-color: $blue-navy;
-    content: "";
-    height: 1px;
-    left: 0;
-    position: absolute;
-    top: -1px;
-    width: 100%;
+    &:before {
+      background-color: $blue-navy;
+      content: "";
+      height: 1px;
+      left: 0;
+      position: absolute;
+      top: -1px;
+      width: 100%;
+    }
   }
 }
+
