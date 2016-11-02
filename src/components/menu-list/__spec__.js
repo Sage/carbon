@@ -89,21 +89,25 @@ describe('MenuList', () => {
   });
 
   describe("filter", () => {
-    it("exists", () => {
+    let filter, wrapper;
+
+    beforeAll(() => {
       wrapper = shallow(
         <MenuList filter={ true } collapsible={ false }>
           { itemHTML }
         </MenuList>
       );
 
-      let event = { target: { value: 'One' } },
-          filter = wrapper.find(Textbox);
-
-      filter.simulate('change', event);
-
-      expect(wrapper.find(Textbox).length).toEqual(1);
+      filter = wrapper.find(Textbox);
+      filter.simulate('change', { target: { value: 'One' } });
+    })
+    it("exists and is autofocused", () => {
+      expect(filter.length).toEqual(1);
       expect(wrapper.find('li').length).toEqual(1);
       expect(wrapper.state('filter')).toEqual('One');
+    });
+    it("is autofocused", () => {
+      expect(filter.props().autoFocus).toEqual(true);
     });
   });
 });
