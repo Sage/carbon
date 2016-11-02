@@ -52,6 +52,7 @@ We have added a component to handle I18n translations. The component also suppor
 * `Link`: pressing `enter` triggers any `onClick` event
 * `Rainbow`: Added the config prop to to be able to control the way
 the chart is displayed.
+* `TableAjax` now accepts `pageSize` prop.
 
 ## CSS Changes
 
