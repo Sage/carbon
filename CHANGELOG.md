@@ -1,6 +1,3 @@
-# 0.28.1
-* `TableAjax` now accepts `pageSize` prop.
-
 # 0.28.0
 
 ## :warning: Breaking Change - Button colors
@@ -43,6 +40,7 @@ We have added a component to handle I18n translations. The component also suppor
 * `Decimal` now emits value of 0 on blur if cleared.
 * `Rainbow`: Added the config prop to to be able to control the way
 the chart is displayed.
+* `TableAjax` now accepts `pageSize` prop.
 
 ## CSS Changes
 
