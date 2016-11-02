@@ -46,7 +46,7 @@ We have added a component to handle I18n translations. The component also suppor
 
 * `Button`: now accepts a size and theme prop to determine size and color respectively.
 * `Decimal` now emits value of 0 on blur if cleared.
-* `Icon`: new Icons added - Draft, Github, Twitter & Dribble
+* `Icon`: new Icons added - Draft, Github, Twitter, Dribble and Remove
 * `Link`: tabindex default and switch control via a prop
 * `MenuList`: autofocuses on filter when a menu is opened
 * `Rainbow`: Added the config prop to to be able to control the way
