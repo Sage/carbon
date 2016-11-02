@@ -1,5 +1,15 @@
 # 0.28.0
 
+## :warning: Breaking Changes - Visual Styles
+
+Visual improvements to the design of components, which may impact the colors and font styles used.
+
+* Lato font added
+* Colors updated
+* Table row active and hover styles
+* Font sizes for text
+
+
 ## :warning: Breaking Change - Button colors
 
 * Button color is now determined by a `theme` prop.
@@ -34,12 +44,14 @@ We have added a component to handle I18n translations. The component also suppor
 
 ## Component Enhancements
 
-* Button now accepts a size and theme prop to determine size and color respectively.
+* `Button`: now accepts a size and theme prop to determine size and color respectively.
+* `Decimal` now emits value of 0 on blur if cleared.
 * `Icon`: new Icons added - Draft, Github, Twitter & Dribble
 * `Link`: tabindex default and switch control via a prop
-* `Decimal` now emits value of 0 on blur if cleared.
+* `MenuList`: autofocuses on filter when a menu is opened
 * `Rainbow`: Added the config prop to to be able to control the way
 the chart is displayed.
+* `TableAjax` now accepts `pageSize` prop.
 
 ## Poller Helper
 

@@ -1,3 +1,4 @@
 {
-  "main": "./chrome.js"
+  "main": "./chrome.js",
+  "style": "./chrome.scss"
 }

@@ -2,14 +2,13 @@
 
 .learn-more {
   background-color: $grey-dark-blue-10;
-  padding: 60px 0 80px;
+  padding: 40px 0 60px;
 
   &__cell {
-    box-sizing: border-box;
-    width: 40%;
+    margin: 10px 0;
 
-    @media (max-width: 800px) {
-      width: 100%;
+    @media(min-width: 800px) {
+      width: 40%;
     }
   }
 }

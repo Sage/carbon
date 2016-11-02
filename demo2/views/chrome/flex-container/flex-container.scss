@@ -1,8 +1,9 @@
 .demo-flex-container {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   @media (min-width: 800px) {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: row;
   }
 }
