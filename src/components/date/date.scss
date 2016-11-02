@@ -67,6 +67,7 @@ $date__picker__cell-border-color: $border-color;
   .react-date-picker__nav-bar-date {
     border-right: 1px solid $date__picker__header-border-color;
     border-left: 1px solid $date__picker__header-border-color;
+    text-transform: capitalize;
     font-size: 13px;
     text-align: center;
     width: 76%;
