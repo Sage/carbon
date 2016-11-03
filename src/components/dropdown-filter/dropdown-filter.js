@@ -365,9 +365,11 @@ class DropdownFilter extends Dropdown {
     }
 
     // build JSX object
-    newValue = [<span   key="beginning">{ beginning }</span>,
-                <strong key="middle"><u>{ middle }</u></strong>,
-                <span   key="end">{ end }</span>];
+    newValue = [
+      <span   key="beginning">{ beginning }</span>,
+      <strong key="middle"><u>{ middle }</u></strong>,
+      <span   key="end">{ end }</span>
+    ];
 
     return newValue;
   }
