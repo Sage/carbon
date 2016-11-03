@@ -388,7 +388,7 @@ class Date extends React.Component {
       theme: null,
       weekDayNames: moment.localeData(I18n.locale)._weekdaysMin,
       weekNumbers: false
-    }
+    };
   }
 
   /**
@@ -402,7 +402,7 @@ class Date extends React.Component {
       navDateFormat: 'MMMM YYYY',
       arrows: { prev: '‹', next: '›' },
       theme: null
-    }
+    };
   }
 
 
