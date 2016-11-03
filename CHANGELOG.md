@@ -1,31 +1,78 @@
+# 0.29.0
+
+## Datepicker Upgrade
+
+* Datepicker has been upgraded the latest version
+
+# 0.28.1
+
+## Bug Fixes
+
+* Fixes reference to utils from the link component.
+
 # 0.28.0
+
+## :warning: Breaking Changes - Visual Styles
+
+Visual improvements to the design of components, which may impact the colors and font styles used.
+
+* Lato font added
+* Colors updated
+* Table row active and hover styles
+* Font sizes for text
+
 
 ## :warning: Breaking Change - Button colors
 
 * Button color is now determined by a `theme` prop.
 * If you are using a red or green button, you must pass props of `as` and `theme`.
 * i.e. for a red button
+
 ```js
 <Button theme='red'>
   Foo
 </Button>
 ```
+
 * For a green button
+
 ```js
 <Button theme='green' as='secondary'>
   Foo
 </Button>
 ```
+
+## I18n Component
+
+We have added a component to handle I18n translations. The component also supports markdown, allowing developers to safely add HTML markup to translations such as bold tags or hyperlinks.
+
+```
+<I18n scope="my.translation" options={{ myVar: "foobar" }} markdown={ true } />
+```
+
 ## Helpers
 
 * `abbreviateNumber` function is provided for adding 'k' and 'm' style abbreviations for large numbers
 
 ## Component Enhancements
 
-* Button now accepts a size and theme prop to determine size and color respectively.
-* `Icon`: new Icons added - Draft, Github, Twitter & Dribble
-* `Link`: tabindex default and switch control via a prop
+* `Button`: now accepts a size and theme prop to determine size and color respectively.
 * `Decimal` now emits value of 0 on blur if cleared.
+* `Icon`: new Icons added - Draft, Github, Twitter, Dribble and Remove
+* `Link`: tabindex default and switch control via a prop
+* `MenuList`: autofocuses on filter when a menu is opened
+* `Link`: pressing `enter` triggers any `onClick` event
+* `Rainbow`: Added the config prop to to be able to control the way
+the chart is displayed.
+* `TableAjax` now accepts `pageSize` prop.
+
+## Poller Helper
+
+* Added callback to poller helper which is called when the terminating condition is not met
+
+## CSS Changes
+
+* Input prefix is now positioned correctly when using inline labels
 
 # 0.27.2
 
