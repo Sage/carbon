@@ -1,5 +1,12 @@
 # 0.29.0
 
+## !! BREAKING CHANGES!!
+
+### Immutable Helper
+
+* ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
+* If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
+
 ## Datepicker Upgrade
 
 * Datepicker has been upgraded the latest version
@@ -464,14 +471,7 @@ The `Button` component can now have red and green themes, set using the `as` pro
 
 # 0.18.0
 
-## !! BREAKING CHANGES!!
-
-### Immutable Helper
-
-* ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
-* If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
-
-### Browser Helper
+## !! BREAKING CHANGE !!
 
 * Renamed Browser `redirectUrl` method to `redirectTo`
 
