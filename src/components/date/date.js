@@ -223,9 +223,7 @@ class Date extends React.Component {
    * @return {void}
    */
   handleWidgetClick = (ev) => {
-    if (ev.nativeEvent.stopImmediatePropagation) {
-      ev.nativeEvent.stopImmediatePropagation();
-    }
+    ev.nativeEvent.stopImmediatePropagation();
   }
 
   /**

@@ -264,28 +264,28 @@ describe('Date', () => {
 
     it('sets blockBlur to true', () => {
       let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
-      TestUtils.Simulate.click(cell);
+      TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
       expect(instance.blockBlur).toBeTruthy();
     });
 
     it('closes the date picker', () => {
       let spy = spyOn(instance, 'closeDatePicker');
       let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
-      TestUtils.Simulate.click(cell);
+      TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
       expect(instance.closeDatePicker).toHaveBeenCalled();
     });
 
     it('emits a onChange callback', () => {
       spyOn(instance, 'emitOnChangeCallback')
       let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
-      TestUtils.Simulate.click(cell);
+      TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
       expect(instance.emitOnChangeCallback).toHaveBeenCalled();
     });
 
     it('updates the visible value', () => {
       spyOn(instance, 'updateVisibleValue')
       let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
-      TestUtils.Simulate.click(cell);
+      TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
       expect(instance.updateVisibleValue).toHaveBeenCalled();
     });
   });
