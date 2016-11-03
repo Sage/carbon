@@ -18,7 +18,8 @@ let data = ImmutableHelper.parseJSON({
     body: "This component contains your content within the confines of the width of your application."
   },
   button: {
-    text: "Action"
+    text: "Action",
+    as: "secondary"
   },
   button_toggle: {
     option_one: "Option One"
@@ -42,6 +43,9 @@ let data = ImmutableHelper.parseJSON({
     title: 'Example Content',
     body: 'This is some example content\nfor the Content component.'
   },
+  create: {
+    text: "New Item"
+  },
   date: {
     label: "Date",
     labelHelp: "Example label help.",
@@ -52,6 +56,11 @@ let data = ImmutableHelper.parseJSON({
     labelHelp: "Example label help.",
     fieldHelp: "Example field help.",
     precision: 3
+  },
+  detail: {
+    body: "North Park\nNewcastle upon Tyne\nNE13 9AA",
+    icon: "person",
+    footnote: "Headquarters"
   },
   dialog: {
     size: 'medium',
@@ -78,10 +87,23 @@ let data = ImmutableHelper.parseJSON({
     text: "Sample flash notification."
   },
   form: {
-    cancel: true
+    cancel: true,
+    save: true
+  },
+  heading: {
+    title: "Heading Example",
+    content: "This is an example of the heading component.",
+    help: "This is an example of help text.",
+    help_link: "#",
+    back_link_href: "#",
+    divider: true
   },
   help: {
     message: "This is an example of a help tooltip."
+  },
+  i18n: {
+    message: "Test",
+    inline: true
   },
   icon: {
     type: 'info'
@@ -109,7 +131,7 @@ let data = ImmutableHelper.parseJSON({
     value: 0
   },
   pill: {
-    as: 'new',
+    as: 'default',
     text: 'PILL'
   },
   portrait: {
@@ -121,7 +143,8 @@ let data = ImmutableHelper.parseJSON({
   pod: {
     border: true,
     padding: "medium",
-    as: "primary"
+    as: "primary",
+    alignTitle: 'left'
   },
   profile: {
     name: "Andrew Tait",
@@ -147,9 +170,31 @@ let data = ImmutableHelper.parseJSON({
     title: "A Rainbow Chart"
   },
   row: {
-    columnData: [{}, {}, {}, {}]
+    columnData: [{}, {}, {}, {}],
+    gutter: 'medium'
+  },
+  show_edit_pod: {
+    // Comment out editing line if you want to
+    // control pod internally with state
+    editing: false,
+    deletable: false,
+    address_1: '21 North Park',
+    address_2: '',
+    city: 'Newcastle upon Tyne',
+    county: 'Tyne and Wear',
+    country: 'United Kingdom',
+    postcode: 'NE',
+    edit: {
+      address_1: '',
+      address_2: '',
+      city: '',
+      county: '',
+      country: '',
+      postcode: '',
+    }
   },
   sidebar: {
+    size: 'medium',
     open: false
   },
   spinner: {
@@ -161,6 +206,10 @@ let data = ImmutableHelper.parseJSON({
   },
   text: {
     content: "Example of stylised text content."
+  },
+  textarea: {
+    characterLimit: 100,
+    enforceCharacterLimit: true
   },
   table: {
     current_page: "1",
@@ -220,6 +269,16 @@ let data = ImmutableHelper.parseJSON({
 });
 
 class AppStore extends Store {
+
+  constructor(name, data, Dispatcher, opts = {}) {
+    super(name, data, Dispatcher, opts);
+
+    // Store is connected to a lot of components
+    // Therefore adds a lot of listeners
+    // Setting to 0 allows unlimited
+    this.setMaxListeners(0);
+  }
+
   /**
    * @method APP_VALUE_UPDATED
    */
@@ -230,7 +289,7 @@ class AppStore extends Store {
     if (action.component === 'dropdown_filter_ajax') {
       this.data = this.data.setIn(arr, action.visibleValue);
     }
-   }
+  }
 
   /**
    * @method APP_DELETE_ROW
@@ -245,6 +304,20 @@ class AppStore extends Store {
   [AppConstants.APP_TABLE_UPDATED](action) {
     let data = ImmutableHelper.parseJSON(action.items);
     this.data = this.data.setIn([action.component, "data"], data);
+  }
+
+  [AppConstants.APP_EDIT_CONTENT](action) {
+    this.data = this.data.setIn([action.component, 'edit'],
+      this.data.get(action.component)
+    );
+    this.data = this.data.setIn([action.component, 'editing'], true);
+  }
+
+  [AppConstants.APP_SAVE_EDITED_CONTENT](action) {
+    this.data = this.data.set(action.component,
+      this.data.getIn([action.component, 'edit'])
+    );
+    this.data = this.data.setIn([action.component, 'editing'], false);
   }
 
   /**

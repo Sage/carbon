@@ -5,7 +5,7 @@ import Pager from './pager';
 
 describe('Pager', () => {
   let instance, instance2, spy1, spy2;
-  
+
   beforeEach(() => {
     spy1 = jasmine.createSpy('instance 1 pagination');
     spy2 = jasmine.createSpy('instance 2 pagination');
@@ -32,7 +32,7 @@ describe('Pager', () => {
 
   describe('onInitialise', () => {
     it('sets the currentPage within the state', () => {
-      expect(instance.state.currentPage).toEqual('1'); 
+      expect(instance.state.currentPage).toEqual('1');
     });
   });
 
@@ -41,7 +41,7 @@ describe('Pager', () => {
       instance.setState({ currentPage: '2' });
       instance.componentWillReceiveProps({ currentPage: '1' });
 
-      expect(instance.state.currentPage).toEqual('1'); 
+      expect(instance.state.currentPage).toEqual('1');
     });
   });
 
@@ -72,7 +72,7 @@ describe('Pager', () => {
     describe('when element is next', () => {
       it('emits onPagination increasing currentPage by 1', () => {
         instance.emitChangeCallback('next', {});
-        expect(spy1).toHaveBeenCalledWith('2', '10');
+        expect(spy1).toHaveBeenCalledWith('2', '10', 'next');
       });
     });
 
@@ -80,14 +80,14 @@ describe('Pager', () => {
       it('emit a new page from the input field', () => {
         let event = { target: { value: '5' } };
         instance.emitChangeCallback('input', event);
-        expect(spy1).toHaveBeenCalledWith('5', '10');
+        expect(spy1).toHaveBeenCalledWith('5', '10', 'input');
       });
 
       describe('when input is greater than the max page number', () => {
         it('emit a max page as the new current page', () => {
           let event = { target: { value: '100' } };
           instance.emitChangeCallback('input', event);
-          expect(spy1).toHaveBeenCalledWith('10', '10');
+          expect(spy1).toHaveBeenCalledWith('10', '10', 'input');
         });
       });
 
@@ -95,7 +95,7 @@ describe('Pager', () => {
         it('emit first page as the new current page', () => {
           let event = { target: { value: '0' } };
           instance.emitChangeCallback('input', event);
-          expect(spy1).toHaveBeenCalledWith('1', '10');
+          expect(spy1).toHaveBeenCalledWith('1', '10', 'input');
         });
       });
 
@@ -115,15 +115,15 @@ describe('Pager', () => {
     describe('when element is previous', () => {
       it('emits onPagination decreasing currentPage by 1', () => {
         instance2.emitChangeCallback('previous', {});
-        expect(spy2).toHaveBeenCalledWith('1', '10');
+        expect(spy2).toHaveBeenCalledWith('1', '10', 'previous');
       });
     });
 
     describe('when element is size', () => {
       it('emits the new page size', () => {
-        let event = { target: { value: '50' } };  
+        let event = { target: { value: '50' } };
         instance.emitChangeCallback('size', event);
-        expect(spy1).toHaveBeenCalledWith('1', '50');
+        expect(spy1).toHaveBeenCalledWith('1', '50', 'size');
       });
 
       describe('when page size is not a correct option', () => {
@@ -152,6 +152,7 @@ describe('Pager', () => {
             currentPage='1'
             pageSize='10'
             totalRecords='0'
+            onPagination={ spy1 }
           />
         );
         expect(instance.maxPage).toEqual(1);
@@ -169,7 +170,7 @@ describe('Pager', () => {
             onPagination={ spy1 }
           />
         );
-        
+
         expect(instance.maxPage).toEqual(1);
       });
     });
@@ -230,13 +231,13 @@ describe('Pager', () => {
     describe('when disabled', () => {
       it('adds a disabled class', () => {
         previous = instance.previousArrow;
-        expect(previous.props.className).toEqual('ui-pager__previous ui-pager__previous--disabled');
+        expect(previous.props.className).toEqual('carbon-pager__previous carbon-pager__previous--disabled');
       });
     });
 
     describe('when enabled', () => {
       it('adds a onClick handler', () => {
-        let input = TestUtils.findRenderedDOMComponentWithClass(instance2, 'ui-pager__previous'); 
+        let input = TestUtils.findRenderedDOMComponentWithClass(instance2, 'carbon-pager__previous');
         TestUtils.Simulate.click(input);
         expect(spy2).toHaveBeenCalled();
       });
@@ -257,13 +258,13 @@ describe('Pager', () => {
 
     it('adds a onChange handler', () => {
       spyOn(instance, 'setState');
-      let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-number__input');
+      let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-number__input');
       TestUtils.Simulate.change(input);
       expect(instance.setState).toHaveBeenCalled();
     });
 
     it('adds a onBlur handler', () => {
-      let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-number__input');
+      let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-number__input');
       TestUtils.Simulate.blur(input);
       expect(spy1).toHaveBeenCalled();
     });
@@ -289,13 +290,13 @@ describe('Pager', () => {
         );
 
         next = instance.nextArrow;
-        expect(next.props.className).toEqual('ui-pager__next ui-pager__next--disabled');
+        expect(next.props.className).toEqual('carbon-pager__next carbon-pager__next--disabled');
       });
     });
 
     describe('when enabled', () => {
       it('adds a onClick handler', () => {
-        let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-pager__next'); 
+        let input = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pager__next');
         TestUtils.Simulate.click(input);
         expect(spy1).toHaveBeenCalled();
       });
@@ -313,7 +314,7 @@ describe('Pager', () => {
       });
 
       it('adds a onChange event to the dropdown', () => {
-        dropdown = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-dropdown__input'); 
+        dropdown = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dropdown__input');
         TestUtils.Simulate.change(dropdown);
         expect(spy1).toHaveBeenCalled();
       });

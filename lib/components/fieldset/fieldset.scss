@@ -1,13 +1,16 @@
-@import "input-field";
+@import "./../../style-config/input-field";
 
-.ui-fieldset {
+.carbon-fieldset {
   border: none;
   margin: 0;
   padding: 0;
 
-  .ui-icon.ui-input-icon,
+  .carbon-icon.carbon-input-icon,
   .common-input__icon {
     z-index: 2;
+    &.icon-error {
+      top: 7px;
+    }
   }
 
   .common-input__input--error {
@@ -39,6 +42,16 @@
   .common-input:last-child {
     .common-input__input {
       border-radius: 0 0 $input-border-radius $input-border-radius;
+    }
+  }
+
+  .common-input--readonly {
+    .common-input__input {
+      border: $input-common-border;
+    }
+
+    .common-input__input:hover {
+      border: $input-common-border;
     }
   }
 }

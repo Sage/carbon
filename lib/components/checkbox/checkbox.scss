@@ -1,8 +1,8 @@
-@import 'colors';
-@import 'input-field';
-@import 'mixins';
+@import "./../../style-config/colors";
+@import "./../../style-config/mixins";
+@import "./../../style-config/input-field";
 
-.ui-checkbox {
+.carbon-checkbox {
   padding-top: 8px;
 
   .common-input__field,
@@ -16,13 +16,23 @@
     padding-top: 1px;
     padding-bottom: 5px;
   }
+
+  &.common-input--has-field-help {
+    .common-input__label {
+      padding-bottom: 0px;
+    }
+
+    .carbon-checkbox__help-text {
+      padding-bottom: 5px;
+    }
+  }
 }
 
-.ui-checkbox__input.common-input__input {
+.carbon-checkbox__input.common-input__input {
   cursor: pointer;
   height: 15px;
   opacity: 0;
-  position: absolute;
+  position: absolute !important;
   vertical-align: middle;
   width: 15px;
 
@@ -72,19 +82,25 @@
   }
 }
 
-.ui-checkbox__help-text {
-  display: block;
-  margin-top: 0;
-  margin-left: 21px;
-}
+// extra specificity is required here
+.common-input__help-text {
+  &.carbon-checkbox__help-text {
+    display: block;
+    margin-top: 0;
+    margin-left: 21px;
+  }
 
-.ui-checkbox__help-text--reverse {
-  margin-left: 6px;
-}
+  &.carbon-checkbox__help-text--reverse {
+    margin-left: 6px;
+  }
 
-.ui-checkbox__help-text--inline {
-  display: inline;
-  padding-left: 0;
-  margin-right: 5px;
-  margin-left: 0px;
+  &.carbon-checkbox__help-text--inline {
+    display: inline;
+    left: 21px;
+    margin-left: -21px;
+    margin-right: 5px;
+    padding-left: 0;
+    position: relative;
+    top: -2px;
+  }
 }

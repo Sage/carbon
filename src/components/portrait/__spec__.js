@@ -133,7 +133,7 @@ describe('Portrait', () => {
     describe('when a gravatar is passed', () => {
       it('returns gravatar src', () => {
         let src = gravatarInstance.imgSrc;
-        let base = 'http://www.gravatar.com/avatar/';
+        let base = 'https://www.gravatar.com/avatar/';
         let hash = MD5('foo');
         let size = '60'
 
@@ -156,12 +156,12 @@ describe('Portrait', () => {
   });
 
   describe('mainClasses', () => {
-    it('adds a ui-portrait classes', () => {
-      expect(gravatarInstance.mainClasses).toEqual('ui-portrait ui-portrait--image ui-portrait--medium ui-portrait--standard');
+    it('adds a carbon-portrait classes', () => {
+      expect(gravatarInstance.mainClasses).toEqual('carbon-portrait carbon-portrait--image carbon-portrait--medium carbon-portrait--standard');
     });
 
     it('appends additional passed classNames', () => {
-      expect(instance.mainClasses).toEqual('ui-portrait ui-portrait--image ui-portrait--medium ui-portrait--standard custom-class');
+      expect(instance.mainClasses).toEqual('carbon-portrait carbon-portrait--image carbon-portrait--medium carbon-portrait--standard custom-class');
     });
   });
 

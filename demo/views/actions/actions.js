@@ -5,6 +5,8 @@ import SplitButtonDemo from './split-button-demo';
 import MultiActionButtomDemo from './multi-action-button-demo';
 import MultiStepWizardDemo from './multi-step-wizard-demo';
 import ButtonToggleDemo from './button-toggle-demo';
+import CreateDemo from './create-demo';
+import MenuDemo from './menu-demo';
 import AnimatedMenuButtonDemo from './animated-menu-button-demo';
 
 class Actions extends React.Component {
@@ -21,6 +23,8 @@ class Actions extends React.Component {
         <MultiStepWizardDemo />
         <SplitButtonDemo />
         <ButtonToggleDemo />
+        <CreateDemo />
+        <MenuDemo />
         <AnimatedMenuButtonDemo />
       </div>
     );

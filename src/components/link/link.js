@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
 import { Link } from 'react-router';
+import Event from './../../utils/helpers/events';
 
 /**
  * A link widget.
@@ -22,6 +23,11 @@ import { Link } from 'react-router';
  * @constructor
  */
 class _Link extends React.Component {
+
+  constructor() {
+    super();
+    this.onKeyDown = this.onKeyDown.bind(this);
+  }
 
   static propTypes = {
 
@@ -44,7 +50,28 @@ class _Link extends React.Component {
     icon: React.PropTypes.string,
 
     /**
-     * Use `to` to use the React Router link.
+     * Configures the alignment of the icon (left or right).
+     *
+     * @property iconAlign
+     * @type {String}
+     * @default left
+     */
+    iconAlign: React.PropTypes.string,
+
+    /**
+     * Allows the <a> tag to be set in or out of the tab order of the page
+     * Boolean is used as tabindex > 0 is not really necessary, HTML order should
+     * take precedence
+     *
+     * @property tabbable
+     * @type {Boolean}
+     * @default true
+     */
+    tabbable: React.PropTypes.bool,
+
+    /**
+     * Use `to` to use the React Router link. You can also prefix your value
+     * with `to:` or `href:` to override the prop type.
      *
      * @property to
      * @type {String}
@@ -53,13 +80,19 @@ class _Link extends React.Component {
     to: React.PropTypes.string,
 
     /**
-     * Use `href` to use a generic anchor.
+     * Use `href` to use a generic anchor. You can also prefix your value
+     * with `to:` or `href:` to override the prop type.
      *
      * @property href
      * @type {String}
      * @default undefined
      */
     href: React.PropTypes.string
+  }
+
+  static defaultProps = {
+    iconAlign: 'left',
+    tabbable: true
   }
 
   /**
@@ -70,7 +103,16 @@ class _Link extends React.Component {
    */
   get componentProps() {
     let { ...props } = this.props;
+
+    props.tabIndex = this.tabIndex;
+
+    delete props.href;
+    delete props.tabbable;
+    delete props.to;
+
     props.className = this.componentClasses;
+    props[this.linkType.prop] = this.url;
+    props.onKeyDown = this.onKeyDown;
 
     return props;
   }
@@ -83,18 +125,151 @@ class _Link extends React.Component {
    */
   get componentClasses() {
     return classNames (
-      'ui-link__anchor',
+      'carbon-link__anchor',
       this.props.className,
-      { 'ui-link__anchor--disabled': this.props.disabled }
+      { 'carbon-link__anchor--disabled': this.props.disabled }
     );
   }
 
+  /**
+   * Returns the icon if enabled and aligned to the left.
+   *
+   * @method iconLeft
+   * @return {Object} JSX
+   */
+  get iconLeft() {
+    if (!this.props.icon || this.props.iconAlign !== 'left') { return null; }
+    return this.icon;
+  }
+
+  /**
+   * Returns the icon if enabled and aligned to the right.
+   *
+   * @method iconRight
+   * @return {Object} JSX
+   */
+  get iconRight() {
+    if (!this.props.icon || this.props.iconAlign !== 'right') { return null; }
+    return this.icon;
+  }
+
+  /**
+   * Returns the markup for the icon.
+   *
+   * @method icon
+   * @return {Object} JSX
+   */
   get icon() {
-    if (this.props.icon) {
-      return <Icon type={ this.props.icon } className="ui-link__icon" />;
-    } else {
-      return null;
+    let classes = classNames(
+      "carbon-link__icon",
+      `carbon-link__icon--align-${this.props.iconAlign}`
+    );
+
+    return (
+      <Icon
+        type={ this.props.icon }
+        className={ classes }
+        tooltipMessage={ this.props.tooltipMessage }
+        tooltipAlign={ this.props.tooltipAlign }
+        tooltipPosition={ this.props.tooltipPosition }
+      />
+    );
+  }
+
+  /**
+   * Returns 0 or -1 for tabindex
+   *
+   * @method tabIndex
+   * @return {String} 0 or -1
+   */
+  get tabIndex() {
+    return this.props.tabbable && !this.props.disabled ? '0' : '-1';
+  }
+
+  /**
+   * Regex for finding 'href:' or 'to:',
+   *
+   * @method typeRegex
+   * @return {Regex}
+   */
+  get typeRegex() {
+    return /^href:|^to:/;
+  }
+
+  /**
+   * A hash of the different link types.
+   *
+   * @method linkTypes
+   * @return {Object}
+   */
+  get linkTypes() {
+    return {
+      to: {
+        prop: "to",
+        component: Link
+      },
+      href: {
+        prop: "href",
+        component: "a"
+      }
+    };
+  }
+
+  /**
+   * Returns the correct link type based on the given props.
+   *
+   * @method linkType
+   * @return {Object}
+   */
+  get linkType() {
+    let url = this.props.href || this.props.to,
+        type = "href";
+
+    if (url) {
+      let match = url.match(this.typeRegex);
+
+      if (match) {
+        type = match[0].substr(0, match[0].length - 1);
+      } else if (this.props.href) {
+        type = "href";
+      } else {
+        type = "to";
+      }
     }
+
+    return this.linkTypes[type];
+  }
+
+  /**
+   * Returns the parsed URL for the link.
+   *
+   * @method url
+   * @return {String}
+   */
+  get url() {
+    let url = this.props.href || this.props.to;
+    if (!url) { return null; }
+
+    return url.replace(this.typeRegex, "");
+  }
+
+  /**
+   * Triggers the onClick event for the enter key
+   *
+   * @method onKeyDown
+   * @param {Object} ev
+   */
+  onKeyDown(ev) {
+    if (this.props.onKeyDown) {
+      this.props.onKeyDown(ev);
+    }
+
+    // return early if there is no onClick or there is a href prop
+    if (!this.props.onClick || this.props.href) { return; }
+    // return early if the event is not an enter key
+    if (!Event.isEnterKey(ev)) { return; }
+
+    this.props.onClick(ev);
   }
 
   /**
@@ -103,16 +278,16 @@ class _Link extends React.Component {
    * @method render
    */
   render() {
-    // if using `to` - use React Router Link - otherwise use generic anchor
-    let element = this.props.to ? Link : "a";
-
     return (
-      React.createElement(element, this.componentProps, (
+      React.createElement(this.linkType.component, this.componentProps, (
         <span>
-          { this.icon }
-          <span className="ui-link__content">
+          { this.iconLeft }
+
+          <span className="carbon-link__content">
             { this.props.children }
           </span>
+
+          { this.iconRight }
         </span>
       ))
     );

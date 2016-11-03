@@ -26,6 +26,7 @@ describe('Sidebar', () => {
       <Sidebar
         onCancel={ spy }
         open={ true }
+        size='small'
         position='left'
         enableBackgroundUI={ true }
       />
@@ -76,27 +77,31 @@ describe('Sidebar', () => {
 
   describe('sidebarClasses', () => {
     it('returns a base sidebar class', () => {
-      expect(instance.sidebarClasses).toEqual('ui-sidebar__sidebar ui-sidebar__sidebar--right');
+      expect(instance.sidebarClasses).toMatch('carbon-sidebar__sidebar carbon-sidebar__sidebar--right carbon-sidebar__sidebar--medium');
     });
 
     it('returns a position modifier class based on props', () => {
-      expect(leftInstance.sidebarClasses).toEqual('ui-sidebar__sidebar ui-sidebar__sidebar--left');
+      expect(leftInstance.sidebarClasses).toMatch('carbon-sidebar__sidebar--left');
+    });
+
+    it('returns a size modifier class based on props', () => {
+      expect(leftInstance.sidebarClasses).toMatch('carbon-sidebar__sidebar--small');
     });
   });
 
   describe('mainClasses', () => {
     it('sets the sidebar class', () => {
-      expect(leftInstance.mainClasses).toEqual('ui-sidebar');
+      expect(leftInstance.mainClasses).toEqual('carbon-sidebar');
     });
 
     it('appends any additional passed classes', () => {
-      expect(instance.mainClasses).toEqual('ui-sidebar custom-class');
+      expect(instance.mainClasses).toEqual('carbon-sidebar custom-class');
     });
   });
 
   describe('sidebarHTML', () => {
     it('returns the rendered sidebar', () => {
-      expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-sidebar__sidebar')).toBeTruthy();
+      expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-sidebar__sidebar')).toBeTruthy();
     });
 
     it('renders a close icon', () => {
@@ -105,7 +110,7 @@ describe('Sidebar', () => {
     });
 
     it('renders children within the sidebar', () => {
-      let textboxes = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-textbox');
+      let textboxes = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-textbox');
       expect(textboxes.length).toEqual(3);
     });
   });
@@ -113,15 +118,15 @@ describe('Sidebar', () => {
   describe('render', () => {
     describe('when sidebar is open', () => {
       it('renders a parent div', () => {
-        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-sidebar')).toBeTruthy();
+        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-sidebar')).toBeTruthy();
       });
 
       it('renders a background div', () => {
-        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-modal__background')).toBeTruthy();
+        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-modal__background')).toBeTruthy();
       });
 
       it('renders a sidebar', () => {
-        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-sidebar__sidebar')).toBeTruthy();
+        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-sidebar__sidebar')).toBeTruthy();
       });
     });
 
@@ -137,15 +142,15 @@ describe('Sidebar', () => {
       });
 
       it('renders a parent div', () => {
-        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-sidebar')).toBeTruthy();
+        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-sidebar')).toBeTruthy();
       });
 
       it('does not render a background div', () => {
-        expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-sidebar__background').length).toEqual(0);
+        expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-sidebar__background').length).toEqual(0);
       });
 
       it('does not render a sidebar', () => {
-        expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-sidebar__sidebar').length).toEqual(0);
+        expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-sidebar__sidebar').length).toEqual(0);
       });
     });
   });
@@ -153,9 +158,24 @@ describe('Sidebar', () => {
   describe('Behaviour', () => {
     describe('clicking the close icon sidebar', () => {
       it('closes the sidebar', () => {
-        let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-sidebar__close-icon');
+        let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-sidebar__close-icon');
         TestUtils.Simulate.click(icon);
         expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('when there is no onCancel prop', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Sidebar open={ true }>
+            <Textbox />
+          </Sidebar>
+        );
+      });
+
+      it('does not render a close icon', () => {
+        let icon = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-sidebar__close-icon');
+        expect(icon.length).toEqual(0);
       });
     });
   });

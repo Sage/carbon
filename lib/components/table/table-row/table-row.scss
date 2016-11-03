@@ -1,26 +1,32 @@
-@import "colors";
-@import "tables";
+@import "./../../../style-config/colors";
+@import "./../../../style-config/tables";
 
-.ui-table-row:hover .common-input__input {
+.carbon-table-row:hover .common-input__input {
   border-color: $row-hover-input-border;
 }
 
-.ui-table-row--clickable {
+.carbon-table-row--clickable {
   cursor: pointer;
 }
 
-.ui-table-row--selected .ui-table-cell {
-  background-color: $row-hover-color !important;
-  border-bottom-color: $blue-navy;
-  position: relative;
+.carbon-table-row--selected,
+.carbon-table-row--selected:nth-child(odd),
+.carbon-table-row--selected:hover {
+  .carbon-table-cell {
+    background-color: $blue-sky;
+    border-bottom-color: $blue-sky;
+    color: white;
+    position: relative;
 
-  &:before {
-    background-color: $blue-navy;
-    content: "";
-    height: 1px;
-    left: 0;
-    position: absolute;
-    top: -1px;
-    width: 100%;
+    &:before {
+      background-color: $blue-navy;
+      content: "";
+      height: 1px;
+      left: 0;
+      position: absolute;
+      top: -1px;
+      width: 100%;
+    }
   }
 }
+

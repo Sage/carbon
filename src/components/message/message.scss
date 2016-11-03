@@ -1,18 +1,18 @@
-@import 'colors';
-@import 'z-index';
+@import "./../../style-config/colors";
+@import "./../../style-config/z-index";
 
 $message-border: 1px solid !default;
 $message-border-radius: 3px !default;
 $message-width: 300px !default;
 
-.ui-message {
+.carbon-message {
   border-radius: $message-border-radius;
   position: relative;
   border: $message-border;
   margin-bottom: 20px;
 }
 
-.ui-message__type {
+.carbon-message__type {
   border-radius: $message-border-radius 0 0 $message-border-radius;
   height: 100%;
   margin-top: 0;
@@ -20,18 +20,18 @@ $message-width: 300px !default;
   width: 30px;
   text-align: center;
 
-  .ui-icon__svg {
+  .carbon-icon__svg {
     height: 24px;
     margin-top: -12px;
     width: 30px;
 
-    .ui-icon__svg-group {
+    .carbon-icon__svg-group {
       fill: $white;
     }
   }
 }
 
-.ui-message__type-icon {
+.carbon-message__type-icon {
   display: block;
   position: relative;
   top: 50%;
@@ -44,7 +44,7 @@ $message-width: 300px !default;
   }
 }
 
-.ui-message__close {
+.carbon-message__close {
   cursor: pointer;
   margin-top: -8px;
   position: absolute;
@@ -54,53 +54,53 @@ $message-width: 300px !default;
   width: 45px;
 }
 
-.ui-message__content {
+.carbon-message__content {
   padding: 15px 50px;
   white-space: pre-wrap;
 }
 
-.ui-message__title {
+.carbon-message__title {
   font-weight: bold;
 }
 
 @mixin message-theme($type, $color, $border, $background, $color-hover) {
-  .ui-message--#{$type} {
+  .carbon-message--#{$type} {
     background-color: $background;
     border-color: $border;
 
-    .ui-message__type {
+    .carbon-message__type {
       background-color: $color;
     }
 
-    .ui-message__title {
+    .carbon-message__title {
       color: $color;
       margin-bottom: 3px;
     }
 
-    .ui-message__close {
+    .carbon-message__close {
       color: $color;
     }
   }
 
-  .ui-message--#{$type}.ui-message--transparent {
+  .carbon-message--#{$type}.carbon-message--transparent {
     background-color: transparent;
     border: none;
     margin-bottom: 0px;
 
-    .ui-message__content{
-      padding: 2px 35px;
+    .carbon-message__content{
+      padding: 2px 5px 2px 35px;
     }
 
-    .ui-message__type {
+    .carbon-message__type {
       background-color: transparent;
 
-      .ui-icon__svg {
-        .ui-icon__svg-group {
+      .carbon-icon__svg {
+        .carbon-icon__svg-group {
           fill: $color;
         }
       }
 
-      .ui-message__type-icon {
+      .carbon-message__type-icon {
         top: 8px;
         &:before {
           color: $color;
@@ -108,11 +108,18 @@ $message-width: 300px !default;
       }
     }
 
-    .ui-message__close{
+    .carbon-message__close{
       top: 8px;
     }
   }
+
+  .carbon-message--#{$type}.carbon-message--transparent.carbon-message--dismissable {
+    .carbon-message__content{
+      padding: 2px 35px;
+    }
+  }
 }
+
 
 @each $set in $colorIconSets {
   @include message-theme($set...);

@@ -13,12 +13,15 @@ const I18nHelper = {
    * Returns format from the defined translations.
    *
    * @method format
-   * @return {Object} Delimeter and separator values
+   * @param {String} locale overrides current locale
+   * @return {Object} Format values for decimal and currency
    */
-  format: () => {
+  format: (locale) => {
     return {
-      delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
-      separator: I18n.t("number.format.separator", { defaultValue: "." })
+      delimiter: I18n.t("number.format.delimiter", { locale: locale, defaultValue: "," }),
+      separator: I18n.t("number.format.separator", { locale: locale, defaultValue: "." }),
+      unit: I18n.t("number.currency.format.unit", { locale: locale, defaultValue: '£' }),
+      format: I18n.t("number.currency.format.format", { locale: locale, defaultValue: '%u%n' })
     };
   },
 
@@ -26,8 +29,8 @@ const I18nHelper = {
    * Adds formatting to the value
    *
    * @method formatDecimal
-   * @param {String} value unformatted Value
-   * @param {Interger} precision
+   * @param {String} valueToFormat unformatted Value
+   * @param {Integer} precision
    * @return {String} formatted value
    */
   formatDecimal: (valueToFormat = 0, precision = 2) => {
@@ -37,6 +40,65 @@ const I18nHelper = {
       precision: precision,
       delimiter: format.delimiter,
       separator: format.separator
+    });
+  },
+
+  /**
+   * Abbreviates currency, including the currency unit and the sign, resulting in values such as `£1.9m`, `45.6k €` or
+   *   `£-2.00`
+   *
+   * @method abbreviateCurrency
+   * @param {Number} num
+   * @param {Object} options { locale: 'en' }
+   * @return {String} abbreviated, currencified number
+   */
+  abbreviateCurrency: (num, options = {}) => {
+    let locale = options.locale || 'en',
+        sign = num < 0 ? '-' : '',
+        abbr = I18nHelper.abbreviateNumber(num),
+        format = I18nHelper.format(locale);
+    return format.format.replace("%u", format.unit).replace("%n", abbr).replace("%s", sign);
+  },
+
+  /**
+   * Abbreviates number with a `k` or `m` suffix depening on whether it's a thousand or a million
+   * billions and above abbreviate with millions
+   *
+   * @method abbreviateNumber
+   * @param {Number} number
+   * @return {String} abbreviated number
+   */
+  abbreviateNumber: (num) => {
+    if (num > 949 && num < 999950) {
+      return `${Math.round(num / 100) / 10}${I18n.t("number.format.abbreviations.thousand", { defaultValue: "k" })}`;
+    } else if (num > 999949) {
+      return `${Math.round(num / 100000) / 10}${I18n.t("number.format.abbreviations.million", { defaultValue: "m" })}`;
+    }
+
+    return `${I18nHelper.formatDecimal(num)}`;
+  },
+
+  /**
+   * Adds currency formatting to the value
+   *
+   * @method formatCurrency
+   * @param {String} valueToFormat unformatted Value
+   * @param {Object} options list of options to overide formatting from locale
+   * @return {String} formatted value
+   */
+  formatCurrency: (valueToFormat = 0, options = {}) => {
+    let locale = options['locale'] || 'en',
+        format = I18nHelper.format(locale),
+        precision = options['precision'] || 2,
+        unit = options['unit'] || format.unit,
+        structure = options['format'] || format.format;
+
+    return  I18n.toCurrency(valueToFormat, {
+      precision: precision,
+      delimiter: format.delimiter,
+      separator: format.separator,
+      unit: unit,
+      format: structure
     });
   },
 

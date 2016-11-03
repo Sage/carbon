@@ -1,0 +1,4 @@
+{
+  "main": "./heading.js",
+  "style": "./heading.scss"
+}

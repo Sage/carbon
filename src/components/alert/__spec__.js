@@ -18,13 +18,13 @@ describe('Alert', () => {
 
   describe('dialogTitleClasses', () => {
     it('return the dialog title class along with the alert title class', () => {
-      expect(instance.dialogTitleClasses).toEqual('ui-dialog__title ui-alert__title');
+      expect(instance.dialogTitleClasses).toEqual('carbon-dialog__title carbon-alert__title');
     });
   });
 
   describe('dialogClasses', () => {
     it('returns the dialog class along with the alert class', () => {
-      expect(instance.dialogClasses).toEqual('ui-dialog__dialog ui-dialog__dialog--xsmall ui-alert__alert');
+      expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--xsmall carbon-alert__alert');
     });
   });
 });

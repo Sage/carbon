@@ -1,10 +1,439 @@
+# 0.29.0
+
+## Datepicker Upgrade
+
+* Datepicker has been upgraded the latest version
+
+# 0.28.1
+
+## Bug Fixes
+
+* Fixes reference to utils from the link component.
+
+# 0.28.0
+
+## :warning: Breaking Changes - Visual Styles
+
+Visual improvements to the design of components, which may impact the colors and font styles used.
+
+* Lato font added
+* Colors updated
+* Table row active and hover styles
+* Font sizes for text
+
+
+## :warning: Breaking Change - Button colors
+
+* Button color is now determined by a `theme` prop.
+* If you are using a red or green button, you must pass props of `as` and `theme`.
+* i.e. for a red button
+
+```js
+<Button theme='red'>
+  Foo
+</Button>
+```
+
+* For a green button
+
+```js
+<Button theme='green' as='secondary'>
+  Foo
+</Button>
+```
+
+## I18n Component
+
+We have added a component to handle I18n translations. The component also supports markdown, allowing developers to safely add HTML markup to translations such as bold tags or hyperlinks.
+
+```
+<I18n scope="my.translation" options={{ myVar: "foobar" }} markdown={ true } />
+```
+
+## Helpers
+
+* `abbreviateNumber` function is provided for adding 'k' and 'm' style abbreviations for large numbers
+
+## Component Enhancements
+
+* `Button`: now accepts a size and theme prop to determine size and color respectively.
+* `Decimal` now emits value of 0 on blur if cleared.
+* `Icon`: new Icons added - Draft, Github, Twitter, Dribble and Remove
+* `Link`: tabindex default and switch control via a prop
+* `MenuList`: autofocuses on filter when a menu is opened
+* `Link`: pressing `enter` triggers any `onClick` event
+* `Rainbow`: Added the config prop to to be able to control the way
+the chart is displayed.
+* `TableAjax` now accepts `pageSize` prop.
+
+## Poller Helper
+
+* Added callback to poller helper which is called when the terminating condition is not met
+
+## CSS Changes
+
+* Input prefix is now positioned correctly when using inline labels
+
+# 0.27.2
+
+* `Decimal` component can validate properly with alternative i18n settings
+
+## New Components
+
+* `MenuList`: handles simple `ul` based menus
+
+# 0.27.1
+
+* Heading component can now configure it's divider on/off using the prop 'divider'.
+
+# 0.27.0
+
+## :warning: Breaking Change - Default colour for Pill component has changed. :warning:
+
+* The default behaviour for the Pill component was to previously set as `info`. This is now set as `default` which is a grey colour.
+* Ensure you check for any implementations of the Pill component where the `as` prop is not defined and set this to `as='info'`.
+
+## :warning: Breaking Change - Date Component requires importing of locales
+
+* The Date component now uses Strict mode and a I18n locale for parsing date.
+* If you require multiple locales for your Date component you will need to import them from moment js
+* Please see the [moment js docs](http://momentjs.com/docs/#/use-it/browserify/) for more information
+
+## :warning: Breaking Change :warning:
+
+* `Rainbow` expects the Highcharts library to be already loaded. If your project does not include Highcharts, you need to import it before Rainbow.
+```js
+import 'react-highcharts/dist/bundle/highcharts';
+```
+
+## New Components
+
+* Subheader component created to be used with the Table and TableAjax components
+
+## Component Enhancements
+
+* `ShowEditPod` now closes and cancels editing on Escape keydown.
+* `ShowEditPod` puts focus on pod if mounted in editing state.
+* `Sidebar` no longer renders a close icon if there is no `onCancel` prop.
+* `Date` field uses I18n for formats and sanitizes inputs for passing
+* `Content` component can take props of `bodyFullWidth` to set component width to 100%;
+* `Date` field uses I18n for formats and sanitizes inputs for passing
+* `Step` wizard sub-component now accepts a prop of `enabled`.
+* `Table` components now accept an `onPageSizeChange` callback function as a prop.
+* `InputValidation` uses `Form` and `Input` in order to ensure messages stay on screen for a short while unless the user hovers on another field
+* `Pod` enter triggers edit function and edit element is keyboard accessible
+* `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
+* `Tabs` focus state is given the same styles as hover state
+* `Pager` component now emits which element has changed.
+* `Sidebar` now takes a size prop (e.g. `extra-small`, `small`, ...`extra-large`)
+
+## Dependencies
+
+* Moment JS bumped to version 2.15.1
+
+# 0.26.1
+
+## Component Enhancements
+
+* `Decimal` component can prevent decimal value from exceeding the precision setting
+
+# 0.26.0
+
+## New Components
+
+* `Create` component: supplies a button for creating new artefacts.
+* Detail component
+
+## Component Enhancements
+
+* `Content` now has additional display options to customise the alignment, to render inline with it's title and to customise the title's width.
+* `Link` component now has a prop of `iconAlign` to align icons to the right of the link's text.
+* `Row` component can now be given a size to control the size of the gutter using the prop `gutter` (eg. `extra-small`, `small`, `medium`, `large` or `extra-large`).
+* `Row` can enable `columnDivide` to add dividing lines between columns.
+* `ShowEditPod` requires a tab press to focus on the first field of the contained form rather than automatically focusing on the first field
+
+## Minor Improvements
+
+* Inputs now reset parent tabs error state when unmounted
+* Valid Date entry formats can be overridden via I18n
+* add helper to focus on input field
+* Table Header - sort column no longer overlaps text when right aligned
+* Add a currencyFormatter helper to the i18n helpers
+* Editable Pod width can be set to full width by setting the prop `editContentFullWidth` to true.
+* Refactor Icon component into separate file SVGs
+* Ensure portrait component uses https for gravatar images.
+
+## CSS Changes
+
+* Have increased pill font size and weight
+* Carbon Components CSS now imports from relative paths
+* removes uneccessary space from clearfix in `Row` component
+* Aligned MultiActionButton icon to center
+* `Content` components now handles wrapping more robustly with single words longer than the content width wrapping correctly
+* `Filter` handles it's child inputs more robustly by over-riding widths and margins when children are displayed inline
+* Darken colour of text--secondary
+* Fieldset - readonly fields maintain border
+* Remove italics from text--inactive
+* Have increased pill font size and weight
+* Carbon Components CSS now imports from relative paths
+
+## Bug Fixes
+
+* Allow carbon to be incorporated into webpack project
+* Removed footer from datepicker. This will be reverted in the React 15 Upgrade
+* The CSS for applying clears to Row columns has been fixed.
+* Tooltips now close when component receives new props.
+* Text Area now scrollable except when expandable.
+* Pod lifecycle methods are no longer defined as class properties.
+* Input validation decorator was not re-checking validity for warnings
+* Table sort arrows now point in the correct direction.
+* `Pod` applies props to it's container rather than the first child of that container keeping things consistent
+* `Pod` filters out any `title` that is not a string before it is applied as an HTML attribute to the underlying element stopping `Object` being output as a browser generated tooltip
+
+# 0.25.4
+
+## Bug Fixes
+
+* Form now tracks error and warning count on instance as well as in state.
+
+# 0.25.3
+
+# Bug Fixes
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
+# 0.25.2
+
+## Bug Fix
+
+* Row now supports immutable children.
+* Row columns now clear when there are more columns than the defined number.
+* Editable Pod is now aligned properly with title.
+
+# 0.25.1
+
+## Bug Fix
+
+* Additional classes were not being applied to the Pod element, this has now been fixed.
+* Added missing icon for "entry".
+
+# 0.25.0
+
+## MAJOR VISUAL/LAYOUT CHANGES:
+
+### Updated Carbon Icons Font
+
+New pixel perfect icon font has been added.
+
+### Added Lato as base text font
+
+Lato has now been added as the base font for applications, there are 4 weights introduced, 300(light), 400(regular), 600(semi-bold) and 700(bold). For performance, 3 of the 4 new weights used the Google Font CDN network and the 4th is added via assets.
+
+### CSS and Structural Changes to Pod
+
+The markup structure for pods has been modified, including some adjustments to Pod padding.
+
+The edit action for a Pod has been modified to sit outside of the Pod.
+
+# 0.24.2
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
+# 0.24.1
+
+* Improves Flash component timeout behaviour.
+
+# 0.24.0
+
+## Carbon Factory Upgrade v0.1.0
+* [Carbon Factory Release Notes](https://github.com/Sage/carbon-factory/releases/tag/v0.1.0)
+
+## Updated Flash component API
+
+As well as just a string, the Flash component will now receive a message value with the following:
+
+ * A string: `"Alert"`
+ * An array: `["Message One", "Message Two"]`
+ * An object with description: `{ description: "My description" }`
+ * An object of key/value pairs: `{ first_name: "is required", last_name: "is required" }`
+ * An object with description with nested key/value pairs:
+   `{ description: { first_name: "is required", last_name: "is required" } }`
+
+# 0.23.1
+
+## Bug Fix
+
+* Tabs component - added check to ensure that onTabChange is not called if the selectedTabId prop is changed to the existing state of the tabs component
+
+# 0.23.0
+
+## Breaking Change - Additional functionality for initialSelectedTabId prop in Tabs component
+
+* Renamed initialSelectedTabId to selectedTabId and onTabClick to onTabChange in the Tabs component
+* If selectedTabId is updated the visible tab will change to the value of selectedTabId, this will call the onTabChange function if set.
+
+## Minor Improvements
+
+* Pod component now accepts a alignTitle prop.
+* Checkbox input now has `important` set on position.
+* Tooltip Decorator now protects against no target or tooltip rendered in the DOM
+
+# 0.22.1
+
+## Bug Fix
+
+* ShowEditPod shows edit content when controlled externally
+
+# 0.22.0
+
+## Breaking Change - CSS Naming
+
+* We have renamed all of our styles to be prefixed with `carbon-` rather than `ui-`. This is to avoid conflicts with existing open source libraries like jQuery UI.
+
+### Example of the CSS Name Change
+```
+// Before:
+.ui-button-toggle__icon--large
+
+// After:
+.carbon-button-toggle__icon--large
+```
+
+Please ensure you check your application carefully to update any references to these styles when upgrading.
+
+## Minor Improvements
+
+* Show edit pod can now be controlled via props
+* Make heading font styles more flexible, providing `h*`, `.h*` and `@include h*()`
+* Allow ShowEditPod to receive `false` in its `onEdit` prop to skip rendering of the default edit icon
+* Added a 'Payment' icon and a 'Key' icon.
+* ShowEditPod now animates between the two states
+
+# 0.21.2
+
+## Minor Improvements
+
+* Help component now opens links in a new tab.
+
+# 0.21.1
+
+## Minor Improvements
+
+* PresenceValidator now returns false for strings that consist only of spaces
+
+# 0.21.0
+
+## New Icons
+
+* Print
+* Pdf
+* Csv
+* Message
+
+## Minor Improvements
+* Link now accepts tooltip props to apply a tooltip to the link. This can be used with the Action Toolbar to apply tooltips to the icon links.
+* Input components now accept an onPaste prop.
+* Add character count to textarea
+* Form now accepts a `onSubmit` prop which is only called when the form is valid.
+* AppWrapper now has a minimum width of 958px.
+* SUG-19: Change padding for the MessageComponent when transparent and non dismissable. When transparent is applied the padding reduces to 2px, but if it's dismissable it enlarges to it's original to prevent overlap.
+* Allows `Link` component to handle `mailto:` as an href prefix, previously the `to:` would have been stripped from the string
+* Fix error count, when input gets disabled
+
+# 0.20.0
+
+## Breaking Changes
+
+* The CSS for inputs and icons associated with inputs has changed. If you have overridden this CSS in you code, this may break your input CSS.
+
+## New Components
+
+* Heading - useful for page titles.
+* ShowEditPod - Inline editing of fields
+* Date Range - Allows start and end date setting with validation for invalid date combinations.
+
+## History and Browser Status
+
+The router's history object is now accessible:
+
+```js
+import { history } from 'carbon/lib/utils/router';
+```
+
+With the history object you can control the DOM for any UI that uses React Router. For more information see the guides https://github.com/ReactJSTraining/history/tree/master/docs
+
+## Link Prefixes
+
+The `Link` component can now have its `href` or `to` props prefixed to customise the type of link it is (regular or react router).
+
+For example:
+
+```js
+<Link href="to:/foobar">My React Router Link</Link>
+```
+
+## Router transitions
+
+* The window will automatically scroll to the top when the route is transitioned
+
+## Red and Green Buttons
+
+The `Button` component can now have red and green themes, set using the `as` prop.
+
+## New Icons
+
+* Information
+* Sync
+* Progress
+* Submitted
+* Completed
+
+## Minor Changes
+
+* A Sass variable has been introduced to define the path where fonts are located.
+* Pod title size has been reduced to more accurately match the demo.
+* Secondary Content components font weight has been standardised.
+* The `children` prop for the Help component is no longer required.
+* Sibling Content components now have a top margin for spacing.
+* Button height has been fixed for buttons that behave like links.
+* Adds inline help for radio button.
+* Fixes inline help for checkboxes.
+* Radio Button sprite has been given a fixed size.
+* Increase textTag font-spacing from 0.5 to 0.8.
+* Button can receive a prop of `to`.
+* Fixes fieldset and input margin when rendered on top of one another.
+* Fixes position of icon in dropdown button.
+* Fixes error icon position for inputs with field help.
+* AppWrapper has been increased to 1600px and some padding has been added.
+* Form now accepts a prop of `save` which can be used to hide the save button.
+
 # 0.19.0
+
+## Major Changes
+
+!! Babel upgraded to Version 6
+* When updating the latest version it is recommend to remove node modules `rm -rf node_modules` and reinstall `npm install`
+
+!! Phantom JS Upgraded to version 2
+* This may cause a few tests that were giving false positives to fail
 
 ## New Components
 
 * Profile - User to show portrait with name and email.
 * AppWrapper - confines your content to the width of your application.
+* Menu
 * NavigationBar
+
+## Input Label Padding
+
+* All input label padding has been slightly increased.
+
+## Help Updates
+
+* Help component has been updated with a new icon.
+* Input Label decorator has been fixed to render the help class for labelHelp.
 
 ## Acronymize Function
 
@@ -13,6 +442,15 @@
 ## Dropdown component updates
 
 * All dropdowns now allow keying up and down through the list
+
+## Polling helper
+
+* A polling helper has been added that performs customizable ajax polling.
+
+## New Icons
+
+* Help
+* Chevron
 
 # 0.18.1
 
@@ -805,7 +1243,7 @@ export default MyView
 
 ## Bug Fixes
 
-* [CARBON-102](https://sageone.atlassian.net/browse/CARBON-102) - Fixes bug - 'item is undefined triggered when clicking away from dropdown with option highlighted'.
+* Fixes bug - 'item is undefined triggered when clicking away from dropdown with option highlighted'.
 
 # 0.1.6
 

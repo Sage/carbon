@@ -32,7 +32,7 @@ class ButtonToggle extends React.Component {
    * @return {void}
    */
   get mainClasses() {
-    return 'ui-button-toggle';
+    return 'carbon-button-toggle';
   }
 
   /**
@@ -42,7 +42,7 @@ class ButtonToggle extends React.Component {
    * @return {String} input className
    */
   get inputClasses() {
-    return classNames('ui-button-toggle__input', css.hidden);
+    return classNames('carbon-button-toggle__input', css.hidden);
   }
 
   /**
@@ -54,8 +54,8 @@ class ButtonToggle extends React.Component {
   get icon() {
     if (!this.props.icon) { return null; }
 
-    let classes = classNames("ui-button-toggle__icon", {
-      ["ui-button-toggle__icon--large"]: this.props.iconSize === "large"
+    let classes = classNames("carbon-button-toggle__icon", {
+      ["carbon-button-toggle__icon--large"]: this.props.iconSize === "large"
     });
 
     return (
@@ -73,7 +73,8 @@ class ButtonToggle extends React.Component {
    * @return {Object} props for the input
    */
   get inputProps() {
-    let { children, ...props } = this.props;
+    let { ...props } = this.props;
+    delete props.children;
     props.className = this.inputClasses;
     props.type = "radio";
     return props;
@@ -86,8 +87,8 @@ class ButtonToggle extends React.Component {
    * @return {Object} JSX
    */
   get additionalInputContent() {
-    let classes = classNames("ui-button-toggle__label", {
-      ["ui-button-toggle__label--disabled"]: this.props.disabled
+    let classes = classNames("carbon-button-toggle__label", {
+      ["carbon-button-toggle__label--disabled"]: this.props.disabled
     });
 
     return (

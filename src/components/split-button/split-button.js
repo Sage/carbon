@@ -94,10 +94,10 @@ class SplitButton extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-split-button',
+      'carbon-split-button',
       this.props.className,
       {
-        'ui-split-button--open': this.state.showAdditionalButtons
+        'carbon-split-button--open': this.state.showAdditionalButtons
       }
     );
   }
@@ -109,7 +109,7 @@ class SplitButton extends React.Component {
    * @return {String} Main className
    */
   get additionalButtonsClasses() {
-    return 'ui-split-button__additional-buttons';
+    return 'carbon-split-button__additional-buttons';
   }
 
   /**
@@ -119,7 +119,7 @@ class SplitButton extends React.Component {
    * @return {String} Main className
    */
   get toggleButtonClasses() {
-    return 'ui-split-button__toggle';
+    return 'carbon-split-button__toggle';
   }
 
   /**
@@ -131,7 +131,7 @@ class SplitButton extends React.Component {
   get mainButtonProps() {
     let { ...props } = this.props;
     props.onMouseEnter = this.hideButtons;
-    props.className = "ui-split-button__main-button";
+    props.className = "carbon-split-button__main-button";
     return props;
   }
 

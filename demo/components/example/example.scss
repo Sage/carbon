@@ -1,20 +1,16 @@
 @import "colors";
 
-.ui-example {
+.carbon-example {
   margin-top: 20px;
-
-  .ui-pod__title {
-    font-size: 1.4em;
-  }
 }
 
-.ui-example__header {
+.carbon-example__header {
   position: relative;
   text-align: right;
   top: -25px;
 }
 
-.ui-example__header-item {
+.carbon-example__header-item {
   display: inline;
   margin-left: 10px;
 
@@ -23,13 +19,13 @@
   }
 }
 
-.ui-example__help-icon:before {
+.carbon-example__help-icon:before {
   font-size: 20px;
   top: -3px;
   position: relative;
 }
 
-.ui-example__code {
+.carbon-example__code {
   background-color: rgba($black, 0.9);
   box-sizing: border-box;
   font-size: 16px;

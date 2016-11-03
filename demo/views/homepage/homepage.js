@@ -1,6 +1,5 @@
 import React from 'react';
 import Pod from 'components/pod';
-import MultiActionButton from 'components/multi-action-button';
 
 class Homepage extends React.Component {
   /**
@@ -8,7 +7,7 @@ class Homepage extends React.Component {
    */
   render() {
     return (
-      <Pod className="ui-homepage">
+      <Pod className="carbon-homepage">
         Carbon
       </Pod>
     );

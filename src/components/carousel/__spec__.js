@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import { Carousel, Slide } from './';
+import { Carousel, Slide } from './carousel';
 
 describe('Carousel', () => {
   let instance;
@@ -158,7 +158,7 @@ describe('Carousel', () => {
 
   describe('mainClasses', () => {
     it('returns the carousel base class', () => {
-      TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-carousel');
+      TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-carousel');
     });
 
     it('returns any passed prop names', () => {
@@ -168,31 +168,31 @@ describe('Carousel', () => {
 
   describe('nextClasses', () => {
     it('returns the class for the next button area', () => {
-      expect(instance.nextClasses).toEqual('ui-carousel__navigation ui-carousel__next');
+      expect(instance.nextClasses).toEqual('carbon-carousel__navigation carbon-carousel__next');
     });
   });
 
   describe('previousClasses', () => {
     it('returns the class for the previous button area', () => {
-      expect(instance.previousClasses).toEqual('ui-carousel__navigation ui-carousel__previous');
+      expect(instance.previousClasses).toEqual('carbon-carousel__navigation carbon-carousel__previous');
     });
   });
 
   describe('previousButtonClasses', () => {
     it('returns the class for the previous button', () => {
-      expect(instance.previousButtonClasses).toEqual('ui-carousel__buttons ui-carousel__previous-button');
+      expect(instance.previousButtonClasses).toEqual('carbon-carousel__buttons carbon-carousel__previous-button');
     });
   });
 
   describe('nextButtonClasses', () => {
     it('returns the class for the next button', () => {
-      expect(instance.nextButtonClasses).toEqual('ui-carousel__buttons ui-carousel__next-button');
+      expect(instance.nextButtonClasses).toEqual('carbon-carousel__buttons carbon-carousel__next-button');
     });
   });
 
   describe('slideSelectorClassses', () => {
     it('returns the class for the slide selector', () => {
-      expect(instance.slideSelectorClasses).toEqual('ui-carousel__selector');
+      expect(instance.slideSelectorClasses).toEqual('carbon-carousel__selector');
     });
   });
 
@@ -248,13 +248,13 @@ describe('Carousel', () => {
     });
 
     it('adds a active class', () => {
-      expect(slide.props.className).toEqual('ui-slide ui-slide--active');
+      expect(slide.props.className).toEqual('carbon-slide carbon-slide--active');
     });
   });
 
   describe('slideSelector', () => {
     it('renders a button for each slide', () => {
-      let buttons = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'ui-carousel__selector-input'); 
+      let buttons = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-carousel__selector-input'); 
       expect(buttons.length).toEqual(3);
     });
   });

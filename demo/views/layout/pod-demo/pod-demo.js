@@ -55,14 +55,17 @@ class PodDemo extends React.Component {
 
     return (
       <Pod
+        editContentFullWidth={ this.value('editContentFullWidth') }
         collapsed={ this.props.collapsed }
         title={ this.value('title') }
+        subtitle={ this.value('subtitle') }
         description={ this.value('description') }
         padding={ this.value('padding') }
         border={ this.value('border') }
         as={ this.value('as') }
         footer={ footer }
         onEdit={ this.value('edit') }
+        alignTitle={ this.value('alignTitle') }
       >
         <Row>
           <Textbox />
@@ -83,7 +86,9 @@ class PodDemo extends React.Component {
         border = this.value('border'),
         padding = this.value('padding'),
         as = this.value('as'),
-        edit = this.value('edit');
+        edit = this.value('edit'),
+        alignTitle = this.value('alignTitle'),
+        editContentFullWidth = this.value('editContentFullWidth');
 
     let html = "import Pod from 'carbon/lib/components/pod';\n\n";
 
@@ -91,6 +96,10 @@ class PodDemo extends React.Component {
       html += '<Pod>';
     } else {
       html += '<Pod';
+
+      if (editContentFullWidth) {
+        html += `\n  editContentFullWidth={ true } }`
+      }
 
       if (collapsible) {
         html += `\n  collapsed={ true } }`
@@ -120,6 +129,10 @@ class PodDemo extends React.Component {
         html += `\n  onEdit='${edit}'`
       }
 
+      if (alignTitle !== 'left') {
+        html += `\n  alignTitle='${ alignTitle }'`
+      }
+
       html += '\n>'
     }
     html += '\n  <Row>'
@@ -139,6 +152,9 @@ class PodDemo extends React.Component {
     return Immutable.fromJS([{
       id: "none",
       name: "None"
+    }, {
+      id: "extra-small",
+      name: "Extra Small"
     }, {
       id: "small",
       name: "Small"
@@ -173,6 +189,19 @@ class PodDemo extends React.Component {
     }]);
   }
 
+  get alignOptions() {
+    return Immutable.fromJS([{
+      id: "left",
+      name: "Left"
+    }, {
+      id: "center",
+      name: "Center"
+    }, {
+      id: "right",
+      name: "Right"
+    }]);
+  }
+
   /**
    * @method controls
    */
@@ -185,6 +214,13 @@ class PodDemo extends React.Component {
             labelInline={ true }
             value={ this.value('title') }
             onChange={ this.action.bind(this, 'title') }
+          />
+
+          <Textbox
+            label="Subtitle"
+            labelInline={ true }
+            value={ this.value('subtitle') }
+            onChange={ this.action.bind(this, 'subtitle') }
           />
         </Row>
         <Row>
@@ -220,13 +256,26 @@ class PodDemo extends React.Component {
         <Row>
           <Checkbox
             label="Border"
-            value={ this.value('border') }
+            checked={ this.value('border') }
             onChange={ this.action.bind(this, 'border') }
           />
           <Checkbox
             label="Footer"
-            value={ this.value('footer') }
+            checked={ this.value('footer') }
             onChange={ this.action.bind(this, 'footer') }
+          />
+          <Checkbox
+            label="Edit content full width"
+            checked={ this.value('editContentFullWidth') }
+            onChange={ this.action.bind(this, 'editContentFullWidth') }
+          />
+          <Dropdown
+            label="Align Title"
+            labelInline={ true }
+            options={ this.alignOptions }
+            value={ this.value('alignTitle') }
+            onChange={ this.action.bind(this, 'alignTitle') }
+            disabled={ !this.value('title') }
           />
         </Row>
       </div>

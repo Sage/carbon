@@ -34,7 +34,6 @@ var ImmutableHelper = {
       }
     }
   }
-
 };
 
 export default ImmutableHelper;

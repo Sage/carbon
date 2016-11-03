@@ -1,113 +1,166 @@
-.ui-icon {
+@import "./../../style-config/assets";
+
+.carbon-icon {
+  display: inline-block;
   position: relative;
 }
 
-.ui-icon__svg {
+.carbon-icon__svg-icon {
+  display: inline-block;
+}
+
+.carbon-icon__svg {
   fill: currentColor;
 }
 
 @font-face {
   font-family: 'CarbonIcons';
-  src: url('/assets/fonts/carbon-icons-webfont.eot');
-  src: url('/assets/fonts/carbon-icons-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/assets/fonts/carbon-icons-webfont.woff') format('woff'),
-       url('/assets/fonts/carbon-icons-webfont.ttf') format('truetype'),
-       url('/assets/fonts/carbon-icons-webfont.svg#CarbonIcons') format('svg');
+  src: url('#{$font-path}/carbon-icons-webfont.woff') format('woff'),
+       url('#{$font-path}/carbon-icons-webfont.ttf') format('truetype'),
+       url('#{$font-path}/carbon-icons-webfont.svg#CarbonIcons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-@mixin icon($class, $unicode) {
+@mixin icon($class, $unicode, $smoothing: null) {
   .icon-#{$class}:before {
+    @if ($smoothing) {
+      -webkit-font-smoothing: $smoothing;
+    }
+
     content: "#{$unicode}";
   }
 }
 
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+
   font: {
     family: CarbonIcons;
-    size: 18px;
+    size: 16px;
     style: normal;
     weight: normal;
   }
-  line-height: 14px;
+
+  line-height: 16px;
   vertical-align: middle;
-  -webkit-font-smoothing: antialiased;
 }
 
-@include icon(feedback,      "");
-@include icon(info,           0);
+@include icon(feedback,       "\e930");
+@include icon(info,           "\e92a");
+@include icon(help,           "\e951");
+@include icon(settings,       "\e91a");
+@include icon(logout,         "\e92e");
+@include icon(pdf,            "\e91f", none);
+@include icon(csv,            "\e94a", none);
+@include icon(copy,           "\e91b", none);
+@include icon(error,          "\e923");
+@include icon(calendar,       "\e90e", none);
+@include icon(analysis,       "\e912");
+@include icon(people,         "\e93b");
+@include icon(dropdown,       "\e910");
+@include icon(alert,          "\e90b");
+@include icon(person,         "\e93c");
+@include icon(search,         "\e92f");
+@include icon(cross,          "\e91d");
+@include icon(close,          "\e91e"); //Dialog
+@include icon(delete,         "\e90c", none); //TFFM
+@include icon(messages,       "\e922");
+@include icon(email,          "\e922");
+@include icon(edit,           "\e93a");
+@include icon(print,          "\e942", none);
+@include icon(clock,          "\e919");
+@include icon(euro,           t);
+@include icon(home,           "\e929");
+@include icon(cart,           "\e90a");
+@include icon(bulk_destroy,   "\e90c");
+@include icon(hide,           w); // Messages
+@include icon(warning,        "\e924");
+@include icon(question,       "\e943");
+@include icon(tick,           "\e950");
+@include icon(none,           "\ ");
+@include icon(add,            "\e940");
+@include icon(services,       "\+");
+@include icon(collaborate,    "\e946");
+@include icon(graph,          "\e912");
+@include icon(plus,           "\e940");
+@include icon(true_tick,      "\e950");
+@include icon(arrow,          "\e904");
+@include icon(old_warning,    "\e924");
+@include icon(pound,          "£");
+@include icon(settings_old,   "\e91a");
+@include icon(go,             "\e903");
+@include icon(question_mark,  "\e943");
+@include icon(admin,          "\e94f");
+@include icon(contacts,       "\e93b"); // Deprecated
+@include icon(create,         "\e940");
+@include icon(piggy_bank,     "\e926");
+@include icon(entry,          "\e92c");
+
+// New
+@include icon(edited,         "\e938");
+@include icon(refresh,        "\e945");
+@include icon(sync,           "\e944");
+@include icon(fax,            "\e925", none);
+@include icon(shop,           "\e947");
+@include icon(attach,         "\e937");
+@include icon(filter,         "\e928");
+@include icon(chat,           "\e914");
+@include icon(duplicate,      "\e921", none);
+@include icon(call,           "\e93d");
+@include icon(favourite,      "\e94f");
+@include icon(favourite_lined,"\e94e");
+@include icon(sort_up,        "\e949");
+@include icon(sort_down,      "\e948");
+@include icon(link,           "\e92d");
+@include icon(locked,         "\e935");
+@include icon(unlocked,       "\e936");
+@include icon(caret_down,     "\e910");
+@include icon(draft,          "\e939");
+@include icon(chart_line,     "\e912");
+@include icon(chart_bar,      "\e911");
+@include icon(chart_pie,      "\e913");
+@include icon(in_progress,    "\e920");
+@include icon(progressed,     "\e903");
+@include icon(save,           "\e926");
+@include icon(image,          "\e93e");
+@include icon(camera,         "\e90f");
+@include icon(arrow_up,       "\e907");
+@include icon(arrow_down,     "\e901");
+@include icon(arrow_left,     "\e902");
+@include icon(arrow_right,    "\e904");
+@include icon(chevron_up,     "\e918");
+@include icon(chevron_down,   "\e915");
+@include icon(chevron_left,   "\e916");
+@include icon(chevron_right,  "\e917");
+@include icon(download,       "\e900");
+@include icon(upload,         "\e906");
+@include icon(uploaded,       "\e905");
+@include icon(folder,         "\e927");
+@include icon(share,          "\e946");
+@include icon(gift,           "\e941");
+@include icon(mobile,         "\e932");
+@include icon(fit_height,     "\e909");
+@include icon(fit_width,      "\e908");
+@include icon(blocked,        "\e933");
+@include icon(blocked_square, "\e934");
+@include icon(drag,           "\e94c");
+@include icon(drag_vertical,  "\e94d");
+@include icon(list_view,      "\e92c");
+@include icon(card_view,      "\e94b");
+@include icon(minus,          "\e931");
+@include icon(business,       "\e90d");
+@include icon(key,            "\e92b");
+@include icon(credit_card,    "\e91c");
+@include icon(marker,         "\e93f");
+
 @include icon(accounts,       1);
 @include icon(accounts_extra, 1);
 @include icon(cashbook,       1);
 @include icon(payroll,        2);
-@include icon(help,           3);
-@include icon(settings,       4);
-@include icon(logout,         5);
-@include icon(pdf,            6);
-@include icon(csv,            7);
-@include icon(copy,           8);
-@include icon(error,          9);
-
 @include icon(insert_row,     A);
-@include icon(plus,           B);
-@include icon(calendar,       C);
 @include icon(book,           D);
-@include icon(analysis,       E);
-@include icon(people,         F);
 @include icon(bank,           G);
-@include icon(entry,          H);
-@include icon(collaborate,    J);
-@include icon(dropdown,       K);
-@include icon(alert,          L);
-// @include icon(,            M);
-// @include icon(,            N);
-// @include icon(,            O);
-// @include icon(,            P);
-// @include icon(,            Q);
-// @include icon(,            R);
-// @include icon(,            S);
-// @include icon(,            T);
-// @include icon(,            U);
-@include icon(create,         V);
-// @include icon(,            W);
-// @include icon(,            X);
-// @include icon(,            Y);
-// @include icon(,            Z);
-
-@include icon(graph,          a);
-@include icon(pound,          b);
-@include icon(edit,           c);
-@include icon(piggy_bank,     d);
-@include icon(contacts,       e); // Deprecated
-@include icon(person,         e);
-@include icon(arrow,          f);
-@include icon(search,         g);
-@include icon(cross,          h);
-@include icon(close,          h); //Dialog
-@include icon(delete,         h); //TFFM
-@include icon(settings_old,   i);
-@include icon(go,             j);
 @include icon(new,            k);
-@include icon(true_tick,      l);
-@include icon(old_warning,    m);
-@include icon(question_mark,  n);
-@include icon(admin,          o);
-@include icon(messages,       p);
-@include icon(email,          p);
-@include icon(edit,           q);
-@include icon(print,          r);
-@include icon(clock,          s);
-@include icon(euro,           t);
-@include icon(home,           u);
-@include icon(cart,           v);
-@include icon(bulk_destroy,   w);
-@include icon(hide,           w); // Messages
-@include icon(warning,        x);
-@include icon(question,       y);
-@include icon(tick,           z);
-
-@include icon(none,           "\ ");
-@include icon(add,            "\+");
-@include icon(services,       "\+");

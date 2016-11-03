@@ -32,19 +32,19 @@ describe('Help', () => {
   describe('mainClasses', () => {
     describe('default classes', () => {
       it('returns the default classes', () => {
-        expect(basicInstance.mainClasses).toEqual('ui-help');
+        expect(basicInstance.mainClasses).toEqual('carbon-help');
       });
 
       describe('when an href is passed', () => {
         it('adds the relevant class', () => {
-          expect(linkInstance.mainClasses).toEqual('ui-help ui-help__href');
+          expect(linkInstance.mainClasses).toEqual('carbon-help carbon-help__href');
         });
       });
     });
 
     describe('when custom classes are passed', () => {
       it('adds the custom classes', () => {
-        expect(customStyleInstance.mainClasses).toEqual('ui-help fancy-pants');
+        expect(customStyleInstance.mainClasses).toEqual('carbon-help fancy-pants');
       });
     });
   });
@@ -60,7 +60,7 @@ describe('Help', () => {
     });
 
     it('renders an icon', () => {
-      expect(icon.props.type).toEqual('info');
+      expect(icon.props.type).toEqual('help');
     });
 
     it('passes the children as a prop', () => {
@@ -76,7 +76,7 @@ describe('Help', () => {
     });
 
     it('passes the href if provided', () => {
-      expect(hrefAnchor.props.href).toEqual('www.foo.com');
+      expect(hrefAnchor.href).toMatch('www.foo.com');
     });
   });
 });

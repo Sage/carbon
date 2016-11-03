@@ -1,11 +1,12 @@
-@import 'colors';
+@import "./../../style-config/colors";
 
 $link-color: $blue !default;
 $link-hover-color: $blue-dark !default;
 $link-hover-text-decoration: underline !default;
 
-.ui-link__anchor {
+.carbon-link__anchor {
   color: $link-color;
+  cursor: pointer;
   font-weight: bold;
   text-decoration: none;
 
@@ -14,13 +15,13 @@ $link-hover-text-decoration: underline !default;
     cursor: pointer;
     text-decoration: none;
 
-    .ui-link__content {
+    .carbon-link__content {
       text-decoration: $link-hover-text-decoration;
     }
   }
 }
 
-.ui-link__anchor--disabled {
+.carbon-link__anchor--disabled {
   color: $grey-dark;
   cursor: default;
   pointer-events: none;
@@ -30,20 +31,25 @@ $link-hover-text-decoration: underline !default;
     color: $grey-dark;
     cursor: default;
 
-    .ui-link__content {
+    .carbon-link__content {
       text-decoration: none;
     }
   }
 }
 
-.ui-link__icon {
+.carbon-link__icon {
   margin-right: 5px;
   position: relative;
   top: -2px;
 
-  .ui-icon__svg {
+  .carbon-icon__svg {
     height: 16px;
     vertical-align: middle;
     width: 16px;
   }
+}
+
+.carbon-link__icon--align-right {
+  margin-right: 0;
+  margin-left: 5px;
 }

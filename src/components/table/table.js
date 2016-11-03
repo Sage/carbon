@@ -7,6 +7,7 @@ import ActionToolbar from './../action-toolbar';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
+import TableSubheader from './table-subheader';
 import Pager from './../pager';
 import Spinner from './../spinner';
 
@@ -170,6 +171,14 @@ class Table extends React.Component {
      * @type {Function}
      */
     onHighlight: React.PropTypes.func,
+
+    /**
+     * A callback for when the page size changes.
+     *
+     * @property onPageSizeChange
+     * @type {Function}
+     */
+    onPageSizeChange: React.PropTypes.func,
 
     /**
      * Pagination
@@ -667,7 +676,10 @@ class Table extends React.Component {
    * @param {String} pageSize
    * @return {Void}
    */
-  onPagination = (currentPage, pageSize) => {
+  onPagination = (currentPage, pageSize, element) => {
+    if (this.props.onPageSizeChange && element === 'size') {
+      this.props.onPageSizeChange(pageSize);
+    }
     let options = this.emitOptions();
     options.currentPage = currentPage;
     options.pageSize = pageSize;
@@ -783,7 +795,7 @@ class Table extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-table',
+      'carbon-table',
       this.props.className
     );
   }
@@ -796,9 +808,9 @@ class Table extends React.Component {
    */
   get wrapperClasses() {
     return classNames(
-      'ui-table__wrapper',
+      'carbon-table__wrapper',
       this.props.className,
-      { [`ui-table--pager`]: this.props.paginate }
+      { [`carbon-table--pager`]: this.props.paginate }
     );
   }
 
@@ -809,7 +821,7 @@ class Table extends React.Component {
    * @return {String}
    */
   get tableClasses() {
-    return 'ui-table__table';
+    return 'carbon-table__table';
   }
 
   /**
@@ -821,7 +833,7 @@ class Table extends React.Component {
   get thead() {
     if (this.props.thead) {
       return (
-        <thead className="ui-table__header">
+        <thead className="carbon-table__header">
           { this.props.thead }
         </thead>
       );
@@ -963,5 +975,6 @@ export {
   Table,
   TableRow,
   TableCell,
-  TableHeader
+  TableHeader,
+  TableSubheader
 };

@@ -162,24 +162,6 @@ describe('DropdownFilter', () => {
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
       });
-
-      describe('if highlighted does not match value', () => {
-        it('does calls emitOnChangeCallback', () => {
-          let opts = Immutable.fromJS([{
-            id: '90',
-            name: 'foo'
-          }]);
-
-          instance = TestUtils.renderIntoDocument(
-            <DropdownFilter name="foo" options={ opts } value="1" suggest={ true } />
-          );
-
-          spyOn(instance, 'highlighted').and.returnValue(90);
-          spyOn(instance, 'emitOnChangeCallback');
-          instance.handleBlur();
-          expect(instance.emitOnChangeCallback).toHaveBeenCalled();
-        });
-      });
     });
   });
 
@@ -355,7 +337,7 @@ describe('DropdownFilter', () => {
       it('adds no items option', () => {
         instance.setState({ filter: 'foo' });
         expect(instance.results([]).type).toEqual('li');
-        expect(instance.results([]).props.className).toEqual('ui-dropdown__list-item ui-dropdown__list-item--no-results');
+        expect(instance.results([]).props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--no-results');
         expect(instance.results([]).props.children).toEqual('No results match "foo"');
       });
     });
@@ -419,7 +401,7 @@ describe('DropdownFilter', () => {
 
   describe('mainClasses', () => {
     it('returns with filter class', () => {
-      expect(instance.mainClasses).toMatch('ui-dropdown-filter');
+      expect(instance.mainClasses).toMatch('carbon-dropdown-filter');
     });
   });
 
@@ -429,21 +411,21 @@ describe('DropdownFilter', () => {
         instance = TestUtils.renderIntoDocument(
           <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" create={ function() {} } />
         );
-        expect(instance.inputClasses).not.toMatch('ui-dropdown__input--filtered');
+        expect(instance.inputClasses).not.toMatch('carbon-dropdown__input--filtered');
       });
     });
 
     describe('if there is no filter', () => {
       it('does not add the class', () => {
         instance.setState({ filter: null });
-        expect(instance.inputClasses).not.toMatch('ui-dropdown__input--filtered');
+        expect(instance.inputClasses).not.toMatch('carbon-dropdown__input--filtered');
       });
     });
 
     describe('if not in create mode and there is a filter', () => {
       it('does adds the class', () => {
         instance.setState({ filter: 'foo' });
-        expect(instance.inputClasses).toMatch('ui-dropdown__input--filtered');
+        expect(instance.inputClasses).toMatch('carbon-dropdown__input--filtered');
       });
     });
   });

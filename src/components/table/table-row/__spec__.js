@@ -277,13 +277,13 @@ describe('TableRow', () => {
   it('renders a tr with correct classes', () => {
     let tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
     expect(tr).toBeDefined();
-    expect(tr.className).toEqual('ui-table-row foo');
+    expect(tr.className).toEqual('carbon-table-row foo');
   });
 
   describe('if the row is clickable', () => {
     it('adds a clickable class', () => {
       let tr = TestUtils.findRenderedDOMComponentWithTag(clickableInstance, 'tr');
-      expect(tr.className).toMatch('ui-table-row--clickable');
+      expect(tr.className).toMatch('carbon-table-row--clickable');
     });
   });
 
@@ -299,7 +299,7 @@ describe('TableRow', () => {
         </Table>
       );
 
-      let tr = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-table-row');
+      let tr = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-table-row');
       TestUtils.Simulate.click(tr);
       expect(spy).toHaveBeenCalled();
     });
@@ -363,7 +363,6 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(
           <Table selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>
         );
-        debugger
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         expect(row.children.length).toEqual(3);

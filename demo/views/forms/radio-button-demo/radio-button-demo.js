@@ -37,6 +37,7 @@ class RadiButtonDemo extends React.Component {
     return (
       <RadioButton
         { ...FormInputHelper.demoProps(this, this.action) }
+        fieldHelpInline={ this.value('fieldHelpInline') }
       />
     );
   }
@@ -48,6 +49,10 @@ class RadiButtonDemo extends React.Component {
     let html = "import RadioButton from 'carbon/lib/components/radio-button';\n\n";
 
     html += "<RadioButton";
+
+    if (this.value('fieldHelpInline')) {
+      html += `\n  fieldHelpInline={ true }`;
+    }
 
     html = FormInputHelper.codeProps(this, html);
 
@@ -63,6 +68,14 @@ class RadiButtonDemo extends React.Component {
     return (
       <div>
         { FormInputHelper.controls(this, this.action) }
+
+        <Row>
+          <Checkbox
+            label="Help Label Inline"
+            value={ this.value('fieldHelpInline') }
+            onChange={ this.action.bind(this, 'fieldHelpInline') }
+          />
+        </Row>
       </div>
     );
   }

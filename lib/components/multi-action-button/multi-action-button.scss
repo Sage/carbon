@@ -1,12 +1,12 @@
-@import 'colors';
-@import 'buttons';
-@import 'z-index';
+@import "./../../style-config/colors";
+@import "./../../style-config/buttons";
+@import "./../../style-config/z-index";
 
-.ui-multi-action-button--align-right {
-  .ui-multi-action-button__additional-buttons {
+.carbon-multi-action-button--align-right {
+  .carbon-multi-action-button__additional-buttons {
     right: 0;
 
-    .ui-button {
+    .carbon-button {
       padding-left: 25px;
       padding-right: 25px;
       text-align: right;
@@ -14,40 +14,44 @@
   }
 }
 
-.ui-multi-action-button {
-  .ui-multi-action-button__toggle {
+.carbon-multi-action-button {
+  .carbon-multi-action-button__toggle {
     width: auto;
-    border: $ui-button__border--secondary;
-    border-radius: $ui-button__border-radius;
+    border: $carbon-button__border--secondary;
+    border-radius: $carbon-button__border-radius;
     box-sizing: border-box;
     padding: 7px 8px 7px 15px;
     position: relative;
     z-index: $z-split-button + 1;
 
-    &.ui-button--disabled {
-      border-color: $ui-button__border-color--disabled;
+    &.carbon-button--disabled {
+      border-color: $carbon-button__border-color--disabled;
+    }
+
+    &--primary {
+      border: none;
     }
   }
 
-  .ui-multi-action-button__additional-buttons {
-    border-radius: $ui-button__border-radius;
+  .carbon-multi-action-button__additional-buttons {
+    border-radius: $carbon-button__border-radius;
     padding-top: 35px;
     top: 0;
     z-index: $z-split-button + 2;
 
-    .ui-button {
+    .carbon-button {
       padding-left: 15px;
       white-space: nowrap;
     }
   }
 
-  .ui-multi-action-button__toggle--transparent:not(.ui-button--disabled) {
+  .carbon-multi-action-button__toggle--transparent:not(.carbon-button--disabled) {
     background-color: transparent;
     box-shadow: none;
     border: 1px solid transparent;
     color: $grey-dark-blue-80;
 
-    .ui-multi-action-button--open & {
+    .carbon-multi-action-button--open & {
       background-color: transparent;
       border: 1px solid transparent;
       color: $grey-dark-blue-80;
@@ -63,11 +67,11 @@
     }
   }
 
-  .ui-multi-action-button__additional-buttons--transparent {
+  .carbon-multi-action-button__additional-buttons--transparent {
     background-color: white;
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
 
-    .ui-button {
+    .carbon-button {
       color: $grey-dark-blue-80;
 
       &:focus {
@@ -84,11 +88,17 @@
       }
     }
   }
+
+  .carbon-icon {
+    &.icon-dropdown {
+      top: -1px;
+    }
+  }
 }
 
-.ui-multi-action-button--open {
-  .ui-multi-action-button__toggle {
-    border-color: $ui-button__background-color--primary--hover;
+.carbon-multi-action-button--open {
+  .carbon-multi-action-button__toggle {
+    border-color: $carbon-button__background-color--primary--hover;
     border-bottom-left-radius: 0;
     z-index: $z-split-button + 3;
   }

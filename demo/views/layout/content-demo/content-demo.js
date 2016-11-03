@@ -8,7 +8,9 @@ import Example from './../../../components/example';
 import Content from 'components/content';
 import Row from 'components/row';
 import Textbox from 'components/textbox';
+import Checkbox from 'components/checkbox';
 import Textarea from 'components/textarea';
+import Dropdown from 'components/dropdown';
 
 class ContentDemo extends React.Component {
 
@@ -31,7 +33,7 @@ class ContentDemo extends React.Component {
    */
   get demo() {
     return (
-      <Content title={ this.value('title') } as={ this.value('as') }>
+      <Content title={ this.value('title') } as={ this.value('as') } inline={ this.value('inline') } align={ this.value('align') } titleWidth={ this.value('titleWidth') }>
         { this.value('body') }
       </Content>
     );
@@ -43,11 +45,24 @@ class ContentDemo extends React.Component {
   get code() {
     let html = "import Content from 'carbon/lib/components/content';\n\n";
 
-    html += `<Content title='${this.value('title')}' as='${this.value('as')}'>\n`;
+    html += `<Content title='${this.value('title')}' as='${this.value('as')}' inline='${this.value('inline')}' align='${this.value('align')}' titleWidth='${this.value('titleWidth')}'>\n`;
     html += `  ${this.value('body')}\n`;
     html += "</Content>\n\n";
 
     return html;
+  } 
+
+  get alignOptions() {
+    return Immutable.fromJS([{
+      name: "Left",
+      id: "left"
+    }, {
+      name: "Center",
+      id: "center"
+    }, {
+      name: "Right",
+      id: "right"
+    }]);
   }
 
   /**
@@ -55,24 +70,44 @@ class ContentDemo extends React.Component {
    */
   get controls() {
     return (
-      <Row>
-        <Textbox
-          label="Title"
-          value={ this.value('title') }
-          onChange={ this.action.bind(this, 'title') }
-        />
-        <Textarea
-          rows="4"
-          label="Body"
-          value={ this.value('body') }
-          onChange={ this.action.bind(this, 'body') }
-        />
-        <Textbox
-          label="As"
-          value={ this.value('as') }
-          onChange={ this.action.bind(this, 'as') }
-        />
-      </Row>
+      <div>
+        <Row>
+          <Textbox
+            label="Title"
+            value={ this.value('title') }
+            onChange={ this.action.bind(this, 'title') }
+          />
+          <Textarea
+            rows="4"
+            label="Body"
+            value={ this.value('body') }
+            onChange={ this.action.bind(this, 'body') }
+          />
+        </Row>
+        <Row>
+          <Textbox
+            label="As"
+            value={ this.value('as') }
+            onChange={ this.action.bind(this, 'as') }
+          />
+          <Checkbox
+            label="Inline"
+            checked={ this.value('inline') }
+            onChange={ this.action.bind(this, 'inline') }
+          />
+          <Dropdown
+            label="Align"
+            value={ this.value('align') }
+            onChange={ this.action.bind(this, 'align') }
+            options={ this.alignOptions }
+          />
+          <Textbox
+            label="Title Width"
+            value={ this.value('titleWidth') }
+            onChange={ this.action.bind(this, 'titleWidth') }
+          />
+        </Row>
+      </div>
     );
   }
 

@@ -1,8 +1,8 @@
-@import 'colors';
-@import 'mixins';
-@import 'z-index';
+@import "./../../style-config/colors";
+@import "./../../style-config/mixins";
+@import "./../../style-config/z-index";
 
-.ui-animated-menu-button {
+.carbon-animated-menu-button {
   @include border-radius(100%);
   @include box-shadow(0 5px 8px rgba(0,0,0,0.2));
   background-color: $magenta;
@@ -14,7 +14,7 @@
   touch-action: manipulation;
 
 /***** Button Label Styles ****/
-  .ui-animated-menu-button__label {
+  .carbon-animated-menu-button__label {
     display: inline-block;
     font-size: 22px;
     font-weight: 300;
@@ -35,7 +35,7 @@
     }
   }
 
-  .ui-link__anchor {
+  .carbon-link__anchor {
     font-weight: normal;
   }
 
@@ -47,28 +47,28 @@
     @include transition(background-color 0.1s 0s);
   }
 
-  .ui-animated-menu-button-enter {
+  .carbon-animated-menu-button-enter {
     opacity: 0;
     transform: scale(0);
   }
 
-  .ui-animated-menu-button-enter.ui-animated-menu-button-enter-active {
+  .carbon-animated-menu-button-enter.carbon-animated-menu-button-enter-active {
     opacity: 1;
     transform: scale(1);
     transition: all 200ms ease, opacity 200ms ease 50ms;
   }
 
-  .ui-animated-menu-button-leave {
+  .carbon-animated-menu-button-leave {
     opacity: 1;
   }
 
-  .ui-animated-menu-button-leave.ui-animated-menu-button-leave-active  {
+  .carbon-animated-menu-button-leave.carbon-animated-menu-button-leave-active  {
     opacity: 0;
     transform: scale(0);
     transition: all 100ms ease, opacity 100ms ease;
   }
 
-  .ui-animated-menu-button__content {
+  .carbon-animated-menu-button__content {
     @include box-shadow(0 5px 10px 0 rgba(0, 0, 0, 0.2));
     @include border-radius(5px 25px 5px 5px);
     background-color: $magenta-dull;
@@ -81,43 +81,43 @@
     @at-root {
       /******** Direction Option Styles ***/
 
-      .ui-animated-menu-button--left#{&} {
+      .carbon-animated-menu-button--left#{&} {
         @include transform-origin(top right);
         right: 0;
       }
 
-      .ui-animated-menu-button--right#{&} {
+      .carbon-animated-menu-button--right#{&} {
         @include transform-origin(top left);
         left: 0;
       }
 
       /******* Size Options ****/
 
-      .ui-animated-menu-button--extra-small#{&} {
+      .carbon-animated-menu-button--extra-small#{&} {
         min-width: 100px;
       }
 
-      .ui-animated-menu-button--small#{&} {
+      .carbon-animated-menu-button--small#{&} {
         min-width: 150px;
       }
 
-      .ui-animated-menu-button--medium-small#{&} {
+      .carbon-animated-menu-button--medium-small#{&} {
         min-width: 400px;
       }
 
-      .ui-animated-menu-button--medium#{&} {
+      .carbon-animated-menu-button--medium#{&} {
         min-width: 550px;
       }
 
-      .ui-animated-menu-button--medium-large#{&} {
+      .carbon-animated-menu-button--medium-large#{&} {
         min-width: 700px;
       }
 
-      .ui-animated-menu-button--large#{&} {
+      .carbon-animated-menu-button--large#{&} {
         min-width: 1050px;
       }
 
-      .ui-animated-menu-button--extra-large#{&} {
+      .carbon-animated-menu-button--extra-large#{&} {
         min-width: 1200px;
       }
     }

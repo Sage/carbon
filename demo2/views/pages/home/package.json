@@ -1,0 +1,7 @@
+{
+  "main": "./home.js",
+  "images": [
+    "assets/images/background_pattern.svg",
+    "assets/images/sage_logo.svg"
+  ]
+}

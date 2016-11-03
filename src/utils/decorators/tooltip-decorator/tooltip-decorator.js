@@ -3,7 +3,7 @@ import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
 import { startCase } from 'lodash';
-import { append, styleElement } from './../../ether';
+import { styleElement, append } from './../../ether';
 
 /**
  * TooltipDecorator.
@@ -45,6 +45,22 @@ import { append, styleElement } from './../../ether';
  *     <div className='relative-class'>
  *       { this.tooltipHTML }
  *       ...your component's JSX
+ *     </div>
+ *   );
+ * }
+ *
+ * The targetted JSX must also have a ref of _target and have the correct componentProps
+ *
+ * e.g.
+ *
+ * render() {
+ *   return (
+ *     <div className='relative-class'>
+ *       <span
+ *         ref={ (comp) => this._target = comp }
+ *         { ...this.componentProps }
+ *       />
+ *       { this.tooltipHTML }
  *     </div>
  *   );
  * }
@@ -105,6 +121,20 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
 
     if (this.props.tooltipMessage && !this._memoizedShifts && this.state.isVisible) {
       this.positionTooltip();
+    }
+  }
+
+  /**
+   * A lifecycle called immediatly before new props cause a re-render
+   * Resets the hover state if active
+   *
+   * @method componentWillReceiveProps
+   */
+  componentWillReceiveProps(nextProps) {
+    if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
+
+    if (this.state.isVisible) {
+      this.setState({ isVisible: false });
     }
   }
 
@@ -205,10 +235,19 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
    */
   positionTooltip = () => {
     if (this.state.isVisible) {
+
       let tooltip = this.getTooltip(),
-          alignment = this.props.tooltipAlign || 'center',
+          target = this.getTarget();
+
+      if (!tooltip || !target) {
+        // Can't find the tooltip or target so hide
+        this.setState({ isVisible: false });
+        return;
+      }
+
+      let alignment = this.props.tooltipAlign || 'center',
           position = this.props.tooltipPosition || 'top',
-          shifts = this.calculatePosition(tooltip, this.getTarget());
+          shifts = this.calculatePosition(tooltip, target);
 
       switch (position) {
         case "top":

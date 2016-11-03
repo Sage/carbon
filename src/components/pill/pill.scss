@@ -1,10 +1,10 @@
-@import 'colors';
+@import "./../../style-config/colors";
 
-.ui-pill {
+.carbon-pill {
   border-radius: 3px;
   display: inline-block;
-  font-size: 10px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 700;
   line-height: 12px;
   letter-spacing: 1px;
   padding: 2px 7px;
@@ -12,23 +12,23 @@
 }
 
 @mixin pill-theme($type, $color, $border, $background, $color-hover) {
-  .ui-pill--#{$type}--empty {
+  .carbon-pill--#{$type}--empty {
     border: 1px solid $color;
     color: $color;
   }
 
-  .ui-pill--#{$type}--fill {
+  .carbon-pill--#{$type}--fill {
     background-color: $color;
     color: $white;
   }
 }
 
-.ui-pill--disabled--empty {
+.carbon-pill--disabled--empty {
   border: 1px solid $grey-mid;
   color: $grey-mid;
 }
 
-.ui-pill--disabled--fill {
+.carbon-pill--disabled--fill {
   background-color: $grey-dark-blue-20;
   color: $grey-dark-blue-60;
 }

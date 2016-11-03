@@ -1,0 +1,12 @@
+@import "../../demo-variables";
+
+.chrome {
+  @media(min-width: $menu-popout-point) {
+    padding-left: 290px;
+  }
+  .demo-menu {
+    @media(min-width: $menu-popout-point) {
+      position: relative;
+    }
+  }
+}

@@ -1,31 +1,31 @@
-@import 'general';
-@import 'colors';
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
 
-$ui-tabs__header__background-color: #F5F6F7 !default;
-$ui-tabs__header__border-color: $grey-dark-blue-20 !default;
-$ui-tabs__header--selected_border-color: $blue-bright !default;
-$ui-tabs__header__color: $grey-dark !default;
+$carbon-tabs__header__background-color: #F5F6F7 !default;
+$carbon-tabs__header__border-color: $grey-dark-blue-20 !default;
+$carbon-tabs__header--selected_border-color: $blue-bright !default;
+$carbon-tabs__header__color: $grey-dark !default;
 
-.ui-tabs {
+.carbon-tabs {
   margin-top: 15px;
 }
 
-.ui-tabs__headers {
-  box-shadow: inset 0px -2px 0px 0px $ui-tabs__header__border-color;
+.carbon-tabs__headers {
+  box-shadow: inset 0px -2px 0px 0px $carbon-tabs__header__border-color;
   cursor: pointer;
   list-style: none;
   margin: 0 0 10px;
   padding: 0;
 }
 
-.ui-tabs__headers--align-right {
+.carbon-tabs__headers--align-right {
   text-align: right;
 }
 
-.ui-tabs__headers__header {
-  background-color: $ui-tabs__header__background-color;
-  border-bottom: 2px solid $ui-tabs__header__border-color;
-  color: $ui-tabs__header__color;
+.carbon-tabs__headers__header {
+  background-color: $carbon-tabs__header__background-color;
+  border-bottom: 2px solid $carbon-tabs__header__border-color;
+  color: $carbon-tabs__header__color;
   display: inline-block;
   font-weight: bold;
   height: 100%;
@@ -36,16 +36,18 @@ $ui-tabs__header__color: $grey-dark !default;
     margin-left: 0;
   }
 
+  &:focus,
   &:hover {
-    background: $ui-tabs__header--selected_border-color;
-    border-bottom-color: $ui-tabs__header--selected_border-color;
+    background: $carbon-tabs__header--selected_border-color;
+    border-bottom-color: $carbon-tabs__header--selected_border-color;
     color: $white;
+    outline: none;
   }
 }
 
-.ui-tabs__headers__header--selected {
+.carbon-tabs__headers__header--selected {
   background-color: $white;
-  border-bottom-color: $ui-tabs__header--selected_border-color;
+  border-bottom-color: $carbon-tabs__header--selected_border-color;
 
   &:hover {
     background: $white;
@@ -53,6 +55,6 @@ $ui-tabs__header__color: $grey-dark !default;
   }
 }
 
-.ui-tabs__headers__header--error {
+.carbon-tabs__headers__header--error {
   border-bottom-color: $red;
 }

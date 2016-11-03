@@ -70,6 +70,20 @@ let AppActions = {
           });
         }
       });
+  },
+
+  editContent: (component) => {
+    Dispatcher.dispatch({
+      actionType: AppConstants.APP_EDIT_CONTENT,
+      component: component
+    });
+  },
+
+  saveEditedContent: (component) => {
+    Dispatcher.dispatch({
+      actionType: AppConstants.APP_SAVE_EDITED_CONTENT,
+      component: component
+    });
   }
 };
 

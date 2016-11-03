@@ -63,7 +63,8 @@ let form = {
   incrementErrorCount: function() {},
   incrementWarningCount: function() {},
   decrementWarningCount: function() {},
-  inputs: { "123": {} }
+  inputs: { "123": {} },
+  setActiveInput: function() {}
 }
 
 class DummyInputWithoutLifecycleMethods extends React.Component {
@@ -133,12 +134,13 @@ describe('InputValidation', () => {
       beforeEach(() => {
         instance.setState({ valid: false, warning: true});
         spyOn(instance, 'setState');
+        spyOn(instance, '_handleContentChange');
       });
 
       describe('when becoming disabled', () => {
         it('calls setState', () => {
           instance.componentWillReceiveProps({ disabled: true });
-          expect(instance.setState).toHaveBeenCalledWith({ valid: true, warning: false });
+          expect(instance._handleContentChange).toHaveBeenCalled();
         });
       });
 
@@ -176,12 +178,6 @@ describe('InputValidation', () => {
             instance.componentWillReceiveProps({ value: 'foo' });
             expect(instance.setState).toHaveBeenCalledWith({ valid: true });
           });
-
-          it('resets warning to be false', () => {
-            spyOn(instance, 'warning').and.returnValue(true);
-            instance.componentWillReceiveProps({ value: 'foo' });
-            expect(instance.setState).toHaveBeenCalledWith({ warning: false });
-          });
         });
 
         describe('when it returns invalid', () => {
@@ -191,7 +187,38 @@ describe('InputValidation', () => {
             instance.componentWillReceiveProps({ value: 'foo' });
             expect(instance.setState).not.toHaveBeenCalled();
           });
+        });
 
+
+
+        describe('when it is valid but has a warning warning state', () => {
+          beforeEach(() => {
+            instance.setState({ valid: true, warning: true});
+          });
+
+          it('calls warning with the next value', () => {
+            spyOn(instance, 'warning');
+            instance.componentWillReceiveProps({ value: 'foo' });
+            expect(instance.warning).toHaveBeenCalledWith('foo');
+          });
+
+          describe('when it returns valid', () => {
+            it('resets valid to be truthy', () => {
+              spyOn(instance, 'validate').and.returnValue(true);
+              instance.componentWillReceiveProps({ value: 'foo' });
+              expect(instance.setState).toHaveBeenCalledWith({ valid: true });
+            });
+          });
+
+          describe('when it returns invalid', () => {
+            it('does not modify the validity', () => {
+              instance.setState.calls.reset();
+              spyOn(instance, 'validate').and.returnValue(false);
+              spyOn(instance, 'warning').and.returnValue(false);
+              instance.componentWillReceiveProps({ value: 'foo' });
+              expect(instance.setState).not.toHaveBeenCalled();
+            });
+          });
         });
       });
     });
@@ -349,38 +376,38 @@ describe('InputValidation', () => {
         instance = TestUtils.renderIntoDocument(React.createElement(Component, {
           validations: [validationOne]
         }));
-        instance.context.form = form;
       });
 
       describe('when the input is invalid', () => {
-        it('decrements the error count', () => {
-          instance.state.valid = false;
-          spyOn(instance.context.form, 'decrementErrorCount');
-          instance.componentWillUnmount();
-          expect(instance.context.form.decrementErrorCount).toHaveBeenCalled();
-        });
-
-        it('decrements the warning count', () => {
-          instance.state.warning = true;
-          spyOn(instance.context.form, 'decrementWarningCount');
-          instance.componentWillUnmount();
-          expect(instance.context.form.decrementWarningCount).toHaveBeenCalled();
+        it('calls handleContentChange', () => {
+            instance.state.valid = false;
+            spyOn(instance, '_handleContentChange');
+            instance.componentWillUnmount();
+            expect(instance._handleContentChange).toHaveBeenCalled();
         });
       });
 
-      describe('when the input is valid', () => {
+      describe('when the input has a warning', () => {
+        it('calls handleContentChange', () => {
+            instance.state.warning = true;
+            spyOn(instance, '_handleContentChange');
+            instance.componentWillUnmount();
+            expect(instance._handleContentChange).toHaveBeenCalled();
+        });
+      })
+
+      describe('when the input is in a form', () => {
+        beforeEach(() => {
+          instance.context.form = form;
+        });
+
         it('detaches the input from the form', () => {
           spyOn(instance.context.form, 'detachFromForm');
           instance.componentWillUnmount();
           expect(instance.context.form.detachFromForm).toHaveBeenCalledWith(instance);
         });
-
-        it('does not decrement the error count', () => {
-          spyOn(instance.context.form, 'decrementErrorCount');
-          instance.componentWillUnmount();
-          expect(instance.context.form.decrementErrorCount).not.toHaveBeenCalled();
-        });
       });
+
     });
 
     describe('When no validations are present on the input', () => {
@@ -446,7 +473,7 @@ describe('InputValidation', () => {
           });
 
           describe('when the input is within a tab', () => {
-            it('sets the notfies the tab that it is invalid', () => {
+            it('notifies the tab that it is invalid', () => {
               let spy = jasmine.createSpy();
               instance.context.tab = { setValidity: spy };
               instance.validate();
@@ -484,6 +511,104 @@ describe('InputValidation', () => {
       it('defaults the input validity to true', () => {
         let valid = instance.validate();
         expect(valid).toBeTruthy();
+      });
+    });
+  });
+
+  describe("message hide functions", () => {
+    describe("showMessage", () => {
+      beforeEach(() => {
+        instance.context.form = form;
+        spyOn(instance.context.form, 'setActiveInput');
+      })
+      describe("triggers state change and function call", () => {
+        it("if not valid", () => {
+          instance.setState({
+            valid: false,
+            warning: false
+          });
+          spyOn(instance, 'setState');
+          instance.showMessage();
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: true,
+            immediatelyHideMessage: false
+          });
+          expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
+        });
+        it("if warning", () => {
+          instance.setState({
+            valid: true,
+            warning: true
+          });
+          spyOn(instance, 'setState');
+          instance.showMessage();
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: true,
+            immediatelyHideMessage: false
+          });
+          expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
+        });
+      });
+      describe("doesn't trigger state change and function call", () => {
+        it("if valid and not a warning", () => {
+          instance.setState({
+            valid: true,
+            warning: false
+          });
+          spyOn(instance, 'setState');
+          instance.showMessage();
+          expect(instance.setState).not.toHaveBeenCalled();
+          expect(instance.context.form.setActiveInput).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe("hideMessage", () => {
+      describe("triggers state change and function call", () => {
+        it("if not valid", () => {
+          instance.setState({
+            valid: false,
+            warning: false
+          });
+          spyOn(instance, 'setState');
+          instance.hideMessage();
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: false
+          });
+        });
+        it("if warning", () => {
+          instance.setState({
+            valid: true,
+            warning: true
+          });
+          spyOn(instance, 'setState');
+          instance.hideMessage();
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: false
+          });
+        });
+      });
+      describe("doesn't trigger state change and function call", () => {
+        it("if valid and not a warning", () => {
+          instance.setState({
+            valid: true,
+            warning: false
+          });
+          spyOn(instance, 'setState');
+          instance.hideMessage();
+          expect(instance.setState).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe("immediatelyHideMessage", () => {
+      it("sets state to hide message instantly", () => {
+        spyOn(instance, 'setState');
+        instance.immediatelyHideMessage();
+        expect(instance.setState).toHaveBeenCalledWith({
+          messageShown: false,
+          immediatelyHideMessage: true
+        });
       });
     });
   });
@@ -698,22 +823,12 @@ describe('InputValidation', () => {
     });
 
     describe('when the input is within a tab', () => {
-      it('notifies the tab of the new validations state', () => {
+      it('calls resetTab', () => {
+        instance.context.tab = {};
         instance.setState({ valid: false });
-        let spy = jasmine.createSpy();
-        instance.context.tab = { setValidity: spy };
+        spyOn(instance, 'resetTab');
         instance._handleContentChange();
-
-        expect(spy).toHaveBeenCalledWith(true);
-      });
-
-      it('notifies the tab of the new warnings state', () => {
-        instance.setState({ warning: true });
-        let spy = jasmine.createSpy('warningSpy');
-        instance.context.tab = { setWarning: spy };
-        instance._handleContentChange();
-
-        expect(spy).toHaveBeenCalledWith(false);
+        expect(instance.resetTab).toHaveBeenCalled();
       });
     });
 
@@ -722,6 +837,26 @@ describe('InputValidation', () => {
         instance.setState({ valid: false, warning: true });
         expect(instance._handleContentChange).not.toThrow();
       });
+    });
+  });
+
+  describe('resetTab', () => {
+    it('notifies the tab of the new validations state', () => {
+      instance.setState({ valid: false });
+      let spy = jasmine.createSpy();
+      instance.context.tab = { setValidity: spy };
+      instance.resetTab();
+
+      expect(spy).toHaveBeenCalledWith(true);
+    });
+
+    it('notifies the tab of the new warnings state', () => {
+      instance.setState({ warning: true });
+      let spy = jasmine.createSpy('warningSpy');
+      instance.context.tab = { setWarning: spy };
+      instance.resetTab();
+
+      expect(spy).toHaveBeenCalledWith(false);
     });
   });
 

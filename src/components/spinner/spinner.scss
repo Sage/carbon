@@ -1,5 +1,5 @@
-@import 'colors';
-@import 'mixins';
+@import "./../../style-config/colors";
+@import "./../../style-config/mixins";
 
 @include keyframes(rotate360) {
   0%    {
@@ -13,7 +13,7 @@
 
 $std-speed: 0.7s;
 
-.ui-spinner {
+.carbon-spinner {
   @include animation(rotate360 $std-speed linear forwards infinite);
   border-radius: 50%;
   box-sizing: content-box;
@@ -21,7 +21,7 @@ $std-speed: 0.7s;
 }
 
 @mixin spinner-theme($type, $color, $border, $background, $color-hover) {
-  .ui-spinner--#{$type} {
+  .carbon-spinner--#{$type} {
     border-style: solid;
     border-top-color: rgba( $color, 1);
     border-bottom-color: rgba( $color, .5);
@@ -34,11 +34,11 @@ $std-speed: 0.7s;
     @include spinner-theme($set...);
 }
 
-.ui-spinner--extra-small    { width: 8px; height: 8px; border-width: 2px }
-.ui-spinner--small          { width: 12px; height: 12px; border-width: 3px }
-.ui-spinner--medium-small   { width: 20px; height: 20px; border-width: 5px }
-.ui-spinner--medium         { width: 25px; height: 25px; border-width: 6px }
-.ui-spinner--medium-large   { width: 32px; height: 32px; border-width: 8px }
-.ui-spinner--large          { width: 40px; height: 40px; border-width: 10px }
-.ui-spinner--extra-large    { width: 45px; height: 45px; border-width: 11px }
+.carbon-spinner--extra-small    { width: 8px; height: 8px; border-width: 2px }
+.carbon-spinner--small          { width: 12px; height: 12px; border-width: 3px }
+.carbon-spinner--medium-small   { width: 20px; height: 20px; border-width: 5px }
+.carbon-spinner--medium         { width: 25px; height: 25px; border-width: 6px }
+.carbon-spinner--medium-large   { width: 32px; height: 32px; border-width: 8px }
+.carbon-spinner--large          { width: 40px; height: 40px; border-width: 10px }
+.carbon-spinner--extra-large    { width: 45px; height: 45px; border-width: 11px }
 

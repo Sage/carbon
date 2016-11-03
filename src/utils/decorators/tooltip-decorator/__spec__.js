@@ -7,6 +7,7 @@ import TooltipDecorator from './tooltip-decorator';
 class BasicClass extends React.Component {
   componentWillUpdate() {}
   componentDidUpdate() {}
+  componentWillReceiveProps() {}
   onBlur = () => {}
   onFocus = () => {}
   onMouseEnter = () => {}
@@ -33,6 +34,7 @@ class BasicClass extends React.Component {
 class StrippedClass extends React.Component {
   componentWillUpdate() {}
   componentDidUpdate() {}
+  componentWillReceiveProps() {}
   onBlur = () => {}
   onFocus = () => {}
   onMouseEnter = () => {}
@@ -69,6 +71,27 @@ describe('tooltip-decorator', () => {
 
   afterEach(() => {
     jasmine.clock().uninstall();
+  });
+
+  describe('componentWillReceiveProps', () => {
+    describe('if currently visible', () => {
+      it('calls setState to reset the hover', () => {
+        topTooltip.state.isVisible = true;
+        spyOn(topTooltip, 'setState');
+        topTooltip.componentWillReceiveProps();
+        expect(topTooltip.setState).toHaveBeenCalledWith({
+          isVisible: false
+        });
+      });
+    });
+
+    describe('if not visible', () => {
+      it('does not call setState', () => {
+        spyOn(topTooltip, 'setState');
+        topTooltip.componentWillReceiveProps();
+        expect(topTooltip.setState).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('componentWillUpdate', () => {
@@ -498,6 +521,40 @@ describe('tooltip-decorator', () => {
         topTooltip.onHide();
         topTooltip.positionTooltip();
         expect(topTooltip.getTooltip).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when there is no tooltip', () => {
+      it('hides the tooltip', () => {
+        noTooltip.onShow();
+        jasmine.clock().tick(100);
+        expect(noTooltip.state.isVisible).toBeFalsy();
+      });
+    });
+
+    describe('when there is no target', () => {
+      beforeEach(()  => {
+        spyOn(leftTooltip, 'getTarget').and.returnValue(null);
+        spyOn(leftTooltip, 'getTooltip').and.returnValue(
+            {
+              offsetWidth: 100,
+              offsetHeight: 50,
+              style: {},
+              children:
+                [
+                  { foo: 'bar' },
+                  {
+                    offsetHeight: 7
+                  }
+                ]
+            }
+        );
+      });
+
+      it('hides the tooltip', () => {
+        leftTooltip.onShow();
+        jasmine.clock().tick(100);
+        expect(leftTooltip.state.isVisible).toBeFalsy();
       });
     });
   });

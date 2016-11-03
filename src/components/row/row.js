@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { compact } from 'lodash';
+import Immutable from 'immutable';
 
 /**
  * A row widget.
@@ -32,8 +33,29 @@ class Row extends React.Component {
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object
-    ])
+    ]),
+
+    /**
+     * Pass a custom value for the gutter
+     * (extra-small, small, medium, large or extra-large)
+     *
+     * @property gutter
+     * @type {String}
+     */
+    gutter: React.PropTypes.string,
+
+    /**
+     * Show a divide between columns
+     *
+     * @property columnDivide
+     * @type {String}
+     */
+    columnDivide: React.PropTypes.bool
   }
+
+  static defaultProps = {
+    gutter: "medium"
+  };
 
   /**
    * Builds row columns from the children object fields
@@ -47,7 +69,7 @@ class Row extends React.Component {
     let columns = [],
         children = (this.props.children.constructor === Array) ? compact(this.props.children) : this.props.children;
 
-    if (children.constructor === Array && children.length) {
+    if ((children.constructor === Array && children.length) || (Immutable.Iterable.isIterable(children))) {
       children.forEach((child, index) => {
         columns.push(this.buildColumn(child, index));
       });
@@ -68,11 +90,12 @@ class Row extends React.Component {
    */
   buildColumn = (child, key) => {
     let columnClass = classNames(
-      "ui-row__column",
+      "carbon-row__column",
       child.props.columnClasses, {
-        [`ui-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
-        [`ui-row__column--span-${child.props.columnSpan}`]: child.props.columnSpan,
-        [`ui-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign
+        [`carbon-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
+        [`carbon-row__column--span-${child.props.columnSpan}`]: child.props.columnSpan,
+        [`carbon-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign,
+        "carbon-row__column--column-divide": this.props.columnDivide
       }
     );
 
@@ -96,12 +119,15 @@ class Row extends React.Component {
       columns = this.props.columns;
     } else if (this.props.children && this.props.children.constructor === Array) {
       columns = compact(this.props.children).length;
+    } else if (Immutable.Iterable.isIterable(this.props.children)) {
+      columns = this.props.children.size;
     }
 
     return classNames(
-      'ui-row',
+      'carbon-row',
+      `carbon-row--gutter-${this.props.gutter}`,
       this.props.className,
-      `ui-row--columns-${columns}`
+      `carbon-row--columns-${columns}`
     );
   }
 

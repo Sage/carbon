@@ -1,13 +1,13 @@
-@import "colors";
-@import "input-field";
-@import "z-index";
+@import "./../../style-config/colors";
+@import "./../../style-config/input-field";
+@import "./../../style-config/z-index";
 
-.ui-split-button {
+.carbon-split-button {
   display: inline-block;
   position: relative;
 }
 
-.ui-split-button__main-button {
+.carbon-split-button__main-button {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   height: $input-common-height;
@@ -15,7 +15,7 @@
   margin-left: 0px; // Safari fix
 }
 
-.ui-split-button__toggle {
+.carbon-split-button__toggle {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   border-left: none;
@@ -25,28 +25,28 @@
   vertical-align: top;
   width: $input-common-height;
 
-  &.ui-button--primary {
+  &.carbon-button--primary {
     border-left: 1px solid $blue-light;
 
-    &.ui-button--disabled {
+    &.carbon-button--disabled {
       border-left-color: transparent;
     }
   }
 
-  .ui-split-button--open & {
-    background-color: $blue-bright;
+  .carbon-split-button--open &:not(.carbon-button--disabled) {
+    background-color: $blue;
     border-bottom-right-radius: 0;
     color: $white;
   }
 }
 
-.ui-split-button__toggle:not(.ui-button--disabled):active {
+.carbon-split-button__toggle:not(.carbon-button--disabled):active {
   background-color: $blue-bright;
   border-color: $blue-bright;
 }
 
-.ui-split-button__additional-buttons {
-  background-color: $blue-bright;
+.carbon-split-button__additional-buttons {
+  background-color: $blue;
   border-radius: 4px;
   border-top-right-radius: 0;
   min-width: 100%;
@@ -54,7 +54,7 @@
   position: absolute;
   z-index: $z-split-button;
 
-  .ui-button {
+  .carbon-button:not(.carbon-button--disabled) {
     border: none;
     border-radius: 0;
     color: $white;
@@ -65,7 +65,7 @@
     text-align: left;
 
     &:hover {
-      background-color: $blue-light;
+      background-color: $azul;
     }
   }
 }

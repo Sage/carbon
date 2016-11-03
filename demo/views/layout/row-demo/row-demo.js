@@ -9,6 +9,7 @@ import Icon from 'components/icon';
 import Row from 'components/row';
 import Button from 'components/button';
 import Textbox from 'components/textbox';
+import Checkbox from 'components/checkbox';
 import Number from 'components/number';
 import Dropdown from 'components/dropdown';
 import { Table, TableRow, TableCell, TableHeader } from 'components/table';
@@ -34,18 +35,19 @@ class RowDemo extends React.Component {
    */
   get demo() {
     return (
-      <Row columns={ this.value('columns') }>
+      <Row columns={ this.value('columns') } gutter={ this.value('gutter') } columnDivide={ this.value('columnDivide') }>
         {
           this.value('columnData').map((data, index) => {
             return (
               <div
+                style={{ backgroundColor: '#efefef' }}
                 key={ index }
                 columnOffset={ data.get('columnOffset') }
                 columnSpan={ data.get('columnSpan') }
                 columnAlign={ data.get('columnAlign') }
               >Foobar</div>
             );
-          }).toJS()
+          })
         }
       </Row>
     );
@@ -61,6 +63,14 @@ class RowDemo extends React.Component {
 
     if (this.value('columns')) {
       html += `\n  columns='${this.value('columns')}'\n`;
+    }
+
+    if (this.value('gutter')) {
+      html += `\n  gutter='${this.value('gutter')}'\n`;
+    }
+
+    if (this.value('columnDivide')) {
+      html += `\n  columnDivide='true'\n`;
     }
 
     html += ">\n";
@@ -106,6 +116,35 @@ class RowDemo extends React.Component {
     }, {
       id: 'right',
       name: 'Right'
+    }]);
+  }
+
+  /**
+   * @method sizeOptions
+   * @return {Object}
+   */
+  get sizeOptions() {
+    return Immutable.fromJS([{
+      id: 'extra-small',
+      name: 'Extra Small'
+    }, {
+      id: 'small',
+      name: 'Small'
+    }, {
+      id: 'medium-small',
+      name: 'Medium Small'
+    }, {
+      id: 'medium',
+      name: 'Medium'
+    }, {
+      id: 'medium-large',
+      name: 'Medium Large'
+    }, {
+      id: 'large',
+      name: 'Large'
+    }, {
+      id: 'extra-large',
+      name: 'Extra Large'
     }]);
   }
 
@@ -188,6 +227,20 @@ class RowDemo extends React.Component {
             labelInline={ true }
             onChange={ this.action.bind(this, 'columns') }
             placeholder="Enter a fixed number of columns"
+          />
+
+          <Dropdown
+            label="Gutter"
+            value={ this.value('gutter') }
+            labelInline={ true }
+            onChange={ this.action.bind(this, 'gutter') }
+            options={ this.sizeOptions }
+          />
+
+          <Checkbox
+            label="Column Divide"
+            value={ this.value('columnDivide') }
+            onChange={ this.action.bind(this, 'columnDivide') }
           />
         </Row>
 
