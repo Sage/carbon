@@ -1,19 +1,24 @@
-.info-tile {
-  width: 320px;
-  display: inline-block;
-  margin-right: 15px;
-  margin-top: 15px;
+@import "../../../demo-variables";
 
-  &:last-child {
-    margin: none;
+.demo-info-tile {
+  box-shadow: 0 0 35px 0 rgba(0,0,0,0.12);
+  .carbon-pod__block--tile {
+    border: none;
+    box-shadow: none;
+  }
+
+  margin-bottom: 4%;
+  width: 100%;
+  @media (min-width: $response-point-medium) {
+    width: 29.33333%;
   }
 }
 
-.info-tile__content {
+.demo-info-tile__content {
   text-align: center;
 }
 
-.info-tile__image {
+.demo-info-tile__image {
   margin-bottom: 35px;
 
   .carbon-portrait__img {
@@ -21,10 +26,10 @@
   }
 }
 
-.info-tile__heading {
+.demo-info-tile__heading {
   font-size: 18px;
 }
 
-.info-tile__description {
+.demo-info-tile__description {
   font-size: 16px;
 }

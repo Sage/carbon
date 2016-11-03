@@ -1,3 +1,10 @@
-.carbon-demo--desktop .carbon-demo__content {
-  margin-left: 290px; // need to setup some vars for these sizes to share with sidebar
+.chrome {
+  @media(min-width: $menu-popout-point) {
+    padding-left: 290px;
+  }
+  .demo-menu {
+    @media(min-width: $menu-popout-point) {
+      position: relative;
+    }
+  }
 }

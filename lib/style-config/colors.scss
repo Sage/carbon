@@ -1,8 +1,11 @@
 // Brand Colours - These are named by their colour.
 $white:                      #FFF !default;
 $black:                      #000 !default;
+
+// Grey
 $grey-dark-plus:             #1B1D21 !default;
-$grey:                       #D0D0D0 !default;
+$dark-blue-plus:             #262A33 !default;
+
 $grey-dark-blue:             #3C424F !default;
 $grey-dark-blue-90:          #4F5460 !default;
 $grey-dark-blue-80:          #636872 !default;
@@ -11,48 +14,70 @@ $grey-dark-blue-60:          #8A8E95 !default;
 $grey-dark-blue-50:          #9DA0A7 !default;
 $grey-dark-blue-40:          #B1B3B9 !default;
 $grey-dark-blue-30:          #C4C6CA !default;
+$grey-dark-blue-25:          #CED0D3 !default;
 $grey-dark-blue-20:          #D8D9DC !default;
 $grey-dark-blue-15:          #E2E3E5 !default;
 $grey-dark-blue-10:          #EBECED !default;
 $grey-dark-blue-5:           #F5F6F7 !default;
-$grey-dark:                  #4D4F53 !default;
-$grey-mid:                   #AFAFAF !default;
-$grey-light:                 #EBEDEF !default;
+$grey-light:                 $grey-dark-blue-10 !default;
+
+$grey:                       $grey-dark-blue-25 !default;
+$grey-dark:                  $grey-dark-blue !default;
+$grey-mid:                   $grey-dark-blue-40 !default;
 $grey-background:            $grey-light !default;
-$grey-header:                #F2F3F6 !default;
-$green:                      #007F64 !default;
-$green-mid:                  #42AE42 !default;
+$grey-header:                $grey-dark-blue-5 !default;
+
+// Green
 $green-bright:               #00DC00 !default;
+$green-apple:                #50B848 !default;
+$green-apple-05:             #F6FBF6 !default;
+$green-apple-20:             #DCF1DA !default;
 $green-bright-dull:          #38C72A !default;
-$green-apple:                #42AE42 !default;
-$green-apple-05:             #F5FBF5 !default;
-$green-apple-20:             #D9EFD9 !default;
-$orange:                     #FF5400 !default;
-$orange-bright:              #FF5800 !default;
-$orange-bright-05:           #FFF6F2 !default;
-$orange-bright-20:           #FFDDCC !default;
-$orange-mid:                 #FF9900 !default;
+$green:                      $green-apple !default;
+
+// Orange
+$orange-bright:              #FF7D00 !default;
+$orange-bright-05:           #FFF8F2 !default;
+$orange-bright-20:           #FFE4CC !default;
+$orange-mid:                 $orange-bright !default;
+$orange:                     $orange-bright !default;
+
+// Blue
 $blue:                       #255BC7 !default;
-$blue-dark:                  #193E90 !default;
 $blue-bright:                #1963F6 !default;
-$blue-navy:                  #3592FF !default;
-$blue-sky:                   #3592FF !default;
-$blue-sky-05:                #F5F9FF !default;
-$blue-sky-20:                #D7E9FF !default;
+$blue-sky:                   #1573E6 !default;
+$blue-sky-05:                #F3F8FE !default;
+$blue-sky-20:                #D0E3FA !default;
+$blue-navy:                  $blue-sky !default;
 $blue-light:                 #4782F7 !default;
+$azul:                       #004089 !default;
+$blue-dark:                  $azul !default;
+
+// Red
 $red:                        #D63F40 !default;
+$red-light:                  #E42C2D !default;
+$red-dark:                   #C11E20 !default;
 $red-05:                     #FDF5F5 !default;
 $red-20:                     #F7D9D9 !default;
+
+// Yellow
 $yellow:                     #FFAB00 !default;
 $yellow-05:                  #FFFBF2 !default;
 $yellow-20:                  #FFEECC !default;
+
+// Magenta
 $magenta:                    #ED1C5F !default;
 $magenta-dull:               #CA2A60 !default;
+$magenta-light:              #F32E6D !default;
+
+// Purple
 $purple:                     rebeccapurple !default;
 $purple-05:                  #F7F5FA !default;
 $purple-20:                  #E0D6EB !default;
 
-// Main colours
+////////////////////////////////
+
+// States
 $warning:                    $orange-bright !default;
 $warning-text-background:    $orange-bright-05 !default;
 $warning-border:             $orange-bright-20 !default;
@@ -61,7 +86,7 @@ $warning-hover:              darken($orange-bright, 20%) !default;
 $error:                      $red    !default;
 $error-text-background:      $red-05 !default;
 $error-border:               $red-20 !default;
-$error-hover:                darken($red, 20%) !default;
+$error-hover:                $red-dark !default;
 
 $info:                       $blue-sky !default;
 $info-text-background:       $blue-sky-05 !default;
@@ -102,11 +127,11 @@ $colorIconSets: (
   ("maintenance", $warning, $warning-border, $warning-text-background, $warning-hover),
 );
 
-$border-color:               #CCD1DC !default;
-$table-border-color:         #E4E7EA !default;
-$background-alt:             #F5F5F6 !default;
-$pod-footer:                 #F8F8F8 !default;
+$border-color:               $grey-dark-blue-25 !default;
+$table-border-color:         $grey-dark-blue-20 !default;
+$background-alt:             $grey-dark-blue-5 !default;
+$pod-footer:                 $grey-dark-blue-5 !default;
 
-$row-alt-color:              #F8F9FB !default;
-$row-hover-color:            #EDF4FB !default;
+$row-alt-color:              $grey-dark-blue-5 !default;
+$row-hover-color:            $blue-sky-20 !default;
 $row-hover-input-border:     lighten($blue, 30%) !default;

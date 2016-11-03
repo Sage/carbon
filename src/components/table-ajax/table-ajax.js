@@ -60,6 +60,15 @@ class TableAjax extends Table {
     paginate: React.PropTypes.bool,
 
     /**
+     * Pagination
+     * Page Size of grid (number of visible records)
+     *
+     * @property pageSize
+     * @type {String}
+     */
+    pageSize: React.PropTypes.string,
+
+    /**
      * Endpoint to fetch the data for table
      *
      * @property path
@@ -135,13 +144,34 @@ class TableAjax extends Table {
 
   /**
    * Lifecycle for after a update has happened
+   * Retrieve the data when page size chagnes
    * Resize the grid to fit new content
    *
    * @method componentDidUpdate
+   * @param {Object} preProps The previos props passed down to the component
+   * @param {Object} prevState The previous of the component
    * @return {Void}
    */
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.pageSize !== prevState.pageSize) {
+      this.emitOnChangeCallback('data', this.emitOptions());
+    }
     this.resizeTable();
+  }
+
+  /**
+   * Lifecycle before a mounted component receives new props
+   * Set pageSize state if component pass a new pageSize props
+   *
+   * @method componentWillReceiveProps
+   * @param {Object} nextProps The new props passed down to the component
+   * @return {Void}
+   */
+  componentWillReceiveProps(nextProps) {
+    super.componentWillReceiveProps(nextProps);
+    if (this.props.pageSize !== nextProps.pageSize) {
+      this.setState({pageSize: nextProps.pageSize});
+    }
   }
 
   /**

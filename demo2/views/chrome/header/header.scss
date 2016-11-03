@@ -1,0 +1,14 @@
+@import "../../../demo-variables";
+
+.demo-header {
+  padding: 4%;
+  position: fixed;
+  width: 92%;
+  z-index: 10;
+
+  &__menu-toggle {
+    @media (min-width: $menu-popout-point) {
+      display: none;
+    }
+  }
+}
