@@ -1,3 +1,9 @@
+# 0.29.0
+
+## Datepicker Upgrade
+
+* Datepicker has been upgraded the latest version
+
 # 0.28.1
 
 ## Bug Fixes
