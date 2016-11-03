@@ -1,3 +1,5 @@
+@import "../../../demo-variables";
+
 .demo-info-tile {
   box-shadow: 0 0 35px 0 rgba(0,0,0,0.12);
   .carbon-pod__block--tile {
@@ -7,7 +9,7 @@
 
   margin-bottom: 4%;
   width: 100%;
-  @media (min-width: 800px) {
+  @media (min-width: $response-point-medium) {
     width: 29.33333%;
   }
 }
