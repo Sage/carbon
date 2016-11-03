@@ -59,12 +59,6 @@ class DropdownFilter extends Dropdown {
     this.handleVisibleChange = this.handleVisibleChange.bind(this);
   }
 
-  inputIconHTML(key) {
-    if (!this.props.suggest) {
-      return super.inputIconHTML(key);
-    }
-  }
-
   static propTypes = assign({}, Dropdown.propTypes, {
 
     /**
