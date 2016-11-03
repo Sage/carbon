@@ -76,9 +76,9 @@ class Tooltip extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-tooltip',
-      `ui-tooltip--position-${this.props.position}`,
-      `ui-tooltip--pointer-align-${this.props.align}`,
+      'carbon-tooltip',
+      `carbon-tooltip--position-${this.props.position}`,
+      `carbon-tooltip--pointer-align-${this.props.align}`,
       this.props.className
     );
   }
@@ -92,12 +92,12 @@ class Tooltip extends React.Component {
   get tooltipHTML() {
     let contents = [
       this.props.children,
-      <span key='pointer' className='ui-tooltip__pointer'></span>
+      <span key='pointer' className='carbon-tooltip__pointer'></span>
     ];
 
     return (
       <div className={ this.mainClasses }>
-        <div className="ui-tooltip__container">
+        <div className="carbon-tooltip__container">
           { contents }
         </div>
       </div>

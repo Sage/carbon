@@ -3,6 +3,7 @@ import Immutable from 'immutable';
 import Tab from './tab';
 import { compact } from 'lodash';
 import classNames from 'classnames';
+import Event from './../../utils/helpers/events';
 
 /**
  * A Tabs widget.
@@ -44,11 +45,11 @@ import classNames from 'classnames';
  *
  * The tabs widget also allows you to select a tab on page load. By default this is set
  * to the first tab. To set a different tab on page load pass a tabId to the
- * initialSelectedTabId prop as shown in the example below.
+ * selectedTabId prop as shown in the example below.
  *
  * To render a Tabs Widget with Options:
  *
- *   <Tabs renderHiddenTabs={ false } initialSelectedTabId='uniqueId2' >
+ *   <Tabs renderHiddenTabs={ false } selectedTabId='uniqueId2' >
  *     <Tab title='Title 1' tabId='uniqueId1'>
  *
  *       <Textbox />
@@ -89,14 +90,14 @@ class Tabs extends React.Component {
     renderHiddenTabs: React.PropTypes.bool,
 
     /**
-     * The selected tab on page load
-     * Defaults to the first tab
+     * The tab to be displayed updating this prop will change the visible tab.
+     * Defaults to the first tab upon initial load.
      *
-     * @property initialSelectedTabId
+     * @property selectedTabId
      * @type {String}
      * @default firstTab
      */
-    initialSelectedTabId: React.PropTypes.string,
+    selectedTabId: React.PropTypes.string,
 
     /**
      * Individual tabs
@@ -118,12 +119,12 @@ class Tabs extends React.Component {
     align: React.PropTypes.string,
 
     /**
-     * Emitted when a tab header is clicked
+     * Emitted when the visible tab is changed
      *
-     * @property onTabClick
+     * @property onTabChange
      * @type {Func}
      */
-    onTabClick: React.PropTypes.func
+    onTabChange: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -174,10 +175,9 @@ class Tabs extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
-    let initialSelectedTabId;
-
-    if (this.props.initialSelectedTabId) {
-      initialSelectedTabId = this.props.initialSelectedTabId;
+    let selectedTabId;
+    if (this.props.selectedTabId) {
+      selectedTabId = this.props.selectedTabId;
     } else {
       let hash = this._window.location.hash.substring(1);
 
@@ -196,13 +196,26 @@ class Tabs extends React.Component {
           }
         }
 
-        initialSelectedTabId = useHash ? hash : children[0].props.tabId;
+        selectedTabId = useHash ? hash : children[0].props.tabId;
       } else {
-        initialSelectedTabId = this.props.children.props.tabId;
+        selectedTabId = this.props.children.props.tabId;
       }
     }
+    this.setState({ selectedTabId: selectedTabId });
+  }
 
-    this.setState({ selectedTabId: initialSelectedTabId });
+  /**
+  * A lifecycle method that is called when props are updated.
+  * Used here to change the visible tab when selectedTabId is updated.
+  *
+  * @method  componentWillReceiveProps
+  * @param {object} nextProps
+  */
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selectedTabId !== nextProps.selectedTabId &&
+        nextProps.selectedTabId !== this.state.selectedTabId) {
+      this.updateVisibleTab(nextProps.selectedTabId);
+    }
   }
 
   /**
@@ -224,12 +237,18 @@ class Tabs extends React.Component {
    * @param {Event} ev Click Event
    */
   handleTabClick = (ev) => {
-    let tabid = ev.target.dataset.tabid;
+    if (Event.isEnterKey(ev) || !Event.isEventType(ev, 'keydown')) {
+      let tabid = ev.target.dataset.tabid;
+      this.updateVisibleTab(tabid);
+    }
+  }
+
+  updateVisibleTab(tabid) {
     this._window.location = `#${tabid}`;
     this.setState({ selectedTabId: tabid });
 
-    if (this.props.onTabClick) {
-      this.props.onTabClick(tabid);
+    if (this.props.onTabChange) {
+      this.props.onTabChange(tabid);
     }
   }
 
@@ -240,18 +259,18 @@ class Tabs extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-tabs',
+      'carbon-tabs',
       this.props.className
     );
   }
 
   tabHeaderClasses = (tab) => {
     return classNames(
-      'ui-tabs__headers__header',
+      'carbon-tabs__headers__header',
       tab.props.headerClassName,
       {
-        'ui-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
-        'ui-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
+        'carbon-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
+        'carbon-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
       }
     );
   }
@@ -268,15 +287,18 @@ class Tabs extends React.Component {
         <li
           className={ this.tabHeaderClasses(child) }
           onClick={ this.handleTabClick }
+          onKeyDown={ this.handleTabClick }
           key={ child.props.tabId }
-          data-tabid={ child.props.tabId } >
+          ref={ `${child.props.tabId}-tab` }
+          data-tabid={ child.props.tabId }
+          tabIndex='0'>
             { child.props.title }
         </li>
       );
     });
 
     return(
-      <ul className={ `ui-tabs__headers ui-tabs__headers--align-${ this.props.align }` } >
+      <ul className={ `carbon-tabs__headers carbon-tabs__headers--align-${ this.props.align }` } >
         { tabTitles }
       </ul>
     );
@@ -297,7 +319,7 @@ class Tabs extends React.Component {
       }
     });
 
-    return React.cloneElement(visibleTab, { className: 'ui-tab--selected' });
+    return React.cloneElement(visibleTab, { className: 'carbon-tab--selected' });
   }
 
   /**
@@ -314,7 +336,7 @@ class Tabs extends React.Component {
       let klass = 'hidden';
 
       if (child.props.tabId === this.state.selectedTabId) {
-        klass = 'ui-tab--selected';
+        klass = 'carbon-tab--selected';
       }
 
       return React.cloneElement(child, { className: klass });

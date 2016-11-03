@@ -8,7 +8,9 @@ class BasicClass {
     name: 'foo',
     label: 'test label',
     labelInline: true,
-    labelWidth: 20
+    labelWidth: 20,
+    labelHelp: "foo",
+    fieldHelp: "bar"
   };
 
   context = {
@@ -33,7 +35,9 @@ class FalseLabelClass {
 
 class UnnamedClass {
   props = {
-    name: 'bar qux'
+   inputWidth: 20,
+   labelInline: true,
+   name: 'bar qux'
   };
 
   context = {
@@ -160,7 +164,7 @@ describe('InputLabel', () => {
     describe('when help is enabled', () => {
       it('adds the relevant class', () => {
         let ExtendedClassOne = InputLabel(HelpClass);
-        let instance = TestUtils.renderIntoDocument(<ExtendedClassOne fieldHelp={ true } />);
+        let instance = TestUtils.renderIntoDocument(<ExtendedClassOne labelHelp={ true } />);
         expect(instance.labelClasses).toEqual('common-input__label common-input__label--help');
       });
     });
@@ -242,7 +246,7 @@ describe('InputLabel', () => {
 
     describe('when label help is not provided', () => {
       it('does not return a help span', () => {
-        expect(instanceBasic.fieldHelpHTML).toBeUndefined();
+        expect(instanceFalse.fieldHelpHTML).toBeUndefined();
       });
     });
   });
@@ -257,8 +261,16 @@ describe('InputLabel', () => {
 
   describe('fieldProps', () => {
     describe('when label has a width', () => {
-      it('sets a width for the field', () => {
-        expect(instanceBasic.fieldProps.style.width).toEqual('80%');
+      describe('and the input does not have a width', () => {
+        it('sets a width for the field', () => {
+          expect(instanceBasic.fieldProps.style.width).toEqual('80%');
+        });
+      });
+
+      describe('and the input does have a width', () => {
+        it('sets a width for the field', () => {
+          expect(instanceUnNamed.fieldProps.style.width).toEqual('20%');
+        });
       });
     });
 
@@ -270,8 +282,8 @@ describe('InputLabel', () => {
   });
 
   describe('mainClasses', () => {
-    it('adds the label inline class if input is inline', () => {
-      expect(instanceBasic.mainClasses).toEqual('common-input--label-inline');
+    it('adds the label inline class and help classes if input if active', () => {
+      expect(instanceBasic.mainClasses).toEqual('common-input--label-inline common-input--has-label-help common-input--has-field-help');
     });
 
     it('does not add the label inline class if input is inline', () => {

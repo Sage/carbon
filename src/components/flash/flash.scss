@@ -1,8 +1,8 @@
-@import 'colors';
-@import 'general';
-@import 'z-index';
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
+@import "./../../style-config/z-index";
 
-.ui-flash {
+.carbon-flash {
   bottom: 0px;
   overflow: hidden;
   position: fixed;
@@ -19,7 +19,15 @@
   }
 }
 
-.ui-flash__slider {
+.carbon-flash__link {
+  color: $white;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.carbon-flash__slider {
   content: 'h';
   display: inline-block;
   font-size: 13px;
@@ -30,7 +38,7 @@
   right: 0;
 
   @mixin flash-theme($type, $color, $border, $background, $color-hover) {
-    .ui-flash--#{$type} & {
+    .carbon-flash--#{$type} & {
       background-color: $color;
     }
   }
@@ -40,7 +48,7 @@
   }
 }
 
-.ui-flash__content {
+.carbon-flash__content {
   background-color: transparent ;
   margin: 0 auto;
   max-width: $app-max-width;
@@ -48,7 +56,7 @@
   position: relative;
 }
 
-.ui-flash__message {
+.carbon-flash__message {
   color: $white;
   font-size: 14px;
   margin: 20px 60px;
@@ -56,7 +64,7 @@
   text-align: left;
 }
 
-.ui-flash__icon {
+.carbon-flash__icon {
   left: 0;
   margin-top: -20px;
   position: absolute;
@@ -69,18 +77,18 @@
   }
 }
 
-.ui-flash__icon {
-  .ui-icon__svg {
+.carbon-flash__icon {
+  .carbon-icon__svg {
     height: 40px;
     width: 50px;
   }
 
-  .ui-icon__svg-group {
+  .carbon-icon__svg-group {
     fill: $white;
   }
 }
 
-.ui-flash__close-icon {
+.carbon-flash__close-icon {
   color: #FFF;
   cursor: pointer;
   margin-top: -8px;
@@ -95,24 +103,24 @@
  * Animation for slider
  */
 
-.ui-flash__slider-enter {
+.carbon-flash__slider-enter {
   left: 50%;
   opacity: 0;
   right: 50%;
 }
 
-.ui-flash__slider-enter-active {
+.carbon-flash__slider-enter-active {
   left: 0%;
   opacity: 1;
   right: 0%;
   transition: 500ms ease 100ms;
 }
 
-.ui-flash__slider-leave {
+.carbon-flash__slider-leave {
   opacity: 1;
 }
 
-.ui-flash__slider-leave-active  {
+.carbon-flash__slider-leave-active  {
   opacity: 0;
   transition: 500ms ease 100ms;
 }
@@ -121,20 +129,20 @@
  * Animation for content inside slider
  */
 
-.ui-flash__content-enter {
+.carbon-flash__content-enter {
   opacity: 0;
 }
 
-.ui-flash__content-enter-active {
+.carbon-flash__content-enter-active {
   opacity: 1;
   transition: 400ms ease 400ms;
 }
 
-.ui-flash__content-leave {
+.carbon-flash__content-leave {
   opacity: 1;
 }
 
-.ui-flash__content-leave-active  {
+.carbon-flash__content-leave-active  {
   opacity: 0;
   transition: 400ms ease-out 100ms;
 }

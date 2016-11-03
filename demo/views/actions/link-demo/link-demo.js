@@ -33,6 +33,8 @@ class LinkDemo extends React.Component {
         disabled={ this.value('disabled') }
         href={ this.value('href') }
         icon={ this.value('icon') }
+        iconAlign={ this.value('iconAlign') ? 'right' : 'left' }
+        to={ this.value('to') }
       >
         { this.value('text') || " " }
       </Link>
@@ -52,6 +54,11 @@ class LinkDemo extends React.Component {
       additionalProps = true;
     }
 
+    if (this.value('to')) {
+      html += `\n  to='${this.value('to')}'`;
+      additionalProps = true;
+    }
+
     if (this.value('disabled')) {
       html += "\n  disabled={true}";
       additionalProps = true;
@@ -59,6 +66,11 @@ class LinkDemo extends React.Component {
 
     if (this.value('icon')) {
       html += `\n  icon='${this.value('icon')}'`;
+      additionalProps = true;
+    }
+
+    if (this.value('iconAlign')) {
+      html += `\n  iconAlign='right'`;
       additionalProps = true;
     }
 
@@ -114,10 +126,23 @@ class LinkDemo extends React.Component {
           />
 
           <Textbox
+            label="To"
+            value={ this.value('to') }
+            labelInline={ true }
+            onChange={ this.action.bind(this, 'to') }
+          />
+
+          <Textbox
             label="Icon"
             value={ this.value('icon') }
             labelInline={ true }
             onChange={ this.action.bind(this, 'icon') }
+          />
+
+          <Checkbox
+            label="Icon Align Right"
+            value={ this.value('iconAlign') }
+            onChange={ this.action.bind(this, 'iconAlign') }
           />
         </Row>
       </div>

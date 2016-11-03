@@ -1,6 +1,6 @@
-# Carbon
+# Carbon [ ![Codeship Status for Sage/carbon](https://codeship.com/projects/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad/status?branch=master)](https://codeship.com/projects/115478)
 
-[ ![Codeship Status for Sage/carbon](https://codeship.com/projects/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad/status?branch=master)](https://codeship.com/projects/115478)
+<img src="./../master/logo/carbon-logo.png" width="50">
 
 Carbon is a library of reusable [React](https://facebook.github.io/react/) components and an interface for easily building user interfaces based on [Flux](https://facebook.github.io/flux/).
 
@@ -14,6 +14,7 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 * [An introduction to Node/npm](docs/guides/an-introduction-to-node-and-npm.md)
 * [Getting started](docs/guides/getting-started.md)
 * [A basic example of Flux](docs/guides/a-basic-example.md)
+* [Running Tests](https://github.com/Sage/carbon-factory/blob/master/docs/running-tests.md)
 
 ### Guides
 
@@ -45,6 +46,10 @@ To run the example, do the following steps:
   4. `gulp`
   5. Navigate to [http://localhost:8080/](http://localhost:8080/) in your favourite browser
 
+## Testing Changes Locally in your App
+
+See the guide on [installing unreleased changes](https://github.com/Sage/carbon/blob/master/docs/guides/installing-unreleased-changes.md)
+
 ## Technologies
 
 The following is a list of technologies Carbon utilises:
@@ -56,3 +61,7 @@ The following is a list of technologies Carbon utilises:
 * [Browserify](http://browserify.org/) - In order to consume the modular components in the browser, the code is compiled through Browserify. This also allows managing other dependencies such as stylesheets and images.
 * [Gulp](http://gulpjs.com/) - To easily run tasks in development, the Gulp task runner is recommended.
 * [Babel](https://babeljs.io/) ([ES6](https://github.com/lukehoban/es6features)) - To benefit from ES6 (and ES7) features, the code is compiled through Babel (this also compiles the JSX).
+
+## Licence
+
+Carbon is licensed under the [Apache-2.0 licence](https://github.com/Sage/carbon/blob/master/LICENSE).

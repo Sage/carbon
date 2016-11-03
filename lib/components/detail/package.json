@@ -1,0 +1,4 @@
+{
+  "main": "./detail.js",
+  "style": "./detail.scss"
+}

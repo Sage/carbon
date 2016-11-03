@@ -102,10 +102,10 @@ class Tab extends React.Component {
     let classes = this.props.className || '';
 
     if (!this.state.isValid) {
-      classes += ' ui-tab--errors';
+      classes += ' carbon-tab--errors';
     }
 
-    return 'ui-tab ' + classes;
+    return 'carbon-tab ' + classes;
   }
 
   /**

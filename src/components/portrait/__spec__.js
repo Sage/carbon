@@ -113,15 +113,29 @@ describe('Portrait', () => {
         expect(gravatarInstance.generateInitials).toMatch('data:image/png');
       });
     });
+
+    describe('darkBackground', () => {
+      it('uses a dark background color', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Portrait
+            src='foo'
+            darkBackground={ true }
+          />
+        );
+        let context = { fillRect: () => {} };
+        instance.applyBackground(context);
+        expect(context.fillStyle).toEqual("#4E545F");
+      });
+    });
   });
 
   describe('imgProps', () => {
     describe('when a gravatar is passed', () => {
       it('returns gravatar src', () => {
         let src = gravatarInstance.imgSrc;
-        let base = 'http://www.gravatar.com/avatar/';
+        let base = 'https://www.gravatar.com/avatar/';
         let hash = MD5('foo');
-        let size = '70'
+        let size = '60'
 
         expect(src).toEqual(`${base}${hash}?s=${size}&d=blank`);
       });
@@ -137,17 +151,17 @@ describe('Portrait', () => {
 
   describe('numericSizes', () => {
     it('returns a object mapping size to numeric value', () => {
-      expect(instance.numericSizes.small).toEqual('25');
+      expect(instance.numericSizes.small).toEqual('30');
     });
   });
 
   describe('mainClasses', () => {
-    it('adds a ui-portrait classes', () => {
-      expect(gravatarInstance.mainClasses).toEqual('ui-portrait ui-portrait--image ui-portrait--lmed ui-portrait--standard');
+    it('adds a carbon-portrait classes', () => {
+      expect(gravatarInstance.mainClasses).toEqual('carbon-portrait carbon-portrait--image carbon-portrait--medium carbon-portrait--standard');
     });
 
     it('appends additional passed classNames', () => {
-      expect(instance.mainClasses).toEqual('ui-portrait ui-portrait--image ui-portrait--lmed ui-portrait--standard custom-class');
+      expect(instance.mainClasses).toEqual('carbon-portrait carbon-portrait--image carbon-portrait--medium carbon-portrait--standard custom-class');
     });
   });
 

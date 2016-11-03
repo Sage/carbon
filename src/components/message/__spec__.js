@@ -10,7 +10,7 @@ describe('Message', () => {
     spy = jasmine.createSpy('dismiss');
 
     warningMessage = TestUtils.renderIntoDocument(
-      <Message as='warning' onDismiss={ spy } open={true} title='My Title'>Some warning</Message>
+      <Message as='warning' onDismiss={ spy } open={true} title='My Title' transparent={true}>Some warning</Message>
     )
 
     infoMessage = TestUtils.renderIntoDocument(
@@ -32,25 +32,25 @@ describe('Message', () => {
     });
 
     it('sets a dialog header', () => {
-      let header = TestUtils.findRenderedDOMComponentWithClass(warningMessage, 'ui-message__title');
+      let header = TestUtils.findRenderedDOMComponentWithClass(warningMessage, 'carbon-message__title');
       expect(header.textContent).toEqual('My Title');
     });
 
     it('renders type icon', () => {
-      let icon = TestUtils.findRenderedDOMComponentWithClass(errorMessage, 'ui-message__type-icon');
-      expect(icon.className).toEqual("ui-icon ui-message__type-icon icon-error");
+      let icon = TestUtils.findRenderedDOMComponentWithClass(errorMessage, 'carbon-message__type-icon');
+      expect(icon.className).toEqual("carbon-icon carbon-message__type-icon icon-error");
     });
 
     describe('dismiss', () => {
       describe('when onDismiss is passed', () => {
         it('adds a close icon', () => {
-          expect(TestUtils.findRenderedDOMComponentWithClass(warningMessage, 'ui-message__close')).toBeDefined();
+          expect(TestUtils.findRenderedDOMComponentWithClass(warningMessage, 'carbon-message__close')).toBeDefined();
         });
       });
 
       describe('when onDismiss is not passed', () => {
         it('does not add a close icon', () => {
-          expect(TestUtils.scryRenderedDOMComponentsWithClass(errorMessage, 'ui-message__close').length).toEqual(0);
+          expect(TestUtils.scryRenderedDOMComponentsWithClass(errorMessage, 'carbon-message__close').length).toEqual(0);
         });
       });
     });
@@ -65,16 +65,24 @@ describe('Message', () => {
       customDOM = ReactDOM.findDOMNode(customMessage);
     });
 
-    it('adds a className of ui-message--warning when type is warning', () => {
-      expect(warningDOM.className).toEqual('ui-message ui-message--warning');
+    it("adds a className carbon-message--warning when type is warning", () =>{
+      expect(warningDOM.className.indexOf('carbon-message--warning')).not.toEqual(-1);
     });
 
-    it('adds a className of ui-message--info when type is info', () => {
-      expect(infoDOM.className).toEqual('ui-message ui-message--info');
+    it("adds a className carbon-message--transparent when transparent is true", () =>{
+      expect(warningDOM.className.indexOf('carbon-message--transparent')).not.toEqual(-1);
+    });
+
+    it("adds a className carbon-message--dismissable when onDismiss is defined", () =>{
+      expect(warningDOM.className.indexOf('carbon-message--dismissable')).not.toEqual(-1);
+    });
+
+    it('adds a className of carbon-message--info when type is info', () => {
+      expect(infoDOM.className).toEqual('carbon-message carbon-message--info');
     });
 
     it('adds any additional classes passed', () => {
-      expect(customDOM.className).toEqual('ui-message fancy ui-message--info');
+      expect(customDOM.className).toEqual('carbon-message fancy carbon-message--info');
     });
   });
 

@@ -1,7 +1,7 @@
-@import 'colors';
-@import 'mixins';
+@import "./../../style-config/colors";
+@import "./../../style-config/mixins";
 
-.ui-pager {
+.carbon-pager {
   background-color: $grey-light;
   border-radius: 0 0 3px 3px;
   border: 1px solid $border-color;
@@ -12,59 +12,59 @@
   position: relative;
 }
 
-.ui-pager__size {
+.carbon-pager__size {
   position: absolute;
   left: 0;
   padding-left: 8px;
 
-  .ui-dropdown {
+  .carbon-dropdown {
     width: 55px;
     padding: 0 2px;
     display: inline-block;
   }
 }
 
-.ui-pager__navigation {
+.carbon-pager__navigation {
   display: inline-block;
 }
 
-.ui-pager__summary {
+.carbon-pager__summary {
   display: inline-block;
   padding-top: 8px;
   position: absolute;
   right: 8px;
 }
 
-.ui-pager__current-page {
+.carbon-pager__current-page {
   text-align: center;
   display: inline-block;
 
-  .ui-number__input {
+  .carbon-number__input {
     width: 35px;
     text-align: center;
   }
 }
 
-.ui-pager__previous {
+.carbon-pager__previous {
   @include transform(rotate(90deg) scale(1.4))
   display: inline-block;
   cursor: pointer;
   margin-right: 8px;
 }
 
-.ui-pager__previous--disabled {
+.carbon-pager__previous--disabled {
   opacity: 0.3;
   cursor: default;
 }
 
-.ui-pager__next {
+.carbon-pager__next {
   @include transform(rotate(-90deg) scale(1.4))
   display: inline-block;
   cursor: pointer;
   margin-left: 8px;
 }
 
-.ui-pager__next--disabled {
+.carbon-pager__next--disabled {
   opacity: 0.3;
   cursor: default;
 }

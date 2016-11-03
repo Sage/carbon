@@ -35,10 +35,11 @@ class FormDemo extends React.Component {
    */
   get demo() {
     return (
-      <Form 
+      <Form
         cancel={ this.value('cancel') }
         saveText={ this.value('saveText') }
         cancelText={ this.value('cancelText') }
+        save={ this.value('save') }
       >
         <Row>
           <Textbox
@@ -84,12 +85,17 @@ class FormDemo extends React.Component {
     html += '<Form'
 
     let dropline = false;
-    
+
     if (!this.value('cancel')) {
       dropline = true;
       html += '\n cancel={ false }'
     }
-    
+
+    if (!this.value('save')) {
+      dropline = true;
+      html += '\n save={ false }'
+    }
+
     if (this.value('saveText')) {
       dropline = true;
       html += `\n saveText="${ this.value('saveText') }"`;
@@ -143,6 +149,11 @@ class FormDemo extends React.Component {
             label="Cancel Button"
             value={ this.value('cancel') }
             onChange={ this.action.bind(this, 'cancel') }
+          />
+          <Checkbox
+            label="Save Button"
+            value={ this.value('save') }
+            onChange={ this.action.bind(this, 'save') }
           />
           <Textbox
             label="Cancel Text"

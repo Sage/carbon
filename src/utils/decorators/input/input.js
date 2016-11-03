@@ -188,6 +188,9 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       inputProps.onChange = this._handleOnChange;
     }
 
+    // Pass onPaste action to input element
+    inputProps.onPaste = this.props.onPaste;
+
     return inputProps;
   }
 
@@ -250,7 +253,6 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   get inputHTML() {
     let input;
-
     if (this.props.fakeInput) {
       // renders a fake input - useful for screens with lots of inputs
       let classes = classNames(this.inputProps.className, 'common-input__input--fake');

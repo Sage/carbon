@@ -1,7 +1,7 @@
-@import 'general';
-@import 'colors';
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
 
-.ui-rainbow {
+.carbon-rainbow {
   text-align: center;
 
   .highcharts-container {

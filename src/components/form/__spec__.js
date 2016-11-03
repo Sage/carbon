@@ -52,6 +52,7 @@ describe('Form', () => {
             incrementWarningCount: instance.incrementWarningCount,
             decrementWarningCount: instance.decrementWarningCount,
             inputs: instance.inputs,
+            setActiveInput: instance.setActiveInput,
             validate: instance.validate
           }
         }
@@ -61,7 +62,7 @@ describe('Form', () => {
 
   describe('incrementErrorCount', () => {
     it('increments the state error count', () => {
-      instance.setState({ errorCount: 2 });
+      instance.errorCount = 2;
       instance.incrementErrorCount();
       expect(instance.state.errorCount).toEqual(3);
     });
@@ -69,7 +70,7 @@ describe('Form', () => {
 
   describe('decrementErrorCount', () => {
     it('decreases the state error count', () => {
-      instance.setState({ errorCount: 2 });
+      instance.errorCount = 2;
       instance.decrementErrorCount();
       expect(instance.state.errorCount).toEqual(1);
     });
@@ -77,7 +78,7 @@ describe('Form', () => {
 
   describe('incrementWarningCount', () => {
     it('increments the state warning count', () => {
-      instance.setState({ warningCount: 2 });
+      instance.warningCount = 2;
       instance.incrementWarningCount();
       expect(instance.state.warningCount).toEqual(3);
     });
@@ -85,7 +86,7 @@ describe('Form', () => {
 
   describe('decrementWarningCount', () => {
     it('decreases the state warning count', () => {
-      instance.setState({ warningCount: 2 });
+      instance.warningCount = 2;
       instance.decrementWarningCount();
       expect(instance.state.warningCount).toEqual(1);
     });
@@ -131,6 +132,19 @@ describe('Form', () => {
     });
   });
 
+  describe("setActiveInput()", () => {
+    it("sets the active input to be the input parameter", () => {
+      instance.setActiveInput(1);
+      expect(instance.activeInput).toEqual(1);
+    });
+    it("immediately hides it's message if the input is different from the last", () => {
+      let immediatelyHideMessageSpy = jasmine.createSpy();
+      instance.setActiveInput({ immediatelyHideMessage: immediatelyHideMessageSpy });
+      instance.setActiveInput({  });
+      expect(immediatelyHideMessageSpy).toHaveBeenCalled();
+    });
+  });
+
   describe('handleOnSubmit', () => {
     it('calls the validate method', () => {
       spyOn(instance, 'validate');
@@ -165,6 +179,36 @@ describe('Form', () => {
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
         expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('when a onSubmit prop is passed', () => {
+      describe('and the form is valid', () => {
+        it('calls the onSubmit prop', () => {
+          let spy = jasmine.createSpy('spy');
+          instance = TestUtils.renderIntoDocument(
+            <Form onSubmit={ spy }>
+              <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+            </Form>
+          );
+          let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+          TestUtils.Simulate.submit(form);
+          expect(spy).toHaveBeenCalled();
+        });
+      });
+
+      describe('and the form is invalid', () => {
+        it('does not call the onSubmit prop', () => {
+          let spy = jasmine.createSpy('spy');
+          instance = TestUtils.renderIntoDocument(
+            <Form onSubmit={ spy }>
+              <Textbox validations={ [new Validation()] } name='test' value='' />
+            </Form>
+          );
+          let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+          TestUtils.Simulate.submit(form);
+          expect(spy).not.toHaveBeenCalled();
+        });
       });
     });
   });
@@ -220,7 +264,7 @@ describe('Form', () => {
 
   describe('htmlProps', () => {
     it('sets the className', () => {
-      expect(instance.htmlProps().className).toEqual('ui-form');
+      expect(instance.htmlProps().className).toEqual('carbon-form');
     });
   });
 
@@ -281,8 +325,8 @@ describe('Form', () => {
   });
 
   describe('mainClasses', () => {
-    it('returns the ui-form class', () => {
-      expect(instance.mainClasses).toEqual('ui-form');
+    it('returns the carbon-form class', () => {
+      expect(instance.mainClasses).toEqual('carbon-form');
     });
   });
 
@@ -307,7 +351,7 @@ describe('Form', () => {
   describe('render', () => {
     it('renders a parent form', () => {
       let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form')
-      expect(form.className).toEqual('ui-form');
+      expect(form.className).toEqual('carbon-form');
     });
 
     describe('CSRF', () => {
@@ -358,8 +402,8 @@ describe('Form', () => {
       });
 
       it('renders a secondary cancel button with cancelClasses', () => {
-        expect(buttons[1].className).toEqual('ui-button ui-button--secondary');
-        expect(buttonContainers[2].className).toEqual('ui-form__cancel');
+        expect(buttons[1].className).toMatch('carbon-button carbon-button--secondary');
+        expect(buttonContainers[2].className).toEqual('carbon-form__cancel');
       });
 
       it('when cancelText prop is passed it renders the secondary button with the prop', () => {
@@ -377,8 +421,8 @@ describe('Form', () => {
       });
 
       it('renders a primary save button with saveClasses', () => {
-        expect(buttons[0].className).toEqual('ui-button ui-button--primary');
-        expect(buttonContainers[1].className).toEqual('ui-form__save');
+        expect(buttons[0].className).toMatch('carbon-button carbon-button--primary');
+        expect(buttonContainers[1].className).toEqual('carbon-form__save');
       });
 
       it('renders an undisabled save button if not submitting', () => {
@@ -396,22 +440,50 @@ describe('Form', () => {
 
     describe('Cancel Button', () => {
       describe('when cancel prop is false', () => {
-        beforeEach(() => {
-          instance = TestUtils.renderIntoDocument(
-            <Form cancel={false} />
-          );
-        });
-
         it('does not show a cancel button', () => {
-          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+          let instance = TestUtils.renderIntoDocument(<Form cancel={ false } />);
+          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
           expect(buttons.length).toEqual(1);
         });
       });
 
       describe('when cancel props is true (default)', () => {
         it('does show a cancel button', () => {
-          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-          expect(buttons.length).toEqual(2);
+          let buttons = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__cancel');
+          expect(buttons).toBeDefined();
+        });
+      });
+    });
+
+    describe('Save Button', () => {
+      describe('when save is true or is not set to false', () => {
+        it('shows a save button', () => {
+          let instance = TestUtils.renderIntoDocument(<Form save={ true }/>);
+          let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__save')
+        });
+      });
+
+      describe('when save is set to false', () => {
+        it('does not show a save button', () => {
+          let instance = TestUtils.renderIntoDocument(<Form save={ false }/>);
+          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
+          expect(buttons.length).toEqual(1);
+        });
+      });
+    });
+
+    describe('additionalActions', () => {
+      describe('if none defined', () => {
+        it('returns null', () => {
+          let instance = TestUtils.renderIntoDocument(<Form />);
+          expect(instance.additionalActions).toBe(null);
+        });
+      });
+
+      describe('if defined', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form additionalActions={ <span /> } />);
+          expect(instance.additionalActions.props.className).toEqual("carbon-form__additional-actions");
         });
       });
     });
@@ -422,13 +494,13 @@ describe('Form', () => {
       });
 
       it('displays an error message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
         expect(summary.textContent).toEqual('There are 2 errors');
       });
 
       it('adds a invalid CSS class on the Save button div', () => {
         let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
       });
     });
 
@@ -438,13 +510,13 @@ describe('Form', () => {
       });
 
       it('displays a warning message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
         expect(summary.textContent).toEqual('There are 2 warnings');
       });
 
       it('adds a invalid CSS class on the Save button div', () => {
         let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
       });
     });
 
@@ -454,13 +526,13 @@ describe('Form', () => {
       });
 
       it('displays a warning message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'ui-form__summary')
+        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
         expect(summary.textContent).toEqual('There are 2 errors and 2 warnings');
       });
 
       it('adds a invalid CSS class on the Save button div', () => {
         let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('ui-form__save ui-form__save--invalid');
+        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
       });
     });
 

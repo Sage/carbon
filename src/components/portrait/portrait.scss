@@ -1,53 +1,71 @@
-.ui-portrait {
+.carbon-portrait {
   display: inline-block;
   vertical-align: middle;
 }
 
-.ui-portrait__initials {
+.carbon-portrait__initials {
   position: absolute;
 }
 
-.ui-portrait__avatar {
+.carbon-portrait__avatar {
   display: inline-block;
   position: relative;
 }
 
-.ui-portrait__img {
+.carbon-portrait__img {
   float: left;
 }
 
-.ui-portrait--standard .ui-portrait__img {
+.carbon-portrait--standard .carbon-portrait__img {
   border-radius: 5px;
 }
 
-.ui-portrait--circle .ui-portrait__img {
+.carbon-portrait--circle .carbon-portrait__img {
   border-radius: 50%;
 }
 
-.ui-portrait--leaf .ui-portrait__img {
+.carbon-portrait--leaf .carbon-portrait__img {
   border-radius: 10% 40% 10%;
 }
 
-.ui-portrait--small,
-.ui-portrait--small .ui-portrait__img {
+.carbon-portrait--extra-small,
+.carbon-portrait--extra-small .carbon-portrait__img {
+  width: 25px;
+  height: 25px;
+}
+
+.carbon-portrait--small,
+.carbon-portrait--small .carbon-portrait__img {
   width: 30px;
   height: 30px;
 }
 
-.ui-portrait--smed,
-.ui-portrait--smed .ui-portrait__img {
+.carbon-portrait--medium-small,
+.carbon-portrait--medium-small .carbon-portrait__img {
   width: 50px;
   height: 50px;
 }
 
-.ui-portrait--lmed,
-.ui-portrait--lmed .ui-portrait__img {
+.carbon-portrait--medium,
+.carbon-portrait--medium .carbon-portrait__img {
+  width: 60px;
+  height: 60px;
+}
+
+.carbon-portrait--medium-large,
+.carbon-portrait--medium-large .carbon-portrait__img {
   width: 70px;
   height: 70px;
 }
 
-.ui-portrait--large,
-.ui-portrait--large .ui-portrait__img {
+.carbon-portrait--large,
+.carbon-portrait--large .carbon-portrait__img {
   width: 100px;
   height: 100px;
+}
+
+.carbon-portrait--extra-large,
+.carbon-portrait--extra-large .carbon-portrait__img {
+  width: 120px;
+  height: 120px;
 }

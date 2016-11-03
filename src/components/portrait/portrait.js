@@ -85,11 +85,20 @@ class Portrait extends React.Component {
      * @type {String}
      * @default 'U'
      */
-    initials: React.PropTypes.string
+    initials: React.PropTypes.string,
+
+    /**
+     * If to use a dark background instead of a light background.
+     *
+     * @property darkBackground
+     * @type {Boolean}
+     * @default false
+     */
+    darkBackground: React.PropTypes.bool
   }
 
   static defaultProps = {
-    size: 'lmed',
+    size: 'medium',
     shape: 'standard'
   };
 
@@ -131,7 +140,7 @@ class Portrait extends React.Component {
    * @return {String}
    */
   get gravatarSrc() {
-    let base = 'http://www.gravatar.com/avatar/',
+    let base = 'https://www.gravatar.com/avatar/',
         hash = MD5(this.props.gravatar.toLowerCase()),
         size = this.numericSizes[this.props.size];
 
@@ -149,9 +158,7 @@ class Portrait extends React.Component {
 
     let canvas = document.createElement('canvas'),
         context = canvas.getContext("2d"),
-        size = this.numericSizes[this.props.size],
-        letters = this.props.initials || "",
-        color =  "#9DA0A7";
+        size = this.numericSizes[this.props.size];
 
     // Set canvas with & height
     canvas.width = size;
@@ -163,10 +170,8 @@ class Portrait extends React.Component {
     context.textAlign = "center";
 
     // Setup background and front color
-    context.fillStyle = color;
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = "#FFF";
-    context.fillText(letters, size / 2, size / 1.5);
+    context = this.applyBackground(context, size);
+    context = this.applyText(context, size);
 
     // Set image representation in default format (png)
     let dataURI = canvas.toDataURL();
@@ -180,6 +185,36 @@ class Portrait extends React.Component {
   }
 
   /**
+   * Applies background to canvas.
+   *
+   * @method applyBackground
+   * @return {Object}
+   */
+  applyBackground = (context, size) => {
+    let color = this.props.darkBackground ? "#4E545F" : "#9DA0A7";
+
+    context.fillStyle = color;
+    context.fillRect(0, 0, size, size);
+
+    return context;
+  }
+
+  /**
+   * Applies text to canvas.
+   *
+   * @method applyText
+   * @return {Object}
+   */
+  applyText = (context, size) => {
+    let letters = this.props.initials || "";
+
+    context.fillStyle = "#FFF";
+    context.fillText(letters, size / 2, size / 1.5);
+
+    return context;
+  }
+
+  /**
    * Maps size to width/height value
    *
    * @method numericSizes
@@ -187,10 +222,13 @@ class Portrait extends React.Component {
    */
   get numericSizes() {
     return {
-      small: '25',
-      smed: '50',
-      lmed: '70',
-      large: '100'
+      ["extra-small"]: '25',
+      small: '30',
+      ["medium-small"]: '50',
+      medium: '60',
+      ["medium-large"]: '70',
+      large: '100',
+      ["extra-large"]: '120'
     };
   }
 
@@ -202,10 +240,10 @@ class Portrait extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-portrait',
-      'ui-portrait--image',
-      `ui-portrait--${ this.props.size }`,
-      `ui-portrait--${ this.props.shape }`,
+      'carbon-portrait',
+      'carbon-portrait--image',
+      `carbon-portrait--${ this.props.size }`,
+      `carbon-portrait--${ this.props.shape }`,
       this.props.className
     );
   }
@@ -222,7 +260,7 @@ class Portrait extends React.Component {
 
     return (
       <img
-        className="ui-portrait__img ui-portrait__initials"
+        className="carbon-portrait__img carbon-portrait__initials"
         src={ this.generateInitials }
         alt={ this.props.alt }
       />
@@ -238,7 +276,7 @@ class Portrait extends React.Component {
   get avatarImage() {
     return (
       <img
-        className="ui-portrait__img ui-portrait__avatar"
+        className="carbon-portrait__img carbon-portrait__avatar"
         src={ this.imgSrc }
         alt={ this.props.alt }
       />

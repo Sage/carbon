@@ -55,13 +55,17 @@ class PodDemo extends React.Component {
 
     return (
       <Pod
+        editContentFullWidth={ this.value('editContentFullWidth') }
         collapsed={ this.props.collapsed }
         title={ this.value('title') }
+        subtitle={ this.value('subtitle') }
         description={ this.value('description') }
         padding={ this.value('padding') }
         border={ this.value('border') }
         as={ this.value('as') }
         footer={ footer }
+        onEdit={ this.value('edit') }
+        alignTitle={ this.value('alignTitle') }
       >
         <Row>
           <Textbox />
@@ -81,7 +85,10 @@ class PodDemo extends React.Component {
         description = this.value('description'),
         border = this.value('border'),
         padding = this.value('padding'),
-        as = this.value('as');
+        as = this.value('as'),
+        edit = this.value('edit'),
+        alignTitle = this.value('alignTitle'),
+        editContentFullWidth = this.value('editContentFullWidth');
 
     let html = "import Pod from 'carbon/lib/components/pod';\n\n";
 
@@ -89,6 +96,10 @@ class PodDemo extends React.Component {
       html += '<Pod>';
     } else {
       html += '<Pod';
+
+      if (editContentFullWidth) {
+        html += `\n  editContentFullWidth={ true } }`
+      }
 
       if (collapsible) {
         html += `\n  collapsed={ true } }`
@@ -114,6 +125,14 @@ class PodDemo extends React.Component {
         html += `\n  as='${as}'`
       }
 
+      if (edit) {
+        html += `\n  onEdit='${edit}'`
+      }
+
+      if (alignTitle !== 'left') {
+        html += `\n  alignTitle='${ alignTitle }'`
+      }
+
       html += '\n>'
     }
     html += '\n  <Row>'
@@ -134,6 +153,9 @@ class PodDemo extends React.Component {
       id: "none",
       name: "None"
     }, {
+      id: "extra-small",
+      name: "Extra Small"
+    }, {
       id: "small",
       name: "Small"
     }, {
@@ -142,6 +164,9 @@ class PodDemo extends React.Component {
     }, {
       id: "large",
       name: "Large"
+    }, {
+      id: "extra-large",
+      name: "Extra Large"
     }]);
   }
 
@@ -156,8 +181,24 @@ class PodDemo extends React.Component {
       id: "secondary",
       name: "Secondary"
     }, {
+      id: "tertiary",
+      name: "Tertiary"
+    }, {
       id: "tile",
       name: "Tile"
+    }]);
+  }
+
+  get alignOptions() {
+    return Immutable.fromJS([{
+      id: "left",
+      name: "Left"
+    }, {
+      id: "center",
+      name: "Center"
+    }, {
+      id: "right",
+      name: "Right"
     }]);
   }
 
@@ -173,6 +214,13 @@ class PodDemo extends React.Component {
             labelInline={ true }
             value={ this.value('title') }
             onChange={ this.action.bind(this, 'title') }
+          />
+
+          <Textbox
+            label="Subtitle"
+            labelInline={ true }
+            value={ this.value('subtitle') }
+            onChange={ this.action.bind(this, 'subtitle') }
           />
         </Row>
         <Row>
@@ -198,17 +246,36 @@ class PodDemo extends React.Component {
             onChange={ this.action.bind(this, 'padding') }
             options={ this.paddingOptions }
           />
+          <Textbox
+            label="On Edit"
+            labelInline={ true }
+            value={ this.value('edit') }
+            onChange={ this.action.bind(this, 'edit') }
+          />
         </Row>
         <Row>
           <Checkbox
             label="Border"
-            value={ this.value('border') }
+            checked={ this.value('border') }
             onChange={ this.action.bind(this, 'border') }
           />
           <Checkbox
             label="Footer"
-            value={ this.value('footer') }
+            checked={ this.value('footer') }
             onChange={ this.action.bind(this, 'footer') }
+          />
+          <Checkbox
+            label="Edit content full width"
+            checked={ this.value('editContentFullWidth') }
+            onChange={ this.action.bind(this, 'editContentFullWidth') }
+          />
+          <Dropdown
+            label="Align Title"
+            labelInline={ true }
+            options={ this.alignOptions }
+            value={ this.value('alignTitle') }
+            onChange={ this.action.bind(this, 'alignTitle') }
+            disabled={ !this.value('title') }
           />
         </Row>
       </div>

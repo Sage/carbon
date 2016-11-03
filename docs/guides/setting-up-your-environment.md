@@ -14,6 +14,8 @@ If you are new to Node and npm, we have written a [short introduction](an-introd
 
 Download and install Node from [https://nodejs.org/](https://nodejs.org/), or install and use [Node Version Manager](https://github.com/creationix/nvm).
 
+*Note:* If you already have Node installed, make sure you're using the stable version `~>4.4`
+
 #### Check npm version
 
 Make sure you are on Version 3.x by running `npm -v`. To upgrade your version of npm run `npm install npm -g`
@@ -32,14 +34,14 @@ You need to install Gulp globally.
 npm install -g gulp
 ```
 
-### Installing Babel
+### Installing Babel Cli
 
-You need to install Babel globally.
+You need to install Babel CLI globally.
 
-* You should be able to install [Babel](https://babeljs.io/) using npm. Note: we currently support Babel 5:
+* You should be able to use [Babel](https://babeljs.io/) using npm. Note: we currently support Babel edge (~> 6.0):
 
 ```bash
-npm install -g babel@5.6.1
+npm install -g babel-cli
 ```
 
 ### Installing Carbon CLI

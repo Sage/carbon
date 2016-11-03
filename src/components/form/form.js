@@ -51,6 +51,15 @@ class Form extends React.Component {
   static propTypes = {
 
     /**
+     * currently active input which is used to track which error message to show on the form
+     *
+     * @property activeInput
+     * @type {Input}
+     * @default null
+     */
+    activeInput: React.PropTypes.element,
+
+    /**
      * Cancel button is shown if true
      *
      * @property cancel
@@ -119,11 +128,38 @@ class Form extends React.Component {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func
+    onCancel: React.PropTypes.func,
+
+    /**
+     * Hide or show the save button
+     *
+     * @property saveFalse
+     * @type {Boolean}
+     */
+    save: React.PropTypes.bool,
+
+    /**
+     * Additional actions rendered next to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    additionalActions: React.PropTypes.node,
+
+    /**
+     * Custom callback for when form will submit
+     *
+     * @property onSubmit
+     * @type {Function}
+     */
+    onSubmit: React.PropTypes.func
   }
 
   static defaultProps = {
+    activeInput: null,
+    buttonAlign: 'right',
     cancel: true,
+    save: true,
     saving: false,
     validateOnMount: false
   }
@@ -159,9 +195,34 @@ class Form extends React.Component {
         incrementWarningCount: this.incrementWarningCount,
         decrementWarningCount: this.decrementWarningCount,
         inputs: this.inputs,
+        setActiveInput: this.setActiveInput,
         validate: this.validate
       }
     };
+  }
+
+  /**
+   * sets the active input, calling the hide method if the input is
+   * different from the last (so as to instantly) switch
+   *
+   * @method setActiveInput
+   * @param {Input} input sends itself through
+   * @return {void}
+   */
+  setActiveInput = (input) => {
+    if (input !== this.activeInput && this.activeInputExistsAndHasValidation()) {
+      this.activeInput.immediatelyHideMessage();
+    }
+    this.activeInput = input;
+  }
+
+  /**
+   * @method activeInputHasValidation
+   * @param {}
+   * @return {Boolean} active input exists and is decorated with validation
+   */
+  activeInputExistsAndHasValidation = () => {
+    return this.activeInput && this.activeInput.immediatelyHideMessage;
   }
 
   state = {
@@ -188,8 +249,25 @@ class Form extends React.Component {
    * @property inputs
    * @type {Object}
    */
-  inputs = {
-  }
+  inputs = {};
+
+  /**
+   * Tracks current errorCount
+   * Need to track separately from state due to async nature of setState
+   *
+   * @property errorCount
+   * @type {Number}
+   */
+  errorCount = 0;
+
+  /**
+   * Tracks current warningCount
+   * Need to track separately from state due to async nature of setState
+   *
+   * @property errorCount
+   * @type {Number}
+   */
+  warningCount = 0;
 
   /**
    * Runs once the component has mounted.
@@ -210,7 +288,8 @@ class Form extends React.Component {
    * @return {void}
    */
   incrementErrorCount = () => {
-    this.setState({ errorCount: this.state.errorCount + 1 });
+    this.errorCount += 1;
+    this.setState({ errorCount: this.errorCount });
   }
 
   /**
@@ -220,7 +299,8 @@ class Form extends React.Component {
    * @return {void}
    */
   decrementErrorCount = () => {
-    this.setState({ errorCount: this.state.errorCount - 1 });
+    this.errorCount -= 1;
+    this.setState({ errorCount: this.errorCount });
   }
 
   /**
@@ -230,7 +310,8 @@ class Form extends React.Component {
    * @return {void}
    */
   incrementWarningCount = () => {
-    this.setState({ warningCount: this.state.warningCount + 1 });
+    this.warningCount += 1;
+    this.setState({ warningCount: this.warningCount });
   }
 
   /**
@@ -240,7 +321,8 @@ class Form extends React.Component {
    * @return {void}
    */
   decrementWarningCount = () => {
-    this.setState({ warningCount: this.state.warningCount - 1 });
+    this.warningCount -= 1;
+    this.setState({ warningCount: this.warningCount });
   }
 
   /**
@@ -283,6 +365,10 @@ class Form extends React.Component {
 
     if (this.props.afterFormValidation) {
       this.props.afterFormValidation(ev, valid);
+    }
+
+    if (valid && this.props.onSubmit) {
+      this.props.onSubmit(ev);
     }
   }
 
@@ -330,6 +416,7 @@ class Form extends React.Component {
    */
   htmlProps = () => {
     let { ...props } = this.props;
+    delete props.onSubmit;
     props.className = this.mainClasses;
     return props;
   }
@@ -362,8 +449,15 @@ class Form extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'ui-form',
+      'carbon-form',
       this.props.className
+    );
+  }
+
+  get buttonClasses() {
+    return classNames(
+      'carbon-form__buttons',
+      `carbon-form__buttons--${ this.props.buttonAlign }`
     );
   }
 
@@ -374,7 +468,7 @@ class Form extends React.Component {
    * @return {Object} JSX cancel button
    */
   get cancelButton() {
-    let cancelClasses = "ui-form__cancel";
+    let cancelClasses = "carbon-form__cancel";
 
     return (<div className={ cancelClasses }>
       <Button type='button' onClick={ this.cancelForm } >
@@ -383,28 +477,65 @@ class Form extends React.Component {
     </div>);
   }
 
-   /**
+  get additionalActions() {
+    if (!this.props.additionalActions) { return null; }
+
+    return (
+      <div className='carbon-form__additional-actions' >
+        { this.props.additionalActions }
+      </div>
+    );
+  }
+
+  /**
+   * Gets the save button for the form
+   * @method saveButton
+   * @return {Object} JSX save button
+   */
+  get saveButton() {
+    let errorCount;
+
+    let saveClasses = classNames(
+      "carbon-form__save", {
+        "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
+      }
+    );
+
+    if (this.state.errorCount || this.state.warningCount) {
+      // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
+      errorCount = (
+        <span
+          className="carbon-form__summary"
+          dangerouslySetInnerHTML={ renderMessage(this.state.errorCount, this.state.warningCount) }
+        />
+      );
+    }
+
+    return (
+      <div className={ saveClasses }>
+        { errorCount }
+        <Button as="primary" disabled={ this.props.saving }>
+          { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
+        </Button>
+      </div>
+    );
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
    * @return {Object} JSX form
    */
   render() {
-    let cancelButton,
-        errorCount,
-        saveClasses = "ui-form__save";
-
-    if (this.state.errorCount || this.state.warningCount) {
-      // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
-      errorCount = (
-        <span className="ui-form__summary" dangerouslySetInnerHTML={ renderMessage(this.state.errorCount, this.state.warningCount) } />
-      );
-
-      saveClasses += " ui-form__save--invalid";
-    }
+    let cancelButton, saveButton;
 
     if (this.props.cancel) {
       cancelButton = this.cancelButton;
+    }
+
+    if (this.props.save) {
+      saveButton = this.saveButton;
     }
 
     return (
@@ -413,15 +544,10 @@ class Form extends React.Component {
 
         { this.props.children }
 
-        <div className="ui-form__buttons">
-          <div className={ saveClasses }>
-            { errorCount }
-            <Button as="primary" disabled={ this.props.saving }>
-              { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
-            </Button>
-          </div>
-
+        <div className={ this.buttonClasses }>
+          { saveButton }
           { cancelButton }
+          { this.additionalActions }
         </div>
       </form>
     );

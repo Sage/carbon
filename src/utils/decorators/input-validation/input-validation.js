@@ -94,6 +94,22 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
      * @default false
      */
     this.state.messageLocked = false;
+
+    /**
+     * toggles whether the message for validation is immediately hidden to force it to disappear instantly
+     *
+     * @property immediatelyHideMessage
+     * @type {Boolean}
+     */
+    this.state.immediatelyHideMessage = false;
+
+    /**
+     * toggles whether the message for validation is shown
+     *
+     * @property messageShown
+     * @type {Boolean}
+     */
+    this.state.messageShown = false;
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
@@ -113,11 +129,11 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     // if disabling the field, reset the validation on it
     if (nextProps.disabled && (!this.state.valid || this.state.warning)) {
-      this.setState({ valid: true, warning: false });
+      this._handleContentChange();
     }
 
     // if value changes and the input is currently invalid, re-assess its validity
-    if (!this.state.valid && (nextProps.value != this.props.value)) {
+    if ((!this.state.valid || this.state.warning) && (nextProps.value !== this.props.value)) {
       if (this.warning(nextProps.value)) {
         this.setState({ warning: false });
       }
@@ -154,19 +170,11 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // call the components super method if it exists
     if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
-    if (this.isAttachedToForm && (this.props.validations || this.props.warnings)) {
-      if (!this.state.valid) {
-        // decrement the forms error count if the input is removed
-        this.context.form.decrementErrorCount();
+    if ((this.props.validations || this.props.warnings)) {
+      this._handleContentChange();
+      if (this.isAttachedToForm) {
+        this.context.form.detachFromForm(this);
       }
-
-      if (this.state.warning) {
-        // decrement the forms error count if the input is removed
-        this.context.form.decrementWarningCount();
-      }
-
-      // detach the input to the form so the form
-      this.context.form.detachFromForm(this);
     }
   }
 
@@ -234,6 +242,12 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     return valid;
   }
 
+  /**
+   * Provides a callback method for warning to support Ajax
+   *
+   * @method updateWarning
+   * @return {void}
+   */
   updateWarning = (valid, value, warning) => {
     // if validation fails
     if (!valid) {
@@ -247,7 +261,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
         // if input has a tab
         if (this.context.tab) {
-          // Set the validity of the tab to false
+          // Set the validity of the tab to true
           this.context.tab.setWarning(true);
         }
 
@@ -276,28 +290,10 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       let validation = this.props.validations[i];
 
       // run this validation
-      valid = validation.validate(value, this.props);
-
+      valid = validation.validate(value, this.props, this.updateValidation);
+      this.updateValidation(valid, value, validation);
       // if validation fails
       if (!valid) {
-        // if input currently thinks it is valid
-        if (this.state.valid) {
-          // if input has a form
-          if (this.isAttachedToForm) {
-            // increment the error count on the form
-            this.context.form.incrementErrorCount();
-          }
-
-          // if input has a tab
-          if (this.context.tab) {
-            // Set the validity of the tab to false
-            this.context.tab.setValidity(false);
-          }
-
-          // tell the input it is invalid
-          this.setState({ errorMessage: validation.message(value, this.props), valid: false });
-        }
-
         // a validation has failed, so exit the loop at this point
         break;
       }
@@ -305,6 +301,35 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     // return the result of the validation
     return valid;
+  }
+
+  /**
+   * Provides a callback method for validate to support Ajax
+   *
+   * @method updateValidation
+   * @return {Void}
+   */
+  updateValidation = (valid, value, validation) => {
+    // if validation fails
+    if (!valid) {
+      // if input currently thinks it is valid
+      if (this.state.valid) {
+        // if input has a form
+        if (this.isAttachedToForm) {
+          // increment the error count on the form
+          this.context.form.incrementErrorCount();
+        }
+
+        // if input has a tab
+        if (this.context.tab) {
+          // Set the validity of the tab to false
+          this.context.tab.setValidity(false);
+        }
+
+        // tell the input it is invalid
+        this.setState({ errorMessage: validation.message(value, this.props), valid: false });
+      }
+    }
   }
 
   /**
@@ -365,18 +390,82 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
       // if there is tab, remove invalid state
       if (this.context.tab) {
-        if (!this.state.valid) {
-          this.context.tab.setValidity(true);
-        }
-
-        if (this.state.warning) {
-          this.context.tab.setWarning(false);
-        }
+        this.resetTab();
       }
 
       // reset the error state
       this.setState({ errorMessage: null, valid: true, warning: false });
     }
+  }
+
+
+  /**
+   * Resets tab error state
+   *
+   * @method resetTab
+   * @return {Void}
+   */
+  resetTab = () => {
+    if (!this.state.valid) {
+      this.context.tab.setValidity(true);
+    }
+
+    if (this.state.warning) {
+      this.context.tab.setWarning(false);
+    }
+  }
+
+  /**
+   * does a message exist based on the current state of the input
+   *
+   * @method messageExist
+   * @return {Boolean} whether or not a message exists
+   */
+  messageExists = () => {
+    return !this.state.valid || this.state.warning;
+  }
+
+  /**
+   * sets the state for showing the message
+   *
+   * @method showMessage
+   * @return {void}
+   */
+  showMessage = () => {
+    if (this.messageExists()) {
+      this.setState({
+        messageShown: true,
+        immediatelyHideMessage: false
+      });
+      this.context.form.setActiveInput(this);
+    }
+  }
+
+  /**
+   * sets the state for hiding the message
+   *
+   * @method hideMessage
+   * @return {void}
+   */
+  hideMessage = () => {
+    if (this.messageExists()) {
+      this.setState({
+        messageShown: false
+      });
+    }
+  }
+
+  /**
+   * sets the state for immediately hiding the message
+   *
+   * @method immediatelyHideMessage
+   * @return {void}
+   */
+  immediatelyHideMessage = () => {
+    this.setState({
+      messageShown: false,
+      immediatelyHideMessage: true
+    });
   }
 
   /**
@@ -407,12 +496,17 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     let messageClasses = `common-input__message common-input__message--${type}`,
         iconClasses = `common-input__icon common-input__icon--${type}`;
 
+    // position icon relative to width of label
+    let iconStyle = this.props.labelWidth ?
+      { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` } :
+      null;
+
     if (this.state.messageLocked) { messageClasses += " common-input__message--locked"; }
     if (this.flipped) { messageClasses += " common-input__message--flipped"; }
 
     return [
-      <Icon key="0" ref="validationIcon" type={ type } className={ iconClasses } />,
-      <div key="1" className="common-input__message-wrapper">
+      <Icon key="0" ref="validationIcon" type={ type } className={ iconClasses } style={ iconStyle } />,
+      <div key="1" className="common-input__message-wrapper" onMouseOver={ this.showMessage } onMouseOut={ this.hideMessage }>
         <div ref="validationMessage" className={ messageClasses }>
           { this.state.errorMessage || this.state.warningMessage }
         </div>
@@ -430,7 +524,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     return classNames(
       super.mainClasses, {
         'common-input--error': !this.state.valid,
-        'common-input--warning': this.state.warning
+        'common-input--warning': this.state.warning,
+        'common-input--message-hidden': this.state.immediatelyHideMessage,
+        'common-input--message-shown': this.state.messageShown
       }
     );
   }
@@ -466,6 +562,15 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     inputProps.onPaste = chainFunctions(this._handleContentChange, inputProps.onKeyDown);
 
     return inputProps;
+  }
+
+  get fieldProps() {
+    let fieldProps = super.fieldProps || {};
+
+    fieldProps.onMouseOut = chainFunctions(this.hideMessage, fieldProps.onMouseOut);
+    fieldProps.onMouseOver = chainFunctions(this.showMessage, fieldProps.onMouseOver);
+
+    return fieldProps;
   }
 
 };

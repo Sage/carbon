@@ -28,17 +28,17 @@ import InputValidation from './../../utils/decorators/input-validation';
  */
 const RadioButton = Input(InputLabel(InputValidation(
 class RadioButton extends React.Component {
-    static propTypes = {
+  static propTypes = {
 
-      /**
-      * Sets the checked state of the radio button
-      *
-      * @property defaultChecked
-      * @type {Boolean}
-      * @default false
-      */
-      defaultChecked: React.PropTypes.bool
-    }
+    /**
+    * Sets the checked state of the radio button
+    *
+    * @property defaultChecked
+    * @type {Boolean}
+    * @default false
+    */
+    defaultChecked: React.PropTypes.bool
+  }
 
   static defaultProps = {
     defaultChecked: false
@@ -52,7 +52,7 @@ class RadioButton extends React.Component {
    */
   get mainClasses() {
     return classNames (
-      'ui-radio-button',
+      'carbon-radio-button',
       this.props.className
     );
   }
@@ -64,7 +64,7 @@ class RadioButton extends React.Component {
    * @return {String} input className
    */
   get inputClasses() {
-    return 'ui-radio-button__input';
+    return 'carbon-radio-button__input';
   }
 
   /**
@@ -74,7 +74,11 @@ class RadioButton extends React.Component {
    * @return {String}
    */
   get fieldHelpClasses() {
-    return 'ui-radio-button__help-text';
+    return classNames(
+      'carbon-radio-button__help-text', {
+        'carbon-radio-button__help-text--inline': this.props.fieldHelpInline
+      }
+    );
   }
 
   /**
@@ -127,7 +131,7 @@ class RadioButton extends React.Component {
    * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
-    return <div className="ui-radio-button__sprite" dangerouslySetInnerHTML={{ __html: this.radiobuttonSprite }}></div>;
+    return <div className="carbon-radio-button__sprite" dangerouslySetInnerHTML={{ __html: this.radiobuttonSprite }}></div>;
   }
 
   /**

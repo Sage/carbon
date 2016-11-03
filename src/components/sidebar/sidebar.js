@@ -39,7 +39,7 @@ class Sidebar extends Modal {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func.isRequired,
+    onCancel: React.PropTypes.func,
 
     /**
      * Sets the open state of the sidebar
@@ -68,11 +68,21 @@ class Sidebar extends Modal {
      * @type {String}
      * @default 'right'
      */
-    position: React.PropTypes.string
+    position: React.PropTypes.string,
+
+    /**
+     * Size of dialog, default size is 450px
+     *
+     * @property size
+     * @type {String}
+     * @default medium
+     */
+    size: React.PropTypes.string
   }
 
   static defaultProps = {
-    position: 'right'
+    position: 'right',
+    size: 'medium'
   }
 
   /**
@@ -83,7 +93,7 @@ class Sidebar extends Modal {
    */
   get mainClasses() {
     return classNames(
-      'ui-sidebar',
+      'carbon-sidebar',
       this.props.className
     );
   }
@@ -96,9 +106,26 @@ class Sidebar extends Modal {
    */
   get sidebarClasses() {
     return classNames(
-      'ui-sidebar__sidebar',
-      `ui-sidebar__sidebar--${this.props.position}`
+      'carbon-sidebar__sidebar',
+      `carbon-sidebar__sidebar--${this.props.position}`,
+      `carbon-sidebar__sidebar--${this.props.size}`
     );
+  }
+
+  /**
+   * Returns the markup for the close icon.
+   *
+   * @method closeButton
+   * @return {Object} JSX
+   */
+  get closeButton() {
+    if (this.props.onCancel) {
+      return (
+        <span className={ 'carbon-sidebar__close' } >
+          <Icon className="carbon-sidebar__close-icon" type="close" onClick={ this.props.onCancel } />
+        </span>
+      );
+    }
   }
 
   /**
@@ -110,9 +137,7 @@ class Sidebar extends Modal {
   get modalHTML() {
     return (
       <div className={ this.sidebarClasses } >
-        <span className={ 'ui-sidebar__close' } >
-          <Icon className="ui-sidebar__close-icon" type="close" onClick={ this.props.onCancel } />
-        </span>
+        { this.closeButton }
         { this.props.children }
       </div>
     );

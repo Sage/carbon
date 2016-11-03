@@ -49,7 +49,7 @@ class Spinner extends React.Component {
 
   static defaultProps = {
     as: 'info',
-    size: 'lmed'
+    size: 'medium'
   };
 
   /**
@@ -60,9 +60,9 @@ class Spinner extends React.Component {
    */
   get spinnerClasses() {
     return classNames(
-      'ui-spinner',
-      'ui-spinner--'+ this.props.as,
-      'ui-spinner--' + this.props.size,
+      'carbon-spinner',
+      'carbon-spinner--'+ this.props.as,
+      'carbon-spinner--' + this.props.size,
       this.props.className
     );
   }

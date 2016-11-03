@@ -1,5 +1,7 @@
 import React from 'react';
 import FormDemo from './form-demo';
+import FilterDemo from './filter-demo';
+import Fieldset from './fieldset-demo';
 import TextboxDemo from './textbox-demo';
 import DecimalDemo from './decimal-demo';
 import NumberDemo from './number-demo';
@@ -9,6 +11,7 @@ import DropdownFilterDemo from './dropdown-filter-demo';
 import DropdownFilterAjaxDemo from './dropdown-filter-ajax-demo';
 import DateDemo from './date-demo';
 import CheckboxDemo from './checkbox-demo';
+import ValidationsDemo from './validations-demo';
 import RadioButtonDemo from './radio-button-demo';
 
 class Forms extends React.Component {
@@ -20,6 +23,7 @@ class Forms extends React.Component {
       <div>
         <h1>Forms</h1>
         <FormDemo />
+        <FilterDemo />
         <CheckboxDemo />
         <RadioButtonDemo/>
         <TextboxDemo />
@@ -29,6 +33,9 @@ class Forms extends React.Component {
         <DropdownDemo />
         <TextareaDemo />
         <DropdownFilterDemo />
+        <DropdownFilterAjaxDemo />
+        <Fieldset />
+        <ValidationsDemo />
       </div>
     );
   }

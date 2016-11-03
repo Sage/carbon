@@ -155,17 +155,7 @@ class DropdownFilter extends Dropdown {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      let filter = this.props.create ? this.state.filter : null,
-          highlighted = this.highlighted(this.options);
-
-      if (highlighted && highlighted !== String(this.props.value)) {
-        let item = this.props.options.find((item) => {
-          return String(item.get('id')) === String(highlighted);
-        });
-
-        this.emitOnChangeCallback(highlighted, item.get('name'));
-      }
-
+      let filter = this.props.create ? this.state.filter : null;
       this.setState({ open: false, filter: filter });
     }
   }
@@ -228,7 +218,7 @@ class DropdownFilter extends Dropdown {
 
     if (!items.length) {
       items = (
-        <li className={ 'ui-dropdown__list__item ui-dropdown__list__item--no-results' }>
+        <li className={ 'carbon-dropdown__list-item carbon-dropdown__list-item--no-results' }>
           {
             I18n.t("dropdownlist.no_results", {
               defaultValue: "No results match \"%{term}\"",
@@ -282,7 +272,7 @@ class DropdownFilter extends Dropdown {
       }
 
       html.push(
-        <a key="dropdown-action" className="ui-dropdown__action" onClick={ this.handleCreate }>{ text }</a>
+        <a key="dropdown-action" className="carbon-dropdown__action" onClick={ this.handleCreate }>{ text }</a>
       );
     }
 
@@ -306,7 +296,7 @@ class DropdownFilter extends Dropdown {
   get mainClasses() {
     return classNames(
       super.mainClasses,
-      'ui-dropdown-filter'
+      'carbon-dropdown-filter'
     );
   }
 
@@ -319,7 +309,7 @@ class DropdownFilter extends Dropdown {
     return classNames(
       super.inputClasses,
       {
-        'ui-dropdown__input--filtered': !this.props.create && typeof this.state.filter === 'string'
+        'carbon-dropdown__input--filtered': !this.props.create && typeof this.state.filter === 'string'
       }
     );
   }
@@ -375,9 +365,11 @@ class DropdownFilter extends Dropdown {
     }
 
     // build JSX object
-    newValue = [<span   key="beginning">{ beginning }</span>,
-                <strong key="middle"><u>{ middle }</u></strong>,
-                <span   key="end">{ end }</span>];
+    newValue = [
+      <span   key="beginning">{ beginning }</span>,
+      <strong key="middle"><u>{ middle }</u></strong>,
+      <span   key="end">{ end }</span>
+    ];
 
     return newValue;
   }
