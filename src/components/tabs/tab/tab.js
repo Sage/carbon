@@ -64,7 +64,7 @@ class Tab extends React.Component {
   getChildContext() {
     return {
       tab: {
-        setValidity: this.setValidity
+        setValidity: this.setValidity,
         setWarning: this.setWarning
       }
     };
@@ -78,7 +78,7 @@ class Tab extends React.Component {
      * @property isValid
      * @type {Boolean}
      */
-    isValid: true
+    isValid: true,
 
     /**
      * Tracks if the tab is a warning state

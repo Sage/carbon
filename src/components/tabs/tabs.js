@@ -152,7 +152,7 @@ class Tabs extends React.Component {
   getChildContext() {
     return {
       tabs: {
-        changeValidity: this.changeValidity
+        changeValidity: this.changeValidity,
         changeWarning: this.changeWarning
       }
     };
@@ -166,7 +166,7 @@ class Tabs extends React.Component {
      * @property tabValidity
      * @type {Object}
      */
-    tabValidity: Immutable.Map()
+    tabValidity: Immutable.Map(),
 
     /**
      * Tracks the warning of each tab
@@ -240,8 +240,7 @@ class Tabs extends React.Component {
   }
 
   /**
-   * Sets the warning state of the given tab (id) to the
-   * given state (warning)
+   * Sets the warning state of the given tab (id)
    *
    * @method changeWarning
    * @param {Number} id tab identifier
