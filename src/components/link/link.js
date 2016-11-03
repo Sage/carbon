@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
 import { Link } from 'react-router';
-import Event from 'utils/helpers/events';
+import Event from './../../utils/helpers/events';
 
 /**
  * A link widget.

@@ -1,3 +1,9 @@
+# 0.28.1
+
+## Bug Fixes
+
+* Fixes reference to utils from the link component.
+
 # 0.28.0
 
 ## :warning: Breaking Changes - Visual Styles
