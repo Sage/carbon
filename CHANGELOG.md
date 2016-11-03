@@ -1,5 +1,12 @@
 # 0.29.0
 
+## !! BREAKING CHANGES!!
+
+### Immutable Helper
+
+* ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
+* If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
+
 ## Datepicker Upgrade
 
 * Datepicker has been upgraded the latest version
