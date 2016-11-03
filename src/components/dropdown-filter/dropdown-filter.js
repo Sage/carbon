@@ -3,6 +3,7 @@ import Dropdown from './../dropdown';
 import I18n from 'i18n-js';
 import classNames from 'classnames';
 import escapeStringRegexp from 'escape-string-regexp';
+import { assign } from 'lodash';
 
 /**
  * A dropdown filter widget.
@@ -64,7 +65,8 @@ class DropdownFilter extends Dropdown {
     }
   }
 
-  static propTypes = {
+  static propTypes = assign({}, Dropdown.propTypes, {
+
     /**
      * The ID value for the component
      *
@@ -99,7 +101,7 @@ class DropdownFilter extends Dropdown {
      * @type {Boolean}
      */
     suggest: React.PropTypes.bool
-  }
+  });
 
   /**
    * Lifecycle hook for when the component will update.

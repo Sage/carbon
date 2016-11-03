@@ -400,6 +400,8 @@ class Date extends React.Component {
     return {
       navDateFormat: 'MMMM YYYY',
       arrows: { prev: '‹', next: '›' },
+      maxDate: this.props.maxDate,
+      minDate: this.props.minDate,
       theme: null
     };
   }

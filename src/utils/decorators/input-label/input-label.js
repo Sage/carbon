@@ -84,7 +84,11 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
      * @property
      * @type {Number}
      */
-    labelWidth: React.PropTypes.number,
+    labelWidth: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
+
 
     /**
      * Aligns label content to the right if set
@@ -95,13 +99,24 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
     labelAlign: React.PropTypes.string,
 
     /**
+     * Text applied to tooptip of help icon
+     *
+     * @property
+     * @type {String}
+     */
+    labelHelp: React.PropTypes.string,
+
+    /**
      * Pass a percentage to define the width of the label when it
      *  is displayed inline
      *
      * @property
      * @type {Number}
      */
-    inputWidth: React.PropTypes.number,
+    inputWidth: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
 
     /**
      * A string representing a help message

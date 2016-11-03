@@ -4,6 +4,7 @@ import Store from 'utils/flux/store';
 import ImmutableHelper from 'utils/helpers/immutable';
 import Immutable from 'immutable';
 import FormInputHelper from './../helpers/form-input-helper';
+import moment from 'moment';
 
 let data = ImmutableHelper.parseJSON({
   alert: {
@@ -50,7 +51,8 @@ let data = ImmutableHelper.parseJSON({
   date: {
     label: "Date",
     labelHelp: "Example label help.",
-    fieldHelp: "Example field help."
+    fieldHelp: "Example field help.",
+    value: moment().format('YYYY-MM-DD')
   },
   decimal: {
     label: "Decimal",

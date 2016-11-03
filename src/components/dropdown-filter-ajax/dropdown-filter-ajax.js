@@ -2,6 +2,7 @@ import React from 'react';
 import Request from 'superagent';
 import {cloneDeep } from 'lodash';
 import DropdownFilter from './../dropdown-filter';
+import { omit, assign } from 'lodash';
 
 /**
  * A dropdown filter widget using ajax.
@@ -70,7 +71,7 @@ class DropdownFilterAjax extends DropdownFilter {
     this.listeningToScroll = true;
   }
 
-  static propTypes = {
+  static propTypes = omit(assign({}, DropdownFilter.propTypes, {
     /**
      * The ID value for the component
      *
@@ -122,7 +123,7 @@ class DropdownFilterAjax extends DropdownFilter {
      * @type {Boolean}
      */
     suggest: React.PropTypes.bool
-  }
+  }), 'options');
 
   static defaultProps = {
     rowsPerRequest: 25,
