@@ -41,6 +41,7 @@ class Date extends React.Component {
    */
   _document = document;
 
+  // Required for validProps function
   static propTypes = {};
 
   static defaultProps = {
