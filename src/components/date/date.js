@@ -366,29 +366,50 @@ class Date extends React.Component {
     return this.inputIconHTML("calendar");
   }
 
+ /**
+  * A getter that returns datepicker specific props
+  *
+  * @method datePickerProps
+  * @return {Object}
+  */
+  get datePickerProps() {
+    return {
+      date: this.props.value || getDefaultValue(this),
+      dateFormat: hiddenFormat(),
+      enableHistoryView: false,
+      highlightToday: true,
+      highlightWeekends: false,
+      locale: I18n.locale,
+      maxDate: this.props.maxDate,
+      minDate: this.props.minDate,
+      monthFormat: 'MMM',
+      onChange: this.handleDateSelect,
+      ref: (input) => { this.datepicker = input; },
+      theme: null,
+      weekDayNames: moment.localeData(I18n.locale)._weekdaysMin,
+      weekNumbers: false
+    }
+  }
+
+  /**
+   * A getter that returns navbar specific props
+   *
+   * @method navBarProps
+   * @return {Object} props for the navbar
+   */
+  get navBarProps() {
+    return {
+      navDateFormat: 'MMMM YYYY',
+      arrows: { prev: '‹', next: '›' },
+      theme: null
+    }
+  }
+
+
   renderDatePicker() {
     return (
-      <MonthView
-        date={ this.props.value || getDefaultValue(this) }
-        dateFormat={ hiddenFormat() }
-        enableHistoryView={ false }
-        highlightToday={ true }
-        highlightWeekends={ false }
-        locale={ I18n.locale }
-        maxDate={ this.props.maxDate }
-        minDate={ this.props.minDate }
-        monthFormat='MMM'
-        onChange={ this.handleDateSelect }
-        ref={ (input) => { this.datepicker = input; } }
-        theme={ null }
-        weekDayNames={ moment.localeData(I18n.locale)._weekdaysMin }
-        weekNumbers={ false }
-      >
-        <NavBar
-          navDateFormat={ 'MMMM YYYY' }
-          arrows={ { prev: '‹', next: '›' } }
-          theme={ null }
-        />
+      <MonthView { ...this.datePickerProps }>
+        <NavBar { ...this.navBarProps } />
       </MonthView>
     );
   }
