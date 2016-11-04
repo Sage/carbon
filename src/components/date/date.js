@@ -315,18 +315,18 @@ class Date extends React.Component {
    */
   get inputProps() {
     let { ...props } = validProps(this);
-    delete props.autoFocus;
     props.className = this.inputClasses;
     props.onChange = this.handleVisibleInputChange;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
     props.onKeyDown = this.handleKeyDown;
 
+    delete props.autoFocus;
+    delete props.defaultValue;
+
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = chainFunctions(this.handleFocus, props.onFocus);
     }
-
-    if (props.value) { delete props.defaultValue; }
 
     return props;
   }
