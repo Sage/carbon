@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { startRouter } from './router';
+import { browserHistory } from 'react-router';
 
 describe('startRouter', () => {
   let render, router, routes;
@@ -15,6 +16,10 @@ describe('startRouter', () => {
       spyOn(document, 'getElementById').and.returnValue('foo');
       startRouter(routes);
       router = render.calls.mostRecent().args[0];
+    });
+
+    it('sets history from browser history module', () => {
+      expect(router.props.history).toEqual(browserHistory);
     });
 
     it('renders the router with the element', () => {
