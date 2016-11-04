@@ -22,6 +22,19 @@
   .carbon-pod__block {
     background-color: $grey-dark-blue-15;
   }
+
+  .carbon-pod__display-on-hover {
+    visibility: visible;
+  }
+}
+
+.carbon-pod__display-on-hover {
+  visibility: hidden;
+}
+
+.carbon-pod__edit-button-container {
+  display: inline-block;
+  vertical-align: top;
 }
 
 .carbon-pod__edit-action--no-border,
