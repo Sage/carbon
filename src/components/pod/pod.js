@@ -448,10 +448,10 @@ class Pod extends React.Component {
 
     if (!this.state.collapsed) { content = this.podContent; }
 
-    let editProps
+    let editProps;
 
     if (this.props.displayEditButtonOnHover) {
-      editProps = { ...this.editProps}
+      editProps = { ...this.editProps};
     }
 
     return (
