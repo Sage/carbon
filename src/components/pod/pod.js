@@ -123,7 +123,18 @@ class Pod extends React.Component {
      * @property editContentFullWidth
      * @type {Boolean}
      */
-    editContentFullWidth: React.PropTypes.bool
+    editContentFullWidth: React.PropTypes.bool,
+
+    /**
+     *
+     * Determines if the edit button should be hidden until the user
+     * hovers over the content. If true, clicking the pod content will
+     * also call the edit action.
+     *
+     * @property displayEditButtonOnHover
+     * @rtpe {Boolean}
+     */
+    displayEditButtonOnHover: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -353,7 +364,8 @@ class Pod extends React.Component {
     return classNames(
       'carbon-pod__edit-action',
       `carbon-pod__edit-action--padding-${this.props.padding}`, {
-        'carbon-pod__edit-action--no-border': !this.props.border
+        'carbon-pod__edit-action--no-border': !this.props.border,
+        "carbon-pod__display-on-hover": this.props.displayEditButtonOnHover
       }
     );
   }
@@ -383,6 +395,14 @@ class Pod extends React.Component {
   get edit() {
     if (!this.props.onEdit) { return null; }
 
+    return (
+      <div className="carbon-pod__edit-button-container" {...this.editProps} >
+        <Link icon="edit" className={ this.editActionClasses } tabIndex='0'/>
+      </div>
+    );
+  }
+
+  get editProps() {
     let props = {
       onMouseEnter: this.toggleHoverState.bind(this, true),
       onMouseLeave: this.toggleHoverState.bind(this, false)
@@ -397,15 +417,13 @@ class Pod extends React.Component {
       props.onKeyDown = this.processPodEditEvent;
     }
 
-    return (
-      <Link icon="edit" className={ this.editActionClasses } { ...props } tabIndex='0'/>
-    );
+    return props;
   }
 
   processPodEditEvent = (ev) => {
     if (Event.isEnterKey(ev) || !Event.isEventType(ev, 'keydown')) {
       ev.preventDefault();
-      this.props.onEdit();
+      this.props.onEdit(ev);
     }
   }
 
@@ -430,9 +448,15 @@ class Pod extends React.Component {
 
     if (!this.state.collapsed) { content = this.podContent; }
 
+    let editProps
+
+    if (this.props.displayEditButtonOnHover) {
+      editProps = { ...this.editProps}
+    }
+
     return (
       <div className={ this.mainClasses } { ...this.podProps() }>
-        <div className={ this.blockClasses }>
+        <div className={ this.blockClasses } { ...editProps }>
           <div className={ this.contentClasses } >
             { this.podHeader }
             { content }
