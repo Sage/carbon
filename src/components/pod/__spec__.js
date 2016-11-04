@@ -177,6 +177,13 @@ describe('Pod', () => {
         expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--padding-medium carbon-pod__edit-action--no-border');
       });
     });
+
+    describe('if displayEditButtonOnHover is enabled', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod displayEditButtonOnHover={true} footer={<div />} />);
+        expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--padding-medium carbon-pod__display-on-hover');
+      });
+    });
   });
 
   describe('contentClasses', () => {
@@ -351,13 +358,23 @@ describe('Pod', () => {
           let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
           expect(buttons.length).toEqual(1);
         });
+
+        describe('when displayEditButtonOnHover is enabled', () => {
+          it('applies editProps to the content block', () => {
+            instance = TestUtils.renderIntoDocument (
+              <Pod displayEditButtonOnHover={true} onEdit='foo' />
+            );
+            let contentBlock = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__block');
+            expect(contentBlock.props.to).toEqual("foo");
+          });
+        });
       });
 
       describe('when pod is not collapsible', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Pod><Button>Button</Button> </Pod>
-        );
         it('renders the pods content', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Pod><Button>Button</Button> </Pod>
+          );
           let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
           expect(buttons.length).toEqual(1);
         });
