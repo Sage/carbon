@@ -391,7 +391,6 @@ describe('Date', () => {
       expect(datepicker.props.weekDayNames).toEqual(
         ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
       );
-      expect(datepicker.props.monthFormat).toEqual('MMM');
       expect(datepicker.props.dateFormat).toEqual('YYYY-MM-DD');
     });
   });

@@ -42,7 +42,23 @@ class Date extends React.Component {
   _document = document;
 
   // Required for validProps function
-  static propTypes = {};
+  static propTypes = {
+    /**
+     * Minimum possible date
+     *
+     * @property minDate
+     * @type {String}
+     */
+    minDate: React.PropTypes.string,
+
+    /**
+     * Maximum possible date
+     *
+     * @property maxDate
+     * @type {String}
+     */
+    maxDate: React.PropTypes.string
+  };
 
   static defaultProps = {
     /**
@@ -310,6 +326,8 @@ class Date extends React.Component {
       props.onFocus = chainFunctions(this.handleFocus, props.onFocus);
     }
 
+    if (props.value) { delete props.defaultValue; }
+
     return props;
   }
 
@@ -381,7 +399,6 @@ class Date extends React.Component {
       locale: I18n.locale,
       maxDate: this.props.maxDate,
       minDate: this.props.minDate,
-      monthFormat: 'MMM',
       onChange: this.handleDateSelect,
       ref: (input) => { this.datepicker = input; },
       theme: null,
