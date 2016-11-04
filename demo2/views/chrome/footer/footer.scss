@@ -4,8 +4,16 @@
 .demo-footer {
   box-sizing: border-box;
   color: $white;
-  padding: 24px 0 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 0;
   width: 100%;
+
+  @media(min-width: $response-point-medium) {
+    align-items: center;
+    flex-direction: row;
+  }
 
   &__background {
     background-color: $grey-dark-blue;
@@ -19,40 +27,40 @@
   }
 
   &__social {
-    float: left;
+    align-content: center;
+    display: flex;
+    justify-content: space-between;
+    margin: auto auto 15px;
+    width: 120px;
     @media(min-width: $response-point-medium) {
-      text-align: left;
-      width: 25%;
+      margin-bottom: auto;
+      width: 160px;
     }
   }
 
   &__corporate {
-    float: right;
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
     @media(min-width: $response-point-medium) {
       text-align: right;
-      width: 71%;
     }
   }
 
   &__sage-icon {
     background-image: url('/assets/images/sage_logo.svg');
-    display: inline-block;
+    margin: auto;
+    @media(min-width: $response-point-medium) {
+      margin: 0 0 0 auto;
+    }
     height: 22px;
     width: 57px;
   }
 
-  &__legal {
-    float: right;
-    margin-top: 4px;
-    width: 100%;
-  }
-
-  .carbon-icon {
-    margin: 4px 24px 4px 4px;
-  }
-
   .carbon-link__anchor {
     color: currentColor;
+
+    .carbon-icon__svg {
+      height: 35px; // hacks because icons are not the same size
+    }
   }
 }
