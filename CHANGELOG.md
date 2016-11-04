@@ -1,9 +1,3 @@
-# 0.30.0
-
-## Component Enhancements
-
-* `Pod`: now accepts a displayEditButtonOnHover prop which will hide the edit button until the mouse is hovering over it.
-
 # 0.29.0
 
 ## !! BREAKING CHANGES!!
@@ -16,6 +10,10 @@
 ## Datepicker Upgrade
 
 * Datepicker has been upgraded the latest version
+
+## Component Enhancements
+
+* `Pod`: now accepts a displayEditButtonOnHover prop which will hide the edit button until the mouse is hovering over it.
 
 # 0.28.1
 
