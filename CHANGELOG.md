@@ -1,3 +1,22 @@
+# 0.30.0
+
+## Component Enhancements
+
+* `Pod`: now accepts a displayEditButtonOnHover prop which will hide the edit button until the mouse is hovering over it.
+
+# 0.29.0
+
+## !! BREAKING CHANGES!!
+
+### Immutable Helper
+
+* ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
+* If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
+
+## Datepicker Upgrade
+
+* Datepicker has been upgraded the latest version
+
 # 0.28.1
 
 ## Bug Fixes
