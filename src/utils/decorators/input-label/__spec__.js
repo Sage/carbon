@@ -164,7 +164,7 @@ describe('InputLabel', () => {
     describe('when help is enabled', () => {
       it('adds the relevant class', () => {
         let ExtendedClassOne = InputLabel(HelpClass);
-        let instance = TestUtils.renderIntoDocument(<ExtendedClassOne labelHelp={ true } />);
+        let instance = TestUtils.renderIntoDocument(<ExtendedClassOne labelHelp={ 'Foo' } />);
         expect(instance.labelClasses).toEqual('common-input__label common-input__label--help');
       });
     });
