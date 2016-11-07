@@ -61,7 +61,7 @@ describe('Tab', () => {
 
   describe('mainClasses', () => {
     it('returns the base className of carbon-tab', () => {
-      expect(instance.mainClasses).toEqual('carbon-tab ');
+      expect(instance.mainClasses).toEqual('carbon-tab');
     });
 
     it('returns any additional added classes', () => {
@@ -72,22 +72,12 @@ describe('Tab', () => {
         </Tab>);
       expect(instance.mainClasses).toEqual('carbon-tab foo');
     });
-
-    it('adds an error class when the tab has a error', () => {
-      instance.setState({ isValid: false });
-      expect(instance.mainClasses).toEqual('carbon-tab  carbon-tab--errors');
-    });
-
-    it('adds a warning class when the tab has a warning', () => {
-      instance.setState({ isWarning: true });
-      expect(instance.mainClasses).toEqual('carbon-tab  carbon-tab--warnings');
-    });
   });
 
   describe('render', () => {
     it('renders a surrounding parent div', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(div.className).toEqual('carbon-tab ');
+      expect(div.className).toEqual('carbon-tab');
     });
 
     it('renders all children passed to is', () => {

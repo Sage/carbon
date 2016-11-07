@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 /**
  * A Tab widget.
@@ -121,17 +122,10 @@ class Tab extends React.Component {
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    let classes = this.props.className || '';
-
-    if (!this.state.isValid) {
-      classes += ' carbon-tab--errors';
-    }
-
-    if (!this.state.isWarning) {
-      classes += ' carbon-tab--warnings';
-    }
-
-    return 'carbon-tab ' + classes;
+    return classNames(
+      'carbon-tab',
+      this.props.className
+    );
   }
 
   /**

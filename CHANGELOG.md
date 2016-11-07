@@ -11,6 +11,10 @@
 
 * Datepicker has been upgraded the latest version
 
+## Bug Fixes
+
+* `Tabs` now correctly tracks warning state of a tab. 
+
 # 0.28.1
 
 ## Bug Fixes
@@ -80,10 +84,6 @@ the chart is displayed.
 ## CSS Changes
 
 * Input prefix is now positioned correctly when using inline labels
-
-## Bug Fixes
-
-* Ensure tabs and tab component work with warnings correctly
 
 # 0.27.2
 
