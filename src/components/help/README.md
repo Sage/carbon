@@ -5,19 +5,18 @@
 * In your file
 
 ```javascript
-import Icon from 'carbon/lib/components/help';
+import Help from 'carbon/lib/components/help';
 ```
 
 *  To render a Help:
 
 ```javascript
-   <Help helpMessage='Helpful Content' />
+   <Help>{ 'Helpful Content' }</Help>
 ```
 
- *  You can also pass additional props of tooltipPosition and pointerAlign. The default position is on top with a center aligned pointer.
+ *  You can also pass additional props of tooltipPosition and tooltipAlign. The default position is on top with a center aligned pointer.
 
 | Name           | Required    | Type           | Default       | Options                            | Description  |
 | -------------- | ----------- | -------------  | ------------- | ---------------------------------- | ------------ |
-| helpMessage | true        | String         |       -       |    -                               | message to display in tooltip|
 | tooltipPosition| false       | String         |      top      |  top, bottom, left, right          | position of tooltip relative to icon|
-| pointerAlign | false       | String         |      center   |  center, right, left, bottom, top  | alignemnt of pointer on tooltip|
+| tooltipAlign | false       | String         |      center   |  center, right, left, bottom, top  | alignment of pointer on tooltip|

@@ -81,9 +81,11 @@ class Message extends React.Component {
       'carbon-message',
       this.props.className,
       'carbon-message--' + this.props.as,
-      { 'carbon-message--transparent': this.props.transparent,
+      {
+        'carbon-message--transparent': this.props.transparent,
         'carbon-message--dismissable': this.props.onDismiss
-    });
+      }
+    );
   }
 
   /**
