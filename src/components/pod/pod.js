@@ -132,9 +132,11 @@ class Pod extends React.Component {
      * also call the edit action.
      *
      * @property displayEditButtonOnHover
-     * @rtpe {Boolean}
+     * @type {Boolean}
      */
-    displayEditButtonOnHover: React.PropTypes.bool
+    displayEditButtonOnHover: React.PropTypes.bool,
+
+
   }
 
   static defaultProps = {
@@ -396,8 +398,8 @@ class Pod extends React.Component {
     if (!this.props.onEdit) { return null; }
 
     return (
-      <div className="carbon-pod__edit-button-container" {...this.editProps} >
-        <Link icon="edit" className={ this.editActionClasses } tabIndex='0'/>
+      <div className="carbon-pod__edit-button-container" { ...this.editProps } >
+        <Link icon="edit" className={ this.editActionClasses } />
       </div>
     );
   }
@@ -451,7 +453,7 @@ class Pod extends React.Component {
     let editProps;
 
     if (this.props.displayEditButtonOnHover) {
-      editProps = { ...this.editProps};
+      editProps = { ...this.editProps };
     }
 
     return (
