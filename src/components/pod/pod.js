@@ -290,7 +290,8 @@ class Pod extends React.Component {
     return classNames("carbon-pod", this.props.className,
       `carbon-pod--${ this.props.alignTitle }`, {
         "carbon-pod--editable": this.props.onEdit,
-        'carbon-pod--is-hovered': this.state.hoverEdit
+        'carbon-pod--is-hovered': this.state.hoverEdit,
+        'carbon-pod--content-triggers-edit': this.props.triggerEditOnContent && this.props.onEdit
       }
     );
   }
@@ -460,8 +461,8 @@ class Pod extends React.Component {
 
     if (!this.state.collapsed) { content = this.podContent; }
 
-    let editHoverProps = this.props.triggerEditOnContent ? this.editEventProps : {};
-    let editEventProps = this.props.displayEditButtonOnHover ? this.editHoverProps : {};
+    let editHoverProps = this.props.triggerEditOnContent && this.props.onEdit ? this.editEventProps : {};
+    let editEventProps = this.props.displayEditButtonOnHover && this.props.onEdit ? this.editHoverProps : {};
 
     return (
       <div className={ this.mainClasses } { ...this.podProps() }>
