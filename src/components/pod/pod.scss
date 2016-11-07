@@ -17,7 +17,7 @@
   vertical-align: top;
 }
 
-.carbon-pod--content-triggers-edit:hover {
+.carbon-pod--content-triggers-edit .carbon-pod__block:hover {
   cursor: pointer;
 }
 
@@ -28,17 +28,18 @@
   }
 
   .carbon-pod__display-on-hover {
-    visibility: visible;
+    display: block;
   }
 }
 
 .carbon-pod__display-on-hover {
-  visibility: hidden;
+  display: none;
 }
 
 .carbon-pod__edit-button-container {
   display: inline-block;
   vertical-align: top;
+  cursor: pointer;
 }
 
 .carbon-pod__edit-action--no-border,
