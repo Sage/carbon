@@ -361,9 +361,50 @@ describe('Pod', () => {
         });
 
         describe('when displayEditButtonOnHover is enabled', () => {
-          it('applies editProps to the content block', () => {
-            const wrapper = shallow(<Pod displayEditButtonOnHover={true} onEdit='foo' />)
-            expect(wrapper.find('.carbon-pod__block').props().to).toEqual("foo");
+          describe('when onEdit has been set', () => {
+            it('toggles the hover state when moving the mouse in to the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} onEdit='foo' />)
+              wrapper.find('.carbon-pod__block').simulate('mouseEnter')
+              expect(wrapper.state().hoverEdit).toBe(true);
+            });
+
+            it('toggles the hover state when moving the mouse out of the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} onEdit='foo' />)
+              wrapper.find('.carbon-pod__block').simulate('mouseLeave')
+              expect(wrapper.state().hoverEdit).toBe(false);
+            });
+          });
+
+          describe('when onEdit has not been set', () => {
+            it('does not toggle the hover state when moving the mouse in to the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} />)
+              wrapper.find('.carbon-pod__block').simulate('mouseEnter')
+              expect(wrapper.state().hoverEdit).not.toBeDefined;
+            });
+
+            it('does not toggle the hover state when moving the mouse out of the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} />)
+              wrapper.find('.carbon-pod__block').simulate('mouseLeave')
+              expect(wrapper.state().hoverEdit).not.toBeDefined;
+            });
+          });
+        });
+
+        describe('when triggerEditOnContent is enabled', () => {
+          describe('when onEdit has been set', () => {
+            it('sets an onClick handler on the content block', () => {
+              let editFunction = () => {}
+              const wrapper = shallow(<Pod triggerEditOnContent={ true } onEdit={ () => {} } />)
+              expect(wrapper.find('.carbon-pod__block').props().onClick).toBeDefined;
+            });
+          });
+
+          describe('when onEdit has not been set', () => {
+            it('does not set an onClick handler on the content block', () => {
+              let editFunction = () => {}
+              const wrapper = shallow(<Pod triggerEditOnContent={ true } />)
+              expect(wrapper.find('.carbon-pod__block').props().onClick).not.toBeDefined;
+            });
           });
         });
       });

@@ -461,8 +461,8 @@ class Pod extends React.Component {
 
     if (!this.state.collapsed) { content = this.podContent; }
 
-    let editHoverProps = this.props.triggerEditOnContent && this.props.onEdit ? this.editEventProps : {};
-    let editEventProps = this.props.displayEditButtonOnHover && this.props.onEdit ? this.editHoverProps : {};
+    let editEventProps = this.props.triggerEditOnContent && this.props.onEdit ? this.editEventProps : {};
+    let editHoverProps = this.props.displayEditButtonOnHover && this.props.onEdit ? this.editHoverProps : {};
 
     return (
       <div className={ this.mainClasses } { ...this.podProps() }>
