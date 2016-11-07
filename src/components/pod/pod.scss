@@ -17,6 +17,10 @@
   vertical-align: top;
 }
 
+.carbon-pod--content-triggers-edit:hover {
+  cursor: pointer;
+}
+
 .carbon-pod--is-hovered {
   .carbon-pod__edit-action,
   .carbon-pod__block {
