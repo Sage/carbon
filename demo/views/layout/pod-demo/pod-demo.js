@@ -66,6 +66,8 @@ class PodDemo extends React.Component {
         footer={ footer }
         onEdit={ this.value('edit') }
         alignTitle={ this.value('alignTitle') }
+        triggerEditOnContent={ this.value('triggerEditOnContent') }
+        displayEditButtonOnHover={ this.value('displayEditButtonOnHover') }
       >
         <Row>
           <Textbox />
@@ -88,53 +90,59 @@ class PodDemo extends React.Component {
         as = this.value('as'),
         edit = this.value('edit'),
         alignTitle = this.value('alignTitle'),
-        editContentFullWidth = this.value('editContentFullWidth');
+        editContentFullWidth = this.value('editContentFullWidth'),
+        triggerEditOnContent = this.value('triggerEditOnContent'),
+        displayEditButtonOnHover = this.value('displayEditButtonOnHover');
 
     let html = "import Pod from 'carbon/lib/components/pod';\n\n";
 
-    if (!collapsible && !title && !description && border && padding == "medium") {
-      html += '<Pod>';
-    } else {
-      html += '<Pod';
+    html += '<Pod';
 
-      if (editContentFullWidth) {
-        html += `\n  editContentFullWidth={ true } }`
-      }
-
-      if (collapsible) {
-        html += `\n  collapsed={ true } }`
-      }
-
-      if (title) {
-        html += `\n  title={ ${this.value('title')} }`
-      }
-
-      if (description) {
-        html += `\n  description={ ${this.value('description')} }`
-      }
-
-      if (!border) {
-        html += "\n  border={ false }";
-      }
-
-      if (padding !== "medium") {
-        html += `\n  padding='${padding}'`
-      }
-
-      if (as !== "primary") {
-        html += `\n  as='${as}'`
-      }
-
-      if (edit) {
-        html += `\n  onEdit='${edit}'`
-      }
-
-      if (alignTitle !== 'left') {
-        html += `\n  alignTitle='${ alignTitle }'`
-      }
-
-      html += '\n>'
+    if (editContentFullWidth) {
+      html += `\n  editContentFullWidth={ true }`
     }
+
+    if (collapsible) {
+      html += `\n  collapsed={ true } }`
+    }
+
+    if (title) {
+      html += `\n  title={ ${this.value('title')} }`
+    }
+
+    if (description) {
+      html += `\n  description={ ${this.value('description')} }`
+    }
+
+    if (!border) {
+      html += "\n  border={ false }";
+    }
+
+    if (padding !== "medium") {
+      html += `\n  padding='${padding}'`
+    }
+
+    if (as !== "primary") {
+      html += `\n  as='${as}'`
+    }
+
+    if (edit) {
+      html += `\n  onEdit='${edit}'`
+    }
+
+    if (alignTitle !== 'left') {
+      html += `\n  alignTitle='${ alignTitle }'`
+    }
+
+    if (triggerEditOnContent) {
+      html += '\n  triggerEditOnContent={ true }'
+    }
+
+    if (displayEditButtonOnHover) {
+      html += '\n  displayEditButtonOnHover={ true }'
+    }
+
+    html += '\n>'
     html += '\n  <Row>'
     html += '\n    <Textbox />'
     html += '\n    <Textbox />'
@@ -276,6 +284,18 @@ class PodDemo extends React.Component {
             value={ this.value('alignTitle') }
             onChange={ this.action.bind(this, 'alignTitle') }
             disabled={ !this.value('title') }
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Trigger edit on content"
+            checked={ this.value('triggerEditOnContent') }
+            onChange={ this.action.bind(this, 'triggerEditOnContent') }
+          />
+          <Checkbox
+            label='Display edit button on hover'
+            checked={ this.value('displayEditButtonOnHover') }
+            onChange={ this.action.bind(this, 'displayEditButtonOnHover') }
           />
         </Row>
       </div>
