@@ -79,6 +79,22 @@ const I18nHelper = {
   },
 
   /**
+   * Formats the bytes in number into a more understandable representation
+   * (e.g., giving it 1500 yields 1.5 KB)
+   *
+   * @method numberToHumanSize
+   * @param {Number} number
+   */
+  numberToHumanSize: (number) => {
+    if (number == 0) return '0 Bytes';
+    let k = 1000;
+    let sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    let i = Math.floor(Math.log(number) / Math.log(k));
+
+    return parseFloat((number / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+  },
+
+  /**
    * Adds currency formatting to the value
    *
    * @method formatCurrency
