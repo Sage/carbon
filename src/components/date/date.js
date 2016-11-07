@@ -362,7 +362,11 @@ class Date extends React.Component {
    * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
-    return this.inputIconHTML("calendar");
+    if (!this.state.valid) {
+      return this.inputIconHTML("error");
+    } else {
+      return this.inputIconHTML("calendar");
+    }
   }
 
  /**
@@ -429,7 +433,7 @@ class Date extends React.Component {
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { datePicker }
-        { this.validationHTML }
+
         { this.fieldHelpHTML }
 
       </div>

@@ -120,3 +120,8 @@ $date__picker__cell-border-color: $border-color;
     background-color: $row-hover-color;
   }
 }
+
+.carbon-date.common-input--with-icon .common-input__icon--error {
+  right: 5px;
+  top: 5px;
+}

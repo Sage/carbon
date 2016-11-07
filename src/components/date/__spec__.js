@@ -254,6 +254,12 @@ describe('Date', () => {
           visibleValue: 'abc'
         });
       });
+      it("calls inputIconHTML with error in order to correctly generate the error icon", () => {
+        let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
+        spyOn(invalidDate, 'inputIconHTML');
+        invalidDate.setState({ valid: false });
+        expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('error');
+      });
     });
   });
 
