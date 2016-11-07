@@ -11,6 +11,10 @@
 
 * Datepicker has been upgraded the latest version
 
+## CSS changes
+
+* Update CSS for warning messages
+
 # 0.28.1
 
 ## Bug Fixes
