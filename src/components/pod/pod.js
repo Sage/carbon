@@ -128,15 +128,21 @@ class Pod extends React.Component {
     /**
      *
      * Determines if the edit button should be hidden until the user
-     * hovers over the content. If true, clicking the pod content will
-     * also call the edit action.
+     * hovers over the content.
      *
      * @property displayEditButtonOnHover
      * @type {Boolean}
      */
     displayEditButtonOnHover: React.PropTypes.bool,
 
-
+    /**
+     *
+     * Determines if clicking the pod content calls the onEdit action
+     *
+     * @property triggerEditOnContent
+     * @type {Boolean}
+     */
+    triggerEditOnContent: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -398,17 +404,21 @@ class Pod extends React.Component {
     if (!this.props.onEdit) { return null; }
 
     return (
-      <div className="carbon-pod__edit-button-container" { ...this.editProps } >
+      <div className="carbon-pod__edit-button-container" { ...this.editHoverProps } { ...this.editEventProps } >
         <Link icon="edit" className={ this.editActionClasses } />
       </div>
     );
   }
 
-  get editProps() {
-    let props = {
+  get editHoverProps() {
+    return {
       onMouseEnter: this.toggleHoverState.bind(this, true),
       onMouseLeave: this.toggleHoverState.bind(this, false)
     };
+  }
+
+  get editEventProps() {
+    let props = {};
 
     if (typeof this.props.onEdit === "string") {
       props.to = this.props.onEdit;
@@ -450,15 +460,12 @@ class Pod extends React.Component {
 
     if (!this.state.collapsed) { content = this.podContent; }
 
-    let editProps;
-
-    if (this.props.displayEditButtonOnHover) {
-      editProps = { ...this.editProps };
-    }
+    let editHoverProps = this.props.triggerEditOnContent ? this.editEventProps : {};
+    let editEventProps = this.props.displayEditButtonOnHover ? this.editHoverProps : {};
 
     return (
       <div className={ this.mainClasses } { ...this.podProps() }>
-        <div className={ this.blockClasses } { ...editProps }>
+        <div className={ this.blockClasses } { ...editHoverProps } { ...editEventProps }>
           <div className={ this.contentClasses } >
             { this.podHeader }
             { content }
