@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Pod from './pod';
 import Button from './../button';
+import { shallow } from 'enzyme';
 
 describe('Pod', () => {
   let instance;
@@ -361,11 +362,8 @@ describe('Pod', () => {
 
         describe('when displayEditButtonOnHover is enabled', () => {
           it('applies editProps to the content block', () => {
-            instance = TestUtils.renderIntoDocument (
-              <Pod displayEditButtonOnHover={true} onEdit='foo' />
-            );
-            let contentBlock = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__block');
-            expect(contentBlock.props.to).toEqual("foo");
+            const wrapper = shallow(<Pod displayEditButtonOnHover={true} onEdit='foo' />)
+            expect(wrapper.find('.carbon-pod__block').props().to).toEqual("foo");
           });
         });
       });
