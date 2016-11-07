@@ -4,6 +4,13 @@
 
 * React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
 
+## !! BREAKING CHANGES!!
+
+### Immutable Helper
+
+* ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
+* If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
+
 ## Datepicker Upgrade
 
 * Datepicker has been upgraded the latest version
