@@ -291,7 +291,7 @@ class Pod extends React.Component {
       `carbon-pod--${ this.props.alignTitle }`, {
         "carbon-pod--editable": this.props.onEdit,
         'carbon-pod--is-hovered': this.state.hoverEdit,
-        'carbon-pod--content-triggers-edit': this.props.triggerEditOnContent && this.props.onEdit
+        'carbon-pod--content-triggers-edit': this.shouldContentHaveEditProps
       }
     );
   }
@@ -405,21 +405,23 @@ class Pod extends React.Component {
     if (!this.props.onEdit) { return null; }
 
     return (
-      <div className="carbon-pod__edit-button-container" { ...this.editHoverProps } { ...this.editEventProps } >
+      <div className="carbon-pod__edit-button-container" { ...this.editProps } >
         <Link icon="edit" className={ this.editActionClasses } />
       </div>
     );
   }
 
-  get editHoverProps() {
-    return {
+  /**
+   * Returns props related to the edit event
+   *
+   * @method editProps
+   * @return {Object}
+   */
+  get editProps() {
+    let props = {
       onMouseEnter: this.toggleHoverState.bind(this, true),
       onMouseLeave: this.toggleHoverState.bind(this, false)
     };
-  }
-
-  get editEventProps() {
-    let props = {};
 
     if (typeof this.props.onEdit === "string") {
       props.to = this.props.onEdit;
@@ -433,6 +435,22 @@ class Pod extends React.Component {
     return props;
   }
 
+  /**
+   * Determines if the content pod should share the editProps
+   *
+   * @method shouldContentHaveEditProps
+   * @return {Boolean}
+   */
+  get shouldContentHaveEditProps() {
+    return (this.props.triggerEditOnContent || this.props.displayEditButtonOnHover) && this.props.onEdit;
+  }
+
+  /**
+   * Processes the edit event only on certain event types
+   *
+   * @method processPodEditEvent
+   * @param {Object} the event
+   */
   processPodEditEvent = (ev) => {
     if (Event.isEnterKey(ev) || !Event.isEventType(ev, 'keydown')) {
       ev.preventDefault();
@@ -461,12 +479,11 @@ class Pod extends React.Component {
 
     if (!this.state.collapsed) { content = this.podContent; }
 
-    let editEventProps = this.props.triggerEditOnContent && this.props.onEdit ? this.editEventProps : {};
-    let editHoverProps = this.props.displayEditButtonOnHover && this.props.onEdit ? this.editHoverProps : {};
+    let editProps = this.shouldContentHaveEditProps ? this.editProps : {};
 
     return (
       <div className={ this.mainClasses } { ...this.podProps() }>
-        <div className={ this.blockClasses } { ...editHoverProps } { ...editEventProps }>
+        <div className={ this.blockClasses } { ...editProps }>
           <div className={ this.contentClasses } >
             { this.podHeader }
             { content }
