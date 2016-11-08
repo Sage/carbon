@@ -51,12 +51,3 @@
     }
   }
 }
-
-.carbon-table-row .carbon-pod--is-hovered {
-  .carbon-pod__block,
-  .carbon-pod__edit-action {
-    background: $blue-dark;
-    border-color: $blue-dark;
-    color: $white;
-  }
-}

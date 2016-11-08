@@ -4,6 +4,7 @@
 
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
 * `Pod`: now accepts a `triggerEditOnContent` prop will trigger the `onEdit` function when clicking the content.
+* `Pod`: the colours of an editable pod have been updated to be more consistent.
 
 # 0.28.1
 
