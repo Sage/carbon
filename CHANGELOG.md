@@ -16,6 +16,10 @@
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
 * `Pod`: now accepts a `triggerEditOnContent` prop will trigger the `onEdit` function when clicking the content.
 
+## CSS Changes
+
+* `Navigation-Bar`: line-height has been applied to parent content div rather than children.
+
 # 0.28.1
 
 ## Bug Fixes
