@@ -17,6 +17,10 @@
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
 * `Pod`: now accepts a `triggerEditOnContent` prop will trigger the `onEdit` function when clicking the content.
 
+## Helpers
+
+* A new numberToHumanSize helper for converting bytes to a human readable representation.
+
 # 0.28.1
 
 ## Bug Fixes
