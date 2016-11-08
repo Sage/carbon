@@ -285,12 +285,14 @@ class Tabs extends React.Component {
   }
 
   tabHeaderClasses = (tab) => {
+    let tabHasError = this.state.tabValidity.get(tab.props.tabId) == false;
+
     return classNames(
       'carbon-tabs__headers__header',
       tab.props.headerClassName,
       {
-        'carbon-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
-        'carbon-tabs__headers__header--warning': this.state.tabWarning.get(tab.props.tabId) == true,
+        'carbon-tabs__headers__header--error': tabHasError ,
+        'carbon-tabs__headers__header--warning': this.state.tabWarning.get(tab.props.tabId) == true && !tabHasError,
         'carbon-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
       }
     );

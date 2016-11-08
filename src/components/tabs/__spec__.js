@@ -239,11 +239,11 @@ describe('Tabs', () => {
       spyOn(instance, 'handleTabClick');
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
 
-      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toEqual(false);
+      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeFalsy();
 
       TestUtils.Simulate.click(secondTab);
 
-      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toEqual(true);
+      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeTruthy();
     });
 
     it('sets the location', () => {
@@ -300,29 +300,29 @@ describe('Tabs', () => {
   describe('tabHeaderClasses', () => {
     it('adds a carbon-tabs__header class to the tab', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.classList.contains('carbon-tabs__headers__header')).toEqual(true);
+      expect(secondTab.classList.contains('carbon-tabs__headers__header')).toBeTruthy();
     });
 
     it('adds the className included in the props to the tab', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.classList.contains('headerClass2')).toEqual(true);
+      expect(secondTab.classList.contains('headerClass2')).toBeTruthy();
     });
 
     it('adds the className included in the props as an array to the tab', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[2];
-      expect(secondTab.classList.contains('headerClass3')).toEqual(true);
-      expect(secondTab.classList.contains('headerClass4')).toEqual(true);
+      expect(secondTab.classList.contains('headerClass3')).toBeTruthy();
+      expect(secondTab.classList.contains('headerClass4')).toBeTruthy();
     });
 
-    it('does not addsa selected class to the header', () => {
+    it('does not add a selected class to the header', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toEqual(false);
+      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeFalsy();
     });
 
     describe('when tab is selected tab', () => {
       it('adds a selected class to the header', () => {
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[0];
-        expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toEqual(true);
+        expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeTruthy();
       });
     });
 
@@ -339,6 +339,14 @@ describe('Tabs', () => {
         instance.setState({ tabWarning: Immutable.fromJS({ 'uniqueid2': true })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
         expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--warning');
+      });
+
+      describe('when tab has an error as well', () => {
+        it('does not add a warning class', () => {
+          instance.setState({ tabWarning: Immutable.fromJS({ 'uniqueid2': true }), tabValidity: Immutable.fromJS({ 'uniqueid2': false }) });
+          let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+          expect(secondTab.classList.contains('carbon-tabs__headers__header--warning')).toBeFalsy();
+        });
       });
     });
   });
