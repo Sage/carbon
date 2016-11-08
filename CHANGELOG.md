@@ -12,6 +12,11 @@
 * Datepicker has been upgraded the latest version
 * Bowser has been upgraded to the latest version
 
+## Message Component
+
+* `margin-bottom` has been removed from the message component
+* Two new props have been added. border and roundedCorners
+
 # 0.28.2
 
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
