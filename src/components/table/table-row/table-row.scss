@@ -25,7 +25,7 @@
   }
 }
 
-.carbon-table-row--selected * {
+.carbon-table-row--selected .carbon-table-cell * {
   background: transparent;
   border-color: white;
   color: white;
@@ -50,12 +50,13 @@
       width: 100%;
     }
   }
+}
 
-  .carbon-pod--is-hovered {
-    .carbon-pod__block,
-    .carbon-pod__edit-action {
-      background: $blue-dark;
-      border-color: $blue-dark;
-    }
+.carbon-table-row .carbon-pod--is-hovered {
+  .carbon-pod__block,
+  .carbon-pod__edit-action {
+    background: $blue-dark;
+    border-color: $blue-dark;
+    color: $white;
   }
 }
