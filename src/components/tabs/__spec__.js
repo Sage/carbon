@@ -297,6 +297,23 @@ describe('Tabs', () => {
     });
   });
 
+  describe('tabsHeaderClasses', () => {
+    it('adds a carbon-tabs__headers class to the tab', () => {
+      let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
+      expect(list.classList.contains('carbon-tabs__headers')).toEqual(true);
+    });
+
+    it('adds the align className included in the props to the tab', () => {
+      let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
+      expect(list.classList.contains('carbon-tabs__headers--align-left')).toEqual(true);
+    });
+
+    it('adds the position className included in the props to the tab', () => {
+      let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
+      expect(list.classList.contains('carbon-tabs__headers--position-top')).toEqual(true);
+    });
+  });
+
   describe('tabHeaderClasses', () => {
     it('adds a carbon-tabs__header class to the tab', () => {
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
@@ -392,6 +409,21 @@ describe('Tabs', () => {
         expect(headers.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-right');
       });
     });
+
+    describe('when a position prop is passed', () => {
+      it('adds a position class', () => {
+        let instance = TestUtils.renderIntoDocument(
+          <Tabs position='left'>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>
+        );
+
+        let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
+        expect(headers.className).toMatch('ui-tabs__headers--position-left');
+      });
+    });
   });
 
   describe('visibleTab', () => {
@@ -477,7 +509,7 @@ describe('Tabs', () => {
     it('renders the tab headers', () => {
       let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
       let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
-      expect(list.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-left');
+      expect(list.className).toEqual('ui-tabs__headers ui-tabs__headers--align-left ui-tabs__headers--position-top');
       expect(items.length).toEqual(3);
     });
   });

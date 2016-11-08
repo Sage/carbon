@@ -124,12 +124,21 @@ class Tabs extends React.Component {
      * @property onTabChange
      * @type {Func}
      */
-    onTabChange: React.PropTypes.func
+    onTabChange: React.PropTypes.func,
+
+    /**
+     * The position of tabs with respect to the content (top (default) or left)
+     *
+     * @property position
+     * @type {String}
+     */
+    position: React.PropTypes.string
   }
 
   static defaultProps = {
     renderHiddenTabs: true,
-    align: 'left'
+    align: 'left',
+    position: 'top'
   }
 
   static childContextTypes = {
@@ -284,6 +293,14 @@ class Tabs extends React.Component {
     );
   }
 
+  tabsHeaderClasses = () => {
+    return classNames(
+      'carbon-tabs__headers',
+      `carbon-tabs__headers--align-${ this.props.align }`,
+       `carbon-tabs__headers--position-${ this.props.position }`
+    );
+  }
+
   tabHeaderClasses = (tab) => {
     let tabHasError = this.state.tabValidity.get(tab.props.tabId) == false,
         tabHasWarning = this.state.tabWarning.get(tab.props.tabId) == true && !tabHasError;
@@ -322,7 +339,7 @@ class Tabs extends React.Component {
     });
 
     return(
-      <ul className={ `carbon-tabs__headers carbon-tabs__headers--align-${ this.props.align }` } >
+      <ul className={ this.tabsHeaderClasses() } >
         { tabTitles }
       </ul>
     );

@@ -63,3 +63,27 @@ $carbon-tabs__header__color: $grey-dark !default;
 .carbon-tabs__headers__header--warning {
   border-bottom-color: $orange-mid;
 }
+
+.carbon-tabs__headers--position-left {
+   float: left;
+   margin: 0 10px 0;
+
+   .carbon-tabs__headers {
+     display: inline-block;
+   }
+
+   .carbon-tabs__headers__header {
+     display: block;
+     border-bottom: 0px;
+     border-right: 2px solid $carbon-tabs__header__border-color;
+     margin-left: 0px;
+     margin-top: 2px;
+     &:hover {
+      border-right-color: $carbon-tabs__header--selected_border-color;
+     }
+   }
+
+   .carbon-tabs__headers__header--selected {
+    border-right-color: $carbon-tabs__header--selected_border-color;
+   }
+ }
