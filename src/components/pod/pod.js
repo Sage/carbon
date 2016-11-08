@@ -123,7 +123,26 @@ class Pod extends React.Component {
      * @property editContentFullWidth
      * @type {Boolean}
      */
-    editContentFullWidth: React.PropTypes.bool
+    editContentFullWidth: React.PropTypes.bool,
+
+    /**
+     *
+     * Determines if the edit button should be hidden until the user
+     * hovers over the content.
+     *
+     * @property displayEditButtonOnHover
+     * @type {Boolean}
+     */
+    displayEditButtonOnHover: React.PropTypes.bool,
+
+    /**
+     *
+     * Determines if clicking the pod content calls the onEdit action
+     *
+     * @property triggerEditOnContent
+     * @type {Boolean}
+     */
+    triggerEditOnContent: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -271,7 +290,8 @@ class Pod extends React.Component {
     return classNames("carbon-pod", this.props.className,
       `carbon-pod--${ this.props.alignTitle }`, {
         "carbon-pod--editable": this.props.onEdit,
-        'carbon-pod--is-hovered': this.state.hoverEdit
+        'carbon-pod--is-hovered': this.state.hoverEdit,
+        'carbon-pod--content-triggers-edit': this.shouldContentHaveEditProps
       }
     );
   }
@@ -352,8 +372,10 @@ class Pod extends React.Component {
   get editActionClasses() {
     return classNames(
       'carbon-pod__edit-action',
+      `carbon-pod__edit-action--${this.props.as}`,
       `carbon-pod__edit-action--padding-${this.props.padding}`, {
-        'carbon-pod__edit-action--no-border': !this.props.border
+        'carbon-pod__edit-action--no-border': !this.props.border,
+        "carbon-pod__display-on-hover": this.props.displayEditButtonOnHover
       }
     );
   }
@@ -383,9 +405,25 @@ class Pod extends React.Component {
   get edit() {
     if (!this.props.onEdit) { return null; }
 
+    return (
+      <div className="carbon-pod__edit-button-container" { ...this.editProps } >
+        <Link icon="edit" className={ this.editActionClasses } />
+      </div>
+    );
+  }
+
+  /**
+   * Returns props related to the edit event
+   *
+   * @method editProps
+   * @return {Object}
+   */
+  get editProps() {
     let props = {
       onMouseEnter: this.toggleHoverState.bind(this, true),
-      onMouseLeave: this.toggleHoverState.bind(this, false)
+      onMouseLeave: this.toggleHoverState.bind(this, false),
+      onFocus: this.toggleHoverState.bind(this, true),
+      onBlur: this.toggleHoverState.bind(this, false)
     };
 
     if (typeof this.props.onEdit === "string") {
@@ -397,15 +435,29 @@ class Pod extends React.Component {
       props.onKeyDown = this.processPodEditEvent;
     }
 
-    return (
-      <Link icon="edit" className={ this.editActionClasses } { ...props } tabIndex='0'/>
-    );
+    return props;
   }
 
+  /**
+   * Determines if the content pod should share the editProps
+   *
+   * @method shouldContentHaveEditProps
+   * @return {Boolean}
+   */
+  get shouldContentHaveEditProps() {
+    return (this.props.triggerEditOnContent || this.props.displayEditButtonOnHover) && this.props.onEdit;
+  }
+
+  /**
+   * Processes the edit event only on certain event types
+   *
+   * @method processPodEditEvent
+   * @param {Object} the event
+   */
   processPodEditEvent = (ev) => {
     if (Event.isEnterKey(ev) || !Event.isEventType(ev, 'keydown')) {
       ev.preventDefault();
-      this.props.onEdit();
+      this.props.onEdit(ev);
     }
   }
 
@@ -426,13 +478,19 @@ class Pod extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let content = this.props.content;
+    let content = this.props.content,
+        editProps = {};
 
     if (!this.state.collapsed) { content = this.podContent; }
 
+    if (this.shouldContentHaveEditProps) {
+      editProps = this.editProps;
+      editProps.tabIndex = "0";
+    }
+
     return (
       <div className={ this.mainClasses } { ...this.podProps() }>
-        <div className={ this.blockClasses }>
+        <div className={ this.blockClasses } { ...editProps }>
           <div className={ this.contentClasses } >
             { this.podHeader }
             { content }
