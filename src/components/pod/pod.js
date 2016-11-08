@@ -420,7 +420,9 @@ class Pod extends React.Component {
   get editProps() {
     let props = {
       onMouseEnter: this.toggleHoverState.bind(this, true),
-      onMouseLeave: this.toggleHoverState.bind(this, false)
+      onMouseLeave: this.toggleHoverState.bind(this, false),
+      onFocus: this.toggleHoverState.bind(this, true),
+      onBlur: this.toggleHoverState.bind(this, false)
     };
 
     if (typeof this.props.onEdit === "string") {
@@ -475,11 +477,15 @@ class Pod extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let content = this.props.content;
+    let content = this.props.content,
+        editProps = {};
 
     if (!this.state.collapsed) { content = this.podContent; }
 
-    let editProps = this.shouldContentHaveEditProps ? this.editProps : {};
+    if (this.shouldContentHaveEditProps) {
+      editProps = this.editProps;
+      editProps.tabIndex = "0";
+    }
 
     return (
       <div className={ this.mainClasses } { ...this.podProps() }>

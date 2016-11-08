@@ -373,6 +373,18 @@ describe('Pod', () => {
               wrapper.find('.carbon-pod__block').simulate('mouseLeave')
               expect(wrapper.state().hoverEdit).toBe(false);
             });
+
+            it('toggles the hover state when focusing on the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} onEdit='foo' />)
+              wrapper.find('.carbon-pod__block').simulate('focus')
+              expect(wrapper.state().hoverEdit).toBe(true);
+            });
+
+            it('toggles the hover state when bluring on the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} onEdit='foo' />)
+              wrapper.find('.carbon-pod__block').simulate('blur')
+              expect(wrapper.state().hoverEdit).toBe(false);
+            });
           });
 
           describe('when onEdit has not been set', () => {
@@ -385,6 +397,18 @@ describe('Pod', () => {
             it('does not toggle the hover state when moving the mouse out of the pod', () => {
               const wrapper = shallow(<Pod displayEditButtonOnHover={true} />)
               wrapper.find('.carbon-pod__block').simulate('mouseLeave')
+              expect(wrapper.state().hoverEdit).not.toBeDefined;
+            });
+
+            it('does not toggle the hover state when focusing on the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} />)
+              wrapper.find('.carbon-pod__block').simulate('focus')
+              expect(wrapper.state().hoverEdit).not.toBeDefined;
+            });
+
+            it('does not toggle the hover state when bluring on the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} />)
+              wrapper.find('.carbon-pod__block').simulate('blur')
               expect(wrapper.state().hoverEdit).not.toBeDefined;
             });
           });
