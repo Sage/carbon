@@ -17,11 +17,29 @@
   vertical-align: top;
 }
 
+.carbon-pod--content-triggers-edit .carbon-pod__block:hover {
+  cursor: pointer;
+}
+
 .carbon-pod--is-hovered {
   .carbon-pod__edit-action,
   .carbon-pod__block {
     background-color: $grey-dark-blue-15;
   }
+
+  .carbon-pod__display-on-hover {
+    display: block;
+  }
+}
+
+.carbon-pod__display-on-hover {
+  display: none;
+}
+
+.carbon-pod__edit-button-container {
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
 }
 
 .carbon-pod__edit-action--no-border,
