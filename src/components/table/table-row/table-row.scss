@@ -10,7 +10,7 @@
 }
 
 .carbon-table-row--highlighted .carbon-table-cell {
-  background-color: $row-hover-color !important;
+  background-color: $row-highlight-color !important;
   border-bottom-color: $blue-navy;
   position: relative;
 
@@ -25,23 +25,37 @@
   }
 }
 
+.carbon-table-row--selected * {
+  background: transparent;
+  border-color: white;
+  color: white;
+}
+
 .carbon-table-row--selected,
 .carbon-table-row--selected:nth-child(odd),
 .carbon-table-row--selected:hover {
   .carbon-table-cell {
     background-color: $blue-sky;
-    border-bottom-color: $white;
+    border-bottom-color: $blue;
     color: white;
     position: relative;
 
     &:before {
-      background-color: $white;
+      background-color: $blue;
       content: "";
       height: 1px;
       left: 0;
       position: absolute;
       top: -1px;
       width: 100%;
+    }
+  }
+
+  .carbon-pod--is-hovered {
+    .carbon-pod__block,
+    .carbon-pod__edit-action {
+      background: $blue-dark;
+      border-color: $blue-dark;
     }
   }
 }
