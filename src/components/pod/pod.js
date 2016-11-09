@@ -372,6 +372,7 @@ class Pod extends React.Component {
   get editActionClasses() {
     return classNames(
       'carbon-pod__edit-action',
+      `carbon-pod__edit-action--${this.props.as}`,
       `carbon-pod__edit-action--padding-${this.props.padding}`, {
         'carbon-pod__edit-action--no-border': !this.props.border,
         "carbon-pod__display-on-hover": this.props.displayEditButtonOnHover
