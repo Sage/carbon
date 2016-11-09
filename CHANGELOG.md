@@ -7,6 +7,10 @@
 * ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
 * If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
 
+## CSS Changes
+
+* `Navigation-Bar`: line-height has been applied to parent content div rather than children.
+
 ## Package Upgrades
 
 * Datepicker has been upgraded the latest version
@@ -17,10 +21,6 @@
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
 * `Pod`: now accepts a `triggerEditOnContent` prop will trigger the `onEdit` function when clicking the content.
 * `Pod`: the colours of an editable pod have been updated to be more consistent.
-
-## CSS Changes
-
-* `Navigation-Bar`: line-height has been applied to parent content div rather than children.
 
 # 0.28.1
 
