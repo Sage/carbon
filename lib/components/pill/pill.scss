@@ -23,14 +23,26 @@
   }
 }
 
+.carbon-pill--link {
+  &:not([class*="disabled"]) {
+    &:hover {
+      background: $blue-dark;
+      border-color: $blue-dark;
+      color: white;
+      cursor: pointer;
+    }
+  }
+}
+
 .carbon-pill--disabled--empty {
-  border: 1px solid $grey-mid;
-  color: $grey-mid;
+  border: 1px solid $grey-mid !important;
+  color: $grey-mid !important;
 }
 
 .carbon-pill--disabled--fill {
-  background-color: $grey-dark-blue-20;
-  color: $grey-dark-blue-60;
+  background-color: $grey-dark-blue-20 !important;
+  border: 1px solid $grey-dark-blue-20 !important;
+  color: $grey-dark-blue-60 !important;
 }
 
 @each $set in $colorIconSets {
