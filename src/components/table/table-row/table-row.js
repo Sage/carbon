@@ -214,7 +214,8 @@ class TableRow extends React.Component {
       'carbon-table-row',
       this.props.className, {
         'carbon-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
-        'carbon-table-row--selected': this.state.selected || this.state.highlighted
+        'carbon-table-row--selected': this.state.selected,
+        'carbon-table-row--highlighted': (this.state.highlighted && !this.state.selected)
       }
     );
   }
