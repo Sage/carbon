@@ -16,6 +16,10 @@
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
 * `Pod`: now accepts a `triggerEditOnContent` prop will trigger the `onEdit` function when clicking the content.
 
+## Minor Improvements
+
+* Cookie functions added to browser helper
+
 # 0.28.1
 
 ## Bug Fixes
