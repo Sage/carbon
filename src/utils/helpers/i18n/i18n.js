@@ -82,10 +82,10 @@ const I18nHelper = {
    * Formats the bytes in number into a more understandable representation
    * (e.g., giving it 1500 yields 1.5 KB)
    *
-   * @method numberToHumanSize
+   * @method humanizeFilesize
    * @param {Number} number
    */
-  numberToHumanSize: (number) => {
+  humanizeFilesize: (number) => {
     if (number == 0) return '0 Bytes';
     let k = 1000;
     let sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];

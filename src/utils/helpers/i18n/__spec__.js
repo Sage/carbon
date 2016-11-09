@@ -87,20 +87,20 @@ describe('I18n Helper', () => {
     });
   });
 
-  describe("numberToHumanSize", () => {
+  describe("humanizeFilesize", () => {
     it("returns a human readable version of x bytes", () => {
-      expect(Helper.numberToHumanSize(0)).toEqual('0 Bytes');
-      expect(Helper.numberToHumanSize(1500)).toEqual('1.5 KB');
-      expect(Helper.numberToHumanSize(15000)).toEqual('15 KB');
-      expect(Helper.numberToHumanSize(150000)).toEqual('150 KB');
-      expect(Helper.numberToHumanSize(1500000)).toEqual('1.5 MB');
-      expect(Helper.numberToHumanSize(15000000)).toEqual('15 MB');
-      expect(Helper.numberToHumanSize(150000000)).toEqual('150 MB');
-      expect(Helper.numberToHumanSize(1500000000)).toEqual('1.5 GB');
-      expect(Helper.numberToHumanSize(15000000000)).toEqual('15 GB');
-      expect(Helper.numberToHumanSize(150000000000)).toEqual('150 GB');
-      expect(Helper.numberToHumanSize(1500000000000)).toEqual('1.5 TB');
-      expect(Helper.numberToHumanSize(15000000000000)).toEqual('15 TB');
+      expect(Helper.humanizeFilesize(0)).toEqual('0 Bytes');
+      expect(Helper.humanizeFilesize(1500)).toEqual('1.5 KB');
+      expect(Helper.humanizeFilesize(15000)).toEqual('15 KB');
+      expect(Helper.humanizeFilesize(150000)).toEqual('150 KB');
+      expect(Helper.humanizeFilesize(1500000)).toEqual('1.5 MB');
+      expect(Helper.humanizeFilesize(15000000)).toEqual('15 MB');
+      expect(Helper.humanizeFilesize(150000000)).toEqual('150 MB');
+      expect(Helper.humanizeFilesize(1500000000)).toEqual('1.5 GB');
+      expect(Helper.humanizeFilesize(15000000000)).toEqual('15 GB');
+      expect(Helper.humanizeFilesize(150000000000)).toEqual('150 GB');
+      expect(Helper.humanizeFilesize(1500000000000)).toEqual('1.5 TB');
+      expect(Helper.humanizeFilesize(15000000000000)).toEqual('15 TB');
     });
   });
 
