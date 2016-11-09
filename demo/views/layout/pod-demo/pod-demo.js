@@ -194,6 +194,9 @@ class PodDemo extends React.Component {
     }, {
       id: "tile",
       name: "Tile"
+    }, {
+      id: "transparent",
+      name: "Transparent"
     }]);
   }
 
