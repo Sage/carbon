@@ -51,11 +51,11 @@ const Browser = {
    *
    * @method editFocus
    */
-  editFocus: ((ref) => {
+  editFocus: (ref) => {
     let node = ReactDOM.findDOMNode(ref._input);
     node.focus();
     node.select();
-  }),
+  },
 
   /**
    * Sets a cookie where name=value
@@ -63,14 +63,14 @@ const Browser = {
    * @param {Object} options includes expires or max-age
    * @method setCookie
    */
-  setCookie: ((name, value, options ={}) => {
+  setCookie: (name, value, options = {}) => {
     let cookie = `${ name }=${ value }`;
 
     if (options.expires) { cookie += `; expires=${ options.expires }`; }
     if (options['max-age']) { cookie += `; max-age=${ options['max-age'] }`; }
 
     Browser.getDocument().cookie = cookie;
-  }),
+  },
 
   /**
    * Returns a cookies value by passed name
@@ -78,7 +78,7 @@ const Browser = {
    * @param {String} name cookie name key
    * @method getCookieValueByName
    */
-  getCookie: ((name) => {
+  getCookie: (name) => {
     let cookies = Browser.getDocument().cookie.split(';');
 
     for (let i = 0; i < cookies.length; i++) {
@@ -87,7 +87,7 @@ const Browser = {
         return cookie[1];
       }
     }
-  })
+  }
 };
 
 export default Browser;
