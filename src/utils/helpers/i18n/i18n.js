@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import I18n from "i18n-js";
 
 /**
@@ -70,9 +71,9 @@ const I18nHelper = {
    */
   abbreviateNumber: (num) => {
     if (num > 949 && num < 999950) {
-      return `${Math.round(num / 100) / 10}${I18n.t("number.format.abbreviations.thousand", { defaultValue: "k" })}`;
+      return `${I18nHelper.roundForAbbreviation(num, 100)}${I18n.t("number.format.abbreviations.thousand", { defaultValue: "k" })}`;
     } else if (num > 999949) {
-      return `${Math.round(num / 100000) / 10}${I18n.t("number.format.abbreviations.million", { defaultValue: "m" })}`;
+      return `${I18nHelper.roundForAbbreviation(num, 100000)}${I18n.t("number.format.abbreviations.million", { defaultValue: "m" })}`;
     }
 
     return `${I18nHelper.formatDecimal(num)}`;
@@ -92,6 +93,20 @@ const I18nHelper = {
     let i = Math.floor(Math.log(number) / Math.log(k));
 
     return parseFloat((number / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+  },
+
+  /**
+   * returns a number rounded for abbreviation, forced to one decimal place
+   *
+   * @method roundForAbbreviation
+   * @param {num} number to round
+   * @param {divisor} number to round to, usually a power of ten
+   * @return {String} rounded number
+   */
+  roundForAbbreviation: (num, divisor) => {
+    num = new BigNumber(num);
+    divisor = new BigNumber(divisor);
+    return num.dividedBy(divisor).round().dividedBy(10).toFixed(1);
   },
 
   /**
