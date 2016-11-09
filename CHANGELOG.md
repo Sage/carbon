@@ -12,6 +12,10 @@
 * Datepicker has been upgraded the latest version
 * Bowser has been upgraded to the latest version
 
+## Helpers
+
+* A new humanizeFilesize helper for converting bytes to a human readable representation.
+
 # 0.28.2
 
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
