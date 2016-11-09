@@ -23,9 +23,18 @@
 }
 
 .carbon-pod--is-hovered {
-  .carbon-pod__edit-action,
   .carbon-pod__block {
     background-color: $grey-dark-blue-15;
+  }
+
+  &.carbon-pod--content-triggers-edit .carbon-pod__block,
+  .carbon-pod__edit-action {
+    background-color: $blue-dark;
+    color: $white;
+
+    * {
+      color: $white;
+    }
   }
 
   .carbon-pod__display-on-hover {
@@ -41,6 +50,7 @@
   display: inline-block;
   vertical-align: top;
   cursor: pointer;
+  position: absolute;
 }
 
 .carbon-pod__edit-action--no-border,
