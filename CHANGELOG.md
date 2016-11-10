@@ -1,11 +1,16 @@
 # 0.29.0
 
-## !! BREAKING CHANGES!!
+## !! BREAKING CHANGES!! :warning:
 
 ### Immutable Helper
 
 * ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
 * If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
+* `margin-bottom` has been removed from the message component.
+
+## CSS Changes
+
+* `Navigation-Bar`: line-height has been applied to parent content div rather than children.
 
 ## Bug Fixes
 
@@ -13,8 +18,28 @@
 
 ## Package Upgrades
 
-* Datepicker has been upgraded the latest version
-* Bowser has been upgraded to the latest version
+* Datepicker has been upgraded the latest version.
+* Bowser has been upgraded to the latest version.
+
+## CSS changes
+
+* Links inside of input warnings are now coloured white.
+
+## Component Enhancements
+
+* `Message`: Two new props have been added, `border` and `roundedCorners`.
+
+## Helpers
+
+* A new `humanizeFilesize` helper for converting bytes to a human readable representation.
+
+## CSS Changes
+
+* Animated Menu Button has been updated with latest font changes.
+
+## Minor Improvements
+
+* Cookie functions added to browser helper
 
 # 0.28.2
 
