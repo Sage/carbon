@@ -170,6 +170,11 @@
   }
 }
 
+.common-input__message--warning .carbon-link__anchor {
+  color: white;
+  text-decoration: underline;
+}
+
 .common-input__message--warning:before {
   border-top-color: $warning;
 }
