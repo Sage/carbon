@@ -123,8 +123,8 @@ class Dropdown extends React.Component {
    * @param {Object} nextProps the updated props
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value != this.props.value) {
-      // clear the cache
+    if (!this.props.cacheVisibleValue || (nextProps.value !== this.props.value)) {
+        // clear the cache
       this.visibleValue = null;
     }
   }
@@ -410,6 +410,7 @@ class Dropdown extends React.Component {
     props.onBlur = this.handleBlur;
     props.onKeyDown = this.handleKeyDown;
     props.readOnly = true;
+    props.cacheVisibleValue = false;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
