@@ -124,7 +124,7 @@ class Dropdown extends React.Component {
    */
   componentWillReceiveProps(nextProps) {
     if (!this.props.cacheVisibleValue || (nextProps.value !== this.props.value)) {
-        // clear the cache
+      // clear the cache
       this.visibleValue = null;
     }
   }
