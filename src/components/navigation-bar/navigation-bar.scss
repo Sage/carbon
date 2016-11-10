@@ -18,10 +18,13 @@
   color: $white;
 }
 
+.carbon-navigation-bar__content {
+  line-height: $app-navigation-height;
+}
+
 .carbon-navigation-bar__content > * {
   box-sizing: border-box;
   display: inline-block;
   height: $app-navigation-height;
-  line-height: $app-navigation-height;
   vertical-align: middle;
 }

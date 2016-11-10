@@ -10,7 +10,7 @@ describe('Message', () => {
     spy = jasmine.createSpy('dismiss');
 
     warningMessage = TestUtils.renderIntoDocument(
-      <Message as='warning' onDismiss={ spy } open={true} title='My Title' transparent={true}>Some warning</Message>
+      <Message as='warning' border={ false } onDismiss={ spy } open={true} title='My Title' transparent={true}>Some warning</Message>
     )
 
     infoMessage = TestUtils.renderIntoDocument(
@@ -18,7 +18,7 @@ describe('Message', () => {
     )
 
     errorMessage = TestUtils.renderIntoDocument(
-      <Message as='error' open={true}>Some error</Message>
+      <Message as='error' roundedCorners={ false } open={true}>Some error</Message>
     )
 
     customMessage = TestUtils.renderIntoDocument(
@@ -78,11 +78,29 @@ describe('Message', () => {
     });
 
     it('adds a className of carbon-message--info when type is info', () => {
-      expect(infoDOM.className).toEqual('carbon-message carbon-message--info');
+      expect(infoDOM.className).toMatch('carbon-message--info');
+    });
+
+    it('adds a className of carbon-message--border when borders are turned on', () => {
+      expect(infoDOM.className).toMatch('carbon-message--border');
+    });
+
+    it('adds a className of carbon-message--rounded when roundedCorners are turned on', () => {
+      expect(infoDOM.className).toMatch('carbon-message--rounded');
     });
 
     it('adds any additional classes passed', () => {
-      expect(customDOM.className).toEqual('carbon-message fancy carbon-message--info');
+      expect(customDOM.className).toEqual('carbon-message fancy carbon-message--info carbon-message--rounded carbon-message--border');
+    });
+
+    describe('type classes', () => {
+      beforeEach(() => {
+        infoDOM = TestUtils.findRenderedDOMComponentWithClass(infoMessage, 'carbon-message__type');
+      });
+
+      it('adds a className of carbon-message--rounded when roundedCorners are turned on', () => {
+        expect(infoDOM.className).toMatch('carbon-message__type--rounded');
+      });
     });
   });
 

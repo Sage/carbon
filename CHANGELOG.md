@@ -6,10 +6,16 @@
 
 * ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
 * If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
+* `margin-bottom` has been removed from the message component.
 
-## Datepicker Upgrade
+## CSS Changes
 
-* Datepicker has been upgraded the latest version
+* `Navigation-Bar`: line-height has been applied to parent content div rather than children.
+
+## Package Upgrades
+
+* Datepicker has been upgraded the latest version.
+* Bowser has been upgraded to the latest version.
 
 ## CSS changes
 
@@ -17,8 +23,21 @@
 
 ## Component Enhancements
 
+* `Message`: Two new props have been added, `border` and `roundedCorners`.
+
+## Helpers
+
+* A new `humanizeFilesize` helper for converting bytes to a human readable representation.
+
+## CSS Changes
+
+* Animated Menu Button has been updated with latest font changes.
+
+# 0.28.2
+
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
 * `Pod`: now accepts a `triggerEditOnContent` prop will trigger the `onEdit` function when clicking the content.
+* `Pod`: the colours of an editable pod have been updated to be more consistent.
 
 # 0.28.1
 
