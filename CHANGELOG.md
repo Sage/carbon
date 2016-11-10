@@ -42,6 +42,10 @@
 
 * Cookie functions added to browser helper
 
+# 0.28.3
+
+* `Tabs`: Tab Heading hover, focus and active states corrected
+
 # 0.28.2
 
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
