@@ -72,18 +72,24 @@ describe('I18n Helper', () => {
   describe("abbreviateNumber", () => {
     it("creates the correct suffixes at the correct points", () => {
       expect(Helper.abbreviateNumber('949')).toEqual('949.00');
-      expect(Helper.abbreviateNumber('950')).toEqual('1k');
-      expect(Helper.abbreviateNumber('1049')).toEqual('1k');
+      expect(Helper.abbreviateNumber('950')).toEqual('1.0k');
+      expect(Helper.abbreviateNumber('1049')).toEqual('1.0k');
       expect(Helper.abbreviateNumber('1050')).toEqual('1.1k');
       expect(Helper.abbreviateNumber('9949')).toEqual('9.9k');
-      expect(Helper.abbreviateNumber('9950')).toEqual('10k');
+      expect(Helper.abbreviateNumber('9950')).toEqual('10.0k');
       expect(Helper.abbreviateNumber('99949')).toEqual('99.9k');
-      expect(Helper.abbreviateNumber('99950')).toEqual('100k');
+      expect(Helper.abbreviateNumber('99950')).toEqual('100.0k');
       expect(Helper.abbreviateNumber('999949')).toEqual('999.9k');
-      expect(Helper.abbreviateNumber('999950')).toEqual('1m');
-      expect(Helper.abbreviateNumber('1049000')).toEqual('1m');
+      expect(Helper.abbreviateNumber('999950')).toEqual('1.0m');
+      expect(Helper.abbreviateNumber('1049000')).toEqual('1.0m');
       expect(Helper.abbreviateNumber('1050000')).toEqual('1.1m');
-      expect(Helper.abbreviateNumber('1000000000')).toEqual('1000m');
+      expect(Helper.abbreviateNumber('1000000000')).toEqual('1000.0m');
+    });
+  });
+
+  describe("roundForAbbreviation", () => {
+    it("formats a whole number to one decimal place after applying the divisor", () => {
+      expect(Helper.roundForAbbreviation(1000, 100)).toEqual('1.0');
     });
   });
 
