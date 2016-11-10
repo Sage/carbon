@@ -1,6 +1,6 @@
 # 0.29.0
 
-## !! BREAKING CHANGES!!
+## !! BREAKING CHANGES!! :warning:
 
 ### Immutable Helper
 
@@ -16,6 +16,10 @@
 
 * Datepicker has been upgraded the latest version.
 * Bowser has been upgraded to the latest version.
+
+## CSS changes
+
+* Links inside of input warnings are now coloured white.
 
 ## Component Enhancements
 
