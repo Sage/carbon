@@ -8,6 +8,10 @@
 * If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
 * `margin-bottom` has been removed from the message component.
 
+## CSS Changes
+
+* `Navigation-Bar`: line-height has been applied to parent content div rather than children.
+
 ## Package Upgrades
 
 * Datepicker has been upgraded the latest version.
