@@ -41,6 +41,8 @@ class MessageDemo extends React.Component {
         transparent={ this.value('transparent') }
         open={ this.value('open') }
         title={ this.value('title') }
+        border={ this.value('border') }
+        roundedCorners={ this.value('roundedCorners') }
         { ...props }
       >
         { this.value('text') || " " }
@@ -59,6 +61,8 @@ class MessageDemo extends React.Component {
     html += `\n  transparent='${false}'`;
     html += `\n  open='${true}'`;
     html += `\n  title='${this.value('title')}'`;
+    html += `\n  border='${this.value('border')}'`;
+    html += `\n  roundedCorners='${this.value('roundedCorners')}'`;
     html += "\n>\n";
     html += `  ${this.value('text')}`;
     html += "\n</Message>\n\n";
@@ -106,6 +110,18 @@ class MessageDemo extends React.Component {
             label="Dismissable"
             value={ this.value('dismissable') }
             onChange={ this.action.bind(this, 'dismissable') }
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Border"
+            value={ this.value('border') }
+            onChange={ this.action.bind(this, 'border') }
+          />
+          <Checkbox
+            label="Rounded Corners"
+            value={ this.value('roundedCorners') }
+            onChange={ this.action.bind(this, 'roundedCorners') }
           />
         </Row>
       </div>
