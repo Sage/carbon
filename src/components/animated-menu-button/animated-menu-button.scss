@@ -17,7 +17,7 @@
   .carbon-animated-menu-button__label {
     display: inline-block;
     font-size: 22px;
-    font-weight: 300;
+    font-weight: 700;
     line-height: 24px;
     margin-bottom: 15px;
   }
@@ -36,6 +36,7 @@
   }
 
   .carbon-link__anchor {
+    color: white;
     font-weight: normal;
   }
 
@@ -125,16 +126,6 @@
     .icon-close {
       float: right;
       outline: none;
-    }
-
-    .title {
-      color: $white;
-      border-bottom: 1px solid #D24675;
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 15px;
-      margin-top: 0;
-      padding-bottom: 10px;
     }
   }
 }

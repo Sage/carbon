@@ -21,6 +21,10 @@
 
 * A new `humanizeFilesize` helper for converting bytes to a human readable representation.
 
+## CSS Changes
+
+* Animated Menu Button has been updated with latest font changes.
+
 # 0.28.2
 
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
