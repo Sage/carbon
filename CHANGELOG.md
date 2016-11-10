@@ -12,6 +12,10 @@
 
 * `Navigation-Bar`: line-height has been applied to parent content div rather than children.
 
+## Bug Fixes
+
+* `Tabs` now correctly tracks warning state of a tab.
+
 ## Package Upgrades
 
 * Datepicker has been upgraded the latest version.
