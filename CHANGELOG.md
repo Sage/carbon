@@ -33,6 +33,10 @@
 
 * Animated Menu Button has been updated with latest font changes.
 
+## Minor Improvements
+
+* Cookie functions added to browser helper
+
 # 0.28.2
 
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
