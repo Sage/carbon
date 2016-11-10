@@ -28,7 +28,7 @@
 ## Component Enhancements
 
 * `Message`: Two new props have been added, `border` and `roundedCorners`.
-* `Dropdown`: One new prop have been added, `cacheVisibleValue`.
+* `Dropdown`: One new prop has been added, `cacheVisibleValue`.
 
 ## Helpers
 

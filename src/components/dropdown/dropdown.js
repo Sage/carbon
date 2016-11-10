@@ -81,7 +81,15 @@ class Dropdown extends React.Component {
      * @property options
      * @type {object}
      */
-    options: React.PropTypes.object.isRequired
+    options: React.PropTypes.object.isRequired,
+
+    /**
+     * Determines if the visibleValue will be cached or not.
+     *
+     * @property cacheVisibleValue
+     * @type {boolean}
+     */
+    cacheVisibleValue: false
   }
 
   state = {
@@ -410,7 +418,6 @@ class Dropdown extends React.Component {
     props.onBlur = this.handleBlur;
     props.onKeyDown = this.handleKeyDown;
     props.readOnly = true;
-    props.cacheVisibleValue = false;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = this.handleFocus;
