@@ -9,13 +9,17 @@
 
 ## Package Upgrades
 
-* Datepicker has been upgraded the latest version
-* Bowser has been upgraded to the latest version
+* Datepicker has been upgraded the latest version.
+* Bowser has been upgraded to the latest version.
 
 ## Message Component
 
-* `margin-bottom` has been removed from the message component
-* Two new props have been added. border and roundedCorners
+* `margin-bottom` has been removed from the message component.
+* Two new props have been added, `border` and `roundedCorners`.
+
+## Helpers
+
+* A new `humanizeFilesize` helper for converting bytes to a human readable representation.
 
 # 0.28.2
 
