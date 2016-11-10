@@ -72,18 +72,41 @@ describe('I18n Helper', () => {
   describe("abbreviateNumber", () => {
     it("creates the correct suffixes at the correct points", () => {
       expect(Helper.abbreviateNumber('949')).toEqual('949.00');
-      expect(Helper.abbreviateNumber('950')).toEqual('1k');
-      expect(Helper.abbreviateNumber('1049')).toEqual('1k');
+      expect(Helper.abbreviateNumber('950')).toEqual('1.0k');
+      expect(Helper.abbreviateNumber('1049')).toEqual('1.0k');
       expect(Helper.abbreviateNumber('1050')).toEqual('1.1k');
       expect(Helper.abbreviateNumber('9949')).toEqual('9.9k');
-      expect(Helper.abbreviateNumber('9950')).toEqual('10k');
+      expect(Helper.abbreviateNumber('9950')).toEqual('10.0k');
       expect(Helper.abbreviateNumber('99949')).toEqual('99.9k');
-      expect(Helper.abbreviateNumber('99950')).toEqual('100k');
+      expect(Helper.abbreviateNumber('99950')).toEqual('100.0k');
       expect(Helper.abbreviateNumber('999949')).toEqual('999.9k');
-      expect(Helper.abbreviateNumber('999950')).toEqual('1m');
-      expect(Helper.abbreviateNumber('1049000')).toEqual('1m');
+      expect(Helper.abbreviateNumber('999950')).toEqual('1.0m');
+      expect(Helper.abbreviateNumber('1049000')).toEqual('1.0m');
       expect(Helper.abbreviateNumber('1050000')).toEqual('1.1m');
-      expect(Helper.abbreviateNumber('1000000000')).toEqual('1000m');
+      expect(Helper.abbreviateNumber('1000000000')).toEqual('1000.0m');
+    });
+  });
+
+  describe("roundForAbbreviation", () => {
+    it("formats a whole number to one decimal place after applying the divisor", () => {
+      expect(Helper.roundForAbbreviation(1000, 100)).toEqual('1.0');
+    });
+  });
+
+  describe("humanizeFilesize", () => {
+    it("returns a human readable version of x bytes", () => {
+      expect(Helper.humanizeFilesize(0)).toEqual('0 Bytes');
+      expect(Helper.humanizeFilesize(1500)).toEqual('1.5 KB');
+      expect(Helper.humanizeFilesize(15000)).toEqual('15 KB');
+      expect(Helper.humanizeFilesize(150000)).toEqual('150 KB');
+      expect(Helper.humanizeFilesize(1500000)).toEqual('1.5 MB');
+      expect(Helper.humanizeFilesize(15000000)).toEqual('15 MB');
+      expect(Helper.humanizeFilesize(150000000)).toEqual('150 MB');
+      expect(Helper.humanizeFilesize(1500000000)).toEqual('1.5 GB');
+      expect(Helper.humanizeFilesize(15000000000)).toEqual('15 GB');
+      expect(Helper.humanizeFilesize(150000000000)).toEqual('150 GB');
+      expect(Helper.humanizeFilesize(1500000000000)).toEqual('1.5 TB');
+      expect(Helper.humanizeFilesize(15000000000000)).toEqual('15 TB');
     });
   });
 
