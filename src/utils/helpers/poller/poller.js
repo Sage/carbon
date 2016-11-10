@@ -14,6 +14,7 @@ import './../../promises';
  * - functions: An object containing the custom functions
  * -- conditionMet: Use this to test a desired condition in the response and return a boolean.
  *                  If the condition is true, the callback will be executed.
+ * -- conditionNotMetCallback: Called when condition not met and poller will retry
  * -- callback: A callback function to call when the conditionMet returns true
  * -- handleError: a callback function that takes an error and handles it
  * -- terminate: Use this to test a desired condition in the response and return a boolean.
@@ -31,6 +32,7 @@ import './../../promises';
  * let options = { interval: 5000 };
  * let functions = {
  *   conditionMet: function(response) => { return response.body.status === 'complete' };
+ *   conditionNotMetCallback: function(response) => { notYetFunction(response) };
  *   callback: function(response) => { doSomethingFancy(reponse) };
  *   handleError: function(err) => { FlashMessage("Failed", err) };
  * }
@@ -72,6 +74,7 @@ export default (queryOptions, functions, options) => {
           } else if (functions.conditionMet(response)) {
             return resolve(functions.callback(response));
           } else {
+            functions.conditionNotMetCallback(response);
             pollCount++;
             setTimeout(poll, options.interval);
           }
@@ -122,6 +125,7 @@ function getFunctions(functions) {
     callback: functions.callback || null,
     handleError: functions.handleError || null,
     conditionMet: functions.conditionMet || (() => { return false; }),
+    conditionNotMetCallback: functions.conditionNotMetCallback || (() => { return false; }),
     terminate: functions.terminate || (() => { return false; })
   };
 }

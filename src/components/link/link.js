@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
 import { Link } from 'react-router';
+import Event from './../../utils/helpers/events';
 
 /**
  * A link widget.
@@ -22,6 +23,11 @@ import { Link } from 'react-router';
  * @constructor
  */
 class _Link extends React.Component {
+
+  constructor() {
+    super();
+    this.onKeyDown = this.onKeyDown.bind(this);
+  }
 
   static propTypes = {
 
@@ -53,6 +59,17 @@ class _Link extends React.Component {
     iconAlign: React.PropTypes.string,
 
     /**
+     * Allows the <a> tag to be set in or out of the tab order of the page
+     * Boolean is used as tabindex > 0 is not really necessary, HTML order should
+     * take precedence
+     *
+     * @property tabbable
+     * @type {Boolean}
+     * @default true
+     */
+    tabbable: React.PropTypes.bool,
+
+    /**
      * Use `to` to use the React Router link. You can also prefix your value
      * with `to:` or `href:` to override the prop type.
      *
@@ -74,7 +91,8 @@ class _Link extends React.Component {
   }
 
   static defaultProps = {
-    iconAlign: 'left'
+    iconAlign: 'left',
+    tabbable: true
   }
 
   /**
@@ -86,11 +104,15 @@ class _Link extends React.Component {
   get componentProps() {
     let { ...props } = this.props;
 
+    props.tabIndex = this.tabIndex;
+
     delete props.href;
+    delete props.tabbable;
     delete props.to;
 
     props.className = this.componentClasses;
     props[this.linkType.prop] = this.url;
+    props.onKeyDown = this.onKeyDown;
 
     return props;
   }
@@ -152,6 +174,16 @@ class _Link extends React.Component {
         tooltipPosition={ this.props.tooltipPosition }
       />
     );
+  }
+
+  /**
+   * Returns 0 or -1 for tabindex
+   *
+   * @method tabIndex
+   * @return {String} 0 or -1
+   */
+  get tabIndex() {
+    return this.props.tabbable && !this.props.disabled ? '0' : '-1';
   }
 
   /**
@@ -219,6 +251,25 @@ class _Link extends React.Component {
     if (!url) { return null; }
 
     return url.replace(this.typeRegex, "");
+  }
+
+  /**
+   * Triggers the onClick event for the enter key
+   *
+   * @method onKeyDown
+   * @param {Object} ev
+   */
+  onKeyDown(ev) {
+    if (this.props.onKeyDown) {
+      this.props.onKeyDown(ev);
+    }
+
+    // return early if there is no onClick or there is a href prop
+    if (!this.props.onClick || this.props.href) { return; }
+    // return early if the event is not an enter key
+    if (!Event.isEnterKey(ev)) { return; }
+
+    this.props.onClick(ev);
   }
 
   /**

@@ -101,6 +101,10 @@ let data = ImmutableHelper.parseJSON({
   help: {
     message: "This is an example of a help tooltip."
   },
+  i18n: {
+    message: "Test",
+    inline: true
+  },
   icon: {
     type: 'info'
   },

@@ -1,0 +1,58 @@
+@import "colors";
+@import "../../../demo-variables";
+
+.demo-footer {
+  box-sizing: border-box;
+  color: $white;
+  padding: 24px 0 10px;
+  width: 100%;
+
+  &__background {
+    background-color: $grey-dark-blue;
+    left: 0;
+    right: 0;
+  }
+
+  &__section {
+    text-align: center;
+    width: 100%;
+  }
+
+  &__social {
+    float: left;
+    @media(min-width: $response-point-medium) {
+      text-align: left;
+      width: 25%;
+    }
+  }
+
+  &__corporate {
+    float: right;
+    margin-bottom: 15px;
+    @media(min-width: $response-point-medium) {
+      text-align: right;
+      width: 71%;
+    }
+  }
+
+  &__sage-icon {
+    background-image: url('/assets/images/sage_logo.svg');
+    display: inline-block;
+    height: 22px;
+    width: 57px;
+  }
+
+  &__legal {
+    float: right;
+    margin-top: 4px;
+    width: 100%;
+  }
+
+  .carbon-icon {
+    margin: 4px 24px 4px 4px;
+  }
+
+  .carbon-link__anchor {
+    color: currentColor;
+  }
+}

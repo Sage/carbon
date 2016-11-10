@@ -4,9 +4,12 @@ import Business from './svgs/business';
 import CSV from './svgs/csv';
 import Chevron from './svgs/chevron';
 import Completed from './svgs/completed';
+import Draft from './svgs/draft';
+import Dribbble from './svgs/dribbble';
 import Edit from './svgs/edit';
 import Email from './svgs/email';
 import ExternalLink from './svgs/external-link';
+import Github from './svgs/github';
 import Help from './svgs/help';
 import Individual from './svgs/individual';
 import Information from './svgs/information';
@@ -26,10 +29,12 @@ import Print from './svgs/print';
 import Processing from './svgs/processing';
 import Progress from './svgs/progress';
 import Refresh from './svgs/refresh';
+import Remove from './svgs/remove';
 import SortDown from './svgs/sort-down';
 import SortUp from './svgs/sort-up';
 import Submitted from './svgs/submitted';
 import Sync from './svgs/sync';
+import Twitter from './svgs/twitter';
 import Warning from './svgs/warning';
 import WhiteTick from './svgs/white-tick';
 
@@ -41,9 +46,12 @@ export default {
   csv: CSV,
   chevron: Chevron,
   completed: Completed,
+  draft: Draft,
+  dribbble: Dribbble,
   edit: Edit,
   email: Email,
   'external-link': ExternalLink,
+  github: Github,
   help: Help,
   individual: Individual,
   information: Information,
@@ -63,10 +71,12 @@ export default {
   processing: Processing,
   progress: Progress,
   refresh: Refresh,
+  remove: Remove,
   'sort-down': SortDown,
   'sort-up': SortUp,
   submitted: Submitted,
   sync: Sync,
+  twitter: Twitter,
   warning: Warning,
   'white-tick': WhiteTick
 };
