@@ -6,16 +6,16 @@
 
 * ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
 * If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
+* `margin-bottom` has been removed from the message component.
 
 ## Package Upgrades
 
 * Datepicker has been upgraded the latest version.
 * Bowser has been upgraded to the latest version.
 
-## Message Component
+## Component Enhancements
 
-* `margin-bottom` has been removed from the message component.
-* Two new props have been added, `border` and `roundedCorners`.
+* `Message`: Two new props have been added, `border` and `roundedCorners`.
 
 ## Helpers
 
