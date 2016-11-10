@@ -234,7 +234,7 @@ let data = ImmutableHelper.parseJSON({
     sortable: true
   },
   tabs: {
-    tabData: [{}, {}]
+    tabData: [{}, {}, {}, {}, {}]
   },
   textbox: {
     label: "Textbox",
