@@ -13,7 +13,7 @@
 
 ## CSS changes
 
-* Update CSS for warning messages
+* Links inside of input warnings are now coloured white.
 
 ## Component Enhancements
 

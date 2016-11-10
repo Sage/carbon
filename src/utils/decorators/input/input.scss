@@ -170,14 +170,9 @@
   }
 }
 
-.common-input__message--warning {
-  text-align: left;
-  word-break: break-all;
-  
-  .carbon-link__anchor {
-    color: white;
-    text-decoration: underline;
-  }
+.common-input__message--warning .carbon-link__anchor {
+  color: white;
+  text-decoration: underline;
 }
 
 .common-input__message--warning:before {
