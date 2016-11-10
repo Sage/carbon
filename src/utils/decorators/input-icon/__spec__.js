@@ -47,6 +47,16 @@ describe('InputIcon', () => {
         expect(icon.length).toEqual(1);
       });
     });
+
+    describe("when is an warning", () => {
+      beforeEach(() => {
+        iconWrapper = shallow(klass.inputIconHTML('warning')).find('label');
+      });
+      it("contains a carbon-input-icon--warning container", () => {
+        let icon = iconWrapper.find('.carbon-input-icon--warning');
+        expect(icon.length).toEqual(1);
+      });
+    });
   });
 
   describe('mainClasses', () => {

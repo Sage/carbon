@@ -364,6 +364,8 @@ class Date extends React.Component {
   get additionalInputContent() {
     if (!this.state.valid) {
       return this.inputIconHTML("error");
+    } else if (this.state.warning) {
+      return this.inputIconHTML("warning");
     } else {
       return this.inputIconHTML("calendar");
     }
