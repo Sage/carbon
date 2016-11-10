@@ -13,7 +13,7 @@
   line-height: 16px;
   font-size: $app-font-size;
   font-weight: $carbon-button__font-weight;
-  height: $input-common-height;
+  min-height: $input-common-height;
   padding: $carbon-button__padding;
   outline: none;
   text-decoration: none;
