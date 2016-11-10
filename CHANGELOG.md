@@ -25,12 +25,6 @@
 
 * Links inside of input warnings are now coloured white.
 
-# 0.28.3
-
-* `Tabs`: Tab Heading hover, focus and active states corrected
-
-# 0.28.2
-
 ## Component Enhancements
 
 * `Message`: Two new props have been added, `border` and `roundedCorners`.
@@ -47,6 +41,10 @@
 ## Minor Improvements
 
 * Cookie functions added to browser helper
+
+# 0.28.3
+
+* `Tabs`: Tab Heading hover, focus and active states corrected
 
 # 0.28.2
 
