@@ -89,6 +89,10 @@ class Dropdown extends React.Component {
      * @property cacheVisibleValue
      * @type {boolean}
      */
+    cacheVisibleValue: React.PropTypes.bool
+  }
+
+  static defaultProps = {
     cacheVisibleValue: false
   }
 
