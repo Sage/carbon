@@ -47,6 +47,11 @@
 
 * `Tabs`: Tab Heading hover, focus and active states corrected
 
+## Components
+
+* `Icon`: removes SVGs to fallback to icon font until new SVGs designed
+* `Flash`, `Message` and `Toast`: all use `flex` for positioning
+
 # 0.28.2
 
 * `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.

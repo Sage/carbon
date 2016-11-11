@@ -10,16 +10,12 @@ import Edit from './svgs/edit';
 import Email from './svgs/email';
 import ExternalLink from './svgs/external-link';
 import Github from './svgs/github';
-import Help from './svgs/help';
 import Individual from './svgs/individual';
-import Information from './svgs/information';
 import Key from './svgs/key';
 import Location from './svgs/location';
-import Maintenance from './svgs/maintenance';
 import Message from './svgs/message';
 import Minus from './svgs/minus';
 import Mobile from './svgs/mobile';
-import New from './svgs/new';
 import PDF from './svgs/pdf';
 import Paperclip from './svgs/paperclip';
 import Payment from './svgs/payment';
@@ -35,7 +31,6 @@ import SortUp from './svgs/sort-up';
 import Submitted from './svgs/submitted';
 import Sync from './svgs/sync';
 import Twitter from './svgs/twitter';
-import Warning from './svgs/warning';
 import WhiteTick from './svgs/white-tick';
 
 
@@ -52,16 +47,12 @@ export default {
   email: Email,
   'external-link': ExternalLink,
   github: Github,
-  help: Help,
   individual: Individual,
-  information: Information,
   key: Key,
   location: Location,
-  maintenance: Maintenance,
   message: Message,
   minus: Minus,
   mobile: Mobile,
-  new: New,
   pdf: PDF,
   paperclip: Paperclip,
   payment: Payment,
@@ -77,6 +68,5 @@ export default {
   submitted: Submitted,
   sync: Sync,
   twitter: Twitter,
-  warning: Warning,
   'white-tick': WhiteTick
 };
