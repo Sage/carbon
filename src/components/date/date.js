@@ -470,7 +470,7 @@ export default Date;
  * @return {String} formatted date string
  */
 function visibleFormat() {
-  return I18n.t('date.formats.javascript', { defaultValue: "DD/MM/YY" }).toUpperCase();
+  return I18n.t('date.formats.javascript', { defaultValue: "DD/MM/YYYY" }).toUpperCase();
 }
 
 /**

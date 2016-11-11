@@ -6,7 +6,7 @@ import Events from './../../utils/helpers/events';
 
 describe('Date', () => {
   let instance;
-  let today = moment().format("DD MMM YYYY");
+  let today = moment().format("DD/MM/YYYY");
   let hiddenToday = moment().format("YYYY-MM-DD");
 
   beforeEach(() => {
