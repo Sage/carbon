@@ -34,6 +34,8 @@
 
 * A new `humanizeFilesize` helper for converting bytes to a human readable representation.
 * `roundForAbbreviation` is added to handle the number element of `abbreviateNumber` as well as forcing any abbreviated number to one decimal place
+* `abbreviateCurrency` takes unit value
+
 
 ## CSS Changes
 
