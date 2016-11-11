@@ -81,7 +81,19 @@ class Dropdown extends React.Component {
      * @property options
      * @type {object}
      */
-    options: React.PropTypes.object.isRequired
+    options: React.PropTypes.object.isRequired,
+
+    /**
+     * Determines if the visibleValue will be cached or not.
+     *
+     * @property cacheVisibleValue
+     * @type {boolean}
+     */
+    cacheVisibleValue: React.PropTypes.bool
+  }
+
+  static defaultProps = {
+    cacheVisibleValue: false
   }
 
   state = {
@@ -123,7 +135,7 @@ class Dropdown extends React.Component {
    * @param {Object} nextProps the updated props
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value != this.props.value) {
+    if (!this.props.cacheVisibleValue || (nextProps.value !== this.props.value)) {
       // clear the cache
       this.visibleValue = null;
     }
