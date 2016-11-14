@@ -13,6 +13,7 @@
 
   .carbon-help {
     top: -2px;
+    margin-bottom: -2px; // required to ensure the input maintains it's position
   }
 }
 
