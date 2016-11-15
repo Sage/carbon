@@ -61,11 +61,11 @@ describe('I18n Helper', () => {
     it("creates the correct abbreviation", () => {
       expect(Helper.abbreviateCurrency('-345')).toEqual('£-345.00');
       expect(Helper.abbreviateCurrency('345')).toEqual('£345.00');
-      expect(Helper.abbreviateCurrency('678', { locale: 'fr' })).toEqual('678.00 €');
-      expect(Helper.abbreviateCurrency('123456', { locale: 'en' })).toEqual('£123.5k');
-      expect(Helper.abbreviateCurrency('567890', { locale: 'fr' })).toEqual('567.9k €');
-      expect(Helper.abbreviateCurrency('987654321', { locale: 'en' })).toEqual('£987.7m');
-      expect(Helper.abbreviateCurrency('234567890', { locale: 'fr' })).toEqual('234.6m €');
+      expect(Helper.abbreviateCurrency('678', { locale: 'fr', unit: '€' })).toEqual('678.00 €');
+      expect(Helper.abbreviateCurrency('123456', { locale: 'en', unit: '£' })).toEqual('£123.5k');
+      expect(Helper.abbreviateCurrency('567890', { locale: 'fr', unit: '€' })).toEqual('567.9k €');
+      expect(Helper.abbreviateCurrency('987654321', { locale: 'en', unit: '£' })).toEqual('£987.7m');
+      expect(Helper.abbreviateCurrency('234567890', { locale: 'fr', unit: '€' })).toEqual('234.6m €');
     });
   });
 
