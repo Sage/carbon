@@ -19,16 +19,12 @@ describe('Icon', () => {
     'email',
     'external-link',
     'github',
-    'help',
     'individual',
-    'information',
     'key',
     'location',
-    'maintenance',
     'message',
     'minus',
     'mobile',
-    'new',
     'pdf',
     'paperclip',
     'payment',
@@ -44,7 +40,6 @@ describe('Icon', () => {
     'submitted',
     'sync',
     'twitter',
-    'warning',
     'white-tick'
   ]
 
@@ -60,11 +55,18 @@ describe('Icon', () => {
     });
   });
 
-  describe('success', () => {
-    it('renders with an icon of tick', () => {
-      instance = TestUtils.renderIntoDocument(<Icon type='success' />);
-      span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
-      expect(span.className).toEqual('carbon-icon icon-tick');
+  describe("mis matched pairs of props and icons retrieved", () => {
+    let mismatchedPairs = [ { prop: 'help',        rendersAs: 'question' },
+                            { prop: 'maintenance', rendersAs: 'settings' },
+                            { prop: 'new',         rendersAs: 'gift' },
+                            { prop: 'success',     rendersAs: 'tick' } ];
+
+    mismatchedPairs.forEach((mismatchedPair) => {
+      it(`renders ${mismatchedPair.prop} as ${mismatchedPair.rendersAs}`, () => {
+        instance = TestUtils.renderIntoDocument(<Icon type={ mismatchedPair.prop } />);
+        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
+        expect(span.className).toEqual(`carbon-icon icon-${mismatchedPair.rendersAs}`);
+      });
     });
   });
 

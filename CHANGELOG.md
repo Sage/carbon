@@ -30,11 +30,14 @@
 ## Component Enhancements
 
 * `Message`: Two new props have been added, `border` and `roundedCorners`.
+* `Dropdown`: One new prop has been added, `cacheVisibleValue`.
 
 ## Helpers
 
 * A new `humanizeFilesize` helper for converting bytes to a human readable representation.
 * `roundForAbbreviation` is added to handle the number element of `abbreviateNumber` as well as forcing any abbreviated number to one decimal place
+* `abbreviateCurrency` takes unit value
+
 
 ## CSS Changes
 
@@ -43,6 +46,15 @@
 ## Minor Improvements
 
 * Cookie functions added to browser helper
+
+# 0.28.3
+
+* `Tabs`: Tab Heading hover, focus and active states corrected
+
+## Components
+
+* `Icon`: removes SVGs to fallback to icon font until new SVGs designed
+* `Flash`, `Message` and `Toast`: all use `flex` for positioning
 
 # 0.28.2
 

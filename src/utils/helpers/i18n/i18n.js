@@ -57,8 +57,9 @@ const I18nHelper = {
     let locale = options.locale || 'en',
         sign = num < 0 ? '-' : '',
         abbr = I18nHelper.abbreviateNumber(num),
-        format = I18nHelper.format(locale);
-    return format.format.replace("%u", format.unit).replace("%n", abbr).replace("%s", sign);
+        format = I18nHelper.format(locale),
+        unit = options.unit || format.unit;
+    return format.format.replace("%u", unit).replace("%n", abbr).replace("%s", sign);
   },
 
   /**

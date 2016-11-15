@@ -382,9 +382,7 @@ class Flash extends React.Component {
     // if auto-dismiss is not enabled, add a close icon
     if (!this.props.timeout) {
       contents.push(
-        <div className='carbon-flash__close-icon' onClick={ this.props.onDismiss } key='close'>
-          <Icon type='close' />
-        </div>
+        <Icon className="carbon-flash__close" type="close" onClick={ this.props.onDismiss }  key='close'/>
       );
     }
 
