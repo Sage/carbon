@@ -11,6 +11,9 @@
 ## CSS Changes
 
 * `Navigation-Bar`: line-height has been applied to parent content div rather than children.
+* Animated Menu Button has been updated with latest font changes.
+* `Button`: height changed to min-height and padding added to allow content to grow with multi line text.
+* Links inside of input warnings are now coloured white.
 
 ## Bug Fixes
 
@@ -20,10 +23,6 @@
 
 * Datepicker has been upgraded the latest version.
 * Bowser has been upgraded to the latest version.
-
-## CSS changes
-
-* Links inside of input warnings are now coloured white.
 
 ## Component Enhancements
 
@@ -36,10 +35,6 @@
 * `roundForAbbreviation` is added to handle the number element of `abbreviateNumber` as well as forcing any abbreviated number to one decimal place
 * `abbreviateCurrency` takes unit value
 
-
-## CSS Changes
-
-* Animated Menu Button has been updated with latest font changes.
 
 ## Minor Improvements
 
