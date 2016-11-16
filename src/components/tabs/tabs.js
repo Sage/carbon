@@ -339,9 +339,11 @@ class Tabs extends React.Component {
     });
 
     return(
-      <ul className={ this.tabsHeaderClasses() } >
-        { tabTitles }
-      </ul>
+      <div className='carbon-tabs__headers__container'>
+        <ul className={ this.tabsHeaderClasses() } >
+          { tabTitles }
+        </ul>
+      </div>
     );
   }
 
