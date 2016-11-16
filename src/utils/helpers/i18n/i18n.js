@@ -107,7 +107,7 @@ const I18nHelper = {
   roundForAbbreviation: (num, divisor) => {
     num = new BigNumber(num);
     divisor = new BigNumber(divisor);
-    return num.dividedBy(divisor).round().dividedBy(10).toFixed(1);
+    return I18nHelper.formatDecimal(num.dividedBy(divisor).round().dividedBy(10), 1);
   },
 
   /**

@@ -83,13 +83,26 @@ describe('I18n Helper', () => {
       expect(Helper.abbreviateNumber('999950')).toEqual('1.0m');
       expect(Helper.abbreviateNumber('1049000')).toEqual('1.0m');
       expect(Helper.abbreviateNumber('1050000')).toEqual('1.1m');
-      expect(Helper.abbreviateNumber('1000000000')).toEqual('1000.0m');
+      expect(Helper.abbreviateNumber('1000000000')).toEqual('1,000.0m');
     });
   });
 
   describe("roundForAbbreviation", () => {
     it("formats a whole number to one decimal place after applying the divisor", () => {
       expect(Helper.roundForAbbreviation(1000, 100)).toEqual('1.0');
+    });
+
+    describe('when locale separator is not a dot', () => {
+      beforeEach(() => {
+        I18n.locale = 'fr';
+      });
+
+      afterEach(() => {
+        I18n.locale = 'en';
+      });
+      it('returns the decimal with the correct separator', () => {
+        expect(Helper.roundForAbbreviation(1000, 100)).toEqual('1,0');
+      });
     });
   });
 
