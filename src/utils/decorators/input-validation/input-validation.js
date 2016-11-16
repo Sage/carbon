@@ -478,11 +478,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {Boolean}
    */
   get isAttachedToForm() {
-    if (this.context.form && this.context.form.inputs[this._guid]) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.context.form && this.context.form.inputs[this._guid];
   }
 
   /**
