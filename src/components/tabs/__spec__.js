@@ -279,7 +279,7 @@ describe('Tabs', () => {
 
   describe('mainClasses', () => {
     it('returns the main class for the component', () => {
-      expect(instance.mainClasses).toEqual('carbon-tabs');
+      expect(instance.mainClasses).toEqual('carbon-tabs__position-top');
     });
 
     describe('when passing custom classNames', () => {
@@ -292,7 +292,21 @@ describe('Tabs', () => {
             </Tab>
           </Tabs>);
 
-        expect(instance.mainClasses).toEqual('carbon-tabs 1tab');
+        expect(instance.mainClasses).toEqual('carbon-tabs__position-top 1tab');
+      });
+    });
+
+    describe('when passing a position prop', () => {
+      it('adds it to the classList', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Tabs position='left'>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='foo'/>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>);
+
+        expect(instance.mainClasses).toEqual('carbon-tabs__position-left');
       });
     });
   });
@@ -310,7 +324,7 @@ describe('Tabs', () => {
 
     it('adds the position className included in the props to the tab', () => {
       let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
-      expect(list.classList.contains('carbon-tabs__headers--position-top')).toEqual(true);
+      expect(list.classList.contains('carbon-tabs__headers')).toEqual(true);
     });
   });
 
@@ -406,22 +420,7 @@ describe('Tabs', () => {
         );
 
         let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
-        expect(headers.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-right carbon-tabs__headers--position-top');
-      });
-    });
-
-    describe('when a position prop is passed', () => {
-      it('adds a position class', () => {
-        let instance = TestUtils.renderIntoDocument(
-          <Tabs position='left'>
-            <Tab title='Tab Title 1' tabId='uniqueid1'>
-              <Textbox name='bar'/>
-            </Tab>
-          </Tabs>
-        );
-
-        let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
-        expect(headers.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-left carbon-tabs__headers--position-left');
+        expect(headers.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-right carbon-tabs__headers');
       });
     });
   });
@@ -503,13 +502,13 @@ describe('Tabs', () => {
   describe('render', () => {
     it('creates a parent div for the component', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(div.className).toEqual('carbon-tabs');
+      expect(div.className).toEqual('carbon-tabs__position-top');
     });
 
     it('renders the tab headers', () => {
       let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
       let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
-      expect(list.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-left carbon-tabs__headers--position-top');
+      expect(list.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-left carbon-tabs__headers');
       expect(items.length).toEqual(3);
     });
   });

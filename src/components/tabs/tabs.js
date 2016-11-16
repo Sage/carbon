@@ -288,7 +288,7 @@ class Tabs extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'carbon-tabs',
+      `carbon-tabs__position-${ this.props.position }`,
       this.props.className
     );
   }
@@ -297,7 +297,7 @@ class Tabs extends React.Component {
     return classNames(
       'carbon-tabs__headers',
       `carbon-tabs__headers--align-${ this.props.align }`,
-       `carbon-tabs__headers--position-${ this.props.position }`
+       `carbon-tabs__headers`
     );
   }
 
@@ -339,11 +339,9 @@ class Tabs extends React.Component {
     });
 
     return(
-      <div className='carbon-tabs__headers__container'>
-        <ul className={ this.tabsHeaderClasses() } >
-          { tabTitles }
-        </ul>
-      </div>
+      <ul className={ this.tabsHeaderClasses() } >
+        { tabTitles }
+      </ul>
     );
   }
 

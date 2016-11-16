@@ -6,7 +6,7 @@ $carbon-tabs__header__border-color: $grey-dark-blue-20 !default;
 $carbon-tabs__header--selected_border-color: $blue-bright !default;
 $carbon-tabs__header__color: $grey-dark !default;
 
-.carbon-tabs {
+.carbon-tabs__position-top {
   margin-top: 15px;
 }
 
@@ -64,26 +64,37 @@ $carbon-tabs__header__color: $grey-dark !default;
   border-bottom-color: $orange-mid;
 }
 
-.carbon-tabs__headers--position-left {
-   float: left;
-   margin: 0 10px 0;
+.carbon-tabs__position-left {
+  display: flex;
+  width: 100%;
 
-   .carbon-tabs__headers {
-     display: inline-block;
-   }
+  .carbon-tab--selected {
+    width: 80%;
+  }
 
-   .carbon-tabs__headers__header {
-     display: block;
-     border-bottom: 0px;
-     border-right: 2px solid $carbon-tabs__header__border-color;
-     margin-left: 0px;
-     margin-top: 2px;
-     &:hover {
+  .carbon-tabs__headers {
+    box-shadow: none;
+    display: inline-block;
+    width: 20%;
+  }
+
+  .carbon-tabs__headers{
+    margin: 0 10px 0;
+
+    .carbon-tabs__headers__header {
+      border-bottom: 0px;
+      border-right: 2px solid $carbon-tabs__header__border-color;
+      display: block;
+      height: auto;
+      margin-left: 0px;
+      margin-top: 2px;
+      &:hover {
+        border-right-color: $carbon-tabs__header--selected_border-color;
+      }
+    }
+
+    .carbon-tabs__headers__header--selected {
       border-right-color: $carbon-tabs__header--selected_border-color;
-     }
-   }
-
-   .carbon-tabs__headers__header--selected {
-    border-right-color: $carbon-tabs__header--selected_border-color;
-   }
- }
+    }
+  }
+}
