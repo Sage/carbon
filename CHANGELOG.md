@@ -13,6 +13,8 @@
 ## CSS Changes
 
 * `Navigation-Bar`: line-height has been applied to parent content div rather than children.
+* Updated base font CSS to better reflect the Lato font.
+* Updated Menu Item CSS to better reflect the Lato font.
 
 ## Bug Fixes
 
@@ -36,6 +38,8 @@
 
 * A new `humanizeFilesize` helper for converting bytes to a human readable representation.
 * `roundForAbbreviation` is added to handle the number element of `abbreviateNumber` as well as forcing any abbreviated number to one decimal place
+* `abbreviateCurrency` takes unit value
+
 
 ## CSS Changes
 
