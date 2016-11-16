@@ -437,7 +437,10 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
         messageShown: true,
         immediatelyHideMessage: false
       });
-      this.context.form.setActiveInput(this);
+
+      if (this.context.form) {
+        this.context.form.setActiveInput(this);
+      }
     }
   }
 
