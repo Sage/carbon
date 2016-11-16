@@ -120,3 +120,20 @@ $date__picker__cell-border-color: $border-color;
     background-color: $row-hover-color;
   }
 }
+
+.carbon-date .common-input__field {
+  box-sizing: content-box;
+  /* i have to stop this being over-ridden by a prop that sets a style on the element */
+  /* this does have the benefit of removing inline and filter related styles */
+  width: 120px !important;
+}
+
+.carbon-date.common-input--with-icon .common-input__icon--error {
+  right: 5px;
+  top: 5px;
+}
+
+.carbon-date.common-input--with-icon .common-input__icon--warning {
+  right: 3px;
+  top: 6px;
+}

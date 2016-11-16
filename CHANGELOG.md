@@ -2,6 +2,8 @@
 
 ## !! BREAKING CHANGES!! :warning:
 
+* error icon on `Date` component is now displayed in place of the calendar icon clicker
+
 ### Immutable Helper
 
 * ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
@@ -79,7 +81,6 @@ Visual improvements to the design of components, which may impact the colors and
 * Table row active and hover styles
 * Font sizes for text
 
-
 ## :warning: Breaking Change - Button colors
 
 * Button color is now determined by a `theme` prop.
@@ -99,6 +100,7 @@ Visual improvements to the design of components, which may impact the colors and
   Foo
 </Button>
 ```
+
 
 ## I18n Component
 

@@ -1,6 +1,7 @@
 import React from 'react';
-import Icon from './../../../components/icon';
 import classNames from 'classnames';
+
+import Icon from './../../../components/icon';
 
 /**
  * InputIcon decorator.
@@ -48,19 +49,26 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
    * Supplies the HTML for the input icon.
    *
    * @method inputIconHTML
-   * @param {string} icon Which icon to render
+   * @param {string} iconType Which icon to render
    * @return {Object} JSX for icon
    */
-  inputIconHTML = (icon) => {
+  inputIconHTML = (iconType) => {
     if (this.props && (this.props.readOnly || this.props.disabled)) {
       return null;
     }
 
-    return (
-      <label htmlFor={ this.inputProps.id } key="label-icon">
-        <Icon type={ icon } className="carbon-input-icon" />
-      </label>
-    );
+    let icon = <Icon type={ iconType } className="carbon-input-icon" />;
+
+    if (['error', 'warning'].indexOf(iconType) > -1) {
+      icon = (
+        <span className={ `carbon-input-icon carbon-input-icon--${iconType}` }>
+          { this.validationHTML }
+        </span>
+      );
+    }
+
+    return <label htmlFor={ this.inputProps.id } key="label-icon">{ icon }</label>;
+
   }
 
   /**
