@@ -1,0 +1,22 @@
+@import 'colors';
+@import "../../../demo-variables";
+
+.demo-sub-page-navigation{
+  display: flex;
+  justify-content: space-between;
+
+  &__link {
+    max-width: 49%;
+  }
+
+  &__next {
+    margin-left: auto;
+  }
+
+  .demo-arrow-link {
+    align-items: stretch;
+    &__icon {
+      margin-top: 1em;
+    }
+  }
+}
