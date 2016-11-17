@@ -46,11 +46,11 @@ describe('Immutable Helper', () => {
     });
 
     describe('when JSON is a object', () => {
-      let data, expectedData; 
+      let data, expectedData;
 
       beforeEach(() => {
         data = { foo: 'bar', baz: 'qux' };
-        expectedData = Immutable.Seq(data).toOrderedMap();
+        expectedData = Immutable.Seq(data).toMap();
       });
 
       it('returns a ordered immutable map', () => {
@@ -67,9 +67,9 @@ describe('Immutable Helper', () => {
       beforeEach(() => {
         data = [{ foo: 'bar', baz: 'qux' }, { a: ['a', 'b', 'c'], b: 'b' }];
 
-        let obj1 = Immutable.Seq({ foo: 'bar', baz: 'qux' }).toOrderedMap();
+        let obj1 = Immutable.Seq({ foo: 'bar', baz: 'qux' }).toMap();
         let array1 = Immutable.Seq(['a','b','c']).toList();
-        let obj2 = Immutable.Seq({a: array1, b: 'b'}).toOrderedMap();
+        let obj2 = Immutable.Seq({a: array1, b: 'b'}).toMap();
         expectedData = Immutable.Seq([obj1, obj2]).toList();
       });
 
@@ -89,9 +89,9 @@ describe('Immutable Helper', () => {
         it('casts all numbers to a string', () => {
           let data = [{ foo: 'bar', baz: 'qux' }, { a: [1, 2, 'c'], b: 2 }];
 
-          let obj1 = Immutable.Seq({ foo: 'bar', baz: 'qux' }).toOrderedMap();
+          let obj1 = Immutable.Seq({ foo: 'bar', baz: 'qux' }).toMap();
           let array1 = Immutable.Seq(['1','2','c']).toList();
-          let obj2 = Immutable.Seq({a: array1, b: '2'}).toOrderedMap();
+          let obj2 = Immutable.Seq({a: array1, b: '2'}).toMap();
           let expectedData = Immutable.Seq([obj1, obj2]).toList();
 
           let result = ImmutableHelper.parseJSON(data);

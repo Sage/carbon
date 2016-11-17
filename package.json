@@ -1,6 +1,6 @@
 {
   "name": "carbon",
-  "version": "0.28.3",
+  "version": "0.29.0",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "main": "index.js",
   "engineStrict": true,
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "bignumber.js": "~2.1.0",
-    "bowser": "~1.0.0",
+    "bowser": "~1.5.0",
     "classnames": "~2.2.3",
     "crypto-js": "^3.1.6",
     "es6-promise": "^3.2.1",
@@ -51,7 +51,7 @@
     "lodash": "~3.10.1",
     "marked": "^0.3.6",
     "moment": "~2.15.1",
-    "react-date-picker": "~3.1.5",
+    "react-date-picker": "~5.3.28",
     "react-highcharts": "~5.0.4",
     "superagent": "~1.4.0"
   }

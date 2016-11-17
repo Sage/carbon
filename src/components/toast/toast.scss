@@ -18,35 +18,36 @@ $toast-width: 300px !default;
   z-index: $z-toast;
 }
 
-.carbon-toast__type,
-.carbon-toast__close {
-  margin-top: -8px;
+.carbon-toast__close,
+.carbon-toast__type {
+  display: flex;
+  height: 100%;
   position: absolute;
+  top: 0;
+}
+
+.carbon-toast__close {
   right: 0;
-  text-align: center;
-  top: 50%;
   width: 45px;
+
+  &:before {
+    font-size: 16px;
+    margin: auto;
+  }
 }
 
 .carbon-toast__type {
   border-radius: $toast-border-radius 0 0 $toast-border-radius;
-  height: 100%;
   left: -1px;
-  margin-top: 0;
-  position: absolute;
-  top: 0;
   width: 31px;
 
   .carbon-toast__type-icon {
-    display: block;
-    position: relative;
-    top: 50%;
+    margin: auto;
 
     &:before {
       color: #FFF;
       display: block;
-      font-size: 24px;
-      margin-top: -6px;
+      font-size: 16px;
     }
   }
 

@@ -116,7 +116,9 @@ let data = ImmutableHelper.parseJSON({
     open: true,
     as: "error",
     title: "Lorem ipsum dolor",
-    text: "Nullam id dolor id nibh ultricies vehicula ut id elit."
+    text: "Nullam id dolor id nibh ultricies vehicula ut id elit.",
+    border: true,
+    roundedCorners: true
   },
   multi_action_button: {
     text: 'Multi Action Button',
@@ -286,7 +288,7 @@ class AppStore extends Store {
     let arr = [action.component].concat(action.key);
     this.data = this.data.setIn(arr, action.value);
 
-    if (action.component === 'dropdown_filter_ajax') {
+    if (action.component === 'dropdown_filter_ajax' && action.key === 'value') {
       this.data = this.data.setIn(arr, action.visibleValue);
     }
   }
