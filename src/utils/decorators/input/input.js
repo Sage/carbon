@@ -4,6 +4,7 @@ import shouldComponentUpdate from './../../helpers/should-component-update';
 import { assign } from 'lodash';
 import guid from './../../helpers/guid';
 import classNames from 'classnames';
+import Icon from './../../../components/icon';
 
 /**
  * Input decorator.
@@ -29,6 +30,7 @@ import classNames from 'classnames';
  *  * `inputClasses` - classes to apply to the input element
  *  * `inputProps` - props to apply to the input element
  *  * `inputHTML` - the html for the actual input
+ *  * `iconHTML` - the html for a visible icon
  *  * `additionalInputContent` - extension point to add additional content
  *  alongside the input
  *
@@ -39,6 +41,10 @@ import classNames from 'classnames';
  * Inputs also accept a prop of `prefix` which outputs a prefix to the input:
  *
  *   <Textbox prefix="foo" />
+ *
+ * Inputs also accept a prop of `icon` which outputs an icon inside the input:
+ *
+ *   <Textbox icon="foo" />
  *
  * @method Input
  * @param {Class} ComposedComponent class to decorate
@@ -72,8 +78,18 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     // call the components super method if it exists
     if (super.componentDidMount) { super.componentDidMount(); }
 
-    if (this.props.prefix) {
+    if (this.props.prefix && !this.props.icon) {
       this.setTextIndentation();
+    }
+
+    if (this.props.icon && !this.props.prefix) {
+      this.setIconTextIndentation();
+    }
+
+    if (this.props.icon && this.props.prefix) {
+      this.setPrefixIndentation();
+      this.setTextIndentation();
+
     }
   }
 
@@ -87,7 +103,21 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     // call the components super method if it exists
     if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
 
-    if (this.props.prefix != prevProps.prefix) {
+    if (this.props.prefix != prevProps.prefix && !this.props.icon) {
+      this.setTextIndentation();
+    }
+
+    if (this.props.icon != prevProps.icon && !this.props.prefix) {
+      this.setIconTextIndentation();
+    }
+
+    if (this.props.icon != prevProps.icon && this.props.prefix) {
+      this.setPrefixIndentation();
+      this.setTextIndentation();
+    }
+
+    if (this.props.prefix != prevProps.prefix && this.props.icon) {
+      this.setPrefixIndentation();
       this.setTextIndentation();
     }
   }
@@ -129,7 +159,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
-   * Sets indentation of input value based on prefix width.
+   * Sets indentation of prefix value based on icon width.
    *
    * @method setTextIndentation
    * @return {void}
@@ -137,6 +167,31 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   setTextIndentation = () => {
     if (this._input) {
       this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
+    }
+  }
+
+    /**
+   * Sets indentation of prefix value based on icon width.
+   *
+   * @method setIconTextIndentation
+   * @return {void}
+   */
+  setIconTextIndentation = () => {
+    if (this._input) {
+      this._input.style.paddingLeft = `${this._icon.offsetWidth + 11}px`;
+    }
+  }
+
+
+    /**
+   * Sets indentation of input value based on prefix width.
+   *
+   * @method setPrefixIndentation
+   * @return {void}
+   */
+  setPrefixIndentation = () => {
+    if (this._prefix) {
+      this._prefix.style.paddingLeft = `${this._icon.offsetWidth + 2}px`;
     }
   }
 
@@ -153,6 +208,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       [`${css.input}--readonly`]: this.props.readOnly,
       [`${css.input}--align-${this.props.align}`]: this.props.align,
       [`${css.input}--with-prefix`]: this.props.prefix,
+      [`${css.input}--with-icon`]: this.props.icon,
       [`${css.input}--disabled`]: this.props.disabled
     });
   }
@@ -246,6 +302,22 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
+   * Adds an icon if it is defined
+   *
+   * @method iconHTML
+   * @return {Object}
+   */
+  get iconHTML() {
+    if (this.props.icon) {
+      return (
+        <div ref={ (c) => { this._icon = c; } } className="common-input__input-icon-container">
+          <Icon type={ this.props.icon } />
+        </div>
+      );
+    }
+  }
+
+  /**
    * Returns HTML for the input.
    *
    * @method inputHTML
@@ -269,6 +341,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     return (
       <div { ...this.fieldProps }>
         { this.prefixHTML }
+        { this.iconHTML }
         { input }
         { this.additionalInputContent }
       </div>
