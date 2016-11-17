@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Input from './input';
+import Icon from './../../../components/icon';
 
 class TestClassOne extends React.Component {
   get mainClasses() {
@@ -47,7 +48,7 @@ describe('Input', () => {
   });
 
   describe('componentDidMount', () => {
-    describe('if prefix is not set', () => {
+    describe('if prefix is not set and icon is not set', () => {
       it('does not set text indentation', () => {
         instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {}));
         spyOn(instance, 'setTextIndentation');
@@ -56,7 +57,7 @@ describe('Input', () => {
       });
     });
 
-    describe('if prefix is set', () => {
+    describe('if prefix is set and icon is not set', () => {
       it('sets text indentation', () => {
         instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
           prefix: "foo"
@@ -66,27 +67,64 @@ describe('Input', () => {
         expect(instance.setTextIndentation).toHaveBeenCalled();
       });
     });
+
+    describe('if prefix is not set and icon is set', () => {
+      it('sets text indentation', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          icon: "foo"
+        }));
+        spyOn(instance, 'setTextIndentation');
+        instance.componentDidMount();
+        expect(instance.setTextIndentation).toHaveBeenCalled();
+      });
+    });
+
+    describe('if prefix is set and icon is set', () => {
+      it('sets text indentation', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: "foo",
+          icon: "bar"
+        }));
+        spyOn(instance, 'setTextIndentation');
+        instance.componentDidMount();
+        expect(instance.setTextIndentation).toHaveBeenCalled();
+      });
+    });
   });
 
   describe('componentDidUpdate', () => {
-    describe('if prefix has not changed', () => {
+    describe('if prefix has not changed and icon has not changed', () => {
       it('does not set the text indentation', () => {
         instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
-          prefix: "foo"
+          prefix: "foo",
+          icon: "bar"
         }));
         spyOn(instance, 'setTextIndentation');
-        instance.componentDidUpdate({ prefix: 'foo' });
+        instance.componentDidUpdate({ prefix: 'foo', icon: 'bar' });
         expect(instance.setTextIndentation).not.toHaveBeenCalled();
       });
     });
 
-    describe('if prefix has changed', () => {
-      it('sets the text indentation', () => {
+    describe('if prefix has changed and icon has not changed', () => {
+      it('does set the text indentation', () => {
         instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
-          prefix: "foo"
+          prefix: "foo",
+          icon: "bar"
         }));
         spyOn(instance, 'setTextIndentation');
-        instance.componentDidUpdate({ prefix: 'bar' });
+        instance.componentDidUpdate({ prefix: 'new-foo', icon: 'bar' });
+        expect(instance.setTextIndentation).toHaveBeenCalled();
+      });
+    });
+
+    describe('if prefix has not changed and icon has changed', () => {
+      it('does set the text indentation', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          prefix: "foo",
+          icon: "bar"
+        }));
+        spyOn(instance, 'setTextIndentation');
+        instance.componentDidUpdate({ prefix: 'foo', icon: 'new-bar' });
         expect(instance.setTextIndentation).toHaveBeenCalled();
       });
     });
@@ -195,6 +233,16 @@ describe('Input', () => {
       });
     });
 
+    describe('When a icon is provided', () => {
+      it('returns with a icon class', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          icon: 'foo'
+        }));
+        expect(instance.mainClasses).toEqual('testMain common-input common-input--with-embedded-icon');
+      });
+    });
+
+
     describe('When disabled', () => {
       it('returns with a disabled class', () => {
         instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
@@ -260,11 +308,32 @@ describe('Input', () => {
   });
 
   describe('setTextIdentation', () => {
-    it('sets the paddingLeft to the width + 3 px', () => {
-      instance._input = { style: {} };
-      instance._prefix = { offsetWidth: 20 };
-      instance.setTextIndentation()
-      expect(instance._input.style.paddingLeft).toEqual("31px");
+    describe('when there is a prefix and an icon', () => {
+      it('sets the paddingLeft to the width of the icon + the prefix + 11 px', () => {
+        instance._input = { style: {} };
+        instance._prefix = { offsetWidth: 20 };
+        instance._icon = { offsetWidth: 30 };
+        instance.setTextIndentation()
+        expect(instance._input.style.paddingLeft).toEqual("61px");
+      });
+    });
+
+    describe('when there is a prefix and not an icon', () => {
+      it('sets the paddingLeft to the width of the icon + the prefix + 11 px', () => {
+        instance._input = { style: {} };
+        instance._prefix = { offsetWidth: 20 };
+        instance.setTextIndentation()
+        expect(instance._input.style.paddingLeft).toEqual("31px");
+      });
+    });
+
+    describe('when there is not a prefix and an icon', () => {
+      it('sets the paddingLeft to the width of the icon + the prefix + 11 px', () => {
+        instance._input = { style: {} };
+        instance._icon = { offsetWidth: 30 };
+        instance.setTextIndentation()
+        expect(instance._input.style.paddingLeft).toEqual("41px");
+      });
     });
   });
 
@@ -288,14 +357,33 @@ describe('Input', () => {
     });
   });
 
+  describe('iconHTML', () => {
+    describe('when icon is defined', () => {
+      it('returns a div with a icon', () => {
+        instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+          icon: "foo"
+        }));
+        instance.iconHTML.ref("input");
+        expect(instance.iconHTML.props.className).toEqual('common-input__input-icon-container');
+        expect(instance._icon).toEqual('input');
+        expect(instance.iconHTML.props.children).toEqual(<Icon type='foo' />);
+      });
+    });
+
+    describe('when prefix is not defined', () => {
+      it('returns nothing', () => {
+        expect(instance.prefixHTML).toBe(undefined);
+      });
+    });
+  });
+
   describe('fakeInput', () => {
     it('renders a div with classes and mouse over event', () => {
       instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
         fakeInput: true
       }));
 
-      let input = instance.inputHTML.props.children[1];
-
+      let input = instance.inputHTML.props.children[2];
       expect(input.props.className).toEqual('common-input__input--fake');
       expect(input.props.onMouseOver).toEqual(instance.inputProps.onMouseOver);
     });

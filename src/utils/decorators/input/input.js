@@ -78,18 +78,8 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     // call the components super method if it exists
     if (super.componentDidMount) { super.componentDidMount(); }
 
-    if (this.props.prefix && !this.props.icon) {
+    if (this.props.prefix || this.props.icon) {
       this.setTextIndentation();
-    }
-
-    if (this.props.icon && !this.props.prefix) {
-      this.setIconTextIndentation();
-    }
-
-    if (this.props.icon && this.props.prefix) {
-      this.setPrefixIndentation();
-      this.setTextIndentation();
-
     }
   }
 
@@ -103,21 +93,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     // call the components super method if it exists
     if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
 
-    if (this.props.prefix != prevProps.prefix && !this.props.icon) {
-      this.setTextIndentation();
-    }
-
-    if (this.props.icon != prevProps.icon && !this.props.prefix) {
-      this.setIconTextIndentation();
-    }
-
-    if (this.props.icon != prevProps.icon && this.props.prefix) {
-      this.setPrefixIndentation();
-      this.setTextIndentation();
-    }
-
-    if (this.props.prefix != prevProps.prefix && this.props.icon) {
-      this.setPrefixIndentation();
+    if (this.props.prefix != prevProps.prefix || this.props.icon != prevProps.icon ) {
       this.setTextIndentation();
     }
   }
@@ -165,33 +141,14 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {void}
    */
   setTextIndentation = () => {
-    if (this._input) {
+    if (this._input && this._icon && this._prefix) {
+      this._input.style.paddingLeft = `${this._icon.offsetWidth + this._prefix.offsetWidth + 11}px`;
+    }
+    else if (this._input && this._icon) {
+      this._input.style.paddingLeft = `${this._icon.offsetWidth  + 11}px`;
+    }
+    else if (this._input) {
       this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
-    }
-  }
-
-    /**
-   * Sets indentation of prefix value based on icon width.
-   *
-   * @method setIconTextIndentation
-   * @return {void}
-   */
-  setIconTextIndentation = () => {
-    if (this._input) {
-      this._input.style.paddingLeft = `${this._icon.offsetWidth + 11}px`;
-    }
-  }
-
-
-    /**
-   * Sets indentation of input value based on prefix width.
-   *
-   * @method setPrefixIndentation
-   * @return {void}
-   */
-  setPrefixIndentation = () => {
-    if (this._prefix) {
-      this._prefix.style.paddingLeft = `${this._icon.offsetWidth + 2}px`;
     }
   }
 
@@ -208,7 +165,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       [`${css.input}--readonly`]: this.props.readOnly,
       [`${css.input}--align-${this.props.align}`]: this.props.align,
       [`${css.input}--with-prefix`]: this.props.prefix,
-      [`${css.input}--with-icon`]: this.props.icon,
+      [`${css.input}--with-embedded-icon`]: this.props.icon,
       [`${css.input}--disabled`]: this.props.disabled
     });
   }
