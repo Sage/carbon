@@ -46,14 +46,14 @@
 .common-input__input:hover ~ label .carbon-input-icon--warning:hover {
   border-color: $warning;
   background-color: $warning;
-  .carbon-icon__svg-group {
+  .carbon-icon:before  {
     fill: $white;
   }
 }
 .common-input__input:focus ~ label .carbon-input-icon--warning {
   border-color: $warning-hover;
   background-color: $warning-hover;
-  .carbon-icon__svg-group {
+  .carbon-icon:before  {
     fill: $white;
   }
 }
