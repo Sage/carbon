@@ -1,4 +1,6 @@
 import React from 'react';
+import { shallow } from 'enzyme';
+
 import InputIcon from './input-icon';
 
 class TestClass extends React.Component {
@@ -18,16 +20,42 @@ describe('InputIcon', () => {
   });
 
   describe('inputIconHTML', () => {
-    it('contains a label with the components id', () => {
-      expect(instance.props.htmlFor).toEqual('bar');
+    let iconWrapper,
+        icon;
+
+    describe("when not an error", () => {
+      beforeEach(() => {
+        iconWrapper = shallow(klass.inputIconHTML('foo')).find('label');
+      });
+      it("returns a label wrapper with the correct id in the HTML for", () => {
+        expect(iconWrapper.length).toEqual(1);
+        expect(iconWrapper.props().htmlFor).toEqual('bar');
+      });
+      it("contains a carbon-input-icon with the icon value in from the call", () => {
+        icon = iconWrapper.find('.carbon-input-icon');
+        expect(icon.length).toEqual(1);
+        expect(icon.props().type).toEqual('foo');
+      });
     });
 
-    it('contains an icon with a type corresponding to the passed in icon', () => {
-      expect(instance.props.children.props.type).toEqual('foo');
+    describe("when is an error", () => {
+      beforeEach(() => {
+        iconWrapper = shallow(klass.inputIconHTML('error')).find('label');
+      });
+      it("contains a carbon-input-icon--error container", () => {
+        let icon = iconWrapper.find('.carbon-input-icon--error');
+        expect(icon.length).toEqual(1);
+      });
     });
 
-    it('sets a default className', () => {
-      expect(instance.props.children.props.className).toEqual('carbon-input-icon');
+    describe("when is an warning", () => {
+      beforeEach(() => {
+        iconWrapper = shallow(klass.inputIconHTML('warning')).find('label');
+      });
+      it("contains a carbon-input-icon--warning container", () => {
+        let icon = iconWrapper.find('.carbon-input-icon--warning');
+        expect(icon.length).toEqual(1);
+      });
     });
   });
 

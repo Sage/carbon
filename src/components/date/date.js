@@ -362,7 +362,13 @@ class Date extends React.Component {
    * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
-    return this.inputIconHTML("calendar");
+    if (!this.state.valid) {
+      return this.inputIconHTML("error");
+    } else if (this.state.warning) {
+      return this.inputIconHTML("warning");
+    } else {
+      return this.inputIconHTML("calendar");
+    }
   }
 
  /**
@@ -429,7 +435,7 @@ class Date extends React.Component {
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { datePicker }
-        { this.validationHTML }
+
         { this.fieldHelpHTML }
 
       </div>
@@ -464,7 +470,7 @@ export default Date;
  * @return {String} formatted date string
  */
 function visibleFormat() {
-  return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
+  return I18n.t('date.formats.javascript', { defaultValue: "DD/MM/YYYY" }).toUpperCase();
 }
 
 /**
