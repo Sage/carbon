@@ -32,7 +32,7 @@
   height: 100%;
   width: 100%;
   z-index: -1;
-  background: linear-gradient(37deg, #1E4486, #372159);
+  background: $header-background-gradient;
   @media (min-width: $response-point-medium) {
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 62.94%, 0 100%);
   }
