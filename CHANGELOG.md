@@ -15,6 +15,7 @@
 * `Navigation-Bar`: line-height has been applied to parent content div rather than children.
 * Updated base font CSS to better reflect the Lato font.
 * Updated Menu Item CSS to better reflect the Lato font.
+* Updated input help text color for accessibility standards.
 
 ## Bug Fixes
 
