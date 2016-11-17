@@ -12,7 +12,8 @@
   vertical-align: middle;
 
   .carbon-help {
-    margin-top: -5px;
+    top: -2px;
+    margin-bottom: -2px; // required to ensure the input maintains it's position
   }
 }
 
@@ -49,7 +50,7 @@
 }
 
 .common-input__help-text {
-  color: $grey-mid;
+  color: $grey-dark-blue-80;
   display: block;
   line-height: 20px;
   margin-left: 6px;
