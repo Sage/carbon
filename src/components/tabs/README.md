@@ -70,6 +70,7 @@ To render a Tabs Widget with Options:
 | -------------------   | ----------- | -------------  | ------------- | ------------- |
 | renderHiddenTabs      | false       | Boolean        | true          | Hidden tabs will be rendered (maintain form errors) |
 | selectedTabId         | false       | String         | (first tab)   | Currently selected tab (only needed if you want to change tab through props) |
+| position              | false       | String         | top           | Position of the tabs relating to content |
 
 ### Tab Props
 | Name             | Required    | Type           | Default       | Description   |
