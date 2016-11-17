@@ -1,4 +1,4 @@
-# 0.30.0
+# 1.0.0
 
 ## :warning: Major Change - React 15 Upgrade
 
