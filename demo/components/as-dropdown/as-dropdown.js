@@ -35,13 +35,17 @@ class AsDropdown extends React.Component {
 
     if (this.props.extraOpts) { opts = opts.concat(this.props.extraOpts); }
 
+    let { ...props } = this.props;
+
+    delete props.extraOpts
+
     return (
       <Dropdown
         placeholder="Please Select"
         options={ opts }
         label="As"
         labelInline={ true }
-        { ...this.props }
+        { ...props }
       />
     );
   }

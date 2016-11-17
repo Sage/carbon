@@ -2,6 +2,7 @@ import React from 'react';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
+import { validProps } from '../../utils/ether';
 
 /**
  * A textbox widget.
@@ -50,7 +51,7 @@ class Textbox extends React.Component {
    * @return {Object} props for the input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     props.className = this.inputClasses;
     return props;
   }

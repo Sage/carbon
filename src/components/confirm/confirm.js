@@ -115,7 +115,7 @@ class Confirm extends Dialog {
    */
   get confirmButtons() {
     return (
-      <div className='carbon-confirm__buttons' >
+      <div key='confirm-buttons' className='carbon-confirm__buttons' >
         <div className='carbon-confirm__button carbon-confirm__no'>
           <Button as='secondary' onClick={ this.props.onCancel }>
             { this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' }) }
@@ -138,9 +138,9 @@ class Confirm extends Dialog {
    * @method dialogTitle
    */
   get modalHTML() {
-    let dialog = super.modalHTML;
-    dialog.props.children.push(this.confirmButtons);
-    return dialog;
+    let dialog = super.modalHTML,
+        children = [].concat(dialog.props.children, this.confirmButtons);
+    return React.cloneElement(dialog, {}, children);
   }
 }
 

@@ -24,7 +24,7 @@ class BasicClass extends React.Component {
 
   render() {
     return (
-      <div tooltipMessage={ this.props.tooltipMessage } tooltipPosition={ this.props.tooltipPosition } tooltipAlign={ this.props.tooltipAlign }>
+      <div>
         {this.tooltipHTML }
       </div>
     )
@@ -42,7 +42,7 @@ class StrippedClass extends React.Component {
 
   render() {
     return (
-      <div tooltipMessage={ this.props.tooltipMessage } tooltipPosition={ this.props.tooltipPosition } tooltipAlign={ this.props.tooltipAlign }>
+      <div>
         {this.tooltipHTML }
       </div>
     )

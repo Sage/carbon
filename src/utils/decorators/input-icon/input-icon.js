@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { assign } from 'lodash';
 
 import Icon from './../../../components/icon';
 
@@ -44,6 +45,8 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
   constructor(...args) {
     super(...args);
   }
+
+  static propTypes = assign({}, ComposedComponent.propTypes, {});
 
   /**
    * Supplies the HTML for the input icon.

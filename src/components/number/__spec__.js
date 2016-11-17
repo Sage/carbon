@@ -90,11 +90,11 @@ describe('Number', () => {
 
   describe('handleKeyDown', () => {
     it('tracks selection start and end', () => {
-      instance.selectionStart = 99;
-      instance.selectionEnd = 99;
+      instance.selectionStart = undefined;
+      instance.selectionEnd = undefined;
       TestUtils.Simulate.keyDown(input);
-      expect(instance.selectionStart).toEqual(0);
-      expect(instance.selectionEnd).toEqual(0);
+      expect(instance.selectionStart).toBeDefined();
+      expect(instance.selectionEnd).toBeDefined();
     });
 
     describe('when passed a custom onKeyDown function', () => {

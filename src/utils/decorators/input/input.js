@@ -60,7 +60,9 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
-  })
+  });
+
+  static propTypes = assign({}, ComposedComponent.propTypes, {});
 
   /**
    * A lifecycle method for when the component has rendered.

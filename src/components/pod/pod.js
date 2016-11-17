@@ -3,6 +3,7 @@ import Icon from './../icon';
 import Link from './../link';
 import classNames from 'classnames';
 import Event from './../../utils/helpers/events';
+import { validProps } from '../../utils/ether';
 
 /**
  * A Pod widget.
@@ -78,6 +79,14 @@ class Pod extends React.Component {
       React.PropTypes.string,
       React.PropTypes.object
     ]),
+
+    /**
+     * Optional subtitle for the pod
+     *
+     * @property subtitle
+     * @type {String}
+     */
+    subtitle: React.PropTypes.string,
 
     /**
      * Aligns the title to left, right or center
@@ -247,24 +256,6 @@ class Pod extends React.Component {
         </div>
       </div>
     );
-  }
-
-  /**
-   * returns props removing title if it isn't a string (and therefore would break the html title attribute)
-   *
-   * @method podProps
-   * @return {Object} podProps
-   */
-  podProps = () => {
-    let { ...props } = this.props;
-
-    delete props.className;
-
-    if (!this.titleIsString()) {
-      delete props.title;
-    }
-
-    return props;
   }
 
   /**
@@ -478,8 +469,16 @@ class Pod extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let content = this.props.content,
+    let content,
+        { ...props } = validProps(this),
         editProps = {};
+
+
+    delete props.className;
+
+    if (this.titleIsString()) {
+      props.title = this.props.title;
+    }
 
     if (!this.state.collapsed) { content = this.podContent; }
 
@@ -489,7 +488,7 @@ class Pod extends React.Component {
     }
 
     return (
-      <div className={ this.mainClasses } { ...this.podProps() }>
+      <div className={ this.mainClasses } { ...props }>
         <div className={ this.blockClasses } { ...editProps }>
           <div className={ this.contentClasses } >
             { this.podHeader }

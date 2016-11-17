@@ -24,8 +24,7 @@ describe('Textbox', () => {
 
     it('renders with a visible input', () => {
       let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
-      expect(input.tagName).toEqual("INPUT");
-      expect(input.getAttribute('label')).toBe('Label');
+      expect(input.getAttribute('name')).toBe('Dummy Box');
     });
 
     it('is decorated with a label', () => {

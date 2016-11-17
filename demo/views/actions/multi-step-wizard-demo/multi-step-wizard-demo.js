@@ -45,7 +45,7 @@ class MultiStepWizardDemo extends React.Component {
         currentStep={ parseInt(this.value('currentStep')) }
         enableInactiveSteps={ this.value('enableInactiveSteps') }
         completed={ this.value('completed') }
-        onSubmit={ void(0) }
+        onSubmit={ () => { console.log('Submit!') } }
       />
     );
   }
