@@ -48,6 +48,7 @@
 ## Minor Improvements
 
 * Cookie functions added to browser helper
+* Fixes vertical alignment of minus icon.
 
 # 0.28.3
 
