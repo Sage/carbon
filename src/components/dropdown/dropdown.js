@@ -260,10 +260,9 @@ class Dropdown extends React.Component {
       this.visibleValue = '';
       // if no value selected, no match possible
       if (!this.props.value) { return this.visibleValue; }
-
       // Match selected id to corresponding list option
       let option = this.props.options.find((item) => {
-        return item.get('id') == this.props.value;
+        return String(item.get('id')) === this.props.value;
       });
       // If match is found, set visibleValue to option's name;
       if (option) { this.visibleValue = option.get('name'); }
@@ -381,6 +380,7 @@ class Dropdown extends React.Component {
    * Return the list item which should be highlighted by default.
    *
    * @method highlighted
+   * @params options Immutable List of options
    */
   highlighted = () => {
     let highlighted = null;
@@ -394,15 +394,6 @@ class Dropdown extends React.Component {
     }
 
     return highlighted;
-  }
-
-  /**
-   * Returns the list options in the correct format
-   *
-   * @method options
-   */
-  get options() {
-    return this.props.options.toJS();
   }
 
   /**
@@ -503,9 +494,11 @@ class Dropdown extends React.Component {
    */
   get listHTML() {
     if (!this.state.open) { return null; }
+
+    let options = this.props.options || this.state.options;
     return (
       <ul { ...this.listProps }>
-        { this.results(this.options) }
+        { this.results(options) }
       </ul>
     );
   }
@@ -518,28 +511,26 @@ class Dropdown extends React.Component {
   results(options) {
     let className = 'carbon-dropdown__list-item',
         highlighted = this.highlighted(options);
-
     let results = options.map((option) => {
       let klass = className;
 
       // add highlighted class
-      if (highlighted == option.id) {
+      if (highlighted === String(option.get('id'))) {
         klass += ` ${className}--highlighted`;
       }
-
       // add selected class
-      if (this.props.value == option.id) {
+      if (this.props.value === String(option.get('id'))) {
         klass += ` ${className}--selected`;
       }
 
       return (
         <li
-          key={ option.name + option.id }
-          value={ option.id }
+          key={ option.get('name') + option.get('id') }
+          value={ String(option.get('id')) }
           onClick={ this.handleSelect }
           onMouseOver={ this.handleMouseOverListItem }
           className={ klass }>
-            { option.name }
+            { option.get('name') }
         </li>
       );
     });

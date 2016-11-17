@@ -441,7 +441,7 @@ describe('Dropdown', () => {
 
         describe('if something is highlighted', () => {
           beforeEach(() => {
-            instance.setState({ highlighted: 1 });
+            instance.setState({ highlighted: '1' });
             TestUtils.Simulate.keyDown(instance._input, opts);
           });
 
@@ -566,7 +566,7 @@ describe('Dropdown', () => {
 
     describe('if the element is the first in the list', () => {
       it('it calls updateScroll with the list and the last list element', () => {
-        instance.setState({ highlighted: 1 });
+        instance.setState({ highlighted: '1' });
         list = instance.refs.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onUpArrow(list, element);
@@ -574,7 +574,7 @@ describe('Dropdown', () => {
       });
 
       it('returns the next highlighted value', () => {
-        instance.setState({ highlighted: 1 });
+        instance.setState({ highlighted: '1' });
         list = instance.refs.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         let nextValue = instance.onUpArrow(list, element);
@@ -584,7 +584,7 @@ describe('Dropdown', () => {
 
     describe('if there is a next sibling', () => {
       it('it calls updateScroll with the list and the last list element', () => {
-        instance.setState({ highlighted: 2 });
+        instance.setState({ highlighted: '2' });
         list = instance.refs.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onUpArrow(list, element);
@@ -592,7 +592,7 @@ describe('Dropdown', () => {
       });
 
       it('returns the next highlighted value', () => {
-        instance.setState({ highlighted: 2 });
+        instance.setState({ highlighted: '2' });
         list = instance.refs.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         let nextValue = instance.onUpArrow(list, element);
@@ -623,7 +623,7 @@ describe('Dropdown', () => {
 
     describe('if the element is the last in the list', () => {
       it('it calls updateScroll with the list and the previous sibling', () => {
-        instance.setState({ highlighted: 2 });
+        instance.setState({ highlighted: '2' });
         list = instance.refs.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onDownArrow(list, element);
@@ -633,7 +633,7 @@ describe('Dropdown', () => {
 
     describe('if there is a next sibling', () => {
       it('it calls updateScroll with the list and next element', () => {
-        instance.setState({ highlighted: 1 });
+        instance.setState({ highlighted: '1' });
         list = instance.refs.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onDownArrow(list, element);
@@ -743,12 +743,6 @@ describe('Dropdown', () => {
     });
   });
 
-  describe('options', () => {
-    it('should return the options', () => {
-      expect(instance.options).toEqual(instance.props.options.toJS());
-    });
-  });
-
   describe('mainClasses', () => {
     describe('if closed', () => {
       it('should return the main class', () => {
@@ -809,16 +803,16 @@ describe('Dropdown', () => {
     });
 
     it('returns list of items', () => {
-      expect(instance.results(instance.options).length).toEqual(2);
+      expect(instance.results(instance.props.options).size).toEqual(2);
     });
 
     it('adds selected class', () => {
-      expect(instance.results(instance.options)[0].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted carbon-dropdown__list-item--selected');
+      expect(instance.results(instance.props.options).first().props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted carbon-dropdown__list-item--selected');
     });
 
     it('adds highlighted class', () => {
-      instance.setState({ highlighted: 2 });
-      expect(instance.results(instance.options)[1].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted');
+      instance.setState({ highlighted: '2' });
+      expect(instance.results(instance.props.options).get('1').props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted');
     });
   });
 

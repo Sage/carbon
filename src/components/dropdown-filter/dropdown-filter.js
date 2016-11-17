@@ -42,7 +42,7 @@ class DropdownFilter extends Dropdown {
      * @type {String}
      * @default null
      */
-    this.state.filter = null;
+    this.state.filter = '';
 
     /**
      * Determines if list is being opened on current render.
@@ -117,7 +117,7 @@ class DropdownFilter extends Dropdown {
    */
   selectValue(val, visibleVal) {
     super.selectValue(val, visibleVal);
-    this.setState({ filter: null });
+    this.setState({ filter: '' });
   }
 
   /*
@@ -155,7 +155,7 @@ class DropdownFilter extends Dropdown {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      let filter = this.props.create ? this.state.filter : null;
+      let filter = this.props.create ? this.state.filter : '';
       this.setState({ open: false, filter: filter });
     }
   }
@@ -192,20 +192,20 @@ class DropdownFilter extends Dropdown {
    * @param {Object} options Immutable map of list options
    */
   prepareList = (options) => {
-    if ((this.props.suggest || !this.openingList) && typeof this.state.filter === 'string') {
+    if ((this.props.suggest || !this.openingList) && this.state.filter.length > 0) {
       let filter = this.state.filter;
       let regex = new RegExp(escapeStringRegexp(filter), 'i');
-
       // if user has entered a search filter
-      options = options.filter((option) => {
-        if (option.name.search(regex) > -1) {
-          option.name = this.highlightMatches(option.name, filter);
-          return option;
-        }
+      let filteredOptions = options.filter((option) => {
+        return option.get('name').search(regex) > -1
+      });
+
+      let formattedOptions = filteredOptions.map((option) => {
+        option = option.set('name', this.highlightMatches(option.get('name'), filter));
+        return option;
       });
     }
-
-    return options;
+    return formattedOptions;
   }
 
   /**
@@ -215,8 +215,7 @@ class DropdownFilter extends Dropdown {
    */
   results(options) {
     let items = super.results(options);
-
-    if (!items.length) {
+    if (!items.size) {
       items = (
         <li className={ 'carbon-dropdown__list-item carbon-dropdown__list-item--no-results' }>
           {
@@ -245,8 +244,8 @@ class DropdownFilter extends Dropdown {
     } else {
       if (!this.state.filter && this.props.value) {
         highlighted = this.props.value;
-      } else if (this.state.filter && options.length) {
-        highlighted = options[0].id;
+      } else if (this.state.filter && options.size) {
+        highlighted = options.first().get('id');
       }
     }
 
@@ -285,7 +284,7 @@ class DropdownFilter extends Dropdown {
    * @method options
    */
   get options() {
-    return this.prepareList(this.props.options.toJS());
+    return this.prepareList(this.props.options);
   }
 
   /**
@@ -309,7 +308,7 @@ class DropdownFilter extends Dropdown {
     return classNames(
       super.inputClasses,
       {
-        'carbon-dropdown__input--filtered': !this.props.create && typeof this.state.filter === 'string'
+        'carbon-dropdown__input--filtered': !this.props.create && this.state.filter.length > 0
       }
     );
   }
@@ -324,7 +323,7 @@ class DropdownFilter extends Dropdown {
 
     let value = props.value;
 
-    if (typeof this.state.filter === 'string') {
+    if (this.state.filter.length > 0) {
       // if filter has a value, use that instead
       value = this.state.filter;
     }
@@ -344,12 +343,14 @@ class DropdownFilter extends Dropdown {
    * @param {String} value - the search term
    */
   highlightMatches = (optionText, value) => {
+    debugger
     if (!value.length) { return optionText; }
 
-    let beginning, end, middle, newValue, parsedOptionText, valIndex;
+    let beginning, end, middle, newValue, parsedOptionText, valIndex, parsedValue;
 
     parsedOptionText = optionText.toLowerCase();
-    valIndex = parsedOptionText.indexOf(value);
+    parsedValue = value.toLowerCase();
+    valIndex = parsedOptionText.indexOf(parsedValue);
 
     if (valIndex === -1) {
       return optionText;
@@ -360,8 +361,8 @@ class DropdownFilter extends Dropdown {
     end = optionText.substr(valIndex + value.length, optionText.length);
 
     // find end of string recursively
-    if (end.indexOf(value) !== -1) {
-      end = this.highlightMatches(end, value);
+    if (end.indexOf(parsedValue) !== -1) {
+      end = this.highlightMatches(end, parsedValue);
     }
 
     // build JSX object

@@ -1,7 +1,8 @@
 import React from 'react';
 import Request from 'superagent';
-import {cloneDeep } from 'lodash';
 import DropdownFilter from './../dropdown-filter';
+import ImmutableHelper from './../../utils/helpers/immutable';
+import Immutable from 'immutable';
 
 /**
  * A dropdown filter widget using ajax.
@@ -39,7 +40,7 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property options
      * @type {Array}
      */
-    this.state.options = [];
+    this.state.options = Immutable.List();
 
     /**
      * The current page number for the results.
@@ -146,7 +147,7 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      let filter = this.props.create ? this.state.filter : null;
+      let filter = this.props.create ? this.state.filter : '';
       // close list and reset filter
       this.setState({ open: false, filter: filter });
     }
@@ -230,15 +231,15 @@ class DropdownFilterAjax extends DropdownFilter {
   updateList = (data) => {
     // Default page size is 25 records
     let pages = Math.ceil(data.records / this.props.rowsPerRequest),
-        records = data.items;
+        records = ImmutableHelper.parseJSON(data.items);
 
     // Adds next set of records as page scrolled down
     if (data.page > 1) {
-      records = this.state.options.concat(records);
+      this.state.options = this.state.options.concat(records);
+      records = this.state.options;
     } else {
       this.resetScroll();
     }
-
     this.setState({
       open: true,
       options: records,
@@ -268,7 +269,7 @@ class DropdownFilterAjax extends DropdownFilter {
    * @method options
    */
   get options() {
-    return this.prepareList(cloneDeep(this.state.options));
+    return this.prepareList(this.state.options);
   }
 
 
@@ -280,7 +281,7 @@ class DropdownFilterAjax extends DropdownFilter {
   get inputProps() {
     let props = super.inputProps;
 
-    if (typeof this.state.filter !== 'string') {
+    if (this.state.filter.length === 0) {
       props.value = this.props.visibleValue;
     } else {
       props.value = this.state.filter;
