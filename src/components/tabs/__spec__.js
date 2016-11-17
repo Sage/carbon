@@ -41,7 +41,12 @@ describe('Tabs', () => {
           <Textbox name='bap'/>
         </Tab>
       </Tabs>);
-    instance._window = { location: "" };
+    instance._window = {
+      history: {
+        replaceState: () => {}
+      },
+      location: ""
+    };
   });
 
   describe('initialize', () => {
@@ -247,11 +252,18 @@ describe('Tabs', () => {
     });
 
     it('sets the location', () => {
+      let replaceSpy = jasmine.createSpy('replaceState');
       instance._window = {
-        location: ''
+        history: {
+          replaceState: replaceSpy
+        },
+        location: {
+          origin: 'foo',
+          pathname: 'bar'
+        }
       };
       instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
-      expect(instance._window.location).toEqual('#foo');
+      expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#foo');
     });
 
     describe('when a onTabChange prop is passed', () => {
@@ -268,6 +280,9 @@ describe('Tabs', () => {
         );
 
         instance._window = {
+          history: {
+            replaceState: () => {}
+          },
           location: ''
         };
 

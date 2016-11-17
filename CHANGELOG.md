@@ -20,6 +20,7 @@
 ## Bug Fixes
 
 * `Tabs` now correctly tracks warning state of a tab.
+* `Tabs` no longer jumps when changing tab.
 
 ## Package Upgrades
 
