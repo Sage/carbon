@@ -6,7 +6,7 @@ import Events from './../../utils/helpers/events';
 
 describe('Date', () => {
   let instance;
-  let today = moment().format("DD MMM YYYY");
+  let today = moment().format("DD/MM/YYYY");
   let hiddenToday = moment().format("YYYY-MM-DD");
 
   beforeEach(() => {
@@ -253,6 +253,18 @@ describe('Date', () => {
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: 'abc'
         });
+      });
+      it("calls inputIconHTML with error in order to correctly generate the error icon", () => {
+        let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
+        spyOn(invalidDate, 'inputIconHTML');
+        invalidDate.setState({ valid: false });
+        expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('error');
+      });
+      it("calls inputIconHTML with warning in order to correctly generate the warning icon", () => {
+        let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
+        spyOn(invalidDate, 'inputIconHTML');
+        invalidDate.setState({ warning: true });
+        expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('warning');
       });
     });
   });

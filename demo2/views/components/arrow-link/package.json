@@ -1,0 +1,4 @@
+{
+  "main": "./arrow-link.js",
+  "style": "arrow-link.scss"
+}
