@@ -264,7 +264,7 @@ class Tabs extends React.Component {
   }
 
   updateVisibleTab(tabid) {
-    let url = this._window.location.origin + this._window.location.pathname + '#' + tabid;
+    let url = `${ this._window.location.origin }${this._window.location.pathname }#${ tabid }`;
     this._window.history.replaceState(null, 'change-tab', url);
 
     this.setState({ selectedTabId: tabid });
