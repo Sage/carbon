@@ -521,6 +521,7 @@ describe('InputValidation', () => {
         instance.context.form = form;
         spyOn(instance.context.form, 'setActiveInput');
       })
+
       describe("triggers state change and function call", () => {
         it("if not valid", () => {
           instance.setState({
@@ -535,6 +536,7 @@ describe('InputValidation', () => {
           });
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
+
         it("if warning", () => {
           instance.setState({
             valid: true,
@@ -548,7 +550,25 @@ describe('InputValidation', () => {
           });
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
+
+        describe('when there is no form', () => {
+          it('does not call setActiveInput', () => {
+            instance.context.form = null;
+            instance.setState({
+              valid: false,
+              warning: false
+            });
+            spyOn(instance, 'setState');
+            instance.showMessage();
+            expect(instance.setState).toHaveBeenCalledWith({
+              messageShown: true,
+              immediatelyHideMessage: false
+            });
+            expect(form.setActiveInput).not.toHaveBeenCalledWith(instance);
+          });
+        });
       });
+
       describe("doesn't trigger state change and function call", () => {
         it("if valid and not a warning", () => {
           instance.setState({

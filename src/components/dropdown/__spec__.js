@@ -26,7 +26,7 @@ describe('Dropdown', () => {
   });
 
   describe('componentWillReceiveProps', () => {
-    describe('when next value does not equal current value', () => {
+    describe('when cacheVisibleValue is false', () => {
       it('resets visibleValue', () => {
         instance.visibleValue = "foobar";
         instance.componentWillReceiveProps({
@@ -36,13 +36,33 @@ describe('Dropdown', () => {
       });
     });
 
-    describe('when next value does equal current value', () => {
-      it('resets visibleValue', () => {
-        instance.visibleValue = "foobar";
-        instance.componentWillReceiveProps({
-          value: "1"
+    describe('when cacheVisibleValue is true', () => {
+      let instanceWithCache;
+
+      beforeEach(() => {
+        instanceWithCache = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" cacheVisibleValue={ true } options={ Immutable.fromJS([{}]) } value="1" />
+        );
+      });
+
+      describe('when next value does not equal current value', () => {
+        it('resets visibleValue', () => {
+          instanceWithCache.visibleValue = "foobar";
+          instanceWithCache.componentWillReceiveProps({
+            value: "2"
+          });
+          expect(instanceWithCache.visibleValue).toBe(null);
         });
-        expect(instance.visibleValue).toBe("foobar");
+      });
+
+      describe('when next value does equal current value', () => {
+        it('resets visibleValue', () => {
+          instanceWithCache.visibleValue = "foobar";
+          instanceWithCache.componentWillReceiveProps({
+            value: "1"
+          });
+          expect(instanceWithCache.visibleValue).toBe("foobar");
+        });
       });
     });
   });

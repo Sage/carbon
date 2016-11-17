@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Pod from './pod';
 import Button from './../button';
+import { shallow } from 'enzyme';
 
 describe('Pod', () => {
   let instance;
@@ -174,7 +175,14 @@ describe('Pod', () => {
     describe('if border is disabled', () => {
       it('renders relevant classes', () => {
         instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={<div />} />);
-        expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--padding-medium carbon-pod__edit-action--no-border');
+        expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--primary carbon-pod__edit-action--padding-medium carbon-pod__edit-action--no-border');
+      });
+    });
+
+    describe('if displayEditButtonOnHover is enabled', () => {
+      it('renders relevant classes', () => {
+        instance = TestUtils.renderIntoDocument(<Pod displayEditButtonOnHover={true} footer={<div />} />);
+        expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--primary carbon-pod__edit-action--padding-medium carbon-pod__display-on-hover');
       });
     });
   });
@@ -339,13 +347,85 @@ describe('Pod', () => {
           let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
           expect(buttons.length).toEqual(1);
         });
+
+        describe('when displayEditButtonOnHover is enabled', () => {
+          describe('when onEdit has been set', () => {
+            it('toggles the hover state when moving the mouse in to the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} onEdit='foo' />)
+              wrapper.find('.carbon-pod__block').simulate('mouseEnter')
+              expect(wrapper.state().hoverEdit).toBe(true);
+            });
+
+            it('toggles the hover state when moving the mouse out of the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} onEdit='foo' />)
+              wrapper.find('.carbon-pod__block').simulate('mouseLeave')
+              expect(wrapper.state().hoverEdit).toBe(false);
+            });
+
+            it('toggles the hover state when focusing on the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} onEdit='foo' />)
+              wrapper.find('.carbon-pod__block').simulate('focus')
+              expect(wrapper.state().hoverEdit).toBe(true);
+            });
+
+            it('toggles the hover state when bluring on the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} onEdit='foo' />)
+              wrapper.find('.carbon-pod__block').simulate('blur')
+              expect(wrapper.state().hoverEdit).toBe(false);
+            });
+          });
+
+          describe('when onEdit has not been set', () => {
+            it('does not toggle the hover state when moving the mouse in to the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} />)
+              wrapper.find('.carbon-pod__block').simulate('mouseEnter')
+              expect(wrapper.state().hoverEdit).not.toBeDefined;
+            });
+
+            it('does not toggle the hover state when moving the mouse out of the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} />)
+              wrapper.find('.carbon-pod__block').simulate('mouseLeave')
+              expect(wrapper.state().hoverEdit).not.toBeDefined;
+            });
+
+            it('does not toggle the hover state when focusing on the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} />)
+              wrapper.find('.carbon-pod__block').simulate('focus')
+              expect(wrapper.state().hoverEdit).not.toBeDefined;
+            });
+
+            it('does not toggle the hover state when bluring on the pod', () => {
+              const wrapper = shallow(<Pod displayEditButtonOnHover={true} />)
+              wrapper.find('.carbon-pod__block').simulate('blur')
+              expect(wrapper.state().hoverEdit).not.toBeDefined;
+            });
+          });
+        });
+
+        describe('when triggerEditOnContent is enabled', () => {
+          describe('when onEdit has been set', () => {
+            it('sets an onClick handler on the content block', () => {
+              let editFunction = () => {}
+              const wrapper = shallow(<Pod triggerEditOnContent={ true } onEdit={ () => {} } />)
+              expect(wrapper.find('.carbon-pod__block').props().onClick).toBeDefined;
+            });
+          });
+
+          describe('when onEdit has not been set', () => {
+            it('does not set an onClick handler on the content block', () => {
+              let editFunction = () => {}
+              const wrapper = shallow(<Pod triggerEditOnContent={ true } />)
+              expect(wrapper.find('.carbon-pod__block').props().onClick).not.toBeDefined;
+            });
+          });
+        });
       });
 
       describe('when pod is not collapsible', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Pod><Button>Button</Button> </Pod>
-        );
         it('renders the pods content', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Pod><Button>Button</Button> </Pod>
+          );
           let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
           expect(buttons.length).toEqual(1);
         });

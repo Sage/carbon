@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 /**
  * A Tab widget.
@@ -64,7 +65,8 @@ class Tab extends React.Component {
   getChildContext() {
     return {
       tab: {
-        setValidity: this.setValidity
+        setValidity: this.setValidity,
+        setWarning: this.setWarning
       }
     };
   }
@@ -77,7 +79,15 @@ class Tab extends React.Component {
      * @property isValid
      * @type {Boolean}
      */
-    isValid: true
+    isValid: true,
+
+    /**
+     * Tracks if the tab is a warning state
+     *
+     * @property isWarning
+     * @type {Boolean}
+     */
+    isWarning: false
   }
 
   /**
@@ -94,18 +104,28 @@ class Tab extends React.Component {
   }
 
   /**
+   * Sets warning state to passed param
+   * It notifies the parent context of the change
+   * and sets the current warning state to the new value
+   *
+   * @method setWarning
+   * @param {Boolean} warning updates warning of this tab
+   */
+  setWarning = (warning) => {
+    this.context.tabs.changeWarning(this.props.tabId, warning);
+    this.setState({ isWarning: warning });
+  }
+
+  /**
    * Classes to be applied to the single tab component
    *
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    let classes = this.props.className || '';
-
-    if (!this.state.isValid) {
-      classes += ' carbon-tab--errors';
-    }
-
-    return 'carbon-tab ' + classes;
+    return classNames(
+      'carbon-tab',
+      this.props.className
+    );
   }
 
   /**

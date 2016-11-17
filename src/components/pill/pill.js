@@ -64,7 +64,8 @@ class Pill extends React.Component {
     className = classNames(
       'carbon-pill',
       className,
-      'carbon-pill--' + this.props.as + (this.props.fill ? '--fill' : '--empty')
+      'carbon-pill--' + this.props.as + (this.props.fill ? '--fill' : '--empty'),
+      { ['carbon-pill--link']: this.props.onClick }
     );
 
     return(
