@@ -31,7 +31,6 @@ class DecimalDemo extends React.Component {
     return (
       <Decimal
         { ...FormInputHelper.demoProps(this, this.action) }
-        helpMessage={ this.value('helpMessage')}
         precision={ Number(this.value('precision')) }
       />
     );
@@ -45,7 +44,7 @@ class DecimalDemo extends React.Component {
 
     html += "<Decimal";
     html = FormInputHelper.codeProps(this, html);
-    
+
     if (this.value('precision') !== 2) {
       html += `  precision={ ${ this.value('precision') } }`
     }

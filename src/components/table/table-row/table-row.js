@@ -4,6 +4,7 @@ import TableCell from './../table-cell';
 import TableHeader from './../table-header';
 import Checkbox from './../../checkbox';
 import guid from './../../../utils/helpers/guid';
+import { validProps } from '../../../utils/ether';
 
 /**
  * A TableRow widget.
@@ -59,7 +60,38 @@ class TableRow extends React.Component {
      * @property uniqueID
      * @type {String}
      */
-    uniqueID: React.PropTypes.string
+    uniqueID: React.PropTypes.string,
+
+    /**
+     * What the row should be displayed as, set to 'header' to display as header
+     *
+     * @property as
+     * @type {String}
+     */
+    as: React.PropTypes.string,
+
+    /**
+     * Whether to hide the multiSelect
+     *
+     * @property hideMultiSelect
+     * @type {Boolean}
+     */
+    hideMultiSelect: React.PropTypes.bool,
+
+    /**
+     * Whether to select all
+     *
+     * @property selectAll
+     * @type {Boolean}
+     */
+    selectAll: React.PropTypes.bool,
+
+    /**
+     * Callback for when a row is highlighted
+     * @property onHighlight
+     * @type {Function}
+     */
+    onHighlight: React.PropTypes.func
   }
 
   /**
@@ -227,7 +259,7 @@ class TableRow extends React.Component {
    * @return {Object}
    */
   get rowProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
 
     props.className = this.mainClasses;
 

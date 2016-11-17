@@ -41,7 +41,7 @@ import Help from './../../../components/help';
  *  * `inputWidth` - pass a percentage to define the width of the input when it
  *  is displayed inline.
  *
- * @method InputIcon
+ * @method InputLabel
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
@@ -54,6 +54,86 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object
   })
+
+  static propTypes = assign({}, ComposedComponent.propTypes, {
+
+    /**
+     * Either a string or false to turn the label off
+     *
+     * @property
+     * @type {String|Boolean}
+     */
+    label: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.bool
+    ]),
+
+    /**
+     * Pass true to format the input/label inline
+     *
+     * @property
+     * @default top
+     * @type {Boolean}
+     */
+    labelInline: React.PropTypes.bool,
+
+    /**
+     * Pass a percentage to define the width of the label when it
+     *  is displayed inline.
+     *
+     * @property
+     * @type {Number}
+     */
+    labelWidth: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
+
+
+    /**
+     * Aligns label content to the right if set
+     *
+     * @property
+     * @type {String}
+     */
+    labelAlign: React.PropTypes.string,
+
+    /**
+     * Text applied to tooptip of help icon
+     *
+     * @property
+     * @type {String}
+     */
+    labelHelp: React.PropTypes.string,
+
+    /**
+     * Pass a percentage to define the width of the label when it
+     *  is displayed inline
+     *
+     * @property
+     * @type {Number}
+     */
+    inputWidth: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
+
+    /**
+     * A string representing a help message
+     *
+     * @property
+     * @type {String}
+     */
+    fieldHelp: React.PropTypes.string,
+
+    /**
+     * Boolean to determine whether the help message should be inline
+     *
+     * @property
+     * @type {Boolean}
+     */
+    fieldHelpInline: React.PropTypes.bool
+  });
 
   /**
    * Extends the main classes with any validation classes.

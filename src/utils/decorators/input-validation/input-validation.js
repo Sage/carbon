@@ -115,7 +115,26 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object,
     tab: React.PropTypes.object
-  })
+  });
+
+  static propTypes = assign({}, ComposedComponent.propTypes, {
+
+    /**
+     * Array of validations to apply to this input
+     *
+     * @property
+     * @type {Array}
+     */
+    validations: React.PropTypes.array,
+
+    /**
+     * Array of warnings to apply to this input
+     *
+     * @property
+     * @type {Array}
+     */
+    warnings: React.PropTypes.array
+  });
 
   /**
    * A lifecycle method for when the component has re-rendered.

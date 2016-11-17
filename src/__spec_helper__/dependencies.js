@@ -1,1 +1,1 @@
-import 'react-highcharts/dist/bundle/highcharts';
+import 'highcharts';

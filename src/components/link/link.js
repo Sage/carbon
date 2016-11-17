@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
 import { Link } from 'react-router';
+import { validProps } from '../../utils/ether';
 import Event from './../../utils/helpers/events';
 
 /**
@@ -87,13 +88,41 @@ class _Link extends React.Component {
      * @type {String}
      * @default undefined
      */
-    href: React.PropTypes.string
+    href: React.PropTypes.string,
+
+    /**
+     * The message for this tooltip
+     *
+     * @property
+     * @type {String}
+     */
+    tooltipMessage: React.PropTypes.string,
+
+    /**
+     * The position of this tooltip: top, bottom, left or right
+     *
+     * @property
+     * @default top
+     * @type {String}
+     */
+    tooltipPosition: React.PropTypes.string,
+
+    /**
+     * The alignment of this tooltip: left, right or center
+     *
+     * @property
+     * @default center
+     * @type {String}
+     */
+    tooltipAlign: React.PropTypes.string
   }
 
   static defaultProps = {
     iconAlign: 'left',
     tabbable: true
   }
+
+  static safeProps = ['disabled']
 
   /**
    * Getter for componet properties.
@@ -102,7 +131,7 @@ class _Link extends React.Component {
    * @return {Object} props
    */
   get componentProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
 
     props.tabIndex = this.tabIndex;
 
