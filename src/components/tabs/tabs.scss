@@ -32,6 +32,10 @@ $carbon-tabs__header__color: $grey-dark !default;
   margin-left: 2px;
   padding: 11px 15px 10px;
 
+  &:first-child {
+    margin-left: 0;
+  }
+
   &:focus:not(.carbon-tabs__headers__header--selected),
   &:hover {
     background: $carbon-tabs__header--selected_border-color;
@@ -73,7 +77,7 @@ $carbon-tabs__header__color: $grey-dark !default;
   }
 
   .carbon-tabs__headers {
-    box-shadow: none;
+    box-shadow: inset -2px 0px 0px 0px $carbon-tabs__header__border-color;
     display: inline-block;
     width: 20%;
   }
@@ -88,6 +92,11 @@ $carbon-tabs__header__color: $grey-dark !default;
       height: auto;
       margin-left: 0px;
       margin-top: 2px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
       &:hover {
         border-right-color: $carbon-tabs__header--selected_border-color;
       }
