@@ -30,9 +30,30 @@ describe('I18n Helper', () => {
         });
       });
     });
+
     describe('when a value is not provided', () => {
       it('returns the 0.00 value', () => {
         expect(Helper.formatDecimal()).toEqual('0.00');
+      });
+    });
+
+    describe('when a locale is provided', () => {
+      it('uses the passed locale', () => {
+        expect(Helper.formatDecimal('1234567', 3, { locale: 'fr' })).toEqual('1.234.567,000');
+      });
+    });
+
+    describe('when locale is not set', () => {
+      beforeEach(() => {
+        I18n.locale = null;
+      });
+
+      afterEach(() => {
+        I18n.locale = 'en';
+      });
+
+      it('defaults to en', () => {
+        expect(Helper.formatDecimal('1234567', 3)).toEqual('1,234,567.000');
       });
     });
   });
@@ -67,6 +88,20 @@ describe('I18n Helper', () => {
       expect(Helper.abbreviateCurrency('987654321', { locale: 'en', unit: '£' })).toEqual('£987.7m');
       expect(Helper.abbreviateCurrency('234567890', { locale: 'fr', unit: '€' })).toEqual('234.6m €');
     });
+
+    describe('when locale is not set', () => {
+      beforeEach(() => {
+        I18n.locale = null;
+      });
+
+      afterEach(() => {
+        I18n.locale = 'en';
+      });
+
+      it('defaults to en', () => {
+        expect(Helper.abbreviateCurrency('-345')).toEqual('£-345.00');
+      });
+    });
   });
 
   describe("abbreviateNumber", () => {
@@ -84,6 +119,14 @@ describe('I18n Helper', () => {
       expect(Helper.abbreviateNumber('1049000')).toEqual('1.0m');
       expect(Helper.abbreviateNumber('1050000')).toEqual('1.1m');
       expect(Helper.abbreviateNumber('1000000000')).toEqual('1,000.0m');
+    });
+
+    describe('when locale is passed', () => {
+      it('uses the passed locale', () => {
+        expect(Helper.abbreviateNumber('949', { locale: 'fr' })).toEqual('949,00');
+        expect(Helper.abbreviateNumber('9950', { locale: 'fr' })).toEqual('10,0k');
+        expect(Helper.abbreviateNumber('1000000000', { locale: 'fr' })).toEqual('1.000,0m');
+      });
     });
   });
 
@@ -157,6 +200,20 @@ describe('I18n Helper', () => {
     describe('when a value is not provided', () => {
       it('returns the 0.00 value', () => {
         expect(Helper.formatCurrency()).toEqual('£0.00');
+      });
+    });
+
+    describe('when no locale is set', () => {
+      beforeEach(() => {
+        I18n.locale = null;
+      });
+
+      afterEach(() => {
+        I18n.locale = 'en';
+      });
+
+      it('defaults to en', () => {
+        expect(Helper.formatCurrency(1337)).toEqual('£1,337.00');
       });
     });
   });
