@@ -65,10 +65,6 @@ let FormInputHelper = {
       html += `\n  prefix='${scope.value('prefix')}'`;
     }
 
-    if (scope.value('helpMessage')) {
-      html += `\n  helpMessage='${scope.value('helpMessage')}'`;
-    }
-
     // determine if we need extra space
     let splitHtml = html.split("\n  ");
     if (splitHtml.length == 1) {

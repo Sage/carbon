@@ -31,7 +31,7 @@ class IconDemo extends React.Component {
     let type = this.value('type')
     return (
       <div className='icon-demo__icon'>
-        <Icon type={ type } tooltipMessage="fsdfds" pointerAlign="left" />
+        <Icon type={ type } tooltipMessage="fsdfds" />
       </div>
     );
   }

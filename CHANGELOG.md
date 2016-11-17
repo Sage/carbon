@@ -1,3 +1,9 @@
+# 1.0.0
+
+## :warning: Major Change - React 15 Upgrade
+
+* React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
+
 # 0.29.0
 
 ## !! BREAKING CHANGES!! :warning:

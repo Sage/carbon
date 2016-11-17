@@ -77,9 +77,7 @@ describe('Portrait', () => {
             <Portrait />
           );
 
-          expect(console.error).toHaveBeenCalledWith(
-            "Warning: Failed propType: Portrait requires a prop of 'src' OR a prop of 'gravatar'"
-          );
+          expect(console.error.calls.argsFor(0)[0]).toMatch(`Portrait requires a prop of 'src' OR a prop of 'gravatar'`);
         });
       });
 
@@ -92,9 +90,7 @@ describe('Portrait', () => {
             />
           );
 
-          expect(console.error).toHaveBeenCalledWith(
-            "Warning: Failed propType: Portrait requires a prop of 'src' OR a prop of 'gravatar' but not both"
-          );
+          expect(console.error.calls.argsFor(0)[0]).toMatch(`Failed prop type: Portrait requires a prop of 'src' OR a prop of 'gravatar' but not both`);
         });
       });
     });
