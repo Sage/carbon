@@ -57,7 +57,7 @@ const I18nHelper = {
   abbreviateCurrency: (num, options = {}) => {
     let locale = options.locale || I18n.locale || 'en',
         sign = num < 0 ? '-' : '',
-        abbr = I18nHelper.abbreviateNumber(num),
+        abbr = I18nHelper.abbreviateNumber(num, options),
         format = I18nHelper.format(locale),
         unit = options.unit || format.unit;
 
