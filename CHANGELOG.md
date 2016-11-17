@@ -15,10 +15,12 @@
 * `Navigation-Bar`: line-height has been applied to parent content div rather than children.
 * Updated base font CSS to better reflect the Lato font.
 * Updated Menu Item CSS to better reflect the Lato font.
+* Updated input help text color for accessibility standards.
 
 ## Bug Fixes
 
 * `Tabs` now correctly tracks warning state of a tab.
+* `Tabs` no longer jumps when changing tab.
 
 ## Package Upgrades
 
@@ -48,6 +50,7 @@
 ## Minor Improvements
 
 * Cookie functions added to browser helper
+* Fixes vertical alignment of minus icon.
 
 # 0.28.3
 
@@ -184,6 +187,7 @@ import 'react-highcharts/dist/bundle/highcharts';
 * `Pod` enter triggers edit function and edit element is keyboard accessible
 * `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
 * `Tabs` focus state is given the same styles as hover state
+* `Tabs` now can take a prop of 'position' which supports floating to the left and being positioned in a vertical stack.
 * `Pager` component now emits which element has changed.
 * `Sidebar` now takes a size prop (e.g. `extra-small`, `small`, ...`extra-large`)
 

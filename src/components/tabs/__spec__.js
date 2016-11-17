@@ -41,7 +41,12 @@ describe('Tabs', () => {
           <Textbox name='bap'/>
         </Tab>
       </Tabs>);
-    instance._window = { location: "" };
+    instance._window = {
+      history: {
+        replaceState: () => {}
+      },
+      location: ""
+    };
   });
 
   describe('initialize', () => {
@@ -247,11 +252,18 @@ describe('Tabs', () => {
     });
 
     it('sets the location', () => {
+      let replaceSpy = jasmine.createSpy('replaceState');
       instance._window = {
-        location: ''
+        history: {
+          replaceState: replaceSpy
+        },
+        location: {
+          origin: 'foo',
+          pathname: 'bar'
+        }
       };
       instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
-      expect(instance._window.location).toEqual('#foo');
+      expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#foo');
     });
 
     describe('when a onTabChange prop is passed', () => {
@@ -268,6 +280,9 @@ describe('Tabs', () => {
         );
 
         instance._window = {
+          history: {
+            replaceState: () => {}
+          },
           location: ''
         };
 
@@ -279,7 +294,7 @@ describe('Tabs', () => {
 
   describe('mainClasses', () => {
     it('returns the main class for the component', () => {
-      expect(instance.mainClasses).toEqual('carbon-tabs');
+      expect(instance.mainClasses).toEqual('carbon-tabs__position-top');
     });
 
     describe('when passing custom classNames', () => {
@@ -292,8 +307,39 @@ describe('Tabs', () => {
             </Tab>
           </Tabs>);
 
-        expect(instance.mainClasses).toEqual('carbon-tabs 1tab');
+        expect(instance.mainClasses).toEqual('carbon-tabs__position-top 1tab');
       });
+    });
+
+    describe('when passing a position prop', () => {
+      it('adds it to the classList', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Tabs position='left'>
+            <Tab title='Tab Title 1' tabId='uniqueid1'>
+              <Textbox name='foo'/>
+              <Textbox name='bar'/>
+            </Tab>
+          </Tabs>);
+
+        expect(instance.mainClasses).toEqual('carbon-tabs__position-left');
+      });
+    });
+  });
+
+  describe('tabsHeaderClasses', () => {
+    it('adds a carbon-tabs__headers class to the tab', () => {
+      let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
+      expect(list.classList.contains('carbon-tabs__headers')).toEqual(true);
+    });
+
+    it('adds the align className included in the props to the tab', () => {
+      let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
+      expect(list.classList.contains('carbon-tabs__headers--align-left')).toEqual(true);
+    });
+
+    it('adds the position className included in the props to the tab', () => {
+      let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
+      expect(list.classList.contains('carbon-tabs__headers')).toEqual(true);
     });
   });
 
@@ -389,7 +435,7 @@ describe('Tabs', () => {
         );
 
         let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
-        expect(headers.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-right');
+        expect(headers.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-right carbon-tabs__headers');
       });
     });
   });
@@ -471,13 +517,13 @@ describe('Tabs', () => {
   describe('render', () => {
     it('creates a parent div for the component', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(div.className).toEqual('carbon-tabs');
+      expect(div.className).toEqual('carbon-tabs__position-top');
     });
 
     it('renders the tab headers', () => {
       let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
       let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
-      expect(list.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-left');
+      expect(list.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-left carbon-tabs__headers');
       expect(items.length).toEqual(3);
     });
   });

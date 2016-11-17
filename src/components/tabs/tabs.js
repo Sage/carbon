@@ -124,12 +124,21 @@ class Tabs extends React.Component {
      * @property onTabChange
      * @type {Func}
      */
-    onTabChange: React.PropTypes.func
+    onTabChange: React.PropTypes.func,
+
+    /**
+     * The position of tabs with respect to the content (top (default) or left)
+     *
+     * @property position
+     * @type {String}
+     */
+    position: React.PropTypes.string
   }
 
   static defaultProps = {
     renderHiddenTabs: true,
-    align: 'left'
+    align: 'left',
+    position: 'top'
   }
 
   static childContextTypes = {
@@ -264,7 +273,9 @@ class Tabs extends React.Component {
   }
 
   updateVisibleTab(tabid) {
-    this._window.location = `#${tabid}`;
+    let url = `${ this._window.location.origin }${this._window.location.pathname }#${ tabid }`;
+    this._window.history.replaceState(null, 'change-tab', url);
+
     this.setState({ selectedTabId: tabid });
 
     if (this.props.onTabChange) {
@@ -279,8 +290,16 @@ class Tabs extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'carbon-tabs',
+      `carbon-tabs__position-${ this.props.position }`,
       this.props.className
+    );
+  }
+
+  tabsHeaderClasses = () => {
+    return classNames(
+      'carbon-tabs__headers',
+      `carbon-tabs__headers--align-${ this.props.align }`,
+       `carbon-tabs__headers`
     );
   }
 
@@ -322,7 +341,7 @@ class Tabs extends React.Component {
     });
 
     return(
-      <ul className={ `carbon-tabs__headers carbon-tabs__headers--align-${ this.props.align }` } >
+      <ul className={ this.tabsHeaderClasses() } >
         { tabTitles }
       </ul>
     );
