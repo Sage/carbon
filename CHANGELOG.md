@@ -1,3 +1,9 @@
+# 0.29.1
+
+## CSS Update
+
+* The `default` colour set now uses a lighter grey.
+
 # 0.29.0
 
 ## !! BREAKING CHANGES!! :warning:
