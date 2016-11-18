@@ -27,6 +27,8 @@
 
 fs = require('fs');
 
+var CONTRAST_THRESHOLD = 2;
+
 function readFile(readPath, parseData, writePath, writeData) {
   fs.readFile(readPath, 'utf8', function (err,data) {
     if (err) {
@@ -34,6 +36,27 @@ function readFile(readPath, parseData, writePath, writeData) {
     }
     parseData(data, writePath, writeData);
   });
+}
+
+function hexToR(hex) { return parseInt((cutHex(hex)).substring(0,2), 16) }
+function hexToG(hex) { return parseInt((cutHex(hex)).substring(2,4), 16) }
+function hexToB(hex) { return parseInt((cutHex(hex)).substring(4,6), 16) }
+function cutHex(hex) { return (hex.charAt(0)=="#") ? hex.substring(1,7) : h }
+function hexToRGBArray(hex) {return [hexToR(hex), hexToG(hex), hexToB(hex)]}
+
+// http://stackoverflow.com/a/9733420/4668477
+function luminanace(hex) {
+  var a = hexToRGBArray(hex).map(function(v) {
+    v /= 255;
+    return (v <= 0.03928) ?  v / 12.92 : Math.pow( ((v+0.055)/1.055), 2.4 );
+  });
+  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+function fontContrast(hex) {
+  var whiteContrast = (luminanace('#FFFFFF') + 0.05) / (luminanace(hex) + 0.05);
+
+  return whiteContrast >= CONTRAST_THRESHOLD ? 'light' : 'dark';
 }
 
 function parseData(data, writePath, writeData) {
@@ -57,7 +80,10 @@ function parseData(data, writePath, writeData) {
     } else if (line.startsWith('$')) {
       // Replace all white space with a single whitespace and split
       var lineSplit = line.replace(/\s\s+/g, ' ').split(' ');
-      stringData += "\n    { name: '" + lineSplit[0] + "', hex: '" + lineSplit[1] + "' },"
+      var hex = lineSplit[1];
+      var contrast = fontContrast(hex);
+
+      stringData += "\n    { name: '" + lineSplit[0] + "', hex: '" + hex + "', fontContrast: '" + contrast + "' },";
     }
   });
   // Close tags
