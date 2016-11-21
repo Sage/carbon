@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import ArrowLink from '../../components/arrow-link';
+import Wrapper from '../../chrome/wrapper';
 
 /**
  * Creates a Link wrapped HTML component that renders a label with prefix and an arrow icon
@@ -12,10 +13,12 @@ import ArrowLink from '../../components/arrow-link';
  * @return {SubPageNavigation}
  */
 export default props => (
-  <nav className='demo-sub-page-navigation'>
-    { _link(props.previousPage, 'previous') }
-    { _link(props.nextPage,     'next') }
-  </nav>
+  <Wrapper>
+    <nav className='demo-sub-page-navigation'>
+      { _link(props.previousPage, 'previous') }
+      { _link(props.nextPage,     'next') }
+    </nav>
+  </Wrapper>
 );
 
 /**
