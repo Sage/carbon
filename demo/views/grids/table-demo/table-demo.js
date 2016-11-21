@@ -57,6 +57,12 @@ class TableDemo extends React.Component {
       );
     }
 
+    let configurable = {
+      availableColumns: ['foo', 'bar', 'baz', 'quux'],
+      columns: ['foo', 'bar', 'baz'],
+      lockedColumns: ['foo']
+    }
+
     let actions = [{
       text: "Add Subscriptions",
       icon: "basket"
@@ -70,6 +76,7 @@ class TableDemo extends React.Component {
         { filterHtml }
 
         <Table
+          configurable={ configurable }
           actions={ actions }
           currentPage={ this.value('current_page') }
           filter={ filter }

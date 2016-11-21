@@ -8,8 +8,10 @@ import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import TableSubheader from './table-subheader';
+import Configurable from './configurable';
 import Pager from './../pager';
 import Spinner from './../spinner';
+import Button from './../button';
 
 /**
  * A Table widget.
@@ -316,7 +318,8 @@ class Table extends React.Component {
   }
 
   state = {
-    selectedCount: 0
+    selectedCount: 0,
+    configurableOpen: false
   }
 
   /**
@@ -950,15 +953,35 @@ class Table extends React.Component {
     }
   }
 
+  // TODO MOve bind to constructor
+  toggleConfigurable() {
+    this.setState({ configurableOpen: !this.state.configurableOpen });
+  }
+
+  configurable = () => {
+    if (this.props.configurable) {
+      return (
+        <Configurable
+          open={ this.state.configurableOpen }
+          onCancel={ this.toggleConfigurable.bind(this) }
+          { ...this.props.configurable }
+        />
+      )
+    }
+  }
+
   /**
    * Renders the component.
    *
    * @method render
    */
   render() {
+    console.log('props', this.props);
     return (
       <div className={ this.mainClasses }>
         { this.actionToolbar }
+        { this.props.configurable ? <Button onClick={ this.toggleConfigurable.bind(this) }>CONFIG</Button> : null }
+        { this.configurable() }
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
             { this.thead }
