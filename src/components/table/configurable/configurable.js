@@ -3,7 +3,7 @@ import Dialog from './../../dialog';
 import { Table, TableHeader, TableCell, TableRow } from './../table';
 import Form from './../../form';
 import Checkbox from './../../checkbox';
-import { includes, pull } from 'lodash';
+import { includes, capitalize, pull, trim, snakeCase } from 'lodash';
 
 class Configurable extends React.Component {
 
@@ -22,6 +22,7 @@ class Configurable extends React.Component {
 
     this.rows = this.rows.bind(this);
     this.reloadState = this.reloadState.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
 
     this.reloadState();
   }
@@ -36,21 +37,21 @@ class Configurable extends React.Component {
     }
   }
 
+  // TODO don't pass boolean, separate to two methods
   toggleCheckedColumn(column, checked) {
     let newColumns;
     if (checked) {
-      newColumns= pull(this.state.columns, column);
+      newColumns = this.state.columns.filter(col => col !== column );
     } else {
       newColumns = this.state.columns.push(column);
     }
     this.setState({ columns: newColumns });
   }
 
-  reloadState() {
-    this.state = {
-      availableColumns: this.props.availableColumns,
-      columns: this.props.columns,
-      lockedColumns: this.props.lockedColumns
+  onSubmit(ev) {
+    ev.preventDefault();
+    if (this.props.updateColumns) {
+      this.props.updateColumns(this.state);
     }
   }
 
@@ -61,7 +62,10 @@ class Configurable extends React.Component {
         onCancel={ this.props.onCancel }
         title='Configurable'
       >
-        <Form>
+        <Form
+          onCancel={ this.props.onCancel }
+          onSubmit={ this.onSubmit }
+        >
           <Table>
             { this.rows() }
           </Table>
@@ -72,22 +76,35 @@ class Configurable extends React.Component {
 
   rows() {
     return this.state.availableColumns.map((column, index) => {
-      let checked = includes(this.state.columns, column);
+      let checked = this.state.columns.includes(column);
       return (
         <TableRow key={ index }>
           <TableCell>
             <Checkbox
               checked={ checked }
               onClick={ this.toggleCheckedColumn.bind(this, column, checked) }
-              disabled={ includes(this.state.lockedColumns, column) }
+              disabled={ this.state.lockedColumns.includes(column) }
             />
           </TableCell>
           <TableCell>
-            { column }
+            { this.humanize(column) }
           </TableCell>
         </TableRow>
       );
     });
+  }
+
+  reloadState() {
+    this.state = {
+      availableColumns: this.props.availableColumns,
+      columns: this.props.columns,
+      lockedColumns: this.props.lockedColumns
+    }
+  }
+
+  // TODO: Move to helper
+  humanize(str) {
+    return capitalize(trim(snakeCase(str).replace(/_id$/, '').replace(/_/g, ' ')));
   }
 }
 

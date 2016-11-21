@@ -66,7 +66,8 @@ let AppActions = {
             sortedColumn: opts.sortedColumn,
             page: String(data.current_page),
             pageSize: pageSize,
-            component: component
+            component: component,
+            columns: opts.columns
           });
         }
       });

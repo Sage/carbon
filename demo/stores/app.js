@@ -225,7 +225,10 @@ let data = ImmutableHelper.parseJSON({
     show_page_size_selection: false,
     sort_order: "asc",
     sorted_column: "name",
-    total_records: "0"
+    total_records: "0",
+    availableColumns: ['country', 'code', 'population', 'gross_domestic_product'],
+    columns: ['country', 'code'],
+    lockedColumns: ['country']
   },
   table_ajax: {
     data: [],
@@ -334,6 +337,9 @@ class AppStore extends Store {
     this.data = this.data.setIn([action.component, "current_page"], action.page);
     this.data = this.data.setIn([action.component, "total_records"], action.records);
     this.data = this.data.setIn([action.component, "page_size"], action.pageSize);
+    if (action.columns) {
+      this.data = this.data.setIn([action.component, 'columns'], action.columns);
+    }
     if (action.sortOrder) { this.data = this.data.setIn([action.component, "sort_order"], action.sortOrder); }
     if (action.sortedColumn) { this.data = this.data.setIn([action.component, "sorted_column"], action.sortedColumn); }
   }

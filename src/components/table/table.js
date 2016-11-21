@@ -12,6 +12,7 @@ import Configurable from './configurable';
 import Pager from './../pager';
 import Spinner from './../spinner';
 import Button from './../button';
+import Icon from './../icon';
 
 /**
  * A Table widget.
@@ -742,7 +743,8 @@ class Table extends React.Component {
       filter: props.filter ? props.filter.toJS() : {},
       pageSize: props.pageSize || '',
       sortOrder: props.sortOrder || '',
-      sortedColumn: props.sortedColumn || ''
+      sortedColumn: props.sortedColumn || '',
+      columns: props.configurable || []
     };
   }
 
@@ -953,9 +955,18 @@ class Table extends React.Component {
     }
   }
 
-  // TODO MOve bind to constructor
+  // TODO Move bind to constructor
   toggleConfigurable() {
     this.setState({ configurableOpen: !this.state.configurableOpen });
+  }
+
+  updateColumns(configurableState) {
+    let options = this.emitOptions();
+    options.columns = configurableState.columns;
+
+    this.emitOnChangeCallback('configurable', options);
+
+    this.toggleConfigurable();
   }
 
   configurable = () => {
@@ -964,9 +975,25 @@ class Table extends React.Component {
         <Configurable
           open={ this.state.configurableOpen }
           onCancel={ this.toggleConfigurable.bind(this) }
-          { ...this.props.configurable }
+          updateColumns={ this.updateColumns.bind(this) }
+          availableColumns={ this.props.availableColumns }
+          columns={ this.props.columns }
+          lockedColumns={ this.props.lockedColumns }
         />
       )
+    }
+  }
+
+  configurableButton = () => {
+    if (this.props.configurable) {
+      return (
+        <a
+          className='carbon-table__configurable-button'
+          onClick={ this.toggleConfigurable.bind(this) }
+        >
+          <Icon type='settings' />
+        </a>
+      );
     }
   }
 
@@ -976,13 +1003,12 @@ class Table extends React.Component {
    * @method render
    */
   render() {
-    console.log('props', this.props);
     return (
       <div className={ this.mainClasses }>
         { this.actionToolbar }
-        { this.props.configurable ? <Button onClick={ this.toggleConfigurable.bind(this) }>CONFIG</Button> : null }
         { this.configurable() }
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
+          { this.configurableButton() }
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
             { this.thead }
             { this.tbody }
