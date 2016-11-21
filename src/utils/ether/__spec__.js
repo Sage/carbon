@@ -1,4 +1,4 @@
-import { append, styleElement, acronymize, validProps } from './ether.js';
+import { append, styleElement, acronymize, validProps, insertAt } from './ether.js';
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Pod from 'components/pod';
@@ -58,6 +58,31 @@ describe('Ether', () => {
     it('creates valid props with explicit safeProps', () => {
       const instance = new Foo();
       expect(validProps(instance, ['bar'])).toEqual({ bar: 'bar', quux: 'quux' });
+    });
+  });
+
+  describe('insertAt', () => {
+    describe('default separator', () => {
+      it('returns a string formatted with dashes', () => {
+        expect(insertAt('123456', {interval: 2})).toEqual('12-34-56');
+      });
+    });
+
+    describe('custom separator', () => {
+      it('returns a string formatted with the separator', () => {
+        expect(insertAt('123456789', {interval: 3, separator:'/'})).toEqual('123/456/789');
+      });
+    });
+
+    describe('an invalid interval', () => {
+      beforeAll(() => {
+        spyOn(console, 'warn');
+      });
+
+      it('returns a warning', () => {
+        insertAt('123456', {interval: 7});
+        expect(console.warn).toHaveBeenCalledWith('The interval cannot be greater than the string length');
+      });
     });
   });
 });

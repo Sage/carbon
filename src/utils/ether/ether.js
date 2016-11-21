@@ -1,4 +1,5 @@
-import { omit, difference } from 'lodash';
+import { omit, difference, includes } from 'lodash';
+
 /**
  * Ether
  *
@@ -58,9 +59,34 @@ function validProps(instance, safeProps) {
   return omit(instance.props, unsafeProps);
 }
 
+/**
+ * Returns string with inserted character at specified indices
+ *
+ * @method insertAt
+ * @param {String} value - value without separators
+ * @param {Object} options
+ * * @param {String} separator - character to insert
+ * * @param {Array} insertionIndices - indices where separator will be inserted
+ * @return {String} result - formatted
+ */
+function insertAt(value, options) {
+  let separator = options.separator || '-', result = value;
+
+  for (let i = 0; i < result.length; i ++) {
+    if (includes(options.insertionIndices, i)) {
+        let currentInsetionIndex = options.insertionIndices.indexOf(i);
+        result = result.substr(0, i) +
+                 separator +
+                 result.substr(i, options.insertionIndices[currentInsetionIndex + 1]);
+    }
+  }
+  return result;
+}
+
 export {
   acronymize,
   append,
   styleElement,
-  validProps
+  validProps,
+  insertAt
 };
