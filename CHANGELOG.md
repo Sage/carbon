@@ -1,3 +1,9 @@
+# 0.30.0
+
+## Helpers
+
+* A new 'insertAt' Ether helper to insert a character in a string at a specified interval
+
 # 0.29.1
 
 ## CSS Update
