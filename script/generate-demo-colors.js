@@ -27,7 +27,7 @@
 
 fs = require('fs');
 
-var CONTRAST_THRESHOLD = 2;
+var CONTRAST_THRESHOLD = 0.179;
 
 function readFile(readPath, parseData, writePath, writeData) {
   fs.readFile(readPath, 'utf8', function (err,data) {
@@ -44,7 +44,7 @@ function hexToB(hex) { return parseInt((cutHex(hex)).substring(4,6), 16) }
 function cutHex(hex) { return (hex.charAt(0)=="#") ? hex.substring(1,7) : h }
 function hexToRGBArray(hex) {return [hexToR(hex), hexToG(hex), hexToB(hex)]}
 
-// http://stackoverflow.com/a/9733420/4668477
+// http://stackoverflow.com/a/3943023/4668477
 function luminanace(hex) {
   var a = hexToRGBArray(hex).map(function(v) {
     v /= 255;
@@ -54,9 +54,7 @@ function luminanace(hex) {
 }
 
 function fontContrast(hex) {
-  var whiteContrast = (luminanace('#FFFFFF') + 0.05) / (luminanace(hex) + 0.05);
-
-  return whiteContrast >= CONTRAST_THRESHOLD ? 'light' : 'dark';
+  return luminanace(hex) > CONTRAST_THRESHOLD ? 'dark' : 'light';
 }
 
 function parseData(data, writePath, writeData) {
