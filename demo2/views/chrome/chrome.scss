@@ -1,6 +1,8 @@
+@import "colors";
 @import "../../demo-variables";
 
 .chrome {
+  background-color: $grey-dark-blue-5;
   @media(min-width: $menu-popout-point) {
     padding-left: 290px;
   }
