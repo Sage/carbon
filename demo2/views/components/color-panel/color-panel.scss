@@ -41,30 +41,6 @@
     font-size: 14px;
     margin: 0;
   }
-
-  &__copy {
-    position: relative;
-  }
-
-  &__copied-feedback,
-  &__copy-popup,
-  &__supplementary {
-    position: absolute;
-    right: 0;
-    transition: opacity 0.15s;
-  }
-
-  &__copied-feedback {
-    opacity: 0;
-  }
-
-  &__copy-popup {
-    opacity: 0;
-  }
-
-  &__supplementary {
-    opacity: 1;
-  }
 }
 
 .demo-color-panel--light {
@@ -72,24 +48,4 @@
 }
 .demo-color-panel--dark {
   color: $black;
-}
-.demo-color-panel:hover {
-  .demo-color-panel__copy-popup {
-    opacity: 1;
-  }
-  .demo-color-panel__supplementary {
-    opacity: 0;
-  }
-}
-
-.demo-color-panel.copied {
-  .demo-color-panel__copy-popup {
-    opacity: 0;
-  }
-  .demo-color-panel__supplementary {
-    opacity: 0;
-  }
-  .demo-color-panel__copied-feedback {
-    opacity: 1;
-  }
 }
