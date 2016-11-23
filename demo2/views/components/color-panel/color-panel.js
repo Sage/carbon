@@ -17,7 +17,10 @@ export default props =>
   >
     <div className='demo-color-panel__details'>
       <h3 className='demo-color-panel__title'>{ props.color.name }</h3>
-      <span className='demo-color-panel__supplementary'>{ props.color.hex }</span>
+      <div className='demo-color-panel__copy'>
+        <span className='demo-color-panel__supplementary'>{ props.color.hex }</span>
+        <span className='demo-color-panel__copy-popup'>Copy</span>
+      </div>
     </div>
   </div>
 ;

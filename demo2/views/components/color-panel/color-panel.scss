@@ -10,14 +10,6 @@
   height: 50px;
   width: 100%;
 
-  &--light {
-    color: $white;
-  }
-
-  &--dark {
-    color: $black;
-  }
-
   @media (min-width: $response-point-tiny) {
     height: 60px;
   }
@@ -49,4 +41,42 @@
     font-size: 14px;
     margin: 0;
   }
+
+  &__copy {
+    position: relative;
+  }
+
+  &__copy-popup,
+  &__supplementary {
+    position: absolute;
+    right: 0;
+    transition: opacity 0.15s;
+  }
+
+  &__copy-popup {
+    opacity: 0;
+  }
+
+  &__supplementary {
+    opacity: 1;
+  }
+}
+
+.demo-color-panel--light {
+  color: $white;
+}
+.demo-color-panel--dark {
+  color: $black;
+}
+.demo-color-panel:hover {
+  .demo-color-panel__copy-popup {
+    opacity: 1;
+  }
+  .demo-color-panel__supplementary {
+    opacity: 0;
+  }
+}
+
+.demo-color-panel.copied {
+
 }
