@@ -3,22 +3,25 @@
 @import "./../../style-config/mixins";
 
 $date__picker__width: 210px;
-$date__picker__border: #EBEDEF;
-$date__picker__header-color: #8A8E95;
-$date__picker__header-border-color: #636872;
-$date__picker__cell-border-color: #CECECE;
+$date__picker__border: $grey-light;
+$date__picker__header-color: $grey-dark-blue-60;
+$date__picker__header-border-color: $grey-dark-blue-80;
+$date__picker__cell-border-color: $border-color;
 
-.date-picker {
+.react-date-picker__month-view {
+  color: $date__picker__header-color;
+}
+
+.react-date-picker__month-view {
   border-radius: 5px;
   border: 2px solid $date__picker__border;
   box-shadow: 0 4px 8px rgba($grey-dark-blue, 0.5);
-  color: #888888;
   display: block;
   position: absolute;
   text-align: center;
-  text-transform: capitalize;
   width: $date__picker__width;
   z-index: $z-datepicker;
+  font-size: 12px;
 
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -28,76 +31,65 @@ $date__picker__cell-border-color: #CECECE;
 
   * {
     box-sizing: border-box;
-    outline: none;
   }
 }
 
-.dp-footer div,
-.dp-cell {
-  float: left;
+.react-date-picker__month-view-cell {
+  display: inline-block;
   height: 27px;
   padding: 6px 0;
-  width: 14.285714286%;
+  width: percentage(1/7);
 }
 
-.dp-header {
+.react-date-picker__nav-bar {
   color: $white;
   cursor: pointer;
   font-weight: bold;
-  height: 30px;
-}
-
-.dp-row {
-  height: 100%;
-}
-
-.dp-nav-table {
   background-color: $date__picker__header-color;
   border-radius: 3px 3px 0 0;
-  height: 100%;
-  width: 100%;
 
-  .dp-cell {
-    border-radius: 4px 0 0 0;
-    border-right: 1px solid $date__picker__header-border-color;
-    font-family: Arial;
-    height: 100%;
+  >.react-date-picker__nav-bar-arrow,
+  >.react-date-picker__nav-bar-date {
+    display: inline-block;
     padding: 8px 0;
-    text-align: center;
-    width: 76%;
 
     &:active {
       background-color: $grey-dark;
     }
-
-    &:last-child {
-      border-radius: 0 4px 0 0;
-      border-right: none;
-    }
   }
 
-  .dp-nav-cell {
+  .react-date-picker__nav-bar-arrow {
     font-size: 20px;
     line-height: 13px;
     width: 12%;
   }
+
+  .react-date-picker__nav-bar-date {
+    border-right: 1px solid $date__picker__header-border-color;
+    border-left: 1px solid $date__picker__header-border-color;
+    text-transform: capitalize;
+    font-size: 13px;
+    text-align: center;
+    width: 76%;
+  }
 }
 
-.dp-week-day-name {
+.react-date-picker__month-view-week-day-name {
   background-color: $date__picker__cell-border-color;
   font-size: 10px;
   font-weight: bold;
   height: auto;
-  padding: 2px 0 1px 0;
+  padding: 2px 0 2px 0;
 }
 
 .dp-year,
 .dp-month,
 .dp-day,
-.dp-footer div {
+.react-date-picker__footer button {
   background-color: $grey-light;
-  border: 1px solid $date__picker__cell-border-color;
-  border-top: none;
+  border-style: solid;
+  border-color: $date__picker__cell-border-color;
+  border-width: 0 1px 1px 1px;
   cursor: pointer;
 
   &:hover {
@@ -105,38 +97,43 @@ $date__picker__cell-border-color: #CECECE;
     color: $white;
   }
 
-  &.dp-value {
-    background-color: $blue;
-    color: $white;
-  }
-
-  &.dp-current {
-    font-weight: bolder;
+  +* {
+    border-left: 1px;
   }
 }
 
-.dp-year + .dp-year,
-.dp-month + .dp-month,
-.dp-day + .dp-day,
-.dp-footer div + div {
-  border-left: none;
+.react-date-picker__month-view-day--active {
+  background-color: $blue;
+  color: $white;
 }
 
-.dp-prev,
-.dp-next {
-  background-color: #DEDEDE;
+.react-date-picker__month-view-day--today {
+  font-weight: bolder;
+}
+
+.react-date-picker__month-view-day--prev-month,
+.react-date-picker__month-view-day--next-month {
+  background-color: $grey;
 
   &:hover {
     color: $grey-dark;
-    background-color: #EDF4FB;
+    background-color: $row-hover-color;
   }
 }
 
-.dp-year,
-.dp-month {
-  width: 25%;
+.carbon-date .common-input__field {
+  box-sizing: content-box;
+  /* i have to stop this being over-ridden by a prop that sets a style on the element */
+  /* this does have the benefit of removing inline and filter related styles */
+  width: 120px !important;
 }
 
-.dp-footer div {
-  width: 50%;
+.carbon-date.common-input--with-icon .common-input__icon--error {
+  right: 5px;
+  top: 5px;
+}
+
+.carbon-date.common-input--with-icon .common-input__icon--warning {
+  right: 3px;
+  top: 6px;
 }

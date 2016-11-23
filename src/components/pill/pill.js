@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { validProps } from '../../utils/ether';
 
 /**
 * A Pill widget.
@@ -58,11 +59,13 @@ class Pill extends React.Component {
    * @method render
    */
   render() {
-    let { className, ...props } = this.props;
+    let { className, ...props } = validProps(this);
+
     className = classNames(
       'carbon-pill',
       className,
-      'carbon-pill--' + this.props.as + (this.props.fill ? '--fill' : '--empty')
+      'carbon-pill--' + this.props.as + (this.props.fill ? '--fill' : '--empty'),
+      { ['carbon-pill--link']: this.props.onClick }
     );
 
     return(

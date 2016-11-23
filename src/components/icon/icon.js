@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
 import Icons from './icons';
+import { validProps } from '../../utils/ether';
 
 /**
  * An Icon widget.
@@ -45,7 +46,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {Object} props
    */
   get componentProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
 
     delete props.className;
     props.type = this.type;
@@ -78,8 +79,14 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {String} icon type
    */
   get type() {
-    // we have no icon for 'success', so use 'tick'
-    return this.props.type == 'success' ? 'tick' : this.props.type;
+    // switch tweaks icon names for actual icons in the set
+    switch(this.props.type) {
+      case 'help':        return 'question';
+      case 'maintenance': return 'settings';
+      case 'new':         return 'gift';
+      case 'success':     return 'tick';
+      default:            return this.props.type;
+    }
   }
 
   /**
@@ -95,10 +102,16 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         { ...this.componentProps }
         ref={ (comp) => this._target = comp }
       >
-        <span className="carbon-icon__svg-icon" dangerouslySetInnerHTML={ this.renderIcon } />
+        { this.iconSvgHTML() }
         { this.tooltipHTML }
       </span>
     );
+  }
+
+  iconSvgHTML = () => {
+    if (this.renderIcon) {
+      return (<span className="carbon-icon__svg-icon" dangerouslySetInnerHTML={ this.renderIcon } />);
+    }
   }
 });
 

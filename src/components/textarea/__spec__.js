@@ -180,8 +180,6 @@ describe('Textarea', () => {
 
     it('renders with a visible input with rows and columns', () => {
       let input = TestUtils.findRenderedDOMComponentWithTag(baseInstance, 'textarea')
-      expect(input.tagName).toEqual("TEXTAREA");
-      expect(input.getAttribute('label')).toBe('Label');
       expect(input.rows).toBe(10);
       expect(input.cols).toBe(10);
     });

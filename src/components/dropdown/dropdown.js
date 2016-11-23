@@ -5,6 +5,7 @@ import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import classNames from 'classnames';
 import Events from './../../utils/helpers/events';
+import { validProps } from '../../utils/ether';
 
 /**
  * A dropdown widget.
@@ -81,7 +82,19 @@ class Dropdown extends React.Component {
      * @property options
      * @type {object}
      */
-    options: React.PropTypes.object.isRequired
+    options: React.PropTypes.object.isRequired,
+
+    /**
+     * Determines if the visibleValue will be cached or not.
+     *
+     * @property cacheVisibleValue
+     * @type {boolean}
+     */
+    cacheVisibleValue: React.PropTypes.bool
+  }
+
+  static defaultProps = {
+    cacheVisibleValue: false
   }
 
   state = {
@@ -102,7 +115,7 @@ class Dropdown extends React.Component {
      * @default null
      */
     highlighted: null
-  }
+  };
 
   /**
    * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
@@ -123,7 +136,7 @@ class Dropdown extends React.Component {
    * @param {Object} nextProps the updated props
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value != this.props.value) {
+    if (!this.props.cacheVisibleValue || (nextProps.value !== this.props.value)) {
       // clear the cache
       this.visibleValue = null;
     }
@@ -400,7 +413,7 @@ class Dropdown extends React.Component {
    * @method inputProps
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
 
     delete props.autoFocus;
 
@@ -424,11 +437,12 @@ class Dropdown extends React.Component {
    */
   get hiddenInputProps() {
     let props = {
-      ref: "hidden",
+      ref: 'hidden',
       type: "hidden",
       readOnly: true,
       name: this.props.name,
-      value: this.props.value
+      // Using this to prevent `null` warnings from React
+      value: this.props.value || undefined
     };
 
     return props;
@@ -442,7 +456,7 @@ class Dropdown extends React.Component {
   get listBlockProps() {
     return {
       key: "listBlock",
-      ref: "listBlock",
+      ref: 'listBlock',
       onMouseDown: this.handleMouseDownOnList,
       onMouseLeave: this.handleMouseLeaveList,
       onMouseEnter: this.handleMouseEnterList,
@@ -546,6 +560,7 @@ class Dropdown extends React.Component {
     if (!this.props.suggest) {
       content.push(this.inputIconHTML("dropdown"));
     }
+
 
     content.push(
       <div { ...this.listBlockProps }>

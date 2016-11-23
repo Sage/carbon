@@ -47,6 +47,7 @@ $blue:                       #255BC7 !default;
 $blue-bright:                #1963F6 !default;
 $blue-sky:                   #1573E6 !default;
 $blue-sky-05:                #F3F8FE !default;
+$blue-sky-10:                #E7F1FC !default;
 $blue-sky-20:                #D0E3FA !default;
 $blue-navy:                  $blue-sky !default;
 $blue-light:                 #4782F7 !default;
@@ -93,10 +94,10 @@ $info-text-background:       $blue-sky-05 !default;
 $info-border:                $blue-sky-20 !default;
 $info-hover:                 darken($blue-sky, 20%) !default;
 
-$default:                    $grey-dark-blue-60 !default;
-$default-text-background:    $grey-dark-blue-60 !default;
-$default-border:             $grey-dark-blue-60 !default;
-$default-hover:              darken($grey-dark-blue-60, 20%) !default;
+$default:                    $grey-dark-blue-80 !default;
+$default-text-background:    $grey-dark-blue-80 !default;
+$default-border:             $grey-dark-blue-80 !default;
+$default-hover:              darken($grey-dark-blue-80, 20%) !default;
 
 $new:                        $purple !default;
 $new-text-background:        $purple-05 !default;
@@ -133,5 +134,6 @@ $background-alt:             $grey-dark-blue-5 !default;
 $pod-footer:                 $grey-dark-blue-5 !default;
 
 $row-alt-color:              $grey-dark-blue-5 !default;
-$row-hover-color:            $blue-sky-20 !default;
+$row-hover-color:            $blue-sky-10 !default;
+$row-highlight-color:        $blue-sky-20 !default;
 $row-hover-input-border:     lighten($blue, 30%) !default;

@@ -170,6 +170,11 @@
   }
 }
 
+.common-input__message--warning .carbon-link__anchor {
+  color: white;
+  text-decoration: underline;
+}
+
 .common-input__message--warning:before {
   border-top-color: $warning;
 }
@@ -209,14 +214,8 @@
     font-size: 20px;
   }
 
-  .carbon-icon__svg--warning {
-    height: 20px;
-    margin: -2px 0 0 0;
-    width: 26px;
-
-    .carbon-icon__svg-group {
-      fill: $warning;
-    }
+  &.common-input__icon--warning {
+    color: $warning;
   }
 }
 

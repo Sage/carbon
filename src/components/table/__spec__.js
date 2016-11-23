@@ -866,7 +866,7 @@ describe('Table', () => {
 
       it('returns the children with the loading row if only row is a header and has not yet received data', () => {
         let data = Immutable.fromJS([]),
-            children = data.push(<tr as='header' key='header'></tr>);
+            children = data.push(<TableRow as='header' key='header' />);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = false;
 
@@ -876,7 +876,7 @@ describe('Table', () => {
 
       it('returns the children with the empty row if only row is a header and has received data', () => {
         let data = Immutable.fromJS([]),
-            children = data.push(<tr as='header' key='header'></tr>);
+            children = data.push(<TableRow as='header' key='header' />);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = true;
 

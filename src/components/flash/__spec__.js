@@ -294,7 +294,7 @@ describe('Flash', () => {
       });
 
       it('adds a click handler that closes the flash', () => {
-        let closeIcon = alertFlash.getElementsByClassName('carbon-flash__close-icon')[0];
+        let closeIcon = alertFlash.getElementsByClassName('carbon-flash__close')[0];
         TestUtils.Simulate.click(closeIcon);
         expect(dismissHandler).toHaveBeenCalled();
       });

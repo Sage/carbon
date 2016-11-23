@@ -4,11 +4,12 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 // https://github.com/zippyui/react-date-picker
-import DatePicker from 'react-date-picker';
+import { MonthView, NavBar } from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
 import chainFunctions from './../../utils/helpers/chain-functions';
+import { validProps } from '../../utils/ether';
 
 
 /**
@@ -39,6 +40,25 @@ class Date extends React.Component {
    * @type {document}
    */
   _document = document;
+
+  // Required for validProps function
+  static propTypes = {
+    /**
+     * Minimum possible date
+     *
+     * @property minDate
+     * @type {String}
+     */
+    minDate: React.PropTypes.string,
+
+    /**
+     * Maximum possible date
+     *
+     * @property maxDate
+     * @type {String}
+     */
+    maxDate: React.PropTypes.string
+  };
 
   static defaultProps = {
     /**
@@ -260,29 +280,7 @@ class Date extends React.Component {
     }
   }
 
-  /**
-   * A getter that returns datepicker specific props
-   *
-   * @method inputProps
-   * @return {Object} props for the datepicker
-   */
-  get datePickerProps() {
-    let value = this.props.value || getDefaultValue(this);
-    let props = {};
-    props.ref = 'datepicker';
-    props.locale = I18n.locale;
-    props.weekDayNames = moment.localeData(I18n.locale)._weekdaysMin;
-    props.monthFormat = "MMM";
-    props.dateFormat = hiddenFormat();
-    props.onChange = this.handleDateSelect;
-    props.date = value;
-    props.onViewDateChange = this.handleViewDateChange;
-    props.viewDate = this.state.viewDate;
-    props.minDate = this.props.minDate;
-    props.maxDate = this.props.maxDate;
-    props.hideFooter = true;
-    return props;
-  }
+
 
   /**
    * Updates viewDate as hidden input changes.
@@ -316,13 +314,15 @@ class Date extends React.Component {
    * @return {Object} props for the visible input
    */
   get inputProps() {
-    let { ...props } = this.props;
-    delete props.autoFocus;
+    let { ...props } = validProps(this);
     props.className = this.inputClasses;
     props.onChange = this.handleVisibleInputChange;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
     props.onKeyDown = this.handleKeyDown;
+
+    delete props.autoFocus;
+    delete props.defaultValue;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = chainFunctions(this.handleFocus, props.onFocus);
@@ -345,9 +345,10 @@ class Date extends React.Component {
     };
 
     if (typeof this.props.value !== 'undefined') {
-      props.value = this.props.value; }
-    else {
-      props.defaultValue = this.props.defaultValue; }
+      props.value = this.props.value;
+    } else {
+      props.defaultValue = this.props.defaultValue;
+    }
 
     return props;
   }
@@ -379,7 +380,62 @@ class Date extends React.Component {
    * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
-    return this.inputIconHTML("calendar");
+    if (!this.state.valid) {
+      return this.inputIconHTML("error");
+    } else if (this.state.warning) {
+      return this.inputIconHTML("warning");
+    } else {
+      return this.inputIconHTML("calendar");
+    }
+  }
+
+ /**
+  * A getter that returns datepicker specific props
+  *
+  * @method datePickerProps
+  * @return {Object}
+  */
+  get datePickerProps() {
+    return {
+      date: this.props.value || getDefaultValue(this),
+      dateFormat: hiddenFormat(),
+      enableHistoryView: false,
+      highlightToday: true,
+      highlightWeekends: false,
+      locale: I18n.locale,
+      maxDate: this.props.maxDate,
+      minDate: this.props.minDate,
+      onChange: this.handleDateSelect,
+      ref: (input) => { this.datepicker = input; },
+      theme: null,
+      weekDayNames: moment.localeData(I18n.locale)._weekdaysMin,
+      weekNumbers: false
+    };
+  }
+
+  /**
+   * A getter that returns navbar specific props
+   *
+   * @method navBarProps
+   * @return {Object} props for the navbar
+   */
+  get navBarProps() {
+    return {
+      navDateFormat: 'MMMM YYYY',
+      arrows: { prev: '‹', next: '›' },
+      maxDate: this.props.maxDate,
+      minDate: this.props.minDate,
+      theme: null
+    };
+  }
+
+
+  renderDatePicker() {
+    return (
+      <MonthView { ...this.datePickerProps }>
+        <NavBar { ...this.navBarProps } />
+      </MonthView>
+    );
   }
 
   /**
@@ -389,7 +445,7 @@ class Date extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let datePicker = (this.state.open) ? <DatePicker { ...this.datePickerProps } /> : null;
+    let datePicker = this.state.open ? this.renderDatePicker() : null;
 
     return (
       <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
@@ -398,7 +454,7 @@ class Date extends React.Component {
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { datePicker }
-        { this.validationHTML }
+
         { this.fieldHelpHTML }
 
       </div>
@@ -433,7 +489,7 @@ export default Date;
  * @return {String} formatted date string
  */
 function visibleFormat() {
-  return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
+  return I18n.t('date.formats.javascript', { defaultValue: "DD/MM/YYYY" }).toUpperCase();
 }
 
 /**

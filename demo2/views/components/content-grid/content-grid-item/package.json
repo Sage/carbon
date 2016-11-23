@@ -1,0 +1,4 @@
+{
+  "main": "./content-grid-item.js",
+  "style": "content-grid-item.scss"
+}

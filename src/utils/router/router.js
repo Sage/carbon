@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Router from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import { Router, browserHistory } from 'react-router';
 
 let scrollToTop = () => {
   window.scrollTo(0, 0);
@@ -14,7 +13,7 @@ let scrollToTop = () => {
  * @property history
  * @type {Object}
  */
-export const history = createBrowserHistory();
+export const history = browserHistory;
 
 /**
  * Handles boilerplate for starting the React Router with the given routes.
@@ -50,4 +49,3 @@ export function startRouter(routes, target = document.getElementById('app')) {
     ), target);
   }
 }
-

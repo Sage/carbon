@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { compact } from 'lodash';
+import { compact, omit } from 'lodash';
 import Immutable from 'immutable';
 
 /**
@@ -24,6 +24,7 @@ import Immutable from 'immutable';
 class Row extends React.Component {
 
   static propTypes = {
+
     /**
      * The elements to be rendered in the row
      *
@@ -99,9 +100,12 @@ class Row extends React.Component {
       }
     );
 
+    const childProps = omit(child.props, ['columnOffset', 'columnSpan', 'columnClasses', 'columnAlign']);
+    const newChild = React.createElement(child.type, childProps, child.props.children);
+
     return (
       <div key={ key } className={ columnClass }>
-        { child }
+        { newChild }
       </div>
     );
   }

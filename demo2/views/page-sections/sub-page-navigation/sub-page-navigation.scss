@@ -1,0 +1,28 @@
+@import 'colors';
+@import "../../../demo-variables";
+
+.demo-sub-page-navigation{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px 0;
+
+  @media (min-width: 300px) {
+    flex-direction: row;
+  }
+
+  &__link {
+    max-width: 49%;
+  }
+
+  &__next {
+    margin-left: auto;
+  }
+
+  .demo-arrow-link {
+    align-items: stretch;
+    &__icon {
+      margin-top: 1em;
+    }
+  }
+}

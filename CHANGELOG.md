@@ -1,3 +1,83 @@
+# 1.0.0
+
+## :warning: Major Change - React 15 Upgrade
+
+* React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
+
+# 0.29.1
+
+## CSS Update
+
+* The `default` colour set now uses a lighter grey.
+
+# 0.29.0
+
+## !! BREAKING CHANGES!! :warning:
+
+* error icon on `Date` component is now displayed in place of the calendar icon clicker
+
+### Immutable Helper
+
+* ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
+* If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
+* `margin-bottom` has been removed from the message component.
+
+## CSS Changes
+
+* `Navigation-Bar`: line-height has been applied to parent content div rather than children.
+* Updated base font CSS to better reflect the Lato font.
+* Updated Menu Item CSS to better reflect the Lato font.
+* Updated input help text color for accessibility standards.
+* Animated Menu Button has been updated with latest font changes.
+* Links inside of input warnings are now coloured white.
+
+## Bug Fixes
+
+* `Tabs` now correctly tracks warning state of a tab.
+* `Tabs` no longer jumps when changing tab.
+
+## Package Upgrades
+
+* Datepicker has been upgraded the latest version.
+* Bowser has been upgraded to the latest version.
+
+## Component Enhancements
+
+* `Message`: Two new props have been added, `border` and `roundedCorners`.
+* `Dropdown`: One new prop has been added, `cacheVisibleValue`.
+
+## Helpers
+
+* A new `humanizeFilesize` helper for converting bytes to a human readable representation.
+* `roundForAbbreviation` is added to handle the number element of `abbreviateNumber` as well as forcing any abbreviated number to one decimal place
+* `abbreviateCurrency` takes unit value
+
+## Minor Improvements
+
+* Cookie functions added to browser helper
+* Fixes vertical alignment of minus icon.
+
+# 0.28.3
+
+* `Tabs`: Tab Heading hover, focus and active states corrected
+
+## Components
+
+* `Icon`: removes SVGs to fallback to icon font until new SVGs designed
+* `Flash`, `Message` and `Toast`: all use `flex` for positioning
+
+# 0.28.2
+
+* `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
+* `Pod`: now accepts a `triggerEditOnContent` prop will trigger the `onEdit` function when clicking the content.
+* `Pod`: the colours of an editable pod have been updated to be more consistent.
+
+# 0.28.1
+
+## Bug Fixes
+
+* Fixes reference to utils from the link component.
+
 # 0.28.0
 
 ## :warning: Breaking Changes - Visual Styles
@@ -8,7 +88,6 @@ Visual improvements to the design of components, which may impact the colors and
 * Colors updated
 * Table row active and hover styles
 * Font sizes for text
-
 
 ## :warning: Breaking Change - Button colors
 
@@ -29,6 +108,7 @@ Visual improvements to the design of components, which may impact the colors and
   Foo
 </Button>
 ```
+
 
 ## I18n Component
 
@@ -112,6 +192,7 @@ import 'react-highcharts/dist/bundle/highcharts';
 * `Pod` enter triggers edit function and edit element is keyboard accessible
 * `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
 * `Tabs` focus state is given the same styles as hover state
+* `Tabs` now can take a prop of 'position' which supports floating to the left and being positioned in a vertical stack.
 * `Pager` component now emits which element has changed.
 * `Sidebar` now takes a size prop (e.g. `extra-small`, `small`, ...`extra-large`)
 

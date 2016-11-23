@@ -13,7 +13,7 @@ import GetCodeButtons from '../../components/get-code-buttons';
 import ComponentList from './component-list';
 
 const styles = [
-   { name: 'Colours' },
+   { name: 'Colors', href: '/colors' },
    { name: 'Text' }
 ];
 
@@ -28,7 +28,7 @@ class Menu extends React.Component {
   }
   get stylesHTML() {
     return styles.map((item, i) => {
-      return <MenuListItem key={ i } name={ item.name }><Link>{ item.name }</Link></MenuListItem>;
+      return <MenuListItem key={ i } name={ item.name }><Link href={ item.href }>{ item.name }</Link></MenuListItem>;
     });
   }
 

@@ -40,7 +40,6 @@ class Dialog extends Modal {
      *
      * @property open
      * @type {Boolean}
-     * @default false
      */
     open: React.PropTypes.bool.isRequired,
 

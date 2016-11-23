@@ -46,10 +46,10 @@ describe('Carousel', () => {
     it('sets the disabled state to false', () => {
       jasmine.clock().install();
 
-      instance.setState({ disabled: true }); 
+      instance.setState({ disabled: true });
       instance.enableButtonsAfterTimeout();
       jasmine.clock().tick(750);
-      
+
       expect(instance.state.disabled).toBeFalsy();
 
       jasmine.clock().uninstall();
@@ -64,15 +64,15 @@ describe('Carousel', () => {
     });
 
     it('decrements the selectedSlideIndex', () => {
-      expect(instance.state.selectedSlideIndex).toEqual(1); 
+      expect(instance.state.selectedSlideIndex).toEqual(1);
     });
 
     it('sets the transistion direction to previous', () => {
-      expect(instance.transitionDirection).toEqual('previous'); 
+      expect(instance.transitionDirection).toEqual('previous');
     });
 
     it('disables the buttons', () => {
-      expect(instance.state.disabled).toBeTruthy(); 
+      expect(instance.state.disabled).toBeTruthy();
     });
 
     it('calls to re-enable buttons after timeout', () => {
@@ -96,15 +96,15 @@ describe('Carousel', () => {
     });
 
     it('increments the selectedSlideIndex', () => {
-      expect(instance.state.selectedSlideIndex).toEqual(1); 
+      expect(instance.state.selectedSlideIndex).toEqual(1);
     });
 
     it('sets the transistion direction to next', () => {
-      expect(instance.transitionDirection).toEqual('next'); 
+      expect(instance.transitionDirection).toEqual('next');
     });
 
     it('disables the buttons', () => {
-      expect(instance.state.disabled).toBeTruthy(); 
+      expect(instance.state.disabled).toBeTruthy();
     });
 
     it('calls to re-enable buttons after timeout', () => {
@@ -228,7 +228,7 @@ describe('Carousel', () => {
         expect(instance.numOfSlides).toEqual(1);
       });
     });
-    
+
     describe('when an array of children', () => {
       it('returns the number of children', () => {
         expect(instance.numOfSlides).toEqual(3);
@@ -254,7 +254,7 @@ describe('Carousel', () => {
 
   describe('slideSelector', () => {
     it('renders a button for each slide', () => {
-      let buttons = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-carousel__selector-input'); 
+      let buttons = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-carousel__selector-input');
       expect(buttons.length).toEqual(3);
     });
   });

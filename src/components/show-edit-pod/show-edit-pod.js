@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import I18n from 'i18n-js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Events from './../../utils/helpers/events';
+import { validProps } from '../../utils/ether';
 
 import ReactDOM from 'react-dom';
 
@@ -73,6 +74,7 @@ class ShowEditPod extends React.Component {
      * @type {String}
      * @default 'carbon-show-edit-pod__transition'
      */
+    transitionName: React.PropTypes.string,
 
     // Props passed to Form
     afterFormValidation: React.PropTypes.func,
@@ -82,6 +84,7 @@ class ShowEditPod extends React.Component {
     cancelText: React.PropTypes.string,
     onCancel: React.PropTypes.func,
     saveText: React.PropTypes.string,
+    deleteText: React.PropTypes.string,
     saving: React.PropTypes.bool,
     validateOnMount: React.PropTypes.bool,
     additionalActions: React.PropTypes.node,
@@ -268,7 +271,7 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get contentProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this, Object.keys(Pod.propTypes));
 
     delete props.onEdit;
     delete props.className;
@@ -286,7 +289,7 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get editingProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this, Object.keys(Pod.propTypes));
 
     delete props.onEdit;
     delete props.className;
