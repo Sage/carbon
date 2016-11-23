@@ -78,8 +78,8 @@ function parseData(data, writePath, writeData) {
       stringData += "  { name: '" + name + "', children: [";
 
     } else if (line.startsWith('$')) {
-      // Replace all white space with a single whitespace and split
-      var lineSplit = line.replace(/\s\s+/g, ' ').split(' ');
+      // Replace colon followed by all white space with a single whitespace and split
+      var lineSplit = line.replace(/:\s\s+/g, ' ').split(' ');
       var hex = lineSplit[1];
       var contrast = fontContrast(hex);
 
