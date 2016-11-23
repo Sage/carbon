@@ -2,27 +2,26 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-class CopyAction extends React.Component {
-  componentWillMount() {
-    this.setState({ copyTriggered: false });
+class CopyActionWrapper extends React.Component {
+  state = {
+    copyTriggered: false
   }
 
-  classes = (classes) => {
+  classes = () => {
     return classNames(
-      classes,
+      this.props.className,
       { 'copied': this.state.copyTriggered }
     );
   }
 
   copy = () => {
     this.setState({ copyTriggered: true });
-    console.log(this.props.valueToCopy);
   }
 
   render() {
     return (
       <div
-        className={ this.classes(this.props.className) }
+        className={ this.classes() }
         onClick={ this.copy }
         style={ this.props.style }
       >
@@ -32,4 +31,4 @@ class CopyAction extends React.Component {
   }
 }
 
-export default CopyAction;
+export default CopyActionWrapper;
