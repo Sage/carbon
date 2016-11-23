@@ -1,0 +1,21 @@
+@import 'colors';
+@import "../../../demo-variables";
+
+.page-header-small {
+  background: $header-background-gradient;
+  color: $white;
+  font-weight: 300;
+  padding: 80px 0 30px 0;
+
+  &__title {
+    font-size: 40px;
+    line-height: 1.22em;
+    margin: 0 0 10px;
+  }
+
+  &__subtitle {
+    font-size: 22px;
+    line-height: 1.22em;
+    margin: 0;
+  }
+}

@@ -4,6 +4,12 @@
 
 * React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
 
+# 0.29.1
+
+## CSS Update
+
+* The `default` colour set now uses a lighter grey.
+
 # 0.29.0
 
 ## !! BREAKING CHANGES!! :warning:
