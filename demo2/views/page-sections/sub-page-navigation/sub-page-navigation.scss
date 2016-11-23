@@ -3,7 +3,13 @@
 
 .demo-sub-page-navigation{
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  padding: 50px 0;
+
+  @media (min-width: 300px) {
+    flex-direction: row;
+  }
 
   &__link {
     max-width: 49%;

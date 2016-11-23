@@ -8,6 +8,12 @@
 
 * Banner Component has been Deleted in favour of the Message Component
 
+# 0.29.1
+
+## CSS Update
+
+* The `default` colour set now uses a lighter grey.
+>>>>>>> master
 
 # 0.29.0
 
