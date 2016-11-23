@@ -8,3 +8,9 @@ $header-background-gradient: linear-gradient(37deg, #1E4486, #372159);
 // breaks from small screens with a single column layout to wider screens
 // with multiple columns in some cases
 $response-point-medium: 800px;
+
+// breaks from one column to two columns, used as an intermediate
+$response-point-small: 480px;
+
+// breaks from one column to two columns, used as an intermediate
+$response-point-tiny: 300px;
