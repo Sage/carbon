@@ -1,5 +1,7 @@
 /**
  * Parses CSS File mapping css variable name to a value
+ * It also determines if the text shown should be light or dark
+ * depending on its contrast
  *
  * Example File structure
  * // Grey
@@ -14,12 +16,12 @@
  *
  * export default [
  *   { name: 'Grey', children: [
- *      { name: 'mycolor', hex: '#FFF' },
- *      { name: 'mycolor2', hex: '#FFF' },
+ *      { name: 'mycolor', hex: '#FFF', fontContrast: 'dark' },
+ *      { name: 'mycolor2', hex: '#FFF', fontContrast: 'light' },
  *   ] },
  *   { name: 'Purple', children: [
- *      { name: '$mypurplecolor', hex: '#FFF' },
- *      { name: '$mypurplecolor2', hex: '#FFF' },
+ *      { name: '$mypurplecolor', hex: '#FFF', fontContrast: 'dark' },
+ *      { name: '$mypurplecolor2', hex: '#FFF', fontContrast: 'light' },
  *   ] }
  * ]
  *
@@ -45,7 +47,7 @@ function cutHex(hex) { return (hex.charAt(0)=="#") ? hex.substring(1,7) : h }
 function hexToRGBArray(hex) {return [hexToR(hex), hexToG(hex), hexToB(hex)]}
 
 // http://stackoverflow.com/a/3943023/4668477
-function luminanace(hex) {
+function luminance(hex) {
   var a = hexToRGBArray(hex).map(function(v) {
     v /= 255;
     return (v <= 0.03928) ?  v / 12.92 : Math.pow( ((v+0.055)/1.055), 2.4 );
@@ -54,7 +56,7 @@ function luminanace(hex) {
 }
 
 function fontContrast(hex) {
-  return luminanace(hex) > CONTRAST_THRESHOLD ? 'dark' : 'light';
+  return luminance(hex) > CONTRAST_THRESHOLD ? 'dark' : 'light';
 }
 
 function parseData(data, writePath, writeData) {
