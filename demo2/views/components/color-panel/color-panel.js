@@ -1,5 +1,7 @@
 import React from 'react';
 
+import CopyAction from '../../components/copy-action';
+
 /**
  * Puts out a div with color related presentation
  *
@@ -11,9 +13,10 @@ import React from 'react';
  * @return {ColorPanel}
  */
 export default props =>
-  <div
+  <CopyAction
     className={ `demo-color-panel demo-color-panel--${props.color.fontContrast}` }
     style={ { backgroundColor: props.color.hex } }
+    valueToCopy={ props.color.hex }
   >
     <div className='demo-color-panel__details'>
       <h3 className='demo-color-panel__title'>{ props.color.name }</h3>
@@ -22,5 +25,5 @@ export default props =>
         <span className='demo-color-panel__copy-popup'>Copy</span>
       </div>
     </div>
-  </div>
+  </CopyAction>
 ;
