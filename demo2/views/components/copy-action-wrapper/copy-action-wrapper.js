@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ClipboardCopy from 'clipboard-js';
+
 import classNames from 'classnames';
 
 class CopyActionWrapper extends React.Component {
@@ -16,6 +18,7 @@ class CopyActionWrapper extends React.Component {
 
   copy = () => {
     this.setState({ copyTriggered: true });
+    ClipboardCopy.copy(this.props.valueToCopy);
   }
 
   render() {
