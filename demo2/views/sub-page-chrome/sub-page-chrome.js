@@ -1,6 +1,7 @@
 import React from 'react';
 
 // Demo Site
+import PageBackground from '../chrome/page-background';
 import PageHeaderSmall from '../page-sections/page-header-small';
 import SubPageNavigation from '../page-sections/sub-page-navigation';
 
@@ -13,7 +14,8 @@ import SubPageNavigation from '../page-sections/sub-page-navigation';
  * @return {SubPageChrome}
  */
 export default props => (
-  <div className='sub-page-chrome'>
+  <article className='sub-page-chrome'>
+    <PageBackground />
     <PageHeaderSmall
       title='Colors'
       subtitle='Carbon can color all the things'
@@ -23,5 +25,5 @@ export default props => (
       previousPage={ props.previousPage }
       nextPage={ props.nextPage }
     />
-  </div>
+  </article>
 );
