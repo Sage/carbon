@@ -44,6 +44,10 @@ class Carousel extends React.Component {
     ])
   }
 
+  static defaultProps = {
+    initialSlideIndex: 0
+  }
+
   state = {
     selectedSlideIndex: null, // Currently selected slide
     disabled: false // Next/Previous buttons disabled state
@@ -56,7 +60,7 @@ class Carousel extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
-    let selectedIndex = this.props.initialSlideIndex || 0;
+    let selectedIndex = this.props.initialSlideIndex;
 
     this.setState({ selectedSlideIndex: selectedIndex });
   }
