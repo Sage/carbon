@@ -1,3 +1,9 @@
+# 0.30.0
+
+## Bug Fixes
+
+* SelectedRows should be reset to the same object it is defined with
+
 # 0.29.1
 
 ## CSS Update
