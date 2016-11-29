@@ -293,7 +293,7 @@ class Portrait extends React.Component {
    * @return {Object}
    */
   get sansInitialsImage() {
-    if (this.props.src || !this.props.initials === "") { return null }
+    if (this.props.src || !this.props.initials === "") { return null; }
 
     return (
       <Icon
