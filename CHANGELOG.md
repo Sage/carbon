@@ -9,7 +9,7 @@ We have added a settings row component for settings pages. It employs the curren
   className='mysetting-row'
   title='My Setting'
   description='Some descriptive text'
-  details={ <span>Detailed instructions/explanation for the header cell</span> }> }
+  description={ <span>Detailed description</span> }> }
 >
   <Checkbox label='Enable my setting' />
   <div>Some other blurb about the setting</div>
