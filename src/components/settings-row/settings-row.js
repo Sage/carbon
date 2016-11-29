@@ -27,17 +27,9 @@ class SettingsRow extends React.Component {
      * Heading description
      *
      * @property  description
-     * @type      {String}
+     * @type      {String, Node}
      */
-    description: React.PropTypes.string,
-
-    /**
-     * Heading details
-     *
-     * @property  details
-     * @type      {Object}
-     */
-    details: React.PropTypes.node,
+    description: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.node]),
 
     /**
      * Row divider
@@ -64,45 +56,21 @@ class SettingsRow extends React.Component {
   }
 
   /**
-   * Return subheader
-   *
-   * @method  subheader
-   * @return  {Object}  JSX
-   */
-  get subheader() {
-    return (
-      <div>
-        <hr className='carbon-settings-row__divider' />
-        { this.props.description }
-      </div>
-    );
-  }
-
-  /**
-   * Return details block
-   *
-   * @method  details
-   * @return  {Object}  JSX
-   */
-  get details() {
-    if (!this.props.details) return null;
-    return <div className='carbon-settings-row__details'>{ this.props.details }</div>;
-  }
-
-  /**
    * Render settings page row
    *
    * @method  render
    * @return  {Object}  JSX
    */
   render() {
-    if (!this.props.children) return null;
-
     return (
       <div className={ this.classes }>
         <div className='carbon-settings-row__header'>
-          <Heading title={ this.props.title } subheader={ this.subheader } divider={ false } />
-          { this.details }
+          <Heading
+            title={ this.props.title }
+            subheader={ this.props.description }
+            separator={ true }
+            divider={ false }
+          />
         </div>
         <div className='carbon-settings-row__input'>{ this.props.children }</div>
       </div>

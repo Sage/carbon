@@ -62,11 +62,21 @@ class Heading extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    divider: React.PropTypes.bool
+    divider: React.PropTypes.bool,
+
+    /**
+     * Adds a separator between the title and the subheader.
+     *
+     * @property separator
+     * @type {Boolean}
+     * @default false
+     */
+    separator: React.PropTypes.bool
   }
 
   static defaultProps = {
-    divider: true
+    divider: true,
+    separator: false
   }
 
   /**
@@ -141,6 +151,16 @@ class Heading extends React.Component {
   }
 
   /**
+   * Returns the separator if enabled.
+   *
+   * @method separator
+   * @return {Object} JSX
+   */
+  get separator() {
+    return this.props.separator ? <hr className='carbon-heading__separator' /> : null;
+  }
+
+  /**
    * @method render
    * @return {Object} JSX
    */
@@ -161,6 +181,7 @@ class Heading extends React.Component {
               { this.help }
             </div>
 
+            { this.separator }
             { this.subheader }
           </div>
         </div>

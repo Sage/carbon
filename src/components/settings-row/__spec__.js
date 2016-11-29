@@ -11,8 +11,7 @@ describe('SettingsRow', () => {
         children = <span id={ child_id } />,
         wrapper = shallow(<SettingsRow className={ name } title={ title }>{ children }</SettingsRow>);
 
-    it('renders a div with three class names', () => {
-      expect(wrapper.is('div')).toBeTruthy();
+    it('has three class names', () => {
       expect(wrapper.hasClass('carbon-settings-row')).toBeTruthy();
       expect(wrapper.hasClass('carbon-settings-row--has-divider')).toBeTruthy();
       expect(wrapper.hasClass(name)).toBeTruthy();
@@ -26,19 +25,12 @@ describe('SettingsRow', () => {
       expect(wrapper.find('.carbon-settings-row__input').length).toEqual(1);
     });
 
-    it('renders a Heading with a title and subheader', () => {
+    it('renders a Heading with a title and separator', () => {
       let head = wrapper.find(Heading);
 
       expect(head.length).toEqual(1);
       expect(head.prop('title')).toEqual(title);
-      expect(head.prop('subheader')).toBeDefined();
-    });
-
-    it('renders a divider inside the Heading', () => {
-      let head = wrapper.find(Heading),
-          subhead = shallow(head.prop('subheader'));
-
-      expect(subhead.contains(<hr className='carbon-settings-row__divider' />)).toBeTruthy();
+      expect(head.prop('separator')).toBeTruthy();
     });
 
     it('renders children in the input column', () => {
@@ -47,40 +39,21 @@ describe('SettingsRow', () => {
 
     describe('when divider property is false', () => {
       it('excludes the has-divider class', () => {
-        wrapper = shallow(<SettingsRow title={ title } divider={ false }>{ children }</SettingsRow>);
+        wrapper = shallow(<SettingsRow title={ title } divider={ false } />);
 
         expect(wrapper.hasClass('carbon-settings-row--has-divider')).toBeFalsy();
       });
     });
 
     describe('when description is provided', () => {
-      let description = 'Some descriptive text';
+      let description = <span>Some descriptive text</span>;
 
-      it('renders description in subheader', () => {
-        wrapper = shallow(<SettingsRow title={ title } description={ description }>{ children }</SettingsRow>);
+      it('passes description as subheader', () => {
+        wrapper = shallow(<SettingsRow title={ title } description={ description } />);
 
-        let head = wrapper.find(Heading),
-            subhead = shallow(head.prop('subheader'));
+        let head = wrapper.find(Heading);
         
-        expect(subhead.contains(description)).toBeTruthy();
-      });
-    });
-
-    describe('when details are provided', () => {
-      let detail_id = 'my_details',
-          details = <p id={ detail_id }>Details</p>;
-
-      it('renders details in the header column', () => {
-        wrapper = shallow(<SettingsRow title={ title } details={ details }>{ children }</SettingsRow>);
-
-        expect(wrapper.find('.carbon-settings-row__header').contains(details)).toBeTruthy();
-      });
-    });
-
-    describe('when no children are provided', () => {
-      it('renders nothing', () => {
-        wrapper = shallow(<SettingsRow title={ title } />);
-        expect(wrapper.html()).toBeNull();
+        expect(head.prop('subheader')).toEqual(description);
       });
     });
   });
