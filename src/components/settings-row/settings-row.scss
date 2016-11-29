@@ -1,0 +1,35 @@
+@import 'colors';
+
+.settings-row {
+  border-bottom: 1px solid $grey-dark-blue-10;
+  display: flex;
+  clear: both;
+  justify-content: space-between;
+  margin: 0;
+  padding: 40px 0;
+  position: relative;
+}
+
+.settings-row__header {
+  box-sizing: border-box;
+  clear: both;
+  float: left;
+  width: 25%;
+}
+
+.settings-row__input {
+  box-sizing: border-box;
+  clear: both;
+  float: left;
+  width: 70%;
+}
+
+.settings-row__divider {
+  border-top: 2px solid $grey-dark-blue-20;
+  margin: 10px 0 8px;
+  width: 50px;
+}
+
+.settings-row__details {
+  margin-top: 20px;
+}
