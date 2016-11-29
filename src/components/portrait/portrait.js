@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import MD5 from 'crypto-js/md5';
 
+import Icon from './../icon';
+
 /**
  * A Portrait Widget.
  *
@@ -256,7 +258,8 @@ class Portrait extends React.Component {
    */
   get initialsImage() {
     // if not using src, generate initials for potential fallback
-    if (this.props.src) { return null; }
+    if (this.props.src || this.props.initials === "") { return null; }
+
     return (
       <img
         className="carbon-portrait__img carbon-portrait__initials"
@@ -283,6 +286,24 @@ class Portrait extends React.Component {
   }
 
   /**
+   *
+   * Return the html for the Icon displayed in the event that both the image and initials are missing
+   *
+   * @method sansInitialsImage
+   * @return {Object}
+   */
+  get sansInitialsImage() {
+    if (this.props.src || !this.props.initials === "") { return null }
+
+    return (
+      <Icon
+        className='carbon-portrait__img carbon-portrait__sans-initials'
+        type='individual'
+      />
+    );
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -291,6 +312,7 @@ class Portrait extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
+        { this.sansInitialsImage }
         { this.initialsImage }
         { this.avatarImage }
       </div>
