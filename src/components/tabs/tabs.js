@@ -124,12 +124,21 @@ class Tabs extends React.Component {
      * @property onTabChange
      * @type {Func}
      */
-    onTabChange: React.PropTypes.func
+    onTabChange: React.PropTypes.func,
+
+    /**
+     * The position of tabs with respect to the content (top (default) or left)
+     *
+     * @property position
+     * @type {String}
+     */
+    position: React.PropTypes.string
   }
 
   static defaultProps = {
     renderHiddenTabs: true,
-    align: 'left'
+    align: 'left',
+    position: 'top'
   }
 
   static childContextTypes = {
@@ -152,7 +161,8 @@ class Tabs extends React.Component {
   getChildContext() {
     return {
       tabs: {
-        changeValidity: this.changeValidity
+        changeValidity: this.changeValidity,
+        changeWarning: this.changeWarning
       }
     };
   }
@@ -165,7 +175,15 @@ class Tabs extends React.Component {
      * @property tabValidity
      * @type {Object}
      */
-    tabValidity: Immutable.Map()
+    tabValidity: Immutable.Map(),
+
+    /**
+     * Tracks the warning of each tab
+     *
+     * @property tabWarning
+     * @type {Object}
+     */
+    tabWarning: Immutable.Map()
   }
 
   /**
@@ -231,6 +249,17 @@ class Tabs extends React.Component {
   }
 
   /**
+   * Sets the warning state of the given tab (id)
+   *
+   * @method changeWarning
+   * @param {Number} id tab identifier
+   * @param {Boolean} state of tab child
+   */
+  changeWarning = (id, warning) => {
+    this.setState({ tabWarning: this.state.tabWarning.set(id, warning) });
+  }
+
+  /**
    * Handles the changing of tabs
    *
    * @method handleTabClick
@@ -244,7 +273,9 @@ class Tabs extends React.Component {
   }
 
   updateVisibleTab(tabid) {
-    this._window.location = `#${tabid}`;
+    let url = `${ this._window.location.origin }${this._window.location.pathname }#${ tabid }`;
+    this._window.history.replaceState(null, 'change-tab', url);
+
     this.setState({ selectedTabId: tabid });
 
     if (this.props.onTabChange) {
@@ -259,17 +290,29 @@ class Tabs extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'carbon-tabs',
+      `carbon-tabs__position-${ this.props.position }`,
       this.props.className
     );
   }
 
+  tabsHeaderClasses = () => {
+    return classNames(
+      'carbon-tabs__headers',
+      `carbon-tabs__headers--align-${ this.props.align }`,
+       `carbon-tabs__headers`
+    );
+  }
+
   tabHeaderClasses = (tab) => {
+    let tabHasError = this.state.tabValidity.get(tab.props.tabId) == false,
+        tabHasWarning = this.state.tabWarning.get(tab.props.tabId) == true && !tabHasError;
+
     return classNames(
       'carbon-tabs__headers__header',
       tab.props.headerClassName,
       {
-        'carbon-tabs__headers__header--error': this.state.tabValidity.get(tab.props.tabId) == false,
+        'carbon-tabs__headers__header--error': tabHasError,
+        'carbon-tabs__headers__header--warning': tabHasWarning,
         'carbon-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
       }
     );
@@ -298,7 +341,7 @@ class Tabs extends React.Component {
     });
 
     return(
-      <ul className={ `carbon-tabs__headers carbon-tabs__headers--align-${ this.props.align }` } >
+      <ul className={ this.tabsHeaderClasses() } >
         { tabTitles }
       </ul>
     );

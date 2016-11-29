@@ -1,3 +1,4 @@
+import { omit, difference } from 'lodash';
 /**
  * Ether
  *
@@ -42,8 +43,24 @@ function styleElement(element, attribute, value) {
   return element.style[attribute] = value.toString();
 }
 
+/**
+ * Returns the props of the given instance filtered by
+ * the static safeProps or the optional safeProps argument
+ *
+ * @method validProps
+ * @param {Object} instance
+ * @param {Array?} _safeProps
+ * @return {Object} props
+ */
+function validProps(instance, safeProps) {
+  const klass = instance.constructor;
+  const unsafeProps = difference(Object.keys(klass.propTypes), safeProps || klass.safeProps || []);
+  return omit(instance.props, unsafeProps);
+}
+
 export {
   acronymize,
   append,
-  styleElement
+  styleElement,
+  validProps
 };

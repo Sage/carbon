@@ -62,13 +62,33 @@ class Message extends React.Component {
      * @property onDismiss
      * @type {Function}
      */
-    onDismiss: React.PropTypes.func
+    onDismiss: React.PropTypes.func,
+
+    /**
+     * Determines if the corners of the message are rounded
+     *
+     * @property roundedCorners
+     * @type {Boolean}
+     * @default true
+     */
+    roundedCorners: React.PropTypes.bool,
+
+    /**
+     * Determines if a border is applied to the message
+     *
+     * @property border
+     * @type {Boolean}
+     * @default true
+     */
+    border: React.PropTypes.bool
   }
 
   static defaultProps = {
     as: 'info',
     transparent: false,
-    open: true
+    open: true,
+    roundedCorners: true,
+    border: true
   }
 
   /**
@@ -81,9 +101,13 @@ class Message extends React.Component {
       'carbon-message',
       this.props.className,
       'carbon-message--' + this.props.as,
-      { 'carbon-message--transparent': this.props.transparent,
+      {
+        'carbon-message--rounded': this.props.roundedCorners,
+        'carbon-message--border': this.props.border,
+        'carbon-message--transparent': this.props.transparent,
         'carbon-message--dismissable': this.props.onDismiss
-    });
+      }
+    );
   }
 
   /**
@@ -111,14 +135,28 @@ class Message extends React.Component {
   }
 
   /**
+   * Classes to be applied to type background.
+   *
+   * @method componentClasses
+   */
+  get typeClasses() {
+    return classNames(
+      'carbon-message__type', {
+        'carbon-message__type--rounded': this.props.roundedCorners,
+      }
+    );
+  }
+
+  /**
   * Content rendered for the message.
   *
   * @method messageContent
   */
   get messageContent() {
+
     return this.props.open ? (
       <div className={ this.componentClasses }>
-        <div className="carbon-message__type">
+        <div className={ this.typeClasses }>
           <Icon className="carbon-message__type-icon" type={ this.props.as } />
         </div>
         <div className="carbon-message__content">

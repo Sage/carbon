@@ -1,4 +1,4 @@
-import { append, styleElement, acronymize } from './ether.js';
+import { append, styleElement, acronymize, validProps } from './ether.js';
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Pod from 'components/pod';
@@ -31,6 +31,33 @@ describe('Ether', () => {
   describe('acronymize', () => {
     it('creates an acronym', () => {
       expect(acronymize("Foo bar Baz")).toEqual("FbB");
+    });
+  });
+
+  describe('validProps', () => {
+
+    class Foo {
+
+      constructor() {
+        this.props = { foo: 'foo', bar: 'bar', quux: 'quux'};
+      }
+
+      static propTypes = {
+        foo: React.PropTypes.bool,
+        bar: React.PropTypes.bool
+      };
+
+      static safeProps = ['foo'];
+    }
+
+    it('creates valid props', () => {
+      const instance = new Foo();
+      expect(validProps(instance)).toEqual({ foo: 'foo', quux: 'quux' });
+    });
+
+    it('creates valid props with explicit safeProps', () => {
+      const instance = new Foo();
+      expect(validProps(instance, ['bar'])).toEqual({ bar: 'bar', quux: 'quux' });
     });
   });
 });
