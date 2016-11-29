@@ -15,17 +15,29 @@ $grey-dark-blue-15:          #E2E3E5 !default;
 $grey-dark-blue-10:          #EBECED !default;
 $grey-dark-blue-5:           #F5F6F7 !default;
 
+// Red
+$red:                        #D63F40 !default;
+$red-light:                  #E42C2D !default;
+$red-dark:                   #C11E20 !default;
+$red-05:                     #FDF5F5 !default;
+$red-20:                     #F7D9D9 !default;
+
+// Orange
+$orange-bright:              #FF7D00 !default;
+$orange-bright-05:           #FFF8F2 !default;
+$orange-bright-20:           #FFE4CC !default;
+
+// Yellow
+$yellow:                     #FFAB00 !default;
+$yellow-05:                  #FFFBF2 !default;
+$yellow-20:                  #FFEECC !default;
+
 // Green
 $green-bright:               #00DC00 !default;
 $green-apple:                #50B848 !default;
 $green-apple-05:             #F6FBF6 !default;
 $green-apple-20:             #DCF1DA !default;
 $green-bright-dull:          #38C72A !default;
-
-// Orange
-$orange-bright:              #FF7D00 !default;
-$orange-bright-05:           #FFF8F2 !default;
-$orange-bright-20:           #FFE4CC !default;
 
 // Blue
 $blue:                       #255BC7 !default;
@@ -37,24 +49,12 @@ $blue-sky-20:                #D0E3FA !default;
 $blue-light:                 #4782F7 !default;
 $azul:                       #004089 !default;
 
-// Red
-$red:                        #D63F40 !default;
-$red-light:                  #E42C2D !default;
-$red-dark:                   #C11E20 !default;
-$red-05:                     #FDF5F5 !default;
-$red-20:                     #F7D9D9 !default;
-
-// Yellow
-$yellow:                     #FFAB00 !default;
-$yellow-05:                  #FFFBF2 !default;
-$yellow-20:                  #FFEECC !default;
+// Purple
+$purple:                     #663399 !default;
+$purple-05:                  #F7F5FA !default;
+$purple-20:                  #E0D6EB !default;
 
 // Magenta
 $magenta:                    #ED1C5F !default;
 $magenta-dull:               #CA2A60 !default;
 $magenta-light:              #F32E6D !default;
-
-// Purple
-$purple:                     #663399 !default;
-$purple-05:                  #F7F5FA !default;
-$purple-20:                  #E0D6EB !default;

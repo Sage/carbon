@@ -16,17 +16,29 @@ export default [
     { name: '$grey-dark-blue-10', hex: '#EBECED', fontContrast: 'dark' },
     { name: '$grey-dark-blue-5', hex: '#F5F6F7', fontContrast: 'dark' },
   ] },
+  { name: 'Red', children: [
+    { name: '$red', hex: '#D63F40', fontContrast: 'dark' },
+    { name: '$red-light', hex: '#E42C2D', fontContrast: 'dark' },
+    { name: '$red-dark', hex: '#C11E20', fontContrast: 'light' },
+    { name: '$red-05', hex: '#FDF5F5', fontContrast: 'dark' },
+    { name: '$red-20', hex: '#F7D9D9', fontContrast: 'dark' },
+  ] },
+  { name: 'Orange', children: [
+    { name: '$orange-bright', hex: '#FF7D00', fontContrast: 'dark' },
+    { name: '$orange-bright-05', hex: '#FFF8F2', fontContrast: 'dark' },
+    { name: '$orange-bright-20', hex: '#FFE4CC', fontContrast: 'dark' },
+  ] },
+  { name: 'Yellow', children: [
+    { name: '$yellow', hex: '#FFAB00', fontContrast: 'dark' },
+    { name: '$yellow-05', hex: '#FFFBF2', fontContrast: 'dark' },
+    { name: '$yellow-20', hex: '#FFEECC', fontContrast: 'dark' },
+  ] },
   { name: 'Green', children: [
     { name: '$green-bright', hex: '#00DC00', fontContrast: 'dark' },
     { name: '$green-apple', hex: '#50B848', fontContrast: 'dark' },
     { name: '$green-apple-05', hex: '#F6FBF6', fontContrast: 'dark' },
     { name: '$green-apple-20', hex: '#DCF1DA', fontContrast: 'dark' },
     { name: '$green-bright-dull', hex: '#38C72A', fontContrast: 'dark' },
-  ] },
-  { name: 'Orange', children: [
-    { name: '$orange-bright', hex: '#FF7D00', fontContrast: 'dark' },
-    { name: '$orange-bright-05', hex: '#FFF8F2', fontContrast: 'dark' },
-    { name: '$orange-bright-20', hex: '#FFE4CC', fontContrast: 'dark' },
   ] },
   { name: 'Blue', children: [
     { name: '$blue', hex: '#255BC7', fontContrast: 'light' },
@@ -38,25 +50,13 @@ export default [
     { name: '$blue-light', hex: '#4782F7', fontContrast: 'dark' },
     { name: '$azul', hex: '#004089', fontContrast: 'light' },
   ] },
-  { name: 'Red', children: [
-    { name: '$red', hex: '#D63F40', fontContrast: 'dark' },
-    { name: '$red-light', hex: '#E42C2D', fontContrast: 'dark' },
-    { name: '$red-dark', hex: '#C11E20', fontContrast: 'light' },
-    { name: '$red-05', hex: '#FDF5F5', fontContrast: 'dark' },
-    { name: '$red-20', hex: '#F7D9D9', fontContrast: 'dark' },
-  ] },
-  { name: 'Yellow', children: [
-    { name: '$yellow', hex: '#FFAB00', fontContrast: 'dark' },
-    { name: '$yellow-05', hex: '#FFFBF2', fontContrast: 'dark' },
-    { name: '$yellow-20', hex: '#FFEECC', fontContrast: 'dark' },
+  { name: 'Purple', children: [
+    { name: '$purple', hex: '#663399', fontContrast: 'light' },
+    { name: '$purple-05', hex: '#F7F5FA', fontContrast: 'dark' },
+    { name: '$purple-20', hex: '#E0D6EB', fontContrast: 'dark' },
   ] },
   { name: 'Magenta', children: [
     { name: '$magenta', hex: '#ED1C5F', fontContrast: 'dark' },
     { name: '$magenta-dull', hex: '#CA2A60', fontContrast: 'light' },
     { name: '$magenta-light', hex: '#F32E6D', fontContrast: 'dark' },
-  ] },
-  { name: 'Purple', children: [
-    { name: '$purple', hex: '#663399', fontContrast: 'light' },
-    { name: '$purple-05', hex: '#F7F5FA', fontContrast: 'dark' },
-    { name: '$purple-20', hex: '#E0D6EB', fontContrast: 'dark' },
 ] } ];
