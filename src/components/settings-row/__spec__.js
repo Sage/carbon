@@ -11,18 +11,19 @@ describe('SettingsRow', () => {
         children = <span id={ child_id } />,
         wrapper = shallow(<SettingsRow className={ name } title={ title }>{ children }</SettingsRow>);
 
-    it('renders a div with two class names', () => {
+    it('renders a div with three class names', () => {
       expect(wrapper.is('div')).toBeTruthy();
-      expect(wrapper.hasClass('settings-row')).toBeTruthy();
+      expect(wrapper.hasClass('carbon-settings-row')).toBeTruthy();
+      expect(wrapper.hasClass('carbon-settings-row--has-divider')).toBeTruthy();
       expect(wrapper.hasClass(name)).toBeTruthy();
     });
 
     it('renders a header column', () => {
-      expect(wrapper.find('.settings-row__header').length).toEqual(1);
+      expect(wrapper.find('.carbon-settings-row__header').length).toEqual(1);
     });
 
     it('renders an input column', () => {
-      expect(wrapper.find('.settings-row__input').length).toEqual(1);
+      expect(wrapper.find('.carbon-settings-row__input').length).toEqual(1);
     });
 
     it('renders a Heading with a title and subheader', () => {
@@ -37,11 +38,19 @@ describe('SettingsRow', () => {
       let head = wrapper.find(Heading),
           subhead = shallow(head.prop('subheader'));
 
-      expect(subhead.contains(<hr className='settings-row__divider' />)).toBeTruthy();
+      expect(subhead.contains(<hr className='carbon-settings-row__divider' />)).toBeTruthy();
     });
 
     it('renders children in the input column', () => {
-      expect(wrapper.find('.settings-row__input').contains(children)).toBeTruthy();
+      expect(wrapper.find('.carbon-settings-row__input').contains(children)).toBeTruthy();
+    });
+
+    describe('when divider property is false', () => {
+      it('excludes the has-divider class', () => {
+        wrapper = shallow(<SettingsRow title={ title } divider={ false }>{ children }</SettingsRow>);
+
+        expect(wrapper.hasClass('carbon-settings-row--has-divider')).toBeFalsy();
+      });
     });
 
     describe('when description is provided', () => {
@@ -64,7 +73,7 @@ describe('SettingsRow', () => {
       it('renders details in the header column', () => {
         wrapper = shallow(<SettingsRow title={ title } details={ details }>{ children }</SettingsRow>);
 
-        expect(wrapper.find('.settings-row__header').contains(details)).toBeTruthy();
+        expect(wrapper.find('.carbon-settings-row__header').contains(details)).toBeTruthy();
       });
     });
 

@@ -37,8 +37,31 @@ class SettingsRow extends React.Component {
      * @property  details
      * @type      {Object}
      */
-    details: React.PropTypes.node
+    details: React.PropTypes.node,
+
+    /**
+     * Row divider
+     *
+     * @property  divider
+     * @type      {Boolean}
+     * @default   true
+     */
+    divider: React.PropTypes.bool
   };
+
+  static defaultProps = {
+    divider: true
+  };
+
+  /**
+   * Return class names
+   *
+   * @method  classes
+   * @return  {String}
+   */
+  get classes() {
+    return classNames('carbon-settings-row', { 'carbon-settings-row--has-divider': this.props.divider }, this.props.className);
+  }
 
   /**
    * Return subheader
@@ -49,7 +72,7 @@ class SettingsRow extends React.Component {
   get subheader() {
     return (
       <div>
-        <hr className='settings-row__divider' />
+        <hr className='carbon-settings-row__divider' />
         { this.props.description }
       </div>
     );
@@ -63,7 +86,7 @@ class SettingsRow extends React.Component {
    */
   get details() {
     if (!this.props.details) return null;
-    return <div className='settings-row__details'>{ this.props.details }</div>;
+    return <div className='carbon-settings-row__details'>{ this.props.details }</div>;
   }
 
   /**
@@ -76,12 +99,12 @@ class SettingsRow extends React.Component {
     if (!this.props.children) return null;
 
     return (
-      <div className={ classNames('settings-row', this.props.className) }>
-        <div className='settings-row__header'>
+      <div className={ this.classes }>
+        <div className='carbon-settings-row__header'>
           <Heading title={ this.props.title } subheader={ this.subheader } divider={ false } />
           { this.details }
         </div>
-        <div className='settings-row__input'>{ this.props.children }</div>
+        <div className='carbon-settings-row__input'>{ this.props.children }</div>
       </div>
     );
   }
