@@ -30,7 +30,7 @@ describe('SettingsRow', () => {
 
       expect(head.length).toEqual(1);
       expect(head.prop('title')).toEqual(title);
-      expect(head.prop('separator')).toBeTruthy();
+      expect(head.prop('separator')).toBeFalsy();
       expect(head.prop('divider')).toBeFalsy();
     });
 
@@ -47,14 +47,20 @@ describe('SettingsRow', () => {
     });
 
     describe('when description is provided', () => {
-      let description = <span>Some descriptive text</span>;
+      let description = <span>Some descriptive text</span>,
+          head;
+
+      beforeEach(() => {
+        wrapper = shallow(<SettingsRow title={ title } description={ description } />);
+        head = wrapper.find(Heading);
+      });
 
       it('passes description as subheader', () => {
-        wrapper = shallow(<SettingsRow title={ title } description={ description } />);
-
-        let head = wrapper.find(Heading);
-        
         expect(head.prop('subheader')).toEqual(description);
+      });
+
+      it('passes true as separator prop', () => {
+        expect(head.prop('separator')).toBeTruthy();
       });
     });
 

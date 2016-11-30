@@ -86,7 +86,15 @@ class SettingsRow extends React.Component {
    */
   get heading() {
     if (!this.props.title) return null;
-    return <Heading title={ this.props.title } subheader={ this.props.description } separator={ true } divider={ false } />;
+
+    return (
+      <Heading
+        title={ this.props.title }
+        subheader={ this.props.description }
+        separator={ this.props.description !== undefined }
+        divider={ false }
+      />
+    );
   }
 
   /**
