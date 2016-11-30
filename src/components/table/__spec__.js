@@ -109,8 +109,8 @@ describe('Table', () => {
       expect(instance.resetHighlightedRow).toHaveBeenCalled();
     });
 
-    it('resets the selectedRows array', () => {
-      expect(instance.selectedRows).toEqual([]);
+    it('resets the selectedRows hash', () => {
+      expect(instance.selectedRows).toEqual({});
     });
 
     it('calls set state on the actionToolbarComponent', () => {
@@ -134,8 +134,8 @@ describe('Table', () => {
         expect(instance.resetHighlightedRow).toHaveBeenCalled();
       });
 
-      it('resets the selectedRows array', () => {
-        expect(instance.selectedRows).toEqual([]);
+      it('resets the selectedRows hash', () => {
+        expect(instance.selectedRows).toEqual({});
       });
     });
   });
