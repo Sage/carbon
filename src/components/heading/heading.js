@@ -151,13 +151,13 @@ class Heading extends React.Component {
   }
 
   /**
-   * Returns the separator if enabled.
+   * Returns the separator if enabled and needed.
    *
    * @method separator
    * @return {Object} JSX
    */
   get separator() {
-    return this.props.separator ? <hr className='carbon-heading__separator' /> : null;
+    return (this.props.separator && this.props.subheader) ? <hr className='carbon-heading__separator' /> : null;
   }
 
   /**

@@ -104,12 +104,20 @@ describe('Heading', () => {
   });
 
   describe('with separator', () => {
-    it('renders a separator after the title', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Heading title="foo" separator={ true }/>
-      );
-      let separator = TestUtils.findRenderedDOMComponentWithTag(instance, 'hr');
-      expect(separator.props.className).toEqual('carbon-heading__separator');
+    describe('but no subheader', () => {
+      it('does not render a separator', () => {
+        instance = TestUtils.renderIntoDocument(<Heading title='foo' separator={ true }/>);
+        let separator = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-heading__separator');
+        expect(separator.length).toEqual(0);
+      });
+    });
+
+    describe('and subheader', () => {
+      it('renders a separator after the title', () => {
+        instance = TestUtils.renderIntoDocument(<Heading title='foo' subheader='bar' separator={ true }/>);
+        let separator = TestUtils.findRenderedDOMComponentWithTag(instance, 'hr');
+        expect(separator.props.className).toEqual('carbon-heading__separator');
+      });
     });
   });
 });
