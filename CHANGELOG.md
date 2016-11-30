@@ -1,3 +1,9 @@
+# 0.29.2
+
+## Bug Fixes
+
+* Clear any selected rows too in refresh()
+
 # 0.29.1
 
 ## CSS Update
