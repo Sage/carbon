@@ -25,12 +25,13 @@ describe('SettingsRow', () => {
       expect(wrapper.find('.carbon-settings-row__input').length).toEqual(1);
     });
 
-    it('renders a Heading with a title and separator', () => {
+    it('renders a Heading with a title and separator but no divider', () => {
       let head = wrapper.find(Heading);
 
       expect(head.length).toEqual(1);
       expect(head.prop('title')).toEqual(title);
       expect(head.prop('separator')).toBeTruthy();
+      expect(head.prop('divider')).toBeFalsy();
     });
 
     it('renders children in the input column', () => {
@@ -54,6 +55,14 @@ describe('SettingsRow', () => {
         let head = wrapper.find(Heading);
         
         expect(head.prop('subheader')).toEqual(description);
+      });
+    });
+
+    describe('when title is not provided', () => {
+      it('does not render a header', () => {
+        wrapper = shallow(<SettingsRow className={ name }>{ children }</SettingsRow>);
+
+        expect(wrapper.find(Heading).length).toEqual(0);
       });
     });
   });
