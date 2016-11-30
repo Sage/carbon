@@ -1,0 +1,7 @@
+{
+  "main": "./component-showcase",
+  "style": "component-showcase.scss",
+  "images": [
+    "./components.png"
+  ]
+}

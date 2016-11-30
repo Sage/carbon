@@ -1,0 +1,9 @@
+.sectioniser {
+  display: flex;
+  flex-direction: column;
+
+  .demo-wrapper {
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+}

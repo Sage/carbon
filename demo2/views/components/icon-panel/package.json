@@ -1,0 +1,12 @@
+{
+  "main": "./icon-panel",
+  "style": "icon-panel.scss",
+  "images": [
+    "./Point.svg",
+    "./Plug.svg",
+    "./Collaborate.svg",
+    "./Brush.svg",
+    "./Hammer.svg",
+    "./Flexible.svg"
+  ]
+}
