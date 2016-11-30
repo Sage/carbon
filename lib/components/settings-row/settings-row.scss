@@ -1,0 +1,38 @@
+@import 'colors';
+
+.carbon-settings-row {
+  clear: both;
+  color: $grey-dark-blue-80;
+  display: flex;
+  font-family: Lato;
+  font-size: 14px;
+  justify-content: space-between;
+  margin: 0;
+  padding: 40px 0;
+  position: relative;
+
+  .carbon-heading__title {
+    color: $grey-dark-blue;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.carbon-settings-row--has-divider {
+  border-bottom: 1px solid $grey-dark-blue-10;
+}
+
+.carbon-settings-row__header {
+  box-sizing: border-box;
+  clear: both;
+  float: left;
+  width: 25%;
+}
+
+.carbon-settings-row__input {
+  box-sizing: border-box;
+  clear: both;
+  float: left;
+  width: 70%;
+}
