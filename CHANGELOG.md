@@ -8,12 +8,15 @@
 
 * Banner Component has been Deleted in favour of the Message Component
 
+## Component Enhancements
+
+* `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
+
 # 0.29.1
 
 ## CSS Update
 
 * The `default` colour set now uses a lighter grey.
->>>>>>> master
 
 # 0.29.0
 

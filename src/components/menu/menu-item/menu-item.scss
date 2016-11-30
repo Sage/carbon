@@ -158,6 +158,14 @@
       background-color: $grey-dark-blue;
     }
   }
+
+  .carbon-menu-item--alternate.carbon-menu-item--alternate {
+    background-color: $grey-dark-blue-10;
+  }
+  .carbon-menu-item--alternate-off + .carbon-menu-item--alternate,
+  .carbon-menu-item--alternate + .carbon-menu-item--alternate-off {
+    border-top: 1px solid $grey-dark-blue-25;
+  }
 }
 
 .carbon-menu-item__submenu--left {
