@@ -3,6 +3,8 @@
 ## Bug Fixes
 
 * Readded the `carbon-tabs` class to the Tabs component.
+* Clear any selected rows too in refresh()
+* SelectedRows should be reset to the same object it is defined with
 
 # 0.29.1
 
