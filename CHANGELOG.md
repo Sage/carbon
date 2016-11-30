@@ -3,6 +3,7 @@
 ## Bug Fixes
 
 * Clear any selected rows too in refresh()
+* SelectedRows should be reset to the same object it is defined with
 
 # 0.29.1
 
