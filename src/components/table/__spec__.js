@@ -124,6 +124,14 @@ describe('Table', () => {
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('refresh', instance.emitOptions());
     });
 
+    it('unselects all rows', () => {
+      let row = { setState: function(value) {} };
+      spyOn(row, 'setState');
+      instance.rows = { '0': row }
+      instance.refresh();
+      expect(row.setState).toHaveBeenCalledWith({ selected: false });
+    });
+
     describe('no actiontoolbar', () => {
       beforeEach(() => {
         instance.actionToolbarComponent = null;

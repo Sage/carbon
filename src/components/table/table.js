@@ -428,6 +428,11 @@ class Table extends React.Component {
         selected: []
       });
     }
+
+    for (let key in this.rows) {
+      let _row = this.rows[key];
+      _row.setState({ selected: false });
+    }
     this.emitOnChangeCallback('refresh', this.emitOptions());
   }
 
