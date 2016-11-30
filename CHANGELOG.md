@@ -4,11 +4,16 @@
 
 * React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
 
+## !! BREAKING CHANGES!! :warning:
+
+* Banner Component has been Deleted in favour of the Message Component
+
 # 0.29.1
 
 ## CSS Update
 
 * The `default` colour set now uses a lighter grey.
+>>>>>>> master
 
 # 0.29.0
 
