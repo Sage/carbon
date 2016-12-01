@@ -30,7 +30,6 @@ import Icon from './../../../components/icon';
  *  * `inputClasses` - classes to apply to the input element
  *  * `inputProps` - props to apply to the input element
  *  * `inputHTML` - the html for the actual input
- *  * `iconHTML` - the html for a visible icon
  *  * `additionalInputContent` - extension point to add additional content
  *  alongside the input
  *
@@ -78,7 +77,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     // call the components super method if it exists
     if (super.componentDidMount) { super.componentDidMount(); }
 
-    if (this.props.prefix || this.props.icon) {
+    if (this.props.prefix) {
       this.setTextIndentation();
     }
   }
@@ -93,7 +92,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     // call the components super method if it exists
     if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
 
-    if (this.props.prefix != prevProps.prefix || this.props.icon != prevProps.icon ) {
+    if (this.props.prefix != prevProps.prefix || this.props.icon != prevProps.icon) {
       this.setTextIndentation();
     }
   }
@@ -135,20 +134,18 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
-   * Sets indentation of prefix value based on icon width.
+   * Sets indentation of input value based on prefix width.
    *
    * @method setTextIndentation
    * @return {void}
    */
   setTextIndentation = () => {
-    if (this._input && this._icon && this._prefix) {
-      this._input.style.paddingLeft = `${this._icon.offsetWidth + this._prefix.offsetWidth + 11}px`;
-    }
-    else if (this._input && this._icon) {
-      this._input.style.paddingLeft = `${this._icon.offsetWidth  + 11}px`;
-    }
-    else if (this._input) {
-      this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
+    if (this._input) {
+      if (this._prefix) {
+        this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
+      } else {
+        this._input.style.paddingLeft = "";
+      }
     }
   }
 
@@ -165,7 +162,6 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       [`${css.input}--readonly`]: this.props.readOnly,
       [`${css.input}--align-${this.props.align}`]: this.props.align,
       [`${css.input}--with-prefix`]: this.props.prefix,
-      [`${css.input}--with-embedded-icon`]: this.props.icon,
       [`${css.input}--disabled`]: this.props.disabled
     });
   }
@@ -267,7 +263,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   get iconHTML() {
     if (this.props.icon) {
       return (
-        <div ref={ (c) => { this._icon = c; } } className="common-input__input-icon-container">
+        <div className="common-input__input-icon">
           <Icon type={ this.props.icon } />
         </div>
       );
@@ -297,8 +293,8 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     return (
       <div { ...this.fieldProps }>
-        { this.prefixHTML }
         { this.iconHTML }
+        { this.prefixHTML }
         { input }
         { this.additionalInputContent }
       </div>

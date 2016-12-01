@@ -19,6 +19,7 @@ We have added a settings row component for settings pages. It employs the curren
 ## Component Enhancements
 
 * `Heading`: One new prop has been added, `separator`, to show a 2x50px separator between title and subheader.
+* All input components can now render an icon using the prop `icon`.
 
 # 0.29.2
 
