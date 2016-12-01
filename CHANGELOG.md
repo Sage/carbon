@@ -1,3 +1,11 @@
+# 0.30.0
+
+* Portrait now displays an icon in place of a blank box when the image has not been set and the initials are an empty string.
+
+## CSS Changes
+
+* Portrait initials are now dark grey on grey
+
 # 0.29.1
 
 ## CSS Update
