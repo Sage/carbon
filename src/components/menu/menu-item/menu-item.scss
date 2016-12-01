@@ -107,13 +107,12 @@
   box-shadow: 0 4px 8px rgba($black, 0.2);
   display: none;
   min-width: 100%;
-  padding: 0 0 5px;
+  padding: 0;
   position: absolute;
   z-index: $z-dropdown-list;
 
   .carbon-menu--primary & {
     background-color: $white;
-    padding-top: 5px;
 
     .carbon-menu-item--selected {
       color: $green-bright-dull;
@@ -149,6 +148,14 @@
     height: 30px;
     line-height: 30px;
     white-space: nowrap;
+
+    &:first-of-type {
+      padding-top: 5px;
+    }
+
+    &:last-of-type {
+      padding-bottom: 5px;
+    }
 
     .carbon-menu--primary & {
       background-color: $white;
