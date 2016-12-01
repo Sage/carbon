@@ -6,4 +6,10 @@
     padding-bottom: 0;
     padding-top: 0;
   }
+
+  // this is a work-around a pixel error with `clip-path` and SVG backgrounds
+  // we need to pull up the footer so it overlays the error
+  & + .demo-footer__background {
+    margin-top: -1px;
+  }
 }
