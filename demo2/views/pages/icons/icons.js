@@ -1,24 +1,24 @@
 import React from 'react';
 
-import ColorPanel from '../../components/color-panel';
+import IconPanel from '../../components/icon-panel';
 import ContentGrid from '../../components/content-grid';
 import ContentGridItem from '../../components/content-grid/content-grid-item';
 import Download from '../../page-sections/download';
 import PageContentArea from '../../page-sections/page-content-area';
 import SubPageChrome from '../../sub-page-chrome';
 
-import ColorList from './color-list';
+import IconList from './icon-list';
 
 export default props => (
   <SubPageChrome
-    title='Colors'
-    subtitle='Enable a consistent styling across your application.'
+    title='Icons'
+    subtitle='Free open sourced icons to used in your project.'
     previousPage={ {
-      label: 'Fonts',
-      href: '/fonts' } }
+      label: 'Colors',
+      href: '/colors' } }
     nextPage={ {
-      label: 'Icons',
-      href: '/icons' } }
+      label: 'Typography',
+      href: '/typography' } }
   >
     <Download
       href='test'
@@ -26,24 +26,24 @@ export default props => (
       size='test'
       type='test'
     />
-    { _colorGrid() }
+    { _iconGrid() }
   </SubPageChrome>
 );
 
-const _colorGrid = () => {
-  return ColorList.map((colors, i) =>
-    <PageContentArea key={ i } title={ colors.name }>
-      <ContentGrid>
-        { _colorGridItems(colors) }
+const _iconGrid = () => {
+  return IconList.map((icons, i) =>
+    <PageContentArea key={ i } title={ icons.name }>
+      <ContentGrid columns='5'>
+        { _iconGridItems(icons) }
       </ContentGrid>
     </PageContentArea>
   );
 }
 
-const _colorGridItems = (colors) => {
-  return colors.children.map((color, i) =>
+const _iconGridItems = (icons) => {
+  return icons.children.map((icon, i) =>
     <ContentGridItem key={ i } className='demo-content-grid__item'>
-      <ColorPanel color={ color } />
+      <IconPanel icon={ icon } />
     </ContentGridItem>
   )
 }

@@ -14,6 +14,7 @@ import ComponentList from './component-list';
 
 const styles = [
    { name: 'Colors', href: '/colors' },
+   { name: 'Icons', href: '/icons' },
    { name: 'Text' }
 ];
 
