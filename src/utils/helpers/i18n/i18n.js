@@ -34,8 +34,9 @@ const I18nHelper = {
    * @param {Integer} precision
    * @return {String} formatted value
    */
-  formatDecimal: (valueToFormat = 0, precision = 2) => {
-    let format = I18nHelper.format();
+  formatDecimal: (valueToFormat = 0, precision = 2, options = {}) => {
+    let locale = options.locale || I18n.locale || 'en',
+        format = I18nHelper.format(locale);
 
     return  I18n.toNumber(valueToFormat, {
       precision: precision,
@@ -54,11 +55,12 @@ const I18nHelper = {
    * @return {String} abbreviated, currencified number
    */
   abbreviateCurrency: (num, options = {}) => {
-    let locale = options.locale || 'en',
+    let locale = options.locale || I18n.locale || 'en',
         sign = num < 0 ? '-' : '',
-        abbr = I18nHelper.abbreviateNumber(num),
+        abbr = I18nHelper.abbreviateNumber(num, options),
         format = I18nHelper.format(locale),
         unit = options.unit || format.unit;
+
     return format.format.replace("%u", unit).replace("%n", abbr).replace("%s", sign);
   },
 
@@ -70,14 +72,14 @@ const I18nHelper = {
    * @param {Number} number
    * @return {String} abbreviated number
    */
-  abbreviateNumber: (num) => {
+  abbreviateNumber: (num, options = {}) => {
     if (num > 949 && num < 999950) {
-      return `${I18nHelper.roundForAbbreviation(num, 100)}${I18n.t("number.format.abbreviations.thousand", { defaultValue: "k" })}`;
+      return `${I18nHelper.roundForAbbreviation(num, 100, options)}${I18n.t("number.format.abbreviations.thousand", { defaultValue: "k" })}`;
     } else if (num > 999949) {
-      return `${I18nHelper.roundForAbbreviation(num, 100000)}${I18n.t("number.format.abbreviations.million", { defaultValue: "m" })}`;
+      return `${I18nHelper.roundForAbbreviation(num, 100000, options)}${I18n.t("number.format.abbreviations.million", { defaultValue: "m" })}`;
     }
 
-    return `${I18nHelper.formatDecimal(num)}`;
+    return `${I18nHelper.formatDecimal(num, 2, options)}`;
   },
 
   /**
@@ -104,10 +106,10 @@ const I18nHelper = {
    * @param {divisor} number to round to, usually a power of ten
    * @return {String} rounded number
    */
-  roundForAbbreviation: (num, divisor) => {
+  roundForAbbreviation: (num, divisor, options = {}) => {
     num = new BigNumber(num);
     divisor = new BigNumber(divisor);
-    return num.dividedBy(divisor).round().dividedBy(10).toFixed(1);
+    return I18nHelper.formatDecimal(num.dividedBy(divisor).round().dividedBy(10), 1, options);
   },
 
   /**
@@ -119,7 +121,7 @@ const I18nHelper = {
    * @return {String} formatted value
    */
   formatCurrency: (valueToFormat = 0, options = {}) => {
-    let locale = options['locale'] || 'en',
+    let locale = options['locale'] || I18n.locale || 'en',
         format = I18nHelper.format(locale),
         precision = options['precision'] || 2,
         unit = options['unit'] || format.unit,

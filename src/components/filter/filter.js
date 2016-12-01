@@ -1,11 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
+import Form from './../form';
 
 /**
  * @class Filter
  * @constructor
  */
-class Filter extends React.Component {
+class Filter extends Form {
   static propTypes = {
     /**
      * Aligns the children in the filter.

@@ -288,7 +288,7 @@ class AppStore extends Store {
     let arr = [action.component].concat(action.key);
     this.data = this.data.setIn(arr, action.value);
 
-    if (action.component === 'dropdown_filter_ajax') {
+    if (action.component === 'dropdown_filter_ajax' && action.key === 'value') {
       this.data = this.data.setIn(arr, action.visibleValue);
     }
   }

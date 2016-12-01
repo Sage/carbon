@@ -35,7 +35,7 @@
 .carbon-heading__help {
   line-height: $app-line-height;
   margin-left: 10px;
-  top: 6px;
+  top: 1px;
 }
 
 .carbon-heading__back {
@@ -54,4 +54,10 @@
       color: $blue;
     }
   }
+}
+
+.carbon-heading__separator {
+  border-top: 2px solid $grey-dark-blue-20;
+  margin: 10px 0 8px;
+  width: 50px;
 }

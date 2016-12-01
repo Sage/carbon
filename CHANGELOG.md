@@ -1,3 +1,39 @@
+# 0.30.0
+
+## SettingsRow Component
+
+We have added a settings row component for settings pages. It employs the current UX standard for the appearance of settings pages. Title, description, and any details (accepts nodes) are formatted into the header, while children are rendered in the input cell. Renders nothing if no children present.
+
+```
+<SettingsRow
+  className='mysetting-row'
+  title='My Setting'
+  description='Some descriptive text'
+  description={ <span>Detailed description</span> }> }
+>
+  <Checkbox label='Enable my setting' />
+  <div>Some other blurb about the setting</div>
+</SettingsRow>
+```
+
+## Component Enhancements
+
+* `Heading`: One new prop has been added, `separator`, to show a 2x50px separator between title and subheader.
+
+# 0.29.2
+
+## Bug Fixes
+
+* Readded the `carbon-tabs` class to the Tabs component.
+* Clear any selected rows too in refresh()
+* SelectedRows should be reset to the same object it is defined with
+
+# 0.29.1
+
+## CSS Update
+
+* The `default` colour set now uses a lighter grey.
+
 # 0.29.0
 
 ## !! BREAKING CHANGES!! :warning:
@@ -15,24 +51,25 @@
 * `Navigation-Bar`: line-height has been applied to parent content div rather than children.
 * Updated base font CSS to better reflect the Lato font.
 * Updated Menu Item CSS to better reflect the Lato font.
+* Updated input help text color for accessibility standards.
+* Animated Menu Button has been updated with latest font changes.
+* Links inside of input warnings are now coloured white.
 
 ## Bug Fixes
 
 * `Tabs` now correctly tracks warning state of a tab.
+* `Tabs` no longer jumps when changing tab.
 
 ## Package Upgrades
 
 * Datepicker has been upgraded the latest version.
 * Bowser has been upgraded to the latest version.
 
-## CSS changes
-
-* Links inside of input warnings are now coloured white.
-
 ## Component Enhancements
 
 * `Message`: Two new props have been added, `border` and `roundedCorners`.
 * `Dropdown`: One new prop has been added, `cacheVisibleValue`.
+* `Tabs` now can take a prop of 'position' which supports floating to the left and being positioned in a vertical stack.
 
 ## Helpers
 
@@ -40,14 +77,10 @@
 * `roundForAbbreviation` is added to handle the number element of `abbreviateNumber` as well as forcing any abbreviated number to one decimal place
 * `abbreviateCurrency` takes unit value
 
-
-## CSS Changes
-
-* Animated Menu Button has been updated with latest font changes.
-
 ## Minor Improvements
 
 * Cookie functions added to browser helper
+* Fixes vertical alignment of minus icon.
 
 # 0.28.3
 
