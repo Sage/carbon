@@ -107,7 +107,7 @@ describe('Heading', () => {
     it('renders a separator after the title', () => {
       instance = TestUtils.renderIntoDocument(<Heading title='foo' separator={ true }/>);
       let separator = TestUtils.findRenderedDOMComponentWithTag(instance, 'hr');
-      expect(separator.props.className).toEqual('carbon-heading__separator');
+      expect(separator.className).toEqual('carbon-heading__separator');
     });
   });
 });
