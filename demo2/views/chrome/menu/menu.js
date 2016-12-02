@@ -43,7 +43,9 @@ class Menu extends React.Component {
         position="left"
         size='small'
       >
-        <SidebarHeader className='demo-menu__header' />
+        <Link href='/'>
+          <SidebarHeader className='demo-menu__header' />
+        </Link>
 
         <MenuList
           className='demo-menu__menu'
