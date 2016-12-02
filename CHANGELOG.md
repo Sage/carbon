@@ -21,6 +21,12 @@ We have added a settings row component for settings pages. It employs the curren
 * `Heading`: One new prop has been added, `separator`, to show a 2x50px separator between title and subheader.
 * All input components can now render an icon using the prop `icon`.
 
+# 0.29.3
+
+## Bug Fixes
+
+* single quote(') is valid in email address now.
+
 # 0.29.2
 
 ## Bug Fixes
