@@ -2,7 +2,7 @@ import ImmutableHelper from './../../helpers/immutable';
 import I18n from "i18n-js";
 import Validator from './email';
 
-describe('Email Validator', () => {
+fdescribe('Email Validator', () => {
   describe('when value is undefined', () => {
     it('passes validation', () => {
       expect(new Validator().validate(null)).toBeTruthy();
@@ -31,6 +31,12 @@ describe('Email Validator', () => {
     describe('when emails contains single dash and underscore before the @', () => {
       it('returns true', () => {
         expect(new Validator().validate('test_4-test4@test.com')).toBeTruthy();
+      });
+    });
+
+    describe('when emails contains single quote before the @', () => {
+      it('returns true', () => {
+        expect(new Validator().validate("o'sullivan.14@test.com")).toBeTruthy();
       });
     });
   });
