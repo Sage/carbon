@@ -29,7 +29,6 @@ import classNames from 'classnames';
  * @constructor
  */
 class Form extends React.Component {
-
   /**
    * stores the document - allows us to override it different contexts, such as
    * when running tests.
@@ -49,7 +48,6 @@ class Form extends React.Component {
   _window = window;
 
   static propTypes = {
-
     /**
      * currently active input which is used to track which error message to show on the form
      *
@@ -114,6 +112,15 @@ class Form extends React.Component {
     cancelText: React.PropTypes.string,
 
     /**
+     * Gives the cancel button a color.
+     *
+     * @property cancelTheme
+     * @type {String}
+     * @default blue
+     */
+    cancelTheme: React.PropTypes.string,
+
+    /**
      * Text for the save button
      *
      * @property saveText
@@ -121,6 +128,15 @@ class Form extends React.Component {
      * @default "Save"
      */
     saveText: React.PropTypes.string,
+
+    /**
+     * Gives the save button a color.
+     *
+     * @property saveTheme
+     * @type {String}
+     * @default blue
+     */
+    saveTheme: React.PropTypes.string,
 
     /**
      * Custom function for Cancel button onClick
@@ -160,6 +176,8 @@ class Form extends React.Component {
     buttonAlign: 'right',
     cancel: true,
     save: true,
+    saveTheme: 'blue',
+    cancelTheme: 'blue',
     saving: false,
     validateOnMount: false
   }
@@ -471,7 +489,7 @@ class Form extends React.Component {
     let cancelClasses = "carbon-form__cancel";
 
     return (<div className={ cancelClasses }>
-      <Button type='button' onClick={ this.cancelForm } >
+      <Button type='button' theme={ this.props.cancelTheme } onClick={ this.cancelForm } >
         { this.props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' }) }
       </Button>
     </div>);
@@ -514,7 +532,7 @@ class Form extends React.Component {
     return (
       <div className={ saveClasses }>
         { errorCount }
-        <Button as="primary" disabled={ this.props.saving }>
+        <Button as="primary" theme={ this.props.saveTheme } disabled={ this.props.saving }>
           { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
         </Button>
       </div>
