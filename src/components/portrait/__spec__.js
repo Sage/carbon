@@ -284,6 +284,19 @@ describe('Portrait', () => {
         });
       });
 
+      describe('when initials are not defined and src is not passed', () => {
+        it('is rendered', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Portrait
+              gravatar='foo'
+            />
+          );
+
+          let pendingUser = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-portrait__sans-initials');
+          expect(pendingUser.length).toEqual(1);
+        });
+      });
+
       describe('when initials are not empty and src is not passed', () => {
         it('is not rendered', () => {
           instance = TestUtils.renderIntoDocument(

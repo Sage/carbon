@@ -168,7 +168,7 @@ class Portrait extends React.Component {
 
     // Select a font family to support different language characters
     // like Arial
-    context.font = Math.round(canvas.width / 2.4) + "px Lato";
+    context.font = Math.round(canvas.width / 2.4) + "px Lato, Arial";
     context.textAlign = "center";
 
     // Setup background and front color
@@ -259,7 +259,7 @@ class Portrait extends React.Component {
   get initialsImage() {
     // if not using src, generate initials for potential fallback
     if (this.props.src) { return null; }
-    if (this.props.initials === "") { return this.sansInitialsImage; }
+    if (!this.props.initials) { return this.sansInitialsImage; }
 
     return (
       <img
