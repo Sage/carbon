@@ -46,7 +46,7 @@ class EmailValidator {
    * @return {Boolean} true if value is valid
    */
   validate = (value) => {
-    return new RegexValidator({ format: /(^$)|^([-a-z0-9+._]{1,64})@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }).validate(value);
+    return new RegexValidator({ format: /(^$)|^([-a-z0-9'+._]{1,64})@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }).validate(value);
   }
 
   /**

@@ -18,7 +18,8 @@ let FormInputHelper = {
       fieldHelp: scope.value('fieldHelp'),
       inputWidth: scope.value('labelInline') ? scope.value('inputWidth') : '',
       labelHelp: scope.value('labelHelp'),
-      labelAlign: (scope.value('labelAlign') ? 'right' : null)
+      labelAlign: (scope.value('labelAlign') ? 'right' : null),
+      icon: scope.value('icon')
     };
   },
 
@@ -63,6 +64,14 @@ let FormInputHelper = {
 
     if (scope.value('prefix')) {
       html += `\n  prefix='${scope.value('prefix')}'`;
+    }
+
+    if (scope.value('icon')) {
+      html += `\n  icon='${scope.value('icon')}'`;
+    }
+
+    if (scope.value('helpMessage')) {
+      html += `\n  helpMessage='${scope.value('helpMessage')}'`;
     }
 
     // determine if we need extra space
@@ -155,6 +164,13 @@ let FormInputHelper = {
             labelInline={ true }
             value={ scope.value('prefix') }
             onChange={ onChange.bind(scope, 'prefix') }
+          />
+
+          <Textbox
+            label="Icon"
+            labelInline={ true }
+            value={ scope.value('icon') }
+            onChange={ onChange.bind(scope, 'icon') }
           />
         </Row>
       </div>

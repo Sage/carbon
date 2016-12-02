@@ -33,6 +33,12 @@ describe('Email Validator', () => {
         expect(new Validator().validate('test_4-test4@test.com')).toBeTruthy();
       });
     });
+
+    describe('when emails contains single quote before the @', () => {
+      it('returns true', () => {
+        expect(new Validator().validate("o'sullivan.14@test.com")).toBeTruthy();
+      });
+    });
   });
 
   describe('Invalid Email', () => {
