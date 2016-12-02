@@ -2,7 +2,7 @@ import ImmutableHelper from './../../helpers/immutable';
 import I18n from "i18n-js";
 import Validator from './email';
 
-fdescribe('Email Validator', () => {
+describe('Email Validator', () => {
   describe('when value is undefined', () => {
     it('passes validation', () => {
       expect(new Validator().validate(null)).toBeTruthy();

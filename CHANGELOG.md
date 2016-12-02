@@ -1,3 +1,9 @@
+# 0.29.3
+
+## Bug Fixes
+
+* single quote(') is valid in email address now.
+
 # 0.29.2
 
 ## Bug Fixes
