@@ -3,7 +3,7 @@ import React from 'react';
 import ComplexHeading from '../../components/complex-heading';
 import ContentGrid from '../../components/content-grid';
 import ContentGridItem from '../../components/content-grid/content-grid-item';
-import IconPanel from '../../components/icon-panel';
+import SellingPointPanel from '../../components/selling-point-panel';
 import Wrapper from '../../chrome/wrapper';
 
 /**
@@ -23,42 +23,42 @@ export default props => (
       />
       <ContentGrid>
         <ContentGridItem>
-          <IconPanel
+          <SellingPointPanel
             icon='point'
             heading='Easy, fast, powerful'
             text='Over 50 components and 340 configurations bring your killer app to life.'
           />
         </ContentGridItem>
         <ContentGridItem>
-          <IconPanel
+          <SellingPointPanel
             icon='flexible'
             heading='Beautifully flexible'
             text='Carbon is beautiful out-of-the-box, down to colours, icons, and style.'
           />
         </ContentGridItem>
         <ContentGridItem>
-          <IconPanel
+          <SellingPointPanel
             icon='brush'
             heading='Designed for UX'
             text='Meet your users’ needs with a simple, elegant, delightful experience'
           />
         </ContentGridItem>
         <ContentGridItem>
-          <IconPanel
+          <SellingPointPanel
             icon='hammer'
             heading='Build smarter'
             text='Hundreds of thousands of users worldwide help Carbon evolve.'
           />
         </ContentGridItem>
         <ContentGridItem>
-          <IconPanel
+          <SellingPointPanel
             icon='plug'
             heading='Powered by you'
             text='Carbon powers your app. Contribute your code, so you power Carbon too.'
           />
         </ContentGridItem>
         <ContentGridItem>
-          <IconPanel
+          <SellingPointPanel
             icon='collaborate'
             heading='Seamlessly collaborative'
             text='With Carbon’s UI Kit, designers and developers speak the same language.'
