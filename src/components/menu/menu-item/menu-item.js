@@ -9,7 +9,7 @@ class MenuItem extends React.Component {
   static propTypes = {
     /**
      * Defines whether alternate row styling should be applied
-     * 0..n bloccks of 1..n menu items can be marked as `alternate` which adds a secondary style
+     * 0..n blocks of 1..n menu items can be marked as `alternate` which adds a secondary style
      *
      * @property alternate
      * @type {Boolean}
