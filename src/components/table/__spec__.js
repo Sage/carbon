@@ -109,8 +109,8 @@ describe('Table', () => {
       expect(instance.resetHighlightedRow).toHaveBeenCalled();
     });
 
-    it('resets the selectedRows array', () => {
-      expect(instance.selectedRows).toEqual([]);
+    it('resets the selectedRows hash', () => {
+      expect(instance.selectedRows).toEqual({});
     });
 
     it('calls set state on the actionToolbarComponent', () => {
@@ -124,6 +124,14 @@ describe('Table', () => {
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('refresh', instance.emitOptions());
     });
 
+    it('unselects all rows', () => {
+      let row = { setState: function(value) {} };
+      spyOn(row, 'setState');
+      instance.rows = { '0': row }
+      instance.refresh();
+      expect(row.setState).toHaveBeenCalledWith({ selected: false });
+    });
+
     describe('no actiontoolbar', () => {
       beforeEach(() => {
         instance.actionToolbarComponent = null;
@@ -134,8 +142,8 @@ describe('Table', () => {
         expect(instance.resetHighlightedRow).toHaveBeenCalled();
       });
 
-      it('resets the selectedRows array', () => {
-        expect(instance.selectedRows).toEqual([]);
+      it('resets the selectedRows hash', () => {
+        expect(instance.selectedRows).toEqual({});
       });
     });
   });

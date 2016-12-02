@@ -421,12 +421,17 @@ class Table extends React.Component {
    */
   refresh = () => {
     this.resetHighlightedRow();
-    this.selectedRows = [];
+    this.selectedRows = {};
     if (this.actionToolbarComponent) {
       this.actionToolbarComponent.setState({
         total: 0,
         selected: []
       });
+    }
+
+    for (let key in this.rows) {
+      let _row = this.rows[key];
+      _row.setState({ selected: false });
     }
     this.emitOnChangeCallback('refresh', this.emitOptions());
   }
