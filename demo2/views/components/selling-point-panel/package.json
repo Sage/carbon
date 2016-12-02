@@ -1,6 +1,6 @@
 {
-  "main": "./icon-panel",
-  "style": "icon-panel.scss",
+  "main": "./selling-point-panel",
+  "style": "selling-point-panel.scss",
   "images": [
     "./Point.svg",
     "./Plug.svg",
