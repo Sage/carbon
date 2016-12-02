@@ -1,3 +1,31 @@
+# 0.30.0
+
+## SettingsRow Component
+
+We have added a settings row component for settings pages. It employs the current UX standard for the appearance of settings pages. Title, description, and any details (accepts nodes) are formatted into the header, while children are rendered in the input cell. Renders nothing if no children present.
+
+```
+<SettingsRow
+  className='mysetting-row'
+  title='My Setting'
+  description='Some descriptive text'
+  description={ <span>Detailed description</span> }> }
+>
+  <Checkbox label='Enable my setting' />
+  <div>Some other blurb about the setting</div>
+</SettingsRow>
+```
+
+## CSS Changes
+
+* Portrait initials are now dark grey on grey
+
+## Component Enhancements
+
+* `Heading`: One new prop has been added, `separator`, to show a 2x50px separator between title and subheader.
+* All input components can now render an icon using the prop `icon`.
+* `Portrait`: Now displays an icon in place of a blank box when the image has not been set and the initials are an empty string.
+
 # 0.29.3
 
 ## Bug Fixes

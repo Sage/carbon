@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import MD5 from 'crypto-js/md5';
 
+import Icon from './../icon';
+
 /**
  * A Portrait Widget.
  *
@@ -166,7 +168,7 @@ class Portrait extends React.Component {
 
     // Select a font family to support different language characters
     // like Arial
-    context.font = Math.round(canvas.width / 2) + "px Arial";
+    context.font = Math.round(canvas.width / 2.4) + "px Lato, Arial";
     context.textAlign = "center";
 
     // Setup background and front color
@@ -191,7 +193,7 @@ class Portrait extends React.Component {
    * @return {Object}
    */
   applyBackground = (context, size) => {
-    let color = this.props.darkBackground ? "#4E545F" : "#9DA0A7";
+    let color = this.props.darkBackground ? "#4E545F" : "#D8D9DC";
 
     context.fillStyle = color;
     context.fillRect(0, 0, size, size);
@@ -206,10 +208,10 @@ class Portrait extends React.Component {
    * @return {Object}
    */
   applyText = (context, size) => {
-    let letters = this.props.initials || "";
+    let letters = this.props.initials ? this.props.initials.slice(0,3) : "";
 
-    context.fillStyle = "#FFF";
-    context.fillText(letters, size / 2, size / 1.5);
+    context.fillStyle = "#636872";
+    context.fillText(letters.toUpperCase(), size / 2, size / 1.5);
 
     return context;
   }
@@ -222,7 +224,7 @@ class Portrait extends React.Component {
    */
   get numericSizes() {
     return {
-      ["extra-small"]: '25',
+      ["extra-small"]: '26',
       small: '30',
       ["medium-small"]: '50',
       medium: '60',
@@ -257,6 +259,7 @@ class Portrait extends React.Component {
   get initialsImage() {
     // if not using src, generate initials for potential fallback
     if (this.props.src) { return null; }
+    if (!this.props.initials) { return this.sansInitialsImage; }
 
     return (
       <img
@@ -279,6 +282,22 @@ class Portrait extends React.Component {
         className="carbon-portrait__img carbon-portrait__avatar"
         src={ this.imgSrc }
         alt={ this.props.alt }
+      />
+    );
+  }
+
+  /**
+   *
+   * Return the html for the Icon displayed in the event that both the image and initials are missing
+   *
+   * @method sansInitialsImage
+   * @return {Object}
+   */
+  get sansInitialsImage() {
+    return (
+      <Icon
+        className='carbon-portrait__img carbon-portrait__sans-initials'
+        type='individual'
       />
     );
   }
