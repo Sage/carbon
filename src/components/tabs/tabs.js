@@ -290,6 +290,7 @@ class Tabs extends React.Component {
    */
   get mainClasses() {
     return classNames(
+      'carbon-tabs',
       `carbon-tabs__position-${ this.props.position }`,
       this.props.className
     );
