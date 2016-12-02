@@ -208,7 +208,7 @@ class Portrait extends React.Component {
    * @return {Object}
    */
   applyText = (context, size) => {
-    let letters = this.props.initials? this.props.initials.slice(0,3) : "";
+    let letters = this.props.initials ? this.props.initials.slice(0,3) : "";
 
     context.fillStyle = "#636872";
     context.fillText(letters.toUpperCase(), size / 2, size / 1.5);
@@ -258,7 +258,8 @@ class Portrait extends React.Component {
    */
   get initialsImage() {
     // if not using src, generate initials for potential fallback
-    if (this.props.src || this.props.initials === "") { return null; }
+    if (this.props.src) { return null; }
+    if (this.props.initials === "") { return this.sansInitialsImage; }
 
     return (
       <img
@@ -293,8 +294,6 @@ class Portrait extends React.Component {
    * @return {Object}
    */
   get sansInitialsImage() {
-    if (this.props.src || this.props.initials !== "") { return null; }
-
     return (
       <Icon
         className='carbon-portrait__img carbon-portrait__sans-initials'
@@ -312,7 +311,6 @@ class Portrait extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses }>
-        { this.sansInitialsImage }
         { this.initialsImage }
         { this.avatarImage }
       </div>
