@@ -4,6 +4,7 @@ import shouldComponentUpdate from './../../helpers/should-component-update';
 import { assign } from 'lodash';
 import guid from './../../helpers/guid';
 import classNames from 'classnames';
+import Icon from './../../../components/icon';
 
 /**
  * Input decorator.
@@ -39,6 +40,10 @@ import classNames from 'classnames';
  * Inputs also accept a prop of `prefix` which outputs a prefix to the input:
  *
  *   <Textbox prefix="foo" />
+ *
+ * Inputs also accept a prop of `icon` which outputs an icon inside the input:
+ *
+ *   <Textbox icon="foo" />
  *
  * @method Input
  * @param {Class} ComposedComponent class to decorate
@@ -89,7 +94,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     // call the components super method if it exists
     if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
 
-    if (this.props.prefix != prevProps.prefix) {
+    if (this.props.prefix != prevProps.prefix || this.props.icon != prevProps.icon) {
       this.setTextIndentation();
     }
   }
@@ -138,7 +143,11 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   setTextIndentation = () => {
     if (this._input) {
-      this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
+      if (this._prefix) {
+        this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
+      } else {
+        this._input.style.paddingLeft = "";
+      }
     }
   }
 
@@ -248,6 +257,22 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
+   * Adds an icon if it is defined
+   *
+   * @method iconHTML
+   * @return {Object}
+   */
+  get iconHTML() {
+    if (this.props.icon) {
+      return (
+        <div className="common-input__input-icon">
+          <Icon type={ this.props.icon } />
+        </div>
+      );
+    }
+  }
+
+  /**
    * Returns HTML for the input.
    *
    * @method inputHTML
@@ -270,6 +295,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     return (
       <div { ...this.fieldProps }>
+        { this.iconHTML }
         { this.prefixHTML }
         { input }
         { this.additionalInputContent }
