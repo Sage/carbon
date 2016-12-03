@@ -48,7 +48,7 @@ describe('Icon', () => {
       it(`calls the render ${icon} icon method`, () => {
         instance = TestUtils.renderIntoDocument(<Icon type={ icon } />);
         instance.renderIcon;
-        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[2];
         svg = span.children[0];
         expect(svg.getAttribute('class')).toEqual(`carbon-icon__svg carbon-icon__svg--${icon}`);
       });
@@ -81,7 +81,7 @@ describe('Icon', () => {
     });
   });
 
-  describe ('mainClasses', () => {
+  describe('mainClasses', () => {
     describe('with custom class name', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(<Icon type='foo' className='custom' />);
@@ -90,6 +90,60 @@ describe('Icon', () => {
 
       it('renders with a class of icon-settings and test', () => {
         expect(span.className).toEqual('carbon-icon custom icon-foo');
+      });
+    });
+  });
+
+  describe('backgroundClasses', () => {
+    describe('bgSize', () => {
+      describe('without shape or color', () => {
+        it('renders background span with only background class', () => {
+          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize='medium' />);
+          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+          expect(span.className).toEqual('carbon-icon__background');
+        });
+      });
+
+      describe('with shape', () => {
+        it('renders background span with size class', () => {
+          let size = 'medium';
+
+          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={ size } bgShape='circle' />);
+          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+          expect(span.className).toContain(`carbon-icon__background--${size}`);
+        });
+      });
+
+      describe('with color', () => {
+        it('renders background span with size class', () => {
+          let size = 'medium';
+
+          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={ size } bgColor='red' />);
+          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+          expect(span.className).toContain(`carbon-icon__background--${size}`);
+        });
+      });
+    });
+
+    describe('bgShape', () => {
+      it('renders background span with shape classes', () => {
+        let shape = 'circle';
+
+        instance = TestUtils.renderIntoDocument(<Icon type='foo' bgShape={ shape } />);
+        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+        expect(span.className).toContain('carbon-icon__background--shape');
+        expect(span.className).toContain(`carbon-icon__background--${shape}`);
+      });
+    });
+
+    describe('bgColor', () => {
+      it('renders background span with color classes', () => {
+        let color = 'green';
+
+        instance = TestUtils.renderIntoDocument(<Icon type='foo' bgColor={ color } />);
+        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+        expect(span.className).toContain('carbon-icon__background--shape');
+        expect(span.className).toContain(`carbon-icon__background--${color}`);
       });
     });
   });

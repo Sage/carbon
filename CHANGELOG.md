@@ -1,3 +1,12 @@
+# 0.31.0
+
+## Component Enhancements
+
+* `Icon`: Three new props have been added:
+  * `bgShape`: 'square', 'round-rect', or 'circle'.
+  * `bgColor`: 'red', 'white', 'orange', 'yellow', 'green', 'purple', or 'magenta'.
+  * `bgSize`: 'small' (default), 'medium', or 'large' - only modifies overall icon size if `bgShape` or `bgColor` is passed.
+
 # 0.30.0
 
 ## SettingsRow Component

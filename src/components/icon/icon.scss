@@ -1,4 +1,5 @@
 @import "./../../style-config/assets";
+@import "./../../style-config/colors";
 
 .carbon-icon {
   display: inline-block;
@@ -13,6 +14,55 @@
   fill: currentColor;
 }
 
+.carbon-icon__background--shape {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.carbon-icon__background--small {
+  height: 24px;
+  width: 24px;
+}
+
+.carbon-icon__background--medium {
+  height: 32px;
+  width: 32px;
+}
+
+.carbon-icon__background--large {
+  height: 40px;
+  width: 40px;
+}
+
+.carbon-icon__background--rounded-rect {
+  border-radius: 20%;
+}
+
+.carbon-icon__background--circle {
+  border-radius: 50%;
+}
+
+$iconColors: (
+  ("magenta", $magenta),
+  ("red", $red),
+  ("white", $white),
+  ("yellow", $yellow),
+  ("orange", $orange-mid),
+  ("green", $green-bright-dull),
+  ("purple", $purple)
+);
+
+@mixin icon-background($theme, $color) {
+  .carbon-icon__background--#{$theme} {
+    background-color: $color;
+  }
+}
+
+@each $set in $iconColors {
+  @include icon-background($set...);
+}
+
 @font-face {
   font-family: 'CarbonIcons';
   src: url('#{$font-path}/carbon-icons-webfont.woff') format('woff'),
@@ -23,17 +73,24 @@
 }
 
 @mixin icon($class, $unicode, $smoothing: null) {
-  .icon-#{$class}:before {
-    @if ($smoothing) {
-      -webkit-font-smoothing: $smoothing;
-    }
+  .icon-#{$class} {
+    .carbon-icon__background:before {
+      @if ($smoothing) {
+        -webkit-font-smoothing: $smoothing;
+      }
 
-    content: "#{$unicode}";
+      content: "#{$unicode}";
+    }
   }
 }
 
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
+  content: '';
+}
+
+[class^="icon-"] .carbon-icon__background:before,
+[class*=" icon-"] .carbon-icon__background:before {
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
 
