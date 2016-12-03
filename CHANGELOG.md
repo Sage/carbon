@@ -3,7 +3,7 @@
 ## Component Enhancements
 
 * `Icon`: Three new props have been added:
-  * `bgShape`: 'square', 'round-rect', or 'circle'.
+  * `bgShape`: 'square', 'rounded-rect', or 'circle'.
   * `bgColor`: 'red', 'white', 'orange', 'yellow', 'green', 'purple', or 'magenta'.
   * `bgSize`: 'small' (default), 'medium', or 'large' - only modifies overall icon size if `bgShape` or `bgColor` is passed.
 

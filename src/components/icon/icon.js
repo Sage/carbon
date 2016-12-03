@@ -60,12 +60,12 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
      */
     bgColor: React.PropTypes.oneOf([
       'red',
-      'white',
       'orange',
       'yellow',
       'green',
       'purple',
-      'magenta'
+      'magenta',
+      'white'
     ])
   };
 

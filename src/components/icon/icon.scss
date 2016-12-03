@@ -20,21 +20,6 @@
   justify-content: center;
 }
 
-.carbon-icon__background--small {
-  height: 24px;
-  width: 24px;
-}
-
-.carbon-icon__background--medium {
-  height: 32px;
-  width: 32px;
-}
-
-.carbon-icon__background--large {
-  height: 40px;
-  width: 40px;
-}
-
 .carbon-icon__background--rounded-rect {
   border-radius: 20%;
 }
@@ -44,13 +29,13 @@
 }
 
 $iconColors: (
-  ("magenta", $magenta),
   ("red", $red),
-  ("white", $white),
-  ("yellow", $yellow),
   ("orange", $orange-mid),
+  ("yellow", $yellow),
   ("green", $green-bright-dull),
-  ("purple", $purple)
+  ("purple", $purple),
+  ("magenta", $magenta),
+  ("white", $white)
 );
 
 @mixin icon-background($theme, $color) {
@@ -61,6 +46,23 @@ $iconColors: (
 
 @each $set in $iconColors {
   @include icon-background($set...);
+}
+
+$iconSizes: (
+  ("small", 24px),
+  ("medium", 32px),
+  ("large", 40px)
+);
+
+@mixin icon-size($name, $size) {
+  .carbon-icon__background--#{$name} {
+    height: $size;
+    width: $size;
+  }
+}
+
+@each $set in $iconSizes {
+  @include icon-size($set...);
 }
 
 @font-face {
@@ -74,6 +76,7 @@ $iconColors: (
 
 @mixin icon($class, $unicode, $smoothing: null) {
   .icon-#{$class} {
+    &:before,
     .carbon-icon__background:before {
       @if ($smoothing) {
         -webkit-font-smoothing: $smoothing;
@@ -84,13 +87,15 @@ $iconColors: (
   }
 }
 
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
+.carbon-icon[class^="icon-"]:before,
+.carbon-icon[class*=" icon-"]:before {
   content: '';
 }
 
-[class^="icon-"] .carbon-icon__background:before,
-[class*=" icon-"] .carbon-icon__background:before {
+[class^="icon-"]:before,
+[class*=" icon-"]:before,
+.carbon-icon[class^="icon-"] .carbon-icon__background:before,
+.carbon-icon[class*=" icon-"] .carbon-icon__background:before {
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
 
