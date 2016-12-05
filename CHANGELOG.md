@@ -2,7 +2,7 @@
 
 ## Component Enhancements
 
-* `Form`: Two new props have been added, `saveTheme` and `cancelTheme`, to apply available themes to Form buttons.
+* `Form`: Two new props have been added, `saveButtonProps` and `cancelButtonProps`, to apply props to Form buttons.
 
 # 0.30.0
 
