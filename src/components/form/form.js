@@ -3,6 +3,7 @@ import Button from './../button';
 import I18n from "i18n-js";
 import Serialize from "form-serialize";
 import classNames from 'classnames';
+import { assign } from 'lodash';
 
 /**
  * A Form widget.
@@ -483,7 +484,7 @@ class Form extends React.Component {
    */
   get cancelButton() {
     let cancelClasses = "carbon-form__cancel",
-        cancelProps = Object.assign({}, this.props.cancelButtonProps, { type: 'button', onClick: this.cancelForm });
+        cancelProps = assign({}, this.props.cancelButtonProps, { type: 'button', onClick: this.cancelForm });
 
     return (<div className={ cancelClasses }>
       <Button {...cancelProps}>
@@ -514,7 +515,7 @@ class Form extends React.Component {
             "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
           }
         ),
-        saveProps = Object.assign({}, this.props.saveButtonProps, { as: 'primary', disabled: this.props.saving });
+        saveProps = assign({}, this.props.saveButtonProps, { as: 'primary', disabled: this.props.saving });
 
     if (this.state.errorCount || this.state.warningCount) {
       // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)

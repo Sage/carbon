@@ -437,21 +437,21 @@ describe('Form', () => {
         expect(buttons[0].disabled).toBeTruthy();
       });
 
-      describe('when saveTheme is passed', () => {
-        it('sets theme on save button', () => {
+      describe('when saveButtonProps is passed', () => {
+        it('sets save button props', () => {
           let theme = 'magenta';
 
-          instance = TestUtils.renderIntoDocument(<Form saveTheme={ theme } />);
+          instance = TestUtils.renderIntoDocument(<Form saveButtonProps={ { theme: theme } } />);
           buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
           expect(buttons[0].className).toContain(`carbon-button--${theme}`);
         });
       });
 
-      describe('when cancelTheme is passed', () => {
-        it('sets theme on cancel button', () => {
+      describe('when cancelButtonProps is passed', () => {
+        it('sets cancel button props', () => {
           let theme = 'red';
 
-          instance = TestUtils.renderIntoDocument(<Form cancelTheme={ theme } />);
+          instance = TestUtils.renderIntoDocument(<Form cancelButtonProps={ { theme: theme } } />);
           buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
           expect(buttons[1].className).toContain(`carbon-button--${theme}`);
         });
