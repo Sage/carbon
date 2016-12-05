@@ -53,20 +53,12 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     bgShape: React.PropTypes.oneOf(['square', 'rounded-rect', 'circle']),
 
     /**
-     * Background color
+     * Background color theme
      *
-     * @property  bgColor
+     * @property  bgTheme
      * @type      {String}
      */
-    bgColor: React.PropTypes.oneOf([
-      'red',
-      'orange',
-      'yellow',
-      'green',
-      'purple',
-      'magenta',
-      'white'
-    ])
+    bgTheme: React.PropTypes.string
   };
 
   static defaultProps = {
@@ -96,7 +88,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     delete props.className;
     delete props.bgSize;
     delete props.bgShape;
-    delete props.bgColor;
+    delete props.bgTheme;
     props.type = this.type;
 
     return props;
@@ -109,32 +101,21 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {String} classes
    */
   get mainClasses() {
-    let icon = this.renderIcon;
+    let icon = this.renderIcon,
+        hasShape = this.props.bgShape || this.props.bgTheme;
 
     let classes = classNames(
       'carbon-icon',
-      this.props.className,
-      { [`icon-${this.type}`]: !icon }
+      this.props.className, {
+        [`icon-${this.type}`]: !icon
+      }, {
+        'carbon-icon--shape': hasShape,
+        [`carbon-icon--${this.props.bgSize}`]: hasShape,
+        [`carbon-icon--${this.props.bgShape}`]: this.props.bgShape,
+        [`carbon-icon--${this.props.bgTheme}`]: this.props.bgTheme
+      }
     );
     return classes;
-  }
-
-  /**
-   * Return background classes
-   *
-   * @method backgroundClasses
-   * @return {String} classes
-   */
-  get backgroundClasses() {
-    let has_shape = this.props.bgShape || this.props.bgColor;
-
-    return classNames(
-      'carbon-icon__background',
-      { 'carbon-icon__background--shape': has_shape },
-      { [`carbon-icon__background--${this.props.bgSize}`]: has_shape },
-      { [`carbon-icon__background--${this.props.bgShape}`]: this.props.bgShape },
-      { [`carbon-icon__background--${this.props.bgColor}`]: this.props.bgColor }
-    );
   }
 
   /**
@@ -167,10 +148,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         { ...this.componentProps }
         ref={ (comp) => this._target = comp }
       >
-        <span className={ this.backgroundClasses }>
-          { this.iconSvgHTML() }
-          { this.tooltipHTML }
-        </span>
+        { this.iconSvgHTML() }
+        { this.tooltipHTML }
       </span>
     );
   }

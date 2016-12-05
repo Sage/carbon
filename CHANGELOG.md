@@ -4,8 +4,8 @@
 
 * `Icon`: Three new props have been added:
   * `bgShape`: 'square', 'rounded-rect', or 'circle'.
-  * `bgColor`: 'red', 'white', 'orange', 'yellow', 'green', 'purple', or 'magenta'.
-  * `bgSize`: 'small' (default), 'medium', or 'large' - only modifies overall icon size if `bgShape` or `bgColor` is passed.
+  * `bgTheme`: 'warning', 'default', 'error', 'info', 'new', 'success', 'help', or 'maintenance'
+  * `bgSize`: 'small' (default), 'medium', or 'large' - only modifies overall icon size if `bgShape` or `bgTheme` is passed.
 
 # 0.30.0
 

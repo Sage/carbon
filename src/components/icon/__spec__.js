@@ -48,7 +48,7 @@ describe('Icon', () => {
       it(`calls the render ${icon} icon method`, () => {
         instance = TestUtils.renderIntoDocument(<Icon type={ icon } />);
         instance.renderIcon;
-        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[2];
+        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
         svg = span.children[0];
         expect(svg.getAttribute('class')).toEqual(`carbon-icon__svg carbon-icon__svg--${icon}`);
       });
@@ -92,15 +92,15 @@ describe('Icon', () => {
         expect(span.className).toEqual('carbon-icon custom icon-foo');
       });
     });
-  });
 
-  describe('backgroundClasses', () => {
     describe('bgSize', () => {
       describe('without shape or color', () => {
-        it('renders background span with only background class', () => {
-          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize='medium' />);
-          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
-          expect(span.className).toEqual('carbon-icon__background');
+        it('renders with no size class', () => {
+          let size = 'medium';
+
+          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={ size } />);
+          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
+          expect(span.className).not.toContain(`carbon-icon--${size}`);
         });
       });
 
@@ -109,8 +109,8 @@ describe('Icon', () => {
           let size = 'medium';
 
           instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={ size } bgShape='circle' />);
-          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
-          expect(span.className).toContain(`carbon-icon__background--${size}`);
+          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
+          expect(span.className).toContain(`carbon-icon--${size}`);
         });
       });
 
@@ -118,32 +118,32 @@ describe('Icon', () => {
         it('renders background span with size class', () => {
           let size = 'medium';
 
-          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={ size } bgColor='red' />);
-          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
-          expect(span.className).toContain(`carbon-icon__background--${size}`);
+          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={ size } bgTheme='error' />);
+          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
+          expect(span.className).toContain(`carbon-icon--${size}`);
         });
       });
     });
 
     describe('bgShape', () => {
-      it('renders background span with shape classes', () => {
+      it('renders with shape classes', () => {
         let shape = 'circle';
 
         instance = TestUtils.renderIntoDocument(<Icon type='foo' bgShape={ shape } />);
-        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
-        expect(span.className).toContain('carbon-icon__background--shape');
-        expect(span.className).toContain(`carbon-icon__background--${shape}`);
+        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
+        expect(span.className).toContain('carbon-icon--shape');
+        expect(span.className).toContain(`carbon-icon--${shape}`);
       });
     });
 
-    describe('bgColor', () => {
+    describe('bgTheme', () => {
       it('renders background span with color classes', () => {
-        let color = 'green';
+        let color = 'success';
 
-        instance = TestUtils.renderIntoDocument(<Icon type='foo' bgColor={ color } />);
-        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
-        expect(span.className).toContain('carbon-icon__background--shape');
-        expect(span.className).toContain(`carbon-icon__background--${color}`);
+        instance = TestUtils.renderIntoDocument(<Icon type='foo' bgTheme={ color } />);
+        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
+        expect(span.className).toContain('carbon-icon--shape');
+        expect(span.className).toContain(`carbon-icon--${color}`);
       });
     });
   });

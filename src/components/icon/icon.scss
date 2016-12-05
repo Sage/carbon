@@ -14,37 +14,27 @@
   fill: currentColor;
 }
 
-.carbon-icon__background--shape {
+.carbon-icon--shape {
   align-items: center;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
 }
 
-.carbon-icon__background--rounded-rect {
+.carbon-icon--rounded-rect {
   border-radius: 20%;
 }
 
-.carbon-icon__background--circle {
+.carbon-icon--circle {
   border-radius: 50%;
 }
 
-$iconColors: (
-  ("red", $red),
-  ("orange", $orange-mid),
-  ("yellow", $yellow),
-  ("green", $green-bright-dull),
-  ("purple", $purple),
-  ("magenta", $magenta),
-  ("white", $white)
-);
-
-@mixin icon-background($theme, $color) {
-  .carbon-icon__background--#{$theme} {
+@mixin icon-background($type, $color, $border, $background, $color-hover) {
+  .carbon-icon--#{$type} {
     background-color: $color;
   }
 }
 
-@each $set in $iconColors {
+@each $set in $colorIconSets {
   @include icon-background($set...);
 }
 
@@ -55,7 +45,7 @@ $iconSizes: (
 );
 
 @mixin icon-size($name, $size) {
-  .carbon-icon__background--#{$name} {
+  .carbon-icon--#{$name} {
     height: $size;
     width: $size;
   }
@@ -75,27 +65,17 @@ $iconSizes: (
 }
 
 @mixin icon($class, $unicode, $smoothing: null) {
-  .icon-#{$class} {
-    &:before,
-    .carbon-icon__background:before {
-      @if ($smoothing) {
-        -webkit-font-smoothing: $smoothing;
-      }
-
-      content: "#{$unicode}";
+  .icon-#{$class}:before {
+    @if ($smoothing) {
+      -webkit-font-smoothing: $smoothing;
     }
+
+    content: "#{$unicode}";
   }
 }
 
-.carbon-icon[class^="icon-"]:before,
-.carbon-icon[class*=" icon-"]:before {
-  content: '';
-}
-
 [class^="icon-"]:before,
-[class*=" icon-"]:before,
-.carbon-icon[class^="icon-"] .carbon-icon__background:before,
-.carbon-icon[class*=" icon-"] .carbon-icon__background:before {
+[class*=" icon-"]:before {
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
 
