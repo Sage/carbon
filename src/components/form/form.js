@@ -487,7 +487,7 @@ class Form extends React.Component {
         cancelProps = assign({}, this.props.cancelButtonProps, { type: 'button', onClick: this.cancelForm });
 
     return (<div className={ cancelClasses }>
-      <Button {...cancelProps}>
+      <Button { ...cancelProps }>
         { this.props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' }) }
       </Button>
     </div>);
