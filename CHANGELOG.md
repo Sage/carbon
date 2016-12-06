@@ -4,6 +4,10 @@
 
 * `Form`: Two new props have been added, `saveButtonProps` and `cancelButtonProps`, to apply props to Form buttons.
 
+## CSS Changes
+
+* Added `$beta` orange color variable
+
 # 0.30.0
 
 ## SettingsRow Component
