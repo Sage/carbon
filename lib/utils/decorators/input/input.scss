@@ -7,8 +7,22 @@
 .common-input {
   position: relative;
 
-  &:hover .common-input__message {
-    display: table;
+  .common-input__message {
+    opacity: 0;
+    transition: opacity 0.2s 1.3s, visibility 0s 1.5s;
+    visibility: hidden;
+  }
+
+  &--message-hidden .common-input__message {
+    opacity: 0;
+    transition: none;
+    visibility: hidden;
+  }
+
+  &--message-shown .common-input__message.common-input__message {
+    opacity: 1;
+    transition: opacity 0s 0s, visibility 0s 0s;
+    visibility: visible;
   }
 
   .carbon-fieldset + &,
@@ -132,7 +146,8 @@
   border-radius: 3px 3px 3px 0;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   box-sizing: border-box;
-  display: none;
+  font-weight: 600;
+  opacity: 0;
   left: 9999px; // show offscreen until it is positioned correctly
   margin-top: $arrow-size;
   max-width: 260px;
@@ -155,6 +170,11 @@
   }
 }
 
+.common-input__message--warning .carbon-link__anchor {
+  color: white;
+  text-decoration: underline;
+}
+
 .common-input__message--warning:before {
   border-top-color: $warning;
 }
@@ -167,8 +187,10 @@
   display: none;
 }
 
-.common-input__message--locked {
-  display: table;
+.common-input__message--locked.common-input__message {
+  opacity: 1;
+  transition: none;
+  visibility: visible;
 }
 
 .common-input__message--flipped {
@@ -192,14 +214,8 @@
     font-size: 20px;
   }
 
-  .carbon-icon__svg--warning {
-    height: 20px;
-    margin: -2px 0 0 0;
-    width: 26px;
-
-    .carbon-icon__svg-group {
-      fill: $warning;
-    }
+  &.common-input__icon--warning {
+    color: $warning;
   }
 }
 
@@ -240,6 +256,25 @@
   left: 7px;
   position: absolute;
   top: 8px;
+}
+
+.common-input__input-icon {
+  font-weight: bold;
+  left: 7px;
+  position: absolute;
+  top: 6px;
+
+  ~ .common-input__prefix,
+  + .common-input__input {
+    text-indent: 21px;
+  }
+}
+
+.common-input--label-inline {
+  .common-input__input-icon,
+  .common-input__prefix {
+    left: 23px;
+  }
 }
 
 .common-input__input--fake {

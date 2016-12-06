@@ -287,6 +287,49 @@ describe('TableRow', () => {
     });
   });
 
+  describe('when selected', () => {
+    it('renders the selected class', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Table>
+          <TableRow selected={ true }>
+            <TableCell />
+          </TableRow>
+        </Table>
+      );
+      let tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
+      expect(tr.className).toMatch('carbon-table-row--selected');
+    });
+  });
+
+  describe('when highlighted', () => {
+    it('renders the highlighted class', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Table>
+          <TableRow highlighted={ true }>
+            <TableCell />
+          </TableRow>
+        </Table>
+      );
+      let tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
+      expect(tr.className).toMatch('carbon-table-row--highlighted');
+    });
+  });
+
+  describe('when highlighted and selected', () => {
+    it('only renders the selected class', () => {
+      instance = TestUtils.renderIntoDocument(
+        <Table>
+          <TableRow highlighted={ true } selected={ true }>
+            <TableCell />
+          </TableRow>
+        </Table>
+      );
+      let tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
+      expect(tr.className).toMatch('carbon-table-row--selected');
+      expect(tr.className).not.toMatch('carbon-table-row--highlighted');
+    });
+  });
+
   describe('other props', () => {
     it('consumes other props on the tr element', () => {
       let spy = jasmine.createSpy();
@@ -363,7 +406,6 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(
           <Table selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>
         );
-        debugger
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         expect(row.children.length).toEqual(3);

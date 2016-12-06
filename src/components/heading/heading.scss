@@ -3,10 +3,13 @@
 @import "./../../style-config/z-index";
 
 .carbon-heading__header {
-  border-bottom: 1px solid $border-color;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
   position: relative;
+
+  .carbon-heading--has-divider & {
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
 
   .carbon-tooltip {
     z-index: $z-modal-background - 1;
@@ -32,13 +35,17 @@
 .carbon-heading__help {
   line-height: $app-line-height;
   margin-left: 10px;
-  top: 6px;
+  top: 1px;
 }
 
 .carbon-heading__back {
+  margin-top: -7px;
   top: 50%;
-  margin-top: -11px;
   position: absolute;
+
+  .carbon-heading--has-divider & {
+    margin-top: -12px;
+  }
 
   .carbon-icon {
     color: $grey-dark-blue-30;
@@ -47,4 +54,10 @@
       color: $blue;
     }
   }
+}
+
+.carbon-heading__separator {
+  border-top: 2px solid $grey-dark-blue-20;
+  margin: 10px 0 8px;
+  width: 50px;
 }

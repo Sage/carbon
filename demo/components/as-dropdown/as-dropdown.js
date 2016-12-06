@@ -8,6 +8,9 @@ class AsDropdown extends React.Component {
       id: null,
       name: "Please Select"
     }, {
+      id: "default",
+      name: "Default"
+    }, {
       id: "error",
       name: "Error"
     }, {

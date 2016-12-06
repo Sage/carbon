@@ -7,6 +7,7 @@ import ActionToolbar from './../action-toolbar';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
+import TableSubheader from './table-subheader';
 import Pager from './../pager';
 import Spinner from './../spinner';
 
@@ -170,6 +171,14 @@ class Table extends React.Component {
      * @type {Function}
      */
     onHighlight: React.PropTypes.func,
+
+    /**
+     * A callback for when the page size changes.
+     *
+     * @property onPageSizeChange
+     * @type {Function}
+     */
+    onPageSizeChange: React.PropTypes.func,
 
     /**
      * Pagination
@@ -412,12 +421,17 @@ class Table extends React.Component {
    */
   refresh = () => {
     this.resetHighlightedRow();
-    this.selectedRows = [];
+    this.selectedRows = {};
     if (this.actionToolbarComponent) {
       this.actionToolbarComponent.setState({
         total: 0,
         selected: []
       });
+    }
+
+    for (let key in this.rows) {
+      let _row = this.rows[key];
+      _row.setState({ selected: false });
     }
     this.emitOnChangeCallback('refresh', this.emitOptions());
   }
@@ -667,7 +681,10 @@ class Table extends React.Component {
    * @param {String} pageSize
    * @return {Void}
    */
-  onPagination = (currentPage, pageSize) => {
+  onPagination = (currentPage, pageSize, element) => {
+    if (this.props.onPageSizeChange && element === 'size') {
+      this.props.onPageSizeChange(pageSize);
+    }
     let options = this.emitOptions();
     options.currentPage = currentPage;
     options.pageSize = pageSize;
@@ -963,5 +980,6 @@ export {
   Table,
   TableRow,
   TableCell,
-  TableHeader
+  TableHeader,
+  TableSubheader
 };

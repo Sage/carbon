@@ -95,10 +95,15 @@ let data = ImmutableHelper.parseJSON({
     content: "This is an example of the heading component.",
     help: "This is an example of help text.",
     help_link: "#",
-    back_link_href: "#"
+    back_link_href: "#",
+    divider: true
   },
   help: {
     message: "This is an example of a help tooltip."
+  },
+  i18n: {
+    message: "Test",
+    inline: true
   },
   icon: {
     type: 'info'
@@ -111,7 +116,9 @@ let data = ImmutableHelper.parseJSON({
     open: true,
     as: "error",
     title: "Lorem ipsum dolor",
-    text: "Nullam id dolor id nibh ultricies vehicula ut id elit."
+    text: "Nullam id dolor id nibh ultricies vehicula ut id elit.",
+    border: true,
+    roundedCorners: true
   },
   multi_action_button: {
     text: 'Multi Action Button',
@@ -126,7 +133,7 @@ let data = ImmutableHelper.parseJSON({
     value: 0
   },
   pill: {
-    as: 'new',
+    as: 'default',
     text: 'PILL'
   },
   portrait: {
@@ -189,6 +196,7 @@ let data = ImmutableHelper.parseJSON({
     }
   },
   sidebar: {
+    size: 'medium',
     open: false
   },
   spinner: {
@@ -228,7 +236,7 @@ let data = ImmutableHelper.parseJSON({
     sortable: true
   },
   tabs: {
-    tabData: [{}, {}]
+    tabData: [{}, {}, {}, {}, {}]
   },
   textbox: {
     label: "Textbox",
@@ -263,6 +271,16 @@ let data = ImmutableHelper.parseJSON({
 });
 
 class AppStore extends Store {
+
+  constructor(name, data, Dispatcher, opts = {}) {
+    super(name, data, Dispatcher, opts);
+
+    // Store is connected to a lot of components
+    // Therefore adds a lot of listeners
+    // Setting to 0 allows unlimited
+    this.setMaxListeners(0);
+  }
+
   /**
    * @method APP_VALUE_UPDATED
    */
@@ -270,7 +288,7 @@ class AppStore extends Store {
     let arr = [action.component].concat(action.key);
     this.data = this.data.setIn(arr, action.value);
 
-    if (action.component === 'dropdown_filter_ajax') {
+    if (action.component === 'dropdown_filter_ajax' && action.key === 'value') {
       this.data = this.data.setIn(arr, action.visibleValue);
     }
   }

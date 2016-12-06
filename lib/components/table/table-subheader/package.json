@@ -1,0 +1,4 @@
+{
+  "main": "./table-subheader.js",
+  "style": "./table-subheader.scss"
+}

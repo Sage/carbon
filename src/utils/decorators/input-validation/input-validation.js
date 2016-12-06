@@ -94,6 +94,22 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
      * @default false
      */
     this.state.messageLocked = false;
+
+    /**
+     * toggles whether the message for validation is immediately hidden to force it to disappear instantly
+     *
+     * @property immediatelyHideMessage
+     * @type {Boolean}
+     */
+    this.state.immediatelyHideMessage = false;
+
+    /**
+     * toggles whether the message for validation is shown
+     *
+     * @property messageShown
+     * @type {Boolean}
+     */
+    this.state.messageShown = false;
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
@@ -400,17 +416,69 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   /**
+   * does a message exist based on the current state of the input
+   *
+   * @method messageExist
+   * @return {Boolean} whether or not a message exists
+   */
+  messageExists = () => {
+    return !this.state.valid || this.state.warning;
+  }
+
+  /**
+   * sets the state for showing the message
+   *
+   * @method showMessage
+   * @return {void}
+   */
+  showMessage = () => {
+    if (this.messageExists()) {
+      this.setState({
+        messageShown: true,
+        immediatelyHideMessage: false
+      });
+
+      if (this.context.form) {
+        this.context.form.setActiveInput(this);
+      }
+    }
+  }
+
+  /**
+   * sets the state for hiding the message
+   *
+   * @method hideMessage
+   * @return {void}
+   */
+  hideMessage = () => {
+    if (this.messageExists()) {
+      this.setState({
+        messageShown: false
+      });
+    }
+  }
+
+  /**
+   * sets the state for immediately hiding the message
+   *
+   * @method immediatelyHideMessage
+   * @return {void}
+   */
+  immediatelyHideMessage = () => {
+    this.setState({
+      messageShown: false,
+      immediatelyHideMessage: true
+    });
+  }
+
+  /**
    * Determines if the input is attached to a form.
    *
    * @method isAttachedToForm
    * @return {Boolean}
    */
   get isAttachedToForm() {
-    if (this.context.form && this.context.form.inputs[this._guid]) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.context.form && this.context.form.inputs[this._guid];
   }
 
   /**
@@ -437,7 +505,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     return [
       <Icon key="0" ref="validationIcon" type={ type } className={ iconClasses } style={ iconStyle } />,
-      <div key="1" className="common-input__message-wrapper">
+      <div key="1" className="common-input__message-wrapper" onMouseOver={ this.showMessage } onMouseOut={ this.hideMessage }>
         <div ref="validationMessage" className={ messageClasses }>
           { this.state.errorMessage || this.state.warningMessage }
         </div>
@@ -455,7 +523,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     return classNames(
       super.mainClasses, {
         'common-input--error': !this.state.valid,
-        'common-input--warning': this.state.warning
+        'common-input--warning': this.state.warning,
+        'common-input--message-hidden': this.state.immediatelyHideMessage,
+        'common-input--message-shown': this.state.messageShown
       }
     );
   }
@@ -491,6 +561,15 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     inputProps.onPaste = chainFunctions(this._handleContentChange, inputProps.onKeyDown);
 
     return inputProps;
+  }
+
+  get fieldProps() {
+    let fieldProps = super.fieldProps || {};
+
+    fieldProps.onMouseOut = chainFunctions(this.hideMessage, fieldProps.onMouseOut);
+    fieldProps.onMouseOver = chainFunctions(this.showMessage, fieldProps.onMouseOver);
+
+    return fieldProps;
   }
 
 };

@@ -1,3 +1,247 @@
+# 0.30.0
+
+## SettingsRow Component
+
+We have added a settings row component for settings pages. It employs the current UX standard for the appearance of settings pages. Title, description, and any details (accepts nodes) are formatted into the header, while children are rendered in the input cell. Renders nothing if no children present.
+
+```
+<SettingsRow
+  className='mysetting-row'
+  title='My Setting'
+  description='Some descriptive text'
+  description={ <span>Detailed description</span> }> }
+>
+  <Checkbox label='Enable my setting' />
+  <div>Some other blurb about the setting</div>
+</SettingsRow>
+```
+
+## CSS Changes
+
+* Portrait initials are now dark grey on grey
+
+## Component Enhancements
+
+* `Heading`: One new prop has been added, `separator`, to show a 2x50px separator between title and subheader.
+* All input components can now render an icon using the prop `icon`.
+* `Portrait`: Now displays an icon in place of a blank box when the image has not been set and the initials are an empty string.
+
+# 0.29.3
+
+## Bug Fixes
+
+* single quote(') is valid in email address now.
+
+# 0.29.2
+
+## Bug Fixes
+
+* Readded the `carbon-tabs` class to the Tabs component.
+* Clear any selected rows too in refresh()
+* SelectedRows should be reset to the same object it is defined with
+
+# 0.29.1
+
+## CSS Update
+
+* The `default` colour set now uses a lighter grey.
+
+# 0.29.0
+
+## !! BREAKING CHANGES!! :warning:
+
+* error icon on `Date` component is now displayed in place of the calendar icon clicker
+
+### Immutable Helper
+
+* ImmutableHelper.parseJSON now converts javascript objects to regular Maps rather than ordered maps.
+* If you require ordered maps you will need to explicitly create them rather than use ImmutableHelper.
+* `margin-bottom` has been removed from the message component.
+
+## CSS Changes
+
+* `Navigation-Bar`: line-height has been applied to parent content div rather than children.
+* Updated base font CSS to better reflect the Lato font.
+* Updated Menu Item CSS to better reflect the Lato font.
+* Updated input help text color for accessibility standards.
+* Animated Menu Button has been updated with latest font changes.
+* Links inside of input warnings are now coloured white.
+
+## Bug Fixes
+
+* `Tabs` now correctly tracks warning state of a tab.
+* `Tabs` no longer jumps when changing tab.
+
+## Package Upgrades
+
+* Datepicker has been upgraded the latest version.
+* Bowser has been upgraded to the latest version.
+
+## Component Enhancements
+
+* `Message`: Two new props have been added, `border` and `roundedCorners`.
+* `Dropdown`: One new prop has been added, `cacheVisibleValue`.
+* `Tabs` now can take a prop of 'position' which supports floating to the left and being positioned in a vertical stack.
+
+## Helpers
+
+* A new `humanizeFilesize` helper for converting bytes to a human readable representation.
+* `roundForAbbreviation` is added to handle the number element of `abbreviateNumber` as well as forcing any abbreviated number to one decimal place
+* `abbreviateCurrency` takes unit value
+
+## Minor Improvements
+
+* Cookie functions added to browser helper
+* Fixes vertical alignment of minus icon.
+
+# 0.28.3
+
+* `Tabs`: Tab Heading hover, focus and active states corrected
+
+## Components
+
+* `Icon`: removes SVGs to fallback to icon font until new SVGs designed
+* `Flash`, `Message` and `Toast`: all use `flex` for positioning
+
+# 0.28.2
+
+* `Pod`: now accepts a `displayEditButtonOnHover` prop which will hide the edit button until the mouse is hovering over it.
+* `Pod`: now accepts a `triggerEditOnContent` prop will trigger the `onEdit` function when clicking the content.
+* `Pod`: the colours of an editable pod have been updated to be more consistent.
+
+# 0.28.1
+
+## Bug Fixes
+
+* Fixes reference to utils from the link component.
+
+# 0.28.0
+
+## :warning: Breaking Changes - Visual Styles
+
+Visual improvements to the design of components, which may impact the colors and font styles used.
+
+* Lato font added
+* Colors updated
+* Table row active and hover styles
+* Font sizes for text
+
+## :warning: Breaking Change - Button colors
+
+* Button color is now determined by a `theme` prop.
+* If you are using a red or green button, you must pass props of `as` and `theme`.
+* i.e. for a red button
+
+```js
+<Button theme='red'>
+  Foo
+</Button>
+```
+
+* For a green button
+
+```js
+<Button theme='green' as='secondary'>
+  Foo
+</Button>
+```
+
+
+## I18n Component
+
+We have added a component to handle I18n translations. The component also supports markdown, allowing developers to safely add HTML markup to translations such as bold tags or hyperlinks.
+
+```
+<I18n scope="my.translation" options={{ myVar: "foobar" }} markdown={ true } />
+```
+
+## Helpers
+
+* `abbreviateNumber` function is provided for adding 'k' and 'm' style abbreviations for large numbers
+
+## Component Enhancements
+
+* `Button`: now accepts a size and theme prop to determine size and color respectively.
+* `Decimal` now emits value of 0 on blur if cleared.
+* `Icon`: new Icons added - Draft, Github, Twitter, Dribble and Remove
+* `Link`: tabindex default and switch control via a prop
+* `MenuList`: autofocuses on filter when a menu is opened
+* `Link`: pressing `enter` triggers any `onClick` event
+* `Rainbow`: Added the config prop to to be able to control the way
+the chart is displayed.
+* `TableAjax` now accepts `pageSize` prop.
+
+## Poller Helper
+
+* Added callback to poller helper which is called when the terminating condition is not met
+
+## CSS Changes
+
+* Input prefix is now positioned correctly when using inline labels
+
+# 0.27.2
+
+* `Decimal` component can validate properly with alternative i18n settings
+
+## New Components
+
+* `MenuList`: handles simple `ul` based menus
+
+# 0.27.1
+
+* Heading component can now configure it's divider on/off using the prop 'divider'.
+
+# 0.27.0
+
+## :warning: Breaking Change - Default colour for Pill component has changed. :warning:
+
+* The default behaviour for the Pill component was to previously set as `info`. This is now set as `default` which is a grey colour.
+* Ensure you check for any implementations of the Pill component where the `as` prop is not defined and set this to `as='info'`.
+
+## :warning: Breaking Change - Date Component requires importing of locales
+
+* The Date component now uses Strict mode and a I18n locale for parsing date.
+* If you require multiple locales for your Date component you will need to import them from moment js
+* Please see the [moment js docs](http://momentjs.com/docs/#/use-it/browserify/) for more information
+
+## :warning: Breaking Change :warning:
+
+* `Rainbow` expects the Highcharts library to be already loaded. If your project does not include Highcharts, you need to import it before Rainbow.
+```js
+import 'react-highcharts/dist/bundle/highcharts';
+```
+
+## New Components
+
+* Subheader component created to be used with the Table and TableAjax components
+
+## Component Enhancements
+
+* `ShowEditPod` now closes and cancels editing on Escape keydown.
+* `ShowEditPod` puts focus on pod if mounted in editing state.
+* `Sidebar` no longer renders a close icon if there is no `onCancel` prop.
+* `Date` field uses I18n for formats and sanitizes inputs for passing
+* `Content` component can take props of `bodyFullWidth` to set component width to 100%;
+* `Date` field uses I18n for formats and sanitizes inputs for passing
+* `Step` wizard sub-component now accepts a prop of `enabled`.
+* `Table` components now accept an `onPageSizeChange` callback function as a prop.
+* `InputValidation` uses `Form` and `Input` in order to ensure messages stay on screen for a short while unless the user hovers on another field
+* `Pod` enter triggers edit function and edit element is keyboard accessible
+* `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
+* `Tabs` focus state is given the same styles as hover state
+* `Pager` component now emits which element has changed.
+* `Sidebar` now takes a size prop (e.g. `extra-small`, `small`, ...`extra-large`)
+
+## Dependencies
+
+* Moment JS bumped to version 2.15.1
+
+# 0.26.1
+
+## Component Enhancements
+
+* `Decimal` component can prevent decimal value from exceeding the precision setting
+
 # 0.26.0
 
 ## New Components
@@ -30,6 +274,7 @@
 * Carbon Components CSS now imports from relative paths
 * removes uneccessary space from clearfix in `Row` component
 * Aligned MultiActionButton icon to center
+* `Content` components now handles wrapping more robustly with single words longer than the content width wrapping correctly
 * `Filter` handles it's child inputs more robustly by over-riding widths and margins when children are displayed inline
 * Darken colour of text--secondary
 * Fieldset - readonly fields maintain border

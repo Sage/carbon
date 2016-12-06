@@ -8,6 +8,7 @@ import Example from './../../../components/example';
 import { Tabs, Tab } from 'components/tabs';
 import Textbox from 'components/textbox';
 import Checkbox from 'components/checkbox';
+import Dropdown from 'components/dropdown';
 import Icon from 'components/icon';
 import Button from 'components/button';
 import Row from 'components/row';
@@ -48,12 +49,16 @@ class TabsDemo extends React.Component {
     return this.value('align') ? 'right' : 'left';
   }
 
+  get position() {
+    return this.value('position') || 'top';
+  }
+
   /**
    * @method demo
    */
   get demo() {
     return (
-      <Tabs align={ this.align }>
+      <Tabs align={ this.align } position={ this.position }>
         { this.tabs }
       </Tabs>
     );
@@ -69,6 +74,10 @@ class TabsDemo extends React.Component {
 
     if (this.value('align')) {
       html += ` align='right'`
+    }
+
+    if (this.value('position')) {
+      html += ` position='${this.value('position')}'`
     }
 
     html += ' >\n\n'
@@ -90,6 +99,19 @@ class TabsDemo extends React.Component {
     html += '</Tabs>'
 
     return html;
+  }
+
+  /**
+   * @method positionOptions
+  */
+  get positionOptions() {
+    return Immutable.fromJS([{
+      id: "top",
+      name: "Top"
+    }, {
+      id: "left",
+      name: "Left"
+    }]);
   }
 
   /**
@@ -151,6 +173,15 @@ class TabsDemo extends React.Component {
             value={ this.value('align') }
             reverse={ true }
             onChange={ this.action.bind(this, 'align') }
+          />
+        </Row>
+        <Row>
+          <Dropdown
+            label="Position"
+            labelInline={ true }
+            value={ this.value('position') }
+            onChange={ this.action.bind(this, 'position') }
+            options={ this.positionOptions }
           />
         </Row>
         <Row>

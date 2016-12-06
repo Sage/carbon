@@ -4,6 +4,7 @@ import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
 import Example from './../../../components/example';
 
+import Form from 'components/form';
 import Fieldset from 'components/fieldset';
 import Textbox from 'components/textbox';
 import Date from 'components/date';
@@ -31,12 +32,14 @@ class FieldsetDemo extends React.Component {
    */
   get demo() {
     return (
-      <Fieldset legend={ this.value('legend') }>
-        <Textbox validations={[new Presence]} />
-        <Textbox validations={[new Presence]} />
-        <Date validations={[new Presence]} />
-        <Textbox validations={[new Presence]} />
-      </Fieldset>
+      <Form>
+        <Fieldset legend={ this.value('legend') }>
+          <Textbox validations={[new Presence]} />
+          <Textbox validations={[new Presence]} />
+          <Date validations={[new Presence]} />
+          <Textbox validations={[new Presence]} />
+        </Fieldset>
+      </Form>
     );
   }
 
@@ -50,7 +53,7 @@ class FieldsetDemo extends React.Component {
     html += '<Fieldset'
 
     let dropline = false;
-    
+
     if (!this.value('legend')) {
       dropline = true;
       html += `\n legend="${this.value('legend')}"`

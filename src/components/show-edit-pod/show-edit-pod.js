@@ -5,6 +5,7 @@ import Link from './../link';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Events from './../../utils/helpers/events';
 
 import ReactDOM from 'react-dom';
 
@@ -119,6 +120,17 @@ class ShowEditPod extends React.Component {
   }
 
   /**
+   * if component is mounted in editing state, focus on pod
+   *
+   * @method componentDidMount
+   */
+  componentDidMount() {
+    if (this.props.editing) {
+      this.__focusOnPod();
+    }
+  }
+
+  /**
    * Called when the edit button is clicked
    * Emits callback when present
    *
@@ -133,7 +145,7 @@ class ShowEditPod extends React.Component {
       this.setState({ editing: true });
     }
 
-    ReactDOM.findDOMNode(this.refs.podFocus).focus();
+    this.__focusOnPod();
   }
 
   /**
@@ -166,6 +178,18 @@ class ShowEditPod extends React.Component {
 
     if (this.stateControlled) {
       this.setState({ editing: false });
+    }
+  }
+
+  /**
+   * Handles key down events
+   *
+   * @method onKeyDown
+   * @return {Void}
+   */
+  onKeyDown = (ev) => {
+    if (Events.isEscKey(ev)) {
+      this.onCancelEditForm(ev);
     }
   }
 
@@ -268,6 +292,7 @@ class ShowEditPod extends React.Component {
     delete props.className;
 
     props.as = 'secondary';
+    props.onKeyDown = this.onKeyDown;
 
     return props;
   }
@@ -282,8 +307,6 @@ class ShowEditPod extends React.Component {
   }
 
   /**
-   * Render function
-   *
    * @method render
    */
   render() {
@@ -298,6 +321,15 @@ class ShowEditPod extends React.Component {
         </ReactCSSTransitionGroup>
       </Pod>
     );
+  }
+
+  /**
+   * Focuses on the pod component.
+   *
+   * @method __focusOnPod
+   */
+  __focusOnPod = () => {
+    ReactDOM.findDOMNode(this.refs.podFocus).focus();
   }
 }
 

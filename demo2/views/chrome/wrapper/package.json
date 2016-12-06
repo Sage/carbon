@@ -1,0 +1,4 @@
+{
+  "main": "./wrapper.js",
+  "style": "./wrapper.scss"
+}

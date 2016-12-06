@@ -18,6 +18,9 @@ describe('Tab', () => {
     it('it sets isValid to true', () => {
       expect(instance.state.isValid).toBeTruthy();
     });
+    it('it sets isWarning to false', () => {
+      expect(instance.state.isWarning).toBeFalsy();
+    });
   });
 
   describe('setValidity', () => {
@@ -38,9 +41,27 @@ describe('Tab', () => {
     });
   });
 
+  describe('setWarning', () => {
+    it('calls the parent tab context with the new state', () => {
+      let spy = jasmine.createSpy('spy');
+      instance.context = { tabs: { changeWarning: spy } };
+      instance.setWarning(true)
+
+      expect(spy).toHaveBeenCalledWith(instance.props.id, true);
+    });
+
+    it('sets its own warning state', () => {
+      instance.context = { tabs: { changeWarning: function(a,b){} } };
+      spyOn(instance, 'setState');
+      instance.setWarning(true)
+
+      expect(instance.setState).toHaveBeenCalledWith({isWarning: true});
+    });
+  });
+
   describe('mainClasses', () => {
     it('returns the base className of carbon-tab', () => {
-      expect(instance.mainClasses).toEqual('carbon-tab ');
+      expect(instance.mainClasses).toEqual('carbon-tab');
     });
 
     it('returns any additional added classes', () => {
@@ -51,19 +72,14 @@ describe('Tab', () => {
         </Tab>);
       expect(instance.mainClasses).toEqual('carbon-tab foo');
     });
-
-    it('adds an error class when the tab has a error', () => {
-      instance.setState({ isValid: false });
-      expect(instance.mainClasses).toEqual('carbon-tab  carbon-tab--errors');
-    });
   });
 
   describe('render', () => {
     it('renders a surrounding parent div', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(div.className).toEqual('carbon-tab ');
+      expect(div.className).toEqual('carbon-tab');
     });
-    
+
     it('renders all children passed to is', () => {
       let inputs = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input');
       expect(inputs.length).toEqual(2);

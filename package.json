@@ -1,6 +1,6 @@
 {
   "name": "carbon",
-  "version": "0.26.0",
+  "version": "0.30.0",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "main": "index.js",
   "engineStrict": true,
@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
-    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.1.0",
+    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.2.0",
+    "enzyme": "^2.5.1",
     "express": "~4.13.3",
     "flux": "~2.1.1",
     "gulp": "~3.9.0",
@@ -31,15 +32,16 @@
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "~3.7.5",
     "ncp": "~2.0.0",
-    "react": "~0.14.0",
-    "react-addons-css-transition-group": "~0.14.0",
-    "react-dom": "~0.14.0",
+    "react": "~0.14.8",
+    "react-addons-css-transition-group": "~0.14.8",
+    "react-addons-test-utils": "~0.14.8",
+    "react-dom": "^0.14.8",
     "react-highlight": "~0.6.1",
     "react-router": "~1.0.0"
   },
   "dependencies": {
     "bignumber.js": "~2.1.0",
-    "bowser": "~1.0.0",
+    "bowser": "~1.5.0",
     "classnames": "~2.2.3",
     "crypto-js": "^3.1.6",
     "es6-promise": "^3.2.1",
@@ -47,8 +49,9 @@
     "events": "~1.0.2",
     "form-serialize": "~0.7.0",
     "lodash": "~3.10.1",
-    "moment": "~2.10.6",
-    "react-date-picker": "~3.1.5",
+    "marked": "^0.3.6",
+    "moment": "~2.15.1",
+    "react-date-picker": "~5.3.28",
     "react-highcharts": "~5.0.4",
     "superagent": "~1.4.0"
   }

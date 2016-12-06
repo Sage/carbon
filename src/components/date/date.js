@@ -4,11 +4,12 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 // https://github.com/zippyui/react-date-picker
-import DatePicker from 'react-date-picker';
+import { MonthView, NavBar } from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
 import chainFunctions from './../../utils/helpers/chain-functions';
+import { validProps } from '../../utils/ether';
 
 
 /**
@@ -39,6 +40,9 @@ class Date extends React.Component {
    * @type {document}
    */
   _document = document;
+
+  // Required for validProps function
+  static propTypes = {};
 
   static defaultProps = {
     /**
@@ -197,14 +201,14 @@ class Date extends React.Component {
    * @return {void}
    */
   handleVisibleInputChange = (ev) => {
-    // TODO: This needs more thought i18n with multiple options
-    let formats = [visibleFormat()].concat(validFormats()),
-        validDate = moment(ev.target.value, formats).isValid(),
+    let input = this._sanitizeDateInput(ev.target.value),
+        formats = [visibleFormat()].concat(validFormats()),
+        validDate = moment(input, formats, I18n.locale, true).isValid(),
         newState = { visibleValue: ev.target.value };
 
     // Updates the hidden value after first formatting to default hidden format
     if (validDate) {
-      let hiddenValue = formatValue(ev.target.value, formats, hiddenFormat());
+      let hiddenValue = formatValue(input, formats, hiddenFormat());
       newState.viewDate = hiddenValue;
       this.emitOnChangeCallback(hiddenValue);
     }
@@ -260,28 +264,7 @@ class Date extends React.Component {
     }
   }
 
-  /**
-   * A getter that returns datepicker specific props
-   *
-   * @method inputProps
-   * @return {Object} props for the datepicker
-   */
-  get datePickerProps() {
-    let value = this.props.value || getDefaultValue(this);
-    let props = {};
-    props.ref = 'datepicker';
-    props.weekDayNames = ["S", "M", "T", "W", "T", "F", "S"];
-    props.monthFormat = "MMM";
-    props.dateFormat = hiddenFormat();
-    props.onChange = this.handleDateSelect;
-    props.date = value;
-    props.onViewDateChange = this.handleViewDateChange;
-    props.viewDate = this.state.viewDate;
-    props.minDate = this.props.minDate;
-    props.maxDate = this.props.maxDate;
-    props.hideFooter = true;
-    return props;
-  }
+
 
   /**
    * Updates viewDate as hidden input changes.
@@ -315,7 +298,7 @@ class Date extends React.Component {
    * @return {Object} props for the visible input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     delete props.autoFocus;
     props.className = this.inputClasses;
     props.onChange = this.handleVisibleInputChange;
@@ -344,9 +327,10 @@ class Date extends React.Component {
     };
 
     if (typeof this.props.value !== 'undefined') {
-      props.value = this.props.value; }
-    else {
-      props.defaultValue = this.props.defaultValue; }
+      props.value = this.props.value;
+    } else {
+      props.defaultValue = this.props.defaultValue;
+    }
 
     return props;
   }
@@ -378,7 +362,61 @@ class Date extends React.Component {
    * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
-    return this.inputIconHTML("calendar");
+    if (!this.state.valid) {
+      return this.inputIconHTML("error");
+    } else if (this.state.warning) {
+      return this.inputIconHTML("warning");
+    } else {
+      return this.inputIconHTML("calendar");
+    }
+  }
+
+ /**
+  * A getter that returns datepicker specific props
+  *
+  * @method datePickerProps
+  * @return {Object}
+  */
+  get datePickerProps() {
+    return {
+      date: this.props.value || getDefaultValue(this),
+      dateFormat: hiddenFormat(),
+      enableHistoryView: false,
+      highlightToday: true,
+      highlightWeekends: false,
+      locale: I18n.locale,
+      maxDate: this.props.maxDate,
+      minDate: this.props.minDate,
+      monthFormat: 'MMM',
+      onChange: this.handleDateSelect,
+      ref: (input) => { this.datepicker = input; },
+      theme: null,
+      weekDayNames: moment.localeData(I18n.locale)._weekdaysMin,
+      weekNumbers: false
+    };
+  }
+
+  /**
+   * A getter that returns navbar specific props
+   *
+   * @method navBarProps
+   * @return {Object} props for the navbar
+   */
+  get navBarProps() {
+    return {
+      navDateFormat: 'MMMM YYYY',
+      arrows: { prev: '‹', next: '›' },
+      theme: null
+    };
+  }
+
+
+  renderDatePicker() {
+    return (
+      <MonthView { ...this.datePickerProps }>
+        <NavBar { ...this.navBarProps } />
+      </MonthView>
+    );
   }
 
   /**
@@ -388,7 +426,7 @@ class Date extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let datePicker = (this.state.open) ? <DatePicker { ...this.datePickerProps } /> : null;
+    let datePicker = this.state.open ? this.renderDatePicker() : null;
 
     return (
       <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
@@ -397,11 +435,25 @@ class Date extends React.Component {
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />
         { datePicker }
-        { this.validationHTML }
+
         { this.fieldHelpHTML }
 
       </div>
     );
+  }
+
+  /**
+   * Sanitizes all valid date separators ( . - 'whitespace' ) replacing them
+   * with a slash
+   *
+   * This allows us to compare against one separator in the i18n string. DD/MM/YYYY
+   *
+   * @method _sanitizeDateInput
+   * @private
+   * @return {String} sanitized input
+   */
+  _sanitizeDateInput(input) {
+    return input.replace(/[^0-9A-zÀ-ÿ\s\/\.\-]/g, "").replace(/[-.\s]/g, "/").toLowerCase();
   }
 }
 ))));
@@ -418,7 +470,7 @@ export default Date;
  * @return {String} formatted date string
  */
 function visibleFormat() {
-  return I18n.t('date.formats.javascript', { defaultValue: "DD MMM YYYY" }).toUpperCase();
+  return I18n.t('date.formats.javascript', { defaultValue: "DD/MM/YYYY" }).toUpperCase();
 }
 
 /**
@@ -429,7 +481,7 @@ function visibleFormat() {
  * @return {Array} formatted date strings
  */
 function validFormats() {
-  return I18n.t('date.formats.inputs', { defaultValue: ["MMM DD YY", "DD-MM", "DD-MM-YYYY"] });
+  return I18n.t('date.formats.inputs', { defaultValue: ["MMM/DD/YY", "DD/MM", "DD/MM/YYYY", "DD/MMM/YYYY", "YYYY/MM/DD"] });
 }
 
 /**
@@ -454,7 +506,7 @@ function hiddenFormat() {
  * @return {String} formatted date
  */
 function formatValue(val, formatFrom, formatTo) {
-  let date = moment(val, formatFrom);
+  let date = moment(val, formatFrom, I18n.locale, true);
   return date.format(formatTo);
 }
 

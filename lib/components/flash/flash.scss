@@ -59,28 +59,29 @@
 .carbon-flash__message {
   color: $white;
   font-size: 14px;
-  margin: 20px 60px;
+  margin: 20px 70px;
   position: relative;
   text-align: left;
 }
 
 .carbon-flash__icon {
+  display: flex;
   left: 0;
-  margin-top: -20px;
   position: absolute;
-  top: 50%;
+  width: 70px;
 
   &:before {
     color: $white;
-    font-size: 50px;
-    line-height: 36px;
+    font-size: 16px;
+    margin: auto;
   }
 }
 
 .carbon-flash__icon {
   .carbon-icon__svg {
-    height: 40px;
-    width: 50px;
+    height: 16px;
+    margin: auto;
+    width: 16px;
   }
 
   .carbon-icon__svg-group {
@@ -88,15 +89,19 @@
   }
 }
 
-.carbon-flash__close-icon {
+.carbon-flash__close {
   color: #FFF;
   cursor: pointer;
-  margin-top: -8px;
+  display: flex;
   outline: none;
-  padding: 0 15px 15px 0;
   position: absolute;
   right: 0;
-  top: 50%;
+  top: 0;
+  width: 70px;
+  &:before {
+    font-size: 16px;
+    margin: auto;
+  }
 }
 
 /**

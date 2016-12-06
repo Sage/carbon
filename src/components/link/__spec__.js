@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Link from './link';
+
 import Icon from './../icon';
+import Link from './link';
+import Event from 'utils/helpers/events';
 
 describe('Link', () => {
   let basicLink, disabledLink, customLink, actionLink, spy;
@@ -43,6 +46,21 @@ describe('Link', () => {
   describe('A disabled link', () => {
     it('renders a link with the disabled attribute', () => {
       expect(disabledLink.props.disabled).toBeTruthy();
+    });
+  });
+
+  describe("tabbable", () => {
+    it("has tabindex by default", () => {
+      let wrapper = shallow(<Link href='#'>My Link</Link>);
+      expect(wrapper.props()['tabIndex']).toEqual('0');
+    });
+    it("disabled over-rides tab index setting", () => {
+      let wrapper = shallow(<Link href='#' tabbable={ true } disabled={ true }>My Link</Link>);
+      expect(wrapper.props()['tabIndex']).toEqual('-1');
+    });
+    it("doesn't have tab index if it is set to not be tabbable", () => {
+      let wrapper = shallow(<Link href='#' tabbable={ false }>My Link</Link>);
+      expect(wrapper.props()['tabIndex']).toEqual('-1');
     });
   });
 
@@ -167,6 +185,60 @@ describe('Link', () => {
       it('it replaces the prefix', () => {
         instance = TestUtils.renderIntoDocument(<Link to="href:/foo" />);
         expect(instance.url).toBe("/foo");
+      });
+    });
+  });
+
+  describe('onKeyDown', () => {
+    let instance, spy;
+
+    beforeEach(() => {
+      spy = jasmine.createSpy('link event');
+      instance = TestUtils.renderIntoDocument(<Link />);
+    });
+
+    it('calls onKeyDown class method', () => {
+      spyOn(instance, 'onKeyDown');
+      instance.componentProps.onKeyDown('foo');
+      expect(instance.onKeyDown).toHaveBeenCalledWith('foo');
+    });
+
+    it('calls original onKeyDown if one is provided', () => {
+      instance = TestUtils.renderIntoDocument(<Link onKeyDown={ spy } />);
+      instance.onKeyDown('foo');
+      expect(spy).toHaveBeenCalledWith('foo');
+    });
+
+    describe('an onClick is provided', () => {
+      describe('a href if provided', () => {
+        it('does not call onClick', () => {
+          instance = TestUtils.renderIntoDocument(<Link onClick={ spy } href="#" />);
+          spyOn(Event, 'isEnterKey').and.returnValue(true);
+          instance.onKeyDown('foo');
+          expect(spy).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('a href is not provided', () => {
+        beforeEach(() => {
+          instance = TestUtils.renderIntoDocument(<Link onClick={ spy } />);
+        });
+
+        describe('it is not the enter key', () => {
+          it('does not call onClick', () => {
+            spyOn(Event, 'isEnterKey').and.returnValue(false);
+            instance.onKeyDown('foo');
+            expect(spy).not.toHaveBeenCalled();
+          });
+        });
+
+        describe('it is the enter key', () => {
+          it('does calls the onClick', () => {
+            spyOn(Event, 'isEnterKey').and.returnValue(true);
+            instance.onKeyDown('foo');
+            expect(spy).toHaveBeenCalledWith("foo");
+          });
+        });
       });
     });
   });

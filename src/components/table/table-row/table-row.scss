@@ -9,8 +9,8 @@
   cursor: pointer;
 }
 
-.carbon-table-row--selected .carbon-table-cell {
-  background-color: $row-hover-color !important;
+.carbon-table-row--highlighted .carbon-table-cell {
+  background-color: $row-highlight-color !important;
   border-bottom-color: $blue-navy;
   position: relative;
 
@@ -22,5 +22,32 @@
     position: absolute;
     top: -1px;
     width: 100%;
+  }
+}
+
+.carbon-table-row--selected .carbon-table-cell * {
+  background: transparent;
+  border-color: white;
+  color: white;
+}
+
+.carbon-table-row--selected,
+.carbon-table-row--selected:nth-child(odd),
+.carbon-table-row--selected:hover {
+  .carbon-table-cell {
+    background-color: $blue-sky;
+    border-bottom-color: $blue;
+    color: white;
+    position: relative;
+
+    &:before {
+      background-color: $blue;
+      content: "";
+      height: 1px;
+      left: 0;
+      position: absolute;
+      top: -1px;
+      width: 100%;
+    }
   }
 }
