@@ -1,3 +1,9 @@
+# 0.31.0
+
+## MultiStepWizard Component
+
+We have updated MultiStepWizard's default buttons as primary.
+
 # 0.30.0
 
 ## SettingsRow Component
