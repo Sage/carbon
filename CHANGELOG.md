@@ -1,3 +1,9 @@
+# 0.31.0
+
+## Component Enhancements
+
+* `Form`: Two new props have been added, `saveButtonProps` and `cancelButtonProps`, to apply props to Form buttons.
+
 # 0.30.0
 
 ## SettingsRow Component
