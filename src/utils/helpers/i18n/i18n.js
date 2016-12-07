@@ -123,9 +123,13 @@ const I18nHelper = {
   formatCurrency: (valueToFormat = 0, options = {}) => {
     let locale = options['locale'] || I18n.locale || 'en',
         format = I18nHelper.format(locale),
-        precision = options['precision'] || 2,
+        precision = options['precision'],
         unit = options['unit'] || format.unit,
         structure = options['format'] || format.format;
+
+    if (typeof(precision) === "undefined" || precision === null) {
+      precision = 2;
+    }
 
     return  I18n.toCurrency(valueToFormat, {
       precision: precision,
