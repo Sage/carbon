@@ -1,0 +1,4 @@
+{
+  "style": "pod-content.scss",
+  "main": "./pod-content.js"
+}

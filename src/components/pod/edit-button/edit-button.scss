@@ -1,0 +1,39 @@
+@import "./../../../style-config/colors";
+
+.carbon-edit-button {
+  border-radius: 4px;
+  height: 16px;
+  width: 16px;
+
+  &--border {
+    border: 1px solid $border-color;
+  }
+
+  &--primary {
+    background-color: $white;
+  }
+  &--secondary {
+    background-color: $background-alt;
+  }
+  &--tertiary {
+    background-color: $grey-dark-blue-10;
+  }
+
+  &--transparent {
+    background-color: transparent;
+  }
+
+  &--padding-extra-small {
+    padding: 6px;
+  }
+
+  &--padding-small {
+    padding: 10px;
+  }
+
+  &--padding-extra-large,
+  &--padding-large,
+  &--padding-medium {
+    padding: 15px;
+  }
+}
