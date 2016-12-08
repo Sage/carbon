@@ -1,3 +1,59 @@
+# 0.31.0
+
+## Component Enhancements
+
+* `Form`: Two new props have been added, `saveButtonProps` and `cancelButtonProps`, to apply props to Form buttons.
+
+## Helper Enhancements
+
+* `Browser`: A new `postToNewWindow` method has been added, for sending POST data to a new browser window/tab.
+
+## CSS Changes
+
+* Added `$beta` orange color variable
+
+# 0.30.0
+
+## SettingsRow Component
+
+We have added a settings row component for settings pages. It employs the current UX standard for the appearance of settings pages. Title, description, and any details (accepts nodes) are formatted into the header, while children are rendered in the input cell. Renders nothing if no children present.
+
+```
+<SettingsRow
+  className='mysetting-row'
+  title='My Setting'
+  description='Some descriptive text'
+  description={ <span>Detailed description</span> }> }
+>
+  <Checkbox label='Enable my setting' />
+  <div>Some other blurb about the setting</div>
+</SettingsRow>
+```
+
+## CSS Changes
+
+* Portrait initials are now dark grey on grey
+
+## Component Enhancements
+
+* `Heading`: One new prop has been added, `separator`, to show a 2x50px separator between title and subheader.
+* All input components can now render an icon using the prop `icon`.
+* `Portrait`: Now displays an icon in place of a blank box when the image has not been set and the initials are an empty string.
+
+# 0.29.3
+
+## Bug Fixes
+
+* single quote(') is valid in email address now.
+
+# 0.29.2
+
+## Bug Fixes
+
+* Readded the `carbon-tabs` class to the Tabs component.
+* Clear any selected rows too in refresh()
+* SelectedRows should be reset to the same object it is defined with
+
 # 0.29.1
 
 ## CSS Update
@@ -39,6 +95,7 @@
 
 * `Message`: Two new props have been added, `border` and `roundedCorners`.
 * `Dropdown`: One new prop has been added, `cacheVisibleValue`.
+* `Tabs` now can take a prop of 'position' which supports floating to the left and being positioned in a vertical stack.
 
 ## Helpers
 
@@ -186,7 +243,6 @@ import 'react-highcharts/dist/bundle/highcharts';
 * `Pod` enter triggers edit function and edit element is keyboard accessible
 * `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
 * `Tabs` focus state is given the same styles as hover state
-* `Tabs` now can take a prop of 'position' which supports floating to the left and being positioned in a vertical stack.
 * `Pager` component now emits which element has changed.
 * `Sidebar` now takes a size prop (e.g. `extra-small`, `small`, ...`extra-large`)
 
