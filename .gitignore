@@ -7,3 +7,4 @@ demo2/assets
 .DS_Store
 .browser-preferences/
 .idea
+yarn.lock

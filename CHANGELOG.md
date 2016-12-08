@@ -8,6 +8,10 @@
 
 * Banner Component has been Deleted in favour of the Message Component
 
+## Dependency Update
+
+* Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+
 # 0.30.0
 
 ## SettingsRow Component
