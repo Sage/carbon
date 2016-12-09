@@ -1,5 +1,13 @@
 # 0.31.0
 
+## MultiStepWizard Component
+
+We have updated MultiStepWizard's default buttons as primary.
+
+## Pod Component
+
+Now takes a legacy style flag that switches the styles back
+
 ## Component Enhancements
 
 * `Icon`: Three new props have been added:
