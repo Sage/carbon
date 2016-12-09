@@ -127,6 +127,7 @@ const I18nHelper = {
         unit = options['unit'] || format.unit,
         structure = options['format'] || format.format;
 
+    // Checking explicitly as 0 is a valid precision
     if (typeof(precision) === "undefined" || precision === null) {
       precision = 2;
     }
