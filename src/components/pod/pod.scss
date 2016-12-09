@@ -226,3 +226,38 @@
 .carbon-pod__content {
   text-align: left;
 }
+
+.carbon-pod--legacy-edit-style {
+  position: relative;
+
+  &.carbon-pod--editable .carbon-pod__block {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .carbon-pod__edit-button-container {
+    position: absolute;
+    right: -1px;
+    top: 1px;
+    z-index: 10;
+  }
+
+  .carbon-pod__edit-action {
+    border: none;
+  }
+
+  &.carbon-pod--is-hovered {
+    .carbon-link__anchor {
+      background-color: transparent;
+      color: $blue;
+
+      * {
+        color: $blue;
+      }
+    }
+
+    .carbon-pod__block {
+      background-color: inherit;
+    }
+  }
+}
