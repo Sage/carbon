@@ -246,7 +246,13 @@
     border: none;
   }
 
-  &.carbon-pod--is-hovered {
+  &.carbon-pod--is-hovered.carbon-pod--is-hovered {
+    color: $grey-dark-blue;
+
+    * {
+      color: $grey-dark-blue;
+    }
+
     .carbon-link__anchor {
       background-color: transparent;
       color: $blue;
@@ -257,7 +263,19 @@
     }
 
     .carbon-pod__block {
-      background-color: inherit;
+      background-color: $white;
+      &--secondary {
+        background-color: $background-alt;
+      }
+      &--tertiary {
+        background-color: $grey-dark-blue-10;
+      }
+      &--tile {
+        background-color: transparent;
+      }
+      &--transparent {
+        background-color: transparent;
+      }
     }
   }
 }
