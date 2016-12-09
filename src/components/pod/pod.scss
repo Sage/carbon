@@ -35,6 +35,10 @@
     * {
       color: $white;
     }
+
+    .carbon-portrait .carbon-icon__svg path {
+      color: $grey-dark-blue-50;
+    }
   }
 
   .carbon-pod__display-on-hover {
@@ -221,4 +225,57 @@
 
 .carbon-pod__content {
   text-align: left;
+}
+
+.carbon-pod--legacy-edit-style {
+  position: relative;
+
+  &.carbon-pod--editable .carbon-pod__block {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .carbon-pod__edit-button-container {
+    position: absolute;
+    right: -1px;
+    top: 1px;
+    z-index: 10;
+  }
+
+  .carbon-pod__edit-action {
+    border: none;
+  }
+
+  &.carbon-pod--is-hovered.carbon-pod--is-hovered {
+    color: $grey-dark-blue;
+
+    * {
+      color: $grey-dark-blue;
+    }
+
+    .carbon-link__anchor {
+      background-color: transparent;
+      color: $blue;
+
+      * {
+        color: $blue;
+      }
+    }
+
+    .carbon-pod__block {
+      background-color: $white;
+      &--secondary {
+        background-color: $background-alt;
+      }
+      &--tertiary {
+        background-color: $grey-dark-blue-10;
+      }
+      &--tile {
+        background-color: transparent;
+      }
+      &--transparent {
+        background-color: transparent;
+      }
+    }
+  }
 }

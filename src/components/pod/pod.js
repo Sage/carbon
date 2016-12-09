@@ -126,7 +126,6 @@ class Pod extends React.Component {
     editContentFullWidth: React.PropTypes.bool,
 
     /**
-     *
      * Determines if the edit button should be hidden until the user
      * hovers over the content.
      *
@@ -136,13 +135,20 @@ class Pod extends React.Component {
     displayEditButtonOnHover: React.PropTypes.bool,
 
     /**
-     *
      * Determines if clicking the pod content calls the onEdit action
      *
      * @property triggerEditOnContent
      * @type {Boolean}
      */
-    triggerEditOnContent: React.PropTypes.bool
+    triggerEditOnContent: React.PropTypes.bool,
+
+    /**
+     * Resets edit button styles to an older version
+     *
+     * @property legacyEditStyles
+     * @type {Boolean}
+     */
+    legacyEditStyles: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -291,7 +297,8 @@ class Pod extends React.Component {
       `carbon-pod--${ this.props.alignTitle }`, {
         "carbon-pod--editable": this.props.onEdit,
         'carbon-pod--is-hovered': this.state.hoverEdit,
-        'carbon-pod--content-triggers-edit': this.shouldContentHaveEditProps
+        'carbon-pod--content-triggers-edit': this.shouldContentHaveEditProps,
+        'carbon-pod--legacy-edit-style': this.props.legacyEditStyles
       }
     );
   }
