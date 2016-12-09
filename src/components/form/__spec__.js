@@ -436,6 +436,26 @@ describe('Form', () => {
         buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
         expect(buttons[0].disabled).toBeTruthy();
       });
+
+      describe('when saveButtonProps is passed', () => {
+        it('sets save button props', () => {
+          let theme = 'magenta';
+
+          instance = TestUtils.renderIntoDocument(<Form saveButtonProps={ { theme: theme } } />);
+          buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+          expect(buttons[0].className).toContain(`carbon-button--${theme}`);
+        });
+      });
+
+      describe('when cancelButtonProps is passed', () => {
+        it('sets cancel button props', () => {
+          let theme = 'red';
+
+          instance = TestUtils.renderIntoDocument(<Form cancelButtonProps={ { theme: theme } } />);
+          buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+          expect(buttons[1].className).toContain(`carbon-button--${theme}`);
+        });
+      });
     });
 
     describe('Cancel Button', () => {
@@ -535,6 +555,5 @@ describe('Form', () => {
         expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
       });
     });
-
   });
 });

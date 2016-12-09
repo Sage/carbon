@@ -3,6 +3,7 @@ import Button from './../button';
 import I18n from "i18n-js";
 import Serialize from "form-serialize";
 import classNames from 'classnames';
+import { assign } from 'lodash';
 
 /**
  * A Form widget.
@@ -29,7 +30,6 @@ import classNames from 'classnames';
  * @constructor
  */
 class Form extends React.Component {
-
   /**
    * stores the document - allows us to override it different contexts, such as
    * when running tests.
@@ -49,7 +49,6 @@ class Form extends React.Component {
   _window = window;
 
   static propTypes = {
-
     /**
      * currently active input which is used to track which error message to show on the form
      *
@@ -114,6 +113,14 @@ class Form extends React.Component {
     cancelText: React.PropTypes.string,
 
     /**
+     * Properties for the cancel button
+     *
+     * @property cancelButtonProps
+     * @type {Object}
+     */
+    cancelButtonProps: React.PropTypes.object,
+
+    /**
      * Text for the save button
      *
      * @property saveText
@@ -121,6 +128,14 @@ class Form extends React.Component {
      * @default "Save"
      */
     saveText: React.PropTypes.string,
+
+    /**
+     * Properties for the save button
+     *
+     * @property saveButtonProps
+     * @type {Object}
+     */
+    saveButtonProps: React.PropTypes.object,
 
     /**
      * Custom function for Cancel button onClick
@@ -468,10 +483,11 @@ class Form extends React.Component {
    * @return {Object} JSX cancel button
    */
   get cancelButton() {
-    let cancelClasses = "carbon-form__cancel";
+    let cancelClasses = "carbon-form__cancel",
+        cancelProps = assign({}, this.props.cancelButtonProps, { type: 'button', onClick: this.cancelForm });
 
     return (<div className={ cancelClasses }>
-      <Button type='button' onClick={ this.cancelForm } >
+      <Button { ...cancelProps }>
         { this.props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' }) }
       </Button>
     </div>);
@@ -493,13 +509,13 @@ class Form extends React.Component {
    * @return {Object} JSX save button
    */
   get saveButton() {
-    let errorCount;
-
-    let saveClasses = classNames(
-      "carbon-form__save", {
-        "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
-      }
-    );
+    let errorCount,
+        saveClasses = classNames(
+          "carbon-form__save", {
+            "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
+          }
+        ),
+        saveProps = assign({}, this.props.saveButtonProps, { as: 'primary', disabled: this.props.saving });
 
     if (this.state.errorCount || this.state.warningCount) {
       // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
@@ -514,7 +530,7 @@ class Form extends React.Component {
     return (
       <div className={ saveClasses }>
         { errorCount }
-        <Button as="primary" disabled={ this.props.saving }>
+        <Button { ...saveProps }>
           { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
         </Button>
       </div>
