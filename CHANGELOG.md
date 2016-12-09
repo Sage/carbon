@@ -45,7 +45,6 @@
 
 * `Message`: Two new props have been added, `border` and `roundedCorners`.
 * `Dropdown`: One new prop has been added, `cacheVisibleValue`.
-* `Tabs` now can take a prop of 'position' which supports floating to the left and being positioned in a vertical stack.
 
 ## Helpers
 
@@ -193,6 +192,7 @@ import 'react-highcharts/dist/bundle/highcharts';
 * `Pod` enter triggers edit function and edit element is keyboard accessible
 * `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
 * `Tabs` focus state is given the same styles as hover state
+* `Tabs` now can take a prop of 'position' which supports floating to the left and being positioned in a vertical stack.
 * `Pager` component now emits which element has changed.
 * `Sidebar` now takes a size prop (e.g. `extra-small`, `small`, ...`extra-large`)
 
