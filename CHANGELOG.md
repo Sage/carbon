@@ -8,6 +8,19 @@ We have updated MultiStepWizard's default buttons as primary.
 
 Now takes a legacy style flag that switches the styles back
 
+## Component Enhancements
+
+* `Icon`: Three new props have been added:
+  * `bgShape`: 'square', 'rounded-rect', or 'circle'.
+  * `bgTheme`: 'warning', 'default', 'error', 'info', 'new', 'success', 'help', or 'maintenance'
+  * `bgSize`: 'small' (default), 'medium', or 'large' - only modifies overall icon size if `bgShape` or `bgTheme` is passed.
+
+* `Form`: Two new props have been added, `saveButtonProps` and `cancelButtonProps`, to apply props to Form buttons.
+
+## CSS Changes
+
+* Added `$beta` orange color variable
+
 # 0.30.0
 
 ## SettingsRow Component
