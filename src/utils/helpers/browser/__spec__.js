@@ -145,9 +145,9 @@ describe('Browser', () => {
       it('creates a container', () => {
         doc.getElementById = jasmine.createSpy();
         Browser.postToNewWindow(url, data);
-        expect(doc.getElementById).toHaveBeenCalledWith('carbon_post_form_container');
+        expect(doc.getElementById).toHaveBeenCalledWith('carbonPostFormContainer');
         expect(doc.createElement).toHaveBeenCalledWith('div');
-        expect(container.id).toEqual('carbon_post_form_container');
+        expect(container.id).toEqual('carbonPostFormContainer');
         expect(body.append).toHaveBeenCalledWith(container);
       });
     });
@@ -157,7 +157,7 @@ describe('Browser', () => {
         doc.createElement.calls.reset();
         body.append.calls.reset();
         Browser.postToNewWindow(url, data);
-        expect(doc.getElementById).toHaveBeenCalledWith('carbon_post_form_container');
+        expect(doc.getElementById).toHaveBeenCalledWith('carbonPostFormContainer');
         expect(doc.createElement).not.toHaveBeenCalled();
         expect(body.append).not.toHaveBeenCalled();
       });

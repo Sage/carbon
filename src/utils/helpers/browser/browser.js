@@ -102,7 +102,7 @@ const Browser = {
    */
   postToNewWindow: (url, data, target = '_blank') => {
     let doc = Browser.getDocument(),
-        containerId = 'carbon_post_form_container',
+        containerId = 'carbonPostFormContainer',
         container = doc.getElementById(containerId),
         form;
 
