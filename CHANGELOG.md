@@ -1,3 +1,9 @@
+# 0.31.2
+
+## Bug fix
+
+* `Pod`: bug fixed with link and hover event props being mixed up
+
 # 0.31.1
 
 ## Bug fix
