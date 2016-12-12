@@ -1,3 +1,9 @@
+# 0.31.1
+
+## Bug fix
+
+* `I18nHelper.formatCurrency`: returns integer with option { precision: 0 }.
+
 # 0.31.0
 
 ## Component Enhancements
