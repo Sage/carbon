@@ -17,6 +17,10 @@ Now takes a legacy style flag that switches the styles back
 
 * `Form`: Two new props have been added, `saveButtonProps` and `cancelButtonProps`, to apply props to Form buttons.
 
+## Helper Enhancements
+
+* `Browser`: A new `postToNewWindow` method has been added, for sending POST data to a new browser window/tab.
+
 ## CSS Changes
 
 * Added `$beta` orange color variable
