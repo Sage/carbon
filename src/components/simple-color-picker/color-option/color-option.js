@@ -1,6 +1,7 @@
 import React from 'react';
-import Input from 'carbon/lib/utils/decorators/input'; // TODO
-import Icon from 'carbon/lib/components/icon';
+
+import Input from './../../../utils/decorators/input';
+import Icon from './../../icon';
 import classNames from 'classnames';
 import { trim } from 'lodash';
 

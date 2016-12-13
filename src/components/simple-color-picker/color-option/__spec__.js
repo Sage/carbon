@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import ColorOption from './';
-import Icon from 'carbon/lib/components/icon';
+import Icon from './../../icon';
 import { shallow  } from 'enzyme';
 
 describe('ColorOption', () => {
