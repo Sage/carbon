@@ -185,6 +185,13 @@ describe('I18n Helper', () => {
       });
     });
 
+    describe('when 0 is provided as precision', () => {
+      it('returns an integer with no decimal', () => {
+        expect(Helper.formatCurrency(1337, { precision: 0 })).toEqual('£1,337');
+        expect(Helper.formatCurrency(1337, { precision: '0' })).toEqual('£1,337');
+      });
+    });
+
     describe('when a value is provided with a set unit', () => {
       it('returns a formatted value based on defaults and set unit', () => {
         expect(Helper.formatCurrency(1337, { unit: '$' })).toEqual('$1,337.00');
