@@ -13,7 +13,8 @@ import GetCodeButtons from '../../components/get-code-buttons';
 import ComponentList from './component-list';
 
 const styles = [
-   { name: 'Colours' },
+   { name: 'Colors', href: '/colors' },
+   { name: 'Icons', href: '/icons' },
    { name: 'Text' }
 ];
 
@@ -28,7 +29,7 @@ class Menu extends React.Component {
   }
   get stylesHTML() {
     return styles.map((item, i) => {
-      return <MenuListItem key={ i } name={ item.name }><Link>{ item.name }</Link></MenuListItem>;
+      return <MenuListItem key={ i } name={ item.name }><Link href={ item.href }>{ item.name }</Link></MenuListItem>;
     });
   }
 
@@ -42,7 +43,9 @@ class Menu extends React.Component {
         position="left"
         size='small'
       >
-        <SidebarHeader className='demo-menu__header' />
+        <Link href='/'>
+          <SidebarHeader className='demo-menu__header' />
+        </Link>
 
         <MenuList
           className='demo-menu__menu'

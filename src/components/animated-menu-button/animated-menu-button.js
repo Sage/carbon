@@ -3,6 +3,7 @@ import Icon from './../icon';
 import Devices from './../../utils/helpers/devices';
 import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { validProps } from '../../utils/ether';
 
 /**
  * An AnimatedMenuButton widget.
@@ -177,7 +178,7 @@ class AnimatedMenuButton extends React.Component {
    * @return {Object} props including class names & event handlers.
    */
   get componentProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     props.className = this.mainClasses;
     props.onMouseEnter = this.openHandler;
     props.onMouseLeave = this.closeHandler;

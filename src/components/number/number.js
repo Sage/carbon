@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
+import { validProps } from '../../utils/ether';
 
 /**
  * A number widget. It only allows entering of a whole number with an
@@ -92,7 +93,7 @@ class Number extends React.Component {
    * @return {Object} props for the input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     props.className = this.inputClasses;
     props.onChange = this.handleOnChange;
     props.onKeyDown = this.handleKeyDown;

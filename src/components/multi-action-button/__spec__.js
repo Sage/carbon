@@ -54,7 +54,7 @@ describe('SplitButton', () => {
     });
 
     it('adds right aligned class', () => {
-      instance = TestUtils.renderIntoDocument(<MultiActionButton align="right" text='foo' />);
+      instance = TestUtils.renderIntoDocument(<MultiActionButton align="right" text="Main Button" />);
       expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-multi-action-button--align-right').length).toEqual(1);
     });
   });

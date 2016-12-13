@@ -1,4 +1,7 @@
 {
   "main": "./menu.js",
-  "style": "./menu.scss"
+  "style": "./menu.scss",
+  "images": [
+    "./carbon_logo-1.svg"
+  ]
 }

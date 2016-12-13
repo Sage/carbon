@@ -1,0 +1,4 @@
+{
+  "main": "./sub-page-chrome.js",
+  "style": "./sub-page-chrome.scss"
+}

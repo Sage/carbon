@@ -1,3 +1,17 @@
+# 1.0.0
+
+## :warning: Major Change - React 15 Upgrade
+
+* React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
+
+## !! BREAKING CHANGES!! :warning:
+
+* Banner Component has been Deleted in favour of the Message Component
+
+## Dependency Update
+
+* Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+
 # 0.31.1
 
 ## Bug fix

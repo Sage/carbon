@@ -2,7 +2,7 @@
 @import "../../../demo-variables";
 
 .page-header-large{
-  padding: 80px 0 30px 0;
+  padding: 80px 0 120px 0;
   position: relative;
   text-align: center;
 
@@ -17,25 +17,13 @@
 }
 
 .page-header-large__background {
+  background: $header-background-gradient;
+  height: 100%;
+  left: 0;
   position: relative;
-  left: 0;
   right: 0;
-  height: 100%;
   width: 100%;
-}
-
-.page-header-large__background-angled {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
-  background: linear-gradient(37deg, #1E4486, #372159);
-  @media (min-width: $response-point-medium) {
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 62.94%, 0 100%);
-  }
+  z-index: 1;
 }
 
 .page-header-large__titles {
@@ -74,6 +62,5 @@
 .page-header-large__version {
   font-weight: 100;
   letter-spacing: 0.3px;
-  margin-bottom: 90px;
   margin-top: 20px;
 }

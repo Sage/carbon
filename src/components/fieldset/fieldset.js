@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { validProps } from '../../utils/ether';
 
 /**
  * Fieldset component.
@@ -7,7 +8,8 @@ import classNames from 'classnames';
  * This component will stack inputs together.
  */
 class Fieldset extends React.Component {
-  static PropTypes = {
+
+  static propTypes = {
     /**
      * A label for the fieldset.
      *
@@ -15,7 +17,8 @@ class Fieldset extends React.Component {
      * @type {String}
      */
     legend: React.PropTypes.string
-  }
+  };
+
 
   /**
    * Returns the legend if on is defined.
@@ -37,7 +40,7 @@ class Fieldset extends React.Component {
    * @method render
    */
   render() {
-    let { className, ...props } = this.props,
+    let { className, ...props } = validProps(this),
         classes = classNames("carbon-fieldset", className);
 
     return (

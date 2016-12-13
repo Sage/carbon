@@ -17,15 +17,15 @@ import Link from 'components/link';
  */
 export default props => (
   <Link href={ props.linkDetails.href }>
-    <span className={ `demo-arrow-link demo-arrow-link--${props.direction}` }>
-      <span className='demo-arrow-link__text'>
+    <div className={ `demo-arrow-link demo-arrow-link--${props.direction}` }>
+      <div className='demo-arrow-link__text'>
         <span className='demo-arrow-link__prefix'>{ props.prefix }</span>
         <span className='demo-arrow-link__label'>{ props.linkDetails.label }</span>
-      </span>
+      </div>
       <Icon
         className='demo-arrow-link__icon'
         type={ props.direction === 'forwards' ? 'arrow_right' : 'arrow_left' }
       />
-    </span>
+    </div>
   </Link>
 );

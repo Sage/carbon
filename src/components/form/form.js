@@ -4,6 +4,7 @@ import I18n from "i18n-js";
 import Serialize from "form-serialize";
 import classNames from 'classnames';
 import { assign } from 'lodash';
+import { validProps } from '../../utils/ether';
 
 /**
  * A Form widget.
@@ -84,6 +85,14 @@ class Form extends React.Component {
      * @type {Function}
      */
     beforeFormValidation: React.PropTypes.func,
+
+    /**
+     * Alignment of submit button
+     *
+     * @ property
+     * @type {String}
+     */
+    buttonAlign: React.PropTypes.string,
 
     /**
      * Determines if the form is in a saving state
@@ -430,7 +439,7 @@ class Form extends React.Component {
    * @return {Object} props for form element
    */
   htmlProps = () => {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     delete props.onSubmit;
     props.className = this.mainClasses;
     return props;

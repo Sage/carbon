@@ -1,0 +1,19 @@
+@import "colors";
+
+.demo-download {
+  color: $grey-dark-blue;
+  display: flex;
+  height: 26px;
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    line-height: 13px;
+  }
+
+  .icon-download:before {
+    font-size: 26px;
+    line-height: 26px;
+    margin-right: 0.5em;
+  }
+}
