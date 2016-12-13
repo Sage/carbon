@@ -3,6 +3,7 @@ import Button from './../button';
 import I18n from "i18n-js";
 import Serialize from "form-serialize";
 import classNames from 'classnames';
+import { assign } from 'lodash';
 import { validProps } from '../../utils/ether';
 import { assign } from 'lodash';
 
