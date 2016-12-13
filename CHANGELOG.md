@@ -1,3 +1,4 @@
+
 # 0.32.0
 
 ## MountInApp Component
@@ -11,6 +12,12 @@ Can be used to integrate React components into pre-existing user interfaces.
 ```
 
 The code above will render all `//Children` components inside of the element with ID=`put_carbon_component_here` found on the page.
+
+# 0.31.1
+
+## Bug fix
+
+* `I18nHelper.formatCurrency`: returns integer with option { precision: 0 }.
 
 # 0.31.0
 
