@@ -185,13 +185,6 @@ describe('Pod', () => {
         expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--primary carbon-pod__edit-action--padding-medium carbon-pod__display-on-hover');
       });
     });
-
-    describe("if legacy edit styles are set", () => {
-      it("renders a class to switch styles", () => {
-        let wrapper = shallow(<Pod legacyEditStyles={ true }/>);
-        expect(wrapper.find('.carbon-pod--legacy-edit-style').length).toEqual(1);
-      });
-    });
   });
 
   describe('contentClasses', () => {

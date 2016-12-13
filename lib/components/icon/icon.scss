@@ -1,5 +1,4 @@
 @import "./../../style-config/assets";
-@import "./../../style-config/colors";
 
 .carbon-icon {
   display: inline-block;
@@ -12,47 +11,6 @@
 
 .carbon-icon__svg {
   fill: currentColor;
-}
-
-.carbon-icon--shape {
-  align-items: center;
-  display: inline-flex;
-  justify-content: center;
-}
-
-.carbon-icon--rounded-rect {
-  border-radius: 20%;
-}
-
-.carbon-icon--circle {
-  border-radius: 50%;
-}
-
-@mixin icon-background($type, $color, $border, $background, $color-hover) {
-  .carbon-icon--#{$type} {
-    background-color: $color;
-  }
-}
-
-@each $set in $colorIconSets {
-  @include icon-background($set...);
-}
-
-$iconSizes: (
-  ("small", 24px),
-  ("medium", 32px),
-  ("large", 40px)
-);
-
-@mixin icon-size($name, $size) {
-  .carbon-icon--#{$name} {
-    height: $size;
-    width: $size;
-  }
-}
-
-@each $set in $iconSizes {
-  @include icon-size($set...);
 }
 
 @font-face {
