@@ -12,39 +12,6 @@
 
 * Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
 
-# 0.31.1
-
-## Bug fix
-
-* `I18nHelper.formatCurrency`: returns integer with option { precision: 0 }.
-
-# 0.31.0
-
-## MultiStepWizard Component
-
-We have updated MultiStepWizard's default buttons as primary.
-
-## Pod Component
-
-Now takes a legacy style flag that switches the styles back
-
-## Component Enhancements
-
-* `Icon`: Three new props have been added:
-  * `bgShape`: 'square', 'rounded-rect', or 'circle'.
-  * `bgTheme`: 'warning', 'default', 'error', 'info', 'new', 'success', 'help', or 'maintenance'
-  * `bgSize`: 'small' (default), 'medium', or 'large' - only modifies overall icon size if `bgShape` or `bgTheme` is passed.
-
-* `Form`: Two new props have been added, `saveButtonProps` and `cancelButtonProps`, to apply props to Form buttons.
-
-## Helper Enhancements
-
-* `Browser`: A new `postToNewWindow` method has been added, for sending POST data to a new browser window/tab.
-
-## CSS Changes
-
-* Added `$beta` orange color variable
-
 # 0.30.0
 
 ## SettingsRow Component
