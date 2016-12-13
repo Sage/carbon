@@ -25,6 +25,18 @@ Now takes a legacy style flag that switches the styles back
 
 * Added `$beta` orange color variable
 
+## MountInApp Component
+
+Can be used to integrate React components into pre-existing user interfaces.
+
+```
+  <MountInApp targetId="put_carbon_component_here">
+    // Children
+  </MountInApp>
+```
+
+The code above will render all `//Children` components inside of the element with ID=`put_carbon_component_here` found on the page.
+
 # 0.30.0
 
 ## SettingsRow Component
