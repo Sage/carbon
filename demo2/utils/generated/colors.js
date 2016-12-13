@@ -24,6 +24,7 @@ export default [
     { name: '$red-20', hex: '#F7D9D9', fontContrast: 'dark' },
   ] },
   { name: 'Orange', children: [
+    { name: '$beta', hex: '#FF5400', fontContrast: 'dark' },
     { name: '$orange-bright', hex: '#FF7D00', fontContrast: 'dark' },
     { name: '$orange-bright-05', hex: '#FFF8F2', fontContrast: 'dark' },
     { name: '$orange-bright-20', hex: '#FFE4CC', fontContrast: 'dark' },
