@@ -7,7 +7,7 @@ import ColorOption from './color-option';
  *
  * == How to use a SimpleColorPicker in a component:
  *
- *   import SimpleColorPicker from 'components/simple-color-picker';
+ *   import SimpleColorPicker from 'carbon/lib/components/simple-color-picker';
  *
  *   <SimpleColorPicker
  *     availableColors={ ['transparent', '#ff0102', '#34ff01'] }
@@ -53,7 +53,7 @@ class SimpleColorPicker extends React.Component {
 
   render() {
     return (
-      <div className="simple-color-picker">
+      <div className="carbon-simple-color-picker">
         { this.colorOptions }
       </div>
     );

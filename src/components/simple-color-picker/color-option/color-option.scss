@@ -1,19 +1,19 @@
 @import "colors";
 
-.color-option {
+.carbon-color-option {
   float: left;
   margin-right: 1px;
   margin-bottom: 1px;
 }
 
-.color-option__color-sample {
+.carbon-color-option__color-sample {
   height: 56px;
   width: 56px;
 }
 
-.color-option__radio-button-input {
-  &:checked + .color-option__color-sample {
-    .color-option__tick { display: block; }
+.carbon-color-option__radio-button-input {
+  &:checked + .carbon-color-option__color-sample {
+    .carbon-color-option__tick { display: block; }
   }
 
   &:hover {
@@ -26,7 +26,7 @@
   width: 56px;
 }
 
-.color-option__tick {
+.carbon-color-option__tick {
   display: none;
   position: absolute;
   line-height: 51px;
@@ -36,6 +36,6 @@
   &:before { font-size: 22px; }
 }
 
-.color-option__color-sample--transparent {
+.carbon-color-option__color-sample--transparent {
   border: solid 1px $grey-dark-blue-30;
 }

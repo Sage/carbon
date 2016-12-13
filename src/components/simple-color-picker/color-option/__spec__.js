@@ -25,19 +25,19 @@ describe('ColorOption', () => {
       expect(input.prop('name')).toEqual('settings[theme_color]');
       expect(input.prop('value')).toEqual('#ab03ff');
       expect(input.prop('checked')).toBeFalsy();
-      expect(input.hasClass('color-option__radio-button-input')).toBeTruthy();
+      expect(input.hasClass('carbon-color-option__radio-button-input')).toBeTruthy();
     });
 
     it("contains a tick Icon", () => {
       let icon = instance.find(Icon).first();
       expect(icon.prop('type')).toEqual('tick');
-      expect(icon.hasClass('color-option__tick')).toBeTruthy();
+      expect(icon.hasClass('carbon-color-option__tick')).toBeTruthy();
     });
 
     it("contains a color-sample div", () => {
-      let colorSample = instance.find('.color-option__color-sample');
+      let colorSample = instance.find('.carbon-color-option__color-sample');
 
-      expect(colorSample.hasClass('color-option__color-sample--ab03ff')).toBeTruthy();
+      expect(colorSample.hasClass('carbon-color-option__color-sample--ab03ff')).toBeTruthy();
       expect(colorSample.prop('style').backgroundColor).toEqual("#ab03ff");
     });
   });

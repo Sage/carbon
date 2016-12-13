@@ -20,7 +20,7 @@ describe('SimpleColorPicker', () => {
   });
 
   it('has the carbon-simple-color-picker CSS class', () => {
-    expect(instance.prop('className')).toEqual('simple-color-picker');
+    expect(instance.prop('className')).toEqual('carbon-simple-color-picker');
   });
 
   it('renders three ColorOptions with appropriate colors', () => {

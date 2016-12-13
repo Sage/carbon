@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from 'carbon/lib/utils/decorators/input';
+import Input from 'carbon/lib/utils/decorators/input'; // TODO
 import Icon from 'carbon/lib/components/icon';
 import classNames from 'classnames';
 import { trim } from 'lodash';
@@ -22,7 +22,7 @@ class ColorOption extends React.Component {
 
   get inputProps() {
     return {
-      className: 'color-option__radio-button-input',
+      className: 'carbon-color-option__radio-button-input',
       onChange: this.props.onChange,
       checked: this.props.checked,
       name: this.props.name,
@@ -33,11 +33,11 @@ class ColorOption extends React.Component {
 
   get colorSampleClasses() {
     let color = trim(this.props.color, '#');
-    return classNames('color-option__color-sample', `color-option__color-sample--${color}`);
+    return classNames('carbon-color-option__color-sample', `carbon-color-option__color-sample--${color}`);
   }
 
   get tickedIcon() {
-    return <Icon type='tick' className="color-option__tick"/>;
+    return <Icon type='tick' className="carbon-color-option__tick"/>;
   }
 
   get colorSampleBox() {
@@ -56,7 +56,7 @@ class ColorOption extends React.Component {
 
   render() {
     return (
-      <div className='color-option'>
+      <div className='carbon-color-option'>
         { this.inputHTML }
       </div>
     );
