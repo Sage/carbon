@@ -15,8 +15,8 @@ class Home extends React.Component {
   render() {
     return (
       <Sectioniser
-        minDepth='20'
-        maxDepth='45'
+        minDepth='2'
+        maxDepth='5'
       >
         <PageHeaderLarge />
         <ComponentShowcase />
