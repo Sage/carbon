@@ -74,9 +74,9 @@ class ColorOption extends React.Component {
 
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <li className={ this.mainClasses }>
         { this.inputHTML }
-      </div>
+      </li>
     );
   }
 

@@ -6,6 +6,9 @@
   float: left;
   margin-right: 1px;
   margin-bottom: 1px;
+  list-style: none;
+
+  & + .carbon-color-option { margin-top: 0; }
 }
 
 .carbon-color-option__color-sample {

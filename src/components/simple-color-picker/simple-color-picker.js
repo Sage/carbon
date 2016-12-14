@@ -42,7 +42,7 @@ class SimpleColorPicker extends React.Component {
         onChange={ this.props.onChange }
         color={ color }
         checked={ isChecked }
-        key={ `color-box--${color}` }
+        key={ color }
       />
     );
   }
@@ -54,7 +54,9 @@ class SimpleColorPicker extends React.Component {
   render() {
     return (
       <div className="carbon-simple-color-picker">
-        { this.colorOptions }
+        <ul className="carbon-simple-color-picker__color-options">
+          { this.colorOptions }
+        </ul>
       </div>
     );
   }
