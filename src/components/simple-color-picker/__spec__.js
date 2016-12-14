@@ -2,25 +2,29 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import ColorOption from './color-option';
 import SimpleColorPicker from './';
-import { shallow  } from 'enzyme';
+import { mount } from 'enzyme';
 import { findIndex } from 'lodash';
 
-describe('SimpleColorPicker', () => {
-  let wrapper;
+fdescribe('SimpleColorPicker', () => {
+  let wrapper, selectedColor;
+
+  let onChangeHandler = jasmine.createSpy('onChangeHandler').and.callFake((ev) => {
+    selectedColor = ev.target.value;
+  });
 
   let props = {
     availableColors: ['transparent', '#ff00bb', '#112233'],
     selectedColor: '#112233',
     name: 'settings[page_color]',
-    onChange: () => { console.log('oops, something changed') }
+    onChange: onChangeHandler
   }
 
   beforeEach(() => {
-    wrapper = shallow(<SimpleColorPicker {...props}/>);
+    wrapper = mount(<SimpleColorPicker {...props}/>);
   });
 
   it('has the carbon-simple-color-picker CSS class', () => {
-    expect(wrapper.prop('className')).toEqual('carbon-simple-color-picker');
+    expect(wrapper.find('.carbon-simple-color-picker').length).toEqual(1);
   });
 
   it('renders three ColorOptions with appropriate colors', () => {
@@ -38,6 +42,16 @@ describe('SimpleColorPicker', () => {
       expect(option.prop('checked')).toEqual(isChecked);
     });
   })
+
+  it('calls the onChange callback when the selected color is changed', () => {
+    let colorOptions = TestUtils.scryRenderedDOMComponentsWithTag(wrapper.instance(), 'input')
+    let thirdColor = colorOptions[2];
+
+    TestUtils.Simulate.change(thirdColor);
+
+    expect(onChangeHandler).toHaveBeenCalled();
+    expect(selectedColor).toEqual('#112233');
+  });
 
 });
 
