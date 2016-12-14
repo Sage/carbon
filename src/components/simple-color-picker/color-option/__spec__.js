@@ -5,11 +5,11 @@ import Icon from './../../icon';
 import { shallow  } from 'enzyme';
 
 describe('ColorOption', () => {
-  let instance;
+  let wrapper;
 
   describe('unchecked option', () => {
     beforeEach(() => {
-      instance = shallow(<ColorOption
+      wrapper = shallow(<ColorOption
         color="#ab03ff"
         name="settings[theme_color]"
         checked={ false }
@@ -17,7 +17,7 @@ describe('ColorOption', () => {
     });
 
     it("contains a radio button ", () => {
-      let input = instance.find('input');
+      let input = wrapper.find('input');
       expect(input.length).toEqual(1);
       input = input.first();
 
@@ -29,13 +29,13 @@ describe('ColorOption', () => {
     });
 
     it("contains a tick Icon", () => {
-      let icon = instance.find(Icon).first();
+      let icon = wrapper.find(Icon).first();
       expect(icon.prop('type')).toEqual('tick');
       expect(icon.hasClass('carbon-color-option__tick')).toBeTruthy();
     });
 
     it("contains a color-sample div", () => {
-      let colorSample = instance.find('.carbon-color-option__color-sample');
+      let colorSample = wrapper.find('.carbon-color-option__color-sample');
 
       expect(colorSample.hasClass('carbon-color-option__color-sample--ab03ff')).toBeTruthy();
       expect(colorSample.prop('style').backgroundColor).toEqual("#ab03ff");
@@ -44,14 +44,14 @@ describe('ColorOption', () => {
 
   describe('checked option', () => {
     beforeEach(() => {
-      instance = shallow(<ColorOption
+      wrapper = shallow(<ColorOption
         color="transparent"
         checked={ true }
       />);
     });
 
     it("contains a radio button ", () => {
-      let input = instance.find('input').first();
+      let input = wrapper.find('input').first();
       expect(input.prop('value')).toEqual('transparent');
       expect(input.prop('checked')).toBeTruthy();
     });

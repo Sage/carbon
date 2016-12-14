@@ -6,7 +6,7 @@ import { shallow  } from 'enzyme';
 import { findIndex } from 'lodash';
 
 describe('SimpleColorPicker', () => {
-  let instance;
+  let wrapper;
 
   let props = {
     availableColors: ['transparent', '#ff00bb', '#112233'],
@@ -16,25 +16,25 @@ describe('SimpleColorPicker', () => {
   }
 
   beforeEach(() => {
-    instance = shallow(<SimpleColorPicker {...props}/>);
+    wrapper = shallow(<SimpleColorPicker {...props}/>);
   });
 
   it('has the carbon-simple-color-picker CSS class', () => {
-    expect(instance.prop('className')).toEqual('carbon-simple-color-picker');
+    expect(wrapper.prop('className')).toEqual('carbon-simple-color-picker');
   });
 
   it('renders three ColorOptions with appropriate colors', () => {
-    let colorOptions = instance.find(ColorOption);
+    let colorOptions = wrapper.find(ColorOption);
     expect(colorOptions.length).toEqual(3);
 
-    let selectedColorIdx = findIndex(props.availableColors, (color) => color == props.selectedColor);
+    let selectedColorIdx = findIndex(props.availableColors, (color) => color === props.selectedColor);
 
     colorOptions.forEach((option, idx) => {
       expect(option.prop('name')).toEqual(props.name);
       expect(option.prop('onChange')).toEqual(props.onChange);
       expect(option.prop('color')).toEqual(props.availableColors[idx]);
 
-      let isChecked = idx == selectedColorIdx;
+      let isChecked = idx === selectedColorIdx;
       expect(option.prop('checked')).toEqual(isChecked);
     });
   })

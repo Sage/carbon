@@ -9,6 +9,9 @@
 .carbon-color-option__color-sample {
   height: 56px;
   width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .carbon-color-option__radio-button-input {
@@ -27,13 +30,13 @@
 }
 
 .carbon-color-option__tick {
-  display: none;
-  position: absolute;
-  line-height: 51px;
-  padding-left: 17px;
-  pointer-events: none;
+  $icon-size: 22px;
+  height: $icon-size;
+  width: $icon-size;
+  &:before { font-size: $icon-size; }
 
-  &:before { font-size: 22px; }
+  display: none;
+  pointer-events: none;
 }
 
 .carbon-color-option__color-sample--transparent {

@@ -30,7 +30,7 @@ class SimpleColorPicker extends React.Component {
   }
 
   isOptionChecked(color) {
-    return this.props.selectedColor == color;
+    return this.props.selectedColor === color;
   }
 
   colorOption(color) {
