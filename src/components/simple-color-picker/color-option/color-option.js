@@ -23,7 +23,7 @@ class ColorOption extends React.Component {
 
   get inputProps() {
     return {
-      className: 'carbon-color-option__radio-button-input',
+      className: this.inputClasses,
       onChange: this.props.onChange,
       checked: this.props.checked,
       name: this.props.name,
@@ -55,9 +55,26 @@ class ColorOption extends React.Component {
     return this.colorSampleBox;
   }
 
+  /**
+   * Uses the inputClasses method provided by the decorator to add additional classes.
+   *
+   * @method inputClasses
+   * @return {String} input className
+   */
+  get inputClasses() {
+    return 'carbon-color-option__radio-button-input';
+  }
+
+  get mainClasses() {
+    return classNames (
+      'carbon-color-option',
+      this.props.className
+    );
+  }
+
   render() {
     return (
-      <div className='carbon-color-option'>
+      <div className={ this.mainClasses }>
         { this.inputHTML }
       </div>
     );

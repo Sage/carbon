@@ -1,4 +1,6 @@
-@import "colors";
+@import "./../../../style-config/colors";
+@import "./../../../style-config/input-field";
+@import "./../../../style-config/mixins";
 
 .carbon-color-option {
   float: left;
@@ -12,6 +14,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: solid 1px transparent;
 }
 
 .carbon-color-option__radio-button-input {
@@ -21,6 +24,15 @@
 
   &:hover {
     cursor: pointer;
+
+    & + .carbon-color-option__color-sample {
+      border-color: $input-active-border-color;
+    }
+  }
+
+  &:focus + .carbon-color-option__color-sample {
+    box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
+    @include transition(border linear 0.1s, box-shadow linear 0.1s);
   }
 
   position: absolute;
@@ -40,5 +52,5 @@
 }
 
 .carbon-color-option__color-sample--transparent {
-  border: solid 1px $grey-dark-blue-30;
+  border-color: $grey-dark-blue-30;
 }

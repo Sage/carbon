@@ -35,10 +35,16 @@ class RadiButtonDemo extends React.Component {
    */
   get demo() {
     return (
+      <div>
       <RadioButton
         { ...FormInputHelper.demoProps(this, this.action) }
         fieldHelpInline={ this.value('fieldHelpInline') }
       />
+      <RadioButton
+        { ...FormInputHelper.demoProps(this, this.action) }
+        fieldHelpInline={ this.value('fieldHelpInline') }
+      />
+      </div>
     );
   }
 
