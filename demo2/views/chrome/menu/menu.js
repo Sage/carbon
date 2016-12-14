@@ -12,6 +12,8 @@ import { MenuListItem, MenuList } from 'components/menu-list';
 import GetCodeButtons from '../../components/get-code-buttons';
 import ComponentList from './component-list';
 
+import I18n from 'i18n-js';
+
 const styles = [
    { name: 'Colors', href: '/colors' },
    { name: 'Icons', href: '/icons' },
@@ -52,19 +54,31 @@ class Menu extends React.Component {
           toggleable={ false }
           initiallyOpen={ true }
         >
-          <MenuListItem><Link>Getting Started</Link></MenuListItem>
           <MenuListItem>
-            <MenuList title='Components' filter={ true }>
+            <Link>
+              { I18n.t('navigation.getting_started') }
+            </Link>
+          </MenuListItem>
+          <MenuListItem>
+            <MenuList title={ I18n.t('components') } filter={ true }>
               { this.componentsHTML }
             </MenuList>
           </MenuListItem>
-          <MenuListItem><Link>Patterns</Link></MenuListItem>
           <MenuListItem>
-            <MenuList title='Style' filter={ true }>
+            <Link>
+              { I18n.t('navigation.patterns') }
+            </Link>
+          </MenuListItem>
+          <MenuListItem>
+            <MenuList title={ I18n.t('navigation.style') } filter={ true }>
               { this.stylesHTML }
             </MenuList>
           </MenuListItem>
-          <MenuListItem><Link>Articles</Link></MenuListItem>
+          <MenuListItem>
+            <Link>
+              { I18n.t('navigation.articles') }
+            </Link>
+          </MenuListItem>
         </MenuList>
 
         <div className='demo-menu__buttons'>

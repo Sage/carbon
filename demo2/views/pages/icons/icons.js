@@ -11,10 +11,10 @@ import IconList from './icon-list';
 
 export default props => (
   <SubPageChrome
-    title='Icons'
-    subtitle='Free open sourced icons to used in your project.'
+    title={ I18n.t('icons.title') }
+    subtitle={ I18n.t('icons.subtitle') }
     previousPage={ {
-      label: 'Colors',
+      label: I18n.t('colors.title'),
       href: '/colors' } }
     nextPage={ {
       label: 'Typography',

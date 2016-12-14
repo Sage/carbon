@@ -1,4 +1,5 @@
 import React from 'react';
+import I18n from 'i18n-js';
 import SimpleContent from '../../components/simple-content';
 import FlexContainer from '../../chrome/flex-container';
 import Wrapper from '../../chrome/wrapper';
@@ -11,18 +12,18 @@ class LearnMore extends React.Component {
             <FlexContainer>
               <SimpleContent
                 className='learn-more__cell'
-                title='Global Scale'
-                footerContent='Learn more about Sage'
-                footerHref='http://www.sage.com'
+                title={ I18n.t('homepage.learn_more.global_scale.title') }
+                footerContent={ I18n.t('homepage.learn_more.global_scale.footer_content') }
+                footerHref={ I18n.t('sage_href') }
               >
-                At Sage we are actively designing, developing and testing the Carbon library. It is the global foundation used in delivering Sage One. As Sage One pushes out changes, Carbon is updated seeminglessly, giving you access to the latest release.
+                { I18n.t('homepage.learn_more.global_scale.text') }
               </SimpleContent>
               <SimpleContent
                 className='learn-more__cell'
-                title='Constantly Improving'
-                footerContent='Learn more recent updates'
+                title={ I18n.t('homepage.learn_more.constantly_improving.title') }
+                footerContent={ I18n.t('homepage.learn_more.constantly_improving.footer_content') }
               >
-                At Sage we are actively designing, developing and testing the Carbon library. It is the global foundation used in delivering Sage One. As Sage One pushes out changes, Carbon is updated seeminglessly, giving you access to the latest release.
+                { I18n.t('homepage.learn_more.constantly_improving.text') }
               </SimpleContent>
             </FlexContainer>
           </Wrapper>

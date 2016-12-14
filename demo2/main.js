@@ -3,6 +3,9 @@ import 'utils/css';
 import { Route } from 'react-router';
 import { startRouter } from 'utils/router';
 
+// Languages
+import './i18n/en';
+
 // Demo
 import Chrome from './views/chrome';
 import Home from './views/pages/home';
