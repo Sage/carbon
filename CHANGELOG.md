@@ -13,6 +13,12 @@ A component that displays squares with color samples that you can choose from.
   />
 ```
 
+# 0.31.1
+
+## Bug fix
+
+* `I18nHelper.formatCurrency`: returns integer with option { precision: 0 }.
+
 # 0.31.0
 
 ## MultiStepWizard Component
