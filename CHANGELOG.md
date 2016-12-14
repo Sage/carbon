@@ -1,3 +1,18 @@
+# 0.32.0
+
+## SimpleColorPicker Component
+
+A component that displays squares with color samples that you can choose from.
+
+```javascript
+  <SimpleColorPicker
+    availableColors={ ['transparent', '#ff0102', '#34ff01'] }
+    selectedColor="#34ff01"
+    name="settings[color_of_something]"
+    onChange={ customEventHandler }
+  />
+```
+
 # 0.31.0
 
 ## MultiStepWizard Component
