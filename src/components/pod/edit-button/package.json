@@ -1,0 +1,4 @@
+{
+  "style": "edit-button.scss",
+  "main": "./edit-button.js"
+}

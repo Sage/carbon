@@ -69,11 +69,12 @@ class PodDemo extends React.Component {
         triggerEditOnContent={ this.value('triggerEditOnContent') }
         displayEditButtonOnHover={ this.value('displayEditButtonOnHover') }
       >
-        <Row>
-          <Textbox />
-          <Textbox />
-          <Textbox />
-        </Row>
+        <div style={{ backgroundColor: '#b9b', width: '128px', height: '128px', display: 'inline-block' }} />
+        <div style={{ backgroundColor: '#a6c', width: '128px', height: '128px', display: 'inline-block' }} />
+        <div style={{ backgroundColor: '#93d', width: '128px', height: '128px', display: 'inline-block' }} />
+        <div style={{ backgroundColor: '#a2e', width: '128px', height: '128px', display: 'inline-block' }} />
+        <div style={{ backgroundColor: '#c1c', width: '128px', height: '128px', display: 'inline-block' }} />
+        <div style={{ backgroundColor: '#e0a', width: '128px', height: '128px', display: 'inline-block' }} />
       </Pod>
     )
   }
