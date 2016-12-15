@@ -64,22 +64,29 @@ function validProps(instance, safeProps) {
  * @method insertAt
  * @param {String} string
  * @param {Object} options
- * * @param {String} separator - character to insert
- * * @param {Number} interval - interval of separator
+ * * @param {String}  newChar  - character to insert
+ * * @param {Number}  position - position at which to insert
+ * * @param {Boolean} repeat   - repeat the insertion at the specified interval
  * @return {String} result - formatted
  */
 function insertAt(string, options) {
-  let separator = options.separator || '-',
-      insertionShift = options.interval + separator.length,
-      result = string,
-      maxLength = string.length + Math.floor(string.length / options.interval) - 1;
+  let result = string,
+      pos = options.position,
+      newChar = options.newChar || '-';
 
-  for (let i = options.interval; i < maxLength; i += insertionShift) {
-    result = result.substr(0, i) + separator + result.substr(i);
+  if (options.repeat) {
+    let insertionShift = pos + newChar.length,
+        maxLength = string.length + Math.floor(string.length / pos) - 1;
+
+    for (let i = pos; i < maxLength; i += insertionShift) {
+      result = result.substr(0, i) + newChar + result.substr(i);
+    }
+  } else {
+    result = result.substr(0, pos) + newChar + result.substr(pos);
   }
-
   return result;
 }
+
 
 
 export {
