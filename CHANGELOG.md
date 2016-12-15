@@ -1,3 +1,18 @@
+
+# 0.32.0
+
+## MountInApp Component
+
+Can be used to integrate React components into pre-existing user interfaces.
+
+```
+  <MountInApp targetId="put_carbon_component_here">
+    // Children
+  </MountInApp>
+```
+
+The code above will render all `//Children` components inside of the element with ID=`put_carbon_component_here` found on the page.
+
 # 0.31.1
 
 ## Bug fix
