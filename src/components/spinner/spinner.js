@@ -15,8 +15,8 @@ import classNames from 'classnames';
  *   <Spinner />
  *
  * You can pass a 'size' property to adjust the size of the spinner
- *    The default is lmed
- *    options: small, smed, lmed, large
+ *    The default is medium
+ *    options: extra-small, small, medium-small, medium, medium-large, large and extra-large
  *
  * For additional properties specific to this component, see propTypes.
  *
@@ -24,12 +24,10 @@ import classNames from 'classnames';
  * @constructor
  */
 class Spinner extends React.Component {
-
   static propTypes = {
-
     /**
      * Sets the theme for the component.
-     * (see the 'iconColorSets' for possible values)
+     * (see the 'utils/colors/$colorIconSets' for possible values)
      *
      * @property as
      * @type {String}
@@ -39,7 +37,7 @@ class Spinner extends React.Component {
 
     /**
      * Size of the spinner
-     * Options: small, smed, lmed, large
+     * Options: extra-small, small, medium-small, medium, medium-large, large and extra-large
      *
      * @property size
      * @type {String}
@@ -61,8 +59,8 @@ class Spinner extends React.Component {
   get spinnerClasses() {
     return classNames(
       'carbon-spinner',
-      'carbon-spinner--'+ this.props.as,
-      'carbon-spinner--' + this.props.size,
+      `carbon-spinner--${ this.props.as }`,
+      `carbon-spinner--${ this.props.size }`,
       this.props.className
     );
   }

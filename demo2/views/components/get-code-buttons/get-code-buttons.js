@@ -22,7 +22,7 @@ const GetCodeButtons = {
       <Button
         as={ 'secondary' }
         className='download'
-        href='https://github.com/Sage/carbon/releases/tag/v0.27.0'
+        href='https://github.com/Sage/carbon/releases'
         size='large'
         theme={ theme }
       >

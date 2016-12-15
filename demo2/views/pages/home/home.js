@@ -1,8 +1,12 @@
 import React from 'react';
 
-import PageHeaderLarge from '../../page-sections/page-header-large';
-import LearnMore from '../../page-sections/learn-more';
+import ComponentShowcase from '../../page-sections/component-showcase';
 import GetStarted from '../../page-sections/get-started';
+import PageHeaderLarge from '../../page-sections/page-header-large';
+import SageLovesCarbon from '../../page-sections/sage-loves-carbon';
+import SellingPoints from '../../page-sections/selling-points';
+
+import Sectioniser from '../../chrome/sectioniser';
 
 class Home extends React.Component {
   /**
@@ -10,11 +14,16 @@ class Home extends React.Component {
    */
   render() {
     return (
-      <div className="home">
+      <Sectioniser
+        minDepth='2'
+        maxDepth='5'
+      >
         <PageHeaderLarge />
-        <LearnMore />
+        <ComponentShowcase />
+        <SellingPoints />
+        <SageLovesCarbon />
         <GetStarted />
-      </div>
+      </Sectioniser>
     );
   }
 }

@@ -197,11 +197,11 @@ class Step extends React.Component {
       let nextButton, backButton, submitButton;
 
       if (this.isLastStep) {
-        submitButton = (<Button onClick={ this.handleOnSubmit } className='multi-step-wizard-step__button submit'>
+        submitButton = (<Button as='primary' onClick={ this.handleOnSubmit } className='multi-step-wizard-step__button submit'>
                           { I18n.t('wizards.multi_step_wizard.buttons.submit', { defaultValue: 'Submit' }) }
                         </Button>);
       } else {
-        nextButton = (<Button onClick={ this.handleOnNext } className='multi-step-wizard-step__button next'>
+        nextButton = (<Button as='primary' onClick={ this.handleOnNext } className='multi-step-wizard-step__button next'>
                         { I18n.t('wizards.multi_step_wizard.buttons.next', { defaultValue: 'Next' }) }
                       </Button>);
       }
