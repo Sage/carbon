@@ -1,4 +1,3 @@
-
 # 0.32.0
 
 ## MountInApp Component
@@ -12,6 +11,12 @@ Can be used to integrate React components into pre-existing user interfaces.
 ```
 
 The code above will render all `//Children` components inside of the element with ID=`put_carbon_component_here` found on the page.
+
+# 0.31.2
+
+## Bug fix
+
+* `Pod`: bug fixed with link and hover event props being mixed up
 
 # 0.31.1
 
