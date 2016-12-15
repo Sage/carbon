@@ -10,17 +10,44 @@ import { trim } from 'lodash';
  */
 const ColorOption = Input(
 class ColorOption extends React.Component {
+
   static propTypes = {
-    // the value of the color that is represented by this ColorOption.
+    /**
+     * the value of the color that is represented by this ColorOption.
+     *
+     * @property color
+     * @type {String}
+     */
     color: React.PropTypes.string,
-    // the input name.
+
+    /**
+     * the input name.
+     *
+     * @property name
+     * @type {String}
+     */
     name: React.PropTypes.string,
-    // called when the user selects or deselects this color option.
+
+    /**
+     * called when the user selects or deselects this color option.
+     *
+     * @property onChange
+     * @type {Function}
+     */
     onChange: React.PropTypes.func,
-    // determines if this color option is selected or unselected.
+
+    /**
+     * determines if this color option is selected or unselected.
+     *
+     * @property checked
+     * @type {Boolean}
+     */
     checked: React.PropTypes.bool
   }
 
+  /**
+   * The props used by the Input decorator when creating the input element.
+   */
   get inputProps() {
     return {
       className: this.inputClasses,
