@@ -5,7 +5,7 @@ import SimpleColorPicker from './';
 import { mount } from 'enzyme';
 import { findIndex } from 'lodash';
 
-fdescribe('SimpleColorPicker', () => {
+describe('SimpleColorPicker', () => {
   let wrapper, selectedColor;
 
   let onChangeHandler = jasmine.createSpy('onChangeHandler').and.callFake((ev) => {
