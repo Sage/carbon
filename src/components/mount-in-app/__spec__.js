@@ -26,7 +26,7 @@ describe('MountInApp', () => {
   describe('if the target element exists', () => {
     beforeEach(() => {
       spyOn(document, 'getElementById').and.callFake((elementId) => {
-        return (elementId == 'say_hello_here') ? placeholder : null;
+        return (elementId === 'say_hello_here') ? placeholder : null;
       });
 
       renderComponent();
