@@ -42,7 +42,7 @@ describe('ColorOption', () => {
     });
   });
 
-  describe('checked option', () => {
+  describe('checked transparent option', () => {
     beforeEach(() => {
       wrapper = shallow(<ColorOption
         color="transparent"
@@ -54,6 +54,13 @@ describe('ColorOption', () => {
       let input = wrapper.find('input').first();
       expect(input.prop('value')).toEqual('transparent');
       expect(input.prop('checked')).toBeTruthy();
+    });
+
+    it('contains a color-sample div, but without a style', () => {
+      let colorSample = wrapper.find('.carbon-color-option__color-sample');
+
+      expect(colorSample.hasClass('carbon-color-option__color-sample--transparent')).toBeTruthy();
+      expect(colorSample.prop('style')).toEqual({});
     });
   });
 

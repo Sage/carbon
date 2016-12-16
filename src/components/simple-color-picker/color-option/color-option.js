@@ -68,11 +68,17 @@ class ColorOption extends React.Component {
     return <Icon type='tick' className="carbon-color-option__tick"/>;
   }
 
-  get colorSampleBox() {
-    let style = { backgroundColor: this.props.color };
+  get colorSampleStyle() {
+    if (this.props.color === 'transparent') {
+      return {};
+    } else {
+      return { backgroundColor: this.props.color };
+    }
+  }
 
+  get colorSampleBox() {
     return (
-      <div className={ this.colorSampleClasses } style={ style }>
+      <div className={ this.colorSampleClasses } style={ this.colorSampleStyle }>
         { this.tickedIcon }
       </div>
     );
