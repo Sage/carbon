@@ -1,3 +1,7 @@
+# 0.31.3
+
+* `legacyEditStyles` prop name has changed to `internalEditButton`.
+
 # 0.31.2
 
 ## Bug fix
