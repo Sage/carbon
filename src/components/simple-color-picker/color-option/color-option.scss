@@ -27,15 +27,10 @@
 
   &:hover {
     cursor: pointer;
-
-    & + .carbon-color-option__color-sample {
-      border-color: $input-active-border-color;
-    }
   }
 
   &:focus + .carbon-color-option__color-sample {
-    box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
-    @include transition(border linear 0.1s, box-shadow linear 0.1s);
+    border-color: $grey-dark-blue;
   }
 
   position: absolute;
