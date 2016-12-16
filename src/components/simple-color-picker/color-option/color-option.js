@@ -3,7 +3,7 @@ import React from 'react';
 import Input from './../../../utils/decorators/input';
 import Icon from './../../icon';
 import classNames from 'classnames';
-import { trim } from 'lodash';
+import { trim, startsWith } from 'lodash';
 
 /**
  * A single square with a color, implemented as a radio button.
@@ -98,9 +98,9 @@ class ColorOption extends React.Component {
   }
 
   get _colorSampleStyle() {
-    return this.props.color === 'transparent'
-      ? {}
-      : { backgroundColor: this.props.color };
+    return startsWith(this.props.color, '#')
+      ? { backgroundColor: this.props.color }
+      : {};
   }
 
   get colorSampleBox() {
