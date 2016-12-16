@@ -53,13 +53,30 @@ class SimpleColorPicker extends React.Component {
   }
 
   /**
+   * Renders the component.
+   *
+   * @method render
+   * @return {Object} JSX
+   */
+  render() {
+    return (
+      <div className="carbon-simple-color-picker">
+        <ul className="carbon-simple-color-picker__color-options">
+          { this._colorOptions }
+        </ul>
+      </div>
+    );
+  }
+
+  /**
    * Returns true if the color passed as argument is currently
    * checked.
    *
    * @method isOptionChecked
+   * @private
    * @return {Boolean}
    */
-  isOptionChecked(color) {
+  _isOptionChecked(color) {
     return this.props.selectedColor === color;
   }
 
@@ -67,10 +84,11 @@ class SimpleColorPicker extends React.Component {
    * Returns a ColorOption component for a given color.
    *
    * @method colorOption
+   * @private
    * @return {Object} JSX
    */
-  colorOption(color) {
-    let isChecked = this.isOptionChecked(color);
+  _colorOption(color) {
+    let isChecked = this._isOptionChecked(color);
 
     return (
       <ColorOption
@@ -87,27 +105,13 @@ class SimpleColorPicker extends React.Component {
    * Returns ColorOption components for all available colors.
    *
    * @method colorOptions
+   * @private
    * @return {Object} JSX
    */
-  get colorOptions() {
-    return this.props.availableColors.map((color) => this.colorOption(color));
+  get _colorOptions() {
+    return this.props.availableColors.map((color) => this._colorOption(color));
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   * @return {Object} JSX
-   */
-  render() {
-    return (
-      <div className="carbon-simple-color-picker">
-        <ul className="carbon-simple-color-picker__color-options">
-          { this.colorOptions }
-        </ul>
-      </div>
-    );
-  }
 }
 
 export default SimpleColorPicker;

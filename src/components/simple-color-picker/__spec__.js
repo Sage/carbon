@@ -1,5 +1,4 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
 import ColorOption from './color-option';
 import SimpleColorPicker from './';
 import { mount } from 'enzyme';
@@ -44,10 +43,8 @@ describe('SimpleColorPicker', () => {
   })
 
   it('calls the onChange callback when the selected color is changed', () => {
-    let colorOptions = TestUtils.scryRenderedDOMComponentsWithTag(wrapper.instance(), 'input')
-    let thirdColor = colorOptions[2];
-
-    TestUtils.Simulate.change(thirdColor);
+    let lastColor = wrapper.find('input').last();
+    lastColor.simulate('change');
 
     expect(onChangeHandler).toHaveBeenCalled();
     expect(selectedColor).toEqual('#112233');

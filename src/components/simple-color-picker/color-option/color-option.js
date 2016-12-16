@@ -59,31 +59,6 @@ class ColorOption extends React.Component {
     };
   }
 
-  get colorSampleClasses() {
-    let color = trim(this.props.color, '#');
-    return classNames('carbon-color-option__color-sample', `carbon-color-option__color-sample--${color}`);
-  }
-
-  get tickedIcon() {
-    return <Icon type='tick' className="carbon-color-option__tick"/>;
-  }
-
-  get colorSampleStyle() {
-    if (this.props.color === 'transparent') {
-      return {};
-    } else {
-      return { backgroundColor: this.props.color };
-    }
-  }
-
-  get colorSampleBox() {
-    return (
-      <div className={ this.colorSampleClasses } style={ this.colorSampleStyle }>
-        { this.tickedIcon }
-      </div>
-    );
-  }
-
   get additionalInputContent() {
     return this.colorSampleBox;
   }
@@ -110,6 +85,29 @@ class ColorOption extends React.Component {
       <li className={ this.mainClasses }>
         { this.inputHTML }
       </li>
+    );
+  }
+
+  get _colorSampleClasses() {
+    let color = trim(this.props.color, '#');
+    return classNames('carbon-color-option__color-sample', `carbon-color-option__color-sample--${color}`);
+  }
+
+  get _tickedIcon() {
+    return <Icon type='tick' className="carbon-color-option__tick"/>;
+  }
+
+  get _colorSampleStyle() {
+    return this.props.color === 'transparent'
+      ? {}
+      : { backgroundColor: this.props.color };
+  }
+
+  get colorSampleBox() {
+    return (
+      <div className={ this._colorSampleClasses } style={ this._colorSampleStyle }>
+        { this._tickedIcon }
+      </div>
     );
   }
 
