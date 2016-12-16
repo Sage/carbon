@@ -49,6 +49,7 @@ To repeat the character at the same interval, set `repeat` to `true`
   // => 123/456/789
 ```
 
+
 # 0.31.3
 
 * `legacyEditStyles` prop name has changed to `internalEditButton`.
