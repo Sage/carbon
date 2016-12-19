@@ -63,26 +63,25 @@ function validProps(instance, safeProps) {
  *
  * @method insertAt
  * @param {String} string
+ * @param {Number}  position - position at which to insert
  * @param {Object} options
  * * @param {String}  newChar  - character to insert
- * * @param {Number}  position - position at which to insert
  * * @param {Boolean} repeat   - repeat the insertion at the specified interval
  * @return {String} result - formatted
  */
-function insertAt(string, options) {
+function insertAt(string, position, options = {}) {
   let result = string,
-      pos = options.position,
       newChar = options.newChar || '-';
 
   if (options.repeat) {
-    let insertionShift = pos + newChar.length,
-        maxLength = string.length + Math.floor(string.length / pos) - 1;
+    let insertionShift = position + newChar.length,
+        maxLength = string.length + Math.floor(string.length / position) - 1;
 
-    for (let i = pos; i < maxLength; i += insertionShift) {
+    for (let i = position; i < maxLength; i += insertionShift) {
       result = result.substr(0, i) + newChar + result.substr(i);
     }
   } else {
-    result = result.substr(0, pos) + newChar + result.substr(pos);
+    result = result.substr(0, position) + newChar + result.substr(position);
   }
   return result;
 }

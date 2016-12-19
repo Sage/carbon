@@ -64,20 +64,20 @@ describe('Ether', () => {
   describe('insertAt', () => {
     describe('default new character', () => {
       it('returns a string formatted with dashes', () => {
-        expect(insertAt('123456', {position: 2})).toEqual('12-3456');
+        expect(insertAt('123456', 2)).toEqual('12-3456');
       });
     });
 
     describe('custom new character', () => {
       it('returns a string formatted with the separator', () => {
-        expect(insertAt('123456789', {position: 3, newChar:'/'})).toEqual('123/456789');
+        expect(insertAt('123456789', 3, { newChar:'/'})).toEqual('123/456789');
       });
     });
 
     describe('when character should be repeated', () => {
       it('returns a string formatted with the newchar repeated at the same interval', () => {
-        expect(insertAt('123456', {position: 2, repeat: true} )).toEqual('12-34-56');
-        expect(insertAt('123456789', {position: 3, newChar:'/', repeat: true })).toEqual('123/456/789');
+        expect(insertAt('123456', 2, { repeat: true } )).toEqual('12-34-56');
+        expect(insertAt('123456789', 3, { newChar:'/', repeat: true })).toEqual('123/456/789');
       });
     });
   });

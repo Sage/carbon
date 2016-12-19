@@ -17,16 +17,16 @@ The code above will render all `//Children` components inside of the element wit
 * A new 'insertAt' Ether helper to insert a character in a string.
 *  It inserts a dash by default, or a custom `newChar`
 ```javascript
-insertAt('123456', { position: 2 });
+insertAt('123456', 2);
 // => 12-3456
-insertAt('123456789', { position: 3, newChar:'/' });
+insertAt('123456789', 3, { newChar:'/' });
 // => 123/456789
 ```
 To repeat the character at the same interval, set `repeat` to `true`
 ```javascript
-insertAt('123456', { position: 2, repeat: true });
+insertAt('123456', 2, { repeat: true });
 // => 12-34-56
-insertAt('123456789', { position: 3, newChar:'/', repeat: true });
+insertAt('123456789', 3, { newChar:'/', repeat: true });
 // => 123/456/789
 ```
 
