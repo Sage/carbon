@@ -1,4 +1,7 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
+import { keys } from 'lodash';
+import Form from './../../../components/form';
 
 /**
 * Browser Helper
@@ -8,7 +11,6 @@ import ReactDOM from 'react-dom';
 *
 */
 const Browser = {
-
   /**
    * Get the current window
    *
@@ -87,6 +89,36 @@ const Browser = {
         return cookie[1];
       }
     }
+  },
+
+  /**
+   * Submits POST in new window
+   *
+   * @method  postToNewWindow
+   * @param   {String}  url     URL to POST to
+   * @param   {Object}  data    Data to POST
+   * @param   {Object}  target  Optional target window name
+   * @return  {Void}
+   */
+  postToNewWindow: (url, data, target = '_blank') => {
+    let doc = Browser.getDocument(),
+        containerId = 'carbonPostFormContainer',
+        container = doc.getElementById(containerId),
+        form;
+
+    if (!container) {
+      container = doc.createElement('div');
+      container.id = containerId;
+      doc.body.append(container);
+    }
+
+    form = ReactDOM.render((
+      <Form action={ url } method='post' target={ target } save={ false } cancel={ false }>
+        { keys(data).map(key => <input type='hidden' key={ key } name={ key } value={ data[key] } />) }
+      </Form>
+    ), container);
+    form.refs.form.submit();
+    ReactDOM.unmountComponentAtNode(container);
   }
 };
 

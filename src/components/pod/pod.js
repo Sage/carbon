@@ -413,19 +413,37 @@ class Pod extends React.Component {
     if (!this.props.onEdit) { return null; }
 
     return (
-      <div className="carbon-pod__edit-button-container" { ...this.editProps } >
-        <Link icon="edit" className={ this.editActionClasses } />
+      <div className="carbon-pod__edit-button-container" { ...this.hoverOverEditEvents } >
+        <Link icon="edit" className={ this.editActionClasses } { ...this.linkProps() }/>
       </div>
     );
   }
 
   /**
-   * Returns props related to the edit event
+   * gets props for the Link, required for it to link to stuff
    *
-   * @method editProps
+   * @method linkProps
+   * @return {Object} props
+   */
+  linkProps = () => {
+    let props = {};
+
+    if (typeof this.props.onEdit === "string") {
+      props.to = this.props.onEdit;
+    } else if (typeof this.props.onEdit === "object") {
+      props = this.props.onEdit;
+    }
+
+    return props;
+  }
+
+  /**
+   * Returns event related props for triggering and highlighting edit functionality
+   *
+   * @method hoverOverEditEvents
    * @return {Object}
    */
-  get editProps() {
+  get hoverOverEditEvents() {
     let props = {
       onMouseEnter: this.toggleHoverState.bind(this, true),
       onMouseLeave: this.toggleHoverState.bind(this, false),
@@ -433,11 +451,7 @@ class Pod extends React.Component {
       onBlur: this.toggleHoverState.bind(this, false)
     };
 
-    if (typeof this.props.onEdit === "string") {
-      props.to = this.props.onEdit;
-    } else if (typeof this.props.onEdit === "object") {
-      props = this.props.onEdit;
-    } else {
+    if (typeof this.props.onEdit === 'function') {
       props.onClick = this.processPodEditEvent;
       props.onKeyDown = this.processPodEditEvent;
     }
@@ -486,18 +500,18 @@ class Pod extends React.Component {
    */
   render() {
     let content = this.props.content,
-        editProps = {};
+        hoverOverEditEvents = {};
 
     if (!this.state.collapsed) { content = this.podContent; }
 
     if (this.shouldContentHaveEditProps) {
-      editProps = this.editProps;
-      editProps.tabIndex = "0";
+      hoverOverEditEvents = this.hoverOverEditEvents;
+      hoverOverEditEvents.tabIndex = "0";
     }
 
     return (
       <div className={ this.mainClasses } { ...this.podProps() }>
-        <div className={ this.blockClasses } { ...editProps }>
+        <div className={ this.blockClasses } { ...hoverOverEditEvents }>
           <div className={ this.contentClasses } >
             { this.podHeader }
             { content }

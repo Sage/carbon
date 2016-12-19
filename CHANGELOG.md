@@ -1,3 +1,29 @@
+# 0.32.0
+
+## MountInApp Component
+
+Can be used to integrate React components into pre-existing user interfaces.
+
+```
+  <MountInApp targetId="put_carbon_component_here">
+    // Children
+  </MountInApp>
+```
+
+The code above will render all `//Children` components inside of the element with ID=`put_carbon_component_here` found on the page.
+
+# 0.31.2
+
+## Bug fix
+
+* `Pod`: bug fixed with link and hover event props being mixed up
+
+# 0.31.1
+
+## Bug fix
+
+* `I18nHelper.formatCurrency`: returns integer with option { precision: 0 }.
+
 # 0.31.0
 
 ## MultiStepWizard Component
@@ -7,6 +33,23 @@ We have updated MultiStepWizard's default buttons as primary.
 ## Pod Component
 
 Now takes a legacy style flag that switches the styles back
+
+## Component Enhancements
+
+* `Icon`: Three new props have been added:
+  * `bgShape`: 'square', 'rounded-rect', or 'circle'.
+  * `bgTheme`: 'warning', 'default', 'error', 'info', 'new', 'success', 'help', or 'maintenance'
+  * `bgSize`: 'small' (default), 'medium', or 'large' - only modifies overall icon size if `bgShape` or `bgTheme` is passed.
+
+* `Form`: Two new props have been added, `saveButtonProps` and `cancelButtonProps`, to apply props to Form buttons.
+
+## Helper Enhancements
+
+* `Browser`: A new `postToNewWindow` method has been added, for sending POST data to a new browser window/tab.
+
+## CSS Changes
+
+* Added `$beta` orange color variable
 
 # 0.30.0
 

@@ -26,6 +26,44 @@ import Icons from './icons';
  * @constructor
  */
 const Icon = TooltipDecorator(class Icon extends React.Component {
+  static propTypes = {
+    /**
+     * Icon type
+     *
+     * @property  type
+     * @type      {String}
+     */
+    type: React.PropTypes.string.isRequired,
+
+    /**
+     * Background size
+     *
+     * @property  bgSize
+     * @type      {String}
+     * @default   'small'
+     */
+    bgSize: React.PropTypes.oneOf(['small', 'medium', 'large']),
+
+    /**
+     * Background shape
+     *
+     * @property  bgShape
+     * @type      {String}
+     */
+    bgShape: React.PropTypes.oneOf(['square', 'rounded-rect', 'circle']),
+
+    /**
+     * Background color theme
+     *
+     * @property  bgTheme
+     * @type      {String}
+     */
+    bgTheme: React.PropTypes.string
+  };
+
+  static defaultProps = {
+    bgSize: 'small'
+  };
 
   /**
    * Checks if we have an SVG available, otherwise will fall back
@@ -48,6 +86,9 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     let { ...props } = this.props;
 
     delete props.className;
+    delete props.bgSize;
+    delete props.bgShape;
+    delete props.bgTheme;
     props.type = this.type;
 
     return props;
@@ -60,12 +101,18 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {String} classes
    */
   get mainClasses() {
-    let icon = this.renderIcon;
+    let icon = this.renderIcon,
+        hasShape = this.props.bgShape || this.props.bgTheme;
 
     let classes = classNames(
       'carbon-icon',
       this.props.className, {
         [`icon-${this.type}`]: !icon
+      }, {
+        'carbon-icon--shape': hasShape,
+        [`carbon-icon--${this.props.bgSize}`]: hasShape,
+        [`carbon-icon--${this.props.bgShape}`]: this.props.bgShape,
+        [`carbon-icon--${this.props.bgTheme}`]: this.props.bgTheme
       }
     );
     return classes;
