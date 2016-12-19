@@ -60,7 +60,15 @@ class DateRange extends React.Component {
      * @property labelsInline
      * @type {Boolean}
      */
-    labelsInline: PropTypes.bool
+    labelsInline: PropTypes.bool,
+
+    /**
+     * Disables the child date components
+     *
+     * @property disabled
+     * @type {Boolean}
+     */
+    disabled: PropTypes.bool
   };
 
   /**
@@ -168,6 +176,7 @@ class DateRange extends React.Component {
             messageText: this.startMessage
           })] }
           value={ this.startDate }
+          disabled={ this.props.disabled }
         />
         <Date
           className='carbon-date-range'
@@ -181,6 +190,7 @@ class DateRange extends React.Component {
             messageText: this.endMessage
           })] }
           value={ this.endDate }
+          disabled={ this.props.disabled }
         />
       </div>
     );
