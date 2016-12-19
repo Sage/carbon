@@ -30,6 +30,9 @@ export default props => (
  * @return {<span>}
  */
 const _link = (page, prefix) => {
+  debugger;
+  console.log(page);
+  console.log('dd');
   if (page) {
     let direction = prefix === 'next' ? 'forwards' : 'backwards'
     return (
