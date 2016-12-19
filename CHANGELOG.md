@@ -8,6 +8,7 @@
 ## !! BREAKING CHANGES!! :warning:
 
 * Banner Component has been Deleted in favour of the Message Component
+* Menu List - Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
 
 ## Dependency Update
 
