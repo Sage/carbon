@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import I18n from 'i18n-js';
 import Date from './../date';
 import DateRangeValidator from './../../utils/validations/date-range';
+import { assign } from 'lodash';
 
 class DateRange extends React.Component {
   static propTypes = {
@@ -63,12 +64,20 @@ class DateRange extends React.Component {
     labelsInline: PropTypes.bool,
 
     /**
-     * Disables the child date components
+     * Props for the child start Date component
      *
-     * @property disabled
-     * @type {Boolean}
+     * @property startDateProps
+     * @type {Object}
      */
-    disabled: PropTypes.bool
+    startDateProps: PropTypes.object,
+
+    /**
+     * Props for the child end Date component
+     *
+     * @property endDateProps
+     * @type {Object}
+     */
+    endDateProps: PropTypes.object
   };
 
   /**
@@ -161,37 +170,47 @@ class DateRange extends React.Component {
     this._startDate.closeDatePicker();
   }
 
+  startDateProps() {
+    return assign({}, this.props.startDateProps, {
+      className: 'carbon-date-range carbon-date-range__start',
+      label: this.props.startLabel,
+      labelInline: this.props.labelsInline,
+      onChange: this._onChange.bind(null, 'startDate'),
+      onFocus: this.focusStart,
+      ref: (c) => { this._startDate = c; },
+      validations: [
+        new DateRangeValidator({
+          endDate: this.endDate,
+          messageText: this.startMessage
+        })
+      ],
+      value: this.startDate
+    });
+  }
+
+  endDateProps() {
+    return assign({}, this.props.endDateProps, {
+      className: 'carbon-date-range',
+      label: this.props.endLabel,
+      labelInline: this.props.labelsInline,
+      onChange: this._onChange.bind(null, 'endDate'),
+      onFocus: this.focusEnd,
+      ref: (c) => { this._endDate = c; },
+      validations: [
+        new DateRangeValidator({
+          startDate: this.startDate,
+          messageText: this.endMessage
+        })
+      ],
+      value: this.endDate
+    });
+  }
+
   render () {
     return(
       <div>
-        <Date
-          className='carbon-date-range carbon-date-range__start'
-          label={ this.props.startLabel }
-          labelInline={ this.props.labelsInline }
-          onChange={ this._onChange.bind(null, 'startDate') }
-          onFocus={ this.focusStart }
-          ref={ (c) => { this._startDate = c; } }
-          validations={ [ new DateRangeValidator({
-            endDate: this.endDate,
-            messageText: this.startMessage
-          })] }
-          value={ this.startDate }
-          disabled={ this.props.disabled }
-        />
-        <Date
-          className='carbon-date-range'
-          label={ this.props.endLabel }
-          labelInline={ this.props.labelsInline }
-          onChange={ this._onChange.bind(null, 'endDate') }
-          onFocus={ this.focusEnd }
-          ref={ (c) => { this._endDate = c; } }
-          validations={ [ new DateRangeValidator({
-            startDate: this.startDate,
-            messageText: this.endMessage
-          })] }
-          value={ this.endDate }
-          disabled={ this.props.disabled }
-        />
+        <Date { ...this.startDateProps() }/>
+        <Date { ...this.endDateProps() }/>
       </div>
     );
   }

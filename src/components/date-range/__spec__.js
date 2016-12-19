@@ -199,7 +199,7 @@ describe('DateRange', () => {
     });
   });
 
-  describe('disabled prop', () => {
+  describe('start and end date props', () => {
     it('dates are enabled by default', () => {
       let labelInstance = TestUtils.renderIntoDocument(
         <DateRange
@@ -212,12 +212,13 @@ describe('DateRange', () => {
       expect(dates[1].props.disabled).toBeUndefined();
     });
 
-    it('dates can be disabled by passing prop to DateRange', () => {
+    it('dates can be disabled by passing startDateProps and endDateProps to DateRange', () => {
       let labelInstance = TestUtils.renderIntoDocument(
         <DateRange
           onChange={ customOnChange }
           value={ ['2016-10-10','2016-11-11'] }
-          disabled={ true }
+          startDateProps={ { disabled: true } }
+          endDateProps={ { disabled: true } }
         />
       );
       let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
