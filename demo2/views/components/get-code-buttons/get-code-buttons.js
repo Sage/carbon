@@ -12,7 +12,7 @@ const GetCodeButtons = {
         size='large'
         theme='magenta'
       >
-        View on Github
+        View on GitHub
       </Button>
     );
   },
