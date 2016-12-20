@@ -11,6 +11,8 @@ import ColorList from './color-list';
 
 export default props => (
   <SubPageChrome
+    title='Colors'
+    subtitle='Enable a consistent styling across your application.'
     previousPage={ {
       label: 'Fonts',
       href: '/fonts' } }

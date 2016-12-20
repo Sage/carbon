@@ -2,36 +2,24 @@
 
 .get-started {
   background-color: $dark-blue-plus;
-  background-image: url('/assets/images/background_pattern.svg');
+  background-image: url('/assets/images/grid-bk.svg');
   bottom: 0;
-  position: relative;
-  width: 100%;
-}
-
-.get-started__actions-pod {
   color: $white;
-  padding: 120px 0 130px;
+  padding: 120px 0 110px;
+  position: relative;
+  text-align: center;
   width: 100%;
 
-  .carbon-pod__content {
-    text-align: center;
+  &__text {
+    display: block;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 8px;
   }
 
-  .carbon-pod__block {
-    background-color: transparent;
-    border: none;
+  &__checkout-text {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 40px;
   }
-}
-
-.get-started__text {
-  display: block;
-  font-size: 24px;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.get-started__checkout-text {
-  display: block;
-  font-size: 22px;
-  margin-bottom: 40px;
 }

@@ -1,0 +1,4 @@
+{
+  "main": "./sectioniser.js",
+  "style": "sectioniser.scss"
+}

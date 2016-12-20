@@ -1,0 +1,22 @@
+.sectioniser {
+  .demo-wrapper {
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  > * {
+    position: relative;
+  }
+
+  // fix SVG height to 0 as the SVG is used for firefox and needs to be removed
+  // from the rendering in Chrome to avoid spacing issues
+  &__svg {
+    height: 0;
+  }
+
+  // this is a work-around a pixel error with `clip-path` and SVG backgrounds
+  // we need to pull up the footer so it overlays the error
+  & + .demo-footer__background {
+    margin-top: -1px;
+  }
+}

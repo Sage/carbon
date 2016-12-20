@@ -1,0 +1,11 @@
+@import "colors";
+
+.selling-points {
+  background-color: $white;
+  padding: 120px 0;
+
+  .demo-content-grid {
+    margin: auto;
+    max-width: 966px;
+  }
+}

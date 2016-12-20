@@ -10,7 +10,6 @@ class PageHeaderLarge extends React.Component {
   render() {
     return (
       <div className='page-header-large__background'>
-        <div className='page-header-large__background-angled' />
         <Wrapper>
           <div className='page-header-large'>
             <div className='page-header-large__titles'>
@@ -28,32 +27,7 @@ class PageHeaderLarge extends React.Component {
               <div className='page-header-large__version'>
                 Currently: v1.0.0
               </div>
-
-              <h2 className='h2 heading-divider'>
-                Building web applications got a whole lot faster
-              </h2>
             </div>
-
-            <FlexContainer>
-              <InfoTile
-                className='page-header-large__tile'
-                description='Carbon helps developers take applications from concept to completion as quickly as possible.'
-                src='https://placekitten.com/60/60'
-                title='Ridiculously Quick'
-              />
-              <InfoTile
-                className='page-header-large__tile'
-                description='With Carbon you get an extensive and beautiful documentation for common web components.'
-                gravatar='chris.barber@sage.com'
-                title='Fully Featured'
-              />
-              <InfoTile
-                className='page-header-large__tile'
-                description='Carbon helps developers take applications from concept to completion as quickly as possible.'
-                gravatar='harpal.singh@sage.com'
-                title='Ridiculously Quick'
-              />
-            </FlexContainer>
           </div>
         </Wrapper>
       </div>
