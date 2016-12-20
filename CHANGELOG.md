@@ -12,10 +12,24 @@ Can be used to integrate React components into pre-existing user interfaces.
 
 The code above will render all `//Children` components inside of the element with ID=`put_carbon_component_here` found on the page.
 
+## SimpleColorPicker Component
+
+A component that displays squares with color samples that you can choose from.
+
+```javascript
+  <SimpleColorPicker
+    availableColors={ ['transparent', '#ff0102', '#34ff01'] }
+    selectedColor="#34ff01"
+    name="settings[color_of_something]"
+    onChange={ customEventHandler }
+  />
+```
+
 ## Helpers
 
 * A new 'insertAt' Ether helper to insert a character in a string.
 *  It inserts a dash by default, or a custom `newChar`
+
 ```javascript
 insertAt('123456', 2);
 // => 12-3456
