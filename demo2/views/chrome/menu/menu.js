@@ -54,13 +54,21 @@ class Menu extends React.Component {
         >
           <MenuListItem><Link>Getting Started</Link></MenuListItem>
           <MenuListItem>
-            <MenuList title='Components' filter={ true }>
+            <MenuList
+              filter={ true }
+              initiallyOpen={ this._initiallyOpen(ComponentList) }
+              title='Components'
+            >
               { this.componentsHTML }
             </MenuList>
           </MenuListItem>
           <MenuListItem><Link>Patterns</Link></MenuListItem>
           <MenuListItem>
-            <MenuList title='Style' filter={ true }>
+            <MenuList
+              filter={ true }
+              initiallyOpen={ this._initiallyOpen(styles) }
+              title='Style'
+            >
               { this.stylesHTML }
             </MenuList>
           </MenuListItem>
@@ -74,6 +82,18 @@ class Menu extends React.Component {
 
       </Sidebar>
     );
+  }
+
+  _initiallyOpen = (menuItems) => {
+    let openCount = 0;
+
+    menuItems.forEach((menuItem) => {
+      if (menuItem.href === window.location.pathname) {
+        openCount ++;
+      }
+    });
+
+    return (openCount > 0);
   }
 }
 
