@@ -1,4 +1,3 @@
-
 # 1.0.0
 
 ## :warning: Major Change - React 15 Upgrade
@@ -12,6 +11,12 @@
 ## Dependency Update
 
 * Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+
+# 0.31.2
+
+## Bug fix
+
+* `Pod`: bug fixed with link and hover event props being mixed up
 
 # 0.31.1
 
