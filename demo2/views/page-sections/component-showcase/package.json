@@ -2,6 +2,17 @@
   "main": "./component-showcase",
   "style": "component-showcase.scss",
   "images": [
-    "./components.png"
+    "./images/components-extra-small.png",
+    "./images/components-extra-small-2x.png",
+    "./images/components-extra-small-3x.png",
+    "./images/components-small.png",
+    "./images/components-small-2x.png",
+    "./images/components-small-3x.png",
+    "./images/components-medium.png",
+    "./images/components-medium-2x.png",
+    "./images/components-medium-3x.png",
+    "./images/components-large.png",
+    "./images/components-large-2x.png",
+    "./images/components-large-3x.png"
   ]
 }
