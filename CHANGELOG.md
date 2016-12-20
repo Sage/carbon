@@ -1,10 +1,8 @@
-# 0.33.0
+# 0.32.0
 
 ## New Validators
 
 * IsBlankValidator
-
-# 0.32.0
 
 ## MountInApp Component
 

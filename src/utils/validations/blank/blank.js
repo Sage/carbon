@@ -22,11 +22,7 @@ class IsBlankValidator {
    * @return {Boolean} true if value is valid
    */
   validate = (value) => {
-    if (value === '' || value === null || value === undefined) {
-      return true;
-    } else {
-      return false;
-    }
+    return !value;
   }
 
   /**
