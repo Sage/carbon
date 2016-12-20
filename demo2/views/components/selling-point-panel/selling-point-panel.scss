@@ -12,6 +12,11 @@
     margin-bottom: 0.5em;
   }
 
+  &__icon {
+    margin: auto;
+    max-width: 120px;
+  }
+
   &__text {
     font-size: 14px;
     line-height: 1.22em;

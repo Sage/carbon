@@ -10,12 +10,11 @@
   padding: 0;
 
   &__item {
-    margin-bottom: 4%;
+    margin-bottom: 10px;
     width: 100%;
 
     @media (min-width: $response-point-tiny) {
       width: 49%;
-      margin-bottom: 2%;
       margin-right: 2%;
     }
     &:nth-of-type(2n) {
@@ -25,7 +24,6 @@
     }
 
     @media (min-width: $response-point-medium) {
-      margin-bottom: 1.5%;
       margin-right: 1.5%;
       width: 32.33333%;
     }
@@ -40,7 +38,6 @@
 .demo-content-grid--5-columns {
   .demo-content-grid__item {
     width: 49%;
-    margin-bottom: 2%;
     margin-right: 2%;
 
     &:nth-of-type(2n) {
@@ -50,7 +47,6 @@
     }
 
     @media (min-width: $response-point-tiny) and (max-width: $response-point-small) {
-      margin-bottom: 1.5%;
       margin-right: 1.5%;
       width: 32.33333%;
     }
@@ -61,7 +57,6 @@
     }
 
     @media (min-width: $response-point-small) {
-      margin-bottom: 1.25%;
       margin-right: 1.25%;
       width: 19%;
     }

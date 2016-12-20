@@ -10,7 +10,7 @@ class GetStarted extends React.Component {
       <div className='get-started'>
         <Wrapper>
           <span className='get-started__text'>Ready to Get Started?</span>
-          <span className='get-started__checkout-text'>Checkout the Github repository or download Carbon</span>
+          <span className='get-started__checkout-text'>Checkout the GitHub repository or download Carbon</span>
           { GetCodeButtons.pair() }
         </Wrapper>
       </div>
