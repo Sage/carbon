@@ -18,6 +18,24 @@ Can be used to integrate React components into pre-existing user interfaces.
 
 The code above will render all `//Children` components inside of the element with ID=`put_carbon_component_here` found on the page.
 
+## Helpers
+
+* A new 'insertAt' Ether helper to insert a character in a string.
+*  It inserts a dash by default, or a custom `newChar`
+```javascript
+insertAt('123456', 2);
+// => 12-3456
+insertAt('123456789', 3, { newChar:'/' });
+// => 123/456789
+```
+To repeat the character at the same interval, set `repeat` to `true`
+```javascript
+insertAt('123456', 2, { repeat: true });
+// => 12-34-56
+insertAt('123456789', 3, { newChar:'/', repeat: true });
+// => 123/456/789
+```
+
 # 0.31.2
 
 ## Bug fix
