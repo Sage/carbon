@@ -420,6 +420,12 @@ describe('InputValidation', () => {
     });
   });
 
+  describe('isValid', () => {
+    it('returns the current state of the component', () => {
+      expect(instance.isValid()).toBeTruthy();
+    });
+  });
+
   describe('validate', () => {
     describe('when validations are present on the input', () => {
       describe('when the input has a value', () => {
