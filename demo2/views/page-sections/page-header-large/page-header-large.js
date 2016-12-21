@@ -1,4 +1,5 @@
 import React from 'react';
+import I18n from 'i18n-js';
 
 // Demo Site
 import FlexContainer from '../../chrome/flex-container';
@@ -15,17 +16,17 @@ class PageHeaderLarge extends React.Component {
             <div className='page-header-large__titles'>
 
               <h1 className='page-header-large__title'>
-                Carbon is a library of React components for building great web applications.
+                { I18n.t('homepage.page_header_large.heading1') }
               </h1>
 
               <h2 className='page-header-large__subtitle'>
-                Carbon is open source. It’s hosted, developed, and maintained on Github.
+                { I18n.t('homepage.page_header_large.heading2') }
               </h2>
 
               { GetCodeButtons.pair() }
 
               <div className='page-header-large__version'>
-                Currently: v1.0.0
+                { I18n.t('homepage.page_header_large.version') }
               </div>
             </div>
           </div>

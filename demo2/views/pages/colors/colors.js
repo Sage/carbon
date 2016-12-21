@@ -1,4 +1,5 @@
 import React from 'react';
+import I18n from 'i18n-js';
 
 import ColorPanel from '../../components/color-panel';
 import ContentGrid from '../../components/content-grid';
@@ -11,13 +12,13 @@ import ColorList from './color-list';
 
 export default props => (
   <SubPageChrome
-    title='Colors'
-    subtitle='Enable a consistent styling across your application.'
+    title={ I18n.t('colors.title') }
+    subtitle={ I18n.t('colors.subtitle') }
     previousPage={ {
       label: 'Fonts',
       href: '/fonts' } }
     nextPage={ {
-      label: 'Icons',
+      label: I18n.t('icons.title'),
       href: '/icons' } }
   >
     <Download

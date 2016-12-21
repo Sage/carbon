@@ -1,4 +1,5 @@
 import React from 'react';
+import I18n from 'i18n-js';
 
 import Link from 'components/link';
 
@@ -16,15 +17,12 @@ export default props => (
     <Wrapper>
       <div className='sage-loves-carbon__text'>
         <ComplexHeading
-          heading='Sage Loves '
-          headingSuffix='Carbon'
-          text='Carbon is the heart of global Sage products for hundreds of thousands
-                of users worldwide. Designers and developers at Sage and beyond help
-                Carbon to constantly evolve. Carbon is loaded with knowledge, keeping
-                you ahead in cutting-edge user experience.'
+          heading={ I18n.t('homepage.sage_loves_carbon.heading') }
+          headingSuffix={ I18n.t('homepage.sage_loves_carbon.heading_suffix') }
+          text={ I18n.t('homepage.sage_loves_carbon.text') }
         />
-        <Link href='http://www.sage.com' icon='arrow' iconAlign='right'>
-          Learn more about Sage
+        <Link href={ I18n.t('sage_href') } icon='arrow' iconAlign='right'>
+          { I18n.t('homepage.sage_loves_carbon.learn_more') }
         </Link>
       </div>
       <img className='sage-loves-carbon__image' src='/assets/images/devices.png' />
