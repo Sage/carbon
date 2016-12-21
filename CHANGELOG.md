@@ -12,6 +12,10 @@ Can be used to integrate React components into pre-existing user interfaces.
 
 The code above will render all `//Children` components inside of the element with ID=`put_carbon_component_here` found on the page.
 
+## Component Enhancements
+
+* `DateRange`: Two new props have been added, `startDateProps` and `endDateProps`, to apply props to the child `Date` components.
+
 # 0.31.2
 
 ## Bug fix
