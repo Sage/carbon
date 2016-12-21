@@ -95,33 +95,35 @@ class ComponentPage extends React.Component {
     let i = 0;
 
     for (var demoProp in demoProps) {
-      let demoPropData = demoProps[demoProp],
-          propOptions = def.propOptions[demoProp];
+      if (demoProp !== 'children') {
+        let demoPropData = demoProps[demoProp],
+            propOptions = def.propOptions[demoProp];
 
-      if (propOptions) {
-        let opts = propOptions.map((option) => {
-          return { id: option, name: option };
-        });
+        if (propOptions) {
+          let opts = propOptions.map((option) => {
+            return { id: option, name: option };
+          });
 
-        fieldObj[i] = (
-          <Dropdown
-            label={ demoProp }
-            onChange={ ComponentActions.updateDefinition.bind(this, demoProp) }
-            options={ ImmutableHelper.parseJSON(opts) }
-            value={ demoPropData }
-          />
-        );
-      } else {
-        fieldObj[i] = (
-          <Textbox
-            label={ demoProp }
-            onChange={ ComponentActions.updateDefinition.bind(this, demoProp) }
-            value={ demoPropData }
-          />
-        );
+          fieldObj[i] = (
+            <Dropdown
+              label={ demoProp }
+              onChange={ ComponentActions.updateDefinition.bind(this, demoProp) }
+              options={ ImmutableHelper.parseJSON(opts) }
+              value={ demoPropData }
+            />
+          );
+        } else {
+          fieldObj[i] = (
+            <Textbox
+              label={ demoProp }
+              onChange={ ComponentActions.updateDefinition.bind(this, demoProp) }
+              value={ demoPropData }
+            />
+          );
+        }
+
+        i ++;
       }
-
-      i ++;
     }
 
     // if there are options

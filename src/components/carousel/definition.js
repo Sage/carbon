@@ -1,5 +1,7 @@
 import React from 'react';
 
+import DefinitionHelper from '../../utils/helpers/definition-helper';
+
 import { Carousel } from './';
 import slideDefinition from './slide/definition';
 
@@ -18,9 +20,10 @@ let definition = {
     name: 'Carousel',
     type: 'layout'
   },
-  defaultProps: Carousel.defaultProps,
-  demoProps: _.assign({ children: [ slide, slide, slide, slide ] }, Carousel.defaultProps),
-  props: Carousel.propTypes
+  props: Carousel.propTypes,
+  defaultProps: Carousel.defaultProps
 }
+
+definition.demoProps = DefinitionHelper.prepareDemoProps(definition, [ slide, slide, slide, slide ]);
 
 export default definition;
