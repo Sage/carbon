@@ -13,7 +13,7 @@ let definition = {
     type: 'layout'
   },
   defaultProps: Decimal.defaultProps,
-  demoProps: _.assign({ children: 'test' }, Decimal.defaultProps),
+  demoProps: Decimal.defaultProps,
   props: Decimal.propTypes
 }
 export default definition;

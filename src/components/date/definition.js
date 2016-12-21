@@ -13,7 +13,7 @@ let definition = {
     type: 'layout'
   },
   defaultProps: DateComponent.defaultProps,
-  demoProps: _.assign({ children: 'test' }, DateComponent.defaultProps),
+  demoProps: DateComponent.defaultProps,
   props: DateComponent.propTypes
 }
 export default definition;

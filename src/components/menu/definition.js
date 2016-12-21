@@ -1,4 +1,4 @@
-import Menu from './';
+import { Menu } from './';
 
 import { _ } from 'lodash';
 

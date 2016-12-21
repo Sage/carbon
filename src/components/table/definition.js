@@ -1,4 +1,4 @@
-import Table from './';
+import { Table } from './';
 
 import { _ } from 'lodash';
 

@@ -18,14 +18,15 @@ import Icons from './views/pages/icons';
 import AlertWrapper               from './views/pages/component-page/wrappers/alert-wrapper.js';
 import AnimatedMenuButtonWrapper  from './views/pages/component-page/wrappers/animated-menu-button-wrapper.js';
 import AppWrapperWrapper          from './views/pages/component-page/wrappers/app-wrapper-wrapper.js';
-import ButtonToggleWrapperWrapper from './views/pages/component-page/wrappers/button-toggle-wrapper.js';
-import ButtonWrapperWrapper       from './views/pages/component-page/wrappers/button-wrapper.js';
-import CarouselWrapperWrapper     from './views/pages/component-page/wrappers/carousel-wrapper.js';
-import CheckboxWrapperWrapper     from './views/pages/component-page/wrappers/checkbox-wrapper.js';
-import ConfirmWrapperWrapper      from './views/pages/component-page/wrappers/confirm-wrapper.js';
-import ContentWrapperWrapper      from './views/pages/component-page/wrappers/content-wrapper.js';
-import CreateWrapperWrapper       from './views/pages/component-page/wrappers/create-wrapper.js';
+import ButtonToggleWrapper        from './views/pages/component-page/wrappers/button-toggle-wrapper.js';
+import ButtonWrapper              from './views/pages/component-page/wrappers/button-wrapper.js';
+import CarouselWrapper            from './views/pages/component-page/wrappers/carousel-wrapper.js';
+import CheckboxWrapper            from './views/pages/component-page/wrappers/checkbox-wrapper.js';
+import ConfirmWrapper             from './views/pages/component-page/wrappers/confirm-wrapper.js';
+import ContentWrapper             from './views/pages/component-page/wrappers/content-wrapper.js';
+import CreateWrapper              from './views/pages/component-page/wrappers/create-wrapper.js';
 import DateComponentWrapper       from './views/pages/component-page/wrappers/date-wrapper.js';
+import DateRangeWrapper           from './views/pages/component-page/wrappers/date-range-wrapper.js';
 import DecimalWrapper             from './views/pages/component-page/wrappers/decimal-wrapper.js';
 import DetailWrapper              from './views/pages/component-page/wrappers/detail-wrapper.js';
 import DialogFullScreenWrapper    from './views/pages/component-page/wrappers/dialog-full-screen-wrapper.js';
@@ -83,6 +84,7 @@ var routes = (
     <Route path="/components/content"              component={ ContentWrapper } />
     <Route path="/components/create"               component={ CreateWrapper } />
     <Route path="/components/date"                 component={ DateComponentWrapper } />
+    <Route path="/components/date-range"           component={ DateRangeWrapper } />
     <Route path="/components/decimal"              component={ DecimalWrapper } />
     <Route path="/components/detail"               component={ DetailWrapper } />
     <Route path="/components/dialog-full-screen"   component={ DialogFullScreenWrapper } />

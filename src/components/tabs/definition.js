@@ -1,6 +1,11 @@
-import Tabs from './';
+import React from 'react';
+
+import { Tabs } from './';
 
 import { _ } from 'lodash';
+import tabDefinition from './tab/definition';
+
+let tab = React.createElement(tabDefinition.component, tabDefinition.props);
 
 let definition = {
   component: Tabs,
@@ -13,7 +18,7 @@ let definition = {
     type: 'layout'
   },
   defaultProps: Tabs.defaultProps,
-  demoProps: _.assign({ children: 'test' }, Tabs.defaultProps),
+  demoProps: _.assign({ children: [tab,tab,tab] }, Tabs.defaultProps),
   props: Tabs.propTypes
 }
 export default definition;

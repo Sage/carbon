@@ -1,4 +1,4 @@
-import TableAjax from './';
+import { TableAjax } from './';
 
 import { _ } from 'lodash';
 

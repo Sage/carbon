@@ -13,7 +13,7 @@ let definition = {
     type: 'layout'
   },
   defaultProps: DropdownFilterAjax.defaultProps,
-  demoProps: _.assign({ children: 'test' }, DropdownFilterAjax.defaultProps),
+  demoProps: DropdownFilterAjax.defaultProps,
   props: DropdownFilterAjax.propTypes
 }
 export default definition;

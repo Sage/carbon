@@ -13,7 +13,7 @@ let definition = {
     type: 'layout'
   },
   defaultProps: Dropdown.defaultProps,
-  demoProps: _.assign({ children: 'test' }, Dropdown.defaultProps),
+  demoProps: Dropdown.defaultProps,
   props: Dropdown.propTypes
 }
 export default definition;

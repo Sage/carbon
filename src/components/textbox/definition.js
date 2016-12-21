@@ -13,7 +13,7 @@ let definition = {
     type: 'layout'
   },
   defaultProps: Textbox.defaultProps,
-  demoProps: _.assign({ children: 'test' }, Textbox.defaultProps),
+  demoProps: Textbox.defaultProps,
   props: Textbox.propTypes
 }
 export default definition;

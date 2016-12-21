@@ -13,7 +13,7 @@ let definition = {
     type: 'layout'
   },
   defaultProps: RadioButton.defaultProps,
-  demoProps: _.assign({ children: 'test' }, RadioButton.defaultProps),
+  demoProps: RadioButton.defaultProps,
   props: RadioButton.propTypes
 }
 export default definition;

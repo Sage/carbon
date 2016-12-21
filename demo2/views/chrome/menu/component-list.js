@@ -10,6 +10,7 @@ const ComponentList = [
   { name: 'Content',              href: 'content',              type: 'layout'       },
   { name: 'Create',               href: 'create',               type: 'action'       },
   { name: 'Date',                 href: 'date',                 type: 'form'         },
+  { name: 'DateRange',            href: 'date-range',           type: 'form'         },
   { name: 'Decimal',              href: 'decimal',              type: 'form'         },
   { name: 'Detail',               href: 'detail',               type: 'layout'       },
   { name: 'Dialog Full Screen',   href: 'dialog-full-screen',   type: 'modal'        },
@@ -29,7 +30,6 @@ const ComponentList = [
   { name: 'Menu',                 href: 'menu',                 type: 'action'       },
   { name: 'Message',              href: 'message',              type: 'notification' },
   { name: 'Multi Action Button',  href: 'multi-action-button',  type: 'action'       },
-  { name: 'Multi Step Wizard',    href: 'multi-step-wizard',    type: 'action'       },
   { name: 'Navigation Bar',       href: 'navigation-bar',       type: 'layout'       },
   { name: 'Number',               href: 'number',               type: 'form'         },
   { name: 'Pill',                 href: 'pill',                 type: 'misc'         },
@@ -49,8 +49,7 @@ const ComponentList = [
   { name: 'Textarea',             href: 'textarea',             type: 'form'         },
   { name: 'Textbox',              href: 'textbox',              type: 'form'         },
   { name: 'Toast',                href: 'toast',                type: 'notification' },
-  { name: 'Tooltip',              href: 'tooltip',              type: 'misc'         },
-  { name: 'Validations',          href: 'validations',          type: 'form'         }
+  { name: 'Tooltip',              href: 'tooltip',              type: 'misc'         }
 ];
 
 export default ComponentList;

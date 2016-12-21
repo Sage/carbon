@@ -11,7 +11,7 @@ import Link from 'components/link';
  * @param {String} props.direction which way the link points: `backwards` or `forwards`
  * @param {object} props.linkDetails
  * @param {String} props.linkDetails.href
- * @param {String} props.linkDetails.label
+ * @param {String} props.linkDetails.name
  * @param {String} props.prefix prefix text label (i.e. 'Next' or 'Previous')
  * @return {ArrowLink}
  */
@@ -20,7 +20,7 @@ export default props => (
     <div className={ `demo-arrow-link demo-arrow-link--${props.direction}` }>
       <div className='demo-arrow-link__text'>
         <span className='demo-arrow-link__prefix'>{ props.prefix }</span>
-        <span className='demo-arrow-link__label'>{ props.linkDetails.label }</span>
+        <span className='demo-arrow-link__label'>{ props.linkDetails.name }</span>
       </div>
       <Icon
         className='demo-arrow-link__icon'

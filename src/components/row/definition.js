@@ -1,6 +1,10 @@
+import React from 'react';
+
 import Row from './';
 
 import { _ } from 'lodash';
+
+let column = React.createElement('div', { children: 'test' });
 
 let definition = {
   component: Row,
@@ -13,7 +17,7 @@ let definition = {
     type: 'layout'
   },
   defaultProps: Row.defaultProps,
-  demoProps: _.assign({ children: 'test' }, Row.defaultProps),
+  demoProps: _.assign({ children: [column, column, column] }, Row.defaultProps),
   props: Row.propTypes
 }
 export default definition;

@@ -1,13 +1,32 @@
+// React
 import React from 'react';
+import ImmutableHelper from 'utils/helpers/immutable';
 
-import SubPageChrome from '../../sub-page-chrome';
-import PageContentArea from '../../page-sections/page-content-area';
+// Carbon
+import Dropdown from 'components/dropdown';
+import Form from 'components/form';
+import Textbox from 'components/textbox';
 
+// App Components
+import ComponentCodeBuilder from './../../../utils/component-code-builder';
 import ComponentList from '../../chrome/menu/component-list';
+import PageContentArea from '../../page-sections/page-content-area';
+import SubPageChrome from '../../sub-page-chrome';
+
+// Flux Components
+import { connect } from 'utils/flux';
+import ComponentActions from '../../../actions/component';
+import ComponentStore from '../../../stores/component';
 
 class ComponentPage extends React.Component {
+  componentDidMount() {
+    ComponentActions.initialiseDefinition(this.props.definition);
+  }
+
   render() {
-    let def = this.props.definition;
+    let def = this.state.componentStore.get('definition') || this.props.definition;
+
+    if (def.toJS) { def = def.toJS(); }
 
     let position = this._componentPosition(def);
 
@@ -16,8 +35,8 @@ class ComponentPage extends React.Component {
         subtitle={ def.text.description }
         title={ def.text.name }
         titleAppend={ def.text.type }
-        previousPage={ ComponentList[this._previousComponent(this._componentPosition(def))] }
-        nextPage={ ComponentList[this._nextComponent(this._componentPosition(def))] }
+        previousPage={ ComponentList[this._previousComponent(position)] }
+        nextPage={ ComponentList[this._nextComponent(position)] }
       >
         <PageContentArea
           title='Preview'
@@ -25,11 +44,126 @@ class ComponentPage extends React.Component {
         >
           { React.createElement(def.component, def.demoProps) }
         </PageContentArea>
+        <PageContentArea>
+          <code>
+            { this._buildCode(def) }
+          </code>
+          <form>
+            { this._buildFields(def) }
+          </form>
+        </PageContentArea>
         <PageContentArea title='Designer Notes'>
           { def.text.details }
         </PageContentArea>
       </SubPageChrome>
     );
+  }
+
+  /**
+   * builds code output
+   *
+   * @private
+   * @method _buildCode
+   * @param {Object} def - definition
+   * @return {String} code string
+   */
+  _buildCode = (def) => {
+    let codeObj = new ComponentCodeBuilder(def.text.name);
+
+    for (var prop in def.demoProps) {
+      codeObj.addProp(prop, def.demoProps[prop]);
+    }
+
+    return codeObj.toString();
+  }
+
+  /**
+   * builds fields for dynamically editing props
+   *
+   * @private
+   * @method _buildCode
+   * @param {Object} def - definition
+   * @return {String} code string
+   */
+  _buildFields = (def) => {
+    let fieldObj = [];
+
+    // get the props
+    let demoProps = def.demoProps;
+
+    // iterate over the demoProps
+    let i = 0;
+
+    for (var demoProp in demoProps) {
+      let demoPropData = demoProps[demoProp],
+          propOptions = def.propOptions[demoProp];
+
+      if (propOptions) {
+        let opts = propOptions.map((option) => {
+          return { id: option, name: option };
+        });
+
+        fieldObj[i] = (
+          <Dropdown
+            label={ demoProp }
+            onChange={ ComponentActions.updateDefinition.bind(this, demoProp) }
+            options={ ImmutableHelper.parseJSON(opts) }
+            value={ demoPropData }
+          />
+        );
+      } else {
+        fieldObj[i] = (
+          <Textbox
+            label={ demoProp }
+            onChange={ ComponentActions.updateDefinition.bind(this, demoProp) }
+            value={ demoPropData }
+          />
+        );
+      }
+
+      i ++;
+    }
+
+    // if there are options
+
+    //   if there are more than three options
+
+    //     output dropdown
+
+    //   else
+
+    //     output radios
+
+    //   end if
+
+    // else
+
+    //   output textbox
+
+    // end if
+
+    // let fieldObj = [];
+
+    // let i = 0;
+
+    // for (var prop in def.props) {
+    //   let p = def.props.rop]);
+
+    //   console.log(p.options);
+
+    //   if (p.options) {
+    //     fieldObj[i] = [];
+    //     let j = 0;
+
+    //     for (var opt in p.options) {
+    //       fieldObj[i][j] = (<Textbox value={ opt } />);
+    //     }
+    //     j++;
+    //   }
+    //   i ++;
+    // }
+
+    return fieldObj;
   }
 
   /**
@@ -75,5 +209,5 @@ class ComponentPage extends React.Component {
   }
 }
 
-export default ComponentPage;
+export default connect(ComponentPage, ComponentStore);
 

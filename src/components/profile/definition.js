@@ -13,7 +13,7 @@ let definition = {
     type: 'layout'
   },
   defaultProps: Profile.defaultProps,
-  demoProps: _.assign({ children: 'test' }, Profile.defaultProps),
+  demoProps: _.assign({ name: 'Test', email: 'test@test.com' }, Profile.defaultProps),
   props: Profile.propTypes
 }
 export default definition;

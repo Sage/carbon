@@ -13,7 +13,7 @@ let definition = {
     type: 'layout'
   },
   defaultProps: NumberComponent.defaultProps,
-  demoProps: _.assign({ children: 'test' }, NumberComponent.defaultProps),
+  demoProps: NumberComponent.defaultProps,
   props: NumberComponent.propTypes
 }
 export default definition;

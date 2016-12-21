@@ -13,9 +13,28 @@ let definition = {
     name: 'Button',
     type: 'buttons'
   },
-  defaultProps: Button.defaultProps,
-  demoProps: _.assign({ children: 'test' }, Button.defaultProps),
-  props: Button.propTypes
+  props: Button.propTypes,
+  defaultProps: Button.defaultProps
 }
+
+let demoProps = _.assign(
+  { children: 'test' },
+  Button.defaultProps
+);
+
+for (var prop in definition.props) {
+  if (!demoProps[prop]) {
+    demoProps[prop] = '';
+  }
+}
+
+let propOptions = {
+  as: ['primary', 'secondary'],
+  size: ['small', 'medium', 'large'],
+  theme: ['blue', 'green', 'red', 'magenta', 'grey', 'white']
+};
+
+definition.demoProps = demoProps;
+definition.propOptions = propOptions;
 
 export default definition;
