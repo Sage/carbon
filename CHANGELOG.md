@@ -1,5 +1,9 @@
 # 0.32.0
 
+## New Validators
+
+* IsBlankValidator
+
 ## MountInApp Component
 
 Can be used to integrate React components into pre-existing user interfaces.
