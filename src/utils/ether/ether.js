@@ -58,9 +58,40 @@ function validProps(instance, safeProps) {
   return omit(instance.props, unsafeProps);
 }
 
+/**
+ * Returns string with inserted character and specified indices
+ *
+ * @method insertAt
+ * @param {String} string
+ * @param {Number}  position - position at which to insert
+ * @param {Object} options
+ * * @param {String}  newChar  - character to insert
+ * * @param {Boolean} repeat   - repeat the insertion at the specified interval
+ * @return {String} result - formatted
+ */
+function insertAt(string, position, options = {}) {
+  let result = string,
+      newChar = options.newChar || '-';
+
+  if (options.repeat) {
+    let insertionShift = position + newChar.length,
+        maxLength = string.length + Math.floor(string.length / position) - 1;
+
+    for (let i = position; i < maxLength; i += insertionShift) {
+      result = result.substr(0, i) + newChar + result.substr(i);
+    }
+  } else {
+    result = result.substr(0, position) + newChar + result.substr(position);
+  }
+  return result;
+}
+
+
+
 export {
   acronymize,
   append,
   styleElement,
-  validProps
+  validProps,
+  insertAt
 };
