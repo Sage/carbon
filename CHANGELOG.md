@@ -1,4 +1,3 @@
-
 # 1.0.0
 
 ## :warning: Major Change - React 15 Upgrade
@@ -9,9 +8,19 @@
 
 * Banner Component has been Deleted in favour of the Message Component
 
+## Component Enhancements
+
+* `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
+
 ## Dependency Update
 
 * Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+
+# 0.31.2
+
+## Bug fix
+
+* `Pod`: bug fixed with link and hover event props being mixed up
 
 # 0.31.1
 
@@ -87,6 +96,7 @@ We have added a settings row component for settings pages. It employs the curren
 * Readded the `carbon-tabs` class to the Tabs component.
 * Clear any selected rows too in refresh()
 * SelectedRows should be reset to the same object it is defined with
+>>>>>>> master
 
 # 0.29.1
 

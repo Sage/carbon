@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Pill from 'components/pill';
+
 import Wrapper from '../../chrome/wrapper';
 
 /**
@@ -13,8 +15,24 @@ import Wrapper from '../../chrome/wrapper';
 export default props => (
   <header className='page-header-small'>
     <Wrapper>
-      <h1 className='page-header-small__title'>{ props.title }</h1>
+      <h1 className='page-header-small__title'>
+        { props.title }
+        { _titleAppend(props.titleAppend) }
+      </h1>
       <h2 className='page-header-small__subtitle'>{ props.subtitle }</h2>
     </Wrapper>
   </header>
 );
+
+/**
+ * outputs the title append as a Pill
+ *
+ * @method _titleAppend
+ * @param {String} append
+ * @return {Pill} wrapper title append (or null if it doesn't exist)
+ */
+const _titleAppend = (append) => {
+  if (append) {
+    return <Pill as='help'>{ append }</Pill>;
+  }
+}

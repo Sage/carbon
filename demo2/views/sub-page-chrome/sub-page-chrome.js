@@ -17,8 +17,9 @@ export default props => (
   <article className='sub-page-chrome'>
     <PageBackground />
     <PageHeaderSmall
-      title={ props.title }
       subtitle={ props.subtitle }
+      title={ props.title }
+      titleAppend={ props.titleAppend }
     />
     { props.children }
     <SubPageNavigation

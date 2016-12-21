@@ -60,7 +60,11 @@ class Menu extends React.Component {
             </Link>
           </MenuListItem>
           <MenuListItem>
-            <MenuList title={ I18n.t('components') } filter={ true }>
+            <MenuList
+              title={ I18n.t('components') }
+              initiallyOpen={ this._initiallyOpen(ComponentList) }
+              filter={ true }
+            >
               { this.componentsHTML }
             </MenuList>
           </MenuListItem>
@@ -70,7 +74,11 @@ class Menu extends React.Component {
             </Link>
           </MenuListItem>
           <MenuListItem>
-            <MenuList title={ I18n.t('navigation.style') } filter={ true }>
+            <MenuList
+              title={ I18n.t('navigation.style') }
+              initiallyOpen={ this._initiallyOpen(styles) }
+              filter={ true }
+            >
               { this.stylesHTML }
             </MenuList>
           </MenuListItem>
@@ -88,6 +96,18 @@ class Menu extends React.Component {
 
       </Sidebar>
     );
+  }
+
+  _initiallyOpen = (menuItems) => {
+    let openCount = 0;
+
+    menuItems.forEach((menuItem) => {
+      if (menuItem.href === window.location.pathname) {
+        openCount ++;
+      }
+    });
+
+    return (openCount > 0);
   }
 }
 
