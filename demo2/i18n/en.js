@@ -24,7 +24,7 @@ I18n.translations['en'] = {
     component_showcase: {
       heading: 'The buidling blocks of ',
       heading_suffix: 'awesome UI',
-      text: 'Powerful components, flexible configurations, easy code, and amazing user experience - all together building your incredible web application.'
+      text: 'Powerful components, flexible configurations, easy code, and amazing user experience - all working together to build your incredible web application.'
     },
 
     get_started: {
@@ -36,17 +36,17 @@ I18n.translations['en'] = {
       global_scale: {
         title: 'Global Scale',
         footer_content: 'Learn more about Sage',
-        text: 'At Sage we are actively designing, developing and testing the Carbon library. It is the global foundation used in delivering Sage One. As Sage One pushes out changes, Carbon is updated seeminglessly, giving you access to the latest release.'
+        text: 'At Sage we are actively designing, developing and testing the Carbon library. It is the global foundation used in delivering Sage One. As Sage One pushes out changes, Carbon is updated seamlessly, giving you access to the latest release.'
       },
       constantly_improving: {
         title: 'constantly_improving',
         footer_content: 'Learn more recent updates',
-        text: 'At Sage we are actively designing, developing and testing the Carbon library. It is the global foundation used in delivering Sage One. As Sage One pushes out changes, Carbon is updated seeminglessly, giving you access to the latest release.'
+        text: 'At Sage we are actively designing, developing and testing the Carbon library. It is the global foundation used in delivering Sage One. As Sage One pushes out changes, Carbon is updated seamlessly, giving you access to the latest release.'
       }
     },
 
     page_header_large: {
-      heading1: 'Carbon is a library of React component for building great web applications.',
+      heading1: 'Carbon is a library of React components for building great web applications.',
       heading2: 'Carbon is open source. It’s hosted, developed, and maintained on Github.',
       version: 'Currently: v1.0.0'
     },
@@ -61,7 +61,7 @@ I18n.translations['en'] = {
     selling_points: {
       heading: 'Ready, set, ',
       heading_suffix: 'code!',
-      text: 'Beside having beautiful UI that is easy to use, you’ll find there’s so much more to using Carbon on your next project.',
+      text: 'Besides having beautiful UI that is easy to use, you’ll find there’s so much more to using Carbon on your next project.',
 
       point: {
         heading: 'Easy, fast, powerful',
@@ -81,7 +81,7 @@ I18n.translations['en'] = {
       },
       plug: {
         heading: 'Powered by you',
-        text: 'Carbon powers your app. Contribute your code, so you power Carbon too.'
+        text: 'Carbon powers your app. Contribute your code, so you can power Carbon too.'
       },
       collaborate: {
         heading: 'Seamlessly collaborative',
