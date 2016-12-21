@@ -35,18 +35,23 @@ A component that displays squares with color samples that you can choose from.
 *  It inserts a dash by default, or a custom `newChar`
 
 ```javascript
-insertAt('123456', 2);
-// => 12-3456
-insertAt('123456789', 3, { newChar:'/' });
-// => 123/456789
+  insertAt('123456', 2);
+  // => 12-3456
+  insertAt('123456789', 3, { newChar:'/' });
+  // => 123/456789
 ```
 To repeat the character at the same interval, set `repeat` to `true`
+
 ```javascript
-insertAt('123456', 2, { repeat: true });
-// => 12-34-56
-insertAt('123456789', 3, { newChar:'/', repeat: true });
-// => 123/456/789
+  insertAt('123456', 2, { repeat: true });
+  // => 12-34-56
+  insertAt('123456789', 3, { newChar:'/', repeat: true });
+  // => 123/456/789
 ```
+
+# 0.31.3
+
+* `legacyEditStyles` prop name has changed to `internalEditButton`.
 
 # 0.31.2
 
