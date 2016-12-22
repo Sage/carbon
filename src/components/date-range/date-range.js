@@ -184,12 +184,6 @@ class DateRange extends React.Component {
       onChange: this._onChange.bind(null, 'startDate'),
       onFocus: this.focusStart,
       ref: (c) => { this._startDate = c; },
-      validations: [
-        new DateRangeValidator({
-          endDate: this.endDate,
-          messageText: this.startMessage
-        })
-      ],
       value: this.startDate
     }, this.props.startDateProps);
     props.className = classNames(
@@ -197,6 +191,12 @@ class DateRange extends React.Component {
       'carbon-date-range__start',
       this.props.startDateProps ? this.props.startDateProps.className : null
     );
+    props.validations = [
+      new DateRangeValidator({
+        endDate: this.endDate,
+        messageText: this.startMessage
+      })
+    ].concat((this.props.startDateProps || {}).validations || []);
     return props;
   }
 
@@ -213,18 +213,18 @@ class DateRange extends React.Component {
       onChange: this._onChange.bind(null, 'endDate'),
       onFocus: this.focusEnd,
       ref: (c) => { this._endDate = c; },
-      validations: [
-        new DateRangeValidator({
-          startDate: this.startDate,
-          messageText: this.endMessage
-        })
-      ],
       value: this.endDate
     }, this.props.endDateProps);
     props.className = classNames(
       'carbon-date-range',
       this.props.endDateProps ? this.props.endDateProps.className : null
     );
+    props.validations = [
+      new DateRangeValidator({
+        startDate: this.startDate,
+        messageText: this.endMessage
+      })
+    ].concat((this.props.endDateProps || {}).validations || []);
     return props;
   }
 

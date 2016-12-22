@@ -251,5 +251,19 @@ describe('DateRange', () => {
       expect(dates[0].props.className).toEqual('carbon-date-range carbon-date-range__start custom-start-class');
       expect(dates[1].props.className).toEqual('carbon-date-range custom-end-class');
     });
+
+    it('validations can be added to dates by passing startDateProps and endDateProps to DateRange', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2016-10-10','2016-11-11'] }
+          startDateProps={ { validations: ['custom validation'] } }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.validations.length).toEqual(2);
+      expect(dates[0].props.validations[1]).toEqual('custom validation');
+      expect(dates[1].props.validations.length).toEqual(1);
+    });
   });
 });
