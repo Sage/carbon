@@ -17,6 +17,7 @@
   - Create
   - Alert
   - App-Wrapper
+  - Action Toolbar
 
 ## Component Enhancements
 
