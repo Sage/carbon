@@ -1,6 +1,6 @@
 import Button from './';
 
-import { _ } from 'lodash';
+import DefinitionHelper from '../../utils/helpers/definition-helper';
 
 let definition = {
   component: Button,
@@ -13,9 +13,15 @@ let definition = {
     name: 'Button',
     type: 'buttons'
   },
+  props: Button.propTypes,
   defaultProps: Button.defaultProps,
-  demoProps: _.assign({ children: 'test' }, Button.defaultProps),
-  props: Button.propTypes
+  propOptions: {
+    as: ['primary', 'secondary'],
+    size: ['small', 'medium', 'large'],
+    theme: ['blue', 'green', 'red', 'magenta', 'grey', 'white']
+  }
 }
+
+definition.demoProps = DefinitionHelper.prepareDemoProps(definition, 'test');
 
 export default definition;
