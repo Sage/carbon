@@ -1,3 +1,8 @@
+# 0.32.1
+
+## Bug Fixes
+
+* Validation is now correctly reset when a value is changed externally from the input.
 
 # 0.32.0
 
