@@ -225,5 +225,31 @@ describe('DateRange', () => {
       expect(dates[0].props.disabled).toEqual(true);
       expect(dates[1].props.disabled).toEqual(true);
     });
+
+    it('default classNames are applied to start and end dates if none are explicitly specified', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2016-10-10','2016-11-11'] }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.className).toEqual('carbon-date-range carbon-date-range__start');
+      expect(dates[1].props.className).toEqual('carbon-date-range');
+    });
+
+    it('class names can be added to dates by passing startDateProps and endDateProps to DateRange', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2016-10-10','2016-11-11'] }
+          startDateProps={ { className: 'custom-start-class' } }
+          endDateProps={ { className: 'custom-end-class' } }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.className).toEqual('carbon-date-range carbon-date-range__start custom-start-class');
+      expect(dates[1].props.className).toEqual('carbon-date-range custom-end-class');
+    });
   });
 });

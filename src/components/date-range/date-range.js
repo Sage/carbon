@@ -3,6 +3,7 @@ import I18n from 'i18n-js';
 import Date from './../date';
 import DateRangeValidator from './../../utils/validations/date-range';
 import { assign } from 'lodash';
+import classNames from 'classnames';
 
 class DateRange extends React.Component {
   static propTypes = {
@@ -170,9 +171,14 @@ class DateRange extends React.Component {
     this._startDate.closeDatePicker();
   }
 
+  /**
+   * The startDate props
+   *
+   * @method startDateProps
+   * @return {Object} the props that are applied to the child start Date component
+   */
   startDateProps() {
-    return assign({}, this.props.startDateProps, {
-      className: 'carbon-date-range carbon-date-range__start',
+    let props = assign({}, {
       label: this.props.startLabel,
       labelInline: this.props.labelsInline,
       onChange: this._onChange.bind(null, 'startDate'),
@@ -185,12 +191,23 @@ class DateRange extends React.Component {
         })
       ],
       value: this.startDate
-    });
+    }, this.props.startDateProps);
+    props.className = classNames(
+      'carbon-date-range',
+      'carbon-date-range__start',
+      this.props.startDateProps ? this.props.startDateProps.className : null
+    );
+    return props;
   }
 
+  /**
+   * The endDate props
+   *
+   * @method endDateProps
+   * @return {Object} the props that are applied to the child end Date component
+   */
   endDateProps() {
-    return assign({}, this.props.endDateProps, {
-      className: 'carbon-date-range',
+    let props = assign({}, {
       label: this.props.endLabel,
       labelInline: this.props.labelsInline,
       onChange: this._onChange.bind(null, 'endDate'),
@@ -203,7 +220,12 @@ class DateRange extends React.Component {
         })
       ],
       value: this.endDate
-    });
+    }, this.props.endDateProps);
+    props.className = classNames(
+      'carbon-date-range',
+      this.props.endDateProps ? this.props.endDateProps.className : null
+    );
+    return props;
   }
 
   render () {
