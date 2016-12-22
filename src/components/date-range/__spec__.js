@@ -235,7 +235,7 @@ describe('DateRange', () => {
       );
       let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
       expect(dates[0].props.className).toEqual('carbon-date-range carbon-date-range__start');
-      expect(dates[1].props.className).toEqual('carbon-date-range');
+      expect(dates[1].props.className).toEqual('carbon-date-range carbon-date-range__end');
     });
 
     it('class names can be added to dates by passing startDateProps and endDateProps to DateRange', () => {
@@ -249,7 +249,7 @@ describe('DateRange', () => {
       );
       let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
       expect(dates[0].props.className).toEqual('carbon-date-range carbon-date-range__start custom-start-class');
-      expect(dates[1].props.className).toEqual('carbon-date-range custom-end-class');
+      expect(dates[1].props.className).toEqual('carbon-date-range carbon-date-range__end custom-end-class');
     });
 
     it('validations can be added to dates by passing startDateProps and endDateProps to DateRange', () => {

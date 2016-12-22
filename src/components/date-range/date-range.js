@@ -178,26 +178,12 @@ class DateRange extends React.Component {
    * @return {Object} the props that are applied to the child start Date component
    */
   startDateProps() {
-    let props = assign({}, {
-      label: this.props.startLabel,
-      labelInline: this.props.labelsInline,
-      onChange: this._onChange.bind(null, 'startDate'),
-      onFocus: this.focusStart,
-      ref: (c) => { this._startDate = c; },
-      value: this.startDate
-    }, this.props.startDateProps);
-    props.className = classNames(
-      'carbon-date-range',
-      'carbon-date-range__start',
-      this.props.startDateProps ? this.props.startDateProps.className : null
-    );
-    props.validations = [
+    return this.dateProps('start', [
       new DateRangeValidator({
         endDate: this.endDate,
         messageText: this.startMessage
       })
-    ].concat((this.props.startDateProps || {}).validations || []);
-    return props;
+    ]);
   }
 
   /**
@@ -207,24 +193,37 @@ class DateRange extends React.Component {
    * @return {Object} the props that are applied to the child end Date component
    */
   endDateProps() {
-    let props = assign({}, {
-      label: this.props.endLabel,
-      labelInline: this.props.labelsInline,
-      onChange: this._onChange.bind(null, 'endDate'),
-      onFocus: this.focusEnd,
-      ref: (c) => { this._endDate = c; },
-      value: this.endDate
-    }, this.props.endDateProps);
-    props.className = classNames(
-      'carbon-date-range',
-      this.props.endDateProps ? this.props.endDateProps.className : null
-    );
-    props.validations = [
+    return this.dateProps('end', [
       new DateRangeValidator({
         startDate: this.startDate,
         messageText: this.endMessage
       })
-    ].concat((this.props.endDateProps || {}).validations || []);
+    ]);
+  }
+
+  /**
+   * The startDate/endDate props
+   *
+   * @method dateProps
+   * @return {Object} the props that are applied to the child Date components
+   */
+  dateProps(propsKey, defaultValidations) {
+    let props = assign({}, {
+      label: this.props[`${ propsKey }Label`],
+      labelInline: this.props.labelsInline,
+      onChange: this._onChange.bind(null, `${ propsKey }Date`),
+      onFocus: this.focusEnd,
+      ref: (c) => { this[`_${ propsKey }Date`] = c; },
+      value: this[`${ propsKey }Date`]
+    }, this.props[`${ propsKey }DateProps`]);
+    props.className = classNames(
+      'carbon-date-range',
+      `carbon-date-range__${ propsKey }`,
+      (this.props[`${ propsKey }DateProps`] || {}).className : null
+    );
+    props.validations = defaultValidations.concat(
+      (this.props[`${ propsKey }DateProps`] || {}).validations || []
+    );
     return props;
   }
 
