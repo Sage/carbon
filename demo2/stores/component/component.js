@@ -7,17 +7,13 @@ import ImmutableHelper from 'utils/helpers/immutable';
 import ComponentActions from '../../actions/component';
 import ComponentConstants from '../../constants/component';
 
-let data = ImmutableHelper.parseJSON({
-  definition: false
-});
+import definitions from '../../definitions';
+
+let data = ImmutableHelper.parseJSON(definitions);
 
 class ComponentStore extends Store {
-  [ComponentConstants.INITIALISE_DEFINITION](data) {
-    this.data = this.data.set('definition', ImmutableHelper.parseJSON(data.definition));
-  }
-
   [ComponentConstants.UPDATE_DEFINITION](data) {
-    this.data = this.data.setIn(['definition', 'demoProps', data.prop], data.value);
+    this.data = this.data.setIn([data.name, 'demoProps', data.prop], data.value);
   }
 }
 

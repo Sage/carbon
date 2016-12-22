@@ -4,7 +4,7 @@ import { _ } from 'lodash';
  * Helper methods for constructing definitions.
  */
 let DefinitionHelper = {
-  prepareDemoProps: (definition, children) => {
+  prepareDemoProps: (definition, children, demoDefaults = {}) => {
     let childObject = children ? { children: children } : {  };
     let defaultPropsObject = definition.defaultProps ? definition.defaultProps : {  };
 
@@ -14,9 +14,24 @@ let DefinitionHelper = {
       if (!demoProps[prop]) {
         demoProps[prop] = '';
       }
+      if (demoDefaults[prop]) {
+        demoProps[prop] = demoDefaults[prop];
+      }
     }
 
     return demoProps;
+  },
+
+  baseSizes: () => {
+    return [
+      'extra-small',
+      'small',
+      'medium-small',
+      'medium',
+      'medium-large',
+      'large',
+      'extra-large'
+    ];
   }
 };
 

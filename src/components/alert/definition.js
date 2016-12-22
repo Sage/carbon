@@ -1,6 +1,6 @@
 import Alert from './';
 
-import { _ } from 'lodash';
+import DefinitionHelper from '../../utils/helpers/definition-helper';
 
 let definition = {
   component: Alert,
@@ -12,8 +12,19 @@ let definition = {
     name: 'Alert',
     type: 'layout'
   },
+  props: Alert.propTypes,
   defaultProps: Alert.defaultProps,
-  demoProps: _.assign({ children: 'test' }, Alert.defaultProps),
-  props: Alert.propTypes
+  propOptions: {
+    size: DefinitionHelper.baseSizes()
+  }
 }
+
+definition.demoProps = DefinitionHelper.prepareDemoProps(
+  definition,
+  'test',
+  { enableBackgroundUI: true,
+    showCloseIcon: true,
+    size: DefinitionHelper.baseSizes()[2] }
+);
+
 export default definition;

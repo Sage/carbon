@@ -21,7 +21,7 @@ let definition = {
     type: 'layout'
   },
   props: Carousel.propTypes,
-  defaultProps: Carousel.defaultProps
+  defaultProps: Carousel.defaultProps,
 }
 
 definition.demoProps = DefinitionHelper.prepareDemoProps(definition, [ slide, slide, slide, slide ]);

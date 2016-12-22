@@ -12,7 +12,7 @@ let definition = {
     name: 'Slide',
     type: 'layout'
   },
-  props: { children: 'test' }
+  props: { children: 'test', className: 'test' }
 }
 
 export default definition;

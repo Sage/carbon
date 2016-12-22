@@ -13,9 +13,10 @@ const ComponentActions = {
     });
   },
 
-  updateDefinition: (prop, ev) => {
+  updateDefinition: (prop, name, ev) => {
     Dispatcher.dispatch({
       actionType: ComponentConstants.UPDATE_DEFINITION,
+      name: name,
       prop: prop,
       value: ev.target.value
     });

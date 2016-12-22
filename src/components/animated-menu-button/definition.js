@@ -1,6 +1,6 @@
 import AnimatedMenuButton from './';
 
-import { _ } from 'lodash';
+import DefinitionHelper from '../../utils/helpers/definition-helper';
 
 let definition = {
   component: AnimatedMenuButton,
@@ -12,8 +12,18 @@ let definition = {
     name: 'AnimatedMenuButton',
     type: 'layout'
   },
+  props: AnimatedMenuButton.propTypes,
   defaultProps: AnimatedMenuButton.defaultProps,
-  demoProps: _.assign({ children: 'test' }, AnimatedMenuButton.defaultProps),
-  props: AnimatedMenuButton.propTypes
+  propOptions: {
+    direction: ['left', 'right'],
+    size: DefinitionHelper.baseSizes()
+  }
 }
+
+definition.demoProps = DefinitionHelper.prepareDemoProps(
+  definition,
+  '',
+  { direction: 'right' }
+);
+
 export default definition;

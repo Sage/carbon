@@ -16,7 +16,7 @@ import Link from 'components/link';
  * @return {ArrowLink}
  */
 export default props => (
-  <Link href={ props.linkDetails.href }>
+  <Link to={ props.linkDetails.href }>
     <div className={ `demo-arrow-link demo-arrow-link--${props.direction}` }>
       <div className='demo-arrow-link__text'>
         <span className='demo-arrow-link__prefix'>{ props.prefix }</span>

@@ -9,7 +9,7 @@ import Textbox from 'components/textbox';
 
 // App Components
 import ComponentCodeBuilder from './../../../utils/component-code-builder';
-import ComponentList from '../../chrome/menu/component-list';
+import Definitions from './../../../definitions';
 import PageContentArea from '../../page-sections/page-content-area';
 import SubPageChrome from '../../sub-page-chrome';
 
@@ -18,13 +18,11 @@ import { connect } from 'utils/flux';
 import ComponentActions from '../../../actions/component';
 import ComponentStore from '../../../stores/component';
 
-class ComponentPage extends React.Component {
-  componentDidMount() {
-    ComponentActions.initialiseDefinition(this.props.definition);
-  }
+let definitionKeys = Object.keys(Definitions).sort();
 
+class ComponentPage extends React.Component {
   render() {
-    let def = this.state.componentStore.get('definition') || this.props.definition;
+    let def = this.state.componentStore.get(this.props.name);
 
     if (def.toJS) { def = def.toJS(); }
 
@@ -35,8 +33,8 @@ class ComponentPage extends React.Component {
         subtitle={ def.text.description }
         title={ def.text.name }
         titleAppend={ def.text.type }
-        previousPage={ ComponentList[this._previousComponent(position)] }
-        nextPage={ ComponentList[this._nextComponent(position)] }
+        previousPage={ this._prepareSubnavObject(this._previousComponent(position)) }
+        nextPage={ this._prepareSubnavObject(this._nextComponent(position)) }
       >
         <PageContentArea
           title='Preview'
@@ -95,91 +93,48 @@ class ComponentPage extends React.Component {
     let i = 0;
 
     for (var demoProp in demoProps) {
-      if (demoProp !== 'children') {
-        let demoPropData = demoProps[demoProp],
-            propOptions = def.propOptions[demoProp];
+      let demoPropData = demoProps[demoProp],
+          propOptions = def.propOptions ? def.propOptions[demoProp] : null;
 
-        if (propOptions) {
-          let opts = propOptions.map((option) => {
-            return { id: option, name: option };
-          });
+      if (propOptions) {
+        let opts = propOptions.map((option) => {
+          return { id: option, name: option };
+        });
 
-          fieldObj[i] = (
-            <Dropdown
-              label={ demoProp }
-              onChange={ ComponentActions.updateDefinition.bind(this, demoProp) }
-              options={ ImmutableHelper.parseJSON(opts) }
-              value={ demoPropData }
-            />
-          );
-        } else {
-          fieldObj[i] = (
-            <Textbox
-              label={ demoProp }
-              onChange={ ComponentActions.updateDefinition.bind(this, demoProp) }
-              value={ demoPropData }
-            />
-          );
-        }
-
-        i ++;
+        fieldObj[i] = (
+          <Dropdown
+            label={ demoProp }
+            onChange={ ComponentActions.updateDefinition.bind(this, demoProp, this.props.name) }
+            options={ ImmutableHelper.parseJSON(opts) }
+            value={ demoPropData }
+          />
+        );
+      } else {
+        fieldObj[i] = (
+          <Textbox
+            label={ demoProp }
+            onChange={ ComponentActions.updateDefinition.bind(this, demoProp, this.props.name) }
+            value={ demoPropData }
+          />
+        );
       }
+
+      i ++;
     }
-
-    // if there are options
-
-    //   if there are more than three options
-
-    //     output dropdown
-
-    //   else
-
-    //     output radios
-
-    //   end if
-
-    // else
-
-    //   output textbox
-
-    // end if
-
-    // let fieldObj = [];
-
-    // let i = 0;
-
-    // for (var prop in def.props) {
-    //   let p = def.props.rop]);
-
-    //   console.log(p.options);
-
-    //   if (p.options) {
-    //     fieldObj[i] = [];
-    //     let j = 0;
-
-    //     for (var opt in p.options) {
-    //       fieldObj[i][j] = (<Textbox value={ opt } />);
-    //     }
-    //     j++;
-    //   }
-    //   i ++;
-    // }
 
     return fieldObj;
   }
 
   /**
-   * gets the component array position for propulating next and previous
+   * gets the component array position for populating next and previous
    *
    * @private
    * @method _componentPosition
    * @param {Object} definition
    * @return {Number} position of the component in the array
    */
-  _componentPosition = (definition) => {
-    return ComponentList.findIndex((component) => {
-      return component.href === definition.key;
-    });
+  _componentPosition = (def) => {
+    return definitionKeys.indexOf(def.key);
   }
 
   /**
@@ -188,12 +143,14 @@ class ComponentPage extends React.Component {
    * @private
    * @method _nextComponent
    * @param {Number} current - current position
-   * @return {Object} ComponentList element
+   * @return {Object} Definitions element
    */
   _nextComponent = (current) => {
-    return current === ComponentList.length - 1
+    let pos = current === definitionKeys.length - 1
       ? 0
       : current + 1;
+
+    return Definitions[definitionKeys[pos]];
   }
 
   /**
@@ -202,12 +159,29 @@ class ComponentPage extends React.Component {
    * @private
    * @method _previousComponent
    * @param {Number} current - current position
-   * @return {Object} ComponentList element
+   * @return {Object} Definitions element
    */
   _previousComponent = (current) => {
-    return current === 0
-      ? ComponentList.length - 1
+    let pos = current === 0
+      ? definitionKeys.length - 1
       : current - 1;
+
+    return Definitions[definitionKeys[pos]];
+  }
+
+  /**
+   * prepares an object for sub navigation, using href and name keys, from a definition
+   *
+   * @private
+   * @method _prepareSubnavObject
+   * @param {Object} def - a component definition
+   * @return {Object}
+   */
+  _prepareSubnavObject = (def) => {
+    return {
+      name: def.text.name,
+      href: `/components/${def.key}`
+    };
   }
 }
 
