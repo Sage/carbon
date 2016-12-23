@@ -154,10 +154,10 @@ class Pod extends React.Component {
     /**
      * Resets edit button styles to an older version
      *
-     * @property legacyEditStyles
+     * @property internalEditButton
      * @type {Boolean}
      */
-    legacyEditStyles: React.PropTypes.bool
+    internalEditButton: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -289,7 +289,7 @@ class Pod extends React.Component {
         "carbon-pod--editable": this.props.onEdit,
         'carbon-pod--is-hovered': this.state.hoverEdit,
         'carbon-pod--content-triggers-edit': this.shouldContentHaveEditProps,
-        'carbon-pod--legacy-edit-style': this.props.legacyEditStyles
+        'carbon-pod--internal-edit-button': this.props.internalEditButton
       }
     );
   }
@@ -411,7 +411,7 @@ class Pod extends React.Component {
   }
 
   /**
-   * gets props for the Link, required for it to link to stuff
+   * Returns event related props for triggering and highlighting edit functionality
    *
    * @method linkProps
    * @return {Object} props
@@ -493,7 +493,6 @@ class Pod extends React.Component {
     let content,
         { ...props } = validProps(this),
         hoverOverEditEvents = {};
-
 
     delete props.className;
 

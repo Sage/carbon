@@ -187,10 +187,10 @@ describe('Pod', () => {
       });
     });
 
-    describe("if legacy edit styles are set", () => {
+    describe("if internal edit button is enabled", () => {
       it("renders a class to switch styles", () => {
-        let wrapper = shallow(<Pod legacyEditStyles={ true }/>);
-        expect(wrapper.find('.carbon-pod--legacy-edit-style').length).toEqual(1);
+        let wrapper = shallow(<Pod internalEditButton={ true }/>);
+        expect(wrapper.find('.carbon-pod--internal-edit-button').length).toEqual(1);
       });
     });
   });

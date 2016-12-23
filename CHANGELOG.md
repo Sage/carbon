@@ -16,6 +16,67 @@
 
 * Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
 
+# 0.32.1
+
+## Bug Fixes
+
+* Validation is now correctly reset when a value is changed externally from the input.
+
+# 0.32.0
+
+## New Validators
+
+* IsBlankValidator
+
+## MountInApp Component
+
+Can be used to integrate React components into pre-existing user interfaces.
+
+```
+  <MountInApp targetId="put_carbon_component_here">
+    // Children
+  </MountInApp>
+```
+
+The code above will render all `//Children` components inside of the element with ID=`put_carbon_component_here` found on the page.
+
+## SimpleColorPicker Component
+
+A component that displays squares with color samples that you can choose from.
+
+```javascript
+  <SimpleColorPicker
+    availableColors={ ['transparent', '#ff0102', '#34ff01'] }
+    selectedColor="#34ff01"
+    name="settings[color_of_something]"
+    onChange={ customEventHandler }
+  />
+```
+
+## Helpers
+
+* A new 'insertAt' Ether helper to insert a character in a string.
+*  It inserts a dash by default, or a custom `newChar`
+
+```javascript
+  insertAt('123456', 2);
+  // => 12-3456
+  insertAt('123456789', 3, { newChar:'/' });
+  // => 123/456789
+```
+To repeat the character at the same interval, set `repeat` to `true`
+
+```javascript
+  insertAt('123456', 2, { repeat: true });
+  // => 12-34-56
+  insertAt('123456789', 3, { newChar:'/', repeat: true });
+  // => 123/456/789
+```
+
+# 0.31.3
+
+* `legacyEditStyles` prop name has changed to `internalEditButton`.
+
 # 0.31.2
 
 ## Bug fix
