@@ -14,7 +14,7 @@ let definition = {
   defaultProps: NavigationBar.defaultProps,
   props: NavigationBar.propTypes,
   propOptions: {
-    as: DefinitionHelper.themes()
+    as: DefinitionHelper.themesBinary()
   }
 };
 

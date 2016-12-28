@@ -14,7 +14,7 @@ let definition = {
   defaultProps: SplitButton.defaultProps,
   props: SplitButton.propTypes,
   propOptions: {
-    as: DefinitionHelper.themes()
+    as: DefinitionHelper.themesBinary()
   }
 };
 

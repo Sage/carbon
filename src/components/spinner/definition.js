@@ -15,7 +15,7 @@ let definition = {
   props: Spinner.propTypes,
   propOptions: {
     size: DefinitionHelper.sizesRestricted(),
-    as: DefinitionHelper.iconColorSet()
+    as: DefinitionHelper.colors()
   }
 };
 

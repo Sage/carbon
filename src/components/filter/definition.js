@@ -14,7 +14,7 @@ let definition = {
   defaultProps: Filter.defaultProps,
   props: Filter.propTypes,
   propOptions: {
-    align: DefinitionHelper.align()
+    align: DefinitionHelper.alignBinary()
   }
 };
 

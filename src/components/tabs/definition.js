@@ -14,8 +14,8 @@ let definition = {
   defaultProps: Tabs.defaultProps,
   props: Tabs.propTypes,
   propOptions: {
-    align: DefinitionHelper.align(),
-    position: DefinitionHelper.tooltipPositionPropOptions()
+    align: DefinitionHelper.alignBinary(),
+    position: DefinitionHelper.positions()
   }
 };
 

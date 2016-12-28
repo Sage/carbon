@@ -14,7 +14,7 @@ let definition = {
   defaultProps: Menu.defaultProps,
   props: Menu.propTypes,
   propOptions: {
-    as: DefinitionHelper.themes()
+    as: DefinitionHelper.themesBinary()
   }
 };
 

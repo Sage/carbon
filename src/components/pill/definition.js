@@ -14,7 +14,7 @@ let definition = {
   defaultProps: Pill.defaultProps,
   props: Pill.propTypes,
   propOptions: {
-    as: DefinitionHelper.iconColorSet()
+    as: DefinitionHelper.colors()
   }
 };
 

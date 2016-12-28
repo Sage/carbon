@@ -14,7 +14,7 @@ let definition = {
   defaultProps: Message.defaultProps,
   props: Message.propTypes,
   propOptions: {
-    as: DefinitionHelper.iconColorSet()
+    as: DefinitionHelper.colors()
   }
 };
 

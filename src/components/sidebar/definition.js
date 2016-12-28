@@ -14,7 +14,7 @@ let definition = {
   defaultProps: Sidebar.defaultProps,
   props: Sidebar.propTypes,
   propOptions: {
-    position: DefinitionHelper.align(),
+    position: DefinitionHelper.alignBinary(),
     size: DefinitionHelper.sizesRestricted()
   }
 };

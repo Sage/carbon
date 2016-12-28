@@ -14,7 +14,7 @@ let definition = {
   defaultProps: Pod.defaultProps,
   props: Pod.propTypes,
   propOptions: {
-    alignTitle: DefinitionHelper.tooltipAlignPropOptions(),
+    alignTitle: DefinitionHelper.alignPlusCenter(),
     as: DefinitionHelper.themesFull(),
     padding: DefinitionHelper.sizesPod()
   }

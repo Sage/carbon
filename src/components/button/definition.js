@@ -15,9 +15,9 @@ let definition = {
   props: Button.propTypes,
   defaultProps: Button.defaultProps,
   propOptions: {
-    as: DefinitionHelper.themes(),
+    as: DefinitionHelper.themesBinary(),
     size: DefinitionHelper.sizesRestricted(),
-    theme: DefinitionHelper.baseColors()
+    theme: DefinitionHelper.buttonColors()
   }
 };
 

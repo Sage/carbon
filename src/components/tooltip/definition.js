@@ -14,8 +14,8 @@ let definition = {
   defaultProps: Tooltip.defaultProps,
   props: Tooltip.propTypes,
   propOptions: {
-    align: DefinitionHelper.tooltipAlignPropOptions(),
-    position: DefinitionHelper.tooltipPositionPropOptions()
+    align: DefinitionHelper.alignPlusCenter(),
+    position: DefinitionHelper.positions()
   }
 };
 

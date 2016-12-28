@@ -17,20 +17,41 @@ let DefinitionHelper = {
     return demoProps;
   },
 
-  align: () => {
+  alignBinary: () => {
     return [
       'left',
       'right'
     ];
   },
 
-  baseColors: () => {
+  alignPlusCenter: () => {
+    return [
+      'center',
+      'left',
+      'right'
+    ];
+  },
+
+  buttonColors: () => {
     return [
       'blue',
       'grey',
       'magenta',
       'red',
       'white'
+    ];
+  },
+
+  colors: () => {
+    return [
+      'default',
+      'error',
+      'help',
+      'info',
+      'maintenance',
+      'new',
+      'success',
+      'warning'
     ];
   },
 
@@ -85,25 +106,6 @@ let DefinitionHelper = {
       'onSelect',
       'onSubmit',
       'onTabChange'
-    ];
-  },
-
-  commonStringAndBooleans: () => {
-    return [
-
-    ];
-  },
-
-  iconColorSet: () => {
-    return [
-      'default',
-      'error',
-      'help',
-      'info',
-      'maintenance',
-      'new',
-      'success',
-      'warning'
     ];
   },
 
@@ -189,6 +191,15 @@ let DefinitionHelper = {
     ];
   },
 
+  positions: () => {
+    return [
+      'bottom',
+      'left',
+      'right',
+      'top'
+    ];
+  },
+
   sizesFull: () => {
     return [
       'extra-small',
@@ -226,7 +237,7 @@ let DefinitionHelper = {
     ];
   },
 
-  themes: () => {
+  themesBinary: () => {
     return [
       'primary',
       'secondary'
@@ -249,23 +260,6 @@ let DefinitionHelper = {
       tooltipMessage: 'Test tooltip message',
       tooltipPosition: 'top'
     }
-  },
-
-  tooltipAlignPropOptions: () => {
-    return [
-      'center',
-      'left',
-      'right'
-    ];
-  },
-
-  tooltipPositionPropOptions: () => {
-    return [
-      'bottom',
-      'left',
-      'right',
-      'top'
-    ];
   }
 };
 

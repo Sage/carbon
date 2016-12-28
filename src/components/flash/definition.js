@@ -14,7 +14,7 @@ let definition = {
   defaultProps: Flash.defaultProps,
   props: Flash.propTypes,
   propOptions: {
-    as: DefinitionHelper.iconColorSet()
+    as: DefinitionHelper.colors()
   }
 };
 

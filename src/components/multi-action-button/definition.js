@@ -14,8 +14,8 @@ let definition = {
   defaultProps: MultiActionButton.defaultProps,
   props: MultiActionButton.propTypes,
   propOptions: {
-    align: DefinitionHelper.align(),
-    as: DefinitionHelper.themes()
+    align: DefinitionHelper.alignBinary(),
+    as: DefinitionHelper.themesBinary()
   }
 };
 

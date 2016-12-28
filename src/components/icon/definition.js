@@ -17,9 +17,9 @@ let definition = {
     type: DefinitionHelper.icons(),
     bgShape: ['square', 'rounded-rect', 'circle'],
     bgSize: ['small', 'medium', 'large'],
-    bgTheme: DefinitionHelper.iconColorSet(),
-    tooltipAlign: DefinitionHelper.tooltipAlignPropOptions(),
-    tooltipPosition: DefinitionHelper.tooltipPositionPropOptions()
+    bgTheme: DefinitionHelper.colors(),
+    tooltipAlign: DefinitionHelper.alignPlusCenter(),
+    tooltipPosition: DefinitionHelper.positions()
   }
 };
 

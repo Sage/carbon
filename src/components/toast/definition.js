@@ -14,7 +14,7 @@ let definition = {
   defaultProps: Toast.defaultProps,
   props: Toast.propTypes,
   propOptions: {
-    as: DefinitionHelper.iconColorSet()
+    as: DefinitionHelper.colors()
   }
 };
 
