@@ -1,8 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import Heading from 'components/heading';
-
+import SimpleHeading from '../../components/simple-heading';
 import Wrapper from '../../chrome/wrapper';
 
 /**
@@ -15,7 +14,7 @@ import Wrapper from '../../chrome/wrapper';
 export default props => (
   <section className='demo-page-content-area'>
     <Wrapper>
-      <Heading title={ props.title }></Heading>
+      <SimpleHeading title={ props.title } link={ props.link } />
       <div className='demo-page-content-area__content'>
         { props.children }
       </div>

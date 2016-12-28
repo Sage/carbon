@@ -21,6 +21,10 @@ export default props => (
       title={ props.title }
       titleAppend={ props.titleAppend }
     />
+    <SubPageNavigation
+      previousPage={ props.previousPage }
+      nextPage={ props.nextPage }
+    />
     { props.children }
     <SubPageNavigation
       previousPage={ props.previousPage }
