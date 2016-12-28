@@ -57,7 +57,7 @@ export default props => (
  * @return {String} code string
  */
 const _buildCode = (props) => {
-  let codeObj = new ComponentCodeBuilder(props.name);
+  let codeObj = new ComponentCodeBuilder(props.definition.text.name);
 
   for (var prop in props.definition.demoProps) {
     codeObj.addProp(prop, props.definition.demoProps[prop]);
