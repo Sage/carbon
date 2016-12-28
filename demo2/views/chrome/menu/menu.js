@@ -26,14 +26,15 @@ class Menu extends React.Component {
    */
   get componentsHTML() {
     let defKey,
+        i = 0,
         menuListItems = [];
 
     for (defKey in Definitions) {
       let def = Definitions[defKey];
 
-      let i = 0;
+      i++;
 
-      menuListItems.push(<MenuListItem key={ i } name={ def.text.name }><Link href={ `/components/${def.text.key}` }>{ def.text.name }</Link></MenuListItem>);
+      menuListItems.push(<MenuListItem key={ i } name={ def.text.name }><Link to={ `/components/${def.key}` }>{ def.text.name }</Link></MenuListItem>);
     }
 
     return menuListItems;
