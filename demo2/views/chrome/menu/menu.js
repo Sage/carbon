@@ -10,7 +10,7 @@ import { MenuListItem, MenuList } from 'components/menu-list';
 
 // Demo Site
 import GetCodeButtons from '../../components/get-code-buttons';
-import ComponentList from './component-list';
+import Definitions from '../../../definitions';
 
 import I18n from 'i18n-js';
 
