@@ -22,7 +22,12 @@ let definition = {
 };
 
 definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
-  children: 'test'
+  children: 'Click me',
+  icon: 'download',
+  iconAlign: 'left',
+  tooltipAlign: 'left',
+  tooltipMessage: 'Link tooltip',
+  tooltipPosition: 'top'
 });
 
 export default definition;

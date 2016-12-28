@@ -85,6 +85,7 @@ let DefinitionHelper = {
       'separator',
       'showCloseIcon',
       'showPageSizeSelection',
+      'tabbable',
       'transparent',
       'triggerEditOnContent',
       'validateOnMount'
