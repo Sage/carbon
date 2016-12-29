@@ -20,7 +20,7 @@ let definition = {
 
 import React from 'react';
 import textboxDefinition from '../textbox/definition';
-let textbox = React.createElement(textboxDefinition.component, textboxDefinition.props);
+let textbox = React.createElement(textboxDefinition.component, textboxDefinition.demoProps);
 definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
   as: 'primary',
   border: true,

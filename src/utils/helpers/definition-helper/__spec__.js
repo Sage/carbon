@@ -92,6 +92,7 @@ describe('definition', () => {
         'separator',
         'showCloseIcon',
         'showPageSizeSelection',
+        'shrink',
         'tabbable',
         'transparent',
         'triggerEditOnContent',
@@ -184,7 +185,9 @@ describe('definition', () => {
         labelAlign: 'left',
         labelHelp: 'Test label help',
         labelInline: false,
-        labelWidth: '25'
+        labelWidth: '25',
+        validations: [],
+        warnings: [],
       });
     });
     it("pageSizes()", () => {

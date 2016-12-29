@@ -17,10 +17,16 @@ let definition = {
 
 import React from 'react';
 import tableCellDefinition from '../table-cell/definition';
-let tableCell = React.createElement(tableCellDefinition.component, tableCellDefinition.props);
+let tableCell = React.createElement(tableCellDefinition.component, tableCellDefinition.demoProps);
 
 definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
-  children: [tableCell,tableCell,tableCell,tableCell,tableCell,tableCell]
+  children: [tableCell,tableCell,tableCell,tableCell,tableCell,tableCell],
+  hideMultiSelect: false,
+  highlightable: true,
+  highlighted: false,
+  selectable: true,
+  selectAll: true,
+  selected: false
 });
 
 export default definition;

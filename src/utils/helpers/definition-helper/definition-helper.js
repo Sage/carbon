@@ -8,7 +8,7 @@ let DefinitionHelper = {
     let demoProps = _.assign({}, definition.defaultProps, demoDefaults);
 
     for (var prop in definition.props) {
-      if (!demoProps[prop]) {
+      if (demoProps[prop] === undefined) {
         demoProps[prop] = '';
       }
       if (demoDefaults[prop]) {
@@ -97,6 +97,7 @@ let DefinitionHelper = {
       'separator',
       'showCloseIcon',
       'showPageSizeSelection',
+      'shrink',
       'tabbable',
       'transparent',
       'triggerEditOnContent',
@@ -192,7 +193,9 @@ let DefinitionHelper = {
       labelAlign: 'left',
       labelHelp: 'Test label help',
       labelInline: false,
-      labelWidth: '25'
+      labelWidth: '25',
+      validations: [],
+      warnings: [],
     };
   },
 

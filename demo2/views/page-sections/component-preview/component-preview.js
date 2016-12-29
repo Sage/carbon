@@ -98,6 +98,7 @@ const _buildFields = (props) => {
           onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
           options={ ImmutableHelper.parseJSON(opts) }
           value={ demoPropData }
+          key={ i }
         />
       );
     } else {
@@ -108,6 +109,7 @@ const _buildFields = (props) => {
               label={ propKey }
               onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
               value={ demoPropData }
+              key={ i }
             />
           );
         }
@@ -117,6 +119,7 @@ const _buildFields = (props) => {
             label={ propKey }
             onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
             value={ demoPropData }
+            key={ i }
           />
         );
       } else if (DefinitionHelper.commonEvents().indexOf(propKey) >= 0) {
@@ -127,6 +130,7 @@ const _buildFields = (props) => {
             label={ propKey }
             onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
             value={ demoPropData }
+            key={ i }
           />
         );
       }

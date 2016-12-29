@@ -1,5 +1,6 @@
 import { Table } from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Table,
@@ -12,16 +13,33 @@ let definition = {
     type: 'grid'
   },
   defaultProps: Table.defaultProps,
-  props: Table.propTypes
+  props: Table.propTypes,
+  propOptions: {
+    pageSizeSelectionOptions: OptionsHelper.pageSizes()
+  }
 };
 
 import React from 'react';
-let tr = React.createElement('tr',
-  { className: 'demo-stubbed-element',
-    children: 'Test element' });
+import trDefinition from './table-row/definition';
+let i = 0,
+    trs = [];
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
-  children: [tr, tr, tr, tr, tr, tr]
+for (; i <= 28; i++) {
+  let rowKey = `row-${i}`;
+  trDefinition.demoProps.uniqueID = rowKey;
+  trDefinition.demoProps.key = rowKey;
+  trs[i] = React.createElement(trDefinition.component, trDefinition.demoProps);
+}
+
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+  children: trs,
+  currentPage: 1,
+  filter: {},
+  highlightable: true,
+  paginate: true,
+  selectable: true,
+  showPageSizeSelection: false,
+  shrink: false
 });
 
 export default definition;

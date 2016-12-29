@@ -28,10 +28,10 @@ let tabs = [];
   let contentElement = React.createElement('div',
     { className: 'demo-stubbed-element',
       children: `Tab ${i} content block` });
-  tabDefinition.props.tabId = `tab-${i}`;
-  tabDefinition.props.title = `Test Tab ${i}`;
-  tabDefinition.props.children = [contentElement, contentElement, contentElement];
-  tabs[i] = React.createElement(tabDefinition.component, tabDefinition.props);
+  tabDefinition.demoProps.tabId = `tab-${i}`;
+  tabDefinition.demoProps.title = `Test Tab ${i}`;
+  tabDefinition.demoProps.children = [contentElement, contentElement, contentElement];
+  tabs[i] = React.createElement(tabDefinition.component, tabDefinition.demoProps);
 });
 
 definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
