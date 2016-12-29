@@ -1,9 +1,11 @@
+import { _ } from 'lodash';
+
 /**
  * Helper methods for constructing definitions.
  */
 let DefinitionHelper = {
   prepareDemoProps: (definition, demoDefaults = {}) => {
-    let demoProps = Object.assign({}, definition.defaultProps, demoDefaults);
+    let demoProps = _.assign({}, definition.defaultProps, demoDefaults);
 
     for (var prop in definition.props) {
       if (!demoProps[prop]) {
@@ -181,7 +183,7 @@ let DefinitionHelper = {
       labelHelp: 'Test label help',
       labelInline: false,
       labelWidth: '25'
-    }
+    };
   },
 
   pageSizes: () => {
@@ -260,7 +262,7 @@ let DefinitionHelper = {
       tooltipAlign: 'center',
       tooltipMessage: 'Test tooltip message',
       tooltipPosition: 'top'
-    }
+    };
   }
 };
 
