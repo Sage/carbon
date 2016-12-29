@@ -17,7 +17,7 @@ let DefinitionHelper = {
     }
 
     // handle functions
-    for (var prop in demoProps) {
+    for (prop in demoProps) {
       if (DefinitionHelper.commonEvents().indexOf(prop) >= 0) {
         let functionName = prop;
         demoProps[functionName] = () => {
@@ -84,6 +84,7 @@ let DefinitionHelper = {
       'enforceCharacterLimit',
       'expandable',
       'fieldHelpInline',
+      'fill',
       'highlightable',
       'inline',
       'isVisible',

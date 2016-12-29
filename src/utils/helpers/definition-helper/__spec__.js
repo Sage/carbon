@@ -79,6 +79,7 @@ describe('definition', () => {
         'enforceCharacterLimit',
         'expandable',
         'fieldHelpInline',
+        'fill',
         'highlightable',
         'inline',
         'isVisible',
