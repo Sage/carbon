@@ -16,6 +16,16 @@ let DefinitionHelper = {
       }
     }
 
+    // handle functions
+    for (var prop in demoProps) {
+      if (DefinitionHelper.commonEvents().indexOf(prop) >= 0) {
+        let functionName = prop;
+        demoProps[functionName] = () => {
+          console.log(`${functionName}() triggered`);
+        }
+      }
+    }
+
     return demoProps;
   },
 
