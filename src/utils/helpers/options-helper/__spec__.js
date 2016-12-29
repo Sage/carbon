@@ -65,6 +65,7 @@ describe('OptionsHelper', () => {
         'paginate',
         'renderHiddenTabs',
         'roundedCorners',
+        'selectable',
         'separator',
         'showCloseIcon',
         'showPageSizeSelection',
