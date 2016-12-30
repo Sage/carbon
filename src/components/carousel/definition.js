@@ -1,6 +1,5 @@
 import { Carousel } from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import slideDefinition from './slide/definition';
 
 let definition = {

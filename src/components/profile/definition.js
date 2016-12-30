@@ -1,6 +1,5 @@
 import Profile from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Profile,
@@ -19,6 +18,7 @@ let definition = {
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'test',
   email: 'test@test.com',
+  large: true,
   name: 'Test'
 });
 

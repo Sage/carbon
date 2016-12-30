@@ -1,6 +1,6 @@
 import Fieldset from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
+
 import textboxDefinition from '../textbox/definition';
 
 let definition = {

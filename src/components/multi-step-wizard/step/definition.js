@@ -16,7 +16,10 @@ let definition = {
 };
 
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: 'test'
+  children: 'test',
+  enabled: true,
+  extraButtons: [],
+  stepNumber: 0
 });
 
 export default definition;

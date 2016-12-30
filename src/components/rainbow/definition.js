@@ -1,6 +1,6 @@
 import Rainbow from './';
 import Immutable from 'immutable';
-
+import DemoHelper from '../../utils/helpers/demo-helper';
 
 let rainbowData = Immutable.fromJS([
   {
@@ -23,8 +23,6 @@ let rainbowData = Immutable.fromJS([
     color: '#255BC7'
   }
 ]);
-import DemoHelper from '../../utils/helpers/demo-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Rainbow,

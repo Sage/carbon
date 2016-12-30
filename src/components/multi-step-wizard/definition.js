@@ -1,6 +1,7 @@
 import React from 'react';
 import { _ } from 'lodash';
 import MultiStepWizard from './';
+import DemoHelper from '../../utils/helpers/demo-helper';
 import stepDefinition from './step/definition';
 
 let i,
@@ -10,8 +11,6 @@ for (i = 1; i < 2; i ++) {
   let stepProps = _.assign({ stepNumber: i }, stepDefinition.demoProps);
   steps[i] = React.createElement(stepDefinition.component, stepProps);
 }
-import DemoHelper from '../../utils/helpers/demo-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: MultiStepWizard,

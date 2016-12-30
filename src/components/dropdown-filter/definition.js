@@ -16,6 +16,9 @@ let definition = {
   props: DropdownFilter.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, OptionsHelper.inputDecoratorDemoProps());
+let demoProps = OptionsHelper.inputDecoratorDemoProps();
+demoProps.suggest = true;
+
+definition.demoProps = DemoHelper.prepareDemoProps(definition, demoProps);
 
 export default definition;

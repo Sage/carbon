@@ -24,6 +24,7 @@ let definition = {
 
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'Click me',
+  disabled: false,
   icon: 'download',
   iconAlign: 'left',
   tooltipAlign: 'left',

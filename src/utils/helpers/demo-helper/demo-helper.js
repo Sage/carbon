@@ -13,29 +13,30 @@ let DemoHelper = {
    * @return {Array} elems
    */
   elemArray: (definition, count, addUnique = '') => {
-    console.log(addUnique);
-    console.log(typeof addUnique);
     let elems = [],
-        i = 1;
+        i = 0;
 
-    for (; i <= count; i++) {
+    for (; i < count; i++) {
       let props = definition.demoProps;
       if (typeof addUnique === 'string') {
         if (addUnique !== '') {
-          props[addUnique] = `${definition.text.name}-${i}`;
+          props[addUnique] = `${definition.text.name}-${(i+1)}`;
         }
       } else {
         if (addUnique.length > 0) {
           addUnique.forEach((prop) => {
-            props[prop] = `${prop}-${i}`;
+            props[prop] = `${prop}-${(i+1)}`;
           });
         }
       }
 
-
       props.key = i;
       props.className = 'demo-stubbed-element';
       elems[i] = React.createElement(definition.component, definition.demoProps);
+    }
+
+    if (elems.length === 1) {
+      elems = elems[0];
     }
 
     return elems;

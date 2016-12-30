@@ -23,6 +23,7 @@ let definition = {
 podDefinition.demoProps.onEdit = false;
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: DemoHelper.elemArray(podDefinition, 3, 'title'),
+  columnDivide: false,
   gutter: 'medium'
 });
 

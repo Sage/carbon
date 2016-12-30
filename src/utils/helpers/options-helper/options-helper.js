@@ -1,8 +1,3 @@
-import { _ } from 'lodash';
-
-/**
- * Helper methods for constructing definitions.
- */
 let OptionsHelper = {
   alignBinary: () => {
     return [
@@ -65,6 +60,7 @@ let OptionsHelper = {
       'isVisible',
       'labelInline',
       'labelsInline',
+      'large',
       'legacyEditStyles',
       'open',
       'paginate',
@@ -75,6 +71,7 @@ let OptionsHelper = {
       'showCloseIcon',
       'showPageSizeSelection',
       'shrink',
+      'suggest',
       'tabbable',
       'transparent',
       'triggerEditOnContent',
@@ -87,6 +84,7 @@ let OptionsHelper = {
       'afterFormValidation',
       'additionalActions',
       'beforeFormValidation',
+      'create',
       'onCancel',
       'onChange',
       'onConfirm',

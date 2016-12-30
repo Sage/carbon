@@ -27,65 +27,19 @@
     box-sizing: border-box;
     display: inline-block;
     width: 100%;
-
-    &:nth-of-type(8n+1) {
-      background-color: $grey-dark-blue-20;
-      color: $black;
-    }
-
-    &:nth-of-type(8n+2) {
-      background-color: $green-apple-20;
-      color: $black;
-    }
-
-    &:nth-of-type(8n+3) {
-      background-color: $blue-sky-20;
-      color: $black;
-    }
-
-    &:nth-of-type(8n+4) {
-      background-color: $grey-dark-blue-15;
-      color: $black;
-    }
-
-    &:nth-of-type(8n+5) {
-      background-color: $red-05;
-      color: $black;
-    }
-
-    &:nth-of-type(8n+6) {
-      background-color: $purple-20;
-      color: $black;
-    }
-
-    &:nth-of-type(8n+7) {
-      background-color: $green-apple-05;
-      color: $black;
-    }
-
-    &:nth-of-type(8n) {
-      background-color: $grey-dark-blue-30;
-      color: $black;
-    }
   }
 }
 
 .component-preview--carousel {
-  .demo-stubbed-element {
-    background-color: $white;
-    .demo-stubbed-element {
-      height: 100px;
-      margin: 0.5%;
-      padding: 20px;
-      width: 24%;
-    }
+  .demo-stubbed-element .demo-stubbed-element {
+    height: 100px;
+    width: 25%;
   }
 }
 
 .component-preview--fieldset,
 .component-preview--textbox {
   .demo-stubbed-element.demo-stubbed-element {
-    background: none;
     width: 100%;
   }
 }
@@ -132,7 +86,6 @@
 .component-preview--sidebar {
   .demo-stubbed-element {
     margin-bottom: 20px;
-    padding: 10px;
     width: 100%;
   }
 }
@@ -162,7 +115,6 @@
 .component-preview--table,
 .component-preview--table-ajax {
   .carbon-table-row.carbon-table-row {
-    background: none;
     display: table-row;
     width: 100%;
   }

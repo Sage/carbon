@@ -155,6 +155,7 @@ describe('OptionsHelper', () => {
     });
     it("inputDecoratorDemoProps()", () => {
       expect(OptionsHelper.inputDecoratorDemoProps()).toEqual({
+        className: '',
         fieldHelp: 'Test help',
         fieldHelpInline: true,
         inputWidth: '70',

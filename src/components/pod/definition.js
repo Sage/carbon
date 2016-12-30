@@ -1,6 +1,8 @@
 import Pod from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import detailDefinition from '../detail/definition';
+import linkDefinition from '../link/definition';
 
 let definition = {
   component: Pod,
@@ -22,11 +24,16 @@ let definition = {
 };
 
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: 'Pod contents',
+  children: DemoHelper.elemArray(detailDefinition, 2),
+  collapsed: false,
   description: 'Test description',
-  footer: 'Test footer',
+  displayEditButtonOnHover: false,
+  editContentFullWidth: false,
+  footer: DemoHelper.elemArray(linkDefinition, 1),
+  internalEditButton: false,
   subtitle: 'Test subtitle',
-  title: 'Test title'
+  title: 'Test title',
+  triggerEditOnContent: false
 });
 
 export default definition;

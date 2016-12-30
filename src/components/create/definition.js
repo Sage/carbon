@@ -1,6 +1,5 @@
 import Create from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Create,

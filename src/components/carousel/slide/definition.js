@@ -1,9 +1,6 @@
 import Slide from './';
-
-import React from 'react';
-let contentElement = React.createElement('div',
-  { className: 'demo-stubbed-element',
-    children: 'Test element' });
+import DemoHelper from '../../../utils/helpers/demo-helper';
+import detailDefinition from '../../detail/definition';
 
 let definition = {
   component: Slide,
@@ -16,16 +13,7 @@ let definition = {
     type: 'layout'
   },
   props: {
-    children: [
-      contentElement,
-      contentElement,
-      contentElement,
-      contentElement,
-      contentElement,
-      contentElement,
-      contentElement,
-      contentElement
-    ],
+    children: DemoHelper.elemArray(detailDefinition, 8),
     className: 'test'
   }
 };

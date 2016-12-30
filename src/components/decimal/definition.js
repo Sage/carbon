@@ -15,13 +15,14 @@ let definition = {
   props: Decimal.propTypes,
   defaultProps: Decimal.defaultProps,
   propOptions: {
-    align: ['left', 'right']
+    align: OptionsHelper.alignBinary()
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  align: 'right',
-  precision: 2
-});
+let demoProps = OptionsHelper.inputDecoratorDemoProps();
+demoProps.align = 'right';
+demoProps.precision = 2;
+
+definition.demoProps = DemoHelper.prepareDemoProps(definition, demoProps);
 
 export default definition;

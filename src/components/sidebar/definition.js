@@ -25,6 +25,7 @@ podDefinition.demoProps.onEdit = false;
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: DemoHelper.elemArray(podDefinition, 7, 'title'),
   enableBackgroundUI: true,
+  open: false,
   size: 'small'
 });
 

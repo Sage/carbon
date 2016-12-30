@@ -1,6 +1,5 @@
 import Portrait from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Portrait,
@@ -17,7 +16,9 @@ let definition = {
 };
 
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: 'test'
+  children: 'test',
+  darkBackground: true,
+  src: 'test'
 });
 
 export default definition;

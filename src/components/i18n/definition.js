@@ -1,6 +1,5 @@
 import I18n from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: I18n,
@@ -17,7 +16,8 @@ let definition = {
 };
 
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: 'test'
+  children: 'test',
+  markdown: true
 });
 
 export default definition;

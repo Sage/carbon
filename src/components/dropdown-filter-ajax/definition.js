@@ -16,6 +16,10 @@ let definition = {
   props: DropdownFilterAjax.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, OptionsHelper.inputDecoratorDemoProps());
+let demoProps = OptionsHelper.inputDecoratorDemoProps();
+demoProps.cacheVisibleValue = true;
+demoProps.suggest = true;
+
+definition.demoProps = DemoHelper.prepareDemoProps(definition, demoProps);
 
 export default definition;

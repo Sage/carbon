@@ -1,6 +1,5 @@
 import Alert from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import dialogDefinition from '../dialog/definition';
 
 let definition = {

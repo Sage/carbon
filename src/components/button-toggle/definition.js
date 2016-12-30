@@ -22,11 +22,18 @@ let definition = {
   }
 };
 
-let demoProps = OptionsHelper.inputDecoratorDemoProps();
-
-demoProps.icon = 'tick';
-demoProps.iconSize = 'large';
-
-definition.demoProps = DemoHelper.prepareDemoProps(definition, demoProps);
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+  className: '',
+  fieldHelp: 'Test help',
+  fieldHelpInline: true,
+  icon: 'tick',
+  iconSize: 'large',
+  inputWidth: '70',
+  label: 'Test Label',
+  labelAlign: 'left',
+  labelHelp: 'Test label help',
+  labelInline: false,
+  labelWidth: '25'
+});
 
 export default definition;

@@ -1,7 +1,7 @@
 import Confirm from './';
 import { _ } from "lodash";
 import DemoHelper from '../../utils/helpers/demo-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
+
 import dialogDefinition from '../dialog/definition';
 
 let definition = {
