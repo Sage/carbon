@@ -3,32 +3,7 @@ import { _ } from 'lodash';
 /**
  * Helper methods for constructing definitions.
  */
-let DefinitionHelper = {
-  prepareDemoProps: (definition, demoDefaults = {}) => {
-    let demoProps = _.assign({}, definition.defaultProps, demoDefaults);
-
-    for (var prop in definition.props) {
-      if (demoProps[prop] === undefined) {
-        demoProps[prop] = '';
-      }
-      if (demoDefaults[prop]) {
-        demoProps[prop] = demoDefaults[prop];
-      }
-    }
-
-    // handle functions
-    for (prop in demoProps) {
-      if (DefinitionHelper.commonEvents().indexOf(prop) >= 0) {
-        let functionName = prop;
-        demoProps[functionName] = () => {
-          console.log(`${functionName}() triggered`);
-        }
-      }
-    }
-
-    return demoProps;
-  },
-
+let OptionsHelper = {
   alignBinary: () => {
     return [
       'left',
@@ -36,7 +11,7 @@ let DefinitionHelper = {
     ];
   },
 
-  alignPlusCenter: () => {
+  alignFull: () => {
     return [
       'center',
       'left',
@@ -280,4 +255,4 @@ let DefinitionHelper = {
   }
 };
 
-export default DefinitionHelper;
+export default OptionsHelper;

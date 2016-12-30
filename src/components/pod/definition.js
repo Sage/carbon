@@ -1,5 +1,6 @@
 import Pod from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Pod,
@@ -14,13 +15,13 @@ let definition = {
   defaultProps: Pod.defaultProps,
   props: Pod.propTypes,
   propOptions: {
-    alignTitle: DefinitionHelper.alignPlusCenter(),
-    as: DefinitionHelper.themesFull(),
-    padding: DefinitionHelper.sizesPod()
+    alignTitle: OptionsHelper.alignFull(),
+    as: OptionsHelper.themesFull(),
+    padding: OptionsHelper.sizesPod()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'Pod contents',
   description: 'Test description',
   footer: 'Test footer',

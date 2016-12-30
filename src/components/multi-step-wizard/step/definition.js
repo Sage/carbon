@@ -1,5 +1,5 @@
 import Step from './';
-import DefinitionHelper from '../../../utils/helpers/definition-helper';
+import DemoHelper from '../../../utils/helpers/demo-helper';
 
 let definition = {
   component: Step,
@@ -15,7 +15,7 @@ let definition = {
   props: Step.propTypes
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'test'
 });
 

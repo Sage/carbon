@@ -1,5 +1,6 @@
 import { TableAjax } from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: TableAjax,
@@ -14,7 +15,7 @@ let definition = {
   defaultProps: TableAjax.defaultProps,
   props: TableAjax.propTypes,
   propOptions: {
-    pageSize: DefinitionHelper.pageSizes()
+    pageSize: OptionsHelper.pageSizes()
   }
 };
 
@@ -23,7 +24,7 @@ let tr = React.createElement('tr',
   { className: 'demo-stubbed-element',
     children: 'Test element' });
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: [
     tr, tr, tr, tr, tr, tr, tr, tr, tr, tr,
     tr, tr, tr, tr, tr, tr, tr, tr, tr, tr,

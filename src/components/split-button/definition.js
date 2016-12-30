@@ -1,5 +1,6 @@
 import SplitButton from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: SplitButton,
@@ -14,7 +15,7 @@ let definition = {
   defaultProps: SplitButton.defaultProps,
   props: SplitButton.propTypes,
   propOptions: {
-    as: DefinitionHelper.themesBinary()
+    as: OptionsHelper.themesBinary()
   }
 };
 
@@ -23,7 +24,7 @@ let contentElement = React.createElement('div',
   { className: 'demo-stubbed-element',
     children: 'Test element' });
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: [contentElement, contentElement],
   text: 'Text'
 });

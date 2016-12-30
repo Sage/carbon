@@ -1,5 +1,6 @@
 import Create from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Create,
@@ -15,7 +16,7 @@ let definition = {
   props: Create.propTypes
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'test'
 });
 

@@ -1,5 +1,6 @@
 import RadioButton from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: RadioButton,
@@ -15,11 +16,11 @@ let definition = {
   props: RadioButton.propTypes
 };
 
-let demoProps = DefinitionHelper.inputDecoratorDemoProps();
+let demoProps = OptionsHelper.inputDecoratorDemoProps();
 
 demoProps.inputWidth = '';
 demoProps.labelWidth = '';
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, demoProps);
+definition.demoProps = DemoHelper.prepareDemoProps(definition, demoProps);
 
 export default definition;

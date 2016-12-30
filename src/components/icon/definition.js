@@ -1,5 +1,6 @@
 import Icon from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Icon,
@@ -14,22 +15,22 @@ let definition = {
   defaultProps: Icon.defaultProps,
   props: Icon.propTypes,
   propOptions: {
-    type: DefinitionHelper.icons(),
+    type: OptionsHelper.icons(),
     bgShape: ['square', 'rounded-rect', 'circle'],
     bgSize: ['small', 'medium', 'large'],
-    bgTheme: DefinitionHelper.colors(),
-    tooltipAlign: DefinitionHelper.alignPlusCenter(),
-    tooltipPosition: DefinitionHelper.positions()
+    bgTheme: OptionsHelper.colors(),
+    tooltipAlign: OptionsHelper.alignFull(),
+    tooltipPosition: OptionsHelper.positions()
   }
 };
 
-let demoProps = DefinitionHelper.tooltipDecoratorDemoProps();
+let demoProps = OptionsHelper.tooltipDecoratorDemoProps();
 
-demoProps.type = DefinitionHelper.icons()[0];
+demoProps.type = OptionsHelper.icons()[0];
 demoProps.bgShape = 'square';
 demoProps.bgSize = 'medium';
 demoProps.bgTheme = 'success';
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, demoProps);
+definition.demoProps = DemoHelper.prepareDemoProps(definition, demoProps);
 
 export default definition;

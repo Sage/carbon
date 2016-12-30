@@ -1,5 +1,5 @@
 import TableRow from './';
-import DefinitionHelper from '../../../utils/helpers/definition-helper';
+import DemoHelper from '../../../utils/helpers/demo-helper';
 
 let definition = {
   component: TableRow,
@@ -19,7 +19,7 @@ import React from 'react';
 import tableCellDefinition from '../table-cell/definition';
 let tableCell = React.createElement(tableCellDefinition.component, tableCellDefinition.demoProps);
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: [tableCell,tableCell,tableCell,tableCell,tableCell,tableCell],
   hideMultiSelect: false,
   highlightable: true,

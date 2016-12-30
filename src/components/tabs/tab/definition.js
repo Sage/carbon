@@ -1,5 +1,5 @@
 import Tab from './';
-import DefinitionHelper from '../../../utils/helpers/definition-helper';
+import DemoHelper from '../../../utils/helpers/demo-helper';
 
 let definition = {
   component: Tab,
@@ -15,7 +15,7 @@ let definition = {
   props: Tab.propTypes
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   title: 'Test tab',
   children: 'test'
 });

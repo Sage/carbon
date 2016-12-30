@@ -1,5 +1,6 @@
 import Flash from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Flash,
@@ -14,11 +15,11 @@ let definition = {
   defaultProps: Flash.defaultProps,
   props: Flash.propTypes,
   propOptions: {
-    as: DefinitionHelper.colors()
+    as: OptionsHelper.colors()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   as: 'help',
   message: 'Test flash message',
   open: true

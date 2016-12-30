@@ -1,5 +1,6 @@
 import AnimatedMenuButton from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: AnimatedMenuButton,
@@ -15,11 +16,11 @@ let definition = {
   defaultProps: AnimatedMenuButton.defaultProps,
   propOptions: {
     direction: ['left', 'right'],
-    size: DefinitionHelper.sizesFull()
+    size: OptionsHelper.sizesFull()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(
+definition.demoProps = DemoHelper.prepareDemoProps(
   definition,
   { direction: 'right',
     label: 'Test Label' }

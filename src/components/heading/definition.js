@@ -1,5 +1,6 @@
 import Heading from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Heading,
@@ -15,7 +16,7 @@ let definition = {
   props: Heading.propTypes
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   backLink: '/test',
   children: 'description area',
   divider: true,

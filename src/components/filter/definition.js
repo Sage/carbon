@@ -1,5 +1,6 @@
 import Filter from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Filter,
@@ -14,11 +15,11 @@ let definition = {
   defaultProps: Filter.defaultProps,
   props: Filter.propTypes,
   propOptions: {
-    align: DefinitionHelper.alignBinary()
+    align: OptionsHelper.alignBinary()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'test'
 });
 

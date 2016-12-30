@@ -1,5 +1,6 @@
 import MultiActionButton from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: MultiActionButton,
@@ -14,12 +15,12 @@ let definition = {
   defaultProps: MultiActionButton.defaultProps,
   props: MultiActionButton.propTypes,
   propOptions: {
-    align: DefinitionHelper.alignBinary(),
-    as: DefinitionHelper.themesBinary()
+    align: OptionsHelper.alignBinary(),
+    as: OptionsHelper.themesBinary()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'test',
   text: 'Multi action button'
 });

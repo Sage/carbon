@@ -1,5 +1,6 @@
 import { Carousel } from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Carousel,
@@ -19,7 +20,7 @@ let definition = {
 import React from 'react';
 import slideDefinition from './slide/definition';
 let slide = React.createElement(slideDefinition.component, slideDefinition.props);
-definition.demoProps = DefinitionHelper.prepareDemoProps(
+definition.demoProps = DemoHelper.prepareDemoProps(
   definition, {
     children: [ slide, slide, slide, slide ],
     initialSlideIndex: 1

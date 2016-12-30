@@ -10,7 +10,8 @@ for (i = 1; i < 2; i ++) {
   let stepProps = _.assign({ stepNumber: i }, stepDefinition.demoProps);
   steps[i] = React.createElement(stepDefinition.component, stepProps);
 }
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: MultiStepWizard,
@@ -26,7 +27,7 @@ let definition = {
   props: MultiStepWizard.propTypes
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'test'
 });
 

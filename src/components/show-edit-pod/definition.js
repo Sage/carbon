@@ -1,5 +1,6 @@
 import ShowEditPod from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: ShowEditPod,
@@ -14,14 +15,14 @@ let definition = {
   defaultProps: ShowEditPod.defaultProps,
   props: ShowEditPod.propTypes,
   propOptions: {
-    as: DefinitionHelper.themesFull()
+    as: OptionsHelper.themesFull()
   }
 };
 
 import React from 'react';
 import textboxDefinition from '../textbox/definition';
 let textbox = React.createElement(textboxDefinition.component, textboxDefinition.demoProps);
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   as: 'primary',
   border: true,
   children: 'Pod contents',

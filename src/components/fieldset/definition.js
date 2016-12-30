@@ -1,5 +1,6 @@
 import Fieldset from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Fieldset,
@@ -18,7 +19,7 @@ let definition = {
 import React from 'react';
 import textboxDefinition from '../textbox/definition';
 let textbox = React.createElement(textboxDefinition.component, textboxDefinition.demoProps);
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: [textbox, textbox, textbox, textbox],
   legend: 'Test set of fields'
 });

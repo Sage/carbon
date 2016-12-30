@@ -1,5 +1,6 @@
 import Dialog from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Dialog,
@@ -14,15 +15,15 @@ let definition = {
   defaultProps: Dialog.defaultProps,
   props: Dialog.propTypes,
   propOptions: {
-    size: DefinitionHelper.sizesFull()
+    size: OptionsHelper.sizesFull()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   enableBackgroundUI: true,
   open: false,
   showCloseIcon: true,
-  size: DefinitionHelper.sizesFull()[2],
+  size: OptionsHelper.sizesFull()[2],
   title: 'Test'
 });
 

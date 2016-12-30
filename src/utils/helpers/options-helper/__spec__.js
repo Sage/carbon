@@ -1,48 +1,23 @@
 import React from 'react';
-import DefinitionHelper from './definition-helper';
+import OptionsHelper from './options-helper';
 
-describe('definition', () => {
-  describe("prepare demo props", () => {
-    let stubbedDefaultProps = { a: 1 },
-        stubbedDemoProps =    { b: 2 };
-
-    it("uses the definition props in the demo props, setting them as empty strings as default", () => {
-      let stubbedDefinition = {
-        props: { a: null }
-      };
-
-      expect(DefinitionHelper.prepareDemoProps(stubbedDefinition)).toEqual({ a: '' });
-    });
-
-    it("over-rides the definition props with any default props handed in (replaces or adds)", () => {
-      let stubbedDefinition = {
-            props: { a: null, b: null, c: null }
-          },
-          stubbedDefaultProps = {
-            a: 1,
-            b: 2
-          };
-
-      expect(DefinitionHelper.prepareDemoProps(stubbedDefinition, stubbedDefaultProps)).toEqual({ a: 1, b: 2, c: '' });
-    });
-  });
-
+describe('OptionsHelper', () => {
   describe("config data", () => {
     it("alignBinary()", () => {
-      expect(DefinitionHelper.alignBinary()).toEqual([
+      expect(OptionsHelper.alignBinary()).toEqual([
         'left',
         'right'
       ]);
     });
-    it("alignPlusCenter()", () => {
-      expect(DefinitionHelper.alignPlusCenter()).toEqual([
+    it("alignFull()", () => {
+      expect(OptionsHelper.alignFull()).toEqual([
         'center',
         'left',
         'right'
       ]);
     });
     it("buttonColors()", () => {
-      expect(DefinitionHelper.buttonColors()).toEqual([
+      expect(OptionsHelper.buttonColors()).toEqual([
         'blue',
         'grey',
         'magenta',
@@ -51,7 +26,7 @@ describe('definition', () => {
       ]);
     });
     it("colors()", () => {
-      expect(DefinitionHelper.colors()).toEqual([
+      expect(OptionsHelper.colors()).toEqual([
         'default',
         'error',
         'help',
@@ -63,7 +38,7 @@ describe('definition', () => {
       ]);
     });
     it("commonBooleans()", () => {
-      expect(DefinitionHelper.commonBooleans()).toEqual([
+      expect(OptionsHelper.commonBooleans()).toEqual([
         'bodyFullWidth',
         'border',
         'collapsed',
@@ -101,7 +76,7 @@ describe('definition', () => {
       ]);
     });
     it("commonEvents()", () => {
-      expect(DefinitionHelper.commonEvents()).toEqual([
+      expect(OptionsHelper.commonEvents()).toEqual([
         'afterFormValidation',
         'additionalActions',
         'beforeFormValidation',
@@ -118,7 +93,7 @@ describe('definition', () => {
       ]);
     });
     it("icons()", () => {
-      expect(DefinitionHelper.icons()).toEqual([
+      expect(OptionsHelper.icons()).toEqual([
         'add',
         'alert',
         'analysis',
@@ -178,7 +153,7 @@ describe('definition', () => {
       ]);
     });
     it("inputDecoratorDemoProps()", () => {
-      expect(DefinitionHelper.inputDecoratorDemoProps()).toEqual({
+      expect(OptionsHelper.inputDecoratorDemoProps()).toEqual({
         fieldHelp: 'Test help',
         fieldHelpInline: true,
         inputWidth: '70',
@@ -192,14 +167,14 @@ describe('definition', () => {
       });
     });
     it("pageSizes()", () => {
-      expect(DefinitionHelper.pageSizes()).toEqual([
+      expect(OptionsHelper.pageSizes()).toEqual([
         10,
         20,
         50
       ]);
     });
     it("positions()", () => {
-      expect(DefinitionHelper.positions()).toEqual([
+      expect(OptionsHelper.positions()).toEqual([
         'bottom',
         'left',
         'right',
@@ -207,7 +182,7 @@ describe('definition', () => {
       ]);
     });
     it("sizesFull()", () => {
-      expect(DefinitionHelper.sizesFull()).toEqual([
+      expect(OptionsHelper.sizesFull()).toEqual([
         'extra-small',
         'small',
         'medium-small',
@@ -218,7 +193,7 @@ describe('definition', () => {
       ]);
     });
     it("sizesPod()", () => {
-      expect(DefinitionHelper.sizesPod()).toEqual([
+      expect(OptionsHelper.sizesPod()).toEqual([
         'extra-small',
         'small',
         'medium',
@@ -227,26 +202,26 @@ describe('definition', () => {
       ]);
     });
     it("sizesRestricted()", () => {
-      expect(DefinitionHelper.sizesRestricted()).toEqual([
+      expect(OptionsHelper.sizesRestricted()).toEqual([
         'small',
         'medium',
         'large'
       ]);
     });
     it("sizesBinary()", () => {
-      expect(DefinitionHelper.sizesBinary()).toEqual([
+      expect(OptionsHelper.sizesBinary()).toEqual([
         'small',
         'large'
       ]);
     });
     it("themesBinary()", () => {
-      expect(DefinitionHelper.themesBinary()).toEqual([
+      expect(OptionsHelper.themesBinary()).toEqual([
         'primary',
         'secondary'
       ]);
     });
     it("themesFull()", () => {
-      expect(DefinitionHelper.themesFull()).toEqual([
+      expect(OptionsHelper.themesFull()).toEqual([
         'primary',
         'secondary',
         'tertiary',
@@ -255,7 +230,7 @@ describe('definition', () => {
       ]);
     });
     it("tooltipDecoratorDemoProps()", () => {
-      expect(DefinitionHelper.tooltipDecoratorDemoProps()).toEqual({
+      expect(OptionsHelper.tooltipDecoratorDemoProps()).toEqual({
         tooltipAlign: 'center',
         tooltipMessage: 'Test tooltip message',
         tooltipPosition: 'top'

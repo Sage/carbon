@@ -1,5 +1,6 @@
 import { Tabs } from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Tabs,
@@ -14,8 +15,8 @@ let definition = {
   defaultProps: Tabs.defaultProps,
   props: Tabs.propTypes,
   propOptions: {
-    align: DefinitionHelper.alignBinary(),
-    position: DefinitionHelper.positions()
+    align: OptionsHelper.alignBinary(),
+    position: OptionsHelper.positions()
   }
 };
 
@@ -34,7 +35,7 @@ let tabs = [];
   tabs[i] = React.createElement(tabDefinition.component, tabDefinition.demoProps);
 });
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: tabs,
   renderHiddenTabs: false
 });

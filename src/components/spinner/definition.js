@@ -1,5 +1,6 @@
 import Spinner from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Spinner,
@@ -14,12 +15,12 @@ let definition = {
   defaultProps: Spinner.defaultProps,
   props: Spinner.propTypes,
   propOptions: {
-    size: DefinitionHelper.sizesRestricted(),
-    as: DefinitionHelper.colors()
+    size: OptionsHelper.sizesRestricted(),
+    as: OptionsHelper.colors()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'test'
 });
 

@@ -1,5 +1,5 @@
 import TableCell from './';
-import DefinitionHelper from '../../../utils/helpers/definition-helper';
+import DemoHelper from '../../../utils/helpers/demo-helper';
 
 let definition = {
   component: TableCell,
@@ -15,7 +15,9 @@ let definition = {
   props: TableCell.propTypes
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+  action: false,
+  align: 'left',
   children: 'testCell'
 });
 

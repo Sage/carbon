@@ -1,5 +1,6 @@
 import { Sidebar } from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Sidebar,
@@ -14,8 +15,8 @@ let definition = {
   defaultProps: Sidebar.defaultProps,
   props: Sidebar.propTypes,
   propOptions: {
-    position: DefinitionHelper.alignBinary(),
-    size: DefinitionHelper.sizesRestricted()
+    position: OptionsHelper.alignBinary(),
+    size: OptionsHelper.sizesRestricted()
   }
 };
 
@@ -24,7 +25,7 @@ let contentElement = React.createElement('div',
   { className: 'demo-stubbed-element',
     children: 'Test element' });
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: [contentElement,contentElement,contentElement,contentElement,contentElement,contentElement],
   enableBackgroundUI: true
 });

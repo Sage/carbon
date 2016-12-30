@@ -1,5 +1,6 @@
 import Help from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Help,
@@ -14,12 +15,12 @@ let definition = {
   defaultProps: Help.defaultProps,
   props: Help.propTypes,
   propOptions: {
-    tooltipAlign: DefinitionHelper.alignPlusCenter(),
-    tooltipPosition: DefinitionHelper.positions()
+    tooltipAlign: OptionsHelper.alignFull(),
+    tooltipPosition: OptionsHelper.positions()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'Tooltip test',
   tooltipAlign: 'left',
   tooltipPosition: 'top'

@@ -23,7 +23,8 @@ let rainbowData = Immutable.fromJS([
     color: '#255BC7'
   }
 ]);
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Rainbow,
@@ -39,7 +40,7 @@ let definition = {
   props: Rainbow.propTypes
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'test',
   data: rainbowData
 });

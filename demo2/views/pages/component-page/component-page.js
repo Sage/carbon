@@ -13,7 +13,7 @@ import { connect } from 'utils/flux';
 import ComponentActions from '../../../actions/component';
 import ComponentStore from '../../../stores/component';
 
-import DefinitionHelper from 'utils/helpers/definition-helper';
+import DemoHelper from 'utils/helpers/demo-helper';
 
 let definitionKeys = Object.keys(Definitions).sort();
 

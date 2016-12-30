@@ -1,5 +1,6 @@
 import { Menu } from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Menu,
@@ -14,11 +15,11 @@ let definition = {
   defaultProps: Menu.defaultProps,
   props: Menu.propTypes,
   propOptions: {
-    as: DefinitionHelper.themesBinary()
+    as: OptionsHelper.themesBinary()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'test'
 });
 

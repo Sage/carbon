@@ -1,5 +1,6 @@
 import Link from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Link,
@@ -14,14 +15,14 @@ let definition = {
   defaultProps: Link.defaultProps,
   props: Link.propTypes,
   propOptions: {
-    icon: DefinitionHelper.icons(),
-    iconAlign: DefinitionHelper.alignBinary(),
-    tooltipAlign: DefinitionHelper.alignPlusCenter(),
-    tooltipPosition: DefinitionHelper.positions()
+    icon: OptionsHelper.icons(),
+    iconAlign: OptionsHelper.alignBinary(),
+    tooltipAlign: OptionsHelper.alignFull(),
+    tooltipPosition: OptionsHelper.positions()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'Click me',
   icon: 'download',
   iconAlign: 'left',

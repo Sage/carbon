@@ -1,5 +1,6 @@
 import Button from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Button,
@@ -15,13 +16,13 @@ let definition = {
   props: Button.propTypes,
   defaultProps: Button.defaultProps,
   propOptions: {
-    as: DefinitionHelper.themesBinary(),
-    size: DefinitionHelper.sizesRestricted(),
-    theme: DefinitionHelper.buttonColors()
+    as: OptionsHelper.themesBinary(),
+    size: OptionsHelper.sizesRestricted(),
+    theme: OptionsHelper.buttonColors()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'test'
 });
 

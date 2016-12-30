@@ -1,6 +1,7 @@
 import Confirm from './';
 import { _ } from "lodash";
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import dialogDefinition from '../dialog/definition';
 
 let definition = {
@@ -24,6 +25,6 @@ let demoProps = dialogDefinition.demoProps;
 demoProps.confirmLabel = 'Confirm Label';
 demoProps.cancelLabel = 'Cancel Label';
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, dialogDefinition.demoProps);
+definition.demoProps = DemoHelper.prepareDemoProps(definition, dialogDefinition.demoProps);
 
 export default definition;

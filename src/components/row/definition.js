@@ -3,7 +3,8 @@ import React from 'react';
 import Row from './';
 
 let column = React.createElement('div', { children: 'Test column', className: 'demo-stubbed-element' });
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Row,
@@ -18,11 +19,11 @@ let definition = {
   defaultProps: Row.defaultProps,
   props: Row.propTypes,
   propOptions: {
-    gutter: DefinitionHelper.sizesFull()
+    gutter: OptionsHelper.sizesFull()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: [column, column, column],
   gutter: 'medium'
 });

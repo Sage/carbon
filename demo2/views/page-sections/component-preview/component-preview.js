@@ -11,7 +11,7 @@ import Form from 'components/form';
 import Textarea from 'components/textarea';
 import Textbox from 'components/textbox';
 
-import DefinitionHelper from 'utils/helpers/definition-helper';
+import OptionsHelper from 'utils/helpers/options-helper';
 
 // App Components
 import ComponentCodeBuilder from './../../../utils/component-code-builder';
@@ -113,7 +113,7 @@ const _buildFields = (props) => {
             />
           );
         }
-      } else if (DefinitionHelper.commonBooleans().indexOf(propKey) >= 0) {
+      } else if (OptionsHelper.commonBooleans().indexOf(propKey) >= 0) {
         fieldObj[i] = (
           <Checkbox
             label={ propKey }
@@ -122,7 +122,7 @@ const _buildFields = (props) => {
             key={ i }
           />
         );
-      } else if (DefinitionHelper.commonEvents().indexOf(propKey) >= 0) {
+      } else if (OptionsHelper.commonEvents().indexOf(propKey) >= 0) {
         console.log('event triggered');
       } else {
         fieldObj[i] = (

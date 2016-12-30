@@ -1,5 +1,6 @@
 import Detail from './';
-import DefinitionHelper from '../../utils/helpers/definition-helper';
+import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Detail,
@@ -14,11 +15,11 @@ let definition = {
   defaultProps: Detail.defaultProps,
   props: Detail.propTypes,
   propOptions: {
-    icon: DefinitionHelper.icons()
+    icon: OptionsHelper.icons()
   }
 };
 
-definition.demoProps = DefinitionHelper.prepareDemoProps(definition, {
+definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   children: 'Test detail',
   footnote: 'Test footnote',
   icon: 'tick'
