@@ -1,6 +1,7 @@
 import NavigationBar from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import linkDefinition from '../link/definition';
 
 let definition = {
   component: NavigationBar,
@@ -19,13 +20,9 @@ let definition = {
   }
 };
 
-import React from 'react';
-let contentElement = React.createElement('li',
-  { className: 'demo-stubbed-element',
-    children: 'Test menu' });
-
+linkDefinition.demoProps.icon = null;
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: [contentElement,contentElement,contentElement,contentElement,contentElement,contentElement]
+  children: DemoHelper.elemArray(linkDefinition, 7)
 });
 
 export default definition;

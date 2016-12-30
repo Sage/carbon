@@ -1,10 +1,7 @@
-import React from 'react';
-
 import Row from './';
-
-let column = React.createElement('div', { children: 'Test column', className: 'demo-stubbed-element' });
 import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import podDefinition from '../pod/definition';
 
 let definition = {
   component: Row,
@@ -23,8 +20,9 @@ let definition = {
   }
 };
 
+podDefinition.demoProps.onEdit = false;
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: [column, column, column],
+  children: DemoHelper.elemArray(podDefinition, 3, 'title'),
   gutter: 'medium'
 });
 

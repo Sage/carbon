@@ -1,6 +1,7 @@
 import SplitButton from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import linkDefinition from '../link/definition';
 
 let definition = {
   component: SplitButton,
@@ -19,13 +20,8 @@ let definition = {
   }
 };
 
-import React from 'react';
-let contentElement = React.createElement('div',
-  { className: 'demo-stubbed-element',
-    children: 'Test element' });
-
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: [contentElement, contentElement],
+  children: DemoHelper.elemArray(linkDefinition, 2),
   text: 'Text'
 });
 

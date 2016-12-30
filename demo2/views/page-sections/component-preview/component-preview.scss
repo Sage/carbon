@@ -24,10 +24,9 @@
   }
 
   .demo-stubbed-element {
-    border-radius: 3px;
     box-sizing: border-box;
     display: inline-block;
-    text-align: center;
+    width: 100%;
 
     &:nth-of-type(8n+1) {
       background-color: $grey-dark-blue-20;
@@ -73,10 +72,21 @@
 
 .component-preview--carousel {
   .demo-stubbed-element {
-    height: 100px;
-    margin: 0.5%;
-    padding: 20px;
-    width: 24%;
+    background-color: $white;
+    .demo-stubbed-element {
+      height: 100px;
+      margin: 0.5%;
+      padding: 20px;
+      width: 24%;
+    }
+  }
+}
+
+.component-preview--fieldset,
+.component-preview--textbox {
+  .demo-stubbed-element.demo-stubbed-element {
+    background: none;
+    width: 100%;
   }
 }
 
@@ -91,7 +101,6 @@
 .component-preview--row {
   .demo-stubbed-element {
     box-sizing: border-box;
-    height: 100px;
     margin-left: 2px;
     padding: 10px;
     width: 100%;
@@ -99,21 +108,21 @@
   .carbon-row__column {
     &:nth-of-type(1) {
       .demo-stubbed-element {
-        background-color: $blue-sky-20;
+        background-color: $grey-dark-blue-20;
         color: $black;
       }
     }
 
     &:nth-of-type(2) {
       .demo-stubbed-element {
-        background-color: $grey-dark-blue-20;
+        background-color: $green-apple-20;
         color: $black;
       }
     }
 
     &:nth-of-type(3) {
       .demo-stubbed-element {
-        background-color: $magenta-light;
+        background-color: $blue-sky-20;
         color: $black;
       }
     }
@@ -122,7 +131,6 @@
 
 .component-preview--sidebar {
   .demo-stubbed-element {
-    height: 100px;
     margin-bottom: 20px;
     padding: 10px;
     width: 100%;
@@ -139,19 +147,8 @@
   }
 }
 
-.component-preview--table-ajax,
-.component-preview--table {
-  .demo-stubbed-element {
-    border-radius: 0;
-    height: 40px;
-    line-height: 40px;
-    width: 100%;
-  }
-}
-
 .component-preview--tabs {
   .demo-stubbed-element {
-    line-height: 120px;
     margin-right: 1%;
     padding: 20px;
     width: 32.333%;
@@ -161,3 +158,24 @@
     }
   }
 }
+
+.component-preview--table,
+.component-preview--table-ajax {
+  .carbon-table-row.carbon-table-row {
+    background: none;
+    display: table-row;
+    width: 100%;
+  }
+}
+
+.component-preview--table,
+.component-preview--table-ajax {
+  .carbon-table {
+    margin: auto;
+    width: 837px;
+  }
+  .carbon-table-cell.carbon-table-cell {
+    width: 63px;
+  }
+}
+

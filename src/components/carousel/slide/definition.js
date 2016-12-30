@@ -30,4 +30,6 @@ let definition = {
   }
 };
 
+definition.demoProps = definition.props;
+
 export default definition;

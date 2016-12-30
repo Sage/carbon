@@ -1,6 +1,7 @@
 import { Sidebar } from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import podDefinition from '../pod/definition';
 
 let definition = {
   component: Sidebar,
@@ -20,14 +21,11 @@ let definition = {
   }
 };
 
-import React from 'react';
-let contentElement = React.createElement('div',
-  { className: 'demo-stubbed-element',
-    children: 'Test element' });
-
+podDefinition.demoProps.onEdit = false;
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: [contentElement,contentElement,contentElement,contentElement,contentElement,contentElement],
-  enableBackgroundUI: true
+  children: DemoHelper.elemArray(podDefinition, 7, 'title'),
+  enableBackgroundUI: true,
+  size: 'small'
 });
 
 export default definition;

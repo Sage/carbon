@@ -163,6 +163,7 @@ let OptionsHelper = {
 
   inputDecoratorDemoProps: () => {
     return {
+      className: '',
       fieldHelp: 'Test help',
       fieldHelpInline: true,
       inputWidth: '70',

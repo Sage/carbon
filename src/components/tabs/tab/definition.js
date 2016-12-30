@@ -1,5 +1,6 @@
 import Tab from './';
 import DemoHelper from '../../../utils/helpers/demo-helper';
+import podDefinition from '../../pod/definition';
 
 let definition = {
   component: Tab,
@@ -15,9 +16,10 @@ let definition = {
   props: Tab.propTypes
 };
 
+podDefinition.demoProps.onEdit = false;
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  title: 'Test tab',
-  children: 'test'
+  children: DemoHelper.elemArray(podDefinition, 3, 'title'),
+  title: 'Test tab'
 });
 
 export default definition;

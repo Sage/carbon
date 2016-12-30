@@ -1,5 +1,6 @@
 import TableRow from './';
 import DemoHelper from '../../../utils/helpers/demo-helper';
+import tableCellDefinition from '../table-cell/definition';
 
 let definition = {
   component: TableRow,
@@ -15,12 +16,8 @@ let definition = {
   props: TableRow.propTypes
 };
 
-import React from 'react';
-import tableCellDefinition from '../table-cell/definition';
-let tableCell = React.createElement(tableCellDefinition.component, tableCellDefinition.demoProps);
-
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: [tableCell,tableCell,tableCell,tableCell,tableCell,tableCell],
+  children: DemoHelper.elemArray(tableCellDefinition, 12),
   hideMultiSelect: false,
   highlightable: true,
   highlighted: false,

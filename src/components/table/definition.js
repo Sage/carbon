@@ -1,6 +1,7 @@
 import { Table } from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import trDefinition from './table-row/definition';
 
 let definition = {
   component: Table,
@@ -19,20 +20,8 @@ let definition = {
   }
 };
 
-import React from 'react';
-import trDefinition from './table-row/definition';
-let i = 0,
-    trs = [];
-
-for (; i <= 28; i++) {
-  let rowKey = `row-${i}`;
-  trDefinition.demoProps.uniqueID = rowKey;
-  trDefinition.demoProps.key = rowKey;
-  trs[i] = React.createElement(trDefinition.component, trDefinition.demoProps);
-}
-
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: trs,
+  children: DemoHelper.elemArray(trDefinition, 28, 'uniqueID'),
   currentPage: 1,
   filter: {},
   highlightable: true,

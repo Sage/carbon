@@ -1,6 +1,7 @@
 import { TableAjax } from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import trDefinition from '../table/table-row/definition';
 
 let definition = {
   component: TableAjax,
@@ -19,18 +20,15 @@ let definition = {
   }
 };
 
-import React from 'react';
-let tr = React.createElement('tr',
-  { className: 'demo-stubbed-element',
-    children: 'Test element' });
-
 definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: [
-    tr, tr, tr, tr, tr, tr, tr, tr, tr, tr,
-    tr, tr, tr, tr, tr, tr, tr, tr, tr, tr,
-    tr, tr, tr, tr, tr
-  ],
-  pageSize: 10
+  children: DemoHelper.elemArray(trDefinition, 28, 'uniqueID'),
+  currentPage: 1,
+  filter: {},
+  highlightable: true,
+  paginate: true,
+  selectable: true,
+  showPageSizeSelection: false,
+  shrink: false
 });
 
 export default definition;
