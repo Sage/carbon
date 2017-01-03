@@ -30,11 +30,11 @@ import ComponentActions from '../../../actions/component';
 export default props => (
   <PageContentArea
     title='Preview'
-    link={ `https://github.com/Sage/carbon/tree/master/src/components/${props.definition.key}` }
+    link={ `https://github.com/Sage/carbon/tree/master/src/components/${props.definition.get('key')}` }
   >
-    <div className= { `component-preview component-preview--${props.definition.key}` }>
+    <div className= { `component-preview component-preview--${props.definition.get('key')}` }>
       <div className='component-preview__component-wrapper'>
-        { React.createElement(props.definition.component, props.definition.demoProps) }
+        { React.createElement(props.definition.get('component'), getProps(props.definition.get('demoProps'))) }
       </div>
       <div className='component-preview__interaction'>
         <form className='component-preview__controls'>
@@ -48,6 +48,17 @@ export default props => (
   </PageContentArea>
 );
 
+function getProps(props) {
+  props = props.toJS();
+  for (let key in props) {
+    let prop = props[key];
+    if (prop.immutable) {
+      props[key] = ImmutableHelper.parseJSON(prop.value);
+    }
+  }
+  return props;
+}
+
 /**
  * builds code output
  *
@@ -57,10 +68,29 @@ export default props => (
  * @return {String} code string
  */
 const _buildCode = (props) => {
-  let codeObj = new ComponentCodeBuilder(props.definition.text.name);
+  let codeObj = new ComponentCodeBuilder(props.definition.getIn(['text', 'name'])),
+      children = null;
 
-  for (var prop in props.definition.demoProps) {
-    codeObj.addProp(prop, props.definition.demoProps[prop]);
+  props.definition.get('demoProps').forEach((prop, key) => {
+    if (key === "children") {
+      children = prop;
+    } else {
+      let v = typeof prop === "object" ? prop.toJS() : prop;
+      codeObj.addProp(key, v);
+    }
+
+    // stub functions
+    if (OptionsHelper.commonEvents().indexOf(key) >= 0) {
+      codeObj.addProp(key, () => {
+        console.log(`${key}() triggered`);
+      });
+    }
+  });
+
+  if (children) {
+    children.toJS
+      ? codeObj.addChild(children.toJS())
+      : codeObj.addChild(children);
   }
 
   return codeObj.toString();
@@ -78,64 +108,64 @@ const _buildFields = (props) => {
   let fieldObj = [];
 
   // get the props
-  let demoProps = props.definition.demoProps;
-  let sortedProps = Object.keys(demoProps).sort();
+  let demoProps = props.definition.get('demoProps');
 
-  for (let i = 0; i < sortedProps.length; i ++) {
-    let propKey = sortedProps[i];
+  demoProps.forEach((demoPropData, propKey) => {
+    let propOptions = props.definition.get('propOptions')
+      ? props.definition.getIn(['propOptions', propKey])
+      : null;
 
-    let demoPropData = demoProps[propKey],
-        propOptions = props.definition.propOptions ? props.definition.propOptions[propKey] : null;
-
-    if (propOptions) {
+    if (OptionsHelper.nonDemoFormProps().indexOf(propKey) >= 0) {
+      // remove some props from the form (V1)
+    } else if (propOptions) {
       let opts = propOptions.map((option) => {
-        return { id: option, name: option };
+        return ImmutableHelper.parseJSON({ id: option, name: option });
       });
 
-      fieldObj[i] = (
+      fieldObj.push(
         <Dropdown
           label={ propKey }
           onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
-          options={ ImmutableHelper.parseJSON(opts) }
+          options={ opts }
           value={ demoPropData }
-          key={ i }
+          key={ propKey }
         />
       );
     } else {
       if (propKey === 'children') {
-        if (['object','array'].indexOf(typeof demoProps[propKey]) < 0) {
-          fieldObj[i] = (
+        if (['object','array'].indexOf(typeof demoPropData) < 0) {
+          fieldObj.push(
             <Textarea
               label={ propKey }
               onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
               value={ demoPropData }
-              key={ i }
+              key={ propKey }
             />
           );
         }
       } else if (OptionsHelper.commonBooleans().indexOf(propKey) >= 0) {
-        fieldObj[i] = (
+        fieldObj.push(
           <Checkbox
             label={ propKey }
             onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
             value={ demoPropData }
-            key={ i }
+            key={ propKey }
           />
         );
       } else if (OptionsHelper.commonEvents().indexOf(propKey) >= 0) {
-        console.log('event triggered');
+        // skip the functions from output as a form prop
       } else {
-        fieldObj[i] = (
+        fieldObj.push(
           <Textbox
             label={ propKey }
             onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
             value={ demoPropData }
-            key={ i }
+            key={ propKey }
           />
         );
       }
     }
-  }
+  });
 
   return fieldObj;
 }

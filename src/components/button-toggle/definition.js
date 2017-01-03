@@ -22,7 +22,7 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   className: '',
   fieldHelp: 'Test help',
   fieldHelpInline: true,
@@ -34,6 +34,6 @@ definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   labelHelp: 'Test label help',
   labelInline: false,
   labelWidth: '25'
-});
+};
 
 export default definition;

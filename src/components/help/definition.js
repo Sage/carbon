@@ -20,10 +20,10 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: 'Tooltip test',
   tooltipAlign: 'left',
   tooltipPosition: 'top'
-});
+};
 
 export default definition;

@@ -15,8 +15,14 @@ let definition = {
   props: Form.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: 'test'
-});
+definition.demoProps = {
+  activeInput: null,
+  buttonAlign: 'right',
+  cancel: true,
+  children: 'test',
+  save: true,
+  saving: false,
+  validateOnMount: false
+};
 
 export default definition;

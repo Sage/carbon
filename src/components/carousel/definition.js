@@ -17,9 +17,9 @@ let definition = {
   defaultProps: Carousel.defaultProps,
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: DemoHelper.elemArray(slideDefinition, 4),
-  initialSlideIndex: 1
-});
+  initialSlideIndex: 0
+};
 
 export default definition;

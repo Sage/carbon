@@ -16,7 +16,7 @@ let definition = {
   props: TableRow.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: DemoHelper.elemArray(tableCellDefinition, 12),
   hideMultiSelect: false,
   highlightable: true,
@@ -24,6 +24,6 @@ definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   selectable: true,
   selectAll: true,
   selected: false
-});
+};
 
 export default definition;

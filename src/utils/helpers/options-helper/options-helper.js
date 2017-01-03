@@ -1,3 +1,5 @@
+import Immutable from 'immutable';
+
 let OptionsHelper = {
   alignBinary: () => {
     return [
@@ -65,6 +67,7 @@ let OptionsHelper = {
       'open',
       'paginate',
       'renderHiddenTabs',
+      'reverse',
       'roundedCorners',
       'selectable',
       'separator',
@@ -175,12 +178,25 @@ let OptionsHelper = {
     };
   },
 
-  pageSizes: () => {
+  nonDemoFormProps: () => {
     return [
-      10,
-      20,
-      50
+      'cacheVisibleValue',
+      'className',
+      'options',
+      'validations',
+      'warnings'
     ];
+  },
+
+  pageSizes: () => {
+    return {
+      immutable: true,
+      value: [
+        { id: 10, name: 10 },
+        { id: 20, name: 20 },
+        { id: 50, name: 50 }
+      ]
+    };
   },
 
   positions: () => {
@@ -189,6 +205,22 @@ let OptionsHelper = {
       'left',
       'right',
       'top'
+    ];
+  },
+
+  shapes: () => {
+    return [
+      'circle',
+      'rounded-rect',
+      'square'
+    ];
+  },
+
+  shapesVaried: () => {
+    return [
+      'standard',
+      'circle',
+      'leaf'
     ];
   },
 

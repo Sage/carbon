@@ -23,6 +23,6 @@ let demoProps = OptionsHelper.inputDecoratorDemoProps();
 demoProps.align = 'right';
 demoProps.precision = 2;
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, demoProps);
+definition.demoProps = demoProps;
 
 export default definition;

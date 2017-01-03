@@ -20,10 +20,10 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(
-  definition,
-  { direction: 'right',
-    label: 'Test Label' }
-);
+definition.demoProps = {
+  direction: 'right',
+  label: 'Test Label',
+  size: 'medium'
+};
 
 export default definition;

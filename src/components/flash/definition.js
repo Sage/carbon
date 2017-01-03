@@ -19,10 +19,10 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   as: 'help',
   message: 'Test flash message',
   open: true
-});
+};
 
 export default definition;

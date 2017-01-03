@@ -16,8 +16,8 @@ let definition = {
   props: Icon.propTypes,
   propOptions: {
     type: OptionsHelper.icons(),
-    bgShape: ['square', 'rounded-rect', 'circle'],
-    bgSize: ['small', 'medium', 'large'],
+    bgShape: OptionsHelper.shapes(),
+    bgSize: OptionsHelper.sizesRestricted(),
     bgTheme: OptionsHelper.colors(),
     tooltipAlign: OptionsHelper.alignFull(),
     tooltipPosition: OptionsHelper.positions()
@@ -31,6 +31,6 @@ demoProps.bgShape = 'square';
 demoProps.bgSize = 'medium';
 demoProps.bgTheme = 'success';
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, demoProps);
+definition.demoProps = demoProps;
 
 export default definition;

@@ -20,7 +20,9 @@ let demoProps = OptionsHelper.inputDecoratorDemoProps();
 
 demoProps.inputWidth = '';
 demoProps.labelWidth = '';
+demoProps.defaultChecked = false;
+demoProps.reverse = false;
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, demoProps);
+definition.demoProps = demoProps;
 
 export default definition;

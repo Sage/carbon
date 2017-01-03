@@ -15,11 +15,11 @@ let definition = {
   props: Step.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: 'test',
   enabled: true,
   extraButtons: [],
   stepNumber: 0
-});
+};
 
 export default definition;

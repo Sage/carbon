@@ -20,6 +20,7 @@ let definitionKeys = Object.keys(Definitions).sort();
 class ComponentPage extends React.Component {
   render() {
     let def = this.state.componentStore.get(this.props.name);
+    let originalDef = def;
 
     if (def.toJS) { def = def.toJS(); }
 
@@ -33,7 +34,7 @@ class ComponentPage extends React.Component {
         previousPage={ this._prepareSubnavObject(this._previousComponent(position)) }
         nextPage={ this._prepareSubnavObject(this._nextComponent(position)) }
       >
-        <ComponentPreview definition={ def } name={ this.props.name } />
+        <ComponentPreview definition={ originalDef } name={ this.props.name } />
         <PageContentArea title='Designer Notes'>
           { def.text.details }
         </PageContentArea>

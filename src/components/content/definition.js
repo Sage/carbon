@@ -1,5 +1,6 @@
 import Content from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Content,
@@ -14,16 +15,19 @@ let definition = {
   defaultProps: Content.defaultProps,
   props: Content.propTypes,
   propOptions: {
-    align: ['left', 'right'],
-    as: ['primary', 'secondary']
+    align: OptionsHelper.alignBinary(),
+    as: OptionsHelper.themesBinary()
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
+  align: "left",
+  as: "primary",
+  bodyFullWidth: false,
   children: 'test',
   inline: true,
   title: 'Test',
-  titleWidth: 20
-});
+  titleWidth: 20,
+};
 
 export default definition;

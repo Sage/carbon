@@ -25,6 +25,6 @@ let demoProps = dialogDefinition.demoProps;
 demoProps.confirmLabel = 'Confirm Label';
 demoProps.cancelLabel = 'Cancel Label';
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, dialogDefinition.demoProps);
+definition.demoProps = demoProps;
 
 export default definition;

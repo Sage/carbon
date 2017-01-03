@@ -20,9 +20,11 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
+  as: 'secondary',
   children: DemoHelper.elemArray(linkDefinition, 2),
+  disabled: false,
   text: 'Text'
-});
+};
 
 export default definition;

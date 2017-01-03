@@ -16,6 +16,9 @@ let definition = {
   props: DateComponent.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, OptionsHelper.inputDecoratorDemoProps());
+let demoProps = OptionsHelper.inputDecoratorDemoProps()
+demoProps.defaultValue = '2015-01-01';
+
+definition.demoProps = demoProps;
 
 export default definition;

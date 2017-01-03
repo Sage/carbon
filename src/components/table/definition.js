@@ -20,15 +20,16 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: DemoHelper.elemArray(trDefinition, 28, 'uniqueID'),
   currentPage: 1,
   filter: {},
   highlightable: true,
+  pageSizeSelectionOptions: OptionsHelper.pageSizes(),
   paginate: true,
   selectable: true,
-  showPageSizeSelection: false,
+  showPageSizeSelection: true,
   shrink: false
-});
+};
 
 export default definition;

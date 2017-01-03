@@ -1,5 +1,6 @@
 import DropdownFilter from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
+import Immutable from 'immutable';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
@@ -17,8 +18,13 @@ let definition = {
 };
 
 let demoProps = OptionsHelper.inputDecoratorDemoProps();
+demoProps.cacheVisibleValue = false;
+demoProps.options = Immutable.fromJS([
+  { 1: 'one' },
+  { 2: 'two' }
+]);
 demoProps.suggest = true;
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, demoProps);
+definition.demoProps = demoProps;
 
 export default definition;

@@ -21,10 +21,10 @@ let definition = {
 };
 
 podDefinition.demoProps.onEdit = false;
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: DemoHelper.elemArray(podDefinition, 3, 'title'),
   columnDivide: false,
   gutter: 'medium'
-});
+};
 
 export default definition;

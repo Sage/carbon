@@ -40,6 +40,29 @@ let DemoHelper = {
     }
 
     return elems;
+  },
+
+  /**
+   * sets up demo props, with over-rides and function stubs
+   *
+   * @method prepareDemoProps
+   * @param {Object} definition
+   * @param {Object} demoDefaults - set of over-rides
+   * @return {Object} demoProps
+   */
+  prepareDemoProps: (definition, demoDefaults = {}) => {
+    let demoProps = _.assign({}, definition.defaultProps, demoDefaults);
+
+    for (var prop in definition.props) {
+      if (demoProps[prop] === undefined) {
+        demoProps[prop] = '';
+      }
+      if (demoDefaults[prop]) {
+        demoProps[prop] = demoDefaults[prop];
+      }
+    }
+
+    return demoProps;
   }
 };
 

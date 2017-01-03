@@ -20,7 +20,7 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: DemoHelper.elemArray(trDefinition, 28, 'uniqueID'),
   currentPage: 1,
   filter: {},
@@ -29,6 +29,6 @@ definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   selectable: true,
   showPageSizeSelection: false,
   shrink: false
-});
+};
 
 export default definition;

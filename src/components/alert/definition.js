@@ -17,6 +17,6 @@ let definition = {
   propOptions: dialogDefinition.propOptions
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, dialogDefinition.demoProps);
+definition.demoProps = dialogDefinition.demoProps;
 
 export default definition;

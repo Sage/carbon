@@ -15,13 +15,13 @@ let definition = {
   props: DateRange.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   endLabel: 'Range End',
   endMessage: 'Range End Message',
   labelsInline: false,
   startLabel: 'Range Start',
   startMessage: 'Range Start Message',
   value: ['2015-01-12', '2015-01-13']
-});
+};
 
 export default definition;

@@ -20,8 +20,10 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: 'test'
-});
+definition.demoProps = {
+  as: 'info',
+  children: 'test',
+  size: 'medium'
+};
 
 export default definition;

@@ -15,9 +15,11 @@ let definition = {
   props: DialogFullScreen.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: 'test',
-  disableEscKey: false
-});
+  disableEscKey: false,
+  enableBackgroundUI: false,
+  open: false
+};
 
 export default definition;

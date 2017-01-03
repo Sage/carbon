@@ -22,14 +22,15 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: 'Click me',
   disabled: false,
   icon: 'download',
   iconAlign: 'left',
+  tabbable: true,
   tooltipAlign: 'left',
   tooltipMessage: 'Link tooltip',
   tooltipPosition: 'top'
-});
+};
 
 export default definition;

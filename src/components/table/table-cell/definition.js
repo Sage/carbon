@@ -15,10 +15,10 @@ let definition = {
   props: TableCell.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   action: false,
   align: 'left',
   children: 'testCell'
-});
+};
 
 export default definition;

@@ -20,9 +20,9 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: 'test',
   text: 'Multi action button'
-});
+};
 
 export default definition;

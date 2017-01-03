@@ -38,9 +38,9 @@ let definition = {
   props: Rainbow.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: 'test',
   data: rainbowData
-});
+};
 
 export default definition;

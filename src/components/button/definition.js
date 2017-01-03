@@ -22,8 +22,12 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
-  children: 'test'
-});
+definition.demoProps = {
+  as: 'primary',
+  children: 'Click me!',
+  disabled: false,
+  size: 'medium',
+  theme: 'blue'
+};
 
 export default definition;

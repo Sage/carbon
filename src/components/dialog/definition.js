@@ -19,12 +19,13 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   enableBackgroundUI: true,
+  onCancel: () => {  },
   open: false,
   showCloseIcon: true,
   size: OptionsHelper.sizesFull()[2],
   title: 'Test'
-});
+};
 
 export default definition;

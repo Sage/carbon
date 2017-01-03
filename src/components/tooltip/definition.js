@@ -20,10 +20,11 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   align: 'left',
   children: 'test',
-  isVisible: true
-});
+  isVisible: true,
+  position: 'top'
+};
 
 export default definition;

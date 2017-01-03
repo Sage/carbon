@@ -15,9 +15,10 @@ let definition = {
   props: I18n.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: 'test',
+  inline: true,
   markdown: true
-});
+};
 
 export default definition;

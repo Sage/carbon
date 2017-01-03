@@ -1,5 +1,6 @@
 import Portrait from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
   component: Portrait,
@@ -12,13 +13,19 @@ let definition = {
     type: 'misc'
   },
   defaultProps: Portrait.defaultProps,
-  props: Portrait.propTypes
+  props: Portrait.propTypes,
+  propOptions: {
+    shapes: OptionsHelper.shapesVaried(),
+    size: OptionsHelper.sizesPod()
+  }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: 'test',
   darkBackground: true,
+  shape: 'standard',
+  size: 'medium',
   src: 'test'
-});
+};
 
 export default definition;

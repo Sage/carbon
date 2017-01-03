@@ -19,11 +19,13 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
+  as: 'info',
   border: true,
   children: 'test',
   open: true,
-  roundedCorners: true
-});
+  roundedCorners: true,
+  transparent: false
+};
 
 export default definition;

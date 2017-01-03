@@ -15,11 +15,11 @@ let definition = {
   props: Profile.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: 'test',
   email: 'test@test.com',
   large: true,
   name: 'Test'
-});
+};
 
 export default definition;

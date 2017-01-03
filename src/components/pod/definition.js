@@ -23,7 +23,10 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
+  alignTitle: 'left',
+  as: "primary",
+  border: true,
   children: DemoHelper.elemArray(detailDefinition, 2),
   collapsed: false,
   description: 'Test description',
@@ -31,9 +34,10 @@ definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   editContentFullWidth: false,
   footer: DemoHelper.elemArray(linkDefinition, 1),
   internalEditButton: false,
+  padding: "medium",
   subtitle: 'Test subtitle',
   title: 'Test title',
   triggerEditOnContent: false
-});
+};
 
 export default definition;

@@ -19,8 +19,8 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: 'test'
-});
+};
 
 export default definition;

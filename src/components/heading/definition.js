@@ -15,7 +15,7 @@ let definition = {
   props: Heading.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   backLink: '/test',
   children: 'description area',
   divider: true,
@@ -24,6 +24,6 @@ definition.demoProps = DemoHelper.prepareDemoProps(definition, {
   separator: true,
   subheader: 'This is a sub heading',
   title: 'Test'
-});
+};
 
 export default definition;

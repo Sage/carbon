@@ -17,9 +17,9 @@ let definition = {
   props: Fieldset.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: DemoHelper.elemArray(textboxDefinition, 4),
   legend: 'Test set of fields'
-});
+};
 
 export default definition;

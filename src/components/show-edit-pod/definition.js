@@ -22,14 +22,15 @@ let definition = {
 import React from 'react';
 import textboxDefinition from '../textbox/definition';
 let textbox = React.createElement(textboxDefinition.component, textboxDefinition.demoProps);
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   as: 'primary',
   border: true,
   children: 'Pod contents',
   description: 'Test description',
   editFields: [textbox, textbox, textbox, textbox],
   subtitle: 'Test subtitle',
-  title: 'Test title'
-});
+  title: 'Test title',
+  transitionName: 'carbon-show-edit-pod__transition'
+};
 
 export default definition;

@@ -16,6 +16,6 @@ let definition = {
   props: Textarea.propTypes
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, OptionsHelper.inputDecoratorDemoProps());
+definition.demoProps = OptionsHelper.inputDecoratorDemoProps();
 
 export default definition;

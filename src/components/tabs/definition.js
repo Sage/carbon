@@ -21,9 +21,11 @@ let definition = {
   }
 };
 
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
+  align: 'left',
   children: DemoHelper.elemArray(tabDefinition, 6, [ 'tabId', 'title' ]),
+  position: 'top',
   renderHiddenTabs: false
-});
+};
 
 export default definition;

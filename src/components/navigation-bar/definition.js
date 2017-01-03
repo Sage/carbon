@@ -21,8 +21,8 @@ let definition = {
 };
 
 linkDefinition.demoProps.icon = null;
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: DemoHelper.elemArray(linkDefinition, 7)
-});
+};
 
 export default definition;

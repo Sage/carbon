@@ -22,11 +22,12 @@ let definition = {
 };
 
 podDefinition.demoProps.onEdit = false;
-definition.demoProps = DemoHelper.prepareDemoProps(definition, {
+definition.demoProps = {
   children: DemoHelper.elemArray(podDefinition, 7, 'title'),
   enableBackgroundUI: true,
   open: false,
+  position: 'right',
   size: 'small'
-});
+};
 
 export default definition;
