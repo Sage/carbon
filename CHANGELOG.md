@@ -1,3 +1,9 @@
+# 0.33.0
+
+## Helpers
+
+* The I18n helper now uses the current locale for delimiter and separator.
+
 # 0.32.1
 
 ## Bug Fixes
