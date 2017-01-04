@@ -116,7 +116,9 @@ class DateRange extends React.Component {
    * @return {String} the value of the start date
    */
   get startDate() {
-    return this.props.value[0];
+    return this.props.startDateProps && this.props.startDateProps.value ?
+      this.props.startDateProps.value :
+      this.props.value[0];
   }
 
   /**
@@ -126,7 +128,9 @@ class DateRange extends React.Component {
    * @return {String} the value of the end date
    */
   get endDate() {
-    return this.props.value[1];
+    return this.props.endDateProps && this.props.endDateProps.value ?
+      this.props.endDateProps.value :
+      this.props.value[1];
   }
 
   /**
@@ -136,7 +140,8 @@ class DateRange extends React.Component {
    * @return {String}
    */
   get startMessage() {
-    return this.props.startMessage || I18n.t('errors.messages.date_range', { defaultValue: 'Start date must not be later than the end date' });
+    return this.props.startMessage ||
+      I18n.t('errors.messages.date_range', { defaultValue: 'Start date must not be later than the end date' });
   }
 
   /**
@@ -147,7 +152,7 @@ class DateRange extends React.Component {
    */
   get endMessage() {
     return this.props.endMessage ||
-           I18n.t('errors.messages.date_range', { defaultValue: 'End date cannot be earlier than the start date' });
+     I18n.t('errors.messages.date_range', { defaultValue: 'End date cannot be earlier than the start date' });
   }
 
 

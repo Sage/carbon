@@ -226,6 +226,45 @@ describe('DateRange', () => {
       expect(dates[1].props.disabled).toEqual(true);
     });
 
+    it('Date values can be set via startDateProps and endDateProps', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          startDateProps={ { value: '2016-10-10' } }
+          endDateProps={ { value: '2016-11-11'  } }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.value).toEqual('2016-10-10');
+      expect(dates[1].props.value).toEqual('2016-11-11');
+    });
+
+    it('value prop is retained for backward compatibility', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2015-10-10','2015-11-11'] }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.value).toEqual('2015-10-10');
+      expect(dates[1].props.value).toEqual('2015-11-11');
+    });
+
+    it('value prop is overriden by startDateProps.value and endDateProps.value', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2015-10-10','2015-11-11'] }
+          startDateProps={ { value: '2016-10-10' } }
+          endDateProps={ { value: '2016-11-11'  } }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.value).toEqual('2016-10-10');
+      expect(dates[1].props.value).toEqual('2016-11-11');
+    });
+
     it('default classNames are applied to start and end dates if none are explicitly specified', () => {
       let labelInstance = TestUtils.renderIntoDocument(
         <DateRange
