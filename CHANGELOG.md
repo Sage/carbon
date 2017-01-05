@@ -8,6 +8,13 @@
 
 * Banner Component has been Deleted in favour of the Message Component
 
+## Potentially breaking changes
+
+* The following components have been refactored to meet best practice standards and pass linting.
+* If you have overridden any internal methods of these components, you may need to update your code.
+  - Button
+  - Create
+
 ## Component Enhancements
 
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
