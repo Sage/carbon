@@ -16,7 +16,6 @@ export default props =>
   </h2>
 ;
 
-
 /**
  * builds a GitHub link
  *

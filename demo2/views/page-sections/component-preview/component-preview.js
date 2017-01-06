@@ -35,7 +35,6 @@ export default props => (
     <div className= { `component-preview component-preview--${props.definition.get('key')}` }>
       <div className='component-preview__component-wrapper'>
         { React.createElement(props.definition.get('component'), getProps(props.definition.get('demoProps'))) }
- { _test(props.definition.get('demoProps')) }
       </div>
       <div className='component-preview__interaction'>
         <form className='component-preview__controls'>
@@ -48,8 +47,6 @@ export default props => (
     </div>
   </PageContentArea>
 );
-
-function _test(f) { /* debugger; */ }
 
 function getProps(props) {
   props = props.toJS();
@@ -78,8 +75,8 @@ const _buildCode = (props) => {
     if (key === "children") {
       children = prop;
     } else {
-      let v = typeof prop === "object" ? prop.toJS() : prop;
-      codeObj.addProp(key, v);
+      let value = typeof prop === "object" ? prop.toJS() : prop;
+      codeObj.addProp(key, value);
     }
 
     // stub functions

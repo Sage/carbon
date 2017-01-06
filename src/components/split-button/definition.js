@@ -1,7 +1,7 @@
 import SplitButton from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import linkDefinition from '../link/definition';
+import buttonDefinition from '../button/definition';
 
 let definition = {
   component: SplitButton,
@@ -22,7 +22,7 @@ let definition = {
 
 definition.demoProps = {
   as: 'secondary',
-  children: DemoHelper.elemArray(linkDefinition, 2),
+  children: DemoHelper.elemArray(buttonDefinition, 2),
   disabled: false,
   text: 'Text'
 };

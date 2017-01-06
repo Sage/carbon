@@ -100,6 +100,10 @@ I18n.translations['en'] = {
     subtitle: 'Free open source icons to use in your project',
   },
 
+  component_page: {
+    design_notes: 'Designer Notes'
+  },
+
   errors: {
     messages: {
       blank: 'This field is required.',

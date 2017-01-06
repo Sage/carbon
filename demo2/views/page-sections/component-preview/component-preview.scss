@@ -26,7 +26,6 @@
   .demo-stubbed-element {
     box-sizing: border-box;
     display: inline-block;
-    width: 100%;
   }
 }
 
@@ -80,7 +79,6 @@
 .component-preview--tabs {
   .demo-stubbed-element {
     margin-right: 1%;
-    padding: 20px;
     width: 32.333%;
 
     &:last-of-type {

@@ -25,10 +25,6 @@ let DemoHelper = {
       elems[i] = React.createElement(definition.component, definition.demoProps);
     }
 
-    if (elems.length === 1) {
-      elems = elems[0];
-    }
-
     return elems;
   }
 };

@@ -32,7 +32,7 @@ definition.demoProps = {
   description: 'Test description',
   displayEditButtonOnHover: false,
   editContentFullWidth: false,
-  footer: DemoHelper.elemArray(linkDefinition, 1),
+  footer: DemoHelper.elemArray(linkDefinition, 1)[0],
   internalEditButton: false,
   onEdit: () => {
 

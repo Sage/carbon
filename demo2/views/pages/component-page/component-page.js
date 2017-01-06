@@ -1,6 +1,7 @@
 // React
 import React from 'react';
 import ImmutableHelper from 'utils/helpers/immutable';
+import I18n from 'i18n-js';
 
 // App Components
 import Definitions from './../../../definitions';
@@ -35,7 +36,7 @@ class ComponentPage extends React.Component {
         nextPage={ this._prepareSubnavObject(this._nextComponent(position)) }
       >
         <ComponentPreview definition={ originalDef } name={ this.props.name } />
-        <PageContentArea title='Designer Notes'>
+        <PageContentArea title={ I18n.t('component_page.design_notes') }>
           { def.text.details }
         </PageContentArea>
       </SubPageChrome>
@@ -63,9 +64,7 @@ class ComponentPage extends React.Component {
    * @return {Object} Definitions element
    */
   _nextComponent = (current) => {
-    let pos = current === definitionKeys.length - 1
-      ? 0
-      : current + 1;
+    let pos = (current + 1) % definitionKeys.length;
 
     return Definitions[definitionKeys[pos]];
   }

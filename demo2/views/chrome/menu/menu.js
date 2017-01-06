@@ -26,15 +26,18 @@ class Menu extends React.Component {
    */
   get componentsHTML() {
     let defKey,
-        i = 0,
         menuListItems = [];
 
     for (defKey in Definitions) {
       let def = Definitions[defKey];
 
-      i++;
-
-      menuListItems.push(<MenuListItem key={ i } name={ def.text.name }><Link to={ `/components/${def.key}` }>{ def.text.name }</Link></MenuListItem>);
+      menuListItems.push(
+        <MenuListItem key={ def.key } name={ def.text.name }>
+          <Link to={ `/components/${def.key}` }>
+            { def.text.name }
+          </Link>
+        </MenuListItem>
+      );
     }
 
     return menuListItems;
@@ -109,17 +112,17 @@ class Menu extends React.Component {
   }
 
   _initiallyOpen = () => {
-    let defKey,
-        openCount = 0;
+    let defKey;
 
     for (defKey in Definitions) {
       let menuItem = Definitions[defKey];
 
       if (menuItem.key === window.location.pathname) {
-        openCount ++;
+        return true;
       }
     }
-    return openCount > 0;
+
+    return false;
   }
 }
 
