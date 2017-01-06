@@ -30,7 +30,10 @@ class Carousel extends React.Component {
      * @type {String}
      * @default firstTab
      */
-    initialSlideIndex: React.PropTypes.number,
+    initialSlideIndex: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ]),
 
     /**
      * Individual tabs
@@ -60,7 +63,7 @@ class Carousel extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
-    let selectedIndex = this.props.initialSlideIndex;
+    let selectedIndex = Number(this.props.initialSlideIndex);
 
     this.setState({ selectedSlideIndex: selectedIndex });
   }
