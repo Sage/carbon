@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import I18n from 'i18n-js';
 
 // Carbon
 import Icon from 'components/icon';
@@ -8,6 +9,7 @@ import Link from 'components/link';
 import FlexContainer from '../flex-container';
 import Wrapper from '../wrapper';
 
+
 class Footer extends React.Component {
   render () {
     return (
@@ -15,13 +17,15 @@ class Footer extends React.Component {
         <Wrapper>
           <div className='demo-footer'>
             <div className="demo-footer__section demo-footer__social">
-              <Link href='#'><Icon type='twitter' /></Link>
-              <Link href='#'><Icon type='dribbble' /></Link>
-              <Link href='#'><Icon type='github' /></Link>
+              <Link href='https://twitter.com/sagegroupplc'><Icon type='twitter' /></Link>
+              <Link href='https://dribbble.com/sageuxdesign'><Icon type='dribbble' /></Link>
+              <Link href='https://github.com/Sage/carbon'><Icon type='github' /></Link>
             </div>
             <div className="demo-footer__section demo-footer__corporate">
               <span className='demo-footer__sage-icon' />
-              <span className='demo-footer__legal'>{ `\u00A9 Sage(UK) Ltd. ${new Date().getFullYear()}, All rights reserved. Last updated on October 20th 2016` }</span>
+              <span className='demo-footer__legal'>
+                { I18n.t('footer.legal') }
+              </span>
             </div>
           </div>
         </Wrapper>

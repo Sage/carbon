@@ -4,6 +4,8 @@ import Icon from 'components/icon';
 
 import DemoActions from '../../../actions/demo';
 
+import I18n from 'i18n-js';
+
 class Header extends React.Component {
   render() {
     return (
@@ -14,7 +16,7 @@ class Header extends React.Component {
           theme='white'
         >
           <Icon type='hamburger' />
-          Menu
+          { I18n.t('navigation.menu') }
         </Button>
       </div>
     );

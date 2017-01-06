@@ -13,3 +13,8 @@ import Create from 'carbon/lib/components/create';
 ```javascript
 <Create>Add Artefact</Create>
 ```
+
+| Name          | Required       | Type           | Default       | Description   |
+| ------------- |  ------------- |  ------------- | ------------- | ------------- |
+| children      | false          | Node           |               | children content to render  |
+| className     | false          | String         |               | Custom className |

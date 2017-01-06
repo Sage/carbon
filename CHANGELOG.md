@@ -1,4 +1,3 @@
-
 # 1.0.0
 
 ## :warning: Major Change - React 15 Upgrade
@@ -10,9 +9,95 @@
 * Banner Component has been Deleted in favour of the Message Component
 * Menu List - Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
 
+## Potentially breaking changes
+
+* The following components have been refactored to meet best practice standards and pass linting.
+* If you have overridden any internal methods of these components, you may need to update your code.
+  - Button
+  - Create
+
+## Component Enhancements
+
+* `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
+
+## data-attributes on components
+
+We are adding data-attributes to components to better identify them and their parts within the browser. We will add `data-component` tags on the top level of any component, and `data-member` tags to constituent parts. Developers can also add `data-element` tags to components to uniquely identify specific components within their UI.
+
+So far we have added attributes to the following components:
+
+* Textbox
+
 ## Dependency Update
 
 * Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+
+# 0.32.1
+
+## Bug Fixes
+
+* Validation is now correctly reset when a value is changed externally from the input.
+
+# 0.32.0
+
+## New Validators
+
+* IsBlankValidator
+
+## MountInApp Component
+
+Can be used to integrate React components into pre-existing user interfaces.
+
+```
+  <MountInApp targetId="put_carbon_component_here">
+    // Children
+  </MountInApp>
+```
+
+The code above will render all `//Children` components inside of the element with ID=`put_carbon_component_here` found on the page.
+
+## SimpleColorPicker Component
+
+A component that displays squares with color samples that you can choose from.
+
+```javascript
+  <SimpleColorPicker
+    availableColors={ ['transparent', '#ff0102', '#34ff01'] }
+    selectedColor="#34ff01"
+    name="settings[color_of_something]"
+    onChange={ customEventHandler }
+  />
+```
+
+## Helpers
+
+* A new 'insertAt' Ether helper to insert a character in a string.
+*  It inserts a dash by default, or a custom `newChar`
+
+```javascript
+  insertAt('123456', 2);
+  // => 12-3456
+  insertAt('123456789', 3, { newChar:'/' });
+  // => 123/456789
+```
+To repeat the character at the same interval, set `repeat` to `true`
+
+```javascript
+  insertAt('123456', 2, { repeat: true });
+  // => 12-34-56
+  insertAt('123456789', 3, { newChar:'/', repeat: true });
+  // => 123/456/789
+```
+
+# 0.31.3
+
+* `legacyEditStyles` prop name has changed to `internalEditButton`.
+
+# 0.31.2
+
+## Bug fix
+
+* `Pod`: bug fixed with link and hover event props being mixed up
 
 # 0.31.1
 
@@ -88,6 +173,7 @@ We have added a settings row component for settings pages. It employs the curren
 * Readded the `carbon-tabs` class to the Tabs component.
 * Clear any selected rows too in refresh()
 * SelectedRows should be reset to the same object it is defined with
+>>>>>>> master
 
 # 0.29.1
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import I18n from 'i18n-js';
 
 import Button from 'components/button';
 
@@ -12,7 +13,7 @@ const GetCodeButtons = {
         size='large'
         theme='magenta'
       >
-        View on Github
+        { I18n.t('navigation.github.view') }
       </Button>
     );
   },
@@ -26,7 +27,7 @@ const GetCodeButtons = {
         size='large'
         theme={ theme }
       >
-        Download Carbon
+        { I18n.t('navigation.github.download') }
       </Button>
     );
   },
