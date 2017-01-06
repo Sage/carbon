@@ -19,6 +19,14 @@
 
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
 
+## data-attributes on components
+
+We are adding data-attributes to components to better identify them and their parts within the browser. We will add `data-component` tags on the top level of any component, and `data-member` tags to constituent parts. Developers can also add `data-element` tags to components to uniquely identify specific components within their UI.
+
+So far we have added attributes to the following components:
+
+* Textbox
+
 ## Dependency Update
 
 * Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0

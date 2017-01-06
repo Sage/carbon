@@ -24,6 +24,11 @@ class TestClassTwo extends React.Component {
     this.count++;
   }
 
+  get inputProps() {
+    let { ...props } = this.props;
+    return props;
+  }
+
   render() {
     return <div></div>;
   }
@@ -41,7 +46,8 @@ describe('Input', () => {
     }));
 
     instanceTwo = TestUtils.renderIntoDocument(React.createElement(ExtendedClassTwo, {
-      name: 'bar'
+      name: 'bar',
+      'data-element': 'foo'
     }));
 
     onChange = jasmine.createSpy('onChange');
@@ -243,6 +249,14 @@ describe('Input', () => {
   });
 
   describe('inputProps', () => {
+    it('adds a data-member prop', () => {
+      expect(instanceTwo.inputProps["data-member"]).toEqual("input");
+    });
+
+    it('deletes data-element prop', () => {
+      expect(instanceTwo.inputProps["data-element"]).toBe(undefined);
+    });
+
     describe('when autoComplete is not defined', () => {
       it('disables autoComplete', () => {
         expect(instanceTwo.inputProps.autoComplete).toEqual("off");
