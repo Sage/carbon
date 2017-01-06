@@ -31,6 +31,18 @@ So far we have added attributes to the following components:
 
 * Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
 
+# 0.33.1
+
+## Bug fix
+
+* Fixes alignment issue in inputs caused by the font size of prefixes differing from values.
+
+# 0.33.0
+
+## Helpers
+
+* The I18n helper now uses the current locale for delimiter and separator.
+
 # 0.32.1
 
 ## Bug Fixes
