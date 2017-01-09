@@ -13,10 +13,15 @@ class Header extends React.Component {
         <Button
           className='demo-header__menu-toggle'
           onClick={ DemoActions.toggleMenu }
-          theme='white'
+          theme='grey'
         >
-          <Icon type='hamburger' />
-          { I18n.t('navigation.menu') }
+          <Icon
+            className='demo-header__menu-icon'
+            type='list_view'
+          />
+          <span className='demo-header__menu-label'>
+            { I18n.t('navigation.menu') }
+          </span>
         </Button>
       </div>
     );
