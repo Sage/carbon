@@ -177,7 +177,9 @@ describe('OptionsHelper', () => {
         'activeInput',
         'cacheVisibleValue',
         'className',
+        'footer',
         'initialSlideIndex',
+        'key',
         'options',
         'validations',
         'warnings'

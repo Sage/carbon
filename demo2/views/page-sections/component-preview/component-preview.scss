@@ -1,4 +1,5 @@
 @import 'colors';
+@import "../../../demo-variables";
 
 .component-preview {
   &__interaction {
@@ -14,6 +15,10 @@
     background-color: $grey-dark-blue-10;
     padding: 20px;
     width: 33%;
+
+    .carbon-textarea__input {
+      height: 6em;
+    }
   }
   &__code {
     background-color: $grey-dark-plus;
@@ -36,10 +41,19 @@
   }
 }
 
-.component-preview--fieldset,
-.component-preview--textbox {
+.component-preview--fieldset{
   .demo-stubbed-element.demo-stubbed-element {
+    margin-top: 20px;
     width: 100%;
+  }
+}
+
+.component-preview--flash{
+  .carbon-flash {
+    // required to cater for the side menu with the fixed positioning
+    @media (min-width: $response-point-medium) {
+      left: $menu-width;
+    }
   }
 }
 

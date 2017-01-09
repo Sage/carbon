@@ -21,7 +21,7 @@ let definition = {
 
 definition.demoProps = {
   children: 'Test detail',
-  footnote: 'Test footnote',
+  footnote: 'footnote',
   icon: 'tick'
 };
 

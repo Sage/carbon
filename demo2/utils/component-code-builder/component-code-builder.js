@@ -63,7 +63,13 @@ class ComponentCodeBuilder {
       } else {
         this.code += `>\n`;
       }
-      this.code += `${spaces}${child}`;
+      if (child.length && typeof child !== 'string') {
+        child.forEach((c) => {
+          this.code += `${spaces}<${c.type.displayName.replace('_', '')} />\n`;
+        });
+      } else {
+        this.code += `${spaces}${child}\n`;
+      }
       this.hasChildren = true;
     }
   }
@@ -73,7 +79,7 @@ class ComponentCodeBuilder {
     if (this.isClosed) { return; }
 
     if (this.hasChildren) {
-      this.code += `\n</${this.name}>`;
+      this.code += `</${this.name}>`;
     } else if (this.hasProps) {
       this.code += "\n/>";
     } else {

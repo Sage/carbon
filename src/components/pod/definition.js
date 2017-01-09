@@ -1,7 +1,6 @@
 import Pod from './';
 import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import detailDefinition from '../detail/definition';
 import linkDefinition from '../link/definition';
 
 let definition = {
@@ -27,7 +26,7 @@ definition.demoProps = {
   alignTitle: 'left',
   as: "primary",
   border: true,
-  children: DemoHelper.elemArray(detailDefinition, 2),
+  children: 'This is some demo content deliberately supposed to be quite a few words long',
   collapsed: false,
   description: 'Test description',
   displayEditButtonOnHover: false,

@@ -17,6 +17,8 @@ let definition = {
   props: Fieldset.propTypes
 };
 
+textboxDefinition.demoProps.fieldHelp = '';
+textboxDefinition.demoProps.labelHelp = '';
 definition.demoProps = {
   children: DemoHelper.elemArray(textboxDefinition, 4),
   legend: 'Test set of fields'

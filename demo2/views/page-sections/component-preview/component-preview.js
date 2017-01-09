@@ -78,13 +78,6 @@ const _buildCode = (props) => {
       let value = typeof prop === "object" ? prop.toJS() : prop;
       codeObj.addProp(key, value);
     }
-
-    // stub functions
-    if (OptionsHelper.commonEvents().indexOf(key) >= 0) {
-      codeObj.addProp(key, () => {
-        console.log(`${key}() triggered`);
-      });
-    }
   });
 
   if (children) {
