@@ -199,6 +199,11 @@ describe('InputLabel', () => {
     });
 
     describe('when the input has a label', () => {
+      it('sets data-member attribute', () => {
+        let label = instanceBasic.labelHTML;
+        expect(label.props["data-member"]).toEqual('label');
+      });
+
       it('sets the labelText to the passed in label', () => {
         let label = instanceBasic.labelHTML;
         expect(label.props.children).toMatch('test label');
