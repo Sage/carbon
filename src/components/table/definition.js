@@ -24,9 +24,7 @@ definition.demoProps = {
   children: DemoHelper.elemArray(trDefinition, 28, 'uniqueID'),
   currentPage: 1,
   highlightable: true,
-  onChange: () => {
-
-  },
+  onChange: DemoHelper.stubbedFunction,
   pageSize: 10,
   pageSizeSelectionOptions: OptionsHelper.pageSizes(),
   paginate: true,

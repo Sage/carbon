@@ -1,5 +1,5 @@
 import Flash from './';
-
+import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
@@ -22,9 +22,7 @@ let definition = {
 definition.demoProps = {
   as: 'help',
   message: 'Test flash message',
-  onDismiss: () => {
-
-  },
+  onDismiss: DemoHelper.stubbedFunction,
   open: true
 };
 

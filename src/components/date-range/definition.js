@@ -1,5 +1,5 @@
 import DateRange from './';
-
+import DemoHelper from '../../utils/helpers/demo-helper';
 
 let definition = {
   component: DateRange,
@@ -19,9 +19,7 @@ definition.demoProps = {
   endLabel: 'Range End',
   endMessage: 'Range End Message',
   labelsInline: false,
-  onChange: () => {
-
-  },
+  onChange: DemoHelper.stubbedFunction,
   startLabel: 'Range Start',
   startMessage: 'Range Start Message',
   value: ['2015-01-12', '2015-01-13']

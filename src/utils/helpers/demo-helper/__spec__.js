@@ -32,4 +32,10 @@ describe('DemoHelper', () => {
       });
     });
   });
+
+  describe(".stubbedFunction", () => {
+    it("returns undefined as it's empty", () => {
+      expect(typeof DemoHelper.stubbedFunction()).toEqual('undefined');
+    });
+  });
 });

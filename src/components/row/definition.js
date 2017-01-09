@@ -20,7 +20,7 @@ let definition = {
   }
 };
 
-podDefinition.demoProps.onEdit = () => {};
+podDefinition.demoProps.onEdit = DemoHelper.stubbedFunction;
 definition.demoProps = {
   children: DemoHelper.elemArray(podDefinition, 3, 'title'),
   columnDivide: false,

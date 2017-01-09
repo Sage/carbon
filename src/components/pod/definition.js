@@ -34,9 +34,7 @@ definition.demoProps = {
   editContentFullWidth: false,
   footer: DemoHelper.elemArray(linkDefinition, 1)[0],
   internalEditButton: false,
-  onEdit: () => {
-
-  },
+  onEdit: DemoHelper.stubbedFunction,
   padding: "medium",
   subtitle: 'Test subtitle',
   title: 'Test title',

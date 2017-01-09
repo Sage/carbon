@@ -26,6 +26,10 @@ let DemoHelper = {
     }
 
     return elems;
+  },
+
+  stubbedFunction: () => {
+
   }
 };
 

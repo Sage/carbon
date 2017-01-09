@@ -1,5 +1,5 @@
 import Dialog from './';
-
+import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = {
@@ -21,7 +21,7 @@ let definition = {
 
 definition.demoProps = {
   enableBackgroundUI: true,
-  onCancel: () => {  },
+  onCancel: DemoHelper.stubbedFunction,
   open: false,
   showCloseIcon: true,
   size: OptionsHelper.sizesFull()[2],

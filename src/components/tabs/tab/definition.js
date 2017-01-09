@@ -16,7 +16,7 @@ let definition = {
   props: Tab.propTypes
 };
 
-podDefinition.demoProps.onEdit = () => {};
+podDefinition.demoProps.onEdit = DemoHelper.stubbedFunction;
 definition.demoProps = {
   children: DemoHelper.elemArray(podDefinition, 3, 'title'),
   title: 'Test tab'

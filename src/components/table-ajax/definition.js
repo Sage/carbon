@@ -28,9 +28,7 @@ definition.demoProps = {
     value: {}
   },
   highlightable: true,
-  onChange: () => {
-
-  },
+  onChange: DemoHelper.stubbedFunction,
   paginate: true,
   path: 'test/path',
   selectable: true,
