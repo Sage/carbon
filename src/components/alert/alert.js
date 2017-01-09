@@ -1,5 +1,5 @@
-import Dialog from '../dialog';
 import classNames from 'classnames';
+import Dialog from '../dialog';
 
 /**
  * A Alert widget.
@@ -22,10 +22,6 @@ import classNames from 'classnames';
  * @constructor
  */
 class Alert extends Dialog {
-
-  constructor() {
-    super();
-  }
 
   static defaultProps = {
     size: 'xsmall'

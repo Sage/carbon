@@ -14,6 +14,8 @@
 * If you have overridden any internal methods of these components, you may need to update your code.
   - Button
   - Create
+  - Alert
+  - App-Wrapper
 
 ## Component Enhancements
 
