@@ -36,6 +36,12 @@ import Step from './step';
  *      <MultiStepWizard steps={ [<Step1 />, <Step2 extraButtons={ [<Button>Cancel</Button>] }) />] } />
  *      <MultiStepWizard steps={ [<Step1 />, <Step2 enabled={ false } />] } />
  *
+ * The wizard provides the ability to hook into the handle next/back/submit methods.
+ * (1) By passing a 'beforeSubmit' prop in the wizard, you can add custom logic before a submit event.
+ * (2) By passing 'beforeNext'/'afterNext' prop in the corresponding step component, you can add custom logic before/after moving a step forward.
+ * (3) By passing 'beforeBack'/'afterBack' prop in the corresponding step component, you can add custom logic before/after moving a step backward.
+ * You can prevent an event using ev.preventDefault() in the aforementioned cases.
+ *
  * If you want to complete the wizard without going through steps, you can pass a 'completed' prop and set it to true.
  *
  * @class MultiStepWizard
@@ -50,6 +56,14 @@ class MultiStepWizard extends React.Component {
      * @type {Array}
      */
     steps: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+
+    /**
+     * Custom function that is called immediately before a submit event
+     *
+     * @property beforeSubmit
+     * @type {Function}
+     */
+    beforeSubmit: React.PropTypes.func,
 
     /**
      * A custom submit event handler
@@ -137,6 +151,7 @@ class MultiStepWizard extends React.Component {
       wizard: {
         nextHandler: this.props.onNext,
         backHandler: this.props.onBack,
+        beforeSubmitHandler: this.props.beforeSubmit,
         submitHandler: this.props.onSubmit,
         enableInactiveSteps: this.props.enableInactiveSteps,
         currentStep: this.state.currentStep,
@@ -224,7 +239,7 @@ class MultiStepWizard extends React.Component {
   get wizardStepsHTML() {
     return this.props.steps.map((step, index) => {
       return (
-        <Step stepNumber={ index + 1 } key={ index } { ...step.props }>
+        <Step stepNumber={ index + 1 } key={ `multi-step-wizard-step-${index}` } { ...step.props }>
           { step }
         </Step>
       );

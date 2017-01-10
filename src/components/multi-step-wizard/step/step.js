@@ -34,6 +34,38 @@ class Step extends React.Component {
     defaultButton: React.PropTypes.bool,
 
     /**
+     * Custom function that is called immediately before moving the step forward
+     *
+     * @property beforeNext
+     * @type {Function}
+     */
+    beforeNext: React.PropTypes.func,
+
+    /**
+     * Custom function that is called immediately after moving the step forward
+     *
+     * @property afterNext
+     * @type {Function}
+     */
+    afterNext: React.PropTypes.func,
+
+    /**
+     * Custom function that is called immediately before moving the step backward
+     *
+     * @property beforeBack
+     * @type {Function}
+     */
+    beforeBack: React.PropTypes.func,
+
+    /**
+     * Custom function that is called immediately after moving the step backward
+     *
+     * @property afterBack
+     * @type {Function}
+     */
+    afterBack: React.PropTypes.func,
+
+    /**
      * Additional buttons
      *
      * @property extraButtons
@@ -65,9 +97,13 @@ class Step extends React.Component {
    * @method handleOnSubmit
    * @return {void}
    */
-  handleOnSubmit = () => {
+  handleOnSubmit = (ev) => {
+    if (this.wizard.beforeSubmitHandler) {
+      this.wizard.beforeSubmitHandler(ev, this.currentStepNumber);
+    }
+    
     this.wizard.complete();
-    this.wizard.submitHandler();
+    this.wizard.submitHandler(ev);
   };
 
   /**
@@ -76,9 +112,15 @@ class Step extends React.Component {
    * @method handleOnNext
    * @return {void}
    */
-  handleOnNext = () => {
-    if (this.props.defaultButton) {
-      this.wizard.next();
+  handleOnNext = (ev) => {
+    if (this.props.beforeNext) {
+      this.props.beforeNext(ev, this.currentStepNumber);
+    }
+
+    this.wizard.next();
+
+    if (this.props.afterNext) {
+      this.props.afterNext(ev, this.currentStepNumber);
     }
   };
 
@@ -88,9 +130,15 @@ class Step extends React.Component {
    * @method handleOnBack
    * @return {void}
    */
-  handleOnBack = () => {
-    if (this.props.defaultButton) {
-      this.wizard.back();
+  handleOnBack = (ev) => {
+    if (this.props.beforeBack) {
+      this.props.beforeBack(ev, this.currentStepNumber);
+    }
+
+    this.wizard.back();
+
+    if (this.props.afterNext) {
+      this.props.afterNext(ev, this.currentStepNumber);
     }
   };
 
@@ -263,7 +311,7 @@ class Step extends React.Component {
     let extraButtons = (this.props.extraButtons || []);
 
     return extraButtons.map((button, index) => {
-      return (<span key={ index }>
+      return (<span key={ `multi-step-wizard-step-custom-buttons-${index}` }>
                 { button }
               </span>
       );
