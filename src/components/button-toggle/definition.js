@@ -16,15 +16,15 @@ let definition = {
   props: ButtonToggle.propTypes,
   propOptions: {
     labelAlign: ['left', 'right'],
-    icon: OptionsHelper.icons(),
-    iconSize: OptionsHelper.sizesBinary()
+    buttonIcon: OptionsHelper.icons(),
+    buttonIconSize: OptionsHelper.sizesBinary()
   }
 };
 
 definition.demoProps = {
+  buttonIcon: '',
+  buttonIconSize: 'large',
   children: 'Toggle Button',
-  icon: '',
-  iconSize: 'large',
   name: 'required-to-group'
 };
 definition.demoRenderCount = 4;
