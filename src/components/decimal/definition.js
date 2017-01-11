@@ -15,7 +15,8 @@ let definition = {
   props: Decimal.propTypes,
   defaultProps: Decimal.defaultProps,
   propOptions: {
-    align: OptionsHelper.alignBinary()
+    align: OptionsHelper.alignBinary(),
+    labelAlign: OptionsHelper.alignBinary()
   }
 };
 

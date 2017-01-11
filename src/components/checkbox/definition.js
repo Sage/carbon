@@ -13,7 +13,10 @@ let definition = {
     type: 'form'
   },
   defaultProps: Checkbox.defaultProps,
-  props: Checkbox.propTypes
+  props: Checkbox.propTypes,
+  propOptions: {
+    labelAlign: OptionsHelper.alignBinary()
+  }
 };
 
 let demoProps = OptionsHelper.inputDecoratorDemoProps();

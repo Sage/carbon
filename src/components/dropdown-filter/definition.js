@@ -12,7 +12,10 @@ let definition = {
     type: 'form'
   },
   defaultProps: DropdownFilter.defaultProps,
-  props: DropdownFilter.propTypes
+  props: DropdownFilter.propTypes,
+  propOptions: {
+    labelAlign: OptionsHelper.alignBinary()
+  }
 };
 
 let demoProps = OptionsHelper.inputDecoratorDemoProps();

@@ -13,7 +13,10 @@ let definition = {
     type: 'form'
   },
   defaultProps: Textarea.defaultProps,
-  props: Textarea.propTypes
+  props: Textarea.propTypes,
+  propOptions: {
+    labelAlign: OptionsHelper.alignBinary()
+  }
 };
 
 definition.demoProps = OptionsHelper.inputDecoratorDemoProps();

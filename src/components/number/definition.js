@@ -13,7 +13,10 @@ let definition = {
     type: 'form'
   },
   defaultProps: NumberComponent.defaultProps,
-  props: NumberComponent.propTypes
+  props: NumberComponent.propTypes,
+  propOptions: {
+    labelAlign: OptionsHelper.alignBinary()
+  }
 };
 
 definition.demoProps = OptionsHelper.inputDecoratorDemoProps();
