@@ -23,6 +23,8 @@ import ActionToolbar from 'carbon/lib/components/action-toolbar';
   <ActionToolbar actions={ actions } />
 ```
 
+* Props for the link children can also be passed to the action-toolbar;
+
 | Name          | Required    | Type           | Default       | Description   |
 | ------------- | ----------- | ------------- | ------------- | -------------  |
-| actions       | false       | Array         |               | Defines the icons, text and onClick action for toolbar |
+| actions       | true       | Array         |               | Defines the icons, text and onClick action for toolbar. Also accepts props for Link children |
