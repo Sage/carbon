@@ -41,6 +41,13 @@
   }
 }
 
+.component-preview--button-toggle {
+  .carbon-button-toggle {
+    // removes !first margin top applied to inputs
+    margin-top: 0;
+  }
+}
+
 .component-preview--fieldset{
   .demo-stubbed-element.demo-stubbed-element {
     margin-top: 20px;

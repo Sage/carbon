@@ -22,17 +22,11 @@ let definition = {
 };
 
 definition.demoProps = {
-  className: '',
-  fieldHelp: 'Test help',
-  fieldHelpInline: true,
-  icon: 'tick',
+  children: 'Toggle Button',
+  icon: '',
   iconSize: 'large',
-  inputWidth: '70',
-  label: 'Test Label',
-  labelAlign: 'left',
-  labelHelp: 'Test label help',
-  labelInline: false,
-  labelWidth: '25'
+  name: 'required-to-group'
 };
+definition.demoRenderCount = 4;
 
 export default definition;
