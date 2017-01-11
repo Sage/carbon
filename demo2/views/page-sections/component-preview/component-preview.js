@@ -75,7 +75,14 @@ const _buildCode = (props) => {
     if (key === "children") {
       children = prop;
     } else {
-      let value = typeof prop === "object" ? prop.toJS() : prop;
+      let value;
+
+      if (typeof prop === "function") {
+        value = `{ MyEventHandlers.${key} }`;
+      } else {
+        value = typeof prop === "object" ? prop.toJS() : prop;
+      }
+
       codeObj.addProp(key, value);
     }
   });
