@@ -5,7 +5,7 @@
   background: rgba($white, 0.8);
   box-shadow: 0 0 8px 0 rgba($black, 0.34);
   box-sizing: border-box;
-  height: 71px;
+  height: 75px;
   padding: 20px 4%;
   position: fixed;
   width: 100%;
@@ -15,12 +15,20 @@
     display: none;
   }
 
-  &__menu-icon {
-    display: flex;
-    margin-right: 10px;
+  &__menu-toggle {
+    height: 36px;
+    width: 102px;
   }
 
-  &__menu-toggle {
+  // uses floats to fix firefox
+  &__menu-icon {
     display: flex;
+    float: left;
+    width: 16px;
+  }
+
+  &__menu-label {
+    float: right;
+    width: 35px;
   }
 }
