@@ -1,3 +1,9 @@
+# 0.33.2
+
+## Bug fix
+
+* `Portrait`: Fixes image stacking.
+
 # 0.33.1
 
 ## Bug fix
