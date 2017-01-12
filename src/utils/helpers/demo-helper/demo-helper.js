@@ -1,4 +1,5 @@
 import React from 'react';
+import { _ } from 'lodash';
 
 let DemoHelper = {
   /**
@@ -22,7 +23,12 @@ let DemoHelper = {
 
       props.key = i;
       props.className = 'demo-stubbed-element';
-      elems[i] = React.createElement(definition.component, definition.demoProps);
+
+      // we need to define then assign to add the key 'displayName' which
+      // we need for outputting the demo element as a child in the code builder
+      // IE does not recognise function names
+      let elem = React.createElement(definition.component, definition.demoProps);
+      elems[i] = _.assign({ displayName: definition.text.name }, elem);
     }
 
     return elems;

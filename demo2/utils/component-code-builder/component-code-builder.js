@@ -65,7 +65,7 @@ class ComponentCodeBuilder {
       }
       if (child.length && typeof child !== 'string') {
         child.forEach((c) => {
-          this.code += `${spaces}<${c.type.displayName.replace('_', '')} />\n`;
+          this.code += `${spaces}<${c.displayName} />\n`;
         });
       } else {
         this.code += `${spaces}${child}\n`;
