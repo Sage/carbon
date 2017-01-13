@@ -58,11 +58,8 @@ class ComponentCodeBuilder {
     if (this.hasChildren) {
       this.code += `\n${spaces}${child}`;
     } else {
-      if (this.hasProps) {
-        this.code += `\n>\n`;
-      } else {
-        this.code += `>\n`;
-      }
+      this.code += this.hasProps ? `\n>\n` : `>\n`;
+
       if (child.length && typeof child !== 'string') {
         child.forEach((c) => {
           this.code += `${spaces}<${c.displayName} />\n`;

@@ -83,9 +83,9 @@ const _buildCode = (props) => {
         let value;
 
         if (typeof prop === "function") {
-          value = `{ MyEventHandlers.${key} }`;
+          value = `{ Actions.${key} }`;
         } else {
-          value = typeof prop === "object" ? prop.toJS() : prop;
+          value = prop.toJS ? prop.toJS() : prop;
         }
 
         codeObj.addProp(key, value);

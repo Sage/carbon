@@ -21,23 +21,19 @@ let definitionKeys = Object.keys(Definitions).sort();
 class ComponentPage extends React.Component {
   render() {
     let def = this.state.componentStore.get(this.props.name);
-    let originalDef = def;
-
-    if (def.toJS) { def = def.toJS(); }
-
     let position = this._componentPosition(def);
 
     return (
       <SubPageChrome
-        subtitle={ def.text.description }
-        title={ def.text.name }
-        titleAppend={ def.text.type }
+        subtitle={ def.getIn('text', 'description') }
+        title={ def.getIn('text', 'name') }
+        titleAppend={ def.getIn('text', 'type') }
         previousPage={ this._prepareSubnavObject(this._previousComponent(position)) }
         nextPage={ this._prepareSubnavObject(this._nextComponent(position)) }
       >
-        <ComponentPreview definition={ originalDef } name={ this.props.name } />
+        <ComponentPreview definition={ def } name={ this.props.name } />
         <PageContentArea title={ I18n.t('component_page.design_notes') }>
-          { def.text.details }
+          { def.getIn('text', 'details') }
         </PageContentArea>
       </SubPageChrome>
     );
@@ -52,7 +48,7 @@ class ComponentPage extends React.Component {
    * @return {Number} position of the component in the array
    */
   _componentPosition = (def) => {
-    return definitionKeys.indexOf(def.key);
+    return definitionKeys.indexOf(def.get('key'));
   }
 
   /**
@@ -94,6 +90,8 @@ class ComponentPage extends React.Component {
    * @return {Object}
    */
   _prepareSubnavObject = (def) => {
+    let text = def.text;
+
     return {
       name: def.text.name,
       href: `/components/${def.key}`
