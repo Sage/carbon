@@ -57,6 +57,7 @@ describe('OptionsHelper', () => {
         'fill',
         'highlightable',
         'inline',
+        'internalEditButton',
         'isVisible',
         'labelInline',
         'labelsInline',
@@ -177,10 +178,12 @@ describe('OptionsHelper', () => {
         'activeInput',
         'cacheVisibleValue',
         'className',
+        'editFields',
         'footer',
         'initialSlideIndex',
         'key',
         'options',
+        'transitionName',
         'validations',
         'warnings'
       ]);

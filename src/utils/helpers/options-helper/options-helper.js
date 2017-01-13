@@ -57,6 +57,7 @@ let OptionsHelper = {
       'fill',
       'highlightable',
       'inline',
+      'internalEditButton',
       'isVisible',
       'labelInline',
       'labelsInline',
@@ -181,10 +182,12 @@ let OptionsHelper = {
       'activeInput',
       'cacheVisibleValue',
       'className',
+      'editFields',
       'footer',
       'initialSlideIndex',
       'key',
       'options',
+      'transitionName',
       'validations',
       'warnings'
     ];

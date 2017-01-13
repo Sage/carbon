@@ -127,59 +127,100 @@ const _buildFields = (props) => {
       ? props.definition.getIn(['propOptions', propKey])
       : null;
 
-    if (OptionsHelper.nonDemoFormProps().indexOf(propKey) >= 0) {
-      // remove some props from the form (V1)
-    } else if (propOptions) {
-      let opts = propOptions.map((option) => {
-        return ImmutableHelper.parseJSON({ id: option, name: option });
-      });
+    if (_showProp(propKey, demoPropData)) {
+      let commonfieldProps = {
+        key: propKey,
+        label: propKey,
+        onChange: ComponentActions.updateDefinition.bind(this, propKey, props.name),
+        value: demoPropData
+      };
 
-      fieldObj.push(
-        <Dropdown
-          label={ propKey }
-          onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
-          options={ opts }
-          value={ demoPropData }
-          key={ propKey }
-        />
-      );
-    } else {
-      if (propKey === 'children') {
-        if (['object','array'].indexOf(typeof demoPropData) < 0) {
-          fieldObj.push(
-            <Textarea
-              label={ propKey }
-              onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
-              value={ demoPropData }
-              key={ propKey }
-            />
-          );
-        }
-      } else if (OptionsHelper.commonBooleans().indexOf(propKey) >= 0) {
-        fieldObj.push(
-          <Checkbox
-            label={ propKey }
-            onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
-            value={ demoPropData }
-            key={ propKey }
-          />
-        );
-      } else if (OptionsHelper.commonEvents().indexOf(propKey) >= 0) {
-        // skip the functions from output as a form prop
-      } else {
-        fieldObj.push(
-          <Textbox
-            label={ propKey }
-            onChange={ ComponentActions.updateDefinition.bind(this, propKey, props.name) }
-            value={ demoPropData }
-            key={ propKey }
-          />
-        );
+      switch(_chooseField(propOptions, propKey, demoPropData)) {
+        case 'checkbox':
+          fieldObj.push(<Checkbox { ...commonfieldProps } />);
+          break;
+        case 'dropdown':
+          fieldObj.push(<Dropdown { ...commonfieldProps } options={ _getOptions(propOptions) } />);
+          break;
+        case 'textarea':
+          fieldObj.push(<Textarea { ...commonfieldProps } />);
+          break;
+        case 'textbox':
+          fieldObj.push(<Textbox  { ...commonfieldProps } />);
+          break;
       }
     }
   });
 
   return fieldObj;
+}
+
+/**
+ * gets options
+ *
+ * @private
+ * @method _getOptions
+ * @param {Array} options
+ * @return {Array} parsed options for dropdown
+ */
+const _getOptions = (options) => {
+  return options.map((option) => {
+    return ImmutableHelper.parseJSON({ id: option, name: option });
+  });
+}
+
+/**
+ * uses the propKey to fiugure out what sort of fiewld should be used
+ *
+ * @private
+ * @method _chooseField
+ * @param {Object} props - full set of props
+ * @param {String} propKey - key of the prop for making the choice
+ * @return {String} name of the field type to load
+ */
+const _chooseField = (propOptions, propKey, demoPropData) => {
+  if (propOptions) {
+    return 'dropdown';
+  }
+
+  if (_showChildren(propKey, demoPropData)) {
+    return 'textarea';
+  }
+
+  if (OptionsHelper.commonBooleans().indexOf(propKey) >= 0) {
+    return 'checkbox';
+  }
+
+  if (propKey !== 'children') {
+    return 'textbox';
+  }
+}
+
+/**
+ * decides whether to show children as a field
+ *
+ * @private
+ * @method _showChildren
+ * @param {String} propKey -
+ * @param {String} demoPropData -
+ * @return {Boolean}
+ */
+const _showChildren = (propKey, demoPropData) => {
+  return propKey === 'children'
+         && ['object','array'].indexOf(typeof demoPropData) < 0;
+}
+
+/**
+ * returns true if this prop should be shown - functions and some awkward props can be skipped this way from the form
+ *
+ * @private
+ * @method _showProp
+ * @param {String} propKey - key of the prop for searching the Options array
+ * @return {Boolean}
+ */
+const _showProp = (propKey, demoPropData) => {
+  return OptionsHelper.nonDemoFormProps().indexOf(propKey) === -1
+         && OptionsHelper.commonEvents().indexOf(propKey) === -1;
 }
 
 /**
