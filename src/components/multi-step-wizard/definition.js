@@ -1,5 +1,5 @@
 import React from 'react';
-import { _ } from 'lodash';
+import { assign } from 'lodash';
 import MultiStepWizard from './';
 
 import stepDefinition from './step/definition';
@@ -8,7 +8,7 @@ let i,
     steps = [];
 
 for (i = 1; i < 2; i ++) {
-  let stepProps = _.assign({ stepNumber: i }, stepDefinition.demoProps);
+  let stepProps = assign({ stepNumber: i }, stepDefinition.demoProps);
   steps[i] = React.createElement(stepDefinition.component, stepProps);
 }
 

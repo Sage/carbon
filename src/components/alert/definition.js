@@ -1,3 +1,5 @@
+import { assign } from 'lodash';
+
 import Alert from './';
 
 import dialogDefinition from '../dialog/definition';
@@ -17,6 +19,7 @@ let definition = {
   propOptions: dialogDefinition.propOptions
 };
 
-definition.demoProps = dialogDefinition.demoProps;
+
+definition.demoProps = assign({}, dialogDefinition.demoProps);
 
 export default definition;

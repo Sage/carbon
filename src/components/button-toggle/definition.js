@@ -7,8 +7,7 @@ let definition = {
   key: 'button-toggle',
   text: {
     bemClass: 'carbon-button-toggle',
-    details: 'Try not to create any duplication between the primary navigation, and this component.\n' +
-             'Try not to mix links which navigate the user to a location, versus links which create new entities.',
+    details: '[content needed] Basic designs description for the component',
     description: '[content needed] Padded and coloured basic button-toggle.',
     name: 'ButtonToggle',
     type: 'action'
@@ -17,23 +16,17 @@ let definition = {
   props: ButtonToggle.propTypes,
   propOptions: {
     labelAlign: ['left', 'right'],
-    icon: OptionsHelper.icons(),
-    iconSize: OptionsHelper.sizesBinary()
+    buttonIcon: OptionsHelper.icons(),
+    buttonIconSize: OptionsHelper.sizesBinary()
   }
 };
 
 definition.demoProps = {
-  className: '',
-  fieldHelp: 'Test help',
-  fieldHelpInline: true,
-  icon: 'tick',
-  iconSize: 'large',
-  inputWidth: '70',
-  label: 'Test Label',
-  labelAlign: 'left',
-  labelHelp: 'Test label help',
-  labelInline: false,
-  labelWidth: '25'
+  buttonIcon: '',
+  buttonIconSize: 'large',
+  children: 'Toggle Button',
+  name: 'required-to-group'
 };
+definition.demoRenderCount = 4;
 
 export default definition;

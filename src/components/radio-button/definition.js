@@ -13,7 +13,10 @@ let definition = {
     type: 'form'
   },
   defaultProps: RadioButton.defaultProps,
-  props: RadioButton.propTypes
+  props: RadioButton.propTypes,
+  propOptions: {
+    labelAlign: OptionsHelper.alignBinary()
+  }
 };
 
 let demoProps = OptionsHelper.inputDecoratorDemoProps();

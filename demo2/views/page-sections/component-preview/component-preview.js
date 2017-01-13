@@ -34,7 +34,7 @@ export default props => (
   >
     <div className= { `component-preview component-preview--${props.definition.get('key')}` }>
       <div className='component-preview__component-wrapper'>
-        { React.createElement(props.definition.get('component'), getProps(props.definition.get('demoProps'))) }
+        { _buildPreview(props) }
       </div>
       <div className='component-preview__interaction'>
         <form className='component-preview__controls'>
@@ -68,25 +68,44 @@ function getProps(props) {
  * @return {String} code string
  */
 const _buildCode = (props) => {
-  let codeObj = new ComponentCodeBuilder(props.definition.getIn(['text', 'name'])),
-      children = null;
+  let count = _getCount(props.definition.get('demoRenderCount')),
+      codeString = '',
+      i = 0;
 
-  props.definition.get('demoProps').forEach((prop, key) => {
-    if (key === "children") {
-      children = prop;
-    } else {
-      let value = typeof prop === "object" ? prop.toJS() : prop;
-      codeObj.addProp(key, value);
+  for (; i < count; i ++) {
+    let children = null,
+        codeObj = new ComponentCodeBuilder(props.definition.getIn(['text', 'name']));
+
+    props.definition.get('demoProps').forEach((prop, key) => {
+      if (key === "children") {
+        children = prop;
+      } else {
+        let value;
+
+        if (typeof prop === "function") {
+          value = `{ MyEventHandlers.${key} }`;
+        } else {
+          value = typeof prop === "object" ? prop.toJS() : prop;
+        }
+
+        codeObj.addProp(key, value);
+      }
+    });
+
+    if (children) {
+      children.toJS
+        ? codeObj.addChild(children.toJS())
+        : codeObj.addChild(children);
     }
-  });
 
-  if (children) {
-    children.toJS
-      ? codeObj.addChild(children.toJS())
-      : codeObj.addChild(children);
+    codeString += codeObj.toString();
+
+    if (i < count-1) {
+      codeString += '\n\n';
+    }
   }
 
-  return codeObj.toString();
+  return codeString;
 }
 
 /**
@@ -161,4 +180,38 @@ const _buildFields = (props) => {
   });
 
   return fieldObj;
+}
+
+/**
+ * builds the preview components, looping if needed
+ *
+ * @private
+ * @method _buildPreview
+ * @param {Object} props - formatted as an object for processing, will contain various props
+ * @return {Array} of components
+ */
+const _buildPreview = (props) => {
+  let components = [],
+      count = _getCount(props.definition.get('demoRenderCount')),
+      i = 0;
+
+  for (; i < count; i ++) {
+    let def = props.definition;
+    def = def.setIn(['demoProps', 'key'], `child-${i}`);
+    components.push(React.createElement(props.definition.get('component'), getProps(def.get('demoProps'))));
+  }
+
+  return components;
+}
+
+/**
+ * returns 1 or the count
+ *
+ * @private
+ * @method _getCount
+ * @param {Number} count - could be undefined
+ * @return {Number} guaranteed integer
+ */
+const _getCount = (count) => {
+  return typeof count === 'undefined' ? 1 : count;
 }

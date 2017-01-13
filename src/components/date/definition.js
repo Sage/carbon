@@ -13,7 +13,10 @@ let definition = {
     type: 'form'
   },
   defaultProps: DateComponent.defaultProps,
-  props: DateComponent.propTypes
+  props: DateComponent.propTypes,
+  propOptions: {
+    labelAlign: OptionsHelper.alignBinary()
+  }
 };
 
 let demoProps = OptionsHelper.inputDecoratorDemoProps();

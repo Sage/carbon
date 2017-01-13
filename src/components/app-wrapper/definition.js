@@ -16,7 +16,7 @@ let definition = {
 };
 
 definition.demoProps = {
-  children: 'This content has been wrapped in a fixed  padding that can be re-used across the application'
+  children: 'This content has been wrapped in a fixed padding that can be re-used across the application'
 };
 
 export default definition;

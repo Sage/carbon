@@ -7,8 +7,7 @@ let definition = {
   key: 'button',
   text: {
     bemClass: 'carbon-button',
-    details: 'Try not to create any duplication between the primary navigation, and this component.\n' +
-             'Try not to mix links which navigate the user to a location, versus links which create new entities.',
+    details: '[content needed] Basic designs description for the component',
     description: '[content needed] Padded and coloured basic button.',
     name: 'Button',
     type: 'action'
