@@ -1,4 +1,4 @@
-import { _ } from 'lodash';
+import { assign } from 'lodash';
 
 import Alert from './';
 
@@ -20,6 +20,6 @@ let definition = {
 };
 
 
-definition.demoProps = _.assign({}, dialogDefinition.demoProps);
+definition.demoProps = assign({}, dialogDefinition.demoProps);
 
 export default definition;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { _ } from 'lodash';
+import { assign } from 'lodash';
 
 let DemoHelper = {
   /**
@@ -28,7 +28,7 @@ let DemoHelper = {
       // we need for outputting the demo element as a child in the code builder
       // IE does not recognise function names
       let elem = React.createElement(definition.component, definition.demoProps);
-      elems[i] = _.assign({ displayName: definition.text.name }, elem);
+      elems[i] = assign({ displayName: definition.text.name }, elem);
     }
 
     return elems;
