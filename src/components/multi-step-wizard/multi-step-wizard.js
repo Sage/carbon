@@ -37,10 +37,14 @@ import Step from './step';
  *      <MultiStepWizard steps={ [<Step1 />, <Step2 enabled={ false } />] } />
  *
  * The wizard provides the ability to hook into the handle next/back/submit methods.
- * (1) By passing a 'beforeSubmit' prop in the wizard, you can add custom logic before a submit event.
- * (2) By passing 'beforeNext'/'afterNext' prop in the corresponding step component, you can add custom logic before/after moving a step forward.
- * (3) By passing 'beforeBack'/'afterBack' prop in the corresponding step component, you can add custom logic before/after moving a step backward.
- * You can prevent an event using ev.preventDefault() in the aforementioned cases.
+ * (1) By passing a 'beforeSubmitValidation' prop in the wizard, you can add custom logic before a submit event, and
+ *     the submit event can be completed only when the 'beforeSubmitValidation' prop returns 'true'.
+ * (2) By passing 'onNext' prop in the corresponding step component, you can add custom logic when moving a step forward, and
+ *     the 'onNext' prop overrides the step's default behaviour of moving next.
+ * (3) By passing 'onBack' prop in the corresponding step component, you can add custom logic when moving a step backward, and
+ *     the 'onBack' prop overrides the step's default behaviour of moving back.
+ * e.g. <MultiStepWizard steps={ [<Step1 onNext={ this.customMethodOnNext }/>, <Step2 onBack={ this.customMethodOnBack }) />] } />
+ *      <MultiStepWizard beforeSubmitValidation={ this.customValidation } onSubmit={ this.customMethodOnSubmit } />
  *
  * If you want to complete the wizard without going through steps, you can pass a 'completed' prop and set it to true.
  *
@@ -60,10 +64,10 @@ class MultiStepWizard extends React.Component {
     /**
      * Custom function that is called immediately before a submit event
      *
-     * @property beforeSubmit
+     * @property beforeSubmitValidation
      * @type {Function}
      */
-    beforeSubmit: React.PropTypes.func,
+    beforeSubmitValidation: React.PropTypes.func,
 
     /**
      * A custom submit event handler
@@ -151,7 +155,7 @@ class MultiStepWizard extends React.Component {
       wizard: {
         nextHandler: this.props.onNext,
         backHandler: this.props.onBack,
-        beforeSubmitHandler: this.props.beforeSubmit,
+        beforeSubmitValidation: this.props.beforeSubmitValidation,
         submitHandler: this.props.onSubmit,
         enableInactiveSteps: this.props.enableInactiveSteps,
         currentStep: this.state.currentStep,

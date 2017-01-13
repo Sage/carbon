@@ -34,36 +34,22 @@ class Step extends React.Component {
     defaultButton: React.PropTypes.bool,
 
     /**
-     * Custom function that is called immediately before moving the step forward
+     * Custom function that is called when moving the step forward.
+     * This function overrides the step's default behaviour of moving next.
      *
-     * @property beforeNext
+     * @property onNext
      * @type {Function}
      */
-    beforeNext: React.PropTypes.func,
+    onNext: React.PropTypes.func,
 
     /**
-     * Custom function that is called immediately after moving the step forward
+     * Custom function that is called when moving the step backward.
+     * This function overrides the step's default behaviour of moving back.
      *
-     * @property afterNext
+     * @property onBack
      * @type {Function}
      */
-    afterNext: React.PropTypes.func,
-
-    /**
-     * Custom function that is called immediately before moving the step backward
-     *
-     * @property beforeBack
-     * @type {Function}
-     */
-    beforeBack: React.PropTypes.func,
-
-    /**
-     * Custom function that is called immediately after moving the step backward
-     *
-     * @property afterBack
-     * @type {Function}
-     */
-    afterBack: React.PropTypes.func,
+    onBack: React.PropTypes.func,
 
     /**
      * Additional buttons
@@ -86,7 +72,6 @@ class Step extends React.Component {
     defaultButton: true
   }
 
-
   static contextTypes = {
     wizard: React.PropTypes.object
   }
@@ -98,12 +83,15 @@ class Step extends React.Component {
    * @return {void}
    */
   handleOnSubmit = (ev) => {
-    if (this.wizard.beforeSubmitHandler) {
-      this.wizard.beforeSubmitHandler(ev, this.currentStepNumber);
+    let valid = true;
+    if (this.wizard.beforeSubmitValidation) {
+      valid = this.wizard.beforeSubmitValidation(ev, this.currentStepNumber);
     }
-    
-    this.wizard.complete();
-    this.wizard.submitHandler(ev);
+
+    if (valid === true) {
+      this.wizard.complete();
+      this.wizard.submitHandler(ev);
+    }
   };
 
   /**
@@ -113,14 +101,10 @@ class Step extends React.Component {
    * @return {void}
    */
   handleOnNext = (ev) => {
-    if (this.props.beforeNext) {
-      this.props.beforeNext(ev, this.currentStepNumber);
-    }
-
-    this.wizard.next();
-
-    if (this.props.afterNext) {
-      this.props.afterNext(ev, this.currentStepNumber);
+    if (this.props.onNext) {
+      this.props.onNext(ev, this.currentStepNumber);
+    } else {
+      this.wizard.next();
     }
   };
 
@@ -131,14 +115,10 @@ class Step extends React.Component {
    * @return {void}
    */
   handleOnBack = (ev) => {
-    if (this.props.beforeBack) {
-      this.props.beforeBack(ev, this.currentStepNumber);
-    }
-
-    this.wizard.back();
-
-    if (this.props.afterNext) {
-      this.props.afterNext(ev, this.currentStepNumber);
+    if (this.props.onBack) {
+      this.props.onBack(ev, this.currentStepNumber);
+    } else {
+      this.wizard.back();
     }
   };
 
