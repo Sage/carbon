@@ -25,15 +25,15 @@ class ComponentPage extends React.Component {
 
     return (
       <SubPageChrome
-        subtitle={ def.getIn('text', 'description') }
-        title={ def.getIn('text', 'name') }
-        titleAppend={ def.getIn('text', 'type') }
+        subtitle={ def.getIn(['text', 'description']) }
+        title={ def.getIn(['text', 'name']) }
+        titleAppend={ def.getIn(['text', 'type']) }
         previousPage={ this._prepareSubnavObject(this._previousComponent(position)) }
         nextPage={ this._prepareSubnavObject(this._nextComponent(position)) }
       >
         <ComponentPreview definition={ def } name={ this.props.name } />
         <PageContentArea title={ I18n.t('component_page.design_notes') }>
-          { def.getIn('text', 'details') }
+          { def.getIn(['text', 'details']) }
         </PageContentArea>
       </SubPageChrome>
     );
