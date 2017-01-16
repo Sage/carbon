@@ -212,6 +212,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
         style={ labelStyle }
         className={ this.labelClasses }
         htmlFor={ this.inputProps.id }
+        data-member='label'
       >
         { labelText }
         { this.labelHelpHTML }
