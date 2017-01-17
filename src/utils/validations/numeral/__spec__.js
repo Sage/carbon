@@ -74,6 +74,12 @@ describe('Numeral Validator', () => {
       });
     });
 
+    describe('when value is minus sign -', () => {
+      it('returns false', () => {
+        expect(numeralValidator.validate('-')).toBeFalsy();
+      });
+    });
+
     describe('when value is correct', () => {
       it('returns true', () => {
         expect(numeralValidator.validate(5)).toBeTruthy();
@@ -98,6 +104,12 @@ describe('Numeral Validator', () => {
     describe('when value is empty', () => {
       it('returns true', () => {
         expect(lessThanValidator.validate()).toBeTruthy();
+      });
+    });
+
+    describe('when value is minus sign -', () => {
+      it('returns false', () => {
+        expect(lessThanValidator.validate('-')).toBeFalsy();
       });
     });
 
@@ -149,6 +161,12 @@ describe('Numeral Validator', () => {
         });
       });
 
+      describe('when value is minus sign -', () => {
+        it('returns false', () => {
+          expect(greaterThanValidator.validate('-')).toBeFalsy();
+        });
+      });
+
       it('returns the correct message function', () => {
         expect(greaterThanValidator.message()).toEqual("Must equal 10.00 or more");
       });
@@ -191,6 +209,12 @@ describe('Numeral Validator', () => {
       describe('when value is empty', () => {
         it('returns true', () => {
           expect(rangeValidator.validate()).toBeTruthy();
+        });
+      });
+
+      describe('when value is minus sign -', () => {
+        it('returns false', () => {
+          expect(rangeValidator.validate('-')).toBeFalsy();
         });
       });
 

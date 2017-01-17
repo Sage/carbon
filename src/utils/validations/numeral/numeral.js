@@ -197,11 +197,12 @@ function validateValue() {
      */
     validate: function(value) {
       if (!value) { return true; }
+      if (!typeCheck(this, value)) { return false; }
 
       let stringValue = new BigNumber(value),
           stringIs = new BigNumber(this.is);
 
-      return (typeCheck(this, value) && stringValue.equals(stringIs));
+      return stringValue.equals(stringIs);
     },
     /**
      * This is the message returned when this validation fails.
@@ -232,11 +233,12 @@ function validateLess() {
      */
     validate: function(value) {
       if (!value) { return true; }
+      if (!typeCheck(this, value)) { return false; }
 
       let stringValue = new BigNumber(value),
           stringMax = new BigNumber(this.max);
 
-      return (typeCheck(this, value) && stringValue.lessThanOrEqualTo(stringMax));
+      return stringValue.lessThanOrEqualTo(stringMax);
     },
 
     /**
@@ -267,11 +269,12 @@ function validateGreater() {
      */
     validate: function(value) {
       if (!value) { return true; }
+      if (!typeCheck(this, value)) { return false; }
 
       let stringValue = new BigNumber(value),
           stringMin = new BigNumber(this.min);
 
-      return (typeCheck(this, value) && stringValue.greaterThanOrEqualTo(stringMin));
+      return stringValue.greaterThanOrEqualTo(stringMin);
     },
 
     /**
@@ -302,12 +305,13 @@ function validateRange() {
      */
     validate: function(value) {
       if (!value) { return true; }
+      if (!typeCheck(this, value)) { return false; }
 
       let stringValue = new BigNumber(value),
           stringMin = new BigNumber(this.min),
           stringMax = new BigNumber(this.max);
 
-      return (typeCheck(this, value) && (stringValue.greaterThanOrEqualTo(stringMin) && stringValue.lessThanOrEqualTo(stringMax)));
+      return (stringValue.greaterThanOrEqualTo(stringMin) && stringValue.lessThanOrEqualTo(stringMax));
     },
 
     /**
