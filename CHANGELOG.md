@@ -1,3 +1,15 @@
+# 0.34.0
+
+A new `Title` component for splitting text into two sections with one side formatted bold and the other not
+
+```
+  <Title
+    start='First bit of the title'
+    end='and the last bit of the title'
+    highlight='start'
+  />
+```
+
 # 0.33.1
 
 ## Bug fix

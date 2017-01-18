@@ -1,0 +1,15 @@
+.carbon-title {
+  font-weight: normal;
+}
+
+.carbon-title--start-highlighted {
+  .carbon-title__start {
+    font-weight: bold;
+  }
+}
+
+.carbon-title--end-highlighted {
+  .carbon-title__end {
+    font-weight: bold;
+  }
+}
