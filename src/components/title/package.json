@@ -1,0 +1,4 @@
+{
+  "main": "./title.js",
+  "style": "./title.scss"
+}
