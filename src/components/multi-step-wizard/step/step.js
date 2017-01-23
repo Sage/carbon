@@ -221,23 +221,25 @@ class Step extends React.Component {
    * @return {Object} JSX
    */
   get buttonHTML() {
-    if (this.props.defaultButton) {
+    if (this.props.defaultButton === false) {
+      return this.extraButtonHTML;
+    } else {
       let nextButton, backButton, submitButton;
 
       if (this.isLastStep) {
         submitButton = (<Button as='primary' onClick={ this.handleOnSubmit } className='multi-step-wizard-step__button submit'>
-                          { I18n.t('wizards.multi_step_wizard.buttons.submit', { defaultValue: 'Submit' }) }
-                        </Button>);
+          { I18n.t('wizards.multi_step_wizard.buttons.submit', { defaultValue: 'Submit' }) }
+        </Button>);
       } else {
         nextButton = (<Button as='primary' onClick={ this.handleOnNext } className='multi-step-wizard-step__button next'>
-                        { I18n.t('wizards.multi_step_wizard.buttons.next', { defaultValue: 'Next' }) }
-                      </Button>);
+          { I18n.t('wizards.multi_step_wizard.buttons.next', { defaultValue: 'Next' }) }
+        </Button>);
       }
 
       if (!this.isFirstStep) {
         backButton = (<Button onClick={ this.handleOnBack } className='multi-step-wizard-step__button back'>
-                        { I18n.t('wizards.multi_step_wizard.buttons.back', { defaultValue: 'Back' }) }
-                      </Button>);
+          { I18n.t('wizards.multi_step_wizard.buttons.back', { defaultValue: 'Back' }) }
+        </Button>);
       }
 
       return (
@@ -248,8 +250,6 @@ class Step extends React.Component {
           { this.extraButtonHTML }
         </div>
       );
-    } else {
-      return this.extraButtonHTML;
     }
   }
 
