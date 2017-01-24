@@ -2,6 +2,7 @@
 import { assign } from 'lodash';
 import classNames from 'classnames';
 import Highlight from 'react-highlight';
+import Immutable from 'immutable';
 import ImmutableHelper from 'utils/helpers/immutable';
 import React from 'react';
 
@@ -129,23 +130,47 @@ const _buildFields = (props) => {
       : null;
 
     if (_showProp(propKey, demoPropData)) {
-      let commonfieldProps = {
-            key: propKey,
-            label: propKey,
-            onChange: ComponentActions.updateDefinition.bind(this, propKey, props.name),
-            value: demoPropData
-          },
-          field = _chooseField(propOptions, propKey, demoPropData);
-
-      if (field === Dropdown) {
-        commonfieldProps = assign(commonfieldProps, { options: _getOptions(propOptions) });
+      if (Immutable.List.isList(demoPropData)) {
+        demoPropData.map((field, i) => {
+          fieldObj.push(_fieldComponent(null, propKey, field, props.name, i));
+        })
+      } else {
+        fieldObj.push(_fieldComponent(propOptions, propKey, demoPropData, props.name));
       }
-
-      fieldObj.push(React.createElement(field, commonfieldProps));
     }
   });
 
   return fieldObj;
+}
+
+/**
+ * creates a simple field
+ *
+ * @private
+ * @method _fieldComponent
+ * @param {Object} propOptions
+ * @param {string} propKey
+ * @param {Object} demoPropData
+ * @param {string} name
+ * @return {Component}
+ */
+const _fieldComponent = (propOptions, propKey, demoPropData, name, arrayPos = -1) => {
+  let key =   arrayPos >= 0 ? `${propKey}-${arrayPos}`   : propKey,
+      label = arrayPos >= 0 ? `${propKey} [${arrayPos}]` : propKey;
+
+  let commonfieldProps = {
+        key: key,
+        label: label,
+        onChange: ComponentActions.updateDefinition.bind(this, propKey, name, arrayPos),
+        value: demoPropData
+      },
+      field = _chooseField(propOptions, propKey, demoPropData);
+
+  if (field === Dropdown) {
+    commonfieldProps = assign(commonfieldProps, { options: _getOptions(propOptions) });
+  }
+
+  return React.createElement(field, commonfieldProps);
 }
 
 /**
