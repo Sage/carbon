@@ -7,14 +7,46 @@
 ## !! BREAKING CHANGES!! :warning:
 
 * Banner Component has been Deleted in favour of the Message Component
+* Menu List - Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
+
+## Potentially breaking changes
+
+* The following components have been refactored to meet best practice standards and pass linting.
+* If you have overridden any internal methods of these components, you may need to update your code.
+  - Action Toolbar
+  - Alert
+  - Animated Menu Button
+  - App-Wrapper
+  - Button
+  - Create
 
 ## Component Enhancements
 
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
 
+## data-attributes on components
+
+We are adding data-attributes to components to better identify them and their parts within the browser. We will add `data-component` tags on the top level of any component, and `data-member` tags to constituent parts. Developers can also add `data-element` tags to components to uniquely identify specific components within their UI.
+
+So far we have added attributes to the following components:
+
+* Textbox
+
 ## Dependency Update
 
 * Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+
+# 0.33.1
+
+## Bug fix
+
+* Fixes alignment issue in inputs caused by the font size of prefixes differing from values.
+
+# 0.33.0
+
+## Helpers
+
+* The I18n helper now uses the current locale for delimiter and separator.
 
 # 0.32.1
 

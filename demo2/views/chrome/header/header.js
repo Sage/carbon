@@ -16,7 +16,7 @@ class Header extends React.Component {
           theme='white'
         >
           <Icon type='hamburger' />
-          { I18n.t('menu') }
+          { I18n.t('navigation.menu') }
         </Button>
       </div>
     );
