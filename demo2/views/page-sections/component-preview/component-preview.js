@@ -1,4 +1,5 @@
 // React
+import { assign } from 'lodash';
 import classNames from 'classnames';
 import Highlight from 'react-highlight';
 import ImmutableHelper from 'utils/helpers/immutable';
@@ -129,26 +130,18 @@ const _buildFields = (props) => {
 
     if (_showProp(propKey, demoPropData)) {
       let commonfieldProps = {
-        key: propKey,
-        label: propKey,
-        onChange: ComponentActions.updateDefinition.bind(this, propKey, props.name),
-        value: demoPropData
-      };
+            key: propKey,
+            label: propKey,
+            onChange: ComponentActions.updateDefinition.bind(this, propKey, props.name),
+            value: demoPropData
+          },
+          field = _chooseField(propOptions, propKey, demoPropData);
 
-      switch(_chooseField(propOptions, propKey, demoPropData)) {
-        case 'checkbox':
-          fieldObj.push(<Checkbox { ...commonfieldProps } />);
-          break;
-        case 'dropdown':
-          fieldObj.push(<Dropdown { ...commonfieldProps } options={ _getOptions(propOptions) } />);
-          break;
-        case 'textarea':
-          fieldObj.push(<Textarea { ...commonfieldProps } />);
-          break;
-        case 'textbox':
-          fieldObj.push(<Textbox  { ...commonfieldProps } />);
-          break;
+      if (field === Dropdown) {
+        commonfieldProps = assign(commonfieldProps, { options: _getOptions(propOptions) });
       }
+
+      fieldObj.push(React.createElement(field, commonfieldProps));
     }
   });
 
@@ -180,19 +173,19 @@ const _getOptions = (options) => {
  */
 const _chooseField = (propOptions, propKey, demoPropData) => {
   if (propOptions) {
-    return 'dropdown';
+    return Dropdown;
   }
 
   if (_showChildren(propKey, demoPropData)) {
-    return 'textarea';
+    return Textarea;
   }
 
   if (OptionsHelper.commonBooleans().indexOf(propKey) >= 0) {
-    return 'checkbox';
+    return Checkbox;
   }
 
   if (propKey !== 'children') {
-    return 'textbox';
+    return Textbox;
   }
 }
 
