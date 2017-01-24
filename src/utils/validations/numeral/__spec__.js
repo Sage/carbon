@@ -215,6 +215,7 @@ describe('Numeral Validator', () => {
       describe('when value is minus sign -', () => {
         it('returns false', () => {
           expect(rangeValidator.validate('-')).toBeFalsy();
+          expect(rangeValidator.message('-')).toEqual('Must be a valid Decimal');
         });
       });
 
@@ -251,6 +252,13 @@ describe('Numeral Validator', () => {
         it('returns false', () => {
            rangeValidator = new Validator({ min: 0, max: 10 });
           expect(rangeValidator.validate("-1")).toBeFalsy();
+        });
+      });
+
+      describe('when the value is within the range and negative', () => {
+        it('returns false', () => {
+           rangeValidator = new Validator({ min: -10, max: 10 });
+          expect(rangeValidator.validate("-1")).toBeTruthy();
         });
       });
     });

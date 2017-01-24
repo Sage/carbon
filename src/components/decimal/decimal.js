@@ -100,7 +100,13 @@ class Decimal extends React.Component {
   componentWillReceiveProps(props) {
     if (this._document.activeElement != this._input) {
       let value = props.value || props.defaultValue;
-      this.setState({ visibleValue: I18nHelper.formatDecimal(value, this.props.precision) });
+      // single `-` sign caes will raise an exception during formatDecimal()
+      // as it cannbe be convert toBigNumber()
+      let validDecimail =  /^-?\d+(\.\d+)?$/.test(value);
+      if (validDecimail) {
+        value = I18nHelper.formatDecimal(value, this.props.precision);
+      }
+      this.setState({ visibleValue: value });
     }
   }
 
@@ -163,7 +169,16 @@ class Decimal extends React.Component {
    * @return {void}
    */
   handleBlur = () => {
-    let currentValue = I18nHelper.formatDecimal(this.value, this.props.precision);
+    // single `-` sign caes will raise an exception during formatDecimal()
+    // as it cannbe be convert toBigNumber()
+    let validDecimail =  /^-?\d+(\.\d+)?$/.test(this.value),
+        currentValue;
+    if (validDecimail) {
+      currentValue = I18nHelper.formatDecimal(this.value, this.props.precision);
+    } else {
+      currentValue = this.value;
+    }
+
     this.setState({ visibleValue: currentValue });
     this.highlighted = false;
 

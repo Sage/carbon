@@ -321,12 +321,15 @@ function validateRange() {
     message: function(value) {
       let error = 'greater',
           count = this.min,
-          stringValue = new BigNumber(value),
-          stringMin = new BigNumber(count);
+          stringMin = new BigNumber(count),
+          stringValue;
 
-      if (stringValue.greaterThanOrEqualTo(stringMin)) {
-        error = 'less';
-        count = this.max;
+      if (typeCheck(this, value)) {
+        stringValue = new BigNumber(value);
+        if (stringValue.greaterThanOrEqualTo(stringMin)) {
+          error = 'less';
+          count = this.max;
+        }
       }
 
       return getDescriptiveMessage(
