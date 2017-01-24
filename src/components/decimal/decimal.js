@@ -100,10 +100,7 @@ class Decimal extends React.Component {
   componentWillReceiveProps(props) {
     if (this._document.activeElement != this._input) {
       let value = props.value || props.defaultValue;
-      // single `-` sign caes will raise an exception during formatDecimal()
-      // as it cannbe be convert toBigNumber()
-      let validDecimail =  /^-?\d+(\.\d+)?$/.test(value);
-      if (validDecimail) {
+      if (canConvertToBigNumber(value)) {
         value = I18nHelper.formatDecimal(value, this.props.precision);
       }
       this.setState({ visibleValue: value });
@@ -169,11 +166,9 @@ class Decimal extends React.Component {
    * @return {void}
    */
   handleBlur = () => {
-    // single `-` sign caes will raise an exception during formatDecimal()
-    // as it cannbe be convert toBigNumber()
-    let validDecimail =  /^-?\d+(\.\d+)?$/.test(this.value),
-        currentValue;
-    if (validDecimail) {
+    let currentValue;
+
+    if (canConvertToBigNumber(this.value)) {
       currentValue = I18nHelper.formatDecimal(this.value, this.props.precision);
     } else {
       currentValue = this.value;
@@ -336,6 +331,20 @@ function getDefaultValue(scope) {
   } else {
     return scope.props.defaultValue;
   }
+}
+
+/**
+ * Returns defaultValue for specified scope,
+ *
+ * @method canConvertToBigNumber
+ * @private
+ * @param {string} string need to be coverted to BigNumber
+ * @return {Boolean}
+ */
+function canConvertToBigNumber(value) {
+  // single `-` sign will raise an exception during formatDecimal()
+  // as it cannot be convert to BigNumber()
+  return /^-?\d+(\.\d+)?$/.test(value);
 }
 
 export default Decimal;

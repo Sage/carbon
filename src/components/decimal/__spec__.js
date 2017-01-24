@@ -103,7 +103,7 @@ describe('Decimal', () => {
       });
 
       describe('single negative sign `-` passed', () => {
-        it('set negative sign', () => {
+        it('sets negative sign', () => {
           instance.componentWillReceiveProps({ value: '-' });
           expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '-' });
         });

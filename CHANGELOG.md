@@ -2,7 +2,7 @@
 
 ## Bug fix
 
-* Fixes decimal input display error with single negative sign `-`.
+* Fixes decimal input displaying error with single negative sign `-`.
 * Fixes numeral validation exception with single negative sign `-`.
 
 # 0.33.1
