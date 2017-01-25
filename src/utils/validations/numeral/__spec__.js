@@ -74,6 +74,12 @@ describe('Numeral Validator', () => {
       });
     });
 
+    describe('when value is minus sign -', () => {
+      it('returns false', () => {
+        expect(numeralValidator.validate('-')).toBeFalsy();
+      });
+    });
+
     describe('when value is correct', () => {
       it('returns true', () => {
         expect(numeralValidator.validate(5)).toBeTruthy();
@@ -98,6 +104,12 @@ describe('Numeral Validator', () => {
     describe('when value is empty', () => {
       it('returns true', () => {
         expect(lessThanValidator.validate()).toBeTruthy();
+      });
+    });
+
+    describe('when value is minus sign -', () => {
+      it('returns false', () => {
+        expect(lessThanValidator.validate('-')).toBeFalsy();
       });
     });
 
@@ -149,6 +161,12 @@ describe('Numeral Validator', () => {
         });
       });
 
+      describe('when value is minus sign -', () => {
+        it('returns false', () => {
+          expect(greaterThanValidator.validate('-')).toBeFalsy();
+        });
+      });
+
       it('returns the correct message function', () => {
         expect(greaterThanValidator.message()).toEqual("Must equal 10.00 or more");
       });
@@ -194,6 +212,13 @@ describe('Numeral Validator', () => {
         });
       });
 
+      describe('when value is minus sign -', () => {
+        it('returns false', () => {
+          expect(rangeValidator.validate('-')).toBeFalsy();
+          expect(rangeValidator.message('-')).toEqual('Must be a valid Decimal');
+        });
+      });
+
       describe('when the value is less than the minimum', () => {
         it('returns the correct message function', () => {
           expect(rangeValidator.message(1)).toEqual("Must equal 5.00 or more");
@@ -227,6 +252,13 @@ describe('Numeral Validator', () => {
         it('returns false', () => {
            rangeValidator = new Validator({ min: 0, max: 10 });
           expect(rangeValidator.validate("-1")).toBeFalsy();
+        });
+      });
+
+      describe('when the value is within the range and negative', () => {
+        it('returns false', () => {
+           rangeValidator = new Validator({ min: -10, max: 10 });
+          expect(rangeValidator.validate("-1")).toBeTruthy();
         });
       });
     });

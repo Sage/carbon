@@ -102,6 +102,13 @@ describe('Decimal', () => {
         });
       });
 
+      describe('single negative sign `-` passed', () => {
+        it('sets negative sign', () => {
+          instance.componentWillReceiveProps({ value: '-' });
+          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '-' });
+        });
+      });
+
       it('re-evaluates the formatted visible value if input does not have focus', () => {
         instance.componentWillReceiveProps({ value: '1001.00' });
         expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '1,001.00' });
@@ -312,6 +319,17 @@ describe('Decimal', () => {
           spyOn(instance, 'emitOnChangeCallback');
           TestUtils.Simulate.blur(instance._input);
           expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('0');
+        });
+      });
+
+      describe('if value is single negative sign `-`', () => {
+        it('calls setState with `-`', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Decimal name="total" value="-" />
+          );
+          spyOn(instance, 'setState');
+          TestUtils.Simulate.blur(instance._input);
+          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "-" });
         });
       });
     });

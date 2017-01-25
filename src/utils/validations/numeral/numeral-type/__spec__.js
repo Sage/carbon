@@ -49,6 +49,8 @@ describe('Numeral Type Validator', () => {
       it('returns false', () => {
         expect(decimalValidator.validate('abcde12345')).toBeFalsy();
         expect(integerValidator.validate('abcde12345')).toBeFalsy();
+        expect(decimalValidator.validate('-')).toBeFalsy();
+        expect(integerValidator.validate('-')).toBeFalsy();
       });
     });
 
