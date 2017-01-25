@@ -21,30 +21,30 @@ describe('ButtonToggle', () => {
     });
   });
 
-  describe('icon', () => {
-    describe('with no icon', () => {
+  describe('buttonIcon', () => {
+    describe('with no buttonIcon', () => {
       it('returns nothing', () => {
-        expect(instance.icon).toBe(null);
+        expect(instance.buttonIcon).toBe(null);
       });
     });
 
-    describe('with an icon', () => {
+    describe('with an buttonIcon', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(<ButtonToggle icon="settings" />);
+        instance = TestUtils.renderIntoDocument(<ButtonToggle buttonIcon="settings" />);
       });
 
-      it('returns the icon', () => {
-        expect(instance.icon.props.className).toEqual('carbon-button-toggle__icon');
+      it('returns the buttonIcon', () => {
+        expect(instance.buttonIcon.props.className).toEqual('carbon-button-toggle__button-icon');
       });
     });
 
-    describe('with a large icon', () => {
+    describe('with a large buttonIcon', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(<ButtonToggle icon="settings" iconSize="large" />);
+        instance = TestUtils.renderIntoDocument(<ButtonToggle buttonIcon="settings" buttonIconSize="large" />);
       });
 
-      it('returns a large icon', () => {
-        expect(instance.icon.props.className).toEqual('carbon-button-toggle__icon carbon-button-toggle__icon--large');
+      it('returns a large buttonIcon', () => {
+        expect(instance.buttonIcon.props.className).toEqual('carbon-button-toggle__button-icon carbon-button-toggle__button-icon--large');
       });
     });
   });
