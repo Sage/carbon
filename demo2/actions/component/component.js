@@ -16,9 +16,9 @@ const ComponentActions = {
   updateDefinition: (prop, name, arrayPos, ev) => {
     Dispatcher.dispatch({
       actionType: ComponentConstants.UPDATE_DEFINITION,
-      arrayPos: arrayPos,
-      name: name,
-      prop: prop,
+      arrayPos,
+      name,
+      prop,
       value: ev.target.value
     });
   }

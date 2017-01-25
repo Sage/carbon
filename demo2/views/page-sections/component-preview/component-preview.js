@@ -2,7 +2,7 @@
 import { assign } from 'lodash';
 import classNames from 'classnames';
 import Highlight from 'react-highlight';
-import Immutable from 'immutable';
+import { List } from 'immutable';
 import ImmutableHelper from 'utils/helpers/immutable';
 import React from 'react';
 
@@ -130,7 +130,7 @@ const _buildFields = (props) => {
       : null;
 
     if (_showProp(propKey, demoPropData)) {
-      if (Immutable.List.isList(demoPropData)) {
+      if (List.isList(demoPropData)) {
         demoPropData.map((field, i) => {
           fieldObj.push(_fieldComponent(null, propKey, field, props.name, i));
         })
