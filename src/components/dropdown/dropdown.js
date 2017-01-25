@@ -555,10 +555,7 @@ class Dropdown extends React.Component {
   get additionalInputContent() {
     let content = [];
 
-    if (!this.props.suggest) {
-      content.push(this.inputIconHTML("dropdown"));
-    }
-
+    content.push(this.inputIconHTML("dropdown"));
     content.push(
       <div { ...this.listBlockProps }>
         { this.listHTML }

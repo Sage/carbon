@@ -1,3 +1,19 @@
+# 0.34.0
+
+## DropdownFilter `freetext` mode
+
+Adds a new mode to `DropdownFilter` which prompts the user with suggest-style filtered options, but also allows typed
+entries that do not match any options. If the typed string exactly matches the name of an option, that option is
+automatically selected on blur, and the `onChange` event target will specify the option id as `value` and name as
+`visibleValue`, just as if it had been clicked. If the typed string does not match any options on blur, it remains as
+the input value and `onChange` will carry an empty string `value` and the typed string as `visibleValue`.
+
+Usage:
+
+```
+<DropdownFilter options={ options } freetext={ true } onChange={ this.onChange } />
+```
+
 # 0.33.1
 
 ## Bug fix
