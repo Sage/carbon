@@ -215,7 +215,7 @@ class DropdownFilter extends Dropdown {
    * @param {Object} options Immutable map of list options
    */
   prepareList = (options) => {
-    if (this.writeable || !this.openingList) && typeof this.state.filter === 'string') {
+    if ((this.writeable || !this.openingList) && typeof this.state.filter === 'string') {
       let filter = this.state.filter;
       let regex = new RegExp(escapeStringRegexp(filter), 'i');
 
