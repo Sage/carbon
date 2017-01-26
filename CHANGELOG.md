@@ -25,6 +25,10 @@
 
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
 
+## BUg Fixes
+
+* `ButtonToggle`: css typo corrected
+
 ## data-attributes on components
 
 We are adding data-attributes to components to better identify them and their parts within the browser. We will add `data-component` tags on the top level of any component, and `data-member` tags to constituent parts. Developers can also add `data-element` tags to components to uniquely identify specific components within their UI.
