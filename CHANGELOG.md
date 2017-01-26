@@ -1,3 +1,20 @@
+# 0.33.1
+
+## Bug fix
+
+* Fixes alignment issue in inputs caused by the font size of prefixes differing from values.
+
+# 0.33.0
+
+## Helpers
+
+* The I18n helper now uses the current locale for delimiter and separator.
+
+# 0.32.1
+
+## Bug Fixes
+
+* Validation is now correctly reset when a value is changed externally from the input.
 
 # 0.32.0
 
