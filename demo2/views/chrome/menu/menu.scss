@@ -12,9 +12,12 @@
   }
 
   &__menu {
+    height: calc(100% - 250px);
+    overflow: scroll;
+
     margin: 0;
-    padding: 20px 0;
     width: 100%;
+    padding: 20px 0;
   }
 
   .carbon-sidebar__sidebar {
@@ -28,11 +31,14 @@
 
   &__buttons {
     .carbon-button {
-      margin: 8px 0;
       padding-left: 0;
       padding-right: 0;
       text-align: center;
       width: 100%;
+
+      &:first-child {
+        margin-bottom: 16px;
+      }
     }
   }
 }

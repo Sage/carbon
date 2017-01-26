@@ -66,9 +66,9 @@ class MenuList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={ this.mainClasses() } >
         { this.menuTitle() }
-        <ul className={ this.mainClasses() }>
+        <ul className='carbon-menu-list__list'>
           { this.menuItems() }
         </ul>
       </div>

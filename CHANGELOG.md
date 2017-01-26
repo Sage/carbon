@@ -7,11 +7,17 @@
 ## !! BREAKING CHANGES!! :warning:
 
 * Banner Component has been Deleted in favour of the Message Component
+* `ButtonToggle`: `icon` and `iconSize` become `buttonIcon` and `buttonIconSize` to avoid clash with Input decorator
+* Menu List - Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
 
 ## Potentially breaking changes
 
 * The following components have been refactored to meet best practice standards and pass linting.
 * If you have overridden any internal methods of these components, you may need to update your code.
+  - Action Toolbar
+  - Alert
+  - Animated Menu Button
+  - App-Wrapper
   - Button
   - Create
 
