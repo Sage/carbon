@@ -1,3 +1,9 @@
+# 0.34.0
+
+## Component Enhancements
+
+* `DateRange`: Two new props have been added, `startDateProps` and `endDateProps`, to apply props to the child `Date` components.
+
 # 0.33.1
 
 ## Bug fix
