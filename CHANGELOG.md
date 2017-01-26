@@ -1,3 +1,9 @@
+# 0.34.0
+
+## Component Enhancements
+
+* `DateRange`: Two new props have been added, `startDateProps` and `endDateProps`, to apply props to the child `Date` components.
+
 # 0.33.1
 
 ## Bug fix
@@ -66,10 +72,6 @@ To repeat the character at the same interval, set `repeat` to `true`
   insertAt('123456789', 3, { newChar:'/', repeat: true });
   // => 123/456/789
 ```
-
-## Component Enhancements
-
-* `DateRange`: Two new props have been added, `startDateProps` and `endDateProps`, to apply props to the child `Date` components.
 
 # 0.31.3
 
