@@ -143,7 +143,7 @@ class DropdownFilter extends Dropdown {
       highlighted: null
     };
 
-    if ((this.props.suggest || this.props.freetext) && ev.target.value.length <= 0) {
+    if (this.writeable && ev.target.value.length <= 0) {
       state.open = false;
     } else {
       state.open = true;
@@ -168,14 +168,17 @@ class DropdownFilter extends Dropdown {
     if (!this.blockBlur) {
       let filter = null;
 
-      if (this.props.create || this.props.freetext) filter = this.state.filter;
+      if (this.props.create || this.props.freetext) { filter = this.state.filter; }
       this.setState({ open: false, filter: filter });
 
       if (this.props.freetext) {
         let opt = this.props.options.find((opt) => { return opt.get('name') === this.state.filter; });
 
-        if (opt) this.selectValue(opt.get('id'), opt.get('name'));
-        else this.emitOnChangeCallback('', this.state.filter);
+        if (opt) {
+          this.selectValue(opt.get('id'), opt.get('name'));
+        } else {
+          this.emitOnChangeCallback('', this.state.filter);
+        }
       }
     }
   }
@@ -186,7 +189,7 @@ class DropdownFilter extends Dropdown {
    * @method handleFocus
    */
   handleFocus = () => {
-    if (!(this.props.suggest || this.props.freetext) && !this.blockFocus) {
+    if (!this.writeable && !this.blockFocus) {
       this.setState({ open: true });
     } else {
       this.blockFocus = false;
@@ -212,7 +215,7 @@ class DropdownFilter extends Dropdown {
    * @param {Object} options Immutable map of list options
    */
   prepareList = (options) => {
-    if ((this.props.suggest || this.props.freetext || !this.openingList) && typeof this.state.filter === 'string') {
+    if (this.writeable || !this.openingList) && typeof this.state.filter === 'string') {
       let filter = this.state.filter;
       let regex = new RegExp(escapeStringRegexp(filter), 'i');
 
@@ -306,7 +309,7 @@ class DropdownFilter extends Dropdown {
    */
   get additionalInputContent() {
     let content = super.additionalInputContent;
-    if (this.props.suggest || this.props.freetext) content.shift();
+    if (this.writeable) { content.shift(); }
     return content;
   }
 
@@ -399,6 +402,16 @@ class DropdownFilter extends Dropdown {
     ];
 
     return newValue;
+  }
+
+  /**
+   * Returns whether input is writeable (for suggest or freetext modes)
+   *
+   * @method  writeable
+   * @return  {Boolean}
+   */
+  get writeable() {
+    return this.props.suggest || this.props.freetext;
   }
 }
 
