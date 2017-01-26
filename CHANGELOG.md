@@ -1,5 +1,9 @@
 # 0.34.0
 
+## Component Enhancements
+
+* `DateRange`: Two new props have been added, `startDateProps` and `endDateProps`, to apply props to the child `Date` components.
+
 ## DropdownFilter `freetext` mode
 
 Adds a new mode to `DropdownFilter` which prompts the user with suggest-style filtered options, but also allows typed
