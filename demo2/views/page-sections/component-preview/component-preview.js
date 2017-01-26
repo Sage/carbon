@@ -1,6 +1,8 @@
 // React
+import { assign } from 'lodash';
 import classNames from 'classnames';
 import Highlight from 'react-highlight';
+import { List } from 'immutable';
 import ImmutableHelper from 'utils/helpers/immutable';
 import React from 'react';
 
@@ -34,14 +36,14 @@ export default props => (
   >
     <div className= { `component-preview component-preview--${props.definition.get('key')}` }>
       <div className='component-preview__component-wrapper'>
-        { _buildPreview(props) }
+        { buildPreview(props) }
       </div>
       <div className='component-preview__interaction'>
         <form className='component-preview__controls'>
-          { _buildFields(props) }
+          { buildFields(props) }
         </form>
         <code className='component-preview__code'>
-          { _buildCode(props) }
+          { buildCode(props) }
         </code>
       </div>
     </div>
@@ -63,12 +65,12 @@ function getProps(props) {
  * builds code output
  *
  * @private
- * @method _buildCode
+ * @method buildCode
  * @param {Object} def - definition
  * @return {String} code string
  */
-const _buildCode = (props) => {
-  let count = _getCount(props.definition.get('demoRenderCount')),
+const buildCode = (props) => {
+  let count = getCount(props.definition.get('demoRenderCount')),
       codeString = '',
       i = 0;
 
@@ -112,11 +114,11 @@ const _buildCode = (props) => {
  * builds fields for dynamically editing props
  *
  * @private
- * @method _buildCode
+ * @method buildCode
  * @param {Object} def - definition
  * @return {String} code string
  */
-const _buildFields = (props) => {
+const buildFields = (props) => {
   let fieldObj = [];
 
   // get the props
@@ -127,27 +129,13 @@ const _buildFields = (props) => {
       ? props.definition.getIn(['propOptions', propKey])
       : null;
 
-    if (_showProp(propKey, demoPropData)) {
-      let commonfieldProps = {
-        key: propKey,
-        label: propKey,
-        onChange: ComponentActions.updateDefinition.bind(this, propKey, props.name),
-        value: demoPropData
-      };
-
-      switch(_chooseField(propOptions, propKey, demoPropData)) {
-        case 'checkbox':
-          fieldObj.push(<Checkbox { ...commonfieldProps } />);
-          break;
-        case 'dropdown':
-          fieldObj.push(<Dropdown { ...commonfieldProps } options={ _getOptions(propOptions) } />);
-          break;
-        case 'textarea':
-          fieldObj.push(<Textarea { ...commonfieldProps } />);
-          break;
-        case 'textbox':
-          fieldObj.push(<Textbox  { ...commonfieldProps } />);
-          break;
+    if (showProp(propKey, demoPropData)) {
+      if (List.isList(demoPropData)) {
+        demoPropData.map((field, i) => {
+          fieldObj.push(fieldComponent(null, propKey, field, props.name, i));
+        })
+      } else {
+        fieldObj.push(fieldComponent(propOptions, propKey, demoPropData, props.name));
       }
     }
   });
@@ -156,14 +144,44 @@ const _buildFields = (props) => {
 }
 
 /**
+ * creates a simple field
+ *
+ * @private
+ * @method fieldComponent
+ * @param {Object} propOptions
+ * @param {string} propKey
+ * @param {Object} demoPropData
+ * @param {string} name
+ * @return {Component}
+ */
+const fieldComponent = (propOptions, propKey, demoPropData, name, arrayPos = -1) => {
+  let key =   arrayPos >= 0 ? `${propKey}-${arrayPos}`   : propKey,
+      label = arrayPos >= 0 ? `${propKey} [${arrayPos}]` : propKey;
+
+  let commonfieldProps = {
+        key: key,
+        label: label,
+        onChange: ComponentActions.updateDefinition.bind(this, propKey, name, arrayPos),
+        value: demoPropData
+      },
+      field = chooseField(propOptions, propKey, demoPropData);
+
+  if (field === Dropdown) {
+    commonfieldProps = assign(commonfieldProps, { options: getOptions(propOptions) });
+  }
+
+  return React.createElement(field, commonfieldProps);
+}
+
+/**
  * gets options
  *
  * @private
- * @method _getOptions
+ * @method getOptions
  * @param {Array} options
  * @return {Array} parsed options for dropdown
  */
-const _getOptions = (options) => {
+const getOptions = (options) => {
   return options.map((option) => {
     return ImmutableHelper.parseJSON({ id: option, name: option });
   });
@@ -173,26 +191,26 @@ const _getOptions = (options) => {
  * uses the propKey to fiugure out what sort of fiewld should be used
  *
  * @private
- * @method _chooseField
+ * @method chooseField
  * @param {Object} props - full set of props
  * @param {String} propKey - key of the prop for making the choice
  * @return {String} name of the field type to load
  */
-const _chooseField = (propOptions, propKey, demoPropData) => {
+const chooseField = (propOptions, propKey, demoPropData) => {
   if (propOptions) {
-    return 'dropdown';
+    return Dropdown;
   }
 
-  if (_showChildren(propKey, demoPropData)) {
-    return 'textarea';
+  if (showChildren(propKey, demoPropData)) {
+    return Textarea;
   }
 
   if (OptionsHelper.commonBooleans().indexOf(propKey) >= 0) {
-    return 'checkbox';
+    return Checkbox;
   }
 
   if (propKey !== 'children') {
-    return 'textbox';
+    return Textbox;
   }
 }
 
@@ -200,12 +218,12 @@ const _chooseField = (propOptions, propKey, demoPropData) => {
  * decides whether to show children as a field
  *
  * @private
- * @method _showChildren
+ * @method showChildren
  * @param {String} propKey -
  * @param {String} demoPropData -
  * @return {Boolean}
  */
-const _showChildren = (propKey, demoPropData) => {
+const showChildren = (propKey, demoPropData) => {
   return propKey === 'children'
          && ['object','array'].indexOf(typeof demoPropData) < 0;
 }
@@ -214,11 +232,11 @@ const _showChildren = (propKey, demoPropData) => {
  * returns true if this prop should be shown - functions and some awkward props can be skipped this way from the form
  *
  * @private
- * @method _showProp
+ * @method showProp
  * @param {String} propKey - key of the prop for searching the Options array
  * @return {Boolean}
  */
-const _showProp = (propKey, demoPropData) => {
+const showProp = (propKey, demoPropData) => {
   return OptionsHelper.nonDemoFormProps().indexOf(propKey) === -1
          && OptionsHelper.commonEvents().indexOf(propKey) === -1;
 }
@@ -227,13 +245,13 @@ const _showProp = (propKey, demoPropData) => {
  * builds the preview components, looping if needed
  *
  * @private
- * @method _buildPreview
+ * @method buildPreview
  * @param {Object} props - formatted as an object for processing, will contain various props
  * @return {Array} of components
  */
-const _buildPreview = (props) => {
+const buildPreview = (props) => {
   let components = [],
-      count = _getCount(props.definition.get('demoRenderCount')),
+      count = getCount(props.definition.get('demoRenderCount')),
       i = 0;
 
   for (; i < count; i ++) {
@@ -249,10 +267,10 @@ const _buildPreview = (props) => {
  * returns 1 or the count
  *
  * @private
- * @method _getCount
+ * @method getCount
  * @param {Number} count - could be undefined
  * @return {Number} guaranteed integer
  */
-const _getCount = (count) => {
+const getCount = (count) => {
   return typeof count === 'undefined' ? 1 : count;
 }

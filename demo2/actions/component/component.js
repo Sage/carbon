@@ -13,11 +13,12 @@ const ComponentActions = {
     });
   },
 
-  updateDefinition: (prop, name, ev) => {
+  updateDefinition: (prop, name, arrayPos, ev) => {
     Dispatcher.dispatch({
       actionType: ComponentConstants.UPDATE_DEFINITION,
-      name: name,
-      prop: prop,
+      arrayPos,
+      name,
+      prop,
       value: ev.target.value
     });
   }

@@ -10,7 +10,7 @@ export default {
   'content':              require('components/content/definition').default,
   'create':               require('components/create/definition').default,
   'date':                 require('components/date/definition').default,
-  //'date-range':           require('components/date-range/definition').default,
+  'date-range':           require('components/date-range/definition').default,
   'decimal':              require('components/decimal/definition').default,
   'detail':               require('components/detail/definition').default,
   'dialog':               require('components/dialog/definition').default,

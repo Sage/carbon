@@ -13,7 +13,11 @@ let data = ImmutableHelper.parseJSON(definitions);
 
 class ComponentStore extends Store {
   [ComponentConstants.UPDATE_DEFINITION](data) {
-    this.data = this.data.setIn([data.name, 'demoProps', data.prop], data.value);
+    let location = [data.name, 'demoProps', data.prop];
+    if (data.arrayPos >= 0) {
+      location.push(data.arrayPos);
+    }
+    this.data = this.data.setIn(location, data.value);
   }
 }
 
