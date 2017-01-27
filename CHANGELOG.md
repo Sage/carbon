@@ -5,6 +5,9 @@
 * Fixes decimal input displaying error with single negative sign `-`.
 * Fixes numeral validation exception with single negative sign `-`.
 
+## Component Enhancements
+* `MultiStepWizard` now allows adding callbacks when clicking on Next/Back button and allows adding validation callback before wizard submission when clicking on Submit button. 
+
 # 0.33.1
 
 ## Bug fix
