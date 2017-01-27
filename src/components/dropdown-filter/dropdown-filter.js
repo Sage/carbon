@@ -330,7 +330,8 @@ class DropdownFilter extends Dropdown {
   get mainClasses() {
     return classNames(
       super.mainClasses,
-      'carbon-dropdown-filter'
+      'carbon-dropdown-filter',
+      { 'carbon-dropdown-filter--writeable': this.writeable }
     );
   }
 
@@ -341,7 +342,7 @@ class DropdownFilter extends Dropdown {
    */
   get inputClasses() {
     let filtered = !this.props.create && !this.props.freetext && typeof this.state.filter === 'string';
-    return classNames( super.inputClasses, { 'carbon-dropdown__input--filtered': filtered });
+    return classNames(super.inputClasses, { 'carbon-dropdown__input--filtered': filtered });
   }
 
   /**
