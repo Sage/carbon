@@ -1,0 +1,4 @@
+{
+  "main": "./component-preview.js",
+  "style": "./component-preview.scss"
+}

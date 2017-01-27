@@ -10,7 +10,7 @@ import { MenuListItem, MenuList } from 'components/menu-list';
 
 // Demo Site
 import GetCodeButtons from '../../components/get-code-buttons';
-import ComponentList from './component-list';
+import Definitions from '../../../definitions';
 
 import I18n from 'i18n-js';
 
@@ -25,9 +25,19 @@ class Menu extends React.Component {
    * @method render
    */
   get componentsHTML() {
-    return ComponentList.map((item, i) => {
-      return <MenuListItem key={ i } name={ item.name }><Link>{ item.name }</Link></MenuListItem>;
-    });
+    let defKey,
+        i = 0,
+        menuListItems = [];
+
+    for (defKey in Definitions) {
+      let def = Definitions[defKey];
+
+      i++;
+
+      menuListItems.push(<MenuListItem key={ i } name={ def.text.name }><Link to={ `/components/${def.key}` }>{ def.text.name }</Link></MenuListItem>);
+    }
+
+    return menuListItems;
   }
   get stylesHTML() {
     return styles.map((item, i) => {
@@ -62,7 +72,7 @@ class Menu extends React.Component {
           <MenuListItem>
             <MenuList
               title={ I18n.t('components') }
-              initiallyOpen={ this._initiallyOpen(ComponentList) }
+              initiallyOpen={ this._initiallyOpen() }
               filter={ true }
             >
               { this.componentsHTML }
@@ -98,16 +108,18 @@ class Menu extends React.Component {
     );
   }
 
-  _initiallyOpen = (menuItems) => {
-    let openCount = 0;
+  _initiallyOpen = () => {
+    let defKey,
+        openCount = 0;
 
-    menuItems.forEach((menuItem) => {
-      if (menuItem.href === window.location.pathname) {
+    for (defKey in Definitions) {
+      let menuItem = Definitions[defKey];
+
+      if (menuItem.key === window.location.pathname) {
         openCount ++;
       }
-    });
-
-    return (openCount > 0);
+    }
+    return openCount > 0;
   }
 }
 
