@@ -133,21 +133,23 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     }
 
     // if value changes and the input is currently invalid, re-assess its validity
-    if ((!this.state.valid || this.state.warning) && (nextProps.value !== this.props.value)) {
-      let contentChanged = false;
+    if (!this.context.form || (this.context.form && this.context.form.getActiveInput() !== this)) {
+      if ((!this.state.valid || this.state.warning) && (nextProps.value !== this.props.value)) {
+        let contentChanged = false;
 
-      if (this.state.warning && !this.warning(nextProps.value)) {
-        this.setState({ warning: false });
-        contentChanged = true;
-      }
+        if (this.state.warning && !this.warning(nextProps.value)) {
+          this.setState({ warning: false });
+          contentChanged = true;
+        }
 
-      if (!this.state.valid && this.validate(nextProps.value)) {
-        this.setState({ valid: true });
-        contentChanged = true;
-      }
+        if (!this.state.valid && this.validate(nextProps.value)) {
+          this.setState({ valid: true });
+          contentChanged = true;
+        }
 
-      if (contentChanged) {
-        this._handleContentChange();
+        if (contentChanged) {
+          this._handleContentChange();
+        }
       }
     }
   }
