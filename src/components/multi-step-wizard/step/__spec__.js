@@ -7,7 +7,10 @@ describe('Step', () => {
   let instance, stepContext, stepNumber = 1,
       spyNextHandler = jasmine.createSpy('nextHandler'),
       spyBackHandler = jasmine.createSpy('backHandler'),
+      spyBeforeSubmitValidation = null,
       spySubmitHandler = jasmine.createSpy('submitHandler'),
+      spyOnNext = jasmine.createSpy('onNext'),
+      spyOnBack = jasmine.createSpy('onBack'),
       spyNext = jasmine.createSpy('next'),
       spyBack = jasmine.createSpy('back'),
       spyComplete = jasmine.createSpy('complete'),
@@ -19,6 +22,7 @@ describe('Step', () => {
   beforeEach(() => {
     stepContext = { wizard: { nextHandler: spyNextHandler,
                               backHandler: spyBackHandler,
+                              beforeSubmitValidation: spyBeforeSubmitValidation,
                               submitHandler: spySubmitHandler,
                               enableInactiveSteps: enableInactiveSteps,
                               currentStep: currentStep,
@@ -37,32 +41,80 @@ describe('Step', () => {
   });
 
   describe('handleOnSubmit', () => {
-    it('calls the parent wizard to complete', () => {
-      instance.handleOnSubmit();
-      expect(spyComplete).toHaveBeenCalled();
+    describe('when beforeSubmitValidation props is not null', () => {
+      beforeEach(() => {
+        spyBeforeSubmitValidation = jasmine.createSpy('beforeSubmitValidation');
+        instance.context.wizard.beforeSubmitValidation = spyBeforeSubmitValidation;
+      });
+
+      describe('when beforeSubmitValidation props does not returns true', () => {
+        beforeEach(() => {
+          spyBeforeSubmitValidation.and.returnValue(false);
+        });
+
+        it('does not call the parent wizard to complete and submit', () => {
+          instance.handleOnSubmit();
+          expect(spyComplete).not.toHaveBeenCalled();
+        });
+
+        it('does not call submitHandler of parent wizard', () => {
+          instance.handleOnSubmit();
+          expect(spySubmitHandler).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when beforeSubmitValidation props returns true', () => {
+        beforeEach(() => {
+          spyBeforeSubmitValidation.and.returnValue(true);
+        });
+
+        it('calls the parent wizard to complete', () => {
+          instance.handleOnSubmit();
+          expect(spyComplete).toHaveBeenCalled();
+        });
+
+        it('calls submitHandler of parent wizard', () => {
+          instance.handleOnSubmit();
+          expect(spySubmitHandler).toHaveBeenCalled();
+        });
+      });
     });
 
-    it('calls submitHandler of parent wizard', () => {
-      instance.handleOnSubmit();
-      expect(spySubmitHandler).toHaveBeenCalled();
+    describe('when beforeSubmitValidation props is null', () => {
+      beforeEach(() => {
+        spyBeforeSubmitValidation = null;
+        instance.context.wizard.beforeSubmitValidation = spyBeforeSubmitValidation;
+      });
+
+      it('calls the parent wizard to complete', () => {
+        instance.handleOnSubmit();
+        expect(spyComplete).toHaveBeenCalled();
+      });
+
+      it('calls submitHandler of parent wizard', () => {
+        instance.handleOnSubmit();
+        expect(spySubmitHandler).toHaveBeenCalled();
+      });
     });
+
   });
 
   describe('handleOnNext', () => {
-    describe('when defaultButton props is false', () => {
-      it('does nothing', () => {
+    describe('when onNext props is not null', () => {
+      it('calls the onNext props', () => {
         instance = TestUtils.renderIntoDocument(
-          <Step stepNumber={ 1 } defaultButton={ false }>
+          <Step stepNumber={ 1 } onNext={ spyOnNext }>
             Demo Step
           </Step>
         );
         instance.context = stepContext;
         instance.handleOnNext();
+        expect(spyOnNext).toHaveBeenCalled();
         expect(spyNext).not.toHaveBeenCalled();
       });
     });
 
-    describe('when defaultButton props is true', () => {
+    describe('when onNext props is null', () => {
       it('calls the parent wizard to step forward', () => {
         instance.handleOnNext();
         expect(spyNext).toHaveBeenCalled();
@@ -71,20 +123,21 @@ describe('Step', () => {
   });
 
   describe('handleOnBack', () => {
-    describe('when defaultButton props is false', () => {
-      it('does nothing', () => {
+    describe('when onBack props is not null', () => {
+      it('calls the onBack props', () => {
         instance = TestUtils.renderIntoDocument(
-          <Step stepNumber={ 1 } defaultButton={ false }>
+          <Step stepNumber={ 1 } onBack={ spyOnBack }>
             Demo Step
           </Step>
         );
         instance.context = stepContext;
         instance.handleOnBack();
+        expect(spyOnBack).toHaveBeenCalled();
         expect(spyBack).not.toHaveBeenCalled();
       });
     });
 
-    describe('when defaultButton props is true', () => {
+    describe('when onBack props is null', () => {
       it('calls the parent wizard to step backward', () => {
         instance.handleOnBack();
         expect(spyBack).toHaveBeenCalled();
