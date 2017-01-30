@@ -128,13 +128,13 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
 
     // if disabling the field, reset the validation on it
-    if (nextProps.disabled && (!this.state.valid || this.state.warning)) {
+    if (nextProps.disabled && this.messageExists()) {
       this._handleContentChange();
     }
 
     // if value changes and the input is currently invalid, re-assess its validity
     if (!this._isCurrentlyActiveInput()) {
-      if ((!this.state.valid || this.state.warning) && (nextProps.value !== this.props.value)) {
+      if (this.messageExists() && (nextProps.value !== this.props.value)) {
         let contentChanged = false;
 
         if (this.state.warning && !this.warning(nextProps.value)) {
