@@ -2,6 +2,7 @@
 
 ## Bug fix
 
+* `Portrait`: Fixes image stacking.
 * Fixes decimal input displaying error with single negative sign `-`.
 * Fixes numeral validation exception with single negative sign `-`.
 * Currently active inputs no longer re-validate during `componentWillReceiveProps`, ensuring that duplicate re-validation no longer occurs triggering `-1` error counts.
