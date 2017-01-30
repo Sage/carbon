@@ -205,6 +205,7 @@ class Form extends React.Component {
       form: {
         attachToForm: this.attachToForm,
         detachFromForm: this.detachFromForm,
+        getActiveInput: this.getActiveInput,
         incrementErrorCount: this.incrementErrorCount,
         decrementErrorCount: this.decrementErrorCount,
         incrementWarningCount: this.incrementWarningCount,
@@ -217,8 +218,18 @@ class Form extends React.Component {
   }
 
   /**
-   * sets the active input, calling the hide method if the input is
-   * different from the last (so as to instantly) switch
+   * Gets the current active input.
+   *
+   * @method getActiveInput
+   * @return {Object} the currently active component
+   */
+  getActiveInput = () => {
+    return this.activeInput;
+  }
+
+  /**
+   * Sets the active input, calling the hide method if the input is
+   * different from the last (so as to instantly) switch.
    *
    * @method setActiveInput
    * @param {Input} input sends itself through
