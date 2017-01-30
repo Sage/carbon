@@ -3,6 +3,8 @@
 ## Bug fix
 
 * `Portrait`: Fixes image stacking.
+* Fixes decimal input displaying error with single negative sign `-`.
+* Fixes numeral validation exception with single negative sign `-`.
 
 # 0.33.1
 
