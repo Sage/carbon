@@ -133,7 +133,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     }
 
     // if value changes and the input is currently invalid, re-assess its validity
-    if (!this.context.form || (this.context.form && this.context.form.getActiveInput() !== this)) {
+    if (!this._isCurrentlyActiveInput()) {
       if ((!this.state.valid || this.state.warning) && (nextProps.value !== this.props.value)) {
         let contentChanged = false;
 
@@ -580,6 +580,16 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     fieldProps.onMouseOver = chainFunctions(this.showMessage, fieldProps.onMouseOver);
 
     return fieldProps;
+  }
+
+  /**
+   * Determines if the currently active input is this input.
+   *
+   * @method _isCurrentlyActiveInput
+   * @return {Boolean}
+   */
+  _isCurrentlyActiveInput = () => {
+    return this.context.form && (this.context.form.getActiveInput() === this);
   }
 
 };
