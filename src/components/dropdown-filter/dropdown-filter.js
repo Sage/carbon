@@ -173,7 +173,7 @@ class DropdownFilter extends Dropdown {
 
       if (this.props.freetext) {
         let opt = this.props.options.find((opt) => {
-          return opt.get('name').toLowerCase() === this.state.filter.toLowerCase();
+          return opt.get('name').toLowerCase() === String(this.state.filter).toLowerCase();
         });
 
         if (opt) {
