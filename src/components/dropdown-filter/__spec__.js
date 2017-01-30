@@ -511,28 +511,28 @@ describe('DropdownFilter', () => {
     });
   });
 
-  describe('additionalInputContent', () => {
+  describe('showArrow', () => {
     describe('when in suggest mode', () => {
-      it('removes the icon', () => {
+      it('returns false', () => {
         instance = TestUtils.renderIntoDocument(
           <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" suggest={ true } />
         );
-        expect(instance.additionalInputContent.length).toEqual(1);
+        expect(instance.showArrow()).toBeFalsy();
       });
     });
 
     describe('when in freetext mode', () => {
-      it('removes the icon', () => {
+      it('returns false', () => {
         instance = TestUtils.renderIntoDocument(
           <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
         );
-        expect(instance.additionalInputContent.length).toEqual(1);
+        expect(instance.showArrow()).toBeFalsy();
       });
     });
 
     describe('when not in suggest or freetext mode', () => {
-      it('does not remove the icon', () => {
-        expect(instance.additionalInputContent.length).toEqual(2);
+      it('returns true', () => {
+        expect(instance.showArrow()).toBeTruthy();
       });
     });
   });

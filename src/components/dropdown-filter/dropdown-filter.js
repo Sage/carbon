@@ -303,14 +303,13 @@ class DropdownFilter extends Dropdown {
   }
 
   /**
-   * Extends the input content to include the input icon.
+   * Overrides Dropdown method to conditionally show arrow
    *
-   * @method additionalInputContent
+   * @method showArrow
+   * @return {Boolean}
    */
-  get additionalInputContent() {
-    let content = super.additionalInputContent;
-    if (this.writeable) { content.shift(); }
-    return content;
+  showArrow() {
+    return !this.writeable;
   }
 
   /**

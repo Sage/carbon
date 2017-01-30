@@ -555,7 +555,9 @@ class Dropdown extends React.Component {
   get additionalInputContent() {
     let content = [];
 
-    content.push(this.inputIconHTML("dropdown"));
+    if (this.showArrow()) {
+      content.push(this.inputIconHTML("dropdown"));
+    }
     content.push(
       <div { ...this.listBlockProps }>
         { this.listHTML }
@@ -563,6 +565,16 @@ class Dropdown extends React.Component {
     );
 
     return content;
+  }
+
+  /**
+   * Determines whether dropdown arrow is displayed
+   *
+   * @method showArrow
+   * @return {Boolean}
+   */
+  showArrow() {
+    return true;
   }
 
   /**
