@@ -13,6 +13,8 @@ describe('Textbox', () => {
       value={ 'foo' }
       label={ 'Label' }
       onChange={ spy }
+      data-element="my textbox"
+      data-member="my textbox member"
     />);
   });
 
@@ -20,6 +22,13 @@ describe('Textbox', () => {
     it('renders a parent div', () => {
       let textboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(textboxNode.classList[0]).toEqual('carbon-textbox');
+    });
+
+    it('renders with data-component, data-element and data-member tags', () => {
+      let textboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      expect(textboxNode.getAttribute('data-component')).toEqual('textbox');
+      expect(textboxNode.getAttribute('data-element')).toEqual('my textbox');
+      expect(textboxNode.getAttribute('data-member')).toEqual('my textbox member');
     });
 
     it('renders with a visible input', () => {

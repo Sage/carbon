@@ -10,6 +10,12 @@
   color: #AAA;
 }
 
+.carbon-dropdown-filter--writeable {
+  .carbon-icon.icon-error {
+    right: 6px;
+  }
+}
+
 .carbon-dropdown__action {
   background-color: $white;
   border: 1px solid $border-color;

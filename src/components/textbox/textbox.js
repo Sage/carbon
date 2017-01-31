@@ -64,8 +64,13 @@ class Textbox extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }
-           ref={ (comp) => this._target = comp }>
+      <div
+        className={ this.mainClasses }
+        ref={ (comp) => this._target = comp }
+        data-component="textbox"
+        data-element={ this.props["data-element"] }
+        data-member={ this.props["data-member"] }
+      >
         { this.labelHTML }
         { this.inputHTML }
         { this.validationHTML }

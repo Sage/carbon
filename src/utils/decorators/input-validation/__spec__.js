@@ -4,6 +4,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import InputValidation from './input-validation';
 import InputLabel from './../input-label';
 import Form from 'components/form';
+import { shallow } from 'enzyme';
 
 let validationOne = {
   validate: function() {
@@ -56,14 +57,15 @@ let warningTwo = {
 };
 
 let form = {
-  model: 'model_2',
   attachToForm: function() {},
-  detachFromForm: function() {},
   decrementErrorCount: function() {},
+  decrementWarningCount: function() {},
+  detachFromForm: function() {},
+  getActiveInput: function() {},
   incrementErrorCount: function() {},
   incrementWarningCount: function() {},
-  decrementWarningCount: function() {},
   inputs: { "123": {} },
+  model: 'model_2',
   setActiveInput: function() {}
 }
 
@@ -160,6 +162,17 @@ describe('InputValidation', () => {
       });
 
       describe('when the next value does not match the current value', () => {
+        it('does not call validate if it is the currently active input', () => {
+          let wrapper = shallow(<Component />);
+          instance = wrapper.instance();
+          instance.context.form = form;
+          spyOn(instance.context.form, 'getActiveInput').and.returnValue(instance);
+          spyOn(instance, 'validate');
+          wrapper.setState({ valid: false });
+          wrapper.setProps({ value: 'foo' });
+          expect(instance.validate).not.toHaveBeenCalled();
+        });
+
         it('calls validate with the next value', () => {
           spyOn(instance, 'validate');
           instance.componentWillReceiveProps({ value: 'foo' });

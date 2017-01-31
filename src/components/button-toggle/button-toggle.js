@@ -10,20 +10,20 @@ const ButtonToggle = Input(InputLabel(
 class ButtonToggle extends React.Component {
   static propTypes = {
     /**
-     * Which icon the button should render.
+     * Which buttonIcon the button should render.
      *
-     * @property icon
+     * @property buttonIcon
      * @type {String}
      */
-    icon: React.PropTypes.string,
+    buttonIcon: React.PropTypes.string,
 
     /**
-     * Sets the size of the icon (eg. large)
+     * Sets the size of the buttonIcon (eg. large)
      *
-     * @property iconSize
+     * @property buttonIconSize
      * @type {String}
      */
-    iconSize: React.PropTypes.string
+    buttonIconSize: React.PropTypes.string
   }
 
   /**
@@ -47,21 +47,21 @@ class ButtonToggle extends React.Component {
   }
 
   /**
-   * Returns the markup for the icon.
+   * Returns the markup for the buttonIcon.
    *
-   * @method icon
+   * @method buttonIcon
    * @return {Object} JSX
    */
-  get icon() {
-    if (!this.props.icon) { return null; }
+  get buttonIcon() {
+    if (!this.props.buttonIcon) { return null; }
 
-    let classes = classNames("carbon-button-toggle__icon", {
-      ["carbon-button-toggle__icon--large"]: this.props.iconSize === "large"
+    let classes = classNames("carbon-button-toggle__button-icon", {
+      ["carbon-button-toggle__button-icon--large"]: this.props.buttonIconSize === "large"
     });
 
     return (
       <div className={ classes }>
-        <Icon type={ this.props.icon } />
+        <Icon type={ this.props.buttonIcon } />
       </div>
     );
   }
@@ -94,7 +94,7 @@ class ButtonToggle extends React.Component {
 
     return (
       <label htmlFor={ this.inputProps.id } className={ classes }>
-        { this.icon }
+        { this.buttonIcon }
         { this.props.children }
       </label>
     );
