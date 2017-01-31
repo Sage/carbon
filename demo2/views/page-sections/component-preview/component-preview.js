@@ -170,7 +170,9 @@ const fieldComponent = (propOptions, propKey, demoPropData, name, arrayPos = -1)
     commonfieldProps = assign(commonfieldProps, { options: getOptions(propOptions) });
   }
 
-  return React.createElement(field, commonfieldProps);
+  if (field) {
+    return React.createElement(field, commonfieldProps);
+  }
 }
 
 /**
