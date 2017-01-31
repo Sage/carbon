@@ -98,4 +98,8 @@ function writeData(writePath, data) {
   });
 }
 
-readFile('src/style-config/base-colors.scss', parseData, 'demo2/utils/generated/colors.js', writeData);
+function run() {
+  readFile('src/style-config/base-colors.scss', parseData, 'demo2/utils/generated/colors.js', writeData);
+}
+
+exports.default = run;
