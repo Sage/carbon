@@ -21,3 +21,5 @@ import { Carousel, Slide } from 'carbon/lib/components/carousel';
 | Name              | Required    | Type           | Default       | Description   |
 | ----------------- | ----------- | -------------  | ------------- | ------------- |
 | initialSlideIndex | false       | Integer        | 0             | Sets the slide to show on initial render |
+| className         | false       | String         |               | Custom class name |
+| children          | false       | Array | Object |               | Content to display |

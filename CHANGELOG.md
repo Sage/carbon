@@ -21,6 +21,7 @@
   - Button
   - Content
   - Create
+  - Carousel
 
 ## Component Enhancements
 
