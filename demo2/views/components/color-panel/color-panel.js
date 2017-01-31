@@ -1,5 +1,7 @@
 import React from 'react';
 
+import CopyActionWrapper from '../../components/copy-action-wrapper';
+
 /**
  * Puts out a div with color related presentation
  *
@@ -16,8 +18,16 @@ export default props =>
     style={ { backgroundColor: props.color.hex } }
   >
     <div className='demo-color-panel__details'>
-      <h3 className='demo-color-panel__title'>{ props.color.name }</h3>
-      <span className='demo-color-panel__supplementary'>{ props.color.hex }</span>
+      <h3 className='demo-color-panel__title'>
+        <CopyActionWrapper valueToCopy={ props.color.name }>
+          { props.color.name }
+        </CopyActionWrapper>
+      </h3>
+      <span className='demo-color-panel__supplementary'>
+        <CopyActionWrapper valueToCopy={ props.color.hex }>
+          { props.color.hex }
+        </CopyActionWrapper>
+      </span>
     </div>
   </div>
 ;

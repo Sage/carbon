@@ -10,14 +10,6 @@
   height: 50px;
   width: 100%;
 
-  &--light {
-    color: $white;
-  }
-
-  &--dark {
-    color: $black;
-  }
-
   @media (min-width: $response-point-tiny) {
     height: 60px;
   }
@@ -49,4 +41,11 @@
     font-size: 14px;
     margin: 0;
   }
+}
+
+.demo-color-panel--light {
+  color: $white;
+}
+.demo-color-panel--dark {
+  color: $black;
 }

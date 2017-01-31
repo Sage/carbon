@@ -1,0 +1,4 @@
+{
+  "main": "./copy-action-wrapper.js",
+  "style": "copy-action-wrapper.scss"
+}
