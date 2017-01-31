@@ -823,6 +823,20 @@ describe('Dropdown', () => {
   });
 
   describe('additionalInputContent', () => {
+    describe('when showArrow is true', () => {
+      it('returns the icon', () => {
+        spyOn(instance, 'showArrow').and.returnValue(true);
+        expect(instance.additionalInputContent[0].key).toEqual('label-icon');
+      });
+    });
+
+    describe('when showArrow is false', () => {
+      it('does not return the icon', () => {
+        spyOn(instance, 'showArrow').and.returnValue(false);
+        expect(instance.additionalInputContent.length).toEqual(1);
+      });
+    });
+
     it('returns the list', () => {
       expect(instance.additionalInputContent[1].props.className).toEqual('carbon-dropdown__list-block');
     });
