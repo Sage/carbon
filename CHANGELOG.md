@@ -5,15 +5,6 @@
 * `DateRange`: Two new props have been added, `startDateProps` and `endDateProps`, to apply props to the child `Date` components.
 * `MultiStepWizard` now allows adding callbacks when clicking on Next/Back button and allows adding validation callback before wizard submission when clicking on Submit button. 
 
-# 0.33.2
-
-## Bug fix
-
-* `Portrait`: Fixes image stacking.
-* Fixes decimal input displaying error with single negative sign `-`.
-* Fixes numeral validation exception with single negative sign `-`.
-* Currently active inputs no longer re-validate during `componentWillReceiveProps`, ensuring that duplicate re-validation no longer occurs triggering `-1` error counts.
-
 ## DropdownFilter `freetext` mode
 
 Adds a new mode to `DropdownFilter` which prompts the user with suggest-style filtered options, but also allows typed
@@ -27,6 +18,15 @@ Usage:
 ```
 <DropdownFilter options={ options } freetext={ true } onChange={ this.onChange } />
 ```
+
+# 0.33.2
+
+## Bug fix
+
+* `Portrait`: Fixes image stacking.
+* Fixes decimal input displaying error with single negative sign `-`.
+* Fixes numeral validation exception with single negative sign `-`.
+* Currently active inputs no longer re-validate during `componentWillReceiveProps`, ensuring that duplicate re-validation no longer occurs triggering `-1` error counts.
 
 # 0.33.1
 
