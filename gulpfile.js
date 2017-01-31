@@ -2,12 +2,17 @@ var gulp = require('gulp');
 var yargs = require('yargs');
 var BuildTask = require('carbon-factory/lib/gulp/build').default;
 var SpecTask = require('carbon-factory/lib/gulp/spec').default;
+var generateColors = require('./script/generate-demo-colors').default;
 var express = require('express');
 var api = require('./demo/api');
 
 var argv = yargs.argv;
 
 var dir = argv.dir || 'demo';
+
+gulp.task('prepare-demo', function() {
+  generateColors();
+});
 
 gulp.task('webserver', function() {
   var app = express();
@@ -33,6 +38,6 @@ gulp.task('build', BuildTask({
   imageDest: './' + dir + '/assets/images'
 }));
 
-gulp.task('default', ['webserver', 'build']);
+gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 
 gulp.task('test', SpecTask());
