@@ -19,6 +19,7 @@
   - Animated Menu Button
   - App-Wrapper
   - Button
+  - Content
   - Create
   - Carousel
 
