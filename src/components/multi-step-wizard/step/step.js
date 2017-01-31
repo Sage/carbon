@@ -34,6 +34,24 @@ class Step extends React.Component {
     defaultButton: React.PropTypes.bool,
 
     /**
+     * Custom function that is called when moving the step forward.
+     * This function overrides the step's default behaviour of moving next.
+     *
+     * @property onNext
+     * @type {Function}
+     */
+    onNext: React.PropTypes.func,
+
+    /**
+     * Custom function that is called when moving the step backward.
+     * This function overrides the step's default behaviour of moving back.
+     *
+     * @property onBack
+     * @type {Function}
+     */
+    onBack: React.PropTypes.func,
+
+    /**
      * Additional buttons
      *
      * @property extraButtons
@@ -54,7 +72,6 @@ class Step extends React.Component {
     defaultButton: true
   }
 
-
   static contextTypes = {
     wizard: React.PropTypes.object
   }
@@ -65,9 +82,16 @@ class Step extends React.Component {
    * @method handleOnSubmit
    * @return {void}
    */
-  handleOnSubmit = () => {
-    this.wizard.complete();
-    this.wizard.submitHandler();
+  handleOnSubmit = (ev) => {
+    let valid = true;
+    if (this.wizard.beforeSubmitValidation) {
+      valid = this.wizard.beforeSubmitValidation(ev, this.currentStepNumber);
+    }
+
+    if (valid === true) {
+      this.wizard.complete();
+      this.wizard.submitHandler(ev);
+    }
   };
 
   /**
@@ -76,8 +100,10 @@ class Step extends React.Component {
    * @method handleOnNext
    * @return {void}
    */
-  handleOnNext = () => {
-    if (this.props.defaultButton) {
+  handleOnNext = (ev) => {
+    if (this.props.onNext) {
+      this.props.onNext(ev, this.currentStepNumber);
+    } else {
       this.wizard.next();
     }
   };
@@ -88,8 +114,10 @@ class Step extends React.Component {
    * @method handleOnBack
    * @return {void}
    */
-  handleOnBack = () => {
-    if (this.props.defaultButton) {
+  handleOnBack = (ev) => {
+    if (this.props.onBack) {
+      this.props.onBack(ev, this.currentStepNumber);
+    } else {
       this.wizard.back();
     }
   };
@@ -193,23 +221,25 @@ class Step extends React.Component {
    * @return {Object} JSX
    */
   get buttonHTML() {
-    if (this.props.defaultButton) {
+    if (this.props.defaultButton === false) {
+      return this.extraButtonHTML;
+    } else {
       let nextButton, backButton, submitButton;
 
       if (this.isLastStep) {
         submitButton = (<Button as='primary' onClick={ this.handleOnSubmit } className='multi-step-wizard-step__button submit'>
-                          { I18n.t('wizards.multi_step_wizard.buttons.submit', { defaultValue: 'Submit' }) }
-                        </Button>);
+          { I18n.t('wizards.multi_step_wizard.buttons.submit', { defaultValue: 'Submit' }) }
+        </Button>);
       } else {
         nextButton = (<Button as='primary' onClick={ this.handleOnNext } className='multi-step-wizard-step__button next'>
-                        { I18n.t('wizards.multi_step_wizard.buttons.next', { defaultValue: 'Next' }) }
-                      </Button>);
+          { I18n.t('wizards.multi_step_wizard.buttons.next', { defaultValue: 'Next' }) }
+        </Button>);
       }
 
       if (!this.isFirstStep) {
         backButton = (<Button onClick={ this.handleOnBack } className='multi-step-wizard-step__button back'>
-                        { I18n.t('wizards.multi_step_wizard.buttons.back', { defaultValue: 'Back' }) }
-                      </Button>);
+          { I18n.t('wizards.multi_step_wizard.buttons.back', { defaultValue: 'Back' }) }
+        </Button>);
       }
 
       return (
@@ -220,8 +250,6 @@ class Step extends React.Component {
           { this.extraButtonHTML }
         </div>
       );
-    } else {
-      return this.extraButtonHTML;
     }
   }
 
@@ -263,7 +291,7 @@ class Step extends React.Component {
     let extraButtons = (this.props.extraButtons || []);
 
     return extraButtons.map((button, index) => {
-      return (<span key={ index }>
+      return (<span key={ `multi-step-wizard-step-custom-buttons-${index}` }>
                 { button }
               </span>
       );

@@ -38,14 +38,14 @@
   color: $white;
 }
 
-.carbon-button-toggle__icon {
+.carbon-button-toggle__button-icon {
   display: inline-block;
   top: -2px;
   margin-right: 3px;
   position: relative;
 }
 
-.carbon-button-toggle__icon--large {
+.carbon-button-toggle__button-icon--large {
   display: block;
 
   .carbon-icon:before {
@@ -55,6 +55,6 @@
 
   .carbon-icon__svg {
     height: 64px;
-    width: 64x;
+    width: 64px;
   }
 }
