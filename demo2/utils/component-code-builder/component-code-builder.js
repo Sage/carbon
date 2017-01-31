@@ -58,12 +58,15 @@ class ComponentCodeBuilder {
     if (this.hasChildren) {
       this.code += `\n${spaces}${child}`;
     } else {
-      if (this.hasProps) {
-        this.code += `\n>\n`;
+      this.code += this.hasProps ? `\n>\n` : `>\n`;
+
+      if (child.length && typeof child !== 'string') {
+        child.forEach((c) => {
+          this.code += `${spaces}<${c.displayName} />\n`;
+        });
       } else {
-        this.code += `>\n`;
+        this.code += `${spaces}${child}\n`;
       }
-      this.code += `${spaces}${child}`;
       this.hasChildren = true;
     }
   }
@@ -73,7 +76,7 @@ class ComponentCodeBuilder {
     if (this.isClosed) { return; }
 
     if (this.hasChildren) {
-      this.code += `\n</${this.name}>`;
+      this.code += `</${this.name}>`;
     } else if (this.hasProps) {
       this.code += "\n/>";
     } else {

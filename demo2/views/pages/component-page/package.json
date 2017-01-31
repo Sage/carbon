@@ -1,0 +1,4 @@
+{
+  "main": "./component-page.js",
+  "style": "./component-page.scss"
+}
