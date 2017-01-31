@@ -47,7 +47,8 @@ describe('Input', () => {
 
     instanceTwo = TestUtils.renderIntoDocument(React.createElement(ExtendedClassTwo, {
       name: 'bar',
-      'data-element': 'foo'
+      'data-element': 'foo',
+      'data-member': 'foo member'
     }));
 
     onChange = jasmine.createSpy('onChange');

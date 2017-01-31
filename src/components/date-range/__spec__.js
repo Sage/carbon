@@ -198,4 +198,111 @@ describe('DateRange', () => {
       expect(dates[1].props.validations[0]).toEqual(jasmine.any(DateRangeValidator));
     });
   });
+
+  describe('start and end date props', () => {
+    it('dates are enabled by default', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2016-10-10','2016-11-11'] }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.disabled).toBeUndefined();
+      expect(dates[1].props.disabled).toBeUndefined();
+    });
+
+    it('dates can be disabled by passing startDateProps and endDateProps to DateRange', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2016-10-10','2016-11-11'] }
+          startDateProps={ { disabled: true } }
+          endDateProps={ { disabled: true } }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.disabled).toEqual(true);
+      expect(dates[1].props.disabled).toEqual(true);
+    });
+
+    it('Date values can be set via startDateProps and endDateProps', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          startDateProps={ { value: '2016-10-10' } }
+          endDateProps={ { value: '2016-11-11'  } }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.value).toEqual('2016-10-10');
+      expect(dates[1].props.value).toEqual('2016-11-11');
+    });
+
+    it('value prop is retained for backward compatibility', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2015-10-10','2015-11-11'] }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.value).toEqual('2015-10-10');
+      expect(dates[1].props.value).toEqual('2015-11-11');
+    });
+
+    it('value prop is overriden by startDateProps.value and endDateProps.value', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2015-10-10','2015-11-11'] }
+          startDateProps={ { value: '2016-10-10' } }
+          endDateProps={ { value: '2016-11-11'  } }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.value).toEqual('2016-10-10');
+      expect(dates[1].props.value).toEqual('2016-11-11');
+    });
+
+    it('default classNames are applied to start and end dates if none are explicitly specified', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2016-10-10','2016-11-11'] }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.className).toEqual('carbon-date-range carbon-date-range__start');
+      expect(dates[1].props.className).toEqual('carbon-date-range carbon-date-range__end');
+    });
+
+    it('class names can be added to dates by passing startDateProps and endDateProps to DateRange', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2016-10-10','2016-11-11'] }
+          startDateProps={ { className: 'custom-start-class' } }
+          endDateProps={ { className: 'custom-end-class' } }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.className).toEqual('carbon-date-range carbon-date-range__start custom-start-class');
+      expect(dates[1].props.className).toEqual('carbon-date-range carbon-date-range__end custom-end-class');
+    });
+
+    it('validations can be added to dates by passing startDateProps and endDateProps to DateRange', () => {
+      let labelInstance = TestUtils.renderIntoDocument(
+        <DateRange
+          onChange={ customOnChange }
+          value={ ['2016-10-10','2016-11-11'] }
+          startDateProps={ { validations: ['custom validation'] } }
+        />
+      );
+      let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
+      expect(dates[0].props.validations.length).toEqual(2);
+      expect(dates[0].props.validations[1]).toEqual('custom validation');
+      expect(dates[1].props.validations.length).toEqual(1);
+    });
+  });
 });

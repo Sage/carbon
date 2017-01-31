@@ -7,6 +7,7 @@
 ## !! BREAKING CHANGES!! :warning:
 
 * Banner Component has been Deleted in favour of the Message Component
+* `ButtonToggle`: `icon` and `iconSize` become `buttonIcon` and `buttonIconSize` to avoid clash with Input decorator
 * Menu List - Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
 
 ## Potentially breaking changes
@@ -19,10 +20,15 @@
   - App-Wrapper
   - Button
   - Create
+  - Carousel
 
 ## Component Enhancements
 
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
+
+## Bug Fixes
+
+* `ButtonToggle`: css typo corrected
 
 ## data-attributes on components
 
@@ -35,6 +41,36 @@ So far we have added attributes to the following components:
 ## Dependency Update
 
 * Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+
+# 0.34.0
+
+## Component Enhancements
+
+* `DateRange`: Two new props have been added, `startDateProps` and `endDateProps`, to apply props to the child `Date` components.
+* `MultiStepWizard` now allows adding callbacks when clicking on Next/Back button and allows adding validation callback before wizard submission when clicking on Submit button. 
+
+## DropdownFilter `freetext` mode
+
+Adds a new mode to `DropdownFilter` which prompts the user with suggest-style filtered options, but also allows typed
+entries that do not match any options. If the typed string exactly matches the name of an option, that option is
+automatically selected on blur, and the `onChange` event target will specify the option id as `value` and name as
+`visibleValue`, just as if it had been clicked. If the typed string does not match any options on blur, it remains as
+the input value and `onChange` will carry an empty string `value` and the typed string as `visibleValue`.
+
+Usage:
+
+```
+<DropdownFilter options={ options } freetext={ true } onChange={ this.onChange } />
+```
+
+# 0.33.2
+
+## Bug fix
+
+* `Portrait`: Fixes image stacking.
+* Fixes decimal input displaying error with single negative sign `-`.
+* Fixes numeral validation exception with single negative sign `-`.
+* Currently active inputs no longer re-validate during `componentWillReceiveProps`, ensuring that duplicate re-validation no longer occurs triggering `-1` error counts.
 
 # 0.33.1
 

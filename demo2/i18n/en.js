@@ -22,7 +22,7 @@ I18n.translations['en'] = {
 
   homepage: {
     component_showcase: {
-      heading: 'The buidling blocks of ',
+      heading: 'The building blocks of ',
       heading_suffix: 'awesome UI',
       text: 'Powerful components, flexible configurations, easy code, and amazing user experience - all working together to build your incredible web application.'
     },
