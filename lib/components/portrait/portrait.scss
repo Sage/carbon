@@ -2,6 +2,7 @@
 
 .carbon-portrait {
   display: inline-block;
+  position: relative;
   vertical-align: middle;
 }
 
@@ -11,7 +12,7 @@
 
 .carbon-portrait__avatar {
   display: inline-block;
-  position: relative;
+  position: absolute;
 }
 
 .carbon-portrait__sans-initials {
@@ -20,10 +21,6 @@
   background-color: $grey-dark-blue-10;
   color: $grey-dark-blue-50;
   box-sizing: border-box;
-}
-
-.carbon-portrait__img {
-  float: left;
 }
 
 .carbon-portrait--standard .carbon-portrait__img {
