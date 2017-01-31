@@ -212,6 +212,15 @@ describe('DropdownFilter', () => {
           });
         });
 
+        describe('when text matches an option name but has a different case', () => {
+          it('selects the option', () => {
+            instance.setState({ filter: 'FoObAr' });
+            spyOn(instance, 'selectValue');
+            instance.handleBlur();
+            expect(instance.selectValue).toHaveBeenCalledWith(optid, optnm);
+          });
+        });
+
         describe('when text does not match an option name', () => {
           it('emits change event with text value', () => {
             let text = 'Other';
@@ -219,6 +228,22 @@ describe('DropdownFilter', () => {
             spyOn(instance, 'emitOnChangeCallback');
             instance.handleBlur();
             expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('', text);
+          });
+        });
+
+        describe('when option does not have a name', () => {
+          beforeEach(() => {
+            options.push({ id: '2', name: null });
+            instance = TestUtils.renderIntoDocument(
+              <DropdownFilter name="foo" options={ Immutable.fromJS(options) } value="1" freetext={ true } />
+            );
+          });
+
+          it('does not select the empty option', () => {
+            instance.setState({ filter: 'foo' });
+            spyOn(instance, 'emitOnChangeCallback');
+            instance.handleBlur();
+            expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('', 'foo');
           });
         });
       });
