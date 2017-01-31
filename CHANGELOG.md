@@ -20,6 +20,7 @@
   - App-Wrapper
   - Button
   - Create
+  - Carousel
 
 ## Component Enhancements
 
