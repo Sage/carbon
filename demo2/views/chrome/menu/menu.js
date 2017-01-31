@@ -26,7 +26,15 @@ class Menu extends React.Component {
    */
   get componentsHTML() {
     return ComponentList.map((item, i) => {
-      return <MenuListItem key={ i } name={ item.name }><Link>{ item.name }</Link></MenuListItem>;
+      return (
+        <MenuListItem
+          key={ i }
+          name={ item.name }
+          tags={ item.tags.concat(item.type) }
+        >
+          <Link>{ item.name }</Link>
+        </MenuListItem>
+      );
     });
   }
   get stylesHTML() {

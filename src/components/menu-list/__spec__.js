@@ -110,4 +110,39 @@ describe('MenuList', () => {
       expect(filter.props().autoFocus).toEqual(true);
     });
   });
+
+  describe('filtering with tags', () => {
+    const taggedItems = [
+       { name: 'One',   tags: ['foo', 'bar', 'baz'] },
+       { name: 'Two',   tags: []                    },
+       { name: 'Three'                              },
+       { name: 'Four',  tags: ['quux']              }
+    ];
+
+    it('loops through the tags to find a filter match', () => {
+      itemHTML = taggedItems.map((item, index) => {
+        return (
+          <li
+            key={ `${item.name}.${index}` }
+            tags={ item.tags }
+            name={ item.name }>
+            { item.name }
+          </li>
+        );
+      });
+
+      wrapper = shallow(
+        <MenuList filter={ true } collapsible={ false }>
+          { itemHTML }
+        </MenuList>
+      );
+
+      let filter = wrapper.find(Textbox);
+      filter.simulate('change', { target: { value: 'baz' } });
+
+      expect(filter.length).toEqual(1);
+      expect(wrapper.find('li').length).toEqual(1);
+      expect(wrapper.find('li').props().name).toEqual('One');
+    });
+  });
 });

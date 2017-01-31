@@ -7,6 +7,8 @@ import Textbox from 'components/textbox';
 
 import MenuListItem from './menu-list-item';
 
+import { find } from 'lodash';
+
 /**
 
  *
@@ -44,6 +46,7 @@ class MenuList extends React.Component {
     this.onSearch = this.onSearch.bind(this);
     this.showMenuItems = this.showMenuItems.bind(this);
     this.toggleChildren = this.toggleChildren.bind(this);
+    this.filteredItems = this.filteredItems.bind(this);
   }
 
   static propTypes = {
@@ -51,11 +54,12 @@ class MenuList extends React.Component {
     className: PropTypes.string,
     filter: PropTypes.bool,
     title: PropTypes.string,
-    collapsible: PropTypes.bool
+    collapsible: PropTypes.bool,
+    tags: PropTypes.array
   };
 
   state = {
-    filter: null,
+    filter: '',
     open: this.props.initiallyOpen || false
   }
 
@@ -109,8 +113,7 @@ class MenuList extends React.Component {
       let items = this.props.children;
 
       if (this.props.filter && this.state.filter) {
-        let regex = new RegExp(escapeStringRegexp(this.state.filter), 'i');
-        items = items.filter(child => child.props.name.search(regex) > -1);
+        items = this.filteredItems(items);
       }
 
       return ([
@@ -128,6 +131,21 @@ class MenuList extends React.Component {
         { this.props.title }
       </Link>
     );
+  }
+
+  filteredItems(items) {
+    let regex = new RegExp(escapeStringRegexp(this.state.filter), 'i');
+    return items.filter((child) => {
+      return this.filterMatchesName(child, regex) || this.filterMatchesTag(child, regex);
+    });
+  }
+
+  filterMatchesName(child, regex) {
+    return child.props.name.search(regex) > -1;
+  }
+
+  filterMatchesTag(child, regex) {
+    return child.props.tags && find(child.props.tags, (tagChild => { return tagChild.search(regex) > -1; }));
   }
 }
 
