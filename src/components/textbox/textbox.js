@@ -69,6 +69,7 @@ class Textbox extends React.Component {
         ref={ (comp) => this._target = comp }
         data-component="textbox"
         data-element={ this.props["data-element"] }
+        data-member={ this.props["data-member"] }
       >
         { this.labelHTML }
         { this.inputHTML }
