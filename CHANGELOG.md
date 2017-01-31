@@ -1,3 +1,24 @@
+# 0.34.0
+
+## Component Enhancements
+
+* `DateRange`: Two new props have been added, `startDateProps` and `endDateProps`, to apply props to the child `Date` components.
+* `MultiStepWizard` now allows adding callbacks when clicking on Next/Back button and allows adding validation callback before wizard submission when clicking on Submit button. 
+
+## DropdownFilter `freetext` mode
+
+Adds a new mode to `DropdownFilter` which prompts the user with suggest-style filtered options, but also allows typed
+entries that do not match any options. If the typed string exactly matches the name of an option, that option is
+automatically selected on blur, and the `onChange` event target will specify the option id as `value` and name as
+`visibleValue`, just as if it had been clicked. If the typed string does not match any options on blur, it remains as
+the input value and `onChange` will carry an empty string `value` and the typed string as `visibleValue`.
+
+Usage:
+
+```
+<DropdownFilter options={ options } freetext={ true } onChange={ this.onChange } />
+```
+
 # 0.33.2
 
 ## Bug fix
