@@ -197,19 +197,6 @@ class Date extends React.Component {
   }
 
   /**
-   * Updates field with the formatted date value.
-   *
-   * @method updateVisibleValue
-   * @return {void}
-   */
-  updateVisibleValue = () => {
-    let date = formatVisibleValue(this.props.value, this);
-    this.setState({
-      visibleValue: date
-    });
-  }
-
-  /**
    * Handles user input and updates date picker appropriately.
    *
    * @method handleVisibleInputChange
@@ -253,17 +240,6 @@ class Date extends React.Component {
     this.blockBlur = true;
     this.closeDatePicker();
     this.emitOnChangeCallback(val);
-    this.updateVisibleValue();
-  }
-
-  /**
-   * Updates visible value on blur
-   *
-   * @method handleBlur
-   * @return {void}
-   */
-  handleBlur = () => {
-    this.updateVisibleValue();
   }
 
   /**
@@ -317,7 +293,6 @@ class Date extends React.Component {
     let { ...props } = validProps(this);
     props.className = this.inputClasses;
     props.onChange = this.handleVisibleInputChange;
-    props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
     props.onKeyDown = this.handleKeyDown;
 
