@@ -23,7 +23,19 @@ let definition = {
 
 definition.demoProps = {
   align: 'left',
-  children: DemoHelper.elemArray(tabDefinition, 6, 'tabId'),
+  children: [{
+    definition: tabDefinition,
+    demoProps: {
+      title: "Tab 1",
+      children: "Content for tab 1"
+    }
+  }, {
+    definition: tabDefinition,
+    demoProps: {
+      title: "Tab 2",
+      children: "Content for tab 2"
+    }
+  }],
   position: 'top',
   renderHiddenTabs: false
 };

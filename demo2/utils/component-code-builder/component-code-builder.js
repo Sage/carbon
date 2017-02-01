@@ -18,9 +18,24 @@ class ComponentCodeBuilder {
 
   // adds multiple props to the code based on the keys and data hash
   addProps = (props, data) => {
-    for (let index in props) {
-      let prop = props[index];
-      return this.addProp(prop, data.get(prop));
+    let children = data.get('children');
+
+    props.forEach((_, prop) => {
+      if (prop !== "children") {
+        this.addProp(prop, data.get(prop));
+      }
+    });
+
+    if (children) {
+      if (typeof children === "object") {
+        children.forEach((child) => {
+          let childCode = new ComponentCodeBuilder(child.getIn(['definition', 'text', 'name']));
+          childCode.addProps(child.getIn(['definition', 'props']), child.get('demoProps'))
+          this.addChild(childCode);
+        });
+      } else {
+        this.addChild(children);
+      }
     }
   }
 
@@ -58,15 +73,12 @@ class ComponentCodeBuilder {
     if (this.hasChildren) {
       this.code += `\n${spaces}${child}`;
     } else {
-      this.code += this.hasProps ? `\n>\n` : `>\n`;
-
-      if (child.length && typeof child !== 'string') {
-        child.forEach((c) => {
-          this.code += `${spaces}<${c.displayName} />\n`;
-        });
+      if (this.hasProps) {
+        this.code += `\n>\n`;
       } else {
-        this.code += `${spaces}${child}\n`;
+        this.code += `>\n`;
       }
+      this.code += `${spaces}${child}`;
       this.hasChildren = true;
     }
   }
@@ -76,7 +88,7 @@ class ComponentCodeBuilder {
     if (this.isClosed) { return; }
 
     if (this.hasChildren) {
-      this.code += `</${this.name}>`;
+      this.code += `\n</${this.name}>`;
     } else if (this.hasProps) {
       this.code += "\n/>";
     } else {

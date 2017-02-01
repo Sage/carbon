@@ -12,6 +12,7 @@ import Dropdown from 'components/dropdown';
 import Form from 'components/form';
 import Textarea from 'components/textarea';
 import Textbox from 'components/textbox';
+import { Table, TableRow, TableCell, TableHeader } from 'components/table';
 
 import OptionsHelper from 'utils/helpers/options-helper';
 
@@ -36,7 +37,6 @@ export default props => (
   >
     <div className= { `component-preview component-preview--${props.definition.get('key')}` }>
       <div className='component-preview__component-wrapper'>
-        { buildPreview(props) }
       </div>
       <div className='component-preview__interaction'>
         <form className='component-preview__controls'>
@@ -70,44 +70,9 @@ function getProps(props) {
  * @return {String} code string
  */
 const buildCode = (props) => {
-  let count = getCount(props.definition.get('demoRenderCount')),
-      codeString = '',
-      i = 0;
-
-  for (; i < count; i ++) {
-    let children = null,
-        codeObj = new ComponentCodeBuilder(props.definition.getIn(['text', 'name']));
-
-    props.definition.get('demoProps').forEach((prop, key) => {
-      if (key === "children") {
-        children = prop;
-      } else {
-        let value;
-
-        if (typeof prop === "function") {
-          value = `{ Actions.${key} }`;
-        } else {
-          value = prop.toJS ? prop.toJS() : prop;
-        }
-
-        codeObj.addProp(key, value);
-      }
-    });
-
-    if (children) {
-      children.toJS
-        ? codeObj.addChild(children.toJS())
-        : codeObj.addChild(children);
-    }
-
-    codeString += codeObj.toString();
-
-    if (i < count-1) {
-      codeString += '\n\n';
-    }
-  }
-
-  return codeString;
+  var code = new ComponentCodeBuilder(props.definition.getIn(['text', 'name']));
+  code.addProps(props.definition.get('props'), props.definition.get('demoProps'));
+  return code.toString();
 }
 
 /**
@@ -139,6 +104,28 @@ const buildFields = (props) => {
       }
     }
   });
+
+  let tableRows = [];
+
+  demoProps.get('children').forEach((child) => {
+    let childProps = child.get('demoProps'),
+        tableCells = [],
+        headerCells = [];
+
+    childProps.forEach((data, key) => {
+      if (tableRows.length === 0) {
+        headerCells.push(<TableHeader key={ key }>{ key }</TableHeader>);
+      }
+      tableCells.push(<TableCell key={ key }>{ data }</TableCell>);
+    });
+
+    if (tableRows.length === 0) {
+      tableRows.push(<TableRow>{ headerCells }</TableRow>);
+    }
+    tableRows.push(<TableRow>{ tableCells }</TableRow>);
+  });
+
+  fieldObj.push(<Table>{ tableRows }</Table>);
 
   return fieldObj;
 }
