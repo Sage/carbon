@@ -5,8 +5,11 @@
   flex-direction: column;
   padding: 120px 0 0;
 
+  &__image-wrapper {
+    display: flex;
+  }
+
   &__image {
-    width: 80%;
-    padding: 0 10%;
+    margin: 0 auto;
   }
 }
