@@ -8,8 +8,9 @@ import { MonthView, NavBar } from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
+import DateValidator from './../../utils/validations/date';
 import chainFunctions from './../../utils/helpers/chain-functions';
-import { validProps } from '../../utils/ether';
+import { validProps } from './../../utils/ether';
 
 
 /**
@@ -68,7 +69,9 @@ class Date extends React.Component {
      * @type {String}
      * @default Today's date
      */
-    defaultValue: moment().format("YYYY-MM-DD")
+    defaultValue: moment().format("YYYY-MM-DD"),
+
+    internalValidations: [ new DateValidator ]
   }
 
   state = {
@@ -176,11 +179,11 @@ class Date extends React.Component {
    */
   openDatePicker = () => {
     this._document.addEventListener("click", this.closeDatePicker);
-    var value = this.props.value || getDefaultValue(this);
-    this.setState({
-      open: true,
-      viewDate: value
-    });
+    this.setState({ open: true });
+
+    if (isValidDate(this.props.value)) {
+      this.setState({ viewDate: this.props.value });
+    }
   }
 
   /**
@@ -227,6 +230,8 @@ class Date extends React.Component {
       let hiddenValue = formatValue(input, formats, hiddenFormat());
       newState.viewDate = hiddenValue;
       this.emitOnChangeCallback(hiddenValue);
+    } else {
+      this.emitOnChangeCallback(ev.target.value);
     }
     this.setState(newState);
   }
@@ -323,6 +328,7 @@ class Date extends React.Component {
 
     delete props.autoFocus;
     delete props.defaultValue;
+    delete props.internalValidations;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = chainFunctions(this.handleFocus, props.onFocus);
@@ -340,7 +346,6 @@ class Date extends React.Component {
   get hiddenInputProps() {
     let props = {
       ref: "hidden",
-      type: "hidden",
       readOnly: true
     };
 
@@ -349,6 +354,7 @@ class Date extends React.Component {
     } else {
       props.defaultValue = this.props.defaultValue;
     }
+
 
     return props;
   }
@@ -397,7 +403,7 @@ class Date extends React.Component {
   */
   get datePickerProps() {
     return {
-      date: this.props.value || getDefaultValue(this),
+      date: this.state.viewDate,
       dateFormat: hiddenFormat(),
       enableHistoryView: false,
       highlightToday: true,
@@ -500,6 +506,7 @@ function visibleFormat() {
  * @return {Array} formatted date strings
  */
 function validFormats() {
+  // These defaults are also maintains in date validation but should not get out of sync is user user i18n
   return I18n.t('date.formats.inputs', { defaultValue: ["MMM/DD/YY", "DD/MM", "DD/MM/YYYY", "DD/MMM/YYYY", "YYYY/MM/DD"] });
 }
 
@@ -514,6 +521,10 @@ function hiddenFormat() {
   return "YYYY-MM-DD";
 }
 
+function isValidDate(val) {
+  return moment(val, validFormats(), I18n.locale, true).isValid();
+}
+
 /**
  * Formats the given value to a specified format
  *
@@ -526,7 +537,10 @@ function hiddenFormat() {
  */
 function formatValue(val, formatFrom, formatTo) {
   let date = moment(val, formatFrom, I18n.locale, true);
-  return date.format(formatTo);
+  if (date.isValid()) {
+    return date.format(formatTo);
+  }
+  return val;
 }
 
 /**
