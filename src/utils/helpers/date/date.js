@@ -4,6 +4,14 @@ import { merge } from 'lodash';
 
 const DateHelper = {
 
+  /**
+   * Default options to pass to moment js
+   *
+   * formats - given accepted formats
+   * locale - current locale
+   * strict - moment js strict mode
+   * sanitize - should value be sanitized before parsing
+   */
   defaultMomentOptions: () => {
     return {
       formats: DateHelper.dateFormats(),
@@ -13,6 +21,13 @@ const DateHelper = {
     };
   },
 
+  /**
+   * Parses date into moment
+   *
+   * @param {String} value - value to parse
+   * @param {Object} options Override Moment JS options
+   * @return {Moment}
+   */
   parseDate: (value, options = {}) => {
     let opts = merge(DateHelper.defaultMomentOptions(), options);
     let val = options.sanitize ? DateHelper.sanitizeDateInput(value) : value
@@ -36,13 +51,19 @@ const DateHelper = {
   * Formats valid for entry
   *
   * @method validFormats
-  * @private
   * @return {Array} formatted date strings
   */
   dateFormats: () => {
     return I18n.t('date.formats.inputs', { defaultValue: ["MMM/DD/YY", "DD/MM", "DD/MM/YYYY", "DD/MMM/YYYY", "YYYY/MM/DD"] });
   },
 
+  /**
+   * Determins if date is valid
+   *
+   * @param {String} value - value to validate
+   * @param {Object} options Override Moment JS options
+   * @return {Moment}
+   */
   isValidDate: (value, options = {}) => {
     return DateHelper.parseDate(value, options).isValid();
   },
@@ -61,10 +82,23 @@ const DateHelper = {
     return date.isValid() ? date.format(formatTo) : value
   },
 
+  /**
+   * Returns todays date formatted
+   *
+   * @param {String} format - format of date
+   * @return {Moment}
+   */
   todayFormatted: (format) => {
     return moment().format(format);
   },
 
+  /**
+   * Returns an array of days of the week by locale minfied
+   * Mo, Tu, We, Th, Fr, Sa, Su
+   *
+   * @param {String} locale - defaulted to I18n.locale
+   * @return {Array}
+   */
   weekdaysMinified: (locale = I18n.locale) => {
     return moment.localeData(I18n.locale)._weekdaysMin;
   }

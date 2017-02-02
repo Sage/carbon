@@ -472,7 +472,6 @@ class Date extends React.Component {
   * Formats the visible date using i18n
   *
   * @method visibleFormat
-  * @private
   * @return {String} formatted date string
   */
   visibleFormat() {
@@ -507,7 +506,6 @@ class Date extends React.Component {
    * Returns defaultValue for specified scope,
    *
    * @method getDefaultValue
-   * @private
    * @param {Object} scope used to get default value of current scope
    * @return {String} default value
    */
