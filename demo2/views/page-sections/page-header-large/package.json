@@ -1,4 +1,4 @@
 {
   "main": "./page-header-large.js",
-  "style": "page-header-large.scss"
+  "style": "./page-header-large.scss"
 }

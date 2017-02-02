@@ -1,4 +1,4 @@
 {
   "main": "./icon-panel.js",
-  "style": "icon-panel.scss"
+  "style": "./icon-panel.scss"
 }

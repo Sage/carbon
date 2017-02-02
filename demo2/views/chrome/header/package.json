@@ -1,4 +1,4 @@
 {
   "main": "./header.js",
-  "style": "header.scss"
+  "style": "./header.scss"
 }

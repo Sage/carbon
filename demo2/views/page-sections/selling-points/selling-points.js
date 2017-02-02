@@ -1,11 +1,11 @@
 import React from 'react';
 import I18n from 'i18n-js';
 
-import ComplexHeading from '../../components/complex-heading';
-import ContentGrid from '../../components/content-grid';
-import ContentGridItem from '../../components/content-grid/content-grid-item';
-import SellingPointPanel from '../../components/selling-point-panel';
-import Wrapper from '../../chrome/wrapper';
+import ComplexHeading from './../../../components/complex-heading';
+import ContentGrid from './../../../components/content-grid';
+import ContentGridItem from './../../../components/content-grid/content-grid-item';
+import SellingPointPanel from './../../../components/selling-point-panel';
+import Wrapper from './../../chrome/wrapper';
 
 /**
  * A set of icons representing selling points of Carbon

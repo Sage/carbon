@@ -1,12 +1,12 @@
 import React from 'react';
 import I18n from 'i18n-js';
 
-import IconPanel from '../../components/icon-panel';
-import ContentGrid from '../../components/content-grid';
-import ContentGridItem from '../../components/content-grid/content-grid-item';
-import Download from '../../page-sections/download';
-import PageContentArea from '../../page-sections/page-content-area';
-import SubPageChrome from '../../sub-page-chrome';
+import IconPanel from './../../../components/icon-panel';
+import ContentGrid from './../../../components/content-grid';
+import ContentGridItem from './../../../components/content-grid/content-grid-item';
+import Download from './../../page-sections/download';
+import PageContentArea from './../../page-sections/page-content-area';
+import SubPageChrome from './../../sub-page-chrome';
 
 import IconList from './icon-list';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Flux
-import DemoActions from '../../../actions/demo';
+import DemoActions from './../../../actions/demo';
 
 // Carbon
 import Link from 'components/link';
@@ -9,8 +9,8 @@ import { Sidebar, SidebarHeader } from 'components/sidebar';
 import { MenuListItem, MenuList } from 'components/menu-list';
 
 // Demo Site
-import GetCodeButtons from '../../components/get-code-buttons';
-import Definitions from '../../../definitions';
+import GetCodeButtons from './../../../components/get-code-buttons';
+import Definitions from './../../../definitions';
 
 import I18n from 'i18n-js';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import I18n from 'i18n-js';
 
-import ComplexHeading from '../../components/complex-heading';
-import Wrapper from '../../chrome/wrapper';
+import ComplexHeading from './../../../components/complex-heading';
+import Wrapper from './../../chrome/wrapper';
 
 /**
  * Shows off some of the components

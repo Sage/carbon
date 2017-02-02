@@ -18,7 +18,7 @@ import DemoHelper from 'utils/helpers/demo-helper';
 
 let definitionKeys = Object.keys(Definitions).sort();
 
-class ComponentPage extends React.Component {
+class Component extends React.Component {
   render() {
     let def = this.state.componentStore.get(this.props.name);
     let position = this._componentPosition(def);
@@ -99,5 +99,5 @@ class ComponentPage extends React.Component {
   }
 }
 
-export default connect(ComponentPage, ComponentStore);
+export default connect(Component, ComponentStore);
 

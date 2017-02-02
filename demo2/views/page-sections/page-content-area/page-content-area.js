@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import SimpleHeading from '../../components/simple-heading';
-import Wrapper from '../../chrome/wrapper';
+import SimpleHeading from './../../../components/simple-heading';
+import Wrapper from './../../chrome/wrapper';
 
 /**
  * Simple, site wrapped content area that loads a heading

@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import ArrowLink from '../../components/arrow-link';
-import Wrapper from '../../chrome/wrapper';
+import ArrowLink from './../../../components/arrow-link';
+import Wrapper from './../../chrome/wrapper';
 
 /**
  * Creates a Link wrapped HTML component that renders a label with prefix and an arrow icon

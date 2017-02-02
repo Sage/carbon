@@ -1,4 +1,4 @@
 {
   "main": "./color-panel.js",
-  "style": "color-panel.scss"
+  "style": "./color-panel.scss"
 }

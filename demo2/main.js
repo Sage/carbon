@@ -6,7 +6,6 @@ import { startRouter } from 'utils/router';
 // Languages
 import './i18n/en';
 
-import ComponentPage from './views/pages/component-page';
 import ComponentStore from './stores/component';
 
 // Demo
@@ -14,11 +13,12 @@ import Chrome from './views/chrome';
 import Home from './views/pages/home';
 import Colors from './views/pages/colors';
 import Icons from './views/pages/icons';
+import Component from './views/pages/component';
 
 let componentRoutes = [];
 
 ComponentStore.data.forEach((definition, index) => {
-  let Wrapper = props => <ComponentPage name={ definition.get('key') } />;
+  let Wrapper = props => <Component name={ definition.get('key') } />;
   componentRoutes.push(<Route key={ index } path={ `/components/${definition.get('key')}` } component={ Wrapper } />);
 });
 
