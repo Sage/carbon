@@ -32,7 +32,7 @@ describe('Blank Validator', () => {
     });
 
     describe('When the value is NOT a valid date', () => {
-      it('returns falsy', () => {
+      it('returns false', () => {
         expect(validator.validate('FOO')).toBeFalsy();
       });
     });

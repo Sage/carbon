@@ -611,6 +611,12 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     return this.context.form && (this.context.form.getActiveInput() === this);
   }
 
+  /**
+   * Merges passed prop validations with internal component validations
+   *
+   * @method _validations
+   * @return {Array} validations
+   */
   _validations = () => {
     let validations = (this.props.validations || []).concat(this.props.internalValidations || []);
     return validations.length ? validations : null;
