@@ -10,7 +10,7 @@ class DateValidator {
 
   validate = (value) => {
     let validFormats = I18n.t('date.formats.inputs', { defaultValue: ["MMM/DD/YY", "DD/MM", "DD/MM/YYYY", "DD/MMM/YYYY", "YYYY/MM/DD"] });
-    return !value && moment(this._sanitize(value), validFormats, I18n.locale, true).isValid();
+    return !value || moment(this._sanitize(value), validFormats, I18n.locale, true).isValid();
   }
 
   message = () => {
