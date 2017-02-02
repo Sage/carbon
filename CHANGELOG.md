@@ -1,3 +1,9 @@
+# 0.35.0
+
+## Component Enchancements
+
+* `Date` now shows error validation when an invalid date is entered.
+
 # 0.34.1
 
 ## Component Enhancements
