@@ -8,9 +8,9 @@ import { MonthView, NavBar } from 'react-date-picker';
 import moment from 'moment';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
+import DateValidator from './../../utils/validations/date';
 import chainFunctions from './../../utils/helpers/chain-functions';
 import { validProps } from '../../utils/ether';
-
 
 /**
  * A Date widget.
@@ -52,7 +52,16 @@ class Date extends React.Component {
      * @type {String}
      * @default Today's date
      */
-    defaultValue: moment().format("YYYY-MM-DD")
+    defaultValue: moment().format("YYYY-MM-DD"),
+
+    /**
+     * Sets some validations that should always be found on the component
+     *
+     * @property internalValidations
+     * @type {Array}
+     * @default DateValidator
+     */
+    internalValidations: [ new DateValidator ]
   }
 
   state = {
@@ -161,10 +170,10 @@ class Date extends React.Component {
   openDatePicker = () => {
     this._document.addEventListener("click", this.closeDatePicker);
     var value = this.props.value || getDefaultValue(this);
-    this.setState({
-      open: true,
-      viewDate: value
-    });
+    this.setState({ open: true });
+    if (isValidDate(value)) {
+      this.setState({ viewDate: value });
+    }
   }
 
   /**
@@ -211,6 +220,8 @@ class Date extends React.Component {
       let hiddenValue = formatValue(input, formats, hiddenFormat());
       newState.viewDate = hiddenValue;
       this.emitOnChangeCallback(hiddenValue);
+    } else {
+      this.emitOnChangeCallback(ev.target.value);
     }
     this.setState(newState);
   }
@@ -379,7 +390,7 @@ class Date extends React.Component {
   */
   get datePickerProps() {
     return {
-      date: this.props.value || getDefaultValue(this),
+      date: this.state.viewDate,
       dateFormat: hiddenFormat(),
       enableHistoryView: false,
       highlightToday: true,
@@ -496,6 +507,17 @@ function hiddenFormat() {
 }
 
 /**
+ * Determines if the date is valid
+ *
+ * @method isValidDate
+ * @private
+ * @return {Boolean}
+ */
+function isValidDate(val) {
+  return moment(val, validFormats(), I18n.locale, true).isValid();
+}
+
+/**
  * Formats the given value to a specified format
  *
  * @method formatValue
@@ -507,7 +529,10 @@ function hiddenFormat() {
  */
 function formatValue(val, formatFrom, formatTo) {
   let date = moment(val, formatFrom, I18n.locale, true);
-  return date.format(formatTo);
+  if (date.isValid()) {
+    return date.format(formatTo);
+  }
+  return val;
 }
 
 /**
