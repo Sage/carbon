@@ -2,27 +2,19 @@ import I18n from "i18n-js";
 import moment from 'moment';
 import { merge } from 'lodash';
 
+/**
+ * DateHelper used to encapsulate the date parsing library into a single helper
+ */
 const DateHelper = {
 
-  /**
-   * Default options to pass to moment js
-   *
-   * formats - given accepted formats
-   * locale - current locale
-   * strict - moment js strict mode
-   * sanitize - should value be sanitized before parsing
-   */
-  defaultMomentOptions: () => {
-    return {
-      formats: DateHelper.dateFormats(),
-      locale: I18n.locale,
-      strict: true,
-      sanitize: true
-    };
+  // Allows us to spy on moment
+  _moment: () => {
+    return moment;
   },
 
   /**
    * Parses date into moment
+   * Note when sanitizing dates formats must contain '/' for separators
    *
    * @param {String} value - value to parse
    * @param {Object} options Override Moment JS options
@@ -30,8 +22,8 @@ const DateHelper = {
    */
   parseDate: (value, options = {}) => {
     let opts = merge(DateHelper.defaultMomentOptions(), options);
-    let val = options.sanitize ? DateHelper.sanitizeDateInput(value) : value
-    return moment(val, opts.formats, opts.locale, opts.strict);
+    let val = opts.sanitize ? DateHelper.sanitizeDateInput(value) : value;
+    return DateHelper._moment()(val, opts.formats, opts.locale, opts.strict);
   },
 
   /**
@@ -44,6 +36,7 @@ const DateHelper = {
    * @return {String} sanitized input
    */
   sanitizeDateInput: (value) => {
+    if (!value) { return ''; }
     return value.replace(/[^0-9A-zÀ-ÿ\s\/\.\-]/g, "").replace(/[-.\s]/g, "/").toLowerCase();
   },
 
@@ -62,7 +55,7 @@ const DateHelper = {
    *
    * @param {String} value - value to validate
    * @param {Object} options Override Moment JS options
-   * @return {Moment}
+   * @return {Boolean}
    */
   isValidDate: (value, options = {}) => {
     return DateHelper.parseDate(value, options).isValid();
@@ -79,7 +72,7 @@ const DateHelper = {
  */
   formatValue: (value, formatTo, options = {}) => {
     let date = DateHelper.parseDate(value, options);
-    return date.isValid() ? date.format(formatTo) : value
+    return date.isValid() ? date.format(formatTo) : value;
   },
 
   /**
@@ -89,7 +82,7 @@ const DateHelper = {
    * @return {Moment}
    */
   todayFormatted: (format) => {
-    return moment().format(format);
+    return DateHelper._moment()().format(format);
   },
 
   /**
@@ -99,9 +92,26 @@ const DateHelper = {
    * @param {String} locale - defaulted to I18n.locale
    * @return {Array}
    */
-  weekdaysMinified: (locale = I18n.locale) => {
-    return moment.localeData(I18n.locale)._weekdaysMin;
-  }
-}
+  weekdaysMinified: () => {
+    return DateHelper._moment().localeData(I18n.locale)._weekdaysMin;
+  },
+
+  /**
+   * Default options to pass to moment js
+   *
+   * formats - given accepted formats
+   * locale - current locale
+   * strict - moment js strict mode
+   * sanitize - should value be sanitized before parsing
+   */
+  defaultMomentOptions: () => {
+    return {
+      formats: DateHelper.dateFormats(),
+      locale: I18n.locale,
+      strict: true,
+      sanitize: true
+    };
+  },
+};
 
 export default DateHelper;
