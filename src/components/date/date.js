@@ -54,6 +54,13 @@ class Date extends React.Component {
      */
     defaultValue: DateHelper.todayFormatted("YYYY-MM-DD"),
 
+    /**
+    * Sets validations that should always be found on the component
+    *
+    * @property internalValidations
+    * @type {Array}
+    * @default DateValidator
+    */
     internalValidations: [ new DateValidator ]
   }
 
