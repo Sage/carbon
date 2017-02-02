@@ -26,6 +26,7 @@
 ## Component Enhancements
 
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
+* `Date` now shows error validation when an invalid date is entered.
 
 ## Bug Fixes
 
