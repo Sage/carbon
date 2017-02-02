@@ -7,12 +7,10 @@ import InputIcon from './../../utils/decorators/input-icon';
 import { MonthView, NavBar } from 'react-date-picker';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
+import DateHelper from './../../utils/helpers/date';
 import DateValidator from './../../utils/validations/date';
 import chainFunctions from './../../utils/helpers/chain-functions';
 import { validProps } from './../../utils/ether';
-
-import DateHelper from './../../utils/helpers/date';
-
 
 /**
  * A Date widget.
@@ -330,7 +328,8 @@ class Date extends React.Component {
    */
   get hiddenInputProps() {
     let props = {
-      ref: "hidden",
+      ref: 'hidden',
+      type: 'hidden',
       readOnly: true
     };
 
