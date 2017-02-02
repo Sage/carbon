@@ -5,8 +5,8 @@ import GetStarted from './get-started';
 import PageHeaderLarge from '../../common/page-header-large';
 import SageLovesCarbon from './sage-loves-carbon';
 import SellingPoints from './selling-points';
-
 import Sectioniser from './sectioniser';
+import Wrapper from './../../common/wrapper';
 
 class Home extends React.Component {
   /**
@@ -19,6 +19,7 @@ class Home extends React.Component {
         maxDepth='5'
       >
         <PageHeaderLarge />
+
         <ComponentShowcase />
         <SellingPoints />
         <SageLovesCarbon />

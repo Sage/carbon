@@ -5,7 +5,7 @@ import I18n from 'i18n-js';
 import FlexContainer from './../../chrome/flex-container';
 import GetCodeButtons from './../../../components/get-code-buttons';
 import InfoTile from './../../../components/info-tile';
-import Wrapper from './../../chrome/wrapper';
+import Wrapper from './../wrapper';
 
 class PageHeaderLarge extends React.Component {
   render() {

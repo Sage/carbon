@@ -4,9 +4,6 @@ import React from 'react';
 import Icon from 'components/icon';
 import Link from 'components/link';
 
-// Demo
-import Wrapper from '../../chrome/wrapper';
-
 /**
  * Page section loads a download with label, link and a download icon
  *
@@ -17,15 +14,13 @@ import Wrapper from '../../chrome/wrapper';
  * @return {Download}
  */
 export default props => (
-  <Wrapper>
-    <Link href={ props.href }>
-      <div className='demo-download'>
-        <Icon type='download' />
-        <div className='demo-download__details'>
-          <span className='demo-download__label'>{ props.label }</span>
-          <span className='demo-download__details'>{ props.size } ({ props.type })</span>
-        </div>
+  <Link href={ props.href }>
+    <div className='demo-download'>
+      <Icon type='download' />
+      <div className='demo-download__details'>
+        <span className='demo-download__label'>{ props.label }</span>
+        <span className='demo-download__details'>{ props.size } ({ props.type })</span>
       </div>
-    </Link>
-  </Wrapper>
+    </div>
+  </Link>
 );

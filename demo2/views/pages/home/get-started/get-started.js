@@ -3,7 +3,7 @@ import I18n from 'i18n-js';
 
 // Demo
 import GetCodeButtons from './../../../../components/get-code-buttons';
-import Wrapper from './../../../chrome/wrapper';
+import Wrapper from './../../../common/wrapper';
 
 class GetStarted extends React.Component {
   render () {

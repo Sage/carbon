@@ -2,7 +2,7 @@ import React from 'react';
 
 import Pill from 'components/pill';
 
-import Wrapper from '../../chrome/wrapper';
+import Wrapper from './../wrapper';
 
 /**
  * Creates a Link wrapped HTML component that renders a label with prefix and an arrow icon

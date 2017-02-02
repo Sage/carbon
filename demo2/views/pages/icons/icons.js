@@ -4,7 +4,7 @@ import I18n from 'i18n-js';
 import IconPanel from './../../../components/icon-panel';
 import ContentGrid from './../../../components/content-grid';
 import ContentGridItem from './../../../components/content-grid/content-grid-item';
-import Download from './../../common/download';
+import Download from './../../../components/download';
 import PageContentArea from './../../common/page-content-area';
 
 import IconList from './icon-list';

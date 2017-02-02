@@ -10,6 +10,8 @@ import PageBackground from './page-background';
 import PageHeaderSmall from './../../common/page-header-small';
 import SubPageNavigation from './../../common/sub-page-navigation';
 
+import Wrapper from './../../common/wrapper';
+
 /**
  * wraps the sub-pages in some further chrome items
  *
@@ -32,13 +34,15 @@ class SubPageComponent extends React.Component {
           titleAppend={ this.titleAppend(definition) }
         />
 
-        { this.props.children }
+        <Wrapper>
+          { this.props.children }
 
-        <SubPageNavigation
-          availableRoutes={ this.props.routes }
-          currentLocation={ this.props.location }
-          definition={ definition }
-        />
+          <SubPageNavigation
+            availableRoutes={ this.props.routes }
+            currentLocation={ this.props.location }
+            definition={ definition }
+          />
+        </Wrapper>
       </article>
     );
   }

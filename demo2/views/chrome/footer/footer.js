@@ -7,7 +7,7 @@ import Link from 'components/link';
 
 // Demo
 import FlexContainer from '../flex-container';
-import Wrapper from '../wrapper';
+import Wrapper from './../../common/wrapper';
 
 
 class Footer extends React.Component {

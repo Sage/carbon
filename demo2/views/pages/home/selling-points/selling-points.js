@@ -5,7 +5,7 @@ import ComplexHeading from './../../../../components/complex-heading';
 import ContentGrid from './../../../../components/content-grid';
 import ContentGridItem from './../../../../components/content-grid/content-grid-item';
 import SellingPointPanel from './../../../../components/selling-point-panel';
-import Wrapper from './../../../chrome/wrapper';
+import Wrapper from './../../../common/wrapper';
 
 /**
  * A set of icons representing selling points of Carbon
