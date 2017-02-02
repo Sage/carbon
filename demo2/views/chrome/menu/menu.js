@@ -1,4 +1,5 @@
 import React from 'react';
+import I18n from 'i18n-js';
 
 // Flux
 import DemoActions from './../../../actions/demo';
@@ -6,48 +7,13 @@ import DemoActions from './../../../actions/demo';
 // Carbon
 import Link from 'components/link';
 import { Sidebar, SidebarHeader } from 'components/sidebar';
-import { MenuListItem, MenuList } from 'components/menu-list';
 
 // Demo Site
+import SiteMap from './../../../site-map';
 import GetCodeButtons from './../../../components/get-code-buttons';
-import Definitions from './../../../definitions';
-
-import I18n from 'i18n-js';
-
-const styles = [
-   { name: 'Colors', href: '/style/colors' },
-   { name: 'Icons', href: '/style/icons' },
-   { name: 'Text' }
-];
+import { MenuList } from 'components/menu-list';
 
 class Menu extends React.Component {
-  /**
-   * @method render
-   */
-  get componentsHTML() {
-    let defKey,
-        menuListItems = [];
-
-    for (defKey in Definitions) {
-      let def = Definitions[defKey];
-
-      menuListItems.push(
-        <MenuListItem key={ def.key } name={ def.text.name }>
-          <Link to={ `/components/${def.key}` }>
-            { def.text.name }
-          </Link>
-        </MenuListItem>
-      );
-    }
-
-    return menuListItems;
-  }
-  get stylesHTML() {
-    return styles.map((item, i) => {
-      return <MenuListItem key={ i } name={ item.name }><Link to={ item.href }>{ item.name }</Link></MenuListItem>;
-    });
-  }
-
   render() {
     return (
       <Sidebar
@@ -62,67 +28,16 @@ class Menu extends React.Component {
           <SidebarHeader className='demo-menu__header' />
         </Link>
 
-        <MenuList
-          className='demo-menu__menu'
-          toggleable={ false }
-          initiallyOpen={ true }
-        >
-          <MenuListItem>
-            <Link>
-              { I18n.t('navigation.getting_started') }
-            </Link>
-          </MenuListItem>
-          <MenuListItem>
-            <MenuList
-              title={ I18n.t('components') }
-              initiallyOpen={ this._initiallyOpen() }
-              filter={ true }
-            >
-              { this.componentsHTML }
-            </MenuList>
-          </MenuListItem>
-          <MenuListItem>
-            <Link>
-              { I18n.t('navigation.patterns') }
-            </Link>
-          </MenuListItem>
-          <MenuListItem>
-            <MenuList
-              title={ I18n.t('navigation.style') }
-              initiallyOpen={ this._initiallyOpen(styles) }
-              filter={ true }
-            >
-              { this.stylesHTML }
-            </MenuList>
-          </MenuListItem>
-          <MenuListItem>
-            <Link>
-              { I18n.t('navigation.articles') }
-            </Link>
-          </MenuListItem>
+        <MenuList className='demo-menu__menu'>
+          { SiteMap.generateMenu() }
         </MenuList>
 
         <div className='demo-menu__buttons'>
           { GetCodeButtons.github() }
           { GetCodeButtons.download('grey') }
         </div>
-
       </Sidebar>
     );
-  }
-
-  _initiallyOpen = () => {
-    let defKey;
-
-    for (defKey in Definitions) {
-      let menuItem = Definitions[defKey];
-
-      if (menuItem.key === window.location.pathname) {
-        return true;
-      }
-    }
-
-    return false;
   }
 }
 

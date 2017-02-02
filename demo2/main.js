@@ -15,17 +15,14 @@ import Colors from './views/pages/style/colors';
 import Icons from './views/pages/style/icons';
 import Component from './views/pages/component';
 
-var routes = (
+import SiteMap from './site-map';
+
+const routes = (
   <Route component={ Chrome }>
     <Route path="/" component={ Home } />
 
     <Route component={ SubPageChrome }>
-      <Route path="/style">
-        <Route path="colors" component={ Colors } />
-        <Route path="icons" component={ Icons } />
-      </Route>
-
-      <Route path="/components/:name" component={ Component } />
+      { SiteMap.generateRoutes() }
     </Route>
   </Route>
 );
