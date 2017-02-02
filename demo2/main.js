@@ -6,28 +6,27 @@ import { startRouter } from 'utils/router';
 // Languages
 import './i18n/en';
 
-import ComponentStore from './stores/component';
-
 // Demo
 import Chrome from './views/chrome';
+import SubPageChrome from './views/chrome/sub-page-chrome';
+
 import Home from './views/pages/home';
 import Colors from './views/pages/colors';
 import Icons from './views/pages/icons';
 import Component from './views/pages/component';
 
-let componentRoutes = [];
-
-ComponentStore.data.forEach((definition, index) => {
-  let Wrapper = props => <Component name={ definition.get('key') } />;
-  componentRoutes.push(<Route key={ index } path={ `/components/${definition.get('key')}` } component={ Wrapper } />);
-});
-
 var routes = (
   <Route component={ Chrome }>
     <Route path="/" component={ Home } />
-    <Route path="/colors" component={ Colors } />
-    <Route path="/icons" component={ Icons } />
-    { componentRoutes }
+
+    <Route component={ SubPageChrome }>
+      <Route path="/style">
+        <Route path="colors" component={ Colors } />
+        <Route path="icons" component={ Icons } />
+      </Route>
+
+      <Route path="/components/:name" component={ Component } />
+    </Route>
   </Route>
 );
 

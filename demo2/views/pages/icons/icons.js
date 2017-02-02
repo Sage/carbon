@@ -4,23 +4,13 @@ import I18n from 'i18n-js';
 import IconPanel from './../../../components/icon-panel';
 import ContentGrid from './../../../components/content-grid';
 import ContentGridItem from './../../../components/content-grid/content-grid-item';
-import Download from './../../page-sections/download';
-import PageContentArea from './../../page-sections/page-content-area';
-import SubPageChrome from './../../sub-page-chrome';
+import Download from './../../common/download';
+import PageContentArea from './../../common/page-content-area';
 
 import IconList from './icon-list';
 
 export default props => (
-  <SubPageChrome
-    title={ I18n.t('icons.title') }
-    subtitle={ I18n.t('icons.subtitle') }
-    previousPage={ {
-      label: I18n.t('colors.title'),
-      href: '/colors' } }
-    nextPage={ {
-      label: 'Typography',
-      href: '/typography' } }
-  >
+  <div>
     <Download
       href='test'
       label='test'
@@ -28,7 +18,7 @@ export default props => (
       type='test'
     />
     { _iconGrid() }
-  </SubPageChrome>
+  </div>
 );
 
 const _iconGrid = () => {

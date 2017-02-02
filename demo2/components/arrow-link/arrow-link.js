@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { humanize } from 'underscore.string';
 
 import Icon from 'components/icon';
 import Link from 'components/link';
@@ -16,12 +17,13 @@ import Link from 'components/link';
  * @return {ArrowLink}
  */
 export default props => (
-  <Link to={ props.linkDetails.href }>
+  <Link to={ props.href }>
     <div className={ `demo-arrow-link demo-arrow-link--${props.direction}` }>
       <div className='demo-arrow-link__text'>
         <span className='demo-arrow-link__prefix'>{ props.prefix }</span>
-        <span className='demo-arrow-link__label'>{ props.linkDetails.name }</span>
+        <span className='demo-arrow-link__label'>{ humanize(props.name) }</span>
       </div>
+
       <Icon
         className='demo-arrow-link__icon'
         type={ props.direction === 'forwards' ? 'arrow_right' : 'arrow_left' }

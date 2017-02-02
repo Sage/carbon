@@ -15,8 +15,8 @@ import Definitions from './../../../definitions';
 import I18n from 'i18n-js';
 
 const styles = [
-   { name: 'Colors', href: '/colors' },
-   { name: 'Icons', href: '/icons' },
+   { name: 'Colors', href: '/style/colors' },
+   { name: 'Icons', href: '/style/icons' },
    { name: 'Text' }
 ];
 
@@ -44,7 +44,7 @@ class Menu extends React.Component {
   }
   get stylesHTML() {
     return styles.map((item, i) => {
-      return <MenuListItem key={ i } name={ item.name }><Link href={ item.href }>{ item.name }</Link></MenuListItem>;
+      return <MenuListItem key={ i } name={ item.name }><Link to={ item.href }>{ item.name }</Link></MenuListItem>;
     });
   }
 
@@ -58,7 +58,7 @@ class Menu extends React.Component {
         position="left"
         size='small'
       >
-        <Link href='/'>
+        <Link to='/'>
           <SidebarHeader className='demo-menu__header' />
         </Link>
 

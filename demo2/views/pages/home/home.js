@@ -1,12 +1,12 @@
 import React from 'react';
 
-import ComponentShowcase from '../../page-sections/component-showcase';
-import GetStarted from '../../page-sections/get-started';
-import PageHeaderLarge from '../../page-sections/page-header-large';
-import SageLovesCarbon from '../../page-sections/sage-loves-carbon';
-import SellingPoints from '../../page-sections/selling-points';
+import ComponentShowcase from './component-showcase';
+import GetStarted from './get-started';
+import PageHeaderLarge from '../../common/page-header-large';
+import SageLovesCarbon from './sage-loves-carbon';
+import SellingPoints from './selling-points';
 
-import Sectioniser from '../../chrome/sectioniser';
+import Sectioniser from './sectioniser';
 
 class Home extends React.Component {
   /**

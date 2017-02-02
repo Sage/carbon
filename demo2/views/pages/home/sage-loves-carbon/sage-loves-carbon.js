@@ -3,8 +3,8 @@ import I18n from 'i18n-js';
 
 import Link from 'components/link';
 
-import ComplexHeading from './../../../components/complex-heading';
-import Wrapper from './../../chrome/wrapper';
+import ComplexHeading from './../../../../components/complex-heading';
+import Wrapper from './../../../chrome/wrapper';
 
 /**
  * Shows off some of the components

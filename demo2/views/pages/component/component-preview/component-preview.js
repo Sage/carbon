@@ -17,11 +17,11 @@ import { Table, TableRow, TableCell, TableHeader } from 'components/table';
 import OptionsHelper from 'utils/helpers/options-helper';
 
 // App Components
-import ComponentCodeBuilder from './../../../utils/component-code-builder';
-import PageContentArea from '../../page-sections/page-content-area';
+import ComponentCodeBuilder from './../../../../utils/component-code-builder';
+import PageContentArea from './../../../common/page-content-area';
 
 // Flux
-import ComponentActions from '../../../actions/component';
+import ComponentActions from './../../../../actions/component';
 
 /**
  * Simple, site wrapped content area that loads a heading
