@@ -6,9 +6,7 @@ import Icon from 'components/icon';
 import Link from 'components/link';
 
 // Demo
-import FlexContainer from '../flex-container';
 import Wrapper from './../../common/wrapper';
-
 
 class Footer extends React.Component {
   render () {

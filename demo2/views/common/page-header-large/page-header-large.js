@@ -2,7 +2,6 @@ import React from 'react';
 import I18n from 'i18n-js';
 
 // Demo Site
-import FlexContainer from './../../chrome/flex-container';
 import GetCodeButtons from './../../../components/get-code-buttons';
 import InfoTile from './../../../components/info-tile';
 import Wrapper from './../wrapper';
