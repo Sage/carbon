@@ -1,25 +1,14 @@
 import Tab from './';
+import Definition from './../../../../demo2/utils/definition';
 import DemoHelper from '../../../utils/helpers/demo-helper';
 import podDefinition from '../../pod/definition';
 
-let definition = {
-  component: Tab,
-  key: 'tab',
+let definition = new Definition('tab', Tab, {
   text: {
-    bemClass: 'carbon-tab',
     details: '[content needed] Basic designs description for the component',
     description: '[content needed] Basic example of the component',
-    name: 'Tab',
     type: 'layout'
-  },
-  defaultProps: Tab.defaultProps,
-  props: Tab.propTypes
-};
+  }
+});
 
-podDefinition.demoProps.onEdit = DemoHelper.stubbedFunction;
-definition.demoProps = {
-  children: DemoHelper.elemArray(podDefinition, 3, 'title'),
-  title: 'Test tab'
-};
-
-export default definition;
+export default definition.data;

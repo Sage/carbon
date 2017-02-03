@@ -45,8 +45,12 @@ export default {
   //'table':                require('components/table/definition').default,
   //'table-ajax':           require('components/table-ajax/definition').default,
   'tabs':                 require('components/tabs/definition').default,
-  // 'textarea':             require('components/textarea/definition').default,
-  // 'textbox':              require('components/textbox/definition').default,
+  'textarea':             require('components/textarea/definition').default,
+  'textbox':              require('components/textbox/definition').default,
   // 'toast':                require('components/toast/definition').default,
   // 'tooltip':              require('components/tooltip/definition').default
 };
+
+// expose additional classes to the window
+global['React'] = require('react');
+global['ReactDOM'] = require('react-dom');

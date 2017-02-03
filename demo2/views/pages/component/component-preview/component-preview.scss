@@ -20,13 +20,6 @@
       height: 6em;
     }
   }
-  &__code {
-    background-color: $grey-dark-plus;
-    color: $white;
-    padding: 20px;
-    white-space: pre;
-    width: 67%;
-  }
 
   .demo-stubbed-element {
     box-sizing: border-box;
@@ -126,4 +119,3 @@
     width: 63px;
   }
 }
-

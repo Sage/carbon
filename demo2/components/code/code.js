@@ -1,15 +1,14 @@
 import React from 'react';
-import Textarea from 'components/textarea';
+import Highlight from 'react-highlight';
 
 class Code extends React.Component {
   render() {
     return (
-      <Textarea
-        className="demo-code"
-        value={ this.props.value }
-        expandable={ true }
-        onChange={ this.props.onChange }
-      />
+      <code className="demo-code">
+        <Highlight className="javascript">
+          { "return\n" + this.props.children }
+        </Highlight>
+      </code>
     );
   }
 }

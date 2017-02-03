@@ -1,7 +1,6 @@
 // React
 import { assign } from 'lodash';
 import classNames from 'classnames';
-import Highlight from 'react-highlight';
 import { List } from 'immutable';
 import ImmutableHelper from 'utils/helpers/immutable';
 import React from 'react';
@@ -19,6 +18,7 @@ import OptionsHelper from 'utils/helpers/options-helper';
 // App Components
 import ComponentCodeBuilder from './../../../../utils/component-code-builder';
 import PageContentArea from './../../../common/page-content-area';
+import Code from './../../../../components/code';
 
 // Flux
 import ComponentActions from './../../../../actions/component';
@@ -30,50 +30,53 @@ import ComponentActions from './../../../../actions/component';
  * @param {String} props.title
  * @return {PageContentArea}
  */
-export default props => (
-  <PageContentArea
-    title='Preview'
-    link={ `https://github.com/Sage/carbon/tree/master/src/components/${props.definition.get('key')}` }
-  >
-    <div className= { `component-preview component-preview--${props.definition.get('key')}` }>
-      <div className='component-preview__component-wrapper'>
-      </div>
-      <div className='component-preview__interaction'>
-        <form className='component-preview__controls'>
-          { buildFields(props) }
-        </form>
-        <code className='component-preview__code'>
-          { buildCode(props) }
-        </code>
-      </div>
-    </div>
-  </PageContentArea>
-);
-
-function getProps(props) {
-  props = props.toJS();
-  for (let key in props) {
-    let prop = props[key];
-    if (prop.immutable) {
-      props[key] = ImmutableHelper.parseJSON(prop.value);
-    }
+class ComponentPreview extends React.Component {
+  componentDidMount() {
+    this.renderDemo();
   }
-  return props;
-}
 
-/**
- * builds code output
- *
- * @private
- * @method buildCode
- * @param {Object} def - definition
- * @return {String} code string
- */
-const buildCode = (props) => {
-  var code = new ComponentCodeBuilder(props.definition.getIn(['text', 'name']));
-  code.addProps(props.definition.get('props'), props.definition.get('demoProps'));
-  return code.toString();
-}
+  render() {
+    return (
+      <PageContentArea
+        title='Preview'
+        link={ `https://github.com/Sage/carbon/tree/master/src/components/${this.props.definition.get('key')}` }
+      >
+        <div className= { `component-preview component-preview--${this.props.definition.get('key')}` }>
+          <div className='component-preview__component-wrapper'>
+            <div ref='demo' />
+          </div>
+          <div className='component-preview__interaction'>
+            <form className='component-preview__controls'>
+              { buildFields(this.props) }
+            </form>
+
+            { this.buildCode() }
+          </div>
+        </div>
+      </PageContentArea>
+    );
+  }
+
+  buildCode = () => {
+    var code = new ComponentCodeBuilder(this.props.definition.getIn(['text', 'name']));
+    code.addProps(this.props.definition.get('props'), this.props.definition.get('demoProps'));
+
+    this.code = code.toComponent();
+
+    if (this.refs.demo) {
+      this.renderDemo();
+    }
+
+    // needs the first "return" line for syntax highlighting to work properly
+    return <Code>{ code.toString() }</Code>
+  }
+
+  renderDemo = () => {
+    ReactDOM.render(this.code, this.refs.demo);
+  }
+};
+
+export default ComponentPreview;
 
 /**
  * builds fields for dynamically editing props
@@ -86,46 +89,49 @@ const buildCode = (props) => {
 const buildFields = (props) => {
   let fieldObj = [];
 
-  // get the props
-  let demoProps = props.definition.get('demoProps');
+  let demoProps = props.definition.get('props');
+  let propOptions = props.definition.get('propOptions');
+  let customData = props.definition.get('demoProps');
 
   demoProps.forEach((demoPropData, propKey) => {
-    let propOptions = props.definition.get('propOptions')
-      ? props.definition.getIn(['propOptions', propKey])
-      : null;
+    let options = propOptions ? propOptions.get(propKey) : null;
+    demoPropData = customData.get(propKey) || demoPropData;
+    if (typeof demoPropData === "function") {
+      demoPropData = "";
+    }
 
     if (showProp(propKey, demoPropData)) {
-      if (List.isList(demoPropData)) {
-        demoPropData.map((field, i) => {
-          fieldObj.push(fieldComponent(null, propKey, field, props.name, i));
-        })
-      } else {
-        fieldObj.push(fieldComponent(propOptions, propKey, demoPropData, props.name));
-      }
+      // if (List.isList(demoPropData)) {
+      //   demoPropData.map((field, i) => {
+      //     fieldObj.push(fieldComponent(null, propKey, field, props.name, i));
+      //   })
+      // } else {
+      fieldObj.push(fieldComponent(options, propKey, demoPropData, props.name));
+      // }
     }
   });
 
-  let tableRows = [];
-
-  demoProps.get('children').forEach((child) => {
-    let childProps = child.get('demoProps'),
-        tableCells = [],
-        headerCells = [];
-
-    childProps.forEach((data, key) => {
-      if (tableRows.length === 0) {
-        headerCells.push(<TableHeader key={ key }>{ key }</TableHeader>);
-      }
-      tableCells.push(<TableCell key={ key }>{ data }</TableCell>);
-    });
-
-    if (tableRows.length === 0) {
-      tableRows.push(<TableRow>{ headerCells }</TableRow>);
-    }
-    tableRows.push(<TableRow>{ tableCells }</TableRow>);
-  });
-
-  fieldObj.push(<Table>{ tableRows }</Table>);
+  // let tableRows = [];
+  //
+  // demoProps.get('children').forEach((child) => {
+  //   let childProps = child.get('demoProps'),
+  //       tableCells = [],
+  //       headerCells = [];
+  //
+  //   childProps.forEach((data, key) => {
+  //     if (tableRows.length === 0) {
+  //       headerCells.push(<TableHeader key={ key }>{ key }</TableHeader>);
+  //     }
+  //     tableCells.push(<TableCell key={ key }>{ data }</TableCell>);
+  //   });
+  //
+  //   if (tableRows.length === 0) {
+  //     tableRows.push(<TableRow>{ headerCells }</TableRow>);
+  //   }
+  //   tableRows.push(<TableRow>{ tableCells }</TableRow>);
+  // });
+  //
+  // fieldObj.push(<Table>{ tableRows }</Table>);
 
   return fieldObj;
 }
@@ -228,38 +234,4 @@ const showChildren = (propKey, demoPropData) => {
 const showProp = (propKey, demoPropData) => {
   return OptionsHelper.nonDemoFormProps().indexOf(propKey) === -1
          && OptionsHelper.commonEvents().indexOf(propKey) === -1;
-}
-
-/**
- * builds the preview components, looping if needed
- *
- * @private
- * @method buildPreview
- * @param {Object} props - formatted as an object for processing, will contain various props
- * @return {Array} of components
- */
-const buildPreview = (props) => {
-  let components = [],
-      count = getCount(props.definition.get('demoRenderCount')),
-      i = 0;
-
-  for (; i < count; i ++) {
-    let def = props.definition;
-    def = def.setIn(['demoProps', 'key'], `child-${i}`);
-    components.push(React.createElement(props.definition.get('component'), getProps(def.get('demoProps'))));
-  }
-
-  return components;
-}
-
-/**
- * returns 1 or the count
- *
- * @private
- * @method getCount
- * @param {Number} count - could be undefined
- * @return {Number} guaranteed integer
- */
-const getCount = (count) => {
-  return typeof count === 'undefined' ? 1 : count;
 }

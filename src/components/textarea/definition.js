@@ -1,24 +1,19 @@
 import Textarea from './';
+import Definition from './../../../demo2/utils/definition';
 
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-let definition = {
-  component: Textarea,
-  key: 'textarea',
+let definition = new Definition('textarea', Textarea, {
   text: {
-    bemClass: 'carbon-textarea',
     details: '[content needed] Basic designs description for the component',
     description: '[content needed] Basic example of the component',
-    name: 'Textarea',
     type: 'form'
   },
-  defaultProps: Textarea.defaultProps,
-  props: Textarea.propTypes,
   propOptions: {
     labelAlign: OptionsHelper.alignBinary()
-  }
-};
+  },
+  demoProps: OptionsHelper.inputDecoratorDemoProps()
+});
 
-definition.demoProps = OptionsHelper.inputDecoratorDemoProps();
 
-export default definition;
+export default definition.data;

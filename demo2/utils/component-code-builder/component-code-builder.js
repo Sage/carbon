@@ -1,3 +1,5 @@
+import { transform } from 'babel-standalone';
+
 class ComponentCodeBuilder {
   constructor(name) {
     // the name of the component
@@ -103,6 +105,11 @@ class ComponentCodeBuilder {
     if (!this.isClosed) { this.close(); }
 
     return this.code;
+  }
+
+  // returns component
+  toComponent = () => {
+    return eval(transform(this.toString(), { presets: ['es2015', 'react'] }).code);
   }
 }
 

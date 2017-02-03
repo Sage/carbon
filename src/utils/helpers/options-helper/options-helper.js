@@ -163,17 +163,10 @@ let OptionsHelper = {
 
   inputDecoratorDemoProps: () => {
     return {
-      className: '',
-      fieldHelp: 'Test help',
-      fieldHelpInline: true,
-      inputWidth: '70',
-      label: 'Test Label',
-      labelAlign: 'left',
-      labelHelp: 'Test label help',
+      fieldHelp: 'This text can provide help on how you should use this input.',
+      label: 'Example Textbox',
+      labelHelp: 'This text can help provide more information for this label.',
       labelInline: false,
-      labelWidth: '25',
-      validations: [],
-      warnings: [],
     };
   },
 
