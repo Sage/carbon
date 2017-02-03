@@ -24,7 +24,7 @@ class Definition {
     this.props = Object.keys(component.propTypes) || [];
 
     // define default values for props
-    this.propValues = component.defaultProps || {};
+    this.propValues = {};
 
     // define types for non-string props
     this.propTypes = {};

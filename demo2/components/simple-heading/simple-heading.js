@@ -29,6 +29,7 @@ const _gitHubLink = (link) => {
       <Link
         href={ link }
         icon='github'
+        target='_blank'
       >
         View on GitHub
       </Link>

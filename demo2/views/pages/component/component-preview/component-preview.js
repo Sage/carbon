@@ -36,6 +36,7 @@ class ComponentPreview extends React.Component {
           </div>
 
           <SimpleHeading title="Code"></SimpleHeading>
+
           <div className='component-preview__interaction'>
             <Fields name={ this.props.name } definition={ this.props.definition } />
             { this.renderCode() }

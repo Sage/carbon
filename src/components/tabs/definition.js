@@ -9,8 +9,9 @@ let definition = new Definition('tabs', Tabs, {
   type: 'layout',
   propOptions: {
     align: OptionsHelper.alignBinary(),
-    position: OptionsHelper.positions()
-  }
+    position: ['top', 'left']
+  },
+  hiddenProps: ['selectedTabId', 'renderHiddenTabs', 'onTabChange']
 });
 
 definition.addChildByDefinition(tabDefinition, {
