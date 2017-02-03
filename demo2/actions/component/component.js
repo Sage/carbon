@@ -1,10 +1,10 @@
-// Carbon
 import Dispatcher from './../../dispatcher';
-
-// Flux
 import ComponentConstants from '../../constants/component';
 
 const ComponentActions = {
+  /**
+   * Updates the prop values loaded from the definition.
+   */
   updateDefinition: (name, prop, ev) => {
     Dispatcher.dispatch({
       actionType: ComponentConstants.UPDATE_DEFINITION,
@@ -14,6 +14,10 @@ const ComponentActions = {
     });
   },
 
+  /**
+   * Updates the prop values loaded from the definition via the preview.
+   * This uses window object as the code is evaluated from a string.
+   */
   updateDefinitionFromDemo: (ev) => {
     let scope = ev.target.getAttribute('data-binding').split(","),
         name = scope[0],

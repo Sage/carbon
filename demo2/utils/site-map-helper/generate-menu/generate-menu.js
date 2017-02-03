@@ -2,7 +2,7 @@ import React from 'react';
 import SiteMap from './../../../site-map';
 import Link from 'components/link';
 import { MenuListItem, MenuList } from 'components/menu-list';
-import { titleize } from 'underscore.string';
+import { humanize, titleize } from 'underscore.string';
 
 export default () => {
   return generateMenu();
@@ -12,7 +12,7 @@ const createMenuLink = (name, url) => {
   return (
     <MenuListItem key={ name } name={ name }>
       <Link to={ url }>
-        { titleize(name.replace("-", " ").replace(/\//g, '')) }
+        { titleize(humanize(name.replace("/", ""))) }
       </Link>
     </MenuListItem>
   );
@@ -37,7 +37,7 @@ const createSubmenu = (url, value) => {
   }
 
   let title = url.replace(/\//g, '');
-  title = titleize(title.replace(':name', ''));
+  title = titleize(humanize(title.replace(':name', '')));
 
   if (url.split("/")[1] === window.location.pathname.split("/")[1]) {
     initiallyOpen = true;
