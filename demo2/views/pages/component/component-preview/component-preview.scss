@@ -7,17 +7,27 @@
   }
   &__component-wrapper {
     margin-bottom: 30px;
-    min-height: 40px;
+    min-height: 100px;
     padding: 20px;
   }
   &__controls {
     background-color: $grey-dark-blue-10;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
     padding: 20px;
-    width: 33%;
+    width: 350px;
 
     .carbon-textarea__input {
       height: 6em;
     }
+  }
+
+  .demo-code {
+    display: flex;
+    flex-shrink: 1;
+    flex-grow: 1;
+    overflow-x: auto;
   }
 
   .demo-stubbed-element {

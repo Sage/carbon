@@ -20,6 +20,10 @@ class ComponentPreview extends React.Component {
     this.renderDemo();
   }
 
+  componentDidUpdate() {
+    this.renderDemo();
+  }
+
   render() {
     return (
       <PageContentArea
@@ -42,8 +46,6 @@ class ComponentPreview extends React.Component {
   }
 
   renderCode = () => {
-    if (this.refs.demo) { this.renderDemo(); }
-
     var code = this.compileCode();
     return <Code>{ code.toString() }</Code>
   }
@@ -54,9 +56,7 @@ class ComponentPreview extends React.Component {
   }
 
   compileCode = (withEvents) => {
-    var code = new ComponentCodeBuilder(this.props.definition.get('name'));
-    code.addProps(this.props.definition.get('propValues'), withEvents);
-    return code;
+    return new ComponentCodeBuilder(this.props.definition, withEvents);
   }
 };
 

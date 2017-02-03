@@ -3,14 +3,19 @@
 .demo-code {
   background-color: $grey-dark-plus;
   color: $white;
-  padding: 20px;
   white-space: pre;
+
+  pre {
+    margin: 0;
+  }
 }
 
 // highlight.js
 
 .hljs {
   display: block;
+  line-height: 18px;
+  padding: 20px;
   overflow-x: auto;
   -webkit-text-size-adjust: none;
 

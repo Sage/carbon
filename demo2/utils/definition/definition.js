@@ -1,4 +1,4 @@
-import { kebabCase, assign } from 'lodash';
+import { kebabCase, assign, cloneDeep } from 'lodash';
 import { titleize, classify } from 'underscore.string';
 import inputDefinition from './input-definition';
 
@@ -52,9 +52,10 @@ class Definition {
       this.propValues.children = [];
     }
 
-    this.propValues.children.push({
-      definition, propValues
-    });
+    let child = cloneDeep(definition);
+    assign(child.propValues, propValues);
+
+    this.propValues.children.push(child)
   }
 
   isAnInput = () => {

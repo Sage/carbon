@@ -10,11 +10,6 @@ let definition = new Definition('tabs', Tabs, {
   propOptions: {
     align: OptionsHelper.alignBinary(),
     position: OptionsHelper.positions()
-  },
-  propValues: {
-    align: 'left',
-    position: 'top',
-    renderHiddenTabs: false
   }
 });
 

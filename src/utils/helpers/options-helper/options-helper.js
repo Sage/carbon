@@ -1,3 +1,10 @@
+// TODO: refactor these options into seperate files which are consumed by both
+// the components and the demo site.
+//
+// For example the PropTypes for align props can use this to know which options
+// are available - as well as the demo site when rendering dropdowns.
+//
+// (Also they do not need to be functions)
 let OptionsHelper = {
   alignBinary: () => {
     return [

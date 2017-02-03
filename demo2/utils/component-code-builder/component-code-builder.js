@@ -1,7 +1,14 @@
 import { transform } from 'babel-standalone';
 
 class ComponentCodeBuilder {
-  constructor(name) {
+  constructor(name, withEvents) {
+    let definition;
+
+    if (typeof name !== "string") {
+      definition = name;
+      name = definition.get('name');
+    }
+
     // the name of the component
     this.name = name;
 
@@ -16,13 +23,18 @@ class ComponentCodeBuilder {
 
     // tracks if the component has been closed
     this.isClosed = false;
+
+    if (definition) {
+      this.addProps(definition, withEvents);
+    }
   }
 
-  // adds multiple props to the code based on the keys and data hash
-  addProps = (data, withEvents) => {
-    let children = data.get('children');
+  // adds multiple props to the code based on a definition
+  addProps = (definition, withEvents) => {
+    let props = definition.get('propValues'),
+        children = props.get('children');
 
-    data.forEach((value, prop) => {
+    props.forEach((value, prop) => {
       if (prop !== "children") {
         if (withEvents || (prop !== "data-binding" && typeof value !== "function")) {
           this.addProp(prop, value);
@@ -33,8 +45,7 @@ class ComponentCodeBuilder {
     if (children) {
       if (typeof children === "object") {
         children.forEach((child) => {
-          let childCode = new ComponentCodeBuilder(child.getIn(['definition', 'name']));
-          childCode.addProps(child.get('propValues'))
+          let childCode = new ComponentCodeBuilder(child);
           this.addChild(childCode);
         });
       } else {
