@@ -60,10 +60,10 @@ class ComponentCodeBuilder {
       throw new Error(`You cannot add props after you have added children or closed your component! See the ComponentCodeBuilder for '${this.name}'.\n\nCurrent markup:\n\n${this.code}`);
     }
 
-    if (value) {
+    if (value || value === false) {
       this.hasProps = true;
       if (typeof value === "string") {
-        this.code += `\n  ${prop}='${value}'`;
+        this.code += `\n  ${prop}="${value.replace(/"/g, "'")}"`;
       } else {
         this.code += `\n  ${prop}={ ${value} }`;
       }

@@ -1,6 +1,7 @@
 import { kebabCase, assign, cloneDeep } from 'lodash';
 import { titleize, classify } from 'underscore.string';
 import inputDefinition from './input-definition';
+import ComponentActions from './../../actions/component';
 
 class Definition {
   constructor(name, component, data) {
@@ -56,6 +57,28 @@ class Definition {
     assign(child.propValues, propValues);
 
     this.propValues.children.push(child)
+  }
+
+  stubAction = (action, prop, value) => {
+    let func = "";
+
+    let update = ComponentActions.updateDefinition;
+
+    func += `(function stubbedAction(ev) {`;
+    func += `  var fakeEvent = ev;`;
+
+    func += `  if (${value} !== undefined && typeof ${value} !== undefined) {`;
+    func += `    fakeEvent = {`;
+    func += `      target: { value: ${value} }`;
+    func += `    };`;
+    func += `  }`;
+
+    func += `  var update = ${update};`;
+
+    func += `  update("${this.key}", "${prop}", fakeEvent);`;
+    func += `})`;
+
+    this.propValues[action] = eval(func);
   }
 
   isAnInput = () => {
