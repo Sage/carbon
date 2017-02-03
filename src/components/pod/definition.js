@@ -1,5 +1,4 @@
 import Pod from './';
-import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import linkDefinition from '../link/definition';
 
@@ -31,9 +30,9 @@ definition.demoProps = {
   description: 'Test description',
   displayEditButtonOnHover: false,
   editContentFullWidth: false,
-  footer: DemoHelper.elemArray(linkDefinition, 1)[0],
+  // footer: DemoHelper.elemArray(linkDefinition, 1)[0],
   internalEditButton: false,
-  onEdit: DemoHelper.stubbedFunction,
+  // onEdit: DemoHelper.stubbedFunction,
   padding: "medium",
   subtitle: 'Test subtitle',
   title: 'Test title',

@@ -10,9 +10,8 @@ import Link from 'components/link';
  *
  * @param {object} props
  * @param {String} props.direction which way the link points: `backwards` or `forwards`
- * @param {object} props.linkDetails
- * @param {String} props.linkDetails.href
- * @param {String} props.linkDetails.name
+ * @param {String} props.href
+ * @param {String} props.name
  * @param {String} props.prefix prefix text label (i.e. 'Next' or 'Previous')
  * @return {ArrowLink}
  */

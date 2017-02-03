@@ -12,8 +12,6 @@ import { connect } from 'utils/flux';
 import ComponentActions from '../../../actions/component';
 import ComponentStore from '../../../stores/component';
 
-import DemoHelper from 'utils/helpers/demo-helper';
-
 class Component extends React.Component {
   render() {
     let def = this.state.componentStore.get(this.props.params.name);

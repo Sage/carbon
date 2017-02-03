@@ -1,6 +1,5 @@
 import Tab from './';
 import Definition from './../../../../demo2/utils/definition';
-import DemoHelper from '../../../utils/helpers/demo-helper';
 import podDefinition from '../../pod/definition';
 
 let definition = new Definition('tab', Tab, {

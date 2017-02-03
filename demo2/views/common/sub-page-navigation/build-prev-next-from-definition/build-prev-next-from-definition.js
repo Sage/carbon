@@ -35,9 +35,9 @@ const _currentIndex = (def) => {
  * cyclically retrieves next component
  *
  * @private
- * @method _nextComponent
+ * @method _nextKey
  * @param {Number} current - current position
- * @return {Object} Definitions element
+ * @return {String}
  */
 const _nextKey = (current) => {
   let pos = (current + 1) % definitionKeys.length;
@@ -49,9 +49,9 @@ const _nextKey = (current) => {
  * cyclically retrieves previous component
  *
  * @private
- * @method _previousComponent
+ * @method _previousKey
  * @param {Number} current - current position
- * @return {Object} Definitions element
+ * @return {String}
  */
 const _previousKey = (current) => {
   let pos = current === 0
@@ -62,12 +62,12 @@ const _previousKey = (current) => {
 }
 
 /**
- * prepares an object for sub navigation, using href and name keys, from a definition
+ * Prepares the url
  *
  * @private
- * @method _prepareSubnavObject
- * @param {Object} def - a component definition
- * @return {Object}
+ * @method _prepareUrl
+ * @param {String} key
+ * @return {String}
  */
 const _prepareUrl = (key) => {
   return `/components/${key}`;

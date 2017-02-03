@@ -1,6 +1,5 @@
 import { Tabs } from './';
 import Definition from './../../../demo2/utils/definition';
-import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import tabDefinition from './tab/definition';
 

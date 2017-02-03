@@ -20,12 +20,30 @@ export default (availableRoutes, currentLocation) => {
   }
 }
 
+/**
+ * cyclically retrieves next component
+ *
+ * @private
+ * @method _currentIndex
+ * @param {Array} routes - the available routes
+ * @param {String} currentPage
+ * @return {Number}
+ */
 const _currentIndex = (routes, currentPage) => {
   return findIndex(routes, (route) => {
     return route.path === currentPage;
   });
 }
 
+/**
+ * cyclically retrieves next component
+ *
+ * @private
+ * @method _nextKey
+ * @param {Array} routes - the available routes
+ * @param {Number} current - current position
+ * @return {String}
+ */
 const _nextKey = (routes, currentRouteIndex) => {
   let nextRouteIndex = currentRouteIndex + 1;
 
@@ -36,6 +54,15 @@ const _nextKey = (routes, currentRouteIndex) => {
   return routes[nextRouteIndex].path;
 }
 
+/**
+ * cyclically retrieves previous component
+ *
+ * @private
+ * @method _previousKey
+ * @param {Array} routes - the available routes
+ * @param {Number} current - current position
+ * @return {String}
+ */
 const _previousKey = (routes, currentRouteIndex) => {
   let previousRouteIndex = currentRouteIndex - 1;
 
@@ -46,6 +73,16 @@ const _previousKey = (routes, currentRouteIndex) => {
   return routes[previousRouteIndex].path;
 }
 
+/**
+ * Prepares the url
+ *
+ * @private
+ * @method _prepareUrl
+ * @param {Object} currentLocation
+ * @param {String} currentPage
+ * @param {String} key
+ * @return {String}
+ */
 const _prepareUrl = (currentLocation, currentPage, key) => {
   return currentLocation.pathname.replace(currentPage, key);
 }

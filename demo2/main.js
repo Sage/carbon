@@ -5,15 +5,13 @@ import { startRouter } from 'utils/router';
 
 // Languages
 import './i18n/en';
+// Additional components we expose to the window
+import './expose';
 
 // Demo
 import Chrome from './views/chrome';
 import SubPageChrome from './views/chrome/sub-page-chrome';
-
 import Home from './views/pages/home';
-import Colors from './views/pages/style/colors';
-import Icons from './views/pages/style/icons';
-import Component from './views/pages/component';
 
 import SiteMap from './site-map';
 

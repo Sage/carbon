@@ -50,7 +50,3 @@ export default {
   // 'toast':                require('components/toast/definition').default,
   // 'tooltip':              require('components/tooltip/definition').default
 };
-
-// expose additional classes to the window
-global['React'] = require('react');
-global['ReactDOM'] = require('react-dom');
