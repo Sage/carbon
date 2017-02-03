@@ -1,31 +1,22 @@
 import Dialog from './';
-import DemoHelper from '../../utils/helpers/demo-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import Definition from './../../../demo2/utils/definition';
 
-let definition = {
-  component: Dialog,
-  key: 'dialog',
-  text: {
-    bemClass: 'carbon-dialog',
-    details: '[content needed] Basic designs description for the component',
-    description: '[content needed] Basic example of the component',
-    name: 'Dialog',
-    type: 'modal'
-  },
-  defaultProps: Dialog.defaultProps,
-  props: Dialog.propTypes,
+let definition = new Definition('dialog', Dialog, {
+  description: '[content needed] Basic example of the component',
+  designerNotes: '[content needed] Basic designs description for the component',
+  type: 'modal',
   propOptions: {
     size: OptionsHelper.sizesFull()
-  }
-};
+  },
+  propValues: {
+    title: 'Example Title for a Dialog',
+    children: 'This is an example of a dialog.',
+    open: false
+  },
+  hiddenProps: ['onCancel']
+});
 
-definition.demoProps = {
-  enableBackgroundUI: true,
-  onCancel: DemoHelper.stubbedFunction,
-  open: false,
-  showCloseIcon: true,
-  size: OptionsHelper.sizesFull()[2],
-  title: 'Test'
-};
+definition.stubAction('onCancel', 'open', false);
 
 export default definition;

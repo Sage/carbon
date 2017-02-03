@@ -1,5 +1,5 @@
 import { kebabCase, assign, cloneDeep } from 'lodash';
-import { titleize, classify } from 'underscore.string';
+import { classify } from 'underscore.string';
 import inputDefinition from './input-definition';
 import ComponentActions from './../../actions/component';
 
@@ -10,7 +10,7 @@ class Definition {
 
     this.key = kebabCase(name);
 
-    this.name = titleize(name);
+    this.name = classify(name);
 
     this.description = '';
 

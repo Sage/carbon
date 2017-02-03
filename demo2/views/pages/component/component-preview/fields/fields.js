@@ -30,11 +30,21 @@ const buildFields = (props) => {
       propOptions = props.definition.get('propOptions'),
       values = props.definition.get('propValues'),
       hiddenProps = props.definition.get('hiddenProps'),
-      propRequires = props.definition.get('propRequires');
+      propRequires = props.definition.get('propRequires'),
+      defaultProps = props.definition.get('defaultProps');
 
   demoProps.forEach((prop) => {
-    let value = values.get(prop) || "",
-        options = propOptions ? propOptions.get(prop) : null,
+    let value = values.get(prop);
+
+    if (typeof value === "undefined") {
+      if (typeof defaultProps.get(prop) === "undefined") {
+        value = "";
+      } else {
+        value = defaultProps.get(prop);
+      }
+    }
+
+    let options = propOptions ? propOptions.get(prop) : null,
         requirement = propRequires.get(prop);
 
     if (!hiddenProps.contains(prop)) {
@@ -60,7 +70,7 @@ const fieldComponent = (name, prop, value, options, requirement) => {
   let field = chooseField(prop, value, options),
       commonfieldProps = {
         key: prop,
-        label: titleize(kebabCase(prop)).replace("-", " "),
+        label: titleize(kebabCase(prop)).replace(/-/g, " "),
         onChange: ComponentActions.updateDefinition.bind(this, name, prop),
         value: value
       };

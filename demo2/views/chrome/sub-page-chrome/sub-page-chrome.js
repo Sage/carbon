@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'utils/flux';
-import { humanize } from 'underscore.string';
+import { titleize, humanize } from 'underscore.string';
 import ComponentStore from './../../../stores/component';
 import I18n from 'i18n-js';
 
@@ -46,7 +46,7 @@ class SubPageComponent extends React.Component {
 
   name = () => {
     let name = this._hasNameParam() ? this.props.params.name : this._getLastPartOfLocation();
-    return humanize(name);
+    return titleize(humanize(name));
   }
 
   subtitle = (definition) => {
