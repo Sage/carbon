@@ -20,7 +20,7 @@ class Component extends React.Component {
       <div>
         <ComponentPreview definition={ def } name={ this.props.params.name } />
         <PageContentArea title={ I18n.t('component_page.design_notes') }>
-          { def.getIn(['text', 'details']) }
+          { def.get('designerNotes') }
         </PageContentArea>
       </div>
     );

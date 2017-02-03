@@ -13,6 +13,15 @@
   display: block;
   overflow-x: auto;
   -webkit-text-size-adjust: none;
+
+  > .hljs-keyword {
+    display: none;
+
+    ~ .xml {
+      position: relative;
+      top: -16px;
+    }
+  }
 }
 
 .hljs-tag,

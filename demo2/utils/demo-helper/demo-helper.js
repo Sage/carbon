@@ -16,7 +16,7 @@ let DemoHelper = {
         i = 0;
 
     for (; i < count; i++) {
-      let props = definition.demoProps;
+      let props = definition.propValues;
       if (addUnique) {
         props[addUnique] = `${definition.text.name}-${(i+1)}`;
       }
@@ -27,7 +27,7 @@ let DemoHelper = {
       // we need to define then assign to add the key 'displayName' which
       // we need for outputting the demo element as a child in the code builder
       // IE does not recognise function names
-      let elem = React.createElement(definition.component, definition.demoProps);
+      let elem = React.createElement(definition.component, definition.propValues);
       elems[i] = assign({ displayName: definition.text.name }, elem);
     }
 

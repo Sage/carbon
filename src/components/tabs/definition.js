@@ -4,35 +4,30 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import tabDefinition from './tab/definition';
 
 let definition = new Definition('tabs', Tabs, {
-  text: {
-    details: '[content needed] Basic designs description for the component',
-    description: '[content needed] Basic example of the component',
-    type: 'layout',
-  },
+  description: '[content needed] Basic example of the component',
+  designerNotes: '[content needed] Basic designs description for the component',
+  type: 'layout',
   propOptions: {
     align: OptionsHelper.alignBinary(),
     position: OptionsHelper.positions()
   },
-  demoProps: {
+  propValues: {
     align: 'left',
-    children: [{
-      definition: tabDefinition,
-      demoProps: {
-        tabId: "tab-1",
-        title: "Tab 1",
-        children: "Content for tab 1"
-      }
-    }, {
-      definition: tabDefinition,
-      demoProps: {
-        tabId: "tab-2",
-        title: "Tab 2",
-        children: "Content for tab 2"
-      }
-    }],
     position: 'top',
     renderHiddenTabs: false
   }
 });
 
-export default definition.data;
+definition.addChildByDefinition(tabDefinition, {
+  tabId: "tab-1",
+  title: "Tab 1",
+  children: "Content for tab 1"
+});
+
+definition.addChildByDefinition(tabDefinition, {
+  tabId: "tab-2",
+  title: "Tab 2",
+  children: "Content for tab 2"
+});
+
+export default definition;

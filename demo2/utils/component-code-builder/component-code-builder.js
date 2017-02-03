@@ -19,20 +19,22 @@ class ComponentCodeBuilder {
   }
 
   // adds multiple props to the code based on the keys and data hash
-  addProps = (props, data) => {
+  addProps = (data, withEvents) => {
     let children = data.get('children');
 
-    props.forEach((_, prop) => {
+    data.forEach((value, prop) => {
       if (prop !== "children") {
-        this.addProp(prop, data.get(prop));
+        if (withEvents || (prop !== "data-binding" && typeof value !== "function")) {
+          this.addProp(prop, value);
+        }
       }
     });
 
     if (children) {
       if (typeof children === "object") {
         children.forEach((child) => {
-          let childCode = new ComponentCodeBuilder(child.getIn(['definition', 'text', 'name']));
-          childCode.addProps(child.getIn(['definition', 'props']), child.get('demoProps'))
+          let childCode = new ComponentCodeBuilder(child.getIn(['definition', 'name']));
+          childCode.addProps(child.get('propValues'))
           this.addChild(childCode);
         });
       } else {

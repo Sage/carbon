@@ -6,7 +6,6 @@ import ComponentStore from './../../../stores/component';
 import I18n from 'i18n-js';
 
 // Demo Site
-import PageBackground from './page-background';
 import PageHeaderSmall from './../../common/page-header-small';
 import SubPageNavigation from './../../common/sub-page-navigation';
 
@@ -26,8 +25,6 @@ class SubPageComponent extends React.Component {
 
     return (
       <article className='sub-page-chrome'>
-        <PageBackground />
-
         <PageHeaderSmall
           subtitle={ this.subtitle(definition) }
           title={ this.name() }
@@ -54,7 +51,7 @@ class SubPageComponent extends React.Component {
 
   subtitle = (definition) => {
     if (definition) {
-      return definition.getIn(['text', 'description']);
+      return definition.get('description');
     } else {
       let scope = this.props.location.pathname.replace(/\//g, ".").substr(1);
       return I18n.t(`${scope}.subtitle`);
@@ -63,7 +60,7 @@ class SubPageComponent extends React.Component {
 
   titleAppend = (definition) => {
     if (definition) {
-      return definition.getIn(['text', 'type']);
+      return definition.get('type');
     }
   }
 

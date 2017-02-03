@@ -1,30 +1,64 @@
-import { kebabCase, merge } from 'lodash';
+import { kebabCase, assign } from 'lodash';
 import { titleize, classify } from 'underscore.string';
+import inputDefinition from './input-definition';
 
 class Definition {
   constructor(name, component, data) {
     // expose component to the window for live coding
     global[classify(name)] = component;
 
-    this.data = {
-      // TODO: get rid of component from data
-      component: component,
-      key: kebabCase(name),
-      text: {
-        bemClass: this.generateBemClass(name),
-        name: titleize(name)
-      },
-      defaultProps: component.defaultProps,
-      props: component.propTypes,
-      demoProps: {}
-    };
+    this.key = kebabCase(name);
 
-    this.data = merge(this.data, data);
+    this.name = titleize(name);
+
+    this.description = '';
+
+    this.designerNotes = '';
+
+    this.type = '';
+
+    // define default props set by the component
+    this.defaultProps = component.defaultProps || {};
+
+    // define all props
+    this.props = Object.keys(component.propTypes) || [];
+
+    // define default values for props
+    this.propValues = component.defaultProps || {};
+
+    // define types for non-string props
+    this.propTypes = {};
+
+    // define option sets for props that need them (ie. dropdown)
+    this.propOptions = {};
+
+    // define descriptions for particular props
+    this.propDescriptions = {};
+
+    // list all required props
+    this.requiredProps = [];
+
+    // determine if a prop should only be enabled with another prop
+    this.propRequires = {};
+
+    // props to hide from the demo
+    this.hiddenProps = [];
+
+    assign(this, data);
   }
 
-  generateBemClass = (name) => {
-    name = 'carbon-' + name;
-    return kebabCase(name);
+  addChildByDefinition = (definition, propValues) => {
+    if (!this.propValues.children) {
+      this.propValues.children = [];
+    }
+
+    this.propValues.children.push({
+      definition, propValues
+    });
+  }
+
+  isAnInput = () => {
+    inputDefinition(this);
   }
 }
 

@@ -1,3 +1,6 @@
 // expose additional classes to the window
 global['React'] = require('react');
 global['ReactDOM'] = require('react-dom');
+global['Dispatcher'] = require('./dispatcher').default;
+global['ComponentConstants'] = require('./constants/component').default;
+require('./../foo.js');

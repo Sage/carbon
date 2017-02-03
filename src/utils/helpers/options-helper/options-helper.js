@@ -161,15 +161,6 @@ let OptionsHelper = {
     ];
   },
 
-  inputDecoratorDemoProps: () => {
-    return {
-      fieldHelp: 'This text can provide help on how you should use this input.',
-      label: 'Example Textbox',
-      labelHelp: 'This text can help provide more information for this label.',
-      labelInline: false,
-    };
-  },
-
   nonDemoFormProps: () => {
     return [
       'activeInput',
