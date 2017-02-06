@@ -14,7 +14,8 @@ let definition = new Definition('dialog', Dialog, {
     children: 'This is an example of a dialog.',
     open: false
   },
-  hiddenProps: ['onCancel']
+  hiddenProps: ['onCancel'],
+  requiredProps: ['open']
 });
 
 definition.stubAction('onCancel', 'open', false);

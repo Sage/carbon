@@ -6,6 +6,7 @@ import I18n from 'i18n-js';
 // App Components
 import PageContentArea from '../../common/page-content-area';
 import ComponentPreview from './component-preview';
+import ComponentAPI from './component-api';
 
 // Flux Components
 import { connect } from 'utils/flux';
@@ -19,6 +20,9 @@ class Component extends React.Component {
     return (
       <div>
         <ComponentPreview definition={ def } name={ this.props.params.name } />
+
+        <ComponentAPI definition={ def } />
+
         <PageContentArea title={ I18n.t('component_page.design_notes') }>
           { def.get('designerNotes') }
         </PageContentArea>
