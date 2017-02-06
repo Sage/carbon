@@ -49,7 +49,7 @@ export default {
   // 'simple-color-picker':  require('components/simple-color-picker/definition').default,
   // 'spinner':              require('components/spinner/definition').default,
   // 'split-button':         require('components/split-button/definition').default,
-  // 'table-ajax':           require('components/table-ajax/definition').default,
+  'table-ajax':           require('components/table-ajax/definition').default,
   'table':                require('components/table/definition').default,
   'tabs':                 require('components/tabs/definition').default,
   'textarea':             require('components/textarea/definition').default,

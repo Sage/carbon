@@ -13,6 +13,7 @@ let data = ImmutableHelper.parseJSON(definitions);
 
 // expose tableData for the table component demo
 global.tableData = ImmutableHelper.parseJSON([]);
+global.tableAjaxData = ImmutableHelper.parseJSON([]);
 
 class ComponentStore extends Store {
   [ComponentConstants.UPDATE_DEFINITION](data) {
@@ -34,6 +35,16 @@ class ComponentStore extends Store {
 
     // update the global object
     global.tableData = data;
+  }
+
+  [ComponentConstants.UPDATE_TABLE_AJAX](action) {
+    let data = ImmutableHelper.parseJSON(action.items);
+    this.data = this.data.setIn(['table', 'data'], data);
+    this.data = this.data.setIn(['table', 'propValues', 'currentPage'], action.page);
+    this.data = this.data.setIn(['table', 'propValues', "totalRecords"], action.records);
+
+    // update the global object
+    global.tableAjaxData = data;
   }
 }
 

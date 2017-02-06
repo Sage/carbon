@@ -42,6 +42,15 @@ const ComponentActions = {
           pageSize: pageSize
         });
       });
+  },
+
+  updateTableAjax: (data) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.UPDATE_TABLE_AJAX,
+      items: data.rows,
+      records: String(data.records),
+      page: String(data.current_page)
+    });
   }
 };
 
