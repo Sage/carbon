@@ -12,8 +12,7 @@
 
 ## Potentially breaking changes
 
-* The following components have been refactored to meet best practice standards and pass linting.
-* If you have overridden any internal methods of these components, you may need to update your code.
+* The following components have been refactored to meet best practice standards and pass linting. If you have overridden any internal methods of these components, you may need to update your code.
   - Action Toolbar
   - Alert
   - Animated Menu Button
@@ -22,6 +21,7 @@
   - Content
   - Create
   - Carousel
+* `ButtonToggle` no longer inherits from the label decorator as it was providing more functionality than required.
 
 ## Component Enhancements
 
