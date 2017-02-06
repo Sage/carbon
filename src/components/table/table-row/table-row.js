@@ -91,7 +91,14 @@ class TableRow extends React.Component {
      * @property onHighlight
      * @type {Function}
      */
-    onHighlight: React.PropTypes.func
+    onHighlight: React.PropTypes.func,
+
+    /**
+     * Callback for when a row is selected
+     * @property onSelect
+     * @type {Function}
+     */
+    onSelect: React.PropTypes.func
   }
 
   /**
