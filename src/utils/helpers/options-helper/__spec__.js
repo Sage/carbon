@@ -37,67 +37,6 @@ describe('OptionsHelper', () => {
         'warning'
       ]);
     });
-    it("commonBooleans()", () => {
-      expect(OptionsHelper.commonBooleans()).toEqual([
-        'bodyFullWidth',
-        'border',
-        'collapsed',
-        'columnDivide',
-        'darkBackground',
-        'defaultChecked',
-        'disabled',
-        'disableEscKey',
-        'displayEditButtonOnHover',
-        'divider',
-        'editContentFullWidth',
-        'enableBackgroundUI',
-        'enforceCharacterLimit',
-        'expandable',
-        'fieldHelpInline',
-        'fill',
-        'highlightable',
-        'inline',
-        'internalEditButton',
-        'isVisible',
-        'labelInline',
-        'labelsInline',
-        'large',
-        'legacyEditStyles',
-        'open',
-        'paginate',
-        'renderHiddenTabs',
-        'reverse',
-        'roundedCorners',
-        'selectable',
-        'separator',
-        'showCloseIcon',
-        'showPageSizeSelection',
-        'shrink',
-        'suggest',
-        'tabbable',
-        'transparent',
-        'triggerEditOnContent',
-        'validateOnMount'
-      ]);
-    });
-    it("commonEvents()", () => {
-      expect(OptionsHelper.commonEvents()).toEqual([
-        'afterFormValidation',
-        'additionalActions',
-        'beforeFormValidation',
-        'create',
-        'onCancel',
-        'onChange',
-        'onConfirm',
-        'onDismiss',
-        'onEdit',
-        'onHighlight',
-        'onPageSizeChange',
-        'onSelect',
-        'onSubmit',
-        'onTabChange'
-      ]);
-    });
     it("icons()", () => {
       expect(OptionsHelper.icons()).toEqual([
         'add',
@@ -156,36 +95,6 @@ describe('OptionsHelper', () => {
         'upload',
         'uploaded',
         'warning'
-      ]);
-    });
-    it("inputDecoratorDemoProps()", () => {
-      expect(OptionsHelper.inputDecoratorDemoProps()).toEqual({
-        className: '',
-        fieldHelp: 'Test help',
-        fieldHelpInline: true,
-        inputWidth: '70',
-        label: 'Test Label',
-        labelAlign: 'left',
-        labelHelp: 'Test label help',
-        labelInline: false,
-        labelWidth: '25',
-        validations: [],
-        warnings: [],
-      });
-    });
-    it("nonDemoFormProps()", () => {
-      expect(OptionsHelper.nonDemoFormProps()).toEqual([
-        'activeInput',
-        'cacheVisibleValue',
-        'className',
-        'editFields',
-        'footer',
-        'initialSlideIndex',
-        'key',
-        'options',
-        'transitionName',
-        'validations',
-        'warnings'
       ]);
     });
     it("pageSizes()", () => {
@@ -253,13 +162,6 @@ describe('OptionsHelper', () => {
         'tile',
         'transparent'
       ]);
-    });
-    it("tooltipDecoratorDemoProps()", () => {
-      expect(OptionsHelper.tooltipDecoratorDemoProps()).toEqual({
-        tooltipAlign: 'center',
-        tooltipMessage: 'Test tooltip message',
-        tooltipPosition: 'top'
-      });
     });
   });
 });

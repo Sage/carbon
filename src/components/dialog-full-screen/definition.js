@@ -1,5 +1,4 @@
 import DialogFullScreen from './';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo2/utils/definition';
 
 let definition = new Definition('dialog-full-screen', DialogFullScreen, {
