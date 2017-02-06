@@ -40,4 +40,6 @@ gulp.task('build', BuildTask({
 
 gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 
-gulp.task('test', SpecTask());
+gulp.task('test', SpecTask({
+  path: '/src/***/**/!(__spec__|definition).js'
+}));

@@ -106,7 +106,10 @@ class DropdownFilterAjax extends DropdownFilter {
      * @type {Number}
      * @default 25
      */
-    rowsPerRequest: React.PropTypes.number,
+    rowsPerRequest: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
 
     /**
      * Enables create functionality for dropdown.

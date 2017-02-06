@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
+    "babel-standalone": "^6.17.0",
     "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.3.0",
     "enzyme": "^2.5.1",
     "express": "~4.14.0",
@@ -36,7 +37,8 @@
     "react-addons-test-utils": "~15.3.2",
     "react-dom": "~15.3.1",
     "react-highlight": "~0.9.0",
-    "react-router": "~2.8.0"
+    "react-router": "~2.8.0",
+    "underscore.string": "^3.3.4"
   },
   "dependencies": {
     "bignumber.js": "~2.4.0",
