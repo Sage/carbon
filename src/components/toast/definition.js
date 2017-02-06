@@ -7,7 +7,7 @@ let definition = new Definition('toast', Toast, {
   designerNotes: '[content needed] Basic designs description for the component',
   type: 'notification',
   propOptions: {
-    as: OptionsHelper.colors()
+    as: OptionsHelper.colors
   },
   propValues: {
     children: 'test',
@@ -20,7 +20,7 @@ let definition = new Definition('toast', Toast, {
     open: "Boolean"
   },
   propDescriptions: {
-    as: "Sets the theme of the notification. Possible values include: " + OptionsHelper.colors().join(", "),
+    as: "Sets the theme of the notification. Possible values include: " + OptionsHelper.colors.join(", "),
     onDismiss: "A callback for when the notification is dismissed. You can use this prop to close the notification.",
     open: "A boolean to control the open/closed state of the notification."
   }

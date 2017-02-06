@@ -7,7 +7,7 @@ export default (definition) => {
   definition.propValues.label = 'Example ' + definition.name;
   definition.propValues.labelHelp = 'This text provides more information for the label.';
 
-  definition.propOptions.labelAlign = OptionsHelper.alignBinary();
+  definition.propOptions.labelAlign = OptionsHelper.alignBinary;
 
   definition.hiddenProps = definition.hiddenProps.concat(['warnings', 'validations']);
 

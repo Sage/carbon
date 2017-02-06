@@ -4,7 +4,6 @@ import { kebabCase } from 'lodash';
 import ImmutableHelper from 'utils/helpers/immutable';
 import ComponentStore from './../../../../../stores/component';
 import ComponentActions from './../../../../../actions/component';
-import OptionsHelper from 'utils/helpers/options-helper';
 import Checkbox from 'components/checkbox';
 import Dropdown from 'components/dropdown';
 import Textarea from 'components/textarea';

@@ -9,7 +9,7 @@ let definition = new Definition('tabs', Tabs, {
   type: 'layout',
   associatedDefinitions: [tabDefinition],
   propOptions: {
-    align: OptionsHelper.alignBinary(),
+    align: OptionsHelper.alignBinary,
     position: ['top', 'left']
   },
   hiddenProps: ['selectedTabId', 'renderHiddenTabs', 'onTabChange'],
@@ -23,7 +23,7 @@ let definition = new Definition('tabs', Tabs, {
     selectedTabId: "String"
   },
   propDescriptions: {
-    align: "Sets the alignment of the tab titles. Possible values include: " + OptionsHelper.alignBinary(),
+    align: "Sets the alignment of the tab titles. Possible values include: " + OptionsHelper.alignBinary,
     children: "The child elements of Tabs need to be Tab components.",
     onTabChange: "A callback for when a tab is changed. You can use this to manually control tab changing or to fire other events when a tab is changed.",
     position: "The position of the tab title. Possible values include: top, left",

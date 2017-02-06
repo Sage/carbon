@@ -6,7 +6,7 @@ let definition = new Definition('dialog', Dialog, {
   description: '[content needed] Basic example of the component',
   designerNotes: '[content needed] Basic designs description for the component',
   propOptions: {
-    size: OptionsHelper.sizesFull()
+    size: OptionsHelper.sizesFull
   },
   propValues: {
     title: 'Example Title for a Dialog',
@@ -19,7 +19,7 @@ let definition = new Definition('dialog', Dialog, {
   },
   propDescriptions: {
     showCloseIcon: "Set this prop to false to hide the close icon within the dialog.",
-    size: "Change this prop to set the dialog to a specific size. Possible values include: " + OptionsHelper.sizesFull().join(", "),
+    size: "Change this prop to set the dialog to a specific size. Possible values include: " + OptionsHelper.sizesFull.join(", "),
     title: "Controls the main title of the dialog."
   }
 });
