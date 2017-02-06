@@ -54,9 +54,7 @@ const _nextKey = (current) => {
  * @return {String}
  */
 const _previousKey = (current) => {
-  let pos = current === 0
-    ? definitionKeys.length - 1
-    : current - 1;
+  let pos = (current === 0) ? definitionKeys.length - 1 : current - 1;
 
   return Definitions[definitionKeys[pos]].key;
 }

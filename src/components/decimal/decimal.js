@@ -62,7 +62,10 @@ class Decimal extends React.Component {
      * @type {Integer}
      * @default 2
      */
-    precision: React.PropTypes.string
+    precision: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ])
   };
 
   static defaultProps = {
