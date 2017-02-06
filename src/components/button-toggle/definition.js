@@ -20,8 +20,10 @@ let definition = new Definition('button-toggle', ButtonToggle, {
     buttonIcon: "String",
     buttonIconSize: "String",
     name: "String",
-    value: "String"
+    value: "String",
+    children: "Node"
   },
+  requiredProps: ['children'],
   propRequires: {
     buttonIconSize: "buttonIcon"
   },
@@ -29,7 +31,8 @@ let definition = new Definition('button-toggle', ButtonToggle, {
     buttonIcon: "Define an icon to use for the button",
     buttonIconSize: "Define what size the icon should be. Possible values include: " + OptionsHelper.sizesBinary.join(", "),
     name: "The label that will be used for the selected button. Use the same name across multiple buttons for them to operate as radio buttons.",
-    value: "The value associated with the selected button."
+    value: "The value associated with the selected button.",
+    children: "The children to render for the button."
   },
   hiddenProps: ["name", "value"]
 });
