@@ -5,6 +5,7 @@ var SpecTask = require('carbon-factory/lib/gulp/spec').default;
 var generateColors = require('./script/generate-demo-colors').default;
 var express = require('express');
 var api = require('./demo/api');
+var gutil = require('gulp-util');
 
 var argv = yargs.argv;
 
@@ -26,8 +27,11 @@ gulp.task('webserver', function() {
   app.get('/*', function(req, res){
     res.sendFile(__dirname + '/' + dir + '/index.html');
   });
+  // set port
+  var port = argv.port || 8095;
+  gutil.log(gutil.colors.cyan('App running on port ') + gutil.colors.green(port));
   // run server
-  app.listen(8095);
+  app.listen(port);
 });
 
 gulp.task('build', BuildTask({

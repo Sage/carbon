@@ -43,12 +43,19 @@ So far we have added attributes to the following components:
 
 * Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
 
+### Gulp updates
+
+* Can pass command line arg to pecify port for demo server.
+```bash
+gulp --port 1234
+```
+
 # 0.34.0
 
 ## Component Enhancements
 
 * `DateRange`: Two new props have been added, `startDateProps` and `endDateProps`, to apply props to the child `Date` components.
-* `MultiStepWizard` now allows adding callbacks when clicking on Next/Back button and allows adding validation callback before wizard submission when clicking on Submit button. 
+* `MultiStepWizard` now allows adding callbacks when clicking on Next/Back button and allows adding validation callback before wizard submission when clicking on Submit button.
 
 ## DropdownFilter `freetext` mode
 
