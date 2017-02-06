@@ -31,10 +31,10 @@ class Component extends React.Component {
   }
 
   renderAPIs = (definition) => {
-    let apis = [<ComponentAPI definition={ definition } />];
+    let apis = [<ComponentAPI definition={ definition } key="main" />];
 
-    definition.get('associatedDefinitions').forEach((associatedDefinition) => {
-      apis.push(<ComponentAPI definition={ associatedDefinition } />);
+    definition.get('associatedDefinitions').forEach((associatedDefinition, index) => {
+      apis.push(<ComponentAPI definition={ associatedDefinition } key={ index } />);
     });
 
     return apis;

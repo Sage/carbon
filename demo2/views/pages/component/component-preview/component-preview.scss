@@ -1,5 +1,4 @@
 @import 'colors';
-@import "./../../../../style-config/demo-variables";
 
 .component-preview {
   &__interaction {
@@ -17,10 +16,6 @@
     flex-shrink: 0;
     padding: 20px;
     width: 350px;
-
-    .carbon-textarea__input {
-      height: 6em;
-    }
   }
 
   .demo-code {
@@ -28,103 +23,5 @@
     flex-shrink: 1;
     flex-grow: 1;
     overflow-x: auto;
-  }
-
-  .demo-stubbed-element {
-    box-sizing: border-box;
-    display: inline-block;
-  }
-}
-
-.component-preview--carousel {
-  .demo-stubbed-element .demo-stubbed-element {
-    height: 100px;
-    width: 25%;
-  }
-}
-
-.component-preview--button-toggle {
-  .carbon-button-toggle {
-    // removes !first margin top applied to inputs
-    margin-top: 0;
-  }
-}
-
-.component-preview--fieldset{
-  .demo-stubbed-element.demo-stubbed-element {
-    margin-top: 20px;
-    width: 100%;
-  }
-}
-
-.component-preview--flash{
-  .carbon-flash {
-    // required to cater for the side menu with the fixed positioning
-    @media (min-width: $response-point-medium) {
-      left: $menu-width;
-    }
-  }
-}
-
-.component-preview--navigation-bar {
-  .demo-stubbed-element {
-    height: 30px;
-    line-height: 30px;
-    width: 100px;
-  }
-}
-
-.component-preview--row {
-  .demo-stubbed-element {
-    box-sizing: border-box;
-    margin-left: 2px;
-    width: 100%;
-  }
-}
-
-.component-preview--sidebar {
-  .demo-stubbed-element {
-    margin-bottom: 20px;
-    width: 100%;
-  }
-}
-
-.component-preview--split-button {
-  .demo-stubbed-element.demo-stubbed-element {
-    background-color: transparent;
-    color: $white;
-    height: 30px;
-    line-height: 30px;
-    width: 100%;
-  }
-}
-
-.component-preview--tabs {
-  .demo-stubbed-element {
-    margin-right: 1%;
-    width: 32.333%;
-
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
-}
-
-.component-preview--table,
-.component-preview--table-ajax {
-  .carbon-table-row.carbon-table-row {
-    display: table-row;
-    width: 100%;
-  }
-}
-
-.component-preview--table,
-.component-preview--table-ajax {
-  .carbon-table {
-    margin: auto;
-    width: 837px;
-  }
-  .carbon-table-cell.carbon-table-cell {
-    width: 63px;
   }
 }

@@ -19,10 +19,10 @@
   overflow-x: auto;
   -webkit-text-size-adjust: none;
 
-  > .hljs-keyword {
+  > .hljs-keyword:first-child {
     display: none;
 
-    ~ .xml {
+    + .xml {
       position: relative;
       top: -16px;
     }

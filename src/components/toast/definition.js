@@ -13,7 +13,6 @@ let definition = new Definition('toast', Toast, {
     children: 'test',
     open: true
   },
-  hiddenProps: ['onDismiss'],
   propTypes: {
     as: "String",
     onDismiss: "Function",
