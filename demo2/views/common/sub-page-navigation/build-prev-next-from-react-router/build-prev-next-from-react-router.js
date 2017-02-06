@@ -45,12 +45,7 @@ const _currentIndex = (routes, currentPage) => {
  * @return {String}
  */
 const _nextKey = (routes, currentRouteIndex) => {
-  let nextRouteIndex = currentRouteIndex + 1;
-
-  if (nextRouteIndex === routes.length) {
-    nextRouteIndex = 0;
-  }
-
+  let nextRouteIndex = (currentRouteIndex + 1) % routes.length
   return routes[nextRouteIndex].path;
 }
 
@@ -64,12 +59,7 @@ const _nextKey = (routes, currentRouteIndex) => {
  * @return {String}
  */
 const _previousKey = (routes, currentRouteIndex) => {
-  let previousRouteIndex = currentRouteIndex - 1;
-
-  if (nextRouteIndex === -1) {
-    previousRouteIndex = routes.length - 1;
-  }
-
+  let nextRouteIndex = (currentRouteIndex - 1 + routes.length) % routes.length
   return routes[previousRouteIndex].path;
 }
 
