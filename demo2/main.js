@@ -5,18 +5,23 @@ import { startRouter } from 'utils/router';
 
 // Languages
 import './i18n/en';
+// Additional components we expose to the window
+import './expose';
 
 // Demo
 import Chrome from './views/chrome';
+import SubPageChrome from './views/chrome/sub-page-chrome';
 import Home from './views/pages/home';
-import Colors from './views/pages/colors';
-import Icons from './views/pages/icons';
 
-var routes = (
+import SiteMap from './site-map';
+
+const routes = (
   <Route component={ Chrome }>
     <Route path="/" component={ Home } />
-    <Route path="/colors" component={ Colors } />
-    <Route path="/icons" component={ Icons } />
+
+    <Route component={ SubPageChrome }>
+      { SiteMap.generateRoutes() }
+    </Route>
   </Route>
 );
 

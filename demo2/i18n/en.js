@@ -90,14 +90,8 @@ I18n.translations['en'] = {
     }
   },
 
-  colors: {
-    title: 'Colors',
-    subtitle: 'Enables a consistent styling across your application'
-  },
-
-  icons: {
-    title: 'Icons',
-    subtitle: 'Free open source icons to use in your project',
+  component_page: {
+    design_notes: 'Designer Notes'
   },
 
   errors: {
@@ -107,5 +101,15 @@ I18n.translations['en'] = {
       too_long: "is too long (maximum is %{count} characters)",
       wrong_format: 'Invalid format'
     }
+  },
+
+  style: {
+    colors: {
+      subtitle: 'Enables a consistent styling across your application'
+    },
+
+    icons: {
+      subtitle: 'Free open source icons to use in your project',
+    },
   }
 };

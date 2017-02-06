@@ -1,5 +1,14 @@
+import { transform } from 'babel-standalone';
+
 class ComponentCodeBuilder {
-  constructor(name) {
+  constructor(name, withEvents) {
+    let definition;
+
+    if (typeof name !== "string") {
+      definition = name;
+      name = definition.get('name');
+    }
+
     // the name of the component
     this.name = name;
 
@@ -14,13 +23,34 @@ class ComponentCodeBuilder {
 
     // tracks if the component has been closed
     this.isClosed = false;
+
+    if (definition) {
+      this.addProps(definition, withEvents);
+    }
   }
 
-  // adds multiple props to the code based on the keys and data hash
-  addProps = (props, data) => {
-    for (let index in props) {
-      let prop = props[index];
-      return this.addProp(prop, data.get(prop));
+  // adds multiple props to the code based on a definition
+  addProps = (definition, withEvents) => {
+    let props = definition.get('propValues'),
+        children = props.get('children');
+
+    props.forEach((value, prop) => {
+      if (prop !== "children") {
+        if (withEvents || (prop !== "data-binding" && typeof value !== "function")) {
+          this.addProp(prop, value);
+        }
+      }
+    });
+
+    if (children) {
+      if (typeof children === "object") {
+        children.forEach((child) => {
+          let childCode = new ComponentCodeBuilder(child);
+          this.addChild(childCode);
+        });
+      } else {
+        this.addChild(children);
+      }
     }
   }
 
@@ -30,10 +60,10 @@ class ComponentCodeBuilder {
       throw new Error(`You cannot add props after you have added children or closed your component! See the ComponentCodeBuilder for '${this.name}'.\n\nCurrent markup:\n\n${this.code}`);
     }
 
-    if (value) {
+    if (value || value === false) {
       this.hasProps = true;
       if (typeof value === "string") {
-        this.code += `\n  ${prop}='${value}'`;
+        this.code += `\n  ${prop}="${value.replace(/"/g, "'")}"`;
       } else {
         this.code += `\n  ${prop}={ ${value} }`;
       }
@@ -88,6 +118,11 @@ class ComponentCodeBuilder {
     if (!this.isClosed) { this.close(); }
 
     return this.code;
+  }
+
+  // returns component
+  toComponent = () => {
+    return eval(transform(this.toString(), { presets: ['es2015', 'react'] }).code);
   }
 }
 
