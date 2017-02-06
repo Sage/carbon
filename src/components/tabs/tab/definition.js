@@ -1,6 +1,5 @@
 import Tab from './';
 import Definition from './../../../../demo2/utils/definition';
-import podDefinition from '../../pod/definition';
 
 let definition = new Definition('tab', Tab, {
   description: '[content needed] Basic example of the component',
