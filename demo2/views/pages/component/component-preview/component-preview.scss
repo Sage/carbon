@@ -105,22 +105,3 @@
     }
   }
 }
-
-.component-preview--table,
-.component-preview--table-ajax {
-  .carbon-table-row.carbon-table-row {
-    display: table-row;
-    width: 100%;
-  }
-}
-
-.component-preview--table,
-.component-preview--table-ajax {
-  .carbon-table {
-    margin: auto;
-    width: 837px;
-  }
-  .carbon-table-cell.carbon-table-cell {
-    width: 63px;
-  }
-}

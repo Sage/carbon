@@ -47,7 +47,7 @@ const buildFields = (props) => {
     let options = propOptions ? propOptions.get(prop) : null,
         requirement = propRequires.get(prop);
 
-    if (!hiddenProps.contains(prop)) {
+    if (!hiddenProps.contains(prop) && !hiddenType(propTypes.get(prop))) {
       let type = propTypes.get(prop),
           field = chooseField(type, prop, value, options);
 
@@ -140,4 +140,8 @@ const chooseField = (type, prop, value, options) => {
   if (prop !== 'children') {
     return Textbox;
   }
+}
+
+const hiddenType = (type) => {
+  return ["Function", "Node"].includes(type);
 }

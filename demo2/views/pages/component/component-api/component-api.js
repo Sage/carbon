@@ -18,7 +18,7 @@ class ComponentAPI extends React.Component {
 
   _buildRows = () => {
     let rows = [(
-      <TableRow>
+      <TableRow key="header">
         <TableHeader>Name</TableHeader>
         <TableHeader>Required</TableHeader>
         <TableHeader>Type</TableHeader>
@@ -27,9 +27,9 @@ class ComponentAPI extends React.Component {
       </TableRow>
     )];
 
-    this.props.definition.get('props').sort().forEach((prop) => {
+    this.props.definition.get('props').sort().forEach((prop, index) => {
       rows.push(
-        <TableRow>
+        <TableRow key={ index }>
           <TableCell className="component-api__cell">{ prop }</TableCell>
           <TableCell className="component-api__cell component-api__cell--align-center">
             { this._isRequired(prop) }

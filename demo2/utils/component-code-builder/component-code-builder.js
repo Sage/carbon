@@ -32,7 +32,8 @@ class ComponentCodeBuilder {
   // adds multiple props to the code based on a definition
   addProps = (definition, withEvents) => {
     let props = definition.get('propValues'),
-        children = props.get('children');
+        children = props.get('children'),
+        js = definition.get('js');
 
     props.forEach((value, prop) => {
       if (prop !== "children") {
@@ -51,6 +52,10 @@ class ComponentCodeBuilder {
       } else {
         this.addChild(children);
       }
+    }
+
+    if (js) {
+      this.addJS(js);
     }
   }
 
@@ -96,6 +101,11 @@ class ComponentCodeBuilder {
       this.code += `${spaces}${child}`;
       this.hasChildren = true;
     }
+  }
+
+  // adds javascript making it available before the JSX
+  addJS = (js) => {
+    this.code = js + "\n\n" + this.code
   }
 
   // closes the component tag
