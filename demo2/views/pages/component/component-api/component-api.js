@@ -7,7 +7,7 @@ class ComponentAPI extends React.Component {
   render() {
     return (
       <PageContentArea
-        title={ this.props.definition.get('name') + " API" }
+        title={ "Props for " + this.props.definition.get('name') + " Component" }
       >
         <Table shrink={ true } className="component-api">
           { this._buildRows() }
