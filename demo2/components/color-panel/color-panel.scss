@@ -1,0 +1,52 @@
+@import 'colors';
+@import './../../style-config/demo-variables';
+
+.demo-color-panel {
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: $grey-dark-blue;
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  width: 100%;
+
+  &--light {
+    color: $white;
+  }
+
+  &--dark {
+    color: $black;
+  }
+
+  @media (min-width: $response-point-tiny) {
+    height: 60px;
+  }
+
+  @media (min-width: $response-point-small) {
+    height: 70px;
+  }
+
+  @media (min-width: $response-point-medium) {
+    height: 108px;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    height: 100%;
+    justify-content: space-between;
+    margin: 4%;
+
+    @media (min-width: $response-point-small) {
+      flex-direction: row;
+      height: auto;
+      margin-top: auto;
+    }
+  }
+
+  &__title {
+    font-size: 14px;
+    margin: 0;
+  }
+}

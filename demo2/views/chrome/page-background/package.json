@@ -1,7 +1,0 @@
-{
-  "main": "./page-background.js",
-  "style": "page-background.scss",
-  "images": [
-    "./grid-bk--grey.svg"
-  ]
-}

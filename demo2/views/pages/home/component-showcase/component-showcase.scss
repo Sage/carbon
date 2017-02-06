@@ -1,0 +1,15 @@
+.component-showcase {
+  align-items: center;
+  background-image: linear-gradient(to bottom, #f3f8fe, #fdf5f5);
+  display: flex;
+  flex-direction: column;
+  padding: 120px 0 0;
+
+  &__image-wrapper {
+    display: flex;
+  }
+
+  &__image {
+    margin: 0 auto;
+  }
+}
