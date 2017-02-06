@@ -144,10 +144,20 @@ describe('Date', () => {
     });
 
     it('calls set state to open the view and set the view date', () => {
-      expect(instance.setState).toHaveBeenCalledWith({
-        open: true,
-        viewDate: instance.props.defaultValue
-      })
+      expect(instance.setState).toHaveBeenCalledWith({ open: true })
+    });
+
+    describe('date validity', () => {
+      describe('when a valid date', () => {
+        it('calls set state setting the datePickerValue to be the valid date', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Date name='date' value='2015/01/01' label='Date' />
+          );
+          spyOn(instance, 'setState');
+          instance.openDatePicker();
+          expect(instance.setState).toHaveBeenCalledWith({ viewDate: '2015/01/01' });
+        });
+      });
     });
   });
 
