@@ -44,69 +44,6 @@ let OptionsHelper = {
     ];
   },
 
-  commonBooleans: () => {
-    return [
-      'bodyFullWidth',
-      'border',
-      'collapsed',
-      'columnDivide',
-      'darkBackground',
-      'defaultChecked',
-      'disabled',
-      'disableEscKey',
-      'displayEditButtonOnHover',
-      'divider',
-      'editContentFullWidth',
-      'enableBackgroundUI',
-      'enforceCharacterLimit',
-      'expandable',
-      'fieldHelpInline',
-      'fill',
-      'highlightable',
-      'inline',
-      'internalEditButton',
-      'isVisible',
-      'labelInline',
-      'labelsInline',
-      'large',
-      'legacyEditStyles',
-      'open',
-      'paginate',
-      'renderHiddenTabs',
-      'reverse',
-      'roundedCorners',
-      'selectable',
-      'separator',
-      'showCloseIcon',
-      'showPageSizeSelection',
-      'shrink',
-      'suggest',
-      'tabbable',
-      'transparent',
-      'triggerEditOnContent',
-      'validateOnMount'
-    ];
-  },
-
-  commonEvents: () => {
-    return [
-      'afterFormValidation',
-      'additionalActions',
-      'beforeFormValidation',
-      'create',
-      'onCancel',
-      'onChange',
-      'onConfirm',
-      'onDismiss',
-      'onEdit',
-      'onHighlight',
-      'onPageSizeChange',
-      'onSelect',
-      'onSubmit',
-      'onTabChange'
-    ];
-  },
-
   icons: () => {
     return [
       'add',
@@ -165,22 +102,6 @@ let OptionsHelper = {
       'upload',
       'uploaded',
       'warning'
-    ];
-  },
-
-  nonDemoFormProps: () => {
-    return [
-      'activeInput',
-      'cacheVisibleValue',
-      'className',
-      'editFields',
-      'footer',
-      'initialSlideIndex',
-      'key',
-      'options',
-      'transitionName',
-      'validations',
-      'warnings'
     ];
   },
 
@@ -272,14 +193,6 @@ let OptionsHelper = {
       'tile',
       'transparent'
     ];
-  },
-
-  tooltipDecoratorDemoProps: () => {
-    return {
-      tooltipAlign: 'center',
-      tooltipMessage: 'Test tooltip message',
-      tooltipPosition: 'top'
-    };
   }
 };
 

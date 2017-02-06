@@ -13,7 +13,17 @@ let definition = new Definition('toast', Toast, {
     children: 'test',
     open: true
   },
-  hiddenProps: ['onDismiss']
+  hiddenProps: ['onDismiss'],
+  propTypes: {
+    as: "String",
+    onDismiss: "Function",
+    open: "Boolean"
+  },
+  propDescriptions: {
+    as: "Sets the theme of the notification. Possible values include: " + OptionsHelper.colors().join(", "),
+    onDismiss: "A callback for when the notification is dismissed. You can use this prop to close the notification.",
+    open: "A boolean to control the open/closed state of the notification."
+  }
 });
 
 definition.stubAction('onDismiss', 'open', false);

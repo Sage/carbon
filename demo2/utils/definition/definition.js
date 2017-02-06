@@ -1,6 +1,7 @@
 import { kebabCase, assign, cloneDeep } from 'lodash';
 import { classify } from 'underscore.string';
 import inputDefinition from './input-definition';
+import modalDefinition from './modal-definition';
 import ComponentActions from './../../actions/component';
 
 class Definition {
@@ -17,6 +18,9 @@ class Definition {
     this.designerNotes = '';
 
     this.type = '';
+
+    // define any associated definitions
+    this.associatedDefinitions = [];
 
     // define default props set by the component
     this.defaultProps = component.defaultProps || {};
@@ -83,6 +87,10 @@ class Definition {
 
   isAnInput = () => {
     inputDefinition(this);
+  }
+
+  isAModal = () => {
+    modalDefinition(this);
   }
 }
 

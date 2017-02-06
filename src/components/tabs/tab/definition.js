@@ -2,9 +2,16 @@ import Tab from './';
 import Definition from './../../../../demo2/utils/definition';
 
 let definition = new Definition('tab', Tab, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
-  type: 'layout'
+  type: 'layout',
+  requiredProps: ["tabId", "title"],
+  propTypes: {
+    tabId: "String",
+    title: "String"
+  },
+  propDescriptions: {
+    tabId: "A unique ID to identify this specific tab.",
+    title: "The title for this tab and it's button."
+  }
 });
 
 export default definition;

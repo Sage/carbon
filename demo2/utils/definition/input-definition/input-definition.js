@@ -17,20 +17,20 @@ export default (definition) => {
 
   definition.stubAction('onChange', 'value');
 
-  definition.propTypes = assign(definition.propTypes, {
+  definition.propTypes = assign({}, definition.propTypes, {
     fieldHelp: "String",
-    fieldHelpInline: "String",
+    fieldHelpInline: "Boolean",
     inputWidth: "Number",
     label: "String",
     labelAlign: "String",
     labelHelp: "String",
-    labelInline: "String",
+    labelInline: "Boolean",
     labelWidth: "Number",
     validations: "Array",
     warnings: "Array"
   });
 
-  definition.propDescriptions = assign(definition.propDescriptions, {
+  definition.propDescriptions = assign({}, definition.propDescriptions, {
     fieldHelp: "Displays additional text below the input to provide help to the user.",
     fieldHelpInline: "Displays fieldHelp inline with the checkbox/radio button.",
     inputWidth: "A number representing the percentage/ratio of width with the label. Works best with inline labels.",

@@ -7,9 +7,9 @@ class ComponentAPI extends React.Component {
   render() {
     return (
       <PageContentArea
-        title='API'
+        title={ this.props.definition.get('name') + " API" }
       >
-        <Table shrink={ true }>
+        <Table shrink={ true } className="component-api">
           { this._buildRows() }
         </Table>
       </PageContentArea>
@@ -30,11 +30,13 @@ class ComponentAPI extends React.Component {
     this.props.definition.get('props').sort().forEach((prop) => {
       rows.push(
         <TableRow>
-          <TableCell>{ prop }</TableCell>
-          <TableCell>{ this._isRequired(prop) }</TableCell>
-          <TableCell>{ this._type(prop) }</TableCell>
-          <TableCell>{ this._default(prop) }</TableCell>
-          <TableCell>{ this._description(prop) }</TableCell>
+          <TableCell className="component-api__cell">{ prop }</TableCell>
+          <TableCell className="component-api__cell component-api__cell--align-center">
+            { this._isRequired(prop) }
+          </TableCell>
+          <TableCell className="component-api__cell">{ this._type(prop) }</TableCell>
+          <TableCell className="component-api__cell">{ this._default(prop) }</TableCell>
+          <TableCell className="component-api__cell">{ this._description(prop) }</TableCell>
         </TableRow>
       );
     });
@@ -53,7 +55,13 @@ class ComponentAPI extends React.Component {
   }
 
   _default = (prop) => {
-    return this.props.definition.getIn(['defaultProps', prop]);
+    let value = this.props.definition.getIn(['defaultProps', prop]);
+
+    if (typeof value === "boolean") {
+      value = String(value);
+    }
+
+    return value;
   }
 
   _description = (prop) => {

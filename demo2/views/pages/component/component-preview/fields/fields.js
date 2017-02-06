@@ -31,7 +31,8 @@ const buildFields = (props) => {
       values = props.definition.get('propValues'),
       hiddenProps = props.definition.get('hiddenProps'),
       propRequires = props.definition.get('propRequires'),
-      defaultProps = props.definition.get('defaultProps');
+      defaultProps = props.definition.get('defaultProps'),
+      propTypes = props.definition.get('propTypes');
 
   demoProps.forEach((prop) => {
     let value = values.get(prop);
@@ -48,7 +49,10 @@ const buildFields = (props) => {
         requirement = propRequires.get(prop);
 
     if (!hiddenProps.contains(prop)) {
-      fieldObj.push(fieldComponent(props.name, prop, value, options, requirement));
+      let type = propTypes.get(prop),
+          field = chooseField(type, prop, value, options);
+
+      fieldObj.push(fieldComponent(props.name, prop, value, field, options, requirement));
     }
   });
 
@@ -66,9 +70,8 @@ const buildFields = (props) => {
  * @param {string} name
  * @return {Component}
  */
-const fieldComponent = (name, prop, value, options, requirement) => {
-  let field = chooseField(prop, value, options),
-      commonfieldProps = {
+const fieldComponent = (name, prop, value, field, options, requirement) => {
+  let commonfieldProps = {
         key: prop,
         label: titleize(kebabCase(prop)).replace(/-/g, " "),
         onChange: ComponentActions.updateDefinition.bind(this, name, prop),
@@ -118,7 +121,7 @@ const getOptions = (options) => {
  * @param {String} propKey - key of the prop for making the choice
  * @return {String} name of the field type to load
  */
-const chooseField = (prop, value, options) => {
+const chooseField = (type, prop, value, options) => {
   if (options) {
     return Dropdown;
   }
@@ -127,24 +130,11 @@ const chooseField = (prop, value, options) => {
     return Textarea;
   }
 
-  if (OptionsHelper.commonBooleans().indexOf(prop) >= 0) {
+  if (type === "Boolean") {
     return Checkbox;
   }
 
   if (prop !== 'children') {
     return Textbox;
   }
-}
-
-/**
- * returns true if this prop should be shown - functions and some awkward props can be skipped this way from the form
- *
- * @private
- * @method showProp
- * @param {String} propKey - key of the prop for searching the Options array
- * @return {Boolean}
- */
-const showProp = (propKey, demoPropData) => {
-  return OptionsHelper.nonDemoFormProps().indexOf(propKey) === -1
-         && OptionsHelper.commonEvents().indexOf(propKey) === -1;
 }

@@ -15,19 +15,29 @@ import ComponentStore from '../../../stores/component';
 
 class Component extends React.Component {
   render() {
-    let def = this.state.componentStore.get(this.props.params.name);
+    let definition = this.state.componentStore.get(this.props.params.name);
 
     return (
       <div>
-        <ComponentPreview definition={ def } name={ this.props.params.name } />
+        <ComponentPreview definition={ definition } name={ this.props.params.name } />
 
-        <ComponentAPI definition={ def } />
+        { this.renderAPIs(definition) }
 
         <PageContentArea title={ I18n.t('component_page.design_notes') }>
-          { def.get('designerNotes') }
+          { definition.get('designerNotes') }
         </PageContentArea>
       </div>
     );
+  }
+
+  renderAPIs = (definition) => {
+    let apis = [<ComponentAPI definition={ definition } />];
+
+    definition.get('associatedDefinitions').forEach((associatedDefinition) => {
+      apis.push(<ComponentAPI definition={ associatedDefinition } />);
+    });
+
+    return apis;
   }
 }
 
