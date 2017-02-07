@@ -1,9 +1,15 @@
+# 0.34.1
+
+## Component Enhancements
+
+* `MenuItem`: Added `onClick` prop.
+
 # 0.34.0
 
 ## Component Enhancements
 
 * `DateRange`: Two new props have been added, `startDateProps` and `endDateProps`, to apply props to the child `Date` components.
-* `MultiStepWizard` now allows adding callbacks when clicking on Next/Back button and allows adding validation callback before wizard submission when clicking on Submit button. 
+* `MultiStepWizard` now allows adding callbacks when clicking on Next/Back button and allows adding validation callback before wizard submission when clicking on Submit button.
 
 ## DropdownFilter `freetext` mode
 
