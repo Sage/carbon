@@ -1,4 +1,5 @@
 import React from 'react';
+import './xhr-mock';
 import 'utils/css';
 import { Route } from 'react-router';
 import { startRouter } from 'utils/router';

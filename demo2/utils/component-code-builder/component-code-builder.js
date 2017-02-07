@@ -1,4 +1,5 @@
 import { transform } from 'babel-standalone';
+import { kebabCase } from 'lodash';
 
 class ComponentCodeBuilder {
   constructor(name, withEvents) {
@@ -24,6 +25,9 @@ class ComponentCodeBuilder {
     // tracks if the component has been closed
     this.isClosed = false;
 
+    // determines if the component requires an action to open it (eg. dialog)
+    this.openPreview = false;
+
     if (definition) {
       this.addProps(definition, withEvents);
     }
@@ -32,7 +36,10 @@ class ComponentCodeBuilder {
   // adds multiple props to the code based on a definition
   addProps = (definition, withEvents) => {
     let props = definition.get('propValues'),
-        children = props.get('children');
+        children = props.get('children'),
+        js = definition.get('js');
+
+    this.openPreview = definition.get('openPreview');
 
     props.forEach((value, prop) => {
       if (prop !== "children") {
@@ -51,6 +58,10 @@ class ComponentCodeBuilder {
       } else {
         this.addChild(children);
       }
+    }
+
+    if (js) {
+      this.addJS(js);
     }
   }
 
@@ -98,6 +109,11 @@ class ComponentCodeBuilder {
     }
   }
 
+  // adds javascript making it available before the JSX
+  addJS = (js) => {
+    this.code = js + "\n\n" + this.code
+  }
+
   // closes the component tag
   close = () => {
     if (this.isClosed) { return; }
@@ -122,7 +138,32 @@ class ComponentCodeBuilder {
 
   // returns component
   toComponent = () => {
-    return eval(transform(this.toString(), { presets: ['es2015', 'react'] }).code);
+    let code = this.toString();
+
+    if (this.openPreview) {
+      code = this._addOpenPreview(code);
+    }
+
+    return eval(transform(code, { presets: ['es2015', 'react'] }).code);
+  }
+
+  // adds a button to open the preview of the component
+  _addOpenPreview = (code) => {
+    return `
+      <div>
+        <div style={{ textAlign: 'center' }}>
+          <Button onClick={ () => {
+            Dispatcher.dispatch({
+              actionType: ComponentConstants.UPDATE_DEFINITION,
+              name: '${kebabCase(this.name)}',
+              prop: 'open',
+              value: true
+            })
+          } }>Open Preview</Button>
+        </div>
+        ${code}
+      </div>
+    `;
   }
 }
 

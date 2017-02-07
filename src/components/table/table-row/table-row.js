@@ -91,7 +91,14 @@ class TableRow extends React.Component {
      * @property onHighlight
      * @type {Function}
      */
-    onHighlight: React.PropTypes.func
+    onHighlight: React.PropTypes.func,
+
+    /**
+     * Callback for when a row is selected
+     * @property onSelect
+     * @type {Function}
+     */
+    onSelect: React.PropTypes.func
   }
 
   /**
@@ -140,7 +147,7 @@ class TableRow extends React.Component {
       throw new Error("A TableRow which is selectable or highlightable should provide a uniqueID.");
     }
 
-    if (this.context.attachToTable && this.props.uniqueID && !this.props.selectAll) {
+    if (this.context.attachToTable && this.props.uniqueID && !this.props.selectAll && !this.isHeader) {
       // generate row id
       this.rowID = guid();
       // only attach to the table if we have a unique id
@@ -305,7 +312,7 @@ class TableRow extends React.Component {
     if (this.props.hideMultiSelect) { return null; }
 
     // determines which action to use (multi-select or select-all)
-    let action = this.props.selectAll ? this.onSelectAll : this.onSelect;
+    let action = (this.props.selectAll || this.isHeader) ? this.onSelectAll : this.onSelect;
 
     return <Checkbox onClick={ (ev) => ev.stopPropagation() } onChange={ action } checked={ this.state.selected } />;
   }

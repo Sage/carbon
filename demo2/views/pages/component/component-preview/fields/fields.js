@@ -142,7 +142,6 @@ const chooseField = (type, prop, value, options) => {
   }
 }
 
-
 const hiddenType = (type) => {
   return includes(["Function", "Node"], type);
 }
