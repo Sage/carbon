@@ -61,4 +61,15 @@ describe('ButtonToggle', () => {
       });
     });
   });
+
+  describe('label id', () => {
+    it('assigns the guid as the label id', () => {
+      expect(instance.inputProps.id).toEqual(instance._guid);
+    });
+
+    it('assigns a custom id if one is given', () => {
+      instance = TestUtils.renderIntoDocument(<ButtonToggle id="foo" />);
+      expect(instance.inputProps.id).toEqual("foo");
+    });
+  });
 });
