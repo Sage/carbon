@@ -12,7 +12,7 @@ let definition = new Definition('tabs', Tabs, {
     align: OptionsHelper.alignBinary,
     position: ['top', 'left']
   },
-  hiddenProps: ['selectedTabId', 'renderHiddenTabs', 'onTabChange'],
+  hiddenProps: ['selectedTabId', 'renderHiddenTabs'],
   requiredProps: ['children'],
   propTypes: {
     align: "String",

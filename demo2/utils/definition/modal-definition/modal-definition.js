@@ -13,7 +13,6 @@ export default (definition) => {
     open: false
   });
 
-  definition.hiddenProps = definition.hiddenProps.concat(['onCancel']);
   definition.requiredProps = definition.requiredProps.concat(['open']);
 
   definition.stubAction('onCancel', 'open', false);
