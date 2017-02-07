@@ -5,7 +5,7 @@ import ImmutableHelper from 'utils/helpers/immutable';
 import ComponentStore from './../../../../../stores/component';
 import ComponentActions from './../../../../../actions/component';
 import Checkbox from 'components/checkbox';
-import Dropdown from 'components/dropdown';
+import DropdownFilter from 'components/dropdown-filter';
 import Textarea from 'components/textarea';
 import Textbox from 'components/textbox';
 
@@ -88,6 +88,10 @@ const fieldComponent = (name, prop, value, field, options, requirement) => {
     commonfieldProps.labelWidth = 40;
   }
 
+  if (field === Textarea) {
+    commonfieldProps.expandable = true;
+  }
+
   if (options) {
     commonfieldProps.options = getOptions(options);
   }
@@ -122,7 +126,7 @@ const getOptions = (options) => {
  */
 const chooseField = (type, prop, value, options) => {
   if (options) {
-    return Dropdown;
+    return DropdownFilter;
   }
 
   if (prop === 'children' && typeof value === 'string') {

@@ -19,6 +19,9 @@ class Definition {
 
     this.type = '';
 
+    // define how many times the demo should be repeated
+    this.numberOfExamples = 1;
+
     // define any associated definitions
     this.associatedDefinitions = [];
 

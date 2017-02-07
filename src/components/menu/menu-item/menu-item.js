@@ -6,6 +6,7 @@ import Link from './../../link';
  * Renders a menu item for the menu component.
  */
 class MenuItem extends React.Component {
+
   static propTypes = {
     /**
      * Defines whether alternate row styling should be applied
@@ -120,7 +121,7 @@ class MenuItem extends React.Component {
         ["carbon-menu-item--alternate"]: this.props.alternate,
         ["carbon-menu-item--alternate-off"]: !this.props.alternate,
         ["carbon-menu-item--divide"]: this.props.divide,
-        ["carbon-menu-item--has-link"]: this.props.href || this.props.to,
+        ["carbon-menu-item--has-link"]: this.props.href || this.props.to || this.props.onClick,
         ["carbon-menu-item--has-submenu"]: this.props.submenu,
         ["carbon-menu-item--selected"]: this.props.selected
       }
@@ -140,7 +141,8 @@ class MenuItem extends React.Component {
           className: this.classes,
           href: this.props.href,
           to: this.props.to,
-          target: this.props.target
+          target: this.props.target,
+          onClick: this.props.onClick
         },
         this.content
       )
