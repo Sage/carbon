@@ -109,7 +109,7 @@ class MenuItem extends React.Component {
     return classNames(
       "carbon-menu-item",
       this.props.className, {
-        ["carbon-menu-item--has-link"]: this.props.href || this.props.to,
+        ["carbon-menu-item--has-link"]: this.props.href || this.props.to || this.props.onClick,
         ["carbon-menu-item--has-submenu"]: this.props.submenu,
         ["carbon-menu-item--selected"]: this.props.selected,
         ["carbon-menu-item--divide"]: this.props.divide
@@ -130,7 +130,8 @@ class MenuItem extends React.Component {
           className: this.classes,
           href: this.props.href,
           to: this.props.to,
-          target: this.props.target
+          target: this.props.target,
+          onClick: this.props.onClick
         },
         this.content
       )
