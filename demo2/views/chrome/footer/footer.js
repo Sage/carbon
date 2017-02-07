@@ -15,9 +15,9 @@ class Footer extends React.Component {
         <Wrapper>
           <div className='demo-footer'>
             <div className="demo-footer__section demo-footer__social">
-              <Link href='https://twitter.com/sagegroupplc'><Icon type='twitter' /></Link>
-              <Link href='https://dribbble.com/sageuxdesign'><Icon type='dribbble' /></Link>
-              <Link href='https://github.com/Sage/carbon'><Icon type='github' /></Link>
+              <Link href='https://twitter.com/sagegroupplc' target="_blank"><Icon type='twitter' /></Link>
+              <Link href='https://dribbble.com/sageuxdesign' target="_blank"><Icon type='dribbble' /></Link>
+              <Link href='https://github.com/Sage/carbon' target="_blank"><Icon type='github' /></Link>
             </div>
             <div className="demo-footer__section demo-footer__corporate">
               <span className='demo-footer__sage-icon' />

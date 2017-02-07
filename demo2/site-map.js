@@ -9,6 +9,11 @@ import SiteMapHelper from './utils/site-map-helper';
 //  * items (a hash of sub-routes)
 //  * filter (will enable a filter over the route's sub-routes)
 export default new SiteMapHelper({
+  "/components/:name": {
+    component: Component,
+    items: Object.keys(Definitions),
+    filter: true
+  },
   "/style": {
     items: {
       colors: {
@@ -19,9 +24,4 @@ export default new SiteMapHelper({
       }
     }
   },
-  "/components/:name": {
-    component: Component,
-    items: Object.keys(Definitions),
-    filter: true
-  }
 });

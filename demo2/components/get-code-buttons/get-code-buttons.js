@@ -12,6 +12,7 @@ const GetCodeButtons = {
         href='https://github.com/Sage/carbon'
         size='large'
         theme='magenta'
+        target="_blank"
       >
         { I18n.t('navigation.github.view') }
       </Button>
@@ -26,6 +27,7 @@ const GetCodeButtons = {
         href='https://github.com/Sage/carbon/releases'
         size='large'
         theme={ theme }
+        target="_blank"
       >
         { I18n.t('navigation.github.download') }
       </Button>

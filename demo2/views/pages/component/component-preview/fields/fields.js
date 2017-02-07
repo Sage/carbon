@@ -1,6 +1,6 @@
 import React from 'react';
 import { titleize } from 'underscore.string';
-import { kebabCase } from 'lodash';
+import { includes, kebabCase } from 'lodash';
 import ImmutableHelper from 'utils/helpers/immutable';
 import ComponentStore from './../../../../../stores/component';
 import ComponentActions from './../../../../../actions/component';
@@ -144,5 +144,5 @@ const chooseField = (type, prop, value, options) => {
 
 
 const hiddenType = (type) => {
-  return ["Function", "Node"].includes(type);
+  return includes(["Function", "Node"], type);
 }
