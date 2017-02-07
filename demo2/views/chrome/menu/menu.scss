@@ -19,7 +19,7 @@
     overflow-y: scroll;
     margin: 0 0 0 -5px;
     padding-left: 5px;
-    width: 100%;
+    width: calc(100% + 25px);
 
     .carbon-menu-list__list {
       margin: 0;
@@ -30,12 +30,19 @@
     }
 
     .carbon-menu-list-item .carbon-menu-list-item {
-      line-height: 30px;
+      line-height: 18px;
+
+      .carbon-link__anchor {
+        display: inline-block;
+        margin: 6px 0;
+        max-width: 96%;
+      }
     }
 
     .carbon-textbox {
       line-height: 16px;
       margin: 0 0 8px;
+      width: calc(100% - 25px);
 
       .common-input__input {
         border: none;
