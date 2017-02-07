@@ -34,10 +34,14 @@
     }
 
     .carbon-textbox {
-      margin: 5px 0 8px;
+      line-height: 16px;
+      margin: 0 0 8px;
 
-      .common-input__input-icon {
-        top: 0;
+      .common-input__input {
+        border: none;
+        border-bottom: 1px dotted #828282;
+        border-radius: 0;
+        box-shadow: none;
       }
     }
   }

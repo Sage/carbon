@@ -46,7 +46,7 @@ class ComponentAPI extends React.Component {
 
   _isRequired = (prop) => {
     if (this.props.definition.get('requiredProps').includes(prop)) {
-      return <Icon type="tick" />
+      return <Icon type="tick" className="component-api__tick" />
     }
   }
 

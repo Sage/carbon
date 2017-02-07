@@ -1,3 +1,5 @@
+@import 'colors';
+
 .component-api__cell {
   white-space: normal;
   word-break: normal;
@@ -5,4 +7,8 @@
 
 .component-api__cell--align-center {
   text-align: center;
+}
+
+.component-api__tick {
+  color: $green;
 }

@@ -12,7 +12,7 @@ I18n.translations['en'] = {
     style: 'Style',
     github: {
       view: 'View on GitHub',
-      download: 'View Releases'
+      download: 'Install Carbon'
     }
   },
 
