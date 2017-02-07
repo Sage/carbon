@@ -69,7 +69,7 @@ function buildRows() {
     paginate: "Turns pagination on/off.",
     selectable: "Makes each row selectable using a checkbox. It will also turn on a select all checkbox if you have a header.",
     showPageSizeSelection: "Will show the page size selection options if turned on.",
-    shrink: "If you move from one page with 10 results to a second page with only 5 results, the table will not shrink to maintain a consisent height. Turn this on if you want your table to shrink in these circumstances.",
+    shrink: "If you move from one page with 10 results to a second page with only 5 results, the table will not shrink to maintain a consistent height. Turn this on if you want your table to shrink in these circumstances.",
     tbody: "Instead of passing children, define your tbody as a prop.",
     thead: "Instead of passing children, define your thead as a prop. Using this prop will put your header inside an HTML thead element.",
     totalRecords: "Tracks the total number of records of a paginated data set."
