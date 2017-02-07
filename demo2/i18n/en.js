@@ -12,12 +12,12 @@ I18n.translations['en'] = {
     style: 'Style',
     github: {
       view: 'View on GitHub',
-      download: 'Download Carbon'
+      download: 'Install Carbon'
     }
   },
 
   footer: {
-    legal: `\u00A9 Sage(UK) Ltd. ${ new Date().getFullYear() }, All rights reserved. Last updated on TODO: October 20th 2016`
+    legal: `\u00A9 The Sage Group plc. ${ new Date().getFullYear() }. Licensed under Apache 2.`
   },
 
   homepage: {

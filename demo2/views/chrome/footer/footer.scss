@@ -7,7 +7,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 24px 0;
   width: 100%;
 
   @media(min-width: $response-point-medium) {
@@ -21,25 +20,9 @@
     right: 0;
   }
 
-  &__section {
-    text-align: center;
-    width: 100%;
-  }
-
-  &__social {
-    align-content: center;
-    display: flex;
-    justify-content: space-between;
-    margin: auto auto 15px;
-    width: 120px;
-    @media(min-width: $response-point-medium) {
-      margin-bottom: auto;
-      width: 160px;
-    }
-  }
-
   &__corporate {
     display: flex;
+    font-size: 13px;
     flex-direction: column;
     @media(min-width: $response-point-medium) {
       text-align: right;
@@ -58,9 +41,6 @@
 
   .carbon-link__anchor {
     color: currentColor;
-
-    .carbon-icon__svg {
-      height: 35px; // hacks because icons are not the same size
-    }
+    margin-right: 25px;
   }
 }
