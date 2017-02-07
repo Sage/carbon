@@ -50,6 +50,12 @@ So far we have added attributes to the following components:
 gulp --port 1234
 ```
 
+# 0.34.1
+
+## Component Enhancements
+
+* `MenuItem`: Added `onClick` prop.
+
 # 0.34.0
 
 ## Component Enhancements
