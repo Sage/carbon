@@ -22,7 +22,7 @@
   > .hljs-keyword:first-child {
     display: none;
 
-    + .xml {
+    + span {
       position: relative;
       top: -16px;
     }
