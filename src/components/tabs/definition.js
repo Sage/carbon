@@ -16,7 +16,7 @@ let definition = new Definition('tabs', Tabs, {
   requiredProps: ['children'],
   propTypes: {
     align: "String",
-    children: "Object || Array",
+    children: "Node",
     onTabChange: "Function",
     position: "String",
     renderHiddenTabs: "Boolean",

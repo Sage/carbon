@@ -3,7 +3,7 @@ export default {
   // 'alert':                require('components/alert/definition').default,
   // 'animated-menu-button': require('components/animated-menu-button/definition').default,
   // 'app-wrapper':          require('components/app-wrapper/definition').default,
-  // 'button-toggle':        require('components/button-toggle/definition').default,
+  'button-toggle':        require('components/button-toggle/definition').default,
   // 'button':               require('components/button/definition').default,
   // 'carousel':             require('components/carousel/definition').default,
   // 'checkbox':             require('components/checkbox/definition').default,
