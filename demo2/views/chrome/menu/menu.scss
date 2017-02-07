@@ -15,8 +15,8 @@
   }
 
   &__menu {
-    height: calc(100% - 200px);
-    overflow: scroll;
+    height: calc(100% - 230px);
+    overflow-y: scroll;
     margin: 0 0 0 -5px;
     padding-left: 5px;
     width: 100%;
@@ -25,7 +25,7 @@
       margin: 0;
 
       .carbon-menu-list__list {
-        padding-left: 15px;
+        padding-left: 10px;
       }
     }
 
@@ -74,4 +74,8 @@
       }
     }
   }
+}
+
+.demo-menu__buttons {
+  padding-top: 30px;
 }

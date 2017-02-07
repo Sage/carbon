@@ -8,10 +8,11 @@ export default () => {
   return generateMenu();
 }
 
-const createMenuLink = (name, url) => {
+const createMenuLink = (name, url, active) => {
+  let classes = active ? "demo-menu__link--active" : null;
   return (
     <MenuListItem key={ name } name={ name }>
-      <Link to={ url }>
+      <Link to={ url } className={ classes }>
         { titleize(humanize(name.replace("/", ""))) }
       </Link>
     </MenuListItem>
@@ -33,7 +34,8 @@ const createSubmenu = (url, value) => {
       link = url + "/" + name;
     }
 
-    submenuItems.push(createMenuLink(name, link));
+    let active = (window.location.pathname === link);
+    submenuItems.push(createMenuLink(name, link, active));
   }
 
   let title = url.replace(/\//g, '');
@@ -45,7 +47,7 @@ const createSubmenu = (url, value) => {
 
   return (
     <MenuListItem>
-      <MenuList title={ title } initiallyOpen={ initiallyOpen } filter={ value.filter }>
+      <MenuList title={ title } initiallyOpen={ initiallyOpen } filter={ value.filter } filterPlaceholder="Filter Components">
         { submenuItems }
       </MenuList>
     </MenuListItem>
