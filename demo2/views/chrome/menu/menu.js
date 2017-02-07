@@ -24,9 +24,9 @@ class Menu extends React.Component {
         position="left"
         size='small'
       >
-        <Link to='/'>
-          <SidebarHeader className='demo-menu__header' />
-        </Link>
+        <SidebarHeader className='demo-menu__header'>
+          <Link to='/' className='demo-menu__logo-link' />
+        </SidebarHeader>
 
         <MenuList className='demo-menu__menu'>
           { SiteMap.generateMenu() }

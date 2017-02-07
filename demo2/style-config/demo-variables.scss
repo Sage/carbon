@@ -1,12 +1,11 @@
-// menu width, 250px + padding
-$menu-width: 290px;
+$menu-width: 240px;
 
 // the menu is 250px + 2 * 20px padding, which is 290px
 // then, we want to site to be at least 800px beyond that for centring
 $menu-popout-point: 800px + $menu-width;
 
 // provides the same gradient background for different site headers
-$header-background-gradient: linear-gradient(37deg, #1E4486, #372159);
+$header-background-gradient: linear-gradient(55deg, #1E4486, #372159);
 
 // breaks from small screens with a single column layout to wider screens
 // with multiple columns in some cases

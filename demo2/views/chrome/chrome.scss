@@ -4,7 +4,7 @@
 .chrome {
   background-color: $grey-dark-blue-5;
   @media(min-width: $menu-popout-point) {
-    padding-left: 290px;
+    padding-left: $menu-width;
   }
   .demo-menu {
     @media(min-width: $menu-popout-point) {
