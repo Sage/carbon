@@ -1,11 +1,11 @@
 import React from 'react';
 import { titleize } from 'underscore.string';
-import { kebabCase } from 'lodash';
+import { includes, kebabCase } from 'lodash';
 import ImmutableHelper from 'utils/helpers/immutable';
 import ComponentStore from './../../../../../stores/component';
 import ComponentActions from './../../../../../actions/component';
 import Checkbox from 'components/checkbox';
-import Dropdown from 'components/dropdown';
+import DropdownFilter from 'components/dropdown-filter';
 import Textarea from 'components/textarea';
 import Textbox from 'components/textbox';
 
@@ -47,7 +47,7 @@ const buildFields = (props) => {
     let options = propOptions ? propOptions.get(prop) : null,
         requirement = propRequires.get(prop);
 
-    if (!hiddenProps.contains(prop)) {
+    if (!hiddenProps.contains(prop) && !hiddenType(propTypes.get(prop))) {
       let type = propTypes.get(prop),
           field = chooseField(type, prop, value, options);
 
@@ -88,6 +88,10 @@ const fieldComponent = (name, prop, value, field, options, requirement) => {
     commonfieldProps.labelWidth = 40;
   }
 
+  if (field === Textarea) {
+    commonfieldProps.expandable = true;
+  }
+
   if (options) {
     commonfieldProps.options = getOptions(options);
   }
@@ -122,7 +126,7 @@ const getOptions = (options) => {
  */
 const chooseField = (type, prop, value, options) => {
   if (options) {
-    return Dropdown;
+    return DropdownFilter;
   }
 
   if (prop === 'children' && typeof value === 'string') {
@@ -136,4 +140,8 @@ const chooseField = (type, prop, value, options) => {
   if (prop !== 'children') {
     return Textbox;
   }
+}
+
+const hiddenType = (type) => {
+  return includes(["Function", "Node"], type);
 }

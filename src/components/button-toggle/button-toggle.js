@@ -3,10 +3,9 @@ import classNames from 'classnames';
 import Icon from './../icon';
 import css from './../../utils/css';
 import Input from './../../utils/decorators/input';
-import InputLabel from './../../utils/decorators/input-label';
 import { validProps } from '../../utils/ether';
 
-const ButtonToggle = Input(InputLabel(
+const ButtonToggle = Input(
 class ButtonToggle extends React.Component {
   static propTypes = {
     /**
@@ -23,8 +22,34 @@ class ButtonToggle extends React.Component {
      * @property buttonIconSize
      * @type {String}
      */
-    buttonIconSize: React.PropTypes.string
+    buttonIconSize: React.PropTypes.string,
+
+    /**
+     * Defines the name for the input
+     *
+     * @property name
+     * @type {String}
+     */
+    name: React.PropTypes.string,
+
+    /**
+     * The value for the given button.
+     *
+     * @property value
+     * @type {String}
+     */
+    value: React.PropTypes.string,
+
+    /**
+     * A required prop. This is what the button will display.
+     *
+     * @property children
+     * @type {Multiple}
+     */
+    children: React.PropTypes.node.isRequired
   }
+
+  static safeProps = ['name']
 
   /**
    * Main Class getter
@@ -78,6 +103,9 @@ class ButtonToggle extends React.Component {
     delete props.children;
     props.className = this.inputClasses;
     props.type = "radio";
+    if (!props.id) {
+      props.id = this._guid;
+    }
     return props;
   }
 
@@ -112,6 +140,6 @@ class ButtonToggle extends React.Component {
     );
   }
 }
-));
+);
 
 export default ButtonToggle;

@@ -11,7 +11,7 @@ import Footer from './footer'
 import Header from './header';
 import Menu from './menu';
 
-const RESIZE_WIDTH = 1090;
+const RESIZE_WIDTH = 1040;
 
 class Chrome extends React.Component {
   render() {
