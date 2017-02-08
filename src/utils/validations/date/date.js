@@ -34,7 +34,7 @@ class DateValidator {
    * @return {String} the error message to display
    */
   message = () => {
-    return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.date');
+    return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.invalid_format');
   }
 }
 
