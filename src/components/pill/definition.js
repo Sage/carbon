@@ -18,7 +18,7 @@ let definition = new Definition('pill', Pill, {
   },
   propDescriptions: {
     as: "Sets the theme of the notification. Possible values include: " + OptionsHelper.colors.join(", "),
-    fill: "Fills the pill components background with colour. When fill is false only the border is coloured"
+    fill: "Fills the pill background with colour. When fill is false only the border is coloured"
   },
 });
 

@@ -12,7 +12,7 @@ export default {
   // 'create':               require('components/create/definition').default,
   // 'date-range':           require('components/date-range/definition').default,
   // 'date':                 require('components/date/definition').default,
-  // 'decimal':              require('components/decimal/definition').default,
+  'decimal':              require('components/decimal/definition').default,
   // 'detail':               require('components/detail/definition').default,
   'dialog-full-screen':   require('components/dialog-full-screen/definition').default,
   'dialog':               require('components/dialog/definition').default,
