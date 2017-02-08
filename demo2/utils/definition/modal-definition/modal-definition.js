@@ -13,7 +13,6 @@ export default (definition) => {
     open: false
   });
 
-  definition.hiddenProps = definition.hiddenProps.concat(['onCancel']);
   definition.requiredProps = definition.requiredProps.concat(['open']);
 
   definition.stubAction('onCancel', 'open', false);
@@ -26,4 +25,6 @@ export default (definition) => {
     enableBackgroundUI: "Set this prop to false to hide the translucent background when the dialog is open.",
     disableEscKey: "Set this prop to true to stop the escape key from triggering onCancel."
   });
+
+  definition.openPreview = true;
 }

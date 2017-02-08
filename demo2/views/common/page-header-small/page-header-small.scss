@@ -6,9 +6,9 @@
   color: $white;
   font-weight: 300;
   margin-bottom: 30px;
-  padding: 150px 0 30px 0;
+  padding: 150px 0 25px 0;
   @media (min-width: $menu-popout-point) {
-    padding-top: 80px;
+    padding-top: 60px;
   }
 
   &__title {
