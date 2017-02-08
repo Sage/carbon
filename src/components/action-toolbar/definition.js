@@ -11,12 +11,10 @@ let definition = new Definition('action-toolbar', ActionToolbar, {
   associatedDefinitions: [linkDefinition, tooltipDefinition],
   requiredProps: ['actions'],
   propTypes: {
-    actions: 'Array',
-    className: 'String'
+    actions: 'Array'
   },
   propDescriptions: {
-    actions: 'An array of objects containing Link and Tooltip props.',
-    className: 'A custom class name for the component.'
+    actions: 'An array of objects containing Link and Tooltip props.'
   }
 });
 

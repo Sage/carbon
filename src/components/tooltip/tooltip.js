@@ -49,13 +49,6 @@ class Tooltip extends React.Component {
     children: PropTypes.node,
 
     /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
-     */
-    className: PropTypes.string,
-    /**
     * Whether to to show the Tooltip
     *
     * @property isVisible

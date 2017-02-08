@@ -15,7 +15,6 @@ let definition = new Definition('link', Link, {
   },
   propTypes: {
     children: 'Node',
-    className: 'String',
     disabled: 'Boolean',
     href: 'String',
     iconAlign: 'String',
@@ -24,7 +23,6 @@ let definition = new Definition('link', Link, {
   },
   propDescriptions: {
     children: 'Child content to render in the link.',
-    className: 'A custom class name for the component',
     disabled: 'The disabled state of the link',
     href: 'An href for an anchor tag',
     iconAlign: 'Which side of the link to the render the link.',

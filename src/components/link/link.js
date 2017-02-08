@@ -40,14 +40,6 @@ class _Link extends React.Component {
     children: PropTypes.node,
 
     /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
-     */
-    className: PropTypes.string,
-
-    /**
      * Gives the link a disabled state.
      *
      * @property disabled
