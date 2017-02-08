@@ -37,6 +37,13 @@ class Pill extends React.Component {
      */
     as: React.PropTypes.string,
 
+    /**
+     * Fills the pill with colour when true
+     *
+     * @property type
+     * @type {Boolean}
+     * @default false
+     */
     fill: React.PropTypes.bool,
 
     /**
