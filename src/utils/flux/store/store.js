@@ -114,6 +114,14 @@ export default class Store extends EventEmitter {
      * @type {Boolean}
      */
     this.trackHistory = opts.history ? true : false;
+
+    /**
+     * Determines if the store should call store functions as fully immutable structure
+     *
+     * @property immutable
+     * @type {Boolean}
+     */
+    this.immutable = opts.immutable ? true : false;
   }
 
   /**
@@ -166,7 +174,7 @@ export default class Store extends EventEmitter {
       // if history is enabled, store it at this point
       if (this.trackHistory) { this.history.push(this.data); }
       // call the function on the store with the action
-      this[action.actionType].call(this, action);
+      this[action.actionType].call(this, this.immutable ? action : ImmutableHelper.parseJSON(action));
       // tell the store a change has occurred
       this._triggerChange();
     }
