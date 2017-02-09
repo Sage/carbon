@@ -13,6 +13,8 @@ import { connect } from 'utils/flux';
 import ComponentActions from '../../../actions/component';
 import ComponentStore from '../../../stores/component';
 
+import marked from 'marked';
+
 class Component extends React.Component {
   render() {
     let definition = this.state.componentStore.get(this.props.params.name);
@@ -24,7 +26,7 @@ class Component extends React.Component {
         { this.renderAPIs(definition) }
 
         <PageContentArea title={ I18n.t('component_page.design_notes') }>
-          { definition.get('designerNotes') }
+          <div dangerouslySetInnerHTML={{ __html: marked(definition.get('designerNotes')) }} />
         </PageContentArea>
       </div>
     );
