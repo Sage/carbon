@@ -1,19 +1,19 @@
 import Tooltip from './';
 import Definition from './../../../demo2/utils/definition';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import { uniq } from 'lodash';
 
 let definition = new Definition('tooltip', Tooltip, {
   description: '[content needed] Basic example of the component',
   designerNotes: '[content needed] Basic designs description for the component',
   type: 'miscellaneous',
-  hiddenProps: ['isVisible'],
   propValues: {
     isVisible: true,
-    children: 'I\'m a helpful tip'
+    children: "I'm a helpful tooltip that can display more information to a user."
   },
   propOptions: {
-    align: ['top', 'bottom', 'center', 'right', 'left'],
-    position: ['top', 'bottom', 'right', 'left']
+    align: uniq(OptionsHelper.positions.concat(OptionsHelper.alignFull)),
+    position: OptionsHelper.positions
   },
   propTypes: {
     align: 'String',
