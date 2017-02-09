@@ -6,10 +6,21 @@ import tooltipDefinition from './../tooltip/definition';
 
 let definition = new Definition('action-toolbar', ActionToolbar, {
   description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
-  type: 'layout',
-  associatedDefinitions: [linkDefinition, tooltipDefinition],
+  designerNotes: '[content needed] Basic designs description for the component \n' +
+  'This component is designed to be used with a form. To render in a Carbon form,\n' +
+  'simply pass the actions to Table or TableAjax as the `actions` prop.',
+  type: 'action',
   requiredProps: ['actions'],
+  hiddenProps: ['disabled', 'actions'],
+  propValues: {
+    actions: `[{
+      text: 'Print',
+      icon: 'print',
+      href: '#',
+      tooltipMessage: 'Print',
+      disabled: false
+    }]`
+  },
   propTypes: {
     actions: 'Array'
   },

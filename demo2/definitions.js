@@ -1,5 +1,5 @@
 export default {
-  'action-toolbar':       require('components/action-toolbar/definition').default,
+  // 'action-toolbar':       require('components/action-toolbar/definition').default,
   // 'alert':                require('components/alert/definition').default,
   // 'animated-menu-button': require('components/animated-menu-button/definition').default,
   // 'app-wrapper':          require('components/app-wrapper/definition').default,

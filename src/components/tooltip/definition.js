@@ -5,7 +5,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 let definition = new Definition('tooltip', Tooltip, {
   description: '[content needed] Basic example of the component',
   designerNotes: '[content needed] Basic designs description for the component',
-  type: 'layout',
+  type: 'miscellaneous',
   hiddenProps: ['isVisible'],
   propValues: {
     isVisible: true,
@@ -19,7 +19,7 @@ let definition = new Definition('tooltip', Tooltip, {
     align: 'String',
     children: 'Node',
     position: 'String',
-    isVisible: Boolean
+    isVisible: 'Boolean'
   },
   propDescriptions: {
     align: 'The alignment of the pointer on the tooltip.',
