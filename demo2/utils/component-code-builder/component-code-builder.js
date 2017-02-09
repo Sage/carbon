@@ -27,7 +27,6 @@ class ComponentCodeBuilder {
 
     // determines if the component requires an action to open it (eg. dialog)
     this.openPreview = false;
-
     if (definition) {
       this.addProps(definition, withEvents);
     }
@@ -36,15 +35,15 @@ class ComponentCodeBuilder {
   // adds multiple props to the code based on a definition
   addProps = (definition, withEvents) => {
     let props = definition.get('propValues'),
+        propTypes = definition.get('propTypes'),
         children = props.get('children'),
         js = definition.get('js');
 
     this.openPreview = definition.get('openPreview');
-
     props.forEach((value, prop) => {
       if (prop !== "children") {
         if (withEvents || (prop !== "data-binding" && typeof value !== "function")) {
-          this.addProp(prop, value);
+          this.addProp(prop, value, propTypes.get(prop));
         }
       }
     });
@@ -66,14 +65,14 @@ class ComponentCodeBuilder {
   }
 
   // adds a prop to the code
-  addProp = (prop, value) => {
+  addProp = (prop, value, type) => {
     if (this.hasChildren || this.isClosed) {
       throw new Error(`You cannot add props after you have added children or closed your component! See the ComponentCodeBuilder for '${this.name}'.\n\nCurrent markup:\n\n${this.code}`);
     }
 
     if (value || value === false) {
       this.hasProps = true;
-      if (typeof value === "string") {
+      if (typeof value === 'string' && (type === 'String' || type === undefined)) {
         this.code += `\n  ${prop}="${value.replace(/"/g, "'")}"`;
       } else {
         this.code += `\n  ${prop}={ ${value} }`;
