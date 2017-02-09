@@ -1,5 +1,6 @@
 import Decimal from './';
 import Definition from './../../../demo2/utils/definition';
+import OptionsHelper from './../../utils/helpers/options-helper';
 
 let definition = new Definition('decimal', Decimal, {
   description: '[content needed] Basic example of the component',
@@ -12,6 +13,9 @@ let definition = new Definition('decimal', Decimal, {
   propDescriptions: {
     align: "Sets the alignment of the text within the decimal component",
     precision: "Sets the precision of the decimal"
+  },
+  propOptions: {
+    align: OptionsHelper.alignBinary
   }
 });
 

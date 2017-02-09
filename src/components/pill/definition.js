@@ -12,13 +12,15 @@ let definition = new Definition('pill', Pill, {
   propTypes: {
     fill: "Boolean",
     as: "String",
+    children: "Node"
   },
   propValues: {
     children: "Pill"
   },
   propDescriptions: {
     as: "Sets the theme of the notification. Possible values include: " + OptionsHelper.colors.join(", "),
-    fill: "Fills the pill background with colour. When fill is false only the border is coloured"
+    fill: "Fills the pill background with colour. When fill is false only the border is coloured.",
+    children: "This component supports children."
   },
 });
 
