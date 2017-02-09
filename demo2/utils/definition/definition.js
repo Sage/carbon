@@ -2,6 +2,7 @@ import { kebabCase, assign, cloneDeep } from 'lodash';
 import { classify } from 'underscore.string';
 import inputDefinition from './input-definition';
 import modalDefinition from './modal-definition';
+import tableDefinition from './table-definition';
 import ComponentActions from './../../actions/component';
 
 class Definition {
@@ -71,19 +72,20 @@ class Definition {
 
     let update = ComponentActions.updateDefinition;
 
-    func += `(function stubbedAction(ev) {`;
-    func += `  var fakeEvent = ev;`;
+    func += `
+(function stubbedAction(ev) {
+  var fakeEvent = ev;
 
-    func += `  if (${value} !== undefined && typeof ${value} !== undefined) {`;
-    func += `    fakeEvent = {`;
-    func += `      target: { value: ${value} }`;
-    func += `    };`;
-    func += `  }`;
+  if (${value} !== undefined && typeof ${value} !== undefined) {
+    fakeEvent = {
+      target: { value: ${value} }
+    };
+  }
 
-    func += `  var update = ${update};`;
+  var update = ${update};
 
-    func += `  update("${this.key}", "${prop}", fakeEvent);`;
-    func += `})`;
+  update("${this.key}", "${prop}", fakeEvent);
+})`;
 
     this.propValues[action] = eval(func);
   }
@@ -94,6 +96,10 @@ class Definition {
 
   isAModal = () => {
     modalDefinition(this);
+  }
+
+  isATable = () => {
+    tableDefinition(this);
   }
 }
 
