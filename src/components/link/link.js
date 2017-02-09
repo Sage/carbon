@@ -96,7 +96,7 @@ class _Link extends React.Component {
      * @default undefined
      */
     to: PropTypes.string,
- 
+
     /**
      * The message for this tooltip
      *
