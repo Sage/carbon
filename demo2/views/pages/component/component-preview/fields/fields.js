@@ -47,7 +47,7 @@ const buildFields = (props) => {
     let options = propOptions ? propOptions.get(prop) : null,
         requirement = propRequires.get(prop);
 
-    if (!hiddenProps.contains(prop) && !hiddenType(propTypes.get(prop))) {
+    if (!hiddenProps.contains(prop) && !hiddenType(prop, propTypes.get(prop))) {
       let type = propTypes.get(prop),
           field = chooseField(type, prop, value, options);
 
@@ -142,6 +142,10 @@ const chooseField = (type, prop, value, options) => {
   }
 }
 
-const hiddenType = (type) => {
-  return includes(["Function", "Node"], type);
+const hiddenType = (prop, type) => {
+  if (prop === "children") {
+    return false;
+  } else {
+    return includes(["Function", "Node"], type);
+  }
 }

@@ -1,4 +1,6 @@
 export default {
+  // not including the action-toolbar until it is less tied to grids
+  // https://github.com/Sage/carbon/issues/1070
   // 'action-toolbar':       require('components/action-toolbar/definition').default,
   // 'alert':                require('components/alert/definition').default,
   // 'animated-menu-button': require('components/animated-menu-button/definition').default,
@@ -27,7 +29,7 @@ export default {
   // 'help':                 require('components/help/definition').default,
   // 'i18n':                 require('components/i18n/definition').default,
   // 'icon':                 require('components/icon/definition').default,
-  // 'link':                 require('components/link/definition').default,
+  'link':                 require('components/link/definition').default,
   // 'menu-list':            require('components/menu-list/definition').default,
   // 'menu':                 require('components/menu/definition').default,
   'message':              require('components/message/definition').default,
@@ -55,5 +57,5 @@ export default {
   'textarea':             require('components/textarea/definition').default,
   'textbox':              require('components/textbox/definition').default,
   'toast':                require('components/toast/definition').default,
-  // 'tooltip':              require('components/tooltip/definition').default
+  'tooltip':              require('components/tooltip/definition').default
 };

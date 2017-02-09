@@ -12,14 +12,16 @@ import Link from './../link';
  *
  *   import ActionToolbar from 'carbon/lib/components/action-toolbar';
  *
- * To render a ActionToolbar:
+ * To render an ActionToolbar:
  *
  *   let actions = [{
  *     text: "Add Subscriptions",
- *     icon: "basket"
+ *     icon: "basket",
+ *     onClick: onClickHandler() => {}
  *   }, {
  *     text: "Delete",
- *     icon: "bin"
+ *     icon: "bin",
+ *     onClick: onClickHandler() => {}
  *   }];
  *
  *   <ActionToolbar total={ count } actions={ actions } />
@@ -30,6 +32,8 @@ import Link from './../link';
  * @constructor
  */
 class ActionToolbar extends React.Component {
+  // TODO This component needs to be freestanding - we need to provide an api that allows it be used independently.
+  // https://github.com/Sage/carbon/issues/1070
 
   static propTypes = {
     /**
@@ -151,9 +155,7 @@ class ActionToolbar extends React.Component {
    * @return {Object} JSX
    */
   buildAction(action, index) {
-    const text = action.text;
-    let { onClick, className, ...props } = action;
-
+    let { onClick, className, text, ...props } = action;
     className = classNames('carbon-action-toolbar__action', className);
     onClick = onClick ? onClick.bind(this, this.state.selected) : null;
 

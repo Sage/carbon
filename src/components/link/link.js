@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
 import { Link } from 'react-router';
@@ -31,6 +31,13 @@ class _Link extends React.Component {
   }
 
   static propTypes = {
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
 
     /**
      * Gives the link a disabled state.
@@ -39,7 +46,17 @@ class _Link extends React.Component {
      * @type {Boolean}
      * @default undefined
      */
-    disabled: React.PropTypes.bool,
+    disabled: PropTypes.bool,
+
+    /**
+     * Use `href` to use a generic anchor. You can also prefix your value
+     * with `to:` or `href:` to override the prop type.
+     *
+     * @property href
+     * @type {String}
+     * @default undefined
+     */
+    href: PropTypes.string,
 
     /**
      * Renders an icon inline with the link.
@@ -48,7 +65,7 @@ class _Link extends React.Component {
      * @type {String}
      * @default undefined
      */
-    icon: React.PropTypes.string,
+    icon: PropTypes.string,
 
     /**
      * Configures the alignment of the icon (left or right).
@@ -57,7 +74,7 @@ class _Link extends React.Component {
      * @type {String}
      * @default left
      */
-    iconAlign: React.PropTypes.string,
+    iconAlign: PropTypes.string,
 
     /**
      * Allows the <a> tag to be set in or out of the tab order of the page
@@ -68,7 +85,7 @@ class _Link extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    tabbable: React.PropTypes.bool,
+    tabbable: PropTypes.bool,
 
     /**
      * Use `to` to use the React Router link. You can also prefix your value
@@ -78,17 +95,7 @@ class _Link extends React.Component {
      * @type {String}
      * @default undefined
      */
-    to: React.PropTypes.string,
-
-    /**
-     * Use `href` to use a generic anchor. You can also prefix your value
-     * with `to:` or `href:` to override the prop type.
-     *
-     * @property href
-     * @type {String}
-     * @default undefined
-     */
-    href: React.PropTypes.string,
+    to: PropTypes.string,
 
     /**
      * The message for this tooltip
@@ -96,7 +103,7 @@ class _Link extends React.Component {
      * @property
      * @type {String}
      */
-    tooltipMessage: React.PropTypes.string,
+    tooltipMessage: PropTypes.string,
 
     /**
      * The position of this tooltip: top, bottom, left or right
@@ -105,7 +112,7 @@ class _Link extends React.Component {
      * @default top
      * @type {String}
      */
-    tooltipPosition: React.PropTypes.string,
+    tooltipPosition: PropTypes.string,
 
     /**
      * The alignment of this tooltip: left, right or center
@@ -114,7 +121,7 @@ class _Link extends React.Component {
      * @default center
      * @type {String}
      */
-    tooltipAlign: React.PropTypes.string
+    tooltipAlign: PropTypes.string
   }
 
   static defaultProps = {
@@ -122,7 +129,7 @@ class _Link extends React.Component {
     tabbable: true
   }
 
-  static safeProps = ['disabled']
+  static safeProps = ['disabled'];
 
   /**
    * Getter for componet properties.
