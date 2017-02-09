@@ -32,7 +32,8 @@ import Link from './../link';
  * @constructor
  */
 class ActionToolbar extends React.Component {
-// TODO This component needs to be freestanding - we need to provide an api that allows it be used independently.
+  // TODO This component needs to be freestanding - we need to provide an api that allows it be used independently.
+  // https://github.com/Sage/carbon/issues/1070
 
   static propTypes = {
     /**
