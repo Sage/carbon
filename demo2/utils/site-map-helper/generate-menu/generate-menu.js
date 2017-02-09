@@ -8,11 +8,13 @@ export default () => {
   return generateMenu();
 }
 
-const createMenuLink = (name, url, active) => {
-  let classes = active ? "demo-menu__link--active" : null;
+const createMenuLink = (name, url, active, external) => {
+  let classes = active ? "demo-menu__link--active" : null,
+      linkProp = external ? { href: url, target: "_blank" } : { to: url };
+
   return (
     <MenuListItem key={ name } name={ name }>
-      <Link to={ url } className={ classes }>
+      <Link className={ classes } { ...linkProp }>
         { titleize(humanize(name.replace("/", ""))) }
       </Link>
     </MenuListItem>
@@ -24,9 +26,12 @@ const createSubmenu = (url, value) => {
       initiallyOpen = false;
 
   for (let index in value.items) {
-    let name, link;
+    let name, link = value.items[index], external = false;
 
-    if (url.indexOf(":name") > -1) {
+    if (typeof link === "string" && link.startsWith("http")) {
+      name = index;
+      external = true;
+    } else if (url.indexOf(":name") > -1) {
       name = value.items[index];
       link = url.replace(":name", name);
     } else {
@@ -35,7 +40,7 @@ const createSubmenu = (url, value) => {
     }
 
     let active = (window.location.pathname === link);
-    submenuItems.push(createMenuLink(name, link, active));
+    submenuItems.push(createMenuLink(name, link, active, external));
   }
 
   let title = url.replace(/\//g, '');

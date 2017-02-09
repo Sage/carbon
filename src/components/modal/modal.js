@@ -138,7 +138,7 @@ class Modal extends React.Component {
    * @return {void}
    */
   closeModal = (ev) => {
-    if (!this.props.disableEscKey && Events.isEscKey(ev)) {
+    if (this.props.onCancel && !this.props.disableEscKey && Events.isEscKey(ev)) {
       this.props.onCancel();
     }
   }

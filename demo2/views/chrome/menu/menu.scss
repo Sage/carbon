@@ -7,6 +7,7 @@
     background-image: url('/assets/images/carbon_logo-1.svg');
     background-position: center;
     background-repeat: no-repeat;
+    background-color: transparent;
     border-bottom: 1px solid $grey-dark-blue-20;
     height: 60px;
     margin-left: -40px;
@@ -19,7 +20,7 @@
     overflow-y: scroll;
     margin: 0 0 0 -5px;
     padding-left: 5px;
-    width: 100%;
+    width: calc(100% + 25px);
 
     .carbon-menu-list__list {
       margin: 0;
@@ -30,12 +31,19 @@
     }
 
     .carbon-menu-list-item .carbon-menu-list-item {
-      line-height: 30px;
+      line-height: 18px;
+
+      .carbon-link__anchor {
+        display: inline-block;
+        margin: 6px 0;
+        max-width: 96%;
+      }
     }
 
     .carbon-textbox {
       line-height: 16px;
       margin: 0 0 8px;
+      width: calc(100% - 25px);
 
       .common-input__input {
         border: none;
@@ -56,10 +64,15 @@
     background-color: $white;
     border: none;
     box-sizing: content-box;
+    box-shadow: inset -1px 0 0 0 $grey-dark-blue-20;
     padding-left: 40px;
     padding-right: 40px;
     width: 160px;
-    z-index: 10;
+    z-index: 12;
+  }
+
+  .carbon-modal__background {
+    z-index: 11;
   }
 
   &__buttons {
