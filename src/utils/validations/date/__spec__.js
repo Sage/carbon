@@ -7,7 +7,7 @@ describe('Blank Validator', () => {
       en: {
         errors: {
           messages: {
-            date: 'Invalid Date'
+            wrong_format: 'Invalid Date'
           }
         }
       }
