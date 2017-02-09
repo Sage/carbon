@@ -246,6 +246,7 @@ class Date extends React.Component {
   handleDateSelect = (val) => {
     this.blockBlur = true;
     this.closeDatePicker();
+    this._handleContentChange();
     this.emitOnChangeCallback(val);
     this.updateVisibleValue();
   }

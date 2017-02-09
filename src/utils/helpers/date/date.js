@@ -47,7 +47,7 @@ const DateHelper = {
   * @return {Array} formatted date strings
   */
   dateFormats: () => {
-    return I18n.t('date.formats.inputs', { defaultValue: ["MMM/DD/YY", "DD/MM", "DD/MM/YYYY", "DD/MMM/YYYY", "YYYY/MM/DD"] });
+    return I18n.t('date.formats.inputs', { defaultValue: DateHelper.defaultDateFormats() });
   },
 
   /**
@@ -112,6 +112,35 @@ const DateHelper = {
       sanitize: true
     };
   },
+
+  /**
+   * Large set of default date formats for if a
+   * i18n is not supplied
+   *
+   *
+   *
+   */
+  defaultDateFormats: () => {
+    return [
+      'DDMMYYYY', 'DDMMYY', 'DD/MM/YYYY','DD/MM/YY',
+      'MMDDYYYY', 'MMDDYY', 'MM/DD/YYYY','MM/DD/YY',
+      'DDMMM', 'DD/MMM', 'DDMM', 'DD/MM',
+      'YYYYMMDD', 'YYYY/MM/DD',
+      'D/MM/YYYY', 'D/M/YYYY', 'D/MM/YY', 'D/M/YY',
+      'DD/M/YYYY', 'DD/M/YY', 'DD/M/YY',
+      'D/MMM/YYYY', 'DD/MMM/YYYY', 'DD/MMM/YY',
+      'D/MMMM/YYYY', 'DD/MMMM/YYYY', 'DD/MMMM/YY',
+      'MMM/YYYY', 'MMM/YY', 'MMMM/YYYY', 'MMMM/YY',
+      'Do/MMM/YYYY','Do/MMM/YY', 'Do/M/YYYY', 'Do/M/YY',
+      'Do/MM/YYYY', 'Do/MM/YY', 'Do/MMMM/YYYY', 'Do/MMMM/YY',
+      'MMMM/Do/YYYY', 'MMMM/Do/YY', 'MMMM/Do',
+      'MMM/Do/YYYY', 'MMM/Do/YY', 'MMM/Do',
+      'Do/MMM', 'D/MMM', 'D/MM', 'D/M',
+      'Do/MMMM', 'Do/MM', 'Do/M',
+      'D/MMMM', 'DD/MMMM', 'DD/MMM', 'DD/M',
+      'MMM', 'MMMM', 'DD', 'Do', 'D'
+    ]
+  }
 };
 
 export default DateHelper;
