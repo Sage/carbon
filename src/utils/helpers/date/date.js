@@ -139,7 +139,7 @@ const DateHelper = {
       'Do/MMMM', 'Do/MM', 'Do/M',
       'D/MMMM', 'DD/MMMM', 'DD/MMM', 'DD/M',
       'MMM', 'MMMM', 'DD', 'Do', 'D'
-    ]
+    ];
   }
 };
 

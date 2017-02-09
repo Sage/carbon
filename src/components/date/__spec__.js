@@ -220,15 +220,6 @@ describe('Date', () => {
         });
       });
 
-      it('accepts the format MMM DD YY', () => {
-        let date = moment().add(noOfDays, 'days').format('MMM DD YY');
-        instance.handleVisibleInputChange({ target: { value: date } })
-        expect(instance.setState).toHaveBeenCalledWith({
-          visibleValue: date,
-          datePickerValue: hiddenDate
-        });
-      });
-
       it('accepts the format DD-MM', () => {
         let date = moment().format('DD-MM');
         instance.handleVisibleInputChange({ target: { value: date } })
