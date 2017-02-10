@@ -146,6 +146,6 @@ const hiddenType = (prop, type) => {
   if (prop === "children") {
     return false;
   } else {
-    return includes(["Function", "Node"], type);
+    return includes(["Function", "Node"], type) || includes(["className"], prop);
   }
 }

@@ -18,7 +18,15 @@ class Create extends React.Component {
      * @property className
      * @type {String}
      */
-    className: PropTypes.string
+    className: PropTypes.string,
+
+    /**
+     * Props for the link
+     *
+     * @property linkProps
+     * @type {Object}
+     */
+    linkProps: PropTypes.object
   };
 
   constructor(...args) {

@@ -17,7 +17,16 @@ global.tableAjaxData = ImmutableHelper.parseJSON([]);
 
 class ComponentStore extends Store {
   [ComponentConstants.UPDATE_DEFINITION](data) {
-    this.data = this.data.setIn([data.name, 'propValues', data.prop], data.value);
+    let value = data.value;
+
+    if (data.name === 'date-range' && data.prop === 'value') {
+      value = JSON.stringify(value);
+    }
+
+    this.data = this.data.setIn([data.name, 'propValues', data.prop], value);
+    if (data.visibleValue) {
+      this.data = this.data.setIn([data.name, 'propValues', 'visibleValue'], data.visibleValue);
+    }
 
     if (data.name === "table") {
       ComponentActions.updateTable('manual', this.data.getIn(['table', 'propValues']).toJS());

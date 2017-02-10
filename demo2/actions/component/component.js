@@ -9,11 +9,21 @@ const ComponentActions = {
    * Use window in this action as it is evaluated code.
    */
   updateDefinition: (name, prop, ev) => {
+    let value, visibleValue;
+
+    if (name === 'date-range' && prop === 'value') {
+      value = ev;
+    } else {
+      value = ev.target.value;
+      visibleValue = ev.target.visibleValue;
+    }
+
     window.Dispatcher.dispatch({
       actionType: window.ComponentConstants.UPDATE_DEFINITION,
       name,
       prop,
-      value: ev.target.value
+      value,
+      visibleValue
     });
   },
 

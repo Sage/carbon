@@ -21,11 +21,6 @@
 
   > .hljs-keyword:first-child {
     display: none;
-
-    + span {
-      position: relative;
-      top: -16px;
-    }
   }
 }
 

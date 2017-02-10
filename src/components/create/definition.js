@@ -1,0 +1,24 @@
+import Create from './';
+import OptionsHelper from '../../utils/helpers/options-helper';
+import Definition from './../../../demo2/utils/definition';
+
+let definition = new Definition('create', Create, {
+  description: '[content needed] Basic example of the component',
+  designerNotes: '[content needed] Basic designs description for the component',
+  hiddenProps: ["linkProps"],
+  propValues: {
+    children: "Resource Name"
+  },
+  propTypes: {
+    children: "Node",
+    className: "String",
+    linkProps: "Object"
+  },
+  propDescriptions: {
+    children: "This component supports children",
+    className: "Classes to apply to the component",
+    linkProps: "An object of props to pass down to the link. See Link component for more details"
+  }
+});
+
+export default definition;

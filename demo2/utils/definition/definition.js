@@ -30,7 +30,7 @@ class Definition {
     this.defaultProps = component.defaultProps || {};
 
     // define all props
-    this.props = Object.keys(component.propTypes) || [];
+    this.props = Object.keys(component.propTypes || []);
 
     // define default values for props
     this.propValues = {};

@@ -3,6 +3,7 @@ import Dialog from '../dialog';
 import Button from '../button';
 import I18n from "i18n-js";
 import classNames from 'classnames';
+import { assign } from 'lodash';
 
 /**
  * A Confirm widget.
@@ -34,7 +35,7 @@ import classNames from 'classnames';
  */
 class Confirm extends Dialog {
 
-  static propTypes = {
+  static propTypes = assign({}, Dialog.propTypes, {
 
     /**
      * A custom event handler when a confirmation takes place
@@ -59,11 +60,12 @@ class Confirm extends Dialog {
      * @type {String}
      */
     cancelLabel: React.PropTypes.string
-  }
+  })
 
-  static defaultProps = {
-    size: 'xsmall'
-  }
+  static defaultProps = assign({}, Dialog.defaultProps, {
+    size: 'extra-small',
+    showCloseIcon: false
+  })
 
   constructor() {
     super();
