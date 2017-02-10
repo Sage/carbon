@@ -6,8 +6,8 @@ let definition = new Definition('heading', Heading, {
   designerNotes: '[content needed] Basic designs description for the component',
   type: 'layout',
   propTypes: {
-    title: "String || Object",
-    subheader: "String || Object",
+    title: "String",
+    subheader: "String",
     help: "String",
     helpLink: "String",
     backLink: "String",

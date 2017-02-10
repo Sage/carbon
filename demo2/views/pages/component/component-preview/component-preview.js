@@ -32,6 +32,7 @@ class ComponentPreview extends React.Component {
       >
         <div className= { `component-preview component-preview--${this.props.definition.get('key')}` }>
           <div className='component-preview__component-wrapper'>
+            <div id="carbon-demo" />
             <div ref='demo' />
           </div>
 

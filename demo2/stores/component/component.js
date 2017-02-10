@@ -24,7 +24,7 @@ class ComponentStore extends Store {
     }
 
     this.data = this.data.setIn([data.name, 'propValues', data.prop], value);
-    if (data.visibleValue) {
+    if (data.name === 'dropdown-filter-ajax' && data.visibleValue) {
       this.data = this.data.setIn([data.name, 'propValues', 'visibleValue'], data.visibleValue);
     }
 

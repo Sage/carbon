@@ -40,7 +40,7 @@
 }
 
 @mixin button-theme($theme, $color, $hover, $active, $text-color) {
-  .carbon-button--#{$theme} {
+  .carbon-button.carbon-button--#{$theme} {
     background-color: $color;
     border: $carbon-button__border--primary;
     color: $text-color;
@@ -91,8 +91,8 @@
   @include button-theme($set...);
 }
 
-.carbon-button--disabled,
-.carbon-button--disabled:hover {
+.carbon-button.carbon-button--disabled,
+.carbon-button.carbon-button--disabled:hover {
   background-color: $carbon-button__background-color--disabled;
   border-color: $carbon-button__border-color--disabled;
   color: $carbon-button__color--disabled;
