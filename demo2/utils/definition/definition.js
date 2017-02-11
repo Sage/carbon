@@ -23,6 +23,9 @@ class Definition {
     // define how many times the demo should be repeated
     this.numberOfExamples = 1;
 
+    // define props that will toggle a stubbed function
+    this.toggleFunctions = [];
+
     // define any associated definitions
     this.associatedDefinitions = [];
 

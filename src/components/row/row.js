@@ -51,7 +51,15 @@ class Row extends React.Component {
      * @property columnDivide
      * @type {String}
      */
-    columnDivide: React.PropTypes.bool
+    columnDivide: React.PropTypes.bool,
+
+    /**
+     * Manually define number of columns
+     *
+     * @property columns
+     * @type {String}
+     */
+    columns: React.PropTypes.string
   }
 
   static defaultProps = {

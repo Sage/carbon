@@ -93,14 +93,7 @@ let OptionsHelper = {
     'warning'
   ],
 
-  pageSizes: {
-    immutable: true,
-    value: [
-      { id: 10, name: 10 },
-      { id: 20, name: 20 },
-      { id: 50, name: 50 }
-    ]
-  },
+  pageSizes: [10, 25, 50],
 
   positions: [
     'bottom',

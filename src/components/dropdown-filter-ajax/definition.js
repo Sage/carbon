@@ -6,6 +6,7 @@ let definition = new Definition('dropdown-filter-ajax', DropdownFilterAjax, {
   description: '[content needed] Basic example of the component',
   designerNotes: '[content needed] Basic designs description for the component',
   hiddenProps: ['path'],
+  toggleFunctions: ['create'],
   propTypes: {
     options: "Object",
     cacheVisibleValue: "Boolean",

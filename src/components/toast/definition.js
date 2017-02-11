@@ -6,6 +6,7 @@ let definition = new Definition('toast', Toast, {
   description: '[content needed] Basic example of the component',
   designerNotes: '[content needed] Basic designs description for the component',
   type: 'notification',
+  toggleFunctions: ["onDismiss"],
   propOptions: {
     as: OptionsHelper.colors
   },
@@ -25,7 +26,5 @@ let definition = new Definition('toast', Toast, {
   },
   openPreview: true
 });
-
-definition.stubAction('onDismiss', 'open', false);
 
 export default definition;

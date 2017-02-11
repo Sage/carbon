@@ -29,22 +29,6 @@ import { validProps } from '../../utils/ether';
  */
 const RadioButton = Input(InputLabel(InputValidation(
 class RadioButton extends React.Component {
-  static propTypes = {
-
-    /**
-    * Sets the checked state of the radio button
-    *
-    * @property defaultChecked
-    * @type {Boolean}
-    * @default false
-    */
-    defaultChecked: React.PropTypes.bool
-  }
-
-  static defaultProps = {
-    defaultChecked: false
-  }
-
   /**
    * Uses the mainClasses method provided by the decorator to add additional classes.
    *

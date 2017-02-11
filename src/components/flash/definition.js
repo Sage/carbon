@@ -10,7 +10,8 @@ let definition = new Definition('flash', Flash, {
     as: OptionsHelper.colors
   },
   propValues: {
-    message: 'This is some information from the Flash Component.'
+    message: 'This is some information from the Flash Component.',
+    open: false
   },
   propTypes: {
     as: "String",

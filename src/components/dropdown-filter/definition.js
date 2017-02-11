@@ -6,6 +6,7 @@ let definition = new Definition('dropdown-filter', DropdownFilter, {
   description: '[content needed] Basic example of the component',
   designerNotes: '[content needed] Basic designs description for the component',
   hiddenProps: ['options'],
+  toggleFunctions: ['create'],
   js: `function getOptions() {
   return ImmutableHelper.parseJSON([{
     id: "1", name: "Orange"
