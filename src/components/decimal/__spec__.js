@@ -4,7 +4,7 @@ import Decimal from './decimal';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
 
-describe('Decimal', () => {
+fdescribe('Decimal', () => {
   var instance;
 
   describe('with no options', () => {
@@ -330,6 +330,18 @@ describe('Decimal', () => {
           spyOn(instance, 'setState');
           TestUtils.Simulate.blur(instance._input);
           expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "-" });
+        });
+      });
+
+      describe('when onBlur is passed', () => {
+        it('calls onBlur', () => {
+          let onBlur = jasmine.createSpy();
+
+          instance = TestUtils.renderIntoDocument(
+            <Decimal name="total" value="1000.00" onBlur={ onBlur } />
+          );
+          TestUtils.Simulate.blur(instance._input);
+          expect(onBlur).toHaveBeenCalled();
         });
       });
     });
