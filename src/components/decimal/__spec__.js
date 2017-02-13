@@ -4,7 +4,7 @@ import Decimal from './decimal';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
 
-fdescribe('Decimal', () => {
+describe('Decimal', () => {
   var instance;
 
   describe('with no options', () => {
