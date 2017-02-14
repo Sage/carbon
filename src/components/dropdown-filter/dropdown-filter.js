@@ -369,6 +369,8 @@ class DropdownFilter extends Dropdown {
     if (typeof this.state.filter === 'string') {
       // if filter has a value, use that instead
       value = this.state.filter;
+    } else if (this.props.freetext && this.props.value && value === '') {
+      value = this.props.value;
     }
 
     props.readOnly = this.props.readOnly || false;

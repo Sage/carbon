@@ -1,3 +1,9 @@
+# 0.34.3
+
+## Component Enhancements
+
+* `Dropdown-Filter`: Added support for write-in initial value to be displayed in `freetext` mode. Previously, if `value` property did not match an `options` item, no value was displayed.
+
 # 0.34.2
 
 ## Bug fix
