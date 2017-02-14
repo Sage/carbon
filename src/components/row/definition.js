@@ -8,13 +8,15 @@ let columnDefinition = new Definition('child', {}, {
     columnOffset: "String",
     columnSpan: "String",
     columnAlign: "String",
-    columnClasses: "String"
+    columnClasses: "String",
+    children: "Node"
   },
   propDescriptions: {
     columnOffset: "Offset this column by a certain number of columns.",
     columnSpan: "Span this column by a certain number of columns.",
     columnAlign: "Align the content of this column.",
-    columnClasses: "Apply custom classes to this column."
+    columnClasses: "Apply custom classes to this column.",
+    children: "This component supports children."
   }
 });
 

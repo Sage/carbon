@@ -24,11 +24,20 @@ import ReactDOM from 'react-dom';
  *
  */
 class MountInApp extends React.Component {
-
   static propTypes = {
     // the ID of the element in which the children components will be rendered.
     targetId: React.PropTypes.string
-  };
+  }
+
+  componentDidMount() {
+    if (this.targetElement) {
+      ReactDOM.render(this.contentHtml, this.targetElement);
+    }
+  }
+
+  componentWillUnmount() {
+    this.targetElement.firstChild.remove();
+  }
 
   get contentHtml() {
     return (
@@ -42,16 +51,9 @@ class MountInApp extends React.Component {
     return document.getElementById(this.props.targetId);
   }
 
-  componentDidMount() {
-    if (this.targetElement) {
-      ReactDOM.render(this.contentHtml, this.targetElement);
-    }
-  }
-
   render() {
     return null;
   }
-
 }
 
 export default MountInApp;

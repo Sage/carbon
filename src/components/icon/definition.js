@@ -43,7 +43,4 @@ let definition = new Definition('icon', Icon, {
   }
 });
 
-// need to manually set this one due to kebabcase working unexpectedly
-definition.key = "i18n-component";
-
 export default definition;
