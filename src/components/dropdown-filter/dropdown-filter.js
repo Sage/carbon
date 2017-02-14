@@ -188,6 +188,10 @@ class DropdownFilter extends Dropdown {
           this.emitOnChangeCallback('', this.state.filter);
         }
       }
+
+      if (this.props.onBlur) {
+        this.props.onBlur();
+      }
     }
   }
 
