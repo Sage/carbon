@@ -643,10 +643,21 @@ describe('DropdownFilter', () => {
         instance.visibleValue = 'foo';
         expect(instance.inputProps.value).toEqual('foo');
       });
+
+      describe('and freetext value is present', () => {
+        it('displays freetext value', () => {
+          let value = 'foo';
+
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value={ value } freetext={ true } />
+          );
+          expect(instance.inputProps.value).toEqual(value);
+        });
+      });
     });
 
     describe('when filter is set', () => {
-      it('does not use the filter value', () => {
+      it('uses the filter value', () => {
         instance.visibleValue = 'foo';
         instance.setState({ filter: 'bar' });
         expect(instance.inputProps.value).toEqual('bar');
