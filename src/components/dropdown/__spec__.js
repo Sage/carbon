@@ -107,6 +107,18 @@ describe('Dropdown', () => {
       instance.selectValue('10', 'foo');
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('10', 'foo');
     });
+
+    describe('when onBlur is set', () => {
+      it('calls onBlur', () => {
+        let onBlur = jasmine.createSpy('onBlur');
+
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown options={ Immutable.fromJS([{}]) } value="1" onBlur={ onBlur } />
+        );
+        instance.selectValue('10', 'foo');
+        expect(onBlur).toHaveBeenCalled();
+      });
+    });
   });
 
   describe('emitOnChangeCallback', () => {
@@ -251,6 +263,18 @@ describe('Dropdown', () => {
           spyOn(instance, 'highlighted').and.returnValue(instance.props.value);
           TestUtils.Simulate.blur(instance._input);
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when onBlur is set', () => {
+        it('calls onBlur', () => {
+          let onBlur = jasmine.createSpy('onBlur');
+
+          instance = TestUtils.renderIntoDocument(
+            <Dropdown options={ Immutable.fromJS([{}]) } value="1" onBlur={ onBlur } />
+          );
+          TestUtils.Simulate.blur(instance._input);
+          expect(onBlur).toHaveBeenCalled();
         });
       });
     });
