@@ -24,7 +24,7 @@ describe('Alert', () => {
 
   describe('dialogClasses', () => {
     it('returns the dialog class along with the alert class', () => {
-      expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--xsmall carbon-alert__alert');
+      expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-alert__alert');
     });
   });
 });
