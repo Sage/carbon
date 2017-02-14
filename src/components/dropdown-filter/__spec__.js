@@ -275,6 +275,18 @@ describe('DropdownFilter', () => {
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
       });
+
+      describe('when onBlur is set', () => {
+        it('calls onBlur', () => {
+          let onBlur = jasmine.createSpy('onBlur');
+
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" onBlur={ onBlur } />
+          );
+          instance.handleBlur();
+          expect(onBlur).toHaveBeenCalled();
+        });
+      });
     });
   });
 
