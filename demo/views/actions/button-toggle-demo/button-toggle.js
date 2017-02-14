@@ -31,14 +31,14 @@ class ButtonToggleDemo extends React.Component {
     let props = { name: "sample" };
 
     if (this.value('icon_large')) {
-      props.iconSize = "large";
+      props.buttonIconSize = "large";
     }
 
     return (
       <div>
         <ButtonToggle
           disabled={ this.value('disabled') }
-          icon={ this.value('icon') }
+          buttonIcon={ this.value('icon') }
           { ...props }
         >
           { this.value('option_one') || " " }
@@ -71,11 +71,11 @@ class ButtonToggleDemo extends React.Component {
     }
 
     if (this.value('icon_large')) {
-      html += "\n  iconSize='large'";
+      html += "\n  buttonIconSize='large'";
     }
 
     if (this.value('icon')) {
-      html += `\n  icon='${this.value('icon')}'`;
+      html += `\n  buttonIcon='${this.value('icon')}'`;
     }
 
     html += "\n>\n";
