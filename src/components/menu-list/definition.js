@@ -17,7 +17,7 @@ let definition = new Definition('menu-list', MenuList, {
     className: "String",
     children: "Node"
   },
-  propTypes: {
+  propDescriptions: {
     filter: "Enable a filter for the menu. When this is enabled each menu item requires a name prop.",
     title: "Define a title for the menu, if this is defined then the menu can be collapsible.",
     collapsible: "Turns collapsible on/off.",
