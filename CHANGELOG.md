@@ -2,7 +2,7 @@
 
 ## Bug fix
 
-* Fixes onBlur prop passed to `Date`, `Dropdown`, and `DropdownFilter` components so it is called instead of ignored
+* Fixes onBlur prop passed to `Date`, `Dropdown`, `DropdownFilter`, and `DropdownFilterAjax` components so it is called instead of ignored
 
 # 0.34.1
 

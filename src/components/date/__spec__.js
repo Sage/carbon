@@ -314,7 +314,6 @@ describe('Date', () => {
         let onBlur = jasmine.createSpy('onBlur');
 
         instance = TestUtils.renderIntoDocument(<Date name='date' label='Date' onBlur={ onBlur } />);
-        spyOn(instance, 'updateVisibleValue');
         TestUtils.Simulate.blur(instance._input);
         expect(onBlur).toHaveBeenCalled();
       });
