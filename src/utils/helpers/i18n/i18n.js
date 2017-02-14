@@ -73,9 +73,10 @@ const I18nHelper = {
    * @return {String} abbreviated number
    */
   abbreviateNumber: (num, options = {}) => {
-    if (num > 949 && num < 999950) {
+    const absolute = Math.abs(num);
+    if (absolute > 949 && absolute < 999950) {
       return `${I18nHelper.roundForAbbreviation(num, 100, options)}${I18n.t("number.format.abbreviations.thousand", { defaultValue: "k" })}`;
-    } else if (num > 999949) {
+    } else if (absolute > 999949) {
       return `${I18nHelper.roundForAbbreviation(num, 100000, options)}${I18n.t("number.format.abbreviations.million", { defaultValue: "m" })}`;
     }
 

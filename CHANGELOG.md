@@ -3,6 +3,7 @@
 ## Bug fix
 
 * Fixes onBlur prop passed to `Date`, `Decimal`, `Dropdown`, `DropdownFilter`, and `DropdownFilterAjax` components so it is called instead of ignored
+* `I18nHelper`: Number abbreviator allows negative numbers
 
 # 0.34.1
 
