@@ -5,207 +5,144 @@ import Bowser from 'bowser';
 import classNames from 'classnames';
 import { assign } from 'lodash';
 
+const propTypes = assign({}, Modal.propTypes, {
+  title: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.object
+  ]),
+  size: React.PropTypes.string,
+  showCloseIcon: React.PropTypes.bool
+});
+
+const defaultProps = {
+  size: 'medium',
+  showCloseIcon: true
+};
+
 /**
- * A Dialog widget.
- *
- * == How to use a Dialog in a component:
- *
- * In your file
- *
- *   import Dialog from 'carbon/lib/components/dialog';
- *
- * To render a Dialog:
- *
- *   <Dialog onCancel={ customEventHandler } />
- *
- * The component rendering the Dialog must pass down a prop of 'open' in order to open the dialog.
- *
- * You need to provide a custom cancel event handler to handle a close event.
- *
  * @class Dialog
  * @constructor
  */
-class Dialog extends Modal {
-
-  static propTypes = assign({}, Modal.propTypes, {
-    /**
-     * Title displayed at top of dialog
-     *
-     * @property title
-     * @type {Object}
-     */
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
-    ]),
-
-    /**
-     * Size of dialog, default size is 750px
-     *
-     * @property size
-     * @type {String}
-     * @default med
-     */
-    size: React.PropTypes.string,
-
-    /**
-     * Determins if the close icon is shown
-     *
-     * @property showCloseIcon
-     * @type {Boolean}
-     * @default true
-     */
-    showCloseIcon: React.PropTypes.bool
-  })
-
-  static defaultProps = {
-    size: 'medium',
-    showCloseIcon: true
-  }
-
-  /**
-   * A lifecycle method to update the component on initialize
-   *
-   * @method componentDidMount
-   * @return {void}
-   */
+class Dialog extends React.Component {
   componentDidMount() {
     if (this.props.open) {
       this.centerDialog();
     }
   }
 
-  /**
-   * Called by ComponentDidUpdate when
-   * Dialog is opened
-   * @override
-   *
-   * @method onOpening
-   * @return {Void}
-   */
-  get onOpening() {
+  onOpening = () => {
     this.centerDialog();
     window.addEventListener('resize', this.centerDialog);
   }
 
-  /**
-   * Called by ComponentDidUpdate when
-   * Dialog is closed
-   * @override
-   *
-   * @method onClosing
-   * @return {Void}
-   */
-  get onClosing() {
+  onClosing = () => {
     window.removeEventListener('resize', this.centerDialog);
   }
 
-  /**
-   * Centers dialog relative to window
-   *
-   * @method centerDialog
-   * @return {void}
-   */
   centerDialog = () => {
-    let height = this._dialog.offsetHeight / 2,
-        width = this._dialog.offsetWidth / 2,
-        midPointY = window.innerHeight / 2 + window.pageYOffset,
-        midPointX = window.innerWidth / 2 + window.pageXOffset;
-
-    midPointY = midPointY - height;
-    midPointX = midPointX - width;
-
-    if (midPointY < 20) {
-      midPointY = 20;
-    } else if (Bowser.ios) {
-      midPointY -= window.pageYOffset;
-    }
-
-    if (midPointX < 20) {
-      midPointX = 20;
-    }
-
-    this._dialog.style.top = midPointY + "px";
-    this._dialog.style.left = midPointX + "px";
+    center(this._dialog);
   }
 
-  /**
-   * Returns HTML and text for the dialog title.
-   *
-   * @method dialogTitle
-   * @return {String} title to display
-   */
-  get dialogTitle() {
+  render() {
     return (
-        this.props.title ?
-          <h2 className={ this.dialogTitleClasses }>{ this.props.title }</h2> :
-          null
-    );
-  }
+      <Modal
+        onOpening={ this.onOpening }
+        onClosing={ this.onClosing }
+        className={ mainClasses(this.props.className) }
+        { ...this.props }
+      >
+        <div ref={ (d) => this._dialog = d } className={ dialogClasses(this.props.size) }>
+          { renderDialogTitle(this.props.title) }
+          { renderCloseIcon(this.props.showCloseIcon, this.props.onCancel) }
 
-  /**
-   * Returns classes for the dialog title.
-   *
-   * @method dialogTitleClasses
-   */
-  get dialogTitleClasses() {
-    return 'carbon-dialog__title';
-  }
-
-  /**
-   * Returns classes for the component.
-   * @override
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
-  get mainClasses() {
-    return classNames(
-      'carbon-dialog',
-      this.props.className
-    );
-  }
-
-  /**
-   * Returns classes for the dialog.
-   * @override
-   *
-   * @method dialogClasses
-   * @return {String} dialog className
-   */
-  get dialogClasses() {
-    return classNames(
-      'carbon-dialog__dialog',
-      {
-        [`carbon-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined'
-      }
-    );
-  }
-
-  get closeIcon() {
-    if (this.props.showCloseIcon) {
-      return <Icon className="carbon-dialog__close" type="close" onClick={ this.props.onCancel } />;
-    }
-  }
-
-  /**
-   * Returns the computed HTML for the dialog.
-   *
-   * @method dialogHTML
-   * @return {Object} JSX for dialog
-   */
-  get modalHTML() {
-    return (
-      <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
-        { this.dialogTitle }
-        { this.closeIcon }
-
-        <div className='carbon-dialog__content'>
-          { this.props.children }
+          <div className='carbon-dialog__content'>
+            { this.props.children }
+          </div>
         </div>
-      </div>
+      </Modal>
     );
   }
 }
+
+/**
+ * Centers the given element in the window.
+ *
+ * @method center
+ * @param {Node} dialog
+ * @return {Void}
+ */
+function center(dialog) {
+  let height = dialog.offsetHeight / 2,
+      width = dialog.offsetWidth / 2,
+      midPointY = window.innerHeight / 2 + window.pageYOffset,
+      midPointX = window.innerWidth / 2 + window.pageXOffset;
+
+  midPointY = midPointY - height;
+  midPointX = midPointX - width;
+
+  if (midPointY < 20) {
+    midPointY = 20;
+  } else if (Bowser.ios) {
+    midPointY -= window.pageYOffset;
+  }
+
+  if (midPointX < 20) {
+    midPointX = 20;
+  }
+
+  dialog.style.top = midPointY + "px";
+  dialog.style.left = midPointX + "px";
+}
+
+/**
+ * Returns classes for the component.
+ *
+ * @method mainClasses
+ * @return {String} Main className
+ */
+function mainClasses(className) {
+  return classNames('carbon-dialog', className);
+}
+
+/**
+ * Returns classes for the dialog.
+ *
+ * @method dialogClasses
+ * @return {String} dialog className
+ */
+function dialogClasses(size) {
+  return classNames(
+    'carbon-dialog__dialog', {
+      [`carbon-dialog__dialog--${size}`]: typeof size !== 'undefined'
+    }
+  );
+}
+
+/**
+ * Returns HTML and text for the dialog title.
+ *
+ * @method dialogTitle
+ * @return {String} title to display
+ */
+function renderDialogTitle(title) {
+  if (!title) { return null; }
+  return <h2 className='carbon-dialog__title'>{ title }</h2>;
+}
+
+/**
+ * Renders the close icon unless it is disabled.
+ *
+ * @method renderCloseIcon
+ * @param {Boolean} showCloseIcon
+ * @param {Function} onCancel
+ * @return {Node}
+ */
+function renderCloseIcon(showCloseIcon, onCancel) {
+  if (!showCloseIcon) { return null; }
+  return <Icon className="carbon-dialog__close" type="close" onClick={ onCancel } />;
+}
+
+Dialog.propTypes = propTypes;
+Dialog.defaultProps = defaultProps;
 
 export default Dialog;
