@@ -92,6 +92,16 @@ describe('DropdownFilterAjax', () => {
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
       });
+
+      describe('when there is an onBlur prop', () => {
+        it('triggers the onBlur function', () => {
+          let onBlur = jasmine.createSpy('onBlur');
+
+          instance = TestUtils.renderIntoDocument(<DropdownFilterAjax onBlur={ onBlur } />);
+          TestUtils.Simulate.blur(instance._input);
+          expect(onBlur).toHaveBeenCalled();
+        });
+      });
     });
   });
 

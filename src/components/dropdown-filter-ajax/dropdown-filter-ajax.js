@@ -154,6 +154,10 @@ class DropdownFilterAjax extends DropdownFilter {
       let filter = this.props.create ? this.state.filter : null;
       // close list and reset filter
       this.setState({ open: false, filter: filter });
+
+      if (this.props.onBlur) {
+        this.props.onBlur();
+      }
     }
   }
 

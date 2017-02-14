@@ -264,6 +264,9 @@ class Date extends React.Component {
    */
   handleBlur = () => {
     this.updateVisibleValue();
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
   }
 
   /**

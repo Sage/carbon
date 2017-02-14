@@ -329,6 +329,18 @@ describe('Decimal', () => {
           expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "-" });
         });
       });
+
+      describe('when onBlur is passed', () => {
+        it('calls onBlur', () => {
+          let onBlur = jasmine.createSpy();
+
+          instance = TestUtils.renderIntoDocument(
+            <Decimal name="total" value="1000.00" onBlur={ onBlur } />
+          );
+          TestUtils.Simulate.blur(instance._input);
+          expect(onBlur).toHaveBeenCalled();
+        });
+      });
     });
 
     describe("handleOnClick", () => {

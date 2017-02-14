@@ -132,6 +132,8 @@ describe('I18n Helper', () => {
       expect(Helper.abbreviateNumber('999950')).toEqual('1.0m');
       expect(Helper.abbreviateNumber('1049000')).toEqual('1.0m');
       expect(Helper.abbreviateNumber('1050000')).toEqual('1.1m');
+      expect(Helper.abbreviateNumber('-1050000')).toEqual('-1.1m');
+      expect(Helper.abbreviateNumber(-1000000)).toEqual('-1.0m');
       expect(Helper.abbreviateNumber('1000000000')).toEqual('1,000.0m');
     });
   });
