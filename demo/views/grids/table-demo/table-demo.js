@@ -70,6 +70,10 @@ class TableDemo extends React.Component {
         { filterHtml }
 
         <Table
+          configurable={ true }
+          columns={ this.value('columns') }
+          availableColumns={ this.value('availableColumns') }
+          lockedColumns={ this.value('lockedColumns') }
           actions={ actions }
           currentPage={ this.value('current_page') }
           filter={ filter }
@@ -266,16 +270,25 @@ class TableDemo extends React.Component {
    * @method tableHeaderRow
    */
   get tableHeaderRow() {
+    let headerRows = this.value('columns').map((column) => {
+      return (
+        <TableHeader key={ column } sortable={ this.value('sortable') } name={ column } style={{ width: "200px" }}>
+          { column }
+        </TableHeader>
+      );
+    });
     return(
       <TableRow key='header' as='header' uniqueID='header' selectAll={ this.value('selectable') }>
-        <TableHeader sortable={ this.value('sortable') } name="name" style={{ width: "200px" }}>
-          Country
-        </TableHeader>
-        <TableHeader sortable={ this.value('sortable') } name="value">
-          Code
-        </TableHeader>
+        { headerRows }
       </TableRow>
     );
+  }
+
+  columnNameMap() {
+    return {
+      country: 'name',
+      code: 'value',
+    }
   }
 
   /**
@@ -285,10 +298,14 @@ class TableDemo extends React.Component {
     let data = this.state.appStore.getIn(['table', 'data']);
 
     return data.map((row, index) => {
+      let tableCells = this.value('columns').map((column) => {
+        return (
+          <TableCell key={ column }>{ row.get(this.columnNameMap()[column] || column) }</TableCell>
+        )
+      });
       return (
         <TableRow key={ index } uniqueID={ row.get('name') }>
-          <TableCell>{ row.get('name') }</TableCell>
-          <TableCell>{ row.get('value') }</TableCell>
+          { tableCells }
         </TableRow>
       );
     });
