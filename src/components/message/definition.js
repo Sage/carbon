@@ -6,6 +6,7 @@ let definition = new Definition('message', Message, {
   description: '[content needed] Basic example of the component',
   designerNotes: '[content needed] Basic designs description for the component',
   type: 'notification',
+  toggleFunctions: ['onDismiss'],
   propOptions: {
     as: OptionsHelper.colors
   },
@@ -30,7 +31,5 @@ let definition = new Definition('message', Message, {
     border: "A boolean which determines if the borders should be shown",
   }
 });
-
-definition.stubAction('onDismiss', 'open', false);
 
 export default definition;

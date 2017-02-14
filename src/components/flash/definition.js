@@ -11,13 +11,13 @@ let definition = new Definition('flash', Flash, {
   },
   propValues: {
     message: 'This is some information from the Flash Component.',
-    open: true
+    open: false
   },
   propTypes: {
     as: "String",
     open: "Boolean",
     onDismiss: "Function",
-    message: "String || Object || Array",
+    message: "String",
     timeout: "String || Number"
   },
   propDescriptions: {

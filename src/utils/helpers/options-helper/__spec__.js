@@ -97,14 +97,9 @@ describe('OptionsHelper', () => {
     ]);
   });
   it("pageSizes", () => {
-    expect(OptionsHelper.pageSizes).toEqual({
-      immutable: true,
-      value: [
-        { id: 10, name: 10 },
-        { id: 20, name: 20 },
-        { id: 50, name: 50 }
-      ]
-    });
+    expect(OptionsHelper.pageSizes).toEqual([
+      10, 25, 50
+    ]);
   });
   it("positions", () => {
     expect(OptionsHelper.positions).toEqual([

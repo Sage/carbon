@@ -36,15 +36,19 @@ class ComponentCodeBuilder {
   addProps = (definition, withEvents) => {
     let props = definition.get('propValues'),
         propTypes = definition.get('propTypes'),
+        toggleFunctions = definition.get('toggleFunctions'),
         children = props.get('children'),
         js = definition.get('js');
 
     this.openPreview = definition.get('openPreview');
+
     props.forEach((value, prop) => {
-      if (prop !== "children") {
+      if (prop !== "children" && !toggleFunctions.includes(prop)) {
         if (withEvents || (prop !== "data-binding" && typeof value !== "function")) {
           this.addProp(prop, value, propTypes.get(prop));
         }
+      } else if (toggleFunctions.includes(prop) && value) {
+        this.addProp(prop, `() => { alert("${prop}"); }`, "Function");
       }
     });
 

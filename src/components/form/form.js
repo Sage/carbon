@@ -50,14 +50,6 @@ class Form extends React.Component {
   _window = window;
 
   static propTypes = {
-    /**
-     * currently active input which is used to track which error message to show on the form
-     *
-     * @property activeInput
-     * @type {Input}
-     * @default null
-     */
-    activeInput: React.PropTypes.element,
 
     /**
      * Cancel button is shown if true

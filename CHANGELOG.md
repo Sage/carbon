@@ -26,10 +26,14 @@
 ## Component Enhancements
 
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
+* `MountInApp` now cleans up it's children when the component is unmounted.
 
 ## Bug Fixes
 
 * `ButtonToggle`: css typo corrected
+* `Link`: CSS inheritance has been updated to better support buttons.
+* `Alert`: default size has been fixed to `extra-small`.
+* `Confirm`: default size has been fixed to `extra-small`.
 
 ## data-attributes on components
 
@@ -239,7 +243,6 @@ We have added a settings row component for settings pages. It employs the curren
 * Readded the `carbon-tabs` class to the Tabs component.
 * Clear any selected rows too in refresh()
 * SelectedRows should be reset to the same object it is defined with
->>>>>>> master
 
 # 0.29.1
 

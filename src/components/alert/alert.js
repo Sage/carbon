@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import Dialog from '../dialog';
+import { assign } from 'lodash';
 
 /**
  * A Alert widget.
@@ -23,9 +24,9 @@ import Dialog from '../dialog';
  */
 class Alert extends Dialog {
 
-  static defaultProps = {
-    size: 'xsmall'
-  }
+  static defaultProps = assign({}, Dialog.defaultProps, {
+    size: 'extra-small'
+  })
 
   /**
    * Returns classes title for the confirm, combines with dialog class names.

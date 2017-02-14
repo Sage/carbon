@@ -31,7 +31,8 @@ const buildFields = (props) => {
       hiddenProps = props.definition.get('hiddenProps'),
       propRequires = props.definition.get('propRequires'),
       defaultProps = props.definition.get('defaultProps'),
-      propTypes = props.definition.get('propTypes');
+      propTypes = props.definition.get('propTypes'),
+      toggleFunctions = props.definition.get('toggleFunctions');
 
   demoProps.forEach((prop) => {
     let value = values.get(prop);
@@ -55,6 +56,10 @@ const buildFields = (props) => {
     }
   });
 
+  toggleFunctions.forEach((prop) => {
+    fieldObj.push(fieldComponent(props.name, prop, null, Checkbox));
+  });
+
   return fieldObj;
 }
 
@@ -71,7 +76,7 @@ const buildFields = (props) => {
  */
 const fieldComponent = (name, prop, value, field, options, requirement) => {
   let commonfieldProps = {
-        key: prop,
+        key: name + prop,
         label: titleize(kebabCase(prop)).replace(/-/g, " "),
         onChange: ComponentActions.updateDefinition.bind(this, name, prop),
         value: value
@@ -146,6 +151,6 @@ const hiddenType = (prop, type) => {
   if (prop === "children") {
     return false;
   } else {
-    return includes(["Function", "Node"], type);
+    return includes(["Function", "Node"], type) || includes(["className"], prop);
   }
 }
