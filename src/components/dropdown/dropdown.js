@@ -153,6 +153,9 @@ class Dropdown extends React.Component {
     this.setState({ open: false });
     this._handleContentChange();
     this.emitOnChangeCallback(val, visibleVal);
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
   }
 
   /**
@@ -234,6 +237,10 @@ class Dropdown extends React.Component {
   handleBlur = () => {
     if (!this.blockBlur) {
       this.setState({ open: false });
+
+      if (this.props.onBlur) {
+        this.props.onBlur();
+      }
     }
   }
 
