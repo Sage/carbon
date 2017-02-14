@@ -1,3 +1,7 @@
+# 0.34.2
+
+* `I18nHelper`: Number abbreviator allows negative numbers
+
 # 0.34.1
 
 ## Component Enhancements
