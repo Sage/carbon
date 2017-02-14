@@ -171,16 +171,6 @@ describe('Date', () => {
     });
   });
 
-
-  describe('updateVisibleValue', () => {
-    it('calls set state with the calculated value', () => {
-      spyOn(instance, 'setState');
-      instance.updateVisibleValue();
-
-      expect(instance.setState).toHaveBeenCalledWith({ visibleValue: today });
-    });
-  });
-
   describe('handleVisibleInputChange', () => {
     beforeEach(() => {
       spyOn(instance, 'setState');
@@ -292,24 +282,6 @@ describe('Date', () => {
       let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
       TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
       expect(instance.emitOnChangeCallback).toHaveBeenCalled();
-    });
-
-    it('updates the visible value', () => {
-      spyOn(instance, 'updateVisibleValue')
-      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
-      TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
-      expect(instance.updateVisibleValue).toHaveBeenCalled();
-    });
-  });
-
-  describe('handleBlur', () => {
-    beforeEach(() => {
-      spyOn(instance, 'updateVisibleValue');
-      TestUtils.Simulate.blur(instance._input);
-    });
-
-    it('updates the visible value', () => {
-      expect(instance.updateVisibleValue).toHaveBeenCalled();
     });
   });
 
