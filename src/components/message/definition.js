@@ -3,8 +3,6 @@ import Definition from './../../../demo2/utils/definition';
 import OptionsHelper from './../../utils/helpers/options-helper';
 
 let definition = new Definition('message', Message, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   type: 'notification',
   toggleFunctions: ['onDismiss'],
   propOptions: {

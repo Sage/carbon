@@ -25,7 +25,7 @@ export default props => (
           { I18n.t('homepage.sage_loves_carbon.learn_more') }
         </Link>
       </div>
-      <img className='sage-loves-carbon__image' src='/assets/images/devices.png' />
+      <img className='sage-loves-carbon__image' src={ `${global.imagePath}/devices.png` } />
     </Wrapper>
   </div>
 );

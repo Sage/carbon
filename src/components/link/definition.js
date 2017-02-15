@@ -5,8 +5,6 @@ import linkDefinition from './../link/definition';
 import tooltipDefinition from './../tooltip/definition';
 
 let definition = new Definition('link', Link, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   type: 'action',
   propValues: {
     children: 'I\'m a link'

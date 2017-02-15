@@ -21,8 +21,6 @@ let columnDefinition = new Definition('child', {}, {
 });
 
 let definition = new Definition('row', Row, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   associatedDefinitions: [columnDefinition],
   js: `function style() {
   return { backgroundColor: '#50B848', height: '10px' };

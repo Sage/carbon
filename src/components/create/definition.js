@@ -3,8 +3,6 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo2/utils/definition';
 
 let definition = new Definition('create', Create, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   hiddenProps: ["linkProps"],
   propValues: {
     children: "Resource Name"

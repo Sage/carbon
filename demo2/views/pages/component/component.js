@@ -24,12 +24,23 @@ class Component extends React.Component {
         <ComponentPreview definition={ definition } name={ this.props.params.name } />
 
         { this.renderAPIs(definition) }
-
-        <PageContentArea title={ I18n.t('component_page.design_notes') }>
-          <div dangerouslySetInnerHTML={{ __html: marked(definition.get('designerNotes')) }} />
-        </PageContentArea>
+        { this.renderDesignerNotes(definition) }
       </div>
     );
+  }
+
+  renderDesignerNotes = (definition) => {
+    let designerNotes = definition.get('designerNotes');
+
+    if (designerNotes) {
+      return (
+        <PageContentArea title={ I18n.t('component_page.design_notes') }>
+          <div dangerouslySetInnerHTML={{ __html: marked(designerNotes) }} />
+        </PageContentArea>
+      );
+    } else {
+      return null;
+    }
   }
 
   renderAPIs = (definition) => {

@@ -7,8 +7,6 @@ import tableHeaderDefinition from './../table/table-header/definition';
 import tableSubheaderDefinition from './../table/table-subheader/definition';
 
 let definition = new Definition('table-ajax', TableAjax, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   associatedDefinitions: [
     tableRowDefinition, tableCellDefinition, tableHeaderDefinition, tableSubheaderDefinition
   ],

@@ -3,8 +3,6 @@ import Definition from './../../../demo2/utils/definition';
 import menuListItemDefinition from './menu-list-item/definition';
 
 let definition = new Definition('menu-list', MenuList, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   associatedDefinitions: [menuListItemDefinition],
   hiddenProps: ["filter"],
   propRequires: {

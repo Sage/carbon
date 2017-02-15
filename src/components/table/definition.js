@@ -12,8 +12,6 @@ setTimeout(() => {
 });
 
 let definition = new Definition('table', Table, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   associatedDefinitions: [
     tableRowDefinition, tableCellDefinition, tableHeaderDefinition, tableSubheaderDefinition
   ],

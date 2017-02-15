@@ -4,8 +4,6 @@ import OptionsHelper from 'utils/helpers/options-helper';
 import PresenceValidation from 'utils/validations/presence';
 
 let definition = new Definition('form', Form, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   hiddenProps: ["validateOnMount", "saveButtonProps", "cancelButtonProps"],
   propOptions: {
     buttonAlign: OptionsHelper.alignBinary

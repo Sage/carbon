@@ -2,8 +2,6 @@ import SettingsRow from './';
 import Definition from './../../../demo2/utils/definition';
 
 let definition = new Definition('settings-row', SettingsRow, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   propTypes: {
     children: "Node",
     description: "String",

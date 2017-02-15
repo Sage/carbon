@@ -2,8 +2,6 @@ import Rainbow from './';
 import Definition from './../../../demo2/utils/definition';
 
 let definition = new Definition('rainbow', Rainbow, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   hiddenProps: ['config', 'data'],
   js: `function getData() {
   return Immutable.List([{

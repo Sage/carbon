@@ -2,11 +2,11 @@
   "main": "./selling-point-panel",
   "style": "selling-point-panel.scss",
   "images": [
-    "./Point.svg",
-    "./Plug.svg",
-    "./Collaborate.svg",
-    "./Brush.svg",
-    "./Hammer.svg",
-    "./Flexible.svg"
+    "./point.svg",
+    "./plug.svg",
+    "./collaborate.svg",
+    "./brush.svg",
+    "./hammer.svg",
+    "./flexible.svg"
   ]
 }

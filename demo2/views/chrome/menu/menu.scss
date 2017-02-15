@@ -1,10 +1,11 @@
+@import 'assets';
 @import 'colors';
 
 .demo-menu {
   background-color: $white;
 
   &__header {
-    background-image: url('/assets/images/carbon_logo-1.svg');
+    background-image: url('#{$image-path}/carbon_logo-1.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-color: transparent;

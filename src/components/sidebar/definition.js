@@ -4,8 +4,6 @@ import Definition from './../../../demo2/utils/definition';
 import sidebarHeaderDefinition from './sidebar-header/definition';
 
 let definition = new Definition('sidebar', Sidebar, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   associatedDefinitions: [sidebarHeaderDefinition],
   propOptions: {
     position: OptionsHelper.alignBinary,

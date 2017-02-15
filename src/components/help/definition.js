@@ -4,8 +4,6 @@ import { uniq } from 'lodash';
 import Definition from './../../../demo2/utils/definition';
 
 let definition = new Definition('help', Help, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   hiddenProps: ['tooltipMessage'],
   propOptions: {
     tooltipPosition: OptionsHelper.positions,

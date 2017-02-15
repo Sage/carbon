@@ -5,8 +5,6 @@ import formDefinition from './../form/definition';
 import { assign } from 'lodash';
 
 let definition = new Definition('show-edit-pod', ShowEditPod, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   hiddenProps: ['editing', 'validateOnMount', 'transitionName'],
   toggleFunctions: ['onDelete'],
   propOptions: assign({}, formDefinition.propOptions, {
