@@ -76,8 +76,14 @@ class ComponentCodeBuilder {
 
     if (value || value === false) {
       this.hasProps = true;
+
       if (typeof value === 'string' && (type === 'String' || type === undefined)) {
-        this.code += `\n  ${prop}="${value.replace(/"/g, "'")}"`;
+        if (/\n/.test(value)) {
+          value = value.replace(/\n/g, '\\n');
+          this.code += `\n  ${prop}={ '${value}' }`;
+        } else {
+          this.code += `\n  ${prop}="${value.replace(/"/g, "'")}"`;
+        }
       } else {
         this.code += `\n  ${prop}={ ${value} }`;
       }
