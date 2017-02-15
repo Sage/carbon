@@ -41,7 +41,8 @@ let definition = new Definition('animated-menu-button', AnimatedMenuButton, {
       <p><Link>First Option</Link></p>
       <p><Link>Another Option</Link></p>
     </div>
-  </Row>`
+  </Row>`,
+    direction: 'right'
   }
 });
 
