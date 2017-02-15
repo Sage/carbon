@@ -1,6 +1,6 @@
 import { Sidebar } from './';
 import OptionsHelper from './../../utils/helpers/options-helper';
-import Definition from './../../../demo2/utils/definition';
+import Definition from './../../../demo/utils/definition';
 import sidebarHeaderDefinition from './sidebar-header/definition';
 
 let definition = new Definition('sidebar', Sidebar, {

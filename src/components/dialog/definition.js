@@ -1,6 +1,6 @@
 import Dialog from './';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Definition from './../../../demo2/utils/definition';
+import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('dialog', Dialog, {
   propOptions: {

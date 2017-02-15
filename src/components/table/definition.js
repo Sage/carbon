@@ -1,6 +1,6 @@
 import { Table } from './';
-import Definition from './../../../demo2/utils/definition';
-import ComponentActions from './../../../demo2/actions/component';
+import Definition from './../../../demo/utils/definition';
+import ComponentActions from './../../../demo/actions/component';
 import tableRowDefinition from './table-row/definition';
 import tableCellDefinition from './table-cell/definition';
 import tableHeaderDefinition from './table-header/definition';

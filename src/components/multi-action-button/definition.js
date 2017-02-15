@@ -1,6 +1,6 @@
 import MultiActionButton from './';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Definition from './../../../demo2/utils/definition';
+import Definition from './../../../demo/utils/definition';
 import buttonDefinition from './../button/definition';
 
 let definition = new Definition('multi-action-button', MultiActionButton, {

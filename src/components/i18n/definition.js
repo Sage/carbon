@@ -1,5 +1,5 @@
 import I18nComponent from './';
-import Definition from './../../../demo2/utils/definition';
+import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('i18n-component', I18nComponent, {
   js: `I18n.translations.en.my = {
