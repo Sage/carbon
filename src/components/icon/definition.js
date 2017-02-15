@@ -4,8 +4,6 @@ import OptionsHelper from 'utils/helpers/options-helper';
 import { uniq } from 'lodash';
 
 let definition = new Definition('icon', Icon, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   propRequires: {
     bgShape: "bgTheme",
     bgSize: "bgTheme",

@@ -5,8 +5,6 @@ import menuItemDefinition from './menu-item/definition';
 import submenuBlockDefinition from './submenu-block/definition';
 
 let definition = new Definition('menu', Menu, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   associatedDefinitions: [menuItemDefinition, submenuBlockDefinition],
   propOptions: {
     as: OptionsHelper.themesBinary

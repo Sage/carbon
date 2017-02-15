@@ -1,5 +1,5 @@
-@import "colors";
-@import "./../../../style-config/demo-variables";
+@import 'colors';
+@import './../../../style-config/demo-variables';
 
 .demo-footer {
   box-sizing: border-box;
@@ -30,7 +30,6 @@
   }
 
   &__sage-icon {
-    background-image: url('/assets/images/sage_logo.svg');
     margin: auto;
     @media(min-width: $response-point-medium) {
       margin: 0 0 0 auto;

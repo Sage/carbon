@@ -4,8 +4,6 @@ import Definition from './../../../demo2/utils/definition';
 import buttonDefinition from './../button/definition';
 
 let definition = new Definition('multi-action-button', MultiActionButton, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   propOptions: {
     as: OptionsHelper.themesBinary,
     align: OptionsHelper.alignBinary

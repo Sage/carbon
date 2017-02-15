@@ -4,8 +4,6 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { uniq } from 'lodash';
 
 let definition = new Definition('tooltip', Tooltip, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   type: 'miscellaneous',
   propValues: {
     isVisible: true,

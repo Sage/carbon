@@ -2,8 +2,6 @@ import I18nComponent from './';
 import Definition from './../../../demo2/utils/definition';
 
 let definition = new Definition('i18n-component', I18nComponent, {
-  description: '[content needed] Basic example of the component',
-  designerNotes: '[content needed] Basic designs description for the component',
   js: `I18n.translations.en.my = {
   example: '# My __example__ translation.'
 };`,
