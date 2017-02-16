@@ -111,7 +111,6 @@ class Dialog extends Modal {
    */
   get onOpening() {
     this.centerDialog();
-    document.body.style.overflow = "hidden";
     window.addEventListener('resize', this.centerDialog);
   }
 
@@ -124,7 +123,6 @@ class Dialog extends Modal {
    * @return {Void}
    */
   get onClosing() {
-    document.body.style.overflow = "scroll";
     window.removeEventListener('resize', this.centerDialog);
   }
 
@@ -155,9 +153,9 @@ class Dialog extends Modal {
     }
 
     if (dialogHeight > window.innerHeight) {
-      let topPadding = parseInt(window.getComputedStyle(this._dialog).getPropertyValue("padding-top"))
-      let bottomPadding = parseInt(window.getComputedStyle(this._dialog).getPropertyValue("padding-bottom"))
-      this._dialog.style.height = ((window.innerHeight - topPadding - bottomPadding - midPointY) + "px")
+      this._dialog.style.marginTop = 'auto';
+    } else {
+      this._dialog.style.marginTop = '0';
     }
 
     this._dialog.style.top = midPointY + "px";
@@ -231,12 +229,13 @@ class Dialog extends Modal {
    */
   get modalHTML() {
     return (
-      <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
-        { this.dialogTitle }
-        { this.closeIcon }
-
-        <div className='carbon-dialog__content'>
-          { this.props.children }
+      <div className='carbon-dialog__container'>
+        <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
+          { this.dialogTitle }
+          { this.closeIcon }
+          <div className='carbon-dialog__content'>
+            { this.props.children }
+          </div>
         </div>
       </div>
     );

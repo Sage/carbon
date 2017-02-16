@@ -3,15 +3,27 @@
 
 $dialog-padding: 20px;
 
+.carbon-dialog__container {
+  align-items: center;
+  background-color: rgba(60, 66, 79, 0.6);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1002;
+}
+
 .carbon-dialog__dialog {
   background-color: $grey-light;
   border-radius: 5px;
   box-shadow: 0 4px 8px #555;
+  flex-direction: column;
+  overflow-y: hidden;
   padding: $dialog-padding;
-  position: absolute;
-  top: 50%;
-  z-index: $z-dialog;
-  overflow: hidden;
+  position: relative;
 }
 
 .carbon-dialog__dialog--extra-small   { width: 300px; }
@@ -34,7 +46,8 @@ $dialog-padding: 20px;
 
 .carbon-dialog__content {
   width: 100%;
-  overflow: scroll;
+  height: 92%;
+  overflow-y: scroll;
 }
 
 .carbon-dialog__close {
