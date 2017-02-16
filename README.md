@@ -65,3 +65,5 @@ The following is a list of technologies Carbon utilises:
 ## Licence
 
 Carbon is licensed under the [Apache-2.0 licence](https://github.com/Sage/carbon/blob/master/LICENSE).
+
+Copyright (c) 2016 Sage Group Plc. All rights reserved.
