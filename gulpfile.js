@@ -8,7 +8,7 @@ var gutil = require('gulp-util');
 
 var argv = yargs.argv;
 
-var dir = argv.dir || 'demo2';
+var dir = argv.dir || 'demo';
 
 gulp.task('prepare-demo', function() {
   generateColors();

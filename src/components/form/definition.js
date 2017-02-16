@@ -1,5 +1,5 @@
 import Form from './';
-import Definition from './../../../demo2/utils/definition';
+import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
 import PresenceValidation from 'utils/validations/presence';
 

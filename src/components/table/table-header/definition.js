@@ -1,5 +1,5 @@
 import TableHeader from './';
-import Definition from './../../../../demo2/utils/definition';
+import Definition from './../../../../demo/utils/definition';
 
 let definition = new Definition('table-header', TableHeader, {
   propTypes: {

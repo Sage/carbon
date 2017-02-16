@@ -1,5 +1,5 @@
 import RadioButton from './';
-import Definition from './../../../demo2/utils/definition';
+import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('radio-button', RadioButton, {
   type: 'form',

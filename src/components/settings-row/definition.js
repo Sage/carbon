@@ -1,5 +1,5 @@
 import SettingsRow from './';
-import Definition from './../../../demo2/utils/definition';
+import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('settings-row', SettingsRow, {
   propTypes: {

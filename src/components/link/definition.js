@@ -1,5 +1,5 @@
 import Link from './';
-import Definition from './../../../demo2/utils/definition';
+import Definition from './../../../demo/utils/definition';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import linkDefinition from './../link/definition';
 import tooltipDefinition from './../tooltip/definition';

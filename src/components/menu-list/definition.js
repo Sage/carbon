@@ -1,5 +1,5 @@
 import { MenuList } from './';
-import Definition from './../../../demo2/utils/definition';
+import Definition from './../../../demo/utils/definition';
 import menuListItemDefinition from './menu-list-item/definition';
 
 let definition = new Definition('menu-list', MenuList, {
