@@ -99,7 +99,7 @@ function writeData(writePath, data) {
 }
 
 function run() {
-  readFile('src/style-config/base-colors.scss', parseData, 'demo2/utils/generated/colors.js', writeData);
+  readFile('src/style-config/base-colors.scss', parseData, 'demo/utils/generated/colors.js', writeData);
 }
 
 exports.default = run;
