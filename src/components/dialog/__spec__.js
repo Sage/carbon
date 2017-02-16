@@ -7,7 +7,7 @@ import Button from './../button';
 import Row from './../row'
 
 describe('Dialog', () => {
-  let instance, onCancel;
+  let instance, onCancel, computedStyleSpy, getPropertyValueSpy, computedStyles;
 
   beforeEach(() => {
     onCancel = jasmine.createSpy('cancel');
@@ -60,6 +60,12 @@ describe('Dialog', () => {
           expect(window.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
         });
 
+
+        it('prevents scrolling on the document', () => {
+          instance.componentDidUpdate();
+          expect(document.body.style.overflow).toEqual('hidden');
+        });
+
         describe('when the dialog is already listening', () => {
           it('does not set up event listeners', () => {
             let spy = spyOn(window, 'addEventListener');
@@ -86,6 +92,11 @@ describe('Dialog', () => {
           expect(window.removeEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
           expect(window.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
         });
+
+        it('allows scrolling on the document', () => {
+          instance.componentDidUpdate();
+          expect(document.body.style.overflow).toEqual('scroll');
+        });
       });
     });
   });
@@ -95,6 +106,11 @@ describe('Dialog', () => {
       instance = TestUtils.renderIntoDocument(
         <Dialog open={ true } onCancel={ onCancel } />
       );
+      computedStyles = {
+        'padding-top': '20px',
+        'padding-bottom': '20px'
+      }
+      computedStyleSpy = spyOn(window, 'getComputedStyle').and.returnValue(computedStyles);
     });
 
     describe('when dialog is lower than 20px', () => {
@@ -125,6 +141,19 @@ describe('Dialog', () => {
         expect(instance._dialog.style.left).toEqual('20px');
       });
     });
+
+    describe('when dialog is taller than the window', () => {
+      it('sets the correct height', () => {
+        instance._dialog = {
+          style: {},
+          offsetHeight: 361
+        };
+        window.innerHeight = 250;
+        instance.centerDialog();
+        expect(instance._dialog.style.height).toEqual('20px');
+      });
+    });
+
 
     describe('when ios', () => {
       it('does not remove page y offset', () => {

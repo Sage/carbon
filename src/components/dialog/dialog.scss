@@ -11,6 +11,7 @@ $dialog-padding: 20px;
   position: absolute;
   top: 50%;
   z-index: $z-dialog;
+  overflow: hidden;
 }
 
 .carbon-dialog__dialog--extra-small   { width: 300px; }
@@ -33,6 +34,7 @@ $dialog-padding: 20px;
 
 .carbon-dialog__content {
   width: 100%;
+  overflow: scroll;
 }
 
 .carbon-dialog__close {

@@ -111,6 +111,7 @@ class Dialog extends Modal {
    */
   get onOpening() {
     this.centerDialog();
+    document.body.style.overflow = "hidden";
     window.addEventListener('resize', this.centerDialog);
   }
 
@@ -123,6 +124,7 @@ class Dialog extends Modal {
    * @return {Void}
    */
   get onClosing() {
+    document.body.style.overflow = "scroll";
     window.removeEventListener('resize', this.centerDialog);
   }
 
@@ -136,7 +138,8 @@ class Dialog extends Modal {
     let height = this._dialog.offsetHeight / 2,
         width = this._dialog.offsetWidth / 2,
         midPointY = window.innerHeight / 2 + window.pageYOffset,
-        midPointX = window.innerWidth / 2 + window.pageXOffset;
+        midPointX = window.innerWidth / 2 + window.pageXOffset,
+        dialogHeight = this._dialog.offsetHeight;
 
     midPointY = midPointY - height;
     midPointX = midPointX - width;
@@ -149,6 +152,12 @@ class Dialog extends Modal {
 
     if (midPointX < 20) {
       midPointX = 20;
+    }
+
+    if (dialogHeight > window.innerHeight) {
+      let topPadding = parseInt(window.getComputedStyle(this._dialog).getPropertyValue("padding-top"))
+      let bottomPadding = parseInt(window.getComputedStyle(this._dialog).getPropertyValue("padding-bottom"))
+      this._dialog.style.height = ((window.innerHeight - topPadding - bottomPadding - midPointY) + "px")
     }
 
     this._dialog.style.top = midPointY + "px";
