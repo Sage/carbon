@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  text-align: center;
   width: 100%;
 
   @media(min-width: $response-point-medium) {
@@ -30,7 +31,8 @@
   }
 
   &__sage-icon {
-    margin: auto;
+    background-image: url('/assets/images/sage_logo.svg');
+    margin: 20px auto 20px;
     @media(min-width: $response-point-medium) {
       margin: 0 0 0 auto;
     }
@@ -38,8 +40,21 @@
     width: 57px;
   }
 
+  &__social {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    @media(min-width: $response-point-medium) {
+      margin-left: 0;
+    }
+    width: 146px;
+  }
+
   .carbon-link__anchor {
     color: currentColor;
-    margin-right: 25px;
+    &:hover {
+      color: $green-apple;
+    }
   }
 }
