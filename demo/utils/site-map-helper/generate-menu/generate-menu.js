@@ -3,6 +3,7 @@ import SiteMap from './../../../site-map';
 import Link from 'components/link';
 import { MenuListItem, MenuList } from 'components/menu-list';
 import { humanize, titleize } from 'underscore.string';
+import { startsWith } from 'lodash';
 
 export default () => {
   return generateMenu();
@@ -28,7 +29,7 @@ const createSubmenu = (url, value) => {
   for (let index in value.items) {
     let name, link = value.items[index], external = false;
 
-    if (typeof link === "string" && link.startsWith("http")) {
+    if (typeof link === "string" && startsWith(link, "http")) {
       name = index;
       external = true;
     } else if (url.indexOf(":name") > -1) {
