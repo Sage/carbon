@@ -17,8 +17,38 @@ describe('DropdownFilter', () => {
       expect(instance.openingList).toBeFalsy();
     });
 
-    it('sets default state', () => {
-      expect(instance.state.filter).toBe(null);
+    describe('when not in freetext mode', () => {
+      it('sets default filter', () => {
+        expect(instance.state.filter).toBeNull();
+      });
+    });
+
+    describe('when in freetext mode', () => {
+      describe('when freetext value not set', () => {
+        it('sets default filter', () => {
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
+          );
+          expect(instance.state.filter).toBeNull();
+        });
+      });
+
+      describe('when freetext value set', () => {
+        it('sets filter to value', () => {
+          let value = 'abc';
+
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter
+              name="foo"
+              options={ Immutable.fromJS([{}]) }
+              value=""
+              visibleValue={ value }
+              freetext={ true }
+            />
+          );
+          expect(instance.state.filter).toEqual(value);
+        });
+      });
     });
   });
 
@@ -643,10 +673,21 @@ describe('DropdownFilter', () => {
         instance.visibleValue = 'foo';
         expect(instance.inputProps.value).toEqual('foo');
       });
+
+      describe('and freetext value is present', () => {
+        it('displays freetext value', () => {
+          let value = 'foo';
+
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } visibleValue={ value } freetext={ true } />
+          );
+          expect(instance.inputProps.value).toEqual(value);
+        });
+      });
     });
 
     describe('when filter is set', () => {
-      it('does not use the filter value', () => {
+      it('uses the filter value', () => {
         instance.visibleValue = 'foo';
         instance.setState({ filter: 'bar' });
         expect(instance.inputProps.value).toEqual('bar');
@@ -677,6 +718,57 @@ describe('DropdownFilter', () => {
     describe('no matched', () => {
       it('returns the original value', () => {
         expect(instance.highlightMatches("foobar", "zzz")).toEqual("foobar");
+      });
+    });
+  });
+
+  describe('render', () => {
+    let inputs;
+
+    describe('when not in freetext mode', () => {
+      it('only renders one hidden input', () => {
+        inputs = TestUtils.findAllInRenderedTree(instance, (node) => {
+          return TestUtils.isDOMComponent(node) &&
+            node.tagName.toLowerCase() == 'input' && node.type.toLowerCase() == 'hidden';
+        });
+        expect(inputs.length).toEqual(1);
+      });
+    });
+
+    describe('when in freetext mode', () => {
+      describe('when freetextName not set', () => {
+        it('only renders one hidden input', () => {
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
+          );
+          inputs = TestUtils.findAllInRenderedTree(instance, (node) => {
+            return TestUtils.isDOMComponent(node) &&
+              node.tagName.toLowerCase() == 'input' && node.type.toLowerCase() == 'hidden';
+          });
+          expect(inputs.length).toEqual(1);
+        });
+      });
+
+      describe('when freetextName set', () => {
+        let name = 'my_input_name';
+
+        it('renders a second hidden input for freetext', () => {
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter
+              name="foo"
+              options={ Immutable.fromJS([{}]) }
+              value="1"
+              freetext={ true }
+              freetextName={ name }
+            />
+          );
+          inputs = TestUtils.findAllInRenderedTree(instance, (node) => {
+            return TestUtils.isDOMComponent(node) &&
+              node.tagName.toLowerCase() == 'input' && node.type.toLowerCase() == 'hidden';
+          });
+          expect(inputs.length).toEqual(2);
+          expect(inputs[1].name).toEqual(name);
+        });
       });
     });
   });
