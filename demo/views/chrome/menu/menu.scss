@@ -61,15 +61,24 @@
     width: 100%;
   }
 
-  .carbon-sidebar__sidebar {
-    background-color: $white;
-    border: none;
-    box-sizing: content-box;
-    box-shadow: inset -1px 0 0 0 $grey-dark-blue-20;
-    padding-left: 40px;
-    padding-right: 40px;
-    width: 160px;
-    z-index: 12;
+  .carbon-sidebar {
+    &__close {
+      .carbon-icon {
+        padding: 15px 20px 25px 30px;
+      }
+      right: 0;
+      top: 0;
+    }
+    &__sidebar {
+      background-color: $white;
+      border: none;
+      box-sizing: content-box;
+      box-shadow: inset -1px 0 0 0 $grey-dark-blue-20;
+      padding-left: 40px;
+      padding-right: 40px;
+      width: 160px;
+      z-index: 12;
+    }
   }
 
   .carbon-modal__background {
