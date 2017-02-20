@@ -45,7 +45,6 @@ class DropdownFilter extends Dropdown {
    */
   constructor(...args) {
     super(...args);
-    let props = args[0];
 
     /**
      * The user input search text.
@@ -54,7 +53,7 @@ class DropdownFilter extends Dropdown {
      * @type {String}
      * @default null
      */
-    this.state.filter = this.hasFreetextValue(props) ? props.visibleValue : null;
+    this.state.filter = this.hasFreetextValue() ? this.props.visibleValue : null;
 
     /**
      * Determines if list is being opened on current render.
@@ -488,11 +487,10 @@ class DropdownFilter extends Dropdown {
    * Returns whether properties indicate a freetext write-in value
    *
    * @method hasFreetextValue
-   * @param {Object} props - Properties to test
    * @return {Boolean}
    */
-  hasFreetextValue(props) {
-    return props.freetext && props.visibleValue && !props.value;
+  hasFreetextValue() {
+    return this.props.freetext && this.props.visibleValue && !this.props.value;
   }
 }
 

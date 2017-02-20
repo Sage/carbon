@@ -729,7 +729,8 @@ describe('DropdownFilter', () => {
       it('only renders one hidden input', () => {
         inputs = TestUtils.findAllInRenderedTree(instance, (node) => {
           return TestUtils.isDOMComponent(node) &&
-            node.tagName.toLowerCase() == 'input' && node.type.toLowerCase() == 'hidden';
+            node.tagName.toLowerCase() === 'input' &&
+            node.type.toLowerCase() === 'hidden';
         });
         expect(inputs.length).toEqual(1);
       });
@@ -743,7 +744,8 @@ describe('DropdownFilter', () => {
           );
           inputs = TestUtils.findAllInRenderedTree(instance, (node) => {
             return TestUtils.isDOMComponent(node) &&
-              node.tagName.toLowerCase() == 'input' && node.type.toLowerCase() == 'hidden';
+              node.tagName.toLowerCase() === 'input' &&
+              node.type.toLowerCase() === 'hidden';
           });
           expect(inputs.length).toEqual(1);
         });
@@ -764,7 +766,8 @@ describe('DropdownFilter', () => {
           );
           inputs = TestUtils.findAllInRenderedTree(instance, (node) => {
             return TestUtils.isDOMComponent(node) &&
-              node.tagName.toLowerCase() == 'input' && node.type.toLowerCase() == 'hidden';
+              node.tagName.toLowerCase() === 'input' &&
+              node.type.toLowerCase() === 'hidden';
           });
           expect(inputs.length).toEqual(2);
           expect(inputs[1].name).toEqual(name);
