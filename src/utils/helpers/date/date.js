@@ -140,6 +140,18 @@ const DateHelper = {
     return I18n.t('date.formats.inputs', { defaultValue: DateHelper._defaultDateFormats() });
   },
 
+  withinRange: (value, limit, units) => {
+    const momentInstance = DateHelper._moment();
+    let pastLimit = momentInstance().subtract(limit, units).format();
+    let futureLimit = momentInstance().add(limit, units).format();
+    let today = momentInstance().format();
+
+    if (DateHelper.isValidDate(value)) {
+      return today >= pastLimit && today <= futureLimit;
+    } else {
+      return true;
+    }
+  }
 };
 
 export default DateHelper;
