@@ -7,10 +7,12 @@ $modal-initial-position: 60px;
 $modal-animation-length: 300ms;
 
 .carbon-modal__background {
-  background-color: #3C424F;
+  align-items: center;
+  background-color: rgba(60, 66, 79, $modal-background-opacity);
   bottom: 0;
+  display: flex;
+  justify-content: center;
   left: 0;
-  opacity: $modal-background-opacity;
   position: fixed;
   right: 0;
   top: 0;

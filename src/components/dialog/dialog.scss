@@ -3,19 +3,6 @@
 
 $dialog-padding: 20px;
 
-.carbon-dialog__container {
-  align-items: center;
-  background-color: rgba(60, 66, 79, 0.6);
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 1002;
-}
-
 .carbon-dialog__dialog {
   background-color: $grey-light;
   border-radius: 5px;

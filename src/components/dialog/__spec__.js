@@ -97,35 +97,6 @@ describe('Dialog', () => {
       );
     });
 
-    describe('when dialog is lower than 20px', () => {
-      it('sets top position to the correct value', () => {
-        instance.centerDialog();
-        expect(instance._dialog.style.top).toEqual('150px');
-      });
-    });
-
-    describe('when dialog is higher than 20px', () => {
-      it('sets top position to 20px', () => {
-        instance._dialog = {
-          style: {},
-          offsetHeight: 261
-        };
-        instance.centerDialog();
-        expect(instance._dialog.style.top).toEqual('20px');
-      });
-    });
-
-    describe('when dialog is less than 20px from the side', () => {
-      it('sets top position to 20px', () => {
-        instance._dialog = {
-          style: {},
-          offsetWidth: 361
-        };
-        instance.centerDialog();
-        expect(instance._dialog.style.left).toEqual('20px');
-      });
-    });
-
     describe('when ios', () => {
       it('does not remove page y offset', () => {
         Bowser.ios = true;
