@@ -1,0 +1,24 @@
+.selling-point-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2%;
+  text-align: center;
+
+  &__heading {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.22em;
+    margin-bottom: 0.5em;
+  }
+
+  &__icon {
+    margin: auto;
+    max-width: 120px;
+  }
+
+  &__text {
+    font-size: 14px;
+    line-height: 1.22em;
+  }
+}

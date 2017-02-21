@@ -3,6 +3,7 @@ import Icon from './../icon';
 import Modal from './../modal';
 import Bowser from 'bowser';
 import classNames from 'classnames';
+import { assign } from 'lodash';
 
 /**
  * A Dialog widget.
@@ -26,24 +27,7 @@ import classNames from 'classnames';
  */
 class Dialog extends Modal {
 
-  static propTypes = {
-    /**
-     * A custom close event handler
-     *
-     * @property onCancel
-     * @type {Function}
-     */
-    onCancel: React.PropTypes.func.isRequired,
-
-    /**
-     * Sets the open state of the dialog
-     *
-     * @property open
-     * @type {Boolean}
-     * @default false
-     */
-    open: React.PropTypes.bool.isRequired,
-
+  static propTypes = assign({}, Modal.propTypes, {
     /**
      * Title displayed at top of dialog
      *
@@ -54,16 +38,6 @@ class Dialog extends Modal {
       React.PropTypes.string,
       React.PropTypes.object
     ]),
-
-    /**
-     * Determines if the background is disabled
-     * when the dialog is open
-     *
-     * @property enableBackgroundUI
-     * @type {Boolean}
-     * @default true
-     */
-    enableBackgroundUI: React.PropTypes.bool,
 
     /**
      * Size of dialog, default size is 750px
@@ -82,7 +56,7 @@ class Dialog extends Modal {
      * @default true
      */
     showCloseIcon: React.PropTypes.bool
-  }
+  })
 
   static defaultProps = {
     size: 'medium',

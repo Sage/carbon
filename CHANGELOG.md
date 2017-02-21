@@ -1,8 +1,73 @@
+
+# 1.0.0
+
+## :warning: Major Change - React 15 Upgrade
+
+* React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
+
+## !! BREAKING CHANGES!! :warning:
+
+* Banner Component has been Deleted in favour of the Message Component
+* `ButtonToggle`: `icon` and `iconSize` become `buttonIcon` and `buttonIconSize` to avoid clash with Input decorator
+* Menu List - Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
+
+## Potentially breaking changes
+
+* The following components have been refactored to meet best practice standards and pass linting. If you have overridden any internal methods of these components, you may need to update your code.
+  - Action Toolbar
+  - Alert
+  - Animated Menu Button
+  - App-Wrapper
+  - Button
+  - Content
+  - Create
+  - Carousel
+* `ButtonToggle` no longer inherits from the label decorator as it was providing more functionality than required.
+
+## Component Enhancements
+
+* `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
+* `MountInApp` now cleans up it's children when the component is unmounted.
+
+## Bug Fixes
+
+* `ButtonToggle`: css typo corrected
+* `Link`: CSS inheritance has been updated to better support buttons.
+* `Alert`: default size has been fixed to `extra-small`.
+* `Confirm`: default size has been fixed to `extra-small`.
+
+## data-attributes on components
+
+We are adding data-attributes to components to better identify them and their parts within the browser. We will add `data-component` tags on the top level of any component, and `data-member` tags to constituent parts. Developers can also add `data-element` tags to components to uniquely identify specific components within their UI.
+
+So far we have added attributes to the following components:
+
+* Textbox
+
+## Dependency Update
+
+* Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+
+### Gulp updates
+
+* Can pass command line arg to pecify port for demo server.
+```bash
+gulp --port 1234
+```
+
 # 0.35.0
 
 ## Component Enchancements
 
 * `Date` now shows error validation when an invalid date is entered.
+
+# 0.34.2
+
+## Bug fix
+
+* Fixes onBlur prop passed to `Date`, `Decimal`, `Dropdown`, `DropdownFilter`, and `DropdownFilterAjax` components so it is called instead of ignored
+* `I18nHelper`: Number abbreviator allows negative numbers
+>>>>>>> master
 
 # 0.34.1
 

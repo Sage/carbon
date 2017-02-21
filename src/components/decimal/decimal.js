@@ -3,6 +3,7 @@ import I18nHelper from './../../utils/helpers/i18n';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
+import { validProps } from '../../utils/ether';
 
 /**
  * A decimal widget.
@@ -44,14 +45,6 @@ class Decimal extends React.Component {
   highlighted = false;
 
   static propTypes = {
-    /**
-     * Sets the default value of the decimal field
-     *
-     * @property defaultValue
-     * @type {String}
-     * @default '0.00'
-     */
-    defaultValue: React.PropTypes.string,
 
     /**
      * Sets the default value alignment
@@ -69,15 +62,16 @@ class Decimal extends React.Component {
      * @type {Integer}
      * @default 2
      */
-    precision: React.PropTypes.number
-  }
-
+    precision: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ])
+  };
 
   static defaultProps = {
-    defaultValue: '0.00',
     align: "right",
     precision: 2
-  }
+  };
 
   state = {
     /**
@@ -87,7 +81,7 @@ class Decimal extends React.Component {
      * @type {String}
      */
     visibleValue: I18nHelper.formatDecimal(this.value, this.props.precision)
-  }
+  };
 
   /**
    * A lifecycle method to update the visible value with a formatted version,
@@ -99,7 +93,7 @@ class Decimal extends React.Component {
    */
   componentWillReceiveProps(props) {
     if (this._document.activeElement != this._input) {
-      let value = props.value || props.defaultValue;
+      let value = props.value || 0.00;
       if (canConvertToBigNumber(value)) {
         value = I18nHelper.formatDecimal(value, this.props.precision);
       }
@@ -180,6 +174,10 @@ class Decimal extends React.Component {
     if (this.value === '') {
       this.emitOnChangeCallback('0');
     }
+
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
   }
 
   /*
@@ -240,7 +238,7 @@ class Decimal extends React.Component {
    * @return {Object} props to apply to input field
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     props.className = this.inputClasses;
     props.onChange = this.handleVisibleInputChange;
     props.onClick = this.handleOnClick;
@@ -258,19 +256,13 @@ class Decimal extends React.Component {
    * @return {Object} props to apply to hidden field
    */
   get hiddenInputProps() {
-    var props = {
+    return {
+      value: this.props.value,
       ref: "hidden",
       type: "hidden",
       readOnly: true,
       name: this.props.name
     };
-
-    if (typeof this.props.value !== 'undefined')
-      { props.value = this.props.value; }
-    else
-      { props.defaultValue = this.props.defaultValue; }
-
-    return props;
   }
 
   /**

@@ -3,6 +3,7 @@ import Icon from './../icon';
 import Link from './../link';
 import classNames from 'classnames';
 import Event from './../../utils/helpers/events';
+import { validProps } from '../../utils/ether';
 
 /**
  * A Pod widget.
@@ -78,6 +79,14 @@ class Pod extends React.Component {
       React.PropTypes.string,
       React.PropTypes.object
     ]),
+
+    /**
+     * Optional subtitle for the pod
+     *
+     * @property subtitle
+     * @type {String}
+     */
+    subtitle: React.PropTypes.string,
 
     /**
      * Aligns the title to left, right or center
@@ -256,24 +265,6 @@ class Pod extends React.Component {
   }
 
   /**
-   * returns props removing title if it isn't a string (and therefore would break the html title attribute)
-   *
-   * @method podProps
-   * @return {Object} podProps
-   */
-  podProps = () => {
-    let { ...props } = this.props;
-
-    delete props.className;
-
-    if (!this.titleIsString()) {
-      delete props.title;
-    }
-
-    return props;
-  }
-
-  /**
    * Checks that the title is a string rather than something else as it can be JSX
    *
    * @method titleIsString
@@ -420,7 +411,7 @@ class Pod extends React.Component {
   }
 
   /**
-   * gets props for the Link, required for it to link to stuff
+   * Returns event related props for triggering and highlighting edit functionality
    *
    * @method linkProps
    * @return {Object} props
@@ -499,8 +490,15 @@ class Pod extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let content = this.props.content,
+    let content,
+        { ...props } = validProps(this),
         hoverOverEditEvents = {};
+
+    delete props.className;
+
+    if (this.titleIsString()) {
+      props.title = this.props.title;
+    }
 
     if (!this.state.collapsed) { content = this.podContent; }
 
@@ -510,7 +508,7 @@ class Pod extends React.Component {
     }
 
     return (
-      <div className={ this.mainClasses } { ...this.podProps() }>
+      <div className={ this.mainClasses } { ...props }>
         <div className={ this.blockClasses } { ...hoverOverEditEvents }>
           <div className={ this.contentClasses } >
             { this.podHeader }

@@ -96,7 +96,10 @@ class Flash extends React.Component {
      * @property timeout
      * @type {Number} in milliseconds
      */
-    timeout: React.PropTypes.number
+    timeout: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ])
   }
 
   static defaultProps = {

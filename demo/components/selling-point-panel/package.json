@@ -1,0 +1,12 @@
+{
+  "main": "./selling-point-panel",
+  "style": "selling-point-panel.scss",
+  "images": [
+    "./point.svg",
+    "./plug.svg",
+    "./collaborate.svg",
+    "./brush.svg",
+    "./hammer.svg",
+    "./flexible.svg"
+  ]
+}

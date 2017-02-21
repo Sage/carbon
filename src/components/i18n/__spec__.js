@@ -22,7 +22,7 @@ describe('I18n', () => {
       it('when component is rendered with only a key', () => {
 
         shallowRenderer.render(
-          <I18n translationKey='foo' />
+          <I18n scope='foo' />
         );
 
         const output = shallowRenderer.getRenderOutput();
@@ -33,7 +33,7 @@ describe('I18n', () => {
       it('when component is rendered with inline set to false', () => {
 
         shallowRenderer.render(
-          <I18n translationKey='foo' inline={ false } />
+          <I18n scope='foo' inline={ false } />
         );
 
         const output = shallowRenderer.getRenderOutput();
@@ -49,7 +49,7 @@ describe('I18n', () => {
         spyOn(i18n, 't').and.returnValue('something __bold__');
 
         shallowRenderer.render(
-          <I18n translationKey='foo' markdown={ true }/>
+          <I18n scope='foo' markdown={ true }/>
         );
 
         const output = shallowRenderer.getRenderOutput();
@@ -64,7 +64,7 @@ describe('I18n', () => {
         spyOn(i18n, 't').and.returnValue('something __bold__');
 
         shallowRenderer.render(
-          <I18n translationKey='foo' markdown={ true } inline={ false } />
+          <I18n scope='foo' markdown={ true } inline={ false } />
         );
 
         const output = shallowRenderer.getRenderOutput();
@@ -79,7 +79,7 @@ describe('I18n', () => {
         spyOn(i18n, 't').and.returnValue('some <span>html</span>');
 
         shallowRenderer.render(
-          <I18n translationKey='foo' markdown={ true } />
+          <I18n scope='foo' markdown={ true } />
         );
 
         const output = shallowRenderer.getRenderOutput();

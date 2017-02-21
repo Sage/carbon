@@ -5,6 +5,7 @@ import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import classNames from 'classnames';
 import Events from './../../utils/helpers/events';
+import { validProps } from '../../utils/ether';
 
 /**
  * A dropdown widget.
@@ -114,7 +115,7 @@ class Dropdown extends React.Component {
      * @default null
      */
     highlighted: null
-  }
+  };
 
   /**
    * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
@@ -152,6 +153,9 @@ class Dropdown extends React.Component {
     this.setState({ open: false });
     this._handleContentChange();
     this.emitOnChangeCallback(val, visibleVal);
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
   }
 
   /**
@@ -233,6 +237,10 @@ class Dropdown extends React.Component {
   handleBlur = () => {
     if (!this.blockBlur) {
       this.setState({ open: false });
+
+      if (this.props.onBlur) {
+        this.props.onBlur();
+      }
     }
   }
 
@@ -412,7 +420,7 @@ class Dropdown extends React.Component {
    * @method inputProps
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
 
     delete props.autoFocus;
 
@@ -436,11 +444,12 @@ class Dropdown extends React.Component {
    */
   get hiddenInputProps() {
     let props = {
-      ref: "hidden",
+      ref: 'hidden',
       type: "hidden",
       readOnly: true,
       name: this.props.name,
-      value: this.props.value
+      // Using this to prevent `null` warnings from React
+      value: this.props.value || undefined
     };
 
     return props;
@@ -454,7 +463,7 @@ class Dropdown extends React.Component {
   get listBlockProps() {
     return {
       key: "listBlock",
-      ref: "listBlock",
+      ref: 'listBlock',
       onMouseDown: this.handleMouseDownOnList,
       onMouseLeave: this.handleMouseLeaveList,
       onMouseEnter: this.handleMouseEnterList,
@@ -558,6 +567,7 @@ class Dropdown extends React.Component {
     if (this.showArrow()) {
       content.push(this.inputIconHTML("dropdown"));
     }
+
     content.push(
       <div { ...this.listBlockProps }>
         { this.listHTML }

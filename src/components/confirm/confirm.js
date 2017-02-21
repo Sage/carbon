@@ -3,6 +3,7 @@ import Dialog from '../dialog';
 import Button from '../button';
 import I18n from "i18n-js";
 import classNames from 'classnames';
+import { assign } from 'lodash';
 
 /**
  * A Confirm widget.
@@ -34,7 +35,7 @@ import classNames from 'classnames';
  */
 class Confirm extends Dialog {
 
-  static propTypes = {
+  static propTypes = assign({}, Dialog.propTypes, {
 
     /**
      * A custom event handler when a confirmation takes place
@@ -59,11 +60,12 @@ class Confirm extends Dialog {
      * @type {String}
      */
     cancelLabel: React.PropTypes.string
-  }
+  })
 
-  static defaultProps = {
-    size: 'xsmall'
-  }
+  static defaultProps = assign({}, Dialog.defaultProps, {
+    size: 'extra-small',
+    showCloseIcon: false
+  })
 
   constructor() {
     super();
@@ -115,7 +117,7 @@ class Confirm extends Dialog {
    */
   get confirmButtons() {
     return (
-      <div className='carbon-confirm__buttons' >
+      <div key='confirm-buttons' className='carbon-confirm__buttons' >
         <div className='carbon-confirm__button carbon-confirm__no'>
           <Button as='secondary' onClick={ this.props.onCancel }>
             { this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' }) }
@@ -138,9 +140,9 @@ class Confirm extends Dialog {
    * @method dialogTitle
    */
   get modalHTML() {
-    let dialog = super.modalHTML;
-    dialog.props.children.push(this.confirmButtons);
-    return dialog;
+    let dialog = super.modalHTML,
+        children = [].concat(dialog.props.children, this.confirmButtons);
+    return React.cloneElement(dialog, {}, children);
   }
 }
 

@@ -44,7 +44,7 @@ To run the example, do the following steps:
   2. `cd carbon`
   3. `npm install`
   4. `gulp`
-  5. Navigate to [http://localhost:8080/](http://localhost:8080/) in your favourite browser
+  5. Navigate to [http://localhost:8095/](http://localhost:8095/) in your favourite browser
 
 ## Testing Changes Locally in your App
 
@@ -65,3 +65,5 @@ The following is a list of technologies Carbon utilises:
 ## Licence
 
 Carbon is licensed under the [Apache-2.0 licence](https://github.com/Sage/carbon/blob/master/LICENSE).
+
+Copyright (c) 2016 Sage Group Plc. All rights reserved.

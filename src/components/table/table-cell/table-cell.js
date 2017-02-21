@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { validProps } from '../../../utils/ether';
 
 /**
  * A TableCell widget.
@@ -59,7 +60,7 @@ class TableCell extends React.Component {
    * @return {Object}
    */
   get tableCellProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
 
     delete props.children;
 

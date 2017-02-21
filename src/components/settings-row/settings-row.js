@@ -20,7 +20,7 @@ import Heading from './../heading';
  *
  * To render the SettingsRow:
  *
- *    <SettingsRow title='My Setting' description={ <span>My description</span> }>
+ *    <SettingsRow title='My Setting' description='My description'>
  *      <Checkbox label='Enable my setting' />
  *      <span>Other content to go with input</span>
  *    </SettingsRow>

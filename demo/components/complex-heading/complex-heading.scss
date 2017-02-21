@@ -1,0 +1,39 @@
+@import "colors";
+
+.complex-heading {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+
+  &__divider {
+    background-color: $grey-dark-blue-60;
+    border: none;
+    height: 2px;
+    margin: 0 0 24px 0;
+    width: 60px;
+  }
+
+  &__heading {
+    font-size: 24px;
+    line-height: 1.22em;
+    margin: 0 0 24px 0;
+  }
+
+  &__heading-suffix {
+    color: $black;
+    font-weight: 700;
+  }
+
+  &__text {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1.22em;
+    max-width: 450px;
+  }
+}
+
+.complex-heading--center {
+  align-items: center;
+  text-align: center;
+}

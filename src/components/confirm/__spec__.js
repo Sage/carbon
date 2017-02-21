@@ -29,7 +29,7 @@ describe('Confirm', () => {
 
   describe('dialogClasses', () => {
     it('returns the dialog class along with the  class', () => {
-      expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--xsmall carbon-confirm__confirm');
+      expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-confirm__confirm');
     });
   });
 

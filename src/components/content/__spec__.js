@@ -45,7 +45,7 @@ describe('Content', () => {
       instance = TestUtils.renderIntoDocument(
         <Content inline={ true }>{ null }</Content>
       );
-      expect(instance.classes).toContain('carbon-content--inline');
+      expect(instance.classes()).toContain('carbon-content--inline');
     });
   });
 
@@ -54,7 +54,7 @@ describe('Content', () => {
       instance = TestUtils.renderIntoDocument(
         <Content align="center">{ null }</Content>
       );
-      expect(instance.classes).toContain('carbon-content--align-center');
+      expect(instance.classes()).toContain('carbon-content--align-center');
     });
   });
 
@@ -63,8 +63,8 @@ describe('Content', () => {
       instance = TestUtils.renderIntoDocument(
         <Content titleWidth="40">{ null }</Content>
       );
-      expect(instance.titleStyle).toEqual({ width: "calc(40% - 30px)" });
-      expect(instance.bodyStyle).toEqual({ width: "60%" });
+      expect(instance.titleStyle()).toEqual({ width: "calc(40% - 30px)" });
+      expect(instance.bodyStyle()).toEqual({ width: "60%" });
     });
   });
 
@@ -73,7 +73,7 @@ describe('Content', () => {
       instance = TestUtils.renderIntoDocument(
         <Content titleWidth="40" bodyFullWidth={ true }>{ null }</Content>
       );
-      expect(instance.bodyStyle).toEqual({ width: "100%" });
+      expect(instance.bodyStyle()).toEqual({ width: "100%" });
     });
   });
 });

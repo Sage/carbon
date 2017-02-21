@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
 import Icons from './icons';
+import { validProps } from '../../utils/ether';
 
 /**
  * An Icon widget.
@@ -83,7 +84,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {Object} props
    */
   get componentProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
 
     delete props.className;
     delete props.bgSize;

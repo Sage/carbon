@@ -4,6 +4,7 @@ import TableCell from './../table-cell';
 import TableHeader from './../table-header';
 import Checkbox from './../../checkbox';
 import guid from './../../../utils/helpers/guid';
+import { validProps } from '../../../utils/ether';
 
 /**
  * A TableRow widget.
@@ -59,7 +60,45 @@ class TableRow extends React.Component {
      * @property uniqueID
      * @type {String}
      */
-    uniqueID: React.PropTypes.string
+    uniqueID: React.PropTypes.string,
+
+    /**
+     * What the row should be displayed as, set to 'header' to display as header
+     *
+     * @property as
+     * @type {String}
+     */
+    as: React.PropTypes.string,
+
+    /**
+     * Whether to hide the multiSelect
+     *
+     * @property hideMultiSelect
+     * @type {Boolean}
+     */
+    hideMultiSelect: React.PropTypes.bool,
+
+    /**
+     * Whether to select all
+     *
+     * @property selectAll
+     * @type {Boolean}
+     */
+    selectAll: React.PropTypes.bool,
+
+    /**
+     * Callback for when a row is highlighted
+     * @property onHighlight
+     * @type {Function}
+     */
+    onHighlight: React.PropTypes.func,
+
+    /**
+     * Callback for when a row is selected
+     * @property onSelect
+     * @type {Function}
+     */
+    onSelect: React.PropTypes.func
   }
 
   /**
@@ -108,7 +147,7 @@ class TableRow extends React.Component {
       throw new Error("A TableRow which is selectable or highlightable should provide a uniqueID.");
     }
 
-    if (this.context.attachToTable && this.props.uniqueID && !this.props.selectAll) {
+    if (this.context.attachToTable && this.props.uniqueID && !this.props.selectAll && !this.isHeader) {
       // generate row id
       this.rowID = guid();
       // only attach to the table if we have a unique id
@@ -227,7 +266,7 @@ class TableRow extends React.Component {
    * @return {Object}
    */
   get rowProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
 
     props.className = this.mainClasses;
 
@@ -273,7 +312,7 @@ class TableRow extends React.Component {
     if (this.props.hideMultiSelect) { return null; }
 
     // determines which action to use (multi-select or select-all)
-    let action = this.props.selectAll ? this.onSelectAll : this.onSelect;
+    let action = (this.props.selectAll || this.isHeader) ? this.onSelectAll : this.onSelect;
 
     return <Checkbox onClick={ (ev) => ev.stopPropagation() } onChange={ action } checked={ this.state.selected } />;
   }
