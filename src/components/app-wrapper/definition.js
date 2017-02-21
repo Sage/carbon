@@ -4,11 +4,8 @@ import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('app-wrapper', AppWrapper, {
   propValues: {
-    children: `<div style={{ backgroundColor: "white"  }}>
-    This component will wrap it's children within the width constraints of your application.
-  </div>`
+    children: "This component will wrap its children within the width constraints of your application."
   },
-  hiddenProps: ['children'],
   propTypes: {
     children: 'Node',
     className: 'String',

@@ -30,15 +30,15 @@ class ComponentPreview extends React.Component {
         title='Preview'
         link={ `https://github.com/Sage/carbon/tree/master/src/components/${this.props.definition.get('key')}` }
       >
-        <div className= { `component-preview component-preview--${this.props.definition.get('key')}` }>
-          <div className='component-preview__component-wrapper'>
+        <div className= { `demo-component-preview demo-component-preview--${this.props.definition.get('key')}` }>
+          <div className='demo-component-preview__component-wrapper'>
             <div id="carbon-demo" />
             <div ref='demo' />
           </div>
 
           <SimpleHeading title="Code"></SimpleHeading>
 
-          <div className='component-preview__interaction'>
+          <div className='demo-component-preview__interaction'>
             <Fields name={ this.props.name } definition={ this.props.definition } />
             { this.renderCode() }
           </div>
