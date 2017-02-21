@@ -116,9 +116,6 @@ const DateHelper = {
   /**
    * Large set of default date formats for if a
    * i18n is not supplied
-   *
-   *
-   *
    */
   defaultDateFormats: () => {
     return [
@@ -140,6 +137,19 @@ const DateHelper = {
       'D/MMMM', 'DD/MMMM', 'DD/MMM', 'DD/M',
       'MMM', 'MMMM', 'DD', 'Do', 'D'
     ];
+  },
+
+  withinRange: (value, limit, units) => {
+    const momentInstance = DateHelper._moment();
+    let pastLimit = momentInstance().subtract(limit, units).format();
+    let futureLimit = momentInstance().add(limit, units).format();
+    let today = momentInstance().format();
+
+    if (DateHelper.isValidDate(value)) {
+      return today >= pastLimit && today <= futureLimit;
+    } else {
+      return true;
+    }
   }
 };
 

@@ -116,4 +116,27 @@ describe('DateHelper', () => {
       expect(DateHelper.weekdaysMinified()).toEqual([ 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa' ]);
     });
   });
+
+  fdescribe('withinRange', () => {
+    let momentSpy = jasmine.createSpyObj('moment', ['format', 'add', 'subtract']);
+
+    beforeEach(() => {
+      spyOn(DateHelper, 'isValidDate').and.returnValue(true);
+      momentSpy.format.and.returnValue(momentValue);
+    });
+
+    it('returns true if the date is within the given range', () => {
+      let testDate = moment('15/10/2015', 'DD/MM/YYYY');
+      momentSpy.add.and.returnValue(moment(momentValue).add(30, 'days').format());
+      momentSpy.subtract.and.returnValue(moment(momentValue).subtract(30, 'days').format());
+      expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
+    });
+
+    it('returns false if the date is outside the given range', () => {
+      let testDate = moment('29/10/2015', 'DD/MM/YYYY');
+      momentSpy.add.and.returnValue(moment(momentValue).add(10, 'days').format());
+      momentSpy.subtract.and.returnValue(moment(momentValue).subtract(10, 'days').format());
+      expect(DateHelper.withinRange(testDate, 10, 'days')).toBeFalsy();
+    });
+  });
 });
