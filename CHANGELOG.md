@@ -4,6 +4,14 @@
 
 * `Date` now shows error validation when an invalid date is entered.
 
+## New Validations
+
+* DateWithinRangeValidator checks that a date is within specified bounds.
+e.g.
+```javascript
+  new DateWithinRangeValidator({ limit: 30, units: 'days' }
+```
+
 # 0.34.3
 
 ## Component Enhancements

@@ -68,6 +68,22 @@ const DateHelper = {
   },
 
   /**
+   * @param {String} value - the date to test
+   * @param {Number} limit - the upper and lower bounds
+   * @param {String} units - defaulted to days
+   * @return {Boolean}
+   */
+  withinRange: (value, limit, units) => {
+    let momentValue = DateHelper._parseDate(value);
+
+    if (!momentValue.isValid()) { return true; }
+
+    let today = moment();
+    let difference = Math.abs(today.diff(momentValue, units));
+    return difference <= limit;
+  },
+
+  /**
    * Default options to pass to moment js
    *
    * @private
@@ -128,7 +144,6 @@ const DateHelper = {
     return moment(val, opts.formats, opts.locale, opts.strict);
   },
 
-
   /**
   * Formats valid for entry
   *
@@ -138,19 +153,6 @@ const DateHelper = {
   */
   _dateFormats: () => {
     return I18n.t('date.formats.inputs', { defaultValue: DateHelper._defaultDateFormats() });
-  },
-
-  withinRange: (value, limit, units) => {
-    const momentInstance = DateHelper._moment();
-    let pastLimit = momentInstance().subtract(limit, units).format();
-    let futureLimit = momentInstance().add(limit, units).format();
-    let today = momentInstance().format();
-
-    if (DateHelper.isValidDate(value)) {
-      return today >= pastLimit && today <= futureLimit;
-    } else {
-      return true;
-    }
   }
 };
 

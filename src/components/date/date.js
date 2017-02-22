@@ -11,7 +11,6 @@ import DateHelper from './../../utils/helpers/date';
 import DateValidator from './../../utils/validations/date';
 import chainFunctions from './../../utils/helpers/chain-functions';
 import { validProps } from './../../utils/ether';
-import DateWithinRangeValidator from './../../utils/validations/date-within-range';
 
 /**
  * A Date widget.
