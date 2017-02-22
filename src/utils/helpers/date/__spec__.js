@@ -3,8 +3,6 @@ import DateHelper from './date';
 import moment from 'moment';
 
 describe('DateHelper', () => {
-  let momentValue = moment('10/10/2015', 'DD/MM/YYYY');
-
   beforeEach(() => {
     I18n.translations = {
       en: {
@@ -15,59 +13,55 @@ describe('DateHelper', () => {
         date: { formats: { inputs: ['MM/DD/YYYY'] } }
       }
     }
+    moment.defineLocale('us', { parentLocale: 'en' });
   });
 
   describe('parseDate', () => {
     it('parses a given date returning a moment', () => {
+      let momentValue = moment('10/10/2015', 'DD/MM/YYYY');
       let parsedDate = DateHelper.parseDate('10/10/2015');
       expect(parsedDate._d).toEqual(momentValue._d);
       expect(parsedDate._isAMomentObject).toBeTruthy();
     });
 
     describe('options', () => {
-      let momentSpy;
-
-      beforeEach(() => {
-        momentSpy = jasmine.createSpy('moment spy');
-        spyOn(DateHelper, '_moment').and.returnValue(momentSpy);
-      });
-
       describe('sanitize', () => {
         it('when does not santize the input when false is passed', () => {
-          DateHelper.parseDate('10-10-2015', { sanitize: false });
-          expect(momentSpy).toHaveBeenCalledWith('10-10-2015', ['DD/MM/YYYY'], 'en', true);
+          let parsedDate = DateHelper.parseDate('10-10-2015', { sanitize: false });
+          expect(parsedDate.isValid()).toBeFalsy()
         });
       });
 
       describe('locale', () => {
+        beforeAll(() => { I18n.locale = 'us' });
+        afterAll(() => { I18n.locale = 'en' });
+
         it('overrides the default i18n locale', () => {
-          DateHelper.parseDate('01/31/2015', { locale: 'us' });
-          expect(momentSpy).toHaveBeenCalledWith('01/31/2015', ['DD/MM/YYYY'], 'us', true);
+          I18n.locale = 'us'
+          let parsedDate = DateHelper.parseDate('01/31/2015', { locale: 'us' });
+          expect(parsedDate.isValid()).toBeTruthy();
+          expect(parsedDate._f).toEqual('MM/DD/YYYY');
         });
       });
 
       describe('strict', () => {
         it('overrides the default strict bool', () => {
-          DateHelper.parseDate('01/31/2015', { strict: false });
-          expect(momentSpy).toHaveBeenCalledWith('01/31/2015', ['DD/MM/YYYY'], 'en', false);
+          let parsedDate = DateHelper.parseDate('01/31/2015', { strict: false });
+          expect(parsedDate._strict).toBeFalsy();
         });
       });
 
       describe('formats', () => {
         it('overrides the i18n formats when passed', () => {
-          DateHelper.parseDate('2016/01/01', { formats: ['YYYY/MM/DD'] });
-          expect(momentSpy).toHaveBeenCalledWith('2016/01/01', ['YYYY/MM/DD'], 'en', true);
+          let parsedDate = DateHelper.parseDate('2016/01/01', { formats: ['YYYY/MM/DD'] });
+          expect(parsedDate.isValid()).toBeTruthy();
+          expect(parsedDate._f).toEqual('YYYY/MM/DD');
         });
       });
     });
   });
 
   describe('sanitizeDateInput', () => {
-    it('removes all non alphanumeric characters and non separators', () => {
-      expect(DateHelper.sanitizeDateInput('Te¢s$T123*')).toEqual('test123');
-      expect(DateHelper.sanitizeDateInput('Te¢s$T/123*')).toEqual('test/123');
-    });
-
     it('replaces all common separators with forward slashes', () => {
       expect(DateHelper.sanitizeDateInput('-')).toEqual('/');
       expect(DateHelper.sanitizeDateInput('.')).toEqual('/');

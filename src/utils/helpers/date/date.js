@@ -7,11 +7,6 @@ import { merge } from 'lodash';
  */
 const DateHelper = {
 
-  // Allows us to spy on moment
-  _moment: () => {
-    return moment;
-  },
-
   /**
    * Parses date into moment
    * Note when sanitizing dates formats must contain '/' for separators
@@ -23,7 +18,7 @@ const DateHelper = {
   parseDate: (value, options = {}) => {
     let opts = merge(DateHelper.defaultMomentOptions(), options);
     let val = opts.sanitize ? DateHelper.sanitizeDateInput(value) : value;
-    return DateHelper._moment()(val, opts.formats, opts.locale, opts.strict);
+    return moment(val, opts.formats, opts.locale, opts.strict);
   },
 
   /**
@@ -37,7 +32,7 @@ const DateHelper = {
    */
   sanitizeDateInput: (value) => {
     if (!value) { return ''; }
-    return value.replace(/[^0-9A-zÀ-ÿ\s\/\.\-]/g, "").replace(/[-.\s]/g, "/").toLowerCase();
+    return value.replace(/[-.\s]/g, "/").toLowerCase();
   },
 
   /**
@@ -82,7 +77,7 @@ const DateHelper = {
    * @return {Moment}
    */
   todayFormatted: (format) => {
-    return DateHelper._moment()().format(format);
+    return moment().format(format);
   },
 
   /**
@@ -93,7 +88,7 @@ const DateHelper = {
    * @return {Array}
    */
   weekdaysMinified: () => {
-    return DateHelper._moment().localeData(I18n.locale)._weekdaysMin;
+    return moment.localeData(I18n.locale)._weekdaysMin;
   },
 
   /**
@@ -116,9 +111,6 @@ const DateHelper = {
   /**
    * Large set of default date formats for if a
    * i18n is not supplied
-   *
-   *
-   *
    */
   defaultDateFormats: () => {
     return [
