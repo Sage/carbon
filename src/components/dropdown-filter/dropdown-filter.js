@@ -131,7 +131,7 @@ class DropdownFilter extends Dropdown {
      * @type {String}
      */
     freetextName: React.PropTypes.string
-  })
+  });
 
   /**
    * Lifecycle hook for when the component will update.
