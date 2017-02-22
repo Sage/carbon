@@ -54,6 +54,14 @@ So far we have added attributes to the following components:
 gulp --port 1234
 ```
 
+## New Validations
+
+* DateWithinRangeValidator checks that a date is within specified bounds.
+e.g.
+```javascript
+  new DateWithinRangeValidator({ limit: 30, units: 'days' }
+```
+
 # 0.35.0
 
 ## Component Enchancements

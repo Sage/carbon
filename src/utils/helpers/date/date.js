@@ -67,14 +67,18 @@ const DateHelper = {
     return moment.localeData(I18n.locale)._weekdaysMin;
   },
 
-  withinRange: (value, limit, units) => {
-    const momentInstance = DateHelper._moment();
-    let pastLimit = momentInstance().subtract(limit, units).format();
-    let futureLimit = momentInstance().add(limit, units).format();
-    let today = momentInstance().format();
+  /**
+   * @param {String} value - the date to test
+   * @param {Number} limit - the upper and lower bounds
+   * @param {String} units - defaulted to days
+   * @return {Boolean}
+   */
+  withinRange: (value, limit, units='days') => {
+    let pastLimit = moment().subtract(limit, units).format();
+    let futureLimit = moment().add(limit, units).format();
 
     if (DateHelper.isValidDate(value)) {
-      return today >= pastLimit && today <= futureLimit;
+      return value >= pastLimit && value <= futureLimit;
     } else {
       return true;
     }
@@ -140,7 +144,6 @@ const DateHelper = {
     let val = opts.sanitize ? DateHelper.sanitizeDateInput(value) : value;
     return moment(val, opts.formats, opts.locale, opts.strict);
   },
-
 
   /**
   * Formats valid for entry
