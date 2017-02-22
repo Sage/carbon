@@ -54,6 +54,13 @@ So far we have added attributes to the following components:
 gulp --port 1234
 ```
 
+# 0.34.3
+
+## Component Enhancements
+
+* `DropdownFilter`: Refactored 'freetext' mode to operate on `value` for an option id, or `visibleValue` for a write-in value.
+* `PresenceValidator`: Added `props` and `requireAll` arguments to validate any/all of multiple input properties.
+
 # 0.34.2
 
 ## Bug fix
