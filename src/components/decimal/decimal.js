@@ -180,6 +180,10 @@ class Decimal extends React.Component {
     if (this.value === '') {
       this.emitOnChangeCallback('0');
     }
+
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
   }
 
   /*

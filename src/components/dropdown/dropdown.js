@@ -29,7 +29,6 @@ import Events from './../../utils/helpers/events';
  */
 const Dropdown = Input(InputIcon(InputLabel(InputValidation(
 class Dropdown extends React.Component {
-
   /**
    * @constructor
    */
@@ -120,6 +119,7 @@ class Dropdown extends React.Component {
    * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
    *
    * @method componentDidMount
+   * @return {Void}
    */
   componentDidMount() {
     if (this.props.autoFocus) {
@@ -133,6 +133,7 @@ class Dropdown extends React.Component {
    *
    * @method componentWillReceiveProps
    * @param {Object} nextProps the updated props
+   * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
     if (!this.props.cacheVisibleValue || (nextProps.value !== this.props.value)) {
@@ -146,12 +147,16 @@ class Dropdown extends React.Component {
    *
    * @method selectValue
    * @param {String} val
+   * @return {Void}
    */
   selectValue(val, visibleVal) {
     this.blockBlur = false;
     this.setState({ open: false });
     this._handleContentChange();
     this.emitOnChangeCallback(val, visibleVal);
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
   }
 
   /**
@@ -159,6 +164,7 @@ class Dropdown extends React.Component {
    *
    * @method emitOnChangeCallback
    * @param {Object} value Value of the selected list item
+   * @return {Void}
    */
   emitOnChangeCallback = (value, visibleValue) => {
     // To be consistent, always return string
@@ -177,6 +183,7 @@ class Dropdown extends React.Component {
    *
    * @method handleSelect
    * @param {Object} ev event
+   * @return {Void}
    */
   handleSelect = (ev) => {
     this.selectValue(ev.currentTarget.getAttribute('value'), ev.currentTarget.textContent);
@@ -187,6 +194,7 @@ class Dropdown extends React.Component {
    *
    * @method handleMouseOverListItem
    * @param {Object} ev event
+   * @return {Void}
    */
   handleMouseOverListItem = (ev) => {
     this.setState({ highlighted: ev.currentTarget.getAttribute('value') });
@@ -196,6 +204,7 @@ class Dropdown extends React.Component {
    * Handles when the mouse hovers over the list.
    *
    * @method handleMouseEnterList
+   * @return {Void}
    */
   handleMouseEnterList = () => {
     this.blockBlur = true;
@@ -205,6 +214,7 @@ class Dropdown extends React.Component {
    * Handles when the mouse hovers out of the list.
    *
    * @method handleMouseLeaveList
+   * @return {Void}
    */
   handleMouseLeaveList = () => {
     this.blockBlur = false;
@@ -214,6 +224,7 @@ class Dropdown extends React.Component {
    * Handles when the mouse clicks on the list.
    *
    * @method handleMouseDownOnList
+   * @return {Void}
    */
   handleMouseDownOnList = (ev) => {
     // if mouse down was on list (not list item), ensure the input retains focus
@@ -229,10 +240,15 @@ class Dropdown extends React.Component {
    * Handles what happens on blur of the input.
    *
    * @method handleBlur
+   * @return {Void}
    */
   handleBlur = () => {
     if (!this.blockBlur) {
       this.setState({ open: false });
+
+      if (this.props.onBlur) {
+        this.props.onBlur();
+      }
     }
   }
 
@@ -240,6 +256,7 @@ class Dropdown extends React.Component {
    * Handles what happens on focus of the input.
    *
    * @method handleFocus
+   * @return {Void}
    */
   handleFocus = () => {
     if (this.blockFocus) {
@@ -254,6 +271,7 @@ class Dropdown extends React.Component {
    *
    * @method nameByID
    * @param {String} value
+   * @return {String}
    */
   nameByID = () => {
     if (this.props.options) {
@@ -278,6 +296,7 @@ class Dropdown extends React.Component {
    *
    * @method handleKeyUp
    * @param {Object} ev event
+   * @return {Void}
    */
   handleKeyDown = (ev) => {
     ev.stopPropagation();
@@ -381,6 +400,7 @@ class Dropdown extends React.Component {
    * Return the list item which should be highlighted by default.
    *
    * @method highlighted
+   * @return {String}
    */
   highlighted = () => {
     let highlighted = null;
@@ -400,6 +420,7 @@ class Dropdown extends React.Component {
    * Returns the list options in the correct format
    *
    * @method options
+   * @return {Object}
    */
   get options() {
     return this.props.options.toJS();
@@ -410,6 +431,7 @@ class Dropdown extends React.Component {
    * dropdown specific props.
    *
    * @method inputProps
+   * @return {Object}
    */
   get inputProps() {
     let { ...props } = this.props;
@@ -433,6 +455,7 @@ class Dropdown extends React.Component {
    * A getter for hidden input props.
    *
    * @method hiddenInputProps
+   * @return {Object}
    */
   get hiddenInputProps() {
     let props = {
@@ -450,6 +473,7 @@ class Dropdown extends React.Component {
    * Properties to be assigned to the list.
    *
    * @method listProps
+   * @return {Object}
    */
   get listBlockProps() {
     return {
@@ -466,6 +490,7 @@ class Dropdown extends React.Component {
    * Properties to be assigned to the list.
    *
    * @method listProps
+   * @return {Object}
    */
   get listProps() {
     return {
@@ -479,6 +504,7 @@ class Dropdown extends React.Component {
    * Uses the mainClasses method provided by the decorator to add additional classes.
    *
    * @method mainClasses
+   * @return {String}
    */
   get mainClasses() {
     return classNames(
@@ -491,6 +517,7 @@ class Dropdown extends React.Component {
    * Uses the inputClasses method provided by the decorator to add additional classes.
    *
    * @method inputClasses
+   * @return {String}
    */
   get inputClasses() {
     return 'carbon-dropdown__input';
@@ -500,6 +527,7 @@ class Dropdown extends React.Component {
    * Getter to return HTML for list to render method.
    *
    * @method listHTML
+   * @return {Object} JSX
    */
   get listHTML() {
     if (!this.state.open) { return null; }
@@ -514,6 +542,7 @@ class Dropdown extends React.Component {
    * Function that returns search results. Builds each list item with relevant handlers and classes.
    *
    * @method results
+   * @return {Array}
    */
   results(options) {
     let className = 'carbon-dropdown__list-item',
@@ -551,6 +580,7 @@ class Dropdown extends React.Component {
    * Extends the input content to include the input icon.
    *
    * @method additionalInputContent
+   * @return {Object} JSX
    */
   get additionalInputContent() {
     let content = [];
@@ -578,6 +608,16 @@ class Dropdown extends React.Component {
   }
 
   /**
+   * Getter to return HTML for alternate hidden input to render method.
+   *
+   * @method alternateHiddenHTML
+   * @return {Object} JSX
+   */
+  get alternateHiddenHTML() {
+    return null;
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -585,13 +625,12 @@ class Dropdown extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses } >
-
         { this.labelHTML }
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />
+        { this.alternateHiddenHTML }
         { this.validationHTML }
         { this.fieldHelpHTML }
-
       </div>
     );
   }
