@@ -7,25 +7,6 @@ import { merge } from 'lodash';
  */
 const DateHelper = {
 
-  // Allows us to spy on moment
-  _moment: () => {
-    return moment;
-  },
-
-  /**
-   * Parses date into moment
-   * Note when sanitizing dates formats must contain '/' for separators
-   *
-   * @param {String} value - value to parse
-   * @param {Object} options Override Moment JS options
-   * @return {Moment}
-   */
-  parseDate: (value, options = {}) => {
-    let opts = merge(DateHelper.defaultMomentOptions(), options);
-    let val = opts.sanitize ? DateHelper.sanitizeDateInput(value) : value;
-    return DateHelper._moment()(val, opts.formats, opts.locale, opts.strict);
-  },
-
   /**
    * Sanitizes all valid date separators ( . - 'whitespace' ) replacing them
    * with a slash
@@ -37,17 +18,7 @@ const DateHelper = {
    */
   sanitizeDateInput: (value) => {
     if (!value) { return ''; }
-    return value.replace(/[^0-9A-zÀ-ÿ\s\/\.\-]/g, "").replace(/[-.\s]/g, "/").toLowerCase();
-  },
-
-  /**
-  * Formats valid for entry
-  *
-  * @method validFormats
-  * @return {Array} formatted date strings
-  */
-  dateFormats: () => {
-    return I18n.t('date.formats.inputs', { defaultValue: DateHelper.defaultDateFormats() });
+    return value.replace(/[-.\s]/g, "/").toLowerCase();
   },
 
   /**
@@ -58,20 +29,20 @@ const DateHelper = {
    * @return {Boolean}
    */
   isValidDate: (value, options = {}) => {
-    return DateHelper.parseDate(value, options).isValid();
+    return DateHelper._parseDate(value, options).isValid();
   },
 
-/**
- * Formats the given value to a specified format
- *
- * @method formatValue
- * @param {String} val current value
- * @param {String} formatTo Desired format
- * @param {Object} options Override Moment JS options
- * @return {String} formatted date
- */
+  /**
+   * Formats the given value to a specified format
+   *
+   * @method formatValue
+   * @param {String} val current value
+   * @param {String} formatTo Desired format
+   * @param {Object} options Override Moment JS options
+   * @return {String} formatted date
+   */
   formatValue: (value, formatTo, options = {}) => {
-    let date = DateHelper.parseDate(value, options);
+    let date = DateHelper._parseDate(value, options);
     return date.isValid() ? date.format(formatTo) : value;
   },
 
@@ -82,7 +53,7 @@ const DateHelper = {
    * @return {Moment}
    */
   todayFormatted: (format) => {
-    return DateHelper._moment()().format(format);
+    return moment().format(format);
   },
 
   /**
@@ -93,20 +64,34 @@ const DateHelper = {
    * @return {Array}
    */
   weekdaysMinified: () => {
-    return DateHelper._moment().localeData(I18n.locale)._weekdaysMin;
+    return moment.localeData(I18n.locale)._weekdaysMin;
+  },
+
+  withinRange: (value, limit, units) => {
+    const momentInstance = DateHelper._moment();
+    let pastLimit = momentInstance().subtract(limit, units).format();
+    let futureLimit = momentInstance().add(limit, units).format();
+    let today = momentInstance().format();
+
+    if (DateHelper.isValidDate(value)) {
+      return today >= pastLimit && today <= futureLimit;
+    } else {
+      return true;
+    }
   },
 
   /**
    * Default options to pass to moment js
    *
+   * @private
    * formats - given accepted formats
    * locale - current locale
    * strict - moment js strict mode
    * sanitize - should value be sanitized before parsing
    */
-  defaultMomentOptions: () => {
+  _defaultMomentOptions: () => {
     return {
-      formats: DateHelper.dateFormats(),
+      formats: DateHelper._dateFormats(),
       locale: I18n.locale,
       strict: true,
       sanitize: true
@@ -116,8 +101,10 @@ const DateHelper = {
   /**
    * Large set of default date formats for if a
    * i18n is not supplied
+   *
+   * @private
    */
-  defaultDateFormats: () => {
+  _defaultDateFormats: () => {
     return [
       'DDMMYYYY', 'DDMMYY', 'DD/MM/YYYY','DD/MM/YY',
       'MMDDYYYY', 'MMDDYY', 'MM/DD/YYYY','MM/DD/YY',
@@ -139,17 +126,31 @@ const DateHelper = {
     ];
   },
 
-  withinRange: (value, limit, units) => {
-    const momentInstance = DateHelper._moment();
-    let pastLimit = momentInstance().subtract(limit, units).format();
-    let futureLimit = momentInstance().add(limit, units).format();
-    let today = momentInstance().format();
+  /**
+   * Parses date into moment
+   * Note when sanitizing dates formats must contain '/' for separators
+   *
+   * @private
+   * @param {String} value - value to parse
+   * @param {Object} options Override Moment JS options
+   * @return {Moment}
+   */
+  _parseDate: (value, options) => {
+    let opts = merge(DateHelper._defaultMomentOptions(), options);
+    let val = opts.sanitize ? DateHelper.sanitizeDateInput(value) : value;
+    return moment(val, opts.formats, opts.locale, opts.strict);
+  },
 
-    if (DateHelper.isValidDate(value)) {
-      return today >= pastLimit && today <= futureLimit;
-    } else {
-      return true;
-    }
+
+  /**
+  * Formats valid for entry
+  *
+  * @private
+  * @method validFormats
+  * @return {Array} formatted date strings
+  */
+  _dateFormats: () => {
+    return I18n.t('date.formats.inputs', { defaultValue: DateHelper._defaultDateFormats() });
   }
 };
 

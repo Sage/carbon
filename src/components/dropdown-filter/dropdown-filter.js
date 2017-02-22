@@ -26,7 +26,10 @@ import { assign } from 'lodash';
  * once a filter term has been entered.
  *
  * You can also use the component in 'freetext' mode, which behaves like 'suggest',
- * but allows write-in text values in addition to list options.
+ * but allows write-in text values in addition to list options. Specify an initial
+ * write-in value with the `visibleValue` property, instead of the `value` property
+ * for an option id. Set the `freetextName` property to add a second hidden input
+ * for the write-in value, as opposed to the `name` property used for the option id.
  *
  * You can also define a function using the 'create' prop, this will allow you
  * to trigger events to create new items.
@@ -35,6 +38,12 @@ import { assign } from 'lodash';
  * @constructor
  */
 class DropdownFilter extends Dropdown {
+  /**
+   * Constructor
+   *
+   * @constructor
+   * @param {Array} args - Arguments
+   */
   constructor(...args) {
     super(...args);
 
@@ -45,7 +54,7 @@ class DropdownFilter extends Dropdown {
      * @type {String}
      * @default null
      */
-    this.state.filter = null;
+    this.state.filter = this.hasFreetextValue() ? this.props.visibleValue : null;
 
     /**
      * Determines if list is being opened on current render.
@@ -73,6 +82,15 @@ class DropdownFilter extends Dropdown {
       React.PropTypes.string,
       React.PropTypes.number
     ]),
+
+    /**
+     * The visible value for the component
+     * Provides a visible value in `freetext` mode when no option is selected.
+     *
+     * @property visibleValue
+     * @type {String}
+     */
+    visibleValue: React.PropTypes.string,
 
     /**
      * The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.
@@ -104,8 +122,16 @@ class DropdownFilter extends Dropdown {
      * @property freetext
      * @type {Boolean}
      */
-    freetext: React.PropTypes.bool
-  });
+    freetext: React.PropTypes.bool,
+
+    /**
+     * Name for freetext value hidden input containing visibleValue in freetext mode
+     *
+     * @property freetextName
+     * @type {String}
+     */
+    freetextName: React.PropTypes.string
+  })
 
   /**
    * Lifecycle hook for when the component will update.
@@ -381,6 +407,37 @@ class DropdownFilter extends Dropdown {
   }
 
   /**
+   * Input props for freetext hidden input.
+   *
+   * @method alternateHiddenInputProps
+   * @return {Object}
+   */
+  get alternateHiddenInputProps() {
+    let props = {
+      ref: "altHidden",
+      type: "hidden",
+      readOnly: true,
+      name: this.props.freetextName,
+      value: this.props.visibleValue
+    };
+
+    return props;
+  }
+
+  /**
+   * Getter to return HTML for alternate hidden input to render method.
+   *
+   * @method alternateHiddenHTML
+   * @return {Object} JSX
+   */
+  get alternateHiddenHTML() {
+    if (!this.props.freetext || !this.props.freetextName) {
+      return null;
+    }
+    return <input { ...this.alternateHiddenInputProps } />;
+  }
+
+  /**
    * Find and highlights search terms in text
    *
    * @method highlightMatches
@@ -426,6 +483,16 @@ class DropdownFilter extends Dropdown {
    */
   get writeable() {
     return this.props.suggest || this.props.freetext;
+  }
+
+  /**
+   * Returns whether properties indicate a freetext write-in value
+   *
+   * @method hasFreetextValue
+   * @return {Boolean}
+   */
+  hasFreetextValue() {
+    return this.props.freetext && this.props.visibleValue && !this.props.value;
   }
 }
 
