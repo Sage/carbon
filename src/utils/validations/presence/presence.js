@@ -1,18 +1,37 @@
 import ValidationsHelper from './../../helpers/validations';
+import { forEach, isEmpty } from 'lodash';
 
 /**
  * This will validate an input for presence.
  *
+ * == How to use a presence validator with a component:
+ *
+ * In your file
+ *
+ *   import PresenceValidator from 'carbon/lib/utils/validatons/presence';
+ *
+ * To apply a PresenceValidator:
+ *
+ *   <Textbox name="foo" validations={ [new PresenceValidator()] } />
+ *
+ * You can also specify multiple properties to validate by pasing an array of property
+ * names as the `props` argument to the constructor:
+ *
+ *   validator = new PresenceValidator({ props: ['value', 'visibleValue'] });
+ *
+ * By default, the presence of ANY of the specified properties satisfies the validation.
+ * If ALL of the properties are required present, set the `requireAll` argument as well:
+ *
+ *   validator = new PresenceValidator({ props: ['value', 'visibleValue'], requireAll: true });
+ *
  * @constructor PresenceValidator
  */
 class PresenceValidator {
-
   /**
    * @method constructor
    * @param {Object} params
    */
   constructor(params = {}) {
-
     /**
      * An optional custom validation message.
      *
@@ -25,24 +44,49 @@ class PresenceValidator {
      * States that this validation should display an asterisk with the label.
      *
      * @method asterisk
-     * @return {Boolean}
+     * @type {Boolean}
      */
     this.asterisk = true;
+
+    /**
+     * List of properties to validate.
+     *
+     * @property props
+     * @type {Array}
+     * @default ['value']
+     */
+    this.props = params.props || ['value'];
+
+    /**
+     * Determines whether any or all properties are required to be present.
+     *
+     * @property requireAll
+     * @type {Boolean}
+     * @default false
+     */
+    this.requireAll = Boolean(params.requireAll);
   }
 
   /**
    * This will validate the given value, and return a valid status.
    *
    * @method validate
-   * @param {String} value to check presence
+   * @param {String} value - value to check presence
+   * @param {Object} props - component properties
    * @return {Boolean} true if value is valid
    */
-  validate = (value) => {
-    if (value && !value.match(/^\s*$/)) {
-      return true;
-    } else {
-      return false;
-    }
+  validate = (value, props) => {
+    let valid, result = this.requireAll;
+
+    forEach(this.props, (name) => {
+      value = props[name];
+      valid = !isEmpty(value) && !value.match(/^\s*$/);
+      result = this.requireAll ? (result && valid) : (result || valid);
+      if (result !== this.requireAll) {
+        return false;
+      }
+    });
+    return result;
   }
 
   /**
