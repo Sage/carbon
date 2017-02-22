@@ -73,15 +73,14 @@ const DateHelper = {
    * @param {String} units - defaulted to days
    * @return {Boolean}
    */
-  withinRange: (value, limit, units='days') => {
-    let pastLimit = moment().subtract(limit, units).format();
-    let futureLimit = moment().add(limit, units).format();
+  withinRange: (value, limit, units) => {
+    let momentValue = DateHelper._parseDate(value);
+    let today = moment();
 
-    if (DateHelper.isValidDate(value)) {
-      return value >= pastLimit && value <= futureLimit;
-    } else {
-      return true;
-    }
+    let difference = Math.abs(today.diff(momentValue, units));
+    if (!isNaN(difference)) { return difference <= limit; }
+
+    return true;
   },
 
   /**

@@ -14,7 +14,7 @@ class DateWithinRangeValidator {
   constructor(params = {}) {
     this.customMessage = params.customMessage;
     this.limit = params.limit;
-    this.units = params.units;
+    this.units = params.units || 'days';
   }
 
   /**
