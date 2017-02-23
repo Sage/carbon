@@ -9,7 +9,7 @@ class ComponentAPI extends React.Component {
       <PageContentArea
         title={ "Props for " + this.props.definition.get('name') + " Component" }
       >
-        <Table shrink={ true } className="component-api">
+        <Table shrink={ true } className="demo-component-api">
           { this._buildRows() }
         </Table>
       </PageContentArea>
@@ -30,13 +30,13 @@ class ComponentAPI extends React.Component {
     this.props.definition.get('props').sort().forEach((prop, index) => {
       rows.push(
         <TableRow key={ index }>
-          <TableCell className="component-api__cell">{ prop }</TableCell>
-          <TableCell className="component-api__cell component-api__cell--align-center">
+          <TableCell className="demo-component-api__cell">{ prop }</TableCell>
+          <TableCell className="demo-component-api__cell" align='center'>
             { this._isRequired(prop) }
           </TableCell>
-          <TableCell className="component-api__cell">{ this._type(prop) }</TableCell>
-          <TableCell className="component-api__cell">{ this._default(prop) }</TableCell>
-          <TableCell className="component-api__cell">{ this._description(prop) }</TableCell>
+          <TableCell className="demo-component-api__cell">{ this._type(prop) }</TableCell>
+          <TableCell className="demo-component-api__cell demo-component-api__default">{ this._default(prop) }</TableCell>
+          <TableCell className="demo-component-api__cell">{ this._description(prop) }</TableCell>
         </TableRow>
       );
     });
@@ -46,7 +46,7 @@ class ComponentAPI extends React.Component {
 
   _isRequired = (prop) => {
     if (this.props.definition.get('requiredProps').includes(prop)) {
-      return <Icon type="tick" className="component-api__tick" />
+      return <Icon type="tick" className="demo-component-api__tick" />
     }
   }
 

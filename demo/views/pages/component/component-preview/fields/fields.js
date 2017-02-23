@@ -10,7 +10,7 @@ import Textarea from 'components/textarea';
 import Textbox from 'components/textbox';
 
 export default props => (
-  <form className='component-preview__controls'>
+  <form className='demo-component-preview__controls'>
     { buildFields(props) }
   </form>
 )
@@ -79,18 +79,19 @@ const fieldComponent = (name, prop, value, field, options, requirement) => {
         key: name + prop,
         label: titleize(kebabCase(prop)).replace(/-/g, " "),
         onChange: ComponentActions.updateDefinition.bind(this, name, prop),
-        value: value
+        value: value,
+        labelInline: true,
+        labelWidth: 40
       };
 
   if (requirement) {
     let disabled = !ComponentStore.data.getIn([name, 'propValues', requirement]);
     commonfieldProps.disabled = disabled;
-    commonfieldProps.labelHelp = "requires " + requirement;
+    commonfieldProps.fieldHelp = "requires " + requirement;
   }
 
   if (field !== Checkbox) {
-    commonfieldProps.labelInline = true;
-    commonfieldProps.labelWidth = 40;
+    commonfieldProps.labelAlign = 'right';
   }
 
   if (field === Textarea) {

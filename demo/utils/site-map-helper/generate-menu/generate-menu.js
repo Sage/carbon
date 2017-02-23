@@ -14,9 +14,9 @@ const createMenuLink = (name, url, active, external) => {
       linkProp = external ? { href: url, target: "_blank" } : { to: url };
 
   return (
-    <MenuListItem key={ name } name={ name }>
+    <MenuListItem key={ name } name={ humanName(name) }>
       <Link className={ classes } { ...linkProp }>
-        { titleize(humanize(name.replace("/", ""))) }
+        { humanName(name) }
       </Link>
     </MenuListItem>
   );
@@ -78,4 +78,8 @@ const generateMenu = () => {
   }
 
   return menu;
+}
+
+const humanName = (key) => {
+  return titleize(humanize(key.replace("/", "")));
 }

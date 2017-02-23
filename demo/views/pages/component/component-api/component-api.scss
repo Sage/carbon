@@ -1,14 +1,17 @@
 @import 'colors';
 
-.component-api__cell {
-  white-space: pre-line;
-  word-break: normal;
+.demo-component-api {
+  &__cell {
+    line-height: 1.5em;
+    white-space: pre-line;
+    word-break: normal;
+  }
+
+  &__default {
+    white-space: nowrap;
+  }
 }
 
-.component-api__cell--align-center {
-  text-align: center;
-}
-
-.component-api__tick {
+.demo-component-api__tick {
   color: $green;
 }

@@ -22,17 +22,14 @@ let columnDefinition = new Definition('child', {}, {
 
 let definition = new Definition('row', Row, {
   associatedDefinitions: [columnDefinition],
-  js: `function style() {
-  return { backgroundColor: '#50B848', height: '10px' };
-}`,
   hiddenProps: ['children'],
   propValues: {
-    children: `<div style={ style() } />
-  <div style={ style() } />
-  <div style={ style() } />
-  <div style={ style() } />
-  <div style={ style() } />
-  <div style={ style() } />`
+    children: `<div/>
+  <div/>
+  <div/>
+  <div/>
+  <div/>
+  <div/>`
   },
   propTypes: {
     gutter: "String",
