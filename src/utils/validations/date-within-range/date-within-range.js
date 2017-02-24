@@ -25,6 +25,9 @@ class DateWithinRangeValidator {
    * @return {Boolean} true if value is within range
    */
   validate = (value) => {
+    // If not a valid date, return true to avoid multiple errors being shown.
+    if (!DateHelper.isValidDate(value)) return true;
+
     return DateHelper.withinRange(value, this.limit, this.units);
   }
 

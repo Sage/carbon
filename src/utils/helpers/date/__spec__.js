@@ -95,16 +95,19 @@ describe('DateHelper', () => {
       expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
     });
 
-    it('returns false if the date is outside the given range', () => {
+    it('returns true if the date is equal to the given range', () => {
+      let testDate = moment().add(30, 'days').format('DD-MM-YYYY');
+      expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
+    });
+
+    it('returns false if the date is beyond the given range', () => {
       let testDate = moment().add(100, 'days').format('DD-MM-YYYY');
       expect(DateHelper.withinRange(testDate, 10, 'days')).toBeFalsy();
     });
 
-    describe('when date is invalid', () => {
-      it('returns true', () => {
-        let testDate = '98has9hd9h.309af/3de'
-        expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
-      });
+    it('returns false if the date is behind the given range', () => {
+      let testDate = moment().add(100, 'years').format('DD-MM-YYYY');
+      expect(DateHelper.withinRange(testDate, 1, 'years')).toBeFalsy();
     });
   });
 });

@@ -74,12 +74,9 @@ const DateHelper = {
    * @return {Boolean}
    */
   withinRange: (value, limit, units) => {
-    let momentValue = DateHelper._parseDate(value);
+    const momentValue = DateHelper._parseDate(value), today = moment();
 
-    if (!momentValue.isValid()) { return true; }
-
-    let today = moment();
-    let difference = Math.abs(today.diff(momentValue, units));
+    const difference = Math.abs(today.diff(momentValue, units));
     return difference <= limit;
   },
 
