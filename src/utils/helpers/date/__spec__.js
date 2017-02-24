@@ -90,8 +90,13 @@ describe('DateHelper', () => {
   });
 
   describe('withinRange', () => {
-    it('returns true if the date is within the given range', () => {
+    it('returns true if the date is today', () => {
       let testDate = moment().format('DD-MM-YYYY');
+      expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
+    });
+
+    it('returns true if the date is within range', () => {
+      let testDate = moment().add(29, 'days').format('DD-MM-YYYY');
       expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
     });
 
@@ -101,11 +106,11 @@ describe('DateHelper', () => {
     });
 
     it('returns false if the date is beyond the given range', () => {
-      let testDate = moment().add(100, 'days').format('DD-MM-YYYY');
-      expect(DateHelper.withinRange(testDate, 10, 'days')).toBeFalsy();
+      let testDate = moment().add(31, 'days').format('DD-MM-YYYY');
+      expect(DateHelper.withinRange(testDate, 30, 'days')).toBeFalsy();
     });
 
-    it('returns false if the date is behind the given range', () => {
+    it('returns false if the date is many years in the past', () => {
       let testDate = moment().add(100, 'years').format('DD-MM-YYYY');
       expect(DateHelper.withinRange(testDate, 1, 'years')).toBeFalsy();
     });

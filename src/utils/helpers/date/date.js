@@ -77,7 +77,7 @@ const DateHelper = {
     const momentValue = DateHelper._parseDate(value), today = moment();
 
     const difference = Math.abs(today.diff(momentValue, units));
-    return difference <= limit;
+    return difference < limit;
   },
 
   /**
