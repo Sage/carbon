@@ -258,8 +258,10 @@ describe('DateRange', () => {
           onChange={ customOnChange }
           startDateProps={ { value: '2016-10-10' } }
           endDateProps={ { value: '2016-11-11'  } }
+          value={ [] }
         />
       );
+
       let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
       expect(dates[0].props.value).toEqual('2016-10-10');
       expect(dates[1].props.value).toEqual('2016-11-11');

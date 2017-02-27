@@ -88,4 +88,31 @@ describe('DateHelper', () => {
       expect(DateHelper.weekdaysMinified()).toEqual([ 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa' ]);
     });
   });
+
+  describe('withinRange', () => {
+    it('returns true if the date is today', () => {
+      let testDate = moment().format('DD-MM-YYYY');
+      expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
+    });
+
+    it('returns true if the date is within range', () => {
+      let testDate = moment().add(29, 'days').format('DD-MM-YYYY');
+      expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
+    });
+
+    it('returns true if the date is equal to the given range', () => {
+      let testDate = moment().add(30, 'days').format('DD-MM-YYYY');
+      expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
+    });
+
+    it('returns false if the date is beyond the given range', () => {
+      let testDate = moment().add(31, 'days').format('DD-MM-YYYY');
+      expect(DateHelper.withinRange(testDate, 30, 'days')).toBeFalsy();
+    });
+
+    it('returns false if the date is many years in the past', () => {
+      let testDate = moment().add(100, 'years').format('DD-MM-YYYY');
+      expect(DateHelper.withinRange(testDate, 1, 'years')).toBeFalsy();
+    });
+  });
 });
