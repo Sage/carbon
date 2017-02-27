@@ -14,7 +14,7 @@ describe('DateWithinRangeValidator', () => {
   describe('validate', () => {
     describe('when the date is within the range', () => {
       it('returns true', () => {
-        let validator = new Validator({ limit: 30});
+        let validator = new Validator(30);
         let testDate = moment().format('DD/MM/YYYY');
         expect(validator.validate(testDate)).toBeTruthy();
       });
@@ -22,7 +22,7 @@ describe('DateWithinRangeValidator', () => {
 
     describe('when the date is outside the range', () => {
       it('returns false', () => {
-        let validator = new Validator({ limit: 30});
+        let validator = new Validator(30);
         let testDate = moment().add(100, 'days').format('DD/MM/YYYY');
         expect(validator.validate(testDate)).toBeFalsy();
       });
@@ -30,7 +30,7 @@ describe('DateWithinRangeValidator', () => {
 
     describe('when an invalid date is passed', () => {
       it('returns true', () => {
-        let validator = new Validator({ limit: 30});
+        let validator = new Validator(30);
         let testDate = '9989/=9asj-/343c'
         expect(validator.validate(testDate)).toBeTruthy();
       });
@@ -41,7 +41,7 @@ describe('DateWithinRangeValidator', () => {
     let validator;
 
     beforeAll(() => {
-      validator = new Validator({customMessage: 'The date you have chosen is more than 30 days away?'})
+      validator = new Validator(30, {customMessage: 'The date you have chosen is more than 30 days away?'})
       spyOn(ValidationsHelper, 'validationMessage');
     });
 

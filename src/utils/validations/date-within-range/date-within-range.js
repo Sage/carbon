@@ -6,15 +6,15 @@ class DateWithinRangeValidator {
 
   /**
     * @method constructor
-    * @param {Object} params
+    * @param {Number} limit - the number of units
+    * @param {Object} opts
     *   @option [String] customMessage
-    *   @option [Number] limit - number of units
     *   @option [String] units - unit of time e.g. 'days'/'months'
     */
-  constructor(params = {}) {
-    this.customMessage = params.customMessage;
-    this.limit = params.limit;
-    this.units = params.units || 'days';
+  constructor(limit, opts = {}) {
+    this.customMessage = opts.customMessage;
+    this.limit = limit;
+    this.units = opts.units || 'days';
   }
 
   /**
