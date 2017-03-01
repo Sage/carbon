@@ -34,6 +34,7 @@
 * `Link`: CSS inheritance has been updated to better support buttons.
 * `Alert`: default size has been fixed to `extra-small`.
 * `Confirm`: default size has been fixed to `extra-small`.
+* `Heading`: alignment is fixed in IE where `hr` was centring by default
 
 ## data-attributes on components
 
