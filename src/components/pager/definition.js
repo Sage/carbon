@@ -1,6 +1,7 @@
 import Pager from './';
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
+import ComponentActions from './../../../demo/actions/component';
 
 let definition = new Definition('pager', Pager, {
   type: 'form',
@@ -19,7 +20,7 @@ let definition = new Definition('pager', Pager, {
   propValues: {
     currentPage: 1,
     totalRecords: 100,
-    onPagination: () => {}
+    onPagination: ComponentActions.updatePagerCurrentPage
   },
   defaultProps: {
     pageSizeSelectionOptions: OptionsHelper.pageSizes.join(", ")

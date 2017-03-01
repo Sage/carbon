@@ -27,6 +27,20 @@ const ComponentActions = {
     });
   },
 
+  updatePagerCurrentPage: (ev) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.UPDATE_PAGER_CURRENT_PAGE,
+      currentPage: ev
+    });
+  },
+
+  updateSimpleColorPickerSelected: (ev) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.UPDATE_SIMPLE_COLOR_PICKER_SELECTED,
+      selected: ev.target.value
+    });
+  },
+
   updateTable: (actionType, opts = {}) => {
     let pageSize = opts.pageSize || "10",
         currentPage = opts.currentPage || "1",
