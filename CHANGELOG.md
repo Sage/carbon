@@ -1,3 +1,9 @@
+# 0.34.4
+
+## Bug fix
+
+* `Pod`: corrects misalignment caused by centering
+
 # 0.34.3
 
 ## Component Enhancements
