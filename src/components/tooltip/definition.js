@@ -1,7 +1,6 @@
 import Tooltip from './';
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { uniq } from 'lodash';
 
 let definition = new Definition('tooltip', Tooltip, {
   type: 'miscellaneous',
@@ -10,7 +9,7 @@ let definition = new Definition('tooltip', Tooltip, {
     children: "I'm a helpful tooltip that can display more information to a user."
   },
   propOptions: {
-    align: uniq(OptionsHelper.positions.concat(OptionsHelper.alignFull)),
+    align: OptionsHelper.alignAroundEdges,
     position: OptionsHelper.positions
   },
   propTypes: {
