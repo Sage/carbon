@@ -64,3 +64,17 @@
     }
   }
 }
+
+// HACKS
+.demo-component-preview--date-range {
+  .carbon-date {
+    &.common-input--label-inline {
+      .common-input__label {
+        width: auto;
+      }
+    }
+    &.carbon-date-range__start {
+      margin-right: 15px;
+    }
+  }
+}

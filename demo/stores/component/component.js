@@ -33,6 +33,14 @@ class ComponentStore extends Store {
     }
   }
 
+  [ComponentConstants.UPDATE_PAGER_CURRENT_PAGE](action) {
+    this.data = this.data.setIn(['pager', 'propValues', 'currentPage'], action.currentPage);
+  }
+
+  [ComponentConstants.UPDATE_SIMPLE_COLOR_PICKER_SELECTED](action) {
+    this.data = this.data.setIn(['simple-color-picker', 'propValues', 'selectedColor'], action.selected);
+  }
+
   [ComponentConstants.UPDATE_TABLE](action) {
     let data = ImmutableHelper.parseJSON(action.items);
     this.data = this.data.setIn(['table', 'data'], data);

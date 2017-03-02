@@ -19,25 +19,7 @@ export default props => (
         text={ I18n.t('homepage.component_showcase.text') }
         align='center'
       />
-      <picture className='component-showcase__image-wrapper'>
-        <source
-          media="(max-width: 540px)"
-          srcSet={ `${global.imagePath}/components-extra-small.png 1x, ${global.imagePath}/components-extra-small-2x.png 2x, ${global.imagePath}/components-extra-small-3x.png 3x` }
-        />
-        <source
-          media="(max-width: 720px)"
-          srcSet={ `${global.imagePath}/components-small.png 1x, ${global.imagePath}/components-small-2x.png 2x, ${global.imagePath}/components-small-3x.png 3x` }
-        />
-        <source
-          media="(max-width: 1360px)"
-          srcSet={ `${global.imagePath}/components-medium.png 1x, ${global.imagePath}/components-medium-2x.png 2x, ${global.imagePath}/components-medium-3x.png 3x` }
-        />
-        <img
-          className='component-showcase__image'
-          src={ `${global.imagePath}/components-large.png` }
-          srcSet={ `${global.imagePath}/components-large-2x.png 2x, ${global.imagePath}/components-large-3x.png 3x` }
-        />
-      </picture>
+      <div className='component-showcase__image' />
     </Wrapper>
   </div>
 );
