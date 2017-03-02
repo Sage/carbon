@@ -1,3 +1,4 @@
+
 # 0.35.0
 
 ## Component Enchancements
@@ -11,6 +12,13 @@ e.g.
 ```javascript
   new DateWithinRangeValidator({ limit: 30, units: 'days' }
 ```
+
+# 0.34.4
+
+## Bug fix
+
+* `Pod`: corrects misalignment caused by centering
+
 
 # 0.34.3
 
