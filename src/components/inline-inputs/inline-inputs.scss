@@ -1,0 +1,20 @@
+.carbon-inline-inputs {
+  display: flex;
+  align-items: center;
+  .carbon-inline-inputs-label  {
+    margin-right: 15px;
+    font-weight: bold;
+  }
+}
+
+.carbon-inline-inputs {
+  .carbon-row__column input {
+    border-radius: 0px;
+  }
+  .carbon-row__column:first-of-type input {
+    border-radius: 0px 0x 0px 3px;
+  }
+  .carbon-row__column:last-of-type input {
+    border-radius: 0px 3x 0px 0px;
+  }
+}
