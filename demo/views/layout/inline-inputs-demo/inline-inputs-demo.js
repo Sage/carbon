@@ -39,7 +39,11 @@ class InlineInputsDemo extends React.Component {
       <InlineInputs label={ this.value('label') }>
         <Textbox />
         <Textbox />
-        <Dropdown options={ opts } />
+        <Dropdown
+          options={ opts }
+          onChange={ this.action.bind(this, 'dropdown') }
+          value={ this.value('dropdown') }
+        />
       </InlineInputs>
     );
   }
