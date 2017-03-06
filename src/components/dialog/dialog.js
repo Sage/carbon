@@ -59,7 +59,7 @@ class Dialog extends Modal {
      * Subtitle displayed at top of dialog
      *
      * @property subtitle
-     * @type {Object}
+     * @type {String}
      */
     subtitle: React.PropTypes.string,
 
@@ -170,11 +170,9 @@ class Dialog extends Modal {
    * @return {String} title to display
    */
   get dialogTitle() {
-    return (
-        this.props.title ?
-          <h2 className={ this.dialogTitleClasses }>{ this.props.title }</h2> :
-          null
-    );
+    if (this.props.title) {
+      return (<h2 className={ this.dialogTitleClasses }>{ this.props.title }</h2>);
+    }
   }
 
   /**
@@ -184,11 +182,9 @@ class Dialog extends Modal {
    * @return {String} subtitle to display
    */
   get dialogSubTitle() {
-    return (
-        this.props.subtitle ?
-          <p className={ this.dialogSubTitleClasses }>{ this.props.subtitle }</p> :
-          null
-    );
+    if (this.props.subtitle) {
+      return (<p className={ this.dialogSubTitleClasses }>{ this.props.subtitle }</p>);
+    }
   }
 
   /**
