@@ -1,41 +1,33 @@
 import React from 'react';
 import classNames from 'classnames';
+
+// Carbon
 import Row from './../row';
 
-class InlineInputs extends React.Component {
-  static propTypes = {
-    /**
-     * Defines the label text for the heading.
-     *
-     * @property label
-     * @type {String}
-     */
-    label: React.PropTypes.string
-  }
+let InlineInputs = (props) =>
+  <div className={ classes(props) }>
+    <label className="carbon-inline-inputs-label">{ props.label }</label>
+    <Row gutter="none" className="carbon-inline-inputs-wrapper">
+      { props.children }
+    </Row>
+  </div>
+;
 
-    /**
-   * Returns the classes for the component.
+const classes = (props) => {
+  return classNames(
+    "carbon-inline-inputs",
+    props.className
+  );
+};
+
+InlineInputs.propTypes = {
+  /**
+   * Defines the label text for the heading.
    *
-   * @method classes
-   * @return {String}
+   * @property label
+   * @type {String}
    */
-  get classes() {
-    return classNames(
-      "carbon-inline-inputs",
-      this.props.className
-    );
-  }
-
-  render() {
-    return (
-      <div className={ this.classes }>
-        <label className="carbon-inline-inputs-label">{ this.props.label }</label>
-        <Row gutter="none" className="carbon-inline-inputs-wrapper">
-          { this.props.children }
-        </Row>
-      </div>
-    );
-  }
-}
+  label: React.PropTypes.string
+};
 
 export default InlineInputs;
