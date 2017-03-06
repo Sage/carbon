@@ -10,11 +10,42 @@ When reporting an issue, please provide as much information and context as possi
 
 For any feature requests, please use the [issue tracker](https://github.com/sage/carbon/issues). When you raise the feature request, please provide as much information as possible to describe the feature required, as well as examples of how you would like the feature to work.
 
+## Pull Request Guidelines
+
+* Before submitting a pull request, check the [issue tracker](https://github.com/sage/carbon/issues) to see if the feature has already been discussed. If it has, check with us before beginning work on it to avoid duplicated effort.
+
+* If no issue has been raised, raise one and get the go-ahead before beginning work.
+
+* Create a branch from master and work in the `src` folder.
+
+* Include a detailed description of the feature you are adding in the PR. Ensure you have included information on how to setup and QA your new feature or bug-fix.
+
+## Project Structure
+
+- **`lib`**: contains transpiled files for release. This folder is transpiled during a release. Do not submit compiled JS with your PRs.
+
+- **`src`**: contains the source code in ES2015+.
+
+    - **`components`**: contains the Carbon components divided by folder. Each component contains:
+        - the component file
+        - a `__spec__.js` file
+        - a `.scss` file
+        - a `package.json`
+        - a definition file used for the demo site.
+
+    - **`utilites`**: A variety of helpers, decorators and utilities for working with Flux.
+
+    - **`style-config`**: Global styles and config for the Carbon library.
+
+## Testing
+
+* Carbon has a 100% coverage policy. Testing is done using[Jasmine](http://jasmine.github.io/2.5/introduction). We use the [Enzyme](https://github.com/airbnb/enzyme) testing utility for interacting with components in tests.
+
 ## Submitting Pull Requests
 
 When submitting a pull request, please ensure your branch meets the following criteria:
 
-* It is a passing build.
+* It is a passing build (`gulp test --build` returns success).
 * The code is fully tested and has full coverage.
 * The code follows our coding guidelines (TBC).
 * The code does not introduce unnecessary dependencies (no jQuery!).
@@ -31,7 +62,5 @@ To be merged, we prefer the pull request to be reviewed by at least two people w
 * Commit and push changes.
 * If releasing a minor version, open a PR to `master`.
 * If releasing a patch version, open a PR to `release`.
-* Once merged, create a tag in either the release or master branch. e.g. `git tag v0.1.5`
-* Push tag to Github.
-* Draft a release in GitHub from the new tag.
+* Once merged, draft a release in GitHub using the new version number as the tag. Make sure to target the correct branch (`master` or `release`).
 * If you have merged into `release`, open a PR to merge back into `master`.
