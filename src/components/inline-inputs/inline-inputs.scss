@@ -1,13 +1,13 @@
 .carbon-inline-inputs {
   display: flex;
   align-items: center;
-  .carbon-inline-inputs-label  {
+  .carbon-inline-inputs__label  {
     margin-right: 15px;
     font-weight: bold;
   }
 }
 
-.carbon-inline-inputs-wrapper {
+.carbon-inline-inputs__inputs {
   .carbon-row__column input {
     border-radius: 0px;
   }

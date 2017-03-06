@@ -5,20 +5,13 @@ import classNames from 'classnames';
 import Row from './../row';
 
 let InlineInputs = (props) =>
-  <div className={ classes(props) }>
-    <label className="carbon-inline-inputs-label">{ props.label }</label>
-    <Row gutter="none" className="carbon-inline-inputs-wrapper">
+  <div className={ classNames("carbon-inline-inputs", props.className) }>
+    <label className="carbon-inline-inputs__label">{ props.label }</label>
+    <Row gutter="none" className="carbon-inline-inputs__inputs">
       { props.children }
     </Row>
   </div>
 ;
-
-const classes = (props) => {
-  return classNames(
-    "carbon-inline-inputs",
-    props.className
-  );
-};
 
 InlineInputs.propTypes = {
   /**

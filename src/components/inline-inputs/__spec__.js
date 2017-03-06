@@ -22,20 +22,16 @@ describe('Inline Inputs', () => {
   });
 
   it('renders with main class', () => {
-    expect(wrapper.hasClass('carbon-inline-inputs')).toBeTruthy();
-  });
-
-  it('renders with custom classes', () => {
-    expect(wrapper.hasClass('my-custom-class')).toBeTruthy();
+    expect(['carbon-inline-inputs', 'my-custom-class'].every(c => wrapper.hasClass(c))).toBeTruthy();
   });
 
   it('contains a label', () => {
-    let label = wrapper.find('.carbon-inline-inputs-label');
+    let label = wrapper.find('.carbon-inline-inputs__label');
     expect(label.text()).toEqual('My Test Label');
   });
 
   it('contains a row', () => {
-    let row = wrapper.find('.carbon-inline-inputs-wrapper');
+    let row = wrapper.find('.carbon-inline-inputs__inputs');
     expect(row.length).toEqual(1);
   });
 
