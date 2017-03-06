@@ -193,14 +193,6 @@ describe('Dialog', () => {
     });
   });
 
-  describe('dialogTitleClasses', () => {
-    describe('when a props subtitle is not passed', () => {
-      it('returns the correct class for the dialog title', () => {
-        expect(instance.dialogTitleClasses).toEqual('carbon-dialog__title');
-      });
-    });
-  });
-
   describe('dialogSubTitle', () => {
     describe('when a props sub title is passed', () => {
       beforeEach(() => {
@@ -220,7 +212,6 @@ describe('Dialog', () => {
       });
     });
 
-
     describe('when a props sub title is not passed', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
@@ -234,12 +225,6 @@ describe('Dialog', () => {
       it('defaults to null', () => {
         expect(instance.dialogSubTitle).toBeFalsy();
       });
-    });
-  });
-
-  describe('dialogSubTitleClasses', () => {
-    it('returns the class for the dialog sub title', () => {
-      expect(instance.dialogSubTitleClasses).toEqual('carbon-dialog__sub-title');
     });
   });
 
