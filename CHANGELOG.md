@@ -4,6 +4,7 @@
 
 * `Date` now shows error validation when an invalid date is entered.
 * Change Flash error icon to match other notifications (now shows error icon when `as` prop is `error`)
+* `Dialog`: Added `subtitle` prop
 
 ## New Validations
 
