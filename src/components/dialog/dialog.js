@@ -56,6 +56,14 @@ class Dialog extends Modal {
     ]),
 
     /**
+     * Subtitle displayed at top of dialog
+     *
+     * @property subtitle
+     * @type {Object}
+     */
+    subtitle: React.PropTypes.string,
+
+    /**
      * Determines if the background is disabled
      * when the dialog is open
      *
@@ -170,12 +178,39 @@ class Dialog extends Modal {
   }
 
   /**
+   * Returns HTML and text for the dialog sub title.
+   *
+   * @method dialogSubTitle
+   * @return {String} subtitle to display
+   */
+  get dialogSubTitle() {
+    return (
+        this.props.subtitle ?
+          <p className={ this.dialogSubTitleClasses }>{ this.props.subtitle }</p> :
+          null
+    );
+  }
+
+  /**
    * Returns classes for the dialog title.
    *
    * @method dialogTitleClasses
    */
   get dialogTitleClasses() {
-    return 'carbon-dialog__title';
+    if (this.props.subtitle) {
+      return 'carbon-dialog__title-with-subtitle';
+    } else {
+      return 'carbon-dialog__title';
+    }
+  }
+
+  /**
+   * Returns classes for the dialog title.
+   *
+   * @method dialogTitleClasses
+   */
+  get dialogSubTitleClasses() {
+    return 'carbon-dialog__sub-title';
   }
 
   /**
@@ -224,6 +259,7 @@ class Dialog extends Modal {
     return (
       <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
         { this.dialogTitle }
+        { this.dialogSubTitle }
         { this.closeIcon }
 
         <div className='carbon-dialog__content'>
