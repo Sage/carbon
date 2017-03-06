@@ -21,14 +21,23 @@ $dialog-padding: 20px;
 .carbon-dialog__dialog--large         { width: 960px; }
 .carbon-dialog__dialog--extra-large   { width: 1080px; }
 
+.carbon-dialog__title,
+.carbon-dialog__sub-title,
+.carbon-dialog__content {
+  padding-bottom: 10px;
+}
+
+.carbon-dialog__title,
+.carbon-dialog__sub-title {
+  border-bottom: 1px solid $border-color;
+}
+
 .carbon-dialog__title {
   background: none;
-  border-bottom: 1px solid $border-color;
   color: $grey-dark-blue;
   font-size: 20px;
   font-weight: 700;
   margin: 10px 0 15px 0;
-  padding-bottom: 20px;
 }
 
 .carbon-dialog__title-with-subtitle {
@@ -39,13 +48,9 @@ $dialog-padding: 20px;
   margin: 10px 0 15px 0;
 }
 
-.carbon-dialog__sub-title {
-  border-bottom: 1px solid $border-color;
-  padding-bottom: 10px;
-}
-
 .carbon-dialog__content {
   width: 100%;
+  padding-top: 10px;
 }
 
 .carbon-dialog__close {

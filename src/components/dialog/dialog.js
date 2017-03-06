@@ -193,11 +193,7 @@ class Dialog extends Modal {
    * @method dialogTitleClasses
    */
   get dialogTitleClasses() {
-    if (this.props.subtitle) {
-      return 'carbon-dialog__title-with-subtitle';
-    } else {
-      return 'carbon-dialog__title';
-    }
+    return 'carbon-dialog__title';
   }
 
   /**
