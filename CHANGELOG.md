@@ -1,3 +1,9 @@
+# 0.34.5
+
+## Bug Fix
+
+* `Dropdown`: adds a set of ontouch events to the list in order to stop blurring from happening until after the touch event which fixes a bug with the input update on finger tap on touch screens
+
 # 0.34.4
 
 ## Bug fix
