@@ -3,6 +3,15 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('create', Create, {
+  description: `I can create a new set of content that’s grouped together visually.`,
+  designerNotes: `
+* Creates an item of data usually presented in a Pod or Fieldset, for example, an address.
+
+* __Editing a number of closely related inputs?__ Try Fieldset.
+* __Filling in a broad series of inputs?__ Try Form.
+* __Viewing content that’s grouped together visually?__ Try Pod.
+* __Using Fieldset and Pod components together?__ Try Show/Edit Pod.
+ `,
   hiddenProps: ["linkProps"],
   propValues: {
     children: "Resource Name"

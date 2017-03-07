@@ -4,6 +4,13 @@ import { uniq } from 'lodash';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('help', Help, {
+  description: `I can get help or clarification by hovering on a question mark icon.`,
+  designerNotes: `
+* Presents a tooltip when the user hovers on a question mark icon.
+
+* __Tooltip hovering on any Carbon icon?__ Try Icon.
+* __Tooltip hovering on any component?__ Try Tooltip.
+ `,
   hiddenProps: ['tooltipMessage'],
   propOptions: {
     tooltipPosition: OptionsHelper.positions,

@@ -2,6 +2,12 @@ import Heading from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('heading', Heading, {
+  description: `I can easily interpret the title of the page and its sections.`,
+  designerNotes: `
+* A standard page or section header, with a range of options, such as a help link presented as an icon, a sub-heading, a ‘Back’ icon, and visual dividers and separators.
+
+* __Presenting text?__ Try Content.
+ `,
   type: 'layout',
   propTypes: {
     title: "String",

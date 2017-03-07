@@ -4,6 +4,17 @@ import OptionsHelper from 'utils/helpers/options-helper';
 import { uniq } from 'lodash';
 
 let definition = new Definition('icon', Icon, {
+  description: `I can see a UI element or some content represented with an eye catching icon.`,
+  designerNotes: `
+* Carbon comes with about 50 standard icons to choose from. See the Icons page in the Style section.
+* A tooltip option is available within this component.
+* Many other components allow you to specify one of the standard Carbon icons to associate with them, for example, the Link component.
+
+* __Tooltip hovering on any component?__ Try Tooltip.
+* __Tooltip from a question mark icon?__ Try Help.
+* __Moving the user to another location?__ Try Link.
+* __Icons__
+ `,
   propRequires: {
     bgShape: "bgTheme",
     bgSize: "bgTheme",

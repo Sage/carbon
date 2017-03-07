@@ -3,6 +3,19 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('button', Button, {
+  description: `I can take a positive or negative action.`,
+  designerNotes: `
+* Avoid using buttons for navigation (taking the user somewhere else) - use them for performing an action or command.
+* Use a Primary configuration for positive actions that are the main goal for the user (e.g. Save, Submit, Continue).
+* Avoid placing Secondary actions on a form if you can.
+* If an action is particularly destructive (e.g. Delete or Clear), consider using Red configuration. It might be a good idea to show a confirmation dialog, or the ability to undo it too.
+* Try to create a single path to completion by aligning your action with your inputs.
+* You can disable a Button, but try to avoid this. If you need to, make it clear what the user needs to do in order to activate the Button. A good case for disabling an action is to prevent a form being submitted twice (e.g. on a payment page).
+
+* __Range of buttons where one is more important?__ Try Split Button.
+* __Range of buttons all of the same importance?__ Try Multi Action Button.
+* __Choosing one option from a highly visible range?__ Try Button Toggle.
+ `,
   propOptions: {
     as: OptionsHelper.themesBinary,
     theme: OptionsHelper.buttonColors,

@@ -4,6 +4,12 @@ import Definition from './../../../demo/utils/definition';
 import ComponentActions from './../../../demo/actions/component';
 
 let definition = new Definition('simple-color-picker', SimpleColorPicker, {
+  description: `I can choose from a small number of pre-set colour options.`,
+  designerNotes: `
+* Choose from a small palette of pre-set colours, with indication of a currently selected colour.
+
+* __Colours.__
+ `,
   hiddenProps: ['availableColors'],
   propTypes: {
     availableColors: "Array",

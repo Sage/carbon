@@ -4,6 +4,14 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { uniq } from 'lodash';
 
 let definition = new Definition('tooltip', Tooltip, {
+  description: `I can see additional information by hovering on a component.`,
+  designerNotes: `
+* A short paragraph of plain-text information shown to the user in context when they hover on any component. For example, to define how a particular figure is calculated, or the definition of a difficult technical term.
+
+* __Tooltip hovering on any Carbon icon?__ Try Icon.
+* __Tooltip from a question mark icon?__ Try Help.
+* __Icons__
+`,
   type: 'miscellaneous',
   propValues: {
     isVisible: true,

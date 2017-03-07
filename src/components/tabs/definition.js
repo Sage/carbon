@@ -4,6 +4,20 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import tabDefinition from './tab/definition';
 
 let definition = new Definition('tabs', Tabs, {
+  description: `I can quickly view variants of a page or filter Table content.`,
+  designerNotes: `
+* Switch between variants of a single page, or apply an overall filter to a Table component (e.g. a Table showing unread and read emails).
+* There are two position options:
+* __Top - shows the tabs in a line, typically above a Table - best for short lists of tabs.
+* __Left - show the tables in a column, typically to the left of a Table - best for longer lists of tabs.
+* You can also set the left or right alignment of the tabs. This configuration:
+* __Sets the text alignment for ‘Left’ tabs.
+* __Sets left or right page position for ‘Top’ tabs.
+* Only use tabs if there’s more than one, and show the content of one tab by default. Avoid multiple rows of tabs, nested tabs, or using vertical and horizontal tabs at the same time.
+
+* __Navigating the hierarchy of the app?__ Try Menu. 
+* __Positioning your primary navigation?__ Try Navigation Bar.
+`,
   type: 'layout',
   associatedDefinitions: [tabDefinition],
   propOptions: {
