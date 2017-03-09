@@ -1,0 +1,17 @@
+@import "./../../../style-config/colors";
+
+.carbon-form-summary {
+  display: inline-flex;
+
+  &__error-summary {
+    .carbon-icon {
+      color: $error;
+    }
+  }
+
+  &__warning-summary {
+    .carbon-icon {
+      color: $warning;
+    }
+  }
+}

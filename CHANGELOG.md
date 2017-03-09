@@ -3,7 +3,8 @@
 ## Component Enchancements
 
 * `Date` now shows error validation when an invalid date is entered.
-* Change Flash error icon to match other notifications (now shows error icon when `as` prop is `error`)
+* `Flash`: Change error icon to match other notifications (now shows error icon when `as` prop is `error`)
+* `Form`: adds error and warning icons (and refactors the summary into its own sub-component)
 
 ## New Validations
 

@@ -5,6 +5,8 @@ import Serialize from "form-serialize";
 import classNames from 'classnames';
 import { assign } from 'lodash';
 
+import FormSummary from './form-summary';
+
 /**
  * A Form widget.
  *
@@ -520,27 +522,16 @@ class Form extends React.Component {
    * @return {Object} JSX save button
    */
   get saveButton() {
-    let errorCount,
-        saveClasses = classNames(
+    let saveClasses = classNames(
           "carbon-form__save", {
             "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
           }
         ),
         saveProps = assign({}, this.props.saveButtonProps, { as: 'primary', disabled: this.props.saving });
 
-    if (this.state.errorCount || this.state.warningCount) {
-      // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
-      errorCount = (
-        <span
-          className="carbon-form__summary"
-          dangerouslySetInnerHTML={ renderMessage(this.state.errorCount, this.state.warningCount) }
-        />
-      );
-    }
-
     return (
       <div className={ saveClasses }>
-        { errorCount }
+        <FormSummary errors={ this.state.errorCount } warnings={ this.state.warningCount } />
         <Button { ...saveProps }>
           { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
         </Button>
@@ -605,49 +596,6 @@ function generateCSRFToken(doc) {
   }
 
   return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
-}
-
-/**
- * Constructs validations error message
- *
- * @private
- * @method renderMessage
- * @param {Integer} count number of errors
- * @param {Integer} count number of warnings
- * @return {Object} JSX Error message
- */
-function renderMessage(errors, warnings) {
-  let message;
-
-  if (errors) {
-    message =  I18n.t("errors.messages.form_summary.errors", {
-      defaultValue: {
-        one: `There is ${ errors } error`,
-        other: `There are ${ errors } errors`
-      },
-      count: errors
-    });
-  }
-
-  if (errors && warnings) {
-    message +=  I18n.t("errors.messages.form_summary.errors_and_warnings", {
-      defaultValue: {
-        one: ` and ${ warnings } warning`,
-        other: ` and ${ warnings } warnings`
-      },
-      count: warnings
-    });
-  } else if (warnings) {
-    message =  I18n.t("errors.messages.form_summary.warnings", {
-      defaultValue: {
-        one: `There is ${ warnings } warning`,
-        other: `There are ${ warnings } warnings`
-      },
-      count: warnings
-    });
-  }
-
-  return { __html: message };
 }
 
 export default Form;
