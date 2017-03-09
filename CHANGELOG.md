@@ -1,3 +1,9 @@
+# 0.34.5
+
+## Bug fix
+
+* `TableHeader`: fix overflow issue so that tooltip / help components aren't cut off.
+
 # 0.34.4
 
 ## Bug fix
