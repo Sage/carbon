@@ -1,3 +1,9 @@
+# 0.34.5
+
+## Bug fix
+
+* `Decimal`: fix issue where `visibleValue` was not updated after a change to `precision`.
+
 # 0.34.4
 
 ## Bug fix
