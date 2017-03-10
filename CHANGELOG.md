@@ -1,3 +1,7 @@
+# 0.35.0
+
+* Change Flash error icon to match other notifications (now shows error icon when `as` prop is `error`)
+
 # 0.34.4
 
 ## Bug fix

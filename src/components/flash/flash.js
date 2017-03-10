@@ -332,9 +332,6 @@ class Flash extends React.Component {
       case 'success':
         icon = 'tick';
         break;
-      case 'error':
-        icon = 'warning';
-        break;
       default:
         icon = this.props.as;
         break;
