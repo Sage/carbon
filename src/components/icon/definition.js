@@ -1,7 +1,6 @@
 import Icon from './';
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
-import { uniq } from 'lodash';
 
 let definition = new Definition('icon', Icon, {
   description: `I can see a UI element or some content represented with an eye catching icon.`,
@@ -29,7 +28,7 @@ let definition = new Definition('icon', Icon, {
     bgSize: OptionsHelper.sizesRestricted,
     bgShape: OptionsHelper.shapes,
     bgTheme: OptionsHelper.colors,
-    tooltipAlign: uniq(OptionsHelper.positions.concat(OptionsHelper.alignFull)),
+    tooltipAlign: OptionsHelper.alignAroundEdges,
     tooltipPosition: OptionsHelper.positions,
   },
   propTypes: {
