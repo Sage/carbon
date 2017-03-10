@@ -1,6 +1,5 @@
 import Help from './';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { uniq } from 'lodash';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('help', Help, {
@@ -14,7 +13,7 @@ let definition = new Definition('help', Help, {
   hiddenProps: ['tooltipMessage'],
   propOptions: {
     tooltipPosition: OptionsHelper.positions,
-    tooltipAlign: uniq(OptionsHelper.positions.concat(OptionsHelper.alignFull)),
+    tooltipAlign: OptionsHelper.alignAroundEdges
   },
   propRequires: {
     tooltipAlign: 'children',
