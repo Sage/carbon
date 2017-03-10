@@ -3,7 +3,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('alert', Alert, {
-  description: `I can see very important error or warning message interrupts my activity, but I can dismiss it when I choose.`,
+  description: `An important message interrupts my activity, but I can dismiss it when I choose.`,
   designerNotes: `
 * Useful if a message is so important you’d like to prevent any other activity until the user resolves it.
 * If the message isn’t so important, or you want to avoid disrupting the user’s activity, consider showing a static Message component in the underlying screen.

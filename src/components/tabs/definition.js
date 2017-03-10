@@ -4,9 +4,9 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import tabDefinition from './tab/definition';
 
 let definition = new Definition('tabs', Tabs, {
-  description: `I can quickly view variants of a page or filter Table content.`,
+  description: `I can quickly switch between variants of a page or different tables.`,
   designerNotes: `
-* Switch between variants of a single page, or apply an overall filter to a Table component (e.g. a Table showing unread and read emails).
+* switch between variants of a page or different tables (e.g. separate tables showing unread and read emails).
 * There are two position options:
 * __Top - shows the tabs in a line, typically above a Table - best for short lists of tabs.
 * __Left - show the tables in a column, typically to the left of a Table - best for longer lists of tabs.

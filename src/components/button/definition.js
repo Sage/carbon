@@ -3,7 +3,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('button', Button, {
-  description: `I can take a positive or negative action.`,
+  description: `I can take an action.`,
   designerNotes: `
 * Avoid using buttons for navigation (taking the user somewhere else) - use them for performing an action or command.
 * Use a Primary configuration for positive actions that are the main goal for the user (e.g. Save, Submit, Continue).
