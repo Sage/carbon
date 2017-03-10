@@ -1,6 +1,7 @@
 import SimpleColorPicker from './';
 import OptionsHelper from './../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
+import ComponentActions from './../../../demo/actions/component';
 
 let definition = new Definition('simple-color-picker', SimpleColorPicker, {
   hiddenProps: ['availableColors'],
@@ -13,6 +14,7 @@ let definition = new Definition('simple-color-picker', SimpleColorPicker, {
   propValues: {
     availableColors: "['#00DC00', '#255BC7', '#ED1C5F']",
     name: "color",
+    onChange: ComponentActions.updateSimpleColorPickerSelected,
     selectedColor: "#00DC00"
   },
   propDescriptions: {
