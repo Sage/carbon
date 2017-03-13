@@ -34,7 +34,9 @@ let definition = new Definition('link', Link, {
   },
   propOptions: {
     icon: OptionsHelper.icons,
-    iconAlign: OptionsHelper.alignBinary
+    iconAlign: OptionsHelper.alignBinary,
+    tooltipAlign: OptionsHelper.alignAroundEdges,
+    tooltipPosition: OptionsHelper.positions
   }
 });
 

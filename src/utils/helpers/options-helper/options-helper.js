@@ -15,6 +15,14 @@ let OptionsHelper = {
     'right'
   ],
 
+  alignAroundEdges: [
+    'bottom',
+    'center',
+    'left',
+    'right',
+    'top'
+  ],
+
   buttonColors: [
     'blue',
     'grey',
