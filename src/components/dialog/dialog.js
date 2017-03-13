@@ -171,8 +171,10 @@ class Dialog extends Modal {
    */
   get dialogTitle() {
     if (this.props.title) {
-      return (<h2 className={ this.dialogTitleClasses }>{ this.props.title }</h2>);
+      return <h2 className={ this.dialogTitleClasses }>{ this.props.title }</h2>;
     }
+
+    return null;
   }
 
   /**
@@ -185,6 +187,8 @@ class Dialog extends Modal {
     if (this.props.subtitle) {
       return <p className={ this.dialogSubtitleClasses }>{ this.props.subtitle }</p>;
     }
+
+    return null;
   }
 
   /**
