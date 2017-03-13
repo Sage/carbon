@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Number from './number';
 
-describe('Number', () => {
+fdescribe('Number', () => {
   let instance, input,
     spy = jasmine.createSpy('spy');
 
@@ -40,35 +40,42 @@ describe('Number', () => {
       });
     });
 
-    describe('when it is not a valid number', () => {
-      let setSelectionSpy;
+    const invalidNumbers = [
+      'abcdefghij', 
+      '-'
+    ];
+    invalidNumbers.forEach((val) => {
+      describe('when it is not a valid number', () => {
+        let setSelectionSpy;
 
-      beforeEach(() => {
-        setSelectionSpy = jasmine.createSpy();
+        beforeEach(() => {
+          setSelectionSpy = jasmine.createSpy();
 
-        instance.selectionStart = 2;
-        instance.selectionEnd = 4;
+          instance.selectionStart = 2;
+          instance.selectionEnd = 4;
 
-        TestUtils.Simulate.change(input, {
-          target: {
-            value: 'abcdefghij',
-            setSelectionRange: setSelectionSpy
-          }
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: val,
+              setSelectionRange: setSelectionSpy
+            }
+          });
+        });
+
+        it('does not call the decorators handleOnChange', () => {
+          expect(instance._handleOnChange).not.toHaveBeenCalled();
+        });
+
+        it('does not update the input value', () => {
+          expect(input.value).toEqual(instance.props.value);
+        });
+
+        it('calls setSelectionRange', () => {
+          expect(setSelectionSpy).toHaveBeenCalledWith(2, 4);
         });
       });
-
-      it('does not call the decorators handleOnChange', () => {
-        expect(instance._handleOnChange).not.toHaveBeenCalled();
-      });
-
-      it('does not update the input value', () => {
-        expect(input.value).toEqual(instance.props.value);
-      });
-
-      it('calls setSelectionRange', () => {
-        expect(setSelectionSpy).toHaveBeenCalledWith(2, 4);
-      });
     });
+
 
     describe('when the value porp is undefined', () => {
       it('sets input value to be null', () => {
