@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Number from './number';
 
-fdescribe('Number', () => {
+describe('Number', () => {
   let instance, input,
     spy = jasmine.createSpy('spy');
 
@@ -77,7 +77,7 @@ fdescribe('Number', () => {
     });
 
 
-    describe('when the value porp is undefined', () => {
+    describe('when the value prop is undefined', () => {
       it('sets input value to be null', () => {
         instance = TestUtils.renderIntoDocument(<Number
           name="Dummy Number"

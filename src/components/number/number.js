@@ -134,7 +134,6 @@ function isValidNumber(value) {
   result = regex.test(value);
 
   return result;
-  // return Number.isInteger(value);
 }
 
 export default Number;
