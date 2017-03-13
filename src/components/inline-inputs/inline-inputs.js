@@ -6,12 +6,18 @@ import Row from './../row';
 
 let InlineInputs = (props) =>
   <div className={ classNames("carbon-inline-inputs", props.className) }>
-    <label className="carbon-inline-inputs__label">{ props.label }</label>
+    { label(props) }
     <Row gutter="none" className="carbon-inline-inputs__inputs">
       { props.children }
     </Row>
   </div>
 ;
+
+let label = (props) => {
+  if (props.label) {
+    return <label className="carbon-inline-inputs__label">{ props.label }</label>;
+  }
+};
 
 InlineInputs.propTypes = {
   /**

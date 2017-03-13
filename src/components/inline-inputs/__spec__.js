@@ -25,9 +25,29 @@ describe('Inline Inputs', () => {
     expect(['carbon-inline-inputs', 'my-custom-class'].every(c => wrapper.hasClass(c))).toBeTruthy();
   });
 
-  it('contains a label', () => {
-    let label = wrapper.find('.carbon-inline-inputs__label');
-    expect(label.text()).toEqual('My Test Label');
+  describe('when a label prop is passed in', () => {
+    it('contains a label', () => {
+      let label = wrapper.find('.carbon-inline-inputs__label');
+      expect(label.text()).toEqual('My Test Label');
+    });
+  });
+
+  describe('when a label prop is not passed in', () => {
+    beforeEach(() => {
+      wrapper = shallow(
+        <InlineInputs
+          className='my-custom-class'
+        >
+          <Textbox />
+          <Textbox />
+        </ InlineInputs>
+      );
+    });
+
+    it('does not contain a label', () => {
+      let label = wrapper.find('.carbon-inline-inputs__label');
+      expect(label.length).toEqual(0);
+    });
   });
 
   it('contains a row', () => {
