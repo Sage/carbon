@@ -2,6 +2,8 @@
 
 ## Bug fix
 
+* `TableHeader`: fix overflow issue so that tooltip / help components aren't cut off.
+* `Decimal`: fix issue where `visibleValue` was not updated after a change to `precision`.
 * `Number`: prevent '-' being validated as numeric.
 
 # 0.34.4
