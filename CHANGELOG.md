@@ -1,3 +1,9 @@
+# 0.34.5
+
+## Bug fix
+
+* `Number`: prevent '-' being validated as numeric.
+
 # 0.34.4
 
 ## Bug fix
