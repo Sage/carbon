@@ -3,6 +3,7 @@
 ## Bug fix
 
 * `TableHeader`: fix overflow issue so that tooltip / help components aren't cut off.
+* `TableHeader`: fix alignment of sort icon in IE11.
 * `Decimal`: fix issue where `visibleValue` was not updated after a change to `precision`.
 
 # 0.34.4
