@@ -79,6 +79,13 @@
   }
 }
 
+// Fix for IE11 mis-aligned icon
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .carbon-table-header__icon {
+    margin-top: 3px;
+  }
+}
+
 .carbon-table-header__icon--align-right {
   position: relative;
   top: 0;
