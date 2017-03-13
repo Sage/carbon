@@ -39,7 +39,7 @@ For any feature requests, please use the [issue tracker](https://github.com/sage
 
 ## Testing
 
-* Carbon has a 100% coverage policy. Testing is done using[Jasmine](http://jasmine.github.io/2.5/introduction). We use the [Enzyme](https://github.com/airbnb/enzyme) testing utility for interacting with components in tests.
+* Carbon has a 100% coverage policy. Testing is done using [Jasmine](http://jasmine.github.io/2.5/introduction). We use the [Enzyme](https://github.com/airbnb/enzyme) testing utility for interacting with components in tests.
 
 ## Submitting Pull Requests
 
@@ -51,16 +51,3 @@ When submitting a pull request, please ensure your branch meets the following cr
 * The code does not introduce unnecessary dependencies (no jQuery!).
 
 To be merged, we prefer the pull request to be reviewed by at least two people with merge rights.
-
-## Submitting a Release
-
-* Bump the version in `package.json`.
-* Ensure the `CHANGELOG.md` is up to date.
-* Run `npm run-script release` to update `/lib`.
-* If releasing a minor version, create a branch from `master`.
-* If releasing a patch version, create a branch from `release`.
-* Commit and push changes.
-* If releasing a minor version, open a PR to `master`.
-* If releasing a patch version, open a PR to `release`.
-* Once merged, draft a release in GitHub using the new version number as the tag. Make sure to target the correct branch (`master` or `release`).
-* If you have merged into `release`, open a PR to merge back into `master`.
