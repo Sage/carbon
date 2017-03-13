@@ -1,96 +1,77 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
 
-class Detail extends React.Component {
-  static propTypes = {
-    /**
-     * The type of icon to use.
-     *
-     * @property icon
-     * @type {Object}
-     */
-    icon: React.PropTypes.string,
-
-    /**
-     * A small detail to display under the main content.
-     *
-     * @property footnote
-     * @type {String}
-     */
-    footnote: React.PropTypes.string,
-
-    /**
-     * The rendered children of the component.
-     *
-     * @property children
-     * @type {Node}
-     */
-    children: React.PropTypes.node
-  }
-
-  /**
-   * Returns the classes for the component.
-   *
-   * @method classes
-   * @return {String}
-   */
-  get classes() {
-    return classNames(
-      "carbon-detail",
-      this.props.className, {
-        "carbon-detail--has-icon": this.props.icon
-      }
-    );
-  }
-
-  /**
-   * Returns the markup for the icon if one if specified.
-   *
-   * @method icon
-   * @return {Object} JSX
-   */
-  icon = () => {
-    if (!this.props.icon) { return null; }
-
-    return (
-      <Icon className="carbon-detail__icon" type={ this.props.icon } />
-    );
-  }
-
-  /**
-   * Returns the markup for the footnote if one if specified.
-   *
-   * @method footnote
-   * @return {Object} JSX
-   */
-  footnote = () => {
-    if (!this.props.footnote) { return null; }
-
-    return (
-      <div className="carbon-detail__footnote">
-        { this.props.footnote }
-      </div>
-    );
-  }
-
-  /**
-   * @method render
-   * @return {Object} JSX
-   */
-  render() {
-    return (
-      <div className={ this.classes }>
-        { this.icon() }
-
-        <div className="carbon-detail__content">
-          { this.props.children }
-        </div>
-
-        { this.footnote() }
-      </div>
-    );
-  }
+const propTypes = {
+  icon:     PropTypes.string,
+  footnote: PropTypes.string,
+  children: PropTypes.node
 }
+
+const Detail = (props) => {
+  return (
+    <div className={ classes(props.className, props.icon) }>
+      { renderIcon(props.icon) }
+
+      <div className="carbon-detail__content">
+        { props.children }
+      </div>
+
+      { renderFootnote(props.footnote) }
+    </div>
+  );
+}
+
+/**
+ * Concatenates the classes for the top level element in the component.
+ *
+ * @private
+ * @method classes
+ * @param {String} className - classes passed down to this instance.
+ * @param {String} icon - the specified icon used for this instance.
+ * @return {String}
+ */
+function classes(className, icon) {
+  return classNames(
+    "carbon-detail",
+    className, {
+      "carbon-detail--has-icon": icon
+    }
+  );
+}
+
+/**
+ * Returns the markup for the icon, if one is specified.
+ *
+ * @private
+ * @method icon
+ * @param {String} icon - the specified icon used for this instance.
+ * @return {Node}
+ */
+function renderIcon(icon) {
+  if (!icon) { return null; }
+  return <Icon className="carbon-detail__icon" type={ icon } />;
+}
+
+/**
+ * Returns the markup for the footnote, if ones is specified.
+ *
+ * @private
+ * @method renderFootnote
+ * @param {String} footnote - the string to render for the footnote.
+ * @return {Node}
+ */
+function renderFootnote(footnote) {
+  if (!footnote) { return null; }
+
+  return (
+    <div className="carbon-detail__footnote">
+      { footnote }
+    </div>
+  );
+}
+
+// assign the propTypes to the component
+Detail.propTypes = propTypes;
 
 export default Detail;
