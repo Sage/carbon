@@ -194,7 +194,7 @@ describe('Dialog', () => {
   });
 
   describe('dialogSubTitle', () => {
-    describe('when a props sub title is passed', () => {
+    describe('when a props subtitle is passed', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
@@ -207,12 +207,12 @@ describe('Dialog', () => {
 
       it('sets a dialog subtitle', () => {
         let subtitle = TestUtils.findRenderedDOMComponentWithTag(instance, 'p');
-        expect(subtitle.classList[0]).toEqual('carbon-dialog__sub-title');
+        expect(subtitle.classList[0]).toEqual('carbon-dialog__subtitle');
         expect(subtitle.textContent).toEqual('My informative subtitle');
       });
     });
 
-    describe('when a props sub title is not passed', () => {
+    describe('when a props subtitle is not passed', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
           <Dialog

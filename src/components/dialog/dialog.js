@@ -176,14 +176,14 @@ class Dialog extends Modal {
   }
 
   /**
-   * Returns HTML and text for the dialog sub title.
+   * Returns HTML and text for the dialog subtitle.
    *
-   * @method dialogSubTitle
+   * @method dialogSubtitle
    * @return {String} subtitle to display
    */
-  get dialogSubTitle() {
+  get dialogSubtitle() {
     if (this.props.subtitle) {
-      return (<p className={ this.dialogSubTitleClasses }>{ this.props.subtitle }</p>);
+      return <p className={ this.dialogSubtitleClasses }>{ this.props.subtitle }</p>;
     }
   }
 
@@ -201,8 +201,8 @@ class Dialog extends Modal {
    *
    * @method dialogTitleClasses
    */
-  get dialogSubTitleClasses() {
-    return 'carbon-dialog__sub-title';
+  get dialogSubtitleClasses() {
+    return 'carbon-dialog__subtitle';
   }
 
   /**
@@ -251,7 +251,7 @@ class Dialog extends Modal {
     return (
       <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
         { this.dialogTitle }
-        { this.dialogSubTitle }
+        { this.dialogSubtitle }
         { this.closeIcon }
 
         <div className='carbon-dialog__content'>
