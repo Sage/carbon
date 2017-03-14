@@ -157,6 +157,14 @@ class Table extends React.Component {
     highlightable: React.PropTypes.bool,
 
     /**
+     * Enables drag and drop on the table rows.
+     *
+     * @property draggableRows
+     * @type {Boolean}
+     */
+    draggableRows: React.PropTypes.bool,
+
+    /**
      * A callback for when a row is selected.
      *
      * @property onSelect
@@ -212,6 +220,16 @@ class Table extends React.Component {
      * @type {Object}
      */
     tbody: React.PropTypes.bool
+  }
+
+  /**
+   * Default props
+   *
+   * @property defaultProps
+   * @type {Object}
+   */
+  static defaultProps = {
+    draggableRows: false
   }
 
   /**

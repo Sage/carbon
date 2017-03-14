@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
 
-describe('Table', () => {
+fdescribe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy;
 
   beforeEach(() => {
@@ -915,6 +915,13 @@ describe('Table', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
       expect(parent.className).toEqual('carbon-table foo');
+    });
+  });
+
+  describe('draggableRows', () => {
+    it('defaults to false', () => {
+      instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable={ true }><TableRow uniqueID="foo" /></Table>);
+      expect(instance.props.draggableRows).toBe(false);
     });
   });
 });
