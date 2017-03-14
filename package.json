@@ -55,6 +55,8 @@
     "marked": "~0.3.6",
     "moment": "~2.15.1",
     "react-date-picker": "~5.3.28",
+    "react-dnd": "^2.2.4",
+    "react-highcharts": "~5.0.4",
     "superagent": "~2.2.0"
   }
 }
