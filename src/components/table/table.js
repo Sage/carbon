@@ -855,6 +855,7 @@ class Table extends React.Component {
    */
   get thead() {
     if (this.props.thead) {
+      // TODO { this.draggableRows && <TableCell />
       return (
         <thead className="carbon-table__header">
           { this.props.thead }
@@ -947,6 +948,7 @@ class Table extends React.Component {
     }
 
     if (hasChildren) {
+      console.log(children);
       return children;
     } else if (this._hasRetreivedData) {
       return this.emptyRow;
