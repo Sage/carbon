@@ -920,8 +920,13 @@ fdescribe('Table', () => {
 
   describe('draggableRows', () => {
     it('defaults to false', () => {
-      instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable={ true }><TableRow uniqueID="foo" /></Table>);
+      instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo" /></Table>);
       expect(instance.props.draggableRows).toBe(false);
+    });
+
+    it('can be set to true', () => {
+      instance = TestUtils.renderIntoDocument(<Table draggableRows={ true }><TableRow uniqueID="foo" /></Table>);
+      expect(instance.props.draggableRows).toBe(true);
     });
   });
 });
