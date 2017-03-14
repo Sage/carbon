@@ -1,9 +1,9 @@
-
 # 0.35.0
 
 ## Component Enchancements
 
 * `Date` now shows error validation when an invalid date is entered.
+* Change Flash error icon to match other notifications (now shows error icon when `as` prop is `error`)
 
 ## New Validations
 
