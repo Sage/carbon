@@ -20,6 +20,8 @@ For any feature requests, please use the [issue tracker](https://github.com/sage
 
 * Include a detailed description of the feature you are adding in the PR. Ensure you have included information on how to setup and QA your new feature or bug-fix.
 
+* We prefer detailed commit messages and squashed commits. PRs with commit messages like 'WIP' and 'addressed comments', or long lists of commits will likely require amending."
+
 ## Project Structure
 
 - **`lib`**: contains transpiled files for release. This folder is transpiled during a release. Do not submit compiled JS with your PRs.
@@ -29,7 +31,7 @@ For any feature requests, please use the [issue tracker](https://github.com/sage
     - **`components`**: contains the Carbon components divided by folder. Each component contains:
         - the component file
         - a `__spec__.js` file
-        - a `.scss` file
+        - a `.scss` file (if required)
         - a `package.json`
         - a definition file used for the demo site.
 
@@ -40,6 +42,8 @@ For any feature requests, please use the [issue tracker](https://github.com/sage
 ## Testing
 
 * Carbon has a 100% coverage policy. Testing is done using [Jasmine](http://jasmine.github.io/2.5/introduction). We use the [Enzyme](https://github.com/airbnb/enzyme) testing utility for interacting with components in tests.
+* Legacy code used React Testutils - we are currently in the process of migrating to 100% Enzyme usage.
+* New tests need to be written using Enzyme - it's ok for a Testutils and Enzyme to be mixed in a legacy code file.
 
 ## Submitting Pull Requests
 
