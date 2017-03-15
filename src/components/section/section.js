@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 
 /**
  * A section wrapper.
@@ -20,19 +19,14 @@ import classNames from 'classnames';
  * @constructor
  */
 class Section extends React.Component {
-
   static propTypes = {
-
     /**
      * The elements to be rendered in the section
      *
      * @property children
-     * @type {Object | Array}
+     * @type {Node}
      */
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object
-    ]),
+    children: React.PropTypes.node,
 
     /**
      * Pass a custom value for the title
@@ -44,19 +38,6 @@ class Section extends React.Component {
   }
 
   /**
-   * Main Class getter
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
-  get mainClasses() {
-    return classNames(
-      'carbon-section',
-      this.props.className
-    );
-  }
-
-  /**
    * Renders the component.
    *
    * @method render
@@ -64,8 +45,8 @@ class Section extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
-        <h2>{ this.props.title }</h2>
+      <div className={ `carbon-section ${this.props.className}` }>
+        <h2 className='carbon-section__title'>{ this.props.title }</h2>
         { this.props.children }
       </div>
     );

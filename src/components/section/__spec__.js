@@ -3,10 +3,10 @@ import { shallow } from 'enzyme';
 import Section from './section';
 
 describe('Section', () => {
-  let instance, section, children;
+  let wrapper, children;
 
   beforeEach(() => {
-    instance = shallow(
+    wrapper = shallow(
       <Section
         className='my__custom-class'
         title="My Section Title"
@@ -17,15 +17,16 @@ describe('Section', () => {
   });
 
   it('renders with main and custom classes', () => {
-    expect(instance.hasClass('carbon-section')).toBeTruthy();
-    expect(instance.hasClass('my__custom-class')).toBeTruthy();
+    expect(wrapper.find('.carbon-section')).toBeTruthy()
+    expect(wrapper.find('.my__custom-class')).toBeTruthy()
   });
 
-  it('first renders a h2 with the title', () => {
-    expect(instance.children().get(0)).toEqual(<h2>My Section Title</h2>)
+  it('renders a title', () => {
+    let title = wrapper.find('.carbon-section__title')
+    expect(title.text()).toEqual('My Section Title')
   });
 
-  it('second renders the children content', () => {
-    expect(instance.children().get(1)).toEqual(<p>This is some content</p>);
+  it('renders the children content', () => {
+    expect(wrapper.contains(<p>This is some content</p>)).toBeTruthy();
   });
 });

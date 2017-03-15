@@ -7,7 +7,7 @@ let definition = new Definition('section', Section, {
     title: 'This is my title',
     children: "This is where some content would live"
   },
-  requiredProps: ['children'],
+  requiredProps: ['title'],
   propTypes: {
     title: "String",
     children: "Array or Object",
