@@ -950,8 +950,17 @@ class Table extends React.Component {
     }
 
     if (hasChildren) {
-      console.log(children);
-      return children;
+      if (this.props.draggableRows) {
+        return React.Children.map(children, (child) => {
+          if (child.type === TableRow) {
+            return React.createElement(DraggableRow, child.props);
+          } else {
+            return child;
+          }
+        });
+      } else {
+        return children;
+      }
     } else if (this._hasRetreivedData) {
       return this.emptyRow;
     } else {
@@ -966,7 +975,13 @@ class Table extends React.Component {
    * @return {Object} JSX
    */
   get tbody() {
-    if (this.props.tbody === false) {
+    if (this.props.draggableRows) {
+      return (
+        <DroppableTbody>
+          {this.tableContent}
+        </DroppableTbody>
+      );
+    } else if (this.props.tbody === false) {
       return this.tableContent;
     } else {
       return (
