@@ -159,6 +159,14 @@ class Table extends React.Component {
     highlightable: React.PropTypes.bool,
 
     /**
+     * Enables drag and drop on the table rows.
+     *
+     * @property draggableRows
+     * @type {Boolean}
+     */
+    draggableRows: React.PropTypes.bool,
+
+    /**
      * A callback for when a row is selected.
      *
      * @property onSelect
@@ -214,6 +222,16 @@ class Table extends React.Component {
      * @type {Object}
      */
     tbody: React.PropTypes.bool
+  }
+
+  /**
+   * Default props
+   *
+   * @property defaultProps
+   * @type {Object}
+   */
+  static defaultProps = {
+    draggableRows: false
   }
 
   /**
@@ -839,6 +857,7 @@ class Table extends React.Component {
    */
   get thead() {
     if (this.props.thead) {
+      // TODO { this.draggableRows && <TableCell />
       return (
         <thead className="carbon-table__header">
           { this.props.thead }
@@ -931,6 +950,7 @@ class Table extends React.Component {
     }
 
     if (hasChildren) {
+      console.log(children);
       return children;
     } else if (this._hasRetreivedData) {
       return this.emptyRow;
