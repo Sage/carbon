@@ -5,7 +5,7 @@ import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
 import { shallow } from 'enzyme';
 
-fdescribe('Table', () => {
+describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy;
 
   beforeEach(() => {
@@ -931,17 +931,7 @@ fdescribe('Table', () => {
     });
 
     describe('when set to true', () => {
-      it('adds an empty table cell to the first row', () => {
-        let wrapper = shallow(
-          <Table draggableRows={ true }>
-            <TableRow uniqueID="foo">
-              <TableHeader name='name'/>
-            </TableRow>
-          </Table>);
-
-        expect(wrapper.find('TableRow > TableCell').length).toBe(1);
-      });
-
+      // TODO
     });
   });
 });
