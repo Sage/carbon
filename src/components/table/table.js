@@ -8,6 +8,8 @@ import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import TableSubheader from './table-subheader';
+import DraggableRow from './draggable-row';
+import DroppableTbody from './droppable-tbody';
 import Pager from './../pager';
 import Spinner from './../spinner';
 
@@ -1001,5 +1003,7 @@ export {
   TableRow,
   TableCell,
   TableHeader,
-  TableSubheader
+  TableSubheader,
+  DraggableRow,
+  DroppableTbody
 };
