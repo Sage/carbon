@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import TableRow from './../table-row';
 import { DragSource, DropTarget } from 'react-dnd';
 import Link from 'components/Link';
@@ -36,7 +37,7 @@ const itemTarget = {
     }
 
     // Determine rectangle on screen
-    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+    const hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
 
     // Get vertical middle
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -73,25 +74,19 @@ const itemTarget = {
 
 class DraggableRow extends React.Component {
 
-  dragIcon = () => {
-    if (this.props.placeholder) {
-      return null;
-    } else {
-      return <Link icon="list_view" />;
-    }
-  }
-
   /**
    * Renders the component.
    *
    * @method render
    */
   render() {
-    return (
+    const { connectDragSource, connectDropTarget } = this.props;
+
+    return connectDragSource(connectDropTarget(
       <tr {...this.props}>
         {this.props.children}
       </tr>
-    );
+    ));
   }
 }
 
