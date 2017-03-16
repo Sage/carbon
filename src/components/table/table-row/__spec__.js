@@ -5,6 +5,7 @@ import TableRow from './table-row';
 import TableHeader from './../table-header';
 import Icon from './../../icon';
 import Checkbox from './../../checkbox';
+import { shallow } from 'enzyme';
 
 describe('TableRow', () => {
   let instance, clickableInstance, row;
@@ -420,6 +421,13 @@ describe('TableRow', () => {
         let th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
         expect(th).toBeTruthy();
       });
+    });
+  });
+
+  describe('draggable', () => {
+    it('defaults to false', () => {
+      let wrapper = shallow(<TableRow uniqueID="foo" />);
+      expect(wrapper.props().draggable).toBe(false);
     });
   });
 });
