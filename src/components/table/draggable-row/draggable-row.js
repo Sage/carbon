@@ -72,7 +72,11 @@ const itemTarget = {
   }
 };
 
-class DraggableRow extends React.Component {
+class DraggableRow extends TableRow {
+
+  constructor(props) {
+    super(props);
+  }
 
   /**
    * Renders the component.
@@ -82,11 +86,7 @@ class DraggableRow extends React.Component {
   render() {
     const { connectDragSource, connectDropTarget } = this.props;
 
-    return connectDragSource(connectDropTarget(
-      <tr {...this.props}>
-        {this.props.children}
-      </tr>
-    ));
+    return connectDragSource(connectDropTarget(super.render()));
   }
 }
 
