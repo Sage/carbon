@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Input from './input';
 import Icon from './../../../components/icon';
+import Help from './../../../components/help';
 
 class TestClassOne extends React.Component {
   get mainClasses() {
@@ -306,6 +307,16 @@ describe('Input', () => {
       }));
       expect(instance.iconHTML.props.className).toEqual('common-input__input-icon');
       expect(instance.iconHTML.props.children).toEqual(<Icon type='foo' />);
+    });
+  });
+
+  describe('inputHelpHTML', () => {
+    it('returns a div with a icon', () => {
+      instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+        inputHelp: "Here is some help"
+      }));
+      expect(instance.inputHelpHTML.props.className).toEqual('common-input__input-help');
+      expect(instance.inputHelpHTML.props.children).toEqual('Here is some help');
     });
   });
 
