@@ -8,10 +8,10 @@ import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import TableSubheader from './table-subheader';
-import DraggableRow from './draggable-row';
 import DroppableTbody from './droppable-tbody';
 import Pager from './../pager';
 import Spinner from './../spinner';
+import extendWithDragAndDrop from './../with-drag-and-drop';
 
 /**
  * A Table widget.
@@ -79,6 +79,14 @@ import Spinner from './../spinner';
  * @constructor
  */
 class Table extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.RowComponent = props.draggableRows ?
+      extendWithDragAndDrop(TableRow, { drop: 'TableRow', drag: 'TableRow' }) :
+      TableRow;
+  }
 
   static propTypes = {
     /**
@@ -953,7 +961,7 @@ class Table extends React.Component {
       if (this.props.draggableRows) {
         return React.Children.map(children, (child) => {
           if (child.type === TableRow) {
-            return React.createElement(DraggableRow, child.props);
+            return React.createElement(this.RowComponent, child.props);
           } else {
             return child;
           }
@@ -1019,6 +1027,5 @@ export {
   TableCell,
   TableHeader,
   TableSubheader,
-  DraggableRow,
   DroppableTbody
 };
