@@ -3,6 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Input from './input';
 import Icon from './../../../components/icon';
 import Help from './../../../components/help';
+import { shallow } from 'enzyme';
 
 class TestClassOne extends React.Component {
   get mainClasses() {
@@ -32,9 +33,10 @@ class TestClassTwo extends React.Component {
 
 let ExtendedClassOne = Input(TestClassOne);
 let ExtendedClassTwo = Input(TestClassTwo);
+let klass = new ExtendedClassOne;
 
 describe('Input', () => {
-  let instance, instanceTwo, onChange;
+  let instance, instanceTwo, onChange, inputHelp;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
@@ -311,12 +313,20 @@ describe('Input', () => {
   });
 
   describe('inputHelpHTML', () => {
+    beforeEach(() => {
+      klass.props = {
+        inputHelp: 'Here is some help'
+      };
+      inputHelp = shallow(klass.inputHelpHTML);
+    });
+
     it('returns a div with a icon', () => {
-      instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
-        inputHelp: "Here is some help"
-      }));
-      expect(instance.inputHelpHTML.props.className).toEqual('common-input__input-help');
-      expect(instance.inputHelpHTML.props.children).toEqual('Here is some help');
+      expect(inputHelp.props().className).toEqual('carbon-help common-input__input-help');
+      let help = inputHelp.props().children;
+      expect(help.props.tooltipMessage).toEqual('Here is some help');
+      expect(help.props.tooltipPosition).toEqual('top');
+      expect(help.props.tooltipAlign).toEqual('center');
+      expect(help.props.type).toEqual('help');
     });
   });
 
