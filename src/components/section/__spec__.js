@@ -12,7 +12,7 @@ describe('Section', () => {
         title="My Section Title"
       >
         <p>This is some content</p>
-      </ Section>
+      </Section>
     );
   });
 
