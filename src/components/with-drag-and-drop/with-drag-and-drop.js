@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 
 const ItemTypes = {
@@ -34,7 +35,7 @@ const itemTarget = {
     }
 
     // Determine rectangle on screen
-    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+    const hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
 
     // Get vertical middle
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -69,10 +70,21 @@ const itemTarget = {
   }
 };
 
-export default function withDragAndDrop(WrappedComponent, targets) { // targets { drag: 'TableRow', drop: 'TableRow' }
-  class WithDragAndDrop extends React.Component {
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
+export default function extendWithDragAndDrop(WrappedComponent, targets) { // targets { drag: 'TableRow', drop: 'TableRow' }
+  class WithDragAndDrop extends WrappedComponent {
+
+    constructor(props) {
+      super(props);
+    }
+
     render() {
-      return <WrappedComponent {...this.props} />
+      const { connectDragSource, connectDropTarget } = this.props;
+
+      return connectDragSource(connectDropTarget(super.render()));
     }
   }
 
@@ -84,7 +96,7 @@ export default function withDragAndDrop(WrappedComponent, targets) { // targets 
       })
   )(WithDragAndDrop)
 
-  DragSource(
+  WithDragAndDrop = DragSource(
     targets.drag, itemSource, (connect, monitor) => ({
       connectDragSource: connect.dragSource(),
       isDragging: monitor.isDragging()
