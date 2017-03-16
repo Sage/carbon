@@ -7,10 +7,10 @@ $dialog-padding: 20px;
   background-color: $grey-light;
   border-radius: 5px;
   box-shadow: 0 4px 8px #555;
+  flex-direction: column;
+  overflow-y: hidden;
   padding: $dialog-padding;
-  position: absolute;
-  top: 50%;
-  z-index: $z-dialog;
+  position: relative;
 }
 
 .carbon-dialog__dialog--extra-small   { width: 300px; }
@@ -33,6 +33,8 @@ $dialog-padding: 20px;
 
 .carbon-dialog__content {
   width: 100%;
+  height: 92%;
+  overflow-y: scroll;
 }
 
 .carbon-dialog__close {

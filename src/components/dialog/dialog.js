@@ -134,25 +134,21 @@ class Dialog extends Modal {
    */
   centerDialog = () => {
     let height = this._dialog.offsetHeight / 2,
-        width = this._dialog.offsetWidth / 2,
         midPointY = window.innerHeight / 2 + window.pageYOffset,
-        midPointX = window.innerWidth / 2 + window.pageXOffset;
+        dialogHeight = this._dialog.offsetHeight;
 
     midPointY = midPointY - height;
-    midPointX = midPointX - width;
 
-    if (midPointY < 20) {
-      midPointY = 20;
-    } else if (Bowser.ios) {
+    if (Bowser.ios) {
       midPointY -= window.pageYOffset;
+      this._dialog.style.top = midPointY + "px";
     }
 
-    if (midPointX < 20) {
-      midPointX = 20;
+    if (dialogHeight > window.innerHeight) {
+      this._dialog.style.marginTop = 'auto';
+    } else {
+      this._dialog.style.marginTop = '0';
     }
-
-    this._dialog.style.top = midPointY + "px";
-    this._dialog.style.left = midPointX + "px";
   }
 
   /**
@@ -225,7 +221,6 @@ class Dialog extends Modal {
       <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
         { this.dialogTitle }
         { this.closeIcon }
-
         <div className='carbon-dialog__content'>
           { this.props.children }
         </div>
