@@ -42,3 +42,15 @@ gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 gulp.task('test', SpecTask({
   path: '/src/***/**/!(__spec__|definition).js'
 }));
+
+var gulpStylelint = require('gulp-stylelint');
+
+gulp.task('lint-css', function lintCssTask() {
+  return gulp
+    .src('src/***/**/*.scss')
+    .pipe(gulpStylelint({
+      reporters: [
+        {formatter: 'string', console: true}
+      ]
+    }));
+});
