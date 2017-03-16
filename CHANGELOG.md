@@ -4,6 +4,7 @@
 
 * `Date` now shows error validation when an invalid date is entered.
 * Change Flash error icon to match other notifications (now shows error icon when `as` prop is `error`)
+* `Input` can now receive an `inputHelp` prop which renders a tooltip after the input field.
 
 ## New Validations
 
