@@ -2,13 +2,15 @@
 
 This guide goes step by step to getting a project running.
 
+:warning: The CLI is currently only supported on OSX, though we plan to add support for Windows and Linux soon. For the steps that ask to use the CLI we will provide alternatives.
+
 * Go to a directory where you keep your projects:
 
 ```
 cd ~/development
 ```
 
-* Use the CLI to scaffold a Carbon/React/Flux project (this will also install all dependencies for your project):
+* Use the CLI to scaffold a Carbon/React/Flux project (or [download a zip](https://github.com/Sage/carbon-factory/raw/master/docs/carbon-app.zip)):
 
 ```
 carbon app sampleapp
@@ -38,10 +40,44 @@ gulp
 cd ~/development/sampleapp
 ```
 
-* Create a new component:
+* Use the CLI to create a new component (or create the new file manually in `src/components/foobar/foobar.js`):
 
 ```
 carbon component foobar
+```
+
+This will generate two files in `src/components/foobar`:
+
+```
+// src/components/foobar/foobar.js
+
+import React from 'react';
+
+class Foobar extends React.Component {
+
+  /**
+   * Renders the component.
+   *
+   * @method render
+   */
+  render() {
+    return (
+      <div></div>
+    );
+  }
+
+}
+
+export default Foobar;
+```
+
+```
+// src/components/foobar/package.json
+
+{
+  "main": "./foobar.js",
+  "name": "Foobar"
+}
 ```
 
 * Edit the `src/components/foobar/foobar.js` file for your new component to add some content to the `render` function:
