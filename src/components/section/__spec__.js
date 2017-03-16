@@ -8,7 +8,7 @@ describe('Section', () => {
   beforeEach(() => {
     wrapper = shallow(
       <Section
-        className='my__custom-class'
+        className='my-custom-class'
         title="My Section Title"
       >
         <p>This is some content</p>
@@ -18,7 +18,7 @@ describe('Section', () => {
 
   it('renders with main and custom classes', () => {
     expect(wrapper.find('.carbon-section')).toBeTruthy()
-    expect(wrapper.find('.my__custom-class')).toBeTruthy()
+    expect(wrapper.find('.my-custom-class')).toBeTruthy()
   });
 
   it('renders a title', () => {
