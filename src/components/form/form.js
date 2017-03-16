@@ -168,7 +168,15 @@ class Form extends React.Component {
      * @property onSubmit
      * @type {Function}
      */
-    onSubmit: React.PropTypes.func
+    onSubmit: React.PropTypes.func,
+
+    /**
+     * Currently active input in form
+     *
+     * @property activeInput
+     * @type {Node}
+     */
+    activeInput: React.PropTypes.node
   }
 
   static defaultProps = {
