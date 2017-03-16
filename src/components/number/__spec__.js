@@ -33,10 +33,19 @@ describe('Number', () => {
       spyOn(instance, '_handleOnChange');
     });
 
-    describe('when it is as a valid number', () => {
-      it('calls the inputs decorators handleOnChange', () => {
-        TestUtils.Simulate.change(input, { target: { value: '100' } });
-        expect(instance._handleOnChange).toHaveBeenCalled();
+    const validNumbers = [
+      1234,
+      '',
+      0,
+      -1
+    ];
+
+    validNumbers.forEach((val) => {
+      describe('when it is as a valid number', () => {
+        it('calls the inputs decorators handleOnChange', () => {
+          TestUtils.Simulate.change(input, { target: { value: val } });
+          expect(instance._handleOnChange).toHaveBeenCalled();
+        });
       });
     });
 
