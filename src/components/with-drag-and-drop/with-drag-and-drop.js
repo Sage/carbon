@@ -69,10 +69,21 @@ const itemTarget = {
   }
 };
 
-export default function withDragAndDrop(WrappedComponent, targets) { // targets { drag: 'TableRow', drop: 'TableRow' }
-  class WithDragAndDrop extends React.Component {
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
+export default function extendWithDragAndDrop(WrappedComponent, targets) { // targets { drag: 'TableRow', drop: 'TableRow' }
+  class WithDragAndDrop extends WrappedComponent {
+
+    constructor(props) {
+      super(props);
+    }
+
     render() {
-      return <WrappedComponent {...this.props} />
+      const { connectDragSource, connectDropTarget } = this.props;
+
+      return connectDragSource(connectDropTarget(super.render()));
     }
   }
 
