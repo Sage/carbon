@@ -2,9 +2,23 @@ import React from 'react';
 import Row from './../row';
 
 let ComponentWithLabel = (props) =>
-  <Row columns="10" columnSpan={ props.columnSpan} className={ `carbon-section ${props.className}` }>
-    <label columnSpan="3" columnAlign={ props.labelAlignment} className='carbon-section__label'>{ props.label }</label>
-    <div className='carbon-section__content' columnSpan="7" columnAlign={ props.contentAlignment }>
+  <Row
+    columns='10'
+    columnSpan={ props.columnSpan }
+    className={ `carbon-component-with-label ${props.className}` }
+  >
+    <label
+      columnSpan='3'
+      columnAlign={ props.labelAlignment }
+      className='carbon-component-with-label__label'
+    >
+      { props.label }
+    </label>
+    <div
+      className='carbon-component-with-label__content'
+      columnSpan='7'
+      columnAlign={ props.contentAlignment }
+    >
       { props.children }
     </div>
   </Row>

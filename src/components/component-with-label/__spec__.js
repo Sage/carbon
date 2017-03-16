@@ -9,8 +9,8 @@ describe('ComponentWithLabel', () => {
  beforeEach(() => {
    wrapper = shallow(
      <ComponentWithLabel
-       className='my__custom-class'
-       columnSpan={ '6' }
+       className='my-custom-class'
+       columnSpan='6'
        label='My Label'
        labelAlignment='right'
        contentAlignment='left'
@@ -22,7 +22,7 @@ describe('ComponentWithLabel', () => {
 
   it('renders with main and custom classes', () => {
    expect(wrapper.find('carbon-component-with-label')).toBeTruthy();
-   expect(wrapper.find('my__custom-class')).toBeTruthy();
+   expect(wrapper.find('my-custom-class')).toBeTruthy();
   });
 
   it('first renders a Row with the right column span', () => {
@@ -34,7 +34,7 @@ describe('ComponentWithLabel', () => {
   describe('the label', () => {
     describe('when the labelAlignment prop is right', () => {
       it('contains a label with the expected props', () => {
-        let label = wrapper.find('.carbon-section__label');
+        let label = wrapper.find('.carbon-component-with-label__label');
         expect(label.prop('columnSpan')).toEqual('3')
         expect(label.prop('columnAlign')).toEqual('right')
         expect(label.text()).toEqual('My Label')
@@ -45,8 +45,8 @@ describe('ComponentWithLabel', () => {
       beforeEach(() => {
         wrapper = shallow(
           <ComponentWithLabel
-           className='my__custom-class'
-           columnSpan={ '6' }
+           className='my-custom-class'
+           columnSpan='6'
            label='My Label'
            labelAlignment='left'
            contentAlignment='left'
@@ -57,7 +57,7 @@ describe('ComponentWithLabel', () => {
       });
 
       it('contains a label with the expected props', () => {
-        let label = wrapper.find('.carbon-section__label');
+        let label = wrapper.find('.carbon-component-with-label__label');
         expect(label.prop('columnAlign')).toEqual('left')
       });
     });
@@ -66,8 +66,8 @@ describe('ComponentWithLabel', () => {
       beforeEach(() => {
         wrapper = shallow(
           <ComponentWithLabel
-           className='my__custom-class'
-           columnSpan={ '6' }
+           className='my-custom-class'
+           columnSpan='6'
            label='My Label'
            labelAlignment='center'
            contentAlignment='left'
@@ -78,7 +78,7 @@ describe('ComponentWithLabel', () => {
       });
 
       it('contains a label with the expected props', () => {
-        let label = wrapper.find('.carbon-section__label');
+        let label = wrapper.find('.carbon-component-with-label__label');
         expect(label.prop('columnAlign')).toEqual('center')
       });
     });
@@ -87,7 +87,7 @@ describe('ComponentWithLabel', () => {
   describe('the content', () => {
     describe('when the contentAlignment prop is left', () => {
       it('renders the children as expected', () => {
-        let children = wrapper.find('.carbon-section__content');
+        let children = wrapper.find('.carbon-component-with-label__content');
         expect(children.prop('columnSpan')).toEqual('7');
         expect(children.prop('columnAlign')).toEqual('left');
         expect(children.prop('children')).toEqual(<p>This is some content</p>);
@@ -98,8 +98,8 @@ describe('ComponentWithLabel', () => {
       beforeEach(() => {
         wrapper = shallow(
           <ComponentWithLabel
-           className='my__custom-class'
-           columnSpan={ '6' }
+           className='my-custom-class'
+           columnSpan='6'
            label='My Label'
            labelAlignment='left'
            contentAlignment='right'
@@ -110,7 +110,7 @@ describe('ComponentWithLabel', () => {
       });
 
       it('renders the children as expected', () => {
-        let children = wrapper.find('.carbon-section__content');
+        let children = wrapper.find('.carbon-component-with-label__content');
         expect(children.prop('columnSpan')).toEqual('7');
         expect(children.prop('columnAlign')).toEqual('right');
         expect(children.prop('children')).toEqual(<p>This is some content</p>);
@@ -121,8 +121,8 @@ describe('ComponentWithLabel', () => {
       beforeEach(() => {
         wrapper = shallow(
           <ComponentWithLabel
-           className='my__custom-class'
-           columnSpan={ '6' }
+           className='my-custom-class'
+           columnSpan='6'
            label='My Label'
            labelAlignment='left'
            contentAlignment='center'
@@ -133,7 +133,7 @@ describe('ComponentWithLabel', () => {
       });
 
       it('renders the children as expected', () => {
-        let children = wrapper.find('.carbon-section__content');
+        let children = wrapper.find('.carbon-component-with-label__content');
         expect(children.prop('columnSpan')).toEqual('7');
         expect(children.prop('columnAlign')).toEqual('center');
         expect(children.prop('children')).toEqual(<p>This is some content</p>);
