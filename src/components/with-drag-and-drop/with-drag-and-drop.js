@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 
 const ItemTypes = {
@@ -34,7 +35,7 @@ const itemTarget = {
     }
 
     // Determine rectangle on screen
-    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+    const hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
 
     // Get vertical middle
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -95,7 +96,7 @@ export default function extendWithDragAndDrop(WrappedComponent, targets) { // ta
       })
   )(WithDragAndDrop)
 
-  DragSource(
+  WithDragAndDrop = DragSource(
     targets.drag, itemSource, (connect, monitor) => ({
       connectDragSource: connect.dragSource(),
       isDragging: monitor.isDragging()
