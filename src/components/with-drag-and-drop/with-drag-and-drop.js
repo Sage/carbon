@@ -1,13 +1,13 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 
-const ItemTypes = {
+// TODO move to constants file?
+/* const ItemTypes = {
   TABLE_ROW: 'TableRow'
-};
+};*/
 
 const itemSource = {
-  canDrag(props) {
+  canDrag(props) { // eslint-disable-line no-unused-vars
     return document.activeElement.getAttribute('icon') === "list_view";
   },
 
@@ -19,7 +19,7 @@ const itemSource = {
   },
   endDrag(props, monitor) {
     if (monitor.didDrop()) {
-      props.onDrop()
+      props.onDrop();
     }
   }
 };
@@ -90,18 +90,18 @@ export default function extendWithDragAndDrop(WrappedComponent, targets) { // ta
 
   WithDragAndDrop.displayName = `WithDragAndDrop(${getDisplayName(WrappedComponent)})`;
 
-  WithDragAndDrop = DropTarget(
+  WithDragAndDrop = DropTarget( // eslint-disable-line no-class-assign
       targets.drop, itemTarget, connect => ({
         connectDropTarget: connect.dropTarget()
       })
-  )(WithDragAndDrop)
+  )(WithDragAndDrop);
 
-  WithDragAndDrop = DragSource(
+  WithDragAndDrop = DragSource( // eslint-disable-line no-class-assign
     targets.drag, itemSource, (connect, monitor) => ({
       connectDragSource: connect.dragSource(),
       isDragging: monitor.isDragging()
     })
-  )(WithDragAndDrop)
+  )(WithDragAndDrop);
 
   return WithDragAndDrop;
 }

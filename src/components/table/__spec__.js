@@ -921,13 +921,15 @@ describe('Table', () => {
 
   describe('draggableRows', () => {
     it('defaults to false', () => {
-      instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo" /></Table>);
-      expect(instance.props.draggableRows).toBe(false);
+      let wrapper = shallow(<Table />);
+      let inst = wrapper.instance();
+      expect(inst.props.draggableRows).toBe(false);
     });
 
     it('can be set to true', () => {
-      instance = TestUtils.renderIntoDocument(<Table draggableRows={ true }><TableRow uniqueID="foo" /></Table>);
-      expect(instance.props.draggableRows).toBe(true);
+      let wrapper = shallow(<Table draggableRows={ true } />);
+      let inst = wrapper.instance();
+      expect(inst.props.draggableRows).toBe(true);
     });
 
     describe('when set to true', () => {

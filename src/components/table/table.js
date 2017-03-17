@@ -865,7 +865,6 @@ class Table extends React.Component {
    */
   get thead() {
     if (this.props.thead) {
-      // TODO { this.draggableRows && <TableCell />
       return (
         <thead className="carbon-table__header">
           { this.props.thead }
