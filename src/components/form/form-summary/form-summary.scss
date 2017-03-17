@@ -2,16 +2,33 @@
 
 .carbon-form-summary {
   display: inline-flex;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 3px;
+  white-space: nowrap;
+
+  &__summary {
+    padding: 0 3px;
+  }
+
+  &__icon,
+  &__text {
+    padding: 0 3px;
+  }
+
+  &__icon {
+    position: relative;
+    top: -2px;
+  }
 
   &__error-summary {
-    .carbon-icon {
-      color: $error;
-    }
+    color: $error;
   }
 
   &__warning-summary {
-    .carbon-icon {
-      color: $warning;
+    color: $warning;
+    .carbon-form-summary__text {
+      color: $warning-accessible;
     }
   }
 }

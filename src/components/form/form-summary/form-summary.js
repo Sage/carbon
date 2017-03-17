@@ -26,7 +26,8 @@ const summary = (props, key) => {
   if (props[pluralize(key)] > 0) {
     return (
       <span className={ `carbon-form-summary__summary carbon-form-summary__${key}-summary` }>
-        { translation(props, key) }&nbsp;<Icon type={ `${key}` } />&nbsp;
+        <Icon className='carbon-form-summary__icon' type={ `${key}` } />
+        <span className='carbon-form-summary__text'>{ translation(props, key) }</span>
       </span>
     );
   }
@@ -57,8 +58,8 @@ const defaultTranslations = (errorCount, warningCount) => {
     },
     errors_and_warnings: {
       defaultValue: {
-        one: ` and ${ warningCount } warning`,
-        other: ` and ${ warningCount } warnings`
+        one: `and ${ warningCount } warning`,
+        other: `and ${ warningCount } warnings`
       },
       count: parseInt(warningCount)
     }

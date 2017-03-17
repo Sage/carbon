@@ -21,8 +21,9 @@ describe('<FormSummary />', () => {
       expect(icons.find('[type="error"]').length).toEqual(1);
     });
 
-    it("the correct translation", () => {
-      expect(wrapper.text()).toContain('There is 1 error');
+    it("the correct translation wrapped in the text class", () => {
+      let text = wrapper.find(`${block}__text`).text();
+      expect(text).toContain('There is 1 error');
     });
   });
 
@@ -33,13 +34,14 @@ describe('<FormSummary />', () => {
       expect(wrapper.find(`${block}__warning-summary`).length).toEqual(1);
     });
 
-    it("an warning icon", () => {
+    it("a warning icon", () => {
       let icons = wrapper.find(Icon);
       expect(icons.find('[type="warning"]').length).toEqual(1);
     });
 
-    it("the correct translation", () => {
-      expect(wrapper.text()).toContain('There is 1 warning');
+    it("the correct translation wrapped in a class that brings accessible contrast", () => {
+      let text = wrapper.find(`${block}__text`).text();
+      expect(text).toContain('There is 1 warning');
     });
   });
 
