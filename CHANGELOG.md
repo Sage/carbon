@@ -1,3 +1,18 @@
+# 0.35.0
+
+## Component Enchancements
+
+* `Date` now shows error validation when an invalid date is entered.
+* Change Flash error icon to match other notifications (now shows error icon when `as` prop is `error`)
+
+## New Validations
+
+* DateWithinRangeValidator checks that a date is within specified bounds.
+e.g.
+```javascript
+  new DateWithinRangeValidator({ limit: 30, units: 'days' }
+```
+
 # 0.34.5
 
 ## Bug Fix
@@ -11,6 +26,7 @@
 ## Bug fix
 
 * `Pod`: corrects misalignment caused by centering
+
 
 # 0.34.3
 
