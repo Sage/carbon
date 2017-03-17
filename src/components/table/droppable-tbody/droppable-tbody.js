@@ -6,7 +6,7 @@ class DroppableTbody extends React.Component {
 
   render() {
     return (
-      <tbody {...this.props}>
+      <tbody data-dragdropcontext>
         {this.props.children}
       </tbody>
     );

@@ -960,7 +960,7 @@ class Table extends React.Component {
       if (this.props.draggableRows) {
         return React.Children.map(children, (child) => {
           if (child.type === TableRow) {
-            return React.createElement(this.RowComponent, child.props);
+            return React.createElement(this.RowComponent, { className: 'carbon-table-row__draggable', ...child.props });
           } else {
             return child;
           }

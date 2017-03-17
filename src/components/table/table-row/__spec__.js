@@ -423,11 +423,4 @@ describe('TableRow', () => {
       });
     });
   });
-
-  describe('draggable', () => {
-    it('defaults to false', () => {
-      let wrapper = shallow(<TableRow uniqueID="foo" />);
-      expect(wrapper.props().draggable).toBe(false);
-    });
-  });
 });

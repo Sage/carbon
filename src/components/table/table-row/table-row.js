@@ -59,19 +59,7 @@ class TableRow extends React.Component {
      * @property uniqueID
      * @type {String}
      */
-    uniqueID: React.PropTypes.string,
-
-    /**
-     * Enable drag and drop for this row.
-     *
-     * @property draggable
-     * @type {Boolean}
-     */
-    draggable: React.PropTypes.bool
-  }
-
-  static defaultProps = {
-    draggable: false
+    uniqueID: React.PropTypes.string
   }
 
   /**
