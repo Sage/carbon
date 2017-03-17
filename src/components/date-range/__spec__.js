@@ -29,9 +29,22 @@ describe('DateRange', () => {
         expect(customOnChange).toHaveBeenCalledWith(['2016-10-15', '2016-11-11']);
       });
 
-      it('triggers a content change in the endDate field', () => {
-        instance._onChange('startDate', { target: { value: '2016-10-15' } });
-        expect(instance._endDate._handleContentChange).toHaveBeenCalled();
+      describe('when a valid date', () => {
+        it('triggers a content change in the endDate field', () => {
+          instance._onChange('startDate', { target: { value: '2016-10-15' } });
+          expect(instance._endDate._handleContentChange).toHaveBeenCalled();
+        });
+      });
+
+      describe('when a invalid date', () => {
+        it('does not trigger a content change in the endDate field', () => {
+          let invalidInstance = TestUtils.renderIntoDocument(
+            <DateRange onChange={ customOnChange } value={ ['2016-10-10','foo'] } />
+          );
+          spyOn(invalidInstance._endDate, '_handleContentChange');
+          invalidInstance._onChange('startDate', { target: { value: 'foo' } });
+          expect(invalidInstance._endDate._handleContentChange).not.toHaveBeenCalled();
+        });
       });
     });
 
@@ -41,9 +54,22 @@ describe('DateRange', () => {
         expect(customOnChange).toHaveBeenCalledWith(['2016-10-10', '2016-11-16']);
       });
 
-      it('triggers a content change in the endDate field', () => {
-        instance._onChange('endDate', { target: { value: '2016-11-16' } });
-        expect(instance._startDate._handleContentChange).toHaveBeenCalled();
+      describe('when a valid date', () => {
+        it('triggers a content change in the startDate field', () => {
+          instance._onChange('endDate', { target: { value: '2016-11-16' } });
+          expect(instance._startDate._handleContentChange).toHaveBeenCalled();
+        });
+      });
+
+      describe('when a invalid date', () => {
+        it('does not trigger a content change in the startDate field', () => {
+          let invalidInstance = TestUtils.renderIntoDocument(
+            <DateRange onChange={ customOnChange } value={ ['foo','2016-11-11'] } />
+          );
+          spyOn(invalidInstance._startDate, '_handleContentChange');
+          invalidInstance._onChange('endDate', { target: { value: 'foo' } });
+          expect(invalidInstance._startDate._handleContentChange).not.toHaveBeenCalled();
+        });
       });
     });
 
@@ -232,8 +258,10 @@ describe('DateRange', () => {
           onChange={ customOnChange }
           startDateProps={ { value: '2016-10-10' } }
           endDateProps={ { value: '2016-11-11'  } }
+          value={ [] }
         />
       );
+
       let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
       expect(dates[0].props.value).toEqual('2016-10-10');
       expect(dates[1].props.value).toEqual('2016-11-11');
