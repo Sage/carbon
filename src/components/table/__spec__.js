@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
-import { Table, TableHeader, TableRow, TableCell, DroppableTbody } from './table';
+import { Table, TableHeader, TableRow, TableCell, TbodyContext } from './table';
 import ActionToolbar from './../action-toolbar';
 import { shallow } from 'enzyme';
 
@@ -949,7 +949,7 @@ describe('Table', () => {
       });
 
       it('wraps table content in a component with a drag context', () => {
-        let droppableBody = wrapper.find(DroppableTbody);
+        let droppableBody = wrapper.find(TbodyContext);
         expect(droppableBody.length).toBe(1);
       });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import TbodyContext from './droppable-tbody';
+import TbodyContext from './tbody-context';
 import { shallow, mount, render } from 'enzyme';
 
 describe('TbodyContext', () => {

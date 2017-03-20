@@ -8,7 +8,7 @@ import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import TableSubheader from './table-subheader';
-import DroppableTbody from './droppable-tbody';
+import TbodyContext from './tbody-context';
 import Pager from './../pager';
 import Spinner from './../spinner';
 import extendWithDragAndDrop from './../with-drag-and-drop';
@@ -984,9 +984,9 @@ class Table extends React.Component {
   get tbody() {
     if (this.props.draggableRows) {
       return (
-        <DroppableTbody>
+        <TbodyContext>
           {this.tableContent}
-        </DroppableTbody>
+        </TbodyContext>
       );
     } else if (this.props.tbody === false) {
       return this.tableContent;
@@ -1026,5 +1026,5 @@ export {
   TableCell,
   TableHeader,
   TableSubheader,
-  DroppableTbody
+  TbodyContext
 };
