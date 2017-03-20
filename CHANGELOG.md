@@ -29,6 +29,7 @@
 * `DropdownFilter`: placeholder text is made more legible by removing italics and making the font color darker
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
 * `MountInApp` now cleans up it's children when the component is unmounted.
+* `Decimal` now shows propType warning when precision is outside the range 0..20
 
 ## Bug Fixes
 

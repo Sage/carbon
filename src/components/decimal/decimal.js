@@ -62,15 +62,13 @@ class Decimal extends React.Component {
      * @type {Integer}
      * @default 2
      */
-    precision: function(props, propName, componentName) {
-      componentName = componentName || 'ANONYMOUS';
-
+    precision: (props, propName, componentName) => {
       if (props[propName]) {
         let value = props[propName];
         if (typeof value === 'string' || typeof value == 'number') {
-            return value > 0 && value <= 20 ? null : new Error(propName + ' in ' + componentName + " must be between 0 and 20");
+          return value >= 0 && value <= 20 ? null : new Error(propName + ' in ' + componentName + " must be between 0 and 20");
         }
-        return new Error(propName + ' in ' + componentName + " must be a String or Intger")
+        return new Error(propName + ' in ' + componentName + " must be a String or Integer");
       }
 
       return null;
@@ -90,7 +88,7 @@ class Decimal extends React.Component {
      * @property visibleValue
      * @type {String}
      */
-    visibleValue: I18nHelper.formatDecimal(this.value, this.precision())
+    visibleValue: I18nHelper.formatDecimal(this.value, this.props.precision)
   };
 
   /**
@@ -105,7 +103,7 @@ class Decimal extends React.Component {
     if (this._document.activeElement != this._input) {
       let value = props.value || 0.00;
       if (canConvertToBigNumber(value)) {
-        value = I18nHelper.formatDecimal(value, this.precision());
+        value = I18nHelper.formatDecimal(value, this.props.precision);
       }
       this.setState({ visibleValue: value });
     }
@@ -152,7 +150,7 @@ class Decimal extends React.Component {
    * @return {void}
    */
   handleVisibleInputChange = (ev) => {
-    if (this.isValidDecimal(ev.target.value, this.precision())) {
+    if (this.isValidDecimal(ev.target.value, this.props.precision)) {
       this.setState({ visibleValue: ev.target.value });
       this.emitOnChangeCallback(I18nHelper.unformatDecimal(ev.target.value));
     } else {
@@ -173,7 +171,7 @@ class Decimal extends React.Component {
     let currentValue;
 
     if (canConvertToBigNumber(this.value)) {
-      currentValue = I18nHelper.formatDecimal(this.value, this.precision());
+      currentValue = I18nHelper.formatDecimal(this.value, this.props.precision);
     } else {
       currentValue = this.value;
     }
@@ -228,21 +226,6 @@ class Decimal extends React.Component {
       // we also send the props so more information can be extracted by the action
       this.props.onKeyDown(ev, this.props);
     }
-  }
-
-  /**
-   * Sanitize the precision prop
-   *
-   * @method precision
-   * @return {Number} Sanitized precision
-   */
-  precision() {
-    if (this.props.precision < 0) {
-      return 0;
-    } else if (this.props.precision > 20) {
-      return 20;
-    }
-    return this.props.precision;
   }
 
   /**

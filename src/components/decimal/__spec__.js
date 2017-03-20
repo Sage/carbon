@@ -4,9 +4,54 @@ import Decimal from './decimal';
 import I18n from "i18n-js";
 import ReactDOM from 'react-dom';
 import Events from './../../utils/helpers/events';
+import I18nHelper from './../../utils/helpers/i18n';
 
 describe('Decimal', () => {
   var instance;
+
+  describe('Custom prop types', () => {
+    describe('precision', () => {
+
+      beforeEach(() => {
+        spyOn(console, 'error');
+        spyOn(I18nHelper, 'formatDecimal').and.returnValue('20.00');
+      });
+
+      afterEach(() => {
+        console.error.calls.reset()
+      });
+
+      describe('when not a number or string', () => {
+        it('throws a type error', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Decimal precision={ {} } />
+          );
+
+          expect(console.error.calls.argsFor(0)[0]).toMatch(`must be a String or Integer`);
+        });
+      });
+
+      describe('when precision is outside valid range', () => {
+        it('throws a range error', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Decimal precision={ 21 } />
+          );
+
+          expect(console.error.calls.argsFor(0)[0]).toMatch(`must be between 0 and 20`);
+        });
+      });
+
+      describe('when precision is valid type and in range', () => {
+        it('does not throw any errors', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Decimal precision={ 3 } />
+          );
+
+          expect(console.error.calls.count()).toEqual(0);
+        });
+      });
+    });
+  });
 
   describe('with no options', () => {
     beforeEach(() => {
