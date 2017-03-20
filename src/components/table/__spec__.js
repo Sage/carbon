@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell, DroppableTbody } from './table';
 import ActionToolbar from './../action-toolbar';
-import { shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy;
@@ -924,12 +924,6 @@ describe('Table', () => {
       let wrapper = shallow(<Table />);
       let inst = wrapper.instance();
       expect(inst.props.draggableRows).toBe(false);
-    });
-
-    it('can be set to true', () => {
-      let wrapper = shallow(<Table draggableRows={ true } />);
-      let inst = wrapper.instance();
-      expect(inst.props.draggableRows).toBe(true);
     });
 
     describe('when set to true', () => {
