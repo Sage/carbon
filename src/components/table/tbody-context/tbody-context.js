@@ -2,7 +2,7 @@ import React from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-class DroppableTbody extends React.Component {
+class TbodyContext extends React.Component {
 
   render() {
     return (
@@ -13,4 +13,4 @@ class DroppableTbody extends React.Component {
   }
 }
 
-export default DragDropContext(HTML5Backend)(DroppableTbody);
+export default DragDropContext(HTML5Backend)(TbodyContext);
