@@ -1,0 +1,26 @@
+@import 'assets';
+@import 'colors';
+
+.get-started {
+  background-color: $dark-blue-plus;
+  background-image: url('#{$image-path}/grid-bk.svg');
+  bottom: 0;
+  color: $white;
+  padding: 120px 0 110px;
+  position: relative;
+  text-align: center;
+  width: 100%;
+
+  &__text {
+    display: block;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  &__checkout-text {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 40px;
+  }
+}

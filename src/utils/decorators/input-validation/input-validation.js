@@ -115,7 +115,26 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: React.PropTypes.object,
     tab: React.PropTypes.object
-  })
+  });
+
+  static propTypes = assign({}, ComposedComponent.propTypes, {
+
+    /**
+     * Array of validations to apply to this input
+     *
+     * @property
+     * @type {Array}
+     */
+    validations: React.PropTypes.array,
+
+    /**
+     * Array of warnings to apply to this input
+     *
+     * @property
+     * @type {Array}
+     */
+    warnings: React.PropTypes.array
+  });
 
   /**
    * A lifecycle method for when the component has re-rendered.
@@ -128,18 +147,28 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
 
     // if disabling the field, reset the validation on it
-    if (nextProps.disabled && (!this.state.valid || this.state.warning)) {
+    if (nextProps.disabled && this.messageExists()) {
       this._handleContentChange();
     }
 
     // if value changes and the input is currently invalid, re-assess its validity
-    if ((!this.state.valid || this.state.warning) && (nextProps.value !== this.props.value)) {
-      if (this.warning(nextProps.value)) {
-        this.setState({ warning: false });
-      }
+    if (!this._isCurrentlyActiveInput()) {
+      if (this.messageExists() && (nextProps.value !== this.props.value)) {
+        let contentChanged = false;
 
-      if (this.validate(nextProps.value)) {
-        this.setState({ valid: true });
+        if (this.state.warning && !this.warning(nextProps.value)) {
+          this.setState({ warning: false });
+          contentChanged = true;
+        }
+
+        if (!this.state.valid && this.validate(nextProps.value)) {
+          this.setState({ valid: true });
+          contentChanged = true;
+        }
+
+        if (contentChanged) {
+          this._handleContentChange();
+        }
       }
     }
   }
@@ -570,6 +599,16 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     fieldProps.onMouseOver = chainFunctions(this.showMessage, fieldProps.onMouseOver);
 
     return fieldProps;
+  }
+
+  /**
+   * Determines if the currently active input is this input.
+   *
+   * @method _isCurrentlyActiveInput
+   * @return {Boolean}
+   */
+  _isCurrentlyActiveInput = () => {
+    return this.context.form && (this.context.form.getActiveInput() === this);
   }
 
 };

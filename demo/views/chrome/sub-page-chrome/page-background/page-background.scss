@@ -1,0 +1,27 @@
+@import 'assets';
+@import 'colors';
+@import './../../../../style-config/demo-variables';
+
+.page-background {
+  @media (min-width: $response-point-medium) {
+    background: url("#{$image-path}/grid-bk--grey.svg") $grey-dark-blue-10;
+    color: #f00;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 500px;
+    z-index: -1;
+    -webkit-clip-path: polygon(
+      0    75%,
+      0    100%,
+      100% 100%,
+      100% 0
+    );
+    clip-path: polygon(
+      0    75%,
+      0    100%,
+      100% 100%,
+      100% 0
+    );
+  }
+}

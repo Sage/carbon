@@ -303,13 +303,20 @@ describe('Date', () => {
   });
 
   describe('handleBlur', () => {
-    beforeEach(() => {
+    it('updates the visible value', () => {
       spyOn(instance, 'updateVisibleValue');
       TestUtils.Simulate.blur(instance._input);
+      expect(instance.updateVisibleValue).toHaveBeenCalled();
     });
 
-    it('updates the visible value', () => {
-      expect(instance.updateVisibleValue).toHaveBeenCalled();
+    describe('when onBlur is set', () => {
+      it('calls onBlur', () => {
+        let onBlur = jasmine.createSpy('onBlur');
+
+        instance = TestUtils.renderIntoDocument(<Date name='date' label='Date' onBlur={ onBlur } />);
+        TestUtils.Simulate.blur(instance._input);
+        expect(onBlur).toHaveBeenCalled();
+      });
     });
   });
 
@@ -403,7 +410,6 @@ describe('Date', () => {
       expect(datepicker.props.weekDayNames).toEqual(
         ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
       );
-      expect(datepicker.props.monthFormat).toEqual('MMM');
       expect(datepicker.props.dateFormat).toEqual('YYYY-MM-DD');
     });
   });

@@ -1,0 +1,80 @@
+@import 'colors';
+
+.demo-component-preview {
+  &__interaction {
+    display: flex;
+  }
+  &__component-wrapper {
+    margin-bottom: 30px;
+    min-height: 100px;
+    padding: 20px 0;
+  }
+  &__controls {
+    background-color: $grey-dark-blue-10;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding: 20px;
+    width: 350px;
+    .carbon-checkbox {
+      .common-input__field {
+        box-sizing: border-box;
+        float: right;
+        padding-left: 15px;
+      }
+      .common-input__label {
+        text-align: right;
+      }
+    }
+  }
+
+  .carbon-textarea {
+    display: flex;
+
+    .common-input__label {
+      margin-top: 9px;
+    }
+  }
+
+  .demo-code {
+    display: flex;
+    flex-shrink: 1;
+    flex-grow: 1;
+    overflow-x: auto;
+  }
+}
+
+.demo-component-preview--app-wrapper {
+  .carbon-app-wrapper {
+    background-image: linear-gradient(to right, rgba($blue, 0.2), rgba($blue, 0.2)),
+                      linear-gradient(to right, rgba($blue, 0.2), rgba($blue, 0.2));
+    background-clip: padding-box,
+                     content-box;
+    height: 30px;
+    line-height: 30px;
+    min-width: 944px;
+  }
+}
+
+.demo-component-preview--row {
+  .carbon-row__column {
+    div {
+      background-color: $green;
+      height: 10px;
+    }
+  }
+}
+
+// HACKS
+.demo-component-preview--date-range {
+  .carbon-date {
+    &.common-input--label-inline {
+      .common-input__label {
+        width: auto;
+      }
+    }
+    &.carbon-date-range__start {
+      margin-right: 15px;
+    }
+  }
+}

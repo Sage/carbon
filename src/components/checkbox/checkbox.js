@@ -3,6 +3,7 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import classNames from 'classnames';
+import { validProps } from '../../utils/ether';
 
 /**
  * A Checkbox widget.
@@ -26,15 +27,6 @@ class Checkbox extends React.Component {
 
   static propTypes = {
     /**
-     * Sets the checked state of the checkbox
-     *
-     * @property defaultChecked
-     * @type {Boolean}
-     * @default false
-     */
-    defaultChecked: React.PropTypes.bool,
-
-    /**
      * Reverses label and checkbox display
      *
      * @property reverse
@@ -45,7 +37,6 @@ class Checkbox extends React.Component {
   }
 
   static defaultProps = {
-    defaultChecked: false,
     reverse: false
   }
 
@@ -90,11 +81,11 @@ class Checkbox extends React.Component {
    * @return {Object} Props to be applied to the input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     props.className = this.inputClasses;
     props.type = "checkbox";
     // React uses checked instead of value to define the state of a checkbox
-    props.checked = this.props.checked || this.props.value;
+    props.checked = this.props.checked !== undefined ? this.props.checked : this.props.value;
     props.value = "1";
     props.onChange = this.handleOnChange;
     return props;

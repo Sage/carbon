@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
 /**
@@ -38,7 +38,24 @@ class Tooltip extends React.Component {
      * @type {String}
      * @default 'center'
      */
-    align: React.PropTypes.string,
+    align: PropTypes.string,
+
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
+    * Whether to to show the Tooltip
+    *
+    * @property isVisible
+    * @type {Boolean}
+    * @default false
+    */
+    isVisible: PropTypes.bool,
 
     /**
      * Sets position of the tooltip
@@ -50,16 +67,8 @@ class Tooltip extends React.Component {
      * @type {String}
      * @default 'bottom'
      */
-    position: React.PropTypes.string,
+    position: PropTypes.string
 
-    /**
-     * Whether to to show the Tooltip
-     *
-     * @property isVisible
-     * @type {Boolean}
-     * @default false
-     */
-    isVisible: React.PropTypes.bool
   };
 
   static defaultProps = {

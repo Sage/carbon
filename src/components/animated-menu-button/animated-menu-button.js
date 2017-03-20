@@ -1,8 +1,9 @@
-import React from 'react';
-import Icon from './../icon';
-import Devices from './../../utils/helpers/devices';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Icon from './../icon';
+import Devices from './../../utils/helpers/devices';
+import { validProps } from '../../utils/ether';
 
 /**
  * An AnimatedMenuButton widget.
@@ -28,28 +29,23 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
  * @constructor
  */
 class AnimatedMenuButton extends React.Component {
-
-  /**
-   * Determines if the blur event should be prevented.
-   *
-   * @property blockBlur
-   * @type {Boolean}
-   * @default false
-   */
-  blockBlur = false;
-
   static propTypes = {
 
     /**
-     * The size of the menu.
+     * Children elements
      *
-     * Options: small, smed, medium, mlarge, large
-     *
-     * @property size
-     * @type {String}
-     * @default medium
+     * @property children
+     * @type {Node}
      */
-    size: React.PropTypes.string,
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
     /**
      * The direction in which the menu expands.
@@ -60,7 +56,7 @@ class AnimatedMenuButton extends React.Component {
      * @type {String}
      * @default left
      */
-    direction: React.PropTypes.string,
+    direction: PropTypes.string,
 
     /**
      * A label to display at the top of the expanded menu.
@@ -68,13 +64,47 @@ class AnimatedMenuButton extends React.Component {
      * @property label
      * @type {String}e
      */
-    label: React.PropTypes.string
+    label: PropTypes.string,
+
+    /**
+     * The size of the menu.
+     *
+     * Options: small, smed, medium, mlarge, large
+     *
+     * @property size
+     * @type {String}
+     * @default medium
+     */
+    size: PropTypes.string
   }
 
   static defaultProps = {
-    size: 'medium',
-    direction: 'left'
+    direction: 'left',
+    size:      'medium'
   }
+
+  constructor(...args) {
+    super(...args);
+
+    /**
+     * Determines if the blur event should be prevented.
+     *
+     * @property blockBlur
+     * @type {Boolean}
+     * @default false
+     */
+    this.blockBlur = false;
+
+    this.closeHandler = this.closeHandler.bind(this);
+    this.closeIcon = this.closeIcon.bind(this);
+    this.componentProps = this.componentProps.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.innerHTML = this.innerHTML.bind(this);
+    this.labelHTML = this.labelHTML.bind(this);
+    this.mainClasses = this.mainClasses.bind(this);
+    this.openHandler = this.openHandler.bind(this);
+  }
+
 
   state = {
     /**
@@ -92,39 +122,36 @@ class AnimatedMenuButton extends React.Component {
      * @type {Boolean}
      */
     touch: Devices.isTouchDevice()
-  }
+  };
 
   /**
-   * Opens handler on event.
+   * Renders the component.
    *
-   * @method openHandler
-   * @return {void}
+   * @method render
    */
-  openHandler = () => {
-    this.setState({ open: true });
-    this.blockBlur = true;
+  render() {
+    let content;
+
+    if (this.state.open) {
+      content = this.innerHTML();
+    }
+
+    return (
+      <div { ...this.componentProps() }>
+        <Icon type='add' />
+
+        <ReactCSSTransitionGroup
+          transitionEnterTimeout={ 500 }
+          transitionLeaveTimeout={ 500 }
+          transitionName='carbon-animated-menu-button'
+        >
+          { content }
+        </ReactCSSTransitionGroup>
+
+      </div>
+    );
   }
 
- /**
-   * Closes menu on event.
-   *
-   * @method closeHandler
-   * @return {void}
-   */
-  closeHandler = () => {
-    this.setState({ open: false });
-    this.blockBlur = false;
-  }
-
-  /**
-   * Handles blur of expanded menu.
-   *
-   * @method handleBlur
-   * @return {void}
-   */
-  handleBlur = () => {
-    if (!this.blockBlur) { this.setState({ open: false }); }
-  }
 
   /**
    * Getter for label HTML
@@ -132,9 +159,11 @@ class AnimatedMenuButton extends React.Component {
    * @method labelHTML
    * @return {HTML} HTML for label.
    */
-  get labelHTML() {
-    return this.props.label ?
-           <span key="label" className='carbon-animated-menu-button__label'>{ this.props.label }</span> : '';
+  labelHTML() {
+    if (this.props.label) {
+      return <span className='carbon-animated-menu-button__label' key='label'>{ this.props.label }</span>;
+    }
+    return '';
   }
 
   /**
@@ -143,13 +172,13 @@ class AnimatedMenuButton extends React.Component {
    * @method innerHTML
    * @return {HTML} HTML for menu contents.
    */
-  get innerHTML() {
-    let contents = [];
+  innerHTML() {
+    const contents = [];
 
     // If device supports touch, add close icon.
-    if (this.state.touch) { contents.push(this.closeIcon); }
+    if (this.state.touch) { contents.push(this.closeIcon()); }
 
-    contents.push(this.labelHTML);
+    contents.push(this.labelHTML());
     contents.push(this.props.children);
 
     return <div className='carbon-animated-menu-button__content'>{ contents }</div>;
@@ -161,12 +190,12 @@ class AnimatedMenuButton extends React.Component {
    * @method mainClasses
    * @return {String} Classnames
    */
-  get mainClasses() {
+  mainClasses() {
     return classNames(
       this.props.className,
       'carbon-animated-menu-button',
-      `carbon-animated-menu-button--${this.props.size}`,
-      `carbon-animated-menu-button--${this.props.direction}`
+      `carbon-animated-menu-button--${this.props.direction}`,
+      `carbon-animated-menu-button--${this.props.size}`
     );
   }
 
@@ -176,16 +205,15 @@ class AnimatedMenuButton extends React.Component {
    * @method componentProps
    * @return {Object} props including class names & event handlers.
    */
-  get componentProps() {
-    let { ...props } = this.props;
-    props.className = this.mainClasses;
+  componentProps() {
+    let { ...props } = validProps(this);
+    props.className = this.mainClasses();
+    props.onBlur = this.handleBlur;
+    props.onFocus = this.openHandler;
     props.onMouseEnter = this.openHandler;
     props.onMouseLeave = this.closeHandler;
-    props.onFocus = this.openHandler;
-    props.onBlur = this.handleBlur;
     props.onTouchEnd = this.state.touch ? this.openHandler : null;
-    props.ref = 'button';
-
+    props.ref = (comp) => { this._button = comp; };
     return props;
   }
 
@@ -195,38 +223,49 @@ class AnimatedMenuButton extends React.Component {
    * @method closeIcon
    * @return {HTML} html for close icon
    */
-  get closeIcon() {
-    return <div onClick={ this.closeHandler } ref='close' key='close'>
-             <Icon type='close' />
-           </div>;
+  closeIcon() {
+    return (
+      <div
+        key='close'
+        onClick={ this.closeHandler }
+        ref={ (comp) => { this._closeIcon = comp; } }
+      >
+        <Icon type='close' />
+      </div>
+    );
+  }
+
+
+  /**
+   * Opens handler on event.
+   *
+   * @method openHandler
+   * @return {void}
+   */
+  openHandler() {
+    this.setState({ open: true });
+    this.blockBlur = true;
   }
 
   /**
-   * Renders the component.
+   * Closes menu on event.
    *
-   * @method render
+   * @method closeHandler
+   * @return {void}
    */
-  render() {
-    let content;
+  closeHandler () {
+    this.setState({ open: false });
+    this.blockBlur = false;
+  }
 
-    // If menu closed, don't render contents
-    if (this.state.open === true) {
-      content = this.innerHTML;
-    }
-
-    return (
-      <div { ...this.componentProps }>
-        <Icon type='add'/>
-
-        <ReactCSSTransitionGroup
-          transitionName='carbon-animated-menu-button'
-          transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 } >
-          { content }
-        </ReactCSSTransitionGroup>
-
-      </div>
-    );
+  /**
+   * Handles blur of expanded menu.
+   *
+   * @method handleBlur
+   * @return {void}
+   */
+  handleBlur() {
+    if (!this.blockBlur) { this.setState({ open: false }); }
   }
 }
 

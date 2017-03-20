@@ -42,7 +42,23 @@ class Date extends React.Component {
   _document = document;
 
   // Required for validProps function
-  static propTypes = {};
+  static propTypes = {
+    /**
+     * Minimum possible date
+     *
+     * @property minDate
+     * @type {String}
+     */
+    minDate: React.PropTypes.string,
+
+    /**
+     * Maximum possible date
+     *
+     * @property maxDate
+     * @type {String}
+     */
+    maxDate: React.PropTypes.string
+  };
 
   static defaultProps = {
     /**
@@ -248,6 +264,9 @@ class Date extends React.Component {
    */
   handleBlur = () => {
     this.updateVisibleValue();
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
   }
 
   /**
@@ -299,12 +318,14 @@ class Date extends React.Component {
    */
   get inputProps() {
     let { ...props } = validProps(this);
-    delete props.autoFocus;
     props.className = this.inputClasses;
     props.onChange = this.handleVisibleInputChange;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
     props.onKeyDown = this.handleKeyDown;
+
+    delete props.autoFocus;
+    delete props.defaultValue;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = chainFunctions(this.handleFocus, props.onFocus);
@@ -387,7 +408,6 @@ class Date extends React.Component {
       locale: I18n.locale,
       maxDate: this.props.maxDate,
       minDate: this.props.minDate,
-      monthFormat: 'MMM',
       onChange: this.handleDateSelect,
       ref: (input) => { this.datepicker = input; },
       theme: null,
@@ -406,6 +426,8 @@ class Date extends React.Component {
     return {
       navDateFormat: 'MMMM YYYY',
       arrows: { prev: '‹', next: '›' },
+      maxDate: this.props.maxDate,
+      minDate: this.props.minDate,
       theme: null
     };
   }

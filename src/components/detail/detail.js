@@ -18,7 +18,15 @@ class Detail extends React.Component {
      * @property footnote
      * @type {String}
      */
-    footnote: React.PropTypes.string
+    footnote: React.PropTypes.string,
+
+    /**
+     * The rendered children of the component.
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: React.PropTypes.node
   }
 
   /**

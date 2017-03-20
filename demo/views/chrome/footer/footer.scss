@@ -1,0 +1,61 @@
+@import 'assets';
+@import 'colors';
+@import './../../../style-config/demo-variables';
+
+.demo-footer {
+  box-sizing: border-box;
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  width: 100%;
+
+  @media(min-width: $response-point-medium) {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  &__background {
+    background-color: $grey-dark-blue;
+    left: 0;
+    right: 0;
+  }
+
+  &__corporate {
+    display: flex;
+    font-size: 13px;
+    flex-direction: column;
+    @media(min-width: $response-point-medium) {
+      text-align: right;
+    }
+  }
+
+  &__sage-icon {
+    background-image: url('#{$image-path}/sage_logo.svg');
+    margin: 20px auto 20px;
+    @media(min-width: $response-point-medium) {
+      margin: 0 0 0 auto;
+    }
+    height: 22px;
+    width: 57px;
+  }
+
+  &__social {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    @media(min-width: $response-point-medium) {
+      margin-left: 0;
+    }
+    width: 146px;
+  }
+
+  .carbon-link__anchor {
+    color: currentColor;
+    &:hover {
+      color: $green-apple;
+    }
+  }
+}

@@ -294,7 +294,7 @@ describe('Tabs', () => {
 
   describe('mainClasses', () => {
     it('returns the main class for the component', () => {
-      expect(instance.mainClasses).toEqual('carbon-tabs__position-top');
+      expect(instance.mainClasses).toEqual('carbon-tabs carbon-tabs__position-top');
     });
 
     describe('when passing custom classNames', () => {
@@ -307,7 +307,7 @@ describe('Tabs', () => {
             </Tab>
           </Tabs>);
 
-        expect(instance.mainClasses).toEqual('carbon-tabs__position-top 1tab');
+        expect(instance.mainClasses).toEqual('carbon-tabs carbon-tabs__position-top 1tab');
       });
     });
 
@@ -321,7 +321,7 @@ describe('Tabs', () => {
             </Tab>
           </Tabs>);
 
-        expect(instance.mainClasses).toEqual('carbon-tabs__position-left');
+        expect(instance.mainClasses).toEqual('carbon-tabs carbon-tabs__position-left');
       });
     });
   });
@@ -517,7 +517,7 @@ describe('Tabs', () => {
   describe('render', () => {
     it('creates a parent div for the component', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(div.className).toEqual('carbon-tabs__position-top');
+      expect(div.className).toEqual('carbon-tabs carbon-tabs__position-top');
     });
 
     it('renders the tab headers', () => {

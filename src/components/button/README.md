@@ -23,3 +23,5 @@ For additional properties specific to this component, see propTypes and defaultP
 | children      | true           | Node           |               | What will be displayed within the button. Could be text, icons etc...  |
 | disabled      | false          | Boolean        | `false`       | Gives the button a disabled state |
 | href          | false          | String         |               | If supplied, the button will render an anchor tag instead of a button tag. |  
+| theme         | false          | String         | `blue`        | Defines a theme modifier class on the button. Presets: `Blue`, `Magenta`, `Red`, `White`, `Grey` |  
+| size          | false          | String         | `medium`      | Applies a size modifier class. Presets include `small`, `medium`, `large` |

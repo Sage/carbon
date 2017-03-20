@@ -3,7 +3,8 @@ coverage/
 *.swp
 *.swo
 demo/assets
-demo2/assets
+demo/utils/generated/*.js
 .DS_Store
 .browser-preferences/
 .idea
+yarn.lock

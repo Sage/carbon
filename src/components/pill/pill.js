@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { validProps } from '../../utils/ether';
 
 /**
 * A Pill widget.
@@ -36,6 +37,13 @@ class Pill extends React.Component {
      */
     as: React.PropTypes.string,
 
+    /**
+     * Fills the pill with colour when true
+     *
+     * @property type
+     * @type {Boolean}
+     * @default false
+     */
     fill: React.PropTypes.bool,
 
     /**
@@ -58,7 +66,8 @@ class Pill extends React.Component {
    * @method render
    */
   render() {
-    let { className, ...props } = this.props;
+    let { className, ...props } = validProps(this);
+
     className = classNames(
       'carbon-pill',
       className,

@@ -3,6 +3,7 @@ import Icon from './../icon';
 import Link from './../link';
 import classNames from 'classnames';
 import Event from './../../utils/helpers/events';
+import { validProps } from '../../utils/ether';
 
 /**
  * A Pod widget.
@@ -80,6 +81,14 @@ class Pod extends React.Component {
     ]),
 
     /**
+     * Optional subtitle for the pod
+     *
+     * @property subtitle
+     * @type {String}
+     */
+    subtitle: React.PropTypes.string,
+
+    /**
      * Aligns the title to left, right or center
      *
      * @property alignTitle
@@ -126,7 +135,6 @@ class Pod extends React.Component {
     editContentFullWidth: React.PropTypes.bool,
 
     /**
-     *
      * Determines if the edit button should be hidden until the user
      * hovers over the content.
      *
@@ -136,13 +144,20 @@ class Pod extends React.Component {
     displayEditButtonOnHover: React.PropTypes.bool,
 
     /**
-     *
      * Determines if clicking the pod content calls the onEdit action
      *
      * @property triggerEditOnContent
      * @type {Boolean}
      */
-    triggerEditOnContent: React.PropTypes.bool
+    triggerEditOnContent: React.PropTypes.bool,
+
+    /**
+     * Resets edit button styles to an older version
+     *
+     * @property internalEditButton
+     * @type {Boolean}
+     */
+    internalEditButton: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -250,24 +265,6 @@ class Pod extends React.Component {
   }
 
   /**
-   * returns props removing title if it isn't a string (and therefore would break the html title attribute)
-   *
-   * @method podProps
-   * @return {Object} podProps
-   */
-  podProps = () => {
-    let { ...props } = this.props;
-
-    delete props.className;
-
-    if (!this.titleIsString()) {
-      delete props.title;
-    }
-
-    return props;
-  }
-
-  /**
    * Checks that the title is a string rather than something else as it can be JSX
    *
    * @method titleIsString
@@ -291,7 +288,8 @@ class Pod extends React.Component {
       `carbon-pod--${ this.props.alignTitle }`, {
         "carbon-pod--editable": this.props.onEdit,
         'carbon-pod--is-hovered': this.state.hoverEdit,
-        'carbon-pod--content-triggers-edit': this.shouldContentHaveEditProps
+        'carbon-pod--content-triggers-edit': this.shouldContentHaveEditProps,
+        'carbon-pod--internal-edit-button': this.props.internalEditButton
       }
     );
   }
@@ -406,19 +404,37 @@ class Pod extends React.Component {
     if (!this.props.onEdit) { return null; }
 
     return (
-      <div className="carbon-pod__edit-button-container" { ...this.editProps } >
-        <Link icon="edit" className={ this.editActionClasses } />
+      <div className="carbon-pod__edit-button-container" { ...this.hoverOverEditEvents } >
+        <Link icon="edit" className={ this.editActionClasses } { ...this.linkProps() }/>
       </div>
     );
   }
 
   /**
-   * Returns props related to the edit event
+   * Returns event related props for triggering and highlighting edit functionality
    *
-   * @method editProps
+   * @method linkProps
+   * @return {Object} props
+   */
+  linkProps = () => {
+    let props = {};
+
+    if (typeof this.props.onEdit === "string") {
+      props.to = this.props.onEdit;
+    } else if (typeof this.props.onEdit === "object") {
+      props = this.props.onEdit;
+    }
+
+    return props;
+  }
+
+  /**
+   * Returns event related props for triggering and highlighting edit functionality
+   *
+   * @method hoverOverEditEvents
    * @return {Object}
    */
-  get editProps() {
+  get hoverOverEditEvents() {
     let props = {
       onMouseEnter: this.toggleHoverState.bind(this, true),
       onMouseLeave: this.toggleHoverState.bind(this, false),
@@ -426,11 +442,7 @@ class Pod extends React.Component {
       onBlur: this.toggleHoverState.bind(this, false)
     };
 
-    if (typeof this.props.onEdit === "string") {
-      props.to = this.props.onEdit;
-    } else if (typeof this.props.onEdit === "object") {
-      props = this.props.onEdit;
-    } else {
+    if (typeof this.props.onEdit === 'function') {
       props.onClick = this.processPodEditEvent;
       props.onKeyDown = this.processPodEditEvent;
     }
@@ -478,19 +490,26 @@ class Pod extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let content = this.props.content,
-        editProps = {};
+    let content,
+        { ...props } = validProps(this),
+        hoverOverEditEvents = {};
+
+    delete props.className;
+
+    if (this.titleIsString()) {
+      props.title = this.props.title;
+    }
 
     if (!this.state.collapsed) { content = this.podContent; }
 
     if (this.shouldContentHaveEditProps) {
-      editProps = this.editProps;
-      editProps.tabIndex = "0";
+      hoverOverEditEvents = this.hoverOverEditEvents;
+      hoverOverEditEvents.tabIndex = "0";
     }
 
     return (
-      <div className={ this.mainClasses } { ...this.podProps() }>
-        <div className={ this.blockClasses } { ...editProps }>
+      <div className={ this.mainClasses } { ...props }>
+        <div className={ this.blockClasses } { ...hoverOverEditEvents }>
           <div className={ this.contentClasses } >
             { this.podHeader }
             { content }

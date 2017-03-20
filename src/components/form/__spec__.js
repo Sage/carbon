@@ -47,6 +47,7 @@ describe('Form', () => {
           form: {
             attachToForm: instance.attachToForm,
             detachFromForm: instance.detachFromForm,
+            getActiveInput: instance.getActiveInput,
             incrementErrorCount: instance.incrementErrorCount,
             decrementErrorCount: instance.decrementErrorCount,
             incrementWarningCount: instance.incrementWarningCount,
@@ -132,11 +133,20 @@ describe('Form', () => {
     });
   });
 
+  describe('getActiveInput', () => {
+    it('returns the currently active input', () => {
+      let activeInput = "my input";
+      instance.setActiveInput(activeInput);
+      expect(instance.getActiveInput()).toEqual(activeInput);
+    });
+  });
+
   describe("setActiveInput()", () => {
     it("sets the active input to be the input parameter", () => {
       instance.setActiveInput(1);
       expect(instance.activeInput).toEqual(1);
     });
+
     it("immediately hides it's message if the input is different from the last", () => {
       let immediatelyHideMessageSpy = jasmine.createSpy();
       instance.setActiveInput({ immediatelyHideMessage: immediatelyHideMessageSpy });
@@ -152,7 +162,6 @@ describe('Form', () => {
       TestUtils.Simulate.submit(form);
       expect(instance.validate).toHaveBeenCalled();
     });
-
 
     describe('when a beforeFormValidation prop is passed', () => {
       it('calls the beforeFormValidation', () => {
@@ -436,6 +445,26 @@ describe('Form', () => {
         buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
         expect(buttons[0].disabled).toBeTruthy();
       });
+
+      describe('when saveButtonProps is passed', () => {
+        it('sets save button props', () => {
+          let theme = 'magenta';
+
+          instance = TestUtils.renderIntoDocument(<Form saveButtonProps={ { theme: theme } } />);
+          buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+          expect(buttons[0].className).toContain(`carbon-button--${theme}`);
+        });
+      });
+
+      describe('when cancelButtonProps is passed', () => {
+        it('sets cancel button props', () => {
+          let theme = 'red';
+
+          instance = TestUtils.renderIntoDocument(<Form cancelButtonProps={ { theme: theme } } />);
+          buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
+          expect(buttons[1].className).toContain(`carbon-button--${theme}`);
+        });
+      });
     });
 
     describe('Cancel Button', () => {
@@ -535,6 +564,5 @@ describe('Form', () => {
         expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
       });
     });
-
   });
 });

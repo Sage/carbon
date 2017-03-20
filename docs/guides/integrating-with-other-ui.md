@@ -32,26 +32,23 @@ In your existing UI, add an empty `div` to the target location - and give it a u
 <div id="contact-address"></div>
 ```
 
-Back to your original component, we can now use React DOM to render the address to this location:
+Back to your original component, we can now use the `MountInApp` component to render the address to this location:
 
 ```js
 class ContactAddress extends React.Component {
-  componentDidMount() {
-    ReactDOM.render(
-      <MyAddressComponent />,
-      document.getElementById('contact-address')
-    );
-  }
-
   render() {
-    return null;
+    return (
+      <MountInApp targetId="contact-address">
+        <MyAddressComponent />
+      </MountInApp>
+    );
   }
 }
 ```
 
-You can render any component you want, but it should be rendering within the existing UI.
+You can render any component you want (or multiple components), but it should be rendering within the existing UI.
 
-Once the rest of the page is eventually converted to React components, all you need to do to this component is remove the `ReactDOM` code and instead render your `MyAddressComponent` as part of the regular render function.
+Once the rest of the page is eventually converted to React components, all you need to do to this component is remove the `MountInApp` component instead only render your `MyAddressComponent` as part of the regular render function.
 
 ## 2) Triggering an Action External to React/Flux
 

@@ -253,12 +253,26 @@
 
 .common-input__prefix {
   font-weight: bold;
+  font-size: $input-common-font-size;
   left: 7px;
   position: absolute;
   top: 8px;
 }
 
+.common-input__input-icon {
+  font-weight: bold;
+  left: 7px;
+  position: absolute;
+  top: 6px;
+
+  ~ .common-input__prefix,
+  + .common-input__input {
+    text-indent: 21px;
+  }
+}
+
 .common-input--label-inline {
+  .common-input__input-icon,
   .common-input__prefix {
     left: 23px;
   }

@@ -46,10 +46,10 @@ describe('Carousel', () => {
     it('sets the disabled state to false', () => {
       jasmine.clock().install();
 
-      instance.setState({ disabled: true }); 
+      instance.setState({ disabled: true });
       instance.enableButtonsAfterTimeout();
       jasmine.clock().tick(750);
-      
+
       expect(instance.state.disabled).toBeFalsy();
 
       jasmine.clock().uninstall();
@@ -64,15 +64,15 @@ describe('Carousel', () => {
     });
 
     it('decrements the selectedSlideIndex', () => {
-      expect(instance.state.selectedSlideIndex).toEqual(1); 
+      expect(instance.state.selectedSlideIndex).toEqual(1);
     });
 
     it('sets the transistion direction to previous', () => {
-      expect(instance.transitionDirection).toEqual('previous'); 
+      expect(instance.transitionDirection).toEqual('previous');
     });
 
     it('disables the buttons', () => {
-      expect(instance.state.disabled).toBeTruthy(); 
+      expect(instance.state.disabled).toBeTruthy();
     });
 
     it('calls to re-enable buttons after timeout', () => {
@@ -96,15 +96,15 @@ describe('Carousel', () => {
     });
 
     it('increments the selectedSlideIndex', () => {
-      expect(instance.state.selectedSlideIndex).toEqual(1); 
+      expect(instance.state.selectedSlideIndex).toEqual(1);
     });
 
     it('sets the transistion direction to next', () => {
-      expect(instance.transitionDirection).toEqual('next'); 
+      expect(instance.transitionDirection).toEqual('next');
     });
 
     it('disables the buttons', () => {
-      expect(instance.state.disabled).toBeTruthy(); 
+      expect(instance.state.disabled).toBeTruthy();
     });
 
     it('calls to re-enable buttons after timeout', () => {
@@ -168,50 +168,50 @@ describe('Carousel', () => {
 
   describe('nextClasses', () => {
     it('returns the class for the next button area', () => {
-      expect(instance.nextClasses).toEqual('carbon-carousel__navigation carbon-carousel__next');
+      expect(instance.nextClasses()).toEqual('carbon-carousel__navigation carbon-carousel__next');
     });
   });
 
   describe('previousClasses', () => {
     it('returns the class for the previous button area', () => {
-      expect(instance.previousClasses).toEqual('carbon-carousel__navigation carbon-carousel__previous');
+      expect(instance.previousClasses()).toEqual('carbon-carousel__navigation carbon-carousel__previous');
     });
   });
 
   describe('previousButtonClasses', () => {
     it('returns the class for the previous button', () => {
-      expect(instance.previousButtonClasses).toEqual('carbon-carousel__buttons carbon-carousel__previous-button');
+      expect(instance.previousButtonClasses()).toEqual('carbon-carousel__buttons carbon-carousel__previous-button');
     });
   });
 
   describe('nextButtonClasses', () => {
     it('returns the class for the next button', () => {
-      expect(instance.nextButtonClasses).toEqual('carbon-carousel__buttons carbon-carousel__next-button');
+      expect(instance.nextButtonClasses()).toEqual('carbon-carousel__buttons carbon-carousel__next-button');
     });
   });
 
   describe('slideSelectorClassses', () => {
     it('returns the class for the slide selector', () => {
-      expect(instance.slideSelectorClasses).toEqual('carbon-carousel__selector');
+      expect(instance.slideSelectorClasses()).toEqual('carbon-carousel__selector');
     });
   });
 
   describe('previousButtonProps', () => {
     it('adds the previous button classNames', () => {
-      expect(instance.previousButtonProps.className).toEqual(instance.previousButtonClasses);
+      expect(instance.previousButtonProps().className).toEqual(instance.previousButtonClasses());
     });
 
     describe('when buttons are disabled', () => {
       it('does not add a onClick', () => {
         instance.setState({ disabled: true });
-        expect(instance.previousButtonProps.onClick).toBeUndefined();
+        expect(instance.previousButtonProps().onClick).toBeUndefined();
       });
     });
 
     describe('when buttons are not disabled', () => {
       it('adds a onClick', () => {
         instance.setState({ disabled: false });
-        expect(instance.previousButtonProps.onClick).toBeDefined();
+        expect(instance.previousButtonProps().onClick).toBeDefined();
       });
     });
   });
@@ -225,13 +225,13 @@ describe('Carousel', () => {
           </Carousel>
         );
 
-        expect(instance.numOfSlides).toEqual(1);
+        expect(instance.numOfSlides()).toEqual(1);
       });
     });
-    
+
     describe('when an array of children', () => {
       it('returns the number of children', () => {
-        expect(instance.numOfSlides).toEqual(3);
+        expect(instance.numOfSlides()).toEqual(3);
       });
     });
   });
@@ -240,7 +240,7 @@ describe('Carousel', () => {
     let slide;
 
     beforeEach(() => {
-      slide = instance.visibleSlide;
+      slide = instance.visibleSlide();
     });
 
     it('returns a slide instance', () => {
@@ -254,7 +254,7 @@ describe('Carousel', () => {
 
   describe('slideSelector', () => {
     it('renders a button for each slide', () => {
-      let buttons = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-carousel__selector-input'); 
+      let buttons = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-carousel__selector-input');
       expect(buttons.length).toEqual(3);
     });
   });

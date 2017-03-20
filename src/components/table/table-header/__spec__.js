@@ -56,7 +56,7 @@ describe('TableHeader', () => {
           </TableRow>
         </Table>
       );
-      expect(console.error).toHaveBeenCalledWith('Warning: Failed propType: Sortable columns require a prop of name of type String. See render method of TableHeader');
+      expect(console.error.calls.argsFor(0)[0]).toMatch(`Failed prop type: Sortable columns require a prop of name of type String`);
     });
 
     it('throws an error if the name is not a string', () => {
@@ -67,7 +67,7 @@ describe('TableHeader', () => {
           </TableRow>
         </Table>
       );
-      expect(console.error).toHaveBeenCalledWith('Warning: Failed propType: name must be a string');
+      expect(console.error.calls.argsFor(0)[0]).toMatch(`Failed prop type: name must be a string`);
     });
   });
 

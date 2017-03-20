@@ -6,8 +6,13 @@
 }
 
 .carbon-dropdown__input--filtered {
-  font-style: italic;
-  color: #AAA;
+  color: $grey-dark-blue-80;
+}
+
+.carbon-dropdown-filter--writeable {
+  .carbon-icon.icon-error {
+    right: 6px;
+  }
 }
 
 .carbon-dropdown__action {

@@ -1,31 +1,14 @@
 @import "colors";
+@import "./../../style-config/demo-variables";
 
-body {
-  background-color: $grey-background;
-  margin: 0;
-}
-
-.carbon-demo__header {
-  background-color: $grey-dark-blue;
-  color: #FFF;
-}
-
-.carbon-demo__header-contents,
-.carbon-demo__content {
-  margin: 0 auto;
-  min-width: 960px;
-  max-width: 1400px;
-}
-
-.carbon-demo__header-contents {
-  a {
-    color: #FFF;
-    display: inline-block;
-    padding: 10px;
-    text-decoration: none;
+.chrome {
+  background-color: $grey-dark-blue-5;
+  @media(min-width: $menu-popout-point) {
+    padding-left: $menu-width;
   }
-}
-
-.carbon-demo__footer {
-  height: 200px;
+  .demo-menu {
+    @media(min-width: $menu-popout-point) {
+      position: relative;
+    }
+  }
 }

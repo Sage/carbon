@@ -19,8 +19,8 @@ const I18nHelper = {
    */
   format: (locale) => {
     return {
-      delimiter: I18n.t("number.format.delimiter", { locale: locale, defaultValue: "," }),
-      separator: I18n.t("number.format.separator", { locale: locale, defaultValue: "." }),
+      delimiter: I18n.t("number.format.delimiter", { defaultValue: "," }),
+      separator: I18n.t("number.format.separator", { defaultValue: "." }),
       unit: I18n.t("number.currency.format.unit", { locale: locale, defaultValue: '£' }),
       format: I18n.t("number.currency.format.format", { locale: locale, defaultValue: '%u%n' })
     };
@@ -73,9 +73,10 @@ const I18nHelper = {
    * @return {String} abbreviated number
    */
   abbreviateNumber: (num, options = {}) => {
-    if (num > 949 && num < 999950) {
+    const absolute = Math.abs(num);
+    if (absolute > 949 && absolute < 999950) {
       return `${I18nHelper.roundForAbbreviation(num, 100, options)}${I18n.t("number.format.abbreviations.thousand", { defaultValue: "k" })}`;
-    } else if (num > 999949) {
+    } else if (absolute > 999949) {
       return `${I18nHelper.roundForAbbreviation(num, 100000, options)}${I18n.t("number.format.abbreviations.million", { defaultValue: "m" })}`;
     }
 
@@ -123,9 +124,14 @@ const I18nHelper = {
   formatCurrency: (valueToFormat = 0, options = {}) => {
     let locale = options['locale'] || I18n.locale || 'en',
         format = I18nHelper.format(locale),
-        precision = options['precision'] || 2,
+        precision = options['precision'],
         unit = options['unit'] || format.unit,
         structure = options['format'] || format.format;
+
+    // Checking explicitly as 0 is a valid precision
+    if (typeof(precision) === "undefined" || precision === null) {
+      precision = 2;
+    }
 
     return  I18n.toCurrency(valueToFormat, {
       precision: precision,

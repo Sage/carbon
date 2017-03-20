@@ -1,8 +1,268 @@
-# 0.30.0
+# 1.0.0
+
+## :warning: Major Change - React 15 Upgrade
+
+* React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
+
+## !! BREAKING CHANGES!! :warning:
+
+* Banner Component has been Deleted in favour of the Message Component
+* `ButtonToggle`: `icon` and `iconSize` become `buttonIcon` and `buttonIconSize` to avoid clash with Input decorator
+* Menu List - Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
+
+## Potentially breaking changes
+
+* The following components have been refactored to meet best practice standards and pass linting. If you have overridden any internal methods of these components, you may need to update your code.
+  - Action Toolbar
+  - Alert
+  - Animated Menu Button
+  - App-Wrapper
+  - Button
+  - Content
+  - Create
+  - Carousel
+* `ButtonToggle` no longer inherits from the label decorator as it was providing more functionality than required.
+
+## Component Enhancements
+
+* `DropdownFilter`: placeholder text is made more legible by removing italics and making the font color darker
+* `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
+* `MountInApp` now cleans up it's children when the component is unmounted.
 
 ## Helpers
 
-* A new 'insertAt' Ether helper to insert a character in a string at a specified interval
+* A new 'insertAt' Ether helper to insert a character in a string at a specified indices
+
+## Bug Fixes
+
+* `ButtonToggle`: css typo corrected
+* `Link`: CSS inheritance has been updated to better support buttons.
+* `Alert`: default size has been fixed to `extra-small`.
+* `Confirm`: default size has been fixed to `extra-small`.
+* `Heading`: alignment is fixed in IE where `hr` was centring by default
+
+## data-attributes on components
+
+We are adding data-attributes to components to better identify them and their parts within the browser. We will add `data-component` tags on the top level of any component, and `data-member` tags to constituent parts. Developers can also add `data-element` tags to components to uniquely identify specific components within their UI.
+
+So far we have added attributes to the following components:
+
+* Textbox
+
+## Dependency Update
+
+* Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+
+### Gulp updates
+
+* Can pass command line arg to pecify port for demo server.
+```bash
+gulp --port 1234
+```
+
+# 0.34.3
+
+## Component Enhancements
+
+* `DropdownFilter`: Refactored 'freetext' mode to operate on `value` for an option id, or `visibleValue` for a write-in value.
+* `PresenceValidator`: Added `props` and `requireAll` arguments to validate any/all of multiple input properties.
+
+# 0.34.2
+
+## Bug fix
+
+* Fixes onBlur prop passed to `Date`, `Decimal`, `Dropdown`, `DropdownFilter`, and `DropdownFilterAjax` components so it is called instead of ignored
+* `I18nHelper`: Number abbreviator allows negative numbers
+
+# 0.34.1
+
+## Component Enhancements
+
+* `MenuItem`: Added `onClick` prop.
+
+# 0.34.0
+
+## Component Enhancements
+
+* `DateRange`: Two new props have been added, `startDateProps` and `endDateProps`, to apply props to the child `Date` components.
+* `MultiStepWizard` now allows adding callbacks when clicking on Next/Back button and allows adding validation callback before wizard submission when clicking on Submit button.
+
+## DropdownFilter `freetext` mode
+
+Adds a new mode to `DropdownFilter` which prompts the user with suggest-style filtered options, but also allows typed
+entries that do not match any options. If the typed string exactly matches the name of an option, that option is
+automatically selected on blur, and the `onChange` event target will specify the option id as `value` and name as
+`visibleValue`, just as if it had been clicked. If the typed string does not match any options on blur, it remains as
+the input value and `onChange` will carry an empty string `value` and the typed string as `visibleValue`.
+
+Usage:
+
+```
+<DropdownFilter options={ options } freetext={ true } onChange={ this.onChange } />
+```
+
+# 0.33.2
+
+## Bug fix
+
+* `Portrait`: Fixes image stacking.
+* Fixes decimal input displaying error with single negative sign `-`.
+* Fixes numeral validation exception with single negative sign `-`.
+* Currently active inputs no longer re-validate during `componentWillReceiveProps`, ensuring that duplicate re-validation no longer occurs triggering `-1` error counts.
+
+# 0.33.1
+
+## Bug fix
+
+* Fixes alignment issue in inputs caused by the font size of prefixes differing from values.
+
+# 0.33.0
+
+## Helpers
+
+* The I18n helper now uses the current locale for delimiter and separator.
+
+# 0.32.1
+
+## Bug Fixes
+
+* Validation is now correctly reset when a value is changed externally from the input.
+
+# 0.32.0
+
+## New Validators
+
+* IsBlankValidator
+
+## MountInApp Component
+
+Can be used to integrate React components into pre-existing user interfaces.
+
+```
+  <MountInApp targetId="put_carbon_component_here">
+    // Children
+  </MountInApp>
+```
+
+The code above will render all `//Children` components inside of the element with ID=`put_carbon_component_here` found on the page.
+
+## SimpleColorPicker Component
+
+A component that displays squares with color samples that you can choose from.
+
+```javascript
+  <SimpleColorPicker
+    availableColors={ ['transparent', '#ff0102', '#34ff01'] }
+    selectedColor="#34ff01"
+    name="settings[color_of_something]"
+    onChange={ customEventHandler }
+  />
+```
+
+## Helpers
+
+* A new 'insertAt' Ether helper to insert a character in a string.
+*  It inserts a dash by default, or a custom `newChar`
+
+```javascript
+  insertAt('123456', 2);
+  // => 12-3456
+  insertAt('123456789', 3, { newChar:'/' });
+  // => 123/456789
+```
+To repeat the character at the same interval, set `repeat` to `true`
+
+```javascript
+  insertAt('123456', 2, { repeat: true });
+  // => 12-34-56
+  insertAt('123456789', 3, { newChar:'/', repeat: true });
+  // => 123/456/789
+```
+
+# 0.31.3
+
+* `legacyEditStyles` prop name has changed to `internalEditButton`.
+
+# 0.31.2
+
+## Bug fix
+
+* `Pod`: bug fixed with link and hover event props being mixed up
+
+# 0.31.1
+
+## Bug fix
+
+* `I18nHelper.formatCurrency`: returns integer with option { precision: 0 }.
+
+# 0.31.0
+
+## MultiStepWizard Component
+
+We have updated MultiStepWizard's default buttons as primary.
+
+## Pod Component
+
+Now takes a legacy style flag that switches the styles back
+
+## Component Enhancements
+
+* `Icon`: Three new props have been added:
+  * `bgShape`: 'square', 'rounded-rect', or 'circle'.
+  * `bgTheme`: 'warning', 'default', 'error', 'info', 'new', 'success', 'help', or 'maintenance'
+  * `bgSize`: 'small' (default), 'medium', or 'large' - only modifies overall icon size if `bgShape` or `bgTheme` is passed.
+
+* `Form`: Two new props have been added, `saveButtonProps` and `cancelButtonProps`, to apply props to Form buttons.
+
+## Helper Enhancements
+
+* `Browser`: A new `postToNewWindow` method has been added, for sending POST data to a new browser window/tab.
+
+## CSS Changes
+
+* Added `$beta` orange color variable
+
+# 0.30.0
+
+## SettingsRow Component
+
+We have added a settings row component for settings pages. It employs the current UX standard for the appearance of settings pages. Title, description, and any details (accepts nodes) are formatted into the header, while children are rendered in the input cell. Renders nothing if no children present.
+
+```
+<SettingsRow
+  className='mysetting-row'
+  title='My Setting'
+  description='Some descriptive text'
+  description={ <span>Detailed description</span> }> }
+>
+  <Checkbox label='Enable my setting' />
+  <div>Some other blurb about the setting</div>
+</SettingsRow>
+```
+
+## CSS Changes
+
+* Portrait initials are now dark grey on grey
+
+## Component Enhancements
+
+* `Heading`: One new prop has been added, `separator`, to show a 2x50px separator between title and subheader.
+* All input components can now render an icon using the prop `icon`.
+* `Portrait`: Now displays an icon in place of a blank box when the image has not been set and the initials are an empty string.
+
+# 0.29.3
+
+## Bug Fixes
+
+* single quote(') is valid in email address now.
+
+# 0.29.2
+
+## Bug Fixes
+
+* Readded the `carbon-tabs` class to the Tabs component.
+* Clear any selected rows too in refresh()
+* SelectedRows should be reset to the same object it is defined with
 
 # 0.29.1
 
@@ -45,6 +305,7 @@
 
 * `Message`: Two new props have been added, `border` and `roundedCorners`.
 * `Dropdown`: One new prop has been added, `cacheVisibleValue`.
+* `Tabs` now can take a prop of 'position' which supports floating to the left and being positioned in a vertical stack.
 
 ## Helpers
 
@@ -192,7 +453,6 @@ import 'react-highcharts/dist/bundle/highcharts';
 * `Pod` enter triggers edit function and edit element is keyboard accessible
 * `Tabs` enter triggers tab load and navigation tabs are keyboard accessible
 * `Tabs` focus state is given the same styles as hover state
-* `Tabs` now can take a prop of 'position' which supports floating to the left and being positioned in a vertical stack.
 * `Pager` component now emits which element has changed.
 * `Sidebar` now takes a size prop (e.g. `extra-small`, `small`, ...`extra-large`)
 

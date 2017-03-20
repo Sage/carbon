@@ -17,8 +17,38 @@ describe('DropdownFilter', () => {
       expect(instance.openingList).toBeFalsy();
     });
 
-    it('sets default state', () => {
-      expect(instance.state.filter).toBe(null);
+    describe('when not in freetext mode', () => {
+      it('sets default filter', () => {
+        expect(instance.state.filter).toBeNull();
+      });
+    });
+
+    describe('when in freetext mode', () => {
+      describe('when freetext value not set', () => {
+        it('sets default filter', () => {
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
+          );
+          expect(instance.state.filter).toBeNull();
+        });
+      });
+
+      describe('when freetext value set', () => {
+        it('sets filter to value', () => {
+          let value = 'abc';
+
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter
+              name="foo"
+              options={ Immutable.fromJS([{}]) }
+              value=""
+              visibleValue={ value }
+              freetext={ true }
+            />
+          );
+          expect(instance.state.filter).toEqual(value);
+        });
+      });
     });
   });
 
@@ -39,10 +69,23 @@ describe('DropdownFilter', () => {
   });
 
   describe('selectValue', () => {
-    it('calls setState', () => {
+    it('removes filter', () => {
       spyOn(instance, 'setState');
       instance.selectValue();
       expect(instance.setState).toHaveBeenCalledWith({ filter: null });
+    });
+
+    describe('when in freetext mode', () => {
+      it('sets filter to visible value', () => {
+        let visible = 'Value';
+
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
+        );
+        spyOn(instance, 'setState');
+        instance.selectValue('', visible);
+        expect(instance.setState).toHaveBeenCalledWith({ filter: visible });
+      });
     });
   });
 
@@ -82,7 +125,42 @@ describe('DropdownFilter', () => {
       });
     });
 
-    describe('when not in suggest mode', () => {
+    describe('when in freetext mode', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
+        );
+        spyOn(instance, 'setState');
+      });
+
+      describe('when character length is 0', () => {
+        it('closes the list', () => {
+          TestUtils.Simulate.change(instance._input, {
+            target: { value: '' }
+          });
+          expect(instance.setState).toHaveBeenCalledWith({
+            open: false,
+            filter: '',
+            highlighted: null
+          });
+        });
+      });
+
+      describe('when character length is greater than 0', () => {
+        it('opens the list', () => {
+          TestUtils.Simulate.change(instance._input, {
+            target: { value: 'a' }
+          });
+          expect(instance.setState).toHaveBeenCalledWith({
+            open: true,
+            filter: 'a',
+            highlighted: null
+          });
+        });
+      });
+    });
+
+    describe('when not in suggest or freetext mode', () => {
       it('calls setState with the filter even with no chars', () => {
         spyOn(instance, 'setState');
         TestUtils.Simulate.change(instance._input, {
@@ -122,7 +200,7 @@ describe('DropdownFilter', () => {
 
     describe('if blur is not blocked', () => {
       describe('if in create mode', () => {
-        it('calls setState', () => {
+        it('preserves filter', () => {
           instance = TestUtils.renderIntoDocument(
             <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" create={ function() {} } />
           );
@@ -135,7 +213,72 @@ describe('DropdownFilter', () => {
         });
       });
 
-      describe('if not in create mode', () => {
+      describe('if in freetext mode', () => {
+        let optid = '1',
+            optnm = 'foobar',
+            options = [{ id: optid, name: optnm }];
+
+        beforeEach(() => {
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS(options) } value="1" freetext={ true } />
+          );
+        });
+
+        it('preserves filter', () => {
+          spyOn(instance, 'setState');
+          instance.handleBlur();
+          expect(instance.setState).toHaveBeenCalledWith({
+            open: false,
+            filter: instance.state.filter
+          });
+        });
+
+        describe('when text matches an option name', () => {
+          it('selects the option', () => {
+            instance.setState({ filter: optnm });
+            spyOn(instance, 'selectValue');
+            instance.handleBlur();
+            expect(instance.selectValue).toHaveBeenCalledWith(optid, optnm);
+          });
+        });
+
+        describe('when text matches an option name but has a different case', () => {
+          it('selects the option', () => {
+            instance.setState({ filter: 'FoObAr' });
+            spyOn(instance, 'selectValue');
+            instance.handleBlur();
+            expect(instance.selectValue).toHaveBeenCalledWith(optid, optnm);
+          });
+        });
+
+        describe('when text does not match an option name', () => {
+          it('emits change event with text value', () => {
+            let text = 'Other';
+            instance.setState({ filter: text });
+            spyOn(instance, 'emitOnChangeCallback');
+            instance.handleBlur();
+            expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('', text);
+          });
+        });
+
+        describe('when option does not have a name', () => {
+          beforeEach(() => {
+            options.push({ id: '2', name: null });
+            instance = TestUtils.renderIntoDocument(
+              <DropdownFilter name="foo" options={ Immutable.fromJS(options) } value="1" freetext={ true } />
+            );
+          });
+
+          it('does not select the empty option', () => {
+            instance.setState({ filter: 'foo' });
+            spyOn(instance, 'emitOnChangeCallback');
+            instance.handleBlur();
+            expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('', 'foo');
+          });
+        });
+      });
+
+      describe('if not in create or freetext mode', () => {
         it('calls setState', () => {
           spyOn(instance, 'setState');
           instance.handleBlur();
@@ -162,6 +305,18 @@ describe('DropdownFilter', () => {
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
         });
       });
+
+      describe('when onBlur is set', () => {
+        it('calls onBlur', () => {
+          let onBlur = jasmine.createSpy('onBlur');
+
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" onBlur={ onBlur } />
+          );
+          instance.handleBlur();
+          expect(onBlur).toHaveBeenCalled();
+        });
+      });
     });
   });
 
@@ -177,7 +332,18 @@ describe('DropdownFilter', () => {
       });
     });
 
-    describe('if not in suggest mode', () => {
+    describe('if in freetext mode', () => {
+      it('does not call setState', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
+        );
+        spyOn(instance, 'setState');
+        instance.handleFocus();
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if not in suggest or freetext mode', () => {
       it('calls setState', () => {
         spyOn(instance, 'setState');
         instance.handleFocus();
@@ -289,14 +455,14 @@ describe('DropdownFilter', () => {
         instance.setState({ filter: 'foo' });
       });
 
-      describe('if not in suggest mode and list is opening', () => {
+      describe('if not in suggest or freetext mode and list is opening', () => {
         it('returns the options passed to it', () => {
           instance.openingList = true;
           expect(instance.prepareList(opts)).toEqual(opts);
         });
       });
 
-      describe('if not in suggest mode and list is not opening', () => {
+      describe('if not in suggest or freetext mode and list is not opening', () => {
         it('filters the list', () => {
           expect(instance.prepareList(opts).length).toEqual(2);
         });
@@ -311,10 +477,10 @@ describe('DropdownFilter', () => {
 
       describe('if in suggest mode and list is opening', () => {
         it('filters the list', () => {
-          instance.openingList = true;
           instance = TestUtils.renderIntoDocument(
             <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" suggest={ true } />
           );
+          instance.openingList = true;
           instance.setState({ filter: 'foo' });
           expect(instance.prepareList(opts).length).toEqual(2);
         });
@@ -324,6 +490,27 @@ describe('DropdownFilter', () => {
         it('filters the list', () => {
           instance = TestUtils.renderIntoDocument(
             <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" suggest={ true } />
+          );
+          instance.setState({ filter: 'foo' });
+          expect(instance.prepareList(opts).length).toEqual(2);
+        });
+      });
+
+      describe('if in freetext mode and list is opening', () => {
+        it('filters the list', () => {
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
+          );
+          instance.openingList = true;
+          instance.setState({ filter: 'foo' });
+          expect(instance.prepareList(opts).length).toEqual(2);
+        });
+      });
+
+      describe('if in freetext mode and list is not opening', () => {
+        it('filters the list', () => {
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
           );
           instance.setState({ filter: 'foo' });
           expect(instance.prepareList(opts).length).toEqual(2);
@@ -391,6 +578,32 @@ describe('DropdownFilter', () => {
     });
   });
 
+  describe('showArrow', () => {
+    describe('when in suggest mode', () => {
+      it('returns false', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" suggest={ true } />
+        );
+        expect(instance.showArrow()).toBeFalsy();
+      });
+    });
+
+    describe('when in freetext mode', () => {
+      it('returns false', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
+        );
+        expect(instance.showArrow()).toBeFalsy();
+      });
+    });
+
+    describe('when not in suggest or freetext mode', () => {
+      it('returns true', () => {
+        expect(instance.showArrow()).toBeTruthy();
+      });
+    });
+  });
+
   describe('options', () => {
     it('calls prepareList', () => {
       spyOn(instance, 'prepareList');
@@ -415,6 +628,15 @@ describe('DropdownFilter', () => {
       });
     });
 
+    describe('if in freetext mode', () => {
+      it('does not add the class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
+        );
+        expect(instance.inputClasses).not.toMatch('carbon-dropdown__input--filtered');
+      });
+    });
+
     describe('if there is no filter', () => {
       it('does not add the class', () => {
         instance.setState({ filter: null });
@@ -422,7 +644,7 @@ describe('DropdownFilter', () => {
       });
     });
 
-    describe('if not in create mode and there is a filter', () => {
+    describe('if not in create or freetext mode and there is a filter', () => {
       it('does adds the class', () => {
         instance.setState({ filter: 'foo' });
         expect(instance.inputClasses).toMatch('carbon-dropdown__input--filtered');
@@ -451,10 +673,21 @@ describe('DropdownFilter', () => {
         instance.visibleValue = 'foo';
         expect(instance.inputProps.value).toEqual('foo');
       });
+
+      describe('and freetext value is present', () => {
+        it('displays freetext value', () => {
+          let value = 'foo';
+
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } visibleValue={ value } freetext={ true } />
+          );
+          expect(instance.inputProps.value).toEqual(value);
+        });
+      });
     });
 
     describe('when filter is set', () => {
-      it('does not use the filter value', () => {
+      it('uses the filter value', () => {
         instance.visibleValue = 'foo';
         instance.setState({ filter: 'bar' });
         expect(instance.inputProps.value).toEqual('bar');
@@ -485,6 +718,60 @@ describe('DropdownFilter', () => {
     describe('no matched', () => {
       it('returns the original value', () => {
         expect(instance.highlightMatches("foobar", "zzz")).toEqual("foobar");
+      });
+    });
+  });
+
+  describe('render', () => {
+    let inputs;
+
+    describe('when not in freetext mode', () => {
+      it('only renders one hidden input', () => {
+        inputs = TestUtils.findAllInRenderedTree(instance, (node) => {
+          return TestUtils.isDOMComponent(node) &&
+            node.tagName.toLowerCase() === 'input' &&
+            node.type.toLowerCase() === 'hidden';
+        });
+        expect(inputs.length).toEqual(1);
+      });
+    });
+
+    describe('when in freetext mode', () => {
+      describe('when freetextName not set', () => {
+        it('only renders one hidden input', () => {
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter name="foo" options={ Immutable.fromJS([{}]) } value="1" freetext={ true } />
+          );
+          inputs = TestUtils.findAllInRenderedTree(instance, (node) => {
+            return TestUtils.isDOMComponent(node) &&
+              node.tagName.toLowerCase() === 'input' &&
+              node.type.toLowerCase() === 'hidden';
+          });
+          expect(inputs.length).toEqual(1);
+        });
+      });
+
+      describe('when freetextName set', () => {
+        let name = 'my_input_name';
+
+        it('renders a second hidden input for freetext', () => {
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter
+              name="foo"
+              options={ Immutable.fromJS([{}]) }
+              value="1"
+              freetext={ true }
+              freetextName={ name }
+            />
+          );
+          inputs = TestUtils.findAllInRenderedTree(instance, (node) => {
+            return TestUtils.isDOMComponent(node) &&
+              node.tagName.toLowerCase() === 'input' &&
+              node.type.toLowerCase() === 'hidden';
+          });
+          expect(inputs.length).toEqual(2);
+          expect(inputs[1].name).toEqual(name);
+        });
       });
     });
   });

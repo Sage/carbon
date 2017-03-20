@@ -46,7 +46,8 @@ describe('tooltip', () => {
       });
 
       it('renders a pointer span', () => {
-        expect(tooltip.children[0].children[1].classList[0]).toEqual('carbon-tooltip__pointer');
+        let span = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-tooltip__pointer');
+        expect(span.tagName).toEqual('SPAN');
       });
 
       it('aligns the pointer to center', () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Pod from './pod';
 import Button from './../button';
+import Link from './../link';
 import { shallow } from 'enzyme';
 
 describe('Pod', () => {
@@ -185,6 +186,13 @@ describe('Pod', () => {
         expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--primary carbon-pod__edit-action--padding-medium carbon-pod__display-on-hover');
       });
     });
+
+    describe("if internal edit button is enabled", () => {
+      it("renders a class to switch styles", () => {
+        let wrapper = shallow(<Pod internalEditButton={ true }/>);
+        expect(wrapper.find('.carbon-pod--internal-edit-button').length).toEqual(1);
+      });
+    });
   });
 
   describe('contentClasses', () => {
@@ -236,34 +244,70 @@ describe('Pod', () => {
     });
   });
 
-  describe('edit', () => {
-    describe('if no prop is passed', () => {
-      it('returns nothing', () => {
-        expect(instance.edit).toBe(null);
-      });
+  describe('prop onEdit', () => {
+    let editButtonBEM = '.carbon-pod__edit-button-container',
+        editContainer,
+        link,
+        wrapper;
+
+    beforeAll(() => {
+      wrapper = shallow(<Pod />);
     });
 
-    describe('if a string is passed', () => {
-      it('returns a link with a href prop', () => {
-        instance = TestUtils.renderIntoDocument(<Pod onEdit="foo" />);
-        expect(instance.edit.props.to).toEqual('foo');
-      });
+    it("!=Function does not bind to onClick and onKeyDown", () => {
+      // expect
     });
 
-    describe('if a function is passed', () => {
-      it('onClick and onKeyDown events are set to processPodEditEvent', () => {
-        instance = TestUtils.renderIntoDocument(<Pod onEdit={ () => { } } />);
-        expect(instance.edit.props.onClick).toEqual(instance.processPodEditEvent);
-        expect(instance.edit.props.onKeyDown).toEqual(instance.processPodEditEvent);
-      });
+    it("=false results in no edit element", () => {
+      expect(wrapper.find(editButtonBEM).length).toEqual(0);
     });
 
-    describe('if an object is passed', () => {
-      it('returns a link with a object as props', () => {
-        let foo = { foo: "foo", bar: "bar" };
-        instance = TestUtils.renderIntoDocument(<Pod onEdit={ foo } />);
-        expect(instance.edit.props.foo).toEqual("foo");
-        expect(instance.edit.props.bar).toEqual("bar");
+    it("=String results in a Link with a `to` property", () => {
+      wrapper.setProps({ onEdit: 'test' });
+      editContainer = wrapper.find(editButtonBEM);
+      link = editContainer.find(Link);
+      expect(link.prop('to')).toEqual('test');
+    });
+
+    it("=Object generates a Link with those Object properties included", () => {
+      wrapper.setProps({ onEdit: { foo: 'bar' } });
+      editContainer = wrapper.find(editButtonBEM);
+      link = editContainer.find(Link);
+      expect(link.prop('foo')).toEqual('bar');
+    });
+
+    describe("=Function", () => {
+      let dummy,
+          event = { preventDefault: () => {} };
+
+      beforeAll(() => {
+        dummy = jasmine.createSpy('dummy');
+        wrapper.setProps({ onEdit: dummy });
+        editContainer = wrapper.find(editButtonBEM);
+      });
+
+      it("will be triggered onClick", () => {
+        editContainer.simulate('click', event);
+        expect(dummy).toHaveBeenCalled();
+      });
+
+      describe("with keydown event", () => {
+        beforeEach(() => {
+          event.type = 'keydown';
+          dummy.calls.reset();
+        });
+
+        it("will be triggered by enter key", () => {
+          event.which = 13;
+          editContainer.simulate('keydown', event);
+          expect(dummy).toHaveBeenCalled();
+        });
+
+        it("will not be triggered by non-enter key", () => {
+          event.which = 14;
+          editContainer.simulate('keydown', event);
+          expect(dummy).not.toHaveBeenCalled();
+        });
       });
     });
   });
@@ -311,17 +355,6 @@ describe('Pod', () => {
     });
   });
 
-  describe("podProps", () => {
-    it("returns props without the title if the title is not a string", () => {
-      let instance, result;
-
-      instance = TestUtils.renderIntoDocument(<Pod title={ <Button>Foo</Button> } onEdit={ () => { } } />);
-      result = instance.podProps();
-      expect(result.title).toBeUndefined();
-      expect(result.onEdit).not.toBeUndefined();
-    });
-  });
-
   describe("titleIsString", () => {
     it("returns false if title is not a string", () => {
       instance = TestUtils.renderIntoDocument(<Pod title={ undefined } />);
@@ -335,9 +368,9 @@ describe('Pod', () => {
 
   describe('render', () => {
     it('applies all props to the pod', () => {
-      instance = TestUtils.renderIntoDocument(<Pod content="bar" />);
-      let pod = TestUtils.findRenderedComponentWithType(instance, Pod);
-      expect(pod.props.content).toEqual("bar");
+      instance = TestUtils.renderIntoDocument(<Pod data-foo="bar" />);
+      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      expect(div.attributes['data-foo'].value).toEqual("bar");
     });
 
     describe('pod content', () => {
