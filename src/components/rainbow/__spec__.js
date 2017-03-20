@@ -140,8 +140,8 @@ describe('Rainbow', () => {
     describe('config property', () => {
       describe('uses some default chart config when no config is passed', () => {
         it("can use the config property to override some chart properties", () => {
-          expect(chart.props.config.chart.backgroundColor).toEqual(null);
-          expect(chart.props.config.credits.enabled).toEqual(false);
+          expect(chart.chart.options.chart.backgroundColor).toEqual(null);
+          expect(chart.chart.options.credits.enabled).toEqual(false);
         });
       });
 
@@ -160,8 +160,8 @@ describe('Rainbow', () => {
         });
 
         it("can use the config property to override some chart properties", () => {
-          expect(chart.props.config.chart.backgroundColor).toEqual('#ff00cc');
-          expect(chart.props.config.credits.enabled).toEqual(true);
+          expect(chart.chart.options.chart.backgroundColor).toEqual('#ff00cc');
+          expect(chart.chart.options.credits.enabled).toEqual(true);
         });
       });
 
