@@ -3,6 +3,7 @@ var yargs = require('yargs');
 var BuildTask = require('carbon-factory/lib/gulp/build').default;
 var SpecTask = require('carbon-factory/lib/gulp/spec').default;
 var generateColors = require('./script/generate-demo-colors').default;
+var generateDocs = require('./script/generate-docs').default;
 var express = require('express');
 var gutil = require('gulp-util');
 
@@ -12,6 +13,7 @@ var dir = argv.dir || 'demo';
 
 gulp.task('prepare-demo', function() {
   generateColors();
+  generateDocs();
 });
 
 gulp.task('webserver', function() {

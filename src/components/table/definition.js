@@ -9,7 +9,7 @@ import tableSubheaderDefinition from './table-subheader/definition';
 setTimeout(() => {
   // trigger action to init table with data
   ComponentActions.updateTable();
-});
+}, 200);
 
 let definition = new Definition('table', Table, {
   associatedDefinitions: [

@@ -4,6 +4,7 @@ coverage/
 *.swo
 demo/assets
 demo/utils/generated/*.js
+demo/utils/generated/**/*
 .DS_Store
 .browser-preferences/
 .idea

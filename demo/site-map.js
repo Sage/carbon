@@ -11,9 +11,9 @@ import SiteMapHelper from './utils/site-map-helper';
 export default new SiteMapHelper({
   "/getting-started": {
     items: {
-      "setting-up-your-environment": "https://github.com/Sage/carbon/blob/master/docs/guides/setting-up-your-environment.md",
-      "getting-started": "https://github.com/Sage/carbon/blob/master/docs/guides/getting-started.md",
-      "a-basic-example-of-flux": "https://github.com/Sage/carbon/blob/master/docs/guides/flux.md"
+      "setting-up-your-environment": "/docs/guides/setting-up-your-environment.md",
+      "hello-world": "/docs/guides/getting-started.md",
+      "a-basic-example-of-flux": "/docs/guides/a-basic-example.md"
     }
   },
   "/components/:name": {
@@ -33,21 +33,21 @@ export default new SiteMapHelper({
   },
   "/guides": {
     items: {
-      "flux": "https://github.com/Sage/carbon/blob/master/docs/guides/flux.md",
-      "immutable": "https://github.com/Sage/carbon/blob/master/docs/guides/immutable.md",
-      "validations": "https://github.com/Sage/carbon/blob/master/docs/guides/validations.md",
-      "assets": "https://github.com/Sage/carbon/blob/master/docs/guides/assets.md",
-      "decorators": "https://github.com/Sage/carbon/blob/master/docs/guides/decorators.md",
-      "handlers": "https://github.com/Sage/carbon/blob/master/docs/guides/handlers.md",
-      "retrieving-data": "https://github.com/Sage/carbon/blob/master/docs/guides/retrieving-data.md",
-      "integrating-other-code": "https://github.com/Sage/carbon/blob/master/docs/guides/integrating-with-other-ui.md",
+      "flux": "/docs/guides/flux.md",
+      "immutable": "/docs/guides/immutable.md",
+      "validations": "/docs/guides/validations.md",
+      "assets": "/docs/guides/assets.md",
+      "decorators": "/docs/guides/decorators.md",
+      "handlers": "/docs/guides/handlers.md",
+      "retrieving-data": "/docs/guides/retrieving-data.md",
+      "integrating-other-code": "/docs/guides/integrating-with-other-ui.md",
     }
   },
   "/tutorials": {
     items: {
-      "rails-part-1:-hello-world": "https://github.com/Sage/carbon/blob/master/docs/tutorials/carbon-rails/hello-world.md",
-      "rails-part-2:-introducing-data": "https://github.com/Sage/carbon/blob/master/docs/tutorials/carbon-rails/introducing-data.md",
-      "rails-part-2:-updating-data": "https://github.com/Sage/carbon/blob/master/docs/tutorials/carbon-rails/updating-data.md"
+      "rails-part-1:-hello-world": "/docs/tutorials/carbon-rails/hello-world.md",
+      "rails-part-2:-introducing-data": "/docs/tutorials/carbon-rails/introducing-data.md",
+      "rails-part-2:-updating-data": "/docs/tutorials/carbon-rails/updating-data.md"
     }
   },
 });

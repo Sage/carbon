@@ -6,7 +6,7 @@ export default (availableRoutes, currentLocation) => {
       currentPage = parts[parts.length - 1],
       currentRouteIndex = _currentIndex(routes, currentPage),
       nextKey = _nextKey(routes, currentRouteIndex),
-      prevKey = _nextKey(routes, currentRouteIndex);
+      prevKey = _previousKey(routes, currentRouteIndex);
 
   return {
     next: {
@@ -59,7 +59,7 @@ const _nextKey = (routes, currentRouteIndex) => {
  * @return {String}
  */
 const _previousKey = (routes, currentRouteIndex) => {
-  let nextRouteIndex = (currentRouteIndex - 1 + routes.length) % routes.length
+  let previousRouteIndex = (currentRouteIndex - 1 + routes.length) % routes.length
   return routes[previousRouteIndex].path;
 }
 
