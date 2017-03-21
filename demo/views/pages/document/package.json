@@ -1,3 +1,4 @@
 {
-  "main": "./document.js"
+  "main": "./document.js",
+  "style": "./document.scss"
 }

@@ -8,21 +8,21 @@
   pre {
     margin: 0;
   }
+
+  .hljs {
+    display: block;
+    line-height: 18px;
+    padding: 20px;
+    overflow-x: auto;
+    -webkit-text-size-adjust: none;
+
+    > .hljs-keyword:first-child {
+      display: none;
+    }
+  }
 }
 
 // highlight.js
-
-.hljs {
-  display: block;
-  line-height: 18px;
-  padding: 20px;
-  overflow-x: auto;
-  -webkit-text-size-adjust: none;
-
-  > .hljs-keyword:first-child {
-    display: none;
-  }
-}
 
 .hljs-tag,
 .hljs-tag .hljs-title,

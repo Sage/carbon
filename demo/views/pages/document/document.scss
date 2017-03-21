@@ -1,0 +1,56 @@
+@import 'colors';
+
+.demo-document {
+  min-height: 600px;
+  position: relative;
+
+  a {
+    color: $blue;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      color: $blue-dark;
+      text-decoration: underline;
+    }
+  }
+
+  code {
+    background-color: $grey-dark-blue-15;
+    border-radius: 4px;
+    line-height: 18px;
+    padding: 2px 6px;
+    overflow-x: auto;
+  }
+
+  pre code {
+    background-color: $grey-dark-plus;
+    border-radius: 4px;
+    color: $white;
+    display: block;
+    padding: 20px;
+  }
+}
+
+.demo-document__loading {
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  .demo-document__content + & {
+    display: none;
+  }
+}
+
+.demo-document__loading-leave,
+.demo-document__loading-appear,
+.demo-document__loading-enter,
+.demo-document__loading-leave.demo-document__loading-leave-active {
+  opacity: 0;
+  transition: all 100ms 100ms ease-in;
+}
+
+.demo-document__loading-appear.demo-document__loading-appear-active,
+.demo-document__loading-enter.demo-document__loading-enter-active {
+  opacity: 1;
+}
