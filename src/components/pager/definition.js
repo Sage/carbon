@@ -5,7 +5,7 @@ import ComponentActions from './../../../demo/actions/component';
 
 let definition = new Definition('pager', Pager, {
   type: 'form',
-  hiddenProps: ['pageSizeSelectionOptions'],
+  hiddenProps: ['currentPage', 'pageSizeSelectionOptions'],
   propOptions: {
     pageSize: OptionsHelper.pageSizes,
   },
