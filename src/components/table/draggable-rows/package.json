@@ -1,0 +1,5 @@
+{
+  "main": "./draggable-rows.js",
+  "name": "DraggableRows",
+  "style": "./draggable-rows.scss"
+}
