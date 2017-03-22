@@ -49,7 +49,7 @@ class Document extends React.Component {
         </div>
       );
     } else {
-      spinner = <Row><Spinner columnAlign="center" size="small" /></Row>;
+      spinner = <Row gutter="none"><Spinner columnAlign="center" size="small" /></Row>;
     }
 
     return (
