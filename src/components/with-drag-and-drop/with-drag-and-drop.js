@@ -65,10 +65,6 @@ const itemTarget = {
   }
 };
 
-function getDisplayName(WrappedComponent) {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
-}
-
 class WithDragAndDrop extends React.Component {
   render() {
     const { connectDragSource, connectDropTarget } = this.props;
