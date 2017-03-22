@@ -44,3 +44,5 @@ gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 gulp.task('test', SpecTask({
   path: '/src/***/**/!(__spec__|definition).js'
 }));
+
+gulp.task('deploy', ['prepare-demo', 'build']);
