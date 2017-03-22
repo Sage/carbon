@@ -6,6 +6,9 @@ import TableHeader from './../table-header';
 import Icon from './../../icon';
 import Checkbox from './../../checkbox';
 
+import { shallow, mount } from 'enzyme';
+import { WithDragAndDrop, DraggableContext } from './../../with-drag-and-drop';
+
 describe('TableRow', () => {
   let instance, clickableInstance, row;
 
@@ -419,6 +422,56 @@ describe('TableRow', () => {
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
         expect(th).toBeTruthy();
+      });
+    });
+
+    describe('with dragDropManager via context', () => {
+      let options;
+      let parentTable;
+      let dragDropManager;
+
+      beforeEach(() => {
+        parentTable = document.createElement('table');
+        dragDropManager = jasmine.createSpyObj('dragDropManager', [ 'getActions' ]);
+        options = {
+          attachTo: parentTable,
+          context: {
+            dragDropManager: dragDropManager,
+            moveItem: () => {}
+          },
+          childContextTypes: {
+            dragDropManager: React.PropTypes.object,
+            moveItem: React.PropTypes.func
+          }
+        };
+      });
+
+      it('renders a WithDragAndDrop component', () => {
+        let wrapper = mount(
+          <DraggableContext>
+            <TableRow index={ 1 }>
+              <td />
+              <td />
+            </TableRow>
+          </DraggableContext>,
+          options
+        );
+
+        expect(wrapper.find(WithDragAndDrop).length).toEqual(1);
+      });
+
+      it('renders a TableRow when no dragDropManager on context', () => {
+        delete options.context.dragDropManager;
+
+        let wrapper = mount(
+          <TableRow index={ 1 }>
+            <td />
+            <td />
+          </TableRow>,
+          options
+        );
+
+        expect(wrapper.find(TableRow).length).toEqual(1);
       });
     });
   });
