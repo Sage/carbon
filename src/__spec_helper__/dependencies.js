@@ -1,1 +1,2 @@
-import 'highcharts';
+import Highcharts from 'highcharts';
+global.Highcharts = Highcharts;
