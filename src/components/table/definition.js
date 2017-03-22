@@ -11,6 +11,7 @@ import tableSubheaderDefinition from './table-subheader/definition';
 setTimeout(() => {
   // trigger action to init table with data
   ComponentActions.updateTable();
+  // we currently delay this update incase the xhr mock is disabled (ie on a doc page)
 }, 200);
 
 let definition = new Definition('table', Table, {
