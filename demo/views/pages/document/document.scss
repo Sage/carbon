@@ -1,8 +1,18 @@
 @import 'colors';
 
+$doc-animation: opacity 100ms 200ms ease-in;
+
 .demo-document {
   min-height: 600px;
   position: relative;
+
+  h1:first-child {
+    display: none;
+
+    + * {
+      margin-top: 0;
+    }
+  }
 
   a {
     color: $blue;
@@ -36,10 +46,10 @@
   position: absolute;
   top: 0;
   width: 100%;
+}
 
-  .demo-document__content + & {
-    display: none;
-  }
+.demo-document__loading--hidden .carbon-spinner {
+  display: none;
 }
 
 .demo-document__loading-leave,
@@ -47,10 +57,11 @@
 .demo-document__loading-enter,
 .demo-document__loading-leave.demo-document__loading-leave-active {
   opacity: 0;
-  transition: all 100ms 100ms ease-in;
+  transition: $doc-animation;
 }
 
 .demo-document__loading-appear.demo-document__loading-appear-active,
 .demo-document__loading-enter.demo-document__loading-enter-active {
   opacity: 1;
+  transition: $doc-animation;
 }

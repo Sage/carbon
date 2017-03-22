@@ -1,11 +1,20 @@
 import Dispatcher from './../../dispatcher';
 import DocumentConstants from './../../constants/document';
+import Request from 'superagent';
+import { enableMock, disableMock } from './../../xhr-mock';
 
 export default {
-  updateDocument: (doc, content) => {
-    Dispatcher.dispatch({
-      actionType: DocumentConstants.UPDATE_DOCUMENT,
-      doc, content
-    })
+  updateDocument: (doc) => {
+    disableMock();
+
+    Request.get('/assets' + doc).end((err, res) => {
+      Dispatcher.dispatch({
+        actionType: DocumentConstants.UPDATE_DOCUMENT,
+        content: res.text,
+        doc
+      });
+
+      enableMock();
+    });
   }
 }

@@ -3,12 +3,11 @@ import { connect } from 'utils/flux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import DocumentStore from './../../../stores/document';
 import DocumentActions from './../../../actions/document';
-import Request from 'superagent';
 import marked from 'marked';
 import Spinner from 'components/spinner';
 import Row from 'components/row';
-import { enableMock, disableMock } from './../../../xhr-mock';
 import Highlight from 'react-highlight';
+import classNames from 'classnames';
 
 class Document extends React.Component {
   state = { guide: '' }
@@ -23,17 +22,18 @@ class Document extends React.Component {
 
   updateContent = () => {
     if (!this.getContent()) {
-      disableMock();
-
-      Request.get('/utils/generated' + this.props.route.document).end((err, res) => {
-        DocumentActions.updateDocument(this.props.route.document, res.text);
-        enableMock();
-      });
+      DocumentActions.updateDocument(this.props.route.document);
     }
   }
 
   getContent = () => {
     return this.state.documentStore.get(this.props.route.document);
+  }
+
+  loadingClasses = () => {
+    return classNames('demo-document__loading', {
+      'demo-document__loading--hidden': this.getContent()
+    });
   }
 
   render() {
@@ -57,7 +57,7 @@ class Document extends React.Component {
         { content }
 
         <ReactCSSTransitionGroup
-          className="demo-document__loading"
+          className={ this.loadingClasses() }
           transitionName="demo-document__loading"
           transitionAppear={ true }
           transitionAppearTimeout={ 300 }
