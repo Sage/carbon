@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
+import DraggableContext from './draggable-context';
 
 // TODO move to constants file?
 const ItemTypes = {
@@ -87,4 +88,7 @@ WithDragAndDrop = DragSource( // eslint-disable-line no-class-assign
   })
 )(WithDragAndDrop);
 
-export default WithDragAndDrop;
+export {
+  WithDragAndDrop,
+  DraggableContext
+};
