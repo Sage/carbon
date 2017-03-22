@@ -382,7 +382,7 @@ class TableRow extends React.Component {
         <tr { ...this.rowProps }>
           { content }
         </tr>
-      )
+      );
     }
 
   }
