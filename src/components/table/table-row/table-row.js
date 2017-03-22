@@ -4,6 +4,7 @@ import TableCell from './../table-cell';
 import TableHeader from './../table-header';
 import Checkbox from './../../checkbox';
 import guid from './../../../utils/helpers/guid';
+import WithDragAndDrop from './../../with-drag-and-drop';
 
 /**
  * A TableRow widget.
@@ -76,7 +77,9 @@ class TableRow extends React.Component {
     selectAll: React.PropTypes.func, // a callback function for when all visible rows are selected
     highlightable: React.PropTypes.bool, // table can enable all rows to be highlightable
     selectable: React.PropTypes.bool, // table can enable all rows to be multi-selectable
-    selectRow: React.PropTypes.func // a callback function for when a row is selected
+    selectRow: React.PropTypes.func, // a callback function for when a row is selected
+    dragDropManager: React.PropTypes.object,
+    moveItem: React.PropTypes.func
   }
 
   state = {
@@ -104,6 +107,12 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   componentWillMount() {
+    if (this.context.dragDropManager) {
+      if (typeof this.props.index === 'undefined') {
+        throw new Error('You need to provide an index for rows that are draggable');
+      }
+    }
+
     if (this.requiresUniqueID && !this.props.uniqueID) {
       throw new Error("A TableRow which is selectable or highlightable should provide a uniqueID.");
     }
@@ -321,11 +330,22 @@ class TableRow extends React.Component {
       content.unshift(this.multiSelectCell);
     }
 
-    return (
-      <tr { ...this.rowProps }>
-        { content }
-      </tr>
-    );
+    if (this.context.dragDropManager) {
+      return (
+        <WithDragAndDrop moveItem={ this.context.moveItem } index={ this.props.index }>
+          <tr { ...this.rowProps }>
+            { content }
+          </tr>
+        </WithDragAndDrop>
+      );
+    } else {
+      return (
+        <tr { ...this.rowProps }>
+          { content }
+        </tr>
+      )
+    }
+
   }
 
 }
