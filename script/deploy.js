@@ -12,8 +12,8 @@ var analytics = "<script>\n" +
 
 exports.default = function deploy() {
   fs.readFile('./deploy/index.html', 'utf8', function (err, data) {
-    data = data.replace(/timestamp/g, Date.now());
-    data = data.replace(/<!-- ANALYTICS -->/g, analytics);
+    data = data.replace(/~~TIMESTAMP~~/g, Date.now());
+    data = data.replace(/<!-- ~~ANALYTICS~~ -->/g, analytics);
 
     fs.writeFile('./deploy/index.html', data, 'utf8', function (err) {});
   });
