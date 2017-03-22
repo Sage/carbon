@@ -1,0 +1,5 @@
+{
+  "name": "section",
+  "main": "./section.js",
+  "style": "section.scss"
+}
