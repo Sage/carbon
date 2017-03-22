@@ -446,21 +446,40 @@ describe('TableRow', () => {
         };
       });
 
-      it('renders a WithDragAndDrop component', () => {
-        let wrapper = mount(
-          <DraggableContext>
-            <TableRow index={ 1 }>
-              <td />
-              <td />
-            </TableRow>
-          </DraggableContext>,
-          options
-        );
+      describe('when defined', () => {
+        it('renders a WithDragAndDrop component', () => {
+          let wrapper = mount(
+            <DraggableContext>
+              <TableRow index={ 1 }>
+                <td />
+                <td />
+              </TableRow>
+            </DraggableContext>,
+            options
+          );
 
-        expect(wrapper.find(WithDragAndDrop).length).toEqual(1);
+          expect(wrapper.find(WithDragAndDrop).length).toEqual(1);
+        });
+
+        it('throws an error if TableRow components do not have an index prop', () => {
+          let render = () => {
+            mount(
+              <DraggableContext>
+                <TableRow>
+                  <td />
+                  <td />
+                </TableRow>
+              </DraggableContext>,
+              options
+            );
+          };
+
+          expect(render).toThrowError('You need to provide an index for rows that are draggable');
+        });
       });
 
-      it('renders a TableRow when no dragDropManager on context', () => {
+
+      it('renders a TableRow when undefined', () => {
         delete options.context.dragDropManager;
 
         let wrapper = mount(
