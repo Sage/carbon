@@ -32,11 +32,12 @@
 
 ## Bug Fixes
 
-* `ButtonToggle`: css typo corrected
-* `Link`: CSS inheritance has been updated to better support buttons.
 * `Alert`: default size has been fixed to `extra-small`.
+* `ButtonToggle`: css typo corrected
 * `Confirm`: default size has been fixed to `extra-small`.
 * `Heading`: alignment is fixed in IE where `hr` was centring by default
+* `Link`: CSS inheritance has been updated to better support buttons.
+* `MenuList`: item filter search icon positioning is fixed
 
 ## data-attributes on components
 
