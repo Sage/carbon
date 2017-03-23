@@ -3,7 +3,7 @@ import OptionsHelper from './../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('toast', Toast, {
-  description: `Presents a longer, timely message that the user must dismiss, but doesn’t interrupt their activity.`,
+  description: `A longer, timely message that the user must dismiss, but doesn’t interrupt their activity.`,
   designerNotes: `
 * Presents a message in a dialog at the top-right of the screen that animates in. The user can manually dismiss it, and it animates out.
 * Useful for instant notifications, or information which is time sensitive (e.g. a ‘push notification’ style). If the message isn’t time sensitive, consider the Message component.
@@ -17,9 +17,10 @@ let definition = new Definition('toast', Toast, {
 * __Success__ - indicates that an activity was successful (e.g. ‘Your subscription upgrade was successful’).
 * __Warning__ - warns the user about a potential negative outcome that hasn’t happened yet.
 
-* __Simple positive or negative confirmation?__ Try Flash.
-* __Longer message which stays on-screen?__ Try Message.
-* __Error or warning message that interrupts activity?__ Try Alert.
+### Related Components
+* __Simple positive or negative confirmation?__ [Try Flash](/components/flash).
+* __Longer message which stays on-screen?__ [Try Message](/components/message).
+* __Error or warning message that interrupts activity?__ [Try Alert](/components/alert).
 `,
   type: 'notification',
   toggleFunctions: ["onDismiss"],

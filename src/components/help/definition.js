@@ -3,12 +3,13 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('help', Help, {
-  description: `Allows the user to get help or clarification by hovering on a question mark icon.`,
+  description: `Help or clarification presented by hovering on a question mark icon.`,
   designerNotes: `
 * Presents a tooltip when the user hovers on a question mark icon.
 
-* __Tooltip hovering on any Carbon icon?__ Try Icon.
-* __Tooltip hovering on any component?__ Try Tooltip.
+### Related Components
+* __Tooltip hovering on any Carbon icon?__ [Try Icon](/components/icon).
+* __Tooltip hovering on any component?__ [Try Tooltip](/components/tooltip).
  `,
   hiddenProps: ['tooltipMessage'],
   propOptions: {

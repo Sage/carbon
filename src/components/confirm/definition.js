@@ -3,7 +3,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('confirm', Confirm, {
-  description: `Confirms or cancels an action the user has initiated.`,
+  description: `Confirms or cancels an action.`,
   designerNotes: `
 * Shows a static message in a dialog which asks the user to confirm or cancel an action they’ve initiated.
 * Useful to confirm actions which may be difficult to undo, or potentially harmful.
@@ -11,11 +11,12 @@ let definition = new Definition('confirm', Confirm, {
 * This component has the same options and properties as the Dialog component.
 * A good example could be confirming deletion of a large number of records.
 
-* __Simple positive or negative confirmation?__ Try Flash.
-* __Longer message which stays on-screen?__ Try Message.
-* __Longer, time sensitive message that must be dismissed?__ Try Toast.
-* __Error or warning message that interrupts activity?__ Try Alert.
-* __Simple task in context?__ Try Dialog.
+### Related Components
+* __Simple positive or negative confirmation?__ [Try Flash](/components/flash).
+* __Longer message which stays on-screen?__ [Try Message](/components/message).
+* __Longer, time sensitive message that must be dismissed?__ [Try Toast](/components/toast).
+* __Error or warning message that interrupts activity?__ [Try Alert](/components/alert).
+* __Simple task in context?__ [Try Dialog](/components/dialog).
  `,
   propOptions: {
     size: OptionsHelper.sizesFull

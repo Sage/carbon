@@ -3,16 +3,17 @@ import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
 
 let definition = new Definition('icon', Icon, {
-  description: `Allows the user to see a UI element or some content represented with an eye catching icon.`,
+  description: `An eye catching icon to associate with a UI element or content item.`,
   designerNotes: `
 * Carbon comes with about 50 standard icons to choose from. See the Icons page in the Style section.
 * A tooltip option is available within this component.
 * Many other components allow you to specify one of the standard Carbon icons to associate with them, for example, the Link component.
 
-* __Tooltip hovering on any component?__ Try Tooltip.
-* __Tooltip from a question mark icon?__ Try Help.
-* __Moving the user to another location?__ Try Link.
-* __Icons__
+### Related Components
+* __Tooltip hovering on any component?__ [Try Tooltip](/components/tooltip).
+* __Tooltip from a question mark icon?__ [Try Help](/components/help).
+* __Moving the user to another location?__ [Try Link](/components/link).
+* __[Icons](/style/icons).__
  `,
   propRequires: {
     bgShape: "bgTheme",

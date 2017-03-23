@@ -5,7 +5,7 @@ import formDefinition from './../form/definition';
 import { assign } from 'lodash';
 
 let definition = new Definition('show-edit-pod', ShowEditPod, {
-  description: `Allows the user to view and edit a set of content that’s grouped together visually (in one pre-configured component).`,
+  description: `Presents and edits a set of content that’s grouped together visually (in one pre-configured component).`,
   designerNotes: `
 * Nest any Carbon input into this component. 
 * Configure Pod and Fieldset components to work together, or choose this pre-configured Show/Edit Pod component:
@@ -19,10 +19,11 @@ let definition = new Definition('show-edit-pod', ShowEditPod, {
 * Indicate mandatory, or optional fields, whichever is the minority. Think carefully before collecting optional data - don’t collect information you don’t need! Try suffixing ‘(optional)’ after your field label.
 * More guidance is available for each of the individual inputs you might place inside this component.
 
-* __Editing a number of closely related inputs?__ Try Fieldset.
-* __Filling in a broad series of inputs?__ Try Form.
-* __Viewing content that’s grouped together visually?__ Try Pod.
-* __Creating a new entity that is usually presented in a pod?__ Try Create.
+### Related Components
+* __Editing a number of closely related inputs?__ [Try Fieldset](/components/fieldset).
+* __Filling in a broad series of inputs?__ [Try Form](/components/form).
+* __Viewing content that’s grouped together visually?__ [Try Pod](/components/pod).
+* __Creating a new entity that is usually presented in a pod?__ [Try Create](/components/create).
  `,
   hiddenProps: ['editing', 'validateOnMount', 'transitionName'],
   toggleFunctions: ['onDelete'],

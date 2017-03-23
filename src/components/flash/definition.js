@@ -3,16 +3,17 @@ import Definition from './../../../demo/utils/definition';
 import OptionsHelper from './../../utils/helpers/options-helper';
 
 let definition = new Definition('flash', Flash, {
-  description: `Presents a simple positive or negative confirmation of an action.`,
+  description: `A simple positive or negative confirmation of an action.`,
   designerNotes: `
 * Presents a short confirmation message to the user in a banner which can animate quickly in, and out, at the bottom of the browser window.
 * Success messages disappear after a set timeout. Error messages stay on-screen until dismissed by the user.
 * Useful for general success and failure messages that the user doesn’t need time to interpret. Try to place only a very short message in a Flash of just a few characters, e.g. ‘Changes Saved’.
 * Various types are available. ‘Error’ and ‘Success’ are by far the most useful - others are present for completeness by may not be used in practice very often, because a Flash isn’t suitable for longer messages.
 
-* __Longer message which stays on-screen?__ Try Message.
-* __Longer, time sensitive message that must be dismissed?__ Try Toast.
-* __Error or warning message that interrupts activity?__ Try Alert.
+### Related Components
+* __Longer message which stays on-screen?__ [Try Message](/components/message).
+* __Longer, time sensitive message that must be dismissed?__ [Try Toast](/components/toast).
+* __Error or warning message that interrupts activity?__ [Try Alert](/components/alert).
  `,
   type: 'notification',
   propOptions: {

@@ -4,7 +4,7 @@ import OptionsHelper from 'utils/helpers/options-helper';
 import PresenceValidation from 'utils/validations/presence';
 
 let definition = new Definition('form', Form, {
-  description: `Allows the user to fill in a series of inputs.`,
+  description: `A series of inputs that captures data.`,
   designerNotes: `
 * You can nest any Carbon input into this component.
 * Carbon gives you standard Save and Cancel buttons with this component.
@@ -16,7 +16,8 @@ let definition = new Definition('form', Form, {
 * Indicate mandatory, or optional fields, whichever is the minority. Think carefully before collecting optional data - don’t collect information you don’t need! Try suffixing ‘(optional)’ after your field label.
 * More guidance is available for each of the individual inputs you might place inside this component.
 
-* __Editing a number of closely related inputs?__ Try Fieldset.
+### Related Components
+* __Editing a number of closely related inputs?__ [Try Fieldset](/components/fieldset).
  `,
   hiddenProps: ["validateOnMount", "saveButtonProps", "cancelButtonProps"],
   propOptions: {

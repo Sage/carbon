@@ -4,7 +4,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import tabDefinition from './tab/definition';
 
 let definition = new Definition('tabs', Tabs, {
-  description: `Allows the user to quickly switch between variants of a page or different tables.`,
+  description: `Switches between variants of a page or different tables.`,
   designerNotes: `
 * switch between variants of a page or different tables (e.g. separate tables showing unread and read emails).
 * There are two position options:
@@ -15,8 +15,9 @@ let definition = new Definition('tabs', Tabs, {
 * __Sets left or right page position for ‘Top’ tabs.
 * Only use tabs if there’s more than one, and show the content of one tab by default. Avoid multiple rows of tabs, nested tabs, or using vertical and horizontal tabs at the same time.
 
-* __Navigating the hierarchy of the app?__ Try Menu. 
-* __Positioning your primary navigation?__ Try Navigation Bar.
+### Related Components
+* __Navigating the hierarchy of the app?__ [Try Menu](/components/menu).
+* __Positioning your primary navigation?__ [Try Navigation Bar](/components/navigation-bar).
 `,
   type: 'layout',
   associatedDefinitions: [tabDefinition],

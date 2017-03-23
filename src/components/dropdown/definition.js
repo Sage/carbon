@@ -3,17 +3,19 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('dropdown', Dropdown, {
-  description: `Allows the user to choose one option from a very long list.`,
+  description: `Selects one option from a very long list.`,
   designerNotes: `
 * Behaves like a simple browser menu control - the user can select an item using the mouse or keyboard.
+* Useful to show more than about 5 options.
 * Use placeholder content like ‘Please select…’ to make it clear to the user that the Dropdown is unset.
 * Consider a ‘smart default’ selection, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
 
-* __Filtering menu options to find the right one?__ Try Dropdown Filter.
-* __Adding a new option within the menu?__ Try Dropdown Filter.
-* __Choosing one option from a shorter list?__ Try Radio Button.
-* __Choosing more than one option?__ Try Checkbox.
-* __Choosing one option from a highly visible range?__ Try Button Toggle.
+### Related Components
+* __Filtering menu options to find the right one?__ [Try Dropdown Filter](/components/dropdown-filter).
+* __Adding a new option within the menu?__ [Try Dropdown Filter](/components/dropdown-filter).
+* __Choosing one option from a shorter list?__ [Try Radio Button](/components/radio-button).
+* __Choosing more than one option?__ [Try Checkbox](/components/checkbox).
+* __Choosing one option from a highly visible range?__ [Try Button Toggle](/components/button-toggle).
  `,
   hiddenProps: ['options'],
   js: `function getOptions() {
