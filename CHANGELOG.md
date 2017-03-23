@@ -1,5 +1,9 @@
 # 0.35.0
 
+## Bug Fix
+
+* `ShowEditPod`: `beforeFormValidation` and `buttonAlign` props are now passed to the `Form` as they should be
+
 ## InlineInputs Component
 A simple `InlineInputs` wrapper component which allows multiple input fields to be displayed horizontally
 with a label.
