@@ -41,6 +41,7 @@ class DialogDemo extends React.Component {
           open={ this.value('open') }
           onCancel={ this.action.bind(this, 'open', { target: { value: false } } ) }
           title={ this.value('title') }
+          subtitle={ this.value('subtitle') }
           enableBackgroundUI={ this.value('enableBackgroundUI') }
           showCloseIcon={ this.value('showCloseIcon') }
           closeOnBackgroundClick={ this.value('closeOnBackgroundClick') }
@@ -65,6 +66,7 @@ class DialogDemo extends React.Component {
     html += "<Dialog\n";
     html += `  open={ ${ this.value('open') } }\n`
     html += `  title="${ this.value('title') }"\n`;
+    html += `  subtitle="${ this.value('subtitle') }"\n`;
 
     if (!this.value('showCloseIcon')) {
       html += `  showCloseIcon={ false }\n`;
@@ -99,6 +101,12 @@ class DialogDemo extends React.Component {
             labelInline={ true }
             value={ this.value('title') }
             onChange={ this.action.bind(this, 'title') }
+          />
+          <Textbox
+            label="Subtitle"
+            labelInline={ true }
+            value={ this.value('subtitle') }
+            onChange={ this.action.bind(this, 'subtitle') }
           />
           <Checkbox
             label="Enable Background UI"

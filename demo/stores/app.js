@@ -69,6 +69,7 @@ let data = ImmutableHelper.parseJSON({
     closeOnBackgroundClick: false,
     open: false,
     title: 'Hello World!',
+    subtitle: 'This is an optional subtitle',
     disableBackground: true
   },
   dropdown: {
