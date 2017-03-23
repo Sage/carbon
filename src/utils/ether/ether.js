@@ -70,16 +70,15 @@ function validProps(instance, safeProps) {
  * @return {String} result - formatted
  */
 function insertAt(value, options) {
-  let separator = options.separator || '-', result = value;
+  let separator = options.separator || '-',
+      result = value;
 
   for (let i = 0; i < result.length; i ++) {
     if (includes(options.insertionIndices, i)) {
-        let currentInsetionIndex = options.insertionIndices.indexOf(i);
-        result = result.substr(0, i) +
-                 separator +
-                 result.substr(i, options.insertionIndices[currentInsetionIndex + 1]);
+      result = result.substr(0, i) + separator + result.substr(i);
     }
   }
+
   return result;
 }
 

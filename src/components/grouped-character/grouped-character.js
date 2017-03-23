@@ -1,0 +1,197 @@
+import React, { PropTypes } from 'react';
+import classNames from 'classnames';
+
+import Input from './../../utils/decorators/input';
+import InputLabel from './../../utils/decorators/input-label';
+import InputValidation from './../../utils/decorators/input-validation';
+
+import Events from 'utils/helpers/events';
+import { validProps, insertAt } from 'utils/ether';
+import { sum, includes } from 'lodash';
+
+const GroupedCharacter = Input(InputLabel(InputValidation(
+class GroupedCharacter extends React.Component {
+  constructor(...args) {
+    super(...args);
+
+    this.state = {};
+    this.state.value          = this.props.value;
+    this.maxLength            = this.calculateMaxLength();
+    this.insertionIndices     = this.insertionIndices();
+    this.onKeyDown            = this.onKeyDown.bind(this);
+    this.onChange             = this.onChange.bind(this);
+    this.getCursorPosition    = this.getCursorPosition.bind(this);
+    this.getPlainValue        = this.getPlainValue.bind(this);
+  }
+
+  static propTypes = {
+    groups:    PropTypes.array.isRequired, // an array of  group sizes
+    separator: PropTypes.string,           // a separator character to insert between number groups
+    inputWidth: PropTypes.string           // pixel value that sets inputWidth
+  };
+
+  static defaultProps = {
+    separator: '-',
+    value: ''
+  };
+
+  componentDidUpdate() {
+    let newPosition = this.getCursorPosition();
+    this._input.setSelectionRange(newPosition, newPosition);
+  }
+
+  // adjust cursor position around separator
+  adjustForSeparator = (leftPosition) => {
+    return this.lastPosition + this.insertionIndices.indexOf(leftPosition) + 1;
+  }
+
+  calculateMaxLength = () => {
+    return sum(this.props.groups) + this.props.groups.length - 1;
+  }
+
+  // delete value after separator
+  deleteAfterSeparator = (value) => {
+    return value.slice(0, this.lastPosition -1) + value.slice(this.lastPosition);
+  }
+
+  deletingBeforeSeparator = () => {
+    return this.keyPressed === 'DELETE' && includes(this.insertionIndices, this.lastPosition);
+  }
+
+  enforceMaxLength = (value) => {
+    return value.slice(0, this.maxLength);
+  }
+
+  // Handle placement of cursor after updating value
+  getCursorPosition() {
+    let newPosition = this.lastPosition;
+    let leftPosition = this.lastPosition - 1;
+
+    // Leave cursor in place if deleting
+    if (this.keyPressed === 'DELETE') { return this.lastPosition; }
+
+    // If backspacing to right of separator
+    if (includes(this.insertionIndices, leftPosition)) {
+      // adjust position based on fact that new length is 1 char shorter
+      if (this.keyPressed === 'BACKSPACE') { return leftPosition; }
+      // adjust position for presence of separator
+      return this.adjustForSeparator(leftPosition);
+    }
+    return newPosition;
+  }
+
+  getPlainValue(ev) {
+    this.lastPosition = ev.target.selectionEnd;
+    let plainValue = ev.target.value.replace(/\W/g, '');
+
+    // Handle deleting to the left of a separator
+    if (this.deletingBeforeSeparator()) {
+      plainValue = this.deleteAfterSeparator(plainValue);
+    }
+    return plainValue;
+  }
+
+  // Get indices at which to insert separator
+  insertionIndices = () => {
+    let indices = [this.props.groups[0]];
+
+    for (let i = 1; i < this.props.groups.length - 1; i++) {
+      indices.push(indices[0] + this.props.groups[i] + 1);
+    }
+    return indices;
+  }
+
+  isValidKeypress = (ev) => {
+    return (
+      !Events.isNumberKey(ev) &&
+      !Events.isAlphabetKey(ev) &&
+      !Events.isTabKey(ev) &&
+      !Events.isDeleteKey(ev) &&
+      !Events.isBackspaceKey(ev) &&
+      !Events.isNavigationKey(ev)
+    );
+  }
+
+  separatorsNotNeeded = (plainValue) => {
+    return plainValue.length < this.insertionIndices[0];
+  }
+
+  // React synthetic event doesn't provide keycode directly so track here.
+  setKeyPressed = (ev) => {
+    if (Events.isBackspaceKey(ev)) { this.keyPressed = 'BACKSPACE'; }
+    if (Events.isDeleteKey(ev)) { this.keyPressed = 'DELETE'; }
+  }
+
+  // update value with separators and truncate value if beyond max length
+  setVisibleValue = (plainValue) => {
+    // return early if no separators needed yet
+    if (this.separatorsNotNeeded(plainValue)) { return plainValue; }
+
+    let valueWithSeparators = insertAt(
+      plainValue,
+      { insertionIndices: this.insertionIndices, separator: this.props.separator }
+    );
+    // ensure extra characters removed e.g. if long value pasted in field
+    return this.enforceMaxLength(valueWithSeparators);
+  }
+
+  onChange(ev) {
+    let plainValue    = this.getPlainValue(ev),
+        visibleValue  = this.setVisibleValue(plainValue);
+
+    this.setState({ value: visibleValue });
+    this._hidden.value = plainValue;
+    this._handleOnChange({ target: this._hidden });
+  }
+
+  onKeyDown(ev) {
+    this.keyPressed = null;
+    if (this.isValidKeypress(ev)) { ev.preventDefault(); }
+    this.setKeyPressed(ev);
+  }
+
+  get inputProps() {
+    let { ...props } = validProps(this);
+    props.className  = this.inputClasses;
+    props.onChange   = this.onChange;
+    props.maxLength  = this.maxLength;
+    props.onKeyDown  = this.onKeyDown;
+    props.style      = { width: `${this.props.inputWidth}px` };
+    props.value      = this.state.value;
+    return props;
+  }
+
+  get hiddenInputProps() {
+    return {
+      value:    this.props.value,
+      ref:      (c) => { this._hidden = c; },
+      type:     'hidden',
+      readOnly: true
+    };
+  }
+
+  get mainClasses() {
+    return classNames(
+      this.props.className,
+      `carbon-grouped-character`
+    );
+  }
+
+  get inputClasses() {
+    return 'carbon-grouped-character__input';
+  }
+
+  render() {
+    return (
+      <div className={ this.mainClasses }>
+        { this.labelHTML }
+        { this.inputHTML }
+        <input { ...this.hiddenInputProps }/>
+        { this.validationHTML }
+        { this.fieldHelpHTML }
+      </div>
+    );
+  }
+})));
+
+export default GroupedCharacter;

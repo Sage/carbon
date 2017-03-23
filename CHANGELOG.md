@@ -33,6 +33,10 @@
 
 * A new 'insertAt' Ether helper to insert a character in a string at a specified indices
 
+## New components
+
+* Grouped-character component - displays groups with of characters with separator.
+
 ## Bug Fixes
 
 * `ButtonToggle`: css typo corrected

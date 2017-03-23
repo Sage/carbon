@@ -64,24 +64,19 @@ describe('Ether', () => {
   describe('insertAt', () => {
     describe('default separator', () => {
       it('returns a string formatted with dashes', () => {
-        expect(insertAt('123456', {interval: 2})).toEqual('12-34-56');
+        expect(insertAt('123456', {insertionIndices: [2, 5] })).toEqual('12-34-56');
       });
     });
 
     describe('custom separator', () => {
       it('returns a string formatted with the separator', () => {
-        expect(insertAt('123456789', {interval: 3, separator:'/'})).toEqual('123/456/789');
+        expect(insertAt('1234567890', {insertionIndices: [3, 7], separator:'/'})).toEqual('123/456/7890');
       });
     });
 
-    describe('an invalid interval', () => {
-      beforeAll(() => {
-        spyOn(console, 'warn');
-      });
-
-      it('returns a warning', () => {
-        insertAt('123456', {interval: 7});
-        expect(console.warn).toHaveBeenCalledWith('The interval cannot be greater than the string length');
+    describe('when the insertion index is beyond the value length', () => {
+      it('ignores the invalid index', () => {
+        expect(insertAt('1234567890', {insertionIndices: [3, 7, 15], separator:'/'})).toEqual('123/456/7890');
       });
     });
   });
