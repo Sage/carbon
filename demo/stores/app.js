@@ -108,6 +108,10 @@ let data = ImmutableHelper.parseJSON({
   icon: {
     type: 'info'
   },
+  inline_inputs: {
+    label: 'My Label',
+    dropdown: 1
+  },
   link: {
     text: "Sample Link"
   },

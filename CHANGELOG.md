@@ -1,5 +1,16 @@
 # 0.35.0
 
+## InlineInputs Component
+A simple `InlineInputs` wrapper component which allows multiple input fields to be displayed horizontally
+with a label.
+
+```js
+<InlineInputs label='Test Label'>
+  <Textbox />
+  <Textbox />
+</InlineInputs>
+```
+
 ## Component Enchancements
 
 * `Date` now shows error validation when an invalid date is entered.
