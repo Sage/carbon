@@ -3,7 +3,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('dropdown', Dropdown, {
-  description: `I can choose one option from a very long list.`,
+  description: `Allows the user to choose one option from a very long list.`,
   designerNotes: `
 * Behaves like a simple browser menu control - the user can select an item using the mouse or keyboard.
 * Use placeholder content like ‘Please select…’ to make it clear to the user that the Dropdown is unset.

@@ -3,7 +3,7 @@ import Definition from './../../../demo/utils/definition';
 import OptionsHelper from './../../utils/helpers/options-helper';
 
 let definition = new Definition('flash', Flash, {
-  description: `I can see a simple positive or negative confirmation of an action.`,
+  description: `Presents a simple positive or negative confirmation of an action.`,
   designerNotes: `
 * Presents a short confirmation message to the user in a banner which can animate quickly in, and out, at the bottom of the browser window.
 * Success messages disappear after a set timeout. Error messages stay on-screen until dismissed by the user.

@@ -3,7 +3,7 @@ import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
 
 let definition = new Definition('portrait', Portrait, {
-  description: `I can see a person represented in the system with their initials or an avatar.`,
+  description: `Represents a person with their initials or an avatar.`,
   designerNotes: `
 * Useful to represent a person, user, or organisation, similar to an avatar.
 * Use initials rather than an icon if you prefer.

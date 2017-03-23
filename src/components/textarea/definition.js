@@ -2,7 +2,7 @@ import Textarea from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('textarea', Textarea, {
-  description: `I can enter more than one line of text.`,
+  description: `Capture more than one line of text.`,
   designerNotes: `
 * Useful for collecting a significant amount of text (e.g. notes about clients, or a short email message).
 * Only handles plain text at this time - not markup or markdown, but it does handle line breaks.

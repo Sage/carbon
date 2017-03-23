@@ -3,7 +3,7 @@ import OptionsHelper from './../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('spinner', Spinner, {
-  description: `I understand when an activity is in progress and I should wait for it to complete.`,
+  description: `Demonstrates when an activity is in progress and the user should wait for it to complete.`,
   designerNotes: `
 * Various colours and sizes are available - the colours match the states for Messages, Toasts, and other components.
 * Created with HTML and CSS rather than an animated graphic, which allows for easier customisation.

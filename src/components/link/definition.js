@@ -5,7 +5,7 @@ import linkDefinition from './../link/definition';
 import tooltipDefinition from './../tooltip/definition';
 
 let definition = new Definition('link', Link, {
-  description: `I can move to another location.`,
+  description: `Allows the user to move to another location.`,
   designerNotes: `
 * Avoid using links for commands (performing an action like saving a form) - use them for navigating the user to a new location.
 * If you’re navigating the user away from your site, consider using an icon after the link, and open the link in a new window, so the user doesn’t lose their place.

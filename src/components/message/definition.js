@@ -3,7 +3,7 @@ import Definition from './../../../demo/utils/definition';
 import OptionsHelper from './../../utils/helpers/options-helper';
 
 let definition = new Definition('message', Message, {
-  description: `I can see a longer message which stays on-screen for me to read and interpret.`,
+  description: `Presents a longer message which stays on-screen to read and interpret.`,
   designerNotes: `
 * Presents a static message which stays on-screen.
 * Useful for messages which are longer or more important, where the user needs time to interpret them, or might need to refer back to them during an activity.

@@ -4,7 +4,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import tabDefinition from './tab/definition';
 
 let definition = new Definition('tabs', Tabs, {
-  description: `I can quickly switch between variants of a page or different tables.`,
+  description: `Allows the user to quickly switch between variants of a page or different tables.`,
   designerNotes: `
 * switch between variants of a page or different tables (e.g. separate tables showing unread and read emails).
 * There are two position options:

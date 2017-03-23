@@ -3,6 +3,17 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('animated-menu-button', AnimatedMenuButton, {
+  description: `Provides quick access to a number of especially useful hyperlinks.`,
+  designerNotes: `
+* A quick way for users to access a number of useful hyperlinks in context.
+* This pattern tends to be used as a quick way of allowing the user to create a range of new items (e.g. New Sales Invoice, New Quote, New Payment).
+* Try not to mix navigation options with action options.
+* Try not to create any duplication between the Menu component, and this component.
+
+* __Choosing between variants of the same page, or filtering content?__ Try Tabs.
+* __Positioning your primary navigation?__ Try Navigation Bar.
+* __Navigating the hierarchy of the app?__ Try Menu. 
+  `,
   hiddenProps: ["children"],
   propOptions: {
     direction: OptionsHelper.alignBinary,

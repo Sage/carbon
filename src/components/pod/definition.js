@@ -3,7 +3,7 @@ import OptionsHelper from 'utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('pod', Pod, {
-  description: `I can view a set of content that’s grouped together visually.`,
+  description: `Allows the user to view a set of content that’s grouped together visually.`,
   designerNotes: `
 * Presents content grouped visually together. This can be text, or other components. A good example is a ‘tile’ showing contact information for an individual.
 * Configure Pod and Fieldset components to work together, or choose the pre-configured Show/Edit Pod component:

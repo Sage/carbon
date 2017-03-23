@@ -3,7 +3,7 @@ import OptionsHelper from './../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('toast', Toast, {
-  description: `I can see a longer, timely message that I must dismiss, but doesn’t interrupt my activity.`,
+  description: `Presents a longer, timely message that the user must dismiss, but doesn’t interrupt their activity.`,
   designerNotes: `
 * Presents a message in a dialog at the top-right of the screen that animates in. The user can manually dismiss it, and it animates out.
 * Useful for instant notifications, or information which is time sensitive (e.g. a ‘push notification’ style). If the message isn’t time sensitive, consider the Message component.

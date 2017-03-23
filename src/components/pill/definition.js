@@ -3,7 +3,7 @@ import OptionsHelper from './../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('pill', Pill, {
-  description: `I can visually scan for information of particular interest, or with something in common.`,
+  description: `Allows the user to visually scan for information of particular interest, or with something in common.`,
   designerNotes: `
 * An eye catching visual indicator used to help a user visually scan and identify items with something in common from a wider list.
 * A range of colours and visual styles is available.

@@ -12,7 +12,7 @@ setTimeout(() => {
 });
 
 let definition = new Definition('table', Table, {
-  description: `I can view and interact with a table of relational data.`,
+  description: `Allows the user to view and interact with a table of relational data.`,
   designerNotes: `
 * Shows relational data to the user.
 * The content of rows and columns can be plain or styled text, Icons, or even inputs. Achieve this by nesting components inside a Table component.

@@ -3,7 +3,7 @@ import Definition from './../../../demo/utils/definition';
 import OptionsHelper from './../../utils/helpers/options-helper';
 
 let definition = new Definition('decimal', Decimal, {
-  description: `I can enter a number with a decimal point, or a currency value.`,
+  description: `Allows the user to enter a number with a decimal point, or a currency value.`,
   designerNotes: `
 * For currency values, show currency symbols outside the field, perhaps using the Carbon Prefix configuration, rather than inserting one for the user dynamically.
 * Carbon offers a Precision configuration, so you can choose how many decimal places to show.

@@ -3,7 +3,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('confirm', Confirm, {
-  description: `I can confirm or cancel an action I’ve initiated.`,
+  description: `Confirms or cancels an action the user has initiated.`,
   designerNotes: `
 * Shows a static message in a dialog which asks the user to confirm or cancel an action they’ve initiated.
 * Useful to confirm actions which may be difficult to undo, or potentially harmful.

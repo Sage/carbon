@@ -2,7 +2,7 @@ import RadioButton from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('radio-button', RadioButton, {
-  description: `I can choose one option from a longer list.`,
+  description: `Allows the user to choose one option from a longer list.`,
   designerNotes: `
 * Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
 * Disabled or read-only radio buttons might be difficult for a user to distinguish visually, so try to avoid this.

@@ -5,7 +5,7 @@ import formDefinition from './../form/definition';
 import { assign } from 'lodash';
 
 let definition = new Definition('show-edit-pod', ShowEditPod, {
-  description: `I can both view and edit a set of content that’s grouped together visually (in one pre-configured component).`,
+  description: `Allows the user to view and edit a set of content that’s grouped together visually (in one pre-configured component).`,
   designerNotes: `
 * Nest any Carbon input into this component. 
 * Configure Pod and Fieldset components to work together, or choose this pre-configured Show/Edit Pod component:

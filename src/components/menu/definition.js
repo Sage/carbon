@@ -5,7 +5,7 @@ import menuItemDefinition from './menu-item/definition';
 import submenuBlockDefinition from './submenu-block/definition';
 
 let definition = new Definition('menu', Menu, {
-  description: `I can navigate in the simple overall hierarchy of the app.`,
+  description: `Allows the user to navigate in the simple overall hierarchy of the app.`,
   designerNotes: `
 * Presents a 2-level navigation hierarchy to the user.
 * The user’s current location is indicated in green. Their hover location is indicated in blue.

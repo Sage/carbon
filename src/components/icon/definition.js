@@ -3,7 +3,7 @@ import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
 
 let definition = new Definition('icon', Icon, {
-  description: `I can see a UI element or some content represented with an eye catching icon.`,
+  description: `Allows the user to see a UI element or some content represented with an eye catching icon.`,
   designerNotes: `
 * Carbon comes with about 50 standard icons to choose from. See the Icons page in the Style section.
 * A tooltip option is available within this component.

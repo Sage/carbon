@@ -4,7 +4,7 @@ import Definition from './../../../demo/utils/definition';
 import sidebarHeaderDefinition from './sidebar-header/definition';
 
 let definition = new Definition('sidebar', Sidebar, {
-  description: `I can perform a more complex task in sidebar overlaid at the right or left of a page, so I don’t lose my context and I can refer back to the underlying page if I need to.`,
+  description: `Allows the user to perform a more complex task in sidebar overlaid at the right or left of a page.`,
   designerNotes: `
 * Useful to perform an action in context without navigating the user to a separate page.
 * Useful if the user might need to refer back to the page behind the sidebar. For example, the user could select from a list of clients on the page, with detailed information on the client loading in the sidebar.

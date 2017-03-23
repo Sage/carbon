@@ -4,7 +4,7 @@ import Definition from './../../../demo/utils/definition';
 import textboxDefinition from './../textbox/definition';
 
 let definition = new Definition('fieldset', Fieldset, {
-  description: `I can edit a set of closely related inputs that are grouped together visually.`,
+  description: `Allows the user to edit a set of closely related inputs that are grouped together visually.`,
   designerNotes: `
 * You can nest any Carbon input into this component.
 * Useful for presenting a series of inputs that are closely related, within a wider Form or Pod (e.g. an address or contact details).

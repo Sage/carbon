@@ -3,7 +3,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('create', Create, {
-  description: `I can create a new set of content that’s grouped together visually.`,
+  description: `Allows the user to create a new set of content that’s grouped together visually.`,
   designerNotes: `
 * Creates an item of data usually presented in a Pod or Fieldset, for example, an address.
 

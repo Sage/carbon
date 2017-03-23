@@ -3,7 +3,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('help', Help, {
-  description: `I can get help or clarification by hovering on a question mark icon.`,
+  description: `Allows the user to get help or clarification by hovering on a question mark icon.`,
   designerNotes: `
 * Presents a tooltip when the user hovers on a question mark icon.
 

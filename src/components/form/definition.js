@@ -4,7 +4,7 @@ import OptionsHelper from 'utils/helpers/options-helper';
 import PresenceValidation from 'utils/validations/presence';
 
 let definition = new Definition('form', Form, {
-  description: `I can fill in a series of inputs to collect the information I need.`,
+  description: `Allows the user to fill in a series of inputs.`,
   designerNotes: `
 * You can nest any Carbon input into this component.
 * Carbon gives you standard Save and Cancel buttons with this component.

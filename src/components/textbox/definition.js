@@ -2,7 +2,7 @@ import Textbox from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('textbox', Textbox, {
-  description: `I can enter a single line of text.`,
+  description: `Capture a single line of text.`,
   designerNotes: `
 * Use placeholder text to give the user examples of data formats (e.g. AB123456C for a UK National Insurance number).
 * Use prefixes if your data always begins with a certain sequence (e.g. a UK VAT number usually starts with ‘GB’).

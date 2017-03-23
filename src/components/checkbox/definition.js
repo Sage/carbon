@@ -2,7 +2,7 @@ import Checkbox from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('checkbox', Checkbox, {
-	description: `I can choose more than one option.`,
+	description: `Allows the user to choose more than one option.`,
 	designerNotes: `
 * Checkbox provides a way to efficiently select more than one item from a list.
 * Disabled or read-only checkboxes might be difficult for a user to distinguish visually, so try to avoid this.
