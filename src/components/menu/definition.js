@@ -5,7 +5,7 @@ import menuItemDefinition from './menu-item/definition';
 import submenuBlockDefinition from './submenu-block/definition';
 
 let definition = new Definition('menu', Menu, {
-  description: `Navigates the user in the overall hierarchy of the app.`,
+  description: `Navigates the user in the overall hierarchy of your app.`,
   designerNotes: `
 * Presents a 2-level navigation hierarchy to the user.
 * The user’s current location is indicated in green. Their hover location is indicated in blue.
@@ -15,8 +15,8 @@ let definition = new Definition('menu', Menu, {
 
 ### Related Components
 * __Choosing between variants of the same page, or filtering content?__ [Try Tabs](/components/tabs).
-* __Positioning your primary navigation?__ [Try Navigation Bar](/components/navigation-bar).
-* __Quickly accessing useful hyperlinks?__ [Try Animated Menu](/components/animated-menu).
+* __Need a container for your primary navigation?__ [Try Navigation Bar](/components/navigation-bar).
+* __Quickly accessing useful hyperlinks?__ [Try Animated Menu Button](/components/animated-menu-button).
  `,
   associatedDefinitions: [menuItemDefinition, submenuBlockDefinition],
   propOptions: {

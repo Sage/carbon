@@ -4,7 +4,7 @@ import Definition from './../../../demo/utils/definition';
 import buttonDefinition from './../button/definition';
 
 let definition = new Definition('split-button', SplitButton, {
-  description: `Several buttons that don't need to be seen all the time - buttons are of equal importance, and related to each other. - one option is more important than the others, but they’re all related.`,
+  description: `Related buttons that are shown on hover where one option is more important than the others.`,
   designerNotes: `
 * Offers one more important action to the user, with some related actions also quickly accessible, but without taking up valuable space by showing them all separately.
 * But, users may not always discover the related items, and could miss out.

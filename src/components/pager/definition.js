@@ -4,6 +4,15 @@ import OptionsHelper from 'utils/helpers/options-helper';
 import ComponentActions from './../../../demo/actions/component';
 
 let definition = new Definition('pager', Pager, {
+  description: `Steps through a series of pages within a table.`,
+  designerNotes: `
+* Useful to handle larger tables of data - clicking the forward or back arrows will step the user sequentially through the data loaded into the table.
+* The 'Show Page Size Selection' configuration shows 10, 25, or 50 records on each page.
+
+### Related Components
+* __Table of relational data?__ [Try Table](/components/table).
+* __Table with Ajax?__ [Try Table](/components/table-ajax).
+ `,
   type: 'form',
   hiddenProps: ['pageSizeSelectionOptions'],
   propOptions: {

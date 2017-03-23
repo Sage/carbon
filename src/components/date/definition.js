@@ -2,7 +2,7 @@ import DateInput from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('date-input', DateInput, {
-  description: `Captures a single calendar date.`,
+  description: `Captures a single date.`,
   designerNotes: `
 * If the date is likely to be close to today (e.g. an invoice due date), then a datepicker may be useful. If the date is likely to be far in the past (e.g. a date of birth), then it may be better to use separate inputs for day, month, and year.
 * Field focus automatically opens the datepicker, but a user can key in dates too, which many users find more convenient, especially in financial applications.

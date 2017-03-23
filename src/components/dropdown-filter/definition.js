@@ -13,6 +13,7 @@ let definition = new Definition('dropdown-filter', DropdownFilter, {
 * Consider a ‘smart default’ selection, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
 
 ### Related Components
+* __Dropdown filter with Ajax?__ [Try Dropdown Filter Ajax](/components/dropdown-ajax).
 * __Don’t need to filter or add new items?__ [Try Dropdown](/components/dropdown).
 * __Choosing one option from a shorter list?__ [Try Radio Button](/components/radio-button).
 * __Choosing more than one option?__ [Try Checkbox](/components/checkbox).

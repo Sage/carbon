@@ -2,7 +2,7 @@ import DialogFullScreen from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('dialog-full-screen', DialogFullScreen, {
-  description: `A full-width and full-height dialog overlaid on the top of any page.`,
+  description: `A full-width and full-height dialog overlaid on top of any page.`,
   designerNotes: `
 * Useful to perform an action in context without navigating the user to a separate page.
 * Whilst a standard Dialog component’s width might constrain what you can do, the full screen dialog uses the full width and height available.

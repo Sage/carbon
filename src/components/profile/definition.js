@@ -3,12 +3,15 @@ import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
 
 let definition = new Definition('profile', Profile, {
-  description: `Represents a person with their initials, and then an avatar on hover.`,
+  description: `Represents a person with their initials or an avatar, and some text.`,
   designerNotes: `
-* Useful to represent a person, user, or organisation, similar to an avatar.
-* The user is initially represented with their initials, but hovering on the initials can reveal an image. This helps to avoid distracting the user.
+* Combines the [Portrait](/components/portrait) and [Detail](/components/detail) components in a single configuration.
+* Useful to represent a person, user, or organisation.
+* Use initials rather than an avatar if you prefer.
+* Works with [Gravatar](http://en.gravatar.com/) as a source of avatars.
 
-* __Either initials or an avatar?__ Try Portrait.
+* __Initials or avatar without text?__ [Try Portrait](/components/portrait).
+* __Text without initials or avatar?__ [Try Detail](/components/detail).
  `,
   propValues: {
     name: "Andrew Tait",

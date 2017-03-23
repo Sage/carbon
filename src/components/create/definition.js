@@ -11,7 +11,7 @@ let definition = new Definition('create', Create, {
 * __Editing a number of closely related inputs?__ [Try Fieldset](/components/fieldset).
 * __Filling in a broad series of inputs?__ [Try Form](/components/form).
 * __Viewing content that’s grouped together visually?__ [Try Pod](/components/pod).
-* __Using Fieldset and Pod components together?__ [Try Show/Edit Pod.
+* __Using Fieldset and Pod components together?__ [Try Show/Edit Pod](/components/show-edit-pod).
  `,
   hiddenProps: ["linkProps"],
   propValues: {
