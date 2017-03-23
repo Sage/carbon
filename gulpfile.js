@@ -3,15 +3,18 @@ var yargs = require('yargs');
 var BuildTask = require('carbon-factory/lib/gulp/build').default;
 var SpecTask = require('carbon-factory/lib/gulp/spec').default;
 var generateColors = require('./script/generate-demo-colors').default;
+var generateDocs = require('./script/generate-docs').default;
+var deploy = require('./script/deploy').default;
 var express = require('express');
 var gutil = require('gulp-util');
 
 var argv = yargs.argv;
 
-var dir = argv.dir || 'demo';
+var dir = 'deploy';
 
 gulp.task('prepare-demo', function() {
   generateColors();
+  generateDocs();
 });
 
 gulp.task('webserver', function() {
@@ -30,14 +33,17 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('build', BuildTask({
-  src: './' + dir + '/main.js',
+  src: './demo/main.js',
   jsDest: './' + dir + '/assets/javascripts',
   cssDest: './' + dir + '/assets/stylesheets',
   fontDest: './' + dir + '/assets/fonts',
   imageDest: './' + dir + '/assets/images'
 }));
 
+gulp.task('run-deploy', deploy);
+
 gulp.task('default', ['prepare-demo', 'webserver', 'build']);
+gulp.task('deploy', ['prepare-demo', 'build', 'run-deploy']);
 
 gulp.task('test', SpecTask({
   path: '/src/***/**/!(__spec__|definition).js'

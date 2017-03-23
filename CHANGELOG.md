@@ -22,6 +22,11 @@
   - Create
   - Carousel
 * `ButtonToggle` no longer inherits from the label decorator as it was providing more functionality than required.
+* `Rainbow` has been updated to no longer use the `react-highcharts` component. To use this component you need to ensure to make the `Highcharts` library available to your application globally.
+
+## Google Analytics
+
+If you have Google Analytics enabled (`window.ga` is defined), and you are using the router supplied by Carbon, we will track subsequent page views. Please ensure that your Google Analytics tracking code is defined after you load the your application JavaScript.
 
 ## Component Enhancements
 

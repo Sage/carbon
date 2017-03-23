@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactHighcharts from 'react-highcharts';
 import classNames from 'classnames';
 import { merge } from 'lodash';
 
@@ -95,6 +94,15 @@ class Rainbow extends React.Component {
   }
 
   /**
+   * Renders the initial chart, and stores it on the ref so it can be updated later
+   */
+  componentDidMount() {
+    let config = generateConfig(this.props.data, this.props.title);
+    merge(config, this.props.config);
+    this.refs.chart.chart = global.Highcharts.chart(this.refs.chart, config);
+  }
+
+  /**
    * Main Class getter
    *
    * @method mainClasses
@@ -114,12 +122,10 @@ class Rainbow extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let config = generateConfig(this.props.data, this.props.title);
-    merge(config, this.props.config);
 
     return (
       <div className={ this.mainClasses }>
-        <ReactHighcharts ref="chart" config={config} />
+        <div ref="chart" />
       </div>
     );
   }

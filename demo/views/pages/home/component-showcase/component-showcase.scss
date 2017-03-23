@@ -1,4 +1,5 @@
 @import "./../../../../style-config/demo-variables";
+@import 'assets';
 
 .component-showcase {
   align-items: center;
@@ -8,22 +9,22 @@
   padding: 120px 0 0;
 
   &__image {
-    background-image: url('/assets/images/300.png');
+    background-image: url('#{$image-path}/300.png');
     height: 428px;
     width: 300px;
 
     @media (min-width: 540px) {
-      background-image: url('/assets/images/500.png');
+      background-image: url('#{$image-path}/500.png');
       height: 405px;
       width: 500px;
     }
     @media (min-width: 768px) {
-      background-image: url('/assets/images/700.png');
+      background-image: url('#{$image-path}/700.png');
       height: 419px;
       width: 700px;
     }
     @media (min-width: 1366px) {
-      background-image: url('/assets/images/966.png');
+      background-image: url('#{$image-path}/966.png');
       height: 438px;
       width: 966px;
     }
