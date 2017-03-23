@@ -6,11 +6,12 @@ To use [React](http://facebook.github.io/react/) and [Carbon](https://github.com
 
 * [Node.js](https://nodejs.org/)
 * [Gulp.js](http://gulpjs.com/)
-* [Carbon CLI](https://github.com/sage/carbon-factory)
+* [Babel CLI](https://babeljs.io/)
+* [Carbon CLI](https://github.com/sage/carbon-factory) (optional)
 
 ### Installing Node.js
 
-If you are new to Node and npm, we have written a [short introduction](an-introduction-to-node-and-npm.md).
+If you are new to Node and npm, we have written a [short introduction](https://github.com/Sage/carbon/blob/master/docs/guides/an-introduction-to-node-and-npm.md).
 
 Download and install Node from [https://nodejs.org/](https://nodejs.org/), or install and use [Node Version Manager](https://github.com/creationix/nvm).
 
@@ -34,7 +35,7 @@ You need to install Gulp globally.
 npm install -g gulp
 ```
 
-### Installing Babel Cli
+### Installing Babel CLI
 
 You need to install Babel CLI globally.
 
