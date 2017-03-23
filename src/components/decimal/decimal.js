@@ -4,6 +4,7 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
+import PropTypesHelper from '../../utils/helpers/prop-types';
 
 /**
  * A decimal widget.
@@ -63,17 +64,8 @@ class Decimal extends React.Component {
      * @default 2
      */
     precision: (props, propName, componentName) => {
-      if (props[propName]) {
-        let value = props[propName];
-        if (typeof value === 'string' || typeof value == 'number') {
-          return value >= 0 && value <= 20 ? null : new Error(propName + ' in ' + componentName + " must be between 0 and 20");
-        }
-        return new Error(propName + ' in ' + componentName + " must be a String or Integer");
-      }
-
-      return null;
+      return PropTypesHelper.inValidRange(props, propName, componentName, 0, 20);
     }
-
   };
 
   static defaultProps = {

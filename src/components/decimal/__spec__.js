@@ -3,8 +3,10 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Decimal from './decimal';
 import I18n from "i18n-js";
 import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
 import Events from './../../utils/helpers/events';
 import I18nHelper from './../../utils/helpers/i18n';
+import PropTypesHelper from '../../utils/helpers/prop-types';
 
 describe('Decimal', () => {
   var instance;
@@ -13,40 +15,22 @@ describe('Decimal', () => {
     describe('precision', () => {
 
       beforeEach(() => {
-        spyOn(console, 'error');
         spyOn(I18nHelper, 'formatDecimal').and.returnValue('20.00');
+        spyOn(console, 'error');
       });
 
-      afterEach(() => {
-        console.error.calls.reset()
-      });
-
-      describe('when not a number or string', () => {
-        it('throws a type error', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Decimal precision={ {} } />
-          );
-
-          expect(console.error.calls.argsFor(0)[0]).toMatch(`must be a String or Integer`);
+      describe('when in a valid range', () => {
+        it('outputs a prop console error', () => {
+          spyOn(PropTypesHelper, 'inValidRange').and.returnValue(new Error('foo'));
+          instance = shallow(<Decimal />);
+          expect(console.error.calls.argsFor(0)[0]).toMatch('foo');
         });
       });
 
-      describe('when precision is outside valid range', () => {
-        it('throws a range error', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Decimal precision={ 21 } />
-          );
-
-          expect(console.error.calls.argsFor(0)[0]).toMatch(`must be between 0 and 20`);
-        });
-      });
-
-      describe('when precision is valid type and in range', () => {
-        it('does not throw any errors', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Decimal precision={ 3 } />
-          );
-
+      describe('when not in a valid range', () => {
+        it('outputs a prop console error', () => {
+          spyOn(PropTypesHelper, 'inValidRange').and.returnValue(new Error('foo'));
+          instance = shallow(<Decimal />);
           expect(console.error.calls.count()).toEqual(0);
         });
       });
