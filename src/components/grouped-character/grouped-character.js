@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
+import { sum, includes } from 'lodash';
 
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
-
 import Events from 'utils/helpers/events';
 import { validProps, insertAt } from 'utils/ether';
-import { sum, includes } from 'lodash';
 
 const GroupedCharacter = Input(InputLabel(InputValidation(
 class GroupedCharacter extends React.Component {
