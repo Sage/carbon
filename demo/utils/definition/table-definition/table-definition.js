@@ -7,7 +7,7 @@ export default (definition) => {
     path: "/countries",
     children: "{ buildRows() }"
   });
-  definition.hiddenProps = definition.hiddenProps.concat(['filter', 'totalRecords', 'pageSizeSelectionOptions']);
+  definition.hiddenProps = definition.hiddenProps.concat(['currentPage', 'filter', 'totalRecords', 'pageSizeSelectionOptions']);
   definition.propRequires = {
     showPageSizeSelection: "paginate"
   };
