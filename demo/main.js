@@ -1,8 +1,8 @@
 import React from 'react';
-import './xhr-mock';
 import 'utils/css';
 import { Route } from 'react-router';
 import { startRouter } from 'utils/router';
+import { enableMock } from './xhr-mock';
 
 // Languages
 import './i18n/en';
@@ -16,8 +16,13 @@ import Home from './views/pages/home';
 
 import SiteMap from './site-map';
 
+import Highcharts from 'highcharts';
+global.Highcharts = Highcharts;
+
 // global.imagePath = 'https://assets.na.sageone.com/carbon/demo/latest/assets/images';
 global.imagePath = '/assets/images';
+
+enableMock();
 
 const routes = (
   <Route component={ Chrome }>

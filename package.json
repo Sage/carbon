@@ -28,6 +28,7 @@
     "express": "~4.14.0",
     "flux": "~2.1.1",
     "gulp": "~3.9.0",
+    "highcharts": "^5.0.2",
     "highlight.js": "~9.6.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "~3.8.1",
@@ -50,12 +51,10 @@
     "escape-string-regexp": "^1.0.5",
     "events": "~1.1.1",
     "form-serialize": "~0.7.0",
-    "highcharts": "^5.0.2",
     "lodash": "~4.15.0",
     "marked": "^0.3.6",
     "moment": "~2.15.1",
     "react-date-picker": "~5.3.28",
-    "react-highcharts": "~10.0.0",
     "superagent": "~2.2.0"
   }
 }

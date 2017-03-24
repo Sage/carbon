@@ -2,8 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 
-let scrollToTop = () => {
-  window.scrollTo(0, 0);
+let onRouteUpdate = () => {
+  global.window.scrollTo(0, 0);
+
+  if (global.ga) {
+    global.ga('set', 'page', global.location.pathname);
+    global.ga('send', 'pageview');
+  }
 };
 
 /**
@@ -43,7 +48,7 @@ export function startRouter(routes, target = document.getElementById('app')) {
   // render the router into the DOM
   if (target) {
     ReactDOM.render((
-      <Router onUpdate={scrollToTop} history={ history }>
+      <Router onUpdate={ onRouteUpdate } history={ history }>
         { routes }
       </Router>
     ), target);

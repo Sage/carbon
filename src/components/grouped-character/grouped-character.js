@@ -22,6 +22,8 @@ class GroupedCharacter extends React.Component {
     this.onChange             = this.onChange.bind(this);
     this.getCursorPosition    = this.getCursorPosition.bind(this);
     this.getPlainValue        = this.getPlainValue.bind(this);
+    this.lastPosition         = 0;
+    this.keyPressed           = null;
   }
 
   static propTypes = {
@@ -65,7 +67,7 @@ class GroupedCharacter extends React.Component {
   // Handle placement of cursor after updating value
   getCursorPosition() {
     let newPosition = this.lastPosition;
-    let leftPosition = this.lastPosition - 1;
+    let leftPosition = newPosition - 1;
 
     // Leave cursor in place if deleting
     if (this.keyPressed === 'DELETE') { return this.lastPosition; }
