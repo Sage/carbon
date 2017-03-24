@@ -13,7 +13,7 @@ const TestExample = (props) =>
     <Heading divider={ true } title={ props.heading } />
     <Link href={ props.url } />
 
-    <Content title='Counter'>{ increment(props) }</Content>
+    <Content title='Counters'>{ increment(props) }</Content>
     <Content title='Counter'>{ increment(props) }</Content>
     <Content title='Counter'>{ increment(props) }</Content>
   </div>

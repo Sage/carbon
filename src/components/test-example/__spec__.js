@@ -13,7 +13,7 @@ let specDefinition = [
   {
     component: Button,
     instances: [ {
-      expectedInstances: 2,
+      expectedInstances: 1,
       props: { as: 'primary',   children: 'Click me', theme: 'blue' }
     }, {
       expectedInstances: 1,
@@ -48,31 +48,32 @@ let testStructure = (wrapper, comp) => {
       wrapperNodes = components.nodes.map(n => n.props);
 
   // correct number of elements are rendered
-  expect(components.length).toEqual(expectedInstances);
+  describe(`${expectedInstances} ${comp.component.displayName}${expectedInstances > 1 ? 's' : ''}`, () => {
+    it(``, () => {
+      expect(components.length).toEqual(expectedInstances);
+    });
 
-  // check we can find all this elements instances in the wrapper nodes
-  instanceArray.forEach((instance) => {
-    expect(_.filter(wrapperNodes, instance.props).length).toEqual(instance.expectedInstances);
+    // check we can find all this elements instances in the wrapper nodes
+    describe(`where`, () => {
+      instanceArray.forEach((instance) => {
+        it(`${instance.expectedInstances} ${instance.expectedInstances > 1 ? 'have' : 'has'} props: ${JSON.stringify(instance.props)}`, () => {
+          expect(_.filter(wrapperNodes, instance.props).length).toEqual(instance.expectedInstances);
+        });
+      });
+    });
   });
 };
 
 fdescribe('TestExample', () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = shallow(
+  describe('renders', () => {
+    let wrapper = shallow(
       <TestExample
         heading='Test'
         url='http://test.com'
         startCount='10'
       />
     );
-  });
-
-  describe('structure', () => {
-    it("is rendered", () => {
-      specDefinition.forEach(testStructure.bind(this, wrapper));
-    });
+    specDefinition.forEach(testStructure.bind(this, wrapper));
   });
 });
 
