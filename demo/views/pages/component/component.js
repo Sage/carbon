@@ -5,6 +5,7 @@ import I18n from 'i18n-js';
 
 // App Components
 import PageContentArea from '../../common/page-content-area';
+import InformationStyles from '../../common/information-styles';
 import ComponentPreview from './component-preview';
 import ComponentAPI from './component-api';
 
@@ -35,7 +36,9 @@ class Component extends React.Component {
     if (designerNotes) {
       return (
         <PageContentArea title={ I18n.t('component_page.design_notes') }>
-          <div dangerouslySetInnerHTML={{ __html: marked(designerNotes) }} />
+          <InformationStyles>
+            <div dangerouslySetInnerHTML={{ __html: marked(designerNotes) }} />
+          </InformationStyles>
         </PageContentArea>
       );
     } else {
