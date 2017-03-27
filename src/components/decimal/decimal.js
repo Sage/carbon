@@ -94,14 +94,14 @@ class Decimal extends React.Component {
    * only when the field is not the active element.
    *
    * @method componentWillReceiveProps
-   * @param {Object} props The new props passed down to the component
+   * @param {Object} newProps The new props passed down to the component
    * @return {void}
    */
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps(newProps) {
     if (this._document.activeElement != this._input) {
-      let value = props.value || props.defaultValue;
+      let value = newProps.value || newProps.defaultValue;
       if (canConvertToBigNumber(value)) {
-        value = I18nHelper.formatDecimal(value, this.props.precision);
+        value = I18nHelper.formatDecimal(value, newProps.precision);
       }
       this.setState({ visibleValue: value });
     }
