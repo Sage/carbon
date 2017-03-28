@@ -9,7 +9,9 @@ class DraggableContext extends React.Component {
   }
 
   getChildContext() {
-    return {moveItem: this.props.moveItem};
+    return {
+      moveItem: this.props.moveItem
+    };
   }
 
   render() {
