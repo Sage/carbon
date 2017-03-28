@@ -20,10 +20,13 @@ class GroupedCharacter extends React.Component {
     this.onKeyDown            = this.onKeyDown.bind(this);
     this.onChange             = this.onChange.bind(this);
     this.getCursorPosition    = this.getCursorPosition.bind(this);
+    this.getNewPosition       = this.getNewPosition.bind(this);
+    this.sliceUpToSeparator   = this.sliceUpToSeparator.bind(this);
     this.getPlainValue        = this.getPlainValue.bind(this);    // value without separators
     this.lastPosition         = 0;                                // last position of cursor 1-indexed
     this.keyPressed           = { which: null };                  // track key pressed outside of React synthetic event
   }
+
 
   static propTypes = {
     groups:     PropTypes.array.isRequired,            // an array of  group sizes
@@ -47,22 +50,20 @@ class GroupedCharacter extends React.Component {
     this._input.setSelectionRange(newPosition, newPosition);
   }
 
+  adjustForSeparator = (leftPosition) => {
+    return this.isBackspaceKey() ? leftPosition : this.lastPosition + 1;
+  }
+
   calculateMaxLength = () => {
     return sum(this.props.groups) + this.props.groups.length - 1;
   }
 
   // delete value after separator
   deleteAfterSeparator = (value) => {
-    let upToSeparator;
-      // account for presence of separators
-    for (let i=0; i < this.insertionIndices.length; i++) {
-      if (this.lastPosition < this.insertionIndices[i + 1]) {
-        upToSeparator = this.lastPosition - i;
-        break;
-      }
-    }
+    let upToSeparator =  this.sliceUpToSeparator();
     return value.slice(0, upToSeparator) + value.slice(upToSeparator + 1);
   }
+
 
   deletingBeforeSeparator = () => {
     return this.isDeleteKey() && includes(this.insertionIndices, this.lastPosition);
@@ -74,27 +75,23 @@ class GroupedCharacter extends React.Component {
 
   // Handle placement of cursor after updating value
   getCursorPosition() {
-    let newPosition = this.lastPosition;
-    let leftPosition = this.lastPosition - 1;
-
     // Leave cursor in place if deleting
     if (this.isDeleteKey()) { return this.lastPosition; }
+    return this.getNewPosition();
+  }
 
+  getNewPosition() {
+    let leftPosition = this.lastPosition - 1;
     // adjust position for presence of separator
     if (includes(this.insertionIndices, leftPosition)) {
       // move cursor 1 space left if backspacing character
-      if (this.isBackspaceKey()) {
-        return leftPosition;
-      } else {
-        return newPosition + 1;
-      }
+      return this.adjustForSeparator(leftPosition);
     }
-    return newPosition;
+    return this.lastPosition;
   }
 
   getPlainValue(ev) {
-    this.lastPosition = ev.target.selectionEnd;
-    let plainValue = ev.target.value.replace(/\W/g, '');
+    let plainValue = this.removeSeparators(ev.target.value);
 
     // Handle deleting to the left of a separator
     if (this.deletingBeforeSeparator()) {
@@ -132,6 +129,10 @@ class GroupedCharacter extends React.Component {
     );
   }
 
+  removeSeparators = (value) => {
+    return value.replace(/\W/g, '');
+  }
+
   separatorsNotNeeded = (plainValue) => {
     return plainValue.length < this.insertionIndices[0];
   }
@@ -149,7 +150,22 @@ class GroupedCharacter extends React.Component {
     return this.enforceMaxLength(valueWithSeparators);
   }
 
+  //gets value up to separator for current group
+  sliceUpToSeparator() {
+    let upToSeparator = 1;
+
+    for (let i = 0; i < this.insertionIndices.length; i++) {
+      if (this.lastPosition < this.insertionIndices[i + 1]) {
+        upToSeparator = this.lastPosition - i;
+        break;
+      }
+    }
+    return upToSeparator;
+  }
+
   onChange(ev) {
+    this.lastPosition = ev.target.selectionEnd;
+
     let plainValue    = this.getPlainValue(ev),
         visibleValue  = this.setVisibleValue(plainValue);
 

@@ -75,7 +75,7 @@ function insertAt(value, options) {
 
   for (let i = 0; i < result.length; i ++) {
     if (includes(options.insertionIndices, i)) {
-      result = result.substr(0, i) + separator + result.substr(i, options.insertionIndices[i + 1]);
+      result = result.substr(0, i) + separator + result.substr(i);
     }
   }
 
@@ -85,7 +85,7 @@ function insertAt(value, options) {
 export {
   acronymize,
   append,
+  insertAt,
   styleElement,
-  validProps,
-  insertAt
+  validProps
 };
