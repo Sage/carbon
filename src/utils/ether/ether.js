@@ -85,7 +85,7 @@ function insertAt(value, options) {
 export {
   acronymize,
   append,
+  insertAt,
   styleElement,
-  validProps,
-  insertAt
+  validProps
 };

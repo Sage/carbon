@@ -31,7 +31,7 @@ describe('GroupedCharacter', () => {
 
       describe('for a separator that is not a string', () => {
         it('throws an error', () => {
-          expect(console.error.calls.argsFor(0)[0]).toMatch('Invalid prop separator supplied to Component. Must be string of length 1');
+          expect(console.error.calls.argsFor(0)[0]).toContain('Invalid prop separator');
         });
       });
     });
@@ -89,7 +89,7 @@ describe('GroupedCharacter', () => {
         input.simulate('change', { target: { value: '1', selectionEnd: 1 } } );
         setTimeout(() => {
           expect(input.nodes[0].selectionEnd).toEqual(1);
-        }, 0)
+        })
       });
 
       describe('when typing a character ending a group', () => {
@@ -97,7 +97,7 @@ describe('GroupedCharacter', () => {
           input.simulate('change', { target: { value: '12345', selectionEnd: 6} } );
           setTimeout(() => {
             expect(input.nodes[0].selectionEnd).toEqual(6);
-          }, 0)
+          })
         });
       });
     });
@@ -109,7 +109,7 @@ describe('GroupedCharacter', () => {
           input.simulate('change', { target: { value: '12345', selectionEnd: 7 } } );
           setTimeout(() => {
             expect(input.nodes[0].selectionEnd).toEqual(7);
-          }, 0)
+          })
         });
       });
 
@@ -119,7 +119,7 @@ describe('GroupedCharacter', () => {
           input.simulate('change', { target: { value: '1234', selectionEnd: 6 } } );
           setTimeout(() => {
             expect(input.nodes[0].selectionEnd).toEqual(4);
-          }, 0)
+          })
         });
       });
     });
@@ -130,7 +130,7 @@ describe('GroupedCharacter', () => {
         input.simulate('change', { target: { value: '12345', selectionEnd: 5 } } );
         setTimeout(() => {
           expect(input.nodes[0].selectionEnd).toEqual(5);
-        }, 0)
+        })
       });
     });
   });
