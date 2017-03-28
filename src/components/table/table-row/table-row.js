@@ -370,11 +370,6 @@ class TableRow extends React.Component {
     }
 
     if (this.context.dragDropManager) {
-      console.log('**** TableRow.render() ****');
-      console.log(this.context.moveItem);
-      console.log(this.rowProps);
-      console.log(content);
-      console.log('this.props.index: ' + this.props.index);
       return (
         <WithDragAndDrop moveItem={ this.context.moveItem } index={ this.props.index }>
           <tr { ...this.rowProps }>
