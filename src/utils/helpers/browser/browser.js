@@ -30,6 +30,16 @@ const Browser = {
   },
 
   /**
+   * Get the current activeElement
+   *
+   * @return HTMLElement
+   */
+  getActiveElement: () => {
+    let doc = Browser.getDocument();
+    return doc.activeElement;
+  },
+
+  /**
    * Redirect to URL
    *
    * @method redirectTo
