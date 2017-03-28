@@ -13,7 +13,7 @@ let definition = new Definition('grouped-character', GroupedCharacter, {
     inputWidth: "Inline style to set the width of the component. Used if you want the with to match the character length"
   },
   propValues: {
-    groups: "[2, 2, 2]"
+    groups: "[2,4,3, 4,5]"
   }
 });
 
