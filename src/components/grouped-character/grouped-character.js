@@ -20,15 +20,23 @@ class GroupedCharacter extends React.Component {
     this.onKeyDown            = this.onKeyDown.bind(this);
     this.onChange             = this.onChange.bind(this);
     this.getCursorPosition    = this.getCursorPosition.bind(this);
-    this.getPlainValue        = this.getPlainValue.bind(this);
-    this.lastPosition         = 0;
-    this.keyPressed           = null;
+    this.getPlainValue        = this.getPlainValue.bind(this);    // value without separators
+    this.lastPosition         = 0;                                // last position of cursor 1-indexed
+    this.keyPressed           = { which: null };                  // track key pressed outside of React synthetic event
   }
 
   static propTypes = {
-    groups:    PropTypes.array.isRequired, // an array of  group sizes
-    separator: PropTypes.string,           // a separator character to insert between number groups
-    inputWidth: PropTypes.string           // pixel value that sets inputWidth
+    groups:     PropTypes.array.isRequired, // an array of  group sizes
+    inputWidth: PropTypes.string,           // pixel value that sets inputWidth
+    // a separator character to insert between number groups
+    separator:  ((props, propName, componentName) => {
+      if ((props[propName]).length > 1 || typeof props[propName] !== 'string') {
+        return new Error(
+          `Invalid prop ${propName} supplied to ${componentName}. Must be string of length 1.`
+        );
+      }
+    }),
+    format: PropTypes.string                // regex to for allowed input format
   };
 
   static defaultProps = {
@@ -41,22 +49,25 @@ class GroupedCharacter extends React.Component {
     this._input.setSelectionRange(newPosition, newPosition);
   }
 
-  // adjust cursor position around separator
-  adjustForSeparator = (leftPosition) => {
-    return this.lastPosition + this.insertionIndices.indexOf(leftPosition) + 1;
-  }
-
   calculateMaxLength = () => {
     return sum(this.props.groups) + this.props.groups.length - 1;
   }
 
   // delete value after separator
   deleteAfterSeparator = (value) => {
-    return value.slice(0, this.lastPosition -1) + value.slice(this.lastPosition);
+    let upToSeparator;
+      // account for presence of separators
+    for (let i=0; i < this.insertionIndices.length; i++) {
+      if (this.lastPosition < this.insertionIndices[i + 1]) {
+        upToSeparator = this.lastPosition - i;
+        break;
+      }
+    }
+    return value.slice(0, upToSeparator) + value.slice(upToSeparator + 1);
   }
 
   deletingBeforeSeparator = () => {
-    return this.keyPressed === 'DELETE' && includes(this.insertionIndices, this.lastPosition);
+    return this.isDeleteKey() && includes(this.insertionIndices, this.lastPosition);
   }
 
   enforceMaxLength = (value) => {
@@ -66,17 +77,19 @@ class GroupedCharacter extends React.Component {
   // Handle placement of cursor after updating value
   getCursorPosition() {
     let newPosition = this.lastPosition;
-    let leftPosition = newPosition - 1;
+    let leftPosition = this.lastPosition - 1;
 
     // Leave cursor in place if deleting
-    if (this.keyPressed === 'DELETE') { return this.lastPosition; }
+    if (this.isDeleteKey()) { return this.lastPosition; }
 
-    // If backspacing to right of separator
+    // adjust position for presence of separator
     if (includes(this.insertionIndices, leftPosition)) {
-      // adjust position based on fact that new length is 1 char shorter
-      if (this.keyPressed === 'BACKSPACE') { return leftPosition; }
-      // adjust position for presence of separator
-      return this.adjustForSeparator(leftPosition);
+      // move cursor 1 space left if backspacing character
+      if (this.isBackspaceKey()) {
+        return leftPosition;
+      } else {
+        return newPosition + 1;
+      }
     }
     return newPosition;
   }
@@ -96,10 +109,18 @@ class GroupedCharacter extends React.Component {
   insertionIndices = () => {
     let indices = [this.props.groups[0]];
 
-    for (let i = 1; i < this.props.groups.length - 1; i++) {
-      indices.push(indices[0] + this.props.groups[i] + 1);
+    for (let i = 1; i < this.props.groups.length; i++) {
+      indices.push(indices[i - 1] + this.props.groups[i] + 1);
     }
     return indices;
+  }
+
+  isBackspaceKey() {
+    return Events.isBackspaceKey(this.keyPressed);
+  }
+
+  isDeleteKey() {
+    return Events.isDeleteKey(this.keyPressed);
   }
 
   isValidKeypress = (ev) => {
@@ -115,12 +136,6 @@ class GroupedCharacter extends React.Component {
 
   separatorsNotNeeded = (plainValue) => {
     return plainValue.length < this.insertionIndices[0];
-  }
-
-  // React synthetic event doesn't provide keycode directly so track here.
-  setKeyPressed = (ev) => {
-    if (Events.isBackspaceKey(ev)) { this.keyPressed = 'BACKSPACE'; }
-    if (Events.isDeleteKey(ev)) { this.keyPressed = 'DELETE'; }
   }
 
   // update value with separators and truncate value if beyond max length
@@ -146,9 +161,9 @@ class GroupedCharacter extends React.Component {
   }
 
   onKeyDown(ev) {
-    this.keyPressed = null;
+    // React performs event pooling so can't store event for later reuse easily.
+    this.keyPressed = { which: ev.which };
     if (this.isValidKeypress(ev)) { ev.preventDefault(); }
-    this.setKeyPressed(ev);
   }
 
   get inputProps() {
