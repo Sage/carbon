@@ -3,6 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
+import { render } from 'enzyme';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy;
@@ -915,6 +916,21 @@ describe('Table', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
       expect(parent.className).toEqual('carbon-table foo');
+    });
+
+    it('renders a caption tag when a caption prop is given', () => {
+      let wrapper = render(
+        <Table caption="Acme widgets" />
+      );
+
+      let captionTag = wrapper.find('caption');
+      expect(captionTag.length).toEqual(1);
+      expect(captionTag.text()).toEqual('Acme widgets');
+    });
+
+    it('does not render a caption tag when no caption prop is given', () => {
+      let wrapper = render(<Table />);
+      expect(wrapper.find('caption').length).toEqual(0);
     });
   });
 });

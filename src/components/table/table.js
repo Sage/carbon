@@ -211,7 +211,15 @@ class Table extends React.Component {
      * @property tbody
      * @type {Object}
      */
-    tbody: React.PropTypes.bool
+    tbody: React.PropTypes.bool,
+
+    /**
+     * A string to render as the table's caption
+     *
+     * @property caption
+     * @type string
+     */
+    caption: React.PropTypes.string
   }
 
   /**
@@ -956,6 +964,21 @@ class Table extends React.Component {
   }
 
   /**
+   * Returns the caption prop wrapped in a <caption> tag,
+   * or null if no caption prop was given.
+   *
+   * @method caption
+   * @return {Object} JSX
+   */
+  get caption() {
+    if (this.props.caption) {
+      return <caption>{ this.props.caption }</caption>;
+    }
+
+    return null;
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -966,6 +989,7 @@ class Table extends React.Component {
         { this.actionToolbar }
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
+            { this.caption }
             { this.thead }
             { this.tbody }
           </table>
