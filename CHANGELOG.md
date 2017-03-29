@@ -15,16 +15,6 @@ with a label.
 </InlineInputs>
 ```
 
-## Section Component
-A simple `Section` wrapper component which allows a title and some content to be grouped together
-
-```js
-<Section title='My Section Title'>
-  <Textbox />
-  <Textbox />
-</Section>
-```
-
 ## Component Enchancements
 
 * `Date` now shows error validation when an invalid date is entered.
