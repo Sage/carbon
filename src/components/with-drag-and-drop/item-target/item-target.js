@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 
 const ItemTarget = {
@@ -8,7 +7,6 @@ const ItemTarget = {
 
     // Don't replace items with themselves
     if (dragIndex === hoverIndex) {
-      console.log(1);
       return;
     }
 
@@ -30,13 +28,11 @@ const ItemTarget = {
 
     // Dragging downwards
     if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      console.log(2);
       return;
     }
 
     // Dragging upwards
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-      console.log(3);
       return;
     }
 
