@@ -20,6 +20,7 @@ $green:                      $green-apple !default;
 // Orange
 $orange-mid:                 $orange-bright !default;
 $orange:                     $orange-bright !default;
+$orange-accessible:          #c33e00;
 
 // Blue
 $blue-navy:                  $blue-sky !default;
@@ -32,6 +33,7 @@ $warning:                    $orange-bright !default;
 $warning-text-background:    $orange-bright-05 !default;
 $warning-border:             $orange-bright-20 !default;
 $warning-hover:              darken($orange-bright, 20%) !default;
+$warning-accessible:         $orange-accessible;
 
 $error:                      $red    !default;
 $error-text-background:      $red-05 !default;
