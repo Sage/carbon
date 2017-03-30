@@ -18,8 +18,7 @@ with a label.
 ## Component Enchancements
 
 * `Date` now shows error validation when an invalid date is entered.
-* `Flash`: Change error icon to match other notifications (now shows error icon when `as` prop is `error`)
-* `Form`: adds error and warning icons (and refactors the summary into its own sub-component)
+* Change Flash error icon to match other notifications (now shows error icon when `as` prop is `error`)
 * `Dialog`: Added `subtitle` prop
 * `Input` can now receive an `inputHelp` prop which renders a tooltip after the input field.
 

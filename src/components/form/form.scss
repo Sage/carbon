@@ -1,7 +1,5 @@
-@import "./../../style-config/colors";
-
 .carbon-form__save--invalid {
-  background-color: $grey-dark-blue-5;
+  background-color: #DEE0E8;
 }
 
 .carbon-form__summary {
@@ -16,11 +14,11 @@
 }
 
 .carbon-form__save {
-  padding: 8px;
+  padding: 5px;
 }
 
 .carbon-form__cancel {
-  padding: 8px 0 8px 8px;
+  padding: 5px 0 5px 5px;
 }
 
 .carbon-form__additional-actions {
