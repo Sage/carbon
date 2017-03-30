@@ -1,0 +1,5 @@
+{
+  "main": "./draggable-context.js",
+  "name": "DraggableContext",
+  "style": "./draggable-context.scss"
+}

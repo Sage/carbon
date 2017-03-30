@@ -37,6 +37,12 @@ describe('Browser', () => {
     });
   });
 
+  describe('getActiveElement', () => {
+    it('returns the document.activeElement', () => {
+      expect(Browser.getActiveElement()).toEqual(document.activeElement);
+    });
+  });
+
   describe('reload', () => {
     it('calls the windows location relaod method', () => {
       let spy = jasmine.createSpy('reload');
