@@ -9,6 +9,7 @@ import HeadingDemo from './heading-demo';
 import NavigationBarDemo from './navigation-bar-demo';
 import CarouselDemo from './carousel-demo';
 import ShowEditPodDemo from './show-edit-pod-demo';
+import InlineInputsDemo from './inline-inputs-demo';
 
 class Layout extends React.Component {
   /**
@@ -29,6 +30,7 @@ class Layout extends React.Component {
         <NavigationBarDemo />
         <ContentDemo />
         <DetailDemo />
+        <InlineInputsDemo />
       </div>
     );
   }

@@ -1,3 +1,36 @@
+# 0.35.0
+
+## Bug Fix
+
+* `ShowEditPod`: `beforeFormValidation` and `buttonAlign` props are now passed to the `Form` as they should be
+
+## InlineInputs Component
+A simple `InlineInputs` wrapper component which allows multiple input fields to be displayed horizontally
+with a label.
+
+```js
+<InlineInputs label='Test Label'>
+  <Textbox />
+  <Textbox />
+</InlineInputs>
+```
+
+## Component Enchancements
+
+* `Date` now shows error validation when an invalid date is entered.
+* `Flash`: Change error icon to match other notifications (now shows error icon when `as` prop is `error`)
+* `Form`: adds error and warning icons (and refactors the summary into its own sub-component)
+* `Dialog`: Added `subtitle` prop
+* `Input` can now receive an `inputHelp` prop which renders a tooltip after the input field.
+
+## New Validations
+
+* DateWithinRangeValidator checks that a date is within specified bounds.
+e.g.
+```javascript
+  new DateWithinRangeValidator({ limit: 30, units: 'days' }
+```
+
 # 0.34.5
 
 ## Bug Fix
@@ -11,6 +44,7 @@
 ## Bug fix
 
 * `Pod`: corrects misalignment caused by centering
+
 
 # 0.34.3
 
