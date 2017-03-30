@@ -193,9 +193,38 @@ describe('Dialog', () => {
     });
   });
 
-  describe('dialogTitleClasses', () => {
-    it('returns the class for the dialog title', () => {
-      expect(instance.dialogTitleClasses).toEqual('carbon-dialog__title');
+  describe('dialogSubTitle', () => {
+    describe('when a props subtitle is passed', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Dialog
+            onCancel={ onCancel }
+            open={ true }
+            subtitle="My informative subtitle"
+          />
+        );
+      });
+
+      it('sets a dialog subtitle', () => {
+        let subtitle = TestUtils.findRenderedDOMComponentWithTag(instance, 'p');
+        expect(subtitle.classList[0]).toEqual('carbon-dialog__subtitle');
+        expect(subtitle.textContent).toEqual('My informative subtitle');
+      });
+    });
+
+    describe('when a props subtitle is not passed', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Dialog
+            onCancel={ onCancel }
+            open={ true }
+          />
+        );
+      });
+
+      it('defaults to null', () => {
+        expect(instance.dialogSubTitle).toBeFalsy();
+      });
     });
   });
 

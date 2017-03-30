@@ -8,6 +8,10 @@ import ImmutableHelper from './../../utils/helpers/immutable';
 import Dialog from './../dialog';
 import I18n from "i18n-js";
 
+import { shallow } from 'enzyme';
+
+import FormSummary from './form-summary';
+
 describe('Form', () => {
   let instance;
 
@@ -411,8 +415,8 @@ describe('Form', () => {
       });
 
       it('renders a secondary cancel button with cancelClasses', () => {
+        TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__cancel');
         expect(buttons[1].className).toMatch('carbon-button carbon-button--secondary');
-        expect(buttonContainers[2].className).toEqual('carbon-form__cancel');
       });
 
       it('when cancelText prop is passed it renders the secondary button with the prop', () => {
@@ -517,51 +521,51 @@ describe('Form', () => {
       });
     });
 
-    describe('errorMessage', () => {
-      beforeEach(() => {
-        instance.setState({ errorCount: 2});
+    describe("Error reporting on buttons", () => {
+      let wrapper;
+
+      beforeEach(() => wrapper = shallow(<Form />))
+
+      describe('errorMessage', () => {
+        beforeEach(() => wrapper.setState({ errorCount: 2}));
+
+        it('renders FormSummary with 2 errors', () => {
+          let formSummary = wrapper.find(FormSummary);
+          expect(formSummary.prop('errors')).toEqual(2);
+          expect(formSummary.prop('warnings')).toEqual(0);
+        });
+
+        it('adds BEM modifier for invalid state on the save button', () => {
+          expect(wrapper.find('.carbon-form__save.carbon-form__save--invalid').length).toEqual(1);
+        });
       });
 
-      it('displays an error message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
-        expect(summary.textContent).toEqual('There are 2 errors');
+      describe('warningMessage', () => {
+        beforeEach(() => wrapper.setState({ warningCount: 2 }));
+
+        it('renders FormSummary with 2 warnings', () => {
+          let formSummary = wrapper.find(FormSummary);
+          expect(formSummary.prop('errors')).toEqual(0);
+          expect(formSummary.prop('warnings')).toEqual(2);
+        });
+
+        it('adds BEM modifier for invalid state on the save button', () => {
+          expect(wrapper.find('.carbon-form__save.carbon-form__save--invalid').length).toEqual(1);
+        });
       });
 
-      it('adds a invalid CSS class on the Save button div', () => {
-        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
-      });
-    });
+      describe('warning and error message', () => {
+        beforeEach(() => wrapper.setState({ errorCount: 2, warningCount: 2 }));
 
-    describe('warningMessage', () => {
-      beforeEach(() => {
-        instance.setState({ warningCount: 2 });
-      });
+        it('renders FormSummary with 2 errros and 2 warnings', () => {
+          let formSummary = wrapper.find(FormSummary);
+          expect(formSummary.prop('errors')).toEqual(2);
+          expect(formSummary.prop('warnings')).toEqual(2);
+        });
 
-      it('displays a warning message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
-        expect(summary.textContent).toEqual('There are 2 warnings');
-      });
-
-      it('adds a invalid CSS class on the Save button div', () => {
-        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
-      });
-    });
-
-    describe('warning and error message', () => {
-      beforeEach(() => {
-        instance.setState({ errorCount: 2, warningCount: 2});
-      });
-
-      it('displays a warning message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
-        expect(summary.textContent).toEqual('There are 2 errors and 2 warnings');
-      });
-
-      it('adds a invalid CSS class on the Save button div', () => {
-        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
+        it('adds BEM modifier for invalid state on the save button', () => {
+          expect(wrapper.find('.carbon-form__save.carbon-form__save--invalid').length).toEqual(1);
+        });
       });
     });
   });
