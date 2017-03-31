@@ -4,40 +4,35 @@ import Browser from '../../../utils/helpers/browser';
 
 describe('ItemSource', () => {
   let itemSource;
+  let props;
+  let monitor;
+  let component;
 
   beforeEach(() => {
     itemSource = ItemSource;
+    monitor = {};
+    component = {};
+    props = {
+      beginDrag: (props, monitor, component) => {},
+      canDrag: (props, monitor) => {}
+    };
   });
 
   describe('beginDrag', () => {
-    it('is a function', () => {
-      expect(typeof itemSource.beginDrag).toEqual('function');
-    });
+    it('calls props.beginDrag(props, monitor, component)', () => {
+      spyOn(props, 'beginDrag');
+      itemSource.beginDrag(props, monitor, component);
 
-    it('returns the props.index', () => {
-      const props = {
-        index: 2
-      };
-
-      let result = itemSource.beginDrag(props);
-      expect(result.index).toEqual(props.index);
+      expect(props.beginDrag).toHaveBeenCalledWith(props, monitor, component);
     });
   });
 
   describe('canDrag', () => {
+    it('calls props.canDrag(props, monitor)', () => {
+      spyOn(props, 'canDrag');
+      itemSource.canDrag(props, monitor);
 
-    it('is a function', () => {
-      expect(typeof itemSource.canDrag).toEqual('function');
-    })
-
-    it ('returns true if the activeElement has a list view icon', () => {
-      let elem = document.createElement('div');
-      elem.setAttribute('icon', 'list_view');
-
-      spyOn(Browser, 'getActiveElement').and.returnValue(elem);
-
-      expect(itemSource.canDrag()).toEqual(true);
+      expect(props.canDrag).toHaveBeenCalledWith(props, monitor);
     });
-
   });
 });
