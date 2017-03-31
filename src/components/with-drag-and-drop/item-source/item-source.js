@@ -1,15 +1,12 @@
 // item-source.js
-import Browser from '../../../utils/helpers/browser';
 
 const ItemSource = {
-  canDrag(props) { // eslint-disable-line no-unused-vars
-    return Browser.getActiveElement().getAttribute('icon') === "list_view";
+  canDrag(props, monitor) {
+    return props.canDrag(props, monitor);
   },
 
-  beginDrag(props) {
-    return {
-      index: props.index
-    };
+  beginDrag(props, monitor, component) {
+    return props.beginDrag(props, monitor, component);
   }
 };
 

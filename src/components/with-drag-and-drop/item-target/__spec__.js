@@ -4,11 +4,23 @@ import ReactDOM from 'react-dom';
 
 describe('ItemTarget', () => {
 
-  it('has a hover function', () => {
-    expect(typeof ItemTarget.hover).toEqual('function');
+  it('calls props.hover(props, monitor, component)', () => {
+    let monitor = {};
+    let component = {};
+    let props = {
+      hover: (props, monitor, component) => {}
+    };
+
+    spyOn(props, 'hover');
+
+    ItemTarget.hover(props, monitor, component);
+
+    expect(props.hover).toHaveBeenCalledWith(props, monitor, component);
   });
 
-  describe('hover', () => {
+  // TODO decide whether we'll keep the code this tests as a default vertical
+  // drag and drop implementation
+  xdescribe('hover', () => {
     let component;
     let rect;
     let monitor = {};
