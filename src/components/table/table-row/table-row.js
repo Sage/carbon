@@ -118,7 +118,10 @@ class TableRow extends React.Component {
     selectable: React.PropTypes.bool, // table can enable all rows to be multi-selectable
     selectRow: React.PropTypes.func, // a callback function for when a row is selected
     dragDropManager: React.PropTypes.object,
-    moveItem: React.PropTypes.func
+    moveItem: React.PropTypes.func,
+    canDrag: React.PropTypes.func,
+    beginDrag: React.PropTypes.func,
+    hover: React.PropTypes.func
   }
 
   state = {
@@ -371,7 +374,11 @@ class TableRow extends React.Component {
 
     if (this.context.dragDropManager) {
       return (
-        <WithDragAndDrop moveItem={ this.context.moveItem } index={ this.props.index }>
+        <WithDragAndDrop
+            moveItem={ this.context.moveItem }
+            canDrag={ this.context.canDrag }
+            beginDrag={ this.context.beginDrag }
+            index={ this.props.index }>
           <tr { ...this.rowProps }>
             { content }
           </tr>
