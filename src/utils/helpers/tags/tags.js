@@ -5,17 +5,17 @@
  * @param {Object} component props
  * @return {Object} dataTagProps
  */
-function tagComponent(component, props) => {
+function tagComponent(component, props) {
   const tagProps = {
     ['data-component']: component
-  }
+  };
 
-  if (props.dataElement) { tagProps['data-element'] = props.dataElement };
-  if (props.dataRole) { tagProps['data-role'] = props.dataRole };
+  if (props.element) { tagProps['data-element'] = props.element; }
+  if (props.role) { tagProps['data-role'] = props.role; }
 
   return tagProps;
 }
 
 export {
   tagComponent
-}
+};
