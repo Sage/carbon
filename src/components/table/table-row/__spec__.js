@@ -461,21 +461,50 @@ describe('TableRow', () => {
           expect(wrapper.find(WithDragAndDrop).length).toEqual(1);
         });
 
-        it('throws an error if TableRow components do not have an index prop', () => {
-          let render = () => {
-            mount(
-              <DraggableContext>
-                <TableRow>
-                  <td />
-                  <td />
-                </TableRow>
-              </DraggableContext>,
-              options
-            );
-          };
+        describe('when a row does not have an index prop', () => {
+          it('throws an error if the row is not a header row', () => {
+            let render = () => {
+              mount(
+                <DraggableContext>
+                  <TableRow>
+                    <td />
+                    <td />
+                  </TableRow>
+                </DraggableContext>,
+                options
+              );
+            };
 
-          expect(render).toThrowError('You need to provide an index for rows that are draggable');
+            expect(render).toThrowError('You need to provide an index for rows that are draggable');
+          });
+
+          it('does not throw an error for header rows', () => {
+            let render = () => {
+              mount(
+                <DraggableContext>
+                  <Table>
+                    <thead>
+                      <TableRow as="header" key="header">
+                        <TableHeader>Country</TableHeader>
+                        <TableHeader>Code</TableHeader>
+                      </TableRow>
+                    </thead>
+                    <tbody>
+                      <TableRow index={ 1 }>
+                        <td />
+                        <td />
+                      </TableRow>
+                    </tbody>
+                  </Table>
+                </DraggableContext>,
+                options
+              );
+            };
+
+            expect(render).not.toThrowError('You need to provide an index for rows that are draggable');
+          });
         });
+
       });
 
 

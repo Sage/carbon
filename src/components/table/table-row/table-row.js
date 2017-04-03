@@ -99,7 +99,15 @@ class TableRow extends React.Component {
      * @property onSelect
      * @type {Function}
      */
-    onSelect: React.PropTypes.func
+    onSelect: React.PropTypes.func,
+
+    /**
+     * Used if this row is within a draggable context
+     *
+     * @property index
+     * @type {Number}
+     */
+    index: React.PropTypes.number
   }
 
   /**
@@ -150,7 +158,7 @@ class TableRow extends React.Component {
    */
   componentWillMount() {
     if (this.context.dragDropManager) {
-      if (typeof this.props.index === 'undefined') {
+      if (this.props.as !== 'header' && this.props.index === undefined) {
         throw new Error('You need to provide an index for rows that are draggable');
       }
     }
