@@ -21,7 +21,11 @@ class Component extends React.Component {
 
     return (
       <div>
-        <ComponentPreview definition={ definition } name={ this.props.params.name } />
+        <ComponentPreview
+          definition={ definition }
+          name={ this.props.params.name }
+          optionsUrl={ this.state.componentStore.get('optionsUrl') }
+        />
 
         { this.renderAPIs(definition) }
         { this.renderDesignerNotes(definition) }

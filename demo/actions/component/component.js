@@ -75,6 +75,25 @@ const ComponentActions = {
       records: String(data.records),
       page: String(data.current_page)
     });
+  },
+
+  generateOptionsUrl: (componentOptions) => {
+    let options = btoa(JSON.stringify(componentOptions.toJS()))
+    debugger
+    let url = `${ document.URL }?options=${ options }`;
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.SET_OPTIONS_URL,
+      url: url
+    });
+  },
+
+  getOptionsFromUrl: (encodedComponentOptions, componentName) => {
+    let options = JSON.parse(atob(encodedComponentOptions));
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.GET_OPTIONS_FROM_URL,
+      componentName: componentName,
+      options: options
+    });
   }
 };
 

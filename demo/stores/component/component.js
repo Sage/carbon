@@ -63,6 +63,15 @@ class ComponentStore extends Store {
     // update the global object
     global.tableAjaxData = data;
   }
+
+  [ComponentConstants.SET_OPTIONS_URL](action) {
+    this.data = this.data.set('optionsUrl', action.url);
+  }
+
+  [ComponentConstants.GET_OPTIONS_FROM_URL](action) {
+    const options = ImmutableHelper.parseJSON(action.options);
+    this.data = this.data.setIn([action.componentName, 'propValues'], options);
+  }
 }
 
 export default new ComponentStore('componentStore', data, Dispatcher);
