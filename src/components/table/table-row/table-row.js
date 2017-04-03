@@ -60,7 +60,57 @@ class TableRow extends React.Component {
      * @property uniqueID
      * @type {String}
      */
+<<<<<<< Updated upstream
     uniqueID: React.PropTypes.string
+=======
+    uniqueID: React.PropTypes.string,
+
+    /**
+     * What the row should be displayed as, set to 'header' to display as header
+     *
+     * @property as
+     * @type {String}
+     */
+    as: React.PropTypes.string,
+
+    /**
+     * Whether to hide the multiSelect
+     *
+     * @property hideMultiSelect
+     * @type {Boolean}
+     */
+    hideMultiSelect: React.PropTypes.bool,
+
+    /**
+     * Whether to select all
+     *
+     * @property selectAll
+     * @type {Boolean}
+     */
+    selectAll: React.PropTypes.bool,
+
+    /**
+     * Callback for when a row is highlighted
+     * @property onHighlight
+     * @type {Function}
+     */
+    onHighlight: React.PropTypes.func,
+
+    /**
+     * Callback for when a row is selected
+     * @property onSelect
+     * @type {Function}
+     */
+    onSelect: React.PropTypes.func,
+
+    /**
+     * Used if this row is within a draggable context
+     *
+     * @property index
+     * @type {Number}
+     */
+    index: React.PropTypes.number
+>>>>>>> Stashed changes
   }
 
   /**
@@ -111,7 +161,7 @@ class TableRow extends React.Component {
    */
   componentWillMount() {
     if (this.context.dragDropManager) {
-      if (typeof this.props.index === 'undefined') {
+      if (this.props.as !== 'header' && this.props.index === undefined) {
         throw new Error('You need to provide an index for rows that are draggable');
       }
     }
