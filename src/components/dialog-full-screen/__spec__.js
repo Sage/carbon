@@ -4,6 +4,7 @@ import DialogFullScreen from './dialog-full-screen';
 import I18n from 'i18n-js';
 import Bowser from 'bowser';
 import Button from './../button';
+import { shallow } from 'enzyme';
 
 describe('DialogFullScreen', () => {
   let instance,
@@ -60,6 +61,40 @@ describe('DialogFullScreen', () => {
     it('renders the children passed to it', () => {
       let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
       expect(buttons.length).toEqual(2);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <DialogFullScreen
+          element='bar'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'dialog-full-screen', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <DialogFullScreen
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          title='Test'
+        />
+      );
+
+      window.ElementsTagTest.run(wrapper, [
+        'close',
+        'title'
+      ]);
     });
   });
 });

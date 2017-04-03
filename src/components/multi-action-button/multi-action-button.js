@@ -113,11 +113,19 @@ class MultiActionButton extends SplitButton {
    */
   get renderMainButton() {
     return (
-      <Button { ...this.toggleButtonProps } >
+      <Button { ...this.toggleButtonProps } data-element='main-button'>
         { this.props.text}
         <Icon type='dropdown' />
       </Button>
     );
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'split-button',
+      'data-element': props.element,
+      'data-role': props.role
+    };
   }
 }
 

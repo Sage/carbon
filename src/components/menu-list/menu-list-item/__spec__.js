@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import MenuListItem from './menu-list-item';
+import { shallow } from 'enzyme';
 
 describe('MenuListItem', () => {
   let instance;
@@ -31,5 +32,13 @@ describe('MenuListItem', () => {
 
     let list = TestUtils.findRenderedDOMComponentWithTag(customInstance, 'li');
     expect(list.classList).toMatch('custom-class');
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<MenuListItem element='bar' role='baz'>Test</MenuListItem>);
+
+    it('include correct component, element and role data tags', () => {
+      window.RootTagTest.run(wrapper, 'menu-list-item', 'bar', 'baz');
+    });
   });
 });

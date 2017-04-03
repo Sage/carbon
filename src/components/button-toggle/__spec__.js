@@ -1,12 +1,16 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
 import ButtonToggle from './button-toggle';
 
 describe('ButtonToggle', () => {
-  let instance;
+  let instance, wrapper;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(<ButtonToggle />);
+    instance = TestUtils.renderIntoDocument(<ButtonToggle><span>Plus</span></ButtonToggle>);
+    wrapper = shallow(
+      <ButtonToggle role='contacts' element='button-toggle'><span>Minus</span></ButtonToggle>
+    );
   });
 
   describe('mainClasses', () => {
@@ -30,7 +34,9 @@ describe('ButtonToggle', () => {
 
     describe('with an buttonIcon', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(<ButtonToggle buttonIcon="settings" />);
+        instance = TestUtils.renderIntoDocument(
+          <ButtonToggle buttonIcon='settings'><span>Plus</span></ButtonToggle>
+        );
       });
 
       it('returns the buttonIcon', () => {
@@ -40,11 +46,15 @@ describe('ButtonToggle', () => {
 
     describe('with a large buttonIcon', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(<ButtonToggle buttonIcon="settings" buttonIconSize="large" />);
+        instance = TestUtils.renderIntoDocument(
+          <ButtonToggle buttonIcon='settings' buttonIconSize='large'><span>Plus</span></ButtonToggle>
+        );
       });
 
       it('returns a large buttonIcon', () => {
-        expect(instance.buttonIcon.props.className).toEqual('carbon-button-toggle__button-icon carbon-button-toggle__button-icon--large');
+        expect(instance.buttonIcon.props.className).toEqual(
+          'carbon-button-toggle__button-icon carbon-button-toggle__button-icon--large'
+        );
       });
     });
   });
@@ -56,8 +66,13 @@ describe('ButtonToggle', () => {
 
     describe('if it is disabled', () => {
       it('returns a disabled label', () => {
-        instance = TestUtils.renderIntoDocument(<ButtonToggle disabled={ true } />);
-        expect(instance.additionalInputContent.props.className).toEqual('carbon-button-toggle__label carbon-button-toggle__label--disabled');
+        instance = TestUtils.renderIntoDocument(
+          <ButtonToggle disabled={ true }><span>Plus</span></ButtonToggle>
+        );
+
+        expect(instance.additionalInputContent.props.className).toEqual(
+          'carbon-button-toggle__label carbon-button-toggle__label--disabled'
+        );
       });
     });
   });
@@ -68,8 +83,27 @@ describe('ButtonToggle', () => {
     });
 
     it('assigns a custom id if one is given', () => {
-      instance = TestUtils.renderIntoDocument(<ButtonToggle id="foo" />);
-      expect(instance.inputProps.id).toEqual("foo");
+      instance = TestUtils.renderIntoDocument(<ButtonToggle id='foo'><span>Plus</span></ButtonToggle>);
+      expect(instance.inputProps.id).toEqual('foo');
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<ButtonToggle element='bar' role='baz'>Test</ButtonToggle>);
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'button-toggle', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<ButtonToggle>Test</ButtonToggle>);
+
+      window.ElementsTagTest.run(wrapper, [
+        'input',
+        'label'
+      ]);
     });
   });
 });

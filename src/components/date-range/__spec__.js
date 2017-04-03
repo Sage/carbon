@@ -4,6 +4,7 @@ import I18n from 'i18n-js';
 import DateRange from './date-range';
 import Date from './../date';
 import DateRangeValidator from './../../utils/validations/date-range';
+import { shallow } from 'enzyme';
 
 describe('DateRange', () => {
   let instance, customOnChange;
@@ -331,6 +332,32 @@ describe('DateRange', () => {
       expect(dates[0].props.validations.length).toEqual(2);
       expect(dates[0].props.validations[1]).toEqual('custom validation');
       expect(dates[1].props.validations.length).toEqual(1);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <DateRange
+          element='bar'
+          onChange={ () => {} }
+          role='baz'
+          value={ ['2016-10-10','2016-11-11'] }
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'date-range', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<DateRange onChange={ () => {} } value={ ['2016-10-10','2016-11-11'] } />);
+
+      window.ElementsTagTest.run(wrapper, [
+        'start-date',
+        'end-date'
+      ]);
     });
   });
 });

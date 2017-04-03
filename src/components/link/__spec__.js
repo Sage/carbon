@@ -242,4 +242,12 @@ describe('Link', () => {
       });
     });
   });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<Link to='test' element='bar' role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      window.RootTagTest.run(wrapper, 'link', 'bar', 'baz');
+    });
+  });
 });

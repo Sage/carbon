@@ -569,4 +569,23 @@ describe('Form', () => {
       });
     });
   });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Form element='bar' role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'form', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Form />);
+
+      window.ElementsTagTest.run(wrapper, [
+        'cancel',
+        'save',
+      ]);
+    });
+  });
 });

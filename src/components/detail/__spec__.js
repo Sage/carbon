@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Detail from './detail';
+import { shallow } from 'enzyme';
 
 describe('Detail', () => {
   let instance;
@@ -52,6 +53,25 @@ describe('Detail', () => {
     it('renders the icon and additional class', () => {
       let div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-detail__icon');
       expect(div).toBeDefined()
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Detail element='bar' role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'detail', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Detail icon='test' footnote='test' />);
+
+      window.ElementsTagTest.run(wrapper, [
+        'icon',
+        'footnote'
+      ]);
     });
   });
 });

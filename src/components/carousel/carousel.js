@@ -3,6 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { compact, assign } from 'lodash';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 
 import Icon from './../icon';
 
@@ -61,21 +62,21 @@ class Carousel extends React.Component {
      */
     this.transitionDirection = NEXT;
 
-    this.mainClasses = this.mainClasses.bind(this);
-    this.onPreviousClick = this.onPreviousClick.bind(this);
-    this.onNextClick = this.onNextClick.bind(this);
-    this.onSlideSelection = this.onSlideSelection.bind(this);
+    this.mainClasses               = this.mainClasses.bind(this);
+    this.onPreviousClick           = this.onPreviousClick.bind(this);
+    this.onNextClick               = this.onNextClick.bind(this);
+    this.onSlideSelection          = this.onSlideSelection.bind(this);
     this.enableButtonsAfterTimeout = this.enableButtonsAfterTimeout.bind(this);
-    this.previousButtonProps = this.previousButtonProps.bind(this);
-    this.nextButtonProps = this.nextButtonProps.bind(this);
-    this.numOfSlides = this.numOfSlides.bind(this);
-    this.visibleSlide = this.visibleSlide.bind(this);
-    this.slideSelector = this.slideSelector.bind(this);
-    this.nextClasses = this.nextClasses.bind(this);
-    this.previousClasses = this.previousClasses.bind(this);
-    this.previousButtonClasses = this.previousButtonClasses.bind(this);
-    this.nextButtonClasses = this.nextButtonClasses.bind(this);
-    this.slideSelectorClasses = this.slideSelectorClasses.bind(this);
+    this.previousButtonProps       = this.previousButtonProps.bind(this);
+    this.nextButtonProps           = this.nextButtonProps.bind(this);
+    this.numOfSlides               = this.numOfSlides.bind(this);
+    this.visibleSlide              = this.visibleSlide.bind(this);
+    this.slideSelector             = this.slideSelector.bind(this);
+    this.nextClasses               = this.nextClasses.bind(this);
+    this.previousClasses           = this.previousClasses.bind(this);
+    this.previousButtonClasses     = this.previousButtonClasses.bind(this);
+    this.nextButtonClasses         = this.nextButtonClasses.bind(this);
+    this.slideSelectorClasses      = this.slideSelectorClasses.bind(this);
   }
 
   state = {
@@ -101,12 +102,12 @@ class Carousel extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses() }>
+      <div className={ this.mainClasses() } { ...tagComponent('carousel', this.props) }>
 
         <div className='carbon-carousel__content'>
 
           <div className={ this.previousClasses() }>
-            <button { ...this.previousButtonProps() }>
+            <button { ...this.previousButtonProps() } data-element='previous'>
               <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
             </button>
           </div>
@@ -120,7 +121,7 @@ class Carousel extends React.Component {
           </ReactCSSTransitionGroup>
 
           <div className={ this.nextClasses() }>
-            <button { ...this.nextButtonProps() }>
+            <button { ...this.nextButtonProps() } data-element='next'>
               <Icon className='carbon-carousel__next-arrow' type='dropdown' />
             </button>
           </div>
@@ -309,8 +310,9 @@ class Carousel extends React.Component {
     const visibleSlide = compact(React.Children.toArray(this.props.children))[index];
 
     const additionalProps = {
-      className: classNames('carbon-slide carbon-slide--active', visibleSlide.props.className),
-      key:       `carbon-slide-${index}`
+      className:        classNames('carbon-slide carbon-slide--active', visibleSlide.props.className),
+      ['data-element']: 'visible-slide',
+      key:              `carbon-slide-${index}`
     };
 
     return React.cloneElement(visibleSlide, assign({}, visibleSlide.props, additionalProps));
@@ -326,10 +328,11 @@ class Carousel extends React.Component {
 
     for (let i = 0; i < this.numOfSlides(); i++) {
       buttons.push(
-        <span className='carbon-carousel__selector-inputs' key={ i }>
+        <span className='carbon-carousel__selector-inputs' key={ i } data-element='selector-inputs'>
           <input
             disabled={ this.state.disabled }
             className='carbon-carousel__selector-input'
+            data-element='selector-input'
             name='carousel-slide'
             id={ `carousel-slide-${i}` }
             type='radio' value={ i }
@@ -338,6 +341,7 @@ class Carousel extends React.Component {
           />
           <label
             className='carbon-carousel__selector-label'
+            data-element='selector-label'
             htmlFor={ `carousel-slide-${i}` }
           />
         </span>

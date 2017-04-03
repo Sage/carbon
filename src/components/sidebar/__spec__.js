@@ -3,6 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import { Sidebar } from './sidebar';
 import Textbox from './../textbox';
 import Icon from './../icon';
+import { shallow } from 'enzyme';
 
 describe('Sidebar', () => {
   let instance, leftInstance, spy;
@@ -177,6 +178,38 @@ describe('Sidebar', () => {
         let icon = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-sidebar__close-icon');
         expect(icon.length).toEqual(0);
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Sidebar
+          element='bar'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'sidebar', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Sidebar
+          open={ true }
+          title='Test'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+        />
+      );
+
+      window.ElementsTagTest.run(wrapper, [
+        'close'
+      ]);
     });
   });
 });

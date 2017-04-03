@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Form from './../form';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * @class Filter
@@ -53,7 +54,7 @@ class Filter extends Form {
    */
   render() {
     return (
-      <form className={ this.classes } onSubmit={ this.handleSubmit }>
+      <form className={ this.classes } onSubmit={ this.handleSubmit } { ...tagComponent('filter', this.props) }>
         { this.props.children }
       </form>
     );

@@ -1,10 +1,11 @@
 import I18n from 'i18n-js';
 import React from 'react';
+import { tagComponent } from '../../../utils/helpers/tags';
 
 import Icon from './../../icon';
 
 const FormSummary = props =>
-  <div className='carbon-form-summary'>
+  <div className='carbon-form-summary' { ...tagComponent('form-summary', props) }>
     { summary(props, 'error') }
     { summary(props, 'warning') }
   </div>
@@ -33,7 +34,7 @@ const summary = (props, key) => {
     return (
       <span className={ `carbon-form-summary__summary carbon-form-summary__${key}-summary` }>
         <Icon className='carbon-form-summary__icon' type={ `${key}` } />
-        <span className='carbon-form-summary__text'>{ translation(props, key) }</span>
+        <span className='carbon-form-summary__text' data-element={ pluralize(key) }>{ translation(props, key) }</span>
       </span>
     );
   }

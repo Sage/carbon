@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { tagComponent } from '../../../utils/helpers/tags';
 
 /**
  * Renders a menu block for inside of a submenu.
@@ -23,7 +24,7 @@ class SubmenuBlock extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes }>
+      <div className={ this.classes } { ...tagComponent('submenu-block', this.props) }>
         { this.props.children }
       </div>
     );

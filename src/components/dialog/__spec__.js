@@ -5,6 +5,7 @@ import I18n from 'i18n-js';
 import Bowser from 'bowser';
 import Button from './../button';
 import Row from './../row'
+import { shallow } from 'enzyme';
 
 describe('Dialog', () => {
   let instance, onCancel;
@@ -286,6 +287,42 @@ describe('Dialog', () => {
         let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
         expect(dialogNode.classList[0]).toEqual('carbon-dialog');
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Dialog
+          element='bar'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          role='baz'
+        />);
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'dialog', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Dialog
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          showCloseIcon={ true }
+          subtitle='Test'
+          title='Test'
+        />
+      );
+
+      window.ElementsTagTest.run(wrapper, [
+        'close',
+        'subtitle',
+        'title'
+      ]);
     });
   });
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import SubmenuBlock from './submenu-block';
+import { shallow } from 'enzyme';
 
 describe('SubmenuBlock', () => {
   let instance;
@@ -21,5 +22,13 @@ describe('SubmenuBlock', () => {
   it('renders with correct classes', () => {
     let div = TestUtils.findRenderedDOMComponentWithTag(instance, 'div');
     expect(div.className).toEqual('carbon-submenu-block foobar');
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<SubmenuBlock element='bar' role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      window.RootTagTest.run(wrapper, 'submenu-block', 'bar', 'baz');
+    });
   });
 });

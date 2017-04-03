@@ -67,4 +67,23 @@ describe('<FormSummary />', () => {
       expect(text).toContain('and 1 warning');
     });
   });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<FormSummary element='bar' role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'form-summary', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<FormSummary errors='1' warnings='1' />);
+
+      window.ElementsTagTest.run(wrapper, [
+        'errors',
+        'warnings'
+      ]);
+    });
+  });
 });

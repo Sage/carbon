@@ -64,7 +64,7 @@ describe('Decimal', () => {
         expect(wrapper.state().visibleValue).toEqual("12,345.68");
       });
     });
-    
+
 
     describe('with alternative I18n options', () => {
       beforeEach(() => {
@@ -474,6 +474,26 @@ describe('Decimal', () => {
         let input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
         expect(input.type).toEqual('hidden');
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Decimal element='bar' role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'decimal', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Decimal fieldHelp='test' label='test' />);
+
+      window.ElementsTagTest.run(wrapper, [
+        'help',
+        'input',
+        'label'
+      ]);
     });
   });
 });
