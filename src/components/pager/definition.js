@@ -14,7 +14,7 @@ let definition = new Definition('pager', Pager, {
 * Table with Ajax? [Try Table](/components/table-ajax).
  `,
   type: 'form',
-  hiddenProps: ['pageSizeSelectionOptions'],
+  hiddenProps: ['currentPage', 'pageSizeSelectionOptions'],
   propOptions: {
     pageSize: OptionsHelper.pageSizes,
   },
