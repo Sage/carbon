@@ -9,9 +9,9 @@ let definition = new Definition('textbox', Textbox, {
 * If content in a textbox is never editable, think about removing the field border so it appears as static text.
 * You can disable a textbox, but try to avoid this. If you need to, make it clear what the user needs to do in order to activate the textbox.
 * Use wider fields for longer data (e.g. an address line), and narrower fields for shorter data (e.g. a postcode), to give the user a clue about the data expected.
-
-### Related Components
-* __More than a single line of text?__ [Try Textarea](/components/textarea).
+  `,
+  relatedComponentsNotes: `
+* More than a single line of text? [Try Textarea](/components/textarea).
 `,
   type: 'form'
 });

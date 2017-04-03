@@ -6,10 +6,11 @@ let definition = new Definition('settings-row', SettingsRow, {
   designerNotes: `
 * Useful to create a series of rows with a heading, explanatory text, and UI controls in each row.
 * A good example is a settings page, or step-by-step wizard.
-
-* __Need an overall container?__ [Try App Wrapper](/components/app-wrapper).
-* __Need a container for your primary navigation?__ [Try Navigation Bar](/components/navigation-bar).
-* __Laying out a page in columns?__ [Try Row](/components/row).
+  `,
+  relatedComponentsNotes: `
+* Need an overall container? [Try App Wrapper](/components/app-wrapper).
+* Need a container for your primary navigation? [Try Navigation Bar](/components/navigation-bar).
+* Laying out a page in columns? [Try Row](/components/row).
  `,
   propTypes: {
     children: "Node",

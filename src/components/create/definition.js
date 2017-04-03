@@ -6,12 +6,12 @@ let definition = new Definition('create', Create, {
   description: `Creates a new set of content that's grouped together.`,
   designerNotes: `
 * Creates an item of data usually presented in a Pod or Fieldset, for example, an address.
-
-### Related Components
-* __Editing a number of closely related inputs?__ [Try Fieldset](/components/fieldset).
-* __Filling in a broad series of inputs?__ [Try Form](/components/form).
-* __Viewing content that’s grouped together visually?__ [Try Pod](/components/pod).
-* __Using Fieldset and Pod components together?__ [Try Show/Edit Pod](/components/show-edit-pod).
+  `,
+  relatedComponentsNotes: `
+* Editing a number of closely related inputs? [Try Fieldset](/components/fieldset).
+* Filling in a broad series of inputs? [Try Form](/components/form).
+* Viewing content that’s grouped together visually? [Try Pod](/components/pod).
+* Using Fieldset and Pod components together? [Try Show/Edit Pod](/components/show-edit-pod).
  `,
   hiddenProps: ["linkProps"],
   propValues: {

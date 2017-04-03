@@ -9,11 +9,11 @@ let definition = new Definition('animated-menu-button', AnimatedMenuButton, {
 * This pattern tends to be used as a quick way of allowing the user to create a range of new items (e.g. New Sales Invoice, New Quote, New Payment).
 * Try not to mix navigation options with action options.
 * Try not to create any duplication between the Menu component, and this component.
-
-### Related Components
-* __Choosing between variants of the same page, or filtering content?__ [Try Tabs](/components/tabs).
-* __Positioning your primary navigation?__ [Try Navigation Bar](/components/navigation-bar).
-* __Navigating the hierarchy of the app?__ [Try Menu](/components/menu).
+  `,
+  relatedComponentsNotes: `
+* Choosing between variants of the same page, or filtering content? [Try Tabs](/components/tabs).
+* Positioning your primary navigation? [Try Navigation Bar](/components/navigation-bar).
+* Navigating the hierarchy of the app? [Try Menu](/components/menu).
   `,
   hiddenProps: ["children"],
   propOptions: {

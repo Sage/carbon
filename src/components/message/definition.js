@@ -16,11 +16,11 @@ let definition = new Definition('message', Message, {
 * __Success__ - indicates that an activity was successful. A good example could also present the user with onward options, such as ‘View a list of items’ or ‘Create another’.
 * __Warning__ - warns the user about a potential negative outcome that hasn’t happened yet.
 * The Transparent configuration is useful if you’d like the message to be more visually subtle, perhaps in a Dialog.
-
-### Related Components
-* __Simple positive or negative confirmation?__ [Try Flash](/components/flash).
-* __Longer, time sensitive message that must be dismissed?__ [Try Toast](/components/toast).
-* __Error or warning message that interrupts activity?__ [Try Alert](/components/alert).
+  `,
+  relatedComponentsNotes: `
+* Simple positive or negative confirmation? [Try Flash](/components/flash).
+* Longer, time sensitive message that must be dismissed? [Try Toast](/components/toast).
+* Error or warning message that interrupts activity? [Try Alert](/components/alert).
  `,
   type: 'notification',
   toggleFunctions: ['onDismiss'],

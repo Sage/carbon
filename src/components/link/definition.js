@@ -12,9 +12,9 @@ let definition = new Definition('link', Link, {
 * To make the meaning of a link clearer, you can add an icon before it. Just name one of the Carbon icons.
 * Make your link names meaningful - for example, instead of ‘Click here’, try ‘Download Invoice 001’.
 * WCAG guidelines recommend that Color is not used as the only visual means of conveying information, indicating an action. Carbon applies bold weight, but you could also use text decoration.
-
-### Related Components
-* __[Icons](/style/icons).__
+  `,
+  relatedComponentsNotes: `
+* Need an icon to go with your link? [View Icons](/style/icons).
  `,
   type: 'action',
   propValues: {

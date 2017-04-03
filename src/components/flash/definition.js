@@ -9,11 +9,11 @@ let definition = new Definition('flash', Flash, {
 * Success messages disappear after a set timeout. Error messages stay on-screen until dismissed by the user.
 * Useful for general success and failure messages that the user doesn’t need time to interpret. Try to place only a very short message in a Flash of just a few characters, e.g. ‘Changes Saved’.
 * Various types are available. ‘Error’ and ‘Success’ are by far the most useful - others are present for completeness by may not be used in practice very often, because a Flash isn’t suitable for longer messages.
-
-### Related Components
-* __Longer message which stays on-screen?__ [Try Message](/components/message).
-* __Longer, time sensitive message that must be dismissed?__ [Try Toast](/components/toast).
-* __Error or warning message that interrupts activity?__ [Try Alert](/components/alert).
+  `,
+  relatedComponentsNotes: `
+* Longer message which stays on-screen? [Try Message](/components/message).
+* Longer, time sensitive message that must be dismissed? [Try Toast](/components/toast).
+* Error or warning message that interrupts activity? [Try Alert](/components/alert).
  `,
   type: 'notification',
   propOptions: {

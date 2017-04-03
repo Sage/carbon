@@ -9,13 +9,13 @@ let definition = new Definition('dropdown', Dropdown, {
 * Useful to show more than about 5 options.
 * Use placeholder content like ‘Please select…’ to make it clear to the user that the Dropdown is unset.
 * Consider a ‘smart default’ selection, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
-
-### Related Components
-* __Filtering menu options to find the right one?__ [Try Dropdown Filter](/components/dropdown-filter).
-* __Adding a new option within the menu?__ [Try Dropdown Filter](/components/dropdown-filter).
-* __Choosing one option from a shorter list?__ [Try Radio Button](/components/radio-button).
-* __Choosing more than one option?__ [Try Checkbox](/components/checkbox).
-* __Choosing one option from a highly visible range?__ [Try Button Toggle](/components/button-toggle).
+  `,
+  relatedComponentsNotes: `
+* Filtering menu options to find the right one? [Try Dropdown Filter](/components/dropdown-filter).
+* Adding a new option within the menu? [Try Dropdown Filter](/components/dropdown-filter).
+* Choosing one option from a shorter list? [Try Radio Button](/components/radio-button).
+* Choosing more than one option? [Try Checkbox](/components/checkbox).
+* Choosing one option from a highly visible range? [Try Button Toggle](/components/button-toggle).
  `,
   hiddenProps: ['options'],
   js: `function getOptions() {

@@ -12,11 +12,11 @@ let definition = new Definition('menu', Menu, {
 * Place separator rows into any menu to group items of similar meaning.
 * Carbon has Primary and Secondary styles for the menus - these are used to present primary and secondary navigation. A good example is the Sage One Accounting application.
 * More complex navigation patterns such as hamburger menus or mega menus are usually associated with poorer usability test performance, but might still be useful in some situations. Before trying more complex patterns, consider some user research techniques like Card Sorting to reduce the complexity in your information architecture.
-
-### Related Components
-* __Choosing between variants of the same page, or filtering content?__ [Try Tabs](/components/tabs).
-* __Need a container for your primary navigation?__ [Try Navigation Bar](/components/navigation-bar).
-* __Quickly accessing useful hyperlinks?__ [Try Animated Menu Button](/components/animated-menu-button).
+  `,
+  relatedComponentsNotes: `
+* Choosing between variants of the same page, or filtering content? [Try Tabs](/components/tabs).
+* Need a container for your primary navigation? [Try Navigation Bar](/components/navigation-bar).
+* Quickly accessing useful hyperlinks? [Try Animated Menu Button](/components/animated-menu-button).
  `,
   associatedDefinitions: [menuItemDefinition, submenuBlockDefinition],
   propOptions: {

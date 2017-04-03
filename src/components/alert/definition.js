@@ -9,13 +9,13 @@ let definition = new Definition('alert', Alert, {
 * If the message isn’t so important, or you want to avoid disrupting the user’s activity, consider showing a static Message component in the underlying screen.
 * Include a Message component within the Alert component, use plain text, or apply a standard Carbon Error or Warning icon.
 * This component has the same options and properties as the Dialog component.
-
-### Related Components
-* __Simple positive or negative confirmation?__ [Try Flash](/components/flash).
-* __Longer message which stays on-screen?__ [Try Message](/components/message).
-* __Longer, time sensitive message that must be dismissed?__ [Try Toast](/components/toast).
-* __Confirm or cancel an action I’ve initiated?__ [Try Confirm](/components/confirm).
-* __Simple task in context?__ [Try Dialog](/components/dialog).
+  `,
+  relatedComponentsNotes: `
+* Simple positive or negative confirmation? [Try Flash](/components/flash).
+* Longer message which stays on-screen? [Try Message](/components/message).
+* Longer, time sensitive message that must be dismissed? [Try Toast](/components/toast).
+* Confirm or cancel an action I’ve initiated? [Try Confirm](/components/confirm).
+* Simple task in context? [Try Dialog](/components/dialog).
   `,
   propOptions: {
     size: OptionsHelper.sizesFull

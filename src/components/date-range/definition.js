@@ -6,9 +6,9 @@ let definition = new Definition('date-range', DateRate, {
   description: `Captures a start and end date.`,
   designerNotes: `
 * Used to filter a Table of data according to a start and end date, or to set two dates which are related to each other, for example, a hotel booking.
-
-### Related Components
-* __Entering or picking a single date only?__ [Try Date Input](/components/date-input).
+  `,
+  relatedComponentsNotes: `
+* Entering or picking a single date only? [Try Date Input](/components/date-input).
  `,
   hiddenProps: ["value", "startDateProps", "endDateProps"],
   propTypes: {

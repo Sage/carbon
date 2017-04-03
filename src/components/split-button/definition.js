@@ -11,11 +11,11 @@ let definition = new Definition('split-button', SplitButton, {
 * Useful to show about 5 options or less.
 * Only use this component for buttons that are very closely related (e.g. Save, Save and Email, Save and Print, Save and New).
 * Only use this component if one option is more generic or important than the others.
-
-### Related Components
-* __Taking a single positive or negative action?__ [Try Button](/components/button).
-* __Range of buttons all of the same importance?__ [Try Multi Action Button](/components/multi-action-button).
-* __Choosing one option from a highly visible range?__ [Try Button Toggle](/components/button-toggle).
+  `,
+  relatedComponentsNotes: `
+* Taking a single positive or negative action? [Try Button](/components/button).
+* Range of buttons all of the same importance? [Try Multi Action Button](/components/multi-action-button).
+* Choosing one option from a highly visible range? [Try Button Toggle](/components/button-toggle).
 `,
   propOptions: {
     as: OptionsHelper.themesBinary,

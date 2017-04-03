@@ -9,9 +9,10 @@ let definition = new Definition('profile', Profile, {
 * Useful to represent a person, user, or organisation.
 * Use initials rather than an avatar if you prefer.
 * Works with [Gravatar](http://en.gravatar.com/) as a source of avatars.
-
-* __Initials or avatar without text?__ [Try Portrait](/components/portrait).
-* __Text without initials or avatar?__ [Try Detail](/components/detail).
+  `,
+  relatedComponentsNotes: `
+* Initials or avatar without text? [Try Portrait](/components/portrait).
+* Text without initials or avatar? [Try Detail](/components/detail).
  `,
   propValues: {
     name: "Andrew Tait",

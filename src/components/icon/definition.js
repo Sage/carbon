@@ -8,12 +8,12 @@ let definition = new Definition('icon', Icon, {
 * Carbon comes with about 50 standard icons to choose from. See the Icons page in the Style section.
 * A tooltip option is available within this component.
 * Many other components allow you to specify one of the standard Carbon icons to associate with them, for example, the Link component.
-
-### Related Components
-* __Tooltip hovering on any component?__ [Try Tooltip](/components/tooltip).
-* __Tooltip from a question mark icon?__ [Try Help](/components/help).
-* __Moving the user to another location?__ [Try Link](/components/link).
-* __[Icons](/style/icons).__
+  `,
+  relatedComponentsNotes: `
+* Tooltip hovering on any component? [Try Tooltip](/components/tooltip).
+* Tooltip from a question mark icon? [Try Help](/components/help).
+* Moving the user to another location? [Try Link](/components/link).
+* After an image? [View Icons](/style/icons).
  `,
   propRequires: {
     bgShape: "bgTheme",

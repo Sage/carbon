@@ -7,9 +7,9 @@ let definition = new Definition('simple-color-picker', SimpleColorPicker, {
   description: `A small number of pre-set colour options to select from.`,
   designerNotes: `
 * Choose from a small palette of pre-set colours, with indication of a currently selected colour.
-
-### Related Components
-* __[Colors](/style/colors).__
+  `,
+  relatedComponentsNotes: `
+* [Colors](/style/colors).
  `,
   hiddenProps: ['availableColors'],
   propTypes: {

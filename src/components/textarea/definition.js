@@ -8,9 +8,9 @@ let definition = new Definition('textarea', Textarea, {
 * Only handles plain text at this time - not markup or markdown, but it does handle line breaks.
 * If content in a textarea is read-only, remove the field border so it appears as static text.
 * Use placeholder text to give the user context or examples of what to write.
-
-### Related Components
-* __Just a single line of text?__ [Try Textbox](/components/textbox).
+  `,
+  relatedComponentsNotes: `
+* Just a single line of text? [Try Textbox](/components/textbox).
 `,
   type: 'form',
   propRequires: {

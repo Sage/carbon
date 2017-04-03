@@ -15,9 +15,9 @@ let definition = new Definition('form', Form, {
 * You can disable components in forms, but try to avoid this. If you need to, make it clear what the user needs to do, in order to activate the component.
 * Indicate mandatory, or optional fields, whichever is the minority. Think carefully before collecting optional data - don’t collect information you don’t need! Try suffixing ‘(optional)’ after your field label.
 * More guidance is available for each of the individual inputs you might place inside this component.
-
-### Related Components
-* __Editing a number of closely related inputs?__ [Try Fieldset](/components/fieldset).
+  `,
+  relatedComponentsNotes: `
+* Editing a number of closely related inputs? [Try Fieldset](/components/fieldset).
  `,
   hiddenProps: ["validateOnMount", "saveButtonProps", "cancelButtonProps"],
   propOptions: {

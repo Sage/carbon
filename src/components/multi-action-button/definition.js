@@ -12,11 +12,11 @@ let definition = new Definition('multi-action-button', MultiActionButton, {
 * Only use this component for commands that are related (e.g. Export PDF, Export CSV).
 * Don’t use this component if one option is more generic or important than the others.
 * Carbon has a Transparent configuration, with subtle visual style, which could be useful to present less important or infrequently used options to the user, without calling attention to them.
-
-### Related Components
-* __Performing a single action?__ [Try Button](/components/button).
-* __Range of buttons where one is more important?__ [Try Split Button](/components/split-button).
-* __Choosing one option from a highly visible range?__ [Try Button Toggle](/components/button-toggle).
+  `,
+  relatedComponentsNotes: `
+* Performing a single action? [Try Button](/components/button).
+* Range of buttons where one is more important? [Try Split Button](/components/split-button).
+* Choosing one option from a highly visible range? [Try Button Toggle](/components/button-toggle).
  `,
   propOptions: {
     as: OptionsHelper.themesBinary,

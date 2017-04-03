@@ -11,13 +11,13 @@ let definition = new Definition('dropdown-filter', DropdownFilter, {
 * The Suggest configuration removes the menu handle, and only shows options to the user once they enter 3 characters of a search term. For example, if users need to select from a very long list of business classification terms (e.g. SIC codes), showing a menu on field focus may mean users tend to choose from the top of the list, rather than filter and select the best option. This configuration makes the component behave more like a search field.
 * Use placeholder content like ‘Please select…’ to make it clear to the user that the Dropdown is unset.
 * Consider a ‘smart default’ selection, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
-
-### Related Components
-* __Dropdown filter with Ajax?__ [Try Dropdown Filter Ajax](/components/dropdown-ajax).
-* __Don’t need to filter or add new items?__ [Try Dropdown](/components/dropdown).
-* __Choosing one option from a shorter list?__ [Try Radio Button](/components/radio-button).
-* __Choosing more than one option?__ [Try Checkbox](/components/checkbox).
-* __Choosing one option from a highly visible range?__ [Try Button Toggle](/components/button-toggle).
+  `,
+  relatedComponentsNotes: `
+* Dropdown filter with Ajax? [Try Dropdown Filter Ajax](/components/dropdown-ajax).
+* Don’t need to filter or add new items? [Try Dropdown](/components/dropdown).
+* Choosing one option from a shorter list? [Try Radio Button](/components/radio-button).
+* Choosing more than one option? [Try Checkbox](/components/checkbox).
+* Choosing one option from a highly visible range? [Try Button Toggle](/components/button-toggle).
  `,
   hiddenProps: ['options'],
   toggleFunctions: ['create'],

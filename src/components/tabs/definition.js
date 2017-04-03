@@ -14,11 +14,11 @@ let definition = new Definition('tabs', Tabs, {
 * __Sets the text alignment for ‘Left’ tabs.
 * __Sets left or right page position for ‘Top’ tabs.
 * Only use tabs if there’s more than one, and show the content of one tab by default. Avoid multiple rows of tabs, nested tabs, or using vertical and horizontal tabs at the same time.
-
-### Related Components
-* __Navigating the hierarchy of the app?__ [Try Menu](/components/menu).
-* __Positioning your primary navigation?__ [Try Navigation Bar](/components/navigation-bar).
-* __Quickly accessing useful hyperlinks?__ [Try Animated Menu Button](/components/animated-menu-button).
+  `,
+  relatedComponentsNotes: `
+* Navigating the hierarchy of the app? [Try Menu](/components/menu).
+* Positioning your primary navigation? [Try Navigation Bar](/components/navigation-bar).
+* Quickly accessing useful hyperlinks? [Try Animated Menu Button](/components/animated-menu-button).
 `,
   type: 'layout',
   associatedDefinitions: [tabDefinition],

@@ -8,11 +8,11 @@ let definition = new Definition('checkbox', Checkbox, {
 * Disabled or read-only checkboxes might be difficult for a user to distinguish visually, so try to avoid this.
 * Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
 * Rather than a checkbox to accept legal terms, consider labelling a button ‘Accept Terms and Continue’ instead.
-
-### Related Components
-* __Choosing one option from a longer list?__ [Try Radio Button](/components/radio-button).
-* __Choosing one option from a very long list?__ [Try Dropdown](/components/dropdown).
-* __Choosing one option from a highly visible range?__ [Try Button Toggle](/components/button-toggle).
+  `,
+  relatedComponentsNotes: `
+* Choosing one option from a longer list? [Try Radio Button](/components/radio-button).
+* Choosing one option from a very long list? [Try Dropdown](/components/dropdown).
+* Choosing one option from a highly visible range? [Try Button Toggle](/components/button-toggle).
  `,
   type: 'form',
   propTypes: {

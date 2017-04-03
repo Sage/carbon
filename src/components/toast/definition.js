@@ -16,11 +16,11 @@ let definition = new Definition('toast', Toast, {
 * __New__ - highlights a new feature to the user (e.g. ‘You can now manage inventory in Sage One’).
 * __Success__ - indicates that an activity was successful (e.g. ‘Your subscription upgrade was successful’).
 * __Warning__ - warns the user about a potential negative outcome that hasn’t happened yet.
-
-### Related Components
-* __Simple positive or negative confirmation?__ [Try Flash](/components/flash).
-* __Longer message which stays on-screen?__ [Try Message](/components/message).
-* __Error or warning message that interrupts activity?__ [Try Alert](/components/alert).
+  `,
+  relatedComponentsNotes: `
+* Simple positive or negative confirmation? [Try Flash](/components/flash).
+* Longer message which stays on-screen? [Try Message](/components/message).
+* Error or warning message that interrupts activity? [Try Alert](/components/alert).
 `,
   type: 'notification',
   toggleFunctions: ["onDismiss"],

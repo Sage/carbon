@@ -7,15 +7,15 @@ let definition = new Definition('button-toggle', ButtonToggle, {
   designerNotes: `
 * Useful if the user has a choice between a small number of options, that you’d like to be highly visible (e.g. choosing between three or fewer subscription packages, with short names).
 * To make the meaning of an option clearer, you can add an icon to it. Just name one of the Carbon icons.
-
-### Related Components
-* __Performing a single action?__ [Try Button](/components/button).
-* __Range of buttons where one is more important?__ [Try Split Button](/components/split-button).
-* __Range of buttons of the same importance?__ [Try Multi Action Button](/components/multi-action-button).
-* __Choosing one option from a longer list?__ [Try Radio Button](/components/radio-button).
-* __Choosing one option from a very long list?__ [Try Dropdown](/components/dropdown).
-* __Choosing more than one option?__ [Try Checkbox](/components/checkbox).
-* __[Icons](/style/icons).__
+  `,
+  relatedComponentsNotes: `
+* Performing a single action? [Try Button](/components/button).
+* Range of buttons where one is more important? [Try Split Button](/components/split-button).
+* Range of buttons of the same importance? [Try Multi Action Button](/components/multi-action-button).
+* Choosing one option from a longer list? [Try Radio Button](/components/radio-button).
+* Choosing one option from a very long list? [Try Dropdown](/components/dropdown).
+* Choosing more than one option? [Try Checkbox](/components/checkbox).
+* Need a visual? [Try Icons](/style/icons).
  `,
   type: 'action',
   numberOfExamples: 3,
