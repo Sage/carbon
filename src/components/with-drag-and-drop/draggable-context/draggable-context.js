@@ -4,6 +4,13 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 class DraggableContext extends React.Component {
 
+  static propTypes = {
+    moveItem: React.PropTypes.func,
+    canDrag: React.PropTypes.func,
+    beginDrag: React.PropTypes.func,
+    hover: React.PropTypes.func
+  }
+
   static childContextTypes = {
     moveItem: React.PropTypes.func,
     canDrag: React.PropTypes.func,
