@@ -91,7 +91,8 @@ I18n.translations['en'] = {
   },
 
   component_page: {
-    design_notes: 'Designer Notes'
+    design_notes: 'Designer Notes',
+    related_components: 'Related Components'
   },
 
   errors: {

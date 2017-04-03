@@ -26,8 +26,23 @@ class Component extends React.Component {
 
         { this.renderAPIs(definition) }
         { this.renderDesignerNotes(definition) }
+        { this.renderRelatedComponentsNotes(definition) }
       </div>
     );
+  }
+
+  renderRelatedComponentsNotes = (definition) => {
+    let relatedComponentsNotes = definition.get('relatedComponentsNotes');
+
+    if (relatedComponentsNotes) {
+      return (
+        <PageContentArea title={ I18n.t('component_page.related_components') }>
+          <InformationStyles>
+            <div dangerouslySetInnerHTML={{ __html: marked(relatedComponentsNotes) }} />
+          </InformationStyles>
+        </PageContentArea>
+      );
+    }
   }
 
   renderDesignerNotes = (definition) => {
