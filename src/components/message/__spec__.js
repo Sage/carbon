@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Message from './message';
+import { shallow } from 'enzyme';
 
 describe('Message', () => {
   let warningMessage, infoMessage, errorMessage, customMessage, spy;
@@ -114,6 +115,25 @@ describe('Message', () => {
 
       let content = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(content.length).toEqual(0);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Message element='bar' role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'message', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Message title='Test' onDismiss={ () => {} }/>);
+
+      window.ElementsTagTest.run(wrapper, [
+        'dismiss',
+        'title'
+      ]);
     });
   });
 });

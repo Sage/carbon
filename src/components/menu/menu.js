@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import MenuItem from './menu-item';
 import SubmenuBlock from './submenu-block';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * Renders a menu component, with menu items.
@@ -34,7 +35,7 @@ class Menu extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes }>
+      <div className={ this.classes } { ...tagComponent('menu', this.props) }>
         { this.props.children }
       </div>
     );

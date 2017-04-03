@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { Carousel, Slide } from './carousel';
+import { shallow } from 'enzyme';
 
 describe('Carousel', () => {
   let instance;
@@ -256,6 +257,36 @@ describe('Carousel', () => {
     it('renders a button for each slide', () => {
       let buttons = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-carousel__selector-input');
       expect(buttons.length).toEqual(3);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Carousel element='bar' role='baz' initialSlideIndex={ 0 }>
+          <Slide/>
+        </Carousel>
+      );
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'carousel', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Carousel initialSlideIndex={ 0 }>
+          <Slide element='slide'/>
+        </Carousel>
+      );
+
+      window.ElementsTagTest.run(wrapper, [
+        'next',
+        'previous',
+        'selector-input',
+        'selector-label',
+        'visible-slide'
+      ]);
     });
   });
 });

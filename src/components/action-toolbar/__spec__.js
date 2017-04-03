@@ -1,12 +1,23 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import ActionToolbar from './action-toolbar';
+import Link from 'components/link';
+import { shallow } from 'enzyme';
 
 describe('action toolbar', () => {
-  let instance;
+  let instance, wrapper;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(<ActionToolbar actions={[ {}, {} ]} className="foo" />);
+    instance = TestUtils.renderIntoDocument(<ActionToolbar actions={[ {}, {} ]} className='foo' />);
+
+    wrapper = shallow(
+      <ActionToolbar
+        actions={[ {onClick: () => {}, text: 'myAction', icon: 'add'} ]}
+        className='foo'
+        element='bar'
+        role='baz'
+      />
+    );
   });
 
   describe('componentWillMount', () => {
@@ -81,6 +92,19 @@ describe('action toolbar', () => {
   describe('mainClasses', () => {
     it('returns the correct classes', () => {
       expect(instance.mainClasses()).toEqual('carbon-action-toolbar foo');
+    });
+  });
+
+  describe("component tags", () => {
+    it('adds component, element and role to the root node', () => {
+      window.RootTagTest.run(wrapper, 'action-toolbar', 'bar', 'baz');
+    });
+
+    it("adds element tags to it's children", () => {
+      window.ElementsTagTest.run(wrapper, [
+        'action',
+        'total'
+      ]);
     });
   });
 });

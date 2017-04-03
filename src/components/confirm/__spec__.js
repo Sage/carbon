@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Dialog from './../dialog'
 import Confirm from './confirm';
+import { shallow } from 'enzyme';
 
 describe('Confirm', () => {
   let instance, onCancel, onConfirm;
@@ -108,6 +109,45 @@ describe('Confirm', () => {
   describe('dialogHTML', () => {
     it('appends the two buttons to the dialogHTML', () => {
       expect(TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button').length).toEqual(2);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Confirm
+          element='bar'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'confirm', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Confirm
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          showCloseIcon={ true }
+          subtitle='Test'
+          title='Test'
+        />
+      );
+
+      window.ElementsTagTest.run(wrapper, [
+        'cancel',
+        'close',
+        'confirm',
+        'subtitle',
+        'title'
+      ]);
     });
   });
 });

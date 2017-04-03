@@ -7,6 +7,7 @@ import Icon from './../icon';
 import Alert from './../alert';
 import Link from './../link';
 import { isObject, isArray, forEach } from 'lodash';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Flash widget.
@@ -299,6 +300,7 @@ class Flash extends React.Component {
       // create dialog for additional content
       this.dialogs.push(
         <Alert
+          data-element='info-dialog'
           key={ title }
           title={ title }
           open={ this.state.dialogs[title] || false }
@@ -312,7 +314,11 @@ class Flash extends React.Component {
       text = (
         <span>
           { title }&nbsp;
-          <Link onClick={ this.toggleDialog.bind(this, title) } className="carbon-flash__link">
+          <Link
+            onClick={ this.toggleDialog.bind(this, title) }
+            className="carbon-flash__link"
+            data-element='more-info'
+          >
             { info }
           </Link>
         </span>
@@ -374,7 +380,7 @@ class Flash extends React.Component {
 
     // add message content
     contents.push(
-      <div className='carbon-flash__message' key='message'>
+      <div className='carbon-flash__message' key='message' data-element='message'>
         { this.formatDescription(this.description) }
       </div>
     );
@@ -382,7 +388,13 @@ class Flash extends React.Component {
     // if auto-dismiss is not enabled, add a close icon
     if (!this.props.timeout) {
       contents.push(
-        <Icon className="carbon-flash__close" type="close" onClick={ this.props.onDismiss }  key='close'/>
+        <Icon
+          className="carbon-flash__close"
+          data-element='close'
+          key='close'
+          onClick={ this.props.onDismiss }
+          type="close"
+        />
       );
     }
 
@@ -432,7 +444,7 @@ class Flash extends React.Component {
     }
 
     return (
-      <div>
+      <div { ...tagComponent('flash', this.props) }>
         <div className={ this.classes }>
           <ReactCSSTransitionGroup
             transitionName="carbon-flash__slider"

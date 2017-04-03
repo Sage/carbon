@@ -2,6 +2,8 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import DropdownFilterAjax from './dropdown-filter-ajax';
 import Immutable from 'immutable';
+import { shallow } from 'enzyme';
+import ImmutableHelper from './../../utils/helpers/immutable';
 
 describe('DropdownFilterAjax', () => {
   let instance;
@@ -327,6 +329,44 @@ describe('DropdownFilterAjax', () => {
         );
         instance.setState({ filter: 'abc' });
         expect(instance.inputProps.value).toEqual('abc');
+      });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <DropdownFilterAjax
+          element='bar'
+          options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+          path='test'
+          role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'dropdown-filter-ajax', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      describe("when closed", () => {
+        let wrapper = shallow(
+          <DropdownFilterAjax
+            fieldHelp='test'
+            label='test'
+            open={ true }
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+
+        window.ElementsTagTest.run(wrapper, [
+          'help',
+          'hidden-input',
+          'input',
+          'label',
+        ]);
       });
     });
   });

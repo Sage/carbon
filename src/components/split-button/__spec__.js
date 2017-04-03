@@ -4,6 +4,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import SplitButton from './split-button';
 import Icon from './../icon';
 import Button from './../button';
+import { shallow } from 'enzyme';
 
 describe('SplitButton', () => {
   let twoItemsSplitButton;
@@ -102,6 +103,35 @@ describe('SplitButton', () => {
       let button = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'second-button');
       TestUtils.Simulate.click(button);
       expect(handleSecondButton).toHaveBeenCalled();
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <SplitButton element='bar' role='baz' text='Test'>
+          <Button>Test</Button>
+        </SplitButton>
+      );
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'split-button', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <SplitButton text='Test'>
+          <Button>Test</Button>
+        </SplitButton>
+      );
+      wrapper.setState({ showAdditionalButtons: true })
+
+      window.ElementsTagTest.run(wrapper, [
+        'additional-buttons',
+        'main-button',
+        'open'
+      ]);
     });
   });
 });

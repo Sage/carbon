@@ -2,6 +2,9 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import DropdownFilter from './dropdown-filter';
 import Immutable from 'immutable';
+import { shallow } from 'enzyme';
+import ImmutableHelper from './../../utils/helpers/immutable';
+
 
 describe('DropdownFilter', () => {
   let instance;
@@ -772,6 +775,66 @@ describe('DropdownFilter', () => {
           expect(inputs.length).toEqual(2);
           expect(inputs[1].name).toEqual(name);
         });
+      });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <DropdownFilter
+          element='bar'
+          options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+          path='test'
+          role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'dropdown-filter', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      describe("when closed", () => {
+        let wrapper = shallow(
+          <DropdownFilter
+            fieldHelp='test'
+            label='test'
+            open={ true }
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+
+        window.ElementsTagTest.run(wrapper, [
+          'help',
+          'hidden-input',
+          'input',
+          'label',
+        ]);
+      });
+      describe("when open", () => {
+        let wrapper = shallow(
+          <DropdownFilter
+            create={ () => {} }
+            fieldHelp='test'
+            label='test'
+            open={ true }
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+        wrapper.setState({ open: true });
+
+        window.ElementsTagTest.run(wrapper, [
+          'create',
+          'help',
+          'hidden-input',
+          'input',
+          'label',
+          'option'
+        ]);
       });
     });
   });

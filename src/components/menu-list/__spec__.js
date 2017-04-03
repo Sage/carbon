@@ -110,4 +110,22 @@ describe('MenuList', () => {
       expect(filter.props().autoFocus).toEqual(true);
     });
   });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<MenuList element='bar' role='baz'>{ [<div key='1' />] }</MenuList>);
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'menu-list', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<MenuList title='Test'>{ [<div key='1' />] }</MenuList>);
+
+      window.ElementsTagTest.run(wrapper, [
+        'title'
+      ]);
+    });
+  });
 });

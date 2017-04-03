@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Help from './help.js';
 import Icon from 'components/icon';
+import { shallow } from 'enzyme';
 
 describe('Help', () => {
   let basicInstance, positionedInstance, alignedInstance, customStyleInstance, linkInstance;
@@ -77,6 +78,16 @@ describe('Help', () => {
 
     it('passes the href if provided', () => {
       expect(hrefAnchor.attributes.href.value).toEqual('www.foo.com');
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Help element='bar' role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'help', 'bar', 'baz');
+      });
     });
   });
 });

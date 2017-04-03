@@ -168,11 +168,11 @@ class SplitButton extends React.Component {
   get renderMainButton() {
     return (
       <div>
-        <Button { ...this.mainButtonProps }>
+        <Button { ...this.mainButtonProps } data-element='main-button'>
           { this.props.text}
         </Button>
 
-        <Button { ...this.toggleButtonProps } >
+        <Button { ...this.toggleButtonProps } data-element='open'>
           <Icon type='dropdown' />
         </Button>
       </div>
@@ -187,7 +187,7 @@ class SplitButton extends React.Component {
    */
   get renderAdditionalButtons() {
     return (
-      <div className={ this.additionalButtonsClasses }>
+      <div className={ this.additionalButtonsClasses } data-element='additional-buttons'>
         { this.props.children }
       </div>
     );
@@ -199,11 +199,19 @@ class SplitButton extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses } onMouseLeave={ this.hideButtons }>
+      <div className={ this.mainClasses } onMouseLeave={ this.hideButtons } { ...this.componentTags(this.props) }>
         { this.renderMainButton }
         { this.state.showAdditionalButtons ? this.renderAdditionalButtons : null}
       </div>
     );
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'split-button',
+      'data-element': props.element,
+      'data-role': props.role
+    };
   }
 }
 

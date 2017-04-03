@@ -1,16 +1,14 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
 import AppWrapper from './app-wrapper';
 
 describe('app wrapper', () => {
-  let instance;
+  let instance, wrapper;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
-      <AppWrapper className="foobar">
-        foo
-      </AppWrapper>
-    );
+    instance = TestUtils.renderIntoDocument( <AppWrapper className='foobar'>foo</AppWrapper>);
+    wrapper = shallow(<AppWrapper className='foobar' element='app-wrapper' role='contacts'>foo</AppWrapper>);
   });
 
   it('renders the children', () => {
@@ -21,5 +19,15 @@ describe('app wrapper', () => {
   it('renders with correct classes', () => {
     let div = TestUtils.findRenderedDOMComponentWithTag(instance, 'div');
     expect(div.className).toEqual('carbon-app-wrapper foobar');
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<AppWrapper element='bar' role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'app-wrapper', 'bar', 'baz');
+      });
+    });
   });
 });

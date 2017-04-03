@@ -4,6 +4,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import MultiActionButton from './multi-action-button';
 import Icon from './../icon';
 import Button from './../button';
+import { shallow } from 'enzyme';
 
 describe('SplitButton', () => {
   let instance,
@@ -68,4 +69,33 @@ describe('SplitButton', () => {
       expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-multi-action-button__toggle').length).toEqual(1);
     });
   });
+
+  // describe("tags", () => {
+  //   describe("on component", () => {
+  //     let wrapper = shallow(
+  //       <MultiActionButton element='bar' role='baz' text='Test'>
+  //         <Button>Test</Button>
+  //       </MultiActionButton>
+  //     );
+
+  //     it('include correct component, element and role data tags', () => {
+  //       window.RootTagTest.run(wrapper, 'multi-action-button', 'bar', 'baz');
+  //     });
+  //   });
+
+  //   describe("on internal elements", () => {
+  //     let wrapper = shallow(
+  //       <MultiActionButton text='Test'>
+  //         <Button>Test</Button>
+  //       </MultiActionButton>
+  //     );
+  //     wrapper.setState({ showAdditionalButtons: true })
+
+  //     window.ElementsTagTest.run(wrapper, [
+  //       'additional-buttons',
+  //       'main-button',
+  //       'open'
+  //     ]);
+  //   });
+  // });
 });

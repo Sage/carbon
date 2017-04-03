@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
 import Button from './button';
-import Link from './../link';
+import Link from 'components/link';
+
 
 describe('Button', () => {
 
-  let defaultButton, primary, secondary, small, large, disabled, anchor, to;
+  let defaultButton, primary, secondary, small, large, disabled, anchor, to, wrapper;
   let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
@@ -59,6 +61,8 @@ describe('Button', () => {
     to = TestUtils.renderIntoDocument(
       <Button to="/foo">To</Button>
     );
+
+    wrapper = shallow(<Button role='contacts' element='button'>A Button</Button>);
   });
 
   describe('A basic button', () => {
@@ -188,6 +192,14 @@ describe('Button', () => {
       it('renders an anchor', () => {
         expect(TestUtils.findRenderedComponentWithType(to, Link)).toBeDefined();
       });
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<Button element='bar' role='baz'>Test</Button>);
+
+    it('include correct component, element and role data tags', () => {
+      window.RootTagTest.run(wrapper, 'button', 'bar', 'baz');
     });
   });
 });

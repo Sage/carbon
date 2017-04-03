@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Flash from './flash';
+import { shallow } from 'enzyme';
 
 describe('Flash', () => {
   let defaultInstance, successInstance, errorInstance, warningInstance, timeoutInstance,
@@ -345,6 +346,43 @@ describe('Flash', () => {
         let innerFlash = flashInstance.firstChild.children[1].firstChild;
         expect(innerFlash.className).toMatch('carbon-flash__content');
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Flash
+          element='bar'
+          message='bun::more::dy'
+          onDismiss={ () => {} }
+          open={ true }
+          role='baz'
+          timeout={ null }
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'flash', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Flash
+          message='bun::more::dy'
+          onDismiss={ () => {} }
+          open={ true }
+          timeout={ null }
+        />
+      );
+
+      window.ElementsTagTest.run(wrapper, [
+        'close',
+        'info-dialog',
+        'message',
+        'more-info'
+      ]);
     });
   });
 });

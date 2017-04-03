@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Filter from './filter.js';
+import { shallow } from 'enzyme';
 
 describe('Filter', () => {
   let instance;
@@ -28,6 +29,13 @@ describe('Filter', () => {
       instance = TestUtils.renderIntoDocument(<Filter align="right">foo</Filter>);
       let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
       expect(form.className).toEqual('carbon-filter carbon-filter--align-right');
+    });
+  });
+  describe("tags on component", () => {
+    let wrapper = shallow(<Filter element='bar' role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      window.RootTagTest.run(wrapper, 'filter', 'bar', 'baz');
     });
   });
 });

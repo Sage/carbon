@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 import Icon from './../icon';
 
 class Detail extends React.Component {
@@ -37,9 +38,9 @@ class Detail extends React.Component {
    */
   get classes() {
     return classNames(
-      "carbon-detail",
+      'carbon-detail',
       this.props.className, {
-        "carbon-detail--has-icon": this.props.icon
+        'carbon-detail--has-icon': this.props.icon
       }
     );
   }
@@ -54,7 +55,7 @@ class Detail extends React.Component {
     if (!this.props.icon) { return null; }
 
     return (
-      <Icon className="carbon-detail__icon" type={ this.props.icon } />
+      <Icon className='carbon-detail__icon' type={ this.props.icon } data-element='icon' />
     );
   }
 
@@ -68,7 +69,7 @@ class Detail extends React.Component {
     if (!this.props.footnote) { return null; }
 
     return (
-      <div className="carbon-detail__footnote">
+      <div className='carbon-detail__footnote' data-element='footnote'>
         { this.props.footnote }
       </div>
     );
@@ -80,10 +81,10 @@ class Detail extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes }>
+      <div className={ this.classes } { ...tagComponent('detail', this.props) }>
         { this.icon() }
 
-        <div className="carbon-detail__content">
+        <div className='carbon-detail__content'>
           { this.props.children }
         </div>
 

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * Renders content with a title and body text.
@@ -87,8 +88,8 @@ class Content extends React.Component {
     inline:        false
   }
 
-  constructor(...args) {
-    super(...args);
+  constructor(args) {
+    super(args);
 
     this.titleStyle = this.titleStyle.bind(this);
     this.bodyStyle = this.bodyStyle.bind(this);
@@ -102,12 +103,19 @@ class Content extends React.Component {
   render() {
     if (this.props.children) {
       return (
-        <div className={ this.classes() }>
-          <div className='carbon-content__title' style={ this.titleStyle() }>
+        <div className={ this.classes() } { ...tagComponent('content', this.props) }>
+          <div
+            className='carbon-content__title'
+            data-element='title'
+            style={ this.titleStyle() }
+          >
             { this.props.title }
           </div>
 
-          <div className='carbon-content__body' style={ this.bodyStyle() }>
+          <div
+            className='carbon-content__body'
+            style={ this.bodyStyle() }
+          >
             { this.props.children }
           </div>
         </div>
