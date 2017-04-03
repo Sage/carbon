@@ -14,6 +14,18 @@ let data = ImmutableHelper.parseJSON(definitions);
 // expose tableData for the table component demo
 global.tableData = ImmutableHelper.parseJSON([]);
 global.tableAjaxData = ImmutableHelper.parseJSON([]);
+global.dndData = ImmutableHelper.parseJSON([
+  { id: 1, name: 'Afghanistan', value: 'AF' },
+  { id: 2, name: 'Albania', value: 'AL' },
+  { id: 3, name: 'Algeria', value: 'DZ' },
+  { id: 4, name: 'Andorra', value: 'AD' },
+  { id: 5, name: 'Angola', value: 'AO' },
+  { id: 6, name: 'Argentina', value: 'AR' },
+  { id: 7, name: 'Armenia', value: 'AM' },
+  { id: 8, name: 'Aruba', value: 'AW' },
+  { id: 9, name: 'Australia', value: 'AU' },
+  { id: 10, name: 'Austria', value: 'AT' }
+]);
 
 class ComponentStore extends Store {
   [ComponentConstants.UPDATE_DEFINITION](data) {
@@ -62,6 +74,15 @@ class ComponentStore extends Store {
 
     // update the global object
     global.tableAjaxData = data;
+  }
+
+  [ComponentConstants.UPDATE_TABLE_DND](action) {
+    let data = global.dndData.toArray();
+    let { dragIndex, hoverIndex } = action;
+    let dragItem = data.splice(dragIndex, 1)[0];
+    data.splice(hoverIndex, 0, dragItem);
+
+    global.dndData = ImmutableHelper.parseJSON(data);
   }
 }
 
