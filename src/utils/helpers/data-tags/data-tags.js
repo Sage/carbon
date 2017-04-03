@@ -2,17 +2,20 @@
  * Builds props object containing top level data tags
  *
  * @param {String} name of component
- * @param {Object} name of component
+ * @param {Object} component props
  * @return {Object} dataTagProps
  */
-
-export default (component, props) => {
-  const dataTagProps = {
+function tagComponent(component, props) => {
+  const tagProps = {
     ['data-component']: component
   }
 
-  if (props.dataElement) { dataTagProps['data-element'] = props.dataElement };
-  if (props.dataRole) { dataTagProps['data-role'] = props.dataRole };
+  if (props.dataElement) { tagProps['data-element'] = props.dataElement };
+  if (props.dataRole) { tagProps['data-role'] = props.dataRole };
 
-  return dataTagProps;
+  return tagProps;
+}
+
+export {
+  tagComponent
 }
