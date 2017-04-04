@@ -3,6 +3,13 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('date-range', DateRate, {
+  description: `Captures a start and end date.`,
+  designerNotes: `
+* Used to filter a Table of data according to a start and end date, or to set two dates which are related to each other, for example, a hotel booking.
+  `,
+  relatedComponentsNotes: `
+* Entering or picking a single date only? [Try Date Input](/components/date-input).
+ `,
   hiddenProps: ["value", "startDateProps", "endDateProps"],
   propTypes: {
     onChange: "Function",

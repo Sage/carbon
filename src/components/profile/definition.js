@@ -3,6 +3,17 @@ import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
 
 let definition = new Definition('profile', Profile, {
+  description: `Represents a person with their initials or an avatar, and some text.`,
+  designerNotes: `
+* Combines the [Portrait](/components/portrait) and [Detail](/components/detail) components in a single configuration.
+* Useful to represent a person, user, or organisation.
+* Use initials rather than an avatar if you prefer.
+* Works with [Gravatar](http://en.gravatar.com/) as a source of avatars.
+  `,
+  relatedComponentsNotes: `
+* Initials or avatar without text? [Try Portrait](/components/portrait).
+* Text without initials or avatar? [Try Detail](/components/detail).
+ `,
   propValues: {
     name: "Andrew Tait",
     email: "andrew.tait@sage.com"

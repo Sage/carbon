@@ -3,6 +3,16 @@ import OptionsHelper from 'utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let columnDefinition = new Definition('child', {}, {
+  description: `Sets up a basic column-based UI layout.`,
+  designerNotes: `
+* Useful to organise the UI of a page into a simple column-based layout.
+* Configure the number of columns, the margin between them, and any separators.
+  `,
+  relatedComponentsNotes: `
+* Need an overall container? [Try App Wrapper](/components/app-wrapper).
+* Need a container for your primary navigation? [Try Navigation Bar](/components/navigation-bar).
+* Need a layout with controls and guidance text? [Try Settings Row](/components/settings-row).
+ `,
   props: ['columnOffset', 'columnSpan', 'columnAlign', 'columnClasses'],
   propTypes: {
     columnOffset: "String",

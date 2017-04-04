@@ -11,7 +11,7 @@ import SimpleHeading from './../../../components/simple-heading';
  * @return {PageContentArea}
  */
 export default props => (
-  <section className='demo-page-content-area'>
+  <section className={ classNames(props.className, 'demo-page-content-area') }>
     <SimpleHeading title={ props.title } link={ props.link } />
     <div className='demo-page-content-area__content'>
       { props.children }
