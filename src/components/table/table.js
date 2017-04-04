@@ -972,7 +972,7 @@ class Table extends React.Component {
    */
   get caption() {
     if (this.props.caption) {
-      return <caption>{ this.props.caption }</caption>;
+      return <caption className="carbon-table__caption">{ this.props.caption }</caption>;
     }
 
     return null;

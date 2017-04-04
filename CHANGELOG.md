@@ -33,6 +33,7 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 * `DropdownFilter`: placeholder text is made more legible by removing italics and making the font color darker
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
 * `MountInApp` now cleans up it's children when the component is unmounted.
+* `Table` can now receive an `caption` prop which renders a `<caption>` element as a child of the table element. Note that the caption is hidden by default, but still accessible to screen readers, etc.
 
 ## Helpers
 
@@ -94,7 +95,6 @@ with a label.
 * `Form`: adds error and warning icons (and refactors the summary into its own sub-component)
 * `Dialog`: Added `subtitle` prop
 * `Input` can now receive an `inputHelp` prop which renders a tooltip after the input field.
-* `Table` can now receive an `caption` prop which renders a `<caption>` element as a child of the table element.
 
 ## New Validations
 
