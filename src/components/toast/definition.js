@@ -13,7 +13,7 @@ let definition = new Definition('toast', Toast, {
 * __Help__ - not frequently used.
 * __Info__ - gives context or advice to the user where there’s no risk of a negative outcome (e.g. ‘Your monthly statements are ready to review’).
 * __Maintenance__ - warns the user if a particular service or feature may go offline shortly.
-* __New__ - highlights a new feature to the user (e.g. ‘You can now manage inventory in Sage One’).
+* __New__ - highlights a new feature to the user (e.g. ‘You can now send batch statements in Sage One’).
 * __Success__ - indicates that an activity was successful (e.g. ‘Your subscription upgrade was successful’).
 * __Warning__ - warns the user about a potential negative outcome that hasn’t happened yet.
   `,
