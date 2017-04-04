@@ -110,7 +110,6 @@ class TableRow extends React.Component {
      * @type {Number}
      */
     index: React.PropTypes.number
->>>>>>> Stashed changes
   }
 
   /**
@@ -389,6 +388,7 @@ class TableRow extends React.Component {
             moveItem={ this.context.moveItem }
             canDrag={ this.context.canDrag }
             beginDrag={ this.context.beginDrag }
+            hover={ this.context.hover }
             index={ this.props.index }>
           <tr { ...this.rowProps }>
             { content }
