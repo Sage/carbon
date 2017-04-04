@@ -1,5 +1,6 @@
 // definition.js
 import DraggableContext from './';
+import ComponentActions from './../../../../demo/actions/component';
 import Definition from './../../../../demo/utils/definition';
 
 let definition = new Definition('draggable-context', DraggableContext, {
@@ -16,25 +17,16 @@ let definition = new Definition('draggable-context', DraggableContext, {
   dataVariable: 'dndData',
 
   propValues: {
-    moveItem: (dragIndex, hoverIndex) => {
-      console.log('move item');
-      // let rows = this.state.rows;
-      // let dragItem = rows.splice(dragIndex, 1)[0];
-      // rows.splice(hoverIndex, 0, dragItem);
-      // this.setState({ rows: rows });
-    },
+    moveItem: ComponentActions.updateDndData,
     canDrag: (props, monitor) => {
-      console.log(document.activeElement);
-      return document.activeElement.getAttribute('icon') === 'list_view'; // || true;
+      return true;
     },
     beginDrag: (props, monitor, component) => {
-      console.log('beginDrag');
       return {
         index: props.index
       };
     },
     hover: (props, monitor, component) => {
-      console.log('hover');
       const dragIndex = monitor.getItem().index;
       const hoverIndex = props.index;
 
@@ -91,7 +83,7 @@ let definition = new Definition('draggable-context', DraggableContext, {
   <tbody>
     { buildRows() }
   </tbody>
-</Table>` 
+</Table>`
   },
 
   propDescriptions: {
