@@ -19,7 +19,7 @@ let definition = new Definition('draggable-context', DraggableContext, {
   propValues: {
     moveItem: ComponentActions.updateDndData,
     canDrag: (props, monitor) => {
-      return document.activeElement.getAttribute('icon') === 'list_view'; // || true;
+      return true;
     },
     beginDrag: (props, monitor, component) => {
       return {
@@ -83,7 +83,7 @@ let definition = new Definition('draggable-context', DraggableContext, {
   <tbody>
     { buildRows() }
   </tbody>
-</Table>` 
+</Table>`
   },
 
   propDescriptions: {
