@@ -60,9 +60,6 @@ class TableRow extends React.Component {
      * @property uniqueID
      * @type {String}
      */
-<<<<<<< Updated upstream
-    uniqueID: React.PropTypes.string
-=======
     uniqueID: React.PropTypes.string,
 
     /**
