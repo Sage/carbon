@@ -212,7 +212,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
         style={ labelStyle }
         className={ this.labelClasses }
         htmlFor={ this.inputProps.id }
-        data-member='label'
+        data-element='label'
       >
         { labelText }
         { this.labelHelpHTML }
@@ -255,7 +255,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
       }
 
       return (
-        <span className={ this.fieldHelpClasses } style={ style }>
+        <span className={ this.fieldHelpClasses } style={ style } data-element='help'>
           { this.props.fieldHelp }
         </span>
       );
