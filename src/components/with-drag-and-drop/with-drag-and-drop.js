@@ -6,6 +6,17 @@ import ItemSource from './item-source';
 import ItemTarget from './item-target';
 
 class WithDragAndDrop extends React.Component {
+  static propTypes = {
+    /**
+     * A required prop. This is what you want to
+     * drag and drop.
+     *
+     * @property children
+     * @type {Multiple}
+     */
+    children: React.PropTypes.element.isRequired
+  }
+
   render() {
     const { connectDragSource, connectDropTarget } = this.props;
 
