@@ -5,13 +5,17 @@ import { shallow } from 'enzyme';
 import { WithDragAndDrop, DraggableContext } from './with-drag-and-drop';
 
 describe('WithDragAndDrop', () => {
+  let OriginalComponent;
+
+  beforeEach(() => {
+    OriginalComponent = WithDragAndDrop.DecoratedComponent;
+  });
+
   it('has a DragDropContainer', () => {
     expect(WithDragAndDrop.name).toBe('DragDropContainer');
   });
 
   it('calls connectDragSource and connectDropTarget', () => {
-    const OriginalComponent = WithDragAndDrop.DecoratedComponent;
-
     // Stub the React DnD connector functions with an identity function
     //
     // Track calls using count.
@@ -34,5 +38,31 @@ describe('WithDragAndDrop', () => {
     );
 
     expect(count).toEqual(2);
+  });
+
+  describe('when validating child props', () => {
+    beforeEach(() => {
+      spyOn(console, 'error');
+    });
+
+    it('throws an error if no child props are passed', () => {
+      // Prop validation doesn't need to use a call to shallow, etc.
+      // -- see https://gist.github.com/scmx/d98cc058a7c3dfef7890#gistcomment-1854075
+      <OriginalComponent connectDragSource={ () => {} } connectDropTarget={ () => {} } />
+
+      console.log(console.error.calls.argsFor(0)[0]);
+      expect(console.error.calls.count()).toBe(1);
+      expect(console.error.calls.argsFor(0)[0]).toEqual('Warning: Failed propType: Required prop `children` was not specified in `WithDragAndDrop`.')
+    });
+
+    it('throws an error if multiple root nodes are passed as child props', () => {
+      <OriginalComponent>
+        <div>One</div>
+        <div>Two</div>
+      </OriginalComponent>
+
+      expect(console.error.calls.count()).toBe(1);
+      expect(console.error.calls.argsFor(0)[0]).toEqual('Warning: Failed propType: Invalid prop `children` supplied to `WithDragAndDrop`, expected a single ReactElement.')
+    });
   });
 });
