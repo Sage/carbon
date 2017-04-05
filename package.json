@@ -33,10 +33,10 @@
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "~3.8.1",
     "ncp": "~2.0.0",
-    "react": "~15.3.1",
-    "react-addons-css-transition-group": "~15.3.1",
+    "react": "~15.3.2",
+    "react-addons-css-transition-group": "~15.3.2",
     "react-addons-test-utils": "~15.3.2",
-    "react-dom": "~15.3.1",
+    "react-dom": "~15.3.2",
     "react-highlight": "~0.9.0",
     "react-router": "~2.8.0",
     "underscore.string": "^3.3.4",
@@ -55,9 +55,9 @@
     "marked": "^0.3.6",
     "moment": "~2.15.1",
     "react-date-picker": "~5.3.28",
-    "react-dnd": "^2.2.4",
-    "react-dnd-html5-backend": "^2.2.4",
-    "react-highcharts": "~5.0.4",
+    "react-dnd": "^2.3.0",
+    "react-dnd-html5-backend": "^2.3.0",
+    "react-highcharts": "~11.5.0",
     "superagent": "~2.2.0"
   }
 }
