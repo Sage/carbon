@@ -13,6 +13,7 @@ import './expose';
 import Chrome from './views/chrome';
 import SubPageChrome from './views/chrome/sub-page-chrome';
 import Home from './views/pages/home';
+import Test from './views/pages/test';
 
 import SiteMap from './site-map';
 
@@ -27,6 +28,7 @@ enableMock();
 const routes = (
   <Route component={ Chrome }>
     <Route path="/" component={ Home } />
+    <Route path="/test" component={ Test } />
 
     <Route component={ SubPageChrome }>
       { SiteMap.generateRoutes() }

@@ -23,6 +23,11 @@ import { validProps } from '../../utils/ether';
  *
  * For additional properties specific to this component, see propTypes.
  *
+ * If you wish to control the checked value of the radio buttons externally to the component
+ * you can use the prop of `checked` e.g.
+ *
+ * <RadioButton name='frequency' value='weekly' checked={ myCheckValue === 'weekly' } label='Weekly' />
+ *
  * @class RadioButton
  * @constructor
  * @decorators {Input, InputLabel, InputValidation}
