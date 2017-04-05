@@ -3,7 +3,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { WithDragAndDrop, DraggableContext } from './with-drag-and-drop';
-import Row from '../row';
 
 describe('WithDragAndDrop', () => {
   it('has a DragDropContainer', () => {
@@ -14,17 +13,26 @@ describe('WithDragAndDrop', () => {
     const OriginalComponent = WithDragAndDrop.DecoratedComponent;
 
     // Stub the React DnD connector functions with an identity function
-    // -- https://react-dnd.github.io/react-dnd/docs-testing.html
-    const identity = jasmine.createSpy('identity'); // el => el;
+    //
+    // Track calls using count.
+    // Return el, otherwise React complains that WithDragAndDrop.render()
+    // doesn't return a valid React element.
+    let count = 0;
+    const identity = (el) => {
+      count += 1;
+      return el;
+    };
 
     let wrapper = shallow(
       <OriginalComponent
           connectDragSource={ identity }
           connectDropTarget={ identity }>
-        <Row />
+        <div>
+          Draggable
+        </div>
       </OriginalComponent>
     );
 
-    expect(identity.calls.count()).toEqual(2);
+    expect(count).toEqual(2);
   });
 });
