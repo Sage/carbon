@@ -71,6 +71,11 @@ class Dialog extends Modal {
     showCloseIcon: true
   }
 
+  constructor(args) {
+    super(args);
+    this.componentTags = this.componentTags.bind(this);
+  }
+
   /**
    * A lifecycle method to update the component on initialize
    *
@@ -145,7 +150,7 @@ class Dialog extends Modal {
    */
   get dialogTitle() {
     if (this.props.title) {
-      return <h2 className={ this.dialogTitleClasses }>{ this.props.title }</h2>;
+      return <h2 className={ this.dialogTitleClasses } data-element='title'>{ this.props.title }</h2>;
     }
 
     return null;
@@ -159,7 +164,7 @@ class Dialog extends Modal {
    */
   get dialogSubtitle() {
     if (this.props.subtitle) {
-      return <p className={ this.dialogSubtitleClasses }>{ this.props.subtitle }</p>;
+      return <p className={ this.dialogSubtitleClasses } data-element='subtitle'>{ this.props.subtitle }</p>;
     }
 
     return null;
@@ -215,8 +220,21 @@ class Dialog extends Modal {
 
   get closeIcon() {
     if (this.props.showCloseIcon) {
-      return <Icon className="carbon-dialog__close" type="close" onClick={ this.props.onCancel } />;
+      return <Icon
+        className="carbon-dialog__close"
+        data-element='close'
+        onClick={ this.props.onCancel }
+        type="close"
+      />;
     }
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'dialog',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 
   /**
@@ -227,7 +245,11 @@ class Dialog extends Modal {
    */
   get modalHTML() {
     return (
-      <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
+      <div
+        ref={ (d) => this._dialog = d }
+        className={ this.dialogClasses }
+        { ...this.componentTags(this.props) }
+      >
         { this.dialogTitle }
         { this.dialogSubtitle }
         { this.closeIcon }

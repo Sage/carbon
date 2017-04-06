@@ -3,6 +3,7 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 import { validProps } from '../../utils/ether';
 
 /**
@@ -16,7 +17,7 @@ import { validProps } from '../../utils/ether';
  *
  * To render the Checkbox:
  *
- *   <Checkbox name="myCheckbox" />
+ *   <Checkbox name='myCheckbox' />
  *
  * @class Checkbox
  * @constructor
@@ -82,12 +83,12 @@ class Checkbox extends React.Component {
    */
   get inputProps() {
     let { ...props } = validProps(this);
-    props.className = this.inputClasses;
-    props.type = "checkbox";
     // React uses checked instead of value to define the state of a checkbox
-    props.checked = this.props.checked !== undefined ? this.props.checked : this.props.value;
-    props.value = "1";
-    props.onChange = this.handleOnChange;
+    props.checked   = this.props.checked !== undefined ? this.props.checked : this.props.value;
+    props.className = this.inputClasses;
+    props.onChange  = this.handleOnChange;
+    props.type      = 'checkbox';
+    props.value     = '1';
     return props;
   }
 
@@ -99,11 +100,11 @@ class Checkbox extends React.Component {
    */
   get hiddenInputProps() {
     let props = {
-      ref: "hidden",
-      type: "hidden",
-      value: "0",
-      name: this.inputProps.name,
-      readOnly: true
+      name:     this.inputProps.name,
+      readOnly: true,
+      ref:      'hidden',
+      type:     'hidden',
+      value:    '0'
     };
 
     return props;
@@ -116,9 +117,9 @@ class Checkbox extends React.Component {
    */
   get checkboxSprite() {
     return(
-      <svg width="15" height="15" viewBox="0 0 15 15">
-        <rect className="checkbox-outline" fill="#AFAFAF" x="0" y="0" width="15" height="15"></rect>
-        <rect className="checkbox-fill" fill="#FFFFFF" x="1" y="1" width="13" height="13"></rect>
+      <svg width='15' height='15' viewBox='0 0 15 15'>
+        <rect className='checkbox-outline' fill='#AFAFAF' x='0' y='0' width='15' height='15'></rect>
+        <rect className='checkbox-fill' fill='#FFFFFF' x='1' y='1' width='13' height='13'></rect>
         <path d="M5.06079081,11.805307 L2.2548404,9.4508351 C1.95287351,9.19745479 1.91372172,
         8.74748731 2.16708208,8.44554418 L3.08395978,7.35285189 C3.3376225,7.05054844 3.78738919,
         7.01144632 4.08921714,7.26471004 L6.46118447,9.25502694 L11.4959248,3.25485701 C11.7492184,
@@ -127,7 +128,7 @@ class Checkbox extends React.Component {
         11.5485068 8.24949267,11.6023543 8.20769039,11.6521724 L7.2908127,12.7448647 C7.12011041,
         12.9482997 6.86060017,13.032541 6.61713008,12.9887006 C6.48855215,12.9709764 6.36324771,
         12.9179844 6.25647356,12.8283903 L5.16378128,11.9115126 C5.12512704,11.8790778 5.09077658,
-        11.8434362 5.06079081,11.805307 L5.06079081,11.805307 Z" className="checkbox-check" fill="#FFFFFF"></path>
+        11.8434362 5.06079081,11.805307 L5.06079081,11.805307 Z" className='checkbox-check' fill='#FFFFFF'></path>
       </svg>
     );
   }
@@ -179,7 +180,7 @@ class Checkbox extends React.Component {
     }
 
     return(
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('checkbox', this.props) }>
         { labelLeft }
         { fieldHelpLeft }
         <input { ...this.hiddenInputProps } />

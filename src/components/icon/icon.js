@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
 import Icons from './icons';
 import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * An Icon widget.
@@ -147,6 +148,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
       <span
         className={ this.mainClasses }
         { ...this.componentProps }
+        { ...tagComponent('icon', this.props) }
         ref={ (comp) => this._target = comp }
       >
         { this.iconSvgHTML() }

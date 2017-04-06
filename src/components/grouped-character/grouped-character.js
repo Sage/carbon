@@ -8,6 +8,8 @@ import InputValidation from './../../utils/decorators/input-validation';
 import Events from 'utils/helpers/events';
 import { validProps, insertAt } from 'utils/ether';
 
+import { tagComponent } from '../../utils/helpers/tags';
+
 const GroupedCharacter = Input(InputLabel(InputValidation(
 class GroupedCharacter extends React.Component {
   constructor(...args) {
@@ -213,7 +215,7 @@ class GroupedCharacter extends React.Component {
 
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('grouped-character', this.props) }>
         { this.labelHTML }
         { this.inputHTML }
         <input { ...this.hiddenInputProps }/>

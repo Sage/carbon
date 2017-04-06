@@ -257,7 +257,7 @@ describe('Input', () => {
       expect(instanceTwo.inputProps["data-element"]).toEqual("input");
     });
 
-    it('deletes data-role prop', () => {
+    it('deletes data-role prop - the role shouldnt get through to the HTML', () => {
       expect(instanceTwo.inputProps["data-role"]).toBe(undefined);
     });
 

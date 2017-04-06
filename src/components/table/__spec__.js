@@ -3,6 +3,9 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
+import { shallow } from 'enzyme';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy;
@@ -915,6 +918,14 @@ describe('Table', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
       expect(parent.className).toEqual('carbon-table foo');
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<Table data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'table', 'bar', 'baz');
     });
   });
 });

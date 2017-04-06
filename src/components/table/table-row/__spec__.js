@@ -5,6 +5,8 @@ import TableRow from './table-row';
 import TableHeader from './../table-header';
 import Icon from './../../icon';
 import Checkbox from './../../checkbox';
+import { shallow } from 'enzyme';
+import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('TableRow', () => {
   let instance, clickableInstance, row;
@@ -420,6 +422,14 @@ describe('TableRow', () => {
         let th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
         expect(th).toBeTruthy();
       });
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<TableRow data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'table-row', 'bar', 'baz');
     });
   });
 });

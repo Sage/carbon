@@ -122,10 +122,23 @@ class Sidebar extends Modal {
     if (this.props.onCancel) {
       return (
         <span className={ 'carbon-sidebar__close' } >
-          <Icon className="carbon-sidebar__close-icon" type="close" onClick={ this.props.onCancel } />
+          <Icon
+            className="carbon-sidebar__close-icon"
+            data-element='close'
+            onClick={ this.props.onCancel }
+            type="close"
+          />
         </span>
       );
     }
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'sidebar',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 
   /**
@@ -136,7 +149,10 @@ class Sidebar extends Modal {
    */
   get modalHTML() {
     return (
-      <div className={ this.sidebarClasses } >
+      <div
+        className={ this.sidebarClasses }
+        { ...this.componentTags(this.props) }
+      >
         { this.closeButton }
         { this.props.children }
       </div>

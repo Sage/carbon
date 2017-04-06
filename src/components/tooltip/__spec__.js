@@ -1,10 +1,12 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Tooltip from './tooltip';
 
 describe('tooltip', () => {
-  let instance, alignedInstance, positionedInstance, hiddenInstance;
+  let instance, alignedInstance, positionedInstance, hiddenInstance, wrapper;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -26,6 +28,12 @@ describe('tooltip', () => {
 
     hiddenInstance = TestUtils.renderIntoDocument(
       <Tooltip isVisible={ false }>
+        Some Helpful Content
+      </Tooltip>
+    );
+
+    wrapper = shallow(
+      <Tooltip isVisible={ true } data-element='bar' data-role='baz'>
         Some Helpful Content
       </Tooltip>
     );
@@ -76,6 +84,20 @@ describe('tooltip', () => {
     it('does not render any content', () => {
       let hiddenTooltip = ReactDOM.findDOMNode(hiddenInstance);
       expect(hiddenTooltip).toEqual(null);
+    });
+  });
+
+  describe('tags', () => {
+    describe('on component', () => {
+      it('includes correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'tooltip', 'bar', 'baz');
+      });
+    });
+
+    describe('on internal elements', () => {
+      it("adds element tags to it's children", () => {
+        elementsTagTest(wrapper, ['container']);
+      });
     });
   });
 });

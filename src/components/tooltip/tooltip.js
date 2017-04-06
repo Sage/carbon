@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
 * A Tooltip widget.
@@ -105,8 +106,8 @@ class Tooltip extends React.Component {
     ];
 
     return (
-      <div className={ this.mainClasses }>
-        <div className="carbon-tooltip__container">
+      <div className={ this.mainClasses } { ...tagComponent('tooltip', this.props) }>
+        <div className='carbon-tooltip__container' data-element='container'>
           { contents }
         </div>
       </div>

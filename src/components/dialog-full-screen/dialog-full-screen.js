@@ -54,6 +54,14 @@ class DialogFullScreen extends Modal {
     );
   }
 
+  componentTags(props) {
+    return {
+      'data-component': 'dialog-full-screen',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
+
   /**
    * Returns the computed HTML for the dialog.
    * @override
@@ -63,13 +71,22 @@ class DialogFullScreen extends Modal {
    */
   get modalHTML() {
     return (
-      <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
-        <div className="carbon-dialog-full-screen__header">
-          <h2 className="carbon-dialog-full-screen__title">{ this.props.title }</h2>
-          <Icon className="carbon-dialog-full-screen__close" type="close" onClick={ this.props.onCancel } />
+      <div
+        ref={ (d) => this._dialog = d }
+        className={ this.dialogClasses }
+        { ...this.componentTags(this.props) }
+      >
+        <div className='carbon-dialog-full-screen__header'>
+          <h2 className='carbon-dialog-full-screen__title' data-element='title'>{ this.props.title }</h2>
+          <Icon
+            className='carbon-dialog-full-screen__close'
+            data-element='close'
+            onClick={ this.props.onCancel }
+            type='close'
+          />
         </div>
 
-        <div className='carbon-dialog-full-screen__content'>
+        <div className='carbon-dialog-full-screen__content' data-element='content'>
           { this.props.children }
         </div>
       </div>

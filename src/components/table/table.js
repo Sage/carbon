@@ -962,7 +962,7 @@ class Table extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...this.componentTags(this.props) }>
         { this.actionToolbar }
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
@@ -973,6 +973,14 @@ class Table extends React.Component {
         { this.pager }
       </div>
     );
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'table',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 }
 

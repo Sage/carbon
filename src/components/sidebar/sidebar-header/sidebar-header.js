@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { tagComponent } from '../../../utils/helpers/tags';
 
 /**
  * A Sidebar Header widget.
@@ -59,7 +60,7 @@ class SidebarHeader extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('sidebar-header', this.props) }>
         { this.props.children }
       </div>
     );

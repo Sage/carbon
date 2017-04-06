@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import MD5 from 'crypto-js/md5';
+import { tagComponent } from '../../utils/helpers/tags';
 
 import Icon from './../icon';
 
@@ -263,6 +264,7 @@ class Portrait extends React.Component {
 
     return (
       <img
+        data-element='initials'
         className="carbon-portrait__img carbon-portrait__initials"
         src={ this.generateInitials }
         alt={ this.props.alt }
@@ -279,6 +281,7 @@ class Portrait extends React.Component {
   get avatarImage() {
     return (
       <img
+        data-element='user-image'
         className="carbon-portrait__img carbon-portrait__avatar"
         src={ this.imgSrc }
         alt={ this.props.alt }
@@ -310,7 +313,7 @@ class Portrait extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('portrait', this.props) }>
         { this.initialsImage }
         { this.avatarImage }
       </div>
