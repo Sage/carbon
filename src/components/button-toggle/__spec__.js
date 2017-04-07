@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
 import ButtonToggle from './button-toggle';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test'; 
 
 describe('ButtonToggle', () => {
   let instance, wrapper;

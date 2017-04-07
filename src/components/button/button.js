@@ -1,9 +1,9 @@
 import React, { PropTypes} from 'react';
 import classNames from 'classnames';
 import { assign } from 'lodash';
-import Link from '../link';
-import { validProps } from '../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import Link from './../link';
+import { validProps } from './../../utils/ether';
+import { tagComponent } from './../../utils/helpers/tags';
 
 
 /**

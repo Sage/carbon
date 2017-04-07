@@ -1,7 +1,8 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import { Carousel, Slide } from './carousel';
 import { shallow } from 'enzyme';
+import { Carousel, Slide } from './carousel';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Carousel', () => {
   let instance;

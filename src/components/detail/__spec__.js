@@ -1,7 +1,8 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Detail from './detail';
 import { shallow } from 'enzyme';
+import Detail from './detail';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Detail', () => {
   let instance;

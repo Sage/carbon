@@ -1,9 +1,10 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import moment from 'moment';
+import { shallow } from 'enzyme';
 import Date from './date';
 import Events from './../../utils/helpers/events';
-import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Date', () => {
   let instance;

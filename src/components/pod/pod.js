@@ -4,6 +4,7 @@ import Link from './../link';
 import classNames from 'classnames';
 import Event from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Pod widget.
@@ -38,7 +39,7 @@ class Pod extends React.Component {
 
     /**
      * Determines the padding around the pod.
-     * Values: "none", "small", "medium" or "large".
+     * Values: 'none', 'small', 'medium' or 'large'.
      *
      * @property padding
      * @type {String}
@@ -162,8 +163,8 @@ class Pod extends React.Component {
 
   static defaultProps = {
     border: true,
-    as: "primary",
-    padding: "medium",
+    as: 'primary',
+    padding: 'medium',
     alignTitle: 'left'
   }
 
@@ -210,12 +211,12 @@ class Pod extends React.Component {
     headerProps.className = this.headerClasses;
 
     if (this.props.subtitle) {
-      subtitle = <h5 className="carbon-pod__subtitle" >{ this.props.subtitle }</h5>;
+      subtitle = <h5 className='carbon-pod__subtitle' >{ this.props.subtitle }</h5>;
     }
 
     return (
       <div { ...headerProps }>
-        <h4 className="carbon-pod__title" >{ this.props.title }</h4>
+        <h4 className='carbon-pod__title' data-element='title'>{ this.props.title }</h4>
         { subtitle }
         { pod }
       </div>
@@ -228,11 +229,11 @@ class Pod extends React.Component {
    * @method podDescription
    */
   get podDescription() {
-    return (
-        this.props.description ?
-          <div className="carbon-pod__description">{ this.props.description }</div> :
-          null
-    );
+    if (this.props.description) {
+      return <div className='carbon-pod__description'>{ this.props.description }</div>;
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -284,9 +285,9 @@ class Pod extends React.Component {
   }
 
   get mainClasses() {
-    return classNames("carbon-pod", this.props.className,
+    return classNames('carbon-pod', this.props.className,
       `carbon-pod--${ this.props.alignTitle }`, {
-        "carbon-pod--editable": this.props.onEdit,
+        'carbon-pod--editable': this.props.onEdit,
         'carbon-pod--is-hovered': this.state.hoverEdit,
         'carbon-pod--content-triggers-edit': this.shouldContentHaveEditProps,
         'carbon-pod--internal-edit-button': this.props.internalEditButton
@@ -373,7 +374,7 @@ class Pod extends React.Component {
       `carbon-pod__edit-action--${this.props.as}`,
       `carbon-pod__edit-action--padding-${this.props.padding}`, {
         'carbon-pod__edit-action--no-border': !this.props.border,
-        "carbon-pod__display-on-hover": this.props.displayEditButtonOnHover
+        'carbon-pod__display-on-hover': this.props.displayEditButtonOnHover
       }
     );
   }
@@ -388,7 +389,7 @@ class Pod extends React.Component {
     if (!this.props.footer) { return null; }
 
     return (
-      <div className={ this.footerClasses }>
+      <div className={ this.footerClasses } data-element='footer'>
         { this.props.footer }
       </div>
     );
@@ -404,8 +405,8 @@ class Pod extends React.Component {
     if (!this.props.onEdit) { return null; }
 
     return (
-      <div className="carbon-pod__edit-button-container" { ...this.hoverOverEditEvents } >
-        <Link icon="edit" className={ this.editActionClasses } { ...this.linkProps() }/>
+      <div className='carbon-pod__edit-button-container' { ...this.hoverOverEditEvents } >
+        <Link icon='edit' className={ this.editActionClasses } { ...this.linkProps() }/>
       </div>
     );
   }
@@ -417,11 +418,13 @@ class Pod extends React.Component {
    * @return {Object} props
    */
   linkProps = () => {
-    let props = {};
+    let props = {
+      'data-element': 'link'
+    };
 
-    if (typeof this.props.onEdit === "string") {
+    if (typeof this.props.onEdit === 'string') {
       props.to = this.props.onEdit;
-    } else if (typeof this.props.onEdit === "object") {
+    } else if (typeof this.props.onEdit === 'object') {
       props = this.props.onEdit;
     }
 
@@ -504,11 +507,11 @@ class Pod extends React.Component {
 
     if (this.shouldContentHaveEditProps) {
       hoverOverEditEvents = this.hoverOverEditEvents;
-      hoverOverEditEvents.tabIndex = "0";
+      hoverOverEditEvents.tabIndex = '0';
     }
 
     return (
-      <div className={ this.mainClasses } { ...props }>
+      <div className={ this.mainClasses } { ...props } { ...tagComponent('pod', this.props) }>
         <div className={ this.blockClasses } { ...hoverOverEditEvents }>
           <div className={ this.contentClasses } >
             { this.podHeader }

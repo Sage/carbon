@@ -207,4 +207,33 @@ describe('MultiStepWizard', () => {
       expect(div2.className).toEqual('multi-step-wizard__content');
     });
   });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <MultiActionButton element='bar' role='baz' text='Test'>
+          <Button>Test</Button>
+        </MultiActionButton>
+      );
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'multi-action-button', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <MultiActionButton text='Test'>
+          <Button>Test</Button>
+        </MultiActionButton>
+      );
+      wrapper.setState({ showAdditionalButtons: true })
+
+      window.ElementsTagTest.run(wrapper, [
+        'additional-buttons',
+        'main-button',
+        'open'
+      ]);
+    });
+  });
 });

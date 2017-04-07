@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
-import Link from '../link';
+import Link from './../link';
 import { tagComponent } from '../../utils/helpers/tags';
 
 /**
@@ -108,7 +108,7 @@ class ActionToolbar extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses() } { ...tagComponent('action-toolbar', this.props) } >
+      <div className={ this.mainClasses() } { ...tagComponent('action-toolbar', this.props) }>
         <div className='carbon-action-toolbar__total'>
           <strong data-element='total'>{ this.state.total }</strong> { I18n.t('action_toolbar.selected', { defaultValue: 'Selected' }) }
         </div>

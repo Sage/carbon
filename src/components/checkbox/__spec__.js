@@ -1,8 +1,9 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
 import Checkbox from './checkbox';
 import Help from './../help';
-import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Checkbox', () => {
   let instance;

@@ -1,8 +1,9 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test'; 
 import Fieldset from './fieldset';
 import Textbox from './../textbox';
-import { shallow } from 'enzyme';
 
 describe('Fieldset', () => {
   let instance;

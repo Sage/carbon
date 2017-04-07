@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
 import AppWrapper from './app-wrapper';
+import { rootTagTest } from '../../utils/helpers/test'; 
 
 describe('app wrapper', () => {
   let instance, wrapper;
