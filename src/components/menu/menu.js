@@ -34,9 +34,9 @@ class Menu extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes }>
+      <nav className={ this.classes }>
         { this.props.children }
-      </div>
+      </nav>
     );
   }
 }

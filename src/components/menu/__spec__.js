@@ -26,4 +26,8 @@ describe('Menu', () => {
     expect(wrapper.hasClass('carbon-menu foobar carbon-menu--secondary')).toEqual(true);
   });
 
+  it('renders with a <nav> tag as the root element', () => {
+    expect(wrapper.is('nav')).toEqual(true);
+  });
+
 });
