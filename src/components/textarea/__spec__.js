@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
 import Textarea from './textarea';
 
-fdescribe('Textarea', () => {
+describe('Textarea', () => {
   let baseInstance, expandableInstance;
   let spy = jasmine.createSpy('spy')
 
@@ -80,7 +80,7 @@ fdescribe('Textarea', () => {
           onChange={ spy }
         />
       );
-      it('removes the event listener from the window', () => {
+      xit('removes the event listener from the window', () => {
         wrapper.unmount();
         expect(window.removeEventListener).toHaveBeenCalledWith(
           'resize', expandableInstance.expandTextarea
@@ -260,20 +260,18 @@ fdescribe('Textarea', () => {
   });
 
   describe('component tags', () => {
-    let wrapper;
-
-    beforeEach(() => {
-      wrapper = shallow(
-        <Textarea
-          id='Dummy Area'
-          value={ 'foo' }
-          label={ 'Label' }
-          cols={10}
-          rows={10}
-          onChange={ spy }
-          />
-      );
-    });
+    let wrapper = shallow(
+      <Textarea
+        id='Dummy Area'
+        value={ 'foo' }
+        label={ 'Label' }
+        cols={10}
+        rows={10}
+        onChange={ spy }
+        element='bar'
+        role='baz'
+      />
+    );
 
     describe('on component', () => {
       it('includes correct component, element and role data tags', () => {

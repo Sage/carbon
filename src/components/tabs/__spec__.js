@@ -3,6 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
 import { Tabs, Tab } from './tabs';
 import Textbox from './../textbox';
+import { shallow } from 'enzyme';
 
 describe('Tabs', () => {
   let instance;
@@ -540,6 +541,24 @@ describe('Tabs', () => {
       spyOn(instance, 'updateVisibleTab');
       instance.handleTabClick(ev);
       expect(instance.updateVisibleTab).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Tabs element='bar' role='baz'><Tab tabId='1' title='Test' /></Tabs>);
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'tabs', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Tabs><Tab tabId='2' title='Test' /></Tabs>);
+
+      window.ElementsTagTest.run(wrapper, [
+        'select-tab'
+      ]);
     });
   });
 });
