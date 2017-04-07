@@ -1,16 +1,15 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
 import Textarea from './textarea';
 
-describe('Textarea', () => {
-  let baseInstance;
-  let expandableInstance;
+fdescribe('Textarea', () => {
+  let baseInstance, expandableInstance;
   let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
     baseInstance = TestUtils.renderIntoDocument(<Textarea
-      name="Dummy Area"
-      id="Dummy Area"
+      id='Dummy Area'
       value={ 'foo' }
       label={ 'Label' }
       cols={10}
@@ -19,7 +18,6 @@ describe('Textarea', () => {
     />);
 
     expandableInstance = TestUtils.renderIntoDocument(<Textarea
-      name="Dummy Area"
       value={ 'foo' }
       label={ 'Label' }
       expandable={ true }
@@ -71,8 +69,19 @@ describe('Textarea', () => {
     });
 
     describe('when textarea can be expanded', () => {
+      let wrapper = shallow(
+        <Textarea
+          value={ 'foo' }
+          label={ 'Label' }
+          expandable={ true }
+          cols={10}
+          rows={10}
+          characterLimit='100'
+          onChange={ spy }
+        />
+      );
       it('removes the event listener from the window', () => {
-        expandableInstance.componentWillUnmount();
+        wrapper.unmount();
         expect(window.removeEventListener).toHaveBeenCalledWith(
           'resize', expandableInstance.expandTextarea
         );
@@ -80,8 +89,19 @@ describe('Textarea', () => {
     });
 
     describe('when textarea cannot be expanded', () => {
+      let wrapper = shallow(
+        <Textarea
+          id='Dummy Area'
+          value={ 'foo' }
+          label={ 'Label' }
+          cols={10}
+          rows={10}
+          onChange={ spy }
+        />
+      );
+
       it('does not remove event listener from the window', () => {
-        baseInstance.componentWillUnmount();
+        wrapper.unmount();
         expect(window.removeEventListener).not.toHaveBeenCalled();
       });
     });
@@ -207,7 +227,6 @@ describe('Textarea', () => {
         it('does not set a maxLength on the input', () => {
           let instance = TestUtils.renderIntoDocument(
             <Textarea
-              name="Dummy Area"
               label={ 'Label' }
               characterLimit='100'
               enforceCharacterLimit={ false }
@@ -237,6 +256,35 @@ describe('Textarea', () => {
       let input = TestUtils.findRenderedDOMComponentWithTag(baseInstance, 'textarea');
       TestUtils.Simulate.change(input);
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('component tags', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = shallow(
+        <Textarea
+          id='Dummy Area'
+          value={ 'foo' }
+          label={ 'Label' }
+          cols={10}
+          rows={10}
+          onChange={ spy }
+          />
+      );
+    });
+
+    describe('on component', () => {
+      it('includes correct component, element and role data tags', () => {
+        global.RootTagTest.run(wrapper, 'textarea', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      it("adds element tags to it's children", () => {
+        window.ElementsTagTest.run(wrapper, ['character-limit']);
+      });
     });
   });
 });

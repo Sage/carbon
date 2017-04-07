@@ -198,7 +198,7 @@ describe('Button', () => {
   describe("tags on component", () => {
     let wrapper = shallow(<Button element='bar' role='baz'>Test</Button>);
 
-    it('include correct component, element and role data tags', () => {
+    it('includes correct component, element and role data tags', () => {
       window.RootTagTest.run(wrapper, 'button', 'bar', 'baz');
     });
   });
