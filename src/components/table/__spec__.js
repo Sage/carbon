@@ -3,6 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
+import { shallow } from 'enzyme';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy;
@@ -915,6 +916,22 @@ describe('Table', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
       expect(parent.className).toEqual('carbon-table foo');
+    });
+  });
+
+  describe('draggableRows', () => {
+    it('defaults to false', () => {
+      instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo" /></Table>);
+      expect(instance.props.draggableRows).toBe(false);
+    });
+
+    it('can be set to true', () => {
+      instance = TestUtils.renderIntoDocument(<Table draggableRows={ true }><TableRow uniqueID="foo" /></Table>);
+      expect(instance.props.draggableRows).toBe(true);
+    });
+
+    describe('when set to true', () => {
+      // TODO
     });
   });
 });
