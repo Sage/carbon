@@ -2,6 +2,10 @@ import MountInApp from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('mount-in-app', MountInApp, {
+  description: `Mounts a component at a specific target in the DOM.`,
+  designerNotes: `
+* Useful to mount any Carbon component at a specific target in the DOM.
+ `,
   hiddenProps: ['children', 'targetId'],
   propValues: {
     children: "<div>Content!</div>",

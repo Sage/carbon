@@ -5,6 +5,19 @@ import menuItemDefinition from './menu-item/definition';
 import submenuBlockDefinition from './submenu-block/definition';
 
 let definition = new Definition('menu', Menu, {
+  description: `Navigates the user in the overall hierarchy of your app.`,
+  designerNotes: `
+* Presents a 2-level navigation hierarchy to the user.
+* The user’s current location is indicated in green. Their hover location is indicated in blue.
+* Place separator rows into any menu to group items of similar meaning.
+* Carbon has Primary and Secondary styles for the menus - these are used to present primary and secondary navigation. A good example is the Sage One Accounting application.
+* More complex navigation patterns such as hamburger menus or mega menus are usually associated with poorer usability test performance, but might still be useful in some situations. Before trying more complex patterns, consider some user research techniques like Card Sorting to reduce the complexity in your information architecture.
+  `,
+  relatedComponentsNotes: `
+* Choosing between variants of the same page, or filtering content? [Try Tabs](/components/tabs).
+* Need a container for your primary navigation? [Try Navigation Bar](/components/navigation-bar).
+* Quickly accessing useful hyperlinks? [Try Animated Menu Button](/components/animated-menu-button).
+ `,
   associatedDefinitions: [menuItemDefinition, submenuBlockDefinition],
   propOptions: {
     as: OptionsHelper.themesBinary

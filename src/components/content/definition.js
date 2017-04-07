@@ -3,6 +3,16 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('content', Content, {
+  description: `Text content with simple styles.`,
+  designerNotes: `
+* Useful to show simple text content in a common arrangement.
+* Shows a title in bold, with plain text content children.
+* Make sure that the colour of all text has a contrast ratio of at least 4.5.1, to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html) for text less than 19px in size. Webaim have a good online [Contrast Checker](http://webaim.org/resources/contrastchecker/).
+  `,
+  relatedComponentsNotes: `
+* Prominent text callout? [Try Detail](/components/detail).
+* Headings and sections? [Try Heading](/components/heading).
+ `,
   propValues: {
     title: "Content Component",
     children: "An example of some content."

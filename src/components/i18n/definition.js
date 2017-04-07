@@ -2,6 +2,12 @@ import I18nComponent from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('i18n-component', I18nComponent, {
+  description: `Displays a translation from an i18n file.`,
+  designerNotes: `
+* Internationalization (i18n) means apps can be localized for languages and cultures easily.
+* This component displays a single text translation.
+* You can use this component with any other component that displays text.
+ `,
   js: `I18n.translations.en.my = {
   example: '# My __example__ translation.'
 };`,

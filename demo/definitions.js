@@ -46,7 +46,6 @@ export default {
   'radio-button':         require('components/radio-button/definition').default,
   'rainbow':              require('components/rainbow/definition').default,
   'row':                  require('components/row/definition').default,
-  'section':              require('components/section/definition').default,
   'settings-row':         require('components/settings-row/definition').default,
   'show-edit-pod':        require('components/show-edit-pod/definition').default,
   'sidebar':              require('components/sidebar/definition').default,

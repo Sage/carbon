@@ -3,6 +3,11 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('dropdown-filter-ajax', DropdownFilterAjax, {
+  description: `Ajax control: Selects one option from a very long list, with the ability to filter and create new items.`,
+  designerNotes: `
+* This control is the same as [Dropdown Filter](/components/dropdown-filter), but uses Ajax.
+* Ajax loads data from a specified source as needed, rather than data in the page markup.
+ `,
   hiddenProps: ['path'],
   toggleFunctions: ['create'],
   propTypes: {

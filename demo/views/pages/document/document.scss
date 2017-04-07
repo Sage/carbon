@@ -14,17 +14,6 @@ $doc-animation: opacity 100ms 200ms ease-in;
     }
   }
 
-  a {
-    color: $blue;
-    font-weight: bold;
-    text-decoration: none;
-
-    &:hover {
-      color: $blue-dark;
-      text-decoration: underline;
-    }
-  }
-
   code {
     background-color: $grey-dark-blue-15;
     border-radius: 4px;

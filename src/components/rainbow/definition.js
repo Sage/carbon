@@ -2,6 +2,11 @@ import Rainbow from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('rainbow', Rainbow, {
+  description: `Simple information visualised in a chart.`,
+  designerNotes: `
+* Helps the user visualise some data in a chart - it works best to show a relative proportion, a little like how you might use a pie chart.
+* Specify the source data, and the colours to use. Check out the Carbon Colours in the Style section.
+ `,
   hiddenProps: ['config', 'data'],
   js: `function getData() {
   return Immutable.List([{

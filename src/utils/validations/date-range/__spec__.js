@@ -44,6 +44,22 @@ describe('DateRangeValidator', () => {
     });
   });
 
+  describe('invalid dates', () => {
+    describe('when one of the dates is not valid', () => {
+      it('returns true', () => {
+        let validator = new Validator({startDate: '2016-12-25'});
+        expect(validator.validate('')).toBeTruthy();
+      });
+    });
+
+    describe('when both dates are not valid', () => {
+      it('returns true', () => {
+        let validator = new Validator({startDate: ''});
+        expect(validator.validate('')).toBeTruthy();
+      });
+    });
+  });
+
   describe('message', () => {
     let validator;
 
