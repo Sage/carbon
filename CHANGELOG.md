@@ -34,6 +34,14 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
 * `MountInApp` now cleans up it's children when the component is unmounted.
 
+## Helpers
+
+* A new 'insertAt' Ether helper to insert a character in a string at a specified indices
+
+## New components
+
+* Grouped-character component - displays groups with of characters with separator.
+
 ## Bug Fixes
 
 * `Alert`: default size has been fixed to `extra-small`.

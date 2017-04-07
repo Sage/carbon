@@ -62,22 +62,21 @@ describe('Ether', () => {
   });
 
   describe('insertAt', () => {
-    describe('default new character', () => {
+    describe('default separator', () => {
       it('returns a string formatted with dashes', () => {
-        expect(insertAt('123456', 2)).toEqual('12-3456');
+        expect(insertAt('123456', {insertionIndices: [2, 5] })).toEqual('12-34-56');
       });
     });
 
-    describe('custom new character', () => {
+    describe('custom separator', () => {
       it('returns a string formatted with the separator', () => {
-        expect(insertAt('123456789', 3, { newChar:'/'})).toEqual('123/456789');
+        expect(insertAt('1234567890', {insertionIndices: [3, 7], separator:'/'})).toEqual('123/456/7890');
       });
     });
 
-    describe('when character should be repeated', () => {
-      it('returns a string formatted with the newchar repeated at the same interval', () => {
-        expect(insertAt('123456', 2, { repeat: true } )).toEqual('12-34-56');
-        expect(insertAt('123456789', 3, { newChar:'/', repeat: true })).toEqual('123/456/789');
+    describe('when the insertion index is beyond the value length', () => {
+      it('ignores the invalid index', () => {
+        expect(insertAt('1234567890', {insertionIndices: [3, 7, 15], separator:'/'})).toEqual('123/456/7890');
       });
     });
   });
