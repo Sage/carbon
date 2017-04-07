@@ -87,9 +87,7 @@ describe('GroupedCharacter', () => {
     describe('when typing a new character within a group', () => {
       it('leaves the cursor where it was last', () => {
         input.simulate('change', { target: { value: '1', selectionEnd: 1 } } );
-        setTimeout(() => {
-          expect(input.nodes[0].selectionEnd).toEqual(1);
-        })
+        expect(input.nodes[0].selectionEnd).toEqual(1);
       });
 
       describe('when typing a character ending a group', () => {
@@ -102,14 +100,22 @@ describe('GroupedCharacter', () => {
       });
     });
 
+    describe('when deleting', () => {
+      it('leaves the cursor where it was last', () => {
+        input.simulate('keydown', { which: 46 } )
+        input.simulate('change', { target: { value: '12345', selectionEnd: 5 } } );
+        setTimeout(() => {
+          expect(input.nodes[0].selectionEnd).toEqual(5);
+        })
+      });
+    });
+
     describe('when backspacing', () => {
       describe('a character not adjacent to a separator', () => {
         it('leaves the cursor where it was last', () => {
           input.simulate('keydown', { which: 8 } )
           input.simulate('change', { target: { value: '12345', selectionEnd: 7 } } );
-          setTimeout(() => {
-            expect(input.nodes[0].selectionEnd).toEqual(7);
-          })
+          expect(input.nodes[0].selectionEnd).toEqual(7);
         });
       });
 
@@ -121,16 +127,6 @@ describe('GroupedCharacter', () => {
             expect(input.nodes[0].selectionEnd).toEqual(4);
           })
         });
-      });
-    });
-
-    describe('when deleting', () => {
-      it('leaves the cursor where it was last', () => {
-        input.simulate('keydown', { which: 46 } )
-        input.simulate('change', { target: { value: '12345', selectionEnd: 5 } } );
-        setTimeout(() => {
-          expect(input.nodes[0].selectionEnd).toEqual(5);
-        })
       });
     });
   });
