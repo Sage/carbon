@@ -1,8 +1,8 @@
 import React from 'react';
-import Icon from 'components/icon';
+import Icon from '../../components/icon';
 import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { tagComponent } from 'utils/helpers/tags';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
 * A Toast widget.

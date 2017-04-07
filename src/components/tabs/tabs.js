@@ -4,7 +4,7 @@ import Tab from './tab';
 import { compact } from 'lodash';
 import classNames from 'classnames';
 import Event from './../../utils/helpers/events';
-import { tagComponent } from 'utils/helpers/tags';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Tabs widget.
