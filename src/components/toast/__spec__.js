@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
 import Toast from './toast';
 
 describe('Toast', () => {
@@ -8,7 +9,7 @@ describe('Toast', () => {
   describe('when toast is closed', () => {
     it('renders null', () => {
       instance = TestUtils.renderIntoDocument(
-        <Toast open={ false } as="info" className="custom" onDismiss={ () => {} }>
+        <Toast open={ false } as='info' className='custom' onDismiss={ () => {} }>
           foobar
         </Toast>
       );
@@ -22,7 +23,7 @@ describe('Toast', () => {
     beforeEach(() => {
       onDismissSpy = jasmine.createSpy();
       instance = TestUtils.renderIntoDocument(
-        <Toast open={ true } as="info" className="custom" onDismiss={ onDismissSpy }>
+        <Toast open={ true } as='info' className='custom' onDismiss={ onDismissSpy }>
           foobar
         </Toast>
       );
@@ -30,22 +31,22 @@ describe('Toast', () => {
 
     it('renders the component with correct classes', () => {
       let classes = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-toast').className;
-      expect(classes).toEqual("carbon-toast custom carbon-toast--info toast-appear");
+      expect(classes).toEqual('carbon-toast custom carbon-toast--info toast-appear');
     });
 
     it('renders type div', () => {
       let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-toast__type');
-      expect(icon.className).toEqual("carbon-toast__type");
+      expect(icon.className).toEqual('carbon-toast__type');
     });
 
     it('renders type icon', () => {
       let icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-toast__type-icon');
-      expect(icon.className).toEqual("carbon-icon carbon-toast__type-icon icon-info");
+      expect(icon.className).toEqual('carbon-icon carbon-toast__type-icon icon-info');
     });
 
     it('renders child content', () => {
       let content = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-toast__content').textContent;
-      expect(content).toEqual("foobar");
+      expect(content).toEqual('foobar');
     })
 
     it('renders close icon', () => {
@@ -64,7 +65,7 @@ describe('Toast', () => {
     beforeEach(() => {
       onDismissSpy = jasmine.createSpy();
       instance = TestUtils.renderIntoDocument(
-        <Toast open={ true } as="info" className="custom">
+        <Toast open={ true } as='info' className='custom'>
           foobar
         </Toast>
       );
@@ -73,6 +74,37 @@ describe('Toast', () => {
     it('does not renders close icon', () => {
       let icon = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-toast__close');
       expect(icon.length).toEqual(0);
+    });
+  });
+
+  describe('tags', () => {
+    let wrapper;
+
+    beforeEach(() => {
+
+    });
+
+    describe('on component', () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = shallow(
+          <Toast open={ true } as='info' className='custom' onDismiss={ () => {} } element='bar' role='baz'>
+            foobar
+          </Toast>
+        );
+      });
+
+
+      it('includes correct component, element and role data tags', () => {
+        global.RootTagTest.run(wrapper.find('.carbon-toast'), 'toast', 'bar', 'baz');
+      });
+    });
+
+    describe('on internal elements', () => {
+      it("adds element tags to it's children", () => {
+        global.ElementsTagTest.run(wrapper, ['close']);
+      });
     });
   });
 });
