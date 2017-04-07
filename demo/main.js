@@ -35,23 +35,3 @@ const routes = (
 );
 
 startRouter(routes);
-
-global.encode = (string) => {
-  let alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
-  let base = alphabet.length;
-
-  if (string = 0) {
-    return string;
-  }
-
-  let oldString = string;
-
-  encodedString = "";
-
-  while (oldString > 0) {
-    encodedString += alphabet[i % base]
-    oldString = parseInt(i / base, 10)
-  }
-
-  return encodedString.split("").reverse().join("")
-}

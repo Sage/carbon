@@ -7,10 +7,10 @@ import ComponentActions from '../../../../actions/component';
 import PageContentArea from './../../../common/page-content-area';
 import SimpleHeading from './../../../../components/simple-heading';
 import Code from './../../../../components/code';
+import ShareConfig from './../../../../components/share-config';
 import Fields from './fields';
 
-import Button from 'components/button';
-import Textbox from 'components/textbox';
+import BrowserHelper from 'utils/helpers/browser';
 
 /**
  * Simple, site wrapped content area that loads a heading
@@ -24,16 +24,10 @@ class ComponentPreview extends React.Component {
   componentDidMount() {
     this.renderDemo();
 
-    // Check for options
-    // Crude implementation
-    if (document.location.search.indexOf('options=') >= 0) {
-      debugger
-      ComponentActions.getOptionsFromUrl(
-        document.location.search.split('?')[1].split('options=')[1],
-        // Weird behavious of question mark adding
-        // document.location.search.split('options=')[1],
-        this.props.name
-      )
+    let params = BrowserHelper.extractUrlParams();
+
+    if (params['options']) {
+      ComponentActions.getOptionsFromUrl(params['options'], this.props.name);
     }
   }
 
@@ -55,11 +49,10 @@ class ComponentPreview extends React.Component {
       >
         <div className= { `demo-component-preview demo-component-preview--${this.props.definition.get('key')}` }>
 
-        <Button onClick={ this.generateOptionsUrl }>
-          Generate URL With Options
-        </Button>
-
-        <Textbox value={ this.props.optionsUrl || '' }/>
+          <ShareConfig
+            optionsUrl={ this.props.optionsUrl }
+            onShareClick={ this.generateOptionsUrl }
+          />
 
           <div className='demo-component-preview__component-wrapper'>
             <div id="carbon-demo" />

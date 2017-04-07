@@ -2,6 +2,7 @@ import Dispatcher from './../../dispatcher';
 import ComponentConstants from '../../constants/component';
 import Request from 'superagent';
 import serialize from 'utils/helpers/serialize';
+import Browser from 'utils/helpers/browser';
 
 const ComponentActions = {
   /**
@@ -79,8 +80,9 @@ const ComponentActions = {
 
   generateOptionsUrl: (componentOptions) => {
     let options = btoa(JSON.stringify(componentOptions.toJS()))
-    debugger
-    let url = `${ document.URL }?options=${ options }`;
+    let basePath = Browser.getLocation().origin + Browser.getLocation().pathname;
+
+    let url = `${ basePath }?options=${ options }`;
     window.Dispatcher.dispatch({
       actionType: window.ComponentConstants.SET_OPTIONS_URL,
       url: url

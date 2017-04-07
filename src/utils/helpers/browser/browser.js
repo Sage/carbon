@@ -5,7 +5,6 @@ import Form from './../../../components/form';
 
 /**
 * Browser Helper
-
 *
 * Provides helper methods for working with Browser behavior.
 *
@@ -27,6 +26,15 @@ const Browser = {
    */
   getDocument: () => {
     return document;
+  },
+
+  /**
+   * Get the current document location
+   *
+   * @return {Object} location
+   */
+  getLocation: () => {
+    return Browser.getDocument().location;
   },
 
   /**
@@ -89,6 +97,22 @@ const Browser = {
         return cookie[1];
       }
     }
+  },
+
+  /**
+   * Extracts params from url
+   *
+   * @method extractUrlParams
+   * @return {Object} Params as key value
+   */
+  extractUrlParams: () => {
+    let params = Browser.getDocument().location.search.substring(1).split('&');
+
+    return params.reduce((accumulator, currentValue) => {
+      const keyValue = currentValue.split('=');
+      accumulator[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+      return accumulator;
+    }, {});
   },
 
   /**
