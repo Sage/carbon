@@ -1,3 +1,4 @@
 {
-  "main": "./share-config.js"
+  "main": "./share-config.js",
+  "style": "./share-config.scss"
 }

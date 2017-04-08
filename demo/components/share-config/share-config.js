@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Button from 'components/button';
-import Textarea from 'components/textarea';
+import Textbox from 'components/textbox';
+import Icon from 'components/icon';
 
 class ShareConfig extends React.Component {
 
@@ -12,12 +13,19 @@ class ShareConfig extends React.Component {
 
   render() {
     return (
-      <div className='shareConfig'>
-        <Button onClick={ this.props.onShareClick }>
-          Share Config
+      <div className='demo-share-config'>
+        <Button
+          onClick={ this.props.onShareClick }
+          className='demo-share-config__button'
+        >
+          <Icon type='link'/>
         </Button>
 
-        <Textarea rows='30' expandable={ true } cols='30' value={ this.props.optionsUrl || '' }/>
+        <Textbox
+          value={ this.props.optionsUrl || '' }
+          className='demo-share-config__input'
+          disabled={ !this.props.optionsUrl }
+        />
       </div>
     )
   }
