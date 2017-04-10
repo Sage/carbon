@@ -4,7 +4,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Help from './help.js';
 import Icon from 'components/icon';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Help', () => {
   let basicInstance, positionedInstance, alignedInstance, customStyleInstance, linkInstance;

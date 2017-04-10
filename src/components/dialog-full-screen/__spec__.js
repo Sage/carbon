@@ -5,7 +5,7 @@ import I18n from 'i18n-js';
 import Bowser from 'bowser';
 import Button from './../button';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('DialogFullScreen', () => {
   let instance,

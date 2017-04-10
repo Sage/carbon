@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import TestUtils from 'react/lib/ReactTestUtils';
 
 import Icon from './../icon';

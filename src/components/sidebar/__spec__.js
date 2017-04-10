@@ -4,7 +4,7 @@ import { Sidebar } from './sidebar';
 import Textbox from './../textbox';
 import Icon from './../icon';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Sidebar', () => {
   let instance, leftInstance, spy;

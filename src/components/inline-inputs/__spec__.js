@@ -5,7 +5,7 @@ import Row from './../row';
 import Textbox from './../textbox';
 import InlineInputs from './inline-inputs';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Inline Inputs', () => {
   let wrapper;

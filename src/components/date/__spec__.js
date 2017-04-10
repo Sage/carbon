@@ -4,7 +4,7 @@ import moment from 'moment';
 import Date from './date';
 import Events from './../../utils/helpers/events';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Date', () => {
   let instance;

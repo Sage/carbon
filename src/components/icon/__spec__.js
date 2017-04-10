@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Icon from './icon';
 import Tooltip from 'components/tooltip'
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Icon', () => {
   let instance, span, svg;

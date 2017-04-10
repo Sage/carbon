@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import ActionToolbar from './action-toolbar';
 import Link from 'components/link';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('action toolbar', () => {
   let instance, wrapper;

@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import DropdownFilterAjax from './dropdown-filter-ajax';
 import Immutable from 'immutable';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ImmutableHelper from './../../utils/helpers/immutable';
 
 describe('DropdownFilterAjax', () => {

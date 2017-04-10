@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Textarea from './textarea';
 
 describe('Textarea', () => {
@@ -81,7 +81,7 @@ describe('Textarea', () => {
           onChange={ spy }
         />
       );
-      xit('removes the event listener from the window', () => {
+      it('removes the event listener from the window', () => {
         wrapper.unmount();
         expect(window.removeEventListener).toHaveBeenCalledWith(
           'resize', expandableInstance.expandTextarea

@@ -6,7 +6,7 @@ import Bowser from 'bowser';
 import Button from './../button';
 import Row from './../row'
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Dialog', () => {
   let instance, onCancel;

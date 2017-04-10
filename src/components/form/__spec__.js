@@ -9,7 +9,7 @@ import Dialog from './../dialog';
 import I18n from "i18n-js";
 
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 import FormSummary from './form-summary';
 

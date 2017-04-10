@@ -4,7 +4,7 @@ import Heading from './heading';
 import Help from './../help';
 import Link from './../link';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Heading', () => {
   let instance;

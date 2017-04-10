@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import MenuItem from './menu-item';
 import Link from './../../link';
 

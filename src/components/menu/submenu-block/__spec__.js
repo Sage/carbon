@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import SubmenuBlock from './submenu-block';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('SubmenuBlock', () => {
   let instance;

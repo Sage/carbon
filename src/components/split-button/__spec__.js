@@ -5,7 +5,7 @@ import SplitButton from './split-button';
 import Icon from './../icon';
 import Button from './../button';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('SplitButton', () => {
   let twoItemsSplitButton;

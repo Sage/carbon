@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import MenuListItem from './menu-list-item';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('MenuListItem', () => {
   let instance;

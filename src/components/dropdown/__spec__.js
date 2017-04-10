@@ -4,7 +4,7 @@ import Dropdown from './dropdown';
 import Immutable from 'immutable';
 import Events from './../../utils/helpers/events';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ImmutableHelper from './../../utils/helpers/immutable';
 
 describe('Dropdown', () => {

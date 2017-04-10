@@ -3,7 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Dialog from 'components/dialog'
 import Alert from './alert';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Alert', () => {
   let instance;
