@@ -150,6 +150,7 @@ import UserStore from 'stores/user';
 import UserActions from 'actions/user';
 
 class User extends React.Component {
+  // Use componentDidMount to ensure that the new data will trigger a re-render
   componentDidMount() {
     UserActions.getData();
   }
