@@ -3,6 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Icon from './icon';
 import Tooltip from 'components/tooltip'
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Icon', () => {
   let instance, span, svg;
@@ -162,7 +163,7 @@ describe('Icon', () => {
       let wrapper = shallow(<Icon data-element='bar' data-role='baz' type='tick'/>);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'icon', 'bar', 'baz');
+        rootTagTest(wrapper, 'icon', 'bar', 'baz');
       });
     });
 
@@ -175,7 +176,7 @@ describe('Icon', () => {
           type='tick'
         />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'tooltip'
       ]);
     });

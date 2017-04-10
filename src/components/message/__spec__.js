@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Message from './message';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Message', () => {
   let warningMessage, infoMessage, errorMessage, customMessage, spy;
@@ -123,14 +124,14 @@ describe('Message', () => {
       let wrapper = shallow(<Message data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'message', 'bar', 'baz');
+        rootTagTest(wrapper, 'message', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<Message title='Test' onDismiss={ () => {} }/>);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'dismiss',
         'title'
       ]);

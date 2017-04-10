@@ -3,6 +3,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import ActionToolbar from './action-toolbar';
 import Link from 'components/link';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('action toolbar', () => {
   let instance, wrapper;
@@ -105,14 +106,14 @@ describe('action toolbar', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'action-toolbar', 'bar', 'baz');
+        rootTagTest(wrapper, 'action-toolbar', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(<ActionToolbar actions={ [ ()=>{} ] }/>);
+      let wrapper = shallow(<ActionToolbar actions={ [ ()=>{} ] } />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'action',
         'total'
       ]);

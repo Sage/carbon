@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import Button from './button';
 import Link from 'components/link';
 
@@ -199,7 +200,7 @@ describe('Button', () => {
     let wrapper = shallow(<Button data-element='bar' data-role='baz'>Test</Button>);
 
     it('includes correct component, element and role data tags', () => {
-      window.RootTagTest.run(wrapper, 'button', 'bar', 'baz');
+      rootTagTest(wrapper, 'button', 'bar', 'baz');
     });
   });
 });

@@ -4,6 +4,7 @@ import Dropdown from './dropdown';
 import Immutable from 'immutable';
 import Events from './../../utils/helpers/events';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import ImmutableHelper from './../../utils/helpers/immutable';
 
 describe('Dropdown', () => {
@@ -917,7 +918,7 @@ describe('Dropdown', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'dropdown', 'bar', 'baz');
+        rootTagTest(wrapper, 'dropdown', 'bar', 'baz');
       });
     });
 
@@ -933,7 +934,7 @@ describe('Dropdown', () => {
           />
         );
 
-        window.ElementsTagTest.run(wrapper, [
+        elementsTagTest(wrapper, [
           'help',
           'hidden-input',
           'input',
@@ -952,7 +953,7 @@ describe('Dropdown', () => {
         );
         wrapper.setState({ open: true });
 
-        window.ElementsTagTest.run(wrapper, [
+        elementsTagTest(wrapper, [
           'help',
           'hidden-input',
           'input',

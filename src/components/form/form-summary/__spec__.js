@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/test';
 
 import Icon from './../../icon';
 
@@ -73,14 +74,14 @@ describe('<FormSummary />', () => {
       let wrapper = shallow(<FormSummary data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'form-summary', 'bar', 'baz');
+        rootTagTest(wrapper, 'form-summary', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<FormSummary errors='1' warnings='1' />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'errors',
         'warnings'
       ]);

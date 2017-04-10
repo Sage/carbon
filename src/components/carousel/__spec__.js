@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { Carousel, Slide } from './carousel';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Carousel', () => {
   let instance;
@@ -269,7 +270,7 @@ describe('Carousel', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'carousel', 'bar', 'baz');
+        rootTagTest(wrapper, 'carousel', 'bar', 'baz');
       });
     });
 
@@ -280,7 +281,7 @@ describe('Carousel', () => {
         </Carousel>
       );
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'next',
         'previous',
         'selector-input',

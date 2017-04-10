@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import ButtonToggle from './button-toggle';
 
 describe('ButtonToggle', () => {
@@ -93,14 +94,14 @@ describe('ButtonToggle', () => {
       let wrapper = shallow(<ButtonToggle data-element='bar' data-role='baz'>Test</ButtonToggle>);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'button-toggle', 'bar', 'baz');
+        rootTagTest(wrapper, 'button-toggle', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<ButtonToggle>Test</ButtonToggle>);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'input',
         'label'
       ]);

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import TestUtils from 'react/lib/ReactTestUtils';
 
 import Icon from './../icon';
@@ -247,7 +248,7 @@ describe('Link', () => {
     let wrapper = shallow(<Link to='test' data-element='bar' data-role='baz' />);
 
     it('include correct component, element and role data tags', () => {
-      window.RootTagTest.run(wrapper, 'link', 'bar', 'baz');
+      rootTagTest(wrapper, 'link', 'bar', 'baz');
     });
   });
 });

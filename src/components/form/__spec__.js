@@ -9,6 +9,7 @@ import Dialog from './../dialog';
 import I18n from "i18n-js";
 
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 import FormSummary from './form-summary';
 
@@ -575,14 +576,14 @@ describe('Form', () => {
       let wrapper = shallow(<Form data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'form', 'bar', 'baz');
+        rootTagTest(wrapper, 'form', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<Form />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'cancel',
         'save',
       ]);

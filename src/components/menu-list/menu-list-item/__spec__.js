@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import MenuListItem from './menu-list-item';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/test';
 
 describe('MenuListItem', () => {
   let instance;
@@ -38,7 +39,7 @@ describe('MenuListItem', () => {
     let wrapper = shallow(<MenuListItem data-element='bar' data-role='baz'>Test</MenuListItem>);
 
     it('include correct component, element and role data tags', () => {
-      window.RootTagTest.run(wrapper, 'menu-list-item', 'bar', 'baz');
+      rootTagTest(wrapper, 'menu-list-item', 'bar', 'baz');
     });
   });
 });

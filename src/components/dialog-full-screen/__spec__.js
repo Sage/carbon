@@ -5,6 +5,7 @@ import I18n from 'i18n-js';
 import Bowser from 'bowser';
 import Button from './../button';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('DialogFullScreen', () => {
   let instance,
@@ -77,7 +78,7 @@ describe('DialogFullScreen', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'dialog-full-screen', 'bar', 'baz');
+        rootTagTest(wrapper, 'dialog-full-screen', 'bar', 'baz');
       });
     });
 
@@ -91,7 +92,7 @@ describe('DialogFullScreen', () => {
         />
       );
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'close',
         'title'
       ]);

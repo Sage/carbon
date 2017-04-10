@@ -4,6 +4,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Dialog from './../dialog'
 import Confirm from './confirm';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Confirm', () => {
   let instance, onCancel, onConfirm;
@@ -125,7 +126,7 @@ describe('Confirm', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'confirm', 'bar', 'baz');
+        rootTagTest(wrapper, 'confirm', 'bar', 'baz');
       });
     });
 
@@ -141,7 +142,7 @@ describe('Confirm', () => {
         />
       );
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'cancel',
         'close',
         'confirm',
