@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import Tooltip from './tooltip';
 
 describe('tooltip', () => {
@@ -89,13 +90,13 @@ describe('tooltip', () => {
   describe('tags', () => {
     describe('on component', () => {
       it('includes correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'tooltip', 'bar', 'baz');
+        rootTagTest(wrapper, 'tooltip', 'bar', 'baz');
       });
     });
 
     describe('on internal elements', () => {
       it("adds element tags to it's children", () => {
-        window.ElementsTagTest.run(wrapper, ['container']);
+        elementsTagTest(wrapper, ['container']);
       });
     });
   });

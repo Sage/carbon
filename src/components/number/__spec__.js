@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Number from './number';
 import { shallow } from 'enzyme';
+import { rootTagTest } from '../../utils/helpers/test';
 
 describe('Number', () => {
   let instance, input,
@@ -139,7 +140,7 @@ describe('Number', () => {
     );
 
     it('includes correct component, element and role data tags', () => {
-      global.RootTagTest.run(wrapper, 'number', 'bar', 'baz');
+      rootTagTest(wrapper, 'number', 'bar', 'baz');
     });
   });
 });

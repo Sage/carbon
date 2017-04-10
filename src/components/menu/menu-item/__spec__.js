@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/test';
 import MenuItem from './menu-item';
 import Link from './../../link';
 
@@ -65,7 +66,7 @@ describe('MenuItem', () => {
     let wrapper = shallow(<MenuItem data-element='bar' data-role='baz'>Test</MenuItem>);
 
     it('include correct component, element and role data tags', () => {
-      window.RootTagTest.run(wrapper, 'menu-item', 'bar', 'baz');
+      rootTagTest(wrapper, 'menu-item', 'bar', 'baz');
     });
   });
 });

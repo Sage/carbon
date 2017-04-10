@@ -4,6 +4,7 @@ import Heading from './heading';
 import Help from './../help';
 import Link from './../link';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Heading', () => {
   let instance;
@@ -117,7 +118,7 @@ describe('Heading', () => {
       let wrapper = shallow(<Heading title='Test' data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'heading', 'bar', 'baz');
+        rootTagTest(wrapper, 'heading', 'bar', 'baz');
       });
     });
 
@@ -131,7 +132,7 @@ describe('Heading', () => {
           title='Test'
         />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'back',
         'help',
         'subtitle',

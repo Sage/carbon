@@ -4,6 +4,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import i18n from 'i18n-js';
 import I18n from './i18n.js';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('I18n', () => {
 
@@ -96,7 +97,7 @@ describe('I18n', () => {
     let wrapper = shallow(<I18n data-element='bar' data-role='baz' />);
 
     it('include correct component, element and role data tags', () => {
-      window.RootTagTest.run(wrapper, 'i18n', 'bar', 'baz');
+      rootTagTest(wrapper, 'i18n', 'bar', 'baz');
     });
   });
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import Textbox from './textbox';
 
 describe('Textbox', () => {
@@ -74,7 +75,7 @@ describe('Textbox', () => {
     );
 
     it('includes correct component, element and role data tags', () => {
-      global.RootTagTest.run(wrapper, 'textbox', 'bar', 'baz');
+      rootTagTest(wrapper, 'textbox', 'bar', 'baz');
     });
   });
 });

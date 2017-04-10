@@ -2,8 +2,8 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
-import Content from './content';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import Content from './content';
 
 describe('Content', () => {
   let instance;
@@ -84,14 +84,14 @@ describe('Content', () => {
       let wrapper = shallow(<Content data-element='bar' data-role='baz'><div /></Content>);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'content', 'bar', 'baz');
+        rootTagTest(wrapper, 'content', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<Content><div /></Content>);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'title'
       ]);
     });

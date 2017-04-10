@@ -2,9 +2,9 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import Events from './../../utils/helpers/events';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import Dropdown from './dropdown';
 
 describe('Dropdown', () => {
@@ -918,7 +918,7 @@ describe('Dropdown', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'dropdown', 'bar', 'baz');
+        rootTagTest(wrapper, 'dropdown', 'bar', 'baz');
       });
     });
 
@@ -934,7 +934,7 @@ describe('Dropdown', () => {
           />
         );
 
-        window.ElementsTagTest.run(wrapper, [
+        elementsTagTest(wrapper, [
           'help',
           'hidden-input',
           'input',
@@ -953,7 +953,7 @@ describe('Dropdown', () => {
         );
         wrapper.setState({ open: true });
 
-        window.ElementsTagTest.run(wrapper, [
+        elementsTagTest(wrapper, [
           'help',
           'hidden-input',
           'input',

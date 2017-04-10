@@ -199,7 +199,7 @@ describe('Button', () => {
     let wrapper = shallow(<Button data-element='bar' data-role='baz'>Test</Button>);
 
     it('includes correct component, element and role data tags', () => {
-      window.RootTagTest.run(wrapper, 'button', 'bar', 'baz');
+      rootTagTest(wrapper, 'button', 'bar', 'baz');
     });
   });
 });

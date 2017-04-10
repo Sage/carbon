@@ -3,6 +3,8 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import NavigationBar from './navigation-bar';
 import AppWrapper from './../app-wrapper';
 import { shallow } from 'enzyme';
+import { rootTagTest } from '../../utils/helpers/test';
+
 
 describe('NavigationBar', () => {
   let instance;
@@ -49,7 +51,7 @@ describe('NavigationBar', () => {
 
     describe('on component', () => {
       it('includes correct component, element and role data tags', () => {
-        global.RootTagTest.run(wrapper, 'navigation-bar', 'bar', 'baz');
+        rootTagTest(wrapper, 'navigation-bar', 'bar', 'baz');
       });
     });
   });

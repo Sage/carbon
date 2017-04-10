@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import SubmenuBlock from './submenu-block';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/test';
 
 describe('SubmenuBlock', () => {
   let instance;
@@ -28,7 +29,7 @@ describe('SubmenuBlock', () => {
     let wrapper = shallow(<SubmenuBlock data-element='bar' data-role='baz' />);
 
     it('include correct component, element and role data tags', () => {
-      window.RootTagTest.run(wrapper, 'submenu-block', 'bar', 'baz');
+      rootTagTest(wrapper, 'submenu-block', 'bar', 'baz');
     });
   });
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
-import { rootTagTest } from '../../utils/helpers/test'; 
+import { rootTagTest } from '../../utils/helpers/test';
 import Filter from './filter.js';
 
 describe('Filter', () => {
@@ -36,7 +36,7 @@ describe('Filter', () => {
     let wrapper = shallow(<Filter data-element='bar' data-role='baz' />);
 
     it('include correct component, element and role data tags', () => {
-      window.RootTagTest.run(wrapper, 'filter', 'bar', 'baz');
+      rootTagTest(wrapper, 'filter', 'bar', 'baz');
     });
   });
 });

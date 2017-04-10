@@ -209,6 +209,7 @@ describe('AnimatedMenuButton', () => {
       });
     });
 
+
     describe('when it is not a touch device', () => {
       it('does not add the touch handler', () => {
         basicWidget.setState({ touch: false });

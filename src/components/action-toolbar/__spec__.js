@@ -1,10 +1,9 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import ActionToolbar from './action-toolbar';
-import Link from './../link';
 import { shallow, mount } from 'enzyme';
-import Link from 'components/link';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import Link from './../link';
 
 describe('action toolbar', () => {
   let instance, wrapper, mountable;
@@ -140,14 +139,14 @@ describe('action toolbar', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'action-toolbar', 'bar', 'baz');
+        rootTagTest(wrapper, 'action-toolbar', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(<ActionToolbar actions={ [ ()=>{} ] }/>);
+      let wrapper = shallow(<ActionToolbar actions={ [ ()=>{} ] } />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'action',
         'total'
       ]);

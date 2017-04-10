@@ -496,12 +496,12 @@ describe('Pod', () => {
     let wrapper = shallow(<Pod element='bar' role='baz' />);
 
     it('includes correct component, element and role data tags', () => {
-      global.RootTagTest.run(wrapper, 'pod', 'bar', 'baz');
+      rootTagTest(wrapper, 'pod', 'bar', 'baz');
     });
 
     describe('on internal elements', () => {
       it("adds element tags to it's children", () => {
-        window.ElementsTagTest.run(wrapper, []);
+        elementsTagTest(wrapper, []);
       });
     });
   });

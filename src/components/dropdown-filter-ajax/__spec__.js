@@ -346,7 +346,7 @@ describe('DropdownFilterAjax', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'dropdown-filter-ajax', 'bar', 'baz');
+        rootTagTest(wrapper, 'dropdown-filter-ajax', 'bar', 'baz');
       });
     });
 
@@ -362,7 +362,7 @@ describe('DropdownFilterAjax', () => {
           />
         );
 
-        window.ElementsTagTest.run(wrapper, [
+        elementsTagTest(wrapper, [
           'help',
           'hidden-input',
           'input',

@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
+import { rootTagTest } from '../../utils/helpers/test';
 import Pill from './pill';
 
 describe('Pill', () => {
@@ -87,7 +88,7 @@ describe('Pill', () => {
     );
 
     it('includes correct component, element and role data tags', () => {
-      global.RootTagTest.run(wrapper, 'pill', 'bar', 'baz');
+      rootTagTest(wrapper, 'pill', 'bar', 'baz');
     });
   });
 });

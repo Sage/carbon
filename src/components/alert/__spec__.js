@@ -1,9 +1,9 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Dialog from './../dialog'
-import Alert from './alert';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test'; 
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import Alert from './alert';
 
 describe('Alert', () => {
   let instance;
@@ -35,14 +35,14 @@ describe('Alert', () => {
       let wrapper = shallow(<Alert open={ true } data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'alert', 'bar', 'baz');
+        rootTagTest(wrapper, 'alert', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<Alert open={ true } title='Test' subtitle='Test' showCloseIcon={ true } />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'close',
         'subtitle',
         'title'

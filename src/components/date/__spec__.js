@@ -2,9 +2,9 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import moment from 'moment';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import Date from './date';
 import Events from './../../utils/helpers/events';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Date', () => {
   let instance;
@@ -540,14 +540,14 @@ describe('Date', () => {
       let wrapper = shallow(<Date data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'date', 'bar', 'baz');
+        rootTagTest(wrapper, 'date', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<Date fieldHelp='test' label='test' />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'help',
         'input',
         'label'

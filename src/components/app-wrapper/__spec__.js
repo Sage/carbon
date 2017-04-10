@@ -1,8 +1,8 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
+import { rootTagTest } from '../../utils/helpers/test';
 import AppWrapper from './app-wrapper';
-import { rootTagTest } from '../../utils/helpers/test'; 
 
 describe('app wrapper', () => {
   let instance, wrapper;
@@ -27,7 +27,7 @@ describe('app wrapper', () => {
       let wrapper = shallow(<AppWrapper data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'app-wrapper', 'bar', 'baz');
+        rootTagTest(wrapper, 'app-wrapper', 'bar', 'baz');
       });
     });
   });

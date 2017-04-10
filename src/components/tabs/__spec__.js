@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 import { Tabs, Tab } from './tabs';
 import Textbox from './../textbox';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Tabs', () => {
   let instance;
@@ -549,14 +550,14 @@ describe('Tabs', () => {
       let wrapper = shallow(<Tabs data-element='bar' data-role='baz'><Tab tabId='1' title='Test' /></Tabs>);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'tabs', 'bar', 'baz');
+        rootTagTest(wrapper, 'tabs', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<Tabs><Tab tabId='2' title='Test' /></Tabs>);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'select-tab'
       ]);
     });

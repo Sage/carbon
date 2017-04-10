@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import Toast from './toast';
 
 describe('Toast', () => {
@@ -96,13 +97,13 @@ describe('Toast', () => {
       });
 
       it('includes correct component, element and role data tags', () => {
-        global.RootTagTest.run(wrapper.find('.carbon-toast'), 'toast', 'bar', 'baz');
+        rootTagTest(wrapper.find('.carbon-toast'), 'toast', 'bar', 'baz');
       });
     });
 
     describe('on internal elements', () => {
       it("adds element tags to it's children", () => {
-        global.ElementsTagTest.run(wrapper, ['close']);
+        elementsTagTest(wrapper, ['close']);
       });
     });
   });

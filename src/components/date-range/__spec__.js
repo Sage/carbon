@@ -2,10 +2,10 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import I18n from 'i18n-js';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import DateRange from './date-range';
 import Date from './../date';
 import DateRangeValidator from './../../utils/validations/date-range';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('DateRange', () => {
   let instance, customOnChange;
@@ -348,14 +348,14 @@ describe('DateRange', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'date-range', 'bar', 'baz');
+        rootTagTest(wrapper, 'date-range', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<DateRange onChange={ () => {} } value={ ['2016-10-10','2016-11-11'] } />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'start-date',
         'end-date'
       ]);

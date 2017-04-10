@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test'; 
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import Fieldset from './fieldset';
 import Textbox from './../textbox';
 
@@ -36,14 +36,14 @@ describe('Fieldset', () => {
       let wrapper = shallow(<Fieldset data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'fieldset', 'bar', 'baz');
+        rootTagTest(wrapper, 'fieldset', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<Fieldset legend='test' />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'legend'
       ]);
     });

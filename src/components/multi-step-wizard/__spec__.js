@@ -1,6 +1,9 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
 import MultiStepWizard from './multi-step-wizard';
+import MultiActionButton from './../multi-action-button';
+import Button from './../button';
 
 describe('MultiStepWizard', () => {
   let instance,
@@ -217,7 +220,7 @@ describe('MultiStepWizard', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'multi-action-button', 'bar', 'baz');
+        rootTagTest(wrapper, 'multi-action-button', 'bar', 'baz');
       });
     });
 
@@ -229,7 +232,7 @@ describe('MultiStepWizard', () => {
       );
       wrapper.setState({ showAdditionalButtons: true })
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'additional-buttons',
         'main-button',
         'open'

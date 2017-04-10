@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test'; 
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import Flash from './flash';
 
 describe('Flash', () => {
@@ -364,7 +364,7 @@ describe('Flash', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'flash', 'bar', 'baz');
+        rootTagTest(wrapper, 'flash', 'bar', 'baz');
       });
     });
 
@@ -378,7 +378,7 @@ describe('Flash', () => {
         />
       );
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'close',
         'info-dialog',
         'message',

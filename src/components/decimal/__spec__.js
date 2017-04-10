@@ -1,10 +1,10 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import I18n from "i18n-js";
 import ReactDOM from 'react-dom';
 import Events from './../../utils/helpers/events';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import Decimal from './decimal';
 
 describe('Decimal', () => {
@@ -483,14 +483,14 @@ describe('Decimal', () => {
       let wrapper = shallow(<Decimal data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'decimal', 'bar', 'baz');
+        rootTagTest(wrapper, 'decimal', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<Decimal fieldHelp='test' label='test' />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'help',
         'input',
         'label'

@@ -2,8 +2,8 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
 import Checkbox from './checkbox';
-import Help from './../help';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import Help from './../help';
 
 describe('Checkbox', () => {
   let instance;
@@ -144,14 +144,14 @@ describe('Checkbox', () => {
       let wrapper = shallow(<Checkbox data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'checkbox', 'bar', 'baz');
+        rootTagTest(wrapper, 'checkbox', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<Checkbox label='Create...' fieldHelp='test' />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'help',
         'input',
         'label'

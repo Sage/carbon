@@ -4,6 +4,7 @@ import { Sidebar } from './sidebar';
 import Textbox from './../textbox';
 import Icon from './../icon';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Sidebar', () => {
   let instance, leftInstance, spy;
@@ -193,7 +194,7 @@ describe('Sidebar', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'sidebar', 'bar', 'baz');
+        rootTagTest(wrapper, 'sidebar', 'bar', 'baz');
       });
     });
 
@@ -207,7 +208,7 @@ describe('Sidebar', () => {
         />
       );
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'close'
       ]);
     });

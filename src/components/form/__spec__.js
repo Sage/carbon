@@ -2,15 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import I18n from "i18n-js";
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import ImmutableHelper from './../../utils/helpers/immutable';
 import Form from './form';
 import Textbox from './../textbox';
 import Validation from './../../utils/validations/presence';
-import ImmutableHelper from './../../utils/helpers/immutable';
 import Dialog from './../dialog';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
-
-import { shallow } from 'enzyme';
-
 import FormSummary from './form-summary';
 
 describe('Form', () => {
@@ -576,14 +574,14 @@ describe('Form', () => {
       let wrapper = shallow(<Form data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'form', 'bar', 'baz');
+        rootTagTest(wrapper, 'form', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
       let wrapper = shallow(<Form />);
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'cancel',
         'save',
       ]);

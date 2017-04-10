@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import SplitButton from './split-button';
 import Icon from './../icon';
 import Button from './../button';
-import { shallow } from 'enzyme';
 
-describe('SplitButton', () => {
+fdescribe('SplitButton', () => {
   let twoItemsSplitButton;
   let handleMainButton = jasmine.createSpy("main");
   let handleSecondButton = jasmine.createSpy("second");
@@ -115,7 +116,7 @@ describe('SplitButton', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'split-button', 'bar', 'baz');
+        rootTagTest(wrapper, 'split-button', 'bar', 'baz');
       });
     });
 
@@ -127,7 +128,7 @@ describe('SplitButton', () => {
       );
       wrapper.setState({ showAdditionalButtons: true })
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'additional-buttons',
         'main-button',
         'open'

@@ -78,7 +78,7 @@ describe('DialogFullScreen', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'dialog-full-screen', 'bar', 'baz');
+        rootTagTest(wrapper, 'dialog-full-screen', 'bar', 'baz');
       });
     });
 
@@ -92,7 +92,7 @@ describe('DialogFullScreen', () => {
         />
       );
 
-      window.ElementsTagTest.run(wrapper, [
+      elementsTagTest(wrapper, [
         'close',
         'title'
       ]);

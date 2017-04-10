@@ -2,8 +2,8 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
 import { shallow } from 'enzyme';
-import ImmutableHelper from './../../utils/helpers/immutable';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import ImmutableHelper from './../../utils/helpers/immutable';
 import DropdownFilter from './dropdown-filter';
 
 describe('DropdownFilter', () => {
@@ -791,7 +791,7 @@ describe('DropdownFilter', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        window.RootTagTest.run(wrapper, 'dropdown-filter', 'bar', 'baz');
+        rootTagTest(wrapper, 'dropdown-filter', 'bar', 'baz');
       });
     });
 
@@ -807,7 +807,7 @@ describe('DropdownFilter', () => {
           />
         );
 
-        window.ElementsTagTest.run(wrapper, [
+        elementsTagTest(wrapper, [
           'help',
           'hidden-input',
           'input',
@@ -827,7 +827,7 @@ describe('DropdownFilter', () => {
         );
         wrapper.setState({ open: true });
 
-        window.ElementsTagTest.run(wrapper, [
+        elementsTagTest(wrapper, [
           'create',
           'help',
           'hidden-input',
