@@ -1,5 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Pill from './pill';
 
 describe('Pill', () => {
@@ -71,6 +73,22 @@ describe('Pill', () => {
       it('adds the class to the component', () => {
         expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'customClass').length).toEqual(1);
       });
+    });
+  });
+
+  describe('tags on component', () => {
+    let wrapper = shallow(
+      <Pill
+        children='My Text'
+        className='customClass'
+        data-element='bar'
+        onClick={ spy }
+        data-role='baz'
+      />
+    );
+
+    it('includes correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'pill', 'bar', 'baz');
     });
   });
 });

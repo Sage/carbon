@@ -120,11 +120,11 @@ class MultiActionButton extends SplitButton {
     );
   }
 
-  componentTags(props) {
+  componentTags() {
     return {
-      'data-component': 'split-button',
-      'data-element': props['data-element'],
-      'data-role': props['data-role']
+      'data-component': 'multi-action-button',
+      'data-element': this.props['data-element'],
+      'data-role': this.props['data-role']
     };
   }
 }

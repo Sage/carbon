@@ -4,6 +4,7 @@ import Pod from './pod';
 import Button from './../button';
 import Link from './../link';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Pod', () => {
   let instance;
@@ -488,6 +489,20 @@ describe('Pod', () => {
 
       let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
       expect(buttons.length).toEqual(3);
+    });
+  });
+
+  describe('tags on component', () => {
+    let wrapper = shallow(<Pod data-element='bar' data-role='baz' />);
+
+    it('includes correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'pod', 'bar', 'baz');
+    });
+
+    describe('on internal elements', () => {
+      it("adds element tags to it's children", () => {
+        elementsTagTest(wrapper, []);
+      });
     });
   });
 });

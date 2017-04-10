@@ -71,6 +71,11 @@ class SplitButton extends React.Component {
     showAdditionalButtons: false
   }
 
+  constructor(args) {
+    super(args);
+    this.componentTags = this.componentTags.bind(this);
+  }
+
   /**
    * Shows the additional buttons.
    *
@@ -199,18 +204,18 @@ class SplitButton extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses } onMouseLeave={ this.hideButtons } { ...this.componentTags(this.props) }>
+      <div className={ this.mainClasses } onMouseLeave={ this.hideButtons } { ...this.componentTags() }>
         { this.renderMainButton }
         { this.state.showAdditionalButtons ? this.renderAdditionalButtons : null}
       </div>
     );
   }
 
-  componentTags(props) {
+  componentTags() {
     return {
       'data-component': 'split-button',
-      'data-element': props['data-element'],
-      'data-role': props['data-role']
+      'data-element': this.props['data-element'],
+      'data-role': this.props['data-role']
     };
   }
 }
