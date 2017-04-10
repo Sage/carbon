@@ -81,10 +81,11 @@ describe('Textarea', () => {
           onChange={ spy }
         />
       );
-      xit('removes the event listener from the window', () => {
+
+      it('removes the event listener from the window', () => {
         wrapper.unmount();
         expect(window.removeEventListener).toHaveBeenCalledWith(
-          'resize', expandableInstance.expandTextarea
+          'resize',jasmine.any(Function)
         );
       });
     });

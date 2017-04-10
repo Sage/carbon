@@ -21,7 +21,7 @@ describe('action toolbar', () => {
     );
   });
 
-  describe('componentWillMount', () => {
+  xdescribe('componentWillMount', () => {
     describe('if attachActionToolbar exists', () => {
       it('calls attachActionToolbar', () => {
         let spy = jasmine.createSpy();
@@ -40,7 +40,7 @@ describe('action toolbar', () => {
     });
   });
 
-  describe('componentWillUnmount', () => {
+  xdescribe('componentWillUnmount', () => {
     describe('if detachActionToolbar exists', () => {
       it('calls detachActionToolbar', () => {
         let spy = jasmine.createSpy();
