@@ -95,7 +95,6 @@ with a label.
 * `Form`: adds error and warning icons (and refactors the summary into its own sub-component)
 * `Dialog`: Added `subtitle` prop
 * `Input` can now receive an `inputHelp` prop which renders a tooltip after the input field.
-* `Table` can now receive an `caption` prop which renders a `<caption>` element as a child of the table element.
 
 ## New Validations
 
