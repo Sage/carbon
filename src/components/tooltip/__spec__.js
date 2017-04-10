@@ -32,7 +32,7 @@ describe('tooltip', () => {
     );
 
     wrapper = shallow(
-      <Tooltip isVisible={ true } element='bar' role='baz'>
+      <Tooltip isVisible={ true } data-element='bar' data-role='baz'>
         Some Helpful Content
       </Tooltip>
     );

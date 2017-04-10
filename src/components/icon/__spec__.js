@@ -159,7 +159,7 @@ describe('Icon', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<Icon element='bar' role='baz' type='tick'/>);
+      let wrapper = shallow(<Icon data-element='bar' data-role='baz' type='tick'/>);
 
       it('include correct component, element and role data tags', () => {
         window.RootTagTest.run(wrapper, 'icon', 'bar', 'baz');

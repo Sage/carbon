@@ -232,8 +232,8 @@ class Dialog extends Modal {
   componentTags(props) {
     return {
       'data-component': 'dialog',
-      'data-element': props.element,
-      'data-role': props.role
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
     };
   }
 

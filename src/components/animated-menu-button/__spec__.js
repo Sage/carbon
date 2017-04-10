@@ -52,7 +52,7 @@ describe('AnimatedMenuButton', () => {
       </AnimatedMenuButton>
     );
 
-    wrapper = shallow(<AnimatedMenuButton label='Create...' element='bar' role='baz'/>)
+    wrapper = shallow(<AnimatedMenuButton label='Create...' data-element='bar' data-role='baz'/>)
 
     spyOn(basicWidget, 'setState').and.callThrough();
   });

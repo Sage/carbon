@@ -31,7 +31,7 @@ describe('Alert', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<Alert open={ true } element='bar' role='baz' />);
+      let wrapper = shallow(<Alert open={ true } data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
         window.RootTagTest.run(wrapper, 'alert', 'bar', 'baz');

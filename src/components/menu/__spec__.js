@@ -30,7 +30,7 @@ describe('Menu', () => {
   });
 
   describe("tags on component", () => {
-    let wrapper = shallow(<Menu element='bar' role='baz'>Test</Menu>);
+    let wrapper = shallow(<Menu data-element='bar' data-role='baz'>Test</Menu>);
 
     it('include correct component, element and role data tags', () => {
       window.RootTagTest.run(wrapper, 'menu', 'bar', 'baz');

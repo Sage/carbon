@@ -185,10 +185,10 @@ describe('Sidebar', () => {
     describe("on component", () => {
       let wrapper = shallow(
         <Sidebar
-          element='bar'
+          data-element='bar'
           onCancel={ () => {} }
           onConfirm={ () => {} }
-          role='baz'
+          data-role='baz'
         />
       );
 

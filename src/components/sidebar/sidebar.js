@@ -136,8 +136,8 @@ class Sidebar extends Modal {
   componentTags(props) {
     return {
       'data-component': 'sidebar',
-      'data-element': props.element,
-      'data-role': props.role
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
     };
   }
 

@@ -9,7 +9,7 @@ describe('ButtonToggle', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<ButtonToggle><span>Plus</span></ButtonToggle>);
     wrapper = shallow(
-      <ButtonToggle role='contacts' element='button-toggle'><span>Minus</span></ButtonToggle>
+      <ButtonToggle data-role='contacts' data-element='button-toggle'><span>Minus</span></ButtonToggle>
     );
   });
 
@@ -90,7 +90,7 @@ describe('ButtonToggle', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<ButtonToggle element='bar' role='baz'>Test</ButtonToggle>);
+      let wrapper = shallow(<ButtonToggle data-element='bar' data-role='baz'>Test</ButtonToggle>);
 
       it('include correct component, element and role data tags', () => {
         window.RootTagTest.run(wrapper, 'button-toggle', 'bar', 'baz');

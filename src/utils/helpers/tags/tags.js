@@ -10,8 +10,8 @@ function tagComponent(component, props) {
     ['data-component']: component
   };
 
-  if (props.element) { tagProps['data-element'] = props.element; }
-  if (props.role) { tagProps['data-role'] = props.role; }
+  if (props['data-element']) { tagProps['data-element'] = props['data-element']; }
+  if (props['data-role']) { tagProps['data-role'] = props['data-role']; }
 
   return tagProps;
 }

@@ -221,8 +221,8 @@ class AnimatedMenuButton extends React.Component {
   componentProps() {
     let { ...props } = validProps(this);
 
-    delete props.element;
-    delete props.role;
+    delete props['data-element'];
+    delete props['data-role'];
 
     props.className = this.mainClasses();
     props.onBlur = this.handleBlur;

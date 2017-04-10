@@ -339,9 +339,9 @@ describe('DateRange', () => {
     describe("on component", () => {
       let wrapper = shallow(
         <DateRange
-          element='bar'
+          data-element='bar'
           onChange={ () => {} }
-          role='baz'
+          data-role='baz'
           value={ ['2016-10-10','2016-11-11'] }
         />
       );

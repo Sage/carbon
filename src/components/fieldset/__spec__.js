@@ -32,7 +32,7 @@ describe('Fieldset', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<Fieldset element='bar' role='baz' />);
+      let wrapper = shallow(<Fieldset data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
         window.RootTagTest.run(wrapper, 'fieldset', 'bar', 'baz');

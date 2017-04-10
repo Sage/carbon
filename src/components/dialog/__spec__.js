@@ -294,11 +294,11 @@ describe('Dialog', () => {
     describe("on component", () => {
       let wrapper = shallow(
         <Dialog
-          element='bar'
+          data-element='bar'
           onCancel={ () => {} }
           onConfirm={ () => {} }
           open={ true }
-          role='baz'
+          data-role='baz'
         />);
 
       it('include correct component, element and role data tags', () => {

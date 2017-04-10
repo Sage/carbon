@@ -122,8 +122,6 @@ class Button extends React.Component {
     );
 
     props = assign({}, props, tagComponent('button', this.props));
-    delete props.element;
-    delete props.role;
 
     return React.createElement(el, props, this.props.children);
   }

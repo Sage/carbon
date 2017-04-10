@@ -8,7 +8,7 @@ describe('app wrapper', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument( <AppWrapper className='foobar'>foo</AppWrapper>);
-    wrapper = shallow(<AppWrapper className='foobar' element='app-wrapper' role='contacts'>foo</AppWrapper>);
+    wrapper = shallow(<AppWrapper className='foobar' data-element='app-wrapper' data-role='contacts'>foo</AppWrapper>);
   });
 
   it('renders the children', () => {
@@ -23,7 +23,7 @@ describe('app wrapper', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<AppWrapper element='bar' role='baz' />);
+      let wrapper = shallow(<AppWrapper data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
         window.RootTagTest.run(wrapper, 'app-wrapper', 'bar', 'baz');

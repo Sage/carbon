@@ -9,7 +9,7 @@ describe('tagComponent', () => {
 
   describe('when role and element props are sent', () => {
     it('adds those to the tagProps object', () => {
-      expect(tagComponent('my-component', { element: 'my-component', role: 'contacts'}))
+      expect(tagComponent('my-component', { ['data-element']: 'my-component', ['data-role']: 'contacts'}))
         .toEqual(
           {
             ['data-component']: 'my-component',

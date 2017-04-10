@@ -479,7 +479,7 @@ describe('Decimal', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<Decimal element='bar' role='baz' />);
+      let wrapper = shallow(<Decimal data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
         window.RootTagTest.run(wrapper, 'decimal', 'bar', 'baz');

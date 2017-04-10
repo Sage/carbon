@@ -73,7 +73,7 @@ describe('SplitButton', () => {
   // describe("tags", () => {
   //   describe("on component", () => {
   //     let wrapper = shallow(
-  //       <MultiActionButton element='bar' role='baz' text='Test'>
+  //       <MultiActionButton data-element='bar' data-role='baz' text='Test'>
   //         <Button>Test</Button>
   //       </MultiActionButton>
   //     );

@@ -68,8 +68,8 @@ describe('Textbox', () => {
         value={ 'foo' }
         label={ 'Label' }
         onChange={ spy }
-        element='bar'
-        role='baz'
+        data-element='bar'
+        data-role='baz'
       />
     );
 

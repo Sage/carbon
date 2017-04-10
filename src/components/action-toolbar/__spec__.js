@@ -14,8 +14,8 @@ describe('action toolbar', () => {
       <ActionToolbar
         actions={[ {onClick: () => {}, text: 'myAction', icon: 'add'} ]}
         className='foo'
-        element='bar'
-        role='baz'
+        data-element='bar'
+        data-role='baz'
       />
     );
   });
@@ -95,12 +95,23 @@ describe('action toolbar', () => {
     });
   });
 
-  describe("component tags", () => {
-    it('adds component, element and role to the root node', () => {
-      window.RootTagTest.run(wrapper, 'action-toolbar', 'bar', 'baz');
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <ActionToolbar
+          data-element='bar'
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        window.RootTagTest.run(wrapper, 'action-toolbar', 'bar', 'baz');
+      });
     });
 
-    it("adds element tags to it's children", () => {
+    describe("on internal elements", () => {
+      let wrapper = shallow(<ActionToolbar actions={ [ ()=>{} ] }/>);
+
       window.ElementsTagTest.run(wrapper, [
         'action',
         'total'

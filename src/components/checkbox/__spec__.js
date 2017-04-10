@@ -140,7 +140,7 @@ describe('Checkbox', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<Checkbox element='bar' role='baz' />);
+      let wrapper = shallow(<Checkbox data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
         window.RootTagTest.run(wrapper, 'checkbox', 'bar', 'baz');

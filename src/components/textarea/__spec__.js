@@ -268,8 +268,8 @@ describe('Textarea', () => {
         cols={10}
         rows={10}
         onChange={ spy }
-        element='bar'
-        role='baz'
+        data-element='bar'
+        data-role='baz'
       />
     );
 

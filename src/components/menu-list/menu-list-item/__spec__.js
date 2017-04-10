@@ -35,7 +35,7 @@ describe('MenuListItem', () => {
   });
 
   describe("tags on component", () => {
-    let wrapper = shallow(<MenuListItem element='bar' role='baz'>Test</MenuListItem>);
+    let wrapper = shallow(<MenuListItem data-element='bar' data-role='baz'>Test</MenuListItem>);
 
     it('include correct component, element and role data tags', () => {
       window.RootTagTest.run(wrapper, 'menu-list-item', 'bar', 'baz');

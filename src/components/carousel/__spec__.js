@@ -263,7 +263,7 @@ describe('Carousel', () => {
   describe("tags", () => {
     describe("on component", () => {
       let wrapper = shallow(
-        <Carousel element='bar' role='baz' initialSlideIndex={ 0 }>
+        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
           <Slide/>
         </Carousel>
       );
@@ -276,7 +276,7 @@ describe('Carousel', () => {
     describe("on internal elements", () => {
       let wrapper = shallow(
         <Carousel initialSlideIndex={ 0 }>
-          <Slide element='slide'/>
+          <Slide data-element='slide'/>
         </Carousel>
       );
 

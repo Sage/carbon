@@ -89,12 +89,11 @@ describe('Toast', () => {
 
       beforeEach(() => {
         wrapper = shallow(
-          <Toast open={ true } as='info' className='custom' onDismiss={ () => {} } element='bar' role='baz'>
+          <Toast open={ true } as='info' className='custom' onDismiss={ () => {} } data-element='bar' data-role='baz'>
             foobar
           </Toast>
         );
       });
-
 
       it('includes correct component, element and role data tags', () => {
         global.RootTagTest.run(wrapper.find('.carbon-toast'), 'toast', 'bar', 'baz');

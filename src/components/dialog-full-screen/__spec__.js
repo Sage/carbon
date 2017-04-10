@@ -68,11 +68,11 @@ describe('DialogFullScreen', () => {
     describe("on component", () => {
       let wrapper = shallow(
         <DialogFullScreen
-          element='bar'
+          data-element='bar'
           onCancel={ () => {} }
           onConfirm={ () => {} }
           open={ true }
-          role='baz'
+          data-role='baz'
         />
       );
 

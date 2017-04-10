@@ -353,11 +353,11 @@ describe('Flash', () => {
     describe("on component", () => {
       let wrapper = shallow(
         <Flash
-          element='bar'
+          data-element='bar'
           message='bun::more::dy'
           onDismiss={ () => {} }
           open={ true }
-          role='baz'
+          data-role='baz'
           timeout={ null }
         />
       );

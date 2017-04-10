@@ -909,10 +909,10 @@ describe('Dropdown', () => {
     describe("on component", () => {
       let wrapper = shallow(
         <Dropdown
-          element='bar'
+          data-element='bar'
           options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
           path='test'
-          role='baz'
+          data-role='baz'
         />
       );
 

@@ -536,7 +536,7 @@ describe('Date', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<Date element='bar' role='baz' />);
+      let wrapper = shallow(<Date data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
         window.RootTagTest.run(wrapper, 'date', 'bar', 'baz');

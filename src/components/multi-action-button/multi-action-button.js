@@ -123,8 +123,8 @@ class MultiActionButton extends SplitButton {
   componentTags(props) {
     return {
       'data-component': 'split-button',
-      'data-element': props.element,
-      'data-role': props.role
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
     };
   }
 }

@@ -87,7 +87,7 @@ describe('SplitButton', () => {
     });
   });
 
-   describe('mouse leave split-button', () => {
+  describe('mouse leave split-button', () => {
     it('changes showAdditionalButtons state', () => {
       let block = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button');
       TestUtils.Simulate.mouseLeave(block);
@@ -109,7 +109,7 @@ describe('SplitButton', () => {
   describe("tags", () => {
     describe("on component", () => {
       let wrapper = shallow(
-        <SplitButton element='bar' role='baz' text='Test'>
+        <SplitButton data-element='bar' data-role='baz' text='Test'>
           <Button>Test</Button>
         </SplitButton>
       );
