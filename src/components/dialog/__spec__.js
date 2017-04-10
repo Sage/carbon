@@ -1,12 +1,12 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import Dialog from './dialog';
 import I18n from 'i18n-js';
 import Bowser from 'bowser';
 import Button from './../button';
 import Row from './../row'
-import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Dialog', () => {
   let instance, onCancel;

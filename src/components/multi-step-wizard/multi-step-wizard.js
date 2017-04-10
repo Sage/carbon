@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import Step from './step';
+import { tagComponent } from '../../utils/helpers/tags';
+
 
 /**
  * A MultiStepWizard widget.
@@ -243,7 +245,12 @@ class MultiStepWizard extends React.Component {
   get wizardStepsHTML() {
     return this.props.steps.map((step, index) => {
       return (
-        <Step stepNumber={ index + 1 } key={ `multi-step-wizard-step-${index}` } { ...step.props }>
+        <Step
+          data-element='step'
+          key={ `multi-step-wizard-step-${index}` }
+          stepNumber={ index + 1 }
+          { ...step.props }
+        >
           { step }
         </Step>
       );
@@ -271,7 +278,7 @@ class MultiStepWizard extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('multi-step-wizard', this.props) }>
         <div className='multi-step-wizard__content'>
           { this.wizardStepsHTML }
         </div>

@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import Row from './../row';
+import Button from './../button';
+import Pod from './../pod';
+import Device from './../../utils/helpers/devices';
+import Icon from './../icon';
 import AnimatedMenuButton from './animated-menu-button';
-import Row from 'components/row';
-import Button from 'components/button';
-import Pod from 'components/pod';
-import Device from 'utils/helpers/devices';
-import Icon from 'components/icon';
 
 describe('AnimatedMenuButton', () => {
   let basicWidget, labelWidget, customClassWidget, rightWidget, largeWidget, contentWidget, button, wrapper;
@@ -208,6 +208,7 @@ describe('AnimatedMenuButton', () => {
         expect(basicWidget.componentProps().onTouchEnd).toBeDefined();
       });
     });
+
 
     describe('when it is not a touch device', () => {
       it('does not add the touch handler', () => {

@@ -1,11 +1,11 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import DialogFullScreen from './dialog-full-screen';
+import { shallow } from 'enzyme';
 import I18n from 'i18n-js';
 import Bowser from 'bowser';
-import Button from './../button';
-import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import DialogFullScreen from './dialog-full-screen';
+import Button from './../button';
 
 describe('DialogFullScreen', () => {
   let instance,

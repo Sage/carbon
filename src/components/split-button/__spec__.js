@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import SplitButton from './split-button';
 import Icon from './../icon';
 import Button from './../button';
-import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
-describe('SplitButton', () => {
+fdescribe('SplitButton', () => {
   let twoItemsSplitButton;
   let handleMainButton = jasmine.createSpy("main");
   let handleSecondButton = jasmine.createSpy("second");

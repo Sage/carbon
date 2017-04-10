@@ -1,11 +1,10 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import DropdownFilter from './dropdown-filter';
 import Immutable from 'immutable';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import ImmutableHelper from './../../utils/helpers/immutable';
-
+import DropdownFilter from './dropdown-filter';
 
 describe('DropdownFilter', () => {
   let instance;

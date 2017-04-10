@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import { tagComponent } from '../../utils/helpers/tags';
+import { tagComponent } from './../../utils/helpers/tags';
 
 /**
  * Manages the width and containment of your application.

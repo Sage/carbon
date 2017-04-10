@@ -1,7 +1,9 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
 import NumberComponent from './../number';
 import Pager from './pager';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 
 describe('Pager', () => {
   let instance, instance2, spy1, spy2;
@@ -328,6 +330,30 @@ describe('Pager', () => {
 
     it('adds a class of unselectable', () => {
       expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'unselectable').length).toBeTruthy();
+    });
+  });
+
+  describe('tags on component', () => {
+    let wrapper = shallow(
+      <Pager
+        currentPage='1'
+        pageSize='10'
+        showPageSizeSelection={ true }
+        totalRecords='100'
+        onPagination={ spy1 }
+        element='bar'
+        role='baz'
+      />
+    );
+
+    it('includes correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'pager', 'bar', 'baz');
+    });
+
+    describe('on internal elements', () => {
+      it("adds element tags to it's children", () => {
+        elementsTagTest(wrapper, ['previous-page', 'current-page', 'next-page']);
+      });
     });
   });
 });

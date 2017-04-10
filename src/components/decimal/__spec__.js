@@ -1,11 +1,11 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Decimal from './decimal';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import I18n from "i18n-js";
 import ReactDOM from 'react-dom';
 import Events from './../../utils/helpers/events';
-import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import Decimal from './decimal';
 
 describe('Decimal', () => {
   var instance;

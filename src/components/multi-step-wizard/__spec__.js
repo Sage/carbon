@@ -1,6 +1,9 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
 import MultiStepWizard from './multi-step-wizard';
+import MultiActionButton from './../multi-action-button';
+import Button from './../button';
 
 describe('MultiStepWizard', () => {
   let instance,
@@ -205,6 +208,35 @@ describe('MultiStepWizard', () => {
           div2 = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
       expect(div1.className).toContain('multi-step-wizard');
       expect(div2.className).toEqual('multi-step-wizard__content');
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <MultiActionButton element='bar' role='baz' text='Test'>
+          <Button>Test</Button>
+        </MultiActionButton>
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'multi-action-button', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <MultiActionButton text='Test'>
+          <Button>Test</Button>
+        </MultiActionButton>
+      );
+      wrapper.setState({ showAdditionalButtons: true })
+
+      elementsTagTest(wrapper, [
+        'additional-buttons',
+        'main-button',
+        'open'
+      ]);
     });
   });
 });

@@ -1,11 +1,11 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Dropdown from './dropdown';
 import Immutable from 'immutable';
-import Events from './../../utils/helpers/events';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
 import ImmutableHelper from './../../utils/helpers/immutable';
+import Events from './../../utils/helpers/events';
+import Dropdown from './dropdown';
 
 describe('Dropdown', () => {
   let instance;

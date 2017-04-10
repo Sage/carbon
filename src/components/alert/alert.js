@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { assign } from 'lodash';
-import Dialog from '../dialog';
+import Dialog from './../dialog';
 
 /**
  * A Alert widget.

@@ -1,12 +1,12 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import ActionToolbar from './action-toolbar';
-import Link from 'components/link';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import Link from './../link';
 
 describe('action toolbar', () => {
-  let instance, wrapper;
+  let instance, wrapper, mountable;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<ActionToolbar actions={[ {}, {} ]} className='foo' />);
@@ -23,38 +23,71 @@ describe('action toolbar', () => {
 
   describe('componentWillMount', () => {
     describe('if attachActionToolbar exists', () => {
+      let spy = jasmine.createSpy(),
+          mountable = mount(
+            <ActionToolbar
+              actions={[ {onClick: () => {}, text: 'myAction', icon: 'add'} ]}
+              className='foo'
+              element='bar'
+              role='baz'
+            />,
+            { context: { attachActionToolbar: spy} }
+          );
+
       it('calls attachActionToolbar', () => {
-        let spy = jasmine.createSpy();
-        instance.context = {
-          attachActionToolbar: spy
-        };
-        instance.componentWillMount();
-        expect(spy).toHaveBeenCalledWith(instance);
+        mountable.unmount();
+        mountable.mount();
+        expect(spy).toHaveBeenCalled();
       });
     });
 
     describe('if attachActionToolbar does not exist', () => {
-      it('calls does not fail', () => {
-        expect(instance.componentWillMount()).toBe(undefined);
+      mountable = mount(
+        <ActionToolbar
+          actions={[ {onClick: () => {}, text: 'myAction', icon: 'add'} ]}
+          className='foo'
+          element='bar'
+          role='baz'
+        />
+      );
+
+      it('calls do not fail', () => {
+        expect(mountable.unmount()).toBeTruthy();
       });
     });
   });
 
   describe('componentWillUnmount', () => {
     describe('if detachActionToolbar exists', () => {
+      let spy = jasmine.createSpy(),
+          mountable = mount(
+            <ActionToolbar
+              actions={[ {onClick: () => {}, text: 'myAction', icon: 'add'} ]}
+              className='foo'
+              element='bar'
+              role='baz'
+            />,
+            { context: { detachActionToolbar: spy} }
+          );
+
       it('calls detachActionToolbar', () => {
-        let spy = jasmine.createSpy();
-        instance.context = {
-          detachActionToolbar: spy
-        };
-        instance.componentWillUnmount();
-        expect(spy).toHaveBeenCalledWith(instance);
+        mountable.unmount();
+        expect(spy).toHaveBeenCalled();
       });
     });
 
     describe('if detachActionToolbar does not exist', () => {
+      mountable = mount(
+        <ActionToolbar
+          actions={[ {onClick: () => {}, text: 'myAction', icon: 'add'} ]}
+          className='foo'
+          element='bar'
+          role='baz'
+        />
+      );
+
       it('calls does not fail', () => {
-        expect(instance.componentWillUnmount()).toBe(undefined);
+        expect(mountable.unmount()).toBeTruthy();
       });
     });
   });

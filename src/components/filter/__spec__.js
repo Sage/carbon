@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Filter from './filter.js';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import { rootTagTest } from '../../utils/helpers/test';
+import Filter from './filter.js';
 
 describe('Filter', () => {
   let instance;

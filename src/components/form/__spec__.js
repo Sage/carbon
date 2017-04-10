@@ -1,16 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
+import I18n from "i18n-js";
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
+import ImmutableHelper from './../../utils/helpers/immutable';
 import Form from './form';
 import Textbox from './../textbox';
 import Validation from './../../utils/validations/presence';
-import ImmutableHelper from './../../utils/helpers/immutable';
 import Dialog from './../dialog';
-import I18n from "i18n-js";
-
-import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/test';
-
 import FormSummary from './form-summary';
 
 describe('Form', () => {
