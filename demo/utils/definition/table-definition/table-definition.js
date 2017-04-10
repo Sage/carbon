@@ -39,6 +39,7 @@ function buildRows() {
 }`;
 
   definition.propTypes = assign({}, definition.propTypes, {
+    caption: "String",
     currentPage: "Number",
     filter: "Object",
     highlightable: "Boolean",
@@ -57,6 +58,7 @@ function buildRows() {
     totalRecords: "Number"
   });
   definition.propDescriptions = assign({}, definition.propDescriptions, {
+    caption: "Optional title for the table.",
     currentPage: "Controls the current page number of a paginated data set.",
     filter: "An object of filtered data. Each key in the object should match with the key of one of the table's columns.",
     highlightable: "Makes each row clickable/highlightable. Works well with the onHighlight callback.",
