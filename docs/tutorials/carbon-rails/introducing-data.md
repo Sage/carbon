@@ -150,7 +150,7 @@ import UserStore from 'stores/user';
 import UserActions from 'actions/user';
 
 class User extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     UserActions.getData();
   }
 
@@ -247,7 +247,7 @@ import UserStore from 'stores/user';
 import UserActions from 'actions/user';
 
 class User extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     if (!global.USER_DATA) {
       UserActions.getData();
     }
