@@ -2,6 +2,7 @@
 import Dispatcher from '../../dispatcher';
 import Store from 'utils/flux/store';
 import ImmutableHelper from 'utils/helpers/immutable';
+import BrowserHelper from 'utils/helpers/browser';
 
 // Flux
 import ComponentActions from './../../actions/component';
@@ -16,6 +17,13 @@ global.tableData = ImmutableHelper.parseJSON([]);
 global.tableAjaxData = ImmutableHelper.parseJSON([]);
 
 class ComponentStore extends Store {
+
+  constructor(name, data, Dispatcher) {
+    super(name, data, Dispatcher);
+
+    this.parseOptionsFromUrl(data);
+  }
+
   [ComponentConstants.UPDATE_DEFINITION](data) {
     let value = data.value;
 
@@ -68,9 +76,23 @@ class ComponentStore extends Store {
     this.data = this.data.set('optionsUrl', action.url);
   }
 
-  [ComponentConstants.GET_OPTIONS_FROM_URL](action) {
-    const options = ImmutableHelper.parseJSON(action.options);
-    this.data = this.data.setIn([action.componentName, 'propValues'], options);
+  [ComponentConstants.RESET_OPTIONS_URL](action) {
+    this.data = this.data.set('optionsUrl', '');
+  }
+
+  parseOptionsFromUrl = (data) => {
+    let params = BrowserHelper.extractUrlParams();
+
+    if (params['options']) {
+      let options = JSON.parse(atob(params['options']));
+
+      Object.keys(options).forEach((key) => {
+        this.data = this.data.setIn(
+          [key, 'propValues'],
+          ImmutableHelper.parseJSON(options[key])
+        );
+      });
+    }
   }
 }
 

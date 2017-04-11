@@ -10,8 +10,6 @@ import Code from './../../../../components/code';
 import ShareConfig from './../../../../components/share-config';
 import Fields from './fields';
 
-import BrowserHelper from 'utils/helpers/browser';
-
 /**
  * Simple, site wrapped content area that loads a heading
  *
@@ -23,12 +21,6 @@ class ComponentPreview extends React.Component {
 
   componentDidMount() {
     this.renderDemo();
-
-    let params = BrowserHelper.extractUrlParams();
-
-    if (params['options']) {
-      ComponentActions.getOptionsFromUrl(params['options'], this.props.name);
-    }
   }
 
   componentDidUpdate() {
@@ -37,6 +29,7 @@ class ComponentPreview extends React.Component {
 
   generateOptionsUrl = () => {
     ComponentActions.generateOptionsUrl(
+      this.props.name,
       this.props.definition.get('propValues')
     );
   }

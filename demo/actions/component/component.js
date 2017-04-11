@@ -78,8 +78,14 @@ const ComponentActions = {
     });
   },
 
-  generateOptionsUrl: (componentOptions) => {
-    let options = btoa(JSON.stringify(componentOptions.toJS()))
+  resetOptionsUrl: (data) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.RESET_OPTIONS_URL
+    });
+  },
+
+  generateOptionsUrl: (componentName, componentOptions) => {
+    let options = btoa(JSON.stringify({ [componentName]: componentOptions.toJS() }));
     let basePath = Browser.getLocation().origin + Browser.getLocation().pathname;
 
     let url = `${ basePath }?options=${ options }`;
@@ -88,15 +94,6 @@ const ComponentActions = {
       url: url
     });
   },
-
-  getOptionsFromUrl: (encodedComponentOptions, componentName) => {
-    let options = JSON.parse(atob(encodedComponentOptions));
-    window.Dispatcher.dispatch({
-      actionType: window.ComponentConstants.GET_OPTIONS_FROM_URL,
-      componentName: componentName,
-      options: options
-    });
-  }
 };
 
 export default ComponentActions;

@@ -5,5 +5,5 @@ export default {
   UPDATE_TABLE: 'updateTable',
   UPDATE_TABLE_AJAX: 'updateTableAjax',
   SET_OPTIONS_URL: 'setOptionsUrl',
-  GET_OPTIONS_FROM_URL: 'getOptionsFromUrl'
+  RESET_OPTIONS_URL: 'resetOptionsUrl'
 };
