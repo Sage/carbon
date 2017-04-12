@@ -16,7 +16,7 @@ describe('TableHeader', () => {
     changeSpy = jasmine.createSpy('changeSpy');
 
     instance = TestUtils.renderIntoDocument(
-      <Table>
+      <Table actions={ [] }>
         <TableRow>
           <TableHeader className="foo" align="right" style={{ width: "50px" }} />
         </TableRow>
@@ -24,7 +24,7 @@ describe('TableHeader', () => {
     );
 
     instanceSortable = TestUtils.renderIntoDocument(
-      <Table onChange={ changeSpy }>
+      <Table actions={ [] } onChange={ changeSpy }>
         <TableRow>
           <TableHeader sortable={ true } name='name' />
         </TableRow>
@@ -32,7 +32,7 @@ describe('TableHeader', () => {
     );
 
     instanceCustomSort = TestUtils.renderIntoDocument(
-      <Table onChange={ changeSpy } sortOrder='desc'>
+      <Table actions={ [] } onChange={ changeSpy } sortOrder='desc'>
         <TableRow>
           <TableHeader sortable={ true } align='right' name='name' />
         </TableRow>
@@ -52,7 +52,7 @@ describe('TableHeader', () => {
 
     it('throws an error if no name prop is passed', () => {
       TestUtils.renderIntoDocument(
-        <Table onChange={ changeSpy } sortOrder='desc'>
+        <Table actions={ [] } onChange={ changeSpy } sortOrder='desc'>
           <TableRow>
             <TableHeader sortable={ true }/>
           </TableRow>
@@ -63,7 +63,7 @@ describe('TableHeader', () => {
 
     it('throws an error if the name is not a string', () => {
       TestUtils.renderIntoDocument(
-        <Table onChange={ changeSpy } sortOrder='desc'>
+        <Table actions={ [] } onChange={ changeSpy } sortOrder='desc'>
           <TableRow>
             <TableHeader sortable={ true } name={ 123 }/>
           </TableRow>

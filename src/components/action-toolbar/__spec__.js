@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Link from './../link';
 
-describe('action toolbar', () => {
+describe('ActionToolbar', () => {
   let instance, wrapper, mountable;
 
   beforeEach(() => {
@@ -133,6 +133,7 @@ describe('action toolbar', () => {
     describe("on component", () => {
       let wrapper = shallow(
         <ActionToolbar
+          actions={ [] }
           data-element='bar'
           data-role='baz'
         />

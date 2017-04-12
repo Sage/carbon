@@ -11,7 +11,7 @@ describe('TableRow', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Table>
+      <Table actions={ [] }>
         <TableRow>
           <TableCell className="foo" align="right" style={{ width: "50px" }} />
         </TableRow>
@@ -34,7 +34,7 @@ describe('TableRow', () => {
   describe('with action', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Table>
+        <Table actions={ [] }>
           <TableRow>
             <TableCell className="foo" action={ true } />
           </TableRow>

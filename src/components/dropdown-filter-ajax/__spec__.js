@@ -100,7 +100,7 @@ describe('DropdownFilterAjax', () => {
         it('triggers the onBlur function', () => {
           let onBlur = jasmine.createSpy('onBlur');
 
-          instance = TestUtils.renderIntoDocument(<DropdownFilterAjax onBlur={ onBlur } />);
+          instance = TestUtils.renderIntoDocument(<DropdownFilterAjax onBlur={ onBlur } path='/foobar' />);
           TestUtils.Simulate.blur(instance._input);
           expect(onBlur).toHaveBeenCalled();
         });
@@ -340,7 +340,7 @@ describe('DropdownFilterAjax', () => {
         <DropdownFilterAjax
           data-element='bar'
           options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
-          path='test'
+          path='/foobar'
           data-role='baz'
         />
       );
@@ -358,7 +358,7 @@ describe('DropdownFilterAjax', () => {
             label='test'
             open={ true }
             options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
-            path='test'
+            path='/foobar'
           />
         );
 

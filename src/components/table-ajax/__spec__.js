@@ -336,7 +336,14 @@ describe('TableAjax', () => {
   });
 
   describe("tags on component", () => {
-    let wrapper = shallow(<TableAjax data-element='bar' data-role='baz' />);
+    let wrapper = shallow(
+      <TableAjax
+        actions={ [] }
+        data-element='bar'
+        data-role='baz'
+        path='test'
+      />
+    );
 
     it('include correct component, element and role data tags', () => {
       rootTagTest(wrapper, 'table-ajax', 'bar', 'baz');
