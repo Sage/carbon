@@ -1,5 +1,4 @@
 import React from 'react';
-import { titleize } from 'underscore.string';
 import { includes, startCase } from 'lodash';
 import ImmutableHelper from 'utils/helpers/immutable';
 import ComponentStore from './../../../../../stores/component';
