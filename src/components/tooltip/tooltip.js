@@ -107,7 +107,7 @@ class Tooltip extends React.Component {
 
     return (
       <div className={ this.mainClasses } { ...tagComponent('tooltip', this.props) }>
-        <div className='carbon-tooltip__container' data-element='container'>
+        <div className='carbon-tooltip__container'>
           { contents }
         </div>
       </div>

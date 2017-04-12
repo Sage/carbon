@@ -89,14 +89,8 @@ describe('tooltip', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      it('includes correct component, element and role data tags', () => {
+      it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper, 'tooltip', 'bar', 'baz');
-      });
-    });
-
-    describe('on internal elements', () => {
-      it("adds element tags to it's children", () => {
-        elementsTagTest(wrapper, ['container']);
       });
     });
   });

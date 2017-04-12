@@ -81,30 +81,17 @@ describe('Toast', () => {
   describe('tags', () => {
     let wrapper;
 
-    beforeEach(() => {
-
-    });
-
     describe('on component', () => {
-      let wrapper;
+      let wrapper = shallow(<Toast data-element='bar' data-role='baz' />);
 
-      beforeEach(() => {
-        wrapper = shallow(
-          <Toast open={ true } as='info' className='custom' onDismiss={ () => {} } data-element='bar' data-role='baz'>
-            foobar
-          </Toast>
-        );
-      });
-
-      it('includes correct component, element and role data tags', () => {
+      it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper.find('.carbon-toast'), 'toast', 'bar', 'baz');
       });
     });
 
     describe('on internal elements', () => {
-      it("adds element tags to it's children", () => {
-        elementsTagTest(wrapper, ['close']);
-      });
+      let wrapper = shallow(<Toast open={ true } onDismiss={ ()=>{} } />);
+      elementsTagTest(wrapper, ['close']);
     });
   });
 });
