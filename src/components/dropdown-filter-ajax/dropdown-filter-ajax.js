@@ -1,6 +1,6 @@
 import React from 'react';
 import Request from 'superagent';
-import {cloneDeep } from 'lodash';
+import {cloneDeep, assign } from 'lodash';
 import DropdownFilter from './../dropdown-filter';
 
 /**
@@ -97,6 +97,15 @@ class DropdownFilterAjax extends DropdownFilter {
      * @type {String}
      */
     path: React.PropTypes.string.isRequired,
+
+
+    /**
+     * Additional parameters for the request (e.g. {foo: 'bar' })
+     *
+     * @property additionalRequestParams
+     * @type {Object}
+     */
+    additionalRequestParams: React.PropTypes.object,
 
     /**
      * The number of rows to get per request
@@ -198,13 +207,17 @@ class DropdownFilterAjax extends DropdownFilter {
    * @param {Object} page The page number to get
    */
   getData = (query = "", page = 1) => {
-    Request
-      .get(this.props.path)
-      .query({
+    let queryParams = assign(
+      {
         page: page,
         rows: this.props.rowsPerRequest,
         value: query
-      })
+      },
+      this.props.additionalRequestParams
+    );
+    Request
+      .get(this.props.path)
+      .query(queryParams)
       .end((err, response) => {
         this.updateList(response.body.data[0]);
       });
