@@ -1,3 +1,7 @@
+# 0.35.1
+
+* Ensure that node modules can only upgrade patch versions
+
 # 0.35.0
 
 ## Bug Fix
