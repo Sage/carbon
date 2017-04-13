@@ -106,9 +106,10 @@ const Browser = {
    * @return {Object} Params as key value
    */
   extractUrlParams: () => {
-    let params = Browser.getDocument().location.search.substring(1).split('&');
+    let params = Browser.getLocation().search;
+    if (!params) { return {} };
 
-    return params.reduce((accumulator, currentValue) => {
+    return params.substring(1).split('&').reduce((accumulator, currentValue) => {
       const keyValue = currentValue.split('=');
       accumulator[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
       return accumulator;
