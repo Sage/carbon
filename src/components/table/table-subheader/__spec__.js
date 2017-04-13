@@ -10,7 +10,7 @@ describe('TableSubheader', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Table actions={ [] }>
+      <Table>
         <TableRow>
           <TableSubheader className='foo' align='right' style={{ width: '50px' }} />
         </TableRow>

@@ -852,7 +852,7 @@ class Table extends React.Component {
    * @return {JSX}
    */
   get actionToolbar() {
-    if (!this.props.selectable) { return null; }
+    if (!this.props.selectable || !this.props.actions) { return null; }
 
     return (
       <ActionToolbar total={ this.state.selectedCount } actions={ this.props.actions } />

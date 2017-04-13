@@ -29,7 +29,6 @@ describe('Table', () => {
 
     instancePager = TestUtils.renderIntoDocument(
       <Table
-        actions={ [] }
         className="foo"
         paginate={ true }
         currentPage='1'
@@ -42,7 +41,7 @@ describe('Table', () => {
     );
 
     instanceSortable = TestUtils.renderIntoDocument(
-      <Table className='bar' onChange={ spy } actions={ [] }>
+      <Table className='bar' onChange={ spy }>
         <TableRow key='header'>
           <TableHeader sortable={true} name='name'>
             Names
@@ -53,7 +52,6 @@ describe('Table', () => {
 
     instanceCustomSort = TestUtils.renderIntoDocument(
       <Table
-        actions={ [] }
         className='baz'
         onChange={ spy }
         sortOrder='desc'
@@ -103,7 +101,7 @@ describe('Table', () => {
 
   describe('refresh', () => {
     beforeEach(() => {
-      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar actions={ [] }/>);
+      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar actions={ [] } />);
       spyOn(instance, 'resetHighlightedRow');
       spyOn(instance.actionToolbarComponent, 'setState');
       spyOn(instance, 'emitOnChangeCallback');
@@ -173,12 +171,23 @@ describe('Table', () => {
       });
     });
 
+    describe('if there is a actionToolbarComponent', () => {
+      it('calls setState on the action toolbar', () => {
+        let spy = jasmine.createSpy();
+        instance.actionToolbarComponent = {
+          setState: spy
+        };
+        instance.selectRow('foo', row, true);
+        expect(spy).toHaveBeenCalledWith({ total: 1, selected: instance.selectedRows });
+      });
+    });
+
     describe('if multi select', () => {
       let spy;
 
       beforeEach(() => {
         spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable={ true } actions={ [] }><TableRow uniqueID="foo" /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable={ true }><TableRow uniqueID="foo" /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
       });
@@ -200,7 +209,7 @@ describe('Table', () => {
 
       describe('if row is to be selected but is selectAll', () => {
         it('does not add the row', () => {
-          instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable={ true } actions={ [] }><TableRow uniqueID="foo" selectAll={ true } /></Table>);
+          instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable={ true }><TableRow uniqueID="foo" selectAll={ true } /></Table>);
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
           instance.selectRow('foo', row, true);
           expect(instance.selectedRows["foo"]).toBe(undefined);
@@ -225,7 +234,7 @@ describe('Table', () => {
 
     describe('if highlight row', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(<Table highlightable={ true } actions={ [] }><TableRow uniqueID="foo" /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table highlightable={ true }><TableRow uniqueID="foo" /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
       });
@@ -290,7 +299,7 @@ describe('Table', () => {
     describe('if there is an onHighlight callback', () => {
       it('calls the callback', () => {
         let spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table highlightable={ true } onHighlight={ spy } actions={ [] }><TableRow uniqueID="foo" /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table highlightable={ true } onHighlight={ spy }><TableRow uniqueID="foo" /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         instance.highlightRow('foo', row, true);
         expect(spy).toHaveBeenCalledWith('foo', true, row);
@@ -345,7 +354,7 @@ describe('Table', () => {
       it('calls the callback', () => {
         let spy = jasmine.createSpy();
         instance = TestUtils.renderIntoDocument(
-          <Table onSelect={ spy } actions={ [] } />
+          <Table onSelect={ spy } />
         );
         instance.rows = {};
         row = { state: {}, setState: () => {} };
@@ -358,7 +367,7 @@ describe('Table', () => {
       it('calls setState', () => {
         let spy = jasmine.createSpy();
         instance = TestUtils.renderIntoDocument(
-          <Table actions={ [] } />
+          <Table />
         );
         instance.actionToolbarComponent = {
           setState: spy
@@ -415,7 +424,7 @@ describe('Table', () => {
     beforeEach(() => {
       data = Immutable.fromJS({ foo: "bar" });
       instance = TestUtils.renderIntoDocument(
-        <Table filter={ data } actions={ [] }></Table>
+        <Table filter={ data }></Table>
       );
       spyOn(instance, 'emitOnChangeCallback');
     });
@@ -444,7 +453,7 @@ describe('Table', () => {
     describe('when highlightable is disabled', () => {
       it('resets the highlighted row', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table highlightable={ true } actions={ [] } />
+          <Table highlightable={ true } />
         );
         spyOn(instance, 'resetHighlightedRow');
         instance.componentWillReceiveProps({ highlightable: false });
@@ -455,7 +464,7 @@ describe('Table', () => {
     describe('when selectable is disabled', () => {
       it('resets the selectable rows', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table selectable={ true } actions={ [] } />
+          <Table selectable={ true } />
         );
         instance.rows = {
           foo: { props: { uniqueID: 'foo' } }
@@ -550,7 +559,7 @@ describe('Table', () => {
     describe('when shrink is enabled', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
-          <Table shrink={ true } actions={ [] }></Table>
+          <Table shrink={ true }></Table>
         );
       });
 
@@ -639,7 +648,6 @@ describe('Table', () => {
         callbackSpy = jasmine.createSpy();
         instanceCallBack = TestUtils.renderIntoDocument(
           <Table
-            actions={ [] }
             className="foo"
             paginate={ true }
             currentPage='1'
@@ -752,7 +760,7 @@ describe('Table', () => {
     describe('when pageSize is passed', () => {
       it('returns the prop pageSize', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table actions={ [] } path='/test' pageSize='123' >
+          <Table path='/test' pageSize='123' >
           </Table>
         );
         expect(instance.defaultPageSize).toEqual('123')
@@ -768,7 +776,7 @@ describe('Table', () => {
         ]);
 
         instance = TestUtils.renderIntoDocument(
-          <Table actions={ [] } pageSizeSelectionOptions={ options } >
+          <Table pageSizeSelectionOptions={ options } >
           </Table>
         );
         expect(instance.defaultPageSize).toEqual('1')
@@ -786,7 +794,7 @@ describe('Table', () => {
     describe('when thead is not provided', () => {
       it('returns the the correct markup', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table actions={ [] } path='/test'>
+          <Table path='/test'>
           </Table>
         );
         let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
@@ -804,7 +812,7 @@ describe('Table', () => {
           </TableRow>
         );
         instance = TestUtils.renderIntoDocument(
-          <Table actions={ [] } path='/test' thead={header}>
+          <Table path='/test' thead={header}>
           </Table>
         );
         let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
@@ -824,7 +832,7 @@ describe('Table', () => {
     });
 
     it('returns custom tbody when setting tbody prop to false', () => {
-      instance = TestUtils.renderIntoDocument(<Table actions={ [] } tbody={ false }><tbody className="custom"><tr><td></td></tr></tbody></Table>);
+      instance = TestUtils.renderIntoDocument(<Table tbody={ false }><tbody className="custom"><tr><td></td></tr></tbody></Table>);
       expect(instance.tbody.props.className).toEqual("custom");
     });
   });
@@ -846,7 +854,7 @@ describe('Table', () => {
   describe('tableContent', () => {
     describe('if there are children that are not immutable', () => {
       it('returns the children', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><tr /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><tr /></Table>);
         expect(instance.tableContent).toEqual(instance.props.children);
       });
     });
@@ -855,7 +863,7 @@ describe('Table', () => {
       it('returns the children if there are children', () => {
         let data = Immutable.fromJS([{ foo: 1 }, { foo: 2 }]),
             children = data.map((child, index) => { return <tr key={ index }></tr>; });
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }>{ children }</Table>);
+        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
 
         expect(instance.tableContent).toEqual(children);
       });
@@ -863,7 +871,7 @@ describe('Table', () => {
       it('returns the loadingRow if no children and not yet received data', () => {
         let data = Immutable.fromJS([]),
             children = data.map((child, index) => { return <tr key={ index }></tr>; });
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }>{ children }</Table>);
+        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = false;
 
         expect(instance.tableContent).toEqual(instance.loadingRow);
@@ -872,7 +880,7 @@ describe('Table', () => {
       it('returns the emptyRow if no children and has received data', () => {
         let data = Immutable.fromJS([]),
             children = data.map((child, index) => { return <tr key={ index }></tr>; });
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }>{ children }</Table>);
+        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = true;
 
         expect(instance.tableContent).toEqual(instance.emptyRow);
@@ -881,7 +889,7 @@ describe('Table', () => {
       it('returns the children with the loading row if only row is a header and has not yet received data', () => {
         let data = Immutable.fromJS([]),
             children = data.push(<TableRow as='header' key='header' />);
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }>{ children }</Table>);
+        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = false;
 
         expect(instance.tableContent.get(0)).toEqual(instance.props.children.get(0));
@@ -891,7 +899,7 @@ describe('Table', () => {
       it('returns the children with the empty row if only row is a header and has received data', () => {
         let data = Immutable.fromJS([]),
             children = data.push(<TableRow as='header' key='header' />);
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }>{ children }</Table>);
+        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = true;
 
         expect(instance.tableContent.get(0)).toEqual(instance.props.children.get(0));
@@ -901,7 +909,7 @@ describe('Table', () => {
 
     describe('if children count is 0 and has not yet retrieved data', () => {
       it('will return the loading row', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }></Table>);
+        instance = TestUtils.renderIntoDocument(<Table></Table>);
         instance._hasRetreivedData = false;
         expect(instance.tableContent).toEqual(instance.loadingRow);
       });
@@ -909,7 +917,7 @@ describe('Table', () => {
 
     describe('if children count is 0 and has retrieved data', () => {
       it('will return the empty row', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }></Table>);
+        instance = TestUtils.renderIntoDocument(<Table></Table>);
         instance._hasRetreivedData = true;
         expect(instance.tableContent).toEqual(instance.emptyRow);
       });
@@ -927,7 +935,6 @@ describe('Table', () => {
   describe("tags on component", () => {
     let wrapper = shallow(
       <Table
-        actions={ [ ()=>{} ] }
         data-element='bar'
         data-role='baz'
         path='test'
