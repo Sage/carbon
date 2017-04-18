@@ -357,7 +357,8 @@ class Date extends React.Component {
     let props = {
       ref: 'hidden',
       type: 'hidden',
-      readOnly: true
+      readOnly: true,
+      'data-element': 'hidden-input'
     };
 
     if (typeof this.props.value !== 'undefined') {

@@ -258,11 +258,12 @@ class Decimal extends React.Component {
    */
   get hiddenInputProps() {
     return {
-      name:     this.props.name,
-      readOnly: true,
-      ref:      'hidden',
-      type:     'hidden',
-      value:    this.props.value
+      name:           this.props.name,
+      readOnly:       true,
+      ref:           'hidden',
+      type:          'hidden',
+      value:          this.props.value,
+      'data-element': 'hidden-input'
     };
   }
 

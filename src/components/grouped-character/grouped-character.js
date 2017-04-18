@@ -195,10 +195,11 @@ class GroupedCharacter extends React.Component {
 
   get hiddenInputProps() {
     return {
-      value:    this.props.value,
-      ref:      (c) => { this._hidden = c; },
-      type:     'hidden',
-      readOnly: true
+      value:          this.props.value,
+      ref:            (c) => { this._hidden = c; },
+      type:           'hidden',
+      readOnly:       true,
+      'data-element': 'hidden-input'
     };
   }
 

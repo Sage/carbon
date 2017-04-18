@@ -100,11 +100,12 @@ class Checkbox extends React.Component {
    */
   get hiddenInputProps() {
     let props = {
-      name:     this.inputProps.name,
-      readOnly: true,
-      ref:      'hidden',
-      type:     'hidden',
-      value:    '0'
+      name:           this.inputProps.name,
+      readOnly:       true,
+      ref:            'hidden',
+      type:           'hidden',
+      value:          '0',
+      'data-element': 'hidden-input'
     };
 
     return props;
