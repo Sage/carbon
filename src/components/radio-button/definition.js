@@ -15,14 +15,19 @@ let definition = new Definition('radio-button', RadioButton, {
  `,
   type: 'form',
   numberOfExamples: 2,
+  hiddenProps: [
+    'checked'
+  ],
   propTypes: {
-    reverse: 'Boolean'
+    reverse: 'Boolean',
+    checked: 'Boolean'
   },
   propValues: {
     name: "example"
   },
   propDescriptions: {
-    reverse: 'Flips the input and label render order'
+    reverse: 'Flips the input and label render order',
+    checked: 'Determines if the radio button is checked. This can be used for external control of the radio button'
   }
 });
 

@@ -52,5 +52,11 @@ describe('RadioButton', () => {
     it('returns carbon-radio-button__help-text', () => {
       expect(instance.fieldHelpClasses).toEqual('carbon-radio-button__help-text common-input__help-text');
     });
+
+    describe('when label is reversed', () => {
+      it('returns a modified reverse class for the fieldInput', () => {
+
+      });
+    });
   });
 });

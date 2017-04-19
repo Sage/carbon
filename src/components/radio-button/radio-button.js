@@ -34,6 +34,12 @@ import { validProps } from '../../utils/ether';
  */
 const RadioButton = Input(InputLabel(InputValidation(
 class RadioButton extends React.Component {
+
+  static propTypes = {
+    reverse: React.PropTypes.bool,
+    checked: React.PropTypes.bool
+  }
+
   /**
    * Uses the mainClasses method provided by the decorator to add additional classes.
    *
@@ -66,6 +72,7 @@ class RadioButton extends React.Component {
   get fieldHelpClasses() {
     return classNames(
       'carbon-radio-button__help-text', {
+        'carbon-radio-button__help-text--reverse': this.props.reverse,
         'carbon-radio-button__help-text--inline': this.props.fieldHelpInline
       }
     );
@@ -131,11 +138,27 @@ class RadioButton extends React.Component {
    * @return {Object} JSX
    */
   render() {
+    let labelLeft, fieldHelpLeft,
+        labelRight = this.labelHTML,
+        fieldHelpRight = this.fieldHelpHTML;
+
+    if (this.props.reverse) {
+      labelLeft = this.labelHTML;
+      labelRight = null;
+
+      if (this.props.fieldHelpInline) {
+        fieldHelpLeft = this.fieldHelpHTML;
+        fieldHelpRight = null;
+      }
+    }
+
     return(
       <div className={ this.mainClasses }>
+        { labelLeft }
+        { fieldHelpLeft }
         { this.inputHTML }
-        { this.labelHTML }
-        { this.fieldHelpHTML }
+        { labelRight }
+        { fieldHelpRight }
         { this.validationHTML }
       </div>
     );
