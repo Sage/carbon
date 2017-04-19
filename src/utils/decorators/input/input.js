@@ -201,7 +201,10 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       inputProps.onChange = this._handleOnChange;
     }
 
-    inputProps.onFocus = this.handleFocus;
+    // Select all text within the input
+    if (this.props.selectAllOnFocus) {
+      inputProps.onFocus = this.handleFocus;
+    }
 
     // Pass onPaste action to input element
     inputProps.onPaste = this.props.onPaste;
@@ -283,9 +286,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   handleFocus = () => {
-    if (this.props.selectAllOnFocus) {
-      this._input.setSelectionRange(0, this._input.value.length)
-    }
+    this._input.setSelectionRange(0, this._input.value.length)
 
     if (this.props.onFocus) {
       this.props.onFocus();

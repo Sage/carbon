@@ -42,11 +42,6 @@ class ComponentPreview extends React.Component {
       >
         <div className= { `demo-component-preview demo-component-preview--${this.props.definition.get('key')}` }>
 
-          <ShareConfig
-            optionsUrl={ this.props.optionsUrl }
-            onShareClick={ this.generateOptionsUrl }
-          />
-
           <div className='demo-component-preview__component-wrapper'>
             <div id="carbon-demo" />
             <div ref='demo' />
@@ -55,7 +50,12 @@ class ComponentPreview extends React.Component {
           <SimpleHeading title="Code"></SimpleHeading>
 
           <div className='demo-component-preview__interaction'>
-            <Fields name={ this.props.name } definition={ this.props.definition } />
+            <Fields
+              name={ this.props.name }
+              definition={ this.props.definition }
+              optionsUrl={ this.props.optionsUrl }
+              generateOptionsUrl={ this.generateOptionsUrl }
+            />
             { this.renderCode() }
           </div>
         </div>

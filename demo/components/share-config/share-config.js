@@ -11,9 +11,13 @@ class ShareConfig extends React.Component {
     onShareClick: React.PropTypes.func, // callback for share button press
   }
 
+  className = () => {
+    return `${ this.props.className } demo-share-config`;
+  }
+
   render() {
     return (
-      <div className='demo-share-config'>
+      <div className={ this.className() }>
         <Button
           onClick={ this.props.onShareClick }
           className='demo-share-config__button'

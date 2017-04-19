@@ -14,8 +14,11 @@
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    padding: 20px;
     width: 350px;
+  }
+
+  &__form {
+    padding: 20px;
     .carbon-checkbox {
       .common-input__field {
         box-sizing: border-box;

@@ -1,21 +1,16 @@
 .demo-share-config {
-  width: 200px;
+  display: flex;
 }
 
 .demo-share-config__button {
-  display: inline-block;
-  width: 25%;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 0;
 }
 
 .demo-share-config__input {
-  display: inline-block;
-  width: 75%;
+  width: 100%;
 
   .carbon-textbox__input {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-radius: 0;
     border-left: 0;
   }
 }
