@@ -19,29 +19,31 @@ class Service {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      transformResponse: [ this._responseTransform ]
+      transformResponse: [ this.responseTransform ]
     });
 
     this.client.interceptors.response.use(this.handleSuccess, this.handleError);
+
+    this.enableGlobalCallbacks();
   }
 
   handleSuccess = (response) => {
     if (response.data.message) {
       if (response.data.status === "error") {
-        if (config.onError) { config.onError(response.data.message); }
+        if (this.globalCallbacks && config.onError) { config.onError(response.data.message); }
         return Promise.reject(response);
       } else {
-        if (config.onSuccess) { config.onSuccess(response.data.message); }
-        return response;
+        if (this.globalCallbacks && config.onSuccess) { config.onSuccess(response.data.message); }
+        return response.data;
       }
     } else {
-      return response;
+      return response.data;
     }
   }
 
   handleError = (error) => {
-    if (config.onError) { config.onError(error); }
-    return Promise.reject(error);
+    if (this.globalCallbacks && config.onError) { config.onError(error.response.data); }
+    return Promise.reject(error.response);
   }
 
   setURL = (url) => {
@@ -56,8 +58,16 @@ class Service {
     this.client.defaults.transformResponse[1] = func;
   }
 
+  enableGlobalCallbacks = () => {
+    this.globalCallbacks = true;
+  }
+
+  disableGlobalCallbacks = () => {
+    this.globalCallbacks = false;
+  }
+
   get = (id, onSuccess, onError) => {
-    this.client.get(id).then(
+    this.client.get(String(id)).then(
       this.successResponse.bind(this, onSuccess),
       this.errorResponse.bind(this, onError)
     );
@@ -71,14 +81,14 @@ class Service {
   }
 
   put = (id, data, onSuccess, onError) => {
-    this.client.put(id, data).then(
+    this.client.put(String(id), data).then(
       this.successResponse.bind(this, onSuccess),
       this.errorResponse.bind(this, onError)
     );
   }
 
   del = (id, onSuccess, onError) => {
-    this.client.del(id).then(
+    this.client.del(String(id)).then(
       this.successResponse.bind(this, onSuccess),
       this.errorResponse.bind(this, onError)
     );
@@ -92,14 +102,8 @@ class Service {
     if (onError) { onError(error); }
   }
 
-  _responseTransform = (response) => {
-    response = JSON.parse(response);
-
-    if (response.data) {
-      response.data = JSON.parse(response.data);
-    }
-
-    return response;
+  responseTransform = (response) => {
+    return JSON.parse(response);
   }
 }
 
