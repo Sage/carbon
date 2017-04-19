@@ -24,6 +24,7 @@ class ShareConfig extends React.Component {
         <Textbox
           value={ this.props.optionsUrl || '' }
           className='demo-share-config__input'
+          selectAllOnFocus={ true }
           disabled={ !this.props.optionsUrl }
         />
       </div>
