@@ -23,6 +23,7 @@
   - Carousel
 * `ButtonToggle` no longer inherits from the label decorator as it was providing more functionality than required.
 * `Rainbow` has been updated to no longer use the `react-highcharts` component. To use this component you need to ensure to make the `Highcharts` library available to your application globally.
+* `Radio Button` can now reverse the order of its label and input
 
 ## Google Analytics
 
