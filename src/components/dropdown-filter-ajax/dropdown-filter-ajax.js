@@ -1,6 +1,6 @@
 import React from 'react';
 import Request from 'superagent';
-import {cloneDeep, assign } from 'lodash';
+import {cloneDeep } from 'lodash';
 import DropdownFilter from './../dropdown-filter';
 
 /**
@@ -207,17 +207,14 @@ class DropdownFilterAjax extends DropdownFilter {
    * @param {Object} page The page number to get
    */
   getData = (query = "", page = 1) => {
-    let queryParams = assign(
-      {
+    Request
+      .get(this.props.path)
+      .query({
         page: page,
         rows: this.props.rowsPerRequest,
         value: query
-      },
-      this.props.additionalRequestParams
-    );
-    Request
-      .get(this.props.path)
-      .query(queryParams)
+      })
+      .query(this.props.additionalRequestParams)
       .end((err, response) => {
         this.updateList(response.body.data[0]);
       });
