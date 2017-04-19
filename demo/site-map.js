@@ -38,6 +38,7 @@ export default new SiteMapHelper({
     items: {
       "flux":                   `${guidesPath}/flux.md`,
       "immutable":              `${guidesPath}/immutable.md`,
+      "service":                `${guidesPath}/service.md`,
       "validations":            `${guidesPath}/validations.md`,
       "assets":                 `${guidesPath}/assets.md`,
       "decorators":             `${guidesPath}/decorators.md`,

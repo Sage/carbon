@@ -1,6 +1,6 @@
 # Services
 
-The base service class takes care of setting up the default options for an XHR client. It sets the headers required, sets up some callback actions and automatically executes flash notifications for success or error. The client uses [axios](https://github.com/mzabriskie/axios), and is fully customisable (you can access the client via `this.client` in your service class). However we do provide some helper methods to make it easier to setup which you can read about below.
+The base service class takes care of setting up the default options for an XHR client. It sets the headers required, sets up some callback actions and automatically executes callbacks for success or error if configured. The client uses [axios](https://github.com/mzabriskie/axios), and is fully customisable (you can access the client via `this.client` in your service class). However we do provide some helper methods to make it easier to setup which you can read about below.
 
 ## API for the Base Service
 
@@ -17,15 +17,17 @@ In your `constructor`, you can use the following methods to configure your servi
 * `this.setURL` - `{Function}` - `url` - Sets the base url for this service (an id will automatically be added to the end for endpoints that need it).
 * `this.setTransformRequest` - `{Function}` - `callback` - A callback to allow you to manipulate the data before it is sent to the server.
 * `this.setTransformResponse` - `{Function}` - `callback` - A callback to allow you to manipulate the data before it is returned to the client.
+* `this.enableGlobalCallbacks` - `{Function}` - Enables any `onSuccess` and `onError` callbacks configured for all services classes on this instance.
+* `this.disableGlobalCallbacks` - `{Function}` - Disables any `onSuccess` and `onError` callbacks configured for all services classes on this instance.
 
 ### CSRF Token
 
 If you need to set a CSRF Token in your request header, you can configure all of your services with the token:
 
 ```js
-import BaseService from 'carbon/lib/utils/service';
+import Service from 'carbon/lib/utils/service';
 
-BaseService.configure({
+Service.configure({
   csrfToken: global.CSRF_TOKEN
 });
 ```
@@ -35,9 +37,9 @@ BaseService.configure({
 You can configure all of your services to respond with a common success and/or error function. Firstly, you need to configure the base class with your functions:
 
 ```js
-import BaseService from 'carbon/lib/services/base';
+import Service from 'carbon/lib/utils/service';
 
-BaseService.configure({
+Service.configure({
   onSuccess: () => {},
   onError: () => {}
 });
