@@ -230,6 +230,14 @@ describe('Dropdown', () => {
     });
   });
 
+  describe("handleTouchEvent", () => {
+    it("sets blockBlur to true", () => {
+      instance.blockBlur = false;
+      instance.handleTouchEvent();
+      expect(instance.blockBlur).toEqual(true);
+    });
+  });
+
   describe('handleBlur', () => {
     beforeEach(() => {
       spyOn(instance, 'setState');
@@ -798,6 +806,13 @@ describe('Dropdown', () => {
     it('should return the correct options', () => {
       expect(instance.listBlockProps.key).toEqual('listBlock');
       expect(instance.listBlockProps.ref).toEqual('listBlock');
+      expect(instance.listBlockProps.onMouseDown).toEqual(instance.handleMouseDownOnList),
+      expect(instance.listBlockProps.onMouseLeave).toEqual(instance.handleMouseLeaveList),
+      expect(instance.listBlockProps.onMouseEnter).toEqual(instance.handleMouseEnterList),
+      expect(instance.listBlockProps.onTouchStart).toEqual(instance.handleTouchEvent),
+      expect(instance.listBlockProps.onTouchEnd).toEqual(instance.handleTouchEvent),
+      expect(instance.listBlockProps.onTouchCancel).toEqual(instance.handleTouchEvent),
+      expect(instance.listBlockProps.onTouchMove).toEqual(instance.handleTouchEvent),
       expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block');
     });
   });

@@ -2,6 +2,16 @@ import SettingsRow from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('settings-row', SettingsRow, {
+  description: `Sets up a column-based UI layout with explanatory text and UI controls.`,
+  designerNotes: `
+* Useful to create a series of rows with a heading, explanatory text, and UI controls in each row.
+* A good example is a settings page, or step-by-step wizard.
+  `,
+  relatedComponentsNotes: `
+* Need an overall container? [Try App Wrapper](/components/app-wrapper).
+* Need a container for your primary navigation? [Try Navigation Bar](/components/navigation-bar).
+* Laying out a page in columns? [Try Row](/components/row).
+ `,
   propTypes: {
     children: "Node",
     description: "String",

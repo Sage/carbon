@@ -5,12 +5,12 @@ import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 // https://github.com/zippyui/react-date-picker
 import { MonthView, NavBar } from 'react-date-picker';
-import moment from 'moment';
 import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
+import DateHelper from './../../utils/helpers/date';
+import DateValidator from './../../utils/validations/date';
 import chainFunctions from './../../utils/helpers/chain-functions';
-import { validProps } from '../../utils/ether';
-
+import { validProps } from './../../utils/ether';
 
 /**
  * A Date widget.
@@ -68,7 +68,16 @@ class Date extends React.Component {
      * @type {String}
      * @default Today's date
      */
-    defaultValue: moment().format("YYYY-MM-DD")
+    defaultValue: DateHelper.todayFormatted("YYYY-MM-DD"),
+
+    /**
+    * Sets validations that should always be found on the component
+    *
+    * @property internalValidations
+    * @type {Array}
+    * @default DateValidator
+    */
+    internalValidations: [ new DateValidator ]
   }
 
   state = {
@@ -84,11 +93,11 @@ class Date extends React.Component {
     /**
      * Keeps track of hidden value
      *
-     * @property viewDate
+     * @property datePickerValue
      * @type {String}
      * @default null
      */
-    viewDate: null,
+    datePickerValue: null,
 
     /**
      * Sets the default value of the decimal field
@@ -97,7 +106,7 @@ class Date extends React.Component {
      * @type {String}
      * @default defaultValue
      */
-    visibleValue: formatVisibleValue(this.props.value, this)
+    visibleValue: this.formatVisibleValue(this.props.value, this)
   }
 
   /**
@@ -123,7 +132,7 @@ class Date extends React.Component {
   componentWillReceiveProps(props) {
     if (this._document.activeElement != this._input) {
       let value = props.value || props.defaultValue;
-      let date = formatVisibleValue(value, this);
+      let date = this.formatVisibleValue(value, this);
 
       this.setState({ visibleValue: date });
     }
@@ -176,11 +185,11 @@ class Date extends React.Component {
    */
   openDatePicker = () => {
     this._document.addEventListener("click", this.closeDatePicker);
-    var value = this.props.value || getDefaultValue(this);
-    this.setState({
-      open: true,
-      viewDate: value
-    });
+    this.setState({ open: true });
+
+    if (DateHelper.isValidDate(this.props.value)) {
+      this.setState({ datePickerValue: this.props.value });
+    }
   }
 
   /**
@@ -203,7 +212,7 @@ class Date extends React.Component {
    * @return {void}
    */
   updateVisibleValue = () => {
-    let date = formatVisibleValue(this.props.value, this);
+    let date = this.formatVisibleValue(this.props.value, this);
     this.setState({
       visibleValue: date
     });
@@ -217,16 +226,17 @@ class Date extends React.Component {
    * @return {void}
    */
   handleVisibleInputChange = (ev) => {
-    let input = this._sanitizeDateInput(ev.target.value),
-        formats = [visibleFormat()].concat(validFormats()),
-        validDate = moment(input, formats, I18n.locale, true).isValid(),
+    let input = DateHelper.sanitizeDateInput(ev.target.value),
+        validDate = DateHelper.isValidDate(input),
         newState = { visibleValue: ev.target.value };
 
     // Updates the hidden value after first formatting to default hidden format
     if (validDate) {
-      let hiddenValue = formatValue(input, formats, hiddenFormat());
-      newState.viewDate = hiddenValue;
+      let hiddenValue = DateHelper.formatValue(input, this.hiddenFormat());
+      newState.datePickerValue = hiddenValue;
       this.emitOnChangeCallback(hiddenValue);
+    } else {
+      this.emitOnChangeCallback(ev.target.value);
     }
     this.setState(newState);
   }
@@ -252,6 +262,7 @@ class Date extends React.Component {
   handleDateSelect = (val) => {
     this.blockBlur = true;
     this.closeDatePicker();
+    this._handleContentChange();
     this.emitOnChangeCallback(val);
     this.updateVisibleValue();
   }
@@ -286,14 +297,14 @@ class Date extends React.Component {
 
 
   /**
-   * Updates viewDate as hidden input changes.
+   * Updates datePickerValue as hidden input changes.
    *
    * @method handleViewDateChange
    * @param {String} val hidden input value
    * @return {void}
    */
   handleViewDateChange = (val) => {
-    this.setState({ viewDate: val });
+    this.setState({ datePickerValue: val });
   }
 
   /**
@@ -326,6 +337,7 @@ class Date extends React.Component {
 
     delete props.autoFocus;
     delete props.defaultValue;
+    delete props.internalValidations;
 
     if (!this.props.readOnly && !this.props.disabled) {
       props.onFocus = chainFunctions(this.handleFocus, props.onFocus);
@@ -342,8 +354,8 @@ class Date extends React.Component {
    */
   get hiddenInputProps() {
     let props = {
-      ref: "hidden",
-      type: "hidden",
+      ref: 'hidden',
+      type: 'hidden',
       readOnly: true
     };
 
@@ -352,6 +364,7 @@ class Date extends React.Component {
     } else {
       props.defaultValue = this.props.defaultValue;
     }
+
 
     return props;
   }
@@ -400,8 +413,8 @@ class Date extends React.Component {
   */
   get datePickerProps() {
     return {
-      date: this.props.value || getDefaultValue(this),
-      dateFormat: hiddenFormat(),
+      date: this.state.datePickerValue,
+      dateFormat: this.hiddenFormat(),
       enableHistoryView: false,
       highlightToday: true,
       highlightWeekends: false,
@@ -411,7 +424,7 @@ class Date extends React.Component {
       onChange: this.handleDateSelect,
       ref: (input) => { this.datepicker = input; },
       theme: null,
-      weekDayNames: moment.localeData(I18n.locale)._weekdaysMin,
+      weekDayNames: DateHelper.weekdaysMinified(),
       weekNumbers: false
     };
   }
@@ -448,6 +461,7 @@ class Date extends React.Component {
    * @return {Object} JSX
    */
   render() {
+    // TODO: Pull datepicker into own component to wrap third party
     let datePicker = this.state.open ? this.renderDatePicker() : null;
 
     return (
@@ -465,99 +479,54 @@ class Date extends React.Component {
   }
 
   /**
-   * Sanitizes all valid date separators ( . - 'whitespace' ) replacing them
-   * with a slash
+  * Formats the visible date using i18n
+  *
+  * @method visibleFormat
+  * @return {String} formatted date string
+  */
+  visibleFormat() {
+    return I18n.t('date.formats.javascript', { defaultValue: "DD/MM/YYYY" }).toUpperCase();
+  }
+
+  /**
+   * Sets the hidden format
    *
-   * This allows us to compare against one separator in the i18n string. DD/MM/YYYY
-   *
-   * @method _sanitizeDateInput
-   * @private
-   * @return {String} sanitized input
+   * @method hiddenFormat
+   * @return {String} formatted date string
    */
-  _sanitizeDateInput(input) {
-    return input.replace(/[^0-9A-zÀ-ÿ\s\/\.\-]/g, "").replace(/[-.\s]/g, "/").toLowerCase();
+  hiddenFormat() {
+    return "YYYY-MM-DD";
+  }
+
+  /**
+   * Adds delimiters to the value
+   *
+   * @method formatVisibleValue
+   * @param {String} value Unformatted Value
+   * @param {String} scope used to get default value of current scope if value doesn't exist
+   * @return {String} formatted visible value
+   */
+  formatVisibleValue(value, scope) {
+    value = value || this.getDefaultValue(scope);
+    // Don't sanitize so it accepts the hidden format (with dash separators)
+    return DateHelper.formatValue(value, this.visibleFormat(), { formats: this.hiddenFormat(), sanitize: false });
+  }
+
+  /**
+   * Returns defaultValue for specified scope,
+   *
+   * @method getDefaultValue
+   * @param {Object} scope used to get default value of current scope
+   * @return {String} default value
+   */
+  getDefaultValue(scope) {
+    if (typeof scope.refs.hidden !== 'undefined') {
+      return scope.refs.hidden.value;
+    } else {
+      return scope.props.defaultValue;
+    }
   }
 }
 ))));
 
 export default Date;
-
-// Private Methods
-
-/**
- * Formats the visible date using i18n
- *
- * @method visibleFormat
- * @private
- * @return {String} formatted date string
- */
-function visibleFormat() {
-  return I18n.t('date.formats.javascript', { defaultValue: "DD/MM/YYYY" }).toUpperCase();
-}
-
-/**
- * Formats valid for entry
- *
- * @method validFormats
- * @private
- * @return {Array} formatted date strings
- */
-function validFormats() {
-  return I18n.t('date.formats.inputs', { defaultValue: ["MMM/DD/YY", "DD/MM", "DD/MM/YYYY", "DD/MMM/YYYY", "YYYY/MM/DD"] });
-}
-
-/**
- * Sets the hidden format
- *
- * @method hiddenFormat
- * @private
- * @return {String} formatted date string
- */
-function hiddenFormat() {
-  return "YYYY-MM-DD";
-}
-
-/**
- * Formats the given value to a specified format
- *
- * @method formatValue
- * @private
- * @param {String} val current value
- * @param {String} formatFrom Current format
- * @param {String} formatTo Desired format
- * @return {String} formatted date
- */
-function formatValue(val, formatFrom, formatTo) {
-  let date = moment(val, formatFrom, I18n.locale, true);
-  return date.format(formatTo);
-}
-
-/**
- * Adds delimiters to the value
- *
- * @method formatVisibleValue
- * @private
- * @param {String} value Unformatted Value
- * @param {String} scope used to get default value of current scope if value doesn't exist
- * @return {String} formatted visible value
- */
-function formatVisibleValue(value, scope) {
-  value = value || getDefaultValue(scope);
-  return formatValue(value, hiddenFormat(), visibleFormat());
-}
-
-/**
- * Returns defaultValue for specified scope,
- *
- * @method getDefaultValue
- * @private
- * @param {Object} scope used to get default value of current scope
- * @return {String} default value
- */
-function getDefaultValue(scope) {
-  if (typeof scope.refs.hidden !== 'undefined') {
-    return scope.refs.hidden.value;
-  } else {
-    return scope.props.defaultValue;
-  }
-}

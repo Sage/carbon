@@ -3,6 +3,15 @@ import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
 
 let definition = new Definition('portrait', Portrait, {
+  description: `Represents a person with their initials or an avatar.`,
+  designerNotes: `
+* Useful to represent a person, user, or organisation.
+* Use initials rather than an avatar if you prefer.
+* Works with [Gravatar](http://en.gravatar.com/) as a source of avatars.
+  `,
+  relatedComponentsNotes: `
+* Combining Portrait with some text? [Try Profile](/components/profile).
+ `,
   propOptions: {
     size: OptionsHelper.sizesFull,
     shape: OptionsHelper.shapesVaried

@@ -232,9 +232,12 @@ describe('Flash', () => {
       expect(successInstance.iconType).toEqual('tick');
     });
 
-    it('returns an warning icon if it is an error or alert flash', () => {
+    it('returns an warning icon if it is an warning flash', () => {
       expect(warningInstance.iconType).toEqual('warning');
-      expect(errorInstance.iconType).toEqual('warning');
+    });
+
+    it('returns an error icon if it is an error flash', () => {
+      expect(errorInstance.iconType).toEqual('error');
     });
   });
 

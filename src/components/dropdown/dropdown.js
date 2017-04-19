@@ -237,6 +237,17 @@ class Dropdown extends React.Component {
     }
   }
 
+  /**
+   * Handles touch events.
+   *
+   * @method handleTouchEvent
+   **/
+  handleTouchEvent = () => {
+    // blocking blurring like this stops a bug on mobile when touch doesn't trigger until after blur, we want to
+    // update the input before blurring
+    this.blockBlur = true;
+  }
+
   /*
    * Handles what happens on blur of the input.
    *
@@ -484,6 +495,10 @@ class Dropdown extends React.Component {
       onMouseDown: this.handleMouseDownOnList,
       onMouseLeave: this.handleMouseLeaveList,
       onMouseEnter: this.handleMouseEnterList,
+      onTouchStart: this.handleTouchEvent,
+      onTouchEnd: this.handleTouchEvent,
+      onTouchCancel: this.handleTouchEvent,
+      onTouchMove: this.handleTouchEvent,
       className: 'carbon-dropdown__list-block'
     };
   }
