@@ -34,7 +34,11 @@ const summary = (props, key) => {
     return (
       <span className={ `carbon-form-summary__summary carbon-form-summary__${key}-summary` }>
         <Icon className='carbon-form-summary__icon' type={ `${key}` } />
-        <span className='carbon-form-summary__text' data-element={ pluralize(key) }>{ translation(props, key) }</span>
+        <span
+          className='carbon-form-summary__text'
+          data-element={ pluralize(key) }
+          dangerouslySetInnerHTML={{ __html: translation(props, key) }}
+        />
       </span>
     );
   }
