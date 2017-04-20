@@ -1,5 +1,6 @@
 import css from './../../css';
 import React from 'react';
+import chainFunctions from './../../helpers/chain-functions';
 import shouldComponentUpdate from './../../helpers/should-component-update';
 import { assign } from 'lodash';
 import guid from './../../helpers/guid';
@@ -138,6 +139,16 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   /**
+   * Highlights the entire text field
+   *
+   * @method selectFullSelectionRange
+   * @returns {void}
+   */
+  selectFullSelectionRange = () => {
+    this._input.setSelectionRange(0, this._input.value.length);
+  }
+
+  /**
    * Sets indentation of input value based on prefix width.
    *
    * @method setTextIndentation
@@ -203,7 +214,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     // Select all text within the input
     if (this.props.selectAllOnFocus) {
-      inputProps.onFocus = this.handleFocus;
+      inputProps.onFocus = chainFunctions(this.selectFullSelectionRange, inputProps.onFocus);
     }
 
     // Pass onPaste action to input element
@@ -282,14 +293,6 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
           <Icon type={ this.props.icon } />
         </div>
       );
-    }
-  }
-
-  handleFocus = () => {
-    this._input.setSelectionRange(0, this._input.value.length)
-
-    if (this.props.onFocus) {
-      this.props.onFocus();
     }
   }
 

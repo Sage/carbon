@@ -107,7 +107,7 @@ const Browser = {
    */
   extractUrlParams: () => {
     let params = Browser.getLocation().search;
-    if (!params) { return {} };
+    if (!params) { return {}; }
 
     return params.substring(1).split('&').reduce((accumulator, currentValue) => {
       const keyValue = currentValue.split('=');

@@ -30,7 +30,7 @@ class TestClassTwo extends React.Component {
   }
 
   render() {
-    return <div></div>;
+    return <input ref={ (input) => { this._input = input } } />
   }
 }
 
@@ -287,6 +287,26 @@ describe('Input', () => {
         }));
 
         expect(instance.inputProps.onPaste).toEqual(instance.props.onPaste);
+      });
+    });
+
+    describe('chained functions', () => {
+      describe('when selectAllOnFocus is set', () => {
+        it('sets an onFocus event of chained functions', () => {
+          let focusSpy = jasmine.createSpy('focus');
+
+          instance = TestUtils.renderIntoDocument(
+            React.createElement(ExtendedClassTwo, {
+              selectAllOnFocus: true,
+              onFocus: focusSpy
+            })
+          );
+
+          spyOn(instance._input, 'setSelectionRange');
+          instance.inputProps.onFocus();
+          expect(instance._input.setSelectionRange).toHaveBeenCalled();
+          expect(focusSpy).toHaveBeenCalled();
+        });
       });
     });
   });
