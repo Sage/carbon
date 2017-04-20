@@ -53,11 +53,7 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 
 ## data-attributes on components
 
-We are adding data-attributes to components to better identify them and their parts within the browser. We will add `data-component` tags on the top level of any component, and `data-member` tags to constituent parts. Developers can also add `data-element` tags to components to uniquely identify specific components within their UI.
-
-So far we have added attributes to the following components:
-
-* Textbox
+We have added data-attributes to components to better identify them and their parts within the browser. We have added `data-component` tags on the top level of any component, and `data-element` tags to constituent parts. Developers can also add `data-role` tags to components to uniquely identify specific components within their UI.
 
 ## Dependency Update
 
