@@ -1,9 +1,8 @@
 import React from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
-import DraggableContext from './draggable-context';
-import ItemTypes from './item-types';
-import ItemSource from './item-source';
-import ItemTarget from './item-target';
+import ItemTypes from './../item-types';
+import ItemSource from './../item-source';
+import ItemTarget from './../item-target';
 
 class WithDragAndDrop extends React.Component {
   static propTypes = {
@@ -37,7 +36,4 @@ WithDragAndDrop = DragSource( // eslint-disable-line no-class-assign
   })
 )(WithDragAndDrop);
 
-export {
-  WithDragAndDrop,
-  DraggableContext
-};
+export default WithDragAndDrop;
