@@ -7,7 +7,7 @@ import Icon from './../../icon';
 import Checkbox from './../../checkbox';
 
 import { shallow, mount } from 'enzyme';
-import { WithDragAndDrop, DraggableContext } from './../../with-drag-and-drop';
+import { WithDragAndDrop, DraggableContext } from './../../drag-and-drop';
 
 describe('TableRow', () => {
   let instance, clickableInstance, row;

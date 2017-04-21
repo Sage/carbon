@@ -5,7 +5,7 @@ import TableHeader from './../table-header';
 import Checkbox from './../../checkbox';
 import guid from './../../../utils/helpers/guid';
 import { validProps } from '../../../utils/ether';
-import WithDragAndDrop from './../../with-drag-and-drop';
+import { WithDragAndDrop } from './../../drag-and-drop';
 
 /**
  * A TableRow widget.

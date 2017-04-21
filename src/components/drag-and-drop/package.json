@@ -1,0 +1,4 @@
+{
+  "main": "./drag-and-drop.js",
+  "style": "./drag-and-drop.scss"
+}
