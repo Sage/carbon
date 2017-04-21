@@ -6,7 +6,6 @@ const ItemTargetHelper = {
    * Helper method for when drag and drop is enabled for
    * items grouped together vertically e.g. a list, or
    * a table.
-   *
    */
   onHoverUpDown(props, monitor, component) {
     const dragIndex = monitor.getItem().index;
