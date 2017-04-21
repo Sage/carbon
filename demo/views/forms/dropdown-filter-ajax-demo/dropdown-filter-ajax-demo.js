@@ -33,6 +33,7 @@ class DropdownFilterAjaxDemo extends React.Component {
         { ...FormInputHelper.demoProps(this, this.action) }
         visibleValue={ this.value('value') }
         path="/countries"
+        additionalRequestParams={ {foo: 'bar'} }
       />
     );
   }
@@ -47,6 +48,7 @@ class DropdownFilterAjaxDemo extends React.Component {
     html += "<DropdownFilterAjax\n";
     html += "  options={opts}";
     html += "  path='/countries'";
+    html += "  additionalRequestParams={ {foo: 'bar'}";
     html = FormInputHelper.codeProps(this, html);
     html += "/>\n\n";
 

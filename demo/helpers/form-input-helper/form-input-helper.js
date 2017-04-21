@@ -18,6 +18,7 @@ let FormInputHelper = {
       fieldHelp: scope.value('fieldHelp'),
       inputWidth: scope.value('labelInline') ? scope.value('inputWidth') : '',
       labelHelp: scope.value('labelHelp'),
+      inputHelp: scope.value('inputHelp'),
       labelAlign: (scope.value('labelAlign') ? 'right' : null),
       icon: scope.value('icon')
     };
@@ -70,6 +71,10 @@ let FormInputHelper = {
       html += `\n  icon='${scope.value('icon')}'`;
     }
 
+    if (scope.value('inputHelp')) {
+      html += `\n  inputHelp='${scope.value('inputlHelp')}'`;
+    }
+
     if (scope.value('helpMessage')) {
       html += `\n  helpMessage='${scope.value('helpMessage')}'`;
     }
@@ -100,6 +105,15 @@ let FormInputHelper = {
             labelInline={ true }
             value={ scope.value('labelHelp') }
             onChange={ onChange.bind(scope, 'labelHelp') }
+          />
+        </Row>
+
+        <Row>
+          <Textbox
+            label="Input Help"
+            labelInline={ true }
+            value={ scope.value('inputHelp') }
+            onChange={ onChange.bind(scope, 'inputHelp') }
           />
         </Row>
 

@@ -238,6 +238,26 @@ describe('DropdownFilterAjax', () => {
         expect(instance.updateList).toHaveBeenCalledWith('foo');
       });
     });
+
+    describe('if an additional request param is passed', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilterAjax
+            name="foo"
+            value="1"
+            path="/foobar"
+            create={ function() {} }
+            additionalRequestParams={ {foo: 'bar'} }
+          />
+        );
+      });
+
+      it('calls the correct query', () => {
+        instance.getData("foo", 1);
+        let request = jasmine.Ajax.requests.mostRecent();
+        expect(request.url).toEqual("/foobar?page=1&rows=25&value=foo&foo=bar");
+      });
+    });
   });
 
   describe('resetScroll', () => {

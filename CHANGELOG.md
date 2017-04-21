@@ -1,9 +1,35 @@
+# 0.36.0
+
+* Add `additionalRequestParams` prop to `DropdownFilterAjax`
+
+# 0.35.1
+
+* Ensure that node modules can only upgrade patch versions
+
 # 0.35.0
+
+## Bug Fix
+
+* `ShowEditPod`: `beforeFormValidation` and `buttonAlign` props are now passed to the `Form` as they should be
+
+## InlineInputs Component
+A simple `InlineInputs` wrapper component which allows multiple input fields to be displayed horizontally
+with a label.
+
+```js
+<InlineInputs label='Test Label'>
+  <Textbox />
+  <Textbox />
+</InlineInputs>
+```
 
 ## Component Enchancements
 
 * `Date` now shows error validation when an invalid date is entered.
-* Change Flash error icon to match other notifications (now shows error icon when `as` prop is `error`)
+* `Flash`: Change error icon to match other notifications (now shows error icon when `as` prop is `error`)
+* `Form`: adds error and warning icons (and refactors the summary into its own sub-component)
+* `Dialog`: Added `subtitle` prop
+* `Input` can now receive an `inputHelp` prop which renders a tooltip after the input field.
 
 ## New Validations
 

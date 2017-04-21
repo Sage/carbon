@@ -5,6 +5,7 @@ import { assign } from 'lodash';
 import guid from './../../helpers/guid';
 import classNames from 'classnames';
 import Icon from './../../../components/icon';
+import Help from './../../../components/help';
 
 /**
  * Input decorator.
@@ -162,6 +163,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       [`${css.input}--readonly`]: this.props.readOnly,
       [`${css.input}--align-${this.props.align}`]: this.props.align,
       [`${css.input}--with-prefix`]: this.props.prefix,
+      [`${css.input}--with-input-help`]: this.props.inputHelp,
       [`${css.input}--disabled`]: this.props.disabled
     });
   }
@@ -270,6 +272,27 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     }
   }
 
+    /**
+   * Supplies the HTML for inputHelp component
+   *
+   * @method inputHelpHTML
+   * @return {Object} JSX for help
+   */
+  get inputHelpHTML() {
+    if (this.props.inputHelp) {
+      return (
+        <Help
+          className='common-input__input-help'
+          tooltipPosition={ this.props.inputHelpPosition }
+          tooltipAlign={ this.props.inputHelpAlign }
+          href={ this.props.inputHelpHref }
+        >
+          { this.props.inputHelp }
+        </Help>
+      );
+    }
+  }
+
   /**
    * Returns HTML for the input.
    *
@@ -297,6 +320,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
         { this.prefixHTML }
         { input }
         { this.additionalInputContent }
+        { this.inputHelpHTML }
       </div>
     );
   }
