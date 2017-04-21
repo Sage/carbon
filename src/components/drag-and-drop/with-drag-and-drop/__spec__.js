@@ -2,7 +2,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { WithDragAndDrop, DraggableContext } from './drag-and-drop';
+import { WithDragAndDrop } from './../drag-and-drop';
 
 describe('WithDragAndDrop', () => {
   let OriginalComponent;
