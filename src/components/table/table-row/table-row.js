@@ -4,6 +4,7 @@ import TableCell from './../table-cell';
 import TableHeader from './../table-header';
 import Checkbox from './../../checkbox';
 import guid from './../../../utils/helpers/guid';
+import { validProps } from '../../../utils/ether';
 import { WithDragAndDrop } from './../../drag-and-drop';
 
 /**
