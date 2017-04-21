@@ -454,6 +454,7 @@ class Form extends React.Component {
   htmlProps = () => {
     let { ...props } = validProps(this);
     delete props.onSubmit;
+    delete props.afterSave;
     props.className = this.mainClasses;
     return props;
   }

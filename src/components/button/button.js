@@ -105,6 +105,8 @@ class Button extends React.Component {
    */
   element() {
     let { ...props } = validProps(this);
+
+    delete props.columnAlign;
     // if props.href then render an anchor instead
     const el = props.href || props.to ? Link : 'button';
 
