@@ -4,7 +4,7 @@ import TableCell from './../table-cell';
 import TableHeader from './../table-header';
 import Checkbox from './../../checkbox';
 import guid from './../../../utils/helpers/guid';
-import { WithDragAndDrop } from './../../with-drag-and-drop';
+import { WithDragAndDrop } from './../../drag-and-drop';
 
 /**
  * A TableRow widget.

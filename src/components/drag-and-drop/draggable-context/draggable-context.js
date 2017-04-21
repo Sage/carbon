@@ -9,7 +9,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
  *
  * In your file
  *
- *   import DraggableContext from 'carbon/lib/components/with-drag-and-drop'
+ *   import DraggableContext from 'carbon/lib/components/drag-and-drop'
  *
  * A draggable context is used to define an area in the page
  * where drag and drop can be used on one or more elements:
