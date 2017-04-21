@@ -50,7 +50,6 @@ describe('WithDragAndDrop', () => {
       // -- see https://gist.github.com/scmx/d98cc058a7c3dfef7890#gistcomment-1854075
       <OriginalComponent connectDragSource={ () => {} } connectDropTarget={ () => {} } />
 
-      console.log(console.error.calls.argsFor(0)[0]);
       expect(console.error.calls.count()).toBe(1);
       expect(console.error.calls.argsFor(0)[0]).toEqual('Warning: Failed propType: Required prop `children` was not specified in `WithDragAndDrop`.')
     });
