@@ -231,7 +231,7 @@ class Step extends React.Component {
           <Button
             as='primary'
             className='multi-step-wizard-step__button submit'
-            data-element='submit-button'
+            data-element='submit'
             onClick={ this.handleOnSubmit }
           >
             { I18n.t('wizards.multi_step_wizard.buttons.submit', { defaultValue: 'Submit' }) }
@@ -242,7 +242,7 @@ class Step extends React.Component {
           <Button
             as='primary'
             className='multi-step-wizard-step__button next'
-            data-element='next-button'
+            data-element='next'
             onClick={ this.handleOnNext }
           >
             { I18n.t('wizards.multi_step_wizard.buttons.next', { defaultValue: 'Next' }) }
@@ -254,7 +254,7 @@ class Step extends React.Component {
         backButton = (
           <Button
             className='multi-step-wizard-step__button back'
-            data-element='back-button'
+            data-element='back'
             onClick={ this.handleOnBack }
           >
             { I18n.t('wizards.multi_step_wizard.buttons.back', { defaultValue: 'Back' }) }

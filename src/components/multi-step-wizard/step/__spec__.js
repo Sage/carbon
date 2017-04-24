@@ -429,7 +429,7 @@ describe('Step', () => {
         let next = wrapper.find('.next');
 
         it('includes correct tags for the button', () => {
-          expect(next.prop('data-element')).toEqual('next-button');
+          expect(next.prop('data-element')).toEqual('next');
         });
       });
 
@@ -438,7 +438,7 @@ describe('Step', () => {
         let back = wrapper.find('.back');
 
         it('includes correct tags for the button', () => {
-          expect(back.prop('data-element')).toEqual('back-button');
+          expect(back.prop('data-element')).toEqual('back');
         });
       });
 
@@ -447,7 +447,7 @@ describe('Step', () => {
         let submit = wrapper.find('.submit');
 
         it('includes correct tags for the button', () => {
-          expect(submit.prop('data-element')).toEqual('submit-button');
+          expect(submit.prop('data-element')).toEqual('submit');
         });
       });
     });
