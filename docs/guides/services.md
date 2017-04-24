@@ -9,7 +9,7 @@ Extending from the base service provides you with:
 * `this.get` - `{Function}` - `id, onSuccess, onError`
 * `this.post` - `{Function}` - `data, onSuccess, onError`
 * `this.put` - `{Function}` - `id, data, onSuccess, onError`
-* `this.del` - `{Function}` - `id, onSuccess, onError`
+* `this.delete` - `{Function}` - `id, onSuccess, onError`
 * `this.client` - `{Object}` - Provides access to the axios client.
 
 In your `constructor`, you can use the following methods to configure your service:
