@@ -58,7 +58,7 @@ class Step extends React.Component {
      * @property extraButtons
      * @type {Array}
      */
-    extraButtons: PropTypes.arrayOf(React.PropTypes.object),
+    extraButtons: PropTypes.arrayOf(PropTypes.object),
 
     /**
      * Determines if the step is enabled

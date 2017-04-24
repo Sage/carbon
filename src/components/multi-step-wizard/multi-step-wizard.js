@@ -60,7 +60,7 @@ class MultiStepWizard extends React.Component {
      * @property steps
      * @type {Array}
      */
-    steps: PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    steps: PropTypes.arrayOf(PropTypes.object).isRequired,
 
     /**
      * Custom function that is called immediately before a submit event
