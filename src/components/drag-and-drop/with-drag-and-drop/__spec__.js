@@ -51,7 +51,10 @@ describe('WithDragAndDrop', () => {
       <OriginalComponent connectDragSource={ () => {} } connectDropTarget={ () => {} } />
 
       expect(console.error.calls.count()).toBe(1);
-      expect(console.error.calls.argsFor(0)[0]).toEqual('Warning: Failed propType: Required prop `children` was not specified in `WithDragAndDrop`.')
+
+      let actualError = console.error.calls.argsFor(0)[0];
+      let expectedMsg = 'Warning: Failed prop type: Required prop `children` was not specified in `WithDragAndDrop`.'
+      expect(actualError.indexOf(expectedMsg)).toEqual(0);
     });
 
     it('throws an error if multiple root nodes are passed as child props', () => {
@@ -61,7 +64,10 @@ describe('WithDragAndDrop', () => {
       </OriginalComponent>
 
       expect(console.error.calls.count()).toBe(1);
-      expect(console.error.calls.argsFor(0)[0]).toEqual('Warning: Failed propType: Invalid prop `children` supplied to `WithDragAndDrop`, expected a single ReactElement.')
+
+      let actualError = console.error.calls.argsFor(0)[0];
+      let expectedMsg = 'Warning: Failed prop type: Invalid prop `children` of type `array` supplied to `WithDragAndDrop`, expected a single ReactElement.';
+      expect(actualError.indexOf(expectedMsg)).toEqual(0);
     });
   });
 });
