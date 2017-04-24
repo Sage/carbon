@@ -32,6 +32,7 @@
     "highlight.js": "~9.6.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "~3.8.1",
+    "moxios": "^0.4.0",
     "ncp": "~2.0.0",
     "react": "~15.3.1",
     "react-addons-css-transition-group": "~15.3.1",

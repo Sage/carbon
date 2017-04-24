@@ -8,7 +8,7 @@ let config = {
   csrfToken: null, // defines the CSRF token if required by your web application
   onSuccess: null, // defines a callback to trigger on every successful response
   onError: null    // defines a callback to trigger on every erroneous response
-}
+};
 
 class Service {
   /**
@@ -20,7 +20,7 @@ class Service {
    * @return {Void}
    */
   static configure(opts) {
-    assign(config, config, opts)
+    assign(config, config, opts);
   }
 
   /**
@@ -185,14 +185,14 @@ class Service {
   /**
    * Performs a DEL request to the server.
    *
-   * @method get
+   * @method delete
    * @param {Number} id - the ID of the resource.
    * @param {Function} onSuccess - a callback to trigger on success
    * @param {Function} onError - a callback to trigger on error
    * @return {Void}
    */
-  del = (id, onSuccess, onError) => {
-    this.client.del(String(id)).then(
+  delete = (id, onSuccess, onError) => {
+    this.client.delete(String(id)).then(
       this.handleResponse.bind(this, onSuccess),
       this.handleResponse.bind(this, onError)
     );
