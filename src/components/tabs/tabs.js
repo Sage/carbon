@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import Tab from './tab';
 import { compact } from 'lodash';

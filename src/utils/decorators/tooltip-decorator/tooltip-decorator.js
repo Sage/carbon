@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';

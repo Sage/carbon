@@ -1,5 +1,6 @@
 import css from './../../css';
 import React from 'react';
+import PropTypes from 'prop-types';
 import shouldComponentUpdate from './../../helpers/should-component-update';
 import { assign } from 'lodash';
 import guid from './../../helpers/guid';

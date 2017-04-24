@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Pod from './../pod';
 import Form from './../form';
 import Link from './../link';

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';

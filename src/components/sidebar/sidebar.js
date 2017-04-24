@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SidebarHeader from './sidebar-header';
 import Icon from './../icon';
 import Modal from './../modal';

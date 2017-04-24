@@ -1,5 +1,6 @@
 import Browser from './browser.js'
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Form from './../../../components/form';
 

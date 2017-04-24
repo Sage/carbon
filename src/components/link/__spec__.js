@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';

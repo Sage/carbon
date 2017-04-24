@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from './../icon';
 import Link from './../link';
 import classNames from 'classnames';

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';

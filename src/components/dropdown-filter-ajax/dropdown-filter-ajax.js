@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Request from 'superagent';
 import {cloneDeep } from 'lodash';
 import DropdownFilter from './../dropdown-filter';

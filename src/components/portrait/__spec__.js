@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
 import Portrait from './portrait';
 import MD5 from 'crypto-js/md5';

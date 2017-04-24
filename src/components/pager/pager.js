@@ -1,5 +1,6 @@
 import css from './../../utils/css';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from './../icon';
 import NumberComponent from './../number';
 import Dropdown from './../dropdown';

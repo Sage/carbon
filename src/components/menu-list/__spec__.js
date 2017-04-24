@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { shallow } from 'enzyme';
 
 import Link from './../link';

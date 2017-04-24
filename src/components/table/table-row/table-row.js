@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from './../table-cell';
 import TableHeader from './../table-header';
