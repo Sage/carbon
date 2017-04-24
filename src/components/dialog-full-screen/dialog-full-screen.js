@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Icon from './../icon';
 import Modal from './../modal';
 import classNames from 'classnames';
