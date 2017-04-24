@@ -11,7 +11,7 @@ describe('<FormSummary />', () => {
       wrapper;
 
   describe("errors renders", () => {
-    beforeEach(() => wrapper = shallow( <FormSummary errors='1' /> ));
+    beforeEach(() => wrapper = shallow( <FormSummary errors={1} warnings={0} /> ));
 
     it("a block for errors if errors are provided", () => {
       expect(wrapper.find(`${block}__error-summary`).length).toEqual(1);
@@ -29,7 +29,7 @@ describe('<FormSummary />', () => {
   });
 
   describe("warnings renders", () => {
-    beforeEach(() => wrapper = shallow( <FormSummary warnings='1' /> ));
+    beforeEach(() => wrapper = shallow( <FormSummary errors={0} warnings={1} /> ));
 
     it("a block for warnings if warnings are provided", () => {
       expect(wrapper.find(`${block}__warning-summary`).length).toEqual(1);
@@ -47,7 +47,7 @@ describe('<FormSummary />', () => {
   });
 
   describe("errors and warnings renders", () => {
-    beforeEach(() => wrapper = shallow( <FormSummary errors='1' warnings='1' /> ));
+    beforeEach(() => wrapper = shallow( <FormSummary errors={1} warnings={1} /> ));
 
     it("a block for errors if errors are provided", () => {
       expect(wrapper.find(`${block}__error-summary`).length).toEqual(1);

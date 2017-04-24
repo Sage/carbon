@@ -7,7 +7,7 @@ describe('ButtonToggle', () => {
   let instance;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(<ButtonToggle />);
+    instance = TestUtils.renderIntoDocument(<ButtonToggle>Instance</ButtonToggle>);
   });
 
   describe('mainClasses', () => {
@@ -31,7 +31,7 @@ describe('ButtonToggle', () => {
 
     describe('with an buttonIcon', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(<ButtonToggle buttonIcon="settings" />);
+        instance = TestUtils.renderIntoDocument(<ButtonToggle buttonIcon="settings">Instance</ButtonToggle>);
       });
 
       it('returns the buttonIcon', () => {
@@ -41,7 +41,7 @@ describe('ButtonToggle', () => {
 
     describe('with a large buttonIcon', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(<ButtonToggle buttonIcon="settings" buttonIconSize="large" />);
+        instance = TestUtils.renderIntoDocument(<ButtonToggle buttonIcon="settings" buttonIconSize="large">Instance</ButtonToggle>);
       });
 
       it('returns a large buttonIcon', () => {
@@ -57,7 +57,7 @@ describe('ButtonToggle', () => {
 
     describe('if it is disabled', () => {
       it('returns a disabled label', () => {
-        instance = TestUtils.renderIntoDocument(<ButtonToggle disabled={ true } />);
+        instance = TestUtils.renderIntoDocument(<ButtonToggle disabled={ true }>Instance</ButtonToggle>);
         expect(instance.additionalInputContent.props.className).toEqual('carbon-button-toggle__label carbon-button-toggle__label--disabled');
       });
     });
@@ -69,7 +69,7 @@ describe('ButtonToggle', () => {
     });
 
     it('assigns a custom id if one is given', () => {
-      instance = TestUtils.renderIntoDocument(<ButtonToggle id="foo" />);
+      instance = TestUtils.renderIntoDocument(<ButtonToggle id="foo">Instance</ButtonToggle>);
       expect(instance.inputProps.id).toEqual("foo");
     });
   });

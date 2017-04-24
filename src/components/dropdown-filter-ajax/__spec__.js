@@ -98,7 +98,7 @@ describe('DropdownFilterAjax', () => {
         it('triggers the onBlur function', () => {
           let onBlur = jasmine.createSpy('onBlur');
 
-          instance = TestUtils.renderIntoDocument(<DropdownFilterAjax onBlur={ onBlur } />);
+          instance = TestUtils.renderIntoDocument(<DropdownFilterAjax onBlur={ onBlur } path="/foobar" />);
           TestUtils.Simulate.blur(instance._input);
           expect(onBlur).toHaveBeenCalled();
         });
