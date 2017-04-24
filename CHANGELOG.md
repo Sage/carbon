@@ -1,5 +1,6 @@
 # 0.36.0
 
+* Removed the style node from `package.json` in table-ajax. This file doesn't exist.
 * Add `additionalRequestParams` prop to `DropdownFilterAjax`
 
 # 0.35.1
