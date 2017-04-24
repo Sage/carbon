@@ -195,7 +195,7 @@ describe('Service', () => {
               data = { data: {} };
 
           request.respondWith({
-            status: status,
+            status: 400,
             response: JSON.stringify(data)
           }).then((response) => {
             expect(errorSpy).not.toHaveBeenCalled();
