@@ -15,7 +15,7 @@ class Filter extends Form {
      * @type {String}
      * @default left
      */
-    align: React.PropTypes.string
+    align: PropTypes.string
   }
 
   static defaultProps = {

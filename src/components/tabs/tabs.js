@@ -87,7 +87,7 @@ class Tabs extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    renderHiddenTabs: React.PropTypes.bool,
+    renderHiddenTabs: PropTypes.bool,
 
     /**
      * The tab to be displayed updating this prop will change the visible tab.
@@ -97,7 +97,7 @@ class Tabs extends React.Component {
      * @type {String}
      * @default firstTab
      */
-    selectedTabId: React.PropTypes.string,
+    selectedTabId: PropTypes.string,
 
     /**
      * Individual tabs
@@ -105,9 +105,9 @@ class Tabs extends React.Component {
      * @property children
      * @type {Object | Array}
      */
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object
+    children: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object
     ]).isRequired,
 
     /**
@@ -116,7 +116,7 @@ class Tabs extends React.Component {
      * @property align
      * @type {String}
      */
-    align: React.PropTypes.string,
+    align: PropTypes.string,
 
     /**
      * Emitted when the visible tab is changed
@@ -124,7 +124,7 @@ class Tabs extends React.Component {
      * @property onTabChange
      * @type {Func}
      */
-    onTabChange: React.PropTypes.func,
+    onTabChange: PropTypes.func,
 
     /**
      * The position of tabs with respect to the content (top (default) or left)
@@ -132,7 +132,7 @@ class Tabs extends React.Component {
      * @property position
      * @type {String}
      */
-    position: React.PropTypes.string
+    position: PropTypes.string
   }
 
   static defaultProps = {
@@ -150,7 +150,7 @@ class Tabs extends React.Component {
      * @property tab
      * @type {Object}
      */
-    tabs: React.PropTypes.object
+    tabs: PropTypes.object
   }
 
   /**

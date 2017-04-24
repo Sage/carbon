@@ -16,7 +16,7 @@ class Fieldset extends React.Component {
      * @property legend
      * @type {String}
      */
-    legend: React.PropTypes.string
+    legend: PropTypes.string
   };
 
 

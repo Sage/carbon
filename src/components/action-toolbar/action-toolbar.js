@@ -54,8 +54,8 @@ class ActionToolbar extends React.Component {
   };
 
   static contextTypes = {
-    attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
-    detachActionToolbar: React.PropTypes.func // tracks the action toolbar component
+    attachActionToolbar: PropTypes.func, // tracks the action toolbar component
+    detachActionToolbar: PropTypes.func // tracks the action toolbar component
   };
 
   constructor(...args) {

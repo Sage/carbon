@@ -27,7 +27,7 @@ class TableCell extends React.Component {
      * @property align
      * @type {String}
      */
-    align: React.PropTypes.string,
+    align: PropTypes.string,
 
     /**
      * Defines the cell type to be an action - used for the delete cell.
@@ -35,7 +35,7 @@ class TableCell extends React.Component {
      * @property action
      * @type {Boolean}
      */
-    action: React.PropTypes.bool
+    action: PropTypes.bool
   }
 
   /**

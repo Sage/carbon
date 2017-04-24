@@ -33,7 +33,7 @@ class SplitButton extends React.Component {
      * @type {String}
      * @default 'secondary'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * The text to be displayed in the SplitButton.
@@ -41,7 +41,7 @@ class SplitButton extends React.Component {
      * @property text
      * @type {String}
      */
-    text: React.PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
 
     /**
      * Gives the button a disabled state.
@@ -50,7 +50,7 @@ class SplitButton extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    disabled: React.PropTypes.bool
+    disabled: PropTypes.bool
   }
 
   static defaultProps = {

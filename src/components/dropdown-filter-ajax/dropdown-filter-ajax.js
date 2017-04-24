@@ -78,9 +78,9 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property value
      * @type {Number}
      */
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),
 
     /**
@@ -89,7 +89,7 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property visibleValue
      * @type {String}
      */
-    visibleValue: React.PropTypes.string,
+    visibleValue: PropTypes.string,
 
     /**
      * The path to your data (e.g. "/core_accounting/ledger_accounts/suggestions")
@@ -97,7 +97,7 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property path
      * @type {String}
      */
-    path: React.PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
 
     /**
      * The number of rows to get per request
@@ -106,9 +106,9 @@ class DropdownFilterAjax extends DropdownFilter {
      * @type {Number}
      * @default 25
      */
-    rowsPerRequest: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    rowsPerRequest: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),
 
     /**
@@ -117,7 +117,7 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property create
      * @type {Function}
      */
-    create: React.PropTypes.func,
+    create: PropTypes.func,
 
     /**
      * Should the dropdown act and look like a suggestable input instead.
@@ -125,7 +125,7 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property suggest
      * @type {Boolean}
      */
-    suggest: React.PropTypes.bool
+    suggest: PropTypes.bool
   }), 'options');
 
   static defaultProps = {

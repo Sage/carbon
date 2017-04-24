@@ -10,7 +10,7 @@ class Detail extends React.Component {
      * @property icon
      * @type {Object}
      */
-    icon: React.PropTypes.string,
+    icon: PropTypes.string,
 
     /**
      * A small detail to display under the main content.
@@ -18,7 +18,7 @@ class Detail extends React.Component {
      * @property footnote
      * @type {String}
      */
-    footnote: React.PropTypes.string,
+    footnote: PropTypes.string,
 
     /**
      * The rendered children of the component.
@@ -26,7 +26,7 @@ class Detail extends React.Component {
      * @property children
      * @type {Node}
      */
-    children: React.PropTypes.node
+    children: PropTypes.node
   }
 
   /**

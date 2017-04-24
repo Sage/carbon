@@ -26,7 +26,7 @@ InlineInputs.propTypes = {
    * @property label
    * @type {String}
    */
-  label: React.PropTypes.string
+  label: PropTypes.string
 };
 
 export default InlineInputs;

@@ -34,7 +34,7 @@ class Pod extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    border: React.PropTypes.bool,
+    border: PropTypes.bool,
 
     /**
      * Determines the padding around the pod.
@@ -44,7 +44,7 @@ class Pod extends React.Component {
      * @type {String}
      * @default medium
      */
-    padding: React.PropTypes.string,
+    padding: PropTypes.string,
 
     /**
      * Applies a theme to the Pod.
@@ -54,7 +54,7 @@ class Pod extends React.Component {
      * @type {String}
      * @default primary
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * The collapsed state of the pod
@@ -66,7 +66,7 @@ class Pod extends React.Component {
      * @property collapsed
      * @type {Boolean}
      */
-    collapsed: React.PropTypes.bool,
+    collapsed: PropTypes.bool,
 
     /**
      * Title for the pod h4 element
@@ -75,9 +75,9 @@ class Pod extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
@@ -86,7 +86,7 @@ class Pod extends React.Component {
      * @property subtitle
      * @type {String}
      */
-    subtitle: React.PropTypes.string,
+    subtitle: PropTypes.string,
 
     /**
      * Aligns the title to left, right or center
@@ -95,7 +95,7 @@ class Pod extends React.Component {
      * @type {String}
      * @default left
      */
-    alignTitle: React.PropTypes.string,
+    alignTitle: PropTypes.string,
 
     /**
      * Description for the pod
@@ -104,7 +104,7 @@ class Pod extends React.Component {
      * @property title
      * @type {String}
      */
-    description: React.PropTypes.string,
+    description: PropTypes.string,
 
     /**
      * A component to render as a Pod footer.
@@ -112,7 +112,7 @@ class Pod extends React.Component {
      * @property footer
      * @type {String}
      */
-    footer: React.PropTypes.object,
+    footer: PropTypes.object,
 
     /**
      * Supplies an edit action to the pod.
@@ -120,10 +120,10 @@ class Pod extends React.Component {
      * @property onEdit
      * @type {String|Function|Object}
      */
-    onEdit: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.func,
-      React.PropTypes.object
+    onEdit: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+      PropTypes.object
     ]),
 
     /**
@@ -132,7 +132,7 @@ class Pod extends React.Component {
      * @property editContentFullWidth
      * @type {Boolean}
      */
-    editContentFullWidth: React.PropTypes.bool,
+    editContentFullWidth: PropTypes.bool,
 
     /**
      * Determines if the edit button should be hidden until the user
@@ -141,7 +141,7 @@ class Pod extends React.Component {
      * @property displayEditButtonOnHover
      * @type {Boolean}
      */
-    displayEditButtonOnHover: React.PropTypes.bool,
+    displayEditButtonOnHover: PropTypes.bool,
 
     /**
      * Determines if clicking the pod content calls the onEdit action
@@ -149,7 +149,7 @@ class Pod extends React.Component {
      * @property triggerEditOnContent
      * @type {Boolean}
      */
-    triggerEditOnContent: React.PropTypes.bool,
+    triggerEditOnContent: PropTypes.bool,
 
     /**
      * Resets edit button styles to an older version
@@ -157,7 +157,7 @@ class Pod extends React.Component {
      * @property internalEditButton
      * @type {Boolean}
      */
-    internalEditButton: React.PropTypes.bool
+    internalEditButton: PropTypes.bool
   }
 
   static defaultProps = {

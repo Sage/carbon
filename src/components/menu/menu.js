@@ -8,7 +8,7 @@ import SubmenuBlock from './submenu-block';
  */
 class Menu extends React.Component {
   static propTypes = {
-    as: React.PropTypes.string // defines the style of the component eg. primary/secondary
+    as: PropTypes.string // defines the style of the component eg. primary/secondary
   }
 
   static defaultProps = {

@@ -50,7 +50,7 @@ class Modal extends React.Component {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func,
+    onCancel: PropTypes.func,
 
     /**
      * Sets the open state of the modal
@@ -59,7 +59,7 @@ class Modal extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    open: React.PropTypes.bool.isRequired,
+    open: PropTypes.bool.isRequired,
 
     /**
      * Determines if the background is disabled
@@ -69,7 +69,7 @@ class Modal extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    enableBackgroundUI: React.PropTypes.bool,
+    enableBackgroundUI: PropTypes.bool,
 
     /**
      * Determines if the Esc Key closes the modal
@@ -78,7 +78,7 @@ class Modal extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    disableEscKey: React.PropTypes.bool
+    disableEscKey: PropTypes.bool
   }
 
   static defaultProps = {
@@ -95,7 +95,7 @@ class Modal extends React.Component {
      * @property modal
      * @type {Object}
      */
-    modal: React.PropTypes.object
+    modal: PropTypes.object
   }
 
   /**

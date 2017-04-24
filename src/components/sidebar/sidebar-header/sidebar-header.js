@@ -35,7 +35,7 @@ class SidebarHeader extends React.Component {
      * @property children
      * @type {Multiple}
      */
-    children: React.PropTypes.node
+    children: PropTypes.node
   }
 
   /**

@@ -34,7 +34,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
      * @property  type
      * @type      {String}
      */
-    type: React.PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
 
     /**
      * Background size
@@ -43,7 +43,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
      * @type      {String}
      * @default   'small'
      */
-    bgSize: React.PropTypes.oneOf(['small', 'medium', 'large']),
+    bgSize: PropTypes.oneOf(['small', 'medium', 'large']),
 
     /**
      * Background shape
@@ -51,7 +51,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
      * @property  bgShape
      * @type      {String}
      */
-    bgShape: React.PropTypes.oneOf(['square', 'rounded-rect', 'circle']),
+    bgShape: PropTypes.oneOf(['square', 'rounded-rect', 'circle']),
 
     /**
      * Background color theme
@@ -59,7 +59,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
      * @property  bgTheme
      * @type      {String}
      */
-    bgTheme: React.PropTypes.string
+    bgTheme: PropTypes.string
   };
 
   static defaultProps = {

@@ -14,7 +14,7 @@ class NavigationBar extends React.Component {
      * @type {String}
      * @default primary
      */
-    as: React.PropTypes.string
+    as: PropTypes.string
   }
 
   static defaultProps = {

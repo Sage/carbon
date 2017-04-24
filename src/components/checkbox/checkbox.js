@@ -33,7 +33,7 @@ class Checkbox extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    reverse: React.PropTypes.bool
+    reverse: PropTypes.bool
   }
 
   static defaultProps = {

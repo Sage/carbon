@@ -49,7 +49,7 @@ class Date extends React.Component {
      * @property minDate
      * @type {String}
      */
-    minDate: React.PropTypes.string,
+    minDate: PropTypes.string,
 
     /**
      * Maximum possible date
@@ -57,7 +57,7 @@ class Date extends React.Component {
      * @property maxDate
      * @type {String}
      */
-    maxDate: React.PropTypes.string
+    maxDate: PropTypes.string
   };
 
   static defaultProps = {

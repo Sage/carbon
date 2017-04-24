@@ -68,9 +68,9 @@ class Dropdown extends React.Component {
      * @property value
      * @type {String}
      */
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),
 
     /**
@@ -81,7 +81,7 @@ class Dropdown extends React.Component {
      * @property options
      * @type {object}
      */
-    options: React.PropTypes.object.isRequired,
+    options: PropTypes.object.isRequired,
 
     /**
      * Determines if the visibleValue will be cached or not.
@@ -89,7 +89,7 @@ class Dropdown extends React.Component {
      * @property cacheVisibleValue
      * @type {boolean}
      */
-    cacheVisibleValue: React.PropTypes.bool
+    cacheVisibleValue: PropTypes.bool
   }
 
   static defaultProps = {

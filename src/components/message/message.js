@@ -36,7 +36,7 @@ class Message extends React.Component {
      * @type {String}
      * @default 'info'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * Determines if the message background is transparent or filled defined by the as property.
@@ -45,7 +45,7 @@ class Message extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    transparent: React.PropTypes.bool,
+    transparent: PropTypes.bool,
 
     /**
      * Determines if the message is open.
@@ -54,7 +54,7 @@ class Message extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    open: React.PropTypes.bool,
+    open: PropTypes.bool,
 
     /**
      * Callback for when dismissed.
@@ -62,7 +62,7 @@ class Message extends React.Component {
      * @property onDismiss
      * @type {Function}
      */
-    onDismiss: React.PropTypes.func,
+    onDismiss: PropTypes.func,
 
     /**
      * Determines if the corners of the message are rounded
@@ -71,7 +71,7 @@ class Message extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    roundedCorners: React.PropTypes.bool,
+    roundedCorners: PropTypes.bool,
 
     /**
      * Determines if a border is applied to the message
@@ -80,7 +80,7 @@ class Message extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    border: React.PropTypes.bool
+    border: PropTypes.bool
   }
 
   static defaultProps = {

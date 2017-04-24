@@ -31,7 +31,7 @@ class I18n extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    markdown: React.PropTypes.bool,
+    markdown: PropTypes.bool,
 
     /**
      * Whether to enclose the text in a <span> or a <div>
@@ -40,7 +40,7 @@ class I18n extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    inline: React.PropTypes.bool,
+    inline: PropTypes.bool,
 
     /**
      * The key to lookup for a localised value
@@ -49,7 +49,7 @@ class I18n extends React.Component {
      * @type {String}
      * @default undefined
      */
-    scope: React.PropTypes.string,
+    scope: PropTypes.string,
 
     /**
      * Additional options to pass to I18n
@@ -58,7 +58,7 @@ class I18n extends React.Component {
      * @type {Object}
      * @default undefined
      */
-    options: React.PropTypes.object
+    options: PropTypes.object
   }
 
   static defaultProps = {

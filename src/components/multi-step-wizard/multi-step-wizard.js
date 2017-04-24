@@ -59,7 +59,7 @@ class MultiStepWizard extends React.Component {
      * @property steps
      * @type {Array}
      */
-    steps: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    steps: PropTypes.arrayOf(React.PropTypes.object).isRequired,
 
     /**
      * Custom function that is called immediately before a submit event
@@ -67,7 +67,7 @@ class MultiStepWizard extends React.Component {
      * @property beforeSubmitValidation
      * @type {Function}
      */
-    beforeSubmitValidation: React.PropTypes.func,
+    beforeSubmitValidation: PropTypes.func,
 
     /**
      * A custom submit event handler
@@ -75,7 +75,7 @@ class MultiStepWizard extends React.Component {
      * @property onSubmit
      * @type {Function}
      */
-    onSubmit: React.PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
 
     /**
      * Current step
@@ -84,7 +84,7 @@ class MultiStepWizard extends React.Component {
      * @type {Number}
      * @default 1
      */
-    currentStep: React.PropTypes.number,
+    currentStep: PropTypes.number,
 
     /**
      * Determines if the wizard disables inactive steps
@@ -93,7 +93,7 @@ class MultiStepWizard extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    enableInactiveSteps: React.PropTypes.bool,
+    enableInactiveSteps: PropTypes.bool,
 
     /**
      * The completion state of the wizard
@@ -102,7 +102,7 @@ class MultiStepWizard extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    completed: React.PropTypes.bool
+    completed: PropTypes.bool
   }
 
   static defaultProps = {
@@ -141,7 +141,7 @@ class MultiStepWizard extends React.Component {
      * @property wizard
      * @type {Object}
      */
-    wizard: React.PropTypes.object
+    wizard: PropTypes.object
   }
 
   /**

@@ -53,7 +53,7 @@ class Decimal extends React.Component {
      * @type {String}
      * @default 'right'
      */
-    align: React.PropTypes.string,
+    align: PropTypes.string,
 
     /**
      * Sets the pricision of the field
@@ -62,9 +62,9 @@ class Decimal extends React.Component {
      * @type {Integer}
      * @default 2
      */
-    precision: React.PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.string
+    precision: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
     ])
   };
 

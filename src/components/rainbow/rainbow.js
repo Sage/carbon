@@ -49,7 +49,7 @@ class Rainbow extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.string,
+    title: PropTypes.string,
 
     /**
      * The data set for the component.
@@ -57,7 +57,7 @@ class Rainbow extends React.Component {
      * @property data
      * @type {Object}
      */
-    data: React.PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
 
     /**
      * Custom chart config for the component.
@@ -65,7 +65,7 @@ class Rainbow extends React.Component {
      * @property config
      * @type {Object}
      */
-    config: React.PropTypes.object
+    config: PropTypes.object
   }
 
   /**

@@ -38,7 +38,7 @@ class Toast extends React.Component {
      * @type {String}
      * @default 'warning'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * Determines if the toast is open.
@@ -47,7 +47,7 @@ class Toast extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    open: React.PropTypes.bool,
+    open: PropTypes.bool,
 
     /**
      * Callback for when dismissed.
@@ -55,7 +55,7 @@ class Toast extends React.Component {
      * @property onDismiss
      * @type {Function}
      */
-    onDismiss: React.PropTypes.func
+    onDismiss: PropTypes.func
   }
 
   static defaultProps = {

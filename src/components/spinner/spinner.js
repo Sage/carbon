@@ -33,7 +33,7 @@ class Spinner extends React.Component {
      * @type {String}
      * @default info
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * Size of the spinner
@@ -42,7 +42,7 @@ class Spinner extends React.Component {
      * @property size
      * @type {String}
      */
-    size: React.PropTypes.string
+    size: PropTypes.string
   };
 
   static defaultProps = {

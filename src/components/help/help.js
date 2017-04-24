@@ -30,7 +30,7 @@ const Help = TooltipDecorator(class Help extends React.Component{
      * @property children
      * @type {String}
      */
-    children: React.PropTypes.string,
+    children: PropTypes.string,
 
     /**
      * Position of tooltip relative to target
@@ -39,7 +39,7 @@ const Help = TooltipDecorator(class Help extends React.Component{
      * @type {String} Options: { top, bottom, right, left }
      * @default top
      */
-    tooltipPosition: React.PropTypes.string,
+    tooltipPosition: PropTypes.string,
 
     /**
      * Aligment of pointer
@@ -48,7 +48,7 @@ const Help = TooltipDecorator(class Help extends React.Component{
      * @type {String} Options: { top, bottom, right, left, center }
      * @default center
      */
-    tooltipAlign: React.PropTypes.string,
+    tooltipAlign: PropTypes.string,
 
     /**
      * A path for the anchor
@@ -56,7 +56,7 @@ const Help = TooltipDecorator(class Help extends React.Component{
      * @property href
      * @type {String}
      */
-    href: React.PropTypes.string
+    href: PropTypes.string
   };
 
   static defaultProps = {

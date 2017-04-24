@@ -38,7 +38,7 @@ class TableHeader extends React.Component {
      * @property align
      * @type {String}
      */
-    align: React.PropTypes.string,
+    align: PropTypes.string,
 
     /**
      * Name of the column to sort. Should correspond to name in database.
@@ -63,7 +63,7 @@ class TableHeader extends React.Component {
      * @property sortable
      * @type {Boolean}
      */
-    sortable: React.PropTypes.bool
+    sortable: PropTypes.bool
   }
 
   /**
@@ -73,9 +73,9 @@ class TableHeader extends React.Component {
    * @type {Function}
    */
   static contextTypes = {
-    onSort: React.PropTypes.func,
-    sortedColumn: React.PropTypes.string,
-    sortOrder: React.PropTypes.string
+    onSort: PropTypes.func,
+    sortedColumn: PropTypes.string,
+    sortOrder: PropTypes.string
   }
 
   /**

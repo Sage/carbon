@@ -113,8 +113,8 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: React.PropTypes.object,
-    tab: React.PropTypes.object
+    form: PropTypes.object,
+    tab: PropTypes.object
   });
 
   static propTypes = assign({}, ComposedComponent.propTypes, {
@@ -125,7 +125,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
      * @property
      * @type {Array}
      */
-    validations: React.PropTypes.array,
+    validations: PropTypes.array,
 
     /**
      * Array of warnings to apply to this input
@@ -133,7 +133,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
      * @property
      * @type {Array}
      */
-    warnings: React.PropTypes.array
+    warnings: PropTypes.array
   });
 
   /**

@@ -30,9 +30,9 @@ class Carousel extends React.Component {
      * @type {String}
      * @default firstTab
      */
-    initialSlideIndex: React.PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.string
+    initialSlideIndex: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
     ]),
 
     /**
@@ -42,8 +42,8 @@ class Carousel extends React.Component {
      * @type {Object | Array}
      */
     children: PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object
+      PropTypes.array,
+      PropTypes.object
     ])
   }
 

@@ -18,7 +18,7 @@ class ColorOption extends React.Component {
      * @property color
      * @type {String}
      */
-    color: React.PropTypes.string,
+    color: PropTypes.string,
 
     /**
      * the input name.
@@ -26,7 +26,7 @@ class ColorOption extends React.Component {
      * @property name
      * @type {String}
      */
-    name: React.PropTypes.string,
+    name: PropTypes.string,
 
     /**
      * called when the user selects or deselects this color option.
@@ -34,7 +34,7 @@ class ColorOption extends React.Component {
      * @property onChange
      * @type {Function}
      */
-    onChange: React.PropTypes.func,
+    onChange: PropTypes.func,
 
     /**
      * determines if this color option is selected or unselected.
@@ -42,7 +42,7 @@ class ColorOption extends React.Component {
      * @property checked
      * @type {Boolean}
      */
-    checked: React.PropTypes.bool
+    checked: PropTypes.bool
   }
 
   /**

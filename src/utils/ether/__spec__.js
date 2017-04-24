@@ -43,8 +43,8 @@ describe('Ether', () => {
       }
 
       static propTypes = {
-        foo: React.PropTypes.bool,
-        bar: React.PropTypes.bool
+        foo: PropTypes.bool,
+        bar: PropTypes.bool
       };
 
       static safeProps = ['foo'];

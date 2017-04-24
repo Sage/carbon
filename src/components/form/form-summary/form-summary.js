@@ -11,8 +11,8 @@ const FormSummary = props =>
 ;
 
 FormSummary.propTypes = {
-  errors:   React.PropTypes.number.isRequired,
-  warnings: React.PropTypes.number.isRequired
+  errors:   PropTypes.number.isRequired,
+  warnings: PropTypes.number.isRequired
 };
 
 /**

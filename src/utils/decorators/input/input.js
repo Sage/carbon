@@ -65,7 +65,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: React.PropTypes.object
+    form: PropTypes.object
   });
 
   static propTypes = assign({}, ComposedComponent.propTypes, {});

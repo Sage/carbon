@@ -33,7 +33,7 @@ class MultiActionButton extends SplitButton {
      * @type {String}
      * @default 'secondary'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * The text to be displayed in the SplitButton.
@@ -41,7 +41,7 @@ class MultiActionButton extends SplitButton {
      * @property text
      * @type {String}
      */
-    text: React.PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
 
     /**
      * Gives the button a disabled state.
@@ -50,7 +50,7 @@ class MultiActionButton extends SplitButton {
      * @type {Boolean}
      * @default false
      */
-    disabled: React.PropTypes.bool,
+    disabled: PropTypes.bool,
 
     /**
      * Aligns the button's options, can be set to `right`.
@@ -58,7 +58,7 @@ class MultiActionButton extends SplitButton {
      * @property align
      * @type {String}
      */
-    align: React.PropTypes.string
+    align: PropTypes.string
   }
 
   /**
