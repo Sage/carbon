@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Help from './help.js';
 import Icon from 'components/icon';
 

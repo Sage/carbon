@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import DialogFullScreen from './dialog-full-screen';
 import I18n from 'i18n-js';
 import Bowser from 'bowser';

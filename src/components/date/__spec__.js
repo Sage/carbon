@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import moment from 'moment';
 import Date from './date';
 import Events from './../../utils/helpers/events';

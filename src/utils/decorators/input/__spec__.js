@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Input from './input';
 import Icon from './../../../components/icon';
 import Help from './../../../components/help';

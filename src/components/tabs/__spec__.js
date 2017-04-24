@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { Tabs, Tab } from './tabs';
 import Textbox from './../textbox';

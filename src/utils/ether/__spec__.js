@@ -1,6 +1,6 @@
 import { append, styleElement, acronymize, validProps, insertAt } from './ether.js';
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Pod from 'components/pod';
 
 describe('Ether', () => {

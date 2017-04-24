@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Dropdown from './dropdown';
 import Immutable from 'immutable';
 import Events from './../../utils/helpers/events';
