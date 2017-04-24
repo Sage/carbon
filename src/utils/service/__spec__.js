@@ -1,7 +1,7 @@
 import moxios from 'moxios';
 import Service from './service';
 
-fdescribe('Service', () => {
+describe('Service', () => {
   let service, onSuccessSpy, onErrorSpy;
 
   beforeEach(() => {
@@ -186,6 +186,22 @@ fdescribe('Service', () => {
       it('calls the DEL endpoint', (done) => {
         service.delete(1, successSpy, errorSpy);
         testEndpoint(done, 400, errorSpy);
+      });
+
+      it('without an error callback', (done) => {
+        service.delete(1, successSpy);
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent(),
+              data = { data: {} };
+
+          request.respondWith({
+            status: status,
+            response: JSON.stringify(data)
+          }).then((response) => {
+            expect(errorSpy).not.toHaveBeenCalled();
+            done();
+          });
+        });
       });
     });
 
