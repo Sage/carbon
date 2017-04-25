@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import escapeStringRegexp from 'escape-string-regexp';
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Link from 'components/link';
 import Textbox from 'components/textbox';
