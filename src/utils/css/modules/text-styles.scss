@@ -8,6 +8,10 @@
   @include text-theme($set...);
 }
 
+p {
+  white-space: pre-wrap;
+}
+
 .text--tag {
   font-size: 10px;
   font-weight: bold;
