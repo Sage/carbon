@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
 import Link from './../link';
 import Create from './create';

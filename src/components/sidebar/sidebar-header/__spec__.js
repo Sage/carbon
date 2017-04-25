@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
 import SidebarHeader from './sidebar-header';
 import Textbox from './../../textbox';

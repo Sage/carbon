@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
 import Modal from './modal';
 import I18n from 'i18n-js';

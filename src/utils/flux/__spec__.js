@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Flux from 'flux';
 import { connect } from './flux';
 import Textbox from './../../components/textbox';

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import TestUtils from 'react-dom/test-utils';
 import Row from './row';

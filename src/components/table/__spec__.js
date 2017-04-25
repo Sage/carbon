@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';

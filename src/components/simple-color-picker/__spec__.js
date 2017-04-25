@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ColorOption from './color-option';
 import SimpleColorPicker from './';
 import { mount } from 'enzyme';

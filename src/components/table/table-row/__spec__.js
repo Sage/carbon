@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
 import { Table, TableCell } from './../table';
 import TableRow from './table-row';

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { shallow } from 'enzyme';
 import SettingsRow from './settings-row';
 import Heading from './../heading';

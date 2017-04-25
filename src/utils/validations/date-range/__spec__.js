@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ValidationsHelper from './../../helpers/validations';
 import Validator from './date-range';
 

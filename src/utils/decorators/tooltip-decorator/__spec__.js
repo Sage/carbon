@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Icon from 'components/icon'
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';

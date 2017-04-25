@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import GroupedCharacter from './grouped-character';
 import { mount } from 'enzyme';
 

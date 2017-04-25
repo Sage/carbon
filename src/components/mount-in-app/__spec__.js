@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import MountInApp from './';
 import TestUtils from 'react-dom/test-utils';
