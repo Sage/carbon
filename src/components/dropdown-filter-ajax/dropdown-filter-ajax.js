@@ -1,6 +1,6 @@
 import React from 'react';
 import Request from 'superagent';
-import {cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash';
 import DropdownFilter from './../dropdown-filter';
 import { omit, assign } from 'lodash';
 
@@ -212,6 +212,7 @@ class DropdownFilterAjax extends DropdownFilter {
    * @param {Object} page The page number to get
    */
   getData = (query = "", page = 1) => {
+    this.setState({ 'requesting': true });
     Request
       .get(this.props.path)
       .query({
@@ -220,9 +221,15 @@ class DropdownFilterAjax extends DropdownFilter {
         value: query
       })
       .query(this.props.additionalRequestParams)
-      .end((err, response) => {
-        this.updateList(response.body.data[0]);
-      });
+      .end(this.ajaxUpdateList);
+  }
+
+  /**
+   * Applies some data from AJAX to the list
+   */
+  ajaxUpdateList = (err, response) => {
+    this.updateList(response.body.data[0]);
+    this.setState({ 'requesting': false });
   }
 
   /**
@@ -290,6 +297,12 @@ class DropdownFilterAjax extends DropdownFilter {
     return this.prepareList(cloneDeep(this.state.options));
   }
 
+  /**
+   * Converts requesting state into a string for the automation property data-state
+   */
+  requestingState = () => {
+    return this.state.requesting ? 'requesting-list' : 'idle';
+  }
 
   /**
    * Input props for the dropdown, extended from the base dropdown component.

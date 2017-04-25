@@ -31,6 +31,7 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 ## Component Enhancements
 
 * `DropdownFilter`: placeholder text is made more legible by removing italics and making the font color darker
+* `DropdownFilterAjax`: `data-state` component tag is added to the `getData` Ajax request to mark the requesting state
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
 * `MountInApp` now cleans up it's children when the component is unmounted.
 
@@ -1845,7 +1846,7 @@ You can now define Validations on a component using the following syntax:
 ## Misc
 
 * Ran ESLint task and fixed any errors.
-* Form provides a serialization method to parse its inputs into data usable for AJAX.
+* Form provides a serialization method to parse its inputs into data usable for Ajax.
 * Forms no longer needs a model name defined.
 * Updated Form Cancel Button to use History object.
 * Textarea is no longer draggable. Add a expandable={true} prop to make the area height change to fit content
