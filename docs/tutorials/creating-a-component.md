@@ -165,7 +165,7 @@ When creating React components it's important to define the `propTypes` for that
 class Button extends React.Component {
 
   static propTypes = {
-    children: React.PropTypes.string.isRequired
+    children: PropTypes.string.isRequired
   }
 
   render() {
@@ -197,7 +197,7 @@ class Button extends React.Component {
   }
 
   static propTypes = {
-    children: React.PropTypes.string.isRequired
+    children: PropTypes.string.isRequired
   }
 
 // .. render
@@ -257,8 +257,8 @@ class Button extends React.Component {
   }
 
   static propTypes = {
-    as:       React.PropTypes.string,
-    children: React.PropTypes.string.isRequired
+    as:       PropTypes.string,
+    children: PropTypes.string.isRequired
   }
 
 // .. render
@@ -332,10 +332,10 @@ class Button extends React.Component {
   }
 
   static propTypes = {
-    as:        React.PropTypes.string,
-    children:  React.PropTypes.string.isRequired,
-    className: React.PropTypes.string,
-    disabled:  React.PropTypes.bool.isRequired
+    as:        PropTypes.string,
+    children:  PropTypes.string.isRequired,
+    className: PropTypes.string,
+    disabled:  PropTypes.bool.isRequired
   }
 
 // .. render
@@ -507,10 +507,10 @@ class Button extends React.Component {
   }
 
   static propTypes = {
-    as:        React.PropTypes.string,
-    children:  React.PropTypes.string.isRequired,
-    className: React.PropTypes.string,
-    disabled:  React.PropTypes.bool.isRequired
+    as:        PropTypes.string,
+    children:  PropTypes.string.isRequired,
+    className: PropTypes.string,
+    disabled:  PropTypes.bool.isRequired
   }
 
   /**
