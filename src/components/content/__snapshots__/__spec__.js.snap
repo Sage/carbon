@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Content center renders with an inline and center class 1`] = `
+<div
+  className="carbon-content carbon-content--primary carbon-content--align-center"
+>
+  <div
+    className="carbon-content__title"
+    style={Object {}}
+  />
+  <div
+    className="carbon-content__body"
+    style={Object {}}
+  >
+    foo
+  </div>
+</div>
+`;
+
+exports[`Content inline renders with an inline class 1`] = `
+<div
+  className="carbon-content carbon-content--primary carbon-content--align-left carbon-content--inline"
+>
+  <div
+    className="carbon-content__title"
+    style={Object {}}
+  />
+  <div
+    className="carbon-content__body"
+    style={Object {}}
+  >
+    foo
+  </div>
+</div>
+`;
+
+exports[`Content over-ride body width will set body width to 100% if over-ride set 1`] = `
+<div
+  className="carbon-content carbon-content--primary carbon-content--align-left carbon-content--body-full-width"
+>
+  <div
+    className="carbon-content__title"
+    style={
+      Object {
+        "width": "calc(40% - 30px)",
+      }
+    }
+  />
+  <div
+    className="carbon-content__body"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    foo
+  </div>
+</div>
+`;
+
+exports[`Content renders the title, body and custom classes 1`] = `
+<div
+  className="carbon-content foobar carbon-content--primary carbon-content--align-left"
+>
+  <div
+    className="carbon-content__title"
+    style={Object {}}
+  >
+    bar
+  </div>
+  <div
+    className="carbon-content__body"
+    style={Object {}}
+  >
+    bar
+  </div>
+</div>
+`;
+
+exports[`Content titleWidth renders custom styling for the title 1`] = `
+<div
+  className="carbon-content carbon-content--primary carbon-content--align-left"
+>
+  <div
+    className="carbon-content__title"
+    style={
+      Object {
+        "width": "calc(40% - 30px)",
+      }
+    }
+  />
+  <div
+    className="carbon-content__body"
+    style={
+      Object {
+        "width": "60%",
+      }
+    }
+  >
+    foo
+  </div>
+</div>
+`;
+
+exports[`Content with no children renders nothing 1`] = `null`;

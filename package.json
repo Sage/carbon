@@ -1,4 +1,13 @@
 {
+  "jest": {
+    "testMatch": [
+      "**/__spec__.js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
+  },
   "name": "carbon",
   "version": "1.0.0-beta",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
@@ -22,6 +31,7 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
+    "babel-jest": "^19.0.0",
     "babel-standalone": "~6.17.0",
     "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.3.0",
     "enzyme": "~2.5.1",
@@ -32,6 +42,8 @@
     "highlight.js": "~9.6.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "~3.8.1",
+    "jest": "^19.0.2",
+    "moxios": "^0.4.0",
     "ncp": "~2.0.0",
     "react": "~15.3.1",
     "react-addons-css-transition-group": "~15.3.1",
@@ -39,6 +51,7 @@
     "react-dom": "~15.3.1",
     "react-highlight": "~0.9.0",
     "react-router": "~2.8.0",
+    "regenerator-runtime": "^0.10.3",
     "underscore.string": "~3.3.4",
     "xhr-mock": "git@github.com:resin-io-modules/xhr-mock.git#improvements"
   },
