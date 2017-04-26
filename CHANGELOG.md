@@ -70,6 +70,10 @@ So far we have added attributes to the following components:
 gulp --port 1234
 ```
 
+# 0.36.0
+
+* Add `additionalRequestParams` prop to `DropdownFilterAjax`
+
 # 0.35.1
 
 * Ensure that node modules can only upgrade patch versions
