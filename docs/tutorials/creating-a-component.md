@@ -39,6 +39,7 @@ Each component must contain a render method which returns a tree of React compon
 ```javascript
 // src/components/button/index.js
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Button extends React.Component {
 
