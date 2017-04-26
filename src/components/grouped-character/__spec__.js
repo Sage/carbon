@@ -124,9 +124,7 @@ describe('GroupedCharacter', () => {
         it('moves the cursor one position to the left', () => {
           input.simulate('keydown', { which: 8 } )
           input.simulate('change', { target: { value: '1234', selectionEnd: 6 } } );
-          setTimeout(() => {
-            expect(input.nodes[0].selectionEnd).toEqual(4);
-          })
+          expect(input.nodes[0].selectionEnd).toEqual(5);
         });
       });
     });
