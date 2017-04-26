@@ -1,3 +1,7 @@
+# 0.36.0
+
+* Add `additionalRequestParams` prop to `DropdownFilterAjax`
+
 # 0.35.2
 
 * Hide SplitButton additional buttons instead of removing them.
