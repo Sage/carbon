@@ -23,6 +23,7 @@
   - Carousel
 * `ButtonToggle` no longer inherits from the label decorator as it was providing more functionality than required.
 * `Rainbow` has been updated to no longer use the `react-highcharts` component. To use this component you need to ensure to make the `Highcharts` library available to your application globally.
+* `ActionToolbar` incorrectly required actions as an `Array` - this has been changed to an `Object` to reflect its actual usage.
 
 ## Google Analytics
 

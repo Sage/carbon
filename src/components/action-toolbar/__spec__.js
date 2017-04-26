@@ -6,7 +6,7 @@ describe('action toolbar', () => {
   let instance;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(<ActionToolbar actions={[ {}, {} ]} className="foo" />);
+    instance = TestUtils.renderIntoDocument(<ActionToolbar actions={ { foo:{}, bar:{} } } className="foo" />);
   });
 
   describe('componentWillMount', () => {
