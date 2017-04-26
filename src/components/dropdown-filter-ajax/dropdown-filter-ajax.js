@@ -106,7 +106,7 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property additionalRequestParams
      * @type {Object}
      */
-    additionalRequestParams: React.PropTypes.object,
+    additionalRequestParams: PropTypes.object,
 
     /**
      * The number of rows to get per request
