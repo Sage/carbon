@@ -99,6 +99,15 @@ class DropdownFilterAjax extends DropdownFilter {
      */
     path: React.PropTypes.string.isRequired,
 
+
+    /**
+     * Additional parameters for the request (e.g. {foo: 'bar' })
+     *
+     * @property additionalRequestParams
+     * @type {Object}
+     */
+    additionalRequestParams: React.PropTypes.object,
+
     /**
      * The number of rows to get per request
      *
@@ -210,6 +219,7 @@ class DropdownFilterAjax extends DropdownFilter {
         rows: this.props.rowsPerRequest,
         value: query
       })
+      .query(this.props.additionalRequestParams)
       .end((err, response) => {
         this.updateList(response.body.data[0]);
       });
