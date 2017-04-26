@@ -92,6 +92,13 @@ describe('SplitButton', () => {
       TestUtils.Simulate.mouseLeave(block);
       expect(twoItemsSplitButton.state.showAdditionalButtons).toEqual(false);
     });
+
+    it('hides additional buttons', () => {
+      let toggle = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button__toggle');
+      TestUtils.Simulate.mouseLeave(toggle);
+      let block = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button__additional-buttons carbon-split-button__additional-buttons--hidden');
+      expect(block).not.toBe(null);
+    });
   });
 
   describe('click button', () => {
