@@ -449,6 +449,7 @@ class Dropdown extends React.Component {
     let { ...props } = validProps(this);
 
     delete props.autoFocus;
+    delete props.columnSpan;
 
     props.className = this.inputClasses;
     props.value = this.visibleValue || this.nameByID();

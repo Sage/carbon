@@ -498,6 +498,7 @@ class Pod extends React.Component {
         hoverOverEditEvents = {};
 
     delete props.className;
+    delete props.save;
 
     if (this.titleIsString()) {
       props.title = this.props.title;

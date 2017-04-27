@@ -59,7 +59,31 @@ class Row extends React.Component {
      * @property columns
      * @type {String}
      */
-    columns: React.PropTypes.string
+    columns: React.PropTypes.string,
+
+    /**
+     * Column span
+     *
+     * @property columnSpan
+     * @type {String}
+     */
+    columnSpan: React.PropTypes.string,
+
+    /**
+     * Column span
+     *
+     * @property columnSpan
+     * @type {String}
+     */
+    columnAlign: React.PropTypes.string,
+
+    /**
+     * Column span
+     *
+     * @property columnSpan
+     * @type {String}
+     */
+    columnOffset: React.PropTypes.string
   }
 
   static defaultProps = {

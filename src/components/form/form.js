@@ -171,7 +171,15 @@ class Form extends React.Component {
      * @property onSubmit
      * @type {Function}
      */
-    onSubmit: React.PropTypes.func
+    onSubmit: React.PropTypes.func,
+
+    /**
+     * Currently active input in form
+     *
+     * @property activeInput
+     * @type {Node}
+     */
+    activeInput: React.PropTypes.node
   }
 
   static defaultProps = {
@@ -448,6 +456,7 @@ class Form extends React.Component {
     let { ...props } = validProps(this);
     delete props.activeInput;
     delete props.onSubmit;
+    delete props.afterSave;
     props.className = this.mainClasses;
     return props;
   }
