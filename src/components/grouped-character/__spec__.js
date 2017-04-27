@@ -94,9 +94,7 @@ describe('GroupedCharacter', () => {
       describe('when typing a character ending a group', () => {
         it('moves the cursor 1 space to the right', () => {
           input.simulate('change', { target: { value: '12345', selectionEnd: 6} } );
-          setTimeout(() => {
-            expect(input.nodes[0].selectionEnd).toEqual(6);
-          })
+          expect(input.nodes[0].selectionEnd).toEqual(7);
         });
       });
     });
@@ -105,9 +103,7 @@ describe('GroupedCharacter', () => {
       it('leaves the cursor where it was last', () => {
         input.simulate('keydown', { which: 46 } )
         input.simulate('change', { target: { value: '12345', selectionEnd: 5 } } );
-        setTimeout(() => {
-          expect(input.nodes[0].selectionEnd).toEqual(5);
-        })
+        expect(input.nodes[0].selectionEnd).toEqual(5);
       });
     });
 
