@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import TestUtils from 'react/lib/ReactTestUtils';
 
 import Icon from './../icon';
@@ -240,6 +241,14 @@ describe('Link', () => {
           });
         });
       });
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<Link to='test' data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'link', 'bar', 'baz');
     });
   });
 });

@@ -308,6 +308,13 @@ class DropdownFilterAjax extends DropdownFilter {
     return props;
   }
 
+  componentTags(props) {
+    return {
+      'data-component': 'dropdown-filter-ajax',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
 }
 
 export default DropdownFilterAjax;

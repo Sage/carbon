@@ -1,6 +1,7 @@
 import React from 'react';
 import GroupedCharacter from './grouped-character';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('GroupedCharacter', () => {
   let wrapper, input;
@@ -122,6 +123,32 @@ describe('GroupedCharacter', () => {
           expect(input.nodes[0].selectionEnd).toEqual(5);
         });
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<GroupedCharacter data-element='bar' data-role='baz' groups={ [2, 2, 2] } />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'grouped-character', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <GroupedCharacter
+          fieldHelp='test'
+          groups={ [2, 2, 2] }
+          label='test'
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'help',
+        'input',
+        'label'
+      ]);
     });
   });
 });

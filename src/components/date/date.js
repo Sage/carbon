@@ -11,6 +11,7 @@ import DateHelper from './../../utils/helpers/date';
 import DateValidator from './../../utils/validations/date';
 import chainFunctions from './../../utils/helpers/chain-functions';
 import { validProps } from './../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Date widget.
@@ -356,7 +357,8 @@ class Date extends React.Component {
     let props = {
       ref: 'hidden',
       type: 'hidden',
-      readOnly: true
+      readOnly: true,
+      'data-element': 'hidden-input'
     };
 
     if (typeof this.props.value !== 'undefined') {
@@ -465,7 +467,7 @@ class Date extends React.Component {
     let datePicker = this.state.open ? this.renderDatePicker() : null;
 
     return (
-      <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
+      <div className={ this.mainClasses } onClick={ this.handleWidgetClick } { ...tagComponent('date', this.props) }>
 
         { this.labelHTML }
         { this.inputHTML }

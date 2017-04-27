@@ -173,13 +173,20 @@ class TableHeader extends React.Component {
    */
   render() {
     return (
-      <th { ...this.tableHeaderProps }>
+      <th { ...this.tableHeaderProps } { ...this.componentTags(this.props) }>
         { this.props.children }
         { this.sortIconHTML }
       </th>
     );
   }
 
+  componentTags(props) {
+    return {
+      'data-component': 'table-header',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
 }
 
 export default TableHeader;
