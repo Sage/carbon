@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Button from './button';
-import Link from './../link';
+import Link from 'components/link';
+
 
 describe('Button', () => {
 
-  let defaultButton, primary, secondary, small, large, disabled, anchor, to;
+  let defaultButton, primary, secondary, small, large, disabled, anchor, to, wrapper;
   let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
@@ -59,6 +62,8 @@ describe('Button', () => {
     to = TestUtils.renderIntoDocument(
       <Button to="/foo">To</Button>
     );
+
+    wrapper = shallow(<Button data-role='contacts' data-element='button'>A Button</Button>);
   });
 
   describe('A basic button', () => {
@@ -188,6 +193,14 @@ describe('Button', () => {
       it('renders an anchor', () => {
         expect(TestUtils.findRenderedComponentWithType(to, Link)).toBeDefined();
       });
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<Button data-element='bar' data-role='baz'>Test</Button>);
+
+    it('includes correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'button', 'bar', 'baz');
     });
   });
 });

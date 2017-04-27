@@ -386,6 +386,14 @@ class TableAjax extends Table {
       showPageSizeSelection: this.props.showPageSizeSelection
     };
   }
+
+  componentTags(props) {
+    return {
+      'data-component': 'table-ajax',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
 }
 
 export {

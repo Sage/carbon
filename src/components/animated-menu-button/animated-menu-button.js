@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Icon from './../icon';
-import Devices from './../../utils/helpers/devices';
-import { validProps } from '../../utils/ether';
+import Icon from 'components/icon';
+import { tagComponent } from '../../utils/helpers/tags';
+import Devices from 'utils/helpers/devices';
+import { validProps } from 'utils/ether';
 
 /**
  * An AnimatedMenuButton widget.
@@ -138,8 +139,8 @@ class AnimatedMenuButton extends React.Component {
     }
 
     return (
-      <div { ...this.componentProps() }>
-        <Icon type='add' />
+      <div { ...this.componentProps() } { ...tagComponent('animated-menu-button', this.props) }>
+        <Icon type='add' data-element='open'/>
 
         <ReactCSSTransitionGroup
           transitionEnterTimeout={ 500 }
@@ -162,7 +163,15 @@ class AnimatedMenuButton extends React.Component {
    */
   labelHTML() {
     if (this.props.label) {
-      return <span className='carbon-animated-menu-button__label' key='label'>{ this.props.label }</span>;
+      return (
+        <span
+          className='carbon-animated-menu-button__label'
+          data-element='label'
+          key='label'
+        >
+          { this.props.label }
+        </span>
+      );
     }
     return '';
   }
@@ -182,7 +191,11 @@ class AnimatedMenuButton extends React.Component {
     contents.push(this.labelHTML());
     contents.push(this.props.children);
 
-    return <div className='carbon-animated-menu-button__content'>{ contents }</div>;
+    return (
+      <div className='carbon-animated-menu-button__content'>
+        { contents }
+      </div>
+    );
   }
 
   /**
@@ -208,6 +221,10 @@ class AnimatedMenuButton extends React.Component {
    */
   componentProps() {
     let { ...props } = validProps(this);
+
+    delete props['data-element'];
+    delete props['data-role'];
+
     props.className = this.mainClasses();
     props.onBlur = this.handleBlur;
     props.onFocus = this.openHandler;
@@ -227,6 +244,7 @@ class AnimatedMenuButton extends React.Component {
   closeIcon() {
     return (
       <div
+        data-element='close'
         key='close'
         onClick={ this.closeHandler }
         ref={ (comp) => { this._closeIcon = comp; } }

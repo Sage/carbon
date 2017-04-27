@@ -5,6 +5,7 @@ import Form from './../form';
 import Textbox from './../textbox';
 import Pod from './../pod';
 import Events from './../../utils/helpers/events'
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 import { shallow } from 'enzyme';
 
@@ -385,6 +386,29 @@ describe('ShowEditPod', () => {
           expect(deleteButton.props('onClick')).toEqual(onDelete);
         });
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<ShowEditPod data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'show-edit-pod', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <ShowEditPod
+          editing={ true }
+          onEdit={ ()=>{} }
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'edit-form'
+      ]);
     });
   });
 });

@@ -6,6 +6,8 @@ import Icon from './../../icon';
 import classNames from 'classnames';
 import { trim, startsWith } from 'lodash';
 
+import { tagComponent } from '../../../utils/helpers/tags';
+
 /**
  * A single square with a color, implemented as a radio button.
  */
@@ -83,7 +85,7 @@ class ColorOption extends React.Component {
 
   render() {
     return (
-      <li className={ this.mainClasses }>
+      <li className={ this.mainClasses } { ...tagComponent('color-option', this.props) }>
         { this.inputHTML }
       </li>
     );

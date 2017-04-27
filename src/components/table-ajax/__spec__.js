@@ -2,6 +2,8 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { TableAjax } from './table-ajax';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('TableAjax', () => {
   let instance, customInstance, pageSizeInstance, spy;
@@ -330,6 +332,20 @@ describe('TableAjax', () => {
       expect(props.currentPage).toEqual('1')
       expect(props.pageSize).toEqual('10')
       expect(props.totalRecords).toEqual('0')
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(
+      <TableAjax
+        data-element='bar'
+        data-role='baz'
+        path='test'
+      />
+    );
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'table-ajax', 'bar', 'baz');
     });
   });
 });

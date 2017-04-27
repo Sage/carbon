@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
 import Link from './../link';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A ActionToolbar widget.
@@ -108,9 +109,9 @@ class ActionToolbar extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses() }>
+      <div className={ this.mainClasses() } { ...tagComponent('action-toolbar', this.props) } >
         <div className='carbon-action-toolbar__total'>
-          <strong>{ this.state.total }</strong> { I18n.t('action_toolbar.selected', { defaultValue: 'Selected' }) }
+          <strong data-element='total'>{ this.state.total }</strong> { I18n.t('action_toolbar.selected', { defaultValue: 'Selected' }) }
         </div>
 
         <div className='carbon-action-toolbar__actions'>
@@ -163,6 +164,7 @@ class ActionToolbar extends React.Component {
     return (
       <Link
         className={ className }
+        data-element='action'
         disabled={ !this.isActive() }
         key={ index }
         onClick={ onClick }

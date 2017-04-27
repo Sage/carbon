@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ColorOption from './color-option';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A component that displays squares with color samples that
@@ -61,7 +62,7 @@ class SimpleColorPicker extends React.Component {
    */
   render() {
     return (
-      <div className="carbon-simple-color-picker">
+      <div className="carbon-simple-color-picker" { ...tagComponent('simple-color-picker', this.props) }>
         <ul className="carbon-simple-color-picker__color-options">
           { this._colorOptions }
         </ul>

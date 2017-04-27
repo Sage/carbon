@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from './../icon';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Message widget.
@@ -118,7 +119,12 @@ class Message extends React.Component {
    */
   get dismissIcon() {
     return this.props.onDismiss ? (
-      <Icon className="carbon-message__close" type="close" onClick={ this.props.onDismiss } />
+      <Icon
+        className="carbon-message__close"
+        data-element='dismiss'
+        onClick={ this.props.onDismiss }
+        type="close"
+      />
     ) : null;
   }
 
@@ -129,7 +135,7 @@ class Message extends React.Component {
   */
   get titleHTML() {
     return this.props.title ? (
-      <div className='carbon-message__title'>
+      <div className='carbon-message__title' data-element='title'>
         { this.props.title }
       </div>
     ) : null;
@@ -156,7 +162,7 @@ class Message extends React.Component {
   get messageContent() {
 
     return this.props.open ? (
-      <div className={ this.componentClasses }>
+      <div className={ this.componentClasses } { ...tagComponent('message', this.props) }>
         <div className={ this.typeClasses }>
           <Icon className="carbon-message__type-icon" type={ this.props.as } />
         </div>

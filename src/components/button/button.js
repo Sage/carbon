@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Link from './../link';
+import { assign } from 'lodash';
 import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A button widget.
@@ -118,6 +120,8 @@ class Button extends React.Component {
         'carbon-button--disabled': this.props.disabled
       }
     );
+
+    props = assign({}, props, tagComponent('button', this.props));
 
     return React.createElement(el, props, this.props.children);
   }

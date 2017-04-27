@@ -174,6 +174,9 @@ class Modal extends React.Component {
   // modal background transisiton name
   get backgroundTransitionName()  { return 'modal-background'; }
 
+  // stubbed method for component tags
+  componentTags() { return; }
+
   /**
    * Renders the component.
    *
@@ -190,7 +193,11 @@ class Modal extends React.Component {
     }
 
     return (
-      <div ref={(c) => this._input = c} className={ this.mainClasses }>
+      <div
+        ref={(c) => this._input = c}
+        className={ this.mainClasses }
+        { ...this.componentTags(this.props) }
+      >
         <ReactCSSTransitionGroup
           transitionName={ this.transitionName }
           transitionEnterTimeout={ 500 }

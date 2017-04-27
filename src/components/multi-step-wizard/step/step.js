@@ -228,19 +228,39 @@ class Step extends React.Component {
       let nextButton, backButton, submitButton;
 
       if (this.isLastStep) {
-        submitButton = (<Button as='primary' onClick={ this.handleOnSubmit } className='multi-step-wizard-step__button submit'>
-          { I18n.t('wizards.multi_step_wizard.buttons.submit', { defaultValue: 'Submit' }) }
-        </Button>);
+        submitButton = (
+          <Button
+            as='primary'
+            className='multi-step-wizard-step__button submit'
+            data-element='submit'
+            onClick={ this.handleOnSubmit }
+          >
+            { I18n.t('wizards.multi_step_wizard.buttons.submit', { defaultValue: 'Submit' }) }
+          </Button>
+        );
       } else {
-        nextButton = (<Button as='primary' onClick={ this.handleOnNext } className='multi-step-wizard-step__button next'>
-          { I18n.t('wizards.multi_step_wizard.buttons.next', { defaultValue: 'Next' }) }
-        </Button>);
+        nextButton = (
+          <Button
+            as='primary'
+            className='multi-step-wizard-step__button next'
+            data-element='next'
+            onClick={ this.handleOnNext }
+          >
+            { I18n.t('wizards.multi_step_wizard.buttons.next', { defaultValue: 'Next' }) }
+          </Button>
+        );
       }
 
       if (!this.isFirstStep) {
-        backButton = (<Button onClick={ this.handleOnBack } className='multi-step-wizard-step__button back'>
-          { I18n.t('wizards.multi_step_wizard.buttons.back', { defaultValue: 'Back' }) }
-        </Button>);
+        backButton = (
+          <Button
+            className='multi-step-wizard-step__button back'
+            data-element='back'
+            onClick={ this.handleOnBack }
+          >
+            { I18n.t('wizards.multi_step_wizard.buttons.back', { defaultValue: 'Back' }) }
+          </Button>
+        );
       }
 
       return (
@@ -292,9 +312,10 @@ class Step extends React.Component {
     let extraButtons = (this.props.extraButtons || []);
 
     return extraButtons.map((button, index) => {
-      return (<span key={ `multi-step-wizard-step-custom-buttons-${index}` }>
-                { button }
-              </span>
+      return (
+        <span key={ `multi-step-wizard-step-custom-buttons-${index}` }>
+          { button }
+        </span>
       );
     });
   }
@@ -327,21 +348,23 @@ class Step extends React.Component {
     let content;
 
     if (this.wizard) {
-      content = (<div className={ this.mainClasses }>
-                   <div className={ 'multi-step-wizard-step__indicator-bar ' + this.indicatorStatus }>
-                     <div className='multi-step-wizard-step__indicator-background' />
-                   </div>
-                   <div className='multi-step-wizard-step__indicator-icon'>
-                     <div className='multi-step-wizard-step__indicator-placeholder'>
-                       <div className={ 'multi-step-wizard-step__indicator-icon__content ' + this.indicatorStatus }>
-                         { this.indicatorHTML }
-                       </div>
-                     </div>
-                   </div>
-                   { this.stepHTML }
-                 </div>);
+      content = (
+        <div className={ this.mainClasses }>
+          <div className={ 'multi-step-wizard-step__indicator-bar ' + this.indicatorStatus }>
+            <div className='multi-step-wizard-step__indicator-background' />
+            <div className='multi-step-wizard-step__indicator-icon'>
+              <div className='multi-step-wizard-step__indicator-placeholder'>
+                <div className={ 'multi-step-wizard-step__indicator-icon__content ' + this.indicatorStatus }>
+                  { this.indicatorHTML }
+                </div>
+              </div>
+            </div>
+            { this.stepHTML }
+          </div>
+        </div>
+      );
     } else {
-      content = (<div className='multi-step-wizard-step--none'></div>);
+      content = <div className='multi-step-wizard-step--none'></div>;
     }
 
     return content;

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { merge } from 'lodash';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A rainbow chart using the Highcharts API.
@@ -125,7 +126,7 @@ class Rainbow extends React.Component {
   render() {
 
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('rainbow', this.props) }>
         <div ref="chart" />
       </div>
     );

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from 'i18n-js';
 import _marked from 'marked';
+import { tagComponent } from '../../utils/helpers/tags';
+import { assign } from 'lodash';
 
 /**
  * A widget for internationalisation of text.
@@ -81,6 +83,8 @@ class I18n extends React.Component {
       };
       translation = null;
     }
+
+    props = assign({}, props, tagComponent('i18n', this.props));
 
     return this.renderMarkup(inline, props, translation);
   }

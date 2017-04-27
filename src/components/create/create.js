@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 import Link from './../link';
 
 class Create extends React.Component {
@@ -30,8 +31,8 @@ class Create extends React.Component {
     linkProps: PropTypes.object
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(args) {
+    super(args);
     this.linkProps = this.linkProps.bind(this);
   }
 
@@ -41,7 +42,7 @@ class Create extends React.Component {
    */
   render() {
     return (
-      <Link { ...this.linkProps() }>
+      <Link { ...this.linkProps() } { ...tagComponent('create', this.props) }>
         { this.props.children }
       </Link>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Spinner widget.
@@ -74,7 +75,7 @@ class Spinner extends React.Component {
    */
   render() {
     return (
-      <div className={ this.spinnerClasses } ></div>
+      <div className={ this.spinnerClasses } { ...tagComponent('spinner', this.props) }></div>
     );
   }
 }

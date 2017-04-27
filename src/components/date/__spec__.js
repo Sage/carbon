@@ -3,6 +3,8 @@ import TestUtils from 'react-dom/test-utils';
 import moment from 'moment';
 import Date from './date';
 import Events from './../../utils/helpers/events';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Date', () => {
   let instance;
@@ -530,6 +532,26 @@ describe('Date', () => {
       it('does not renders a date picker', () => {
         expect(instance.datepicker).toBeFalsy();
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Date data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'date', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Date fieldHelp='test' label='test' />);
+
+      elementsTagTest(wrapper, [
+        'help',
+        'input',
+        'label'
+      ]);
     });
   });
 });

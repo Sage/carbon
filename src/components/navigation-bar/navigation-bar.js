@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import AppWrapper from './../app-wrapper';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * Renders a full width application bar.
@@ -41,7 +42,7 @@ class NavigationBar extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes }>
+      <div className={ this.classes } { ...tagComponent('navigation-bar', this.props) }>
         <AppWrapper className="carbon-navigation-bar__content">
           { this.props.children }
         </AppWrapper>

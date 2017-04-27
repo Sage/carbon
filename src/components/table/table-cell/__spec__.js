@@ -3,6 +3,8 @@ import TestUtils from 'react-dom/test-utils';
 import { Table, TableRow } from './../table';
 import TableCell from './table-cell';
 import Icon from './../../icon';
+import { shallow } from 'enzyme';
+import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('TableRow', () => {
   let instance;
@@ -44,6 +46,14 @@ describe('TableRow', () => {
       let td = TestUtils.findRenderedDOMComponentWithTag(instance, 'td');
       expect(td).toBeDefined();
       expect(td.className).toEqual('carbon-table-cell foo carbon-table-cell--action');
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<TableCell data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'table-cell', 'bar', 'baz');
     });
   });
 });
