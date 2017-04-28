@@ -8,7 +8,7 @@ let definition = new Definition('dropdown-filter-ajax', DropdownFilterAjax, {
 * This control is the same as [Dropdown Filter](/components/dropdown-filter), but uses Ajax.
 * Ajax loads data from a specified source as needed, rather than data in the page markup.
  `,
-  hiddenProps: ['path'],
+  hiddenProps: ['path', 'value', 'additionalRequestParams'],
   toggleFunctions: ['create'],
   propTypes: {
     options: "Object",
@@ -19,7 +19,8 @@ let definition = new Definition('dropdown-filter-ajax', DropdownFilterAjax, {
     suggest: "Boolean",
     path: "String",
     rowsPerRequest: "String",
-    visibleValue: "String"
+    visibleValue: "String",
+    additionalRequestParams: "Object"
   },
   propValues: {
     path: '/countries'
@@ -33,7 +34,8 @@ let definition = new Definition('dropdown-filter-ajax', DropdownFilterAjax, {
     suggest: "When enabled will enforce that the user needs to type something before they will see any results.",
     path: "The path to make ajax requests to.",
     rowsPerRequest: "How many items to get per request.",
-    visibleValue: "The visible value to display in the input."
+    visibleValue: "The visible value to display in the input.",
+    additionalRequestParams: "Add additional params to the server request"
   }
 });
 

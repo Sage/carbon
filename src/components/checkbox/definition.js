@@ -15,6 +15,9 @@ let definition = new Definition('checkbox', Checkbox, {
 * Choosing one option from a highly visible range? [Try Button Toggle](/components/button-toggle).
  `,
   type: 'form',
+  propValues: {
+    value: false
+  },
   propTypes: {
     reverse: 'Boolean'
   },

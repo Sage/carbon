@@ -13,7 +13,10 @@ let definition = new Definition('textbox', Textbox, {
   relatedComponentsNotes: `
 * More than a single line of text? [Try Textarea](/components/textarea).
 `,
-  type: 'form'
+  type: 'form',
+  propValues: {
+    value: ''
+  }
 });
 
 definition.isAnInput();
