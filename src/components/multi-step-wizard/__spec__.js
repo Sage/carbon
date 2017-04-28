@@ -1,6 +1,10 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
 import MultiStepWizard from './multi-step-wizard';
+import MultiActionButton from './../multi-action-button';
+import Button from './../button';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('MultiStepWizard', () => {
   let instance,

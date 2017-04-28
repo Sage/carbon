@@ -6,6 +6,7 @@ import Dropdown from './../dropdown';
 import I18n from "i18n-js";
 import Immutable from 'immutable';
 import Events from './../../utils/helpers/events';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Pager widget.
@@ -228,7 +229,8 @@ class Pager extends React.Component {
   get previousArrow() {
     let props = {
       type: 'dropdown',
-      className: 'carbon-pager__previous'
+      className: 'carbon-pager__previous',
+      'data-element': 'previous-page'
     };
 
     if (this.disablePrevious) {
@@ -252,6 +254,7 @@ class Pager extends React.Component {
     let props = {
       value: this.state.currentPage,
       className: 'carbon-pager__current-page',
+      'data-element': 'current-page',
       onChange: this.handleCurrentPageInputChange,
       onBlur: this.emitChangeCallback.bind(this, 'input'),
       onKeyUp: this.handleCurrentPageKeyUp
@@ -271,6 +274,7 @@ class Pager extends React.Component {
   get nextArrow() {
     let props = {
       className: 'carbon-pager__next',
+      'data-element': 'next-page',
       type: 'dropdown'
     };
 
@@ -300,6 +304,7 @@ class Pager extends React.Component {
             options={ this.props.pageSizeSelectionOptions }
             value={ this.props.pageSize }
             onChange={ this.emitChangeCallback.bind(this, 'size') }
+            data-element='page-select'
           />
           <span className={ css.unselectable }>{ recordsText(this.props.pageSize) }</span>
         </div>
@@ -315,7 +320,7 @@ class Pager extends React.Component {
    */
   render() {
     return(
-      <div className='carbon-pager'>
+      <div className='carbon-pager' { ...tagComponent('pager', this.props) }>
 
         <div className='carbon-pager__size' >
           { this.sizeSelectionDropdown }

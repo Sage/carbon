@@ -3,6 +3,9 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Dropdown from './dropdown';
 import Immutable from 'immutable';
 import Events from './../../utils/helpers/events';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import ImmutableHelper from './../../utils/helpers/immutable';
 
 describe('Dropdown', () => {
   let instance;
@@ -766,10 +769,11 @@ describe('Dropdown', () => {
   describe('hiddenInputProps', () => {
     it('return the correct props', () => {
       expect(instance.hiddenInputProps).toEqual({
+        'data-element': 'hidden-input',
+        name: "foo",
+        readOnly: true,
         ref: "hidden",
         type: "hidden",
-        readOnly: true,
-        name: "foo",
         value: instance.props.value
       });
     });
@@ -899,6 +903,64 @@ describe('Dropdown', () => {
 
     it('renders the hidden input', () => {
       expect(dropdown.children[2].tagName).toEqual("INPUT");
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Dropdown
+          data-element='bar'
+          options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+          path='test'
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'dropdown', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      describe("when closed", () => {
+        let wrapper = shallow(
+          <Dropdown
+            fieldHelp='test'
+            label='test'
+            open={ true }
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+
+        elementsTagTest(wrapper, [
+          'help',
+          'hidden-input',
+          'input',
+          'label',
+        ]);
+      });
+      describe("when open", () => {
+        let wrapper = shallow(
+          <Dropdown
+            fieldHelp='test'
+            label='test'
+            open={ true }
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+        wrapper.setState({ open: true });
+
+        elementsTagTest(wrapper, [
+          'help',
+          'hidden-input',
+          'input',
+          'label',
+          'option'
+        ]);
+      });
     });
   });
 });

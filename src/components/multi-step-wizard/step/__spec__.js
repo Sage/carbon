@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Step from './step';
 import Button from './../../button';
+import { shallow } from 'enzyme';
 
 describe('Step', () => {
   let instance, stepContext, stepNumber = 1,
@@ -20,17 +21,20 @@ describe('Step', () => {
       totalSteps = 3;
 
   beforeEach(() => {
-    stepContext = { wizard: { nextHandler: spyNextHandler,
-                              backHandler: spyBackHandler,
-                              beforeSubmitValidation: spyBeforeSubmitValidation,
-                              submitHandler: spySubmitHandler,
-                              enableInactiveSteps: enableInactiveSteps,
-                              currentStep: currentStep,
-                              completed: completed,
-                              next: spyNext,
-                              back: spyBack,
-                              complete: spyComplete,
-                              totalSteps: totalSteps }
+    stepContext = {
+      wizard: {
+        nextHandler: spyNextHandler,
+        backHandler: spyBackHandler,
+        beforeSubmitValidation: spyBeforeSubmitValidation,
+        submitHandler: spySubmitHandler,
+        enableInactiveSteps: enableInactiveSteps,
+        currentStep: currentStep,
+        completed: completed,
+        next: spyNext,
+        back: spyBack,
+        complete: spyComplete,
+        totalSteps: totalSteps
+      }
     };
 
     instance = TestUtils.renderIntoDocument(
@@ -415,6 +419,37 @@ describe('Step', () => {
     it('renders a div if parent wizard is not available', () => {
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(div.className).toEqual('multi-step-wizard-step--none');
+    });
+  });
+
+  describe('component tags', () => {
+    describe('button tags', () => {
+      describe('next button', () => {
+        let wrapper = shallow(<Step stepNumber={ 1 }>Demo Step</Step>, { context: { wizard: { totalSteps: 3 } } });
+        let next = wrapper.find('.next');
+
+        it('includes correct tags for the button', () => {
+          expect(next.prop('data-element')).toEqual('next');
+        });
+      });
+
+      describe('back button', () => {
+        let wrapper = shallow(<Step stepNumber={ 2 }>Demo Step</Step>, { context: { wizard: { totalSteps: 3 } } });
+        let back = wrapper.find('.back');
+
+        it('includes correct tags for the button', () => {
+          expect(back.prop('data-element')).toEqual('back');
+        });
+      });
+
+      describe('submit button', () => {
+        let wrapper = shallow(<Step stepNumber={ 3 }>Demo Step</Step>, { context: { wizard: { totalSteps: 3 } } });
+        let submit = wrapper.find('.submit');
+
+        it('includes correct tags for the button', () => {
+          expect(submit.prop('data-element')).toEqual('submit');
+        });
+      });
     });
   });
 });

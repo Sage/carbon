@@ -2,6 +2,8 @@ import React from 'react';
 import Icon from './../icon';
 import classNames from 'classnames';
 import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
+import { tagComponent } from '../../utils/helpers/tags';
+
 /**
  * A Help widget.
  *
@@ -86,7 +88,12 @@ const Help = TooltipDecorator(class Help extends React.Component{
    */
   render() {
     return (
-      <a className={ this.mainClasses } href={ this.props.href } target="_blank">
+      <a
+        className={ this.mainClasses }
+        href={ this.props.href }
+        target="_blank"
+        { ...tagComponent('help', this.props) }
+      >
         <Icon
           type='help'
           tooltipMessage={ this.props.children }

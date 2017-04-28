@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { validProps } from '../../../utils/ether';
+import { tagComponent } from '../../../utils/helpers/tags';
 
 /**
  * A TableCell widget.
@@ -75,7 +76,7 @@ class TableCell extends React.Component {
    */
   render() {
     return (
-      <td { ...this.tableCellProps }>
+      <td { ...this.tableCellProps } { ...tagComponent('table-cell', this.props) }>
         { this.props.children }
       </td>
     );

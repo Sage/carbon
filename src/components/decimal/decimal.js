@@ -4,6 +4,7 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A decimal widget.
@@ -16,7 +17,7 @@ import { validProps } from '../../utils/ether';
  *
  * To render the Decimal:
  *
- *   <Decimal name="myDecimal" />
+ *   <Decimal name='myDecimal' />
  *
  * @class Decimal
  * @constructor
@@ -69,7 +70,7 @@ class Decimal extends React.Component {
   };
 
   static defaultProps = {
-    align: "right",
+    align: 'right',
     precision: 2
   };
 
@@ -239,13 +240,13 @@ class Decimal extends React.Component {
    */
   get inputProps() {
     let { ...props } = validProps(this);
-    props.className = this.inputClasses;
-    props.onChange = this.handleVisibleInputChange;
-    props.onClick = this.handleOnClick;
-    props.name = null;
-    props.onBlur = this.handleBlur;
-    props.value = this.state.visibleValue;
-    props.onKeyDown = this.handleKeyDown;
+    props.className  = this.inputClasses;
+    props.name       = null;
+    props.onBlur     = this.handleBlur;
+    props.onChange   = this.handleVisibleInputChange;
+    props.onClick    = this.handleOnClick;
+    props.onKeyDown  = this.handleKeyDown;
+    props.value      = this.state.visibleValue;
     return props;
   }
 
@@ -257,11 +258,12 @@ class Decimal extends React.Component {
    */
   get hiddenInputProps() {
     return {
-      value: this.props.value,
-      ref: "hidden",
-      type: "hidden",
-      readOnly: true,
-      name: this.props.name
+      name:           this.props.name,
+      readOnly:       true,
+      ref:           'hidden',
+      type:          'hidden',
+      value:          this.props.value,
+      'data-element': 'hidden-input'
     };
   }
 
@@ -293,7 +295,7 @@ class Decimal extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('decimal', this.props) }>
 
         { this.labelHTML }
         { this.inputHTML }

@@ -335,7 +335,14 @@ class DropdownFilter extends Dropdown {
       }
 
       html.push(
-        <a key="dropdown-action" className="carbon-dropdown__action" onClick={ this.handleCreate }>{ text }</a>
+        <a
+          className="carbon-dropdown__action"
+          data-element='create'
+          key="dropdown-action"
+          onClick={ this.handleCreate }
+        >
+            { text }
+        </a>
       );
     }
 
@@ -493,6 +500,14 @@ class DropdownFilter extends Dropdown {
    */
   hasFreetextValue() {
     return this.props.freetext && this.props.visibleValue && !this.props.value;
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'dropdown-filter',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 }
 
