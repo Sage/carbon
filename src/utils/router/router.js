@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { Router, hashHistory } from 'react-router';
 
 let onRouteUpdate = () => {
   global.window.scrollTo(0, 0);
@@ -18,7 +18,7 @@ let onRouteUpdate = () => {
  * @property history
  * @type {Object}
  */
-export const history = browserHistory;
+export const history = hashHistory;
 
 /**
  * Handles boilerplate for starting the React Router with the given routes.
