@@ -477,8 +477,8 @@ class Dropdown extends React.Component {
       type: "hidden",
       readOnly: true,
       name: this.props.name,
-      // Using this to prevent `null` warnings from React
-      value: this.props.value || undefined
+      // Using this to prevent `null` and `uncontrolled` warnings from React
+      value: this.props.value || ''
     };
 
     return props;

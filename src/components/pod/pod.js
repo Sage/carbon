@@ -112,9 +112,12 @@ class Pod extends React.Component {
      * A component to render as a Pod footer.
      *
      * @property footer
-     * @type {String}
+     * @type {String | Object}
      */
-    footer: PropTypes.object,
+    footer: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.object
+    ]),
 
     /**
      * Supplies an edit action to the pod.

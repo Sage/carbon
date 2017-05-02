@@ -118,7 +118,12 @@ class SplitButton extends React.Component {
    * @return {String} Main className
    */
   get additionalButtonsClasses() {
-    return 'carbon-split-button__additional-buttons';
+    return classNames(
+      'carbon-split-button__additional-buttons',
+      {
+        'carbon-split-button__additional-buttons--hidden': !this.state.showAdditionalButtons
+      }
+    );
   }
 
   /**
@@ -207,7 +212,7 @@ class SplitButton extends React.Component {
     return (
       <div className={ this.mainClasses } onMouseLeave={ this.hideButtons } { ...this.componentTags() }>
         { this.renderMainButton }
-        { this.state.showAdditionalButtons ? this.renderAdditionalButtons : null}
+        { this.renderAdditionalButtons }
       </div>
     );
   }
