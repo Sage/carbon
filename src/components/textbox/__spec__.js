@@ -1,5 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Textbox from './textbox';
 
 describe('Textbox', () => {
@@ -7,28 +9,21 @@ describe('Textbox', () => {
   let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(<Textbox
-      name="Dummy Box"
-      id="Dummy Box"
-      value={ 'foo' }
-      label={ 'Label' }
-      onChange={ spy }
-      data-element="my textbox"
-      data-member="my textbox member"
-    />);
+    instance = TestUtils.renderIntoDocument(
+      <Textbox
+        name='Dummy Box'
+        id='Dummy Box'
+        value={ 'foo' }
+        label={ 'Label' }
+        onChange={ spy }
+      />
+    );
   });
 
   describe('render', () => {
     it('renders a parent div', () => {
       let textboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(textboxNode.classList[0]).toEqual('carbon-textbox');
-    });
-
-    it('renders with data-component, data-element and data-member tags', () => {
-      let textboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(textboxNode.getAttribute('data-component')).toEqual('textbox');
-      expect(textboxNode.getAttribute('data-element')).toEqual('my textbox');
-      expect(textboxNode.getAttribute('data-member')).toEqual('my textbox member');
     });
 
     it('renders with a visible input', () => {
@@ -65,6 +60,22 @@ describe('Textbox', () => {
       let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
       TestUtils.Simulate.change(input);
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('tags on component', () => {
+    let wrapper = shallow(
+      <Textbox
+        value={ 'foo' }
+        label={ 'Label' }
+        onChange={ spy }
+        data-element='bar'
+        data-role='baz'
+      />
+    );
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'textbox', 'bar', 'baz');
     });
   });
 });

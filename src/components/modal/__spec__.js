@@ -103,7 +103,8 @@ describe('Modal', () => {
       it('returns null', () => {
         instance = TestUtils.renderIntoDocument(
           <Modal
-            onCancel={ onCancel }
+            onCancel={ () => {} }
+            onConfirm={ () => {} }
             open={ true }
             enableBackgroundUI={ true }
           />

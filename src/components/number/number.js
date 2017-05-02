@@ -4,6 +4,7 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A number widget. It only allows entering of a whole number with an
@@ -108,7 +109,7 @@ class Number extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('number', this.props) }>
 
         { this.labelHTML }
         { this.inputHTML }

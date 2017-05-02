@@ -2,6 +2,8 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Icon from './icon';
 import Tooltip from 'components/tooltip'
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Icon', () => {
   let instance, span, svg;
@@ -153,6 +155,30 @@ describe('Icon', () => {
       let helpInstance = TestUtils.renderIntoDocument(<Icon type='info' tooltipMessage='Helpful content' />);
       let tooltip = TestUtils.findRenderedComponentWithType(helpInstance, Tooltip);
       expect(tooltip).toBeDefined();
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Icon data-element='bar' data-role='baz' type='tick'/>);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'icon', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Icon
+          tooltipMessage='Test'
+          tooltipAlign='left'
+          tooltipPosition='top'
+          type='tick'
+        />);
+
+      elementsTagTest(wrapper, [
+        'tooltip'
+      ]);
     });
   });
 });

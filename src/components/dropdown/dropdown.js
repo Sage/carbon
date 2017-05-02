@@ -471,6 +471,7 @@ class Dropdown extends React.Component {
    */
   get hiddenInputProps() {
     let props = {
+      ['data-element']: 'hidden-input',
       ref: 'hidden',
       type: "hidden",
       readOnly: true,
@@ -548,6 +549,7 @@ class Dropdown extends React.Component {
    */
   get listHTML() {
     if (!this.state.open) { return null; }
+
     return (
       <ul { ...this.listProps }>
         { this.results(this.options) }
@@ -580,6 +582,7 @@ class Dropdown extends React.Component {
 
       return (
         <li
+          data-element='option'
           key={ option.name + option.id }
           value={ option.id }
           onClick={ this.handleSelect }
@@ -635,6 +638,14 @@ class Dropdown extends React.Component {
     return null;
   }
 
+  componentTags(props) {
+    return {
+      'data-component': 'dropdown',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
+
   /**
    * Renders the component.
    *
@@ -642,7 +653,10 @@ class Dropdown extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses } >
+      <div
+        className={ this.mainClasses }
+        { ...this.componentTags(this.props) }
+      >
         { this.labelHTML }
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />

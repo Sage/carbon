@@ -5,6 +5,7 @@ import Serialize from "form-serialize";
 import classNames from 'classnames';
 import { validProps } from '../../utils/ether';
 import { assign } from 'lodash';
+import { tagComponent } from '../../utils/helpers/tags';
 
 import FormSummary from './form-summary';
 
@@ -445,6 +446,7 @@ class Form extends React.Component {
    */
   htmlProps = () => {
     let { ...props } = validProps(this);
+    delete props.activeInput;
     delete props.onSubmit;
     props.className = this.mainClasses;
     return props;
@@ -501,7 +503,7 @@ class Form extends React.Component {
         cancelProps = assign({}, this.props.cancelButtonProps, { type: 'button', onClick: this.cancelForm });
 
     return (<div className={ cancelClasses }>
-      <Button { ...cancelProps }>
+      <Button { ...cancelProps } data-element='cancel'>
         { this.props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' }) }
       </Button>
     </div>);
@@ -533,7 +535,7 @@ class Form extends React.Component {
     return (
       <div className={ saveClasses }>
         <FormSummary errors={ this.state.errorCount } warnings={ this.state.warningCount } />
-        <Button { ...saveProps }>
+        <Button { ...saveProps } data-element='save'>
           { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
         </Button>
       </div>
@@ -558,7 +560,7 @@ class Form extends React.Component {
     }
 
     return (
-      <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() } ref="form">
+      <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() } ref="form" { ...tagComponent('form', this.props) }>
         { generateCSRFToken(this._document) }
 
         { this.props.children }

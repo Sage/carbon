@@ -1,9 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from './../icon';
-import css from './../../utils/css';
-import Input from './../../utils/decorators/input';
-import { validProps } from '../../utils/ether';
+import Icon from 'components/icon';
+import css from 'utils/css';
+import Input from 'utils/decorators/input';
+import { validProps } from 'utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
+
 
 const ButtonToggle = Input(
 class ButtonToggle extends React.Component {
@@ -80,12 +82,12 @@ class ButtonToggle extends React.Component {
   get buttonIcon() {
     if (!this.props.buttonIcon) { return null; }
 
-    let classes = classNames("carbon-button-toggle__button-icon", {
-      ["carbon-button-toggle__button-icon--large"]: this.props.buttonIconSize === "large"
+    let classes = classNames('carbon-button-toggle__button-icon', {
+      ['carbon-button-toggle__button-icon--large']: this.props.buttonIconSize === 'large'
     });
 
     return (
-      <div className={ classes }>
+      <div className={ classes } data-element='icon'>
         <Icon type={ this.props.buttonIcon } />
       </div>
     );
@@ -102,7 +104,7 @@ class ButtonToggle extends React.Component {
     let { ...props } = validProps(this);
     delete props.children;
     props.className = this.inputClasses;
-    props.type = "radio";
+    props.type = 'radio';
     if (!props.id) {
       props.id = this._guid;
     }
@@ -116,12 +118,12 @@ class ButtonToggle extends React.Component {
    * @return {Object} JSX
    */
   get additionalInputContent() {
-    let classes = classNames("carbon-button-toggle__label", {
-      ["carbon-button-toggle__label--disabled"]: this.props.disabled
+    let classes = classNames('carbon-button-toggle__label', {
+      ['carbon-button-toggle__label--disabled']: this.props.disabled
     });
 
     return (
-      <label htmlFor={ this.inputProps.id } className={ classes }>
+      <label htmlFor={ this.inputProps.id } className={ classes } data-element='label'>
         { this.buttonIcon }
         { this.props.children }
       </label>
@@ -134,7 +136,7 @@ class ButtonToggle extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('button-toggle', this.props) }>
         { this.inputHTML }
       </div>
     );
