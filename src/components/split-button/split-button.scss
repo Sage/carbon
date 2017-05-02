@@ -54,6 +54,10 @@
   position: absolute;
   z-index: $z-split-button;
 
+  &.carbon-split-button__additional-buttons--hidden {
+    display: none;
+  }
+
   .carbon-button:not(.carbon-button--disabled) {
     border: none;
     border-radius: 0;
