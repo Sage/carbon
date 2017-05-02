@@ -1,3 +1,7 @@
+# 0.36.2
+
+* Hide SplitButton additional buttons instead of removing them.
+
 # 0.36.1
 
 * Removed the style node from `package.json` in table-ajax. This file doesn't exist.
@@ -5,6 +9,10 @@
 # 0.36.0
 
 * Add `additionalRequestParams` prop to `DropdownFilterAjax`
+
+# 0.35.2
+
+* Hide SplitButton additional buttons instead of removing them.
 
 # 0.35.1
 
