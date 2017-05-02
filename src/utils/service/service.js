@@ -218,7 +218,9 @@ class Service {
    * @return {Void}
    */
   handleResponse = (callback, response) => {
-    if (callback) { callback(response); }
+    if (callback) {
+      callback(response);
+    }
   }
 
   /**
