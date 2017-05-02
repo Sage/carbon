@@ -101,7 +101,7 @@ describe('Table', () => {
 
   describe('refresh', () => {
     beforeEach(() => {
-instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar actions={ {} } />);
+      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar actions={ {} } />);
       spyOn(instance, 'resetHighlightedRow');
       spyOn(instance.actionToolbarComponent, 'setState');
       spyOn(instance, 'emitOnChangeCallback');
