@@ -53,7 +53,7 @@ If your server responds with a success, and returns an object with a `message` i
 
 ```
 {
-  "message": "Object save successfully!",
+  "message": "Object saved successfully!",
   "data": # json object from server
 }
 ```

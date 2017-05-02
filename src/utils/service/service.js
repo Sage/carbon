@@ -26,7 +26,7 @@ class Service {
   /**
    * @constructor
    */
-  constructor() {
+  constructor(opts = {}) {
     // sets up the axios client with default options
     this.client = axios.create({
       headers: {
@@ -41,7 +41,9 @@ class Service {
     this.client.interceptors.response.use(this.handleSuccess, this.handleError);
 
     // turns any configured global callbacks on by default
-    this.enableGlobalCallbacks();
+    if (opts.globalCallbacks !== false) {
+      this.enableGlobalCallbacks();
+    }
   }
 
   /**
@@ -53,17 +55,23 @@ class Service {
    * @return {Object} the response data
    */
   handleSuccess = (response) => {
-    if (response.data.message) {
-      if (response.data.status === "error") {
-        // respond with an error if the server responds with an error status
-        if (this.globalCallbacks && config.onError) { config.onError(response.data.message); }
-        return Promise.reject(response);
-      } else {
-        // otherwise respond with a success
-        if (this.globalCallbacks && config.onSuccess) { config.onSuccess(response.data.message); }
-        return response.data;
+    if (!response.data.message) {
+      return response.data;
+    }
+
+    if (response.data.status === "error") {
+      // respond with an error if the server responds with an error status
+      if (this.shouldTriggerCallback(config.onError)) {
+        config.onError(response.data.message);
       }
+
+      return Promise.reject(response);
     } else {
+      // otherwise respond with a success
+      if (this.shouldTriggerCallback(config.onSuccess)) {
+        config.onSuccess(response.data.message);
+      }
+
       return response.data;
     }
   }
@@ -76,7 +84,10 @@ class Service {
    * @return {Object}
    */
   handleError = (error) => {
-    if (this.globalCallbacks && config.onError) { config.onError(error.response.data); }
+    if (this.shouldTriggerCallback(config.onError)) {
+      config.onError(error.response.data);
+    }
+
     return Promise.reject(error.response);
   }
 
@@ -219,6 +230,17 @@ class Service {
    */
   responseTransform = (response) => {
     return JSON.parse(response);
+  }
+
+  /**
+   * Determines if a callback should be triggered.
+   *
+   * @method shouldTriggerCallback
+   * @param {Function}
+   * @return {Boolean}
+   */
+  shouldTriggerCallback = (method) => {
+    return this.globalCallbacks && method;
   }
 }
 

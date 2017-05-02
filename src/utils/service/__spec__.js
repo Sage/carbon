@@ -36,6 +36,11 @@ describe('Service', () => {
     it('enables globalCallbacks', () => {
       expect(service.globalCallbacks).toBeTruthy();
     });
+
+    it('does not enable globalCallbacks if initialized with false', () => {
+      service = new Service({ globalCallbacks: false });
+      expect(service.globalCallbacks).toBeFalsy();
+    });
   });
 
   describe('handleSuccess', () => {
