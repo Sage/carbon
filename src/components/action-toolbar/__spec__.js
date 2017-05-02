@@ -90,7 +90,7 @@ describe('action toolbar', () => {
     describe("on component", () => {
       let wrapper = shallow(
         <ActionToolbar
-          actions={ [] }
+          actions={ {} }
           data-element='bar'
           data-role='baz'
         />
@@ -102,7 +102,7 @@ describe('action toolbar', () => {
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(<ActionToolbar actions={ [ ()=>{} ] } />);
+      let wrapper = shallow(<ActionToolbar actions={ { foo: 'bar' } } />);
 
       elementsTagTest(wrapper, [
         'action',
