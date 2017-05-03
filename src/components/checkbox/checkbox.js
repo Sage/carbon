@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -34,7 +35,7 @@ class Checkbox extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    reverse: React.PropTypes.bool
+    reverse: PropTypes.bool
   }
 
   static defaultProps = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Pill from './pill';

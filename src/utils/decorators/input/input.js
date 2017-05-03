@@ -1,5 +1,6 @@
 import css from './../../css';
 import React from 'react';
+import PropTypes from 'prop-types';
 import shouldComponentUpdate from './../../helpers/should-component-update';
 import { assign } from 'lodash';
 import guid from './../../helpers/guid';
@@ -65,8 +66,10 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: React.PropTypes.object
-  })
+    form: PropTypes.object
+  });
+
+  static propTypes = assign({}, ComposedComponent.propTypes, {});
 
   /**
    * A lifecycle method for when the component has rendered.

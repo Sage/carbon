@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ColorOption from './color-option';
 import { tagComponent } from '../../utils/helpers/tags';
 
@@ -26,7 +27,7 @@ class SimpleColorPicker extends React.Component {
      * @property availableColors
      * @type {Array}
      */
-    availableColors: React.PropTypes.array,
+    availableColors: PropTypes.array,
 
     /**
      * the value of the currently selected color.
@@ -34,7 +35,7 @@ class SimpleColorPicker extends React.Component {
      * @property selectedColor
      * @type {String}
      */
-    selectedColor: React.PropTypes.string,
+    selectedColor: PropTypes.string,
 
     /**
      * the name of the input element.
@@ -42,7 +43,7 @@ class SimpleColorPicker extends React.Component {
      * @property name
      * @type {String}
      */
-    name: React.PropTypes.string,
+    name: PropTypes.string,
 
     /**
      * a callback when the user changes the selected color.
@@ -50,7 +51,7 @@ class SimpleColorPicker extends React.Component {
      * @property onChange
      * @type {Function}
      */
-    onChange: React.PropTypes.func
+    onChange: PropTypes.func
   }
 
   /**

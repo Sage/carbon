@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
+import ReactShallowRenderer from 'react-test-renderer/shallow';
 import i18n from 'i18n-js';
 import I18n from './i18n.js';
 import { shallow } from 'enzyme';
@@ -12,7 +13,7 @@ describe('I18n', () => {
     let shallowRenderer;
 
     beforeEach(() => {
-      shallowRenderer = TestUtils.createRenderer();
+      shallowRenderer = new ReactShallowRenderer();
     });
 
     describe('without markdown', () => {

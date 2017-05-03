@@ -56,10 +56,13 @@ let definition = new Definition('form', Form, {
     onSubmit: "A callback triggered when the form is submitted with passing validation."
   },
   propValues: {
+    activeInput: '',
+    cancelText: '',
     children: `<Textbox
     label="Name"
     validations={[ new PresenceValidation() ]}
-  />`
+  />`,
+    saveText: ''
   }
 });
 

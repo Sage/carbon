@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { validProps } from '../../utils/ether';
 import { tagComponent } from '../../utils/helpers/tags';
@@ -36,7 +37,7 @@ class Pill extends React.Component {
      * @type {String}
      * @default 'info'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * Fills the pill with colour when true
@@ -45,7 +46,7 @@ class Pill extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    fill: React.PropTypes.bool,
+    fill: PropTypes.bool,
 
     /**
      * The text to display on the Pill
@@ -53,7 +54,7 @@ class Pill extends React.Component {
      * @property children
      * @type {String}
      */
-    children: React.PropTypes.string.isRequired
+    children: PropTypes.string.isRequired
   }
 
   static defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from './../icon';
 import Modal from './../modal';
 import Bowser from 'bowser';
@@ -34,9 +35,9 @@ class Dialog extends Modal {
      * @property title
      * @type {Object}
      */
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
@@ -45,7 +46,7 @@ class Dialog extends Modal {
      * @property subtitle
      * @type {String}
      */
-    subtitle: React.PropTypes.string,
+    subtitle: PropTypes.string,
 
     /**
      * Size of dialog, default size is 750px
@@ -54,7 +55,7 @@ class Dialog extends Modal {
      * @type {String}
      * @default med
      */
-    size: React.PropTypes.string,
+    size: PropTypes.string,
 
     /**
      * Determins if the close icon is shown
@@ -63,7 +64,7 @@ class Dialog extends Modal {
      * @type {Boolean}
      * @default true
      */
-    showCloseIcon: React.PropTypes.bool
+    showCloseIcon: PropTypes.bool
   })
 
   static defaultProps = {

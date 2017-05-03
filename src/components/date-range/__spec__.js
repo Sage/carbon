@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import DateRange from './date-range';
 import Date from './../date';

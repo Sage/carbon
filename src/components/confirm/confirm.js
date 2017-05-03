@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dialog from '../dialog';
 import Button from '../button';
 import I18n from "i18n-js";
@@ -43,7 +44,7 @@ class Confirm extends Dialog {
      * @property onConfirm
      * @type {Function}
      */
-    onConfirm: React.PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired,
 
     /**
      * Customise the confirm button label
@@ -51,7 +52,7 @@ class Confirm extends Dialog {
      * @property onConfirm
      * @type {String}
      */
-    confirmLabel: React.PropTypes.string,
+    confirmLabel: PropTypes.string,
 
     /**
      * Customise the cancel button label
@@ -59,7 +60,7 @@ class Confirm extends Dialog {
      * @property onConfirm
      * @type {String}
      */
-    cancelLabel: React.PropTypes.string
+    cancelLabel: PropTypes.string
   })
 
   static defaultProps = assign({}, Dialog.defaultProps, {

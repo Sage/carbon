@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Portrait from './../portrait';
 import classNames from 'classnames';
 import { acronymize } from './../../utils/ether';
@@ -15,7 +16,7 @@ class Profile extends React.Component {
      * @property name
      * @type {String}
      */
-    name: React.PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
 
     /**
      * The user's email.
@@ -23,7 +24,7 @@ class Profile extends React.Component {
      * @property email
      * @type {String}
      */
-    email: React.PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
 
     /**
      * The user's initials.
@@ -31,7 +32,7 @@ class Profile extends React.Component {
      * @property initials
      * @type {String}
      */
-    initials: React.PropTypes.string,
+    initials: PropTypes.string,
 
     /**
      * Outputs a large name version.
@@ -39,7 +40,7 @@ class Profile extends React.Component {
      * @property large
      * @type {Boolean}
      */
-    large: React.PropTypes.bool
+    large: PropTypes.bool
   }
 
 
