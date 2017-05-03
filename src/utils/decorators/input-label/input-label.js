@@ -64,10 +64,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
      * @property
      * @type {String|Boolean}
      */
-    label: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.bool
-    ]),
+    label: PropTypes.node,
 
     /**
      * Pass true to format the input/label inline
