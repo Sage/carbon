@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from 'components/icon';
 import css from 'utils/css';
@@ -16,7 +17,7 @@ class ButtonToggle extends React.Component {
      * @property buttonIcon
      * @type {String}
      */
-    buttonIcon: React.PropTypes.string,
+    buttonIcon: PropTypes.string,
 
     /**
      * Sets the size of the buttonIcon (eg. large)
@@ -24,7 +25,7 @@ class ButtonToggle extends React.Component {
      * @property buttonIconSize
      * @type {String}
      */
-    buttonIconSize: React.PropTypes.string,
+    buttonIconSize: PropTypes.string,
 
     /**
      * Defines the name for the input
@@ -32,7 +33,7 @@ class ButtonToggle extends React.Component {
      * @property name
      * @type {String}
      */
-    name: React.PropTypes.string,
+    name: PropTypes.string,
 
     /**
      * The value for the given button.
@@ -40,7 +41,7 @@ class ButtonToggle extends React.Component {
      * @property value
      * @type {String}
      */
-    value: React.PropTypes.string,
+    value: PropTypes.string,
 
     /**
      * A required prop. This is what the button will display.
@@ -48,7 +49,7 @@ class ButtonToggle extends React.Component {
      * @property children
      * @type {Multiple}
      */
-    children: React.PropTypes.node.isRequired
+    children: PropTypes.node.isRequired
   }
 
   static safeProps = ['name']

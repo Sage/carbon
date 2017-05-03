@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { validProps } from '../../utils/ether';
 import { tagComponent } from '../../utils/helpers/tags';
@@ -17,7 +18,7 @@ class Fieldset extends React.Component {
      * @property legend
      * @type {String}
      */
-    legend: React.PropTypes.string
+    legend: PropTypes.string
   };
 
 

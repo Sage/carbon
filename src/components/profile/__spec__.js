@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Profile from './profile';
 import Portrait from './../portrait';
 import { shallow } from 'enzyme';

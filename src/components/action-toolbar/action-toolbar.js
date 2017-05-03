@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
 import Link from './../link';
@@ -55,8 +56,8 @@ class ActionToolbar extends React.Component {
   };
 
   static contextTypes = {
-    attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
-    detachActionToolbar: React.PropTypes.func // tracks the action toolbar component
+    attachActionToolbar: PropTypes.func, // tracks the action toolbar component
+    detachActionToolbar: PropTypes.func // tracks the action toolbar component
   };
 
   constructor(...args) {

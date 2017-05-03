@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import shouldComponentUpdate from './../../utils/helpers/should-component-update';
 import I18n from 'i18n-js';
 import classNames from 'classnames';
@@ -58,7 +59,7 @@ class Flash extends React.Component {
      * @property onDismiss
      * @type {Function}
      */
-    onDismiss: React.PropTypes.func.isRequired,
+    onDismiss: PropTypes.func.isRequired,
 
     /**
      * Sets the open state of the flash.
@@ -67,7 +68,7 @@ class Flash extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    open: React.PropTypes.bool.isRequired,
+    open: PropTypes.bool.isRequired,
 
     /**
      * Type of notification.
@@ -77,7 +78,7 @@ class Flash extends React.Component {
      * @type {String}
      * @default 'success'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * Contents of message.
@@ -85,10 +86,10 @@ class Flash extends React.Component {
      * @property message
      * @type {String|Object|Array}
      */
-    message: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object,
-      React.PropTypes.array
+    message: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.array
     ]).isRequired,
 
     /**
@@ -97,9 +98,9 @@ class Flash extends React.Component {
      * @property timeout
      * @type {Number} in milliseconds
      */
-    timeout: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
+    timeout: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
     ])
   }
 

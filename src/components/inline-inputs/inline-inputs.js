@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 // Carbon
@@ -26,7 +27,7 @@ InlineInputs.propTypes = {
    * @property label
    * @type {String}
    */
-  label: React.PropTypes.string
+  label: PropTypes.string
 };
 
 export default InlineInputs;

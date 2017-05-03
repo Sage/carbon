@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { tagComponent } from '../../../utils/helpers/tags';
 
@@ -36,7 +37,7 @@ class SidebarHeader extends React.Component {
      * @property children
      * @type {Multiple}
      */
-    children: React.PropTypes.node
+    children: PropTypes.node
   }
 
   /**
