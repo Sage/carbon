@@ -1,0 +1,4 @@
+{
+  "main": "./copy-to-clipboard.js",
+  "style": "./copy-to-clipboard.scss"
+}
