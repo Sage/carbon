@@ -9,9 +9,6 @@ import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import { shallow, mount } from 'enzyme';
 import { WithDragAndDrop, DraggableContext } from './../../drag-and-drop';
 
-import { shallow, mount } from 'enzyme';
-import { WithDragAndDrop, DraggableContext } from './../../drag-and-drop';
-
 describe('TableRow', () => {
   let instance, clickableInstance, row;
 
