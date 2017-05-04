@@ -170,7 +170,7 @@ class Service {
    * @return {Void}
    */
   post = (data, onSuccess, onError) => {
-    this.client.post(data).then(
+    this.client.post('', data).then(
       this.handleResponse.bind(this, onSuccess),
       this.handleResponse.bind(this, onError)
     );

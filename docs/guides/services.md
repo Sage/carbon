@@ -154,13 +154,16 @@ class SalesInvoiceService extends Service {
   }
 
   prepareForServer = (data) => {
+    data = JSON.parse(data);
     delete data.foobar;
-    return data;
+    return JSON.stringify(data);
   }
 }
 
 export default SalesInvoiceService;
 ```
+
+> The transform request must return the data in a stringified format
 
 #### Passing Arguments to the Constructor
 
