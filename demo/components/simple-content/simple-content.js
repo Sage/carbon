@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { merge } from 'lodash';
 
@@ -15,7 +16,7 @@ class SimpleContent extends React.Component {
      * @property children
      * @type {Object}
      */
-    children: React.PropTypes.node,
+    children: PropTypes.node,
 
     /**
      * The title of the content component.
@@ -23,7 +24,7 @@ class SimpleContent extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.string,
+    title: PropTypes.string,
 
     /**
      * Content to displayed in the footer as a Link.
@@ -31,7 +32,7 @@ class SimpleContent extends React.Component {
      * @property footerContent
      * @type {Node}
      */
-    footerContent: React.PropTypes.node,
+    footerContent: PropTypes.node,
 
     /**
      * Props to be passed to the link component that wraps
@@ -40,7 +41,7 @@ class SimpleContent extends React.Component {
      * @property linkProps
      * @type {Object}
      */
-    linkProps: React.PropTypes.object,
+    linkProps: PropTypes.object,
   }
 
   constructor(...args) {

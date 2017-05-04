@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import i18n from 'i18n-js';
 import _marked from 'marked';
+import { tagComponent } from '../../utils/helpers/tags';
+import { assign } from 'lodash';
 
 /**
  * A widget for internationalisation of text.
@@ -31,7 +34,7 @@ class I18n extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    markdown: React.PropTypes.bool,
+    markdown: PropTypes.bool,
 
     /**
      * Whether to enclose the text in a <span> or a <div>
@@ -40,7 +43,7 @@ class I18n extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    inline: React.PropTypes.bool,
+    inline: PropTypes.bool,
 
     /**
      * The key to lookup for a localised value
@@ -49,7 +52,7 @@ class I18n extends React.Component {
      * @type {String}
      * @default undefined
      */
-    scope: React.PropTypes.string,
+    scope: PropTypes.string,
 
     /**
      * Additional options to pass to I18n
@@ -58,7 +61,7 @@ class I18n extends React.Component {
      * @type {Object}
      * @default undefined
      */
-    options: React.PropTypes.object
+    options: PropTypes.object
   }
 
   static defaultProps = {
@@ -80,6 +83,8 @@ class I18n extends React.Component {
       };
       translation = null;
     }
+
+    props = assign({}, props, tagComponent('i18n', this.props));
 
     return this.renderMarkup(inline, props, translation);
   }

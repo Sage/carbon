@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { sum, includes } from 'lodash';
 
@@ -7,6 +8,8 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import Events from 'utils/helpers/events';
 import { validProps, insertAt } from 'utils/ether';
+
+import { tagComponent } from '../../utils/helpers/tags';
 
 const GroupedCharacter = Input(InputLabel(InputValidation(
 class GroupedCharacter extends React.Component {
@@ -193,10 +196,11 @@ class GroupedCharacter extends React.Component {
 
   get hiddenInputProps() {
     return {
-      value:    this.props.value,
-      ref:      (c) => { this._hidden = c; },
-      type:     'hidden',
-      readOnly: true
+      value:          this.props.value,
+      ref:            (c) => { this._hidden = c; },
+      type:           'hidden',
+      readOnly:       true,
+      'data-element': 'hidden-input'
     };
   }
 
@@ -213,7 +217,7 @@ class GroupedCharacter extends React.Component {
 
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('grouped-character', this.props) }>
         { this.labelHTML }
         { this.inputHTML }
         <input { ...this.hiddenInputProps }/>

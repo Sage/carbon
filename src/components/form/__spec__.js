@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Form from './form';
 import Textbox from './../textbox';
 import Validation from './../../utils/validations/presence';
@@ -9,6 +9,7 @@ import Dialog from './../dialog';
 import I18n from "i18n-js";
 
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 import FormSummary from './form-summary';
 
@@ -567,6 +568,25 @@ describe('Form', () => {
           expect(wrapper.find('.carbon-form__save.carbon-form__save--invalid').length).toEqual(1);
         });
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Form data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'form', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Form />);
+
+      elementsTagTest(wrapper, [
+        'cancel',
+        'save',
+      ]);
     });
   });
 });

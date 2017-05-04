@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import MountInApp from './';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 
 describe('MountInApp', () => {
   let instance, placeholder;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames';
 import Immutable from 'immutable';
@@ -85,7 +86,7 @@ class Table extends React.Component {
      * @property filter
      * @type {Object}
      */
-    filter: React.PropTypes.object,
+    filter: PropTypes.object,
 
     /**
      * Emitted when table component changes e.g.
@@ -94,7 +95,7 @@ class Table extends React.Component {
      * @property onChange
      * @type {Function}
      */
-    onChange: React.PropTypes.func,
+    onChange: PropTypes.func,
 
     /**
      * Show the pagination footer
@@ -102,7 +103,7 @@ class Table extends React.Component {
      * @property paginate
      * @type {Boolean}
      */
-    paginate: React.PropTypes.bool,
+    paginate: PropTypes.bool,
 
     /**
      * Pagination
@@ -111,7 +112,7 @@ class Table extends React.Component {
      * @property currentPage
      * @type {String}
      */
-    currentPage: React.PropTypes.string,
+    currentPage: PropTypes.string,
 
     /**
      * Pagination
@@ -120,7 +121,7 @@ class Table extends React.Component {
      * @property pageSize
      * @type {String}
      */
-    pageSize: React.PropTypes.string,
+    pageSize: PropTypes.string,
 
     /**
      * Pagination
@@ -129,7 +130,7 @@ class Table extends React.Component {
      * @property pageSizeSelectionOptions
      * @type {Object} Immutable
      */
-    pageSizeSelectionOptions: React.PropTypes.object,
+    pageSizeSelectionOptions: PropTypes.object,
 
     /**
      * Pagination
@@ -138,7 +139,7 @@ class Table extends React.Component {
      * @property showPageSizeSelection
      * @type {Boolean}
      */
-    showPageSizeSelection: React.PropTypes.bool,
+    showPageSizeSelection: PropTypes.bool,
 
     /**
      * Enables multi-selectable table rows.
@@ -146,7 +147,7 @@ class Table extends React.Component {
      * @property selectable
      * @type {Boolean}
      */
-    selectable: React.PropTypes.bool,
+    selectable: PropTypes.bool,
 
     /**
      * Enables highlightable table rows.
@@ -154,7 +155,7 @@ class Table extends React.Component {
      * @property highlightable
      * @type {Boolean}
      */
-    highlightable: React.PropTypes.bool,
+    highlightable: PropTypes.bool,
 
     /**
      * A callback for when a row is selected.
@@ -162,7 +163,7 @@ class Table extends React.Component {
      * @property onSelect
      * @type {Function}
      */
-    onSelect: React.PropTypes.func,
+    onSelect: PropTypes.func,
 
     /**
      * A callback for when a row is highlighted.
@@ -170,7 +171,7 @@ class Table extends React.Component {
      * @property onHighlight
      * @type {Function}
      */
-    onHighlight: React.PropTypes.func,
+    onHighlight: PropTypes.func,
 
     /**
      * A callback for when the page size changes.
@@ -178,7 +179,7 @@ class Table extends React.Component {
      * @property onPageSizeChange
      * @type {Function}
      */
-    onPageSizeChange: React.PropTypes.func,
+    onPageSizeChange: PropTypes.func,
 
     /**
      * Pagination
@@ -187,7 +188,7 @@ class Table extends React.Component {
      * @property totalRecords
      * @type {String}
      */
-    totalRecords: React.PropTypes.string,
+    totalRecords: PropTypes.string,
 
     /**
      * Allow table to shrink in size.
@@ -195,7 +196,7 @@ class Table extends React.Component {
      * @property shrink
      * @type {Boolean}
      */
-    shrink: React.PropTypes.bool,
+    shrink: PropTypes.bool,
 
     /**
      * TableRows to be wrapped in <thead>
@@ -203,7 +204,7 @@ class Table extends React.Component {
      * @property thead
      * @type {Object}
      */
-    thead: React.PropTypes.object,
+    thead: PropTypes.object,
 
     /**
      * Determines if you want the table to automatically render a tbody.
@@ -211,7 +212,7 @@ class Table extends React.Component {
      * @property tbody
      * @type {Object}
      */
-    tbody: React.PropTypes.bool
+    tbody: PropTypes.bool
   }
 
   /**
@@ -276,19 +277,19 @@ class Table extends React.Component {
      * @property childContextTypes
      * @type {Object}
      */
-    attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
-    detachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
-    attachToTable: React.PropTypes.func, // attach the row to the table
-    checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
-    detachFromTable: React.PropTypes.func, // detach the row from the table
-    highlightRow: React.PropTypes.func, // highlights the row
-    selectable: React.PropTypes.bool, // table can enable all rows to be multi-selectable
-    onSort: React.PropTypes.func, // a callback function for when a sort order is updated
-    selectAll: React.PropTypes.func, // a callback function for when all visible rows are selected
-    selectRow: React.PropTypes.func, // a callback function for when a row is selected
-    highlightable: React.PropTypes.bool, // table can enable all rows to be highlightable
-    sortOrder: React.PropTypes.string, // the current sort order applied
-    sortedColumn: React.PropTypes.string // the currently sorted column
+    attachActionToolbar: PropTypes.func, // tracks the action toolbar component
+    detachActionToolbar: PropTypes.func, // tracks the action toolbar component
+    attachToTable: PropTypes.func, // attach the row to the table
+    checkSelection: PropTypes.func, // a function to check if the row is currently selected
+    detachFromTable: PropTypes.func, // detach the row from the table
+    highlightRow: PropTypes.func, // highlights the row
+    selectable: PropTypes.bool, // table can enable all rows to be multi-selectable
+    onSort: PropTypes.func, // a callback function for when a sort order is updated
+    selectAll: PropTypes.func, // a callback function for when all visible rows are selected
+    selectRow: PropTypes.func, // a callback function for when a row is selected
+    highlightable: PropTypes.bool, // table can enable all rows to be highlightable
+    sortOrder: PropTypes.string, // the current sort order applied
+    sortedColumn: PropTypes.string // the currently sorted column
   }
 
   /**
@@ -852,7 +853,7 @@ class Table extends React.Component {
    * @return {JSX}
    */
   get actionToolbar() {
-    if (!this.props.selectable) { return null; }
+    if (!this.props.selectable || !this.props.actions) { return null; }
 
     return (
       <ActionToolbar total={ this.state.selectedCount } actions={ this.props.actions } />
@@ -962,7 +963,7 @@ class Table extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...this.componentTags(this.props) }>
         { this.actionToolbar }
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
@@ -973,6 +974,14 @@ class Table extends React.Component {
         { this.pager }
       </div>
     );
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'table',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 }
 

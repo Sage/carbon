@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import { tagComponent } from '../../../utils/helpers/tags';
 
 class MenuListItem extends React.Component {
   constructor(...args) {
@@ -20,7 +21,7 @@ class MenuListItem extends React.Component {
 
   render () {
     return (
-      <li className={ this.mainClasses() }>
+      <li className={ this.mainClasses() } { ...tagComponent('menu-list-item', this.props) }>
         { this.props.children }
       </li>
     );

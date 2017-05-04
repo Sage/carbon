@@ -1,7 +1,11 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import DropdownFilter from './dropdown-filter';
 import Immutable from 'immutable';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import ImmutableHelper from './../../utils/helpers/immutable';
+
 
 describe('DropdownFilter', () => {
   let instance;
@@ -772,6 +776,66 @@ describe('DropdownFilter', () => {
           expect(inputs.length).toEqual(2);
           expect(inputs[1].name).toEqual(name);
         });
+      });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <DropdownFilter
+          data-element='bar'
+          options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+          path='test'
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'dropdown-filter', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      describe("when closed", () => {
+        let wrapper = shallow(
+          <DropdownFilter
+            fieldHelp='test'
+            label='test'
+            open={ true }
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+
+        elementsTagTest(wrapper, [
+          'help',
+          'hidden-input',
+          'input',
+          'label',
+        ]);
+      });
+      describe("when open", () => {
+        let wrapper = shallow(
+          <DropdownFilter
+            create={ () => {} }
+            fieldHelp='test'
+            label='test'
+            open={ true }
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+        wrapper.setState({ open: true });
+
+        elementsTagTest(wrapper, [
+          'create',
+          'help',
+          'hidden-input',
+          'input',
+          'label',
+          'option'
+        ]);
       });
     });
   });
