@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import SplitButton from './split-button';
 import Icon from './../icon';
 import Button from './../button';
@@ -93,6 +93,13 @@ describe('SplitButton', () => {
       let block = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button');
       TestUtils.Simulate.mouseLeave(block);
       expect(twoItemsSplitButton.state.showAdditionalButtons).toEqual(false);
+    });
+
+    it('hides additional buttons', () => {
+      let toggle = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button__toggle');
+      TestUtils.Simulate.mouseLeave(toggle);
+      let block = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button__additional-buttons carbon-split-button__additional-buttons--hidden');
+      expect(block).not.toBe(null);
     });
   });
 

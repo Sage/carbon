@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './../button';
 import I18n from "i18n-js";
 import Serialize from "form-serialize";
@@ -61,7 +62,7 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    cancel: React.PropTypes.bool,
+    cancel: PropTypes.bool,
 
     /**
      * Custom function that is called immediately
@@ -70,7 +71,7 @@ class Form extends React.Component {
      * @property afterFormValidation
      * @type {Function}
      */
-    afterFormValidation: React.PropTypes.func,
+    afterFormValidation: PropTypes.func,
 
     /**
      * Custom function that is called immediately
@@ -79,7 +80,7 @@ class Form extends React.Component {
      * @property beforeFormValidation
      * @type {Function}
      */
-    beforeFormValidation: React.PropTypes.func,
+    beforeFormValidation: PropTypes.func,
 
     /**
      * Alignment of submit button
@@ -87,7 +88,7 @@ class Form extends React.Component {
      * @ property
      * @type {String}
      */
-    buttonAlign: React.PropTypes.string,
+    buttonAlign: PropTypes.string,
 
     /**
      * Determines if the form is in a saving state
@@ -96,7 +97,7 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    saving: React.PropTypes.bool,
+    saving: PropTypes.bool,
 
     /**
      * If true, will validate the form on mount
@@ -105,7 +106,7 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    validateOnMount: React.PropTypes.bool,
+    validateOnMount: PropTypes.bool,
 
     /**
      * Text for the cancel button
@@ -114,7 +115,7 @@ class Form extends React.Component {
      * @type {String}
      * @default "Cancel"
      */
-    cancelText: React.PropTypes.string,
+    cancelText: PropTypes.string,
 
     /**
      * Properties for the cancel button
@@ -122,7 +123,7 @@ class Form extends React.Component {
      * @property cancelButtonProps
      * @type {Object}
      */
-    cancelButtonProps: React.PropTypes.object,
+    cancelButtonProps: PropTypes.object,
 
     /**
      * Text for the save button
@@ -131,7 +132,7 @@ class Form extends React.Component {
      * @type {String}
      * @default "Save"
      */
-    saveText: React.PropTypes.string,
+    saveText: PropTypes.string,
 
     /**
      * Properties for the save button
@@ -139,7 +140,7 @@ class Form extends React.Component {
      * @property saveButtonProps
      * @type {Object}
      */
-    saveButtonProps: React.PropTypes.object,
+    saveButtonProps: PropTypes.object,
 
     /**
      * Custom function for Cancel button onClick
@@ -147,7 +148,7 @@ class Form extends React.Component {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func,
+    onCancel: PropTypes.func,
 
     /**
      * Hide or show the save button
@@ -155,7 +156,7 @@ class Form extends React.Component {
      * @property saveFalse
      * @type {Boolean}
      */
-    save: React.PropTypes.bool,
+    save: PropTypes.bool,
 
     /**
      * Additional actions rendered next to the save and cancel buttons
@@ -163,7 +164,7 @@ class Form extends React.Component {
      * @property additionalActions
      * @type {String|JSX}
      */
-    additionalActions: React.PropTypes.node,
+    additionalActions: PropTypes.node,
 
     /**
      * Custom callback for when form will submit
@@ -171,7 +172,15 @@ class Form extends React.Component {
      * @property onSubmit
      * @type {Function}
      */
-    onSubmit: React.PropTypes.func
+    onSubmit: PropTypes.func,
+
+    /**
+     * Currently active input in form
+     *
+     * @property activeInput
+     * @type {Node}
+     */
+    activeInput: PropTypes.node
   }
 
   static defaultProps = {
@@ -191,11 +200,11 @@ class Form extends React.Component {
      * @property form
      * @type {Object}
      */
-    form: React.PropTypes.object
+    form: PropTypes.object
   }
 
   static contextTypes = {
-    modal: React.PropTypes.object
+    modal: PropTypes.object
   }
 
   /**

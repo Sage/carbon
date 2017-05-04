@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import ColorOption from './';
 import Icon from './../../icon';
 import { shallow  } from 'enzyme';

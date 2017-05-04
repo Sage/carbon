@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Heading from './../heading';
 import { tagComponent } from '../../utils/helpers/tags';
@@ -37,7 +38,7 @@ class SettingsRow extends React.Component {
      * @property  children
      * @type      {Object}
      */
-    children: React.PropTypes.node,
+    children: PropTypes.node,
 
     /**
      * Heading title
@@ -45,7 +46,7 @@ class SettingsRow extends React.Component {
      * @property  title
      * @type      {String}
      */
-    title: React.PropTypes.string,
+    title: PropTypes.string,
 
     /**
      * Heading description
@@ -53,7 +54,7 @@ class SettingsRow extends React.Component {
      * @property  description
      * @type      {Node}
      */
-    description: React.PropTypes.node,
+    description: PropTypes.node,
 
     /**
      * Row divider
@@ -62,7 +63,7 @@ class SettingsRow extends React.Component {
      * @type      {Boolean}
      * @default   true
      */
-    divider: React.PropTypes.bool
+    divider: PropTypes.bool
   };
 
   static defaultProps = {

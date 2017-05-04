@@ -1,6 +1,6 @@
 import React from 'react';
 import Immutable from 'immutable';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Row from './row';
 
 describe('Row', () => {
@@ -106,7 +106,7 @@ describe('Row', () => {
 
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Row columns='2'>
+        <Row columns="2">
           <div>Foo</div>
           <div>Bar</div>
         </Row>
@@ -124,7 +124,7 @@ describe('Row', () => {
 
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Row columns='2' gutter="small">
+        <Row columns="2" gutter="small">
           <div>Foo</div>
           <div>Bar</div>
         </Row>
@@ -142,7 +142,7 @@ describe('Row', () => {
 
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Row columns='2' columnDivide={ true }>
+        <Row columns="2" columnDivide={ true }>
           <div>Foo</div>
           <div>Bar</div>
         </Row>

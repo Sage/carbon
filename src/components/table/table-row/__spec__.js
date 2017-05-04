@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import { Table, TableCell } from './../table';
 import TableRow from './table-row';
 import TableHeader from './../table-header';

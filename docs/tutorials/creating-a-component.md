@@ -39,6 +39,7 @@ Each component must contain a render method which returns a tree of React compon
 ```javascript
 // src/components/button/index.js
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Button extends React.Component {
 
@@ -165,7 +166,7 @@ When creating React components it's important to define the `propTypes` for that
 class Button extends React.Component {
 
   static propTypes = {
-    children: React.PropTypes.string.isRequired
+    children: PropTypes.string.isRequired
   }
 
   render() {
@@ -197,7 +198,7 @@ class Button extends React.Component {
   }
 
   static propTypes = {
-    children: React.PropTypes.string.isRequired
+    children: PropTypes.string.isRequired
   }
 
 // .. render
@@ -257,8 +258,8 @@ class Button extends React.Component {
   }
 
   static propTypes = {
-    as:       React.PropTypes.string,
-    children: React.PropTypes.string.isRequired
+    as:       PropTypes.string,
+    children: PropTypes.string.isRequired
   }
 
 // .. render
@@ -332,10 +333,10 @@ class Button extends React.Component {
   }
 
   static propTypes = {
-    as:        React.PropTypes.string,
-    children:  React.PropTypes.string.isRequired,
-    className: React.PropTypes.string,
-    disabled:  React.PropTypes.bool.isRequired
+    as:        PropTypes.string,
+    children:  PropTypes.string.isRequired,
+    className: PropTypes.string,
+    disabled:  PropTypes.bool.isRequired
   }
 
 // .. render
@@ -507,10 +508,10 @@ class Button extends React.Component {
   }
 
   static propTypes = {
-    as:        React.PropTypes.string,
-    children:  React.PropTypes.string.isRequired,
-    className: React.PropTypes.string,
-    disabled:  React.PropTypes.bool.isRequired
+    as:        PropTypes.string,
+    children:  PropTypes.string.isRequired,
+    className: PropTypes.string,
+    disabled:  PropTypes.bool.isRequired
   }
 
   /**

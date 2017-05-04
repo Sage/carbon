@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
@@ -40,7 +41,7 @@ class Textarea extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    expandable: React.PropTypes.bool,
+    expandable: PropTypes.bool,
 
     /**
      * Character limit of the textarea
@@ -48,7 +49,7 @@ class Textarea extends React.Component {
      * @property characterLimit
      * @type {String}
      */
-    characterLimit: React.PropTypes.string,
+    characterLimit: PropTypes.string,
 
     /**
      * Stop the user typing over the characterLimit
@@ -57,7 +58,7 @@ class Textarea extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    enforceCharacterLimit: React.PropTypes.bool
+    enforceCharacterLimit: PropTypes.bool
   }
 
   static defaultProps = {

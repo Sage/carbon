@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Rainbow from './rainbow';
 import Immutable from 'immutable';
 import { shallow } from 'enzyme';

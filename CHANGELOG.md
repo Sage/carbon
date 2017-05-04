@@ -2,7 +2,7 @@
 
 ## :warning: Major Change - React 15 Upgrade
 
-* React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
+* React has been upgraded to version 15.5.0 - https://github.com/facebook/react/releases
 
 ## !! BREAKING CHANGES!! :warning:
 
@@ -30,6 +30,7 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 
 ## Component Enhancements
 
+* `Decimal` now shows propType warning when precision is outside the range 0..20
 * `DropdownFilter`: placeholder text is made more legible by removing italics and making the font color darker
 * `DropdownFilterAjax`: `data-state` component tag is added to the `getData` Ajax request to mark the requesting state
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
@@ -51,6 +52,7 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 * `Heading`: alignment is fixed in IE where `hr` was centring by default
 * `Link`: CSS inheritance has been updated to better support buttons.
 * `MenuList`: item filter search icon positioning is fixed
+* Row clones children when mutating props rather than creating new element to retain refs
 
 ## data-attributes on components
 
@@ -67,9 +69,21 @@ We have added data-attributes to components to better identify them and their pa
 gulp --port 1234
 ```
 
+# 0.36.2
+
+* Hide SplitButton additional buttons instead of removing them.
+
+# 0.36.1
+
+* Removed the style node from `package.json` in table-ajax. This file doesn't exist.
+
 # 0.36.0
 
 * Add `additionalRequestParams` prop to `DropdownFilterAjax`
+
+# 0.35.2
+
+* Hide SplitButton additional buttons instead of removing them.
 
 # 0.35.1
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from './../../button';
 import Icon from './../../icon';
@@ -22,7 +23,7 @@ class Step extends React.Component {
      * @property stepNumber
      * @type {Number}
      */
-    stepNumber: React.PropTypes.number.isRequired,
+    stepNumber: PropTypes.number.isRequired,
 
     /**
      * Determines if the step renders default buttons
@@ -31,7 +32,7 @@ class Step extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    defaultButton: React.PropTypes.bool,
+    defaultButton: PropTypes.bool,
 
     /**
      * Custom function that is called when moving the step forward.
@@ -40,7 +41,7 @@ class Step extends React.Component {
      * @property onNext
      * @type {Function}
      */
-    onNext: React.PropTypes.func,
+    onNext: PropTypes.func,
 
     /**
      * Custom function that is called when moving the step backward.
@@ -49,7 +50,7 @@ class Step extends React.Component {
      * @property onBack
      * @type {Function}
      */
-    onBack: React.PropTypes.func,
+    onBack: PropTypes.func,
 
     /**
      * Additional buttons
@@ -57,7 +58,7 @@ class Step extends React.Component {
      * @property extraButtons
      * @type {Array}
      */
-    extraButtons: React.PropTypes.arrayOf(React.PropTypes.object),
+    extraButtons: PropTypes.arrayOf(PropTypes.object),
 
     /**
      * Determines if the step is enabled
@@ -65,7 +66,7 @@ class Step extends React.Component {
      * @property enabled
      * @type {Boolean}
      */
-    enabled: React.PropTypes.bool
+    enabled: PropTypes.bool
   }
 
   static defaultProps = {
@@ -73,7 +74,7 @@ class Step extends React.Component {
   }
 
   static contextTypes = {
-    wizard: React.PropTypes.object
+    wizard: PropTypes.object
   }
 
   /**

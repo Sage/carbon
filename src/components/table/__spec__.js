@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
@@ -760,7 +760,7 @@ describe('Table', () => {
     describe('when pageSize is passed', () => {
       it('returns the prop pageSize', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table path='/test' pageSize='123' >
+          <Table path='/test' pageSize='123'>
           </Table>
         );
         expect(instance.defaultPageSize).toEqual('123')
@@ -776,7 +776,7 @@ describe('Table', () => {
         ]);
 
         instance = TestUtils.renderIntoDocument(
-          <Table pageSizeSelectionOptions={ options } >
+          <Table pageSizeSelectionOptions={ options }>
           </Table>
         );
         expect(instance.defaultPageSize).toEqual('1')
