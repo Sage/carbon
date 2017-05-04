@@ -1,3 +1,9 @@
+# 0.36.3
+
+## Bug Fix
+
+* Fix presence validator bug validating value as false if no props sent to validator.
+
 # 0.36.2
 
 * Hide SplitButton additional buttons instead of removing them.

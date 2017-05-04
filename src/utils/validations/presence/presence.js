@@ -55,7 +55,7 @@ class PresenceValidator {
      * @type {Array}
      * @default ['value']
      */
-    this.props = params.props || ['value'];
+    this.props = params.props;
 
     /**
      * Determines whether any or all properties are required to be present.
@@ -78,15 +78,19 @@ class PresenceValidator {
   validate = (value, props) => {
     let valid, result = this.requireAll;
 
-    forEach(this.props, (name) => {
-      value = props[name];
-      valid = !isEmpty(value) && !value.match(/^\s*$/);
-      result = this.requireAll ? (result && valid) : (result || valid);
-      if (result !== this.requireAll) {
-        return false;
-      }
-    });
-    return result;
+    if (!this.props) {
+      return !isEmpty(value) && !value.match(/^\s*$/);
+    } else {
+      forEach(this.props, (name) => {
+        value = props[name];
+        valid = !isEmpty(value) && !value.match(/^\s*$/);
+        result = this.requireAll ? (result && valid) : (result || valid);
+        if (result !== this.requireAll) {
+          return false;
+        }
+      });
+      return result;
+    }
   }
 
   /**
