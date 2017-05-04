@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Heading from './../heading';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * UI for a settings page row
@@ -106,7 +107,7 @@ class SettingsRow extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes }>
+      <div className={ this.classes } { ...tagComponent('settings-row', this.props) }>
         <div className='carbon-settings-row__header'>{ this.heading }</div>
         <div className='carbon-settings-row__input'>{ this.props.children }</div>
       </div>

@@ -2,6 +2,8 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import ReactDOM from 'react-dom';
 import Content from './content';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Content', () => {
   let instance;
@@ -74,6 +76,24 @@ describe('Content', () => {
         <Content titleWidth="40" bodyFullWidth={ true }>{ null }</Content>
       );
       expect(instance.bodyStyle()).toEqual({ width: "100%" });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Content data-element='bar' data-role='baz'><div /></Content>);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'content', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Content><div /></Content>);
+
+      elementsTagTest(wrapper, [
+        'title'
+      ]);
     });
   });
 });

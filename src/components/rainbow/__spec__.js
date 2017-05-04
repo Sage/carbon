@@ -2,6 +2,8 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Rainbow from './rainbow';
 import Immutable from 'immutable';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Rainbow', () => {
   let instance, data, chart;
@@ -164,7 +166,19 @@ describe('Rainbow', () => {
           expect(chart.chart.options.credits.enabled).toEqual(true);
         });
       });
+    });
+  });
 
+  describe("tags on component", () => {
+    let wrapper = shallow(
+      <Rainbow
+        data-element='bar'
+        data-role='baz'
+        data={ {} }/>
+      );
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'rainbow', 'bar', 'baz');
     });
   });
 });

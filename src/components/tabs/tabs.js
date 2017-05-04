@@ -5,6 +5,7 @@ import Tab from './tab';
 import { compact } from 'lodash';
 import classNames from 'classnames';
 import Event from './../../utils/helpers/events';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Tabs widget.
@@ -331,12 +332,14 @@ class Tabs extends React.Component {
       return(
         <li
           className={ this.tabHeaderClasses(child) }
+          data-element='select-tab'
+          data-tabid={ child.props.tabId }
+          key={ child.props.tabId }
           onClick={ this.handleTabClick }
           onKeyDown={ this.handleTabClick }
-          key={ child.props.tabId }
           ref={ `${child.props.tabId}-tab` }
-          data-tabid={ child.props.tabId }
-          tabIndex='0'>
+          tabIndex='0'
+        >
             { child.props.title }
         </li>
       );
@@ -397,7 +400,7 @@ class Tabs extends React.Component {
    */
   render() {
     return(
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('tabs', this.props) }>
         { this.tabHeaders }
         { this.tabs }
       </div>

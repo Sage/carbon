@@ -8,6 +8,7 @@ import I18n from 'i18n-js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Events from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 import ReactDOM from 'react-dom';
 
@@ -240,16 +241,17 @@ class ShowEditPod extends React.Component {
   get editContent() {
     return (
       <Form
+        additionalActions={ this.props.onDelete ? this.deleteButton : null }
         afterFormValidation={ this.onSaveEditForm }
         beforeFormValidation={ this.props.beforeFormValidation }
         buttonAlign={ this.props.buttonAlign }
         cancel={ this.props.cancel }
         cancelText={ this.props.cancelText }
+        data-element='edit-form'
         onCancel={ this.onCancelEditForm }
         saveText={ this.props.saveText }
         saving={ this.props.saving }
         validateOnMount={ this.props.validateOnMount }
-        additionalActions={ this.props.onDelete ? this.deleteButton : null }
       >
         { this.props.editFields }
       </Form>
@@ -316,7 +318,7 @@ class ShowEditPod extends React.Component {
    */
   render() {
     return (
-      <Pod className={ this.mainClasses } { ...this.podProps } ref='podFocus' tabIndex='-1'>
+      <Pod className={ this.mainClasses } { ...this.podProps } ref='podFocus' tabIndex='-1' { ...tagComponent('show-edit-pod', this.props) }>
         <ReactCSSTransitionGroup
           transitionName={ this.props.transitionName }
           transitionEnterTimeout={ 300 }

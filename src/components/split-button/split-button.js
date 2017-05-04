@@ -72,6 +72,11 @@ class SplitButton extends React.Component {
     showAdditionalButtons: false
   }
 
+  constructor(args) {
+    super(args);
+    this.componentTags = this.componentTags.bind(this);
+  }
+
   /**
    * Shows the additional buttons.
    *
@@ -113,7 +118,12 @@ class SplitButton extends React.Component {
    * @return {String} Main className
    */
   get additionalButtonsClasses() {
-    return 'carbon-split-button__additional-buttons';
+    return classNames(
+      'carbon-split-button__additional-buttons',
+      {
+        'carbon-split-button__additional-buttons--hidden': !this.state.showAdditionalButtons
+      }
+    );
   }
 
   /**
@@ -169,11 +179,11 @@ class SplitButton extends React.Component {
   get renderMainButton() {
     return (
       <div>
-        <Button { ...this.mainButtonProps }>
+        <Button { ...this.mainButtonProps } data-element='main-button'>
           { this.props.text}
         </Button>
 
-        <Button { ...this.toggleButtonProps } >
+        <Button { ...this.toggleButtonProps } data-element='open'>
           <Icon type='dropdown' />
         </Button>
       </div>
@@ -188,7 +198,7 @@ class SplitButton extends React.Component {
    */
   get renderAdditionalButtons() {
     return (
-      <div className={ this.additionalButtonsClasses }>
+      <div className={ this.additionalButtonsClasses } data-element='additional-buttons'>
         { this.props.children }
       </div>
     );
@@ -200,11 +210,19 @@ class SplitButton extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses } onMouseLeave={ this.hideButtons }>
+      <div className={ this.mainClasses } onMouseLeave={ this.hideButtons } { ...this.componentTags() }>
         { this.renderMainButton }
-        { this.state.showAdditionalButtons ? this.renderAdditionalButtons : null}
+        { this.renderAdditionalButtons }
       </div>
     );
+  }
+
+  componentTags() {
+    return {
+      'data-component': 'split-button',
+      'data-element': this.props['data-element'],
+      'data-role': this.props['data-role']
+    };
   }
 }
 

@@ -336,10 +336,11 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
     if (this.props.tooltipMessage) {
       return (
         <Tooltip
-          ref={ (comp) => this._tooltip = comp }
+          align={ this.props.tooltipAlign }
+          data-element='tooltip'
           isVisible={ this.state.isVisible }
           position={ this.props.tooltipPosition }
-          align={ this.props.tooltipAlign }
+          ref={ (comp) => this._tooltip = comp }
         >
           { this.props.tooltipMessage }
         </Tooltip>

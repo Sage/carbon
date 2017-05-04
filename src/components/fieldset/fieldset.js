@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * Fieldset component.
@@ -31,7 +32,7 @@ class Fieldset extends React.Component {
     if (!this.props.legend) { return null; }
 
     return (
-      <legend className="carbon-fieldset__legend common-input__label">
+      <legend className="carbon-fieldset__legend common-input__label" data-element='legend'>
         { this.props.legend }
       </legend>
     );
@@ -45,7 +46,7 @@ class Fieldset extends React.Component {
         classes = classNames("carbon-fieldset", className);
 
     return (
-      <fieldset className={ classes } { ...props }>
+      <fieldset className={ classes } { ...props } { ...tagComponent('fieldset', this.props) }>
         { this.legend }
         { this.props.children }
       </fieldset>

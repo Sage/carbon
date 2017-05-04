@@ -1,6 +1,8 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Spinner from './spinner';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Spinner', () => {
   let instance;
@@ -33,6 +35,14 @@ describe('Spinner', () => {
     it('renders a parent div with the spinner classes', () => {
       let div = TestUtils.findRenderedDOMComponentWithTag(instance, 'div')
       expect(div.className).toEqual('carbon-spinner carbon-spinner--info carbon-spinner--medium');
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<Spinner data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'spinner', 'bar', 'baz');
     });
   });
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import SettingsRow from './settings-row';
 import Heading from './../heading';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('SettingsRow', () => {
   describe('render', () => {
@@ -70,6 +71,14 @@ describe('SettingsRow', () => {
 
         expect(wrapper.find(Heading).length).toEqual(0);
       });
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<SettingsRow data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'settings-row', 'bar', 'baz');
     });
   });
 });

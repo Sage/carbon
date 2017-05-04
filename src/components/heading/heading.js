@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Help from './../help';
 import Link from './../link';
 import Icon from './../icon';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * UI for a heading header.
@@ -92,6 +93,7 @@ class Heading extends React.Component {
     return (
       <Help
         className="carbon-heading__help"
+        data-element='help'
         tooltipAlign="left"
         href={ this.props.helpLink }
       >
@@ -112,6 +114,7 @@ class Heading extends React.Component {
     return (
       <Link
         className="carbon-heading__back"
+        data-element='back'
         href={ this.props.backLink }
       >
         <Icon type="chevron" />
@@ -129,7 +132,7 @@ class Heading extends React.Component {
     if (!this.props.subheader) { return null; }
 
     return (
-      <div className="carbon-heading__subheader">
+      <div className="carbon-heading__subheader" data-element='subtitle'>
         { this.props.subheader }
       </div>
     );
@@ -169,13 +172,13 @@ class Heading extends React.Component {
     if (!this.props.title) { return null; }
 
     return (
-      <div className={ this.classes }>
+      <div className={ this.classes } { ...tagComponent('heading', this.props) }>
         <div className="carbon-heading__header">
           { this.back }
 
           <div className="carbon-heading__headers">
             <div className="carbon-heading__main-header">
-              <h1 className="carbon-heading__title">
+              <h1 className="carbon-heading__title" data-element='title'>
                 { this.props.title }
               </h1>
 

@@ -2,6 +2,8 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Profile from './profile';
 import Portrait from './../portrait';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('PortraitContainer', () => {
   let instance;
@@ -70,6 +72,25 @@ describe('PortraitContainer', () => {
         let text = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-profile__email');
         expect(text.textContent).toEqual('foo@bar.com');
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Profile data-element='bar' data-role='baz' email='bun' name='dy' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'profile', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Profile email='bun' name='dy' />);
+
+      elementsTagTest(wrapper, [
+        'email',
+        'name'
+      ]);
     });
   });
 });

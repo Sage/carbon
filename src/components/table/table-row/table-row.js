@@ -6,6 +6,7 @@ import TableHeader from './../table-header';
 import Checkbox from './../../checkbox';
 import guid from './../../../utils/helpers/guid';
 import { validProps } from '../../../utils/ether';
+import { tagComponent } from '../../../utils/helpers/tags';
 
 /**
  * A TableRow widget.
@@ -362,7 +363,7 @@ class TableRow extends React.Component {
     }
 
     return (
-      <tr { ...this.rowProps }>
+      <tr { ...this.rowProps } { ...tagComponent('table-row', this.props) }>
         { content }
       </tr>
     );

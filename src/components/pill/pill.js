@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
 * A Pill widget.
@@ -77,7 +78,7 @@ class Pill extends React.Component {
     );
 
     return(
-      <span { ...props } className={ className }>
+      <span { ...props } className={ className } { ...tagComponent('pill', this.props) }>
         {this.props.children}
       </span>
     );

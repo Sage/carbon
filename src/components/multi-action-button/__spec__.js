@@ -4,8 +4,10 @@ import TestUtils from 'react-dom/test-utils';
 import MultiActionButton from './multi-action-button';
 import Icon from './../icon';
 import Button from './../button';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
-describe('SplitButton', () => {
+describe('MultiActionButton', () => {
   let instance,
       handleSecondButton = jasmine.createSpy("second"),
       handleFirstButton= jasmine.createSpy("first");
@@ -66,6 +68,34 @@ describe('SplitButton', () => {
 
     it('adds multi action button classes', () => {
       expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-multi-action-button__toggle').length).toEqual(1);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <MultiActionButton data-element='bar' data-role='baz' text='Test'>
+          <Button>Test</Button>
+        </MultiActionButton>
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'multi-action-button', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <MultiActionButton text='Test'>
+          <Button>Test</Button>
+        </MultiActionButton>
+      );
+      wrapper.setState({ showAdditionalButtons: true })
+
+      elementsTagTest(wrapper, [
+        'additional-buttons',
+        'main-button'
+      ]);
     });
   });
 });

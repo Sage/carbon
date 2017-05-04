@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from './../icon';
 import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
 * A Toast widget.
@@ -83,9 +84,18 @@ class Toast extends React.Component {
    * @method dismissIcon
    */
   get dismissIcon() {
-    return this.props.onDismiss ? (
-      <Icon className="carbon-toast__close" type="close" onClick={ this.props.onDismiss } />
-    ) : null;
+    if (this.props.onDismiss) {
+      return (
+        <Icon
+          className='carbon-toast__close'
+          data-element='close'
+          onClick={ this.props.onDismiss }
+          type='close'
+        />
+      );
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -94,17 +104,21 @@ class Toast extends React.Component {
    * @method toastContent
    */
   get toastContent() {
-    return this.props.open ? (
-      <div className={ this.componentClasses }>
-        <div className="carbon-toast__type"><Icon className="carbon-toast__type-icon" type={ this.props.as } /></div>
-
-        <div className="carbon-toast__content">
-          { this.props.children }
+    if (this.props.open) {
+      return (
+        <div className={ this.componentClasses } { ...tagComponent('toast', this.props) }>
+          <div className='carbon-toast__type'>
+            <Icon className='carbon-toast__type-icon' type={ this.props.as } />
+          </div>
+          <div className='carbon-toast__content'>
+            { this.props.children }
+          </div>
+          { this.dismissIcon }
         </div>
-
-        { this.dismissIcon }
-      </div>
-    ) : null;
+      );
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -116,7 +130,7 @@ class Toast extends React.Component {
     return (
       <ReactCSSTransitionGroup
         transitionAppear={ true }
-        transitionName="toast"
+        transitionName='toast'
         transitionAppearTimeout={ 1600 }
         transitionEnterTimeout={ 1500 }
         transitionLeaveTimeout={ 500 }

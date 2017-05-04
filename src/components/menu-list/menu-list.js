@@ -7,6 +7,7 @@ import Link from 'components/link';
 import Textbox from 'components/textbox';
 
 import MenuListItem from './menu-list-item';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
 
@@ -67,7 +68,7 @@ class MenuList extends React.Component {
 
   render() {
     return (
-      <div className={ this.mainClasses() } >
+      <div className={ this.mainClasses() } { ...tagComponent('menu-list', this.props) }>
         { this.menuTitle() }
         <ul className='carbon-menu-list__list'>
           { this.menuItems() }
@@ -125,7 +126,11 @@ class MenuList extends React.Component {
     if (!this.props.title) { return null; }
 
     return (
-      <Link className='carbon-menu-list__title' onClick={ this.toggleChildren }>
+      <Link
+        className='carbon-menu-list__title'
+        data-element='title'
+        onClick={ this.toggleChildren }
+      >
         { this.props.title }
       </Link>
     );

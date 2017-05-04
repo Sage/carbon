@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Link from './../../link';
+import { assign } from 'lodash';
+import { tagComponent } from '../../../utils/helpers/tags';
 
 /**
  * Renders a menu item for the menu component.
@@ -133,18 +135,21 @@ class MenuItem extends React.Component {
    * @method render
    */
   render() {
-    let component = this.props.submenu ? "div" : Link;
-
-    return (
-      React.createElement(
-        component,
-        {
+    let component = this.props.submenu ? "div" : Link,
+        props = {
           className: this.classes,
           href: this.props.href,
           to: this.props.to,
           target: this.props.target,
           onClick: this.props.onClick
-        },
+        };
+
+    props = assign({}, props, tagComponent('menu-item', this.props));
+
+    return (
+      React.createElement(
+        component,
+        props,
         this.content
       )
     );

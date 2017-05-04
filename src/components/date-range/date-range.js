@@ -6,6 +6,7 @@ import DateRangeValidator from './../../utils/validations/date-range';
 import DateHelper from  './../../utils/helpers/date';
 import { assign } from 'lodash';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 
 class DateRange extends React.Component {
   static propTypes = {
@@ -244,9 +245,9 @@ class DateRange extends React.Component {
 
   render () {
     return(
-      <div>
-        <Date { ...this.startDateProps() }/>
-        <Date { ...this.endDateProps() }/>
+      <div { ...tagComponent('date-range', this.props) }>
+        <Date { ...this.startDateProps() } data-element='start-date'/>
+        <Date { ...this.endDateProps() } data-element='end-date'/>
       </div>
     );
   }

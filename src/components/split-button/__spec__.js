@@ -4,6 +4,8 @@ import TestUtils from 'react-dom/test-utils';
 import SplitButton from './split-button';
 import Icon from './../icon';
 import Button from './../button';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('SplitButton', () => {
   let twoItemsSplitButton;
@@ -86,11 +88,18 @@ describe('SplitButton', () => {
     });
   });
 
-   describe('mouse leave split-button', () => {
+  describe('mouse leave split-button', () => {
     it('changes showAdditionalButtons state', () => {
       let block = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button');
       TestUtils.Simulate.mouseLeave(block);
       expect(twoItemsSplitButton.state.showAdditionalButtons).toEqual(false);
+    });
+
+    it('hides additional buttons', () => {
+      let toggle = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button__toggle');
+      TestUtils.Simulate.mouseLeave(toggle);
+      let block = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'carbon-split-button__additional-buttons carbon-split-button__additional-buttons--hidden');
+      expect(block).not.toBe(null);
     });
   });
 
@@ -102,6 +111,35 @@ describe('SplitButton', () => {
       let button = TestUtils.findRenderedDOMComponentWithClass(twoItemsSplitButton, 'second-button');
       TestUtils.Simulate.click(button);
       expect(handleSecondButton).toHaveBeenCalled();
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <SplitButton data-element='bar' data-role='baz' text='Test'>
+          <Button>Test</Button>
+        </SplitButton>
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'split-button', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <SplitButton text='Test'>
+          <Button>Test</Button>
+        </SplitButton>
+      );
+      wrapper.setState({ showAdditionalButtons: true })
+
+      elementsTagTest(wrapper, [
+        'additional-buttons',
+        'main-button',
+        'open'
+      ]);
     });
   });
 });
