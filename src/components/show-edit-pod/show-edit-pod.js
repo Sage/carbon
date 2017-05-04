@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Pod from './../pod';
 import Form from './../form';
 import Link from './../link';
@@ -7,6 +8,7 @@ import I18n from 'i18n-js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Events from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 import ReactDOM from 'react-dom';
 
@@ -26,7 +28,7 @@ class ShowEditPod extends React.Component {
      * @property editing
      * @type {Boolean}
      */
-    editing: React.PropTypes.bool,
+    editing: PropTypes.bool,
 
     /**
      * Callback when edit button is clicked
@@ -34,9 +36,9 @@ class ShowEditPod extends React.Component {
      * @property onEdit
      * @type {Function}
      */
-    onEdit: React.PropTypes.oneOfType([
-      React.PropTypes.func,
-      React.PropTypes.bool
+    onEdit: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.bool
     ]),
 
     /**
@@ -46,7 +48,7 @@ class ShowEditPod extends React.Component {
      * @property onDelete
      * @type {Function}
      */
-    onDelete: React.PropTypes.func,
+    onDelete: PropTypes.func,
 
     /**
      * JSX of fields to appear when in edit mode
@@ -54,7 +56,7 @@ class ShowEditPod extends React.Component {
      * @property editFields
      * @type {JSX}
      */
-    editFields: React.PropTypes.node,
+    editFields: PropTypes.node,
 
     /**
      * Title to display in pod
@@ -62,9 +64,9 @@ class ShowEditPod extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
@@ -74,24 +76,24 @@ class ShowEditPod extends React.Component {
      * @type {String}
      * @default 'carbon-show-edit-pod__transition'
      */
-    transitionName: React.PropTypes.string,
+    transitionName: PropTypes.string,
 
     // Props passed to Form
-    afterFormValidation: React.PropTypes.func,
-    beforeFormValidation: React.PropTypes.func,
-    buttonAlign: React.PropTypes.string,
-    cancel: React.PropTypes.bool,
-    cancelText: React.PropTypes.string,
-    onCancel: React.PropTypes.func,
-    saveText: React.PropTypes.string,
-    deleteText: React.PropTypes.string,
-    saving: React.PropTypes.bool,
-    validateOnMount: React.PropTypes.bool,
-    additionalActions: React.PropTypes.node,
+    afterFormValidation: PropTypes.func,
+    beforeFormValidation: PropTypes.func,
+    buttonAlign: PropTypes.string,
+    cancel: PropTypes.bool,
+    cancelText: PropTypes.string,
+    onCancel: PropTypes.func,
+    saveText: PropTypes.string,
+    deleteText: PropTypes.string,
+    saving: PropTypes.bool,
+    validateOnMount: PropTypes.bool,
+    additionalActions: PropTypes.node,
 
     // Props passed to Pod
-    as: React.PropTypes.string,
-    border: React.PropTypes.bool
+    as: PropTypes.string,
+    border: PropTypes.bool
   }
 
   static defaultProps = {
@@ -239,15 +241,17 @@ class ShowEditPod extends React.Component {
   get editContent() {
     return (
       <Form
+        additionalActions={ this.props.onDelete ? this.deleteButton : null }
         afterFormValidation={ this.onSaveEditForm }
-        beforeFormValidation={ this.beforeFormValidation }
+        beforeFormValidation={ this.props.beforeFormValidation }
+        buttonAlign={ this.props.buttonAlign }
         cancel={ this.props.cancel }
         cancelText={ this.props.cancelText }
+        data-element='edit-form'
         onCancel={ this.onCancelEditForm }
         saveText={ this.props.saveText }
         saving={ this.props.saving }
         validateOnMount={ this.props.validateOnMount }
-        additionalActions={ this.props.onDelete ? this.deleteButton : null }
       >
         { this.props.editFields }
       </Form>
@@ -314,7 +318,7 @@ class ShowEditPod extends React.Component {
    */
   render() {
     return (
-      <Pod className={ this.mainClasses } { ...this.podProps } ref='podFocus' tabIndex='-1'>
+      <Pod className={ this.mainClasses } { ...this.podProps } ref='podFocus' tabIndex='-1' { ...tagComponent('show-edit-pod', this.props) }>
         <ReactCSSTransitionGroup
           transitionName={ this.props.transitionName }
           transitionEnterTimeout={ 300 }

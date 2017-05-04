@@ -1,8 +1,10 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Heading from './heading';
 import Help from './../help';
 import Link from './../link';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Heading', () => {
   let instance;
@@ -108,6 +110,34 @@ describe('Heading', () => {
       instance = TestUtils.renderIntoDocument(<Heading title='foo' separator={ true }/>);
       let separator = TestUtils.findRenderedDOMComponentWithTag(instance, 'hr');
       expect(separator.className).toEqual('carbon-heading__separator');
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Heading title='Test' data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'heading', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Heading
+          backLink='test'
+          help='Test'
+          helpLink='test'
+          subheader='Sub Title'
+          title='Test'
+        />);
+
+      elementsTagTest(wrapper, [
+        'back',
+        'help',
+        'subtitle',
+        'title'
+      ]);
     });
   });
 });

@@ -6,6 +6,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 70px 0 20px;
+  width: 100%;
 
   @media (min-width: 300px) {
     flex-direction: row;
@@ -26,7 +27,7 @@
   .demo-arrow-link {
     align-items: stretch;
     &__icon {
-      margin-top: 1em;
+      padding-top: 20px;
     }
   }
 }

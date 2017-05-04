@@ -1,8 +1,11 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Dropdown from './dropdown';
 import Immutable from 'immutable';
 import Events from './../../utils/helpers/events';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import ImmutableHelper from './../../utils/helpers/immutable';
 
 describe('Dropdown', () => {
   let instance;
@@ -227,6 +230,14 @@ describe('Dropdown', () => {
         jasmine.clock().tick();
         expect(instance._input.focus).not.toHaveBeenCalled();
       });
+    });
+  });
+
+  describe("handleTouchEvent", () => {
+    it("sets blockBlur to true", () => {
+      instance.blockBlur = false;
+      instance.handleTouchEvent();
+      expect(instance.blockBlur).toEqual(true);
     });
   });
 
@@ -758,10 +769,11 @@ describe('Dropdown', () => {
   describe('hiddenInputProps', () => {
     it('return the correct props', () => {
       expect(instance.hiddenInputProps).toEqual({
+        'data-element': 'hidden-input',
+        name: "foo",
+        readOnly: true,
         ref: "hidden",
         type: "hidden",
-        readOnly: true,
-        name: "foo",
         value: instance.props.value
       });
     });
@@ -798,6 +810,13 @@ describe('Dropdown', () => {
     it('should return the correct options', () => {
       expect(instance.listBlockProps.key).toEqual('listBlock');
       expect(instance.listBlockProps.ref).toEqual('listBlock');
+      expect(instance.listBlockProps.onMouseDown).toEqual(instance.handleMouseDownOnList),
+      expect(instance.listBlockProps.onMouseLeave).toEqual(instance.handleMouseLeaveList),
+      expect(instance.listBlockProps.onMouseEnter).toEqual(instance.handleMouseEnterList),
+      expect(instance.listBlockProps.onTouchStart).toEqual(instance.handleTouchEvent),
+      expect(instance.listBlockProps.onTouchEnd).toEqual(instance.handleTouchEvent),
+      expect(instance.listBlockProps.onTouchCancel).toEqual(instance.handleTouchEvent),
+      expect(instance.listBlockProps.onTouchMove).toEqual(instance.handleTouchEvent),
       expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block');
     });
   });
@@ -884,6 +903,64 @@ describe('Dropdown', () => {
 
     it('renders the hidden input', () => {
       expect(dropdown.children[2].tagName).toEqual("INPUT");
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Dropdown
+          data-element='bar'
+          options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+          path='test'
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'dropdown', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      describe("when closed", () => {
+        let wrapper = shallow(
+          <Dropdown
+            fieldHelp='test'
+            label='test'
+            open={ true }
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+
+        elementsTagTest(wrapper, [
+          'help',
+          'hidden-input',
+          'input',
+          'label',
+        ]);
+      });
+      describe("when open", () => {
+        let wrapper = shallow(
+          <Dropdown
+            fieldHelp='test'
+            label='test'
+            open={ true }
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+        wrapper.setState({ open: true });
+
+        elementsTagTest(wrapper, [
+          'help',
+          'hidden-input',
+          'input',
+          'label',
+          'option'
+        ]);
+      });
     });
   });
 });

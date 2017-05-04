@@ -1,7 +1,9 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Input from './input';
 import Icon from './../../../components/icon';
+import Help from './../../../components/help';
+import { shallow } from 'enzyme';
 
 class TestClassOne extends React.Component {
   get mainClasses() {
@@ -36,9 +38,10 @@ class TestClassTwo extends React.Component {
 
 let ExtendedClassOne = Input(TestClassOne);
 let ExtendedClassTwo = Input(TestClassTwo);
+let klass = new ExtendedClassOne;
 
 describe('Input', () => {
-  let instance, instanceTwo, onChange;
+  let instance, instanceTwo, onChange, inputHelp;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
@@ -47,8 +50,8 @@ describe('Input', () => {
 
     instanceTwo = TestUtils.renderIntoDocument(React.createElement(ExtendedClassTwo, {
       name: 'bar',
-      'data-element': 'foo',
-      'data-member': 'foo member'
+      'data-role': 'foo',
+      'data-element': 'input'
     }));
 
     onChange = jasmine.createSpy('onChange');
@@ -250,12 +253,12 @@ describe('Input', () => {
   });
 
   describe('inputProps', () => {
-    it('adds a data-member prop', () => {
-      expect(instanceTwo.inputProps["data-member"]).toEqual("input");
+    it('adds a data-element prop', () => {
+      expect(instanceTwo.inputProps["data-element"]).toEqual("input");
     });
 
-    it('deletes data-element prop', () => {
-      expect(instanceTwo.inputProps["data-element"]).toBe(undefined);
+    it('deletes data-role prop - the role shouldnt get through to the HTML', () => {
+      expect(instanceTwo.inputProps["data-role"]).toBe(undefined);
     });
 
     describe('when autoComplete is not defined', () => {
@@ -321,6 +324,24 @@ describe('Input', () => {
       }));
       expect(instance.iconHTML.props.className).toEqual('common-input__input-icon');
       expect(instance.iconHTML.props.children).toEqual(<Icon type='foo' />);
+    });
+  });
+
+  describe('inputHelpHTML', () => {
+    beforeEach(() => {
+      klass.props = {
+        inputHelp: 'Here is some help'
+      };
+      inputHelp = shallow(klass.inputHelpHTML);
+    });
+
+    it('returns a div with a icon', () => {
+      expect(inputHelp.props().className).toEqual('carbon-help common-input__input-help');
+      let help = inputHelp.props().children;
+      expect(help.props.tooltipMessage).toEqual('Here is some help');
+      expect(help.props.tooltipPosition).toEqual('top');
+      expect(help.props.tooltipAlign).toEqual('center');
+      expect(help.props.type).toEqual('help');
     });
   });
 

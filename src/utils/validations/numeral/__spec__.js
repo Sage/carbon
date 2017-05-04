@@ -1,4 +1,4 @@
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Validator from './numeral';
 import I18n from 'i18n-js';
 import I18nHelper from './../../helpers/i18n';

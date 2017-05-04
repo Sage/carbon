@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Decimal from './decimal';
 import I18n from "i18n-js";
 import ReactDOM from 'react-dom';
@@ -7,6 +7,7 @@ import { shallow } from 'enzyme';
 import Events from './../../utils/helpers/events';
 import I18nHelper from './../../utils/helpers/i18n';
 import PropTypesHelper from '../../utils/helpers/prop-types';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Decimal', () => {
   var instance;
@@ -75,13 +76,24 @@ describe('Decimal', () => {
     });
 
     describe('when precision is passed', () => {
-      it('sets the visibleValue state to teh formatted version using i18n opts', () => {
+      it('sets the visibleValue state to the formatted version using i18n opts', () => {
         instance = TestUtils.renderIntoDocument(
           <Decimal name="total" value="12345.67891" precision={ 5 } />
         );
         expect(instance.state.visibleValue).toEqual("12,345.67891");
       });
+
+      it('updates the visibleValue state when the precision is changed', () => {
+        let wrapper = shallow(
+          <Decimal name="total" value="12345.67891" precision={ 5 } />
+        );
+        expect(wrapper.state().visibleValue).toEqual("12,345.67891");
+
+        wrapper.setProps({ precision: 2 });
+        expect(wrapper.state().visibleValue).toEqual("12,345.68");
+      });
     });
+
 
     describe('with alternative I18n options', () => {
       beforeEach(() => {
@@ -491,6 +503,26 @@ describe('Decimal', () => {
         let input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
         expect(input.type).toEqual('hidden');
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Decimal data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'decimal', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Decimal fieldHelp='test' label='test' />);
+
+      elementsTagTest(wrapper, [
+        'help',
+        'input',
+        'label'
+      ]);
     });
   });
 });

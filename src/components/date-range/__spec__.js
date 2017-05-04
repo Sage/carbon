@@ -1,9 +1,11 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import DateRange from './date-range';
 import Date from './../date';
 import DateRangeValidator from './../../utils/validations/date-range';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('DateRange', () => {
   let instance, customOnChange;
@@ -29,9 +31,22 @@ describe('DateRange', () => {
         expect(customOnChange).toHaveBeenCalledWith(['2016-10-15', '2016-11-11']);
       });
 
-      it('triggers a content change in the endDate field', () => {
-        instance._onChange('startDate', { target: { value: '2016-10-15' } });
-        expect(instance._endDate._handleContentChange).toHaveBeenCalled();
+      describe('when a valid date', () => {
+        it('triggers a content change in the endDate field', () => {
+          instance._onChange('startDate', { target: { value: '2016-10-15' } });
+          expect(instance._endDate._handleContentChange).toHaveBeenCalled();
+        });
+      });
+
+      describe('when a invalid date', () => {
+        it('does not trigger a content change in the endDate field', () => {
+          let invalidInstance = TestUtils.renderIntoDocument(
+            <DateRange onChange={ customOnChange } value={ ['2016-10-10','foo'] } />
+          );
+          spyOn(invalidInstance._endDate, '_handleContentChange');
+          invalidInstance._onChange('startDate', { target: { value: 'foo' } });
+          expect(invalidInstance._endDate._handleContentChange).not.toHaveBeenCalled();
+        });
       });
     });
 
@@ -41,9 +56,22 @@ describe('DateRange', () => {
         expect(customOnChange).toHaveBeenCalledWith(['2016-10-10', '2016-11-16']);
       });
 
-      it('triggers a content change in the endDate field', () => {
-        instance._onChange('endDate', { target: { value: '2016-11-16' } });
-        expect(instance._startDate._handleContentChange).toHaveBeenCalled();
+      describe('when a valid date', () => {
+        it('triggers a content change in the startDate field', () => {
+          instance._onChange('endDate', { target: { value: '2016-11-16' } });
+          expect(instance._startDate._handleContentChange).toHaveBeenCalled();
+        });
+      });
+
+      describe('when a invalid date', () => {
+        it('does not trigger a content change in the startDate field', () => {
+          let invalidInstance = TestUtils.renderIntoDocument(
+            <DateRange onChange={ customOnChange } value={ ['foo','2016-11-11'] } />
+          );
+          spyOn(invalidInstance._startDate, '_handleContentChange');
+          invalidInstance._onChange('endDate', { target: { value: 'foo' } });
+          expect(invalidInstance._startDate._handleContentChange).not.toHaveBeenCalled();
+        });
       });
     });
 
@@ -232,8 +260,10 @@ describe('DateRange', () => {
           onChange={ customOnChange }
           startDateProps={ { value: '2016-10-10' } }
           endDateProps={ { value: '2016-11-11'  } }
+          value={ [] }
         />
       );
+
       let dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
       expect(dates[0].props.value).toEqual('2016-10-10');
       expect(dates[1].props.value).toEqual('2016-11-11');
@@ -303,6 +333,32 @@ describe('DateRange', () => {
       expect(dates[0].props.validations.length).toEqual(2);
       expect(dates[0].props.validations[1]).toEqual('custom validation');
       expect(dates[1].props.validations.length).toEqual(1);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <DateRange
+          data-element='bar'
+          onChange={ () => {} }
+          data-role='baz'
+          value={ ['2016-10-10','2016-11-11'] }
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'date-range', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<DateRange onChange={ () => {} } value={ ['2016-10-10','2016-11-11'] } />);
+
+      elementsTagTest(wrapper, [
+        'start-date',
+        'end-date'
+      ]);
     });
   });
 });

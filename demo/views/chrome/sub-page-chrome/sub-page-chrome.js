@@ -54,7 +54,7 @@ class SubPageComponent extends React.Component {
       return definition.get('description');
     } else {
       let scope = this.props.location.pathname.replace(/\//g, ".").substr(1);
-      return I18n.t(`${scope}.subtitle`);
+      return I18n.t(`${scope}.subtitle`, { defaultValue: '' });
     }
   }
 

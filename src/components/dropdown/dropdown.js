@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -68,9 +69,9 @@ class Dropdown extends React.Component {
      * @property value
      * @type {String}
      */
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),
 
     /**
@@ -81,7 +82,7 @@ class Dropdown extends React.Component {
      * @property options
      * @type {object}
      */
-    options: React.PropTypes.object.isRequired,
+    options: PropTypes.object.isRequired,
 
     /**
      * Determines if the visibleValue will be cached or not.
@@ -89,7 +90,7 @@ class Dropdown extends React.Component {
      * @property cacheVisibleValue
      * @type {boolean}
      */
-    cacheVisibleValue: React.PropTypes.bool
+    cacheVisibleValue: PropTypes.bool
   }
 
   static defaultProps = {
@@ -235,6 +236,17 @@ class Dropdown extends React.Component {
         this._input.focus();
       }, 0);
     }
+  }
+
+  /**
+   * Handles touch events.
+   *
+   * @method handleTouchEvent
+   **/
+  handleTouchEvent = () => {
+    // blocking blurring like this stops a bug on mobile when touch doesn't trigger until after blur, we want to
+    // update the input before blurring
+    this.blockBlur = true;
   }
 
   /*
@@ -460,12 +472,13 @@ class Dropdown extends React.Component {
    */
   get hiddenInputProps() {
     let props = {
+      ['data-element']: 'hidden-input',
       ref: 'hidden',
       type: "hidden",
       readOnly: true,
       name: this.props.name,
-      // Using this to prevent `null` warnings from React
-      value: this.props.value || undefined
+      // Using this to prevent `null` and `uncontrolled` warnings from React
+      value: this.props.value || ''
     };
 
     return props;
@@ -484,6 +497,10 @@ class Dropdown extends React.Component {
       onMouseDown: this.handleMouseDownOnList,
       onMouseLeave: this.handleMouseLeaveList,
       onMouseEnter: this.handleMouseEnterList,
+      onTouchStart: this.handleTouchEvent,
+      onTouchEnd: this.handleTouchEvent,
+      onTouchCancel: this.handleTouchEvent,
+      onTouchMove: this.handleTouchEvent,
       className: 'carbon-dropdown__list-block'
     };
   }
@@ -533,6 +550,7 @@ class Dropdown extends React.Component {
    */
   get listHTML() {
     if (!this.state.open) { return null; }
+
     return (
       <ul { ...this.listProps }>
         { this.results(this.options) }
@@ -565,6 +583,7 @@ class Dropdown extends React.Component {
 
       return (
         <li
+          data-element='option'
           key={ option.name + option.id }
           value={ option.id }
           onClick={ this.handleSelect }
@@ -620,6 +639,14 @@ class Dropdown extends React.Component {
     return null;
   }
 
+  componentTags(props) {
+    return {
+      'data-component': 'dropdown',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
+
   /**
    * Renders the component.
    *
@@ -627,7 +654,10 @@ class Dropdown extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses } >
+      <div
+        className={ this.mainClasses }
+        { ...this.componentTags(this.props) }
+      >
         { this.labelHTML }
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />

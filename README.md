@@ -55,6 +55,7 @@ See the guide on [installing unreleased changes](https://github.com/Sage/carbon/
 
 * Bump the version in `package.json`.
 * Ensure the `CHANGELOG.md` is up to date.
+* Run `npm install` to make sure the packages are all up to date.
 * Run `npm run-script release` to update `/lib`.
 * If releasing a minor version, create a branch from `master`.
 * If releasing a patch version, create a branch from `release`.

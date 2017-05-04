@@ -1,8 +1,10 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import moment from 'moment';
 import Date from './date';
 import Events from './../../utils/helpers/events';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Date', () => {
   let instance;
@@ -18,7 +20,7 @@ describe('Date', () => {
   describe('intialize', () => {
     it('sets the intial internal state', () => {
       expect(instance.state.open).toBeFalsy();
-      expect(instance.state.viewDate).toBeNull();
+      expect(instance.state.datePickerValue).toBeNull();
       expect(instance.state.visibleValue).toEqual(today);
     });
   });
@@ -144,10 +146,20 @@ describe('Date', () => {
     });
 
     it('calls set state to open the view and set the view date', () => {
-      expect(instance.setState).toHaveBeenCalledWith({
-        open: true,
-        viewDate: instance.props.defaultValue
-      })
+      expect(instance.setState).toHaveBeenCalledWith({ open: true })
+    });
+
+    describe('date validity', () => {
+      describe('when a valid date', () => {
+        it('calls set state setting the datePickerValue to be the valid date', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Date name='date' value='2015/01/01' label='Date' />
+          );
+          spyOn(instance, 'setState');
+          instance.openDatePicker();
+          expect(instance.setState).toHaveBeenCalledWith({ datePickerValue: '2015/01/01' });
+        });
+      });
     });
   });
 
@@ -193,7 +205,7 @@ describe('Date', () => {
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(hiddenToday);
       expect(instance.setState).toHaveBeenCalledWith({
         visibleValue: today,
-        viewDate: hiddenToday
+        datePickerValue: hiddenToday
       });
     });
 
@@ -206,16 +218,7 @@ describe('Date', () => {
         instance.handleVisibleInputChange({ target: { value: date } })
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          viewDate: hiddenDate
-        });
-      });
-
-      it('accepts the format MMM DD YY', () => {
-        let date = moment().add(noOfDays, 'days').format('MMM DD YY');
-        instance.handleVisibleInputChange({ target: { value: date } })
-        expect(instance.setState).toHaveBeenCalledWith({
-          visibleValue: date,
-          viewDate: hiddenDate
+          datePickerValue: hiddenDate
         });
       });
 
@@ -224,7 +227,7 @@ describe('Date', () => {
         instance.handleVisibleInputChange({ target: { value: date } })
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          viewDate: hiddenToday
+          datePickerValue: hiddenToday
         });
       });
 
@@ -233,7 +236,7 @@ describe('Date', () => {
         instance.handleVisibleInputChange({ target: { value: date } })
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          viewDate: hiddenDate
+          datePickerValue: hiddenDate
         });
       });
 
@@ -242,7 +245,7 @@ describe('Date', () => {
         instance.handleVisibleInputChange({ target: { value: date } })
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          viewDate: hiddenDate
+          datePickerValue: hiddenDate
         });
       });
     });
@@ -371,10 +374,10 @@ describe('Date', () => {
   });
 
   describe('handleViewDateChange', () => {
-    it('sets the state of the viewDate', () => {
+    it('sets the state of the datePickerValue', () => {
       spyOn(instance, 'setState');
       instance.handleViewDateChange(123);
-      expect(instance.setState).toHaveBeenCalledWith({ viewDate: 123 });
+      expect(instance.setState).toHaveBeenCalledWith({ datePickerValue: 123 });
     });
   });
 
@@ -529,6 +532,26 @@ describe('Date', () => {
       it('does not renders a date picker', () => {
         expect(instance.datepicker).toBeFalsy();
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Date data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'date', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Date fieldHelp='test' label='test' />);
+
+      elementsTagTest(wrapper, [
+        'help',
+        'input',
+        'label'
+      ]);
     });
   });
 });

@@ -1,9 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { assign } from 'lodash';
 import Icon from './../icon';
 import { Link } from 'react-router';
 import { validProps } from '../../utils/ether';
 import Event from './../../utils/helpers/events';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A link widget.
@@ -129,18 +132,19 @@ class _Link extends React.Component {
     tabbable: true
   }
 
-  static safeProps = ['disabled'];
-
   /**
-   * Getter for componet properties.
+   * Getter for component properties.
    *
    * @method componentProps
    * @return {Object} props
    */
   get componentProps() {
+
     let { ...props } = validProps(this);
 
     props.tabIndex = this.tabIndex;
+
+    props = assign({}, props, tagComponent('link', this.props));
 
     delete props.href;
     delete props.tabbable;
@@ -149,6 +153,7 @@ class _Link extends React.Component {
     props.className = this.componentClasses;
     props[this.linkType.prop] = this.url;
     props.onKeyDown = this.onKeyDown;
+
 
     return props;
   }

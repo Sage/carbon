@@ -2,8 +2,9 @@ node_modules/
 coverage/
 *.swp
 *.swo
-demo/assets
 demo/utils/generated/*.js
+demo/utils/generated/**/*
+deploy/assets/**/*
 .DS_Store
 .browser-preferences/
 .idea

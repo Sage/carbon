@@ -9,7 +9,7 @@ We recommend retrieving data in your application based on two scenarios:
 
 The easiest way to provide the data from the server on page load is to render it to the page as JSON. This means your stores can read the data straight from the page and are not required to perform additional requests to the server for the data.
 
-If you are using a Sage One Platform application, you can do this by assigning your JSON data to an instance variable labelled `@view_data`. The platform will automatically render this object to the browser.
+Within our Ruby on Rails applications , you can do this by assigning your JSON data to an instance variable labelled `@view_data`. The Rails app will automatically render this object to the browser.
 
 For example, your Rails controller action:
 
@@ -29,7 +29,7 @@ let data = {
 };
 ```
 
-*NOTE:* The platform also provides globally accessible JavaScript variables with useful reusable data for `global.APP_DATA`, `global.USER_DATA` and `global.BUSINESS_DATA`.
+*NOTE:* The Rails applications also provide globally accessible JavaScript variables with useful reusable data for `global.APP_DATA`, `global.USER_DATA` and `global.BUSINESS_DATA`.
 
 If you are using Immutable data this initial data should be wrapped in a parseJSON function:
 

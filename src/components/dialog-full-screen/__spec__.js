@@ -1,9 +1,11 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import DialogFullScreen from './dialog-full-screen';
 import I18n from 'i18n-js';
 import Bowser from 'bowser';
 import Button from './../button';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('DialogFullScreen', () => {
   let instance,
@@ -60,6 +62,40 @@ describe('DialogFullScreen', () => {
     it('renders the children passed to it', () => {
       let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
       expect(buttons.length).toEqual(2);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <DialogFullScreen
+          data-element='bar'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'dialog-full-screen', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <DialogFullScreen
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          title='Test'
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'close',
+        'title'
+      ]);
     });
   });
 });

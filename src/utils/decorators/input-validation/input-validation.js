@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
@@ -113,8 +114,8 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: React.PropTypes.object,
-    tab: React.PropTypes.object
+    form: PropTypes.object,
+    tab: PropTypes.object
   });
 
   static propTypes = assign({}, ComposedComponent.propTypes, {
@@ -125,7 +126,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
      * @property
      * @type {Array}
      */
-    validations: React.PropTypes.array,
+    validations: PropTypes.array,
 
     /**
      * Array of warnings to apply to this input
@@ -133,7 +134,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
      * @property
      * @type {Array}
      */
-    warnings: React.PropTypes.array
+    warnings: PropTypes.array
   });
 
   /**
@@ -183,7 +184,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // call the components super method if it exists
     if (super.componentWillMount) { super.componentWillMount(); }
 
-    if (this.context.form && (this.props.validations || this.props.warnings)) {
+    if (this.context.form && (this._validations() || this.props.warnings)) {
       // attach the input to the form so the form can track what it needs to validate on submit
       this.context.form.attachToForm(this);
     }
@@ -199,7 +200,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     // call the components super method if it exists
     if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
-    if ((this.props.validations || this.props.warnings)) {
+    if ((this._validations() || this.props.warnings)) {
       this._handleContentChange();
       if (this.isAttachedToForm) {
         this.context.form.detachFromForm(this);
@@ -310,13 +311,13 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     let valid = false;
 
     // if there are no validation, return truthy
-    if (!this.props.validations || this.props._placeholder) {
+    if (!this._validations() || this.props._placeholder) {
       return true;
     }
 
     // iterate through each validation applied to the input
-    for (let i = 0; i < this.props.validations.length; i++) {
-      let validation = this.props.validations[i];
+    for (let i = 0; i < this._validations().length; i++) {
+      let validation = this._validations()[i];
 
       // run this validation
       valid = validation.validate(value, this.props, this.updateValidation);
@@ -611,6 +612,16 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     return this.context.form && (this.context.form.getActiveInput() === this);
   }
 
+  /**
+   * Merges passed prop validations with internal component validations
+   *
+   * @method _validations
+   * @return {Array} validations
+   */
+  _validations = () => {
+    let validations = (this.props.validations || []).concat(this.props.internalValidations || []);
+    return validations.length ? validations : null;
+  }
 };
 
 export default InputValidation;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import shouldComponentUpdate from './../../utils/helpers/should-component-update';
 import I18n from 'i18n-js';
 import classNames from 'classnames';
@@ -7,6 +8,7 @@ import Icon from './../icon';
 import Alert from './../alert';
 import Link from './../link';
 import { isObject, isArray, forEach } from 'lodash';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Flash widget.
@@ -57,7 +59,7 @@ class Flash extends React.Component {
      * @property onDismiss
      * @type {Function}
      */
-    onDismiss: React.PropTypes.func.isRequired,
+    onDismiss: PropTypes.func.isRequired,
 
     /**
      * Sets the open state of the flash.
@@ -66,7 +68,7 @@ class Flash extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    open: React.PropTypes.bool.isRequired,
+    open: PropTypes.bool.isRequired,
 
     /**
      * Type of notification.
@@ -76,7 +78,7 @@ class Flash extends React.Component {
      * @type {String}
      * @default 'success'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * Contents of message.
@@ -84,10 +86,10 @@ class Flash extends React.Component {
      * @property message
      * @type {String|Object|Array}
      */
-    message: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object,
-      React.PropTypes.array
+    message: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.array
     ]).isRequired,
 
     /**
@@ -96,9 +98,9 @@ class Flash extends React.Component {
      * @property timeout
      * @type {Number} in milliseconds
      */
-    timeout: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
+    timeout: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
     ])
   }
 
@@ -299,6 +301,7 @@ class Flash extends React.Component {
       // create dialog for additional content
       this.dialogs.push(
         <Alert
+          data-element='info-dialog'
           key={ title }
           title={ title }
           open={ this.state.dialogs[title] || false }
@@ -312,7 +315,11 @@ class Flash extends React.Component {
       text = (
         <span>
           { title }&nbsp;
-          <Link onClick={ this.toggleDialog.bind(this, title) } className="carbon-flash__link">
+          <Link
+            onClick={ this.toggleDialog.bind(this, title) }
+            className="carbon-flash__link"
+            data-element='more-info'
+          >
             { info }
           </Link>
         </span>
@@ -334,9 +341,6 @@ class Flash extends React.Component {
     switch(this.props.as) {
       case 'success':
         icon = 'tick';
-        break;
-      case 'error':
-        icon = 'warning';
         break;
       default:
         icon = this.props.as;
@@ -377,7 +381,7 @@ class Flash extends React.Component {
 
     // add message content
     contents.push(
-      <div className='carbon-flash__message' key='message'>
+      <div className='carbon-flash__message' key='message' data-element='message'>
         { this.formatDescription(this.description) }
       </div>
     );
@@ -385,7 +389,13 @@ class Flash extends React.Component {
     // if auto-dismiss is not enabled, add a close icon
     if (!this.props.timeout) {
       contents.push(
-        <Icon className="carbon-flash__close" type="close" onClick={ this.props.onDismiss }  key='close'/>
+        <Icon
+          className="carbon-flash__close"
+          data-element='close'
+          key='close'
+          onClick={ this.props.onDismiss }
+          type="close"
+        />
       );
     }
 
@@ -435,7 +445,7 @@ class Flash extends React.Component {
     }
 
     return (
-      <div>
+      <div { ...tagComponent('flash', this.props) }>
         <div className={ this.classes }>
           <ReactCSSTransitionGroup
             transitionName="carbon-flash__slider"
