@@ -26,6 +26,7 @@ export default {
   'filter':               require('components/filter/definition').default,
   'flash':                require('components/flash/definition').default,
   'form':                 require('components/form/definition').default,
+  'grouped-character':    require('components/grouped-character/definition').default,
   'heading':              require('components/heading/definition').default,
   'help':                 require('components/help/definition').default,
   'i18n-component':       require('components/i18n/definition').default,

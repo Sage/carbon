@@ -7,6 +7,11 @@ import tableHeaderDefinition from './../table/table-header/definition';
 import tableSubheaderDefinition from './../table/table-subheader/definition';
 
 let definition = new Definition('table-ajax', TableAjax, {
+  description: `Ajax control: A table of relational data to view or interact with.`,
+  designerNotes: `
+* This control is the same as [Table](/components/table), but uses Ajax.
+* Ajax loads data from a specified source as needed, rather than data in the page markup.
+ `,
   associatedDefinitions: [
     tableRowDefinition, tableCellDefinition, tableHeaderDefinition, tableSubheaderDefinition
   ],

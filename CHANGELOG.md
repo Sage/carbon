@@ -2,7 +2,7 @@
 
 ## :warning: Major Change - React 15 Upgrade
 
-* React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
+* React has been upgraded to version 15.5.0 - https://github.com/facebook/react/releases
 
 ## !! BREAKING CHANGES!! :warning:
 
@@ -34,6 +34,14 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
 * `MountInApp` now cleans up it's children when the component is unmounted.
 
+## Helpers
+
+* A new 'insertAt' Ether helper to insert a character in a string at a specified indices
+
+## New components
+
+* Grouped-character component - displays groups with of characters with separator.
+
 ## Bug Fixes
 
 * `Alert`: default size has been fixed to `extra-small`.
@@ -45,11 +53,7 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 
 ## data-attributes on components
 
-We are adding data-attributes to components to better identify them and their parts within the browser. We will add `data-component` tags on the top level of any component, and `data-member` tags to constituent parts. Developers can also add `data-element` tags to components to uniquely identify specific components within their UI.
-
-So far we have added attributes to the following components:
-
-* Textbox
+We have added data-attributes to components to better identify them and their parts within the browser. We have added `data-component` tags on the top level of any component, and `data-element` tags to constituent parts. Developers can also add `data-role` tags to components to uniquely identify specific components within their UI.
 
 ## Dependency Update
 
@@ -62,9 +66,21 @@ So far we have added attributes to the following components:
 gulp --port 1234
 ```
 
+# 0.36.2
+
+* Hide SplitButton additional buttons instead of removing them.
+
+# 0.36.1
+
+* Removed the style node from `package.json` in table-ajax. This file doesn't exist.
+
 # 0.36.0
 
 * Add `additionalRequestParams` prop to `DropdownFilterAjax`
+
+# 0.35.2
+
+* Hide SplitButton additional buttons instead of removing them.
 
 # 0.35.1
 

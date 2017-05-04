@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import Request from 'superagent';
 import serialize from './../../utils/helpers/serialize';
 import { Table, TableRow, TableCell, TableHeader, TableSubheader } from './../table';
@@ -49,7 +49,7 @@ class TableAjax extends Table {
      * @property filter
      * @type {Object}
      */
-    filter: React.PropTypes.object,
+    filter: PropTypes.object,
 
     /**
      * Setting to true turns on pagination for the table
@@ -57,7 +57,7 @@ class TableAjax extends Table {
      * @property paginate
      * @type {Boolean}
      */
-    paginate: React.PropTypes.bool,
+    paginate: PropTypes.bool,
 
     /**
      * Pagination
@@ -66,7 +66,7 @@ class TableAjax extends Table {
      * @property pageSize
      * @type {String}
      */
-    pageSize: React.PropTypes.string,
+    pageSize: PropTypes.string,
 
     /**
      * Endpoint to fetch the data for table
@@ -74,7 +74,7 @@ class TableAjax extends Table {
      * @property path
      * @type {String}
      */
-    path: React.PropTypes.string.isRequired
+    path: PropTypes.string.isRequired
   }
 
   static defaultProps = {
@@ -193,19 +193,19 @@ class TableAjax extends Table {
      * @property childContextTypes
      * @type {Object}
      */
-    attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
-    detachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
-    attachToTable: React.PropTypes.func, // attach the row to the table
-    checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
-    detachFromTable: React.PropTypes.func, // detach the row from the table
-    highlightable: React.PropTypes.bool, // table can enable all rows to be highlightable
-    onSort: React.PropTypes.func, // a callback function for when a sort order is updated
-    selectAll: React.PropTypes.func, // a callback function for when all visible rows are selected
-    selectRow: React.PropTypes.func, // a callback function for when a row is selected
-    highlightRow: React.PropTypes.func, // a callback function for when a row is highlighted
-    selectable: React.PropTypes.bool, // table can enable all rows to be selectable
-    sortOrder: React.PropTypes.string, // the current sort order applied
-    sortedColumn: React.PropTypes.string // the currently sorted column
+    attachActionToolbar: PropTypes.func, // tracks the action toolbar component
+    detachActionToolbar: PropTypes.func, // tracks the action toolbar component
+    attachToTable: PropTypes.func, // attach the row to the table
+    checkSelection: PropTypes.func, // a function to check if the row is currently selected
+    detachFromTable: PropTypes.func, // detach the row from the table
+    highlightable: PropTypes.bool, // table can enable all rows to be highlightable
+    onSort: PropTypes.func, // a callback function for when a sort order is updated
+    selectAll: PropTypes.func, // a callback function for when all visible rows are selected
+    selectRow: PropTypes.func, // a callback function for when a row is selected
+    highlightRow: PropTypes.func, // a callback function for when a row is highlighted
+    selectable: PropTypes.bool, // table can enable all rows to be selectable
+    sortOrder: PropTypes.string, // the current sort order applied
+    sortedColumn: PropTypes.string // the currently sorted column
   }
 
   /**
@@ -384,6 +384,14 @@ class TableAjax extends Table {
       onPagination: this.onPagination,
       pageSizeSelectionOptions: this.props.pageSizeSelectionOptions,
       showPageSizeSelection: this.props.showPageSizeSelection
+    };
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'table-ajax',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
     };
   }
 }

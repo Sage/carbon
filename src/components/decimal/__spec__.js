@@ -1,10 +1,11 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Decimal from './decimal';
 import I18n from "i18n-js";
 import ReactDOM from 'react-dom';
 import Events from './../../utils/helpers/events';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Decimal', () => {
   var instance;
@@ -64,7 +65,7 @@ describe('Decimal', () => {
         expect(wrapper.state().visibleValue).toEqual("12,345.68");
       });
     });
-    
+
 
     describe('with alternative I18n options', () => {
       beforeEach(() => {
@@ -474,6 +475,26 @@ describe('Decimal', () => {
         let input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
         expect(input.type).toEqual('hidden');
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Decimal data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'decimal', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Decimal fieldHelp='test' label='test' />);
+
+      elementsTagTest(wrapper, [
+        'help',
+        'input',
+        'label'
+      ]);
     });
   });
 });

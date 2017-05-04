@@ -3,6 +3,15 @@ import Definition from './../../../demo/utils/definition';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = new Definition('tooltip', Tooltip, {
+  description: `Additional information presented by hovering on a component.`,
+  designerNotes: `
+* A short paragraph of plain-text information shown to the user in context when they hover on any component. For example, to define how a particular figure is calculated, or the definition of a difficult technical term.
+  `,
+  relatedComponentsNotes: `
+* Tooltip hovering on any Carbon icon? [Try Icon](/components/icon).
+* Tooltip from a question mark icon? [Try Help](/components/help).
+* Need a visual? [View Icons](/style/icons).__
+`,
   type: 'miscellaneous',
   propValues: {
     isVisible: true,

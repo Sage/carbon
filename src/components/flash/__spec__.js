@@ -1,6 +1,8 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Flash from './flash';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Flash', () => {
   let defaultInstance, successInstance, errorInstance, warningInstance, timeoutInstance,
@@ -345,6 +347,43 @@ describe('Flash', () => {
         let innerFlash = flashInstance.firstChild.children[1].firstChild;
         expect(innerFlash.className).toMatch('carbon-flash__content');
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Flash
+          data-element='bar'
+          message='bun::more::dy'
+          onDismiss={ () => {} }
+          open={ true }
+          data-role='baz'
+          timeout={ null }
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'flash', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Flash
+          message='bun::more::dy'
+          onDismiss={ () => {} }
+          open={ true }
+          timeout={ null }
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'close',
+        'info-dialog',
+        'message',
+        'more-info'
+      ]);
     });
   });
 });

@@ -1,6 +1,8 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import ActionToolbar from './action-toolbar';
+import { shallow, mount } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('action toolbar', () => {
   let instance;
@@ -81,6 +83,31 @@ describe('action toolbar', () => {
   describe('mainClasses', () => {
     it('returns the correct classes', () => {
       expect(instance.mainClasses()).toEqual('carbon-action-toolbar foo');
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <ActionToolbar
+          actions={ [] }
+          data-element='bar'
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'action-toolbar', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<ActionToolbar actions={ [ ()=>{} ] } />);
+
+      elementsTagTest(wrapper, [
+        'action',
+        'total'
+      ]);
     });
   });
 });

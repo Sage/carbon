@@ -4,6 +4,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import DocumentStore from './../../../stores/document';
 import DocumentActions from './../../../actions/document';
 import marked from 'marked';
+import InformationStyles from '../../common/information-styles';
 import Spinner from 'components/spinner';
 import Row from 'components/row';
 import Highlight from 'react-highlight';
@@ -53,20 +54,22 @@ class Document extends React.Component {
     }
 
     return (
-      <div className="demo-document">
-        { content }
+      <InformationStyles>
+        <div className="demo-document">
+          { content }
 
-        <ReactCSSTransitionGroup
-          className={ this.loadingClasses() }
-          transitionName="demo-document__loading"
-          transitionAppear={ true }
-          transitionAppearTimeout={ 300 }
-          transitionEnterTimeout={ 300 }
-          transitionLeaveTimeout={ 0 }
-        >
-          { spinner }
-        </ReactCSSTransitionGroup>
-      </div>
+          <ReactCSSTransitionGroup
+            className={ this.loadingClasses() }
+            transitionName="demo-document__loading"
+            transitionAppear={ true }
+            transitionAppearTimeout={ 300 }
+            transitionEnterTimeout={ 300 }
+            transitionLeaveTimeout={ 0 }
+          >
+            { spinner }
+          </ReactCSSTransitionGroup>
+        </div>
+      </InformationStyles>
     );
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Events from './../../utils/helpers/events';
 
@@ -50,7 +51,7 @@ class Modal extends React.Component {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func,
+    onCancel: PropTypes.func,
 
     /**
      * Sets the open state of the modal
@@ -59,7 +60,7 @@ class Modal extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    open: React.PropTypes.bool.isRequired,
+    open: PropTypes.bool.isRequired,
 
     /**
      * Determines if the background is disabled
@@ -69,7 +70,7 @@ class Modal extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    enableBackgroundUI: React.PropTypes.bool,
+    enableBackgroundUI: PropTypes.bool,
 
     /**
      * Determines if the Esc Key closes the modal
@@ -78,7 +79,7 @@ class Modal extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    disableEscKey: React.PropTypes.bool
+    disableEscKey: PropTypes.bool
   }
 
   static defaultProps = {
@@ -95,7 +96,7 @@ class Modal extends React.Component {
      * @property modal
      * @type {Object}
      */
-    modal: React.PropTypes.object
+    modal: PropTypes.object
   }
 
   /**
@@ -173,6 +174,9 @@ class Modal extends React.Component {
   // modal background transisiton name
   get backgroundTransitionName()  { return 'modal-background'; }
 
+  // stubbed method for component tags
+  componentTags() { return; }
+
   /**
    * Renders the component.
    *
@@ -189,7 +193,11 @@ class Modal extends React.Component {
     }
 
     return (
-      <div ref={(c) => this._input = c} className={ this.mainClasses }>
+      <div
+        ref={(c) => this._input = c}
+        className={ this.mainClasses }
+        { ...this.componentTags(this.props) }
+      >
         <ReactCSSTransitionGroup
           transitionName={ this.transitionName }
           transitionEnterTimeout={ 500 }
