@@ -1,5 +1,4 @@
 {
   "main": "./table-ajax.js",
-  "name": "Table Ajax",
-  "style": "./table-ajax.scss"
+  "name": "Table Ajax"
 }

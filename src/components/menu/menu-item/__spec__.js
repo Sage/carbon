@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import MenuItem from './menu-item';
 import Link from './../../link';
 
@@ -59,5 +60,13 @@ describe('MenuItem', () => {
       let submenuItem = wrapper.find(Link);
       expect(submenuItem.hasClass('carbon-menu-item--alternate-off')).toEqual(true);
     })
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<MenuItem data-element='bar' data-role='baz'>Test</MenuItem>);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'menu-item', 'bar', 'baz');
+    });
   });
 });

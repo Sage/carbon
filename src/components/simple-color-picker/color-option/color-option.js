@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Input from './../../../utils/decorators/input';
 import Icon from './../../icon';
 import classNames from 'classnames';
 import { trim, startsWith } from 'lodash';
+
+import { tagComponent } from '../../../utils/helpers/tags';
 
 /**
  * A single square with a color, implemented as a radio button.
@@ -18,7 +21,7 @@ class ColorOption extends React.Component {
      * @property color
      * @type {String}
      */
-    color: React.PropTypes.string,
+    color: PropTypes.string,
 
     /**
      * the input name.
@@ -26,7 +29,7 @@ class ColorOption extends React.Component {
      * @property name
      * @type {String}
      */
-    name: React.PropTypes.string,
+    name: PropTypes.string,
 
     /**
      * called when the user selects or deselects this color option.
@@ -34,7 +37,7 @@ class ColorOption extends React.Component {
      * @property onChange
      * @type {Function}
      */
-    onChange: React.PropTypes.func,
+    onChange: PropTypes.func,
 
     /**
      * determines if this color option is selected or unselected.
@@ -42,7 +45,7 @@ class ColorOption extends React.Component {
      * @property checked
      * @type {Boolean}
      */
-    checked: React.PropTypes.bool
+    checked: PropTypes.bool
   }
 
   /**
@@ -82,7 +85,7 @@ class ColorOption extends React.Component {
 
   render() {
     return (
-      <li className={ this.mainClasses }>
+      <li className={ this.mainClasses } { ...tagComponent('color-option', this.props) }>
         { this.inputHTML }
       </li>
     );

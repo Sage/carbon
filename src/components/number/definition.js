@@ -10,7 +10,11 @@ let definition = new Definition('number-input', NumberInput, {
 * Entering a number including a decimal point? [Try Decimal](/components/decimal).
 * Entering numbers, symbols, and letters, or handling various formats? [Try Textbox](/components/textbox).
  `,
-  type: 'form'
+
+  type: 'form',
+  propValues: {
+    value: ''
+  }
 });
 
 definition.isAnInput();

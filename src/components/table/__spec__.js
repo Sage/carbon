@@ -1,9 +1,10 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
-import { render } from 'enzyme';
+import { shallow, render } from 'enzyme';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy;
@@ -99,7 +100,7 @@ describe('Table', () => {
 
   describe('refresh', () => {
     beforeEach(() => {
-      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar />);
+      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar actions={ [] } />);
       spyOn(instance, 'resetHighlightedRow');
       spyOn(instance.actionToolbarComponent, 'setState');
       spyOn(instance, 'emitOnChangeCallback');
@@ -166,6 +167,17 @@ describe('Table', () => {
         instance.selectRow('foo', row, true);
         expect(spy).toHaveBeenCalledWith({ selected: false });
         expect(instance.selectAllComponent).toBe(null);
+      });
+    });
+
+    describe('if there is a actionToolbarComponent', () => {
+      it('calls setState on the action toolbar', () => {
+        let spy = jasmine.createSpy();
+        instance.actionToolbarComponent = {
+          setState: spy
+        };
+        instance.selectRow('foo', row, true);
+        expect(spy).toHaveBeenCalledWith({ total: 1, selected: instance.selectedRows });
       });
     });
 
@@ -747,7 +759,7 @@ describe('Table', () => {
     describe('when pageSize is passed', () => {
       it('returns the prop pageSize', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table path='/test' pageSize='123' >
+          <Table path='/test' pageSize='123'>
           </Table>
         );
         expect(instance.defaultPageSize).toEqual('123')
@@ -763,7 +775,7 @@ describe('Table', () => {
         ]);
 
         instance = TestUtils.renderIntoDocument(
-          <Table pageSizeSelectionOptions={ options } >
+          <Table pageSizeSelectionOptions={ options }>
           </Table>
         );
         expect(instance.defaultPageSize).toEqual('1')
@@ -931,6 +943,22 @@ describe('Table', () => {
     it('does not render a caption tag when no caption prop is given', () => {
       let wrapper = render(<Table />);
       expect(wrapper.find('caption').length).toEqual(0);
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(
+      <Table
+        data-element='bar'
+        data-role='baz'
+        path='test'
+      >
+        <TableRow />
+      </Table>
+    );
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'table', 'bar', 'baz');
     });
   });
 });

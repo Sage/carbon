@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import AnimatedMenuButton from './animated-menu-button';
 import Row from 'components/row';
 import Button from 'components/button';
 import Pod from 'components/pod';
-import Device from './../../utils/helpers/devices';
+import Device from 'utils/helpers/devices';
+import Icon from 'components/icon';
 
 describe('AnimatedMenuButton', () => {
-  let basicWidget, labelWidget, customClassWidget, rightWidget, largeWidget, contentWidget, button;
+  let basicWidget, labelWidget, customClassWidget, rightWidget, largeWidget, contentWidget, button, wrapper;
 
   beforeEach(() => {
     basicWidget = TestUtils.renderIntoDocument(
@@ -16,7 +19,7 @@ describe('AnimatedMenuButton', () => {
     );
 
     labelWidget = TestUtils.renderIntoDocument(
-      <AnimatedMenuButton label="Create..." />
+      <AnimatedMenuButton label='Create...' />
     );
 
     customClassWidget = TestUtils.renderIntoDocument(
@@ -35,20 +38,22 @@ describe('AnimatedMenuButton', () => {
       <AnimatedMenuButton>
         <Row>
           <Pod>
-            <h2 className="title">Column 1</h2>
+            <h2 className='title'>Column 1</h2>
             Finances
           </Pod>
           <Pod>
-            <h2 className="title">Column 2</h2>
+            <h2 className='title'>Column 2</h2>
             <Button>Forecast</Button>
           </Pod>
           <Pod>
-            <h2 className="title">Column 3</h2>
+            <h2 className='title'>Column 3</h2>
             <a href='#'>Budget</a>
           </Pod>
         </Row>
       </AnimatedMenuButton>
     );
+
+    wrapper = shallow(<AnimatedMenuButton label='Create...' data-element='bar' data-role='baz'/>)
 
     spyOn(basicWidget, 'setState').and.callThrough();
   });

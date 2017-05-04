@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { compact, omit } from 'lodash';
 import Immutable from 'immutable';
@@ -31,9 +32,9 @@ class Row extends React.Component {
      * @property children
      * @type {Object | Array}
      */
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object
+    children: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object
     ]),
 
     /**
@@ -43,7 +44,7 @@ class Row extends React.Component {
      * @property gutter
      * @type {String}
      */
-    gutter: React.PropTypes.string,
+    gutter: PropTypes.string,
 
     /**
      * Show a divide between columns
@@ -51,7 +52,7 @@ class Row extends React.Component {
      * @property columnDivide
      * @type {String}
      */
-    columnDivide: React.PropTypes.bool,
+    columnDivide: PropTypes.bool,
 
     /**
      * Manually define number of columns
@@ -59,7 +60,7 @@ class Row extends React.Component {
      * @property columns
      * @type {String}
      */
-    columns: React.PropTypes.string
+    columns: PropTypes.string
   }
 
   static defaultProps = {

@@ -40,14 +40,14 @@ function buildRows() {
 
   definition.propTypes = assign({}, definition.propTypes, {
     caption: "String",
-    currentPage: "Number",
+    currentPage: "String",
     filter: "Object",
     highlightable: "Boolean",
     onChange: "Function",
     onHighlight: "Function",
     onPageSizeChange: "Function",
     onSelect: "Function",
-    pageSize: "Number",
+    pageSize: "String",
     pageSizeSelectionOptions: "Object",
     paginate: "Boolean",
     selectable: "Boolean",
@@ -55,7 +55,7 @@ function buildRows() {
     shrink: "Boolean",
     tbody: "Node",
     thead: "Node",
-    totalRecords: "Number"
+    totalRecords: "String"
   });
   definition.propDescriptions = assign({}, definition.propDescriptions, {
     caption: "Optional title for the table.",

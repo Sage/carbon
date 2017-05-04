@@ -48,9 +48,9 @@ let definition = new Definition('show-edit-pod', ShowEditPod, {
   <Content title="Telephone">000 000 0000</Content>`,
     title: "Person",
     editFields: `[
-    <Textbox label="First Name" value="Alan" />,
-    <Textbox label="Second Name" value="Smith" />,
-    <Textbox label="Telephone" value="000 000 0000" />
+    <Textbox key='first_name' label="First Name" value="Alan" />,
+    <Textbox key='second_name' label="Second Name" value="Smith" />,
+    <Textbox key='telephone' label="Telephone" value="000 000 0000" />
   ]`
   },
   propDescriptions: assign({}, formDefinition.propDescriptions, {
