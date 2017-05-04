@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SidebarHeader from './sidebar-header';
 import Icon from './../icon';
 import Modal from './../modal';
@@ -39,7 +40,7 @@ class Sidebar extends Modal {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func,
+    onCancel: PropTypes.func,
 
     /**
      * Sets the open state of the sidebar
@@ -48,7 +49,7 @@ class Sidebar extends Modal {
      * @type {Boolean}
      * @default false
      */
-    open: React.PropTypes.bool,
+    open: PropTypes.bool,
 
     /**
      * Determines if the user can interact with
@@ -58,7 +59,7 @@ class Sidebar extends Modal {
      * @type {Boolean}
      * @default false
      */
-    enableBackgroundUI: React.PropTypes.bool,
+    enableBackgroundUI: PropTypes.bool,
 
     /**
      * Determines the position of the sidebar
@@ -68,7 +69,7 @@ class Sidebar extends Modal {
      * @type {String}
      * @default 'right'
      */
-    position: React.PropTypes.string,
+    position: PropTypes.string,
 
     /**
      * Size of dialog, default size is 450px
@@ -77,7 +78,7 @@ class Sidebar extends Modal {
      * @type {String}
      * @default medium
      */
-    size: React.PropTypes.string
+    size: PropTypes.string
   }
 
   static defaultProps = {

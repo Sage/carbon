@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -50,7 +51,7 @@ class Date extends React.Component {
      * @property minDate
      * @type {String}
      */
-    minDate: React.PropTypes.string,
+    minDate: PropTypes.string,
 
     /**
      * Maximum possible date
@@ -58,7 +59,7 @@ class Date extends React.Component {
      * @property maxDate
      * @type {String}
      */
-    maxDate: React.PropTypes.string
+    maxDate: PropTypes.string
   };
 
   static defaultProps = {

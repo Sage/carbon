@@ -12,6 +12,7 @@ let definition = new Definition('date-input', DateInput, {
 * Entering or picking a start and end date together? [Try Date Range](/components/date-range).
  `,
   type: 'form',
+  hiddenProps: ['minDate', 'maxDate'],
   propTypes: {
     minDate: "String",
     maxDate: "String"

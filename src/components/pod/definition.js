@@ -29,6 +29,7 @@ let definition = new Definition('pod', Pod, {
     triggerEditOnContent: "onEdit",
     internalEditButton: "onEdit"
   },
+  hiddenProps: ['collapsed'],
   propOptions: {
     padding: OptionsHelper.sizesPod,
     as: OptionsHelper.themesFull,

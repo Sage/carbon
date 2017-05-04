@@ -22,7 +22,7 @@ let definition = new Definition('textarea', Textarea, {
     expandable: "Makes the textarea automatically expand depending on the amount of text the user inputs."
   },
   propTypes: {
-    characterLimit: "Number",
+    characterLimit: "String",
     enforceCharacterLimit: "Boolean",
     expandable: "Boolean"
   }

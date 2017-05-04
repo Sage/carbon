@@ -1,5 +1,6 @@
 import I18n from 'i18n-js';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { tagComponent } from '../../../utils/helpers/tags';
 
 import Icon from './../../icon';
@@ -12,13 +13,13 @@ const FormSummary = props =>
 ;
 
 FormSummary.propTypes = {
-  errors:   React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
+  errors: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
   ]),
-  warnings: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
+  warnings: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
   ])
 };
 

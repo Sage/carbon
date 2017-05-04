@@ -1,5 +1,6 @@
 import css from './../../utils/css';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from './../icon';
 import NumberComponent from './../number';
 import Dropdown from './../dropdown';
@@ -33,7 +34,7 @@ class Pager extends React.Component {
      * @property currentPage
      * @type {String}
      */
-    currentPage: React.PropTypes.string.isRequired,
+    currentPage: PropTypes.string.isRequired,
 
     /**
      * Total number of records
@@ -41,7 +42,7 @@ class Pager extends React.Component {
      * @property totalRecords
      * @type {String}
      */
-    totalRecords: React.PropTypes.string.isRequired,
+    totalRecords: PropTypes.string.isRequired,
 
     /**
      * Function called when any pager changes take place
@@ -50,7 +51,7 @@ class Pager extends React.Component {
      * @property onPagination
      * @type {Function}
      */
-    onPagination: React.PropTypes.func.isRequired,
+    onPagination: PropTypes.func.isRequired,
 
     /**
      * Pagination page size
@@ -58,7 +59,7 @@ class Pager extends React.Component {
      * @property pageSize
      * @type {String}
      */
-    pageSize: React.PropTypes.string,
+    pageSize: PropTypes.string,
 
     /**
      * Should the page size selection dropdown be shown
@@ -66,7 +67,7 @@ class Pager extends React.Component {
      * @property showPageSizeSelection
      * @type {Boolean}
      */
-    showPageSizeSelection: React.PropTypes.bool,
+    showPageSizeSelection: PropTypes.bool,
 
     /**
      * Set of page size options
@@ -74,7 +75,7 @@ class Pager extends React.Component {
      * @property pageSizeSelectionOptions
      * @type {Object}
      */
-    pageSizeSelectionOptions: React.PropTypes.object
+    pageSizeSelectionOptions: PropTypes.object
   }
 
   static defaultProps = {

@@ -25,6 +25,9 @@ let definition = new Definition('decimal', Decimal, {
   },
   propOptions: {
     align: OptionsHelper.alignBinary
+  },
+  propValues: {
+    value: '0.00'
   }
 });
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import AppWrapper from './../app-wrapper';
 import { tagComponent } from '../../utils/helpers/tags';
@@ -15,7 +16,7 @@ class NavigationBar extends React.Component {
      * @type {String}
      * @default primary
      */
-    as: React.PropTypes.string
+    as: PropTypes.string
   }
 
   static defaultProps = {

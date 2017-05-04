@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Help from './../help';
 import Link from './../link';
@@ -16,9 +17,9 @@ class Heading extends React.Component {
      * @property title
      * @type {String|Object}
      */
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
@@ -27,9 +28,9 @@ class Heading extends React.Component {
      * @property subheader
      * @type {String|Object}
      */
-    subheader: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    subheader: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
@@ -38,7 +39,7 @@ class Heading extends React.Component {
      * @property help
      * @type {String}
      */
-    help: React.PropTypes.string,
+    help: PropTypes.string,
 
     /**
      * Defines the help link for the heading.
@@ -46,7 +47,7 @@ class Heading extends React.Component {
      * @property helpLink
      * @type {String}
      */
-    helpLink: React.PropTypes.string,
+    helpLink: PropTypes.string,
 
     /**
      * Defines the a href for the back link.
@@ -54,7 +55,7 @@ class Heading extends React.Component {
      * @property backLink
      * @type {String}
      */
-    backLink: React.PropTypes.string,
+    backLink: PropTypes.string,
 
     /**
      * Adds a divider below the heading and the content.
@@ -63,7 +64,7 @@ class Heading extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    divider: React.PropTypes.bool,
+    divider: PropTypes.bool,
 
     /**
      * Adds a separator between the title and the subheader.
@@ -72,7 +73,7 @@ class Heading extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    separator: React.PropTypes.bool
+    separator: PropTypes.bool
   }
 
   static defaultProps = {

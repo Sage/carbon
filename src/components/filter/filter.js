@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Form from './../form';
 import { tagComponent } from '../../utils/helpers/tags';
@@ -16,7 +17,7 @@ class Filter extends Form {
      * @type {String}
      * @default left
      */
-    align: React.PropTypes.string
+    align: PropTypes.string
   }
 
   static defaultProps = {

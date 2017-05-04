@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
@@ -92,7 +93,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
      * @property
      * @type {String}
      */
-    tooltipMessage: React.PropTypes.string,
+    tooltipMessage: PropTypes.string,
 
     /**
      * The position of this tooltip: top, bottom, left or right
@@ -101,7 +102,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
      * @default top
      * @type {String}
      */
-    tooltipPosition: React.PropTypes.string,
+    tooltipPosition: PropTypes.string,
 
     /**
      * The alignment of this tooltip: left, right or center
@@ -110,7 +111,7 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
      * @default center
      * @type {String}
      */
-    tooltipAlign: React.PropTypes.string
+    tooltipAlign: PropTypes.string
   });
 
   /**

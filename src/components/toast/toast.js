@@ -1,5 +1,6 @@
 import React from 'react';
-import Icon from '../../components/icon';
+import PropTypes from 'prop-types';
+import Icon from './../icon';
 import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { tagComponent } from '../../utils/helpers/tags';
@@ -39,7 +40,7 @@ class Toast extends React.Component {
      * @type {String}
      * @default 'warning'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * Determines if the toast is open.
@@ -48,7 +49,7 @@ class Toast extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    open: React.PropTypes.bool,
+    open: PropTypes.bool,
 
     /**
      * Callback for when dismissed.
@@ -56,7 +57,7 @@ class Toast extends React.Component {
      * @property onDismiss
      * @type {Function}
      */
-    onDismiss: React.PropTypes.func
+    onDismiss: PropTypes.func
   }
 
   static defaultProps = {

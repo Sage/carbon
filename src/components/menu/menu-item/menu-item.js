@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Link from './../../link';
 import { assign } from 'lodash';
@@ -17,14 +18,14 @@ class MenuItem extends React.Component {
      * @property alternate
      * @type {Boolean}
      */
-    alternate: React.PropTypes.bool,
+    alternate: PropTypes.bool,
     /**
      * Defines which direction the submenu will hang eg. left/right
      *
      * @property submenuDirection
      * @type {String}
      */
-    submenuDirection: React.PropTypes.string,
+    submenuDirection: PropTypes.string,
 
     /**
      * Is the menu item the currently selected item.
@@ -32,7 +33,7 @@ class MenuItem extends React.Component {
      * @property selected
      * @type {Boolean}
      */
-    selected: React.PropTypes.bool,
+    selected: PropTypes.bool,
 
     /**
      * (for submenus) renders with a divide between items.
@@ -40,7 +41,7 @@ class MenuItem extends React.Component {
      * @property divide
      * @type {Boolean}
      */
-    divide: React.PropTypes.bool,
+    divide: PropTypes.bool,
 
     /**
      * A title for the menu item that has a submenu.
@@ -48,9 +49,9 @@ class MenuItem extends React.Component {
      * @property submenu
      * @type {String | Object}
      */
-    submenu: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    submenu: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
@@ -59,7 +60,7 @@ class MenuItem extends React.Component {
      * @property href
      * @type {String}
      */
-    href: React.PropTypes.string,
+    href: PropTypes.string,
 
     /**
      * The to link to use for the menu item.
@@ -67,7 +68,7 @@ class MenuItem extends React.Component {
      * @property to
      * @type {String}
      */
-    to: React.PropTypes.string,
+    to: PropTypes.string,
 
     /**
      * The target to use for the menu item.
@@ -75,7 +76,7 @@ class MenuItem extends React.Component {
      * @property target
      * @type {String}
      */
-    target: React.PropTypes.string
+    target: PropTypes.string
   }
 
   static defaultProps = {
