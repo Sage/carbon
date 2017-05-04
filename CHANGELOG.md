@@ -51,6 +51,7 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 * `Heading`: alignment is fixed in IE where `hr` was centring by default
 * `Link`: CSS inheritance has been updated to better support buttons.
 * `MenuList`: item filter search icon positioning is fixed
+* Row clones children when mutating props rather than creating new element to retain refs
 
 ## data-attributes on components
 

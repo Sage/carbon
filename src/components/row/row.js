@@ -110,7 +110,7 @@ class Row extends React.Component {
     );
 
     const childProps = omit(child.props, ['columnOffset', 'columnSpan', 'columnClasses', 'columnAlign']);
-    const newChild = React.createElement(child.type, childProps, child.props.children);
+    const newChild = React.cloneElement(child, childProps, child.props.children);
 
     return (
       <div key={ key } className={ columnClass }>
