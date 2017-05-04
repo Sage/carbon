@@ -5,6 +5,7 @@ import TableRow from './table-row';
 import TableHeader from './../table-header';
 import Icon from './../../icon';
 import Checkbox from './../../checkbox';
+import { shallow } from 'enzyme';
 
 describe('TableRow', () => {
   let instance, clickableInstance, row;

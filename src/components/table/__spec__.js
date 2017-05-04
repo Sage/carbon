@@ -1,8 +1,9 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Immutable from 'immutable';
-import { Table, TableHeader, TableRow, TableCell } from './table';
+import { Table, TableHeader, TableRow, TableCell, TbodyContext } from './table';
 import ActionToolbar from './../action-toolbar';
+import { shallow } from 'enzyme';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy;
@@ -915,6 +916,49 @@ describe('Table', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
       expect(parent.className).toEqual('carbon-table foo');
+    });
+  });
+
+  describe('draggableRows', () => {
+    it('defaults to false', () => {
+      let wrapper = shallow(<Table />);
+      let inst = wrapper.instance();
+      expect(inst.props.draggableRows).toBe(false);
+    });
+
+    describe('when set to true', () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = shallow(
+          <Table draggableRows={ true }>
+            <TableRow>
+              <TableCell>1</TableCell>
+              <TableCell>Hat</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>2</TableCell>
+              <TableCell>Coat</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>3</TableCell>
+              <TableCell>Shoes</TableCell>
+            </TableRow>
+          </Table>
+        );
+      });
+
+      it('wraps table content in a component with a drag context', () => {
+        let droppableBody = wrapper.find(TbodyContext);
+        expect(droppableBody.length).toBe(1);
+      });
+
+      describe('when rendering table content', () => {
+        it('converts TableRow components to draggable rows', () => {
+          let draggableRows = wrapper.find('.carbon-table-row__draggable');
+          expect(draggableRows.length).toBe(3);
+        });
+      });
     });
   });
 });

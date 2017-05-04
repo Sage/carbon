@@ -8,8 +8,10 @@ import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import TableSubheader from './table-subheader';
+import TbodyContext from './tbody-context';
 import Pager from './../pager';
 import Spinner from './../spinner';
+import extendWithDragAndDrop from './../with-drag-and-drop';
 
 /**
  * A Table widget.
@@ -77,6 +79,14 @@ import Spinner from './../spinner';
  * @constructor
  */
 class Table extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.RowComponent = props.draggableRows ?
+      extendWithDragAndDrop(TableRow, { drop: 'TableRow', drag: 'TableRow' }) :
+      TableRow;
+  }
 
   static propTypes = {
     /**
@@ -157,6 +167,14 @@ class Table extends React.Component {
     highlightable: React.PropTypes.bool,
 
     /**
+     * Enables drag and drop on the table rows.
+     *
+     * @property draggableRows
+     * @type {Boolean}
+     */
+    draggableRows: React.PropTypes.bool,
+
+    /**
      * A callback for when a row is selected.
      *
      * @property onSelect
@@ -212,6 +230,16 @@ class Table extends React.Component {
      * @type {Object}
      */
     tbody: React.PropTypes.bool
+  }
+
+  /**
+   * Default props
+   *
+   * @property defaultProps
+   * @type {Object}
+   */
+  static defaultProps = {
+    draggableRows: false
   }
 
   /**
@@ -929,7 +957,17 @@ class Table extends React.Component {
     }
 
     if (hasChildren) {
-      return children;
+      if (this.props.draggableRows) {
+        return React.Children.map(children, (child) => {
+          if (child.type === TableRow) {
+            return React.createElement(this.RowComponent, { className: 'carbon-table-row__draggable', ...child.props });
+          } else {
+            return child;
+          }
+        });
+      } else {
+        return children;
+      }
     } else if (this._hasRetreivedData) {
       return this.emptyRow;
     } else {
@@ -944,7 +982,13 @@ class Table extends React.Component {
    * @return {Object} JSX
    */
   get tbody() {
-    if (this.props.tbody === false) {
+    if (this.props.draggableRows) {
+      return (
+        <TbodyContext>
+          {this.tableContent}
+        </TbodyContext>
+      );
+    } else if (this.props.tbody === false) {
       return this.tableContent;
     } else {
       return (
@@ -981,5 +1025,6 @@ export {
   TableRow,
   TableCell,
   TableHeader,
-  TableSubheader
+  TableSubheader,
+  TbodyContext
 };

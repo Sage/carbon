@@ -1,0 +1,5 @@
+{
+  "name": "withDragAndDrop",
+  "main": "./with-drag-and-drop.js",
+  "style": "./with-drag-and-drop.scss"
+}
