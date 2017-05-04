@@ -126,7 +126,7 @@ class TableRow extends React.Component {
     selectAll: PropTypes.func, // a callback function for when all visible rows are selected
     highlightable: PropTypes.bool, // table can enable all rows to be highlightable
     selectable: PropTypes.bool, // table can enable all rows to be multi-selectable
-    selectRow: PropTypes.func // a callback function for when a row is selected
+    selectRow: PropTypes.func, // a callback function for when a row is selected
     dragDropManager: PropTypes.object, // the React DND DragDropManager
     moveItem: PropTypes.func, // a callback function for when a draggable item is moved
     canDrag: PropTypes.func, // a callback function to specify whether dragging is allowed

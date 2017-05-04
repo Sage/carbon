@@ -5,9 +5,7 @@ import TableRow from './table-row';
 import TableHeader from './../table-header';
 import Icon from './../../icon';
 import Checkbox from './../../checkbox';
-import { shallow } from 'enzyme';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
-
 import { shallow, mount } from 'enzyme';
 import { WithDragAndDrop, DraggableContext } from './../../drag-and-drop';
 
