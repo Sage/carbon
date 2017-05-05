@@ -79,11 +79,11 @@ class PresenceValidator {
     let valid, result = this.requireAll;
 
     if (!this.props) {
-      return !isEmpty(value) && !value.match(/^\s*$/);
+      return isValid(value);
     } else {
       forEach(this.props, (name) => {
         value = props[name];
-        valid = !isEmpty(value) && !value.match(/^\s*$/);
+        valid = isValid(value);
         result = this.requireAll ? (result && valid) : (result || valid);
         if (result !== this.requireAll) {
           return false;
@@ -102,6 +102,11 @@ class PresenceValidator {
   message = () => {
     return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.blank');
   }
+
+}
+
+function isValid(value) {
+  return !isEmpty(value) && !value.match(/^\s*$/);
 }
 
 export default PresenceValidator;
