@@ -1,4 +1,5 @@
 @import "./../../../style-config/colors";
+@import "./../../../style-config/mixins";
 @import "./../../../style-config/tables";
 
 .carbon-table-header {
@@ -34,6 +35,10 @@
       border-radius: 0 $tables__border-radius 0 0;
     }
   }
+}
+
+.carbon-table-header--sort {
+  color: $white;
 }
 
 .carbon-table-header--align-left {
@@ -72,4 +77,8 @@
   &:hover {
     background-color: $grey-dark-blue-90;
   }
+}
+
+.carbon-table-header--sort-description {
+  @include visually-hidden();
 }
