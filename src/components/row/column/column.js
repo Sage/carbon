@@ -18,7 +18,7 @@ const Column = (props) => {
       { props.children }
     </div>
   );
-}
+};
 
 Column.PropTypes = {
   columnAlign: PropTypes.oneOfType([
@@ -40,6 +40,6 @@ Column.PropTypes = {
     PropTypes.number,
     PropTypes.string
   ])
-}
+};
 
 export default Column;

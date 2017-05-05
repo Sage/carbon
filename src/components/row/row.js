@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { compact, omit } from 'lodash';
+import { compact } from 'lodash';
 import Immutable from 'immutable';
 import Column from './column';
 
@@ -115,17 +115,13 @@ class Row extends React.Component {
 
     if (child.type === Column) {
       return React.cloneElement(child, { key: key, columnDivide: this.props.columnDivide }, child.props.children);
+    } else {
+      return (
+        <Column key={ key } { ...child.props } columnDivide={ this.props.columnDivide }>
+          { child }
+        </Column>
+      );
     }
-
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-      console.error('Warning: Row Component should only have a immediate child of type Column.');
-    }
-
-    return (
-      <Column key={ key } { ...child.props } columnDivide={ this.props.columnDivide }>
-        { child }
-      </Column>
-    );
   }
 
   /**
@@ -172,4 +168,4 @@ export default Row;
 export {
   Row,
   Column
-}
+};
