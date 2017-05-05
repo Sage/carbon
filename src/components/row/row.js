@@ -112,10 +112,9 @@ class Row extends React.Component {
      *
      * TODO: CarbonV2
      */
-    const newChild = React.cloneElement(child, { key: key }, child.props.children);
 
     if (child.type === Column) {
-      return newChild;
+      return React.cloneElement(child, { key: key, columnDivide: this.props.columnDivide }, child.props.children);
     }
 
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
@@ -123,8 +122,8 @@ class Row extends React.Component {
     }
 
     return (
-      <Column key={ key } { ...child.props }>
-        { newChild }
+      <Column key={ key } { ...child.props } columnDivide={ this.props.columnDivide }>
+        { child }
       </Column>
     );
   }
