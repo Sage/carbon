@@ -1,9 +1,8 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import DialogFullScreen from './dialog-full-screen';
-import I18n from 'i18n-js';
-import Bowser from 'bowser';
 import Button from './../button';
+import Heading from './../heading';
 
 describe('DialogFullScreen', () => {
   let instance,
@@ -15,6 +14,7 @@ describe('DialogFullScreen', () => {
         onCancel={ onCancel }
         className="foo"
         open={ true }
+        title='my title'
       >
         <Button>Button</Button>
         <Button>Button</Button>
@@ -60,6 +60,38 @@ describe('DialogFullScreen', () => {
     it('renders the children passed to it', () => {
       let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
       expect(buttons.length).toEqual(2);
+    });
+  });
+
+  describe('title', () => {
+    describe('is a string', () => {
+      it('renders the title within a h2', () => {
+        let titleNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'h2')[0];
+        expect(titleNode.className).toEqual('carbon-dialog-full-screen__title');
+        expect(titleNode.innerText).toEqual('my title');
+      });
+    });
+
+    describe('is an object', () => {
+      beforeEach(() => {
+        let titleHeading = <Heading title='my custom heading' />;
+        instance = TestUtils.renderIntoDocument(
+          <DialogFullScreen
+            onCancel={ onCancel }
+            className="foo"
+            open={ true }
+            title={ titleHeading }
+          >
+            <Button>Button</Button>
+            <Button>Button</Button>
+          </DialogFullScreen>
+        );
+      });
+
+      it('renders the component directly', () => {
+        let heading = TestUtils.findRenderedComponentWithType(instance, Heading);
+        expect(heading.props.title).toEqual('my custom heading');
+      });
     });
   });
 });

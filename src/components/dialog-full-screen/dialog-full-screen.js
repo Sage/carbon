@@ -55,6 +55,21 @@ class DialogFullScreen extends Modal {
   }
 
   /**
+   * Returns title prop wrapped in <h2> if title is a string otherwise returns the title prop directly.
+   * Dialog main classes.
+   *
+   * @method title
+   * @return {Object} JSX
+   */
+  get title() {
+    if (typeof(this.props.title) === 'string' || this.props.title instanceof String) {
+      return <h2 className='carbon-dialog-full-screen__title'>{ this.props.title }</h2>;
+    } else {
+      return this.props.title;
+    }
+  }
+
+  /**
    * Returns the computed HTML for the dialog.
    * @override
    *
@@ -64,9 +79,9 @@ class DialogFullScreen extends Modal {
   get modalHTML() {
     return (
       <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
-        <div className="carbon-dialog-full-screen__header">
-          <h2 className="carbon-dialog-full-screen__title">{ this.props.title }</h2>
-          <Icon className="carbon-dialog-full-screen__close" type="close" onClick={ this.props.onCancel } />
+        <div className='carbon-dialog-full-screen__header'>
+          { this.title }
+          <Icon className='carbon-dialog-full-screen__close' type='close' onClick={ this.props.onCancel } />
         </div>
 
         <div className='carbon-dialog-full-screen__content'>
