@@ -1,18 +1,20 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow, mount } from 'enzyme';
 import DialogFullScreen from './dialog-full-screen';
 import Button from './../button';
+import Icon from './../icon';
 import Heading from './../heading';
 
 describe('DialogFullScreen', () => {
   let instance,
+      wrapper,
       onCancel = jasmine.createSpy('cancel');
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
+    wrapper = shallow(
       <DialogFullScreen
         onCancel={ onCancel }
-        className="foo"
+        className='foo'
         open={ true }
         title='my title'
       >
@@ -20,6 +22,7 @@ describe('DialogFullScreen', () => {
         <Button>Button</Button>
       </DialogFullScreen>
     );
+    instance = wrapper.instance();
   });
 
   describe('default props', () => {
@@ -41,44 +44,57 @@ describe('DialogFullScreen', () => {
   });
 
   describe('modalHTML', () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <DialogFullScreen
+          onCancel={ onCancel }
+          className='foo'
+          open={ true }
+          title='my title'
+        >
+          <Button>Button</Button>
+          <Button>Button</Button>
+        </DialogFullScreen>
+      );
+      instance = wrapper.instance();
+    });
+
     it('renders a parent div with mainClasses attached', () => {
-      let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(dialogNode.className).toEqual('foo carbon-dialog-full-screen');
+      expect(wrapper.find('div.foo.carbon-dialog-full-screen').length).toEqual(1);
     });
 
     it('renders the dialog', () => {
       expect(instance._dialog).toBeTruthy();
-      expect(instance._dialog.classList[0]).toEqual('carbon-dialog-full-screen__dialog');
+      expect(instance._dialog.className).toEqual('carbon-dialog-full-screen__dialog');
     });
 
     it('closes when the exit icon is click', () => {
-      let closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dialog-full-screen__close');
-      TestUtils.Simulate.click(closeIcon);
+      let closeIcon = wrapper.find(Icon);
+      closeIcon.simulate('click');
       expect(onCancel).toHaveBeenCalled();
     });
 
     it('renders the children passed to it', () => {
-      let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-      expect(buttons.length).toEqual(2);
+      expect(wrapper.find(Button).length).toEqual(2);
     });
   });
 
   describe('title', () => {
     describe('is a string', () => {
       it('renders the title within a h2', () => {
-        let titleNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'h2')[0];
-        expect(titleNode.className).toEqual('carbon-dialog-full-screen__title');
-        expect(titleNode.innerText).toEqual('my title');
+        let titleNode = wrapper.find('h2.carbon-dialog-full-screen__title');
+        expect(titleNode.length).toEqual(1);
+        expect(titleNode.text()).toEqual('my title');
       });
     });
 
     describe('is an object', () => {
       beforeEach(() => {
         let titleHeading = <Heading title='my custom heading' />;
-        instance = TestUtils.renderIntoDocument(
+        wrapper = shallow(
           <DialogFullScreen
             onCancel={ onCancel }
-            className="foo"
+            className='foo'
             open={ true }
             title={ titleHeading }
           >
@@ -89,8 +105,8 @@ describe('DialogFullScreen', () => {
       });
 
       it('renders the component directly', () => {
-        let heading = TestUtils.findRenderedComponentWithType(instance, Heading);
-        expect(heading.props.title).toEqual('my custom heading');
+        let heading = wrapper.find(Heading)
+        expect(heading.props().title).toEqual('my custom heading');
       });
     });
   });

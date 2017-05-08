@@ -33,7 +33,6 @@ class DialogFullScreen extends Modal {
   /**
    * Returns classes for the dialog.
    *
-   * @method dialogClasses
    * @return {String} dialog className
    */
   get dialogClasses() {
@@ -44,7 +43,6 @@ class DialogFullScreen extends Modal {
    * Returns main classes for the component combined with
    * Dialog main classes.
    *
-   * @method mainClasses
    * @return {String} Main className
    */
   get mainClasses() {
@@ -55,32 +53,16 @@ class DialogFullScreen extends Modal {
   }
 
   /**
-   * Returns title prop wrapped in <h2> if title is a string otherwise returns the title prop directly.
-   * Dialog main classes.
-   *
-   * @method title
-   * @return {Object} JSX
-   */
-  get title() {
-    if (typeof(this.props.title) === 'string' || this.props.title instanceof String) {
-      return <h2 className='carbon-dialog-full-screen__title'>{ this.props.title }</h2>;
-    } else {
-      return this.props.title;
-    }
-  }
-
-  /**
    * Returns the computed HTML for the dialog.
    * @override
    *
-   * @method modalHTML
    * @return {Object} JSX for dialog
    */
   get modalHTML() {
     return (
       <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
         <div className='carbon-dialog-full-screen__header'>
-          { this.title }
+          { this.renderTitle() }
           <Icon className='carbon-dialog-full-screen__close' type='close' onClick={ this.props.onCancel } />
         </div>
 
@@ -89,6 +71,20 @@ class DialogFullScreen extends Modal {
         </div>
       </div>
     );
+  }
+
+  /**
+   * Returns title prop wrapped in <h2> if title is a string otherwise returns the title prop directly.
+   * Dialog main classes.
+   *
+   * @return {Object} JSX
+   */
+  renderTitle = () => {
+    if (typeof(this.props.title) === 'string' || this.props.title instanceof String) {
+      return <h2 className='carbon-dialog-full-screen__title'>{ this.props.title }</h2>;
+    } else {
+      return this.props.title;
+    }
   }
 }
 
