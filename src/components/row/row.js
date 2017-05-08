@@ -101,7 +101,7 @@ class Row extends React.Component {
    */
   buildColumn = (child, key) => {
     /**
-     * This functionality is maintianing the deprecated behaviour
+     * This functionality is maintaining the deprecated behaviour
      * where Row can have any immediate children. As of React 16 this
      * will break and therefore we have added a column component to deal
      * with the complications and maintian functionality.
