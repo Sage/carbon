@@ -1,7 +1,9 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import ReactDOM from 'react-dom';
 import Content from './content';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Content', () => {
   let instance;
@@ -45,7 +47,7 @@ describe('Content', () => {
       instance = TestUtils.renderIntoDocument(
         <Content inline={ true }>{ null }</Content>
       );
-      expect(instance.classes).toContain('carbon-content--inline');
+      expect(instance.classes()).toContain('carbon-content--inline');
     });
   });
 
@@ -54,7 +56,7 @@ describe('Content', () => {
       instance = TestUtils.renderIntoDocument(
         <Content align="center">{ null }</Content>
       );
-      expect(instance.classes).toContain('carbon-content--align-center');
+      expect(instance.classes()).toContain('carbon-content--align-center');
     });
   });
 
@@ -63,8 +65,8 @@ describe('Content', () => {
       instance = TestUtils.renderIntoDocument(
         <Content titleWidth="40">{ null }</Content>
       );
-      expect(instance.titleStyle).toEqual({ width: "calc(40% - 30px)" });
-      expect(instance.bodyStyle).toEqual({ width: "60%" });
+      expect(instance.titleStyle()).toEqual({ width: "calc(40% - 30px)" });
+      expect(instance.bodyStyle()).toEqual({ width: "60%" });
     });
   });
 
@@ -73,7 +75,25 @@ describe('Content', () => {
       instance = TestUtils.renderIntoDocument(
         <Content titleWidth="40" bodyFullWidth={ true }>{ null }</Content>
       );
-      expect(instance.bodyStyle).toEqual({ width: "100%" });
+      expect(instance.bodyStyle()).toEqual({ width: "100%" });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Content data-element='bar' data-role='baz'><div /></Content>);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'content', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Content><div /></Content>);
+
+      elementsTagTest(wrapper, [
+        'title'
+      ]);
     });
   });
 });

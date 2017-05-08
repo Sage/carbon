@@ -1,0 +1,33 @@
+@import 'colors';
+@import "./../../../style-config/demo-variables";
+
+.page-header-small {
+  background: $header-background-gradient;
+  color: $white;
+  font-weight: 300;
+  margin-bottom: 30px;
+  padding: 150px 0 25px 0;
+  @media (min-width: $menu-popout-point) {
+    padding-top: 60px;
+  }
+
+  &__title {
+    align-items: center;
+    display: flex;
+    font-size: 40px;
+    line-height: 1.22em;
+    margin: 0 0 10px;
+
+    .carbon-pill {
+      margin-left: 15px;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+  }
+
+  &__subtitle {
+    font-size: 22px;
+    line-height: 1.22em;
+    margin: 0;
+  }
+}

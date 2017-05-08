@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
 import ReactDOM from 'react-dom';
-import { startCase } from 'lodash';
+import { startCase, assign } from 'lodash';
 import { styleElement, append } from './../../ether';
 
 /**
@@ -83,6 +84,35 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
   constructor(...args) {
     super(...args);
   }
+
+  static propTypes = assign({}, ComposedComponent.propTypes, {
+
+    /**
+     * The message for this tooltip
+     *
+     * @property
+     * @type {String}
+     */
+    tooltipMessage: PropTypes.string,
+
+    /**
+     * The position of this tooltip: top, bottom, left or right
+     *
+     * @property
+     * @default top
+     * @type {String}
+     */
+    tooltipPosition: PropTypes.string,
+
+    /**
+     * The alignment of this tooltip: left, right or center
+     *
+     * @property
+     * @default center
+     * @type {String}
+     */
+    tooltipAlign: PropTypes.string
+  });
 
   /**
    * Timeout for firing ajax request
@@ -306,10 +336,11 @@ let TooltipDecorator = (ComposedComponent) => class Component extends ComposedCo
     if (this.props.tooltipMessage) {
       return (
         <Tooltip
-          ref={ (comp) => this._tooltip = comp }
+          align={ this.props.tooltipAlign }
+          data-element='tooltip'
           isVisible={ this.state.isVisible }
           position={ this.props.tooltipPosition }
-          align={ this.props.tooltipAlign }
+          ref={ (comp) => this._tooltip = comp }
         >
           { this.props.tooltipMessage }
         </Tooltip>

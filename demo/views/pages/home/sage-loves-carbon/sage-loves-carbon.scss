@@ -1,0 +1,33 @@
+@import "colors";
+@import "./../../../../style-config/demo-variables";
+
+.sage-loves-carbon {
+  background-color: $grey-dark-blue-10;
+  padding: 120px 0;
+
+  &__image {
+    display: none;
+
+    @media (min-width: $response-point-small) {
+      align-self: center;
+      display: block;
+      width: 50%;
+    }
+  }
+
+  .carbon-link__anchor {
+    color: $grey-dark-blue;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .complex-heading {
+    margin-bottom: 30px;
+  }
+
+  .demo-wrapper {
+    align-items: top;
+    display: flex;
+    justify-content: space-between;
+  }
+}

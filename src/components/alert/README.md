@@ -21,3 +21,5 @@ import Alert from 'carbon/lib/components/alert';
 | Name          | Required    | Type           | Default       | Description   |
 | ------------- | ----------- | ------------- | ------------- | ------------- |
 | open          | false       | Boolean        |               | `open={ true }` must be passed to open the alert |
+
+For more props see `Dialog` and `Modal`

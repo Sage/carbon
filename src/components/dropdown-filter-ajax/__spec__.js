@@ -1,7 +1,10 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import DropdownFilterAjax from './dropdown-filter-ajax';
 import Immutable from 'immutable';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import ImmutableHelper from './../../utils/helpers/immutable';
+import { mount, shallow } from 'enzyme';
 
 describe('DropdownFilterAjax', () => {
   let instance;
@@ -97,7 +100,7 @@ describe('DropdownFilterAjax', () => {
         it('triggers the onBlur function', () => {
           let onBlur = jasmine.createSpy('onBlur');
 
-          instance = TestUtils.renderIntoDocument(<DropdownFilterAjax onBlur={ onBlur } />);
+          instance = TestUtils.renderIntoDocument(<DropdownFilterAjax onBlur={ onBlur } path='/foobar' />);
           TestUtils.Simulate.blur(instance._input);
           expect(onBlur).toHaveBeenCalled();
         });
@@ -347,6 +350,100 @@ describe('DropdownFilterAjax', () => {
         );
         instance.setState({ filter: 'abc' });
         expect(instance.inputProps.value).toEqual('abc');
+      });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <DropdownFilterAjax
+          data-element='bar'
+          options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+          path='/foobar'
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'dropdown-filter-ajax', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      describe("when closed", () => {
+        let wrapper = shallow(
+          <DropdownFilterAjax
+            fieldHelp='test'
+            label='test'
+            open={ true }
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='/foobar'
+          />
+        );
+
+        elementsTagTest(wrapper, [
+          'help',
+          'hidden-input',
+          'input',
+          'label',
+        ]);
+      });
+    });
+  });
+
+  describe("requesting list data", () => {
+    let responseData,
+        wrapper;
+
+    beforeEach(() => {
+      responseData = {
+        body: {
+          data: [ {
+            "records": 1,
+            "items": [ 1 ],
+            "page": 1
+          } ]
+        }
+      };
+      jasmine.Ajax.install();
+      wrapper = mount(<DropdownFilterAjax name="foo" value="1" path="/foobar" visibleValue="bar" />);
+      wrapper.find('.carbon-dropdown__input').simulate('focus');
+      let request = jasmine.Ajax.requests.mostRecent();
+      request.respondWith({
+        "status": 200,
+        "contentType": 'application/json',
+        "responseText": JSON.stringify(responseData.body)
+      });
+    });
+
+    afterEach(() => {
+      jasmine.Ajax.uninstall();
+    });
+
+    it("is set to 'idle' on load", () => {
+      expect(wrapper.find('[data-state="idle"]').length).toEqual(1);
+    });
+
+    describe("associated ajax request", () => {
+      it("renders a list with the right number of items", () => {
+        expect(wrapper.find('.carbon-dropdown__list-item').length).toEqual(1);
+      });
+    });
+
+    describe("setState calls from the two functions", () => {
+      beforeEach(() => {
+        instance = wrapper.instance();
+        spyOn(instance, 'setState');
+      });
+      it("sets requesting to true in `getData`", () => {
+        instance.getData(1, 2);
+        expect(instance.setState).toHaveBeenCalledWith({ requesting: true });
+      });
+      it("sets requesting to false in `ajaxUpdateList` (the end() function in getData)", () => {
+        instance.ajaxUpdateList(1, responseData);
+        expect(instance.setState).toHaveBeenCalledWith({ requesting: false });
+
       });
     });
   });

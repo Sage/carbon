@@ -1,0 +1,10 @@
+{
+  "main": "./component-showcase",
+  "style": "component-showcase.scss",
+  "images": [
+    "./images/300.png",
+    "./images/500.png",
+    "./images/700.png",
+    "./images/966.png"
+  ]
+}

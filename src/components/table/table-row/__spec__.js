@@ -1,10 +1,12 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import { Table, TableCell } from './../table';
 import TableRow from './table-row';
 import TableHeader from './../table-header';
 import Icon from './../../icon';
 import Checkbox from './../../checkbox';
+import { shallow } from 'enzyme';
+import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('TableRow', () => {
   let instance, clickableInstance, row;
@@ -226,7 +228,7 @@ describe('TableRow', () => {
 
   describe('onRowClick', () => {
     it('calls highlightRow via context', () => {
-      instance = TestUtils.renderIntoDocument(<Table highlightable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
+      instance = TestUtils.renderIntoDocument(<Table  highlightable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
       spyOn(row.context, 'highlightRow');
       row.onRowClick();
@@ -359,7 +361,7 @@ describe('TableRow', () => {
 
     describe('without selectability on the table but disabled on the row', () => {
       it('renders its children', () => {
-        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow selectable={ false }><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table  selectable={ true }><TableRow selectable={ false }><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         expect(row.children.length).toEqual(2);
       });
@@ -378,7 +380,7 @@ describe('TableRow', () => {
 
     describe('with selectable via context', () => {
       it('renders a multi select cell', () => {
-        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table  selectable={ true }><TableRow uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         let checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
@@ -404,7 +406,7 @@ describe('TableRow', () => {
     describe('with hideMultiSelect', () => {
       it('renders a multi select cell without a checkbox', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>
+          <Table  selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>
         );
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
@@ -415,11 +417,19 @@ describe('TableRow', () => {
 
     describe('if is header', () => {
       it('renders a table header', () => {
-        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow as="header" uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table  selectable={ true }><TableRow as="header" uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
         expect(th).toBeTruthy();
       });
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<TableRow data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'table-row', 'bar', 'baz');
     });
   });
 });

@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dialog from '../dialog';
 import Button from '../button';
 import I18n from "i18n-js";
 import classNames from 'classnames';
+import { assign } from 'lodash';
 
 /**
  * A Confirm widget.
@@ -34,7 +36,7 @@ import classNames from 'classnames';
  */
 class Confirm extends Dialog {
 
-  static propTypes = {
+  static propTypes = assign({}, Dialog.propTypes, {
 
     /**
      * A custom event handler when a confirmation takes place
@@ -42,7 +44,7 @@ class Confirm extends Dialog {
      * @property onConfirm
      * @type {Function}
      */
-    onConfirm: React.PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired,
 
     /**
      * Customise the confirm button label
@@ -50,7 +52,7 @@ class Confirm extends Dialog {
      * @property onConfirm
      * @type {String}
      */
-    confirmLabel: React.PropTypes.string,
+    confirmLabel: PropTypes.string,
 
     /**
      * Customise the cancel button label
@@ -58,12 +60,13 @@ class Confirm extends Dialog {
      * @property onConfirm
      * @type {String}
      */
-    cancelLabel: React.PropTypes.string
-  }
+    cancelLabel: PropTypes.string
+  })
 
-  static defaultProps = {
-    size: 'xsmall'
-  }
+  static defaultProps = assign({}, Dialog.defaultProps, {
+    size: 'extra-small',
+    showCloseIcon: false
+  })
 
   constructor() {
     super();
@@ -115,15 +118,15 @@ class Confirm extends Dialog {
    */
   get confirmButtons() {
     return (
-      <div className='carbon-confirm__buttons' >
+      <div key='confirm-buttons' className='carbon-confirm__buttons' >
         <div className='carbon-confirm__button carbon-confirm__no'>
-          <Button as='secondary' onClick={ this.props.onCancel }>
+          <Button as='secondary' onClick={ this.props.onCancel } data-element='cancel'>
             { this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' }) }
           </Button>
         </div>
 
         <div className='carbon-confirm__button carbon-confirm__yes'>
-          <Button as='primary' onClick={ this.props.onConfirm }>
+          <Button as='primary' onClick={ this.props.onConfirm } data-element='confirm'>
             { this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' }) }
           </Button>
         </div>
@@ -138,9 +141,17 @@ class Confirm extends Dialog {
    * @method dialogTitle
    */
   get modalHTML() {
-    let dialog = super.modalHTML;
-    dialog.props.children.push(this.confirmButtons);
-    return dialog;
+    let dialog = super.modalHTML,
+        children = [].concat(dialog.props.children, this.confirmButtons);
+    return React.cloneElement(dialog, {}, children);
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'confirm',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 }
 

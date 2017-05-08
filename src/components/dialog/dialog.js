@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from './../icon';
 import Modal from './../modal';
 import Bowser from 'bowser';
 import classNames from 'classnames';
+import { assign } from 'lodash';
 
 /**
  * A Dialog widget.
@@ -26,33 +28,16 @@ import classNames from 'classnames';
  */
 class Dialog extends Modal {
 
-  static propTypes = {
-    /**
-     * A custom close event handler
-     *
-     * @property onCancel
-     * @type {Function}
-     */
-    onCancel: React.PropTypes.func.isRequired,
-
-    /**
-     * Sets the open state of the dialog
-     *
-     * @property open
-     * @type {Boolean}
-     * @default false
-     */
-    open: React.PropTypes.bool.isRequired,
-
+  static propTypes = assign({}, Modal.propTypes, {
     /**
      * Title displayed at top of dialog
      *
      * @property title
      * @type {Object}
      */
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
@@ -61,17 +46,7 @@ class Dialog extends Modal {
      * @property subtitle
      * @type {String}
      */
-    subtitle: React.PropTypes.string,
-
-    /**
-     * Determines if the background is disabled
-     * when the dialog is open
-     *
-     * @property enableBackgroundUI
-     * @type {Boolean}
-     * @default true
-     */
-    enableBackgroundUI: React.PropTypes.bool,
+    subtitle: PropTypes.string,
 
     /**
      * Size of dialog, default size is 750px
@@ -80,7 +55,7 @@ class Dialog extends Modal {
      * @type {String}
      * @default med
      */
-    size: React.PropTypes.string,
+    size: PropTypes.string,
 
     /**
      * Determins if the close icon is shown
@@ -89,12 +64,17 @@ class Dialog extends Modal {
      * @type {Boolean}
      * @default true
      */
-    showCloseIcon: React.PropTypes.bool
-  }
+    showCloseIcon: PropTypes.bool
+  })
 
   static defaultProps = {
     size: 'medium',
     showCloseIcon: true
+  }
+
+  constructor(args) {
+    super(args);
+    this.componentTags = this.componentTags.bind(this);
   }
 
   /**
@@ -171,7 +151,7 @@ class Dialog extends Modal {
    */
   get dialogTitle() {
     if (this.props.title) {
-      return <h2 className={ this.dialogTitleClasses }>{ this.props.title }</h2>;
+      return <h2 className={ this.dialogTitleClasses } data-element='title'>{ this.props.title }</h2>;
     }
 
     return null;
@@ -185,7 +165,7 @@ class Dialog extends Modal {
    */
   get dialogSubtitle() {
     if (this.props.subtitle) {
-      return <p className={ this.dialogSubtitleClasses }>{ this.props.subtitle }</p>;
+      return <p className={ this.dialogSubtitleClasses } data-element='subtitle'>{ this.props.subtitle }</p>;
     }
 
     return null;
@@ -241,8 +221,21 @@ class Dialog extends Modal {
 
   get closeIcon() {
     if (this.props.showCloseIcon) {
-      return <Icon className="carbon-dialog__close" type="close" onClick={ this.props.onCancel } />;
+      return <Icon
+        className="carbon-dialog__close"
+        data-element='close'
+        onClick={ this.props.onCancel }
+        type="close"
+      />;
     }
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'dialog',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 
   /**
@@ -253,7 +246,11 @@ class Dialog extends Modal {
    */
   get modalHTML() {
     return (
-      <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
+      <div
+        ref={ (d) => this._dialog = d }
+        className={ this.dialogClasses }
+        { ...this.componentTags(this.props) }
+      >
         { this.dialogTitle }
         { this.dialogSubtitle }
         { this.closeIcon }

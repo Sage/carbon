@@ -1,0 +1,26 @@
+@import 'colors';
+@import './../../style-config/demo-variables';
+
+.demo-simple-heading {
+  border-bottom: 1px solid #CED0D3;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  margin-top: 50px;
+
+  .demo-page-content-area:first-child & {
+    margin-top: 0;
+  }
+
+  &__link {
+    align-items: flex-end;
+    display: flex;
+
+    .carbon-link__content,
+    .carbon-link__icon {
+      color: $grey-dark-blue;
+    }
+    font-size: 14px;
+  }
+}

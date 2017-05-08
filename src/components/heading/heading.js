@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Help from './../help';
 import Link from './../link';
 import Icon from './../icon';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * UI for a heading header.
@@ -15,9 +17,9 @@ class Heading extends React.Component {
      * @property title
      * @type {String|Object}
      */
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
@@ -26,9 +28,9 @@ class Heading extends React.Component {
      * @property subheader
      * @type {String|Object}
      */
-    subheader: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    subheader: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
@@ -37,7 +39,7 @@ class Heading extends React.Component {
      * @property help
      * @type {String}
      */
-    help: React.PropTypes.string,
+    help: PropTypes.string,
 
     /**
      * Defines the help link for the heading.
@@ -45,7 +47,7 @@ class Heading extends React.Component {
      * @property helpLink
      * @type {String}
      */
-    helpLink: React.PropTypes.string,
+    helpLink: PropTypes.string,
 
     /**
      * Defines the a href for the back link.
@@ -53,7 +55,7 @@ class Heading extends React.Component {
      * @property backLink
      * @type {String}
      */
-    backLink: React.PropTypes.string,
+    backLink: PropTypes.string,
 
     /**
      * Adds a divider below the heading and the content.
@@ -62,7 +64,7 @@ class Heading extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    divider: React.PropTypes.bool,
+    divider: PropTypes.bool,
 
     /**
      * Adds a separator between the title and the subheader.
@@ -71,7 +73,7 @@ class Heading extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    separator: React.PropTypes.bool
+    separator: PropTypes.bool
   }
 
   static defaultProps = {
@@ -91,6 +93,7 @@ class Heading extends React.Component {
     return (
       <Help
         className="carbon-heading__help"
+        data-element='help'
         tooltipAlign="left"
         href={ this.props.helpLink }
       >
@@ -111,6 +114,7 @@ class Heading extends React.Component {
     return (
       <Link
         className="carbon-heading__back"
+        data-element='back'
         href={ this.props.backLink }
       >
         <Icon type="chevron" />
@@ -128,7 +132,7 @@ class Heading extends React.Component {
     if (!this.props.subheader) { return null; }
 
     return (
-      <div className="carbon-heading__subheader">
+      <div className="carbon-heading__subheader" data-element='subtitle'>
         { this.props.subheader }
       </div>
     );
@@ -168,13 +172,13 @@ class Heading extends React.Component {
     if (!this.props.title) { return null; }
 
     return (
-      <div className={ this.classes }>
+      <div className={ this.classes } { ...tagComponent('heading', this.props) }>
         <div className="carbon-heading__header">
           { this.back }
 
           <div className="carbon-heading__headers">
             <div className="carbon-heading__main-header">
-              <h1 className="carbon-heading__title">
+              <h1 className="carbon-heading__title" data-element='title'>
                 { this.props.title }
               </h1>
 

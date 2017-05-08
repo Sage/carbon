@@ -1,7 +1,9 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Checkbox from './checkbox';
 import Help from './../help';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Checkbox', () => {
   let instance;
@@ -134,6 +136,26 @@ describe('Checkbox', () => {
         );
         expect(instance.fieldHelpClasses).toMatch('carbon-checkbox__help-text carbon-checkbox__help-text--reverse');
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Checkbox data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'checkbox', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Checkbox label='Create...' fieldHelp='test' />);
+
+      elementsTagTest(wrapper, [
+        'help',
+        'input',
+        'label'
+      ]);
     });
   });
 });

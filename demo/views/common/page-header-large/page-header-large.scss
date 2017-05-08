@@ -1,0 +1,69 @@
+@import 'colors';
+@import "./../../../style-config/demo-variables";
+
+.page-header-large{
+  padding: 150px 0 120px 0;
+  @media (min-width: $menu-popout-point) {
+    padding-top: 80px;
+  }
+  position: relative;
+  text-align: center;
+
+  &__tile {
+    margin-bottom: 4%;
+    width: 100%;
+    @media(min-width: $response-point-medium) {
+      margin-bottom: 0;
+      width: 32%;
+    }
+  }
+}
+
+.page-header-large__background {
+  background: $header-background-gradient;
+  height: 100%;
+  left: 0;
+  position: relative;
+  right: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.page-header-large__titles {
+  color: $white;
+}
+
+.page-header-large__title {
+  font-size: 40px;
+  line-height: normal;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.page-header-large__subtitle {
+  font-size: 22px;
+  line-height: normal;
+}
+
+.heading-divider {
+  margin-bottom: 53px;
+  position: relative;
+
+  &:after {
+    position: absolute;
+    height: 2px;
+    content: '';
+    background: $white;
+    width: 60px;
+    left: 0;
+    right: 0;
+    bottom: -25px;
+    margin: auto;
+  }
+}
+
+.page-header-large__version {
+  font-weight: 100;
+  letter-spacing: 0.3px;
+  margin-top: 20px;
+}
