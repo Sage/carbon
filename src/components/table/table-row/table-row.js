@@ -131,8 +131,6 @@ class TableRow extends React.Component {
     selectable: PropTypes.bool, // table can enable all rows to be multi-selectable
     selectRow: PropTypes.func, // a callback function for when a row is selected
     dragDropManager: PropTypes.object, // the React DND DragDropManager
-    onDrag: PropTypes.func, // a callback function for when a draggable item is moved
-    hover: PropTypes.func, // a callback function called when an item is hovered over a drop target
     dragAndDropIndex: PropTypes.number
   }
 
@@ -403,8 +401,6 @@ class TableRow extends React.Component {
     return (
       <WithDrop
         dndIdentifier={ this.props.dndIdentifier }
-        onDrag={ this.context.onDrag }
-        hover={ this.context.hover }
         index={ this.props.index }
       >
         { row }

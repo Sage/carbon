@@ -13,38 +13,6 @@ import WithDrop from 'components/drag-and-drop/with-drop';
 
 import { Table, TableRow, TableCell, TableHeader } from 'components/table';
 
-class Item extends React.Component {
-  static contextTypes = {
-    onDrag: React.PropTypes.func, // a callback function to specify whether dragging is allowed
-    hover: React.PropTypes.func, // a callback function to specify whether dragging is allowed
-    index: React.PropTypes.number, // a callback function to specify whether dragging is allowed
-    canDrag: React.PropTypes.func, // a callback function to specify whether dragging is allowed
-    beginDrag: React.PropTypes.func, // a callback function called when dragging starts
-    endDrag: React.PropTypes.func, // a callback function called when dragging ends
-  }
-
-  render() {
-    return (
-      <WithDrop
-        onDrag={ this.context.onDrag }
-        hover={ this.context.hover }
-        index={ this.props.index }
-      >
-          <li>
-            <WithDrag
-              beginDrag={ this.context.beginDrag }
-              canDrag={ this.context.canDrag }
-              endDrag={ this.context.endDrag }
-            >
-              <div>{ this.props.children }</div>
-
-          </WithDrag>
-        </li>
-      </WithDrop>
-    );
-  }
-}
-
 class Home extends React.Component {
   state = {
     items: [{
@@ -72,16 +40,22 @@ class Home extends React.Component {
         <DraggableContext onDrag={ this.handleDrag }>
           <ul>
             {
-                this.state.items.map((item, index) => {
-                  return (
-                    <Item key={ index } index={ index }>
-                      { item.content }
-                    </Item>
-                  );
-                })
+              this.state.items.map((item, index) => {
+                return (
+                  <WithDrop key={ index } index={ index }>
+                    <li>
+                      <WithDrag>
+                        <div>{ item.content }</div>
+                      </WithDrag>
+                    </li>
+                  </WithDrop>
+                );
+              })
             }
           </ul>
         </DraggableContext>
+
+
         <Table tbody={ false }>
           <thead>
             <TableRow as="header">

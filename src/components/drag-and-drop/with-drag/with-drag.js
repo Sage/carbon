@@ -5,9 +5,14 @@ import ItemTypes from './../../../utils/helpers/dnd/item-types';
 class WithDrag extends React.Component {
   static propTypes = {
     dndIdentifier: React.PropTypes.string,
-    canDrag: React.PropTypes.func.isRequired,
-    beginDrag: React.PropTypes.func.isRequired,
-    endDrag: React.PropTypes.func.isRequired
+    canDrag: React.PropTypes.func,
+    beginDrag: React.PropTypes.func,
+    endDrag: React.PropTypes.func
+  }
+
+  static contextTypes = {
+    beginDrag: React.PropTypes.func, // a callback function called when dragging starts
+    endDrag: React.PropTypes.func, // a callback function called when dragging ends
   }
 
   render() {
@@ -19,15 +24,21 @@ class WithDrag extends React.Component {
 
 const ItemSource = {
   canDrag(props, monitor) {
-    return props.canDrag && props.canDrag(props, monitor);
+    if (props.canDrag) {
+      return props.canDrag(props, monitor);
+    } else {
+      return true;
+    }
   },
 
   beginDrag(props, monitor, component) {
-    return props.beginDrag(props, monitor, component);
+    const beginDrag = props.beginDrag || component.context.beginDrag;
+    return beginDrag(props, monitor, component);
   },
 
   endDrag(props, monitor, component) {
-    return props.endDrag(props, monitor, component);
+    const endDrag = props.endDrag || component.context.endDrag;
+    return endDrag(props, monitor, component);
   }
 };
 

@@ -18,7 +18,6 @@ import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
  *   <ol>
  *     <DraggableContext
  *       onDrag={ onItemMoved }
- *       canDrag={ itemCanDrag }
  *       beginDrag={ onBeginDrag }
  *       hover={ onHover }
  *     >
@@ -42,15 +41,6 @@ class DraggableContext extends React.Component {
     onDrag: React.PropTypes.func.isRequired,
 
     /**
-     * Callback function that determines whether the item can be
-     * dragged.
-     *
-     * Synonymous with React DnD's Drag Source Specification canDrag
-     * - see https://react-dnd.github.io/react-dnd/docs-drag-source.html
-     */
-    canDrag: React.PropTypes.func,
-
-    /**
      * Callback function called when dragging starts.
      *
      * Synonymous with React DnD's Drag Source Specification beginDrag
@@ -70,9 +60,6 @@ class DraggableContext extends React.Component {
 
   static defaultProps = {
     hover: ItemTargetHelper.onHoverUpDown,
-    canDrag: () => {
-      return true;
-    },
     beginDrag: (props) => {
       return {
         index: props.index
@@ -89,11 +76,11 @@ class DraggableContext extends React.Component {
    */
   static childContextTypes = {
     onDrag: React.PropTypes.func, // See propTypes.onDrag
-    canDrag: React.PropTypes.func, // See propTypes.canDrag
     beginDrag: React.PropTypes.func, // See propTypes.beginDrag
     endDrag: React.PropTypes.func, // See propTypes.beginDrag
     hover: React.PropTypes.func, // See propTypes.hover
-    dragAndDropIndex: React.PropTypes.number
+    dragAndDropIndex: React.PropTypes.number,
+    dndIdentifier: React.PropTypes.string,
   }
 
   /**
@@ -105,11 +92,11 @@ class DraggableContext extends React.Component {
   getChildContext() {
     return {
       onDrag: this.handleDrag,
-      canDrag: this.props.canDrag,
       beginDrag: this.props.beginDrag,
       endDrag: this.handleEndDrag,
       hover: this.props.hover,
-      dragAndDropIndex: this.state.dragAndDropIndex
+      dragAndDropIndex: this.state.dragAndDropIndex,
+      dndIdentifier: this.props.id
     };
   }
 

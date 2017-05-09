@@ -5,9 +5,14 @@ import ItemTypes from './../../../utils/helpers/dnd/item-types';
 class WithDrop extends React.Component {
   static propTypes = {
     dndIdentifier: React.PropTypes.string,
-    onDrag: React.PropTypes.func.isRequired,
-    hover: React.PropTypes.func.isRequired,
+    onDrag: React.PropTypes.func,
+    hover: React.PropTypes.func,
     index: React.PropTypes.number.isRequired
+  }
+
+  static contextTypes = {
+    onDrag: React.PropTypes.func,
+    hover: React.PropTypes.func
   }
 
   render() {
@@ -17,7 +22,8 @@ class WithDrop extends React.Component {
 
 const ItemTarget = {
   hover(props, monitor, component) {
-    props.hover && props.hover(props, monitor, component);
+    const hover = props.hover || component.context.hover;
+    hover(props, monitor, component);
   }
 };
 

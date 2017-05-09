@@ -8,21 +8,10 @@ class DraggableTableCell extends React.Component {
     dndIdentifier: PropTypes.string
   }
 
-  static contextTypes = {
-    canDrag: PropTypes.func, // a callback function to specify whether dragging is allowed
-    beginDrag: PropTypes.func, // a callback function called when dragging starts
-    endDrag: PropTypes.func, // a callback function called when dragging ends
-  }
-
   render() {
     return (
       <TableCell className="draggable-table-cell">
-        <WithDrag
-          beginDrag={ this.context.beginDrag }
-          canDrag={ this.context.canDrag }
-          endDrag={ this.context.endDrag }
-          dndIdentifier={ this.props.dndIdentifier }
-        >
+        <WithDrag dndIdentifier={ this.props.dndIdentifier }>
           <div>
             <Icon
               className="draggable-table-cell__icon"
