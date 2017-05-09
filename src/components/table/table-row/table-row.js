@@ -5,8 +5,9 @@ import TableCell from './../table-cell';
 import TableHeader from './../table-header';
 import Checkbox from './../../checkbox';
 import guid from './../../../utils/helpers/guid';
+import WithDrop from './../../drag-and-drop/with-drop';
+import DraggableTableCell from './../draggable-table-cell';
 import { validProps } from '../../../utils/ether';
-import { WithDragAndDrop } from './../../drag-and-drop';
 import { tagComponent } from '../../../utils/helpers/tags';
 
 /**
@@ -109,7 +110,9 @@ class TableRow extends React.Component {
      * @property index
      * @type {Number}
      */
-    index: PropTypes.number
+    index: PropTypes.number,
+
+    dndIdentifier: PropTypes.string
   }
 
   /**
@@ -128,10 +131,9 @@ class TableRow extends React.Component {
     selectable: PropTypes.bool, // table can enable all rows to be multi-selectable
     selectRow: PropTypes.func, // a callback function for when a row is selected
     dragDropManager: PropTypes.object, // the React DND DragDropManager
-    moveItem: PropTypes.func, // a callback function for when a draggable item is moved
-    canDrag: PropTypes.func, // a callback function to specify whether dragging is allowed
-    beginDrag: PropTypes.func, // a callback function called when dragging starts
-    hover: PropTypes.func // a callback function called when an item is hovered over a drop target
+    onDrag: PropTypes.func, // a callback function for when a draggable item is moved
+    hover: PropTypes.func, // a callback function called when an item is hovered over a drop target
+    dragAndDropIndex: PropTypes.number
   }
 
   state = {
@@ -276,7 +278,9 @@ class TableRow extends React.Component {
       this.props.className, {
         'carbon-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
         'carbon-table-row--selected': this.state.selected,
-        'carbon-table-row--highlighted': (this.state.highlighted && !this.state.selected)
+        'carbon-table-row--highlighted': (this.state.highlighted && !this.state.selected),
+        'carbon-table-row--dragged': (this.context.dragAndDropIndex === this.props.index),
+        'carbon-table-row--dragging': (typeof this.context.dragAndDropIndex === 'number')
       }
     );
   }
@@ -371,37 +375,61 @@ class TableRow extends React.Component {
   }
 
   /**
+   * Returns a draggable cell if required.
+   *
+   * @method renderDraggableCell
+   * @return {Object} JSX
+   */
+  renderDraggableCell = () => {
+    if (!this.context.dragDropManager) {
+      return null;
+    }
+
+    return <DraggableTableCell dndIdentifier={ this.props.dndIdentifier } />;
+  }
+
+  /**
+   * Returns the row wrapped in draggable functionality if required.
+   *
+   * @method renderDraggableRow
+   * @param {Object} JSX
+   * @return {Object} JSX
+   */
+  renderDraggableRow = (row) => {
+    if (!this.context.dragDropManager) {
+      return row;
+    }
+
+    return (
+      <WithDrop
+        dndIdentifier={ this.props.dndIdentifier }
+        onDrag={ this.context.onDrag }
+        hover={ this.context.hover }
+        index={ this.props.index }
+      >
+        { row }
+      </WithDrop>
+    );
+  }
+
+  /**
    * Renders the component
    *
    * @method render
    */
   render() {
     let content = [this.props.children];
-    let row = (
-      <tr { ...this.rowProps } { ...tagComponent('table-row', this.props) }>
-        { content }
-      </tr>
-    );
 
     if (this.shouldHaveMultiSelectColumn) {
       content.unshift(this.multiSelectCell);
     }
 
-    if (this.context.dragDropManager) {
-      return (
-        <WithDragAndDrop
-          moveItem={ this.context.moveItem }
-          canDrag={ this.context.canDrag }
-          beginDrag={ this.context.beginDrag }
-          hover={ this.context.hover }
-          index={ this.props.index }
-        >
-          { row }
-        </WithDragAndDrop>
-      );
-    } else {
-      return row;
-    }
+    return this.renderDraggableRow(
+      <tr { ...this.rowProps } { ...tagComponent('table-row', this.props) }>
+        { this.renderDraggableCell() }
+        { content }
+      </tr>
+    );
   }
 }
 

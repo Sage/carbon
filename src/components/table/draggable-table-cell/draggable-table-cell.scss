@@ -1,0 +1,16 @@
+.draggable-table-cell {
+  width: 21px;
+}
+
+.draggable-table-cell__icon {
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+.draggable-table-cell__icon:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
 
 /**
  * A draggable context component
@@ -16,7 +17,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
  *
  *   <ol>
  *     <DraggableContext
- *       moveItem={ onItemMoved }
+ *       onDrag={ onItemMoved }
  *       canDrag={ itemCanDrag }
  *       beginDrag={ onBeginDrag }
  *       hover={ onHover }
@@ -35,13 +36,10 @@ class DraggableContext extends React.Component {
 
   static propTypes = {
     /**
-     * Callback function for when an item has been dragged and dropped
+     * Callback function for when an item has been dragged
      * e.g. to update data in a store
-     *
-     * @property moveItem
-     * @type {Function}
      */
-    moveItem: React.PropTypes.func,
+    onDrag: React.PropTypes.func.isRequired,
 
     /**
      * Callback function that determines whether the item can be
@@ -49,9 +47,6 @@ class DraggableContext extends React.Component {
      *
      * Synonymous with React DnD's Drag Source Specification canDrag
      * - see https://react-dnd.github.io/react-dnd/docs-drag-source.html
-     *
-     * @property canDrag
-     * @type {Function}
      */
     canDrag: React.PropTypes.func,
 
@@ -60,9 +55,6 @@ class DraggableContext extends React.Component {
      *
      * Synonymous with React DnD's Drag Source Specification beginDrag
      * - see https://react-dnd.github.io/react-dnd/docs-drag-source.html
-     *
-     * @property beginDrag
-     * @type {Function}
      */
     beginDrag: React.PropTypes.func,
 
@@ -72,11 +64,20 @@ class DraggableContext extends React.Component {
      *
      * Synonymous with React DnD's Drop Target Specification
      * - see https://react-dnd.github.io/react-dnd/docs-drop-target.html
-     *
-     * @property hover
-     * @type {Function}
      */
     hover: React.PropTypes.func
+  }
+
+  static defaultProps = {
+    hover: ItemTargetHelper.onHoverUpDown,
+    canDrag: () => {
+      return true;
+    },
+    beginDrag: (props) => {
+      return {
+        index: props.index
+      };
+    }
   }
 
   /**
@@ -87,10 +88,12 @@ class DraggableContext extends React.Component {
    * @type {Object}
    */
   static childContextTypes = {
-    moveItem: React.PropTypes.func, // See propTypes.moveItem
+    onDrag: React.PropTypes.func, // See propTypes.onDrag
     canDrag: React.PropTypes.func, // See propTypes.canDrag
     beginDrag: React.PropTypes.func, // See propTypes.beginDrag
-    hover: React.PropTypes.func // See propTypes.hover
+    endDrag: React.PropTypes.func, // See propTypes.beginDrag
+    hover: React.PropTypes.func, // See propTypes.hover
+    dragAndDropIndex: React.PropTypes.number
   }
 
   /**
@@ -101,11 +104,29 @@ class DraggableContext extends React.Component {
    */
   getChildContext() {
     return {
-      moveItem: this.props.moveItem,
+      onDrag: this.handleDrag,
       canDrag: this.props.canDrag,
       beginDrag: this.props.beginDrag,
-      hover: this.props.hover
+      endDrag: this.handleEndDrag,
+      hover: this.props.hover,
+      dragAndDropIndex: this.state.dragAndDropIndex
     };
+  }
+
+  state = {
+    dragAndDropIndex: null
+  }
+
+  handleDrag = (originalIndex, hoverIndex) => {
+    this.setState({ dragAndDropIndex: hoverIndex });
+
+    if (this.props.onDrag && typeof originalIndex !== 'undefined') {
+      this.props.onDrag(originalIndex, hoverIndex);
+    }
+  }
+
+  handleEndDrag = () => {
+    this.setState({ dragAndDropIndex: null });
   }
 
   /**
