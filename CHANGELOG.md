@@ -1,3 +1,24 @@
+# 1.0.1
+
+## !! BREAKING CHANGES!! :warning:
+
+* `ActionToolbar`: 'total' field margin and width
+* `Heading`: paddings
+* `Message`: Will now space a contained form component
+* `MultiActionButton`: Additional buttons are spaced differently
+* `MultisetpWizard`: Step has less padding-left
+* `Pod`: Header has less margin-bottom
+
+## Component Enhancements
+* `Detail`: font size increased
+* `Dialog`: font wieght
+* `Fieldset`: icon positioning
+* `Heading`: Font size increased and weight
+* `Input`: decorator has slight padding change
+* `Pod`: Font size increased
+* `ShowEditPod`: z-index on input prefixes
+* `TableHeader`: Font weight
+
 # 1.0.0
 
 ## :warning: Major Change - React 15 Upgrade

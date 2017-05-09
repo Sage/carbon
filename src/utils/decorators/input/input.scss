@@ -97,7 +97,7 @@
   line-height: $input-common-line-height;
   margin: 0px;
   outline: none;
-  padding: $input-common-padding;
+  padding: 5px 6px;
   width: 100%;
   vertical-align: baseline;
 
@@ -234,6 +234,8 @@
 .common-input__input--warning,
 .common-input__input--warning:hover {
   border-color: $warning !important; // this is the correct use of !important
+  position: relative;
+  z-index: 1;
 }
 
 .common-input__input--error,

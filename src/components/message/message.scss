@@ -7,6 +7,9 @@ $message-width: 300px !default;
 
 .carbon-message {
   position: relative;
+  & + .carbon-form {
+    margin-top: 15px;
+  }
 }
 
 .carbon-message--border {
