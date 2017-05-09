@@ -1,6 +1,5 @@
 import React from 'react';
 import I18n from 'i18n-js';
-import Row from 'components/row';
 
 // Demo
 import GetCodeButtons from './../../../../components/get-code-buttons';
@@ -10,10 +9,6 @@ class GetStarted extends React.Component {
   render () {
     return (
       <div className='get-started'>
-        <Row>
-          <div/>
-          <div/>
-        </Row>
         <Wrapper>
           <span className='get-started__text'>{ I18n.t('homepage.get_started.ready') }</span>
           <span className='get-started__checkout-text'>{ I18n.t('homepage.get_started.checkout') }</span>
