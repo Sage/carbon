@@ -377,15 +377,16 @@ class TableRow extends React.Component {
    */
   render() {
     let content = [this.props.children];
+
+    if (this.shouldHaveMultiSelectColumn) {
+      content.unshift(this.multiSelectCell);
+    }
+
     let row = (
       <tr { ...this.rowProps } { ...tagComponent('table-row', this.props) }>
         { content }
       </tr>
     );
-
-    if (this.shouldHaveMultiSelectColumn) {
-      content.unshift(this.multiSelectCell);
-    }
 
     if (this.context.dragDropManager) {
       return (
