@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { compact } from 'lodash';
 import Immutable from 'immutable';
 import Column from './column';
+import Logger from './../../utils/logger';
 
 /**
  * A row widget.
@@ -117,10 +118,12 @@ class Row extends React.Component {
       return React.cloneElement(child, { key: key, columnDivide: this.props.columnDivide }, child.props.children);
     } else {
 
-      // TODO: Extract into a Logger for ENV check and warning
-      if (!global.process.env.NODE_ENV || global.process.env.NODE_ENV === 'development') {
-        console.error('Warning: Row Component should only have a immediate child of type Column.'); // eslint-disable-line no-console
-      }
+      Logger(
+        'Warning: Row Component should only have an immediate child of type Column',
+        'error',
+        process.env.NODE_ENV
+      );
+
       return (
         <Column key={ key } { ...child.props } columnDivide={ this.props.columnDivide }>
           { child }

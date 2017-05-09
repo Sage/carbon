@@ -3,6 +3,7 @@ import Immutable from 'immutable';
 import TestUtils from 'react-dom/test-utils';
 import { Row, Column } from './row';
 import { shallow } from 'enzyme';
+import * as Logger from './../../utils/logger';
 
 describe('Row', () => {
 
@@ -174,39 +175,19 @@ describe('Row', () => {
   });
 
   describe('deprecated functionality', () => {
-    describe('when in development', () => {
-      beforeEach(() => {
-        global.process = { env: { NODE_ENV: 'development' } }
-      });
-
-      it('wraps the child in a column component', () => {
-        let wrapper = shallow(<Row><div>Foo</div></Row>);
-        expect(wrapper.find(Column).length).toEqual(1);
-      });
-
-      it('outputs a console warning about the deprecation', () => {
-        spyOn(console, 'error');
-        let wrapper = shallow(<Row><div>Foo</div></Row>);
-        expect(console.error).toHaveBeenCalled();
-      });
+    beforeEach(() => {
+      var process = { env: { NODE_ENV: 'development' } }
     });
 
-    describe('when NODE_ENV is not set', () => {
-      it('outputs a console warning about the deprecation', () => {
-        spyOn(console, 'error');
-        global.process = { env: { NODE_ENV: null } }
-        let wrapper = shallow(<Row><div>Foo</div></Row>);
-        expect(console.error).toHaveBeenCalled();
-      });
+    it('wraps the child in a column component', () => {
+      let wrapper = shallow(<Row><div>Foo</div></Row>);
+      expect(wrapper.find(Column).length).toEqual(1);
     });
 
-    describe('when in production', () => {
-      it('it does not output an error message', () => {
-        spyOn(console, 'error');
-        global.process = { env: { NODE_ENV: 'production' } }
-        let wrapper = shallow(<Row><div>Foo</div></Row>);
-        expect(console.error).not.toHaveBeenCalled();
-      });
+    it('Calls the logger to report the deprecation', () => {
+      spyOn(Logger, 'default');
+      let wrapper = shallow(<Row><div>Foo</div></Row>);
+      expect(Logger.default).toHaveBeenCalled();
     });
   });
 });
