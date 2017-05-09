@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 import TestUtils from 'react-dom/test-utils';
 import { Row, Column } from './row';
 import { shallow } from 'enzyme';
-import * as Logger from './../../utils/logger';
+import Logger from './../../utils/logger';
 
 describe('Row', () => {
 
@@ -185,9 +185,9 @@ describe('Row', () => {
     });
 
     it('Calls the logger to report the deprecation', () => {
-      spyOn(Logger, 'default');
+      spyOn(Logger, 'deprecate');
       let wrapper = shallow(<Row><div>Foo</div></Row>);
-      expect(Logger.default).toHaveBeenCalled();
+      expect(Logger.deprecate).toHaveBeenCalled();
     });
   });
 });
