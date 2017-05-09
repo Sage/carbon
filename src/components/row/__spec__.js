@@ -174,9 +174,39 @@ describe('Row', () => {
   });
 
   describe('deprecated functionality', () => {
-    it('wraps the child in a column component', () => {
-      let wrapper = shallow(<Row><div>Foo</div></Row>);
-      expect(wrapper.find(Column).length).toEqual(1);
+    describe('when in development', () => {
+      beforeEach(() => {
+        global.process = { env: { NODE_ENV: 'development' } }
+      });
+
+      it('wraps the child in a column component', () => {
+        let wrapper = shallow(<Row><div>Foo</div></Row>);
+        expect(wrapper.find(Column).length).toEqual(1);
+      });
+
+      it('outputs a console warning about the deprecation', () => {
+        spyOn(console, 'error');
+        let wrapper = shallow(<Row><div>Foo</div></Row>);
+        expect(console.error).toHaveBeenCalled();
+      });
+    });
+
+    describe('when NODE_ENV is not set', () => {
+      it('outputs a console warning about the deprecation', () => {
+        spyOn(console, 'error');
+        global.process = { env: { NODE_ENV: null } }
+        let wrapper = shallow(<Row><div>Foo</div></Row>);
+        expect(console.error).toHaveBeenCalled();
+      });
+    });
+
+    describe('when in production', () => {
+      it('it does not output an error message', () => {
+        spyOn(console, 'error');
+        global.process = { env: { NODE_ENV: 'production' } }
+        let wrapper = shallow(<Row><div>Foo</div></Row>);
+        expect(console.error).not.toHaveBeenCalled();
+      });
     });
   });
 });

@@ -116,6 +116,11 @@ class Row extends React.Component {
     if (child.type === Column) {
       return React.cloneElement(child, { key: key, columnDivide: this.props.columnDivide }, child.props.children);
     } else {
+
+      // TODO: Extract into a Logger for ENV check and warning
+      if (!global.process.env.NODE_ENV || global.process.env.NODE_ENV === 'development') {
+        console.error('Warning: Row Component should only have a immediate child of type Column.'); // eslint-disable-line no-console
+      }
       return (
         <Column key={ key } { ...child.props } columnDivide={ this.props.columnDivide }>
           { child }
