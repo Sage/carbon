@@ -90,8 +90,9 @@ class Heading extends React.Component {
 
     return (
       <Help
-        className="carbon-heading__help"
-        tooltipAlign="left"
+        className='carbon-heading__help'
+        tooltipAlign='center'
+        tooltipPosition='right'
         href={ this.props.helpLink }
       >
         { this.props.help }

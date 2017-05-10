@@ -1,7 +1,6 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import DropdownFilterAjax from './dropdown-filter-ajax';
-import Immutable from 'immutable';
 
 describe('DropdownFilterAjax', () => {
   let instance;
@@ -97,7 +96,7 @@ describe('DropdownFilterAjax', () => {
         it('triggers the onBlur function', () => {
           let onBlur = jasmine.createSpy('onBlur');
 
-          instance = TestUtils.renderIntoDocument(<DropdownFilterAjax onBlur={ onBlur } />);
+          instance = TestUtils.renderIntoDocument(<DropdownFilterAjax onBlur={ onBlur } path="/foobar" />);
           TestUtils.Simulate.blur(instance._input);
           expect(onBlur).toHaveBeenCalled();
         });
