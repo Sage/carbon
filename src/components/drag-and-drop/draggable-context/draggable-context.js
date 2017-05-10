@@ -49,8 +49,7 @@ class DraggableContext extends React.Component {
     beginDrag: React.PropTypes.func,
 
     /**
-     * Callback function called when an item is hovered over the
-     * component.
+     * Callback function called when an item is hovered over the component.
      *
      * Synonymous with React DnD's Drop Target Specification
      * - see https://react-dnd.github.io/react-dnd/docs-drop-target.html
@@ -75,12 +74,11 @@ class DraggableContext extends React.Component {
    * @type {Object}
    */
   static childContextTypes = {
-    onDrag: React.PropTypes.func, // See propTypes.onDrag
-    beginDrag: React.PropTypes.func, // See propTypes.beginDrag
-    endDrag: React.PropTypes.func, // See propTypes.beginDrag
-    hover: React.PropTypes.func, // See propTypes.hover
-    dragAndDropIndex: React.PropTypes.number,
-    dndIdentifier: React.PropTypes.string,
+    dragAndDropOnDrag: React.PropTypes.func, // See propTypes.onDrag
+    dragAndDropBeginDrag: React.PropTypes.func, // See propTypes.beginDrag
+    dragAndDropEndDrag: React.PropTypes.func, // See propTypes.beginDrag
+    dragAndDropHover: React.PropTypes.func, // See propTypes.hover
+    dragAndDropActiveIndex: React.PropTypes.number
   }
 
   /**
@@ -91,21 +89,20 @@ class DraggableContext extends React.Component {
    */
   getChildContext() {
     return {
-      onDrag: this.handleDrag,
-      beginDrag: this.props.beginDrag,
-      endDrag: this.handleEndDrag,
-      hover: this.props.hover,
-      dragAndDropIndex: this.state.dragAndDropIndex,
-      dndIdentifier: this.props.id
+      dragAndDropOnDrag: this.handleDrag,
+      dragAndDropBeginDrag: this.props.beginDrag,
+      dragAndDropEndDrag: this.handleEndDrag,
+      dragAndDropHover: this.props.hover,
+      dragAndDropActiveIndex: this.state.activeIndex
     };
   }
 
   state = {
-    dragAndDropIndex: null
+    activeIndex: null
   }
 
   handleDrag = (originalIndex, hoverIndex) => {
-    this.setState({ dragAndDropIndex: hoverIndex });
+    this.setState({ activeIndex: hoverIndex });
 
     if (this.props.onDrag && typeof originalIndex !== 'undefined') {
       this.props.onDrag(originalIndex, hoverIndex);
@@ -113,14 +110,11 @@ class DraggableContext extends React.Component {
   }
 
   handleEndDrag = () => {
-    this.setState({ dragAndDropIndex: null });
+    this.setState({ activeIndex: null });
   }
 
   /**
    * Renders the component
-   *
-   * @method render
-   * @return {Object} JSX
    */
   render() {
     return this.props.children;

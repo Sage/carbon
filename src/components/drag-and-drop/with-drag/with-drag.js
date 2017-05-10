@@ -4,15 +4,15 @@ import ItemTypes from './../../../utils/helpers/dnd/item-types';
 
 class WithDrag extends React.Component {
   static propTypes = {
-    dndIdentifier: React.PropTypes.string,
+    identifier: React.PropTypes.string,
     canDrag: React.PropTypes.func,
     beginDrag: React.PropTypes.func,
     endDrag: React.PropTypes.func
   }
 
   static contextTypes = {
-    beginDrag: React.PropTypes.func, // a callback function called when dragging starts
-    endDrag: React.PropTypes.func, // a callback function called when dragging ends
+    dragAndDropBeginDrag: React.PropTypes.func, // a callback function called when dragging starts
+    dragAndDropEndDrag: React.PropTypes.func, // a callback function called when dragging ends
   }
 
   render() {
@@ -32,12 +32,12 @@ const ItemSource = {
   },
 
   beginDrag(props, monitor, component) {
-    const beginDrag = props.beginDrag || component.context.beginDrag;
+    const beginDrag = props.beginDrag || component.context.dragAndDropBeginDrag;
     return beginDrag(props, monitor, component);
   },
 
   endDrag(props, monitor, component) {
-    const endDrag = props.endDrag || component.context.endDrag;
+    const endDrag = props.endDrag || component.context.dragAndDropEndDrag;
     return endDrag(props, monitor, component);
   }
 };

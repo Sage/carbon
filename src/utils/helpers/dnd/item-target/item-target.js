@@ -43,7 +43,7 @@ const ItemTargetHelper = {
     }
 
     // Time to actually perform the action
-    const onDrag = props.onDrag || component.context.onDrag;
+    const onDrag = props.onDrag || component.context.dragAndDropOnDrag;
     onDrag(dragIndex, hoverIndex);
     // Note: we're mutating the monitor item here!
     // Generally it's better to avoid mutations,

@@ -112,7 +112,7 @@ class TableRow extends React.Component {
      */
     index: PropTypes.number,
 
-    dndIdentifier: PropTypes.string
+    dragAndDropIdentifier: PropTypes.string
   }
 
   /**
@@ -131,7 +131,7 @@ class TableRow extends React.Component {
     selectable: PropTypes.bool, // table can enable all rows to be multi-selectable
     selectRow: PropTypes.func, // a callback function for when a row is selected
     dragDropManager: PropTypes.object, // the React DND DragDropManager
-    dragAndDropIndex: PropTypes.number
+    dragAndDropActiveIndex: PropTypes.number
   }
 
   state = {
@@ -277,8 +277,8 @@ class TableRow extends React.Component {
         'carbon-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
         'carbon-table-row--selected': this.state.selected,
         'carbon-table-row--highlighted': (this.state.highlighted && !this.state.selected),
-        'carbon-table-row--dragged': (this.context.dragAndDropIndex === this.props.index),
-        'carbon-table-row--dragging': (typeof this.context.dragAndDropIndex === 'number')
+        'carbon-table-row--dragged': (this.context.dragAndDropActiveIndex === this.props.index),
+        'carbon-table-row--dragging': (typeof this.context.dragAndDropActiveIndex === 'number')
       }
     );
   }
@@ -383,7 +383,7 @@ class TableRow extends React.Component {
       return null;
     }
 
-    return <DraggableTableCell dndIdentifier={ this.props.dndIdentifier } />;
+    return <DraggableTableCell identifier={ this.props.dragAndDropIdentifier } />;
   }
 
   /**
@@ -400,7 +400,7 @@ class TableRow extends React.Component {
 
     return (
       <WithDrop
-        dndIdentifier={ this.props.dndIdentifier }
+        identifier={ this.props.dragAndDropIdentifier }
         index={ this.props.index }
       >
         { row }

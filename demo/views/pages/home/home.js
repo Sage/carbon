@@ -55,7 +55,6 @@ class Home extends React.Component {
           </ul>
         </DraggableContext>
 
-
         <Table tbody={ false }>
           <thead>
             <TableRow as="header">
@@ -68,7 +67,7 @@ class Home extends React.Component {
               {
                 this.state.items.map((item, index) => {
                   return (
-                    <TableRow key={ index } index={ index }>
+                    <TableRow key={ index } index={ index } dragAndDropIdentifier="foo">
                       <TableCell>{ item.content }</TableCell>
                     </TableRow>
                   );

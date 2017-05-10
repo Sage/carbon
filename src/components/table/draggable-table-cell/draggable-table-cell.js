@@ -5,13 +5,13 @@ import Icon from './../../icon';
 
 class DraggableTableCell extends React.Component {
   static PropTypes = {
-    dndIdentifier: PropTypes.string
+    identifier: PropTypes.string
   }
 
   render() {
     return (
       <TableCell className="draggable-table-cell">
-        <WithDrag dndIdentifier={ this.props.dndIdentifier }>
+        <WithDrag identifier={ this.props.identifier }>
           <div>
             <Icon
               className="draggable-table-cell__icon"
