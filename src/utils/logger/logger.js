@@ -22,7 +22,7 @@ const log = (message, type) => {
  * info - console.info
  * log - console.log
  * warn - console.warn
- * deprecate - console.warn which preprends the message with [Deprecation]
+ * deprecate - console.warn which prepends the message with [Deprecation]
  *
  * To Use:
  *
