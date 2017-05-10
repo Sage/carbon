@@ -70,6 +70,12 @@ We have added data-attributes to components to better identify them and their pa
 gulp --port 1234
 ```
 
+# 0.36.3
+
+## Component Enhancements
+
+* `DialogFullScreen` now accepts a String for title or any other component.
+
 # 0.36.2
 
 * Hide SplitButton additional buttons instead of removing them.
@@ -107,7 +113,7 @@ with a label.
 </InlineInputs>
 ```
 
-## Component Enchancements
+## Component Enhancements
 
 * `Date` now shows error validation when an invalid date is entered.
 * `Flash`: Change error icon to match other notifications (now shows error icon when `as` prop is `error`)
