@@ -283,7 +283,7 @@ class TableRow extends React.Component {
         'carbon-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
         'carbon-table-row--selected': this.state.selected,
         'carbon-table-row--highlighted': (this.state.highlighted && !this.state.selected),
-        'carbon-table-row--dragged': (this.context.dragAndDropActiveIndex === this.props.index),
+        'carbon-table-row--dragged': (typeof this.context.dragAndDropActiveIndex === 'number' && this.context.dragAndDropActiveIndex === this.props.index),
         'carbon-table-row--dragging': (typeof this.context.dragAndDropActiveIndex === 'number')
       }
     );

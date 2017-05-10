@@ -86,4 +86,7 @@ const ComponentActions = {
   }
 };
 
+// required for dnd demo:
+global.updateDndData = ComponentActions.updateDndData;
+
 export default ComponentActions;

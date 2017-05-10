@@ -31,7 +31,8 @@ let definition = new Definition('table', Table, {
   dataVariable: 'tableData',
   propValues: {
     onChange: ComponentActions.updateTable,
-  }
+  },
+  toggleProps: ['draggable']
 });
 
 definition.isATable();

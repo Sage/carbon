@@ -4,6 +4,7 @@ import Definition from './../../../../demo/utils/definition';
 let definition = new Definition('table-row', TableRow, {
   propTypes: {
     as: "String",
+    dragAndDropIdentifier: "String",
     hideMultiSelect: "Boolean",
     highlightable: "Boolean",
     highlighted: "Boolean",
@@ -16,6 +17,7 @@ let definition = new Definition('table-row', TableRow, {
   },
   propDescriptions: {
     as: "Defines what this row is for. For your header row set this to 'header' to ensure it behaves correctly.",
+    dragAndDropIdentifier: "Creates a unique association for this drag and drop instance.",
     hideMultiSelect: "Option to hide the checkbox for a row that is selectable. Useful if you have set your table to be selectable but you do not want a particular row to be selectable.",
     highlightable: "Controls if this particular row is highlightable.",
     highlighted: "Controls the highlighted state of the row.",
