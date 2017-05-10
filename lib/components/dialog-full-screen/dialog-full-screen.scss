@@ -12,14 +12,18 @@
 }
 
 .carbon-dialog-full-screen__content {
-  padding: 50px 5%;
+  padding: 30px 5%;
 }
 
 .carbon-dialog-full-screen__header {
   border-bottom: 1px solid $border-color;
   margin: 0;
-  padding: 50px 5%;
+  padding: 25px 5%;
   position: relative;
+
+  .carbon-heading {
+    padding: 0;
+  }
 }
 
 .carbon-dialog-full-screen__title {
