@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
 import { Table, TableCell } from './../table';
 import TableRow from './table-row';
@@ -440,8 +441,8 @@ describe('TableRow', () => {
             moveItem: () => {}
           },
           childContextTypes: {
-            dragDropManager: React.PropTypes.object,
-            moveItem: React.PropTypes.func
+            dragDropManager: PropTypes.object,
+            moveItem: PropTypes.func
           }
         };
       });

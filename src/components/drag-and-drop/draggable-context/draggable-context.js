@@ -1,5 +1,6 @@
 import React from 'react';
 import { DragDropContext } from 'react-dnd';
+import PropTypes from 'prop-types';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
 
@@ -10,23 +11,30 @@ import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
  *
  * In your file
  *
- *   import DraggableContext from 'carbon/lib/components/drag-and-drop'
+ *   import { DraggableContext, WithDrop, WithDrag } from 'carbon/lib/components/drag-and-drop'
  *
- * A draggable context is used to define an area in the page
- * where drag and drop can be used on one or more elements:
+ * A draggable context is used to define an area in the page where drag and drop can be used on
+ * one or more elements (you also need to use WithDrop and WithDrag):
  *
- *   <ol>
- *     <DraggableContext
- *       onDrag={ onItemMoved }
- *       beginDrag={ onBeginDrag }
- *       hover={ onHover }
- *     >
- *       <li>Spring roll</li>
- *       <li>Prawn toast</li>
- *       <li>Hot and sour soup</li>
- *       <li>Spare ribs</li>
- *     </DraggableContext>
- *   </ol>
+ *   <DraggableContext onDrag={ onItemMoved }>
+ *     <ol>
+ *       <WithDrop index={ 0 }>
+ *         <li>
+ *           <WithDrag><span>Spring Roll</span></WithDrag>
+ *         </li>
+ *       </WithDrop>
+ *       <WithDrop index={ 1 }>
+ *         <li>
+ *           <WithDrag><span>Prawn Toast</span></WithDrag>
+ *         </li>
+ *       </WithDrop>
+ *       <WithDrop index={ 2 }>
+ *         <li>
+ *           <WithDrag><span>Hot and Sour Soup</span></WithDrag>
+ *         </li>
+ *       </WithDrop>
+ *     </ol>
+ *   </DraggableContext>
  *
  * @class DraggableContext
  * @constructor
@@ -38,33 +46,9 @@ class DraggableContext extends React.Component {
      * Callback function for when an item has been dragged
      * e.g. to update data in a store
      */
-    onDrag: React.PropTypes.func.isRequired,
-
-    /**
-     * Callback function called when dragging starts.
-     *
-     * Synonymous with React DnD's Drag Source Specification beginDrag
-     * - see https://react-dnd.github.io/react-dnd/docs-drag-source.html
-     */
-    beginDrag: React.PropTypes.func,
-
-    /**
-     * Callback function called when an item is hovered over the component.
-     *
-     * Synonymous with React DnD's Drop Target Specification
-     * - see https://react-dnd.github.io/react-dnd/docs-drop-target.html
-     */
-    hover: React.PropTypes.func
+    onDrag: PropTypes.func.isRequired
   }
 
-  static defaultProps = {
-    hover: ItemTargetHelper.onHoverUpDown,
-    beginDrag: (props) => {
-      return {
-        index: props.index
-      };
-    }
-  }
 
   /**
    * Defines a context object for child components of the draggable context component.
@@ -74,15 +58,15 @@ class DraggableContext extends React.Component {
    * @type {Object}
    */
   static childContextTypes = {
-    dragAndDropOnDrag: React.PropTypes.func, // See propTypes.onDrag
-    dragAndDropBeginDrag: React.PropTypes.func, // See propTypes.beginDrag
-    dragAndDropEndDrag: React.PropTypes.func, // See propTypes.beginDrag
-    dragAndDropHover: React.PropTypes.func, // See propTypes.hover
-    dragAndDropActiveIndex: React.PropTypes.number
+    dragAndDropOnDrag: PropTypes.func, // Callback for when order is changed
+    dragAndDropBeginDrag: PropTypes.func, // Callback for when dragging begins
+    dragAndDropEndDrag: PropTypes.func, // Callback for when dragging ends
+    dragAndDropHover: PropTypes.func, // Callback for when a hover is triggered
+    dragAndDropActiveIndex: PropTypes.number // Tracks the currently dragged index
   }
 
   /**
-   * Returns this draggable context object to child components.
+   * Returns this draggable context properties to child components.
    *
    * @method getChildContext
    * @return {void}
@@ -90,26 +74,64 @@ class DraggableContext extends React.Component {
   getChildContext() {
     return {
       dragAndDropOnDrag: this.handleDrag,
-      dragAndDropBeginDrag: this.props.beginDrag,
+      dragAndDropBeginDrag: this.handleBeginDrag,
       dragAndDropEndDrag: this.handleEndDrag,
-      dragAndDropHover: this.props.hover,
+      dragAndDropHover: this.handleHover,
       dragAndDropActiveIndex: this.state.activeIndex
     };
   }
 
   state = {
-    activeIndex: null
+    activeIndex: null // {Number} tracks the currently dragged index
   }
 
+  /**
+   * A callback for when hover is triggered
+   *
+   * @method handleHover
+   * @return {Void}
+   */
+  handleHover = ItemTargetHelper.onHoverUpDown
+
+  /**
+   * A callback for when a drag is triggered.
+   *
+   * @method handleDrag
+   * @param {Number} originalIndex (the active item's original index)
+   * @param {Number} hoverIndex (the active item's new index)
+   * @return {Void}
+   */
   handleDrag = (originalIndex, hoverIndex) => {
+    // tracks the new index
     this.setState({ activeIndex: hoverIndex });
 
+    // only triggers the onDrag callback if there is an originalIndex
     if (this.props.onDrag && typeof originalIndex !== 'undefined') {
       this.props.onDrag(originalIndex, hoverIndex);
     }
   }
 
+  /**
+   * A callback for when dragging begins.
+   *
+   * @method handleBeginDrag
+   * @param {Object} props
+   * @return {Void}
+   */
+  handleBeginDrag = (props) => {
+    return {
+      index: props.index
+    };
+  }
+
+  /**
+   * A callback for when a drag ends triggered.
+   *
+   * @method handleEndDrag
+   * @return {Void}
+   */
   handleEndDrag = () => {
+    // dragging has ended so remove the active index
     this.setState({ activeIndex: null });
   }
 

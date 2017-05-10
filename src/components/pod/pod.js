@@ -114,9 +114,9 @@ class Pod extends React.Component {
      * @property footer
      * @type {String | Object}
      */
-    footer: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    footer: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**

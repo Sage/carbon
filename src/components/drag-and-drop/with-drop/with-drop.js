@@ -1,18 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
 import ItemTypes from './../../../utils/helpers/dnd/item-types';
 
 class WithDrop extends React.Component {
   static propTypes = {
-    identifier: React.PropTypes.string,
-    onDrag: React.PropTypes.func,
-    hover: React.PropTypes.func,
-    index: React.PropTypes.number.isRequired
+    identifier: PropTypes.string, // identifies an association between WithDrag and WithDrop
+    index: PropTypes.number.isRequired, // identifies the index for this item
+    hover: PropTypes.func, // an optional callback to trigger when the item is hovered
   }
 
   static contextTypes = {
-    dragAndDropOnDrag: React.PropTypes.func,
-    dragAndDropHover: React.PropTypes.func
+    dragAndDropOnDrag: PropTypes.func,
+    dragAndDropHover: PropTypes.func
   }
 
   render() {

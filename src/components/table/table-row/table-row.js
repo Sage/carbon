@@ -112,6 +112,12 @@ class TableRow extends React.Component {
      */
     index: PropTypes.number,
 
+    /**
+     * Optional to associate the drag and drag context.
+     *
+     * @property dragAndDropIdentifier
+     * @type {String}
+     */
     dragAndDropIdentifier: PropTypes.string
   }
 
@@ -131,7 +137,7 @@ class TableRow extends React.Component {
     selectable: PropTypes.bool, // table can enable all rows to be multi-selectable
     selectRow: PropTypes.func, // a callback function for when a row is selected
     dragDropManager: PropTypes.object, // the React DND DragDropManager
-    dragAndDropActiveIndex: PropTypes.number
+    dragAndDropActiveIndex: PropTypes.number // tracks the currently active index
   }
 
   state = {

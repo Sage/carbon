@@ -3,25 +3,28 @@ import PropTypes from 'prop-types';
 import WithDrag from './../../drag-and-drop/with-drag';
 import Icon from './../../icon';
 
-class DraggableTableCell extends React.Component {
-  static PropTypes = {
-    identifier: PropTypes.string
-  }
+/**
+ * Creates a draggable table cell using WithDrag.
+ *
+ * @constructor
+ */
+const DraggableTableCell = (props) => {
+  return (
+    <TableCell className="draggable-table-cell">
+      <WithDrag identifier={ props.identifier }>
+        <div>
+          <Icon
+            className="draggable-table-cell__icon"
+            type="drag_vertical"
+          />
+        </div>
+      </WithDrag>
+    </TableCell>
+  );
+};
 
-  render() {
-    return (
-      <TableCell className="draggable-table-cell">
-        <WithDrag identifier={ this.props.identifier }>
-          <div>
-            <Icon
-              className="draggable-table-cell__icon"
-              type="drag_vertical"
-            />
-          </div>
-        </WithDrag>
-      </TableCell>
-    );
-  }
-}
+DraggableTableCell.propTypes = {
+  identifier: PropTypes.string // used to associate WithDrags and WithDrops
+};
 
 export default DraggableTableCell;
