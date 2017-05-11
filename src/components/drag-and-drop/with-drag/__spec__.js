@@ -1,67 +1,33 @@
 // __spec__.js
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
-import { WithDragAndDrop } from './../drag-and-drop';
+import DraggableContext from './../draggable-context';
+import WithDrag from './with-drag';
+import { DragSource } from 'react-dnd';
 
-describe('WithDragAndDrop', () => {
-  let OriginalComponent;
+fdescribe('WithDrag', () => {
+  let wrapper;
 
   beforeEach(() => {
-    OriginalComponent = WithDragAndDrop.DecoratedComponent;
-  });
-
-  it('has a DragDropContainer', () => {
-    expect(WithDragAndDrop.name).toBe('DragDropContainer');
-  });
-
-  it('calls connectDragSource and connectDropTarget', () => {
-    // Stub the React DnD connector functions with an identity function
-    //
-    // Track calls using count.
-    // Return el, otherwise React complains that WithDragAndDrop.render()
-    // doesn't return a valid React element.
-    let count = 0;
-    const identity = (el) => {
-      count += 1;
-      return el;
-    };
-
-    let wrapper = shallow(
-      <OriginalComponent
-          connectDragSource={ identity }
-          connectDropTarget={ identity }>
+    wrapper = mount(
+      <DraggableContext>
         <div>
-          Draggable
+          <WithDrag>
+            <div>foo</div>
+          </WithDrag>
         </div>
-      </OriginalComponent>
+      </DraggableContext>
     );
-
-    expect(count).toEqual(2);
   });
 
-  describe('when validating child props', () => {
-    beforeEach(() => {
-      spyOn(console, 'error');
-    });
-
-    it('throws an error if no child props are passed', () => {
-      // Prop validation doesn't need to use a call to shallow, etc.
-      // -- see https://gist.github.com/scmx/d98cc058a7c3dfef7890#gistcomment-1854075
-      <OriginalComponent connectDragSource={ () => {} } connectDropTarget={ () => {} } />
-
-      expect(console.error.calls.count()).toBe(1);
-      expect(console.error.calls.argsFor(0)[0]).toMatch(/^.*Failed prop type.*`children`/);
-    });
-
-    it('throws an error if multiple root nodes are passed as child props', () => {
-      <OriginalComponent>
-        <div>One</div>
-        <div>Two</div>
-      </OriginalComponent>
-
-      expect(console.error.calls.count()).toBe(1);
-      expect(console.error.calls.argsFor(0)[0]).toMatch(/^.*Failed prop type.*`children`/);
+  describe('canDrag', () => {
+    describe('with no custom method defined', () => {
+      it('returns true', () => {
+        let w = DragSource;
+        debugger
+        expect(wrapper.canDrag()).toEqual(true);
+      });
     });
   });
 });

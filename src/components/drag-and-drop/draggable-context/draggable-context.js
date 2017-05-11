@@ -88,7 +88,7 @@ class DraggableContext extends React.Component {
   /**
    * A callback for when hover is triggered
    *
-   * @method handleHover
+   * @method Hover
    * @return {Void}
    */
   handleHover = ItemTargetHelper.onHoverUpDown
@@ -98,7 +98,7 @@ class DraggableContext extends React.Component {
    *
    * @method handleDrag
    * @param {Number} originalIndex (the active item's original index)
-   * @param {Number} hoverIndex (the active item's new index)
+   * @param {Number} hoverIndex (the active item's new index
    * @return {Void}
    */
   handleDrag = (originalIndex, hoverIndex) => {
@@ -106,7 +106,7 @@ class DraggableContext extends React.Component {
     this.setState({ activeIndex: hoverIndex });
 
     // only triggers the onDrag callback if there is an originalIndex
-    if (this.props.onDrag && typeof originalIndex !== 'undefined') {
+    if (typeof originalIndex !== 'undefined') {
       this.props.onDrag(originalIndex, hoverIndex);
     }
   }

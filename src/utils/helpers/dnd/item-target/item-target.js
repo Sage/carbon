@@ -8,8 +8,8 @@ const ItemTargetHelper = {
    * a table.
    */
   onHoverUpDown(props, monitor, component) {
-    const dragIndex = monitor.getItem().index,
-          hoverIndex = props.index;
+    const dragIndex = monitor.getItem().index;
+    const hoverIndex = props.index;
 
     // Don't replace items with themselves
     if (dragIndex === hoverIndex) {

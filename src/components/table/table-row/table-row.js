@@ -283,8 +283,8 @@ class TableRow extends React.Component {
         'carbon-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
         'carbon-table-row--selected': this.state.selected,
         'carbon-table-row--highlighted': (this.state.highlighted && !this.state.selected),
-        'carbon-table-row--dragged': (typeof this.context.dragAndDropActiveIndex === 'number' && this.context.dragAndDropActiveIndex === this.props.index),
-        'carbon-table-row--dragging': (typeof this.context.dragAndDropActiveIndex === 'number')
+        'carbon-table-row--dragged': (this.draggingIsOccurring() && this.context.dragAndDropActiveIndex === this.props.index),
+        'carbon-table-row--dragging': (this.draggingIsOccurring())
       }
     );
   }
@@ -376,6 +376,16 @@ class TableRow extends React.Component {
         selectable = this.props.selectable !== false && (this.props.selectable || this.context.selectable);
 
     return highlightable || selectable;
+  }
+
+  /**
+   * Determines if dragging is occurring within the current draggable context.
+   *
+   * @method draggingIsOccurring
+   * @return {Boolean}
+   */
+  draggingIsOccurring = () => {
+    return typeof this.context.dragAndDropActiveIndex === 'number';
   }
 
   /**
