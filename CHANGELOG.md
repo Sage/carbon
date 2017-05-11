@@ -11,9 +11,8 @@
 * `ButtonToggle`: `icon` and `iconSize` become `buttonIcon` and `buttonIconSize` to avoid clash with Input decorator
 * `Heading`: paddings
 * `MenuList`: Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
-* `Message`: Will now space a contained form component
 * `MultiActionButton`: Additional buttons are spaced differently
-* `MultisetpWizard`: Step has less padding-left
+* `MultistepWizard`: Step has less padding-left
 * `Pod`: Header has less margin-bottom
 
 ## Potentially breaking changes
@@ -38,7 +37,7 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 ## Component Enhancements
 
 * `Decimal` now shows propType warning when precision is outside the range 0..20
-* `Detail`: font size increased
+* `Detail`: font size of footer increased
 * `Dialog`: font wieght
 * `DropdownFilter`: placeholder text is made more legible by removing italics and making the font color darker
 * `DropdownFilterAjax`: `data-state` component tag is added to the `getData` Ajax request to mark the requesting state
