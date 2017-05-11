@@ -68,6 +68,42 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 * `MenuList`: item filter search icon positioning is fixed
 * Row clones children when mutating props rather than creating new element to retain refs
 
+## Deprecations Added
+
+* `Row`: can longer render any immediate children. A Column component has been introduced to maintain the column span, offset and align behaviour.
+
+```javascript
+// BEFORE
+import Row from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <div columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </div>
+  <Pod columnSpan='5'>
+    Content 1
+  </Pod>
+</Row>
+
+// AFTER
+import { Row, Column } from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <Column columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </Column>
+  <Column columnSpan='5'>
+    <Pod>
+      Content 1
+    </Pod>
+  </Column>
+</Row>
+```
+
 ## data-attributes on components
 
 We have added data-attributes to components to better identify them and their parts within the browser. We have added `data-component` tags on the top level of any component, and `data-element` tags to constituent parts. Developers can also add `data-role` tags to components to uniquely identify specific components within their UI.
@@ -82,6 +118,12 @@ We have added data-attributes to components to better identify them and their pa
 ```bash
 gulp --port 1234
 ```
+
+# 0.36.3
+
+## Component Enhancements
+
+* `DialogFullScreen` now accepts a String for title or any other component.
 
 # 0.36.2
 
@@ -120,7 +162,7 @@ with a label.
 </InlineInputs>
 ```
 
-## Component Enchancements
+## Component Enhancements
 
 * `Date` now shows error validation when an invalid date is entered.
 * `Flash`: Change error icon to match other notifications (now shows error icon when `as` prop is `error`)
