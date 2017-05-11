@@ -6,7 +6,6 @@ import { shallow } from 'enzyme';
 import Logger from './../../utils/logger';
 
 describe('Row', () => {
-
   describe('when column number is NOT passed', () => {
     let instance;
     let columns;
@@ -22,7 +21,7 @@ describe('Row', () => {
         </Row>
       );
 
-      columns = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-column');
+      columns = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-row__column');
     });
 
     describe('render', () => {
@@ -52,7 +51,7 @@ describe('Row', () => {
           </Row>
         );
 
-        columns = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-column');
+        columns = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-row__column');
         expect(columns.length).toEqual(2);
       });
     });
@@ -80,25 +79,25 @@ describe('Row', () => {
 
     describe('Column offset', () => {
       it('renders a div with an additional offset CSS class', () => {
-        expect(columns[0].className).toEqual('carbon-column carbon-column--offset-2');
+        expect(columns[0].className).toEqual('carbon-column carbon-row__column carbon-row__column--offset-2');
       });
     });
 
     describe('Column span', () => {
       it('renders a div with an additional span CSS class', () => {
-        expect(columns[1].className).toEqual('carbon-column carbon-column--span-3');
+        expect(columns[1].className).toEqual('carbon-column carbon-row__column carbon-row__column--span-3');
       });
     });
 
     describe('Column classes', () => {
       it('renders a div with all additional column classes', () => {
-        expect(columns[2].className).toEqual('carbon-column extra-class');
+        expect(columns[2].className).toEqual('carbon-column carbon-row__column extra-class');
       });
     });
 
     describe('Column align', () => {
       it('renders a div with alignment class', () => {
-        expect(columns[3].className).toEqual('carbon-column carbon-column--align-center');
+        expect(columns[3].className).toEqual('carbon-column carbon-row__column carbon-row__column--align-center');
       });
     });
   });
@@ -152,8 +151,8 @@ describe('Row', () => {
     });
 
     it('applies custom class', () => {
-      let rowNode = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-column')[0];
-      expect(rowNode.className).toEqual('carbon-column carbon-column--column-divide');
+      let rowNode = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-row__column')[0];
+      expect(rowNode.className).toEqual('carbon-column carbon-row__column carbon-row__column--column-divide');
     });
   });
 
@@ -177,11 +176,6 @@ describe('Row', () => {
   describe('deprecated functionality', () => {
     beforeEach(() => {
       var process = { env: { NODE_ENV: 'development' } }
-    });
-
-    it('wraps the child in a column component', () => {
-      let wrapper = shallow(<Row><div>Foo</div></Row>);
-      expect(wrapper.find(Column).length).toEqual(1);
     });
 
     it('Calls the logger to report the deprecation', () => {
