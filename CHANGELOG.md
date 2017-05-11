@@ -6,9 +6,14 @@
 
 ## !! BREAKING CHANGES!! :warning:
 
-* Banner Component has been Deleted in favour of the Message Component
+* `ActionToolbar`: 'total' field margin and width
+* `Banner`: Component has been Deleted in favour of the Message Component
 * `ButtonToggle`: `icon` and `iconSize` become `buttonIcon` and `buttonIconSize` to avoid clash with Input decorator
-* Menu List - Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
+* `Heading`: paddings
+* `MenuList`: Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
+* `MultiActionButton`: Additional buttons are spaced differently
+* `MultistepWizard`: Step has less padding-left
+* `Pod`: Header has less margin-bottom
 
 ## Potentially breaking changes
 
@@ -32,10 +37,18 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 ## Component Enhancements
 
 * `Decimal` now shows propType warning when precision is outside the range 0..20
+* `Detail`: font size of footer increased
+* `Dialog`: font wieght
 * `DropdownFilter`: placeholder text is made more legible by removing italics and making the font color darker
 * `DropdownFilterAjax`: `data-state` component tag is added to the `getData` Ajax request to mark the requesting state
+* `Fieldset`: icon positioning
+* `Heading`: Font size increased and weight
+* `Input`: decorator has slight padding change
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
 * `MountInApp` now cleans up it's children when the component is unmounted.
+* `Pod`: Font size increased
+* `ShowEditPod`: z-index on input prefixes
+* `TableHeader`: Font weight
 
 ## Helpers
 
