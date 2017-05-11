@@ -15,7 +15,7 @@ If you are new to Node and npm, we have written a [short introduction](https://g
 
 Download and install Node from [https://nodejs.org/](https://nodejs.org/), or install and use [Node Version Manager](https://github.com/creationix/nvm).
 
-*Note:* If you already have Node installed, make sure you're using the latest stable version - [you can download it here](https://nodejs.org/en/)
+*Note:* If you already have Node installed, make sure you're using the latest stable version - [you can download it here](https://nodejs.org)
 
 #### Check npm version
 
