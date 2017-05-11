@@ -439,6 +439,7 @@ class TableRow extends React.Component {
     return this.renderDraggableRow(
       <tr { ...this.rowProps } { ...tagComponent('table-row', this.props) }>
         { this.renderDraggableCell() }
+
         { content }
       </tr>
     );
