@@ -2,6 +2,10 @@
 @import "./../../style-config/general";
 @import "./../../style-config/z-index";
 
+.carbon-heading {
+  padding: 24px 0 14px;
+}
+
 .carbon-heading__header {
   position: relative;
 
@@ -26,8 +30,8 @@
 
 .carbon-heading__title {
   display: inline-block;
-  font-weight: 400;
-  line-height: 26px;
+  font-weight: 700;
+  line-height: 32px;
   margin: 0;
   vertical-align: middle;
 }
@@ -59,5 +63,6 @@
 .carbon-heading__separator {
   border-top: 2px solid $grey-dark-blue-20;
   margin: 10px 0 8px;
+  text-align: left;
   width: 50px;
 }
