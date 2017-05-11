@@ -1,3 +1,48 @@
+# 1.1.0
+
+## DraggableContext, WithDrag & WithDrop
+
+We now provide a series of components to enable drag and drop functionality. The following demonstrates an example of how you can achieve this (note that you will need to define the `onDrag` prop to manipulate the order as it changes):
+
+```
+<DraggableContext onDrag={ onItemMoved }>
+  <ol>
+    {
+      items.map((item, index) => {
+        return (
+          <WithDrop index={ index }>
+            <li>
+              <WithDrag><span>{ item.content }</span></WithDrag>
+            </li>
+          </WithDrop>
+        );
+      })
+    }
+  </ol>
+</DraggableContext>
+```
+
+## Draggable Table Rows
+
+The `TableRow` component now supports drag and drop. To use it you need to add the `DraggableContext`, apply an index to each `TableRow`, and define the `onDrag` prop to manipulate the order as it changes:
+
+```
+<Table tbody={ false }>
+  <DraggableContext onDrag={ onRowMoved }>
+    <tbody>
+      {
+        rows.map((row, index) => {
+          return (
+            <TableRow index={ index }>
+              { row.content }
+            </TableRow>
+          );
+        }
+    </tbody>
+  </DraggableContext>
+</Table>
+```
+
 # 1.0.0
 
 ## :warning: Major Change - React 15 Upgrade

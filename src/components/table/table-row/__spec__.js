@@ -4,11 +4,12 @@ import TestUtils from 'react-dom/test-utils';
 import { Table, TableCell } from './../table';
 import TableRow from './table-row';
 import TableHeader from './../table-header';
+import DraggableTableCell from './../draggable-table-cell';
 import Icon from './../../icon';
 import Checkbox from './../../checkbox';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import { shallow, mount } from 'enzyme';
-import { WithDragAndDrop, DraggableContext } from './../../drag-and-drop';
+import { DraggableContext, WithDrop } from './../../drag-and-drop';
 
 describe('TableRow', () => {
   let instance, clickableInstance, row;
@@ -425,102 +426,89 @@ describe('TableRow', () => {
         expect(th).toBeTruthy();
       });
     });
+  });
 
-    describe('with dragDropManager via context', () => {
-      let options;
-      let parentTable;
-      let dragDropManager;
+  describe('drag and drop', () => {
+    let wrapper;
 
+    describe('without drag and drop context', () => {
       beforeEach(() => {
-        parentTable = document.createElement('table');
-        dragDropManager = jasmine.createSpyObj('dragDropManager', [ 'getActions' ]);
-        options = {
-          attachTo: parentTable,
-          context: {
-            dragDropManager: dragDropManager,
-            moveItem: () => {}
-          },
-          childContextTypes: {
-            dragDropManager: PropTypes.object,
-            moveItem: PropTypes.func
-          }
-        };
-      });
-
-      describe('when defined', () => {
-        it('renders a WithDragAndDrop component', () => {
-          let wrapper = mount(
-            <DraggableContext>
-              <TableRow index={ 1 }>
-                <td />
-                <td />
+        wrapper = mount(
+          <Table tbody={ false }>
+            <tbody>
+              <TableRow>
+                <TableCell>foo</TableCell>
               </TableRow>
-            </DraggableContext>,
-            options
-          );
-
-          expect(wrapper.find(WithDragAndDrop).length).toEqual(1);
-        });
-
-        describe('when a row does not have an index prop', () => {
-          it('throws an error if the row is not a header row', () => {
-            let render = () => {
-              mount(
-                <DraggableContext>
-                  <TableRow>
-                    <td />
-                    <td />
-                  </TableRow>
-                </DraggableContext>,
-                options
-              );
-            };
-
-            expect(render).toThrowError('You need to provide an index for rows that are draggable');
-          });
-
-          it('does not throw an error for header rows', () => {
-            let render = () => {
-              mount(
-                <DraggableContext>
-                  <Table>
-                    <thead>
-                      <TableRow as="header" key="header">
-                        <TableHeader>Country</TableHeader>
-                        <TableHeader>Code</TableHeader>
-                      </TableRow>
-                    </thead>
-                    <tbody>
-                      <TableRow index={ 1 }>
-                        <td />
-                        <td />
-                      </TableRow>
-                    </tbody>
-                  </Table>
-                </DraggableContext>,
-                options
-              );
-            };
-
-            expect(render).not.toThrowError('You need to provide an index for rows that are draggable');
-          });
-        });
-
+            </tbody>
+          </Table>
+        );
       });
 
+      it('does not render a draggable cell', () => {
+        let cell = wrapper.find(TableRow).find(DraggableTableCell);
+        expect(cell.length).toEqual(0);
+      });
 
-      it('renders a TableRow when undefined', () => {
-        delete options.context.dragDropManager;
+      it('does not render a WithDrop component', () => {
+        let wd = wrapper.find(WithDrop);
+        expect(wd.length).toEqual(0);
+      });
+    });
 
-        let wrapper = mount(
-          <TableRow index={ 1 }>
-            <td />
-            <td />
-          </TableRow>,
-          options
+    describe('ensuring index is provided', () => {
+      it('throws an error if no index is provided', () => {
+        expect(() => {
+          mount(
+            <Table tbody={ false }>
+              <DraggableContext onDrag={ () => {} }>
+                <tbody>
+                  <TableRow dragAndDropIdentifier="foo">
+                    <TableCell>foo</TableCell>
+                  </TableRow>
+                </tbody>
+              </DraggableContext>
+            </Table>
+          );
+        }).toThrow(new Error('You need to provide an index for rows that are draggable'));
+      });
+    });
+
+    describe('with drag and drop context', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <Table tbody={ false }>
+            <DraggableContext onDrag={ () => {} }>
+              <tbody>
+                <TableRow index={ 0 } dragAndDropIdentifier="foo">
+                  <TableCell>foo</TableCell>
+                </TableRow>
+              </tbody>
+            </DraggableContext>
+          </Table>
         );
+      });
 
-        expect(wrapper.find(TableRow).length).toEqual(1);
+      it('renders a draggable cell', () => {
+        let cell = wrapper.find(TableRow).find(DraggableTableCell);
+        expect(cell.props().identifier).toEqual("foo");
+      });
+
+      it('renders a WithDrop component', () => {
+        let wd = wrapper.find(WithDrop);
+        expect(wd.props().index).toEqual(0);
+        expect(wd.props().identifier).toEqual("foo");
+      });
+
+      it('renders a dragging class', () => {
+        let row = wrapper.find(TableRow);
+        row.node.context.dragAndDropActiveIndex = 1
+        expect(row.node.mainClasses).toEqual('carbon-table-row carbon-table-row--dragging');
+      });
+
+      it('renders a dragged class if the index matches', () => {
+        let row = wrapper.find(TableRow);
+        row.node.context.dragAndDropActiveIndex = 0
+        expect(row.node.mainClasses).toEqual('carbon-table-row carbon-table-row--dragged carbon-table-row--dragging');
       });
     });
   });

@@ -1,67 +1,93 @@
-// __spec__.js
 import React from 'react';
-import { shallow } from 'enzyme';
+import PropTypes from 'prop-types';
+import { mount } from 'enzyme';
+import { DragDropContext } from 'react-dnd';
+import TestBackend from 'react-dnd-test-backend';
+import WithDrag from './../with-drag';
+import WithDrop from './with-drop';
 
-import { WithDragAndDrop } from './../drag-and-drop';
+describe('WithDrop', () => {
+  let wrapper, backend, handlerId, targetId, hoverContextSpy, hoverPropSpy;
 
-describe('WithDragAndDrop', () => {
-  let OriginalComponent;
+  function createWrapper(props = {}) {
+    let DnD = wrapInTestContext(WithDrop);
 
-  beforeEach(() => {
-    OriginalComponent = WithDragAndDrop.DecoratedComponent;
-  });
-
-  it('has a DragDropContainer', () => {
-    expect(WithDragAndDrop.name).toBe('DragDropContainer');
-  });
-
-  it('calls connectDragSource and connectDropTarget', () => {
-    // Stub the React DnD connector functions with an identity function
-    //
-    // Track calls using count.
-    // Return el, otherwise React complains that WithDragAndDrop.render()
-    // doesn't return a valid React element.
-    let count = 0;
-    const identity = (el) => {
-      count += 1;
-      return el;
-    };
-
-    let wrapper = shallow(
-      <OriginalComponent
-          connectDragSource={ identity }
-          connectDropTarget={ identity }>
+    wrapper = mount(
+      <DnD { ...props }>
         <div>
-          Draggable
+          <WithDrag><div>foo</div></WithDrag>
         </div>
-      </OriginalComponent>
+      </DnD>
     );
 
-    expect(count).toEqual(2);
+    let component = wrapper.find(WithDrag).getNode();
+    handlerId = component.getHandlerId();
+    component = wrapper.find(WithDrop).getNode();
+    targetId = component.getHandlerId();
+    backend = wrapper.getNode().getManager().backend;
+  }
+
+  function wrapInTestContext(DecoratedComponent) {
+    return DragDropContext(TestBackend)(
+      class TestContextContainer extends React.Component {
+        static childContextTypes = {
+          dragAndDropBeginDrag: PropTypes.func,
+          dragAndDropEndDrag: PropTypes.func,
+          dragAndDropHover: PropTypes.func
+        }
+
+        getChildContext() {
+          return {
+            dragAndDropBeginDrag: () => { return { index: 1 } },
+            dragAndDropEndDrag: () => {},
+            dragAndDropHover: hoverContextSpy,
+          };
+        }
+
+        render() {
+          return <DecoratedComponent {...this.props} />;
+        }
+      }
+    );
+  }
+
+  beforeEach(() => {
+    hoverContextSpy = jasmine.createSpy().and.callThrough();
+    hoverPropSpy = jasmine.createSpy().and.callThrough();
   });
 
-  describe('when validating child props', () => {
+  describe('without custom props', () => {
     beforeEach(() => {
-      spyOn(console, 'error');
+      createWrapper({
+        index: 1
+      });
     });
 
-    it('throws an error if no child props are passed', () => {
-      // Prop validation doesn't need to use a call to shallow, etc.
-      // -- see https://gist.github.com/scmx/d98cc058a7c3dfef7890#gistcomment-1854075
-      <OriginalComponent connectDragSource={ () => {} } connectDropTarget={ () => {} } />
+    describe('hover', () => {
+      it('calls the hover from context', () => {
+        backend.simulateBeginDrag([handlerId]);
+        backend.simulateHover([targetId]);
+        expect(hoverPropSpy).not.toHaveBeenCalled();
+        expect(hoverContextSpy).toHaveBeenCalled();
+      });
+    });
+  });
 
-      expect(console.error.calls.count()).toBe(1);
-      expect(console.error.calls.argsFor(0)[0]).toMatch(/^.*Failed prop type.*`children`/);
+  describe('with custom props', () => {
+    beforeEach(() => {
+      createWrapper({
+        index: 1,
+        hover: hoverPropSpy
+      });
     });
 
-    it('throws an error if multiple root nodes are passed as child props', () => {
-      <OriginalComponent>
-        <div>One</div>
-        <div>Two</div>
-      </OriginalComponent>
-
-      expect(console.error.calls.count()).toBe(1);
-      expect(console.error.calls.argsFor(0)[0]).toMatch(/^.*Failed prop type.*`children`/);
+    describe('hover', () => {
+      it('calls the hover from props', () => {
+        backend.simulateBeginDrag([handlerId]);
+        backend.simulateHover([targetId]);
+        expect(hoverPropSpy).toHaveBeenCalled();
+        expect(hoverContextSpy).not.toHaveBeenCalled();
+      });
     });
   });
 });

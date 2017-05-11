@@ -8,6 +8,7 @@ class WithDrop extends React.Component {
     identifier: PropTypes.string, // identifies an association between WithDrag and WithDrop
     index: PropTypes.number.isRequired, // identifies the index for this item
     hover: PropTypes.func, // an optional callback to trigger when the item is hovered
+    onDrag: PropTypes.func, // an optional callback to trigger when dragging occurs
   }
 
   static contextTypes = {

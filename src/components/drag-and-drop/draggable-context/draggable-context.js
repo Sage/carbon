@@ -18,21 +18,17 @@ import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
  *
  *   <DraggableContext onDrag={ onItemMoved }>
  *     <ol>
- *       <WithDrop index={ 0 }>
- *         <li>
- *           <WithDrag><span>Spring Roll</span></WithDrag>
- *         </li>
- *       </WithDrop>
- *       <WithDrop index={ 1 }>
- *         <li>
- *           <WithDrag><span>Prawn Toast</span></WithDrag>
- *         </li>
- *       </WithDrop>
- *       <WithDrop index={ 2 }>
- *         <li>
- *           <WithDrag><span>Hot and Sour Soup</span></WithDrag>
- *         </li>
- *       </WithDrop>
+ *       {
+ *         items.map((item, index) => {
+ *           return (
+ *             <WithDrop index={ index }>
+ *               <li>
+ *                 <WithDrag><span>{ item.content }</span></WithDrag>
+ *               </li>
+ *             </WithDrop>
+ *           );
+ *         })
+ *       }
  *     </ol>
  *   </DraggableContext>
  *
