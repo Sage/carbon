@@ -115,7 +115,7 @@ class Row extends React.Component {
      */
     let columnClasses = classNames(
       "carbon-row__column",
-      child.props.className, {
+      child.props.columnClasses, {
         [`carbon-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
         [`carbon-row__column--span-${child.props.columnSpan}`]: child.props.columnSpan,
         [`carbon-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign,
@@ -132,7 +132,12 @@ class Row extends React.Component {
         </div>
       );
     } else {
-      return React.cloneElement(child, { className: columnClasses, key: key }, child.props.children);
+      columnClasses = classNames(columnClasses, child.props.className);
+      return React.cloneElement(
+        child,
+        { className: columnClasses, key: key },
+        child.props.children
+      );
     }
   }
 
