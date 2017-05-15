@@ -4,6 +4,7 @@ import TableCell from './../table-cell';
 import TableHeader from './../table-header';
 import Checkbox from './../../checkbox';
 import guid from './../../../utils/helpers/guid';
+import { WithDragAndDrop } from './../../drag-and-drop';
 
 /**
  * A TableRow widget.
@@ -59,7 +60,53 @@ class TableRow extends React.Component {
      * @property uniqueID
      * @type {String}
      */
-    uniqueID: React.PropTypes.string
+    uniqueID: React.PropTypes.string,
+
+    /**
+     * What the row should be displayed as, set to 'header' to display as header
+     *
+     * @property as
+     * @type {String}
+     */
+    as: React.PropTypes.string,
+
+    /**
+     * Whether to hide the multiSelect
+     *
+     * @property hideMultiSelect
+     * @type {Boolean}
+     */
+    hideMultiSelect: React.PropTypes.bool,
+
+    /**
+     * Whether to select all
+     *
+     * @property selectAll
+     * @type {Boolean}
+     */
+    selectAll: React.PropTypes.bool,
+
+    /**
+     * Callback for when a row is highlighted
+     * @property onHighlight
+     * @type {Function}
+     */
+    onHighlight: React.PropTypes.func,
+
+    /**
+     * Callback for when a row is selected
+     * @property onSelect
+     * @type {Function}
+     */
+    onSelect: React.PropTypes.func,
+
+    /**
+     * Used if this row is within a draggable context
+     *
+     * @property index
+     * @type {Number}
+     */
+    index: React.PropTypes.number
   }
 
   /**
@@ -76,7 +123,12 @@ class TableRow extends React.Component {
     selectAll: React.PropTypes.func, // a callback function for when all visible rows are selected
     highlightable: React.PropTypes.bool, // table can enable all rows to be highlightable
     selectable: React.PropTypes.bool, // table can enable all rows to be multi-selectable
-    selectRow: React.PropTypes.func // a callback function for when a row is selected
+    selectRow: React.PropTypes.func, // a callback function for when a row is selected
+    dragDropManager: React.PropTypes.object, // the React DND DragDropManager
+    moveItem: React.PropTypes.func, // a callback function for when a draggable item is moved
+    canDrag: React.PropTypes.func, // a callback function to specify whether dragging is allowed
+    beginDrag: React.PropTypes.func, // a callback function called when dragging starts
+    hover: React.PropTypes.func // a callback function called when an item is hovered over a drop target
   }
 
   state = {
@@ -104,6 +156,12 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   componentWillMount() {
+    if (this.context.dragDropManager) {
+      if (this.props.as !== 'header' && this.props.index === undefined) {
+        throw new Error('You need to provide an index for rows that are draggable');
+      }
+    }
+
     if (this.requiresUniqueID && !this.props.uniqueID) {
       throw new Error("A TableRow which is selectable or highlightable should provide a uniqueID.");
     }
@@ -316,18 +374,32 @@ class TableRow extends React.Component {
    */
   render() {
     let content = [this.props.children];
+    let row = (
+      <tr { ...this.rowProps }>
+        { content }
+      </tr>
+    );
 
     if (this.shouldHaveMultiSelectColumn) {
       content.unshift(this.multiSelectCell);
     }
 
-    return (
-      <tr { ...this.rowProps }>
-        { content }
-      </tr>
-    );
+    if (this.context.dragDropManager) {
+      return (
+        <WithDragAndDrop
+          moveItem={ this.context.moveItem }
+          canDrag={ this.context.canDrag }
+          beginDrag={ this.context.beginDrag }
+          hover={ this.context.hover }
+          index={ this.props.index }
+        >
+          { row }
+        </WithDragAndDrop>
+      );
+    } else {
+      return row;
+    }
   }
-
 }
 
 export default TableRow;

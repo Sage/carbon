@@ -6,6 +6,9 @@ import TableHeader from './../table-header';
 import Icon from './../../icon';
 import Checkbox from './../../checkbox';
 
+import { shallow, mount } from 'enzyme';
+import { WithDragAndDrop, DraggableContext } from './../../drag-and-drop';
+
 describe('TableRow', () => {
   let instance, clickableInstance, row;
 
@@ -419,6 +422,104 @@ describe('TableRow', () => {
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
         expect(th).toBeTruthy();
+      });
+    });
+
+    describe('with dragDropManager via context', () => {
+      let options;
+      let parentTable;
+      let dragDropManager;
+
+      beforeEach(() => {
+        parentTable = document.createElement('table');
+        dragDropManager = jasmine.createSpyObj('dragDropManager', [ 'getActions' ]);
+        options = {
+          attachTo: parentTable,
+          context: {
+            dragDropManager: dragDropManager,
+            moveItem: () => {}
+          },
+          childContextTypes: {
+            dragDropManager: React.PropTypes.object,
+            moveItem: React.PropTypes.func
+          }
+        };
+      });
+
+      describe('when defined', () => {
+        it('renders a WithDragAndDrop component', () => {
+          let wrapper = mount(
+            <DraggableContext>
+              <TableRow index={ 1 }>
+                <td />
+                <td />
+              </TableRow>
+            </DraggableContext>,
+            options
+          );
+
+          expect(wrapper.find(WithDragAndDrop).length).toEqual(1);
+        });
+
+        describe('when a row does not have an index prop', () => {
+          it('throws an error if the row is not a header row', () => {
+            let render = () => {
+              mount(
+                <DraggableContext>
+                  <TableRow>
+                    <td />
+                    <td />
+                  </TableRow>
+                </DraggableContext>,
+                options
+              );
+            };
+
+            expect(render).toThrowError('You need to provide an index for rows that are draggable');
+          });
+
+          it('does not throw an error for header rows', () => {
+            let render = () => {
+              mount(
+                <DraggableContext>
+                  <Table>
+                    <thead>
+                      <TableRow as="header" key="header">
+                        <TableHeader>Country</TableHeader>
+                        <TableHeader>Code</TableHeader>
+                      </TableRow>
+                    </thead>
+                    <tbody>
+                      <TableRow index={ 1 }>
+                        <td />
+                        <td />
+                      </TableRow>
+                    </tbody>
+                  </Table>
+                </DraggableContext>,
+                options
+              );
+            };
+
+            expect(render).not.toThrowError('You need to provide an index for rows that are draggable');
+          });
+        });
+
+      });
+
+
+      it('renders a TableRow when undefined', () => {
+        delete options.context.dragDropManager;
+
+        let wrapper = mount(
+          <TableRow index={ 1 }>
+            <td />
+            <td />
+          </TableRow>,
+          options
+        );
+
+        expect(wrapper.find(TableRow).length).toEqual(1);
       });
     });
   });
