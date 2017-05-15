@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from './../icon';
 import classNames from 'classnames';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { tagComponent } from '../../utils/helpers/tags';
 
 /**
@@ -128,7 +128,7 @@ class Toast extends React.Component {
    */
   render() {
     return (
-      <ReactCSSTransitionGroup
+      <CSSTransitionGroup
         transitionAppear={ true }
         transitionName='toast'
         transitionAppearTimeout={ 1600 }
@@ -136,7 +136,7 @@ class Toast extends React.Component {
         transitionLeaveTimeout={ 500 }
       >
         { this.toastContent }
-      </ReactCSSTransitionGroup>
+      </CSSTransitionGroup>
     );
   }
 

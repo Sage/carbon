@@ -5,7 +5,7 @@ import Form from './../form';
 import Link from './../link';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Events from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import { tagComponent } from '../../utils/helpers/tags';
@@ -319,13 +319,13 @@ class ShowEditPod extends React.Component {
   render() {
     return (
       <Pod className={ this.mainClasses } { ...this.podProps } ref='podFocus' tabIndex='-1' { ...tagComponent('show-edit-pod', this.props) }>
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           transitionName={ this.props.transitionName }
           transitionEnterTimeout={ 300 }
           transitionLeaveTimeout={ 50 }
         >
         { this.content }
-        </ReactCSSTransitionGroup>
+        </CSSTransitionGroup>
       </Pod>
     );
   }

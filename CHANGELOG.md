@@ -108,6 +108,10 @@ import { Row, Column } from 'carbon/lib/components/row';
 
 We have added data-attributes to components to better identify them and their parts within the browser. We have added `data-component` tags on the top level of any component, and `data-element` tags to constituent parts. Developers can also add `data-role` tags to components to uniquely identify specific components within their UI.
 
+## Dependency Switch
+
+* Facebook has deprecated `react-addons-transition-group` and `react-addons-css-transition-group` in favour of `react-transition-group/TransitionGroup` and `react-transition-group/CSSTransitionGroup` so we have switched to use the later.
+
 ## Dependency Update
 
 * Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
