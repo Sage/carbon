@@ -9,7 +9,7 @@
   .common-input__icon {
     z-index: 2;
     &.icon-error {
-      top: 7px;
+      top: 5px;
     }
   }
 
@@ -19,7 +19,9 @@
   }
 
   .common-input__icon--warning {
-    top: 7px;
+    right: 5px;
+    top: 6px;
+    z-index: 2;
   }
 
   .common-input__input:focus,
