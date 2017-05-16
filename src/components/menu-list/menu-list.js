@@ -1,11 +1,13 @@
 import classNames from 'classnames';
 import escapeStringRegexp from 'escape-string-regexp';
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Link from 'components/link';
 import Textbox from 'components/textbox';
 
 import MenuListItem from './menu-list-item';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
 
@@ -66,9 +68,9 @@ class MenuList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={ this.mainClasses() } { ...tagComponent('menu-list', this.props) }>
         { this.menuTitle() }
-        <ul className={ this.mainClasses() }>
+        <ul className='carbon-menu-list__list'>
           { this.menuItems() }
         </ul>
       </div>
@@ -94,7 +96,7 @@ class MenuList extends React.Component {
   filterHTML() {
     if (!this.props.filter) { return null; }
 
-    return (<MenuListItem key={ 'filter' }><Textbox onChange={ this.onSearch } value={ this.state.filter } autoFocus={ true }/></MenuListItem>);
+    return (<MenuListItem key={ 'filter' }><Textbox onChange={ this.onSearch } value={ this.state.filter || '' } autoFocus={ true } icon="search" placeholder={ this.props.filterPlaceholder } /></MenuListItem>);
   }
 
   mainClasses() {
@@ -124,7 +126,11 @@ class MenuList extends React.Component {
     if (!this.props.title) { return null; }
 
     return (
-      <Link className='carbon-menu-list__title' onClick={ this.toggleChildren }>
+      <Link
+        className='carbon-menu-list__title'
+        data-element='title'
+        onClick={ this.toggleChildren }
+      >
         { this.props.title }
       </Link>
     );

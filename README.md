@@ -44,11 +44,26 @@ To run the example, do the following steps:
   2. `cd carbon`
   3. `npm install`
   4. `gulp`
-  5. Navigate to [http://localhost:8080/](http://localhost:8080/) in your favourite browser
+  5. Navigate to [http://localhost:8095/](http://localhost:8095/) in your favourite browser
 
 ## Testing Changes Locally in your App
 
 See the guide on [installing unreleased changes](https://github.com/Sage/carbon/blob/master/docs/guides/installing-unreleased-changes.md)
+
+## Submitting a Release
+* N.B. Releases are created by Sage Carbon Team.
+
+* Bump the version in `package.json`.
+* Ensure the `CHANGELOG.md` is up to date.
+* Run `npm install` to make sure the packages are all up to date.
+* Run `npm run-script release` to update `/lib`.
+* If releasing a minor version, create a branch from `master`.
+* If releasing a patch version, create a branch from `release`.
+* Commit and push changes.
+* If releasing a minor version, open a PR to `master`.
+* If releasing a patch version, open a PR to `release`.
+* Once merged, draft a release in GitHub using the new version number as the tag. Make sure to target the correct branch (`master` or `release`).
+* If you have merged into `release`, open a PR to merge back into `master`.
 
 ## Technologies
 
@@ -65,3 +80,5 @@ The following is a list of technologies Carbon utilises:
 ## Licence
 
 Carbon is licensed under the [Apache-2.0 licence](https://github.com/Sage/carbon/blob/master/LICENSE).
+
+Copyright (c) 2017 Sage Group Plc. All rights reserved.

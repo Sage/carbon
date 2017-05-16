@@ -1,0 +1,4 @@
+{
+  "main": "./information-styles.js",
+  "style": "./information-styles.scss"
+}

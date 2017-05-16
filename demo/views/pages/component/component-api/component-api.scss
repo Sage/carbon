@@ -1,0 +1,17 @@
+@import 'colors';
+
+.demo-component-api {
+  &__cell {
+    line-height: 1.5em;
+    white-space: pre-line;
+    word-break: normal;
+  }
+
+  &__default {
+    white-space: nowrap;
+  }
+}
+
+.demo-component-api__tick {
+  color: $green;
+}

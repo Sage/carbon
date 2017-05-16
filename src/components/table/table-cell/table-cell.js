@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { validProps } from '../../../utils/ether';
+import { tagComponent } from '../../../utils/helpers/tags';
 
 /**
  * A TableCell widget.
@@ -26,7 +29,7 @@ class TableCell extends React.Component {
      * @property align
      * @type {String}
      */
-    align: React.PropTypes.string,
+    align: PropTypes.string,
 
     /**
      * Defines the cell type to be an action - used for the delete cell.
@@ -34,7 +37,7 @@ class TableCell extends React.Component {
      * @property action
      * @type {Boolean}
      */
-    action: React.PropTypes.bool
+    action: PropTypes.bool
   }
 
   /**
@@ -59,7 +62,7 @@ class TableCell extends React.Component {
    * @return {Object}
    */
   get tableCellProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
 
     delete props.children;
 
@@ -74,7 +77,7 @@ class TableCell extends React.Component {
    */
   render() {
     return (
-      <td { ...this.tableCellProps }>
+      <td { ...this.tableCellProps } { ...tagComponent('table-cell', this.props) }>
         { this.props.children }
       </td>
     );

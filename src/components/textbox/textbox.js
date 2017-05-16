@@ -2,6 +2,8 @@ import React from 'react';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
+import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A textbox widget.
@@ -50,7 +52,7 @@ class Textbox extends React.Component {
    * @return {Object} props for the input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     props.className = this.inputClasses;
     return props;
   }
@@ -63,8 +65,11 @@ class Textbox extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }
-           ref={ (comp) => this._target = comp }>
+      <div
+        className={ this.mainClasses }
+        ref={ (comp) => this._target = comp }
+        { ...tagComponent('textbox', this.props) }
+      >
         { this.labelHTML }
         { this.inputHTML }
         { this.validationHTML }

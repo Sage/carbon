@@ -1,10 +1,12 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Tooltip from './tooltip';
 
 describe('tooltip', () => {
-  let instance, alignedInstance, positionedInstance, hiddenInstance;
+  let instance, alignedInstance, positionedInstance, hiddenInstance, wrapper;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -29,6 +31,12 @@ describe('tooltip', () => {
         Some Helpful Content
       </Tooltip>
     );
+
+    wrapper = shallow(
+      <Tooltip isVisible={ true } data-element='bar' data-role='baz'>
+        Some Helpful Content
+      </Tooltip>
+    );
   });
 
   describe('render', () => {
@@ -46,7 +54,8 @@ describe('tooltip', () => {
       });
 
       it('renders a pointer span', () => {
-        expect(tooltip.children[0].children[1].classList[0]).toEqual('carbon-tooltip__pointer');
+        let span = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-tooltip__pointer');
+        expect(span.tagName).toEqual('SPAN');
       });
 
       it('aligns the pointer to center', () => {
@@ -75,6 +84,14 @@ describe('tooltip', () => {
     it('does not render any content', () => {
       let hiddenTooltip = ReactDOM.findDOMNode(hiddenInstance);
       expect(hiddenTooltip).toEqual(null);
+    });
+  });
+
+  describe('tags', () => {
+    describe('on component', () => {
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'tooltip', 'bar', 'baz');
+      });
     });
   });
 });

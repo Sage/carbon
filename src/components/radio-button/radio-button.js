@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
+import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A radiobutton widget.
@@ -28,22 +30,6 @@ import InputValidation from './../../utils/decorators/input-validation';
  */
 const RadioButton = Input(InputLabel(InputValidation(
 class RadioButton extends React.Component {
-  static propTypes = {
-
-    /**
-    * Sets the checked state of the radio button
-    *
-    * @property defaultChecked
-    * @type {Boolean}
-    * @default false
-    */
-    defaultChecked: React.PropTypes.bool
-  }
-
-  static defaultProps = {
-    defaultChecked: false
-  }
-
   /**
    * Uses the mainClasses method provided by the decorator to add additional classes.
    *
@@ -89,7 +75,7 @@ class RadioButton extends React.Component {
    * @return {Object} Props to be applied to the input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     props.className = this.inputClasses;
     props.type = "radio";
     return props;
@@ -142,7 +128,7 @@ class RadioButton extends React.Component {
    */
   render() {
     return(
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('radio-button', this.props) }>
         { this.inputHTML }
         { this.labelHTML }
         { this.fieldHelpHTML }

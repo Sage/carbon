@@ -1,38 +1,36 @@
+import classNames from 'classnames';
 import React from 'react';
-import { Link } from 'react-router';
+
+// Flux
+import { connect } from 'utils/flux';
+import BrowserStore from '../../stores/browser';
+import DemoStore from '../../stores/demo';
+
+// Demo
+import Footer from './footer'
+import Header from './header';
+import Menu from './menu';
+
+const RESIZE_WIDTH = 1040;
 
 class Chrome extends React.Component {
-  /**
-   * @method render
-   */
   render() {
     return (
-      <div className="carbon-demo">
-        <div className="carbon-demo__header">
-          <div className="carbon-demo__header-contents">
-            <div className="carbon-demo__menu">
-              <Link to="/">Carbon</Link>
-              <Link to="/actions">Actions/Navigation</Link>
-              <Link to="/forms">Forms</Link>
-              <Link to="/grids">Grids</Link>
-              <Link to="/charts">Charts</Link>
-              <Link to="/notifications">Notifications</Link>
-              <Link to="/modals">Modals</Link>
-              <Link to="/layout">Layout</Link>
-              <Link to="/design">Design</Link>
-              <Link to="/misc">Misc</Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="carbon-demo__content">
-          { this.props.children }
-        </div>
-        <div className='carbon-demo__footer'>
-        </div>
+      <div className='chrome'>
+        <Menu
+          isTablet={ this._isSmallScreen() }
+          menuOpen={ this.state.appStore.get('menuOpen') }
+        />
+        <Header />
+        { this.props.children }
+        <Footer />
       </div>
     );
   }
+
+  _isSmallScreen = () => {
+    return this.state.browserStore.get('width') <= RESIZE_WIDTH;
+  }
 }
 
-export default Chrome;
+export default connect(Chrome, [ BrowserStore, DemoStore ]);

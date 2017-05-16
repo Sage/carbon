@@ -1,0 +1,34 @@
+@import "colors";
+@import "./../../../style-config/demo-variables";
+
+.demo-header {
+  background: rgba($white, 0.8);
+  box-shadow: 0 0 8px 0 rgba($black, 0.34);
+  box-sizing: border-box;
+  height: 75px;
+  padding: 20px 4%;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+
+  @media (min-width: $menu-popout-point) {
+    display: none;
+  }
+
+  &__menu-toggle {
+    height: 36px;
+    width: 102px;
+  }
+
+  // uses floats to fix firefox
+  &__menu-icon {
+    display: flex;
+    float: left;
+    width: 16px;
+  }
+
+  &__menu-label {
+    float: right;
+    width: 35px;
+  }
+}

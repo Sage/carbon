@@ -1,7 +1,9 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Rainbow from './rainbow';
 import Immutable from 'immutable';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Rainbow', () => {
   let instance, data, chart;
@@ -140,8 +142,8 @@ describe('Rainbow', () => {
     describe('config property', () => {
       describe('uses some default chart config when no config is passed', () => {
         it("can use the config property to override some chart properties", () => {
-          expect(chart.props.config.chart.backgroundColor).toEqual(null);
-          expect(chart.props.config.credits.enabled).toEqual(false);
+          expect(chart.chart.options.chart.backgroundColor).toEqual(null);
+          expect(chart.chart.options.credits.enabled).toEqual(false);
         });
       });
 
@@ -160,11 +162,23 @@ describe('Rainbow', () => {
         });
 
         it("can use the config property to override some chart properties", () => {
-          expect(chart.props.config.chart.backgroundColor).toEqual('#ff00cc');
-          expect(chart.props.config.credits.enabled).toEqual(true);
+          expect(chart.chart.options.chart.backgroundColor).toEqual('#ff00cc');
+          expect(chart.chart.options.credits.enabled).toEqual(true);
         });
       });
+    });
+  });
 
+  describe("tags on component", () => {
+    let wrapper = shallow(
+      <Rainbow
+        data-element='bar'
+        data-role='baz'
+        data={ {} }/>
+      );
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'rainbow', 'bar', 'baz');
     });
   });
 });

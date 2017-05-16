@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -11,6 +12,7 @@ import DateHelper from './../../utils/helpers/date';
 import DateValidator from './../../utils/validations/date';
 import chainFunctions from './../../utils/helpers/chain-functions';
 import { validProps } from './../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Date widget.
@@ -42,7 +44,23 @@ class Date extends React.Component {
   _document = document;
 
   // Required for validProps function
-  static propTypes = {};
+  static propTypes = {
+    /**
+     * Minimum possible date
+     *
+     * @property minDate
+     * @type {String}
+     */
+    minDate: PropTypes.string,
+
+    /**
+     * Maximum possible date
+     *
+     * @property maxDate
+     * @type {String}
+     */
+    maxDate: PropTypes.string
+  };
 
   static defaultProps = {
     /**
@@ -313,7 +331,6 @@ class Date extends React.Component {
    */
   get inputProps() {
     let { ...props } = validProps(this);
-    delete props.autoFocus;
     props.className = this.inputClasses;
     props.onChange = this.handleVisibleInputChange;
     props.onBlur = this.handleBlur;
@@ -341,7 +358,8 @@ class Date extends React.Component {
     let props = {
       ref: 'hidden',
       type: 'hidden',
-      readOnly: true
+      readOnly: true,
+      'data-element': 'hidden-input'
     };
 
     if (typeof this.props.value !== 'undefined') {
@@ -406,7 +424,6 @@ class Date extends React.Component {
       locale: I18n.locale,
       maxDate: this.props.maxDate,
       minDate: this.props.minDate,
-      monthFormat: 'MMM',
       onChange: this.handleDateSelect,
       ref: (input) => { this.datepicker = input; },
       theme: null,
@@ -425,6 +442,8 @@ class Date extends React.Component {
     return {
       navDateFormat: 'MMMM YYYY',
       arrows: { prev: '‹', next: '›' },
+      maxDate: this.props.maxDate,
+      minDate: this.props.minDate,
       theme: null
     };
   }
@@ -449,7 +468,7 @@ class Date extends React.Component {
     let datePicker = this.state.open ? this.renderDatePicker() : null;
 
     return (
-      <div className={ this.mainClasses } onClick={ this.handleWidgetClick }>
+      <div className={ this.mainClasses } onClick={ this.handleWidgetClick } { ...tagComponent('date', this.props) }>
 
         { this.labelHTML }
         { this.inputHTML }

@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Dialog from './../dialog'
 import Confirm from './confirm';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Confirm', () => {
   let instance, onCancel, onConfirm;
@@ -29,7 +31,7 @@ describe('Confirm', () => {
 
   describe('dialogClasses', () => {
     it('returns the dialog class along with the  class', () => {
-      expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--xsmall carbon-confirm__confirm');
+      expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-confirm__confirm');
     });
   });
 
@@ -108,6 +110,45 @@ describe('Confirm', () => {
   describe('dialogHTML', () => {
     it('appends the two buttons to the dialogHTML', () => {
       expect(TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button').length).toEqual(2);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Confirm
+          data-element='bar'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'confirm', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Confirm
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          showCloseIcon={ true }
+          subtitle='Test'
+          title='Test'
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'cancel',
+        'close',
+        'confirm',
+        'subtitle',
+        'title'
+      ]);
     });
   });
 });

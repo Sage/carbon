@@ -1,7 +1,9 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Portrait from './portrait';
 import MD5 from 'crypto-js/md5';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Portrait', () => {
   let instance, gravatarInstance, initialsInstance;
@@ -77,9 +79,7 @@ describe('Portrait', () => {
             <Portrait />
           );
 
-          expect(console.error).toHaveBeenCalledWith(
-            "Warning: Failed propType: Portrait requires a prop of 'src' OR a prop of 'gravatar'"
-          );
+          expect(console.error.calls.argsFor(0)[0]).toMatch(`Portrait requires a prop of 'src' OR a prop of 'gravatar'`);
         });
       });
 
@@ -92,9 +92,7 @@ describe('Portrait', () => {
             />
           );
 
-          expect(console.error).toHaveBeenCalledWith(
-            "Warning: Failed propType: Portrait requires a prop of 'src' OR a prop of 'gravatar' but not both"
-          );
+          expect(console.error.calls.argsFor(0)[0]).toMatch(`Failed prop type: Portrait requires a prop of 'src' OR a prop of 'gravatar' but not both`);
         });
       });
     });
@@ -324,6 +322,32 @@ describe('Portrait', () => {
           expect(pendingUser.length).toEqual(0);
         });
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Portrait data-element='bar' data-role='baz' src='test' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'portrait', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements when there is an image", () => {
+      let wrapper = shallow(<Portrait src='test' />);
+
+      elementsTagTest(wrapper, [
+        'user-image'
+      ]);
+    });
+
+    describe("on internal elements when there are initials", () => {
+      let wrapper = shallow(<Portrait gravatar='test' initials='TS' />);
+
+      elementsTagTest(wrapper, [
+        'initials'
+      ]);
     });
   });
 });

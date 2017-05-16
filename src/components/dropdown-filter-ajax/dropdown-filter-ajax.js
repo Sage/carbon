@@ -1,7 +1,8 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import Request from 'superagent';
-import {cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash';
 import DropdownFilter from './../dropdown-filter';
+import { omit, assign } from 'lodash';
 
 /**
  * A dropdown filter widget using ajax.
@@ -70,16 +71,16 @@ class DropdownFilterAjax extends DropdownFilter {
     this.listeningToScroll = true;
   }
 
-  static propTypes = {
+  static propTypes = omit(assign({}, DropdownFilter.propTypes, {
     /**
      * The ID value for the component
      *
      * @property value
      * @type {Number}
      */
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),
 
     /**
@@ -88,7 +89,7 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property visibleValue
      * @type {String}
      */
-    visibleValue: React.PropTypes.string,
+    visibleValue: PropTypes.string,
 
     /**
      * The path to your data (e.g. "/core_accounting/ledger_accounts/suggestions")
@@ -96,7 +97,7 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property path
      * @type {String}
      */
-    path: React.PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
 
 
     /**
@@ -105,7 +106,7 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property additionalRequestParams
      * @type {Object}
      */
-    additionalRequestParams: React.PropTypes.object,
+    additionalRequestParams: PropTypes.object,
 
     /**
      * The number of rows to get per request
@@ -114,7 +115,10 @@ class DropdownFilterAjax extends DropdownFilter {
      * @type {Number}
      * @default 25
      */
-    rowsPerRequest: React.PropTypes.number,
+    rowsPerRequest: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
 
     /**
      * Enables create functionality for dropdown.
@@ -122,7 +126,7 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property create
      * @type {Function}
      */
-    create: React.PropTypes.func,
+    create: PropTypes.func,
 
     /**
      * Should the dropdown act and look like a suggestable input instead.
@@ -130,11 +134,12 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property suggest
      * @type {Boolean}
      */
-    suggest: React.PropTypes.bool
-  }
+    suggest: PropTypes.bool
+  }), 'options');
 
   static defaultProps = {
-    rowsPerRequest: 25
+    rowsPerRequest: 25,
+    visibleValue: ''
   }
 
   /*
@@ -207,6 +212,7 @@ class DropdownFilterAjax extends DropdownFilter {
    * @param {Object} page The page number to get
    */
   getData = (query = "", page = 1) => {
+    this.setState({ 'requesting': true });
     Request
       .get(this.props.path)
       .query({
@@ -215,9 +221,15 @@ class DropdownFilterAjax extends DropdownFilter {
         value: query
       })
       .query(this.props.additionalRequestParams)
-      .end((err, response) => {
-        this.updateList(response.body.data[0]);
-      });
+      .end(this.ajaxUpdateList);
+  }
+
+  /**
+   * Applies some data from AJAX to the list
+   */
+  ajaxUpdateList = (err, response) => {
+    this.updateList(response.body.data[0]);
+    this.setState({ 'requesting': false });
   }
 
   /**
@@ -285,6 +297,12 @@ class DropdownFilterAjax extends DropdownFilter {
     return this.prepareList(cloneDeep(this.state.options));
   }
 
+  /**
+   * Converts requesting state into a string for the automation property data-state
+   */
+  requestingState = () => {
+    return this.state.requesting ? 'requesting-list' : 'idle';
+  }
 
   /**
    * Input props for the dropdown, extended from the base dropdown component.
@@ -303,6 +321,13 @@ class DropdownFilterAjax extends DropdownFilter {
     return props;
   }
 
+  componentTags(props) {
+    return {
+      'data-component': 'dropdown-filter-ajax',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
 }
 
 export default DropdownFilterAjax;

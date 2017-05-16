@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import MountInApp from './';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 
 describe('MountInApp', () => {
   let instance, placeholder;
@@ -44,7 +44,12 @@ describe('MountInApp', () => {
       expect(contentDiv.tagName).toEqual('DIV');
       expect(contentDiv.textContent).toEqual('Hello!!');
     });
+
+    describe('componentWillUnmount', () => {
+      it('removes all children', () => {
+        instance.unmount();
+        expect(placeholder.children.length).toEqual(0);
+      });
+    });
   });
-
 });
-

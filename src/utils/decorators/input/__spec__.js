@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Input from './input';
 import Icon from './../../../components/icon';
 import Help from './../../../components/help';
@@ -26,6 +26,11 @@ class TestClassTwo extends React.Component {
     this.count++;
   }
 
+  get inputProps() {
+    let { ...props } = this.props;
+    return props;
+  }
+
   render() {
     return <div></div>;
   }
@@ -44,7 +49,9 @@ describe('Input', () => {
     }));
 
     instanceTwo = TestUtils.renderIntoDocument(React.createElement(ExtendedClassTwo, {
-      name: 'bar'
+      name: 'bar',
+      'data-role': 'foo',
+      'data-element': 'input'
     }));
 
     onChange = jasmine.createSpy('onChange');
@@ -246,6 +253,14 @@ describe('Input', () => {
   });
 
   describe('inputProps', () => {
+    it('adds a data-element prop', () => {
+      expect(instanceTwo.inputProps["data-element"]).toEqual("input");
+    });
+
+    it('deletes data-role prop - the role shouldnt get through to the HTML', () => {
+      expect(instanceTwo.inputProps["data-role"]).toBe(undefined);
+    });
+
     describe('when autoComplete is not defined', () => {
       it('disables autoComplete', () => {
         expect(instanceTwo.inputProps.autoComplete).toEqual("off");

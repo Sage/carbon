@@ -1,1 +1,2 @@
-import 'react-highcharts/dist/bundle/highcharts';
+import Highcharts from 'highcharts';
+global.Highcharts = Highcharts;
