@@ -1,3 +1,9 @@
+# 1.0.1
+
+## Bug Fixes
+
+* Length validation now counts in the line breaks when calculating the length of input value.
+
 # 1.0.0
 
 ## :warning: Major Change - React 15 Upgrade
