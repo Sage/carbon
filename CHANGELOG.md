@@ -4,6 +4,10 @@
 
 * Length validation now counts in the line breaks when calculating the length of input value.
 
+## Component Enhancements
+
+* `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
+
 # 1.0.0
 
 ## :warning: Major Change - React 15 Upgrade

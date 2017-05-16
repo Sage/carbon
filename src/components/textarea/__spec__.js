@@ -5,7 +5,7 @@ import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-spec
 import Textarea from './textarea';
 
 describe('Textarea', () => {
-  let baseInstance, expandableInstance;
+  let baseInstance, expandableInstance, overLimitInstance, notOverLimitInstance;
   let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
@@ -26,6 +26,28 @@ describe('Textarea', () => {
       rows={10}
       characterLimit='100'
       onChange={ spy }
+    />);
+
+    overLimitInstance = TestUtils.renderIntoDocument(<Textarea
+        name="Dummy Area"
+        value={ 'foofoofoofoo' }
+        label={ 'Label' }
+        warnOverLimit={ true }
+        cols={10}
+        rows={10}
+        characterLimit='10'
+        onChange={ spy }
+    />);
+
+    notOverLimitInstance = TestUtils.renderIntoDocument(<Textarea
+        name="Dummy Area"
+        value={ 'foofoofoo' }
+        label={ 'Label' }
+        warnOverLimit={ true }
+        cols={10}
+        rows={10}
+        characterLimit='10'
+        onChange={ spy }
     />);
   });
 
@@ -175,6 +197,32 @@ describe('Textarea', () => {
     describe('if the textarea is expandable', () => {
       it('returns an additional disable-scroll class', () => {
         expect(expandableInstance.inputClasses).toEqual('carbon-textarea__input carbon-textarea__input--disable-scroll common-input__input')
+      });
+    });
+  });
+
+  describe('textAreaClasses', () => {
+    it('returns carbon-textarea__character-limit class', () => {
+      expect(baseInstance.textAreaClasses).toEqual('carbon-textarea__character-limit');
+    });
+
+    describe('if the textarea char count is over limit', () => {
+      it('returns an additional over-limit class', () => {
+        expect(overLimitInstance.textAreaClasses).toEqual('carbon-textarea__character-limit over-limit')
+      });
+    });
+  });
+
+  describe('overLimit', () => {
+    describe('if the textarea char count is not over limit', () => {
+      it('returns false', () => {
+        expect(notOverLimitInstance.overLimit).toBe(false);
+      });
+    });
+
+    describe('if the textarea char count is over limit', () => {
+      it('returns true', () => {
+        expect(overLimitInstance.overLimit).toBe(true);
       });
     });
   });
