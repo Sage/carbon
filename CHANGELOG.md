@@ -67,6 +67,7 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 * `Link`: CSS inheritance has been updated to better support buttons.
 * `MenuList`: item filter search icon positioning is fixed
 * Row clones children when mutating props rather than creating new element to retain refs
+* Fix presence validator bug validating value as false if no props sent to validator.
 
 ## Deprecations Added
 
