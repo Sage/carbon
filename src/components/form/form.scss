@@ -1,33 +1,30 @@
 @import "./../../style-config/colors";
 
-.carbon-form__save--invalid {
-  background-color: $grey-dark-blue-5;
-}
-
-.carbon-form__summary {
-  margin: 0 10px;
-}
-
-.carbon-form__save,
-.carbon-form__cancel {
-  border-radius: 4px;
-  display: inline-block;
-  margin-top: 20px;
-}
-
-.carbon-form__save {
-  padding: 8px;
-}
-
-.carbon-form__cancel {
-  padding: 8px 0 8px 8px;
-}
-
 .carbon-form__additional-actions {
   padding-left: 10px;
   display: inline-block;
 }
 
 .carbon-form__buttons--right {
-  text-align: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.carbon-form-cancel {
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px 0 8px 8px;
+}
+
+.carbon-form-save {
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px;
+}
+
+.carbon-form-save--invalid {
+  background-color: $grey-dark-blue-5;
 }

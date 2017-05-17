@@ -37,7 +37,8 @@ let definition = new Definition('form', Form, {
     onCancel: "Function",
     save: "Boolean",
     additionalActions: "Node",
-    onSubmit: "Function"
+    onSubmit: "Function",
+    iterative: "Boolean",
   },
   propDescriptions: {
     cancel: "Set to false to hide the cancel button.",
@@ -53,7 +54,8 @@ let definition = new Definition('form', Form, {
     onCancel: "A callback triggered when the form is cancelled.",
     save: "Set to false to hide the save button.",
     additionalActions: "Supply additional buttons alongside the form's buttons.",
-    onSubmit: "A callback triggered when the form is submitted with passing validation."
+    onSubmit: "A callback triggered when the form is submitted with passing validation.",
+    iterative: "A flag for when the user should be able to repeatedly save & re-use a form."
   },
   propValues: {
     activeInput: '',
