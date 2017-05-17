@@ -5,6 +5,8 @@ import NumberComponent from './../number';
 import Pager from './pager';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
+import { shallow } from 'enzyme';
+
 describe('Pager', () => {
   let instance, instance2, spy1, spy2;
 
@@ -365,5 +367,48 @@ describe('Pager', () => {
         'previous-page'
       ]);
     });
+  });
+});
+
+describe("Page number value change (from 3):", () => {
+  let number,
+      wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(
+      <Pager
+        currentPage='3'
+        onPagination={ () => {} }
+        pageSize='10'
+        totalRecords='49'
+      />
+    );
+    number = wrapper.find('.carbon-pager__current-page');
+  });
+
+  it("changes to 0 and causes no change", () => {
+    number.simulate('change', { target: { value: '0' } });
+    number = wrapper.find('.carbon-pager__current-page');
+    expect(number.prop('value')).toEqual('3');
+  });
+  it("changes to >maxPage and causes no change", () => {
+    number.simulate('change', { target: { value: '6' } });
+    number = wrapper.find('.carbon-pager__current-page');
+    expect(number.prop('value')).toEqual('3');
+  });
+  it("changes to 1 and sets it to 1", () => {
+    number.simulate('change', { target: { value: '1' } });
+    number = wrapper.find('.carbon-pager__current-page');
+    expect(number.prop('value')).toEqual('1');
+  });
+  it("changes to maxPage and sets it to maxPage", () => {
+    number.simulate('change', { target: { value: '5' } });
+    number = wrapper.find('.carbon-pager__current-page');
+    expect(number.prop('value')).toEqual('5');
+  });
+  it("changes to '' and sets it to ''", () => {
+    number.simulate('change', { target: { value:  '' } });
+    number = wrapper.find('.carbon-pager__current-page');
+    expect(number.prop('value')).toEqual('');
   });
 });

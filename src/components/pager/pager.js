@@ -116,13 +116,28 @@ class Pager extends React.Component {
   }
 
   /**
+   * Decides if a value is within page range
+   * The === '' means backspace can be used in the field to clear it for UX reasons
+   *
+   * @method withinRange
+   * @return {Boolean}
+   */
+  withinRange = (page) => {
+    return (page >= 1 && page <= this.maxPage) || page === '';
+  }
+
+  /**
    * Handle current page input internally until blur event
    *
    * @method handleCurrentPageInputChange
    * @return {Void}
    */
   handleCurrentPageInputChange = (ev) => {
-    this.setState({ currentPage: ev.target.value });
+    let next = ev.target.value;
+
+    if (this.withinRange(next)) {
+      this.setState({ currentPage: next });
+    }
   }
 
   /**
