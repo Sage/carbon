@@ -71,12 +71,6 @@ describe('Length Validator', () => {
       expect(lessThanValidator.message()).toEqual("Must be 5 characters or less");
     });
 
-    describe('when value is empty', () => {
-      it('returns true', () => {
-        expect(lessThanValidator.validate()).toBeTruthy();
-      });
-    });
-
     describe('when the value is greater than the maximum', () => {
       it('returns false', () => {
         expect(lessThanValidator.validate('abcde12345')).toBeFalsy();
@@ -107,12 +101,6 @@ describe('Length Validator', () => {
       expect(greaterThanValidator.message()).toEqual("Must be 10 characters or more");
     });
 
-    describe('when value is empty', () => {
-      it('returns true', () => {
-        expect(greaterThanValidator.validate()).toBeTruthy();
-      });
-    });
-
     describe('when the value is less than the minimum', () => {
       it('returns false', () => {
         expect(greaterThanValidator.validate('abcde')).toBeFalsy();
@@ -137,12 +125,6 @@ describe('Length Validator', () => {
 
     beforeEach(() => {
        rangeValidator = new Validator({ min: 5, max: 10 });
-    });
-
-    describe('when value is empty', () => {
-      it('returns true', () => {
-        expect(rangeValidator.validate()).toBeTruthy();
-      });
     });
 
     describe('when the value is less than the minimum', () => {

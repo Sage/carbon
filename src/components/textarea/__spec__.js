@@ -1,34 +1,41 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Textarea from './textarea';
 
 describe('Textarea', () => {
-  let baseInstance, expandableInstance, overLimitInstance, notOverLimitInstance;
+  let baseWrapper, expandableWrapper, overLimitWrapper, notOverLimitWrapper,
+      baseInstance, expandableInstance, overLimitInstance, notOverLimitInstance;
   let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
-    baseInstance = TestUtils.renderIntoDocument(<Textarea
-      id='Dummy Area'
-      value={ 'foo' }
-      label={ 'Label' }
-      cols={10}
-      rows={10}
-      onChange={ spy }
-    />);
+    baseWrapper = mount(
+      <Textarea
+        id='Dummy Area'
+        value={ 'foo' }
+        label={ 'Label' }
+        cols={10}
+        rows={10}
+        onChange={ spy }
+      />);
+    baseInstance = baseWrapper.instance()
 
-    expandableInstance = TestUtils.renderIntoDocument(<Textarea
-      value={ 'foo' }
-      label={ 'Label' }
-      expandable={ true }
-      cols={10}
-      rows={10}
-      characterLimit='100'
-      onChange={ spy }
-    />);
+    expandableWrapper = mount(
+      <Textarea
+        value={ 'foo' }
+        label={ 'Label' }
+        expandable={ true }
+        cols={10}
+        rows={10}
+        characterLimit='100'
+        onChange={ spy }
+      />
+    );
+    expandableInstance = expandableWrapper.instance();
 
-    overLimitInstance = TestUtils.renderIntoDocument(<Textarea
+    overLimitWrapper = shallow(
+      <Textarea
         name="Dummy Area"
         value={ 'foofoofoofoo' }
         label={ 'Label' }
@@ -37,9 +44,12 @@ describe('Textarea', () => {
         rows={10}
         characterLimit='10'
         onChange={ spy }
-    />);
+      />
+    );
+    overLimitInstance = overLimitWrapper.instance();
 
-    notOverLimitInstance = TestUtils.renderIntoDocument(<Textarea
+    notOverLimitWrapper = shallow(
+      <Textarea
         name="Dummy Area"
         value={ 'foofoofoo' }
         label={ 'Label' }
@@ -48,7 +58,8 @@ describe('Textarea', () => {
         rows={10}
         characterLimit='10'
         onChange={ spy }
-    />);
+    />)
+    notOverLimitInstance = notOverLimitWrapper.instance();
   });
 
   describe('componentDidMount', () => {

@@ -128,18 +128,6 @@ function getType(params) {
 }
 
 /**
- * Returns the length of the value taking into account line breaks
- *
- * @method valueLength
- * @return {String} value
- * @private
- */
-function valueLength(value) {
-  let numberOfLineBreaks = (value.match(/\n/g) || []).length;
-  return value.length + numberOfLineBreaks;
-}
-
-/**
  * This will validate whether the value matches the specified length.
  *
  * @method validateLength
@@ -157,7 +145,7 @@ function validateLength() {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (valueLength(value) == this.is));
+      return (!value || (value.length == this.is));
     },
 
     /**
@@ -192,7 +180,7 @@ function validateLess() {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (valueLength(value) <= this.max));
+      return (!value || (value.length <= this.max));
     },
 
     /**
@@ -225,7 +213,7 @@ function validateGreater() {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (valueLength(value) >= this.min));
+      return (!value || (value.length >= this.min));
     },
 
     /**
@@ -259,7 +247,7 @@ function validateRange() {
      * @return {Boolean} true if value is valid
      */
     validate: function(value) {
-      return (!value || (valueLength(value) >= this.min && valueLength(value) <= this.max));
+      return (!value || (value.length >= this.min && value.length <= this.max));
     },
 
     /**
@@ -269,7 +257,7 @@ function validateRange() {
     message: function(value) {
       let error = 'short', count = this.min;
 
-      if (value && valueLength(value) >= this.min) {
+      if (value.length >= this.min) {
         error = 'long';
         count = this.max;
       }
