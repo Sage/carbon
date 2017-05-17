@@ -1,8 +1,8 @@
 # 1.0.1
 
-## Bug Fixes
+## New Validations
 
-* Length validation now counts in the line breaks when calculating the length of input value.
+* `CharacterCountValidator` checks that the number of characters (including line breaks) of the input value does not exceed a given limit.
 
 ## Component Enhancements
 

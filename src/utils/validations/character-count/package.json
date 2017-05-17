@@ -1,0 +1,4 @@
+{
+  "main": "./character-count",
+  "name": "CharacterCountValidator"
+}
