@@ -2,7 +2,7 @@
 
 ## DraggableContext, WithDrag & WithDrop
 
-We now provide a series of components to enable drag and drop functionality. The following demonstrates an example of how you can achieve this (note that you will need to define the `onDrag` prop to manipulate the order as it changes):
+We now provide a series of components to enable drag and drop functionality. The following demonstrates an example of how you can achieve this.
 
 ```
 <DraggableContext onDrag={ onItemMoved }>
@@ -10,17 +10,21 @@ We now provide a series of components to enable drag and drop functionality. The
     {
       items.map((item, index) => {
         return (
-          <WithDrop index={ index }>
+          <WithDrop key={ index } index={ index }>
             <li>
               <WithDrag><span>{ item.content }</span></WithDrag>
             </li>
           </WithDrop>
         );
-      })
+      });
     }
   </ol>
 </DraggableContext>
 ```
+
+You will need to define the `onDrag` prop to manipulate the order as it changes. The function will be pased two params when called. dragIndex, the original position of the item, and hoverIndex the position of the item if dropped.
+
+An example function signature: `onItemMoved = (dragIndex, hoverIndex) => { }`
 
 ## Draggable Table Rows
 
@@ -33,11 +37,12 @@ The `TableRow` component now supports drag and drop. To use it you need to add t
       {
         rows.map((row, index) => {
           return (
-            <TableRow index={ index }>
+            <TableRow key={ index } index={ index }>
               { row.content }
             </TableRow>
           );
-        }
+        });
+      }
     </tbody>
   </DraggableContext>
 </Table>
