@@ -3,7 +3,6 @@ import { classify } from 'underscore.string';
 import inputDefinition from './input-definition';
 import modalDefinition from './modal-definition';
 import tableDefinition from './table-definition';
-import dndContextContainerDefinition from './drag-drop-context-container-definition';
 import ComponentActions from './../../actions/component';
 
 class Definition {
@@ -104,10 +103,6 @@ class Definition {
 
   isATable = () => {
     tableDefinition(this);
-  }
-
-  isDragAndDropContextContainer = (component) => {
-    dndContextContainerDefinition(this, component);
   }
 }
 
