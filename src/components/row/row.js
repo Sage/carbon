@@ -123,20 +123,20 @@ class Row extends React.Component {
       }
     );
 
-    if (child.type !== Column) {
+    if (child.type && child.type.isColumn) {
+      columnClasses = classNames(columnClasses, child.props.className);
+      return React.cloneElement(
+        child,
+        { className: columnClasses, key: key },
+        child.props.children
+      );
+    } else {
       Logger.deprecate('Row Component should only have an immediate child of type Column');
 
       return (
         <div key={ key } className={ columnClasses }>
           { child }
         </div>
-      );
-    } else {
-      columnClasses = classNames(columnClasses, child.props.className);
-      return React.cloneElement(
-        child,
-        { className: columnClasses, key: key },
-        child.props.children
       );
     }
   }
