@@ -41,7 +41,7 @@ $carbon-detail-icon-size: 16px;
 .carbon-detail__footnote {
   color: $grey-dark-blue-80;
   font-size: 13px;
-  position: absolute;
+  position: relative;
   margin-top: -2px;
 
   .carbon-detail--has-icon & {
