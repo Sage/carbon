@@ -1,3 +1,9 @@
+# 1.1.0
+
+## Component Enhancements
+
+* `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
+
 # 1.0.0
 
 ## :warning: Major Change - React 15 Upgrade
@@ -48,7 +54,7 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 * `MountInApp` now cleans up it's children when the component is unmounted.
 * `Pod`: Font size increased
 * `ShowEditPod`: z-index on input prefixes
-* `TableHeader`: Font weight, and improve accessibility of sortable column (they can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated)
+* `TableHeader`: Font weight
 
 ## Helpers
 
