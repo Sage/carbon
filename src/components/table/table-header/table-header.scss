@@ -38,7 +38,13 @@
 }
 
 .carbon-table-header--sort {
-  color: $white;
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    color: $white;
+    text-decoration: none;
+  }
 }
 
 .carbon-table-header--align-left {
