@@ -1,12 +1,9 @@
 # 1.0.1
 
-## New Validations
-
-* `CharacterCountValidator` checks that the number of characters (including line breaks) of the input value does not exceed a given limit.
-
 ## Component Enhancements
 
 * `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
+* Simplify character count in `Textarea`.
 
 # 1.0.0
 
