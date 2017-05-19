@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { compact, omit } from 'lodash';
+import { compact } from 'lodash';
 import Immutable from 'immutable';
+import Column from './column';
+import Logger from './../../utils/logger';
 
 /**
  * A row widget.
@@ -99,7 +101,19 @@ class Row extends React.Component {
    * @return {Object} JSX of build column
    */
   buildColumn = (child, key) => {
-    let columnClass = classNames(
+    /**
+     * This functionality is maintaining the deprecated behaviour
+     * where Row can have any immediate children. As of React 16 this
+     * will break and therefore we have added a column component to deal
+     * with the complications and maintain functionality.
+     *
+     * Removing the deprecated behaviour in Carbon v2 we can likely
+     * remove the buildColumns and buildColumn function and just render the Row's
+     * children which will include the columns
+     *
+     * TODO: CarbonV2
+     */
+    let columnClasses = classNames(
       "carbon-row__column",
       child.props.columnClasses, {
         [`carbon-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
@@ -109,14 +123,22 @@ class Row extends React.Component {
       }
     );
 
-    const childProps = omit(child.props, ['columnOffset', 'columnSpan', 'columnClasses', 'columnAlign']);
-    const newChild = React.createElement(child.type, childProps, child.props.children);
+    if (child.type !== Column) {
+      Logger.deprecate('Row Component should only have an immediate child of type Column');
 
-    return (
-      <div key={ key } className={ columnClass }>
-        { newChild }
-      </div>
-    );
+      return (
+        <div key={ key } className={ columnClasses }>
+          { child }
+        </div>
+      );
+    } else {
+      columnClasses = classNames(columnClasses, child.props.className);
+      return React.cloneElement(
+        child,
+        { className: columnClasses, key: key },
+        child.props.children
+      );
+    }
   }
 
   /**
@@ -160,3 +182,7 @@ class Row extends React.Component {
 }
 
 export default Row;
+export {
+  Row,
+  Column
+};

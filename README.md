@@ -1,6 +1,6 @@
-# Carbon [ ![Codeship Status for Sage/carbon](https://codeship.com/projects/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad/status?branch=master)](https://codeship.com/projects/115478)
+# Carbon [![Build Status](https://travis-ci.org/Sage/carbon.svg?branch=master)](https://travis-ci.org/Sage/carbon)
 
-<img src="./../master/logo/carbon-logo.png" width="50">
+<img src="https://raw.githubusercontent.com/Sage/carbon/master/logo/carbon-logo.png" width="50">
 
 Carbon is a library of reusable [React](https://facebook.github.io/react/) components and an interface for easily building user interfaces based on [Flux](https://facebook.github.io/flux/).
 
@@ -81,4 +81,4 @@ The following is a list of technologies Carbon utilises:
 
 Carbon is licensed under the [Apache-2.0 licence](https://github.com/Sage/carbon/blob/master/LICENSE).
 
-Copyright (c) 2016 Sage Group Plc. All rights reserved.
+Copyright (c) 2017 Sage Group Plc. All rights reserved.

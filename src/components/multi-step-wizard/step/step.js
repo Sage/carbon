@@ -352,15 +352,15 @@ class Step extends React.Component {
         <div className={ this.mainClasses }>
           <div className={ 'multi-step-wizard-step__indicator-bar ' + this.indicatorStatus }>
             <div className='multi-step-wizard-step__indicator-background' />
-            <div className='multi-step-wizard-step__indicator-icon'>
-              <div className='multi-step-wizard-step__indicator-placeholder'>
-                <div className={ 'multi-step-wizard-step__indicator-icon__content ' + this.indicatorStatus }>
-                  { this.indicatorHTML }
-                </div>
+          </div>
+          <div className='multi-step-wizard-step__indicator-icon'>
+            <div className='multi-step-wizard-step__indicator-placeholder'>
+              <div className={ 'multi-step-wizard-step__indicator-icon__content ' + this.indicatorStatus }>
+                { this.indicatorHTML }
               </div>
             </div>
-            { this.stepHTML }
           </div>
+          { this.stepHTML }
         </div>
       );
     } else {

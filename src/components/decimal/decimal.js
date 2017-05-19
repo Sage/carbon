@@ -5,6 +5,7 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
+import PropTypesHelper from '../../utils/helpers/prop-types';
 import { tagComponent } from '../../utils/helpers/tags';
 
 /**
@@ -64,10 +65,9 @@ class Decimal extends React.Component {
      * @type {Integer}
      * @default 2
      */
-    precision: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ])
+    precision: (props, propName, componentName) => {
+      return PropTypesHelper.inValidRange(props, propName, componentName, 0, 20);
+    }
   };
 
   static defaultProps = {

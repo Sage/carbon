@@ -55,3 +55,10 @@ When submitting a pull request, please ensure your branch meets the following cr
 * The code does not introduce unnecessary dependencies (no jQuery!).
 
 To be merged, we prefer the pull request to be reviewed by at least two people with merge rights.
+
+## CLA
+
+To accept any third party contributions we require a Contributor License Agreement to be signed. Please find links to the relevent documents below:
+
+* [Individual CLA](https://github.com/Sage/carbon/blob/master/cla/SAGE-CLA.docx)
+* [Corporate CLA](https://github.com/Sage/carbon/blob/master/cla/SAGE-CCLA.docx)
