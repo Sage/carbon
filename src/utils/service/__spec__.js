@@ -1,5 +1,6 @@
 import moxios from 'moxios';
 import Service from './service';
+import { assign } from 'lodash';
 
 describe('Service', () => {
   let service, onSuccessSpy, onErrorSpy;
@@ -233,7 +234,7 @@ describe('Service', () => {
     });
 
     describe('with a transformRequest', () => {
-      it('transforms the data', () => {
+      it('transforms the data', (done) => {
         service.setTransformRequest((data) => {
           let d = { bar: 'custom' };
           return JSON.stringify(d);
@@ -243,6 +244,7 @@ describe('Service', () => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
           expect(request.config.data).toEqual(JSON.stringify({ bar: 'custom' }));
+          done();
         });
       });
     });
@@ -250,20 +252,21 @@ describe('Service', () => {
     describe('with a transformResponse', () => {
       it('transforms the data', () => {
         service.setTransformResponse((data) => {
-          let d = { bar: 'custom' };
+          let d = assign({}, data, { bar: 'custom' });
           return JSON.stringify(d);
         });
         service.get(1, () => {}, () => {});
 
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          expect(request.config.data).toEqual(JSON.stringify({ bar: 'custom' }));
 
           request.respondWith({
             status: 200,
             response: JSON.stringify({ foo: 'responded' })
           }).then((response) => {
-            expect(response.data).toEqual(JSON.stringify({ foo: 'responded' }))
+            expect(response.data).toEqual(
+              JSON.stringify({ foo: 'responded', bar: 'custom' })
+            );
           });
         });
       });
