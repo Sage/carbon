@@ -216,9 +216,25 @@ describe('Textarea', () => {
       expect(notOverLimitWrapper.find('.carbon-textarea__character-limit').exists()).toBeTruthy();
     });
 
-    describe('if the textarea char count is over limit', () => {
-      it('returns an additional over-limit class', () => {
-        expect(overLimitWrapper.find('.carbon-textarea__character-limit.over-limit').exists()).toBeTruthy();
+    describe('overlimit', () => {
+      describe('if the textarea char count is over limit', () => {
+        it('returns an additional over-limit class', () => {
+          expect(overLimitWrapper.find('.carbon-textarea__character-limit.over-limit').exists()).toBeTruthy();
+        });
+      });
+
+      describe('if the textarea value is empty', () => {
+        it('does not add a extra class', () => {
+          overLimitWrapper.setProps({ value: '' });
+          expect(overLimitWrapper.find('.carbon-textarea__character-limit.over-limit').exists()).toBeFalsy();
+        });
+      });
+
+      describe('if the textarea value is under the limit', () => {
+        it('does not add a extra class', () => {
+          overLimitWrapper.setProps({ value: 'foo' });
+          expect(overLimitWrapper.find('.carbon-textarea__character-limit.over-limit').exists()).toBeFalsy();
+        });
       });
     });
   });

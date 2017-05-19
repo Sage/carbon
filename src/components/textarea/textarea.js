@@ -183,10 +183,8 @@ class Textarea extends React.Component {
    * @return {Boolean}
    */
   get overLimit() {
-    if (!this.props.value) {
-      return false;
-    }
-    return this.props.value.length > parseInt(this.props.characterLimit);
+    const value = this.props.value || '';
+    return value.length > parseInt(this.props.characterLimit);
   }
 
   /**
