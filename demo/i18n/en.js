@@ -48,7 +48,7 @@ I18n.translations['en'] = {
     page_header_large: {
       heading1: 'Carbon is a library of React components for building great web applications.',
       heading2: 'Carbon is Open Source. It’s hosted, developed, and maintained on Github.',
-      version: 'Currently: v1.0.0-rc3'
+      version: 'Currently: v1.0.0-rc4'
     },
 
     sage_loves_carbon: {
