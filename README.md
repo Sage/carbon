@@ -6,6 +6,8 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 
 [Carbon Factory](https://github.com/sage/carbon-factory) is supplementary to Carbon; providing tools to easily get your environment and project up and running to start building with React. As well as providing a command line interface to build projects, it manages tasks for compiling your assets and running test suites.
 
+Check out our [demo and documentation site](https://carbon.sage.com/) for live examples and code snippets.
+
 ## Documentation
 
 ### Getting Started
