@@ -6,8 +6,8 @@ import Textarea from './textarea';
 
 describe('Textarea', () => {
   let baseWrapper, expandableWrapper, overLimitWrapper, notOverLimitWrapper,
-      baseInstance, expandableInstance, overLimitInstance, notOverLimitInstance;
-  let spy = jasmine.createSpy('spy')
+      baseInstance, expandableInstance;
+  let spy = jasmine.createSpy('spy');
 
   beforeEach(() => {
     baseWrapper = mount(
@@ -18,8 +18,9 @@ describe('Textarea', () => {
         cols={10}
         rows={10}
         onChange={ spy }
-      />);
-    baseInstance = baseWrapper.instance()
+      />
+    );
+    baseInstance = baseWrapper.instance();
 
     expandableWrapper = mount(
       <Textarea
@@ -46,7 +47,6 @@ describe('Textarea', () => {
         onChange={ spy }
       />
     );
-    overLimitInstance = overLimitWrapper.instance();
 
     notOverLimitWrapper = shallow(
       <Textarea
@@ -58,8 +58,7 @@ describe('Textarea', () => {
         rows={10}
         characterLimit='10'
         onChange={ spy }
-    />)
-    notOverLimitInstance = notOverLimitWrapper.instance();
+    />);
   });
 
   describe('componentDidMount', () => {
@@ -196,44 +195,30 @@ describe('Textarea', () => {
 
   describe('mainClasses', () => {
     it('returns carbon-textarea and additional decorated classes', () => {
-      expect(baseInstance.mainClasses).toEqual('carbon-textarea common-input');
+      expect(baseWrapper.find('.carbon-textarea.common-input').exists()).toBeTruthy();
     });
   });
 
   describe('inputClasses', () => {
     it('returns carbon-textarea__input and additional decorated classes', () => {
-      expect(baseInstance.inputClasses).toEqual('carbon-textarea__input common-input__input');
+      expect(baseWrapper.find('.carbon-textarea__input.common-input__input').exists()).toBeTruthy();
     });
 
     describe('if the textarea is expandable', () => {
       it('returns an additional disable-scroll class', () => {
-        expect(expandableInstance.inputClasses).toEqual('carbon-textarea__input carbon-textarea__input--disable-scroll common-input__input')
+        expect(expandableWrapper.find('.carbon-textarea__input.carbon-textarea__input--disable-scroll.common-input__input').exists()).toBeTruthy();
       });
     });
   });
 
   describe('textAreaClasses', () => {
     it('returns carbon-textarea__character-limit class', () => {
-      expect(baseInstance.textAreaClasses).toEqual('carbon-textarea__character-limit');
+      expect(notOverLimitWrapper.find('.carbon-textarea__character-limit').exists()).toBeTruthy();
     });
 
     describe('if the textarea char count is over limit', () => {
       it('returns an additional over-limit class', () => {
-        expect(overLimitInstance.textAreaClasses).toEqual('carbon-textarea__character-limit over-limit')
-      });
-    });
-  });
-
-  describe('overLimit', () => {
-    describe('if the textarea char count is not over limit', () => {
-      it('returns false', () => {
-        expect(notOverLimitInstance.overLimit).toBe(false);
-      });
-    });
-
-    describe('if the textarea char count is over limit', () => {
-      it('returns true', () => {
-        expect(overLimitInstance.overLimit).toBe(true);
+        expect(overLimitWrapper.find('.carbon-textarea__character-limit.over-limit').exists()).toBeTruthy();
       });
     });
   });

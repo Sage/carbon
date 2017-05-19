@@ -82,10 +82,26 @@ function insertAt(value, options) {
   return result;
 }
 
+/**
+ * Gets the character count of a given string.
+ *
+ * @method charCount
+ * @param {String} value
+ * @return {Number} the number of characters
+ */
+function charCount(value) {
+  if (!value) { return 0; }
+
+  let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+
+  return value.length + numberOfLineBreaks;
+}
+
 export {
   acronymize,
   append,
   insertAt,
+  charCount,
   styleElement,
   validProps
 };

@@ -1,4 +1,5 @@
 import ValidationsHelper from './../../helpers/validations';
+import { charCount } from '../../ether';
 
 /**
  * A Character Count Validator object.
@@ -76,17 +77,3 @@ class CharacterCountValidator {
 }
 
 export default CharacterCountValidator;
-
-// Private Methods
-
-/**
- * Returns the character count taking into account line breaks
- *
- * @method charCount
- * @return {String} value
- * @private
- */
-function charCount(value) {
-  let numberOfLineBreaks = (value.match(/\n/g) || []).length;
-  return value.length + numberOfLineBreaks;
-}
