@@ -1,4 +1,4 @@
-import { append, styleElement, acronymize, validProps, insertAt, charCount } from './ether.js';
+import { append, styleElement, acronymize, validProps, insertAt } from './ether.js';
 import React from 'react';
 import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
@@ -78,26 +78,6 @@ describe('Ether', () => {
     describe('when the insertion index is beyond the value length', () => {
       it('ignores the invalid index', () => {
         expect(insertAt('1234567890', {insertionIndices: [3, 7, 15], separator:'/'})).toEqual('123/456/7890');
-      });
-    });
-  });
-
-  describe('charCount', () => {
-    describe('when value is not present', () => {
-      it('returns 0', () => {
-        expect(charCount()).toEqual(0);
-      });
-    });
-
-    describe('when value does contain line breaks', () => {
-      it('returns correct number of characters', () => {
-        expect(charCount('abc')).toEqual(3);
-      });
-    });
-
-    describe('when value contains line breaks', () => {
-      it('returns correct number of characters', () => {
-        expect(charCount('abc\n')).toEqual(5);
       });
     });
   });

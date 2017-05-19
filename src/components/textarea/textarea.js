@@ -5,7 +5,6 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import I18n from 'i18n-js';
-import { charCount } from '../../utils/ether';
 import { validProps } from '../../utils/ether';
 import { tagComponent } from '../../utils/helpers/tags';
 
@@ -184,7 +183,8 @@ class Textarea extends React.Component {
    * @return {Boolean}
    */
   get overLimit() {
-    return charCount(this.props.value) > parseInt(this.props.characterLimit);
+    const value = this.props.value || '';
+    return value.length > parseInt(this.props.characterLimit);
   }
 
   /**
@@ -234,12 +234,14 @@ class Textarea extends React.Component {
    * @return {JSX}
    */
   get characterCount() {
+    const value = this.props.value || '';
+
     if (this.props.characterLimit) {
       return (
         <div className={ this.textAreaClasses } data-element='character-limit'>
           { I18n.t('textarea.limit.prefix', { defaultValue: 'You have used ' } ) }
           <span className='carbon-textarea__limit-used'>
-            { I18n.toNumber(charCount(this.props.value), this.i18nNumberOpts) }
+            { I18n.toNumber(value.length, this.i18nNumberOpts) }
           </span>
           { I18n.t('textarea.limit.middle', { defaultValue: ' of ' } ) }
           <span className='carbon-textarea__limit-max'>
