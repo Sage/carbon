@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "1.0.0-rc4",
+  "version": "1.0.0-rc5",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "main": "index.js",
   "engineStrict": true,
