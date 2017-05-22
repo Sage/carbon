@@ -2,7 +2,7 @@
   "name": "carbon",
   "version": "1.0.0-rc1",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
-  "main": "index.js",
+  "main": "electron.js",
   "engineStrict": true,
   "engines": {
     "npm": "^3.0.0"
