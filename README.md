@@ -51,19 +51,18 @@ To run the example, do the following steps:
 See the guide on [installing unreleased changes](https://github.com/Sage/carbon/blob/master/docs/guides/installing-unreleased-changes.md)
 
 ## Submitting a Release
+
 * N.B. Releases are created by Sage Carbon Team.
 
+* If releasing a minor version, create a branch from `master`.
+* If releasing a patch version, create a branch from the tag you want to patch.
 * Bump the version in `package.json`.
 * Ensure the `CHANGELOG.md` is up to date.
-* Run `npm install` to make sure the packages are all up to date.
-* Run `npm run-script release` to update `/lib`.
-* If releasing a minor version, create a branch from `master`.
-* If releasing a patch version, create a branch from `release`.
 * Commit and push changes.
 * If releasing a minor version, open a PR to `master`.
 * If releasing a patch version, open a PR to `release`.
-* Once merged, draft a release in GitHub using the new version number as the tag. Make sure to target the correct branch (`master` or `release`).
-* If you have merged into `release`, open a PR to merge back into `master`.
+* Once merged, draft a release in GitHub using the new version number as the tag. Make sure to target the correct branch (`master` or `release`.
+* If you have released from a branch other than `master`, open a PR to merge back into `master`.
 
 ## Technologies
 

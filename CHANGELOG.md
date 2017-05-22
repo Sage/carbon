@@ -4,9 +4,9 @@
 
 * The package name has been updated to `carbon-react`.
 
-## Carbon Factory Updated
+## Removed `/lib` directory
 
-* Now using v0.3.6, which includes the fix for the `illegal export declaration` error.
+* You should now install the package via npm: `npm install carbon-react`.
 
 ## :warning: Major Change - React 15 Upgrade
 
@@ -131,7 +131,7 @@ We have added data-attributes to components to better identify them and their pa
 
 ## Dependency Update
 
-* Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+* Carbon Factory has been upgraded to v0.3.6 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.6
 
 ### Gulp updates
 
