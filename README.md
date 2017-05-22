@@ -1,10 +1,12 @@
-# Carbon [ ![Codeship Status for Sage/carbon](https://codeship.com/projects/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad/status?branch=master)](https://codeship.com/projects/115478)
+# Carbon [ ![Codeship Status](https://codeship.com/projects/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad/status?branch=master)](https://codeship.com/projects/115478) [![Travis Status](https://travis-ci.org/Sage/carbon.svg?branch=master)](https://travis-ci.org/Sage/carbon) [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react)
 
-<img src="./../master/logo/carbon-logo.png" width="50">
+<img src="https://raw.githubusercontent.com/Sage/carbon/master/logo/carbon-logo.png" width="50">
 
 Carbon is a library of reusable [React](https://facebook.github.io/react/) components and an interface for easily building user interfaces based on [Flux](https://facebook.github.io/flux/).
 
 [Carbon Factory](https://github.com/sage/carbon-factory) is supplementary to Carbon; providing tools to easily get your environment and project up and running to start building with React. As well as providing a command line interface to build projects, it manages tasks for compiling your assets and running test suites.
+
+Check out our [demo and documentation site](https://carbon.sage.com/) for live examples and code snippets.
 
 ## Documentation
 
