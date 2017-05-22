@@ -1,3 +1,10 @@
+# 1.1.0
+
+## Component Enhancements
+
+* `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
+* Simplify character count in `Textarea`.
+
 # 1.0.0
 
 ## :warning: Major Change - React 15 Upgrade
