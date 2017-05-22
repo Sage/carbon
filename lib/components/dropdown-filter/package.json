@@ -1,5 +1,0 @@
-{
-  "name": "dropdown-filter",
-  "main": "./dropdown-filter.js",
-  "style": "./dropdown-filter.scss"
-}

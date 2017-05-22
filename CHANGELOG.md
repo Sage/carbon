@@ -4,6 +4,10 @@
 
 * The package name has been updated to `carbon-react`.
 
+## Removed `/lib` directory
+
+* You should now install the package via npm: `npm install carbon-react`.
+
 ## :warning: Major Change - React 15 Upgrade
 
 * React has been upgraded to version 15.5.0 - https://github.com/facebook/react/releases

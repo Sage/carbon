@@ -1,5 +1,0 @@
-{
-  "name": "tabs",
-  "style": "tabs.scss",
-  "main": "./tabs.js"
-}
