@@ -1,5 +1,9 @@
 # 1.0.0
 
+## Package Name Change
+
+* The package name has been updated to `carbon-react`.
+
 ## :warning: Major Change - React 15 Upgrade
 
 * React has been upgraded to version 15.5.0 - https://github.com/facebook/react/releases
