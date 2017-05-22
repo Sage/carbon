@@ -4,6 +4,10 @@
 
 * The package name has been updated to `carbon-react`.
 
+## Carbon Factory Updated
+
+* Now using v0.3.6, which includes the fix for the `illegal export declaration` error.
+
 ## :warning: Major Change - React 15 Upgrade
 
 * React has been upgraded to version 15.5.0 - https://github.com/facebook/react/releases
