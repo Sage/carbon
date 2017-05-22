@@ -131,7 +131,7 @@ We have added data-attributes to components to better identify them and their pa
 
 ## Dependency Update
 
-* Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+* Carbon Factory has been upgraded to v0.3.6 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.6
 
 ### Gulp updates
 
