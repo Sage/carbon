@@ -88,6 +88,7 @@ This should hopefully replace all uses of `Request` or `axios`.
 * `Link`: CSS inheritance has been updated to better support buttons.
 * `MenuList`: item filter search icon positioning is fixed
 * Row clones children when mutating props rather than creating new element to retain refs
+* Stop input value being removed from props (fixes Button Toggle issue)
 
 ## Deprecations Added
 
