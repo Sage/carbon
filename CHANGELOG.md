@@ -22,7 +22,7 @@ We now provide a series of components to enable drag and drop functionality. For
 </DraggableContext>
 ```
 
-The `onDrag` prop to manipulates the order as it changes. It is a function that receives two arguments when called: `dragIndex`, which is the original position of the item, and `hoverIndex`, which is the position of the item if dropped.
+The `onDrag` prop can manipulate the order of items as they are dragged. It is a function that receives two arguments: `dragIndex`, which is the original position of the item, and `hoverIndex`, which is the position of the item if dropped.
 
 An example function signature: `onItemMoved = (dragIndex, hoverIndex) => { }`
 

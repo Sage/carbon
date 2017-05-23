@@ -56,7 +56,7 @@ let definition = new Definition('draggable-context', DraggableContext, {
   },
 
   relatedComponentsNotes: `
-Although the \`Table\` component has drag and drop enabled already, any combination of component's can be made draggable through the use of the \`WithDrag\` and \`WithDrop\` components:
+Although the \`Table\` component has drag and drop enabled already, any combination of components can be made draggable through the use of the \`WithDrag\` and \`WithDrop\` components:
 
 \`\`\`
 <DraggableContext onDrag={ onItemMoved }>
