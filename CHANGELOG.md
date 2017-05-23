@@ -1,5 +1,9 @@
 # 1.1.0
 
+## Package Updates
+
+* BigNumber has been updated to v4.0.2
+
 ## Component Enhancements
 
 * `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
