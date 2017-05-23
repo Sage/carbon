@@ -3,6 +3,7 @@
   "version": "1.0.0-beta",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "main": "electron.js",
+  "electronVersion": "v1.6.6",
   "engineStrict": true,
   "engines": {
     "npm": "^3.0.0"
@@ -24,8 +25,9 @@
   "devDependencies": {
     "babel-standalone": "~6.17.0",
     "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.3.0",
+    "electron": "^1.6.8",
+    "electron-packager": "^8.7.0",
     "enzyme": "~2.5.1",
-    "express": "~4.14.0",
     "flux": "~2.1.1",
     "gulp": "~3.9.0",
     "highcharts": "~5.0.2",
@@ -48,6 +50,7 @@
     "classnames": "~2.2.3",
     "crypto-js": "~3.1.6",
     "es6-promise": "~3.2.1",
+    "express": "~4.14.0",
     "escape-string-regexp": "~1.0.5",
     "events": "~1.1.1",
     "form-serialize": "~0.7.0",
