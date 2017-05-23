@@ -25,11 +25,7 @@ class WithDrag extends React.Component {
 
 const ItemSource = {
   canDrag(props, monitor) {
-    if (props.canDrag) {
-      return props.canDrag(props, monitor);
-    } else {
-      return true;
-    }
+    return (props.canDrag) ? props.canDrag(props, monitor) : true;
   },
 
   beginDrag(props, monitor, component) {

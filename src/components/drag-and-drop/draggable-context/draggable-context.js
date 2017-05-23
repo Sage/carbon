@@ -54,11 +54,11 @@ class DraggableContext extends React.Component {
    * @type {Object}
    */
   static childContextTypes = {
-    dragAndDropOnDrag: PropTypes.func, // Callback for when order is changed
+    dragAndDropActiveIndex: PropTypes.number, // Tracks the currently dragged index
     dragAndDropBeginDrag: PropTypes.func, // Callback for when dragging begins
     dragAndDropEndDrag: PropTypes.func, // Callback for when dragging ends
     dragAndDropHover: PropTypes.func, // Callback for when a hover is triggered
-    dragAndDropActiveIndex: PropTypes.number // Tracks the currently dragged index
+    dragAndDropOnDrag: PropTypes.func // Callback for when order is changed
   }
 
   /**
@@ -69,11 +69,11 @@ class DraggableContext extends React.Component {
    */
   getChildContext() {
     return {
-      dragAndDropOnDrag: this.handleDrag,
+      dragAndDropActiveIndex: this.state.activeIndex,
       dragAndDropBeginDrag: this.handleBeginDrag,
       dragAndDropEndDrag: this.handleEndDrag,
       dragAndDropHover: this.handleHover,
-      dragAndDropActiveIndex: this.state.activeIndex
+      dragAndDropOnDrag: this.handleDrag
     };
   }
 
@@ -84,7 +84,7 @@ class DraggableContext extends React.Component {
   /**
    * A callback for when hover is triggered
    *
-   * @method Hover
+   * @method handleHover
    * @return {Void}
    */
   handleHover = ItemTargetHelper.onHoverUpDown
@@ -92,16 +92,18 @@ class DraggableContext extends React.Component {
   /**
    * A callback for when a drag is triggered.
    *
+   * Stores the hoverIndex in state as activeIndex,
+   * and calls this.props.onDrag only if originalIndex
+   * is not undefined.
+   *
    * @method handleDrag
    * @param {Number} originalIndex (the active item's original index)
    * @param {Number} hoverIndex (the active item's new index
    * @return {Void}
    */
   handleDrag = (originalIndex, hoverIndex) => {
-    // tracks the new index
     this.setState({ activeIndex: hoverIndex });
 
-    // only triggers the onDrag callback if there is an originalIndex
     if (typeof originalIndex !== 'undefined') {
       this.props.onDrag(originalIndex, hoverIndex);
     }
