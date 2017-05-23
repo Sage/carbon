@@ -8,6 +8,7 @@
 ## Bug Fixes
 
 * `Date`: fixed the warning about an uncontrolled input component
+* Stop input value being removed from props (fixes Button Toggle issue)
 
 # 1.0.0
 

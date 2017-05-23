@@ -6,6 +6,9 @@ import Help from './../../../components/help';
 import { shallow } from 'enzyme';
 
 class TestClassOne extends React.Component {
+
+  static safeProps = ['name'];
+
   get mainClasses() {
     return "testMain"
   }
@@ -55,6 +58,16 @@ describe('Input', () => {
     }));
 
     onChange = jasmine.createSpy('onChange');
+  });
+
+  describe('safeProps', () => {
+    it('sets common safeprops', () => {
+      expect(instanceTwo.constructor.safeProps).toEqual(['value']);
+    });
+
+    it('merges decorated component safeprops with common safeprops', () => {
+      expect(instance.constructor.safeProps).toEqual(['name', 'value']);
+    });
   });
 
   describe('componentDidMount', () => {
