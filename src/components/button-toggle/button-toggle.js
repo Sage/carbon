@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from 'components/icon';
-import css from 'utils/css';
-import Input from 'utils/decorators/input';
-import { validProps } from 'utils/ether';
+import Icon from './../icon';
+import css from './../../utils/css';
+import Input from './../../utils/decorators/input';
+import { validProps } from './../../utils/ether';
 import { tagComponent } from '../../utils/helpers/tags';
 
 

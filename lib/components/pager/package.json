@@ -1,5 +1,0 @@
-{
-  "name": "pager",
-  "main": "./pager.js",
-  "style": "pager.scss"
-}
