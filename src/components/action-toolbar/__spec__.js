@@ -8,7 +8,7 @@ describe('action toolbar', () => {
   let instance;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(<ActionToolbar actions={[ {}, {} ]} className="foo" />);
+    instance = TestUtils.renderIntoDocument(<ActionToolbar actions={ { foo:{}, bar:{} } } className="foo" />);
   });
 
   describe('componentWillMount', () => {
@@ -90,7 +90,7 @@ describe('action toolbar', () => {
     describe("on component", () => {
       let wrapper = shallow(
         <ActionToolbar
-          actions={ [] }
+          actions={ {} }
           data-element='bar'
           data-role='baz'
         />
@@ -102,7 +102,7 @@ describe('action toolbar', () => {
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(<ActionToolbar actions={ [ ()=>{} ] } />);
+      let wrapper = shallow(<ActionToolbar actions={ { foo: 'bar' } } />);
 
       elementsTagTest(wrapper, [
         'action',

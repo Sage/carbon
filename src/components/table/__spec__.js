@@ -8,12 +8,12 @@ import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 
 describe('Table', () => {
-  let instance, instancePager, instanceSortable, instanceCustomSort, spy;
+  let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;
 
   beforeEach(() => {
     spy = jasmine.createSpy('onChange spy');
 
-    let row = (
+    row = (
       <TableRow>
         <TableCell />
         <TableCell />
@@ -101,7 +101,7 @@ describe('Table', () => {
 
   describe('refresh', () => {
     beforeEach(() => {
-      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar actions={ [] } />);
+      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar actions={ {} } />);
       spyOn(instance, 'resetHighlightedRow');
       spyOn(instance.actionToolbarComponent, 'setState');
       spyOn(instance, 'emitOnChangeCallback');
@@ -929,6 +929,17 @@ describe('Table', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
       expect(parent.className).toEqual('carbon-table foo');
+    });
+
+    it('renders an action toolbar if actions are passed', () => {
+      let toolbarWrapper = shallow(
+        <Table className="foo" actions={ {foo: 'bar'} } selectable={ true }>
+          { row }
+        </Table>
+      );
+
+      let toolbar = toolbarWrapper.find(ActionToolbar);
+      expect(toolbar).toBeDefined();
     });
   });
 

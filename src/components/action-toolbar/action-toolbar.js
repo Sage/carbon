@@ -44,7 +44,7 @@ class ActionToolbar extends React.Component {
      * @property actions - each action is object with the action attributes
      * @type {Array}
      */
-    actions: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired,
 
     /**
      * A custom class name for the component.

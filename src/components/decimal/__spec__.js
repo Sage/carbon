@@ -3,12 +3,40 @@ import TestUtils from 'react-dom/test-utils';
 import Decimal from './decimal';
 import I18n from "i18n-js";
 import ReactDOM from 'react-dom';
-import Events from './../../utils/helpers/events';
 import { shallow } from 'enzyme';
+import Events from './../../utils/helpers/events';
+import I18nHelper from './../../utils/helpers/i18n';
+import PropTypesHelper from '../../utils/helpers/prop-types';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Decimal', () => {
   var instance;
+
+  describe('Custom prop types', () => {
+    describe('precision', () => {
+
+      beforeEach(() => {
+        spyOn(I18nHelper, 'formatDecimal').and.returnValue('20.00');
+        spyOn(console, 'error');
+      });
+
+      describe('when in a valid range', () => {
+        it('outputs a prop console error', () => {
+          spyOn(PropTypesHelper, 'inValidRange').and.returnValue(new Error('foo'));
+          instance = shallow(<Decimal />);
+          expect(console.error.calls.argsFor(0)[0]).toMatch('foo');
+        });
+      });
+
+      describe('when not in a valid range', () => {
+        it('outputs a prop console error', () => {
+          spyOn(PropTypesHelper, 'inValidRange').and.returnValue(new Error('foo'));
+          instance = shallow(<Decimal />);
+          expect(console.error.calls.count()).toEqual(0);
+        });
+      });
+    });
+  });
 
   describe('with no options', () => {
     beforeEach(() => {

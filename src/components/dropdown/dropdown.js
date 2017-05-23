@@ -648,6 +648,12 @@ class Dropdown extends React.Component {
   }
 
   /**
+   * Stubbed function allows this to be called on the parent without causign a console error
+   * This funciton is used by DropdownFilterAjax
+   */
+  requestingState = () => { return; }
+
+  /**
    * Renders the component.
    *
    * @method render
@@ -657,6 +663,7 @@ class Dropdown extends React.Component {
       <div
         className={ this.mainClasses }
         { ...this.componentTags(this.props) }
+        data-state={ this.requestingState() }
       >
         { this.labelHTML }
         { this.inputHTML }

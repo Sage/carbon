@@ -1,6 +1,6 @@
 {
   "name": "carbon",
-  "version": "1.0.0-beta",
+  "version": "1.0.0-rc1",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "main": "index.js",
   "engineStrict": true,
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.3.0",
+    "carbon-factory": "~0.3.5",
     "enzyme": "~2.8.2",
     "express": "~4.14.0",
     "flux": "~2.1.1",
@@ -42,7 +42,7 @@
     "react-router": "~2.8.0",
     "react-test-renderer": "~15.5.4",
     "underscore.string": "~3.3.4",
-    "xhr-mock": "git@github.com:resin-io-modules/xhr-mock.git#improvements"
+    "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
     "bignumber.js": "~2.4.0",
