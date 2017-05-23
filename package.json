@@ -42,7 +42,7 @@
     "react-router": "~2.8.0",
     "react-test-renderer": "~15.5.4",
     "underscore.string": "~3.3.4",
-    "xhr-mock": "git@github.com:resin-io-modules/xhr-mock.git#improvements"
+    "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
     "axios": "^0.14.0",
