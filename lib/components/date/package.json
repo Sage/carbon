@@ -1,5 +1,0 @@
-{
-  "name": "date",
-  "style": "date.scss",
-  "main": "./date.js"
-}

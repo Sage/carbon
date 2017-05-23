@@ -1,3 +1,5 @@
+@import 'colors';
+
 .carbon-textarea__input {
   height: auto;
   resize: none;
@@ -5,6 +7,10 @@
 
 .carbon-textarea__character-limit {
   text-align: right;
+
+  &.over-limit {
+    color: $red;
+  }
 }
 
 .carbon-textarea__limit-used,
