@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from './../../icon';
 import { validProps } from '../../../utils/ether';
@@ -38,7 +39,7 @@ class TableHeader extends React.Component {
      * @property align
      * @type {String}
      */
-    align: React.PropTypes.string,
+    align: PropTypes.string,
 
     /**
      * Name of the column to sort. Should correspond to name in database.
@@ -63,7 +64,7 @@ class TableHeader extends React.Component {
      * @property sortable
      * @type {Boolean}
      */
-    sortable: React.PropTypes.bool
+    sortable: PropTypes.bool
   }
 
   /**
@@ -73,9 +74,9 @@ class TableHeader extends React.Component {
    * @type {Function}
    */
   static contextTypes = {
-    onSort: React.PropTypes.func,
-    sortedColumn: React.PropTypes.string,
-    sortOrder: React.PropTypes.string
+    onSort: PropTypes.func,
+    sortedColumn: PropTypes.string,
+    sortOrder: PropTypes.string
   }
 
   /**
@@ -173,13 +174,20 @@ class TableHeader extends React.Component {
    */
   render() {
     return (
-      <th { ...this.tableHeaderProps }>
+      <th { ...this.tableHeaderProps } { ...this.componentTags(this.props) }>
         { this.props.children }
         { this.sortIconHTML }
       </th>
     );
   }
 
+  componentTags(props) {
+    return {
+      'data-component': 'table-header',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
 }
 
 export default TableHeader;

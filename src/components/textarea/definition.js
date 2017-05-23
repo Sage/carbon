@@ -19,12 +19,14 @@ let definition = new Definition('textarea', Textarea, {
   propDescriptions: {
     characterLimit: "Displays a character count to inform the user how many characters they have used from a recommended amount.",
     enforceCharacterLimit: "Enforces the maximum number of characters.",
-    expandable: "Makes the textarea automatically expand depending on the amount of text the user inputs."
+    expandable: "Makes the textarea automatically expand depending on the amount of text the user inputs.",
+    warnOverLimit: "When the character limit is exceeded the chracter count text will turn red."
   },
   propTypes: {
-    characterLimit: "Number",
+    characterLimit: "String",
     enforceCharacterLimit: "Boolean",
-    expandable: "Boolean"
+    expandable: "Boolean",
+    warnOverLimit: "Boolean"
   }
 });
 

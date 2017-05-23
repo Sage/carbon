@@ -1,5 +1,6 @@
 import css from './../../css';
 import React from 'react';
+import PropTypes from 'prop-types';
 import shouldComponentUpdate from './../../helpers/should-component-update';
 import { assign } from 'lodash';
 import guid from './../../helpers/guid';
@@ -65,7 +66,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: React.PropTypes.object
+    form: PropTypes.object
   });
 
   static propTypes = assign({}, ComposedComponent.propTypes, {});
@@ -205,10 +206,10 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     inputProps.onPaste = this.props.onPaste;
 
     // Adds data tag for automation
-    inputProps["data-member"] = "input";
+    inputProps["data-element"] = "input";
 
-    // Remove data-element as this should be applied on the top level element
-    delete inputProps["data-element"];
+    // Remove data-role as this should be applied on the top level element
+    delete inputProps["data-role"];
 
     return inputProps;
   }

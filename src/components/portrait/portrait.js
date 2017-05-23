@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MD5 from 'crypto-js/md5';
+import { tagComponent } from '../../utils/helpers/tags';
 
 import Icon from './../icon';
 
@@ -39,7 +41,7 @@ class Portrait extends React.Component {
      * @property size
      * @type {String}
      */
-    size: React.PropTypes.string,
+    size: PropTypes.string,
 
     /**
      * Source of the image
@@ -61,7 +63,7 @@ class Portrait extends React.Component {
      * @property src
      * @type {String}
      */
-    gravatar: React.PropTypes.string,
+    gravatar: PropTypes.string,
 
     /**
      * Alternate text for image
@@ -69,7 +71,7 @@ class Portrait extends React.Component {
      * @property src
      * @type {String}
      */
-    alt: React.PropTypes.string,
+    alt: PropTypes.string,
 
     /**
      * Shape of the portrait
@@ -78,7 +80,7 @@ class Portrait extends React.Component {
      * @property shape
      * @type {String}
      */
-    shape: React.PropTypes.string,
+    shape: PropTypes.string,
 
     /**
      * Initials to display as image
@@ -87,7 +89,7 @@ class Portrait extends React.Component {
      * @type {String}
      * @default 'U'
      */
-    initials: React.PropTypes.string,
+    initials: PropTypes.string,
 
     /**
      * If to use a dark background instead of a light background.
@@ -96,7 +98,7 @@ class Portrait extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    darkBackground: React.PropTypes.bool
+    darkBackground: PropTypes.bool
   }
 
   static defaultProps = {
@@ -263,6 +265,7 @@ class Portrait extends React.Component {
 
     return (
       <img
+        data-element='initials'
         className="carbon-portrait__img carbon-portrait__initials"
         src={ this.generateInitials }
         alt={ this.props.alt }
@@ -279,6 +282,7 @@ class Portrait extends React.Component {
   get avatarImage() {
     return (
       <img
+        data-element='user-image'
         className="carbon-portrait__img carbon-portrait__avatar"
         src={ this.imgSrc }
         alt={ this.props.alt }
@@ -310,7 +314,7 @@ class Portrait extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('portrait', this.props) }>
         { this.initialsImage }
         { this.avatarImage }
       </div>

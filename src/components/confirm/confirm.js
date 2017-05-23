@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dialog from '../dialog';
 import Button from '../button';
 import I18n from "i18n-js";
@@ -43,7 +44,7 @@ class Confirm extends Dialog {
      * @property onConfirm
      * @type {Function}
      */
-    onConfirm: React.PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired,
 
     /**
      * Customise the confirm button label
@@ -51,7 +52,7 @@ class Confirm extends Dialog {
      * @property onConfirm
      * @type {String}
      */
-    confirmLabel: React.PropTypes.string,
+    confirmLabel: PropTypes.string,
 
     /**
      * Customise the cancel button label
@@ -59,7 +60,7 @@ class Confirm extends Dialog {
      * @property onConfirm
      * @type {String}
      */
-    cancelLabel: React.PropTypes.string
+    cancelLabel: PropTypes.string
   })
 
   static defaultProps = assign({}, Dialog.defaultProps, {
@@ -119,13 +120,13 @@ class Confirm extends Dialog {
     return (
       <div key='confirm-buttons' className='carbon-confirm__buttons' >
         <div className='carbon-confirm__button carbon-confirm__no'>
-          <Button as='secondary' onClick={ this.props.onCancel }>
+          <Button as='secondary' onClick={ this.props.onCancel } data-element='cancel'>
             { this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' }) }
           </Button>
         </div>
 
         <div className='carbon-confirm__button carbon-confirm__yes'>
-          <Button as='primary' onClick={ this.props.onConfirm }>
+          <Button as='primary' onClick={ this.props.onConfirm } data-element='confirm'>
             { this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' }) }
           </Button>
         </div>
@@ -143,6 +144,14 @@ class Confirm extends Dialog {
     let dialog = super.modalHTML,
         children = [].concat(dialog.props.children, this.confirmButtons);
     return React.cloneElement(dialog, {}, children);
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'confirm',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 }
 

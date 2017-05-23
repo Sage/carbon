@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import RadioButton from './radio-button';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('RadioButton', () => {
   let wrapper;
@@ -61,6 +63,14 @@ describe('RadioButton', () => {
           });
         });
       });
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<RadioButton data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'radio-button', 'bar', 'baz');
     });
   });
 });

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import Dialog from '../dialog';
 import { assign } from 'lodash';
+import Dialog from '../dialog';
 
 /**
  * A Alert widget.
@@ -50,6 +50,14 @@ class Alert extends Dialog {
       super.dialogClasses,
       'carbon-alert__alert'
     );
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'alert',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 }
 

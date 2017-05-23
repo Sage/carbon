@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import InputLabel from './input-label';
 import Help from 'components/help';
 
@@ -199,9 +199,9 @@ describe('InputLabel', () => {
     });
 
     describe('when the input has a label', () => {
-      it('sets data-member attribute', () => {
+      it('sets data-element attribute', () => {
         let label = instanceBasic.labelHTML;
-        expect(label.props["data-member"]).toEqual('label');
+        expect(label.props["data-element"]).toEqual('label');
       });
 
       it('sets the labelText to the passed in label', () => {

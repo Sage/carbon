@@ -23,7 +23,7 @@ let definition = new Definition('date-range', DateRate, {
     endDateProps: "Object"
   },
   propDescriptions: {
-    onChange: "Callback for when either of the inputs value has changed. The event will be triggered with an of 2 values.",
+    onChange: "Callback for when either of the input values has changed. The event will be triggered with an array of 2 values.",
     value: "The value should be provided as an array of 2 values.",
     startLabel: "Provide a label for the start date input.",
     endLabel: "Provide a label for the end date input.",

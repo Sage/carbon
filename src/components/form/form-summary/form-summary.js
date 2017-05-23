@@ -1,18 +1,26 @@
 import I18n from 'i18n-js';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { tagComponent } from '../../../utils/helpers/tags';
 
 import Icon from './../../icon';
 
 const FormSummary = props =>
-  <div className='carbon-form-summary'>
+  <div className='carbon-form-summary' { ...tagComponent('form-summary', props) }>
     { summary(props, 'error') }
     { summary(props, 'warning') }
   </div>
 ;
 
 FormSummary.propTypes = {
-  errors:   React.PropTypes.number.isRequired,
-  warnings: React.PropTypes.number.isRequired
+  errors: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  warnings: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 };
 
 /**
@@ -27,7 +35,11 @@ const summary = (props, key) => {
     return (
       <span className={ `carbon-form-summary__summary carbon-form-summary__${key}-summary` }>
         <Icon className='carbon-form-summary__icon' type={ `${key}` } />
-        <span className='carbon-form-summary__text'>{ translation(props, key) }</span>
+        <span
+          className='carbon-form-summary__text'
+          data-element={ pluralize(key) }
+          dangerouslySetInnerHTML={{ __html: translation(props, key) }}
+        />
       </span>
     );
   }

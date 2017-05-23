@@ -1,14 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MenuItem from './menu-item';
 import SubmenuBlock from './submenu-block';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * Renders a menu component, with menu items.
  */
 class Menu extends React.Component {
   static propTypes = {
-    as: React.PropTypes.string // defines the style of the component eg. primary/secondary
+    as: PropTypes.string // defines the style of the component eg. primary/secondary
   }
 
   static defaultProps = {
@@ -34,7 +36,7 @@ class Menu extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes }>
+      <div className={ this.classes } { ...tagComponent('menu', this.props) }>
         { this.props.children }
       </div>
     );
