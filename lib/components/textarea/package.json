@@ -1,5 +1,0 @@
-{
-  "name": "textarea",
-  "style": "textarea.scss",
-  "main": "./textarea.js"
-}

@@ -1,14 +1,14 @@
 {
-  "name": "carbon",
-  "version": "1.0.0-rc1",
+  "name": "carbon-react",
+  "version": "1.0.0-rc6",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
-  "main": "index.js",
   "engineStrict": true,
   "engines": {
-    "npm": "^3.0.0"
+    "npm": "^4.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gulp test --build",
+    "prepublishOnly": "npm install && npm run-script release",
     "release": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
   },
   "repository": {
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "~0.3.5",
+    "carbon-factory": "0.3.6",
     "enzyme": "~2.8.2",
     "express": "~4.14.0",
     "flux": "~2.1.1",
@@ -32,6 +32,7 @@
     "highlight.js": "~9.6.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "~3.8.1",
+    "moxios": "^0.4.0",
     "ncp": "~2.0.0",
     "react": "~15.5.0",
     "react-addons-css-transition-group": "~15.5.0",
@@ -44,6 +45,7 @@
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
+    "axios": "^0.14.0",
     "bignumber.js": "~2.4.0",
     "bowser": "~1.5.0",
     "classnames": "~2.2.3",
