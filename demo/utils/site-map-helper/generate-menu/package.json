@@ -1,0 +1,4 @@
+{
+  "main": "./generate-menu.js",
+  "style": "./generate-menu.scss"
+}

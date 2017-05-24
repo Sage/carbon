@@ -1,4 +1,0 @@
-{
-  "main": "./app-wrapper.js",
-  "style": "./app-wrapper.scss"
-}

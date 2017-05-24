@@ -1,5 +1,7 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Textbox from './textbox';
 
 describe('Textbox', () => {
@@ -7,13 +9,15 @@ describe('Textbox', () => {
   let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(<Textbox
-      name="Dummy Box"
-      id="Dummy Box"
-      value={ 'foo' }
-      label={ 'Label' }
-      onChange={ spy }
-    />);
+    instance = TestUtils.renderIntoDocument(
+      <Textbox
+        name='Dummy Box'
+        id='Dummy Box'
+        value={ 'foo' }
+        label={ 'Label' }
+        onChange={ spy }
+      />
+    );
   });
 
   describe('render', () => {
@@ -24,8 +28,7 @@ describe('Textbox', () => {
 
     it('renders with a visible input', () => {
       let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
-      expect(input.tagName).toEqual("INPUT");
-      expect(input.getAttribute('label')).toBe('Label');
+      expect(input.getAttribute('name')).toBe('Dummy Box');
     });
 
     it('is decorated with a label', () => {
@@ -57,6 +60,22 @@ describe('Textbox', () => {
       let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
       TestUtils.Simulate.change(input);
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('tags on component', () => {
+    let wrapper = shallow(
+      <Textbox
+        value={ 'foo' }
+        label={ 'Label' }
+        onChange={ spy }
+        data-element='bar'
+        data-role='baz'
+      />
+    );
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'textbox', 'bar', 'baz');
     });
   });
 });

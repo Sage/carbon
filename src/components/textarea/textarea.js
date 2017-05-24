@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import I18n from 'i18n-js';
+import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A textarea widget.
@@ -16,7 +19,7 @@ import I18n from 'i18n-js';
  *
  * To render a Textarea:
  *
- *   <Textarea name="myTextarea" />
+ *   <Textarea name='myTextarea' />
  *
  * @class Textarea
  * @constructor
@@ -38,7 +41,7 @@ class Textarea extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    expandable: React.PropTypes.bool,
+    expandable: PropTypes.bool,
 
     /**
      * Character limit of the textarea
@@ -46,7 +49,7 @@ class Textarea extends React.Component {
      * @property characterLimit
      * @type {String}
      */
-    characterLimit: React.PropTypes.string,
+    characterLimit: PropTypes.string,
 
     /**
      * Stop the user typing over the characterLimit
@@ -55,7 +58,7 @@ class Textarea extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    enforceCharacterLimit: React.PropTypes.bool
+    enforceCharacterLimit: PropTypes.bool
   }
 
   static defaultProps = {
@@ -121,9 +124,9 @@ class Textarea extends React.Component {
 
     if (textarea.scrollHeight > this.minHeight) {
       // Reset height to zero - IE specific
-      textarea.style.height = "0px";
+      textarea.style.height = '0px';
       // Set the height so all content is shown
-      textarea.style.height = Math.max(textarea.scrollHeight, this.minHeight) + "px";
+      textarea.style.height = Math.max(textarea.scrollHeight, this.minHeight) + 'px';
     }
   }
 
@@ -158,7 +161,7 @@ class Textarea extends React.Component {
    * @return {Object} props for the input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
     props.className = this.inputClasses;
     props.rows = this.props.rows;
     props.cols = this.props.cols;
@@ -199,16 +202,16 @@ class Textarea extends React.Component {
   get characterCount() {
     if (this.props.characterLimit) {
       return (
-        <div className="carbon-textarea__character-limit">
-          { I18n.t("textarea.limit.prefix", { defaultValue: 'You have used ' } ) }
-          <span className="carbon-textarea__limit-used">
+        <div className='carbon-textarea__character-limit' data-element='character-limit'>
+          { I18n.t('textarea.limit.prefix', { defaultValue: 'You have used ' } ) }
+          <span className='carbon-textarea__limit-used'>
             { I18n.toNumber(calculateCharacterCount(this.props.value), this.i18nNumberOpts) }
           </span>
-          { I18n.t("textarea.limit.middle", { defaultValue: ' of ' } ) }
-          <span className="carbon-textarea__limit-max">
+          { I18n.t('textarea.limit.middle', { defaultValue: ' of ' } ) }
+          <span className='carbon-textarea__limit-max'>
             { I18n.toNumber(this.props.characterLimit, this.i18nNumberOpts) }
           </span>
-          { I18n.t("textarea.limit.suffix", { defaultValue: ' characters' } ) }
+          { I18n.t('textarea.limit.suffix', { defaultValue: ' characters' } ) }
         </div>
       );
     }
@@ -223,7 +226,7 @@ class Textarea extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('textarea', this.props) }>
 
         { this.labelHTML }
         { this.inputHTML }

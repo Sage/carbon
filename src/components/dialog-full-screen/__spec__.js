@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DialogFullScreen from './dialog-full-screen';
 import Button from './../button';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Icon from './../icon';
 import Heading from './../heading';
 
@@ -108,6 +109,40 @@ describe('DialogFullScreen', () => {
         let heading = wrapper.find(Heading)
         expect(heading.props().title).toEqual('my custom heading');
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <DialogFullScreen
+          data-element='bar'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'dialog-full-screen', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <DialogFullScreen
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          title='Test'
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'close',
+        'title'
+      ]);
     });
   });
 });

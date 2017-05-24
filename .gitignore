@@ -2,8 +2,11 @@ node_modules/
 coverage/
 *.swp
 *.swo
-demo/assets
-demo2/assets
+demo/utils/generated/*.js
+demo/utils/generated/**/*
+deploy/assets/**/*
 .DS_Store
 .browser-preferences/
 .idea
+yarn.lock
+lib

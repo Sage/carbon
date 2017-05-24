@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
@@ -113,9 +114,28 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: React.PropTypes.object,
-    tab: React.PropTypes.object
-  })
+    form: PropTypes.object,
+    tab: PropTypes.object
+  });
+
+  static propTypes = assign({}, ComposedComponent.propTypes, {
+
+    /**
+     * Array of validations to apply to this input
+     *
+     * @property
+     * @type {Array}
+     */
+    validations: PropTypes.array,
+
+    /**
+     * Array of warnings to apply to this input
+     *
+     * @property
+     * @type {Array}
+     */
+    warnings: PropTypes.array
+  });
 
   /**
    * A lifecycle method for when the component has re-rendered.

@@ -1,7 +1,8 @@
 import React from 'react';
-import ReactHighcharts from 'react-highcharts';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { merge } from 'lodash';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A rainbow chart using the Highcharts API.
@@ -50,7 +51,7 @@ class Rainbow extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.string,
+    title: PropTypes.string,
 
     /**
      * The data set for the component.
@@ -58,7 +59,7 @@ class Rainbow extends React.Component {
      * @property data
      * @type {Object}
      */
-    data: React.PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
 
     /**
      * Custom chart config for the component.
@@ -66,7 +67,7 @@ class Rainbow extends React.Component {
      * @property config
      * @type {Object}
      */
-    config: React.PropTypes.object
+    config: PropTypes.object
   }
 
   /**
@@ -95,6 +96,15 @@ class Rainbow extends React.Component {
   }
 
   /**
+   * Renders the initial chart, and stores it on the ref so it can be updated later
+   */
+  componentDidMount() {
+    let config = generateConfig(this.props.data, this.props.title);
+    merge(config, this.props.config);
+    this.refs.chart.chart = global.Highcharts.chart(this.refs.chart, config);
+  }
+
+  /**
    * Main Class getter
    *
    * @method mainClasses
@@ -114,12 +124,10 @@ class Rainbow extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let config = generateConfig(this.props.data, this.props.title);
-    merge(config, this.props.config);
 
     return (
-      <div className={ this.mainClasses }>
-        <ReactHighcharts ref="chart" config={config} />
+      <div className={ this.mainClasses } { ...tagComponent('rainbow', this.props) }>
+        <div ref="chart" />
       </div>
     );
   }

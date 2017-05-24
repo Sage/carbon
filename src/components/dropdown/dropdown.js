@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import classNames from 'classnames';
 import Events from './../../utils/helpers/events';
+import { validProps } from '../../utils/ether';
 
 /**
  * A dropdown widget.
@@ -67,9 +69,9 @@ class Dropdown extends React.Component {
      * @property value
      * @type {String}
      */
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),
 
     /**
@@ -80,7 +82,7 @@ class Dropdown extends React.Component {
      * @property options
      * @type {object}
      */
-    options: React.PropTypes.object.isRequired,
+    options: PropTypes.object.isRequired,
 
     /**
      * Determines if the visibleValue will be cached or not.
@@ -88,7 +90,7 @@ class Dropdown extends React.Component {
      * @property cacheVisibleValue
      * @type {boolean}
      */
-    cacheVisibleValue: React.PropTypes.bool
+    cacheVisibleValue: PropTypes.bool
   }
 
   static defaultProps = {
@@ -113,7 +115,7 @@ class Dropdown extends React.Component {
      * @default null
      */
     highlighted: null
-  }
+  };
 
   /**
    * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
@@ -445,7 +447,7 @@ class Dropdown extends React.Component {
    * @return {Object}
    */
   get inputProps() {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
 
     delete props.autoFocus;
 
@@ -470,11 +472,13 @@ class Dropdown extends React.Component {
    */
   get hiddenInputProps() {
     let props = {
-      ref: "hidden",
+      ['data-element']: 'hidden-input',
+      ref: 'hidden',
       type: "hidden",
       readOnly: true,
       name: this.props.name,
-      value: this.props.value
+      // Using this to prevent `null` and `uncontrolled` warnings from React
+      value: this.props.value || ''
     };
 
     return props;
@@ -489,7 +493,7 @@ class Dropdown extends React.Component {
   get listBlockProps() {
     return {
       key: "listBlock",
-      ref: "listBlock",
+      ref: 'listBlock',
       onMouseDown: this.handleMouseDownOnList,
       onMouseLeave: this.handleMouseLeaveList,
       onMouseEnter: this.handleMouseEnterList,
@@ -546,6 +550,7 @@ class Dropdown extends React.Component {
    */
   get listHTML() {
     if (!this.state.open) { return null; }
+
     return (
       <ul { ...this.listProps }>
         { this.results(this.options) }
@@ -578,6 +583,7 @@ class Dropdown extends React.Component {
 
       return (
         <li
+          data-element='option'
           key={ option.name + option.id }
           value={ option.id }
           onClick={ this.handleSelect }
@@ -603,6 +609,7 @@ class Dropdown extends React.Component {
     if (this.showArrow()) {
       content.push(this.inputIconHTML("dropdown"));
     }
+
     content.push(
       <div { ...this.listBlockProps }>
         { this.listHTML }
@@ -632,6 +639,20 @@ class Dropdown extends React.Component {
     return null;
   }
 
+  componentTags(props) {
+    return {
+      'data-component': 'dropdown',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
+
+  /**
+   * Stubbed function allows this to be called on the parent without causign a console error
+   * This funciton is used by DropdownFilterAjax
+   */
+  requestingState = () => { return; }
+
   /**
    * Renders the component.
    *
@@ -639,7 +660,11 @@ class Dropdown extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses } >
+      <div
+        className={ this.mainClasses }
+        { ...this.componentTags(this.props) }
+        data-state={ this.requestingState() }
+      >
         { this.labelHTML }
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />

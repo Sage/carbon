@@ -1,0 +1,39 @@
+@import 'colors';
+@import './../../style-config/demo-variables';
+
+.demo-icon-panel {
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: $grey-dark-blue;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+
+  @media (min-width: $response-point-medium) {
+    height: 120px;
+  }
+
+  &__title {
+    font-size: 13px;
+    margin-bottom: 0;
+    text-transform: lowercase;
+  }
+}
+
+// NB, below this line are hacks
+// to cover Icon being both font and SVG currently
+.demo-icon-panel {
+  .carbon-icon {
+    min-height: 32px;
+    &__svg {
+      height: 32px;
+      width: 32px;
+    }
+    &:before {
+      font-size: 32px;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@import "./../../style-config/demo-variables";
+
+.demo-info-tile {
+  box-shadow: 0 0 35px 0 rgba(0,0,0,0.12);
+  .carbon-pod__block {
+    height: 100%;
+  }
+  .carbon-pod__block--tile {
+    border: none;
+    box-shadow: none;
+  }
+}
+
+.demo-info-tile__content {
+  text-align: center;
+}
+
+.demo-info-tile__image {
+  margin-bottom: 35px;
+
+  .carbon-portrait__img {
+    float: none;
+  }
+}
+
+.demo-info-tile__heading {
+  font-size: 18px;
+}
+
+.demo-info-tile__description {
+  font-size: 16px;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
 import { startRouter } from './router';
+import { browserHistory } from 'react-router';
 
 describe('startRouter', () => {
   let render, router, routes;
@@ -18,12 +18,12 @@ describe('startRouter', () => {
       router = render.calls.mostRecent().args[0];
     });
 
-    it('renders the router with the element', () => {
-      expect(render).toHaveBeenCalledWith(router, document.getElementById('app'));
+    it('sets history from browser history module', () => {
+      expect(router.props.history).toEqual(browserHistory);
     });
 
-    it('sets history from browser history module', () => {
-      expect(router.props.history.prototype).toEqual(createBrowserHistory().prototype);
+    it('renders the router with the element', () => {
+      expect(render).toHaveBeenCalledWith(router, document.getElementById('app'));
     });
 
     it('sets the routes of the router', () => {
@@ -35,7 +35,15 @@ describe('startRouter', () => {
       router.props.onUpdate();
       expect(window.screenX).toEqual(0);
       expect(window.screenY).toEqual(0);
-    })
+    });
+
+    it('sets the router onUpdate to track analytics', () => {
+      let gaSpy = jasmine.createSpy('ga');
+      global.ga = gaSpy;
+      router.props.onUpdate();
+      expect(gaSpy).toHaveBeenCalledWith('set', 'page', '/context.html');
+      expect(gaSpy).toHaveBeenCalledWith('send', 'pageview');
+    });
   });
 
   describe('with custom target', () => {

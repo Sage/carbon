@@ -1,0 +1,4 @@
+{
+  "main": "./component-api.js",
+  "style": "./component-api.scss"
+}

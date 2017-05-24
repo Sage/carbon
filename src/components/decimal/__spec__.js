@@ -1,12 +1,42 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Decimal from './decimal';
 import I18n from "i18n-js";
-import Events from './../../utils/helpers/events';
+import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
+import Events from './../../utils/helpers/events';
+import I18nHelper from './../../utils/helpers/i18n';
+import PropTypesHelper from '../../utils/helpers/prop-types';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Decimal', () => {
   var instance;
+
+  describe('Custom prop types', () => {
+    describe('precision', () => {
+
+      beforeEach(() => {
+        spyOn(I18nHelper, 'formatDecimal').and.returnValue('20.00');
+        spyOn(console, 'error');
+      });
+
+      describe('when in a valid range', () => {
+        it('outputs a prop console error', () => {
+          spyOn(PropTypesHelper, 'inValidRange').and.returnValue(new Error('foo'));
+          instance = shallow(<Decimal />);
+          expect(console.error.calls.argsFor(0)[0]).toMatch('foo');
+        });
+      });
+
+      describe('when not in a valid range', () => {
+        it('outputs a prop console error', () => {
+          spyOn(PropTypesHelper, 'inValidRange').and.returnValue(new Error('foo'));
+          instance = shallow(<Decimal />);
+          expect(console.error.calls.count()).toEqual(0);
+        });
+      });
+    });
+  });
 
   describe('with no options', () => {
     beforeEach(() => {
@@ -14,10 +44,6 @@ describe('Decimal', () => {
     });
 
     describe('initialize', () => {
-      it('sets defaultValue to 0.00', () => {
-        expect(instance.props.defaultValue).toEqual('0.00');
-      });
-
       it('sets align to right', () => {
         expect(instance.props.align).toEqual('right');
       });
@@ -67,7 +93,7 @@ describe('Decimal', () => {
         expect(wrapper.state().visibleValue).toEqual("12,345.68");
       });
     });
-    
+
 
     describe('with alternative I18n options', () => {
       beforeEach(() => {
@@ -109,8 +135,8 @@ describe('Decimal', () => {
 
       describe('no value passed', () => {
         it('uses the default value instead', () => {
-          instance.componentWillReceiveProps({ defaultValue: '999.00' });
-          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '999.00' });
+          instance.componentWillReceiveProps({});
+          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '0.00' });
         });
       });
 
@@ -358,47 +384,51 @@ describe('Decimal', () => {
       });
     });
 
-    describe("handleOnClick", function() {
-      let visible;
+    describe("handleOnClick", () => {
+      let visible, selectionSpy;
 
-      beforeEach(function() {
+      beforeEach(() => {
+        selectionSpy = jasmine.createSpy();
+        instance._input = {
+          selectionStart: 0,
+          value: { length: 5 },
+          selectionEnd: 0,
+          setSelectionRange: selectionSpy
+        };
         visible = instance._input;
-        spyOn(visible, 'setSelectionRange');
       });
 
-      describe("when the caret is at the edge of the value", function() {
-        beforeEach(function() {
-          visible.selectionStart = 0;
-          visible.selectionEnd = 0;
-          TestUtils.Simulate.click(visible);
+      describe("when the caret is at the edge of the value", () => {
+        beforeEach(() => {
+          instance.handleOnClick();
         });
 
-        it("should call setSelectionRange method", function() {
-          expect(visible.setSelectionRange).toHaveBeenCalledWith(0, visible.value.length);
+        it("should call setSelectionRange method", () => {
+          expect(selectionSpy).toHaveBeenCalledWith(0, visible.value.length);
         });
       });
 
-      describe("when the caret is within the value", function() {
-        beforeEach(function() {
+      describe("when the caret is within the value", () => {
+        beforeEach(() => {
           visible.value = '100';
           spyOn(visible, 'selectionStart');
-          TestUtils.Simulate.click(visible);
+          instance.handleOnClick();
         });
 
-        it("should not call setSelectionRange method", function() {
+        it("should not call setSelectionRange method", () => {
           expect(visible.setSelectionRange).not.toHaveBeenCalled();
         });
       });
 
-      describe("when highlighted is true", function() {
-        beforeEach(function() {
+      describe("when highlighted is true", () => {
+        beforeEach(() => {
           instance.highlighted = true;
           visible.selectionStart = 0
           visible.selectionEnd = 0
-          TestUtils.Simulate.click(visible);
+          instance.handleOnClick();
         });
 
-        it("resets highlighted to false and does not call setSelectionRange", function() {
+        it("resets highlighted to false and does not call setSelectionRange", () => {
           expect(instance.highlighted).toBeFalsy();
           expect(visible.setSelectionRange).not.toHaveBeenCalled();
         });
@@ -436,11 +466,11 @@ describe('Decimal', () => {
 
     describe('handleKeyDown', () => {
       it('tracks selection start and end', () => {
-        instance.selectionStart = 99;
-        instance.selectionEnd = 99;
+        instance.selectionStart = undefined;
+        instance.selectionEnd = undefined;
         TestUtils.Simulate.keyDown(instance._input);
-        expect(instance.selectionStart).toEqual(0);
-        expect(instance.selectionEnd).toEqual(0);
+        expect(instance.selectionStart).toBeDefined()
+        expect(instance.selectionEnd).toBeDefined();
       });
 
       describe('when passed a custom onKeyDown function', () => {
@@ -473,6 +503,26 @@ describe('Decimal', () => {
         let input = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'input')[1];
         expect(input.type).toEqual('hidden');
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Decimal data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'decimal', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Decimal fieldHelp='test' label='test' />);
+
+      elementsTagTest(wrapper, [
+        'help',
+        'input',
+        'label'
+      ]);
     });
   });
 });

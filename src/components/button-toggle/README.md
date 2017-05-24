@@ -19,5 +19,5 @@ For additional properties specific to this component, see propTypes and defaultP
 
 | Name          | Required       | Type           | Default       | Description   |
 | ------------- |  ------------- |  ------------- | ------------- | ------------- |
-| icon          | false          | String         |               | Defines an icon to use with the button. |
-| iconSize      | false          | String         |               | Defines the size of the icon (eg. large). |
+| buttonIcon          | false          | String         |               | Defines an buttonIcon to use with the button. |
+| buttonIconSize      | false          | String         |               | Defines the size of the buttonIcon (eg. large). |

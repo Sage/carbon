@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * Renders content with a title and body text.
@@ -15,7 +17,15 @@ class Content extends React.Component {
      * @property children
      * @type {Object}
      */
-    children: React.PropTypes.node,
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
     /**
      * The title of the content component.
@@ -23,7 +33,7 @@ class Content extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.string,
+    title: PropTypes.string,
 
     /**
      * Applies a theme to the Content
@@ -33,7 +43,7 @@ class Content extends React.Component {
      * @type {String}
      * @default primary
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * Displays the content inline with it's title.
@@ -42,7 +52,7 @@ class Content extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    inline: React.PropTypes.bool,
+    inline: PropTypes.bool,
 
     /**
      * Aligns the content (left, center or right).
@@ -51,7 +61,7 @@ class Content extends React.Component {
      * @type {String}
      * @default left
      */
-    align: React.PropTypes.string,
+    align: PropTypes.string,
 
     /**
      * Sets a custom width for the title element.
@@ -59,7 +69,7 @@ class Content extends React.Component {
      * @property titleWidth
      * @type {String}
      */
-    titleWidth: React.PropTypes.string,
+    titleWidth: PropTypes.string,
 
     /**
      * Over-rides the calculation of body width based on titleWidth
@@ -69,14 +79,50 @@ class Content extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    bodyFullWidth: React.PropTypes.bool
+    bodyFullWidth: PropTypes.bool
   }
 
   static defaultProps = {
-    align: "left",
-    as: "primary",
+    align:         'left',
+    as:            'primary',
     bodyFullWidth: false,
-    inline: false
+    inline:        false
+  }
+
+  constructor(args) {
+    super(args);
+
+    this.titleStyle = this.titleStyle.bind(this);
+    this.bodyStyle = this.bodyStyle.bind(this);
+    this.classes = this.classes.bind(this);
+  }
+
+  /**
+   * @method render
+   * @return {Object} JSX
+   */
+  render() {
+    if (this.props.children) {
+      return (
+        <div className={ this.classes() } { ...tagComponent('content', this.props) }>
+          <div
+            className='carbon-content__title'
+            data-element='title'
+            style={ this.titleStyle() }
+          >
+            { this.props.title }
+          </div>
+
+          <div
+            className='carbon-content__body'
+            style={ this.bodyStyle() }
+          >
+            { this.props.children }
+          </div>
+        </div>
+      );
+    }
+    return null;
   }
 
   /**
@@ -85,14 +131,14 @@ class Content extends React.Component {
    * @method
    * @return {String}
    */
-  get classes() {
+  classes() {
     return classNames(
-      "carbon-content",
+      'carbon-content',
       this.props.className,
       `carbon-content--${this.props.as}`,
       `carbon-content--align-${this.props.align}`, {
-        "carbon-content--inline": this.props.inline,
-        "carbon-content--body-full-width": this.props.bodyFullWidth
+        'carbon-content--inline':          this.props.inline,
+        'carbon-content--body-full-width': this.props.bodyFullWidth
       }
     );
   }
@@ -103,8 +149,8 @@ class Content extends React.Component {
    * @method titleStyle
    * @return {Object}
    */
-  get titleStyle() {
-    let style = {};
+  titleStyle() {
+    const style = {};
 
     if (this.props.titleWidth) {
       style.width = `calc(${this.props.titleWidth}% - 30px)`;
@@ -119,36 +165,18 @@ class Content extends React.Component {
    * @method bodyStyle
    * @return {Object}
    */
-  get bodyStyle() {
-    let style = {};
+  bodyStyle() {
+    const style = {};
 
     if (this.props.titleWidth) {
       style.width = `${100 - Number(this.props.titleWidth)}%`;
     }
 
     if (this.props.bodyFullWidth) {
-      style.width = "100%";
+      style.width = '100%';
     }
 
     return style;
-  }
-
-  /**
-   * @method render
-   * @return {Object} JSX
-   */
-  render() {
-    return this.props.children ? (
-      <div className={ this.classes }>
-        <div className="carbon-content__title" style={ this.titleStyle }>
-          { this.props.title }
-        </div>
-
-        <div className="carbon-content__body" style={ this.bodyStyle }>
-          { this.props.children }
-        </div>
-      </div>
-    ) : null;
   }
 }
 

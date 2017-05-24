@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import { isEqual } from 'lodash';
+import { isEqualWith } from 'lodash';
 
 /**
  * A shouldComponentUpdate helper. Run this method with your instance, nextProps and nextState
@@ -12,7 +12,7 @@ import { isEqual } from 'lodash';
  * @return {Boolean}
  */
 export default function(scope, nextProps, nextState) {
-  return !isEqual(scope.props, nextProps, customCheck) || !isEqual(scope.state, nextState, customCheck);
+  return !isEqualWith(scope.props, nextProps, customCheck) || !isEqualWith(scope.state, nextState, customCheck);
 }
 
 /**

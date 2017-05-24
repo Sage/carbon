@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
 * A Tooltip widget.
@@ -38,7 +40,24 @@ class Tooltip extends React.Component {
      * @type {String}
      * @default 'center'
      */
-    align: React.PropTypes.string,
+    align: PropTypes.string,
+
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
+    * Whether to to show the Tooltip
+    *
+    * @property isVisible
+    * @type {Boolean}
+    * @default false
+    */
+    isVisible: PropTypes.bool,
 
     /**
      * Sets position of the tooltip
@@ -50,16 +69,8 @@ class Tooltip extends React.Component {
      * @type {String}
      * @default 'bottom'
      */
-    position: React.PropTypes.string,
+    position: PropTypes.string
 
-    /**
-     * Whether to to show the Tooltip
-     *
-     * @property isVisible
-     * @type {Boolean}
-     * @default false
-     */
-    isVisible: React.PropTypes.bool
   };
 
   static defaultProps = {
@@ -96,8 +107,8 @@ class Tooltip extends React.Component {
     ];
 
     return (
-      <div className={ this.mainClasses }>
-        <div className="carbon-tooltip__container">
+      <div className={ this.mainClasses } { ...tagComponent('tooltip', this.props) }>
+        <div className='carbon-tooltip__container'>
           { contents }
         </div>
       </div>

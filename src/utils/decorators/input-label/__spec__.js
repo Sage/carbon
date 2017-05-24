@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import InputLabel from './input-label';
 import Help from 'components/help';
 
@@ -116,7 +116,7 @@ class HelpClass extends React.Component {
 
   render() {
     return (
-      <div name='foo' helpMessage={ this.props.helpMessage } label='test label' />
+      <div name='foo'/>
     );
   }
 }
@@ -164,7 +164,7 @@ describe('InputLabel', () => {
     describe('when help is enabled', () => {
       it('adds the relevant class', () => {
         let ExtendedClassOne = InputLabel(HelpClass);
-        let instance = TestUtils.renderIntoDocument(<ExtendedClassOne labelHelp={ true } />);
+        let instance = TestUtils.renderIntoDocument(<ExtendedClassOne labelHelp={ 'Foo' } />);
         expect(instance.labelClasses).toEqual('common-input__label common-input__label--help');
       });
     });
@@ -199,6 +199,11 @@ describe('InputLabel', () => {
     });
 
     describe('when the input has a label', () => {
+      it('sets data-element attribute', () => {
+        let label = instanceBasic.labelHTML;
+        expect(label.props["data-element"]).toEqual('label');
+      });
+
       it('sets the labelText to the passed in label', () => {
         let label = instanceBasic.labelHTML;
         expect(label.props.children).toMatch('test label');

@@ -1,24 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 import Link from './../link';
 
 class Create extends React.Component {
-  /**
-   * Returns the props for the component.
-   *
-   * @method linkProps
-   * @return {Object}
-   */
-  get linkProps() {
-    let { className, ...props } = this.props;
+  static propTypes = {
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
 
-    props.className = classNames(
-      "carbon-create", className
-    );
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
-    props.iconAlign = "right";
-    props.icon = "add";
-    return props;
+    /**
+     * Props for the link
+     *
+     * @property linkProps
+     * @type {Object}
+     */
+    linkProps: PropTypes.object
+  };
+
+  constructor(args) {
+    super(args);
+    this.linkProps = this.linkProps.bind(this);
   }
 
   /**
@@ -27,10 +42,29 @@ class Create extends React.Component {
    */
   render() {
     return (
-      <Link { ...this.linkProps }>
+      <Link { ...this.linkProps() } { ...tagComponent('create', this.props) }>
         { this.props.children }
       </Link>
     );
+  }
+
+  /**
+   * Returns the props for the component.
+   *
+   * @method linkProps
+   * @return {Object}
+   */
+  linkProps() {
+    const className = this.props.className;
+    let { ...props } = this.props;
+
+    props.className = classNames(
+      'carbon-create', className
+    );
+
+    props.iconAlign = 'right';
+    props.icon = 'add';
+    return props;
   }
 }
 

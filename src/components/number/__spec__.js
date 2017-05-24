@@ -1,6 +1,8 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Number from './number';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Number', () => {
   let instance, input,
@@ -8,8 +10,7 @@ describe('Number', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<Number
-      name="Dummy Number"
-      value="123456789"
+      value='123456789'
       label={ 'Label' }
       onChange={ spy }
     />);
@@ -73,7 +74,6 @@ describe('Number', () => {
     describe('when the value porp is undefined', () => {
       it('sets input value to be null', () => {
         instance = TestUtils.renderIntoDocument(<Number
-          name="Dummy Number"
           label={ 'Label' }
           onChange={ spy }
         />);
@@ -90,17 +90,16 @@ describe('Number', () => {
 
   describe('handleKeyDown', () => {
     it('tracks selection start and end', () => {
-      instance.selectionStart = 99;
-      instance.selectionEnd = 99;
+      instance.selectionStart = undefined;
+      instance.selectionEnd = undefined;
       TestUtils.Simulate.keyDown(input);
-      expect(instance.selectionStart).toEqual(0);
-      expect(instance.selectionEnd).toEqual(0);
+      expect(instance.selectionStart).toBeDefined();
+      expect(instance.selectionEnd).toBeDefined();
     });
 
     describe('when passed a custom onKeyDown function', () => {
       it('calls this onKeyDown function with the event and its props', () => {
         instance = TestUtils.renderIntoDocument(<Number
-          name="Dummy Number"
           onKeyDown={ spy }
         />);
 
@@ -126,6 +125,40 @@ describe('Number', () => {
     it('renders a visible field', () => {
       expect(input.type).toEqual('text');
       expect(input.value).toEqual('123456789');
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Number
+          data-element='bar'
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'number', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Number
+          value='123456789'
+          fieldHelp='Test'
+          label='Label'
+          onChange={ ()=>{} }
+          data-element='bar'
+          data-role='baz'
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'help',
+        'input',
+        'label'
+      ]);
     });
   });
 });
