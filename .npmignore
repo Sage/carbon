@@ -1,0 +1,15 @@
+*.swo
+*.swp
+.DS_Store
+.browser-preferences/
+.git
+.github
+.idea
+coverage
+demo
+deploy
+logo
+node_modules
+script
+src
+yarn.lock
