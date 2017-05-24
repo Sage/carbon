@@ -301,7 +301,8 @@ class Flash extends React.Component {
    * @return {HTML}
    */
   findMore = (text) => {
-    if (typeof text !== 'string') { return text; }
+    let value = text;
+    if (typeof text !== 'string') { return value; }
 
     // detect any instances of "::more::" in the text
     const parts = text.split('::more::');
@@ -325,7 +326,7 @@ class Flash extends React.Component {
       );
 
       // create text for item
-      return (
+      value = (
         <span>
           { title }&nbsp;
           <Link
@@ -339,7 +340,7 @@ class Flash extends React.Component {
       );
     }
 
-    return text;
+    return value;
   }
 
   /**
