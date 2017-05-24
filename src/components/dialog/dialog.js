@@ -221,12 +221,14 @@ class Dialog extends Modal {
 
   get closeIcon() {
     if (this.props.showCloseIcon) {
-      return (<Icon
-        className='carbon-dialog__close'
-        data-element='close'
-        onClick={ this.props.onCancel }
-        type='close'
-      />);
+      return (
+        <Icon
+          className='carbon-dialog__close'
+          data-element='close'
+          onClick={ this.props.onCancel }
+          type='close'
+        />
+      );
     }
     return null;
   }
