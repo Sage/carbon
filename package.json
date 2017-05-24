@@ -60,8 +60,8 @@
     "moment": "~2.15.1",
     "prop-types": "~15.5.8",
     "react-date-picker": "~5.3.28",
-    "react-dnd": "~2.3.0",
-    "react-dnd-html5-backend": "~2.3.0",
+    "react-dnd": "~2.4.0",
+    "react-dnd-html5-backend": "~2.4.1",
     "react-highcharts": "~11.5.0",
     "superagent": "~2.2.0"
   }
