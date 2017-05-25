@@ -119,6 +119,15 @@ class ActionToolbar extends React.Component {
   }
 
   /**
+   * @method handleOnClick
+   * @return {Function}
+   */
+  handleOnClick = (onClick, selected) => {
+    if (!onClick) { return null; }
+    return event => onClick(selected, event);
+  }
+
+  /**
    * @method isActive
    * @return {Boolean}
    */
@@ -147,8 +156,7 @@ class ActionToolbar extends React.Component {
    * @return {Object} JSX
    */
   buildAction(action, index) {
-    let { onClick, className, text, ...props } = action;
-    onClick = onClick ? onClick.bind(this, this.state.selected) : null;
+    const { onClick, className, text, ...props } = action;
 
     return (
       <Link
@@ -156,7 +164,7 @@ class ActionToolbar extends React.Component {
         data-element='action'
         disabled={ !this.isActive() }
         key={ index }
-        onClick={ onClick }
+        onClick={ this.handleOnClick(onClick, this.state.selected) }
         { ...props }
       >
         { text }
