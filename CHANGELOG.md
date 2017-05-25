@@ -3,8 +3,23 @@
 ## Component Enhancements
 
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
+* `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
+* Simplify character count in `Textarea`.
+
+## Bug Fixes
+
+* `Date`: fixed the warning about an uncontrolled input component
+* Fix presence validator bug validating value as false if no props sent to validator.
 
 # 1.0.0
+
+## Package Name Change
+
+* The package name has been updated to `carbon-react`.
+
+## Removed `/lib` directory
+
+* You should now install the package via npm: `npm install carbon-react`.
 
 ## :warning: Major Change - React 15 Upgrade
 
@@ -56,6 +71,18 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 * `ShowEditPod`: z-index on input prefixes
 * `TableHeader`: Font weight
 
+## Service Class
+
+Adds a `Service` class to make it easier and more clear to create reusable services to interact with a JSON API. The class supports:
+
+* `GET`, `POST`, `PUT` and `DELETE` requests.
+* Automatically configured request Headers (no longer need to set `Content-Type` etc for each request)
+* CSRF support.
+* Request and Response transforms.
+* Global Success and Error actions for triggering automatic actions (such as flash notifications on error).
+
+This should hopefully replace all uses of `Request` or `axios`.
+
 ## Helpers
 
 * A new 'insertAt' Ether helper to insert a character in a string at a specified indices
@@ -74,7 +101,7 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 * `Link`: CSS inheritance has been updated to better support buttons.
 * `MenuList`: item filter search icon positioning is fixed
 * Row clones children when mutating props rather than creating new element to retain refs
-* Fix presence validator bug validating value as false if no props sent to validator.
+* Stop input value being removed from props (fixes Button Toggle issue)
 
 ## Deprecations Added
 
@@ -118,7 +145,7 @@ We have added data-attributes to components to better identify them and their pa
 
 ## Dependency Update
 
-* Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+* Carbon Factory has been upgraded to v0.3.6 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.6
 
 ### Gulp updates
 
