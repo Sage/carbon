@@ -180,7 +180,7 @@ describe('DropdownFilterAjax', () => {
 
         describe('if scroll top is less than scroll trigger position', () => {
           it('does not get data', () => {
-            instance.refs.list = {
+            instance.list = {
               scrollHeight: 200,
               offsetHeight: 75,
               scrollTop: 100
@@ -192,7 +192,7 @@ describe('DropdownFilterAjax', () => {
 
         describe('if scroll top is more than scroll trigger position', () => {
           it('calls get data', () => {
-            instance.refs.list = {
+            instance.list = {
               scrollHeight: 200,
               offsetHeight: 76,
               scrollTop: 100
@@ -272,12 +272,12 @@ describe('DropdownFilterAjax', () => {
 
     describe('when list is open', () => {
       it('should reset the scroll top', () => {
-        instance.refs.list = {
+        instance.list = {
           scrollTop: 100
         };
         instance.setState({ open: true });
         instance.resetScroll();
-        expect(instance.refs.list.scrollTop).toEqual(0);
+        expect(instance.list.scrollTop).toEqual(0);
       });
     });
   });

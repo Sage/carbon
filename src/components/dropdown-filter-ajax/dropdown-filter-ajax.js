@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import Request from 'superagent';
-import { cloneDeep } from 'lodash';
+import { omit, assign, cloneDeep } from 'lodash';
 import DropdownFilter from './../dropdown-filter';
-import { omit, assign } from 'lodash';
 
 /**
  * A dropdown filter widget using ajax.
@@ -160,9 +159,9 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      let filter = this.props.create ? this.state.filter : null;
+      const filter = this.props.create ? this.state.filter : null;
       // close list and reset filter
-      this.setState({ open: false, filter: filter });
+      this.setState({ open: false, filter });
 
       if (this.props.onBlur) {
         this.props.onBlur();
@@ -177,7 +176,7 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   handleFocus = () => {
     if (!this.props.suggest && !this.blockFocus) {
-      this.getData("", 1);
+      this.getData('', 1);
     } else {
       this.blockFocus = false;
     }
@@ -193,8 +192,8 @@ class DropdownFilterAjax extends DropdownFilter {
   handleScroll = () => {
     if (this.listeningToScroll) {
       if (this.state.page < this.state.pages) {
-        let list = this.refs.list;
-        let scrollTriggerPosition = list.scrollHeight - list.offsetHeight - 25;
+        const list = this.list;
+        const scrollTriggerPosition = list.scrollHeight - list.offsetHeight - 25;
 
         if (list.scrollTop > scrollTriggerPosition) {
           this.listeningToScroll = false;
@@ -211,12 +210,12 @@ class DropdownFilterAjax extends DropdownFilter {
    * @param {String} query The search term
    * @param {Object} page The page number to get
    */
-  getData = (query = "", page = 1) => {
-    this.setState({ 'requesting': true });
+  getData = (query = '', page = 1) => {
+    this.setState({ requesting: true });
     Request
       .get(this.props.path)
       .query({
-        page: page,
+        page,
         rows: this.props.rowsPerRequest,
         value: query
       })
@@ -229,7 +228,7 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   ajaxUpdateList = (err, response) => {
     this.updateList(response.body.data[0]);
-    this.setState({ 'requesting': false });
+    this.setState({ requesting: false });
   }
 
   /**
@@ -239,10 +238,8 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   resetScroll = () => {
     this.listeningToScroll = false;
-
-    if (this.state.open) {
-      let list = this.refs.list;
-      list.scrollTop = 0;
+    if (this.state.open && this.list) {
+      this.list.scrollTop = 0;
     }
   }
 
@@ -254,8 +251,8 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   updateList = (data) => {
     // Default page size is 25 records
-    let pages = Math.ceil(data.records / this.props.rowsPerRequest),
-        records = data.items;
+    const pages = Math.ceil(data.records / this.props.rowsPerRequest);
+    let records = data.items;
 
     // Adds next set of records as page scrolled down
     if (data.page > 1) {
@@ -268,7 +265,7 @@ class DropdownFilterAjax extends DropdownFilter {
       open: true,
       options: records,
       page: data.page,
-      pages: pages
+      pages
     });
 
     this.listeningToScroll = true;
@@ -280,7 +277,7 @@ class DropdownFilterAjax extends DropdownFilter {
    * @method listProps
    */
   get listProps() {
-    let props = super.listProps;
+    const props = super.listProps;
 
     props.onScroll = this.handleScroll;
 
@@ -309,7 +306,7 @@ class DropdownFilterAjax extends DropdownFilter {
    * @method inputProps
    */
   get inputProps() {
-    let props = super.inputProps;
+    const props = super.inputProps;
 
     if (typeof this.state.filter !== 'string') {
       props.value = this.props.visibleValue;
