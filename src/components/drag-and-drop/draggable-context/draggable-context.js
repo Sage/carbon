@@ -1,7 +1,7 @@
 import React from 'react';
 import { DragDropContext } from 'react-dnd';
 import PropTypes from 'prop-types';
-import HTML5Backend from 'react-dnd-html5-backend';
+import TouchBackend from 'react-dnd-touch-backend';
 import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
 
 /**
@@ -141,4 +141,4 @@ class DraggableContext extends React.Component {
   }
 }
 
-export default DragDropContext(HTML5Backend)(DraggableContext);
+export default DragDropContext(TouchBackend({ enableMouseEvents: true }))(DraggableContext);
