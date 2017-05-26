@@ -1,6 +1,8 @@
 import React from 'react';
 import I18n from 'i18n-js';
 
+import Link from 'components/link';
+
 // Demo Site
 import GetCodeButtons from './../../../components/get-code-buttons';
 import InfoTile from './../../../components/info-tile';
@@ -25,7 +27,9 @@ class PageHeaderLarge extends React.Component {
               { GetCodeButtons.pair() }
 
               <div className='page-header-large__version'>
-                { I18n.t('homepage.page_header_large.version') }
+                <Link href='https://www.npmjs.com/package/carbon-react' target='_blank'>
+                  <img src='https://img.shields.io/npm/v/carbon-react.svg' alt='npm' />
+                </Link>
               </div>
             </div>
           </div>
