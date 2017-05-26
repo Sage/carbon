@@ -1,7 +1,7 @@
 import React from 'react';
+import classNames from 'classnames';
 import Icon from './../icon';
 import Modal from './../modal';
-import classNames from 'classnames';
 
 /**
  * A DialogFullScreen widget.
@@ -69,7 +69,7 @@ class DialogFullScreen extends Modal {
   get modalHTML() {
     return (
       <div
-        ref={ (d) => this._dialog = d }
+        ref={ (d) => { this._dialog = d; } }
         className={ this.dialogClasses }
         { ...this.componentTags(this.props) }
       >
@@ -97,11 +97,10 @@ class DialogFullScreen extends Modal {
    * @return {Object} JSX
    */
   renderTitle = () => {
-    if (typeof(this.props.title) === 'string' || this.props.title instanceof String) {
+    if (typeof (this.props.title) === 'string' || this.props.title instanceof String) {
       return <h2 className='carbon-dialog-full-screen__title' data-element='title'>{ this.props.title }</h2>;
-    } else {
-      return this.props.title;
     }
+    return this.props.title;
   }
 }
 
