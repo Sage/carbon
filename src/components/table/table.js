@@ -84,7 +84,7 @@ class Table extends React.Component {
      * The actions to display in the toolbar
      *
      * @property actions - each action is object with the action attributes
-     * @type {Array}
+     * @type {Object}
      */
     actions: PropTypes.object,
 

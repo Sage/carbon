@@ -11,14 +11,18 @@ import ActionToolbar from 'carbon/lib/components/action-toolbar';
 *  To render a Alert:
 
 ```javascript
-  let actions = [{
-    text: "Add Subscriptions",
-    icon: "basket",
-    onClick: () => {}
-  }, {
-    text: "Delete",
-    icon: "bin"
-  }];
+  let actions = {
+    subscription: {
+      text: 'Add Subscriptions',
+      icon: 'basket',
+      onClick: (selected, event) => { }
+    },
+    delete: {
+      text: 'Delete',
+      icon: 'bin',
+      onClick: (selected, event) => { }
+    }
+  };
 
   <ActionToolbar actions={ actions } />
 ```

@@ -39,7 +39,7 @@ function buildRows() {
 }`;
 
   definition.propTypes = assign({}, definition.propTypes, {
-    actions: 'Array',
+    actions: 'Object',
     currentPage: 'String',
     children: 'Node',
     className: 'String',
@@ -62,7 +62,7 @@ function buildRows() {
     totalRecords: 'String'
   });
   definition.propDescriptions = assign({}, definition.propDescriptions, {
-    actions: 'The actions to display in the toolbar',
+    actions: 'Specify actions to be used by the ActionToolbar component.',
     currentPage: 'Controls the current page number of a paginated data set.',
     children: 'This component supports children.',
     className: 'Classes to apply to the component.',
