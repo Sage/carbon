@@ -58,6 +58,15 @@ The `TableRow` component now supports drag and drop. To enable it you need to ad
 * `Date`: fixed the warning about an uncontrolled input component
 * Fix presence validator bug validating value as false if no props sent to validator.
 
+## Linting Updates
+
+The following component have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Confirm
+* Dialog
+* DialogFullScreen
+* Flash
+
 # 1.0.0
 
 ## Package Name Change
