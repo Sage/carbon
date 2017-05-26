@@ -155,7 +155,7 @@ describe('DropdownFilterAjax', () => {
       it('does not get data', () => {
         instance.listeningToScroll = false;
         instance.setState({ open: true });
-        TestUtils.Simulate.scroll(instance.refs.list);
+        TestUtils.Simulate.scroll(instance.list);
         expect(instance.getData).not.toHaveBeenCalled();
       });
     });
