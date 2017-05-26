@@ -12,6 +12,16 @@
 ## Bug Fixes
 
 * `Date`: fixed the warning about an uncontrolled input component
+* Fix presence validator bug validating value as false if no props sent to validator.
+
+## Linting Updates
+
+The following component have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Confirm
+* Dialog
+* DialogFullScreen
+* Flash
 
 # 1.0.0
 
@@ -103,7 +113,7 @@ This should hopefully replace all uses of `Request` or `axios`.
 * `Link`: CSS inheritance has been updated to better support buttons.
 * `MenuList`: item filter search icon positioning is fixed
 * Row clones children when mutating props rather than creating new element to retain refs
-* Fix presence validator bug validating value as false if no props sent to validator.
+* Stop input value being removed from props (fixes Button Toggle issue)
 
 ## Deprecations Added
 
