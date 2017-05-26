@@ -6,8 +6,8 @@ import { sum, includes } from 'lodash';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
-import Events from 'utils/helpers/events';
-import { validProps, insertAt } from 'utils/ether';
+import Events from './../../utils/helpers/events';
+import { validProps, insertAt } from './../../utils/ether';
 
 import { tagComponent } from '../../utils/helpers/tags';
 

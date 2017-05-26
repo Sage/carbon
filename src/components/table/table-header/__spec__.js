@@ -127,7 +127,7 @@ describe('TableHeader', () => {
     describe('if a column is sortable', () => {
       describe('before a sortable header is clicked', () => {
         it('does not display an icon', () => {
-          expect(sortableHeader.sortIconHTML).not.toBeDefined();
+          expect(sortableHeader.sortIconHTML).toEqual(null);
         });
       });
 
@@ -154,7 +154,7 @@ describe('TableHeader', () => {
     describe('if a column is not sortable', () => {
       it('does not return an icon', () => {
         let nonSortableHeader = TestUtils.scryRenderedComponentsWithType(instance, TableHeader)[0];
-        expect(nonSortableHeader.sortIconHTML).not.toBeDefined();
+        expect(nonSortableHeader.sortIconHTML).toEqual(null);
       });
     });
   });

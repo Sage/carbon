@@ -9,6 +9,8 @@ const Column = (props) => {
   );
 };
 
+Column.isColumn = true;
+
 Column.PropTypes = {
   columnAlign: PropTypes.oneOfType([
     PropTypes.number,

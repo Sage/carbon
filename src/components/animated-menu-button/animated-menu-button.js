@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Icon from 'components/icon';
+import Icon from './../icon';
 import { tagComponent } from '../../utils/helpers/tags';
-import Devices from 'utils/helpers/devices';
-import { validProps } from 'utils/ether';
+import Devices from './../../utils/helpers/devices';
+import { validProps } from './../../utils/ether';
 
 /**
  * An AnimatedMenuButton widget.
