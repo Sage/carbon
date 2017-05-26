@@ -62,10 +62,16 @@ The `TableRow` component now supports drag and drop. To enable it you need to ad
 
 The following component have had minor internal changes to satisfy the introduction of stricter linting rules:
 
+* ActionToolbar
 * Confirm
 * Dialog
 * DialogFullScreen
 * Flash
+* Table
+* TableAjax
+* TableCell
+* TableHeader
+* TableRow
 
 # 1.0.0
 
