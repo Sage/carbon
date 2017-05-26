@@ -183,7 +183,7 @@ class ActionToolbar extends React.Component {
           <strong data-element='total'>
             { this.state.total }
           </strong>
-          { I18n.t('action_toolbar.selected', { defaultValue: 'Selected' }) }
+          &nbsp;{ I18n.t('action_toolbar.selected', { defaultValue: 'Selected' }) }
         </div>
 
         <div className='carbon-action-toolbar__actions'>
