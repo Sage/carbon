@@ -225,7 +225,11 @@ class TableHeader extends React.Component {
 
     if (this.props.sortable) {
       contents = (
-        <a href="#" className="carbon-table-header--sort" aria-label={ this.sortDescription } onClick={ this.onSortableColumnClick }>
+        <a href="#"
+          className="carbon-table-header--sort"
+          aria-label={ this.sortDescription }
+          onClick={ this.onSortableColumnClick }
+        >
           { this.props.children }
           { this.sortIconHTML }
         </a>

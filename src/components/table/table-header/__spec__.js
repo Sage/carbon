@@ -146,13 +146,13 @@ describe('TableHeader', () => {
 
         it('states the column is sortable, and activating will sort descending', () => {
           let ariaLink = wrapper.find('a[aria-label="Sortable column, activate to sort column descending"]');
-          expect(ariaLink.length).toEqual(1);
+          expect(ariaLink.exists()).toBe(true);
         });
 
         it('includes the current sort order after sorting', () => {
           wrapper.setProps({ 'sortOrder': 'desc' });
           let ariaLink = wrapper.find('a[aria-label="Sortable column, sorted descending, activate to sort column ascending"]');
-          expect(ariaLink.length).toEqual(1);
+          expect(ariaLink.exists()).toBe(true);
         });
       });
 
@@ -172,7 +172,7 @@ describe('TableHeader', () => {
 
         it('does not exist until after a column has been sorted', () => {
           let header = wrapper.find('th[aria-sort]');
-          expect(header.length).toEqual(0);
+          expect(header.exists()).toBe(false);
         });
 
         it('is set to ascending when the name column is sorted ascending', () => {
@@ -260,7 +260,7 @@ describe('TableHeader', () => {
           context = {
             sortOrder: null
           };
-          wrapper = mount(<TableHeader sortable={ true } name="name" />, { context });
+          wrapper = shallow(<TableHeader sortable={ true } name="name" />, { context });
         });
 
         it('says the column is a "Sortable column, activate to sort column descending"', () => {
