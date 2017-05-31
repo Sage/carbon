@@ -48,6 +48,10 @@ The `TableRow` component now supports drag and drop. To enable it you need to ad
 </Table>
 ```
 
+## Text Helpers
+
+A new helper object is available in `utils/helpers/text`. Currently it only contains one method `clearSelection`, which clears any selected text on the page.
+
 ## Component Enhancements
 
 * `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
