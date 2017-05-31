@@ -1,5 +1,9 @@
 # 1.1.0
 
+## Package Updates
+
+* BigNumber has been updated to v4.0.2
+
 ## Component Enhancements
 
 * `Dropdown`: Options list is always rendered to the DOM, but is hidden until selected
