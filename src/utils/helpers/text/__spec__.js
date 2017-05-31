@@ -6,18 +6,13 @@ describe('Text', () => {
     describe('when document.body.createTextRange is defined', () => {
       it('calls collapse and select on the text range', () => {
         const mockTextRange = {
-          collapse() {
-            console.log('range.collapse()');
-          },
-          select() {
-            console.log('range.select()');
-          }
+          collapse() {},
+          select() {}
         };
 
         const mockDocument = {
           body: {
             createTextRange() {
-              console.log('createTextRange called');
               return mockTextRange;
             }
           }
@@ -38,9 +33,7 @@ describe('Text', () => {
     describe('when window.getSelection is defined', () => {
       it('calls removeAllRanges on the selection', () => {
         const mockSelection = {
-          removeAllRanges() {
-            console.log('removeAllRanges');
-          }
+          removeAllRanges() {}
         };
 
         const mockWindow = {
