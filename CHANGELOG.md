@@ -1,5 +1,9 @@
 # 1.1.0
 
+## Package Updates
+
+* BigNumber has been updated to v4.0.2
+
 ## Component Enhancements
 
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
@@ -10,6 +14,21 @@
 
 * `Date`: fixed the warning about an uncontrolled input component
 * Fix presence validator bug validating value as false if no props sent to validator.
+
+## Linting Updates
+
+The following component have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* ActionToolbar
+* Confirm
+* Dialog
+* DialogFullScreen
+* Flash
+* Table
+* TableAjax
+* TableCell
+* TableHeader
+* TableRow
 
 # 1.0.0
 

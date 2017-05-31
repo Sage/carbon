@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Icon from './../icon';
-import Modal from './../modal';
 import Bowser from 'bowser';
 import classNames from 'classnames';
 import { assign } from 'lodash';
+import PropTypes from 'prop-types';
+import Icon from './../icon';
+import Modal from './../modal';
 
 /**
  * A Dialog widget.
@@ -121,13 +121,13 @@ class Dialog extends Modal {
    * @return {void}
    */
   centerDialog = () => {
-    let height = this._dialog.offsetHeight / 2,
-        width = this._dialog.offsetWidth / 2,
-        midPointY = window.innerHeight / 2 + window.pageYOffset,
-        midPointX = window.innerWidth / 2 + window.pageXOffset;
+    const height = this._dialog.offsetHeight / 2,
+        width = this._dialog.offsetWidth / 2;
+    let midPointY = (window.innerHeight / 2) + window.pageYOffset,
+        midPointX = (window.innerWidth / 2) + window.pageXOffset;
 
-    midPointY = midPointY - height;
-    midPointX = midPointX - width;
+    midPointY -= height;
+    midPointX -= width;
 
     if (midPointY < 20) {
       midPointY = 20;
@@ -139,8 +139,8 @@ class Dialog extends Modal {
       midPointX = 20;
     }
 
-    this._dialog.style.top = midPointY + "px";
-    this._dialog.style.left = midPointX + "px";
+    this._dialog.style.top = `${midPointY}px`;
+    this._dialog.style.left = `${midPointX}px`;
   }
 
   /**
@@ -221,13 +221,16 @@ class Dialog extends Modal {
 
   get closeIcon() {
     if (this.props.showCloseIcon) {
-      return <Icon
-        className="carbon-dialog__close"
-        data-element='close'
-        onClick={ this.props.onCancel }
-        type="close"
-      />;
+      return (
+        <Icon
+          className='carbon-dialog__close'
+          data-element='close'
+          onClick={ this.props.onCancel }
+          type='close'
+        />
+      );
     }
+    return null;
   }
 
   componentTags(props) {
@@ -247,7 +250,7 @@ class Dialog extends Modal {
   get modalHTML() {
     return (
       <div
-        ref={ (d) => this._dialog = d }
+        ref={ (d) => { this._dialog = d; } }
         className={ this.dialogClasses }
         { ...this.componentTags(this.props) }
       >

@@ -1,10 +1,10 @@
 import React from 'react';
+import I18n from 'i18n-js';
+import classNames from 'classnames';
+import { assign } from 'lodash';
 import PropTypes from 'prop-types';
 import Dialog from '../dialog';
 import Button from '../button';
-import I18n from "i18n-js";
-import classNames from 'classnames';
-import { assign } from 'lodash';
 
 /**
  * A Confirm widget.
@@ -67,10 +67,6 @@ class Confirm extends Dialog {
     size: 'extra-small',
     showCloseIcon: false
   })
-
-  constructor() {
-    super();
-  }
 
   /**
    * Returns main classes for the component combined with
@@ -141,7 +137,7 @@ class Confirm extends Dialog {
    * @method dialogTitle
    */
   get modalHTML() {
-    let dialog = super.modalHTML,
+    const dialog = super.modalHTML,
         children = [].concat(dialog.props.children, this.confirmButtons);
     return React.cloneElement(dialog, {}, children);
   }

@@ -42,12 +42,28 @@ class TableHeader extends React.Component {
     align: PropTypes.string,
 
     /**
+     * The body of the content component.
+     *
+     * @property children
+     * @type {Object}
+     */
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * Name of the column to sort. Should correspond to name in database.
      *
      * @property name
      * @type {String}
      */
-    name: function(props, propName) {
+    name(props, propName) {
       if (props.sortable) {
         if (!props[propName]) {
           throw new Error('Sortable columns require a prop of name of type String');
@@ -113,9 +129,10 @@ class TableHeader extends React.Component {
    */
   get sortIconHTML() {
     if (this.sorted) {
-      let type = this.context.sortOrder === 'desc' ? 'sort-down' : 'sort-up';
+      const type = this.context.sortOrder === 'desc' ? 'sort-down' : 'sort-up';
       return <Icon type={ type } className={ this.sortIconClasses } />;
     }
+    return null;
   }
 
   /**
@@ -159,7 +176,7 @@ class TableHeader extends React.Component {
     return classNames(
       'carbon-table-header__icon',
       {
-        [`carbon-table-header__icon--align-${ this.props.align }`]: this.props.align
+        [`carbon-table-header__icon--align-${this.props.align}`]: this.props.align
       }
     );
   }
@@ -172,7 +189,7 @@ class TableHeader extends React.Component {
    */
   tableHeaderClasses() {
     return classNames(
-      "carbon-table-header",
+      'carbon-table-header',
       this.props.className,
       {
         [`carbon-table-header--align-${this.props.align}`]: this.props.align,
@@ -188,7 +205,7 @@ class TableHeader extends React.Component {
    * @return {Object}
    */
   get tableHeaderProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
 
     delete props.children;
 
@@ -213,6 +230,23 @@ class TableHeader extends React.Component {
    */
   onSortableColumnClick(event) {
     event.preventDefault();
+  }
+
+  ariaAttributes() {
+    let aria = {};
+    if (this.context.sortOrder && this.isCurrentSortedColumn) {
+      aria['aria-sort'] = this.context.sortOrder === 'asc' ? 'ascending' : 'descending';
+    }
+
+    return aria;
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'table-header',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 
   /**
@@ -243,23 +277,6 @@ class TableHeader extends React.Component {
         { contents }
       </th>
     );
-  }
-
-  ariaAttributes() {
-    let aria = {};
-    if (this.context.sortOrder && this.isCurrentSortedColumn) {
-      aria['aria-sort'] = this.context.sortOrder === 'asc' ? 'ascending' : 'descending';
-    }
-
-    return aria;
-  }
-
-  componentTags(props) {
-    return {
-      'data-component': 'table-header',
-      'data-element': props['data-element'],
-      'data-role': props['data-role']
-    };
   }
 }
 
