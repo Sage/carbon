@@ -20,10 +20,15 @@
 The following component have had minor internal changes to satisfy the introduction of stricter linting rules:
 
 * ActionToolbar
+* AnimatedMenuButton
+* Button
+* ButtonToggle
 * Confirm
 * Dialog
 * DialogFullScreen
 * Flash
+* MultiActionButton
+* SplitButton
 * Table
 * TableAjax
 * TableCell
