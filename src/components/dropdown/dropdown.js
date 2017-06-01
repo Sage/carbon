@@ -314,7 +314,7 @@ class Dropdown extends React.Component {
   handleKeyDown = (ev) => {
     ev.stopPropagation();
 
-    if (!this.refs.list) {
+    if (!this.state.open) {
       // if up/down/space then open list
       if (Events.isUpKey(ev) || Events.isDownKey(ev) || Events.isSpaceKey(ev)) {
         ev.preventDefault();
@@ -501,7 +501,7 @@ class Dropdown extends React.Component {
       onTouchEnd: this.handleTouchEvent,
       onTouchCancel: this.handleTouchEvent,
       onTouchMove: this.handleTouchEvent,
-      className: 'carbon-dropdown__list-block'
+      className: classNames('carbon-dropdown__list-block', { 'carbon-dropdown__list-hidden': !this.state.open })
     };
   }
 
@@ -549,8 +549,6 @@ class Dropdown extends React.Component {
    * @return {Object} JSX
    */
   get listHTML() {
-    if (!this.state.open) { return null; }
-
     return (
       <ul { ...this.listProps }>
         { this.results(this.options) }

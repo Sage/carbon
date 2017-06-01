@@ -270,11 +270,12 @@ describe('DropdownFilterAjax', () => {
       expect(instance.listeningToScroll).toBeFalsy();
     });
 
-    describe('when list exists', () => {
+    describe('when list is open', () => {
       it('should reset the scroll top', () => {
         instance.refs.list = {
           scrollTop: 100
         };
+        instance.setState({ open: true });
         instance.resetScroll();
         expect(instance.refs.list.scrollTop).toEqual(0);
       });
