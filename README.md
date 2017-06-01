@@ -8,6 +8,8 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 
 Check out our [demo and documentation site](https://carbon.sage.com/) for live examples and code snippets.
 
+new text
+
 ## Documentation
 
 ### Getting Started
