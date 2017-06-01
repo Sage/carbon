@@ -148,28 +148,28 @@ describe('Flash', () => {
     describe("if there is an event", () => {
       it('calls preventDefault on it', () => {
         let spy = jasmine.createSpy('preventDefault');
-        defaultInstance.toggleDialog(null, { preventDefault: spy });
+        defaultInstance.toggleDialog(null)({ preventDefault: spy });
         expect(spy).toHaveBeenCalled();
       });
     });
 
     it('sets the state to the opposite of what it was', () => {
       defaultInstance.setState({ dialogs: { foo: false }});
-      defaultInstance.toggleDialog('foo');
+      defaultInstance.toggleDialog('foo')();
       expect(defaultInstance.state.dialogs.foo).toBeTruthy();
     });
 
     it('calls startTimeout if the state is truthy', () => {
       spyOn(defaultInstance, 'startTimeout');
       defaultInstance.setState({ dialogs: { foo: true }});
-      defaultInstance.toggleDialog('foo');
+      defaultInstance.toggleDialog('foo')();
       expect(defaultInstance.startTimeout).toHaveBeenCalled();
     });
 
     it('calls stopTimeout if the state is falsey', () => {
       spyOn(defaultInstance, 'stopTimeout');
       defaultInstance.setState({ dialogs: { foo: false }});
-      defaultInstance.toggleDialog('foo');
+      defaultInstance.toggleDialog('foo')();
       expect(defaultInstance.stopTimeout).toHaveBeenCalled();
     });
   });
@@ -215,12 +215,14 @@ describe('Flash', () => {
 
     describe('if the text does contains ::more::', () => {
       it('returns the text and creates an alert', () => {
-        spyOn(defaultInstance, 'toggleDialog');
+        const toggleDialogSpy = jasmine.createSpy();
+        spyOn(defaultInstance, 'toggleDialog').and.returnValue(toggleDialogSpy);
         let markup = defaultInstance.findMore("yep ::more:: with dialog");
         expect(markup.props.children[0]).toEqual("yep");
         expect(markup.props.children[2].props.className).toEqual("carbon-flash__link");
         markup.props.children[2].props.onClick();
-        expect(defaultInstance.toggleDialog).toHaveBeenCalled();
+        expect(defaultInstance.toggleDialog).toHaveBeenCalledWith('yep');
+        expect(toggleDialogSpy).toHaveBeenCalled();
       });
     });
   });
