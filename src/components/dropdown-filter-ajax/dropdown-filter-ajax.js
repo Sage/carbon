@@ -238,11 +238,10 @@ class DropdownFilterAjax extends DropdownFilter {
    * @method resetScroll
    */
   resetScroll = () => {
-    let list = this.refs.list;
-
     this.listeningToScroll = false;
 
-    if (list) {
+    if (this.state.open) {
+      let list = this.refs.list;
       list.scrollTop = 0;
     }
   }
