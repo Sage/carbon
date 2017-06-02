@@ -22,6 +22,10 @@ let definition = new Definition('split-button', SplitButton, {
   },
   propTypes: {
     as: "String",
+    'data-element': 'String',
+    'data-role': 'String',
+    children: "Node",
+    className: "String",
     text: "String",
     disabled: "Boolean"
   },
@@ -30,6 +34,10 @@ let definition = new Definition('split-button', SplitButton, {
   },
   propDescriptions: {
     as: "Primary or Secondary theme.",
+    children: "This component supports children.",
+    'data-element': "Custom value for the data-element attribute",
+    'data-role': "Custom value for the data-role attribute",
+    className: "Classes to apply to the component.",
     text: "Text for the main button.",
     disabled: "When enabled will disable the button."
   },

@@ -25,10 +25,12 @@ let definition = new Definition('dialog', Dialog, {
     title: "String",
     size: "String",
     showCloseIcon: "Boolean",
+    subtitle: "String"
   },
   propDescriptions: {
     showCloseIcon: "Set this prop to false to hide the close icon within the dialog.",
     size: "Change this prop to set the dialog to a specific size. Possible values include: " + OptionsHelper.sizesFull.join(", "),
+    subtitle: "Controls the subtitle of the dialog.",
     title: "Controls the main title of the dialog."
   }
 });

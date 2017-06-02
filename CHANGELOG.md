@@ -6,6 +6,7 @@
 
 ## Component Enhancements
 
+* `Dropdown`: Options list is always rendered to the DOM, but is hidden until selected
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 * `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
 * Simplify character count in `Textarea`.
@@ -20,10 +21,15 @@
 The following component have had minor internal changes to satisfy the introduction of stricter linting rules:
 
 * ActionToolbar
+* AnimatedMenuButton
+* Button
+* ButtonToggle
 * Confirm
 * Dialog
 * DialogFullScreen
 * Flash
+* MultiActionButton
+* SplitButton
 * Table
 * TableAjax
 * TableCell

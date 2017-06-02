@@ -262,7 +262,7 @@ class DropdownFilter extends Dropdown {
 
       // if user has entered a search filter
       options = options.filter((option) => {
-        if (option.name.search(regex) > -1) {
+        if (option.name && option.name.search(regex) > -1) {
           option.name = this.highlightMatches(option.name, filter);
           return option;
         }

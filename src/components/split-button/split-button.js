@@ -37,12 +37,36 @@ class SplitButton extends React.Component {
     as: PropTypes.string,
 
     /**
-     * The text to be displayed in the SplitButton.
+     * A custom value for the data-element attribute
      *
-     * @property text
+     * @property data-element
      * @type {String}
      */
-    text: PropTypes.string.isRequired,
+    'data-element': PropTypes.string,
+
+    /**
+     * A custom value for the data-element attribute
+     *
+     * @property data-role
+     * @type {String}
+     */
+    'data-role': PropTypes.string,
+
+    /**
+     * The additional button to display.
+     *
+     * @property children
+     * @type {Multiple}
+     */
+    children: PropTypes.node.isRequired,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
     /**
      * Gives the button a disabled state.
@@ -51,7 +75,15 @@ class SplitButton extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+
+    /**
+     * The text to be displayed in the SplitButton.
+     *
+     * @property text
+     * @type {String}
+     */
+    text: PropTypes.string.isRequired
   }
 
   static defaultProps = {
@@ -60,6 +92,11 @@ class SplitButton extends React.Component {
   }
 
   static safeProps = ['disabled', 'as']
+
+  constructor(args) {
+    super(args);
+    this.componentTags = this.componentTags.bind(this);
+  }
 
   state = {
     /**
@@ -70,11 +107,6 @@ class SplitButton extends React.Component {
      * @default false
      */
     showAdditionalButtons: false
-  }
-
-  constructor(args) {
-    super(args);
-    this.componentTags = this.componentTags.bind(this);
   }
 
   /**
@@ -143,9 +175,9 @@ class SplitButton extends React.Component {
    * @return {Object}
    */
   get mainButtonProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
     props.onMouseEnter = this.hideButtons;
-    props.className = "carbon-split-button__main-button";
+    props.className = 'carbon-split-button__main-button';
     return props;
   }
 
@@ -156,7 +188,7 @@ class SplitButton extends React.Component {
    * @return {Object}
    */
   get toggleButtonProps() {
-    let opts = {
+    const opts = {
       disabled: this.props.disabled,
       as: this.props.as,
       onClick: (ev) => { ev.preventDefault(); },
@@ -168,6 +200,20 @@ class SplitButton extends React.Component {
     }
 
     return opts;
+  }
+
+  /**
+   * Returns the data tags for the component.
+   *
+   * @method componentTags
+   * @return {Object}
+   */
+  componentTags() {
+    return {
+      'data-component': 'split-button',
+      'data-element': this.props['data-element'],
+      'data-role': this.props['data-role']
+    };
   }
 
   /**
@@ -215,14 +261,6 @@ class SplitButton extends React.Component {
         { this.renderAdditionalButtons }
       </div>
     );
-  }
-
-  componentTags() {
-    return {
-      'data-component': 'split-button',
-      'data-element': this.props['data-element'],
-      'data-role': this.props['data-role']
-    };
   }
 }
 
