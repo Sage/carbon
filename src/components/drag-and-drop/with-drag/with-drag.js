@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
 import ItemTypes from './../../../utils/helpers/dnd/item-types';
-import Text from './../../../utils/helpers/text';
 
 class WithDrag extends React.Component {
   static propTypes = {
@@ -36,7 +35,6 @@ const ItemSource = {
 
   endDrag(props, monitor, component) {
     const endDrag = props.endDrag || component.context.dragAndDropEndDrag;
-    Text.clearSelection();
     return endDrag(props, monitor, component);
   }
 };
