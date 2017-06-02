@@ -1,16 +1,24 @@
+// Remove the padding from the table cell
+// and apply it to the drag icon instead.
+// This gives us a bigger 'click' area on
+// the drag icon for both mouse and touch.
 .draggable-table-cell {
+  padding: 0;
   width: 21px;
+
+  &.carbon-table-cell:first-child {
+    padding-left: 0;
+  }
 }
 
 .draggable-table-cell__icon {
-  cursor: move; /* fallback if grab cursor is unsupported */
-  cursor: grab;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
-}
+  cursor: move;
+  padding: 8.5px 14px;
 
-.draggable-table-cell__icon:active {
-  cursor: grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit-grabbing;
+  .carbon-table-row--dragging &,
+  .carbon-table-row--dragged {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
 }
