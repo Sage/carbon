@@ -24,7 +24,12 @@ import Dialog from '../dialog';
  */
 class Alert extends Dialog {
 
+  constructor(props) {
+    super(props);
+  }
+
   static defaultProps = assign({}, Dialog.defaultProps, {
+    role: 'alertdialog',
     size: 'extra-small'
   })
 
@@ -58,6 +63,24 @@ class Alert extends Dialog {
       'data-element': props['data-element'],
       'data-role': props['data-role']
     };
+  }
+
+  /**
+   * Handles keyboard focus leaving the dialog
+   * element.
+   *
+   * Assumes that, if no close icon is displayed,
+   * no other element can receive keyboard focus.
+   * Therefore focus should remain on the dialog
+   * element while it is open.
+   *
+   * @override
+   * @return {Void}
+   */
+  handleDialogBlur(ev) {
+    if (!this.props.showCloseIcon) {
+      ev.preventDefault();
+    }
   }
 }
 

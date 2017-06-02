@@ -79,7 +79,9 @@ class Modal extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    disableEscKey: PropTypes.bool
+    disableEscKey: PropTypes.bool,
+
+    ariaRole: PropTypes.string
   }
 
   static defaultProps = {
@@ -199,6 +201,7 @@ class Modal extends React.Component {
         { ...this.componentTags(this.props) }
       >
         <ReactCSSTransitionGroup
+          component="div"
           transitionName={ this.transitionName }
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 } >
@@ -206,6 +209,7 @@ class Modal extends React.Component {
         </ReactCSSTransitionGroup>
 
         <ReactCSSTransitionGroup
+          component="div"
           transitionName={ this.backgroundTransitionName }
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 } >

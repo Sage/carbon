@@ -69,12 +69,15 @@ class Dialog extends Modal {
 
   static defaultProps = {
     size: 'medium',
-    showCloseIcon: true
+    showCloseIcon: true,
+    ariaRole: 'dialog'
   }
 
   constructor(args) {
     super(args);
     this.componentTags = this.componentTags.bind(this);
+    this.handleDialogBlur = this.handleDialogBlur.bind(this);
+    this.handleCloseIconBlur = this.handleCloseIconBlur.bind(this);
   }
 
   /**
@@ -87,6 +90,27 @@ class Dialog extends Modal {
     if (this.props.open) {
       this.centerDialog();
     }
+  }
+
+  /**
+   * Event handler to handle keyboard
+   * focus leaving the dialog element.
+   */
+  handleDialogBlur(ev) { } // eslint-disable-line no-unused-vars
+
+  /**
+   * Event handler for when the close icon
+   * loses keyboard focus.
+   *
+   * As the close icon is the last element in the dialog
+   * source, when the keyboard focus leaves the close
+   * icon return the focus to the dialog itself.
+   *
+   * @return {Void}
+   */
+  handleCloseIconBlur(ev) {
+    ev.preventDefault();
+    this._dialog.focus();
   }
 
   /**
@@ -151,7 +175,15 @@ class Dialog extends Modal {
    */
   get dialogTitle() {
     if (this.props.title) {
-      return <h2 className={ this.dialogTitleClasses } data-element='title'>{ this.props.title }</h2>;
+      return (
+        <h2
+          id="carbon-dialog-title"
+          className={ this.dialogTitleClasses }
+          data-element='title'
+        >
+          { this.props.title }
+        </h2>
+      );
     }
 
     return null;
@@ -165,7 +197,15 @@ class Dialog extends Modal {
    */
   get dialogSubtitle() {
     if (this.props.subtitle) {
-      return <p className={ this.dialogSubtitleClasses } data-element='subtitle'>{ this.props.subtitle }</p>;
+      return (
+        <p
+          id="carbon-dialog-subtitle"
+          className={ this.dialogSubtitleClasses }
+          data-element='subtitle'
+        >
+          { this.props.subtitle }
+        </p>
+      );
     }
 
     return null;
@@ -227,6 +267,8 @@ class Dialog extends Modal {
           data-element='close'
           onClick={ this.props.onCancel }
           type='close'
+          tabIndex='0'
+          onBlur={ this.handleCloseIconBlur }
         />
       );
     }
@@ -248,11 +290,29 @@ class Dialog extends Modal {
    * @return {Object} JSX for dialog
    */
   get modalHTML() {
+    let dialogProps = {
+      className: this.dialogClasses,
+      tabIndex: 0
+    };
+
+    if (this.props.ariaRole) {
+      dialogProps['role'] = this.props.ariaRole;
+    }
+
+    if (this.props.title) {
+      dialogProps['aria-labelledby'] = 'carbon-dialog-title';
+    }
+
+    if (this.props.subtitle) {
+      dialogProps['aria-describedby'] = 'carbon-dialog-subtitle';
+    }
+
     return (
       <div
         ref={ (d) => { this._dialog = d; } }
-        className={ this.dialogClasses }
+        { ...dialogProps }
         { ...this.componentTags(this.props) }
+        onBlur={ this.handleDialogBlur }
       >
         { this.dialogTitle }
         { this.dialogSubtitle }

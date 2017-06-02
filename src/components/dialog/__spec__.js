@@ -5,7 +5,7 @@ import I18n from 'i18n-js';
 import Bowser from 'bowser';
 import Button from './../button';
 import { Row, Column } from './../row'
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Dialog', () => {
@@ -326,4 +326,72 @@ describe('Dialog', () => {
       ]);
     });
   });
+
+  describe('a11y', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <Dialog
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          showCloseIcon={ true }
+          subtitle='Test'
+          title='Test'
+          ariaRole="dialog"
+        />
+      );
+    });
+
+    describe('when title, subtitle, and ariaRole are set', () => {
+      it('renders a role attribute from the ariaRole prop', () => {
+        expect(wrapper.find('[role="dialog"]').exists()).toBe(true);
+      });
+
+      it('renders an aria-labelledby pointing at the title element', () => {
+        expect(wrapper.find('[aria-labelledby="carbon-dialog-title"]').exists()).toBe(true);
+      });
+
+      it('renders an aria-describedby attribute pointing at the subtitle element', () => {
+        expect(wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').exists()).toBe(true);
+      });
+    });
+
+    describe('when title, subtitle, and ariaRole are not set', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <Dialog
+            onCancel={ () => {} }
+            onConfirm={ () => {} }
+            open={ true }
+            showCloseIcon={ true }
+            ariaRole=""
+          />
+        );
+      });
+
+      it('renders a role attribute from the ariaRole prop', () => {
+        expect(wrapper.find('[role="dialog"]').exists()).toBe(false);
+      });
+
+      it('renders an aria-labelledby pointing at the title element', () => {
+        expect(wrapper.find('[aria-labelledby="carbon-dialog-title"]').exists()).toBe(false);
+      });
+
+      it('renders an aria-describedby attribute pointing at the subtitle element', () => {
+        expect(wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').exists()).toBe(false);
+      });
+    });
+
+    it('returns focus to the dialog element when focus leaves the close icon', () => {
+      const dialogElement = wrapper.find('[role="dialog"]').first().getDOMNode();
+      spyOn(dialogElement, 'focus');
+
+      const closeIcon = wrapper.find('[data-element="close"]');
+      closeIcon.simulate('blur');
+      
+      expect(dialogElement.focus).toHaveBeenCalled();
+    });
+  })
 });
