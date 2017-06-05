@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
-import Tab from './tab';
 import { compact } from 'lodash';
 import classNames from 'classnames';
+import Tab from './tab';
 import Event from './../../utils/helpers/events';
 import { tagComponent } from '../../utils/helpers/tags';
 
@@ -71,15 +71,6 @@ import { tagComponent } from '../../utils/helpers/tags';
  * @constructor
  */
 class Tabs extends React.Component {
-
-  /**
-   * Store the window object as property.
-   *
-   * @property _window
-   * @type {Object}
-   */
-  _window = window
-
   static propTypes = {
 
     /**
@@ -199,15 +190,15 @@ class Tabs extends React.Component {
     if (this.props.selectedTabId) {
       selectedTabId = this.props.selectedTabId;
     } else {
-      let hash = this._window.location.hash.substring(1);
+      const hash = this._window.location.hash.substring(1);
 
       if (Array.isArray(this.props.children)) {
-        let children = compact(this.props.children),
-            useHash = false;
+        const children = compact(this.props.children);
+        let useHash = false;
 
         if (hash) {
-          for (let index in children) {
-            let child = children[index];
+          for (const index in children) {
+            const child = children[index];
 
             if (child.props.tabId == hash) {
               useHash = true;
@@ -221,7 +212,7 @@ class Tabs extends React.Component {
         selectedTabId = this.props.children.props.tabId;
       }
     }
-    this.setState({ selectedTabId: selectedTabId });
+    this.setState({ selectedTabId });
   }
 
   /**
@@ -237,6 +228,14 @@ class Tabs extends React.Component {
       this.updateVisibleTab(nextProps.selectedTabId);
     }
   }
+
+  /**
+   * Store the window object as property.
+   *
+   * @property _window
+   * @type {Object}
+   */
+  _window = window
 
   /**
    * Sets the validity state of the given tab (id) to the
@@ -269,13 +268,13 @@ class Tabs extends React.Component {
    */
   handleTabClick = (ev) => {
     if (Event.isEnterKey(ev) || !Event.isEventType(ev, 'keydown')) {
-      let tabid = ev.target.dataset.tabid;
+      const tabid = ev.target.dataset.tabid;
       this.updateVisibleTab(tabid);
     }
   }
 
   updateVisibleTab(tabid) {
-    let url = `${ this._window.location.origin }${this._window.location.pathname }#${ tabid }`;
+    const url = `${this._window.location.origin}${this._window.location.pathname}#${tabid}`;
     this._window.history.replaceState(null, 'change-tab', url);
 
     this.setState({ selectedTabId: tabid });
@@ -293,7 +292,7 @@ class Tabs extends React.Component {
   get mainClasses() {
     return classNames(
       'carbon-tabs',
-      `carbon-tabs__position-${ this.props.position }`,
+      `carbon-tabs__position-${this.props.position}`,
       this.props.className
     );
   }
@@ -301,14 +300,14 @@ class Tabs extends React.Component {
   tabsHeaderClasses = () => {
     return classNames(
       'carbon-tabs__headers',
-      `carbon-tabs__headers--align-${ this.props.align }`,
-       `carbon-tabs__headers`
+      `carbon-tabs__headers--align-${this.props.align}`,
+       'carbon-tabs__headers'
     );
   }
 
   tabHeaderClasses = (tab) => {
-    let tabHasError = this.state.tabValidity.get(tab.props.tabId) == false,
-        tabHasWarning = this.state.tabWarning.get(tab.props.tabId) == true && !tabHasError;
+    let tabHasError = this.state.tabValidity.get(tab.props.tabId) === false,
+        tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === true && !tabHasError;
 
     return classNames(
       'carbon-tabs__headers__header',
@@ -328,8 +327,8 @@ class Tabs extends React.Component {
    * @return Unordered list of tab titles
    */
   get tabHeaders() {
-    let tabTitles = compact(React.Children.toArray(this.props.children)).map((child) => {
-      return(
+    const tabTitles = compact(React.Children.toArray(this.props.children)).map((child) => {
+      return (
         <li
           className={ this.tabHeaderClasses(child) }
           data-element='select-tab'
@@ -340,12 +339,12 @@ class Tabs extends React.Component {
           ref={ `${child.props.tabId}-tab` }
           tabIndex='0'
         >
-            { child.props.title }
+          { child.props.title }
         </li>
       );
     });
 
-    return(
+    return (
       <ul className={ this.tabsHeaderClasses() } >
         { tabTitles }
       </ul>
@@ -361,7 +360,7 @@ class Tabs extends React.Component {
   get visibleTab() {
     let visibleTab;
 
-    compact(React.Children.toArray(this.props.children)).map((child) => {
+    compact(React.Children.toArray(this.props.children)).forEach((child) => {
       if (child.props.tabId == this.state.selectedTabId) {
         visibleTab = child;
       }
@@ -379,8 +378,7 @@ class Tabs extends React.Component {
   get tabs() {
     if (!this.props.renderHiddenTabs) { return this.visibleTab; }
 
-    let tabs = compact(React.Children.toArray(this.props.children)).map((child) => {
-
+    const tabs = compact(React.Children.toArray(this.props.children)).map((child) => {
       let klass = 'hidden';
 
       if (child.props.tabId === this.state.selectedTabId) {
@@ -399,7 +397,7 @@ class Tabs extends React.Component {
    * @method render
    */
   render() {
-    return(
+    return (
       <div className={ this.mainClasses } { ...tagComponent('tabs', this.props) }>
         { this.tabHeaders }
         { this.tabs }
@@ -408,4 +406,4 @@ class Tabs extends React.Component {
   }
 }
 
-export {Tabs, Tab};
+export { Tabs, Tab };
