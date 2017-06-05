@@ -381,6 +381,8 @@ class Date extends React.Component {
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
     props.onKeyDown = this.handleKeyDown;
+    props.disabled = this.props.disabled;
+    props.readOnly = this.props.readOnly;
 
     delete props.autoFocus;
     delete props.internalValidations;

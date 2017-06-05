@@ -367,6 +367,10 @@ describe('Date', () => {
       it('does not open the date picker', () => {
         expect(instance.openDatePicker).not.toHaveBeenCalled();
       });
+
+      it('sets the input as disabled', () => {
+        expect(instance._input.disabled).toEqual(true);
+      })
     });
 
     describe('when readOnly', () => {
@@ -380,6 +384,10 @@ describe('Date', () => {
 
       it('does not open the date picker', () => {
         expect(instance.openDatePicker).not.toHaveBeenCalled();
+      });
+
+      it('sets the input as readonly', () => {
+        expect(instance._input.readOnly).toEqual(true);
       });
     });
   });
