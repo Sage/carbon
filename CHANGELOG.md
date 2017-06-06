@@ -5,6 +5,9 @@
 The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
 
 * AppWrapper
+* Dropdown
+* DropdownFilter
+* DropdownFilterAjax
 * Carousel
 * Column
 * Content
