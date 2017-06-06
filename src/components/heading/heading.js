@@ -12,6 +12,22 @@ import { tagComponent } from '../../utils/helpers/tags';
 class Heading extends React.Component {
   static propTypes = {
     /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * Defines the title for the heading.
      *
      * @property title
@@ -92,7 +108,7 @@ class Heading extends React.Component {
 
     return (
       <Help
-        className="carbon-heading__help"
+        className='carbon-heading__help'
         data-element='help'
         tooltipAlign='center'
         tooltipPosition='right'
@@ -114,11 +130,11 @@ class Heading extends React.Component {
 
     return (
       <Link
-        className="carbon-heading__back"
+        className='carbon-heading__back'
         data-element='back'
         href={ this.props.backLink }
       >
-        <Icon type="chevron" />
+        <Icon type='chevron' />
       </Link>
     );
   }
@@ -133,7 +149,7 @@ class Heading extends React.Component {
     if (!this.props.subheader) { return null; }
 
     return (
-      <div className="carbon-heading__subheader" data-element='subtitle'>
+      <div className='carbon-heading__subheader' data-element='subtitle'>
         { this.props.subheader }
       </div>
     );
@@ -147,10 +163,10 @@ class Heading extends React.Component {
    */
   get classes() {
     return classNames(
-      "carbon-heading", this.props.className, {
-        ["carbon-heading--has-subheader"]: this.props.subheader,
-        ["carbon-heading--has-back"]: this.props.backLink,
-        ["carbon-heading--has-divider"]: this.props.divider
+      'carbon-heading', this.props.className, {
+        'carbon-heading--has-subheader': this.props.subheader,
+        'carbon-heading--has-back': this.props.backLink,
+        'carbon-heading--has-divider': this.props.divider
       }
     );
   }
@@ -174,12 +190,12 @@ class Heading extends React.Component {
 
     return (
       <div className={ this.classes } { ...tagComponent('heading', this.props) }>
-        <div className="carbon-heading__header">
+        <div className='carbon-heading__header'>
           { this.back }
 
-          <div className="carbon-heading__headers">
-            <div className="carbon-heading__main-header">
-              <h1 className="carbon-heading__title" data-element='title'>
+          <div className='carbon-heading__headers'>
+            <div className='carbon-heading__main-header'>
+              <h1 className='carbon-heading__title' data-element='title'>
                 { this.props.title }
               </h1>
 
