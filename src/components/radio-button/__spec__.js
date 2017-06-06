@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import RadioButton from './radio-button';
-import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('RadioButton', () => {

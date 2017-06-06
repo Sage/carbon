@@ -155,6 +155,8 @@ class RadioButton extends React.Component {
 
     return(
       <div className={ this.mainClasses } { ...tagComponent('radio-button', this.props) }>
+        { labelLeft }
+        { fieldHelpLeft }
         { this.inputHTML }
         { labelRight }
         { fieldHelpRight }
