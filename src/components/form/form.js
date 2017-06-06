@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Serialize from 'form-serialize';
+import classNames from 'classnames';
 import CancelButton from './cancel-button';
 import SaveButton from './save-button';
-import Serialize from "form-serialize";
-import classNames from 'classnames';
 import { validProps } from '../../utils/ether';
 import { tagComponent } from '../../utils/helpers/tags';
 
@@ -32,24 +32,6 @@ import { tagComponent } from '../../utils/helpers/tags';
  * @constructor
  */
 class Form extends React.Component {
-  /**
-   * stores the document - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _document
-   * @type {document}
-   */
-  _document = document;
-
-  /**
-   * stores the window - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _window
-   * @type {window}
-   */
-  _window = window;
-
   static propTypes = {
 
     /**
@@ -172,20 +154,28 @@ class Form extends React.Component {
     onSubmit: PropTypes.func,
 
     /**
-     * Currently active input in form
-     *
-     * @property activeInput
-     * @type {Node}
-     */
-    activeInput: PropTypes.node,
-
-    /**
      * Override Save Button
      *
      * @property customSaveButton
      * @type {Node}
      */
     customSaveButton: PropTypes.node,
+
+    /**
+     * A custom class name for the component.
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node
   }
 
   static defaultProps = {
@@ -213,6 +203,24 @@ class Form extends React.Component {
     modal: PropTypes.object
   }
 
+  state = {
+    /**
+     * Tracks the number of errors in the form
+     *
+     * @property errorCount
+     * @type {Number}
+     */
+    errorCount: 0,
+
+    /**
+     * Tracks the number of warnings in the form
+     *
+     * @property warningCount
+     * @type {Number}
+     */
+    warningCount: 0
+  }
+
   /**
    * Returns form object to child components.
    *
@@ -234,6 +242,18 @@ class Form extends React.Component {
         validate: this.validate
       }
     };
+  }
+
+  /**
+   * Runs once the component has mounted.
+   *
+   * @method componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    if (this.props.validateOnMount) {
+      this.validate();
+    }
   }
 
   /**
@@ -262,30 +282,30 @@ class Form extends React.Component {
   }
 
   /**
+   * stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _document
+   * @type {document}
+   */
+  _document = document;
+
+  /**
+   * stores the window - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _window
+   * @type {window}
+   */
+  _window = window;
+
+  /**
    * @method activeInputHasValidation
    * @param {}
    * @return {Boolean} active input exists and is decorated with validation
    */
   activeInputExistsAndHasValidation = () => {
     return this.activeInput && this.activeInput.immediatelyHideMessage;
-  }
-
-  state = {
-    /**
-     * Tracks the number of errors in the form
-     *
-     * @property errorCount
-     * @type {Number}
-     */
-    errorCount: 0,
-
-    /**
-     * Tracks the number of warnings in the form
-     *
-     * @property warningCount
-     * @type {Number}
-     */
-    warningCount: 0
   }
 
   /**
@@ -313,18 +333,6 @@ class Form extends React.Component {
    * @type {Number}
    */
   warningCount = 0;
-
-  /**
-   * Runs once the component has mounted.
-   *
-   * @method componentDidMount
-   * @return {void}
-   */
-  componentDidMount() {
-    if (this.props.validateOnMount) {
-      this.validate();
-    }
-  }
 
   /**
    * Increase current error count in state by 1.
@@ -404,7 +412,7 @@ class Form extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    let valid = this.validate();
+    const valid = this.validate();
 
     if (!valid) { ev.preventDefault(); }
 
@@ -427,12 +435,12 @@ class Form extends React.Component {
     let valid = true,
         errors = 0;
 
-    for (let key in this.inputs) {
-      let input = this.inputs[key];
+    for (const key in this.inputs) {
+      const input = this.inputs[key];
 
       if (!input.props.disabled && !input.validate()) {
         valid = false;
-        errors++;
+        errors += 1;
       }
     }
 
@@ -450,7 +458,7 @@ class Form extends React.Component {
    * @return {Object} Serialized object of fields
    */
   serialize = (opts) => {
-    return Serialize(this.refs.form, opts);
+    return Serialize(this.form, opts);
   }
 
   /**
@@ -460,7 +468,7 @@ class Form extends React.Component {
    * @return {Object} props for form element
    */
   htmlProps = () => {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
     delete props.activeInput;
     delete props.onSubmit;
     props.className = this.mainClasses;
@@ -496,7 +504,7 @@ class Form extends React.Component {
   cancelButton = () => {
     if (!this.props.cancel) { return null; }
 
-    let cancelProps = {
+    const cancelProps = {
       cancelText: this.props.cancelText,
       cancelClick: this.cancelForm,
       ...this.props.cancelButtonProps
@@ -533,7 +541,7 @@ class Form extends React.Component {
    * @return {Object} JSX
    */
   defaultSaveButton = () => {
-    return(
+    return (
       <SaveButton
         saveButtonProps={ this.props.saveButtonProps }
         saveText={ this.props.saveText }
@@ -594,7 +602,7 @@ class Form extends React.Component {
   get buttonClasses() {
     return classNames(
       'carbon-form__buttons',
-      `carbon-form__buttons--${ this.props.buttonAlign }`
+      `carbon-form__buttons--${this.props.buttonAlign}`
     );
   }
 
@@ -606,7 +614,12 @@ class Form extends React.Component {
    */
   render() {
     return (
-      <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() } ref="form" { ...tagComponent('form', this.props) }>
+      <form
+        onSubmit={ this.handleOnSubmit }
+        ref={ (c) => { this.form = c; } }
+        { ...this.htmlProps() }
+        { ...tagComponent('form', this.props) }
+      >
         { generateCSRFToken(this._document) }
 
         { this.props.children }
@@ -629,12 +642,11 @@ class Form extends React.Component {
  * @return {Object} JSX hidden CSRF token
  */
 function generateCSRFToken(doc) {
-  let meta = doc.getElementsByTagName('meta'),
-      csrfAttr,
-      csrfValue;
+  const meta = doc.getElementsByTagName('meta');
+  let csrfAttr, csrfValue;
 
-  for (var i = 0; i < meta.length; i++) {
-    var item = meta[i];
+  for (let i = 0; i < meta.length; i++) {
+    const item = meta[i];
 
     if (item.getAttribute('name') === 'csrf-param') {
       csrfAttr = item.getAttribute('content');
@@ -643,7 +655,7 @@ function generateCSRFToken(doc) {
     }
   }
 
-  return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
+  return <input type='hidden' name={ csrfAttr } value={ csrfValue } readOnly='true' />;
 }
 
 export default Form;

@@ -1,11 +1,12 @@
 import classNames from 'classnames';
-import I18n from "i18n-js";
+import I18n from 'i18n-js';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { tagComponent } from '../../../utils/helpers/tags';
 import Button from './../../button';
 import FormSummary from './../form-summary';
 
-const SaveButton = (props) =>
+const SaveButton = props =>
   <div className={ saveClasses(props) } { ...tagComponent('save', props) }>
     <FormSummary
       className='carbon-form-save__summary'
@@ -18,8 +19,16 @@ const SaveButton = (props) =>
   </div>
 ;
 
+const saveClasses = (props) => {
+  return classNames(
+    'carbon-form-save', {
+      'carbon-form-save--invalid': props.errors || props.warnings
+    }
+  );
+};
+
 const saveButtonProps = (props) => {
-  return({
+  return ({
     as: 'primary',
     disabled: props.saving,
     className: 'carbon-form-save__button',
@@ -31,12 +40,15 @@ const saveText = (props) => {
   return props.saveText || I18n.t('actions.save', { defaultValue: 'Save' });
 };
 
-const saveClasses = (props) => {
-  return classNames(
-    "carbon-form-save", {
-      "carbon-form-save--invalid": props.errors || props.warnings
-    }
-  );
+SaveButton.propTypes = {
+  errors: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  warnings: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 };
 
 export default SaveButton;
