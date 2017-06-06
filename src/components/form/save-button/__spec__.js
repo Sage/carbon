@@ -5,60 +5,51 @@ import SaveButton from './save-button';
 import Button from './../../button';
 
 describe('SaveButton', () => {
- let wrapper;
+  let wrapper;
 
- beforeEach(() => {
+  beforeEach(() => {
    wrapper = shallow(
      <SaveButton
-       saveText='This is a save button'
        saving={ false }
      />
    );
- });
-
-  describe('the save text', () => {
-    describe('when custom saveText is passed in', () => {
-      it('renders it', () => {
-        let button = wrapper.find('.carbon-form-save__button');
-        expect(button.prop('children')).toEqual('This is a save button');
-        expect(button.prop('disabled')).toBeFalsy();
-      });
-    });
-
-    describe('when no custom text is passed in', () => {
-       beforeEach(() => {
-         wrapper = shallow(<SaveButton saving={ false } />);
-       });
-
-      it('renders the default', () => {
-        let button = wrapper.find('.carbon-form-save__button');
-        expect(button.prop('children')).toEqual('Save');
-        expect(button.prop('disabled')).toBeFalsy();
-      });
-    });
   });
 
-  describe('the button classes', () => {
-    describe('when a custom class is passed in', () => {
-      beforeEach(() => {
-        wrapper = shallow(
-         <SaveButton
-           saveText='This a save button'
-           saving={ false }
-           saveButtonProps={ { className: 'my-custom-button-class' } }
-         />
-       );
-     });
+  it('renders the standard class', () => {
+    let button = wrapper.find('.carbon-form-save__button');
+    expect(wrapper.hasClass('carbon-form-save')).toBeTruthy();
+  });
 
-      it('outputs it', () => {
-        expect(wrapper.find('.my-custom-button-class').exists()).toBeTruthy;
-        expect(wrapper.find('.carbon-form-save__button')).toBeFalsy;
-      });
-    });
+  it('renders a custom class if provided', () => {
+    wrapper = shallow(
+      <SaveButton
+        saving={ false }
+        saveButtonProps={ { className: 'my-custom-button-class' } }
+      />
+    );
+
+    expect(wrapper.find('.my-custom-button-class').exists()).toBeTruthy;
+    expect(wrapper.find('.carbon-form-save__button')).toBeFalsy;
+  });
+
+  it('renders the default text', () => {
+    let button = wrapper.find('.carbon-form-save__button');
+    expect(button.prop('children')).toEqual('Save');
+  });
+
+  it('renders custom text when provided', () => {
+    wrapper = shallow(
+      <SaveButton
+        saveText='This is a save button'
+      />
+    );
+
+    let button = wrapper.find('.carbon-form-save__button');
+    expect(button.prop('children')).toEqual('This is a save button');
   });
 
   describe('when there are no errors or warnings', () => {
-    it('renders with a main class', () => {
+    it('renders with the expected class', () => {
      expect(wrapper.find('.carbon-form-save').exists()).toBeTruthy();
      expect(wrapper.find('.carbon-form-save--invalid').exists()).toBeFalsy();
     });
@@ -70,7 +61,6 @@ describe('SaveButton', () => {
       let warnings = 1;
        wrapper = shallow(
          <SaveButton
-           saveText='This a save'
            errors={ errors }
            warnings={ warnings }
            saving={ false }
@@ -78,7 +68,7 @@ describe('SaveButton', () => {
        );
      });
 
-    it('renders with a main class and invalid class', () => {
+    it('renders with a default and invalid class', () => {
       expect(wrapper.hasClass('carbon-form-save')).toBeTruthy();
       expect(wrapper.hasClass('carbon-form-save--invalid')).toBeTruthy();
     });
@@ -90,28 +80,19 @@ describe('SaveButton', () => {
     });
   });
 
-  describe('the saving behaviour', () => {
-    describe('when the form is not saving', () => {
-      it('the button is enabled', () => {
-        expect(wrapper.props.disabled).toBeFalsy();
-      });
-    });
+  it('the button is enabled when the form is not saving', () => {
+    expect(wrapper.props.disabled).toBeFalsy();
+  });
 
-    describe('when the form is saving', () => {
-      beforeEach(() => {
-       wrapper = shallow(
-         <SaveButton
-           saveText='This a save'
-           saving={ true }
-         />
-       );
-     });
+  it('the button is disabled when the form is saving', () => {
+    wrapper = shallow(
+      <SaveButton
+        saving={ true }
+      />
+    );
 
-      it('the button is disabled', () => {
-        let button = wrapper.find('.carbon-form-save__button');
-        expect(button.prop('disabled')).toBeTruthy();
-      });
-    });
+    let button = wrapper.find('.carbon-form-save__button');
+    expect(button.prop('disabled')).toBeTruthy();
   });
 
   describe("tags", () => {

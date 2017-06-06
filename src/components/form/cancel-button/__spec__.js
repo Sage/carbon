@@ -5,76 +5,54 @@ import CancelButton from './cancel-button';
 import Button from './../../button';
 
 describe('CancelButton', () => {
- let wrapper, clickSpy;
+  let wrapper, clickSpy;
 
- beforeEach(() => {
-   wrapper = shallow(
-     <CancelButton
-       cancelText='This is a cancel button'
-     />
-   );
- });
-
-  describe('the standard class', () => {
-    it('renders it', () => {
-      let button = wrapper.find('.carbon-form-cancel__button');
-      expect(wrapper.hasClass('carbon-form-cancel')).toBeTruthy();
-    });
+  beforeEach(() => {
+    wrapper = shallow(<CancelButton/>);
   });
 
-  describe('the save text', () => {
-    describe('when custom saveText is passed in', () => {
-      it('renders it', () => {
-        let button = wrapper.find('.carbon-form-cancel__button');
-        expect(button.prop('children')).toEqual('This is a cancel button');
-      });
-    });
-
-    describe('when no custom text is passed in', () => {
-       beforeEach(() => {
-         wrapper = shallow(<CancelButton />);
-       });
-
-      it('renders the default', () => {
-        let button = wrapper.find('.carbon-form-cancel__button');
-        expect(button.prop('children')).toEqual('Cancel');
-      });
-    });
+  it('renders the standard class', () => {
+    let button = wrapper.find('.carbon-form-cancel__button');
+    expect(wrapper.hasClass('carbon-form-cancel')).toBeTruthy();
   });
 
-  describe('the button classes', () => {
-    describe('when a custom class is passed in', () => {
-      beforeEach(() => {
-        wrapper = shallow(
-         <CancelButton
-           cancelButtonProps={ { className: 'my-custom-button-class' } }
-         />
-       );
-     });
+  it('renders a custom class if provided', () => {
+    wrapper = shallow(
+      <CancelButton
+        cancelButtonProps={ { className: 'my-custom-button-class' } }
+      />
+    );
 
-      it('outputs it', () => {
-        expect(wrapper.find('.my-custom-button-class').exists()).toBeTruthy;
-        expect(wrapper.find('.carbon-form-cancel__button')).toBeFalsy;
-      });
-    });
+    expect(wrapper.find('.my-custom-button-class').exists()).toBeTruthy;
+    expect(wrapper.find('.carbon-form-cancel__button')).toBeFalsy;
   });
 
-  describe('clicking cancel', () => {
-    describe('when the onClick event has been provided', () => {
-      beforeEach(() => {
-        clickSpy = jasmine.createSpy('clickSpy')
-        wrapper = shallow(
-         <CancelButton
-           cancelClick={ clickSpy }
-         />
-        );
-      });
+  it('renders the default text', () => {
+    let button = wrapper.find('.carbon-form-cancel__button');
+    expect(button.prop('children')).toEqual('Cancel');
+  });
 
-      it('is triggered on click', () => {
-       let button = wrapper.find('.carbon-form-cancel__button')
-       expect(button.prop('onClick')).toEqual(clickSpy)
-      });
-    });
+  it('renders custom text when provided', () => {
+    wrapper = shallow(
+       <CancelButton
+         cancelText='This is a cancel button'
+       />
+     );
+
+    let button = wrapper.find('.carbon-form-cancel__button');
+    expect(button.prop('children')).toEqual('This is a cancel button');
+  });
+
+  it('adds the onClick prop to the button', () => {
+    clickSpy = jasmine.createSpy('clickSpy')
+    wrapper = shallow(
+      <CancelButton
+        cancelClick={ clickSpy }
+      />
+    );
+
+    let button = wrapper.find('.carbon-form-cancel__button')
+    expect(button.prop('onClick')).toEqual(clickSpy)
   });
 
   describe("tags", () => {
