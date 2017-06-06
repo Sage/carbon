@@ -1,3 +1,19 @@
+# 1.2.0
+
+## Linting Updates
+
+The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Carousel
+* Link
+* Menu
+* MenuItem
+* MenuList
+* MenuListItem
+* NavigationBar
+* SubmenuBlock
+* Tabs
+
 # 1.1.0
 
 ## Package Updates
