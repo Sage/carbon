@@ -1,3 +1,40 @@
+# 1.1.0
+
+## Package Updates
+
+* BigNumber has been updated to v4.0.2
+
+## Component Enhancements
+
+* `Dropdown`: Options list is always rendered to the DOM, but is hidden until selected
+* `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
+* Simplify character count in `Textarea`.
+
+## Bug Fixes
+
+* `Date`: fixed the warning about an uncontrolled input component
+* Fix presence validator bug validating value as false if no props sent to validator.
+
+## Linting Updates
+
+The following component have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* ActionToolbar
+* AnimatedMenuButton
+* Button
+* ButtonToggle
+* Confirm
+* Dialog
+* DialogFullScreen
+* Flash
+* MultiActionButton
+* SplitButton
+* Table
+* TableAjax
+* TableCell
+* TableHeader
+* TableRow
+
 # 1.0.0
 
 ## Package Name Change

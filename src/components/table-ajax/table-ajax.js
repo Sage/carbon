@@ -23,11 +23,6 @@ import { Table, TableRow, TableCell, TableHeader, TableSubheader } from './../ta
  *
  */
 class TableAjax extends Table {
-
-  constructor(...args) {
-    super(...args);
-  }
-
   /**
    * Timeout for firing ajax request
    *
@@ -170,7 +165,7 @@ class TableAjax extends Table {
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(nextProps);
     if (this.props.pageSize !== nextProps.pageSize) {
-      this.setState({pageSize: nextProps.pageSize});
+      this.setState({ pageSize: nextProps.pageSize });
     }
   }
 
@@ -279,11 +274,11 @@ class TableAjax extends Table {
       this.selectAllComponent = null;
     }
 
-    let resetHeight = Number(options.pageSize) < Number(this.pageSize),
-        currentPage = (element === "filter") ? "1" : options.currentPage;
+    const resetHeight = Number(options.pageSize) < Number(this.pageSize),
+        currentPage = (element === 'filter') ? '1' : options.currentPage;
 
     this.setState({
-      currentPage: currentPage,
+      currentPage,
       pageSize: options.pageSize,
       sortOrder: options.sortOrder,
       sortedColumn: options.sortedColumn
@@ -329,7 +324,7 @@ class TableAjax extends Table {
    */
   handleResponse = (err, response) => {
     if (!err) {
-      let data = response.body;
+      const data = response.body;
       this.props.onChange(data);
       this.setState({ totalRecords: String(data.records) });
     }
@@ -344,8 +339,8 @@ class TableAjax extends Table {
    * @return {Object} params for query
    */
   queryParams = (element, options) => {
-    let query = options.filter || {};
-    query.page = (element === "filter") ? "1" : options.currentPage;
+    const query = options.filter || {};
+    query.page = (element === 'filter') ? '1' : options.currentPage;
     query.rows = options.pageSize;
     if (options.sortOrder) { query.sord = options.sortOrder; }
     if (options.sortedColumn) { query.sidx = options.sortedColumn; }
