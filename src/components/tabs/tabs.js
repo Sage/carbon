@@ -72,6 +72,13 @@ import { tagComponent } from '../../utils/helpers/tags';
  */
 class Tabs extends React.Component {
   static propTypes = {
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
     /**
      * Should the unfocussed tabs be rendered to the page
@@ -146,20 +153,6 @@ class Tabs extends React.Component {
     tabs: PropTypes.object
   }
 
-  /**
-   * Returns tabs object to tab component.
-   *
-   * @method getChildContext
-   */
-  getChildContext() {
-    return {
-      tabs: {
-        changeValidity: this.changeValidity,
-        changeWarning: this.changeWarning
-      }
-    };
-  }
-
   state = {
 
     /**
@@ -177,6 +170,20 @@ class Tabs extends React.Component {
      * @type {Object}
      */
     tabWarning: Immutable.Map()
+  }
+
+  /**
+   * Returns tabs object to tab component.
+   *
+   * @method getChildContext
+   */
+  getChildContext() {
+    return {
+      tabs: {
+        changeValidity: this.changeValidity,
+        changeWarning: this.changeWarning
+      }
+    };
   }
 
   /**
@@ -306,7 +313,7 @@ class Tabs extends React.Component {
   }
 
   tabHeaderClasses = (tab) => {
-    let tabHasError = this.state.tabValidity.get(tab.props.tabId) === false,
+    const tabHasError = this.state.tabValidity.get(tab.props.tabId) === false,
         tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === true && !tabHasError;
 
     return classNames(
