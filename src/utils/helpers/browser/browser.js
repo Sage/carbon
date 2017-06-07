@@ -59,7 +59,8 @@ const Browser = {
     node.select();
   },
 
-  /** Focues and sets cursor of input filed but does not select text
+  /**
+   * Focues and sets cursor of input filed but does not select text
    *
    * @method setFocus
    */
