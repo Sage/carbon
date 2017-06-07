@@ -14,12 +14,22 @@ let definition = new Definition('date-input', DateInput, {
   type: 'form',
   hiddenProps: ['minDate', 'maxDate'],
   propTypes: {
+    autoFocus: "Boolean",
+    disabled: "Boolean",
     minDate: "String",
-    maxDate: "String"
+    maxDate: "String",
+    onBlur: "Function",
+    readOnly: "Boolean",
+    value: "String"
   },
   propDescriptions: {
+    autoFocus: "Automatically focus on component mount.",
+    disabled: "Disable all user interaction.",
     minDate: "Set a minimum value for date.",
-    maxDate: "Set a maximum value for date."
+    maxDate: "Set a maximum value for date.",
+    onBlur: "Specify a callback triggered on blur.",
+    readOnly: "Display the currently selected value without displaying the input.",
+    value: "The selected date."
   }
 });
 
