@@ -59,6 +59,15 @@ describe('Browser', () => {
     });
   });
 
+  describe('set-focus', () => {
+    it('focuses on the input field of the passed in ref but doesnot select text', () => {
+      let node = jasmine.createSpyObj(['focus', 'select']);
+      spyOn(ReactDOM, 'findDOMNode').and.returnValue(node);
+      Browser.setFocus('fakeRef');
+      expect(node.focus).toHaveBeenCalled();
+    });
+  });
+
   describe('cookies', () => {
     afterEach(() => {
       // Remove foo cookie

@@ -59,6 +59,15 @@ const Browser = {
     node.select();
   },
 
+  /** Focues and sets cursor of input filed but does not select text
+   *
+   * @method setFocus
+   */
+  setFocus: (ref) => {
+    let node = ReactDOM.findDOMNode(ref._input);
+    node.focus();
+  },
+
   /**
    * Sets a cookie where name=value
    *
