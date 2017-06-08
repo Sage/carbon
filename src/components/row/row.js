@@ -1,7 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { compact, omit } from 'lodash';
+import { compact } from 'lodash';
 import Immutable from 'immutable';
+import Column from './column';
+import Logger from './../../utils/logger';
 
 /**
  * A row widget.
@@ -31,9 +34,9 @@ class Row extends React.Component {
      * @property children
      * @type {Object | Array}
      */
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object
+    children: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object
     ]),
 
     /**
@@ -43,7 +46,7 @@ class Row extends React.Component {
      * @property gutter
      * @type {String}
      */
-    gutter: React.PropTypes.string,
+    gutter: PropTypes.string,
 
     /**
      * Show a divide between columns
@@ -51,7 +54,7 @@ class Row extends React.Component {
      * @property columnDivide
      * @type {String}
      */
-    columnDivide: React.PropTypes.bool,
+    columnDivide: PropTypes.bool,
 
     /**
      * Manually define number of columns
@@ -59,7 +62,7 @@ class Row extends React.Component {
      * @property columns
      * @type {String}
      */
-    columns: React.PropTypes.string
+    columns: PropTypes.string
   }
 
   static defaultProps = {
@@ -98,7 +101,19 @@ class Row extends React.Component {
    * @return {Object} JSX of build column
    */
   buildColumn = (child, key) => {
-    let columnClass = classNames(
+    /**
+     * This functionality is maintaining the deprecated behaviour
+     * where Row can have any immediate children. As of React 16 this
+     * will break and therefore we have added a column component to deal
+     * with the complications and maintain functionality.
+     *
+     * Removing the deprecated behaviour in Carbon v2 we can likely
+     * remove the buildColumns and buildColumn function and just render the Row's
+     * children which will include the columns
+     *
+     * TODO: CarbonV2
+     */
+    let columnClasses = classNames(
       "carbon-row__column",
       child.props.columnClasses, {
         [`carbon-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
@@ -108,14 +123,22 @@ class Row extends React.Component {
       }
     );
 
-    const childProps = omit(child.props, ['columnOffset', 'columnSpan', 'columnClasses', 'columnAlign']);
-    const newChild = React.createElement(child.type, childProps, child.props.children);
+    if (child.type && child.type.isColumn) {
+      columnClasses = classNames(columnClasses, child.props.className);
+      return React.cloneElement(
+        child,
+        { className: columnClasses, key: key },
+        child.props.children
+      );
+    } else {
+      Logger.deprecate('Row Component should only have an immediate child of type Column');
 
-    return (
-      <div key={ key } className={ columnClass }>
-        { newChild }
-      </div>
-    );
+      return (
+        <div key={ key } className={ columnClasses }>
+          { child }
+        </div>
+      );
+    }
   }
 
   /**
@@ -159,3 +182,7 @@ class Row extends React.Component {
 }
 
 export default Row;
+export {
+  Row,
+  Column
+};

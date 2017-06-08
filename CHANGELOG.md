@@ -1,14 +1,73 @@
+# 1.2.0
+
+## Linting Updates
+
+The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Date
+* DateRange
+
+# 1.1.0
+
+## Package Updates
+
+* BigNumber has been updated to v4.0.2
+
+## Component Enhancements
+
+* `Dropdown`: Options list is always rendered to the DOM, but is hidden until selected
+* `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
+* Simplify character count in `Textarea`.
+
+## Bug Fixes
+
+* `Date`: fixed the warning about an uncontrolled input component
+* Fix presence validator bug validating value as false if no props sent to validator.
+
+## Linting Updates
+
+The following component have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* ActionToolbar
+* AnimatedMenuButton
+* Button
+* ButtonToggle
+* Confirm
+* Dialog
+* DialogFullScreen
+* Flash
+* MultiActionButton
+* SplitButton
+* Table
+* TableAjax
+* TableCell
+* TableHeader
+* TableRow
+
 # 1.0.0
+
+## Package Name Change
+
+* The package name has been updated to `carbon-react`.
+
+## Removed `/lib` directory
+
+* You should now install the package via npm: `npm install carbon-react`.
 
 ## :warning: Major Change - React 15 Upgrade
 
-* React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
+* React has been upgraded to version 15.5.0 - https://github.com/facebook/react/releases
 
 ## !! BREAKING CHANGES!! :warning:
 
-* Banner Component has been Deleted in favour of the Message Component
+* `ActionToolbar`: 'total' field margin and width
+* `Banner`: Component has been Deleted in favour of the Message Component
 * `ButtonToggle`: `icon` and `iconSize` become `buttonIcon` and `buttonIconSize` to avoid clash with Input decorator
-* Menu List - Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
+* `Heading`: paddings
+* `MenuList`: Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
+* `MultiActionButton`: Additional buttons are spaced differently
+* `MultistepWizard`: Step has less padding-left
+* `Pod`: Header has less margin-bottom
 
 ## Potentially breaking changes
 
@@ -24,6 +83,7 @@
 * `ButtonToggle` no longer inherits from the label decorator as it was providing more functionality than required.
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `Rainbow` has been updated to no longer use the `react-highcharts` component. To use this component you need to ensure to make the `Highcharts` library available to your application globally.
+* `ActionToolbar` incorrectly required actions as an `Array` - this has been changed to an `Object` to reflect its actual usage.
 
 ## Google Analytics
 
@@ -31,30 +91,95 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 
 ## Component Enhancements
 
+* `Decimal` now shows propType warning when precision is outside the range 0..20
+* `Detail`: font size of footer increased
+* `Dialog`: font wieght
 * `DropdownFilter`: placeholder text is made more legible by removing italics and making the font color darker
+* `DropdownFilterAjax`: `data-state` component tag is added to the `getData` Ajax request to mark the requesting state
+* `Fieldset`: icon positioning
+* `Heading`: Font size increased and weight
+* `Input`: decorator has slight padding change
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
 * `MountInApp` now cleans up it's children when the component is unmounted.
+* `Pod`: Font size increased
+* `ShowEditPod`: z-index on input prefixes
+* `TableHeader`: Font weight
+
+## Service Class
+
+Adds a `Service` class to make it easier and more clear to create reusable services to interact with a JSON API. The class supports:
+
+* `GET`, `POST`, `PUT` and `DELETE` requests.
+* Automatically configured request Headers (no longer need to set `Content-Type` etc for each request)
+* CSRF support.
+* Request and Response transforms.
+* Global Success and Error actions for triggering automatic actions (such as flash notifications on error).
+
+This should hopefully replace all uses of `Request` or `axios`.
+
+## Helpers
+
+* A new 'insertAt' Ether helper to insert a character in a string at a specified indices
+
+## New components
+
+* Grouped-character component - displays groups with of characters with separator.
 
 ## Bug Fixes
 
 * `Alert`: default size has been fixed to `extra-small`.
 * `ButtonToggle`: css typo corrected
 * `Confirm`: default size has been fixed to `extra-small`.
+* `Detail`: Footnote is allowed to expand vertically
 * `Heading`: alignment is fixed in IE where `hr` was centring by default
 * `Link`: CSS inheritance has been updated to better support buttons.
 * `MenuList`: item filter search icon positioning is fixed
+* Row clones children when mutating props rather than creating new element to retain refs
+* Stop input value being removed from props (fixes Button Toggle issue)
+
+## Deprecations Added
+
+* `Row`: can longer render any immediate children. A Column component has been introduced to maintain the column span, offset and align behaviour.
+
+```javascript
+// BEFORE
+import Row from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <div columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </div>
+  <Pod columnSpan='5'>
+    Content 1
+  </Pod>
+</Row>
+
+// AFTER
+import { Row, Column } from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <Column columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </Column>
+  <Column columnSpan='5'>
+    <Pod>
+      Content 1
+    </Pod>
+  </Column>
+</Row>
+```
 
 ## data-attributes on components
 
-We are adding data-attributes to components to better identify them and their parts within the browser. We will add `data-component` tags on the top level of any component, and `data-member` tags to constituent parts. Developers can also add `data-element` tags to components to uniquely identify specific components within their UI.
-
-So far we have added attributes to the following components:
-
-* Textbox
+We have added data-attributes to components to better identify them and their parts within the browser. We have added `data-component` tags on the top level of any component, and `data-element` tags to constituent parts. Developers can also add `data-role` tags to components to uniquely identify specific components within their UI.
 
 ## Dependency Update
 
-* Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+* Carbon Factory has been upgraded to v0.3.6 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.6
 
 ### Gulp updates
 
@@ -62,6 +187,32 @@ So far we have added attributes to the following components:
 ```bash
 gulp --port 1234
 ```
+
+# 0.36.3
+
+## Component Enhancements
+
+* `DialogFullScreen` now accepts a String for title or any other component.
+
+# 0.36.2
+
+* Hide SplitButton additional buttons instead of removing them.
+
+# 0.36.1
+
+* Removed the style node from `package.json` in table-ajax. This file doesn't exist.
+
+# 0.36.0
+
+* Add `additionalRequestParams` prop to `DropdownFilterAjax`
+
+# 0.35.2
+
+* Hide SplitButton additional buttons instead of removing them.
+
+# 0.35.1
+
+* Ensure that node modules can only upgrade patch versions
 
 # 0.35.0
 
@@ -80,7 +231,7 @@ with a label.
 </InlineInputs>
 ```
 
-## Component Enchancements
+## Component Enhancements
 
 * `Date` now shows error validation when an invalid date is entered.
 * `Flash`: Change error icon to match other notifications (now shows error icon when `as` prop is `error`)
@@ -1834,7 +1985,7 @@ You can now define Validations on a component using the following syntax:
 ## Misc
 
 * Ran ESLint task and fixed any errors.
-* Form provides a serialization method to parse its inputs into data usable for AJAX.
+* Form provides a serialization method to parse its inputs into data usable for Ajax.
 * Forms no longer needs a model name defined.
 * Updated Form Cancel Button to use History object.
 * Textarea is no longer draggable. Add a expandable={true} prop to make the area height change to fit content

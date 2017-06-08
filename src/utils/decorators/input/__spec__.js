@@ -1,11 +1,14 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Input from './input';
 import Icon from './../../../components/icon';
 import Help from './../../../components/help';
 import { shallow } from 'enzyme';
 
 class TestClassOne extends React.Component {
+
+  static safeProps = ['name'];
+
   get mainClasses() {
     return "testMain"
   }
@@ -50,11 +53,21 @@ describe('Input', () => {
 
     instanceTwo = TestUtils.renderIntoDocument(React.createElement(ExtendedClassTwo, {
       name: 'bar',
-      'data-element': 'foo',
-      'data-member': 'foo member'
+      'data-role': 'foo',
+      'data-element': 'input'
     }));
 
     onChange = jasmine.createSpy('onChange');
+  });
+
+  describe('safeProps', () => {
+    it('sets common safeprops', () => {
+      expect(instanceTwo.constructor.safeProps).toEqual(['value']);
+    });
+
+    it('merges decorated component safeprops with common safeprops', () => {
+      expect(instance.constructor.safeProps).toEqual(['name', 'value']);
+    });
   });
 
   describe('componentDidMount', () => {
@@ -253,12 +266,12 @@ describe('Input', () => {
   });
 
   describe('inputProps', () => {
-    it('adds a data-member prop', () => {
-      expect(instanceTwo.inputProps["data-member"]).toEqual("input");
+    it('adds a data-element prop', () => {
+      expect(instanceTwo.inputProps["data-element"]).toEqual("input");
     });
 
-    it('deletes data-element prop', () => {
-      expect(instanceTwo.inputProps["data-element"]).toBe(undefined);
+    it('deletes data-role prop - the role shouldnt get through to the HTML', () => {
+      expect(instanceTwo.inputProps["data-role"]).toBe(undefined);
     });
 
     describe('when autoComplete is not defined', () => {

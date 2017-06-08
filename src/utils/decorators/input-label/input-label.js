@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { find, startCase, assign } from 'lodash';
 import classNames from 'classnames';
 import Help from './../../../components/help';
@@ -52,7 +53,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: React.PropTypes.object
+    form: PropTypes.object
   })
 
   static propTypes = assign({}, ComposedComponent.propTypes, {
@@ -63,10 +64,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
      * @property
      * @type {String|Boolean}
      */
-    label: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.bool
-    ]),
+    label: PropTypes.node,
 
     /**
      * Pass true to format the input/label inline
@@ -75,7 +73,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
      * @default top
      * @type {Boolean}
      */
-    labelInline: React.PropTypes.bool,
+    labelInline: PropTypes.bool,
 
     /**
      * Pass a percentage to define the width of the label when it
@@ -84,9 +82,9 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
      * @property
      * @type {Number}
      */
-    labelWidth: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    labelWidth: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),
 
 
@@ -96,7 +94,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
      * @property
      * @type {String}
      */
-    labelAlign: React.PropTypes.string,
+    labelAlign: PropTypes.string,
 
     /**
      * Text applied to tooptip of help icon
@@ -104,7 +102,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
      * @property
      * @type {String}
      */
-    labelHelp: React.PropTypes.string,
+    labelHelp: PropTypes.string,
 
     /**
      * Pass a percentage to define the width of the label when it
@@ -113,9 +111,9 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
      * @property
      * @type {Number}
      */
-    inputWidth: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    inputWidth: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),
 
     /**
@@ -124,7 +122,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
      * @property
      * @type {String}
      */
-    fieldHelp: React.PropTypes.string,
+    fieldHelp: PropTypes.string,
 
     /**
      * Boolean to determine whether the help message should be inline
@@ -132,7 +130,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
      * @property
      * @type {Boolean}
      */
-    fieldHelpInline: React.PropTypes.bool
+    fieldHelpInline: PropTypes.bool
   });
 
   /**
@@ -212,7 +210,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
         style={ labelStyle }
         className={ this.labelClasses }
         htmlFor={ this.inputProps.id }
-        data-member='label'
+        data-element='label'
       >
         { labelText }
         { this.labelHelpHTML }
@@ -255,7 +253,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
       }
 
       return (
-        <span className={ this.fieldHelpClasses } style={ style }>
+        <span className={ this.fieldHelpClasses } style={ style } data-element='help'>
           { this.props.fieldHelp }
         </span>
       );

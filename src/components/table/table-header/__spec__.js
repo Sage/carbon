@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import { Table, TableRow } from './../table';
 import TableHeader from './table-header';
 import Icon from './../../icon';
+import { shallow } from 'enzyme';
+import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('TableHeader', () => {
   let instance, instanceSortable, instanceCustomSort,
@@ -125,7 +127,7 @@ describe('TableHeader', () => {
     describe('if a column is sortable', () => {
       describe('before a sortable header is clicked', () => {
         it('does not display an icon', () => {
-          expect(sortableHeader.sortIconHTML).not.toBeDefined();
+          expect(sortableHeader.sortIconHTML).toEqual(null);
         });
       });
 
@@ -152,7 +154,7 @@ describe('TableHeader', () => {
     describe('if a column is not sortable', () => {
       it('does not return an icon', () => {
         let nonSortableHeader = TestUtils.scryRenderedComponentsWithType(instance, TableHeader)[0];
-        expect(nonSortableHeader.sortIconHTML).not.toBeDefined();
+        expect(nonSortableHeader.sortIconHTML).toEqual(null);
       });
     });
   });
@@ -183,6 +185,14 @@ describe('TableHeader', () => {
         let icon = TestUtils.findRenderedComponentWithType(instanceCustomSort, Icon);
         expect(icon.props.className).toEqual('carbon-table-header__icon carbon-table-header__icon--align-right');
       });
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<TableHeader data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'table-header', 'bar', 'baz');
     });
   });
 });

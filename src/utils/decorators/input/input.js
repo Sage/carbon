@@ -1,7 +1,8 @@
 import css from './../../css';
 import React from 'react';
+import PropTypes from 'prop-types';
 import shouldComponentUpdate from './../../helpers/should-component-update';
-import { assign } from 'lodash';
+import { assign, union } from 'lodash';
 import guid from './../../helpers/guid';
 import classNames from 'classnames';
 import Icon from './../../../components/icon';
@@ -65,10 +66,13 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: React.PropTypes.object
+    form: PropTypes.object
   });
 
   static propTypes = assign({}, ComposedComponent.propTypes, {});
+  // common safeprops
+  static safeProps = union([], ComposedComponent.safeProps, ['value']);
+
 
   /**
    * A lifecycle method for when the component has rendered.
@@ -205,10 +209,10 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     inputProps.onPaste = this.props.onPaste;
 
     // Adds data tag for automation
-    inputProps["data-member"] = "input";
+    inputProps["data-element"] = "input";
 
-    // Remove data-element as this should be applied on the top level element
-    delete inputProps["data-element"];
+    // Remove data-role as this should be applied on the top level element
+    delete inputProps["data-role"];
 
     return inputProps;
   }

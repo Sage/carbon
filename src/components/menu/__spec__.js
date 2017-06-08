@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu } from './menu';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Menu', () => {
   let wrapper;
@@ -30,4 +31,11 @@ describe('Menu', () => {
     expect(wrapper.is('nav')).toEqual(true);
   });
 
+  describe("tags on component", () => {
+    let wrapper = shallow(<Menu data-element='bar' data-role='baz'>Test</Menu>);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'menu', 'bar', 'baz');
+    });
+  });
 });

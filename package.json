@@ -1,15 +1,15 @@
 {
-  "name": "carbon",
-  "version": "1.0.0-beta",
+  "name": "carbon-react",
+  "version": "1.0.0",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
-  "main": "index.js",
   "engineStrict": true,
   "engines": {
-    "npm": "^3.0.0"
+    "npm": "^4.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
+    "test": "gulp test --build",
+    "release-version": "node check-version.js && npm install && npm publish",
+    "prepublish": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
   },
   "repository": {
     "type": "git",
@@ -22,38 +22,42 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
-    "babel-standalone": "^6.17.0",
-    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#v0.3.0",
-    "enzyme": "^2.5.1",
+    "babel-standalone": "~6.17.0",
+    "carbon-factory": "0.3.6",
+    "enzyme": "~2.8.2",
     "express": "~4.14.0",
     "flux": "~2.1.1",
     "gulp": "~3.9.0",
-    "highcharts": "^5.0.2",
+    "highcharts": "~5.0.2",
     "highlight.js": "~9.6.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "immutable": "~3.8.1",
+    "moxios": "^0.4.0",
     "ncp": "~2.0.0",
-    "react": "~15.3.1",
-    "react-addons-css-transition-group": "~15.3.1",
-    "react-addons-test-utils": "~15.3.2",
-    "react-dom": "~15.3.1",
+    "react": "~15.5.0",
+    "react-addons-css-transition-group": "~15.5.0",
+    "react-addons-test-utils": "~15.5.1",
+    "react-dom": "~15.5.0",
     "react-highlight": "~0.9.0",
     "react-router": "~2.8.0",
-    "underscore.string": "^3.3.4",
-    "xhr-mock": "git@github.com:resin-io-modules/xhr-mock.git#improvements"
+    "react-test-renderer": "~15.5.4",
+    "underscore.string": "~3.3.4",
+    "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
-    "bignumber.js": "~2.4.0",
+    "axios": "^0.14.0",
+    "bignumber.js": "~4.0.2",
     "bowser": "~1.5.0",
     "classnames": "~2.2.3",
-    "crypto-js": "^3.1.6",
-    "es6-promise": "^3.2.1",
-    "escape-string-regexp": "^1.0.5",
+    "crypto-js": "~3.1.6",
+    "es6-promise": "~3.2.1",
+    "escape-string-regexp": "~1.0.5",
     "events": "~1.1.1",
     "form-serialize": "~0.7.0",
     "lodash": "~4.15.0",
-    "marked": "^0.3.6",
+    "marked": "~0.3.6",
     "moment": "~2.15.1",
+    "prop-types": "~15.5.8",
     "react-date-picker": "~5.3.28",
     "superagent": "~2.2.0"
   }

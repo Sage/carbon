@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dropdown from './../dropdown';
 import I18n from 'i18n-js';
 import classNames from 'classnames';
@@ -78,9 +79,9 @@ class DropdownFilter extends Dropdown {
      * @property value
      * @type {String}
      */
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),
 
     /**
@@ -90,7 +91,7 @@ class DropdownFilter extends Dropdown {
      * @property visibleValue
      * @type {String}
      */
-    visibleValue: React.PropTypes.string,
+    visibleValue: PropTypes.string,
 
     /**
      * The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.
@@ -98,7 +99,7 @@ class DropdownFilter extends Dropdown {
      * @property options
      * @type {object}
      */
-    options: React.PropTypes.object.isRequired,
+    options: PropTypes.object.isRequired,
 
     /**
      * Enables create functionality for dropdown.
@@ -106,7 +107,7 @@ class DropdownFilter extends Dropdown {
      * @property create
      * @type {Function}
      */
-    create: React.PropTypes.func,
+    create: PropTypes.func,
 
     /**
      * Should the dropdown act and look like a suggestable input instead.
@@ -114,7 +115,7 @@ class DropdownFilter extends Dropdown {
      * @property suggest
      * @type {Boolean}
      */
-    suggest: React.PropTypes.bool,
+    suggest: PropTypes.bool,
 
     /**
      * Should the dropdown accept free text as well as suggested options?
@@ -122,7 +123,7 @@ class DropdownFilter extends Dropdown {
      * @property freetext
      * @type {Boolean}
      */
-    freetext: React.PropTypes.bool,
+    freetext: PropTypes.bool,
 
     /**
      * Name for freetext value hidden input containing visibleValue in freetext mode
@@ -130,7 +131,7 @@ class DropdownFilter extends Dropdown {
      * @property freetextName
      * @type {String}
      */
-    freetextName: React.PropTypes.string
+    freetextName: PropTypes.string
   });
 
   /**
@@ -261,7 +262,7 @@ class DropdownFilter extends Dropdown {
 
       // if user has entered a search filter
       options = options.filter((option) => {
-        if (option.name.search(regex) > -1) {
+        if (option.name && option.name.search(regex) > -1) {
           option.name = this.highlightMatches(option.name, filter);
           return option;
         }
@@ -335,7 +336,14 @@ class DropdownFilter extends Dropdown {
       }
 
       html.push(
-        <a key="dropdown-action" className="carbon-dropdown__action" onClick={ this.handleCreate }>{ text }</a>
+        <a
+          className="carbon-dropdown__action"
+          data-element='create'
+          key="dropdown-action"
+          onClick={ this.handleCreate }
+        >
+            { text }
+        </a>
       );
     }
 
@@ -493,6 +501,14 @@ class DropdownFilter extends Dropdown {
    */
   hasFreetextValue() {
     return this.props.freetext && this.props.visibleValue && !this.props.value;
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'dropdown-filter',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 }
 

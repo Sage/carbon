@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 import Link from './../link';
 import Textbox from './../textbox';
@@ -108,6 +109,24 @@ describe('MenuList', () => {
     });
     it("is autofocused", () => {
       expect(filter.props().autoFocus).toEqual(true);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<MenuList data-element='bar' data-role='baz'>{ [<div key='1' />] }</MenuList>);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'menu-list', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<MenuList title='Test'>{ [<div key='1' />] }</MenuList>);
+
+      elementsTagTest(wrapper, [
+        'title'
+      ]);
     });
   });
 });

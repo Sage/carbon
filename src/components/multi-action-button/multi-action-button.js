@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from './../icon';
 import Button from './../button';
@@ -33,7 +34,7 @@ class MultiActionButton extends SplitButton {
      * @type {String}
      * @default 'secondary'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * The text to be displayed in the SplitButton.
@@ -41,7 +42,7 @@ class MultiActionButton extends SplitButton {
      * @property text
      * @type {String}
      */
-    text: React.PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
 
     /**
      * Gives the button a disabled state.
@@ -50,7 +51,7 @@ class MultiActionButton extends SplitButton {
      * @type {Boolean}
      * @default false
      */
-    disabled: React.PropTypes.bool,
+    disabled: PropTypes.bool,
 
     /**
      * Aligns the button's options, can be set to `right`.
@@ -58,7 +59,7 @@ class MultiActionButton extends SplitButton {
      * @property align
      * @type {String}
      */
-    align: React.PropTypes.string
+    align: PropTypes.string
   }
 
   /**
@@ -73,7 +74,7 @@ class MultiActionButton extends SplitButton {
       super.mainClasses,
       'carbon-multi-action-button', {
         'carbon-multi-action-button--open': this.state.showAdditionalButtons,
-        'carbon-multi-action-button--align-right': this.props.align === "right"
+        'carbon-multi-action-button--align-right': this.props.align === 'right'
       }
     );
   }
@@ -86,9 +87,9 @@ class MultiActionButton extends SplitButton {
    * @return {String} Main className
    */
   get additionalButtonsClasses() {
-    return super.additionalButtonsClasses +
-      ' carbon-multi-action-button__additional-buttons' +
-      ' carbon-multi-action-button__additional-buttons--' + this.props.as;
+    return `${super.additionalButtonsClasses
+      } carbon-multi-action-button__additional-buttons` +
+      ` carbon-multi-action-button__additional-buttons--${this.props.as}`;
   }
 
   /**
@@ -99,9 +100,9 @@ class MultiActionButton extends SplitButton {
    * @return {String} Main className
    */
   get toggleButtonClasses() {
-    return super.toggleButtonClasses +
-      ' carbon-multi-action-button__toggle' +
-      ' carbon-multi-action-button__toggle--' + this.props.as;
+    return `${super.toggleButtonClasses
+      } carbon-multi-action-button__toggle` +
+      ` carbon-multi-action-button__toggle--${this.props.as}`;
   }
 
   /**
@@ -113,11 +114,19 @@ class MultiActionButton extends SplitButton {
    */
   get renderMainButton() {
     return (
-      <Button { ...this.toggleButtonProps } >
+      <Button { ...this.toggleButtonProps } data-element='main-button'>
         { this.props.text}
         <Icon type='dropdown' />
       </Button>
     );
+  }
+
+  componentTags() {
+    return {
+      'data-component': 'multi-action-button',
+      'data-element': this.props['data-element'],
+      'data-role': this.props['data-role']
+    };
   }
 }
 

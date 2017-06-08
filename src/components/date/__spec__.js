@@ -1,8 +1,10 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import moment from 'moment';
 import Date from './date';
 import Events from './../../utils/helpers/events';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Date', () => {
   let instance;
@@ -15,8 +17,8 @@ describe('Date', () => {
     );
   });
 
-  describe('intialize', () => {
-    it('sets the intial internal state', () => {
+  describe('initialize', () => {
+    it('sets the initial internal state', () => {
       expect(instance.state.open).toBeFalsy();
       expect(instance.state.datePickerValue).toBeNull();
       expect(instance.state.visibleValue).toEqual(today);
@@ -120,11 +122,11 @@ describe('Date', () => {
     });
 
     it('sets the hiddenField to the new date', () => {
-      expect(instance.refs.hidden.value).toEqual(date);
+      expect(instance.hidden.value).toEqual(date);
     });
 
     it('triggers the onChange handler in the input decorator', () => {
-      expect(instance._handleOnChange).toHaveBeenCalledWith({ target: instance.refs.hidden });
+      expect(instance._handleOnChange).toHaveBeenCalledWith({ target: instance.hidden });
     });
   });
 
@@ -158,6 +160,17 @@ describe('Date', () => {
           expect(instance.setState).toHaveBeenCalledWith({ datePickerValue: '2015/01/01' });
         });
       });
+
+      describe('when date invalid', () => {
+        it('does not call setState', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Date name='date' value='x' label='Date' />
+          );
+          spyOn(instance, 'setState');
+          instance.openDatePicker();
+          expect(instance.setState).not.toHaveBeenCalledWith({ datePickerValue: 'x' });
+        });
+      })
     });
   });
 
@@ -354,6 +367,10 @@ describe('Date', () => {
       it('does not open the date picker', () => {
         expect(instance.openDatePicker).not.toHaveBeenCalled();
       });
+
+      it('sets the input as disabled', () => {
+        expect(instance._input.disabled).toEqual(true);
+      })
     });
 
     describe('when readOnly', () => {
@@ -367,6 +384,10 @@ describe('Date', () => {
 
       it('does not open the date picker', () => {
         expect(instance.openDatePicker).not.toHaveBeenCalled();
+      });
+
+      it('sets the input as readonly', () => {
+        expect(instance._input.readOnly).toEqual(true);
       });
     });
   });
@@ -427,13 +448,13 @@ describe('Date', () => {
 
   describe('hiddenInputProps', () => {
     it('sets the input as a hidden readOnly field', () => {
-      expect(instance.refs.hidden.type).toEqual('hidden');
-      expect(instance.refs.hidden.readOnly).toEqual(true);
+      expect(instance.hidden.type).toEqual('hidden');
+      expect(instance.hidden.readOnly).toEqual(true);
     });
 
     describe('when value is not passed', () => {
       it('uses the defaultValue', () => {
-        expect(instance.refs.hidden.defaultValue).toEqual(hiddenToday);
+        expect(instance.hidden.defaultValue).toEqual(hiddenToday);
       });
     });
 
@@ -450,7 +471,7 @@ describe('Date', () => {
       });
 
       it('sets the hidden value to props.value', () => {
-        expect(instance.refs.hidden.defaultValue).toEqual(value);
+        expect(instance.hidden.defaultValue).toEqual(value);
       });
     });
 
@@ -530,6 +551,26 @@ describe('Date', () => {
       it('does not renders a date picker', () => {
         expect(instance.datepicker).toBeFalsy();
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Date data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'date', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(<Date fieldHelp='test' label='test' />);
+
+      elementsTagTest(wrapper, [
+        'help',
+        'input',
+        'label'
+      ]);
     });
   });
 });

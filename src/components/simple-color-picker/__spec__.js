@@ -1,8 +1,9 @@
 import React from 'react';
 import ColorOption from './color-option';
 import SimpleColorPicker from './';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { findIndex } from 'lodash';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('SimpleColorPicker', () => {
   let wrapper, selectedColor;
@@ -50,5 +51,18 @@ describe('SimpleColorPicker', () => {
     expect(selectedColor).toEqual('#112233');
   });
 
+  describe("tags on component", () => {
+    let wrapper = shallow(
+      <SimpleColorPicker
+        availableColors={ [] }
+        data-element='bar'
+        data-role='baz'
+      />
+    );
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'simple-color-picker', 'bar', 'baz');
+    });
+  });
 });
 
