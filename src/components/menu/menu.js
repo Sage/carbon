@@ -36,9 +36,9 @@ class Menu extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes } { ...tagComponent('menu', this.props) }>
+      <nav className={ this.classes } { ...tagComponent('menu', this.props) }>
         { this.props.children }
-      </div>
+      </nav>
     );
   }
 }

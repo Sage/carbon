@@ -7,6 +7,10 @@ The following components have had minor internal changes to satisfy the introduc
 * Date
 * DateRange
 
+## Component Improvements
+
+* `Menu` has been updated to use a `<nav>` tag as its root element.
+
 # 1.1.0
 
 ## Package Updates
