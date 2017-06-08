@@ -20,7 +20,6 @@ import SiteMap from './site-map';
 import Highcharts from 'highcharts';
 global.Highcharts = Highcharts;
 
-
 global.imagePath = config.imagePath;
 
 enableMock();

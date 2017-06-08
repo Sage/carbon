@@ -20,7 +20,7 @@ exports.default = function setConfig(cdn) {
       fs.appendFile(scssAssetsConfig, scssAssets, function (err) {
         if (err) throw err;
 
-        fs.appendFile(jsAssetsConfig, `export default { assetPath: '${assetPath}/images' };`, function (err) {
+        fs.appendFile(jsAssetsConfig, `export default { imagePath: '${assetPath}/images' };`, function (err) {
           if (err) throw err;
           gutil.log(gutil.colors.cyan('Using assets from ') + gutil.colors.green(assetPath));
         });
