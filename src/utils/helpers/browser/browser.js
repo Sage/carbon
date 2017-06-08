@@ -54,19 +54,28 @@ const Browser = {
    * @method editFocus
    */
   editFocus: (ref) => {
-    let node = ReactDOM.findDOMNode(ref._input);
+    let node = ReactDOM.findDOMNode(ref._input); // eslint-disable-line react/no-find-dom-node
     node.focus();
     node.select();
   },
 
   /**
-   * Focues and sets cursor of input filed but does not select text
+   * Focuses and sets cursor of react node
    *
    * @method setFocus
    */
-  setFocus: (ref) => {
-    let node = ReactDOM.findDOMNode(ref._input);
+  setFocus: (reactNode) => {
+    let node = ReactDOM.findDOMNode(reactNode); // eslint-disable-line react/no-find-dom-node
     node.focus();
+  },
+
+  /**
+   *  Focuses and sets cursor of input field but does not select text
+   *
+   * @method setInputFocus
+   */
+  setInputFocus: (inputComponent) => {
+    Browser.setFocus(inputComponent._input);
   },
 
   /**

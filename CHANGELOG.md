@@ -7,6 +7,10 @@ The following components have had minor internal changes to satisfy the introduc
 * Date
 * DateRange
 
+## Component Enhancements
+
+* `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
+
 # 1.1.0
 
 ## Package Updates
@@ -18,7 +22,6 @@ The following components have had minor internal changes to satisfy the introduc
 * `Dropdown`: Options list is always rendered to the DOM, but is hidden until selected
 * `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
 * Simplify character count in `Textarea`.
-* `Browser`: add a new method `setFocus` to focus on the input field of passed in ref but does not select text
 
 ## Bug Fixes
 

@@ -1,7 +1,7 @@
-import Browser from './browser.js'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Form from './../../../components/form';
+import Browser from './browser.js';
 
 describe('Browser', () => {
   let _window;
@@ -9,7 +9,7 @@ describe('Browser', () => {
   beforeEach(() => {
     _window = {
       location: null
-    }
+    };
   });
 
   describe('redirectTo', () => {
@@ -59,11 +59,12 @@ describe('Browser', () => {
     });
   });
 
-  describe('set-focus', () => {
+  describe('set-input-focus', () => {
     it('focuses on the input field of the passed in ref but doesnot select text', () => {
-      let node = jasmine.createSpyObj(['focus', 'select']);
+      let node = jasmine.createSpyObj(['focus']);
+      let fakeComponent = { _input: {} };
       spyOn(ReactDOM, 'findDOMNode').and.returnValue(node);
-      Browser.setFocus('fakeRef');
+      Browser.setInputFocus(fakeComponent);
       expect(node.focus).toHaveBeenCalled();
     });
   });
