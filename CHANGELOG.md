@@ -1,3 +1,9 @@
+# 1.1.1
+
+## Component Enhancements
+
+* `Content`: gets a `data-element` on its body wrapper
+
 # 1.1.0
 
 ## Package Updates
