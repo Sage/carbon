@@ -19,12 +19,14 @@ let definition = new Definition('form', Form, {
   relatedComponentsNotes: `
 * Editing a number of closely related inputs? [Try Fieldset](/components/fieldset).
  `,
-  hiddenProps: ["validateOnMount", "saveButtonProps", "cancelButtonProps"],
+  hiddenProps: ["validateOnMount", "saveButtonProps", "cancelButtonProps", "customSaveButton", "children"],
   propOptions: {
     buttonAlign: OptionsHelper.alignBinary
   },
   propTypes: {
     cancel: "Boolean",
+    children: "Node",
+    className: "String",
     afterFormValidation: "Function",
     beforeFormValidation: "Function",
     buttonAlign: "String",
@@ -32,6 +34,7 @@ let definition = new Definition('form', Form, {
     validateOnMount: "Boolean",
     cancelText: "String",
     cancelButtonProps: "Object",
+    customSaveButton: "Object",
     saveText: "String",
     saveButtonProps: "Object",
     onCancel: "Function",
@@ -42,6 +45,7 @@ let definition = new Definition('form', Form, {
   },
   propDescriptions: {
     cancel: "Set to false to hide the cancel button.",
+    children: "This component supports children.",
     afterFormValidation: "A callback triggered after the validation has been ran on the form.",
     beforeFormValidation: "A callback triggered before the validation has been ran on the form.",
     buttonAlign: "Controls which direction the form buttons align.",
@@ -49,6 +53,7 @@ let definition = new Definition('form', Form, {
     validateOnMount: "Determines if validation should be ran on mount of the component.",
     cancelText: "Supply custom text for the cancel button.",
     cancelButtonProps: "Supply custom props to the cancel button.",
+    customSaveButton: "Supply a custom Save button which overrides the standard button",
     saveText: "Supply custom text for the save button.",
     saveButtonProps: "Supply custom props for the save button.",
     onCancel: "A callback triggered when the form is cancelled.",
