@@ -7,6 +7,10 @@ The following components have had minor internal changes to satisfy the introduc
 * Date
 * DateRange
 
+## Deployment Changes
+
+You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
+
 # 1.1.0
 
 ## Package Updates
@@ -43,10 +47,6 @@ The following component have had minor internal changes to satisfy the introduct
 * TableCell
 * TableHeader
 * TableRow
-
-## Deployment Changes
-
-You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
 
 # 1.0.0
 
