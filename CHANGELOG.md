@@ -10,6 +10,7 @@ The following components have had minor internal changes to satisfy the introduc
 ## Component Improvements
 
 * `Menu` has been updated to use a `<nav>` tag as its root element.
+* `InlineInputs` children are now wrapped by Columns by the component
 
 # 1.1.0
 
