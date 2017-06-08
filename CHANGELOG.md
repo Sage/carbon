@@ -7,6 +7,10 @@ The following components have had minor internal changes to satisfy the introduc
 * Date
 * DateRange
 
+## Component Improvements
+
+* `Menu` has been updated to use a `<nav>` tag as its root element.
+
 # 1.1.0
 
 ## Package Updates
@@ -81,7 +85,6 @@ The following component have had minor internal changes to satisfy the introduct
   - Create
   - Carousel
 * `ButtonToggle` no longer inherits from the label decorator as it was providing more functionality than required.
-* `Menu` has been updated to use a `<nav>` tag as its root element.
 * `Rainbow` has been updated to no longer use the `react-highcharts` component. To use this component you need to ensure to make the `Highcharts` library available to your application globally.
 * `ActionToolbar` incorrectly required actions as an `Array` - this has been changed to an `Object` to reflect its actual usage.
 
