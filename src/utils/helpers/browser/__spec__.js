@@ -59,7 +59,7 @@ describe('Browser', () => {
     });
   });
 
-  describe('set-input-focus', () => {
+  describe('setInputFocus', () => {
     it('focuses on the input field of the passed in ref but doesnot select text', () => {
       let node = jasmine.createSpyObj(['focus']);
       let fakeComponent = { _input: {} };
