@@ -1,7 +1,26 @@
+# 1.2.0
+
+## Linting Updates
+
+The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Date
+* DateRange
+
+## Component Improvements
+
+* `Menu` has been updated to use a `<nav>` tag as its root element.
+* `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
+
 # 1.1.0
+
+## Package Updates
+
+* BigNumber has been updated to v4.0.2
 
 ## Component Enhancements
 
+* `Dropdown`: Options list is always rendered to the DOM, but is hidden until selected
 * `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
 * Simplify character count in `Textarea`.
 * `Radio Button` can now reverse the order of its label and input
@@ -16,10 +35,15 @@
 The following component have had minor internal changes to satisfy the introduction of stricter linting rules:
 
 * ActionToolbar
+* AnimatedMenuButton
+* Button
+* ButtonToggle
 * Confirm
 * Dialog
 * DialogFullScreen
 * Flash
+* MultiActionButton
+* SplitButton
 * Table
 * TableAjax
 * TableCell

@@ -12,7 +12,7 @@ describe('Dropdown', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Dropdown name="foo" options={ Immutable.fromJS([{}]) } value="1" />
+      <Dropdown name="foo" options={ Immutable.fromJS([]) } value="1" />
     );
   });
 
@@ -44,7 +44,7 @@ describe('Dropdown', () => {
 
       beforeEach(() => {
         instanceWithCache = TestUtils.renderIntoDocument(
-          <Dropdown name="foo" cacheVisibleValue={ true } options={ Immutable.fromJS([{}]) } value="1" />
+          <Dropdown name="foo" cacheVisibleValue={ true } options={ Immutable.fromJS([]) } value="1" />
         );
       });
 
@@ -81,7 +81,7 @@ describe('Dropdown', () => {
 
     describe('if autoFocus', () => {
       it('does sets focus on the input', () => {
-        instance = TestUtils.renderIntoDocument(<Dropdown options={ Immutable.fromJS([{}]) } autoFocus />);
+        instance = TestUtils.renderIntoDocument(<Dropdown options={ Immutable.fromJS([]) } autoFocus />);
         spyOn(instance._input, 'focus');
         instance.componentDidMount();
         expect(instance._input.focus).toHaveBeenCalled();
@@ -116,7 +116,7 @@ describe('Dropdown', () => {
         let onBlur = jasmine.createSpy('onBlur');
 
         instance = TestUtils.renderIntoDocument(
-          <Dropdown options={ Immutable.fromJS([{}]) } value="1" onBlur={ onBlur } />
+          <Dropdown options={ Immutable.fromJS([]) } value="1" onBlur={ onBlur } />
         );
         instance.selectValue('10', 'foo');
         expect(onBlur).toHaveBeenCalled();
@@ -282,7 +282,7 @@ describe('Dropdown', () => {
           let onBlur = jasmine.createSpy('onBlur');
 
           instance = TestUtils.renderIntoDocument(
-            <Dropdown options={ Immutable.fromJS([{}]) } value="1" onBlur={ onBlur } />
+            <Dropdown options={ Immutable.fromJS([]) } value="1" onBlur={ onBlur } />
           );
           TestUtils.Simulate.blur(instance._input);
           expect(onBlur).toHaveBeenCalled();
@@ -345,7 +345,7 @@ describe('Dropdown', () => {
       describe('if there is no value', () => {
         it('it returns the visible value', () => {
           instance = TestUtils.renderIntoDocument(
-            <Dropdown name="foo" options={ Immutable.Map([]) } value="" />
+            <Dropdown name="foo" options={ Immutable.fromJS([]) } value="" />
           );
           expect(instance.nameByID()).toEqual(instance.visibleValue);
         });
@@ -816,8 +816,21 @@ describe('Dropdown', () => {
       expect(instance.listBlockProps.onTouchStart).toEqual(instance.handleTouchEvent),
       expect(instance.listBlockProps.onTouchEnd).toEqual(instance.handleTouchEvent),
       expect(instance.listBlockProps.onTouchCancel).toEqual(instance.handleTouchEvent),
-      expect(instance.listBlockProps.onTouchMove).toEqual(instance.handleTouchEvent),
-      expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block');
+      expect(instance.listBlockProps.onTouchMove).toEqual(instance.handleTouchEvent);
+    });
+
+    describe('when the list is closed', () => {
+      it('has a hidden class', () => {
+        instance.setState({ open: false });
+        expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block carbon-dropdown__list-hidden');
+      });
+    });
+
+    describe('when the list is open', () => {
+      it('it does not have the hidden class', () => {
+        instance.setState({ open: true });
+        expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block');
+      });
     });
   });
 
@@ -830,17 +843,8 @@ describe('Dropdown', () => {
   });
 
   describe('listHTML', () => {
-    describe('if closed', () => {
-      it('returns null', () => {
-        expect(instance.listHTML).toBe(null);
-      });
-    });
-
-    describe('if open', () => {
-      it('returns the html', () => {
-        instance.setState({ open: true });
-        expect(TestUtils.isElement(instance.listHTML)).toBeTruthy();
-      });
+    it('returns the html', () => {
+      expect(TestUtils.isElement(instance.listHTML)).toBeTruthy();
     });
   });
 
@@ -881,7 +885,8 @@ describe('Dropdown', () => {
     });
 
     it('returns the list', () => {
-      expect(instance.additionalInputContent[1].props.className).toEqual('carbon-dropdown__list-block');
+      let classes = 'carbon-dropdown__list-block carbon-dropdown__list-hidden';
+      expect(instance.additionalInputContent[1].props.className).toEqual(classes);
     });
   });
 
