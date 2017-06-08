@@ -11,3 +11,4 @@ deploy/assets/**/*
 .idea
 yarn.lock
 lib
+src/style-config/assets.scss
