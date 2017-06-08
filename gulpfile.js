@@ -7,10 +7,24 @@ var generateDocs = require('./script/generate-docs').default;
 var deploy = require('./script/deploy').default;
 var express = require('express');
 var gutil = require('gulp-util');
+var fs = require('fs');
 
 var argv = yargs.argv;
 
 var dir = 'deploy';
+var configPath = 'demo/config.js';
+var imagePath = '/assets/images';
+
+if (argv.cdn) {
+  imagePath = 'https://assets.na.sageone.com/carbon/demo/latest/assets/images';
+}
+
+fs.unlink(configPath, function(err) {
+  fs.appendFile(configPath, `export default { imagePath: '${imagePath}' };`, function (err) {
+    if (err) throw err;
+    gutil.log(gutil.colors.cyan('Using images from ') + gutil.colors.green(imagePath));
+  });
+});
 
 gulp.task('prepare-demo', function() {
   generateColors();

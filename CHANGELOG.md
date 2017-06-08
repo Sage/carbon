@@ -44,6 +44,10 @@ The following component have had minor internal changes to satisfy the introduct
 * TableHeader
 * TableRow
 
+## Deployment Changes
+
+You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
+
 # 1.0.0
 
 ## Package Name Change
