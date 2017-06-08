@@ -122,11 +122,11 @@ describe('Date', () => {
     });
 
     it('sets the hiddenField to the new date', () => {
-      expect(instance.refs.hidden.value).toEqual(date);
+      expect(instance.hidden.value).toEqual(date);
     });
 
     it('triggers the onChange handler in the input decorator', () => {
-      expect(instance._handleOnChange).toHaveBeenCalledWith({ target: instance.refs.hidden });
+      expect(instance._handleOnChange).toHaveBeenCalledWith({ target: instance.hidden });
     });
   });
 
@@ -367,6 +367,10 @@ describe('Date', () => {
       it('does not open the date picker', () => {
         expect(instance.openDatePicker).not.toHaveBeenCalled();
       });
+
+      it('sets the input as disabled', () => {
+        expect(instance._input.disabled).toEqual(true);
+      })
     });
 
     describe('when readOnly', () => {
@@ -380,6 +384,10 @@ describe('Date', () => {
 
       it('does not open the date picker', () => {
         expect(instance.openDatePicker).not.toHaveBeenCalled();
+      });
+
+      it('sets the input as readonly', () => {
+        expect(instance._input.readOnly).toEqual(true);
       });
     });
   });
@@ -440,13 +448,13 @@ describe('Date', () => {
 
   describe('hiddenInputProps', () => {
     it('sets the input as a hidden readOnly field', () => {
-      expect(instance.refs.hidden.type).toEqual('hidden');
-      expect(instance.refs.hidden.readOnly).toEqual(true);
+      expect(instance.hidden.type).toEqual('hidden');
+      expect(instance.hidden.readOnly).toEqual(true);
     });
 
     describe('when value is not passed', () => {
       it('uses the defaultValue', () => {
-        expect(instance.refs.hidden.defaultValue).toEqual(hiddenToday);
+        expect(instance.hidden.defaultValue).toEqual(hiddenToday);
       });
     });
 
@@ -463,7 +471,7 @@ describe('Date', () => {
       });
 
       it('sets the hidden value to props.value', () => {
-        expect(instance.refs.hidden.defaultValue).toEqual(value);
+        expect(instance.hidden.defaultValue).toEqual(value);
       });
     });
 
