@@ -5,24 +5,16 @@ import classNames from 'classnames';
 // Carbon
 import { Row, Column } from './../row';
 
-let InlineInputs = (props) => {
+const label = (props) => {
+  if (!props.label) { return null; }
   return (
-    <div className={ classNames("carbon-inline-inputs", props.className) }>
-      { label(props) }
-      <Row gutter="none" className="carbon-inline-inputs__inputs">
-        { columnWrapper(props.children) }
-      </Row>
-    </div>
+    <label htmlFor={ props.htmlFor } className='carbon-inline-inputs__label'>
+      { props.label }
+    </label>
   );
 };
 
-let label = (props) => {
-  if (props.label) {
-    return <label className="carbon-inline-inputs__label">{ props.label }</label>;
-  }
-};
-
-let columnWrapper = (children) => {
+const columnWrapper = (children) => {
   let inputs = children;
 
   if (!Array.isArray(inputs)) {
@@ -38,7 +30,34 @@ let columnWrapper = (children) => {
   });
 };
 
+const InlineInputs = (props) => {
+  return (
+    <div className={ classNames('carbon-inline-inputs', props.className) }>
+      { label(props) }
+      <Row gutter='none' className='carbon-inline-inputs__inputs'>
+        { columnWrapper(props.children) }
+      </Row>
+    </div>
+  );
+};
+
 InlineInputs.propTypes = {
+  /**
+   * Children elements
+   *
+   * @property children
+   * @type {Node}
+   */
+  children: PropTypes.node,
+
+  /**
+   * A custom class name for the component.
+   *
+   * @property className
+   * @type {String}
+   */
+  className: PropTypes.string,
+
   /**
    * Defines the label text for the heading.
    *
@@ -48,12 +67,12 @@ InlineInputs.propTypes = {
   label: PropTypes.string,
 
   /**
-  * Children elements
-  *
-  * @property children
-  * @type {Node}
-  */
-  children: PropTypes.node
+   * The id of the corresponding input control for the label
+   *
+   * @property label
+   * @type {String}
+   */
+  htmlFor: PropTypes.string,
 };
 
 export default InlineInputs;
