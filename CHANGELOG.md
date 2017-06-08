@@ -10,6 +10,7 @@ The following components have had minor internal changes to satisfy the introduc
 ## Component Improvements
 
 * `Menu` has been updated to use a `<nav>` tag as its root element.
+* `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 
 # 1.1.0
 
@@ -20,7 +21,6 @@ The following components have had minor internal changes to satisfy the introduc
 ## Component Enhancements
 
 * `Dropdown`: Options list is always rendered to the DOM, but is hidden until selected
-* `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 * `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
 * Simplify character count in `Textarea`.
 
