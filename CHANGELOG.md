@@ -26,6 +26,12 @@ The following components have had minor internal changes to satisfy the introduc
 
 You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
 
+# 1.1.1
+
+## Component Enhancements
+
+* `Content`: gets a `data-element` on its body wrapper
+
 # 1.1.0
 
 ## Package Updates
