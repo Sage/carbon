@@ -23,10 +23,12 @@ let definition = new Definition('menu', Menu, {
     as: OptionsHelper.themesBinary
   },
   propTypes: {
-    as: "String"
+    as: "String",
+    className: "String"
   },
   propDescriptions: {
-    as: "Primary or secondary theme for the menu."
+    as: "Primary or secondary theme for the menu.",
+    className: "Classes to apply to the component."
   }
 });
 
