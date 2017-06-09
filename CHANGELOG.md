@@ -21,6 +21,10 @@ The following components have had minor internal changes to satisfy the introduc
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 
+## Deployment Changes
+
+You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
+
 # 1.1.0
 
 ## Package Updates
