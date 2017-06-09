@@ -115,6 +115,7 @@ class Content extends React.Component {
 
           <div
             className='carbon-content__body'
+            data-element='body'
             style={ this.bodyStyle() }
           >
             { this.props.children }
