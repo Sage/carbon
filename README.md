@@ -63,8 +63,8 @@ See the guide on [installing unreleased changes](https://github.com/Sage/carbon/
 * Commit and push changes.
 * If releasing a minor version, open a PR to `master`.
 * If releasing a patch version, open a PR to `release`.
-* Once merged, draft a release in GitHub using the new version number as the tag. Make sure to target the correct branch (`master` or `release`).
 * With the branch/version checked out locally on your machine, run `npm run release-version` to publish to npm.
+* Once merged, publish a release in GitHub using the new version number as the tag. Make sure to target the correct branch (`master` or `release`).
 * If you have released from a branch other than `master`, open a PR to merge that branch back into `master`.
 
 ## Technologies
