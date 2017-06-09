@@ -9,7 +9,7 @@ import Link from './link';
 import Event from 'utils/helpers/events';
 
 describe('Link', () => {
-  let basicLink, disabledLink, customLink, actionLink, spy;
+  let basicLink, disabledLink, customLink, actionLink, spy, onClick;
 
   beforeEach(() => {
     basicLink = TestUtils.renderIntoDocument(
@@ -25,8 +25,9 @@ describe('Link', () => {
     )
 
     spy = jasmine.createSpy('click');
+    onClick = (event) => { spy() };
     actionLink = TestUtils.renderIntoDocument(
-      <Link onClick={ spy }>My Link</Link>
+      <Link onClick={ onClick }>My Link</Link>
     );
   });
 

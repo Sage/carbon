@@ -4,8 +4,17 @@
 
 The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
 
+* Carousel
 * Date
 * DateRange
+* Link
+* Menu
+* MenuItem
+* MenuList
+* MenuListItem
+* NavigationBar
+* SubmenuBlock
+* Tabs
 
 ## Component Improvements
 
