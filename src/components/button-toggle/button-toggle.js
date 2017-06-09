@@ -28,20 +28,12 @@ class ButtonToggle extends React.Component {
     buttonIconSize: PropTypes.string,
 
     /**
-     * Defines the name for the input
+     * Disable all user interaction.
      *
-     * @property name
-     * @type {String}
+     * @property disabled
+     * @type {boolean}
      */
-    name: PropTypes.string,
-
-    /**
-     * The value for the given button.
-     *
-     * @property value
-     * @type {String}
-     */
-    value: PropTypes.string,
+    disabled: PropTypes.bool,
 
     /**
      * A required prop. This is what the button will display.
@@ -83,8 +75,8 @@ class ButtonToggle extends React.Component {
   get buttonIcon() {
     if (!this.props.buttonIcon) { return null; }
 
-    let classes = classNames('carbon-button-toggle__button-icon', {
-      ['carbon-button-toggle__button-icon--large']: this.props.buttonIconSize === 'large'
+    const classes = classNames('carbon-button-toggle__button-icon', {
+      'carbon-button-toggle__button-icon--large': this.props.buttonIconSize === 'large'
     });
 
     return (
@@ -102,7 +94,7 @@ class ButtonToggle extends React.Component {
    * @return {Object} props for the input
    */
   get inputProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
     delete props.children;
     props.className = this.inputClasses;
     props.type = 'radio';
@@ -119,8 +111,8 @@ class ButtonToggle extends React.Component {
    * @return {Object} JSX
    */
   get additionalInputContent() {
-    let classes = classNames('carbon-button-toggle__label', {
-      ['carbon-button-toggle__label--disabled']: this.props.disabled
+    const classes = classNames('carbon-button-toggle__label', {
+      'carbon-button-toggle__label--disabled': this.props.disabled
     });
 
     return (

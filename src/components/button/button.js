@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Link from './../link';
 import { assign } from 'lodash';
+import Link from './../link';
 import { validProps } from '../../utils/ether';
 import { tagComponent } from '../../utils/helpers/tags';
 
@@ -79,25 +79,15 @@ class Button extends React.Component {
   static safeProps = ['disabled']
 
   static defaultProps = {
-    as:       'secondary',
-    size:     'medium',
-    theme:    'blue',
+    as: 'secondary',
+    size: 'medium',
+    theme: 'blue',
     disabled: false
   }
 
   constructor(...args) {
     super(...args);
     this.element = this.element.bind(this);
-  }
-
-  /**
-   * Renders the component with props.
-   *
-   * @method render
-   * @return {Object} JSX
-   */
-  render() {
-    return this.element();
   }
 
   /**
@@ -124,6 +114,16 @@ class Button extends React.Component {
     props = assign({}, props, tagComponent('button', this.props));
 
     return React.createElement(el, props, this.props.children);
+  }
+
+  /**
+   * Renders the component with props.
+   *
+   * @method render
+   * @return {Object} JSX
+   */
+  render() {
+    return this.element();
   }
 }
 
