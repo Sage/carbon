@@ -4,8 +4,22 @@
 
 The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
 
+* Carousel
 * Date
 * DateRange
+* Link
+* Menu
+* MenuItem
+* MenuList
+* MenuListItem
+* NavigationBar
+* SubmenuBlock
+* Tabs
+
+## Component Improvements
+
+* `Menu` has been updated to use a `<nav>` tag as its root element.
+* `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 
 ## Deployment Changes
 
