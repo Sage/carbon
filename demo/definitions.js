@@ -30,6 +30,7 @@ export default {
   'help':                 require('components/help/definition').default,
   'i18n-component':       require('components/i18n/definition').default,
   'icon':                 require('components/icon/definition').default,
+  'inline-inputs':        require('components/inline-inputs/definition').default,
   'link':                 require('components/link/definition').default,
   'menu':                 require('components/menu/definition').default,
   'menu-list':            require('components/menu-list/definition').default,
