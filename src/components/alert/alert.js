@@ -77,7 +77,7 @@ class Alert extends Dialog {
    * @override
    * @return {Void}
    */
-  handleDialogBlur(ev) {
+  onDialogBlur(ev) {
     if (!this.props.showCloseIcon) {
       ev.preventDefault();
     }

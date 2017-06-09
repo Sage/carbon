@@ -26,6 +26,15 @@ describe('Dialog', () => {
           instance.componentDidMount();
           expect(instance.centerDialog).toHaveBeenCalled();
         });
+
+        it('focuses on the dialog', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Dialog open={ true } onCancel={ onCancel } />
+          );
+          spyOn(instance, 'focusDialog');
+          instance.componentDidMount();
+          expect(instance.focusDialog).toHaveBeenCalled();
+        });
       });
 
       describe('when dialog is closed', () => {

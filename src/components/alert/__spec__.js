@@ -49,4 +49,37 @@ describe('Alert', () => {
       ]);
     });
   });
+
+  describe('keyboard focus', () => {
+    let wrapper;
+    let mockEvent;
+
+    beforeEach(() => {
+      wrapper = shallow(
+        <Alert open={ true } title='Test' subtitle='Test' showCloseIcon={ false } />
+      );
+
+      mockEvent = {
+        preventDefault() {}
+      };
+    });
+
+    it('remains on the dialog if open and no close icon is shown', () => {
+      spyOn(mockEvent, 'preventDefault');
+
+      wrapper.instance().onDialogBlur(mockEvent);
+      expect(mockEvent.preventDefault).toHaveBeenCalled();
+    });
+
+    it('does not remain on the dialog if close icon is shown', () => {
+      wrapper.setProps({
+        showCloseIcon: true
+      });
+
+      spyOn(mockEvent, 'preventDefault');
+
+      wrapper.instance().onDialogBlur(mockEvent);
+      expect(mockEvent.preventDefault).not.toHaveBeenCalled();
+    });
+  });
 });

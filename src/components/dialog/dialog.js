@@ -76,8 +76,8 @@ class Dialog extends Modal {
   constructor(args) {
     super(args);
     this.componentTags = this.componentTags.bind(this);
-    this.handleDialogBlur = this.handleDialogBlur.bind(this);
-    this.handleCloseIconBlur = this.handleCloseIconBlur.bind(this);
+    this.onDialogBlur = this.onDialogBlur.bind(this);
+    this.onCloseIconBlur = this.onCloseIconBlur.bind(this);
   }
 
   /**
@@ -89,6 +89,7 @@ class Dialog extends Modal {
   componentDidMount() {
     if (this.props.open) {
       this.centerDialog();
+      this.focusDialog();
     }
   }
 
@@ -96,7 +97,7 @@ class Dialog extends Modal {
    * Event handler to handle keyboard
    * focus leaving the dialog element.
    */
-  handleDialogBlur(ev) { } // eslint-disable-line no-unused-vars
+  onDialogBlur(ev) { } // eslint-disable-line no-unused-vars
 
   /**
    * Event handler for when the close icon
@@ -108,9 +109,9 @@ class Dialog extends Modal {
    *
    * @return {Void}
    */
-  handleCloseIconBlur(ev) {
+  onCloseIconBlur(ev) {
     ev.preventDefault();
-    this._dialog.focus();
+    this.focusDialog();
   }
 
   /**
@@ -165,6 +166,10 @@ class Dialog extends Modal {
 
     this._dialog.style.top = `${midPointY}px`;
     this._dialog.style.left = `${midPointX}px`;
+  }
+
+  focusDialog = () => {
+    this._dialog.focus();
   }
 
   /**
@@ -268,7 +273,7 @@ class Dialog extends Modal {
           onClick={ this.props.onCancel }
           type='close'
           tabIndex='0'
-          onBlur={ this.handleCloseIconBlur }
+          onBlur={ this.onCloseIconBlur }
         />
       );
     }
@@ -312,7 +317,7 @@ class Dialog extends Modal {
         ref={ (d) => { this._dialog = d; } }
         { ...dialogProps }
         { ...this.componentTags(this.props) }
-        onBlur={ this.handleDialogBlur }
+        onBlur={ this.onDialogBlur }
       >
         { this.dialogTitle }
         { this.dialogSubtitle }
