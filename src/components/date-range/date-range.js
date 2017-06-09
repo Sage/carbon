@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
-import Date from './../date';
-import DateRangeValidator from './../../utils/validations/date-range';
-import DateHelper from  './../../utils/helpers/date';
 import { assign } from 'lodash';
 import classNames from 'classnames';
+import Date from './../date';
+import DateRangeValidator from './../../utils/validations/date-range';
+import DateHelper from './../../utils/helpers/date';
 import { tagComponent } from '../../utils/helpers/tags';
 
 class DateRange extends React.Component {
@@ -26,22 +26,6 @@ class DateRange extends React.Component {
      * @type {Array}
      */
     value: PropTypes.array.isRequired,
-
-    /**
-     * Optional label for startDate field
-     *
-     * @property startLabel
-     * @type {String}
-     */
-    startLabel: PropTypes.string,
-
-    /**
-     * Optional label for endDate field
-     *
-     * @property endDate
-     * @type {String}
-     */
-    endLabel: PropTypes.string,
 
     /**
      * Custom message for startDate field
@@ -93,7 +77,7 @@ class DateRange extends React.Component {
    * @param{Object} ev the event containing the new date value
    */
   _onChange = (changedDate, ev) => {
-    let newValue = ev.target.value;
+    const newValue = ev.target.value;
 
     if (changedDate === 'startDate') {
       this.props.onChange([newValue, this.endDate]);
@@ -125,9 +109,10 @@ class DateRange extends React.Component {
    * @return {String} the value of the start date
    */
   get startDate() {
-    return this.props.startDateProps && this.props.startDateProps.value ?
-      this.props.startDateProps.value :
-      this.props.value[0];
+    if (this.props.startDateProps && this.props.startDateProps.value) {
+      return this.props.startDateProps.value;
+    }
+    return this.props.value[0];
   }
 
   /**
@@ -137,9 +122,10 @@ class DateRange extends React.Component {
    * @return {String} the value of the end date
    */
   get endDate() {
-    return this.props.endDateProps && this.props.endDateProps.value ?
-      this.props.endDateProps.value :
-      this.props.value[1];
+    if (this.props.endDateProps && this.props.endDateProps.value) {
+      return this.props.endDateProps.value;
+    }
+    return this.props.value[1];
   }
 
   /**
@@ -222,32 +208,32 @@ class DateRange extends React.Component {
    * @return {Object} the props that are applied to the child Date components
    */
   dateProps(propsKey, defaultValidations) {
-    let props = assign({}, {
-      label: this.props[`${ propsKey }Label`],
+    const props = assign({}, {
+      label: this.props[`${propsKey}Label`],
       labelInline: this.props.labelsInline,
-      onChange: this._onChange.bind(null, `${ propsKey }Date`),
+      onChange: this._onChange.bind(null, `${propsKey}Date`),
       onFocus: this.focusEnd,
-      ref: (c) => { this[`_${ propsKey }Date`] = c; },
-      value: this[`${ propsKey }Date`]
-    }, this.props[`${ propsKey }DateProps`]);
+      ref: (c) => { this[`_${propsKey}Date`] = c; },
+      value: this[`${propsKey}Date`]
+    }, this.props[`${propsKey}DateProps`]);
 
     props.className = classNames(
       'carbon-date-range',
-      `carbon-date-range__${ propsKey }`,
-      (this.props[`${ propsKey }DateProps`] || {}).className : null
+      `carbon-date-range__${propsKey}`,
+      (this.props[`${propsKey}DateProps`] || {}).className : null
     );
 
     props.validations = defaultValidations.concat(
-      (this.props[`${ propsKey }DateProps`] || {}).validations || []
+      (this.props[`${propsKey}DateProps`] || {}).validations || []
     );
     return props;
   }
 
   render () {
-    return(
+    return (
       <div { ...tagComponent('date-range', this.props) }>
-        <Date { ...this.startDateProps() } data-element='start-date'/>
-        <Date { ...this.endDateProps() } data-element='end-date'/>
+        <Date { ...this.startDateProps() } data-element='start-date' />
+        <Date { ...this.endDateProps() } data-element='end-date' />
       </div>
     );
   }

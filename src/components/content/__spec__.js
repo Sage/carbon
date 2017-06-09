@@ -92,6 +92,7 @@ describe('Content', () => {
       let wrapper = shallow(<Content><div /></Content>);
 
       elementsTagTest(wrapper, [
+        'body',
         'title'
       ]);
     });

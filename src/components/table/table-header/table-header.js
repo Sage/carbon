@@ -136,6 +136,37 @@ class TableHeader extends React.Component {
   }
 
   /**
+   * Returns descriptive text to describe the sortable column, and about
+   * what will happen when they next attempt to sort the column i.e. which
+   * direction it will sort in.
+   *
+   * NB If the current sortOrder is undefined, assume the next sort order
+   * will be descending.
+   *
+   * @method sortDescription
+   * @return {string}
+   */
+  get sortDescription() {
+    if (!this.props.sortable) {
+      return null;
+    }
+
+    let currentSortOrder = this.context.sortOrder;
+    let nextSortOrder = null;
+    let currentSortDescription = null;
+
+    if (currentSortOrder) {
+      nextSortOrder = currentSortOrder === 'asc' ? 'descending' : 'ascending';
+      currentSortDescription = `sorted ${currentSortOrder === 'desc' ? 'descending' : 'ascending'}, `;
+    } else {
+      nextSortOrder = 'descending';
+      currentSortDescription = '';
+    }
+
+    return `Sortable column, ${currentSortDescription}activate to sort column ${nextSortOrder}`;
+  }
+
+  /**
    * Returns classes to apply to the sort icon
    *
    * @method sortIconClasses
@@ -184,6 +215,32 @@ class TableHeader extends React.Component {
     return props;
   }
 
+  get isCurrentSortedColumn() {
+    return this.props.sortable && this.props.name === this.context.sortedColumn;
+  }
+
+  /**
+   * Event handler for clicks on the <a> tag used for activating
+   * column sorting.
+   *
+   * Used to prevent the default action of the <a> tag.
+   *
+   * @method onSortableColumnClick
+   * @return {Void}
+   */
+  onSortableColumnClick(event) {
+    event.preventDefault();
+  }
+
+  ariaAttributes() {
+    let aria = {};
+    if (this.context.sortOrder && this.isCurrentSortedColumn) {
+      aria['aria-sort'] = this.context.sortOrder === 'asc' ? 'ascending' : 'descending';
+    }
+
+    return aria;
+  }
+
   componentTags(props) {
     return {
       'data-component': 'table-header',
@@ -198,10 +255,26 @@ class TableHeader extends React.Component {
    * @method render
    */
   render() {
+    let contents = null;
+
+    if (this.props.sortable) {
+      contents = (
+        <a href="#"
+          className="carbon-table-header--sort"
+          aria-label={ this.sortDescription }
+          onClick={ this.onSortableColumnClick }
+        >
+          { this.props.children }
+          { this.sortIconHTML }
+        </a>
+      );
+    } else {
+      contents = this.props.children;
+    }
+
     return (
-      <th { ...this.tableHeaderProps } { ...this.componentTags(this.props) }>
-        { this.props.children }
-        { this.sortIconHTML }
+      <th { ...this.tableHeaderProps } { ...this.componentTags(this.props) } { ...this.ariaAttributes() }>
+        { contents }
       </th>
     );
   }

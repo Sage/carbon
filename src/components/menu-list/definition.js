@@ -19,18 +19,22 @@ let definition = new Definition('menu-list', MenuList, {
     collapsible: "title"
   },
   propTypes: {
-    filter: "Boolean",
-    title: "String",
-    collapsible: "Boolean",
+    children: "Node",
     className: "String",
-    children: "Node"
+    collapsible: "Boolean",
+    filter: "Boolean",
+    filterPlaceholder: "String",
+    initiallyOpen: "Boolean",
+    title: "String",
   },
   propDescriptions: {
-    filter: "Enable a filter for the menu. When this is enabled each menu item requires a name prop.",
-    title: "Define a title for the menu, if this is defined then the menu can be collapsible.",
-    collapsible: "Turns collapsible on/off.",
+    children: "This component supports children.",
     className: "Classes for the component.",
-    children: "This component supports children."
+    collapsible: "Turns collapsible on/off.",
+    filter: "Enable a filter for the menu. When this is enabled each menu item requires a name prop.",
+    filterPlaceholder: "Placeholder text for the filter.",
+    initiallyOpen: "Set the menu open on mount.",
+    title: "Define a title for the menu, if this is defined then the menu can be collapsible."
   }
 });
 

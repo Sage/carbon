@@ -1,3 +1,37 @@
+# 1.2.0
+
+## Linting Updates
+
+The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Carousel
+* Date
+* DateRange
+* Link
+* Menu
+* MenuItem
+* MenuList
+* MenuListItem
+* NavigationBar
+* SubmenuBlock
+* Tabs
+
+## Component Improvements
+
+* `Menu` has been updated to use a `<nav>` tag as its root element.
+* `InlineInputs` children are now wrapped by Columns by the component
+* `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
+
+## Deployment Changes
+
+You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
+
+# 1.1.1
+
+## Component Enhancements
+
+* `Content`: gets a `data-element` on its body wrapper
+
 # 1.1.0
 
 ## Package Updates

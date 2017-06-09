@@ -2,6 +2,7 @@ node_modules/
 coverage/
 *.swp
 *.swo
+demo/config.js
 demo/utils/generated/*.js
 demo/utils/generated/**/*
 deploy/assets/**/*
@@ -10,3 +11,4 @@ deploy/assets/**/*
 .idea
 yarn.lock
 lib
+src/style-config/assets.scss
