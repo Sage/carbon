@@ -124,6 +124,7 @@ class Dialog extends Modal {
    */
   get onOpening() {
     this.centerDialog();
+    this.focusDialog();
     window.addEventListener('resize', this.centerDialog);
   }
 

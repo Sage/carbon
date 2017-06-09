@@ -71,6 +71,12 @@ describe('Dialog', () => {
           expect(window.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
         });
 
+        it('focuses on the dialog', () => {
+          spyOn(instance, 'focusDialog');
+          instance.componentDidUpdate();
+          expect(instance.focusDialog).toHaveBeenCalled();
+        });
+
         describe('when the dialog is already listening', () => {
           it('does not set up event listeners', () => {
             let spy = spyOn(window, 'addEventListener');
