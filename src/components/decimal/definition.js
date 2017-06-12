@@ -15,6 +15,7 @@ let definition = new Definition('decimal', Decimal, {
 * Entering whole numbers without a decimal point? [Try Number Input](/components/number-input).
  `,
   type: 'form',
+  hiddenProps: ['onBlur', 'onKeyDown'],
   propTypes: {
     align: "String",
     precision: "String || Number"
