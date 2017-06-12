@@ -80,6 +80,7 @@ class Alert extends Dialog {
   onDialogBlur(ev) {
     if (!this.props.showCloseIcon) {
       ev.preventDefault();
+      this.focusDialog();
     }
   }
 }

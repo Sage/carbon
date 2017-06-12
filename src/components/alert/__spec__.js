@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Dialog from 'components/dialog'
 import Alert from './alert';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Alert', () => {
@@ -55,7 +55,7 @@ describe('Alert', () => {
     let mockEvent;
 
     beforeEach(() => {
-      wrapper = shallow(
+      wrapper = mount(
         <Alert open={ true } title='Test' subtitle='Test' showCloseIcon={ false } />
       );
 
@@ -65,10 +65,13 @@ describe('Alert', () => {
     });
 
     it('remains on the dialog if open and no close icon is shown', () => {
+      const instance = wrapper.instance();
       spyOn(mockEvent, 'preventDefault');
+      spyOn(instance, 'focusDialog');
 
-      wrapper.instance().onDialogBlur(mockEvent);
+      instance.onDialogBlur(mockEvent);
       expect(mockEvent.preventDefault).toHaveBeenCalled();
+      expect(instance.focusDialog).toHaveBeenCalled();
     });
 
     it('does not remain on the dialog if close icon is shown', () => {
