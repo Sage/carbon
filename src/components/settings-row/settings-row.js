@@ -41,6 +41,14 @@ class SettingsRow extends React.Component {
     children: PropTypes.node,
 
     /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * Heading title
      *
      * @property  title
@@ -77,7 +85,11 @@ class SettingsRow extends React.Component {
    * @return  {String}
    */
   get classes() {
-    return classNames('carbon-settings-row', { 'carbon-settings-row--has-divider': this.props.divider }, this.props.className);
+    return classNames(
+      'carbon-settings-row',
+      { 'carbon-settings-row--has-divider': this.props.divider },
+      this.props.className
+    );
   }
 
   /**

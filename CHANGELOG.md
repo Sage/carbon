@@ -4,15 +4,26 @@
 
 The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
 
+* AppWrapper
 * Carousel
+* Column
+* Content
 * Date
 * DateRange
+* Detail
+* Heading
+* I18n
 * Link
 * Menu
 * MenuItem
 * MenuList
 * MenuListItem
+* MountInApp
 * NavigationBar
+* Pod
+* Row
+* SettingsRow
+* ShowEditPod
 * SubmenuBlock
 * Tabs
 

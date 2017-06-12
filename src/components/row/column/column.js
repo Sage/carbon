@@ -11,26 +11,22 @@ const Column = (props) => {
 
 Column.isColumn = true;
 
-Column.PropTypes = {
-  columnAlign: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
+Column.propTypes = {
+  /**
+   * Children elements
+   *
+   * @property children
+   * @type {Node}
+   */
+  children: PropTypes.node,
 
-  columnOffset: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
-
-  columnSpan: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
-
-  columnDivide: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ])
+  /**
+   * Custom className
+   *
+   * @property className
+   * @type {String}
+   */
+  className: PropTypes.string
 };
 
 export default Column;
