@@ -17,11 +17,13 @@ let definition = new Definition('row', Row, {
  `,
   hiddenProps: ['children'],
   propTypes: {
+    className: "String",
     gutter: "String",
     columnDivide: "Boolean",
     columns: "String"
   },
   propDescriptions: {
+    className: "Classes to apply to the component.",
     gutter: "Define how wide the gutter between the rows and columns should be.",
     columnDivide: "Enable a divider between each column.",
     columns: "Define a certain amount of columns, instead of basing it on the number of children.",
