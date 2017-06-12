@@ -1,0 +1,4 @@
+{
+  "main": "./configurable-column-row.js",
+  "style": "./configurable-column-row.scss"
+}

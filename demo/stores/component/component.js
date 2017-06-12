@@ -9,7 +9,7 @@ import ComponentConstants from './../../constants/component';
 
 import definitions from './../../definitions';
 
-let data = ImmutableHelper.parseJSON(definitions);
+const data = ImmutableHelper.parseJSON(definitions);
 
 // expose tableData for the table component demo
 global.tableData = ImmutableHelper.parseJSON([]);
@@ -27,6 +27,13 @@ global.dndData = ImmutableHelper.parseJSON([
   { id: 10, name: 'Austria', value: 'AT' }
 ]);
 
+const initialConfigurableColumnsData = [
+  { id: 1, name: 'Foo', locked: true, enabled: true },
+  { id: 2, name: 'Bar', locked: false, enabled: true },
+  { id: 3, name: 'Baz', locked: false, enabled: false }
+];
+global.configurableColumnsData = ImmutableHelper.parseJSON(initialConfigurableColumnsData);
+
 class ComponentStore extends Store {
   [ComponentConstants.UPDATE_DEFINITION](data) {
     let value = data.value;
@@ -40,7 +47,7 @@ class ComponentStore extends Store {
       this.data = this.data.setIn([data.name, 'propValues', 'visibleValue'], data.visibleValue);
     }
 
-    if (data.name === "table") {
+    if (data.name === 'table') {
       ComponentActions.updateTable('manual', this.data.getIn(['table', 'propValues']).toJS());
     }
   }
@@ -54,35 +61,56 @@ class ComponentStore extends Store {
   }
 
   [ComponentConstants.UPDATE_TABLE](action) {
-    let data = ImmutableHelper.parseJSON(action.items);
+    const data = ImmutableHelper.parseJSON(action.items);
     this.data = this.data.setIn(['table', 'data'], data);
     this.data = this.data.setIn(['table', 'propValues', 'currentPage'], action.page);
-    this.data = this.data.setIn(['table', 'propValues', "totalRecords"], action.records);
-    this.data = this.data.setIn(['table', 'propValues', "pageSize"], action.pageSize);
-    if (action.sortOrder) { this.data = this.data.setIn(['table', 'propValues', "sortOrder"], action.sortOrder); }
-    if (action.sortedColumn) { this.data = this.data.setIn(['table', 'propValues', "sortedColumn"], action.sortedColumn); }
+    this.data = this.data.setIn(['table', 'propValues', 'totalRecords'], action.records);
+    this.data = this.data.setIn(['table', 'propValues', 'pageSize'], action.pageSize);
+    if (action.sortOrder) { this.data = this.data.setIn(['table', 'propValues', 'sortOrder'], action.sortOrder); }
+    if (action.sortedColumn) { this.data = this.data.setIn(['table', 'propValues', 'sortedColumn'], action.sortedColumn); }
 
     // update the global object
     global.tableData = data;
   }
 
   [ComponentConstants.UPDATE_TABLE_AJAX](action) {
-    let data = ImmutableHelper.parseJSON(action.items);
+    const data = ImmutableHelper.parseJSON(action.items);
     this.data = this.data.setIn(['table', 'data'], data);
     this.data = this.data.setIn(['table', 'propValues', 'currentPage'], action.page);
-    this.data = this.data.setIn(['table', 'propValues', "totalRecords"], action.records);
+    this.data = this.data.setIn(['table', 'propValues', 'totalRecords'], action.records);
 
     // update the global object
     global.tableAjaxData = data;
   }
 
   [ComponentConstants.UPDATE_TABLE_DND](action) {
-    let data = global.dndData.toArray();
-    let { dragIndex, hoverIndex } = action;
-    let dragItem = data.splice(dragIndex, 1)[0];
+    const data = global.dndData.toArray();
+    const { dragIndex, hoverIndex } = action;
+    const dragItem = data.splice(dragIndex, 1)[0];
     data.splice(hoverIndex, 0, dragItem);
 
     global.dndData = ImmutableHelper.parseJSON(data);
+  }
+
+  [ComponentConstants.UPDATE_CONFIGURABLE_COLUMNS](action) {
+    const columnData = global.configurableColumnsData.toArray();
+    const { dragIndex, hoverIndex } = action;
+    const dragItem = columnData.splice(dragIndex, 1)[0];
+    columnData.splice(hoverIndex, 0, dragItem);
+
+    global.configurableColumnsData = ImmutableHelper.parseJSON(columnData);
+  }
+
+  [ComponentConstants.UPDATE_CONFIGURABLE_COLUMN](action) {
+    const updatedData = global.configurableColumnsData.update(
+      action.rowIndex,
+      (column) => { return column.set('enabled', !column.get('enabled')); }
+    );
+    global.configurableColumnsData = updatedData;
+  }
+
+  [ComponentConstants.RESET_CONFIGURABLE_COLUMN_DATA]() {
+    global.configurableColumnsData = ImmutableHelper.parseJSON(initialConfigurableColumnsData);
   }
 }
 

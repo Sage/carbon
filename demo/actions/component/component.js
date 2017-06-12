@@ -78,10 +78,34 @@ const ComponentActions = {
       dragIndex,
       hoverIndex,
     });
+  },
+
+  updateConfigurableColumnsData: (dragIndex, hoverIndex) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.UPDATE_CONFIGURABLE_COLUMNS,
+      dragIndex,
+      hoverIndex,
+    });
+  },
+
+  updateConfigurableColumn: (rowIndex) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.UPDATE_CONFIGURABLE_COLUMN,
+      rowIndex
+    });
+  },
+
+  resetConfigurableColumnsData: () => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.RESET_CONFIGURABLE_COLUMN_DATA
+    });
   }
 };
 
 // required for dnd demo:
 global.updateDndData = ComponentActions.updateDndData;
+global.updateConfigurableColumnsData = ComponentActions.updateConfigurableColumnsData;
+global.updateConfigurableColumn = ComponentActions.updateConfigurableColumn;
+global.resetConfigurableColumnsData = ComponentActions.resetConfigurableColumnsData;
 
 export default ComponentActions;
