@@ -8,6 +8,11 @@
 
 * The `Poller` helper has been refactored to no longer use promises
 
+## New Components
+
+* `ConfigurableItems` Drag & Drop and check/uncheck a list of items
+* `ConfigurableItemRow` Used with ConfigurableItems to build the list of configurable items
+
 # 1.3.0
 
 ## Component Ehancements
