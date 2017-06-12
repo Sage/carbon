@@ -25,7 +25,7 @@ let definition = new Definition('show-edit-pod', ShowEditPod, {
 * Viewing content that’s grouped together visually? [Try Pod](/components/pod).
 * Creating a new entity that is usually presented in a pod? [Try Create](/components/create).
  `,
-  hiddenProps: ['editing', 'validateOnMount', 'transitionName'],
+  hiddenProps: ['children', 'editing', 'validateOnMount', 'transitionName'],
   toggleFunctions: ['onDelete'],
   propOptions: assign({}, formDefinition.propOptions, {
     as: OptionsHelper.themesFull
