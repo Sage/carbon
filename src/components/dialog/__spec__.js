@@ -71,12 +71,6 @@ describe('Dialog', () => {
           expect(window.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
         });
 
-        it('focuses on the dialog', () => {
-          spyOn(instance, 'focusDialog');
-          instance.componentDidUpdate();
-          expect(instance.focusDialog).toHaveBeenCalled();
-        });
-
         describe('when the dialog is already listening', () => {
           it('does not set up event listeners', () => {
             let spy = spyOn(window, 'addEventListener');
@@ -397,6 +391,19 @@ describe('Dialog', () => {
       it('renders an aria-describedby attribute pointing at the subtitle element', () => {
         expect(wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').exists()).toBe(false);
       });
+    });
+
+    it('focuses on the dialog when opened', () => {
+      wrapper.setProps({
+        open: false
+      });
+      const instance = wrapper.instance();
+      spyOn(instance, 'focusDialog');
+
+      wrapper.setProps({
+        open: true
+      });
+      expect(instance.focusDialog).toHaveBeenCalled();
     });
 
     it('returns focus to the dialog element when focus leaves the close icon', () => {
