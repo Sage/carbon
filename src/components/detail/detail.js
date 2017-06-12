@@ -7,6 +7,14 @@ import Icon from './../icon';
 class Detail extends React.Component {
   static propTypes = {
     /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * The type of icon to use.
      *
      * @property icon

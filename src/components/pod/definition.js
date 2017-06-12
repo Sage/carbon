@@ -37,6 +37,8 @@ let definition = new Definition('pod', Pod, {
   },
   propTypes: {
     border: "Boolean",
+    children: "Node",
+    className: "String",
     padding: "String",
     as: "String",
     collapsed: "Boolean",
@@ -53,6 +55,8 @@ let definition = new Definition('pod', Pod, {
   },
   propDescriptions: {
     border: "Shows/hides the border of the Pod.",
+    children: "This component supports children.",
+    className: "Classes to apply to the component.",
     padding: "Controls the size of the padding on the Pod.",
     as: "Controls what theme the Pod should use.",
     collapsed: "Enables and controls the collapsed state of the Pod. This needs to be defined on initialise to work.",
