@@ -9,11 +9,14 @@ The following components have had minor internal changes to satisfy the introduc
 * DropdownFilter
 * DropdownFilterAjax
 * Carousel
+* Checkbox
 * Column
 * Content
 * Date
 * DateRange
 * Detail
+* Fieldset
+* GroupedCharacter
 * Heading
 * I18n
 * Link
@@ -24,11 +27,14 @@ The following components have had minor internal changes to satisfy the introduc
 * MountInApp
 * NavigationBar
 * Pod
+* RadioButton
 * Row
 * SettingsRow
 * ShowEditPod
 * SubmenuBlock
 * Tabs
+* Textarea
+* Textbox
 
 ## Component Improvements
 
