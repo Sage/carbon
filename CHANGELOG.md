@@ -83,6 +83,7 @@ The following utils have had minor internal changes to satisfy the introduction 
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
 * `MenuItem`: focus outline is now fully visible when an item is focused.
+* `Form` now has default `SaveButton` and `CancelButton` functional stateless componenents. The former can be overriden with a new prop of `customSaveButton`.
 
 ## Deployment Changes
 
@@ -111,7 +112,6 @@ You can now pass `--cdn` to the gulp task to bundle assets pointing towards the 
 * `Dropdown`: Options list is always rendered to the DOM, but is hidden until selected
 * `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
 * Simplify character count in `Textarea`.
-* `Form` now has default `SaveButton` and `CancelButton` functional stateless componenents. The former can be overriden with a new prop of `customSaveButton`.
 
 ## Bug Fixes
 
