@@ -27,6 +27,7 @@ The following components have had minor internal changes to satisfy the introduc
 * MountInApp
 * NavigationBar
 * Pod
+* Profile
 * RadioButton
 * Row
 * SettingsRow
