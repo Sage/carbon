@@ -16,6 +16,7 @@ let definition = new Definition('textarea', Textarea, {
   propRequires: {
     enforceCharacterLimit: 'characterLimit'
   },
+  hiddenProps: ['value'],
   propDescriptions: {
     characterLimit: "Displays a character count to inform the user how many characters they have used from a recommended amount.",
     enforceCharacterLimit: "Enforces the maximum number of characters.",

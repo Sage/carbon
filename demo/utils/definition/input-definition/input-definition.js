@@ -9,7 +9,9 @@ export default (definition) => {
 
   definition.propOptions.labelAlign = OptionsHelper.alignBinary;
 
-  definition.hiddenProps = definition.hiddenProps.concat(['warnings', 'validations']);
+  definition.hiddenProps = definition.hiddenProps.concat(
+    ['warnings', 'validations', 'autoFocus', 'name']
+  );
 
   definition.propRequires.labelInline = 'label';
   definition.propRequires.labelWidth = 'labelInline';
@@ -18,6 +20,8 @@ export default (definition) => {
   definition.stubAction('onChange', 'value');
 
   definition.propTypes = assign({}, definition.propTypes, {
+    autoFocus: "Boolean",
+    disabled: "Boolean",
     fieldHelp: "String",
     fieldHelpInline: "Boolean",
     inputWidth: "Number",
@@ -26,11 +30,14 @@ export default (definition) => {
     labelHelp: "String",
     labelInline: "Boolean",
     labelWidth: "Number",
+    name: "String",
     validations: "Array",
     warnings: "Array"
   });
 
   definition.propDescriptions = assign({}, definition.propDescriptions, {
+    autoFocus: "Automatically focus the input.",
+    disabled: "Disable all user interaction.",
     fieldHelp: "Displays additional text below the input to provide help to the user.",
     fieldHelpInline: "Displays fieldHelp inline with the checkbox/radio button.",
     inputWidth: "A number representing the percentage/ratio of width with the label. Works best with inline labels.",
@@ -39,6 +46,7 @@ export default (definition) => {
     labelHelp: "Output an info icon next to the label to display additional help to the user.",
     labelInline: "Displays the label inline with the input.",
     labelWidth: "A number representing the percentage/ratio of width with the input. Works best with inline labels.",
+    name: "Set the name of the corresponding hidden input.",
     validations: "An array of validations to apply to the input.",
     warnings: "An array of warnings to apply to the input."
   });

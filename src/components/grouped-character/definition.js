@@ -2,7 +2,7 @@ import GroupedCharacter from './';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('grouped-character', GroupedCharacter, {
-  hiddenProps: ["groups"],
+  hiddenProps: ["groups", 'value'],
   propTypes: {
     className: "String",
     groups: "Array",

@@ -28,6 +28,7 @@ let definition = new Definition('table', Table, {
   associatedDefinitions: [
     tableRowDefinition, tableCellDefinition, tableHeaderDefinition, tableSubheaderDefinition
   ],
+  hiddenProps: ['actions', 'children', 'sortedColumn', 'sortOrder'],
   dataVariable: 'tableData',
   propValues: {
     onChange: ComponentActions.updateTable,

@@ -37,22 +37,6 @@ class SplitButton extends React.Component {
     as: PropTypes.string,
 
     /**
-     * A custom value for the data-element attribute
-     *
-     * @property data-element
-     * @type {String}
-     */
-    'data-element': PropTypes.string,
-
-    /**
-     * A custom value for the data-element attribute
-     *
-     * @property data-role
-     * @type {String}
-     */
-    'data-role': PropTypes.string,
-
-    /**
      * The additional button to display.
      *
      * @property children

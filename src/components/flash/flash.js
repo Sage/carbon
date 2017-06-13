@@ -54,14 +54,6 @@ class Flash extends React.Component {
   static propTypes = {
 
     /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
-     */
-    className: PropTypes.string,
-
-    /**
      * A custom close event handler
      *
      * @property onDismiss
