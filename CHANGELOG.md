@@ -14,6 +14,7 @@ The following components have had minor internal changes to satisfy the introduc
 * Content
 * Date
 * DateRange
+* Decimal
 * Detail
 * Fieldset
 * GroupedCharacter
