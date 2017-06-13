@@ -58,6 +58,7 @@ You can now pass `--cdn` to the gulp task to bundle assets pointing towards the 
 * `Dropdown`: Options list is always rendered to the DOM, but is hidden until selected
 * `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
 * Simplify character count in `Textarea`.
+* `Radio Button` can now reverse the order of its label and input
 
 ## Bug Fixes
 
