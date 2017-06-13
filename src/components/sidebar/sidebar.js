@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
 import SidebarHeader from './sidebar-header';
 import Icon from './../icon';
 import Modal from './../modal';
-import classNames from 'classnames';
 
 /**
  * A Sidebar widget.
@@ -124,14 +125,15 @@ class Sidebar extends Modal {
       return (
         <span className={ 'carbon-sidebar__close' } >
           <Icon
-            className="carbon-sidebar__close-icon"
+            className='carbon-sidebar__close-icon'
             data-element='close'
             onClick={ this.props.onCancel }
-            type="close"
+            type='close'
           />
         </span>
       );
     }
+    return null;
   }
 
   componentTags(props) {
