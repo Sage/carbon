@@ -3,6 +3,7 @@ import Bowser from 'bowser';
 import classNames from 'classnames';
 import { assign } from 'lodash';
 import PropTypes from 'prop-types';
+import Browser from './../../utils/helpers/browser';
 import Icon from './../icon';
 import Modal from './../modal';
 
@@ -125,7 +126,7 @@ class Dialog extends Modal {
   get onOpening() {
     this.centerDialog();
     this.focusDialog();
-    window.addEventListener('resize', this.centerDialog);
+    this.window().addEventListener('resize', this.centerDialog);
   }
 
   /**
@@ -137,7 +138,17 @@ class Dialog extends Modal {
    * @return {Void}
    */
   get onClosing() {
-    window.removeEventListener('resize', this.centerDialog);
+    this.window().removeEventListener('resize', this.centerDialog);
+  }
+
+  /**
+   * Returns the current window
+   *
+   * @method window
+   * @return {Object}
+   */
+  window = () => {
+    return Browser.getWindow();
   }
 
   /**
@@ -149,8 +160,11 @@ class Dialog extends Modal {
   centerDialog = () => {
     const height = this._dialog.offsetHeight / 2,
         width = this._dialog.offsetWidth / 2;
-    let midPointY = (window.innerHeight / 2) + window.pageYOffset,
-        midPointX = (window.innerWidth / 2) + window.pageXOffset;
+
+    const win = this.window();
+
+    let midPointY = (win.innerHeight / 2) + win.pageYOffset,
+        midPointX = (win.innerWidth / 2) + win.pageXOffset;
 
     midPointY -= height;
     midPointX -= width;
@@ -158,7 +172,7 @@ class Dialog extends Modal {
     if (midPointY < 20) {
       midPointY = 20;
     } else if (Bowser.ios) {
-      midPointY -= window.pageYOffset;
+      midPointY -= win.pageYOffset;
     }
 
     if (midPointX < 20) {

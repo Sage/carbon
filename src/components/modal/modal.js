@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Events from './../../utils/helpers/events';
+import Browser from './../../utils/helpers/browser';
 
 /**
  * A Modal Component
@@ -122,14 +123,16 @@ class Modal extends React.Component {
    * @return {void}
    */
   componentDidUpdate() {
+    const _window = Browser.getWindow();
+
     if (this.props.open && !this.listening) {
       this.listening = true;
       this.onOpening;
-      window.addEventListener('keyup', this.closeModal);
+      _window.addEventListener('keyup', this.closeModal);
     } else if (!this.props.open) {
       this.listening = false;
       this.onClosing;
-      window.removeEventListener('keyup', this.closeModal);
+      _window.removeEventListener('keyup', this.closeModal);
     }
   }
 

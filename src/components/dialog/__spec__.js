@@ -1,11 +1,11 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import Dialog from './dialog';
-import I18n from 'i18n-js';
 import Bowser from 'bowser';
-import Button from './../button';
-import { Row, Column } from './../row'
 import { shallow, mount } from 'enzyme';
+import Browser from '../../utils/helpers/browser';
+import Dialog from './dialog';
+import Button from './../button';
+import { Row, Column } from './../row';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Dialog', () => {
@@ -50,52 +50,71 @@ describe('Dialog', () => {
     });
 
     describe('componentDidUpdate', () => {
+      let mockWindow;
+      let wrapper;
+      let instance;
+
+      beforeEach(() => {
+        mockWindow = {
+          addEventListener() {},
+          removeEventListener() {}
+        };
+
+        spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
+      });
+
       describe('when the dialog is open', () => {
         beforeEach(() => {
-          instance = TestUtils.renderIntoDocument(
+          wrapper = mount(
             <Dialog open={ true } onCancel={ onCancel } />
           );
+          instance = wrapper.instance();
         });
 
         it('centers the dialog', () => {
           spyOn(instance, 'centerDialog');
-          instance.componentDidUpdate();
+          wrapper.setProps({ title: 'Dialog title' });
           expect(instance.centerDialog).toHaveBeenCalled();
         });
 
         it('sets up event listeners to resize and close the dialog', () => {
-          let spy = spyOn(window, 'addEventListener');
-          instance.componentDidUpdate();
-          expect(spy.calls.count()).toEqual(2);
-          expect(window.addEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
-          expect(window.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+          spyOn(mockWindow, 'addEventListener');
+
+          wrapper.setProps({ title: 'Dialog title' });
+          expect(mockWindow.addEventListener.calls.count()).toEqual(2);
+          expect(mockWindow.addEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
+          expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
         });
 
         describe('when the dialog is already listening', () => {
           it('does not set up event listeners', () => {
-            let spy = spyOn(window, 'addEventListener');
+            spyOn(mockWindow, 'addEventListener');
+
             instance.listening = true;
-            instance.componentDidUpdate();
-            expect(spy.calls.count()).toEqual(0);
-            expect(window.addEventListener).not.toHaveBeenCalled();
-            expect(window.addEventListener).not.toHaveBeenCalled();
+            wrapper.setProps({ title: 'Dialog title' });
+
+            expect(mockWindow.addEventListener.calls.count()).toEqual(0);
+            expect(mockWindow.addEventListener).not.toHaveBeenCalled();
+            expect(mockWindow.addEventListener).not.toHaveBeenCalled();
           });
         });
       });
 
       describe('when the dialog is closed', () => {
         beforeEach(() => {
-          instance = TestUtils.renderIntoDocument(
+          wrapper = mount(
             <Dialog open={ false } onCancel={ onCancel } />
           );
+          instance = wrapper.instance();
         });
 
         it('removes event listeners for resize and closing', () => {
-          let spy = spyOn(window, 'removeEventListener');
-          instance.componentDidUpdate();
-          expect(spy.calls.count()).toEqual(2);
-          expect(window.removeEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
-          expect(window.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+          spyOn(mockWindow, 'removeEventListener');
+          wrapper.setProps({ title: 'Dialog closed' });
+
+          expect(mockWindow.removeEventListener.calls.count()).toEqual(2);
+          expect(mockWindow.removeEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
+          expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
         });
       });
     });
@@ -412,8 +431,7 @@ describe('Dialog', () => {
 
       const closeIcon = wrapper.find('[data-element="close"]');
       closeIcon.simulate('blur');
-      
       expect(dialogElement.focus).toHaveBeenCalled();
     });
-  })
+  });
 });
