@@ -25,6 +25,7 @@ The following components have had minor internal changes to satisfy the introduc
 * MenuItem
 * MenuList
 * MenuListItem
+* Message
 * MountInApp
 * NavigationBar
 * Pod
