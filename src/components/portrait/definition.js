@@ -16,6 +16,7 @@ const definition = new Definition('portrait', Portrait, {
     size: OptionsHelper.sizesFull,
     shape: OptionsHelper.shapesVaried
   },
+  hiddenProps: ['darkBackground'],
   propTypes: {
     alt: 'String',
     className: 'String',
@@ -29,7 +30,7 @@ const definition = new Definition('portrait', Portrait, {
   propDescriptions: {
     alt: 'Defines the alt HTML string.',
     className: 'A custom class name for the component.',
-    darkBackground: 'Switch to a dark background (requires a re-render).',
+    darkBackground: 'Switch to a dark background (requires a hard re-render).',
     gravatar: 'Define an email address registered with gravatar.',
     initials: 'Define some initials to render in the Portrait.',
     shape: 'Defines the shape of the Portrait.',
