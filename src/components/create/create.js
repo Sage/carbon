@@ -37,6 +37,25 @@ class Create extends React.Component {
   }
 
   /**
+   * Returns the props for the component.
+   *
+   * @method linkProps
+   * @return {Object}
+   */
+  linkProps() {
+    const className = this.props.className;
+    const { ...props } = this.props;
+
+    props.className = classNames(
+      'carbon-create', className
+    );
+
+    props.iconAlign = 'right';
+    props.icon = 'add';
+    return props;
+  }
+
+  /**
    * @method render
    * @return {Object} JSX
    */
@@ -46,25 +65,6 @@ class Create extends React.Component {
         { this.props.children }
       </Link>
     );
-  }
-
-  /**
-   * Returns the props for the component.
-   *
-   * @method linkProps
-   * @return {Object}
-   */
-  linkProps() {
-    const className = this.props.className;
-    let { ...props } = this.props;
-
-    props.className = classNames(
-      'carbon-create', className
-    );
-
-    props.iconAlign = 'right';
-    props.icon = 'add';
-    return props;
   }
 }
 
