@@ -1,9 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import Icon from 'components/icon';
 
 /**
- * Renders an application drawers that can be used to switch programs
+ * Renders an application (drawer) switcher
  * @class AppSwitcher
  */
 
@@ -31,21 +32,20 @@ export default class AppSwitcher extends React.Component {
   }
 
     /**
-     * Return the classes for the styles
+     * Pseudo private class for the styles
      *
      * @method styles
+     * @private
      * @return Hash
      */
 
-  get styles() {
-    const prefix = 'react-switcher-';
+  styles = () => {
     return {
-      appItem: prefix + "app-item",
-      menu: classNames((this.state.active ? prefix + "menu-active" : ""), prefix + "menu-title"),
-      sectionTitle: prefix + "section-title",
-      drawer: prefix + "drawer",
-      arrowUp: prefix + "arrow-up",
-      symbol: prefix + "symbol"
+      appItem: "carbon-switcher-app-item",
+      menu: classNames((this.state.active ? "carbon-switcher-menu-active" : ""), "carbon-switcher-menu-title"),
+      sectionTitle: "carbon-switcher-section-title",
+      drawer: "carbon-switcher-drop-down",
+      arrowUp: "carbon-switcher-arrow-up"
     };
   }
 
@@ -60,43 +60,8 @@ export default class AppSwitcher extends React.Component {
     super(...props);
 
     this.state = {
-      active: false,
-      applications: {}
+      active: false
     };
-  }
-
-    /**
-     * A lifecycle method that is called after the initial render.
-     *
-     * @method componentDidMount
-     * @return {Void}
-     */
-
-  componentDidMount() {
-    this.setState({applications: JSON.parse(this.props.applicationJson)});
-  }
-
-    /**
-     * A SVG dice icon 16 x 16
-     *
-     * @method SVGIcon
-     * @return JSX Elements
-     */
-
-  SVGIcon = () => {
-    return (<svg className= {this.styles.symbol} viewBox="0 0 16 16" >
-          <g>
-            <rect  x="0" y="0" width="4" height="4" rx="1"></rect>
-            <rect  x="6" y="0" width="4" height="4" rx="1"></rect>
-            <rect  x="12" y="0" width="4" height="4" rx="1"></rect>
-            <rect  x="0" y="6" width="4" height="4" rx="1"></rect>
-            <rect  x="6" y="6" width="4" height="4" rx="1"></rect>
-            <rect  x="12" y="6" width="4" height="4" rx="1"></rect>
-            <rect  x="0" y="12" width="4" height="4" rx="1"></rect>
-            <rect  x="6" y="12" width="4" height="4" rx="1"></rect>
-            <rect  x="12" y="12" width="4" height="4" rx="1"></rect>
-          </g>
-        </svg>);
   }
 
     /**
@@ -133,7 +98,7 @@ export default class AppSwitcher extends React.Component {
 
   createAppItems = (section) => {
     return ( section.items.map((item,index) => {
-      return (<a href = {item.href} key = {'index-' + index} className = {this.styles.appItem}>
+      return (<a href = {item.href} key = {'index-' + index} className = {this.styles().appItem}>
                     {item.name}
                 </a>);
     })
@@ -148,12 +113,12 @@ export default class AppSwitcher extends React.Component {
      */
 
   createAppSections = () => {
-    let applicationSections = this.state.applications.items || [];
-    return applicationSections.map((section, index) => {
+    let parsedJson = JSON.parse(this.props.applicationJson) || {};
+    return parsedJson.items.map((section, index) => {
       let items = this.createAppItems(section);
       return (
                 <div key={'index-' + index}>
-                  <div className = {this.styles.sectionTitle} > {section.title} </div>
+                  <div className = {this.styles().sectionTitle} > {section.title} </div>
                   <div>{items}</div>
                 </div>
       );
@@ -170,13 +135,12 @@ export default class AppSwitcher extends React.Component {
   createAppDrawer = () => {
     let sections = this.createAppSections();
     return (
-            <div onClick={this.handleCloseWindow} className={this.styles.drawer}>
+            <div onClick={this.handleCloseWindow} className={this.styles().drawer}>
                 {sections}
-              <div className={this.styles.arrowUp} />
+              <div className={this.styles().arrowUp} />
             </div>
     );
   }
-
 
     /**
      * The main render method
@@ -186,13 +150,12 @@ export default class AppSwitcher extends React.Component {
      */
 
   render() {
-    let SVGIcon = this.SVGIcon();
     let appDrawer = this.createAppDrawer();
 
     return (
-            <span className={this.styles.menu} onClick={this.handleOpenWindow}>
-                {SVGIcon}
-              <span> Accounting </span>
+            <span className={this.styles().menu} onClick={this.handleOpenWindow}>
+              <Icon type='grid' />
+              <span> {this.props.menuTitle} </span>
                 { this.state.active ? appDrawer : null }
                 </span>
     );

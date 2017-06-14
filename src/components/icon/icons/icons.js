@@ -32,7 +32,7 @@ import Submitted from './svgs/submitted';
 import Sync from './svgs/sync';
 import Twitter from './svgs/twitter';
 import WhiteTick from './svgs/white-tick';
-
+import Grid from './svgs/grid';
 
 export default {
   basket: Basket,
@@ -68,5 +68,6 @@ export default {
   submitted: Submitted,
   sync: Sync,
   twitter: Twitter,
-  'white-tick': WhiteTick
+  'white-tick': WhiteTick,
+  'grid': Grid
 };

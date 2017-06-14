@@ -1,4 +1,5 @@
-.react-switcher-symbol {
+@import "./../../style-config/colors";
+.carbon-icon__svg--grid {
   width: 16px;
   height: 16px;
   position: relative;
@@ -7,94 +8,91 @@
   fill: inherit
 }
 
-.react-switcher-menu-title {
+.carbon-switcher-menu-title {
   position: relative;
   float: left;
   margin: 10px 10px 11px 10px;
   font-family: "Lato";
   font-size: 13px;
   font-weight: bold;
-  background-color: #FFFFFF;
+  background-color: $white;
   padding: 7px 10px;
   height: 26px;
   cursor: pointer;
-  border-right: 1px solid #ebedef;
+  border-right: 1px solid $grey-dark-blue-10;
 }
 
-.react-switcher-menu-title:hover {
-  color: #255bc7;
-  fill: #255bc7;
+.carbon-switcher-menu-title {
+  .carbon-switcher-menu-active {
+    color: $blue-bright;
+    fill: $blue-bright;
+  }
+  &:hover {
+    color: $blue;
+    fill: $blue;
+  }
 }
 
-.react-switcher-menu-active {
-  color: #1963f6 !important;
-  fill: #1963f6 !important;
+.carbon-switcher-menu-active {
+  color: $blue-bright;
+  fill: $blue-bright;
 }
 
-.react-switcher-drawer {
+.carbon-switcher-drop-down {
   position: absolute;
   top: 47px;
   left: -15px;
   padding: 10px 0px 30px 27px;
   width: 301px;
-  background-color: #ffffff;
+  background-color: $white;
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.65), 0 1px 2px 0 rgba(206, 208, 211, 0.8);
 }
 
-.react-switcher-section-title {
+.carbon-switcher-section-title {
   height: 15px;
   width: 100%;
   margin: 20px 0px 5px 0px;
   font-size: 11px;
   font-weight: 900;
-  line-height: 1.36;
   letter-spacing: 1px;
-  color: #636872;
+  color: $grey-dark-blue-80;
   float: left;
 }
 
-.react-switcher-app-item {
+.carbon-switcher-app-item {
   width: 110px;
   height: 52px;
   border-radius: 4px;
   margin: 10px 13px 10px 0px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25), 0 1px 1px 0 #ebeced;
+  background-color: $white;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25), 0 1px 1px 0 $grey-dark-blue-10;
   font-size: 14px;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
-  color: #3c424f;
+  color: $grey-dark-blue;
   padding: 10px;
   float: left;
   display: flex;
-  -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: center;
   justify-content: center;
+  &:hover {
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.55), 0 1px 1px 0 $grey-dark-blue-10;
+  }
 }
 
-.react-switcher-app-item:hover {
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.55), 0 1px 1px 0 #ebeced;
-}
-
-.react-switcher-arrow-up {
+.carbon-switcher-arrow-up {
   position: absolute;
   top: -14px;
   left: 18px;
-  width: 0px;
-  height: 0px;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
-  border-bottom: 15px solid white;
-}
-
-.react-switcher-arrow-up:after{
-  content: '';
-  position: absolute;
-  left: -22px;
-  border-left: 22px solid transparent;
-  border-right: 22px solid transparent;
-  border-bottom: 18px solid rgba(0, 0, 0, 0.10);
-  z-index: -1;
+  border-bottom: 15px solid $white;
+  &:after {
+    position: absolute;
+    left: -22px;
+    border-left: 22px solid transparent;
+    border-right: 22px solid transparent;
+    border-bottom: 18px solid rgba(0, 0, 0, 0.10);
+  }
 }
