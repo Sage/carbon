@@ -5,6 +5,7 @@
 The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
 
 * AppWrapper
+* Create
 * Dropdown
 * DropdownFilter
 * DropdownFilterAjax
@@ -29,6 +30,8 @@ The following components have had minor internal changes to satisfy the introduc
 * MountInApp
 * NavigationBar
 * Pod
+* Portrait
+* Profile
 * RadioButton
 * Row
 * SettingsRow

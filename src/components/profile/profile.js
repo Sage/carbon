@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Portrait from './../portrait';
 import classNames from 'classnames';
+import Portrait from './../portrait';
 import { acronymize } from './../../utils/ether';
 import { tagComponent } from '../../utils/helpers/tags';
 
@@ -10,6 +10,15 @@ import { tagComponent } from '../../utils/helpers/tags';
  */
 class Profile extends React.Component {
   static propTypes = {
+
+    /**
+     * A custom class name for the component.
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
     /**
      * The user's name.
      *
@@ -52,9 +61,9 @@ class Profile extends React.Component {
    */
   get classes() {
     return classNames(
-      "carbon-profile",
+      'carbon-profile',
       this.props.className, {
-        ["carbon-profile--large"]: this.props.large
+        'carbon-profile--large': this.props.large
       }
     );
   }
@@ -81,8 +90,8 @@ class Profile extends React.Component {
       <Portrait
         initials={ this.initials }
         gravatar={ this.props.email }
-        className="carbon-profile__avatar"
-        size="medium-small"
+        className='carbon-profile__avatar'
+        size='medium-small'
       />
     );
   }
@@ -95,11 +104,11 @@ class Profile extends React.Component {
    */
   get text() {
     return (
-      <div className="carbon-profile__details">
-        <span className="carbon-profile__name" data-element='name'>
+      <div className='carbon-profile__details'>
+        <span className='carbon-profile__name' data-element='name'>
           { this.props.name }
         </span><br />
-        <span className="carbon-profile__email" data-element='email'>
+        <span className='carbon-profile__email' data-element='email'>
           { this.props.email }
         </span>
       </div>
