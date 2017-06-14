@@ -27,6 +27,8 @@ The following components have had minor internal changes to satisfy the introduc
 * MenuListItem
 * MountInApp
 * NavigationBar
+* Pager
+* Pill
 * Pod
 * RadioButton
 * Row

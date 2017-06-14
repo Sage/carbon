@@ -1,11 +1,12 @@
-import css from './../../utils/css';
 import React from 'react';
+import I18n from 'i18n-js';
 import PropTypes from 'prop-types';
+import Immutable from 'immutable';
+
+import css from './../../utils/css';
 import Icon from './../icon';
 import NumberComponent from './../number';
 import Dropdown from './../dropdown';
-import I18n from "i18n-js";
-import Immutable from 'immutable';
 import Events from './../../utils/helpers/events';
 import { tagComponent } from '../../utils/helpers/tags';
 
@@ -110,7 +111,7 @@ class Pager extends React.Component {
    * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentPage !== this.state.currentPage){
+    if (nextProps.currentPage !== this.state.currentPage) {
       this.setState({ currentPage: nextProps.currentPage });
     }
   }
@@ -166,7 +167,7 @@ class Pager extends React.Component {
         }
 
         if (Number(newPage) < 1) {
-          newPage = "1";
+          newPage = '1';
         }
 
         this.props.onPagination(newPage, this.props.pageSize, element);
@@ -185,7 +186,22 @@ class Pager extends React.Component {
         // TODO: Clever current page correction
         this.props.onPagination('1', newPageSize, element);
         break;
+      default:
+        break;
     }
+  }
+
+  /**
+   * Return callback binding the element to target
+   * TODO: Refactor to move or change the switch statement to functions
+   *
+   * @method emitCallbackSelector
+   * @return {Function}
+   */
+  emitCallbackSelector = (element) => {
+    return (ev) => {
+      this.emitChangeCallback(element, ev);
+    };
   }
 
   /**
@@ -228,7 +244,7 @@ class Pager extends React.Component {
    * @return {JSX}
    */
   get previousArrow() {
-    let props = {
+    const props = {
       type: 'dropdown',
       className: 'carbon-pager__previous',
       'data-element': 'previous-page'
@@ -237,7 +253,7 @@ class Pager extends React.Component {
     if (this.disablePrevious) {
       props.className += ' carbon-pager__previous--disabled';
     } else {
-      props.onClick = this.emitChangeCallback.bind(this, 'previous');
+      props.onClick = this.emitCallbackSelector('previous');
     }
 
     return (
@@ -252,12 +268,12 @@ class Pager extends React.Component {
    * @return {JSX}
    */
   get currentPageInput() {
-    let props = {
+    const props = {
       value: this.state.currentPage,
       className: 'carbon-pager__current-page',
       'data-element': 'current-page',
       onChange: this.handleCurrentPageInputChange,
-      onBlur: this.emitChangeCallback.bind(this, 'input'),
+      onBlur: this.emitCallbackSelector('input'),
       onKeyUp: this.handleCurrentPageKeyUp
     };
 
@@ -273,7 +289,7 @@ class Pager extends React.Component {
    * @return {JSX}
    */
   get nextArrow() {
-    let props = {
+    const props = {
       className: 'carbon-pager__next',
       'data-element': 'next-page',
       type: 'dropdown'
@@ -282,7 +298,7 @@ class Pager extends React.Component {
     if (this.disableNext) {
       props.className += ' carbon-pager__next--disabled';
     } else {
-      props.onClick = this.emitChangeCallback.bind(this, 'next');
+      props.onClick = this.emitCallbackSelector('next');
     }
 
     return (
@@ -304,13 +320,14 @@ class Pager extends React.Component {
           <Dropdown
             options={ this.props.pageSizeSelectionOptions }
             value={ this.props.pageSize }
-            onChange={ this.emitChangeCallback.bind(this, 'size') }
+            onChange={ this.emitCallbackSelector('size') }
             data-element='page-select'
           />
           <span className={ css.unselectable }>{ recordsText(this.props.pageSize) }</span>
         </div>
       );
     }
+    return null;
   }
 
   /**
@@ -320,7 +337,7 @@ class Pager extends React.Component {
    * @return {JSX}
    */
   render() {
-    return(
+    return (
       <div className='carbon-pager' { ...tagComponent('pager', this.props) }>
 
         <div className='carbon-pager__size' >
