@@ -1,8 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import Dialog from 'components/dialog'
-import Alert from './alert';
 import { shallow, mount } from 'enzyme';
+import Alert from './alert';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Alert', () => {
@@ -62,6 +61,12 @@ describe('Alert', () => {
       mockEvent = {
         preventDefault() {}
       };
+
+      jasmine.clock().install();
+    });
+
+    afterEach(() => {
+      jasmine.clock().uninstall();
     });
 
     it('remains on the dialog if open and no close icon is shown', () => {
@@ -70,6 +75,7 @@ describe('Alert', () => {
       spyOn(instance, 'focusDialog');
 
       instance.onDialogBlur(mockEvent);
+      jasmine.clock().tick(10);
       expect(mockEvent.preventDefault).toHaveBeenCalled();
       expect(instance.focusDialog).toHaveBeenCalled();
     });

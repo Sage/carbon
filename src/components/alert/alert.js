@@ -80,7 +80,9 @@ class Alert extends Dialog {
   onDialogBlur(ev) {
     if (!this.props.showCloseIcon) {
       ev.preventDefault();
-      this.focusDialog();
+      // Firefox loses focus unless we wrap the call to
+      // this.focusDialog in setTimeout
+      setTimeout(this.focusDialog, 0);
     }
   }
 }
