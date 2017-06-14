@@ -19,6 +19,7 @@ The following components have had minor internal changes to satisfy the introduc
 * Fieldset
 * GroupedCharacter
 * Heading
+* Help
 * I18n
 * Link
 * Menu
