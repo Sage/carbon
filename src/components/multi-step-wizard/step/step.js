@@ -328,9 +328,7 @@ class Step extends React.Component {
    * @return {Object} JSX
    */
   get extraButtonHTML() {
-    const extraButtons = (this.props.extraButtons || []);
-
-    return extraButtons.map((button, index) => {
+    return this.props.extraButtons.map((button, index) => {
       return (
         // Would change behaviour to supply a uuid on each button
         /* eslint-disable react/no-array-index-key */
