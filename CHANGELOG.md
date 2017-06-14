@@ -22,6 +22,7 @@ The following components have had minor internal changes to satisfy the introduc
 * Heading
 * Help
 * I18n
+* Icon
 * Link
 * Menu
 * MenuItem
