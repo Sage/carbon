@@ -29,6 +29,7 @@ The following components have had minor internal changes to satisfy the introduc
 * MenuListItem
 * MountInApp
 * NavigationBar
+* NumberInput
 * Pod
 * Portrait
 * Profile
