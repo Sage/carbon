@@ -40,11 +40,16 @@ import Step from './step';
  * The wizard provides the ability to hook into the handle next/back/submit methods.
  * (1) By passing a 'beforeSubmitValidation' prop in the wizard, you can add custom logic before a submit event, and
  *     the submit event can be completed only when the 'beforeSubmitValidation' prop returns 'true'.
- * (2) By passing 'onNext' prop in the corresponding step component, you can add custom logic when moving a step forward, and
+ * (2) By passing 'onNext' prop in the corresponding step component,
+ *     you can add custom logic when moving a step forward, and
  *     the 'onNext' prop overrides the step's default behaviour of moving next.
- * (3) By passing 'onBack' prop in the corresponding step component, you can add custom logic when moving a step backward, and
+ * (3) By passing 'onBack' prop in the corresponding step component,
+ *     you can add custom logic when moving a step backward, and
  *     the 'onBack' prop overrides the step's default behaviour of moving back.
- * e.g. <MultiStepWizard steps={ [<Step1 onNext={ this.customMethodOnNext }/>, <Step2 onBack={ this.customMethodOnBack }) />] } />
+ * e.g. <MultiStepWizard steps={ [
+ *        <Step1 onNext={ this.customMethodOnNext }/>,
+ *        <Step2 onBack={ this.customMethodOnBack }) />
+ *      ] } />
  *      <MultiStepWizard beforeSubmitValidation={ this.customValidation } onSubmit={ this.customMethodOnSubmit } />
  *
  * If you want to complete the wizard without going through steps, you can pass a 'completed' prop and set it to true.
@@ -71,6 +76,14 @@ class MultiStepWizard extends React.Component {
     beforeSubmitValidation: PropTypes.func,
 
     /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * A custom submit event handler
      *
      * @property onSubmit
@@ -85,7 +98,7 @@ class MultiStepWizard extends React.Component {
      * @type {Number}
      * @default 1
      */
-    currentStep: PropTypes.number,
+    currentStep: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Determines if the wizard disables inactive steps
@@ -97,42 +110,37 @@ class MultiStepWizard extends React.Component {
     enableInactiveSteps: PropTypes.bool,
 
     /**
+     * Add custom logic to next button
+     *
+     * @property onNext
+     */
+    onNext: PropTypes.func,
+
+    /**
+     * Add custom logic to previous button
+     *
+     * @property onPrevious
+     */
+    onBack: PropTypes.func,
+
+    /**
      * The completion state of the wizard
      *
      * @property enableInactiveSteps
      * @type {Boolean}
      * @default false
      */
-    completed: PropTypes.bool
+    completed: PropTypes.bool // eslint-disable-line react/no-unused-prop-types
   }
 
   static defaultProps = {
+    beforeSubmitValidation: null,
+    className: '',
+    completed: false,
     currentStep: 1,
     enableInactiveSteps: false,
-    completed: false
-  }
-
-  /**
-   * A lifecycle method that is called before initial render.
-   * Can set up state of component without causing a re-render.
-   *
-   * @method componentWillMount
-   */
-  componentWillMount() {
-    let validProps = this.validateStepProps(this.props);
-    this.setState({ currentStep: validProps.currentStep, completed: validProps.completed });
-  }
-
-  /**
-   * A lifecycle method to update the currentStep state when a new valid value has been specified.
-   *
-   * @method componentWillReceiveProps
-   * @param {Object} props The new props passed down to the component
-   * @return {void}
-   */
-  componentWillReceiveProps(nextProps) {
-    let validProps = this.validateStepProps(nextProps);
-    this.setState({ currentStep: validProps.currentStep, completed: validProps.completed });
+    onNext: null,
+    onBack: null
   }
 
   static childContextTypes = {
@@ -144,6 +152,7 @@ class MultiStepWizard extends React.Component {
      */
     wizard: PropTypes.object
   }
+
 
   /**
    * Returns wizard object to child components.
@@ -170,23 +179,46 @@ class MultiStepWizard extends React.Component {
   }
 
   /**
+   * A lifecycle method that is called before initial render.
+   * Can set up state of component without causing a re-render.
+   *
+   * @method componentWillMount
+   */
+  componentWillMount() {
+    const validProps = this.validateStepProps(this.props);
+    this.setState({ currentStep: validProps.currentStep, completed: validProps.completed });
+  }
+
+  /**
+   * A lifecycle method to update the currentStep state when a new valid value has been specified.
+   *
+   * @method componentWillReceiveProps
+   * @param {Object} props The new props passed down to the component
+   * @return {void}
+   */
+  componentWillReceiveProps(nextProps) {
+    const validProps = this.validateStepProps(nextProps);
+    this.setState({ currentStep: validProps.currentStep, completed: validProps.completed });
+  }
+
+  /**
    * Validate step props
    *
    * @method validateStepProps
    * @return {Object}
    */
   validateStepProps = (stepProps) => {
-    let step = stepProps.currentStep,
+    const step = stepProps.currentStep,
         completed = stepProps.completed,
         totalSteps = stepProps.steps.length;
 
     if (completed === true) {
       return { currentStep: totalSteps, completed: true };
-    } else if (parseInt(step) !== step || step < 1 || step > totalSteps) {
+    } else if (parseInt(step, 10) !== step || step < 1 || step > totalSteps) {
       return { currentStep: 1, completed: false };
-    } else {
-      return { currentStep: step, completed: false };
     }
+
+    return { currentStep: step, completed: false };
   }
 
   /**
@@ -244,9 +276,12 @@ class MultiStepWizard extends React.Component {
   get wizardStepsHTML() {
     return this.props.steps.map((step, index) => {
       return (
+        // Step is never going to be re-ordered or changed so index is safe to use
+        /* eslint-disable react/no-array-index-key */
         <Step stepNumber={ index + 1 } key={ `multi-step-wizard-step-${index}` } { ...step.props }>
           { step }
         </Step>
+        /* eslint-enable react/no-array-index-key */
       );
     });
   }
