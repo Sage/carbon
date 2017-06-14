@@ -16,6 +16,11 @@
   width: 15px;
   height: 15px;
   vertical-align: top;
+
+  .carbon-link__content {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute;
+  }
 }
 
 .carbon-pod--content-triggers-edit .carbon-pod__block:hover {

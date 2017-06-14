@@ -52,7 +52,7 @@ class Textbox extends React.Component {
    * @return {Object} props for the input
    */
   get inputProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
     props.className = this.inputClasses;
     return props;
   }
@@ -67,7 +67,7 @@ class Textbox extends React.Component {
     return (
       <div
         className={ this.mainClasses }
-        ref={ (comp) => this._target = comp }
+        ref={ (comp) => { this._target = comp; } }
         { ...tagComponent('textbox', this.props) }
       >
         { this.labelHTML }

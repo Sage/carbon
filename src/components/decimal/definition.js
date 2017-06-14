@@ -2,8 +2,8 @@ import Decimal from './';
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from './../../utils/helpers/options-helper';
 
-let definition = new Definition('decimal', Decimal, {
-  description: `Captures a number with a decimal point, or a currency value.`,
+const definition = new Definition('decimal', Decimal, {
+  description: 'Captures a number with a decimal point, or a currency value.',
   designerNotes: `
 * For currency values, show currency symbols outside the field rather than inserting one for the user dynamically.
 * Carbon offers a Precision configuration, so you can choose how many decimal places to show.
@@ -15,13 +15,19 @@ let definition = new Definition('decimal', Decimal, {
 * Entering whole numbers without a decimal point? [Try Number Input](/components/number-input).
  `,
   type: 'form',
+  hiddenProps: [
+    'name',
+    'onBlur',
+    'onKeyDown',
+    'value'
+  ],
   propTypes: {
-    align: "String",
-    precision: "String || Number"
+    align: 'String',
+    precision: 'String || Number'
   },
   propDescriptions: {
-    align: "Sets the alignment of the text within the decimal component",
-    precision: "Sets the precision of the decimal"
+    align: 'Sets the alignment of the text within the decimal component',
+    precision: 'Sets the precision of the decimal'
   },
   propOptions: {
     align: OptionsHelper.alignBinary

@@ -44,16 +44,26 @@ let definition = new Definition('dropdown', Dropdown, {
   }]);
 };`,
   propTypes: {
-    options: "Object",
+    autoFocus: "Boolean",
     cacheVisibleValue: "Boolean",
+    disabled: "Boolean",
+    name: "String",
+    onBlur: "Function",
+    options: "Object",
+    readOnly: "Boolean",
     value: "String"
   },
   propValues: {
     options: `getOptions()`
   },
   propDescriptions: {
+    autoFocus: "Automatically focus the input.",
     cacheVisibleValue: "The dropdown will continually find the name during re-render, set this to true to only re-find the name if the value has actually changed.",
+    disabled: "Disable all user interaction.",
+    name: "Set the name of the corresponding hidden input.",
+    onBlur: "A custom onBlur handler",
     options: "The options for the dropdown. This needs to be an Immutable Map.",
+    readOnly: "Display the currently selected value without displaying the dropdown.",
     value: "The currently selected value of the input."
   }
 });
