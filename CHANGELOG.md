@@ -20,6 +20,7 @@ The following components have had minor internal changes to satisfy the introduc
 * GroupedCharacter
 * Heading
 * I18n
+* Icon
 * Link
 * Menu
 * MenuItem
