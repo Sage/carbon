@@ -25,13 +25,13 @@ let definition = new Definition('tooltip', Tooltip, {
     align: 'String',
     children: 'Node',
     className: 'String',
-    isVisible: 'Boolean'
-    position: 'String',
+    isVisible: 'Boolean',
+    position: 'String'
   },
   propDescriptions: {
     align: 'The alignment of the pointer on the tooltip.',
     children: 'Child content to render in the tooltip.',
-    className: 'Classes to be applied to the component.'
+    className: 'Classes to be applied to the component.',
     isVisible: 'Whether to show or hide the tooltip. Use this with a handler to hide and show the tooltip',
     position: 'The position of the tooltip relative to its target element.'
   }
