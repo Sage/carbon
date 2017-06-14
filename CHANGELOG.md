@@ -30,6 +30,8 @@ The following components have had minor internal changes to satisfy the introduc
 * Pager
 * Pill
 * Pod
+* Portrait
+* Profile
 * RadioButton
 * Row
 * SettingsRow
