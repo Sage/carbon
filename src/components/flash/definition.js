@@ -21,7 +21,8 @@ let definition = new Definition('flash', Flash, {
   },
   propValues: {
     message: 'This is some information from the Flash Component.',
-    open: false
+    open: false,
+    timeout: 1000
   },
   propTypes: {
     as: "String",
