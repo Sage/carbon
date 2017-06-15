@@ -24,13 +24,11 @@ let definition = new Definition('rainbow', Rainbow, {
   }]);
 }`,
   propTypes: {
-    className: "String",
     config: "Object",
     data: "Object",
     title: "String"
   },
   propDescriptions: {
-    className: "Classes to apply to the component.",
     config: "Supply a custom config object to the Highcharts.",
     data: "Supply data for the chart.",
     title: "Supply a custom title for the chart."

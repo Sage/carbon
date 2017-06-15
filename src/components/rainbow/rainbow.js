@@ -46,14 +46,6 @@ class Rainbow extends React.Component {
 
   static propTypes = {
     /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
-     */
-    className: PropTypes.string,
-
-    /**
      * A title for the component.
      *
      * @property title
@@ -78,21 +70,6 @@ class Rainbow extends React.Component {
     config: PropTypes.object
   }
 
-  static defaultProps = {
-    className: '',
-    config: {},
-    title: ''
-  }
-
-  /**
-   * Renders the initial chart, and stores it on the ref so it can be updated later
-   */
-  componentDidMount() {
-    const config = generateConfig(this.props.data, this.props.title);
-    merge(config, this.props.config);
-    this._chart = global.Highcharts.chart(this._chart, config);
-  }
-
   /**
    * Always returns false, but uses the Highcharts API to update the charts
    * data or title if they have been updated.
@@ -102,18 +79,29 @@ class Rainbow extends React.Component {
    * @return {void}
    */
   shouldComponentUpdate(nextProps) {
+    let chart = this.refs.chart.chart;
+
     // use the highchart api to update its title
     if (this.props.title !== nextProps.title) {
-      this._chart.setTitle({ text: nextProps.title });
+      chart.setTitle({ text: nextProps.title });
     }
 
     // use the highchart api to update its data
     if (this.props.data !== nextProps.data) {
-      this._chart.series[0].setData(nextProps.data.toJS());
+      chart.series[0].setData(nextProps.data.toJS());
     }
 
     // never re-render the component
     return false;
+  }
+
+  /**
+   * Renders the initial chart, and stores it on the ref so it can be updated later
+   */
+  componentDidMount() {
+    let config = generateConfig(this.props.data, this.props.title);
+    merge(config, this.props.config);
+    this.refs.chart.chart = global.Highcharts.chart(this.refs.chart, config);
   }
 
   /**
@@ -136,12 +124,14 @@ class Rainbow extends React.Component {
    * @return {Object} JSX
    */
   render() {
+
     return (
       <div className={ this.mainClasses } { ...tagComponent('rainbow', this.props) }>
-        <div ref={ (chart) => { this._chart = chart; } } />
+        <div ref="chart" />
       </div>
     );
   }
+
 }
 
 /**
@@ -177,10 +167,10 @@ function unfocusSegment() {
  * @return {Object} x and y position of tooltip
  */
 function tooltipPosition(tooltipWidth, tooltipHeight, point) {
-  const x = point.plotX - (tooltipWidth / 2);
-  const y = point.plotY - (tooltipHeight - 5);
+  let x = point.plotX - (tooltipWidth / 2);
+  let y = point.plotY - (tooltipHeight - 5);
 
-  return { x, y };
+  return { x: x, y: y };
 }
 
 /**
@@ -193,7 +183,7 @@ function tooltipPosition(tooltipWidth, tooltipHeight, point) {
  * @return {Object} config for highchart
  */
 function generateConfig(immutableData, title) {
-  const data = immutableData.toJS();
+  let data = immutableData.toJS();
 
   return {
     credits: {
@@ -208,9 +198,9 @@ function generateConfig(immutableData, title) {
     },
     title: {
       style: {
-        color: '',
-        fontFamily: '',
-        fontSize: ''
+        "color": "",
+        "fontFamily": "",
+        "fontSize": ""
       },
       text: title,
       useHTML: true,
@@ -222,10 +212,10 @@ function generateConfig(immutableData, title) {
       borderWidth: 0,
       followPointer: true,
       headerFormat: '',
-      pointFormatter() {
-        return `<span style="color: ${this.color}">${this.tooltip}</span>`;
+      pointFormatter: function() {
+        return '<span style="color: ' + this.color  + '">' + this.tooltip + '</span>';
       },
-      positioner: (tooltipWidth, tooltipHeight, point) => {
+      positioner: function(tooltipWidth, tooltipHeight, point) {
         return tooltipPosition(tooltipWidth, tooltipHeight, point);
       },
       shadow: false
@@ -244,21 +234,17 @@ function generateConfig(immutableData, title) {
           defer: false,
           distance: 18,
           enabled: true,
-          formatter() {
-            let display = 'display: ';
-            display += this.point.visible ? 'block' : 'none';
+          formatter: function () {
+            let display = "display: ";
+            display += this.point.visible ? "block" : "none";
 
-            return `
-              <span style="color: ${this.point.color}; ${display}">
-                <strong>${this.point.name}</strong><br>${this.point.label}
-              </span>
-            `;
+            return '<span style="color:' + this.point.color + '; ' + display + '"><strong>' + this.point.name + '</strong><br>' + this.point.label + '</span>';
           },
           padding: 0,
           style: {
-            fontSize: '',
-            fontWeight: '',
-            fontFamily: ''
+            "fontSize": "",
+            "fontWeight": "",
+            "fontFamily": ""
           },
           useHTML: true
         },
@@ -276,7 +262,7 @@ function generateConfig(immutableData, title) {
       }
     },
     series: [{
-      data,
+      data: data,
       innerSize: '65%',
       type: 'pie'
     }]
