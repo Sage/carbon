@@ -69,6 +69,7 @@ The following utils have had minor internal changes to satisfy the introduction 
 
 ## Component Improvements
 
+* `Alert` now alerts itself to screen readers.
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `InlineInputs` children are now wrapped by Columns by the component
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
