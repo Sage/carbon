@@ -59,6 +59,11 @@ The following utils have had minor internal changes to satisfy the introduction 
 * Router
 * Service
 
+The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Handlers
+
+
 ## Component Improvements
 
 * `Menu` has been updated to use a `<nav>` tag as its root element.
