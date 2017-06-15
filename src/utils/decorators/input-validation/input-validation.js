@@ -216,7 +216,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
   positionMessage = () => {
     if (!this.state.valid || this.state.warning) {
       // calculate the position for the message relative to the icon
-      const icon = this.validationIcon,
+      const icon = this.validationIcon._target,
           message = this.validationMessage;
 
       if (icon && message && message.offsetHeight) {

@@ -290,7 +290,7 @@ describe('InputValidation', () => {
                 };
               }
             };
-            instance.validationIcon = {
+            instance.validationIcon._target = {
               offsetLeft: 20,
               offsetWidth: 10,
               offsetTop: 30
@@ -317,7 +317,7 @@ describe('InputValidation', () => {
                 };
               }
             };
-            instance.validationIcon = {
+            instance.validationIcon._target = {
               offsetLeft: 20,
               offsetWidth: 10,
               offsetTop: 30
