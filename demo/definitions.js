@@ -10,6 +10,7 @@ export default {
   'carousel':             require('components/carousel/definition').default,
   'checkbox':             require('components/checkbox/definition').default,
   'configurable-columns': require('components/configurable-columns/definition').default,
+  'configurable-columns-pattern': require('components/configurable-columns-pattern/definition').default,
   'confirm':              require('components/confirm/definition').default,
   'content':              require('components/content/definition').default,
   'create':               require('components/create/definition').default,
