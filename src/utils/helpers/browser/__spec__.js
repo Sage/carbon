@@ -127,78 +127,76 @@ describe('Browser', () => {
   });
 
   describe('postToNewWindow', () => {
-    let url = '/some/url/path',
-        key1 = 'foo',
-        value1 = 'bar',
-        key2 = 'baz',
-        value2 = 'quux',
-        data = { [key1]: value1, [key2]: value2 },
-        container = jasmine.createSpy('div'),
-        body = jasmine.createSpyObj('body', ['append']),
-        doc = jasmine.createSpyObj('document', ['getElementById', 'createElement']),
-        formObject = jasmine.createSpy('form'),
-        formComponent = jasmine.createSpy('formComponent'),
-        formElement = jasmine.createSpyObj('formElement', ['submit']);
+    const url = '/foo';
+    const key1 = 'foo';
+    const value1 = 'foo';
+    const key2 = 'bar';
+    const value2 = 'bar';
+    const data = { [key1]: value1, [key2]: value2 };
 
     beforeEach(() => {
-      spyOn(Browser, 'getDocument').and.returnValue(doc);
-      doc.getElementById.and.returnValue(container);
-      doc.createElement.and.returnValue(container);
-      doc.body = body;
-      spyOn(React, 'createElement').and.returnValue(formObject);
-      spyOn(ReactDOM, 'render').and.returnValue(formComponent);
-      formComponent.refs = { form: formElement };
-      spyOn(ReactDOM, 'unmountComponentAtNode');
+      spyOn(Browser, 'getDocument').and.returnValue(document);
     });
 
     describe('when container not found', () => {
       it('creates a container', () => {
-        doc.getElementById = jasmine.createSpy();
-        Browser.postToNewWindow(url, data);
-        expect(doc.getElementById).toHaveBeenCalledWith('carbonPostFormContainer');
-        expect(doc.createElement).toHaveBeenCalledWith('div');
-        expect(container.id).toEqual('carbonPostFormContainer');
-        expect(body.append).toHaveBeenCalledWith(container);
+        spyOn(document.body, 'appendChild');
+        Browser.postToNewWindow(url, { foo: 'bar' });
+        expect(document.body.appendChild).toHaveBeenCalled();
       });
     });
 
     describe('when container found', () => {
       it('does not create a container', () => {
-        doc.createElement.calls.reset();
-        body.append.calls.reset();
+        addPostFormDiv();
+
+        spyOn(document.body, 'appendChild');
         Browser.postToNewWindow(url, data);
-        expect(doc.getElementById).toHaveBeenCalledWith('carbonPostFormContainer');
-        expect(doc.createElement).not.toHaveBeenCalled();
-        expect(body.append).not.toHaveBeenCalled();
+        expect(document.body.appendChild).not.toHaveBeenCalled();
       });
     });
 
     it('renders a form in the container', () => {
+      spyOn(React, 'createElement').and.callThrough();
+      spyOn(ReactDOM, 'render');
+
       Browser.postToNewWindow(url, data);
+
+      expect(ReactDOM.render).toHaveBeenCalledWith(
+        jasmine.any(Object), // Create Element call
+        document.getElementById('carbonPostFormContainer'),
+        jasmine.any(Function) // Anon Function
+      );
+
       expect(React.createElement).toHaveBeenCalledWith(Form, {
         action: url, method: 'post', target: '_blank', save: false, cancel: false
       }, jasmine.anything());
-      expect(ReactDOM.render).toHaveBeenCalledWith(formObject, container);
     });
 
     it('renders a hidden input for each data member', () => {
+      spyOn(React, 'createElement').and.callThrough();
       Browser.postToNewWindow(url, data);
       expect(React.createElement).toHaveBeenCalledWith('input', { type: 'hidden', key: key1, name: key1, value: value1 });
       expect(React.createElement).toHaveBeenCalledWith('input', { type: 'hidden', key: key2, name: key2, value: value2 });
     });
 
     it('submits the rendered form', () => {
+      spyOn(Browser, 'submitForm');
       Browser.postToNewWindow(url, data);
-      expect(formElement.submit).toHaveBeenCalled();
+      expect(Browser.submitForm).toHaveBeenCalled();
     });
 
     it('unmounts the rendered form', () => {
+      spyOn(ReactDOM, 'unmountComponentAtNode').and.callThrough();
       Browser.postToNewWindow(url, data);
-      expect(ReactDOM.unmountComponentAtNode).toHaveBeenCalledWith(container);
+      expect(ReactDOM.unmountComponentAtNode).toHaveBeenCalledWith(
+        document.getElementById('carbonPostFormContainer')
+      );
     });
 
     describe('when target option is passed', () => {
       it('sets the form target', () => {
+        spyOn(React, 'createElement').and.callThrough();
         let target = 'some_window';
 
         Browser.postToNewWindow(url, data, target);
@@ -208,4 +206,19 @@ describe('Browser', () => {
       });
     });
   });
+
+  describe('submitForm', () => {
+    it('calls submit on the passed form', () => {
+      const submitSpy = jasmine.createSpy('form-submit');
+      const form = { submit: submitSpy };
+      Browser.submitForm(form);
+      expect(submitSpy).toHaveBeenCalled();
+    });
+  });
 });
+
+function addPostFormDiv() {
+  const div = document.createElement("div");
+  div.setAttribute('id', 'carbonPostFormContainer');
+  document.body.appendChild(div);
+}
