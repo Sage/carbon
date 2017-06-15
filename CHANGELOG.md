@@ -1,3 +1,9 @@
+# 1.1.2
+
+## Component Enhancements
+
+* ALL: `data-component` will now be over-ridden if it's provided as a prop by the user
+
 # 1.1.1
 
 ## Component Enhancements
