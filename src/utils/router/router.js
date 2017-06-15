@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 
-let onRouteUpdate = () => {
+const onRouteUpdate = () => {
   global.window.scrollTo(0, 0);
 
   if (global.ga) {

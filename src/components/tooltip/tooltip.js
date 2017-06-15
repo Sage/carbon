@@ -43,6 +43,14 @@ class Tooltip extends React.Component {
     align: PropTypes.string,
 
     /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * Children elements
      *
      * @property children
@@ -76,6 +84,7 @@ class Tooltip extends React.Component {
   static defaultProps = {
     align: 'center',
     position: 'top',
+    className: '',
     isVisible: false
   };
 
@@ -101,9 +110,9 @@ class Tooltip extends React.Component {
    * @return {JSX}
    */
   get tooltipHTML() {
-    let contents = [
+    const contents = [
       this.props.children,
-      <span key='pointer' className='carbon-tooltip__pointer'></span>
+      <span key='pointer' className='carbon-tooltip__pointer' />
     ];
 
     return (
