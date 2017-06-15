@@ -4,23 +4,75 @@
 
 The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
 
+* AppWrapper
 * Carousel
+* Checkbox
+* Column
+* Content
+* Create
 * Date
 * DateRange
+* Decimal
+* Detail
+* Dropdown
+* DropdownFilter
+* DropdownFilterAjax
+* Fieldset
+* GroupedCharacter
+* Heading
+* Help
+* I18n
+* Icon
 * Link
 * Menu
 * MenuItem
 * MenuList
 * MenuListItem
+* Message
+* MountInApp
 * NavigationBar
+* NumberInput
+* Pod
+* Portrait
+* Profile
+* RadioButton
+* Row
+* SettingsRow
+* ShowEditPod
+* Sidebar
+* SimpleColorPicker
+* Spinner
 * SubmenuBlock
 * Tabs
+* Textarea
+* Textbox
+* Toast
+* Tooltip
+
+The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* CSS
+* Ether
+* Flux
+* Logger
+* Promises
+* Router
+* Service
+* Should Component Update decorator
+* Tooltip Decorator
+
+
+The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Handlers
+
 
 ## Component Improvements
 
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `InlineInputs` children are now wrapped by Columns by the component
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
+* `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
 
 ## Deployment Changes
 

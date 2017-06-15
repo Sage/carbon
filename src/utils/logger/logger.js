@@ -55,7 +55,7 @@ const Logger = {
   },
 
   deprecate: (message) => {
-    log(`[Deprecation] ${ message }`, 'warn');
+    log(`[Deprecation] ${message}`, 'warn');
   }
 };
 

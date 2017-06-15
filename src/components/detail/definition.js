@@ -21,11 +21,13 @@ let definition = new Definition('detail', Detail, {
     footnote: "This detail may require a footnote."
   },
   propTypes: {
+    className: "String",
     footnote: "String",
     icon: "String",
     children: "Node"
   },
   propDescriptions: {
+    className: "Classes to apply to the component.",
     footnote: "Some additional notes for this detail.",
     icon: "Render a specific icon alongside your detail.",
     children: "This component supports children."

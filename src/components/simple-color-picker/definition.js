@@ -11,7 +11,7 @@ let definition = new Definition('simple-color-picker', SimpleColorPicker, {
   relatedComponentsNotes: `
 * [Colors](/style/colors).
  `,
-  hiddenProps: ['availableColors'],
+  hiddenProps: ['availableColors', 'selectedColor', 'name'],
   propTypes: {
     availableColors: "Array",
     selectedColor: "String",
