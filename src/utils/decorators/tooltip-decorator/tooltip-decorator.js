@@ -1,5 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { startCase, assign } from 'lodash';
 import Tooltip from './../../../components/tooltip';
 import chainFunctions from './../../helpers/chain-functions';
@@ -205,7 +206,7 @@ const TooltipDecorator = ComposedComponent => class Component extends ComposedCo
    * @return {DOM node}
    */
   getTarget = () => {
-    return this._target || null;
+    return ReactDOM.findDOMNode(this._target); // eslint-disable-line no-find-dom-node
   }
 
   /**
@@ -215,7 +216,7 @@ const TooltipDecorator = ComposedComponent => class Component extends ComposedCo
    * @return {DOM node}
    */
   getTooltip = () => {
-    return this._tooltip || null;
+    return ReactDOM.findDOMNode(this._tooltip); // eslint-disable-line no-find-dom-node
   }
 
   /**
