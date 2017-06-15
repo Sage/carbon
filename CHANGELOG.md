@@ -5,6 +5,7 @@
 The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
 
 * AppWrapper
+* Create
 * Dropdown
 * DropdownFilter
 * DropdownFilterAjax
@@ -19,15 +20,19 @@ The following components have had minor internal changes to satisfy the introduc
 * Fieldset
 * GroupedCharacter
 * Heading
+* Help
 * I18n
+* Icon
 * Link
 * Menu
 * MenuItem
 * MenuList
 * MenuListItem
 * MultiStepWizard
+* Message
 * MountInApp
 * NavigationBar
+* NumberInput
 * Pod
 * Portrait
 * Profile
@@ -39,6 +44,16 @@ The following components have had minor internal changes to satisfy the introduc
 * Tabs
 * Textarea
 * Textbox
+
+The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Should Component Update decorator
+* Tooltip Decorator
+* Flux
+* Logger
+* Promises
+* Router
+* Service
 
 ## Component Improvements
 
