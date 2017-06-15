@@ -46,6 +46,7 @@ The following components have had minor internal changes to satisfy the introduc
 
 The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
 
+* Browser
 * Should Component Update decorator
 * Tooltip Decorator
 * Flux
