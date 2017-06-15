@@ -5,7 +5,7 @@ import CancelButton from './cancel-button';
 import Button from './../../button';
 
 describe('CancelButton', () => {
-  let wrapper, clickSpy;
+  let wrapper, clickFunction;
 
   beforeEach(() => {
     wrapper = shallow(<CancelButton/>);
@@ -44,15 +44,15 @@ describe('CancelButton', () => {
   });
 
   it('adds the onClick prop to the button', () => {
-    clickSpy = jasmine.createSpy('clickSpy')
+    clickFunction = () => { };
     wrapper = shallow(
       <CancelButton
-        cancelClick={ clickSpy }
+        cancelClick={ clickFunction }
       />
     );
 
     let button = wrapper.find('.carbon-form-cancel__button')
-    expect(button.prop('onClick')).toEqual(clickSpy)
+    expect(button.prop('onClick')).toEqual(clickFunction)
   });
 
   describe("tags", () => {

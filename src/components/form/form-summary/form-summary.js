@@ -9,10 +9,12 @@ const FormSummary = props =>
   <div className='carbon-form-summary' { ...tagComponent('form-summary', props) }>
     { summary(props, 'error') }
     { summary(props, 'warning') }
+    { props.children }
   </div>
 ;
 
 FormSummary.propTypes = {
+  children: PropTypes.node,
   errors: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number

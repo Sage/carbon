@@ -72,12 +72,6 @@ describe('SaveButton', () => {
       expect(wrapper.hasClass('carbon-form-save')).toBeTruthy();
       expect(wrapper.hasClass('carbon-form-save--invalid')).toBeTruthy();
     });
-
-    it('renders with form summary', () => {
-      let summary = wrapper.find('.carbon-form-save__summary');
-      expect(summary.prop('errors')).toEqual(2)
-      expect(summary.prop('warnings')).toEqual(1)
-    });
   });
 
   it('the button is enabled when the form is not saving', () => {

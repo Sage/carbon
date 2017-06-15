@@ -42,6 +42,7 @@ let definition = new Definition('form', Form, {
     additionalActions: "Node",
     onSubmit: "Function",
     iterative: "Boolean",
+    summary: "Boolean",
   },
   propDescriptions: {
     cancel: "Set to false to hide the cancel button.",
@@ -60,7 +61,8 @@ let definition = new Definition('form', Form, {
     save: "Set to false to hide the save button.",
     additionalActions: "Supply additional buttons alongside the form's buttons.",
     onSubmit: "A callback triggered when the form is submitted with passing validation.",
-    iterative: "A flag for when the user should be able to repeatedly save & re-use a form."
+    iterative: "A flag for when the user should be able to repeatedly save & re-use a form.",
+    summary: "Set to false to hide the summary"
   },
   propValues: {
     activeInput: '',

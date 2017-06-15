@@ -4,6 +4,7 @@ import Serialize from 'form-serialize';
 import classNames from 'classnames';
 import CancelButton from './cancel-button';
 import SaveButton from './save-button';
+import FormSummary from './form-summary';
 import { validProps } from '../../utils/ether';
 import { tagComponent } from '../../utils/helpers/tags';
 
@@ -138,11 +139,11 @@ class Form extends React.Component {
     save: PropTypes.bool,
 
     /**
-    * Additional actions rendered next to the save and cancel buttons
-    *
-    * @property additionalActions
-    * @type {String|JSX}
-    */
+     * Additional actions rendered next to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
     additionalActions: PropTypes.node,
 
     /**
@@ -175,7 +176,15 @@ class Form extends React.Component {
      * @property children
      * @type {Node}
      */
-    children: PropTypes.node
+    children: PropTypes.node,
+
+    /**
+     * Hide or show the summary
+     *
+     * @property showSummary
+     * @type {Boolean}
+     */
+    showSummary: PropTypes.bool
   }
 
   static defaultProps = {
@@ -185,7 +194,8 @@ class Form extends React.Component {
     save: true,
     saving: false,
     validateOnMount: false,
-    customSaveButton: null
+    customSaveButton: null,
+    showSummary: true
   }
 
   static childContextTypes = {
@@ -566,15 +576,34 @@ class Form extends React.Component {
   }
 
   /**
-   * Returns the buttons for the form
+   * Returns a form summary
    *
-   * @method buttons
+   * @method saveButtonWithSummary
    * @return {Object} JSX
    */
-  buttons = () => {
+  saveButtonWithSummary = () => {
+    return (
+      <FormSummary
+        className='carbon-form__summary'
+        errors={ this.state.errorCount }
+        warnings={ this.state.warningCount }
+      >
+        { this.saveButton() }
+      </FormSummary>
+    );
+  }
+
+  /**
+   * Returns the footer for the form
+   *
+   * @method footer
+   * @return {Object} JSX
+   */
+  formFooter = () => {
+    const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
     return (
       <div>
-        { this.saveButton() }
+        { save }
         { this.cancelButton() }
       </div>
     );
@@ -599,10 +628,10 @@ class Form extends React.Component {
    * @method buttonClasses
    * @return {String} Main className
    */
-  get buttonClasses() {
+  get footerClasses() {
     return classNames(
-      'carbon-form__buttons',
-      `carbon-form__buttons--${this.props.buttonAlign}`
+      'carbon-form__footer',
+      `carbon-form__footer--${this.props.buttonAlign}`
     );
   }
 
@@ -624,8 +653,8 @@ class Form extends React.Component {
 
         { this.props.children }
 
-        <div className={ this.buttonClasses }>
-          { this.buttons() }
+        <div className={ this.footerClasses }>
+          { this.formFooter() }
           { this.additionalActions }
         </div>
       </form>

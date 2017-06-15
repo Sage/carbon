@@ -4,15 +4,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { tagComponent } from '../../../utils/helpers/tags';
 import Button from './../../button';
-import FormSummary from './../form-summary';
 
 const SaveButton = props =>
   <div className={ saveClasses(props) } { ...tagComponent('save', props) }>
-    <FormSummary
-      className='carbon-form-save__summary'
-      errors={ props.errors }
-      warnings={ props.warnings }
-    />
     <Button { ...saveButtonProps(props) } data-element='save'>
       { saveText(props) }
     </Button>

@@ -9,13 +9,12 @@ import Dialog from './../dialog';
 import I18n from "i18n-js";
 import CancelButton from './cancel-button';
 import SaveButton from './save-button';
+import FormSummary from './form-summary';
 import Button from './../button';
 import MultiActionButton from './../multi-action-button';
 
 import { mount, shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-
-import FormSummary from './form-summary';
 
 describe('Form', () => {
   let instance, wrapper;
@@ -451,6 +450,12 @@ describe('Form', () => {
             expect(saveButton.prop('errors')).toEqual(2);
             expect(saveButton.prop('warnings')).toEqual(3);
           });
+
+          it('renders a form summary with expected props', () => {
+            let summary = wrapper.find(FormSummary);
+            expect(summary.prop('errors')).toEqual(2)
+            expect(summary.prop('warnings')).toEqual(3)
+          });
         });
 
         describe('when an additional save button is passed in', () => {
@@ -489,6 +494,22 @@ describe('Form', () => {
         it('does show a cancel button', () => {
           let wrapper = shallow(<Form />);
           expect(wrapper.find(CancelButton).length).toEqual(1);
+        });
+      });
+    });
+
+    describe('Summary', () => {
+      describe('when showSummary prop is false', () => {
+        it('does not show a form summary', () => {
+          let wrapper = shallow(<Form showSummary={ false } />);
+          expect(wrapper.find(FormSummary).length).toEqual(0);
+        });
+      });
+
+      describe('when showSummary prop is true (default)', () => {
+        it('does show a form summary', () => {
+          let wrapper = shallow(<Form />);
+          expect(wrapper.find(FormSummary).length).toEqual(1);
         });
       });
     });

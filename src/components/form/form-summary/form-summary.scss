@@ -1,10 +1,10 @@
 @import "./../../../style-config/colors";
 
 .carbon-form-summary {
-  display: inline-flex;
+  display: inline-block;
+  align-items: center;
   font-size: 13px;
   font-weight: 700;
-  padding: 0 3px;
   white-space: nowrap;
 
   &__summary {

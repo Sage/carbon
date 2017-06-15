@@ -5,23 +5,26 @@
   display: inline-block;
 }
 
-.carbon-form__buttons--right {
+.carbon-form__footer {
+  align-items: center;
   display: flex;
   flex-direction: row;
+  margin-top: 20px;
+}
+
+.carbon-form__footer--right {
   justify-content: flex-end;
 }
 
 .carbon-form-cancel {
   border-radius: 4px;
   display: inline-block;
-  margin-top: 20px;
   padding: 8px 0 8px 8px;
 }
 
 .carbon-form-save {
   border-radius: 4px;
   display: inline-block;
-  margin-top: 20px;
   padding: 8px;
 }
 
