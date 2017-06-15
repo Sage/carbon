@@ -6,9 +6,6 @@ The following components have had minor internal changes to satisfy the introduc
 
 * AppWrapper
 * Create
-* Dropdown
-* DropdownFilter
-* DropdownFilterAjax
 * Carousel
 * Checkbox
 * Column
@@ -17,6 +14,9 @@ The following components have had minor internal changes to satisfy the introduc
 * DateRange
 * Decimal
 * Detail
+* Dropdown
+* DropdownFilter
+* DropdownFilterAjax
 * Fieldset
 * GroupedCharacter
 * Heading
@@ -39,10 +39,15 @@ The following components have had minor internal changes to satisfy the introduc
 * Row
 * SettingsRow
 * ShowEditPod
+* Sidebar
+* SimpleColorPicker
+* Spinner
 * SubmenuBlock
 * Tabs
 * Textarea
 * Textbox
+* Toast
+* Tooltip
 
 The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
 
