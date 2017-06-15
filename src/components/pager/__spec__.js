@@ -114,7 +114,7 @@ describe('Pager', () => {
       });
     });
 
-    describe('when element is not incorrect', () => {
+    describe('when element type is not passed', () => {
       it('does not call onPagination', () => {
         instance.emitChangeCallback('', {});
         expect(spy1).not.toHaveBeenCalled();
