@@ -2,7 +2,9 @@
 
 ## Linting Updates
 
-The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
 
 * AppWrapper
 * Create
@@ -43,6 +45,16 @@ The following components have had minor internal changes to satisfy the introduc
 * Tabs
 * Textarea
 * Textbox
+
+### utils
+
+#### helpers
+
+* Date
+* Devices
+* Events
+* GUID
+* i18n
 
 ## Component Improvements
 
