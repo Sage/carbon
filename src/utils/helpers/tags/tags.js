@@ -7,7 +7,7 @@
  */
 function tagComponent(component, props) {
   const tagProps = {
-    ['data-component']: component
+    'data-component': component
   };
 
   if (props['data-element']) { tagProps['data-element'] = props['data-element']; }
@@ -16,6 +16,4 @@ function tagComponent(component, props) {
   return tagProps;
 }
 
-export {
-  tagComponent
-};
+export default tagComponent;

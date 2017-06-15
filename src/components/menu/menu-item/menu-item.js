@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign } from 'lodash';
 import Link from './../../link';
-import { tagComponent } from '../../../utils/helpers/tags';
+import tagComponent from '../../../utils/helpers/tags';
 
 /**
  * Renders a menu item for the menu component.

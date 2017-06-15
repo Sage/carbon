@@ -9,7 +9,7 @@ import InputValidation from './../../utils/decorators/input-validation';
 import Events from './../../utils/helpers/events';
 import { validProps, insertAt } from './../../utils/ether';
 
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 const GroupedCharacter = Input(InputLabel(InputValidation(
 class GroupedCharacter extends React.Component {

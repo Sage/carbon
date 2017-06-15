@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
 import Icons from './icons';
 import { validProps } from '../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * An Icon widget.
