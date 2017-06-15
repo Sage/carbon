@@ -1,4 +1,3 @@
-import React from 'react';
 import Devices from './devices';
 
 describe('devices', () => {
@@ -11,11 +10,10 @@ describe('devices', () => {
 
   describe('isTouchDevice', () => {
     describe('When it is a touch device', () => {
-
       beforeEach(() => {
-        _window['ontouchstart'] = () => {};
-        _navigator['MaxTouchPoints'] = 10;
-        _navigator['msMaxTouchPoints'] = 10;
+        _window.ontouchstart = () => {};
+        _navigator.MaxTouchPoints = 10;
+        _navigator.msMaxTouchPoints = 10;
       });
 
       describe('when browsing in Chrome or Firefox', () => {
@@ -38,10 +36,9 @@ describe('devices', () => {
     });
 
     describe('when it is not a touch device', () => {
-
       beforeEach(() => {
-        _navigator['MaxTouchPoints'] = 0;
-        _navigator['msMaxTouchPoints'] = 0;
+        _navigator.MaxTouchPoints = 0;
+        _navigator.msMaxTouchPoints = 0;
       });
 
       it('returns false', () => {
