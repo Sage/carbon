@@ -46,12 +46,13 @@ The following components have had minor internal changes to satisfy the introduc
 
 The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
 
+* Should Component Update decorator
+* Tooltip Decorator
 * Flux
 * Logger
 * Promises
 * Router
 * Service
-
 
 ## Component Improvements
 
