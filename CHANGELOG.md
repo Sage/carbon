@@ -36,7 +36,6 @@ The following components have had minor internal changes to satisfy the introduc
 * Portrait
 * Profile
 * RadioButton
-* Rainbow
 * Row
 * SettingsRow
 * ShowEditPod
