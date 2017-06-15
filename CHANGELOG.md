@@ -22,11 +22,13 @@ The following components have had minor internal changes to satisfy the introduc
 * Heading
 * Help
 * I18n
+* Icon
 * Link
 * Menu
 * MenuItem
 * MenuList
 * MenuListItem
+* Message
 * MountInApp
 * NavigationBar
 * NumberInput
@@ -46,6 +48,11 @@ The following utils have had minor internal changes to satisfy the introduction 
 
 * Should Component Update decorator
 * Tooltip Decorator
+* Flux
+* Logger
+* Promises
+* Router
+* Service
 
 ## Component Improvements
 
