@@ -1,0 +1,104 @@
+@import 'assets';
+@import 'colors';
+
+.demo-menu {
+  background-color: $white;
+
+  &__header {
+    background-image: url('#{$image-path}/carbon_logo-1.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border-bottom: 1px solid $grey-dark-blue-20;
+    height: 60px;
+    margin-left: -40px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  &__menu {
+    height: calc(100% - 230px);
+    overflow-y: scroll;
+    margin: 0 0 0 -5px;
+    padding-left: 5px;
+    width: calc(100% + 25px);
+
+    .carbon-menu-list__list {
+      margin: 0;
+
+      .carbon-menu-list__list {
+        padding-left: 10px;
+      }
+    }
+
+    .carbon-menu-list-item .carbon-menu-list-item {
+      line-height: 18px;
+
+      .carbon-link__anchor {
+        display: inline-block;
+        margin: 6px 0;
+        max-width: 96%;
+      }
+    }
+
+    .carbon-textbox {
+      line-height: 16px;
+      margin: 0 0 8px;
+      width: calc(100% - 25px);
+
+      .common-input__input {
+        border: none;
+        border-bottom: 1px dotted #828282;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &__logo-link {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  .carbon-sidebar {
+    &__close {
+      .carbon-icon {
+        padding: 15px 20px 25px 30px;
+      }
+      right: 0;
+      top: 0;
+    }
+    &__sidebar {
+      background-color: $white;
+      border: none;
+      box-sizing: content-box;
+      box-shadow: inset -1px 0 0 0 $grey-dark-blue-20;
+      padding-left: 40px;
+      padding-right: 40px;
+      width: 160px;
+      z-index: 12;
+    }
+  }
+
+  .carbon-modal__background {
+    z-index: 11;
+  }
+
+  &__buttons {
+    .carbon-button {
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center;
+      width: 100%;
+
+      &:first-child {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.demo-menu__buttons {
+  padding-top: 30px;
+}

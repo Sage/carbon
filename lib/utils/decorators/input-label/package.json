@@ -1,5 +1,0 @@
-{
-  "name": "input-label",
-  "style": "input-label.scss",
-  "main": "./input-label.js"
-}

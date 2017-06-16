@@ -1,10 +1,12 @@
 import css from './../../css';
 import React from 'react';
+import PropTypes from 'prop-types';
 import shouldComponentUpdate from './../../helpers/should-component-update';
-import { assign } from 'lodash';
+import { assign, union } from 'lodash';
 import guid from './../../helpers/guid';
 import classNames from 'classnames';
 import Icon from './../../../components/icon';
+import Help from './../../../components/help';
 
 /**
  * Input decorator.
@@ -64,8 +66,13 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: React.PropTypes.object
-  })
+    form: PropTypes.object
+  });
+
+  static propTypes = assign({}, ComposedComponent.propTypes, {});
+  // common safeprops
+  static safeProps = union([], ComposedComponent.safeProps, ['value']);
+
 
   /**
    * A lifecycle method for when the component has rendered.
@@ -162,6 +169,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       [`${css.input}--readonly`]: this.props.readOnly,
       [`${css.input}--align-${this.props.align}`]: this.props.align,
       [`${css.input}--with-prefix`]: this.props.prefix,
+      [`${css.input}--with-input-help`]: this.props.inputHelp,
       [`${css.input}--disabled`]: this.props.disabled
     });
   }
@@ -199,6 +207,12 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
 
     // Pass onPaste action to input element
     inputProps.onPaste = this.props.onPaste;
+
+    // Adds data tag for automation
+    inputProps["data-element"] = "input";
+
+    // Remove data-role as this should be applied on the top level element
+    delete inputProps["data-role"];
 
     return inputProps;
   }
@@ -270,6 +284,27 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     }
   }
 
+    /**
+   * Supplies the HTML for inputHelp component
+   *
+   * @method inputHelpHTML
+   * @return {Object} JSX for help
+   */
+  get inputHelpHTML() {
+    if (this.props.inputHelp) {
+      return (
+        <Help
+          className='common-input__input-help'
+          tooltipPosition={ this.props.inputHelpPosition }
+          tooltipAlign={ this.props.inputHelpAlign }
+          href={ this.props.inputHelpHref }
+        >
+          { this.props.inputHelp }
+        </Help>
+      );
+    }
+  }
+
   /**
    * Returns HTML for the input.
    *
@@ -297,6 +332,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
         { this.prefixHTML }
         { input }
         { this.additionalInputContent }
+        { this.inputHelpHTML }
       </div>
     );
   }

@@ -18,6 +18,14 @@ class TableSubheader extends TableHeader {
       super.tableHeaderClasses()
     );
   }
+
+  componentTags(props) {
+    return {
+      'data-component': 'table-sub-header',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
 }
 
 export default TableSubheader;
