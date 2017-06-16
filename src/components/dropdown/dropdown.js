@@ -90,7 +90,15 @@ class Dropdown extends React.Component {
      * @property cacheVisibleValue
      * @type {boolean}
      */
-    cacheVisibleValue: PropTypes.bool
+    cacheVisibleValue: PropTypes.bool,
+
+    /**
+     * An optional function to be passed that will render each of the dropdown's items.
+     *
+     * @property renderItem
+     * @type {Function}
+     */
+    renderItem: PropTypes.func
   }
 
   static defaultProps = {
