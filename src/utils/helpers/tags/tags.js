@@ -6,9 +6,10 @@
  * @return {Object} dataTagProps
  */
 function tagComponent(component, props) {
-  const tagProps = {};
+  const tagProps = {
+    ['data-component']: component
+  };
 
-  tagProps['data-component'] = props['data-component'] ? props['data-component'] : component;
   if (props['data-element']) { tagProps['data-element'] = props['data-element']; }
   if (props['data-role']) { tagProps['data-role'] = props['data-role']; }
 
