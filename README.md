@@ -57,7 +57,7 @@ See the guide on [installing unreleased changes](https://github.com/Sage/carbon/
 * N.B. Releases are created by Sage Carbon Team. We use [semantic versioning](http://semver.org/)
 
 * If releasing a minor version, create a branch from `master`.
-* If releasing a patch version, create a branch from the tag you want to patch. This should be the latest tag apart from exceptional cirumstances.
+* If releasing a patch version, create a branch from the tag you want to patch. This should be the latest tag apart from exceptional circumstances.
 * Bump the version in `package.json`.
 * Ensure the `CHANGELOG.md` is up to date.
 * Commit and push changes.
