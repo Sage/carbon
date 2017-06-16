@@ -90,57 +90,28 @@ export default class AppSwitcher extends React.Component {
   }
 
     /**
-     * Return each of the rendered application items
+     * Compose each of the individual pieces from applicationJson
      *
-     * @method createAppItems
+     * @method composeDrawer
      * @return JSX Elements
      */
 
-  createAppItems = (section) => {
-    return ( section.items.map((item,index) => {
-      return (<a href = {item.href} key = {'index-' + index} className = {this.styles().appItem}>
-                    {item.name}
-                </a>);
-    })
-    );
-  }
-
-    /**
-     * Return each of the rendered application sections
-     *
-     * @method createAppSections
-     * @return JSX Elements
-     */
-
-  createAppSections = () => {
+  compose = () => {
     let parsedJson = JSON.parse(this.props.applicationJson) || {};
-    return parsedJson.items.map((section, index) => {
-      let items = this.createAppItems(section);
+
+    let html = parsedJson.items.map((section, index) => {
+      let items = section.items.map((item,index) => {
+        return (<DrawerItem href = {item.href} key = {'index-' + index} cname = {this.styles().appItem} name={item.name} /> );
+      });
+
       return (
-                <div key={'index-' + index}>
-                  <div className = {this.styles().sectionTitle} > {section.title} </div>
-                  <div>{items}</div>
-                </div>
-      );
+          <DrawerSection cname = {this.styles().sectionTitle} key={'index-' + index} items = {items} title={section.title}/>
+        );
     });
+
+    return html;
   };
 
-    /**
-     * Return the rendered application drawer
-     *
-     * @method createAppDrawer
-     * @return JSX Elements
-     */
-
-  createAppDrawer = () => {
-    let sections = this.createAppSections();
-    return (
-            <div onClick={this.handleCloseWindow} className={this.styles().drawer}>
-                {sections}
-              <div className={this.styles().arrowUp} />
-            </div>
-    );
-  }
 
     /**
      * The main render method
@@ -150,15 +121,45 @@ export default class AppSwitcher extends React.Component {
      */
 
   render() {
-    let appDrawer = this.createAppDrawer();
-
     return (
             <span className={this.styles().menu} onClick={this.handleOpenWindow}>
               <Icon type='grid' />
-              <span> {this.props.menuTitle} </span>
-                { this.state.active ? appDrawer : null }
+              {this.props.menuTitle}
+              { this.state.active ?
+              <div onClick={this.handleCloseWindow} className={this.styles().drawer}>
+                        {this.compose()}
+                        <div className={this.styles().arrowUp} />
+                     </div> : null }
                 </span>
     );
   }
 
+}
+
+class DrawerSection extends React.Component {
+
+  constructor(...props) {
+    super(...props);
+  }
+
+  render() {
+    return (
+          <div>
+            <div className = {this.props.cname} > {this.props.title} </div>
+            <div>{this.props.items}</div>
+          </div>
+              );
+  }
+}
+
+class DrawerItem extends React.Component {
+
+  constructor(...props) {
+    super(...props);
+  }
+
+  render() {  return ( <a href={this.props.href} className={this.props.cname}>
+            {this.props.name}
+              </a>);
+  }
 }
