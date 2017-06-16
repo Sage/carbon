@@ -29,6 +29,7 @@ The following components have had minor internal changes to satisfy the introduc
 * MenuList
 * MenuListItem
 * Message
+* Modal
 * MountInApp
 * NavigationBar
 * NumberInput
@@ -42,6 +43,7 @@ The following components have had minor internal changes to satisfy the introduc
 * SettingsRow
 * ShowEditPod
 * Sidebar
+* Sidebar Header
 * SimpleColorPicker
 * Spinner
 * SubmenuBlock
