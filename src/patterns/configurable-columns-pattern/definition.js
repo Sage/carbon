@@ -10,9 +10,11 @@ let definition = new Definition('configurable-columns-pattern', ConfigurableColu
   hiddenProps: [],
   propValues: {
     data: `configurableColumnsData`,
+    onCancel: `() => {}`,
     onChange: `updateConfigurableColumn`,
     onDrag: `updateConfigurableColumnsData`,
     onReset: `resetConfigurableColumnsData`,
+    onSave: `() => {}`,
     title: 'Configure Columns'
   },
   propTypes: {

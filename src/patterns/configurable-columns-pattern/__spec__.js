@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import ConfigurableColumnsPattern from './configurable-columns-pattern';
-import { ConfigurableColumns, ConfigurableColumnRow } from './../configurable-columns';
+import { ConfigurableColumns, ConfigurableColumnRow } from './../../components/configurable-columns';
 
 describe('ConfigurableColumnsPattern', () => {
   let wrapper

@@ -18,7 +18,7 @@ import marked from 'marked';
 
 class Component extends React.Component {
   render() {
-    let definition = this.state.componentStore.get(this.props.params.name);
+    const definition = this.state.componentStore.get(this.props.params.name);
 
     return (
       <div>
@@ -32,13 +32,13 @@ class Component extends React.Component {
   }
 
   renderRelatedComponentsNotes = (definition) => {
-    let relatedComponentsNotes = definition.get('relatedComponentsNotes');
+    const relatedComponentsNotes = definition.get('relatedComponentsNotes');
 
     if (relatedComponentsNotes) {
       return (
         <PageContentArea title={ I18n.t('component_page.related_components') }>
           <InformationStyles>
-            <div dangerouslySetInnerHTML={{ __html: marked(relatedComponentsNotes) }} />
+            <div dangerouslySetInnerHTML={ { __html: marked(relatedComponentsNotes) } } />
           </InformationStyles>
         </PageContentArea>
       );
@@ -46,23 +46,22 @@ class Component extends React.Component {
   }
 
   renderDesignerNotes = (definition) => {
-    let designerNotes = definition.get('designerNotes');
+    const designerNotes = definition.get('designerNotes');
 
     if (designerNotes) {
       return (
         <PageContentArea title={ I18n.t('component_page.design_notes') }>
           <InformationStyles>
-            <div dangerouslySetInnerHTML={{ __html: marked(designerNotes) }} />
+            <div dangerouslySetInnerHTML={ { __html: marked(designerNotes) } } />
           </InformationStyles>
         </PageContentArea>
       );
-    } else {
-      return null;
     }
+    return null;
   }
 
   renderAPIs = (definition) => {
-    let apis = [<ComponentAPI definition={ definition } key="main" />];
+    const apis = [<ComponentAPI definition={ definition } key='main' />];
 
     definition.get('associatedDefinitions').forEach((associatedDefinition, index) => {
       apis.push(<ComponentAPI definition={ associatedDefinition } key={ index } />);

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ConfigurableColumns, ConfigurableColumnRow } from './../configurable-columns';
+import { ConfigurableColumns, ConfigurableColumnRow } from './../../components/configurable-columns';
 
 class ConfigurableColumnsPattern extends React.Component {
   static propTypes = {
