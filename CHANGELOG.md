@@ -32,6 +32,8 @@ The following components have had minor internal changes to satisfy the introduc
 * MountInApp
 * NavigationBar
 * NumberInput
+* Pager
+* Pill
 * Pod
 * Portrait
 * Profile
