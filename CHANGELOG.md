@@ -3,6 +3,7 @@
 ## Component Enhancements
 
 * ALL: `data-component` will now be over-ridden if it's provided as a prop by the user
+* `Dropdown` now accepts a new optional function prop `renderItem` which will be called to render each option in the list
 * `InputValidation`: now accepts a `warningType` prop which customizes the style of warning icon and message attached to an input.
 
 # 1.1.1
