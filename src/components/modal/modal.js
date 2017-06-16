@@ -168,16 +168,14 @@ class Modal extends React.Component {
     return null;
   }
 
-  /* eslint-disable no-useless-return */
-
   // Called after the modal opens
-  get onOpening() { return; }
+  get onOpening() { return null; }
   // Called after the modal closes
-  get onClosing() { return; }
+  get onClosing() { return null; }
   // Classes for parent div
-  get mainClasses() { return; }
+  get mainClasses() { return null; }
   // Modal HTML shown when open
-  get modalHTML() { return; }
+  get modalHTML() { return null; }
 
   // Modal transistion name
   get transitionName() { return 'modal'; }
@@ -185,9 +183,7 @@ class Modal extends React.Component {
   get backgroundTransitionName() { return 'modal-background'; }
 
   // stubbed method for component tags
-  componentTags() { return; }
-
-  /* eslint-enable no-useless-return */
+  componentTags() { return null; }
 
   /**
    * Renders the component.
