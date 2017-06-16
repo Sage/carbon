@@ -3,8 +3,8 @@ import escapeStringRegexp from 'escape-string-regexp';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Link from 'components/link';
-import Textbox from 'components/textbox';
+import Link from './../link';
+import Textbox from './../textbox';
 
 import MenuListItem from './menu-list-item';
 import { tagComponent } from '../../utils/helpers/tags';
@@ -36,6 +36,69 @@ import { tagComponent } from '../../utils/helpers/tags';
  * @constructor
  */
 class MenuList extends React.Component {
+  static propTypes = {
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node.isRequired,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
+     * Allow the menu to be collapsed
+     *
+     * @property collapsible
+     * @type {Boolean}
+     */
+    collapsible: PropTypes.bool,
+
+    /**
+     * Allow the menu to be filtered
+     *
+     * @property filter
+     * @type {Boolean}
+     */
+    filter: PropTypes.bool,
+
+    /**
+     * Placeholder text for the filter
+     *
+     * @property filterPlaceholder
+     * @type {String}
+     */
+    filterPlaceholder: PropTypes.string,
+
+    /**
+     * Set the menu open on mount
+     *
+     * @property initiallyOpen
+     * @type {Boolean}
+     */
+    initiallyOpen: PropTypes.bool,
+
+    /**
+     * The menu title
+     *
+     * @property title
+     * @type {String}
+     */
+    title: PropTypes.string
+  };
+
+  static defaultProps = {
+    filter: false,
+    collapsible: true
+  }
+
   constructor(...args) {
     super(...args);
 
@@ -48,33 +111,9 @@ class MenuList extends React.Component {
     this.toggleChildren = this.toggleChildren.bind(this);
   }
 
-  static propTypes = {
-    children: PropTypes.array.isRequired,
-    className: PropTypes.string,
-    filter: PropTypes.bool,
-    title: PropTypes.string,
-    collapsible: PropTypes.bool
-  };
-
   state = {
     filter: null,
     open: this.props.initiallyOpen || false
-  }
-
-  static defaultProps = {
-    filter: false,
-    collapsible: true
-  }
-
-  render() {
-    return (
-      <div className={ this.mainClasses() } { ...tagComponent('menu-list', this.props) }>
-        { this.menuTitle() }
-        <ul className='carbon-menu-list__list'>
-          { this.menuItems() }
-        </ul>
-      </div>
-    );
   }
 
   /** Actions **/
@@ -82,7 +121,7 @@ class MenuList extends React.Component {
     this.setState({ filter: ev.target.value, open: true });
   }
 
-  toggleChildren(){
+  toggleChildren() {
     this.setState({ open: !this.state.open });
   }
 
@@ -96,12 +135,22 @@ class MenuList extends React.Component {
   filterHTML() {
     if (!this.props.filter) { return null; }
 
-    return (<MenuListItem key={ 'filter' }><Textbox onChange={ this.onSearch } value={ this.state.filter || '' } autoFocus={ true } icon="search" placeholder={ this.props.filterPlaceholder } /></MenuListItem>);
+    return (
+      <MenuListItem key={ 'filter' }>
+        <Textbox
+          onChange={ this.onSearch }
+          value={ this.state.filter || '' }
+          autoFocus
+          icon='search'
+          placeholder={ this.props.filterPlaceholder }
+        />
+      </MenuListItem>
+    );
   }
 
   mainClasses() {
     return classNames(
-      "carbon-menu-list",
+      'carbon-menu-list',
       this.props.className
     );
   }
@@ -111,7 +160,7 @@ class MenuList extends React.Component {
       let items = this.props.children;
 
       if (this.props.filter && this.state.filter) {
-        let regex = new RegExp(escapeStringRegexp(this.state.filter), 'i');
+        const regex = new RegExp(escapeStringRegexp(this.state.filter), 'i');
         items = items.filter(child => child.props.name.search(regex) > -1);
       }
 
@@ -120,6 +169,7 @@ class MenuList extends React.Component {
         items
       ]);
     }
+    return null;
   }
 
   menuTitle() {
@@ -133,6 +183,17 @@ class MenuList extends React.Component {
       >
         { this.props.title }
       </Link>
+    );
+  }
+
+  render() {
+    return (
+      <div className={ this.mainClasses() } { ...tagComponent('menu-list', this.props) }>
+        { this.menuTitle() }
+        <ul className='carbon-menu-list__list'>
+          { this.menuItems() }
+        </ul>
+      </div>
     );
   }
 }

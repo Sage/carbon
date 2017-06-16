@@ -19,10 +19,14 @@ let definition = new Definition('checkbox', Checkbox, {
     value: false
   },
   propTypes: {
-    reverse: 'Boolean'
+    checked: 'Boolean',
+    reverse: 'Boolean',
+    value: 'Boolean'
   },
   propDescriptions: {
-    reverse: 'Flips the input and label render order'
+    checked: 'Set the checkbox as checked',
+    reverse: 'Flips the input and label render order',
+    value: 'Set the value of the checkbox'
   }
 });
 

@@ -10,11 +10,33 @@ import { tagComponent } from '../../utils/helpers/tags';
  */
 class Menu extends React.Component {
   static propTypes = {
-    as: PropTypes.string // defines the style of the component eg. primary/secondary
+    /**
+     * Defines the style of the component eg. primary/secondary
+     *
+     * @property as
+     * @type {String}
+     */
+    as: PropTypes.string,
+
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string
   }
 
   static defaultProps = {
-    as: "primary"
+    as: 'primary'
   }
 
   /**
@@ -25,7 +47,7 @@ class Menu extends React.Component {
    */
   get classes() {
     return classNames(
-      "carbon-menu",
+      'carbon-menu',
       this.props.className,
       `carbon-menu--${this.props.as}`
     );
@@ -36,9 +58,9 @@ class Menu extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes } { ...tagComponent('menu', this.props) }>
+      <nav className={ this.classes } { ...tagComponent('menu', this.props) }>
         { this.props.children }
-      </div>
+      </nav>
     );
   }
 }

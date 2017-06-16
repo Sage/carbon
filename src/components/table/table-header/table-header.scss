@@ -1,4 +1,5 @@
 @import "./../../../style-config/colors";
+@import "./../../../style-config/mixins";
 @import "./../../../style-config/tables";
 
 .carbon-table-header {
@@ -9,7 +10,7 @@
   border-top: none;
   box-sizing: border-box;
   color: $white;
-  font-weight: normal;
+  font-weight: 700;
   height: $tables__header-height;
   line-height: 10px;
   outline: medium none;
@@ -33,6 +34,16 @@
     &:last-child {
       border-radius: 0 $tables__border-radius 0 0;
     }
+  }
+}
+
+.carbon-table-header--sort {
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    color: $white;
+    text-decoration: none;
   }
 }
 
@@ -72,4 +83,8 @@
   &:hover {
     background-color: $grey-dark-blue-90;
   }
+}
+
+.carbon-table-header--sort-description {
+  @include visually-hidden();
 }

@@ -1,14 +1,41 @@
 import React from 'react';
+import I18n from "i18n-js";
+import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
 import Decimal from './decimal';
-import I18n from "i18n-js";
-import ReactDOM from 'react-dom';
 import Events from './../../utils/helpers/events';
-import { shallow } from 'enzyme';
+import I18nHelper from './../../utils/helpers/i18n';
+import PropTypesHelper from '../../utils/helpers/prop-types';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Decimal', () => {
   var instance;
+
+  describe('Custom prop types', () => {
+    describe('precision', () => {
+
+      beforeEach(() => {
+        spyOn(I18nHelper, 'formatDecimal').and.returnValue('20.00');
+        spyOn(console, 'error');
+      });
+
+      describe('when in a valid range', () => {
+        it('outputs a prop console error', () => {
+          spyOn(PropTypesHelper, 'inValidRange').and.returnValue(new Error('foo'));
+          instance = shallow(<Decimal />);
+          expect(console.error.calls.argsFor(0)[0]).toMatch('foo');
+        });
+      });
+
+      describe('when not in a valid range', () => {
+        it('outputs a prop console error', () => {
+          spyOn(PropTypesHelper, 'inValidRange').and.returnValue(new Error('foo'));
+          instance = shallow(<Decimal />);
+          expect(console.error.calls.count()).toEqual(0);
+        });
+      });
+    });
+  });
 
   describe('with no options', () => {
     beforeEach(() => {
@@ -23,7 +50,8 @@ describe('Decimal', () => {
 
     describe('handleBlur using default value', () => {
       it('calls set state with the formatted value', () => {
-        instance.refs.hidden.value = "9999";
+        const wrapper = shallow(<Decimal value="9999" name="total" />);
+        const instance = wrapper.instance();
         spyOn(instance, 'setState');
         instance.handleBlur();
         expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "9,999.00" });
@@ -140,11 +168,11 @@ describe('Decimal', () => {
       });
 
       it('sets the hiddenField value as if it had been changed', () => {
-        expect(instance.refs.hidden.value).toEqual('100');
+        expect(instance._hiddenInput.value).toEqual('100');
       });
 
       it('calls _handleOnChange with a dummy event', () => {
-        expect(instance._handleOnChange).toHaveBeenCalledWith({ target: instance.refs.hidden });
+        expect(instance._handleOnChange).toHaveBeenCalledWith({ target: instance._hiddenInput });
       });
     });
 
@@ -428,11 +456,12 @@ describe('Decimal', () => {
 
     describe('hiddenInputProps', () => {
       it('sets type and readOnly', () => {
-        expect(instance.refs.hidden.type).toEqual("hidden");
-        expect(instance.refs.hidden.readOnly).toBeTruthy();
-        expect(instance.refs.hidden.value).toEqual("1000.00");
-        expect(instance.refs.hidden.defaultValue).toEqual("1000.00");
-        expect(instance.refs.hidden.name).toEqual("total");
+        const hiddenInput = instance._hiddenInput;
+        expect(hiddenInput.type).toEqual("hidden");
+        expect(hiddenInput.readOnly).toBeTruthy();
+        expect(hiddenInput.value).toEqual("1000.00");
+        expect(hiddenInput.defaultValue).toEqual("1000.00");
+        expect(hiddenInput.name).toEqual("total");
       });
     });
 

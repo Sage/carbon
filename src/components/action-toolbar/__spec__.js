@@ -8,7 +8,7 @@ describe('action toolbar', () => {
   let instance;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(<ActionToolbar actions={[ {}, {} ]} className="foo" />);
+    instance = TestUtils.renderIntoDocument(<ActionToolbar actions={ { foo:{}, bar:{} } } className="foo" />);
   });
 
   describe('componentWillMount', () => {
@@ -51,14 +51,18 @@ describe('action toolbar', () => {
 
   describe('buildAction', () => {
     it('returns a link with props', () => {
-      let action = instance.buildAction({
-        onClick: () => {},
+      const spy = jasmine.createSpy('onClick');
+      const event = jasmine.createSpy('event');
+      instance.setState({selected: true});
+      const action = instance.buildAction({
+        onClick: (event, selected) => { spy(selected, event) },
         text: 'foo',
         className: 'bar'
       }, 1);
-
       expect(action.props.className).toEqual('carbon-action-toolbar__action bar');
       expect(action.props.children).toEqual('foo');
+      action.props.onClick(event)
+      expect(spy).toHaveBeenCalledWith(event, instance.state.selected)
     });
   });
 
@@ -90,7 +94,7 @@ describe('action toolbar', () => {
     describe("on component", () => {
       let wrapper = shallow(
         <ActionToolbar
-          actions={ [] }
+          actions={ {} }
           data-element='bar'
           data-role='baz'
         />
@@ -102,7 +106,7 @@ describe('action toolbar', () => {
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(<ActionToolbar actions={ [ ()=>{} ] } />);
+      let wrapper = shallow(<ActionToolbar actions={ { foo: 'bar' } } />);
 
       elementsTagTest(wrapper, [
         'action',

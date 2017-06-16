@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
-import classNames from 'classnames';
 import { tagComponent } from '../../utils/helpers/tags';
 import { validProps } from '../../utils/ether';
 
@@ -29,13 +29,37 @@ class Checkbox extends React.Component {
 
   static propTypes = {
     /**
+     * Set the value of the checkbox
+     *
+     * @property checked
+     * @type {Boolean}
+     */
+    checked: PropTypes.boolean,
+
+    /**
+     * Displays fieldHelp inline with the checkbox
+     *
+     * @property fieldHelpInline
+     * @type {Boolean}
+     */
+    fieldHelpInline: PropTypes.bool,
+
+    /**
      * Reverses label and checkbox display
      *
      * @property reverse
      * @type {Boolean}
      * @default false
      */
-    reverse: PropTypes.bool
+    reverse: PropTypes.bool,
+
+    /**
+     * Set the value of the checkbox
+     *
+     * @property value
+     * @type {Boolean}
+     */
+    value: PropTypes.boolean
   }
 
   static defaultProps = {
@@ -52,7 +76,7 @@ class Checkbox extends React.Component {
   handleOnChange = (ev) => {
     // we handle the change event manually here, as we pass the checked param
     // instead of value
-    this._handleOnChange({ target: { value: ev.target.checked }});
+    this._handleOnChange({ target: { value: ev.target.checked } });
   }
 
   /**
@@ -83,13 +107,13 @@ class Checkbox extends React.Component {
    * @return {Object} Props to be applied to the input
    */
   get inputProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
     // React uses checked instead of value to define the state of a checkbox
-    props.checked   = this.props.checked !== undefined ? this.props.checked : this.props.value;
+    props.checked = this.props.checked !== undefined ? this.props.checked : this.props.value;
     props.className = this.inputClasses;
-    props.onChange  = this.handleOnChange;
-    props.type      = 'checkbox';
-    props.value     = '1';
+    props.onChange = this.handleOnChange;
+    props.type = 'checkbox';
+    props.value = '1';
     return props;
   }
 
@@ -100,12 +124,12 @@ class Checkbox extends React.Component {
    * @return {Object} Props to be applied to the hidden input
    */
   get hiddenInputProps() {
-    let props = {
-      name:           this.inputProps.name,
-      readOnly:       true,
-      ref:            'hidden',
-      type:           'hidden',
-      value:          '0',
+    const props = {
+      name: this.inputProps.name,
+      readOnly: true,
+      ref: 'hidden',
+      type: 'hidden',
+      value: '0',
       'data-element': 'hidden-input'
     };
 
@@ -118,19 +142,21 @@ class Checkbox extends React.Component {
    * @return {Object} JSX svg
    */
   get checkboxSprite() {
-    return(
+    return (
       <svg width='15' height='15' viewBox='0 0 15 15'>
-        <rect className='checkbox-outline' fill='#AFAFAF' x='0' y='0' width='15' height='15'></rect>
-        <rect className='checkbox-fill' fill='#FFFFFF' x='1' y='1' width='13' height='13'></rect>
-        <path d="M5.06079081,11.805307 L2.2548404,9.4508351 C1.95287351,9.19745479 1.91372172,
-        8.74748731 2.16708208,8.44554418 L3.08395978,7.35285189 C3.3376225,7.05054844 3.78738919,
-        7.01144632 4.08921714,7.26471004 L6.46118447,9.25502694 L11.4959248,3.25485701 C11.7492184,
-        2.95299356 12.1993451,2.91365198 12.5012882,3.16701234 L13.5939805,4.08389004 C13.896284,
-        4.33755276 13.9353536,4.78735811 13.6820499,5.08923375 L8.30934217,11.4921775 C8.28333213,
-        11.5485068 8.24949267,11.6023543 8.20769039,11.6521724 L7.2908127,12.7448647 C7.12011041,
-        12.9482997 6.86060017,13.032541 6.61713008,12.9887006 C6.48855215,12.9709764 6.36324771,
-        12.9179844 6.25647356,12.8283903 L5.16378128,11.9115126 C5.12512704,11.8790778 5.09077658,
-        11.8434362 5.06079081,11.805307 L5.06079081,11.805307 Z" className='checkbox-check' fill='#FFFFFF'></path>
+        <rect className='checkbox-outline' fill='#AFAFAF' x='0' y='0' width='15' height='15' />
+        <rect className='checkbox-fill' fill='#FFFFFF' x='1' y='1' width='13' height='13' />
+        <path
+          d={ 'M5.06079081,11.805307 L2.2548404,9.4508351 C1.95287351,9.19745479 1.91372172,' +
+        '8.74748731 2.16708208,8.44554418 L3.08395978,7.35285189 C3.3376225,7.05054844 3.78738919,' +
+        '7.01144632 4.08921714,7.26471004 L6.46118447,9.25502694 L11.4959248,3.25485701 C11.7492184,' +
+        '2.95299356 12.1993451,2.91365198 12.5012882,3.16701234 L13.5939805,4.08389004 C13.896284,' +
+        '4.33755276 13.9353536,4.78735811 13.6820499,5.08923375 L8.30934217,11.4921775 C8.28333213,' +
+        '11.5485068 8.24949267,11.6023543 8.20769039,11.6521724 L7.2908127,12.7448647 C7.12011041,' +
+        '12.9482997 6.86060017,13.032541 6.61713008,12.9887006 C6.48855215,12.9709764 6.36324771,' +
+        '12.9179844 6.25647356,12.8283903 L5.16378128,11.9115126 C5.12512704,11.8790778 5.09077658,' +
+        '11.8434362 5.06079081,11.805307 L5.06079081,11.805307 Z' } className='checkbox-check' fill='#FFFFFF'
+        />
       </svg>
     );
   }
@@ -181,7 +207,7 @@ class Checkbox extends React.Component {
       labelRight = this.labelHTML;
     }
 
-    return(
+    return (
       <div className={ this.mainClasses } { ...tagComponent('checkbox', this.props) }>
         { labelLeft }
         { fieldHelpLeft }

@@ -4,7 +4,7 @@ import Dialog from './dialog';
 import I18n from 'i18n-js';
 import Bowser from 'bowser';
 import Button from './../button';
-import Row from './../row'
+import { Row, Column } from './../row'
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
@@ -164,8 +164,8 @@ describe('Dialog', () => {
             open={ true }
             title={
               <Row>
-                <div>Row1</div>
-                <div>Row2</div>
+                <Column>Row1</Column>
+                <Column>Row2</Column>
               </Row>
             }
           />

@@ -37,7 +37,20 @@ class SidebarHeader extends React.Component {
      * @property children
      * @type {Multiple}
      */
-    children: PropTypes.node
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string
+  }
+
+  static defaultProps = {
+    children: null,
+    className: ''
   }
 
   /**

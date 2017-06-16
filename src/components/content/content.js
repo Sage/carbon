@@ -83,10 +83,10 @@ class Content extends React.Component {
   }
 
   static defaultProps = {
-    align:         'left',
-    as:            'primary',
+    align: 'left',
+    as: 'primary',
     bodyFullWidth: false,
-    inline:        false
+    inline: false
   }
 
   constructor(args) {
@@ -95,34 +95,6 @@ class Content extends React.Component {
     this.titleStyle = this.titleStyle.bind(this);
     this.bodyStyle = this.bodyStyle.bind(this);
     this.classes = this.classes.bind(this);
-  }
-
-  /**
-   * @method render
-   * @return {Object} JSX
-   */
-  render() {
-    if (this.props.children) {
-      return (
-        <div className={ this.classes() } { ...tagComponent('content', this.props) }>
-          <div
-            className='carbon-content__title'
-            data-element='title'
-            style={ this.titleStyle() }
-          >
-            { this.props.title }
-          </div>
-
-          <div
-            className='carbon-content__body'
-            style={ this.bodyStyle() }
-          >
-            { this.props.children }
-          </div>
-        </div>
-      );
-    }
-    return null;
   }
 
   /**
@@ -137,7 +109,7 @@ class Content extends React.Component {
       this.props.className,
       `carbon-content--${this.props.as}`,
       `carbon-content--align-${this.props.align}`, {
-        'carbon-content--inline':          this.props.inline,
+        'carbon-content--inline': this.props.inline,
         'carbon-content--body-full-width': this.props.bodyFullWidth
       }
     );
@@ -177,6 +149,35 @@ class Content extends React.Component {
     }
 
     return style;
+  }
+
+  /**
+   * @method render
+   * @return {Object} JSX
+   */
+  render() {
+    if (this.props.children) {
+      return (
+        <div className={ this.classes() } { ...tagComponent('content', this.props) }>
+          <div
+            className='carbon-content__title'
+            data-element='title'
+            style={ this.titleStyle() }
+          >
+            { this.props.title }
+          </div>
+
+          <div
+            className='carbon-content__body'
+            data-element='body'
+            style={ this.bodyStyle() }
+          >
+            { this.props.children }
+          </div>
+        </div>
+      );
+    }
+    return null;
   }
 }
 

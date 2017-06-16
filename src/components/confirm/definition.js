@@ -26,20 +26,22 @@ let definition = new Definition('confirm', Confirm, {
     children: 'This is an example of a confirm.'
   },
   propTypes: {
-    title: "String",
-    size: "String",
-    showCloseIcon: "Boolean",
-    onConfirm: "Function",
     cancelLabel: "String",
-    confirmLabel: "String"
+    confirmLabel: "String",
+    onConfirm: "Function",
+    showCloseIcon: "Boolean",
+    size: "String",
+    subtitle: "String",
+    title: "String"
   },
   propDescriptions: {
+    cancelLabel: "Define custom text for the cancel button.",
+    confirmLabel: "Define custom text for the confirm button.",
+    onConfirm: "A callback when the user selects confirm.",
     showCloseIcon: "Set this prop to false to hide the close icon within the dialog.",
     size: "Change this prop to set the dialog to a specific size. Possible values include: " + OptionsHelper.sizesFull.join(", "),
-    title: "Controls the main title of the dialog.",
-    onConfirm: "A callback when the user selects confirm.",
-    cancelLabel: "Define custom text for the cancel button.",
-    confirmLabel: "Define custom text for the confirm button."
+    subtitle: "Controls the subtitle of the dialog.",
+    title: "Controls the main title of the dialog."
   }
 });
 

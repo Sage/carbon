@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default {
   __html:
     '<svg class="carbon-icon__svg carbon-icon__svg--sort-down" width="10px" height="11px" viewBox="0 0 10 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">' +

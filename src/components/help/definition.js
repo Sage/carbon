@@ -21,6 +21,7 @@ let definition = new Definition('help', Help, {
   },
   propTypes: {
     children: "Node",
+    className: "String",
     href: "String",
     tooltipAlign: "String",
     tooltipPosition: "String",
@@ -28,6 +29,7 @@ let definition = new Definition('help', Help, {
   },
   propDescriptions: {
     children: "This component supports children.",
+    className: "Classes to apply to the component.",
     href: "Set's a href to link this help icon to.",
     tooltipAlign: "Aligns the tooltip.",
     tooltipPosition: "Positions the tooltip with the icon.",

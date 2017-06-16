@@ -13,7 +13,7 @@ describe('TableRow', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Table actions={ [] }>
+      <Table>
         <TableRow className="foo">
           <TableCell />
         </TableRow>
@@ -21,7 +21,7 @@ describe('TableRow', () => {
     );
 
     clickableInstance = TestUtils.renderIntoDocument(
-      <Table actions={ [] }>
+      <Table>
         <TableRow className="foo" onClick={ function() {}}>
           <TableCell />
         </TableRow>
@@ -34,7 +34,7 @@ describe('TableRow', () => {
       describe('if no unique id', () => {
         it('throws error', () => {
           var render = function() {
-            TestUtils.renderIntoDocument(<Table actions={ [] }highlightable={ true }><TableRow></TableRow></Table>);
+            TestUtils.renderIntoDocument(<Table highlightable={ true }><TableRow></TableRow></Table>);
           }
           expect(render).toThrowError('A TableRow which is selectable or highlightable should provide a uniqueID.');
         });
@@ -43,7 +43,7 @@ describe('TableRow', () => {
       describe('if unique id', () => {
         it('does not throw error', () => {
           var render = function() {
-            TestUtils.renderIntoDocument(<Table actions={ [] }highlightable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
+            TestUtils.renderIntoDocument(<Table highlightable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
           }
           expect(render).not.toThrowError();
         });
@@ -54,7 +54,7 @@ describe('TableRow', () => {
       describe('if no unique id', () => {
         it('throws error', () => {
           var render = function() {
-            TestUtils.renderIntoDocument(<Table actions={ [] }selectable={ true }><TableRow></TableRow></Table>);
+            TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow></TableRow></Table>);
           }
           expect(render).toThrowError('A TableRow which is selectable or highlightable should provide a uniqueID.');
         });
@@ -63,7 +63,7 @@ describe('TableRow', () => {
       describe('if unique id', () => {
         it('does not throw error', () => {
           var render = function() {
-            TestUtils.renderIntoDocument(<Table actions={ [] }selectable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
+            TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
           }
           expect(render).not.toThrowError();
         });
@@ -73,7 +73,7 @@ describe('TableRow', () => {
     describe('if neither highlightable or selectable', () => {
       it('does not throw error', () => {
         var render = function() {
-          TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow></TableRow></Table>);
+          TestUtils.renderIntoDocument(<Table><TableRow></TableRow></Table>);
         }
         expect(render).not.toThrowError();
       });
@@ -82,7 +82,7 @@ describe('TableRow', () => {
     describe('if attachToTable is defined', () => {
       describe('if uniqueID', () => {
         beforeEach(() => {
-          instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow uniqueID="foo"></TableRow></Table>);
+          instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo"></TableRow></Table>);
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
           spyOn(row.context, 'attachToTable');
           spyOn(row.context, 'checkSelection');
@@ -100,7 +100,7 @@ describe('TableRow', () => {
 
       describe('if no uniqueID', () => {
         it('does not call attachToTable', () => {
-          instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow></TableRow></Table>);
+          instance = TestUtils.renderIntoDocument(<Table><TableRow></TableRow></Table>);
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
           spyOn(row.context, 'attachToTable');
           row.componentWillMount();
@@ -111,7 +111,7 @@ describe('TableRow', () => {
 
     describe('if selected via props', () => {
       it('calls setState', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow selected={ true }></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow selected={ true }></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
         row.componentWillMount();
@@ -121,7 +121,7 @@ describe('TableRow', () => {
 
     describe('if highlighted via props', () => {
       it('calls setState', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow highlighted={ true }></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted={ true }></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
         row.componentWillMount();
@@ -134,7 +134,7 @@ describe('TableRow', () => {
     describe('if detachFromTable', () => {
       describe('if context', () => {
         it('calls detachFromTable', () => {
-          instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow uniqueID="foo"></TableRow></Table>);
+          instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo"></TableRow></Table>);
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
           spyOn(row.context, 'detachFromTable');
           row.componentWillUnmount();
@@ -144,7 +144,7 @@ describe('TableRow', () => {
 
       describe('if no context', () => {
         it('does not throw error', () => {
-          instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow uniqueID="foo"></TableRow></Table>);
+          instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo"></TableRow></Table>);
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
           row.context = {};
           row.componentWillUnmount();
@@ -157,7 +157,7 @@ describe('TableRow', () => {
   describe('componentWillReceiveProps', () => {
     describe('when uniqueID does not match', () => {
       it('calls checkSelection', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow uniqueID="foo"></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo"></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row.context, 'checkSelection');
         row.componentWillReceiveProps({ uniqueID: "bar" });
@@ -167,7 +167,7 @@ describe('TableRow', () => {
 
     describe('when uniqueID matches', () => {
       it('does not call checkSelection', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow uniqueID="foo"></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo"></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row.context, 'checkSelection');
         row.componentWillReceiveProps({ uniqueID: "foo" });
@@ -177,7 +177,7 @@ describe('TableRow', () => {
 
     describe('when selected prop does not match', () => {
       it('calls setState', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow selected={ true }></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow selected={ true }></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
         row.componentWillReceiveProps({ selected: false });
@@ -187,7 +187,7 @@ describe('TableRow', () => {
 
     describe('when selected prop matches', () => {
       it('does not call checkSelection', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow selected={ true }></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow selected={ true }></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
         row.componentWillReceiveProps({ selected: true });
@@ -197,7 +197,7 @@ describe('TableRow', () => {
 
     describe('when highlighted prop does not match', () => {
       it('calls setState', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow highlighted={ true }></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted={ true }></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
         row.componentWillReceiveProps({ highlighted: false });
@@ -207,7 +207,7 @@ describe('TableRow', () => {
 
     describe('when highlighted prop matches', () => {
       it('does not call checkSelection', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow highlighted={ true }></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted={ true }></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
         row.componentWillReceiveProps({ highlighted: true });
@@ -218,7 +218,7 @@ describe('TableRow', () => {
 
   describe('onSelectAll', () => {
     it('calls selectAll via the context', () => {
-      instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow selected={ true }></TableRow></Table>);
+      instance = TestUtils.renderIntoDocument(<Table><TableRow selected={ true }></TableRow></Table>);
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
       spyOn(row.context, 'selectAll');
       row.onSelectAll();
@@ -228,7 +228,7 @@ describe('TableRow', () => {
 
   describe('onRowClick', () => {
     it('calls highlightRow via context', () => {
-      instance = TestUtils.renderIntoDocument(<Table actions={ [] } highlightable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
+      instance = TestUtils.renderIntoDocument(<Table  highlightable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
       spyOn(row.context, 'highlightRow');
       row.onRowClick();
@@ -238,7 +238,7 @@ describe('TableRow', () => {
     describe('if onHighlight is defined as a prop', () => {
       it('calls onSelect', () => {
         let spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow onHighlight={ spy } uniqueID="foo"></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow onHighlight={ spy } uniqueID="foo"></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         row.onRowClick();
         expect(spy).toHaveBeenCalledWith("foo", true, row);
@@ -248,7 +248,7 @@ describe('TableRow', () => {
     describe('if onClick is defined as a prop', () => {
       it('calls onClick', () => {
         let spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow onClick={ spy }></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow onClick={ spy }></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         row.onRowClick("foo");
         expect(spy).toHaveBeenCalledWith("foo");
@@ -258,7 +258,7 @@ describe('TableRow', () => {
 
   describe('onSelect', () => {
     it('calls selectRow via context', () => {
-      instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow uniqueID="foo"></TableRow></Table>);
+      instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo"></TableRow></Table>);
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
       spyOn(row.context, 'selectRow');
       row.onSelect();
@@ -268,7 +268,7 @@ describe('TableRow', () => {
     describe('if onSelect is defined as a prop', () => {
       it('calls onSelect', () => {
         let spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow uniqueID="foo" onSelect={ spy }></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo" onSelect={ spy }></TableRow></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         row.onSelect({ target: { value: true } });
         expect(spy).toHaveBeenCalledWith("foo", true, row);
@@ -292,7 +292,7 @@ describe('TableRow', () => {
   describe('when selected', () => {
     it('renders the selected class', () => {
       instance = TestUtils.renderIntoDocument(
-        <Table actions={ [] }>
+        <Table>
           <TableRow selected={ true }>
             <TableCell />
           </TableRow>
@@ -306,7 +306,7 @@ describe('TableRow', () => {
   describe('when highlighted', () => {
     it('renders the highlighted class', () => {
       instance = TestUtils.renderIntoDocument(
-        <Table actions={ [] }>
+        <Table>
           <TableRow highlighted={ true }>
             <TableCell />
           </TableRow>
@@ -320,7 +320,7 @@ describe('TableRow', () => {
   describe('when highlighted and selected', () => {
     it('only renders the selected class', () => {
       instance = TestUtils.renderIntoDocument(
-        <Table actions={ [] }>
+        <Table>
           <TableRow highlighted={ true } selected={ true }>
             <TableCell />
           </TableRow>
@@ -337,7 +337,7 @@ describe('TableRow', () => {
       let spy = jasmine.createSpy();
 
       instance = TestUtils.renderIntoDocument(
-        <Table actions={ [] }>
+        <Table>
           <TableRow className="foo" onClick={ spy }>
             <TableCell />
           </TableRow>
@@ -353,7 +353,7 @@ describe('TableRow', () => {
   describe('render', () => {
     describe('without selectability', () => {
       it('renders its children', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         expect(row.children.length).toEqual(2);
       });
@@ -361,7 +361,7 @@ describe('TableRow', () => {
 
     describe('without selectability on the table but disabled on the row', () => {
       it('renders its children', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] } selectable={ true }><TableRow selectable={ false }><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table  selectable={ true }><TableRow selectable={ false }><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         expect(row.children.length).toEqual(2);
       });
@@ -369,7 +369,7 @@ describe('TableRow', () => {
 
     describe('with selectAll', () => {
       it('renders a select all cell', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow selectAll={ true }><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow selectAll={ true }><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         let checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
@@ -380,7 +380,7 @@ describe('TableRow', () => {
 
     describe('with selectable via context', () => {
       it('renders a multi select cell', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] } selectable={ true }><TableRow uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table  selectable={ true }><TableRow uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         let checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
@@ -392,7 +392,7 @@ describe('TableRow', () => {
     describe('with selectable via prop', () => {
       it('renders a multi select cell', () => {
         let spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] }><TableRow selectable={ true } uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow selectable={ true } uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         let checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
@@ -406,7 +406,7 @@ describe('TableRow', () => {
     describe('with hideMultiSelect', () => {
       it('renders a multi select cell without a checkbox', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table actions={ [] } selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>
+          <Table  selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>
         );
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
@@ -417,7 +417,7 @@ describe('TableRow', () => {
 
     describe('if is header', () => {
       it('renders a table header', () => {
-        instance = TestUtils.renderIntoDocument(<Table actions={ [] } selectable={ true }><TableRow as="header" uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table  selectable={ true }><TableRow as="header" uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
         expect(th).toBeTruthy();

@@ -7,12 +7,12 @@ import { shallow, render } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Table', () => {
-  let instance, instancePager, instanceSortable, instanceCustomSort, spy;
+  let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;
 
   beforeEach(() => {
     spy = jasmine.createSpy('onChange spy');
 
-    let row = (
+    row = (
       <TableRow>
         <TableCell />
         <TableCell />
@@ -100,7 +100,7 @@ describe('Table', () => {
 
   describe('refresh', () => {
     beforeEach(() => {
-      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar actions={ [] } />);
+      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar actions={ {} } />);
       spyOn(instance, 'resetHighlightedRow');
       spyOn(instance.actionToolbarComponent, 'setState');
       spyOn(instance, 'emitOnChangeCallback');
@@ -943,6 +943,17 @@ describe('Table', () => {
     it('does not render a caption tag when no caption prop is given', () => {
       let wrapper = render(<Table />);
       expect(wrapper.find('caption').length).toEqual(0);
+    });
+
+    it('renders an action toolbar if actions are passed', () => {
+      let toolbarWrapper = shallow(
+        <Table className="foo" actions={ {foo: 'bar'} } selectable={ true }>
+          { row }
+        </Table>
+      );
+
+      let toolbar = toolbarWrapper.find(ActionToolbar);
+      expect(toolbar).toBeDefined();
     });
   });
 
