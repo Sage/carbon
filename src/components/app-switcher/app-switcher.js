@@ -99,7 +99,7 @@ export default class AppSwitcher extends React.Component {
   compose = () => {
     let parsedJson = JSON.parse(this.props.applicationJson) || {};
 
-    let html = parsedJson.items.map((section, index) => {
+    return parsedJson.items.map((section, index) => {
       let items = section.items.map((item,index) => {
         return (<DrawerItem href = {item.href} key = {'index-' + index} cname = {this.styles().appItem} name={item.name} /> );
       });
@@ -109,7 +109,6 @@ export default class AppSwitcher extends React.Component {
         );
     });
 
-    return html;
   };
 
 
