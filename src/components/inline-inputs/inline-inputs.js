@@ -23,6 +23,7 @@ const columnWrapper = (children) => {
   }
 
   return inputs.map((input, index) => {
+    // TODO: CarbonV2 Add unique requirement for inlineInputs to use as keys
     /* eslint-disable react/no-array-index-key */
     return (
       <Column key={ index }>
@@ -66,7 +67,6 @@ Label.defaultProps = {
   htmlFor: null
 };
 
-
 // Assign props over for demo site
 InlineInputs.propTypes = assign({}, {
   /**
@@ -90,6 +90,5 @@ InlineInputs.defaultProps = {
   children: null,
   className: ''
 };
-
 
 export default InlineInputs;
