@@ -30,6 +30,7 @@ let definition = new Definition('table', Table, {
   ],
   dataVariable: 'tableData',
   propValues: {
+    caption: 'Country and Country Codes',
     onChange: ComponentActions.updateTable,
   }
 });
