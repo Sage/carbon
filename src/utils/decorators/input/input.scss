@@ -252,7 +252,7 @@
   right: -24px;
 }
 
-@mixin common-input-theme($type, $color, $border, $background, $color-hover) {
+@mixin common-input-theme($type, $color) {
   .carbon-icon.common-input__icon.common-input__icon--#{$type} {
     color: $color;
   }
@@ -267,7 +267,7 @@
     }
   }
 
-  .common-input__message--#{type}:before {
+  .common-input__message--#{$type}:before {
     border-top-color: $color;
   }
 
