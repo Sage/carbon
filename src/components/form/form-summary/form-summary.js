@@ -117,7 +117,7 @@ const summary = (props, key) => {
   if (props[pluralize(key)] > 0) {
     return (
       <span className={ `carbon-form-summary__summary carbon-form-summary__${key}-summary` }>
-        <Icon className='carbon-form-summary__icon' type={ `${key}` } />
+        <Icon className='carbon-form-summary__icon' type={ key } />
         <span
           className='carbon-form-summary__text'
           data-element={ pluralize(key) }

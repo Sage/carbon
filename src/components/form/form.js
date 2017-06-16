@@ -602,9 +602,10 @@ class Form extends React.Component {
   formFooter = () => {
     const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
     return (
-      <div>
+      <div className={ this.footerClasses }>
         { save }
         { this.cancelButton() }
+        { this.additionalActions }
       </div>
     );
   }
@@ -653,10 +654,7 @@ class Form extends React.Component {
 
         { this.props.children }
 
-        <div className={ this.footerClasses }>
-          { this.formFooter() }
-          { this.additionalActions }
-        </div>
+        { this.formFooter() }
       </form>
     );
   }

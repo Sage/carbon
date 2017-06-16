@@ -461,7 +461,7 @@ describe('Form', () => {
         describe('when an additional save button is passed in', () => {
           beforeEach(() => {
             let customButton = (<Button className='my-custom-class'>Save</Button>)
-            wrapper = mount(
+            wrapper = shallow(
               <Form
                 cancelText='Some custom text'
                 saveText='Some custom save text'
