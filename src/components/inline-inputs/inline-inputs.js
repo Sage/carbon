@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { assign } from 'lodash';
 
 // Carbon
 import { Row, Column } from './../row';
 
-const label = (props) => {
+const Label = (props) => {
   if (!props.label) { return null; }
   return (
     <label htmlFor={ props.htmlFor } className='carbon-inline-inputs__label'>
@@ -22,6 +23,7 @@ const columnWrapper = (children) => {
   }
 
   return inputs.map((input, index) => {
+    /* eslint-disable react/no-array-index-key */
     return (
       <Column key={ index }>
         { input }
@@ -33,7 +35,7 @@ const columnWrapper = (children) => {
 const InlineInputs = (props) => {
   return (
     <div className={ classNames('carbon-inline-inputs', props.className) }>
-      { label(props) }
+      { Label(props) }
       <Row gutter='none' className='carbon-inline-inputs__inputs'>
         { columnWrapper(props.children) }
       </Row>
@@ -41,23 +43,7 @@ const InlineInputs = (props) => {
   );
 };
 
-InlineInputs.propTypes = {
-  /**
-   * Children elements
-   *
-   * @property children
-   * @type {Node}
-   */
-  children: PropTypes.node,
-
-  /**
-   * A custom class name for the component.
-   *
-   * @property className
-   * @type {String}
-   */
-  className: PropTypes.string,
-
+Label.propTypes = {
   /**
    * Defines the label text for the heading.
    *
@@ -72,7 +58,38 @@ InlineInputs.propTypes = {
    * @property label
    * @type {String}
    */
-  htmlFor: PropTypes.string,
+  htmlFor: PropTypes.string
 };
+
+Label.defaultProps = {
+  label: '',
+  htmlFor: null
+};
+
+
+// Assign props over for demo site
+InlineInputs.propTypes = assign({}, {
+  /**
+   * Children elements
+   *
+   * @property children
+   * @type {Node}
+   */
+  children: PropTypes.node,
+
+  /**
+   * A custom class name for the component.
+   *
+   * @property className
+   * @type {String}
+   */
+  className: PropTypes.string
+}, Label.propTypes);
+
+InlineInputs.defaultProps = {
+  children: null,
+  className: ''
+};
+
 
 export default InlineInputs;
