@@ -80,6 +80,7 @@ The following utils have had minor internal changes to satisfy the introduction 
 
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `InlineInputs` children are now wrapped by Columns by the component
+* `Table` can now receive an `caption` prop which renders a `<caption>` element as a child of the table element. Note that the caption is hidden by default, but still accessible to screen readers and assistive technologies.
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
 
