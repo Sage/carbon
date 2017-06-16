@@ -24,10 +24,6 @@ import Dialog from '../dialog';
  */
 class Alert extends Dialog {
 
-  constructor(props) {
-    super(props);
-  }
-
   static defaultProps = assign({}, Dialog.defaultProps, {
     role: 'alertdialog',
     size: 'extra-small'
