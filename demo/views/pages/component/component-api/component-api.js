@@ -5,11 +5,12 @@ import { Table, TableRow, TableCell, TableHeader } from 'components/table';
 
 class ComponentAPI extends React.Component {
   render() {
+    const propsTitle = `Props for ${this.props.definition.get('name')} Component`;
     return (
       <PageContentArea
-        title={ "Props for " + this.props.definition.get('name') + " Component" }
+        title={ propsTitle }
       >
-        <Table shrink={ true } className="demo-component-api">
+        <Table shrink={ true } className="demo-component-api" caption={ propsTitle }>
           { this._buildRows() }
         </Table>
       </PageContentArea>
@@ -19,11 +20,11 @@ class ComponentAPI extends React.Component {
   _buildRows = () => {
     let rows = [(
       <TableRow key="header">
-        <TableHeader>Name</TableHeader>
-        <TableHeader>Required</TableHeader>
-        <TableHeader>Type</TableHeader>
-        <TableHeader>Default</TableHeader>
-        <TableHeader>Description</TableHeader>
+        <TableHeader scope='col'>Name</TableHeader>
+        <TableHeader scope='col'>Required</TableHeader>
+        <TableHeader scope='col'>Type</TableHeader>
+        <TableHeader scope='col'>Default</TableHeader>
+        <TableHeader scope='col'>Description</TableHeader>
       </TableRow>
     )];
 
