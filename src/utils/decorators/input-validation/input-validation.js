@@ -134,7 +134,20 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
      * @property
      * @type {Array}
      */
-    warnings: PropTypes.array
+    warnings: PropTypes.array,
+
+    /**
+     * The warning type
+     *
+     * @property
+     * @type {String}
+     * @default 'warning'
+     */
+    warningType: PropTypes.string
+  });
+
+  static defaultProps = assign({}, ComposedComponent.defaultProps, {
+    warningType: 'warning'
   });
 
   /**
@@ -520,7 +533,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   get validationHTML() {
     if (this.state.valid && !this.state.warning) { return null; }
 
-    let type = !this.state.valid ? "error" : "warning";
+    let type = !this.state.valid ? "error" : this.props.warningType;
 
     let messageClasses = `common-input__message common-input__message--${type}`,
         iconClasses = `common-input__icon common-input__icon--${type}`;
@@ -553,7 +566,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     return classNames(
       super.mainClasses, {
         'common-input--error': !this.state.valid,
-        'common-input--warning': this.state.warning,
+        [`common-input--${this.props.warningType}`]: this.state.warning,
         'common-input--message-hidden': this.state.immediatelyHideMessage,
         'common-input--message-shown': this.state.messageShown
       }
@@ -570,7 +583,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     return classNames(
       super.inputClasses, {
         'common-input__input--error': !this.state.valid,
-        'common-input__input--warning': this.state.warning
+        [`common-input__input--${this.props.warningType}`]: this.state.warning
       }
     );
   }

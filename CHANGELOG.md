@@ -3,6 +3,7 @@
 ## Component Enhancements
 
 * ALL: `data-component` will now be over-ridden if it's provided as a prop by the user
+* `InputValidation`: now accepts a `warningType` prop which customizes the style of warning icon and message attached to an input.
 
 # 1.1.1
 
