@@ -586,8 +586,9 @@ class Dropdown extends React.Component {
           value={ option.id }
           onClick={ this.handleSelect }
           onMouseOver={ this.handleMouseOverListItem }
-          className={ klass }>
-            { option.name }
+          className={ klass }
+        >
+          { this.props.renderItem ? this.props.renderItem(option) : option.name }
         </li>
       );
     });
