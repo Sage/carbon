@@ -122,6 +122,14 @@ class Dropdown extends React.Component {
     readOnly: PropTypes.bool,
 
     /**
+     * An optional function to be passed that will render each of the dropdown's items.
+     *
+     * @property renderItem
+     * @type {Function}
+     */
+    renderItem: PropTypes.function,
+
+    /**
      * The ID value for the component
      *
      * @property value
@@ -630,7 +638,7 @@ class Dropdown extends React.Component {
           onMouseOver={ this.handleMouseOverListItem }
           className={ klass }
         >
-          { option.name }
+          { this.props.renderItem ? this.props.renderItem(option) : option.name }
         </li>
       );
     });
