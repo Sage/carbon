@@ -69,6 +69,11 @@ The following utils have had minor internal changes to satisfy the introduction 
 * Handlers
 
 
+The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Validations
+
+
 ## Component Improvements
 
 * `Menu` has been updated to use a `<nav>` tag as its root element.
