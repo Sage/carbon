@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
 * A Pill widget.
@@ -34,9 +37,16 @@ class Pill extends React.Component {
      * @type {String}
      * @default 'info'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
-    fill: React.PropTypes.bool,
+    /**
+     * Fills the pill with colour when true
+     *
+     * @property type
+     * @type {Boolean}
+     * @default false
+     */
+    fill: PropTypes.bool,
 
     /**
      * The text to display on the Pill
@@ -44,7 +54,7 @@ class Pill extends React.Component {
      * @property children
      * @type {String}
      */
-    children: React.PropTypes.string.isRequired
+    children: PropTypes.string.isRequired
   }
 
   static defaultProps = {
@@ -58,7 +68,8 @@ class Pill extends React.Component {
    * @method render
    */
   render() {
-    let { className, ...props } = this.props;
+    let { className, ...props } = validProps(this);
+
     className = classNames(
       'carbon-pill',
       className,
@@ -67,7 +78,7 @@ class Pill extends React.Component {
     );
 
     return(
-      <span { ...props } className={ className }>
+      <span { ...props } className={ className } { ...tagComponent('pill', this.props) }>
         {this.props.children}
       </span>
     );

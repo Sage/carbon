@@ -1,8 +1,10 @@
 import React from 'react';
-import Icon from './../icon';
-import Modal from './../modal';
 import Bowser from 'bowser';
 import classNames from 'classnames';
+import { assign } from 'lodash';
+import PropTypes from 'prop-types';
+import Icon from './../icon';
+import Modal from './../modal';
 
 /**
  * A Dialog widget.
@@ -26,44 +28,25 @@ import classNames from 'classnames';
  */
 class Dialog extends Modal {
 
-  static propTypes = {
-    /**
-     * A custom close event handler
-     *
-     * @property onCancel
-     * @type {Function}
-     */
-    onCancel: React.PropTypes.func.isRequired,
-
-    /**
-     * Sets the open state of the dialog
-     *
-     * @property open
-     * @type {Boolean}
-     * @default false
-     */
-    open: React.PropTypes.bool.isRequired,
-
+  static propTypes = assign({}, Modal.propTypes, {
     /**
      * Title displayed at top of dialog
      *
      * @property title
      * @type {Object}
      */
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
-     * Determines if the background is disabled
-     * when the dialog is open
+     * Subtitle displayed at top of dialog
      *
-     * @property enableBackgroundUI
-     * @type {Boolean}
-     * @default true
+     * @property subtitle
+     * @type {String}
      */
-    enableBackgroundUI: React.PropTypes.bool,
+    subtitle: PropTypes.string,
 
     /**
      * Size of dialog, default size is 750px
@@ -72,7 +55,7 @@ class Dialog extends Modal {
      * @type {String}
      * @default med
      */
-    size: React.PropTypes.string,
+    size: PropTypes.string,
 
     /**
      * Determins if the close icon is shown
@@ -81,12 +64,17 @@ class Dialog extends Modal {
      * @type {Boolean}
      * @default true
      */
-    showCloseIcon: React.PropTypes.bool
-  }
+    showCloseIcon: PropTypes.bool
+  })
 
   static defaultProps = {
     size: 'medium',
     showCloseIcon: true
+  }
+
+  constructor(args) {
+    super(args);
+    this.componentTags = this.componentTags.bind(this);
   }
 
   /**
@@ -133,13 +121,13 @@ class Dialog extends Modal {
    * @return {void}
    */
   centerDialog = () => {
-    let height = this._dialog.offsetHeight / 2,
-        width = this._dialog.offsetWidth / 2,
-        midPointY = window.innerHeight / 2 + window.pageYOffset,
-        midPointX = window.innerWidth / 2 + window.pageXOffset;
+    const height = this._dialog.offsetHeight / 2,
+        width = this._dialog.offsetWidth / 2;
+    let midPointY = (window.innerHeight / 2) + window.pageYOffset,
+        midPointX = (window.innerWidth / 2) + window.pageXOffset;
 
-    midPointY = midPointY - height;
-    midPointX = midPointX - width;
+    midPointY -= height;
+    midPointX -= width;
 
     if (midPointY < 20) {
       midPointY = 20;
@@ -151,8 +139,8 @@ class Dialog extends Modal {
       midPointX = 20;
     }
 
-    this._dialog.style.top = midPointY + "px";
-    this._dialog.style.left = midPointX + "px";
+    this._dialog.style.top = `${midPointY}px`;
+    this._dialog.style.left = `${midPointX}px`;
   }
 
   /**
@@ -162,11 +150,25 @@ class Dialog extends Modal {
    * @return {String} title to display
    */
   get dialogTitle() {
-    return (
-        this.props.title ?
-          <h2 className={ this.dialogTitleClasses }>{ this.props.title }</h2> :
-          null
-    );
+    if (this.props.title) {
+      return <h2 className={ this.dialogTitleClasses } data-element='title'>{ this.props.title }</h2>;
+    }
+
+    return null;
+  }
+
+  /**
+   * Returns HTML and text for the dialog subtitle.
+   *
+   * @method dialogSubtitle
+   * @return {String} subtitle to display
+   */
+  get dialogSubtitle() {
+    if (this.props.subtitle) {
+      return <p className={ this.dialogSubtitleClasses } data-element='subtitle'>{ this.props.subtitle }</p>;
+    }
+
+    return null;
   }
 
   /**
@@ -176,6 +178,15 @@ class Dialog extends Modal {
    */
   get dialogTitleClasses() {
     return 'carbon-dialog__title';
+  }
+
+  /**
+   * Returns classes for the dialog title.
+   *
+   * @method dialogTitleClasses
+   */
+  get dialogSubtitleClasses() {
+    return 'carbon-dialog__subtitle';
   }
 
   /**
@@ -210,8 +221,24 @@ class Dialog extends Modal {
 
   get closeIcon() {
     if (this.props.showCloseIcon) {
-      return <Icon className="carbon-dialog__close" type="close" onClick={ this.props.onCancel } />;
+      return (
+        <Icon
+          className='carbon-dialog__close'
+          data-element='close'
+          onClick={ this.props.onCancel }
+          type='close'
+        />
+      );
     }
+    return null;
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'dialog',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 
   /**
@@ -222,8 +249,13 @@ class Dialog extends Modal {
    */
   get modalHTML() {
     return (
-      <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
+      <div
+        ref={ (d) => { this._dialog = d; } }
+        className={ this.dialogClasses }
+        { ...this.componentTags(this.props) }
+      >
         { this.dialogTitle }
+        { this.dialogSubtitle }
         { this.closeIcon }
 
         <div className='carbon-dialog__content'>

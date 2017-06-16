@@ -1,5 +1,0 @@
-{
-  "name": "button",
-  "style": "button.scss",
-  "main": "./button.js"
-}

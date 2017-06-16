@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from 'components/icon'
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import TooltipDecorator from './tooltip-decorator';
 
 class BasicClass extends React.Component {
@@ -24,7 +24,7 @@ class BasicClass extends React.Component {
 
   render() {
     return (
-      <div tooltipMessage={ this.props.tooltipMessage } tooltipPosition={ this.props.tooltipPosition } tooltipAlign={ this.props.tooltipAlign }>
+      <div>
         {this.tooltipHTML }
       </div>
     )
@@ -42,7 +42,7 @@ class StrippedClass extends React.Component {
 
   render() {
     return (
-      <div tooltipMessage={ this.props.tooltipMessage } tooltipPosition={ this.props.tooltipPosition } tooltipAlign={ this.props.tooltipAlign }>
+      <div>
         {this.tooltipHTML }
       </div>
     )

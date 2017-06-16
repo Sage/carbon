@@ -1,9 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Date from './../date';
 import DateRangeValidator from './../../utils/validations/date-range';
+import DateHelper from  './../../utils/helpers/date';
 import { assign } from 'lodash';
 import classNames from 'classnames';
+import { tagComponent } from '../../utils/helpers/tags';
 
 class DateRange extends React.Component {
   static propTypes = {
@@ -94,19 +97,25 @@ class DateRange extends React.Component {
 
     if (changedDate === 'startDate') {
       this.props.onChange([newValue, this.endDate]);
-      // resets validations on opposing field
-      this._endDate._handleContentChange();
+      if (DateHelper.isValidDate(this.endDate)) {
+        // resets validations on opposing field. This is a code smell
+        this._endDate._handleContentChange();
+      }
     }
 
     if (changedDate === 'endDate') {
       this.props.onChange([this.startDate, newValue]);
-      // resets validations on opposing field
-      this._startDate._handleContentChange();
+      if (DateHelper.isValidDate(this.startDate)) {
+        // resets validations on opposing field. This is a code smell
+        this._startDate._handleContentChange();
+      }
     }
 
     // Triggers validations on both fields
-    this._startDate._handleBlur();
-    this._endDate._handleBlur();
+    if (DateHelper.isValidDate(newValue)) {
+      this._startDate._handleBlur();
+      this._endDate._handleBlur();
+    }
   }
 
   /**
@@ -221,11 +230,13 @@ class DateRange extends React.Component {
       ref: (c) => { this[`_${ propsKey }Date`] = c; },
       value: this[`${ propsKey }Date`]
     }, this.props[`${ propsKey }DateProps`]);
+
     props.className = classNames(
       'carbon-date-range',
       `carbon-date-range__${ propsKey }`,
       (this.props[`${ propsKey }DateProps`] || {}).className : null
     );
+
     props.validations = defaultValidations.concat(
       (this.props[`${ propsKey }DateProps`] || {}).validations || []
     );
@@ -234,9 +245,9 @@ class DateRange extends React.Component {
 
   render () {
     return(
-      <div>
-        <Date { ...this.startDateProps() }/>
-        <Date { ...this.endDateProps() }/>
+      <div { ...tagComponent('date-range', this.props) }>
+        <Date { ...this.startDateProps() } data-element='start-date'/>
+        <Date { ...this.endDateProps() } data-element='end-date'/>
       </div>
     );
   }

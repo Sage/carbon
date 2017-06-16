@@ -1,10 +1,12 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Dialog from './dialog';
 import I18n from 'i18n-js';
 import Bowser from 'bowser';
 import Button from './../button';
-import Row from './../row'
+import { Row, Column } from './../row'
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Dialog', () => {
   let instance, onCancel;
@@ -162,8 +164,8 @@ describe('Dialog', () => {
             open={ true }
             title={
               <Row>
-                <div>Row1</div>
-                <div>Row2</div>
+                <Column>Row1</Column>
+                <Column>Row2</Column>
               </Row>
             }
           />
@@ -193,9 +195,38 @@ describe('Dialog', () => {
     });
   });
 
-  describe('dialogTitleClasses', () => {
-    it('returns the class for the dialog title', () => {
-      expect(instance.dialogTitleClasses).toEqual('carbon-dialog__title');
+  describe('dialogSubTitle', () => {
+    describe('when a props subtitle is passed', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Dialog
+            onCancel={ onCancel }
+            open={ true }
+            subtitle="My informative subtitle"
+          />
+        );
+      });
+
+      it('sets a dialog subtitle', () => {
+        let subtitle = TestUtils.findRenderedDOMComponentWithTag(instance, 'p');
+        expect(subtitle.classList[0]).toEqual('carbon-dialog__subtitle');
+        expect(subtitle.textContent).toEqual('My informative subtitle');
+      });
+    });
+
+    describe('when a props subtitle is not passed', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Dialog
+            onCancel={ onCancel }
+            open={ true }
+          />
+        );
+      });
+
+      it('defaults to null', () => {
+        expect(instance.dialogSubTitle).toBeFalsy();
+      });
     });
   });
 
@@ -257,6 +288,42 @@ describe('Dialog', () => {
         let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
         expect(dialogNode.classList[0]).toEqual('carbon-dialog');
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Dialog
+          data-element='bar'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          data-role='baz'
+        />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'dialog', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Dialog
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          showCloseIcon={ true }
+          subtitle='Test'
+          title='Test'
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'close',
+        'subtitle',
+        'title'
+      ]);
     });
   });
 });

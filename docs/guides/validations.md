@@ -14,7 +14,8 @@ class MyComponent extends React.Component {
     return (
       <Textbox name="foo"
         value={ this.state.myStore.get('foo') }
-        validations={ [new Presence()] } />
+        validations={ [new Presence()] }
+      />
     )
   }
 }
@@ -41,7 +42,8 @@ class MyComponent extends React.Component {
       <Form>
         <Textbox name="foo"
           value={ this.state.myStore.get('foo') }
-          validations={ [new Presence()] } />
+          validations={ [new Presence()] }
+        />
       </Form>
     )
   }

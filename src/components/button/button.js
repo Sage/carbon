@@ -1,6 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { assign } from 'lodash';
 import Link from './../link';
+import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A button widget.
@@ -34,7 +38,7 @@ class Button extends React.Component {
      * @type {String|Array}
      * @default 'secondary'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * A required prop. This is what the button will display.
@@ -42,7 +46,7 @@ class Button extends React.Component {
      * @property children
      * @type {Multiple}
      */
-    children: React.PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
 
     /**
      * Gives the button a disabled state.
@@ -51,7 +55,7 @@ class Button extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    disabled: React.PropTypes.bool,
+    disabled: PropTypes.bool,
 
     /**
      * Gives the button a color.
@@ -60,7 +64,7 @@ class Button extends React.Component {
      * @type {String}
      * @default blue
      */
-    theme: React.PropTypes.string,
+    theme: PropTypes.string,
 
     /**
      * Determines size of button.
@@ -69,8 +73,10 @@ class Button extends React.Component {
      * @type {String}
      * @default medium
      */
-    size: React.PropTypes.string
+    size: PropTypes.string
   }
+
+  static safeProps = ['disabled']
 
   static defaultProps = {
     as: 'secondary',
@@ -79,16 +85,21 @@ class Button extends React.Component {
     disabled: false
   }
 
+  constructor(...args) {
+    super(...args);
+    this.element = this.element.bind(this);
+  }
+
   /**
    * Build the element to render.
    *
    * @method element
    * @return {Object} JSX
    */
-  get element() {
-    let {...props} = this.props,
-        // if props.href then render an anchor instead
-        el = props.href || props.to ? Link : 'button';
+  element() {
+    let { ...props } = validProps(this);
+    // if props.href then render an anchor instead
+    const el = props.href || props.to ? Link : 'button';
 
     props.className = classNames(
       'carbon-button',
@@ -100,6 +111,8 @@ class Button extends React.Component {
       }
     );
 
+    props = assign({}, props, tagComponent('button', this.props));
+
     return React.createElement(el, props, this.props.children);
   }
 
@@ -110,7 +123,7 @@ class Button extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    return this.element;
+    return this.element();
   }
 }
 

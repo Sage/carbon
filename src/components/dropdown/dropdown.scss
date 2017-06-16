@@ -2,6 +2,7 @@
 @import "./../../style-config/z-index";
 @import "./../../style-config/general";
 @import "./../../style-config/input-field";
+@import "./../../style-config/mixins";
 
 $dropdown-input-icon-width: 20px !default;
 
@@ -14,6 +15,10 @@ $dropdown-input-icon-width: 20px !default;
   .common-input--label-inline & {
     left: $grid-margin;
   }
+}
+
+.carbon-dropdown__list-hidden {
+  @include visually-hidden
 }
 
 .carbon-dropdown__list {

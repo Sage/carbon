@@ -1,5 +1,6 @@
-import Dialog from '../dialog';
 import classNames from 'classnames';
+import { assign } from 'lodash';
+import Dialog from '../dialog';
 
 /**
  * A Alert widget.
@@ -23,13 +24,9 @@ import classNames from 'classnames';
  */
 class Alert extends Dialog {
 
-  constructor() {
-    super();
-  }
-
-  static defaultProps = {
-    size: 'xsmall'
-  }
+  static defaultProps = assign({}, Dialog.defaultProps, {
+    size: 'extra-small'
+  })
 
   /**
    * Returns classes title for the confirm, combines with dialog class names.
@@ -53,6 +50,14 @@ class Alert extends Dialog {
       super.dialogClasses,
       'carbon-alert__alert'
     );
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'alert',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 }
 

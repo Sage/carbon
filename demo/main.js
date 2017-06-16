@@ -1,30 +1,36 @@
 import React from 'react';
+import 'utils/css';
 import { Route } from 'react-router';
 import { startRouter } from 'utils/router';
-import Chrome from './views/chrome';
-import Homepage from './views/homepage';
-import Actions from './views/actions';
-import Forms from './views/forms';
-import Grids from './views/grids';
-import Charts from './views/charts';
-import Notifications from './views/notifications';
-import Modals from './views/modals';
-import Layout from './views/layout';
-import Misc from './views/misc';
-import Design from './views/design';
+import { enableMock } from './xhr-mock';
 
-var routes = (
+// Languages
+import './i18n/en';
+// Additional components we expose to the window
+import './expose';
+
+// Demo
+import Chrome from './views/chrome';
+import SubPageChrome from './views/chrome/sub-page-chrome';
+import Home from './views/pages/home';
+
+import SiteMap from './site-map';
+
+import Highcharts from 'highcharts';
+global.Highcharts = Highcharts;
+
+// global.imagePath = 'https://assets.na.sageone.com/carbon/demo/latest/assets/images';
+global.imagePath = '/assets/images';
+
+enableMock();
+
+const routes = (
   <Route component={ Chrome }>
-    <Route path="/" component={ Homepage } />
-    <Route path="/actions" component={ Actions } />
-    <Route path="/forms" component={ Forms } />
-    <Route path="/grids" component={ Grids } />
-    <Route path="/charts" component={ Charts } />
-    <Route path="/notifications" component={ Notifications } />
-    <Route path="/modals" component={ Modals } />
-    <Route path="/layout" component={ Layout } />
-    <Route path="/design" component={ Design } />
-    <Route path="/misc" component={ Misc } />
+    <Route path="/" component={ Home } />
+
+    <Route component={ SubPageChrome }>
+      { SiteMap.generateRoutes() }
+    </Route>
   </Route>
 );
 

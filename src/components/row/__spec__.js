@@ -1,10 +1,11 @@
 import React from 'react';
 import Immutable from 'immutable';
-import TestUtils from 'react/lib/ReactTestUtils';
-import Row from './row';
+import TestUtils from 'react-dom/test-utils';
+import { Row, Column } from './row';
+import { shallow } from 'enzyme';
+import Logger from './../../utils/logger';
 
 describe('Row', () => {
-
   describe('when column number is NOT passed', () => {
     let instance;
     let columns;
@@ -12,11 +13,11 @@ describe('Row', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
         <Row className="foobar">
-          <div columnOffset={2}>Foo</div>
-          <div columnSpan={3}>Bar</div>
+          <Column columnOffset={2}>Foo</Column>
+          <Column columnSpan={3}>Bar</Column>
           { null }
-          <div columnClasses='extra-class'>Bar</div>
-          <div columnAlign='center'>Bar</div>
+          <Column className='extra-class'>Bar</Column>
+          <Column columnAlign='center'>Bar</Column>
         </Row>
       );
 
@@ -44,7 +45,7 @@ describe('Row', () => {
           <Row className="foobar">
             {
               data.map((item, index) => {
-                return <div key={`name-${index}`} >{ item.get('name') }</div>;
+                return <Column key={`name-${index}`} >{ item.get('name') }</Column>;
               })
             }
           </Row>
@@ -78,25 +79,25 @@ describe('Row', () => {
 
     describe('Column offset', () => {
       it('renders a div with an additional offset CSS class', () => {
-        expect(columns[0].className).toEqual('carbon-row__column carbon-row__column--offset-2');
+        expect(columns[0].className).toEqual('carbon-column carbon-row__column carbon-row__column--offset-2');
       });
     });
 
     describe('Column span', () => {
       it('renders a div with an additional span CSS class', () => {
-        expect(columns[1].className).toEqual('carbon-row__column carbon-row__column--span-3');
+        expect(columns[1].className).toEqual('carbon-column carbon-row__column carbon-row__column--span-3');
       });
     });
 
     describe('Column classes', () => {
       it('renders a div with all additional column classes', () => {
-        expect(columns[2].className).toEqual('carbon-row__column extra-class');
+        expect(columns[2].className).toEqual('carbon-column carbon-row__column extra-class');
       });
     });
 
     describe('Column align', () => {
       it('renders a div with alignment class', () => {
-        expect(columns[3].className).toEqual('carbon-row__column carbon-row__column--align-center');
+        expect(columns[3].className).toEqual('carbon-column carbon-row__column carbon-row__column--align-center');
       });
     });
   });
@@ -106,9 +107,9 @@ describe('Row', () => {
 
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Row columns={2}>
-          <div>Foo</div>
-          <div>Bar</div>
+        <Row columns="2">
+          <Column>Foo</Column>
+          <Column>Bar</Column>
         </Row>
       );
     });
@@ -124,9 +125,9 @@ describe('Row', () => {
 
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Row columns={2} gutter="small">
-          <div>Foo</div>
-          <div>Bar</div>
+        <Row columns="2" gutter="small">
+          <Column>Foo</Column>
+          <Column>Bar</Column>
         </Row>
       );
     });
@@ -142,16 +143,16 @@ describe('Row', () => {
 
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Row columns={2} columnDivide={ true }>
-          <div>Foo</div>
-          <div>Bar</div>
+        <Row columns="2" columnDivide={ true }>
+          <Column>Foo</Column>
+          <Column>Bar</Column>
         </Row>
       );
     });
 
     it('applies custom class', () => {
       let rowNode = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-row__column')[0];
-      expect(rowNode.className).toEqual('carbon-row__column carbon-row__column--column-divide');
+      expect(rowNode.className).toEqual('carbon-column carbon-row__column carbon-row__column--column-divide');
     });
   });
 
@@ -161,7 +162,7 @@ describe('Row', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
         <Row>
-          <div>Foo</div>
+          <Column>Foo</Column>
         </Row>
       );
     });
@@ -169,6 +170,18 @@ describe('Row', () => {
     it('renders a parent div with calculated CSS classes', () => {
       let rowNode = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-row')
       expect(rowNode.className).toEqual('carbon-row carbon-row--gutter-medium carbon-row--columns-1');
+    });
+  });
+
+  describe('deprecated functionality', () => {
+    beforeEach(() => {
+      var process = { env: { NODE_ENV: 'development' } }
+    });
+
+    it('Calls the logger to report the deprecation', () => {
+      spyOn(Logger, 'deprecate');
+      let wrapper = shallow(<Row><div>Foo</div></Row>);
+      expect(Logger.deprecate).toHaveBeenCalled();
     });
   });
 });

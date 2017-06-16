@@ -234,6 +234,8 @@
 .common-input__input--warning,
 .common-input__input--warning:hover {
   border-color: $warning !important; // this is the correct use of !important
+  position: relative;
+  z-index: 1;
 }
 
 .common-input__input--error,
@@ -281,4 +283,10 @@
 .common-input__input--fake {
   text-align: left;
   overflow: hidden;
+}
+
+.common-input__input-help {
+  position: absolute;
+  top: 6px;
+  right: -24px;
 }

@@ -1,29 +1,50 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from './../icon';
 import css from './../../utils/css';
 import Input from './../../utils/decorators/input';
-import InputLabel from './../../utils/decorators/input-label';
+import { validProps } from './../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
-const ButtonToggle = Input(InputLabel(
+
+const ButtonToggle = Input(
 class ButtonToggle extends React.Component {
   static propTypes = {
     /**
-     * Which icon the button should render.
+     * Which buttonIcon the button should render.
      *
-     * @property icon
+     * @property buttonIcon
      * @type {String}
      */
-    icon: React.PropTypes.string,
+    buttonIcon: PropTypes.string,
 
     /**
-     * Sets the size of the icon (eg. large)
+     * Sets the size of the buttonIcon (eg. large)
      *
-     * @property iconSize
+     * @property buttonIconSize
      * @type {String}
      */
-    iconSize: React.PropTypes.string
+    buttonIconSize: PropTypes.string,
+
+    /**
+     * Disable all user interaction.
+     *
+     * @property disabled
+     * @type {boolean}
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * A required prop. This is what the button will display.
+     *
+     * @property children
+     * @type {Multiple}
+     */
+    children: PropTypes.node.isRequired
   }
+
+  static safeProps = ['name']
 
   /**
    * Main Class getter
@@ -46,21 +67,21 @@ class ButtonToggle extends React.Component {
   }
 
   /**
-   * Returns the markup for the icon.
+   * Returns the markup for the buttonIcon.
    *
-   * @method icon
+   * @method buttonIcon
    * @return {Object} JSX
    */
-  get icon() {
-    if (!this.props.icon) { return null; }
+  get buttonIcon() {
+    if (!this.props.buttonIcon) { return null; }
 
-    let classes = classNames("carbon-button-toggle__icon", {
-      ["carbon-button-toggle__icon--large"]: this.props.iconSize === "large"
+    const classes = classNames('carbon-button-toggle__button-icon', {
+      'carbon-button-toggle__button-icon--large': this.props.buttonIconSize === 'large'
     });
 
     return (
-      <div className={ classes }>
-        <Icon type={ this.props.icon } />
+      <div className={ classes } data-element='icon'>
+        <Icon type={ this.props.buttonIcon } />
       </div>
     );
   }
@@ -73,10 +94,13 @@ class ButtonToggle extends React.Component {
    * @return {Object} props for the input
    */
   get inputProps() {
-    let { ...props } = this.props;
+    const { ...props } = validProps(this);
     delete props.children;
     props.className = this.inputClasses;
-    props.type = "radio";
+    props.type = 'radio';
+    if (!props.id) {
+      props.id = this._guid;
+    }
     return props;
   }
 
@@ -87,13 +111,13 @@ class ButtonToggle extends React.Component {
    * @return {Object} JSX
    */
   get additionalInputContent() {
-    let classes = classNames("carbon-button-toggle__label", {
-      ["carbon-button-toggle__label--disabled"]: this.props.disabled
+    const classes = classNames('carbon-button-toggle__label', {
+      'carbon-button-toggle__label--disabled': this.props.disabled
     });
 
     return (
-      <label htmlFor={ this.inputProps.id } className={ classes }>
-        { this.icon }
+      <label htmlFor={ this.inputProps.id } className={ classes } data-element='label'>
+        { this.buttonIcon }
         { this.props.children }
       </label>
     );
@@ -105,12 +129,12 @@ class ButtonToggle extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('button-toggle', this.props) }>
         { this.inputHTML }
       </div>
     );
   }
 }
-));
+);
 
 export default ButtonToggle;

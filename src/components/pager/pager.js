@@ -1,11 +1,13 @@
 import css from './../../utils/css';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from './../icon';
 import NumberComponent from './../number';
 import Dropdown from './../dropdown';
 import I18n from "i18n-js";
 import Immutable from 'immutable';
 import Events from './../../utils/helpers/events';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Pager widget.
@@ -32,7 +34,7 @@ class Pager extends React.Component {
      * @property currentPage
      * @type {String}
      */
-    currentPage: React.PropTypes.string.isRequired,
+    currentPage: PropTypes.string.isRequired,
 
     /**
      * Total number of records
@@ -40,7 +42,7 @@ class Pager extends React.Component {
      * @property totalRecords
      * @type {String}
      */
-    totalRecords: React.PropTypes.string.isRequired,
+    totalRecords: PropTypes.string.isRequired,
 
     /**
      * Function called when any pager changes take place
@@ -49,7 +51,7 @@ class Pager extends React.Component {
      * @property onPagination
      * @type {Function}
      */
-    onPagination: React.PropTypes.func.isRequired,
+    onPagination: PropTypes.func.isRequired,
 
     /**
      * Pagination page size
@@ -57,7 +59,7 @@ class Pager extends React.Component {
      * @property pageSize
      * @type {String}
      */
-    pageSize: React.PropTypes.string,
+    pageSize: PropTypes.string,
 
     /**
      * Should the page size selection dropdown be shown
@@ -65,7 +67,7 @@ class Pager extends React.Component {
      * @property showPageSizeSelection
      * @type {Boolean}
      */
-    showPageSizeSelection: React.PropTypes.bool,
+    showPageSizeSelection: PropTypes.bool,
 
     /**
      * Set of page size options
@@ -73,7 +75,7 @@ class Pager extends React.Component {
      * @property pageSizeSelectionOptions
      * @type {Object}
      */
-    pageSizeSelectionOptions: React.PropTypes.object
+    pageSizeSelectionOptions: PropTypes.object
   }
 
   static defaultProps = {
@@ -228,7 +230,8 @@ class Pager extends React.Component {
   get previousArrow() {
     let props = {
       type: 'dropdown',
-      className: 'carbon-pager__previous'
+      className: 'carbon-pager__previous',
+      'data-element': 'previous-page'
     };
 
     if (this.disablePrevious) {
@@ -252,6 +255,7 @@ class Pager extends React.Component {
     let props = {
       value: this.state.currentPage,
       className: 'carbon-pager__current-page',
+      'data-element': 'current-page',
       onChange: this.handleCurrentPageInputChange,
       onBlur: this.emitChangeCallback.bind(this, 'input'),
       onKeyUp: this.handleCurrentPageKeyUp
@@ -271,6 +275,7 @@ class Pager extends React.Component {
   get nextArrow() {
     let props = {
       className: 'carbon-pager__next',
+      'data-element': 'next-page',
       type: 'dropdown'
     };
 
@@ -300,6 +305,7 @@ class Pager extends React.Component {
             options={ this.props.pageSizeSelectionOptions }
             value={ this.props.pageSize }
             onChange={ this.emitChangeCallback.bind(this, 'size') }
+            data-element='page-select'
           />
           <span className={ css.unselectable }>{ recordsText(this.props.pageSize) }</span>
         </div>
@@ -315,7 +321,7 @@ class Pager extends React.Component {
    */
   render() {
     return(
-      <div className='carbon-pager'>
+      <div className='carbon-pager' { ...tagComponent('pager', this.props) }>
 
         <div className='carbon-pager__size' >
           { this.sizeSelectionDropdown }

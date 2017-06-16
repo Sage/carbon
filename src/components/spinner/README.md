@@ -20,5 +20,5 @@ You can pass a 'size' property to adjust the size of the spinner.
 
 | Name          | Required    | Type          | Default       | Description   |
 | ------------- | ----------- | ------------- | ------------- | ------------- |
-| as            | false       | String        | `info`         | The color of the spinner |
-| size          | false       | String        | `lmed`        | The size of spinner affect height, width and border thickness. Options: `small`, `smed`, `lmed`, `large` |
+| as            | false       | String        | `info`        | The color of the spinner |
+| size          | false       | String        | `medium`      | The size of spinner affect height, width and border thickness. Options: `extra-small`, `small`, `medium-small`, `medium`, `medium-large`, `large` and `extra-large` |

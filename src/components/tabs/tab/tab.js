@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 /**
@@ -21,7 +22,7 @@ class Tab extends React.Component {
      * @type {String}
      *
      */
-    title: React.PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
 
     /**
      * id to identify the tab within the component
@@ -30,7 +31,7 @@ class Tab extends React.Component {
      * @property tabId
      * @type {String}
      */
-    tabId: React.PropTypes.string.isRequired
+    tabId: PropTypes.string.isRequired
   }
 
   static contextTypes = {
@@ -42,7 +43,7 @@ class Tab extends React.Component {
      * @property tabs
      * @type {Object}
      */
-    tabs: React.PropTypes.object
+    tabs: PropTypes.object
   }
 
   static childContextTypes = {
@@ -54,7 +55,7 @@ class Tab extends React.Component {
      * @property tab
      * @type {Object}
      */
-    tab: React.PropTypes.object
+    tab: PropTypes.object
   }
 
   /**

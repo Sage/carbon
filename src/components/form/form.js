@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './../button';
 import I18n from "i18n-js";
 import Serialize from "form-serialize";
 import classNames from 'classnames';
+import { validProps } from '../../utils/ether';
 import { assign } from 'lodash';
+import { tagComponent } from '../../utils/helpers/tags';
+
+import FormSummary from './form-summary';
 
 /**
  * A Form widget.
@@ -49,14 +54,6 @@ class Form extends React.Component {
   _window = window;
 
   static propTypes = {
-    /**
-     * currently active input which is used to track which error message to show on the form
-     *
-     * @property activeInput
-     * @type {Input}
-     * @default null
-     */
-    activeInput: React.PropTypes.element,
 
     /**
      * Cancel button is shown if true
@@ -65,7 +62,7 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    cancel: React.PropTypes.bool,
+    cancel: PropTypes.bool,
 
     /**
      * Custom function that is called immediately
@@ -74,7 +71,7 @@ class Form extends React.Component {
      * @property afterFormValidation
      * @type {Function}
      */
-    afterFormValidation: React.PropTypes.func,
+    afterFormValidation: PropTypes.func,
 
     /**
      * Custom function that is called immediately
@@ -83,7 +80,15 @@ class Form extends React.Component {
      * @property beforeFormValidation
      * @type {Function}
      */
-    beforeFormValidation: React.PropTypes.func,
+    beforeFormValidation: PropTypes.func,
+
+    /**
+     * Alignment of submit button
+     *
+     * @ property
+     * @type {String}
+     */
+    buttonAlign: PropTypes.string,
 
     /**
      * Determines if the form is in a saving state
@@ -92,7 +97,7 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    saving: React.PropTypes.bool,
+    saving: PropTypes.bool,
 
     /**
      * If true, will validate the form on mount
@@ -101,7 +106,7 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    validateOnMount: React.PropTypes.bool,
+    validateOnMount: PropTypes.bool,
 
     /**
      * Text for the cancel button
@@ -110,7 +115,7 @@ class Form extends React.Component {
      * @type {String}
      * @default "Cancel"
      */
-    cancelText: React.PropTypes.string,
+    cancelText: PropTypes.string,
 
     /**
      * Properties for the cancel button
@@ -118,7 +123,7 @@ class Form extends React.Component {
      * @property cancelButtonProps
      * @type {Object}
      */
-    cancelButtonProps: React.PropTypes.object,
+    cancelButtonProps: PropTypes.object,
 
     /**
      * Text for the save button
@@ -127,7 +132,7 @@ class Form extends React.Component {
      * @type {String}
      * @default "Save"
      */
-    saveText: React.PropTypes.string,
+    saveText: PropTypes.string,
 
     /**
      * Properties for the save button
@@ -135,7 +140,7 @@ class Form extends React.Component {
      * @property saveButtonProps
      * @type {Object}
      */
-    saveButtonProps: React.PropTypes.object,
+    saveButtonProps: PropTypes.object,
 
     /**
      * Custom function for Cancel button onClick
@@ -143,7 +148,7 @@ class Form extends React.Component {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func,
+    onCancel: PropTypes.func,
 
     /**
      * Hide or show the save button
@@ -151,7 +156,7 @@ class Form extends React.Component {
      * @property saveFalse
      * @type {Boolean}
      */
-    save: React.PropTypes.bool,
+    save: PropTypes.bool,
 
     /**
      * Additional actions rendered next to the save and cancel buttons
@@ -159,7 +164,7 @@ class Form extends React.Component {
      * @property additionalActions
      * @type {String|JSX}
      */
-    additionalActions: React.PropTypes.node,
+    additionalActions: PropTypes.node,
 
     /**
      * Custom callback for when form will submit
@@ -167,7 +172,15 @@ class Form extends React.Component {
      * @property onSubmit
      * @type {Function}
      */
-    onSubmit: React.PropTypes.func
+    onSubmit: PropTypes.func,
+
+    /**
+     * Currently active input in form
+     *
+     * @property activeInput
+     * @type {Node}
+     */
+    activeInput: PropTypes.node
   }
 
   static defaultProps = {
@@ -187,11 +200,11 @@ class Form extends React.Component {
      * @property form
      * @type {Object}
      */
-    form: React.PropTypes.object
+    form: PropTypes.object
   }
 
   static contextTypes = {
-    modal: React.PropTypes.object
+    modal: PropTypes.object
   }
 
   /**
@@ -441,7 +454,8 @@ class Form extends React.Component {
    * @return {Object} props for form element
    */
   htmlProps = () => {
-    let { ...props } = this.props;
+    let { ...props } = validProps(this);
+    delete props.activeInput;
     delete props.onSubmit;
     props.className = this.mainClasses;
     return props;
@@ -498,7 +512,7 @@ class Form extends React.Component {
         cancelProps = assign({}, this.props.cancelButtonProps, { type: 'button', onClick: this.cancelForm });
 
     return (<div className={ cancelClasses }>
-      <Button { ...cancelProps }>
+      <Button { ...cancelProps } data-element='cancel'>
         { this.props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' }) }
       </Button>
     </div>);
@@ -520,28 +534,17 @@ class Form extends React.Component {
    * @return {Object} JSX save button
    */
   get saveButton() {
-    let errorCount,
-        saveClasses = classNames(
+    let saveClasses = classNames(
           "carbon-form__save", {
             "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
           }
         ),
         saveProps = assign({}, this.props.saveButtonProps, { as: 'primary', disabled: this.props.saving });
 
-    if (this.state.errorCount || this.state.warningCount) {
-      // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
-      errorCount = (
-        <span
-          className="carbon-form__summary"
-          dangerouslySetInnerHTML={ renderMessage(this.state.errorCount, this.state.warningCount) }
-        />
-      );
-    }
-
     return (
       <div className={ saveClasses }>
-        { errorCount }
-        <Button { ...saveProps }>
+        <FormSummary errors={ this.state.errorCount } warnings={ this.state.warningCount } />
+        <Button { ...saveProps } data-element='save'>
           { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
         </Button>
       </div>
@@ -566,7 +569,7 @@ class Form extends React.Component {
     }
 
     return (
-      <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() } ref="form">
+      <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() } ref="form" { ...tagComponent('form', this.props) }>
         { generateCSRFToken(this._document) }
 
         { this.props.children }
@@ -605,49 +608,6 @@ function generateCSRFToken(doc) {
   }
 
   return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
-}
-
-/**
- * Constructs validations error message
- *
- * @private
- * @method renderMessage
- * @param {Integer} count number of errors
- * @param {Integer} count number of warnings
- * @return {Object} JSX Error message
- */
-function renderMessage(errors, warnings) {
-  let message;
-
-  if (errors) {
-    message =  I18n.t("errors.messages.form_summary.errors", {
-      defaultValue: {
-        one: `There is ${ errors } error`,
-        other: `There are ${ errors } errors`
-      },
-      count: errors
-    });
-  }
-
-  if (errors && warnings) {
-    message +=  I18n.t("errors.messages.form_summary.errors_and_warnings", {
-      defaultValue: {
-        one: ` and ${ warnings } warning`,
-        other: ` and ${ warnings } warnings`
-      },
-      count: warnings
-    });
-  } else if (warnings) {
-    message =  I18n.t("errors.messages.form_summary.warnings", {
-      defaultValue: {
-        one: `There is ${ warnings } warning`,
-        other: `There are ${ warnings } warnings`
-      },
-      count: warnings
-    });
-  }
-
-  return { __html: message };
 }
 
 export default Form;

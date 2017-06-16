@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
 import Link from './../link';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A ActionToolbar widget.
@@ -12,26 +14,74 @@ import Link from './../link';
  *
  *   import ActionToolbar from 'carbon/lib/components/action-toolbar';
  *
- * To render a ActionToolbar:
+ * To render an ActionToolbar:
  *
  *   let actions = [{
  *     text: "Add Subscriptions",
- *     icon: "basket"
+ *     icon: "basket",
+ *     onClick: onClickHandler(event, selected) => {}
  *   }, {
  *     text: "Delete",
- *     icon: "bin"
+ *     icon: "bin",
+ *     onClick: onClickHandler(event, selected) => {}
  *   }];
  *
  *   <ActionToolbar total={ count } actions={ actions } />
+ *
+ *  Additional props for Link or Icon can be passed in the action object.
  *
  * @class ActionToolbar
  * @constructor
  */
 class ActionToolbar extends React.Component {
+  // TODO This component needs to be freestanding - we need to provide an api that allows it be used independently.
+  // https://github.com/Sage/carbon/issues/1070
+
+  static propTypes = {
+    /**
+     * The actions to display in the toolbar
+     *
+     * @property actions - each action is object with the action attributes
+     * @type {Array}
+     */
+    actions: PropTypes.object.isRequired,
+
+    /**
+     * A custom class name for the component.
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string
+  };
+
   static contextTypes = {
-    attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
-    detachActionToolbar: React.PropTypes.func // tracks the action toolbar component
+    attachActionToolbar: PropTypes.func, // tracks the action toolbar component
+    detachActionToolbar: PropTypes.func // tracks the action toolbar component
+  };
+
+  constructor(...args) {
+    super(...args);
+
+    this.actions = this.actions.bind(this);
+    this.isActive = this.isActive.bind(this);
+    this.mainClasses = this.mainClasses.bind(this);
+    this.buildAction = this.buildAction.bind(this);
   }
+
+  state = {
+    /**
+     * @property total
+     * @type {Number}
+     */
+    total: 0,
+
+    /**
+     * @property selected
+     * @type {Array}
+     */
+    selected: []
+  };
 
   /**
    * @method componentWillMount
@@ -53,36 +103,68 @@ class ActionToolbar extends React.Component {
     }
   }
 
-  state = {
-    /**
-     * @property total
-     * @type {Number}
-     */
-    total: 0,
+  /**
+   * @method actions
+   * @return {Array}
+   */
+  actions() {
+    const actions = [];
 
-    /**
-     * @property selected
-     * @type {Array}
-     */
-    selected: []
+    for (const key in this.props.actions) {
+      const action = this.props.actions[key];
+      actions.push(this.buildAction(action, key));
+    }
+
+    return actions;
+  }
+
+  /**
+   * @method handleOnClick
+   * @return {Function}
+   */
+  handleOnClick = (onClick, selected) => {
+    if (!onClick) { return null; }
+    return event => onClick(selected, event);
+  }
+
+  /**
+   * @method isActive
+   * @return {Boolean}
+   */
+  isActive() {
+    return this.state.total > 0;
+  }
+
+  /**
+   * @method mainClasses
+   * @return {String}
+   */
+  mainClasses() {
+    return classNames('carbon-action-toolbar', this.props.className);
+  }
+
+  /**
+   * @method linkClasses
+   * @return {String}
+   */
+  linkClasses(className) {
+    return classNames('carbon-action-toolbar__action', className);
   }
 
   /**
    * @method buildAction
    * @return {Object} JSX
    */
-  buildAction = (action, index) => {
-    let { onClick, text, className, ...props } = action;
-
-    className = classNames("carbon-action-toolbar__action", className);
-    onClick = onClick ? onClick.bind(this, this.state.selected) : null;
+  buildAction(action, index) {
+    const { onClick, className, text, ...props } = action;
 
     return (
       <Link
-        className={ className }
-        disabled={ !this.isActive }
+        className={ this.linkClasses(className) }
+        data-element='action'
+        disabled={ !this.isActive() }
         key={ index }
-        onClick={ onClick }
+        onClick={ this.handleOnClick(onClick, this.state.selected) }
         { ...props }
       >
         { text }
@@ -91,49 +173,21 @@ class ActionToolbar extends React.Component {
   }
 
   /**
-   * @method actions
-   * @return {Array}
-   */
-  get actions() {
-    let actions = [];
-
-    for (let key in this.props.actions) {
-      let action = this.props.actions[key];
-      actions.push(this.buildAction(action, key));
-    }
-
-    return actions;
-  }
-
-  /**
-   * @method isActive
-   * @return {Boolean}
-   */
-  get isActive() {
-    return this.state.total > 0;
-  }
-
-  /**
-   * @method mainClasses
-   * @return {String}
-   */
-  get mainClasses() {
-    return classNames("carbon-action-toolbar", this.props.className);
-  }
-
-  /**
    * @method render
    * @return {Object} JSX
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
-        <div className="carbon-action-toolbar__total">
-          <strong>{ this.state.total }</strong> { I18n.t("action_toolbar.selected", { defaultValue: "Selected" }) }
+      <div className={ this.mainClasses() } { ...tagComponent('action-toolbar', this.props) } >
+        <div className='carbon-action-toolbar__total'>
+          <strong data-element='total'>
+            { this.state.total }
+          </strong>
+          &nbsp;{ I18n.t('action_toolbar.selected', { defaultValue: 'Selected' }) }
         </div>
 
-        <div className="carbon-action-toolbar__actions">
-          { this.actions }
+        <div className='carbon-action-toolbar__actions'>
+          { this.actions() }
         </div>
       </div>
     );

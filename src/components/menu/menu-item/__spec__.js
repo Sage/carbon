@@ -1,73 +1,72 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import MenuItem from './menu-item';
 import Link from './../../link';
 
 describe('MenuItem', () => {
-  let instance;
+  let wrapper;
 
   describe('no submenu', () => {
     beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
+      wrapper = shallow(
         <MenuItem className="foobar">
           foo
         </MenuItem>
       );
     });
 
-    it('renders a link with correct classes', () => {
-      let item = TestUtils.findRenderedComponentWithType(instance, Link);
-      expect(item.props.className).toEqual('carbon-menu-item foobar');
+    it('renders a single Link with the correct class', () => {
+      let submenuItem = wrapper.find(Link);
+      expect(submenuItem.length).toEqual(1);
+      expect(submenuItem.hasClass('carbon-menu-item')).toEqual(true);
+      expect(submenuItem.hasClass('foobar')).toEqual(true);
     });
   });
 
   describe('with submenu', () => {
     beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
+      wrapper = shallow(
         <MenuItem className="foobar" submenu="menu name" submenuDirection="left">
           foo
         </MenuItem>
       );
     });
 
-    it('renders a div with correct classes', () => {
-      let item = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(item.classList).toMatch('carbon-menu-item foobar carbon-menu-item--has-submenu');
-    });
-
-    it('renders a submenu with classes', () => {
-      let submenu = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[2];
-      expect(submenu.classList).toMatch('carbon-menu-item__submenu carbon-menu-item__submenu--left');
+    it('renders a submenu with a title', () => {
+      expect(wrapper.find('.carbon-menu-item--has-submenu').length).toEqual(1);
+      expect(wrapper.find('.carbon-menu-item__submenu-title').length).toEqual(1);
     });
   });
 
-  describe('selected', () => {
+  describe('Boolean props', () => {
     beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <MenuItem selected={ true }>
+      wrapper = shallow(
+        <MenuItem selected={ true } divide={ true } alternate={ true }>
           foo
         </MenuItem>
       );
     });
 
-    it('renders with selected class', () => {
-      let item = TestUtils.findRenderedComponentWithType(instance, Link);
-      expect(item.props.className).toEqual('carbon-menu-item carbon-menu-item--selected');
+    it('selected, divide and alternate', () => {
+      let submenuItem = wrapper.find(Link);
+      expect(submenuItem.hasClass('carbon-menu-item--divide')).toEqual(true);
+      expect(submenuItem.hasClass('carbon-menu-item--selected')).toEqual(true);
+      expect(submenuItem.hasClass('carbon-menu-item--alternate')).toEqual(true);
     });
+
+    it("alternate-off if 'alternate' Boolean is not set", () => {
+      wrapper = shallow(<MenuItem>foo</MenuItem>);
+      let submenuItem = wrapper.find(Link);
+      expect(submenuItem.hasClass('carbon-menu-item--alternate-off')).toEqual(true);
+    })
   });
 
-  describe('divide', () => {
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <MenuItem divide={ true }>
-          foo
-        </MenuItem>
-      );
-    });
+  describe("tags on component", () => {
+    let wrapper = shallow(<MenuItem data-element='bar' data-role='baz'>Test</MenuItem>);
 
-    it('renders with divide class', () => {
-      let item = TestUtils.findRenderedComponentWithType(instance, Link);
-      expect(item.props.className).toEqual('carbon-menu-item carbon-menu-item--divide');
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'menu-item', 'bar', 'baz');
     });
   });
 });
