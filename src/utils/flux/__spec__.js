@@ -19,7 +19,7 @@ class SimpleView extends React.Component {
 class View extends React.Component {
 
   componentDidMount() {
-    this.extraFunction(); 
+    this.extraFunction();
   }
 
   componentWillUnmount() {
@@ -30,12 +30,12 @@ class View extends React.Component {
     // Nothing
   }
 
-  render() { 
-    
+  render() {
+
     let value = this.state.BaseStore1.get('text');
 
     return(
-      <Textbox name="Test" value={ value } />    
+      <Textbox name="Test" value={ value } />
     );
   }
 }
@@ -87,7 +87,7 @@ describe('Connect', () => {
           instance.componentDidMount();
           expect(instance.extraFunction).toHaveBeenCalled();
         });
-      
+
         it('adds events listeners', () => {
           spyOn(baseStore1, 'addChangeListener');
           spyOn(baseStore2, 'addChangeListener');

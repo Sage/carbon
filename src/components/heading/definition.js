@@ -13,6 +13,8 @@ let definition = new Definition('heading', Heading, {
  `,
   type: 'layout',
   propTypes: {
+    children: "Node",
+    className: "String",
     title: "String",
     subheader: "String",
     help: "String",
@@ -22,6 +24,8 @@ let definition = new Definition('heading', Heading, {
     separator: "Boolean"
   },
   propDescriptions: {
+    children: "This component supports children.",
+    className: "Classes to apply to the component.",
     title: "Sets the title for the heading.",
     subheader: "Sets the subheader for the heading.",
     help: "Sets the help text for the heading.",

@@ -83,6 +83,14 @@ class TableHeader extends React.Component {
     sortable: PropTypes.bool
   }
 
+  static defaultProps = {
+    align: '',
+    children: null,
+    className: '',
+    name: '',
+    sortable: false
+  }
+
   /**
    * Sort handler passed from table context
    *
@@ -96,58 +104,37 @@ class TableHeader extends React.Component {
   }
 
   /**
-   * Emits sort event to parent context - table.
+   * Event handler for clicks on the <a> tag used for activating
+   * column sorting.
    *
-   * @method emitSortEvent
+   * Used to prevent the default action of the <a> tag.
+   *
+   * @method onSortableColumnClick
+   * @return {Void}
    */
-  emitSortEvent = () => {
-    let sortOrder = this.context.sortOrder || 'desc';
-
-    // If this is the current sorted column. flip order
-    if (this.sorted) {
-      sortOrder = this.context.sortOrder === 'asc' ? 'desc' : 'asc';
-    }
-
-    this.context.onSort(this.props.name, sortOrder);
+  onSortableColumnClick(event) {
+    event.preventDefault();
   }
 
   /**
-   * Determines if this column is currently sorted.
+   * Returns props to be used on the TH element.
    *
-   * @method sorted
-   * @return {Boolean}
+   * @method tableHeaderProps
+   * @return {Object}
    */
-  get sorted() {
-    return this.props.sortable && this.context.sortedColumn === this.props.name;
+  get tableHeaderProps() {
+    const { ...props } = validProps(this);
+
+    delete props.children;
+
+    props.className = this.tableHeaderClasses();
+    props.onClick = this.props.sortable ? this.emitSortEvent : '';
+
+    return props;
   }
 
-  /**
-   * Returns sort icon HTML if column is sortable and has been sorted.
-   *
-   * @method sortIconHTML
-   * @return {JSX} Icon JSX
-   */
-  get sortIconHTML() {
-    if (this.sorted) {
-      const type = this.context.sortOrder === 'desc' ? 'sort-down' : 'sort-up';
-      return <Icon type={ type } className={ this.sortIconClasses } />;
-    }
-    return null;
-  }
-
-  /**
-   * Returns classes to apply to the sort icon
-   *
-   * @method sortIconClasses
-   * @return {JSX} Icon JSX
-   */
-  get sortIconClasses() {
-    return classNames(
-      'carbon-table-header__icon',
-      {
-        [`carbon-table-header__icon--align-${this.props.align}`]: this.props.align
-      }
-    );
+  get isCurrentSortedColumn() {
+    return this.props.sortable && this.props.name === this.context.sortedColumn;
   }
 
   /**
@@ -167,21 +154,101 @@ class TableHeader extends React.Component {
     );
   }
 
+
   /**
-   * Returns props to be used on the TH element.
+   * Returns classes to apply to the sort icon
    *
-   * @method tableHeaderProps
-   * @return {Object}
+   * @method sortIconClasses
+   * @return {JSX} Icon JSX
    */
-  get tableHeaderProps() {
-    const { ...props } = validProps(this);
+  get sortIconClasses() {
+    return classNames(
+      'carbon-table-header__icon',
+      {
+        [`carbon-table-header__icon--align-${this.props.align}`]: this.props.align
+      }
+    );
+  }
 
-    delete props.children;
 
-    props.className = this.tableHeaderClasses();
-    props.onClick = this.props.sortable ? this.emitSortEvent.bind(this) : '';
+  /**
+   * Returns sort icon HTML if column is sortable and has been sorted.
+   *
+   * @method sortIconHTML
+   * @return {JSX} Icon JSX
+   */
+  get sortIconHTML() {
+    if (this.sorted) {
+      const type = this.context.sortOrder === 'desc' ? 'sort-down' : 'sort-up';
+      return <Icon type={ type } className={ this.sortIconClasses } />;
+    }
+    return null;
+  }
 
-    return props;
+  /**
+   * Determines if this column is currently sorted.
+   *
+   * @method sorted
+   * @return {Boolean}
+   */
+  get sorted() {
+    return this.props.sortable && this.context.sortedColumn === this.props.name;
+  }
+
+  /**
+   * Returns descriptive text to describe the sortable column, and about
+   * what will happen when they next attempt to sort the column i.e. which
+   * direction it will sort in.
+   *
+   * NB If the current sortOrder is undefined, assume the next sort order
+   * will be descending.
+   *
+   * @method sortDescription
+   * @return {string}
+   */
+  get sortDescription() {
+    if (!this.props.sortable) {
+      return null;
+    }
+
+    const currentSortOrder = this.context.sortOrder;
+    let nextSortOrder = null;
+    let currentSortDescription = null;
+
+    if (currentSortOrder) {
+      nextSortOrder = currentSortOrder === 'asc' ? 'descending' : 'ascending';
+      currentSortDescription = `sorted ${currentSortOrder === 'desc' ? 'descending' : 'ascending'}, `;
+    } else {
+      nextSortOrder = 'descending';
+      currentSortDescription = '';
+    }
+
+    return `Sortable column, ${currentSortDescription}activate to sort column ${nextSortOrder}`;
+  }
+
+  ariaAttributes() {
+    const aria = {};
+    if (this.context.sortOrder && this.isCurrentSortedColumn) {
+      aria['aria-sort'] = this.context.sortOrder === 'asc' ? 'ascending' : 'descending';
+    }
+
+    return aria;
+  }
+
+  /**
+   * Emits sort event to parent context - table.
+   *
+   * @method emitSortEvent
+   */
+  emitSortEvent = () => {
+    let sortOrder = this.context.sortOrder || 'desc';
+
+    // If this is the current sorted column. flip order
+    if (this.sorted) {
+      sortOrder = this.context.sortOrder === 'asc' ? 'desc' : 'asc';
+    }
+
+    this.context.onSort(this.props.name, sortOrder);
   }
 
   componentTags(props) {
@@ -198,10 +265,28 @@ class TableHeader extends React.Component {
    * @method render
    */
   render() {
+    let contents = null;
+
+    if (this.props.sortable) {
+      const sortOrder = this.context.sortOrder === 'asc' ? 'desc' : 'asc';
+      contents = (
+        <a
+          href={ `#sort-${sortOrder}` }
+          className='carbon-table-header--sort'
+          aria-label={ this.sortDescription }
+          onClick={ this.onSortableColumnClick }
+        >
+          { this.props.children }
+          { this.sortIconHTML }
+        </a>
+      );
+    } else {
+      contents = this.props.children;
+    }
+
     return (
-      <th { ...this.tableHeaderProps } { ...this.componentTags(this.props) }>
-        { this.props.children }
-        { this.sortIconHTML }
+      <th { ...this.tableHeaderProps } { ...this.componentTags(this.props) } { ...this.ariaAttributes() }>
+        { contents }
       </th>
     );
   }

@@ -16,11 +16,27 @@ class NavigationBar extends React.Component {
      * @type {String}
      * @default primary
      */
-    as: PropTypes.string
+    as: PropTypes.string,
+
+    /**
+     * The rendered children of the component.
+     *
+     * @property children
+     * @type {Multiple}
+     */
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string
   }
 
   static defaultProps = {
-    as: "primary"
+    as: 'primary'
   }
 
   /**
@@ -31,7 +47,7 @@ class NavigationBar extends React.Component {
    */
   get classes() {
     return classNames(
-      "carbon-navigation-bar",
+      'carbon-navigation-bar',
       this.props.className,
       `carbon-navigation-bar--${this.props.as}`
     );
@@ -43,7 +59,7 @@ class NavigationBar extends React.Component {
   render() {
     return (
       <div className={ this.classes } { ...tagComponent('navigation-bar', this.props) }>
-        <AppWrapper className="carbon-navigation-bar__content">
+        <AppWrapper className='carbon-navigation-bar__content'>
           { this.props.children }
         </AppWrapper>
       </div>

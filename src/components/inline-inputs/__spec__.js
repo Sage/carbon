@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import classNames from 'classnames';
-import Row from './../row';
+import { Row, Column } from './../row';
 import Textbox from './../textbox';
 import InlineInputs from './inline-inputs';
 import { shallow } from 'enzyme';
@@ -56,7 +56,29 @@ describe('Inline Inputs', () => {
     expect(row.length).toEqual(1);
   });
 
-  it('renders its children', () => {
-    expect(wrapper.find(Textbox).length).toEqual(2);
+  describe('children', () => {
+    describe('when their are multiple children', () => {
+      it('renders its children', () => {
+        expect(wrapper.find(Textbox).length).toEqual(2);
+      });
+
+      it('wraps all its children in a Column', () => {
+        expect(wrapper.find(Column).length).toEqual(2);
+      });
+    });
+
+    describe('when there is one child', () => {
+      beforeEach(() => {
+        wrapper.setProps({ children: <Textbox /> });
+      });
+
+      it('renders the child', () => {
+        expect(wrapper.find(Textbox).length).toEqual(1);
+      });
+
+      it('wraps the child in a Column', () => {
+        expect(wrapper.find(Column).length).toEqual(1);
+      });
+    });
   });
 });

@@ -249,7 +249,7 @@ describe('Textarea', () => {
 
     describe('when characterLimit is not set', () => {
       it('returns null', () => {
-        expect(baseInstance.characterCount).toBeUndefined();
+        expect(baseInstance.characterCount).toBeNull();
       });
     });
   });

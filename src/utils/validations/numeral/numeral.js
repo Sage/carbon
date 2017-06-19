@@ -1,8 +1,8 @@
+import BigNumber from 'bignumber.js';
+import I18n from 'i18n-js';
 import NumeralTypeValidator from './numeral-type';
 import ValidationsHelper from './../../helpers/validations';
-import I18n from "i18n-js";
 import I18nHelper from './../../helpers/i18n';
-import BigNumber from 'bignumber.js';
 
 /**
  * A Numeral Validator object.
@@ -54,19 +54,15 @@ class NumeralValidator {
    * @param {Object} params
    */
   constructor(params = {}) {
-    let validationToCall, numeralFunctions, validationObject;
-
-    validationToCall = 'validate' + getType(params);
-
-    numeralFunctions = {
-      validateGreater: validateGreater(),
-      validateExact:   validateValue(),
-      validateLess:    validateLess(),
-      validateRange:   validateRange(),
-      validateType:    validateType()
-    };
-
-    validationObject = numeralFunctions[validationToCall];
+    const validationToCall = `validate${getType(params)}`,
+        numeralFunctions = {
+          validateGreater: validateGreater(),
+          validateExact: validateValue(),
+          validateLess: validateLess(),
+          validateRange: validateRange(),
+          validateType: validateType()
+        },
+        validationObject = numeralFunctions[validationToCall];
 
     /**
      * Custom message for validation.
@@ -157,11 +153,11 @@ function getDescriptiveMessage(params, value, i18nString, i18nOptions) {
 
   if (!typeValidator.validate(value)) {
     return typeValidator.message();
-  } else {
-    let precision = params.integer ? 0 : 2;
-    i18nOptions.count = I18nHelper.formatDecimal(i18nOptions.count, precision);
-    return I18n.t(i18nString, i18nOptions);
   }
+
+  const precision = params.integer ? 0 : 2;
+  i18nOptions.count = I18nHelper.formatDecimal(i18nOptions.count, precision);
+  return I18n.t(i18nString, i18nOptions);
 }
 
 /**
@@ -195,11 +191,11 @@ function validateValue() {
      * @param {Float} value to check
      * @return {Boolean} true if value is valid
      */
-    validate: function(value) {
+    validate(value) {
       if (!value) { return true; }
       if (!typeCheck(this, value)) { return false; }
 
-      let stringValue = new BigNumber(value),
+      const stringValue = new BigNumber(value),
           stringIs = new BigNumber(this.is);
 
       return stringValue.equals(stringIs);
@@ -210,8 +206,8 @@ function validateValue() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function(value) {
-      return getDescriptiveMessage(this, value, "errors.messages.equal", { count: this.is });
+    message(value) {
+      return getDescriptiveMessage(this, value, 'errors.messages.equal', { count: this.is });
     }
   };
 }
@@ -231,11 +227,11 @@ function validateLess() {
      * @param {Float} value to check
      * @return {Boolean} true if value is valid
      */
-    validate: function(value) {
+    validate(value) {
       if (!value) { return true; }
       if (!typeCheck(this, value)) { return false; }
 
-      let stringValue = new BigNumber(value),
+      const stringValue = new BigNumber(value),
           stringMax = new BigNumber(this.max);
 
       return stringValue.lessThanOrEqualTo(stringMax);
@@ -245,8 +241,8 @@ function validateLess() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function(value) {
-      return getDescriptiveMessage(this, value, "errors.messages.less_than_or_equal_to", { count: this.max });
+    message(value) {
+      return getDescriptiveMessage(this, value, 'errors.messages.less_than_or_equal_to', { count: this.max });
     }
   };
 }
@@ -267,11 +263,11 @@ function validateGreater() {
      * @param {Float} value to check
      * @return {Boolean} true if value is valid
      */
-    validate: function(value) {
+    validate(value) {
       if (!value) { return true; }
       if (!typeCheck(this, value)) { return false; }
 
-      let stringValue = new BigNumber(value),
+      const stringValue = new BigNumber(value),
           stringMin = new BigNumber(this.min);
 
       return stringValue.greaterThanOrEqualTo(stringMin);
@@ -281,8 +277,8 @@ function validateGreater() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function(value) {
-      return getDescriptiveMessage(this, value, "errors.messages.greater_than_or_equal_to", { count: this.min });
+    message(value) {
+      return getDescriptiveMessage(this, value, 'errors.messages.greater_than_or_equal_to', { count: this.min });
     }
   };
 }
@@ -303,11 +299,11 @@ function validateRange() {
      * @param {Integer|Float} value to check
      * @return {Boolean} true if value is valid
      */
-    validate: function(value) {
+    validate(value) {
       if (!value) { return true; }
       if (!typeCheck(this, value)) { return false; }
 
-      let stringValue = new BigNumber(value),
+      const stringValue = new BigNumber(value),
           stringMin = new BigNumber(this.min),
           stringMax = new BigNumber(this.max);
 
@@ -318,11 +314,11 @@ function validateRange() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function(value) {
+    message(value) {
       let error = 'greater',
           count = this.min,
-          stringMin = new BigNumber(count),
           stringValue;
+      const stringMin = new BigNumber(count);
 
       if (typeCheck(this, value)) {
         stringValue = new BigNumber(value);
@@ -334,8 +330,8 @@ function validateRange() {
 
       return getDescriptiveMessage(
         this, value,
-        `errors.messages.${ error }_than_or_equal_to`,
-        { count: count }
+        `errors.messages.${error}_than_or_equal_to`,
+        { count }
       );
     }
   };
@@ -356,7 +352,7 @@ function validateType() {
      * @param {Integer|Float} value to check
      * @return {Boolean} true if value is valid
      */
-    validate: function(value) {
+    validate(value) {
       if (!value) { return true; }
 
       return typeCheck(this, value);
@@ -366,7 +362,7 @@ function validateType() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function() {
+    message() {
       return new NumeralTypeValidator(this).message();
     }
   };

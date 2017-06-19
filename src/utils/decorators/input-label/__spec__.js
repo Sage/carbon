@@ -181,13 +181,13 @@ describe('InputLabel', () => {
   describe('labelHTML', () => {
     describe('when label is set to false', () => {
       it('does not add a label', () => {
-        expect(instanceFalse.labelHTML).not.toBeDefined();
+        expect(instanceFalse.labelHTML).toEqual(null);
       });
     });
 
     describe('when no name is provided', () => {
       it('does not add a label', () => {
-        expect(instanceNameless.labelHTML).not.toBeDefined();
+        expect(instanceNameless.labelHTML).toEqual(null);
       });
     });
 
@@ -251,7 +251,7 @@ describe('InputLabel', () => {
 
     describe('when label help is not provided', () => {
       it('does not return a help span', () => {
-        expect(instanceFalse.fieldHelpHTML).toBeUndefined();
+        expect(instanceFalse.fieldHelpHTML).toEqual(null);
       });
     });
   });
