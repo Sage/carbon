@@ -7,14 +7,17 @@ import Validation from './../../utils/validations/presence';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import Dialog from './../dialog';
 import I18n from "i18n-js";
+import CancelButton from './cancel-button';
+import SaveButton from './save-button';
+import FormSummary from './form-summary';
+import Button from './../button';
+import MultiActionButton from './../multi-action-button';
 
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
-import FormSummary from './form-summary';
-
 describe('Form', () => {
-  let instance;
+  let instance, wrapper;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -407,67 +410,74 @@ describe('Form', () => {
       let buttonContainers;
 
       beforeEach(() => {
-        buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-        buttonContainers = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+        wrapper = mount(<Form />)
+        buttons = wrapper.find(Button)
+        buttonContainers = TestUtils.scryRenderedDOMComponentsWithTag(wrapper, 'div');
       });
 
-      it('renders two buttons', () => {
-        expect(buttons.length).toEqual(2);
-      });
-
-      it('renders a secondary cancel button with cancelClasses', () => {
-        TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__cancel');
-        expect(buttons[1].className).toMatch('carbon-button carbon-button--secondary');
-      });
-
-      it('when cancelText prop is passed it renders the secondary button with the prop', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form cancelText={'Foo'} />
-        );
-        buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-        expect(buttons[1].innerHTML).toEqual('Foo');
-      });
-
-      it('when cancelText prop is not passed it renders the secondary button with default text', () => {
-        expect(buttons[1].innerHTML).toEqual(
-          I18n.t('actions.cancel', { defaultValue: 'Cancel' })
-        );
-      });
-
-      it('renders a primary save button with saveClasses', () => {
-        expect(buttons[0].className).toMatch('carbon-button carbon-button--primary');
-        expect(buttonContainers[1].className).toEqual('carbon-form__save');
-      });
-
-      it('renders an undisabled save button if not submitting', () => {
-        expect(buttons[0].disabled).toBeFalsy();
-      });
-
-      it('renders a disabled save button if saving', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form saving={true} />
-        );
-        buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-        expect(buttons[0].disabled).toBeTruthy();
-      });
-
-      describe('when saveButtonProps is passed', () => {
-        it('sets save button props', () => {
-          let theme = 'magenta';
-
-          instance = TestUtils.renderIntoDocument(<Form saveButtonProps={ { theme: theme } } />);
-          buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-          expect(buttons[0].className).toContain(`carbon-button--${theme}`);
+      describe('the save button', () => {
+        it('by default it renders a save button', () => {
+          expect(wrapper.find('.carbon-form-save').exists()).toBeTruthy();
         });
       });
 
-      describe('when cancelButtonProps is passed', () => {
-        it('sets cancel button props', () => {
-          let theme = 'red';
+      describe('the buttons', () => {
+        let wrapper;
 
-          instance = TestUtils.renderIntoDocument(<Form cancelButtonProps={ { theme: theme } } />);
-          buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-          expect(buttons[1].className).toContain(`carbon-button--${theme}`);
+        describe('when no additional buttons are passed in', () => {
+          beforeEach(() => {
+            wrapper = shallow(
+              <Form
+                cancelText='Some custom text'
+                saveText='Some custom save text'
+                saving={ false }
+                saveButtonProps={ { theme: 'red' } }
+              />
+            )
+            wrapper.setState({ errorCount: 2, warningCount: 3 });
+          });
+
+          it('renders a cancel button with expected props', () => {
+            let cancelButton = wrapper.find(CancelButton);
+            expect(cancelButton.prop('cancelText')).toEqual('Some custom text')
+          });
+
+          it('renders a save button with expected props', () => {
+            let saveButton = wrapper.find(SaveButton);
+            expect(saveButton.prop('saveText')).toEqual('Some custom save text');
+            expect(saveButton.prop('saving')).toBeFalsy();
+            expect(saveButton.prop('saveButtonProps')).toEqual({ theme: 'red' })
+            expect(saveButton.prop('errors')).toEqual(2);
+            expect(saveButton.prop('warnings')).toEqual(3);
+          });
+
+          it('renders a form summary with expected props', () => {
+            let summary = wrapper.find(FormSummary);
+            expect(summary.prop('errors')).toEqual(2)
+            expect(summary.prop('warnings')).toEqual(3)
+          });
+        });
+
+        describe('when an additional save button is passed in', () => {
+          beforeEach(() => {
+            let customButton = (<Button className='my-custom-class'>Save</Button>)
+            wrapper = shallow(
+              <Form
+                cancelText='Some custom text'
+                saveText='Some custom save text'
+                saving={ false }
+                customSaveButton={ customButton }
+              />
+            )
+          });
+
+          it('does not render the standard SaveButton', () => {
+            expect(wrapper.find(SaveButton).exists()).toBeFalsy();
+          });
+
+          it('renders a custom save button with expected props', () => {
+            expect(wrapper.find('.my-custom-class').length).toEqual(1);
+          });
         });
       });
     });
@@ -475,33 +485,47 @@ describe('Form', () => {
     describe('Cancel Button', () => {
       describe('when cancel prop is false', () => {
         it('does not show a cancel button', () => {
-          let instance = TestUtils.renderIntoDocument(<Form cancel={ false } />);
-          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-          expect(buttons.length).toEqual(1);
+          let wrapper = shallow(<Form cancel={ false } />);
+          expect(wrapper.find(CancelButton).length).toEqual(0);
         });
       });
 
       describe('when cancel props is true (default)', () => {
         it('does show a cancel button', () => {
-          let buttons = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__cancel');
-          expect(buttons).toBeDefined();
+          let wrapper = shallow(<Form />);
+          expect(wrapper.find(CancelButton).length).toEqual(1);
+        });
+      });
+    });
+
+    describe('Summary', () => {
+      describe('when showSummary prop is false', () => {
+        it('does not show a form summary', () => {
+          let wrapper = shallow(<Form showSummary={ false } />);
+          expect(wrapper.find(FormSummary).length).toEqual(0);
+        });
+      });
+
+      describe('when showSummary prop is true (default)', () => {
+        it('does show a form summary', () => {
+          let wrapper = shallow(<Form />);
+          expect(wrapper.find(FormSummary).length).toEqual(1);
         });
       });
     });
 
     describe('Save Button', () => {
-      describe('when save is true or is not set to false', () => {
-        it('shows a save button', () => {
-          let instance = TestUtils.renderIntoDocument(<Form save={ true }/>);
-          let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__save')
+      describe('when save prop is false', () => {
+        it('does not show a save button', () => {
+          let wrapper = shallow(<Form save={ false } />);
+          expect(wrapper.find(SaveButton).length).toEqual(0);
         });
       });
 
-      describe('when save is set to false', () => {
-        it('does not show a save button', () => {
-          let instance = TestUtils.renderIntoDocument(<Form save={ false }/>);
-          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-          expect(buttons.length).toEqual(1);
+      describe('when save props is true (default)', () => {
+        it('does show a save button', () => {
+          let wrapper = shallow(<Form />);
+          expect(wrapper.find(SaveButton).length).toEqual(1);
         });
       });
     });
@@ -522,53 +546,6 @@ describe('Form', () => {
       });
     });
 
-    describe("Error reporting on buttons", () => {
-      let wrapper;
-
-      beforeEach(() => wrapper = shallow(<Form />))
-
-      describe('errorMessage', () => {
-        beforeEach(() => wrapper.setState({ errorCount: 2}));
-
-        it('renders FormSummary with 2 errors', () => {
-          let formSummary = wrapper.find(FormSummary);
-          expect(formSummary.prop('errors')).toEqual(2);
-          expect(formSummary.prop('warnings')).toEqual(0);
-        });
-
-        it('adds BEM modifier for invalid state on the save button', () => {
-          expect(wrapper.find('.carbon-form__save.carbon-form__save--invalid').length).toEqual(1);
-        });
-      });
-
-      describe('warningMessage', () => {
-        beforeEach(() => wrapper.setState({ warningCount: 2 }));
-
-        it('renders FormSummary with 2 warnings', () => {
-          let formSummary = wrapper.find(FormSummary);
-          expect(formSummary.prop('errors')).toEqual(0);
-          expect(formSummary.prop('warnings')).toEqual(2);
-        });
-
-        it('adds BEM modifier for invalid state on the save button', () => {
-          expect(wrapper.find('.carbon-form__save.carbon-form__save--invalid').length).toEqual(1);
-        });
-      });
-
-      describe('warning and error message', () => {
-        beforeEach(() => wrapper.setState({ errorCount: 2, warningCount: 2 }));
-
-        it('renders FormSummary with 2 errros and 2 warnings', () => {
-          let formSummary = wrapper.find(FormSummary);
-          expect(formSummary.prop('errors')).toEqual(2);
-          expect(formSummary.prop('warnings')).toEqual(2);
-        });
-
-        it('adds BEM modifier for invalid state on the save button', () => {
-          expect(wrapper.find('.carbon-form__save.carbon-form__save--invalid').length).toEqual(1);
-        });
-      });
-    });
   });
 
   describe("tags", () => {
@@ -578,15 +555,6 @@ describe('Form', () => {
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper, 'form', 'bar', 'baz');
       });
-    });
-
-    describe("on internal elements", () => {
-      let wrapper = shallow(<Form />);
-
-      elementsTagTest(wrapper, [
-        'cancel',
-        'save',
-      ]);
     });
   });
 });
