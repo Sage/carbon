@@ -28,12 +28,13 @@ describe('Dialog', () => {
         });
 
         it('focuses on the dialog', () => {
-          instance = TestUtils.renderIntoDocument(
+          spyOn(Dialog.prototype, 'componentDidMount').and.callThrough();
+          spyOn(Dialog.prototype, 'focusDialog');
+          const wrapper = mount(
             <Dialog open={ true } onCancel={ onCancel } />
           );
-          spyOn(instance, 'focusDialog');
-          instance.componentDidMount();
-          expect(instance.focusDialog).toHaveBeenCalled();
+          expect(Dialog.prototype.componentDidMount).toHaveBeenCalled();
+          expect(Dialog.prototype.focusDialog).toHaveBeenCalled();
         });
       });
 

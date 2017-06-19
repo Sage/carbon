@@ -29,6 +29,15 @@ class Alert extends Dialog {
     size: 'extra-small'
   })
 
+  constructor(props) {
+    super(props);
+    // focusDialog is called via setTimeout in onDialogBlur,
+    // so it needs binding to this
+    // From the React docs: "Generally, if you refer to a method without () after 
+    // it, such as onClick={this.handleClick}, you should bind that method."
+    this.focusDialog = this.focusDialog.bind(this);
+  }
+
   /**
    * Returns classes title for the confirm, combines with dialog class names.
    *
@@ -78,7 +87,7 @@ class Alert extends Dialog {
       ev.preventDefault();
       // Firefox loses focus unless we wrap the call to
       // this.focusDialog in setTimeout
-      setTimeout(this.focusDialog, 0);
+      setTimeout(this.focusDialog);
     }
   }
 }

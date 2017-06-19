@@ -183,7 +183,7 @@ class Dialog extends Modal {
     this._dialog.style.left = `${midPointX}px`;
   }
 
-  focusDialog = () => {
+  focusDialog() {
     this._dialog.focus();
   }
 
