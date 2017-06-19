@@ -1,0 +1,4 @@
+{
+  "main": "./drawer-section.js",
+  "style": "./drawer-section.scss"
+}

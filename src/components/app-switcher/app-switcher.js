@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Icon from 'components/icon';
+import DrawerItem from './drawer-item';
+import DrawerSection from './drawer-section';
 
 /**
  * Renders an application (drawer) switcher
@@ -31,23 +33,6 @@ export default class AppSwitcher extends React.Component {
 
   }
 
-    /**
-     * Pseudo private class for the styles
-     *
-     * @method styles
-     * @private
-     * @return Hash
-     */
-
-  styles = () => {
-    return {
-      appItem: "carbon-switcher-app-item",
-      menu: classNames((this.state.active ? "carbon-switcher-menu-active" : ""), "carbon-switcher-menu-title"),
-      sectionTitle: "carbon-switcher-section-title",
-      drawer: "carbon-switcher-drop-down",
-      arrowUp: "carbon-switcher-arrow-up"
-    };
-  }
 
     /**
      * Constructor method setting properties
@@ -90,7 +75,7 @@ export default class AppSwitcher extends React.Component {
   }
 
     /**
-     * Compose each of the individual pieces from applicationJson
+     * Compose each of the individual pieces
      *
      * @method composeDrawer
      * @return JSX Elements
@@ -101,11 +86,11 @@ export default class AppSwitcher extends React.Component {
 
     return parsedJson.items.map((section, index) => {
       let items = section.items.map((item,index) => {
-        return (<DrawerItem href = {item.href} key = {'index-' + index} cname = {this.styles().appItem} name={item.name} /> );
+        return (<DrawerItem href = {item.href} key = {'index-' + index} name={item.name} /> );
       });
 
       return (
-          <DrawerSection cname = {this.styles().sectionTitle} key={'index-' + index} items = {items} title={section.title}/>
+          <DrawerSection key={'index-' + index} items = {items} title={section.title}/>
         );
     });
 
@@ -120,45 +105,19 @@ export default class AppSwitcher extends React.Component {
      */
 
   render() {
+    let menu = classNames((this.state.active ? "carbon-switcher-menu-active" : ""), "carbon-switcher-menu-title");
+
     return (
-            <span className={this.styles().menu} onClick={this.handleOpenWindow}>
+            <span className={menu} onClick={this.handleOpenWindow}>
               <Icon type='grid' />
               {this.props.menuTitle}
               { this.state.active ?
-              <div onClick={this.handleCloseWindow} className={this.styles().drawer}>
+              <div onClick={this.handleCloseWindow} className="carbon-switcher-drop-down">
                         {this.compose()}
-                        <div className={this.styles().arrowUp} />
+                        <div className= "carbon-switcher-arrow-up" />
                      </div> : null }
                 </span>
     );
   }
 
-}
-
-class DrawerSection extends React.Component {
-
-  constructor(...props) {
-    super(...props);
-  }
-
-  render() {
-    return (
-          <div>
-            <div className = {this.props.cname} > {this.props.title} </div>
-            <div>{this.props.items}</div>
-          </div>
-              );
-  }
-}
-
-class DrawerItem extends React.Component {
-
-  constructor(...props) {
-    super(...props);
-  }
-
-  render() {  return ( <a href={this.props.href} className={this.props.cname}>
-            {this.props.name}
-              </a>);
-  }
 }
