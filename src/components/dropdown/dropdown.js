@@ -130,7 +130,15 @@ class Dropdown extends React.Component {
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
-    ])
+    ]),
+
+    /**
+     * An optional function to be passed that will render each of the dropdown's items.
+     *
+     * @property renderItem
+     * @type {Function}
+     */
+    renderItem: PropTypes.func
   }
 
   static safeProps = ['disabled', 'readonly', 'autoFocus']
@@ -632,7 +640,7 @@ class Dropdown extends React.Component {
           onMouseOver={ this.handleMouseOverListItem }
           className={ klass }
         >
-          { option.name }
+          { this.props.renderItem ? this.props.renderItem(option) : option.name }
         </li>
       );
     });

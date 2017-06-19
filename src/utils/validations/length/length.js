@@ -46,18 +46,14 @@ class LengthValidator {
    * @param {Object} params
    */
   constructor(params = {}) {
-    let validationToCall, lengthFunctions, validationObject;
-
-    validationToCall = 'validate' + getType(params);
-
-    lengthFunctions = {
-      validateGreater: validateGreater(),
-      validateExact:   validateLength(),
-      validateLess:    validateLess(),
-      validateRange:   validateRange()
-    };
-
-    validationObject = lengthFunctions[validationToCall];
+    const validationToCall = `validate${getType(params)}`,
+        lengthFunctions = {
+          validateGreater: validateGreater(),
+          validateExact: validateLength(),
+          validateLess: validateLess(),
+          validateRange: validateRange()
+        },
+        validationObject = lengthFunctions[validationToCall];
 
     /**
      * Custom message for validation.
@@ -118,10 +114,11 @@ export default LengthValidator;
  * @private
  */
 function getType(params) {
-  let type = ValidationsHelper.comparisonType(params);
+  const type = ValidationsHelper.comparisonType(params);
 
   if (!type) {
-    throw new Error("You must either set an 'is' value, a single 'min' and 'max' value, or both a 'min' and 'max' value.");
+    throw new Error("You must either set an 'is' value, a single 'min' " +
+                    "and 'max' value, or both a 'min' and 'max' value.");
   }
 
   return type;
@@ -144,8 +141,8 @@ function validateLength() {
      * @param {Float} value to check
      * @return {Boolean} true if value is valid
      */
-    validate: function(value) {
-      return (!value || (value.length == this.is));
+    validate(value) {
+      return (!value || (value.length === this.is));
     },
 
     /**
@@ -154,7 +151,7 @@ function validateLength() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function() {
+    message() {
       return ValidationsHelper.validationMessage(
         this.customMessage,
         'errors.messages.wrong_length',
@@ -179,7 +176,7 @@ function validateLess() {
      * @param {Float} value to check
      * @return {Boolean} true if value is valid
      */
-    validate: function(value) {
+    validate(value) {
       return (!value || (value.length <= this.max));
     },
 
@@ -187,7 +184,7 @@ function validateLess() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function() {
+    message() {
       return ValidationsHelper.validationMessage(
         this.customMessage,
         'errors.messages.too_long',
@@ -212,7 +209,7 @@ function validateGreater() {
      * @param {Float} value to check
      * @return {Boolean} true if value is valid
      */
-    validate: function(value) {
+    validate(value) {
       return (!value || (value.length >= this.min));
     },
 
@@ -220,7 +217,7 @@ function validateGreater() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function() {
+    message() {
       return ValidationsHelper.validationMessage(
         this.customMessage,
         'errors.messages.too_short',
@@ -246,7 +243,7 @@ function validateRange() {
      * @param {Float} value to check
      * @return {Boolean} true if value is valid
      */
-    validate: function(value) {
+    validate(value) {
       return (!value || (value.length >= this.min && value.length <= this.max));
     },
 
@@ -254,7 +251,7 @@ function validateRange() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function(value) {
+    message(value) {
       let error = 'short', count = this.min;
 
       if (value.length >= this.min) {
@@ -264,8 +261,8 @@ function validateRange() {
 
       return ValidationsHelper.validationMessage(
         this.customMessage,
-        `errors.messages.too_${ error }`,
-        { count: count }
+        `errors.messages.too_${error}`,
+        { count }
       );
     }
   };
