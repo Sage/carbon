@@ -86,11 +86,14 @@ export default class AppSwitcher extends React.Component {
 
     return parsedJson.items.map((section, index) => {
       let items = section.items.map((item,index) => {
-        return (<DrawerItem href = {item.href} key = {'index-' + index} name={item.name} /> );
+        return (
+        <DrawerItem href = {item.href} key = {'index-' + index} name={item.name}/>);
       });
 
       return (
-          <DrawerSection key={'index-' + index} items = {items} title={section.title}/>
+          <DrawerSection key={'index-' + index} title={section.title}>
+              {items}
+          </DrawerSection>
         );
     });
 
