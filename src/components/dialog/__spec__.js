@@ -28,12 +28,10 @@ describe('Dialog', () => {
         });
 
         it('focuses on the dialog', () => {
-          spyOn(Dialog.prototype, 'componentDidMount').and.callThrough();
           spyOn(Dialog.prototype, 'focusDialog');
           const wrapper = mount(
             <Dialog open={ true } onCancel={ onCancel } />
           );
-          expect(Dialog.prototype.componentDidMount).toHaveBeenCalled();
           expect(Dialog.prototype.focusDialog).toHaveBeenCalled();
         });
       });
