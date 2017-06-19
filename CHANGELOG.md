@@ -123,6 +123,10 @@ The `TableRow` component now supports drag and drop. To enable it you need to ad
 </Table>
 ```
 
+## Text Helpers
+
+A new helper object is available in `utils/helpers/text`. Currently it only contains one method `clearSelection`, which clears any selected text on the page.
+
 ## Component Improvements
 
 * `Menu` has been updated to use a `<nav>` tag as its root element.
@@ -148,10 +152,6 @@ You can now pass `--cdn` to the gulp task to bundle assets pointing towards the 
 * `Content`: gets a `data-element` on its body wrapper
 
 # 1.1.0
-
-## Text Helpers
-
-A new helper object is available in `utils/helpers/text`. Currently it only contains one method `clearSelection`, which clears any selected text on the page.
 
 ## Package Updates
 
