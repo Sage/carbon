@@ -29,9 +29,12 @@ The following components have had minor internal changes to satisfy the introduc
 * MenuList
 * MenuListItem
 * Message
+* Modal
 * MountInApp
 * NavigationBar
 * NumberInput
+* Pager
+* Pill
 * Pod
 * Portrait
 * Profile
@@ -40,6 +43,7 @@ The following components have had minor internal changes to satisfy the introduc
 * SettingsRow
 * ShowEditPod
 * Sidebar
+* Sidebar Header
 * SimpleColorPicker
 * Spinner
 * SubmenuBlock
@@ -63,16 +67,33 @@ The following utils have had minor internal changes to satisfy the introduction 
 * Tooltip Decorator
 
 
+The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Handlers
+
+
+The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Validations
+
+
 ## Component Improvements
 
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `InlineInputs` children are now wrapped by Columns by the component
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
+* `MenuItem`: focus outline is now fully visible when an item is focused.
 
 ## Deployment Changes
 
 You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
+
+# 1.1.2
+
+## Component Enhancements
+
+* `Dropdown` now accepts a new optional function prop `renderItem` which will be called to render each option in the list
 
 # 1.1.1
 

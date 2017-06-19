@@ -27,7 +27,6 @@ class ExclusionValidator {
    * @param {Object} params
    */
   constructor(params = {}) {
-
     this.disallowedValues = params.disallowedValues || [];
 
     /**
