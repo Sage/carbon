@@ -1,0 +1,24 @@
+@import 'colors';
+
+.carbon-copy-to-clipboard {
+  border: 3px solid $blue;
+  display: block;
+  position: relative;
+
+  &:hover {
+    background-color: rgba($blue, 0.6);
+    .carbon-copy-to-clipboard__flag {
+      background-color: $blue;
+      color: $white;
+      display: block;
+      padding: 4px 10px;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  &__flag {
+    display: none;
+  }
+}
