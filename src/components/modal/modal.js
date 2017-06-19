@@ -75,7 +75,13 @@ class Modal extends React.Component {
      */
     disableEscKey: PropTypes.bool,
 
-    ariaRole: PropTypes.string
+    /**
+     * The ARIA role to be applied to the modal
+     *
+     * @property ariaRole
+     * @type {String}
+     */
+    ariaRole: PropTypes.string // eslint-disable-line react/no-unused-prop-types
   }
 
   static defaultProps = {
@@ -135,11 +141,11 @@ class Modal extends React.Component {
     if (this.props.open && !this.listening) {
       this.listening = true;
       this.onOpening; // eslint-disable-line no-unused-expressions
-      window.addEventListener('keyup', this.closeModal);
+      _window.addEventListener('keyup', this.closeModal);
     } else if (!this.props.open) {
       this.listening = false;
       this.onClosing; // eslint-disable-line no-unused-expressions
-      window.removeEventListener('keyup', this.closeModal);
+      _window.removeEventListener('keyup', this.closeModal);
     }
   }
 
@@ -212,7 +218,7 @@ class Modal extends React.Component {
         { ...this.componentTags(this.props) }
       >
         <ReactCSSTransitionGroup
-          component="div"
+          component='div'
           transitionName={ this.transitionName }
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 }
@@ -221,7 +227,7 @@ class Modal extends React.Component {
         </ReactCSSTransitionGroup>
 
         <ReactCSSTransitionGroup
-          component="div"
+          component='div'
           transitionName={ this.backgroundTransitionName }
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 }
