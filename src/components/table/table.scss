@@ -28,8 +28,6 @@
 }
 
 .carbon-table__caption {
-  // Discussed with KM and for now captions can be hidden from view so they
-  // don't impact the design, but still available to screen readers, etc.
   @include visually-hidden();
   position: absolute;
   top: -99999px;
