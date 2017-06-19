@@ -1,11 +1,13 @@
 @import "./../../style-config/colors";
-.carbon-icon__svg--grid {
-  width: 16px;
-  height: 16px;
-  position: relative;
-  top: 3px;
-  margin-right: 6px;
-  fill: inherit
+.carbon-switcher-menu-title {
+  .carbon-icon__svg--grid {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: 3px;
+    margin-right: 6px;
+    fill: inherit
+  }
 }
 
 .carbon-switcher-menu-title {
