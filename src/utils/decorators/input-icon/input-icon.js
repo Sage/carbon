@@ -40,11 +40,7 @@ import Icon from './../../../components/icon';
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
-let InputIcon = (ComposedComponent) => class Component extends ComposedComponent {
-
-  constructor(...args) {
-    super(...args);
-  }
+const InputIcon = ComposedComponent => class Component extends ComposedComponent {
 
   static propTypes = assign({}, ComposedComponent.propTypes, {});
 
@@ -60,7 +56,7 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
       return null;
     }
 
-    let icon = <Icon type={ iconType } className="carbon-input-icon" />;
+    let icon = <Icon type={ iconType } className='carbon-input-icon' />;
 
     if (['error', 'warning'].indexOf(iconType) > -1) {
       icon = (
@@ -70,8 +66,7 @@ let InputIcon = (ComposedComponent) => class Component extends ComposedComponent
       );
     }
 
-    return <label htmlFor={ this.inputProps.id } key="label-icon">{ icon }</label>;
-
+    return <label htmlFor={ this.inputProps.id } key='label-icon'>{ icon }</label>;
   }
 
   /**
