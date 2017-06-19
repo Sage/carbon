@@ -6,7 +6,7 @@ import Icon from './../../icon';
 
 import FormSummary from './form-summary';
 
-describe('<FormSummary />', () => {
+fdescribe('<FormSummary />', () => {
   let block = '.carbon-form-summary',
       wrapper;
 

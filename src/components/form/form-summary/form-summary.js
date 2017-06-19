@@ -1,9 +1,10 @@
-import I18n from 'i18n-js';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { tagComponent } from '../../../utils/helpers/tags';
 
 import Icon from './../../icon';
+
+import translate from './translations';
 
 const FormSummary = props =>
   <div className='carbon-form-summary' { ...tagComponent('form-summary', props) }>
@@ -46,39 +47,6 @@ const summary = (props, key) => {
 };
 
 /**
- * Returns the default translation set
- *
- * @param {number} errorCount
- * @param {number} warningCount
- * @return {object} default translations
- */
-const defaultTranslations = (errorCount, warningCount) => {
-  return {
-    errors: {
-      defaultValue: {
-        one: `There is ${ errorCount } error`,
-        other: `There are ${ errorCount } errors`
-      },
-      count: parseInt(errorCount)
-    },
-    warnings: {
-      defaultValue: {
-        one: `There is ${ warningCount } warning`,
-        other: `There are ${ warningCount } warnings`
-      },
-      count: parseInt(warningCount)
-    },
-    errors_and_warnings: {
-      defaultValue: {
-        one: `and ${ warningCount } warning`,
-        other: `and ${ warningCount } warnings`
-      },
-      count: parseInt(warningCount)
-    }
-  };
-};
-
-/**
  * Adds an 's' to pluralise (keys will always be error or warning)
  *
  * @param {string} key
@@ -107,12 +75,7 @@ const translationKey = (props, key) => {
  * @return {string} correct translation
  */
 const translation = (props, key) => {
-  key = translationKey(props, key);
-
-  let defaultTranslation = defaultTranslations(props.errors, props.warnings)[key],
-      location = `errors.messages.form_summary.${key}`;
-
-  return I18n.t(location, defaultTranslation);
+  return translate(props.errors, props.warnings)[translationKey(props, key)];
 };
 
 /**
