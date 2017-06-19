@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
@@ -30,6 +31,29 @@ import { tagComponent } from '../../utils/helpers/tags';
  */
 const RadioButton = Input(InputLabel(InputValidation(
 class RadioButton extends React.Component {
+  static propTypes = {
+    /**
+     * A custom class name for the component.
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
+     * Displays fieldHelp inline with the radio button.
+     *
+     * @property fieldHelpInline
+     * @type {Boolean}
+     */
+    fieldHelpInline: PropTypes.bool
+  }
+
+  static defaultProp = {
+    className: '',
+    fieldHelpInline: false
+  }
+
   /**
    * Uses the mainClasses method provided by the decorator to add additional classes.
    *
@@ -37,7 +61,7 @@ class RadioButton extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return classNames (
+    return classNames(
       'carbon-radio-button',
       this.props.className
     );
@@ -75,9 +99,9 @@ class RadioButton extends React.Component {
    * @return {Object} Props to be applied to the input
    */
   get inputProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
     props.className = this.inputClasses;
-    props.type = "radio";
+    props.type = 'radio';
     return props;
   }
 
@@ -117,7 +141,12 @@ class RadioButton extends React.Component {
    * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
-    return <div className="carbon-radio-button__sprite" dangerouslySetInnerHTML={{ __html: this.radiobuttonSprite }}></div>;
+    return (
+      <div
+        className='carbon-radio-button__sprite'
+        dangerouslySetInnerHTML={ { __html: this.radiobuttonSprite } } // eslint-disable react/no-danger
+      />
+    );
   }
 
   /**
@@ -127,7 +156,7 @@ class RadioButton extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    return(
+    return (
       <div className={ this.mainClasses } { ...tagComponent('radio-button', this.props) }>
         { this.inputHTML }
         { this.labelHTML }

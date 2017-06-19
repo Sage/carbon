@@ -1,4 +1,4 @@
-# Carbon [![Codeship Status](https://img.shields.io/codeship/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad.svg)](https://app.codeship.com/projects/115478) [![Travis Status](https://travis-ci.org/Sage/carbon.svg?branch=master)](https://travis-ci.org/Sage/carbon) [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react)
+# Carbon [![Codeship Status](https://img.shields.io/codeship/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad/master.svg)](https://app.codeship.com/projects/115478) [![Travis Status](https://travis-ci.org/Sage/carbon.svg?branch=master)](https://travis-ci.org/Sage/carbon) [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react)
 
 <img src="https://raw.githubusercontent.com/Sage/carbon/master/logo/carbon-logo.png" width="50">
 
@@ -54,18 +54,18 @@ See the guide on [installing unreleased changes](https://github.com/Sage/carbon/
 
 ## Submitting a Release
 
-* N.B. Releases are created by Sage Carbon Team.
+* N.B. Releases are created by Sage Carbon Team. We use [semantic versioning](http://semver.org/)
 
 * If releasing a minor version, create a branch from `master`.
-* If releasing a patch version, create a branch from the tag you want to patch.
+* If releasing a patch version, create a branch from the tag you want to patch. This should be the latest tag apart from exceptional circumstances.
 * Bump the version in `package.json`.
 * Ensure the `CHANGELOG.md` is up to date.
 * Commit and push changes.
 * If releasing a minor version, open a PR to `master`.
 * If releasing a patch version, open a PR to `release`.
-* Once merged, draft a release in GitHub using the new version number as the tag. Make sure to target the correct branch (`master` or `release`).
 * With the branch/version checked out locally on your machine, run `npm run release-version` to publish to npm.
-* If you have released from a branch other than `master`, open a PR to merge back into `master`.
+* Once merged, publish a release in GitHub using the new version number as the tag. Make sure to target the correct branch (`master` or `release`).
+* If you have released from a branch other than `master`, open a PR to merge that branch back into `master`.
 
 ## Technologies
 

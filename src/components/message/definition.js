@@ -2,8 +2,8 @@ import Message from './';
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from './../../utils/helpers/options-helper';
 
-let definition = new Definition('message', Message, {
-  description: `A longer message which stays on screen to read and interpret.`,
+const definition = new Definition('message', Message, {
+  description: 'A longer message which stays on screen to read and interpret.',
   designerNotes: `
 * Presents a static message which stays on screen.
 * Useful for messages which are longer or more important, where the user needs time to interpret them, or might need to refer back to them during an activity.
@@ -32,20 +32,26 @@ let definition = new Definition('message', Message, {
     open: true
   },
   propTypes: {
-    as: "String",
-    transparent: "Boolean",
-    open: "Boolean",
-    onDismiss: "Function",
-    roundedCorners: "Boolean",
-    border: "Boolean"
+    as: 'String',
+    children: 'Node',
+    className: 'String',
+    border: 'Boolean',
+    onDismiss: 'Function',
+    open: 'Boolean',
+    roundedCorners: 'Boolean',
+    title: 'String',
+    transparent: 'Boolean'
   },
   propDescriptions: {
-    as: "Sets the theme of the notification. Possible values include: " + OptionsHelper.colors.join(", "),
-    transparent: "Determines if the message background is transparent or filled by the 'as' property color",
-    open: "A boolean to control the open/closed state of the notification",
-    onDismiss: "A callback for when the notification is dismissed. You can use this prop to close the notification",
-    roundedCorners: "A boolean which rounds the corners of the message when true",
-    border: "A boolean which determines if the borders should be shown",
+    as: `Sets the theme of the notification. Possible values include: ${OptionsHelper.colors.join(', ')}`,
+    border: 'A boolean which determines if the borders should be shown',
+    children: 'The message content',
+    className: 'Set custom classes on the component',
+    onDismiss: 'A callback for when the notification is dismissed. You can use this prop to close the notification',
+    open: 'A boolean to control the open/closed state of the notification',
+    roundedCorners: 'A boolean which rounds the corners of the message when true',
+    title: 'Set the message title',
+    transparent: 'Determines if the message background is transparent or filled by the `as` property color'
   }
 });
 

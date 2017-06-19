@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from './../icon';
 import classNames from 'classnames';
+import Icon from './../icon';
 import { tagComponent } from '../../utils/helpers/tags';
 
 /**
@@ -41,13 +41,29 @@ class Message extends React.Component {
     as: PropTypes.string,
 
     /**
-     * Determines if the message background is transparent or filled defined by the as property.
+     * Determines if a border is applied to the message
      *
-     * @property transparent
+     * @property border
      * @type {Boolean}
-     * @default false
+     * @default true
      */
-    transparent: PropTypes.bool,
+    border: PropTypes.bool,
+
+    /**
+     * The body of the message content
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node.isRequired,
+
+    /**
+     * Add classes to the component.
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
     /**
      * Determines if the message is open.
@@ -76,13 +92,21 @@ class Message extends React.Component {
     roundedCorners: PropTypes.bool,
 
     /**
-     * Determines if a border is applied to the message
+     * Add a title to this component
      *
-     * @property border
-     * @type {Boolean}
-     * @default true
+     * @property title
+     * @type {String}
      */
-    border: PropTypes.bool
+    title: PropTypes.string,
+
+    /**
+     * Determines if the message background is transparent or filled defined by the as property.
+     *
+     * @property transparent
+     * @type {Boolean}
+     * @default false
+     */
+    transparent: PropTypes.bool
   }
 
   static defaultProps = {
@@ -102,7 +126,7 @@ class Message extends React.Component {
     return classNames(
       'carbon-message',
       this.props.className,
-      'carbon-message--' + this.props.as,
+      `carbon-message--${this.props.as}`,
       {
         'carbon-message--rounded': this.props.roundedCorners,
         'carbon-message--border': this.props.border,
@@ -118,14 +142,18 @@ class Message extends React.Component {
    * @method dismissIcon
    */
   get dismissIcon() {
-    return this.props.onDismiss ? (
-      <Icon
-        className="carbon-message__close"
-        data-element='dismiss'
-        onClick={ this.props.onDismiss }
-        type="close"
-      />
-    ) : null;
+    const onDismiss = this.props.onDismiss;
+    if (onDismiss) {
+      return (
+        <Icon
+          className='carbon-message__close'
+          data-element='dismiss'
+          onClick={ onDismiss }
+          type='close'
+        />
+      );
+    }
+    return null;
   }
 
   /**
@@ -134,11 +162,15 @@ class Message extends React.Component {
   * @method titleHTML
   */
   get titleHTML() {
-    return this.props.title ? (
-      <div className='carbon-message__title' data-element='title'>
-        { this.props.title }
-      </div>
-    ) : null;
+    const title = this.props.title;
+    if (title) {
+      return (
+        <div className='carbon-message__title' data-element='title'>
+          { title }
+        </div>
+      );
+    }
+    return null;
   }
 
   /**
@@ -149,7 +181,7 @@ class Message extends React.Component {
   get typeClasses() {
     return classNames(
       'carbon-message__type', {
-        'carbon-message__type--rounded': this.props.roundedCorners,
+        'carbon-message__type--rounded': this.props.roundedCorners
       }
     );
   }
@@ -160,22 +192,25 @@ class Message extends React.Component {
   * @method messageContent
   */
   get messageContent() {
-
-    return this.props.open ? (
-      <div className={ this.componentClasses } { ...tagComponent('message', this.props) }>
-        <div className={ this.typeClasses }>
-          <Icon className="carbon-message__type-icon" type={ this.props.as } />
-        </div>
-        <div className="carbon-message__content">
-          { this.titleHTML }
-          <div className="carbon-message__body">
-            { this.props.children }
+    const open = this.props.open;
+    if (open) {
+      return (
+        <div className={ this.componentClasses } { ...tagComponent('message', this.props) }>
+          <div className={ this.typeClasses }>
+            <Icon className='carbon-message__type-icon' type={ this.props.as } />
           </div>
-        </div>
+          <div className='carbon-message__content'>
+            { this.titleHTML }
+            <div className='carbon-message__body'>
+              { this.props.children }
+            </div>
+          </div>
 
-        { this.dismissIcon }
-      </div>
-    ) : null;
+          { this.dismissIcon }
+        </div>
+      );
+    }
+    return null;
   }
 
   render() {

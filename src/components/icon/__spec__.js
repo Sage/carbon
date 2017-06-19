@@ -1,8 +1,8 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import Icon from './icon';
-import Tooltip from 'components/tooltip'
 import { shallow } from 'enzyme';
+import Tooltip from 'components/tooltip'
+import Icon from './icon';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Icon', () => {

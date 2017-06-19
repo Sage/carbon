@@ -16,12 +16,14 @@ let definition = new Definition('radio-button', RadioButton, {
   type: 'form',
   numberOfExamples: 2,
   propTypes: {
+    className: "String",
     reverse: 'Boolean'
   },
   propValues: {
     name: "example"
   },
   propDescriptions: {
+    className: "Classes to apply to the component.",
     reverse: 'Flips the input and label render order'
   }
 });
