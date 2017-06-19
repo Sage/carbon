@@ -20,18 +20,13 @@ import ValidationsHelper from './../../../helpers/validations';
 class NumeralTypeValidator {
 
   constructor(params = {}) {
-    let validationToCall, numeralFunctions, validationObject, numeralType;
-
-    numeralType = params.integer ? 'Integer' : 'Decimal';
-
-    validationToCall = 'validate' + numeralType;
-
-    numeralFunctions = {
+    const numeralType = params.integer ? 'Integer' : 'Decimal';
+    const validationToCall = `validate${numeralType}`;
+    const numeralFunctions = {
       validateDecimal: validateDecimal(params),
       validateInteger: validateInteger(params)
     };
-
-    validationObject = numeralFunctions[validationToCall];
+    const validationObject = numeralFunctions[validationToCall];
 
     /**
      * Custom message for validation.
@@ -100,7 +95,7 @@ function validateDecimal() {
      * @param {Float} value to check
      * @return {Boolean} true if value is valid
      */
-    validate: function(value) {
+    validate(value) {
       return (!value || /^-?\d+(\.\d+)?$/.test(value));
     },
 
@@ -110,8 +105,8 @@ function validateDecimal() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function() {
-      return ValidationsHelper.validationMessage(this.customMessage, "errors.messages.not_a_number");
+    message() {
+      return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.not_a_number');
     }
   };
 }
@@ -133,7 +128,7 @@ function validateInteger() {
      * @param {Float} value to check
      * @return {Boolean} true if value is valid
      */
-    validate: function(value) {
+    validate(value) {
       return (!value || /^-?\d+$/.test(value));
     },
 
@@ -143,8 +138,8 @@ function validateInteger() {
      * @method message
      * @return {String} the error message to display
      */
-    message: function() {
-      return ValidationsHelper.validationMessage(this.customMessage, "errors.messages.not_an_integer");
+    message() {
+      return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.not_an_integer');
     }
   };
 }

@@ -35,6 +35,14 @@ class Portrait extends React.Component {
   static propTypes = {
 
     /**
+     * A custom class name for the component.
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * Size of the img
      * Options: small, smed, lmed, large
      *
@@ -51,9 +59,9 @@ class Portrait extends React.Component {
      */
     src: (props) => {
       if (!props.gravatar && !props.src) {
-        throw new Error(`Portrait requires a prop of 'src' OR a prop of 'gravatar'`);
+        throw new Error('Portrait requires a prop of "src" OR a prop of "gravatar"');
       } else if (props.gravatar && props.src) {
-        throw new Error(`Portrait requires a prop of 'src' OR a prop of 'gravatar' but not both`);
+        throw new Error('Portrait requires a prop of "src" OR a prop of "gravatar" but not both');
       }
     },
 
@@ -107,24 +115,24 @@ class Portrait extends React.Component {
   };
 
   /**
-   * Cache the initials graphic.
-   *
-   * @param memoizeInitials
-   * @type {String}
-   */
-  memoizeInitials = null
-
-  /**
    * @method componentWillReceiveProps
    * @param {Object}
    * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.initials != nextProps.initials ||
-        this.props.size != nextProps.size) {
+    if (this.props.initials !== nextProps.initials ||
+        this.props.size !== nextProps.size) {
       this.memoizeInitials = null;
     }
   }
+
+  /**
+   * Cache the initials graphic.
+   *
+   * @param memoizeInitials
+   * @type {String}
+   */
+  memoizeInitials = null;
 
   /**
    * Props for the HTML Img
@@ -144,9 +152,9 @@ class Portrait extends React.Component {
    * @return {String}
    */
   get gravatarSrc() {
-    let base = 'https://www.gravatar.com/avatar/',
-        hash = MD5(this.props.gravatar.toLowerCase()),
-        size = this.numericSizes[this.props.size];
+    const base = 'https://www.gravatar.com/avatar/';
+    const hash = MD5(this.props.gravatar.toLowerCase());
+    const size = this.numericSizes[this.props.size];
 
     return `${base}${hash}?s=${size}&d=blank`;
   }
@@ -158,11 +166,13 @@ class Portrait extends React.Component {
    * @return {String}
    */
   get generateInitials() {
-    if (this.memoizeInitials) { return this.memoizeInitials; }
+    if (this.memoizeInitials) {
+      return this.memoizeInitials;
+    }
 
-    let canvas = document.createElement('canvas'),
-        context = canvas.getContext("2d"),
-        size = this.numericSizes[this.props.size];
+    const size = this.numericSizes[this.props.size];
+    let canvas = document.createElement('canvas');
+    let context = canvas.getContext('2d');
 
     // Set canvas with & height
     canvas.width = size;
@@ -170,15 +180,15 @@ class Portrait extends React.Component {
 
     // Select a font family to support different language characters
     // like Arial
-    context.font = Math.round(canvas.width / 2.4) + "px Lato, Arial";
-    context.textAlign = "center";
+    context.font = `${Math.round(canvas.width / 2.4)}px Lato, Arial`;
+    context.textAlign = 'center';
 
     // Setup background and front color
     context = this.applyBackground(context, size);
     context = this.applyText(context, size);
 
     // Set image representation in default format (png)
-    let dataURI = canvas.toDataURL();
+    const dataURI = canvas.toDataURL();
 
     // Dispose canvas element
     canvas = null;
@@ -195,7 +205,7 @@ class Portrait extends React.Component {
    * @return {Object}
    */
   applyBackground = (context, size) => {
-    let color = this.props.darkBackground ? "#4E545F" : "#D8D9DC";
+    const color = this.props.darkBackground ? '#4E545F' : '#D8D9DC';
 
     context.fillStyle = color;
     context.fillRect(0, 0, size, size);
@@ -210,9 +220,9 @@ class Portrait extends React.Component {
    * @return {Object}
    */
   applyText = (context, size) => {
-    let letters = this.props.initials ? this.props.initials.slice(0,3) : "";
+    const letters = this.props.initials ? this.props.initials.slice(0, 3) : '';
 
-    context.fillStyle = "#636872";
+    context.fillStyle = '#636872';
     context.fillText(letters.toUpperCase(), size / 2, size / 1.5);
 
     return context;
@@ -226,13 +236,13 @@ class Portrait extends React.Component {
    */
   get numericSizes() {
     return {
-      ["extra-small"]: '26',
+      'extra-small': '26',
       small: '30',
-      ["medium-small"]: '50',
+      'medium-small': '50',
       medium: '60',
-      ["medium-large"]: '70',
+      'medium-large': '70',
       large: '100',
-      ["extra-large"]: '120'
+      'extra-large': '120'
     };
   }
 
@@ -246,8 +256,8 @@ class Portrait extends React.Component {
     return classNames(
       'carbon-portrait',
       'carbon-portrait--image',
-      `carbon-portrait--${ this.props.size }`,
-      `carbon-portrait--${ this.props.shape }`,
+      `carbon-portrait--${this.props.size}`,
+      `carbon-portrait--${this.props.shape}`,
       this.props.className
     );
   }
@@ -266,7 +276,7 @@ class Portrait extends React.Component {
     return (
       <img
         data-element='initials'
-        className="carbon-portrait__img carbon-portrait__initials"
+        className='carbon-portrait__img carbon-portrait__initials'
         src={ this.generateInitials }
         alt={ this.props.alt }
       />
@@ -283,7 +293,7 @@ class Portrait extends React.Component {
     return (
       <img
         data-element='user-image'
-        className="carbon-portrait__img carbon-portrait__avatar"
+        className='carbon-portrait__img carbon-portrait__avatar'
         src={ this.imgSrc }
         alt={ this.props.alt }
       />
