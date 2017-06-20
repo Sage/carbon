@@ -1,3 +1,8 @@
+# NEXT
+
+## Guide Updates
+Minor changes to guides to reference `carbon-react` in imports.
+
 # 1.2.0
 
 ## Linting Updates
