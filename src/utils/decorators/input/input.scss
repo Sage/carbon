@@ -195,7 +195,8 @@
   height: 15px;
   position: absolute;
   right: 5px;
-  top: 28px;
+  top: 6px;
+  z-index: 2;
 
   &:before {
     font-size: 20px;
@@ -280,6 +281,15 @@
 
 }
 
-@each $set in $colorIconSets {
+/**
+ * Color and Icon sets used for inputs with themes.
+ */
+$inputColorIconSets: (
+  ("warning", $warning),
+  ("error", $error),
+  ("info", $info)
+);
+
+@each $set in $inputColorIconSets {
   @include common-input-theme($set...);
 }
