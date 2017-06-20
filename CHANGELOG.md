@@ -1,8 +1,3 @@
-# NEXT
-
-## Guide Updates
-Minor changes to guides to reference `carbon-react` in imports.
-
 # 1.2.0
 
 ## Linting Updates
@@ -144,6 +139,9 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 ## Deployment Changes
 
 You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
+
+## Other
+Minor changes to guides to reference `carbon-react` in imports.
 
 # 1.1.2
 
