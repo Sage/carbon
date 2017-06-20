@@ -58,7 +58,7 @@ We could render the application like this:
 
 import React from 'react';
 import { Route } from 'react-router';
-import { startRouter } from 'carbon/lib/utils/router';
+import { startRouter } from 'carbon-react/lib/utils/router';
 import App from './app';
 import MyView from './views/dummy';
 
@@ -80,7 +80,7 @@ Let's create a handler registry for the footer links:
 ```js
 // ./footer-links-registry.js
 
-import BaseRegistry from 'carbon/lib/utils/handlers/base-registry';
+import BaseRegistry from 'carbon-react/lib/utils/handlers/base-registry';
 
 class FooterLinksRegistry extends BaseRegistry {
 }
@@ -187,7 +187,7 @@ The app should *still* work, however the links will not have been updated. This 
 
 import React from 'react';
 import { Route } from 'react-router';
-import { startRouter } from 'carbon/lib/utils/router';
+import { startRouter } from 'carbon-react/lib/utils/router';
 import App from './app';
 import MyView from './my-view';
 

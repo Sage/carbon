@@ -9,7 +9,7 @@
 *
 * @object Events
 */
-let Events = {
+const Events = {
 
   /**
   * A method to determine if an event is of a particular type
@@ -20,7 +20,7 @@ let Events = {
   * @returns {Boolean} true if event type matches passed type
   **/
   isEventType: (ev, type) => {
-    return ev.type == type;
+    return ev.type === type;
   },
 
   /**
@@ -31,7 +31,7 @@ let Events = {
   * @returns {Boolean} true if key up event and a navigation key
   **/
   isNavigationKeyup: (ev) => {
-    if (!Events.isEventType(ev, "keyup")) {
+    if (!Events.isEventType(ev, 'keyup')) {
       return false;
     }
 
@@ -46,7 +46,7 @@ let Events = {
   * @returns {Boolean} true if keyup event and enter key
   **/
   isEnterKeyup: (ev) => {
-    if (!Events.isEventType(ev, "keyup")) {
+    if (!Events.isEventType(ev, 'keyup')) {
       return false;
     }
 
@@ -61,14 +61,14 @@ let Events = {
   * @returns {Boolean} true if keyup and valid
   **/
   isValidKeypress: (ev) => {
-    if (!Events.isEventType(ev, "keyup")) {
+    if (!Events.isEventType(ev, 'keyup')) {
       return false;
     }
-    if (Events.isNumberKey(ev)   ||
+    if (Events.isNumberKey(ev) ||
         Events.isAlphabetKey(ev) ||
-        Events.isNumpadKey(ev)   ||
-        Events.isSymbolKey(ev)   ||
-        Events.isSpaceKey(ev)    ||
+        Events.isNumpadKey(ev) ||
+        Events.isSymbolKey(ev) ||
+        Events.isSpaceKey(ev) ||
         Events.isDeletingKey(ev) ||
         Events.isBackspaceKey(ev)) {
       return true;
@@ -86,7 +86,7 @@ let Events = {
   * @returns {Boolean} true if valid number key
   **/
   isNumberKey: (ev) => {
-    return ev.which >= 48 && ev.which <= 57 || ev.which >= 96 && ev.which <= 105;
+    return (ev.which >= 48 && ev.which <= 57) || (ev.which >= 96 && ev.which <= 105);
   },
 
   /**
@@ -121,10 +121,10 @@ let Events = {
   * @returns {Boolean} true if any symbol key is pressed
   **/
   isSymbolKey: (ev) => {
-    return ev.which >= 58 && ev.which <= 64 || // : to @
-           ev.which >= 106 && ev.which <= 107 || // numpad * and +
-           ev.which >= 186 && ev.which <= 192 || // , .
-           ev.which >= 219 && ev.which <= 222; // \ ]
+    return (ev.which >= 58 && ev.which <= 64) || // : to @
+           (ev.which >= 106 && ev.which <= 107) || // numpad * and +
+           (ev.which >= 186 && ev.which <= 192) || // , .
+           (ev.which >= 219 && ev.which <= 222); // \ ]
   },
 
   /**

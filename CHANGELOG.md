@@ -2,7 +2,9 @@
 
 ## Linting Updates
 
-The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
 
 * AppWrapper
 * Carousel
@@ -75,6 +77,67 @@ The following utils have had minor internal changes to satisfy the introduction 
 
 * Validations
 
+## DraggableContext, WithDrag & WithDrop
+
+We now provide a series of components to enable drag and drop functionality. For example:
+
+```
+<DraggableContext onDrag={ onItemMoved }>
+  <ol>
+    {
+      items.map((item, index) => {
+        return (
+          <WithDrop key={ index } index={ index }>
+            <li>
+              <WithDrag><span>{ item.content }</span></WithDrag>
+            </li>
+          </WithDrop>
+        );
+      });
+    }
+  </ol>
+</DraggableContext>
+```
+
+The `onDrag` prop can manipulate the order of items as they are dragged. It is a function that receives two arguments: `dragIndex`, which is the original position of the item, and `hoverIndex`, which is the position of the item if dropped.
+
+An example function signature: `onItemMoved = (dragIndex, hoverIndex) => { }`
+
+## Draggable Table Rows
+
+The `TableRow` component now supports drag and drop. To enable it you need to add a `DraggableContext` component, apply an index to each `TableRow`, and define the `onDrag` prop to manipulate the order as it changes:
+
+```
+<Table tbody={ false }>
+  <DraggableContext onDrag={ onRowMoved }>
+    <tbody>
+      {
+        rows.map((row, index) => {
+          return (
+            <TableRow key={ index } index={ index }>
+              { row.content }
+            </TableRow>
+          );
+        });
+      }
+    </tbody>
+  </DraggableContext>
+</Table>
+```
+
+## Text Helpers
+
+A new helper object is available in `utils/helpers/text`. Currently it only contains one method `clearSelection`, which clears any selected text on the page.
+
+### utils
+
+#### helpers
+
+* Date
+* Devices
+* Events
+* GUID
+* i18n
 
 ## Component Enhancements
 
@@ -83,6 +146,7 @@ The following utils have had minor internal changes to satisfy the introduction 
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
 * `MenuItem`: focus outline is now fully visible when an item is focused.
+* `Form` now has default `SaveButton` and `CancelButton` functional stateless componenents. The former can be overriden with a new prop of `customSaveButton`.
 
 ## Bug Fixes
 
@@ -91,6 +155,9 @@ The following utils have had minor internal changes to satisfy the introduction 
 ## Deployment Changes
 
 You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
+
+## Other
+Minor changes to guides to reference `carbon-react` in imports.
 
 # 1.1.2
 
