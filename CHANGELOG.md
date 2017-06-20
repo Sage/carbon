@@ -1,9 +1,14 @@
+# 1.1.3
+
+## Component Enhancements
+
+* `InputValidation`: now accepts a `info` prop to display info-styled icon and message attached to an input.
+
 # 1.1.2
 
 ## Component Enhancements
 
-* ALL: `data-component` will now be over-ridden if it's provided as a prop by the user
-* `InputValidation`: now accepts a `info` prop to display info-styled icon and message attached to an input.
+* `Dropdown` now accepts a new optional function prop `renderItem` which will be called to render each option in the list
 
 # 1.1.1
 
