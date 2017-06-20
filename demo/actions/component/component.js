@@ -75,7 +75,18 @@ const ComponentActions = {
       records: String(data.records),
       page: String(data.current_page)
     });
+  },
+
+  updateDndData: (dragIndex, hoverIndex) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.UPDATE_TABLE_DND,
+      dragIndex: dragIndex,
+      hoverIndex: hoverIndex,
+    });
   }
 };
+
+// required for dnd demo:
+global.updateDndData = ComponentActions.updateDndData;
 
 export default ComponentActions;
