@@ -1,5 +1,4 @@
 import { Carousel } from './';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 import slideDefinition from './slide/definition';
 
@@ -13,12 +12,14 @@ let definition = new Definition('carousel', Carousel, {
   propTypes: {
     children: 'Node',
     className: 'String',
-    initialSlideIndex: 'Number || String'
+    initialSlideIndex: 'Number || String',
+    enableSlideSelector: 'Boolean'
   },
   propDescriptions: {
     children: 'This component supports children.',
     className: 'Classes to apply to the component.',
-    initialSlideIndex: 'Which slide the component should initialize with.'
+    initialSlideIndex: 'Which slide the component should initialize with.',
+    enableSlideSelector: 'Set this prop to false to hide the slide selector.'
   }
 });
 

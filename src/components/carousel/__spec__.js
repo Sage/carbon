@@ -127,7 +127,7 @@ describe('Carousel', () => {
       spyOn(instance, 'enableButtonsAfterTimeout');
       instance.setState({ selectedSlideIndex: 0 });
       let ev = { target: { value: 2 } };
-      instance.onSlideSelection(ev)
+      instance.onSlideSelection(ev);
     });
 
     it('sets the new slideIndex', () => {
@@ -255,9 +255,34 @@ describe('Carousel', () => {
   });
 
   describe('slideSelector', () => {
-    it('renders a button for each slide', () => {
-      let buttons = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-carousel__selector-input');
-      expect(buttons.length).toEqual(3);
+    describe('when enableSlideSelector is set to true', () => {
+      let wrapper = shallow(
+        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+          <Slide />
+          <Slide />
+          <Slide />
+        </Carousel>
+      );
+
+      it('renders a button for each slide', () => {
+        let buttons = wrapper.find('.carbon-carousel__selector-input');
+
+        expect(buttons.exists()).toBeTruthy();
+        expect(buttons.length).toEqual(3);
+      });
+    });
+
+    describe('when enableSlideSelector is set to false', () => {
+      let wrapper = shallow(
+        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 } enableSlideSelector={ false }>
+          <Slide/>
+        </Carousel>
+      );
+
+      it('does not render the slide selector', () => {
+        let buttons = wrapper.find('.carbon-carousel__selector-input');
+        expect(buttons.exists()).toBeFalsy();
+      });
     });
   });
 

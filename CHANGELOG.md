@@ -147,6 +147,7 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
 * `MenuItem`: focus outline is now fully visible when an item is focused.
 * `Form` now has default `SaveButton` and `CancelButton` functional stateless componenents. The former can be overriden with a new prop of `customSaveButton`.
+* `Carousel` has a new prop `enableSlideSelector` defaulted to `true`. Setting it to `false` will hide the slide selector.
 
 ## Deployment Changes
 
