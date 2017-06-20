@@ -2,7 +2,9 @@
 
 ## Linting Updates
 
-The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
 
 * AppWrapper
 * Carousel
@@ -126,6 +128,16 @@ The `TableRow` component now supports drag and drop. To enable it you need to ad
 ## Text Helpers
 
 A new helper object is available in `utils/helpers/text`. Currently it only contains one method `clearSelection`, which clears any selected text on the page.
+
+### utils
+
+#### helpers
+
+* Date
+* Devices
+* Events
+* GUID
+* i18n
 
 ## Component Improvements
 
