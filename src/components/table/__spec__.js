@@ -3,7 +3,7 @@ import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
-import { shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Table', () => {
@@ -931,18 +931,18 @@ describe('Table', () => {
     });
 
     it('renders a caption tag when a caption prop is given', () => {
-      let wrapper = render(
+      const wrapper = shallow(
         <Table caption="Acme widgets" />
       );
 
-      let captionTag = wrapper.find('caption');
-      expect(captionTag.length).toEqual(1);
+      const captionTag = wrapper.find('caption');
+      expect(captionTag.exists()).toBe(true);
       expect(captionTag.text()).toEqual('Acme widgets');
     });
 
     it('does not render a caption tag when no caption prop is given', () => {
-      let wrapper = render(<Table />);
-      expect(wrapper.find('caption').length).toEqual(0);
+      const wrapper = shallow(<Table />);
+      expect(wrapper.find('caption').exists()).toBe(false);
     });
 
     it('renders an action toolbar if actions are passed', () => {
