@@ -41,7 +41,8 @@ function append(value, content) {
  * @return {Object} Styled Element
  */
 function styleElement(element, attribute, value) {
-  return element.style[attribute] = value.toString();
+  element.style[attribute] = value.toString();
+  return element.style[attribute];
 }
 
 /**
@@ -70,10 +71,10 @@ function validProps(instance, safeProps) {
  * @return {String} result - formatted
  */
 function insertAt(value, options) {
-  let separator = options.separator || '-',
-      result = value;
+  const separator = options.separator || '-';
+  let result = value;
 
-  for (let i = 0; i < result.length; i ++) {
+  for (let i = 0; i < result.length; i++) {
     if (includes(options.insertionIndices, i)) {
       result = result.substr(0, i) + separator + result.substr(i);
     }
