@@ -23,7 +23,7 @@
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "0.3.6",
+    "carbon-factory": "1.1.7",
     "enzyme": "~2.8.2",
     "express": "~4.14.0",
     "flux": "~2.1.1",
