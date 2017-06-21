@@ -2,7 +2,9 @@
 
 ## Linting Updates
 
-The following components have had minor internal changes to satisfy the introduction of stricter linting rules:
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
 
 * AppWrapper
 * Carousel
@@ -28,6 +30,7 @@ The following components have had minor internal changes to satisfy the introduc
 * MenuItem
 * MenuList
 * MenuListItem
+* MultiStepWizard
 * Message
 * Modal
 * MountInApp
@@ -55,6 +58,7 @@ The following components have had minor internal changes to satisfy the introduc
 
 The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
 
+* Browser
 * CSS
 * Ether
 * Flux
@@ -127,6 +131,16 @@ The `TableRow` component now supports drag and drop. To enable it you need to ad
 
 A new helper object is available in `utils/helpers/text`. Currently it only contains one method `clearSelection`, which clears any selected text on the page.
 
+### utils
+
+#### helpers
+
+* Date
+* Devices
+* Events
+* GUID
+* i18n
+
 ## Component Improvements
 
 * `Menu` has been updated to use a `<nav>` tag as its root element.
@@ -139,6 +153,9 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 ## Deployment Changes
 
 You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
+
+## Other
+Minor changes to guides to reference `carbon-react` in imports.
 
 # 1.1.2
 
