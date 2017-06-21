@@ -286,6 +286,62 @@ describe('Carousel', () => {
     });
   });
 
+  describe('previousButton', () => {
+    describe('when enablePreviousButton is set to true', () => {
+      let wrapper = shallow(
+        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+          <Slide />
+        </Carousel>
+      );
+
+      it('renders a previous button', () => {
+        let arrow = wrapper.find('.carbon-carousel__previous-arrow');
+        expect(arrow.exists()).toBeTruthy();
+      });
+    });
+
+    describe('when enablePreviousButton is set to false', () => {
+      let wrapper = shallow(
+        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 } enablePreviousButton={ false }>
+          <Slide/>
+        </Carousel>
+      );
+
+      it('does not render a previous button', () => {
+        let arrow = wrapper.find('.carbon-carousel__previous-arrow');
+        expect(arrow.exists()).toBeFalsy();
+      });
+    });
+  });
+
+  describe('nextButton', () => {
+    describe('when enableNextButton is set to true', () => {
+      let wrapper = shallow(
+        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+          <Slide />
+        </Carousel>
+      );
+
+      it('renders a next button', () => {
+        let arrow = wrapper.find('.carbon-carousel__next-arrow');
+        expect(arrow.exists()).toBeTruthy();
+      });
+    });
+
+    describe('when enableNextButton is set to false', () => {
+      let wrapper = shallow(
+        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 } enableNextButton={ false }>
+          <Slide/>
+        </Carousel>
+      );
+
+      it('does not render a next button', () => {
+        let arrow = wrapper.find('.carbon-carousel__next-arrow');
+        expect(arrow.exists()).toBeFalsy();
+      });
+    });
+  });
+
   describe("tags", () => {
     describe("on component", () => {
       let wrapper = shallow(

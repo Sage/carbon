@@ -54,12 +54,30 @@ class Carousel extends React.Component {
      * @property enableSlideSelector
      * @type {Boolean}
      */
-    enableSlideSelector: PropTypes.bool
+    enableSlideSelector: PropTypes.bool,
+
+    /**
+     * Enables the previous button
+     *
+     * @property enablePreviousButton
+     * @type {Boolean}
+     */
+    enablePreviousButton: PropTypes.bool,
+
+    /**
+     * Enables the next button
+     *
+     * @property enableNextButton
+     * @type {Boolean}
+     */
+    enableNextButton: PropTypes.bool
   }
 
   static defaultProps = {
     initialSlideIndex: 0,
-    enableSlideSelector: true
+    enableSlideSelector: true,
+    enablePreviousButton: true,
+    enableNextButton: true
   }
 
   constructor(...args) {
@@ -333,13 +351,15 @@ class Carousel extends React.Component {
    * @method previousButton
    */
   previousButton() {
-    return (
-      <div className={ this.previousClasses() }>
-        <button { ...this.previousButtonProps() } data-element='previous'>
-          <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
-        </button>
-      </div>
-    );
+    if(this.props.enablePreviousButton) {
+      return (
+        <div className={ this.previousClasses() }>
+          <button { ...this.previousButtonProps() } data-element='previous'>
+            <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
+          </button>
+        </div>
+      );
+    }
   }
 
   /**
@@ -348,13 +368,15 @@ class Carousel extends React.Component {
    * @method nextButton
    */
   nextButton() {
-    return (
-      <div className={ this.nextClasses() }>
-        <button { ...this.nextButtonProps() } data-element='next'>
-          <Icon className='carbon-carousel__next-arrow' type='dropdown' />
-        </button>
-      </div>
-    );
+    if(this.props.enableNextButton) {
+      return (
+        <div className={ this.nextClasses() }>
+          <button { ...this.nextButtonProps() } data-element='next'>
+            <Icon className='carbon-carousel__next-arrow' type='dropdown' />
+          </button>
+        </div>
+      );
+    }
   }
 
   /**

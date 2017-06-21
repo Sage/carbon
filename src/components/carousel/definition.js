@@ -13,13 +13,17 @@ let definition = new Definition('carousel', Carousel, {
     children: 'Node',
     className: 'String',
     initialSlideIndex: 'Number || String',
-    enableSlideSelector: 'Boolean'
+    enableSlideSelector: 'Boolean',
+    enablePreviousButton: 'Boolean',
+    enableNextButton: 'Boolean'
   },
   propDescriptions: {
     children: 'This component supports children.',
     className: 'Classes to apply to the component.',
     initialSlideIndex: 'Which slide the component should initialize with.',
-    enableSlideSelector: 'Set this prop to false to hide the slide selector.'
+    enableSlideSelector: 'Set this prop to false to hide the slide selector.',
+    enablePreviousButton: 'Set this prop to false to hide the previous button',
+    enableNextButton: 'Set this prop to false to hide the next button'
   }
 });
 
