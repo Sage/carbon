@@ -164,7 +164,7 @@ describe('Dropdown', () => {
       spyOn(instance, 'selectValue');
       instance.handleSelect({
         currentTarget: {
-          getAttribute: function() { return 'foo' },
+          getAttribute: function() { return 'foo'; },
           textContent: 'bar'
         }
       });
@@ -178,7 +178,7 @@ describe('Dropdown', () => {
       spyOn(instance, 'setState');
       instance.handleMouseOverListItem({
         currentTarget: {
-          getAttribute: function() { return 'foo' }
+          getAttribute: function() { return 'foo'; }
         }
       });
 
@@ -870,23 +870,42 @@ describe('Dropdown', () => {
   });
 
   describe('results', () => {
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Dropdown name="foo" options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) } value="1" />
-      );
+    describe('when there is no render item prop', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) } value="1" />
+        );
+      });
+
+      it('returns list of items', () => {
+        expect(instance.results(instance.options).length).toEqual(2);
+      });
+
+      it('adds selected class', () => {
+        expect(instance.results(instance.options)[0].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted carbon-dropdown__list-item--selected');
+      });
+
+      it('adds highlighted class', () => {
+        instance.setState({ highlighted: 2 });
+        expect(instance.results(instance.options)[1].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted');
+      });
     });
 
-    it('returns list of items', () => {
-      expect(instance.results(instance.options).length).toEqual(2);
-    });
+    describe('when there is render item prop', () => {
+      beforeEach(() => {
+        const renderItem = (option) => {
+          return `the ${option.name}`;
+        };
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) } renderItem={ renderItem } value="1" />
+        );
+      });
 
-    it('adds selected class', () => {
-      expect(instance.results(instance.options)[0].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted carbon-dropdown__list-item--selected');
-    });
-
-    it('adds highlighted class', () => {
-      instance.setState({ highlighted: 2 });
-      expect(instance.results(instance.options)[1].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted');
+      it('returns list of items', () => {
+        const results = instance.results(instance.options);
+        expect(results[0].props.children).toEqual('the foo');
+        expect(results[1].props.children).toEqual('the bar');
+      });
     });
   });
 

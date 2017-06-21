@@ -34,7 +34,7 @@ let data = {
 If you are using Immutable data this initial data should be wrapped in a parseJSON function:
 
 ```js
-import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
+import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 
 let data = ImmutableHelper.parseJSON({
   contact: global.VIEW_DATA.contact

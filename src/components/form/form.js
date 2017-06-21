@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from './../button';
-import I18n from "i18n-js";
-import Serialize from "form-serialize";
+import Serialize from 'form-serialize';
 import classNames from 'classnames';
-import { validProps } from '../../utils/ether';
-import { assign } from 'lodash';
-import { tagComponent } from '../../utils/helpers/tags';
-
+import CancelButton from './cancel-button';
+import SaveButton from './save-button';
 import FormSummary from './form-summary';
+import { validProps } from '../../utils/ether';
+import { tagComponent } from '../../utils/helpers/tags';
 
 /**
  * A Form widget.
@@ -35,24 +33,6 @@ import FormSummary from './form-summary';
  * @constructor
  */
 class Form extends React.Component {
-  /**
-   * stores the document - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _document
-   * @type {document}
-   */
-  _document = document;
-
-  /**
-   * stores the window - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _window
-   * @type {window}
-   */
-  _window = window;
-
   static propTypes = {
 
     /**
@@ -175,12 +155,36 @@ class Form extends React.Component {
     onSubmit: PropTypes.func,
 
     /**
-     * Currently active input in form
+     * Override Save Button
      *
-     * @property activeInput
+     * @property customSaveButton
      * @type {Node}
      */
-    activeInput: PropTypes.node
+    customSaveButton: PropTypes.node,
+
+    /**
+     * A custom class name for the component.
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
+     * Hide or show the summary
+     *
+     * @property showSummary
+     * @type {Boolean}
+     */
+    showSummary: PropTypes.bool
   }
 
   static defaultProps = {
@@ -189,7 +193,9 @@ class Form extends React.Component {
     cancel: true,
     save: true,
     saving: false,
-    validateOnMount: false
+    validateOnMount: false,
+    customSaveButton: null,
+    showSummary: true
   }
 
   static childContextTypes = {
@@ -205,6 +211,24 @@ class Form extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object
+  }
+
+  state = {
+    /**
+     * Tracks the number of errors in the form
+     *
+     * @property errorCount
+     * @type {Number}
+     */
+    errorCount: 0,
+
+    /**
+     * Tracks the number of warnings in the form
+     *
+     * @property warningCount
+     * @type {Number}
+     */
+    warningCount: 0
   }
 
   /**
@@ -228,6 +252,18 @@ class Form extends React.Component {
         validate: this.validate
       }
     };
+  }
+
+  /**
+   * Runs once the component has mounted.
+   *
+   * @method componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    if (this.props.validateOnMount) {
+      this.validate();
+    }
   }
 
   /**
@@ -256,30 +292,30 @@ class Form extends React.Component {
   }
 
   /**
+   * stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _document
+   * @type {document}
+   */
+  _document = document;
+
+  /**
+   * stores the window - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _window
+   * @type {window}
+   */
+  _window = window;
+
+  /**
    * @method activeInputHasValidation
    * @param {}
    * @return {Boolean} active input exists and is decorated with validation
    */
   activeInputExistsAndHasValidation = () => {
     return this.activeInput && this.activeInput.immediatelyHideMessage;
-  }
-
-  state = {
-    /**
-     * Tracks the number of errors in the form
-     *
-     * @property errorCount
-     * @type {Number}
-     */
-    errorCount: 0,
-
-    /**
-     * Tracks the number of warnings in the form
-     *
-     * @property warningCount
-     * @type {Number}
-     */
-    warningCount: 0
   }
 
   /**
@@ -307,18 +343,6 @@ class Form extends React.Component {
    * @type {Number}
    */
   warningCount = 0;
-
-  /**
-   * Runs once the component has mounted.
-   *
-   * @method componentDidMount
-   * @return {void}
-   */
-  componentDidMount() {
-    if (this.props.validateOnMount) {
-      this.validate();
-    }
-  }
 
   /**
    * Increase current error count in state by 1.
@@ -398,7 +422,7 @@ class Form extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    let valid = this.validate();
+    const valid = this.validate();
 
     if (!valid) { ev.preventDefault(); }
 
@@ -421,12 +445,12 @@ class Form extends React.Component {
     let valid = true,
         errors = 0;
 
-    for (let key in this.inputs) {
-      let input = this.inputs[key];
+    for (const key in this.inputs) {
+      const input = this.inputs[key];
 
       if (!input.props.disabled && !input.validate()) {
         valid = false;
-        errors++;
+        errors += 1;
       }
     }
 
@@ -454,7 +478,7 @@ class Form extends React.Component {
    * @return {Object} props for form element
    */
   htmlProps = () => {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
     delete props.activeInput;
     delete props.onSubmit;
     props.className = this.mainClasses;
@@ -482,6 +506,111 @@ class Form extends React.Component {
   }
 
   /**
+   * Gets the cancel button for the form
+   *
+   * @method cancelButton
+   * @return {Object} JSX cancel button
+   */
+  cancelButton = () => {
+    if (!this.props.cancel) { return null; }
+
+    const cancelProps = {
+      cancelText: this.props.cancelText,
+      cancelClick: this.cancelForm,
+      ...this.props.cancelButtonProps
+    };
+
+    return (
+      <CancelButton
+        data-element='cancel'
+        { ...cancelProps }
+      />
+    );
+  }
+
+  /**
+   * Gets any additional actions passed into the form
+   *
+   * @method additionalActions
+   * @return {Object} JSX
+   */
+  get additionalActions() {
+    if (!this.props.additionalActions) { return null; }
+
+    return (
+      <div className='carbon-form__additional-actions' >
+        { this.props.additionalActions }
+      </div>
+    );
+  }
+
+  /**
+   * The default Save button for the form
+   *
+   * @method defaultSaveButton
+   * @return {Object} JSX
+   */
+  defaultSaveButton = () => {
+    return (
+      <SaveButton
+        saveButtonProps={ this.props.saveButtonProps }
+        saveText={ this.props.saveText }
+        saving={ this.props.saving }
+        errors={ this.state.errorCount }
+        warnings={ this.state.warningCount }
+      />
+    );
+  }
+
+  /**
+   * Returns a custom save button if passed in
+   * the default if not
+   *
+   * @method saveButton
+   * @return {Object} JSX
+   */
+  saveButton = () => {
+    if (!this.props.save) { return null; }
+
+    return this.props.customSaveButton ? this.props.customSaveButton : this.defaultSaveButton();
+  }
+
+  /**
+   * Returns a form summary
+   *
+   * @method saveButtonWithSummary
+   * @return {Object} JSX
+   */
+  saveButtonWithSummary = () => {
+    return (
+      <FormSummary
+        className='carbon-form__summary'
+        errors={ this.state.errorCount }
+        warnings={ this.state.warningCount }
+      >
+        { this.saveButton() }
+      </FormSummary>
+    );
+  }
+
+  /**
+   * Returns the footer for the form
+   *
+   * @method footer
+   * @return {Object} JSX
+   */
+  formFooter = () => {
+    const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
+    return (
+      <div className={ this.footerClasses }>
+        { save }
+        { this.cancelButton() }
+        { this.additionalActions }
+      </div>
+    );
+  }
+
+  /**
    * Main class getter
    *
    * @method mainClasses
@@ -494,60 +623,16 @@ class Form extends React.Component {
     );
   }
 
-  get buttonClasses() {
-    return classNames(
-      'carbon-form__buttons',
-      `carbon-form__buttons--${ this.props.buttonAlign }`
-    );
-  }
-
   /**
-   * Gets the cancel button for the form
+   * Button class getter
    *
-   * @method cancelButton
-   * @return {Object} JSX cancel button
+   * @method buttonClasses
+   * @return {String} Main className
    */
-  get cancelButton() {
-    let cancelClasses = "carbon-form__cancel",
-        cancelProps = assign({}, this.props.cancelButtonProps, { type: 'button', onClick: this.cancelForm });
-
-    return (<div className={ cancelClasses }>
-      <Button { ...cancelProps } data-element='cancel'>
-        { this.props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' }) }
-      </Button>
-    </div>);
-  }
-
-  get additionalActions() {
-    if (!this.props.additionalActions) { return null; }
-
-    return (
-      <div className='carbon-form__additional-actions' >
-        { this.props.additionalActions }
-      </div>
-    );
-  }
-
-  /**
-   * Gets the save button for the form
-   * @method saveButton
-   * @return {Object} JSX save button
-   */
-  get saveButton() {
-    let saveClasses = classNames(
-          "carbon-form__save", {
-            "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
-          }
-        ),
-        saveProps = assign({}, this.props.saveButtonProps, { as: 'primary', disabled: this.props.saving });
-
-    return (
-      <div className={ saveClasses }>
-        <FormSummary errors={ this.state.errorCount } warnings={ this.state.warningCount } />
-        <Button { ...saveProps } data-element='save'>
-          { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
-        </Button>
-      </div>
+  get footerClasses() {
+    return classNames(
+      'carbon-form__footer',
+      `carbon-form__footer--${this.props.buttonAlign}`
     );
   }
 
@@ -558,16 +643,6 @@ class Form extends React.Component {
    * @return {Object} JSX form
    */
   render() {
-    let cancelButton, saveButton;
-
-    if (this.props.cancel) {
-      cancelButton = this.cancelButton;
-    }
-
-    if (this.props.save) {
-      saveButton = this.saveButton;
-    }
-
     return (
       <form
         onSubmit={ this.handleOnSubmit }
@@ -579,11 +654,7 @@ class Form extends React.Component {
 
         { this.props.children }
 
-        <div className={ this.buttonClasses }>
-          { saveButton }
-          { cancelButton }
-          { this.additionalActions }
-        </div>
+        { this.formFooter() }
       </form>
     );
   }
@@ -598,12 +669,11 @@ class Form extends React.Component {
  * @return {Object} JSX hidden CSRF token
  */
 function generateCSRFToken(doc) {
-  let meta = doc.getElementsByTagName('meta'),
-      csrfAttr,
-      csrfValue;
+  const meta = doc.getElementsByTagName('meta');
+  let csrfAttr, csrfValue;
 
-  for (var i = 0; i < meta.length; i++) {
-    var item = meta[i];
+  for (let i = 0; i < meta.length; i++) {
+    const item = meta[i];
 
     if (item.getAttribute('name') === 'csrf-param') {
       csrfAttr = item.getAttribute('content');
@@ -612,7 +682,7 @@ function generateCSRFToken(doc) {
     }
   }
 
-  return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
+  return <input type='hidden' name={ csrfAttr } value={ csrfValue } readOnly='true' />;
 }
 
 export default Form;

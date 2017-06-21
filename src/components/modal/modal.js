@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-comp */ // Getting confusing order from sort-comp
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -34,14 +35,6 @@ import Events from './../../utils/helpers/events';
  * @constructor
  */
 class Modal extends React.Component {
-
-  /**
-   * Tracks if event listeners are on for modal
-   *
-   * @property listening
-   * @type {Boolean}
-   */
-  listening = false;
 
   static propTypes = {
 
@@ -84,6 +77,7 @@ class Modal extends React.Component {
 
   static defaultProps = {
     open: false,
+    onCancel: null,
     enableBackgroundUI: false,
     disableEscKey: false
   }
@@ -98,6 +92,19 @@ class Modal extends React.Component {
      */
     modal: PropTypes.object
   }
+
+  constructor() {
+    super();
+
+    /**
+     * Tracks if event listeners are on for modal
+     *
+     * @property listening
+     * @type {Boolean}
+     */
+    this.listening = false;
+  }
+
 
   /**
    * Returns modal object to child components. Used to override form cancel button functionality.
@@ -122,11 +129,11 @@ class Modal extends React.Component {
   componentDidUpdate() {
     if (this.props.open && !this.listening) {
       this.listening = true;
-      this.onOpening;
+      this.onOpening; // eslint-disable-line no-unused-expressions
       window.addEventListener('keyup', this.closeModal);
     } else if (!this.props.open) {
       this.listening = false;
-      this.onClosing;
+      this.onClosing; // eslint-disable-line no-unused-expressions
       window.removeEventListener('keyup', this.closeModal);
     }
   }
@@ -154,28 +161,29 @@ class Modal extends React.Component {
     if (!this.props.enableBackgroundUI) {
       return (
         <div
-          className="carbon-modal__background"
+          className='carbon-modal__background'
         />
       );
     }
+    return null;
   }
 
   // Called after the modal opens
-  get onOpening()                 { return; }
+  get onOpening() { return null; }
   // Called after the modal closes
-  get onClosing()                 { return; }
+  get onClosing() { return null; }
   // Classes for parent div
-  get mainClasses()               { return; }
+  get mainClasses() { return null; }
   // Modal HTML shown when open
-  get modalHTML()                 { return; }
+  get modalHTML() { return null; }
 
   // Modal transistion name
-  get transitionName()            { return 'modal'; }
+  get transitionName() { return 'modal'; }
   // modal background transisiton name
-  get backgroundTransitionName()  { return 'modal-background'; }
+  get backgroundTransitionName() { return 'modal-background'; }
 
   // stubbed method for component tags
-  componentTags() { return; }
+  componentTags() { return null; }
 
   /**
    * Renders the component.
@@ -194,21 +202,23 @@ class Modal extends React.Component {
 
     return (
       <div
-        ref={(c) => this._input = c}
+        ref={ (c) => { this._input = c; } }
         className={ this.mainClasses }
         { ...this.componentTags(this.props) }
       >
         <ReactCSSTransitionGroup
           transitionName={ this.transitionName }
           transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 } >
+          transitionLeaveTimeout={ 500 }
+        >
           { modalHTML }
         </ReactCSSTransitionGroup>
 
         <ReactCSSTransitionGroup
           transitionName={ this.backgroundTransitionName }
           transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 } >
+          transitionLeaveTimeout={ 500 }
+        >
           { backgroundHTML }
         </ReactCSSTransitionGroup>
       </div>

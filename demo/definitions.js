@@ -18,6 +18,7 @@ export default {
   'detail':               require('components/detail/definition').default,
   'dialog':               require('components/dialog/definition').default,
   'dialog-full-screen':   require('components/dialog-full-screen/definition').default,
+  'draggable-context':    require('components/drag-and-drop/draggable-context/definition').default,
   'dropdown':             require('components/dropdown/definition').default,
   'dropdown-filter':      require('components/dropdown-filter/definition').default,
   'dropdown-filter-ajax': require('components/dropdown-filter-ajax/definition').default,
