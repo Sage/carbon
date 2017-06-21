@@ -152,7 +152,7 @@ describe('Carousel', () => {
       it('sets the transistion group to PREVIOUS', () => {
         instance.setState({ selectedSlideIndex: 2 });
         let ev = { target: { value: 1 } };
-        instance.onSlideSelection(ev)
+        instance.onSlideSelection(ev);
         expect(instance.transitionDirection).toEqual('previous');
       });
     });

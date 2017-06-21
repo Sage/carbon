@@ -319,8 +319,42 @@ class Carousel extends React.Component {
         );
       }
 
-      return buttons;
+      return (
+        <div className={ this.slideSelectorClasses() }>
+          { buttons }
+        </div>
+      );
     }
+  }
+
+  /**
+   * Renders the previous button
+   *
+   * @method previousButton
+   */
+  previousButton() {
+    return (
+      <div className={ this.previousClasses() }>
+        <button { ...this.previousButtonProps() } data-element='previous'>
+          <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
+        </button>
+      </div>
+    );
+  }
+
+  /**
+   * Renders the next button
+   *
+   * @method nextButton
+   */
+  nextButton() {
+    return (
+      <div className={ this.nextClasses() }>
+        <button { ...this.nextButtonProps() } data-element='next'>
+          <Icon className='carbon-carousel__next-arrow' type='dropdown' />
+        </button>
+      </div>
+    );
   }
 
   /**
@@ -333,12 +367,7 @@ class Carousel extends React.Component {
       <div className={ this.mainClasses() } { ...tagComponent('carousel', this.props) }>
 
         <div className='carbon-carousel__content'>
-
-          <div className={ this.previousClasses() }>
-            <button { ...this.previousButtonProps() } data-element='previous'>
-              <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
-            </button>
-          </div>
+          { this.previousButton() }
 
           <ReactCSSTransitionGroup
             transitionName={ `slide-${this.transitionDirection}` }
@@ -348,16 +377,10 @@ class Carousel extends React.Component {
             { this.visibleSlide() }
           </ReactCSSTransitionGroup>
 
-          <div className={ this.nextClasses() }>
-            <button { ...this.nextButtonProps() } data-element='next'>
-              <Icon className='carbon-carousel__next-arrow' type='dropdown' />
-            </button>
-          </div>
+          { this.nextButton() }
         </div>
 
-        <div className={ this.slideSelectorClasses() }>
-          { this.slideSelector() }
-        </div>
+        { this.slideSelector() }
 
       </div>
     );
