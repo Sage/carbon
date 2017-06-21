@@ -57,6 +57,7 @@ The following have had minor internal changes to satisfy the introduction of str
 
 The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
 
+* Browser
 * CSS
 * Ether
 * Flux
