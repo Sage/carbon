@@ -1,4 +1,4 @@
-import I18n from "i18n-js";
+import I18n from 'i18n-js';
 import moment from 'moment';
 import { merge } from 'lodash';
 
@@ -18,7 +18,7 @@ const DateHelper = {
    */
   sanitizeDateInput: (value) => {
     if (!value) { return ''; }
-    return value.replace(/[-.\s]/g, "/").toLowerCase();
+    return value.replace(/[-.\s]/g, '/').toLowerCase();
   },
 
   /**
@@ -42,7 +42,7 @@ const DateHelper = {
    * @return {String} formatted date
    */
   formatValue: (value, formatTo, options = {}) => {
-    let date = DateHelper._parseDate(value, options);
+    const date = DateHelper._parseDate(value, options);
     return date.isValid() ? date.format(formatTo) : value;
   },
 
@@ -106,8 +106,8 @@ const DateHelper = {
    */
   _defaultDateFormats: () => {
     return [
-      'DDMMYYYY', 'DDMMYY', 'DD/MM/YYYY','DD/MM/YY',
-      'MMDDYYYY', 'MMDDYY', 'MM/DD/YYYY','MM/DD/YY',
+      'DDMMYYYY', 'DDMMYY', 'DD/MM/YYYY', 'DD/MM/YY',
+      'MMDDYYYY', 'MMDDYY', 'MM/DD/YYYY', 'MM/DD/YY',
       'DDMMM', 'DD/MMM', 'DDMM', 'DD/MM',
       'YYYYMMDD', 'YYYY/MM/DD',
       'D/MM/YYYY', 'D/M/YYYY', 'D/MM/YY', 'D/M/YY',
@@ -115,7 +115,7 @@ const DateHelper = {
       'D/MMM/YYYY', 'DD/MMM/YYYY', 'DD/MMM/YY',
       'D/MMMM/YYYY', 'DD/MMMM/YYYY', 'DD/MMMM/YY',
       'MMM/YYYY', 'MMM/YY', 'MMMM/YYYY', 'MMMM/YY',
-      'Do/MMM/YYYY','Do/MMM/YY', 'Do/M/YYYY', 'Do/M/YY',
+      'Do/MMM/YYYY', 'Do/MMM/YY', 'Do/M/YYYY', 'Do/M/YY',
       'Do/MM/YYYY', 'Do/MM/YY', 'Do/MMMM/YYYY', 'Do/MMMM/YY',
       'MMMM/Do/YYYY', 'MMMM/Do/YY', 'MMMM/Do',
       'MMM/Do/YYYY', 'MMM/Do/YY', 'MMM/Do',
@@ -136,8 +136,8 @@ const DateHelper = {
    * @return {Moment}
    */
   _parseDate: (value, options) => {
-    let opts = merge(DateHelper._defaultMomentOptions(), options);
-    let val = opts.sanitize ? DateHelper.sanitizeDateInput(value) : value;
+    const opts = merge(DateHelper._defaultMomentOptions(), options);
+    const val = opts.sanitize ? DateHelper.sanitizeDateInput(value) : value;
     return moment(val, opts.formats, opts.locale, opts.strict);
   },
 

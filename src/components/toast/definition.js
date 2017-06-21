@@ -28,16 +28,18 @@ let definition = new Definition('toast', Toast, {
     as: OptionsHelper.colors
   },
   propValues: {
-    children: 'test',
+    children: "Talkie's the name, toasting's the game. Anyone like any toast?",
     open: true
   },
   propTypes: {
     as: "String",
+    children: "Node",
     onDismiss: "Function",
     open: "Boolean"
   },
   propDescriptions: {
     as: "Sets the theme of the notification. Possible values include: " + OptionsHelper.colors.join(", "),
+    children: "This component supports children.",
     onDismiss: "A callback for when the notification is dismissed. You can use this prop to close the notification.",
     open: "A boolean to control the open/closed state of the notification."
   },

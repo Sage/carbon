@@ -1,4 +1,5 @@
 @import "./../../../style-config/colors";
+@import "./../../../style-config/mixins";
 @import "./../../../style-config/tables";
 
 .carbon-table-row:hover .common-input__input {
@@ -50,4 +51,8 @@
       width: 100%;
     }
   }
+}
+
+.carbon-table-row--dragging {
+  @include disable-text-selection;
 }

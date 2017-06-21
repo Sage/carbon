@@ -172,22 +172,6 @@ describe('tooltip-decorator', () => {
     });
   });
 
-  describe('getTarget', () => {
-    it('returns the target DOM element', () => {
-      spyOn(ReactDOM, 'findDOMNode').and.callThrough();;
-      topTooltip.getTarget();
-      expect(ReactDOM.findDOMNode).toHaveBeenCalledWith(topTooltip._target);
-    });
-  });
-
-  describe('getTooltip', () => {
-    it('returns the tooltip DOM element', () => {
-      spyOn(ReactDOM, 'findDOMNode').and.callThrough();
-      topTooltip.getTooltip();
-      expect(ReactDOM.findDOMNode).toHaveBeenCalledWith(topTooltip._tooltip);
-    });
-  });
-
   describe('calculatePosition', () => {
     describe('if memoized', () => {
       it('returns memoized shifts', () => {
