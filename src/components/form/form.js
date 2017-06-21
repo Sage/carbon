@@ -468,7 +468,7 @@ class Form extends React.Component {
    * @return {Object} Serialized object of fields
    */
   serialize = (opts) => {
-    return Serialize(this.form, opts);
+    return Serialize(this._form, opts);
   }
 
   /**
@@ -646,8 +646,8 @@ class Form extends React.Component {
     return (
       <form
         onSubmit={ this.handleOnSubmit }
-        ref={ (c) => { this.form = c; } }
         { ...this.htmlProps() }
+        ref={ (form) => { this._form = form; } }
         { ...tagComponent('form', this.props) }
       >
         { generateCSRFToken(this._document) }
