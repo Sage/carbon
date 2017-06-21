@@ -30,6 +30,7 @@ The following have had minor internal changes to satisfy the introduction of str
 * MenuItem
 * MenuList
 * MenuListItem
+* MultiStepWizard
 * Message
 * Modal
 * MountInApp
