@@ -473,7 +473,7 @@ describe('InputValidation', () => {
         });
       });
 
-      describe('when the input has the info state', () => {
+      describe('when the input has an info state', () => {
         it('calls handleContentChange', () => {
           instance.state.info = true;
           spyOn(instance, '_handleContentChange');
@@ -845,7 +845,7 @@ describe('InputValidation', () => {
           expect(infoTwo.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateInfo);
         });
 
-        describe('when calling info function on the first element fails', () => {
+        describe('when calling the info function on the first element fails', () => {
           it('stops info', () => {
             wrapper = shallow(React.createElement(Component, {
               info: [infoOne, infoTwo],
@@ -1053,7 +1053,7 @@ describe('InputValidation', () => {
   describe('validationHTML', () => {
     describe('the field is valid', () => {
       it('returns null', () => {
-        instance.setState({ valid: true, warning: false});
+        instance.setState({ valid: true, warning: false, info: false});
         expect(instance.validationHTML).toBe(null);
       });
     });

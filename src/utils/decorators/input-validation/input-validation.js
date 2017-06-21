@@ -185,8 +185,8 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       if (this.messageExists() && (nextProps.value !== this.props.value)) {
         let contentChanged = false;
 
-        if (this.state.info && !this.info(nextProps.value)) {
-          this.setState({ info: false });
+        if (!this.state.valid && this.validate(nextProps.value)) {
+          this.setState({ valid: true });
           contentChanged = true;
         }
 
@@ -195,8 +195,8 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
           contentChanged = true;
         }
 
-        if (!this.state.valid && this.validate(nextProps.value)) {
-          this.setState({ valid: true });
+        if (this.state.info && !this.info(nextProps.value)) {
+          this.setState({ info: false });
           contentChanged = true;
         }
 
@@ -595,10 +595,12 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     if (this.state.valid && !this.state.warning && !this.state.info) { return null; }
 
-    if (this.state.info) {
-      type = "info";
+    if (!this.state.valid) {
+      type = 'error';
+    } else if (this.state.warning) {
+      type = 'warning';
     } else {
-      type = !this.state.valid ? "error" : "warning";
+      type = 'info';
     }
 
     let messageClasses = `common-input__message common-input__message--${type}`,
