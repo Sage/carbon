@@ -312,13 +312,8 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {void}
    */
   updateInfo = (valid, value, info) => {
-    // if validation fails
-    if (!valid) {
-      // if input currently thinks it is valid
-      if (!this.state.info) {
-        // tell the input it is invalid
-        this.setState({ infoMessage: info.message(value, this.props), info: true });
-      }
+    if (!valid && !this.state.info) {
+      this.setState({ infoMessage: info.message(value, this.props), info: true });
     }
   }
 
