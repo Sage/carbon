@@ -67,7 +67,7 @@ class BaseRegistry {
    * @return {Object}
    */
   obtain = (...params) => {
-    let handlers = [];
+    const handlers = [];
 
     Object.keys(this.handlers).forEach((key) => {
       const handler = this.handlers[key];

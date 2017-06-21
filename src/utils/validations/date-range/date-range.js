@@ -1,5 +1,5 @@
 import ValidationsHelper from './../../helpers/validations';
-import DateHelper from  './../../helpers/date';
+import DateHelper from './../../helpers/date';
 /**
  * A DateRangeValidator object.
  *
@@ -72,9 +72,9 @@ class DateRangeValidator {
   validate = (value) => {
     if (this.endDate) {
       return this.compareDates(value, this.endDate);
-    } else { // this.startDate
-      return this.compareDates(this.startDate, value);
     }
+
+    return this.compareDates(this.startDate, value);
   }
 
   /**
