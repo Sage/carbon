@@ -13,6 +13,7 @@ let definition = new Definition('carousel', Carousel, {
     children: 'Node',
     className: 'String',
     initialSlideIndex: 'Number || String',
+    slideIndex: 'Number || String',
     enableSlideSelector: 'Boolean',
     enablePreviousButton: 'Boolean',
     enableNextButton: 'Boolean'
@@ -21,6 +22,7 @@ let definition = new Definition('carousel', Carousel, {
     children: 'This component supports children.',
     className: 'Classes to apply to the component.',
     initialSlideIndex: 'Which slide the component should initialize with.',
+    slideIndex: 'Set this prop to change slide',
     enableSlideSelector: 'Set this prop to false to hide the slide selector.',
     enablePreviousButton: 'Set this prop to false to hide the previous button',
     enableNextButton: 'Set this prop to false to hide the next button'

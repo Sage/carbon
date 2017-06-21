@@ -28,11 +28,22 @@ class Carousel extends React.Component {
     /**
      * The selected tab on page load
      *
-     * @property initialSelectedTabId
+     * @property initialSlideIndex
      * @type {String}
      * @default firstTab
      */
     initialSlideIndex: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
+
+    /**
+     * The selected slide
+     *
+     * @property slideIndex
+     * @type {String}
+     */
+    slideIndex: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string
     ]),
@@ -121,6 +132,37 @@ class Carousel extends React.Component {
   componentWillMount() {
     const selectedIndex = Number(this.props.initialSlideIndex);
     this.setState({ selectedSlideIndex: selectedIndex });
+  }
+
+  /**
+   * A lifecycle method that is called before re-render.
+   *
+   * @method componentWillReceiveProps
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.slideIndex !== undefined) {
+      let newIndex = nextProps.slideIndex;
+      const currentIndex = this.state.selectedSlideIndex;
+
+      if (newIndex < 0) {
+        // If the new index is negative, select the last slide
+        newIndex = this.numOfSlides() - 1;
+      } else if (newIndex > this.numOfSlides() - 1) {
+        // If the new index is bigger than the number of slides, select the first slide
+        newIndex = 0;
+      }
+
+      if (newIndex == currentIndex) {
+        return;
+      } else if (newIndex > currentIndex) {
+        this.transitionDirection = NEXT;
+      } else {
+        this.transitionDirection = PREVIOUS;
+      }
+
+      this.setState({ disabled: true, selectedSlideIndex: newIndex });
+      this.enableButtonsAfterTimeout();
+    }
   }
 
   /**

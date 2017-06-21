@@ -38,6 +38,77 @@ describe('Carousel', () => {
     });
   });
 
+  describe('componentWillReceiveProps', () => {
+    let wrapper = shallow(
+      <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+        <Slide />
+        <Slide />
+        <Slide />
+      </Carousel>
+    );
+    const enableButtonsAfterTimeoutSpy = jasmine.createSpy();
+
+    beforeEach(() => {
+      wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
+    });
+
+    it('navigate between slides correctly when the slideIndex prop changes', () => {
+      // Initial state
+      expect(wrapper.state().selectedSlideIndex).toEqual(0);
+      expect(wrapper.state().disabled).toBeFalsy();
+      expect(enableButtonsAfterTimeoutSpy).not.toHaveBeenCalled();
+      // Move to slide 2
+      wrapper.setProps({slideIndex: 2});
+      wrapper.rerender();
+
+      expect(wrapper.state().selectedSlideIndex).toEqual(2);
+      expect(wrapper.instance().transitionDirection).toEqual('next');
+      expect(wrapper.state().disabled).toBeTruthy();
+      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(1);
+
+      // Move to slide 1
+      wrapper.setProps({slideIndex: 1});
+      wrapper.rerender();
+
+      expect(wrapper.state().selectedSlideIndex).toEqual(1);
+      expect(wrapper.instance().transitionDirection).toEqual('previous');
+      expect(wrapper.state().disabled).toBeTruthy();
+      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(2);
+
+      // Move to slide 3
+      wrapper.setProps({slideIndex: 3});
+      wrapper.rerender();
+
+      expect(wrapper.state().selectedSlideIndex).toEqual(0);
+      expect(wrapper.instance().transitionDirection).toEqual('previous');
+      expect(wrapper.state().disabled).toBeTruthy();
+      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(3);
+
+      // Move to slide -1
+      wrapper.setProps({slideIndex: -1});
+      wrapper.rerender();
+
+      expect(wrapper.state().selectedSlideIndex).toEqual(2);
+      expect(wrapper.instance().transitionDirection).toEqual('next');
+      expect(wrapper.state().disabled).toBeTruthy();
+      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(4);
+
+      // Move to slide 2
+      wrapper.setProps({slideIndex: 2});
+      wrapper.rerender();
+
+      expect(wrapper.state().selectedSlideIndex).toEqual(2);
+      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(4);
+
+      // Undefined slideIndex
+      wrapper.setProps({slideIndex: undefined});
+      wrapper.rerender();
+
+      expect(wrapper.state().selectedSlideIndex).toEqual(2);
+      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(4);
+    });
+  });
+
   describe('enableButtonsAfterTimeout', () => {
     it('sets a timeout', () => {
       spyOn(window, 'setTimeout');
