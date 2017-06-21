@@ -49,6 +49,11 @@ class RadioButton extends React.Component {
     fieldHelpInline: PropTypes.bool
   }
 
+  static defaultProp = {
+    className: '',
+    fieldHelpInline: false
+  }
+
   /**
    * Uses the mainClasses method provided by the decorator to add additional classes.
    *
@@ -139,7 +144,7 @@ class RadioButton extends React.Component {
     return (
       <div
         className='carbon-radio-button__sprite'
-        dangerouslySetInnerHTML={ { __html: this.radiobuttonSprite } }
+        dangerouslySetInnerHTML={ { __html: this.radiobuttonSprite } } // eslint-disable react/no-danger
       />
     );
   }

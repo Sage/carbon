@@ -7,7 +7,7 @@ class ComponentCodeBuilder {
 
     if (typeof name !== "string") {
       definition = name;
-      name = definition.get('name');
+      name = definition.get('topLevelComponent') || definition.get('name');
     }
 
     // the name of the component

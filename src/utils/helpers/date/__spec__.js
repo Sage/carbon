@@ -1,6 +1,6 @@
-import I18n from "i18n-js";
-import DateHelper from './date';
+import I18n from 'i18n-js';
 import moment from 'moment';
+import DateHelper from './date';
 
 describe('DateHelper', () => {
   beforeEach(() => {
@@ -12,7 +12,7 @@ describe('DateHelper', () => {
       us: {
         date: { formats: { inputs: ['MM/DD/YYYY'] } }
       }
-    }
+    };
     moment.updateLocale('us', { parentLocale: 'en' });
   });
 
@@ -55,8 +55,8 @@ describe('DateHelper', () => {
       });
 
       describe('locale', () => {
-        beforeAll(() => { I18n.locale = 'us' });
-        afterAll(() => { I18n.locale = 'en' });
+        beforeAll(() => { I18n.locale = 'us'; });
+        afterAll(() => { I18n.locale = 'en'; });
 
         it('overrides the default i18n locale', () => {
           expect(DateHelper.formatValue('01/31/2015', 'DD/MM/YYYY', { locale: 'us' })).toEqual('31/01/2015');
@@ -85,33 +85,33 @@ describe('DateHelper', () => {
 
   describe('weekdaysMinified', () => {
     it('returns the days of week by locale minfied', () => {
-      expect(DateHelper.weekdaysMinified()).toEqual([ 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa' ]);
+      expect(DateHelper.weekdaysMinified()).toEqual(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']);
     });
   });
 
   describe('withinRange', () => {
     it('returns true if the date is today', () => {
-      let testDate = moment().format('DD-MM-YYYY');
+      const testDate = moment().format('DD-MM-YYYY');
       expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
     });
 
     it('returns true if the date is within range', () => {
-      let testDate = moment().add(29, 'days').format('DD-MM-YYYY');
+      const testDate = moment().add(29, 'days').format('DD-MM-YYYY');
       expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
     });
 
     it('returns true if the date is equal to the given range', () => {
-      let testDate = moment().add(30, 'days').format('DD-MM-YYYY');
+      const testDate = moment().add(30, 'days').format('DD-MM-YYYY');
       expect(DateHelper.withinRange(testDate, 30, 'days')).toBeTruthy();
     });
 
     it('returns false if the date is beyond the given range', () => {
-      let testDate = moment().add(31, 'days').format('DD-MM-YYYY');
+      const testDate = moment().add(31, 'days').format('DD-MM-YYYY');
       expect(DateHelper.withinRange(testDate, 30, 'days')).toBeFalsy();
     });
 
     it('returns false if the date is many years in the past', () => {
-      let testDate = moment().add(100, 'years').format('DD-MM-YYYY');
+      const testDate = moment().add(100, 'years').format('DD-MM-YYYY');
       expect(DateHelper.withinRange(testDate, 1, 'years')).toBeFalsy();
     });
   });

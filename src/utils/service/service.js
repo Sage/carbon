@@ -4,7 +4,7 @@ import { assign } from 'lodash';
 /**
  * Global configuration for all service classes.
  */
-let config = {
+const config = {
   csrfToken: null, // defines the CSRF token if required by your web application
   onSuccess: null, // defines a callback to trigger on every successful response
   onError: null    // defines a callback to trigger on every erroneous response
@@ -31,10 +31,10 @@ class Service {
     this.client = axios.create({
       headers: {
         'X-CSRF-Token': config.csrfToken,
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      transformResponse: [ this.responseTransform ]
+      transformResponse: [this.responseTransform]
     });
 
     // applies the default axios interceptors used for manipulating the data
@@ -59,21 +59,21 @@ class Service {
       return response.data;
     }
 
-    if (response.data.status === "error") {
+    if (response.data.status === 'error') {
       // respond with an error if the server responds with an error status
       if (this.shouldTriggerCallback(config.onError)) {
         config.onError(response.data.message);
       }
 
       return Promise.reject(response);
-    } else {
-      // otherwise respond with a success
-      if (this.shouldTriggerCallback(config.onSuccess)) {
-        config.onSuccess(response.data.message);
-      }
-
-      return response.data;
     }
+
+    // in other cases, default to 'success'
+    if (this.shouldTriggerCallback(config.onSuccess)) {
+      config.onSuccess(response.data.message);
+    }
+
+    return response.data;
   }
 
   /**

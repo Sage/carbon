@@ -28,7 +28,6 @@ class EmailValidator {
    * @param {Object} params
    */
   constructor(params = {}) {
-
     /**
      * An optional custom validation message.
      *
