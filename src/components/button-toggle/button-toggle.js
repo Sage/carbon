@@ -5,7 +5,7 @@ import Icon from './../icon';
 import css from './../../utils/css';
 import Input from './../../utils/decorators/input';
 import { validProps } from './../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 
 const ButtonToggle = Input(
