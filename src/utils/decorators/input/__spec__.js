@@ -373,7 +373,7 @@ describe('Input', () => {
 
     describe('when prefix is not defined', () => {
       it('returns nothing', () => {
-        expect(instance.prefixHTML).toBe(undefined);
+        expect(instance.prefixHTML).toBe(null);
       });
     });
   });
