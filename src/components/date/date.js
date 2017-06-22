@@ -12,7 +12,7 @@ import DateHelper from './../../utils/helpers/date';
 import DateValidator from './../../utils/validations/date';
 import chainFunctions from './../../utils/helpers/chain-functions';
 import { validProps } from './../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * Stores a reference to the current date in the given format,

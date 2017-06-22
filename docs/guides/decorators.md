@@ -8,9 +8,9 @@ This means we can extend as many decorators as we like - for example, a typical 
 
 ```js
 import React from 'react';
-import Input from 'carbon/lib/utils/decorators/input';
-import InputLabel from 'carbon/lib/utils/decorators/input-label';
-import InputValidation from 'carbon/lib/utils/decorators/input-validation';
+import Input from 'carbon-react/lib/utils/decorators/input';
+import InputLabel from 'carbon-react/lib/utils/decorators/input-label';
+import InputValidation from 'carbon-react/lib/utils/decorators/input-validation';
 
 const Textbox = Input(InputLabel(InputValidation(
 class Textbox extends React.Component {

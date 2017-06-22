@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import I18n from 'i18n-js';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { tagComponent } from '../../../utils/helpers/tags';
+import tagComponent from '../../../utils/helpers/tags';
 import Button from './../../button';
 
 const SaveButton = props =>

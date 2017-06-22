@@ -1,4 +1,4 @@
-import { tagComponent } from './tags';
+import tagComponent from './tags';
 
 describe('tagComponent', () => {
   describe('when no additional tag props are sent', () => {

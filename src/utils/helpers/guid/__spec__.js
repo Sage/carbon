@@ -6,7 +6,7 @@ describe('guid', () => {
   });
 
   it('returns a unique id', () => {
-    let id = guid();
+    const id = guid();
     expect(guid()).not.toEqual(id);
   });
 });

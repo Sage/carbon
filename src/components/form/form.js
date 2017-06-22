@@ -1,12 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Serialize from 'form-serialize';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Serialize from 'form-serialize';
+
 import CancelButton from './cancel-button';
-import SaveButton from './save-button';
 import FormSummary from './form-summary';
+import SaveButton from './save-button';
+
 import { validProps } from '../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A Form widget.
@@ -468,7 +470,7 @@ class Form extends React.Component {
    * @return {Object} Serialized object of fields
    */
   serialize = (opts) => {
-    return Serialize(this.form, opts);
+    return Serialize(this._form, opts);
   }
 
   /**
@@ -646,8 +648,8 @@ class Form extends React.Component {
     return (
       <form
         onSubmit={ this.handleOnSubmit }
-        ref={ (c) => { this.form = c; } }
         { ...this.htmlProps() }
+        ref={ (form) => { this._form = form; } }
         { ...tagComponent('form', this.props) }
       >
         { generateCSRFToken(this._document) }
