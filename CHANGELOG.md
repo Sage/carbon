@@ -138,7 +138,10 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 ## Component Improvements
 
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
-* `Form` now has default `SaveButton` and `CancelButton` functional stateless componenents. The former can be overriden with a new prop of `customSaveButton`.
+* `DialogFullScreen`: the content is now scrollable.
+* `DialogFullScreen` is now using the `Heading` component to render its title.
+* `DialogFullScreen`: the title can be passed as a child instead of using the title prop.
+* `Form` now has default `SaveButton` and `CancelButton` functional stateless components. The former can be overridden with a new prop of `customSaveButton`.
 * `InlineInputs` children are now wrapped by Columns by the component.
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `MenuItem`: focus outline is now fully visible when an item is focused.
