@@ -37,6 +37,12 @@ describe('Browser', () => {
     });
   });
 
+  describe('getBody', () => {
+    it('returns the document object', () => {
+      expect(Browser.getBody()).toEqual(document.body);
+    });
+  });
+
   describe('getActiveElement', () => {
     it('returns the document.activeElement', () => {
       expect(Browser.getActiveElement()).toEqual(document.activeElement);
@@ -72,6 +78,22 @@ describe('Browser', () => {
       spyOn(ReactDOM, 'findDOMNode').and.returnValue(node);
       Browser.setInputFocus(fakeComponent);
       expect(node.focus).toHaveBeenCalled();
+    });
+  });
+
+  describe('setBodyScroll', () => {
+    describe('when enabled is true', () => {
+      it('sets the body overflow to empty', () => {
+        Browser.setBodyScroll(true);
+        expect(document.body.style.overflow).toEqual('');
+      });
+    });
+
+    describe('when enabled is false', () => {
+      it('sets the body overflow to hidden', () => {
+        Browser.setBodyScroll(false);
+        expect(document.body.style.overflow).toEqual('hidden');
+      });
     });
   });
 

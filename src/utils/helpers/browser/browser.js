@@ -30,12 +30,21 @@ const Browser = {
   },
 
   /**
+   * Gets the body
+   *
+   * @method getBody
+   */
+  getBody: () => {
+    return Browser.getDocument().body;
+  },
+
+  /**
    * Get the current activeElement
    *
    * @return HTMLElement
    */
   getActiveElement: () => {
-    let doc = Browser.getDocument();
+    const doc = Browser.getDocument();
     return doc.activeElement;
   },
 
@@ -86,6 +95,16 @@ const Browser = {
    */
   setInputFocus: (inputComponent) => {
     Browser.setFocus(inputComponent._input);
+  },
+
+  /**
+   * Sets the body scroll
+   *
+   * @param {Boolean} enabled
+   * @method setBodyScroll
+   */
+  setBodyScroll: (enabled) => {
+    Browser.getBody().style.overflow = enabled ? '' : 'hidden';
   },
 
   /**
