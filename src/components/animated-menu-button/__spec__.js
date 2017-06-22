@@ -140,7 +140,7 @@ describe('AnimatedMenuButton', () => {
 
   describe('innerHTML', () => {
     it('returns the HTML for the content', () => {
-      const wrapper = mount(
+      const wrapper = shallow(
         <AnimatedMenuButton>
           <Pod>
             <h2 className='title'>Column 1</h2>
