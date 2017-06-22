@@ -143,7 +143,7 @@ describe('TableAjax', () => {
 
     beforeEach(() => {
       jasmine.Ajax.install();
-      jasmine.clock().install();
+      jest.useFakeTimers();
 
       options = { currentPage: '1',
                   pageSize: '10',
@@ -154,7 +154,6 @@ describe('TableAjax', () => {
 
     afterEach(() => {
       jasmine.Ajax.uninstall();
-      jasmine.clock().uninstall();
     });
 
     it('resets the select all component', () => {
@@ -187,7 +186,7 @@ describe('TableAjax', () => {
       request = jasmine.Ajax.requests.mostRecent();
       expect(request).toBe(undefined);
 
-      jasmine.clock().tick(51);
+      jest.runTimersToTime(51);
       request = jasmine.Ajax.requests.mostRecent();
       expect(request.url).toEqual('/test?page=1&rows=10');
     });
@@ -198,7 +197,7 @@ describe('TableAjax', () => {
       request = jasmine.Ajax.requests.mostRecent();
       expect(request).toBe(undefined);
 
-      jasmine.clock().tick(251);
+      jest.runTimersToTime(251);
       request = jasmine.Ajax.requests.mostRecent();
       expect(request.url).toEqual('/test?page=1&rows=10');
     });
@@ -206,27 +205,27 @@ describe('TableAjax', () => {
     it('stores the request', () => {
       expect(instance._request).toBe(null);
       instance.emitOnChangeCallback('data', options);
-      jasmine.clock().tick(251);
+      jest.runTimersToTime(251);
       request = jasmine.Ajax.requests.mostRecent();
       expect(instance._request).toBeDefined();
     });
 
     it('on success emits the returned data', () => {
-        instance.emitOnChangeCallback('data', options);
-        jasmine.clock().tick(251);
-        request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          "status": 200,
-          "contentType": 'application/json',
-          "responseText": "{\"data\": [\"foo\"]}"
-        });
-        expect(spy).toHaveBeenCalledWith({ data: ['foo'] });
+      instance.emitOnChangeCallback('data', options);
+      rest.runTimersToTime(251);
+      request = jasmine.Ajax.requests.mostRecent();
+      request.respondWith({
+        "status": 200,
+        "contentType": 'application/json',
+        "responseText": "{\"data\": [\"foo\"]}"
+      });
+      expect(spy).toHaveBeenCalledWith({ data: ['foo'] });
     });
 
     it('on success sets the totalRecords', () => {
       spyOn(instance, 'setState');
       instance.emitOnChangeCallback('data', options);
-      jasmine.clock().tick(251);
+      jest.runTimersToTime(251);
 
       request = jasmine.Ajax.requests.mostRecent();
       request.respondWith({
@@ -243,7 +242,7 @@ describe('TableAjax', () => {
         options = { currentPage: '1', pageSize: '5' }
 
         instance.emitOnChangeCallback('data', options);
-        jasmine.clock().tick(251);
+        jest.runTimersToTime(251);
 
         request = jasmine.Ajax.requests.mostRecent();
         request.respondWith({
