@@ -25,7 +25,7 @@ In your `constructor`, you can use the following methods to configure your servi
 If you need to set a CSRF Token in your request header, you can configure all of your services with the token:
 
 ```js
-import Service from 'carbon/lib/utils/service';
+import Service from 'carbon-react/lib/utils/service';
 
 Service.configure({
   csrfToken: global.CSRF_TOKEN
@@ -37,7 +37,7 @@ Service.configure({
 You can configure all of your services to respond with a common success and/or error function. Firstly, you need to configure the base class with your functions:
 
 ```js
-import Service from 'carbon/lib/utils/service';
+import Service from 'carbon-react/lib/utils/service';
 
 Service.configure({
   onSuccess: () => {},
@@ -105,7 +105,7 @@ service.put(data.id, data, (response) => {
 * Define your service class, extending the base class from `carbon`:
 
 ```js
-import Service from "carbon/lib/utils/service";
+import Service from "carbon-react/lib/utils/service";
 
 class SalesInvoiceService extends Service {
   constructor() {
@@ -119,7 +119,7 @@ export default SalesInvoiceService;
 * Set the URL for your service in your constructor:
 
 ```js
-import Service from "carbon/lib/utils/service";
+import Service from "carbon-react/lib/utils/service";
 
 class SalesInvoiceService extends Service {
   constructor() {
@@ -143,7 +143,7 @@ We can add transforms for preparing data either before it is sent to the server,
 The example below shows how we might set up a transform to manipulate the data before it is posted to the server:
 
 ```js
-import Service from "carbon/lib/utils/service";
+import Service from "carbon-react/lib/utils/service";
 
 class SalesInvoiceService extends Service {
   constructor() {

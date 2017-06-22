@@ -25,13 +25,15 @@ let definition = new Definition('show-edit-pod', ShowEditPod, {
 * Viewing content that’s grouped together visually? [Try Pod](/components/pod).
 * Creating a new entity that is usually presented in a pod? [Try Create](/components/create).
  `,
-  hiddenProps: ['editing', 'validateOnMount', 'transitionName'],
+  hiddenProps: ['children', 'editing', 'validateOnMount', 'transitionName'],
   toggleFunctions: ['onDelete'],
   propOptions: assign({}, formDefinition.propOptions, {
     as: OptionsHelper.themesFull
   }),
   defaultProps: assign({}, formDefinition.defaultProps, ShowEditPod.defaultProps),
   propTypes: assign({}, formDefinition.propTypes, {
+    children: "Node",
+    className: "String",
     editing: "Boolean",
     onEdit: "Function",
     onDelete: "Function",
@@ -56,6 +58,8 @@ let definition = new Definition('show-edit-pod', ShowEditPod, {
   propDescriptions: assign({}, formDefinition.propDescriptions, {
     as: "Set a theme for the Pod.",
     border: "Enabled/disable the border on the Pod.",
+    children: "This component supports children.",
+    className: "Classes to apply to the component.",
     deleteText: "Define custom text for the delete button.",
     editFields: "Define fields to be rendered in the edit state.",
     editing: "Allows developers to control the editing state manually.",

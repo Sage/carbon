@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * Manages the width and containment of your application.
@@ -31,17 +31,6 @@ class AppWrapper extends React.Component {
   }
 
   /**
-   * @method render
-   */
-  render() {
-    return (
-      <div className={ this.classes() } { ...tagComponent('app-wrapper', this.props) }>
-        { this.props.children }
-      </div>
-    );
-  }
-
-  /**
    * Returns the classes for the component.
    *
    * @method classes
@@ -51,6 +40,17 @@ class AppWrapper extends React.Component {
     return classNames(
       'carbon-app-wrapper',
       this.props.className
+    );
+  }
+
+  /**
+   * @method render
+   */
+  render() {
+    return (
+      <div className={ this.classes() } { ...tagComponent('app-wrapper', this.props) }>
+        { this.props.children }
+      </div>
     );
   }
 }

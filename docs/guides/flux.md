@@ -32,8 +32,8 @@ Carbon provides a base class for creating a store. This should be used to extend
 ```js
 // ./src/stores/user/index.js
 
-import Store from 'carbon/lib/utils/flux/store';
-import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
+import Store from 'carbon-react/lib/utils/flux/store';
+import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 import Dispatcher from 'dispatcher';
 
 // our store!
@@ -96,8 +96,8 @@ So now we can update the store to subscribe to this event by using the same cons
 ```js
 // ./src/stores/user/index.js
 
-import Store from 'carbon/lib/utils/flux/store';
-import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
+import Store from 'carbon-react/lib/utils/flux/store';
+import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 import Dispatcher from 'dispatcher';
 import UserConstants from 'constants/user';
 
@@ -126,7 +126,7 @@ The store is now updating its data - but we have no React components connected t
 
 import React from 'react';
 import { connect } from 'utils/flux';
-import Textbox from 'carbon/lib/components/textbox';
+import Textbox from 'carbon-react/lib/components/textbox';
 import UserStore from 'stores/user';
 import UserActions from 'actions/user';
 

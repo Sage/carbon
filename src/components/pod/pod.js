@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import I18n from 'i18n-js';
 import Icon from './../icon';
 import Link from './../link';
-import classNames from 'classnames';
 import Event from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A Pod widget.
@@ -37,6 +38,22 @@ class Pod extends React.Component {
      * @default true
      */
     border: PropTypes.bool,
+
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
     /**
      * Determines the padding around the pod.
@@ -203,9 +220,10 @@ class Pod extends React.Component {
    * @method podHeader
    */
   get podHeader() {
-    if (!this.props.title) { return; }
+    if (!this.props.title) { return null; }
 
-    let pod, subtitle, headerProps = {};
+    const headerProps = {};
+    let pod, subtitle;
 
     if (this.state.collapsed !== undefined) {
       pod = this.podCollapsible;
@@ -235,9 +253,8 @@ class Pod extends React.Component {
   get podDescription() {
     if (this.props.description) {
       return <div className='carbon-pod__description'>{ this.props.description }</div>;
-    } else {
-      return null;
     }
+    return null;
   }
 
   /**
@@ -246,9 +263,9 @@ class Pod extends React.Component {
    * @method podCollapsible
    */
   get podCollapsible() {
-    let className = 'carbon-pod__arrow carbon-pod__arrow--' + this.state.collapsed;
+    const className = `carbon-pod__arrow carbon-pod__arrow--${this.state.collapsed}`;
 
-    return(
+    return (
       <Icon type='dropdown' className={ className } />
     );
   }
@@ -259,7 +276,7 @@ class Pod extends React.Component {
    * @method podContent
    */
   get podContent() {
-    return(
+    return (
       <div className='carbon-pod__collapsible-content'>
         { this.podDescription }
         <div className='carbon-pod__content'>
@@ -290,7 +307,7 @@ class Pod extends React.Component {
 
   get mainClasses() {
     return classNames('carbon-pod', this.props.className,
-      `carbon-pod--${ this.props.alignTitle }`, {
+      `carbon-pod--${this.props.alignTitle}`, {
         'carbon-pod--editable': this.props.onEdit,
         'carbon-pod--is-hovered': this.state.hoverEdit,
         'carbon-pod--content-triggers-edit': this.shouldContentHaveEditProps,
@@ -325,10 +342,10 @@ class Pod extends React.Component {
    */
   get headerClasses() {
     return classNames(
-      `carbon-pod__header`,
-      `carbon-pod__header--${ this.props.alignTitle }`,
+      'carbon-pod__header',
+      `carbon-pod__header--${this.props.alignTitle}`,
       {
-        [`carbon-pod__header--${ this.state.collapsed }`]: this.state.collapsed !== undefined
+        [`carbon-pod__header--${this.state.collapsed}`]: this.state.collapsed !== undefined
       }
     );
   }
@@ -410,7 +427,9 @@ class Pod extends React.Component {
 
     return (
       <div className='carbon-pod__edit-button-container' { ...this.hoverOverEditEvents } >
-        <Link icon='edit' className={ this.editActionClasses } { ...this.linkProps() }/>
+        <Link icon='edit' className={ this.editActionClasses } { ...this.linkProps() }>
+          {I18n.t('actions.edit', { defaultValue: 'Edit' })}
+        </Link>
       </div>
     );
   }
@@ -442,7 +461,7 @@ class Pod extends React.Component {
    * @return {Object}
    */
   get hoverOverEditEvents() {
-    let props = {
+    const props = {
       onMouseEnter: this.toggleHoverState.bind(this, true),
       onMouseLeave: this.toggleHoverState.bind(this, false),
       onFocus: this.toggleHoverState.bind(this, true),
@@ -498,8 +517,8 @@ class Pod extends React.Component {
    */
   render() {
     let content,
-        { ...props } = validProps(this),
         hoverOverEditEvents = {};
+    const { ...props } = validProps(this);
 
     delete props.className;
 

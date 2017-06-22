@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Heading from './../heading';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * UI for a settings page row
@@ -41,6 +41,14 @@ class SettingsRow extends React.Component {
     children: PropTypes.node,
 
     /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * Heading title
      *
      * @property  title
@@ -77,7 +85,11 @@ class SettingsRow extends React.Component {
    * @return  {String}
    */
   get classes() {
-    return classNames('carbon-settings-row', { 'carbon-settings-row--has-divider': this.props.divider }, this.props.className);
+    return classNames(
+      'carbon-settings-row',
+      { 'carbon-settings-row--has-divider': this.props.divider },
+      this.props.className
+    );
   }
 
   /**

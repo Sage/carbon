@@ -1,12 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
 import { Table, TableCell } from './../table';
 import TableRow from './table-row';
 import TableHeader from './../table-header';
+import DraggableTableCell from './../draggable-table-cell';
 import Icon from './../../icon';
 import Checkbox from './../../checkbox';
-import { shallow } from 'enzyme';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import { shallow, mount } from 'enzyme';
+import { DraggableContext, WithDrop } from './../../drag-and-drop';
 
 describe('TableRow', () => {
   let instance, clickableInstance, row;
@@ -425,11 +428,88 @@ describe('TableRow', () => {
     });
   });
 
-  describe("tags on component", () => {
-    let wrapper = shallow(<TableRow data-element='bar' data-role='baz' />);
+  describe('drag and drop', () => {
+    let wrapper;
 
-    it('include correct component, element and role data tags', () => {
-      rootTagTest(wrapper, 'table-row', 'bar', 'baz');
+    describe('without drag and drop context', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <Table tbody={ false }>
+            <tbody>
+              <TableRow>
+                <TableCell>foo</TableCell>
+              </TableRow>
+            </tbody>
+          </Table>
+        );
+      });
+
+      it('does not render a draggable cell', () => {
+        let cell = wrapper.find(TableRow).find(DraggableTableCell);
+        expect(cell.length).toEqual(0);
+      });
+
+      it('does not render a WithDrop component', () => {
+        let wd = wrapper.find(WithDrop);
+        expect(wd.length).toEqual(0);
+      });
+    });
+
+    describe('ensuring index is provided', () => {
+      it('throws an error if no index is provided', () => {
+        expect(() => {
+          mount(
+            <Table tbody={ false }>
+              <DraggableContext onDrag={ () => {} }>
+                <tbody>
+                  <TableRow dragAndDropIdentifier="foo">
+                    <TableCell>foo</TableCell>
+                  </TableRow>
+                </tbody>
+              </DraggableContext>
+            </Table>
+          );
+        }).toThrow(new Error('You need to provide an index for rows that are draggable'));
+      });
+    });
+
+    describe('with drag and drop context', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <Table tbody={ false }>
+            <DraggableContext onDrag={ () => {} }>
+              <tbody>
+                <TableRow index={ 0 } dragAndDropIdentifier="foo">
+                  <TableCell>foo</TableCell>
+                </TableRow>
+              </tbody>
+            </DraggableContext>
+          </Table>
+        );
+      });
+
+      it('renders a draggable cell', () => {
+        let cell = wrapper.find(TableRow).find(DraggableTableCell);
+        expect(cell.props().identifier).toEqual("foo");
+      });
+
+      it('renders a WithDrop component', () => {
+        let wd = wrapper.find(WithDrop);
+        expect(wd.props().index).toEqual(0);
+        expect(wd.props().identifier).toEqual("foo");
+      });
+
+      it('renders a dragging class', () => {
+        let row = wrapper.find(TableRow);
+        row.node.context.dragAndDropActiveIndex = 1
+        expect(row.node.mainClasses).toEqual('carbon-table-row carbon-table-row--dragging');
+      });
+
+      it('renders a dragged class if the index matches', () => {
+        let row = wrapper.find(TableRow);
+        row.node.context.dragAndDropActiveIndex = 0
+        expect(row.node.mainClasses).toEqual('carbon-table-row carbon-table-row--dragged carbon-table-row--dragging');
+      });
     });
   });
 });

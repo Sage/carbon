@@ -15,7 +15,7 @@ Some of our components require immutable data to function correctly - so we reco
 We have provided an object of helper functions when working with Immutable.js, which parses your data in a recommended format:
 
 ```js
-import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
+import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 ```
 
 Available functions:

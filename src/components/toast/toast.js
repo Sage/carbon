@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Icon from './../icon';
 import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { tagComponent } from '../../utils/helpers/tags';
+import PropTypes from 'prop-types';
+
+import Icon from './../icon';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
 * A Toast widget.
@@ -43,6 +44,22 @@ class Toast extends React.Component {
     as: PropTypes.string,
 
     /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
+     * The rendered children of the component.
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
      * Determines if the toast is open.
      *
      * @property open
@@ -62,6 +79,8 @@ class Toast extends React.Component {
 
   static defaultProps = {
     as: 'warning',
+    className: '',
+    onDismiss: null,
     open: true
   }
 
@@ -74,7 +93,7 @@ class Toast extends React.Component {
     return classNames(
       'carbon-toast',
       this.props.className,
-      'carbon-toast--' + this.props.as
+      `carbon-toast--${this.props.as}`
     );
   }
 
@@ -93,9 +112,8 @@ class Toast extends React.Component {
           type='close'
         />
       );
-    } else {
-      return null;
     }
+    return null;
   }
 
   /**
@@ -116,9 +134,8 @@ class Toast extends React.Component {
           { this.dismissIcon }
         </div>
       );
-    } else {
-      return null;
     }
+    return null;
   }
 
   /**
@@ -129,7 +146,7 @@ class Toast extends React.Component {
   render() {
     return (
       <ReactCSSTransitionGroup
-        transitionAppear={ true }
+        transitionAppear
         transitionName='toast'
         transitionAppearTimeout={ 1600 }
         transitionEnterTimeout={ 1500 }

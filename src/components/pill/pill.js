@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import { validProps } from '../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
 * A Pill widget.
@@ -40,6 +41,22 @@ class Pill extends React.Component {
     as: PropTypes.string,
 
     /**
+     * The text to display on the Pill
+     *
+     * @property children
+     * @type {String}
+     */
+    children: PropTypes.string.isRequired,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * Fills the pill with colour when true
      *
      * @property type
@@ -49,17 +66,30 @@ class Pill extends React.Component {
     fill: PropTypes.bool,
 
     /**
-     * The text to display on the Pill
+     * Callback for when the pill is clicked
      *
-     * @property children
-     * @type {String}
+     * @property onClick
+     * @type {Function}
      */
-    children: PropTypes.string.isRequired
+    onClick: PropTypes.func
   }
 
   static defaultProps = {
     as: 'default',
-    fill: false
+    className: '',
+    fill: false,
+    onClick: null
+  }
+
+  static safeProps = ['onClick']
+
+  mainClasses = () => {
+    return classNames(
+      'carbon-pill',
+      this.props.className,
+      `carbon-pill--${this.props.as}${(this.props.fill ? '--fill' : '--empty')}`,
+      { 'carbon-pill--link': this.props.onClick }
+    );
   }
 
   /**
@@ -68,17 +98,12 @@ class Pill extends React.Component {
    * @method render
    */
   render() {
-    let { className, ...props } = validProps(this);
-
-    className = classNames(
-      'carbon-pill',
-      className,
-      'carbon-pill--' + this.props.as + (this.props.fill ? '--fill' : '--empty'),
-      { ['carbon-pill--link']: this.props.onClick }
-    );
-
-    return(
-      <span { ...props } className={ className } { ...tagComponent('pill', this.props) }>
+    return (
+      <span
+        { ...validProps(this) }
+        className={ this.mainClasses() }
+        { ...tagComponent('pill', this.props) }
+      >
         {this.props.children}
       </span>
     );

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import I18n from 'i18n-js';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
-import I18n from 'i18n-js';
 import { validProps } from '../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A textarea widget.
@@ -34,6 +34,31 @@ class Textarea extends React.Component {
 
   static propTypes = {
     /**
+     * Character limit of the textarea
+     *
+     * @property characterLimit
+     * @type {String}
+     */
+    characterLimit: PropTypes.string,
+
+    /**
+     * The visible width of the text control, in average character widths.
+     *
+     * @property cols
+     * @type {Integer}
+     */
+    cols: PropTypes.integer,
+
+    /**
+     * Stop the user typing over the characterLimit
+     *
+     * @property enforceCharacterLimit
+     * @type {Boolean}
+     * @default true
+     */
+    enforceCharacterLimit: PropTypes.bool,
+
+    /**
      * Allows the Textareas Height to change based on user input
      * Width of the textarea will remain static
      *
@@ -44,21 +69,20 @@ class Textarea extends React.Component {
     expandable: PropTypes.bool,
 
     /**
-     * Character limit of the textarea
+     * The number of visible text lines for the control.
      *
-     * @property characterLimit
-     * @type {String}
+     * @property rows
+     * @type {Integer}
      */
-    characterLimit: PropTypes.string,
+    rows: PropTypes.integer,
 
     /**
-     * Stop the user typing over the characterLimit
+     * The value of the Textarea
      *
-     * @property enforceCharacterLimit
-     * @type {Boolean}
-     * @default true
+     * @property value
+     * @type {String}
      */
-    enforceCharacterLimit: PropTypes.bool,
+    value: PropTypes.string,
 
     /**
      * Whether to display the character count message in red
@@ -130,13 +154,13 @@ class Textarea extends React.Component {
    * @return {void}
    */
   expandTextarea = () => {
-    let textarea = this._input;
+    const textarea = this._input;
 
     if (textarea.scrollHeight > this.minHeight) {
       // Reset height to zero - IE specific
       textarea.style.height = '0px';
       // Set the height so all content is shown
-      textarea.style.height = Math.max(textarea.scrollHeight, this.minHeight) + 'px';
+      textarea.style.height = `${Math.max(textarea.scrollHeight, this.minHeight)}px`;
     }
   }
 
@@ -157,7 +181,7 @@ class Textarea extends React.Component {
    * @return {String} input className
    */
   get inputClasses() {
-    return classNames (
+    return classNames(
       'carbon-textarea__input',
       { 'carbon-textarea__input--disable-scroll': this.props.expandable }
     );
@@ -170,7 +194,7 @@ class Textarea extends React.Component {
    * @return {String} textarea className
    */
   get textAreaClasses() {
-    return classNames (
+    return classNames(
       'carbon-textarea__character-limit',
       { 'over-limit': this.props.warnOverLimit && this.overLimit }
     );
@@ -184,7 +208,7 @@ class Textarea extends React.Component {
    */
   get overLimit() {
     const value = this.props.value || '';
-    return value.length > parseInt(this.props.characterLimit);
+    return value.length > parseInt(this.props.characterLimit, 10);
   }
 
   /**
@@ -195,7 +219,7 @@ class Textarea extends React.Component {
    * @return {Object} props for the input
    */
   get inputProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
     props.className = this.inputClasses;
     props.rows = this.props.rows;
     props.cols = this.props.cols;
@@ -236,21 +260,20 @@ class Textarea extends React.Component {
   get characterCount() {
     const value = this.props.value || '';
 
-    if (this.props.characterLimit) {
-      return (
-        <div className={ this.textAreaClasses } data-element='character-limit'>
-          { I18n.t('textarea.limit.prefix', { defaultValue: 'You have used ' } ) }
-          <span className='carbon-textarea__limit-used'>
-            { I18n.toNumber(value.length, this.i18nNumberOpts) }
-          </span>
-          { I18n.t('textarea.limit.middle', { defaultValue: ' of ' } ) }
-          <span className='carbon-textarea__limit-max'>
-            { I18n.toNumber(this.props.characterLimit, this.i18nNumberOpts) }
-          </span>
-          { I18n.t('textarea.limit.suffix', { defaultValue: ' characters' } ) }
-        </div>
-      );
-    }
+    if (!this.props.characterLimit) { return null; }
+    return (
+      <div className={ this.textAreaClasses } data-element='character-limit'>
+        { I18n.t('textarea.limit.prefix', { defaultValue: 'You have used ' }) }
+        <span className='carbon-textarea__limit-used'>
+          { I18n.toNumber(value.length, this.i18nNumberOpts) }
+        </span>
+        { I18n.t('textarea.limit.middle', { defaultValue: ' of ' }) }
+        <span className='carbon-textarea__limit-max'>
+          { I18n.toNumber(this.props.characterLimit, this.i18nNumberOpts) }
+        </span>
+        { I18n.t('textarea.limit.suffix', { defaultValue: ' characters' }) }
+      </div>
+    );
   }
 
 

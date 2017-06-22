@@ -1,11 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 import Icon from './../icon';
 
 class Detail extends React.Component {
   static propTypes = {
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
     /**
      * The type of icon to use.
      *

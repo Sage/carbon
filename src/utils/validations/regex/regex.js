@@ -22,7 +22,6 @@ class RegexValidator {
    * @param {Object} params
    */
   constructor(params = {}) {
-
     /**
      * An optional custom validation message.
      *

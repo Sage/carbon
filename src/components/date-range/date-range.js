@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import Date from './../date';
 import DateRangeValidator from './../../utils/validations/date-range';
 import DateHelper from './../../utils/helpers/date';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 class DateRange extends React.Component {
   static propTypes = {

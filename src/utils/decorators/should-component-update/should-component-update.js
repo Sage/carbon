@@ -26,7 +26,7 @@ import ShouldComponentUpdateHelper from './../../helpers/should-component-update
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
-let ShouldComponentUpdate = (ComposedComponent) => class Component extends ComposedComponent {
+const ShouldComponentUpdate = ComposedComponent => class Component extends ComposedComponent {
 
   /**
    * Lifecycle hook to calculate if the component should re-render
