@@ -17,6 +17,20 @@ describe('Carousel', () => {
   });
 
   describe('componentWillMount', () => {
+    describe('when slideIndex is passed', () => {
+      it('sets the intial slide to the prop', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Carousel slideIndex={ 1 }>
+            <Slide />
+            <Slide />
+            <Slide />
+          </Carousel>
+        );
+
+        expect(instance.state.selectedSlideIndex).toEqual(1);
+      });
+    });
+
     describe('when initialSlideIndex is passed', () => {
       it('sets the intial slide to the prop', () => {
         instance = TestUtils.renderIntoDocument(

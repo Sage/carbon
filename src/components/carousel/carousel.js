@@ -130,7 +130,7 @@ class Carousel extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
-    const selectedIndex = Number(this.props.initialSlideIndex);
+    const selectedIndex = Number(this.props.slideIndex) || Number(this.props.initialSlideIndex);
     this.setState({ selectedSlideIndex: selectedIndex });
   }
 
