@@ -1,3 +1,7 @@
+# 1.1.3
+
+* Fix bug with Date Range date pickers not closing correctly
+
 # 1.1.2
 
 ## Component Enhancements
