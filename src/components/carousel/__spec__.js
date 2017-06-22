@@ -19,35 +19,43 @@ describe('Carousel', () => {
   describe('componentWillMount', () => {
     describe('when slideIndex is passed', () => {
       it('sets the intial slide to the prop', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Carousel slideIndex={ 1 }>
+        const wrapper = shallow(
+          <Carousel data-element='bar' data-role='baz' slideIndex={ 1 }>
             <Slide />
             <Slide />
             <Slide />
           </Carousel>
         );
 
-        expect(instance.state.selectedSlideIndex).toEqual(1);
+        expect(wrapper.instance().state.selectedSlideIndex).toEqual(1);
       });
     });
 
     describe('when initialSlideIndex is passed', () => {
       it('sets the intial slide to the prop', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Carousel initialSlideIndex={ 1 }>
+        const wrapper = shallow(
+          <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 1 }>
             <Slide />
             <Slide />
             <Slide />
           </Carousel>
         );
 
-        expect(instance.state.selectedSlideIndex).toEqual(1);
+        expect(wrapper.instance().state.selectedSlideIndex).toEqual(1);
       });
     });
 
     describe('when initialSelectedId is not passed', () => {
       it('defaults the initial slide to slide 0', () => {
-        expect(instance.state.selectedSlideIndex).toEqual(0);
+        const wrapper = shallow(
+          <Carousel data-element='bar' data-role='baz'>
+            <Slide />
+            <Slide />
+            <Slide />
+          </Carousel>
+        );
+
+        expect(wrapper.instance().state.selectedSlideIndex).toEqual(0);
       });
     });
   });
