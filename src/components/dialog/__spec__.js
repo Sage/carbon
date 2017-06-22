@@ -1,11 +1,10 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import Dialog from './dialog';
-import I18n from 'i18n-js';
-import Bowser from 'bowser';
-import Button from './../button';
-import { Row, Column } from './../row'
 import { mount, shallow } from 'enzyme';
+import Bowser from 'bowser';
+import Dialog from './dialog';
+import Button from './../button';
+import { Row, Column } from './../row';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Dialog', () => {
@@ -20,9 +19,9 @@ describe('Dialog', () => {
       describe('when dialog is open', () => {
         it('centers the dialog', () => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog open={ true } onCancel={ onCancel } />
+            <Dialog open onCancel={ onCancel } />
           );
-          spyOn(instance, "centerDialog");
+          spyOn(instance, 'centerDialog');
           instance.componentDidMount();
           expect(instance.centerDialog).toHaveBeenCalled();
         });
@@ -33,7 +32,7 @@ describe('Dialog', () => {
           instance = TestUtils.renderIntoDocument(
             <Dialog open={ false } onCancel={ onCancel } />
           );
-          spyOn(instance, "centerDialog");
+          spyOn(instance, 'centerDialog');
           instance.componentDidMount();
           expect(instance.centerDialog).not.toHaveBeenCalled();
         });
@@ -44,7 +43,7 @@ describe('Dialog', () => {
       describe('when the dialog is open', () => {
         beforeEach(() => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog open={ true } onCancel={ onCancel } />
+            <Dialog open onCancel={ onCancel } />
           );
         });
 
@@ -55,7 +54,7 @@ describe('Dialog', () => {
         });
 
         it('sets up event listeners to resize and close the dialog', () => {
-          let spy = spyOn(window, 'addEventListener');
+          const spy = spyOn(window, 'addEventListener');
           instance.componentDidUpdate();
           expect(spy.calls.count()).toEqual(2);
           expect(window.addEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
@@ -64,7 +63,7 @@ describe('Dialog', () => {
 
         describe('when the dialog is already listening', () => {
           it('does not set up event listeners', () => {
-            let spy = spyOn(window, 'addEventListener');
+            const spy = spyOn(window, 'addEventListener');
             instance.listening = true;
             instance.componentDidUpdate();
             expect(spy.calls.count()).toEqual(0);
@@ -82,7 +81,7 @@ describe('Dialog', () => {
         });
 
         it('removes event listeners for resize and closing', () => {
-          let spy = spyOn(window, 'removeEventListener');
+          const spy = spyOn(window, 'removeEventListener');
           instance.componentDidUpdate();
           expect(spy.calls.count()).toEqual(2);
           expect(window.removeEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
@@ -95,7 +94,7 @@ describe('Dialog', () => {
   describe('centerDialog', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Dialog open={ true } onCancel={ onCancel } />
+        <Dialog open onCancel={ onCancel } />
       );
     });
 
@@ -185,7 +184,7 @@ describe('Dialog', () => {
             onCancel={ onCancel }
             open
           />
-        )
+        );
         expect(wrapper.instance().dialogTitle).toBeFalsy();
       });
     });
@@ -197,8 +196,9 @@ describe('Dialog', () => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
             onCancel={ onCancel }
-            className="foo"
-            open={ true } >
+            className='foo'
+            open
+          >
 
             <Button>Button</Button>
             <Button>Button</Button>
@@ -207,7 +207,7 @@ describe('Dialog', () => {
       });
 
       it('renders a parent div with mainClasses attached', () => {
-        let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+        const dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
         expect(dialogNode.className).toEqual('carbon-dialog foo');
       });
 
@@ -217,13 +217,13 @@ describe('Dialog', () => {
       });
 
       it('closes when the exit icon is click', () => {
-        let closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dialog__close');
+        const closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dialog__close');
         TestUtils.Simulate.click(closeIcon);
         expect(onCancel).toHaveBeenCalled();
       });
 
       it('renders the children passed to it', () => {
-        let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
+        const buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
         expect(buttons.length).toEqual(2);
       });
 
@@ -232,8 +232,9 @@ describe('Dialog', () => {
           instance = TestUtils.renderIntoDocument(
             <Dialog
               onCancel={ onCancel }
-              open={ true }
-              size='small' />
+              open
+              size='small'
+            />
           );
 
           expect(instance._dialog.classList[1]).toEqual('carbon-dialog__dialog--small');
@@ -246,20 +247,20 @@ describe('Dialog', () => {
         instance = TestUtils.renderIntoDocument(
           <Dialog open={ false } onCancel={ onCancel } />
         );
-        let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+        const dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
         expect(dialogNode.classList[0]).toEqual('carbon-dialog');
       });
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(
+  describe('tags', () => {
+    describe('on component', () => {
+      const wrapper = shallow(
         <Dialog
           data-element='bar'
           onCancel={ () => {} }
           onConfirm={ () => {} }
-          open={ true }
+          open
           data-role='baz'
         />);
 
@@ -268,13 +269,13 @@ describe('Dialog', () => {
       });
     });
 
-    describe("on internal elements", () => {
-      let wrapper = mount(
+    describe('on internal elements', () => {
+      const wrapper = mount(
         <Dialog
           onCancel={ () => {} }
           onConfirm={ () => {} }
-          open={ true }
-          showCloseIcon={ true }
+          open
+          showCloseIcon
           subtitle='Test'
           title='Test'
         />
