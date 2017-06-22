@@ -62,6 +62,7 @@ The following utils have had minor internal changes to satisfy the introduction 
 * CSS
 * Ether
 * Flux
+* Helpers
 * Logger
 * Promises
 * Router

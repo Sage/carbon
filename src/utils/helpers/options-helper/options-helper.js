@@ -3,7 +3,7 @@
 //
 // For example the PropTypes for align props can use this to know which options
 // are available - as well as the demo site when rendering dropdowns.
-let OptionsHelper = {
+const OptionsHelper = {
   alignBinary: [
     'left',
     'right'
