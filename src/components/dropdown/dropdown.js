@@ -141,6 +141,8 @@ class Dropdown extends React.Component {
     renderItem: PropTypes.func
   }
 
+  static safeProps = ['disabled', 'readonly', 'autoFocus']
+
   static defaultProps = {
     cacheVisibleValue: false
   }
