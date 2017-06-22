@@ -146,8 +146,12 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
 * `MenuItem`: focus outline is now fully visible when an item is focused.
-* `Form` now has default `SaveButton` and `CancelButton` functional stateless componenents. The former can be overriden with a new prop of `customSaveButton`.
+* `Form` now has default `SaveButton` and `CancelButton` functional stateless components. The former can be overridden with a new prop of `customSaveButton`.
 * `Carousel` has a new prop `enableSlideSelector` defaulted to `true`. Setting it to `false` will hide the slide selector.
+* `Carousel` has a new prop `enablePreviousButton` defaulted to `true`. Setting it to `false` will hide the previous button.
+* `Carousel` has a new prop `enableNextButton` defaulted to `true`. Setting it to `false` will hide the next button.
+* `Carousel` has a new prop `slideIndex`. Changing this prop to an index will select the corresponding slide.
+* `Carousel` animation between slides enhanced.
 
 ## Deployment Changes
 
