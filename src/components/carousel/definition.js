@@ -2,8 +2,8 @@ import { Carousel } from './';
 import Definition from './../../../demo/utils/definition';
 import slideDefinition from './slide/definition';
 
-let definition = new Definition('carousel', Carousel, {
-  description: `Steps through a series of images.`,
+const definition = new Definition('carousel', Carousel, {
+  description: 'Steps through a series of images.',
   designerNotes: `
 * Presents a series of images which the user can step through one-by-one, or quickly jump to a particular step.
 * Useful for showcasing a set of new features, for example.

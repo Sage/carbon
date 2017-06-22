@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { Carousel, Slide } from './carousel';
 import { shallow } from 'enzyme';
+import { Carousel, Slide } from './carousel';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Carousel', () => {
@@ -61,7 +61,7 @@ describe('Carousel', () => {
   });
 
   describe('componentWillReceiveProps', () => {
-    let wrapper = shallow(
+    const wrapper = shallow(
       <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
         <Slide />
         <Slide />
@@ -80,7 +80,7 @@ describe('Carousel', () => {
       expect(wrapper.state().disabled).toBeFalsy();
       expect(enableButtonsAfterTimeoutSpy).not.toHaveBeenCalled();
       // Move to slide 2
-      wrapper.setProps({slideIndex: 2});
+      wrapper.setProps({ slideIndex: 2 });
       wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
@@ -89,7 +89,7 @@ describe('Carousel', () => {
       expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(1);
 
       // Move to slide 1
-      wrapper.setProps({slideIndex: 1});
+      wrapper.setProps({ slideIndex: 1 });
       wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(1);
@@ -98,7 +98,7 @@ describe('Carousel', () => {
       expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(2);
 
       // Move to slide 3
-      wrapper.setProps({slideIndex: 3});
+      wrapper.setProps({ slideIndex: 3 });
       wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(0);
@@ -107,7 +107,7 @@ describe('Carousel', () => {
       expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(3);
 
       // Move to slide -1
-      wrapper.setProps({slideIndex: -1});
+      wrapper.setProps({ slideIndex: -1 });
       wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
@@ -116,14 +116,14 @@ describe('Carousel', () => {
       expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(4);
 
       // Move to slide 2
-      wrapper.setProps({slideIndex: 2});
+      wrapper.setProps({ slideIndex: 2 });
       wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
       expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(4);
 
       // Undefined slideIndex
-      wrapper.setProps({slideIndex: undefined});
+      wrapper.setProps({ slideIndex: undefined });
       wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
@@ -219,7 +219,7 @@ describe('Carousel', () => {
     beforeEach(() => {
       spyOn(instance, 'enableButtonsAfterTimeout');
       instance.setState({ selectedSlideIndex: 0 });
-      let ev = { target: { value: 2 } };
+      const ev = { target: { value: 2 } };
       instance.onSlideSelection(ev);
     });
 
@@ -244,7 +244,7 @@ describe('Carousel', () => {
     describe('when new slide index is less than current', () => {
       it('sets the transistion group to PREVIOUS', () => {
         instance.setState({ selectedSlideIndex: 2 });
-        let ev = { target: { value: 1 } };
+        const ev = { target: { value: 1 } };
         instance.onSlideSelection(ev);
         expect(instance.transitionDirection).toEqual('previous');
       });
@@ -349,7 +349,7 @@ describe('Carousel', () => {
 
   describe('slideSelector', () => {
     describe('when enableSlideSelector is set to true', () => {
-      let wrapper = shallow(
+      const wrapper = shallow(
         <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
           <Slide />
           <Slide />
@@ -358,7 +358,7 @@ describe('Carousel', () => {
       );
 
       it('renders a button for each slide', () => {
-        let buttons = wrapper.find('.carbon-carousel__selector-input');
+        const buttons = wrapper.find('.carbon-carousel__selector-input');
 
         expect(buttons.exists()).toBeTruthy();
         expect(buttons.length).toEqual(3);
@@ -366,14 +366,14 @@ describe('Carousel', () => {
     });
 
     describe('when enableSlideSelector is set to false', () => {
-      let wrapper = shallow(
+      const wrapper = shallow(
         <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 } enableSlideSelector={ false }>
-          <Slide/>
+          <Slide />
         </Carousel>
       );
 
       it('does not render the slide selector', () => {
-        let buttons = wrapper.find('.carbon-carousel__selector-input');
+        const buttons = wrapper.find('.carbon-carousel__selector-input');
         expect(buttons.exists()).toBeFalsy();
       });
     });
@@ -381,27 +381,27 @@ describe('Carousel', () => {
 
   describe('previousButton', () => {
     describe('when enablePreviousButton is set to true', () => {
-      let wrapper = shallow(
+      const wrapper = shallow(
         <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
           <Slide />
         </Carousel>
       );
 
       it('renders a previous button', () => {
-        let arrow = wrapper.find('.carbon-carousel__previous-arrow');
+        const arrow = wrapper.find('.carbon-carousel__previous-arrow');
         expect(arrow.exists()).toBeTruthy();
       });
     });
 
     describe('when enablePreviousButton is set to false', () => {
-      let wrapper = shallow(
+      const wrapper = shallow(
         <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 } enablePreviousButton={ false }>
-          <Slide/>
+          <Slide />
         </Carousel>
       );
 
       it('does not render a previous button', () => {
-        let arrow = wrapper.find('.carbon-carousel__previous-arrow');
+        const arrow = wrapper.find('.carbon-carousel__previous-arrow');
         expect(arrow.exists()).toBeFalsy();
       });
     });
@@ -409,37 +409,37 @@ describe('Carousel', () => {
 
   describe('nextButton', () => {
     describe('when enableNextButton is set to true', () => {
-      let wrapper = shallow(
+      const wrapper = shallow(
         <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
           <Slide />
         </Carousel>
       );
 
       it('renders a next button', () => {
-        let arrow = wrapper.find('.carbon-carousel__next-arrow');
+        const arrow = wrapper.find('.carbon-carousel__next-arrow');
         expect(arrow.exists()).toBeTruthy();
       });
     });
 
     describe('when enableNextButton is set to false', () => {
-      let wrapper = shallow(
+      const wrapper = shallow(
         <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 } enableNextButton={ false }>
-          <Slide/>
+          <Slide />
         </Carousel>
       );
 
       it('does not render a next button', () => {
-        let arrow = wrapper.find('.carbon-carousel__next-arrow');
+        const arrow = wrapper.find('.carbon-carousel__next-arrow');
         expect(arrow.exists()).toBeFalsy();
       });
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(
+  describe('tags', () => {
+    describe('on component', () => {
+      const wrapper = shallow(
         <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
-          <Slide/>
+          <Slide />
         </Carousel>
       );
 
@@ -448,10 +448,10 @@ describe('Carousel', () => {
       });
     });
 
-    describe("on internal elements", () => {
-      let wrapper = shallow(
+    describe('on internal elements', () => {
+      const wrapper = shallow(
         <Carousel initialSlideIndex={ 0 }>
-          <Slide data-element='slide'/>
+          <Slide data-element='slide' />
         </Carousel>
       );
 

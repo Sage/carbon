@@ -152,7 +152,7 @@ class Carousel extends React.Component {
         newIndex = 0;
       }
 
-      if (newIndex == currentIndex) {
+      if (newIndex === currentIndex) {
         return;
       } else if (newIndex > currentIndex) {
         this.transitionDirection = NEXT;
@@ -354,37 +354,37 @@ class Carousel extends React.Component {
    * @method slideSelector
    */
   slideSelector() {
-    if(this.props.enableSlideSelector) {
-      const buttons = [];
+    if (!this.props.enableSlideSelector) { return null; }
 
-      for (let i = 0; i < this.numOfSlides(); i++) {
-        buttons.push(
-          <span className='carbon-carousel__selector-inputs' key={ i } data-element='selector-inputs'>
-            <input
-              disabled={ this.state.disabled }
-              className='carbon-carousel__selector-input'
-              data-element='selector-input'
-              name='carousel-slide'
-              id={ `carousel-slide-${i}` }
-              type='radio' value={ i }
-              onChange={ this.onSlideSelection }
-              checked={ this.state.selectedSlideIndex === i }
-            />
-            <label
-              className='carbon-carousel__selector-label'
-              data-element='selector-label'
-              htmlFor={ `carousel-slide-${i}` }
-            />
-          </span>
-        );
-      }
+    const buttons = [];
 
-      return (
-        <div className={ this.slideSelectorClasses() }>
-          { buttons }
-        </div>
+    for (let i = 0; i < this.numOfSlides(); i++) {
+      buttons.push(
+        <span className='carbon-carousel__selector-inputs' key={ i } data-element='selector-inputs'>
+          <input
+            disabled={ this.state.disabled }
+            className='carbon-carousel__selector-input'
+            data-element='selector-input'
+            name='carousel-slide'
+            id={ `carousel-slide-${i}` }
+            type='radio' value={ i }
+            onChange={ this.onSlideSelection }
+            checked={ this.state.selectedSlideIndex === i }
+          />
+          <label
+            className='carbon-carousel__selector-label'
+            data-element='selector-label'
+            htmlFor={ `carousel-slide-${i}` }
+          />
+        </span>
       );
     }
+
+    return (
+      <div className={ this.slideSelectorClasses() }>
+        { buttons }
+      </div>
+    );
   }
 
   /**
@@ -393,15 +393,15 @@ class Carousel extends React.Component {
    * @method previousButton
    */
   previousButton() {
-    if(this.props.enablePreviousButton) {
-      return (
-        <div className={ this.previousClasses() }>
-          <button { ...this.previousButtonProps() } data-element='previous'>
-            <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
-          </button>
-        </div>
-      );
-    }
+    if (!this.props.enablePreviousButton) { return null; }
+
+    return (
+      <div className={ this.previousClasses() }>
+        <button { ...this.previousButtonProps() } data-element='previous'>
+          <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
+        </button>
+      </div>
+    );
   }
 
   /**
@@ -410,15 +410,15 @@ class Carousel extends React.Component {
    * @method nextButton
    */
   nextButton() {
-    if(this.props.enableNextButton) {
-      return (
-        <div className={ this.nextClasses() }>
-          <button { ...this.nextButtonProps() } data-element='next'>
-            <Icon className='carbon-carousel__next-arrow' type='dropdown' />
-          </button>
-        </div>
-      );
-    }
+    if (!this.props.enableNextButton) { return null; }
+
+    return (
+      <div className={ this.nextClasses() }>
+        <button { ...this.nextButtonProps() } data-element='next'>
+          <Icon className='carbon-carousel__next-arrow' type='dropdown' />
+        </button>
+      </div>
+    );
   }
 
   /**
