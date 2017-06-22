@@ -66,6 +66,7 @@ The following utils have had minor internal changes to satisfy the introduction 
 * CSS
 * Ether
 * Flux
+* Handlers
 * Helpers
 * Logger
 * Promises
@@ -73,16 +74,7 @@ The following utils have had minor internal changes to satisfy the introduction 
 * Service
 * Should Component Update decorator
 * Tooltip Decorator
-
-
-The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
-
-* Handlers
-
-
-The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
-
-* Validations
+* Validators
 
 ## DraggableContext, WithDrag & WithDrop
 
@@ -146,14 +138,16 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * GUID
 * i18n
 
+
 ## Component Improvements
 
-* `Menu` has been updated to use a `<nav>` tag as its root element.
-* `InlineInputs` children are now wrapped by Columns by the component
-* `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
-* `MenuItem`: focus outline is now fully visible when an item is focused.
 * `Form` now has default `SaveButton` and `CancelButton` functional stateless componenents. The former can be overriden with a new prop of `customSaveButton`.
+* `InlineInputs` children are now wrapped by Columns by the component.
+* `Menu` has been updated to use a `<nav>` tag as its root element.
+* `MenuItem`: focus outline is now fully visible when an item is focused.
+* `Table` has a new prop of onConfigure. Displays a configure icon to the left of the table header that triggers the callback onClick.
+* `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 
 ## Deployment Changes
 
