@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import i18n from 'i18n-js';
 import _marked from 'marked';
 import { assign } from 'lodash';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A widget for internationalisation of text.

@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import Icon from './../icon';
 import { validProps } from '../../utils/ether';
 import Event from './../../utils/helpers/events';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A link widget.

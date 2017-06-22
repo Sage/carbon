@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Help from './../help';
 import Link from './../link';
 import Icon from './../icon';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * UI for a heading header.
