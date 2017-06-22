@@ -4,17 +4,16 @@
 
 .carbon-table-header {
   background-color: $grey-dark-blue-80;
-  border-bottom: 1px solid $grey-dark-blue-60;
-  border-left: 1px solid $grey-dark-blue-60;
+  border-bottom: 1px solid $border-color;
+  border-left: 1px solid $border-color;
   border-right: none;
   border-top: none;
   box-sizing: border-box;
   color: $white;
   font-weight: 700;
   height: $tables__header-height;
-  line-height: 10px;
   outline: medium none;
-  padding: 8px 8px 6px 8px;
+  padding: 0 8px;
   position: relative;
   text-align: left;
   text-overflow: ellipsis;
@@ -44,6 +43,14 @@
   &:active {
     color: $white;
     text-decoration: none;
+  }
+}
+
+.carbon-table--configurable {
+  .carbon-table-row:first-child .carbon-table-header {
+    &:first-child {
+      border-radius: 0;
+    }
   }
 }
 
