@@ -71,7 +71,10 @@ class Heading extends React.Component {
      * @property backLink
      * @type {String}
      */
-    backLink: PropTypes.string,
+    backLink: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func
+    ]),
 
     /**
      * Adds a divider below the heading and the content.
@@ -128,11 +131,17 @@ class Heading extends React.Component {
   get back() {
     if (!this.props.backLink) { return null; }
 
+    let props = { href: this.props.backLink };
+
+    if (typeof this.props.backLink !== 'string') {
+      props = { onClick: this.props.backLink };
+    }
+
     return (
       <Link
         className='carbon-heading__back'
         data-element='back'
-        href={ this.props.backLink }
+        { ...props }
       >
         <Icon type='chevron' />
       </Link>
