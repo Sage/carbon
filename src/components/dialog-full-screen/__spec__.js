@@ -9,15 +9,15 @@ import Browser from './../../utils/helpers/browser';
 
 describe('DialogFullScreen', () => {
   let instance,
-      wrapper,
-      onCancel = jasmine.createSpy('cancel');
+      wrapper;
+  const onCancel = jasmine.createSpy('cancel');
 
   beforeEach(() => {
     wrapper = shallow(
       <DialogFullScreen
         onCancel={ onCancel }
         className='foo'
-        open={ true }
+        open
         title='my title'
       >
         <Button>Button</Button>
@@ -117,7 +117,7 @@ describe('DialogFullScreen', () => {
         <DialogFullScreen
           onCancel={ onCancel }
           className='foo'
-          open={ true }
+          open
           title='my title'
         >
           <Button>Button</Button>
@@ -137,7 +137,7 @@ describe('DialogFullScreen', () => {
     });
 
     it('closes when the exit icon is click', () => {
-      let closeIcon = wrapper.find(Icon);
+      const closeIcon = wrapper.find(Icon);
       closeIcon.simulate('click');
       expect(onCancel).toHaveBeenCalled();
     });
@@ -189,34 +189,34 @@ describe('DialogFullScreen', () => {
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(
-        <DialogFullScreen
-          data-element='bar'
-          onCancel={ () => {} }
-          onConfirm={ () => {} }
-          open={ true }
-          data-role='baz'
-        />
-      );
-
+  describe('tags', () => {
+    describe('on component', () => {
       it('include correct component, element and role data tags', () => {
+        wrapper = shallow(
+          <DialogFullScreen
+            data-element='bar'
+            onCancel={ () => {} }
+            onConfirm={ () => {} }
+            open
+            data-role='baz'
+          />
+        );
+
         rootTagTest(wrapper, 'dialog-full-screen', 'bar', 'baz');
       });
     });
 
-    describe("on internal elements", () => {
-      let wrapper = shallow(
+    describe('on internal elements', () => {
+      const dialog = shallow(
         <DialogFullScreen
           onCancel={ () => {} }
           onConfirm={ () => {} }
-          open={ true }
+          open
           title='Test'
         />
       );
 
-      elementsTagTest(wrapper, [
+      elementsTagTest(dialog, [
         'close',
         'content'
       ]);
