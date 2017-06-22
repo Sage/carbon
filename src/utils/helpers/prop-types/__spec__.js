@@ -9,8 +9,8 @@ describe('PropTypesHelper', () => {
       const inRange = [0, 1, 5, 9, 10];
       inRange.forEach((value) => {
         it('does not throw an error', () => {
-          const props = { value: value }
-          let result = PropTypesHelper.inValidRange(
+          const props = { value };
+          const result = PropTypesHelper.inValidRange(
             props, propName, componentName, 0, 10
           );
 
@@ -23,11 +23,11 @@ describe('PropTypesHelper', () => {
       const outOfRange = [-2, -1, 11, 12];
       outOfRange.forEach((value) => {
         it('throws a out of range error', () => {
-          const props = { value: value }
+          const props = { value };
 
-          let result = PropTypesHelper.inValidRange(
+          const result = PropTypesHelper.inValidRange(
             props, propName, componentName, 0, 10
-          )
+          );
           expect(result).toEqual(new Error('value in Component must be between 0 and 10'));
         });
       });
@@ -35,11 +35,11 @@ describe('PropTypesHelper', () => {
 
     describe('when prop is not a string or integer', () => {
       it('throws a type error', () => {
-        const props = { value: ['foo'] }
+        const props = { value: ['foo'] };
 
-        let result = PropTypesHelper.inValidRange(
+        const result = PropTypesHelper.inValidRange(
           props, propName, componentName, 0, 10
-        )
+        );
 
         expect(result).toEqual(new Error('value in Component must be a String or Integer'));
       });
