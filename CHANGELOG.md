@@ -1,5 +1,9 @@
 # 1.2.0
 
+## Dependency Upgrade
+
+* Carbon Factory has been upgraded to Version v1.1.7
+
 ## Linting Updates
 
 The following have had minor internal changes to satisfy the introduction of stricter linting rules:
