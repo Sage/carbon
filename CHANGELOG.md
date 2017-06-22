@@ -156,6 +156,10 @@ You can now pass `--cdn` to the gulp task to bundle assets pointing towards the 
 ## Other
 Minor changes to guides to reference `carbon-react` in imports.
 
+# 1.1.3
+
+* Fix bug with Date Range date pickers not closing correctly
+
 # 1.1.2
 
 ## Component Enhancements
