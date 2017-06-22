@@ -1,15 +1,14 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import AppWrapper from './app-wrapper';
 
 describe('app wrapper', () => {
-  let instance, wrapper;
+  let instance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument( <AppWrapper className='foobar'>foo</AppWrapper>);
-    wrapper = shallow(<AppWrapper className='foobar' data-element='app-wrapper' data-role='contacts'>foo</AppWrapper>);
   });
 
   it('renders the children', () => {
