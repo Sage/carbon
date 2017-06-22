@@ -61,14 +61,14 @@ describe('Carousel', () => {
   });
 
   describe('componentWillReceiveProps', () => {
-    const wrapper = shallow(
-      <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
-        <Slide />
-        <Slide />
-        <Slide />
-      </Carousel>
+    const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
+        wrapper = shallow(
+          <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+            <Slide />
+            <Slide />
+            <Slide />
+          </Carousel>
     );
-    const enableButtonsAfterTimeoutSpy = jasmine.createSpy();
 
     beforeEach(() => {
       wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
@@ -79,6 +79,7 @@ describe('Carousel', () => {
       expect(wrapper.state().selectedSlideIndex).toEqual(0);
       expect(wrapper.state().disabled).toBeFalsy();
       expect(enableButtonsAfterTimeoutSpy).not.toHaveBeenCalled();
+
       // Move to slide 2
       wrapper.setProps({ slideIndex: 2 });
       wrapper.rerender();
@@ -129,6 +130,17 @@ describe('Carousel', () => {
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
       expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(4);
     });
+
+    describe('when onSlideChange is set', () => {
+      it('calls onSlideChange', () => {
+        const onSlideChangeSpy = jasmine.createSpy();
+        wrapper.setProps({ onSlideChange: onSlideChangeSpy });
+        wrapper.setProps({ slideIndex: 1 });
+        wrapper.rerender();
+
+        expect(onSlideChangeSpy).toHaveBeenCalledWith(1, 'previous');
+      });
+    });
   });
 
   describe('enableButtonsAfterTimeout', () => {
@@ -152,101 +164,162 @@ describe('Carousel', () => {
   });
 
   describe('onPreviousClick', () => {
+    const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
+        wrapper = shallow(
+          <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+            <Slide />
+            <Slide />
+            <Slide />
+          </Carousel>
+    );
+
     beforeEach(() => {
-      spyOn(instance, 'enableButtonsAfterTimeout');
-      instance.setState({ selectedSlideIndex: 2 });
-      instance.onPreviousClick();
+      wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
+      wrapper.setState({ selectedSlideIndex: 2 });
+      wrapper.instance().onPreviousClick();
     });
 
     it('decrements the selectedSlideIndex', () => {
-      expect(instance.state.selectedSlideIndex).toEqual(1);
+      expect(wrapper.state().selectedSlideIndex).toEqual(1);
     });
 
     it('sets the transistion direction to previous', () => {
-      expect(instance.transitionDirection).toEqual('previous');
+      expect(wrapper.instance().transitionDirection).toEqual('previous');
     });
 
     it('disables the buttons', () => {
-      expect(instance.state.disabled).toBeTruthy();
+      expect(wrapper.state().disabled).toBeTruthy();
     });
 
     it('calls to re-enable buttons after timeout', () => {
-      expect(instance.enableButtonsAfterTimeout).toHaveBeenCalled();
+      expect(wrapper.instance().enableButtonsAfterTimeout).toHaveBeenCalled();
     });
 
     describe('when on slide 0', () => {
       it('sets the slideIndex to the last slide', () => {
-        instance.setState({ selectedSlideIndex: 0 });
-        instance.onPreviousClick();
-        expect(instance.state.selectedSlideIndex).toEqual(2);
+        wrapper.setState({ selectedSlideIndex: 0 });
+        wrapper.instance().onPreviousClick();
+        expect(wrapper.state().selectedSlideIndex).toEqual(2);
+      });
+    });
+
+    describe('when onSlideChange is set', () => {
+      it('calls onSlideChange', () => {
+        const onSlideChangeSpy = jasmine.createSpy();
+        wrapper.setProps({ onSlideChange: onSlideChangeSpy });
+        wrapper.setState({ selectedSlideIndex: 0 });
+        wrapper.instance().onPreviousClick();
+        expect(wrapper.state().selectedSlideIndex).toEqual(2);
+        expect(onSlideChangeSpy).toHaveBeenCalledWith(2, 'previous');
       });
     });
   });
 
   describe('onNextClick', () => {
+    const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
+        wrapper = shallow(
+          <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+            <Slide />
+            <Slide />
+            <Slide />
+          </Carousel>
+    );
+
     beforeEach(() => {
-      spyOn(instance, 'enableButtonsAfterTimeout');
-      instance.setState({ selectedSlideIndex: 0 });
-      instance.onNextClick();
+      wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
+      wrapper.setState({ selectedSlideIndex: 0 });
+      wrapper.instance().onNextClick();
     });
 
     it('increments the selectedSlideIndex', () => {
-      expect(instance.state.selectedSlideIndex).toEqual(1);
+      expect(wrapper.state().selectedSlideIndex).toEqual(1);
     });
 
     it('sets the transistion direction to next', () => {
-      expect(instance.transitionDirection).toEqual('next');
+      expect(wrapper.instance().transitionDirection).toEqual('next');
     });
 
     it('disables the buttons', () => {
-      expect(instance.state.disabled).toBeTruthy();
+      expect(wrapper.state().disabled).toBeTruthy();
     });
 
     it('calls to re-enable buttons after timeout', () => {
-      expect(instance.enableButtonsAfterTimeout).toHaveBeenCalled();
+      expect(wrapper.instance().enableButtonsAfterTimeout).toHaveBeenCalled();
     });
 
     describe('when on the last slide', () => {
       it('sets the slideIndex to the first slide', () => {
-        instance.setState({ selectedSlideIndex: 2 });
-        instance.onNextClick();
-        expect(instance.state.selectedSlideIndex).toEqual(0);
+        wrapper.setState({ selectedSlideIndex: 2 });
+        wrapper.instance().onNextClick();
+        expect(wrapper.state().selectedSlideIndex).toEqual(0);
+      });
+    });
+
+    describe('when onSlideChange is set', () => {
+      it('calls onSlideChange', () => {
+        const onSlideChangeSpy = jasmine.createSpy();
+        wrapper.setProps({ onSlideChange: onSlideChangeSpy });
+        wrapper.setState({ selectedSlideIndex: 2 });
+        wrapper.instance().onNextClick();
+        expect(wrapper.state().selectedSlideIndex).toEqual(0);
+        expect(onSlideChangeSpy).toHaveBeenCalledWith(0, 'next');
       });
     });
   });
 
   describe('onSlideSelection', () => {
+    const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
+        wrapper = shallow(
+          <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+            <Slide />
+            <Slide />
+            <Slide />
+          </Carousel>
+    );
+
     beforeEach(() => {
-      spyOn(instance, 'enableButtonsAfterTimeout');
-      instance.setState({ selectedSlideIndex: 0 });
+      wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
+      wrapper.setState({ selectedSlideIndex: 0 });
       const ev = { target: { value: 2 } };
-      instance.onSlideSelection(ev);
+      wrapper.instance().onSlideSelection(ev);
     });
 
     it('sets the new slideIndex', () => {
-      expect(instance.state.selectedSlideIndex).toEqual(2);
+      expect(wrapper.state().selectedSlideIndex).toEqual(2);
     });
 
     it('disables the buttons', () => {
-      expect(instance.state.disabled).toBeTruthy();
+      expect(wrapper.state().disabled).toBeTruthy();
     });
 
     it('calls to re-enable the buttons', () => {
-      expect(instance.enableButtonsAfterTimeout).toHaveBeenCalled();
+      expect(wrapper.instance().enableButtonsAfterTimeout).toHaveBeenCalled();
     });
 
     describe('when new slide index is greater than current', () => {
       it('sets the transistion group to NEXT', () => {
-        expect(instance.transitionDirection).toEqual('next');
+        expect(wrapper.instance().transitionDirection).toEqual('next');
       });
     });
 
     describe('when new slide index is less than current', () => {
       it('sets the transistion group to PREVIOUS', () => {
-        instance.setState({ selectedSlideIndex: 2 });
+        wrapper.setState({ selectedSlideIndex: 2 });
         const ev = { target: { value: 1 } };
-        instance.onSlideSelection(ev);
-        expect(instance.transitionDirection).toEqual('previous');
+        wrapper.instance().onSlideSelection(ev);
+        expect(wrapper.instance().transitionDirection).toEqual('previous');
+      });
+    });
+
+    describe('when onSlideChange is set', () => {
+      it('calls onSlideChange', () => {
+        const onSlideChangeSpy = jasmine.createSpy();
+        wrapper.setProps({ onSlideChange: onSlideChangeSpy });
+        wrapper.setState({ selectedSlideIndex: 2 });
+        const ev = { target: { value: 1 } };
+        wrapper.instance().onSlideSelection(ev);
+        expect(wrapper.instance().transitionDirection).toEqual('previous');
+        expect(onSlideChangeSpy).toHaveBeenCalledWith(1, 'previous');
       });
     });
   });

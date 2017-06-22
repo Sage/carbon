@@ -154,6 +154,7 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * `Carousel` has a new prop `enablePreviousButton` defaulted to `true`. Setting it to `false` will hide the previous button.
 * `Carousel` has a new prop `enableNextButton` defaulted to `true`. Setting it to `false` will hide the next button.
 * `Carousel` has a new prop `slideIndex`. Changing this prop to an index will select the corresponding slide.
+* `Carousel` has a new prop `onSlideChange`. Action to be called on slide change. It will receive the slide index and the transition direction as params.
 * `Carousel` animation between slides enhanced.
 
 ## Deployment Changes

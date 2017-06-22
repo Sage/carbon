@@ -16,7 +16,8 @@ const definition = new Definition('carousel', Carousel, {
     slideIndex: 'Number || String',
     enableSlideSelector: 'Boolean',
     enablePreviousButton: 'Boolean',
-    enableNextButton: 'Boolean'
+    enableNextButton: 'Boolean',
+    onSlideChange: 'Function'
   },
   propDescriptions: {
     children: 'This component supports children.',
@@ -25,7 +26,9 @@ const definition = new Definition('carousel', Carousel, {
     slideIndex: 'Set this prop to change slide',
     enableSlideSelector: 'Set this prop to false to hide the slide selector.',
     enablePreviousButton: 'Set this prop to false to hide the previous button',
-    enableNextButton: 'Set this prop to false to hide the next button'
+    enableNextButton: 'Set this prop to false to hide the next button',
+    onSlideChange: 'Action to be called on slide change.' +
+    ' It will receive the slide index and the transition direction as params.'
   }
 });
 

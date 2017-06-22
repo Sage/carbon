@@ -81,7 +81,15 @@ class Carousel extends React.Component {
      * @property enableNextButton
      * @type {Boolean}
      */
-    enableNextButton: PropTypes.bool
+    enableNextButton: PropTypes.bool,
+
+    /**
+     * Action to be called on slide change
+     *
+     * @property onSlideChange
+     * @type {Function}
+     */
+    onSlideChange: PropTypes.func
   }
 
   static defaultProps = {
@@ -140,28 +148,32 @@ class Carousel extends React.Component {
    * @method componentWillReceiveProps
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.slideIndex !== undefined) {
-      let newIndex = nextProps.slideIndex;
-      const currentIndex = this.state.selectedSlideIndex;
+    if (nextProps.slideIndex === undefined) { return; }
 
-      if (newIndex < 0) {
-        // If the new index is negative, select the last slide
-        newIndex = this.numOfSlides() - 1;
-      } else if (newIndex > this.numOfSlides() - 1) {
-        // If the new index is bigger than the number of slides, select the first slide
-        newIndex = 0;
-      }
+    let newIndex = nextProps.slideIndex;
+    const currentIndex = this.state.selectedSlideIndex;
 
-      if (newIndex === currentIndex) {
-        return;
-      } else if (newIndex > currentIndex) {
-        this.transitionDirection = NEXT;
-      } else {
-        this.transitionDirection = PREVIOUS;
-      }
+    if (newIndex < 0) {
+      // If the new index is negative, select the last slide
+      newIndex = this.numOfSlides() - 1;
+    } else if (newIndex > this.numOfSlides() - 1) {
+      // If the new index is bigger than the number of slides, select the first slide
+      newIndex = 0;
+    }
 
-      this.setState({ disabled: true, selectedSlideIndex: newIndex });
-      this.enableButtonsAfterTimeout();
+    if (newIndex === currentIndex) {
+      return;
+    } else if (newIndex > currentIndex) {
+      this.transitionDirection = NEXT;
+    } else {
+      this.transitionDirection = PREVIOUS;
+    }
+
+    this.setState({ disabled: true, selectedSlideIndex: newIndex });
+    this.enableButtonsAfterTimeout();
+
+    if (this.props.onSlideChange) {
+      this.props.onSlideChange(newIndex, this.transitionDirection);
     }
   }
 
@@ -178,6 +190,10 @@ class Carousel extends React.Component {
     this.transitionDirection = PREVIOUS;
     this.setState({ disabled: true, selectedSlideIndex: newIndex });
     this.enableButtonsAfterTimeout();
+
+    if (this.props.onSlideChange) {
+      this.props.onSlideChange(newIndex, this.transitionDirection);
+    }
   }
 
   /**
@@ -190,6 +206,10 @@ class Carousel extends React.Component {
     this.transitionDirection = NEXT;
     this.setState({ disabled: true, selectedSlideIndex: newIndex });
     this.enableButtonsAfterTimeout();
+
+    if (this.props.onSlideChange) {
+      this.props.onSlideChange(newIndex, this.transitionDirection);
+    }
   }
 
   /**
@@ -202,6 +222,10 @@ class Carousel extends React.Component {
     this.transitionDirection = newSlideSelection > this.state.selectedSlideIndex ? NEXT : PREVIOUS;
     this.setState({ disabled: true, selectedSlideIndex: newSlideSelection });
     this.enableButtonsAfterTimeout();
+
+    if (this.props.onSlideChange) {
+      this.props.onSlideChange(newSlideSelection, this.transitionDirection);
+    }
   }
 
   /**
