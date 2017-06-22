@@ -83,18 +83,6 @@ class Confirm extends Dialog {
   }
 
   /**
-   * Returns classes title for the confirm, combines with dialog class names.
-   *
-   * @method dialogTitleClasses
-   */
-  get dialogTitleClasses() {
-    return classNames(
-      super.dialogTitleClasses,
-      'carbon-confirm__title'
-    );
-  }
-
-  /**
    * Returns classes for the confirm, combines with dialog class names.
    *
    * @method dialogClasses

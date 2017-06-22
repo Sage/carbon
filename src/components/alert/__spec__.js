@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Dialog from 'components/dialog'
 import Alert from './alert';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Alert', () => {
@@ -16,12 +16,6 @@ describe('Alert', () => {
         open={ true }
         title="Alert title" />
     );
-  });
-
-  describe('dialogTitleClasses', () => {
-    it('return the dialog title class along with the alert title class', () => {
-      expect(instance.dialogTitleClasses).toEqual('carbon-dialog__title carbon-alert__title');
-    });
   });
 
   describe('dialogClasses', () => {
@@ -40,7 +34,7 @@ describe('Alert', () => {
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(<Alert open={ true } title='Test' subtitle='Test' showCloseIcon={ true } />);
+      let wrapper = mount(<Alert open={ true } title='Test' subtitle='Test' showCloseIcon={ true } />);
 
       elementsTagTest(wrapper, [
         'close',

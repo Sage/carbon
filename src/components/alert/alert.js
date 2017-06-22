@@ -29,18 +29,6 @@ class Alert extends Dialog {
   })
 
   /**
-   * Returns classes title for the confirm, combines with dialog class names.
-   *
-   * @method dialogTitleClasses
-   */
-  get dialogTitleClasses() {
-    return classNames(
-      super.dialogTitleClasses,
-      'carbon-alert__title'
-    );
-  }
-
-  /**
    * Returns classes for the alert, combines with dialog class names..
    *
    * @method dialogClasses
