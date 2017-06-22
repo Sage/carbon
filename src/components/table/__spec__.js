@@ -3,6 +3,7 @@ import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
+import Link from './../link';
 import { shallow } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
@@ -684,6 +685,33 @@ describe('Table', () => {
       expect(spy).toHaveBeenCalledWith('table', options);
     });
   });
+
+  describe('onConfigure', () => {
+    let onConfigureSpy = jasmine.createSpy();
+    let wrapper;
+    beforeEach(() => {
+      wrapper = shallow(
+        <Table
+          className="foo"
+          onConfigure={ onConfigureSpy }
+        >
+          foo
+        </Table>
+      )
+    });
+
+    it('adds the carbon-table--configurable class', () => {
+      const table = wrapper.find('.carbon-table--configurable')
+      expect(table).toBeDefined();
+    });
+
+    it('adds configure link that triggers the onConfigure callback', () => {
+      const configureLink = wrapper.find(Link);
+      expect(configureLink.length).toEqual(1)
+      configureLink.simulate('click', { preventDefault: () => {} });
+      expect(onConfigureSpy).toHaveBeenCalled();
+    });
+  })
 
   describe('emitOptions', () => {
     it('gathers all relevent props to emit', () => {
