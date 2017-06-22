@@ -5,6 +5,7 @@ import { assign } from 'lodash';
 import PropTypes from 'prop-types';
 import Icon from './../icon';
 import Modal from './../modal';
+import Heading from './../heading';
 
 /**
  * A Dialog widget.
@@ -151,42 +152,12 @@ class Dialog extends Modal {
    */
   get dialogTitle() {
     if (this.props.title) {
-      return <h2 className={ this.dialogTitleClasses } data-element='title'>{ this.props.title }</h2>;
+      return (
+        <Heading title={ this.props.title } subheader={ this.props.subtitle } />
+      );
     }
 
     return null;
-  }
-
-  /**
-   * Returns HTML and text for the dialog subtitle.
-   *
-   * @method dialogSubtitle
-   * @return {String} subtitle to display
-   */
-  get dialogSubtitle() {
-    if (this.props.subtitle) {
-      return <p className={ this.dialogSubtitleClasses } data-element='subtitle'>{ this.props.subtitle }</p>;
-    }
-
-    return null;
-  }
-
-  /**
-   * Returns classes for the dialog title.
-   *
-   * @method dialogTitleClasses
-   */
-  get dialogTitleClasses() {
-    return 'carbon-dialog__title';
-  }
-
-  /**
-   * Returns classes for the dialog title.
-   *
-   * @method dialogTitleClasses
-   */
-  get dialogSubtitleClasses() {
-    return 'carbon-dialog__subtitle';
   }
 
   /**
@@ -254,11 +225,10 @@ class Dialog extends Modal {
         className={ this.dialogClasses }
         { ...this.componentTags(this.props) }
       >
-        { this.dialogTitle }
-        { this.dialogSubtitle }
         { this.closeIcon }
 
         <div className='carbon-dialog__content'>
+          { this.dialogTitle }
           { this.props.children }
         </div>
       </div>

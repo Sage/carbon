@@ -5,7 +5,7 @@ import I18n from 'i18n-js';
 import Bowser from 'bowser';
 import Button from './../button';
 import { Row, Column } from './../row'
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Dialog', () => {
@@ -139,29 +139,29 @@ describe('Dialog', () => {
 
   describe('dialogTitle', () => {
     describe('when a props title is passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
+      it('sets a dialog header', () => {
+        const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
-            open={ true }
-            title="Dialog title"
+            open
+            title='Dialog title'
+            subtitle='Dialog subtitle'
           />
-        );
-      });
+        ),
+            title = wrapper.find('[data-element="title"]'),
+            subtitle = wrapper.find('[data-element="subtitle"]');
 
-      it('sets a dialog header', () => {
-        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
-        expect(header.classList[0]).toEqual('carbon-dialog__title');
-        expect(header.textContent).toEqual('Dialog title');
+        expect(title.props().children).toEqual('Dialog title');
+        expect(subtitle.props().children).toEqual('Dialog subtitle');
       });
     });
 
     describe('when a props object title is passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
+      it('sets a dialog header', () => {
+        const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
-            open={ true }
+            open
             title={
               <Row>
                 <Column>Row1</Column>
@@ -169,63 +169,24 @@ describe('Dialog', () => {
               </Row>
             }
           />
-        );
-      });
+        ),
+            title = wrapper.find('[data-element="title"]'),
+            columns = title.find(Column);
 
-      it('sets a dialog header', () => {
-        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
-        expect(header.classList[0]).toEqual('carbon-dialog__title');
-        expect(header.textContent).toEqual('Row1Row2');
+        expect(columns.first().props().children).toEqual('Row1');
+        expect(columns.last().props().children).toEqual('Row2');
       });
     });
 
     describe('when a props title is not passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
-          <Dialog
-            onCancel={ onCancel }
-            open={ true }
-          />
-        );
-      });
-
       it('defaults to null', () => {
-        expect(instance.dialogTitle).toBeFalsy();
-      });
-    });
-  });
-
-  describe('dialogSubTitle', () => {
-    describe('when a props subtitle is passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
+        const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
-            open={ true }
-            subtitle="My informative subtitle"
+            open
           />
-        );
-      });
-
-      it('sets a dialog subtitle', () => {
-        let subtitle = TestUtils.findRenderedDOMComponentWithTag(instance, 'p');
-        expect(subtitle.classList[0]).toEqual('carbon-dialog__subtitle');
-        expect(subtitle.textContent).toEqual('My informative subtitle');
-      });
-    });
-
-    describe('when a props subtitle is not passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
-          <Dialog
-            onCancel={ onCancel }
-            open={ true }
-          />
-        );
-      });
-
-      it('defaults to null', () => {
-        expect(instance.dialogSubTitle).toBeFalsy();
+        )
+        expect(wrapper.instance().dialogTitle).toBeFalsy();
       });
     });
   });
@@ -308,7 +269,7 @@ describe('Dialog', () => {
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(
+      let wrapper = mount(
         <Dialog
           onCancel={ () => {} }
           onConfirm={ () => {} }
