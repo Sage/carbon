@@ -1,5 +1,5 @@
 import React from 'react';
-import { tagComponent } from '../../../utils/helpers/tags';
+import tagComponent from '../../../utils/helpers/tags';
 
 export default (props) => {
   return (

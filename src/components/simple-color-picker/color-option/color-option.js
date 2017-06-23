@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { trim, startsWith } from 'lodash';
 
-import Input from './../../../utils/decorators/input';
 import Icon from './../../icon';
-import { tagComponent } from '../../../utils/helpers/tags';
+import Input from './../../../utils/decorators/input';
+import tagComponent from '../../../utils/helpers/tags';
 
 /**
  * A single square with a color, implemented as a radio button.
