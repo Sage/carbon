@@ -117,15 +117,6 @@ describe('Heading', () => {
     });
   });
 
-  describe('when the backLink is not a function nor a string', () => {
-    it('passes the prop through to the link', () => {
-      const wrapper = shallow(<Heading title='Test' backLink={ 123 } />),
-          link = wrapper.find('[data-element="back"]');
-
-      expect(link.props().backLink).toEqual(123);
-    });
-  });
-
   describe('with separator', () => {
     it('renders a separator after the title', () => {
       instance = TestUtils.renderIntoDocument(<Heading title='foo' separator />);

@@ -133,15 +133,10 @@ class Heading extends React.Component {
 
     let props;
 
-    switch (typeof this.props.backLink) {
-      case 'string':
-        props = { href: this.props.backLink };
-        break;
-      case 'function':
-        props = { onClick: this.props.backLink };
-        break;
-      default:
-        props = { backLink: this.props.backLink };
+    if (typeof this.props.backLink === 'string') {
+      props = { href: this.props.backLink };
+    } else {
+      props = { onClick: this.props.backLink };
     }
 
     return (
