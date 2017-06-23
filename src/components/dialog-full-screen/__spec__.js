@@ -51,6 +51,15 @@ describe('DialogFullScreen', () => {
     });
   });
 
+  describe('componentWillUnmount', () => {
+    it('sets body scroll to false', () => {
+      wrapper = mount(<DialogFullScreen />);
+      Browser.setBodyScroll.calls.reset();
+      wrapper.unmount();
+      expect(Browser.setBodyScroll).toHaveBeenCalledWith(true);
+    });
+  });
+
   describe('componentDidUpdate', () => {
     describe('when the open prop is set to true', () => {
       describe('when the previous open prop is set to true', () => {

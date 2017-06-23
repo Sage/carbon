@@ -43,6 +43,15 @@ class DialogFullScreen extends Modal {
   }
 
   /**
+   * A lifecycle method that is called when a component is being removed from the DOM.
+   *
+   * @method componentWillUnmount
+   */
+  componentWillUnmount() {
+    Browser.setBodyScroll(true);
+  }
+
+  /**
    * A lifecycle method that is called after re-render.
    *
    * @method componentDidUpdate
