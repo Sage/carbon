@@ -34,7 +34,7 @@ class Checkbox extends React.Component {
      * @property checked
      * @type {Boolean}
      */
-    checked: PropTypes.boolean,
+    checked: PropTypes.bool,
 
     /**
      * Displays fieldHelp inline with the checkbox
@@ -59,7 +59,7 @@ class Checkbox extends React.Component {
      * @property value
      * @type {Boolean}
      */
-    value: PropTypes.boolean
+    value: PropTypes.bool
   }
 
   static defaultProps = {

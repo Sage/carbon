@@ -47,7 +47,7 @@ class Textarea extends React.Component {
      * @property cols
      * @type {Integer}
      */
-    cols: PropTypes.integer,
+    cols: PropTypes.number,
 
     /**
      * Stop the user typing over the characterLimit
@@ -74,7 +74,7 @@ class Textarea extends React.Component {
      * @property rows
      * @type {Integer}
      */
-    rows: PropTypes.integer,
+    rows: PropTypes.number,
 
     /**
      * The value of the Textarea
