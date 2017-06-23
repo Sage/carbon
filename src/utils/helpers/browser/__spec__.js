@@ -82,16 +82,10 @@ describe('Browser', () => {
   });
 
   describe('setBodyScroll', () => {
-    const body = { style: { overflow: 'foo' } };
-
-    beforeEach(() => {
-      spyOn(Browser, 'getBody').and.returnValue(body);
-    });
-
     describe('when enabled is true', () => {
       it('sets the body overflow to empty', () => {
         Browser.setBodyScroll(true);
-        expect(body.style.overflow).toEqual('');
+        expect(document.body.style.overflow).toEqual('');
       });
     });
 
@@ -99,7 +93,7 @@ describe('Browser', () => {
       it('sets the body overflow to hidden', () => {
         Browser.setBodyScroll(false);
 
-        expect(body.style.overflow).toEqual('hidden');
+        expect(document.body.style.overflow).toEqual('hidden');
       });
     });
   });

@@ -13,6 +13,8 @@ describe('DialogFullScreen', () => {
   const onCancel = jasmine.createSpy('cancel');
 
   beforeEach(() => {
+    spyOn(Browser, 'setBodyScroll');
+
     wrapper = shallow(
       <DialogFullScreen
         onCancel={ onCancel }
@@ -36,7 +38,6 @@ describe('DialogFullScreen', () => {
   describe('componentDidMount', () => {
     describe('when the open prop is set to true', () => {
       it('sets body scroll to false', () => {
-        spyOn(Browser, 'setBodyScroll');
         mount(<DialogFullScreen open />);
         expect(Browser.setBodyScroll).toHaveBeenCalledWith(false);
       });
@@ -44,7 +45,6 @@ describe('DialogFullScreen', () => {
 
     describe('when the open prop is not set', () => {
       it('does not set body scroll to false', () => {
-        spyOn(Browser, 'setBodyScroll');
         mount(<DialogFullScreen />);
         expect(Browser.setBodyScroll).not.toHaveBeenCalled();
       });
@@ -52,28 +52,22 @@ describe('DialogFullScreen', () => {
   });
 
   describe('componentDidUpdate', () => {
-    const spy = jasmine.createSpy();
-
-    beforeEach(() => {
-      Browser.setBodyScroll = spy;
-    });
-
     describe('when the open prop is set to true', () => {
       describe('when the previous open prop is set to true', () => {
         it('does not set body scroll', () => {
           wrapper = mount(<DialogFullScreen open />);
-          spy.calls.reset();
+          Browser.setBodyScroll.calls.reset();
           wrapper.setProps({ open: true });
-          expect(spy).not.toHaveBeenCalled();
+          expect(Browser.setBodyScroll).not.toHaveBeenCalled();
         });
       });
 
       describe('when the previous open prop is set to false', () => {
         it('sets body scroll to false', () => {
           wrapper = mount(<DialogFullScreen />);
-          spy.calls.reset();
+          Browser.setBodyScroll.calls.reset();
           wrapper.setProps({ open: true });
-          expect(spy).toHaveBeenCalledWith(false);
+          expect(Browser.setBodyScroll).toHaveBeenCalledWith(false);
         });
       });
     });
@@ -82,18 +76,18 @@ describe('DialogFullScreen', () => {
       describe('when the previous open prop is set to true', () => {
         it('sets body scroll to true', () => {
           wrapper = mount(<DialogFullScreen open />);
-          spy.calls.reset();
+          Browser.setBodyScroll.calls.reset();
           wrapper.setProps({ open: false });
-          expect(spy).toHaveBeenCalledWith(true);
+          expect(Browser.setBodyScroll).toHaveBeenCalledWith(true);
         });
       });
 
       describe('when the previous open prop is set to false', () => {
         it('does not set body scroll', () => {
           wrapper = mount(<DialogFullScreen />);
-          spy.calls.reset();
+          Browser.setBodyScroll.calls.reset();
           wrapper.setProps({ open: false });
-          expect(spy).not.toHaveBeenCalled();
+          expect(Browser.setBodyScroll).not.toHaveBeenCalled();
         });
       });
     });
