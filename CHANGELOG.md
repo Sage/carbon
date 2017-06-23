@@ -4,6 +4,10 @@
 
 * `InputValidation`: now accepts a `info` prop to display info-styled icon and message attached to an input.
 
+# 1.1.3
+
+* Fix bug with Date Range date pickers not closing correctly
+
 # 1.1.2
 
 ## Component Enhancements
