@@ -1,12 +1,14 @@
 import Poller from './poller';
 import './../../promises';
 
+jest.mock('superagent');
+
+/* global jest */
 describe('poller', () => {
   let functions, url;
 
   beforeEach(() => {
-    jasmine.Ajax.install();
-    jasmine.clock().install();
+    jest.useFakeTimers();
     const callback = jasmine.createSpy('callback');
     functions = {
       callback
@@ -14,11 +16,6 @@ describe('poller', () => {
     url = 'foo/bar';
     spyOn(console, 'error');
     spyOn(console, 'warn');
-  });
-
-  afterEach(() => {
-    jasmine.Ajax.uninstall();
-    jasmine.clock().uninstall();
   });
 
   describe('when no url has been provided', () => {
@@ -67,7 +64,7 @@ describe('poller', () => {
           /* eslint-enable quotes, quote-props */
         });
 
-        jasmine.clock().tick(3001);
+        jest.runTimersToTime(3001);
 
         callCount = jasmine.Ajax.requests.filter(filterByRequestUrl).length;
       }
@@ -96,14 +93,14 @@ describe('poller', () => {
       }).length;
 
       expect(callCount).toEqual(1);
-      jasmine.clock().tick(1000);
+      jest.runTimersToTime(1000);
 
       callCount = jasmine.Ajax.requests.filter((req) => {
         return req.url === url;
       }).length;
 
       expect(callCount).toEqual(1);
-      jasmine.clock().tick(2001);
+      jest.runTimersToTime(2001);
 
       callCount = jasmine.Ajax.requests.filter((req) => {
         return req.url === url;
@@ -116,47 +113,39 @@ describe('poller', () => {
   describe('poll', () => {
     describe('when the pollCount exceeds the specified number of retries', () => {
       it('logs a too many requests warning', () => {
+        console.warn = jest.fn(); // eslint-disable-line no-console
+
         Poller({ url }, functions, { interval: 1000, retries: 2 });
-        jasmine.clock().tick(1000);
+        jest.runTimersToTime(1000);
 
         for (let i = 0; i < 2; i++) {
-          const request = jasmine.Ajax.requests.mostRecent();
-          request.respondWith({
-            // Disabling the quotes and quote-props here, otherwise
-            // we get a "FakeXMLHttpRequest already completed" error.
-            /* eslint-disable quotes, quote-props */
-            "status": 200,
-            "contentType": 'application/json',
-            "responseText": "{\"message_type\": \"success\"}"
-            /* eslint-enable quotes, quote-props */
-          });
-          jasmine.clock().tick(1000);
+          jest.runTimersToTime(1000);
         }
-        expect(console.warn).toHaveBeenCalledWith( // eslint-disable-line no-console
+        expect(console.warn.mock.calls[0][0]).toBe( // eslint-disable-line no-console
           'The poller has made too many requests - terminating poll');
       });
     });
 
     describe('when time exceeds the specified endTime', () => {
-      it('logs a too many requests warningh', () => {
-        const startTime = Number(new Date());
-        jasmine.clock().mockDate(startTime);
+      it('logs a too many requests warning 2', () => {
+        const now = Date.now();
+        Date.now = jest.fn();
+        Date.now.mockReturnValueOnce(now)
+          .mockReturnValueOnce(now)
+          .mockReturnValueOnce(now);
 
-        Poller({ url }, functions, { interval: 1000, endTime: 3000 });
+        const testInterval = 1000;
+        console.warn = jest.fn(); // eslint-disable-line no-console
+
+        let mockDateValue = now;
+
+        Poller({ url }, functions, { interval: testInterval, endTime: 3000 });
         for (let i = 0; i < 4; i++) {
-          const request = jasmine.Ajax.requests.mostRecent();
-          request.respondWith({
-            // Disabling the quotes and quote-props here, otherwise
-            // we get a "FakeXMLHttpRequest already completed" error.
-            /* eslint-disable quotes, quote-props */
-            "status": 200,
-            "contentType": 'application/json',
-            "responseText": "{\"message_type\": \"success\"}"
-            /* eslint-enable quotes, quote-props */
-          });
-          jasmine.clock().tick(1000);
+          mockDateValue += (testInterval + i);
+          Date.now.mockReturnValueOnce(mockDateValue);
+          jest.runTimersToTime(testInterval);
         }
-        expect(console.warn).toHaveBeenCalledWith( // eslint-disable-line no-console
+        expect(console.warn.mock.calls[0][0]).toBe( // eslint-disable-line no-console
           'The poller has made too many requests - terminating poll');
       });
     });
@@ -397,12 +386,12 @@ describe('poller', () => {
         let callCount = jasmine.Ajax.requests.filter(filterByRequestUrl).length;
 
         expect(callCount).toEqual(1);
-        jasmine.clock().tick(500);
+        jest.runTimersToTime(500);
 
         callCount = jasmine.Ajax.requests.filter(filterByRequestUrl).length;
 
         expect(callCount).toEqual(1);
-        jasmine.clock().tick(501);
+        jest.runTimersToTime(501);
 
         callCount = jasmine.Ajax.requests.filter(filterByRequestUrl).length;
 

@@ -54,7 +54,8 @@ export default (queryOptions, functions, options) => {
     let pollCount = 1;
 
     (function poll() {
-      if (pollCount > opts.retries || Number(new Date()) > opts.endTime) {
+      const now = Date.now();
+      if (pollCount > opts.retries || now > opts.endTime) {
         console.warn('The poller has made too many requests - terminating poll'); // eslint-disable-line no-console
         return;
       }
@@ -113,7 +114,7 @@ function getQueryOptions(queryOptions) {
 function getOptions(options) {
   return {
     interval: options.interval || 3000,
-    endTime: Number(new Date()) + options.endTime || Infinity,
+    endTime: Date.now() + options.endTime || Infinity,
     retries: options.retries || Infinity
   };
 }
