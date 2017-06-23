@@ -145,7 +145,7 @@ class Heading extends React.Component {
         data-element='back'
         { ...props }
       >
-        <Icon type='chevron' />
+        <Icon type='chevron_left' />
       </Link>
     );
   }
