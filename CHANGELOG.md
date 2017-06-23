@@ -46,6 +46,7 @@ The following have had minor internal changes to satisfy the introduction of str
 * Portrait
 * Profile
 * RadioButton
+* Rainbow
 * Row
 * SettingsRow
 * ShowEditPod
