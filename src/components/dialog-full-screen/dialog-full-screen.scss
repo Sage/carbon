@@ -57,8 +57,20 @@
       }
 
       .carbon-heading__back {
-        margin-left: -30px;
+        margin-left: -40px;
+
+        .icon-chevron_left {
+          &:before {
+            font-size: 24px;
+          }
+        }
       }
+    }
+  }
+
+  .carbon-heading + .carbon-carousel {
+    .carbon-slide {
+      padding: 155px 5%;
     }
   }
 }
@@ -73,7 +85,7 @@
   z-index: $z-dialog;
 
   &:before {
-    font-size: 25px;
+    font-size: 24px;
   }
 
   &:hover {
