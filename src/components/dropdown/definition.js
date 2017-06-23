@@ -51,6 +51,7 @@ let definition = new Definition('dropdown', Dropdown, {
     onBlur: "Function",
     options: "Object",
     readOnly: "Boolean",
+    renderItem: "Function",
     value: "String"
   },
   propValues: {
@@ -64,6 +65,7 @@ let definition = new Definition('dropdown', Dropdown, {
     onBlur: "A custom onBlur handler",
     options: "The options for the dropdown. This needs to be an Immutable Map.",
     readOnly: "Display the currently selected value without displaying the dropdown.",
+    renderItem: "An optional function to be passed that will render each of the dropdown's items.",
     value: "The currently selected value of the input."
   }
 });

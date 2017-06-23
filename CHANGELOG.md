@@ -1,5 +1,9 @@
 # 1.2.0
 
+## Dependency Upgrade
+
+* Carbon Factory has been upgraded to Version v1.1.7
+
 ## Linting Updates
 
 The following have had minor internal changes to satisfy the introduction of stricter linting rules:
@@ -62,6 +66,7 @@ The following utils have had minor internal changes to satisfy the introduction 
 * CSS
 * Ether
 * Flux
+* Handlers
 * Helpers
 * Logger
 * Promises
@@ -69,16 +74,7 @@ The following utils have had minor internal changes to satisfy the introduction 
 * Service
 * Should Component Update decorator
 * Tooltip Decorator
-
-
-The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
-
-* Handlers
-
-
-The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
-
-* Validations
+* Validators
 
 ## DraggableContext, WithDrag & WithDrop
 
@@ -141,6 +137,7 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * Events
 * GUID
 * i18n
+
 
 ## Component Improvements
 
