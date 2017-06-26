@@ -121,7 +121,7 @@ describe('Message', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<Message data-element='bar' data-role='baz' />);
+      let wrapper = shallow(<Message data-element='bar' data-role='baz'>Message</Message>);
 
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper, 'message', 'bar', 'baz');
@@ -129,7 +129,7 @@ describe('Message', () => {
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(<Message title='Test' onDismiss={ () => {} }/>);
+      let wrapper = shallow(<Message title='Test' onDismiss={ () => {} }>Message</Message>);
 
       elementsTagTest(wrapper, [
         'dismiss',
