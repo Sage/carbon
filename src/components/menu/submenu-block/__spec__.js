@@ -26,7 +26,7 @@ describe('SubmenuBlock', () => {
   });
 
   describe("tags on component", () => {
-    let wrapper = shallow(<SubmenuBlock data-element='bar' data-role='baz' />);
+    let wrapper = shallow(<SubmenuBlock data-element='bar' data-role='baz'>'Menu'</SubmenuBlock>);
 
     it('include correct component, element and role data tags', () => {
       rootTagTest(wrapper, 'submenu-block', 'bar', 'baz');
