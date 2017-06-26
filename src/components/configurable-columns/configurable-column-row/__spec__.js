@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import ConfigurableColumnRow from './configurable-column-row';
 import Checkbox from './../../checkbox';
+import Icon from './../../icon';
 import { WithDrag, WithDrop } from './../../drag-and-drop';
 
 describe('ConfigurableColumnRow', () => {
@@ -118,4 +119,28 @@ describe('ConfigurableColumnRow', () => {
       expect(wrapper.find(WithDrop).props().index).toEqual(2)
     });
   });
+
+  describe('icon', () => {
+    beforeEach(() => {
+      wrapper = shallow(
+        <ConfigurableColumnRow name='Foo' />
+      );
+    });
+
+    it('renders a drag vertical icon', () => {
+      expect(wrapper.find(Icon).props().type).toEqual('drag_vertical')
+    });
+  });
+
+  describe('list item markup', () => {
+    beforeEach(() => {
+      wrapper = shallow(
+        <ConfigurableColumnRow name='Foo' />
+      );
+    });
+
+    it('renders an <li>', () => {
+      expect(wrapper.find('li').length).toEqual(1)
+    });
+  })
 });

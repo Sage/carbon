@@ -72,8 +72,8 @@ class ConfigurableColumns extends React.Component {
     this.props.onReset();
   }
 
-  additionalActions(onReset) {
-    if (!onReset) { return null; }
+  additionalActions = () => {
+    if (!this.props.onReset) { return null; }
     return (
       <Button onClick={ this.onReset } className='carbon-button--reset'>
         { I18n.t('actions.reset', { defaultValue: 'Reset' }) }
@@ -96,7 +96,7 @@ class ConfigurableColumns extends React.Component {
         <Heading title={ this.props.title } />
         <DraggableContext onDrag={ this.props.onDrag }>
           <Form
-            additionalActions={ this.additionalActions(this.props.onReset) }
+            additionalActions={ this.additionalActions() }
             onSubmit={ this.props.onSave }
             onCancel={ this.props.onCancel }
           >

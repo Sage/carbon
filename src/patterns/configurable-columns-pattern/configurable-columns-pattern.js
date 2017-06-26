@@ -15,10 +15,10 @@ class ConfigurableColumnsPattern extends React.Component {
     /**
      * Column data for the configurable table.
      *
-     * @property data
+     * @property columnsData
      * @type {Object}
      */
-    data: PropTypes.object,
+    columnsData: PropTypes.object,
 
     /**
      * Callback triggered when the form is canceled.
@@ -75,11 +75,11 @@ class ConfigurableColumnsPattern extends React.Component {
     };
   }
 
-  rows = (data) => {
+  rows = (columnsData) => {
     return (
       <ol className='carbon-configurable-columns__columns-wrapper'>
         {
-          data.map((column, rowIndex) => {
+          columnsData.map((column, rowIndex) => {
             return (
               <ConfigurableColumnRow
                 enabled={ column.get('enabled') }
@@ -97,10 +97,10 @@ class ConfigurableColumnsPattern extends React.Component {
   }
 
   render() {
-    const { data, ...configurableColumnsProps } = this.props;
+    const { columnsData, ...configurableColumnsProps } = this.props;
     return (
       <ConfigurableColumns { ...configurableColumnsProps } >
-        { this.rows(data) }
+        { this.rows(columnsData) }
       </ConfigurableColumns>
     );
   }

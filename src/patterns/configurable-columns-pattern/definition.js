@@ -9,7 +9,7 @@ let definition = new Definition('configurable-columns-pattern', ConfigurableColu
   `,
   hiddenProps: [],
   propValues: {
-    data: `configurableColumnsData`,
+    columnsData: `configurableColumnsData`,
     onCancel: `() => {}`,
     onChange: `updateConfigurableColumn`,
     onDrag: `updateConfigurableColumnsData`,
@@ -19,7 +19,7 @@ let definition = new Definition('configurable-columns-pattern', ConfigurableColu
   },
   propTypes: {
     className: 'String',
-    data: 'Object',
+    columnsData: 'Object',
     onCancel: 'Function',
     onChange: 'Function',
     onDrag: 'Function',
@@ -28,6 +28,7 @@ let definition = new Definition('configurable-columns-pattern', ConfigurableColu
     title: 'String'
   },
   propDescriptions: {
+    columnsData: 'Data to define the columns that can be configured',
     className : 'Classes to apply to the component.',
     onCancel: 'Callback triggered when the form is canceled.',
     onDrag: 'Callback triggered when an item is dragged.',

@@ -6,7 +6,7 @@ import { ConfigurableColumns, ConfigurableColumnRow } from './../../components/c
 
 describe('ConfigurableColumnsPattern', () => {
   let wrapper
-  let data = ImmutableHelper.parseJSON(
+  let columnsData = ImmutableHelper.parseJSON(
     [
       { id: 1, name: 'Foo', locked: true, enabled: true },
       { id: 2, name: 'Bar', locked: false, enabled: true },
@@ -25,7 +25,7 @@ describe('ConfigurableColumnsPattern', () => {
     beforeEach(() => {
       wrapper = shallow(
         <ConfigurableColumnsPattern
-          data={data}
+          columnsData={columnsData}
           onCancel={onCancel}
           onChange={onChange}
           onClick={onClick}
@@ -43,11 +43,13 @@ describe('ConfigurableColumnsPattern', () => {
     });
   });
 
-  describe('data', () => {
+  describe('columnsData', () => {
+    let configurableColumnRows;
+
     beforeEach(() => {
       wrapper = shallow(
         <ConfigurableColumnsPattern
-          data={data}
+          columnsData={columnsData}
           onCancel={onCancel}
           onChange={onChange}
           onClick={onClick}
@@ -56,39 +58,34 @@ describe('ConfigurableColumnsPattern', () => {
           title='Foo'
         />
       );
+      configurableColumnRows = wrapper.find(ConfigurableColumnRow);
     });
-    it('renders a ConfigurableColumnRow for each item in the data array', () => {
-      const configurableColumnRowWrapper = wrapper.find(ConfigurableColumnRow);
-      expect(configurableColumnRowWrapper.length).toEqual(3);
+    it('renders a ConfigurableColumnRow for each item in the columnsData array', () => {
+      expect(configurableColumnRows.length).toEqual(columnsData.size);
     });
 
     it('sets the onChange prop on each ConfigurableColumnRow', () => {
-      const configurableColumnRowWrapper = wrapper.find(ConfigurableColumnRow);
-      expect(configurableColumnRowWrapper.first().props().onChange());
+      expect(configurableColumnRows.first().props().onChange());
       expect(onChangeSpy).toHaveBeenCalledWith(0);
     });
 
     it('sets the rowIndex prop on each ConfigurableColumnRow', () => {
-      const configurableColumnRowWrapper = wrapper.find(ConfigurableColumnRow);
-      const indexes = configurableColumnRowWrapper.map((row => row.props().rowIndex));
+      const indexes = configurableColumnRows.map((row => row.props().rowIndex));
       expect(indexes).toEqual([0, 1, 2])
     });
 
     it('sets the name prop on each ConfigurableColumnRow', () => {
-      const configurableColumnRowWrapper = wrapper.find(ConfigurableColumnRow);
-      const names = configurableColumnRowWrapper.map((row => row.props().name));
+      const names = configurableColumnRows.map((row => row.props().name));
       expect(names).toEqual(['Foo', 'Bar', 'Baz'])
     });
 
     it('sets the locked prop on each ConfigurableColumnRow', () => {
-      const configurableColumnRowWrapper = wrapper.find(ConfigurableColumnRow);
-      const lockedProps = configurableColumnRowWrapper.map((row => row.props().locked));
+      const lockedProps = configurableColumnRows.map((row => row.props().locked));
       expect(lockedProps).toEqual([true, false, false])
     });
 
     it('sets the enabled prop on each ConfigurableColumnRow', () => {
-      const configurableColumnRowWrapper = wrapper.find(ConfigurableColumnRow);
-      const enabledProps = configurableColumnRowWrapper.map((row => row.props().enabled));
+      const enabledProps = configurableColumnRows.map((row => row.props().enabled));
       expect(enabledProps).toEqual([true, true, false])
     });
   });
@@ -97,7 +94,7 @@ describe('ConfigurableColumnsPattern', () => {
     beforeEach(() => {
       wrapper = shallow(
         <ConfigurableColumnsPattern
-          data={data}
+          columnsData={columnsData}
           onCancel={onCancel}
           onChange={onChange}
           onClick={onClick}
@@ -117,7 +114,7 @@ describe('ConfigurableColumnsPattern', () => {
     beforeEach(() => {
       wrapper = shallow(
         <ConfigurableColumnsPattern
-          data={data}
+          columnsData={columnsData}
           onCancel={onCancel}
           onChange={onChange}
           onClick={onClick}
@@ -138,7 +135,7 @@ describe('ConfigurableColumnsPattern', () => {
     beforeEach(() => {
       wrapper = shallow(
         <ConfigurableColumnsPattern
-          data={data}
+          columnsData={columnsData}
           onCancel={onCancel}
           onChange={onChange}
           onClick={onClick}
@@ -157,7 +154,7 @@ describe('ConfigurableColumnsPattern', () => {
   describe('title', () => {
     wrapper = shallow(
       <ConfigurableColumnsPattern
-        data={data}
+        columnsData={columnsData}
         onCancel={onCancel}
         onChange={onChange}
         onClick={onClick}
@@ -171,4 +168,22 @@ describe('ConfigurableColumnsPattern', () => {
       expect(configurableColumnsWrapper.find(ConfigurableColumns).props().title).toEqual('Foo');
     });
   });
+
+  describe('html markup', () => {
+    wrapper = shallow(
+      <ConfigurableColumnsPattern
+        columnsData={columnsData}
+        onCancel={onCancel}
+        onChange={onChange}
+        onClick={onClick}
+        onDrag={onDrag}
+        onSave={onSave}
+        title='Foo'
+      />
+    );
+    it('renders an ordered list', () => {
+      const orderedList = wrapper.find('ol');
+      expect(orderedList.length).toEqual(1);
+    });
+  })
 });
