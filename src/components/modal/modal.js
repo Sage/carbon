@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Events from './../../utils/helpers/events';
+import Browser from './../../utils/helpers/browser';
 
 /**
  * A Modal Component
@@ -72,7 +73,15 @@ class Modal extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    disableEscKey: PropTypes.bool
+    disableEscKey: PropTypes.bool,
+
+    /**
+     * The ARIA role to be applied to the modal
+     *
+     * @property ariaRole
+     * @type {String}
+     */
+    ariaRole: PropTypes.string // eslint-disable-line react/no-unused-prop-types
   }
 
   static defaultProps = {
@@ -127,14 +136,16 @@ class Modal extends React.Component {
    * @return {void}
    */
   componentDidUpdate() {
+    const _window = Browser.getWindow();
+
     if (this.props.open && !this.listening) {
       this.listening = true;
       this.onOpening; // eslint-disable-line no-unused-expressions
-      window.addEventListener('keyup', this.closeModal);
+      _window.addEventListener('keyup', this.closeModal);
     } else if (!this.props.open) {
       this.listening = false;
       this.onClosing; // eslint-disable-line no-unused-expressions
-      window.removeEventListener('keyup', this.closeModal);
+      _window.removeEventListener('keyup', this.closeModal);
     }
   }
 
@@ -207,6 +218,7 @@ class Modal extends React.Component {
         { ...this.componentTags(this.props) }
       >
         <ReactCSSTransitionGroup
+          component='div'
           transitionName={ this.transitionName }
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 }
@@ -215,6 +227,7 @@ class Modal extends React.Component {
         </ReactCSSTransitionGroup>
 
         <ReactCSSTransitionGroup
+          component='div'
           transitionName={ this.backgroundTransitionName }
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 }
