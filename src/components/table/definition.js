@@ -30,7 +30,12 @@ let definition = new Definition('table', Table, {
   ],
   dataVariable: 'tableData',
   propValues: {
+    highlightable: false,
     onChange: ComponentActions.updateTable,
+    paginate: false,
+    selectable: false,
+    shrink: false,
+    showPageSizeSelection: false
   }
 });
 
