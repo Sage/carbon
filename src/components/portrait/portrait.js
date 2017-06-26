@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MD5 from 'crypto-js/md5';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 import Icon from './../icon';
 

@@ -8,7 +8,7 @@ import Icon from './../icon';
 import NumberComponent from './../number';
 import Dropdown from './../dropdown';
 import Events from './../../utils/helpers/events';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A Pager widget.

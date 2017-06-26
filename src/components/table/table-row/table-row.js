@@ -8,7 +8,7 @@ import guid from './../../../utils/helpers/guid';
 import WithDrop from './../../drag-and-drop/with-drop';
 import DraggableTableCell from './../draggable-table-cell';
 import { validProps } from '../../../utils/ether';
-import { tagComponent } from '../../../utils/helpers/tags';
+import tagComponent from '../../../utils/helpers/tags';
 
 /**
  * A TableRow widget.

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Portrait from './../portrait';
 import { acronymize } from './../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * Renders a user profile, with avatar.

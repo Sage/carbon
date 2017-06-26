@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ColorOption from './color-option';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A component that displays squares with color samples that
