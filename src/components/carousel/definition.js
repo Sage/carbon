@@ -44,4 +44,12 @@ definition.addChildByDefinition(slideDefinition, {
   children: '<h1 style={{ textAlign: "center" }}>Slide Three</h1>'
 });
 
+definition.addChildByDefinition(slideDefinition, {
+  children: '<h1 style={{ textAlign: "center" }}>Slide Four</h1>'
+});
+
+definition.addChildByDefinition(slideDefinition, {
+  children: '<h1 style={{ textAlign: "center" }}>Slide Five</h1>'
+});
+
 export default definition;

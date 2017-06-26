@@ -148,18 +148,10 @@ class Carousel extends React.Component {
    * @method componentWillReceiveProps
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.slideIndex === undefined) { return; }
+    if (typeof nextProps.slideIndex === 'undefined') { return; }
 
-    let newIndex = nextProps.slideIndex;
+    const newIndex = this.verifyNewIndex(nextProps.slideIndex);
     const currentIndex = this.state.selectedSlideIndex;
-
-    if (newIndex < 0) {
-      // If the new index is negative, select the last slide
-      newIndex = this.numOfSlides() - 1;
-    } else if (newIndex > this.numOfSlides() - 1) {
-      // If the new index is bigger than the number of slides, select the first slide
-      newIndex = 0;
-    }
 
     if (newIndex === currentIndex) {
       return;
@@ -169,12 +161,7 @@ class Carousel extends React.Component {
       this.transitionDirection = PREVIOUS;
     }
 
-    this.setState({ disabled: true, selectedSlideIndex: newIndex });
-    this.enableButtonsAfterTimeout();
-
-    if (this.props.onSlideChange) {
-      this.props.onSlideChange(newIndex, this.transitionDirection);
-    }
+    this.handleSlideChange(newIndex);
   }
 
   /**
@@ -188,12 +175,7 @@ class Carousel extends React.Component {
       newIndex = this.numOfSlides() - 1;
     }
     this.transitionDirection = PREVIOUS;
-    this.setState({ disabled: true, selectedSlideIndex: newIndex });
-    this.enableButtonsAfterTimeout();
-
-    if (this.props.onSlideChange) {
-      this.props.onSlideChange(newIndex, this.transitionDirection);
-    }
+    this.handleSlideChange(newIndex);
   }
 
   /**
@@ -204,12 +186,7 @@ class Carousel extends React.Component {
   onNextClick() {
     const newIndex = (this.state.selectedSlideIndex + 1) % this.numOfSlides();
     this.transitionDirection = NEXT;
-    this.setState({ disabled: true, selectedSlideIndex: newIndex });
-    this.enableButtonsAfterTimeout();
-
-    if (this.props.onSlideChange) {
-      this.props.onSlideChange(newIndex, this.transitionDirection);
-    }
+    this.handleSlideChange(newIndex);
   }
 
   /**
@@ -220,11 +197,40 @@ class Carousel extends React.Component {
   onSlideSelection(ev) {
     const newSlideSelection = Number(ev.target.value);
     this.transitionDirection = newSlideSelection > this.state.selectedSlideIndex ? NEXT : PREVIOUS;
-    this.setState({ disabled: true, selectedSlideIndex: newSlideSelection });
+    this.handleSlideChange(newSlideSelection);
+  }
+
+  /**
+   * Verifies the new index and corrects it if necessary
+   *
+   * @method verifyNewIndex
+   * @param newIndex {Integer}
+   * @return {Integer}
+   */
+  verifyNewIndex(newIndex) {
+    if (newIndex < 0) {
+      // If the new index is negative, select the last slide
+      return this.numOfSlides() - 1;
+    } else if (newIndex > this.numOfSlides() - 1) {
+      // If the new index is bigger than the number of slides, select the first slide
+      return 0;
+    }
+
+    return newIndex;
+  }
+
+  /**
+   * Handle the slide change to the newIndex
+   *
+   * @method handleSlideChange
+   * @param newIndex {Integer}
+   */
+  handleSlideChange(newIndex) {
+    this.setState({ disabled: true, selectedSlideIndex: newIndex });
     this.enableButtonsAfterTimeout();
 
     if (this.props.onSlideChange) {
-      this.props.onSlideChange(newSlideSelection, this.transitionDirection);
+      this.props.onSlideChange(newIndex, this.transitionDirection);
     }
   }
 

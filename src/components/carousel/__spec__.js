@@ -20,42 +20,42 @@ describe('Carousel', () => {
     describe('when slideIndex is passed', () => {
       it('sets the intial slide to the prop', () => {
         const wrapper = shallow(
-          <Carousel data-element='bar' data-role='baz' slideIndex={ 1 }>
+          <Carousel slideIndex={ 1 }>
             <Slide />
             <Slide />
             <Slide />
           </Carousel>
         );
 
-        expect(wrapper.instance().state.selectedSlideIndex).toEqual(1);
+        expect(wrapper.state('selectedSlideIndex')).toEqual(1);
       });
     });
 
     describe('when initialSlideIndex is passed', () => {
       it('sets the intial slide to the prop', () => {
         const wrapper = shallow(
-          <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 1 }>
+          <Carousel initialSlideIndex={ 2 }>
             <Slide />
             <Slide />
             <Slide />
           </Carousel>
         );
 
-        expect(wrapper.instance().state.selectedSlideIndex).toEqual(1);
+        expect(wrapper.state('selectedSlideIndex')).toEqual(2);
       });
     });
 
     describe('when initialSelectedId is not passed', () => {
       it('defaults the initial slide to slide 0', () => {
         const wrapper = shallow(
-          <Carousel data-element='bar' data-role='baz'>
+          <Carousel>
             <Slide />
             <Slide />
             <Slide />
           </Carousel>
         );
 
-        expect(wrapper.instance().state.selectedSlideIndex).toEqual(0);
+        expect(wrapper.state('selectedSlideIndex')).toEqual(0);
       });
     });
   });
@@ -63,7 +63,7 @@ describe('Carousel', () => {
   describe('componentWillReceiveProps', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+          <Carousel initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
@@ -74,7 +74,7 @@ describe('Carousel', () => {
       wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
     });
 
-    it('navigate between slides correctly when the slideIndex prop changes', () => {
+    it('navigates between slides correctly when the slideIndex prop changes', () => {
       // Initial state
       expect(wrapper.state().selectedSlideIndex).toEqual(0);
       expect(wrapper.state().disabled).toBeFalsy();
@@ -82,7 +82,6 @@ describe('Carousel', () => {
 
       // Move to slide 2
       wrapper.setProps({ slideIndex: 2 });
-      wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
       expect(wrapper.instance().transitionDirection).toEqual('next');
@@ -91,7 +90,6 @@ describe('Carousel', () => {
 
       // Move to slide 1
       wrapper.setProps({ slideIndex: 1 });
-      wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(1);
       expect(wrapper.instance().transitionDirection).toEqual('previous');
@@ -100,7 +98,6 @@ describe('Carousel', () => {
 
       // Move to slide 3
       wrapper.setProps({ slideIndex: 3 });
-      wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(0);
       expect(wrapper.instance().transitionDirection).toEqual('previous');
@@ -109,7 +106,6 @@ describe('Carousel', () => {
 
       // Move to slide -1
       wrapper.setProps({ slideIndex: -1 });
-      wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
       expect(wrapper.instance().transitionDirection).toEqual('next');
@@ -118,14 +114,12 @@ describe('Carousel', () => {
 
       // Move to slide 2
       wrapper.setProps({ slideIndex: 2 });
-      wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
       expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(4);
 
       // Undefined slideIndex
       wrapper.setProps({ slideIndex: undefined });
-      wrapper.rerender();
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
       expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(4);
@@ -136,7 +130,6 @@ describe('Carousel', () => {
         const onSlideChangeSpy = jasmine.createSpy();
         wrapper.setProps({ onSlideChange: onSlideChangeSpy });
         wrapper.setProps({ slideIndex: 1 });
-        wrapper.rerender();
 
         expect(onSlideChangeSpy).toHaveBeenCalledWith(1, 'previous');
       });
@@ -166,7 +159,7 @@ describe('Carousel', () => {
   describe('onPreviousClick', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+          <Carousel initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
@@ -218,7 +211,7 @@ describe('Carousel', () => {
   describe('onNextClick', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+          <Carousel initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
@@ -270,7 +263,7 @@ describe('Carousel', () => {
   describe('onSlideSelection', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+          <Carousel initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
@@ -423,7 +416,7 @@ describe('Carousel', () => {
   describe('slideSelector', () => {
     describe('when enableSlideSelector is set to true', () => {
       const wrapper = shallow(
-        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+        <Carousel initialSlideIndex={ 0 }>
           <Slide />
           <Slide />
           <Slide />
@@ -440,7 +433,7 @@ describe('Carousel', () => {
 
     describe('when enableSlideSelector is set to false', () => {
       const wrapper = shallow(
-        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 } enableSlideSelector={ false }>
+        <Carousel initialSlideIndex={ 0 } enableSlideSelector={ false }>
           <Slide />
         </Carousel>
       );
@@ -455,7 +448,7 @@ describe('Carousel', () => {
   describe('previousButton', () => {
     describe('when enablePreviousButton is set to true', () => {
       const wrapper = shallow(
-        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+        <Carousel initialSlideIndex={ 0 }>
           <Slide />
         </Carousel>
       );
@@ -468,7 +461,7 @@ describe('Carousel', () => {
 
     describe('when enablePreviousButton is set to false', () => {
       const wrapper = shallow(
-        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 } enablePreviousButton={ false }>
+        <Carousel initialSlideIndex={ 0 } enablePreviousButton={ false }>
           <Slide />
         </Carousel>
       );
@@ -483,7 +476,7 @@ describe('Carousel', () => {
   describe('nextButton', () => {
     describe('when enableNextButton is set to true', () => {
       const wrapper = shallow(
-        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+        <Carousel initialSlideIndex={ 0 }>
           <Slide />
         </Carousel>
       );
@@ -496,7 +489,7 @@ describe('Carousel', () => {
 
     describe('when enableNextButton is set to false', () => {
       const wrapper = shallow(
-        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 } enableNextButton={ false }>
+        <Carousel initialSlideIndex={ 0 } enableNextButton={ false }>
           <Slide />
         </Carousel>
       );
