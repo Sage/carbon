@@ -1,3 +1,6 @@
+# 1.1.4
+* Update I18nhelper to respect the locale for the delimiter and separator.
+
 # 1.1.3
 
 * Fix bug with Date Range date pickers not closing correctly
