@@ -38,7 +38,7 @@ describe('Browser', () => {
   });
 
   describe('getBody', () => {
-    it('returns the document object', () => {
+    it('returns the document.body element', () => {
       expect(Browser.getBody()).toEqual(document.body);
     });
   });
