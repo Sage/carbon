@@ -96,3 +96,9 @@
     color: $blue;
   }
 }
+
+.carbon-dialog-full-screen__dialog--open {
+  body & {
+    overflow: hidden;
+  }
+}

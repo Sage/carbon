@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import Icon from './../icon';
 import Modal from './../modal';
 import Heading from './../heading';
-import Browser from './../../utils/helpers/browser';
 
 /**
  * A DialogFullScreen widget.
@@ -32,43 +31,15 @@ class DialogFullScreen extends Modal {
   }
 
   /**
-   * A lifecycle method that is called after render.
-   *
-   * @method componentDidMount
-   */
-  componentDidMount() {
-    if (this.props.open) {
-      Browser.setBodyScroll(false);
-    }
-  }
-
-  /**
-   * A lifecycle method that is called when a component is being removed from the DOM.
-   *
-   * @method componentWillUnmount
-   */
-  componentWillUnmount() {
-    Browser.setBodyScroll(true);
-  }
-
-  /**
-   * A lifecycle method that is called after re-render.
-   *
-   * @method componentDidUpdate
-   */
-  componentDidUpdate(prevProps) {
-    if (prevProps.open !== this.props.open) {
-      Browser.setBodyScroll(!this.props.open);
-    }
-  }
-
-  /**
    * Returns classes for the dialog.
    *
    * @return {String} dialog className
    */
   get dialogClasses() {
-    return 'carbon-dialog-full-screen__dialog';
+    return classNames(
+      'carbon-dialog-full-screen__dialog',
+      { 'carbon-dialog-full-screen__dialog--open': this.props.open }
+    );
   }
 
   /**

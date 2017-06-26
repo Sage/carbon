@@ -81,23 +81,6 @@ describe('Browser', () => {
     });
   });
 
-  describe('setBodyScroll', () => {
-    describe('when enabled is true', () => {
-      it('sets the body overflow to empty', () => {
-        Browser.setBodyScroll(true);
-        expect(document.body.style.overflow).toEqual('');
-      });
-    });
-
-    describe('when enabled is false', () => {
-      it('sets the body overflow to hidden', () => {
-        Browser.setBodyScroll(false);
-
-        expect(document.body.style.overflow).toEqual('hidden');
-      });
-    });
-  });
-
   describe('cookies', () => {
     afterEach(() => {
       // Remove foo cookie

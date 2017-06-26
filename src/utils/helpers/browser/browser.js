@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { keys } from 'lodash';
 import Form from './../../../components/form';
+import css from './../../css';
 
 /**
 * Browser Helper
@@ -95,16 +96,6 @@ const Browser = {
    */
   setInputFocus: (inputComponent) => {
     Browser.setFocus(inputComponent._input);
-  },
-
-  /**
-   * Sets the body scroll
-   *
-   * @param {Boolean} enabled
-   * @method setBodyScroll
-   */
-  setBodyScroll: (enabled) => {
-    Browser.getBody().style.overflow = enabled ? '' : 'hidden';
   },
 
   /**
