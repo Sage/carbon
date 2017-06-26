@@ -141,6 +141,7 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 
 ## Component Improvements
 
+* `Alert` now alerts itself to screen readers.
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
 * `Dialog` is now using the `Heading` component to render its title and subtitle.
 * `Form` now has default `SaveButton` and `CancelButton` functional stateless components. The former can be overridden with a new prop of `customSaveButton`.

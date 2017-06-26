@@ -19,7 +19,7 @@ Download and install Node from [https://nodejs.org/](https://nodejs.org/), or in
 
 #### Check npm version
 
-Make sure you are on Version 3.x by running `npm -v`. To upgrade your version of npm run `npm install npm -g`
+Make sure you are on Version 4.x by running `npm -v`. To upgrade your version of npm run `npm install npm -g`
 
 #### Check permissions
 
