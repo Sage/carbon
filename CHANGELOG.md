@@ -263,6 +263,7 @@ e.g.
 * `Dropdown`: adds a set of ontouch events to the list in order to stop blurring from happening until after the touch event which fixes a bug with the input update on finger tap on touch screens
 * `TableHeader`: fix overflow issue so that tooltip / help components aren't cut off.
 * `Decimal`: fix issue where `visibleValue` was not updated after a change to `precision`.
+* `Number`: prevent '-' being validated as numeric.
 
 # 0.34.4
 

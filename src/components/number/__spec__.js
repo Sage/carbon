@@ -34,44 +34,60 @@ describe('Number', () => {
       spyOn(instance, '_handleOnChange');
     });
 
-    describe('when it is as a valid number', () => {
-      it('calls the inputs decorators handleOnChange', () => {
-        TestUtils.Simulate.change(input, { target: { value: '100' } });
-        expect(instance._handleOnChange).toHaveBeenCalled();
-      });
-    });
+    const validNumbers = [
+      1234,
+      '',
+      0,
+      -1
+    ];
 
-    describe('when it is not a valid number', () => {
-      let setSelectionSpy;
-
-      beforeEach(() => {
-        setSelectionSpy = jasmine.createSpy();
-
-        instance.selectionStart = 2;
-        instance.selectionEnd = 4;
-
-        TestUtils.Simulate.change(input, {
-          target: {
-            value: 'abcdefghij',
-            setSelectionRange: setSelectionSpy
-          }
+    validNumbers.forEach((val) => {
+      describe('when it is as a valid number', () => {
+        it('calls the inputs decorators handleOnChange', () => {
+          TestUtils.Simulate.change(input, { target: { value: val } });
+          expect(instance._handleOnChange).toHaveBeenCalled();
         });
       });
+    });
 
-      it('does not call the decorators handleOnChange', () => {
-        expect(instance._handleOnChange).not.toHaveBeenCalled();
-      });
+    const invalidNumbers = [
+      'abcdefghij', 
+      '-'
+    ];
+    invalidNumbers.forEach((val) => {
+      describe('when it is not a valid number', () => {
+        let setSelectionSpy;
 
-      it('does not update the input value', () => {
-        expect(input.value).toEqual(instance.props.value);
-      });
+        beforeEach(() => {
+          setSelectionSpy = jasmine.createSpy();
 
-      it('calls setSelectionRange', () => {
-        expect(setSelectionSpy).toHaveBeenCalledWith(2, 4);
+          instance.selectionStart = 2;
+          instance.selectionEnd = 4;
+
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: val,
+              setSelectionRange: setSelectionSpy
+            }
+          });
+        });
+
+        it('does not call the decorators handleOnChange', () => {
+          expect(instance._handleOnChange).not.toHaveBeenCalled();
+        });
+
+        it('does not update the input value', () => {
+          expect(input.value).toEqual(instance.props.value);
+        });
+
+        it('calls setSelectionRange', () => {
+          expect(setSelectionSpy).toHaveBeenCalledWith(2, 4);
+        });
       });
     });
 
-    describe('when the value porp is undefined', () => {
+
+    describe('when the value prop is undefined', () => {
       it('sets input value to be null', () => {
         instance = TestUtils.renderIntoDocument(<Number
           label={ 'Label' }

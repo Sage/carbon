@@ -132,7 +132,7 @@ class Number extends React.Component {
  */
 function isValidNumber(value) {
   let regex, result;
-  regex = new RegExp('^[-]?[0-9]*$');
+  regex = new RegExp('^(\\-\\d+|\\d*)$');
   result = regex.test(value);
 
   return result;
