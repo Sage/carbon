@@ -59,12 +59,15 @@ class ConfigurableColumns extends React.Component {
     onSave: PropTypes.func.isRequired,
 
     /**
-     * Title to display as heading.
+     * Defines the title for the heading.
      *
      * @property title
-     * @type {String}
+     * @type {String|Object}
      */
-    title: PropTypes.string.isRequired
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
+    ]).isRequired
   }
 
   onReset = (event) => {
