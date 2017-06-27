@@ -231,8 +231,8 @@ class DateRange extends React.Component {
   render () {
     return (
       <div { ...tagComponent('date-range', this.props) }>
-        <Date { ...this.startDateProps() } onFocus={ this.focusStart } data-element='start-date'/>
-        <Date { ...this.endDateProps() } onFocus={ this.focusEnd } data-element='end-date'/>
+        <Date { ...this.startDateProps() } onFocus={ this.focusStart } data-element='start-date' />
+        <Date { ...this.endDateProps() } onFocus={ this.focusEnd } data-element='end-date' />
       </div>
     );
   }
