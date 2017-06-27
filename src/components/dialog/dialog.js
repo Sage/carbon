@@ -197,7 +197,12 @@ class Dialog extends Modal {
   get dialogTitle() {
     if (this.props.title) {
       return (
-        <Heading title={ this.props.title } subheader={ this.props.subtitle } />
+        <Heading
+          title={ this.props.title }
+          titleId='carbon-dialog-title'
+          subheader={ this.props.subtitle }
+          subtitleId='carbon-dialog-subtitle'
+        />
       );
     }
 
