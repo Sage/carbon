@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { keys } from 'lodash';
 import Form from './../../../components/form';
-import css from './../../css';
 
 /**
 * Browser Helper
@@ -28,15 +27,6 @@ const Browser = {
    */
   getDocument: () => {
     return document;
-  },
-
-  /**
-   * Gets the body
-   *
-   * @method getBody
-   */
-  getBody: () => {
-    return Browser.getDocument().body;
   },
 
   /**

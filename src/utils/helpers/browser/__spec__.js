@@ -37,12 +37,6 @@ describe('Browser', () => {
     });
   });
 
-  describe('getBody', () => {
-    it('returns the document.body element', () => {
-      expect(Browser.getBody()).toEqual(document.body);
-    });
-  });
-
   describe('getActiveElement', () => {
     it('returns the document.activeElement', () => {
       expect(Browser.getActiveElement()).toEqual(document.activeElement);
