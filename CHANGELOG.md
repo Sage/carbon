@@ -1,8 +1,3 @@
-# 1.3.0
-
-## Component Enhancements
-
-* `InputValidation`: now accepts a `info` prop to display info-styled icon and message attached to an input.
 # 1.1.4
 * Update I18nhelper to respect the locale for the delimiter and separator.
 
