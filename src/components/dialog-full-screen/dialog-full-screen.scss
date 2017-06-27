@@ -15,68 +15,6 @@
   padding: 30px 5%;
   overflow: scroll;
   height: calc(100% - 60px);
-
-  > .carbon-carousel {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-
-    .carbon-carousel__content {
-      overflow: scroll;
-      position: initial;
-      height: 100%;
-    }
-
-    .carbon-heading {
-      padding-bottom: 0;
-    }
-
-    .carbon-slide {
-      padding: 35px 5%;
-    }
-  }
-
-  .carbon-heading {
-    height: 98px;
-
-    .carbon-heading__header {
-      background-color: $grey-light;
-      // TODO: add cross-browser flex tags (test in IE, Firefox and Safari):
-      display: flex;
-      align-items: center;
-      height: 120px;
-      padding-left: 5%;
-      padding-right: 5%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: calc(100% - 10%);
-    }
-
-    &.carbon-heading--has-back {
-      .carbon-heading__headers {
-        margin-left: 0;
-      }
-
-      .carbon-heading__back {
-        margin-left: -40px;
-
-        .icon-chevron_left {
-          &:before {
-            font-size: 24px;
-          }
-        }
-      }
-    }
-  }
-
-  .carbon-heading + .carbon-carousel {
-    .carbon-slide {
-      padding: 155px 5%;
-    }
-  }
 }
 
 .carbon-dialog-full-screen__close {
