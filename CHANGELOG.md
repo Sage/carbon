@@ -147,6 +147,7 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * `InlineInputs` children are now wrapped in Columns by the component.
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `MenuItem`: focus outline is now fully visible when an item is focused.
+* `MultiActionButton`: Secondary button hover style has been updated to not change on hover.
 * `Table` has a new prop of onConfigure. Displays a configure icon to the left of the table header that triggers the callback onClick.
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 
