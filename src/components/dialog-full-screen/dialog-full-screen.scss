@@ -35,8 +35,6 @@
   }
 }
 
-.carbon-dialog-full-screen__dialog--open {
-  body & {
-    overflow: hidden;
-  }
+[data-fullscreendialogopen] {
+  overflow: hidden;
 }

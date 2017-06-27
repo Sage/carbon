@@ -123,7 +123,7 @@ class Dialog extends Modal {
    * @method onOpening
    * @return {Void}
    */
-  get onOpening() {
+  onOpening() {
     this.centerDialog();
     this.focusDialog();
     this.window().addEventListener('resize', this.centerDialog);
@@ -137,7 +137,7 @@ class Dialog extends Modal {
    * @method onClosing
    * @return {Void}
    */
-  get onClosing() {
+  onClosing() {
     this.window().removeEventListener('resize', this.centerDialog);
   }
 

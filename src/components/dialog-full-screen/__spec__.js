@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import Browser from '../../utils/helpers/browser';
 import DialogFullScreen from './dialog-full-screen';
 import Button from './../button';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
@@ -36,7 +37,7 @@ describe('DialogFullScreen', () => {
     describe('when the open prop is true', () => {
       it('returns the full screen dialog class and the open class', () => {
         expect(instance.dialogClasses).toEqual(
-          'carbon-dialog-full-screen__dialog carbon-dialog-full-screen__dialog--open'
+          'carbon-dialog-full-screen__dialog'
         );
       });
     });
@@ -48,6 +49,41 @@ describe('DialogFullScreen', () => {
       });
     });
   });
+
+  describe('onOpening', () => {
+    it('adds a data-fullscreendialogopen attribute to the <html> tag', () => {
+      const mockDocElement = document.createElement('html');
+      const mockDocument = {
+        documentElement: mockDocElement
+      };
+      spyOn(Browser, 'getDocument').and.returnValue(mockDocument);
+
+      wrapper = shallow(
+        <DialogFullScreen open={ false } />
+      );
+      wrapper.instance().onOpening();
+      expect(mockDocument.documentElement.dataset['fullscreendialogopen']).toBeTruthy();
+    });
+  });
+
+  describe('onClosing', () => {
+    it('removes the data-fullscreendialogopen attribute from the <html> tag', () => {
+      const mockDocElement = document.createElement('html');
+      mockDocElement.dataset.fullscreendialogopen = true;
+
+      const mockDocument = {
+        documentElement: mockDocElement
+      };
+      spyOn(Browser, 'getDocument').and.returnValue(mockDocument);
+
+      wrapper = shallow(
+        <DialogFullScreen open={ true } />
+      );
+
+      wrapper.instance().onClosing();
+      expect(mockDocument.documentElement.dataset.fullscreendialogopen).toBeUndefined();
+    });
+  })
 
   describe('mainClasses', () => {
     it('returns the full screen dialog class and custom class', () => {
@@ -78,7 +114,7 @@ describe('DialogFullScreen', () => {
     it('renders the dialog', () => {
       expect(instance._dialog).toBeTruthy();
       expect(instance._dialog.className).toEqual(
-        'carbon-dialog-full-screen__dialog carbon-dialog-full-screen__dialog--open'
+        'carbon-dialog-full-screen__dialog'
       );
     });
 
