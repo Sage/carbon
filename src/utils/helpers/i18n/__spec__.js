@@ -1,12 +1,37 @@
-import I18n from "i18n-js";
+import I18n from 'i18n-js';
 import Helper from './i18n.js';
 
 describe('I18n Helper', () => {
-
   beforeEach(() => {
     I18n.translations = {
-      en: { number: { format: { delimiter: ",", separator: "." }, currency: { format: { unit: '£', format: '%u%n' } } } },
-      fr: { number: { format: { delimiter: ".", separator: "," }, currency: { format: { unit: '€', format: '%n %u' } } } }
+      en: {
+        number: {
+          format: {
+            delimiter: ',',
+            separator: '.'
+          },
+          currency: {
+            format: {
+              unit: '£',
+              format: '%u%n'
+            }
+          }
+        }
+      },
+      fr: {
+        number: {
+          format: {
+            delimiter: '.',
+            separator: ','
+          },
+          currency: {
+            format: {
+              unit: '€',
+              format: '%n %u'
+            }
+          }
+        }
+      }
     };
   });
 
@@ -72,8 +97,8 @@ describe('I18n Helper', () => {
     });
   });
 
-  describe("abbreviateCurrency", () => {
-    it("creates the correct abbreviation", () => {
+  describe('abbreviateCurrency', () => {
+    it('creates the correct abbreviation', () => {
       expect(Helper.abbreviateCurrency('-345')).toEqual('£-345.00');
       expect(Helper.abbreviateCurrency('345')).toEqual('£345.00');
       expect(Helper.abbreviateCurrency('678', { locale: 'fr', unit: '€' })).toEqual('678,00 €');
@@ -92,7 +117,7 @@ describe('I18n Helper', () => {
         I18n.locale = 'en';
       });
 
-      it("creates the correct abbreviation", () => {
+      it('creates the correct abbreviation', () => {
         expect(Helper.abbreviateCurrency('-345')).toEqual('-345,00 €');
         expect(Helper.abbreviateCurrency('345')).toEqual('345,00 €');
         expect(Helper.abbreviateCurrency('678', { locale: 'fr', unit: '€' })).toEqual('678,00 €');
@@ -118,8 +143,8 @@ describe('I18n Helper', () => {
     });
   });
 
-  describe("abbreviateNumber", () => {
-    it("creates the correct suffixes at the correct points", () => {
+  describe('abbreviateNumber', () => {
+    it('creates the correct suffixes at the correct points', () => {
       expect(Helper.abbreviateNumber('949')).toEqual('949.00');
       expect(Helper.abbreviateNumber('950')).toEqual('1.0k');
       expect(Helper.abbreviateNumber('1049')).toEqual('1.0k');
@@ -138,8 +163,8 @@ describe('I18n Helper', () => {
     });
   });
 
-  describe("roundForAbbreviation", () => {
-    it("formats a whole number to one decimal place after applying the divisor", () => {
+  describe('roundForAbbreviation', () => {
+    it('formats a whole number to one decimal place after applying the divisor', () => {
       expect(Helper.roundForAbbreviation(1000, 100)).toEqual('1.0');
     });
 
@@ -157,8 +182,8 @@ describe('I18n Helper', () => {
     });
   });
 
-  describe("humanizeFilesize", () => {
-    it("returns a human readable version of x bytes", () => {
+  describe('humanizeFilesize', () => {
+    it('returns a human readable version of x bytes', () => {
       expect(Helper.humanizeFilesize(0)).toEqual('0 Bytes');
       expect(Helper.humanizeFilesize(1500)).toEqual('1.5 KB');
       expect(Helper.humanizeFilesize(15000)).toEqual('15 KB');

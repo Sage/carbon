@@ -1,12 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import Input from './../../../utils/decorators/input';
-import Icon from './../../icon';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { trim, startsWith } from 'lodash';
 
-import { tagComponent } from '../../../utils/helpers/tags';
+import Icon from './../../icon';
+import Input from './../../../utils/decorators/input';
+import tagComponent from '../../../utils/helpers/tags';
 
 /**
  * A single square with a color, implemented as a radio button.
@@ -45,7 +44,23 @@ class ColorOption extends React.Component {
      * @property checked
      * @type {Boolean}
      */
-    checked: PropTypes.bool
+    checked: PropTypes.bool,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string
+  }
+
+  static defaultProps = {
+    checked: false,
+    className: '',
+    color: '',
+    name: '',
+    onChange: null
   }
 
   /**
@@ -57,7 +72,7 @@ class ColorOption extends React.Component {
       onChange: this.props.onChange,
       checked: this.props.checked,
       name: this.props.name,
-      type: "radio",
+      type: 'radio',
       value: this.props.color
     };
   }
@@ -77,33 +92,23 @@ class ColorOption extends React.Component {
   }
 
   get mainClasses() {
-    return classNames (
+    return classNames(
       'carbon-color-option',
       this.props.className
     );
   }
 
-  render() {
-    return (
-      <li className={ this.mainClasses } { ...tagComponent('color-option', this.props) }>
-        { this.inputHTML }
-      </li>
-    );
-  }
-
   get _colorSampleClasses() {
-    let color = trim(this.props.color, '#');
+    const color = trim(this.props.color, '#');
     return classNames('carbon-color-option__color-sample', `carbon-color-option__color-sample--${color}`);
   }
 
   get _tickedIcon() {
-    return <Icon type='tick' className="carbon-color-option__tick"/>;
+    return <Icon type='tick' className='carbon-color-option__tick' />;
   }
 
   get _colorSampleStyle() {
-    return startsWith(this.props.color, '#')
-      ? { backgroundColor: this.props.color }
-      : {};
+    return startsWith(this.props.color, '#') ? { backgroundColor: this.props.color } : {};
   }
 
   get colorSampleBox() {
@@ -114,6 +119,13 @@ class ColorOption extends React.Component {
     );
   }
 
+  render() {
+    return (
+      <li className={ this.mainClasses } { ...tagComponent('color-option', this.props) }>
+        { this.inputHTML }
+      </li>
+    );
+  }
 });
 
 export default ColorOption;

@@ -5,12 +5,15 @@ var SpecTask = require('carbon-factory/lib/gulp/spec').default;
 var generateColors = require('./script/generate-demo-colors').default;
 var generateDocs = require('./script/generate-docs').default;
 var deploy = require('./script/deploy').default;
+var setConfig = require('./script/set-config').default;
 var express = require('express');
 var gutil = require('gulp-util');
 
 var argv = yargs.argv;
 
 var dir = 'deploy';
+
+setConfig(argv.cdn);
 
 gulp.task('prepare-demo', function() {
   generateColors();
@@ -46,5 +49,6 @@ gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 gulp.task('deploy', ['prepare-demo', 'build', 'run-deploy']);
 
 gulp.task('test', SpecTask({
-  path: '/src/***/**/!(__spec__|definition).js'
+  path: '/src/***/**/!(__spec__|definition).js',
+  eslintThreshold: 99
 }));

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { tagComponent } from '../../../utils/helpers/tags';
+import tagComponent from '../../../utils/helpers/tags';
 
 /**
  * A Sidebar Header widget.
@@ -37,7 +37,20 @@ class SidebarHeader extends React.Component {
      * @property children
      * @type {Multiple}
      */
-    children: PropTypes.node
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string
+  }
+
+  static defaultProps = {
+    children: null,
+    className: ''
   }
 
   /**

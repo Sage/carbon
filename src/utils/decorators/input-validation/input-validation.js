@@ -1,10 +1,9 @@
-import React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import { assign } from 'lodash';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
-import classNames from 'classnames';
-import { assign } from 'lodash';
 
 /**
  * InputValidation decorator.
@@ -39,7 +38,7 @@ import { assign } from 'lodash';
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
-let InputValidation = (ComposedComponent) => class Component extends ComposedComponent {
+const InputValidation = ComposedComponent => class Component extends ComposedComponent {
 
   _window = window;
 
@@ -250,28 +249,28 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   positionMessage = () => {
     if (!this.state.valid || this.state.warning || this.state.info) {
       // calculate the position for the message relative to the icon
-      let icon = ReactDOM.findDOMNode(this.refs.validationIcon),
-          message = this.refs.validationMessage;
+      const icon = this.validationIcon._target,
+          message = this.validationMessage;
 
       if (icon && message && message.offsetHeight) {
-        let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2)),
-            topOffset = icon.offsetTop - icon.offsetHeight;
+        let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2));
+        const topOffset = icon.offsetTop - icon.offsetHeight;
 
         // set initial position for message
         message.style.left = `${messagePositionLeft}px`;
         message.style.top = `-${message.offsetHeight - topOffset}px`;
 
         // figure out if the message is positioned offscreen
-        let messageScreenPosition = message.getBoundingClientRect().left + message.offsetWidth;
+        const messageScreenPosition = message.getBoundingClientRect().left + message.offsetWidth;
 
         // change the position if it is offscreen
         if (messageScreenPosition > this._window.innerWidth) {
           messagePositionLeft -= message.offsetWidth;
           message.style.left = `${messagePositionLeft}px`;
-          message.className += " common-input__message--flipped";
+          message.className += ' common-input__message--flipped';
           this.flipped = true;
         } else {
-          message.classList.remove("common-input__message--flipped");
+          message.classList.remove('common-input__message--flipped');
           this.flipped = false;
         }
       }
@@ -332,7 +331,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     // iterate through each validation applied to the input
     for (let i = 0; i < this.props.warnings.length; i++) {
-      let warning = this.props.warnings[i];
+      const warning = this.props.warnings[i];
 
       // run this validation
       valid = warning.validate(value, this.props, this.updateWarning);
@@ -389,7 +388,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     // iterate through each validation applied to the input
     for (let i = 0; i < this._validations().length; i++) {
-      let validation = this._validations()[i];
+      const validation = this._validations()[i];
 
       // run this validation
       valid = validation.validate(value, this.props, this.updateValidation);
@@ -603,21 +602,37 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       type = 'info';
     }
 
-    let messageClasses = `common-input__message common-input__message--${type}`,
-        iconClasses = `common-input__icon common-input__icon--${type}`;
+    let messageClasses = `common-input__message common-input__message--${type}`;
+    const iconClasses = `common-input__icon common-input__icon--${type}`;
 
     // position icon relative to width of label
-    let iconStyle = this.props.labelWidth ?
-      { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` } :
-      null;
+    let iconStyle = {};
 
-    if (this.state.messageLocked) { messageClasses += " common-input__message--locked"; }
-    if (this.flipped) { messageClasses += " common-input__message--flipped"; }
+    if (this.props.labelWidth) {
+      iconStyle = { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` };
+    }
+
+    if (this.state.messageLocked) { messageClasses += ' common-input__message--locked'; }
+    if (this.flipped) { messageClasses += ' common-input__message--flipped'; }
 
     return [
-      <Icon key="0" ref="validationIcon" type={ type } className={ iconClasses } style={ iconStyle } />,
-      <div key="1" className="common-input__message-wrapper" onMouseOver={ this.showMessage } onMouseOut={ this.hideMessage }>
-        <div ref="validationMessage" className={ messageClasses }>
+      <Icon
+        key='0'
+        ref={ (validationIcon) => { this.validationIcon = validationIcon; } }
+        type={ type }
+        className={ iconClasses }
+        style={ iconStyle }
+      />,
+      <div
+        key='1'
+        className='common-input__message-wrapper'
+        onMouseOver={ this.showMessage }
+        onMouseOut={ this.hideMessage }
+      >
+        <div
+          ref={ (validationMessage) => { this.validationMessage = validationMessage; } }
+          className={ messageClasses }
+        >
           { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
         </div>
       </div>
@@ -665,7 +680,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {Object} Input props
    */
   get inputProps() {
-    let inputProps = super.inputProps || {};
+    const inputProps = super.inputProps || {};
 
     inputProps.onMouseOver = chainFunctions(this.positionMessage, inputProps.onMouseOver);
     inputProps.onFocus = chainFunctions(this._handleFocus, inputProps.onFocus);
@@ -677,7 +692,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   get fieldProps() {
-    let fieldProps = super.fieldProps || {};
+    const fieldProps = super.fieldProps || {};
 
     fieldProps.onMouseOut = chainFunctions(this.hideMessage, fieldProps.onMouseOut);
     fieldProps.onMouseOver = chainFunctions(this.showMessage, fieldProps.onMouseOver);
@@ -702,7 +717,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {Array} validations
    */
   _validations = () => {
-    let validations = (this.props.validations || []).concat(this.props.internalValidations || []);
+    const validations = (this.props.validations || []).concat(this.props.internalValidations || []);
     return validations.length ? validations : null;
   }
 };

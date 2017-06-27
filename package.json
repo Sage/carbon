@@ -23,7 +23,7 @@
   "homepage": "https://github.com/Sage/carbon#readme",
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "0.3.6",
+    "carbon-factory": "1.1.7",
     "enzyme": "~2.8.2",
     "express": "~4.14.0",
     "flux": "~2.1.1",
@@ -37,6 +37,7 @@
     "react": "~15.5.0",
     "react-addons-css-transition-group": "~15.5.0",
     "react-addons-test-utils": "~15.5.1",
+    "react-dnd-test-backend": "^2.4.0",
     "react-dom": "~15.5.0",
     "react-highlight": "~0.9.0",
     "react-router": "~2.8.0",
@@ -59,6 +60,10 @@
     "moment": "~2.15.1",
     "prop-types": "~15.5.8",
     "react-date-picker": "~5.3.28",
+    "react-dnd": "~2.4.0",
+    "react-dnd-touch-backend": "lock this to 0.2.7 to support dnd on mobile - see https://github.com/yahoo/react-dnd-touch-backend/issues/34",
+    "react-dnd-touch-backend": "0.2.7",
+    "react-highcharts": "~11.5.0",
     "superagent": "~2.2.0"
   }
 }

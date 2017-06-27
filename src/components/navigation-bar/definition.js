@@ -17,10 +17,14 @@ let definition = new Definition('navigation-bar', NavigationBar, {
     as: OptionsHelper.themesBinary,
   },
   propTypes: {
-    as: "String"
+    as: "String",
+    children: "Node",
+    className: "String"
   },
   propDescriptions: {
-    as: "Primary or Secondary theme."
+    as: "Primary or Secondary theme.",
+    children: "This component supports children.",
+    className: "Classes to apply to the component."
   }
 });
 

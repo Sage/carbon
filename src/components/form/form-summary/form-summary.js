@@ -1,7 +1,7 @@
 import I18n from 'i18n-js';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { tagComponent } from '../../../utils/helpers/tags';
+import tagComponent from '../../../utils/helpers/tags';
 
 import Icon from './../../icon';
 
@@ -9,10 +9,12 @@ const FormSummary = props =>
   <div className='carbon-form-summary' { ...tagComponent('form-summary', props) }>
     { summary(props, 'error') }
     { summary(props, 'warning') }
+    { props.children }
   </div>
 ;
 
 FormSummary.propTypes = {
+  children: PropTypes.node,
   errors: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
@@ -24,25 +26,13 @@ FormSummary.propTypes = {
 };
 
 /**
- * builds a summary in JSX
+ * Adds an 's' to pluralise (keys will always be error or warning)
  *
- * @param {object} props
  * @param {string} key
- * @return {JSX}
+ * @return {string} pluralized key
  */
-const summary = (props, key) => {
-  if (props[pluralize(key)] > 0) {
-    return (
-      <span className={ `carbon-form-summary__summary carbon-form-summary__${key}-summary` }>
-        <Icon className='carbon-form-summary__icon' type={ `${key}` } />
-        <span
-          className='carbon-form-summary__text'
-          data-element={ pluralize(key) }
-          dangerouslySetInnerHTML={{ __html: translation(props, key) }}
-        />
-      </span>
-    );
-  }
+const pluralize = (key) => {
+  return `${key}s`;
 };
 
 /**
@@ -56,36 +46,37 @@ const defaultTranslations = (errorCount, warningCount) => {
   return {
     errors: {
       defaultValue: {
-        one: `There is ${ errorCount } error`,
-        other: `There are ${ errorCount } errors`
+        one: `There is ${errorCount} error`,
+        other: `There are ${errorCount} errors`
       },
-      count: parseInt(errorCount)
+      count: parseInt(errorCount, 10)
     },
     warnings: {
       defaultValue: {
-        one: `There is ${ warningCount } warning`,
-        other: `There are ${ warningCount } warnings`
+        one: `There is ${warningCount} warning`,
+        other: `There are ${warningCount} warnings`
       },
-      count: parseInt(warningCount)
+      count: parseInt(warningCount, 10)
     },
     errors_and_warnings: {
       defaultValue: {
-        one: `and ${ warningCount } warning`,
-        other: `and ${ warningCount } warnings`
+        one: `and ${warningCount} warning`,
+        other: `and ${warningCount} warnings`
       },
-      count: parseInt(warningCount)
+      count: parseInt(warningCount, 10)
     }
   };
 };
 
 /**
- * Adds an 's' to pluralise (keys will always be error or warning)
+ * decides whether the warning message should be appended to the sentence or output as a sentence on it's own
  *
+ * @param {object} props
  * @param {string} key
- * @return {string} pluralized key
+ * @return {boolean} true if the warning message needs to be appended
  */
-const pluralize = (key) => {
-  return `${key}s`;
+const warningAppend = (props, key) => {
+  return props.errors > 0 && props.warnings > 0 && key === 'warning';
 };
 
 /**
@@ -107,23 +98,35 @@ const translationKey = (props, key) => {
  * @return {string} correct translation
  */
 const translation = (props, key) => {
-  key = translationKey(props, key);
+  const parsedKey = translationKey(props, key);
 
-  let defaultTranslation = defaultTranslations(props.errors, props.warnings)[key],
-      location = `errors.messages.form_summary.${key}`;
+  const defaultTranslation = defaultTranslations(props.errors, props.warnings)[parsedKey],
+      location = `errors.messages.form_summary.${parsedKey}`;
 
   return I18n.t(location, defaultTranslation);
 };
 
 /**
- * decides whether the warning message should be appended to the sentence or output as a sentence on it's own
+ * builds a summary in JSX
  *
  * @param {object} props
  * @param {string} key
- * @return {boolean} true if the warning message needs to be appended
+ * @return {JSX}
  */
-const warningAppend = (props, key) => {
-  return props.errors > 0 && props.warnings > 0 && key === 'warning';
+const summary = (props, key) => {
+  if (props[pluralize(key)] > 0) {
+    return (
+      <span className={ `carbon-form-summary__summary carbon-form-summary__${key}-summary` }>
+        <Icon className='carbon-form-summary__icon' type={ key } />
+        <span
+          className='carbon-form-summary__text'
+          data-element={ pluralize(key) }
+          dangerouslySetInnerHTML={ { __html: translation(props, key) } }
+        />
+      </span>
+    );
+  }
+  return null;
 };
 
 export default FormSummary;

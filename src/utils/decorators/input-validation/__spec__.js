@@ -336,7 +336,7 @@ describe('InputValidation', () => {
             let removeSpy = jasmine.createSpy();
 
             instance.setState({ valid: false, errorMessage: 'foo' });
-            instance.refs.validationMessage = {
+            instance.validationMessage = {
               classList: {
                 remove: removeSpy
               },
@@ -351,13 +351,13 @@ describe('InputValidation', () => {
                 };
               }
             };
-            spyOn(ReactDOM, 'findDOMNode').and.returnValue({
+            instance.validationIcon._target = {
               offsetLeft: 20,
               offsetWidth: 10,
               offsetTop: 30
-            });
+            };
             instance.positionMessage();
-            expect(instance.refs.validationMessage.style.left).toEqual('25px');
+            expect(instance.validationMessage.style.left).toEqual('25px');
             expect(removeSpy).toHaveBeenCalledWith('common-input__message--flipped');
           });
         });
@@ -365,7 +365,7 @@ describe('InputValidation', () => {
         describe('when offscreen', () => {
           it('sets the class to flipped', () => {
             instance.setState({ valid: false, errorMessage: 'foo' });
-            instance.refs.validationMessage = {
+            instance.validationMessage = {
               offsetWidth: 0,
               offsetHeight: 30,
               style: {
@@ -378,16 +378,16 @@ describe('InputValidation', () => {
                 };
               }
             };
-            spyOn(ReactDOM, 'findDOMNode').and.returnValue({
+            instance.validationIcon._target = {
               offsetLeft: 20,
               offsetWidth: 10,
               offsetTop: 30
-            });
+            };
             instance._window = {
               innerWidth: -1
             };
             instance.positionMessage();
-            expect(instance.refs.validationMessage.className).toContain('common-input__message--flipped');
+            expect(instance.validationMessage.className).toContain('common-input__message--flipped');
           });
         });
       });
@@ -1087,7 +1087,7 @@ describe('InputValidation', () => {
               <LabelComponent labelWidth={ 20 } align='right' validations={ [validationThree] } value='foo'/>
             );
             instanceLabel.validate();
-            let icon = instanceLabel.refs.validationIcon
+            let icon = instanceLabel.validationIcon
             expect(icon.props.style.right).toEqual('80%');
           });
         });
@@ -1098,7 +1098,7 @@ describe('InputValidation', () => {
               <LabelComponent labelWidth={ 20 } align='left' validations={ [validationThree] } value='foo'/>
             );
             instanceLabel.validate();
-            let icon = instanceLabel.refs.validationIcon
+            let icon = instanceLabel.validationIcon
             expect(icon.props.style.left).toEqual('80%');
           });
         });
@@ -1107,7 +1107,7 @@ describe('InputValidation', () => {
       describe('when the message is locked', () => {
         it('adds a locked class', () => {
           instance.setState({ messageLocked: true });
-          expect(instance.refs.validationMessage.classList).toContain('common-input__message--locked');
+          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
         });
       });
 
@@ -1115,7 +1115,7 @@ describe('InputValidation', () => {
         it('does not have flipped class', () => {
           instance.flipped = false;
           instance.setState({ messageLocked: true });
-          expect(instance.refs.validationMessage.classList).not.toContain('common-input__message--flipped');
+          expect(instance.validationMessage.classList).not.toContain('common-input__message--flipped');
         });
       });
 
@@ -1123,7 +1123,7 @@ describe('InputValidation', () => {
         it('does have flipped class', () => {
           instance.flipped = true;
           instance.setState({ messageLocked: true });
-          expect(instance.refs.validationMessage.classList).toContain('common-input__message--flipped');
+          expect(instance.validationMessage.classList).toContain('common-input__message--flipped');
         });
       });
     });
@@ -1153,7 +1153,7 @@ describe('InputValidation', () => {
       describe('when the message is locked', () => {
         it('adds a locked class', () => {
           instance.setState({ messageLocked: true });
-          expect(instance.refs.validationMessage.classList).toContain('common-input__message--locked');
+          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
         });
       });
     });

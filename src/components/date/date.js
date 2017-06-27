@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// https://github.com/zippyui/react-date-picker
+import { MonthView, NavBar } from 'react-date-picker';
+import I18n from 'i18n-js';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
-// https://github.com/zippyui/react-date-picker
-import { MonthView, NavBar } from 'react-date-picker';
-import I18n from "i18n-js";
 import Events from './../../utils/helpers/events';
 import DateHelper from './../../utils/helpers/date';
 import DateValidator from './../../utils/validations/date';
 import chainFunctions from './../../utils/helpers/chain-functions';
 import { validProps } from './../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * Stores a reference to the current date in the given format,
@@ -21,7 +21,7 @@ import { tagComponent } from '../../utils/helpers/tags';
  * @property _today
  * @type {string}
  */
-const today = DateHelper.todayFormatted("YYYY-MM-DD");
+const today = DateHelper.todayFormatted('YYYY-MM-DD');
 /**
  * A Date widget.
  *
@@ -54,6 +54,22 @@ class Date extends React.Component {
   // Required for validProps function
   static propTypes = {
     /**
+     * Automatically focus on component mount
+     *
+     * @property autoFocus
+     * @type {Boolean}
+    */
+    autoFocus: PropTypes.bool,
+
+    /**
+     * Disable all user interaction.
+     *
+     * @property disabled
+     * @type {boolean}
+     */
+    disabled: PropTypes.bool,
+
+    /**
      * Minimum possible date
      *
      * @property minDate
@@ -67,7 +83,31 @@ class Date extends React.Component {
      * @property maxDate
      * @type {String}
      */
-    maxDate: PropTypes.string
+    maxDate: PropTypes.string,
+
+    /**
+     * Specify a callback triggered on blur
+     *
+     * @property onBlur
+     * @type {Function}
+     */
+    onBlur: PropTypes.func,
+
+    /**
+     * Display the currently selected value without displaying the input
+     *
+     * @property readOnly
+     * @type {Boolean}
+     */
+    readOnly: PropTypes.bool,
+
+    /**
+     * The current date
+     *
+     * @property value
+     * @type {String}
+     */
+    value: PropTypes.string
   };
 
   static defaultProps = {
@@ -87,7 +127,7 @@ class Date extends React.Component {
     * @type {Array}
     * @default DateValidator
     */
-    internalValidations: [ new DateValidator ]
+    internalValidations: [new DateValidator()]
   }
 
   state = {
@@ -140,8 +180,8 @@ class Date extends React.Component {
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
-    if (this._document.activeElement != this._input) {
-      let date = this.formatVisibleValue(nextProps.value);
+    if (this._document.activeElement !== this._input) {
+      const date = this.formatVisibleValue(nextProps.value);
       this.setState({ visibleValue: date });
     }
   }
@@ -179,7 +219,7 @@ class Date extends React.Component {
    * @return {void}
    */
   emitOnChangeCallback = (val) => {
-    let hiddenField = this.refs.hidden;
+    const hiddenField = this.hidden;
     hiddenField.value = val;
 
     this._handleOnChange({ target: hiddenField });
@@ -192,7 +232,7 @@ class Date extends React.Component {
    * @return {void}
    */
   openDatePicker = () => {
-    this._document.addEventListener("click", this.closeDatePicker);
+    this._document.addEventListener('click', this.closeDatePicker);
     this.setState({ open: true });
 
     if (DateHelper.isValidDate(this.props.value)) {
@@ -207,7 +247,7 @@ class Date extends React.Component {
    * @return {void}
    */
   closeDatePicker = () => {
-    this._document.removeEventListener("click", this.closeDatePicker);
+    this._document.removeEventListener('click', this.closeDatePicker);
     this.setState({
       open: false
     });
@@ -220,7 +260,7 @@ class Date extends React.Component {
    * @return {void}
    */
   updateVisibleValue = () => {
-    let date = this.formatVisibleValue(this.props.value);
+    const date = this.formatVisibleValue(this.props.value);
     this.setState({
       visibleValue: date
     });
@@ -234,13 +274,13 @@ class Date extends React.Component {
    * @return {void}
    */
   handleVisibleInputChange = (ev) => {
-    let input = DateHelper.sanitizeDateInput(ev.target.value),
+    const input = DateHelper.sanitizeDateInput(ev.target.value),
         validDate = DateHelper.isValidDate(input),
         newState = { visibleValue: ev.target.value };
 
     // Updates the hidden value after first formatting to default hidden format
     if (validDate) {
-      let hiddenValue = DateHelper.formatValue(input, this.hiddenFormat());
+      const hiddenValue = DateHelper.formatValue(input, this.hiddenFormat());
       newState.datePickerValue = hiddenValue;
       this.emitOnChangeCallback(hiddenValue);
     } else {
@@ -303,7 +343,6 @@ class Date extends React.Component {
   }
 
 
-
   /**
    * Updates datePickerValue as hidden input changes.
    *
@@ -336,12 +375,14 @@ class Date extends React.Component {
    * @return {Object} props for the visible input
    */
   get inputProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
     props.className = this.inputClasses;
     props.onChange = this.handleVisibleInputChange;
     props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
     props.onKeyDown = this.handleKeyDown;
+    props.disabled = this.props.disabled;
+    props.readOnly = this.props.readOnly;
 
     delete props.autoFocus;
     delete props.internalValidations;
@@ -360,7 +401,7 @@ class Date extends React.Component {
    * @return {Object} props for the hidden input
    */
   get hiddenInputProps() {
-    let props = {
+    const props = {
       ref: 'hidden',
       type: 'hidden',
       readOnly: true,
@@ -399,12 +440,11 @@ class Date extends React.Component {
    */
   get additionalInputContent() {
     if (!this.state.valid) {
-      return this.inputIconHTML("error");
+      return this.inputIconHTML('error');
     } else if (this.state.warning) {
-      return this.inputIconHTML("warning");
-    } else {
-      return this.inputIconHTML("calendar");
+      return this.inputIconHTML('warning');
     }
+    return this.inputIconHTML('calendar');
   }
 
  /**
@@ -464,14 +504,14 @@ class Date extends React.Component {
    */
   render() {
     // TODO: Pull datepicker into own component to wrap third party
-    let datePicker = this.state.open ? this.renderDatePicker() : null;
+    const datePicker = this.state.open ? this.renderDatePicker() : null;
 
     return (
       <div className={ this.mainClasses } onClick={ this.handleWidgetClick } { ...tagComponent('date', this.props) }>
 
         { this.labelHTML }
         { this.inputHTML }
-        <input { ...this.hiddenInputProps } />
+        <input { ...this.hiddenInputProps } ref={ (node) => { this.hidden = node; } } />
         { datePicker }
 
         { this.fieldHelpHTML }
@@ -487,7 +527,7 @@ class Date extends React.Component {
   * @return {String} formatted date string
   */
   visibleFormat() {
-    return I18n.t('date.formats.javascript', { defaultValue: "DD/MM/YYYY" }).toUpperCase();
+    return I18n.t('date.formats.javascript', { defaultValue: 'DD/MM/YYYY' }).toUpperCase();
   }
 
   /**
@@ -497,7 +537,7 @@ class Date extends React.Component {
    * @return {String} formatted date string
    */
   hiddenFormat() {
-    return "YYYY-MM-DD";
+    return 'YYYY-MM-DD';
   }
 
   /**
@@ -508,9 +548,12 @@ class Date extends React.Component {
    * @return {String} formatted visible value
    */
   formatVisibleValue(value) {
-    value = value || today;
     // Don't sanitize so it accepts the hidden format (with dash separators)
-    return DateHelper.formatValue(value, this.visibleFormat(), { formats: this.hiddenFormat(), sanitize: false });
+    return DateHelper.formatValue(
+      value || today,
+      this.visibleFormat(),
+      { formats: this.hiddenFormat(), sanitize: false }
+    );
   }
 }
 ))));

@@ -189,7 +189,7 @@ describe('Dropdown', () => {
   describe('handleMouseEnterList', () => {
     it('sets blockBlur to true', () => {
       instance.blockBlur = false;
-      TestUtils.Simulate.mouseEnter(instance.refs.listBlock);
+      TestUtils.Simulate.mouseEnter(instance.listBlock);
       expect(instance.blockBlur).toBeTruthy;
     });
   });
@@ -197,7 +197,7 @@ describe('Dropdown', () => {
   describe('handleMouseLeaveList', () => {
     it('sets blockBlur to true', () => {
       instance.blockBlur = true;
-      TestUtils.Simulate.mouseLeave(instance.refs.listBlock);
+      TestUtils.Simulate.mouseLeave(instance.listBlock);
       expect(instance.blockBlur).toBeFalsy;
     });
   });
@@ -214,8 +214,8 @@ describe('Dropdown', () => {
 
     describe('if target is the list', () => {
       it('calls focus on the input after a timeout', () => {
-        TestUtils.Simulate.mouseDown(instance.refs.listBlock, {
-          target: instance.refs.list
+        TestUtils.Simulate.mouseDown(instance.listBlock, {
+          target: instance.list
         });
         jasmine.clock().tick();
         expect(instance._input.focus).toHaveBeenCalled();
@@ -224,7 +224,7 @@ describe('Dropdown', () => {
 
     describe('if target is not the list', () => {
       it('does not call focus on the input', () => {
-        TestUtils.Simulate.mouseDown(instance.refs.listBlock, {
+        TestUtils.Simulate.mouseDown(instance.listBlock, {
           target: 'foo'
         });
         jasmine.clock().tick();
@@ -576,6 +576,27 @@ describe('Dropdown', () => {
           });
         });
       });
+
+      describe('unknown key', () => {
+        let spy, opts;
+
+        beforeEach(() => {
+          spy = jasmine.createSpy();
+          opts = { which: 0, preventDefault: spy };
+        });
+
+        it('does not prevent default', () => {
+          TestUtils.Simulate.keyDown(instance._input, opts);
+          expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('sets highlighted to null', () => {
+          instance.setState({ highlighted: 2 });
+          spyOn(instance, 'setState');
+          TestUtils.Simulate.keyDown(instance._input, opts);
+          expect(instance.setState).toHaveBeenCalledWith({ highlighted: null });
+        });
+      });
     });
   });
 
@@ -593,7 +614,7 @@ describe('Dropdown', () => {
 
     describe('if the list was closed', () => {
       it('returns the value of the last item in the list', () => {
-        list = instance.refs.list;
+        list = instance.list;
         let nextValue = instance.onUpArrow(list, null);
         expect(nextValue).toEqual(list.lastChild.getAttribute('value'));
       });
@@ -602,7 +623,7 @@ describe('Dropdown', () => {
     describe('if the element is the first in the list', () => {
       it('it calls updateScroll with the list and the last list element', () => {
         instance.setState({ highlighted: 1 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onUpArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, list.lastChild);
@@ -610,7 +631,7 @@ describe('Dropdown', () => {
 
       it('returns the next highlighted value', () => {
         instance.setState({ highlighted: 1 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         let nextValue = instance.onUpArrow(list, element);
         expect(nextValue).toEqual(list.lastChild.getAttribute('value'));
@@ -620,7 +641,7 @@ describe('Dropdown', () => {
     describe('if there is a next sibling', () => {
       it('it calls updateScroll with the list and the last list element', () => {
         instance.setState({ highlighted: 2 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onUpArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, element.previousElementSibling);
@@ -628,7 +649,7 @@ describe('Dropdown', () => {
 
       it('returns the next highlighted value', () => {
         instance.setState({ highlighted: 2 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         let nextValue = instance.onUpArrow(list, element);
         expect(nextValue).toEqual(element.previousElementSibling.getAttribute('value'));
@@ -650,7 +671,7 @@ describe('Dropdown', () => {
 
     describe('if the list was closed', () => {
       it('returns the value of the last item in the list', () => {
-        list = instance.refs.list;
+        list = instance.list;
         let nextValue = instance.onDownArrow(list, null);
         expect(nextValue).toEqual(list.firstChild.getAttribute('value'));
       });
@@ -659,7 +680,7 @@ describe('Dropdown', () => {
     describe('if the element is the last in the list', () => {
       it('it calls updateScroll with the list and the previous sibling', () => {
         instance.setState({ highlighted: 2 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onDownArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, list.firstChild);
@@ -669,7 +690,7 @@ describe('Dropdown', () => {
     describe('if there is a next sibling', () => {
       it('it calls updateScroll with the list and next element', () => {
         instance.setState({ highlighted: 1 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onDownArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, element.nextElementSibling);

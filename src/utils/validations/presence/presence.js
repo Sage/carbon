@@ -1,5 +1,5 @@
-import ValidationsHelper from './../../helpers/validations';
 import { forEach, isEmpty } from 'lodash';
+import ValidationsHelper from './../../helpers/validations';
 
 /**
  * This will validate an input for presence.
@@ -76,21 +76,24 @@ class PresenceValidator {
    * @return {Boolean} true if value is valid
    */
   validate = (value, props) => {
-    let valid, result = this.requireAll;
+    let valid,
+        result = this.requireAll,
+        val = value;
 
     if (!this.props) {
       return isValid(value);
-    } else {
-      forEach(this.props, (name) => {
-        value = props[name];
-        valid = isValid(value);
-        result = this.requireAll ? (result && valid) : (result || valid);
-        if (result !== this.requireAll) {
-          return false;
-        }
-      });
-      return result;
     }
+
+    forEach(this.props, (name) => {
+      val = props[name];
+      valid = isValid(val);
+      result = this.requireAll ? (result && valid) : (result || valid);
+      if (result !== this.requireAll) {
+        return false;
+      }
+      return true;
+    });
+    return result;
   }
 
   /**
@@ -102,7 +105,6 @@ class PresenceValidator {
   message = () => {
     return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.blank');
   }
-
 }
 
 function isValid(value) {
