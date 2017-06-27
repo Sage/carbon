@@ -161,7 +161,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
      * @property
      * @type {Array}
      */
-    info: PropTypes.array,
+    info: PropTypes.array
   });
 
   /**
@@ -292,7 +292,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
 
     // iterate through each validation applied to the input
     for (let i = 0; i < this.props.info.length; i++) {
-      let info = this.props.info[i];
+      const info = this.props.info[i];
 
       // run this validation
       valid = info.validate(value, this.props, this.updateInfo);

@@ -1184,7 +1184,7 @@ describe('InputValidation', () => {
       describe('when the message is locked', () => {
         it('adds a locked class', () => {
           instance.setState({ messageLocked: true });
-          expect(instance.refs.validationMessage.classList).toContain('common-input__message--locked');
+          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
         });
       });
     });
