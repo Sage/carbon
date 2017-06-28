@@ -1,8 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
+
+import Browser from '../../utils/helpers/browser';
 import Icon from './../icon';
 import Modal from './../modal';
 import Heading from './../heading';
+
+const dialogOpenAttribute = 'fullscreendialogopen';
 
 /**
  * A DialogFullScreen widget.
@@ -25,6 +29,12 @@ import Heading from './../heading';
  * @constructor
  */
 class DialogFullScreen extends Modal {
+
+  constructor(props) {
+    super(props);
+    this.document = Browser.getDocument();
+  }
+
   static defaultProps = {
     open: false,
     enableBackgroundUI: true
@@ -37,8 +47,7 @@ class DialogFullScreen extends Modal {
    */
   get dialogClasses() {
     return classNames(
-      'carbon-dialog-full-screen__dialog',
-      { 'carbon-dialog-full-screen__dialog--open': this.props.open }
+      'carbon-dialog-full-screen__dialog'
     );
   }
 
@@ -53,6 +62,14 @@ class DialogFullScreen extends Modal {
       this.props.className,
       'carbon-dialog-full-screen'
     );
+  }
+
+  onOpening() {
+    this.document.documentElement.dataset[dialogOpenAttribute] = true;
+  }
+
+  onClosing() {
+    delete this.document.documentElement.dataset[dialogOpenAttribute];
   }
 
   componentTags(props) {
