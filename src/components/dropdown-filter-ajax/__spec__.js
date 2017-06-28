@@ -5,6 +5,10 @@ import Immutable from 'immutable';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import { mount, shallow } from 'enzyme';
+import Request from 'superagent';
+
+/* global jest */
+jest.mock('superagent');
 
 describe('DropdownFilterAjax', () => {
   let instance;
@@ -207,38 +211,53 @@ describe('DropdownFilterAjax', () => {
 
   describe('getData', () => {
     beforeEach(() => {
-      jasmine.Ajax.install();
-    });
-
-    afterEach(() => {
-      jasmine.Ajax.uninstall();
+      Request.__setMockResponse({
+        status() {
+          return 200;
+        },
+        ok() {
+          return true;
+        },
+        body: {
+          data: ['foo']
+        }
+      });
     });
 
     describe('if data is not explicitly passed', () => {
       it('calls the correct query', () => {
+        Request.query = jest.fn().mockReturnThis();
+        instance.ajaxUpdateList = jest.fn();
+
         instance.getData();
-        let request = jasmine.Ajax.requests.mostRecent();
-        expect(request.url).toEqual("/foobar?page=1&rows=25&value=");
+
+        expect(instance.ajaxUpdateList).toBeCalled();
+        expect(Request.query).toBeCalledWith({
+          page: 1,
+          rows: 25,
+          value: ''
+        });
       });
     });
 
     describe('if data not explicitly passed', () => {
       it('calls the correct query', () => {
+        Request.query = jest.fn().mockReturnThis();
+        instance.ajaxUpdateList = jest.fn();
+
         instance.getData("foo", 1);
-        let request = jasmine.Ajax.requests.mostRecent();
-        expect(request.url).toEqual("/foobar?page=1&rows=25&value=foo");
+
+        expect(Request.query).toBeCalledWith({
+          page: 1,
+          rows: 25,
+          value: 'foo'
+        });
       });
 
       it('calls updateList on success', () => {
-        spyOn(instance, 'updateList');
+        instance.updateList = jest.fn();
         instance.getData("foo", 1);
-        let request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          "status": 200,
-          "contentType": 'application/json',
-          "responseText": "{\"data\": [\"foo\"]}"
-        });
-        expect(instance.updateList).toHaveBeenCalledWith('foo');
+        expect(instance.updateList).toBeCalledWith('foo');
       });
     });
 
@@ -256,9 +275,20 @@ describe('DropdownFilterAjax', () => {
       });
 
       it('calls the correct query', () => {
+        Request.query = jest.fn().mockReturnThis();
+        instance.ajaxUpdateList = jest.fn();
+
         instance.getData("foo", 1);
-        let request = jasmine.Ajax.requests.mostRecent();
-        expect(request.url).toEqual("/foobar?page=1&rows=25&value=foo&foo=bar");
+
+        expect(Request.query.mock.calls.length).toBe(2);
+        expect(Request.query).toBeCalledWith({
+          page: 1,
+          rows: 25,
+          value: 'foo'
+        });
+        expect(Request.query).lastCalledWith({
+          foo: 'bar'
+        });
       });
     });
   });
@@ -398,28 +428,23 @@ describe('DropdownFilterAjax', () => {
         wrapper;
 
     beforeEach(() => {
-      responseData = {
-        body: {
-          data: [ {
-            "records": 1,
-            "items": [ 1 ],
-            "page": 1
-          } ]
-        }
-      };
-      jasmine.Ajax.install();
       wrapper = mount(<DropdownFilterAjax name="foo" value="1" path="/foobar" visibleValue="bar" />);
       wrapper.find('.carbon-dropdown__input').simulate('focus');
-      let request = jasmine.Ajax.requests.mostRecent();
-      request.respondWith({
-        "status": 200,
-        "contentType": 'application/json',
-        "responseText": JSON.stringify(responseData.body)
+      Request.__setMockResponse({
+        status() {
+          return 200;
+        },
+        ok() {
+          return true;
+        },
+        body: {
+          data: [{
+            records: 1,
+            items: [ 1 ],
+            page: 1
+          }]
+        }
       });
-    });
-
-    afterEach(() => {
-      jasmine.Ajax.uninstall();
     });
 
     it("is set to 'idle' on load", () => {
