@@ -9,7 +9,7 @@ import Form from './../form';
 import Link from './../link';
 import Events from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 class ShowEditPod extends React.Component {
   static propTypes = {

@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import Date from './../date';
 import DateRangeValidator from './../../utils/validations/date-range';
 import DateHelper from './../../utils/helpers/date';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 class DateRange extends React.Component {
   static propTypes = {
@@ -212,7 +212,6 @@ class DateRange extends React.Component {
       label: this.props[`${propsKey}Label`],
       labelInline: this.props.labelsInline,
       onChange: this._onChange.bind(null, `${propsKey}Date`),
-      onFocus: this.focusEnd,
       ref: (c) => { this[`_${propsKey}Date`] = c; },
       value: this[`${propsKey}Date`]
     }, this.props[`${propsKey}DateProps`]);
@@ -232,8 +231,8 @@ class DateRange extends React.Component {
   render () {
     return (
       <div { ...tagComponent('date-range', this.props) }>
-        <Date { ...this.startDateProps() } data-element='start-date' />
-        <Date { ...this.endDateProps() } data-element='end-date' />
+        <Date { ...this.startDateProps() } onFocus={ this.focusStart } data-element='start-date' />
+        <Date { ...this.endDateProps() } onFocus={ this.focusEnd } data-element='end-date' />
       </div>
     );
   }

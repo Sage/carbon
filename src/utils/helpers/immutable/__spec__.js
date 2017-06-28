@@ -1,5 +1,5 @@
-import ImmutableHelper from './immutable';
 import Immutable from 'immutable';
+import ImmutableHelper from './immutable';
 
 describe('Immutable Helper', () => {
   describe('parseJSON', () => {
@@ -19,7 +19,7 @@ describe('Immutable Helper', () => {
       let data, expectedData, result;
 
       beforeEach(() => {
-        data = [ 'a', 'b', 'c' ];
+        data = ['a', 'b', 'c'];
         expectedData = Immutable.Seq(data).toList();
         result = ImmutableHelper.parseJSON(data);
       });
@@ -36,7 +36,7 @@ describe('Immutable Helper', () => {
       let data, result;
 
       it('returns a immutable object of that array', () => {
-        data = [ { foo: 'a' }, { bar: 'b' }, { baz: 'c' } ];
+        data = [{ foo: 'a' }, { bar: 'b' }, { baz: 'c' }];
         result = ImmutableHelper.parseJSON(data);
 
         expect(result.get(0).get('foo')).toEqual('a');
@@ -54,7 +54,7 @@ describe('Immutable Helper', () => {
       });
 
       it('returns a ordered immutable map', () => {
-        let result = ImmutableHelper.parseJSON(data);
+        const result = ImmutableHelper.parseJSON(data);
         expect(result).toEqual(expectedData);
         expect(result.get('foo')).toEqual('bar');
         expect(result.get('baz')).toEqual('qux');
@@ -67,14 +67,14 @@ describe('Immutable Helper', () => {
       beforeEach(() => {
         data = [{ foo: 'bar', baz: 'qux' }, { a: ['a', 'b', 'c'], b: 'b' }];
 
-        let obj1 = Immutable.Seq({ foo: 'bar', baz: 'qux' }).toMap();
-        let array1 = Immutable.Seq(['a','b','c']).toList();
-        let obj2 = Immutable.Seq({a: array1, b: 'b'}).toMap();
+        const obj1 = Immutable.Seq({ foo: 'bar', baz: 'qux' }).toMap();
+        const array1 = Immutable.Seq(['a', 'b', 'c']).toList();
+        const obj2 = Immutable.Seq({ a: array1, b: 'b' }).toMap();
         expectedData = Immutable.Seq([obj1, obj2]).toList();
       });
 
       it('creates a immutable object in the same format', () => {
-        let result = ImmutableHelper.parseJSON(data);
+        const result = ImmutableHelper.parseJSON(data);
         expect(result.toJS()).toEqual(expectedData.toJS());
       });
     });
@@ -87,14 +87,14 @@ describe('Immutable Helper', () => {
 
       describe('as a nested element', () => {
         it('casts all numbers to a string', () => {
-          let data = [{ foo: 'bar', baz: 'qux' }, { a: [1, 2, 'c'], b: 2 }];
+          const data = [{ foo: 'bar', baz: 'qux' }, { a: [1, 2, 'c'], b: 2 }];
 
-          let obj1 = Immutable.Seq({ foo: 'bar', baz: 'qux' }).toMap();
-          let array1 = Immutable.Seq(['1','2','c']).toList();
-          let obj2 = Immutable.Seq({a: array1, b: '2'}).toMap();
-          let expectedData = Immutable.Seq([obj1, obj2]).toList();
+          const obj1 = Immutable.Seq({ foo: 'bar', baz: 'qux' }).toMap();
+          const array1 = Immutable.Seq(['1', '2', 'c']).toList();
+          const obj2 = Immutable.Seq({ a: array1, b: '2' }).toMap();
+          const expectedData = Immutable.Seq([obj1, obj2]).toList();
 
-          let result = ImmutableHelper.parseJSON(data);
+          const result = ImmutableHelper.parseJSON(data);
           expect(result.toJS()).toEqual(expectedData.toJS());
         });
       });

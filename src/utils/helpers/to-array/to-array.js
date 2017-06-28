@@ -14,8 +14,8 @@
  * @return {Array}
  */
 export default function(str) {
-  let result = [],
-      index = str.indexOf("[");
+  let result = [];
+  const index = str.indexOf('[');
 
   if (index === -1) {
     // if there are no square brackets
@@ -24,12 +24,12 @@ export default function(str) {
     if (index > 0) {
       // if the square bracket is not the first character, add the name at the
       // start of the string (not in brackets)
-      let name = str.slice(0, index);
+      const name = str.slice(0, index);
       result.push(name);
     }
 
     // pull out the names in brackets and add to the array
-    let nestedNames = str.match(/[^[\]]+(?=])/g);
+    const nestedNames = str.match(/[^[\]]+(?=])/g);
 
     result = result.concat(nestedNames);
   }

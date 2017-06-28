@@ -5,10 +5,13 @@ import classNames from 'classnames';
 import Immutable from 'immutable';
 import I18n from 'i18n-js';
 import ActionToolbar from './../action-toolbar';
+import Icon from './../icon';
+import Link from './../link';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import TableSubheader from './table-subheader';
+import DraggableTableCell from './draggable-table-cell';
 import Pager from './../pager';
 import Spinner from './../spinner';
 
@@ -120,6 +123,14 @@ class Table extends React.Component {
      * @type {Function}
      */
     onChange: PropTypes.func,
+
+    /**
+     * Enable configure icon that triggers this callback on click
+     *
+     * @property onConfigure
+     * @type {Function}
+     */
+    onConfigure: PropTypes.func,
 
     /**
      * Show the pagination footer
@@ -865,7 +876,10 @@ class Table extends React.Component {
     return classNames(
       'carbon-table__wrapper',
       this.props.className,
-      { 'carbon-table--pager': this.props.paginate }
+      {
+        'carbon-table--pager': this.props.paginate,
+        'carbon-table--configurable': this.props.onConfigure
+      }
     );
   }
 
@@ -907,6 +921,18 @@ class Table extends React.Component {
 
     return (
       <ActionToolbar total={ this.state.selectedCount } actions={ this.props.actions } />
+    );
+  }
+
+  configureLink = (onConfigure) => {
+    if (!onConfigure) { return null; }
+
+    return (
+      <div className='carbon-table__configure-link'>
+        <Link href='#' onClick={ onConfigure }>
+          <Icon type='settings' />
+        </Link>
+      </div>
     );
   }
 
@@ -1021,7 +1047,7 @@ class Table extends React.Component {
    */
   get caption() {
     if (this.props.caption) {
-      return <caption className="carbon-table__caption">{ this.props.caption }</caption>;
+      return <caption className='carbon-table__caption'>{ this.props.caption }</caption>;
     }
 
     return null;
@@ -1037,6 +1063,7 @@ class Table extends React.Component {
       <div className={ this.mainClasses } { ...this.componentTags(this.props) }>
         { this.actionToolbar }
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
+          { this.configureLink(this.props.onConfigure) }
           <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
             { this.caption }
             { this.thead }
@@ -1054,5 +1081,6 @@ export {
   TableRow,
   TableCell,
   TableHeader,
-  TableSubheader
+  TableSubheader,
+  DraggableTableCell
 };

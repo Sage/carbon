@@ -6,8 +6,8 @@ The Carbon library provides a [selection of validations](https://github.com/Sage
 
 ```js
 import React from 'react';
-import Textbox from 'carbon/lib/components/textbox';
-import Presence from 'carbon/lib/utils/validations/presence';
+import Textbox from 'carbon-react/lib/components/textbox';
+import Presence from 'carbon-react/lib/utils/validations/presence';
 
 class MyComponent extends React.Component {
   render() {
@@ -32,9 +32,9 @@ Usually, your inputs will sit inside a form component. The Carbon form component
 
 ```js
 import React from 'react';
-import Form from 'carbon/lib/components/form';
-import Textbox from 'carbon/lib/components/textbox';
-import Presence from 'carbon/lib/utils/validations/presence';
+import Form from 'carbon-react/lib/components/form';
+import Textbox from 'carbon-react/lib/components/textbox';
+import Presence from 'carbon-react/lib/utils/validations/presence';
 
 class MyComponent extends React.Component {
   render() {

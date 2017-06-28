@@ -7,11 +7,13 @@
   border-radius: $tables__border-radius;
   border: 1px solid $border-color;
   overflow: visible;
+  position: relative;
 }
 
 .carbon-table__table {
   background-color: $white;
   border-collapse: separate;
+  border-radius: $tables__border-radius;
   border-spacing: 0;
   min-width: 100%;
   table-layout: fixed;
@@ -28,11 +30,15 @@
 }
 
 .carbon-table__caption {
-  // Discussed with KM and for now captions can be hidden from view so they
-  // don't impact the design, but still available to screen readers, etc.
   @include visually-hidden();
   position: absolute;
   top: -99999px;
+}
+
+.carbon-table--configurable {
+  &.carbon-table__wrapper, .carbon-table__table {
+    border-radius: 0 $tables__border-radius $tables__border-radius $tables__border-radius;
+  }
 }
 
 .carbon-table--pager {
@@ -47,4 +53,35 @@
 .table-loading-appear.table-loading-appear-active {
   opacity: 1;
   transition: opacity 200ms 50ms ease-in;
+}
+
+.carbon-table__configure-link {
+  @include calc(height, "#{$tables__header-height} - 1px");
+  left: -25px;
+  position: absolute;
+  top: -1px;
+  width: 25px;
+
+  .carbon-link__anchor {
+    align-items: center;
+    background-color: $grey-dark-blue-80;
+    border: 1px solid $border-color;
+    border-right: none;
+    border-radius: 25px 0 0 25px;
+    color: $white;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+
+    &:hover {
+      background-color: $grey-dark-blue-90;
+      color: $white;
+    }
+
+    :first-child {
+      height: 19px;
+      margin-right: -4px;
+      z-index: 3;
+    }
+  }
 }
