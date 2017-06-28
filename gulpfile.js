@@ -50,5 +50,5 @@ gulp.task('deploy', ['prepare-demo', 'build', 'run-deploy']);
 
 gulp.task('test', SpecTask({
   path: '/src/***/**/!(__spec__|definition).js',
-  eslintThreshold: 99
+  eslintThreshold: 55
 }));
