@@ -135,8 +135,8 @@
     top: 0;
 
     .carbon-carousel__content {
-      overflow: scroll;
-      position: initial;
+      overflow-y: auto;
+      position: static;
       height: 100%;
     }
 
