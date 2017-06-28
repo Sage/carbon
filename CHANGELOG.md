@@ -46,6 +46,7 @@ The following have had minor internal changes to satisfy the introduction of str
 * Portrait
 * Profile
 * RadioButton
+* Rainbow :warning: The ref for the highchart instance is now `_chart`. This will need updating where Rainbow is used.
 * Row
 * SettingsRow
 * ShowEditPod
@@ -138,7 +139,6 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * GUID
 * i18n
 
-
 ## Component Improvements
 
 * `Alert` now alerts itself to screen readers.
@@ -148,8 +148,14 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * `InlineInputs` children are now wrapped by Columns by the component.
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `MenuItem`: focus outline is now fully visible when an item is focused.
+* `Table` can now receive an `caption` prop which renders a `<caption>` element as a child of the table element. Note that the caption is hidden by default, but still accessible to screen readers and assistive technologies.
 * `Table` has a new prop of onConfigure. Displays a configure icon to the left of the table header that triggers the callback onClick.
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
+* `InputValidation`: now accepts a `info` prop to display info-styled icon and message attached to an input.
+
+## Bug Fixes
+
+* `DialogFullScreen` now scrolls vertically if it contains content taller than the dialog height.
 
 ## Deployment Changes
 
@@ -157,6 +163,14 @@ You can now pass `--cdn` to the gulp task to bundle assets pointing towards the 
 
 ## Other
 Minor changes to guides to reference `carbon-react` in imports.
+
+# 1.1.4
+
+* Update I18nhelper to respect the locale for the delimiter and separator.
+
+# 1.1.3
+
+* Fix bug with Date Range date pickers not closing correctly
 
 # 1.1.2
 
