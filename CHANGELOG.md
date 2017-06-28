@@ -46,7 +46,7 @@ The following have had minor internal changes to satisfy the introduction of str
 * Portrait
 * Profile
 * RadioButton
-* Rainbow
+* Rainbow :warning: The ref for the highchart instance is now `_chart`. This will need updating where Rainbow is used.
 * Row
 * SettingsRow
 * ShowEditPod
