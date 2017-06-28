@@ -69,6 +69,17 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
     this.state.warning = false;
 
     /**
+     * The inputs info state.
+     * true: has info
+     * false: has no info
+     *
+     * @property info
+     * @type {Boolean}
+     * @default false
+     */
+    this.state.info = false;
+
+    /**
      * The inputs error message.
      *
      * @property errorMessage
@@ -85,6 +96,15 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
      * @default null
      */
     this.state.warningMessage = null;
+
+    /**
+     * The inputs info message.
+     *
+     * @property infoMessage
+     * @type {String}
+     * @default null
+     */
+    this.state.infoMessage = null;
 
     /**
      * Determines if the message should always be visible.
@@ -133,7 +153,15 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
      * @property
      * @type {Array}
      */
-    warnings: PropTypes.array
+    warnings: PropTypes.array,
+
+    /**
+     * Array of info to apply to this input
+     *
+     * @property
+     * @type {Array}
+     */
+    info: PropTypes.array
   });
 
   /**
@@ -156,13 +184,18 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
       if (this.messageExists() && (nextProps.value !== this.props.value)) {
         let contentChanged = false;
 
+        if (!this.state.valid && this.validate(nextProps.value)) {
+          this.setState({ valid: true });
+          contentChanged = true;
+        }
+
         if (this.state.warning && !this.warning(nextProps.value)) {
           this.setState({ warning: false });
           contentChanged = true;
         }
 
-        if (!this.state.valid && this.validate(nextProps.value)) {
-          this.setState({ valid: true });
+        if (this.state.info && !this.info(nextProps.value)) {
+          this.setState({ info: false });
           contentChanged = true;
         }
 
@@ -183,7 +216,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
     // call the components super method if it exists
     if (super.componentWillMount) { super.componentWillMount(); }
 
-    if (this.context.form && (this._validations() || this.props.warnings)) {
+    if (this.context.form && (this._validations() || this.props.warnings || this.props.info)) {
       // attach the input to the form so the form can track what it needs to validate on submit
       this.context.form.attachToForm(this);
     }
@@ -199,7 +232,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
     // call the components super method if it exists
     if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
-    if ((this._validations() || this.props.warnings)) {
+    if (this._validations() || this.props.warnings || this.props.info) {
       this._handleContentChange();
       if (this.isAttachedToForm) {
         this.context.form.detachFromForm(this);
@@ -214,7 +247,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    * @return {Void}
    */
   positionMessage = () => {
-    if (!this.state.valid || this.state.warning) {
+    if (!this.state.valid || this.state.warning || this.state.info) {
       // calculate the position for the message relative to the icon
       const icon = this.validationIcon._target,
           message = this.validationMessage;
@@ -241,6 +274,45 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
           this.flipped = false;
         }
       }
+    }
+  }
+
+  /**
+   * Checks for validations and returns boolean defining if field valid.
+   *
+   * @method info
+   * @return {Boolean}
+   */
+  info = (value = this.props.value) => {
+    let valid = true;
+    // if there is no info or there is an error on the input, return true
+    if (!this.props.info || !this.state.valid) {
+      return true;
+    }
+
+    // iterate through each validation applied to the input
+    for (let i = 0; i < this.props.info.length; i++) {
+      const info = this.props.info[i];
+
+      // run this validation
+      valid = info.validate(value, this.props, this.updateInfo);
+      this.updateInfo(valid, value, info);
+      if (!valid) { break; }
+    }
+
+    // return the result of the validation
+    return valid;
+  }
+
+  /**
+   * Provides a callback method for info to support Ajax
+   *
+   * @method updateInfo
+   * @return {void}
+   */
+  updateInfo = (valid, value, info) => {
+    if (!valid && !this.state.info) {
+      this.setState({ infoMessage: info.message(value, this.props), info: true });
     }
   }
 
@@ -373,6 +445,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
       setTimeout(() => {
         this.validate();
         this.warning();
+        this.info();
 
         if (this.state.messageLocked) {
           this.setState({ messageLocked: false });
@@ -388,7 +461,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    * @return {void}
    */
   _handleFocus = () => {
-    if (!this.state.valid || this.state.warning) {
+    if (!this.state.valid || this.state.warning || this.state.info) {
       this.positionMessage();
 
       if (!this.state.messageLocked) {
@@ -405,7 +478,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    */
   _handleContentChange = () => {
     // if the field is in an invalid state
-    if (!this.state.valid || this.state.warning) {
+    if (!this.state.valid || this.state.warning || this.state.info) {
       // if there is a form, decrement the error count
       if (this.isAttachedToForm) {
         if (!this.state.valid) {
@@ -423,7 +496,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
       }
 
       // reset the error state
-      this.setState({ errorMessage: null, valid: true, warning: false });
+      this.setState({ errorMessage: null, valid: true, warning: false, info: false });
     }
   }
 
@@ -451,7 +524,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    * @return {Boolean} whether or not a message exists
    */
   messageExists = () => {
-    return !this.state.valid || this.state.warning;
+    return !this.state.valid || this.state.warning || this.state.info;
   }
 
   /**
@@ -517,9 +590,17 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    * @return {HTML} Validation HTML including icon & message
    */
   get validationHTML() {
-    if (this.state.valid && !this.state.warning) { return null; }
+    let type = '';
 
-    const type = !this.state.valid ? 'error' : 'warning';
+    if (this.state.valid && !this.state.warning && !this.state.info) { return null; }
+
+    if (!this.state.valid) {
+      type = 'error';
+    } else if (this.state.warning) {
+      type = 'warning';
+    } else {
+      type = 'info';
+    }
 
     let messageClasses = `common-input__message common-input__message--${type}`;
     const iconClasses = `common-input__icon common-input__icon--${type}`;
@@ -552,7 +633,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
           ref={ (validationMessage) => { this.validationMessage = validationMessage; } }
           className={ messageClasses }
         >
-          { this.state.errorMessage || this.state.warningMessage }
+          { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
         </div>
       </div>
     ];
@@ -569,6 +650,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
       super.mainClasses, {
         'common-input--error': !this.state.valid,
         'common-input--warning': this.state.warning,
+        'common-input--info': this.state.info,
         'common-input--message-hidden': this.state.immediatelyHideMessage,
         'common-input--message-shown': this.state.messageShown
       }
@@ -585,7 +667,8 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
     return classNames(
       super.inputClasses, {
         'common-input__input--error': !this.state.valid,
-        'common-input__input--warning': this.state.warning
+        'common-input__input--warning': this.state.warning,
+        'common-input__input--info': this.state.info
       }
     );
   }

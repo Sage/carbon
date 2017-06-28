@@ -7,7 +7,6 @@ import Link from './../link';
 import { shallow } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
-
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;
 
@@ -957,6 +956,21 @@ describe('Table', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
       expect(parent.className).toEqual('carbon-table foo');
+    });
+
+    it('renders a caption tag when a caption prop is given', () => {
+      const wrapper = shallow(
+        <Table caption="Acme widgets" />
+      );
+
+      const captionTag = wrapper.find('caption');
+      expect(captionTag.exists()).toBe(true);
+      expect(captionTag.text()).toEqual('Acme widgets');
+    });
+
+    it('does not render a caption tag when no caption prop is given', () => {
+      const wrapper = shallow(<Table />);
+      expect(wrapper.find('caption').exists()).toBe(false);
     });
 
     it('renders an action toolbar if actions are passed', () => {
