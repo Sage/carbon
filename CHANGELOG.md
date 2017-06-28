@@ -61,6 +61,16 @@ The following have had minor internal changes to satisfy the introduction of str
 * Toast
 * Tooltip
 
+#### helpers
+
+* Date
+* Devices
+* Events
+* GUID
+* i18n
+
+### utils
+
 The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
 
 * Browser
@@ -129,16 +139,6 @@ The `TableRow` component now supports drag and drop. To enable it you need to ad
 
 A new helper object is available in `utils/helpers/text`. Currently it only contains one method `clearSelection`, which clears any selected text on the page.
 
-### utils
-
-#### helpers
-
-* Date
-* Devices
-* Events
-* GUID
-* i18n
-
 ## Component Improvements
 
 * `Alert` now alerts itself to screen readers.
@@ -155,6 +155,10 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 ## Bug Fixes
 
 * `DialogFullScreen` now scrolls vertically if it contains content taller than the dialog height.
+
+## Dependency Switch
+
+* Facebook has deprecated `react-addons-transition-group` and `react-addons-css-transition-group` in favour of `react-transition-group/TransitionGroup` and `react-transition-group/CSSTransitionGroup` so we have switched to use the later.
 
 ## Deployment Changes
 
@@ -351,10 +355,6 @@ import { Row, Column } from 'carbon/lib/components/row';
 ## data-attributes on components
 
 We have added data-attributes to components to better identify them and their parts within the browser. We have added `data-component` tags on the top level of any component, and `data-element` tags to constituent parts. Developers can also add `data-role` tags to components to uniquely identify specific components within their UI.
-
-## Dependency Switch
-
-* Facebook has deprecated `react-addons-transition-group` and `react-addons-css-transition-group` in favour of `react-transition-group/TransitionGroup` and `react-transition-group/CSSTransitionGroup` so we have switched to use the later.
 
 ## Dependency Update
 
