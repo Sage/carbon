@@ -31,7 +31,12 @@ let definition = new Definition('table', Table, {
   dataVariable: 'tableData',
   propValues: {
     caption: 'Country and Country Codes',
+    highlightable: false,
     onChange: ComponentActions.updateTable,
+    paginate: false,
+    selectable: false,
+    shrink: false,
+    showPageSizeSelection: false
   }
 });
 

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 import { validProps } from '../../utils/ether';
 
 /**
@@ -34,7 +34,7 @@ class Checkbox extends React.Component {
      * @property checked
      * @type {Boolean}
      */
-    checked: PropTypes.boolean,
+    checked: PropTypes.bool,
 
     /**
      * Displays fieldHelp inline with the checkbox
@@ -59,7 +59,7 @@ class Checkbox extends React.Component {
      * @property value
      * @type {Boolean}
      */
-    value: PropTypes.boolean
+    value: PropTypes.bool
   }
 
   static defaultProps = {

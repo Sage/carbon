@@ -19,8 +19,14 @@ const I18nHelper = {
    */
   format: (locale) => {
     return {
-      delimiter: I18n.t('number.format.delimiter', { defaultValue: ',' }),
-      separator: I18n.t('number.format.separator', { defaultValue: '.' }),
+      delimiter: I18n.t('number.format.delimiter', {
+        locale,
+        defaultValue: ','
+      }),
+      separator: I18n.t('number.format.separator', {
+        locale,
+        defaultValue: '.'
+      }),
       unit: I18n.t('number.currency.format.unit', {
         locale,
         defaultValue: '£'

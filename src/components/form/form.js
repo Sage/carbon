@@ -1,12 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Serialize from 'form-serialize';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Serialize from 'form-serialize';
+
 import CancelButton from './cancel-button';
-import SaveButton from './save-button';
 import FormSummary from './form-summary';
+import SaveButton from './save-button';
+
 import { validProps } from '../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A Form widget.

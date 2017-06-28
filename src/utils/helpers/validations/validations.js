@@ -1,4 +1,4 @@
-import I18n from "i18n-js";
+import I18n from 'i18n-js';
 
 const ValidationsHelper = {
 
@@ -23,9 +23,9 @@ const ValidationsHelper = {
    * @return {String} function type to call
    */
   comparisonType: (params) => {
-    let is = typeof params.is !== "undefined",
-        max = typeof params.max !== "undefined",
-        min = typeof params.min !== "undefined";
+    const is = typeof params.is !== 'undefined',
+        max = typeof params.max !== 'undefined',
+        min = typeof params.min !== 'undefined';
 
     if (is && !max && !min) {
       return 'Exact';
@@ -35,9 +35,8 @@ const ValidationsHelper = {
       return 'Greater';
     } else if (!is && min && max) {
       return 'Range';
-    } else {
-      return null;
     }
+    return null;
   }
 };
 
