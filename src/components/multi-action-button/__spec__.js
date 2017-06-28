@@ -29,19 +29,19 @@ describe('MultiActionButton', () => {
     });
 
     it('adds all super classes', () => {
-      expect(mainDiv.classList).toMatch('carbon-split-button');
+      expect(mainDiv.classList).toContain('carbon-split-button');
     });
 
     it('adds multi action button classes', () => {
-      expect(mainDiv.classList).toMatch('carbon-multi-action-button');
+      expect(mainDiv.classList).toContain('carbon-multi-action-button');
     });
 
     describe('when additional buttons are open', () => {
       it('adds a open class', () => {
         instance.setState({ showAdditionalButtons: true });
         mainDiv = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(mainDiv.classList).toMatch('carbon-multi-action-button--open');
-        expect(mainDiv.classList).toMatch('carbon-split-button--open');
+        expect(mainDiv.classList).toContain('carbon-multi-action-button--open');
+        expect(mainDiv.classList).toContain('carbon-split-button--open');
       });
     });
   });
