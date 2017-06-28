@@ -271,7 +271,16 @@ class Table extends React.Component {
      * @property caption
      * @type string
      */
-    caption: React.PropTypes.string
+    caption: React.PropTypes.string,
+
+    /**
+     * Renders as light or dark
+     * Uses common theme definition of 'primary' (dark, default) and 'secondary' (light)
+     *
+     * @property theme
+     * @type string
+     */
+    theme: React.PropTypes.string
   }
 
   static childContextTypes = {
@@ -862,7 +871,8 @@ class Table extends React.Component {
   get mainClasses() {
     return classNames(
       'carbon-table',
-      this.props.className
+      this.props.className,
+      `carbon-table--${this.props.theme || 'primary'}`
     );
   }
 

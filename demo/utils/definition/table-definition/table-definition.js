@@ -1,4 +1,5 @@
 import ComponentActions from './../../../actions/component';
+import OptionsHelper from '../../../../src/utils/helpers/options-helper';
 import { assign } from 'lodash';
 
 export default (definition) => {
@@ -61,6 +62,7 @@ function buildRows() {
     sortedColumn: 'String',
     tbody: 'Node',
     thead: 'Node',
+    theme: 'String',
     totalRecords: 'String'
   });
   definition.propDescriptions = assign({}, definition.propDescriptions, {
@@ -86,6 +88,10 @@ function buildRows() {
     sortedColumn: 'The currently sorted column.',
     tbody: 'Instead of passing children, define your tbody as a prop.',
     thead: 'Instead of passing children, define your thead as a prop. Using this prop will put your header inside an HTML thead element.',
+    theme: 'Allows the table to be set to primary or secondary. Primary is darker and more bold, while secondary is lighter and doesn\'t use tiger stripes',
     totalRecords: 'Tracks the total number of records of a paginated data set.'
   });
+  definition.propOptions = {
+    theme: OptionsHelper.themesBinary,
+  };
 };
