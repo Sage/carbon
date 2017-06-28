@@ -138,7 +138,6 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * GUID
 * i18n
 
-
 ## Component Improvements
 
 * `Alert` now alerts itself to screen readers.
@@ -150,6 +149,10 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * `Table` has a new prop of onConfigure. Displays a configure icon to the left of the table header that triggers the callback onClick.
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 * `InputValidation`: now accepts a `info` prop to display info-styled icon and message attached to an input.
+
+## Bug Fixes
+
+* `DialogFullScreen` now scrolls vertically if it contains content taller than the dialog height.
 
 ## Deployment Changes
 
