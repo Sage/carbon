@@ -114,6 +114,13 @@ describe('Pager', () => {
       });
     });
 
+    describe('when element type is not passed', () => {
+      it('does not call onPagination', () => {
+        instance.emitChangeCallback('', {});
+        expect(spy1).not.toHaveBeenCalled();
+      });
+    });
+
     describe('when element is previous', () => {
       it('emits onPagination decreasing currentPage by 1', () => {
         instance2.emitChangeCallback('previous', {});

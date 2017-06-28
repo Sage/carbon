@@ -3,9 +3,9 @@ import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
+import Link from './../link';
 import { shallow } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
-
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;
@@ -685,6 +685,33 @@ describe('Table', () => {
     });
   });
 
+  describe('onConfigure', () => {
+    let onConfigureSpy = jasmine.createSpy();
+    let wrapper;
+    beforeEach(() => {
+      wrapper = shallow(
+        <Table
+          className="foo"
+          onConfigure={ onConfigureSpy }
+        >
+          foo
+        </Table>
+      )
+    });
+
+    it('adds the carbon-table--configurable class', () => {
+      const table = wrapper.find('.carbon-table--configurable')
+      expect(table).toBeDefined();
+    });
+
+    it('adds configure link that triggers the onConfigure callback', () => {
+      const configureLink = wrapper.find(Link);
+      expect(configureLink.length).toEqual(1)
+      configureLink.simulate('click', { preventDefault: () => {} });
+      expect(onConfigureSpy).toHaveBeenCalled();
+    });
+  })
+
   describe('emitOptions', () => {
     it('gathers all relevent props to emit', () => {
       expect(instancePager.emitOptions()).toEqual({
@@ -929,6 +956,21 @@ describe('Table', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
       expect(parent.className).toEqual('carbon-table foo');
+    });
+
+    it('renders a caption tag when a caption prop is given', () => {
+      const wrapper = shallow(
+        <Table caption="Acme widgets" />
+      );
+
+      const captionTag = wrapper.find('caption');
+      expect(captionTag.exists()).toBe(true);
+      expect(captionTag.text()).toEqual('Acme widgets');
+    });
+
+    it('does not render a caption tag when no caption prop is given', () => {
+      const wrapper = shallow(<Table />);
+      expect(wrapper.find('caption').exists()).toBe(false);
     });
 
     it('renders an action toolbar if actions are passed', () => {

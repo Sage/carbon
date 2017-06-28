@@ -27,7 +27,6 @@ class InclusionValidator {
    * @param {Object} params
    */
   constructor(params = {}) {
-
     this.allowedValues = params.allowedValues || [];
 
     /**

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from './../icon';
 import classNames from 'classnames';
+import Icon from './../icon';
 import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A Help widget.
@@ -24,9 +24,18 @@ import { tagComponent } from '../../utils/helpers/tags';
  * @constructor
  * @decorators {TooltipDecorator}
  */
-const Help = TooltipDecorator(class Help extends React.Component{
+const Help = TooltipDecorator(class Help extends React.Component {
 
   static propTypes = {
+
+    /**
+     * A custom class name for the component.
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
     /**
      * Message to display in tooltip
      *
@@ -76,7 +85,7 @@ const Help = TooltipDecorator(class Help extends React.Component{
   get mainClasses() {
     return classNames(
       'carbon-help',
-      {'carbon-help__href': this.props.href },
+      { 'carbon-help__href': this.props.href },
       this.props.className
     );
   }
@@ -92,7 +101,8 @@ const Help = TooltipDecorator(class Help extends React.Component{
       <a
         className={ this.mainClasses }
         href={ this.props.href }
-        target="_blank"
+        target='_blank'
+        rel='noopener noreferrer'
         { ...tagComponent('help', this.props) }
       >
         <Icon

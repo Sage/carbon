@@ -46,11 +46,7 @@ import Help from './../../../components/help';
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
-let InputLabel = (ComposedComponent) => class Component extends ComposedComponent {
-
-  constructor(...args) {
-    super(...args);
-  }
+const InputLabel = ComposedComponent => class Component extends ComposedComponent {
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: PropTypes.object
@@ -191,20 +187,20 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    * @return {HTML} HTML for label.
    */
   get labelHTML() {
-    if (this.props.label === false) { return; }
+    if (this.props.label === false) { return null; }
 
     // either use label supplied by dev, or automatically make one common on input name
     let labelText = this.props.label || startCase(this.props.name);
 
-    if (!labelText) { return; }
+    if (!labelText) { return null; }
 
     // set asterisk if validation is used which uses an asterisk
     if (find(this.props.validations, (v) => { return v.asterisk; })) {
-      labelText += "*";
+      labelText += '*';
     }
 
     // add label width if defined
-    let labelStyle = this.props.labelWidth ? { width: `${this.props.labelWidth}%` } : null;
+    const labelStyle = this.props.labelWidth ? { width: `${this.props.labelWidth}%` } : null;
     return (
       <label
         style={ labelStyle }
@@ -225,17 +221,17 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    * @return {Object} JSX for help
    */
   get labelHelpHTML() {
-    if (this.props.labelHelp) {
-      return (
-        <Help
-          tooltipPosition={ this.props.labelHelpPosition }
-          tooltipAlign={ this.props.labelHelpAlign }
-          href={ this.props.labelHelpHref }
-        >
-          { this.props.labelHelp }
-        </Help>
-      );
-    }
+    if (!this.props.labelHelp) { return null; }
+
+    return (
+      <Help
+        tooltipPosition={ this.props.labelHelpPosition }
+        tooltipAlign={ this.props.labelHelpAlign }
+        href={ this.props.labelHelpHref }
+      >
+        { this.props.labelHelp }
+      </Help>
+    );
   }
 
   /**
@@ -245,19 +241,18 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    * @return {Object} JSX for label help
    */
   get fieldHelpHTML() {
-    if (this.props.fieldHelp) {
-      let style = {};
+    if (!this.props.fieldHelp) { return null; }
+    const style = {};
 
-      if (this.props.labelInline) {
-        style.marginLeft = `${this.props.labelWidth}%`;
-      }
-
-      return (
-        <span className={ this.fieldHelpClasses } style={ style } data-element='help'>
-          { this.props.fieldHelp }
-        </span>
-      );
+    if (this.props.labelInline) {
+      style.marginLeft = `${this.props.labelWidth}%`;
     }
+
+    return (
+      <span className={ this.fieldHelpClasses } style={ style } data-element='help'>
+        { this.props.fieldHelp }
+      </span>
+    );
   }
 
   /**
@@ -267,7 +262,7 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    * @return {Object} Input props
    */
   get inputProps() {
-    let inputProps = super.inputProps || {};
+    const inputProps = super.inputProps || {};
 
     // set id so label will focus on input when clicked
     if (!inputProps.id) {
@@ -284,9 +279,10 @@ let InputLabel = (ComposedComponent) => class Component extends ComposedComponen
    * @return {Object} Field props
    */
   get fieldProps() {
-    let fieldProps = super.fieldProps || {};
+    const fieldProps = super.fieldProps || {},
+        labelWidth = this.props.labelWidth;
 
-    let { labelWidth, inputWidth } = this.props;
+    let inputWidth = this.props.inputWidth;
 
     if (labelWidth && !inputWidth) {
       inputWidth = 100 - labelWidth;

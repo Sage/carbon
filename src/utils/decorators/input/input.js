@@ -1,10 +1,10 @@
-import css from './../../css';
-import React from 'react';
-import PropTypes from 'prop-types';
-import shouldComponentUpdate from './../../helpers/should-component-update';
-import { assign } from 'lodash';
-import guid from './../../helpers/guid';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { assign, union } from 'lodash';
+import css from './../../css';
+import shouldComponentUpdate from './../../helpers/should-component-update';
+import guid from './../../helpers/guid';
 import Icon from './../../../components/icon';
 import Help from './../../../components/help';
 
@@ -41,17 +41,17 @@ import Help from './../../../components/help';
  *
  * Inputs also accept a prop of `prefix` which outputs a prefix to the input:
  *
- *   <Textbox prefix="foo" />
+ *   <Textbox prefix='foo' />
  *
  * Inputs also accept a prop of `icon` which outputs an icon inside the input:
  *
- *   <Textbox icon="foo" />
+ *   <Textbox icon='foo' />
  *
  * @method Input
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
-let Input = (ComposedComponent) => class Component extends ComposedComponent {
+const Input = ComposedComponent => class Component extends ComposedComponent {
 
   constructor(...args) {
     super(...args);
@@ -70,6 +70,9 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
   });
 
   static propTypes = assign({}, ComposedComponent.propTypes, {});
+  // common safeprops
+  static safeProps = union([], ComposedComponent.safeProps, ['value']);
+
 
   /**
    * A lifecycle method for when the component has rendered.
@@ -96,7 +99,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     // call the components super method if it exists
     if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
 
-    if (this.props.prefix != prevProps.prefix || this.props.icon != prevProps.icon) {
+    if (this.props.prefix !== prevProps.prefix || this.props.icon !== prevProps.icon) {
       this.setTextIndentation();
     }
   }
@@ -111,9 +114,11 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    */
   shouldComponentUpdate(nextProps, nextState) {
     // call super method if one is defined
-    let changeDetected = super.shouldComponentUpdate ?
-      super.shouldComponentUpdate(nextProps, nextState) :
-      false;
+    let changeDetected = false;
+
+    if (super.shouldComponentUpdate) {
+      changeDetected = super.shouldComponentUpdate(nextProps, nextState);
+    }
 
     // determine if anything has changed that should result in a re-render
     if (changeDetected || shouldComponentUpdate(this, nextProps, nextState)) {
@@ -148,7 +153,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
       if (this._prefix) {
         this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
       } else {
-        this._input.style.paddingLeft = "";
+        this._input.style.paddingLeft = '';
       }
     }
   }
@@ -160,7 +165,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {String} Main class names
    */
   get mainClasses() {
-    let classes = super.mainClasses;
+    const classes = super.mainClasses;
 
     return classNames(classes, this.props.className, css.input, {
       [`${css.input}--readonly`]: this.props.readOnly,
@@ -178,7 +183,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {String} Input class names
    */
   get inputClasses() {
-    let classes = super.inputClasses || "";
+    const classes = super.inputClasses || '';
     return `${classes} common-input__input`;
   }
 
@@ -189,13 +194,13 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {Object} Input props
    */
   get inputProps() {
-    let inputProps = super.inputProps || {};
+    const inputProps = super.inputProps || {};
 
     // store ref to input
     inputProps.ref = (c) => { this._input = c; };
 
     // disable autoComplete (causes performance issues in IE)
-    inputProps.autoComplete = this.props.autoComplete || "off";
+    inputProps.autoComplete = this.props.autoComplete || 'off';
 
     // only thread the onChange event through the handler if the event is defined by the dev
     if (this.props.onChange === inputProps.onChange) {
@@ -206,10 +211,10 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     inputProps.onPaste = this.props.onPaste;
 
     // Adds data tag for automation
-    inputProps["data-element"] = "input";
+    inputProps['data-element'] = 'input';
 
     // Remove data-role as this should be applied on the top level element
-    delete inputProps["data-role"];
+    delete inputProps['data-role'];
 
     return inputProps;
   }
@@ -221,7 +226,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {Object} Field props
    */
   get fieldProps() {
-    let fieldProps = super.fieldProps || {};
+    const fieldProps = super.fieldProps || {};
 
     fieldProps.className = 'common-input__field';
 
@@ -256,13 +261,13 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {Object}
    */
   get prefixHTML() {
-    if (this.props.prefix) {
-      return (
-        <div ref={ (c) => { this._prefix = c; } } className="common-input__prefix">
-          { this.props.prefix }
-        </div>
-      );
-    }
+    if (!this.props.prefix) { return null; }
+
+    return (
+      <div ref={ (c) => { this._prefix = c; } } className='common-input__prefix'>
+        { this.props.prefix }
+      </div>
+    );
   }
 
   /**
@@ -272,13 +277,13 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {Object}
    */
   get iconHTML() {
-    if (this.props.icon) {
-      return (
-        <div className="common-input__input-icon">
-          <Icon type={ this.props.icon } />
-        </div>
-      );
-    }
+    if (!this.props.icon) { return null; }
+
+    return (
+      <div className='common-input__input-icon'>
+        <Icon type={ this.props.icon } />
+      </div>
+    );
   }
 
     /**
@@ -288,18 +293,17 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
    * @return {Object} JSX for help
    */
   get inputHelpHTML() {
-    if (this.props.inputHelp) {
-      return (
-        <Help
-          className='common-input__input-help'
-          tooltipPosition={ this.props.inputHelpPosition }
-          tooltipAlign={ this.props.inputHelpAlign }
-          href={ this.props.inputHelpHref }
-        >
-          { this.props.inputHelp }
-        </Help>
-      );
-    }
+    if (!this.props.inputHelp) { return null; }
+    return (
+      <Help
+        className='common-input__input-help'
+        tooltipPosition={ this.props.inputHelpPosition }
+        tooltipAlign={ this.props.inputHelpAlign }
+        href={ this.props.inputHelpHref }
+      >
+        { this.props.inputHelp }
+      </Help>
+    );
   }
 
   /**
@@ -312,7 +316,7 @@ let Input = (ComposedComponent) => class Component extends ComposedComponent {
     let input;
     if (this.props.fakeInput) {
       // renders a fake input - useful for screens with lots of inputs
-      let classes = classNames(this.inputProps.className, 'common-input__input--fake');
+      const classes = classNames(this.inputProps.className, 'common-input__input--fake');
       input = (
         <div className={ classes } onMouseOver={ this.inputProps.onMouseOver }>
           { this.inputProps.value || this.inputProps.placeholder }

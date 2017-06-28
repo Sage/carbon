@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import Icon from 'components/icon';
-import { tagComponent } from '../../utils/helpers/tags';
-import Devices from 'utils/helpers/devices';
-import { validProps } from 'utils/ether';
+import Icon from './../icon';
+import tagComponent from '../../utils/helpers/tags';
+import Devices from './../../utils/helpers/devices';
+import { validProps } from './../../utils/ether';
 
 /**
  * An AnimatedMenuButton widget.
@@ -82,7 +82,7 @@ class AnimatedMenuButton extends React.Component {
 
   static defaultProps = {
     direction: 'left',
-    size:      'medium'
+    size: 'medium'
   }
 
   constructor(...args) {
@@ -125,35 +125,6 @@ class AnimatedMenuButton extends React.Component {
      */
     touch: Devices.isTouchDevice()
   };
-
-  /**
-   * Renders the component.
-   *
-   * @method render
-   */
-  render() {
-    let content;
-
-    if (this.state.open) {
-      content = this.innerHTML();
-    }
-
-    return (
-      <div { ...this.componentProps() } { ...tagComponent('animated-menu-button', this.props) }>
-        <Icon type='add' data-element='open'/>
-
-        <CSSTransitionGroup
-          transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 }
-          transitionName='carbon-animated-menu-button'
-        >
-          { content }
-        </CSSTransitionGroup>
-
-      </div>
-    );
-  }
-
 
   /**
    * Getter for label HTML
@@ -220,7 +191,7 @@ class AnimatedMenuButton extends React.Component {
    * @return {Object} props including class names & event handlers.
    */
   componentProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
 
     delete props['data-element'];
     delete props['data-role'];
@@ -285,6 +256,33 @@ class AnimatedMenuButton extends React.Component {
    */
   handleBlur() {
     if (!this.blockBlur) { this.setState({ open: false }); }
+  }
+
+  /**
+   * Renders the component.
+   *
+   * @method render
+   */
+  render() {
+    let content;
+
+    if (this.state.open) {
+      content = this.innerHTML();
+    }
+
+    return (
+      <div { ...this.componentProps() } { ...tagComponent('animated-menu-button', this.props) }>
+        <Icon type='add' data-element='open' />
+
+        <CSSTransitionGroup
+          transitionEnterTimeout={ 500 }
+          transitionLeaveTimeout={ 500 }
+          transitionName='carbon-animated-menu-button'
+        >
+          { content }
+        </CSSTransitionGroup>
+      </div>
+    );
   }
 }
 

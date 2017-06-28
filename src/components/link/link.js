@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign } from 'lodash';
-import Icon from './../icon';
 import { Link } from 'react-router';
+import Icon from './../icon';
 import { validProps } from '../../utils/ether';
 import Event from './../../utils/helpers/events';
-import { tagComponent } from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A link widget.
@@ -27,12 +27,6 @@ import { tagComponent } from '../../utils/helpers/tags';
  * @constructor
  */
 class _Link extends React.Component {
-
-  constructor() {
-    super();
-    this.onKeyDown = this.onKeyDown.bind(this);
-  }
-
   static propTypes = {
     /**
      * Children elements
@@ -41,6 +35,14 @@ class _Link extends React.Component {
      * @type {Node}
      */
     children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
     /**
      * Gives the link a disabled state.
@@ -78,6 +80,22 @@ class _Link extends React.Component {
      * @default left
      */
     iconAlign: PropTypes.string,
+
+    /**
+     * Function called when the mouse is clicked.
+     *
+     * @property onClick
+     * @type {Function}
+     */
+    onClick: PropTypes.func,
+
+    /**
+     * Function called when a key is pressed.
+     *
+     * @property onKeyDown
+     * @type {Function}
+     */
+    onKeyDown: PropTypes.func,
 
     /**
      * Allows the <a> tag to be set in or out of the tab order of the page
@@ -132,30 +150,30 @@ class _Link extends React.Component {
     tabbable: true
   }
 
+  static safeProps = ['onClick']
+
+  constructor() {
+    super();
+    this.onKeyDown = this.onKeyDown.bind(this);
+  }
+
   /**
-   * Getter for component properties.
+   * Triggers the onClick event for the enter key
    *
-   * @method componentProps
-   * @return {Object} props
+   * @method onKeyDown
+   * @param {Object} ev
    */
-  get componentProps() {
+  onKeyDown(ev) {
+    if (this.props.onKeyDown) {
+      this.props.onKeyDown(ev);
+    }
 
-    let { ...props } = validProps(this);
+    // return early if there is no onClick or there is a href prop
+    if (!this.props.onClick || this.props.href) { return; }
+    // return early if the event is not an enter key
+    if (!Event.isEnterKey(ev)) { return; }
 
-    props.tabIndex = this.tabIndex;
-
-    props = assign({}, props, tagComponent('link', this.props));
-
-    delete props.href;
-    delete props.tabbable;
-    delete props.to;
-
-    props.className = this.componentClasses;
-    props[this.linkType.prop] = this.url;
-    props.onKeyDown = this.onKeyDown;
-
-
-    return props;
+    this.props.onClick(ev);
   }
 
   /**
@@ -165,7 +183,7 @@ class _Link extends React.Component {
    * @return {String} class names
    */
   get componentClasses() {
-    return classNames (
+    return classNames(
       'carbon-link__anchor',
       this.props.className,
       { 'carbon-link__anchor--disabled': this.props.disabled }
@@ -201,8 +219,8 @@ class _Link extends React.Component {
    * @return {Object} JSX
    */
   get icon() {
-    let classes = classNames(
-      "carbon-link__icon",
+    const classes = classNames(
+      'carbon-link__icon',
       `carbon-link__icon--align-${this.props.iconAlign}`
     );
 
@@ -246,12 +264,12 @@ class _Link extends React.Component {
   get linkTypes() {
     return {
       to: {
-        prop: "to",
+        prop: 'to',
         component: Link
       },
       href: {
-        prop: "href",
-        component: "a"
+        prop: 'href',
+        component: 'a'
       }
     };
   }
@@ -263,18 +281,18 @@ class _Link extends React.Component {
    * @return {Object}
    */
   get linkType() {
-    let url = this.props.href || this.props.to,
-        type = "href";
+    const url = this.props.href || this.props.to;
+    let type = 'href';
 
     if (url) {
-      let match = url.match(this.typeRegex);
+      const match = url.match(this.typeRegex);
 
       if (match) {
         type = match[0].substr(0, match[0].length - 1);
       } else if (this.props.href) {
-        type = "href";
+        type = 'href';
       } else {
-        type = "to";
+        type = 'to';
       }
     }
 
@@ -288,29 +306,34 @@ class _Link extends React.Component {
    * @return {String}
    */
   get url() {
-    let url = this.props.href || this.props.to;
+    const url = this.props.href || this.props.to;
     if (!url) { return null; }
 
-    return url.replace(this.typeRegex, "");
+    return url.replace(this.typeRegex, '');
   }
 
   /**
-   * Triggers the onClick event for the enter key
+   * Getter for component properties.
    *
-   * @method onKeyDown
-   * @param {Object} ev
+   * @method componentProps
+   * @return {Object} props
    */
-  onKeyDown(ev) {
-    if (this.props.onKeyDown) {
-      this.props.onKeyDown(ev);
-    }
+  get componentProps() {
+    let { ...props } = validProps(this);
 
-    // return early if there is no onClick or there is a href prop
-    if (!this.props.onClick || this.props.href) { return; }
-    // return early if the event is not an enter key
-    if (!Event.isEnterKey(ev)) { return; }
+    props.tabIndex = this.tabIndex;
 
-    this.props.onClick(ev);
+    props = assign({}, props, tagComponent('link', this.props));
+
+    delete props.href;
+    delete props.tabbable;
+    delete props.to;
+
+    props.className = this.componentClasses;
+    props[this.linkType.prop] = this.url;
+    props.onKeyDown = this.onKeyDown;
+
+    return props;
   }
 
   /**
@@ -324,7 +347,7 @@ class _Link extends React.Component {
         <span>
           { this.iconLeft }
 
-          <span className="carbon-link__content">
+          <span className='carbon-link__content'>
             { this.props.children }
           </span>
 

@@ -12,7 +12,7 @@ describe('Dropdown', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Dropdown name="foo" options={ Immutable.fromJS([{}]) } value="1" />
+      <Dropdown name="foo" options={ Immutable.fromJS([]) } value="1" />
     );
   });
 
@@ -44,7 +44,7 @@ describe('Dropdown', () => {
 
       beforeEach(() => {
         instanceWithCache = TestUtils.renderIntoDocument(
-          <Dropdown name="foo" cacheVisibleValue={ true } options={ Immutable.fromJS([{}]) } value="1" />
+          <Dropdown name="foo" cacheVisibleValue={ true } options={ Immutable.fromJS([]) } value="1" />
         );
       });
 
@@ -81,7 +81,7 @@ describe('Dropdown', () => {
 
     describe('if autoFocus', () => {
       it('does sets focus on the input', () => {
-        instance = TestUtils.renderIntoDocument(<Dropdown options={ Immutable.fromJS([{}]) } autoFocus />);
+        instance = TestUtils.renderIntoDocument(<Dropdown options={ Immutable.fromJS([]) } autoFocus />);
         spyOn(instance._input, 'focus');
         instance.componentDidMount();
         expect(instance._input.focus).toHaveBeenCalled();
@@ -116,7 +116,7 @@ describe('Dropdown', () => {
         let onBlur = jasmine.createSpy('onBlur');
 
         instance = TestUtils.renderIntoDocument(
-          <Dropdown options={ Immutable.fromJS([{}]) } value="1" onBlur={ onBlur } />
+          <Dropdown options={ Immutable.fromJS([]) } value="1" onBlur={ onBlur } />
         );
         instance.selectValue('10', 'foo');
         expect(onBlur).toHaveBeenCalled();
@@ -164,7 +164,7 @@ describe('Dropdown', () => {
       spyOn(instance, 'selectValue');
       instance.handleSelect({
         currentTarget: {
-          getAttribute: function() { return 'foo' },
+          getAttribute: function() { return 'foo'; },
           textContent: 'bar'
         }
       });
@@ -178,7 +178,7 @@ describe('Dropdown', () => {
       spyOn(instance, 'setState');
       instance.handleMouseOverListItem({
         currentTarget: {
-          getAttribute: function() { return 'foo' }
+          getAttribute: function() { return 'foo'; }
         }
       });
 
@@ -189,7 +189,7 @@ describe('Dropdown', () => {
   describe('handleMouseEnterList', () => {
     it('sets blockBlur to true', () => {
       instance.blockBlur = false;
-      TestUtils.Simulate.mouseEnter(instance.refs.listBlock);
+      TestUtils.Simulate.mouseEnter(instance.listBlock);
       expect(instance.blockBlur).toBeTruthy;
     });
   });
@@ -197,7 +197,7 @@ describe('Dropdown', () => {
   describe('handleMouseLeaveList', () => {
     it('sets blockBlur to true', () => {
       instance.blockBlur = true;
-      TestUtils.Simulate.mouseLeave(instance.refs.listBlock);
+      TestUtils.Simulate.mouseLeave(instance.listBlock);
       expect(instance.blockBlur).toBeFalsy;
     });
   });
@@ -214,8 +214,8 @@ describe('Dropdown', () => {
 
     describe('if target is the list', () => {
       it('calls focus on the input after a timeout', () => {
-        TestUtils.Simulate.mouseDown(instance.refs.listBlock, {
-          target: instance.refs.list
+        TestUtils.Simulate.mouseDown(instance.listBlock, {
+          target: instance.list
         });
         jasmine.clock().tick();
         expect(instance._input.focus).toHaveBeenCalled();
@@ -224,7 +224,7 @@ describe('Dropdown', () => {
 
     describe('if target is not the list', () => {
       it('does not call focus on the input', () => {
-        TestUtils.Simulate.mouseDown(instance.refs.listBlock, {
+        TestUtils.Simulate.mouseDown(instance.listBlock, {
           target: 'foo'
         });
         jasmine.clock().tick();
@@ -282,7 +282,7 @@ describe('Dropdown', () => {
           let onBlur = jasmine.createSpy('onBlur');
 
           instance = TestUtils.renderIntoDocument(
-            <Dropdown options={ Immutable.fromJS([{}]) } value="1" onBlur={ onBlur } />
+            <Dropdown options={ Immutable.fromJS([]) } value="1" onBlur={ onBlur } />
           );
           TestUtils.Simulate.blur(instance._input);
           expect(onBlur).toHaveBeenCalled();
@@ -345,7 +345,7 @@ describe('Dropdown', () => {
       describe('if there is no value', () => {
         it('it returns the visible value', () => {
           instance = TestUtils.renderIntoDocument(
-            <Dropdown name="foo" options={ Immutable.Map([]) } value="" />
+            <Dropdown name="foo" options={ Immutable.fromJS([]) } value="" />
           );
           expect(instance.nameByID()).toEqual(instance.visibleValue);
         });
@@ -576,6 +576,27 @@ describe('Dropdown', () => {
           });
         });
       });
+
+      describe('unknown key', () => {
+        let spy, opts;
+
+        beforeEach(() => {
+          spy = jasmine.createSpy();
+          opts = { which: 0, preventDefault: spy };
+        });
+
+        it('does not prevent default', () => {
+          TestUtils.Simulate.keyDown(instance._input, opts);
+          expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('sets highlighted to null', () => {
+          instance.setState({ highlighted: 2 });
+          spyOn(instance, 'setState');
+          TestUtils.Simulate.keyDown(instance._input, opts);
+          expect(instance.setState).toHaveBeenCalledWith({ highlighted: null });
+        });
+      });
     });
   });
 
@@ -593,7 +614,7 @@ describe('Dropdown', () => {
 
     describe('if the list was closed', () => {
       it('returns the value of the last item in the list', () => {
-        list = instance.refs.list;
+        list = instance.list;
         let nextValue = instance.onUpArrow(list, null);
         expect(nextValue).toEqual(list.lastChild.getAttribute('value'));
       });
@@ -602,7 +623,7 @@ describe('Dropdown', () => {
     describe('if the element is the first in the list', () => {
       it('it calls updateScroll with the list and the last list element', () => {
         instance.setState({ highlighted: 1 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onUpArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, list.lastChild);
@@ -610,7 +631,7 @@ describe('Dropdown', () => {
 
       it('returns the next highlighted value', () => {
         instance.setState({ highlighted: 1 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         let nextValue = instance.onUpArrow(list, element);
         expect(nextValue).toEqual(list.lastChild.getAttribute('value'));
@@ -620,7 +641,7 @@ describe('Dropdown', () => {
     describe('if there is a next sibling', () => {
       it('it calls updateScroll with the list and the last list element', () => {
         instance.setState({ highlighted: 2 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onUpArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, element.previousElementSibling);
@@ -628,7 +649,7 @@ describe('Dropdown', () => {
 
       it('returns the next highlighted value', () => {
         instance.setState({ highlighted: 2 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         let nextValue = instance.onUpArrow(list, element);
         expect(nextValue).toEqual(element.previousElementSibling.getAttribute('value'));
@@ -650,7 +671,7 @@ describe('Dropdown', () => {
 
     describe('if the list was closed', () => {
       it('returns the value of the last item in the list', () => {
-        list = instance.refs.list;
+        list = instance.list;
         let nextValue = instance.onDownArrow(list, null);
         expect(nextValue).toEqual(list.firstChild.getAttribute('value'));
       });
@@ -659,7 +680,7 @@ describe('Dropdown', () => {
     describe('if the element is the last in the list', () => {
       it('it calls updateScroll with the list and the previous sibling', () => {
         instance.setState({ highlighted: 2 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onDownArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, list.firstChild);
@@ -669,7 +690,7 @@ describe('Dropdown', () => {
     describe('if there is a next sibling', () => {
       it('it calls updateScroll with the list and next element', () => {
         instance.setState({ highlighted: 1 });
-        list = instance.refs.list;
+        list = instance.list;
         element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
         instance.onDownArrow(list, element);
         expect(instance.updateScroll).toHaveBeenCalledWith(list, element.nextElementSibling);
@@ -816,8 +837,21 @@ describe('Dropdown', () => {
       expect(instance.listBlockProps.onTouchStart).toEqual(instance.handleTouchEvent),
       expect(instance.listBlockProps.onTouchEnd).toEqual(instance.handleTouchEvent),
       expect(instance.listBlockProps.onTouchCancel).toEqual(instance.handleTouchEvent),
-      expect(instance.listBlockProps.onTouchMove).toEqual(instance.handleTouchEvent),
-      expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block');
+      expect(instance.listBlockProps.onTouchMove).toEqual(instance.handleTouchEvent);
+    });
+
+    describe('when the list is closed', () => {
+      it('has a hidden class', () => {
+        instance.setState({ open: false });
+        expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block carbon-dropdown__list-hidden');
+      });
+    });
+
+    describe('when the list is open', () => {
+      it('it does not have the hidden class', () => {
+        instance.setState({ open: true });
+        expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block');
+      });
     });
   });
 
@@ -830,38 +864,48 @@ describe('Dropdown', () => {
   });
 
   describe('listHTML', () => {
-    describe('if closed', () => {
-      it('returns null', () => {
-        expect(instance.listHTML).toBe(null);
-      });
-    });
-
-    describe('if open', () => {
-      it('returns the html', () => {
-        instance.setState({ open: true });
-        expect(TestUtils.isElement(instance.listHTML)).toBeTruthy();
-      });
+    it('returns the html', () => {
+      expect(TestUtils.isElement(instance.listHTML)).toBeTruthy();
     });
   });
 
   describe('results', () => {
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Dropdown name="foo" options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) } value="1" />
-      );
+    describe('when there is no render item prop', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) } value="1" />
+        );
+      });
+
+      it('returns list of items', () => {
+        expect(instance.results(instance.options).length).toEqual(2);
+      });
+
+      it('adds selected class', () => {
+        expect(instance.results(instance.options)[0].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted carbon-dropdown__list-item--selected');
+      });
+
+      it('adds highlighted class', () => {
+        instance.setState({ highlighted: 2 });
+        expect(instance.results(instance.options)[1].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted');
+      });
     });
 
-    it('returns list of items', () => {
-      expect(instance.results(instance.options).length).toEqual(2);
-    });
+    describe('when there is render item prop', () => {
+      beforeEach(() => {
+        const renderItem = (option) => {
+          return `the ${option.name}`;
+        };
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) } renderItem={ renderItem } value="1" />
+        );
+      });
 
-    it('adds selected class', () => {
-      expect(instance.results(instance.options)[0].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted carbon-dropdown__list-item--selected');
-    });
-
-    it('adds highlighted class', () => {
-      instance.setState({ highlighted: 2 });
-      expect(instance.results(instance.options)[1].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted');
+      it('returns list of items', () => {
+        const results = instance.results(instance.options);
+        expect(results[0].props.children).toEqual('the foo');
+        expect(results[1].props.children).toEqual('the bar');
+      });
     });
   });
 
@@ -881,7 +925,8 @@ describe('Dropdown', () => {
     });
 
     it('returns the list', () => {
-      expect(instance.additionalInputContent[1].props.className).toEqual('carbon-dropdown__list-block');
+      let classes = 'carbon-dropdown__list-block carbon-dropdown__list-hidden';
+      expect(instance.additionalInputContent[1].props.className).toEqual(classes);
     });
   });
 

@@ -1,45 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 const Column = (props) => {
-  const columnClasses = classNames(
-    "carbon-column",
-    props.className, {
-      [`carbon-column--offset-${ props.columnOffset }`]: props.columnOffset,
-      [`carbon-column--span-${ props.columnSpan }`]: props.columnSpan,
-      [`carbon-column--align-${ props.columnAlign }`]: props.columnAlign,
-      "carbon-column--column-divide": props.columnDivide
-    }
-  );
-
   return (
-    <div className={ columnClasses } >
+    <div className={ `carbon-column ${props.className}` }>
       { props.children }
     </div>
   );
 };
 
-Column.PropTypes = {
-  columnAlign: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
+Column.isColumn = true;
 
-  columnOffset: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
+Column.propTypes = {
+  /**
+   * Children elements
+   *
+   * @property children
+   * @type {Node}
+   */
+  children: PropTypes.node,
 
-  columnSpan: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
-
-  columnDivide: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ])
+  /**
+   * Custom className
+   *
+   * @property className
+   * @type {String}
+   */
+  className: PropTypes.string
 };
 
 export default Column;

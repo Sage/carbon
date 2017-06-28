@@ -40,6 +40,14 @@ class Row extends React.Component {
     ]),
 
     /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * Pass a custom value for the gutter
      * (extra-small, small, medium, large or extra-large)
      *
@@ -66,7 +74,7 @@ class Row extends React.Component {
   }
 
   static defaultProps = {
-    gutter: "medium"
+    gutter: 'medium'
   };
 
   /**
@@ -78,7 +86,7 @@ class Row extends React.Component {
   buildColumns = () => {
     if (!this.props.children) { return null; }
 
-    let columns = [],
+    const columns = [],
         children = (this.props.children.constructor === Array) ? compact(this.props.children) : this.props.children;
 
     if ((children.constructor === Array && children.length) || (Immutable.Iterable.isIterable(children))) {
@@ -105,7 +113,7 @@ class Row extends React.Component {
      * This functionality is maintaining the deprecated behaviour
      * where Row can have any immediate children. As of React 16 this
      * will break and therefore we have added a column component to deal
-     * with the complications and maintian functionality.
+     * with the complications and maintain functionality.
      *
      * Removing the deprecated behaviour in Carbon v2 we can likely
      * remove the buildColumns and buildColumn function and just render the Row's
@@ -113,17 +121,31 @@ class Row extends React.Component {
      *
      * TODO: CarbonV2
      */
+    let columnClasses = classNames(
+      'carbon-row__column',
+      child.props.columnClasses, {
+        [`carbon-row__column--offset-${child.props.columnOffset}`]: child.props.columnOffset,
+        [`carbon-row__column--span-${child.props.columnSpan}`]: child.props.columnSpan,
+        [`carbon-row__column--align-${child.props.columnAlign}`]: child.props.columnAlign,
+        'carbon-row__column--column-divide': this.props.columnDivide
+      }
+    );
 
-    if (child.type === Column) {
-      return React.cloneElement(child, { key: key, columnDivide: this.props.columnDivide }, child.props.children);
-    } else {
-      Logger.deprecate('Row Component should only have an immediate child of type Column');
-      return (
-        <Column key={ key } { ...child.props } columnDivide={ this.props.columnDivide }>
-          { child }
-        </Column>
+    if (child.type && child.type.isColumn) {
+      columnClasses = classNames(columnClasses, child.props.className);
+      return React.cloneElement(
+        child,
+        { className: columnClasses, key },
+        child.props.children
       );
     }
+    Logger.deprecate('Row Component should only have an immediate child of type Column');
+
+    return (
+      <div key={ key } className={ columnClasses }>
+        { child }
+      </div>
+    );
   }
 
   /**

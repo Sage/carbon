@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from 'i18n-js';
 import _marked from 'marked';
-import { tagComponent } from '../../utils/helpers/tags';
 import { assign } from 'lodash';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A widget for internationalisation of text.
@@ -68,14 +68,25 @@ class I18n extends React.Component {
     inline: true
   }
 
+  marked(inline) {
+    // Make sure that we sanitize html markup in the MD compiler
+    _marked.setOptions({ sanitize: true });
+    return inline ? str => _marked.inlineLexer(str, []) : _marked;
+  }
+
+  renderMarkup(inline, props, translation) {
+    const el = inline ? 'span' : 'div';
+    return React.createElement(el, props, translation);
+  }
+
   /**
    * Renders the component.
    *
    * @method render
    */
   render() {
-    let { markdown, inline, scope, options, ...props } = { ...this.props },
-        translation = i18n.t(scope, options);
+    const { markdown, inline, scope, options, ...props } = this.props;
+    let translation = i18n.t(scope, options);
 
     if (markdown) {
       props.dangerouslySetInnerHTML = {
@@ -84,20 +95,9 @@ class I18n extends React.Component {
       translation = null;
     }
 
-    props = assign({}, props, tagComponent('i18n', this.props));
+    const markupProps = assign({}, props, tagComponent('i18n', this.props));
 
-    return this.renderMarkup(inline, props, translation);
-  }
-
-  renderMarkup(inline, props, translation) {
-    let el = inline ? 'span' : 'div';
-    return React.createElement(el, props, translation);
-  }
-
-  marked(inline) {
-    // Make sure that we sanitize html markup in the MD compiler
-    _marked.setOptions({ sanitize: true });
-    return inline ? str => _marked.inlineLexer(str, []) : _marked;
+    return this.renderMarkup(inline, markupProps, translation);
   }
 }
 

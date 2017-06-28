@@ -11,6 +11,10 @@
   font-size: 13px;
   font-weight: 700;
 
+  &:focus {
+    z-index: 1;
+  }
+
   .carbon-menu--primary & {
     background-color: $white;
     color: $grey-dark-blue;
@@ -86,7 +90,7 @@
     top: 50%;
     margin-top: -2px;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
 
     .carbon-menu--primary & {
       @include arrow("down", 4px, $grey-dark-blue);

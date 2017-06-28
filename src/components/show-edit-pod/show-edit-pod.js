@@ -1,24 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import I18n from 'i18n-js';
+import ReactDOM from 'react-dom';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Pod from './../pod';
 import Form from './../form';
 import Link from './../link';
-import classNames from 'classnames';
-import I18n from 'i18n-js';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Events from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
-import { tagComponent } from '../../utils/helpers/tags';
-
-import ReactDOM from 'react-dom';
+import tagComponent from '../../utils/helpers/tags';
 
 class ShowEditPod extends React.Component {
-
-  // Determines if controlled internally via state
-  // Or externally via props
-  control = 'props';
-
   static propTypes = {
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
     /**
      * Determines the editing state of the show edit pod
@@ -59,17 +68,6 @@ class ShowEditPod extends React.Component {
     editFields: PropTypes.node,
 
     /**
-     * Title to display in pod
-     *
-     * @property title
-     * @type {String}
-     */
-    title: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]),
-
-    /**
      * Transition Name, Override for custom state transition
      *
      * @property transitionName
@@ -88,12 +86,7 @@ class ShowEditPod extends React.Component {
     saveText: PropTypes.string,
     deleteText: PropTypes.string,
     saving: PropTypes.bool,
-    validateOnMount: PropTypes.bool,
-    additionalActions: PropTypes.node,
-
-    // Props passed to Pod
-    as: PropTypes.string,
-    border: PropTypes.bool
+    validateOnMount: PropTypes.bool
   }
 
   static defaultProps = {
@@ -198,6 +191,10 @@ class ShowEditPod extends React.Component {
     }
   }
 
+  // Determines if controlled internally via state
+  // Or externally via props
+  control = 'props';
+
   /**
    * True if the component is controlled by state
    *
@@ -264,9 +261,10 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get content() {
-    return this[this.control].editing ?
-      <div key='edit'>{ this.editContent }</div> :
-      <div key='show'>{ this.props.children }</div>;
+    if (this[this.control].editing) {
+      return <div key='edit'>{ this.editContent }</div>;
+    }
+    return <div key='show'>{ this.props.children }</div>;
   }
 
   /**
@@ -275,7 +273,7 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get contentProps() {
-    let { ...props } = validProps(this, Object.keys(Pod.propTypes));
+    const { ...props } = validProps(this, Object.keys(Pod.propTypes));
 
     delete props.onEdit;
     delete props.className;
@@ -293,7 +291,7 @@ class ShowEditPod extends React.Component {
    * @method content
    */
   get editingProps() {
-    let { ...props } = validProps(this, Object.keys(Pod.propTypes));
+    const { ...props } = validProps(this, Object.keys(Pod.propTypes));
 
     delete props.onEdit;
     delete props.className;
@@ -314,29 +312,35 @@ class ShowEditPod extends React.Component {
   }
 
   /**
-   * @method render
-   */
-  render() {
-    return (
-      <Pod className={ this.mainClasses } { ...this.podProps } ref='podFocus' tabIndex='-1' { ...tagComponent('show-edit-pod', this.props) }>
-        <CSSTransitionGroup
-          transitionName={ this.props.transitionName }
-          transitionEnterTimeout={ 300 }
-          transitionLeaveTimeout={ 50 }
-        >
-        { this.content }
-        </CSSTransitionGroup>
-      </Pod>
-    );
-  }
-
-  /**
    * Focuses on the pod component.
    *
    * @method __focusOnPod
    */
   __focusOnPod = () => {
-    ReactDOM.findDOMNode(this.refs.podFocus).focus();
+    ReactDOM.findDOMNode(this.pod).focus(); // eslint-disable-line react/no-find-dom-node
+  }
+
+  /**
+   * @method render
+   */
+  render() {
+    return (
+      <Pod
+        className={ this.mainClasses }
+        { ...this.podProps }
+        ref={ (node) => { this.pod = node; } }
+        tabIndex='-1'
+        { ...tagComponent('show-edit-pod', this.props) }
+      >
+        <CSSTransitionGroup
+          transitionName={ this.props.transitionName }
+          transitionEnterTimeout={ 300 }
+          transitionLeaveTimeout={ 50 }
+        >
+          { this.content }
+        </CSSTransitionGroup>
+      </Pod>
+    );
   }
 }
 

@@ -61,7 +61,7 @@ describe('Pod', () => {
     describe('when title is not passed as a prop', () => {
       it('returns null', () => {
         instance = TestUtils.renderIntoDocument(<Pod/>);
-        expect(instance.podHeader).toBeUndefined();
+        expect(instance.podHeader).toBeNull();
       });
     });
 
