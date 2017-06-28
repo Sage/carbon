@@ -24,7 +24,7 @@ const definition = new Definition('heading', Heading, {
     subtitleId: 'String',
     help: 'String',
     helpLink: 'String',
-    backLink: 'String, Func',
+    backLink: 'String',
     divider: 'Boolean',
     separator: 'Boolean'
   },
@@ -37,7 +37,8 @@ const definition = new Definition('heading', Heading, {
     subtitleId: 'Sets the subtitle id for the heading.',
     help: 'Sets the help text for the heading.',
     helpLink: 'Sets the help url for the heading.',
-    backLink: 'Defines the back button link/action and toggles its visibility if set.',
+    backLink: `Defines the back button link and toggles its visibility if set.
+    It can also be a function, which will be triggered when the link's onClick event is triggered.`,
     divider: 'Adds a divider below the heading and the content.',
     separator: 'Adds a separator between the title and subheader.'
   },
