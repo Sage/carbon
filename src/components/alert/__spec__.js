@@ -4,6 +4,8 @@ import { shallow, mount } from 'enzyme';
 import Alert from './alert';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
+/* global jest */
+
 describe('Alert', () => {
   let instance;
   let onCancel = jasmine.createSpy('cancel');
@@ -62,11 +64,7 @@ describe('Alert', () => {
         preventDefault() {}
       };
 
-      jasmine.clock().install();
-    });
-
-    afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.useFakeTimers();
     });
 
     it('remains on the dialog if open and no close icon is shown', () => {
@@ -75,7 +73,7 @@ describe('Alert', () => {
       spyOn(instance, 'focusDialog');
 
       instance.onDialogBlur(mockEvent);
-      jasmine.clock().tick(10);
+      jest.runTimersToTime(10);
       expect(mockEvent.preventDefault).toHaveBeenCalled();
       expect(instance.focusDialog).toHaveBeenCalled();
     });
