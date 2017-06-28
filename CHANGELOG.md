@@ -138,7 +138,6 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * GUID
 * i18n
 
-
 ## Component Improvements
 
 * `Alert` now alerts itself to screen readers.
@@ -151,12 +150,24 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * `Table` has a new prop of onConfigure. Displays a configure icon to the left of the table header that triggers the callback onClick.
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 
+## Bug Fixes
+
+* `DialogFullScreen` now scrolls vertically if it contains content taller than the dialog height.
+
 ## Deployment Changes
 
 You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
 
 ## Other
 Minor changes to guides to reference `carbon-react` in imports.
+
+# 1.1.4
+
+* Update I18nhelper to respect the locale for the delimiter and separator.
+
+# 1.1.3
+
+* Fix bug with Date Range date pickers not closing correctly
 
 # 1.1.2
 
