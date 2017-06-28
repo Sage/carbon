@@ -17,11 +17,11 @@ function buildRows() {
   // create rows array with header row:
   let rows = [
     <TableRow key='header' as='header'>
-      <TableHeader sortable={ true } name='name'>
+      <TableHeader sortable={ true } name='name' scope='col'>
         Country
       </TableHeader>
 
-      <TableHeader>Code</TableHeader>
+      <TableHeader scope='col'>Code</TableHeader>
     </TableRow>
   ];
 
@@ -40,6 +40,7 @@ function buildRows() {
 
   definition.propTypes = assign({}, definition.propTypes, {
     actions: 'Object',
+    caption: 'String',
     currentPage: 'String',
     children: 'Node',
     className: 'String',
@@ -64,6 +65,7 @@ function buildRows() {
   });
   definition.propDescriptions = assign({}, definition.propDescriptions, {
     actions: 'Specify actions to be used by the ActionToolbar component.',
+    caption: 'Specify a visually hidden title for the table',
     currentPage: 'Controls the current page number of a paginated data set.',
     children: 'This component supports children.',
     className: 'Classes to apply to the component.',
