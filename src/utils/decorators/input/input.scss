@@ -170,19 +170,6 @@
   }
 }
 
-.common-input__message--warning .carbon-link__anchor {
-  color: white;
-  text-decoration: underline;
-}
-
-.common-input__message--warning:before {
-  border-top-color: $warning;
-}
-
-.common-input__message--error:before {
-  border-top-color: $error;
-}
-
 .common-input__message--hidden {
   display: none;
 }
@@ -208,14 +195,11 @@
   height: 15px;
   position: absolute;
   right: 5px;
-  top: 28px;
+  top: 6px;
+  z-index: 2;
 
   &:before {
     font-size: 20px;
-  }
-
-  &.common-input__icon--warning {
-    color: $warning;
   }
 }
 
@@ -229,28 +213,6 @@
 .common-input--error .common-input__label,
 .common-input__icon {
   color: $error;
-}
-
-.common-input__input--warning,
-.common-input__input--warning:hover {
-  border-color: $warning !important; // this is the correct use of !important
-  position: relative;
-  z-index: 1;
-}
-
-.common-input__input--error,
-.common-input__input--error:hover {
-  border-color: $error !important; // this is the correct use of !important
-}
-
-.common-input__message--warning {
-  background-color: $warning;
-  color: $white;
-}
-
-.common-input__message--error {
-  background-color: $error;
-  color: $white;
 }
 
 .common-input__prefix {
@@ -289,4 +251,45 @@
   position: absolute;
   top: 6px;
   right: -24px;
+}
+
+@mixin common-input-theme($type, $color) {
+  .carbon-icon.common-input__icon.common-input__icon--#{$type} {
+    color: $color;
+  }
+
+  .common-input__message--#{$type} {
+    background-color: $color;
+    color: $white;
+
+    .carbon-link__anchor {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+
+  .common-input__message--#{$type}:before {
+    border-top-color: $color;
+  }
+
+  .common-input__input--#{$type},
+  .common-input__input--#{$type}:hover {
+    border-color: $color !important; // this is the correct use of !important
+    position: relative;
+    z-index: 1;
+  }
+
+}
+
+/**
+ * Color and Icon sets used for inputs with themes.
+ */
+$inputColorIconSets: (
+  ("warning", $warning),
+  ("error", $error),
+  ("info", $info)
+);
+
+@each $set in $inputColorIconSets {
+  @include common-input-theme($set...);
 }
