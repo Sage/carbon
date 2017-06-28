@@ -10,6 +10,14 @@ import tagComponent from '../../utils/helpers/tags';
 
 class DateRange extends React.Component {
   static propTypes = {
+    /**
+     * Optional label for endDate field
+     * eslint is disabled because the prop is used to determine the label in the dateProps function
+     *
+     * @property endDate
+     * @type {String}
+     */
+    endLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Custom callback - receives array of startDate and endDate
@@ -26,6 +34,15 @@ class DateRange extends React.Component {
      * @type {Array}
      */
     value: PropTypes.array.isRequired,
+
+    /**
+     * Optional label for startDate field
+     * eslint is disabled because the prop is used to determine the label in the dateProps function
+     *
+     * @property startLabel
+     * @type {String}
+     */
+    startLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Custom message for startDate field
