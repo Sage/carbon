@@ -143,8 +143,9 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 
 * `Alert` now alerts itself to screen readers.
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
-* `Form` now has default `SaveButton` and `CancelButton` functional stateless componenents. The former can be overriden with a new prop of `customSaveButton`.
-* `InlineInputs` children are now wrapped in Columns by the component.
+* `Form` now has default `SaveButton` and `CancelButton` functional stateless components. The former can be overridden with a new prop of `customSaveButton`.
+* `Heading` backLink prop can now be a string or a function.
+* `InlineInputs` children are now wrapped by Columns by the component.
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `MenuItem`: focus outline is now fully visible when an item is focused.
 * `Pager`: Negative values now set to absolute value, NaN values set to page 1.
