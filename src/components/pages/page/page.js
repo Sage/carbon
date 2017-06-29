@@ -1,20 +1,20 @@
 import React from 'react';
+import classNames from 'classnames';
+import tagComponent from './../../../utils/helpers/tags';
 import FullScreenHeading from './../../dialog-full-screen/full-screen-heading';
 
-class Page extends React.Component {
-  render() {
-    return (
-      <div className="carbon-page">
-        <FullScreenHeading>
-          { this.props.title }
-        </FullScreenHeading>
+export default (props) => {
+  const classes = classNames("carbon-page", props.className);
 
-        <div className="carbon-page__content">
-          { this.props.children }
-        </div>
+  return (
+    <div className={ classes } { ...tagComponent('page', props) }>
+      <FullScreenHeading>
+        { props.title }
+      </FullScreenHeading>
+
+      <div className="carbon-page__content">
+        { props.children }
       </div>
-    );
-  }
-}
-
-export default Page;
+    </div>
+  );
+};

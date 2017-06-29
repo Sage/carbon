@@ -1,21 +1,24 @@
 import React from 'react';
+import classNames from 'classnames';
+import tagComponent from './../../utils/helpers/tags';
 import { Carousel } from './../carousel';
 import Page from './page';
 
-class Pages extends React.Component {
-  render() {
-    return (
-      <Carousel
-        className="carbon-pages"
-        enableSlideSelector={ false }
-        enablePreviousButton={ false }
-        enableNextButton={ false }
-        { ...this.props }
-      >
-        { this.props.children }
-      </Carousel>
-    );
-  }
-}
+const Pages = (props) => {
+  const classes = classNames("carbon-pages", props.className);
+
+  return (
+    <Carousel
+      className={ classes }
+      enableSlideSelector={ false }
+      enablePreviousButton={ false }
+      enableNextButton={ false }
+      { ...tagComponent('pages', props) }
+      { ...props }
+    >
+      { props.children }
+    </Carousel>
+  );
+};
 
 export { Pages, Page };

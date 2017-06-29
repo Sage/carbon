@@ -30,7 +30,7 @@
   position: absolute;
   right: $padding-left-right;
   top: $title-height / 2;
-  z-index: 1;
+  z-index: $z-dialog;
 
   &:before {
     font-size: 24px;
@@ -41,6 +41,6 @@
   }
 }
 
-.foo {
+.carbon-dialog-full-screen--open {
   overflow: hidden;
 }

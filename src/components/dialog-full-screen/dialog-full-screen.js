@@ -6,7 +6,7 @@ import Heading from './../heading';
 import FullScreenHeading from './full-screen-heading';
 import Browser from './../../utils/helpers/browser';
 
-const DIALOG_OPEN_ATTRIBUTE = 'carbonFullScreenDialogOpen';
+const DIALOG_OPEN_BODY_CLASS = 'carbon-dialog-full-screen--open';
 
 /**
  * A DialogFullScreen widget.
@@ -31,6 +31,10 @@ const DIALOG_OPEN_ATTRIBUTE = 'carbonFullScreenDialogOpen';
 class DialogFullScreen extends Modal {
   constructor(props) {
     super(props);
+
+    /**
+     * Caches a reference to the document.
+     */
     this.document = Browser.getDocument();
   }
 
@@ -98,19 +102,25 @@ class DialogFullScreen extends Modal {
     );
   }
 
+  /**
+   * Overrides the original function to disable the document's scroll.
+   */
   get onOpening() {
-    Browser.addClass(this.document.body, 'foo');
+    Browser.addClass(this.document.body, DIALOG_OPEN_BODY_CLASS);
   }
 
+  /**
+   * Overrides the original function to enable the document's scroll.
+   */
   get onClosing() {
-    Browser.removeClass(this.document.body, 'foo');
+    Browser.removeClass(this.document.body, DIALOG_OPEN_BODY_CLASS);
   }
 
   /**
    * Returns HTML and text for the dialog title.
    *
    * @method dialogTitle
-   * @return {String} title to display
+   * @return {Object} title to display
    */
   dialogTitle = () => {
     if (!this.props.title) { return null; }

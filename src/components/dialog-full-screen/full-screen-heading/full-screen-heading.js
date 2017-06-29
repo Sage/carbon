@@ -1,13 +1,11 @@
 import React from 'react';
+import classNames from 'classnames';
+import tagComponent from '../../../utils/helpers/tags';
 
-class FullScreenHeading extends React.Component {
-  render() {
-    return (
-      <div className="carbon-full-screen-heading">
-        { this.props.children }
-      </div>
-    );
-  }
-}
+export default (props) => {
+  const classes = classNames("carbon-full-screen-heading", props.className);
 
-export default FullScreenHeading;
+  return (
+    <div { ...props } className={ classes } { ...tagComponent('full-screen-heading', props) } />
+  );
+};
