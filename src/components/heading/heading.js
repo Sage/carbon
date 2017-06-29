@@ -39,6 +39,14 @@ class Heading extends React.Component {
     ]),
 
     /**
+     * Defines the title id for the heading.
+     *
+     * @property titleId
+     * @type {String}
+     */
+    titleId: PropTypes.string,
+
+    /**
      * Defines the subheader for the heading.
      *
      * @property subheader
@@ -48,6 +56,14 @@ class Heading extends React.Component {
       PropTypes.string,
       PropTypes.object
     ]),
+
+    /**
+     * Defines the subtitle id for the heading.
+     *
+     * @property subtitleId
+     * @type {String}
+     */
+    subtitleId: PropTypes.string,
 
     /**
      * Defines the help text for the heading.
@@ -71,7 +87,10 @@ class Heading extends React.Component {
      * @property backLink
      * @type {String}
      */
-    backLink: PropTypes.string,
+    backLink: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func
+    ]),
 
     /**
      * Adds a divider below the heading and the content.
@@ -128,13 +147,21 @@ class Heading extends React.Component {
   get back() {
     if (!this.props.backLink) { return null; }
 
+    let props;
+
+    if (typeof this.props.backLink === 'string') {
+      props = { href: this.props.backLink };
+    } else {
+      props = { onClick: this.props.backLink };
+    }
+
     return (
       <Link
         className='carbon-heading__back'
         data-element='back'
-        href={ this.props.backLink }
+        { ...props }
       >
-        <Icon type='chevron' />
+        <Icon type='chevron_left' />
       </Link>
     );
   }
@@ -149,7 +176,7 @@ class Heading extends React.Component {
     if (!this.props.subheader) { return null; }
 
     return (
-      <div className='carbon-heading__subheader' data-element='subtitle'>
+      <div className='carbon-heading__subheader' data-element='subtitle' id={ this.props.subtitleId }>
         { this.props.subheader }
       </div>
     );
@@ -195,7 +222,7 @@ class Heading extends React.Component {
 
           <div className='carbon-heading__headers'>
             <div className='carbon-heading__main-header'>
-              <h1 className='carbon-heading__title' data-element='title'>
+              <h1 className='carbon-heading__title' data-element='title' id={ this.props.titleId }>
                 { this.props.title }
               </h1>
 
