@@ -11,7 +11,7 @@
   width: 100%;
   z-index: $z-flash;
 
-  // span added by ReactCSSTransitionGroup
+  // span added by CSSTransitionGroup
   > span {
     display: inline-block;
     height: 100%;
