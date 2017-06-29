@@ -143,6 +143,13 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 
 * `Alert` now alerts itself to screen readers.
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
+* `Carousel`
+  * has a new prop `enableSlideSelector` defaulted to `true`. Setting it to `false` will hide the slide selector.
+  * has a new prop `enablePreviousButton` defaulted to `true`. Setting it to `false` will hide the previous button.
+  * has a new prop `enableNextButton` defaulted to `true`. Setting it to `false` will hide the next button.
+  * has a new prop `slideIndex`. Changing this prop to an index will select the corresponding slide.
+  * has a new prop `onSlideChange`, which is an action to be called on slide change. It will receive the slide index and the transition direction as params.
+  * animation between slides enhanced.
 * `Form` now has default `SaveButton` and `CancelButton` functional stateless components. The former can be overridden with a new prop of `customSaveButton`.
 * `Heading` backLink prop can now be a string or a function.
 * `InlineInputs` children are now wrapped by Columns by the component.
