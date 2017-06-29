@@ -14,22 +14,25 @@
 
 .carbon-dialog-full-screen__content {
   padding: 30px 5%;
-}
-
-.carbon-dialog-full-screen__header {
-  border-bottom: 1px solid $border-color;
-  margin: 0;
-  padding: 25px 5%;
-  position: relative;
+  overflow-y: auto;
+  height: calc(100% - 60px);
 
   .carbon-heading {
-    padding: 0;
+    height: 85px;
   }
-}
 
-.carbon-dialog-full-screen__title {
-  font-size: 26px;
-  margin: 0;
+  .carbon-heading__header {
+    align-items: center;
+    background-color: $grey-light;
+    display: flex;
+    height: 106px;
+    left: 0;
+    padding-left: 5%;
+    padding-right: 5%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 }
 
 .carbon-dialog-full-screen__close {
@@ -39,10 +42,11 @@
   margin-top: -8px;
   position: absolute;
   right: 5%;
-  top: 50%;
+  top: 52px;
+  z-index: 1;
 
   &:before {
-    font-size: 25px;
+    font-size: 24px;
   }
 
   &:hover {

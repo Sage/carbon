@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
 import Modal from './../modal';
+import Heading from './../heading';
 
 /**
  * A DialogFullScreen widget.
@@ -73,17 +74,15 @@ class DialogFullScreen extends Modal {
         className={ this.dialogClasses }
         { ...this.componentTags(this.props) }
       >
-        <div className='carbon-dialog-full-screen__header'>
-          { this.renderTitle() }
-          <Icon
-            className='carbon-dialog-full-screen__close'
-            data-element='close'
-            onClick={ this.props.onCancel }
-            type='close'
-          />
-        </div>
+        <Icon
+          className='carbon-dialog-full-screen__close'
+          data-element='close'
+          onClick={ this.props.onCancel }
+          type='close'
+        />
 
         <div className='carbon-dialog-full-screen__content' data-element='content'>
+          { this.dialogTitle() }
           { this.props.children }
         </div>
       </div>
@@ -91,16 +90,24 @@ class DialogFullScreen extends Modal {
   }
 
   /**
-   * Returns title prop wrapped in <h2> if title is a string otherwise returns the title prop directly.
-   * Dialog main classes.
+   * Returns HTML and text for the dialog title.
    *
-   * @return {Object} JSX
+   * @method dialogTitle
+   * @return {String} title to display
    */
-  renderTitle = () => {
-    if (typeof (this.props.title) === 'string' || this.props.title instanceof String) {
-      return <h2 className='carbon-dialog-full-screen__title' data-element='title'>{ this.props.title }</h2>;
+  dialogTitle = () => {
+    if (this.props.title) {
+      return (
+        <Heading
+          title={ this.props.title }
+          titleId='carbon-dialog-title'
+          subheader={ this.props.subtitle }
+          subtitleId='carbon-dialog-subtitle'
+        />
+      );
     }
-    return this.props.title;
+
+    return null;
   }
 }
 
