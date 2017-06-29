@@ -7,6 +7,7 @@ class ComponentCodeBuilder {
 
     if (typeof name !== "string") {
       definition = name;
+      this.wrap = definition.get('wrap');
       name = definition.get('topLevelComponent') || definition.get('name');
     }
 
@@ -14,7 +15,11 @@ class ComponentCodeBuilder {
     this.name = name;
 
     // start building the code
-    this.code = `<${name}`;
+    if (this.wrap) {
+      this.code = `<${this.wrap}`;
+    } else {
+      this.code = `<${name}`;
+    }
 
     // by default we do not have any props
     this.hasProps = false;
@@ -27,7 +32,12 @@ class ComponentCodeBuilder {
 
     // determines if the component requires an action to open it (eg. dialog)
     this.openPreview = false;
-    if (definition) {
+
+    if (this.wrap) {
+      this.addProps(definition, withEvents);
+      definition = definition.set('wrap', false);
+      this.addChild(new ComponentCodeBuilder(definition));
+    } else if (definition) {
       this.addProps(definition, withEvents);
     }
   }
@@ -36,9 +46,22 @@ class ComponentCodeBuilder {
   addProps = (definition, withEvents) => {
     let props = definition.get('propValues'),
         propTypes = definition.get('propTypes'),
+        wrapProps = definition.get('wrapProps'),
         toggleFunctions = definition.get('toggleFunctions'),
         children = props.get('children'),
-        js = definition.get('js');
+        js = definition.get('js'),
+        wrap = definition.get('wrap');
+
+    if (wrap && wrapProps.count()) {
+      props = props.filter((prop, key) => {
+        return wrapProps.includes(key);
+      });
+      children = null;
+    } else if (wrapProps.count()) {
+      props = props.filter((prop, key) => {
+        return !wrapProps.includes(key);
+      });
+    }
 
     this.openPreview = definition.get('openPreview');
 
@@ -128,7 +151,7 @@ class ComponentCodeBuilder {
     if (this.isClosed) { return; }
 
     if (this.hasChildren) {
-      this.code += `\n</${this.name}>`;
+      this.code += `\n</${this.wrap || this.name}>`;
     } else if (this.hasProps) {
       this.code += "\n/>";
     } else {
@@ -166,7 +189,8 @@ class ComponentCodeBuilder {
               actionType: ComponentConstants.UPDATE_DEFINITION,
               name: '${kebabCase(this.name)}',
               prop: 'open',
-              value: true
+              value: true,
+              wrap: true
             })
           } }>Open Preview</Button>
         </div>
