@@ -41,9 +41,12 @@
 .carbon-slide {
   box-sizing: border-box;
   display: inline-block;
-  padding: 0 60px;
   width: 100%;
   z-index: 10;
+}
+
+.carbon-slide--padded {
+  padding: 0 60px;
 }
 
 .carbon-carousel__next {

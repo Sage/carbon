@@ -398,18 +398,51 @@ describe('Carousel', () => {
   });
 
   describe('visibleSlides', () => {
-    let slide;
+    let slide, wrapper;
 
     beforeEach(() => {
-      slide = instance.visibleSlide();
+      wrapper = shallow(
+        <Carousel >
+          <Slide />
+        </Carousel>
+      );
+
+      slide = wrapper.instance().visibleSlide();
     });
 
     it('returns a slide instance', () => {
       expect(slide.type).toEqual(Slide);
     });
 
-    it('adds a active class', () => {
-      expect(slide.props.className).toEqual('carbon-slide carbon-slide--active');
+    it('adds an active and a padded classes', () => {
+      expect(slide.props.className).toEqual('carbon-slide carbon-slide--active carbon-slide--padded');
+    });
+
+    describe('when the previous button is disabled', () => {
+      it('adds an active and a padded classes', () => {
+        wrapper.setProps({ enablePreviousButton: false });
+        slide = wrapper.instance().visibleSlide();
+
+        expect(slide.props.className).toEqual('carbon-slide carbon-slide--active carbon-slide--padded');
+      });
+    });
+
+    describe('when the next button is disabled', () => {
+      it('adds an active and a padded classes', () => {
+        wrapper.setProps({ enableNextButton: false });
+        slide = wrapper.instance().visibleSlide();
+
+        expect(slide.props.className).toEqual('carbon-slide carbon-slide--active carbon-slide--padded');
+      });
+    });
+
+    describe('when both buttons are disabled', () => {
+      it('adds an active class', () => {
+        wrapper.setProps({ enablePreviousButton: false, enableNextButton: false });
+        slide = wrapper.instance().visibleSlide();
+
+        expect(slide.props.className).toEqual('carbon-slide carbon-slide--active');
+      });
     });
   });
 
