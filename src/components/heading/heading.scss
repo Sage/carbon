@@ -80,7 +80,6 @@
 
     .carbon-heading__header {
       background-color: $grey-light;
-      // TODO: add cross-browser flex tags (test in IE, Firefox and Safari):
       display: flex;
       align-items: center;
       height: 120px;
@@ -90,6 +89,11 @@
       left: 0;
       top: 0;
       width: calc(100% - 10%);
+
+      @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+        /* IE10+ specific styles go here */
+        padding-right: 3.3%;
+      }
     }
 
     &.carbon-heading--has-back {
