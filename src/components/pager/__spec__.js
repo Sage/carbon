@@ -79,6 +79,14 @@ describe('Pager', () => {
     });
 
     describe('when element is input', () => {
+      describe('when the value is NaN', () => {
+        it('emit 1 as the new current page', () => {
+          let event = { target: { value: '-' } };
+          instance.emitChangeCallback('input', event);
+          expect(spy1).toHaveBeenCalledWith('1', '10', 'input');
+        });
+      });
+
       it('emit a new page from the input field', () => {
         let event = { target: { value: '5' } };
         instance.emitChangeCallback('input', event);
@@ -93,11 +101,11 @@ describe('Pager', () => {
         });
       });
 
-      describe('when input is less than 1', () => {
-        it('emit first page as the new current page', () => {
-          let event = { target: { value: '0' } };
+      describe('when input value is negative', () => {
+        it('emit the absolute value as the new current page', () => {
+          let event = { target: { value: '-3' } };
           instance.emitChangeCallback('input', event);
-          expect(spy1).toHaveBeenCalledWith('1', '10', 'input');
+          expect(spy1).toHaveBeenCalledWith('3', '10', 'input');
         });
       });
 

@@ -1,6 +1,7 @@
 @import "./../../style-config/colors";
 @import "./../../style-config/buttons";
 @import "./../../style-config/z-index";
+@import "./../../style-config/mixins";
 
 .carbon-multi-action-button--align-right {
   .carbon-multi-action-button__additional-buttons {
@@ -31,6 +32,19 @@
     &--primary {
       border: none;
     }
+  }
+
+  @mixin button-theme($theme, $color, $hover, $active, $text-color) {
+    .carbon-button--#{$theme}.carbon-multi-action-button__toggle--secondary{
+      &:not(.carbon-button--disabled) {
+        background-color: transparent;
+        color: $color;
+      }
+    }
+  }
+
+  @each $set in $buttonColorSets {
+    @include button-theme($set...);
   }
 
   .carbon-multi-action-button__additional-buttons {

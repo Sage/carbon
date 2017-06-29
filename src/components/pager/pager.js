@@ -155,22 +155,18 @@ class Pager extends React.Component {
         break;
 
       case 'input':
-        newPage = ev.target.value;
+        newPage = Math.abs(Number(ev.target.value));
+
+        if (isNaN(newPage)) { newPage = '1'; }
 
         if (!newPage) {
           this.setState({ currentPage: this.props.currentPage });
           break;
         }
 
-        if (Number(newPage) > this.maxPage) {
-          newPage = String(this.maxPage);
-        }
+        if (newPage > this.maxPage) { newPage = String(this.maxPage); }
 
-        if (Number(newPage) < 1) {
-          newPage = '1';
-        }
-
-        this.props.onPagination(newPage, this.props.pageSize, element);
+        this.props.onPagination(String(newPage), this.props.pageSize, element);
         break;
 
       case 'previous':
