@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Browser from './../../utils/helpers/browser';
 import Icon from './../icon';
 import Modal from './../modal';
+import Heading from './../heading';
 
 /**
  * A Dialog widget.
@@ -196,57 +197,16 @@ class Dialog extends Modal {
   get dialogTitle() {
     if (this.props.title) {
       return (
-        <h2
-          id="carbon-dialog-title"
-          className={ this.dialogTitleClasses }
-          data-element='title'
-        >
-          { this.props.title }
-        </h2>
+        <Heading
+          title={ this.props.title }
+          titleId='carbon-dialog-title'
+          subheader={ this.props.subtitle }
+          subtitleId='carbon-dialog-subtitle'
+        />
       );
     }
 
     return null;
-  }
-
-  /**
-   * Returns HTML and text for the dialog subtitle.
-   *
-   * @method dialogSubtitle
-   * @return {String} subtitle to display
-   */
-  get dialogSubtitle() {
-    if (this.props.subtitle) {
-      return (
-        <p
-          id="carbon-dialog-subtitle"
-          className={ this.dialogSubtitleClasses }
-          data-element='subtitle'
-        >
-          { this.props.subtitle }
-        </p>
-      );
-    }
-
-    return null;
-  }
-
-  /**
-   * Returns classes for the dialog title.
-   *
-   * @method dialogTitleClasses
-   */
-  get dialogTitleClasses() {
-    return 'carbon-dialog__title';
-  }
-
-  /**
-   * Returns classes for the dialog title.
-   *
-   * @method dialogTitleClasses
-   */
-  get dialogSubtitleClasses() {
-    return 'carbon-dialog__subtitle';
   }
 
   /**
@@ -334,11 +294,10 @@ class Dialog extends Modal {
         { ...this.componentTags(this.props) }
         onBlur={ this.onDialogBlur }
       >
-        { this.dialogTitle }
-        { this.dialogSubtitle }
         { this.closeIcon }
 
         <div className='carbon-dialog__content'>
+          { this.dialogTitle }
           { this.props.children }
         </div>
       </div>
