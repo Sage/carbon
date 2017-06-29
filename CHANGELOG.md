@@ -61,6 +61,16 @@ The following have had minor internal changes to satisfy the introduction of str
 * Toast
 * Tooltip
 
+#### helpers
+
+* Date
+* Devices
+* Events
+* GUID
+* i18n
+
+### utils
+
 The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
 
 * Browser
@@ -129,16 +139,6 @@ The `TableRow` component now supports drag and drop. To enable it you need to ad
 
 A new helper object is available in `utils/helpers/text`. Currently it only contains one method `clearSelection`, which clears any selected text on the page.
 
-### utils
-
-#### helpers
-
-* Date
-* Devices
-* Events
-* GUID
-* i18n
-
 ## Component Improvements
 
 * `Alert` now alerts itself to screen readers.
@@ -154,14 +154,25 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 * `InlineInputs` children are now wrapped by Columns by the component.
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `MenuItem`: focus outline is now fully visible when an item is focused.
+* `Pager`: Negative values now set to absolute value, NaN values set to page 1.
 * `Table` can now receive an `caption` prop which renders a `<caption>` element as a child of the table element. Note that the caption is hidden by default, but still accessible to screen readers and assistive technologies.
 * `Table` has a new prop of onConfigure. Displays a configure icon to the left of the table header that triggers the callback onClick.
+* `MultiActionButton`: Secondary button hover style has been updated to not change on hover.
 * `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
 * `InputValidation`: now accepts a `info` prop to display info-styled icon and message attached to an input.
+
+### Table
+
+* `Table` can now receive an `caption` prop which renders a `<caption>` element as a child of the table element. Note that the caption is hidden by default, but still accessible to screen readers and assistive technologies.
+* `Table` has a new prop of onConfigure. Displays a configure icon to the left of the table header that triggers the callback onClick.
 
 ## Bug Fixes
 
 * `DialogFullScreen` now scrolls vertically if it contains content taller than the dialog height.
+
+## Dependency Switch
+
+* Facebook has deprecated `react-addons-transition-group` and `react-addons-css-transition-group` in favour of `react-transition-group/TransitionGroup` and `react-transition-group/CSSTransitionGroup` so we have switched to use the later.
 
 ## Deployment Changes
 
