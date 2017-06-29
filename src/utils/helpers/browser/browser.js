@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { keys } from 'lodash';
 import Form from './../../../components/form';
 
+const DOCUMENT_SCROLL = 'disable-scroll';
+
 /**
 * Browser Helper
 

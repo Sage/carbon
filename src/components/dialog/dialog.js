@@ -294,10 +294,12 @@ class Dialog extends Modal {
         { ...this.componentTags(this.props) }
         onBlur={ this.onDialogBlur }
       >
-        { this.closeIcon }
+        <div className="carbon-dialog__title">
+          { this.dialogTitle }
+          { this.closeIcon }
+        </div>
 
         <div className='carbon-dialog__content'>
-          { this.dialogTitle }
           { this.props.children }
         </div>
       </div>

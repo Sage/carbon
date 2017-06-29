@@ -1,0 +1,11 @@
+.carbon-page {
+  width: 100%;
+  height: 100%;
+}
+
+.carbon-page__content {
+  padding: 30px 5%;
+  width: 90%;
+  height: calc(100% - 169px);
+  overflow-y: auto;
+}

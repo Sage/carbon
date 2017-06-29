@@ -23,10 +23,10 @@ $dialog-padding: 20px;
 
 .carbon-dialog__content {
   width: 100%;
+}
 
-  > .carbon-heading {
-    padding-top: 0;
-  }
+.carbon-dialog__title .carbon-heading {
+  padding-top: 0;
 }
 
 .carbon-dialog__close {

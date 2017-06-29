@@ -3,6 +3,27 @@ import classNames from 'classnames';
 import Icon from './../icon';
 import Modal from './../modal';
 import Heading from './../heading';
+import FullScreenHeading from './full-screen-heading';
+import Browser from './../../utils/helpers/browser';
+
+let hasClassName = function(elem, name) {
+  return new RegExp("(?:^|\\s+)" + name + "(?:\\s+|$)").test(elem.className);
+};
+
+let addClass = function(elem, name) {
+  if (!hasClassName(elem, name)) {
+    elem.className = elem.className ? [elem.className, name].join(' ') : name;
+  }
+};
+
+let removeClass = function(elem, name) {
+  if (hasClassName(elem, name)) {
+    var c = elem.className;
+    elem.className = c.replace(new RegExp("(?:^|\\s+)" + name + "(?:\\s+|$)", "g"), "");
+  }
+};
+
+const DIALOG_OPEN_ATTRIBUTE = 'carbonFullScreenDialogOpen';
 
 /**
  * A DialogFullScreen widget.
@@ -25,6 +46,10 @@ import Heading from './../heading';
  * @constructor
  */
 class DialogFullScreen extends Modal {
+  constructor(props) {
+    super(props);
+    this.document = Browser.getDocument();
+  }
 
   static defaultProps = {
     open: false,
@@ -81,13 +106,24 @@ class DialogFullScreen extends Modal {
           type='close'
         />
 
+        { this.dialogTitle() }
+
         <div className='carbon-dialog-full-screen__content' data-element='content'>
-          { this.dialogTitle() }
           { this.props.children }
         </div>
       </div>
     );
   }
+
+  get onOpening() {
+    addClass(this.document.body, 'foo');
+  }
+
+  get onClosing() {
+    removeClass(this.document.body, 'foo');
+  }
+
+
 
   /**
    * Returns HTML and text for the dialog title.
@@ -96,10 +132,14 @@ class DialogFullScreen extends Modal {
    * @return {String} title to display
    */
   dialogTitle = () => {
-    if (this.props.title) {
-      return (
+    if (!this.props.title) { return null; }
+
+    let title = this.props.title;
+
+    if (typeof title === "string") {
+      title = (
         <Heading
-          title={ this.props.title }
+          title={ title }
           titleId='carbon-dialog-title'
           subheader={ this.props.subtitle }
           subtitleId='carbon-dialog-subtitle'
@@ -107,7 +147,9 @@ class DialogFullScreen extends Modal {
       );
     }
 
-    return null;
+    return (
+      <FullScreenHeading>{ title }</FullScreenHeading>
+    );
   }
 }
 

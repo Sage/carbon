@@ -1,0 +1,21 @@
+@import "./../../../style-config/colors";
+@import "./../dialog-full-screen-variables";
+
+.carbon-full-screen-heading {
+  height: $title-height;
+
+  .carbon-heading__header {
+    align-items: center;
+    background-color: $grey-light;
+    display: flex;
+    height: $title-height;
+    left: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-left: $padding-left-right;
+    padding-right: $padding-left-right;
+    position: absolute;
+    top: 0;
+    width: 100% - ($padding-left-right * 2);
+  }
+}

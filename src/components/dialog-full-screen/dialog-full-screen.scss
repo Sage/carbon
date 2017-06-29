@@ -1,11 +1,11 @@
 @import "./../../style-config/colors";
 @import "./../../style-config/z-index";
+@import "./dialog-full-screen-variables";
 
 .carbon-dialog-full-screen__dialog {
   background-color: $grey-light;
   height: 100%;
   left: 0;
-  overflow-y: scroll;
   position: fixed;
   top: 0;
   width: 100%;
@@ -13,25 +13,12 @@
 }
 
 .carbon-dialog-full-screen__content {
-  padding: 30px 5%;
+  padding: $padding-top-bottom $padding-left-right;
   overflow-y: auto;
-  height: calc(100% - 60px);
+  height: calc(100% - #{$padding-top-bottom * 2});
 
-  .carbon-heading {
-    height: 85px;
-  }
-
-  .carbon-heading__header {
-    align-items: center;
-    background-color: $grey-light;
-    display: flex;
-    height: 106px;
-    left: 0;
-    padding-left: 5%;
-    padding-right: 5%;
-    position: absolute;
-    top: 0;
-    width: 100%;
+  .carbon-full-screen-heading + & {
+    height: calc(100% - #{$title-total-height});
   }
 }
 
@@ -41,8 +28,8 @@
   display: block;
   margin-top: -8px;
   position: absolute;
-  right: 5%;
-  top: 52px;
+  right: $padding-left-right;
+  top: $title-height / 2;
   z-index: 1;
 
   &:before {
@@ -52,4 +39,8 @@
   &:hover {
     color: $blue;
   }
+}
+
+.foo {
+  overflow: hidden;
 }
