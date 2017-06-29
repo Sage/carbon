@@ -306,6 +306,10 @@ class Table extends React.Component {
     sortedColumn: PropTypes.string // the currently sorted column
   }
 
+  static defaultProps = {
+    theme: 'primary'
+  }
+
   state = {
     selectedCount: 0
   }
@@ -872,7 +876,7 @@ class Table extends React.Component {
     return classNames(
       'carbon-table',
       this.props.className,
-      `carbon-table--${this.props.theme || 'primary'}`
+      `carbon-table--${this.props.theme}`
     );
   }
 
