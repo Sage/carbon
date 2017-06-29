@@ -90,7 +90,6 @@ class Rainbow extends React.Component {
   componentDidMount() {
     const config = generateConfig(this.props.data, this.props.title);
     merge(config, this.props.config);
-    console.log(global.Highcharts);
     this._chart = global.Highcharts.chart(this._chart, config);
   }
 
