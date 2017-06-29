@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import { compact, assign } from 'lodash';
 import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags';
 
 import Icon from './../icon';
-
 import Slide from './slide';
 
 const NEXT = 'next';
@@ -329,13 +328,13 @@ class Carousel extends React.Component {
             </button>
           </div>
 
-          <ReactCSSTransitionGroup
+          <CSSTransitionGroup
             transitionName={ `slide-${this.transitionDirection}` }
             transitionEnterTimeout={ TRANSITION_TIME }
             transitionLeaveTimeout={ TRANSITION_TIME }
           >
             { this.visibleSlide() }
-          </ReactCSSTransitionGroup>
+          </CSSTransitionGroup>
 
           <div className={ this.nextClasses() }>
             <button { ...this.nextButtonProps() } data-element='next'>
