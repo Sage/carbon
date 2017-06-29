@@ -6,7 +6,6 @@
 
   .carbon-heading__header {
     align-items: center;
-    background-color: $grey-light;
     display: flex;
     height: $title-height;
     left: 0;
@@ -25,6 +24,10 @@
     .carbon-heading__back {
       margin-top: -7px;
       margin-left: -40px;
+    }
+
+    .carbon-dialog-full-screen & {
+      background-color: $grey-light;
     }
   }
 
