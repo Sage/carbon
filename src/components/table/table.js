@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import classNames from 'classnames';
 import Immutable from 'immutable';
 import I18n from 'i18n-js';
@@ -946,7 +946,7 @@ class Table extends React.Component {
     return (
       <TableRow key='__loading__' selectable={ false } highlightable={ false } hideMultiSelect>
         <TableCell colSpan='42' align='center'>
-          <ReactCSSTransitionGroup
+          <CSSTransitionGroup
             transitionName='table-loading'
             transitionEnterTimeout={ 300 }
             transitionLeaveTimeout={ 300 }
@@ -954,7 +954,7 @@ class Table extends React.Component {
             transitionAppear
           >
             <Spinner size='small' />
-          </ReactCSSTransitionGroup>
+          </CSSTransitionGroup>
         </TableCell>
       </TableRow>
     );
