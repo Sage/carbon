@@ -428,8 +428,6 @@ describe('DropdownFilterAjax', () => {
         wrapper;
 
     beforeEach(() => {
-      wrapper = mount(<DropdownFilterAjax name="foo" value="1" path="/foobar" visibleValue="bar" />);
-      wrapper.find('.carbon-dropdown__input').simulate('focus');
       Request.__setMockResponse({
         status() {
           return 200;
@@ -445,6 +443,8 @@ describe('DropdownFilterAjax', () => {
           }]
         }
       });
+      wrapper = mount(<DropdownFilterAjax name="foo" value="1" path="/foobar" visibleValue="bar" />);
+      wrapper.find('.carbon-dropdown__input').simulate('focus');
     });
 
     it("is set to 'idle' on load", () => {
@@ -462,14 +462,15 @@ describe('DropdownFilterAjax', () => {
         instance = wrapper.instance();
         spyOn(instance, 'setState');
       });
+
       it("sets requesting to true in `getData`", () => {
         instance.getData(1, 2);
         expect(instance.setState).toHaveBeenCalledWith({ requesting: true });
       });
-      it("sets requesting to false in `ajaxUpdateList` (the end() function in getData)", () => {
-        instance.ajaxUpdateList(1, responseData);
-        expect(instance.setState).toHaveBeenCalledWith({ requesting: false });
 
+      it("sets requesting to false in `ajaxUpdateList` (the end() function in getData)", () => {
+        instance.getData(1, 2);
+        expect(instance.setState).toHaveBeenCalledWith({ requesting: false });
       });
     });
   });
