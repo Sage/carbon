@@ -8,6 +8,10 @@ import Button from './../button';
 import { Row, Column } from './../row';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
+jest.mock('bowser', () => {
+  return { ios: false }
+});
+
 describe('Dialog', () => {
   let instance, onCancel;
 
@@ -121,6 +125,14 @@ describe('Dialog', () => {
 
   describe('centerDialog', () => {
     beforeEach(() => {
+      const mockWindow = {
+        innerHeight: 100,
+        innerWidth: 100,
+        pageYOffset: 10,
+        pageXOffset: 10
+      }
+      spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
+
       instance = TestUtils.renderIntoDocument(
         <Dialog open={ true } onCancel={ onCancel } />
       );
@@ -128,8 +140,13 @@ describe('Dialog', () => {
 
     describe('when dialog is lower than 20px', () => {
       it('sets top position to the correct value', () => {
+        instance._dialog = {
+          style: {},
+          offsetHeight: 0
+        };
+
         instance.centerDialog();
-        expect(instance._dialog.style.top).toEqual('150px');
+        expect(instance._dialog.style.top).toEqual('60px');
       });
     });
 
@@ -137,8 +154,9 @@ describe('Dialog', () => {
       it('sets top position to 20px', () => {
         instance._dialog = {
           style: {},
-          offsetHeight: 261
+          offsetHeight: 300
         };
+
         instance.centerDialog();
         expect(instance._dialog.style.top).toEqual('20px');
       });
@@ -148,8 +166,9 @@ describe('Dialog', () => {
       it('sets top position to 20px', () => {
         instance._dialog = {
           style: {},
-          offsetWidth: 361
+          offsetWidth: 300
         };
+
         instance.centerDialog();
         expect(instance._dialog.style.left).toEqual('20px');
       });
@@ -157,9 +176,15 @@ describe('Dialog', () => {
 
     describe('when ios', () => {
       it('does not remove page y offset', () => {
-        Bowser.ios = true;
+        instance._dialog = {
+          style: {},
+          offsetHeight: 0
+        };
+
+        Bowser.ios = true
+
         instance.centerDialog();
-        expect(instance._dialog.style.top).toEqual('150px');
+        expect(instance._dialog.style.top).toEqual('50px');
       });
     });
   });

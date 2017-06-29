@@ -194,7 +194,7 @@ describe('InputLabel', () => {
     describe('when no label is provided', () => {
       it('titleizes the name to provide the label text', () => {
         let label = instanceUnNamed.labelHTML;
-        expect(label.props.children).toMatch('Bar Qux');
+        expect(label.props.children).toContain('Bar Qux');
       });
     });
 
@@ -206,20 +206,20 @@ describe('InputLabel', () => {
 
       it('sets the labelText to the passed in label', () => {
         let label = instanceBasic.labelHTML;
-        expect(label.props.children).toMatch('test label');
+        expect(label.props.children).toContain('test label');
       });
 
       describe('when the input has a validation with asterisk enabled', () => {
         it('adds additional symbols to the label', () => {
           let label = instanceValidation.labelHTML;
-          expect(label.props.children).toMatch('Validate Label*');
+          expect(label.props.children).toContain('Validate Label*');
         });
       });
 
       describe('when the input does not have a validation with asterisk enabled', () => {
         it('does not add additional symbols to the label', () => {
           let label = instanceAltValidation.labelHTML;
-          expect(label.props.children).toMatch('Validate Label');
+          expect(label.props.children).toContain('Validate Label');
         });
       });
     });

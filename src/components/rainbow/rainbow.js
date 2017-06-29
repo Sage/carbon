@@ -145,45 +145,7 @@ class Rainbow extends React.Component {
 
 }
 
-/**
- * Uses the Highcharts API to apply z-index to the current segment.
- *
- * @method focusSegment
- * @private
- * @return {void}
- */
-function focusSegment() {
-  this.graphic.zIndexSetter(1);
-}
-
-/**
- * Uses the Highcharts API to apply z-index to the current segment.
- *
- * @method unfocusSegment
- * @private
- * @return {void}
- */
-function unfocusSegment() {
-  this.graphic.zIndexSetter(0);
-}
-
-/**
- * Calculates the position for the tooltip.
- *
- * @method tooltipPosition
- * @param {Number} tooltipWidth width of tooltip
- * @param {Number} tooltipHeight height of tooltip
- * @param {Object} point center of tooltip
- * @private
- * @return {Object} x and y position of tooltip
- */
-function tooltipPosition(tooltipWidth, tooltipHeight, point) {
-  const x = point.plotX - (tooltipWidth / 2);
-  const y = point.plotY - (tooltipHeight - 5);
-
-  return { x, y };
-}
-
+/* istanbul ignore next */
 /**
  * Generates the config for the Highchart.
  *
@@ -227,7 +189,12 @@ function generateConfig(immutableData, title) {
         return `<span style="color: ${this.color}">${this.tooltip}</span>`;
       },
       positioner: (tooltipWidth, tooltipHeight, point) => {
-        return tooltipPosition(tooltipWidth, tooltipHeight, point);
+        return () => {
+          const x = point.plotX - (tooltipWidth / 2);
+          const y = point.plotY - (tooltipHeight - 5);
+
+          return { x, y };
+        }
       },
       shadow: false
     },
@@ -265,8 +232,8 @@ function generateConfig(immutableData, title) {
         },
         point: {
           events: {
-            mouseOver: focusSegment,
-            mouseOut: unfocusSegment
+            mouseOver: () => { this.graphic.zIndexSetter(1) },
+            mouseOut: () => { this.graphic.zIndexSetter(0) },
           }
         },
         states: {
