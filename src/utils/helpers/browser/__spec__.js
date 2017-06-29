@@ -57,7 +57,8 @@ describe('Browser', () => {
 
   describe('edit-focus', () => {
     it('focuses on the input field of the passed in ref', () => {
-      let node = jasmine.createSpyObj(['focus', 'select']);
+      const node = { focus: jest.fn(), select: jest.fn() }
+
       spyOn(ReactDOM, 'findDOMNode').and.returnValue(node);
       Browser.editFocus('fakeRef');
       expect(node.focus).toHaveBeenCalled();
@@ -67,7 +68,8 @@ describe('Browser', () => {
 
   describe('setInputFocus', () => {
     it('focuses on the input field of the passed in ref but doesnot select text', () => {
-      let node = jasmine.createSpyObj(['focus']);
+      const node = { focus: jest.fn() }
+
       let fakeComponent = { _input: {} };
       spyOn(ReactDOM, 'findDOMNode').and.returnValue(node);
       Browser.setInputFocus(fakeComponent);
