@@ -1,7 +1,7 @@
 /* eslint-disable react/sort-comp */ // Getting confusing order from sort-comp
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Events from './../../utils/helpers/events';
 import Browser from './../../utils/helpers/browser';
 
@@ -26,7 +26,7 @@ import Browser from './../../utils/helpers/browser';
  * onClosing() // Called by componentDidUpdate when dialog closes
  * get mainClasses() // Classes to apply to parent div
  * get modalHTML() // JSX displayed when open
- * get transitionName() // Transisition name for ReactCSSTransitionGroup
+ * get transitionName() // Transisition name for CSSTransitionGroup
  *
  * Optional Override
  * get backgroundTransitionName() // Transisition name for background fade
@@ -217,23 +217,23 @@ class Modal extends React.Component {
         className={ this.mainClasses }
         { ...this.componentTags(this.props) }
       >
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           component='div'
           transitionName={ this.transitionName }
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 }
         >
           { modalHTML }
-        </ReactCSSTransitionGroup>
+        </CSSTransitionGroup>
 
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           component='div'
           transitionName={ this.backgroundTransitionName }
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 }
         >
           { backgroundHTML }
-        </ReactCSSTransitionGroup>
+        </CSSTransitionGroup>
       </div>
     );
   }

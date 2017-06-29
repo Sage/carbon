@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'utils/flux';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import DocumentStore from './../../../stores/document';
 import DocumentActions from './../../../actions/document';
 import marked from 'marked';
@@ -58,7 +58,7 @@ class Document extends React.Component {
         <div className="demo-document">
           { content }
 
-          <ReactCSSTransitionGroup
+          <CSSTransitionGroup
             className={ this.loadingClasses() }
             transitionName="demo-document__loading"
             transitionAppear={ true }
@@ -67,7 +67,7 @@ class Document extends React.Component {
             transitionLeaveTimeout={ 0 }
           >
             { spinner }
-          </ReactCSSTransitionGroup>
+          </CSSTransitionGroup>
         </div>
       </InformationStyles>
     );
