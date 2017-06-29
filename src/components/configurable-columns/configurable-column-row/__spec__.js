@@ -11,8 +11,12 @@ describe('ConfigurableColumnRow', () => {
 
   describe('classNames', () => {
     beforeEach(() => {
-      wrapper = shallow(<ConfigurableColumnRow />);
+      wrapper = shallow(<ConfigurableColumnRow className='my-custom-class-name' />);
       wrapper.instance().context = { dragAndDropActiveIndex: 1 }
+    })
+
+    it('adds the className to the row', () => {
+      expect(wrapper.find('.my-custom-class-name').length).toEqual(1);
     })
 
     describe('when the dragAndDropActiveIndex is the same as the rowIndex', () =>{

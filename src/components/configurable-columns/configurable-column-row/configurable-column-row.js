@@ -81,7 +81,7 @@ class ConfigurableColumnRow extends React.Component {
     );
   }
 
-  classes(dragAndDropActiveIndex, index) {
+  classes = (dragAndDropActiveIndex, index) => {
     return (
       classNames(
         'configurable-column-row',
@@ -110,7 +110,7 @@ class ConfigurableColumnRow extends React.Component {
    * @method draggingIsOccurring
    * @return {Boolean}
    */
-  draggingIsOccurring = (dragAndDropActiveIndex) => {
+  draggingIsOccurring(dragAndDropActiveIndex) {
     return typeof (dragAndDropActiveIndex) === 'number';
   }
 
