@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import { keys } from 'lodash';
 import Form from './../../../components/form';
 
-const DOCUMENT_SCROLL = 'disable-scroll';
+const classRegex = (name) => {
+  return `(?:^|\\s+)${name}(?:\\s+|$)`;
+}
 
 /**
 * Browser Helper
@@ -164,6 +166,22 @@ const Browser = {
    */
   submitForm: (form) => {
     form.submit();
+  },
+
+  hasClass: (elem, name) => {
+    return new RegExp(classRegex(name)).test(elem.className);
+  },
+
+  addClass: (elem, name) => {
+    if (!Browser.hasClass(elem, name)) {
+      elem.className = elem.className ? [elem.className, name].join(' ') : name;
+    }
+  },
+
+  removeClass: (elem, name) => {
+    if (Browser.hasClass(elem, name)) {
+      elem.className = elem.className.replace(new RegExp(classRegex(name), "g"), "");
+    }
   }
 };
 

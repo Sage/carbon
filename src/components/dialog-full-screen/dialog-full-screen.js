@@ -6,23 +6,6 @@ import Heading from './../heading';
 import FullScreenHeading from './full-screen-heading';
 import Browser from './../../utils/helpers/browser';
 
-let hasClassName = function(elem, name) {
-  return new RegExp("(?:^|\\s+)" + name + "(?:\\s+|$)").test(elem.className);
-};
-
-let addClass = function(elem, name) {
-  if (!hasClassName(elem, name)) {
-    elem.className = elem.className ? [elem.className, name].join(' ') : name;
-  }
-};
-
-let removeClass = function(elem, name) {
-  if (hasClassName(elem, name)) {
-    var c = elem.className;
-    elem.className = c.replace(new RegExp("(?:^|\\s+)" + name + "(?:\\s+|$)", "g"), "");
-  }
-};
-
 const DIALOG_OPEN_ATTRIBUTE = 'carbonFullScreenDialogOpen';
 
 /**
@@ -116,14 +99,12 @@ class DialogFullScreen extends Modal {
   }
 
   get onOpening() {
-    addClass(this.document.body, 'foo');
+    Browser.addClass(this.document.body, 'foo');
   }
 
   get onClosing() {
-    removeClass(this.document.body, 'foo');
+    Browser.removeClass(this.document.body, 'foo');
   }
-
-
 
   /**
    * Returns HTML and text for the dialog title.
