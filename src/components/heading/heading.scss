@@ -66,3 +66,50 @@
   text-align: left;
   width: 50px;
 }
+
+// When inside a dialog full screen
+.carbon-dialog-full-screen__content {
+  > .carbon-carousel {
+    .carbon-heading {
+      padding-bottom: 0;
+    }
+  }
+
+  .carbon-heading {
+    height: 98px;
+
+    .carbon-heading__header {
+      background-color: $grey-light;
+      display: flex;
+      align-items: center;
+      height: 120px;
+      padding-left: 5%;
+      padding-right: 5%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: calc(100% - 10%);
+
+      @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+        /* IE10+ specific styles go here */
+        padding-right: 3.3%;
+      }
+    }
+
+    &.carbon-heading--has-back {
+      .carbon-heading__headers {
+        margin-left: 0;
+      }
+
+      .carbon-heading__back {
+        margin-left: -40px;
+
+        .icon-chevron_left {
+          &:before {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -14,7 +14,7 @@ describe('Browser', () => {
 
   describe('redirectTo', () => {
     describe('when url is passed', () => {
-      let urlsample = 'http://bla';
+      const urlsample = 'http://bla';
 
       it('redirects to url', () => {
         spyOn(Browser, 'getWindow').and.returnValue(_window);
@@ -45,7 +45,7 @@ describe('Browser', () => {
 
   describe('reload', () => {
     it('calls the windows location relaod method', () => {
-      let spy = jasmine.createSpy('reload');
+      const spy = jasmine.createSpy('reload');
       _window = { location: { reload: spy } };
 
       spyOn(Browser, 'getWindow').and.returnValue(_window);
@@ -57,7 +57,7 @@ describe('Browser', () => {
 
   describe('edit-focus', () => {
     it('focuses on the input field of the passed in ref', () => {
-      let node = jasmine.createSpyObj(['focus', 'select']);
+      const node = jasmine.createSpyObj(['focus', 'select']);
       spyOn(ReactDOM, 'findDOMNode').and.returnValue(node);
       Browser.editFocus('fakeRef');
       expect(node.focus).toHaveBeenCalled();
@@ -67,8 +67,8 @@ describe('Browser', () => {
 
   describe('setInputFocus', () => {
     it('focuses on the input field of the passed in ref but doesnot select text', () => {
-      let node = jasmine.createSpyObj(['focus']);
-      let fakeComponent = { _input: {} };
+      const node = jasmine.createSpyObj(['focus']),
+          fakeComponent = { _input: {} };
       spyOn(ReactDOM, 'findDOMNode').and.returnValue(node);
       Browser.setInputFocus(fakeComponent);
       expect(node.focus).toHaveBeenCalled();
@@ -90,7 +90,7 @@ describe('Browser', () => {
       describe('options', () => {
         describe('when expires is passed', () => {
           it('adds expires date to the cookie', () => {
-            let date = new Date();
+            const date = new Date();
             date.setDate(date.getDate() + 1);
             Browser.setCookie('foo', 'bar', { expires: date });
             // Cannot check expiration date from document api
@@ -98,7 +98,7 @@ describe('Browser', () => {
           });
 
           it('does not add a cookie when expiration is in the passed', () => {
-            let date = new Date();
+            const date = new Date();
             date.setDate(date.getDate() - 1);
             Browser.setCookie('foo', 'bar', { expires: date });
             // Cannot check expiration date from document api
@@ -182,8 +182,14 @@ describe('Browser', () => {
     it('renders a hidden input for each data member', () => {
       spyOn(React, 'createElement').and.callThrough();
       Browser.postToNewWindow(url, data);
-      expect(React.createElement).toHaveBeenCalledWith('input', { type: 'hidden', key: key1, name: key1, value: value1 });
-      expect(React.createElement).toHaveBeenCalledWith('input', { type: 'hidden', key: key2, name: key2, value: value2 });
+      expect(React.createElement).toHaveBeenCalledWith(
+        'input',
+        { type: 'hidden', key: key1, name: key1, value: value1 }
+      );
+      expect(React.createElement).toHaveBeenCalledWith(
+        'input',
+        { type: 'hidden', key: key2, name: key2, value: value2 }
+      );
     });
 
     it('submits the rendered form', () => {
@@ -203,11 +209,11 @@ describe('Browser', () => {
     describe('when target option is passed', () => {
       it('sets the form target', () => {
         spyOn(React, 'createElement').and.callThrough();
-        let target = 'some_window';
+        const target = 'some_window';
 
         Browser.postToNewWindow(url, data, target);
         expect(React.createElement).toHaveBeenCalledWith(Form, {
-          action: url, method: 'post', target: target, save: false, cancel: false
+          action: url, method: 'post', target, save: false, cancel: false
         }, jasmine.anything());
       });
     });
@@ -224,7 +230,7 @@ describe('Browser', () => {
 });
 
 function addPostFormDiv() {
-  const div = document.createElement("div");
+  const div = document.createElement('div');
   div.setAttribute('id', 'carbonPostFormContainer');
   document.body.appendChild(div);
 }

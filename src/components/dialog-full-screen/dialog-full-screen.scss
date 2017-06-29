@@ -5,7 +5,6 @@
   background-color: $grey-light;
   height: 100%;
   left: 0;
-  overflow-y: scroll;
   position: fixed;
   top: 0;
   width: 100%;
@@ -14,38 +13,28 @@
 
 .carbon-dialog-full-screen__content {
   padding: 30px 5%;
-}
-
-.carbon-dialog-full-screen__header {
-  border-bottom: 1px solid $border-color;
-  margin: 0;
-  padding: 25px 5%;
-  position: relative;
-
-  .carbon-heading {
-    padding: 0;
-  }
-}
-
-.carbon-dialog-full-screen__title {
-  font-size: 26px;
-  margin: 0;
+  overflow-y: auto;
+  height: calc(100% - 60px);
 }
 
 .carbon-dialog-full-screen__close {
   color: $grey-mid;
   cursor: pointer;
   display: block;
-  margin-top: -8px;
   position: absolute;
   right: 5%;
-  top: 50%;
+  top: 52px;
+  z-index: $z-dialog;
 
   &:before {
-    font-size: 25px;
+    font-size: 24px;
   }
 
   &:hover {
     color: $blue;
   }
+}
+
+[data-fullscreendialogopen] {
+  overflow: hidden;
 }

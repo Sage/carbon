@@ -127,6 +127,33 @@
   }
 }
 
+// When inside a dialog full screen
+.carbon-dialog-full-screen__content {
+  > .carbon-carousel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+
+    .carbon-carousel__content {
+      overflow-y: auto;
+      position: static;
+      height: 100%;
+    }
+
+    .carbon-slide {
+      padding: 35px 5%;
+    }
+  }
+
+  .carbon-heading + .carbon-carousel {
+    .carbon-slide {
+      padding: 155px 5%;
+    }
+  }
+}
+
 $slide-animation-length: 500ms;
 $cubic-bezier: .34,1.10,.69,1.01;
 
