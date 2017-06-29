@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import Dialog from './../dialog'
 import Confirm from './confirm';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Confirm', () => {
@@ -21,12 +21,6 @@ describe('Confirm', () => {
         title="Confirm title"
       />
     );
-  });
-
-  describe('dialogTitleClasses', () => {
-    it('return the dialog title class along with the confirm title class', () => {
-      expect(instance.dialogTitleClasses).toEqual('carbon-dialog__title carbon-confirm__title');
-    });
   });
 
   describe('dialogClasses', () => {
@@ -131,7 +125,7 @@ describe('Confirm', () => {
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(
+      let wrapper = mount(
         <Confirm
           onCancel={ () => {} }
           onConfirm={ () => {} }

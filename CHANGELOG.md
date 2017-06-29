@@ -150,6 +150,7 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
   * has a new prop `slideIndex`. Changing this prop to an index will select the corresponding slide.
   * has a new prop `onSlideChange`, which is an action to be called on slide change. It will receive the slide index and the transition direction as params.
   * animation between slides enhanced.
+* `Dialog` is now using the `Heading` component to render its title and subtitle.
 * `Form` now has default `SaveButton` and `CancelButton` functional stateless components. The former can be overridden with a new prop of `customSaveButton`.
 * `Heading` backLink prop can now be a string or a function.
 * `InlineInputs` children are now wrapped by Columns by the component.
