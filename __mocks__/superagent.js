@@ -51,6 +51,7 @@ var Request = {
     }
 
     callback(mockError, mockResponse);
+    return this;
   }),
   //expose helper methods for tests to set
   __setMockDelay(boolValue) {
