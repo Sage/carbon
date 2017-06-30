@@ -199,7 +199,7 @@ class Dialog extends Modal {
 
     let title = this.props.title;
 
-    if (typeof title === "string") {
+    if (typeof title === 'string') {
       title = (
         <Heading
           title={ title }
@@ -211,7 +211,7 @@ class Dialog extends Modal {
     }
 
     return (
-      <div className="carbon-dialog__title">{ title }</div>
+      <div className='carbon-dialog__title'>{ title }</div>
     );
   }
 
@@ -276,13 +276,13 @@ class Dialog extends Modal {
    * @return {Object} JSX for dialog
    */
   get modalHTML() {
-    let dialogProps = {
+    const dialogProps = {
       className: this.dialogClasses,
       tabIndex: 0
     };
 
     if (this.props.ariaRole) {
-      dialogProps['role'] = this.props.ariaRole;
+      dialogProps.role = this.props.ariaRole;
     }
 
     if (this.props.title) {

@@ -11,7 +11,7 @@ import Form from './../../../components/form';
  */
 const classRegex = (name) => {
   return `(?:^|\\s+)${name}(?:\\s+|$)`;
-}
+};
 
 /**
 * Browser Helper
@@ -45,7 +45,7 @@ const Browser = {
    * @return HTMLElement
    */
   getActiveElement: () => {
-    let doc = Browser.getDocument();
+    const doc = Browser.getDocument();
     return doc.activeElement;
   },
 
@@ -207,7 +207,7 @@ const Browser = {
    */
   removeClass: (elem, name) => {
     if (Browser.hasClass(elem, name)) {
-      elem.className = elem.className.replace(new RegExp(classRegex(name), "g"), "");
+      elem.className = elem.className.replace(new RegExp(classRegex(name), 'g'), ' ');
     }
   }
 };

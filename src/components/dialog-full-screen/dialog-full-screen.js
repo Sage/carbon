@@ -127,7 +127,7 @@ class DialogFullScreen extends Modal {
 
     let title = this.props.title;
 
-    if (typeof title === "string") {
+    if (typeof title === 'string') {
       title = (
         <Heading
           title={ title }

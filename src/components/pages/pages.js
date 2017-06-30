@@ -5,7 +5,7 @@ import { Carousel } from './../carousel';
 import Page from './page';
 
 const Pages = (props) => {
-  const classes = classNames("carbon-pages", props.className);
+  const classes = classNames('carbon-pages', props.className);
 
   return (
     <Carousel
