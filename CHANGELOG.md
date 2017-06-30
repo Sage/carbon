@@ -171,6 +171,7 @@ A new helper object is available in `utils/helpers/text`. Currently it only cont
 ## Bug Fixes
 
 * `DialogFullScreen` now scrolls vertically if it contains content taller than the dialog height.
+* `TableHeader`: fix alignment of sort icon in IE11.
 
 ## Dependency Switch
 
@@ -448,7 +449,6 @@ e.g.
 
 * `Dropdown`: adds a set of ontouch events to the list in order to stop blurring from happening until after the touch event which fixes a bug with the input update on finger tap on touch screens
 * `TableHeader`: fix overflow issue so that tooltip / help components aren't cut off.
-* `TableHeader`: fix alignment of sort icon in IE11.
 * `Decimal`: fix issue where `visibleValue` was not updated after a change to `precision`.
 
 # 0.34.4
