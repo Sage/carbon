@@ -5,11 +5,13 @@
 @import "./../../style-config/buttons";
 
 .carbon-button {
+  align-items: center;
   border: $carbon-button__border--secondary;
   border-radius: $carbon-button__border-radius;
   box-sizing: border-box;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
   line-height: 16px;
   font-size: $app-font-size;
   font-weight: $carbon-button__font-weight;
