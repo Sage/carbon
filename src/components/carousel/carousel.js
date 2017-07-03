@@ -27,11 +27,22 @@ class Carousel extends React.Component {
     /**
      * The selected tab on page load
      *
-     * @property initialSelectedTabId
+     * @property initialSlideIndex
      * @type {String}
      * @default firstTab
      */
     initialSlideIndex: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
+
+    /**
+     * The selected slide
+     *
+     * @property slideIndex
+     * @type {String}
+     */
+    slideIndex: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string
     ]),
@@ -45,11 +56,46 @@ class Carousel extends React.Component {
     children: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object
-    ])
+    ]),
+
+    /**
+     * Enables the slide selector
+     *
+     * @property enableSlideSelector
+     * @type {Boolean}
+     */
+    enableSlideSelector: PropTypes.bool,
+
+    /**
+     * Enables the previous button
+     *
+     * @property enablePreviousButton
+     * @type {Boolean}
+     */
+    enablePreviousButton: PropTypes.bool,
+
+    /**
+     * Enables the next button
+     *
+     * @property enableNextButton
+     * @type {Boolean}
+     */
+    enableNextButton: PropTypes.bool,
+
+    /**
+     * Action to be called on slide change
+     *
+     * @property onSlideChange
+     * @type {Function}
+     */
+    onSlideChange: PropTypes.func
   }
 
   static defaultProps = {
-    initialSlideIndex: 0
+    initialSlideIndex: 0,
+    enableSlideSelector: true,
+    enablePreviousButton: true,
+    enableNextButton: true
   }
 
   constructor(...args) {
@@ -91,8 +137,30 @@ class Carousel extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
-    const selectedIndex = Number(this.props.initialSlideIndex);
+    const selectedIndex = Number(this.props.slideIndex) || Number(this.props.initialSlideIndex);
     this.setState({ selectedSlideIndex: selectedIndex });
+  }
+
+  /**
+   * A lifecycle method that is called before re-render.
+   *
+   * @method componentWillReceiveProps
+   */
+  componentWillReceiveProps(nextProps) {
+    if (typeof nextProps.slideIndex === 'undefined') { return; }
+
+    const newIndex = this.verifyNewIndex(nextProps.slideIndex);
+    const currentIndex = this.state.selectedSlideIndex;
+
+    if (newIndex === currentIndex) {
+      return;
+    } else if (newIndex > currentIndex) {
+      this.transitionDirection = NEXT;
+    } else {
+      this.transitionDirection = PREVIOUS;
+    }
+
+    this.handleSlideChange(newIndex);
   }
 
   /**
@@ -106,8 +174,7 @@ class Carousel extends React.Component {
       newIndex = this.numOfSlides() - 1;
     }
     this.transitionDirection = PREVIOUS;
-    this.setState({ disabled: true, selectedSlideIndex: newIndex });
-    this.enableButtonsAfterTimeout();
+    this.handleSlideChange(newIndex);
   }
 
   /**
@@ -118,8 +185,7 @@ class Carousel extends React.Component {
   onNextClick() {
     const newIndex = (this.state.selectedSlideIndex + 1) % this.numOfSlides();
     this.transitionDirection = NEXT;
-    this.setState({ disabled: true, selectedSlideIndex: newIndex });
-    this.enableButtonsAfterTimeout();
+    this.handleSlideChange(newIndex);
   }
 
   /**
@@ -130,8 +196,41 @@ class Carousel extends React.Component {
   onSlideSelection(ev) {
     const newSlideSelection = Number(ev.target.value);
     this.transitionDirection = newSlideSelection > this.state.selectedSlideIndex ? NEXT : PREVIOUS;
-    this.setState({ disabled: true, selectedSlideIndex: newSlideSelection });
+    this.handleSlideChange(newSlideSelection);
+  }
+
+  /**
+   * Verifies the new index and corrects it if necessary
+   *
+   * @method verifyNewIndex
+   * @param newIndex {Integer}
+   * @return {Integer}
+   */
+  verifyNewIndex(newIndex) {
+    if (newIndex < 0) {
+      // If the new index is negative, select the last slide
+      return this.numOfSlides() - 1;
+    } else if (newIndex > this.numOfSlides() - 1) {
+      // If the new index is bigger than the number of slides, select the first slide
+      return 0;
+    }
+
+    return newIndex;
+  }
+
+  /**
+   * Handle the slide change to the newIndex
+   *
+   * @method handleSlideChange
+   * @param newIndex {Integer}
+   */
+  handleSlideChange(newIndex) {
+    this.setState({ disabled: true, selectedSlideIndex: newIndex });
     this.enableButtonsAfterTimeout();
+
+    if (this.props.onSlideChange) {
+      this.props.onSlideChange(newIndex, this.transitionDirection);
+    }
   }
 
   /**
@@ -266,11 +365,16 @@ class Carousel extends React.Component {
    * @method visibleSlide
    */
   visibleSlide() {
-    const index = this.state.selectedSlideIndex;
-    const visibleSlide = compact(React.Children.toArray(this.props.children))[index];
+    const index = this.state.selectedSlideIndex,
+        visibleSlide = compact(React.Children.toArray(this.props.children))[index],
+        slideClassNames = classNames(
+          'carbon-slide carbon-slide--active',
+          visibleSlide.props.className,
+          { 'carbon-slide--padded': this.props.enablePreviousButton || this.props.enableNextButton }
+        );
 
     const additionalProps = {
-      className: classNames('carbon-slide carbon-slide--active', visibleSlide.props.className),
+      className: slideClassNames,
       'data-element': 'visible-slide',
       key: `carbon-slide-${index}`
     };
@@ -284,6 +388,8 @@ class Carousel extends React.Component {
    * @method slideSelector
    */
   slideSelector() {
+    if (!this.props.enableSlideSelector) { return null; }
+
     const buttons = [];
 
     for (let i = 0; i < this.numOfSlides(); i++) {
@@ -308,7 +414,45 @@ class Carousel extends React.Component {
       );
     }
 
-    return buttons;
+    return (
+      <div className={ this.slideSelectorClasses() }>
+        { buttons }
+      </div>
+    );
+  }
+
+  /**
+   * Renders the previous button
+   *
+   * @method previousButton
+   */
+  previousButton() {
+    if (!this.props.enablePreviousButton) { return null; }
+
+    return (
+      <div className={ this.previousClasses() }>
+        <button { ...this.previousButtonProps() } data-element='previous'>
+          <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
+        </button>
+      </div>
+    );
+  }
+
+  /**
+   * Renders the next button
+   *
+   * @method nextButton
+   */
+  nextButton() {
+    if (!this.props.enableNextButton) { return null; }
+
+    return (
+      <div className={ this.nextClasses() }>
+        <button { ...this.nextButtonProps() } data-element='next'>
+          <Icon className='carbon-carousel__next-arrow' type='dropdown' />
+        </button>
+      </div>
+    );
   }
 
   /**
@@ -321,12 +465,7 @@ class Carousel extends React.Component {
       <div className={ this.mainClasses() } { ...tagComponent('carousel', this.props) }>
 
         <div className='carbon-carousel__content'>
-
-          <div className={ this.previousClasses() }>
-            <button { ...this.previousButtonProps() } data-element='previous'>
-              <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
-            </button>
-          </div>
+          { this.previousButton() }
 
           <CSSTransitionGroup
             transitionName={ `slide-${this.transitionDirection}` }
@@ -336,16 +475,10 @@ class Carousel extends React.Component {
             { this.visibleSlide() }
           </CSSTransitionGroup>
 
-          <div className={ this.nextClasses() }>
-            <button { ...this.nextButtonProps() } data-element='next'>
-              <Icon className='carbon-carousel__next-arrow' type='dropdown' />
-            </button>
-          </div>
+          { this.nextButton() }
         </div>
 
-        <div className={ this.slideSelectorClasses() }>
-          { this.slideSelector() }
-        </div>
+        { this.slideSelector() }
 
       </div>
     );

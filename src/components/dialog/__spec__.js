@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Bowser from 'bowser';
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import Browser from '../../utils/helpers/browser';
 import Dialog from './dialog';
 import Button from './../button';
@@ -20,17 +20,17 @@ describe('Dialog', () => {
       describe('when dialog is open', () => {
         it('centers the dialog', () => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog open={ true } onCancel={ onCancel } />
+            <Dialog open onCancel={ onCancel } />
           );
-          spyOn(instance, "centerDialog");
+          spyOn(instance, 'centerDialog');
           instance.componentDidMount();
           expect(instance.centerDialog).toHaveBeenCalled();
         });
 
         it('focuses on the dialog', () => {
           spyOn(Dialog.prototype, 'focusDialog');
-          const wrapper = mount(
-            <Dialog open={ true } onCancel={ onCancel } />
+          mount(
+            <Dialog open onCancel={ onCancel } />
           );
           expect(Dialog.prototype.focusDialog).toHaveBeenCalled();
         });
@@ -41,7 +41,7 @@ describe('Dialog', () => {
           instance = TestUtils.renderIntoDocument(
             <Dialog open={ false } onCancel={ onCancel } />
           );
-          spyOn(instance, "centerDialog");
+          spyOn(instance, 'centerDialog');
           instance.componentDidMount();
           expect(instance.centerDialog).not.toHaveBeenCalled();
         });
@@ -49,9 +49,7 @@ describe('Dialog', () => {
     });
 
     describe('componentDidUpdate', () => {
-      let mockWindow;
-      let wrapper;
-      let instance;
+      let mockWindow, wrapper;
 
       beforeEach(() => {
         mockWindow = {
@@ -65,7 +63,7 @@ describe('Dialog', () => {
       describe('when the dialog is open', () => {
         beforeEach(() => {
           wrapper = mount(
-            <Dialog open={ true } onCancel={ onCancel } />
+            <Dialog open onCancel={ onCancel } />
           );
           instance = wrapper.instance();
         });
@@ -122,7 +120,7 @@ describe('Dialog', () => {
   describe('centerDialog', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Dialog open={ true } onCancel={ onCancel } />
+        <Dialog open onCancel={ onCancel } />
       );
     });
 
@@ -166,29 +164,29 @@ describe('Dialog', () => {
 
   describe('dialogTitle', () => {
     describe('when a props title is passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
+      it('sets a dialog header', () => {
+        const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
-            open={ true }
-            title="Dialog title"
+            open
+            title='Dialog title'
+            subtitle='Dialog subtitle'
           />
-        );
-      });
+        ),
+            title = wrapper.find('[data-element="title"]'),
+            subtitle = wrapper.find('[data-element="subtitle"]');
 
-      it('sets a dialog header', () => {
-        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
-        expect(header.classList[0]).toEqual('carbon-dialog__title');
-        expect(header.textContent).toEqual('Dialog title');
+        expect(title.props().children).toEqual('Dialog title');
+        expect(subtitle.props().children).toEqual('Dialog subtitle');
       });
     });
 
     describe('when a props object title is passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
+      it('wraps it within a div', () => {
+        const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
-            open={ true }
+            open
             title={
               <Row>
                 <Column>Row1</Column>
@@ -196,63 +194,24 @@ describe('Dialog', () => {
               </Row>
             }
           />
-        );
-      });
+        ),
+            title = wrapper.find('.carbon-dialog__title'),
+            columns = title.find(Column);
 
-      it('sets a dialog header', () => {
-        let header = TestUtils.findRenderedDOMComponentWithTag(instance, 'h2');
-        expect(header.classList[0]).toEqual('carbon-dialog__title');
-        expect(header.textContent).toEqual('Row1Row2');
+        expect(columns.first().props().children).toEqual('Row1');
+        expect(columns.last().props().children).toEqual('Row2');
       });
     });
 
     describe('when a props title is not passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
-          <Dialog
-            onCancel={ onCancel }
-            open={ true }
-          />
-        );
-      });
-
       it('defaults to null', () => {
-        expect(instance.dialogTitle).toBeFalsy();
-      });
-    });
-  });
-
-  describe('dialogSubTitle', () => {
-    describe('when a props subtitle is passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
+        const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
-            open={ true }
-            subtitle="My informative subtitle"
+            open
           />
         );
-      });
-
-      it('sets a dialog subtitle', () => {
-        let subtitle = TestUtils.findRenderedDOMComponentWithTag(instance, 'p');
-        expect(subtitle.classList[0]).toEqual('carbon-dialog__subtitle');
-        expect(subtitle.textContent).toEqual('My informative subtitle');
-      });
-    });
-
-    describe('when a props subtitle is not passed', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
-          <Dialog
-            onCancel={ onCancel }
-            open={ true }
-          />
-        );
-      });
-
-      it('defaults to null', () => {
-        expect(instance.dialogSubTitle).toBeFalsy();
+        expect(wrapper.instance().dialogTitle).toBeFalsy();
       });
     });
   });
@@ -263,8 +222,9 @@ describe('Dialog', () => {
         instance = TestUtils.renderIntoDocument(
           <Dialog
             onCancel={ onCancel }
-            className="foo"
-            open={ true } >
+            className='foo'
+            open
+          >
 
             <Button>Button</Button>
             <Button>Button</Button>
@@ -273,7 +233,7 @@ describe('Dialog', () => {
       });
 
       it('renders a parent div with mainClasses attached', () => {
-        let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+        const dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
         expect(dialogNode.className).toEqual('carbon-dialog foo');
       });
 
@@ -283,13 +243,13 @@ describe('Dialog', () => {
       });
 
       it('closes when the exit icon is click', () => {
-        let closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dialog__close');
+        const closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dialog__close');
         TestUtils.Simulate.click(closeIcon);
         expect(onCancel).toHaveBeenCalled();
       });
 
       it('renders the children passed to it', () => {
-        let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
+        const buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
         expect(buttons.length).toEqual(2);
       });
 
@@ -298,8 +258,9 @@ describe('Dialog', () => {
           instance = TestUtils.renderIntoDocument(
             <Dialog
               onCancel={ onCancel }
-              open={ true }
-              size='small' />
+              open
+              size='small'
+            />
           );
 
           expect(instance._dialog.classList[1]).toEqual('carbon-dialog__dialog--small');
@@ -312,20 +273,20 @@ describe('Dialog', () => {
         instance = TestUtils.renderIntoDocument(
           <Dialog open={ false } onCancel={ onCancel } />
         );
-        let dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+        const dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
         expect(dialogNode.classList[0]).toEqual('carbon-dialog');
       });
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(
+  describe('tags', () => {
+    describe('on component', () => {
+      const wrapper = shallow(
         <Dialog
           data-element='bar'
           onCancel={ () => {} }
           onConfirm={ () => {} }
-          open={ true }
+          open
           data-role='baz'
         />);
 
@@ -334,13 +295,13 @@ describe('Dialog', () => {
       });
     });
 
-    describe("on internal elements", () => {
-      let wrapper = shallow(
+    describe('on internal elements', () => {
+      const wrapper = mount(
         <Dialog
           onCancel={ () => {} }
           onConfirm={ () => {} }
-          open={ true }
-          showCloseIcon={ true }
+          open
+          showCloseIcon
           subtitle='Test'
           title='Test'
         />
@@ -362,11 +323,11 @@ describe('Dialog', () => {
         <Dialog
           onCancel={ () => {} }
           onConfirm={ () => {} }
-          open={ true }
-          showCloseIcon={ true }
+          open
+          showCloseIcon
           subtitle='Test'
           title='Test'
-          ariaRole="dialog"
+          ariaRole='dialog'
         />
       );
     });
@@ -391,9 +352,9 @@ describe('Dialog', () => {
           <Dialog
             onCancel={ () => {} }
             onConfirm={ () => {} }
-            open={ true }
-            showCloseIcon={ true }
-            ariaRole=""
+            open
+            showCloseIcon
+            ariaRole=''
           />
         );
       });
@@ -415,7 +376,7 @@ describe('Dialog', () => {
       wrapper.setProps({
         open: false
       });
-      const instance = wrapper.instance();
+      instance = wrapper.instance();
       spyOn(instance, 'focusDialog');
 
       wrapper.setProps({
