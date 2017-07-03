@@ -29,8 +29,8 @@ describe('Dialog', () => {
 
         it('focuses on the dialog', () => {
           spyOn(Dialog.prototype, 'focusDialog');
-          const wrapper = mount(
-            <Dialog open={ true } onCancel={ onCancel } />
+          mount(
+            <Dialog open onCancel={ onCancel } />
           );
           expect(Dialog.prototype.focusDialog).toHaveBeenCalled();
         });
@@ -49,9 +49,7 @@ describe('Dialog', () => {
     });
 
     describe('componentDidUpdate', () => {
-      let mockWindow;
-      let wrapper;
-      let instance;
+      let mockWindow, wrapper;
 
       beforeEach(() => {
         mockWindow = {
@@ -184,7 +182,7 @@ describe('Dialog', () => {
     });
 
     describe('when a props object title is passed', () => {
-      it('sets a dialog header', () => {
+      it('wraps it within a div', () => {
         const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
@@ -197,7 +195,7 @@ describe('Dialog', () => {
             }
           />
         ),
-            title = wrapper.find('[data-element="title"]'),
+            title = wrapper.find('.carbon-dialog__title'),
             columns = title.find(Column);
 
         expect(columns.first().props().children).toEqual('Row1');
@@ -325,11 +323,11 @@ describe('Dialog', () => {
         <Dialog
           onCancel={ () => {} }
           onConfirm={ () => {} }
-          open={ true }
-          showCloseIcon={ true }
+          open
+          showCloseIcon
           subtitle='Test'
           title='Test'
-          ariaRole="dialog"
+          ariaRole='dialog'
         />
       );
     });
@@ -354,9 +352,9 @@ describe('Dialog', () => {
           <Dialog
             onCancel={ () => {} }
             onConfirm={ () => {} }
-            open={ true }
-            showCloseIcon={ true }
-            ariaRole=""
+            open
+            showCloseIcon
+            ariaRole=''
           />
         );
       });
@@ -378,7 +376,7 @@ describe('Dialog', () => {
       wrapper.setProps({
         open: false
       });
-      const instance = wrapper.instance();
+      instance = wrapper.instance();
       spyOn(instance, 'focusDialog');
 
       wrapper.setProps({
