@@ -5,7 +5,7 @@ class ComponentCodeBuilder {
   constructor(name, withEvents) {
     let definition;
 
-    if (typeof name !== "string") {
+    if (typeof name !== 'string') {
       definition = name;
       this.wrap = definition.get('wrap');
       name = definition.get('topLevelComponent') || definition.get('name');
@@ -45,10 +45,10 @@ class ComponentCodeBuilder {
   // adds multiple props to the code based on a definition
   addProps = (definition, withEvents) => {
     let props = definition.get('propValues'),
-        propTypes = definition.get('propTypes'),
+        children = props.get('children');
+    const propTypes = definition.get('propTypes'),
         wrapProps = definition.get('wrapProps'),
         toggleFunctions = definition.get('toggleFunctions'),
-        children = props.get('children'),
         js = definition.get('js'),
         wrap = definition.get('wrap');
 
@@ -66,19 +66,19 @@ class ComponentCodeBuilder {
     this.openPreview = definition.get('openPreview');
 
     props.forEach((value, prop) => {
-      if (prop !== "children" && !toggleFunctions.includes(prop)) {
-        if (withEvents || (prop !== "data-binding" && typeof value !== "function")) {
+      if (prop !== 'children' && !toggleFunctions.includes(prop)) {
+        if (withEvents || (prop !== 'data-binding' && typeof value !== 'function')) {
           this.addProp(prop, value, propTypes.get(prop));
         }
       } else if (toggleFunctions.includes(prop) && value) {
-        this.addProp(prop, `() => { alert("${prop}"); }`, "Function");
+        this.addProp(prop, `() => { alert("${prop}"); }`, 'Function');
       }
     });
 
     if (children) {
-      if (typeof children === "object") {
+      if (typeof children === 'object') {
         children.forEach((child) => {
-          let childCode = new ComponentCodeBuilder(child);
+          const childCode = new ComponentCodeBuilder(child);
           this.addChild(childCode);
         });
       } else {
@@ -94,7 +94,8 @@ class ComponentCodeBuilder {
   // adds a prop to the code
   addProp = (prop, value, type) => {
     if (this.hasChildren || this.isClosed) {
-      throw new Error(`You cannot add props after you have added children or closed your component! See the ComponentCodeBuilder for '${this.name}'.\n\nCurrent markup:\n\n${this.code}`);
+      throw new Error(`You cannot add props after you have added children or closed your component!
+         See the ComponentCodeBuilder for '${this.name}'.\n\nCurrent markup:\n\n${this.code}`);
     }
 
     if (value || value === '' || value === false) {
@@ -116,25 +117,26 @@ class ComponentCodeBuilder {
   // adds children to the component
   addChild = (child) => {
     if (this.isClosed) {
-      throw new Error(`You cannot add children after you have closed your component! See the ComponentCodeBuilder for '${this.name}'.\n\nCurrent markup:\n\n${this.code}`);
+      throw new Error(`You cannot add children after you have closed your component!
+         See the ComponentCodeBuilder for '${this.name}'.\n\nCurrent markup:\n\n${this.code}`);
     }
 
-    let spaces = "  ";
+    let spaces = '  ';
 
     // add spaces to child with code
     if (child.code) {
       child.close();
       child.code = child.code.replace(/^/gm, spaces);
-      spaces = "";
+      spaces = '';
     }
 
     if (this.hasChildren) {
       this.code += `\n${spaces}${child}`;
     } else {
       if (this.hasProps) {
-        this.code += `\n>\n`;
+        this.code += '\n>\n';
       } else {
-        this.code += `>\n`;
+        this.code += '>\n';
       }
       this.code += `${spaces}${child}`;
       this.hasChildren = true;
@@ -143,7 +145,7 @@ class ComponentCodeBuilder {
 
   // adds javascript making it available before the JSX
   addJS = (js) => {
-    this.code = js + "\n\n" + this.code
+    this.code = js + '\n\n' + this.code
   }
 
   // closes the component tag
@@ -153,9 +155,9 @@ class ComponentCodeBuilder {
     if (this.hasChildren) {
       this.code += `\n</${this.wrap || this.name}>`;
     } else if (this.hasProps) {
-      this.code += "\n/>";
+      this.code += '\n/>';
     } else {
-      this.code += " />";
+      this.code += ' />';
     }
 
     this.isClosed = true;

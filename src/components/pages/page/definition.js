@@ -1,8 +1,8 @@
 import Page from './';
 import Definition from './../../../../demo/utils/definition';
 
-let definition = new Definition('page', Page, {
-  props: [ 'children', 'title' ],
+const definition = new Definition('page', Page, {
+  props: ['children', 'title'],
   propTypes: {
     title: 'Node',
     children: 'Node'

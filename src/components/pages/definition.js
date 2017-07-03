@@ -7,23 +7,23 @@ global.goToPage = (ev) => {
     actionType: window.ComponentConstants.UPDATE_DEFINITION,
     name: 'pages',
     prop: 'slideIndex',
-    value: ev.target.name || "0"
+    value: ev.target.name || '0'
   });
 };
 
 const definition = new Definition('pages', Pages, {
   description: 'Allows to slide to different pages in a full screen dialog.',
-  designerNotes: ``,
+  designerNotes: '',
   associatedDefinitions: [pageDefinition],
   propTypes: {
     children: 'Node',
     className: 'String',
-    slideIndex: 'Number || String',
+    slideIndex: 'Number || String'
   },
   propDescriptions: {
     children: 'This component supports children.',
     className: 'Classes to apply to the component.',
-    slideIndex: 'Set this prop to change slide',
+    slideIndex: 'Set this prop to change slide'
   },
   wrap: 'DialogFullScreen',
   wrapProps: ['open', 'onCancel'],
