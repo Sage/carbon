@@ -52,12 +52,12 @@ class ComponentCodeBuilder {
         js = definition.get('js'),
         wrap = definition.get('wrap');
 
-    if (wrap && wrapProps.count()) {
+    if (wrap && wrapProps && wrapProps.count()) {
       props = props.filter((prop, key) => {
         return wrapProps.includes(key);
       });
       children = null;
-    } else if (wrapProps.count()) {
+    } else if (wrapProps && wrapProps.count()) {
       props = props.filter((prop, key) => {
         return !wrapProps.includes(key);
       });
