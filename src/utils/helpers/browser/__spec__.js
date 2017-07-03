@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { mount } from 'enzyme';
 import Form from './../../../components/form';
 import Browser from './browser.js';
 
 describe('Browser', () => {
   let _window;
+  const elem = mount(
+    <div className='foo bar baz' />
+  );
 
   beforeEach(() => {
     _window = {
@@ -225,52 +229,6 @@ describe('Browser', () => {
       const form = { submit: submitSpy };
       Browser.submitForm(form);
       expect(submitSpy).toHaveBeenCalled();
-    });
-  });
-
-  describe('hasClass', () => {
-    it('return true when the element has the name classe', () => {
-      const elem = { className: 'foo bar baz' },
-          name = 'bar';
-
-      expect(Browser.hasClass(elem, name)).toBeTruthy();
-    });
-
-    it('return false when the element does not have the name classe', () => {
-      const elem = { className: 'foo bar baz' },
-          name = 'qux';
-
-      expect(Browser.hasClass(elem, name)).toBeFalsy();
-    });
-  });
-
-  describe('addClass', () => {
-    it('adds the name class to the elem', () => {
-      const elem = { className: 'foo bar baz' },
-          name = 'qux';
-
-      Browser.addClass(elem, name);
-      expect(elem.className).toEqual('foo bar baz qux');
-    });
-  });
-
-  describe('removeClass', () => {
-    it('removes the name class to the elem', () => {
-      const elem = { className: 'foo bar baz' },
-          name = 'bar';
-
-      Browser.removeClass(elem, name);
-      expect(elem.className).toEqual('foo baz');
-    });
-
-    describe('when the elem does not have the name class', () => {
-      it('does not remove the name class to the elem', () => {
-        const elem = { className: 'foo bar baz' },
-            name = 'qux';
-
-        Browser.removeClass(elem, name);
-        expect(elem.className).toEqual('foo bar baz');
-      });
     });
   });
 });

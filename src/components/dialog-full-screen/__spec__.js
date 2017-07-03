@@ -104,7 +104,7 @@ describe('DialogFullScreen', () => {
       const body = wrapper.instance().document.body;
       expect(body.className).toEqual('carbon-dialog-full-screen--open');
       wrapper.setProps({ open: false });
-      expect(body.className).toEqual(' ');
+      expect(body.className).toEqual('');
     });
   });
 

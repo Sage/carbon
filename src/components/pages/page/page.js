@@ -9,7 +9,7 @@ const pageClasses = (props) => {
 };
 
 const Page = props =>
-  <div className={ pageClasses(props) } { ...tagComponent('page', props) }>
+  <article className={ pageClasses(props) } { ...tagComponent('page', props) }>
     <FullScreenHeading>
       { props.title }
     </FullScreenHeading>
@@ -17,7 +17,7 @@ const Page = props =>
     <div className='carbon-page__content'>
       { props.children }
     </div>
-  </div>
+  </article>
 ;
 
 Page.propTypes = {

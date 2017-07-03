@@ -4,16 +4,6 @@ import { keys } from 'lodash';
 import Form from './../../../components/form';
 
 /**
- * Returns regex for finding a class name in a string.
- *
- * @param {String} name
- * @return {Regex}
- */
-const classRegex = (name) => {
-  return `(?:^|\\s+)${name}(?:\\s+|$)`;
-};
-
-/**
 * Browser Helper
 
 *
@@ -172,43 +162,6 @@ const Browser = {
    */
   submitForm: (form) => {
     form.submit();
-  },
-
-  /**
-   * Determines if a class is present on an element.
-   *
-   * @param {Element} elem - the element to inspect
-   * @param {String} name - the class name to look for
-   * @return {Boolean}
-   */
-  hasClass: (elem, name) => {
-    return new RegExp(classRegex(name)).test(elem.className);
-  },
-
-  /**
-   * Adds a class to an element if it is not already present.
-   *
-   * @param {Element} elem - the element to add the class to
-   * @param {String} name - the class name to add
-   * @return {Boolean}
-   */
-  addClass: (elem, name) => {
-    if (!Browser.hasClass(elem, name)) {
-      elem.className = elem.className ? [elem.className, name].join(' ') : name;
-    }
-  },
-
-  /**
-   * Removes a class from an element if it exists.
-   *
-   * @param {Element} elem - the element to remove the class from
-   * @param {String} name - the class name to remove
-   * @return {Boolean}
-   */
-  removeClass: (elem, name) => {
-    if (Browser.hasClass(elem, name)) {
-      elem.className = elem.className.replace(new RegExp(classRegex(name), 'g'), ' ');
-    }
   }
 };
 
