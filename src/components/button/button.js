@@ -88,7 +88,22 @@ class Button extends React.Component {
      * @type {String}
      * @default medium
      */
-    size: PropTypes.string
+    size: PropTypes.string,
+
+    /**
+     * Allows a font size to be set that alters the default font size.
+     * Currently only setting a smalleer font in a large button is allowed, which we do with CSS
+     *
+     * @property fontSize
+     * @type {String}
+     */
+    subtext: (props) => {
+      if (props.subtext && props.size !== 'large') {
+        throw new Error('subtext prop has no effect unless the button is large');
+      } else {
+        return null;
+      }
+    }
   }
 
   static safeProps = ['disabled']
@@ -97,7 +112,8 @@ class Button extends React.Component {
     as: 'secondary',
     size: 'medium',
     theme: 'blue',
-    disabled: false
+    disabled: false,
+    subtext: ''
   }
 
   constructor(...args) {
@@ -123,13 +139,44 @@ class Button extends React.Component {
       `carbon-button--${this.props.size}`,
       props.className, {
         'carbon-button--disabled': this.props.disabled,
-        'carbon-button--small-font': this.props.smallFont
+        'carbon-button--small-font': this.props.smallFont,
+        'carbon-button--subtext': (this.props.subtext.length > 0)
       }
     );
 
     props = assign({}, props, tagComponent('button', this.props));
 
-    return React.createElement(el, props, this.props.children);
+    return React.createElement(el, props, this.buildChildren());
+  }
+
+  /**
+   * Creates the child object for the button
+   *
+   * @return {Object} JSX
+   */
+  buildChildren() {
+    let children = this.props.children;
+
+    if (this.props.subtext.length > 0 && this.props.size === 'large') {
+      children = ([
+        <span
+          className='carbon-button__main-text'
+          data-element='main-text'
+          key='children'
+        >
+          { this.props.children }
+        </span>,
+        <span
+          className='carbon-button__subtext'
+          data-element='subtext'
+          key='subtext'
+        >
+          { this.props.subtext }
+        </span>
+      ]);
+    }
+
+    return children;
   }
 
   /**

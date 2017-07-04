@@ -11,6 +11,7 @@
   box-sizing: border-box;
   cursor: pointer;
   display: inline-flex;
+  flex-direction: column;
   justify-content: center;
   line-height: 16px;
   font-size: $app-font-size;
@@ -39,10 +40,21 @@
   &.carbon-button--large {
     font-size: 16px;
     height: 43px;
-    padding: 12px 20px;
+    padding: 0 20px;
 
     &.carbon-button--small-font {
       font-size: $app-font-size;
+    }
+
+    &.carbon-button--subtext {
+      .carbon-button__main-text {
+        font-size: 13px;
+      }
+
+      .carbon-button__subtext {
+        font-size: 12px;
+        font-weight: normal;
+      }
     }
   }
 }

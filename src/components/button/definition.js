@@ -29,6 +29,7 @@ let definition = new Definition('button', Button, {
     smallFont: "Boolean",
     theme: "String",
     size: "String",
+    subtext: "String"
   },
   propValues: {
     children: "Example Button"
@@ -40,6 +41,7 @@ let definition = new Definition('button', Button, {
     smallFont: "Allows a large button to have smaller text",
     theme: "Choose between different colour themes for the button.",
     size: "Choose between various sizes for the button.",
+    subtext: "A second line of text to be added to a large button"
   },
 });
 
