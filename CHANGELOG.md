@@ -139,12 +139,50 @@ The `TableRow` component now supports drag and drop. To enable it you need to ad
 
 A new helper object is available in `utils/helpers/text`. Currently it only contains one method `clearSelection`, which clears any selected text on the page.
 
+## Pages and page
+
+Pages and Page are new components to enable paginated content for full screen views.
+See an example with a full screen dialog:
+```
+const headingOne = (
+  <Heading title="My First Page" />
+);
+
+const headingTwo = (
+  <Heading title="My Second Page" />
+);
+
+return (
+  <DialogFullScreen>
+    <Pages slideIndex={ 0 }>
+      <Page title={ headingOne }>
+        Content for the first page.
+      </Page>
+
+      <Page title={ headingTwo }>
+        Content for the second page.
+      </Page>
+    </Pages>
+  </DialogFullScreen>
+);
+```
+
 ## Component Improvements
 
 * `Alert` now alerts itself to screen readers.
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
-* `Form` now has default `SaveButton` and `CancelButton` functional stateless componenents. The former can be overriden with a new prop of `customSaveButton`.
-* `InlineInputs` children are now wrapped in Columns by the component.
+* `Carousel`
+  * has a new prop `enableSlideSelector` defaulted to `true`. Setting it to `false` will hide the slide selector.
+  * has a new prop `enablePreviousButton` defaulted to `true`. Setting it to `false` will hide the previous button.
+  * has a new prop `enableNextButton` defaulted to `true`. Setting it to `false` will hide the next button.
+  * has a new prop `slideIndex`. Changing this prop to an index will select the corresponding slide.
+  * has a new prop `onSlideChange`, which is an action to be called on slide change. It will receive the slide index and the transition direction as params.
+  * animation between slides enhanced.
+* `Dialog` is now using the `Heading` component to render its title and subtitle.
+* `DialogFullScreen` is now scrollable if the content goes beyond the height of the browser.
+* `Form` now has default `SaveButton` and `CancelButton` functional stateless components. The former can be overridden with a new prop of `customSaveButton`.
+* `Heading` backLink prop can now be a string or a function.
+* `InlineInputs` children are now wrapped by Columns by the component.
 * `Menu` has been updated to use a `<nav>` tag as its root element.
 * `MenuItem`: focus outline is now fully visible when an item is focused.
 * `Pager`: Negative values now set to absolute value, NaN values set to page 1.

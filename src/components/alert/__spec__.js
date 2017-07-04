@@ -19,12 +19,6 @@ describe('Alert', () => {
     );
   });
 
-  describe('dialogTitleClasses', () => {
-    it('return the dialog title class along with the alert title class', () => {
-      expect(instance.dialogTitleClasses).toEqual('carbon-dialog__title carbon-alert__title');
-    });
-  });
-
   describe('dialogClasses', () => {
     it('returns the dialog class along with the alert class', () => {
       expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-alert__alert');
@@ -41,7 +35,7 @@ describe('Alert', () => {
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(<Alert open={ true } title='Test' subtitle='Test' showCloseIcon={ true } />);
+      let wrapper = mount(<Alert open={ true } title='Test' subtitle='Test' showCloseIcon={ true } />);
 
       elementsTagTest(wrapper, [
         'close',

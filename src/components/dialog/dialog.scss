@@ -21,18 +21,12 @@ $dialog-padding: 20px;
 .carbon-dialog__dialog--large         { width: 960px; }
 .carbon-dialog__dialog--extra-large   { width: 1080px; }
 
-.carbon-dialog__title {
-  background: none;
-  color: $grey-dark-blue;
-  font-size: 20px;
-  font-weight: 600;
-  margin: 10px 0 15px 0;
-}
-
 .carbon-dialog__content {
   width: 100%;
-  border-top: 1px solid $border-color;
-  padding-top: 10px;
+}
+
+.carbon-dialog__title .carbon-heading {
+  padding-top: 0;
 }
 
 .carbon-dialog__close {
@@ -41,6 +35,7 @@ $dialog-padding: 20px;
   position: absolute;
   right: $dialog-padding;
   top: 25px;
+  z-index: 1;
 
   &:hover {
     color: $blue;
