@@ -43,8 +43,7 @@ let definition = new Definition('configurable-columns', ConfigurableColumns, {
     onCancel: `() => {}`,
     onDrag: `updateConfigurableColumnsData`,
     onReset: `resetConfigurableColumnsData`,
-    onSave: `() => {}`,
-    title: 'Configure Columns'
+    onSave: `() => {}`
   },
   propTypes: {
     children: 'Node',
@@ -53,7 +52,6 @@ let definition = new Definition('configurable-columns', ConfigurableColumns, {
     onDrag: 'Function',
     onReset: 'Function',
     onSave: 'Function',
-    title: 'String'
   },
   propDescriptions: {
     children: 'This component supports children',
@@ -61,8 +59,7 @@ let definition = new Definition('configurable-columns', ConfigurableColumns, {
     onCancel: 'Callback triggered when the form is canceled.',
     onDrag: 'Callback triggered when an item is dragged.',
     onReset: 'Callback triggered when the reset button is pressed',
-    onSave: 'Callback triggered when the form is saved.',
-    title: 'Title to display as heading'
+    onSave: 'Callback triggered when the form is saved.'
   },
   relatedComponentsNotes: `
 * [Table component](/components/table)

@@ -58,15 +58,7 @@ class ConfigurableColumnsPattern extends React.Component {
      * @property onSave
      * @type {Function}
      */
-    onSave: PropTypes.func.isRequired,
-
-    /**
-     * Title to display as heading.
-     *
-     * @property title
-     * @type {String}
-     */
-    title: PropTypes.string.isRequired
+    onSave: PropTypes.func.isRequired
   }
 
   onChange = (rowId) => {

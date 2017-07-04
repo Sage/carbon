@@ -21,7 +21,6 @@ describe('ConfigurableColumns', () => {
           onClick={onClick}
           onDrag={onDrag}
           onSave={onSave}
-          title='Foo'
         >
           <p className='child-node'>Foo</p>
         </ConfigurableColumns>
@@ -41,7 +40,6 @@ describe('ConfigurableColumns', () => {
           onClick={onClick}
           onDrag={onDrag}
           onSave={onSave}
-          title='Foo'
         />
       );
     });
@@ -58,7 +56,6 @@ describe('ConfigurableColumns', () => {
           onClick={onClick}
           onDrag={onDrag}
           onSave={onSave}
-          title='Foo'
         />
       );
     });
@@ -75,7 +72,6 @@ describe('ConfigurableColumns', () => {
           onClick={onClick}
           onDrag={onDrag}
           onSave={onSave}
-          title='Foo'
         />
       );
     });
@@ -98,7 +94,6 @@ describe('ConfigurableColumns', () => {
             onDrag={onDrag}
             onReset={onReset}
             onSave={onSave}
-            title='Foo'
           />
         );
         form = wrapper.find(Form);
@@ -120,7 +115,6 @@ describe('ConfigurableColumns', () => {
             onClick={onClick}
             onDrag={onDrag}
             onSave={onSave}
-            title='Foo'
           />
         );
         form = wrapper.find(Form);
@@ -130,21 +124,5 @@ describe('ConfigurableColumns', () => {
         expect(form.props().additionalActions).toBeNull();
       });
     })
-  });
-
-  describe('title', () => {
-    wrapper = shallow(
-      <ConfigurableColumns
-        onCancel={onCancel}
-        onClick={onClick}
-        onDrag={onDrag}
-        onSave={onSave}
-        title='Foo'
-      />
-    );
-    it('displays a heading with the title', () => {
-      const heading = wrapper.find(Heading);
-      expect(heading.props().title).toEqual('Foo');
-    });
   });
 });

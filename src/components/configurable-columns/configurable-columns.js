@@ -5,7 +5,6 @@ import I18n from 'i18n-js';
 import { DraggableContext } from './../drag-and-drop';
 import Button from './../button';
 import ConfigurableColumnRow from './configurable-column-row';
-import Heading from './../heading';
 import Form from './../form';
 
 class ConfigurableColumns extends React.Component {
@@ -56,18 +55,7 @@ class ConfigurableColumns extends React.Component {
      * @property onSave
      * @type {Function}
      */
-    onSave: PropTypes.func.isRequired,
-
-    /**
-     * Defines the title for the heading.
-     *
-     * @property title
-     * @type {String|Object}
-     */
-    title: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]).isRequired
+    onSave: PropTypes.func.isRequired
   }
 
   onReset = (event) => {
@@ -96,7 +84,6 @@ class ConfigurableColumns extends React.Component {
   render() {
     return (
       <div className={ this.classes }>
-        <Heading title={ this.props.title } />
         <DraggableContext onDrag={ this.props.onDrag }>
           <Form
             additionalActions={ this.additionalActions() }
