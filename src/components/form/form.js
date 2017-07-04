@@ -631,8 +631,8 @@ class Form extends React.Component {
    */
   get footerClasses() {
     return classNames(
-      'carbon-form__footer',
-      `carbon-form__footer--${this.props.buttonAlign}`
+      'carbon-form__buttons',
+      `carbon-form__buttons--${this.props.buttonAlign}`
     );
   }
 
