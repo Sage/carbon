@@ -447,8 +447,6 @@ describe('Form', () => {
             expect(saveButton.prop('saveText')).toEqual('Some custom save text');
             expect(saveButton.prop('saving')).toBeFalsy();
             expect(saveButton.prop('saveButtonProps')).toEqual({ theme: 'red' })
-            expect(saveButton.prop('errors')).toEqual(2);
-            expect(saveButton.prop('warnings')).toEqual(3);
           });
 
           it('renders a form summary with expected props', () => {
