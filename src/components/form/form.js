@@ -558,8 +558,6 @@ class Form extends React.Component {
         saveButtonProps={ this.props.saveButtonProps }
         saveText={ this.props.saveText }
         saving={ this.props.saving }
-        errors={ this.state.errorCount }
-        warnings={ this.state.warningCount }
       />
     );
   }
