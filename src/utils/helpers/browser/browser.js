@@ -35,7 +35,7 @@ const Browser = {
    * @return HTMLElement
    */
   getActiveElement: () => {
-    let doc = Browser.getDocument();
+    const doc = Browser.getDocument();
     return doc.activeElement;
   },
 

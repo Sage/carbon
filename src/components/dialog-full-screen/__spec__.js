@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DialogFullScreen from './dialog-full-screen';
+import FullScreenHeading from './full-screen-heading';
 import Button from './../button';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Icon from './../icon';
@@ -8,16 +9,17 @@ import Heading from './../heading';
 
 describe('DialogFullScreen', () => {
   let instance,
-      wrapper,
-      onCancel = jasmine.createSpy('cancel');
+      wrapper;
+  const onCancel = jasmine.createSpy('cancel');
 
   beforeEach(() => {
     wrapper = shallow(
       <DialogFullScreen
         onCancel={ onCancel }
         className='foo'
-        open={ true }
+        open
         title='my title'
+        subtitle='my subtitle'
       >
         <Button>Button</Button>
         <Button>Button</Button>
@@ -50,7 +52,7 @@ describe('DialogFullScreen', () => {
         <DialogFullScreen
           onCancel={ onCancel }
           className='foo'
-          open={ true }
+          open
           title='my title'
         >
           <Button>Button</Button>
@@ -70,7 +72,7 @@ describe('DialogFullScreen', () => {
     });
 
     it('closes when the exit icon is click', () => {
-      let closeIcon = wrapper.find(Icon);
+      const closeIcon = wrapper.find(Icon);
       closeIcon.simulate('click');
       expect(onCancel).toHaveBeenCalled();
     });
@@ -80,23 +82,51 @@ describe('DialogFullScreen', () => {
     });
   });
 
-  describe('title', () => {
+  describe('onOpening', () => {
+    beforeEach(() => {
+      wrapper = mount(<DialogFullScreen open={ false } />);
+      wrapper.setProps({ open: true });
+    });
+
+    it('adds a carbon-dialog-full-screen--open class to the body', () => {
+      const body = wrapper.instance().document.body;
+      expect(body.className).toEqual('carbon-dialog-full-screen--open');
+    });
+  });
+
+  describe('onClosing', () => {
+    beforeEach(() => {
+      wrapper = mount(<DialogFullScreen open={ false } />);
+      wrapper.setProps({ open: true });
+    });
+
+    it('removes a carbon-dialog-full-screen--open class to the body', () => {
+      const body = wrapper.instance().document.body;
+      expect(body.className).toEqual('carbon-dialog-full-screen--open');
+      wrapper.setProps({ open: false });
+      expect(body.className).toEqual('');
+    });
+  });
+
+  describe('dialogTitle', () => {
     describe('is a string', () => {
-      it('renders the title within a h2', () => {
-        let titleNode = wrapper.find('h2.carbon-dialog-full-screen__title');
-        expect(titleNode.length).toEqual(1);
-        expect(titleNode.text()).toEqual('my title');
+      it('renders the title within a heading', () => {
+        const heading = wrapper.find(Heading);
+        expect(heading.props().title).toEqual('my title');
+        expect(heading.props().subheader).toEqual('my subtitle');
+        expect(heading.props().titleId).toEqual('carbon-dialog-title');
+        expect(heading.props().subtitleId).toEqual('carbon-dialog-subtitle');
       });
     });
 
     describe('is an object', () => {
       beforeEach(() => {
-        let titleHeading = <Heading title='my custom heading' />;
+        const titleHeading = <Heading title='my custom heading' />;
         wrapper = shallow(
           <DialogFullScreen
             onCancel={ onCancel }
             className='foo'
-            open={ true }
+            open
             title={ titleHeading }
           >
             <Button>Button</Button>
@@ -105,43 +135,45 @@ describe('DialogFullScreen', () => {
         );
       });
 
-      it('renders the component directly', () => {
-        let heading = wrapper.find(Heading)
+      it('renders the component in a full screen heading', () => {
+        const fullScrenHeading = wrapper.find(FullScreenHeading),
+            heading = fullScrenHeading.children().first();
+
         expect(heading.props().title).toEqual('my custom heading');
       });
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(
-        <DialogFullScreen
-          data-element='bar'
-          onCancel={ () => {} }
-          onConfirm={ () => {} }
-          open={ true }
-          data-role='baz'
-        />
-      );
-
+  describe('tags', () => {
+    describe('on component', () => {
       it('include correct component, element and role data tags', () => {
+        wrapper = shallow(
+          <DialogFullScreen
+            data-element='bar'
+            onCancel={ () => {} }
+            onConfirm={ () => {} }
+            open
+            data-role='baz'
+          />
+        );
+
         rootTagTest(wrapper, 'dialog-full-screen', 'bar', 'baz');
       });
     });
 
-    describe("on internal elements", () => {
-      let wrapper = shallow(
+    describe('on internal elements', () => {
+      const dialog = shallow(
         <DialogFullScreen
           onCancel={ () => {} }
           onConfirm={ () => {} }
-          open={ true }
+          open
           title='Test'
         />
       );
 
-      elementsTagTest(wrapper, [
+      elementsTagTest(dialog, [
         'close',
-        'title'
+        'content'
       ]);
     });
   });
