@@ -200,6 +200,7 @@ return (
 ## Bug Fixes
 
 * `DialogFullScreen` now scrolls vertically if it contains content taller than the dialog height.
+* `TableHeader`: fix alignment of sort icon in IE11.
 
 ## Dependency Switch
 
