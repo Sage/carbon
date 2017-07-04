@@ -10,6 +10,7 @@ import Edit from './svgs/edit';
 import Email from './svgs/email';
 import ExternalLink from './svgs/external-link';
 import Github from './svgs/github';
+import Grid from './svgs/grid';
 import Individual from './svgs/individual';
 import Key from './svgs/key';
 import Location from './svgs/location';
@@ -32,7 +33,6 @@ import Submitted from './svgs/submitted';
 import Sync from './svgs/sync';
 import Twitter from './svgs/twitter';
 import WhiteTick from './svgs/white-tick';
-import Grid from './svgs/grid';
 
 export default {
   basket: Basket,
@@ -47,6 +47,7 @@ export default {
   email: Email,
   'external-link': ExternalLink,
   github: Github,
+  'grid': Grid,
   individual: Individual,
   key: Key,
   location: Location,
@@ -68,6 +69,5 @@ export default {
   submitted: Submitted,
   sync: Sync,
   twitter: Twitter,
-  'white-tick': WhiteTick,
-  'grid': Grid
+  'white-tick': WhiteTick
 };
