@@ -68,6 +68,7 @@
     border: 1px solid $border-color;
     border-right: none;
     border-radius: 25px 0 0 25px;
+    box-sizing: content-box;
     color: $white;
     display: flex;
     height: 100%;

@@ -2,6 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 import Icon from './../icon';
 import Modal from './../modal';
+import Heading from './../heading';
+import FullScreenHeading from './full-screen-heading';
+import Browser from './../../utils/helpers/browser';
+
+const DIALOG_OPEN_BODY_CLASS = 'carbon-dialog-full-screen--open';
 
 /**
  * A DialogFullScreen widget.
@@ -24,6 +29,14 @@ import Modal from './../modal';
  * @constructor
  */
 class DialogFullScreen extends Modal {
+  constructor(props) {
+    super(props);
+
+    /**
+     * Caches a reference to the document.
+     */
+    this.document = Browser.getDocument();
+  }
 
   static defaultProps = {
     open: false,
@@ -73,15 +86,14 @@ class DialogFullScreen extends Modal {
         className={ this.dialogClasses }
         { ...this.componentTags(this.props) }
       >
-        <div className='carbon-dialog-full-screen__header'>
-          { this.renderTitle() }
-          <Icon
-            className='carbon-dialog-full-screen__close'
-            data-element='close'
-            onClick={ this.props.onCancel }
-            type='close'
-          />
-        </div>
+        <Icon
+          className='carbon-dialog-full-screen__close'
+          data-element='close'
+          onClick={ this.props.onCancel }
+          type='close'
+        />
+
+        { this.dialogTitle() }
 
         <div className='carbon-dialog-full-screen__content' data-element='content'>
           { this.props.children }
@@ -91,16 +103,44 @@ class DialogFullScreen extends Modal {
   }
 
   /**
-   * Returns title prop wrapped in <h2> if title is a string otherwise returns the title prop directly.
-   * Dialog main classes.
-   *
-   * @return {Object} JSX
+   * Overrides the original function to disable the document's scroll.
    */
-  renderTitle = () => {
-    if (typeof (this.props.title) === 'string' || this.props.title instanceof String) {
-      return <h2 className='carbon-dialog-full-screen__title' data-element='title'>{ this.props.title }</h2>;
+  get onOpening() {
+    this.document.body.classList.add(DIALOG_OPEN_BODY_CLASS);
+  }
+
+  /**
+   * Overrides the original function to enable the document's scroll.
+   */
+  get onClosing() {
+    this.document.body.classList.remove(DIALOG_OPEN_BODY_CLASS);
+  }
+
+  /**
+   * Returns HTML and text for the dialog title.
+   *
+   * @method dialogTitle
+   * @return {Object} title to display
+   */
+  dialogTitle = () => {
+    if (!this.props.title) { return null; }
+
+    let title = this.props.title;
+
+    if (typeof title === 'string') {
+      title = (
+        <Heading
+          title={ title }
+          titleId='carbon-dialog-title'
+          subheader={ this.props.subtitle }
+          subtitleId='carbon-dialog-subtitle'
+        />
+      );
     }
-    return this.props.title;
+
+    return (
+      <FullScreenHeading>{ title }</FullScreenHeading>
+    );
   }
 }
 

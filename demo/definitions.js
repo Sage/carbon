@@ -41,6 +41,7 @@ export default {
   'navigation-bar':       require('components/navigation-bar/definition').default,
   'number-input':         require('components/number/definition').default,
   'pager':                require('components/pager/definition').default,
+  'pages':                require('components/pages/definition').default,
   'pill':                 require('components/pill/definition').default,
   'pod':                  require('components/pod/definition').default,
   'portrait':             require('components/portrait/definition').default,
