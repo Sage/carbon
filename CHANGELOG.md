@@ -196,6 +196,7 @@ return (
 
 * `Table` can now receive an `caption` prop which renders a `<caption>` element as a child of the table element. Note that the caption is hidden by default, but still accessible to screen readers and assistive technologies.
 * `Table` has a new prop of onConfigure. Displays a configure icon to the left of the table header that triggers the callback onClick.
+* `Table` has a new prop of `theme` that allows primary (dark) or secondary (light) styling.
 
 ## Bug Fixes
 
