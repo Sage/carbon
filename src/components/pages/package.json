@@ -1,0 +1,4 @@
+{
+  "main": "./pages.js",
+  "style": "./pages.scss"
+}
