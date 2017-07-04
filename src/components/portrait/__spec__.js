@@ -6,7 +6,7 @@ import Portrait from './portrait';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Portrait', () => {
-  let instance, gravatarInstance, initialsInstance;
+  let instance, gravatarInstance, wrapper;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -23,7 +23,7 @@ describe('Portrait', () => {
       />
     );
 
-    initialsInstance = TestUtils.renderIntoDocument(
+    wrapper = shallow(
       <Portrait
         gravatar='foo'
         initials='foo'
@@ -36,7 +36,7 @@ describe('Portrait', () => {
     let props;
 
     beforeEach(() => {
-      initialsInstance.memoizeInitials = 'foobar';
+      wrapper.instance().memoizeInitials = 'foobar';
       props = {
         initials: 'foo',
         size: 'small'
@@ -45,24 +45,25 @@ describe('Portrait', () => {
 
     describe('if initials are different', () => {
       it('nulls the cache', () => {
+        const instance = wrapper.instance();
         props.initials = 'bar';
-        initialsInstance.componentWillReceiveProps(props);
-        expect(initialsInstance.memoizeInitials).toEqual(null);
+        instance.componentWillReceiveProps(props);
+        expect(instance.memoizeInitials).toEqual(null);
       });
     });
 
     describe('if size is different', () => {
       it('nulls the cache', () => {
         props.size = 'medium';
-        initialsInstance.componentWillReceiveProps(props);
-        expect(initialsInstance.memoizeInitials).toEqual(null);
+        wrapper.instance().componentWillReceiveProps(props);
+        expect(wrapper.instance().memoizeInitials).toEqual(null);
       });
     });
 
     describe('if nothing changes', () => {
       it('keeps the cache', () => {
-        initialsInstance.componentWillReceiveProps(props);
-        expect(initialsInstance.memoizeInitials).toEqual('foobar');
+        wrapper.instance().componentWillReceiveProps(props);
+        expect(wrapper.instance().memoizeInitials).toEqual('foobar');
       });
     });
   });
