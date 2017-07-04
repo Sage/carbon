@@ -1,30 +1,10 @@
-import I18n from 'i18n-js';
 import React from 'react';
+import I18n from 'i18n-js';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 
 import Icon from './../../icon';
-
-const FormSummary = props =>
-  <div className='carbon-form-summary' { ...tagComponent('form-summary', props) }>
-    { summary(props, 'error') }
-    { summary(props, 'warning') }
-    { props.children }
-  </div>
-;
-
-FormSummary.propTypes = {
-  children: PropTypes.node,
-  errors: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]),
-  warnings: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ])
-};
-
 /**
  * Adds an 's' to pluralise (keys will always be error or warning)
  *
@@ -33,6 +13,28 @@ FormSummary.propTypes = {
  */
 const pluralize = (key) => {
   return `${key}s`;
+};
+
+/**
+ * decides whether the warning message should be appended to the sentence or output as a sentence on it's own
+ *
+ * @param {object} props
+ * @param {string} key
+ * @return {boolean} true if the warning message needs to be appended
+ */
+const warningAppend = (props, key) => {
+  return props.errors > 0 && props.warnings > 0 && key === 'warning';
+};
+
+/**
+ * finds the correct translation key
+ *
+ * @param {object} props
+ * @param {string} key
+ * @return {string} correct key
+ */
+const translationKey = (props, key) => {
+  return warningAppend(props, key) ? 'errors_and_warnings' : pluralize(key);
 };
 
 /**
@@ -66,28 +68,6 @@ const defaultTranslations = (errorCount, warningCount) => {
       count: parseInt(warningCount, 10)
     }
   };
-};
-
-/**
- * decides whether the warning message should be appended to the sentence or output as a sentence on it's own
- *
- * @param {object} props
- * @param {string} key
- * @return {boolean} true if the warning message needs to be appended
- */
-const warningAppend = (props, key) => {
-  return props.errors > 0 && props.warnings > 0 && key === 'warning';
-};
-
-/**
- * finds the correct translation key
- *
- * @param {object} props
- * @param {string} key
- * @return {string} correct key
- */
-const translationKey = (props, key) => {
-  return warningAppend(props, key) ? 'errors_and_warnings' : pluralize(key);
 };
 
 /**
@@ -128,5 +108,35 @@ const summary = (props, key) => {
   }
   return null;
 };
+
+const summaryClasses = (props) => {
+  return classNames(
+    'carbon-form-summary',
+    'carbon-form-save', {
+      'carbon-form-save--invalid': props.errors || props.warnings
+    }
+  );
+};
+
+const FormSummary = props =>
+  <div className={ summaryClasses(props) } { ...tagComponent('form-summary', props) }>
+    { summary(props, 'error') }
+    { summary(props, 'warning') }
+    { props.children }
+  </div>
+;
+
+FormSummary.propTypes = {
+  children: PropTypes.node,
+  errors: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  warnings: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
+};
+
 
 export default FormSummary;
