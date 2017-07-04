@@ -58,6 +58,21 @@ class Button extends React.Component {
     disabled: PropTypes.bool,
 
     /**
+     * Allows a font size to be set that alters the default font size.
+     * Currently only setting a smalleer font in a large button is allowed, which we do with CSS
+     *
+     * @property fontSize
+     * @type {String}
+     */
+    smallFont: (props) => {
+      if (props.smallFont && props.size !== 'large') {
+        throw new Error('smallFont prop has no effect unless the button is large');
+      } else {
+        return null;
+      }
+    },
+
+    /**
      * Gives the button a color.
      *
      * @property theme
@@ -107,7 +122,8 @@ class Button extends React.Component {
       `carbon-button--${this.props.theme}`,
       `carbon-button--${this.props.size}`,
       props.className, {
-        'carbon-button--disabled': this.props.disabled
+        'carbon-button--disabled': this.props.disabled,
+        'carbon-button--small-font': this.props.smallFont
       }
     );
 

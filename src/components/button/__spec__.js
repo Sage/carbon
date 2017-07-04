@@ -196,6 +196,31 @@ describe('Button', () => {
     });
   });
 
+  describe('smallFont prop', () => {
+    it('adds a modify class if set to small', () => {
+      wrapper.setProps({ size: 'large', smallFont: true });
+      expect(wrapper.find('.carbon-button--small-font').length).toEqual(1);
+    });
+
+    describe('invalid states', () => {
+      const sizesForInvalid = [
+        'small',
+        'medium'
+      ];
+
+      beforeEach(() => {
+        spyOn(window, 'Error');
+      });
+
+      sizesForInvalid.forEach((size) => {
+        it(`throws an error if it is used on a ${size} button`, () => {
+          shallow(<Button size={ size } smallFont>Test</Button>);
+          expect(window.Error).toHaveBeenCalledWith('smallFont prop has no effect unless the button is large');
+        });
+      });
+    });
+  });
+
   describe("tags on component", () => {
     let wrapper = shallow(<Button data-element='bar' data-role='baz'>Test</Button>);
 

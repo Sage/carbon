@@ -171,6 +171,7 @@ return (
 
 * `Alert` now alerts itself to screen readers.
 * `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
+* `Button`: Allows small text on a large button [#1386](https://github.com/Sage/carbon/issues/1386)
 * `Carousel`
   * has a new prop `enableSlideSelector` defaulted to `true`. Setting it to `false` will hide the slide selector.
   * has a new prop `enablePreviousButton` defaulted to `true`. Setting it to `false` will hide the previous button.

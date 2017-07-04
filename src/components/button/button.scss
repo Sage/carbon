@@ -40,6 +40,10 @@
     font-size: 16px;
     height: 43px;
     padding: 12px 20px;
+
+    &.carbon-button--small-font {
+      font-size: $app-font-size;
+    }
   }
 }
 
