@@ -1,11 +1,11 @@
 @import "./../../style-config/colors";
 @import "./../../style-config/z-index";
+@import "./dialog-full-screen-variables";
 
 .carbon-dialog-full-screen__dialog {
   background-color: $grey-light;
   height: 100%;
   left: 0;
-  overflow-y: scroll;
   position: fixed;
   top: 0;
   width: 100%;
@@ -13,23 +13,13 @@
 }
 
 .carbon-dialog-full-screen__content {
-  padding: 30px 5%;
-}
+  padding: $padding-top-bottom $padding-left-right;
+  overflow-y: auto;
+  height: calc(100% - #{$padding-top-bottom * 2});
 
-.carbon-dialog-full-screen__header {
-  border-bottom: 1px solid $border-color;
-  margin: 0;
-  padding: 25px 5%;
-  position: relative;
-
-  .carbon-heading {
-    padding: 0;
+  .carbon-full-screen-heading + & {
+    height: calc(100% - #{$title-total-height});
   }
-}
-
-.carbon-dialog-full-screen__title {
-  font-size: 26px;
-  margin: 0;
 }
 
 .carbon-dialog-full-screen__close {
@@ -38,14 +28,19 @@
   display: block;
   margin-top: -8px;
   position: absolute;
-  right: 5%;
-  top: 50%;
+  right: $padding-left-right;
+  top: $title-height / 2;
+  z-index: $z-dialog;
 
   &:before {
-    font-size: 25px;
+    font-size: 24px;
   }
 
   &:hover {
     color: $blue;
   }
+}
+
+.carbon-dialog-full-screen--open {
+  overflow: hidden;
 }

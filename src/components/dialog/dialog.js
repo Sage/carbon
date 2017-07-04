@@ -195,10 +195,14 @@ class Dialog extends Modal {
    * @return {String} title to display
    */
   get dialogTitle() {
-    if (this.props.title) {
-      return (
+    if (!this.props.title) { return null; }
+
+    let title = this.props.title;
+
+    if (typeof title === 'string') {
+      title = (
         <Heading
-          title={ this.props.title }
+          title={ title }
           titleId='carbon-dialog-title'
           subheader={ this.props.subtitle }
           subtitleId='carbon-dialog-subtitle'
@@ -206,7 +210,9 @@ class Dialog extends Modal {
       );
     }
 
-    return null;
+    return (
+      <div className='carbon-dialog__title'>{ title }</div>
+    );
   }
 
   /**
@@ -270,13 +276,13 @@ class Dialog extends Modal {
    * @return {Object} JSX for dialog
    */
   get modalHTML() {
-    let dialogProps = {
+    const dialogProps = {
       className: this.dialogClasses,
       tabIndex: 0
     };
 
     if (this.props.ariaRole) {
-      dialogProps['role'] = this.props.ariaRole;
+      dialogProps.role = this.props.ariaRole;
     }
 
     if (this.props.title) {
@@ -296,8 +302,9 @@ class Dialog extends Modal {
       >
         { this.closeIcon }
 
+        { this.dialogTitle }
+
         <div className='carbon-dialog__content'>
-          { this.dialogTitle }
           { this.props.children }
         </div>
       </div>
