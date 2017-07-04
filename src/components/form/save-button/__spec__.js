@@ -55,25 +55,6 @@ describe('SaveButton', () => {
     });
   });
 
-  describe('when there are errors or warnings', () => {
-    beforeEach(() => {
-      let errors = 2;
-      let warnings = 1;
-       wrapper = shallow(
-         <SaveButton
-           errors={ errors }
-           warnings={ warnings }
-           saving={ false }
-         />
-       );
-     });
-
-    it('renders with a default and invalid class', () => {
-      expect(wrapper.hasClass('carbon-form-save')).toBeTruthy();
-      expect(wrapper.hasClass('carbon-form-save--invalid')).toBeTruthy();
-    });
-  });
-
   it('the button is enabled when the form is not saving', () => {
     expect(wrapper.props.disabled).toBeFalsy();
   });
