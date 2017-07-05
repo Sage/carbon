@@ -5,13 +5,13 @@
   display: inline-block;
 }
 
-.carbon-form__footer {
+.carbon-form__buttons {
   align-items: center;
   display: flex;
   margin-top: 20px;
 }
 
-.carbon-form__footer--right {
+.carbon-form__buttons--right {
   justify-content: flex-end;
 }
 
@@ -20,7 +20,8 @@
 }
 
 .carbon-form-save {
-  padding: 8px;
+  padding: 4px 4px 4px 8px;
+  border-radius: 4px;
 }
 
 .carbon-form-save--invalid {

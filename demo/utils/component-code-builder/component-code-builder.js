@@ -69,7 +69,7 @@ class ComponentCodeBuilder {
       if (prop !== 'children' && !toggleFunctions.includes(prop)) {
         if (withEvents || (prop !== 'data-binding' && typeof value !== 'function')) {
           // For a Number prop with no value, don't add the code
-          if (propTypes.get(prop) !== 'Number' || value !== '' ) {
+          if (propTypes.get(prop) !== 'Number' || value !== '') {
             this.addProp(prop, value, propTypes.get(prop));
           }
         }

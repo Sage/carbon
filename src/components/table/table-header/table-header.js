@@ -276,8 +276,8 @@ class TableHeader extends React.Component {
           aria-label={ this.sortDescription }
           onClick={ this.onSortableColumnClick }
         >
-          { this.props.children }
           { this.sortIconHTML }
+          { this.props.children }
         </a>
       );
     } else {
