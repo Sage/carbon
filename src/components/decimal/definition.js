@@ -18,12 +18,11 @@ const definition = new Definition('decimal', Decimal, {
   hiddenProps: [
     'name',
     'onBlur',
-    'onKeyDown',
-    'value'
+    'onKeyDown'
   ],
   propTypes: {
     align: 'String',
-    precision: 'String || Number'
+    precision: 'Number'
   },
   propDescriptions: {
     align: 'Sets the alignment of the text within the decimal component',

@@ -12,8 +12,8 @@ const definition = new Definition('carousel', Carousel, {
   propTypes: {
     children: 'Node',
     className: 'String',
-    initialSlideIndex: 'Number || String',
-    slideIndex: 'Number || String',
+    initialSlideIndex: 'Number',
+    slideIndex: 'Number',
     enableSlideSelector: 'Boolean',
     enablePreviousButton: 'Boolean',
     enableNextButton: 'Boolean',
