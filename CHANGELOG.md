@@ -1,3 +1,22 @@
+# 1.2.1
+
+## Linting Updates
+
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
+
+* DraggableContext
+* DraggableTableCell
+* TableRow
+* WithDrag
+* WithDrop
+
+### Helpers
+
+* ItemTarget
+* Text
+
 # 1.2.0
 
 ## Dependency Upgrade

@@ -9,11 +9,11 @@ const Text = {
    * Clears any selected text from the current page
    */
   clearSelection() {
-    let document = Browser.getDocument();
-    let window = Browser.getWindow();
+    const document = Browser.getDocument();
+    const window = Browser.getWindow();
 
     if (document.body.createTextRange) { // IE
-      let range = document.body.createTextRange();
+      const range = document.body.createTextRange();
       range.collapse();
       range.select();
     } else { // Chrome, Firefox, Safari, Edge
