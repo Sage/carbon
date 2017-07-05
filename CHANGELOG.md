@@ -3,6 +3,23 @@
 ## Dialog Full screen
 The `carbon-dialog-full-screen--open` class is now applied to the `html` element instead of the `body`.
 
+## Linting Updates
+
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
+
+* DraggableContext
+* DraggableTableCell
+* TableRow
+* WithDrag
+* WithDrop
+
+### Helpers
+
+* ItemTarget
+* Text
+
 # 1.2.0
 
 ## Dependency Upgrade

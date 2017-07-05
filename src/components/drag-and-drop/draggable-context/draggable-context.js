@@ -39,6 +39,15 @@ class DraggableContext extends React.Component {
 
   static propTypes = {
     /**
+     * The element(s) where you want to apply drag
+     * and drop functionality
+     *
+     * @property children
+     * @type {Object}
+     */
+    children: PropTypes.node.isRequired,
+
+    /**
      * Callback function for when an item has been dragged
      * e.g. to update data in a store
      */
@@ -61,6 +70,10 @@ class DraggableContext extends React.Component {
     dragAndDropOnDrag: PropTypes.func // Callback for when order is changed
   }
 
+  state = {
+    activeIndex: null // {Number} tracks the currently dragged index
+  }
+
   /**
    * Returns this draggable context properties to child components.
    *
@@ -75,10 +88,6 @@ class DraggableContext extends React.Component {
       dragAndDropHover: this.handleHover,
       dragAndDropOnDrag: this.handleDrag
     };
-  }
-
-  state = {
-    activeIndex: null // {Number} tracks the currently dragged index
   }
 
   /**
