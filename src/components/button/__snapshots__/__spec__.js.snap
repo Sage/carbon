@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button snapshots A basic button renders a button with defaults 1`] = `
+<button
+  className="carbon-button carbon-button--secondary carbon-button--blue carbon-button--medium"
+  data-component="button"
+  disabled={false}
+>
+  Save
+</button>
+`;
+
+exports[`Button snapshots A disabled button renders a disabled button 1`] = `
+<button
+  className="carbon-button carbon-button--secondary carbon-button--blue carbon-button--medium carbon-button--disabled"
+  data-component="button"
+  disabled={true}
+>
+  Disabled
+</button>
+`;
+
+exports[`Button snapshots A large button renders a large button 1`] = `
+<button
+  className="carbon-button carbon-button--secondary carbon-button--blue carbon-button--large"
+  data-component="button"
+  disabled={false}
+>
+  Large
+</button>
+`;
+
+exports[`Button snapshots A primary button renders a primary button 1`] = `
+<button
+  className="carbon-button carbon-button--primary carbon-button--blue carbon-button--medium"
+  data-component="button"
+  disabled={false}
+  onClick={[Function]}
+>
+  Primary
+</button>
+`;
+
+exports[`Button snapshots A secondary button renders a secondary button 1`] = `
+<button
+  className="carbon-button carbon-button--secondary carbon-button--red carbon-button--medium customClass"
+  data-component="button"
+  disabled={false}
+>
+  Secondary
+</button>
+`;
+
+exports[`Button snapshots A small button renders a small button 1`] = `
+<button
+  className="carbon-button carbon-button--secondary carbon-button--blue carbon-button--small"
+  data-component="button"
+  disabled={false}
+>
+  Small
+</button>
+`;
+
+exports[`Button snapshots when a to prop is passed renders an anchor 1`] = `
+<a
+  className="carbon-link__anchor carbon-button carbon-button--secondary carbon-button--blue carbon-button--medium"
+  data-component="link"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  style={Object {}}
+  tabIndex="0"
+>
+  <span>
+    <span
+      className="carbon-link__content"
+    >
+      Anchor
+    </span>
+  </span>
+</a>
+`;
+
+exports[`Button snapshots when an href prop is passed renders an anchor 1`] = `
+<a
+  className="carbon-link__anchor carbon-button carbon-button--secondary carbon-button--blue carbon-button--medium"
+  data-component="link"
+  href="/foo"
+  onKeyDown={[Function]}
+  tabIndex="0"
+>
+  <span>
+    <span
+      className="carbon-link__content"
+    >
+      To
+    </span>
+  </span>
+</a>
+`;

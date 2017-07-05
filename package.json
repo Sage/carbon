@@ -26,7 +26,7 @@
   "devDependencies": {
     "babel-standalone": "~6.17.0",
     "canvas-prebuilt": "^1.6.5-prerelease.1",
-    "carbon-factory": "1.1.7",
+    "carbon-factory": "../carbon-factory",
     "enzyme": "~2.8.2",
     "express": "~4.14.0",
     "flux": "~2.1.1",
