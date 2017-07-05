@@ -1,3 +1,8 @@
+# 1.2.1
+
+## Dialog Full screen
+The `carbon-dialog-full-screen--open` class is now applied to the `html` element instead of the `body`.
+
 # 1.2.0
 
 ## Dependency Upgrade
