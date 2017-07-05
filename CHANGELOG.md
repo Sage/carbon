@@ -1,3 +1,9 @@
+# 2.0.0
+
+## !! BREAKING CHANGES!! :warning:
+
+* The poller helper `utils/helpers/poller` has been removed from Carbon.
+
 # 1.2.0
 
 ## Dependency Upgrade
