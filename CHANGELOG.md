@@ -209,10 +209,12 @@ return (
 
 ## Deployment Changes
 
-You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
+* You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
 
 ## Other
-Minor changes to guides to reference `carbon-react` in imports.
+
+* Minor changes to guides to reference `carbon-react` in imports.
+* `grid` icon added to the `Icon` component.
 
 # 1.1.4
 
