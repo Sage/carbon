@@ -74,6 +74,7 @@ const OptionsHelper = {
     'fax',
     'feedback',
     'gift',
+    'grid',
     'home',
     'key',
     'link',
