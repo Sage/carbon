@@ -181,28 +181,18 @@ describe('poller', () => {
       });
 
       describe('if a handleError function is provided', () => {
-        let promise;
-
-        beforeEach(() => {
-          functions.handleError = jest.fn();
-          promise = Poller({ url }, functions, { interval: 1000 });
-        });
-
         it('calls the handleError with the error', (done) => {
-          promise.then(done, done);
+          functions.handleError = jest.fn();
+          Poller({ url }, functions, { interval: 1000 });
+          done();
           expect(functions.handleError).toBeCalled();
         });
       });
 
       describe('if no custom handleError function is avaliable', () => {
-        let promise;
-
-        beforeEach(() => {
-          promise = Poller({ url }, functions, { interval: 1000 });
-        });
-
         it('logs the error', (done) => {
-          promise.then(done, done);
+          Poller({ url }, functions, { interval: 1000 });
+          done();
           expect(console.error).toHaveBeenCalledWith( // eslint-disable-line no-console
             'Unsuccessful HTTP response');
         });
