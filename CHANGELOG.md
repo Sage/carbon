@@ -17,6 +17,9 @@ The following have had minor internal changes to satisfy the introduction of str
 * ItemTarget
 * Text
 
+## Bug Fixes
+* Input prefix was hidden when error was present
+
 # 1.2.0
 
 ## Dependency Upgrade
