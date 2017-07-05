@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import Button from './button';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import snapShotTest from '../../utils/helpers/spec/snapshot';
 
 describe('Button', () => {
   let component, tree;
@@ -12,8 +13,7 @@ describe('Button', () => {
     describe('A basic button', () => {
       it('renders a button with defaults', () => {
         component = renderer.create(<Button>Save</Button>);
-        tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
+        snapShotTest(component);
       });
     });
 
@@ -24,8 +24,7 @@ describe('Button', () => {
             Primary
           </Button>
         );
-        tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
+        snapShotTest(component);
       });
     });
 
@@ -34,48 +33,42 @@ describe('Button', () => {
         component = renderer.create(
           <Button className='customClass' theme='red'>Secondary</Button>
         );
-        tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
+        snapShotTest(component);
       });
     });
 
     describe('A small button', () => {
       it('renders a small button', () => {
         component = renderer.create(<Button size='small'>Small</Button>);
-        tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
+        snapShotTest(component);
       });
     });
 
     describe('A large button', () => {
       it('renders a large button', () => {
         component = renderer.create(<Button size='large'>Large</Button>);
-        tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
+        snapShotTest(component);
       });
     });
 
     describe('A disabled button', () => {
       it('renders a disabled button', () => {
         component = renderer.create(<Button disabled>Disabled</Button>);
-        tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
+        snapShotTest(component);
       });
     });
 
     describe('when a to prop is passed', () => {
       it('renders an anchor', () => {
         component = renderer.create(<Button to='/foo'>Anchor</Button>);
-        tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
+        snapShotTest(component);
       });
     });
 
     describe('when an href prop is passed', () => {
       it('renders an anchor', () => {
         component = renderer.create(<Button href='/foo'>To</Button>);
-        tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
+        snapShotTest(component);
       });
     });
   });
