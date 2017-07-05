@@ -558,8 +558,6 @@ class Form extends React.Component {
         saveButtonProps={ this.props.saveButtonProps }
         saveText={ this.props.saveText }
         saving={ this.props.saving }
-        errors={ this.state.errorCount }
-        warnings={ this.state.warningCount }
       />
     );
   }
@@ -633,8 +631,8 @@ class Form extends React.Component {
    */
   get footerClasses() {
     return classNames(
-      'carbon-form__footer',
-      `carbon-form__footer--${this.props.buttonAlign}`
+      'carbon-form__buttons',
+      `carbon-form__buttons--${this.props.buttonAlign}`
     );
   }
 
