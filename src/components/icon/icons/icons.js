@@ -47,7 +47,7 @@ export default {
   email: Email,
   'external-link': ExternalLink,
   github: Github,
-  'grid': Grid,
+  grid: Grid,
   individual: Individual,
   key: Key,
   location: Location,
