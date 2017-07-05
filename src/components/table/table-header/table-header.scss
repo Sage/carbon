@@ -67,10 +67,7 @@
 }
 
 .carbon-table-header__icon {
-  margin: -5px 10px 0;
-  position: absolute;
-  right: 0;
-  top: 50%;
+  float: right;
 
   .carbon-icon__svg--sort-down,
   .carbon-icon__svg--sort-up {
@@ -80,8 +77,7 @@
 }
 
 .carbon-table-header__icon--align-right {
-  position: relative;
-  top: 0;
+  float: left;
 }
 
 .carbon-table-header--sortable {

@@ -951,7 +951,7 @@ describe('Table', () => {
     it('renders a table with correct classes', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
-      expect(parent.className).toEqual('carbon-table foo');
+      expect(parent.className).toEqual('carbon-table foo carbon-table--primary');
     });
 
     it('renders a caption tag when a caption prop is given', () => {
@@ -994,6 +994,22 @@ describe('Table', () => {
 
     it('include correct component, element and role data tags', () => {
       rootTagTest(wrapper, 'table', 'bar', 'baz');
+    });
+  });
+
+  describe("theme", () => {
+    it("renders a --secondary if the theme is set to 'secondary'", () => {
+      const wrapper = shallow(
+        <Table theme='secondary' />
+      );
+      expect(wrapper.find('.carbon-table--secondary').exists()).toBeTruthy();
+    });
+
+    it("renders a --primary if the theme is missing (default)", () => {
+      const wrapper = shallow(
+        <Table />
+      );
+      expect(wrapper.find('.carbon-table--primary').exists()).toBeTruthy();
     });
   });
 });
