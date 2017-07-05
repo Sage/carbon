@@ -58,18 +58,19 @@ class Button extends React.Component {
     disabled: PropTypes.bool,
 
     /**
-     * Allows a font size to be set that alters the default font size.
-     * Currently only setting a smalleer font in a large button is allowed, which we do with CSS
+     * Sets the font small, currently only available on a large button
      *
-     * @property fontSize
-     * @type {String}
+     * @property smallFont
+     * @type {Boolean}
      */
     smallFont: (props) => {
+      if (typeof props.smallFont !== 'boolean') {
+        throw new Error('smallFont needs to be a Boolean');
+      }
       if (props.smallFont && props.size !== 'large') {
         throw new Error('smallFont prop has no effect unless the button is large');
-      } else {
-        return null;
       }
+      return null;
     },
 
     /**
@@ -91,14 +92,14 @@ class Button extends React.Component {
     size: PropTypes.string,
 
     /**
-     * Allows a font size to be set that alters the default font size.
-     * Currently only setting a smalleer font in a large button is allowed, which we do with CSS
+     * Sets a second bit of text under the main text, fainter and smaller.
+     * Currently only available on a large button
      *
-     * @property fontSize
+     * @property subtext
      * @type {String}
      */
     subtext: (props) => {
-      if (props.subtext && props.size !== 'large') {
+      if (props.subtext.length > 0 && props.size !== 'large') {
         throw new Error('subtext prop has no effect unless the button is large');
       } else {
         return null;
@@ -113,40 +114,13 @@ class Button extends React.Component {
     size: 'medium',
     theme: 'blue',
     disabled: false,
+    smallFont: false,
     subtext: ''
   }
 
   constructor(...args) {
     super(...args);
     this.element = this.element.bind(this);
-  }
-
-  /**
-   * Build the element to render.
-   *
-   * @method element
-   * @return {Object} JSX
-   */
-  element() {
-    let { ...props } = validProps(this);
-    // if props.href then render an anchor instead
-    const el = props.href || props.to ? Link : 'button';
-
-    props.className = classNames(
-      'carbon-button',
-      `carbon-button--${this.props.as}`,
-      `carbon-button--${this.props.theme}`,
-      `carbon-button--${this.props.size}`,
-      props.className, {
-        'carbon-button--disabled': this.props.disabled,
-        'carbon-button--small-font': this.props.smallFont,
-        'carbon-button--subtext': (this.props.subtext.length > 0)
-      }
-    );
-
-    props = assign({}, props, tagComponent('button', this.props));
-
-    return React.createElement(el, props, this.buildChildren());
   }
 
   /**
@@ -177,6 +151,34 @@ class Button extends React.Component {
     }
 
     return children;
+  }
+
+  /**
+   * Build the element to render.
+   *
+   * @method element
+   * @return {Object} JSX
+   */
+  element() {
+    let { ...props } = validProps(this);
+    // if props.href then render an anchor instead
+    const el = props.href || props.to ? Link : 'button';
+
+    props.className = classNames(
+      'carbon-button',
+      `carbon-button--${this.props.as}`,
+      `carbon-button--${this.props.theme}`,
+      `carbon-button--${this.props.size}`,
+      props.className, {
+        'carbon-button--disabled': this.props.disabled,
+        'carbon-button--small-font': this.props.smallFont,
+        'carbon-button--subtext': (this.props.subtext.length > 0)
+      }
+    );
+
+    props = assign({}, props, tagComponent('button', this.props));
+
+    return React.createElement(el, props, this.buildChildren());
   }
 
   /**

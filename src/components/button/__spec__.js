@@ -218,6 +218,11 @@ describe('Button', () => {
           expect(window.Error).toHaveBeenCalledWith('smallFont prop has no effect unless the button is large');
         });
       });
+
+      it('only lets a Boolean through', () => {
+        shallow(<Button smallFont='Test' />);
+        expect(window.Error).toHaveBeenCalledWith('smallFont needs to be a Boolean');
+      });
     });
   });
 
