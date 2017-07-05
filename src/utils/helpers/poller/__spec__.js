@@ -170,6 +170,14 @@ describe('poller', () => {
             message_type: 'error'
           }
         });
+
+        Request.__setMockError({
+          message: 'Unsuccessful HTTP response'
+        });
+      });
+
+      afterEach(() => {
+        Request.__setMockError(undefined);
       });
 
       describe('if a handleError function is provided', () => {
