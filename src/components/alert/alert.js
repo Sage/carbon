@@ -31,18 +31,33 @@ class Alert extends React.Component {
   })
 
   static propTypes = {
-    size: PropTypes.string,
+    /*
+     * The following props are the same as
+     * the props defined on the Dialog component -
+     * they are defined here then passed through
+     * to the Dialog that the Alert renders.
+     *
+     * Therefore the ESLint react/no-unused-prop=types
+     * rule is disabled for these prop types
+     */
+    /* eslint-disable react/no-unused-prop-types */
+    disableEscKey: PropTypes.bool,
 
-    title: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]),
+    enableBackgroundUI: PropTypes.bool,
 
     open: PropTypes.bool,
 
+    showCloseIcon: PropTypes.bool,
+
+    size: PropTypes.string,
+
     subtitle: PropTypes.string,
 
-    showCloseIcon: PropTypes.bool
+    title: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string
+    ])
+    /* eslint-enable react/no-unused-prop-types */
   }
 
   constructor(props) {
