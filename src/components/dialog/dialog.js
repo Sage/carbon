@@ -60,26 +60,62 @@ class Dialog extends Modal {
     size: PropTypes.string,
 
     /**
-     * Determins if the close icon is shown
+     * Determines if the close icon is shown
      *
      * @property showCloseIcon
      * @type {Boolean}
      * @default true
      */
-    showCloseIcon: PropTypes.bool
+    showCloseIcon: PropTypes.bool,
+
+    /**
+     * Callback for the keydown event on the
+     * close icon
+     *
+     * @property onCloseKeyDown
+     * @type {Function}
+     */
+    onCloseKeyDown: PropTypes.func,
+
+    /**
+     * Callback function for when the dialog
+     * opens.
+     *
+     * @property onOpening
+     * @type {Function}
+     */
+    onOpening: PropTypes.func,
+
+    /**
+     * Callback function for when the dialog
+     * is closed.
+     *
+     * @property onClosing
+     * @type {Function}
+     */
+    onClosing: PropTypes.func,
+
+    /**
+     * If true, then the close icon receives keyboard
+     * focus when the dialog opens.
+     *
+     * @property autoFocusCloseIcon
+     * @type {Boolean}
+     * @default false
+     */
+    autoFocusCloseIcon: PropTypes.bool
   })
 
   static defaultProps = {
     size: 'medium',
     showCloseIcon: true,
-    ariaRole: 'dialog'
+    ariaRole: 'dialog',
+    autoFocusCloseIcon: false
   }
 
   constructor(args) {
     super(args);
     this.componentTags = this.componentTags.bind(this);
-    this.onDialogBlur = this.onDialogBlur.bind(this);
-    this.onCloseIconBlur = this.onCloseIconBlur.bind(this);
   }
 
   /**
@@ -91,29 +127,7 @@ class Dialog extends Modal {
   componentDidMount() {
     if (this.props.open) {
       this.centerDialog();
-      this.focusDialog();
     }
-  }
-
-  /**
-   * Event handler to handle keyboard
-   * focus leaving the dialog element.
-   */
-  onDialogBlur(ev) { } // eslint-disable-line no-unused-vars
-
-  /**
-   * Event handler for when the close icon
-   * loses keyboard focus.
-   *
-   * As the close icon is the last element in the dialog
-   * source, when the keyboard focus leaves the close
-   * icon return the focus to the dialog itself.
-   *
-   * @return {Void}
-   */
-  onCloseIconBlur(ev) {
-    ev.preventDefault();
-    this.focusDialog();
   }
 
   /**
@@ -124,10 +138,17 @@ class Dialog extends Modal {
    * @method onOpening
    * @return {Void}
    */
-  get onOpening() {
+  onOpening() {
     this.centerDialog();
-    this.focusDialog();
     this.window().addEventListener('resize', this.centerDialog);
+
+    if (this.props.showCloseIcon && this.props.autoFocusCloseIcon) {
+      this._close.focus();
+    }
+
+    if (this.props.onOpening) {
+      this.props.onOpening();
+    }
   }
 
   /**
@@ -138,8 +159,12 @@ class Dialog extends Modal {
    * @method onClosing
    * @return {Void}
    */
-  get onClosing() {
+  onClosing() {
     this.window().removeEventListener('resize', this.centerDialog);
+
+    if (this.props.onClosing) {
+      this.props.onClosing();
+    }
   }
 
   /**
@@ -182,10 +207,6 @@ class Dialog extends Modal {
 
     this._dialog.style.top = `${midPointY}px`;
     this._dialog.style.left = `${midPointX}px`;
-  }
-
-  focusDialog() {
-    this._dialog.focus();
   }
 
   /**
@@ -247,15 +268,23 @@ class Dialog extends Modal {
 
   get closeIcon() {
     if (this.props.showCloseIcon) {
+      const closeProps = {
+        className: 'carbon-dialog__close',
+        'data-element': 'close',
+        onClick: this.props.onCancel,
+        title: 'Close',
+        onKeyDown: this.props.onCloseKeyDown
+      };
       return (
-        <Icon
-          className='carbon-dialog__close'
-          data-element='close'
-          onClick={ this.props.onCancel }
-          type='close'
-          tabIndex='0'
-          onBlur={ this.onCloseIconBlur }
-        />
+        <a
+          href='#close'
+          ref={ (a) => { this._close = a; } }
+          { ...closeProps }
+        >
+          <Icon
+            type='close'
+          />
+        </a>
       );
     }
     return null;
@@ -277,8 +306,7 @@ class Dialog extends Modal {
    */
   get modalHTML() {
     const dialogProps = {
-      className: this.dialogClasses,
-      tabIndex: 0
+      className: this.dialogClasses
     };
 
     if (this.props.ariaRole) {
@@ -298,7 +326,6 @@ class Dialog extends Modal {
         ref={ (d) => { this._dialog = d; } }
         { ...dialogProps }
         { ...this.componentTags(this.props) }
-        onBlur={ this.onDialogBlur }
       >
         { this.closeIcon }
 

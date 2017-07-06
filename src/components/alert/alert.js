@@ -1,4 +1,5 @@
-import classNames from 'classnames';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { assign } from 'lodash';
 import Dialog from '../dialog';
 
@@ -22,32 +23,37 @@ import Dialog from '../dialog';
  * @class Alert
  * @constructor
  */
-class Alert extends Dialog {
+class Alert extends React.Component {
 
   static defaultProps = assign({}, Dialog.defaultProps, {
-    role: 'alertdialog',
+    ariaRole: 'alertdialog',
     size: 'extra-small'
   })
 
-  constructor(props) {
-    super(props);
-    // focusDialog is called via setTimeout in onDialogBlur,
-    // so it needs binding to this
-    // From the React docs: "Generally, if you refer to a method without () after
-    // it, such as onClick={this.handleClick}, you should bind that method."
-    this.focusDialog = this.focusDialog.bind(this);
+  static propTypes = {
+    size: PropTypes.string,
+
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
+    ]),
+
+    open: PropTypes.bool,
+
+    subtitle: PropTypes.string,
+
+    showCloseIcon: PropTypes.bool
   }
 
-  /**
-   * Returns classes for the alert, combines with dialog class names..
-   *
-   * @method dialogClasses
-   */
-  get dialogClasses() {
-    return classNames(
-      super.dialogClasses,
-      'carbon-alert__alert'
-    );
+  constructor(props) {
+    super(props);
+    this.onCloseKeyDown = this.onCloseKeyDown.bind(this);
+  }
+
+  onCloseKeyDown(ev) {
+    if (ev.key === 'Tab') {
+      ev.preventDefault();
+    }
   }
 
   componentTags(props) {
@@ -58,25 +64,15 @@ class Alert extends Dialog {
     };
   }
 
-  /**
-   * Handles keyboard focus leaving the dialog
-   * element.
-   *
-   * Assumes that, if no close icon is displayed,
-   * no other element can receive keyboard focus.
-   * Therefore focus should remain on the dialog
-   * element while it is open.
-   *
-   * @override
-   * @return {Void}
-   */
-  onDialogBlur(ev) {
-    if (!this.props.showCloseIcon) {
-      ev.preventDefault();
-      // Firefox loses focus unless we wrap the call to
-      // this.focusDialog in setTimeout
-      setTimeout(this.focusDialog);
-    }
+  render() {
+    return (
+      <Dialog
+        className='carbon-dialog--alert'
+        { ...this.props }
+        onCloseKeyDown={ this.onCloseKeyDown }
+        { ...this.componentTags(this.props) }
+      />
+    );
   }
 }
 

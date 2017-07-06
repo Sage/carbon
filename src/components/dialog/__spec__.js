@@ -26,14 +26,6 @@ describe('Dialog', () => {
           instance.componentDidMount();
           expect(instance.centerDialog).toHaveBeenCalled();
         });
-
-        it('focuses on the dialog', () => {
-          spyOn(Dialog.prototype, 'focusDialog');
-          mount(
-            <Dialog open onCancel={ onCancel } />
-          );
-          expect(Dialog.prototype.focusDialog).toHaveBeenCalled();
-        });
       });
 
       describe('when dialog is closed', () => {
@@ -315,6 +307,97 @@ describe('Dialog', () => {
     });
   });
 
+  describe('onOpening', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <Dialog
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          showCloseIcon
+          subtitle='Test'
+          title='Test'
+          ariaRole='dialog'
+        />
+      );
+    });
+
+    it('calls this.props.onOpening if defined', () => {
+      const onOpening = jasmine.createSpy('onOpening');
+      wrapper.setProps({
+        onOpening
+      });
+
+      wrapper.setProps({ open: true });
+
+      expect(wrapper.props().onOpening).toHaveBeenCalled();
+    });
+
+    describe('when showCloseIcon is true', () => {
+      describe('when autoFocusCloseIcon is true', () => {
+        it('give focus to the close icon', () => {
+          wrapper.setProps({
+            open: true,
+            showCloseIcon: true,
+            autoFocusCloseIcon: true
+          });
+
+          const closeLink = wrapper.find('[title="Close"]').first().getDOMNode();
+          spyOn(closeLink, 'focus');
+
+          wrapper.instance().onOpening();
+          expect(closeLink.focus).toHaveBeenCalled();
+        });
+      });
+
+      describe('when autoFocusCloseIcon is false', () => {
+        it('does not give focus to the close icon', () => {
+          wrapper.setProps({
+            open: true,
+            autoFocusCloseIcon: true
+          });
+
+          const closeLink = wrapper.find('[title="Close"]').first().getDOMNode();
+          spyOn(closeLink, 'focus');
+
+          wrapper.setProps({ showCloseIcon: false });
+
+          wrapper.instance().onOpening();
+          expect(closeLink.focus).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('when autoFocusCloseIcon is true', () => {
+      it('does not set focus on close icon if no close icon shown', () => {
+      });
+    });
+  });
+
+  describe('onClosing', () => {
+    it('calls this.props.onClosing if defined', () => {
+      const wrapper = mount(
+        <Dialog
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          showCloseIcon
+          subtitle='Test'
+          title='Test'
+          ariaRole='dialog'
+        />
+      );
+      const onClosing = jasmine.createSpy('onClosing');
+      wrapper.setProps({
+        onClosing
+      });
+
+      wrapper.setProps({ open: true });
+
+      expect(wrapper.props().onClosing).toHaveBeenCalled();
+    });
+  });
+
   describe('a11y', () => {
     let wrapper;
 
@@ -370,28 +453,6 @@ describe('Dialog', () => {
       it('renders an aria-describedby attribute pointing at the subtitle element', () => {
         expect(wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').exists()).toBe(false);
       });
-    });
-
-    it('focuses on the dialog when opened', () => {
-      wrapper.setProps({
-        open: false
-      });
-      instance = wrapper.instance();
-      spyOn(instance, 'focusDialog');
-
-      wrapper.setProps({
-        open: true
-      });
-      expect(instance.focusDialog).toHaveBeenCalled();
-    });
-
-    it('returns focus to the dialog element when focus leaves the close icon', () => {
-      const dialogElement = wrapper.find('[role="dialog"]').first().getDOMNode();
-      spyOn(dialogElement, 'focus');
-
-      const closeIcon = wrapper.find('[data-element="close"]');
-      closeIcon.simulate('blur');
-      expect(dialogElement.focus).toHaveBeenCalled();
     });
   });
 });
