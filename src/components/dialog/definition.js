@@ -23,13 +23,29 @@ const definition = new Definition('dialog', Dialog, {
     title: 'Example Title for a Dialog',
     children: 'This is an example of a dialog.'
   },
+  hiddenProps: [
+    'ariaRole',
+    'onCloseKeyDown',
+    'onClosing',
+    'onOpening'
+  ],
   propTypes: {
-    title: 'String',
-    size: 'String',
+    ariaRole: 'String',
+    autoFocusCloseIcon: 'Boolean',
+    onCloseKeyDown: 'Function',
+    onClosing: 'Function',
+    onOpening: 'Function',
     showCloseIcon: 'Boolean',
-    subtitle: 'String'
+    size: 'String',
+    subtitle: 'String',
+    title: 'String'
   },
   propDescriptions: {
+    ariaRole: 'The ARIA role to apply to the dialog. Defaults to dialog.',
+    autoFocusCloseIcon: 'If set to true then the close icon receives keyboard focus when the dialog opens',
+    onCloseKeyDown: 'Callback function for the close icon keydown event',
+    onClosing: 'Callback function for when the dialog closes',
+    onOpening: 'Callback function for when the dialog opens',
     showCloseIcon: 'Set this prop to false to hide the close icon within the dialog.',
     size: `Change this prop to set the dialog to a specific size. Possible values include:
      ${OptionsHelper.sizesFull.join(', ')}`,
