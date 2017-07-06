@@ -5,6 +5,29 @@
 * `Button`: Allows small text on a large button [#1386](https://github.com/Sage/carbon/issues/1386)
 * `Button`: Allows secondary text under main text [#1385](https://github.com/Sage/carbon/issues/1385)
 
+# 1.2.1
+
+## Bug Fixes
+
+* `Dialog Full screen`: The `carbon-dialog-full-screen--open` class is now applied to the `html` element instead of the `body`.
+
+## Linting Updates
+
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
+
+* DraggableContext
+* DraggableTableCell
+* TableRow
+* WithDrag
+* WithDrop
+
+### Helpers
+
+* ItemTarget
+* Text
+
 # 1.2.0
 
 ## Dependency Upgrade
