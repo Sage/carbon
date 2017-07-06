@@ -398,6 +398,39 @@ describe('Dialog', () => {
     });
   });
 
+  describe('onCloseClick', () => {
+    const mockEvent = {
+      preventDefault() {}
+    };
+
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <Dialog 
+          open
+        />
+      );
+    });
+
+    it('prevents the default click action', () => {
+      spyOn(mockEvent, 'preventDefault');
+
+      wrapper.instance().onCloseClick(mockEvent);
+      expect(mockEvent.preventDefault).toHaveBeenCalled();
+    });
+
+    it('calls this.props.onCancel if passed via props', () => {
+      const onCancel = jasmine.createSpy('onCancel');
+      wrapper.setProps({
+        onCancel
+      });
+
+      wrapper.instance().onCloseClick(mockEvent);
+      expect(wrapper.props().onCancel).toHaveBeenCalled();
+    });
+  });
+
   describe('a11y', () => {
     let wrapper;
 

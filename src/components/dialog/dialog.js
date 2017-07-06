@@ -116,6 +116,7 @@ class Dialog extends Modal {
   constructor(args) {
     super(args);
     this.componentTags = this.componentTags.bind(this);
+    this.onCloseClick = this.onCloseClick.bind(this);
   }
 
   /**
@@ -271,7 +272,7 @@ class Dialog extends Modal {
       const closeProps = {
         className: 'carbon-dialog__close',
         'data-element': 'close',
-        onClick: this.props.onCancel,
+        onClick: this.onCloseClick,
         title: 'Close',
         onKeyDown: this.props.onCloseKeyDown
       };
@@ -288,6 +289,17 @@ class Dialog extends Modal {
       );
     }
     return null;
+  }
+
+  /**
+   * Event handler to handle clicks on
+   * the close icon.
+   */
+  onCloseClick(ev) {
+    ev.preventDefault();
+    if (this.props.onCancel) {
+      this.props.onCancel(ev);
+    }
   }
 
   componentTags(props) {
