@@ -89,8 +89,8 @@ describe('DialogFullScreen', () => {
     });
 
     it('adds a carbon-dialog-full-screen--open class to the body', () => {
-      const body = wrapper.instance().document.body;
-      expect(body.className).toEqual('carbon-dialog-full-screen--open');
+      const html = wrapper.instance().document.documentElement;
+      expect(html.className).toEqual('carbon-dialog-full-screen--open');
     });
   });
 
@@ -101,10 +101,10 @@ describe('DialogFullScreen', () => {
     });
 
     it('removes a carbon-dialog-full-screen--open class to the body', () => {
-      const body = wrapper.instance().document.body;
-      expect(body.className).toEqual('carbon-dialog-full-screen--open');
+      const html = wrapper.instance().document.documentElement;
+      expect(html.className).toEqual('carbon-dialog-full-screen--open');
       wrapper.setProps({ open: false });
-      expect(body.className).toEqual('');
+      expect(html.className).toEqual('');
     });
   });
 
