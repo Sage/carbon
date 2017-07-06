@@ -69,6 +69,7 @@ class Alert extends React.Component {
       <Dialog
         className='carbon-dialog--alert'
         { ...this.props }
+        autoFocusCloseIcon={ this.props.showCloseIcon }
         onCloseKeyDown={ this.onCloseKeyDown }
         { ...this.componentTags(this.props) }
       />
