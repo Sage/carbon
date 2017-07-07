@@ -7,7 +7,7 @@ import { EventEmitter } from 'events';
  * @type String
  * @final
  */
-const CHANGE_EVENT = "change";
+const CHANGE_EVENT = 'change';
 
 /**
  * A base class that can be used to extend a store with boilerplate to work with
@@ -59,12 +59,16 @@ export default class Store extends EventEmitter {
 
     // tell the developer if they have not defined the name property.
     if (!name) {
-      throw new Error(`You need to initialize your store with a name. Check the initialization of ${this.constructor.name}.`);
+      throw new Error(
+        `You need to initialize your store with a name. Check the initialization of ${this.constructor.name}.`
+      );
     }
 
     // tell the developer if they have not defined the data property.
     if (!data) {
-      throw new Error(`You need to initialize your store with data. Check the initialization of ${this.constructor.name}.`);
+      throw new Error(
+        `You need to initialize your store with data. Check the initialization of ${this.constructor.name}.`
+      );
     }
 
     // it is required to initialize the store with the dispatcher so we can register
@@ -157,7 +161,7 @@ export default class Store extends EventEmitter {
    */
   dispatcherCallback = (action) => {
     if (!action.actionType) {
-      throw new Error("You are dispatching an invalid action (maybe the constant is incorrect or missing)");
+      throw new Error('You are dispatching an invalid action (maybe the constant is incorrect or missing)');
     }
 
     // We determine if the store has the actionType available as a function.
