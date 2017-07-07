@@ -21,6 +21,15 @@ The following have had minor internal changes to satisfy the introduction of str
 * ItemTarget
 * Text
 
+## Component Enhancements
+
+* `Alert` no longer inherits from `Dialog`, but is composed of a `Dialog`.
+* `Dialog` has new props: `autoFocusCloseIcon`, `onCloseKeyDown`, `onClosing`, `onOpening`.
+
+## Bug Fixes
+
+* `Dialog`: fixed an issue where the dialog would steal focus from a child `Textbox` with `autoFocus`, and trigger a presence validation error.
+
 # 1.2.0
 
 ## Dependency Upgrade

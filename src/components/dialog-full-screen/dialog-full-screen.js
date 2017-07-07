@@ -105,14 +105,14 @@ class DialogFullScreen extends Modal {
   /**
    * Overrides the original function to disable the document's scroll.
    */
-  get onOpening() {
+  onOpening() {
     this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
   }
 
   /**
    * Overrides the original function to enable the document's scroll.
    */
-  get onClosing() {
+  onClosing() {
     this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
   }
 

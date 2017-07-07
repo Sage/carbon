@@ -22,8 +22,8 @@ import Browser from './../../utils/helpers/browser';
  *
  * Override several methods
  *
- * get onOpening() // Called by componentDidUpdate when dialog opens
- * get onClosing() // Called by componentDidUpdate when dialog closes
+ * onOpening() // Called by componentDidUpdate when dialog opens
+ * onClosing() // Called by componentDidUpdate when dialog closes
  * get mainClasses() // Classes to apply to parent div
  * get modalHTML() // JSX displayed when open
  * get transitionName() // Transisition name for CSSTransitionGroup
@@ -140,11 +140,11 @@ class Modal extends React.Component {
 
     if (this.props.open && !this.listening) {
       this.listening = true;
-      this.onOpening; // eslint-disable-line no-unused-expressions
+      this.onOpening(); // eslint-disable-line no-unused-expressions
       _window.addEventListener('keyup', this.closeModal);
     } else if (!this.props.open) {
       this.listening = false;
-      this.onClosing; // eslint-disable-line no-unused-expressions
+      this.onClosing(); // eslint-disable-line no-unused-expressions
       _window.removeEventListener('keyup', this.closeModal);
     }
   }
@@ -180,9 +180,9 @@ class Modal extends React.Component {
   }
 
   // Called after the modal opens
-  get onOpening() { return null; }
+  onOpening() { return null; }
   // Called after the modal closes
-  get onClosing() { return null; }
+  onClosing() { return null; }
   // Classes for parent div
   get mainClasses() { return null; }
   // Modal HTML shown when open

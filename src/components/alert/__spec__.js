@@ -1,39 +1,36 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import Alert from './alert';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Alert', () => {
-  let instance;
-  let onCancel = jasmine.createSpy('cancel');
-
-  beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
-      <Alert
-        onCancel={ onCancel }
-        open={ true }
-        title="Alert title" />
-    );
-  });
-
   describe('dialogClasses', () => {
     it('returns the dialog class along with the alert class', () => {
-      expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-alert__alert');
+      const wrapper = mount(
+        <Alert
+          title='Alert'
+          open
+        />
+      );
+
+      expect(wrapper
+        .find('.carbon-dialog.carbon-dialog--alert')
+        .exists())
+        .toBe(true);
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(<Alert open={ true } data-element='bar' data-role='baz' />);
+  describe('tags', () => {
+    describe('on component', () => {
+      const wrapper = shallow(<Alert open data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper, 'alert', 'bar', 'baz');
       });
     });
 
-    describe("on internal elements", () => {
-      let wrapper = mount(<Alert open={ true } title='Test' subtitle='Test' showCloseIcon={ true } />);
+    describe('on internal elements', () => {
+      const wrapper = mount(<Alert open title='Test' subtitle='Test' showCloseIcon />);
 
       elementsTagTest(wrapper, [
         'close',
@@ -45,16 +42,11 @@ describe('Alert', () => {
 
   describe('keyboard focus', () => {
     let wrapper;
-    let mockEvent;
 
     beforeEach(() => {
       wrapper = mount(
-        <Alert open={ true } title='Test' subtitle='Test' showCloseIcon={ false } />
+        <Alert open title='Test' subtitle='Test' showCloseIcon={ false } />
       );
-
-      mockEvent = {
-        preventDefault() {}
-      };
 
       jasmine.clock().install();
     });
@@ -63,26 +55,29 @@ describe('Alert', () => {
       jasmine.clock().uninstall();
     });
 
-    it('remains on the dialog if open and no close icon is shown', () => {
-      const instance = wrapper.instance();
-      spyOn(mockEvent, 'preventDefault');
-      spyOn(instance, 'focusDialog');
+    describe('keydown', () => {
+      let ev;
 
-      instance.onDialogBlur(mockEvent);
-      jasmine.clock().tick(10);
-      expect(mockEvent.preventDefault).toHaveBeenCalled();
-      expect(instance.focusDialog).toHaveBeenCalled();
-    });
+      beforeEach(() => {
+        ev = {
+          key: 'Tab',
+          preventDefault() {}
+        };
 
-    it('does not remain on the dialog if close icon is shown', () => {
-      wrapper.setProps({
-        showCloseIcon: true
+        spyOn(ev, 'preventDefault');
       });
 
-      spyOn(mockEvent, 'preventDefault');
+      it('calls preventDefault when the Tab key is pressed', () => {
+        wrapper.instance().onCloseKeyDown(ev);
+        expect(ev.preventDefault).toHaveBeenCalled();
+      });
 
-      wrapper.instance().onDialogBlur(mockEvent);
-      expect(mockEvent.preventDefault).not.toHaveBeenCalled();
+      it('does not call preventDefault when the Tab key is not pressed', () => {
+        ev.key = 'Enter';
+        wrapper.instance().onCloseKeyDown(ev);
+
+        expect(ev.preventDefault).not.toHaveBeenCalled();
+      });
     });
   });
 });
