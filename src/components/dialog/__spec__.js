@@ -27,12 +27,32 @@ describe('Dialog', () => {
           expect(instance.centerDialog).toHaveBeenCalled();
         });
 
-        it('focuses on the dialog', () => {
-          spyOn(Dialog.prototype, 'focusDialog');
-          mount(
-            <Dialog open onCancel={ onCancel } />
-          );
-          expect(Dialog.prototype.focusDialog).toHaveBeenCalled();
+        describe('when autoFocus is true', () => {
+          it('focuses on the dialog', () => {
+            spyOn(Dialog.prototype, 'focusDialog');
+            mount(
+              <Dialog
+                open
+                onCancel={ onCancel }
+                autoFocus
+              />
+            );
+            expect(Dialog.prototype.focusDialog).toHaveBeenCalled();
+          });
+        });
+
+        describe('when autoFocus is false', () => {
+          it('does not focus on the dialog', () => {
+            spyOn(Dialog.prototype, 'focusDialog');
+            mount(
+              <Dialog
+                open
+                onCancel={ onCancel }
+                autoFocus={ false }
+              />
+            );
+            expect(Dialog.prototype.focusDialog).not.toHaveBeenCalled();
+          });
         });
       });
 
@@ -372,17 +392,36 @@ describe('Dialog', () => {
       });
     });
 
-    it('focuses on the dialog when opened', () => {
-      wrapper.setProps({
-        open: false
-      });
-      instance = wrapper.instance();
-      spyOn(instance, 'focusDialog');
+    describe('when autoFocus is true', () => {
+      it('focuses on the dialog when opened', () => {
+        wrapper.setProps({
+          open: false,
+          autoFocus: true
+        });
+        instance = wrapper.instance();
+        spyOn(instance, 'focusDialog');
 
-      wrapper.setProps({
-        open: true
+        wrapper.setProps({
+          open: true
+        });
+        expect(instance.focusDialog).toHaveBeenCalled();
       });
-      expect(instance.focusDialog).toHaveBeenCalled();
+    });
+
+    describe('when autoFocus is false', () => {
+      it('does not focus on the dialog when opened', () => {
+        wrapper.setProps({
+          open: false,
+          autoFocus: false
+        });
+        instance = wrapper.instance();
+        spyOn(instance, 'focusDialog');
+
+        wrapper.setProps({
+          open: true
+        });
+        expect(instance.focusDialog).not.toHaveBeenCalled();
+      });
     });
 
     it('returns focus to the dialog element when focus leaves the close icon', () => {
