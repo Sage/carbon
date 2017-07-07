@@ -1,5 +1,9 @@
 # 1.2.1
 
+## Bug Fixes
+
+* `Dialog Full screen`: The `carbon-dialog-full-screen--open` class is now applied to the `html` element instead of the `body`.
+
 ## Linting Updates
 
 The following have had minor internal changes to satisfy the introduction of stricter linting rules:
