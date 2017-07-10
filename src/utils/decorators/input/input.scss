@@ -195,7 +195,7 @@
   height: 15px;
   position: absolute;
   right: 5px;
-  top: 6px;
+  top: 28px;
   z-index: 2;
 
   &:before {
@@ -221,6 +221,7 @@
   left: 7px;
   position: absolute;
   top: 8px;
+  z-index: 3;
 }
 
 .common-input__input-icon {

@@ -5,6 +5,32 @@
 * `Button`: Allows small text on a large button [#1386](https://github.com/Sage/carbon/issues/1386)
 * `Button`: Allows secondary text under main text [#1385](https://github.com/Sage/carbon/issues/1385)
 
+# 1.2.1
+
+## Bug Fixes
+
+* `Dialog Full screen`: The `carbon-dialog-full-screen--open` class is now applied to the `html` element instead of the `body`.
+
+## Linting Updates
+
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
+
+* DraggableContext
+* DraggableTableCell
+* TableRow
+* WithDrag
+* WithDrop
+
+### Helpers
+
+* ItemTarget
+* Text
+
+## Bug Fixes
+* Input prefix was hidden when error was present
+
 # 1.2.0
 
 ## Dependency Upgrade
@@ -203,10 +229,12 @@ return (
 
 * `Table` can now receive an `caption` prop which renders a `<caption>` element as a child of the table element. Note that the caption is hidden by default, but still accessible to screen readers and assistive technologies.
 * `Table` has a new prop of onConfigure. Displays a configure icon to the left of the table header that triggers the callback onClick.
+* `Table` has a new prop of `theme` that allows primary (dark) or secondary (light) styling.
 
 ## Bug Fixes
 
 * `DialogFullScreen` now scrolls vertically if it contains content taller than the dialog height.
+* `TableHeader`: fix alignment of sort icon in IE11.
 
 ## Dependency Switch
 
@@ -214,10 +242,12 @@ return (
 
 ## Deployment Changes
 
-You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
+* You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
 
 ## Other
-Minor changes to guides to reference `carbon-react` in imports.
+
+* Minor changes to guides to reference `carbon-react` in imports.
+* `grid` icon added to the `Icon` component.
 
 # 1.1.4
 
