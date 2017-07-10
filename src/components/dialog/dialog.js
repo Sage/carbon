@@ -279,7 +279,7 @@ class Dialog extends Modal {
       {
         [`carbon-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined',
         'carbon-dialog__dialog--fixed-bottom': this.isFixedBottom(),
-        'carbon-dialog__dialog--min-height': this.props.minHeight
+        'carbon-dialog__dialog--has-height': this.props.height
       }
     );
   }
@@ -319,7 +319,7 @@ class Dialog extends Modal {
       className: this.dialogClasses,
       tabIndex: 0,
       style: {
-        maxHeight: this.props.minHeight
+        maxHeight: this.props.height
       }
     };
 
