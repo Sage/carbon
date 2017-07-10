@@ -26,7 +26,6 @@ let definition = new Definition('button', Button, {
     as: "String",
     children: "Node",
     disabled: "Boolean",
-    smallFont: "Boolean",
     theme: "String",
     size: "String",
     subtext: "String"
@@ -38,7 +37,6 @@ let definition = new Definition('button', Button, {
     as: "Choose between Primary or Secondary styling.",
     children: "This component supports children.",
     disabled: "Controls the disabled state of the button.",
-    smallFont: "Allows a large button to have smaller text",
     theme: "Choose between different colour themes for the button.",
     size: "Choose between various sizes for the button.",
     subtext: "A second line of text to be added to a large button"

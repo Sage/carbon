@@ -38,13 +38,9 @@
   }
 
   &.carbon-button--large {
-    font-size: 16px;
+    font-size: $app-font-size;
     height: 43px;
     padding: 0 20px;
-
-    &.carbon-button--small-font {
-      font-size: $app-font-size;
-    }
 
     &.carbon-button--subtext {
       .carbon-button__main-text {

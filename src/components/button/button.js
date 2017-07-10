@@ -58,6 +58,7 @@ class Button extends React.Component {
     disabled: PropTypes.bool,
 
     /**
+<<<<<<< HEAD
      * Sets the font small, currently only available on a large button
      *
      * @property smallFont
@@ -74,6 +75,8 @@ class Button extends React.Component {
     },
 
     /**
+=======
+>>>>>>> parent of e90261b... Allows smaller font to be set in large Buttons #1386
      * Gives the button a color.
      *
      * @property theme
@@ -171,7 +174,6 @@ class Button extends React.Component {
       `carbon-button--${this.props.size}`,
       props.className, {
         'carbon-button--disabled': this.props.disabled,
-        'carbon-button--small-font': this.props.smallFont,
         'carbon-button--subtext': (this.props.subtext.length > 0)
       }
     );
