@@ -33,6 +33,8 @@ const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
 class Dialog extends Modal {
 
   static propTypes = assign({}, Modal.propTypes, {
+    height: PropTypes.string,
+
     /**
      * Title displayed at top of dialog
      *

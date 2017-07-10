@@ -21,11 +21,11 @@ const definition = new Definition('dialog', Dialog, {
   },
   propValues: {
     title: 'Example Title for a Dialog',
-    children: '<Form><Tabs><Tab tabId="1" title="Tab 1"><div style={{ height: "400px", backgroundColor: "red"}} /></Tab><Tab tabId="2" title="Tab 2"><div style={{ height: "600px", backgroundColor: "red"}} /></Tab></Tabs></Form>',
-    height: "845px"
+    children: '<Form>An Example of a dialog.</Form>'
   },
   propTypes: {
     autoFocus: 'Boolean',
+    height: 'String',
     title: 'String',
     size: 'String',
     showCloseIcon: 'Boolean',
@@ -33,6 +33,7 @@ const definition = new Definition('dialog', Dialog, {
   },
   propDescriptions: {
     autoFocus: 'When set to true the dialog will receive keyboard focus when it opens.',
+    height: 'Sets a value for a specific height the dialog should take (for example "500px").',
     showCloseIcon: 'Set this prop to false to hide the close icon within the dialog.',
     size: `Change this prop to set the dialog to a specific size. Possible values include:
      ${OptionsHelper.sizesFull.join(', ')}`,
