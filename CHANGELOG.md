@@ -2,7 +2,6 @@
 
 ## Component Improvements
 
-* `Button`: Allows small text on a large button [#1386](https://github.com/Sage/carbon/issues/1386)
 * `Button`: Allows secondary text under main text [#1385](https://github.com/Sage/carbon/issues/1385)
 
 # 1.2.1
