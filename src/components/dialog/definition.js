@@ -24,12 +24,14 @@ const definition = new Definition('dialog', Dialog, {
     children: 'This is an example of a dialog.'
   },
   propTypes: {
+    autoFocus: 'Boolean',
     title: 'String',
     size: 'String',
     showCloseIcon: 'Boolean',
     subtitle: 'String'
   },
   propDescriptions: {
+    autoFocus: 'When set to true the dialog will receive keyboard focus when it opens.',
     showCloseIcon: 'Set this prop to false to hide the close icon within the dialog.',
     size: `Change this prop to set the dialog to a specific size. Possible values include:
      ${OptionsHelper.sizesFull.join(', ')}`,

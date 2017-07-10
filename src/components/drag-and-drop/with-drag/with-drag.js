@@ -5,10 +5,23 @@ import ItemTypes from './../../../utils/helpers/dnd/item-types';
 
 class WithDrag extends React.Component {
   static propTypes = {
+    /**
+     * The component that will have drag enabled
+     *
+     * @property children
+     * @type {Object}
+     */
+    children: PropTypes.node.isRequired,
+
+    // The following prop types are required by react-dnd,
+    // and aren't used in this component directly. Therefore
+    // disable the ESLint rule react/no-unused-prop-types
+    /* eslint-disable react/no-unused-prop-types */
     identifier: PropTypes.string, // identifies an association between WithDrag and WithDrop
     canDrag: PropTypes.func, // an optional callback to determine if this item can be dragged
     beginDrag: PropTypes.func, // an optional callback to trigger when dragging begins
     endDrag: PropTypes.func // an optional callback to trigger when dragging ends
+    /* eslint-enable react/no-unused-prop-types */
   }
 
   static contextTypes = {
@@ -17,7 +30,10 @@ class WithDrag extends React.Component {
   }
 
   render() {
-    return this.props.connectDragSource(this.props.children, {
+    // this.props.connectDragSource comes from react-dnd DragSource higher
+    // order component, so disable the react/prop-types ESLint rule on the line
+    // below
+    return this.props.connectDragSource(this.props.children, { // eslint-disable-line react/prop-types
       dropEffect: 'copy'
     });
   }
@@ -40,7 +56,7 @@ const ItemSource = {
 };
 
 WithDrag = DragSource( // eslint-disable-line no-class-assign
-  ItemTypes.getItemType, ItemSource, (connect) => ({
+  ItemTypes.getItemType, ItemSource, connect => ({
     connectDragSource: connect.dragSource()
   })
 )(WithDrag);
