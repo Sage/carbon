@@ -6,7 +6,7 @@ import Heading from './../heading';
 import FullScreenHeading from './full-screen-heading';
 import Browser from './../../utils/helpers/browser';
 
-const DIALOG_OPEN_BODY_CLASS = 'carbon-dialog-full-screen--open';
+const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog-full-screen--open';
 
 /**
  * A DialogFullScreen widget.
@@ -106,14 +106,14 @@ class DialogFullScreen extends Modal {
    * Overrides the original function to disable the document's scroll.
    */
   get onOpening() {
-    this.document.body.classList.add(DIALOG_OPEN_BODY_CLASS);
+    this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
   }
 
   /**
    * Overrides the original function to enable the document's scroll.
    */
   get onClosing() {
-    this.document.body.classList.remove(DIALOG_OPEN_BODY_CLASS);
+    this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
   }
 
   /**
