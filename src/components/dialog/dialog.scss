@@ -7,10 +7,10 @@ $dialog-padding: 20px;
   background-color: $grey-light;
   border-radius: 5px;
   box-shadow: 0 4px 8px #555;
-  padding: $dialog-padding;
-  position: absolute;
+  position: fixed;
   top: 50%;
   z-index: $z-dialog;
+  transition: top 0.25s;
 }
 
 .carbon-dialog__dialog--extra-small   { width: 300px; }
@@ -21,12 +21,35 @@ $dialog-padding: 20px;
 .carbon-dialog__dialog--large         { width: 960px; }
 .carbon-dialog__dialog--extra-large   { width: 1080px; }
 
-.carbon-dialog__content {
-  width: 100%;
+.carbon-dialog__dialog--min-height {
+  height: calc(100% - #{$dialog-padding});
 }
 
-.carbon-dialog__title .carbon-heading {
-  padding-top: 0;
+.carbon-dialog__content {
+  overflow-y: auto;
+  width: 100%;
+  height: calc(100% - 63px);
+}
+
+.carbon-dialog__inner-content {
+  padding: $dialog-padding;
+  min-height: calc(100% - #{$dialog-padding * 2});
+}
+
+.carbon-dialog__dialog--fixed-bottom {
+  border-radius: 5px 5px 0 0;
+  bottom: 0;
+}
+
+.carbon-dialog__title {
+  .carbon-heading {
+    padding-top: $dialog-padding;
+    margin: 0 $dialog-padding;
+  }
+
+  .carbon-heading__header {
+    margin-bottom: 0;
+  }
 }
 
 .carbon-dialog__close {
@@ -40,4 +63,8 @@ $dialog-padding: 20px;
   &:hover {
     color: $blue;
   }
+}
+
+.carbon-dialog--open {
+  overflow: hidden;
 }
