@@ -58,25 +58,6 @@ class Button extends React.Component {
     disabled: PropTypes.bool,
 
     /**
-<<<<<<< HEAD
-     * Sets the font small, currently only available on a large button
-     *
-     * @property smallFont
-     * @type {Boolean}
-     */
-    smallFont: (props) => {
-      if (typeof props.smallFont !== 'boolean') {
-        throw new Error('smallFont needs to be a Boolean');
-      }
-      if (props.smallFont && props.size !== 'large') {
-        throw new Error('smallFont prop has no effect unless the button is large');
-      }
-      return null;
-    },
-
-    /**
-=======
->>>>>>> parent of e90261b... Allows smaller font to be set in large Buttons #1386
      * Gives the button a color.
      *
      * @property theme
