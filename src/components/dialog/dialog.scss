@@ -2,6 +2,35 @@
 @import "./../../style-config/z-index";
 
 $dialog-padding: 20px;
+$dialog-sizes: (
+  ('extra-small', 300px),
+  ('small', 380px),
+  ('medium-small', 540px),
+  ('medium', 750px),
+  ('medium-large', 850px),
+  ('large', 960px),
+  ('extra-large', 1080px)
+);
+
+@mixin dialog-size-css($name, $size) {
+  .carbon-dialog__dialog--#{$name} {
+    width: $size;
+
+    $form-buttons-width: $size - ($dialog-padding * 2);
+    &.carbon-dialog__dialog--fixed-bottom .carbon-form__buttons {
+      width: $form-buttons-width;
+
+      // IE10+ fix (caters for scrollbar width)
+      @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+        width: $form-buttons-width - 16;
+      }
+    }
+  }
+}
+
+@each $size in $dialog-sizes {
+  @include dialog-size-css($size...);
+}
 
 .carbon-dialog__dialog {
   background-color: $grey-light;
@@ -13,24 +42,18 @@ $dialog-padding: 20px;
   transition: top 0.25s;
 }
 
-.carbon-dialog__dialog--extra-small   { width: 300px; }
-.carbon-dialog__dialog--small         { width: 380px; }
-.carbon-dialog__dialog--medium-small  { width: 540px; }
-.carbon-dialog__dialog--medium        { width: 750px; }
-.carbon-dialog__dialog--medium-large  { width: 850px; }
-.carbon-dialog__dialog--large         { width: 960px; }
-.carbon-dialog__dialog--extra-large   { width: 1080px; }
-
-
-@-webkit-keyframes NAME-YOUR-ANIMATION {
-  0%   { bottom: -50px; }
-  100% { bottom: 0; }
-}
-
 .carbon-dialog__content {
+  height: 100%;
   overflow-y: auto;
   width: 100%;
-  height: calc(100% - 63px);
+
+  .carbon-dialog__title + & {
+    height: calc(100% - 63px); // not great - hardcodes what we think the title height is
+  }
+
+  .carbon-dialog__title--has-subheader + & {
+    height: calc(100% - 85px); // not great - hardcodes what we think the title height is
+  }
 }
 
 .carbon-dialog__inner-content {
@@ -40,10 +63,10 @@ $dialog-padding: 20px;
 }
 
 .carbon-dialog__dialog--has-height {
-  height: calc(100% - #{$dialog-padding - 1});
+  height: calc(100% - #{$dialog-padding - 1}); // remove 1 pixel so to prevent jutter
 
   .carbon-form {
-    padding-bottom: 77px;
+    padding-bottom: 77px; // not great - hardcodes what we think the form buttons height is
   }
 
   .carbon-form__buttons {
@@ -53,22 +76,26 @@ $dialog-padding: 20px;
   }
 }
 
+@keyframes form-buttons-animate-in {
+  0%   { bottom: -50px; }
+  100% { bottom: 0; }
+}
+
 .carbon-dialog__dialog--fixed-bottom {
   border-radius: 5px 5px 0 0;
   bottom: 0;
 
   .carbon-form__buttons {
-    -webkit-animation: NAME-YOUR-ANIMATION 0.25s ease-out;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-    position: fixed;
-    bottom: 0;
-    width: 710px;
-    padding-left: 20px;
+    animation: form-buttons-animate-in 0.25s ease-out;
     background-color: white;
-    padding-right: 20px;
-    margin-left: -20px;
-    padding-top: 15px;
+    bottom: 0;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    margin-left: -($dialog-padding);
     padding-bottom: 15px;
+    padding-left: $dialog-padding;
+    padding-right: $dialog-padding;
+    padding-top: 15px;
+    position: fixed;
   }
 }
 
@@ -98,4 +125,11 @@ $dialog-padding: 20px;
 
 .carbon-dialog--open {
   overflow: hidden;
+}
+
+// IE10+ Fix (always shows scrollbar)
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  .carbon-dialog__dialog--fixed-bottom .carbon-dialog__content {
+    overflow-y: scroll;
+  }
 }

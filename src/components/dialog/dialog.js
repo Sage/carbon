@@ -218,7 +218,12 @@ class Dialog extends Modal {
   get dialogTitle() {
     if (!this.props.title) { return null; }
 
-    let title = this.props.title;
+    let title = this.props.title,
+        classes = classNames(
+          'carbon-dialog__title', {
+            'carbon-dialog__title--has-subheader': this.props.subtitle
+          }
+        );
 
     if (typeof title === 'string') {
       title = (
@@ -232,7 +237,7 @@ class Dialog extends Modal {
     }
 
     return (
-      <div className='carbon-dialog__title'>{ title }</div>
+      <div className={ classes }>{ title }</div>
     );
   }
 
