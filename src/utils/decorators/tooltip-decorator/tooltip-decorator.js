@@ -206,7 +206,7 @@ const TooltipDecorator = ComposedComponent => class Component extends ComposedCo
    * @return {DOM node}
    */
   getTarget = () => {
-    return ReactDOM.findDOMNode(this._target); // eslint-disable-line no-find-dom-node
+    return ReactDOM.findDOMNode(this._target); // eslint-disable-line react/no-find-dom-node
   }
 
   /**
@@ -216,7 +216,7 @@ const TooltipDecorator = ComposedComponent => class Component extends ComposedCo
    * @return {DOM node}
    */
   getTooltip = () => {
-    return ReactDOM.findDOMNode(this._tooltip); // eslint-disable-line no-find-dom-node
+    return ReactDOM.findDOMNode(this._tooltip); // eslint-disable-line react/no-find-dom-node
   }
 
   /**

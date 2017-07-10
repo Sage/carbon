@@ -263,7 +263,7 @@ class Table extends React.Component {
      * @property tbody
      * @type {Object}
      */
-    tbody: React.PropTypes.bool,
+    tbody: PropTypes.bool,
 
     /**
      * A string to render as the table's caption
@@ -271,7 +271,7 @@ class Table extends React.Component {
      * @property caption
      * @type string
      */
-    caption: React.PropTypes.string,
+    caption: PropTypes.string,
 
     /**
      * Renders as light or dark
@@ -280,7 +280,7 @@ class Table extends React.Component {
      * @property theme
      * @type string
      */
-    theme: React.PropTypes.string
+    theme: PropTypes.string
   }
 
   static childContextTypes = {
