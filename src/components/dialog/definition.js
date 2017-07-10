@@ -21,7 +21,8 @@ const definition = new Definition('dialog', Dialog, {
   },
   propValues: {
     title: 'Example Title for a Dialog',
-    children: 'This is an example of a dialog.'
+    children: '<Tabs><Tab tabId="1" title="Tab 1"><Textarea /></Tab><Tab tabId="2" title="Tab 2"><Textarea rows="40" /></Tab></Tabs>',
+    minHeight: "825px"
   },
   propTypes: {
     autoFocus: 'Boolean',
