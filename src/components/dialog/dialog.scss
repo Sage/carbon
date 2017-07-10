@@ -21,8 +21,10 @@ $dialog-padding: 20px;
 .carbon-dialog__dialog--large         { width: 960px; }
 .carbon-dialog__dialog--extra-large   { width: 1080px; }
 
-.carbon-dialog__dialog--min-height {
-  height: calc(100% - #{$dialog-padding});
+
+@-webkit-keyframes NAME-YOUR-ANIMATION {
+  0%   { bottom: -50px; }
+  100% { bottom: 0; }
 }
 
 .carbon-dialog__content {
@@ -33,12 +35,41 @@ $dialog-padding: 20px;
 
 .carbon-dialog__inner-content {
   padding: $dialog-padding;
+  position: relative;
   min-height: calc(100% - #{$dialog-padding * 2});
+}
+
+.carbon-dialog__dialog--has-height {
+  height: calc(100% - #{$dialog-padding - 1});
+
+  .carbon-form {
+    padding-bottom: 77px;
+  }
+
+  .carbon-form__buttons {
+    position: absolute;
+    bottom: $dialog-padding;
+    width: calc(100% - #{$dialog-padding * 2});
+  }
 }
 
 .carbon-dialog__dialog--fixed-bottom {
   border-radius: 5px 5px 0 0;
   bottom: 0;
+
+  .carbon-form__buttons {
+    -webkit-animation: NAME-YOUR-ANIMATION 0.25s ease-out;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    bottom: 0;
+    width: 710px;
+    padding-left: 20px;
+    background-color: white;
+    padding-right: 20px;
+    margin-left: -20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
 }
 
 .carbon-dialog__title {
