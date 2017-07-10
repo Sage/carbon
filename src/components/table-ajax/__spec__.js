@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { TableAjax } from './table-ajax';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('TableAjax', () => {
@@ -322,6 +322,50 @@ describe('TableAjax', () => {
         pageSize: '10',
         sortedColumn: '',
         sortOrder: ''
+      });
+    });
+  });
+
+  describe('handleResponse', () => {
+    let wrapper,
+        response;
+
+    beforeEach(() => {
+      response = {
+        body: {
+          records: 1
+        }
+      };
+
+      wrapper = mount(
+        <TableAjax
+          path='/test'
+          onChange={ spy }
+        />
+      );
+    });
+
+    describe('when props contains a formatData function', () => {
+      it('calls formatData', () => {
+        const mockFormatData = jasmine.createSpy('mockFormatData').and.returnValue({
+          records: 1
+        });
+
+        wrapper.setProps({
+          formatData: mockFormatData
+        });
+
+        wrapper.instance().handleResponse(false, response);
+        expect(mockFormatData).toHaveBeenCalledWith(response.body);
+      });
+    });
+
+    describe('when props does not contain a formatData function', () => {
+      it('does not call formatData', () => {
+        const mockFormatData = jasmine.createSpy('mockFormatData');
+
+        wrapper.instance().handleResponse(false, response);
+        expect(mockFormatData).not.toHaveBeenCalled();
       });
     });
   });

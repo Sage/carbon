@@ -1,3 +1,9 @@
+# 1.2.2
+
+## Component Enhancements
+
+* `TableAjax`: now accepts a `formatData` prop, which is a function that lets you format the data received via the Ajax response into the format required by the table.
+
 # 1.2.1
 
 ## Linting Updates

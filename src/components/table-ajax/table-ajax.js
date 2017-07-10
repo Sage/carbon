@@ -47,6 +47,15 @@ class TableAjax extends Table {
     filter: PropTypes.object,
 
     /**
+     * A callback function used to format the Ajax
+     * response into the format required by the table
+     *
+     * @property formatData
+     * @type {Function}
+     */
+    formatData: PropTypes.func,
+
+    /**
      * Setting to true turns on pagination for the table
      *
      * @property paginate
@@ -324,7 +333,7 @@ class TableAjax extends Table {
    */
   handleResponse = (err, response) => {
     if (!err) {
-      const data = response.body;
+      const data = this.props.formatData ? this.props.formatData(response.body) : response.body;
       this.props.onChange(data);
       this.setState({ totalRecords: String(data.records) });
     }
