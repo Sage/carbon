@@ -4,6 +4,15 @@
 
 * React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
 
+## New Components
+
+* `ConfigurableColumns` Drag & Drop and disable/enable table columm data
+* `ConfigurableColumnRow` Used with ConfigurableColumns to build the list of configurable columns
+
+## New Patterns
+
+* `ConfigurableColumnsPattern` Combines ConfigurableColumns and ConfigurableColumnRow components
+
 # 1.2.1
 
 ## Linting Updates
