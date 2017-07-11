@@ -215,6 +215,12 @@ class Dialog extends Modal {
       this.forceUpdate();
     }
 
+    if (this._content) {
+      // apply height to content based on height of title
+      const height = this._title ? this._title.offsetHeight : '0';
+      this._content.style.height = `calc(100% - ${height}px)`;
+    }
+
     this._dialog.style.top = `${midPointY}px`;
     this._dialog.style.left = `${midPointX}px`;
   }
@@ -224,7 +230,12 @@ class Dialog extends Modal {
   }
 
   isFixedBottom = () => {
-    return !!this._dialog && (this.x.offsetHeight + this.x.offsetTop) > (this.window().innerHeight - 20);
+    if (!this._innerContent) { return false; }
+
+    const contentHeight = this._innerContent.offsetHeight + this._innerContent.offsetTop,
+          windowHeight = this.window().innerHeight - 20;
+
+    return contentHeight > windowHeight;
   }
 
   /**
@@ -255,7 +266,7 @@ class Dialog extends Modal {
     }
 
     return (
-      <div className={ classes }>{ title }</div>
+      <div className={ classes } ref={ (c) => this._title = c }>{ title }</div>
     );
   }
 
@@ -351,8 +362,8 @@ class Dialog extends Modal {
       >
         { this.dialogTitle }
 
-        <div className='carbon-dialog__content'>
-          <div className='carbon-dialog__inner-content' ref={ (c) => this.x = c }>
+        <div className='carbon-dialog__content' ref={ (c) => this._content = c }>
+          <div className='carbon-dialog__inner-content' ref={ (c) => this._innerContent = c }>
             { this.props.children }
           </div>
         </div>
