@@ -51,11 +51,9 @@ $dialog-sizes: (
 .carbon-dialog__inner-content {
   padding: $dialog-padding;
   position: relative;
-  min-height: calc(100% - #{$dialog-padding * 2});
 }
 
 .carbon-dialog__dialog--has-height {
-  height: calc(100% - #{$dialog-padding - 1}); // remove 1 pixel so to prevent jutter
 
   .carbon-form {
     padding-bottom: 80px;
@@ -66,6 +64,10 @@ $dialog-sizes: (
     bottom: $dialog-padding;
     width: calc(100% - #{$dialog-padding * 2});
   }
+  //
+  // .carbon-dialog__inner-content {
+  //   min-height: calc(100% - #{$dialog-padding * 2});
+  // }
 }
 
 @keyframes form-buttons-animate-in {
