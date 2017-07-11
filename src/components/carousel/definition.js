@@ -12,8 +12,8 @@ const definition = new Definition('carousel', Carousel, {
   propTypes: {
     children: 'Node',
     className: 'String',
-    initialSlideIndex: 'Number || String',
-    slideIndex: 'Number || String',
+    initialSlideIndex: 'Number',
+    slideIndex: 'Number',
     enableSlideSelector: 'Boolean',
     enablePreviousButton: 'Boolean',
     enableNextButton: 'Boolean',
@@ -29,7 +29,11 @@ const definition = new Definition('carousel', Carousel, {
     enableNextButton: 'Set this prop to false to hide the next button',
     onSlideChange: 'Action to be called on slide change.' +
     ' It will receive the slide index and the transition direction as params.'
-  }
+  },
+  propOptions: {
+    initialSlideIndex: [0, 1, 2, 3, 4],
+    slideIndex: [0, 1, 2, 3, 4]
+  },
 });
 
 definition.addChildByDefinition(slideDefinition, {

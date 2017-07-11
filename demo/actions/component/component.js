@@ -1,8 +1,3 @@
-import Dispatcher from './../../dispatcher';
-import ComponentConstants from '../../constants/component';
-import Request from 'superagent';
-import serialize from 'utils/helpers/serialize';
-
 const ComponentActions = {
   /**
    * Updates the prop values loaded from the definition.
@@ -42,8 +37,8 @@ const ComponentActions = {
   },
 
   updateTable: (actionType, opts = {}) => {
-    let pageSize = opts.pageSize || "10",
-        currentPage = opts.currentPage || "1",
+    const pageSize = opts.pageSize || '10',
+        currentPage = opts.currentPage || '1',
         query = opts.filter || {};
 
     if (opts.sortOrder) { query.sord = opts.sortOrder; }
@@ -54,7 +49,7 @@ const ComponentActions = {
     window.Request.get('/countries')
       .query(query)
       .end((err, res) => {
-        let data = res.body;
+        const data = res.body;
 
         window.Dispatcher.dispatch({
           actionType: window.ComponentConstants.UPDATE_TABLE,
@@ -63,7 +58,7 @@ const ComponentActions = {
           sortOrder: opts.sortOrder,
           sortedColumn: opts.sortedColumn,
           page: String(data.current_page),
-          pageSize: pageSize
+          pageSize
         });
       });
   },
@@ -80,8 +75,8 @@ const ComponentActions = {
   updateDndData: (dragIndex, hoverIndex) => {
     window.Dispatcher.dispatch({
       actionType: window.ComponentConstants.UPDATE_TABLE_DND,
-      dragIndex: dragIndex,
-      hoverIndex: hoverIndex,
+      dragIndex,
+      hoverIndex,
     });
   }
 };

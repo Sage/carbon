@@ -9,7 +9,7 @@ export default (definition) => {
 
   definition.propOptions.labelAlign = OptionsHelper.alignBinary;
 
-  definition.hiddenProps = definition.hiddenProps.concat(['warnings', 'validations', 'info']);
+  definition.hiddenProps = definition.hiddenProps.concat(['warnings', 'validations', 'info', 'value']);
 
   definition.propRequires.labelInline = 'label';
   definition.propRequires.labelWidth = 'labelInline';
