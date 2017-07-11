@@ -21,7 +21,7 @@ const definition = new Definition('dialog', Dialog, {
   },
   propValues: {
     title: 'Example Title for a Dialog',
-    children: '<Form>An Example of a dialog.</Form>'
+    children: '<Form><Textarea /></Form>'
   },
   propTypes: {
     autoFocus: 'Boolean',
