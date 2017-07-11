@@ -28,7 +28,7 @@ let definition = new Definition('flash', Flash, {
     open: "Boolean",
     onDismiss: "Function",
     message: "String",
-    timeout: "String || Number"
+    timeout: "Number"
   },
   propDescriptions: {
     as: "Sets the theme of the notification. Possible values include: " + OptionsHelper.colors.join(", "),
