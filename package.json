@@ -71,12 +71,6 @@
     "superagent": "~2.2.0"
   },
   "jest": {
-    "testMatch": [
-      "**/__spec__.js"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ]
+    "preset": "./node_modules/carbon-factory/jest.conf.json"
   }
 }
