@@ -77,17 +77,23 @@ $dialog-sizes: (
   border-radius: 5px 5px 0 0;
   bottom: 0;
 
+  .carbon-form {
+    padding-bottom: 80px;
+  }
+
   .carbon-form__buttons {
     animation: form-buttons-animate-in 0.25s ease-out;
     background-color: white;
     bottom: 0;
     box-shadow: 0 -4px 12px 0 rgba(0, 0, 0, 0.05);
+    box-sizing: content-box;
     margin-left: -($dialog-padding);
     padding-bottom: 15px;
     padding-left: $dialog-padding;
     padding-right: $dialog-padding;
     padding-top: 15px;
     position: fixed;
+    z-index: 5;
   }
 }
 
