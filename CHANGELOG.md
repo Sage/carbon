@@ -1,3 +1,13 @@
+# 1.3.0
+
+## Component Ehancements
+
+* Dialog
+  * Screen is no longer scrollable when a dialog is open.
+  * Dialog will attach to the bottom of the browser if it gets too tall, and it's content will become scrollable.
+  * If a dialog has a form, the form buttons will become sticky to the bottom of the dialog while the dialog is attached to the bottom of the browser.
+  * Dialog can now use a prop called `height`, allowing developers to specify a set height for the dialog (the dialog will still attach to the bottom of the browser if it is taller than the browser's height).
+
 # 1.2.1
 
 ## Bug Fixes

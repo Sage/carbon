@@ -33,6 +33,12 @@ const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
 class Dialog extends Modal {
 
   static propTypes = assign({}, Modal.propTypes, {
+    /**
+     * Allows developers to specify a specific height for the dialog.
+     *
+     * @property height
+     * @type {String}
+     */
     height: PropTypes.string,
 
     /**
@@ -85,6 +91,8 @@ class Dialog extends Modal {
     this.onDialogBlur = this.onDialogBlur.bind(this);
     this.onCloseIconBlur = this.onCloseIconBlur.bind(this);
     this.document = Browser.getDocument();
+    // create a function to be called specifically when the browser is resized,
+    // so it can pass true as an arg
     this.centerOnResize = this.centerDialog.bind(this, true);
   }
 
@@ -159,20 +167,19 @@ class Dialog extends Modal {
    */
   window = () => {
     return Browser.getWindow();
-    console.log(this._dialog);
   }
 
   /**
    * Centers dialog relative to window
    *
    * @method centerDialog
+   * @param {Boolean} notRender - declares that the method was called not as part of the component lifecycle
    * @return {void}
    */
   centerDialog = (notRender) => {
     const height = this._dialog.offsetHeight / 2,
-        width = this._dialog.offsetWidth / 2;
-
-    const win = this.window();
+          width = this._dialog.offsetWidth / 2,
+          win = this.window();
 
     let midPointY = win.innerHeight / 2,
         midPointX = win.innerWidth / 2;
@@ -188,13 +195,14 @@ class Dialog extends Modal {
       midPointX = 20;
     }
 
-    if (this.isFixedBottom() && !this.appliedFixedBottom) {
+    if (!this.appliedFixedBottom && this.shouldHaveFixedBottom()) {
       this.appliedFixedBottom = true;
       let timeout = notRender ? 0 : 500;
+      // cause timeout to accommodate dialog animating in
       setTimeout(() => {
         this.forceUpdate();
       }, timeout);
-    } else if (!this.isFixedBottom() && this.appliedFixedBottom) {
+    } else if (this.appliedFixedBottom && !this.shouldHaveFixedBottom()) {
       this.appliedFixedBottom = false;
       this.forceUpdate();
     }
@@ -213,7 +221,13 @@ class Dialog extends Modal {
     this._dialog.focus();
   }
 
-  isFixedBottom = () => {
+  /**
+   * Determines if the dialog should have a fixed bottom.
+   *
+   * @method shouldHaveFixedBottom
+   * @return {Boolean}
+   */
+  shouldHaveFixedBottom = () => {
     if (!this._innerContent) { return false; }
 
     const contentHeight = this._innerContent.offsetHeight + this._innerContent.offsetTop,
@@ -280,7 +294,7 @@ class Dialog extends Modal {
       'carbon-dialog__dialog',
       {
         [`carbon-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined',
-        'carbon-dialog__dialog--fixed-bottom': this.isFixedBottom(),
+        'carbon-dialog__dialog--fixed-bottom': this.shouldHaveFixedBottom(),
         'carbon-dialog__dialog--has-height': this.props.height
       }
     );
