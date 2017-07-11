@@ -17,6 +17,11 @@ The following have had minor internal changes to satisfy the introduction of str
 * ItemTarget
 * Text
 
+## Bug Fixes
+* `Dialog` now has a `autoFocus` boolean property. You can set this to `false` if you don't want the dialog to receive keyboard focus when it opens e.g. if your dialog contains form fields that you want to set the focus on instead.
+* `Dialog Full screen`: The `carbon-dialog-full-screen--open` class is now applied to the `html` element instead of the `body`.
+* `Input`: the prefix was hidden when an error was present on the input element.
+
 # 1.2.0
 
 ## Dependency Upgrade

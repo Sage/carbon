@@ -10,7 +10,7 @@ let definition = new Definition('date-range', DateRate, {
   relatedComponentsNotes: `
 * Entering or picking a single date only? [Try Date Input](/components/date-input).
  `,
-  hiddenProps: ["value", "startDateProps", "endDateProps"],
+  hiddenProps: ["startDateProps", "endDateProps"],
   propTypes: {
     onChange: "Function",
     value: "Array",

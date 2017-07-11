@@ -68,7 +68,10 @@ class ComponentCodeBuilder {
     props.forEach((value, prop) => {
       if (prop !== 'children' && !toggleFunctions.includes(prop)) {
         if (withEvents || (prop !== 'data-binding' && typeof value !== 'function')) {
-          this.addProp(prop, value, propTypes.get(prop));
+          // For a Number prop with no value, don't add the code
+          if (propTypes.get(prop) !== 'Number' || this.isPositiveNumber(value)) {
+            this.addProp(prop, value, propTypes.get(prop));
+          }
         }
       } else if (toggleFunctions.includes(prop) && value) {
         this.addProp(prop, `() => { alert("${prop}"); }`, 'Function');
@@ -199,6 +202,11 @@ class ComponentCodeBuilder {
         ${code}
       </div>
     `;
+  }
+
+  isPositiveNumber = (value) => {
+    const parseValue = parseInt(value);
+    return typeof parseValue === 'number' && value !== '' && !isNaN(parseValue) && parseValue >= 0;
   }
 }
 
