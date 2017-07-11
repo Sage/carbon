@@ -226,17 +226,17 @@ class TableRow extends React.Component {
    * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.uniqueID != nextProps.uniqueID) {
+    if (this.props.uniqueID !== nextProps.uniqueID) {
       // if unique id has changed, check if the table has the new id as selected or not
       this.context.checkSelection(nextProps.uniqueID, this);
     }
 
-    if (this.props.selected != nextProps.selected) {
+    if (this.props.selected !== nextProps.selected) {
       // if developer is controlling selected state - set it
       this.setState({ selected: nextProps.selected });
     }
 
-    if (this.props.highlighted != nextProps.highlighted) {
+    if (this.props.highlighted !== nextProps.highlighted) {
       // if developer is controlling highlighted state - set it
       this.setState({ highlighted: nextProps.highlighted });
     }
@@ -302,13 +302,14 @@ class TableRow extends React.Component {
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
+    const isDragIndexMatch = this.context.dragAndDropActiveIndex === this.props.index;
     return classNames(
       'carbon-table-row',
       this.props.className, {
         'carbon-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
         'carbon-table-row--selected': this.state.selected,
         'carbon-table-row--highlighted': (this.state.highlighted && !this.state.selected),
-        'carbon-table-row--dragged': (this.draggingIsOccurring() && this.context.dragAndDropActiveIndex === this.props.index),
+        'carbon-table-row--dragged': (this.draggingIsOccurring() && isDragIndexMatch),
         'carbon-table-row--dragging': (this.draggingIsOccurring())
       }
     );

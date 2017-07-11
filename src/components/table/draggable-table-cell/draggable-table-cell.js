@@ -11,12 +11,12 @@ import TableCell from './../table-cell';
  */
 const DraggableTableCell = (props) => {
   return (
-    <TableCell className="draggable-table-cell">
+    <TableCell className='draggable-table-cell'>
       <WithDrag identifier={ props.identifier }>
         <div>
           <Icon
-            className="draggable-table-cell__icon"
-            type="drag_vertical"
+            className='draggable-table-cell__icon'
+            type='drag_vertical'
           />
         </div>
       </WithDrag>
