@@ -7,73 +7,7 @@ import Browser from './../../utils/helpers/browser';
 import Icon from './../icon';
 import Modal from './../modal';
 import Heading from './../heading';
-
-
-(function(){
-  var attachEvent = document.attachEvent;
-  var isIE = navigator.userAgent.match(/Trident/);
-  console.log(isIE);
-  var requestFrame = (function(){
-    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame ||
-        function(fn){ return window.setTimeout(fn, 20); };
-    return function(fn){ return raf(fn); };
-  })();
-  
-  var cancelFrame = (function(){
-    var cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame ||
-           window.clearTimeout;
-    return function(id){ return cancel(id); };
-  })();
-  
-  function resizeListener(e){
-    var win = e.target || e.srcElement;
-    if (win.__resizeRAF__) cancelFrame(win.__resizeRAF__);
-    win.__resizeRAF__ = requestFrame(function(){
-      var trigger = win.__resizeTrigger__;
-      trigger.__resizeListeners__.forEach(function(fn){
-        fn.call(trigger, e);
-      });
-    });
-  }
-  
-  function objectLoad(e){
-    this.contentDocument.defaultView.__resizeTrigger__ = this.__resizeElement__;
-    this.contentDocument.defaultView.addEventListener('resize', resizeListener);
-  }
-  
-  window.addResizeListener = function(element, fn){
-    if (!element.__resizeListeners__) {
-      element.__resizeListeners__ = [];
-      if (attachEvent) {
-        element.__resizeTrigger__ = element;
-        element.attachEvent('onresize', resizeListener);
-      }
-      else {
-        if (getComputedStyle(element).position == 'static') element.style.position = 'relative';
-        var obj = element.__resizeTrigger__ = document.createElement('object'); 
-        obj.setAttribute('style', 'display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1;');
-        obj.__resizeElement__ = element;
-        obj.onload = objectLoad;
-        obj.type = 'text/html';
-        if (isIE) element.appendChild(obj);
-        obj.data = 'about:blank';
-        if (!isIE) element.appendChild(obj);
-      }
-    }
-    element.__resizeListeners__.push(fn);
-  };
-  
-  window.removeResizeListener = function(element, fn){
-    element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
-    if (!element.__resizeListeners__.length) {
-      if (attachEvent) element.detachEvent('onresize', resizeListener);
-      else {
-        element.__resizeTrigger__.contentDocument.defaultView.removeEventListener('resize', resizeListener);
-        element.__resizeTrigger__ = !element.removeChild(element.__resizeTrigger__);
-      }
-    }
-  }
-})();
+import { addResizeListener, removeResizeListener } from './../../utils/helpers/element-resize';
 
 const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
 
@@ -169,6 +103,7 @@ class Dialog extends Modal {
     this.onDialogBlur = this.onDialogBlur.bind(this);
     this.onCloseIconBlur = this.onCloseIconBlur.bind(this);
     this.document = Browser.getDocument();
+    this.window = Browser.getWindow();
     // create a function to be called specifically when the browser is resized,
     // so it can pass true as an arg
     this.centerOnResize = this.centerDialog.bind(this, true);
@@ -220,7 +155,8 @@ class Dialog extends Modal {
    */
   get onOpening() {
     this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
-    this.centerDialog();
+    this.centerDialog(true);
+    addResizeListener(this._innerContent, this.applyFixedBottom);
     this.window().addEventListener('resize', this.centerOnResize);
 
     if (this.props.autoFocus) {
@@ -238,18 +174,11 @@ class Dialog extends Modal {
    */
   get onClosing() {
     this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
-    this.window().removeEventListener('resize', this.centerOnResize);
+    this.window.removeEventListener('resize', this.centerOnResize);
+    if (this._innerContent) {
+      removeResizeListener(this._innerContent, this.applyFixedBottom);
+    }
     this.appliedFixedBottom = false;
-  }
-
-  /**
-   * Returns the current window
-   *
-   * @method window
-   * @return {Object}
-   */
-  window = () => {
-    return Browser.getWindow();
   }
 
   /**
@@ -262,7 +191,7 @@ class Dialog extends Modal {
   centerDialog = (notRender) => {
     const height = this._dialog.offsetHeight / 2,
           width = this._dialog.offsetWidth / 2,
-          win = this.window();
+          win = this.window;
 
     let midPointY = win.innerHeight / 2,
         midPointX = win.innerWidth / 2;
@@ -278,25 +207,6 @@ class Dialog extends Modal {
       midPointX = 20;
     }
 
-    const f = (notRender) => {
-      if (!this.appliedFixedBottom && this.shouldHaveFixedBottom()) {
-        this.appliedFixedBottom = true;
-        let timeout = notRender ? 0 : 500;
-        // cause timeout to accommodate dialog animating in
-        setTimeout(() => {
-          this.forceUpdate();
-        }, timeout);
-      } else if (this.appliedFixedBottom && !this.shouldHaveFixedBottom()) {
-        this.appliedFixedBottom = false;
-        this.forceUpdate();
-      }
-    }
-    f(notRender);
-    if (this._dialog && !this.added) {
-      this.added = true;
-      addResizeListener(this._innerContent, f);
-    }
-
     if (this._content) {
       // apply height to content based on height of title
       const height = this._title ? this._title.offsetHeight : '0';
@@ -305,6 +215,22 @@ class Dialog extends Modal {
 
     this._dialog.style.top = `${midPointY}px`;
     this._dialog.style.left = `${midPointX}px`;
+
+    this.applyFixedBottom(notRender);
+  }
+
+  applyFixedBottom = (notRender) => {
+    if (!this.appliedFixedBottom && this.shouldHaveFixedBottom()) {
+      this.appliedFixedBottom = true;
+      let timeout = notRender ? 0 : 500;
+      // cause timeout to accommodate dialog animating in
+      setTimeout(() => {
+        this.forceUpdate();
+      }, timeout);
+    } else if (this.appliedFixedBottom && !this.shouldHaveFixedBottom()) {
+      this.appliedFixedBottom = false;
+      this.forceUpdate();
+    }
   }
 
   focusDialog() {
@@ -321,7 +247,7 @@ class Dialog extends Modal {
     if (!this._innerContent) { return false; }
 
     const contentHeight = this._innerContent.offsetHeight + this._innerContent.offsetTop,
-          windowHeight = this.window().innerHeight - this._dialog.offsetTop - 1;
+          windowHeight = this.window.innerHeight - this._dialog.offsetTop - 1;
 
     return contentHeight > windowHeight;
   }
@@ -421,13 +347,19 @@ class Dialog extends Modal {
    * @return {Object} JSX for dialog
    */
   get modalHTML() {
+    let height = this.props.height;
+
+    if (height && !height.match(/px$/)) {
+      height = `${height}px`;
+    }
+
     const dialogProps = {
       className: this.dialogClasses,
       tabIndex: 0,
       style: {
-        minHeight: this.props.height
+        minHeight: height
       }
-    };
+    }, style = {};
 
     if (this.props.ariaRole) {
       dialogProps.role = this.props.ariaRole;
@@ -441,9 +373,8 @@ class Dialog extends Modal {
       dialogProps['aria-describedby'] = 'carbon-dialog-subtitle';
     }
 
-    let s = {};
     if (this.props.height) {
-      s = { minHeight: `calc(${this.props.height} - 40px)` }
+      style.minHeight = `calc(${height} - 40px)`;
     }
 
     return (
@@ -456,7 +387,7 @@ class Dialog extends Modal {
         { this.dialogTitle }
 
         <div className='carbon-dialog__content' ref={ (c) => this._content = c }>
-          <div className='carbon-dialog__inner-content' ref={ (c) => this._innerContent = c } style={ s }>
+          <div className='carbon-dialog__inner-content' ref={ (c) => this._innerContent = c } style={ style }>
             { this.props.children }
           </div>
         </div>
