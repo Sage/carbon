@@ -24,6 +24,7 @@ const definition = new Definition('dialog', Dialog, {
     children: '<Form>This is an example of a dialog.</Form>'
   },
   propTypes: {
+    autoFocus: 'Boolean',
     height: 'String',
     title: 'String',
     size: 'String',
@@ -31,6 +32,7 @@ const definition = new Definition('dialog', Dialog, {
     subtitle: 'String'
   },
   propDescriptions: {
+    autoFocus: 'When set to true the dialog will receive keyboard focus when it opens.',
     height: 'Sets a value for a specific height the dialog should take (for example "500px").',
     showCloseIcon: 'Set this prop to false to hide the close icon within the dialog.',
     size: `Change this prop to set the dialog to a specific size. Possible values include:

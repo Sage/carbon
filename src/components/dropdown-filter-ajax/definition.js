@@ -8,7 +8,7 @@ let definition = new Definition('dropdown-filter-ajax', DropdownFilterAjax, {
 * This control is the same as [Dropdown Filter](/components/dropdown-filter), but uses Ajax.
 * Ajax loads data from a specified source as needed, rather than data in the page markup.
  `,
-  hiddenProps: ['path', 'value', 'additionalRequestParams'],
+  hiddenProps: ['path', 'additionalRequestParams'],
   toggleFunctions: ['create'],
   propTypes: {
     options: "Object",

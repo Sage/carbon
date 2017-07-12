@@ -1,5 +1,9 @@
 # 1.3.0
 
+## Dependency Update
+
+* React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
+
 ## Component Ehancements
 
 * Dialog
@@ -9,10 +13,6 @@
   * Dialog can now use a prop called `height`, allowing developers to specify a set height for the dialog (the dialog will still attach to the bottom of the browser if it is taller than the browser's height).
 
 # 1.2.1
-
-## Bug Fixes
-
-* `Dialog Full screen`: The `carbon-dialog-full-screen--open` class is now applied to the `html` element instead of the `body`.
 
 ## Linting Updates
 
@@ -32,7 +32,9 @@ The following have had minor internal changes to satisfy the introduction of str
 * Text
 
 ## Bug Fixes
-* Input prefix was hidden when error was present
+* `Dialog` now has a `autoFocus` boolean property. You can set this to `false` if you don't want the dialog to receive keyboard focus when it opens e.g. if your dialog contains form fields that you want to set the focus on instead.
+* `Dialog Full screen`: The `carbon-dialog-full-screen--open` class is now applied to the `html` element instead of the `body`.
+* `Input`: the prefix was hidden when an error was present on the input element.
 
 # 1.2.0
 

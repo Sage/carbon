@@ -71,16 +71,27 @@ class Dialog extends Modal {
     size: PropTypes.string,
 
     /**
-     * Determins if the close icon is shown
+     * Determines if the close icon is shown
      *
      * @property showCloseIcon
      * @type {Boolean}
      * @default true
      */
-    showCloseIcon: PropTypes.bool
+    showCloseIcon: PropTypes.bool,
+
+    /**
+     * If true then the dialog receives focus
+     * when it opens
+     *
+     * @property autoFocus
+     * @type {Boolean}
+     * @default false
+     */
+    autoFocus: PropTypes.bool
   })
 
   static defaultProps = {
+    autoFocus: true,
     size: 'medium',
     showCloseIcon: true,
     ariaRole: 'dialog'
@@ -107,7 +118,9 @@ class Dialog extends Modal {
   componentDidMount() {
     if (this.props.open) {
       this.centerDialog();
-      this.focusDialog();
+      if (this.props.autoFocus) {
+        this.focusDialog();
+      }
     }
   }
 
@@ -143,9 +156,12 @@ class Dialog extends Modal {
   get onOpening() {
     this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
     this.centerDialog();
-    this.focusDialog();
-    this.window.addEventListener('resize', this.centerOnResize);
     addResizeListener(this._innerContent, this.applyFixedBottom);
+    this.window.addEventListener('resize', this.centerOnResize);
+
+    if (this.props.autoFocus) {
+      this.focusDialog();
+    }
   }
 
   /**
@@ -368,8 +384,6 @@ class Dialog extends Modal {
         { ...this.componentTags(this.props) }
         onBlur={ this.onDialogBlur }
       >
-        { this.closeIcon }
-
         { this.dialogTitle }
 
         <div className='carbon-dialog__content' ref={ (c) => this._content = c }>
@@ -377,6 +391,7 @@ class Dialog extends Modal {
             { this.props.children }
           </div>
         </div>
+        { this.closeIcon }
       </div>
     );
   }
