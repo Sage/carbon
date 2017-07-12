@@ -21,7 +21,7 @@ const definition = new Definition('dialog', Dialog, {
   },
   propValues: {
     title: 'Example Title for a Dialog',
-    children: '<Form><Textarea /></Form>'
+    children: '<Form>This is an example of a dialog.</Form>'
   },
   propTypes: {
     height: 'String',
