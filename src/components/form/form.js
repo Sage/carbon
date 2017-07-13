@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Serialize from 'form-serialize';
 
 import CancelButton from './cancel-button';
@@ -10,6 +11,7 @@ import AppWrapper from './../app-wrapper';
 
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import Browser from './../../utils/helpers/browser';
 
 import { addResizeListener, removeResizeListener } from './../../utils/helpers/element-resize';
 
@@ -39,6 +41,7 @@ import { addResizeListener, removeResizeListener } from './../../utils/helpers/e
  */
 class Form extends React.Component {
   static propTypes = {
+    stickyFooterPadding: PropTypes.string,
     stickyFooter: PropTypes.bool,
 
     /**
@@ -296,29 +299,29 @@ class Form extends React.Component {
   addStickyFooterListeners = () => {
     this.checkStickyFooter();
     addResizeListener(this._form, this.checkStickyFooter);
-    window.addEventListener('resize', this.checkStickyFooter);
-    window.addEventListener('scroll', this.checkStickyFooter);
+    this._window.addEventListener('resize', this.checkStickyFooter);
+    this._window.addEventListener('scroll', this.checkStickyFooter);
   }
 
   removeStickyFooterListeners = () => {
     removeResizeListener(this._form, this.checkStickyFooter);
-    window.removeEventListener('resize', this.checkStickyFooter);
-    window.removeEventListener('scroll', this.checkStickyFooter);
+    this._window.removeEventListener('resize', this.checkStickyFooter);
+    this._window.removeEventListener('scroll', this.checkStickyFooter);
   }
 
   checkStickyFooter = () => {
-    let x = 0,
-        ele = this._form;
+    let offsetTop = 0,
+        element = this._form;
 
-    while(ele){
-       x += ele.offsetTop;
-       ele = ele.offsetParent;
+    while(element){
+       offsetTop += element.offsetTop;
+       element = element.offsetParent;
     }
-    const formHeight = x + this._form.offsetHeight - window.scrollY;
+    const formHeight = offsetTop + this._form.offsetHeight - this._window.pageYOffset;
 
-    if (!this.state.stickyFooter && formHeight > window.innerHeight) {
+    if (!this.state.stickyFooter && formHeight > this._window.innerHeight) {
       this.setState({ stickyFooter: true });
-    } else if (this.state.stickyFooter && formHeight < window.innerHeight) {
+    } else if (this.state.stickyFooter && formHeight < this._window.innerHeight) {
       this.setState({ stickyFooter: false });
     }
   }
@@ -355,7 +358,7 @@ class Form extends React.Component {
    * @property _document
    * @type {document}
    */
-  _document = document;
+  _document = Browser.getDocument();
 
   /**
    * stores the window - allows us to override it different contexts, such as
@@ -364,7 +367,7 @@ class Form extends React.Component {
    * @property _window
    * @type {window}
    */
-  _window = window;
+  _window = Browser.getWindow();
 
   /**
    * @method activeInputHasValidation
@@ -659,7 +662,7 @@ class Form extends React.Component {
 
     return (
       <div className="carbon-form__footer-wrapper">
-        <AppWrapper className={ this.footerClasses }>
+        <AppWrapper className={ this.footerClasses } style={{ borderWidth: this.props.stickyFooterPadding }}>
           { save }
           { this.cancelButton() }
           { this.additionalActions }

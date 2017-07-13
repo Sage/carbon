@@ -104,9 +104,6 @@ class Dialog extends Modal {
     this.onCloseIconBlur = this.onCloseIconBlur.bind(this);
     this.document = Browser.getDocument();
     this.window = Browser.getWindow();
-    // create a function to be called specifically when the browser is resized,
-    // so it can pass true as an arg
-    this.centerOnResize = this.centerDialog.bind(this, true);
   }
 
   /**
@@ -157,7 +154,7 @@ class Dialog extends Modal {
     this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
     this.centerDialog(true);
     addResizeListener(this._innerContent, this.applyFixedBottom);
-    this.window().addEventListener('resize', this.centerOnResize);
+    this.window.addEventListener('resize', this.centerDialog);
 
     if (this.props.autoFocus) {
       this.focusDialog();
@@ -173,12 +170,12 @@ class Dialog extends Modal {
    * @return {Void}
    */
   get onClosing() {
+    this.appliedFixedBottom = false;
     this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
-    this.window.removeEventListener('resize', this.centerOnResize);
+    this.window.removeEventListener('resize', this.centerDialog);
     if (this._innerContent) {
       removeResizeListener(this._innerContent, this.applyFixedBottom);
     }
-    this.appliedFixedBottom = false;
   }
 
   /**
@@ -188,7 +185,7 @@ class Dialog extends Modal {
    * @param {Boolean} notRender - declares that the method was called not as part of the component lifecycle
    * @return {void}
    */
-  centerDialog = (notRender) => {
+  centerDialog = (animating) => {
     const height = this._dialog.offsetHeight / 2,
           width = this._dialog.offsetWidth / 2,
           win = this.window;
@@ -216,13 +213,19 @@ class Dialog extends Modal {
     this._dialog.style.top = `${midPointY}px`;
     this._dialog.style.left = `${midPointX}px`;
 
-    this.applyFixedBottom(notRender);
+    if (animating === true) {
+      setTimeout(() => {
+        this.applyFixedBottom(true);
+      }, 0);
+    } else {
+      this.applyFixedBottom();
+    }
   }
 
-  applyFixedBottom = (notRender) => {
+  applyFixedBottom = (animating) => {
     if (!this.appliedFixedBottom && this.shouldHaveFixedBottom()) {
       this.appliedFixedBottom = true;
-      let timeout = notRender ? 0 : 500;
+      let timeout = (animating === true) ? 500 : 0;
       // cause timeout to accommodate dialog animating in
       setTimeout(() => {
         this.forceUpdate();
@@ -310,7 +313,7 @@ class Dialog extends Modal {
       'carbon-dialog__dialog',
       {
         [`carbon-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined',
-        'carbon-dialog__dialog--fixed-bottom': this.shouldHaveFixedBottom(),
+        'carbon-dialog__dialog--fixed-bottom': this.appliedFixedBottom,
         'carbon-dialog__dialog--has-height': this.props.height
       }
     );
