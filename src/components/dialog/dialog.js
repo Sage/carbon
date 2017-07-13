@@ -214,22 +214,19 @@ class Dialog extends Modal {
     this._dialog.style.left = `${midPointX}px`;
 
     if (animating === true) {
+      // cause timeout to accommodate dialog animating in
       setTimeout(() => {
         this.applyFixedBottom(true);
-      }, 0);
+      }, 500);
     } else {
       this.applyFixedBottom();
     }
   }
 
-  applyFixedBottom = (animating) => {
+  applyFixedBottom = () => {
     if (!this.appliedFixedBottom && this.shouldHaveFixedBottom()) {
       this.appliedFixedBottom = true;
-      let timeout = (animating === true) ? 500 : 0;
-      // cause timeout to accommodate dialog animating in
-      setTimeout(() => {
-        this.forceUpdate();
-      }, timeout);
+      this.forceUpdate();
     } else if (this.appliedFixedBottom && !this.shouldHaveFixedBottom()) {
       this.appliedFixedBottom = false;
       this.forceUpdate();
