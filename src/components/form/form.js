@@ -6,9 +6,12 @@ import Serialize from 'form-serialize';
 import CancelButton from './cancel-button';
 import FormSummary from './form-summary';
 import SaveButton from './save-button';
+import AppWrapper from './../app-wrapper';
 
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+
+import { addResizeListener, removeResizeListener } from './../../utils/helpers/element-resize';
 
 /**
  * A Form widget.
@@ -36,6 +39,7 @@ import tagComponent from '../../utils/helpers/tags';
  */
 class Form extends React.Component {
   static propTypes = {
+    stickyFooter: PropTypes.bool,
 
     /**
      * Cancel button is shown if true
@@ -256,6 +260,16 @@ class Form extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.stickyFooter && !this.props.stickyFooter) {
+      this.addStickyFooterListeners();
+    }
+
+    if (!nextProps.stickyFooter && this.props.stickyFooter) {
+      this.removeStickyFooterListeners();
+    }
+  }
+
   /**
    * Runs once the component has mounted.
    *
@@ -263,8 +277,49 @@ class Form extends React.Component {
    * @return {void}
    */
   componentDidMount() {
+    if (this.props.stickyFooter) {
+      this.addStickyFooterListeners();
+    }
+
     if (this.props.validateOnMount) {
       this.validate();
+    }
+  }
+
+
+  componentWillUnmount() {
+    if (this.props.stickyFooter) {
+      this.removeStickyFooterListeners();
+    }
+  }
+
+  addStickyFooterListeners = () => {
+    this.checkStickyFooter();
+    addResizeListener(this._form, this.checkStickyFooter);
+    window.addEventListener('resize', this.checkStickyFooter);
+    window.addEventListener('scroll', this.checkStickyFooter);
+  }
+
+  removeStickyFooterListeners = () => {
+    removeResizeListener(this._form, this.checkStickyFooter);
+    window.removeEventListener('resize', this.checkStickyFooter);
+    window.removeEventListener('scroll', this.checkStickyFooter);
+  }
+
+  checkStickyFooter = () => {
+    let x = 0,
+        ele = this._form;
+
+    while(ele){
+       x += ele.offsetTop;
+       ele = ele.offsetParent;
+    }
+    const formHeight = x + this._form.offsetHeight - window.scrollY;
+
+    if (!this.state.stickyFooter && formHeight > window.innerHeight) {
+      this.setState({ stickyFooter: true });
+    } else if (this.state.stickyFooter && formHeight < window.innerHeight) {
+      this.setState({ stickyFooter: false });
     }
   }
 
@@ -601,11 +656,14 @@ class Form extends React.Component {
    */
   formFooter = () => {
     const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
+
     return (
-      <div className={ this.footerClasses }>
-        { save }
-        { this.cancelButton() }
-        { this.additionalActions }
+      <div className="carbon-form__footer-wrapper">
+        <AppWrapper className={ this.footerClasses }>
+          { save }
+          { this.cancelButton() }
+          { this.additionalActions }
+        </AppWrapper>
       </div>
     );
   }
@@ -619,7 +677,9 @@ class Form extends React.Component {
   get mainClasses() {
     return classNames(
       'carbon-form',
-      this.props.className
+      this.props.className, {
+        'carbon-form--sticky-footer': this.state.stickyFooter
+      }
     );
   }
 
