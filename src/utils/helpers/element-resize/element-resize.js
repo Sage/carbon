@@ -22,7 +22,7 @@ import Bowser from 'bowser';
 const addResizeListener = (element, callback) => {
 
   // if there is no resize listener on this element yet, create an object to apply the listener to
-  if (!element.__resizeListenerCallbacks__) {
+  if (!element.__resizeTrigger__) {
     element.__resizeListenerCallbacks__ = [];
 
     // ensure that the element has position relative for the child object to work properly

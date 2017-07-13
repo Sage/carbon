@@ -73,10 +73,11 @@ $dialog-sizes: (
 .carbon-dialog__dialog--fixed-bottom {
   border-radius: 5px 5px 0 0;
   bottom: 0;
+  min-height: 0px !important;
 
   .carbon-form .carbon-form__footer-wrapper {
     margin-left: -($dialog-padding);
-    left: initial;
+    left: auto;
     padding-left: $dialog-padding;
     padding-right: $dialog-padding;
   }

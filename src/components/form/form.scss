@@ -39,6 +39,10 @@
 
   .carbon-form__buttons {
     margin-top: 0;
+    border-left-style: solid;
+    border-left-color: white;
+    border-right-style: solid;
+    border-right-color: white;
   }
 
   .carbon-form__footer-wrapper {
@@ -59,8 +63,8 @@
 .carbon-form:not(.carbon-form--sticky-footer),
 .carbon-dialog__dialog--fixed-bottom {
   .carbon-form__buttons {
-    max-width: initial;
-    min-width: initial;
+    max-width: auto;
+    min-width: auto;
     padding: 0;
   }
 }
