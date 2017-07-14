@@ -43,6 +43,8 @@
     border-left-color: white;
     border-right-style: solid;
     border-right-color: white;
+    border-width: 0;
+    box-sizing: border-box;
   }
 
   .carbon-form__footer-wrapper {
