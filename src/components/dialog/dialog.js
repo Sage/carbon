@@ -173,9 +173,7 @@ class Dialog extends Modal {
     this.appliedFixedBottom = false;
     this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
     this.window.removeEventListener('resize', this.centerDialog);
-    if (this._innerContent) {
-      removeResizeListener(this._innerContent, this.applyFixedBottom);
-    }
+    removeResizeListener(this._innerContent, this.applyFixedBottom);
   }
 
   /**
@@ -340,6 +338,10 @@ class Dialog extends Modal {
     };
   }
 
+  additionalContent() {
+    return null;
+  }
+
   /**
    * Returns the computed HTML for the dialog.
    *
@@ -389,6 +391,7 @@ class Dialog extends Modal {
         <div className='carbon-dialog__content' ref={ (c) => this._content = c }>
           <div className='carbon-dialog__inner-content' ref={ (c) => this._innerContent = c } style={ style }>
             { this.props.children }
+            { this.additionalContent() }
           </div>
         </div>
         { this.closeIcon }

@@ -659,10 +659,15 @@ class Form extends React.Component {
    */
   formFooter = () => {
     const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
+    let padding = this.props.stickyFooterPadding;
+
+    if (padding && !padding.match(/px$/)) {
+      padding = `${padding}px`;
+    }
 
     return (
       <div className="carbon-form__footer-wrapper">
-        <AppWrapper className={ this.footerClasses } style={{ borderWidth: this.props.stickyFooterPadding }}>
+        <AppWrapper className={ this.footerClasses } style={{ borderWidth: padding }}>
           { save }
           { this.cancelButton() }
           { this.additionalActions }
