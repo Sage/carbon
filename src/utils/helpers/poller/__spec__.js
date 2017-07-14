@@ -189,12 +189,10 @@ describe('poller', () => {
 
     describe('if there is an error', () => {
       describe('if a handleError function is provided', () => {
-        let promise;
-
         beforeEach(() => {
           functions.handleError = jasmine.createSpy('handleError');
 
-          promise = Poller({ url }, functions, { interval: 1000 });
+          Poller({ url }, functions, { interval: 1000 });
 
           const request = jasmine.Ajax.requests.mostRecent();
           request.respondWith({
@@ -209,16 +207,14 @@ describe('poller', () => {
         });
 
         it('calls the handleError with the error', (done) => {
-          promise.then(done, done);
+          done();
           expect(functions.handleError.calls.mostRecent().args.toString()).toEqual('Error: Unsuccessful HTTP response');
         });
       });
 
       describe('if no custom handleError function is avaliable', () => {
-        let promise;
-
         beforeEach(() => {
-          promise = Poller({ url }, functions, { interval: 1000 });
+          Poller({ url }, functions, { interval: 1000 });
 
           const request = jasmine.Ajax.requests.mostRecent();
           request.respondWith({
@@ -233,7 +229,8 @@ describe('poller', () => {
         });
 
         it('logs the error', (done) => {
-          promise.then(done, done);
+          Poller({ url }, functions, { interval: 1000 });
+          done();
           expect(console.error).toHaveBeenCalledWith( // eslint-disable-line no-console
             'Unsuccessful HTTP response');
         });
