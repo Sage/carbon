@@ -16,6 +16,8 @@ import MultiActionButton from './../multi-action-button';
 import { mount, shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
+/* global jest */
+
 describe('Form', () => {
   let instance, wrapper;
 
@@ -375,12 +377,18 @@ describe('Form', () => {
       let csrf;
 
       beforeEach(() => {
-        let fakeMeta1 = { getAttribute() {} },
+        const fakeMeta1 = { getAttribute() {} },
             fakeMeta2 = { getAttribute() {} };
 
-        spyOn(fakeMeta1, 'getAttribute').and.returnValue('csrf-param')
-        spyOn(fakeMeta2, 'getAttribute').and.returnValue('csrf-token')
-        spyOn(instance._document, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
+        fakeMeta1.getAttribute = jest.fn();
+        fakeMeta2.getAttribute = jest.fn();
+        fakeMeta1.getAttribute.mockReturnValue('csrf-param');
+        fakeMeta2.getAttribute.mockReturnValue('csrf-token');
+
+        instance._document.querySelector = jest.fn();
+        instance._document.querySelector
+          .mockReturnValueOnce(fakeMeta1)
+          .mockReturnValue(fakeMeta2);
 
         instance = TestUtils.renderIntoDocument(<Form />);
 
