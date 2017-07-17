@@ -194,7 +194,7 @@ function generateConfig(immutableData, title) {
           const y = point.plotY - (tooltipHeight - 5);
 
           return { x, y };
-        }
+        };
       },
       shadow: false
     },
@@ -232,8 +232,8 @@ function generateConfig(immutableData, title) {
         },
         point: {
           events: {
-            mouseOver: () => { this.graphic.zIndexSetter(1) },
-            mouseOut: () => { this.graphic.zIndexSetter(0) },
+            mouseOver: () => { this.graphic.zIndexSetter(1); },
+            mouseOut: () => { this.graphic.zIndexSetter(0); }
           }
         },
         states: {
