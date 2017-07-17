@@ -7,7 +7,8 @@ import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-spec
 
 import Request from 'superagent';
 
-/* global jest */
+/* global jest console */
+
 jest.mock('superagent');
 
 describe('TableAjax', () => {
@@ -336,6 +337,42 @@ describe('TableAjax', () => {
         pageSize: '10',
         sortedColumn: '',
         sortOrder: ''
+      });
+    });
+  });
+
+  describe('onAjaxError', () => {
+    const err = {
+      status: 500
+    };
+    const response = {};
+
+    describe('when passed as a prop', () => {
+      it('is called if defined and an Ajax request returns an error', () => {
+        const onError = jest.fn();
+        const wrapper = shallow(
+          <TableAjax
+            onAjaxError={ onError }
+          />
+        );
+
+        wrapper.instance().handleResponse(err, response);
+
+        expect(onError).toBeCalledWith(err, response);
+      });
+    });
+
+    describe('when not passed as a prop', () => {
+      it('logs the Ajax error as a warning in the console', () => {
+        console.warn = jest.fn();
+
+        const wrapper = shallow(
+          <TableAjax />
+        );
+
+        wrapper.instance().handleResponse(err, response);
+
+        expect(console.warn).toBeCalled();
       });
     });
   });
