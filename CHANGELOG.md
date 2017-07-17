@@ -4,6 +4,10 @@
 
 * React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
 
+## Component Enhancements
+
+* `TableAjax` now accepts an `onAjaxError` function as a prop, to handle Ajax requests that return a HTTP error
+
 # 1.2.1
 
 ## Linting Updates
