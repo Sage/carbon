@@ -41,7 +41,7 @@ import './../../promises';
  */
 export default (queryOptions, functions, options) => {
   if (!setupValid(queryOptions, functions)) {
-    return undefined;
+    return;
   }
 
   // set default options for unprovided options
