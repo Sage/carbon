@@ -11,6 +11,15 @@ The following have had minor internal changes to satisfy the introduction of str
 ### Components
 
 * Dropdown
+* FormSummary
+* Page
+* Pages
+* RadioButton
+* Tabs
+
+### Helpers
+
+* Store
 
 # 1.2.1
 
