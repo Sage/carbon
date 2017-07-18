@@ -4,6 +4,13 @@
 
 * React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
 
+# 1.2.2
+
+## Bug Fixes
+
+* Selected table rows no longer have highlights applied on hover.
+* Revert I18nhelper to use global locale for delimiter and separator
+
 # 1.2.1
 
 ## Linting Updates
