@@ -1,28 +1,5 @@
 import Bowser from 'bowser';
-
-/**
- * The event listener to be triggered.
- */
-const resizeListener = (ev) => {
-  const trigger = ev.target.__resizeTrigger__;
-
-  // using the reference to the source element, retrieve the array of callbacks and trigger them all
-  trigger.__resizeListenerCallbacks__.forEach((fn) => {
-    fn.call(trigger, ev);
-  });
-};
-
-/**
- * Return a function to be triggered when the fake object has been loaded into the DOM.
- */
-const objectLoad = (obj, element) => {
-  return () => {
-    // assign a reference back to the source element in the new object's document
-    obj.contentDocument.defaultView.__resizeTrigger__ = element;
-    // apply the event listener to the new object's document
-    obj.contentDocument.defaultView.addEventListener('resize', resizeListener);
-  };
-};
+import Browser from './../browser';
 
 /**
  * Creates a child 'object' or document which mimics the size of the given element and is
@@ -48,12 +25,12 @@ const ElementResize = {
       element.__resizeListenerCallbacks__ = [];
 
       // ensure that the element has position relative for the child object to work properly
-      if (getComputedStyle(element).position === 'static') {
+      if (Browser.getWindow().getComputedStyle(element).position === 'static') {
         element.style.position = 'relative';
       }
 
       // creates an object which will support the resize event listener
-      const obj = element.__resizeTrigger__ = document.createElement('object');
+      const obj = element.__resizeTrigger__ = Browser.getDocument().createElement('object');
       obj.setAttribute('style', `
         display: block;
         position: absolute;
@@ -66,7 +43,7 @@ const ElementResize = {
         z-index: -1;
       `);
       // when the object is ready, add the event listener
-      obj.onload = objectLoad(obj, element);
+      obj.onload = objectLoad(obj, element); // eslint-disable-line no-use-before-define
       obj.type = 'text/html';
 
       const isMS = Bowser.msie || Bowser.msedge;
@@ -100,13 +77,43 @@ const ElementResize = {
 
       // if there are no event listeners left, time to detach the event
       if (!element.__resizeListenerCallbacks__.length) {
+        const view = ElementResize.getDefaultView(element.__resizeTrigger__);
         // remove the event listener on the object
-        element.__resizeTrigger__.contentDocument.defaultView.removeEventListener('resize', resizeListener);
+        view.removeEventListener('resize', resizeListener); // eslint-disable-line no-use-before-define
         // remove the fake object
         element.__resizeTrigger__ = !element.removeChild(element.__resizeTrigger__);
       }
     }
+  },
+
+  getDefaultView: (element) => {
+    return element.contentDocument.defaultView;
   }
+};
+
+/**
+ * The event listener to be triggered.
+ */
+const resizeListener = (ev) => {
+  const trigger = ev.target.__resizeTrigger__;
+
+  // using the reference to the source element, retrieve the array of callbacks and trigger them all
+  trigger.__resizeListenerCallbacks__.forEach((fn) => {
+    fn.call(trigger, ev);
+  });
+};
+
+/**
+ * Return a function to be triggered when the fake object has been loaded into the DOM.
+ */
+const objectLoad = (obj, element) => {
+  return () => {
+    const view = ElementResize.getDefaultView(obj);
+    // assign a reference back to the source element in the new object's document
+    view.__resizeTrigger__ = element;
+    // apply the event listener to the new object's document
+    view.addEventListener('resize', resizeListener);
+  };
 };
 
 export default ElementResize;
