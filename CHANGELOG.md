@@ -2,7 +2,7 @@
 
 ## Bug Fixes
 * Selected table rows no longer have highlights applied on hover.
-
+* Revert I18nhelper to use global locale for delimiter and separator
 
 # 1.2.1
 
