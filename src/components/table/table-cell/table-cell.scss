@@ -46,9 +46,7 @@
     background-color: $white;
   }
 
-
-  .carbon-table-row.carbon-table-row--dragged &,
-  .carbon-table-row:hover:not(.carbon-table-row--dragging) & {
+  .carbon-table-row:hover & {
     background-color: $row-hover-color;
   }
 
