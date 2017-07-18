@@ -5,6 +5,7 @@ import Button from './../button';
 import { DraggableContext } from './../drag-and-drop';
 import Form from './../form';
 import Heading from './../heading';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('ConfigurableColumns', () => {
   let wrapper
@@ -124,5 +125,24 @@ describe('ConfigurableColumns', () => {
         expect(form.props().additionalActions).toBeNull();
       });
     })
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <ConfigurableColumns
+          data-element='bar'
+          data-role='baz'
+          onCancel={onCancel}
+          onClick={onClick}
+          onDrag={onDrag}
+          onSave={onSave}
+        />
+      );
+
+      it('includes the correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'configurable-columns', 'bar', 'baz');
+      });
+    });
   });
 });

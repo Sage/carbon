@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
+import tagComponent from '../../utils/helpers/tags';
 import { DraggableContext } from './../drag-and-drop';
 import Button from './../button';
 import ConfigurableColumnRow from './configurable-column-row';
@@ -83,7 +84,7 @@ class ConfigurableColumns extends React.Component {
 
   render() {
     return (
-      <div className={ this.classes }>
+      <div className={ this.classes } { ...tagComponent('configurable-columns', this.props) }>
         <DraggableContext onDrag={ this.props.onDrag }>
           <Form
             additionalActions={ this.additionalActions() }

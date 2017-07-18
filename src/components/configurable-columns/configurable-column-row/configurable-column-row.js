@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import tagComponent from './../../../utils/helpers/tags';
 import { WithDrag, WithDrop } from './../../drag-and-drop';
 import Checkbox from './../../checkbox';
 import Icon from './../../icon';
@@ -117,7 +118,7 @@ class ConfigurableColumnRow extends React.Component {
   render() {
     const { rowIndex, enabled, locked, name, onChange } = this.props;
     return (
-      <WithDrop index={ rowIndex }>
+      <WithDrop index={ rowIndex } { ...tagComponent('configurable-column-row', this.props) }>
         <li className={ this.classes(this.context.dragAndDropActiveIndex, rowIndex) }>
           <WithDrag>
             <div className='configurable-column-row__content-wrapper'>

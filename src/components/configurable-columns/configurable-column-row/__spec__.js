@@ -4,6 +4,7 @@ import ConfigurableColumnRow from './configurable-column-row';
 import Checkbox from './../../checkbox';
 import Icon from './../../icon';
 import { WithDrag, WithDrop } from './../../drag-and-drop';
+import { rootTagTest } from './../../../utils/helpers/tags/tags-specs';
 
 describe('ConfigurableColumnRow', () => {
   let wrapper
@@ -34,6 +35,18 @@ describe('ConfigurableColumnRow', () => {
       });
       it('does not add configurable-column-row--dragged to the classes', () => {
         expect(wrapper.find('.configurable-column-row--dragged').length).toEqual(0);
+      });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <ConfigurableColumnRow data-element='bar' data-role='baz' />
+      );
+
+      it('includes the correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'configurable-column-row', 'bar', 'baz');
       });
     });
   });

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ConfigurableColumns, ConfigurableColumnRow } from './../../components/configurable-columns';
+import tagComponent from './../../utils/helpers/tags';
 
 class ConfigurableColumnsPattern extends React.Component {
   static propTypes = {
@@ -91,7 +92,10 @@ class ConfigurableColumnsPattern extends React.Component {
   render() {
     const { columnsData, ...configurableColumnsProps } = this.props;
     return (
-      <ConfigurableColumns { ...configurableColumnsProps } >
+      <ConfigurableColumns
+        { ...configurableColumnsProps }
+        { ...tagComponent('configurable-columns-pattern', this.props) }
+      >
         { this.rows(columnsData) }
       </ConfigurableColumns>
     );

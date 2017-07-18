@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import ConfigurableColumnsPattern from './configurable-columns-pattern';
 import { ConfigurableColumns, ConfigurableColumnRow } from './../../components/configurable-columns';
+import { rootTagTest } from './../../utils/helpers/tags/tags-specs';
 
 describe('ConfigurableColumnsPattern', () => {
   let wrapper
@@ -185,5 +186,27 @@ describe('ConfigurableColumnsPattern', () => {
       const orderedList = wrapper.find('ol');
       expect(orderedList.length).toEqual(1);
     });
-  })
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <ConfigurableColumnsPattern
+          columnsData={columnsData}
+          onCancel={onCancel}
+          onChange={onChange}
+          onClick={onClick}
+          onDrag={onDrag}
+          onSave={onSave}
+          title='Foo'
+          data-element='bar'
+          data-role='baz'
+        />
+      );
+
+      it('includes the correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'configurable-columns-pattern', 'bar', 'baz');
+      });
+    });
+  });
 });
