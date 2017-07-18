@@ -1,0 +1,24 @@
+@import "./../../../style-config/colors";
+
+.configurable-column-row {
+  border-bottom: 1px solid $border-color;
+  font-weight: bold;
+  padding: 0.5em;
+}
+
+.configurable-column-row--dragging,
+.configurable-column-row--dragged {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.configurable-column-row__content-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: left;
+}
+
+.configurable-column-row__icon {
+  cursor: move;
+}

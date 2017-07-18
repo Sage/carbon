@@ -1,0 +1,4 @@
+{
+  "main": "./configurable-columns.js",
+  "style": "./configurable-columns.scss"
+}
