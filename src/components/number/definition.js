@@ -10,10 +10,7 @@ const definition = new Definition('number-input', NumberInput, {
 * Entering a number including a decimal point? [Try Decimal](/components/decimal).
 * Entering numbers, symbols, and letters, or handling various formats? [Try Textbox](/components/textbox).
  `,
-  hiddenProps: [
-    'onKeyDown',
-    'value'
-  ],
+  hiddenProps: [ 'onKeyDown'],
   propDescriptions: {
     className: 'Classes to apply to the component.',
     onKeyDown: 'Callback function called in response to the keydown event',

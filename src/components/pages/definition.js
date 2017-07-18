@@ -18,7 +18,7 @@ const definition = new Definition('pages', Pages, {
   propTypes: {
     children: 'Node',
     className: 'String',
-    slideIndex: 'Number || String'
+    slideIndex: 'Number'
   },
   propDescriptions: {
     children: 'This component supports children.',
