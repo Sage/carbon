@@ -1,3 +1,9 @@
+# 1.2.2
+
+## Bug Fixes
+* Selected table rows no longer have highlights applied on hover.
+
+
 # 1.2.1
 
 ## Linting Updates
