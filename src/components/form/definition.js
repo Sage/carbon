@@ -69,7 +69,7 @@ let definition = new Definition('form', Form, {
   propValues: {
     activeInput: '',
     cancelText: '',
-    children: `<Textarea
+    children: `<Textbox
     label="Name"
     validations={[ new PresenceValidation() ]}
   />`,

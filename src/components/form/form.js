@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Serialize from 'form-serialize';
 
 import CancelButton from './cancel-button';
@@ -13,7 +12,7 @@ import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import Browser from './../../utils/helpers/browser';
 
-import { addResizeListener, removeResizeListener } from './../../utils/helpers/element-resize';
+import ElementResize from './../../utils/helpers/element-resize';
 
 /**
  * A Form widget.
@@ -41,8 +40,6 @@ import { addResizeListener, removeResizeListener } from './../../utils/helpers/e
  */
 class Form extends React.Component {
   static propTypes = {
-    stickyFooterPadding: PropTypes.string,
-    stickyFooter: PropTypes.bool,
 
     /**
      * Cancel button is shown if true
@@ -72,8 +69,7 @@ class Form extends React.Component {
     beforeFormValidation: PropTypes.func,
 
     /**
-     * Alignment of submit button
-     *
+ElementResize     *
      * @ property
      * @type {String}
      */
@@ -87,6 +83,22 @@ class Form extends React.Component {
      * @default false
      */
     saving: PropTypes.bool,
+
+    /**
+     * Enables the sticky footer.
+     *
+     * @property stickyFooter
+     * @type {Boolean}
+     */
+    stickyFooter: PropTypes.bool,
+
+    /**
+     * Applies additional padding to the sticky footer, useful to align buttons.
+     *
+     * @property stickyFooterPadding
+     * @type {String}
+     */
+    stickyFooterPadding: PropTypes.string,
 
     /**
      * If true, will validate the form on mount
@@ -263,16 +275,6 @@ class Form extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.stickyFooter && !this.props.stickyFooter) {
-      this.addStickyFooterListeners();
-    }
-
-    if (!nextProps.stickyFooter && this.props.stickyFooter) {
-      this.removeStickyFooterListeners();
-    }
-  }
-
   /**
    * Runs once the component has mounted.
    *
@@ -289,40 +291,19 @@ class Form extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.stickyFooter && !this.props.stickyFooter) {
+      this.addStickyFooterListeners();
+    }
 
-  componentWillUnmount() {
-    if (this.props.stickyFooter) {
+    if (!nextProps.stickyFooter && this.props.stickyFooter) {
       this.removeStickyFooterListeners();
     }
   }
 
-  addStickyFooterListeners = () => {
-    this.checkStickyFooter();
-    addResizeListener(this._form, this.checkStickyFooter);
-    this._window.addEventListener('resize', this.checkStickyFooter);
-    this._window.addEventListener('scroll', this.checkStickyFooter);
-  }
-
-  removeStickyFooterListeners = () => {
-    removeResizeListener(this._form, this.checkStickyFooter);
-    this._window.removeEventListener('resize', this.checkStickyFooter);
-    this._window.removeEventListener('scroll', this.checkStickyFooter);
-  }
-
-  checkStickyFooter = () => {
-    let offsetTop = 0,
-        element = this._form;
-
-    while(element){
-       offsetTop += element.offsetTop;
-       element = element.offsetParent;
-    }
-    const formHeight = offsetTop + this._form.offsetHeight - this._window.pageYOffset;
-
-    if (!this.state.stickyFooter && formHeight > this._window.innerHeight) {
-      this.setState({ stickyFooter: true });
-    } else if (this.state.stickyFooter && formHeight < this._window.innerHeight) {
-      this.setState({ stickyFooter: false });
+  componentWillUnmount() {
+    if (this.props.stickyFooter) {
+      this.removeStickyFooterListeners();
     }
   }
 
@@ -349,6 +330,37 @@ class Form extends React.Component {
       this.activeInput.immediatelyHideMessage();
     }
     this.activeInput = input;
+  }
+
+  addStickyFooterListeners = () => {
+    this.checkStickyFooter();
+    ElementResize.addListener(this._form, this.checkStickyFooter);
+    this._window.addEventListener('resize', this.checkStickyFooter);
+    this._window.addEventListener('scroll', this.checkStickyFooter);
+  }
+
+  removeStickyFooterListeners = () => {
+    ElementResize.removeListener(this._form, this.checkStickyFooter);
+    this._window.removeEventListener('resize', this.checkStickyFooter);
+    this._window.removeEventListener('scroll', this.checkStickyFooter);
+  }
+
+  checkStickyFooter = () => {
+    let offsetTop = 0,
+        element = this._form;
+
+    while (element) {
+      offsetTop += element.offsetTop;
+      element = element.offsetParent;
+    }
+
+    const formHeight = (offsetTop + this._form.offsetHeight) - this._window.pageYOffset;
+
+    if (!this.state.stickyFooter && formHeight > this._window.innerHeight) {
+      this.setState({ stickyFooter: true });
+    } else if (this.state.stickyFooter && formHeight < this._window.innerHeight) {
+      this.setState({ stickyFooter: false });
+    }
   }
 
   /**
@@ -666,8 +678,8 @@ class Form extends React.Component {
     }
 
     return (
-      <div className="carbon-form__footer-wrapper">
-        <AppWrapper className={ this.footerClasses } style={{ borderWidth: padding }}>
+      <div className='carbon-form__footer-wrapper'>
+        <AppWrapper className={ this.footerClasses } style={ { borderWidth: padding } }>
           { save }
           { this.cancelButton() }
           { this.additionalActions }

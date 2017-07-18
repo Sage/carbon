@@ -1,5 +1,4 @@
 import React from 'react';
-import Bowser from 'bowser';
 import classNames from 'classnames';
 import { assign } from 'lodash';
 import PropTypes from 'prop-types';
@@ -7,7 +6,7 @@ import Browser from './../../utils/helpers/browser';
 import Icon from './../icon';
 import Modal from './../modal';
 import Heading from './../heading';
-import { addResizeListener, removeResizeListener } from './../../utils/helpers/element-resize';
+import ElementResize from './../../utils/helpers/element-resize';
 
 const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
 
@@ -153,7 +152,7 @@ class Dialog extends Modal {
   get onOpening() {
     this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
     this.centerDialog(true);
-    addResizeListener(this._innerContent, this.applyFixedBottom);
+    ElementResize.addListener(this._innerContent, this.applyFixedBottom);
     this.window.addEventListener('resize', this.centerDialog);
 
     if (this.props.autoFocus) {
@@ -173,7 +172,7 @@ class Dialog extends Modal {
     this.appliedFixedBottom = false;
     this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
     this.window.removeEventListener('resize', this.centerDialog);
-    removeResizeListener(this._innerContent, this.applyFixedBottom);
+    ElementResize.removeListener(this._innerContent, this.applyFixedBottom);
   }
 
   /**
@@ -185,8 +184,8 @@ class Dialog extends Modal {
    */
   centerDialog = (animating) => {
     const height = this._dialog.offsetHeight / 2,
-          width = this._dialog.offsetWidth / 2,
-          win = this.window;
+        width = this._dialog.offsetWidth / 2,
+        win = this.window;
 
     let midPointY = win.innerHeight / 2,
         midPointX = win.innerWidth / 2;
@@ -204,8 +203,8 @@ class Dialog extends Modal {
 
     if (this._content) {
       // apply height to content based on height of title
-      const height = this._title ? this._title.offsetHeight : '0';
-      this._content.style.height = `calc(100% - ${height}px)`;
+      const titleHeight = this._title ? this._title.offsetHeight : '0';
+      this._content.style.height = `calc(100% - ${titleHeight}px)`;
     }
 
     this._dialog.style.top = `${midPointY}px`;
@@ -214,7 +213,7 @@ class Dialog extends Modal {
     if (animating === true) {
       // cause timeout to accommodate dialog animating in
       setTimeout(() => {
-        this.applyFixedBottom(true);
+        this.applyFixedBottom();
       }, 500);
     } else {
       this.applyFixedBottom();
@@ -245,7 +244,7 @@ class Dialog extends Modal {
     if (!this._innerContent) { return false; }
 
     const contentHeight = this._innerContent.offsetHeight + this._innerContent.offsetTop,
-          windowHeight = this.window.innerHeight - this._dialog.offsetTop - 1;
+        windowHeight = this.window.innerHeight - this._dialog.offsetTop - 1;
 
     return contentHeight > windowHeight;
   }
@@ -259,8 +258,8 @@ class Dialog extends Modal {
   get dialogTitle() {
     if (!this.props.title) { return null; }
 
-    let title = this.props.title,
-        classes = classNames(
+    let title = this.props.title;
+    const classes = classNames(
           'carbon-dialog__title', {
             'carbon-dialog__title--has-subheader': this.props.subtitle
           }
@@ -278,7 +277,7 @@ class Dialog extends Modal {
     }
 
     return (
-      <div className={ classes } ref={ (c) => this._title = c }>{ title }</div>
+      <div className={ classes } ref={ (c) => { this._title = c; } }>{ title }</div>
     );
   }
 
@@ -361,7 +360,9 @@ class Dialog extends Modal {
       style: {
         minHeight: height
       }
-    }, style = {};
+    };
+
+    const style = {};
 
     if (this.props.ariaRole) {
       dialogProps.role = this.props.ariaRole;
@@ -388,8 +389,8 @@ class Dialog extends Modal {
       >
         { this.dialogTitle }
 
-        <div className='carbon-dialog__content' ref={ (c) => this._content = c }>
-          <div className='carbon-dialog__inner-content' ref={ (c) => this._innerContent = c } style={ style }>
+        <div className='carbon-dialog__content' ref={ (c) => { this._content = c; } }>
+          <div className='carbon-dialog__inner-content' ref={ (c) => { this._innerContent = c; } } style={ style }>
             { this.props.children }
             { this.additionalContent() }
           </div>
