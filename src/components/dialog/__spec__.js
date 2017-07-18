@@ -75,7 +75,8 @@ describe('Dialog', () => {
       beforeEach(() => {
         mockWindow = {
           addEventListener() {},
-          removeEventListener() {}
+          removeEventListener() {},
+          getComputedStyle() { return {} }
         };
 
         spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
