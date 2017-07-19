@@ -61,5 +61,6 @@ export default {
   'textarea':             require('components/textarea/definition').default,
   'textbox':              require('components/textbox/definition').default,
   'toast':                require('components/toast/definition').default,
-  'tooltip':              require('components/tooltip/definition').default
+  'tooltip':              require('components/tooltip/definition').default,
+  'validations':          require('./components/validations/definition').default
 };
