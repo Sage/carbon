@@ -1,3 +1,20 @@
+# 2.0.0
+
+## Dependency Update
+
+The following packages are now specified as peer dependencies:
+
+* react
+* react-dom
+* flux
+
+The following packages have been moved from `devDependencies` to `dependencies`:
+
+* `i18n-js`
+* `immutable`
+* `react-router`
+* `react-transition-group`
+
 # 1.4.0
 
 ## Dependency Update
