@@ -33,6 +33,7 @@ const ElementResize = {
       const obj = element.__resizeTrigger__ = Browser.getDocument().createElement('object');
       obj.setAttribute('style', `
         display: block;
+        opacity: 0;
         position: absolute;
         top: 0;
         left: 0;
