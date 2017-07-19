@@ -19,9 +19,9 @@ const log = (message, type, opts = {}) => {
       }
 
       delays[opts.group] = setTimeout(() => {
-        console[type](groupedMessages[opts.group][0], {
+        console[type](groupedMessages[opts.group][0], { // eslint-disable-line no-console
           all: groupedMessages[opts.group]
-        }); // eslint-disable-line no-console
+        });
       }, 500);
     } else {
       // output the message
@@ -45,6 +45,9 @@ const log = (message, type, opts = {}) => {
  * log - console.log
  * warn - console.warn
  * deprecate - console.warn which prepends the message with [Deprecation]
+ *
+ * You can also pass an option of 'group', this will group messages together that
+ * share the same group name and are triggered within 500ms of one another.
  *
  * To Use:
  *

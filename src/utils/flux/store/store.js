@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
-import { Dispatcher } from './../../flux';
 import Flux from 'flux';
+import { Dispatcher } from './../../flux';
 import Logger from './../../logger';
 
 /**
@@ -79,7 +79,7 @@ export default class Store extends EventEmitter {
     // the store with it and store the dispatchToken
     if (opts instanceof Flux.Dispatcher) {
       dispatcher = opts; // this line ensures backwards compatability
-      Logger.deprecate(name + ': The `connect` function will no longer support the Dispatcher as it\'s third argument. If you want to use the Dispatcher provided by Carbon then you can just remove this argument, however if you want to provide your own Dispatcher you will need to set it as an option of the third argument of the connect function (eg. connect(Component, Store, { dispatcher: CustomDispatcher }))', {
+      Logger.deprecate(`${name}: The 'connect' function will no longer support the Dispatcher as it's third argument. If you want to use the Dispatcher provided by Carbon then you can just remove this argument, however if you want to provide your own Dispatcher you will need to set it as an option of the third argument of the connect function (eg. connect(Component, Store, { dispatcher: CustomDispatcher }))`, { // eslint-disable-line max-len
         group: 'connect'
       });
     } else {
@@ -110,7 +110,7 @@ export default class Store extends EventEmitter {
      * @property dispatchToken
      * @type {String}
      */
-    this.dispatchToken = Dispatcher.register(this.dispatcherCallback);
+    this.dispatchToken = dispatcher.register(this.dispatcherCallback);
 
     /**
      * Array to store the history, set with the initial data.
@@ -126,7 +126,7 @@ export default class Store extends EventEmitter {
      * @property trackHistory
      * @type {Boolean}
      */
-    this.trackHistory = opts.history ? true : false;
+    this.trackHistory = !!opts.history;
   }
 
   /**
