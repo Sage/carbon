@@ -59,6 +59,7 @@ let definition = new Definition('configurable-items', ConfigurableItems, {
   },
   relatedComponentsNotes: `
 * [Table component](/components/table)
+* [ConfigurableItemsPattern](/patterns/configurable-items-pattern)
  `,
   requiredProps: ['onCancel', 'onDrag', 'onSave', 'title'],
 });

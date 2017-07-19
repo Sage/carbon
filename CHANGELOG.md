@@ -13,6 +13,10 @@
 * `ConfigurableItems` Drag & Drop and check/uncheck a list of items
 * `ConfigurableItemRow` Used with ConfigurableItems to build the list of configurable items
 
+## New Patterns
+
+* `ConfigurableItemsPattern` Combines ConfigurableItems and ConfigurableItemRow components
+
 # 1.3.0
 
 ## Component Ehancements
