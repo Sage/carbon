@@ -7,6 +7,7 @@ import Dialog from './dialog';
 import Button from './../button';
 import { Row, Column } from './../row';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import ElementResize from './../../utils/helpers/element-resize';
 
 describe('Dialog', () => {
   let instance, onCancel;
@@ -74,7 +75,8 @@ describe('Dialog', () => {
       beforeEach(() => {
         mockWindow = {
           addEventListener() {},
-          removeEventListener() {}
+          removeEventListener() {},
+          getComputedStyle() { return {} }
         };
 
         spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
@@ -95,12 +97,15 @@ describe('Dialog', () => {
         });
 
         it('sets up event listeners to resize and close the dialog', () => {
+          const instance = wrapper.instance();
+          spyOn(ElementResize, 'addListener');
           spyOn(mockWindow, 'addEventListener');
 
           wrapper.setProps({ title: 'Dialog title' });
           expect(mockWindow.addEventListener.calls.count()).toEqual(2);
           expect(mockWindow.addEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
           expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+          expect(ElementResize.addListener).toHaveBeenCalledWith(instance._innerContent, instance.applyFixedBottom);
         });
 
         describe('when the dialog is already listening', () => {
@@ -120,18 +125,21 @@ describe('Dialog', () => {
       describe('when the dialog is closed', () => {
         beforeEach(() => {
           wrapper = mount(
-            <Dialog open={ false } onCancel={ onCancel } />
+            <Dialog open={ true } onCancel={ onCancel } />
           );
           instance = wrapper.instance();
         });
 
         it('removes event listeners for resize and closing', () => {
+          const instance = wrapper.instance();
+          spyOn(ElementResize, 'removeListener');
           spyOn(mockWindow, 'removeEventListener');
-          wrapper.setProps({ title: 'Dialog closed' });
+          wrapper.setProps({ open: false });
 
           expect(mockWindow.removeEventListener.calls.count()).toEqual(2);
           expect(mockWindow.removeEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
           expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+          expect(ElementResize.removeListener).toHaveBeenCalledWith(instance._innerContent, instance.applyFixedBottom);
         });
       });
     });
@@ -173,11 +181,108 @@ describe('Dialog', () => {
       });
     });
 
-    describe('when ios', () => {
-      it('does not remove page y offset', () => {
-        Bowser.ios = true;
+    describe('when there is no content', () => {
+      it('does not apply height to the content', () => {
+        instance._content = undefined;
         instance.centerDialog();
-        expect(instance._dialog.style.top).toEqual('150px');
+        expect(instance._content).toEqual(undefined);
+      });
+    });
+
+    describe('when there is content and no title', () => {
+      it('applies height to content with 0 title', () => {
+        instance._content = { style: {}};
+        instance.centerDialog();
+        expect(instance._content.style.height).toEqual('calc(100% - 0px)');
+      });
+    });
+
+    describe('when there is content and a title', () => {
+      it('applies height to content based on title', () => {
+        instance._title = { offsetHeight: '100'};
+        instance._content = { style: {}};
+        instance.centerDialog();
+        expect(instance._content.style.height).toEqual('calc(100% - 100px)');
+      });
+    });
+
+    describe('when animating', () => {
+      beforeEach(() => {
+        jasmine.clock().install();
+      });
+
+      afterEach(() => {
+        jasmine.clock().uninstall();
+      });
+
+      it('applies the fixed bottom after 500ms', () => {
+        spyOn(instance, 'applyFixedBottom');
+        instance.centerDialog(true);
+        jasmine.clock().tick(500);
+        expect(instance.applyFixedBottom).toHaveBeenCalled();
+      });
+    });
+
+    describe('when not animating', () => {
+      it('applies the fixed bottom immediately', () => {
+        spyOn(instance, 'applyFixedBottom');
+        instance.centerDialog();
+        expect(instance.applyFixedBottom).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('applyFixedBottom', () => {
+    beforeEach(() => {
+      const wrapper = mount(
+        <Dialog onCancel={ onCancel } open />
+      );
+      instance = wrapper.instance();
+      spyOn(instance, 'forceUpdate');
+    });
+
+    describe('when it should have a fixed bottom', () => {
+      it('sets appliedFixedBottom and calls forceUpdate', () => {
+        instance._innerContent = {
+          offsetHeight: 100,
+          offsetTop: 100
+        };
+        instance._dialog = {
+          offsetTop: 10
+        };
+        instance.window = {
+          innerHeight: 100
+        };
+        instance.applyFixedBottom();
+        expect(instance.appliedFixedBottom).toBeTruthy();
+        expect(instance.forceUpdate).toHaveBeenCalled();
+      });
+    });
+
+    describe('when it should not have a fixed bottom', () => {
+      it('resets appliedFixedBottom and calls forceUpdate', () => {
+        instance._innerContent = {
+          offsetHeight: 10,
+          offsetTop: 10
+        };
+        instance._dialog = {
+          offsetTop: 10
+        };
+        instance.window = {
+          innerHeight: 100
+        };
+        instance.appliedFixedBottom = true;
+        instance.applyFixedBottom();
+        expect(instance.appliedFixedBottom).toBeFalsy();
+        expect(instance.forceUpdate).toHaveBeenCalled();
+      });
+
+      it('resets appliedFixedBottom and calls forceUpdate', () => {
+        instance._innerContent = undefined;
+        instance.appliedFixedBottom = true;
+        instance.applyFixedBottom();
+        expect(instance.appliedFixedBottom).toBeFalsy();
+        expect(instance.forceUpdate).toHaveBeenCalled();
       });
     });
   });
@@ -332,6 +437,14 @@ describe('Dialog', () => {
         'subtitle',
         'title'
       ]);
+    });
+  });
+
+  describe('height', () => {
+    it('adds the height as css', () => {
+      const wrapper = mount(<Dialog height="500" open />);
+      const div = wrapper.instance()._innerContent;
+      expect(div.style.minHeight).toEqual("calc(500px - 40px)");
     });
   });
 
