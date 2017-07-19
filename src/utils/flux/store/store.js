@@ -1,4 +1,7 @@
 import { EventEmitter } from 'events';
+import { Dispatcher } from './../../flux';
+import Flux from 'flux';
+import Logger from './../../logger';
 
 /**
  * A constant used for the change event within this module.
@@ -38,24 +41,25 @@ const CHANGE_EVENT = 'change';
  *   // optional - By defining the history property, the store will collect
  *   // any data interaction. You should only set this if you intend to
  *   // use the data collected.
- *   export default new MyStore("myStore", data, Dispatcher, { history: true });
+ *   export default new MyStore("myStore", data, { history: true });
  *
- * Please note, you should initialize your store with a name, initial data, and
- * your application's dispatcher. You can also pass a fourth param of additional
- * options which allows you to enable history for your store.
+ * Please note, you should initialize your store with a name and initial data.
+ * You can also pass a third param of additional options which allows you to
+ * enable history or supply a custom dispatcher for your store.
  *
  * @class Store
  * @param {String} name
  * @param {Object} data
- * @param {Object} Dispatcher
  * @param {Object} opts
  * @constructor
  * @extends EventEmitter
  */
 export default class Store extends EventEmitter {
 
-  constructor(name, data, Dispatcher, opts = {}) {
-    super(name, data, Dispatcher, opts);
+  constructor(name, data, opts = {}) {
+    super(name, data, opts);
+
+    let dispatcher;
 
     // tell the developer if they have not defined the name property.
     if (!name) {
@@ -73,8 +77,13 @@ export default class Store extends EventEmitter {
 
     // it is required to initialize the store with the dispatcher so we can register
     // the store with it and store the dispatchToken
-    if (!Dispatcher) {
-      throw new Error(`You need to initialize your store with your application's dispatcher. Check the initialization of ${this.constructor.name}.`);
+    if (opts instanceof Flux.Dispatcher) {
+      dispatcher = opts; // this line ensures backwards compatability
+      Logger.deprecate(name + ': The `connect` function will no longer support the Dispatcher as it\'s third argument. If you want to use the Dispatcher provided by Carbon then you can just remove this argument, however if you want to provide your own Dispatcher you will need to set it as an option of the third argument of the connect function (eg. connect(Component, Store, { dispatcher: CustomDispatcher }))', {
+        group: 'connect'
+      });
+    } else {
+      dispatcher = opts.dispatcher || Dispatcher;
     }
 
     /**

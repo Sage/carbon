@@ -1,10 +1,32 @@
 // Globally enable the logger
 let enabled = process.env.NODE_ENV !== 'production';
 
+const delays = {};
+const groupedMessages = {};
+
 // Log the message
-const log = (message, type) => {
+const log = (message, type, opts = {}) => {
   if (enabled) {
-    console[type](message); // eslint-disable-line no-console
+    if (opts.group) {
+      // if a group is defined, collect all occurrences to output together
+      groupedMessages[opts.group] = groupedMessages[opts.group] || [];
+      groupedMessages[opts.group].push(message);
+
+      const delay = delays[opts.group];
+
+      if (delay) {
+        clearTimeout(delay);
+      }
+
+      delays[opts.group] = setTimeout(() => {
+        console[type](groupedMessages[opts.group][0], {
+          all: groupedMessages[opts.group]
+        }); // eslint-disable-line no-console
+      }, 500);
+    } else {
+      // output the message
+      console[type](message); // eslint-disable-line no-console
+    }
   }
 };
 
@@ -38,24 +60,24 @@ const Logger = {
     enabled = newState;
   },
 
-  error: (message) => {
-    log(message, 'error');
+  error: (message, opts) => {
+    log(message, 'error', opts);
   },
 
-  info: (message) => {
-    log(message, 'info');
+  info: (message, opts) => {
+    log(message, 'info', opts);
   },
 
-  log: (message) => {
-    log(message, 'log');
+  log: (message, opts) => {
+    log(message, 'log', opts);
   },
 
-  warn: (message) => {
-    log(message, 'warn');
+  warn: (message, opts) => {
+    log(message, 'warn', opts);
   },
 
-  deprecate: (message) => {
-    log(`[Deprecation] ${message}`, 'warn');
+  deprecate: (message, opts) => {
+    log(`[Deprecation] ${message}`, 'warn', opts);
   }
 };
 
