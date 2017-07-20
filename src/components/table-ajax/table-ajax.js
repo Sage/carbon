@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import Request from 'superagent';
 import serialize from './../../utils/helpers/serialize';
 import { Table, TableRow, TableCell, TableHeader, TableSubheader } from './../table';
+import Logger from './../../utils/logger';
 
 /**
  * A Table Ajax Widget
@@ -338,7 +339,7 @@ class TableAjax extends Table {
     } else if (this.props.onAjaxError) {
       this.props.onAjaxError(err, response);
     } else {
-      console.warn(`${err.status} - ${response}`); // eslint-disable-line no-console
+      Logger.warn(`${err.status} - ${response}`);
     }
   }
 
