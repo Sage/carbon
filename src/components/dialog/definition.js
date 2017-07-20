@@ -29,7 +29,8 @@ const definition = new Definition('dialog', Dialog, {
     title: 'String',
     size: 'String',
     showCloseIcon: 'Boolean',
-    subtitle: 'String'
+    subtitle: 'String',
+    stickyFormFooter: 'Boolean',
   },
   propDescriptions: {
     autoFocus: 'When set to true the dialog will receive keyboard focus when it opens.',

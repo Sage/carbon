@@ -86,7 +86,9 @@ class Dialog extends Modal {
      * @type {Boolean}
      * @default false
      */
-    autoFocus: PropTypes.bool
+    autoFocus: PropTypes.bool,
+
+    stickyFormFooter: PropTypes.bool
   })
 
   static defaultProps = {
@@ -308,7 +310,8 @@ class Dialog extends Modal {
       {
         [`carbon-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined',
         'carbon-dialog__dialog--fixed-bottom': this.appliedFixedBottom,
-        'carbon-dialog__dialog--has-height': this.props.height
+        'carbon-dialog__dialog--has-height': this.props.height,
+        'carbon-dialog__dialog--sticky-form-footer': this.props.stickyFormFooter
       }
     );
   }

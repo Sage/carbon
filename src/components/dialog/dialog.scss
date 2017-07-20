@@ -17,7 +17,7 @@ $dialog-sizes: (
     width: $size;
 
     $form-buttons-width: $size - ($dialog-padding * 2);
-    &.carbon-dialog__dialog--fixed-bottom .carbon-form__footer-wrapper {
+    &.carbon-dialog__dialog--fixed-bottom.carbon-dialog__dialog--sticky-form-footer .carbon-form__footer-wrapper {
       width: $form-buttons-width;
 
       // IE10+ fix (caters for scrollbar width)
@@ -75,7 +75,7 @@ $dialog-sizes: (
   bottom: 0;
   min-height: 0px !important;
 
-  .carbon-form .carbon-form__footer-wrapper {
+  &.carbon-dialog__dialog--sticky-form-footer .carbon-form .carbon-form__footer-wrapper {
     margin-left: -($dialog-padding);
     left: auto;
     padding-left: $dialog-padding;

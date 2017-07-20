@@ -33,7 +33,7 @@
   100% { bottom: 0; }
 }
 
-.carbon-dialog__dialog--fixed-bottom .carbon-form,
+.carbon-dialog__dialog--fixed-bottom.carbon-dialog__dialog--sticky-form-footer .carbon-form,
 .carbon-form--sticky-footer {
   padding-bottom: 80px;
 
