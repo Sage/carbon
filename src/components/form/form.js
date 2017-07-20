@@ -147,7 +147,7 @@ class Form extends React.Component {
      * @property additionalActions
      * @type {String|JSX}
      */
-    additionalActions: PropTypes.node,
+    additionalActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Additional actions rendered and aligned left to the save and cancel buttons
@@ -155,7 +155,7 @@ class Form extends React.Component {
      * @property additionalActions
      * @type {String|JSX}
      */
-    leftAlignedActions: PropTypes.node,
+    leftAlignedActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Additional actions rendered and aligned right to the save and cancel buttons
@@ -163,7 +163,7 @@ class Form extends React.Component {
      * @property additionalActions
      * @type {String|JSX}
      */
-    rightAlignedActions: PropTypes.node,
+    rightAlignedActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Custom callback for when form will submit
