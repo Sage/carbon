@@ -125,9 +125,10 @@ describe('Dialog', () => {
       describe('when the dialog is closed', () => {
         beforeEach(() => {
           wrapper = mount(
-            <Dialog open={ true } onCancel={ onCancel } />
+            <Dialog open={ true } onCancel={ onCancel } stickyFormFooter />
           );
           instance = wrapper.instance();
+          instance.listening = true;
         });
 
         it('removes event listeners for resize and closing', () => {
