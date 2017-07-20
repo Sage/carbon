@@ -5,6 +5,7 @@ import { assign } from 'lodash';
 import PropTypes from 'prop-types';
 import Dialog from '../dialog';
 import Button from '../button';
+import CSS from './../../utils/css';
 
 /**
  * A Confirm widget.
@@ -100,9 +101,11 @@ class Confirm extends Dialog {
    * @method confirmButtons
    * @return {Object} JSX yes and no buttons
    */
-  get confirmButtons() {
+  additionalContent() {
+    const classes = `carbon-confirm__buttons ${CSS.clearfix}`;
+
     return (
-      <div key='confirm-buttons' className='carbon-confirm__buttons' >
+      <div key='confirm-buttons' className={ classes }>
         <div className='carbon-confirm__button carbon-confirm__no'>
           <Button as='secondary' onClick={ this.props.onCancel } data-element='cancel'>
             { this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' }) }
@@ -116,18 +119,6 @@ class Confirm extends Dialog {
         </div>
       </div>
     );
-  }
-
-  /**
-   * Returns HTML and text for the confirm body. Appends the two
-   * confirm buttons to super dialogHTML
-   *
-   * @method dialogTitle
-   */
-  get modalHTML() {
-    const dialog = super.modalHTML,
-        children = [].concat(dialog.props.children, this.confirmButtons);
-    return React.cloneElement(dialog, {}, children);
   }
 
   componentTags(props) {
