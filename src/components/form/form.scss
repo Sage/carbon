@@ -1,5 +1,9 @@
 @import "./../../style-config/colors";
 
+.carbon-form__left-aligned-actions {
+  flex-grow: 1;
+}
+
 .carbon-form__additional-actions {
   padding-left: 10px;
   display: inline-block;

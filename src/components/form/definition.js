@@ -39,7 +39,6 @@ let definition = new Definition('form', Form, {
     saveButtonProps: "Object",
     onCancel: "Function",
     save: "Boolean",
-    additionalActions: "Node",
     onSubmit: "Function",
     iterative: "Boolean",
     summary: "Boolean",

@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Serialize from 'form-serialize';
+import { kebabCase } from 'lodash';
 
 import CancelButton from './cancel-button';
 import FormSummary from './form-summary';
@@ -147,6 +148,22 @@ class Form extends React.Component {
      * @type {String|JSX}
      */
     additionalActions: PropTypes.node,
+
+    /**
+     * Additional actions rendered and aligned left to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    leftAlignedActions: PropTypes.node,
+
+    /**
+     * Additional actions rendered and aligned right to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    rightAlignedActions: PropTypes.node,
 
     /**
      * Custom callback for when form will submit
@@ -536,12 +553,12 @@ class Form extends React.Component {
    * @method additionalActions
    * @return {Object} JSX
    */
-  get additionalActions() {
-    if (!this.props.additionalActions) { return null; }
+  additionalActions = (type) => {
+    if (!this.props[type]) { return null; }
 
     return (
-      <div className='carbon-form__additional-actions' >
-        { this.props.additionalActions }
+      <div className={ `carbon-form__${kebabCase(type)}` } >
+        { this.props[type] }
       </div>
     );
   }
@@ -603,9 +620,11 @@ class Form extends React.Component {
     const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
     return (
       <div className={ this.footerClasses }>
+        { this.additionalActions('leftAlignedActions') }
+        { this.additionalActions('rightAlignedActions') }
         { save }
         { this.cancelButton() }
-        { this.additionalActions }
+        { this.additionalActions('additionalActions') }
       </div>
     );
   }

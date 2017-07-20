@@ -1,4 +1,4 @@
-# 1.3.0
+# 1.4.0
 
 ## Dependency Update
 
@@ -6,7 +6,8 @@
 
 ## Component Improvements
 
-* The `Poller` helper has been refactored to no longer use promises
+* The `Poller` helper has been refactored to no longer use promises.
+* `Form` now has additional props of `leftAlignedActions` and `rightAlignedActions` which allows developers to add additional nodes in line with the default form actions.
 
 # 1.2.2
 
