@@ -120,7 +120,7 @@ export default class Store extends EventEmitter {
      * @property trackHistory
      * @type {Boolean}
      */
-    this.trackHistory = opts.history;
+    this.trackHistory = !!opts.history;
   }
 
   /**
