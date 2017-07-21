@@ -16,6 +16,10 @@ The following packages have been moved from `devDependencies` to `dependencies`:
 * `react-router`
 * `react-transition-group`
 
+The following packages have been upgraded:
+
+* i18n-js: upgraded to rc12
+
 # 1.4.0
 
 ## Dependency Update
