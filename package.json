@@ -57,7 +57,7 @@
     "escape-string-regexp": "~1.0.5",
     "events": "~1.1.1",
     "form-serialize": "~0.7.0",
-    "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
+    "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc12.tar.gz",
     "immutable": "~3.8.1",
     "lodash": "~4.15.0",
     "marked": "~0.3.6",
