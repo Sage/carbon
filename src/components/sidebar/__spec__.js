@@ -84,6 +84,7 @@ describe('Sidebar', () => {
           <Sidebar onCancel={ spy } />
         );
         instance = wrapper.instance();
+        instance.listening = true;
       });
 
       it('removes event listeners for resize and closing', () => {
