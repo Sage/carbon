@@ -4,9 +4,10 @@
 
 The following packages are now specified as peer dependencies:
 
+* flux
+* prop-types
 * react
 * react-dom
-* flux
 
 The following packages have been moved from `devDependencies` to `dependencies`:
 
