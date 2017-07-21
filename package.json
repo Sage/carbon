@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "peerDependencies": {
-    "flux": "~2.1.1",
+    "flux": "^3.0.0",
     "prop-types": "~15.5.8",
     "react": "~15.6.1",
     "react-dom": "~15.6.1"
@@ -32,7 +32,7 @@
     "carbon-factory": "1.1.7",
     "enzyme": "~2.8.2",
     "express": "~4.14.0",
-    "flux": "~2.1.1",
+    "flux": "^3.0.0",
     "gulp": "~3.9.0",
     "highcharts": "~5.0.2",
     "highlight.js": "~9.6.0",
