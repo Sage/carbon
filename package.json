@@ -23,9 +23,8 @@
   "homepage": "https://github.com/Sage/carbon#readme",
   "peerDependencies": {
     "flux": "^3.0.0",
-    "prop-types": "~15.5.8",
-    "react": "~15.6.1",
-    "react-dom": "~15.6.1"
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "devDependencies": {
     "babel-standalone": "~6.17.0",
@@ -62,6 +61,7 @@
     "lodash": "~4.15.0",
     "marked": "~0.3.6",
     "moment": "~2.15.1",
+    "prop-types": "^15.5.8",
     "react-date-picker": "~5.3.28",
     "react-dnd": "~2.4.0",
     "react-dnd-touch-backend": "lock this to 0.2.7 to support dnd on mobile - see https://github.com/yahoo/react-dnd-touch-backend/issues/34",
