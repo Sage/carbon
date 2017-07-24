@@ -9,10 +9,6 @@ import { Row, Column } from './../row';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ElementResize from './../../utils/helpers/element-resize';
 
-jest.mock('bowser', () => {
-  return { ios: false }
-});
-
 describe('Dialog', () => {
   let instance, onCancel;
 
@@ -153,12 +149,14 @@ describe('Dialog', () => {
   describe('centerDialog', () => {
     beforeEach(() => {
       const mockWindow = {
-        innerHeight: 100,
+        innerHeight: 300,
         innerWidth: 100,
         pageYOffset: 10,
         pageXOffset: 10
       }
-      spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
+
+      Browser.getWindow = jest.fn();
+      Browser.getWindow.mockReturnValue(mockWindow);
 
       instance = TestUtils.renderIntoDocument(
         <Dialog open onCancel={ onCancel } />
@@ -167,13 +165,8 @@ describe('Dialog', () => {
 
     describe('when dialog is lower than 20px', () => {
       it('sets top position to the correct value', () => {
-        instance._dialog = {
-          style: {},
-          offsetHeight: 0
-        };
-
         instance.centerDialog();
-        expect(instance._dialog.style.top).toEqual('60px');
+        expect(instance._dialog.style.top).toEqual('150px');
       });
     });
 
@@ -181,9 +174,8 @@ describe('Dialog', () => {
       it('sets top position to 20px', () => {
         instance._dialog = {
           style: {},
-          offsetHeight: 300
+          offsetHeight: 261
         };
-
         instance.centerDialog();
         expect(instance._dialog.style.top).toEqual('20px');
       });
@@ -193,9 +185,8 @@ describe('Dialog', () => {
       it('sets top position to 20px', () => {
         instance._dialog = {
           style: {},
-          offsetWidth: 300
+          offsetWidth: 361
         };
-
         instance.centerDialog();
         expect(instance._dialog.style.left).toEqual('20px');
       });
@@ -228,17 +219,17 @@ describe('Dialog', () => {
 
     describe('when animating', () => {
       beforeEach(() => {
-        jasmine.clock().install();
+        jest.useFakeTimers();
       });
 
       afterEach(() => {
-        jasmine.clock().uninstall();
+        jest.clearAllTimers();
       });
 
       it('applies the fixed bottom after 500ms', () => {
         spyOn(instance, 'applyFixedBottom');
         instance.centerDialog(true);
-        jasmine.clock().tick(500);
+        jest.runTimersToTime(500);
         expect(instance.applyFixedBottom).toHaveBeenCalled();
       });
     });
@@ -472,6 +463,15 @@ describe('Dialog', () => {
     let wrapper;
 
     beforeEach(() => {
+      const mockWindow = {
+        addEventListener() {},
+        removeEventListener() {},
+        getComputedStyle() { return {}; }
+      };
+
+      Browser.getWindow = jest.fn();
+      Browser.getWindow.mockReturnValue(mockWindow);
+
       wrapper = mount(
         <Dialog
           onCancel={ () => {} }
@@ -532,12 +532,12 @@ describe('Dialog', () => {
           autoFocus: true
         });
         instance = wrapper.instance();
-        spyOn(instance, 'focusDialog');
+        instance.focusDialog = jest.fn();
 
         wrapper.setProps({
           open: true
         });
-        expect(instance.focusDialog).toHaveBeenCalled();
+        expect(instance.focusDialog).toBeCalled();
       });
     });
 
@@ -548,12 +548,12 @@ describe('Dialog', () => {
           autoFocus: false
         });
         instance = wrapper.instance();
-        spyOn(instance, 'focusDialog');
+        instance.focusDialog = jest.fn();
 
         wrapper.setProps({
           open: true
         });
-        expect(instance.focusDialog).not.toHaveBeenCalled();
+        expect(instance.focusDialog).not.toBeCalled();
       });
     });
 
