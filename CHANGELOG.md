@@ -5,7 +5,6 @@
 The following packages are now specified as peer dependencies:
 
 * flux
-* prop-types
 * react
 * react-dom
 
@@ -18,7 +17,17 @@ The following packages have been moved from `devDependencies` to `dependencies`:
 
 The following packages have been upgraded:
 
+* flux: ^3.0.0
 * i18n-js: upgraded to rc12
+* react-router: ^3.0.0
+
+### Upgrading a project that uses Carbon
+
+If you're upgrading an application that uses Carbon to v2.0.0 you'll need to make sure you have `flux`, `react`, and `react-dom` in your project's dependencies. If you need to add them you can do so by running the following command:
+
+```
+npm install flux@^3.0.0 react react-dom --save
+```
 
 # 1.4.0
 
