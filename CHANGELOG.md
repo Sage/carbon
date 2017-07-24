@@ -6,7 +6,8 @@
 
 ## Component Improvements
 
-* The `Poller` helper has been refactored to no longer use promises
+* `Poller` helper has been refactored to no longer use promises
+* `Tooltip` now renders an ARIA role of tooltip, and accepts an optional `id` prop
 
 # 1.3.0
 
