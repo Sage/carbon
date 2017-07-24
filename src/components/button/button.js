@@ -98,7 +98,6 @@ class Button extends React.Component {
     size: 'medium',
     theme: 'blue',
     disabled: false,
-    smallFont: false,
     subtext: ''
   }
 
