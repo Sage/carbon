@@ -9,7 +9,6 @@ describe('app wrapper', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<AppWrapper className='foobar'>foo</AppWrapper>);
-    wrapper = shallow(<AppWrapper className='foobar' data-element='app-wrapper' data-role='contacts'>foo</AppWrapper>);
   });
 
   it('renders the children', () => {
