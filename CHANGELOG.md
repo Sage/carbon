@@ -1,3 +1,9 @@
+# 1.3.1
+
+## Bug Fixes
+
+* A bug was found in the new Dialog behaviour in Safari 9.x which rendered the sticky footer incorrectly. This solves it rendering incorrectly on page load for Safari 9.x. There remains a wider issue around Safari logged [here](https://github.com/Sage/carbon/issues/1432).
+
 # 1.3.0
 
 ## Component Ehancements
