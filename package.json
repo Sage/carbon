@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "jest",
-    "debuggerListen": "node --debug-brk ./node_modules/.bin/jest --runInBand",
-    "debugStart": "node-inspector",
+    "debug:listen": "node --debug-brk ./node_modules/.bin/jest --runInBand",
+    "debug:start": "node-inspector",
     "release-version": "node check-version.js && npm install && npm publish",
     "prepublish": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
   },
