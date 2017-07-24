@@ -65,8 +65,8 @@
 .carbon-form:not(.carbon-form--sticky-footer),
 .carbon-dialog__dialog--fixed-bottom {
   .carbon-form__buttons {
-    max-width: auto;
-    min-width: auto;
+    max-width: initial;
+    min-width: initial;
     padding: 0;
   }
 }
