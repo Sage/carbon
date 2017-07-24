@@ -116,22 +116,24 @@ class Button extends React.Component {
     let children = this.props.children;
 
     if (this.props.subtext.length > 0 && this.props.size === 'large') {
-      children = ([
-        <span
-          className='carbon-button__main-text'
-          data-element='main-text'
-          key='children'
-        >
-          { this.props.children }
-        </span>,
-        <span
-          className='carbon-button__subtext'
-          data-element='subtext'
-          key='subtext'
-        >
-          { this.props.subtext }
+      children = (
+        <span className='carbon-button__internal-wrapper'>
+          <span
+            className='carbon-button__main-text'
+            data-element='main-text'
+            key='children'
+          >
+            { this.props.children }
+          </span>
+          <span
+            className='carbon-button__subtext'
+            data-element='subtext'
+            key='subtext'
+          >
+            { this.props.subtext }
+          </span>
         </span>
-      ]);
+      );
     }
 
     return children;

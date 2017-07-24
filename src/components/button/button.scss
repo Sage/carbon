@@ -11,7 +11,6 @@
   box-sizing: border-box;
   cursor: pointer;
   display: inline-flex;
-  flex-direction: column;
   justify-content: center;
   line-height: 16px;
   font-size: $app-font-size;
@@ -52,6 +51,12 @@
       }
     }
   }
+}
+
+.carbon-button__internal-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @mixin button-theme($theme, $color, $hover, $active, $text-color) {
