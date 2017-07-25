@@ -24,7 +24,6 @@ let definition = new Definition('form', Form, {
     buttonAlign: OptionsHelper.alignBinary
   },
   propTypes: {
-    additionalActions: "Node",
     cancel: "Boolean",
     children: "Node",
     className: "String",
