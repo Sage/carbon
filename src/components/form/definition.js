@@ -40,7 +40,6 @@ let definition = new Definition('form', Form, {
     onCancel: "Function",
     save: "Boolean",
     stickyFooter: "Boolean",
-    additionalActions: "Node",
     onSubmit: "Function",
     iterative: "Boolean",
     summary: "Boolean",

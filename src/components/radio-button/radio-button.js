@@ -144,7 +144,7 @@ class RadioButton extends React.Component {
     return (
       <div
         className='carbon-radio-button__sprite'
-        dangerouslySetInnerHTML={ { __html: this.radiobuttonSprite } } // eslint-disable react/no-danger
+        dangerouslySetInnerHTML={ { __html: this.radiobuttonSprite } } // eslint-disable-line react/no-danger
       />
     );
   }

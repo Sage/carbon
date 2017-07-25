@@ -673,18 +673,31 @@ describe('Form', () => {
       describe('if none defined', () => {
         it('returns null', () => {
           let instance = TestUtils.renderIntoDocument(<Form />);
-          expect(instance.additionalActions).toBe(null);
+          expect(instance.additionalActions('additionalActions')).toBe(null);
         });
       });
 
       describe('if defined', () => {
         it('returns the action', () => {
           let instance = TestUtils.renderIntoDocument(<Form additionalActions={ <span /> } />);
-          expect(instance.additionalActions.props.className).toEqual("carbon-form__additional-actions");
+          expect(instance.additionalActions('additionalActions').props.className).toEqual("carbon-form__additional-actions");
+        });
+      });
+
+      describe('leftAlignedActions', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form leftAlignedActions={ <span /> } />);
+          expect(instance.additionalActions('leftAlignedActions').props.className).toEqual("carbon-form__left-aligned-actions");
+        });
+      });
+
+      describe('rightAlignedActions', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form rightAlignedActions={ <span /> } />);
+          expect(instance.additionalActions('rightAlignedActions').props.className).toEqual("carbon-form__right-aligned-actions");
         });
       });
     });
-
   });
 
   describe("tags", () => {

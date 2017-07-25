@@ -57,24 +57,27 @@ export default class Store extends EventEmitter {
   constructor(name, data, Dispatcher, opts = {}) {
     super(name, data, Dispatcher, opts);
 
+    const suffix = `Check the initialization of ${this.constructor.name}.`;
+
     // tell the developer if they have not defined the name property.
     if (!name) {
       throw new Error(
-        `You need to initialize your store with a name. Check the initialization of ${this.constructor.name}.`
+        `You need to initialize your store with a name. ${suffix}`
       );
     }
 
     // tell the developer if they have not defined the data property.
     if (!data) {
       throw new Error(
-        `You need to initialize your store with data. Check the initialization of ${this.constructor.name}.`
+        `You need to initialize your store with data. ${suffix}`
       );
     }
 
     // it is required to initialize the store with the dispatcher so we can register
     // the store with it and store the dispatchToken
     if (!Dispatcher) {
-      throw new Error(`You need to initialize your store with your application's dispatcher. Check the initialization of ${this.constructor.name}.`);
+      throw new Error(
+        `You need to initialize your store with your application's dispatcher. ${suffix}`);
     }
 
     /**
@@ -117,7 +120,7 @@ export default class Store extends EventEmitter {
      * @property trackHistory
      * @type {Boolean}
      */
-    this.trackHistory = opts.history ? true : false;
+    this.trackHistory = !!opts.history;
   }
 
   /**
