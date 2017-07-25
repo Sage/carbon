@@ -206,8 +206,7 @@ describe('poller', () => {
           });
         });
 
-        it('calls the handleError with the error', (done) => {
-          done();
+        it('calls the handleError with the error', () => {
           expect(functions.handleError.calls.mostRecent().args.toString()).toEqual('Error: Unsuccessful HTTP response');
         });
       });
@@ -227,10 +226,10 @@ describe('poller', () => {
           });
         });
 
-        it('logs the error', (done) => {
+        it('logs the error', () => {
+          Poller({ url }, functions, { interval: 1000 });
           expect(console.error).toHaveBeenCalledWith( // eslint-disable-line no-console
             'Unsuccessful HTTP response');
-          done();
         });
       });
     });

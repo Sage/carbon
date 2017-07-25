@@ -75,10 +75,14 @@ class ConfigurableItemRow extends React.Component {
 
   icon() {
     return (
-      <Icon
-        className='configurable-item-row__icon'
-        type='drag_vertical'
-      />
+      <WithDrag>
+        <div>
+          <Icon
+            className='configurable-item-row__icon'
+            type='drag_vertical'
+          />
+        </div>
+      </WithDrag>
     );
   }
 
@@ -120,12 +124,10 @@ class ConfigurableItemRow extends React.Component {
     return (
       <WithDrop index={ rowIndex } { ...tagComponent('configurable-item-row', this.props) }>
         <li className={ this.classes(this.context.dragAndDropActiveIndex, rowIndex) }>
-          <WithDrag>
-            <div className='configurable-item-row__content-wrapper'>
-              { this.icon() }
-              { this.checkbox(enabled, locked, name, onChange) }
-            </div>
-          </WithDrag>
+          <div className='configurable-item-row__content-wrapper'>
+            { this.icon() }
+            { this.checkbox(enabled, locked, name, onChange) }
+          </div>
         </li>
       </WithDrop>
     );
