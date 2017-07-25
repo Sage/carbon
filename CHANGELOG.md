@@ -2,7 +2,7 @@
 
 ## Bug Fixes
 
-* Our files our now published in production mode, removing some developer dependencies previously included.
+* Our files are now published in production mode, removing some developer dependencies previously included.
 
 # 1.3.1
 
