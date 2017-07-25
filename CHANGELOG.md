@@ -4,6 +4,11 @@
 
 * React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
 
+## New Components
+
+* `ConfigurableItems` Drag & Drop and check/uncheck a list of items
+* `ConfigurableItemRow` Used with ConfigurableItems to build the list of configurable items
+
 ## Linting Updates
 
 The following have had minor internal changes to satisfy the introduction of stricter linting rules:

@@ -1,0 +1,4 @@
+{
+  "main": "./configurable-item-row.js",
+  "style": "./configurable-item-row.scss"
+}
