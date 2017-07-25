@@ -1,0 +1,4 @@
+{
+  "main": "./configurable-items.js",
+  "style": "./configurable-items.scss"
+}

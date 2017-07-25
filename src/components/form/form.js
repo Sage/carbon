@@ -2,13 +2,18 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Serialize from 'form-serialize';
+import { kebabCase } from 'lodash';
 
 import CancelButton from './cancel-button';
 import FormSummary from './form-summary';
 import SaveButton from './save-button';
+import AppWrapper from './../app-wrapper';
 
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import Browser from './../../utils/helpers/browser';
+
+import ElementResize from './../../utils/helpers/element-resize';
 
 /**
  * A Form widget.
@@ -65,8 +70,7 @@ class Form extends React.Component {
     beforeFormValidation: PropTypes.func,
 
     /**
-     * Alignment of submit button
-     *
+ElementResize     *
      * @ property
      * @type {String}
      */
@@ -80,6 +84,22 @@ class Form extends React.Component {
      * @default false
      */
     saving: PropTypes.bool,
+
+    /**
+     * Enables the sticky footer.
+     *
+     * @property stickyFooter
+     * @type {Boolean}
+     */
+    stickyFooter: PropTypes.bool,
+
+    /**
+     * Applies additional padding to the sticky footer, useful to align buttons.
+     *
+     * @property stickyFooterPadding
+     * @type {String}
+     */
+    stickyFooterPadding: PropTypes.string,
 
     /**
      * If true, will validate the form on mount
@@ -146,7 +166,23 @@ class Form extends React.Component {
      * @property additionalActions
      * @type {String|JSX}
      */
-    additionalActions: PropTypes.node,
+    additionalActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
+
+    /**
+     * Additional actions rendered and aligned left to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    leftAlignedActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
+
+    /**
+     * Additional actions rendered and aligned right to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    rightAlignedActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Custom callback for when form will submit
@@ -263,8 +299,28 @@ class Form extends React.Component {
    * @return {void}
    */
   componentDidMount() {
+    if (this.props.stickyFooter) {
+      this.addStickyFooterListeners();
+    }
+
     if (this.props.validateOnMount) {
       this.validate();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.stickyFooter && !this.props.stickyFooter) {
+      this.addStickyFooterListeners();
+    }
+
+    if (!nextProps.stickyFooter && this.props.stickyFooter) {
+      this.removeStickyFooterListeners();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.stickyFooter) {
+      this.removeStickyFooterListeners();
     }
   }
 
@@ -293,6 +349,37 @@ class Form extends React.Component {
     this.activeInput = input;
   }
 
+  addStickyFooterListeners = () => {
+    this.checkStickyFooter();
+    ElementResize.addListener(this._form, this.checkStickyFooter);
+    this._window.addEventListener('resize', this.checkStickyFooter);
+    this._window.addEventListener('scroll', this.checkStickyFooter);
+  }
+
+  removeStickyFooterListeners = () => {
+    ElementResize.removeListener(this._form, this.checkStickyFooter);
+    this._window.removeEventListener('resize', this.checkStickyFooter);
+    this._window.removeEventListener('scroll', this.checkStickyFooter);
+  }
+
+  checkStickyFooter = () => {
+    let offsetTop = 0,
+        element = this._form;
+
+    while (element) {
+      offsetTop += element.offsetTop;
+      element = element.offsetParent;
+    }
+
+    const formHeight = (offsetTop + this._form.offsetHeight) - this._window.pageYOffset;
+
+    if (!this.state.stickyFooter && formHeight > this._window.innerHeight) {
+      this.setState({ stickyFooter: true });
+    } else if (this.state.stickyFooter && formHeight < this._window.innerHeight) {
+      this.setState({ stickyFooter: false });
+    }
+  }
+
   /**
    * stores the document - allows us to override it different contexts, such as
    * when running tests.
@@ -300,7 +387,7 @@ class Form extends React.Component {
    * @property _document
    * @type {document}
    */
-  _document = document;
+  _document = Browser.getDocument();
 
   /**
    * stores the window - allows us to override it different contexts, such as
@@ -309,7 +396,7 @@ class Form extends React.Component {
    * @property _window
    * @type {window}
    */
-  _window = window;
+  _window = Browser.getWindow();
 
   /**
    * @method activeInputHasValidation
@@ -536,12 +623,12 @@ class Form extends React.Component {
    * @method additionalActions
    * @return {Object} JSX
    */
-  get additionalActions() {
-    if (!this.props.additionalActions) { return null; }
+  additionalActions = (type) => {
+    if (!this.props[type]) { return null; }
 
     return (
-      <div className='carbon-form__additional-actions' >
-        { this.props.additionalActions }
+      <div className={ `carbon-form__${kebabCase(type)}` } >
+        { this.props[type] }
       </div>
     );
   }
@@ -601,11 +688,21 @@ class Form extends React.Component {
    */
   formFooter = () => {
     const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
+    let padding = this.props.stickyFooterPadding;
+
+    if (padding && !padding.match(/px$/)) {
+      padding = `${padding}px`;
+    }
+
     return (
-      <div className={ this.footerClasses }>
-        { save }
-        { this.cancelButton() }
-        { this.additionalActions }
+      <div className='carbon-form__footer-wrapper'>
+        <AppWrapper className={ this.footerClasses } style={ { borderWidth: padding } }>
+          { this.additionalActions('leftAlignedActions') }
+          { this.additionalActions('rightAlignedActions') }
+          { save }
+          { this.cancelButton() }
+          { this.additionalActions('additionalActions') }
+        </AppWrapper>
       </div>
     );
   }
@@ -619,7 +716,9 @@ class Form extends React.Component {
   get mainClasses() {
     return classNames(
       'carbon-form',
-      this.props.className
+      this.props.className, {
+        'carbon-form--sticky-footer': this.state.stickyFooter
+      }
     );
   }
 

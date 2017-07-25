@@ -61,17 +61,19 @@ export default class Store extends EventEmitter {
 
     let dispatcher;
 
+    const suffix = `Check the initialization of ${this.constructor.name}.`;
+
     // tell the developer if they have not defined the name property.
     if (!name) {
       throw new Error(
-        `You need to initialize your store with a name. Check the initialization of ${this.constructor.name}.`
+        `You need to initialize your store with a name. ${suffix}`
       );
     }
 
     // tell the developer if they have not defined the data property.
     if (!data) {
       throw new Error(
-        `You need to initialize your store with data. Check the initialization of ${this.constructor.name}.`
+        `You need to initialize your store with data. ${suffix}`
       );
     }
 
