@@ -1,3 +1,9 @@
+# 1.3.3
+
+## Bug Fixes
+
+* Added additional guards for browsers that do not support `element.contentDocument`.
+
 # 1.3.2
 
 ## Bug Fixes

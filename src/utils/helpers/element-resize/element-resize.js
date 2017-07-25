@@ -79,16 +79,23 @@ const ElementResize = {
       // if there are no event listeners left, time to detach the event
       if (!element.__resizeListenerCallbacks__.length) {
         const view = ElementResize.getDefaultView(element.__resizeTrigger__);
-        // remove the event listener on the object
-        view.removeEventListener('resize', resizeListener); // eslint-disable-line no-use-before-define
-        // remove the fake object
-        element.__resizeTrigger__ = !element.removeChild(element.__resizeTrigger__);
+
+        if (view) {
+          // remove the event listener on the object
+          view.removeEventListener('resize', resizeListener); // eslint-disable-line no-use-before-define
+          // remove the fake object
+          element.__resizeTrigger__ = !element.removeChild(element.__resizeTrigger__);
+        }
       }
     }
   },
 
   getDefaultView: (element) => {
-    return element.contentDocument.defaultView;
+    if (element.contentDocument) {
+      return element.contentDocument.defaultView;
+    }
+
+    return null;
   }
 };
 
@@ -110,10 +117,13 @@ const resizeListener = (ev) => {
 const objectLoad = (obj, element) => {
   return () => {
     const view = ElementResize.getDefaultView(obj);
-    // assign a reference back to the source element in the new object's document
-    view.__resizeTrigger__ = element;
-    // apply the event listener to the new object's document
-    view.addEventListener('resize', resizeListener);
+
+    if (view) {
+      // assign a reference back to the source element in the new object's document
+      view.__resizeTrigger__ = element;
+      // apply the event listener to the new object's document
+      view.addEventListener('resize', resizeListener);
+    }
   };
 };
 
