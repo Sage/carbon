@@ -50,6 +50,12 @@ The following have had minor internal changes to satisfy the introduction of str
 
 * The `Poller` helper has been refactored to no longer use promises
 
+# 1.3.2
+
+## Bug Fixes
+
+* Our files are now published in production mode, removing some developer dependencies previously included.
+
 # 1.3.1
 
 ## Bug Fixes
