@@ -28,6 +28,7 @@ let definition = new Definition('button', Button, {
     disabled: "Boolean",
     theme: "String",
     size: "String",
+    subtext: "String"
   },
   propValues: {
     children: "Example Button"
@@ -38,6 +39,7 @@ let definition = new Definition('button', Button, {
     disabled: "Controls the disabled state of the button.",
     theme: "Choose between different colour themes for the button.",
     size: "Choose between various sizes for the button.",
+    subtext: "A second line of text to be added to a large button"
   },
 });
 

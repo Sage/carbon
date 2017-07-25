@@ -23,6 +23,8 @@ The following have had minor internal changes to satisfy the introduction of str
 
 ## Component Improvements
 
+* `Button`: Makes large button text the same as the medium button
+* `Button`: Allows secondary text under main text [#1385](https://github.com/Sage/carbon/issues/1385)
 * The `Poller` helper has been refactored to no longer use promises
 
 # 1.3.1
