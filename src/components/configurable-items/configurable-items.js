@@ -95,7 +95,7 @@ class ConfigurableItems extends React.Component {
       <div className={ this.classes } { ...tagComponent('configurable-items', this.props) }>
         <DraggableContext onDrag={ this.props.onDrag }>
           <Form
-            additionalActions={ this.additionalActions() }
+            leftAlignedActions={ this.additionalActions() }
             onSubmit={ this.props.onSave }
             onCancel={ this.props.onCancel }
           >
