@@ -31,7 +31,7 @@
     "carbon-factory": "1.1.7",
     "enzyme": "~2.8.2",
     "express": "~4.14.0",
-    "flux": "^3.0.0",
+    "flux": "^3.1.1",
     "gulp": "~3.9.0",
     "highcharts": "~5.0.2",
     "highlight.js": "~9.6.0",
