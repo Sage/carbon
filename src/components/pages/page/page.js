@@ -21,7 +21,7 @@ const Page = props =>
 ;
 
 Page.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
