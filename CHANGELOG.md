@@ -4,11 +4,55 @@
 
 * `ConfigurableItems` now accepts an `onReset` prop to be passed in.
 
-### npm
+## npm
 
 * Carbon now require `npm` version 5 for installing dependencies.
 * To upgrade your version of npm, run `npm install npm@latest`.
 * Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
+
+## Draggable ghost row
+
+The `DraggableContext` component now includes a `CustomDragLayer` to enable a ghost row when dragging.
+
+In order to enable this you need to define the `draggableNode` prop on the `<WithDrag>` component. For example:
+
+```
+class DraggableItems extends React.Component {
+  render() {
+    return (
+      <DraggableContext onDrag={ onItemMoved }>
+        <ol>
+          {
+            items.map((item, index) => {
+              return (
+                <WithDrop key={ index } index={ index }>
+                  <DraggableItem />
+                </WithDrop>
+              );
+            });
+          }
+        </ol>
+      </DraggableContext>
+    );
+  }
+}
+
+...
+
+class DraggableItem extends React.Component {
+  render() {
+    return (
+      <li ref={ (node) => { this._listItem = node; } } >
+        <WithDrag draggableNode={ () => { return this._listItem; } }>
+          <span>{ item.content }</span>
+        </WithDrag>
+      </li>
+    );
+  }
+}
+```
+
+Note that the `draggableNode` is passed as a function because the ref `_listItem` is undefined until the component is mounted.
 
 # 1.4.4
 

@@ -13,6 +13,18 @@ class WithDrag extends React.Component {
      */
     children: PropTypes.node.isRequired,
 
+    /**
+     * A function that returns the dom node being dragged.
+     * It not used in this compnent but is passed to CustomDragLayer via the DragLayer higher order component
+     * You cannot pass a ref directly as the prop because it is undefined until mounted.
+     *
+     * @property draggableNode
+     * @type {Function}
+     */
+    /* eslint-disable react/no-unused-prop-types */
+    draggableNode: PropTypes.func,
+    /* eslint-enable react/no-unused-prop-types */
+
     // The following prop types are required by react-dnd,
     // and aren't used in this component directly. Therefore
     // disable the ESLint rule react/no-unused-prop-types

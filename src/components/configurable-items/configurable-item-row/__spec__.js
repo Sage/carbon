@@ -1,9 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import ConfigurableItemRow from './configurable-item-row';
 import Checkbox from './../../checkbox';
 import Icon from './../../icon';
 import { WithDrag, WithDrop } from './../../drag-and-drop';
+import DraggableContext from './../../drag-and-drop/draggable-context';
 import { rootTagTest } from './../../../utils/helpers/tags/tags-specs';
 
 describe('ConfigurableItemRow', () => {
@@ -140,13 +141,20 @@ describe('ConfigurableItemRow', () => {
 
   describe('icon', () => {
     beforeEach(() => {
-      wrapper = shallow(
-        <ConfigurableItemRow name='Foo' />
+      wrapper = mount(
+        <DraggableContext onDrag={() => {}}>
+          <ConfigurableItemRow name='Foo' />
+        </DraggableContext>
       );
     });
 
-    it('renders a drag vertical icon', () => {
-      expect(wrapper.find(Icon).props().type).toEqual('drag_vertical')
+    it('renders a drag vertical icon wrapped in WithDrag', () => {
+      wrapper.update(); // this is required because the _draggableNode ref is initially undefined.
+      const withDrag = wrapper.find(WithDrag);
+      const row = wrapper.find(ConfigurableItemRow);
+      expect(withDrag.length).toEqual(1);
+      expect(withDrag.find(Icon).props().type).toEqual('drag_vertical');
+      expect(withDrag.props().draggableNode()).toEqual(row.node._listItem)
     });
   });
 
@@ -157,8 +165,10 @@ describe('ConfigurableItemRow', () => {
       );
     });
 
-    it('renders an <li>', () => {
-      expect(wrapper.find('li').length).toEqual(1)
+    it('renders an <li> wrapped in WithDrop', () => {
+      const withDrop = wrapper.find(WithDrop);
+      expect(withDrop.length).toEqual(1);
+      expect(withDrop.find('li').length).toEqual(1);
     });
-  })
+  });
 });
