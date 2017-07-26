@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var yargs = require('yargs');
+var LintTask = require('carbon-factory/lib/gulp/lint').default;
 var BuildTask = require('carbon-factory/lib/gulp/build').default;
 var SpecTask = require('carbon-factory/lib/gulp/spec').default;
 var generateColors = require('./script/generate-demo-colors').default;
@@ -47,8 +48,23 @@ gulp.task('run-deploy', deploy);
 
 gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 gulp.task('deploy', ['prepare-demo', 'build', 'run-deploy']);
+gulp.task('lint', LintTask({
+  errorThreshold: 11,
+  warningThreshold: 2
+}));
 
 gulp.task('test', SpecTask({
-  path: '/src/***/**/!(__spec__|definition).js',
-  eslintThreshold: 11
+  errorThreshold: 11,
+  warningThreshold: 2,
+  jestConfig: {
+    preset: "./node_modules/carbon-factory/jest.conf.json",
+    coverageThreshold: {
+      global: {
+        branches: 90,
+        functions: 90,
+        lines: 90,
+        statements: 90
+      }
+    }
+  }
 }));
