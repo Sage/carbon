@@ -50,9 +50,28 @@ npm install --save carbon-react@2.0.0
 
 # 1.4.0
 
+## Dispatcher
+
+We now provide the Flux Dispatcher as a singleton within the Carbon library.
+
+```
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
+```
+
+Please note that you should only use one Dispatcher in your application, if you want to start using the one provided in Carbon you need to remove the pre-existing one from your application.
+
+## Logger
+
+Logger can now supply a option of `group` - this will group any logged messages together that share the same group name and that are triggered within 500ms of one another.
+
 ## Dependency Update
 
 * React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
+
+## New Components
+
+* `ConfigurableItems` Drag & Drop and check/uncheck a list of items
+* `ConfigurableItemRow` Used with ConfigurableItems to build the list of configurable items
 
 ## Linting Updates
 
@@ -80,6 +99,12 @@ The following have had minor internal changes to satisfy the introduction of str
 ## Minor Improvments
 
 * The `Poller` helper has been refactored to no longer use promises
+
+# 1.3.2
+
+## Bug Fixes
+
+* Our files are now published in production mode, removing some developer dependencies previously included.
 
 # 1.3.1
 
