@@ -16,7 +16,8 @@
   padding: 8.5px 14px;
 
   .carbon-table-row--dragging &,
-  .carbon-table-row--dragged {
+  .carbon-table-row--dragged,
+  .custom-drag-layer & {
     cursor: grabbing;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
