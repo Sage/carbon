@@ -170,24 +170,6 @@ describe('ConfigurableItemsContent', () => {
     });
   });
 
-  describe('html markup', () => {
-    wrapper = shallow(
-      <ConfigurableItemsContent
-        itemsData={itemsData}
-        onCancel={onCancel}
-        onChange={onChange}
-        onClick={onClick}
-        onDrag={onDrag}
-        onSave={onSave}
-        title='Foo'
-      />
-    );
-    it('renders an ordered list', () => {
-      const orderedList = wrapper.find('ol');
-      expect(orderedList.length).toEqual(1);
-    });
-  });
-
   describe("tags", () => {
     describe("on component", () => {
       let wrapper = shallow(

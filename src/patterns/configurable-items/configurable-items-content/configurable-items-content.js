@@ -62,22 +62,18 @@ class ConfigurableItemsContent extends React.Component {
 
   rows = (itemsData) => {
     return (
-      <ol className='carbon-configurable-items__items-wrapper'>
-        {
-          itemsData.map((item, rowIndex) => {
-            return (
-              <ConfigurableItemRow
-                enabled={ item.get('enabled') }
-                key={ rowIndex }
-                locked={ item.get('locked') }
-                name={ item.get('name') }
-                rowIndex={ rowIndex }
-                onChange={ this.onChange(rowIndex) }
-              />
-            );
-          })
-        }
-      </ol>
+      itemsData.map((item, rowIndex) => {
+        return (
+          <ConfigurableItemRow
+            enabled={ item.get('enabled') }
+            key={ rowIndex }
+            locked={ item.get('locked') }
+            name={ item.get('name') }
+            rowIndex={ rowIndex }
+            onChange={ this.onChange(rowIndex) }
+          />
+        );
+      })
     );
   }
 
