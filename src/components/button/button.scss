@@ -5,11 +5,13 @@
 @import "./../../style-config/buttons";
 
 .carbon-button {
+  align-items: center;
   border: $carbon-button__border--secondary;
   border-radius: $carbon-button__border-radius;
   box-sizing: border-box;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
   line-height: 16px;
   font-size: $app-font-size;
   font-weight: $carbon-button__font-weight;
@@ -35,10 +37,26 @@
   }
 
   &.carbon-button--large {
-    font-size: 16px;
     height: 43px;
-    padding: 12px 20px;
+    padding: 0 20px;
+
+    &.carbon-button--subtext {
+      .carbon-button__main-text {
+        font-size: 13px;
+      }
+
+      .carbon-button__subtext {
+        font-size: 12px;
+        font-weight: normal;
+      }
+    }
   }
+}
+
+.carbon-button__internal-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @mixin button-theme($theme, $color, $hover, $active, $text-color) {

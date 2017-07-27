@@ -1,4 +1,7 @@
+import Flux from 'flux';
 import { assign } from 'lodash';
+
+export const Dispatcher = new Flux.Dispatcher();
 
 /**
  * Connects a view component to one or more flux based stores.
@@ -26,7 +29,7 @@ import { assign } from 'lodash';
  * @param {Object|Array} stores The store(s) you want to connect to the ComposedView.
  * @return {Class} An enhanced version of the ComposedView to work with flux stores.
  */
-export function connect(ComposedView, stores) { // eslint-disable-line import/prefer-default-export
+export function connect(ComposedView, stores) {
   // Build an object mapping any stores passed to the connect function, using
   // the store's class name as the key.
 

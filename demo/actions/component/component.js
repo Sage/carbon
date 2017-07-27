@@ -78,10 +78,34 @@ const ComponentActions = {
       dragIndex,
       hoverIndex,
     });
+  },
+
+  updateConfigurableItemsData: (dragIndex, hoverIndex) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.UPDATE_CONFIGURABLE_ITEMS,
+      dragIndex,
+      hoverIndex,
+    });
+  },
+
+  updateConfigurableItem: (rowIndex) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.UPDATE_CONFIGURABLE_ITEM,
+      rowIndex
+    });
+  },
+
+  resetConfigurableItemsData: () => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.RESET_CONFIGURABLE_ITEM_DATA
+    });
   }
 };
 
 // required for dnd demo:
 global.updateDndData = ComponentActions.updateDndData;
+global.updateConfigurableItemsData = ComponentActions.updateConfigurableItemsData;
+global.updateConfigurableItem = ComponentActions.updateConfigurableItem;
+global.resetConfigurableItemsData = ComponentActions.resetConfigurableItemsData;
 
 export default ComponentActions;

@@ -1,10 +1,8 @@
 import React from 'react';
 import Flux from 'flux';
-import { connect } from './flux';
+import { connect, Dispatcher } from './flux';
 import Textbox from './../../components/textbox';
 import Store from './store';
-
-let Dispatcher = new Flux.Dispatcher();
 
 class BaseStore1 extends Store {}
 
@@ -40,8 +38,14 @@ class View extends React.Component {
   }
 }
 
-let baseStore1 = new BaseStore1('BaseStore1', { text: 'text' }, Dispatcher);
-let baseStore2 = new BaseStore2('BaseStore2', {}, Dispatcher);
+let baseStore1 = new BaseStore1('BaseStore1', { text: 'text' });
+let baseStore2 = new BaseStore2('BaseStore2', {});
+
+describe('Dispatcher', () => {
+  it('returns a dispatcher', () => {
+    expect(Dispatcher instanceof Flux.Dispatcher).toBeTruthy();
+  });
+});
 
 describe('Connect', () => {
   describe('Add Store', () => {
