@@ -1,8 +1,13 @@
 # 1.3.5
 
+## Bug Fixes
+
 * Flips errors messages in dialogs if they appear wider than the dialog.
+* `ButtonToggle`: The buttons can now be toggled using the keyboard
 
 # 1.3.4
+
+## Bug Fixes
 
 * Resolved bug in IE11 where sticky footer was rendering too large in dialogs.
 

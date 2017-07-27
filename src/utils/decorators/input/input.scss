@@ -108,9 +108,7 @@
 
   &:active,
   &:focus {
-    border-color: $input-active-border-color;
-    box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
-    @include transition(box-shadow linear 0.1s);
+    @include input-outline($input-active-border-color);
   }
 
   .common-input--disabled &,
