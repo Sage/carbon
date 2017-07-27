@@ -49,8 +49,8 @@ gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 gulp.task('deploy', ['prepare-demo', 'build', 'run-deploy']);
 
 gulp.task('test', SpecTask({
-  errorThreshold: 1,
-  warningThreshold: 100,
+  errorThreshold: 20,
+  warningThreshold: 1,
   jestConfig: {
     preset: "./node_modules/carbon-factory/jest.conf.json"
     "coverageThreshold": {
