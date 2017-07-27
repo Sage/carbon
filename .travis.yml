@@ -13,4 +13,5 @@ install:
   - npm install
 
 script:
-  - gulp test --build
+  - npm run test -i
+  - gulp lint
