@@ -9,6 +9,7 @@ export default {
   'button-toggle':        require('components/button-toggle/definition').default,
   'carousel':             require('components/carousel/definition').default,
   'checkbox':             require('components/checkbox/definition').default,
+  'configurable-items':   require('components/configurable-items/definition').default,
   'confirm':              require('components/confirm/definition').default,
   'content':              require('components/content/definition').default,
   'create':               require('components/create/definition').default,

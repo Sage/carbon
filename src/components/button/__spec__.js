@@ -194,6 +194,39 @@ describe('Button', () => {
     });
   });
 
+  describe('subtext prop', () => {
+    describe('rendered correctly', () => {
+      beforeEach(() => {
+        wrapper.setProps({ size: 'large', subtext: 'Test' });
+      });
+      it('adds a modify class', () => {
+        expect(wrapper.find('.carbon-button--subtext').length).toEqual(1);
+      });
+      it('outputs in the correct child element', () => {
+        const subtextElement = wrapper.find('[data-element="subtext"]');
+        expect(subtextElement.text()).toEqual('Test');
+      });
+    });
+
+    describe('invalid states', () => {
+      const sizesForInvalid = [
+        'small',
+        'medium'
+      ];
+
+      beforeEach(() => {
+        spyOn(window, 'Error');
+      });
+
+      sizesForInvalid.forEach((size) => {
+        it(`throws an error if it is used on a ${size} button`, () => {
+          shallow(<Button size={ size } subtext='Test'>Test</Button>);
+          expect(window.Error).toHaveBeenCalledWith('subtext prop has no effect unless the button is large');
+        });
+      });
+    });
+  });
+
   describe("tags on component", () => {
     let wrapper = shallow(<Button data-element='bar' data-role='baz'>Test</Button>);
 
