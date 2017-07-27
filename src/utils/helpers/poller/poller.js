@@ -109,7 +109,7 @@ function getQueryOptions(queryOptions) {
 function getOptions(options) {
   return {
     interval: options.interval || 3000,
-    endTime: Number(new Date()) + options.endTime || Infinity,
+    endTime: Date.now() + options.endTime || Infinity,
     retries: options.retries || Infinity
   };
 }

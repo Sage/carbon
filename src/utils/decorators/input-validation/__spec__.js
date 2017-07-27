@@ -6,6 +6,8 @@ import InputLabel from './../input-label';
 import Form from 'components/form';
 import { shallow, mount } from 'enzyme';
 
+/* global jest */
+
 let validationOne = {
   validate: function() {
     return true;
@@ -895,17 +897,13 @@ describe('InputValidation', () => {
 
   describe('_handleBlur', () => {
     beforeEach(() => {
-      jasmine.clock().install();
-    });
-
-    afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.useFakeTimers();
     });
 
     it('calls validate on blur of the input', () => {
       spyOn(instance, 'validate');
       instance._handleBlur();
-      jasmine.clock().tick(0);
+      jest.runTimersToTime(0);
       expect(instance.validate).toHaveBeenCalled();
     });
 
@@ -914,7 +912,7 @@ describe('InputValidation', () => {
         instance.setState({ messageLocked: true });
         spyOn(instance, 'setState');
         instance._handleBlur();
-        jasmine.clock().tick(0);
+        jest.runTimersToTime(0);
         expect(instance.setState).toHaveBeenCalledWith({ messageLocked: false });
       });
     });

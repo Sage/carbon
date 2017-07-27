@@ -768,18 +768,11 @@ ElementResize     *
  * @return {Object} JSX hidden CSRF token
  */
 function generateCSRFToken(doc) {
-  const meta = doc.getElementsByTagName('meta');
-  let csrfAttr, csrfValue;
+  const csrfParam = doc.querySelector('meta[name="csrf-param"]');
+  const csrfToken = doc.querySelector('meta[name="csrf-token"]');
 
-  for (let i = 0; i < meta.length; i++) {
-    const item = meta[i];
-
-    if (item.getAttribute('name') === 'csrf-param') {
-      csrfAttr = item.getAttribute('content');
-    } else if (item.getAttribute('name') === 'csrf-token') {
-      csrfValue = item.getAttribute('content');
-    }
-  }
+  const csrfAttr = csrfParam ? csrfParam.getAttribute('content') : '';
+  const csrfValue = csrfToken ? csrfToken.getAttribute('content') : '';
 
   return <input type='hidden' name={ csrfAttr } value={ csrfValue } readOnly='true' />;
 }

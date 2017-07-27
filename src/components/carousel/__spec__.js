@@ -4,8 +4,11 @@ import { shallow } from 'enzyme';
 import { Carousel, Slide } from './carousel';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
+/* global jest */
+
 describe('Carousel', () => {
   let instance;
+
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Carousel className='foobar'>
@@ -144,15 +147,12 @@ describe('Carousel', () => {
     });
 
     it('sets the disabled state to false', () => {
-      jasmine.clock().install();
-
+      jest.useFakeTimers();
       instance.setState({ disabled: true });
       instance.enableButtonsAfterTimeout();
-      jasmine.clock().tick(750);
+      jest.runTimersToTime(750);
 
       expect(instance.state.disabled).toBeFalsy();
-
-      jasmine.clock().uninstall();
     });
   });
 

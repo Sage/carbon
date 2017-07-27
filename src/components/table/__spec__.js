@@ -508,11 +508,7 @@ describe('Table', () => {
 
   describe('resetTableHeight', () => {
     beforeEach(() => {
-      jasmine.clock().install()
-    });
-
-    afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.useFakeTimers();
     });
 
     it('Resets the table wrapper height to the tableOffset', () => {
@@ -522,7 +518,7 @@ describe('Table', () => {
       instance.tableHeight = 100;
 
       instance.resetTableHeight();
-      jasmine.clock().tick();
+      jest.runTimersToTime(0);
 
       expect(instance._wrapper.style.minHeight).toEqual('50px');
       expect(instance.tableHeight).toEqual('50');

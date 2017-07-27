@@ -66,11 +66,11 @@ describe('Logger', () => {
   describe('groups', () => {
     beforeEach(() => {
       spyOn(console, 'warn');
-      jasmine.clock().install();
+      jest.useFakeTimers();
     });
 
     afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.clearAllTimers();
     });
 
     it('creates a group and console logs after a delay', () => {
@@ -79,7 +79,7 @@ describe('Logger', () => {
       Logger.deprecate('Three', { group: 'test' });
       Logger.deprecate('Four', { group: 'different group' });
       expect(console.warn).not.toHaveBeenCalled();
-      jasmine.clock().tick(500);
+      jest.runTimersToTime(500);
       expect(console.warn).toHaveBeenCalledWith('[Deprecation] One', {
         all: ['[Deprecation] One', '[Deprecation] Two', '[Deprecation] Three']
       });
