@@ -49,6 +49,17 @@ gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 gulp.task('deploy', ['prepare-demo', 'build', 'run-deploy']);
 
 gulp.task('test', SpecTask({
-  path: '/src/***/**/!(__spec__|definition).js',
-  eslintThreshold: 11
+  errorThreshold: 11,
+  warningThreshold: 2,
+  jestConfig: {
+    preset: "./node_modules/carbon-factory/jest.conf.json",
+    coverageThreshold: {
+      global: {
+        branches: 90,
+        functions: 90,
+        lines: 90,
+        statements: 90
+      }
+    }
+  }
 }));
