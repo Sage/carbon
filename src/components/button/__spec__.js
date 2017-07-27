@@ -196,8 +196,9 @@ describe('Button', () => {
 
   describe('subtext prop', () => {
     describe('rendered correctly', () => {
+      let wrapper;
       beforeEach(() => {
-        wrapper.setProps({ size: 'large', subtext: 'Test' });
+        wrapper = shallow(<Button size='large' subtext='Test'>A Button</Button>);
       });
       it('adds a modify class', () => {
         expect(wrapper.find('.carbon-button--subtext').length).toEqual(1);
