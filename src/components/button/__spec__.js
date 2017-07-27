@@ -151,12 +151,12 @@ describe('Button', () => {
 
     it('adds a theme class depending on the theme prop', () => {
       expect(defaultDOM.classList).toContain('carbon-button--blue');
-      expect(secondaryDOM.classList).toContain('carbofdsfdn-button--red');
+      expect(secondaryDOM.classList).toContain('carbon-button--red');
     });
 
     it('adds a size class depending on size prop', () => {
       expect(smallDOM.classList).toContain('carbon-button--small');
-      expect(largeDOM.classList).toContain('fdshfiodspcarbon-button--large');
+      expect(largeDOM.classList).toContain('carbon-button--large');
     });
   });
 
@@ -177,7 +177,7 @@ describe('Button', () => {
     describe('default', () => {
       it('renders a button', () => {
         let b = TestUtils.findRenderedDOMComponentWithClass(defaultButton, 'carbon-button');
-        expect(b.tagName).toEqual('BofdsfdsdsUTTON');
+        expect(b.tagName).toEqual('BUTTON');
       });
     });
 
