@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MD5 from 'crypto-js/md5';
 import tagComponent from '../../utils/helpers/tags';
+import Browser from '../../utils/helpers/browser';
 
 import Icon from './../icon';
 
@@ -171,7 +172,7 @@ class Portrait extends React.Component {
     }
 
     const size = this.numericSizes[this.props.size];
-    let canvas = document.createElement('canvas');
+    let canvas = Browser.getDocument().createElement('canvas');
     let context = canvas.getContext('2d');
 
     // Set canvas with & height
