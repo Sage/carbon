@@ -49,16 +49,16 @@ gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 gulp.task('deploy', ['prepare-demo', 'build', 'run-deploy']);
 
 gulp.task('test', SpecTask({
-  errorThreshold: 20,
+  errorThreshold: 11,
   warningThreshold: 1,
   jestConfig: {
-    preset: "./node_modules/carbon-factory/jest.conf.json"
-    "coverageThreshold": {
-      "global": {
-        "branches": 50,
-        "functions": 50,
-        "lines": 50,
-        "statements": 50
+    preset: "./node_modules/carbon-factory/jest.conf.json",
+    coverageThreshold: {
+      global: {
+        branches: 50,
+        functions: 50,
+        lines: 50,
+        statements: 50
       }
     }
   }
