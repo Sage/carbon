@@ -1,7 +1,6 @@
 import Logger from './';
 
 describe('Logger', () => {
-
   it('Outputs to the console', () => {
     Logger.setEnabledState(true);
     spyOn(console, 'warn');
@@ -60,6 +59,29 @@ describe('Logger', () => {
         spyOn(console, 'warn');
         Logger.deprecate('Hello World!');
         expect(console.warn).toHaveBeenCalledWith('[Deprecation] Hello World!');
+      });
+    });
+  });
+
+  describe('groups', () => {
+    beforeEach(() => {
+      spyOn(console, 'warn');
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.clearAllTimers();
+    });
+
+    it('creates a group and console logs after a delay', () => {
+      Logger.deprecate('One', { group: 'test' });
+      Logger.deprecate('Two', { group: 'test' });
+      Logger.deprecate('Three', { group: 'test' });
+      Logger.deprecate('Four', { group: 'different group' });
+      expect(console.warn).not.toHaveBeenCalled();
+      jest.runTimersToTime(500);
+      expect(console.warn).toHaveBeenCalledWith('[Deprecation] One', {
+        all: ['[Deprecation] One', '[Deprecation] Two', '[Deprecation] Three']
       });
     });
   });

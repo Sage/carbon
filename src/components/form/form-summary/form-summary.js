@@ -101,7 +101,7 @@ const summary = (props, key) => {
         <span
           className='carbon-form-summary__text'
           data-element={ pluralize(key) }
-          dangerouslySetInnerHTML={ { __html: translation(props, key) } }
+          dangerouslySetInnerHTML={ { __html: translation(props, key) } } // eslint-disable-line react/no-danger
         />
       </span>
     );
@@ -128,11 +128,11 @@ const FormSummary = props =>
 
 FormSummary.propTypes = {
   children: PropTypes.node,
-  errors: PropTypes.oneOfType([
+  errors: PropTypes.oneOfType([ // eslint-disable-line react/no-unused-prop-types
     PropTypes.string,
     PropTypes.number
   ]),
-  warnings: PropTypes.oneOfType([
+  warnings: PropTypes.oneOfType([ // eslint-disable-line react/no-unused-prop-types
     PropTypes.string,
     PropTypes.number
   ])

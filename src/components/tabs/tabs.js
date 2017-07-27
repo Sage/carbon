@@ -208,7 +208,7 @@ class Tabs extends React.Component {
           for (const index in children) {
             const child = children[index];
 
-            if (child.props.tabId == hash) {
+            if (child.props.tabId === hash) {
               useHash = true;
               break;
             }
@@ -369,7 +369,7 @@ class Tabs extends React.Component {
     let visibleTab;
 
     compact(React.Children.toArray(this.props.children)).forEach((child) => {
-      if (child.props.tabId == this.state.selectedTabId) {
+      if (child.props.tabId === this.state.selectedTabId) {
         visibleTab = child;
       }
     });
