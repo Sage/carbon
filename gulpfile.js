@@ -52,14 +52,6 @@ gulp.task('test', SpecTask({
   errorThreshold: 11,
   warningThreshold: 2,
   jestConfig: {
-    preset: "./node_modules/carbon-factory/jest.conf.json",
-    coverageThreshold: {
-      global: {
-        branches: 90,
-        functions: 90,
-        lines: 90,
-        statements: 90
-      }
-    }
+    preset: "./node_modules/carbon-factory/jest.conf.json"
   }
 }));
