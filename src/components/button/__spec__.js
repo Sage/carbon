@@ -196,12 +196,16 @@ describe('Button', () => {
 
   describe('subtext prop', () => {
     describe('rendered correctly', () => {
+      let wrapper = shallow(<Button data-role='contacts' data-element='button'>A Button</Button>);
+
       beforeEach(() => {
         wrapper.setProps({ size: 'large', subtext: 'Test' });
       });
+
       it('adds a modify class', () => {
         expect(wrapper.find('.carbon-button--subtext').length).toEqual(1);
       });
+
       it('outputs in the correct child element', () => {
         const subtextElement = wrapper.find('[data-element="subtext"]');
         expect(subtextElement.text()).toEqual('Test');
