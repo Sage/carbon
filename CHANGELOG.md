@@ -1,3 +1,7 @@
+# 1.3.5
+
+* Flips errors messages in dialogs if they appear wider than the dialog.
+
 # 1.3.4
 
 * Resolved bug in IE11 where sticky footer was rendering too large in dialogs.
