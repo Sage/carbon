@@ -256,7 +256,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
       if (icon && message && message.offsetHeight) {
         let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2));
         const topOffset = icon.offsetTop - icon.offsetHeight,
-              messageOffsetWidth = message.offsetWidth;
+            messageOffsetWidth = message.offsetWidth;
 
         // set initial position for message
         message.style.left = `${messagePositionLeft}px`;
