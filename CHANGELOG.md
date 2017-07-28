@@ -51,6 +51,26 @@ The following have had minor internal changes to satisfy the introduction of str
 
 * The `Poller` helper has been refactored to no longer use promises
 
+# 1.3.5
+
+## Bug Fixes
+
+* Flips errors messages in dialogs if they appear wider than the dialog.
+* `ButtonToggle`: The buttons can now be toggled using the keyboard
+
+# 1.3.4
+
+## Bug Fixes
+
+* Resolved bug in IE11 where sticky footer was rendering too large in dialogs.
+
+# 1.3.3
+
+## Bug Fixes
+
+* Added additional guards for browsers that do not support `element.contentDocument`.
+>>>>>>> release
+
 # 1.3.2
 
 ## Bug Fixes

@@ -153,8 +153,8 @@
   padding: 10px;
   position: absolute;
   text-align: center;
+  width: 100%;
   width: fit-content;
-  width: -moz-fit-content;
   z-index: $z-validation-message;
 
   &:before {
