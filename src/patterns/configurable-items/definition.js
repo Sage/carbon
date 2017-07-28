@@ -11,7 +11,7 @@ let definition = new Definition('configurable-items-pattern', ConfigurableItemsP
   hiddenProps: ['itemsData'],
   propValues: {
     itemsData: `configurableItemsData`,
-    onSave: `() => {}`,
+    onSave: `configurableItemsOnSave`,
     title: 'Configure Items'
   },
   propTypes: {
@@ -39,5 +39,10 @@ definition.openPreview = true;
 definition.onOpenPreview = function onOpenPreview() {
   ConfigurableItemsActions.toggleDialogOpen()
 };
+
+global.configurableItemsOnSave = (event) => {
+  event.preventDefault();
+  ConfigurableItemsActions.toggleDialogOpen()
+}
 
 export default definition;
