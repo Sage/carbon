@@ -69,7 +69,6 @@ The following have had minor internal changes to satisfy the introduction of str
 ## Bug Fixes
 
 * Added additional guards for browsers that do not support `element.contentDocument`.
->>>>>>> release
 
 # 1.3.2
 
