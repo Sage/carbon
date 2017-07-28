@@ -49,6 +49,7 @@ The following have had minor internal changes to satisfy the introduction of str
 * `Form` now has additional props of `leftAlignedActions` and `rightAlignedActions` which allows developers to add additional nodes in line with the default form actions.
 * `Button`: Makes large button text the same as the medium button
 * `Button`: Allows secondary text under main text [#1385](https://github.com/Sage/carbon/issues/1385)
+* `ButtonToggle`: The buttons can now be toggled using the keyboard
 
 ## Minor Improvments
 
