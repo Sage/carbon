@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from './../icon';
-import css from './../../utils/css';
 import Input from './../../utils/decorators/input';
 import { validProps } from './../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
@@ -63,7 +62,7 @@ class ButtonToggle extends React.Component {
    * @return {String} input className
    */
   get inputClasses() {
-    return classNames('carbon-button-toggle__input', css.hidden);
+    return classNames('carbon-button-toggle__input');
   }
 
   /**
@@ -96,7 +95,7 @@ class ButtonToggle extends React.Component {
   get inputProps() {
     const { ...props } = validProps(this);
     delete props.children;
-    props.className = this.inputClasses;
+    props.className = 'carbon-button-toggle__input';
     props.type = 'radio';
     if (!props.id) {
       props.id = this._guid;
