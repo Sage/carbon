@@ -255,14 +255,15 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
 
       if (icon && message && message.offsetHeight) {
         let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2));
-        const topOffset = icon.offsetTop - icon.offsetHeight;
+        const topOffset = icon.offsetTop - icon.offsetHeight,
+              messageOffsetWidth = message.offsetWidth;
 
         // set initial position for message
         message.style.left = `${messagePositionLeft}px`;
         message.style.top = `-${message.offsetHeight - topOffset}px`;
 
         // figure out if the message is positioned offscreen
-        const messageScreenPosition = message.getBoundingClientRect().left + message.offsetWidth;
+        const messageScreenPosition = message.getBoundingClientRect().left + messageOffsetWidth;
 
         let shouldFlip = false;
 
@@ -270,14 +271,14 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
         if (this.context.modal && this.context.modal.getDialog()) {
           // if in a modal check its position relative to that
           const dialog = this.context.modal.getDialog();
-          shouldFlip = (message.offsetLeft + this._target.offsetLeft + message.offsetWidth) > dialog.offsetWidth;
+          shouldFlip = (message.offsetLeft + this._target.offsetLeft + messageOffsetWidth) > dialog.offsetWidth;
         } else {
           // otherwise check relative to the window
           shouldFlip = messageScreenPosition > this._window.innerWidth;
         }
 
         if (shouldFlip) {
-          messagePositionLeft -= message.offsetWidth;
+          messagePositionLeft -= messageOffsetWidth;
           message.style.left = `${messagePositionLeft}px`;
           message.className += ' common-input__message--flipped';
           this.flipped = true;
