@@ -1,3 +1,7 @@
+# 1.3.4
+
+* Resolved bug in IE11 where sticky footer was rendering too large in dialogs.
+
 # 1.3.3
 
 ## Bug Fixes
