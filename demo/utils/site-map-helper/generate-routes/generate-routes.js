@@ -2,15 +2,15 @@ import React from 'react';
 import { Route } from 'react-router';
 import Document from './../../../views/pages/document';
 
-export default obj => {
+export default (obj) => {
   return generateRoutesFor(obj);
-}
+};
 
 const generateRoutesFor = (obj) => {
-  let arr = [];
+  const arr = [];
 
-  for (let key in obj) {
-    let value = obj[key];
+  for (const key in obj) {
+    const value = obj[key];
 
     if (value.component) {
       arr.push(
@@ -30,4 +30,4 @@ const generateRoutesFor = (obj) => {
   }
 
   return arr;
-}
+};

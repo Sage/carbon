@@ -4,6 +4,7 @@ import TestUtils from 'react-dom/test-utils';
 import InputValidation from './input-validation';
 import InputLabel from './../input-label';
 import Form from 'components/form';
+import Dialog from 'components/dialog';
 import { shallow, mount } from 'enzyme';
 
 /* global jest */
@@ -93,7 +94,7 @@ let form = {
 
 class DummyInputWithoutLifecycleMethods extends React.Component {
   render() {
-    return <div>{ this.validationHTML }</div>;
+    return <div ref={ (c) => { this._target = c } }><input { ...this.inputProps } />{ this.validationHTML }</div>;
   }
 }
 
@@ -361,6 +362,46 @@ describe('InputValidation', () => {
             instance.positionMessage();
             expect(instance.validationMessage.style.left).toEqual('25px');
             expect(removeSpy).toHaveBeenCalledWith('common-input__message--flipped');
+          });
+        });
+
+        describe('when in a modal and offscreen', () => {
+          let wrapper;
+
+          beforeEach(() => {
+            jasmine.clock().install();
+            wrapper = mount(
+              <Dialog open>
+                <Component validations={[validationThree]} />
+              </Dialog>
+            );
+          });
+
+          afterEach(() => {
+            jasmine.clock().uninstall();
+          });
+
+          it('sets the class to flipped', () => {
+            Component;
+            const input = wrapper.find('input');
+            input.simulate('blur');
+            jasmine.clock().tick(0);
+            input.simulate('focus');
+            wrapper.instance()._dialog = {
+              offsetWidth: 10
+            };
+            wrapper.find(Component).node.validationMessage = {
+              className: "",
+              offsetWidth: 10,
+              offsetLeft: 10,
+              offsetHeight: 10,
+              style: {},
+              getBoundingClientRect: () => {
+                return {};
+              }
+            };
+            input.simulate('focus');
+            expect(wrapper.find(Component).node.validationMessage.className).toEqual(' common-input__message--flipped');
           });
         });
 

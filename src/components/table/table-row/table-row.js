@@ -147,12 +147,6 @@ class TableRow extends React.Component {
 
   static safeProps = ['onClick']
 
-  /**
-   * Sort handler passed from table context
-   *
-   * @property onSort
-   * @type {Function}
-   */
   static contextTypes = {
     attachToTable: PropTypes.func, // attach the row to the table
     detachFromTable: PropTypes.func, // detach the row from the table

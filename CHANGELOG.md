@@ -29,6 +29,10 @@ Logger can now supply a option of `group` - this will group any logged messages 
 * `ConfigurableItems` Drag & Drop and check/uncheck a list of items
 * `ConfigurableItemRow` Used with ConfigurableItems to build the list of configurable items
 
+## New Patterns
+
+* `ConfigurableItemsPattern` Combines ConfigurableItems and ConfigurableItemRow components
+
 ## Linting Updates
 
 The following have had minor internal changes to satisfy the introduction of stricter linting rules:
@@ -56,6 +60,25 @@ The following have had minor internal changes to satisfy the introduction of str
 ## Minor Improvments
 
 * The `Poller` helper has been refactored to no longer use promises
+
+# 1.3.5
+
+## Bug Fixes
+
+* Flips errors messages in dialogs if they appear wider than the dialog.
+* `ButtonToggle`: The buttons can now be toggled using the keyboard
+
+# 1.3.4
+
+## Bug Fixes
+
+* Resolved bug in IE11 where sticky footer was rendering too large in dialogs.
+
+# 1.3.3
+
+## Bug Fixes
+
+* Added additional guards for browsers that do not support `element.contentDocument`.
 
 # 1.3.2
 

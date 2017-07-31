@@ -1,4 +1,5 @@
 import Definitions from './definitions';
+import PatternDefinitions from './pattern-definitions';
 import Colors from './views/pages/style/colors';
 import Icons from './views/pages/style/icons';
 import Component from './views/pages/component';
@@ -12,19 +13,23 @@ const tutorialsPath = '/docs/tutorials';
 //  * items (a hash of sub-routes)
 //  * filter (will enable a filter over the route's sub-routes)
 export default new SiteMapHelper({
-  "/getting-started": {
+  '/getting-started': {
     items: {
-      "setting-up-your-environment": `${guidesPath}/setting-up-your-environment.md`,
-      "hello-world":                 `${guidesPath}/getting-started.md`,
-      "a-basic-example-of-flux":     `${guidesPath}/a-basic-example.md`
+      'setting-up-your-environment': `${guidesPath}/setting-up-your-environment.md`,
+      'hello-world': `${guidesPath}/getting-started.md`,
+      'a-basic-example-of-flux': `${guidesPath}/a-basic-example.md`
     }
   },
-  "/components/:name": {
+  '/components/:name': {
     component: Component,
-    items:     Object.keys(Definitions),
-    filter:    true
+    items: Object.keys(Definitions),
+    filter: true
   },
-  "/style": {
+  '/patterns/:name': {
+    component: Component,
+    items: Object.keys(PatternDefinitions)
+  },
+  '/style': {
     items: {
       colors: {
         component: Colors
@@ -34,23 +39,23 @@ export default new SiteMapHelper({
       }
     }
   },
-  "/guides": {
+  '/guides': {
     items: {
-      "flux":                   `${guidesPath}/flux.md`,
-      "immutable":              `${guidesPath}/immutable.md`,
-      "validations":            `${guidesPath}/validations.md`,
-      "assets":                 `${guidesPath}/assets.md`,
-      "decorators":             `${guidesPath}/decorators.md`,
-      "handlers":               `${guidesPath}/handlers.md`,
-      "retrieving-data":        `${guidesPath}/retrieving-data.md`,
-      "integrating-other-code": `${guidesPath}/integrating-with-other-ui.md`,
+      flux: `${guidesPath}/flux.md`,
+      immutable: `${guidesPath}/immutable.md`,
+      validations: `${guidesPath}/validations.md`,
+      assets: `${guidesPath}/assets.md`,
+      decorators: `${guidesPath}/decorators.md`,
+      handlers: `${guidesPath}/handlers.md`,
+      'retrieving-data': `${guidesPath}/retrieving-data.md`,
+      'integrating-other-code': `${guidesPath}/integrating-with-other-ui.md`
     }
   },
-  "/tutorials": {
+  '/tutorials': {
     items: {
-      "rails-part-1:-hello-world":      `${tutorialsPath}/carbon-rails/hello-world.md`,
-      "rails-part-2:-introducing-data": `${tutorialsPath}/carbon-rails/introducing-data.md`,
-      "rails-part-2:-updating-data":    `${tutorialsPath}/carbon-rails/updating-data.md`
+      'rails-part-1:-hello-world': `${tutorialsPath}/carbon-rails/hello-world.md`,
+      'rails-part-2:-introducing-data': `${tutorialsPath}/carbon-rails/introducing-data.md`,
+      'rails-part-2:-updating-data': `${tutorialsPath}/carbon-rails/updating-data.md`
     }
-  },
+  }
 });
