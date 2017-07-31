@@ -19,7 +19,7 @@ describe('ButtonToggle', () => {
 
   describe('input classes', () => {
     it('returns the classes for the input', () => {
-      expect(instance.inputClasses).toEqual('carbon-button-toggle__input hidden common-input__input');
+      expect(instance.inputClasses).toEqual('carbon-button-toggle__input common-input__input');
     });
   });
 
