@@ -23,6 +23,10 @@ Logger can now supply a option of `group` - this will group any logged messages 
 * `ConfigurableItems` Drag & Drop and check/uncheck a list of items
 * `ConfigurableItemRow` Used with ConfigurableItems to build the list of configurable items
 
+## New Patterns
+
+* `ConfigurableItemsPattern` Combines ConfigurableItems and ConfigurableItemRow components
+
 ## Linting Updates
 
 The following have had minor internal changes to satisfy the introduction of stricter linting rules:

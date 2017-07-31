@@ -214,7 +214,6 @@ describe('poller', () => {
       describe('if no custom handleError function is avaliable', () => {
         beforeEach(() => {
           Poller({ url }, functions, { interval: 1000 });
-
           const request = jasmine.Ajax.requests.mostRecent();
           request.respondWith({
             // Disabling the quotes and quote-props here, otherwise
