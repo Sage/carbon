@@ -87,8 +87,8 @@
 .carbon-form:not(.carbon-form--sticky-footer),
 .carbon-dialog__dialog--fixed-bottom {
   .carbon-form__buttons {
-    max-width: initial;
-    min-width: initial;
+    max-width: inherit;
+    min-width: inherit;
     padding: 0;
   }
 }

@@ -124,9 +124,20 @@ class Modal extends React.Component {
   getChildContext() {
     return {
       modal: {
-        onCancel: this.props.onCancel
+        onCancel: this.props.onCancel,
+        getDialog: this.getDialog
       }
     };
+  }
+
+  /**
+   * Returns the reference to the dialog if it exists.
+   *
+   * @method getDialog
+   * @return {HTMLElement}
+   */
+  getDialog = () => {
+    return this._dialog;
   }
 
   /**
@@ -213,7 +224,6 @@ class Modal extends React.Component {
 
     return (
       <div
-        ref={ (c) => { this._input = c; } }
         className={ this.mainClasses }
         { ...this.componentTags(this.props) }
       >
