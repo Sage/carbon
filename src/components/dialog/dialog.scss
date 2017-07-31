@@ -1,16 +1,18 @@
 @import "./../../style-config/colors";
 @import "./../../style-config/z-index";
 
-$dialog-padding: 20px;
-
 .carbon-dialog__dialog {
   background-color: $grey-light;
   border-radius: 5px;
-  box-shadow: 0 4px 8px #555;
-  padding: $dialog-padding;
+  box-shadow: 0 10px 20px rgba($grey-shadow, 0.2);
+  padding: 23px 35px 30px;
   position: absolute;
   top: 50%;
   z-index: $z-dialog;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .carbon-dialog__dialog--extra-small   { width: 300px; }
@@ -27,14 +29,20 @@ $dialog-padding: 20px;
 
 .carbon-dialog__title .carbon-heading {
   padding-top: 0;
+
+  .carbon-heading__title {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 30px;
+  }
 }
 
 .carbon-dialog__close {
-  color: $grey-dark-blue-60;
+  color: $grey-dark-blue-70;
   cursor: pointer;
   position: absolute;
-  right: $dialog-padding;
-  top: 25px;
+  right: 35px;
+  top: 35px;
   z-index: 1;
 
   &:hover {
