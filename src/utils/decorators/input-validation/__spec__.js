@@ -369,7 +369,7 @@ describe('InputValidation', () => {
           let wrapper;
 
           beforeEach(() => {
-            jasmine.clock().install();
+            jest.useFakeTimers();
             wrapper = mount(
               <Dialog open>
                 <Component validations={[validationThree]} />
@@ -378,14 +378,15 @@ describe('InputValidation', () => {
           });
 
           afterEach(() => {
-            jasmine.clock().uninstall();
+            jest.clearAllTimers();
+            jest.useRealTimers();
           });
 
           it('sets the class to flipped', () => {
             Component;
             const input = wrapper.find('input');
             input.simulate('blur');
-            jasmine.clock().tick(0);
+            jest.runTimersToTime(0);
             input.simulate('focus');
             wrapper.instance()._dialog = {
               offsetWidth: 10
