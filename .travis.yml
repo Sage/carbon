@@ -16,10 +16,8 @@ deploy:
   bucket: 'carbon.sage.com'
   skip_cleanup: true
   local_dir: deploy
-  upload-dir: travis
-  # tags: true
   on:
-    branch: travis_deploy_test
+    branch: release
   access_key_id:
     secure: iZx7SkuMjUMXLVQNO5LSjF6EfQeqGbgdGtPg0hfzVIEcS5s/79j5aq8aQJ7EjCXM+yPRDZMaXB+StXOZjNhEbKLYt2mZDyMki3gAII2QM2MAeI5YtltgJHlXClsMjFiomTbRPo/F9CnIerRBdAFUmQXh2BVSdz86ptsLWs9SrcSjgN/RM6bWSaFYbyckyRVQZVipHYN1vmbEw8ZNZGSQTEPyi3Pw4nXMJ+9ro/72Pt5Ioo3a/praWJL9I5hEc6uBAfFZTtsg70txARaSOycoHxQT8S/xfIzfPQXSmj3n4MTMMCOi3CyJFJfTOdHnQ2ylSllae3zLgIJv1dPQoRuPrB0A1loG2BA+1PXA7KZrwBzYty20XMM2o2tB4mlkKh8p1gOjdsAyRT415kDkEvGpw/b+jFPQ+mAg67ELCJz/HTvBvrKF8nAGsoiG0A1Bi89wxi2riMjAZ2VzbTHrTq/Lp/MlJYt4Z44CXVSKXlKBVKwlDVS7+OIp5QAC0AggtJGFb4kvS/6zUnoykM/lsRBX99lsMURlpGq/EKC5B4iU26NWvF4L+sO9UUesN7LMr8C6oSc7wVrhLHiQbJx55UZTjT4+H/Y4VOFOiEhVKKJTk0/jt/QOOxZbuyhMitLOMBTQQ9tEICv7fIFSUIfePD3bG6FR3vXvod0ct/H7/DhNM0A=
   secret_access_key:
