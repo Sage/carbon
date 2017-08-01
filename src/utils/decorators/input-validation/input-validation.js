@@ -215,6 +215,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    */
   componentWillMount() {
     // call the components super method if it exists
+    /* istanbul ignore else */
     if (super.componentWillMount) { super.componentWillMount(); }
 
     if (this.context.form && (this._validations() || this.props.warnings || this.props.info)) {
@@ -231,6 +232,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    */
   componentWillUnmount() {
     // call the components super method if it exists
+    /* istanbul ignore else */
     if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
     if (this._validations() || this.props.warnings || this.props.info) {
