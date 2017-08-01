@@ -1,8 +1,29 @@
 @import "./../../style-config/colors";
 
+.carbon-form__left-aligned-actions {
+  flex-grow: 1;
+
+  .carbon-button {
+    margin-left: 15px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.carbon-form__right-aligned-actions,
 .carbon-form__additional-actions {
-  padding-left: 10px;
+  padding-left: 15px;
   display: inline-block;
+
+  .carbon-button {
+    margin-left: 15px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
 }
 
 .carbon-form__buttons {
@@ -26,6 +47,7 @@
 
 .carbon-form-save--invalid {
   background-color: $grey-dark-blue-5;
+  margin-left: 15px;
 }
 
 @keyframes form-buttons-animate-in {
@@ -65,8 +87,8 @@
 .carbon-form:not(.carbon-form--sticky-footer),
 .carbon-dialog__dialog--fixed-bottom {
   .carbon-form__buttons {
-    max-width: auto;
-    min-width: auto;
+    max-width: inherit;
+    min-width: inherit;
     padding: 0;
   }
 }

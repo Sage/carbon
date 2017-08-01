@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Serialize from 'form-serialize';
+import { kebabCase } from 'lodash';
 
 import CancelButton from './cancel-button';
 import FormSummary from './form-summary';
@@ -165,7 +166,23 @@ ElementResize     *
      * @property additionalActions
      * @type {String|JSX}
      */
-    additionalActions: PropTypes.node,
+    additionalActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
+
+    /**
+     * Additional actions rendered and aligned left to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    leftAlignedActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
+
+    /**
+     * Additional actions rendered and aligned right to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    rightAlignedActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Custom callback for when form will submit
@@ -606,12 +623,12 @@ ElementResize     *
    * @method additionalActions
    * @return {Object} JSX
    */
-  get additionalActions() {
-    if (!this.props.additionalActions) { return null; }
+  additionalActions = (type) => {
+    if (!this.props[type]) { return null; }
 
     return (
-      <div className='carbon-form__additional-actions' >
-        { this.props.additionalActions }
+      <div className={ `carbon-form__${kebabCase(type)}` } >
+        { this.props[type] }
       </div>
     );
   }
@@ -680,9 +697,11 @@ ElementResize     *
     return (
       <div className='carbon-form__footer-wrapper'>
         <AppWrapper className={ this.footerClasses } style={ { borderWidth: padding } }>
+          { this.additionalActions('leftAlignedActions') }
+          { this.additionalActions('rightAlignedActions') }
           { save }
           { this.cancelButton() }
-          { this.additionalActions }
+          { this.additionalActions('additionalActions') }
         </AppWrapper>
       </div>
     );
