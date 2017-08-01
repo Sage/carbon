@@ -9,6 +9,8 @@ import { Row, Column } from './../row';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ElementResize from './../../utils/helpers/element-resize';
 
+/* global jest */
+
 describe('Dialog', () => {
   let instance, onCancel;
 
@@ -224,6 +226,7 @@ describe('Dialog', () => {
 
       afterEach(() => {
         jest.clearAllTimers();
+        jest.useRealTimers();
       });
 
       it('applies the fixed bottom after 500ms', () => {
