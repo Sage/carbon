@@ -2,26 +2,36 @@
 @import "./../../style-config/z-index";
 @import "./../../style-config/mixins";
 
-$date__picker__width: 210px;
 $date__picker__border: $grey-light;
-$date__picker__header-color: $grey-dark-blue-60;
+$date__picker__header-color: $grey-dark-blue-70;
 $date__picker__header-border-color: $grey-dark-blue-80;
-$date__picker__cell-border-color: $border-color;
+$date__picker__cell-border-color: white;
+
+.carbon-date {
+  .icon-calendar:before {
+    position: relative;
+    right: -1px;
+    top: -1px;
+  }
+}
 
 .react-date-picker__month-view {
   color: $date__picker__header-color;
 }
 
+
+
 .react-date-picker__month-view {
-  border-radius: 5px;
-  border: 2px solid $date__picker__border;
-  box-shadow: 0 4px 8px rgba($grey-dark-blue, 0.5);
+  border-radius: 3px;
+  box-shadow: 0 20px 30px rgba($grey-shadow, 0.2);
   display: block;
+  font-size: 14px;
+  font-weight: 700;
+  overflow: hidden;
   position: absolute;
   text-align: center;
-  width: $date__picker__width;
+  width: 334px;
   z-index: $z-datepicker;
-  font-size: 12px;
 
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -32,26 +42,28 @@ $date__picker__cell-border-color: $border-color;
   * {
     box-sizing: border-box;
   }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .react-date-picker__month-view-cell {
   display: inline-block;
-  height: 27px;
-  padding: 6px 0;
+  padding: 10px 12px;
   width: percentage(1/7);
 }
 
 .react-date-picker__nav-bar {
-  color: $white;
-  cursor: pointer;
-  font-weight: bold;
   background-color: $date__picker__header-color;
   border-radius: 3px 3px 0 0;
+  color: white;
+  cursor: pointer;
 
   >.react-date-picker__nav-bar-arrow,
   >.react-date-picker__nav-bar-date {
     display: inline-block;
-    padding: 8px 0;
+    padding: 8px 0px 12px;
 
     &:active {
       background-color: $grey-dark;
@@ -60,40 +72,38 @@ $date__picker__cell-border-color: $border-color;
 
   .react-date-picker__nav-bar-arrow {
     font-size: 20px;
-    line-height: 13px;
+    line-height: 20px;
     width: 12%;
   }
 
   .react-date-picker__nav-bar-date {
-    border-right: 1px solid $date__picker__header-border-color;
-    border-left: 1px solid $date__picker__header-border-color;
-    text-transform: capitalize;
-    font-size: 13px;
     text-align: center;
+    text-transform: capitalize;
     width: 76%;
   }
 }
 
 .react-date-picker__month-view-week-day-name {
   background-color: $date__picker__cell-border-color;
-  font-size: 10px;
-  font-weight: bold;
-  height: auto;
-  padding: 2px 0 2px 0;
+  color: $grey-dark;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 12px;
 }
 
 .dp-year,
 .dp-month,
 .dp-day,
 .react-date-picker__footer button {
-  background-color: $grey-light;
+  background-color: $grey-dark-blue-10;
   border-style: solid;
   border-color: $date__picker__cell-border-color;
-  border-width: 0 1px 1px 1px;
+  border-width: 0 3px 3px 3px;
+  color: $blue;
   cursor: pointer;
 
   &:hover {
-    background-color: $blue-bright;
+    background-color: $azul;
     color: $white;
   }
 
@@ -108,16 +118,17 @@ $date__picker__cell-border-color: $border-color;
 }
 
 .react-date-picker__month-view-day--today {
-  font-weight: bolder;
+  background: $grey-dark-blue-70;
+  color: white;
 }
 
 .react-date-picker__month-view-day--prev-month,
 .react-date-picker__month-view-day--next-month {
-  background-color: $grey;
+  background-color: white;
 
   &:hover {
-    color: $grey-dark;
-    background-color: $row-hover-color;
+    background-color: $blue;
+    color: white;
   }
 }
 
