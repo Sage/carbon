@@ -13,6 +13,9 @@ let definition = new Definition('tooltip', Tooltip, {
 * Need a visual? [View Icons](/style/icons).__
 `,
   type: 'miscellaneous',
+  hiddenProps: [
+    'id'
+  ],
   propValues: {
     isVisible: true,
     children: "I'm a helpful tooltip that can display more information to a user."
@@ -25,6 +28,7 @@ let definition = new Definition('tooltip', Tooltip, {
     align: 'String',
     children: 'Node',
     className: 'String',
+    id: 'String',
     isVisible: 'Boolean',
     position: 'String'
   },
@@ -32,6 +36,7 @@ let definition = new Definition('tooltip', Tooltip, {
     align: 'The alignment of the pointer on the tooltip.',
     children: 'Child content to render in the tooltip.',
     className: 'Classes to be applied to the component.',
+    id: 'The id attribute to apply to the tooltip',
     isVisible: 'Whether to show or hide the tooltip. Use this with a handler to hide and show the tooltip',
     position: 'The position of the tooltip relative to its target element.'
   }
