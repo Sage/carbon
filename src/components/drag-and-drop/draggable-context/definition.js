@@ -4,9 +4,10 @@ import ComponentActions from './../../../../demo/actions/component';
 import Definition from './../../../../demo/utils/definition';
 import WithDragDefinition from './../with-drag/definition';
 import WithDropDefinition from './../with-drop/definition';
+import WithDragDropDefinition from './../with-drag-drop/definition';
 
 let definition = new Definition('draggable-context', DraggableContext, {
-  associatedDefinitions: [WithDropDefinition, WithDragDefinition],
+  associatedDefinitions: [WithDropDefinition, WithDragDefinition, WithDragDropDefinition],
 
   hiddenProps: ['children', 'onDrag'],
 
@@ -24,12 +25,7 @@ let definition = new Definition('draggable-context', DraggableContext, {
 
   propValues: {
     tbody: false,
-    children: `<thead>
-    <TableRow as="header">
-      <TableHeader />
-      <TableHeader>Country</TableHeader>
-    </TableRow>
-  </thead>
+    children: `
   <DraggableContext onDrag={ updateDndData }>
     <tbody>
       { buildRows() }
@@ -42,9 +38,11 @@ let definition = new Definition('draggable-context', DraggableContext, {
 
   dndData.forEach((row, index) => {
     rows.push(
-      <TableRow key={ row.get('id') } uniqueID={ row.get('id') } index={ index }>
-        <TableCell>{ row.get('name') }</TableCell>
-      </TableRow>
+      <WithDragDrop index={ index }>
+        <TableRow key={ row.get('id') } uniqueID={ row.get('id') } index={ index }>
+          <TableCell>{ row.get('name') }</TableCell>
+        </TableRow>
+      </WithDragDrop>
     );
   });
 

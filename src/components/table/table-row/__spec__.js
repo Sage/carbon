@@ -9,7 +9,7 @@ import Icon from './../../icon';
 import Checkbox from './../../checkbox';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import { shallow, mount } from 'enzyme';
-import { DraggableContext, WithDrop } from './../../drag-and-drop';
+import { DraggableContext, WithDragDrop } from './../../drag-and-drop';
 
 describe('TableRow', () => {
   let instance, clickableInstance, row;
@@ -448,11 +448,6 @@ describe('TableRow', () => {
         let cell = wrapper.find(TableRow).find(DraggableTableCell);
         expect(cell.length).toEqual(0);
       });
-
-      it('does not render a WithDrop component', () => {
-        let wd = wrapper.find(WithDrop);
-        expect(wd.length).toEqual(0);
-      });
     });
 
     describe('ensuring index is provided', () => {
@@ -479,9 +474,11 @@ describe('TableRow', () => {
           <Table tbody={ false }>
             <DraggableContext onDrag={ () => {} }>
               <tbody>
-                <TableRow index={ 0 } dragAndDropIdentifier="foo">
-                  <TableCell>foo</TableCell>
-                </TableRow>
+                <WithDragDrop index={ 0 }>
+                  <TableRow index={ 0 } dragAndDropIdentifier="foo">
+                    <TableCell>foo</TableCell>
+                  </TableRow>
+                </WithDragDrop>
               </tbody>
             </DraggableContext>
           </Table>
@@ -491,12 +488,6 @@ describe('TableRow', () => {
       it('renders a draggable cell', () => {
         let cell = wrapper.find(TableRow).find(DraggableTableCell);
         expect(cell.props().identifier).toEqual("foo");
-      });
-
-      it('renders a WithDrop component', () => {
-        let wd = wrapper.find(WithDrop);
-        expect(wd.props().index).toEqual(0);
-        expect(wd.props().identifier).toEqual("foo");
       });
 
       it('renders a dragging class', () => {

@@ -1,7 +1,17 @@
 import React from 'react';
+import Bowser from 'bowser';
+import TouchBackend from 'react-dnd-touch-backend';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { isEqual } from 'underscore';
 import DraggableContext from './draggable-context';
 import { mount } from 'enzyme';
 import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
+import { backend } from './draggable-context';
+
+// Used to compare complex functions
+const stringify = (func) => {
+  return JSON.stringify(func.toString()).replace(/(\\t|\\n)/g,'')
+}
 
 describe('DraggableContext', () => {
   let wrapper, instance, onDragSpy;
@@ -75,6 +85,37 @@ describe('DraggableContext', () => {
     it('renders this.props.children', () => {
       expect(wrapper.find('div').length).toEqual(1);
       expect(wrapper.find('p').length).toEqual(2);
+    });
+  });
+
+  describe('backend()', () => {
+    describe('when Bowser detects the device is a mobile', () => {
+      beforeEach(() => {
+        Bowser.mobile = true
+      })
+      it('renders the TouchBackend', () => {
+        expect(stringify(backend())).toEqual(stringify(TouchBackend({ enableMouseEvents: true })))
+      });
+    });
+
+    describe('when Bowser detects the device is a tablet', () => {
+      beforeEach(() => {
+        Bowser.mobile = false
+        Bowser.tablet = true
+      })
+      it('renders the TouchBackend', () => {
+        expect(stringify(backend())).toEqual(stringify(TouchBackend({ enableMouseEvents: true })))
+      });
+    });
+
+    describe('when Bowser detects the device is not mobile or tablet', () => {
+      beforeEach(() => {
+        Bowser.mobile = false
+        Bowser.tablet = false
+      })
+      it('renders the HTML5Backend', () => {
+        expect(stringify(backend())).toEqual(stringify(HTML5Backend))
+      });
     });
   });
 });

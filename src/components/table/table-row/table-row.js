@@ -5,7 +5,6 @@ import TableCell from './../table-cell';
 import TableHeader from './../table-header';
 import Checkbox from './../../checkbox';
 import guid from './../../../utils/helpers/guid';
-import WithDrop from './../../drag-and-drop/with-drop';
 import DraggableTableCell from './../draggable-table-cell';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
@@ -420,12 +419,16 @@ class TableRow extends React.Component {
    * @method renderDraggableCell
    * @return {Object} JSX
    */
-  renderDraggableCell = () => {
+  renderDraggableCell = (connectDragSource) => {
     if (!this.context.dragDropManager) {
       return null;
     }
-
-    return <DraggableTableCell identifier={ this.props.dragAndDropIdentifier } />;
+    return (
+      <DraggableTableCell
+        identifier={ this.props.dragAndDropIdentifier }
+        connectDragSource={ connectDragSource }
+      />
+    );
   }
 
   /**
@@ -435,19 +438,12 @@ class TableRow extends React.Component {
    * @param {Object} JSX
    * @return {Object} JSX
    */
-  renderDraggableRow = (row) => {
+  renderDraggableRow = (row, connectDragPreview) => {
     if (!this.context.dragDropManager) {
       return row;
     }
 
-    return (
-      <WithDrop
-        identifier={ this.props.dragAndDropIdentifier }
-        index={ this.props.index }
-      >
-        { row }
-      </WithDrop>
-    );
+    return connectDragPreview(row);
   }
 
   /**
@@ -457,17 +453,21 @@ class TableRow extends React.Component {
    */
   render() {
     const content = [this.props.children];
+    const { connectDragPreview, connectDragSource, ...rowProps } = this.rowProps;
 
     if (this.shouldHaveMultiSelectColumn) {
       content.unshift(this.multiSelectCell);
     }
 
     return this.renderDraggableRow(
-      <tr { ...this.rowProps } { ...tagComponent('table-row', this.props) }>
-        { this.renderDraggableCell() }
+      (
+        <tr { ...rowProps } { ...tagComponent('table-row', this.props) }>
+          { this.renderDraggableCell(connectDragSource) }
 
-        { content }
-      </tr>
+          { content }
+        </tr>
+      ),
+      connectDragPreview
     );
   }
 }

@@ -1,7 +1,9 @@
 import React from 'react';
+import Bowser from 'bowser';
 import { DragDropContext } from 'react-dnd';
 import PropTypes from 'prop-types';
 import TouchBackend from 'react-dnd-touch-backend';
+import HTML5Backend from 'react-dnd-html5-backend';
 import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
 
 /**
@@ -150,4 +152,11 @@ class DraggableContext extends React.Component {
   }
 }
 
-export default DragDropContext(TouchBackend({ enableMouseEvents: true }))(DraggableContext);
+export const backend = () => {
+  if (Bowser.mobile || Bowser.tablet) {
+    return TouchBackend({ enableMouseEvents: true });
+  }
+  return HTML5Backend;
+};
+
+export default DragDropContext(backend())(DraggableContext);
