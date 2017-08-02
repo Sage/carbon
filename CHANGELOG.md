@@ -56,6 +56,7 @@ The following have had minor internal changes to satisfy the introduction of str
 ## Minor Improvments
 
 * The `Poller` helper has been refactored to no longer use promises
+* An issue template is added
 
 # 1.3.5
 
