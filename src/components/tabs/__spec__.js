@@ -5,6 +5,7 @@ import { Tabs, Tab } from './tabs';
 import Textbox from './../textbox';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Browser from '../../utils/helpers/browser';
 
 describe('Tabs', () => {
   let instance;
@@ -42,7 +43,8 @@ describe('Tabs', () => {
           <Textbox name='bar'/>
           <Textbox name='bap'/>
         </Tab>
-      </Tabs>);
+      </Tabs>
+    );
     instance._window = {
       history: {
         replaceState: () => {}
@@ -137,6 +139,13 @@ describe('Tabs', () => {
   describe('Change in tab prop', () => {
     let instance, tabs, unique1Tab, unique2Tab;
     beforeEach(() => {
+      spyOn(Browser, 'getWindow').and.returnValue({
+        history: {
+          replaceState: () => {}
+        },
+        location: ""
+      });
+
       let TestParent = React.createFactory(React.createClass({
         getInitialState() {
           return { selectedTabId: "uniqueid2", align: 'left' };
@@ -204,9 +213,11 @@ describe('Tabs', () => {
         let tabs = TestUtils.findRenderedComponentWithType(instance, Tabs);
         spyOn(tabs, 'updateVisibleTab').and.callThrough();
         let tabHeaders = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-tabs__headers__header')
-        TestUtils.Simulate.click(tabHeaders[0]);
+        TestUtils.Simulate.click(tabHeaders[0], { target: { dataset: { tabid: 'uniqueid1' } } });
         expect(tabs.updateVisibleTab).toHaveBeenCalled();
+
         tabs.updateVisibleTab.calls.reset();
+
         instance.setState({
           selectedTabId: "uniqueid1"
         });
@@ -248,7 +259,8 @@ describe('Tabs', () => {
 
       expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeFalsy();
 
-      TestUtils.Simulate.click(secondTab);
+      TestUtils.Simulate.click(secondTab, { target: { dataset: { tabid: 'uniqueid2' } } });
+
 
       expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeTruthy();
     });

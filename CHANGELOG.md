@@ -1,3 +1,9 @@
+# 1.5.0
+
+## Component Enhancements
+
+* `TableAjax` now accepts an `onAjaxError` function as a prop, to handle Ajax requests that return a HTTP error
+
 # 1.4.0
 
 ## Dispatcher

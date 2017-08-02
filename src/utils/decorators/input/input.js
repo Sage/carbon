@@ -82,6 +82,7 @@ const Input = ComposedComponent => class Component extends ComposedComponent {
    */
   componentDidMount() {
     // call the components super method if it exists
+    /* istanbul ignore else */
     if (super.componentDidMount) { super.componentDidMount(); }
 
     if (this.props.prefix) {

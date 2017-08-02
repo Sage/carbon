@@ -34,7 +34,7 @@ describe('RadioButton', () => {
       let radio = sprite.getElementsByTagName('path')[0]
 
       expect(sprite.getAttribute('viewBox')).toEqual('0 0 15 15');
-      expect(radio.className.baseVal).toEqual('radio-button-outline');
+      expect(radio.className).toEqual('radio-button-outline');
     });
   });
 

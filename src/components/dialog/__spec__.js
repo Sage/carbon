@@ -9,6 +9,8 @@ import { Row, Column } from './../row';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ElementResize from './../../utils/helpers/element-resize';
 
+/* global jest */
+
 describe('Dialog', () => {
   let instance, onCancel;
 
@@ -148,6 +150,16 @@ describe('Dialog', () => {
 
   describe('centerDialog', () => {
     beforeEach(() => {
+      const mockWindow = {
+        innerHeight: 300,
+        innerWidth: 100,
+        pageYOffset: 10,
+        pageXOffset: 10
+      }
+
+      Browser.getWindow = jest.fn();
+      Browser.getWindow.mockReturnValue(mockWindow);
+
       instance = TestUtils.renderIntoDocument(
         <Dialog open onCancel={ onCancel } />
       );
@@ -209,17 +221,18 @@ describe('Dialog', () => {
 
     describe('when animating', () => {
       beforeEach(() => {
-        jasmine.clock().install();
+        jest.useFakeTimers();
       });
 
       afterEach(() => {
-        jasmine.clock().uninstall();
+        jest.clearAllTimers();
+        jest.useRealTimers();
       });
 
       it('applies the fixed bottom after 500ms', () => {
         spyOn(instance, 'applyFixedBottom');
         instance.centerDialog(true);
-        jasmine.clock().tick(500);
+        jest.runTimersToTime(500);
         expect(instance.applyFixedBottom).toHaveBeenCalled();
       });
     });
@@ -453,6 +466,15 @@ describe('Dialog', () => {
     let wrapper;
 
     beforeEach(() => {
+      const mockWindow = {
+        addEventListener() {},
+        removeEventListener() {},
+        getComputedStyle() { return {}; }
+      };
+
+      Browser.getWindow = jest.fn();
+      Browser.getWindow.mockReturnValue(mockWindow);
+
       wrapper = mount(
         <Dialog
           onCancel={ () => {} }
@@ -513,12 +535,12 @@ describe('Dialog', () => {
           autoFocus: true
         });
         instance = wrapper.instance();
-        spyOn(instance, 'focusDialog');
+        instance.focusDialog = jest.fn();
 
         wrapper.setProps({
           open: true
         });
-        expect(instance.focusDialog).toHaveBeenCalled();
+        expect(instance.focusDialog).toBeCalled();
       });
     });
 
@@ -529,12 +551,12 @@ describe('Dialog', () => {
           autoFocus: false
         });
         instance = wrapper.instance();
-        spyOn(instance, 'focusDialog');
+        instance.focusDialog = jest.fn();
 
         wrapper.setProps({
           open: true
         });
-        expect(instance.focusDialog).not.toHaveBeenCalled();
+        expect(instance.focusDialog).not.toBeCalled();
       });
     });
 
