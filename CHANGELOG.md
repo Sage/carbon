@@ -1,3 +1,9 @@
+# 1.3.6
+
+## Bug Fix
+
+* `Dropdown`: validation fail now allows the dropdown arrow to be visible
+
 # 1.3.5
 
 ## Bug Fixes
