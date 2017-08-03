@@ -10,7 +10,6 @@ describe('Row', () => {
   beforeEach(() => {
     wrapper = shallow(
       <Row>
-        <Column/>
       </Row>
     );
   });
@@ -22,7 +21,7 @@ describe('Row', () => {
   });
 
   describe('columns', () => {
-    describe('when column number is passed', () => {
+    describe('when column number is not passed', () => {
       it('determines the columns from the number of children', () => {
         wrapper = shallow(
           <Row>
@@ -36,7 +35,7 @@ describe('Row', () => {
       });
     });
 
-    describe('when column number is not passed', () => {
+    describe('when column number is passed', () => {
       it('sets the passed column as the number of columns', () => {
         wrapper = shallow(
           <Row columns='50'>

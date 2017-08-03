@@ -2,33 +2,17 @@
 
 exports[`Row columnClasses passes the prop to its children 1`] = `
 <div
-  className="carbon-row carbon-row--gutter-medium carbon-row--columns-1"
->
-  <Column
-    columnClasses="myChildClasses"
-  />
-</div>
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-0"
+/>
 `;
 
 exports[`Row columnDivide when columnDivide is true passes columnDivide to its children 1`] = `
 <div
-  className="carbon-row carbon-row--gutter-medium carbon-row--columns-1"
->
-  <Column
-    columnDivide={true}
-  />
-</div>
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-0"
+/>
 `;
 
-exports[`Row columns when column number is not passed sets the passed column as the number of columns 1`] = `
-<div
-  className="carbon-row carbon-row--gutter-medium carbon-row--columns-50"
->
-  <Column />
-</div>
-`;
-
-exports[`Row columns when column number is passed determines the columns from the number of children 1`] = `
+exports[`Row columns when column number is not passed determines the columns from the number of children 1`] = `
 <div
   className="carbon-row carbon-row--gutter-medium carbon-row--columns-4"
 >
@@ -39,18 +23,22 @@ exports[`Row columns when column number is passed determines the columns from th
 </div>
 `;
 
-exports[`Row gutter applies a gutter class 1`] = `
+exports[`Row columns when column number is passed sets the passed column as the number of columns 1`] = `
 <div
-  className="carbon-row carbon-row--gutter-small carbon-row--columns-1"
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-50"
 >
   <Column />
 </div>
 `;
 
+exports[`Row gutter applies a gutter class 1`] = `
+<div
+  className="carbon-row carbon-row--gutter-small carbon-row--columns-0"
+/>
+`;
+
 exports[`Row render renders a parent div with calculated CSS classes 1`] = `
 <div
-  className="carbon-row carbon-row--gutter-medium carbon-row--columns-1"
->
-  <Column />
-</div>
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-0"
+/>
 `;

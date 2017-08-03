@@ -4,7 +4,7 @@
 
 ### Removal of Row Deprecation
 
-* `Row`: can longer render any immediate children. A Column component has been introduced to maintain the column span, offset and align behaviour.
+* `Row`: can no longer render any immediate children. A Column component has been introduced to maintain the column span, offset and align behaviour.
 
 ```javascript
 // BEFORE
