@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Column classes when className and columnClasses is passed renders both classes 1`] = `
+<div
+  className="carbon-column myClass myColumnClasses"
+>
+  <span />
+</div>
+`;
+
+exports[`Column classes when className is passed renders a passed className 1`] = `
+<div
+  className="carbon-column myclass"
+>
+  <span />
+</div>
+`;
+
+exports[`Column classes when columnClasses is passed renders a passed columnClasses 1`] = `
+<div
+  className="carbon-column myColumnClasses"
+>
+  <span />
+</div>
+`;
+
+exports[`Column options columnAlign renders a columnAlign class 1`] = `
+<div
+  className="carbon-column carbon-column--align-left"
+>
+  <span />
+</div>
+`;
+
+exports[`Column options columnDivide renders a columnOffset class 1`] = `
+<div
+  className="carbon-column carbon-column--column-divide"
+>
+  <span />
+</div>
+`;
+
+exports[`Column options columnOffset renders a columnOffset class 1`] = `
+<div
+  className="carbon-column carbon-column--offset-2"
+>
+  <span />
+</div>
+`;
+
+exports[`Column options columnSpan renders a columnSpan class 1`] = `
+<div
+  className="carbon-column carbon-column--span-2"
+>
+  <span />
+</div>
+`;
+
+exports[`Column renders children 1`] = `
+<div
+  className="carbon-column"
+>
+  <span />
+</div>
+`;

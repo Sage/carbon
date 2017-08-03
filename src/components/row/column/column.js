@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Column = (props) => {
-  const classes = classNames(
+const classes = (props) => {
+  return classNames(
     'carbon-column',
     props.className,
     props.columnClasses, {
@@ -13,9 +13,11 @@ const Column = (props) => {
       'carbon-column--column-divide': props.columnDivide
     }
   );
+}
 
+const Column = (props) => {
   return (
-    <div className={ classes }>
+    <div className={ classes(props) }>
       { props.children }
     </div>
   );
@@ -36,7 +38,48 @@ Column.propTypes = {
    * @property className
    * @type {String}
    */
-  className: PropTypes.string
+  className: PropTypes.string,
+
+  /**
+   * Classes applied by row component to affect all rows
+   *
+   * @property columnDivide
+   * @type {Boolean}
+   */
+  columnClasses: PropTypes.string,
+
+  /**
+   * Show a divide between columns
+   * This is defined on the Row Component
+   *
+   * @property columnDivide
+   * @type {Boolean}
+   */
+  columnDivide: PropTypes.bool,
+
+  /**
+   * Alignment of content within column
+   *
+   * @property columnDivide
+   * @type {String}
+   */
+  columnAlign: PropTypes.string,
+
+  /**
+   * Offset the column by n number of columns
+   *
+   * @property columnDivide
+   * @type {String}
+   */
+  columnOffset: PropTypes.string,
+
+  /**
+   * Number of columns to span
+   *
+   * @property columnDivide
+   * @type {String}
+   */
+  columnSpan: PropTypes.string
 };
 
 export default Column;

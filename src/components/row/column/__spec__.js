@@ -3,53 +3,70 @@ import { shallow } from 'enzyme';
 import Column from './';
 
 describe('Column', () => {
-  let wrapper = shallow(
-    <Column className='myclass'>
-      <span />
-    </Column>
-  );
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(
+      <Column>
+        <span />
+      </Column>
+    );
+  });
 
   it('renders children', () => {
-    expect(wrapper.find('span').length).toEqual(1);
+    expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders passed className', () => {
-    expect(wrapper.node.props.className).toEqual('carbon-column myclass');
+  describe('classes', () => {
+    describe('when className is passed', () => {
+      it('renders a passed className', () => {
+        wrapper.setProps({ className: 'myclass' });
+        expect(wrapper).toMatchSnapshot();
+      });
+    });
+
+    describe('when columnClasses is passed', () => {
+      it('renders a passed columnClasses', () => {
+        wrapper.setProps({ columnClasses: 'myColumnClasses' });
+        expect(wrapper).toMatchSnapshot();
+      });
+    });
+
+    describe('when className and columnClasses is passed', () => {
+      it('renders both classes', () => {
+        wrapper.setProps({ columnClasses: 'myColumnClasses', className: 'myClass' });
+        expect(wrapper).toMatchSnapshot();
+      });
+    });
   });
 
-  /**
-   * These should be un-x-ed as the classes will be in here once we're up to React 16
-   * This is related to TODOs in the Row component
-   * TODO: CarbonV2
-   */
-  xdescribe('options', () => {
+  describe('options', () => {
     describe('columnOffset', () => {
       it('renders a columnOffset class', () => {
-        wrapper.setProps({ columnOffset: 2 });
-        expect(wrapper.node.props.className).toMatch('carbon-column--offset-2');
+        wrapper.setProps({ columnOffset: '2' });
+        expect(wrapper).toMatchSnapshot();
       });
     });
 
     describe('columnAlign', () => {
       it('renders a columnAlign class', () => {
-        wrapper.setProps({ columnAlign: 2 });
-        expect(wrapper.node.props.className).toMatch('carbon-column--align-2');
+        wrapper.setProps({ columnAlign: 'left' });
+        expect(wrapper).toMatchSnapshot();
       });
 
     });
 
     describe('columnSpan', () => {
       it('renders a columnSpan class', () => {
-        wrapper.setProps({ columnSpan: 2 });
-        expect(wrapper.node.props.className).toMatch('carbon-column--span-2');
+        wrapper.setProps({ columnSpan: '2' });
+        expect(wrapper).toMatchSnapshot();
       });
-
     });
 
     describe('columnDivide', () => {
       it('renders a columnOffset class', () => {
         wrapper.setProps({ columnDivide: true });
-        expect(wrapper.node.props.className).toMatch('carbon-column--column-divide');
+        expect(wrapper).toMatchSnapshot();
       });
     });
   });

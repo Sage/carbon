@@ -15,11 +15,16 @@ import Logger from './../../utils/logger';
  *
  * In your file
  *
- *   import Row from 'carbon/lib/components/row';
+ *   import { Row, Column } from 'carbon/lib/components/row';
  *
  * To render the Row:
  *
- *   <Row />
+ *   <Row>
+ *     <Column>Column1</Column>
+ *     <Column>Column2</Column>
+ *   </Row>
+ *
+ * A Rows child must be of type Column
  *
  * @class Row
  * @constructor
@@ -70,7 +75,15 @@ class Row extends React.Component {
      * @property columns
      * @type {String}
      */
-    columns: PropTypes.string
+    columns: PropTypes.string,
+
+    /**
+     * class to apply to each child column
+     *
+     * @property columnClasses
+     * @type {String}
+     */
+    columnClasses: PropTypes.string
   }
 
   static defaultProps = {
@@ -102,15 +115,7 @@ class Row extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    let columns = 1;
-
-    if (this.props.columns) {
-      columns = this.props.columns;
-    } else if (this.props.children && this.props.children.constructor === Array) {
-      columns = compact(this.props.children).length;
-    } else if (Immutable.Iterable.isIterable(this.props.children)) {
-      columns = this.props.children.size;
-    }
+    const columns = this.props.columns || React.Children.count(this.props.children);
 
     return classNames(
       'carbon-row',
