@@ -1,3 +1,19 @@
+# 1.4.0
+
+## Component Improvements
+
+The following components have had styling updates:-
+
+* DatePicker
+* ButtonToggle
+* Heading / Dialog
+
+## Font Update
+
+The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
+
+
+
 # 1.3.0
 
 ## Dependency Update
