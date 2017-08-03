@@ -1,3 +1,43 @@
+# 2.0.0
+
+## Breaking Change
+
+### Removal of Row Deprecation
+
+* `Row`: can longer render any immediate children. A Column component has been introduced to maintain the column span, offset and align behaviour.
+
+```javascript
+// BEFORE
+import Row from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <div columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </div>
+  <Pod columnSpan='5'>
+    Content 1
+  </Pod>
+</Row>
+
+// AFTER
+import { Row, Column } from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <Column columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </Column>
+  <Column columnSpan='5'>
+    <Pod>
+      Content 1
+    </Pod>
+  </Column>
+</Row>
+```
+
 # 1.5.0
 
 ## Component Enhancements
