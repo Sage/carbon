@@ -1,3 +1,9 @@
+# 1.5.0
+
+## Component Enhancements
+
+* `TableAjax` now accepts an `onAjaxError` function as a prop, to handle Ajax requests that return a HTTP error
+
 # 1.4.0
 
 ## Component Improvements
@@ -12,17 +18,106 @@ The following components have had styling updates:-
 
 The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
 
+## Dispatcher
 
+We now provide the Flux Dispatcher as a singleton within the Carbon library.
 
-# 1.3.0
+```
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
+```
+
+Please note that you should only use one Dispatcher in your application, if you want to start using the one provided in Carbon you need to remove the pre-existing one from your application.
+
+## Logger
+
+Logger can now supply a option of `group` - this will group any logged messages together that share the same group name and that are triggered within 500ms of one another.
 
 ## Dependency Update
 
 * React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
 
+## New Components
+
+* `ConfigurableItems` Drag & Drop and check/uncheck a list of items
+* `ConfigurableItemRow` Used with ConfigurableItems to build the list of configurable items
+
+## New Patterns
+
+* `ConfigurableItemsPattern` Combines ConfigurableItems and ConfigurableItemRow components
+
+## Linting Updates
+
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
+
+* Dropdown
+* FormSummary
+* Page
+* Pages
+* RadioButton
+* Tabs
+
+### Helpers
+
+* Store
+
 ## Component Improvements
 
+* `Form` now has additional props of `leftAlignedActions` and `rightAlignedActions` which allows developers to add additional nodes in line with the default form actions.
+* `Button`: Makes large button text the same as the medium button
+* `Button`: Allows secondary text under main text [#1385](https://github.com/Sage/carbon/issues/1385)
+* `ButtonToggle`: The buttons can now be toggled using the keyboard
+* `Poller` helper has been refactored to no longer use promises
+* `Tooltip` now renders an ARIA role of tooltip, and accepts an optional `id` prop
+
+## Minor Improvments
+
 * The `Poller` helper has been refactored to no longer use promises
+
+# 1.3.5
+
+## Bug Fixes
+
+* Flips errors messages in dialogs if they appear wider than the dialog.
+* `ButtonToggle`: The buttons can now be toggled using the keyboard
+
+# 1.3.4
+
+## Bug Fixes
+
+* Resolved bug in IE11 where sticky footer was rendering too large in dialogs.
+
+# 1.3.3
+
+## Bug Fixes
+
+* Added additional guards for browsers that do not support `element.contentDocument`.
+
+# 1.3.2
+
+## Bug Fixes
+
+* Our files are now published in production mode, removing some developer dependencies previously included.
+
+# 1.3.1
+
+## Bug Fixes
+
+* A bug was found in the new Dialog behaviour in Safari 9.x which rendered the sticky footer incorrectly. This solves it rendering incorrectly on page load for Safari 9.x. There remains a wider issue around Safari logged [here](https://github.com/Sage/carbon/issues/1432).
+
+# 1.3.0
+
+## Component Ehancements
+
+* Dialog
+  * Screen is no longer scrollable when a dialog is open.
+  * Dialog will attach to the bottom of the browser if it gets too tall, and it's content will become scrollable.
+  * If a dialog has a form, the form buttons will become sticky to the bottom of the dialog while the dialog is attached to the bottom of the browser (this is only enabled if the prop `stickyFormFooter` is applied to the dialog).
+  * Dialog can now use a prop called `height`, allowing developers to specify a set height for the dialog (the dialog will still attach to the bottom of the browser if it is taller than the browser's height).
+* Form
+  * Now has a prop of `stickyFooter` which when `true` will enable a sticky footer when it is off the screen.
+  * Now has a prop of `stickyFooterPadding` which will add additional padding to the form buttons when they are sticky (useful for aligning the form buttons between sticky and non-sticky states).
 
 # 1.2.2
 

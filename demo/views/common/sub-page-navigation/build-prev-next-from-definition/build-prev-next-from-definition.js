@@ -1,11 +1,24 @@
-import Definitions from './../../../../definitions';
+import ComponentDefinitions from './../../../../definitions';
+import PatternDefinitions from './../../../../pattern-definitions';
 
-const definitionKeys = Object.keys(Definitions).sort();
+const componentDefinitionKeys = Object.keys(ComponentDefinitions).sort();
+const patternDefinitionKeys = Object.keys(PatternDefinitions).sort();
 
 export default (definition) => {
-  let currentIndex = _currentIndex(definition),
-      nextKey = _nextKey(currentIndex),
-      prevKey = _previousKey(currentIndex);
+  let definitions, keys;
+  if (componentDefinitionKeys.indexOf(definition) !== -1) {
+    definitions = ComponentDefinitions;
+    keys = componentDefinitionKeys;
+  } else {
+    definitions = PatternDefinitions;
+    keys = patternDefinitionKeys;
+  }
+
+  if (keys.length === 1) { return null; }
+
+  const currentIndex = _currentIndex(definition, keys),
+      nextKey = _nextKey(currentIndex, keys, definitions),
+      prevKey = _previousKey(currentIndex, keys, definitions);
 
   return {
     next: {
@@ -17,7 +30,7 @@ export default (definition) => {
       title: prevKey
     }
   };
-}
+};
 
 /**
  * gets the component array position for populating next and previous
@@ -27,9 +40,9 @@ export default (definition) => {
  * @param {Object} definition
  * @return {Number} position of the component in the array
  */
-const _currentIndex = (def) => {
-  return definitionKeys.indexOf(def.get('key'));
-}
+const _currentIndex = (def, keys) => {
+  return keys.indexOf(def.get('key'));
+};
 
 /**
  * cyclically retrieves next component
@@ -39,11 +52,11 @@ const _currentIndex = (def) => {
  * @param {Number} current - current position
  * @return {String}
  */
-const _nextKey = (current) => {
-  let pos = (current + 1) % definitionKeys.length;
+const _nextKey = (current, keys, definitions) => {
+  const pos = (current + 1) % keys.length;
 
-  return Definitions[definitionKeys[pos]].key;
-}
+  return definitions[keys[pos]].key;
+};
 
 /**
  * cyclically retrieves previous component
@@ -53,11 +66,11 @@ const _nextKey = (current) => {
  * @param {Number} current - current position
  * @return {String}
  */
-const _previousKey = (current) => {
-  let pos = (current === 0) ? definitionKeys.length - 1 : current - 1;
+const _previousKey = (current, keys, definitions) => {
+  const pos = (current === 0) ? keys.length - 1 : current - 1;
 
-  return Definitions[definitionKeys[pos]].key;
-}
+  return definitions[keys[pos]].key;
+};
 
 /**
  * Prepares the url
@@ -69,4 +82,4 @@ const _previousKey = (current) => {
  */
 const _prepareUrl = (key) => {
   return `/components/${key}`;
-}
+};

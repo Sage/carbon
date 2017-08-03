@@ -12,9 +12,12 @@ import SaveButton from './save-button';
 import FormSummary from './form-summary';
 import Button from './../button';
 import MultiActionButton from './../multi-action-button';
+import ElementResize from './../../utils/helpers/element-resize';
 
 import { mount, shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+
+/* global jest */
 
 describe('Form', () => {
   let instance, wrapper;
@@ -28,6 +31,26 @@ describe('Form', () => {
   describe('initialize', () => {
     it('sets the errorCount to 0', () => {
       expect(instance.state.errorCount).toEqual(0);
+    });
+  });
+
+  describe('componentWillReceiveProps', () => {
+    describe('when stickyFooter is enabled', () => {
+      it('adds the listeners', () => {
+        wrapper = shallow(<Form />);
+        spyOn(wrapper.instance(), 'addStickyFooterListeners');
+        wrapper.setProps({ stickyFooter: true });
+        expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
+      });
+    });
+
+    describe('when stickyFooter is disabled', () => {
+      it('adds the listeners', () => {
+        wrapper = shallow(<Form stickyFooter />);
+        spyOn(wrapper.instance(), 'removeStickyFooterListeners');
+        wrapper.setProps({ stickyFooter: false });
+        expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
+      });
     });
   });
 
@@ -45,6 +68,118 @@ describe('Form', () => {
         instance.componentDidMount();
         expect(instance.validate).toHaveBeenCalled();
       });
+    });
+
+    it('adds sticky footer listeners is enabled', () => {
+      wrapper = shallow(<Form stickyFooter />);
+      spyOn(wrapper.instance(), 'addStickyFooterListeners');
+      wrapper.instance().componentDidMount();
+      expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
+    });
+  });
+
+  describe('componentWillUnmount', () => {
+    it('does not remove sticky footer listeners if not enabled', () => {
+      wrapper = shallow(<Form />);
+      spyOn(wrapper.instance(), 'removeStickyFooterListeners');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeStickyFooterListeners).not.toHaveBeenCalled();
+    });
+
+    it('removes sticky footer listeners if enabled', () => {
+      wrapper = shallow(<Form stickyFooter />);
+      spyOn(wrapper.instance(), 'removeStickyFooterListeners');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
+    });
+  });
+
+  describe('addStickyFooterListeners', () => {
+    beforeEach(() => {
+      wrapper = shallow(<Form />);
+      instance = wrapper.instance();
+      instance._form = {};
+      spyOn(instance, 'checkStickyFooter');
+      spyOn(ElementResize, 'addListener');
+      spyOn(instance._window, 'addEventListener');
+    });
+
+    it('calls checkStickyFooter', () => {
+      instance.addStickyFooterListeners();
+      expect(instance.checkStickyFooter).toHaveBeenCalled();
+    });
+
+    it('sets up listeners', () => {
+      instance.addStickyFooterListeners();
+      expect(ElementResize.addListener).toHaveBeenCalledWith(instance._form, instance.checkStickyFooter);
+      expect(instance._window.addEventListener).toHaveBeenCalledWith('resize', instance.checkStickyFooter);
+      expect(instance._window.addEventListener).toHaveBeenCalledWith('scroll', instance.checkStickyFooter);
+    });
+  });
+
+  describe('removeStickyFooterListeners', () => {
+    beforeEach(() => {
+      wrapper = shallow(<Form />);
+      instance = wrapper.instance();
+      instance._form = {};
+      spyOn(ElementResize, 'removeListener');
+      spyOn(instance._window, 'removeEventListener');
+    });
+
+    it('removes listeners', () => {
+      instance.removeStickyFooterListeners();
+      expect(ElementResize.removeListener).toHaveBeenCalledWith(instance._form, instance.checkStickyFooter);
+      expect(instance._window.removeEventListener).toHaveBeenCalledWith('resize', instance.checkStickyFooter);
+      expect(instance._window.removeEventListener).toHaveBeenCalledWith('scroll', instance.checkStickyFooter);
+    });
+  });
+
+  describe('checkStickyFooter', () => {
+    beforeEach(() => {
+      wrapper = shallow(<Form />);
+    });
+
+    it('sets stickyFooter state to true if form is bigger than window', () => {
+      wrapper.setState({ stickyFooter: false });
+      wrapper.instance()._form = {
+        offsetTop: 10,
+        offsetHeight: 10
+      };
+      wrapper.instance()._window = {
+        pageYOffset: 10,
+        innerHeight: 1
+      };
+
+      wrapper.instance().checkStickyFooter();
+      expect(wrapper.state().stickyFooter).toBeTruthy();
+    });
+
+    it('sets stickyFooter state to false if form is smaller than window', () => {
+      wrapper.setState({ stickyFooter: true });
+      wrapper.instance()._form = {
+        offsetTop: 10,
+        offsetHeight: 10
+      };
+      wrapper.instance()._window = {
+        pageYOffset: 10,
+        innerHeight: 100
+      };
+      wrapper.instance().checkStickyFooter();
+      expect(wrapper.state().stickyFooter).toBeFalsy();
+    });
+
+    it('does not change stickyFooter state if it does not need to change', () => {
+      wrapper.setState({ stickyFooter: false });
+      wrapper.instance()._form = {
+        offsetTop: 10,
+        offsetHeight: 10
+      };
+      wrapper.instance()._window = {
+        pageYOffset: 10,
+        innerHeight: 100
+      };
+      wrapper.instance().checkStickyFooter();
+      expect(wrapper.state().stickyFooter).toBeFalsy();
     });
   });
 
@@ -347,6 +482,14 @@ describe('Form', () => {
     });
   });
 
+  describe('stickyFooterPadding', () => {
+    it('adds padding if defined', () => {
+      wrapper = shallow(<Form stickyFooterPadding="500" />);
+      const footer = wrapper.find('.carbon-form__buttons');
+      expect(footer.props().style.borderWidth).toEqual('500px');
+    });
+  });
+
   describe('saveText', () => {
     describe('if prop is passed', () => {
       it('returns the prop value', () => {
@@ -375,12 +518,18 @@ describe('Form', () => {
       let csrf;
 
       beforeEach(() => {
-        let fakeMeta1 = { getAttribute() {} },
+        const fakeMeta1 = { getAttribute() {} },
             fakeMeta2 = { getAttribute() {} };
 
-        spyOn(fakeMeta1, 'getAttribute').and.returnValue('csrf-param')
-        spyOn(fakeMeta2, 'getAttribute').and.returnValue('csrf-token')
-        spyOn(instance._document, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
+        fakeMeta1.getAttribute = jest.fn();
+        fakeMeta2.getAttribute = jest.fn();
+        fakeMeta1.getAttribute.mockReturnValue('csrf-param');
+        fakeMeta2.getAttribute.mockReturnValue('csrf-token');
+
+        instance._document.querySelector = jest.fn();
+        instance._document.querySelector
+          .mockReturnValueOnce(fakeMeta1)
+          .mockReturnValue(fakeMeta2);
 
         instance = TestUtils.renderIntoDocument(<Form />);
 
@@ -532,18 +681,31 @@ describe('Form', () => {
       describe('if none defined', () => {
         it('returns null', () => {
           let instance = TestUtils.renderIntoDocument(<Form />);
-          expect(instance.additionalActions).toBe(null);
+          expect(instance.additionalActions('additionalActions')).toBe(null);
         });
       });
 
       describe('if defined', () => {
         it('returns the action', () => {
           let instance = TestUtils.renderIntoDocument(<Form additionalActions={ <span /> } />);
-          expect(instance.additionalActions.props.className).toEqual("carbon-form__additional-actions");
+          expect(instance.additionalActions('additionalActions').props.className).toEqual("carbon-form__additional-actions");
+        });
+      });
+
+      describe('leftAlignedActions', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form leftAlignedActions={ <span /> } />);
+          expect(instance.additionalActions('leftAlignedActions').props.className).toEqual("carbon-form__left-aligned-actions");
+        });
+      });
+
+      describe('rightAlignedActions', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form rightAlignedActions={ <span /> } />);
+          expect(instance.additionalActions('rightAlignedActions').props.className).toEqual("carbon-form__right-aligned-actions");
         });
       });
     });
-
   });
 
   describe("tags", () => {

@@ -1,5 +1,7 @@
 @import "./../../style-config/colors";
 @import "./../../style-config/buttons";
+@import "./../../style-config/input-field";
+@import "./../../style-config/mixins";
 
 .carbon-button-toggle {
   display: inline-block;
@@ -32,6 +34,14 @@
   background-color: $carbon-button__background-color--disabled !important;
   color: $carbon-button__color--disabled !important;
   cursor: initial;
+}
+
+.carbon-button-toggle__input {
+  @include visually-hidden();
+
+  &:focus:not(:checked) + label {
+    @include input-outline($input-active-border-color);
+  }
 }
 
 .carbon-button-toggle__input:checked ~ .carbon-button-toggle__label {

@@ -7,6 +7,7 @@ import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ImmutableHelper from './../../utils/helpers/immutable';
 
+/* global jest */
 describe('Dropdown', () => {
   let instance;
 
@@ -205,11 +206,7 @@ describe('Dropdown', () => {
   describe('handleMouseDownOnList', () => {
     beforeEach(() => {
       spyOn(instance._input, 'focus');
-      jasmine.clock().install();
-    });
-
-    afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.useFakeTimers();
     });
 
     describe('if target is the list', () => {
@@ -217,7 +214,7 @@ describe('Dropdown', () => {
         TestUtils.Simulate.mouseDown(instance.listBlock, {
           target: instance.list
         });
-        jasmine.clock().tick();
+        jest.runTimersToTime(0);
         expect(instance._input.focus).toHaveBeenCalled();
       });
     });
@@ -227,7 +224,7 @@ describe('Dropdown', () => {
         TestUtils.Simulate.mouseDown(instance.listBlock, {
           target: 'foo'
         });
-        jasmine.clock().tick();
+        jest.runTimersToTime(10);
         expect(instance._input.focus).not.toHaveBeenCalled();
       });
     });

@@ -124,9 +124,20 @@ class Modal extends React.Component {
   getChildContext() {
     return {
       modal: {
-        onCancel: this.props.onCancel
+        onCancel: this.props.onCancel,
+        getDialog: this.getDialog
       }
     };
+  }
+
+  /**
+   * Returns the reference to the dialog if it exists.
+   *
+   * @method getDialog
+   * @return {HTMLElement}
+   */
+  getDialog = () => {
+    return this._dialog;
   }
 
   /**
@@ -142,7 +153,7 @@ class Modal extends React.Component {
       this.listening = true;
       this.onOpening; // eslint-disable-line no-unused-expressions
       _window.addEventListener('keyup', this.closeModal);
-    } else if (!this.props.open) {
+    } else if (!this.props.open && this.listening) {
       this.listening = false;
       this.onClosing; // eslint-disable-line no-unused-expressions
       _window.removeEventListener('keyup', this.closeModal);
@@ -213,7 +224,6 @@ class Modal extends React.Component {
 
     return (
       <div
-        ref={ (c) => { this._input = c; } }
         className={ this.mainClasses }
         { ...this.componentTags(this.props) }
       >

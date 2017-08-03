@@ -55,6 +55,7 @@ describe('Modal', () => {
 
       it('removes event listeners for resize and closing', () => {
         spyOn(mockWindow, 'removeEventListener');
+        instance.listening = true;
         instance.componentDidUpdate();
         expect(mockWindow.removeEventListener.calls.count()).toEqual(1);
         expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);

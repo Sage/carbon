@@ -32,6 +32,11 @@ describe('Confirm', () => {
   describe('confirmButtons', () => {
     let yes, no, yesButton, noButton;
 
+    it('renders with the buttons and clearfix classes', () => {
+      let buttons = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-confirm__buttons');
+      expect(buttons.classList).toContain('clearfix');
+    });
+
     describe('yes button', () => {
       beforeEach(() => {
         yes = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-confirm__button')[1]
