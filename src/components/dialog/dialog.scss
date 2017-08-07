@@ -113,6 +113,9 @@ $dialog-sizes: (
   &:hover {
     color: $blue;
   }
+  &.carbon-icon {
+    position: absolute;
+  }
 }
 
 .carbon-dialog--open {
