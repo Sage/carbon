@@ -97,13 +97,15 @@ $dialog-sizes: (
 .carbon-dialog__close {
   color: $grey-dark-blue-60;
   cursor: pointer;
-  position: absolute;
   right: $dialog-padding;
   top: 25px;
   z-index: 1;
 
   &:hover {
     color: $blue;
+  }
+  &.carbon-icon {
+    position: absolute;
   }
 }
 
