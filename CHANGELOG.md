@@ -1,3 +1,9 @@
+# 1.3.6
+
+## Bug Fix
+
+* `Dialog`: ensures close icon positioning regardless of CSS load order
+
 # 1.3.5
 
 ## Bug Fixes
