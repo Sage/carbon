@@ -16,13 +16,12 @@ $dialog-sizes: (
   .carbon-dialog__dialog--#{$name} {
     width: $size;
 
-    $form-buttons-width: $size - ($dialog-padding * 2);
     &.carbon-dialog__dialog--fixed-bottom.carbon-dialog__dialog--sticky-form-footer .carbon-form__footer-wrapper {
-      width: $form-buttons-width;
+      width: $size;
 
       // IE10+ fix (caters for scrollbar width)
       @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
-        width: $form-buttons-width - 16;
+        width: $size - 16;
       }
     }
   }
@@ -64,9 +63,9 @@ $dialog-sizes: (
   }
 
   .carbon-form__footer-wrapper {
-    bottom: 30px;
+    bottom: 0px;
     position: absolute;
-    width: calc(100% - #{$dialog-padding * 2});
+    width: 100%;
   }
 }
 
