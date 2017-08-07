@@ -2,10 +2,10 @@ language: node_js
 
 cache:
   directories:
-    - node_modules
+  - node_modules
 
 node_js:
-  - "7"
+  - '6.10.2'
 
 install:
   - npm install -g npm
@@ -14,3 +14,17 @@ install:
 
 script:
   - gulp test --build --runInBand
+
+before_deploy: gulp deploy --build —production
+
+deploy:
+  provider: s3
+  bucket: 'carbon.sage.com'
+  skip_cleanup: true
+  local_dir: deploy
+  on:
+    branch: release
+  access_key_id:
+    secure: iZx7SkuMjUMXLVQNO5LSjF6EfQeqGbgdGtPg0hfzVIEcS5s/79j5aq8aQJ7EjCXM+yPRDZMaXB+StXOZjNhEbKLYt2mZDyMki3gAII2QM2MAeI5YtltgJHlXClsMjFiomTbRPo/F9CnIerRBdAFUmQXh2BVSdz86ptsLWs9SrcSjgN/RM6bWSaFYbyckyRVQZVipHYN1vmbEw8ZNZGSQTEPyi3Pw4nXMJ+9ro/72Pt5Ioo3a/praWJL9I5hEc6uBAfFZTtsg70txARaSOycoHxQT8S/xfIzfPQXSmj3n4MTMMCOi3CyJFJfTOdHnQ2ylSllae3zLgIJv1dPQoRuPrB0A1loG2BA+1PXA7KZrwBzYty20XMM2o2tB4mlkKh8p1gOjdsAyRT415kDkEvGpw/b+jFPQ+mAg67ELCJz/HTvBvrKF8nAGsoiG0A1Bi89wxi2riMjAZ2VzbTHrTq/Lp/MlJYt4Z44CXVSKXlKBVKwlDVS7+OIp5QAC0AggtJGFb4kvS/6zUnoykM/lsRBX99lsMURlpGq/EKC5B4iU26NWvF4L+sO9UUesN7LMr8C6oSc7wVrhLHiQbJx55UZTjT4+H/Y4VOFOiEhVKKJTk0/jt/QOOxZbuyhMitLOMBTQQ9tEICv7fIFSUIfePD3bG6FR3vXvod0ct/H7/DhNM0A=
+  secret_access_key:
+    secure: qdS1pq1ZXvw6lXLrGtSaZTpx7OLREvV/7UCwPFbfQkuQBLbxLe32qlzOkkEQWd7sHwadSgvVTKvX4HKaAIx+QZ2XXFbXGx4HIOCws6ynAVVa2kV5SSHKMwiy+R6Ypttu3GD6uKEhPMUULCYuCLzIIvAOKoCaDIzzKlxzK+g/tCe94J+fKU0DS6U23FFxW51UADgTxn7opg3mkhsteaRyAtDkurAeobEzfQpTFKPNXJ3YcFjpGUf9Z5zxcXXNohKZQP4wODgYU+OZuif/cAeETChWxVThk0PMIIk9/lmwyX1UKIpWpyVTDEKXzwnO2COVWOxtVCpTB0uwfZTZ8MhVXRvFj8Dk/iw+2NN/W55fQ44xx0h6mvhMle98jKTWi6AR/F0LJMpCkZeNTVCdiDz7Ow1g23HlBIRx/seYxph2vLSLkh63kU8ygaOFWhCNdCGOOPLHi8m8X8vlLRvN9ETWY/sMWkvY/S9bXIGw8lv5Bk4lIxAmjoU05XJceq5rOlSax46d1fsicJ5gF6tcxvMau2bFGMCgeZJEpRYChqTEt284woFc8+maa4SwMVrim6J8R53Xfx8mtgCnRlgZmXymzyxu8wCVnAza24iQ4kWmx+fDw70iU5Q3nxSwjN4Q922QZiAFLGpAK0nRDFhE7NPftubYOgsisNCFOnTTTBGJghI=

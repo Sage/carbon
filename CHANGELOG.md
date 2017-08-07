@@ -1,9 +1,3 @@
-# 1.5.0
-
-## Component Enhancements
-
-* `TableAjax` now accepts an `onAjaxError` function as a prop, to handle Ajax requests that return a HTTP error
-
 # 1.4.0
 
 ## Dispatcher
@@ -32,6 +26,10 @@ Logger can now supply a option of `group` - this will group any logged messages 
 ## New Patterns
 
 * `ConfigurableItemsPattern` Combines ConfigurableItems and ConfigurableItemRow components
+
+## Component Enhancements
+
+* `TableAjax` now accepts an `onAjaxError` function as a prop, to handle Ajax requests that return a HTTP error
 
 ## Linting Updates
 
@@ -62,6 +60,12 @@ The following have had minor internal changes to satisfy the introduction of str
 ## Minor Improvments
 
 * The `Poller` helper has been refactored to no longer use promises
+
+# 1.3.6
+
+## Bug Fix
+
+* `Dialog`: ensures close icon positioning regardless of CSS load order
 
 # 1.3.5
 
