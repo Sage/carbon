@@ -70,7 +70,7 @@ class Form extends React.Component {
     beforeFormValidation: PropTypes.func,
 
     /**
-ElementResize     *
+     * Alignment of submit button
      * @ property
      * @type {String}
      */
