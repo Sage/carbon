@@ -1,7 +1,7 @@
 import { Sidebar } from './';
 import OptionsHelper from './../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
-import sidebarHeaderDefinition from './sidebar-header/definition';
+import sidebarHeaderDefinition from './sidebar-header/__definition__';
 
 let definition = new Definition('sidebar', Sidebar, {
   description: `A sidebar overlaid at the right or left of a page.`,

@@ -1,6 +1,6 @@
 import { Carousel } from './';
 import Definition from './../../../demo/utils/definition';
-import slideDefinition from './slide/definition';
+import slideDefinition from './slide/__definition__';
 
 const definition = new Definition('carousel', Carousel, {
   description: 'Steps through a series of images.',

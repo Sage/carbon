@@ -1,7 +1,7 @@
 import Filter from './';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
-import textboxDefinition from './../textbox/definition';
+import textboxDefinition from './../textbox/__definition__';
 
 let definition = new Definition('filter', Filter, {
   propOptions: {

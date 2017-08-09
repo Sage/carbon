@@ -1,7 +1,7 @@
 import ShowEditPod from './';
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
-import formDefinition from './../form/definition';
+import formDefinition from './../form/__definition__';
 import { assign } from 'lodash';
 
 let definition = new Definition('show-edit-pod', ShowEditPod, {

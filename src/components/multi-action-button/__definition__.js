@@ -1,7 +1,7 @@
 import MultiActionButton from './';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
-import buttonDefinition from './../button/definition';
+import buttonDefinition from './../button/__definition__';
 
 let definition = new Definition('multi-action-button', MultiActionButton, {
   description: `Related buttons of equal importance that are shown on hover.`,
