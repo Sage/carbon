@@ -32,6 +32,14 @@ exports[`Column options columnAlign renders a columnAlign class 1`] = `
 </div>
 `;
 
+exports[`Column options columnDivide renders a columnDivide class 1`] = `
+<div
+  className="carbon-column carbon-column--column-divide"
+>
+  <span />
+</div>
+`;
+
 exports[`Column options columnDivide renders a columnOffset class 1`] = `
 <div
   className="carbon-column carbon-column--column-divide"

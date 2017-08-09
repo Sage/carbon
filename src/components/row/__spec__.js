@@ -1,17 +1,12 @@
 import React from 'react';
-import Immutable from 'immutable';
-import { Row, Column } from './row';
 import { shallow } from 'enzyme';
-import Logger from './../../utils/logger';
+import { Row, Column } from './row';
 
 describe('Row', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(
-      <Row>
-      </Row>
-    );
+    wrapper = shallow(<Row />);
   });
 
   describe('render', () => {
@@ -25,10 +20,10 @@ describe('Row', () => {
       it('determines the columns from the number of children', () => {
         wrapper = shallow(
           <Row>
-            <Column/>
-            <Column/>
-            <Column/>
-            <Column/>
+            <Column />
+            <Column />
+            <Column />
+            <Column />
           </Row>
         );
         expect(wrapper).toMatchSnapshot();
@@ -39,7 +34,7 @@ describe('Row', () => {
       it('sets the passed column as the number of columns', () => {
         wrapper = shallow(
           <Row columns='50'>
-            <Column/>
+            <Column />
           </Row>
         );
         expect(wrapper).toMatchSnapshot();
@@ -65,6 +60,11 @@ describe('Row', () => {
 
   describe('columnClasses', () => {
     it('passes the prop to its children', () => {
+      wrapper = shallow(
+        <Row>
+          <Column />
+        </Row>
+      );
       wrapper.setProps({ columnClasses: 'myChildClasses' });
       expect(wrapper).toMatchSnapshot();
     });

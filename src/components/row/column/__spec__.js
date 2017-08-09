@@ -53,7 +53,6 @@ describe('Column', () => {
         wrapper.setProps({ columnAlign: 'left' });
         expect(wrapper).toMatchSnapshot();
       });
-
     });
 
     describe('columnSpan', () => {
@@ -64,7 +63,7 @@ describe('Column', () => {
     });
 
     describe('columnDivide', () => {
-      it('renders a columnOffset class', () => {
+      it('renders a columnDivide class', () => {
         wrapper.setProps({ columnDivide: true });
         expect(wrapper).toMatchSnapshot();
       });
