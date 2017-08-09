@@ -1,6 +1,6 @@
 'use strict';
 
-//mock for superagent - __mocks__/superagent.js
+// mock for superagent - __mocks__/superagent.js
 
 var mockDelay;
 var mockError;
@@ -18,51 +18,78 @@ var mockResponse = {
   toError: jest.genMockFunction()
 };
 
-var Request = {
-  post() {
-    return this;
-  },
-  get() {
-    return this;
-  },
-  send() {
-    return this;
-  },
-  query() {
-    return this;
-  },
-  field() {
-    return this;
-  },
-  set() {
-    return this;
-  },
-  accept() {
-    return this;
-  },
-  timeout() {
-    return this;
-  },
-  end: jest.genMockFunction().mockImplementation(function(callback) {
-    if (mockDelay) {
-      this.delayTimer = setTimeout(callback, 0, mockError, mockResponse);
+const mockEvents = [];
 
-      return;
-    }
-
-    callback(mockError, mockResponse);
-    return this;
-  }),
-  //expose helper methods for tests to set
-  __setMockDelay(boolValue) {
-    mockDelay = boolValue;
-  },
-  __setMockResponse(mockRes) {
-    mockResponse = mockRes;
-  },
-  __setMockError(mockErr) {
-    mockError = mockErr;
+var Request = (method, url) => {
+  if (method && url) {
+    Request[method](url);
   }
+  return Request;
+}
+
+Request.post = () => {
+  return Request;
+};
+Request.get = () => {
+  return Request;
+};
+Request.send = () => {
+  return Request;
+};
+Request.query = () => {
+  return Request;
+};
+Request.field = () => {
+  return Request;
+};
+Request.set = () => {
+  return Request;
+};
+Request.del = () => {
+  return Request;
+};
+Request.accept = () => {
+  return Request;
+};
+Request.timeout = () => {
+  return Request;
+};
+Request.del = () => {
+  return Request;
+};
+Request.put = () => {
+  return Request;
+};
+Request.type = () => {
+  return Request;
+};
+Request.on = (eventName, callback) => {
+  mockEvents[eventName] = callback;
+  return Request;
+};
+Request.end = jest.genMockFunction().mockImplementation((callback) => {
+  if (mockDelay) {
+    this.delayTimer = setTimeout(callback, 0, mockError, mockResponse);
+
+    return;
+  }
+
+  callback(mockError, mockResponse);
+  return Request;
+});
+
+//expose helper methods for tests to set
+Request.__setMockDelay = (boolValue) => {
+  mockDelay = boolValue;
+};
+Request.__setMockResponse = (mockRes) => {
+  mockResponse = mockRes;
+};
+Request.__setMockError = (mockErr) => {
+  mockError = mockErr;
+};
+Request.__simulate = (eventName, eventObject) => {
+  mockEvents[eventName](eventObject);
 };
 
 module.exports = Request;
