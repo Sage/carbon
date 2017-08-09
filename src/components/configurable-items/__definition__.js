@@ -1,6 +1,6 @@
 import { ConfigurableItems } from './';
 import Definition from './../../../demo/utils/definition';
-import configurableItemRowDefinition from './configurable-item-row/definition';
+import configurableItemRowDefinition from './configurable-item-row/__definition__';
 
 let definition = new Definition('configurable-items', ConfigurableItems, {
   associatedDefinition: [configurableItemRowDefinition],

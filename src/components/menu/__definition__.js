@@ -1,8 +1,8 @@
 import { Menu } from './';
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
-import menuItemDefinition from './menu-item/definition';
-import submenuBlockDefinition from './submenu-block/definition';
+import menuItemDefinition from './menu-item/__definition__';
+import submenuBlockDefinition from './submenu-block/__definition__';
 
 let definition = new Definition('menu', Menu, {
   description: `Navigates the user in the overall hierarchy of your app.`,
