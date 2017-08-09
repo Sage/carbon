@@ -192,7 +192,7 @@ class ComponentCodeBuilder {
     } else {
       Dispatcher.dispatch({
         actionType: ComponentConstants.UPDATE_DEFINITION,
-        name: '${kebabCase(this.name)}',
+        name: kebabCase(this.name),
         prop: 'open',
         value: true,
         wrap: true
