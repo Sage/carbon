@@ -61,6 +61,10 @@ The following have had minor internal changes to satisfy the introduction of str
 
 * The `Poller` helper has been refactored to no longer use promises
 
+## Demo Site
+
+* Renamed `definition.js` files to `__definition__.js`.
+
 # 1.3.6
 
 ## Bug Fix
