@@ -1,7 +1,7 @@
 import { Tabs } from './';
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import tabDefinition from './tab/definition';
+import tabDefinition from './tab/__definition__';
 
 let definition = new Definition('tabs', Tabs, {
   description: `Switches between variants of a page or different tables.`,

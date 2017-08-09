@@ -1,8 +1,8 @@
 import Link from './';
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import linkDefinition from './../link/definition';
-import tooltipDefinition from './../tooltip/definition';
+import linkDefinition from './../link/__definition__';
+import tooltipDefinition from './../tooltip/__definition__';
 
 let definition = new Definition('link', Link, {
   description: `Navigates the user to another location.`,

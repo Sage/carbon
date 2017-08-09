@@ -1,6 +1,6 @@
 import { Pages } from './';
 import Definition from './../../../demo/utils/definition';
-import pageDefinition from './page/definition';
+import pageDefinition from './page/__definition__';
 
 global.goToPage = (ev) => {
   window.Dispatcher.dispatch({

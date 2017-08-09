@@ -1,7 +1,7 @@
 import SplitButton from './';
 import OptionsHelper from './../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
-import buttonDefinition from './../button/definition';
+import buttonDefinition from './../button/__definition__';
 
 let definition = new Definition('split-button', SplitButton, {
   description: `Related buttons that are shown on hover where one option is more important than the others.`,
