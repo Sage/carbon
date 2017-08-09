@@ -40,14 +40,6 @@ exports[`Column options columnDivide renders a columnDivide class 1`] = `
 </div>
 `;
 
-exports[`Column options columnDivide renders a columnOffset class 1`] = `
-<div
-  className="carbon-column carbon-column--column-divide"
->
-  <span />
-</div>
-`;
-
 exports[`Column options columnOffset renders a columnOffset class 1`] = `
 <div
   className="carbon-column carbon-column--offset-2"

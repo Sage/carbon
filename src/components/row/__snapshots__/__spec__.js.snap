@@ -12,8 +12,12 @@ exports[`Row columnClasses passes the prop to its children 1`] = `
 
 exports[`Row columnDivide when columnDivide is true passes columnDivide to its children 1`] = `
 <div
-  className="carbon-row carbon-row--gutter-medium carbon-row--columns-0"
-/>
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-1"
+>
+  <Column
+    columnDivide={true}
+  />
+</div>
 `;
 
 exports[`Row columns when column number is not passed determines the columns from the number of children 1`] = `

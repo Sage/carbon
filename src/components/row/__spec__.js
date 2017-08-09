@@ -5,12 +5,9 @@ import { Row, Column } from './row';
 describe('Row', () => {
   let wrapper;
 
-  beforeEach(() => {
-    wrapper = shallow(<Row />);
-  });
-
   describe('render', () => {
     it('renders a parent div with calculated CSS classes', () => {
+      wrapper = shallow(<Row />);
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -44,6 +41,7 @@ describe('Row', () => {
 
   describe('gutter', () => {
     it('applies a gutter class', () => {
+      wrapper = shallow(<Row />);
       wrapper.setProps({ gutter: 'small' });
       expect(wrapper).toMatchSnapshot();
     });
@@ -52,6 +50,11 @@ describe('Row', () => {
   describe('columnDivide', () => {
     describe('when columnDivide is true', () => {
       it('passes columnDivide to its children', () => {
+        wrapper = shallow(
+          <Row>
+            <Column />
+          </Row>
+        );
         wrapper.setProps({ columnDivide: true });
         expect(wrapper).toMatchSnapshot();
       });
