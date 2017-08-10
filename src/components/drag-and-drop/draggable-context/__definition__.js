@@ -2,8 +2,8 @@
 import DraggableContext from './';
 import ComponentActions from './../../../../demo/actions/component';
 import Definition from './../../../../demo/utils/definition';
-import WithDragDefinition from './../with-drag/definition';
-import WithDropDefinition from './../with-drop/definition';
+import WithDragDefinition from './../with-drag/__definition__';
+import WithDropDefinition from './../with-drop/__definition__';
 
 let definition = new Definition('draggable-context', DraggableContext, {
   associatedDefinitions: [WithDropDefinition, WithDragDefinition],

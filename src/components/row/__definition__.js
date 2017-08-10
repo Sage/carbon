@@ -1,6 +1,6 @@
 import Row from './';
 import OptionsHelper from 'utils/helpers/options-helper';
-import ColumnDefinition from './column/definition';
+import ColumnDefinition from './column/__definition__';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('row', Row, {

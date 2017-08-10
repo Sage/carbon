@@ -1,10 +1,10 @@
 import { TableAjax } from './';
 import Definition from './../../../demo/utils/definition';
 import ComponentActions from './../../../demo/actions/component';
-import tableRowDefinition from './../table/table-row/definition';
-import tableCellDefinition from './../table/table-cell/definition';
-import tableHeaderDefinition from './../table/table-header/definition';
-import tableSubheaderDefinition from './../table/table-subheader/definition';
+import tableRowDefinition from './../table/table-row/__definition__';
+import tableCellDefinition from './../table/table-cell/__definition__';
+import tableHeaderDefinition from './../table/table-header/__definition__';
+import tableSubheaderDefinition from './../table/table-subheader/__definition__';
 
 const definition = new Definition('table-ajax', TableAjax, {
   description: 'Ajax control: A table of relational data to view or interact with.',

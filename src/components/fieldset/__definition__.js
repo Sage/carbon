@@ -1,7 +1,7 @@
 import Fieldset from './';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
-import textboxDefinition from './../textbox/definition';
+import textboxDefinition from './../textbox/__definition__';
 
 let definition = new Definition('fieldset', Fieldset, {
   description: `Edits a set of closely related inputs that are grouped together.`,

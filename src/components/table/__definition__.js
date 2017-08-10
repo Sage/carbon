@@ -1,10 +1,10 @@
 import { Table } from './';
 import Definition from './../../../demo/utils/definition';
 import ComponentActions from './../../../demo/actions/component';
-import tableRowDefinition from './table-row/definition';
-import tableCellDefinition from './table-cell/definition';
-import tableHeaderDefinition from './table-header/definition';
-import tableSubheaderDefinition from './table-subheader/definition';
+import tableRowDefinition from './table-row/__definition__';
+import tableCellDefinition from './table-cell/__definition__';
+import tableHeaderDefinition from './table-header/__definition__';
+import tableSubheaderDefinition from './table-subheader/__definition__';
 
 // TODO: see if we can remove the need for this - this populates the data by
 // fetching it from the mock service
