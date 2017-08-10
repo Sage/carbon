@@ -2,7 +2,7 @@
 
 ## Pattern Enhancements
 
-* `ConfigurableItems` now accepts an `onReset` prop to be passed in.
+* `ConfigurableItems` now accepts an `onReset` prop to be passed in and uses the Carbon dispatcher.
 
 ### npm
 
