@@ -7,6 +7,8 @@ import Form from 'components/form';
 import Dialog from 'components/dialog';
 import { shallow, mount } from 'enzyme';
 
+/* global jest */
+
 let validationOne = {
   validate: function() {
     return true;
@@ -367,7 +369,7 @@ describe('InputValidation', () => {
           let wrapper;
 
           beforeEach(() => {
-            jasmine.clock().install();
+            jest.useFakeTimers();
             wrapper = mount(
               <Dialog open>
                 <Component validations={[validationThree]} />
@@ -376,14 +378,15 @@ describe('InputValidation', () => {
           });
 
           afterEach(() => {
-            jasmine.clock().uninstall();
+            jest.clearAllTimers();
+            jest.useRealTimers();
           });
 
           it('sets the class to flipped', () => {
             Component;
             const input = wrapper.find('input');
             input.simulate('blur');
-            jasmine.clock().tick(0);
+            jest.runTimersToTime(0);
             input.simulate('focus');
             wrapper.instance()._dialog = {
               offsetWidth: 10
@@ -936,17 +939,13 @@ describe('InputValidation', () => {
 
   describe('_handleBlur', () => {
     beforeEach(() => {
-      jasmine.clock().install();
-    });
-
-    afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.useFakeTimers();
     });
 
     it('calls validate on blur of the input', () => {
       spyOn(instance, 'validate');
       instance._handleBlur();
-      jasmine.clock().tick(0);
+      jest.runTimersToTime(0);
       expect(instance.validate).toHaveBeenCalled();
     });
 
@@ -955,7 +954,7 @@ describe('InputValidation', () => {
         instance.setState({ messageLocked: true });
         spyOn(instance, 'setState');
         instance._handleBlur();
-        jasmine.clock().tick(0);
+        jest.runTimersToTime(0);
         expect(instance.setState).toHaveBeenCalledWith({ messageLocked: false });
       });
     });

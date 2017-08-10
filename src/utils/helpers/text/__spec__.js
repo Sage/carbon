@@ -1,4 +1,4 @@
-import Text from './text'
+import Text from './text';
 import Browser from '../browser';
 
 describe('Text', () => {

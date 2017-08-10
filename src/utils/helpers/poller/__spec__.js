@@ -1,12 +1,15 @@
+import Request from 'superagent';
 import Poller from './poller';
 import './../../promises';
+
+/* global jest */
+jest.mock('superagent');
 
 describe('poller', () => {
   let functions, url;
 
   beforeEach(() => {
-    jasmine.Ajax.install();
-    jasmine.clock().install();
+    jest.useFakeTimers();
     const callback = jasmine.createSpy('callback');
     functions = {
       callback
@@ -14,11 +17,23 @@ describe('poller', () => {
     url = 'foo/bar';
     spyOn(console, 'error');
     spyOn(console, 'warn');
+
+    Request.__setMockResponse({
+      status() {
+        return 200;
+      },
+      ok() {
+        return true;
+      },
+      body: {
+        message_type: 'success'
+      }
+    });
   });
 
   afterEach(() => {
-    jasmine.Ajax.uninstall();
-    jasmine.clock().uninstall();
+    jest.clearAllMocks();
+    jest.clearAllTimers();
   });
 
   describe('when no url has been provided', () => {
@@ -46,123 +61,83 @@ describe('poller', () => {
   });
 
   describe('when no callback function is provided', () => {
-    let request, callCount;
-
     it('polls continuously', () => {
+      Request.get = jest.fn().mockReturnThis();
+
       Poller({ url }, {}, {});
 
-      const filterByRequestUrl = (req) => {
-        return req.url === url;
-      };
-
       for (let i = 1; i < 10; i++) {
-        request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          // Disabling the quotes and quote-props here, otherwise
-          // we get a "FakeXMLHttpRequest already completed" error.
-          /* eslint-disable quotes, quote-props */
-          "status": 200,
-          "contentType": 'application/json',
-          "responseText": "{\"message_type\": \"success\"}"
-          /* eslint-enable quotes, quote-props */
-        });
-
-        jasmine.clock().tick(3001);
-
-        callCount = jasmine.Ajax.requests.filter(filterByRequestUrl).length;
+        jest.runTimersToTime(3001);
+        expect(Request.get).toBeCalledWith(url);
       }
 
-      expect(callCount).toEqual(10);
+      expect(Request.get.mock.calls.length).toBe(10);
     });
   });
 
   describe('default options', () => {
     it('defaults the interval to 3 seconds if none is provided', () => {
+      Request.get = jest.fn().mockReturnThis();
+
       Poller({ url }, functions, {});
 
-      const request = jasmine.Ajax.requests.mostRecent();
-      request.respondWith({
-        // Disabling the quotes and quote-props here, otherwise
-        // we get a "FakeXMLHttpRequest already completed" error.
-        /* eslint-disable quotes, quote-props */
-        "status": 200,
-        "contentType": 'application/json',
-        "responseText": "{\"message_type\": \"success\"}"
-        /* eslint-enable quotes, quote-props */
-      });
+      expect(Request.get.mock.calls.length).toBe(1);
 
-      let callCount = jasmine.Ajax.requests.filter((req) => {
-        return req.url === url;
-      }).length;
+      jest.runTimersToTime(1000);
 
-      expect(callCount).toEqual(1);
-      jasmine.clock().tick(1000);
+      expect(Request.get.mock.calls.length).toBe(1);
 
-      callCount = jasmine.Ajax.requests.filter((req) => {
-        return req.url === url;
-      }).length;
+      jest.runTimersToTime(2001);
 
-      expect(callCount).toEqual(1);
-      jasmine.clock().tick(2001);
-
-      callCount = jasmine.Ajax.requests.filter((req) => {
-        return req.url === url;
-      }).length;
-
-      expect(callCount).toEqual(2);
+      expect(Request.get.mock.calls.length).toEqual(2);
     });
   });
 
   describe('poll', () => {
     describe('when the pollCount exceeds the specified number of retries', () => {
       it('logs a too many requests warning', () => {
+        console.warn = jest.fn(); // eslint-disable-line no-console
+
+
         Poller({ url }, functions, { interval: 1000, retries: 2 });
-        jasmine.clock().tick(1000);
+        jest.runTimersToTime(1000);
 
         for (let i = 0; i < 2; i++) {
-          const request = jasmine.Ajax.requests.mostRecent();
-          request.respondWith({
-            // Disabling the quotes and quote-props here, otherwise
-            // we get a "FakeXMLHttpRequest already completed" error.
-            /* eslint-disable quotes, quote-props */
-            "status": 200,
-            "contentType": 'application/json',
-            "responseText": "{\"message_type\": \"success\"}"
-            /* eslint-enable quotes, quote-props */
-          });
-          jasmine.clock().tick(1000);
+          jest.runTimersToTime(1000);
         }
-        expect(console.warn).toHaveBeenCalledWith( // eslint-disable-line no-console
+
+        expect(console.warn.mock.calls[0][0]).toBe( // eslint-disable-line no-console
           'The poller has made too many requests - terminating poll');
       });
     });
 
     describe('when time exceeds the specified endTime', () => {
-      it('logs a too many requests warningh', () => {
-        const startTime = Number(new Date());
-        jasmine.clock().mockDate(startTime);
+      it('logs a too many requests warning 2', () => {
+        const now = Date.now();
+        Date.now = jest.fn();
+        Date.now.mockReturnValueOnce(now)
+          .mockReturnValueOnce(now)
+          .mockReturnValueOnce(now);
 
-        Poller({ url }, functions, { interval: 1000, endTime: 3000 });
+        const testInterval = 1000;
+        console.warn = jest.fn(); // eslint-disable-line no-console
+
+        let mockDateValue = now;
+
+        Poller({ url }, functions, { interval: testInterval, endTime: 3000 });
         for (let i = 0; i < 4; i++) {
-          const request = jasmine.Ajax.requests.mostRecent();
-          request.respondWith({
-            // Disabling the quotes and quote-props here, otherwise
-            // we get a "FakeXMLHttpRequest already completed" error.
-            /* eslint-disable quotes, quote-props */
-            "status": 200,
-            "contentType": 'application/json',
-            "responseText": "{\"message_type\": \"success\"}"
-            /* eslint-enable quotes, quote-props */
-          });
-          jasmine.clock().tick(1000);
+          mockDateValue += (testInterval + i);
+          Date.now.mockReturnValueOnce(mockDateValue);
+          jest.runTimersToTime(testInterval);
         }
-        expect(console.warn).toHaveBeenCalledWith( // eslint-disable-line no-console
+        expect(console.warn.mock.calls[0][0]).toBe( // eslint-disable-line no-console
           'The poller has made too many requests - terminating poll');
       });
     });
 
     describe('the request', () => {
       it('makes a get request with the provided params', () => {
+        Request.query = jest.fn().mockReturnThis();
         Poller({
           url,
           data: {
@@ -173,67 +148,51 @@ describe('poller', () => {
           }
         }, functions, { interval: 1000 });
 
-        const request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          // Disabling the quotes and quote-props here, otherwise
-          // we get a "FakeXMLHttpRequest already completed" error.
-          /* eslint-disable quotes, quote-props */
-          "status": 200,
-          "contentType": 'application/json',
-          "responseText": "{\"message_type\": \"success\"}"
-          /* eslint-enable quotes, quote-props */
+        expect(Request.query).toBeCalledWith({
+          foo: 'bar',
+          headers: {
+            Accept: 'application/json'
+          }
         });
-        expect(request.url).toEqual('foo/bar?foo=bar&headers%5BAccept%5D=application%2Fjson');
       });
     });
 
     describe('if there is an error', () => {
-      describe('if a handleError function is provided', () => {
-        let promise;
-
-        beforeEach(() => {
-          functions.handleError = jasmine.createSpy('handleError');
-
-          promise = Poller({ url }, functions, { interval: 1000 });
-
-          const request = jasmine.Ajax.requests.mostRecent();
-          request.respondWith({
-            // Disabling the quotes and quote-props here, otherwise
-            // we get a "FakeXMLHttpRequest already completed" error.
-            /* eslint-disable quotes, quote-props */
-            "status": 500,
-            "contentType": 'application/json',
-            "responseText": "{\"message_type\": \"error\"}"
-            /* eslint-enable quotes, quote-props */
-          });
+      beforeEach(() => {
+        Request.__setMockResponse({
+          status() {
+            return 500;
+          },
+          ok() {
+            return false;
+          },
+          body: {
+            message_type: 'error'
+          }
         });
 
+        Request.__setMockError({
+          message: 'Unsuccessful HTTP response'
+        });
+      });
+
+      afterEach(() => {
+        Request.__setMockError(undefined);
+      });
+
+      describe('if a handleError function is provided', () => {
         it('calls the handleError with the error', (done) => {
-          promise.then(done, done);
-          expect(functions.handleError.calls.mostRecent().args.toString()).toEqual('Error: Unsuccessful HTTP response');
+          functions.handleError = jest.fn();
+          Poller({ url }, functions, { interval: 1000 });
+          done();
+          expect(functions.handleError).toBeCalled();
         });
       });
 
       describe('if no custom handleError function is avaliable', () => {
-        let promise;
-
-        beforeEach(() => {
-          promise = Poller({ url }, functions, { interval: 1000 });
-
-          const request = jasmine.Ajax.requests.mostRecent();
-          request.respondWith({
-            // Disabling the quotes and quote-props here, otherwise
-            // we get a "FakeXMLHttpRequest already completed" error.
-            /* eslint-disable quotes, quote-props */
-            "status": 500,
-            "contentType": 'application/json',
-            "responseText": "{\"message_type\": \"error\"}"
-            /* eslint-enable quotes, quote-props */
-          });
-        });
-
         it('logs the error', (done) => {
-          promise.then(done, done);
+          Poller({ url }, functions, { interval: 1000 });
+          done();
           expect(console.error).toHaveBeenCalledWith( // eslint-disable-line no-console
             'Unsuccessful HTTP response');
         });
@@ -241,25 +200,16 @@ describe('poller', () => {
     });
 
     describe('terminating function', () => {
+      beforeEach(() => {
+        functions.terminate = jest.fn();
+      });
+
       describe('if a terminating condition function is provided', () => {
         describe('when the terminating condition is met', () => {
           beforeEach(() => {
-            functions.terminate = () => {};
-            spyOn(functions, 'terminate').and.returnValue(true);
+            functions.terminate.mockReturnValue(true);
             Poller({ url }, functions, { interval: 1000 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-            request.respondWith({
-              // Disabling the quotes and quote-props here, otherwise
-              // we get a "FakeXMLHttpRequest already completed" error.
-              /* eslint-disable quotes, quote-props */
-              "status": 200,
-              "contentType": 'application/json',
-              "responseText": "{\"message_type\": \"success\"}"
-              /* eslint-enable quotes, quote-props */
-            });
           });
-
 
           it('checks the response with terminate function', () => {
             expect(functions.terminate).toHaveBeenCalledWith(jasmine.any(Object));
@@ -268,20 +218,8 @@ describe('poller', () => {
 
         describe('if the terminating condition has not been met', () => {
           beforeEach(() => {
-            functions.terminate = () => {};
-            spyOn(functions, 'terminate').and.returnValue(false);
+            functions.terminate.mockReturnValue(false);
             Poller({ url }, functions, { interval: 1000 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-            request.respondWith({
-              // Disabling the quotes and quote-props here, otherwise
-              // we get a "FakeXMLHttpRequest already completed" error.
-              /* eslint-disable quotes, quote-props */
-              "status": 200,
-              "contentType": 'application/json',
-              "responseText": "{\"message_type\": \"success\"}"
-              /* eslint-enable quotes, quote-props */
-            });
           });
 
           it('checks the response with terminate function', () => {
@@ -293,63 +231,25 @@ describe('poller', () => {
 
     describe('conditionMet function', () => {
       it('calls the conditionMet function with the response', () => {
-        functions.conditionMet = () => {};
-        spyOn(functions, 'conditionMet');
+        functions.conditionMet = jest.fn();
         Poller({ url }, functions, { interval: 1000 });
 
-        const request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          // Disabling the quotes and quote-props here, otherwise
-          // we get a "FakeXMLHttpRequest already completed" error.
-          /* eslint-disable quotes, quote-props */
-          "status": 200,
-          "contentType": 'application/json',
-          "responseText": "{\"message_type\": \"success\"}"
-          /* eslint-enable quotes, quote-props */
-        });
-
-        expect(functions.conditionMet).toHaveBeenCalledWith(jasmine.any(Object));
+        expect(functions.conditionMet).toBeCalledWith(jasmine.any(Object));
       });
 
       describe('when a custom conditionMet function has been provided', () => {
         describe('when the condition has been met', () => {
           it('calls the callback with the response', () => {
-            functions.conditionMet = () => {};
-            spyOn(functions, 'conditionMet').and.returnValue(true);
+            functions.conditionMet = jest.fn().mockReturnValue(true);
             Poller({ url }, functions, { interval: 1000 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-            request.respondWith({
-              // Disabling the quotes and quote-props here, otherwise
-              // we get a "FakeXMLHttpRequest already completed" error.
-              /* eslint-disable quotes, quote-props */
-              "status": 200,
-              "contentType": 'application/json',
-              "responseText": "{\"message_type\": \"success\"}"
-              /* eslint-enable quotes, quote-props */
-            });
-
-            expect(functions.callback).toHaveBeenCalledWith(jasmine.any(Object));
+            expect(functions.callback).toBeCalledWith(jasmine.any(Object));
           });
         });
 
         describe('when the condition has not been met', () => {
           it('does not call the callback', () => {
-            functions.conditionMet = () => {};
-            spyOn(functions, 'conditionMet').and.returnValue(false);
+            functions.conditionMet = jest.fn().mockReturnValue(false);
             Poller({ url }, functions, { interval: 1000 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-            request.respondWith({
-              // Disabling the quotes and quote-props here, otherwise
-              // we get a "FakeXMLHttpRequest already completed" error.
-              /* eslint-disable quotes, quote-props */
-              "status": 200,
-              "contentType": 'application/json',
-              "responseText": "{\"message_type\": \"success\"}"
-              /* eslint-enable quotes, quote-props */
-            });
-
             expect(functions.callback).not.toHaveBeenCalled();
           });
         });
@@ -358,18 +258,6 @@ describe('poller', () => {
       describe('when a custom conditionMet function has not been provided', () => {
         it('never calls the callback', () => {
           Poller({ url }, functions, { interval: 1000 });
-
-          const request = jasmine.Ajax.requests.mostRecent();
-          request.respondWith({
-            // Disabling the quotes and quote-props here, otherwise
-            // we get a "FakeXMLHttpRequest already completed" error.
-            /* eslint-disable quotes, quote-props */
-            "status": 200,
-            "contentType": 'application/json',
-            "responseText": "{\"message_type\": \"success\"}"
-          /* eslint-enable quotes, quote-props */
-          });
-
           expect(functions.callback).not.toHaveBeenCalled();
         });
       });
@@ -377,36 +265,17 @@ describe('poller', () => {
 
     describe('when the promise has not been resolved or rejected', () => {
       it('calls the poll again after the specified interval', () => {
+        Request.get = jest.fn().mockReturnThis();
+
         Poller({ url }, functions, { interval: 1000 });
 
-        const filterByRequestUrl = (req) => {
-          return req.url === url;
-        };
+        expect(Request.get.mock.calls.length).toBe(1);
+        jest.runTimersToTime(500);
 
-        const request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          // Disabling the quotes and quote-props here, otherwise
-          // we get a "FakeXMLHttpRequest already completed" error.
-          /* eslint-disable quotes, quote-props */
-          "status": 200,
-          "contentType": 'application/json',
-          "responseText": "{\"message_type\": \"success\"}"
-          /* eslint-enable quotes, quote-props */
-        });
+        expect(Request.get.mock.calls.length).toEqual(1);
+        jest.runTimersToTime(501);
 
-        let callCount = jasmine.Ajax.requests.filter(filterByRequestUrl).length;
-
-        expect(callCount).toEqual(1);
-        jasmine.clock().tick(500);
-
-        callCount = jasmine.Ajax.requests.filter(filterByRequestUrl).length;
-
-        expect(callCount).toEqual(1);
-        jasmine.clock().tick(501);
-
-        callCount = jasmine.Ajax.requests.filter(filterByRequestUrl).length;
-
-        expect(callCount).toEqual(2);
+        expect(Request.get.mock.calls.length).toEqual(2);
       });
     });
   });
@@ -414,48 +283,22 @@ describe('poller', () => {
   describe('conditionNotMetCallback', () => {
     describe('when the conditionMet returns true', () => {
       it('does not call the callback with the response', () => {
-        const notMetSpy = jasmine.createSpy('conditionNotMet');
-        functions.conditionMet = () => {};
-        functions.conditionNotMetCallback = notMetSpy;
+        functions.conditionMet = jest.fn().mockReturnValue(true);
+        functions.conditionNotMetCallback = jest.fn();
 
-        spyOn(functions, 'conditionMet').and.returnValue(true);
         Poller({ url }, functions, { interval: 1000 });
 
-        const request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          // Disabling the quotes and quote-props here, otherwise
-          // we get a "FakeXMLHttpRequest already completed" error.
-          /* eslint-disable quotes, quote-props */
-          "status": 200,
-          "contentType": 'application/json',
-          "responseText": "{\"message_type\": \"success\"}"
-          /* eslint-enable quotes, quote-props */
-        });
-
-        expect(notMetSpy).not.toHaveBeenCalledWith();
+        expect(functions.conditionNotMetCallback).not.toBeCalled();
       });
     });
 
     describe('when conditionMet returns false', () => {
       it('it calls the condition not met function', () => {
-        const notMetSpy = jasmine.createSpy('conditionNotMet');
-        functions.conditionMet = () => {};
-        functions.conditionNotMetCallback = notMetSpy;
-        spyOn(functions, 'conditionMet').and.returnValue(false);
+        functions.conditionMet = jest.fn().mockReturnValue(false);
+        functions.conditionNotMetCallback = jest.fn();
         Poller({ url }, functions, { interval: 1000 });
 
-        const request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          // Disabling the quotes and quote-props here, otherwise
-          // we get a "FakeXMLHttpRequest already completed" error.
-          /* eslint-disable quotes, quote-props */
-          "status": 200,
-          "contentType": 'application/json',
-          "responseText": "{\"message_type\": \"success\"}"
-          /* eslint-enable quotes, quote-props */
-        });
-
-        expect(notMetSpy).toHaveBeenCalled();
+        expect(functions.conditionNotMetCallback).toBeCalled();
       });
     });
   });

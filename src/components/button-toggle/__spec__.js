@@ -5,13 +5,10 @@ import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-spec
 import ButtonToggle from './button-toggle';
 
 describe('ButtonToggle', () => {
-  let instance, wrapper;
+  let instance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<ButtonToggle><span>Plus</span></ButtonToggle>);
-    wrapper = shallow(
-      <ButtonToggle data-role='contacts' data-element='button-toggle'><span>Minus</span></ButtonToggle>
-    );
   });
 
   describe('mainClasses', () => {

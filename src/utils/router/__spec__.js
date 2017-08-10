@@ -40,9 +40,11 @@ describe('startRouter', () => {
     it('sets the router onUpdate to track analytics', () => {
       let gaSpy = jasmine.createSpy('ga');
       global.ga = gaSpy;
+
       router.props.onUpdate();
-      expect(gaSpy).toHaveBeenCalledWith('set', 'page', '/context.html');
+
       expect(gaSpy).toHaveBeenCalledWith('send', 'pageview');
+      expect(gaSpy).toHaveBeenCalledWith('set', 'page', 'blank');
     });
   });
 

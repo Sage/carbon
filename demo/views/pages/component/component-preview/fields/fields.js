@@ -7,6 +7,7 @@ import Checkbox from 'components/checkbox';
 import DropdownFilter from 'components/dropdown-filter';
 import Textarea from 'components/textarea';
 import Textbox from 'components/textbox';
+import Number from 'components/number';
 
 export default props => (
   <form className='demo-component-preview__controls'>
@@ -145,6 +146,10 @@ const chooseField = (type, prop, value, options) => {
 
   if (type === "Boolean") {
     return Checkbox;
+  }
+
+  if (type === "Number") {
+    return Number;
   }
 
   if (prop !== 'children') {

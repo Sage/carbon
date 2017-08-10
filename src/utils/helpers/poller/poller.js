@@ -41,7 +41,7 @@ import './../../promises';
  */
 export default (queryOptions, functions, options) => {
   if (!setupValid(queryOptions, functions)) {
-    return undefined;
+    return;
   }
 
   // set default options for unprovided options
@@ -49,45 +49,41 @@ export default (queryOptions, functions, options) => {
   const funcs = getFunctions(functions);
   const opts = getOptions(options);
 
-  return new Promise((resolve, reject) => {
-    // pollCount for use if retries option passed
-    let pollCount = 1;
+  // pollCount for use if retries option passed
+  let pollCount = 1;
 
-    (function poll() {
-      if (pollCount > opts.retries || Number(new Date()) > opts.endTime) {
-        console.warn('The poller has made too many requests - terminating poll'); // eslint-disable-line no-console
-        return;
-      }
-      Request
-        .get(queryOpts.url)
-        .query(queryOpts.data)
-        .set(queryOpts.headers)
-        .end((err, response) => {
-          let result;
+  (function poll() {
+    const now = Date.now();
+    if (pollCount > opts.retries || now > opts.endTime) {
+      console.warn('The poller has made too many requests - terminating poll'); // eslint-disable-line no-console
+      return;
+    }
+    Request
+      .get(queryOpts.url)
+      .query(queryOpts.data)
+      .set(queryOpts.headers)
+      .end((err, response) => {
+        let result;
 
-          if (err) {
-            if (funcs.handleError) {
-              result = reject(funcs.handleError(err));
-            } else {
-              result = reject(console.error(err.message)); // eslint-disable-line no-console
-            }
-          } else if (funcs.terminate(response)) {
-            result = resolve(response);
-          } else if (funcs.conditionMet(response)) {
-            result = resolve(funcs.callback(response));
+        if (err) {
+          if (funcs.handleError) {
+            result = funcs.handleError(err);
           } else {
-            funcs.conditionNotMetCallback(response);
-            pollCount += 1;
-            setTimeout(poll, opts.interval);
+            result = console.error(err.message); // eslint-disable-line no-console
           }
+        } else if (funcs.terminate(response)) {
+          result = response;
+        } else if (funcs.conditionMet(response)) {
+          result = funcs.callback(response);
+        } else {
+          funcs.conditionNotMetCallback(response);
+          pollCount += 1;
+          setTimeout(poll, opts.interval);
+        }
 
-          return result;
-        });
-    }());
-  })
-    .catch((err) => {
-      console.error(err); // eslint-disable-line no-console
-    });
+        return result;
+      });
+  }());
 };
 
 /**
@@ -113,7 +109,7 @@ function getQueryOptions(queryOptions) {
 function getOptions(options) {
   return {
     interval: options.interval || 3000,
-    endTime: Number(new Date()) + options.endTime || Infinity,
+    endTime: Date.now() + options.endTime || Infinity,
     retries: options.retries || Infinity
   };
 }
