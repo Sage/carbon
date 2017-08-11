@@ -39,6 +39,10 @@ describe('Numeral Validator', () => {
       it('validates the decimal without a leading zero', () => {
         expect(numeralValidator.validate('.1')).toBeTruthy();
       });
+
+      it('validates the decimal with a decimal point but no trailing zero', () => {
+        expect(numeralValidator.validate('1.')).toBeTruthy();
+      });
     });
 
     describe('when passed a message', () => {
