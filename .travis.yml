@@ -3,9 +3,9 @@ cache:
   directories:
   - node_modules
 node_js:
-  - '6.10.2'
+  - '6.11.2'
 install:
-  - npm install -g npm
+  - npm install -g npm@4.6.1
   - npm install -g gulp
   - npm install
 script:
