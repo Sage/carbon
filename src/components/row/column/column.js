@@ -13,7 +13,7 @@ const classes = (props) => {
       'carbon-column--column-divide': props.columnDivide
     }
   );
-}
+};
 
 const Column = (props) => {
   return (
@@ -23,6 +23,7 @@ const Column = (props) => {
   );
 };
 
+/* eslint-disable react/no-unused-prop-types */
 Column.propTypes = {
   /**
    * Children elements

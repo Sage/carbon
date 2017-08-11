@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { compact } from 'lodash';
-import Immutable from 'immutable';
 import Column from './column';
-import Logger from './../../utils/logger';
 
 /**
  * A row widget.
