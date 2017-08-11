@@ -96,7 +96,7 @@ function validateDecimal() {
      * @return {Boolean} true if value is valid
      */
     validate(value) {
-      return (!value || /^-?\d+(\.\d+)?$/.test(value));
+      return (!value || /^-?(\d+(\.\d+)?|\.\d+)$/.test(value));
     },
 
     /**

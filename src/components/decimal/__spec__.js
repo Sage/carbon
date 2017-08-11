@@ -371,6 +371,17 @@ describe('Decimal', () => {
         });
       });
 
+      describe('when the value does not have a leading zero', () => {
+        it('calls setState with the value formatted with a leading zero', () => {
+          const wrapper = shallow(
+            <Decimal name='total' value='.9' />
+          );
+
+          wrapper.find('input').at(0).simulate('blur');
+          expect(wrapper.state().visibleValue).toBe('0.90');
+        });
+      })
+
       describe('when onBlur is passed', () => {
         it('calls onBlur', () => {
           let onBlur = jasmine.createSpy();

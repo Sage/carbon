@@ -22,9 +22,22 @@ describe('Numeral Validator', () => {
 
   describe('getDescriptiveMessage', () => {
     describe('when passed nothing', () => {
+      let numeralValidator;
+
+      beforeEach(() => {
+        numeralValidator = new Validator();
+      });
+
       it('validates the decimal', () => {
-        let numeralValidator = new Validator();
         expect(numeralValidator.validate(1.1)).toBeTruthy();
+      });
+
+      it('validates the decimal with a leading zero', () => {
+        expect(numeralValidator.validate(0.1)).toBeTruthy();
+      });
+
+      it('validates the decimal without a leading zero', () => {
+        expect(numeralValidator.validate('.1')).toBeTruthy();
       });
     });
 

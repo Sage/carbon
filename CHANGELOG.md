@@ -1,3 +1,9 @@
+# 1.3.7
+
+## Bug Fix
+
+* `Decimal`: fix an issue where values entered without a leading zero were incorrectly failing numerical validation
+
 # 1.3.6
 
 ## Bug Fix
