@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import Button from './button';
 import Link from 'components/link';
+import Button from './button';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 
 describe('Button', () => {
 
-  let defaultButton, primary, secondary, small, large, disabled, anchor, to, wrapper;
-  let spy = jasmine.createSpy('spy')
+  let defaultButton, primary, secondary, small, large, disabled, anchor, to;
+  let spy = jasmine.createSpy('spy');
 
   beforeEach(() => {
 
@@ -62,8 +62,6 @@ describe('Button', () => {
     to = TestUtils.renderIntoDocument(
       <Button to="/foo">To</Button>
     );
-
-    wrapper = shallow(<Button data-role='contacts' data-element='button'>A Button</Button>);
   });
 
   describe('A basic button', () => {
@@ -134,31 +132,31 @@ describe('Button', () => {
     });
 
     it('adds a className of carbon-button to all buttons', () => {
-      expect(defaultDOM.classList).toMatch('carbon-button');
-      expect(primaryDOM.classList).toMatch('carbon-button');
-      expect(secondaryDOM.classList).toMatch('carbon-button');
-      expect(disabledDOM.classList).toMatch('carbon-button');
-      expect(smallDOM.classList).toMatch('carbon-button');
-      expect(largeDOM.classList).toMatch('carbon-button');
+      expect(defaultDOM.classList).toContain('carbon-button');
+      expect(primaryDOM.classList).toContain('carbon-button');
+      expect(secondaryDOM.classList).toContain('carbon-button');
+      expect(disabledDOM.classList).toContain('carbon-button');
+      expect(smallDOM.classList).toContain('carbon-button');
+      expect(largeDOM.classList).toContain('carbon-button');
     });
 
     it('adds a secondary class depending on its type', () => {
-      expect(primaryDOM.classList).toMatch('carbon-button--primary')
-      expect(secondaryDOM.classList).toMatch('carbon-button--secondary')
+      expect(primaryDOM.classList).toContain('carbon-button--primary');
+      expect(secondaryDOM.classList).toContain('carbon-button--secondary');
     });
 
     it('adds a disabled class if the button is disabled', () => {
-      expect(disabledDOM.classList).toMatch('carbon-button--disabled');
+      expect(disabledDOM.classList).toContain('carbon-button--disabled');
     });
 
     it('adds a theme class depending on the theme prop', () => {
-      expect(defaultDOM.classList).toMatch('carbon-button--blue');
-      expect(secondaryDOM.classList).toMatch('carbon-button--red');
+      expect(defaultDOM.classList).toContain('carbon-button--blue');
+      expect(secondaryDOM.classList).toContain('carbon-button--red');
     });
 
     it('adds a size class depending on size prop', () => {
-      expect(smallDOM.classList).toMatch('carbon-button--small');
-      expect(largeDOM.classList).toMatch('carbon-button--large');
+      expect(smallDOM.classList).toContain('carbon-button--small');
+      expect(largeDOM.classList).toContain('carbon-button--large');
     });
   });
 
@@ -166,7 +164,7 @@ describe('Button', () => {
     let primaryDOM;
 
     beforeEach(() => {
-      primaryDOM = ReactDOM.findDOMNode(primary)
+      primaryDOM = ReactDOM.findDOMNode(primary);
     });
 
     it('triggers when the button is clicked', () => {
@@ -192,6 +190,40 @@ describe('Button', () => {
     describe('with to', () => {
       it('renders an anchor', () => {
         expect(TestUtils.findRenderedComponentWithType(to, Link)).toBeDefined();
+      });
+    });
+  });
+
+  describe('subtext prop', () => {
+    describe('rendered correctly', () => {
+      let wrapper;
+      beforeEach(() => {
+        wrapper = shallow(<Button size='large' subtext='Test'>A Button</Button>);
+      });
+      it('adds a modify class', () => {
+        expect(wrapper.find('.carbon-button--subtext').length).toEqual(1);
+      });
+      it('outputs in the correct child element', () => {
+        const subtextElement = wrapper.find('[data-element="subtext"]');
+        expect(subtextElement.text()).toEqual('Test');
+      });
+    });
+
+    describe('invalid states', () => {
+      const sizesForInvalid = [
+        'small',
+        'medium'
+      ];
+
+      beforeEach(() => {
+        spyOn(window, 'Error');
+      });
+
+      sizesForInvalid.forEach((size) => {
+        it(`throws an error if it is used on a ${size} button`, () => {
+          shallow(<Button size={ size } subtext='Test'>Test</Button>);
+          expect(window.Error).toHaveBeenCalledWith('subtext prop has no effect unless the button is large');
+        });
       });
     });
   });

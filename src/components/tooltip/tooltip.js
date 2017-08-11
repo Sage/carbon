@@ -59,6 +59,14 @@ class Tooltip extends React.Component {
     children: PropTypes.node,
 
     /**
+     * The id attribute to use for the tooltip
+     *
+     * @property id
+     * @type {String}
+     */
+    id: PropTypes.string,
+
+    /**
     * Whether to to show the Tooltip
     *
     * @property isVisible
@@ -115,8 +123,20 @@ class Tooltip extends React.Component {
       <span key='pointer' className='carbon-tooltip__pointer' />
     ];
 
+    const tooltipProps = {
+      className: this.mainClasses,
+      role: 'tooltip'
+    };
+
+    if (this.props.id) {
+      tooltipProps.id = this.props.id;
+    }
+
     return (
-      <div className={ this.mainClasses } { ...tagComponent('tooltip', this.props) }>
+      <div
+        { ...tooltipProps }
+        { ...tagComponent('tooltip', this.props) }
+      >
         <div className='carbon-tooltip__container'>
           { contents }
         </div>

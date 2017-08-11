@@ -1,16 +1,22 @@
 language: node_js
+
 cache:
   directories:
   - node_modules
+
 node_js:
-  - '7'
+  - '6.10.2'
+
 install:
   - npm install -g npm
   - npm install -g gulp
   - npm install
+
 script:
-  - gulp test --build
+  - gulp test --build --runInBand
+
 before_deploy: gulp deploy --build —production
+
 deploy:
   provider: s3
   bucket: 'carbon.sage.com'

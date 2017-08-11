@@ -1,8 +1,8 @@
 import React from 'react';
-import Icon from 'components/icon'
-import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import TooltipDecorator from './tooltip-decorator';
+
+/* global jest */
 
 class BasicClass extends React.Component {
   componentWillUpdate() {}
@@ -27,9 +27,9 @@ class BasicClass extends React.Component {
       <div>
         {this.tooltipHTML }
       </div>
-    )
+    );
   }
-};
+}
 
 class StrippedClass extends React.Component {
   componentWillUpdate() {}
@@ -45,14 +45,14 @@ class StrippedClass extends React.Component {
       <div>
         {this.tooltipHTML }
       </div>
-    )
+    );
   }
-};
+}
 
 
 
 describe('tooltip-decorator', () => {
-  let topTooltip, bottomTooltip, rightTooltip, leftTooltip, bottomAlignTooltip, noTooltip, strippedTooltip;
+  let topTooltip, bottomTooltip, rightTooltip, leftTooltip, noTooltip, strippedTooltip;
 
   beforeEach(() => {
     let DecoratedClassOne = TooltipDecorator(BasicClass);
@@ -66,11 +66,7 @@ describe('tooltip-decorator', () => {
 
     strippedTooltip = TestUtils.renderIntoDocument(<DecoratedClassTwo />);
 
-    jasmine.clock().install();
-  });
-
-  afterEach(() => {
-    jasmine.clock().uninstall();
+    jest.useFakeTimers();
   });
 
   describe('componentWillReceiveProps', () => {
@@ -146,13 +142,13 @@ describe('tooltip-decorator', () => {
     it('shows the tooltip after a timeout', () => {
       spyOn(topTooltip, 'setState');
       topTooltip.onShow();
-      jasmine.clock().tick(300);
+      jest.runTimersToTime(300);
       expect(topTooltip.setState).toHaveBeenCalledWith({ isVisible: true });
     });
 
     it('calls positionTooltip after a timeout', () => {
       topTooltip.onShow();
-      jasmine.clock().tick(300);
+      jest.runTimersToTime(300);
       expect(topTooltip.positionTooltip).toHaveBeenCalled();
     });
   });
@@ -165,7 +161,6 @@ describe('tooltip-decorator', () => {
     });
 
     it('clears the timeout', () => {
-      jasmine.clock().uninstall();
       spyOn(window, 'clearTimeout');
       topTooltip.onHide();
       expect(window.clearTimeout).toHaveBeenCalledWith(topTooltip._tooltipTimeout);
@@ -197,19 +192,19 @@ describe('tooltip-decorator', () => {
             offsetHeight: 50,
             style: { left: 0, top: 0},
             children:
-              [
-                { foo: 'bar' },
-                {
-                  offsetHeight: 7
-                }
-              ]
+            [
+              { foo: 'bar' },
+              {
+                offsetHeight: 7
+              }
+            ]
           }
         );
       });
 
       it('sets the top and left styles', () => {
         topTooltip.onShow();
-        jasmine.clock().tick(100);
+        jest.runTimersToTime(100);
         let tooltip = topTooltip.getTooltip();
         let target = topTooltip.getTarget();
         topTooltip.positionTooltip(tooltip, target);
@@ -251,7 +246,7 @@ describe('tooltip-decorator', () => {
 
         it('sets the correct top and left styles', () => {
           rightTopTooltip.onShow();
-          jasmine.clock().tick(100);
+          jest.runTimersToTime(100);
           let alignedTooltip = rightTopTooltip.getTooltip();
           let target = rightTopTooltip.getTarget();
           rightTopTooltip.positionTooltip(alignedTooltip, target);
@@ -294,7 +289,7 @@ describe('tooltip-decorator', () => {
 
         it('sets the correct top and left styles', () => {
           leftTopTooltip.onShow();
-          jasmine.clock().tick(100);
+          jest.runTimersToTime(100);
           let alignedTooltip = leftTopTooltip.getTooltip();
           let target = leftTopTooltip.getTarget();
           leftTopTooltip.positionTooltip(alignedTooltip, target);
@@ -331,7 +326,7 @@ describe('tooltip-decorator', () => {
 
       it('sets the top and left styles', () => {
         bottomTooltip.onShow();
-        jasmine.clock().tick(100);
+        jest.runTimersToTime(100);
         let tooltip = bottomTooltip.getTooltip();
         let target = bottomTooltip.getTarget();
         bottomTooltip.positionTooltip(tooltip, target);
@@ -368,7 +363,7 @@ describe('tooltip-decorator', () => {
 
       it('sets the top and left styles', () => {
         rightTooltip.onShow();
-        jasmine.clock().tick(100);
+        jest.runTimersToTime(100);
         let tooltip = rightTooltip.getTooltip();
         let target = rightTooltip.getTarget();
         rightTooltip.positionTooltip(tooltip, target);
@@ -410,7 +405,7 @@ describe('tooltip-decorator', () => {
 
         it('sets the correct top and left styles', () => {
           topRightTooltip.onShow();
-          jasmine.clock().tick(100);
+          jest.runTimersToTime(100);
           let alignedTooltip = topRightTooltip.getTooltip();
           let target = topRightTooltip.getTarget();
           topRightTooltip.positionTooltip(alignedTooltip, target);
@@ -453,7 +448,7 @@ describe('tooltip-decorator', () => {
 
         it('sets the correct top and left styles', () => {
           bottomRightTooltip.onShow();
-          jasmine.clock().tick(100);
+          jest.runTimersToTime(100);
           let alignedTooltip = bottomRightTooltip.getTooltip();
           let target = bottomRightTooltip.getTarget();
           bottomRightTooltip.positionTooltip(alignedTooltip, target);
@@ -490,7 +485,7 @@ describe('tooltip-decorator', () => {
 
       it('sets the top and left styles', () => {
         leftTooltip.onShow();
-        jasmine.clock().tick(100);
+        jest.runTimersToTime(100);
         let tooltip = leftTooltip.getTooltip();
         let target = leftTooltip.getTarget();
         leftTooltip.positionTooltip(tooltip, target);
@@ -511,7 +506,7 @@ describe('tooltip-decorator', () => {
     describe('when there is no tooltip', () => {
       it('hides the tooltip', () => {
         noTooltip.onShow();
-        jasmine.clock().tick(100);
+        jest.runTimersToTime(100);
         expect(noTooltip.state.isVisible).toBeFalsy();
       });
     });
@@ -519,25 +514,22 @@ describe('tooltip-decorator', () => {
     describe('when there is no target', () => {
       beforeEach(()  => {
         spyOn(leftTooltip, 'getTarget').and.returnValue(null);
-        spyOn(leftTooltip, 'getTooltip').and.returnValue(
+        spyOn(leftTooltip, 'getTooltip').and.returnValue({
+          offsetWidth: 100,
+          offsetHeight: 50,
+          style: {},
+          children: [
+            { foo: 'bar' },
             {
-              offsetWidth: 100,
-              offsetHeight: 50,
-              style: {},
-              children:
-                [
-                  { foo: 'bar' },
-                  {
-                    offsetHeight: 7
-                  }
-                ]
+              offsetHeight: 7
             }
-        );
+          ]
+        });
       });
 
       it('hides the tooltip', () => {
         leftTooltip.onShow();
-        jasmine.clock().tick(100);
+        jest.runTimersToTime(100);
         expect(leftTooltip.state.isVisible).toBeFalsy();
       });
     });

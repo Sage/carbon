@@ -80,11 +80,7 @@ describe('Flash', () => {
 
   describe('startTimeout', () => {
     beforeEach(() => {
-      jasmine.clock().install();
-    });
-
-    afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.useFakeTimers();
     });
 
     describe('when the flash is open and a timeout was passed', () => {
@@ -93,7 +89,7 @@ describe('Flash', () => {
           <Flash open={ true } onDismiss={ dismissHandler } message="Danger Will Robinson!"
                  as='warning' timeout= { 2000 }/>);
         timeoutInstance.startTimeout();
-        jasmine.clock().tick(2000);
+        jest.runTimersToTime(2000);
         expect(dismissHandler).toHaveBeenCalled();
       });
     });
@@ -101,7 +97,7 @@ describe('Flash', () => {
     describe('when no timeout value is passed', () => {
       it('does not update state or call the dismissHandler', () => {
         defaultInstance.startTimeout();
-        jasmine.clock().tick(2000);
+        jest.runTimersToTime(2000);
         expect(dismissHandler).not.toHaveBeenCalled();
       });
     });
@@ -113,7 +109,7 @@ describe('Flash', () => {
                  as='warning' timeout= { 2000 }/>);
         timeoutInstance.setState({ dialogs: { foo: true, bar: false }});
         timeoutInstance.startTimeout();
-        jasmine.clock().tick(2000);
+        jest.runTimersToTime(2000);
         expect(dismissHandler).not.toHaveBeenCalled();
       });
     });
@@ -129,7 +125,7 @@ describe('Flash', () => {
 
       it('does not update state or call the dismissHandler', () => {
         closedInstance.startTimeout();
-        jasmine.clock().tick(2000);
+        jest.runTimersToTime(2000);
         expect(dismissHandler).not.toHaveBeenCalled();
       });
     });

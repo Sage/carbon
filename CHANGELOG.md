@@ -1,8 +1,76 @@
+# 1.4.0
+
+## Dispatcher
+
+We now provide the Flux Dispatcher as a singleton within the Carbon library.
+
+```
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
+```
+
+Please note that you should only use one Dispatcher in your application, if you want to start using the one provided in Carbon you need to remove the pre-existing one from your application.
+
+## Logger
+
+Logger can now supply a option of `group` - this will group any logged messages together that share the same group name and that are triggered within 500ms of one another.
+
+## Dependency Update
+
+* React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
+
+## New Components
+
+* `ConfigurableItems` Drag & Drop and check/uncheck a list of items
+* `ConfigurableItemRow` Used with ConfigurableItems to build the list of configurable items
+
+## New Patterns
+
+* `ConfigurableItemsPattern` Combines ConfigurableItems and ConfigurableItemRow components
+
+## Component Enhancements
+
+* `TableAjax` now accepts an `onAjaxError` function as a prop, to handle Ajax requests that return a HTTP error
+
+## Linting Updates
+
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
+
+* Dropdown
+* FormSummary
+* Page
+* Pages
+* RadioButton
+* Tabs
+
+### Helpers
+
+* Store
+
+## Component Improvements
+
+* `Form` now has additional props of `leftAlignedActions` and `rightAlignedActions` which allows developers to add additional nodes in line with the default form actions.
+* `Button`: Makes large button text the same as the medium button
+* `Button`: Allows secondary text under main text [#1385](https://github.com/Sage/carbon/issues/1385)
+* `ButtonToggle`: The buttons can now be toggled using the keyboard
+* `Poller` helper has been refactored to no longer use promises
+* `Tooltip` now renders an ARIA role of tooltip, and accepts an optional `id` prop
+
+## Minor Improvments
+
+* The `Poller` helper has been refactored to no longer use promises
+
+## Demo Site
+
+* Renamed `definition.js` files to `__definition__.js`.
+
 # 1.3.6
 
 ## Bug Fix
 
 * `Dropdown`: validation fail now allows the dropdown arrow to be visible
+* `Dialog`: ensures close icon positioning regardless of CSS load order
 
 # 1.3.5
 

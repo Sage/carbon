@@ -344,7 +344,7 @@ class Dropdown extends React.Component {
 
       // Match selected id to corresponding list option
       const option = this.props.options.find((item) => {
-        return item.get('id') == this.props.value;
+        return String(item.get('id')) === String(this.props.value);
       });
       // If match is found, set visibleValue to option's name;
       if (option) { this.visibleValue = option.get('name'); }
@@ -620,14 +620,15 @@ class Dropdown extends React.Component {
 
     const results = options.map((option) => {
       let klass = className;
+      const optionId = String(option.id);
 
       // add highlighted class
-      if (highlighted == option.id) {
+      if (String(highlighted) === optionId) {
         klass += ` ${className}--highlighted`;
       }
 
       // add selected class
-      if (this.props.value == option.id) {
+      if (String(this.props.value) === optionId) {
         klass += ` ${className}--selected`;
       }
 

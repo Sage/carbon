@@ -33,6 +33,8 @@ class ComponentCodeBuilder {
     // determines if the component requires an action to open it (eg. dialog)
     this.openPreview = false;
 
+    this.onOpenPreview = definition.get('onOpenPreview');
+
     if (this.wrap) {
       this.addProps(definition, withEvents);
       definition = definition.set('wrap', false);
@@ -68,7 +70,10 @@ class ComponentCodeBuilder {
     props.forEach((value, prop) => {
       if (prop !== 'children' && !toggleFunctions.includes(prop)) {
         if (withEvents || (prop !== 'data-binding' && typeof value !== 'function')) {
-          this.addProp(prop, value, propTypes.get(prop));
+          // For a Number prop with no value, don't add the code
+          if (propTypes.get(prop) !== 'Number' || this.isPositiveNumber(value)) {
+            this.addProp(prop, value, propTypes.get(prop));
+          }
         }
       } else if (toggleFunctions.includes(prop) && value) {
         this.addProp(prop, `() => { alert("${prop}"); }`, 'Function');
@@ -145,7 +150,7 @@ class ComponentCodeBuilder {
 
   // adds javascript making it available before the JSX
   addJS = (js) => {
-    this.code = js + '\n\n' + this.code
+    this.code = `${js}\n\n${this.code}`;
   }
 
   // closes the component tag
@@ -181,24 +186,37 @@ class ComponentCodeBuilder {
     return eval(transform(code, { presets: ['es2015', 'react'] }).code);
   }
 
+  _onOpenPreview = () => {
+    if (this.onOpenPreview) {
+      this.onOpenPreview();
+    } else {
+      Dispatcher.dispatch({
+        actionType: ComponentConstants.UPDATE_DEFINITION,
+        name: kebabCase(this.name),
+        prop: 'open',
+        value: true,
+        wrap: true
+      });
+    }
+  }
+
   // adds a button to open the preview of the component
   _addOpenPreview = (code) => {
     return `
       <div>
         <div style={{ textAlign: 'center' }}>
-          <Button onClick={ () => {
-            Dispatcher.dispatch({
-              actionType: ComponentConstants.UPDATE_DEFINITION,
-              name: '${kebabCase(this.name)}',
-              prop: 'open',
-              value: true,
-              wrap: true
-            })
-          } }>Open Preview</Button>
+          <Button onClick={ ${this._onOpenPreview} }>
+            Open Preview
+          </Button>
         </div>
         ${code}
       </div>
     `;
+  }
+
+  isPositiveNumber = (value) => {
+    const parseValue = parseInt(value);
+    return typeof parseValue === 'number' && value !== '' && !isNaN(parseValue) && parseValue >= 0;
   }
 }
 

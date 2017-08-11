@@ -5,6 +5,12 @@ import { TableAjax } from './table-ajax';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
+import Request from 'superagent';
+
+/* global jest console */
+
+jest.mock('superagent');
+
 describe('TableAjax', () => {
   let instance, customInstance, pageSizeInstance, spy;
 
@@ -142,19 +148,14 @@ describe('TableAjax', () => {
     let options, request;
 
     beforeEach(() => {
-      jasmine.Ajax.install();
-      jasmine.clock().install();
+      jest.useFakeTimers();
 
-      options = { currentPage: '1',
-                  pageSize: '10',
-                  sortOrder: undefined,
-                  sortedColumn: undefined
-                }
-    });
-
-    afterEach(() => {
-      jasmine.Ajax.uninstall();
-      jasmine.clock().uninstall();
+      options = { 
+        currentPage: '1',
+        pageSize: '10',
+        sortOrder: undefined,
+        sortedColumn: undefined
+      };
     });
 
     it('resets the select all component', () => {
@@ -182,77 +183,91 @@ describe('TableAjax', () => {
     });
 
     it('queries for the data after the set timeout', () => {
+      Request.query = jest.fn().mockReturnThis();
       instance.emitOnChangeCallback('data', options, 50);
 
-      request = jasmine.Ajax.requests.mostRecent();
-      expect(request).toBe(undefined);
+      expect(Request.query.mock.calls.length).toBe(0);
 
-      jasmine.clock().tick(51);
-      request = jasmine.Ajax.requests.mostRecent();
-      expect(request.url).toEqual('/test?page=1&rows=10');
+      jest.runTimersToTime(51);
+      expect(Request.query).toBeCalledWith('page=1&rows=10');
     });
 
     it('queries for the data after 250ms', () => {
+      Request.query = jest.fn().mockReturnThis();
       instance.emitOnChangeCallback('data', options);
 
-      request = jasmine.Ajax.requests.mostRecent();
-      expect(request).toBe(undefined);
+      expect(Request.query.mock.calls.length).toBe(0);
 
-      jasmine.clock().tick(251);
-      request = jasmine.Ajax.requests.mostRecent();
-      expect(request.url).toEqual('/test?page=1&rows=10');
+      jest.runTimersToTime(251);
+      expect(Request.query).toBeCalledWith('page=1&rows=10');
     });
 
     it('stores the request', () => {
       expect(instance._request).toBe(null);
       instance.emitOnChangeCallback('data', options);
-      jasmine.clock().tick(251);
-      request = jasmine.Ajax.requests.mostRecent();
+      jest.runTimersToTime(251);
       expect(instance._request).toBeDefined();
     });
 
     it('on success emits the returned data', () => {
-        instance.emitOnChangeCallback('data', options);
-        jasmine.clock().tick(251);
-        request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          "status": 200,
-          "contentType": 'application/json',
-          "responseText": "{\"data\": [\"foo\"]}"
-        });
-        expect(spy).toHaveBeenCalledWith({ data: ['foo'] });
+      Request.__setMockResponse({
+        status() {
+          return 200;
+        },
+        ok() {
+          return true;
+        },
+        body: {
+          data: ['foo']
+        }
+      });
+
+      instance.emitOnChangeCallback('data', options);
+      jest.runTimersToTime(251);
+
+      expect(spy).toHaveBeenCalledWith({ data: ['foo'] });
     });
 
     it('on success sets the totalRecords', () => {
-      spyOn(instance, 'setState');
-      instance.emitOnChangeCallback('data', options);
-      jasmine.clock().tick(251);
-
-      request = jasmine.Ajax.requests.mostRecent();
-      request.respondWith({
-        "status": 200,
-        "contentType": 'application/json',
-        "responseText": "{\"records\": 1}"
+      instance.setState = jest.fn();
+      Request.__setMockResponse({
+        status() {
+          return 200;
+        },
+        ok() {
+          return true;
+        },
+        body: {
+          records: 1
+        }
       });
-      expect(instance.setState).toHaveBeenCalledWith({ totalRecords: '1' });
+
+      instance.emitOnChangeCallback('data', options);
+      jest.runTimersToTime(251);
+
+      expect(instance.setState).toBeCalledWith({ totalRecords: '1' });
     });
 
     describe('when page size is less than previous page size', () => {
       it('calls resetTableHeight on successful response', () => {
-        spyOn(instance, 'resetTableHeight');
+        instance.resetTableHeight = jest.fn();
         options = { currentPage: '1', pageSize: '5' }
-
-        instance.emitOnChangeCallback('data', options);
-        jasmine.clock().tick(251);
-
-        request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          "status": 200,
-          "contentType": 'application/json',
-          "responseText": "{\"data\": [\"foo\"]}"
+        Request.__setMockResponse({
+          status() {
+            return 200;
+          },
+          ok() {
+            return true;
+          },
+          body: {
+            data: 'foo' 
+          }
         });
 
-        expect(instance.resetTableHeight).toHaveBeenCalled();
+        instance.emitOnChangeCallback('data', options);
+        jest.runTimersToTime(251);
+
+        expect(instance.resetTableHeight).toBeCalled();
       });
     });
   });
@@ -322,6 +337,42 @@ describe('TableAjax', () => {
         pageSize: '10',
         sortedColumn: '',
         sortOrder: ''
+      });
+    });
+  });
+
+  describe('onAjaxError', () => {
+    const err = {
+      status: 500
+    };
+    const response = {};
+
+    describe('when passed as a prop', () => {
+      it('is called if defined and an Ajax request returns an error', () => {
+        const onError = jest.fn();
+        const wrapper = shallow(
+          <TableAjax
+            onAjaxError={ onError }
+          />
+        );
+
+        wrapper.instance().handleResponse(err, response);
+
+        expect(onError).toBeCalledWith(err, response);
+      });
+    });
+
+    describe('when not passed as a prop', () => {
+      it('logs the Ajax error as a warning in the console', () => {
+        console.warn = jest.fn();
+
+        const wrapper = shallow(
+          <TableAjax />
+        );
+
+        wrapper.instance().handleResponse(err, response);
+
+        expect(console.warn).toBeCalled();
       });
     });
   });

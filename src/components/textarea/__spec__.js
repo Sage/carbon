@@ -295,7 +295,9 @@ describe('Textarea', () => {
             />
           );
           let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'textarea')
-          expect(input.maxLength).toEqual(-1);
+          // https://github.com/tmpvar/jsdom/issues/522
+          // JSDom defaults to 0 instead of -1
+          expect(input.maxLength).toEqual(0);
         });
       });
     });

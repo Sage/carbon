@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import Request from 'superagent';
 import serialize from './../../utils/helpers/serialize';
 import { Table, TableRow, TableCell, TableHeader, TableSubheader } from './../table';
+import Logger from './../../utils/logger';
 
 /**
  * A Table Ajax Widget
@@ -69,7 +70,15 @@ class TableAjax extends Table {
      * @property path
      * @type {String}
      */
-    path: PropTypes.string.isRequired
+    path: PropTypes.string.isRequired,
+
+    /**
+     * Callback function for XHR request errors
+     *
+     * @property onAjaxError
+     * @type {Function}
+     */
+    onAjaxError: PropTypes.func
   }
 
   static defaultProps = {
@@ -327,6 +336,10 @@ class TableAjax extends Table {
       const data = response.body;
       this.props.onChange(data);
       this.setState({ totalRecords: String(data.records) });
+    } else if (this.props.onAjaxError) {
+      this.props.onAjaxError(err, response);
+    } else {
+      Logger.warn(`${err.status} - ${response}`);
     }
   }
 

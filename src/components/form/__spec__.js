@@ -17,6 +17,8 @@ import ElementResize from './../../utils/helpers/element-resize';
 import { mount, shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
+/* global jest */
+
 describe('Form', () => {
   let instance, wrapper;
 
@@ -516,12 +518,18 @@ describe('Form', () => {
       let csrf;
 
       beforeEach(() => {
-        let fakeMeta1 = { getAttribute() {} },
+        const fakeMeta1 = { getAttribute() {} },
             fakeMeta2 = { getAttribute() {} };
 
-        spyOn(fakeMeta1, 'getAttribute').and.returnValue('csrf-param')
-        spyOn(fakeMeta2, 'getAttribute').and.returnValue('csrf-token')
-        spyOn(instance._document, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
+        fakeMeta1.getAttribute = jest.fn();
+        fakeMeta2.getAttribute = jest.fn();
+        fakeMeta1.getAttribute.mockReturnValue('csrf-param');
+        fakeMeta2.getAttribute.mockReturnValue('csrf-token');
+
+        instance._document.querySelector = jest.fn();
+        instance._document.querySelector
+          .mockReturnValueOnce(fakeMeta1)
+          .mockReturnValue(fakeMeta2);
 
         instance = TestUtils.renderIntoDocument(<Form />);
 
@@ -673,18 +681,31 @@ describe('Form', () => {
       describe('if none defined', () => {
         it('returns null', () => {
           let instance = TestUtils.renderIntoDocument(<Form />);
-          expect(instance.additionalActions).toBe(null);
+          expect(instance.additionalActions('additionalActions')).toBe(null);
         });
       });
 
       describe('if defined', () => {
         it('returns the action', () => {
           let instance = TestUtils.renderIntoDocument(<Form additionalActions={ <span /> } />);
-          expect(instance.additionalActions.props.className).toEqual("carbon-form__additional-actions");
+          expect(instance.additionalActions('additionalActions').props.className).toEqual("carbon-form__additional-actions");
+        });
+      });
+
+      describe('leftAlignedActions', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form leftAlignedActions={ <span /> } />);
+          expect(instance.additionalActions('leftAlignedActions').props.className).toEqual("carbon-form__left-aligned-actions");
+        });
+      });
+
+      describe('rightAlignedActions', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form rightAlignedActions={ <span /> } />);
+          expect(instance.additionalActions('rightAlignedActions').props.className).toEqual("carbon-form__right-aligned-actions");
         });
       });
     });
-
   });
 
   describe("tags", () => {
