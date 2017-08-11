@@ -69,6 +69,7 @@ The following have had minor internal changes to satisfy the introduction of str
 
 ## Bug Fix
 
+* `Dropdown`: validation fail now allows the dropdown arrow to be visible
 * `Dialog`: ensures close icon positioning regardless of CSS load order
 
 # 1.3.5
