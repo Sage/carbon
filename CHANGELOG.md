@@ -1,3 +1,7 @@
+# 1.4.1
+
+* `Dropdown`: validation fail now allows the dropdown arrow to be visible
+
 # 1.4.0
 
 ## Dispatcher
