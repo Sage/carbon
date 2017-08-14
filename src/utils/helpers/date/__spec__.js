@@ -77,6 +77,20 @@ describe('DateHelper', () => {
     });
   });
 
+  describe('stringToDate', () => {
+    it('converts a value such as "2017-08-23" into a Javascript Date object', () => {
+      const date = new Date(2017, 7, 23) // js Date month is zero indexed
+      expect(DateHelper.stringToDate("2017-08-23")).toEqual(date);
+    });
+  });
+
+  describe('formatDateString', () => {
+    it('Formats the given date string to a specified format', () => {
+      const dateString = 'Wed Aug 23 2017 12:00:00 GMT+0100 (BST)'
+      expect(DateHelper.formatDateString(dateString, 'YYYY-MM-DD')).toEqual('2017-08-23')
+    });
+  });
+
   describe('todayFormatted', () => {
     it('returns todays date in a in a set format', () => {
       expect(DateHelper.todayFormatted('DD-MM-YYYY')).toEqual(moment().format('DD-MM-YYYY'));

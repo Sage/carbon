@@ -1,6 +1,9 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import moment from 'moment';
+import LocaleUtils from 'react-day-picker/moment';
+import I18n from 'i18n-js';
+import DateHelper from './../../utils/helpers/date';
 import Date from './date';
 import Events from './../../utils/helpers/events';
 import { shallow } from 'enzyme';
@@ -153,11 +156,13 @@ describe('Date', () => {
       describe('when a valid date', () => {
         it('calls set state setting the datePickerValue to be the valid date', () => {
           instance = TestUtils.renderIntoDocument(
-            <Date name='date' value='2015/01/01' label='Date' />
+            <Date name='date' value='2015-01-01' label='Date' />
           );
           spyOn(instance, 'setState');
           instance.openDatePicker();
-          expect(instance.setState).toHaveBeenCalledWith({ datePickerValue: '2015/01/01' });
+          expect(instance.setState).toHaveBeenCalledWith(
+            { datePickerValue: DateHelper.stringToDate('2015-01-01') }
+          );
         });
       });
 
@@ -170,7 +175,7 @@ describe('Date', () => {
           instance.openDatePicker();
           expect(instance.setState).not.toHaveBeenCalledWith({ datePickerValue: 'x' });
         });
-      })
+      });
     });
   });
 
@@ -289,28 +294,28 @@ describe('Date', () => {
     });
 
     it('sets blockBlur to true', () => {
-      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
+      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'DayPicker-Day')[1];
       TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
       expect(instance.blockBlur).toBeTruthy();
     });
 
     it('closes the date picker', () => {
       let spy = spyOn(instance, 'closeDatePicker');
-      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
+      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'DayPicker-Day')[1];
       TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
       expect(instance.closeDatePicker).toHaveBeenCalled();
     });
 
     it('emits a onChange callback', () => {
       spyOn(instance, 'emitOnChangeCallback')
-      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
+      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'DayPicker-Day')[1];
       TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
       expect(instance.emitOnChangeCallback).toHaveBeenCalled();
     });
 
     it('updates the visible value', () => {
       spyOn(instance, 'updateVisibleValue')
-      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'dp-day')[1];
+      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'DayPicker-Day')[1];
       TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
       expect(instance.updateVisibleValue).toHaveBeenCalled();
     });
@@ -429,10 +434,12 @@ describe('Date', () => {
     });
 
     it('sets the weekDays and format', () => {
-      expect(datepicker.props.weekDayNames).toEqual(
-        ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
-      );
-      expect(datepicker.props.dateFormat).toEqual('YYYY-MM-DD');
+      const datepickerProps = datepicker.props
+      expect(datepickerProps.fixedWeeks).toBeTruthy();
+      expect(datepickerProps.enableOutsideDays).toBeTruthy();
+      expect(datepickerProps.inline).toBeTruthy();
+      expect(datepickerProps.locale).toEqual(I18n.locale);
+      expect(datepickerProps.localeUtils).toEqual(LocaleUtils);
     });
   });
 
@@ -488,7 +495,7 @@ describe('Date', () => {
       });
 
       it('sets the minDate to the correct value', () => {
-        expect(date.props.minDate).toEqual(minDate);
+        expect(date.props.disabledDays[0].before).toEqual(DateHelper.stringToDate(minDate));
       });
     });
 
@@ -505,7 +512,13 @@ describe('Date', () => {
       });
 
       it('sets the maxDate to the correct value', () => {
-        expect(date.props.maxDate).toEqual(maxDate);
+        expect(date.props.disabledDays[0].after).toEqual(DateHelper.stringToDate(maxDate));
+      });
+
+      it('does not close the date picker when a disabled day is clicked', () => {
+        let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'DayPicker-Day--disabled')[1];
+        TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
+        expect(instance.state.open).toBeTruthy();
       });
     });
   });

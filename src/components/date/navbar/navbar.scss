@@ -1,0 +1,50 @@
+@import "./../../../style-config/colors";
+
+$date__picker__header-height: 40px;
+
+.DayPicker {
+  .DayPicker-NavBar {
+    border-radius: 3px 3px 0 0;
+    color: $white;
+    cursor: pointer;
+    height: $date__picker__header-height;
+    top: 0;
+    width: 100%;
+
+    .DayPicker-NavButton {
+      align-items: center;
+      border:none;
+      background-image:none;
+      background-color:transparent;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      color: $white;
+      display: flex;
+      font-size: 20px;
+      height: $date__picker__header-height;
+      justify-content: center;
+      line-height: 15px;
+      padding: 0;
+      top: 0;
+      width: 12%;
+
+      &:active {
+        background-color: $grey-dark;
+      }
+    }
+
+    .DayPicker-NavButton__arrow {
+      height: 20px;
+      width: 100%;
+    }
+
+    .DayPicker-NavButton--prev {
+      left: 0;
+    }
+
+    .DayPicker-NavButton--next {
+      right: 0;
+    }
+  }
+}
