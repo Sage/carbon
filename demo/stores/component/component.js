@@ -96,11 +96,11 @@ class ComponentStore extends Store {
   }
 
   [ComponentConstants.SET_OPTIONS_URL](action) {
-    this.data = this.data.set('optionsUrl', action.url);
+    this.data = this.data.set('options_url', action.url);
   }
 
   [ComponentConstants.RESET_OPTIONS_URL](action) {
-    this.data = this.data.set('optionsUrl', '');
+    this.data = this.data.set('options_url', '');
   }
 
   parseOptionsFromUrl = (data) => {

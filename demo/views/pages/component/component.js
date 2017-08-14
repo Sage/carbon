@@ -25,7 +25,7 @@ class Component extends React.Component {
         <ComponentPreview
           definition={ definition }
           name={ this.props.params.name }
-          optionsUrl={ this.state.componentStore.get('optionsUrl') }
+          optionsUrl={ this.state.componentStore.get('options_url') }
         />
 
         { this.renderAPIs(definition) }
