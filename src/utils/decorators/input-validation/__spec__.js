@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import InputValidation from './input-validation';
 import InputLabel from './../input-label';
 import Form from 'components/form';
-import { shallow } from 'enzyme';
+import Dialog from 'components/dialog';
+import { shallow, mount } from 'enzyme';
+
+/* global jest */
 
 let validationOne = {
   validate: function() {
@@ -56,6 +59,26 @@ let warningTwo = {
   }
 };
 
+let infoOne = {
+  validate: function(value, props, updateInfo) {
+    return false;
+  },
+
+  message: function() {
+    return 'foo';
+  }
+};
+
+let infoTwo = {
+  validate: function(value, props, updateInfo) {
+    return true;
+  },
+
+  message: function() {
+    return 'foo';
+  }
+};
+
 let form = {
   attachToForm: function() {},
   decrementErrorCount: function() {},
@@ -71,7 +94,7 @@ let form = {
 
 class DummyInputWithoutLifecycleMethods extends React.Component {
   render() {
-    return <div>{ this.validationHTML }</div>;
+    return <div ref={ (c) => { this._target = c } }><input { ...this.inputProps } />{ this.validationHTML }</div>;
   }
 }
 
@@ -126,15 +149,17 @@ describe('InputValidation', () => {
     it('instatiates state with some defaults', () => {
       expect(instance.state.valid).toBeTruthy();
       expect(instance.state.warning).toBeFalsy();
+      expect(instance.state.info).toBeFalsy();
       expect(instance.state.errorMessage).toBe(null);
       expect(instance.state.warningMessage).toBe(null);
+      expect(instance.state.infoMessage).toBe(null);
     });
   });
 
   describe('componentWillReceiveProps', () => {
     describe('when invalid', () => {
       beforeEach(() => {
-        instance.setState({ valid: false, warning: true});
+        instance.setState({ valid: false, warning: true, info: true});
         spyOn(instance, 'setState').and.callThrough();
         spyOn(instance, '_handleContentChange');
       });
@@ -185,6 +210,12 @@ describe('InputValidation', () => {
           expect(instance.warning).toHaveBeenCalledWith('foo');
         });
 
+        it('calls info with the next value', () => {
+          spyOn(instance, 'info');
+          instance.componentWillReceiveProps({ value: 'foo' });
+          expect(instance.info).toHaveBeenCalledWith('foo');
+        });
+
         describe('when it returns valid', () => {
           it('resets valid to be truthy', () => {
             spyOn(instance, 'validate').and.returnValue(true);
@@ -216,7 +247,7 @@ describe('InputValidation', () => {
           });
 
           describe('when no longer has a warning state', () => {
-            it('set warning to be truthy', () => {
+            it('set warning to be false', () => {
               spyOn(instance, 'validate').and.returnValue(true);
               spyOn(instance, 'warning').and.returnValue(false);
               instance.componentWillReceiveProps({ value: 'foo' });
@@ -230,6 +261,39 @@ describe('InputValidation', () => {
               instance.setState.calls.reset();
               spyOn(instance, 'validate').and.returnValue(true);
               spyOn(instance, 'warning').and.returnValue(true);
+              instance.componentWillReceiveProps({ value: 'foo' });
+              expect(instance.setState).not.toHaveBeenCalled();
+              expect(instance._handleContentChange).not.toHaveBeenCalled();
+            });
+          });
+        });
+
+        describe('when it is valid but has an info state', () => {
+          beforeEach(() => {
+            instance.setState({ valid: true, info: true});
+          });
+
+          it('calls info with the next value', () => {
+            spyOn(instance, 'info');
+            instance.componentWillReceiveProps({ value: 'foo' });
+            expect(instance.info).toHaveBeenCalledWith('foo');
+          });
+
+          describe('when it no longer has an info state', () => {
+            it('set the info state to be false', () => {
+              spyOn(instance, 'validate').and.returnValue(true);
+              spyOn(instance, 'info').and.returnValue(false);
+              instance.componentWillReceiveProps({ value: 'foo' });
+              expect(instance.setState).toHaveBeenCalledWith({ info: false });
+              expect(instance._handleContentChange).toHaveBeenCalled();
+            });
+          });
+
+          describe('when it still has an info state', () => {
+            it('does not modify the validity', () => {
+              instance.setState.calls.reset();
+              spyOn(instance, 'validate').and.returnValue(true);
+              spyOn(instance, 'info').and.returnValue(true);
               instance.componentWillReceiveProps({ value: 'foo' });
               expect(instance.setState).not.toHaveBeenCalled();
               expect(instance._handleContentChange).not.toHaveBeenCalled();
@@ -275,7 +339,7 @@ describe('InputValidation', () => {
             let removeSpy = jasmine.createSpy();
 
             instance.setState({ valid: false, errorMessage: 'foo' });
-            instance.refs.validationMessage = {
+            instance.validationMessage = {
               classList: {
                 remove: removeSpy
               },
@@ -290,21 +354,62 @@ describe('InputValidation', () => {
                 };
               }
             };
-            spyOn(ReactDOM, 'findDOMNode').and.returnValue({
+            instance.validationIcon._target = {
               offsetLeft: 20,
               offsetWidth: 10,
               offsetTop: 30
-            });
+            };
             instance.positionMessage();
-            expect(instance.refs.validationMessage.style.left).toEqual('25px');
+            expect(instance.validationMessage.style.left).toEqual('25px');
             expect(removeSpy).toHaveBeenCalledWith('common-input__message--flipped');
+          });
+        });
+
+        describe('when in a modal and offscreen', () => {
+          let wrapper;
+
+          beforeEach(() => {
+            jest.useFakeTimers();
+            wrapper = mount(
+              <Dialog open>
+                <Component validations={[validationThree]} />
+              </Dialog>
+            );
+          });
+
+          afterEach(() => {
+            jest.clearAllTimers();
+            jest.useRealTimers();
+          });
+
+          it('sets the class to flipped', () => {
+            Component;
+            const input = wrapper.find('input');
+            input.simulate('blur');
+            jest.runTimersToTime(0);
+            input.simulate('focus');
+            wrapper.instance()._dialog = {
+              offsetWidth: 10
+            };
+            wrapper.find(Component).node.validationMessage = {
+              className: "",
+              offsetWidth: 10,
+              offsetLeft: 10,
+              offsetHeight: 10,
+              style: {},
+              getBoundingClientRect: () => {
+                return {};
+              }
+            };
+            input.simulate('focus');
+            expect(wrapper.find(Component).node.validationMessage.className).toEqual(' common-input__message--flipped');
           });
         });
 
         describe('when offscreen', () => {
           it('sets the class to flipped', () => {
             instance.setState({ valid: false, errorMessage: 'foo' });
-            instance.refs.validationMessage = {
+            instance.validationMessage = {
               offsetWidth: 0,
               offsetHeight: 30,
               style: {
@@ -317,16 +422,16 @@ describe('InputValidation', () => {
                 };
               }
             };
-            spyOn(ReactDOM, 'findDOMNode').and.returnValue({
+            instance.validationIcon._target = {
               offsetLeft: 20,
               offsetWidth: 10,
               offsetTop: 30
-            });
+            };
             instance._window = {
               innerWidth: -1
             };
             instance.positionMessage();
-            expect(instance.refs.validationMessage.className).toContain('common-input__message--flipped');
+            expect(instance.validationMessage.className).toContain('common-input__message--flipped');
           });
         });
       });
@@ -410,7 +515,16 @@ describe('InputValidation', () => {
             instance.componentWillUnmount();
             expect(instance._handleContentChange).toHaveBeenCalled();
         });
-      })
+      });
+
+      describe('when the input has an info state', () => {
+        it('calls handleContentChange', () => {
+          instance.state.info = true;
+          spyOn(instance, '_handleContentChange');
+          instance.componentWillUnmount();
+          expect(instance._handleContentChange).toHaveBeenCalled();
+        });
+      });
 
       describe('when the input is in a form', () => {
         beforeEach(() => {
@@ -557,6 +671,20 @@ describe('InputValidation', () => {
           instance.setState({
             valid: true,
             warning: true
+          });
+          spyOn(instance, 'setState');
+          instance.showMessage();
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: true,
+            immediatelyHideMessage: false
+          });
+          expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
+        });
+
+        it("if info", () => {
+          instance.setState({
+            valid: true,
+            info: true
           });
           spyOn(instance, 'setState');
           instance.showMessage();
@@ -739,19 +867,85 @@ describe('InputValidation', () => {
     });
   });
 
-  describe('_handleBlur', () => {
-    beforeEach(() => {
-      jasmine.clock().install();
+  describe('info', () => {
+    describe('when the info prop is present on the input', () => {
+      describe('when the input has a value', () => {
+        let wrapper;
+
+        beforeEach(() => {
+          wrapper = shallow(React.createElement(Component, {
+            info: [infoTwo, infoOne],
+            value: 'foo'
+          }));
+          instance = wrapper.instance();
+          instance.context.form = form;
+          spyOn(infoTwo, 'validate').and.callThrough();
+          spyOn(infoOne, 'validate').and.callThrough();
+        });
+
+        it('calls the info function for each element inside the info prop array', () => {
+          instance.info();
+          expect(infoOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateInfo);
+          expect(infoTwo.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateInfo);
+        });
+
+        describe('when calling the info function on the first element fails', () => {
+          it('stops info', () => {
+            wrapper = shallow(React.createElement(Component, {
+              info: [infoOne, infoTwo],
+              value: 'foo'
+            }));
+            instance = wrapper.instance();
+            instance.info();
+            expect(infoOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateInfo);
+            expect(infoTwo.validate).not.toHaveBeenCalled();
+          });
+        });
+
+        describe('when called with a custom value', () => {
+          it('calls the info function for each element inside the info prop array', () => {
+            instance.info('bar');
+            expect(infoOne.validate).toHaveBeenCalledWith('bar', instance.props, instance.updateInfo);
+            expect(infoTwo.validate).toHaveBeenCalledWith('bar', instance.props, instance.updateInfo);
+          });
+        });
+
+        describe('when the input state has no info', () => {
+          it('calls setState', () => {
+            spyOn(instance, 'setState');
+            instance.info();
+            expect(instance.setState).toHaveBeenCalledWith({ infoMessage: 'foo', info: true });
+          });
+        });
+
+        describe('when the input state has info', () => {
+          it('does not call setState', () => {
+            instance.setState({ warning: true });
+            spyOn(instance, 'setState');
+            instance.warning();
+            expect(instance.setState).not.toHaveBeenCalled();
+          });
+        });
+      });
     });
 
-    afterEach(() => {
-      jasmine.clock().uninstall();
+    describe('when no info prop is present on the input', () => {
+      it('defaults the input info to true', () => {
+        let valid = instance.info();
+        expect(valid).toBeTruthy();
+      });
+    });
+  });
+
+  describe('_handleBlur', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
     });
 
     it('calls validate on blur of the input', () => {
       spyOn(instance, 'validate');
       instance._handleBlur();
-      jasmine.clock().tick(0);
+      jest.runTimersToTime(0);
       expect(instance.validate).toHaveBeenCalled();
     });
 
@@ -760,7 +954,7 @@ describe('InputValidation', () => {
         instance.setState({ messageLocked: true });
         spyOn(instance, 'setState');
         instance._handleBlur();
-        jasmine.clock().tick(0);
+        jest.runTimersToTime(0);
         expect(instance.setState).toHaveBeenCalledWith({ messageLocked: false });
       });
     });
@@ -825,7 +1019,7 @@ describe('InputValidation', () => {
         instance.setState({ valid: false, warning: true });
         spyOn(instance, 'setState');
         instance._handleContentChange();
-        expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, valid: true, warning: false });
+        expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, valid: true, warning: false, info: false });
       });
     });
 
@@ -899,7 +1093,7 @@ describe('InputValidation', () => {
   describe('validationHTML', () => {
     describe('the field is valid', () => {
       it('returns null', () => {
-        instance.setState({ valid: true, warning: false});
+        instance.setState({ valid: true, warning: false, info: false});
         expect(instance.validationHTML).toBe(null);
       });
     });
@@ -933,7 +1127,7 @@ describe('InputValidation', () => {
               <LabelComponent labelWidth={ 20 } align='right' validations={ [validationThree] } value='foo'/>
             );
             instanceLabel.validate();
-            let icon = instanceLabel.refs.validationIcon
+            let icon = instanceLabel.validationIcon
             expect(icon.props.style.right).toEqual('80%');
           });
         });
@@ -944,7 +1138,7 @@ describe('InputValidation', () => {
               <LabelComponent labelWidth={ 20 } align='left' validations={ [validationThree] } value='foo'/>
             );
             instanceLabel.validate();
-            let icon = instanceLabel.refs.validationIcon
+            let icon = instanceLabel.validationIcon
             expect(icon.props.style.left).toEqual('80%');
           });
         });
@@ -953,7 +1147,7 @@ describe('InputValidation', () => {
       describe('when the message is locked', () => {
         it('adds a locked class', () => {
           instance.setState({ messageLocked: true });
-          expect(instance.refs.validationMessage.classList).toContain('common-input__message--locked');
+          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
         });
       });
 
@@ -961,7 +1155,7 @@ describe('InputValidation', () => {
         it('does not have flipped class', () => {
           instance.flipped = false;
           instance.setState({ messageLocked: true });
-          expect(instance.refs.validationMessage.classList).not.toContain('common-input__message--flipped');
+          expect(instance.validationMessage.classList).not.toContain('common-input__message--flipped');
         });
       });
 
@@ -969,7 +1163,7 @@ describe('InputValidation', () => {
         it('does have flipped class', () => {
           instance.flipped = true;
           instance.setState({ messageLocked: true });
-          expect(instance.refs.validationMessage.classList).toContain('common-input__message--flipped');
+          expect(instance.validationMessage.classList).toContain('common-input__message--flipped');
         });
       });
     });
@@ -999,11 +1193,41 @@ describe('InputValidation', () => {
       describe('when the message is locked', () => {
         it('adds a locked class', () => {
           instance.setState({ messageLocked: true });
-          expect(instance.refs.validationMessage.classList).toContain('common-input__message--locked');
+          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
         });
       });
     });
 
+    describe('there is info', () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = mount(React.createElement(Component, {
+          info: [infoOne],
+          value: 'foo'
+        }));
+        instance = wrapper.instance();
+        instance.info();
+      });
+
+      it('returns an info icon', () => {
+        expect(instance.validationHTML[0].props.type).toEqual('info');
+        expect(wrapper.find('.common-input__icon.common-input__icon--info').exists()).toBeTruthy();
+      });
+
+      it('returns a div for the info message', () => {
+        expect(wrapper.find('.common-input__message-wrapper').exists()).toBeTruthy();
+        expect(wrapper.find('.common-input__message.common-input__message--info').exists()).toBeTruthy();
+        expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
+      });
+
+      describe('when the message is locked', () => {
+        it('adds a locked class', () => {
+          instance.setState({ messageLocked: true });
+          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
+        });
+      });
+    });
   });
 
   describe('mainClasses', () => {

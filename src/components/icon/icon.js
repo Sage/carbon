@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
 import Icons from './icons';
 import { validProps } from '../../utils/ether';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * An Icon widget.
@@ -19,7 +21,8 @@ import { validProps } from '../../utils/ether';
  *
  * 'type' is a required prop
  *
- * This widget follows this pattern: https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
+ * This widget follows this pattern:
+ * https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
  *
  * For information on how to use the Tooltip Decorator see the decorator docs.
  *
@@ -29,12 +32,20 @@ import { validProps } from '../../utils/ether';
 const Icon = TooltipDecorator(class Icon extends React.Component {
   static propTypes = {
     /**
+     * Add classes to this component
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * Icon type
      *
      * @property  type
      * @type      {String}
      */
-    type: React.PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
 
     /**
      * Background size
@@ -43,7 +54,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
      * @type      {String}
      * @default   'small'
      */
-    bgSize: React.PropTypes.oneOf(['small', 'medium', 'large']),
+    bgSize: PropTypes.oneOf(['small', 'medium', 'large']),
 
     /**
      * Background shape
@@ -51,7 +62,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
      * @property  bgShape
      * @type      {String}
      */
-    bgShape: React.PropTypes.oneOf(['square', 'rounded-rect', 'circle']),
+    bgShape: PropTypes.oneOf(['square', 'rounded-rect', 'circle']),
 
     /**
      * Background color theme
@@ -59,7 +70,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
      * @property  bgTheme
      * @type      {String}
      */
-    bgTheme: React.PropTypes.string
+    bgTheme: PropTypes.string
   };
 
   static defaultProps = {
@@ -84,7 +95,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {Object} props
    */
   get componentProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
 
     delete props.className;
     delete props.bgSize;
@@ -102,10 +113,10 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {String} classes
    */
   get mainClasses() {
-    let icon = this.renderIcon,
-        hasShape = this.props.bgShape || this.props.bgTheme;
+    const icon = this.renderIcon;
+    const hasShape = this.props.bgShape || this.props.bgTheme;
 
-    let classes = classNames(
+    const classes = classNames(
       'carbon-icon',
       this.props.className, {
         [`icon-${this.type}`]: !icon
@@ -127,12 +138,12 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    */
   get type() {
     // switch tweaks icon names for actual icons in the set
-    switch(this.props.type) {
-      case 'help':        return 'question';
+    switch (this.props.type) {
+      case 'help': return 'question';
       case 'maintenance': return 'settings';
-      case 'new':         return 'gift';
-      case 'success':     return 'tick';
-      default:            return this.props.type;
+      case 'new': return 'gift';
+      case 'success': return 'tick';
+      default: return this.props.type;
     }
   }
 
@@ -147,7 +158,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
       <span
         className={ this.mainClasses }
         { ...this.componentProps }
-        ref={ (comp) => this._target = comp }
+        { ...tagComponent('icon', this.props) }
+        ref={ (comp) => { this._target = comp; } }
       >
         { this.iconSvgHTML() }
         { this.tooltipHTML }
@@ -156,9 +168,16 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   }
 
   iconSvgHTML = () => {
-    if (this.renderIcon) {
-      return (<span className="carbon-icon__svg-icon" dangerouslySetInnerHTML={ this.renderIcon } />);
+    const icon = this.renderIcon;
+    if (icon) {
+      /* eslint-disable react/no-danger */
+      return (
+        <span className='carbon-icon__svg-icon' dangerouslySetInnerHTML={ icon } />
+      );
+      /* eslint-enable react/no-danger */
     }
+
+    return null;
   }
 });
 

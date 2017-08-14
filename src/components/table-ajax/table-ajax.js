@@ -1,7 +1,8 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import Request from 'superagent';
 import serialize from './../../utils/helpers/serialize';
 import { Table, TableRow, TableCell, TableHeader, TableSubheader } from './../table';
+import Logger from './../../utils/logger';
 
 /**
  * A Table Ajax Widget
@@ -23,11 +24,6 @@ import { Table, TableRow, TableCell, TableHeader, TableSubheader } from './../ta
  *
  */
 class TableAjax extends Table {
-
-  constructor(...args) {
-    super(...args);
-  }
-
   /**
    * Timeout for firing ajax request
    *
@@ -49,7 +45,7 @@ class TableAjax extends Table {
      * @property filter
      * @type {Object}
      */
-    filter: React.PropTypes.object,
+    filter: PropTypes.object,
 
     /**
      * Setting to true turns on pagination for the table
@@ -57,7 +53,7 @@ class TableAjax extends Table {
      * @property paginate
      * @type {Boolean}
      */
-    paginate: React.PropTypes.bool,
+    paginate: PropTypes.bool,
 
     /**
      * Pagination
@@ -66,7 +62,7 @@ class TableAjax extends Table {
      * @property pageSize
      * @type {String}
      */
-    pageSize: React.PropTypes.string,
+    pageSize: PropTypes.string,
 
     /**
      * Endpoint to fetch the data for table
@@ -74,7 +70,15 @@ class TableAjax extends Table {
      * @property path
      * @type {String}
      */
-    path: React.PropTypes.string.isRequired
+    path: PropTypes.string.isRequired,
+
+    /**
+     * Callback function for XHR request errors
+     *
+     * @property onAjaxError
+     * @type {Function}
+     */
+    onAjaxError: PropTypes.func
   }
 
   static defaultProps = {
@@ -170,7 +174,7 @@ class TableAjax extends Table {
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(nextProps);
     if (this.props.pageSize !== nextProps.pageSize) {
-      this.setState({pageSize: nextProps.pageSize});
+      this.setState({ pageSize: nextProps.pageSize });
     }
   }
 
@@ -193,19 +197,19 @@ class TableAjax extends Table {
      * @property childContextTypes
      * @type {Object}
      */
-    attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
-    detachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
-    attachToTable: React.PropTypes.func, // attach the row to the table
-    checkSelection: React.PropTypes.func, // a function to check if the row is currently selected
-    detachFromTable: React.PropTypes.func, // detach the row from the table
-    highlightable: React.PropTypes.bool, // table can enable all rows to be highlightable
-    onSort: React.PropTypes.func, // a callback function for when a sort order is updated
-    selectAll: React.PropTypes.func, // a callback function for when all visible rows are selected
-    selectRow: React.PropTypes.func, // a callback function for when a row is selected
-    highlightRow: React.PropTypes.func, // a callback function for when a row is highlighted
-    selectable: React.PropTypes.bool, // table can enable all rows to be selectable
-    sortOrder: React.PropTypes.string, // the current sort order applied
-    sortedColumn: React.PropTypes.string // the currently sorted column
+    attachActionToolbar: PropTypes.func, // tracks the action toolbar component
+    detachActionToolbar: PropTypes.func, // tracks the action toolbar component
+    attachToTable: PropTypes.func, // attach the row to the table
+    checkSelection: PropTypes.func, // a function to check if the row is currently selected
+    detachFromTable: PropTypes.func, // detach the row from the table
+    highlightable: PropTypes.bool, // table can enable all rows to be highlightable
+    onSort: PropTypes.func, // a callback function for when a sort order is updated
+    selectAll: PropTypes.func, // a callback function for when all visible rows are selected
+    selectRow: PropTypes.func, // a callback function for when a row is selected
+    highlightRow: PropTypes.func, // a callback function for when a row is highlighted
+    selectable: PropTypes.bool, // table can enable all rows to be selectable
+    sortOrder: PropTypes.string, // the current sort order applied
+    sortedColumn: PropTypes.string // the currently sorted column
   }
 
   /**
@@ -279,11 +283,11 @@ class TableAjax extends Table {
       this.selectAllComponent = null;
     }
 
-    let resetHeight = Number(options.pageSize) < Number(this.pageSize),
-        currentPage = (element === "filter") ? "1" : options.currentPage;
+    const resetHeight = Number(options.pageSize) < Number(this.pageSize),
+        currentPage = (element === 'filter') ? '1' : options.currentPage;
 
     this.setState({
-      currentPage: currentPage,
+      currentPage,
       pageSize: options.pageSize,
       sortOrder: options.sortOrder,
       sortedColumn: options.sortedColumn
@@ -329,9 +333,13 @@ class TableAjax extends Table {
    */
   handleResponse = (err, response) => {
     if (!err) {
-      let data = response.body;
+      const data = response.body;
       this.props.onChange(data);
       this.setState({ totalRecords: String(data.records) });
+    } else if (this.props.onAjaxError) {
+      this.props.onAjaxError(err, response);
+    } else {
+      Logger.warn(`${err.status} - ${response}`);
     }
   }
 
@@ -344,8 +352,8 @@ class TableAjax extends Table {
    * @return {Object} params for query
    */
   queryParams = (element, options) => {
-    let query = options.filter || {};
-    query.page = (element === "filter") ? "1" : options.currentPage;
+    const query = options.filter || {};
+    query.page = (element === 'filter') ? '1' : options.currentPage;
     query.rows = options.pageSize;
     if (options.sortOrder) { query.sord = options.sortOrder; }
     if (options.sortedColumn) { query.sidx = options.sortedColumn; }
@@ -384,6 +392,14 @@ class TableAjax extends Table {
       onPagination: this.onPagination,
       pageSizeSelectionOptions: this.props.pageSizeSelectionOptions,
       showPageSizeSelection: this.props.showPageSizeSelection
+    };
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'table-ajax',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
     };
   }
 }

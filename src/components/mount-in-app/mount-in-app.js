@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 /**
@@ -25,8 +26,21 @@ import ReactDOM from 'react-dom';
  */
 class MountInApp extends React.Component {
   static propTypes = {
-    // the ID of the element in which the children components will be rendered.
-    targetId: React.PropTypes.string
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
+     * ID of the element in which the children components will be rendered.
+     *
+     * @property targetId
+     * @type {String}
+     */
+    targetId: PropTypes.string
   }
 
   componentDidMount() {

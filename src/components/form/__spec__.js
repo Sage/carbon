@@ -1,15 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Form from './form';
 import Textbox from './../textbox';
 import Validation from './../../utils/validations/presence';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import Dialog from './../dialog';
 import I18n from "i18n-js";
+import CancelButton from './cancel-button';
+import SaveButton from './save-button';
+import FormSummary from './form-summary';
+import Button from './../button';
+import MultiActionButton from './../multi-action-button';
+import ElementResize from './../../utils/helpers/element-resize';
+
+import { mount, shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+
+/* global jest */
 
 describe('Form', () => {
-  let instance;
+  let instance, wrapper;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -20,6 +31,26 @@ describe('Form', () => {
   describe('initialize', () => {
     it('sets the errorCount to 0', () => {
       expect(instance.state.errorCount).toEqual(0);
+    });
+  });
+
+  describe('componentWillReceiveProps', () => {
+    describe('when stickyFooter is enabled', () => {
+      it('adds the listeners', () => {
+        wrapper = shallow(<Form />);
+        spyOn(wrapper.instance(), 'addStickyFooterListeners');
+        wrapper.setProps({ stickyFooter: true });
+        expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
+      });
+    });
+
+    describe('when stickyFooter is disabled', () => {
+      it('adds the listeners', () => {
+        wrapper = shallow(<Form stickyFooter />);
+        spyOn(wrapper.instance(), 'removeStickyFooterListeners');
+        wrapper.setProps({ stickyFooter: false });
+        expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
+      });
     });
   });
 
@@ -37,6 +68,118 @@ describe('Form', () => {
         instance.componentDidMount();
         expect(instance.validate).toHaveBeenCalled();
       });
+    });
+
+    it('adds sticky footer listeners is enabled', () => {
+      wrapper = shallow(<Form stickyFooter />);
+      spyOn(wrapper.instance(), 'addStickyFooterListeners');
+      wrapper.instance().componentDidMount();
+      expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
+    });
+  });
+
+  describe('componentWillUnmount', () => {
+    it('does not remove sticky footer listeners if not enabled', () => {
+      wrapper = shallow(<Form />);
+      spyOn(wrapper.instance(), 'removeStickyFooterListeners');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeStickyFooterListeners).not.toHaveBeenCalled();
+    });
+
+    it('removes sticky footer listeners if enabled', () => {
+      wrapper = shallow(<Form stickyFooter />);
+      spyOn(wrapper.instance(), 'removeStickyFooterListeners');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
+    });
+  });
+
+  describe('addStickyFooterListeners', () => {
+    beforeEach(() => {
+      wrapper = shallow(<Form />);
+      instance = wrapper.instance();
+      instance._form = {};
+      spyOn(instance, 'checkStickyFooter');
+      spyOn(ElementResize, 'addListener');
+      spyOn(instance._window, 'addEventListener');
+    });
+
+    it('calls checkStickyFooter', () => {
+      instance.addStickyFooterListeners();
+      expect(instance.checkStickyFooter).toHaveBeenCalled();
+    });
+
+    it('sets up listeners', () => {
+      instance.addStickyFooterListeners();
+      expect(ElementResize.addListener).toHaveBeenCalledWith(instance._form, instance.checkStickyFooter);
+      expect(instance._window.addEventListener).toHaveBeenCalledWith('resize', instance.checkStickyFooter);
+      expect(instance._window.addEventListener).toHaveBeenCalledWith('scroll', instance.checkStickyFooter);
+    });
+  });
+
+  describe('removeStickyFooterListeners', () => {
+    beforeEach(() => {
+      wrapper = shallow(<Form />);
+      instance = wrapper.instance();
+      instance._form = {};
+      spyOn(ElementResize, 'removeListener');
+      spyOn(instance._window, 'removeEventListener');
+    });
+
+    it('removes listeners', () => {
+      instance.removeStickyFooterListeners();
+      expect(ElementResize.removeListener).toHaveBeenCalledWith(instance._form, instance.checkStickyFooter);
+      expect(instance._window.removeEventListener).toHaveBeenCalledWith('resize', instance.checkStickyFooter);
+      expect(instance._window.removeEventListener).toHaveBeenCalledWith('scroll', instance.checkStickyFooter);
+    });
+  });
+
+  describe('checkStickyFooter', () => {
+    beforeEach(() => {
+      wrapper = shallow(<Form />);
+    });
+
+    it('sets stickyFooter state to true if form is bigger than window', () => {
+      wrapper.setState({ stickyFooter: false });
+      wrapper.instance()._form = {
+        offsetTop: 10,
+        offsetHeight: 10
+      };
+      wrapper.instance()._window = {
+        pageYOffset: 10,
+        innerHeight: 1
+      };
+
+      wrapper.instance().checkStickyFooter();
+      expect(wrapper.state().stickyFooter).toBeTruthy();
+    });
+
+    it('sets stickyFooter state to false if form is smaller than window', () => {
+      wrapper.setState({ stickyFooter: true });
+      wrapper.instance()._form = {
+        offsetTop: 10,
+        offsetHeight: 10
+      };
+      wrapper.instance()._window = {
+        pageYOffset: 10,
+        innerHeight: 100
+      };
+      wrapper.instance().checkStickyFooter();
+      expect(wrapper.state().stickyFooter).toBeFalsy();
+    });
+
+    it('does not change stickyFooter state if it does not need to change', () => {
+      wrapper.setState({ stickyFooter: false });
+      wrapper.instance()._form = {
+        offsetTop: 10,
+        offsetHeight: 10
+      };
+      wrapper.instance()._window = {
+        pageYOffset: 10,
+        innerHeight: 100
+      };
+      wrapper.instance().checkStickyFooter();
+      expect(wrapper.state().stickyFooter).toBeFalsy();
     });
   });
 
@@ -339,6 +482,14 @@ describe('Form', () => {
     });
   });
 
+  describe('stickyFooterPadding', () => {
+    it('adds padding if defined', () => {
+      wrapper = shallow(<Form stickyFooterPadding="500" />);
+      const footer = wrapper.find('.carbon-form__buttons');
+      expect(footer.props().style.borderWidth).toEqual('500px');
+    });
+  });
+
   describe('saveText', () => {
     describe('if prop is passed', () => {
       it('returns the prop value', () => {
@@ -367,12 +518,18 @@ describe('Form', () => {
       let csrf;
 
       beforeEach(() => {
-        let fakeMeta1 = { getAttribute() {} },
+        const fakeMeta1 = { getAttribute() {} },
             fakeMeta2 = { getAttribute() {} };
 
-        spyOn(fakeMeta1, 'getAttribute').and.returnValue('csrf-param')
-        spyOn(fakeMeta2, 'getAttribute').and.returnValue('csrf-token')
-        spyOn(instance._document, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
+        fakeMeta1.getAttribute = jest.fn();
+        fakeMeta2.getAttribute = jest.fn();
+        fakeMeta1.getAttribute.mockReturnValue('csrf-param');
+        fakeMeta2.getAttribute.mockReturnValue('csrf-token');
+
+        instance._document.querySelector = jest.fn();
+        instance._document.querySelector
+          .mockReturnValueOnce(fakeMeta1)
+          .mockReturnValue(fakeMeta2);
 
         instance = TestUtils.renderIntoDocument(<Form />);
 
@@ -402,67 +559,72 @@ describe('Form', () => {
       let buttonContainers;
 
       beforeEach(() => {
-        buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-        buttonContainers = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+        wrapper = mount(<Form />)
+        buttons = wrapper.find(Button)
+        buttonContainers = TestUtils.scryRenderedDOMComponentsWithTag(wrapper, 'div');
       });
 
-      it('renders two buttons', () => {
-        expect(buttons.length).toEqual(2);
-      });
-
-      it('renders a secondary cancel button with cancelClasses', () => {
-        expect(buttons[1].className).toMatch('carbon-button carbon-button--secondary');
-        expect(buttonContainers[2].className).toEqual('carbon-form__cancel');
-      });
-
-      it('when cancelText prop is passed it renders the secondary button with the prop', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form cancelText={'Foo'} />
-        );
-        buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-        expect(buttons[1].innerHTML).toEqual('Foo');
-      });
-
-      it('when cancelText prop is not passed it renders the secondary button with default text', () => {
-        expect(buttons[1].innerHTML).toEqual(
-          I18n.t('actions.cancel', { defaultValue: 'Cancel' })
-        );
-      });
-
-      it('renders a primary save button with saveClasses', () => {
-        expect(buttons[0].className).toMatch('carbon-button carbon-button--primary');
-        expect(buttonContainers[1].className).toEqual('carbon-form__save');
-      });
-
-      it('renders an undisabled save button if not submitting', () => {
-        expect(buttons[0].disabled).toBeFalsy();
-      });
-
-      it('renders a disabled save button if saving', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form saving={true} />
-        );
-        buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-        expect(buttons[0].disabled).toBeTruthy();
-      });
-
-      describe('when saveButtonProps is passed', () => {
-        it('sets save button props', () => {
-          let theme = 'magenta';
-
-          instance = TestUtils.renderIntoDocument(<Form saveButtonProps={ { theme: theme } } />);
-          buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-          expect(buttons[0].className).toContain(`carbon-button--${theme}`);
+      describe('the save button', () => {
+        it('by default it renders a save button', () => {
+          expect(wrapper.find('.carbon-form-save').exists()).toBeTruthy();
         });
       });
 
-      describe('when cancelButtonProps is passed', () => {
-        it('sets cancel button props', () => {
-          let theme = 'red';
+      describe('the buttons', () => {
+        let wrapper;
 
-          instance = TestUtils.renderIntoDocument(<Form cancelButtonProps={ { theme: theme } } />);
-          buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
-          expect(buttons[1].className).toContain(`carbon-button--${theme}`);
+        describe('when no additional buttons are passed in', () => {
+          beforeEach(() => {
+            wrapper = shallow(
+              <Form
+                cancelText='Some custom text'
+                saveText='Some custom save text'
+                saving={ false }
+                saveButtonProps={ { theme: 'red' } }
+              />
+            )
+            wrapper.setState({ errorCount: 2, warningCount: 3 });
+          });
+
+          it('renders a cancel button with expected props', () => {
+            let cancelButton = wrapper.find(CancelButton);
+            expect(cancelButton.prop('cancelText')).toEqual('Some custom text')
+          });
+
+          it('renders a save button with expected props', () => {
+            let saveButton = wrapper.find(SaveButton);
+            expect(saveButton.prop('saveText')).toEqual('Some custom save text');
+            expect(saveButton.prop('saving')).toBeFalsy();
+            expect(saveButton.prop('saveButtonProps')).toEqual({ theme: 'red' })
+          });
+
+          it('renders a form summary with expected props', () => {
+            let summary = wrapper.find(FormSummary);
+            expect(summary.prop('errors')).toEqual(2)
+            expect(summary.prop('warnings')).toEqual(3)
+          });
+        });
+
+        describe('when an additional save button is passed in', () => {
+          beforeEach(() => {
+            let customButton = (<Button className='my-custom-class'>Save</Button>)
+            wrapper = shallow(
+              <Form
+                cancelText='Some custom text'
+                saveText='Some custom save text'
+                saving={ false }
+                customSaveButton={ customButton }
+              />
+            )
+          });
+
+          it('does not render the standard SaveButton', () => {
+            expect(wrapper.find(SaveButton).exists()).toBeFalsy();
+          });
+
+          it('renders a custom save button with expected props', () => {
+            expect(wrapper.find('.my-custom-class').length).toEqual(1);
+          });
         });
       });
     });
@@ -470,33 +632,47 @@ describe('Form', () => {
     describe('Cancel Button', () => {
       describe('when cancel prop is false', () => {
         it('does not show a cancel button', () => {
-          let instance = TestUtils.renderIntoDocument(<Form cancel={ false } />);
-          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-          expect(buttons.length).toEqual(1);
+          let wrapper = shallow(<Form cancel={ false } />);
+          expect(wrapper.find(CancelButton).length).toEqual(0);
         });
       });
 
       describe('when cancel props is true (default)', () => {
         it('does show a cancel button', () => {
-          let buttons = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__cancel');
-          expect(buttons).toBeDefined();
+          let wrapper = shallow(<Form />);
+          expect(wrapper.find(CancelButton).length).toEqual(1);
+        });
+      });
+    });
+
+    describe('Summary', () => {
+      describe('when showSummary prop is false', () => {
+        it('does not show a form summary', () => {
+          let wrapper = shallow(<Form showSummary={ false } />);
+          expect(wrapper.find(FormSummary).length).toEqual(0);
+        });
+      });
+
+      describe('when showSummary prop is true (default)', () => {
+        it('does show a form summary', () => {
+          let wrapper = shallow(<Form />);
+          expect(wrapper.find(FormSummary).length).toEqual(1);
         });
       });
     });
 
     describe('Save Button', () => {
-      describe('when save is true or is not set to false', () => {
-        it('shows a save button', () => {
-          let instance = TestUtils.renderIntoDocument(<Form save={ true }/>);
-          let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__save')
+      describe('when save prop is false', () => {
+        it('does not show a save button', () => {
+          let wrapper = shallow(<Form save={ false } />);
+          expect(wrapper.find(SaveButton).length).toEqual(0);
         });
       });
 
-      describe('when save is set to false', () => {
-        it('does not show a save button', () => {
-          let instance = TestUtils.renderIntoDocument(<Form save={ false }/>);
-          let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-          expect(buttons.length).toEqual(1);
+      describe('when save props is true (default)', () => {
+        it('does show a save button', () => {
+          let wrapper = shallow(<Form />);
+          expect(wrapper.find(SaveButton).length).toEqual(1);
         });
       });
     });
@@ -505,63 +681,39 @@ describe('Form', () => {
       describe('if none defined', () => {
         it('returns null', () => {
           let instance = TestUtils.renderIntoDocument(<Form />);
-          expect(instance.additionalActions).toBe(null);
+          expect(instance.additionalActions('additionalActions')).toBe(null);
         });
       });
 
       describe('if defined', () => {
         it('returns the action', () => {
           let instance = TestUtils.renderIntoDocument(<Form additionalActions={ <span /> } />);
-          expect(instance.additionalActions.props.className).toEqual("carbon-form__additional-actions");
+          expect(instance.additionalActions('additionalActions').props.className).toEqual("carbon-form__additional-actions");
+        });
+      });
+
+      describe('leftAlignedActions', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form leftAlignedActions={ <span /> } />);
+          expect(instance.additionalActions('leftAlignedActions').props.className).toEqual("carbon-form__left-aligned-actions");
+        });
+      });
+
+      describe('rightAlignedActions', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form rightAlignedActions={ <span /> } />);
+          expect(instance.additionalActions('rightAlignedActions').props.className).toEqual("carbon-form__right-aligned-actions");
         });
       });
     });
+  });
 
-    describe('errorMessage', () => {
-      beforeEach(() => {
-        instance.setState({ errorCount: 2});
-      });
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Form data-element='bar' data-role='baz' />);
 
-      it('displays an error message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
-        expect(summary.textContent).toEqual('There are 2 errors');
-      });
-
-      it('adds a invalid CSS class on the Save button div', () => {
-        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
-      });
-    });
-
-    describe('warningMessage', () => {
-      beforeEach(() => {
-        instance.setState({ warningCount: 2 });
-      });
-
-      it('displays a warning message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
-        expect(summary.textContent).toEqual('There are 2 warnings');
-      });
-
-      it('adds a invalid CSS class on the Save button div', () => {
-        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
-      });
-    });
-
-    describe('warning and error message', () => {
-      beforeEach(() => {
-        instance.setState({ errorCount: 2, warningCount: 2});
-      });
-
-      it('displays a warning message', () => {
-        let summary = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-form__summary')
-        expect(summary.textContent).toEqual('There are 2 errors and 2 warnings');
-      });
-
-      it('adds a invalid CSS class on the Save button div', () => {
-        let saveContainer = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        expect(saveContainer.className).toEqual('carbon-form__save carbon-form__save--invalid');
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'form', 'bar', 'baz');
       });
     });
   });

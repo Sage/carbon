@@ -1,7 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
 import Link from './../link';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A ActionToolbar widget.
@@ -17,11 +19,11 @@ import Link from './../link';
  *   let actions = [{
  *     text: "Add Subscriptions",
  *     icon: "basket",
- *     onClick: onClickHandler() => {}
+ *     onClick: onClickHandler(event, selected) => {}
  *   }, {
  *     text: "Delete",
  *     icon: "bin",
- *     onClick: onClickHandler() => {}
+ *     onClick: onClickHandler(event, selected) => {}
  *   }];
  *
  *   <ActionToolbar total={ count } actions={ actions } />
@@ -42,7 +44,7 @@ class ActionToolbar extends React.Component {
      * @property actions - each action is object with the action attributes
      * @type {Array}
      */
-    actions: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired,
 
     /**
      * A custom class name for the component.
@@ -54,8 +56,8 @@ class ActionToolbar extends React.Component {
   };
 
   static contextTypes = {
-    attachActionToolbar: React.PropTypes.func, // tracks the action toolbar component
-    detachActionToolbar: React.PropTypes.func // tracks the action toolbar component
+    attachActionToolbar: PropTypes.func, // tracks the action toolbar component
+    detachActionToolbar: PropTypes.func // tracks the action toolbar component
   };
 
   constructor(...args) {
@@ -102,24 +104,6 @@ class ActionToolbar extends React.Component {
   }
 
   /**
-   * @method render
-   * @return {Object} JSX
-   */
-  render() {
-    return (
-      <div className={ this.mainClasses() }>
-        <div className='carbon-action-toolbar__total'>
-          <strong>{ this.state.total }</strong> { I18n.t('action_toolbar.selected', { defaultValue: 'Selected' }) }
-        </div>
-
-        <div className='carbon-action-toolbar__actions'>
-          { this.actions() }
-        </div>
-      </div>
-    );
-  }
-
-  /**
    * @method actions
    * @return {Array}
    */
@@ -132,6 +116,15 @@ class ActionToolbar extends React.Component {
     }
 
     return actions;
+  }
+
+  /**
+   * @method handleOnClick
+   * @return {Function}
+   */
+  handleOnClick = (onClick, selected) => {
+    if (!onClick) { return null; }
+    return event => onClick(selected, event);
   }
 
   /**
@@ -151,24 +144,52 @@ class ActionToolbar extends React.Component {
   }
 
   /**
+   * @method linkClasses
+   * @return {String}
+   */
+  linkClasses(className) {
+    return classNames('carbon-action-toolbar__action', className);
+  }
+
+  /**
    * @method buildAction
    * @return {Object} JSX
    */
   buildAction(action, index) {
-    let { onClick, className, text, ...props } = action;
-    className = classNames('carbon-action-toolbar__action', className);
-    onClick = onClick ? onClick.bind(this, this.state.selected) : null;
+    const { onClick, className, text, ...props } = action;
 
     return (
       <Link
-        className={ className }
+        className={ this.linkClasses(className) }
+        data-element='action'
         disabled={ !this.isActive() }
         key={ index }
-        onClick={ onClick }
+        onClick={ this.handleOnClick(onClick, this.state.selected) }
         { ...props }
       >
         { text }
       </Link>
+    );
+  }
+
+  /**
+   * @method render
+   * @return {Object} JSX
+   */
+  render() {
+    return (
+      <div className={ this.mainClasses() } { ...tagComponent('action-toolbar', this.props) } >
+        <div className='carbon-action-toolbar__total'>
+          <strong data-element='total'>
+            { this.state.total }
+          </strong>
+          &nbsp;{ I18n.t('action_toolbar.selected', { defaultValue: 'Selected' }) }
+        </div>
+
+        <div className='carbon-action-toolbar__actions'>
+          { this.actions() }
+        </div>
+      </div>
     );
   }
 }

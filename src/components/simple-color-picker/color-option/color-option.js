@@ -1,9 +1,11 @@
-import React from 'react';
-
-import Input from './../../../utils/decorators/input';
-import Icon from './../../icon';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { trim, startsWith } from 'lodash';
+
+import Icon from './../../icon';
+import Input from './../../../utils/decorators/input';
+import tagComponent from '../../../utils/helpers/tags';
 
 /**
  * A single square with a color, implemented as a radio button.
@@ -18,7 +20,7 @@ class ColorOption extends React.Component {
      * @property color
      * @type {String}
      */
-    color: React.PropTypes.string,
+    color: PropTypes.string,
 
     /**
      * the input name.
@@ -26,7 +28,7 @@ class ColorOption extends React.Component {
      * @property name
      * @type {String}
      */
-    name: React.PropTypes.string,
+    name: PropTypes.string,
 
     /**
      * called when the user selects or deselects this color option.
@@ -34,7 +36,7 @@ class ColorOption extends React.Component {
      * @property onChange
      * @type {Function}
      */
-    onChange: React.PropTypes.func,
+    onChange: PropTypes.func,
 
     /**
      * determines if this color option is selected or unselected.
@@ -42,7 +44,23 @@ class ColorOption extends React.Component {
      * @property checked
      * @type {Boolean}
      */
-    checked: React.PropTypes.bool
+    checked: PropTypes.bool,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string
+  }
+
+  static defaultProps = {
+    checked: false,
+    className: '',
+    color: '',
+    name: '',
+    onChange: null
   }
 
   /**
@@ -54,7 +72,7 @@ class ColorOption extends React.Component {
       onChange: this.props.onChange,
       checked: this.props.checked,
       name: this.props.name,
-      type: "radio",
+      type: 'radio',
       value: this.props.color
     };
   }
@@ -74,33 +92,23 @@ class ColorOption extends React.Component {
   }
 
   get mainClasses() {
-    return classNames (
+    return classNames(
       'carbon-color-option',
       this.props.className
     );
   }
 
-  render() {
-    return (
-      <li className={ this.mainClasses }>
-        { this.inputHTML }
-      </li>
-    );
-  }
-
   get _colorSampleClasses() {
-    let color = trim(this.props.color, '#');
+    const color = trim(this.props.color, '#');
     return classNames('carbon-color-option__color-sample', `carbon-color-option__color-sample--${color}`);
   }
 
   get _tickedIcon() {
-    return <Icon type='tick' className="carbon-color-option__tick"/>;
+    return <Icon type='tick' className='carbon-color-option__tick' />;
   }
 
   get _colorSampleStyle() {
-    return startsWith(this.props.color, '#')
-      ? { backgroundColor: this.props.color }
-      : {};
+    return startsWith(this.props.color, '#') ? { backgroundColor: this.props.color } : {};
   }
 
   get colorSampleBox() {
@@ -111,6 +119,13 @@ class ColorOption extends React.Component {
     );
   }
 
+  render() {
+    return (
+      <li className={ this.mainClasses } { ...tagComponent('color-option', this.props) }>
+        { this.inputHTML }
+      </li>
+    );
+  }
 });
 
 export default ColorOption;

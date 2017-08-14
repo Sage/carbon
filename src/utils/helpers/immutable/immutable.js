@@ -9,7 +9,7 @@ import Immutable from 'immutable';
 * @param {String} name
 * @param {Object} form
 */
-var ImmutableHelper = {
+const ImmutableHelper = {
 
   /**
   * Parses a regular JSON object into an Immutable data object, mapping the data
@@ -24,15 +24,13 @@ var ImmutableHelper = {
         return String(js);
       }
       return js;
-    } else {
-      if (Array.isArray(js)) {
-        // create the immutable object
-        return Immutable.Seq(js).map(ImmutableHelper.parseJSON).toList();
-      } else {
-        // create the immutable object
-        return Immutable.Seq(js).map(ImmutableHelper.parseJSON).toMap();
-      }
     }
+
+    if (Array.isArray(js)) {
+      return Immutable.Seq(js).map(ImmutableHelper.parseJSON).toList();
+    }
+
+    return Immutable.Seq(js).map(ImmutableHelper.parseJSON).toMap();
   }
 };
 

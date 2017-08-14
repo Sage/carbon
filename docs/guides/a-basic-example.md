@@ -75,8 +75,8 @@ The store handles the data for a particular model. It defines functions which su
 
 import Dispatcher from 'dispatcher';
 import ContactConstants from 'constants/contact';
-import Store from 'carbon/lib/utils/flux/store';
-import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
+import Store from 'carbon-react/lib/utils/flux/store';
+import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 
 // data to init your store with
 let data = ImmutableHelper.parseJSON({
@@ -110,8 +110,8 @@ The component connects to a store, setting up listeners for when the store's dat
 // ./src/views/contact/index.js
 
 import React from 'react';
-import { connect } from 'carbon/lib/utils/flux';
-import Textbox from 'carbon/lib/components/textbox';
+import { connect } from 'carbon-react/lib/utils/flux';
+import Textbox from 'carbon-react/lib/components/textbox';
 import ContactStore from 'stores/contact';
 import ContactActions from 'actions/contact';
 
@@ -144,7 +144,7 @@ The router defines which component to render for a given route.
 
 import React from 'react';
 import { Route } from 'react-router';
-import { startRouter } from 'carbon/lib/utils/router';
+import { startRouter } from 'carbon-react/lib/utils/router';
 import Contact from 'views/contact';
 
 let routes = (

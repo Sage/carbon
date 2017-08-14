@@ -1,7 +1,9 @@
 import React from 'react';
-import Icon from './../icon';
 import classNames from 'classnames';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import PropTypes from 'prop-types';
+import Icon from './../icon';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
 * A Toast widget.
@@ -38,7 +40,23 @@ class Toast extends React.Component {
      * @type {String}
      * @default 'warning'
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
+     * The rendered children of the component.
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
 
     /**
      * Determines if the toast is open.
@@ -47,7 +65,7 @@ class Toast extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    open: React.PropTypes.bool,
+    open: PropTypes.bool,
 
     /**
      * Callback for when dismissed.
@@ -55,11 +73,13 @@ class Toast extends React.Component {
      * @property onDismiss
      * @type {Function}
      */
-    onDismiss: React.PropTypes.func
+    onDismiss: PropTypes.func
   }
 
   static defaultProps = {
     as: 'warning',
+    className: '',
+    onDismiss: null,
     open: true
   }
 
@@ -72,7 +92,7 @@ class Toast extends React.Component {
     return classNames(
       'carbon-toast',
       this.props.className,
-      'carbon-toast--' + this.props.as
+      `carbon-toast--${this.props.as}`
     );
   }
 
@@ -82,9 +102,17 @@ class Toast extends React.Component {
    * @method dismissIcon
    */
   get dismissIcon() {
-    return this.props.onDismiss ? (
-      <Icon className="carbon-toast__close" type="close" onClick={ this.props.onDismiss } />
-    ) : null;
+    if (this.props.onDismiss) {
+      return (
+        <Icon
+          className='carbon-toast__close'
+          data-element='close'
+          onClick={ this.props.onDismiss }
+          type='close'
+        />
+      );
+    }
+    return null;
   }
 
   /**
@@ -93,17 +121,20 @@ class Toast extends React.Component {
    * @method toastContent
    */
   get toastContent() {
-    return this.props.open ? (
-      <div className={ this.componentClasses }>
-        <div className="carbon-toast__type"><Icon className="carbon-toast__type-icon" type={ this.props.as } /></div>
-
-        <div className="carbon-toast__content">
-          { this.props.children }
+    if (this.props.open) {
+      return (
+        <div className={ this.componentClasses } { ...tagComponent('toast', this.props) }>
+          <div className='carbon-toast__type'>
+            <Icon className='carbon-toast__type-icon' type={ this.props.as } />
+          </div>
+          <div className='carbon-toast__content'>
+            { this.props.children }
+          </div>
+          { this.dismissIcon }
         </div>
-
-        { this.dismissIcon }
-      </div>
-    ) : null;
+      );
+    }
+    return null;
   }
 
   /**
@@ -113,15 +144,15 @@ class Toast extends React.Component {
    */
   render() {
     return (
-      <ReactCSSTransitionGroup
-        transitionAppear={ true }
-        transitionName="toast"
+      <CSSTransitionGroup
+        transitionAppear
+        transitionName='toast'
         transitionAppearTimeout={ 1600 }
         transitionEnterTimeout={ 1500 }
         transitionLeaveTimeout={ 500 }
       >
         { this.toastContent }
-      </ReactCSSTransitionGroup>
+      </CSSTransitionGroup>
     );
   }
 

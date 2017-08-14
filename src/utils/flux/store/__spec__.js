@@ -1,12 +1,10 @@
 import Store from './store';
-import { Dispatcher } from 'flux';
+import Flux from 'flux';
+import Logger from './../../logger';
+import { Dispatcher } from './../../flux';
 
 describe('Store', () => {
-  let instance, dispatcher;
-
-  beforeEach(() => {
-    dispatcher = new Dispatcher();
-  });
+  let instance;
 
   describe('constructor', () => {
     describe('init without a name', () => {
@@ -21,34 +19,50 @@ describe('Store', () => {
       });
     });
 
-    describe('init without dispatcher', () => {
-      it('throws an error', () => {
-        expect(function() { new Store('foo', {}) }).toThrowError("You need to initialize your store with your application's dispatcher. Check the initialization of Store.");
+    describe('with no dispatcher given', () => {
+      it('registers the carbon dispatcher and stores the token', () => {
+        spyOn(Dispatcher, 'register').and.returnValue('foo');
+        instance = new Store('foo', {});
+        expect(Dispatcher.register).toHaveBeenCalledWith(instance.dispatcherCallback);
+        expect(instance.dispatchToken).toEqual('foo');
       });
     });
 
-    describe('init with a dispatcher', () => {
-      it('registers the dispatcher and store the token', () => {
+    describe('with a custom dispatcher', () => {
+      it('uses the custom dispatcher', () => {
+        const dispatcher = new Flux.Dispatcher();
         spyOn(dispatcher, 'register').and.returnValue('foo');
-        instance = new Store('foo', {}, dispatcher);
+        instance = new Store('foo', {}, { dispatcher });
         expect(dispatcher.register).toHaveBeenCalledWith(instance.dispatcherCallback);
         expect(instance.dispatchToken).toEqual('foo');
       });
     });
 
+    describe('legacy - dispatcher as a third arg', () => {
+      it('uses the custom dispatcher and gives warning', () => {
+        spyOn(Logger, 'deprecate');
+        const dispatcher = new Flux.Dispatcher();
+        spyOn(dispatcher, 'register').and.returnValue('foo');
+        instance = new Store('foo', {}, dispatcher);
+        expect(dispatcher.register).toHaveBeenCalledWith(instance.dispatcherCallback);
+        expect(instance.dispatchToken).toEqual('foo');
+        expect(Logger.deprecate).toHaveBeenCalledWith("foo: The 'connect' function will no longer support the Dispatcher as it's third argument. If you want to use the Dispatcher provided by Carbon then you can just remove this argument, however if you want to provide your own Dispatcher you will need to set it as an option of the third argument of the connect function (eg. connect(Component, Store, { dispatcher: CustomDispatcher }))", { group: 'connect' });
+      });
+    });
+
     it('sets history to an array with init data', () => {
-      instance = new Store('foo', { foo: 'bar' }, dispatcher);
+      instance = new Store('foo', { foo: 'bar' });
       expect(instance.history).toEqual([{ foo: 'bar' }]);
     });
 
     it('sets trackHistory to false', () => {
-      instance = new Store('foo', {}, dispatcher);
+      instance = new Store('foo', {});
       expect(instance.trackHistory).toBeFalsy();
     });
 
     describe('init with history enabled', () => {
       it('sets trackHistory to true', () => {
-        instance = new Store('foo', {}, dispatcher, { history: true });
+        instance = new Store('foo', {}, { history: true });
         expect(instance.trackHistory).toBeTruthy();
       });
     });
@@ -56,7 +70,7 @@ describe('Store', () => {
 
   describe("with an actual store", () => {
     beforeEach(() => {
-      instance = new Store('foo', 'some data', dispatcher);
+      instance = new Store('foo', 'some data');
     });
 
     describe('addChangeListener', () => {

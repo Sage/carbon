@@ -1,12 +1,13 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
 import { Menu } from './menu';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Menu', () => {
-  let instance;
+  let wrapper;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
+    wrapper = shallow(
       <Menu className="foobar">
         foo
       </Menu>
@@ -14,17 +15,27 @@ describe('Menu', () => {
   });
 
   it('renders with correct classes', () => {
-    let div = TestUtils.findRenderedDOMComponentWithTag(instance, 'div');
-    expect(div.className).toEqual('carbon-menu foobar carbon-menu--primary');
+    expect(wrapper.hasClass('carbon-menu foobar carbon-menu--primary')).toEqual(true);
   });
 
   it('renders with secondary class', () => {
-    instance = TestUtils.renderIntoDocument(
+    wrapper = shallow(
       <Menu className="foobar" as="secondary">
         foo
       </Menu>
     );
-    let div = TestUtils.findRenderedDOMComponentWithTag(instance, 'div');
-    expect(div.className).toEqual('carbon-menu foobar carbon-menu--secondary');
+    expect(wrapper.hasClass('carbon-menu foobar carbon-menu--secondary')).toEqual(true);
+  });
+
+  it('renders with a <nav> tag as the root element', () => {
+    expect(wrapper.is('nav')).toEqual(true);
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<Menu data-element='bar' data-role='baz'>Test</Menu>);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'menu', 'bar', 'baz');
+    });
   });
 });

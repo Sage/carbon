@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import tagComponent from '../../utils/helpers/tags';
 import Link from './../link';
 
 class Create extends React.Component {
@@ -29,21 +31,9 @@ class Create extends React.Component {
     linkProps: PropTypes.object
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(args) {
+    super(args);
     this.linkProps = this.linkProps.bind(this);
-  }
-
-  /**
-   * @method render
-   * @return {Object} JSX
-   */
-  render() {
-    return (
-      <Link { ...this.linkProps() }>
-        { this.props.children }
-      </Link>
-    );
   }
 
   /**
@@ -54,7 +44,7 @@ class Create extends React.Component {
    */
   linkProps() {
     const className = this.props.className;
-    let { ...props } = this.props;
+    const { ...props } = this.props;
 
     props.className = classNames(
       'carbon-create', className
@@ -63,6 +53,18 @@ class Create extends React.Component {
     props.iconAlign = 'right';
     props.icon = 'add';
     return props;
+  }
+
+  /**
+   * @method render
+   * @return {Object} JSX
+   */
+  render() {
+    return (
+      <Link { ...this.linkProps() } { ...tagComponent('create', this.props) }>
+        { this.props.children }
+      </Link>
+    );
   }
 }
 

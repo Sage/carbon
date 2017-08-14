@@ -3,21 +3,19 @@
  * @param {Object}
  * @param {String}
  */
-let serialize = (obj, prefix) => {
-  let str = [];
+const serialize = (obj, prefix) => {
+  const str = [];
 
-  for (let prop in obj) {
-    let key = prefix ? prefix + "[" + prop + "]" : prop,
+  for (const prop in obj) {
+    const key = prefix ? `${prefix}[${prop}]` : prop,
         value = obj[prop];
 
     str.push(
-      typeof value == "object" ?
-        serialize(value, key) :
-        encodeURIComponent(key) + "=" + encodeURIComponent(value)
+      typeof value === 'object' ? serialize(value, key) : `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
     );
   }
 
-  return str.join("&");
+  return str.join('&');
 };
 
 export default serialize;

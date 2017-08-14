@@ -1,5 +1,5 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import InputLabel from './input-label';
 import Help from 'components/help';
 
@@ -181,45 +181,45 @@ describe('InputLabel', () => {
   describe('labelHTML', () => {
     describe('when label is set to false', () => {
       it('does not add a label', () => {
-        expect(instanceFalse.labelHTML).not.toBeDefined();
+        expect(instanceFalse.labelHTML).toEqual(null);
       });
     });
 
     describe('when no name is provided', () => {
       it('does not add a label', () => {
-        expect(instanceNameless.labelHTML).not.toBeDefined();
+        expect(instanceNameless.labelHTML).toEqual(null);
       });
     });
 
     describe('when no label is provided', () => {
       it('titleizes the name to provide the label text', () => {
         let label = instanceUnNamed.labelHTML;
-        expect(label.props.children).toMatch('Bar Qux');
+        expect(label.props.children).toContain('Bar Qux');
       });
     });
 
     describe('when the input has a label', () => {
-      it('sets data-member attribute', () => {
+      it('sets data-element attribute', () => {
         let label = instanceBasic.labelHTML;
-        expect(label.props["data-member"]).toEqual('label');
+        expect(label.props["data-element"]).toEqual('label');
       });
 
       it('sets the labelText to the passed in label', () => {
         let label = instanceBasic.labelHTML;
-        expect(label.props.children).toMatch('test label');
+        expect(label.props.children).toContain('test label');
       });
 
       describe('when the input has a validation with asterisk enabled', () => {
         it('adds additional symbols to the label', () => {
           let label = instanceValidation.labelHTML;
-          expect(label.props.children).toMatch('Validate Label*');
+          expect(label.props.children).toContain('Validate Label*');
         });
       });
 
       describe('when the input does not have a validation with asterisk enabled', () => {
         it('does not add additional symbols to the label', () => {
           let label = instanceAltValidation.labelHTML;
-          expect(label.props.children).toMatch('Validate Label');
+          expect(label.props.children).toContain('Validate Label');
         });
       });
     });
@@ -251,7 +251,7 @@ describe('InputLabel', () => {
 
     describe('when label help is not provided', () => {
       it('does not return a help span', () => {
-        expect(instanceFalse.fieldHelpHTML).toBeUndefined();
+        expect(instanceFalse.fieldHelpHTML).toEqual(null);
       });
     });
   });

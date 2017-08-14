@@ -43,8 +43,8 @@ const ComponentActions = {
   },
 
   updateTable: (actionType, opts = {}) => {
-    let pageSize = opts.pageSize || "10",
-        currentPage = opts.currentPage || "1",
+    const pageSize = opts.pageSize || '10',
+        currentPage = opts.currentPage || '1',
         query = opts.filter || {};
 
     if (opts.sortOrder) { query.sord = opts.sortOrder; }
@@ -55,7 +55,7 @@ const ComponentActions = {
     window.Request.get('/countries')
       .query(query)
       .end((err, res) => {
-        let data = res.body;
+        const data = res.body;
 
         window.Dispatcher.dispatch({
           actionType: window.ComponentConstants.UPDATE_TABLE,
@@ -64,7 +64,7 @@ const ComponentActions = {
           sortOrder: opts.sortOrder,
           sortedColumn: opts.sortedColumn,
           page: String(data.current_page),
-          pageSize: pageSize
+          pageSize
         });
       });
   },
@@ -94,6 +94,41 @@ const ComponentActions = {
       url: url
     });
   },
+
+  updateDndData: (dragIndex, hoverIndex) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.UPDATE_TABLE_DND,
+      dragIndex,
+      hoverIndex,
+    });
+  },
+
+  updateConfigurableItemsData: (dragIndex, hoverIndex) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.UPDATE_CONFIGURABLE_ITEMS,
+      dragIndex,
+      hoverIndex,
+    });
+  },
+
+  updateConfigurableItem: (rowIndex) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.UPDATE_CONFIGURABLE_ITEM,
+      rowIndex
+    });
+  },
+
+  resetConfigurableItemsData: () => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.RESET_CONFIGURABLE_ITEM_DATA
+    });
+  }
 };
+
+// required for dnd demo:
+global.updateDndData = ComponentActions.updateDndData;
+global.updateConfigurableItemsData = ComponentActions.updateConfigurableItemsData;
+global.updateConfigurableItem = ComponentActions.updateConfigurableItem;
+global.resetConfigurableItemsData = ComponentActions.resetConfigurableItemsData;
 
 export default ComponentActions;

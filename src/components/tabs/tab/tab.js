@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 /**
@@ -21,7 +22,7 @@ class Tab extends React.Component {
      * @type {String}
      *
      */
-    title: React.PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * id to identify the tab within the component
@@ -30,7 +31,28 @@ class Tab extends React.Component {
      * @property tabId
      * @type {String}
      */
-    tabId: React.PropTypes.string.isRequired
+    tabId: PropTypes.string.isRequired,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node
+  }
+
+  static defaultProps = {
+    className: '',
+    children: null
   }
 
   static contextTypes = {
@@ -42,7 +64,7 @@ class Tab extends React.Component {
      * @property tabs
      * @type {Object}
      */
-    tabs: React.PropTypes.object
+    tabs: PropTypes.object
   }
 
   static childContextTypes = {
@@ -54,21 +76,7 @@ class Tab extends React.Component {
      * @property tab
      * @type {Object}
      */
-    tab: React.PropTypes.object
-  }
-
-  /**
-   * Returns tab object to context children.
-   *
-   * @method getChildContext
-   */
-  getChildContext() {
-    return {
-      tab: {
-        setValidity: this.setValidity,
-        setWarning: this.setWarning
-      }
-    };
+    tab: PropTypes.object
   }
 
   state = {
@@ -88,6 +96,20 @@ class Tab extends React.Component {
      * @type {Boolean}
      */
     isWarning: false
+  }
+
+  /**
+   * Returns tab object to context children.
+   *
+   * @method getChildContext
+   */
+  getChildContext() {
+    return {
+      tab: {
+        setValidity: this.setValidity,
+        setWarning: this.setWarning
+      }
+    };
   }
 
   /**
@@ -134,7 +156,7 @@ class Tab extends React.Component {
    * @method render
    */
   render() {
-    return(
+    return (
       <div className={ this.mainClasses }>
         { this.props.children }
       </div>

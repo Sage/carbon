@@ -1,8 +1,9 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import ColorOption from './';
 import Icon from './../../icon';
 import { shallow  } from 'enzyme';
+import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('ColorOption', () => {
   let wrapper;
@@ -64,5 +65,12 @@ describe('ColorOption', () => {
     });
   });
 
+  describe("tags on component", () => {
+    let wrapper = shallow(<ColorOption data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'color-option', 'bar', 'baz');
+    });
+  });
 });
 

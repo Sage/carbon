@@ -16,6 +16,11 @@
   width: 15px;
   height: 15px;
   vertical-align: top;
+
+  .carbon-link__content {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute;
+  }
 }
 
 .carbon-pod--content-triggers-edit .carbon-pod__block:hover {
@@ -54,7 +59,6 @@
   display: inline-block;
   vertical-align: top;
   cursor: pointer;
-  position: absolute;
 }
 
 .carbon-pod__edit-action--no-border,
@@ -140,7 +144,7 @@
 }
 
 .carbon-pod__header {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .carbon-pod__header--true {
@@ -179,7 +183,7 @@
 .carbon-pod__description {
   background: none;
   margin-bottom: 10px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .carbon-pod__arrow {

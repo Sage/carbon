@@ -1,9 +1,10 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Pod from './pod';
 import Button from './../button';
 import Link from './../link';
 import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Pod', () => {
   let instance;
@@ -60,7 +61,7 @@ describe('Pod', () => {
     describe('when title is not passed as a prop', () => {
       it('returns null', () => {
         instance = TestUtils.renderIntoDocument(<Pod/>);
-        expect(instance.podHeader).toBeUndefined();
+        expect(instance.podHeader).toBeNull();
       });
     });
 
@@ -488,6 +489,34 @@ describe('Pod', () => {
 
       let buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')
       expect(buttons.length).toEqual(3);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<Pod data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'pod', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Pod
+          footer={ <div /> }
+          onEdit={ ()=>{} }
+          subtitle='Test'
+          title='Test'
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'edit',
+        'footer',
+        'subtitle',
+        'title'
+      ]);
     });
   });
 });

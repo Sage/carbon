@@ -38,6 +38,16 @@ const Browser = {
   },
 
   /**
+   * Get the current activeElement
+   *
+   * @return HTMLElement
+   */
+  getActiveElement: () => {
+    const doc = Browser.getDocument();
+    return doc.activeElement;
+  },
+
+  /**
    * Redirect to URL
    *
    * @method redirectTo
@@ -62,9 +72,28 @@ const Browser = {
    * @method editFocus
    */
   editFocus: (ref) => {
-    let node = ReactDOM.findDOMNode(ref._input);
+    const node = ReactDOM.findDOMNode(ref._input); // eslint-disable-line react/no-find-dom-node
     node.focus();
     node.select();
+  },
+
+  /**
+   * Focuses and sets cursor of react node
+   *
+   * @method setFocus
+   */
+  setFocus: (reactNode) => {
+    const node = ReactDOM.findDOMNode(reactNode); // eslint-disable-line react/no-find-dom-node
+    node.focus();
+  },
+
+  /**
+   *  Focuses and sets cursor of input field but does not select text
+   *
+   * @method setInputFocus
+   */
+  setInputFocus: (inputComponent) => {
+    Browser.setFocus(inputComponent._input);
   },
 
   /**
@@ -74,10 +103,10 @@ const Browser = {
    * @method setCookie
    */
   setCookie: (name, value, options = {}) => {
-    let cookie = `${ name }=${ value }`;
+    let cookie = `${name}=${value}`;
 
-    if (options.expires) { cookie += `; expires=${ options.expires }`; }
-    if (options['max-age']) { cookie += `; max-age=${ options['max-age'] }`; }
+    if (options.expires) { cookie += `; expires=${options.expires}`; }
+    if (options['max-age']) { cookie += `; max-age=${options['max-age']}`; }
 
     Browser.getDocument().cookie = cookie;
   },
@@ -89,14 +118,15 @@ const Browser = {
    * @method getCookieValueByName
    */
   getCookie: (name) => {
-    let cookies = Browser.getDocument().cookie.split(';');
+    const cookies = Browser.getDocument().cookie.split(';');
 
     for (let i = 0; i < cookies.length; i++) {
-      let cookie = cookies[i].trim().split('=');
+      const cookie = cookies[i].trim().split('=');
       if (cookie[0] === name) {
         return cookie[1];
       }
     }
+    return null;
   },
 
   /**
@@ -126,24 +156,37 @@ const Browser = {
    * @return  {Void}
    */
   postToNewWindow: (url, data, target = '_blank') => {
-    let doc = Browser.getDocument(),
-        containerId = 'carbonPostFormContainer',
-        container = doc.getElementById(containerId),
-        form;
+    const doc = Browser.getDocument(),
+        containerId = 'carbonPostFormContainer';
+
+    let container = doc.getElementById(containerId);
 
     if (!container) {
       container = doc.createElement('div');
-      container.id = containerId;
-      doc.body.append(container);
+      container.setAttribute('id', containerId);
+      doc.body.appendChild(container);
     }
 
-    form = ReactDOM.render((
+    ReactDOM.render((
       <Form action={ url } method='post' target={ target } save={ false } cancel={ false }>
-        { keys(data).map(key => <input type='hidden' key={ key } name={ key } value={ data[key] } />) }
+        { keys(data).map((key) => {
+          return <input type='hidden' key={ key } name={ key } value={ data[key] } />;
+        }) }
       </Form>
-    ), container);
-    form.refs.form.submit();
+    ), container, function() {
+      Browser.submitForm(this._form);
+    });
     ReactDOM.unmountComponentAtNode(container);
+  },
+
+  /**
+   * Submits a passed Form
+   *
+   * @method submitForm
+   * @param {HTML Form} form to submit
+   */
+  submitForm: (form) => {
+    form.submit();
   }
 };
 

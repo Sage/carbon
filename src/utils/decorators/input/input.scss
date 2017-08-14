@@ -108,9 +108,7 @@
 
   &:active,
   &:focus {
-    border-color: $input-active-border-color;
-    box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
-    @include transition(box-shadow linear 0.1s);
+    @include input-outline($input-active-border-color);
   }
 
   .common-input--disabled &,
@@ -155,8 +153,8 @@
   padding: 10px;
   position: absolute;
   text-align: center;
+  width: 100%;
   width: fit-content;
-  width: -moz-fit-content;
   z-index: $z-validation-message;
 
   &:before {
@@ -168,19 +166,6 @@
     left: 0;
     bottom: -14px;
   }
-}
-
-.common-input__message--warning .carbon-link__anchor {
-  color: white;
-  text-decoration: underline;
-}
-
-.common-input__message--warning:before {
-  border-top-color: $warning;
-}
-
-.common-input__message--error:before {
-  border-top-color: $error;
 }
 
 .common-input__message--hidden {
@@ -209,13 +194,10 @@
   position: absolute;
   right: 5px;
   top: 28px;
+  z-index: 2;
 
   &:before {
     font-size: 20px;
-  }
-
-  &.common-input__icon--warning {
-    color: $warning;
   }
 }
 
@@ -231,32 +213,13 @@
   color: $error;
 }
 
-.common-input__input--warning,
-.common-input__input--warning:hover {
-  border-color: $warning !important; // this is the correct use of !important
-}
-
-.common-input__input--error,
-.common-input__input--error:hover {
-  border-color: $error !important; // this is the correct use of !important
-}
-
-.common-input__message--warning {
-  background-color: $warning;
-  color: $white;
-}
-
-.common-input__message--error {
-  background-color: $error;
-  color: $white;
-}
-
 .common-input__prefix {
   font-weight: bold;
   font-size: $input-common-font-size;
   left: 7px;
   position: absolute;
   top: 8px;
+  z-index: 3;
 }
 
 .common-input__input-icon {
@@ -281,4 +244,51 @@
 .common-input__input--fake {
   text-align: left;
   overflow: hidden;
+}
+
+.common-input__input-help {
+  position: absolute;
+  top: 6px;
+  right: -24px;
+}
+
+@mixin common-input-theme($type, $color) {
+  .carbon-icon.common-input__icon.common-input__icon--#{$type} {
+    color: $color;
+  }
+
+  .common-input__message--#{$type} {
+    background-color: $color;
+    color: $white;
+
+    .carbon-link__anchor {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+
+  .common-input__message--#{$type}:before {
+    border-top-color: $color;
+  }
+
+  .common-input__input--#{$type},
+  .common-input__input--#{$type}:hover {
+    border-color: $color !important; // this is the correct use of !important
+    position: relative;
+    z-index: 1;
+  }
+
+}
+
+/**
+ * Color and Icon sets used for inputs with themes.
+ */
+$inputColorIconSets: (
+  ("warning", $warning),
+  ("error", $error),
+  ("info", $info)
+);
+
+@each $set in $inputColorIconSets {
+  @include common-input-theme($set...);
 }

@@ -1,7 +1,12 @@
 import React from 'react';
+import classNames from 'classnames';
 import Icon from './../icon';
 import Modal from './../modal';
-import classNames from 'classnames';
+import Heading from './../heading';
+import FullScreenHeading from './full-screen-heading';
+import Browser from './../../utils/helpers/browser';
+
+const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog-full-screen--open';
 
 /**
  * A DialogFullScreen widget.
@@ -24,6 +29,14 @@ import classNames from 'classnames';
  * @constructor
  */
 class DialogFullScreen extends Modal {
+  constructor(props) {
+    super(props);
+
+    /**
+     * Caches a reference to the document.
+     */
+    this.document = Browser.getDocument();
+  }
 
   static defaultProps = {
     open: false,
@@ -33,7 +46,6 @@ class DialogFullScreen extends Modal {
   /**
    * Returns classes for the dialog.
    *
-   * @method dialogClasses
    * @return {String} dialog className
    */
   get dialogClasses() {
@@ -44,7 +56,6 @@ class DialogFullScreen extends Modal {
    * Returns main classes for the component combined with
    * Dialog main classes.
    *
-   * @method mainClasses
    * @return {String} Main className
    */
   get mainClasses() {
@@ -54,25 +65,81 @@ class DialogFullScreen extends Modal {
     );
   }
 
+  componentTags(props) {
+    return {
+      'data-component': 'dialog-full-screen',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
+
   /**
    * Returns the computed HTML for the dialog.
    * @override
    *
-   * @method modalHTML
    * @return {Object} JSX for dialog
    */
   get modalHTML() {
     return (
-      <div ref={ (d) => this._dialog = d } className={ this.dialogClasses }>
-        <div className="carbon-dialog-full-screen__header">
-          <h2 className="carbon-dialog-full-screen__title">{ this.props.title }</h2>
-          <Icon className="carbon-dialog-full-screen__close" type="close" onClick={ this.props.onCancel } />
-        </div>
+      <div
+        ref={ (d) => { this._dialog = d; } }
+        className={ this.dialogClasses }
+        { ...this.componentTags(this.props) }
+      >
+        <Icon
+          className='carbon-dialog-full-screen__close'
+          data-element='close'
+          onClick={ this.props.onCancel }
+          type='close'
+        />
 
-        <div className='carbon-dialog-full-screen__content'>
+        { this.dialogTitle() }
+
+        <div className='carbon-dialog-full-screen__content' data-element='content'>
           { this.props.children }
         </div>
       </div>
+    );
+  }
+
+  /**
+   * Overrides the original function to disable the document's scroll.
+   */
+  get onOpening() {
+    this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
+  }
+
+  /**
+   * Overrides the original function to enable the document's scroll.
+   */
+  get onClosing() {
+    this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
+  }
+
+  /**
+   * Returns HTML and text for the dialog title.
+   *
+   * @method dialogTitle
+   * @return {Object} title to display
+   */
+  dialogTitle = () => {
+    if (!this.props.title) { return null; }
+
+    let title = this.props.title;
+
+    if (typeof title === 'string') {
+      title = (
+        <Heading
+          title={ title }
+          titleId='carbon-dialog-title'
+          subheader={ this.props.subtitle }
+          subtitleId='carbon-dialog-subtitle'
+        />
+      );
+    }
+
+    return (
+      <FullScreenHeading>{ title }</FullScreenHeading>
     );
   }
 }

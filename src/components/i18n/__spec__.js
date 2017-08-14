@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
+import ReactShallowRenderer from 'react-test-renderer/shallow';
 import i18n from 'i18n-js';
 import I18n from './i18n.js';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('I18n', () => {
 
@@ -10,7 +13,7 @@ describe('I18n', () => {
     let shallowRenderer;
 
     beforeEach(() => {
-      shallowRenderer = TestUtils.createRenderer();
+      shallowRenderer = new ReactShallowRenderer();
     });
 
     describe('without markdown', () => {
@@ -88,6 +91,14 @@ describe('I18n', () => {
           __html: 'some &lt;span&gt;html&lt;/span&gt;'
         });
       });
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<I18n data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'i18n', 'bar', 'baz');
     });
   });
 });

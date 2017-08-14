@@ -1,8 +1,11 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
+import Browser from '../../utils/helpers/browser';
 import { Sidebar } from './sidebar';
 import Textbox from './../textbox';
 import Icon from './../icon';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Sidebar', () => {
   let instance, leftInstance, spy;
@@ -34,43 +37,61 @@ describe('Sidebar', () => {
   });
 
   describe('componentDidUpdate', () => {
+    let mockWindow;
+    let wrapper;
+    let instance;
+
+    beforeEach(() => {
+      mockWindow = {
+        addEventListener() {},
+        removeEventListener() {}
+      };
+
+      spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
+    });
+
     describe('when the Sidebar is open', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
+        wrapper = mount(
           <Sidebar open={ true } onCancel={ spy } />
         );
+        instance = wrapper.instance();
       });
 
       it('sets up event listeners to resize and close the Sidebar', () => {
-        let spy = spyOn(window, 'addEventListener');
-        instance.componentDidUpdate();
-        expect(spy.calls.count()).toEqual(1);
-        expect(window.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+        spyOn(mockWindow, 'addEventListener');
+        wrapper.setProps({ title: 'Sidebar title' });
+
+        expect(mockWindow.addEventListener.calls.count()).toEqual(1);
+        expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
       });
 
       describe('when the Sidebar is already listening', () => {
         it('does not set up event listeners', () => {
-          let spy = spyOn(window, 'addEventListener');
+          spyOn(mockWindow, 'addEventListener');
           instance.listening = true;
-          instance.componentDidUpdate();
-          expect(spy.calls.count()).toEqual(0);
-          expect(window.addEventListener).not.toHaveBeenCalled();
+          wrapper.setProps({ title: 'Already listening' });
+
+          expect(mockWindow.addEventListener.calls.count()).toEqual(0);
+          expect(mockWindow.addEventListener).not.toHaveBeenCalled();
         });
       });
     });
 
     describe('when the Sidebar is closed', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
+        wrapper = mount(
           <Sidebar onCancel={ spy } />
         );
+        instance = wrapper.instance();
+        instance.listening = true;
       });
 
       it('removes event listeners for resize and closing', () => {
-        let spy = spyOn(window, 'removeEventListener');
-        instance.componentDidUpdate();
-        expect(spy.calls.count()).toEqual(1);
-        expect(window.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+        spyOn(mockWindow, 'removeEventListener');
+        wrapper.setProps({ title: 'Remove event handlers' });
+        expect(mockWindow.removeEventListener.calls.count()).toEqual(1);
+        expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
       });
     });
   });
@@ -177,6 +198,38 @@ describe('Sidebar', () => {
         let icon = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-sidebar__close-icon');
         expect(icon.length).toEqual(0);
       });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Sidebar
+          data-element='bar'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'sidebar', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <Sidebar
+          open={ true }
+          title='Test'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'close'
+      ]);
     });
   });
 });

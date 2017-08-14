@@ -1,6 +1,6 @@
 import Events from './events';
 
-describe("Events", function () {
+describe('Events', () => {
   describe('isEventType', () => {
     describe('when event type matches passed type', () => {
       it('returns true', () => {

@@ -29,7 +29,7 @@ I18n.translations['en'] = {
 
     get_started: {
       ready: 'Ready to Get Started?',
-      checkout: 'Checkout the Github repository or download Carbon'
+      checkout: 'Check out the Github repository or download Carbon'
     },
 
     learn_more: {
@@ -47,8 +47,7 @@ I18n.translations['en'] = {
 
     page_header_large: {
       heading1: 'Carbon is a library of React components for building great web applications.',
-      heading2: 'Carbon is open source. It’s hosted, developed, and maintained on Github.',
-      version: 'Currently: v1.0.0.beta'
+      heading2: 'Carbon is Open Source. It’s hosted, developed, and maintained on Github.'
     },
 
     sage_loves_carbon: {
@@ -73,7 +72,7 @@ I18n.translations['en'] = {
       },
       brush: {
         heading: 'Designed for UX',
-        text: 'Meet your users’ needs with a simple, elegant, delightful experience'
+        text: 'Meet your users’ needs with a simple, elegant, delightful experience.'
       },
       hammer: {
         heading: 'Build smarter',
@@ -91,7 +90,8 @@ I18n.translations['en'] = {
   },
 
   component_page: {
-    design_notes: 'Designer Notes'
+    design_notes: 'Designer Notes',
+    related_components: 'Related Components'
   },
 
   errors: {
@@ -105,11 +105,11 @@ I18n.translations['en'] = {
 
   style: {
     colors: {
-      subtitle: 'Enables a consistent styling across your application'
+      subtitle: 'A vibrant palette for a consistent visual style across your app.'
     },
 
     icons: {
-      subtitle: 'Free open source icons to use in your project',
+      subtitle: 'Free icons to use in your project.',
     },
   }
 };

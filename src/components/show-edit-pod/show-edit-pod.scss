@@ -4,6 +4,9 @@
   &:focus {
     outline: none;
   }
+  .common-input__prefix {
+    z-index: 5;
+  }
 }
 
 .carbon-show-edit-pod__delete {

@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import AppWrapper from './../app-wrapper';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * Renders a full width application bar.
@@ -14,11 +16,27 @@ class NavigationBar extends React.Component {
      * @type {String}
      * @default primary
      */
-    as: React.PropTypes.string
+    as: PropTypes.string,
+
+    /**
+     * The rendered children of the component.
+     *
+     * @property children
+     * @type {Multiple}
+     */
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string
   }
 
   static defaultProps = {
-    as: "primary"
+    as: 'primary'
   }
 
   /**
@@ -29,7 +47,7 @@ class NavigationBar extends React.Component {
    */
   get classes() {
     return classNames(
-      "carbon-navigation-bar",
+      'carbon-navigation-bar',
       this.props.className,
       `carbon-navigation-bar--${this.props.as}`
     );
@@ -40,8 +58,8 @@ class NavigationBar extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes }>
-        <AppWrapper className="carbon-navigation-bar__content">
+      <div className={ this.classes } { ...tagComponent('navigation-bar', this.props) }>
+        <AppWrapper className='carbon-navigation-bar__content'>
           { this.props.children }
         </AppWrapper>
       </div>

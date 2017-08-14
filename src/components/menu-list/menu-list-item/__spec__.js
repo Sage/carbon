@@ -1,6 +1,8 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import MenuListItem from './menu-list-item';
+import { shallow } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('MenuListItem', () => {
   let instance;
@@ -30,6 +32,14 @@ describe('MenuListItem', () => {
     );
 
     let list = TestUtils.findRenderedDOMComponentWithTag(customInstance, 'li');
-    expect(list.classList).toMatch('custom-class');
+    expect(list.classList).toContain('custom-class');
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<MenuListItem data-element='bar' data-role='baz'>Test</MenuListItem>);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'menu-list-item', 'bar', 'baz');
+    });
   });
 });

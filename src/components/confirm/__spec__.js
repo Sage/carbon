@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Dialog from './../dialog'
 import Confirm from './confirm';
+import { shallow, mount } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Confirm', () => {
   let instance, onCancel, onConfirm;
@@ -21,12 +23,6 @@ describe('Confirm', () => {
     );
   });
 
-  describe('dialogTitleClasses', () => {
-    it('return the dialog title class along with the confirm title class', () => {
-      expect(instance.dialogTitleClasses).toEqual('carbon-dialog__title carbon-confirm__title');
-    });
-  });
-
   describe('dialogClasses', () => {
     it('returns the dialog class along with the  class', () => {
       expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-confirm__confirm');
@@ -35,6 +31,11 @@ describe('Confirm', () => {
 
   describe('confirmButtons', () => {
     let yes, no, yesButton, noButton;
+
+    it('renders with the buttons and clearfix classes', () => {
+      let buttons = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-confirm__buttons');
+      expect(buttons.classList).toContain('clearfix');
+    });
 
     describe('yes button', () => {
       beforeEach(() => {
@@ -108,6 +109,45 @@ describe('Confirm', () => {
   describe('dialogHTML', () => {
     it('appends the two buttons to the dialogHTML', () => {
       expect(TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button').length).toEqual(2);
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <Confirm
+          data-element='bar'
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'confirm', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = mount(
+        <Confirm
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          open={ true }
+          showCloseIcon={ true }
+          subtitle='Test'
+          title='Test'
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'cancel',
+        'close',
+        'confirm',
+        'subtitle',
+        'title'
+      ]);
     });
   });
 });

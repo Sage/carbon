@@ -1,10 +1,15 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import PropTypes from 'prop-types';
+import TestUtils from 'react-dom/test-utils';
 import { Table, TableCell } from './../table';
 import TableRow from './table-row';
 import TableHeader from './../table-header';
+import DraggableTableCell from './../draggable-table-cell';
 import Icon from './../../icon';
 import Checkbox from './../../checkbox';
+import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import { shallow, mount } from 'enzyme';
+import { DraggableContext, WithDrop } from './../../drag-and-drop';
 
 describe('TableRow', () => {
   let instance, clickableInstance, row;
@@ -226,7 +231,7 @@ describe('TableRow', () => {
 
   describe('onRowClick', () => {
     it('calls highlightRow via context', () => {
-      instance = TestUtils.renderIntoDocument(<Table highlightable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
+      instance = TestUtils.renderIntoDocument(<Table  highlightable={ true }><TableRow uniqueID="foo"></TableRow></Table>);
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
       spyOn(row.context, 'highlightRow');
       row.onRowClick();
@@ -359,7 +364,7 @@ describe('TableRow', () => {
 
     describe('without selectability on the table but disabled on the row', () => {
       it('renders its children', () => {
-        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow selectable={ false }><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table  selectable={ true }><TableRow selectable={ false }><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         expect(row.children.length).toEqual(2);
       });
@@ -378,7 +383,7 @@ describe('TableRow', () => {
 
     describe('with selectable via context', () => {
       it('renders a multi select cell', () => {
-        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table  selectable={ true }><TableRow uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
         let checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
@@ -404,7 +409,7 @@ describe('TableRow', () => {
     describe('with hideMultiSelect', () => {
       it('renders a multi select cell without a checkbox', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>
+          <Table  selectable={ true }><TableRow hideMultiSelect={ true } uniqueID="foo"><td /><td /></TableRow></Table>
         );
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
@@ -415,10 +420,95 @@ describe('TableRow', () => {
 
     describe('if is header', () => {
       it('renders a table header', () => {
-        instance = TestUtils.renderIntoDocument(<Table selectable={ true }><TableRow as="header" uniqueID="foo"><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(<Table  selectable={ true }><TableRow as="header" uniqueID="foo"><td /><td /></TableRow></Table>);
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         let th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
         expect(th).toBeTruthy();
+      });
+    });
+  });
+
+  describe('drag and drop', () => {
+    let wrapper;
+
+    describe('without drag and drop context', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <Table tbody={ false }>
+            <tbody>
+              <TableRow>
+                <TableCell>foo</TableCell>
+              </TableRow>
+            </tbody>
+          </Table>
+        );
+      });
+
+      it('does not render a draggable cell', () => {
+        let cell = wrapper.find(TableRow).find(DraggableTableCell);
+        expect(cell.length).toEqual(0);
+      });
+
+      it('does not render a WithDrop component', () => {
+        let wd = wrapper.find(WithDrop);
+        expect(wd.length).toEqual(0);
+      });
+    });
+
+    describe('ensuring index is provided', () => {
+      it('throws an error if no index is provided', () => {
+        expect(() => {
+          mount(
+            <Table tbody={ false }>
+              <DraggableContext onDrag={ () => {} }>
+                <tbody>
+                  <TableRow dragAndDropIdentifier="foo">
+                    <TableCell>foo</TableCell>
+                  </TableRow>
+                </tbody>
+              </DraggableContext>
+            </Table>
+          );
+        }).toThrow(new Error('You need to provide an index for rows that are draggable'));
+      });
+    });
+
+    describe('with drag and drop context', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <Table tbody={ false }>
+            <DraggableContext onDrag={ () => {} }>
+              <tbody>
+                <TableRow index={ 0 } dragAndDropIdentifier="foo">
+                  <TableCell>foo</TableCell>
+                </TableRow>
+              </tbody>
+            </DraggableContext>
+          </Table>
+        );
+      });
+
+      it('renders a draggable cell', () => {
+        let cell = wrapper.find(TableRow).find(DraggableTableCell);
+        expect(cell.props().identifier).toEqual("foo");
+      });
+
+      it('renders a WithDrop component', () => {
+        let wd = wrapper.find(WithDrop);
+        expect(wd.props().index).toEqual(0);
+        expect(wd.props().identifier).toEqual("foo");
+      });
+
+      it('renders a dragging class', () => {
+        let row = wrapper.find(TableRow);
+        row.node.context.dragAndDropActiveIndex = 1
+        expect(row.node.mainClasses).toEqual('carbon-table-row carbon-table-row--dragging');
+      });
+
+      it('renders a dragged class if the index matches', () => {
+        let row = wrapper.find(TableRow);
+        row.node.context.dragAndDropActiveIndex = 0
+        expect(row.node.mainClasses).toEqual('carbon-table-row carbon-table-row--dragged carbon-table-row--dragging');
       });
     });
   });

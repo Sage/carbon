@@ -1,6 +1,5 @@
 import React from 'react';
-import { titleize } from 'underscore.string';
-import { includes, kebabCase } from 'lodash';
+import { includes, startCase } from 'lodash';
 import ImmutableHelper from 'utils/helpers/immutable';
 import ComponentStore from './../../../../../stores/component';
 import ShareConfig from './../../../../../components/share-config';
@@ -9,6 +8,7 @@ import Checkbox from 'components/checkbox';
 import DropdownFilter from 'components/dropdown-filter';
 import Textarea from 'components/textarea';
 import Textbox from 'components/textbox';
+import Number from 'components/number';
 
 export default props => (
   <div className='demo-component-preview__controls'>
@@ -92,7 +92,7 @@ const buildFields = (props) => {
 const fieldComponent = (name, prop, value, field, options, requirement) => {
   let commonfieldProps = {
         key: name + prop,
-        label: titleize(kebabCase(prop)).replace(/-/g, " "),
+        label: createFieldLabel(prop),
         onChange: ComponentActions.updateDefinition.bind(this, name, prop),
         value: value,
         labelInline: true,
@@ -120,6 +120,11 @@ const fieldComponent = (name, prop, value, field, options, requirement) => {
   if (field) {
     return React.createElement(field, commonfieldProps);
   }
+}
+
+const createFieldLabel = (prop) => {
+  let tmp = startCase(prop).replace(/\s+/g, '');
+  return tmp[0].toLowerCase() + tmp.substring(1);
 }
 
 /**
@@ -156,6 +161,10 @@ const chooseField = (type, prop, value, options) => {
 
   if (type === "Boolean") {
     return Checkbox;
+  }
+
+  if (type === "Number") {
+    return Number;
   }
 
   if (prop !== 'children') {

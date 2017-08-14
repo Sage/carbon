@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { assign } from 'lodash';
 import Link from './../../link';
+import tagComponent from '../../../utils/helpers/tags';
 
 /**
  * Renders a menu item for the menu component.
@@ -15,14 +18,39 @@ class MenuItem extends React.Component {
      * @property alternate
      * @type {Boolean}
      */
-    alternate: React.PropTypes.bool,
+    alternate: PropTypes.bool,
+
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node.isRequired,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
+     * onClick handler
+     *
+     * @property onClick
+     * @type {Function}
+     */
+    onClick: PropTypes.func,
+
     /**
      * Defines which direction the submenu will hang eg. left/right
      *
      * @property submenuDirection
      * @type {String}
      */
-    submenuDirection: React.PropTypes.string,
+    submenuDirection: PropTypes.string,
 
     /**
      * Is the menu item the currently selected item.
@@ -30,7 +58,7 @@ class MenuItem extends React.Component {
      * @property selected
      * @type {Boolean}
      */
-    selected: React.PropTypes.bool,
+    selected: PropTypes.bool,
 
     /**
      * (for submenus) renders with a divide between items.
@@ -38,7 +66,7 @@ class MenuItem extends React.Component {
      * @property divide
      * @type {Boolean}
      */
-    divide: React.PropTypes.bool,
+    divide: PropTypes.bool,
 
     /**
      * A title for the menu item that has a submenu.
@@ -46,9 +74,9 @@ class MenuItem extends React.Component {
      * @property submenu
      * @type {String | Object}
      */
-    submenu: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    submenu: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
@@ -57,7 +85,7 @@ class MenuItem extends React.Component {
      * @property href
      * @type {String}
      */
-    href: React.PropTypes.string,
+    href: PropTypes.string,
 
     /**
      * The to link to use for the menu item.
@@ -65,7 +93,7 @@ class MenuItem extends React.Component {
      * @property to
      * @type {String}
      */
-    to: React.PropTypes.string,
+    to: PropTypes.string,
 
     /**
      * The target to use for the menu item.
@@ -73,11 +101,11 @@ class MenuItem extends React.Component {
      * @property target
      * @type {String}
      */
-    target: React.PropTypes.string
+    target: PropTypes.string
   }
 
   static defaultProps = {
-    submenuDirection: "right"
+    submenuDirection: 'right'
   }
 
   /**
@@ -90,14 +118,14 @@ class MenuItem extends React.Component {
     if (!this.props.submenu) { return this.props.children; }
 
     // if it does have a submenu, render the following:
-    let submenuClasses = classNames(
-      "carbon-menu-item__submenu",
+    const submenuClasses = classNames(
+      'carbon-menu-item__submenu',
       `carbon-menu-item__submenu--${this.props.submenuDirection}`
     );
 
     return (
       <div>
-        <MenuItem className="carbon-menu-item__submenu-title" href={ this.props.href } to={ this.props.to }>
+        <MenuItem className='carbon-menu-item__submenu-title' href={ this.props.href } to={ this.props.to }>
           { this.props.submenu }
         </MenuItem>
 
@@ -116,14 +144,14 @@ class MenuItem extends React.Component {
    */
   get classes() {
     return classNames(
-      "carbon-menu-item",
+      'carbon-menu-item',
       this.props.className, {
-        ["carbon-menu-item--alternate"]: this.props.alternate,
-        ["carbon-menu-item--alternate-off"]: !this.props.alternate,
-        ["carbon-menu-item--divide"]: this.props.divide,
-        ["carbon-menu-item--has-link"]: this.props.href || this.props.to || this.props.onClick,
-        ["carbon-menu-item--has-submenu"]: this.props.submenu,
-        ["carbon-menu-item--selected"]: this.props.selected
+        'carbon-menu-item--alternate': this.props.alternate,
+        'carbon-menu-item--alternate-off': !this.props.alternate,
+        'carbon-menu-item--divide': this.props.divide,
+        'carbon-menu-item--has-link': this.props.href || this.props.to || this.props.onClick,
+        'carbon-menu-item--has-submenu': this.props.submenu,
+        'carbon-menu-item--selected': this.props.selected
       }
     );
   }
@@ -132,18 +160,21 @@ class MenuItem extends React.Component {
    * @method render
    */
   render() {
-    let component = this.props.submenu ? "div" : Link;
+    const component = this.props.submenu ? 'div' : Link;
+    let props = {
+      className: this.classes,
+      href: this.props.href,
+      to: this.props.to,
+      target: this.props.target,
+      onClick: this.props.onClick
+    };
+
+    props = assign({}, props, tagComponent('menu-item', this.props));
 
     return (
       React.createElement(
         component,
-        {
-          className: this.classes,
-          href: this.props.href,
-          to: this.props.to,
-          target: this.props.target,
-          onClick: this.props.onClick
-        },
+        props,
         this.content
       )
     );

@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 import Icon from './../icon';
 import Link from './link';
 import Event from 'utils/helpers/events';
 
 describe('Link', () => {
-  let basicLink, disabledLink, customLink, actionLink, spy;
+  let basicLink, disabledLink, customLink, actionLink, spy, onClick;
 
   beforeEach(() => {
     basicLink = TestUtils.renderIntoDocument(
@@ -24,8 +25,9 @@ describe('Link', () => {
     )
 
     spy = jasmine.createSpy('click');
+    onClick = (event) => { spy() };
     actionLink = TestUtils.renderIntoDocument(
-      <Link onClick={ spy }>My Link</Link>
+      <Link onClick={ onClick }>My Link</Link>
     );
   });
 
@@ -240,6 +242,14 @@ describe('Link', () => {
           });
         });
       });
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(<Link to='test' data-element='bar' data-role='baz' />);
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'link', 'bar', 'baz');
     });
   });
 });

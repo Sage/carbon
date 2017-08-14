@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import i18n from 'i18n-js';
 import _marked from 'marked';
+import { assign } from 'lodash';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A widget for internationalisation of text.
@@ -31,7 +34,7 @@ class I18n extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    markdown: React.PropTypes.bool,
+    markdown: PropTypes.bool,
 
     /**
      * Whether to enclose the text in a <span> or a <div>
@@ -40,7 +43,7 @@ class I18n extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    inline: React.PropTypes.bool,
+    inline: PropTypes.bool,
 
     /**
      * The key to lookup for a localised value
@@ -49,7 +52,7 @@ class I18n extends React.Component {
      * @type {String}
      * @default undefined
      */
-    scope: React.PropTypes.string,
+    scope: PropTypes.string,
 
     /**
      * Additional options to pass to I18n
@@ -58,11 +61,22 @@ class I18n extends React.Component {
      * @type {Object}
      * @default undefined
      */
-    options: React.PropTypes.object
+    options: PropTypes.object
   }
 
   static defaultProps = {
     inline: true
+  }
+
+  marked(inline) {
+    // Make sure that we sanitize html markup in the MD compiler
+    _marked.setOptions({ sanitize: true });
+    return inline ? str => _marked.inlineLexer(str, []) : _marked;
+  }
+
+  renderMarkup(inline, props, translation) {
+    const el = inline ? 'span' : 'div';
+    return React.createElement(el, props, translation);
   }
 
   /**
@@ -71,8 +85,8 @@ class I18n extends React.Component {
    * @method render
    */
   render() {
-    let { markdown, inline, scope, options, ...props } = { ...this.props },
-        translation = i18n.t(scope, options);
+    const { markdown, inline, scope, options, ...props } = this.props;
+    let translation = i18n.t(scope, options);
 
     if (markdown) {
       props.dangerouslySetInnerHTML = {
@@ -81,18 +95,9 @@ class I18n extends React.Component {
       translation = null;
     }
 
-    return this.renderMarkup(inline, props, translation);
-  }
+    const markupProps = assign({}, props, tagComponent('i18n', this.props));
 
-  renderMarkup(inline, props, translation) {
-    let el = inline ? 'span' : 'div';
-    return React.createElement(el, props, translation);
-  }
-
-  marked(inline) {
-    // Make sure that we sanitize html markup in the MD compiler
-    _marked.setOptions({ sanitize: true });
-    return inline ? str => _marked.inlineLexer(str, []) : _marked;
+    return this.renderMarkup(inline, markupProps, translation);
   }
 }
 

@@ -1,7 +1,14 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import DropdownFilterAjax from './dropdown-filter-ajax';
 import Immutable from 'immutable';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import ImmutableHelper from './../../utils/helpers/immutable';
+import { mount, shallow } from 'enzyme';
+import Request from 'superagent';
+
+/* global jest */
+jest.mock('superagent');
 
 describe('DropdownFilterAjax', () => {
   let instance;
@@ -97,7 +104,7 @@ describe('DropdownFilterAjax', () => {
         it('triggers the onBlur function', () => {
           let onBlur = jasmine.createSpy('onBlur');
 
-          instance = TestUtils.renderIntoDocument(<DropdownFilterAjax onBlur={ onBlur } />);
+          instance = TestUtils.renderIntoDocument(<DropdownFilterAjax onBlur={ onBlur } path='/foobar' />);
           TestUtils.Simulate.blur(instance._input);
           expect(onBlur).toHaveBeenCalled();
         });
@@ -152,7 +159,7 @@ describe('DropdownFilterAjax', () => {
       it('does not get data', () => {
         instance.listeningToScroll = false;
         instance.setState({ open: true });
-        TestUtils.Simulate.scroll(instance.refs.list);
+        TestUtils.Simulate.scroll(instance.list);
         expect(instance.getData).not.toHaveBeenCalled();
       });
     });
@@ -177,7 +184,7 @@ describe('DropdownFilterAjax', () => {
 
         describe('if scroll top is less than scroll trigger position', () => {
           it('does not get data', () => {
-            instance.refs.list = {
+            instance.list = {
               scrollHeight: 200,
               offsetHeight: 75,
               scrollTop: 100
@@ -189,7 +196,7 @@ describe('DropdownFilterAjax', () => {
 
         describe('if scroll top is more than scroll trigger position', () => {
           it('calls get data', () => {
-            instance.refs.list = {
+            instance.list = {
               scrollHeight: 200,
               offsetHeight: 76,
               scrollTop: 100
@@ -204,38 +211,84 @@ describe('DropdownFilterAjax', () => {
 
   describe('getData', () => {
     beforeEach(() => {
-      jasmine.Ajax.install();
-    });
-
-    afterEach(() => {
-      jasmine.Ajax.uninstall();
+      Request.__setMockResponse({
+        status() {
+          return 200;
+        },
+        ok() {
+          return true;
+        },
+        body: {
+          data: ['foo']
+        }
+      });
     });
 
     describe('if data is not explicitly passed', () => {
       it('calls the correct query', () => {
+        Request.query = jest.fn().mockReturnThis();
+        instance.ajaxUpdateList = jest.fn();
+
         instance.getData();
-        let request = jasmine.Ajax.requests.mostRecent();
-        expect(request.url).toEqual("/foobar?page=1&rows=25&value=");
+
+        expect(instance.ajaxUpdateList).toBeCalled();
+        expect(Request.query).toBeCalledWith({
+          page: 1,
+          rows: 25,
+          value: ''
+        });
       });
     });
 
     describe('if data not explicitly passed', () => {
       it('calls the correct query', () => {
+        Request.query = jest.fn().mockReturnThis();
+        instance.ajaxUpdateList = jest.fn();
+
         instance.getData("foo", 1);
-        let request = jasmine.Ajax.requests.mostRecent();
-        expect(request.url).toEqual("/foobar?page=1&rows=25&value=foo");
+
+        expect(Request.query).toBeCalledWith({
+          page: 1,
+          rows: 25,
+          value: 'foo'
+        });
       });
 
       it('calls updateList on success', () => {
-        spyOn(instance, 'updateList');
+        instance.updateList = jest.fn();
         instance.getData("foo", 1);
-        let request = jasmine.Ajax.requests.mostRecent();
-        request.respondWith({
-          "status": 200,
-          "contentType": 'application/json',
-          "responseText": "{\"data\": [\"foo\"]}"
+        expect(instance.updateList).toBeCalledWith('foo');
+      });
+    });
+
+    describe('if an additional request param is passed', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilterAjax
+            name="foo"
+            value="1"
+            path="/foobar"
+            create={ function() {} }
+            additionalRequestParams={ {foo: 'bar'} }
+          />
+        );
+      });
+
+      it('calls the correct query', () => {
+        Request.query = jest.fn().mockReturnThis();
+        instance.ajaxUpdateList = jest.fn();
+
+        instance.getData("foo", 1);
+
+        expect(Request.query.mock.calls.length).toBe(2);
+        expect(Request.query).toBeCalledWith({
+          page: 1,
+          rows: 25,
+          value: 'foo'
         });
-        expect(instance.updateList).toHaveBeenCalledWith('foo');
+        expect(Request.query).lastCalledWith({
+          foo: 'bar'
+        });
       });
     });
   });
@@ -247,13 +300,14 @@ describe('DropdownFilterAjax', () => {
       expect(instance.listeningToScroll).toBeFalsy();
     });
 
-    describe('when list exists', () => {
+    describe('when list is open', () => {
       it('should reset the scroll top', () => {
-        instance.refs.list = {
+        instance.list = {
           scrollTop: 100
         };
+        instance.setState({ open: true });
         instance.resetScroll();
-        expect(instance.refs.list.scrollTop).toEqual(0);
+        expect(instance.list.scrollTop).toEqual(0);
       });
     });
   });
@@ -327,6 +381,96 @@ describe('DropdownFilterAjax', () => {
         );
         instance.setState({ filter: 'abc' });
         expect(instance.inputProps.value).toEqual('abc');
+      });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(
+        <DropdownFilterAjax
+          data-element='bar'
+          options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+          path='/foobar'
+          data-role='baz'
+        />
+      );
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'dropdown-filter-ajax', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      describe("when closed", () => {
+        let wrapper = shallow(
+          <DropdownFilterAjax
+            fieldHelp='test'
+            label='test'
+            open={ true }
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='/foobar'
+          />
+        );
+
+        elementsTagTest(wrapper, [
+          'help',
+          'hidden-input',
+          'input',
+          'label',
+        ]);
+      });
+    });
+  });
+
+  describe("requesting list data", () => {
+    let responseData,
+        wrapper;
+
+    beforeEach(() => {
+      Request.__setMockResponse({
+        status() {
+          return 200;
+        },
+        ok() {
+          return true;
+        },
+        body: {
+          data: [{
+            records: 1,
+            items: [ 1 ],
+            page: 1
+          }]
+        }
+      });
+      wrapper = mount(<DropdownFilterAjax name="foo" value="1" path="/foobar" visibleValue="bar" />);
+      wrapper.find('.carbon-dropdown__input').simulate('focus');
+    });
+
+    it("is set to 'idle' on load", () => {
+      expect(wrapper.find('[data-state="idle"]').length).toEqual(1);
+    });
+
+    describe("associated ajax request", () => {
+      it("renders a list with the right number of items", () => {
+        expect(wrapper.find('.carbon-dropdown__list-item').length).toEqual(1);
+      });
+    });
+
+    describe("setState calls from the two functions", () => {
+      beforeEach(() => {
+        instance = wrapper.instance();
+        spyOn(instance, 'setState');
+      });
+
+      it("sets requesting to true in `getData`", () => {
+        instance.getData(1, 2);
+        expect(instance.setState).toHaveBeenCalledWith({ requesting: true });
+      });
+
+      it("sets requesting to false in `ajaxUpdateList` (the end() function in getData)", () => {
+        instance.getData(1, 2);
+        expect(instance.setState).toHaveBeenCalledWith({ requesting: false });
       });
     });
   });

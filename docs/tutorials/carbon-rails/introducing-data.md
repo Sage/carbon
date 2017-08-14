@@ -46,8 +46,8 @@ The first thing we need is a store, so lets create a `User` store:
 // ui/src/stores/user/user.js
 
 import Dispatcher from 'dispatcher';
-import Store from 'carbon/lib/utils/flux/store';
-import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
+import Store from 'carbon-react/lib/utils/flux/store';
+import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 
 let data = ImmutableHelper.parseJSON({
   user: {
@@ -116,8 +116,8 @@ Let's now go back to our store, and subscribe it to the dispatched event:
 // ui/src/stores/user/user.js
 
 import Dispatcher from 'dispatcher';
-import Store from 'carbon/lib/utils/flux/store';
-import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
+import Store from 'carbon-react/lib/utils/flux/store';
+import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 
 import UserConstants from 'constants/user';
 
@@ -145,12 +145,13 @@ The last thing to do is to update the view component to connect with the store a
 // ui/src/views/user/user.js
 
 import React from 'react';
-import { connect } from 'carbon/lib/utils/flux';
+import { connect } from 'carbon-react/lib/utils/flux';
 import UserStore from 'stores/user';
 import UserActions from 'actions/user';
 
 class User extends React.Component {
-  componentWillMount() {
+  // Use componentDidMount to ensure that the new data will trigger a re-render
+  componentDidMount() {
     UserActions.getData();
   }
 
@@ -216,8 +217,8 @@ Let's update the store to read this data:
 // ui/src/stores/user/user.js
 
 import Dispatcher from 'dispatcher';
-import Store from 'carbon/lib/utils/flux/store';
-import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
+import Store from 'carbon-react/lib/utils/flux/store';
+import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 
 import UserConstants from 'constants/user';
 
@@ -242,12 +243,12 @@ So now we know we already have the data, we no longer need to call the action to
 // ui/src/views/user/user.js
 
 import React from 'react';
-import { connect } from 'carbon/lib/utils/flux';
+import { connect } from 'carbon-react/lib/utils/flux';
 import UserStore from 'stores/user';
 import UserActions from 'actions/user';
 
 class User extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     if (!global.USER_DATA) {
       UserActions.getData();
     }

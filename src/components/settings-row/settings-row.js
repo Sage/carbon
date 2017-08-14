@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Heading from './../heading';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * UI for a settings page row
@@ -36,7 +38,15 @@ class SettingsRow extends React.Component {
      * @property  children
      * @type      {Object}
      */
-    children: React.PropTypes.node,
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
     /**
      * Heading title
@@ -44,7 +54,7 @@ class SettingsRow extends React.Component {
      * @property  title
      * @type      {String}
      */
-    title: React.PropTypes.string,
+    title: PropTypes.string,
 
     /**
      * Heading description
@@ -52,7 +62,7 @@ class SettingsRow extends React.Component {
      * @property  description
      * @type      {Node}
      */
-    description: React.PropTypes.node,
+    description: PropTypes.node,
 
     /**
      * Row divider
@@ -61,7 +71,7 @@ class SettingsRow extends React.Component {
      * @type      {Boolean}
      * @default   true
      */
-    divider: React.PropTypes.bool
+    divider: PropTypes.bool
   };
 
   static defaultProps = {
@@ -75,7 +85,11 @@ class SettingsRow extends React.Component {
    * @return  {String}
    */
   get classes() {
-    return classNames('carbon-settings-row', { 'carbon-settings-row--has-divider': this.props.divider }, this.props.className);
+    return classNames(
+      'carbon-settings-row',
+      { 'carbon-settings-row--has-divider': this.props.divider },
+      this.props.className
+    );
   }
 
   /**
@@ -105,7 +119,7 @@ class SettingsRow extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes }>
+      <div className={ this.classes } { ...tagComponent('settings-row', this.props) }>
         <div className='carbon-settings-row__header'>{ this.heading }</div>
         <div className='carbon-settings-row__input'>{ this.props.children }</div>
       </div>

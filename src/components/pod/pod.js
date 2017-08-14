@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import I18n from 'i18n-js';
 import Icon from './../icon';
 import Link from './../link';
-import classNames from 'classnames';
 import Event from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A Pod widget.
@@ -34,17 +37,33 @@ class Pod extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    border: React.PropTypes.bool,
+    border: PropTypes.bool,
+
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
     /**
      * Determines the padding around the pod.
-     * Values: "none", "small", "medium" or "large".
+     * Values: 'none', 'small', 'medium' or 'large'.
      *
      * @property padding
      * @type {String}
      * @default medium
      */
-    padding: React.PropTypes.string,
+    padding: PropTypes.string,
 
     /**
      * Applies a theme to the Pod.
@@ -54,7 +73,7 @@ class Pod extends React.Component {
      * @type {String}
      * @default primary
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
 
     /**
      * The collapsed state of the pod
@@ -66,7 +85,7 @@ class Pod extends React.Component {
      * @property collapsed
      * @type {Boolean}
      */
-    collapsed: React.PropTypes.bool,
+    collapsed: PropTypes.bool,
 
     /**
      * Title for the pod h4 element
@@ -75,9 +94,9 @@ class Pod extends React.Component {
      * @property title
      * @type {String}
      */
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
     ]),
 
     /**
@@ -86,7 +105,7 @@ class Pod extends React.Component {
      * @property subtitle
      * @type {String}
      */
-    subtitle: React.PropTypes.string,
+    subtitle: PropTypes.string,
 
     /**
      * Aligns the title to left, right or center
@@ -95,7 +114,7 @@ class Pod extends React.Component {
      * @type {String}
      * @default left
      */
-    alignTitle: React.PropTypes.string,
+    alignTitle: PropTypes.string,
 
     /**
      * Description for the pod
@@ -104,15 +123,18 @@ class Pod extends React.Component {
      * @property title
      * @type {String}
      */
-    description: React.PropTypes.string,
+    description: PropTypes.string,
 
     /**
      * A component to render as a Pod footer.
      *
      * @property footer
-     * @type {String}
+     * @type {String | Object}
      */
-    footer: React.PropTypes.object,
+    footer: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
+    ]),
 
     /**
      * Supplies an edit action to the pod.
@@ -120,10 +142,10 @@ class Pod extends React.Component {
      * @property onEdit
      * @type {String|Function|Object}
      */
-    onEdit: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.func,
-      React.PropTypes.object
+    onEdit: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+      PropTypes.object
     ]),
 
     /**
@@ -132,7 +154,7 @@ class Pod extends React.Component {
      * @property editContentFullWidth
      * @type {Boolean}
      */
-    editContentFullWidth: React.PropTypes.bool,
+    editContentFullWidth: PropTypes.bool,
 
     /**
      * Determines if the edit button should be hidden until the user
@@ -141,7 +163,7 @@ class Pod extends React.Component {
      * @property displayEditButtonOnHover
      * @type {Boolean}
      */
-    displayEditButtonOnHover: React.PropTypes.bool,
+    displayEditButtonOnHover: PropTypes.bool,
 
     /**
      * Determines if clicking the pod content calls the onEdit action
@@ -149,7 +171,7 @@ class Pod extends React.Component {
      * @property triggerEditOnContent
      * @type {Boolean}
      */
-    triggerEditOnContent: React.PropTypes.bool,
+    triggerEditOnContent: PropTypes.bool,
 
     /**
      * Resets edit button styles to an older version
@@ -157,13 +179,13 @@ class Pod extends React.Component {
      * @property internalEditButton
      * @type {Boolean}
      */
-    internalEditButton: React.PropTypes.bool
+    internalEditButton: PropTypes.bool
   }
 
   static defaultProps = {
     border: true,
-    as: "primary",
-    padding: "medium",
+    as: 'primary',
+    padding: 'medium',
     alignTitle: 'left'
   }
 
@@ -198,9 +220,10 @@ class Pod extends React.Component {
    * @method podHeader
    */
   get podHeader() {
-    if (!this.props.title) { return; }
+    if (!this.props.title) { return null; }
 
-    let pod, subtitle, headerProps = {};
+    const headerProps = {};
+    let pod, subtitle;
 
     if (this.state.collapsed !== undefined) {
       pod = this.podCollapsible;
@@ -210,12 +233,12 @@ class Pod extends React.Component {
     headerProps.className = this.headerClasses;
 
     if (this.props.subtitle) {
-      subtitle = <h5 className="carbon-pod__subtitle" >{ this.props.subtitle }</h5>;
+      subtitle = <h5 className='carbon-pod__subtitle' data-element='subtitle'>{ this.props.subtitle }</h5>;
     }
 
     return (
       <div { ...headerProps }>
-        <h4 className="carbon-pod__title" >{ this.props.title }</h4>
+        <h4 className='carbon-pod__title' data-element='title'>{ this.props.title }</h4>
         { subtitle }
         { pod }
       </div>
@@ -228,11 +251,10 @@ class Pod extends React.Component {
    * @method podDescription
    */
   get podDescription() {
-    return (
-        this.props.description ?
-          <div className="carbon-pod__description">{ this.props.description }</div> :
-          null
-    );
+    if (this.props.description) {
+      return <div className='carbon-pod__description'>{ this.props.description }</div>;
+    }
+    return null;
   }
 
   /**
@@ -241,9 +263,9 @@ class Pod extends React.Component {
    * @method podCollapsible
    */
   get podCollapsible() {
-    let className = 'carbon-pod__arrow carbon-pod__arrow--' + this.state.collapsed;
+    const className = `carbon-pod__arrow carbon-pod__arrow--${this.state.collapsed}`;
 
-    return(
+    return (
       <Icon type='dropdown' className={ className } />
     );
   }
@@ -254,7 +276,7 @@ class Pod extends React.Component {
    * @method podContent
    */
   get podContent() {
-    return(
+    return (
       <div className='carbon-pod__collapsible-content'>
         { this.podDescription }
         <div className='carbon-pod__content'>
@@ -284,9 +306,9 @@ class Pod extends React.Component {
   }
 
   get mainClasses() {
-    return classNames("carbon-pod", this.props.className,
-      `carbon-pod--${ this.props.alignTitle }`, {
-        "carbon-pod--editable": this.props.onEdit,
+    return classNames('carbon-pod', this.props.className,
+      `carbon-pod--${this.props.alignTitle}`, {
+        'carbon-pod--editable': this.props.onEdit,
         'carbon-pod--is-hovered': this.state.hoverEdit,
         'carbon-pod--content-triggers-edit': this.shouldContentHaveEditProps,
         'carbon-pod--internal-edit-button': this.props.internalEditButton
@@ -320,10 +342,10 @@ class Pod extends React.Component {
    */
   get headerClasses() {
     return classNames(
-      `carbon-pod__header`,
-      `carbon-pod__header--${ this.props.alignTitle }`,
+      'carbon-pod__header',
+      `carbon-pod__header--${this.props.alignTitle}`,
       {
-        [`carbon-pod__header--${ this.state.collapsed }`]: this.state.collapsed !== undefined
+        [`carbon-pod__header--${this.state.collapsed}`]: this.state.collapsed !== undefined
       }
     );
   }
@@ -373,7 +395,7 @@ class Pod extends React.Component {
       `carbon-pod__edit-action--${this.props.as}`,
       `carbon-pod__edit-action--padding-${this.props.padding}`, {
         'carbon-pod__edit-action--no-border': !this.props.border,
-        "carbon-pod__display-on-hover": this.props.displayEditButtonOnHover
+        'carbon-pod__display-on-hover': this.props.displayEditButtonOnHover
       }
     );
   }
@@ -388,7 +410,7 @@ class Pod extends React.Component {
     if (!this.props.footer) { return null; }
 
     return (
-      <div className={ this.footerClasses }>
+      <div className={ this.footerClasses } data-element='footer'>
         { this.props.footer }
       </div>
     );
@@ -404,8 +426,10 @@ class Pod extends React.Component {
     if (!this.props.onEdit) { return null; }
 
     return (
-      <div className="carbon-pod__edit-button-container" { ...this.hoverOverEditEvents } >
-        <Link icon="edit" className={ this.editActionClasses } { ...this.linkProps() }/>
+      <div className='carbon-pod__edit-button-container' { ...this.hoverOverEditEvents } >
+        <Link icon='edit' className={ this.editActionClasses } { ...this.linkProps() }>
+          {I18n.t('actions.edit', { defaultValue: 'Edit' })}
+        </Link>
       </div>
     );
   }
@@ -417,11 +441,13 @@ class Pod extends React.Component {
    * @return {Object} props
    */
   linkProps = () => {
-    let props = {};
+    let props = {
+      'data-element': 'edit'
+    };
 
-    if (typeof this.props.onEdit === "string") {
+    if (typeof this.props.onEdit === 'string') {
       props.to = this.props.onEdit;
-    } else if (typeof this.props.onEdit === "object") {
+    } else if (typeof this.props.onEdit === 'object') {
       props = this.props.onEdit;
     }
 
@@ -435,7 +461,7 @@ class Pod extends React.Component {
    * @return {Object}
    */
   get hoverOverEditEvents() {
-    let props = {
+    const props = {
       onMouseEnter: this.toggleHoverState.bind(this, true),
       onMouseLeave: this.toggleHoverState.bind(this, false),
       onFocus: this.toggleHoverState.bind(this, true),
@@ -491,8 +517,8 @@ class Pod extends React.Component {
    */
   render() {
     let content,
-        { ...props } = validProps(this),
         hoverOverEditEvents = {};
+    const { ...props } = validProps(this);
 
     delete props.className;
 
@@ -504,11 +530,11 @@ class Pod extends React.Component {
 
     if (this.shouldContentHaveEditProps) {
       hoverOverEditEvents = this.hoverOverEditEvents;
-      hoverOverEditEvents.tabIndex = "0";
+      hoverOverEditEvents.tabIndex = '0';
     }
 
     return (
-      <div className={ this.mainClasses } { ...props }>
+      <div className={ this.mainClasses } { ...props } { ...tagComponent('pod', this.props) }>
         <div className={ this.blockClasses } { ...hoverOverEditEvents }>
           <div className={ this.contentClasses } >
             { this.podHeader }

@@ -1,15 +1,24 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Modal from './modal';
-import I18n from 'i18n-js';
-import Bowser from 'bowser';
 import Events from './../../utils/helpers/events';
-import Button from './../button';
+import Browser from './../../utils/helpers/browser';
 
 describe('Modal', () => {
   let instance, onCancel;
 
   describe('componentDidUpdate', () => {
+    let mockWindow;
+
+    beforeEach(() => {
+      mockWindow = {
+        addEventListener() {},
+        removeEventListener() {}
+      };
+
+      spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
+    });
+
     describe('when the modal is open', () => {
       beforeEach(() => {
         onCancel = jasmine.createSpy('cancel');
@@ -19,19 +28,20 @@ describe('Modal', () => {
       });
 
       it('sets up event listeners to resize and close the modal', () => {
-        let spy = spyOn(window, 'addEventListener');
+        spyOn(mockWindow, 'addEventListener');
+
         instance.componentDidUpdate();
-        expect(spy.calls.count()).toEqual(1);
-        expect(window.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+        expect(mockWindow.addEventListener.calls.count()).toEqual(1);
+        expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
       });
 
       describe('when the modal is already listening', () => {
         it('does not set up event listeners', () => {
-          let spy = spyOn(window, 'addEventListener');
+          spyOn(mockWindow, 'addEventListener');
           instance.listening = true;
           instance.componentDidUpdate();
-          expect(spy.calls.count()).toEqual(0);
-          expect(window.addEventListener).not.toHaveBeenCalled();
+          expect(mockWindow.addEventListener.calls.count()).toEqual(0);
+          expect(mockWindow.addEventListener).not.toHaveBeenCalled();
         });
       });
     });
@@ -44,10 +54,11 @@ describe('Modal', () => {
       });
 
       it('removes event listeners for resize and closing', () => {
-        let spy = spyOn(window, 'removeEventListener');
+        spyOn(mockWindow, 'removeEventListener');
+        instance.listening = true;
         instance.componentDidUpdate();
-        expect(spy.calls.count()).toEqual(1);
-        expect(window.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+        expect(mockWindow.removeEventListener.calls.count()).toEqual(1);
+        expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
       });
     });
   });
@@ -103,7 +114,8 @@ describe('Modal', () => {
       it('returns null', () => {
         instance = TestUtils.renderIntoDocument(
           <Modal
-            onCancel={ onCancel }
+            onCancel={ () => {} }
+            onConfirm={ () => {} }
             open={ true }
             enableBackgroundUI={ true }
           />

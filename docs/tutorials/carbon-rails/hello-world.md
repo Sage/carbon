@@ -74,14 +74,16 @@ This will install all the dependencies defined in your `package.json`.
 
 As you work, you can set [gulp](http://gulpjs.com/) to watch for changes and compile as you go.
 
-The compilation task can also be configured, for example you may want to specify the destination for your compiled JavaScript, CSS, or any other assets. To do this, edit `gulpfile.js` in your project's `ui` directory:
+The compilation task can also be configured, for example you may want to specify the destination for your compiled JavaScript, CSS, or any other assets. 
+
+To do this you should now edit `gulpfile.js` in your project's `ui` directory:
 
 ```javascript
 // ui/gulpfile.js
 
 var gulp = require('gulp');
-var BuildTask = require('carbon-factory/lib/gulp/build');
-var SpecTask = require('carbon-factory/lib/gulp/spec');
+var BuildTask = require('carbon-factory/lib/gulp/build').default;
+var SpecTask = require('carbon-factory/lib/gulp/spec').default;
 
 var opts = {
   jsDest: './../app/assets/javascripts',

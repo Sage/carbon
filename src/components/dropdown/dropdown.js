@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
-import classNames from 'classnames';
 import Events from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 
@@ -63,15 +64,36 @@ class Dropdown extends React.Component {
 
   static propTypes = {
     /**
-     * The ID value for the component
+     * Automatically focus the input.
      *
-     * @property value
-     * @type {String}
+     * @property autoFocus
+     * @type {boolean}
      */
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
-    ]),
+    autoFocus: PropTypes.bool,
+
+    /**
+     * Determines if the visibleValue will be cached or not.
+     *
+     * @property cacheVisibleValue
+     * @type {boolean}
+     */
+    cacheVisibleValue: PropTypes.bool,
+
+    /**
+     * Disable all user interaction.
+     *
+     * @property disabled
+     * @type {boolean}
+     */
+    disabled: PropTypes.bool,
+
+   /**
+    * A custom onBlur handler.
+    *
+    * @property onBlur
+    * @type {function}
+    */
+    onBlur: PropTypes.func,
 
     /**
      * The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.
@@ -81,16 +103,45 @@ class Dropdown extends React.Component {
      * @property options
      * @type {object}
      */
-    options: React.PropTypes.object.isRequired,
+    options: PropTypes.object.isRequired,
 
     /**
-     * Determines if the visibleValue will be cached or not.
+     * Set the name of the corresponding hidden input.
      *
-     * @property cacheVisibleValue
+     * @property name
+     * @type {string}
+     */
+    name: PropTypes.string,
+
+    /**
+     * Display the currently selected value without displaying the dropdown.
+     *
+     * @property readOnly
      * @type {boolean}
      */
-    cacheVisibleValue: React.PropTypes.bool
+    readOnly: PropTypes.bool,
+
+    /**
+     * The ID value for the component
+     *
+     * @property value
+     * @type {String}
+     */
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
+
+    /**
+     * An optional function to be passed that will render each of the dropdown's items.
+     *
+     * @property renderItem
+     * @type {Function}
+     */
+    renderItem: PropTypes.func
   }
+
+  static safeProps = ['disabled', 'readonly', 'autoFocus']
 
   static defaultProps = {
     cacheVisibleValue: false
@@ -169,12 +220,12 @@ class Dropdown extends React.Component {
    */
   emitOnChangeCallback = (value, visibleValue) => {
     // To be consistent, always return string
-    value = String(value);
+    const valueAsString = String(value);
     // mock a standard input event return, with target and value
     this._handleOnChange({
       target: {
-        value: value,
-        visibleValue: visibleValue
+        value: valueAsString,
+        visibleValue
       }
     });
   }
@@ -230,11 +281,22 @@ class Dropdown extends React.Component {
   handleMouseDownOnList = (ev) => {
     // if mouse down was on list (not list item), ensure the input retains focus
     // NOTE: this is an IE11 fix
-    if (ev.target === this.refs.list) {
+    if (ev.target === this.list) {
       setTimeout(() => {
         this._input.focus();
       }, 0);
     }
+  }
+
+  /**
+   * Handles touch events.
+   *
+   * @method handleTouchEvent
+   **/
+  handleTouchEvent = () => {
+    // blocking blurring like this stops a bug on mobile when touch doesn't trigger until after blur, we want to
+    // update the input before blurring
+    this.blockBlur = true;
   }
 
   /*
@@ -281,8 +343,8 @@ class Dropdown extends React.Component {
       if (!this.props.value) { return this.visibleValue; }
 
       // Match selected id to corresponding list option
-      let option = this.props.options.find((item) => {
-        return item.get('id') == this.props.value;
+      const option = this.props.options.find((item) => {
+        return String(item.get('id')) === String(this.props.value);
       });
       // If match is found, set visibleValue to option's name;
       if (option) { this.visibleValue = option.get('name'); }
@@ -302,7 +364,7 @@ class Dropdown extends React.Component {
   handleKeyDown = (ev) => {
     ev.stopPropagation();
 
-    if (!this.refs.list) {
+    if (!this.state.open) {
       // if up/down/space then open list
       if (Events.isUpKey(ev) || Events.isDownKey(ev) || Events.isSpaceKey(ev)) {
         ev.preventDefault();
@@ -312,11 +374,11 @@ class Dropdown extends React.Component {
       return;
     }
 
-    let list = this.refs.list,
-        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0],
-        nextVal;
+    const list = this.list,
+        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
+    let nextVal;
 
-    switch(ev.which) {
+    switch (ev.which) {
       case 13: // return
         if (element) {
           ev.preventDefault();
@@ -331,6 +393,8 @@ class Dropdown extends React.Component {
         ev.preventDefault();
         nextVal = this.onDownArrow(list, element);
         break;
+      default:
+        nextVal = null;
     }
     this.setState({ highlighted: nextVal });
   }
@@ -386,7 +450,7 @@ class Dropdown extends React.Component {
    * @return {Void}
    */
   updateScroll(list, nextItem) {
-    let firstTop = list.firstChild.offsetTop,
+    const firstTop = list.firstChild.offsetTop,
         itemHeight = nextItem.offsetHeight,
         listHeight = list.offsetHeight;
 
@@ -404,15 +468,15 @@ class Dropdown extends React.Component {
    * @return {String}
    */
   highlighted = () => {
-    let highlighted = null;
+    const highlighted = null;
 
     if (this.state.highlighted) {
       return this.state.highlighted;
-    } else {
-      if (this.props.value) {
-        return this.props.value;
-      }
     }
+    if (this.props.value) {
+      return this.props.value;
+    }
+
 
     return highlighted;
   }
@@ -435,7 +499,7 @@ class Dropdown extends React.Component {
    * @return {Object}
    */
   get inputProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
 
     delete props.autoFocus;
 
@@ -459,13 +523,14 @@ class Dropdown extends React.Component {
    * @return {Object}
    */
   get hiddenInputProps() {
-    let props = {
+    const props = {
+      'data-element': 'hidden-input',
       ref: 'hidden',
-      type: "hidden",
+      type: 'hidden',
       readOnly: true,
       name: this.props.name,
-      // Using this to prevent `null` warnings from React
-      value: this.props.value || undefined
+      // Using this to prevent `null` and `uncontrolled` warnings from React
+      value: this.props.value || ''
     };
 
     return props;
@@ -479,12 +544,16 @@ class Dropdown extends React.Component {
    */
   get listBlockProps() {
     return {
-      key: "listBlock",
+      key: 'listBlock',
       ref: 'listBlock',
       onMouseDown: this.handleMouseDownOnList,
       onMouseLeave: this.handleMouseLeaveList,
       onMouseEnter: this.handleMouseEnterList,
-      className: 'carbon-dropdown__list-block'
+      onTouchStart: this.handleTouchEvent,
+      onTouchEnd: this.handleTouchEvent,
+      onTouchCancel: this.handleTouchEvent,
+      onTouchMove: this.handleTouchEvent,
+      className: classNames('carbon-dropdown__list-block', { 'carbon-dropdown__list-hidden': !this.state.open })
     };
   }
 
@@ -496,8 +565,8 @@ class Dropdown extends React.Component {
    */
   get listProps() {
     return {
-      key: "list",
-      ref: "list",
+      key: 'list',
+      ref: 'list',
       className: 'carbon-dropdown__list'
     };
   }
@@ -532,9 +601,8 @@ class Dropdown extends React.Component {
    * @return {Object} JSX
    */
   get listHTML() {
-    if (!this.state.open) { return null; }
     return (
-      <ul { ...this.listProps }>
+      <ul { ...this.listProps } ref={ (node) => { this.list = node; } }>
         { this.results(this.options) }
       </ul>
     );
@@ -547,30 +615,33 @@ class Dropdown extends React.Component {
    * @return {Array}
    */
   results(options) {
-    let className = 'carbon-dropdown__list-item',
+    const className = 'carbon-dropdown__list-item',
         highlighted = this.highlighted(options);
 
-    let results = options.map((option) => {
+    const results = options.map((option) => {
       let klass = className;
+      const optionId = String(option.id);
 
       // add highlighted class
-      if (highlighted == option.id) {
+      if (String(highlighted) === optionId) {
         klass += ` ${className}--highlighted`;
       }
 
       // add selected class
-      if (this.props.value == option.id) {
+      if (String(this.props.value) === optionId) {
         klass += ` ${className}--selected`;
       }
 
       return (
         <li
+          data-element='option'
           key={ option.name + option.id }
           value={ option.id }
           onClick={ this.handleSelect }
           onMouseOver={ this.handleMouseOverListItem }
-          className={ klass }>
-            { option.name }
+          className={ klass }
+        >
+          { this.props.renderItem ? this.props.renderItem(option) : option.name }
         </li>
       );
     });
@@ -585,14 +656,14 @@ class Dropdown extends React.Component {
    * @return {Object} JSX
    */
   get additionalInputContent() {
-    let content = [];
+    const content = [];
 
     if (this.showArrow()) {
-      content.push(this.inputIconHTML("dropdown"));
+      content.push(this.inputIconHTML('dropdown'));
     }
 
     content.push(
-      <div { ...this.listBlockProps }>
+      <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
         { this.listHTML }
       </div>
     );
@@ -620,6 +691,20 @@ class Dropdown extends React.Component {
     return null;
   }
 
+  componentTags(props) {
+    return {
+      'data-component': 'dropdown',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
+  }
+
+  /**
+   * Stubbed function allows this to be called on the parent without causign a console error
+   * This funciton is used by DropdownFilterAjax
+   */
+  requestingState = () => { }
+
   /**
    * Renders the component.
    *
@@ -627,7 +712,11 @@ class Dropdown extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses } >
+      <div
+        className={ this.mainClasses }
+        { ...this.componentTags(this.props) }
+        data-state={ this.requestingState() }
+      >
         { this.labelHTML }
         { this.inputHTML }
         <input { ...this.hiddenInputProps } />

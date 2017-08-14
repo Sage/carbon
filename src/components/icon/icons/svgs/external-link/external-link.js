@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default {
   __html:
     '<svg class="carbon-icon__svg carbon-icon__svg--external-link" width="16px" height="16px" viewBox="0 0 16 16">' +

@@ -1,4 +1,5 @@
 import ValidationsHelper from './../../helpers/validations';
+import DateHelper from './../../helpers/date';
 /**
  * A DateRangeValidator object.
  *
@@ -57,19 +58,23 @@ class DateRangeValidator {
 
 
   /**
-  * This will validate the given value, and return a valid status.
+  * This will validate the given value, compare it to the other relative
+  * date value in the date range.
+  *
+  * If either of the dates are invalid then it will validate to true as we
+  * can't compare an invalid date. The date component will show individual
+  * errors for invalid dates
   *
   * @method validate
   * @param {String} value to compare
   * @return {Boolean} true if check is valid
   */
   validate = (value) => {
-    if (this.endDate && value > this.endDate) {
-      return false;
-    } else if (this.startDate && value < this.startDate) {
-      return false;
+    if (this.endDate) {
+      return this.compareDates(value, this.endDate);
     }
-    return true;
+
+    return this.compareDates(this.startDate, value);
   }
 
   /**
@@ -80,6 +85,31 @@ class DateRangeValidator {
    */
   message = () => {
     return ValidationsHelper.validationMessage(this.messageText);
+  }
+
+  /**
+   * Compare the start and end dates for validity
+   *
+   *
+   * @method compareDates
+   * @param {String} start the start date
+   * @param {String} end the end date
+   * @return {Boolean} true if both dates are valid and start <= end
+   *
+   */
+  compareDates = (start, end) => {
+    if (!this.bothDatesValid(start, end)) { return true; }
+    return start <= end;
+  }
+
+  /**
+   * Check if both passed dates are valid
+   *
+   * @method bothDatesValid
+   * @return {Boolean}
+   */
+  bothDatesValid = (date1, date2) => {
+    return DateHelper.isValidDate(date1) && DateHelper.isValidDate(date2);
   }
 }
 

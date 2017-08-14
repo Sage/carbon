@@ -1,14 +1,450 @@
+# 1.4.0
+
+## Dispatcher
+
+We now provide the Flux Dispatcher as a singleton within the Carbon library.
+
+```
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
+```
+
+Please note that you should only use one Dispatcher in your application, if you want to start using the one provided in Carbon you need to remove the pre-existing one from your application.
+
+## Logger
+
+Logger can now supply a option of `group` - this will group any logged messages together that share the same group name and that are triggered within 500ms of one another.
+
+## Dependency Update
+
+* React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
+
+## New Components
+
+* `ConfigurableItems` Drag & Drop and check/uncheck a list of items
+* `ConfigurableItemRow` Used with ConfigurableItems to build the list of configurable items
+
+## New Patterns
+
+* `ConfigurableItemsPattern` Combines ConfigurableItems and ConfigurableItemRow components
+
+## Component Enhancements
+
+* `TableAjax` now accepts an `onAjaxError` function as a prop, to handle Ajax requests that return a HTTP error
+
+## Linting Updates
+
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
+
+* Dropdown
+* FormSummary
+* Page
+* Pages
+* RadioButton
+* Tabs
+
+### Helpers
+
+* Store
+
+## Component Improvements
+
+* `Form` now has additional props of `leftAlignedActions` and `rightAlignedActions` which allows developers to add additional nodes in line with the default form actions.
+* `Button`: Makes large button text the same as the medium button
+* `Button`: Allows secondary text under main text [#1385](https://github.com/Sage/carbon/issues/1385)
+* `ButtonToggle`: The buttons can now be toggled using the keyboard
+* `Poller` helper has been refactored to no longer use promises
+* `Tooltip` now renders an ARIA role of tooltip, and accepts an optional `id` prop
+
+## Minor Improvments
+
+* The `Poller` helper has been refactored to no longer use promises
+
+## Demo Site
+
+* Renamed `definition.js` files to `__definition__.js`.
+
+# 1.3.6
+
+## Bug Fix
+
+* `Dialog`: ensures close icon positioning regardless of CSS load order
+
+# 1.3.5
+
+## Bug Fixes
+
+* Flips errors messages in dialogs if they appear wider than the dialog.
+* `ButtonToggle`: The buttons can now be toggled using the keyboard
+
+# 1.3.4
+
+## Bug Fixes
+
+* Resolved bug in IE11 where sticky footer was rendering too large in dialogs.
+
+# 1.3.3
+
+## Bug Fixes
+
+* Added additional guards for browsers that do not support `element.contentDocument`.
+
+# 1.3.2
+
+## Bug Fixes
+
+* Our files are now published in production mode, removing some developer dependencies previously included.
+
+# 1.3.1
+
+## Bug Fixes
+
+* A bug was found in the new Dialog behaviour in Safari 9.x which rendered the sticky footer incorrectly. This solves it rendering incorrectly on page load for Safari 9.x. There remains a wider issue around Safari logged [here](https://github.com/Sage/carbon/issues/1432).
+
+# 1.3.0
+
+## Component Ehancements
+
+* Dialog
+  * Screen is no longer scrollable when a dialog is open.
+  * Dialog will attach to the bottom of the browser if it gets too tall, and it's content will become scrollable.
+  * If a dialog has a form, the form buttons will become sticky to the bottom of the dialog while the dialog is attached to the bottom of the browser (this is only enabled if the prop `stickyFormFooter` is applied to the dialog).
+  * Dialog can now use a prop called `height`, allowing developers to specify a set height for the dialog (the dialog will still attach to the bottom of the browser if it is taller than the browser's height).
+* Form
+  * Now has a prop of `stickyFooter` which when `true` will enable a sticky footer when it is off the screen.
+  * Now has a prop of `stickyFooterPadding` which will add additional padding to the form buttons when they are sticky (useful for aligning the form buttons between sticky and non-sticky states).
+
+# 1.2.2
+
+## Bug Fixes
+
+* Selected table rows no longer have highlights applied on hover.
+* Revert I18nhelper to use global locale for delimiter and separator
+
+# 1.2.1
+
+## Linting Updates
+
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
+
+* DraggableContext
+* DraggableTableCell
+* TableRow
+* WithDrag
+* WithDrop
+
+### Helpers
+
+* ItemTarget
+* Text
+
+## Bug Fixes
+* `Dialog` now has a `autoFocus` boolean property. You can set this to `false` if you don't want the dialog to receive keyboard focus when it opens e.g. if your dialog contains form fields that you want to set the focus on instead.
+* `Dialog Full screen`: The `carbon-dialog-full-screen--open` class is now applied to the `html` element instead of the `body`.
+* `Input`: the prefix was hidden when an error was present on the input element.
+
+# 1.2.0
+
+## Dependency Upgrade
+
+* Carbon Factory has been upgraded to Version v1.1.7
+
+## Linting Updates
+
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
+
+* AppWrapper
+* Carousel
+* Checkbox
+* Column
+* Content
+* Create
+* Date
+* DateRange
+* Decimal
+* Detail
+* Dropdown
+* DropdownFilter
+* DropdownFilterAjax
+* Fieldset
+* GroupedCharacter
+* Heading
+* Help
+* I18n
+* Icon
+* Link
+* Menu
+* MenuItem
+* MenuList
+* MenuListItem
+* MultiStepWizard
+* Message
+* Modal
+* MountInApp
+* NavigationBar
+* NumberInput
+* Pager
+* Pill
+* Pod
+* Portrait
+* Profile
+* RadioButton
+* Rainbow :warning: The ref for the highchart instance is now `_chart`. This will need updating where Rainbow is used.
+* Row
+* SettingsRow
+* ShowEditPod
+* Sidebar
+* Sidebar Header
+* SimpleColorPicker
+* Spinner
+* SubmenuBlock
+* Tabs
+* Textarea
+* Textbox
+* Toast
+* Tooltip
+
+#### helpers
+
+* Date
+* Devices
+* Events
+* GUID
+* i18n
+
+### utils
+
+The following utils have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* Browser
+* CSS
+* Ether
+* Flux
+* Handlers
+* Helpers
+* Logger
+* Promises
+* Router
+* Service
+* Should Component Update decorator
+* Tooltip Decorator
+* Validators
+
+## DraggableContext, WithDrag & WithDrop
+
+We now provide a series of components to enable drag and drop functionality. For example:
+
+```
+<DraggableContext onDrag={ onItemMoved }>
+  <ol>
+    {
+      items.map((item, index) => {
+        return (
+          <WithDrop key={ index } index={ index }>
+            <li>
+              <WithDrag><span>{ item.content }</span></WithDrag>
+            </li>
+          </WithDrop>
+        );
+      });
+    }
+  </ol>
+</DraggableContext>
+```
+
+The `onDrag` prop can manipulate the order of items as they are dragged. It is a function that receives two arguments: `dragIndex`, which is the original position of the item, and `hoverIndex`, which is the position of the item if dropped.
+
+An example function signature: `onItemMoved = (dragIndex, hoverIndex) => { }`
+
+## Draggable Table Rows
+
+The `TableRow` component now supports drag and drop. To enable it you need to add a `DraggableContext` component, apply an index to each `TableRow`, and define the `onDrag` prop to manipulate the order as it changes:
+
+```
+<Table tbody={ false }>
+  <DraggableContext onDrag={ onRowMoved }>
+    <tbody>
+      {
+        rows.map((row, index) => {
+          return (
+            <TableRow key={ index } index={ index }>
+              { row.content }
+            </TableRow>
+          );
+        });
+      }
+    </tbody>
+  </DraggableContext>
+</Table>
+```
+
+## Text Helpers
+
+A new helper object is available in `utils/helpers/text`. Currently it only contains one method `clearSelection`, which clears any selected text on the page.
+
+## Pages and page
+
+Pages and Page are new components to enable paginated content for full screen views.
+See an example with a full screen dialog:
+```
+const headingOne = (
+  <Heading title="My First Page" />
+);
+
+const headingTwo = (
+  <Heading title="My Second Page" />
+);
+
+return (
+  <DialogFullScreen>
+    <Pages slideIndex={ 0 }>
+      <Page title={ headingOne }>
+        Content for the first page.
+      </Page>
+
+      <Page title={ headingTwo }>
+        Content for the second page.
+      </Page>
+    </Pages>
+  </DialogFullScreen>
+);
+```
+
+## Component Improvements
+
+* `Alert` now alerts itself to screen readers.
+* `Browser`: add a new method `setInputFocus` to focus on the input field of passed in ref but does not select text
+* `Carousel`
+  * has a new prop `enableSlideSelector` defaulted to `true`. Setting it to `false` will hide the slide selector.
+  * has a new prop `enablePreviousButton` defaulted to `true`. Setting it to `false` will hide the previous button.
+  * has a new prop `enableNextButton` defaulted to `true`. Setting it to `false` will hide the next button.
+  * has a new prop `slideIndex`. Changing this prop to an index will select the corresponding slide.
+  * has a new prop `onSlideChange`, which is an action to be called on slide change. It will receive the slide index and the transition direction as params.
+  * animation between slides enhanced.
+* `Dialog` is now using the `Heading` component to render its title and subtitle.
+* `DialogFullScreen` is now scrollable if the content goes beyond the height of the browser.
+* `Form` now has default `SaveButton` and `CancelButton` functional stateless components. The former can be overridden with a new prop of `customSaveButton`.
+* `Heading` backLink prop can now be a string or a function.
+* `InlineInputs` children are now wrapped by Columns by the component.
+* `Menu` has been updated to use a `<nav>` tag as its root element.
+* `MenuItem`: focus outline is now fully visible when an item is focused.
+* `Pager`: Negative values now set to absolute value, NaN values set to page 1.
+* `Table` can now receive an `caption` prop which renders a `<caption>` element as a child of the table element. Note that the caption is hidden by default, but still accessible to screen readers and assistive technologies.
+* `Table` has a new prop of onConfigure. Displays a configure icon to the left of the table header that triggers the callback onClick.
+* `MultiActionButton`: Secondary button hover style has been updated to not change on hover.
+* `TableHeader`: improve accessibility of sortable columns. They can now receive focus via the keyboard, and include `aria-sort` and `aria-label` attributes to indicate they are sortable, the current sort direction, and which direction the column will be sorted when sorting is next activated.
+* `InputValidation`: now accepts a `info` prop to display info-styled icon and message attached to an input.
+
+### Table
+
+* `Table` can now receive an `caption` prop which renders a `<caption>` element as a child of the table element. Note that the caption is hidden by default, but still accessible to screen readers and assistive technologies.
+* `Table` has a new prop of onConfigure. Displays a configure icon to the left of the table header that triggers the callback onClick.
+* `Table` has a new prop of `theme` that allows primary (dark) or secondary (light) styling.
+
+## Bug Fixes
+
+* `DialogFullScreen` now scrolls vertically if it contains content taller than the dialog height.
+* `TableHeader`: fix alignment of sort icon in IE11.
+
+## Dependency Switch
+
+* Facebook has deprecated `react-addons-transition-group` and `react-addons-css-transition-group` in favour of `react-transition-group/TransitionGroup` and `react-transition-group/CSSTransitionGroup` so we have switched to use the later.
+
+## Deployment Changes
+
+* You can now pass `--cdn` to the gulp task to bundle assets pointing towards the CDN.
+
+## Other
+
+* Minor changes to guides to reference `carbon-react` in imports.
+* `grid` icon added to the `Icon` component.
+
+# 1.1.4
+
+* Update I18nhelper to respect the locale for the delimiter and separator.
+
+# 1.1.3
+
+* Fix bug with Date Range date pickers not closing correctly
+
+# 1.1.2
+
+## Component Enhancements
+
+* `Dropdown` now accepts a new optional function prop `renderItem` which will be called to render each option in the list
+
+# 1.1.1
+
+## Component Enhancements
+
+* `Content`: gets a `data-element` on its body wrapper
+
+# 1.1.0
+
+## Package Updates
+
+* BigNumber has been updated to v4.0.2
+
+## Component Enhancements
+
+* `Dropdown`: Options list is always rendered to the DOM, but is hidden until selected
+* `Textarea` now accepts a new prop `warnOverLimit` to display the character count message in red.
+* Simplify character count in `Textarea`.
+
+## Bug Fixes
+
+* `Date`: fixed the warning about an uncontrolled input component
+* Fix presence validator bug validating value as false if no props sent to validator.
+
+## Linting Updates
+
+The following component have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+* ActionToolbar
+* AnimatedMenuButton
+* Button
+* ButtonToggle
+* Confirm
+* Dialog
+* DialogFullScreen
+* Flash
+* MultiActionButton
+* SplitButton
+* Table
+* TableAjax
+* TableCell
+* TableHeader
+* TableRow
+
 # 1.0.0
+
+## Package Name Change
+
+* The package name has been updated to `carbon-react`.
+
+## Removed `/lib` directory
+
+* You should now install the package via npm: `npm install carbon-react`.
 
 ## :warning: Major Change - React 15 Upgrade
 
-* React has been upgraded to version 15.3.1 - https://github.com/facebook/react/releases
+* React has been upgraded to version 15.5.0 - https://github.com/facebook/react/releases
 
 ## !! BREAKING CHANGES!! :warning:
 
-* Banner Component has been Deleted in favour of the Message Component
+* `ActionToolbar`: 'total' field margin and width
+* `Banner`: Component has been Deleted in favour of the Message Component
 * `ButtonToggle`: `icon` and `iconSize` become `buttonIcon` and `buttonIconSize` to avoid clash with Input decorator
-* Menu List - Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
+* `Heading`: paddings
+* `MenuList`: Main Classes and `className` props have been moved from the `ul` to the top level `div`. To access the `ul` use `carbon-menu-list__list`
+* `MultiActionButton`: Additional buttons are spaced differently
+* `MultistepWizard`: Step has less padding-left
+* `Pod`: Header has less margin-bottom
 
 ## Potentially breaking changes
 
@@ -23,6 +459,7 @@
   - Carousel
 * `ButtonToggle` no longer inherits from the label decorator as it was providing more functionality than required.
 * `Rainbow` has been updated to no longer use the `react-highcharts` component. To use this component you need to ensure to make the `Highcharts` library available to your application globally.
+* `ActionToolbar` incorrectly required actions as an `Array` - this has been changed to an `Object` to reflect its actual usage.
 
 ## Google Analytics
 
@@ -30,30 +467,95 @@ If you have Google Analytics enabled (`window.ga` is defined), and you are using
 
 ## Component Enhancements
 
+* `Decimal` now shows propType warning when precision is outside the range 0..20
+* `Detail`: font size of footer increased
+* `Dialog`: font wieght
 * `DropdownFilter`: placeholder text is made more legible by removing italics and making the font color darker
+* `DropdownFilterAjax`: `data-state` component tag is added to the `getData` Ajax request to mark the requesting state
+* `Fieldset`: icon positioning
+* `Heading`: Font size increased and weight
+* `Input`: decorator has slight padding change
 * `Menu` includes `alternate` prop for marking sub sections of the menu for styling (like tiger stripes for readability on tables, rather than actual submenus
 * `MountInApp` now cleans up it's children when the component is unmounted.
+* `Pod`: Font size increased
+* `ShowEditPod`: z-index on input prefixes
+* `TableHeader`: Font weight
+
+## Service Class
+
+Adds a `Service` class to make it easier and more clear to create reusable services to interact with a JSON API. The class supports:
+
+* `GET`, `POST`, `PUT` and `DELETE` requests.
+* Automatically configured request Headers (no longer need to set `Content-Type` etc for each request)
+* CSRF support.
+* Request and Response transforms.
+* Global Success and Error actions for triggering automatic actions (such as flash notifications on error).
+
+This should hopefully replace all uses of `Request` or `axios`.
+
+## Helpers
+
+* A new 'insertAt' Ether helper to insert a character in a string at a specified indices
+
+## New components
+
+* Grouped-character component - displays groups with of characters with separator.
 
 ## Bug Fixes
 
 * `Alert`: default size has been fixed to `extra-small`.
 * `ButtonToggle`: css typo corrected
 * `Confirm`: default size has been fixed to `extra-small`.
+* `Detail`: Footnote is allowed to expand vertically
 * `Heading`: alignment is fixed in IE where `hr` was centring by default
 * `Link`: CSS inheritance has been updated to better support buttons.
 * `MenuList`: item filter search icon positioning is fixed
+* Row clones children when mutating props rather than creating new element to retain refs
+* Stop input value being removed from props (fixes Button Toggle issue)
+
+## Deprecations Added
+
+* `Row`: can longer render any immediate children. A Column component has been introduced to maintain the column span, offset and align behaviour.
+
+```javascript
+// BEFORE
+import Row from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <div columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </div>
+  <Pod columnSpan='5'>
+    Content 1
+  </Pod>
+</Row>
+
+// AFTER
+import { Row, Column } from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <Column columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </Column>
+  <Column columnSpan='5'>
+    <Pod>
+      Content 1
+    </Pod>
+  </Column>
+</Row>
+```
 
 ## data-attributes on components
 
-We are adding data-attributes to components to better identify them and their parts within the browser. We will add `data-component` tags on the top level of any component, and `data-member` tags to constituent parts. Developers can also add `data-element` tags to components to uniquely identify specific components within their UI.
-
-So far we have added attributes to the following components:
-
-* Textbox
+We have added data-attributes to components to better identify them and their parts within the browser. We have added `data-component` tags on the top level of any component, and `data-element` tags to constituent parts. Developers can also add `data-role` tags to components to uniquely identify specific components within their UI.
 
 ## Dependency Update
 
-* Carbon Factory has been upgraded to v0.3.0 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.0
+* Carbon Factory has been upgraded to v0.3.6 - https://github.com/Sage/carbon-factory/releases/tag/v0.3.6
 
 ### Gulp updates
 
@@ -61,6 +563,79 @@ So far we have added attributes to the following components:
 ```bash
 gulp --port 1234
 ```
+
+# 0.36.3
+
+## Component Enhancements
+
+* `DialogFullScreen` now accepts a String for title or any other component.
+
+# 0.36.2
+
+* Hide SplitButton additional buttons instead of removing them.
+
+# 0.36.1
+
+* Removed the style node from `package.json` in table-ajax. This file doesn't exist.
+
+# 0.36.0
+
+* Add `additionalRequestParams` prop to `DropdownFilterAjax`
+
+# 0.35.2
+
+* Hide SplitButton additional buttons instead of removing them.
+
+# 0.35.1
+
+* Ensure that node modules can only upgrade patch versions
+
+# 0.35.0
+
+## Bug Fix
+
+* `ShowEditPod`: `beforeFormValidation` and `buttonAlign` props are now passed to the `Form` as they should be
+
+## InlineInputs Component
+A simple `InlineInputs` wrapper component which allows multiple input fields to be displayed horizontally
+with a label.
+
+```js
+<InlineInputs label='Test Label'>
+  <Textbox />
+  <Textbox />
+</InlineInputs>
+```
+
+## Component Enhancements
+
+* `Date` now shows error validation when an invalid date is entered.
+* `Flash`: Change error icon to match other notifications (now shows error icon when `as` prop is `error`)
+* `Form`: adds error and warning icons (and refactors the summary into its own sub-component)
+* `Dialog`: Added `subtitle` prop
+* `Input` can now receive an `inputHelp` prop which renders a tooltip after the input field.
+
+## New Validations
+
+* DateWithinRangeValidator checks that a date is within specified bounds.
+e.g.
+```javascript
+  new DateWithinRangeValidator({ limit: 30, units: 'days' }
+```
+
+# 0.34.5
+
+## Bug Fix
+
+* `Dropdown`: adds a set of ontouch events to the list in order to stop blurring from happening until after the touch event which fixes a bug with the input update on finger tap on touch screens
+* `TableHeader`: fix overflow issue so that tooltip / help components aren't cut off.
+* `Decimal`: fix issue where `visibleValue` was not updated after a change to `precision`.
+
+# 0.34.4
+
+## Bug fix
+
+* `Pod`: corrects misalignment caused by centering
 
 # 0.34.3
 
@@ -1786,7 +2361,7 @@ You can now define Validations on a component using the following syntax:
 ## Misc
 
 * Ran ESLint task and fixed any errors.
-* Form provides a serialization method to parse its inputs into data usable for AJAX.
+* Form provides a serialization method to parse its inputs into data usable for Ajax.
 * Forms no longer needs a model name defined.
 * Updated Form Cancel Button to use History object.
 * Textarea is no longer draggable. Add a expandable={true} prop to make the area height change to fit content

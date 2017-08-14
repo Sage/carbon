@@ -1,16 +1,19 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
+import Link from './../link';
+import { shallow } from 'enzyme';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Table', () => {
-  let instance, instancePager, instanceSortable, instanceCustomSort, spy;
+  let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;
 
   beforeEach(() => {
     spy = jasmine.createSpy('onChange spy');
 
-    let row = (
+    row = (
       <TableRow>
         <TableCell />
         <TableCell />
@@ -98,7 +101,7 @@ describe('Table', () => {
 
   describe('refresh', () => {
     beforeEach(() => {
-      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar />);
+      instance.actionToolbarComponent = TestUtils.renderIntoDocument(<ActionToolbar actions={ {} } />);
       spyOn(instance, 'resetHighlightedRow');
       spyOn(instance.actionToolbarComponent, 'setState');
       spyOn(instance, 'emitOnChangeCallback');
@@ -165,6 +168,17 @@ describe('Table', () => {
         instance.selectRow('foo', row, true);
         expect(spy).toHaveBeenCalledWith({ selected: false });
         expect(instance.selectAllComponent).toBe(null);
+      });
+    });
+
+    describe('if there is a actionToolbarComponent', () => {
+      it('calls setState on the action toolbar', () => {
+        let spy = jasmine.createSpy();
+        instance.actionToolbarComponent = {
+          setState: spy
+        };
+        instance.selectRow('foo', row, true);
+        expect(spy).toHaveBeenCalledWith({ total: 1, selected: instance.selectedRows });
       });
     });
 
@@ -494,11 +508,7 @@ describe('Table', () => {
 
   describe('resetTableHeight', () => {
     beforeEach(() => {
-      jasmine.clock().install()
-    });
-
-    afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.useFakeTimers();
     });
 
     it('Resets the table wrapper height to the tableOffset', () => {
@@ -508,7 +518,7 @@ describe('Table', () => {
       instance.tableHeight = 100;
 
       instance.resetTableHeight();
-      jasmine.clock().tick();
+      jest.runTimersToTime(0);
 
       expect(instance._wrapper.style.minHeight).toEqual('50px');
       expect(instance.tableHeight).toEqual('50');
@@ -671,6 +681,33 @@ describe('Table', () => {
     });
   });
 
+  describe('onConfigure', () => {
+    let onConfigureSpy = jasmine.createSpy();
+    let wrapper;
+    beforeEach(() => {
+      wrapper = shallow(
+        <Table
+          className="foo"
+          onConfigure={ onConfigureSpy }
+        >
+          foo
+        </Table>
+      )
+    });
+
+    it('adds the carbon-table--configurable class', () => {
+      const table = wrapper.find('.carbon-table--configurable')
+      expect(table).toBeDefined();
+    });
+
+    it('adds configure link that triggers the onConfigure callback', () => {
+      const configureLink = wrapper.find(Link);
+      expect(configureLink.length).toEqual(1)
+      configureLink.simulate('click', { preventDefault: () => {} });
+      expect(onConfigureSpy).toHaveBeenCalled();
+    });
+  })
+
   describe('emitOptions', () => {
     it('gathers all relevent props to emit', () => {
       expect(instancePager.emitOptions()).toEqual({
@@ -746,7 +783,7 @@ describe('Table', () => {
     describe('when pageSize is passed', () => {
       it('returns the prop pageSize', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table path='/test' pageSize='123' >
+          <Table path='/test' pageSize='123'>
           </Table>
         );
         expect(instance.defaultPageSize).toEqual('123')
@@ -762,7 +799,7 @@ describe('Table', () => {
         ]);
 
         instance = TestUtils.renderIntoDocument(
-          <Table pageSizeSelectionOptions={ options } >
+          <Table pageSizeSelectionOptions={ options }>
           </Table>
         );
         expect(instance.defaultPageSize).toEqual('1')
@@ -914,7 +951,65 @@ describe('Table', () => {
     it('renders a table with correct classes', () => {
       let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
-      expect(parent.className).toEqual('carbon-table foo');
+      expect(parent.className).toEqual('carbon-table foo carbon-table--primary');
+    });
+
+    it('renders a caption tag when a caption prop is given', () => {
+      const wrapper = shallow(
+        <Table caption="Acme widgets" />
+      );
+
+      const captionTag = wrapper.find('caption');
+      expect(captionTag.exists()).toBe(true);
+      expect(captionTag.text()).toEqual('Acme widgets');
+    });
+
+    it('does not render a caption tag when no caption prop is given', () => {
+      const wrapper = shallow(<Table />);
+      expect(wrapper.find('caption').exists()).toBe(false);
+    });
+
+    it('renders an action toolbar if actions are passed', () => {
+      let toolbarWrapper = shallow(
+        <Table className="foo" actions={ {foo: 'bar'} } selectable={ true }>
+          { row }
+        </Table>
+      );
+
+      let toolbar = toolbarWrapper.find(ActionToolbar);
+      expect(toolbar).toBeDefined();
+    });
+  });
+
+  describe("tags on component", () => {
+    let wrapper = shallow(
+      <Table
+        data-element='bar'
+        data-role='baz'
+        path='test'
+      >
+        <TableRow />
+      </Table>
+    );
+
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'table', 'bar', 'baz');
+    });
+  });
+
+  describe("theme", () => {
+    it("renders a --secondary if the theme is set to 'secondary'", () => {
+      const wrapper = shallow(
+        <Table theme='secondary' />
+      );
+      expect(wrapper.find('.carbon-table--secondary').exists()).toBeTruthy();
+    });
+
+    it("renders a --primary if the theme is missing (default)", () => {
+      const wrapper = shallow(
+        <Table />
+      );
+      expect(wrapper.find('.carbon-table--primary').exists()).toBeTruthy();
     });
   });
 });

@@ -1,10 +1,8 @@
 import React from 'react';
 import Flux from 'flux';
-import { connect } from './flux';
+import { connect, Dispatcher } from './flux';
 import Textbox from './../../components/textbox';
 import Store from './store';
-
-let Dispatcher = new Flux.Dispatcher();
 
 class BaseStore1 extends Store {}
 
@@ -19,7 +17,7 @@ class SimpleView extends React.Component {
 class View extends React.Component {
 
   componentDidMount() {
-    this.extraFunction(); 
+    this.extraFunction();
   }
 
   componentWillUnmount() {
@@ -30,18 +28,24 @@ class View extends React.Component {
     // Nothing
   }
 
-  render() { 
-    
+  render() {
+
     let value = this.state.BaseStore1.get('text');
 
     return(
-      <Textbox name="Test" value={ value } />    
+      <Textbox name="Test" value={ value } />
     );
   }
 }
 
-let baseStore1 = new BaseStore1('BaseStore1', { text: 'text' }, Dispatcher);
-let baseStore2 = new BaseStore2('BaseStore2', {}, Dispatcher);
+let baseStore1 = new BaseStore1('BaseStore1', { text: 'text' });
+let baseStore2 = new BaseStore2('BaseStore2', {});
+
+describe('Dispatcher', () => {
+  it('returns a dispatcher', () => {
+    expect(Dispatcher instanceof Flux.Dispatcher).toBeTruthy();
+  });
+});
 
 describe('Connect', () => {
   describe('Add Store', () => {
@@ -87,7 +91,7 @@ describe('Connect', () => {
           instance.componentDidMount();
           expect(instance.extraFunction).toHaveBeenCalled();
         });
-      
+
         it('adds events listeners', () => {
           spyOn(baseStore1, 'addChangeListener');
           spyOn(baseStore2, 'addChangeListener');

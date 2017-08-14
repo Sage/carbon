@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A Spinner widget.
@@ -33,7 +35,15 @@ class Spinner extends React.Component {
      * @type {String}
      * @default info
      */
-    as: React.PropTypes.string,
+    as: PropTypes.string,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
 
     /**
      * Size of the spinner
@@ -42,11 +52,12 @@ class Spinner extends React.Component {
      * @property size
      * @type {String}
      */
-    size: React.PropTypes.string
+    size: PropTypes.string
   };
 
   static defaultProps = {
     as: 'info',
+    className: '',
     size: 'medium'
   };
 
@@ -59,8 +70,8 @@ class Spinner extends React.Component {
   get spinnerClasses() {
     return classNames(
       'carbon-spinner',
-      `carbon-spinner--${ this.props.as }`,
-      `carbon-spinner--${ this.props.size }`,
+      `carbon-spinner--${this.props.as}`,
+      `carbon-spinner--${this.props.size}`,
       this.props.className
     );
   }
@@ -73,7 +84,7 @@ class Spinner extends React.Component {
    */
   render() {
     return (
-      <div className={ this.spinnerClasses } ></div>
+      <div className={ this.spinnerClasses } { ...tagComponent('spinner', this.props) } />
     );
   }
 }

@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
 * A Tooltip widget.
@@ -41,12 +43,28 @@ class Tooltip extends React.Component {
     align: PropTypes.string,
 
     /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
      * Children elements
      *
      * @property children
      * @type {Node}
      */
     children: PropTypes.node,
+
+    /**
+     * The id attribute to use for the tooltip
+     *
+     * @property id
+     * @type {String}
+     */
+    id: PropTypes.string,
 
     /**
     * Whether to to show the Tooltip
@@ -74,6 +92,7 @@ class Tooltip extends React.Component {
   static defaultProps = {
     align: 'center',
     position: 'top',
+    className: '',
     isVisible: false
   };
 
@@ -99,14 +118,26 @@ class Tooltip extends React.Component {
    * @return {JSX}
    */
   get tooltipHTML() {
-    let contents = [
+    const contents = [
       this.props.children,
-      <span key='pointer' className='carbon-tooltip__pointer'></span>
+      <span key='pointer' className='carbon-tooltip__pointer' />
     ];
 
+    const tooltipProps = {
+      className: this.mainClasses,
+      role: 'tooltip'
+    };
+
+    if (this.props.id) {
+      tooltipProps.id = this.props.id;
+    }
+
     return (
-      <div className={ this.mainClasses }>
-        <div className="carbon-tooltip__container">
+      <div
+        { ...tooltipProps }
+        { ...tagComponent('tooltip', this.props) }
+      >
+        <div className='carbon-tooltip__container'>
           { contents }
         </div>
       </div>

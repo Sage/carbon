@@ -1,11 +1,14 @@
-import css from './../../utils/css';
 import React from 'react';
+import I18n from 'i18n-js';
+import PropTypes from 'prop-types';
+import Immutable from 'immutable';
+
+import css from './../../utils/css';
 import Icon from './../icon';
 import NumberComponent from './../number';
 import Dropdown from './../dropdown';
-import I18n from "i18n-js";
-import Immutable from 'immutable';
 import Events from './../../utils/helpers/events';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A Pager widget.
@@ -32,7 +35,7 @@ class Pager extends React.Component {
      * @property currentPage
      * @type {String}
      */
-    currentPage: React.PropTypes.string.isRequired,
+    currentPage: PropTypes.string.isRequired,
 
     /**
      * Total number of records
@@ -40,7 +43,7 @@ class Pager extends React.Component {
      * @property totalRecords
      * @type {String}
      */
-    totalRecords: React.PropTypes.string.isRequired,
+    totalRecords: PropTypes.string.isRequired,
 
     /**
      * Function called when any pager changes take place
@@ -49,7 +52,7 @@ class Pager extends React.Component {
      * @property onPagination
      * @type {Function}
      */
-    onPagination: React.PropTypes.func.isRequired,
+    onPagination: PropTypes.func.isRequired,
 
     /**
      * Pagination page size
@@ -57,7 +60,7 @@ class Pager extends React.Component {
      * @property pageSize
      * @type {String}
      */
-    pageSize: React.PropTypes.string,
+    pageSize: PropTypes.string,
 
     /**
      * Should the page size selection dropdown be shown
@@ -65,7 +68,7 @@ class Pager extends React.Component {
      * @property showPageSizeSelection
      * @type {Boolean}
      */
-    showPageSizeSelection: React.PropTypes.bool,
+    showPageSizeSelection: PropTypes.bool,
 
     /**
      * Set of page size options
@@ -73,7 +76,7 @@ class Pager extends React.Component {
      * @property pageSizeSelectionOptions
      * @type {Object}
      */
-    pageSizeSelectionOptions: React.PropTypes.object
+    pageSizeSelectionOptions: PropTypes.object
   }
 
   static defaultProps = {
@@ -108,7 +111,7 @@ class Pager extends React.Component {
    * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentPage !== this.state.currentPage){
+    if (nextProps.currentPage !== this.state.currentPage) {
       this.setState({ currentPage: nextProps.currentPage });
     }
   }
@@ -152,22 +155,18 @@ class Pager extends React.Component {
         break;
 
       case 'input':
-        newPage = ev.target.value;
+        newPage = Math.abs(Number(ev.target.value));
+
+        if (isNaN(newPage)) { newPage = '1'; }
 
         if (!newPage) {
           this.setState({ currentPage: this.props.currentPage });
           break;
         }
 
-        if (Number(newPage) > this.maxPage) {
-          newPage = String(this.maxPage);
-        }
+        if (newPage > this.maxPage) { newPage = String(this.maxPage); }
 
-        if (Number(newPage) < 1) {
-          newPage = "1";
-        }
-
-        this.props.onPagination(newPage, this.props.pageSize, element);
+        this.props.onPagination(String(newPage), this.props.pageSize, element);
         break;
 
       case 'previous':
@@ -183,7 +182,22 @@ class Pager extends React.Component {
         // TODO: Clever current page correction
         this.props.onPagination('1', newPageSize, element);
         break;
+      default:
+        break;
     }
+  }
+
+  /**
+   * Return callback binding the element to target
+   * TODO: Refactor to move or change the switch statement to functions
+   *
+   * @method emitCallbackSelector
+   * @return {Function}
+   */
+  emitCallbackSelector = (element) => {
+    return (ev) => {
+      this.emitChangeCallback(element, ev);
+    };
   }
 
   /**
@@ -226,15 +240,16 @@ class Pager extends React.Component {
    * @return {JSX}
    */
   get previousArrow() {
-    let props = {
+    const props = {
       type: 'dropdown',
-      className: 'carbon-pager__previous'
+      className: 'carbon-pager__previous',
+      'data-element': 'previous-page'
     };
 
     if (this.disablePrevious) {
       props.className += ' carbon-pager__previous--disabled';
     } else {
-      props.onClick = this.emitChangeCallback.bind(this, 'previous');
+      props.onClick = this.emitCallbackSelector('previous');
     }
 
     return (
@@ -249,11 +264,12 @@ class Pager extends React.Component {
    * @return {JSX}
    */
   get currentPageInput() {
-    let props = {
+    const props = {
       value: this.state.currentPage,
       className: 'carbon-pager__current-page',
+      'data-element': 'current-page',
       onChange: this.handleCurrentPageInputChange,
-      onBlur: this.emitChangeCallback.bind(this, 'input'),
+      onBlur: this.emitCallbackSelector('input'),
       onKeyUp: this.handleCurrentPageKeyUp
     };
 
@@ -269,15 +285,16 @@ class Pager extends React.Component {
    * @return {JSX}
    */
   get nextArrow() {
-    let props = {
+    const props = {
       className: 'carbon-pager__next',
+      'data-element': 'next-page',
       type: 'dropdown'
     };
 
     if (this.disableNext) {
       props.className += ' carbon-pager__next--disabled';
     } else {
-      props.onClick = this.emitChangeCallback.bind(this, 'next');
+      props.onClick = this.emitCallbackSelector('next');
     }
 
     return (
@@ -299,12 +316,14 @@ class Pager extends React.Component {
           <Dropdown
             options={ this.props.pageSizeSelectionOptions }
             value={ this.props.pageSize }
-            onChange={ this.emitChangeCallback.bind(this, 'size') }
+            onChange={ this.emitCallbackSelector('size') }
+            data-element='page-select'
           />
           <span className={ css.unselectable }>{ recordsText(this.props.pageSize) }</span>
         </div>
       );
     }
+    return null;
   }
 
   /**
@@ -314,8 +333,8 @@ class Pager extends React.Component {
    * @return {JSX}
    */
   render() {
-    return(
-      <div className='carbon-pager'>
+    return (
+      <div className='carbon-pager' { ...tagComponent('pager', this.props) }>
 
         <div className='carbon-pager__size' >
           { this.sizeSelectionDropdown }

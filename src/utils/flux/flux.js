@@ -1,4 +1,7 @@
+import Flux from 'flux';
 import { assign } from 'lodash';
+
+export const Dispatcher = new Flux.Dispatcher();
 
 /**
  * Connects a view component to one or more flux based stores.
@@ -27,11 +30,10 @@ import { assign } from 'lodash';
  * @return {Class} An enhanced version of the ComposedView to work with flux stores.
  */
 export function connect(ComposedView, stores) {
-
   // Build an object mapping any stores passed to the connect function, using
   // the store's class name as the key.
 
-  let _stores = {};
+  const _stores = {};
 
   function _addStore(store) {
     _stores[store.name] = store;
@@ -76,10 +78,11 @@ export function connect(ComposedView, stores) {
      */
     componentDidMount() {
       // ensure that the super view calls its version of componentDidMount
+      /* istanbul ignore else */
       if (super.componentDidMount) { super.componentDidMount(); }
 
       // listen to each store when the view component mounts
-      for (let key in _stores) {
+      for (const key in _stores) {
         _stores[key].addChangeListener(this._onChange);
       }
     }
@@ -92,10 +95,11 @@ export function connect(ComposedView, stores) {
      */
     componentWillUnmount() {
       // ensure that the super view calls its version of componentWillUnmount
+      /* istanbul ignore else */
       if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
       // unlisten to each store when the view component unmounts
-      for (let key in _stores) {
+      for (const key in _stores) {
         _stores[key].removeChangeListener(this._onChange);
       }
     }
@@ -119,9 +123,9 @@ export function connect(ComposedView, stores) {
      * @return {Object} A collection of each store and it's data.
      */
     _getStoreStates = () => {
-      let states = {};
+      const states = {};
 
-      for (let key in _stores) {
+      for (const key in _stores) {
         states[key] = _stores[key].getState();
       }
 

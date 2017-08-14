@@ -1,4 +1,4 @@
-import { omit, difference } from 'lodash';
+import { omit, difference, includes } from 'lodash';
 
 /**
  * Ether
@@ -41,7 +41,8 @@ function append(value, content) {
  * @return {Object} Styled Element
  */
 function styleElement(element, attribute, value) {
-  return element.style[attribute] = value.toString();
+  element.style[attribute] = value.toString();
+  return element.style[attribute];
 }
 
 /**
@@ -60,39 +61,32 @@ function validProps(instance, safeProps) {
 }
 
 /**
- * Returns string with inserted character and specified indices
+ * Returns string with inserted character at specified indices
  *
  * @method insertAt
- * @param {String} string
- * @param {Number}  position - position at which to insert
+ * @param {String} value - value without separators
  * @param {Object} options
- * * @param {String}  newChar  - character to insert
- * * @param {Boolean} repeat   - repeat the insertion at the specified interval
+ * * @param {String} separator - character to insert
+ * * @param {Array} insertionIndices - indices where separator will be inserted
  * @return {String} result - formatted
  */
-function insertAt(string, position, options = {}) {
-  let result = string,
-      newChar = options.newChar || '-';
+function insertAt(value, options) {
+  const separator = options.separator || '-';
+  let result = value;
 
-  if (options.repeat) {
-    let insertionShift = position + newChar.length,
-        maxLength = string.length + Math.floor(string.length / position) - 1;
-
-    for (let i = position; i < maxLength; i += insertionShift) {
-      result = result.substr(0, i) + newChar + result.substr(i);
+  for (let i = 0; i < result.length; i++) {
+    if (includes(options.insertionIndices, i)) {
+      result = result.substr(0, i) + separator + result.substr(i);
     }
-  } else {
-    result = result.substr(0, position) + newChar + result.substr(position);
   }
+
   return result;
 }
-
-
 
 export {
   acronymize,
   append,
+  insertAt,
   styleElement,
-  validProps,
-  insertAt
+  validProps
 };

@@ -1,32 +1,63 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Textarea from './textarea';
 
 describe('Textarea', () => {
-  let baseInstance;
-  let expandableInstance;
-  let spy = jasmine.createSpy('spy')
+  let baseWrapper, expandableWrapper, overLimitWrapper, notOverLimitWrapper,
+      baseInstance, expandableInstance;
+  let spy = jasmine.createSpy('spy');
 
   beforeEach(() => {
-    baseInstance = TestUtils.renderIntoDocument(<Textarea
-      name="Dummy Area"
-      id="Dummy Area"
-      value={ 'foo' }
-      label={ 'Label' }
-      cols={10}
-      rows={10}
-      onChange={ spy }
-    />);
+    baseWrapper = mount(
+      <Textarea
+        id='Dummy Area'
+        value={ 'foo' }
+        label={ 'Label' }
+        cols={10}
+        rows={10}
+        onChange={ spy }
+      />
+    );
+    baseInstance = baseWrapper.instance();
 
-    expandableInstance = TestUtils.renderIntoDocument(<Textarea
-      name="Dummy Area"
-      value={ 'foo' }
-      label={ 'Label' }
-      expandable={ true }
-      cols={10}
-      rows={10}
-      characterLimit='100'
-      onChange={ spy }
+    expandableWrapper = mount(
+      <Textarea
+        value={ 'foo' }
+        label={ 'Label' }
+        expandable={ true }
+        cols={10}
+        rows={10}
+        characterLimit='100'
+        onChange={ spy }
+      />
+    );
+    expandableInstance = expandableWrapper.instance();
+
+    overLimitWrapper = shallow(
+      <Textarea
+        name="Dummy Area"
+        value={ 'foofoofoofoo' }
+        label={ 'Label' }
+        warnOverLimit={ true }
+        cols={10}
+        rows={10}
+        characterLimit='10'
+        onChange={ spy }
+      />
+    );
+
+    notOverLimitWrapper = shallow(
+      <Textarea
+        name="Dummy Area"
+        value={ 'foofoofoo' }
+        label={ 'Label' }
+        warnOverLimit={ true }
+        cols={10}
+        rows={10}
+        characterLimit='10'
+        onChange={ spy }
     />);
   });
 
@@ -71,17 +102,40 @@ describe('Textarea', () => {
     });
 
     describe('when textarea can be expanded', () => {
+      let wrapper = shallow(
+        <Textarea
+          value={ 'foo' }
+          label={ 'Label' }
+          expandable={ true }
+          cols={10}
+          rows={10}
+          characterLimit='100'
+          onChange={ spy }
+        />
+      );
+
       it('removes the event listener from the window', () => {
-        expandableInstance.componentWillUnmount();
+        wrapper.unmount();
         expect(window.removeEventListener).toHaveBeenCalledWith(
-          'resize', expandableInstance.expandTextarea
+          'resize',jasmine.any(Function)
         );
       });
     });
 
     describe('when textarea cannot be expanded', () => {
+      let wrapper = shallow(
+        <Textarea
+          id='Dummy Area'
+          value={ 'foo' }
+          label={ 'Label' }
+          cols={10}
+          rows={10}
+          onChange={ spy }
+        />
+      );
+
       it('does not remove event listener from the window', () => {
-        baseInstance.componentWillUnmount();
+        wrapper.unmount();
         expect(window.removeEventListener).not.toHaveBeenCalled();
       });
     });
@@ -141,18 +195,46 @@ describe('Textarea', () => {
 
   describe('mainClasses', () => {
     it('returns carbon-textarea and additional decorated classes', () => {
-      expect(baseInstance.mainClasses).toEqual('carbon-textarea common-input');
+      expect(baseWrapper.find('.carbon-textarea.common-input').exists()).toBeTruthy();
     });
   });
 
   describe('inputClasses', () => {
     it('returns carbon-textarea__input and additional decorated classes', () => {
-      expect(baseInstance.inputClasses).toEqual('carbon-textarea__input common-input__input');
+      expect(baseWrapper.find('.carbon-textarea__input.common-input__input').exists()).toBeTruthy();
     });
 
     describe('if the textarea is expandable', () => {
       it('returns an additional disable-scroll class', () => {
-        expect(expandableInstance.inputClasses).toEqual('carbon-textarea__input carbon-textarea__input--disable-scroll common-input__input')
+        expect(expandableWrapper.find('.carbon-textarea__input.carbon-textarea__input--disable-scroll.common-input__input').exists()).toBeTruthy();
+      });
+    });
+  });
+
+  describe('textAreaClasses', () => {
+    it('returns carbon-textarea__character-limit class', () => {
+      expect(notOverLimitWrapper.find('.carbon-textarea__character-limit').exists()).toBeTruthy();
+    });
+
+    describe('overlimit', () => {
+      describe('if the textarea char count is over limit', () => {
+        it('returns an additional over-limit class', () => {
+          expect(overLimitWrapper.find('.carbon-textarea__character-limit.over-limit').exists()).toBeTruthy();
+        });
+      });
+
+      describe('if the textarea value is empty', () => {
+        it('does not add a extra class', () => {
+          overLimitWrapper.setProps({ value: '' });
+          expect(overLimitWrapper.find('.carbon-textarea__character-limit.over-limit').exists()).toBeFalsy();
+        });
+      });
+
+      describe('if the textarea value is under the limit', () => {
+        it('does not add a extra class', () => {
+          overLimitWrapper.setProps({ value: 'foo' });
+          expect(overLimitWrapper.find('.carbon-textarea__character-limit.over-limit').exists()).toBeFalsy();
+        });
       });
     });
   });
@@ -167,7 +249,7 @@ describe('Textarea', () => {
 
     describe('when characterLimit is not set', () => {
       it('returns null', () => {
-        expect(baseInstance.characterCount).toBeUndefined();
+        expect(baseInstance.characterCount).toBeNull();
       });
     });
   });
@@ -207,14 +289,15 @@ describe('Textarea', () => {
         it('does not set a maxLength on the input', () => {
           let instance = TestUtils.renderIntoDocument(
             <Textarea
-              name="Dummy Area"
               label={ 'Label' }
               characterLimit='100'
               enforceCharacterLimit={ false }
             />
           );
           let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'textarea')
-          expect(input.maxLength).toEqual(-1);
+          // https://github.com/tmpvar/jsdom/issues/522
+          // JSDom defaults to 0 instead of -1
+          expect(input.maxLength).toEqual(0);
         });
       });
     });
@@ -237,6 +320,33 @@ describe('Textarea', () => {
       let input = TestUtils.findRenderedDOMComponentWithTag(baseInstance, 'textarea');
       TestUtils.Simulate.change(input);
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('component tags', () => {
+    let wrapper = shallow(
+      <Textarea
+        id='Dummy Area'
+        value={ 'foo' }
+        label={ 'Label' }
+        cols={10}
+        rows={10}
+        onChange={ spy }
+        data-element='bar'
+        data-role='baz'
+      />
+    );
+
+    describe('on component', () => {
+      it('includes correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'textarea', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      it("adds element tags to it's children", () => {
+        elementsTagTest(wrapper, ['character-limit']);
+      });
     });
   });
 });

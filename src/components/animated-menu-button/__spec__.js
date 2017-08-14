@@ -1,22 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import AnimatedMenuButton from './animated-menu-button';
 import Row from 'components/row';
 import Button from 'components/button';
 import Pod from 'components/pod';
-import Device from './../../utils/helpers/devices';
+import Device from 'utils/helpers/devices';
+import Icon from 'components/icon';
 
 describe('AnimatedMenuButton', () => {
-  let basicWidget, labelWidget, customClassWidget, rightWidget, largeWidget, contentWidget, button;
+  let basicWidget, labelWidget, customClassWidget, rightWidget, largeWidget, button, wrapper;
 
+  // test
   beforeEach(() => {
     basicWidget = TestUtils.renderIntoDocument(
       <AnimatedMenuButton />
     );
 
     labelWidget = TestUtils.renderIntoDocument(
-      <AnimatedMenuButton label="Create..." />
+      <AnimatedMenuButton label='Create...' />
     );
 
     customClassWidget = TestUtils.renderIntoDocument(
@@ -31,24 +35,7 @@ describe('AnimatedMenuButton', () => {
       <AnimatedMenuButton size='large'/>
     );
 
-    contentWidget = TestUtils.renderIntoDocument(
-      <AnimatedMenuButton>
-        <Row>
-          <Pod>
-            <h2 className="title">Column 1</h2>
-            Finances
-          </Pod>
-          <Pod>
-            <h2 className="title">Column 2</h2>
-            <Button>Forecast</Button>
-          </Pod>
-          <Pod>
-            <h2 className="title">Column 3</h2>
-            <a href='#'>Budget</a>
-          </Pod>
-        </Row>
-      </AnimatedMenuButton>
-    );
+    wrapper = shallow(<AnimatedMenuButton label='Create...' data-element='bar' data-role='baz'/>)
 
     spyOn(basicWidget, 'setState').and.callThrough();
   });
@@ -153,8 +140,26 @@ describe('AnimatedMenuButton', () => {
 
   describe('innerHTML', () => {
     it('returns the HTML for the content', () => {
-      expect(contentWidget.innerHTML().props.className).toEqual('carbon-animated-menu-button__content');
-      expect(contentWidget.innerHTML().props.children.length).toEqual(3);
+      const wrapper = shallow(
+        <AnimatedMenuButton>
+          <Pod>
+            <h2 className='title'>Column 1</h2>
+            Finances
+          </Pod>
+          <Pod>
+            <h2 className='title'>Column 2</h2>
+            <Button>Forecast</Button>
+          </Pod>
+          <Pod>
+            <h2 className='title'>Column 3</h2>
+            <a href='#'>Budget</a>
+          </Pod>
+        </AnimatedMenuButton>
+      );
+      wrapper.setState({ open: true });
+      const innerHtml = wrapper.find('.carbon-animated-menu-button__content');
+      expect(innerHtml.exists()).toBe(true);
+      expect(innerHtml.find(Pod).length).toEqual(3);
     });
 
     describe('when it is a touch device', () => {

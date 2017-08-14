@@ -1,9 +1,9 @@
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { assign } from 'lodash';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
-import classNames from 'classnames';
-import { assign } from 'lodash';
 
 /**
  * InputValidation decorator.
@@ -38,7 +38,7 @@ import { assign } from 'lodash';
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
-let InputValidation = (ComposedComponent) => class Component extends ComposedComponent {
+const InputValidation = ComposedComponent => class Component extends ComposedComponent {
 
   _window = window;
 
@@ -69,6 +69,17 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     this.state.warning = false;
 
     /**
+     * The inputs info state.
+     * true: has info
+     * false: has no info
+     *
+     * @property info
+     * @type {Boolean}
+     * @default false
+     */
+    this.state.info = false;
+
+    /**
      * The inputs error message.
      *
      * @property errorMessage
@@ -85,6 +96,15 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
      * @default null
      */
     this.state.warningMessage = null;
+
+    /**
+     * The inputs info message.
+     *
+     * @property infoMessage
+     * @type {String}
+     * @default null
+     */
+    this.state.infoMessage = null;
 
     /**
      * Determines if the message should always be visible.
@@ -113,8 +133,9 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: React.PropTypes.object,
-    tab: React.PropTypes.object
+    form: PropTypes.object,
+    tab: PropTypes.object,
+    modal: PropTypes.object
   });
 
   static propTypes = assign({}, ComposedComponent.propTypes, {
@@ -125,7 +146,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
      * @property
      * @type {Array}
      */
-    validations: React.PropTypes.array,
+    validations: PropTypes.array,
 
     /**
      * Array of warnings to apply to this input
@@ -133,7 +154,15 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
      * @property
      * @type {Array}
      */
-    warnings: React.PropTypes.array
+    warnings: PropTypes.array,
+
+    /**
+     * Array of info to apply to this input
+     *
+     * @property
+     * @type {Array}
+     */
+    info: PropTypes.array
   });
 
   /**
@@ -156,13 +185,18 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       if (this.messageExists() && (nextProps.value !== this.props.value)) {
         let contentChanged = false;
 
+        if (!this.state.valid && this.validate(nextProps.value)) {
+          this.setState({ valid: true });
+          contentChanged = true;
+        }
+
         if (this.state.warning && !this.warning(nextProps.value)) {
           this.setState({ warning: false });
           contentChanged = true;
         }
 
-        if (!this.state.valid && this.validate(nextProps.value)) {
-          this.setState({ valid: true });
+        if (this.state.info && !this.info(nextProps.value)) {
+          this.setState({ info: false });
           contentChanged = true;
         }
 
@@ -181,9 +215,10 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    */
   componentWillMount() {
     // call the components super method if it exists
+    /* istanbul ignore else */
     if (super.componentWillMount) { super.componentWillMount(); }
 
-    if (this.context.form && (this.props.validations || this.props.warnings)) {
+    if (this.context.form && (this._validations() || this.props.warnings || this.props.info)) {
       // attach the input to the form so the form can track what it needs to validate on submit
       this.context.form.attachToForm(this);
     }
@@ -197,9 +232,10 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    */
   componentWillUnmount() {
     // call the components super method if it exists
+    /* istanbul ignore else */
     if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
-    if ((this.props.validations || this.props.warnings)) {
+    if (this._validations() || this.props.warnings || this.props.info) {
       this._handleContentChange();
       if (this.isAttachedToForm) {
         this.context.form.detachFromForm(this);
@@ -214,33 +250,84 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {Void}
    */
   positionMessage = () => {
-    if (!this.state.valid || this.state.warning) {
+    if (!this.state.valid || this.state.warning || this.state.info) {
       // calculate the position for the message relative to the icon
-      let icon = ReactDOM.findDOMNode(this.refs.validationIcon),
-          message = this.refs.validationMessage;
+      const icon = this.validationIcon._target,
+          message = this.validationMessage;
 
       if (icon && message && message.offsetHeight) {
-        let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2)),
-            topOffset = icon.offsetTop - icon.offsetHeight;
+        let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2));
+        const topOffset = icon.offsetTop - icon.offsetHeight,
+            messageOffsetWidth = message.offsetWidth;
 
         // set initial position for message
         message.style.left = `${messagePositionLeft}px`;
         message.style.top = `-${message.offsetHeight - topOffset}px`;
 
         // figure out if the message is positioned offscreen
-        let messageScreenPosition = message.getBoundingClientRect().left + message.offsetWidth;
+        const messageScreenPosition = message.getBoundingClientRect().left + messageOffsetWidth;
+
+        let shouldFlip = false;
 
         // change the position if it is offscreen
-        if (messageScreenPosition > this._window.innerWidth) {
-          messagePositionLeft -= message.offsetWidth;
+        if (this.context.modal && this.context.modal.getDialog()) {
+          // if in a modal check its position relative to that
+          const dialog = this.context.modal.getDialog();
+          shouldFlip = (message.offsetLeft + this._target.offsetLeft + messageOffsetWidth) > dialog.offsetWidth;
+        } else {
+          // otherwise check relative to the window
+          shouldFlip = messageScreenPosition > this._window.innerWidth;
+        }
+
+        if (shouldFlip) {
+          messagePositionLeft -= messageOffsetWidth;
           message.style.left = `${messagePositionLeft}px`;
-          message.className += " common-input__message--flipped";
+          message.className += ' common-input__message--flipped';
           this.flipped = true;
         } else {
-          message.classList.remove("common-input__message--flipped");
+          message.classList.remove('common-input__message--flipped');
           this.flipped = false;
         }
       }
+    }
+  }
+
+  /**
+   * Checks for validations and returns boolean defining if field valid.
+   *
+   * @method info
+   * @return {Boolean}
+   */
+  info = (value = this.props.value) => {
+    let valid = true;
+    // if there is no info or there is an error on the input, return true
+    if (!this.props.info || !this.state.valid) {
+      return true;
+    }
+
+    // iterate through each validation applied to the input
+    for (let i = 0; i < this.props.info.length; i++) {
+      const info = this.props.info[i];
+
+      // run this validation
+      valid = info.validate(value, this.props, this.updateInfo);
+      this.updateInfo(valid, value, info);
+      if (!valid) { break; }
+    }
+
+    // return the result of the validation
+    return valid;
+  }
+
+  /**
+   * Provides a callback method for info to support Ajax
+   *
+   * @method updateInfo
+   * @return {void}
+   */
+  updateInfo = (valid, value, info) => {
+    if (!valid && !this.state.info) {
+      this.setState({ infoMessage: info.message(value, this.props), info: true });
     }
   }
 
@@ -259,7 +346,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
 
     // iterate through each validation applied to the input
     for (let i = 0; i < this.props.warnings.length; i++) {
-      let warning = this.props.warnings[i];
+      const warning = this.props.warnings[i];
 
       // run this validation
       valid = warning.validate(value, this.props, this.updateWarning);
@@ -310,13 +397,13 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     let valid = false;
 
     // if there are no validation, return truthy
-    if (!this.props.validations || this.props._placeholder) {
+    if (!this._validations() || this.props._placeholder) {
       return true;
     }
 
     // iterate through each validation applied to the input
-    for (let i = 0; i < this.props.validations.length; i++) {
-      let validation = this.props.validations[i];
+    for (let i = 0; i < this._validations().length; i++) {
+      const validation = this._validations()[i];
 
       // run this validation
       valid = validation.validate(value, this.props, this.updateValidation);
@@ -373,6 +460,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       setTimeout(() => {
         this.validate();
         this.warning();
+        this.info();
 
         if (this.state.messageLocked) {
           this.setState({ messageLocked: false });
@@ -388,7 +476,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {void}
    */
   _handleFocus = () => {
-    if (!this.state.valid || this.state.warning) {
+    if (!this.state.valid || this.state.warning || this.state.info) {
       this.positionMessage();
 
       if (!this.state.messageLocked) {
@@ -405,7 +493,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    */
   _handleContentChange = () => {
     // if the field is in an invalid state
-    if (!this.state.valid || this.state.warning) {
+    if (!this.state.valid || this.state.warning || this.state.info) {
       // if there is a form, decrement the error count
       if (this.isAttachedToForm) {
         if (!this.state.valid) {
@@ -423,7 +511,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       }
 
       // reset the error state
-      this.setState({ errorMessage: null, valid: true, warning: false });
+      this.setState({ errorMessage: null, valid: true, warning: false, info: false });
     }
   }
 
@@ -451,7 +539,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {Boolean} whether or not a message exists
    */
   messageExists = () => {
-    return !this.state.valid || this.state.warning;
+    return !this.state.valid || this.state.warning || this.state.info;
   }
 
   /**
@@ -517,26 +605,50 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {HTML} Validation HTML including icon & message
    */
   get validationHTML() {
-    if (this.state.valid && !this.state.warning) { return null; }
+    let type = '';
 
-    let type = !this.state.valid ? "error" : "warning";
+    if (this.state.valid && !this.state.warning && !this.state.info) { return null; }
 
-    let messageClasses = `common-input__message common-input__message--${type}`,
-        iconClasses = `common-input__icon common-input__icon--${type}`;
+    if (!this.state.valid) {
+      type = 'error';
+    } else if (this.state.warning) {
+      type = 'warning';
+    } else {
+      type = 'info';
+    }
+
+    let messageClasses = `common-input__message common-input__message--${type}`;
+    const iconClasses = `common-input__icon common-input__icon--${type}`;
 
     // position icon relative to width of label
-    let iconStyle = this.props.labelWidth ?
-      { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` } :
-      null;
+    let iconStyle = {};
 
-    if (this.state.messageLocked) { messageClasses += " common-input__message--locked"; }
-    if (this.flipped) { messageClasses += " common-input__message--flipped"; }
+    if (this.props.labelWidth) {
+      iconStyle = { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` };
+    }
+
+    if (this.state.messageLocked) { messageClasses += ' common-input__message--locked'; }
+    if (this.flipped) { messageClasses += ' common-input__message--flipped'; }
 
     return [
-      <Icon key="0" ref="validationIcon" type={ type } className={ iconClasses } style={ iconStyle } />,
-      <div key="1" className="common-input__message-wrapper" onMouseOver={ this.showMessage } onMouseOut={ this.hideMessage }>
-        <div ref="validationMessage" className={ messageClasses }>
-          { this.state.errorMessage || this.state.warningMessage }
+      <Icon
+        key='0'
+        ref={ (validationIcon) => { this.validationIcon = validationIcon; } }
+        type={ type }
+        className={ iconClasses }
+        style={ iconStyle }
+      />,
+      <div
+        key='1'
+        className='common-input__message-wrapper'
+        onMouseOver={ this.showMessage }
+        onMouseOut={ this.hideMessage }
+      >
+        <div
+          ref={ (validationMessage) => { this.validationMessage = validationMessage; } }
+          className={ messageClasses }
+        >
+          { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
         </div>
       </div>
     ];
@@ -553,6 +665,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
       super.mainClasses, {
         'common-input--error': !this.state.valid,
         'common-input--warning': this.state.warning,
+        'common-input--info': this.state.info,
         'common-input--message-hidden': this.state.immediatelyHideMessage,
         'common-input--message-shown': this.state.messageShown
       }
@@ -569,7 +682,8 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     return classNames(
       super.inputClasses, {
         'common-input__input--error': !this.state.valid,
-        'common-input__input--warning': this.state.warning
+        'common-input__input--warning': this.state.warning,
+        'common-input__input--info': this.state.info
       }
     );
   }
@@ -581,7 +695,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
    * @return {Object} Input props
    */
   get inputProps() {
-    let inputProps = super.inputProps || {};
+    const inputProps = super.inputProps || {};
 
     inputProps.onMouseOver = chainFunctions(this.positionMessage, inputProps.onMouseOver);
     inputProps.onFocus = chainFunctions(this._handleFocus, inputProps.onFocus);
@@ -593,7 +707,7 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
   }
 
   get fieldProps() {
-    let fieldProps = super.fieldProps || {};
+    const fieldProps = super.fieldProps || {};
 
     fieldProps.onMouseOut = chainFunctions(this.hideMessage, fieldProps.onMouseOut);
     fieldProps.onMouseOver = chainFunctions(this.showMessage, fieldProps.onMouseOver);
@@ -611,6 +725,16 @@ let InputValidation = (ComposedComponent) => class Component extends ComposedCom
     return this.context.form && (this.context.form.getActiveInput() === this);
   }
 
+  /**
+   * Merges passed prop validations with internal component validations
+   *
+   * @method _validations
+   * @return {Array} validations
+   */
+  _validations = () => {
+    const validations = (this.props.validations || []).concat(this.props.internalValidations || []);
+    return validations.length ? validations : null;
+  }
 };
 
 export default InputValidation;

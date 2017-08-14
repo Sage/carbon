@@ -1,10 +1,19 @@
-import React from 'react';
-import Button from './../button';
-import I18n from "i18n-js";
-import Serialize from "form-serialize";
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Serialize from 'form-serialize';
+import { kebabCase } from 'lodash';
+
+import CancelButton from './cancel-button';
+import FormSummary from './form-summary';
+import SaveButton from './save-button';
+import AppWrapper from './../app-wrapper';
+
 import { validProps } from '../../utils/ether';
-import { assign } from 'lodash';
+import tagComponent from '../../utils/helpers/tags';
+import Browser from './../../utils/helpers/browser';
+
+import ElementResize from './../../utils/helpers/element-resize';
 
 /**
  * A Form widget.
@@ -31,24 +40,6 @@ import { assign } from 'lodash';
  * @constructor
  */
 class Form extends React.Component {
-  /**
-   * stores the document - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _document
-   * @type {document}
-   */
-  _document = document;
-
-  /**
-   * stores the window - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _window
-   * @type {window}
-   */
-  _window = window;
-
   static propTypes = {
 
     /**
@@ -58,7 +49,7 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default true
      */
-    cancel: React.PropTypes.bool,
+    cancel: PropTypes.bool,
 
     /**
      * Custom function that is called immediately
@@ -67,7 +58,7 @@ class Form extends React.Component {
      * @property afterFormValidation
      * @type {Function}
      */
-    afterFormValidation: React.PropTypes.func,
+    afterFormValidation: PropTypes.func,
 
     /**
      * Custom function that is called immediately
@@ -76,15 +67,14 @@ class Form extends React.Component {
      * @property beforeFormValidation
      * @type {Function}
      */
-    beforeFormValidation: React.PropTypes.func,
+    beforeFormValidation: PropTypes.func,
 
     /**
      * Alignment of submit button
-     *
      * @ property
      * @type {String}
      */
-    buttonAlign: React.PropTypes.string,
+    buttonAlign: PropTypes.string,
 
     /**
      * Determines if the form is in a saving state
@@ -93,7 +83,23 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    saving: React.PropTypes.bool,
+    saving: PropTypes.bool,
+
+    /**
+     * Enables the sticky footer.
+     *
+     * @property stickyFooter
+     * @type {Boolean}
+     */
+    stickyFooter: PropTypes.bool,
+
+    /**
+     * Applies additional padding to the sticky footer, useful to align buttons.
+     *
+     * @property stickyFooterPadding
+     * @type {String}
+     */
+    stickyFooterPadding: PropTypes.string,
 
     /**
      * If true, will validate the form on mount
@@ -102,7 +108,7 @@ class Form extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    validateOnMount: React.PropTypes.bool,
+    validateOnMount: PropTypes.bool,
 
     /**
      * Text for the cancel button
@@ -111,7 +117,7 @@ class Form extends React.Component {
      * @type {String}
      * @default "Cancel"
      */
-    cancelText: React.PropTypes.string,
+    cancelText: PropTypes.string,
 
     /**
      * Properties for the cancel button
@@ -119,7 +125,7 @@ class Form extends React.Component {
      * @property cancelButtonProps
      * @type {Object}
      */
-    cancelButtonProps: React.PropTypes.object,
+    cancelButtonProps: PropTypes.object,
 
     /**
      * Text for the save button
@@ -128,7 +134,7 @@ class Form extends React.Component {
      * @type {String}
      * @default "Save"
      */
-    saveText: React.PropTypes.string,
+    saveText: PropTypes.string,
 
     /**
      * Properties for the save button
@@ -136,7 +142,7 @@ class Form extends React.Component {
      * @property saveButtonProps
      * @type {Object}
      */
-    saveButtonProps: React.PropTypes.object,
+    saveButtonProps: PropTypes.object,
 
     /**
      * Custom function for Cancel button onClick
@@ -144,7 +150,7 @@ class Form extends React.Component {
      * @property onCancel
      * @type {Function}
      */
-    onCancel: React.PropTypes.func,
+    onCancel: PropTypes.func,
 
     /**
      * Hide or show the save button
@@ -152,7 +158,7 @@ class Form extends React.Component {
      * @property saveFalse
      * @type {Boolean}
      */
-    save: React.PropTypes.bool,
+    save: PropTypes.bool,
 
     /**
      * Additional actions rendered next to the save and cancel buttons
@@ -160,7 +166,23 @@ class Form extends React.Component {
      * @property additionalActions
      * @type {String|JSX}
      */
-    additionalActions: React.PropTypes.node,
+    additionalActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
+
+    /**
+     * Additional actions rendered and aligned left to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    leftAlignedActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
+
+    /**
+     * Additional actions rendered and aligned right to the save and cancel buttons
+     *
+     * @property additionalActions
+     * @type {String|JSX}
+     */
+    rightAlignedActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Custom callback for when form will submit
@@ -168,7 +190,39 @@ class Form extends React.Component {
      * @property onSubmit
      * @type {Function}
      */
-    onSubmit: React.PropTypes.func
+    onSubmit: PropTypes.func,
+
+    /**
+     * Override Save Button
+     *
+     * @property customSaveButton
+     * @type {Node}
+     */
+    customSaveButton: PropTypes.node,
+
+    /**
+     * A custom class name for the component.
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
+     * Hide or show the summary
+     *
+     * @property showSummary
+     * @type {Boolean}
+     */
+    showSummary: PropTypes.bool
   }
 
   static defaultProps = {
@@ -177,7 +231,9 @@ class Form extends React.Component {
     cancel: true,
     save: true,
     saving: false,
-    validateOnMount: false
+    validateOnMount: false,
+    customSaveButton: null,
+    showSummary: true
   }
 
   static childContextTypes = {
@@ -188,11 +244,29 @@ class Form extends React.Component {
      * @property form
      * @type {Object}
      */
-    form: React.PropTypes.object
+    form: PropTypes.object
   }
 
   static contextTypes = {
-    modal: React.PropTypes.object
+    modal: PropTypes.object
+  }
+
+  state = {
+    /**
+     * Tracks the number of errors in the form
+     *
+     * @property errorCount
+     * @type {Number}
+     */
+    errorCount: 0,
+
+    /**
+     * Tracks the number of warnings in the form
+     *
+     * @property warningCount
+     * @type {Number}
+     */
+    warningCount: 0
   }
 
   /**
@@ -216,6 +290,38 @@ class Form extends React.Component {
         validate: this.validate
       }
     };
+  }
+
+  /**
+   * Runs once the component has mounted.
+   *
+   * @method componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    if (this.props.stickyFooter) {
+      this.addStickyFooterListeners();
+    }
+
+    if (this.props.validateOnMount) {
+      this.validate();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.stickyFooter && !this.props.stickyFooter) {
+      this.addStickyFooterListeners();
+    }
+
+    if (!nextProps.stickyFooter && this.props.stickyFooter) {
+      this.removeStickyFooterListeners();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.stickyFooter) {
+      this.removeStickyFooterListeners();
+    }
   }
 
   /**
@@ -243,6 +349,55 @@ class Form extends React.Component {
     this.activeInput = input;
   }
 
+  addStickyFooterListeners = () => {
+    this.checkStickyFooter();
+    ElementResize.addListener(this._form, this.checkStickyFooter);
+    this._window.addEventListener('resize', this.checkStickyFooter);
+    this._window.addEventListener('scroll', this.checkStickyFooter);
+  }
+
+  removeStickyFooterListeners = () => {
+    ElementResize.removeListener(this._form, this.checkStickyFooter);
+    this._window.removeEventListener('resize', this.checkStickyFooter);
+    this._window.removeEventListener('scroll', this.checkStickyFooter);
+  }
+
+  checkStickyFooter = () => {
+    let offsetTop = 0,
+        element = this._form;
+
+    while (element) {
+      offsetTop += element.offsetTop;
+      element = element.offsetParent;
+    }
+
+    const formHeight = (offsetTop + this._form.offsetHeight) - this._window.pageYOffset;
+
+    if (!this.state.stickyFooter && formHeight > this._window.innerHeight) {
+      this.setState({ stickyFooter: true });
+    } else if (this.state.stickyFooter && formHeight < this._window.innerHeight) {
+      this.setState({ stickyFooter: false });
+    }
+  }
+
+  /**
+   * stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _document
+   * @type {document}
+   */
+  _document = Browser.getDocument();
+
+  /**
+   * stores the window - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _window
+   * @type {window}
+   */
+  _window = Browser.getWindow();
+
   /**
    * @method activeInputHasValidation
    * @param {}
@@ -250,24 +405,6 @@ class Form extends React.Component {
    */
   activeInputExistsAndHasValidation = () => {
     return this.activeInput && this.activeInput.immediatelyHideMessage;
-  }
-
-  state = {
-    /**
-     * Tracks the number of errors in the form
-     *
-     * @property errorCount
-     * @type {Number}
-     */
-    errorCount: 0,
-
-    /**
-     * Tracks the number of warnings in the form
-     *
-     * @property warningCount
-     * @type {Number}
-     */
-    warningCount: 0
   }
 
   /**
@@ -295,18 +432,6 @@ class Form extends React.Component {
    * @type {Number}
    */
   warningCount = 0;
-
-  /**
-   * Runs once the component has mounted.
-   *
-   * @method componentDidMount
-   * @return {void}
-   */
-  componentDidMount() {
-    if (this.props.validateOnMount) {
-      this.validate();
-    }
-  }
 
   /**
    * Increase current error count in state by 1.
@@ -386,7 +511,7 @@ class Form extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    let valid = this.validate();
+    const valid = this.validate();
 
     if (!valid) { ev.preventDefault(); }
 
@@ -409,12 +534,12 @@ class Form extends React.Component {
     let valid = true,
         errors = 0;
 
-    for (let key in this.inputs) {
-      let input = this.inputs[key];
+    for (const key in this.inputs) {
+      const input = this.inputs[key];
 
       if (!input.props.disabled && !input.validate()) {
         valid = false;
-        errors++;
+        errors += 1;
       }
     }
 
@@ -432,7 +557,7 @@ class Form extends React.Component {
    * @return {Object} Serialized object of fields
    */
   serialize = (opts) => {
-    return Serialize(this.refs.form, opts);
+    return Serialize(this._form, opts);
   }
 
   /**
@@ -442,7 +567,8 @@ class Form extends React.Component {
    * @return {Object} props for form element
    */
   htmlProps = () => {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
+    delete props.activeInput;
     delete props.onSubmit;
     props.className = this.mainClasses;
     return props;
@@ -469,6 +595,119 @@ class Form extends React.Component {
   }
 
   /**
+   * Gets the cancel button for the form
+   *
+   * @method cancelButton
+   * @return {Object} JSX cancel button
+   */
+  cancelButton = () => {
+    if (!this.props.cancel) { return null; }
+
+    const cancelProps = {
+      cancelText: this.props.cancelText,
+      cancelClick: this.cancelForm,
+      ...this.props.cancelButtonProps
+    };
+
+    return (
+      <CancelButton
+        data-element='cancel'
+        { ...cancelProps }
+      />
+    );
+  }
+
+  /**
+   * Gets any additional actions passed into the form
+   *
+   * @method additionalActions
+   * @return {Object} JSX
+   */
+  additionalActions = (type) => {
+    if (!this.props[type]) { return null; }
+
+    return (
+      <div className={ `carbon-form__${kebabCase(type)}` } >
+        { this.props[type] }
+      </div>
+    );
+  }
+
+  /**
+   * The default Save button for the form
+   *
+   * @method defaultSaveButton
+   * @return {Object} JSX
+   */
+  defaultSaveButton = () => {
+    return (
+      <SaveButton
+        saveButtonProps={ this.props.saveButtonProps }
+        saveText={ this.props.saveText }
+        saving={ this.props.saving }
+      />
+    );
+  }
+
+  /**
+   * Returns a custom save button if passed in
+   * the default if not
+   *
+   * @method saveButton
+   * @return {Object} JSX
+   */
+  saveButton = () => {
+    if (!this.props.save) { return null; }
+
+    return this.props.customSaveButton ? this.props.customSaveButton : this.defaultSaveButton();
+  }
+
+  /**
+   * Returns a form summary
+   *
+   * @method saveButtonWithSummary
+   * @return {Object} JSX
+   */
+  saveButtonWithSummary = () => {
+    return (
+      <FormSummary
+        className='carbon-form__summary'
+        errors={ this.state.errorCount }
+        warnings={ this.state.warningCount }
+      >
+        { this.saveButton() }
+      </FormSummary>
+    );
+  }
+
+  /**
+   * Returns the footer for the form
+   *
+   * @method footer
+   * @return {Object} JSX
+   */
+  formFooter = () => {
+    const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
+    let padding = this.props.stickyFooterPadding;
+
+    if (padding && !padding.match(/px$/)) {
+      padding = `${padding}px`;
+    }
+
+    return (
+      <div className='carbon-form__footer-wrapper'>
+        <AppWrapper className={ this.footerClasses } style={ { borderWidth: padding } }>
+          { this.additionalActions('leftAlignedActions') }
+          { this.additionalActions('rightAlignedActions') }
+          { save }
+          { this.cancelButton() }
+          { this.additionalActions('additionalActions') }
+        </AppWrapper>
+      </div>
+    );
+  }
+
+  /**
    * Main class getter
    *
    * @method mainClasses
@@ -477,75 +716,22 @@ class Form extends React.Component {
   get mainClasses() {
     return classNames(
       'carbon-form',
-      this.props.className
+      this.props.className, {
+        'carbon-form--sticky-footer': this.state.stickyFooter
+      }
     );
   }
 
-  get buttonClasses() {
+  /**
+   * Button class getter
+   *
+   * @method buttonClasses
+   * @return {String} Main className
+   */
+  get footerClasses() {
     return classNames(
       'carbon-form__buttons',
-      `carbon-form__buttons--${ this.props.buttonAlign }`
-    );
-  }
-
-  /**
-   * Gets the cancel button for the form
-   *
-   * @method cancelButton
-   * @return {Object} JSX cancel button
-   */
-  get cancelButton() {
-    let cancelClasses = "carbon-form__cancel",
-        cancelProps = assign({}, this.props.cancelButtonProps, { type: 'button', onClick: this.cancelForm });
-
-    return (<div className={ cancelClasses }>
-      <Button { ...cancelProps }>
-        { this.props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' }) }
-      </Button>
-    </div>);
-  }
-
-  get additionalActions() {
-    if (!this.props.additionalActions) { return null; }
-
-    return (
-      <div className='carbon-form__additional-actions' >
-        { this.props.additionalActions }
-      </div>
-    );
-  }
-
-  /**
-   * Gets the save button for the form
-   * @method saveButton
-   * @return {Object} JSX save button
-   */
-  get saveButton() {
-    let errorCount,
-        saveClasses = classNames(
-          "carbon-form__save", {
-            "carbon-form__save--invalid": this.state.errorCount || this.state.warningCount
-          }
-        ),
-        saveProps = assign({}, this.props.saveButtonProps, { as: 'primary', disabled: this.props.saving });
-
-    if (this.state.errorCount || this.state.warningCount) {
-      // set error message (allow for HTML in the message - https://facebook.github.io/react/tips/dangerously-set-inner-html.html)
-      errorCount = (
-        <span
-          className="carbon-form__summary"
-          dangerouslySetInnerHTML={ renderMessage(this.state.errorCount, this.state.warningCount) }
-        />
-      );
-    }
-
-    return (
-      <div className={ saveClasses }>
-        { errorCount }
-        <Button { ...saveProps }>
-          { this.props.saveText || I18n.t('actions.save', { defaultValue: 'Save' }) }
-        </Button>
-      </div>
+      `carbon-form__buttons--${this.props.buttonAlign}`
     );
   }
 
@@ -556,27 +742,18 @@ class Form extends React.Component {
    * @return {Object} JSX form
    */
   render() {
-    let cancelButton, saveButton;
-
-    if (this.props.cancel) {
-      cancelButton = this.cancelButton;
-    }
-
-    if (this.props.save) {
-      saveButton = this.saveButton;
-    }
-
     return (
-      <form onSubmit={ this.handleOnSubmit } { ...this.htmlProps() } ref="form">
+      <form
+        onSubmit={ this.handleOnSubmit }
+        { ...this.htmlProps() }
+        ref={ (form) => { this._form = form; } }
+        { ...tagComponent('form', this.props) }
+      >
         { generateCSRFToken(this._document) }
 
         { this.props.children }
 
-        <div className={ this.buttonClasses }>
-          { saveButton }
-          { cancelButton }
-          { this.additionalActions }
-        </div>
+        { this.formFooter() }
       </form>
     );
   }
@@ -591,64 +768,13 @@ class Form extends React.Component {
  * @return {Object} JSX hidden CSRF token
  */
 function generateCSRFToken(doc) {
-  let meta = doc.getElementsByTagName('meta'),
-      csrfAttr,
-      csrfValue;
+  const csrfParam = doc.querySelector('meta[name="csrf-param"]');
+  const csrfToken = doc.querySelector('meta[name="csrf-token"]');
 
-  for (var i = 0; i < meta.length; i++) {
-    var item = meta[i];
+  const csrfAttr = csrfParam ? csrfParam.getAttribute('content') : '';
+  const csrfValue = csrfToken ? csrfToken.getAttribute('content') : '';
 
-    if (item.getAttribute('name') === 'csrf-param') {
-      csrfAttr = item.getAttribute('content');
-    } else if (item.getAttribute('name') === 'csrf-token') {
-      csrfValue = item.getAttribute('content');
-    }
-  }
-
-  return <input type="hidden" name={ csrfAttr } value={ csrfValue } readOnly="true" />;
-}
-
-/**
- * Constructs validations error message
- *
- * @private
- * @method renderMessage
- * @param {Integer} count number of errors
- * @param {Integer} count number of warnings
- * @return {Object} JSX Error message
- */
-function renderMessage(errors, warnings) {
-  let message;
-
-  if (errors) {
-    message =  I18n.t("errors.messages.form_summary.errors", {
-      defaultValue: {
-        one: `There is ${ errors } error`,
-        other: `There are ${ errors } errors`
-      },
-      count: errors
-    });
-  }
-
-  if (errors && warnings) {
-    message +=  I18n.t("errors.messages.form_summary.errors_and_warnings", {
-      defaultValue: {
-        one: ` and ${ warnings } warning`,
-        other: ` and ${ warnings } warnings`
-      },
-      count: warnings
-    });
-  } else if (warnings) {
-    message =  I18n.t("errors.messages.form_summary.warnings", {
-      defaultValue: {
-        one: `There is ${ warnings } warning`,
-        other: `There are ${ warnings } warnings`
-      },
-      count: warnings
-    });
-  }
-
-  return { __html: message };
+  return <input type='hidden' name={ csrfAttr } value={ csrfValue } readOnly='true' />;
 }
 
 export default Form;

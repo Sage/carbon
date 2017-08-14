@@ -1,7 +1,7 @@
 /**
  * Helper methods to detect the device type.
  */
-let Devices = {
+const Devices = {
   /**
    * Determines if device supports touch events.
    *
@@ -11,7 +11,6 @@ let Devices = {
    * @return {Boolean}
    */
   isTouchDevice(win = window, nav = navigator) {
-
     return (('ontouchstart' in win)
          || (nav.MaxTouchPoints > 0)
          || (nav.msMaxTouchPoints > 0));

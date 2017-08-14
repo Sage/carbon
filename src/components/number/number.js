@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A number widget. It only allows entering of a whole number with an
@@ -25,6 +27,32 @@ import { validProps } from '../../utils/ether';
  */
 const Number = Input(InputLabel(InputValidation(
 class Number extends React.Component {
+
+  static propTypes = {
+    /**
+     * A custom class name for the component.
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string,
+
+    /**
+     * The value of the Number input element
+     *
+     * @property value
+     * @type {String}
+     */
+    value: PropTypes.string,
+
+    /**
+     * Event handler for the keyDown event
+     *
+     * @property onKeyDown
+     * @type {Function}
+     */
+    onKeyDown: PropTypes.func
+  }
 
   /**
    * Main Class getter
@@ -93,7 +121,7 @@ class Number extends React.Component {
    * @return {Object} props for the input
    */
   get inputProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
     props.className = this.inputClasses;
     props.onChange = this.handleOnChange;
     props.onKeyDown = this.handleKeyDown;
@@ -108,7 +136,7 @@ class Number extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div className={ this.mainClasses } { ...tagComponent('number', this.props) }>
 
         { this.labelHTML }
         { this.inputHTML }
@@ -130,9 +158,8 @@ class Number extends React.Component {
  * @return {Boolean} true if value is valid number
  */
 function isValidNumber(value) {
-  let regex, result;
-  regex = new RegExp('^[-]?[0-9]*$');
-  result = regex.test(value);
+  const regex = new RegExp('^[-]?[0-9]*$');
+  const result = regex.test(value);
 
   return result;
 }

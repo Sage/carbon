@@ -1,10 +1,13 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
 import ShowEditPod from './show-edit-pod';
 import Form from './../form';
 import Textbox from './../textbox';
 import Pod from './../pod';
 import Events from './../../utils/helpers/events'
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+
+import { shallow } from 'enzyme';
 
 import ReactDOM from 'react-dom';
 
@@ -340,6 +343,72 @@ describe('ShowEditPod', () => {
   describe('render', () => {
     it('renders a parent pod', () => {
       TestUtils.findRenderedComponentWithType(instance, Pod);
+    });
+  });
+
+  describe("edit form props", () => {
+    it("creates a Form with the expected props when editing is set to true", () => {
+      let beforeFormValidation = jasmine.createSpy(),
+          wrapper = shallow(
+            <ShowEditPod
+              beforeFormValidation={ beforeFormValidation }
+              buttonAlign='left'
+              cancel={ false }
+              cancelText='Cancel Me'
+              editing={ true }
+              saveText='Save Me'
+              saving={ false }
+              validateOnMount={ true }
+            />
+          );
+
+      let editForm = wrapper.find(Form),
+          instance = wrapper.instance()
+
+      let props = editForm.props();
+
+      expect(props.afterFormValidation).toEqual(instance.onSaveEditForm);
+      expect(props.beforeFormValidation).toEqual(beforeFormValidation);
+      expect(props.buttonAlign).toEqual('left');
+      expect(props.cancel).toEqual(false);
+      expect(props.cancelText).toEqual('Cancel Me');
+      expect(props.onCancel).toEqual(instance.onCancelEditForm);
+      expect(props.additionalActions).toEqual(null);
+      expect(props.saveText).toEqual('Save Me');
+      expect(props.saving).toEqual(false);
+      expect(props.validateOnMount).toEqual(true);
+
+      describe("where onDelete is provided", () => {
+        it("should get through to the delete button Link", () => {
+          let onDelete = jasmine.createSpy();
+          wrapper.setProps({ onDelete: onDelete });
+          let deleteButton = shallow(wrapper.find(Form).props().additionalActions).find(Link);
+          expect(deleteButton.props('onClick')).toEqual(onDelete);
+        });
+      });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      let wrapper = shallow(<ShowEditPod data-element='bar' data-role='baz' />);
+
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'show-edit-pod', 'bar', 'baz');
+      });
+    });
+
+    describe("on internal elements", () => {
+      let wrapper = shallow(
+        <ShowEditPod
+          editing={ true }
+          onEdit={ ()=>{} }
+        />
+      );
+
+      elementsTagTest(wrapper, [
+        'edit-form'
+      ]);
     });
   });
 });

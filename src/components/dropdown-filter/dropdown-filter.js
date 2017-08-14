@@ -1,9 +1,10 @@
 import React from 'react';
-import Dropdown from './../dropdown';
+import PropTypes from 'prop-types';
+import { assign } from 'lodash';
 import I18n from 'i18n-js';
 import classNames from 'classnames';
 import escapeStringRegexp from 'escape-string-regexp';
-import { assign } from 'lodash';
+import Dropdown from './../dropdown';
 
 /**
  * A dropdown filter widget.
@@ -78,9 +79,9 @@ class DropdownFilter extends Dropdown {
      * @property value
      * @type {String}
      */
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),
 
     /**
@@ -90,7 +91,7 @@ class DropdownFilter extends Dropdown {
      * @property visibleValue
      * @type {String}
      */
-    visibleValue: React.PropTypes.string,
+    visibleValue: PropTypes.string,
 
     /**
      * The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.
@@ -98,7 +99,7 @@ class DropdownFilter extends Dropdown {
      * @property options
      * @type {object}
      */
-    options: React.PropTypes.object.isRequired,
+    options: PropTypes.object.isRequired,
 
     /**
      * Enables create functionality for dropdown.
@@ -106,7 +107,7 @@ class DropdownFilter extends Dropdown {
      * @property create
      * @type {Function}
      */
-    create: React.PropTypes.func,
+    create: PropTypes.func,
 
     /**
      * Should the dropdown act and look like a suggestable input instead.
@@ -114,7 +115,7 @@ class DropdownFilter extends Dropdown {
      * @property suggest
      * @type {Boolean}
      */
-    suggest: React.PropTypes.bool,
+    suggest: PropTypes.bool,
 
     /**
      * Should the dropdown accept free text as well as suggested options?
@@ -122,7 +123,7 @@ class DropdownFilter extends Dropdown {
      * @property freetext
      * @type {Boolean}
      */
-    freetext: React.PropTypes.bool,
+    freetext: PropTypes.bool,
 
     /**
      * Name for freetext value hidden input containing visibleValue in freetext mode
@@ -130,7 +131,7 @@ class DropdownFilter extends Dropdown {
      * @property freetextName
      * @type {String}
      */
-    freetextName: React.PropTypes.string
+    freetextName: PropTypes.string
   });
 
   /**
@@ -142,7 +143,7 @@ class DropdownFilter extends Dropdown {
    */
   componentWillUpdate(nextProps, nextState) {
     // if list is being opened, set boolean
-    if (this.state.open != nextState.open) {
+    if (this.state.open !== nextState.open) {
       this.openingList = true;
     }
   }
@@ -154,9 +155,9 @@ class DropdownFilter extends Dropdown {
    * @param {String} val
    */
   selectValue(val, visibleVal) {
-    let filter = this.props.freetext ? visibleVal : null;
+    const filter = this.props.freetext ? visibleVal : null;
     super.selectValue(val, visibleVal);
-    this.setState({ filter: filter });
+    this.setState({ filter });
   }
 
   /*
@@ -166,7 +167,7 @@ class DropdownFilter extends Dropdown {
    * @param {Object} ev event
    */
   handleVisibleChange(ev) {
-    let state = {
+    const state = {
       filter: ev.target.value,
       highlighted: null
     };
@@ -183,7 +184,7 @@ class DropdownFilter extends Dropdown {
 
     if (this.props.create) {
       // if create is enabled then empty the selected value so the filter persists
-      this.emitOnChangeCallback("", ev.target.value);
+      this.emitOnChangeCallback('', ev.target.value);
     }
   }
 
@@ -197,16 +198,17 @@ class DropdownFilter extends Dropdown {
       let filter = null;
 
       if (this.props.create || this.props.freetext) { filter = this.state.filter; }
-      this.setState({ open: false, filter: filter });
+      this.setState({ open: false, filter });
 
       if (this.props.freetext) {
         let opt;
 
         if (this.state.filter) {
-          opt = this.props.options.find((opt) => {
-            if (opt.get('name')) {
-              return opt.get('name').toLowerCase() === this.state.filter.toLowerCase();
+          opt = this.props.options.find((option) => {
+            if (option.get('name')) {
+              return option.get('name').toLowerCase() === this.state.filter.toLowerCase();
             }
+            return null;
           });
         }
 
@@ -255,20 +257,22 @@ class DropdownFilter extends Dropdown {
    * @param {Object} options Immutable map of list options
    */
   prepareList = (options) => {
+    let filteredOptions;
     if ((this.writeable || !this.openingList) && typeof this.state.filter === 'string') {
-      let filter = this.state.filter;
-      let regex = new RegExp(escapeStringRegexp(filter), 'i');
+      const filter = this.state.filter;
+      const regex = new RegExp(escapeStringRegexp(filter), 'i');
 
       // if user has entered a search filter
-      options = options.filter((option) => {
-        if (option.name.search(regex) > -1) {
+      filteredOptions = options.filter((option) => {
+        if (option.name && option.name.search(regex) > -1) {
           option.name = this.highlightMatches(option.name, filter);
           return option;
         }
+        return null;
       });
     }
 
-    return options;
+    return filteredOptions || options;
   }
 
   /**
@@ -283,8 +287,8 @@ class DropdownFilter extends Dropdown {
       items = (
         <li className={ 'carbon-dropdown__list-item carbon-dropdown__list-item--no-results' }>
           {
-            I18n.t("dropdownlist.no_results", {
-              defaultValue: "No results match \"%{term}\"",
+            I18n.t('dropdownlist.no_results', {
+              defaultValue: 'No results match "%{term}"',
               term: this.state.filter
             })
           }
@@ -305,12 +309,10 @@ class DropdownFilter extends Dropdown {
 
     if (this.state.highlighted) {
       highlighted = this.state.highlighted;
-    } else {
-      if (!this.state.filter && this.props.value) {
-        highlighted = this.props.value;
-      } else if (this.state.filter && options.length) {
-        highlighted = options[0].id;
-      }
+    } else if (!this.state.filter && this.props.value) {
+      highlighted = this.props.value;
+    } else if (this.state.filter && options.length) {
+      highlighted = options[0].id;
     }
 
     return highlighted;
@@ -322,20 +324,27 @@ class DropdownFilter extends Dropdown {
    * @method listHTML
    */
   get listHTML() {
-    let original = super.listHTML,
+    const original = super.listHTML,
         html = [original];
 
     if (this.state.open && this.props.create) {
-      let text = "Create ";
+      let text = 'Create ';
 
       if (this.state.filter) {
-        text += '"' + this.state.filter + '"';
+        text += `"${this.state.filter}"`;
       } else {
-        text += "New";
+        text += 'New';
       }
 
       html.push(
-        <a key="dropdown-action" className="carbon-dropdown__action" onClick={ this.handleCreate }>{ text }</a>
+        <a
+          className='carbon-dropdown__action'
+          data-element='create'
+          key='dropdown-action'
+          onClick={ this.handleCreate }
+        >
+          { text }
+        </a>
       );
     }
 
@@ -380,7 +389,7 @@ class DropdownFilter extends Dropdown {
    * @method inputClasses
    */
   get inputClasses() {
-    let filtered = !this.props.create && !this.props.freetext && typeof this.state.filter === 'string';
+    const filtered = !this.props.create && !this.props.freetext && typeof this.state.filter === 'string';
     return classNames(super.inputClasses, { 'carbon-dropdown__input--filtered': filtered });
   }
 
@@ -390,7 +399,7 @@ class DropdownFilter extends Dropdown {
    * @method inputProps
    */
   get inputProps() {
-    let props = super.inputProps;
+    const props = super.inputProps;
 
     let value = props.value;
 
@@ -413,9 +422,9 @@ class DropdownFilter extends Dropdown {
    * @return {Object}
    */
   get alternateHiddenInputProps() {
-    let props = {
-      ref: "altHidden",
-      type: "hidden",
+    const props = {
+      ref: 'altHidden',
+      type: 'hidden',
       readOnly: true,
       name: this.props.freetextName,
       value: this.props.visibleValue
@@ -447,18 +456,16 @@ class DropdownFilter extends Dropdown {
   highlightMatches = (optionText, value) => {
     if (!value.length) { return optionText; }
 
-    let beginning, end, middle, newValue, parsedOptionText, valIndex;
-
-    parsedOptionText = optionText.toLowerCase();
-    valIndex = parsedOptionText.indexOf(value);
+    const parsedOptionText = optionText.toLowerCase();
+    const valIndex = parsedOptionText.indexOf(value);
 
     if (valIndex === -1) {
       return optionText;
     }
 
-    beginning = optionText.substr(0, valIndex);
-    middle = optionText.substr(valIndex, value.length);
-    end = optionText.substr(valIndex + value.length, optionText.length);
+    const beginning = optionText.substr(0, valIndex);
+    const middle = optionText.substr(valIndex, value.length);
+    let end = optionText.substr(valIndex + value.length, optionText.length);
 
     // find end of string recursively
     if (end.indexOf(value) !== -1) {
@@ -466,10 +473,10 @@ class DropdownFilter extends Dropdown {
     }
 
     // build JSX object
-    newValue = [
-      <span   key="beginning">{ beginning }</span>,
-      <strong key="middle"><u>{ middle }</u></strong>,
-      <span   key="end">{ end }</span>
+    const newValue = [
+      <span key='beginning'>{ beginning }</span>,
+      <strong key='middle'><u>{ middle }</u></strong>,
+      <span key='end'>{ end }</span>
     ];
 
     return newValue;
@@ -493,6 +500,14 @@ class DropdownFilter extends Dropdown {
    */
   hasFreetextValue() {
     return this.props.freetext && this.props.visibleValue && !this.props.value;
+  }
+
+  componentTags(props) {
+    return {
+      'data-component': 'dropdown-filter',
+      'data-element': props['data-element'],
+      'data-role': props['data-role']
+    };
   }
 }
 

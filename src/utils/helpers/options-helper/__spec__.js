@@ -1,21 +1,20 @@
-import React from 'react';
 import OptionsHelper from './options-helper';
 
 describe('OptionsHelper', () => {
-  it("alignBinary", () => {
+  it('alignBinary', () => {
     expect(OptionsHelper.alignBinary).toEqual([
       'left',
       'right'
     ]);
   });
-  it("alignFull", () => {
+  it('alignFull', () => {
     expect(OptionsHelper.alignFull).toEqual([
       'center',
       'left',
       'right'
     ]);
   });
-  it("buttonColors", () => {
+  it('buttonColors', () => {
     expect(OptionsHelper.buttonColors).toEqual([
       'blue',
       'grey',
@@ -24,7 +23,7 @@ describe('OptionsHelper', () => {
       'white'
     ]);
   });
-  it("colors", () => {
+  it('colors', () => {
     expect(OptionsHelper.colors).toEqual([
       'default',
       'error',
@@ -36,7 +35,7 @@ describe('OptionsHelper', () => {
       'warning'
     ]);
   });
-  it("icons", () => {
+  it('icons', () => {
     expect(OptionsHelper.icons).toEqual([
       'add',
       'alert',
@@ -69,6 +68,7 @@ describe('OptionsHelper', () => {
       'fax',
       'feedback',
       'gift',
+      'grid',
       'home',
       'key',
       'link',
@@ -96,12 +96,12 @@ describe('OptionsHelper', () => {
       'warning'
     ]);
   });
-  it("pageSizes", () => {
+  it('pageSizes', () => {
     expect(OptionsHelper.pageSizes).toEqual([
       10, 25, 50
     ]);
   });
-  it("positions", () => {
+  it('positions', () => {
     expect(OptionsHelper.positions).toEqual([
       'bottom',
       'left',
@@ -109,7 +109,7 @@ describe('OptionsHelper', () => {
       'top'
     ]);
   });
-  it("sizesFull", () => {
+  it('sizesFull', () => {
     expect(OptionsHelper.sizesFull).toEqual([
       'extra-small',
       'small',
@@ -120,7 +120,7 @@ describe('OptionsHelper', () => {
       'extra-large'
     ]);
   });
-  it("sizesPod", () => {
+  it('sizesPod', () => {
     expect(OptionsHelper.sizesPod).toEqual([
       'extra-small',
       'small',
@@ -129,26 +129,26 @@ describe('OptionsHelper', () => {
       'extra-large'
     ]);
   });
-  it("sizesRestricted", () => {
+  it('sizesRestricted', () => {
     expect(OptionsHelper.sizesRestricted).toEqual([
       'small',
       'medium',
       'large'
     ]);
   });
-  it("sizesBinary", () => {
+  it('sizesBinary', () => {
     expect(OptionsHelper.sizesBinary).toEqual([
       'small',
       'large'
     ]);
   });
-  it("themesBinary", () => {
+  it('themesBinary', () => {
     expect(OptionsHelper.themesBinary).toEqual([
       'primary',
       'secondary'
     ]);
   });
-  it("themesFull", () => {
+  it('themesFull', () => {
     expect(OptionsHelper.themesFull).toEqual([
       'primary',
       'secondary',

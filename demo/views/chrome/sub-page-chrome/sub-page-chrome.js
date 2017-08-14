@@ -21,7 +21,7 @@ import Wrapper from './../../common/wrapper';
  */
 class SubPageComponent extends React.Component {
   render() {
-    let definition = this._getDefinition();
+    const definition = this._getDefinition();
 
     return (
       <article className='sub-page-chrome'>
@@ -45,17 +45,16 @@ class SubPageComponent extends React.Component {
   }
 
   name = () => {
-    let name = this._hasNameParam() ? this.props.params.name : this._getLastPartOfLocation();
+    const name = this._hasNameParam() ? this.props.params.name : this._getLastPartOfLocation();
     return titleize(humanize(name));
   }
 
   subtitle = (definition) => {
     if (definition) {
       return definition.get('description');
-    } else {
+    }
       let scope = this.props.location.pathname.replace(/\//g, ".").substr(1);
       return I18n.t(`${scope}.subtitle`, { defaultValue: '' });
-    }
   }
 
   titleAppend = (definition) => {
@@ -71,7 +70,7 @@ class SubPageComponent extends React.Component {
   }
 
   _getLastPartOfLocation = () => {
-    let parts = this.props.location.pathname.split("/");
+    const parts = this.props.location.pathname.split('/');
     return parts[parts.length - 1];
   }
 

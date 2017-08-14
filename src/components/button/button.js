@@ -1,7 +1,10 @@
-import React, { PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { assign } from 'lodash';
 import Link from './../link';
 import { validProps } from '../../utils/ether';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A button widget.
@@ -70,16 +73,32 @@ class Button extends React.Component {
      * @type {String}
      * @default medium
      */
-    size: PropTypes.string
+    size: PropTypes.string,
+
+    /**
+     * Sets a second bit of text under the main text, fainter and smaller.
+     * Currently only available on a large button
+     *
+     * @property subtext
+     * @type {String}
+     */
+    subtext: (props) => {
+      if (props.subtext.length > 0 && props.size !== 'large') {
+        throw new Error('subtext prop has no effect unless the button is large');
+      } else {
+        return null;
+      }
+    }
   }
 
   static safeProps = ['disabled']
 
   static defaultProps = {
-    as:       'secondary',
-    size:     'medium',
-    theme:    'blue',
-    disabled: false
+    as: 'secondary',
+    size: 'medium',
+    theme: 'blue',
+    disabled: false,
+    subtext: ''
   }
 
   constructor(...args) {
@@ -88,13 +107,35 @@ class Button extends React.Component {
   }
 
   /**
-   * Renders the component with props.
+   * Creates the child object for the button
    *
-   * @method render
    * @return {Object} JSX
    */
-  render() {
-    return this.element();
+  buildChildren() {
+    let children = this.props.children;
+
+    if (this.props.subtext.length > 0 && this.props.size === 'large') {
+      children = (
+        <span className='carbon-button__internal-wrapper'>
+          <span
+            className='carbon-button__main-text'
+            data-element='main-text'
+            key='children'
+          >
+            { this.props.children }
+          </span>
+          <span
+            className='carbon-button__subtext'
+            data-element='subtext'
+            key='subtext'
+          >
+            { this.props.subtext }
+          </span>
+        </span>
+      );
+    }
+
+    return children;
   }
 
   /**
@@ -114,11 +155,24 @@ class Button extends React.Component {
       `carbon-button--${this.props.theme}`,
       `carbon-button--${this.props.size}`,
       props.className, {
-        'carbon-button--disabled': this.props.disabled
+        'carbon-button--disabled': this.props.disabled,
+        'carbon-button--subtext': (this.props.subtext.length > 0)
       }
     );
 
-    return React.createElement(el, props, this.props.children);
+    props = assign({}, props, tagComponent('button', this.props));
+
+    return React.createElement(el, props, this.buildChildren());
+  }
+
+  /**
+   * Renders the component with props.
+   *
+   * @method render
+   * @return {Object} JSX
+   */
+  render() {
+    return this.element();
   }
 }
 

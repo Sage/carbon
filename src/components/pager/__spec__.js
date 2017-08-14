@@ -1,7 +1,9 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-dom/test-utils';
+import { shallow } from 'enzyme';
 import NumberComponent from './../number';
 import Pager from './pager';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Pager', () => {
   let instance, instance2, spy1, spy2;
@@ -77,6 +79,14 @@ describe('Pager', () => {
     });
 
     describe('when element is input', () => {
+      describe('when the value is NaN', () => {
+        it('emit 1 as the new current page', () => {
+          let event = { target: { value: '-' } };
+          instance.emitChangeCallback('input', event);
+          expect(spy1).toHaveBeenCalledWith('1', '10', 'input');
+        });
+      });
+
       it('emit a new page from the input field', () => {
         let event = { target: { value: '5' } };
         instance.emitChangeCallback('input', event);
@@ -91,11 +101,11 @@ describe('Pager', () => {
         });
       });
 
-      describe('when input is less than 1', () => {
-        it('emit first page as the new current page', () => {
-          let event = { target: { value: '0' } };
+      describe('when input value is negative', () => {
+        it('emit the absolute value as the new current page', () => {
+          let event = { target: { value: '-3' } };
           instance.emitChangeCallback('input', event);
-          expect(spy1).toHaveBeenCalledWith('1', '10', 'input');
+          expect(spy1).toHaveBeenCalledWith('3', '10', 'input');
         });
       });
 
@@ -109,6 +119,13 @@ describe('Pager', () => {
             currentPage: instance.state.currentPage
           });
         });
+      });
+    });
+
+    describe('when element type is not passed', () => {
+      it('does not call onPagination', () => {
+        instance.emitChangeCallback('', {});
+        expect(spy1).not.toHaveBeenCalled();
       });
     });
 
@@ -328,6 +345,40 @@ describe('Pager', () => {
 
     it('adds a class of unselectable', () => {
       expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'unselectable').length).toBeTruthy();
+    });
+  });
+
+  describe('tags on component', () => {
+    let wrapper = shallow(
+      <Pager
+        currentPage='1'
+        data-element='bar'
+        data-role='baz'
+        onPagination={ ()=>{} }
+        totalRecords='100'
+      />
+    );
+
+    it('includes correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'pager', 'bar', 'baz');
+    });
+
+    describe('on internal elements', () => {
+      let wrapper = shallow(
+        <Pager
+          currentPage='1'
+          onPagination={ ()=>{} }
+          pageSize='10'
+          showPageSizeSelection={ true }
+          totalRecords='100'
+        />
+      );
+      elementsTagTest(wrapper, [
+        'current-page',
+        'next-page',
+        'page-select',
+        'previous-page'
+      ]);
     });
   });
 });

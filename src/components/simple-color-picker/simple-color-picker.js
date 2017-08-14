@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ColorOption from './color-option';
+import tagComponent from '../../utils/helpers/tags';
 
 /**
  * A component that displays squares with color samples that
@@ -11,8 +13,8 @@ import ColorOption from './color-option';
  *
  *   <SimpleColorPicker
  *     availableColors={ ['transparent', '#ff0102', '#34ff01'] }
- *     selectedColor="#34ff01"
- *     name="settings[color_of_something]"
+ *     selectedColor='#34ff01'
+ *     name='settings[color_of_something]'
  *   />
  *
  */
@@ -25,7 +27,7 @@ class SimpleColorPicker extends React.Component {
      * @property availableColors
      * @type {Array}
      */
-    availableColors: React.PropTypes.array,
+    availableColors: PropTypes.array,
 
     /**
      * the value of the currently selected color.
@@ -33,7 +35,7 @@ class SimpleColorPicker extends React.Component {
      * @property selectedColor
      * @type {String}
      */
-    selectedColor: React.PropTypes.string,
+    selectedColor: PropTypes.string,
 
     /**
      * the name of the input element.
@@ -41,7 +43,7 @@ class SimpleColorPicker extends React.Component {
      * @property name
      * @type {String}
      */
-    name: React.PropTypes.string,
+    name: PropTypes.string,
 
     /**
      * a callback when the user changes the selected color.
@@ -49,23 +51,14 @@ class SimpleColorPicker extends React.Component {
      * @property onChange
      * @type {Function}
      */
-    onChange: React.PropTypes.func
+    onChange: PropTypes.func
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   * @return {Object} JSX
-   */
-  render() {
-    return (
-      <div className="carbon-simple-color-picker">
-        <ul className="carbon-simple-color-picker__color-options">
-          { this._colorOptions }
-        </ul>
-      </div>
-    );
+  static defaultProps = {
+    availableColors: [],
+    selectedColor: '',
+    name: '',
+    onChange: null
   }
 
   /**
@@ -88,7 +81,7 @@ class SimpleColorPicker extends React.Component {
    * @return {Object} JSX
    */
   _colorOption(color) {
-    let isChecked = this._isOptionChecked(color);
+    const isChecked = this._isOptionChecked(color);
 
     return (
       <ColorOption
@@ -109,9 +102,24 @@ class SimpleColorPicker extends React.Component {
    * @return {Object} JSX
    */
   get _colorOptions() {
-    return this.props.availableColors.map((color) => this._colorOption(color));
+    return this.props.availableColors.map(color => this._colorOption(color));
   }
 
+  /**
+   * Renders the component.
+   *
+   * @method render
+   * @return {Object} JSX
+   */
+  render() {
+    return (
+      <div className='carbon-simple-color-picker' { ...tagComponent('simple-color-picker', this.props) }>
+        <ul className='carbon-simple-color-picker__color-options'>
+          { this._colorOptions }
+        </ul>
+      </div>
+    );
+  }
 }
 
 export default SimpleColorPicker;

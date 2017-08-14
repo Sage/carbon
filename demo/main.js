@@ -1,4 +1,5 @@
 import React from 'react';
+import config from './config';
 import 'utils/css';
 import { Route } from 'react-router';
 import { startRouter, history } from 'utils/router';
@@ -20,8 +21,7 @@ import SiteMap from './site-map';
 import Highcharts from 'highcharts';
 global.Highcharts = Highcharts;
 
-// global.imagePath = 'https://assets.na.sageone.com/carbon/demo/latest/assets/images';
-global.imagePath = '/assets/images';
+global.imagePath = config.imagePath;
 
 enableMock();
 

@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { validProps } from '../../../utils/ether';
+import tagComponent from '../../../utils/helpers/tags';
 
 /**
  * A TableCell widget.
@@ -22,20 +24,36 @@ class TableCell extends React.Component {
 
   static propTypes = {
     /**
-     * Defines the alignment of the cell (eg "left", "center" or "right").
-     *
-     * @property align
-     * @type {String}
-     */
-    align: React.PropTypes.string,
-
-    /**
      * Defines the cell type to be an action - used for the delete cell.
      *
      * @property action
      * @type {Boolean}
      */
-    action: React.PropTypes.bool
+    action: PropTypes.bool,
+
+    /**
+     * Defines the alignment of the cell (eg "left", "center" or "right").
+     *
+     * @property align
+     * @type {String}
+     */
+    align: PropTypes.string,
+
+    /**
+     * Children elements
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
+     * Custom className
+     *
+     * @property className
+     * @type {String}
+     */
+    className: PropTypes.string
   }
 
   /**
@@ -46,10 +64,10 @@ class TableCell extends React.Component {
    */
   get tableCellClasses() {
     return classNames(
-      "carbon-table-cell",
+      'carbon-table-cell',
       this.props.className,
       { [`carbon-table-cell--align-${this.props.align}`]: this.props.align },
-      { [`carbon-table-cell--action`]: this.props.action }
+      { 'carbon-table-cell--action': this.props.action }
     );
   }
 
@@ -60,7 +78,7 @@ class TableCell extends React.Component {
    * @return {Object}
    */
   get tableCellProps() {
-    let { ...props } = validProps(this);
+    const { ...props } = validProps(this);
 
     delete props.children;
 
@@ -75,7 +93,7 @@ class TableCell extends React.Component {
    */
   render() {
     return (
-      <td { ...this.tableCellProps }>
+      <td { ...this.tableCellProps } { ...tagComponent('table-cell', this.props) }>
         { this.props.children }
       </td>
     );
