@@ -3,6 +3,7 @@ import Dispatcher from '../../dispatcher';
 import Store from 'utils/flux/store';
 import ImmutableHelper from 'utils/helpers/immutable';
 import BrowserHelper from 'utils/helpers/browser';
+import Logger from 'utils/logger';
 
 // Flux
 import ComponentActions from './../../actions/component';
@@ -106,14 +107,18 @@ class ComponentStore extends Store {
     let params = BrowserHelper.extractUrlParams();
 
     if (params['options']) {
-      let options = JSON.parse(atob(params['options']));
+      try {
+        let options = JSON.parse(decodeURIComponent(params['options']));
 
-      Object.keys(options).forEach((key) => {
-        this.data = this.data.setIn(
-          [key, 'propValues'],
-          ImmutableHelper.parseJSON(options[key])
-        );
-      });
+        Object.keys(options).forEach((key) => {
+          this.data = this.data.setIn(
+            [key, 'propValues'],
+            ImmutableHelper.parseJSON(options[key])
+          );
+        });
+      } catch (e) {
+        Logger.error('Unable to parse param options');
+      }
     }
   }
 

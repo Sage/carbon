@@ -85,7 +85,7 @@ const ComponentActions = {
   },
 
   generateOptionsUrl: (componentName, componentOptions) => {
-    let options = btoa(JSON.stringify({ [componentName]: componentOptions.toJS() }));
+    let options = encodeURIComponent(JSON.stringify({ [componentName]: componentOptions.toJS() }));
     let basePath = Browser.getLocation().origin + Browser.getLocation().pathname;
 
     let url = `${ basePath }?options=${ options }`;
