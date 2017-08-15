@@ -379,7 +379,7 @@ function getDefaultValue(scope) {
 function canConvertToBigNumber(value) {
   // single `-` sign will raise an exception during formatDecimal()
   // as it cannot be convert to BigNumber()
-  return /^-?\d+(\.\d+)?$/.test(value);
+  return /^-?(\d+(\.\d+)?|\.\d+|\d+\.)$/.test(value);
 }
 
 export default Decimal;
