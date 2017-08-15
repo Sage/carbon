@@ -1,3 +1,8 @@
+# 1.4.1
+
+* `Dropdown`: validation fail now allows the dropdown arrow to be visible
+* `Decimal`: fix an issue where values entered without a leading zero were incorrectly failing numerical validation
+
 # 1.4.0
 
 ## Dispatcher
@@ -64,6 +69,12 @@ The following have had minor internal changes to satisfy the introduction of str
 ## Demo Site
 
 * Renamed `definition.js` files to `__definition__.js`.
+
+# 1.3.7
+
+## Bug Fix
+
+* `Decimal`: fix an issue where values entered without a leading zero were incorrectly failing numerical validation
 
 # 1.3.6
 
