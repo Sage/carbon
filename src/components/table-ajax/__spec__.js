@@ -1,9 +1,9 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { TableAjax } from './table-ajax';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Pager from './../pager';
 
 import Request from 'superagent';
 
@@ -12,12 +12,12 @@ import Request from 'superagent';
 jest.mock('superagent');
 
 describe('TableAjax', () => {
-  let instance, customInstance, pageSizeInstance, spy;
+  let wrapper, customInstanceWrapper, pageSizeInstanceWrapper, instance, customInstance, pageSizeInstance, spy;
 
   beforeEach(() => {
     spy = jasmine.createSpy('onChange spy');
 
-    instance = TestUtils.renderIntoDocument(
+    wrapper = mount(
       <TableAjax
         className="foo"
         path='/test'
@@ -26,8 +26,9 @@ describe('TableAjax', () => {
        foo
       </TableAjax>
     );
+    instance = wrapper.instance();
 
-    customInstance = TestUtils.renderIntoDocument(
+    customInstanceWrapper = mount(
       <TableAjax
         className="foo"
         path='/test'
@@ -38,8 +39,9 @@ describe('TableAjax', () => {
        foo
       </TableAjax>
     );
+    customInstance = customInstanceWrapper.instance();
 
-    pageSizeInstance = TestUtils.renderIntoDocument(
+    pageSizeInstanceWrapper = mount(
       <TableAjax
         className="foo"
         path='/test'
@@ -48,8 +50,8 @@ describe('TableAjax', () => {
       >
        foo
       </TableAjax>
-
     );
+    pageSizeInstance = pageSizeInstanceWrapper.instance();
   });
 
   describe('componentWillUnmount', () => {
@@ -150,7 +152,7 @@ describe('TableAjax', () => {
     beforeEach(() => {
       jest.useFakeTimers();
 
-      options = { 
+      options = {
         currentPage: '1',
         pageSize: '10',
         sortOrder: undefined,
@@ -228,8 +230,7 @@ describe('TableAjax', () => {
       expect(spy).toHaveBeenCalledWith({ data: ['foo'] });
     });
 
-    it('on success sets the totalRecords', () => {
-      instance.setState = jest.fn();
+    it('on success sets the totalRecords on the pager and sets data-state to loaded', () => {
       Request.__setMockResponse({
         status() {
           return 200;
@@ -241,11 +242,12 @@ describe('TableAjax', () => {
           records: 1
         }
       });
-
       instance.emitOnChangeCallback('data', options);
       jest.runTimersToTime(251);
-
-      expect(instance.setState).toBeCalledWith({ totalRecords: '1' });
+      const pager = wrapper.find(Pager);
+      expect(pager.props().totalRecords).toEqual('1');
+      expect(wrapper.find('.carbon-table').length).toEqual(1);
+      expect(wrapper.find('[data-state="loaded"]').length).toEqual(1);
     });
 
     describe('when page size is less than previous page size', () => {
@@ -260,7 +262,7 @@ describe('TableAjax', () => {
             return true;
           },
           body: {
-            data: 'foo' 
+            data: 'foo'
           }
         });
 
@@ -342,23 +344,42 @@ describe('TableAjax', () => {
   });
 
   describe('onAjaxError', () => {
-    const err = {
-      status: 500
+    const error = {
+      message: 'Unsuccessful HTTP response'
     };
-    const response = {};
+    const response = {
+      status() {
+        return 500;
+      },
+      ok() {
+        return false;
+      },
+      body: {
+        message_type: 'error'
+      }
+    };
+
+    beforeEach(() => {
+      Request.__setMockResponse(response);
+      Request.__setMockError(error);
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    })
 
     describe('when passed as a prop', () => {
       it('is called if defined and an Ajax request returns an error', () => {
         const onError = jest.fn();
-        const wrapper = shallow(
+        const wrapper = mount(
           <TableAjax
             onAjaxError={ onError }
           />
         );
-
-        wrapper.instance().handleResponse(err, response);
-
-        expect(onError).toBeCalledWith(err, response);
+        jest.runTimersToTime(251);
+        expect(onError).toBeCalledWith(error, response);
+        expect(wrapper.find('[data-state="errored"]').length).toEqual(1);
       });
     });
 
@@ -366,13 +387,13 @@ describe('TableAjax', () => {
       it('logs the Ajax error as a warning in the console', () => {
         console.warn = jest.fn();
 
-        const wrapper = shallow(
+        const wrapper = mount(
           <TableAjax />
         );
-
-        wrapper.instance().handleResponse(err, response);
+        jest.runTimersToTime(251);
 
         expect(console.warn).toBeCalled();
+        expect(wrapper.find('[data-state="errored"]').length).toEqual(1);
       });
     });
   });
@@ -395,8 +416,12 @@ describe('TableAjax', () => {
       />
     );
 
-    it('include correct component, element and role data tags', () => {
+    it('includes the correct component, element and role data tags', () => {
       rootTagTest(wrapper, 'table-ajax', 'bar', 'baz');
     });
+
+    it('initializes the data-state attribute as "idle"', () => {
+      expect(wrapper.find('[data-state="idle"]').length).toEqual(1);
+    })
   });
 });

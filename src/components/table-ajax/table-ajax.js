@@ -97,6 +97,14 @@ class TableAjax extends Table {
     currentPage: this.props.currentPage || '1',
 
     /**
+     * The current value of the data-state property
+     *
+     * @property dataState
+     * @type {String}
+     */
+    dataState: 'idle',
+
+    /**
      * Pagination
      * Page Size of grid (number of visible records)
      *
@@ -296,6 +304,7 @@ class TableAjax extends Table {
     this.stopTimeout();
     this.timeout = setTimeout(() => {
       // track the request incase we need to abort it
+      this.setState({ dataState: 'requested' });
       this._request = Request
         .get(this.props.path)
         .set('Accept', 'application/json')
@@ -333,12 +342,15 @@ class TableAjax extends Table {
    */
   handleResponse = (err, response) => {
     if (!err) {
+      this.setState({ dataState: 'loaded' });
       const data = response.body;
       this.props.onChange(data);
       this.setState({ totalRecords: String(data.records) });
     } else if (this.props.onAjaxError) {
+      this.setState({ dataState: 'errored' });
       this.props.onAjaxError(err, response);
     } else {
+      this.setState({ dataState: 'errored' });
       Logger.warn(`${err.status} - ${response}`);
     }
   }
@@ -395,13 +407,17 @@ class TableAjax extends Table {
     };
   }
 
-  componentTags(props) {
-    return {
-      'data-component': 'table-ajax',
-      'data-element': props['data-element'],
-      'data-role': props['data-role']
-    };
+  /**
+   * Returns the data-state string used in componentTags
+   */
+  dataState = () => {
+    return this.state.dataState;
   }
+
+  /**
+   * The name used for the data-component attribute
+   */
+  get dataComponent() { return 'table-ajax'; }
 }
 
 export {
