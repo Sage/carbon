@@ -11,7 +11,7 @@
     "debug:listen": "node --debug-brk ./node_modules/.bin/jest --runInBand",
     "debug:start": "node-inspector",
     "release-version": "node check-version.js && npm install && npm publish",
-    "prepublish": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
+    "prepare": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
   },
   "repository": {
     "type": "git",
@@ -50,6 +50,8 @@
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
+    "abr-npm-5-test-1": "^1.4.0",
+    "abr-npm-5-test-2": "^1.4.0",
     "axios": "^0.14.0",
     "bignumber.js": "~4.0.2",
     "bowser": "~1.5.0",
