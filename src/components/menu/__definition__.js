@@ -62,7 +62,7 @@ definition.addChildByDefinition(menuItemDefinition, {
   </SubmenuBlock>
   <MenuItem href="#">Sub Menu Item Four</MenuItem>
   <MenuItem href="#">Sub Menu Item Five</MenuItem>
-  <MenuItem href="#" alternate={ true }>Sub Menu Item Six</MenuItem>
+  <MenuItem href="#">Sub Menu Item Six</MenuItem>
   <MenuItem href="#">Sub Menu Item Seven</MenuItem>
   <MenuItem href="#" divide={ true }>Sub Menu Item Eight</MenuItem>`,
   href: "#",

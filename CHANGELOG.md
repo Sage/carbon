@@ -1,3 +1,7 @@
+# 1.4.2
+
+* `Menu`: removed `alternate` prop, can use `SubMenuBlock` instead which achieves the same thing.
+
 # 1.4.1
 
 * `Dropdown`: validation fail now allows the dropdown arrow to be visible
