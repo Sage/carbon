@@ -42,24 +42,17 @@ describe('MenuItem', () => {
   describe('Boolean props', () => {
     beforeEach(() => {
       wrapper = shallow(
-        <MenuItem selected={ true } divide={ true } alternate={ true }>
+        <MenuItem selected={ true } divide={ true }>
           foo
         </MenuItem>
       );
     });
 
-    it('selected, divide and alternate', () => {
+    it('selected and divide', () => {
       let submenuItem = wrapper.find(Link);
       expect(submenuItem.hasClass('carbon-menu-item--divide')).toEqual(true);
       expect(submenuItem.hasClass('carbon-menu-item--selected')).toEqual(true);
-      expect(submenuItem.hasClass('carbon-menu-item--alternate')).toEqual(true);
     });
-
-    it("alternate-off if 'alternate' Boolean is not set", () => {
-      wrapper = shallow(<MenuItem>foo</MenuItem>);
-      let submenuItem = wrapper.find(Link);
-      expect(submenuItem.hasClass('carbon-menu-item--alternate-off')).toEqual(true);
-    })
   });
 
   describe("tags on component", () => {

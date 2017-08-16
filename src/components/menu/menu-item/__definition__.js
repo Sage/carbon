@@ -5,7 +5,6 @@ let definition = new Definition('menu-item', MenuItem, {
   description: '[content needed] Basic example of the component',
   designerNotes: '[content needed] Basic designs description for the component',
   propTypes: {
-    alternate: "Boolean",
     children: "Node",
     className: "String",
     divide: "Boolean",
@@ -18,7 +17,6 @@ let definition = new Definition('menu-item', MenuItem, {
     to: "String"
   },
   propDescriptions: {
-    alternate: "Applies an alternate styling for the item.",
     children: "This component supports children.",
     className: "Classes for the component.",
     divide: "Applies a dividing line above an item.",
