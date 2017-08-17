@@ -1,3 +1,9 @@
+# 1.5.0
+
+## Pattern Enhancements
+
+* `ConfigurableItems` now accepts an `onReset` prop to be passed in.
+
 # 1.4.2
 
 * `Menu`: removed `alternate` prop, can use `SubMenuBlock` instead which achieves the same thing.
