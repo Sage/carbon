@@ -1,3 +1,7 @@
+# 1.4.3
+
+* `Heading`: Removed default top padding.
+
 # 1.4.2
 
 * `Menu`: removed `alternate` prop, can use `SubMenuBlock` instead which achieves the same thing.
