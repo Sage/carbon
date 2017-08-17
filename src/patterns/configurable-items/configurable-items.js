@@ -35,6 +35,14 @@ class ConfigurableItemsPattern extends React.Component {
     onCancel: PropTypes.func,
 
     /**
+     * Callback triggered when the form reset button is pressed.
+     *
+     * @property onReset
+     * @type {Function}
+     */
+    onReset: PropTypes.func,
+
+    /**
      * Callback triggered when the form is saved.
      *
      * @property onSave
@@ -75,8 +83,11 @@ class ConfigurableItemsPattern extends React.Component {
     ConfigurableItemsActions.reorderItems(dragIndex, hoverIndex);
   }
 
-  onReset = () => {
-    ConfigurableItemsActions.updateData(this.props.itemsData);
+  onReset = (event) => {
+    ConfigurableItemsActions.toggleDialogOpen();
+    if (this.props.onReset) {
+      this.props.onReset(event);
+    }
   }
 
   onSave = (event) => {
