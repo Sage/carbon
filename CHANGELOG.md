@@ -1,3 +1,7 @@
+# 1.4.4
+
+* `Date`: Fixes missing background color on validation errors.
+
 # 1.4.3
 
 * `Heading`: Removed default top padding.
