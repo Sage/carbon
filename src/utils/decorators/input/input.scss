@@ -277,7 +277,13 @@
     position: relative;
     z-index: 1;
   }
+}
 
+.common-input--error,
+.common-input--warning {
+  .carbon-icon {
+    z-index: 1;
+  }
 }
 
 /**
