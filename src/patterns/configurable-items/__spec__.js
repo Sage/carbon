@@ -12,6 +12,7 @@ describe('ConfigurableItemsPattern', () => {
   let wrapper;
   const onCancel = jasmine.createSpy('onCancel');
   const onSave = jasmine.createSpy('onSave');
+  const onReset = jasmine.createSpy('onReset');
 
   const itemsData = ImmutableHelper.parseJSON(
     [
@@ -89,6 +90,7 @@ describe('ConfigurableItemsPattern', () => {
           <ConfigurableItemsPattern
             itemsData={ { data: 'configurableItemsData' } }
             onCancel={ onCancel }
+            onReset={ onReset }
             onSave={ onSave }
             title='Configure Items'
             data-element='bar'
@@ -166,12 +168,12 @@ describe('ConfigurableItemsPattern', () => {
           expect(ConfigurableItemsActions.reorderItems).toHaveBeenCalledWith(1, 2);
         });
 
-        it('triggers ConfigurableItemsActions.updateData onReset', () => {
-          spyOn(ConfigurableItemsActions, 'updateData');
-          patternProps.onReset();
-          expect(ConfigurableItemsActions.updateData).toHaveBeenCalledWith(
-            { data: 'configurableItemsData' }
-          );
+        it('triggers toggleDialogOpen and the onReset prop when onReset is called', () => {
+          spyOn(ConfigurableItemsActions, 'toggleDialogOpen');
+          const event = {};
+          patternProps.onReset(event);
+          expect(ConfigurableItemsActions.toggleDialogOpen).toHaveBeenCalled();
+          expect(onReset).toHaveBeenCalledWith(event);
         });
 
         it('calls the onSave prop with the event and items data from configurableItemsStore', () => {
@@ -235,7 +237,30 @@ describe('ConfigurableItemsPattern', () => {
         spyOn(ConfigurableItemsActions, 'toggleDialogOpen')
         patternProps.onCancel();
         expect(ConfigurableItemsActions.toggleDialogOpen).toHaveBeenCalled();
-      })
-    })
+      });
+    });
+
+    describe('when the onReset prop is not provided', () => {
+      let pattern, patternProps
+      beforeEach(() => {
+        ConfigurableItemsStore.data = ConfigurableItemsStore.data.set(
+          'items_data', itemsData
+        );
+        wrapper = shallow(
+          <ConfigurableItemsPattern
+            itemsData={ { data: 'configurableItemsData' } }
+            onSave={ onSave }
+          />
+        );
+        pattern = wrapper.find(ConfigurableItemsContent);
+        patternProps = pattern.props();
+      });
+
+      it('does not try and call the onReset prop', () => {
+        spyOn(ConfigurableItemsActions, 'toggleDialogOpen')
+        patternProps.onReset();
+        expect(ConfigurableItemsActions.toggleDialogOpen).toHaveBeenCalled();
+      });
+    });
   });
 });

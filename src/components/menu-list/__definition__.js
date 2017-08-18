@@ -1,6 +1,6 @@
 import { MenuList } from './';
 import Definition from './../../../demo/utils/definition';
-import menuListItemDefinition from './menu-list-item/definition';
+import menuListItemDefinition from './menu-list-item/__definition__';
 
 let definition = new Definition('menu-list', MenuList, {
   description: `A set of related items that can be shown or hidden.`,

@@ -1,7 +1,7 @@
 import InlineInputs from './';
-import TextboxDefinition from './../textbox/definition';
-import DecimalDefinition from './../decimal/definition';
-import DropdownFilterAjaxDefintion from './../dropdown-filter-ajax/definition';
+import TextboxDefinition from './../textbox/__definition__';
+import DecimalDefinition from './../decimal/__definition__';
+import DropdownFilterAjaxDefintion from './../dropdown-filter-ajax/__definition__';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('inline-inputs', InlineInputs, {
