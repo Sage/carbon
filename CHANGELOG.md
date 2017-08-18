@@ -4,6 +4,12 @@
 
 * `ConfigurableItems` now accepts an `onReset` prop to be passed in.
 
+### npm
+
+* Carbon now require `npm` version 5 for installing dependencies.
+* To upgrade your version of npm, run `npm install npm@latest`.
+* Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
+
 # 1.4.4
 
 * `Date`: Fixes missing background color on validation errors.
@@ -40,12 +46,6 @@ Logger can now supply a option of `group` - this will group any logged messages 
 ## Dependency Update
 
 * React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
-
-### npm
-
-* Carbon now require `npm` version 5 for installing dependencies.
-* To upgrade your version of npm, run `npm install npm@latest`.
-* Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
 
 ## New Components
 
