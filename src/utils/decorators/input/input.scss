@@ -274,8 +274,6 @@
   .common-input__input--#{$type},
   .common-input__input--#{$type}:hover {
     border-color: $color !important; // this is the correct use of !important
-    position: relative;
-    z-index: 1;
   }
 }
 
