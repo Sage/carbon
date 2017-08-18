@@ -10,6 +10,10 @@
 * To upgrade your version of npm, run `npm install npm@latest`.
 * Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
 
+# 1.4.3
+
+* `Heading`: Removed default top padding.
+
 # 1.4.2
 
 * `Menu`: removed `alternate` prop, can use `SubMenuBlock` instead which achieves the same thing.
