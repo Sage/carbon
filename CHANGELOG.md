@@ -10,6 +10,10 @@
 * To upgrade your version of npm, run `npm install npm@latest`.
 * Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
 
+# Component Enhancements
+
+* `TableAjax` component now uses the data-state attribute.
+
 # 1.4.4
 
 * `Date`: Fixes missing background color on validation errors.
