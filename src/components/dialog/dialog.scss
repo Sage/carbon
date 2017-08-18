@@ -35,7 +35,6 @@ $dialog-sizes: (
   background-color: $grey-light;
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba($grey-shadow, 0.2);
-  padding: 23px 35px 30px;
   position: fixed;
   top: 50%;
   z-index: $z-dialog;
@@ -46,9 +45,15 @@ $dialog-sizes: (
   }
 }
 
+.carbon-dialog__title {
+  padding: 23px 35px 0;
+}
+
 .carbon-dialog__content {
+  box-sizing: border-box;
   height: 100%;
   overflow-y: auto;
+  padding: 0px 35px 22px;
   width: 100%;
 }
 
@@ -80,6 +85,7 @@ $dialog-sizes: (
   min-height: 0px !important;
 
   &.carbon-dialog__dialog--sticky-form-footer .carbon-form .carbon-form__footer-wrapper {
+    box-sizing: border-box;
     margin-left: -($dialog-padding);
     left: auto;
     padding-left: $dialog-padding;
