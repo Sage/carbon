@@ -4,6 +4,14 @@
 
 * `ConfigurableItems` now accepts an `onReset` prop to be passed in.
 
+# 1.4.4
+
+* `Date`: Fixes missing background color on validation errors.
+
+# 1.4.3
+
+* `Heading`: Removed default top padding.
+
 # 1.4.2
 
 * `Menu`: removed `alternate` prop, can use `SubMenuBlock` instead which achieves the same thing.
