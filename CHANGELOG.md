@@ -18,6 +18,12 @@ Logger can now supply a option of `group` - this will group any logged messages 
 
 * React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
 
+### npm
+
+* Carbon now require `npm` version 5 for installing dependencies.
+* To upgrade your version of npm, run `npm install npm@latest`.
+* Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
+
 ## New Components
 
 * `ConfigurableItems` Drag & Drop and check/uncheck a list of items
