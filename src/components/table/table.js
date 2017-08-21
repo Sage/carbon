@@ -1062,7 +1062,8 @@ class Table extends React.Component {
       'data-component': this.dataComponent,
       'data-element': props['data-element'],
       'data-role': props['data-role'],
-      'data-state': this.dataState()
+      'data-state': this.dataState(),
+      'aria-busy': this.state.ariaBusy
     };
   }
 

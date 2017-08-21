@@ -86,7 +86,6 @@ class TableAjax extends Table {
   }
 
   state = {
-
     /**
      * Pagination
      * Current Visible Page
@@ -305,6 +304,7 @@ class TableAjax extends Table {
     this.timeout = setTimeout(() => {
       // track the request incase we need to abort it
       this.setState({ dataState: 'requested' });
+      this.setState({ ariaBusy: true });
       this._request = Request
         .get(this.props.path)
         .set('Accept', 'application/json')
@@ -341,18 +341,27 @@ class TableAjax extends Table {
    * @param {Object} response
    */
   handleResponse = (err, response) => {
+    this.setState({ ariaBusy: false });
     if (!err) {
-      this.setState({ dataState: 'loaded' });
+      this.setComponentTagsLoaded();
       const data = response.body;
       this.props.onChange(data);
       this.setState({ totalRecords: String(data.records) });
     } else if (this.props.onAjaxError) {
-      this.setState({ dataState: 'errored' });
+      this.setComponentTagsErrored();
       this.props.onAjaxError(err, response);
     } else {
-      this.setState({ dataState: 'errored' });
+      this.setComponentTagsErrored();
       Logger.warn(`${err.status} - ${response}`);
     }
+  }
+
+  setComponentTagsLoaded() {
+    this.setState({ dataState: 'loaded' });
+  }
+
+  setComponentTagsErrored() {
+    this.setState({ dataState: 'errored' });
   }
 
   /**

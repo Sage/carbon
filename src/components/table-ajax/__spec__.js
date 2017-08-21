@@ -246,8 +246,11 @@ describe('TableAjax', () => {
       jest.runTimersToTime(251);
       const pager = wrapper.find(Pager);
       expect(pager.props().totalRecords).toEqual('1');
-      expect(wrapper.find('.carbon-table').length).toEqual(1);
+      const table = wrapper.find('.carbon-table')
+      expect(table.length).toEqual(1);
       expect(wrapper.find('[data-state="loaded"]').length).toEqual(1);
+      expect(table.props().ariaBusy).toBeFalsy();
+      expect(table.prop('aria-busy')).toBeFalsy();
     });
 
     describe('when page size is less than previous page size', () => {
@@ -380,6 +383,8 @@ describe('TableAjax', () => {
         jest.runTimersToTime(251);
         expect(onError).toBeCalledWith(error, response);
         expect(wrapper.find('[data-state="errored"]').length).toEqual(1);
+        const table = wrapper.find('.carbon-table');
+        expect(table.prop('aria-busy')).toBeFalsy();
       });
     });
 
@@ -394,6 +399,8 @@ describe('TableAjax', () => {
 
         expect(console.warn).toBeCalled();
         expect(wrapper.find('[data-state="errored"]').length).toEqual(1);
+        const table = wrapper.find('.carbon-table');
+        expect(table.prop('aria-busy')).toBeFalsy();
       });
     });
   });

@@ -12,7 +12,7 @@
 
 # Component Enhancements
 
-* `TableAjax` component now uses the data-state attribute.
+* `TableAjax` component now uses the data-state attribute and `aria-busy`.
 
 # 1.4.4
 
