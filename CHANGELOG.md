@@ -4,6 +4,18 @@
 
 * `ConfigurableItems` now accepts an `onReset` prop to be passed in.
 
+## Component Improvements
+
+The following components have had styling updates:-
+
+* DatePicker
+* ButtonToggle
+* Heading / Dialog
+
+## Font Update
+
+The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
+
 ### npm
 
 * Carbon now require `npm` version 5 for installing dependencies.
@@ -24,18 +36,6 @@
 * `Decimal`: fix an issue where values entered without a leading zero were incorrectly failing numerical validation
 
 # 1.4.0
-
-## Component Improvements
-
-The following components have had styling updates:-
-
-* DatePicker
-* ButtonToggle
-* Heading / Dialog
-
-## Font Update
-
-The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
 
 ## Dispatcher
 
