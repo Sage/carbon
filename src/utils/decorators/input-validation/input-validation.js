@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { assign } from 'lodash';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
@@ -273,7 +274,8 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
         if (this.context.modal && this.context.modal.getDialog()) {
           // if in a modal check its position relative to that
           const dialog = this.context.modal.getDialog();
-          shouldFlip = (message.offsetLeft + this._target.offsetLeft + messageOffsetWidth) > dialog.offsetWidth;
+          const domNode = ReactDOM.findDOMNode(this); // eslint-disable-line react/no-find-dom-node
+          shouldFlip = (message.offsetLeft + domNode.offsetLeft + messageOffsetWidth) > dialog.offsetWidth;
         } else {
           // otherwise check relative to the window
           shouldFlip = messageScreenPosition > this._window.innerWidth;
