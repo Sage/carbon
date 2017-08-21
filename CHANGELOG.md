@@ -1,3 +1,7 @@
+# 1.4.5
+
+* `Validations`: fixes an error from being thrown for non-Textbox validations when situated inside a Modal.
+
 # 1.4.4
 
 * `Date`: Fixes missing background color on validation errors.
