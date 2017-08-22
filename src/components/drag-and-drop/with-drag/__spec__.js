@@ -4,6 +4,7 @@ import { mount } from 'enzyme';
 import { DragDropContext } from 'react-dnd';
 import TestBackend from 'react-dnd-test-backend';
 import WithDrag from './with-drag';
+import BrowserHelper from './../../../utils/helpers/browser';
 
 describe('WithDrag', () => {
   let wrapper, backend, handlerId, beginDragContextSpy, beginDragPropSpy,
@@ -67,6 +68,12 @@ describe('WithDrag', () => {
         expect(beginDragPropSpy).not.toHaveBeenCalled();
         expect(beginDragContextSpy).toHaveBeenCalled();
       });
+
+      it('disables text selection', () => {
+        spyOn(BrowserHelper, 'getDocument').and.returnValue({});
+        backend.simulateBeginDrag([handlerId]);
+        expect(BrowserHelper.getDocument().onselectstart()).toBeFalsy();
+      });
     });
 
     describe('endDrag', () => {
@@ -75,6 +82,12 @@ describe('WithDrag', () => {
         backend.simulateEndDrag([handlerId]);
         expect(endDragPropSpy).not.toHaveBeenCalled();
         expect(endDragContextSpy).toHaveBeenCalled();
+      });
+      it('enables text selection', () => {
+        spyOn(BrowserHelper, 'getDocument').and.returnValue({});
+        backend.simulateBeginDrag([handlerId]);
+        backend.simulateEndDrag([handlerId]);
+        expect(BrowserHelper.getDocument().onselectstart).toBeNull();
       });
     });
   });

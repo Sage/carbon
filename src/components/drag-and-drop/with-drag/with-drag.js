@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
 import ItemTypes from './../../../utils/helpers/dnd/item-types';
+import BrowserHelper from './../../../utils/helpers/browser';
 
 class WithDrag extends React.Component {
   static propTypes = {
@@ -57,11 +58,15 @@ const ItemSource = {
   },
 
   beginDrag(props, monitor, component) {
+    // Disable Text selection in Safari to show correct cursor
+    BrowserHelper.getDocument().onselectstart = function() { return false; };
     const beginDrag = props.beginDrag || component.context.dragAndDropBeginDrag;
     return beginDrag(props, monitor, component);
   },
 
   endDrag(props, monitor, component) {
+    // Enable Text selection in Safari
+    BrowserHelper.getDocument().onselectstart = null;
     const endDrag = props.endDrag || component.context.dragAndDropEndDrag;
     return endDrag(props, monitor, component);
   }
