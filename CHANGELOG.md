@@ -10,6 +10,10 @@
 * To upgrade your version of npm, run `npm install npm@latest`.
 * Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
 
+# Component Enhancements
+
+* `TableAjax` component now uses the data-state attribute and `aria-busy`.
+
 # 1.4.5
 
 * `Validations`: fixes an error from being thrown for non-Textbox validations when situated inside a Modal.
