@@ -1,6 +1,5 @@
-import ComponentActions from './../../../actions/component';
-import OptionsHelper from '../../../../src/utils/helpers/options-helper';
 import { assign } from 'lodash';
+import OptionsHelper from '../../../../src/utils/helpers/options-helper';
 
 export default (definition) => {
   definition.type = 'grids';
@@ -8,7 +7,13 @@ export default (definition) => {
     path: '/countries',
     children: '{ buildRows() }'
   });
-  definition.hiddenProps = definition.hiddenProps.concat(['currentPage', 'filter', 'totalRecords', 'pageSizeSelectionOptions']);
+  definition.hiddenProps = definition.hiddenProps.concat([
+    'ariaDescribedBy',
+    'currentPage',
+    'filter',
+    'totalRecords',
+    'pageSizeSelectionOptions'
+  ]);
   definition.propRequires = {
     showPageSizeSelection: 'paginate'
   };
@@ -41,6 +46,7 @@ function buildRows() {
 
   definition.propTypes = assign({}, definition.propTypes, {
     actions: 'Object',
+    ariaDescribedBy: 'String',
     caption: 'String',
     currentPage: 'String',
     children: 'Node',
@@ -67,6 +73,7 @@ function buildRows() {
   });
   definition.propDescriptions = assign({}, definition.propDescriptions, {
     actions: 'Specify actions to be used by the ActionToolbar component.',
+    ariaDescribedBy: 'The HTML id attribute of the element that contains a description of the table',
     caption: 'Specify a visually hidden title for the table',
     currentPage: 'Controls the current page number of a paginated data set.',
     children: 'This component supports children.',

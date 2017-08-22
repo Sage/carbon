@@ -274,6 +274,15 @@ class Table extends React.Component {
     caption: PropTypes.string,
 
     /**
+     * The HTML id of the element that contains a description
+     * of this table.
+     *
+     * @property ariaDescribedBy
+     * @type string
+     */
+    ariaDescribedBy: PropTypes.string,
+
+    /**
      * Renders as light or dark
      * Uses common theme definition of 'primary' (dark, default) and 'secondary' (light)
      *
@@ -1088,12 +1097,23 @@ class Table extends React.Component {
    * @method render
    */
   render() {
+    const tableProps = {
+      className: this.tableClasses
+    };
+
+    if (this.props.ariaDescribedBy) {
+      tableProps['aria-describedby'] = this.props.ariaDescribedBy;
+    }
+
     return (
       <div className={ this.mainClasses } { ...this.componentTags(this.props) }>
         { this.actionToolbar }
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           { this.configureLink(this.props.onConfigure) }
-          <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
+          <table
+            ref={ (table) => { this._table = table; } }
+            { ...tableProps }
+          >
             { this.caption }
             { this.thead }
             { this.tbody }

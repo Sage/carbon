@@ -14,8 +14,8 @@ setTimeout(() => {
   // we currently delay this update incase the xhr mock is disabled (ie on a doc page)
 }, 1000);
 
-let definition = new Definition('table', Table, {
-  description: `A table of relational data to view or interact with.`,
+const definition = new Definition('table', Table, {
+  description: 'A table of relational data to view or interact with.',
   designerNotes: `
 * Shows relational data to the user.
 * The content of rows and columns can be plain or styled text, Icons, or even inputs. Achieve this by nesting components inside a Table component.
