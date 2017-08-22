@@ -2,7 +2,7 @@
 
 ## Pattern Enhancements
 
-* `ConfigurableItems` now accepts an `onReset` prop to be passed in.
+* `ConfigurableItems` now accepts an `onReset` prop to be passed in and uses the Carbon dispatcher.
 
 ## Component Improvements
 
@@ -21,6 +21,10 @@ The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
 * Carbon now require `npm` version 5 for installing dependencies.
 * To upgrade your version of npm, run `npm install npm@latest`.
 * Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
+
+# 1.4.5
+
+* `Validations`: fixes an error from being thrown for non-Textbox validations when situated inside a Modal.
 
 # 1.4.4
 
