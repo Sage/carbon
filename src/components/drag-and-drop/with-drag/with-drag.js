@@ -52,10 +52,22 @@ class WithDrag extends React.Component {
   }
 }
 
-var cachedSelectStart = null;
-const setSelectStartCache = () => { cachedSelectStart = BrowserHelper.getDocument().onselectstart; }
-const getSelectStartCache = () => { return cachedSelectStart; }
-const clearSelectStartCache = () => { cachedSelectStart = null; }
+let cachedSelectStart = null;
+const setSelectStartCache = () => { cachedSelectStart = BrowserHelper.getDocument().onselectstart; };
+const getSelectStartCache = () => { return cachedSelectStart; };
+const clearSelectStartCache = () => { cachedSelectStart = null; };
+
+// Disable Text selection in Safari to show correct cursor
+const disableSelectStart = () => {
+  setSelectStartCache();
+  BrowserHelper.getDocument().onselectstart = () => { return false; };
+};
+
+// Enable Text selection in Safari
+const enableSelectStart = () => {
+  BrowserHelper.getDocument().onselectstart = getSelectStartCache();
+  clearSelectStartCache();
+};
 
 const ItemSource = {
   canDrag(props, monitor) {
@@ -63,18 +75,13 @@ const ItemSource = {
   },
 
   beginDrag(props, monitor, component) {
-    setSelectStartCache()
-    // Disable Text selection in Safari to show correct cursor
-    BrowserHelper.getDocument().onselectstart = () => { return false; };
+    disableSelectStart();
     const beginDrag = props.beginDrag || component.context.dragAndDropBeginDrag;
     return beginDrag(props, monitor, component);
   },
 
   endDrag(props, monitor, component) {
-    // Enable Text selection in Safari
-    BrowserHelper.getDocument().onselectstart = getSelectStartCache();
-    clearSelectStartCache();
-
+    enableSelectStart();
     const endDrag = props.endDrag || component.context.dragAndDropEndDrag;
     return endDrag(props, monitor, component);
   }
