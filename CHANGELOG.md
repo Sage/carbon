@@ -1,9 +1,5 @@
 # 1.5.0
 
-## Pattern Enhancements
-
-* `ConfigurableItems` now accepts an `onReset` prop to be passed in and uses the Carbon dispatcher.
-
 ### npm
 
 * Carbon now require `npm` version 5 for installing dependencies.
@@ -13,6 +9,10 @@
 # Component Enhancements
 
 * `TableAjax` component now uses the data-state attribute and `aria-busy`.
+
+# 1.4.6
+
+* `ConfigurableItems` pattern now accepts an `onReset` prop to be passed in.
 
 # 1.4.5
 
