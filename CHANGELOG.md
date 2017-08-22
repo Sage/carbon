@@ -1,3 +1,7 @@
+# 1.4.6
+
+* `ConfigurableItems` pattern now accepts an `onReset` prop to be passed in.
+
 # 1.4.5
 
 * `Validations`: fixes an error from being thrown for non-Textbox validations when situated inside a Modal.
