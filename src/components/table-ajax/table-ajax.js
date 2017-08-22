@@ -303,8 +303,10 @@ class TableAjax extends Table {
     this.stopTimeout();
     this.timeout = setTimeout(() => {
       // track the request incase we need to abort it
-      this.setState({ dataState: 'requested' });
-      this.setState({ ariaBusy: true });
+      this.setState({
+        dataState: 'requested',
+        ariaBusy: true
+      });
       this._request = Request
         .get(this.props.path)
         .set('Accept', 'application/json')
