@@ -52,21 +52,29 @@ class WithDrag extends React.Component {
   }
 }
 
+var cachedSelectStart = null;
+const setSelectStartCache = () => { cachedSelectStart = BrowserHelper.getDocument().onselectstart; }
+const getSelectStartCache = () => { return cachedSelectStart; }
+const clearSelectStartCache = () => { cachedSelectStart = null; }
+
 const ItemSource = {
   canDrag(props, monitor) {
     return (props.canDrag) ? props.canDrag(props, monitor) : true;
   },
 
   beginDrag(props, monitor, component) {
+    setSelectStartCache()
     // Disable Text selection in Safari to show correct cursor
-    BrowserHelper.getDocument().onselectstart = function() { return false; };
+    BrowserHelper.getDocument().onselectstart = () => { return false; };
     const beginDrag = props.beginDrag || component.context.dragAndDropBeginDrag;
     return beginDrag(props, monitor, component);
   },
 
   endDrag(props, monitor, component) {
     // Enable Text selection in Safari
-    BrowserHelper.getDocument().onselectstart = null;
+    BrowserHelper.getDocument().onselectstart = getSelectStartCache();
+    clearSelectStartCache();
+
     const endDrag = props.endDrag || component.context.dragAndDropEndDrag;
     return endDrag(props, monitor, component);
   }

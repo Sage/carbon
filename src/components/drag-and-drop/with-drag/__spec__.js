@@ -74,6 +74,17 @@ describe('WithDrag', () => {
         backend.simulateBeginDrag([handlerId]);
         expect(BrowserHelper.getDocument().onselectstart()).toBeFalsy();
       });
+
+      it('caches text selection', () => {
+        spyOn(BrowserHelper, 'getDocument').and.returnValue({ onselectstart: () => { return 'cache' } });
+        backend.simulateBeginDrag([handlerId]);
+
+        expect(BrowserHelper.getDocument().onselectstart()).toBeFalsy();
+
+        backend.simulateEndDrag([handlerId]);
+
+        expect(BrowserHelper.getDocument().onselectstart()).toEqual('cache');
+      });
     });
 
     describe('endDrag', () => {
@@ -83,11 +94,12 @@ describe('WithDrag', () => {
         expect(endDragPropSpy).not.toHaveBeenCalled();
         expect(endDragContextSpy).toHaveBeenCalled();
       });
+
       it('enables text selection', () => {
         spyOn(BrowserHelper, 'getDocument').and.returnValue({});
         backend.simulateBeginDrag([handlerId]);
         backend.simulateEndDrag([handlerId]);
-        expect(BrowserHelper.getDocument().onselectstart).toBeNull();
+        expect(BrowserHelper.getDocument().onselectstart).toBeFalsy();
       });
     });
   });
