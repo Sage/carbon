@@ -1,9 +1,5 @@
 # 1.5.0
 
-## Pattern Enhancements
-
-* `ConfigurableItems` now accepts an `onReset` prop to be passed in and uses the Carbon dispatcher.
-
 ## Component Improvements
 
 The following components have had styling updates:-
@@ -21,6 +17,14 @@ The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
 * Carbon now require `npm` version 5 for installing dependencies.
 * To upgrade your version of npm, run `npm install npm@latest`.
 * Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
+
+# Component Enhancements
+
+* `TableAjax` component now uses the data-state attribute and `aria-busy`.
+
+# 1.4.6
+
+* `ConfigurableItems` pattern now accepts an `onReset` prop to be passed in.
 
 # 1.4.5
 
