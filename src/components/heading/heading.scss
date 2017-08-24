@@ -7,8 +7,12 @@
 
   .carbon-heading--has-divider & {
     border-bottom: 1px solid $border-color;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     margin-bottom: 20px;
+  }
+
+  .carbon-heading--has-subheader & {
+    padding-bottom: 15px;
   }
 
   .carbon-tooltip {
@@ -26,7 +30,7 @@
 
 .carbon-heading__title {
   display: inline-block;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 32px;
   margin: 0;
   vertical-align: middle;
@@ -35,7 +39,7 @@
 .carbon-heading__help {
   line-height: $app-line-height;
   margin-left: 10px;
-  top: 3px;
+  top: 2px;
 }
 
 .carbon-heading__back {

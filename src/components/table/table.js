@@ -1044,11 +1044,26 @@ class Table extends React.Component {
     );
   }
 
+  /**
+   * Placeholder function for defining the data state, intended to be overriden in subclasses
+   */
+  dataState = () => { }
+
+  /**
+   * The name used for the data-component attribute
+   */
+  get dataComponent() { return 'table'; }
+
+  /**
+   * Data tags used for the data-component attribute
+   */
   componentTags(props) {
     return {
-      'data-component': 'table',
+      'data-component': this.dataComponent,
       'data-element': props['data-element'],
-      'data-role': props['data-role']
+      'data-role': props['data-role'],
+      'data-state': this.dataState(),
+      'aria-busy': this.state.ariaBusy
     };
   }
 

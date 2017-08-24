@@ -274,7 +274,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
         if (this.context.modal && this.context.modal.getDialog()) {
           // if in a modal check its position relative to that
           const dialog = this.context.modal.getDialog();
-          const domNode = ReactDOM.findDOMNode(this);
+          const domNode = ReactDOM.findDOMNode(this); // eslint-disable-line react/no-find-dom-node
           shouldFlip = (message.offsetLeft + domNode.offsetLeft + messageOffsetWidth) > dialog.offsetWidth;
         } else {
           // otherwise check relative to the window

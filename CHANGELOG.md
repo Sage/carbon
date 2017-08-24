@@ -1,3 +1,27 @@
+# 1.5.0
+
+## Component Improvements
+
+The following components have had styling updates:-
+
+* DatePicker
+* ButtonToggle
+* Heading / Dialog
+
+## Font Update
+
+The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
+
+# Component Enhancements
+
+* `TableAjax` component now uses the data-state attribute and `aria-busy`.
+
+## npm (for local development of carbon only)
+
+* Carbon now require `npm` version 5 for installing dependencies.
+* To upgrade your version of npm, run `npm install npm@latest`.
+* Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
+
 # 1.4.6
 
 * `ConfigurableItems` pattern now accepts an `onReset` prop to be passed in.
