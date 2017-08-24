@@ -42,6 +42,25 @@ class WithDrag extends React.Component {
     dragAndDropEndDrag: PropTypes.func
   }
 
+  componentDidMount() {
+    console.log('componentDidMount');
+    BrowserHelper.getWindow().addEventListener('selectstart', this.preventTextSelection);
+  }
+
+  componentWillUnmount() {
+    BrowserHelper.getWindow().removeEventListener('selectstart', this.preventTextSelection);
+  }
+
+  // In Safari it changes the mouse cursor when dragging because it thinks text is being selected
+  // We test if the target is an html element (not text) or if we already know the user is dragging
+  preventTextSelection = (event) => {
+    if ((event.target instanceof HTMLElement) || this.dragging) {
+      event.preventDefault();
+      return false;
+    }
+    return true;
+  };
+
   render() {
     // this.props.connectDragSource comes from react-dnd DragSource higher
     // order component, so disable the react/prop-types ESLint rule on the line
@@ -52,36 +71,19 @@ class WithDrag extends React.Component {
   }
 }
 
-let cachedSelectStart = null;
-const setSelectStartCache = () => { cachedSelectStart = BrowserHelper.getDocument().onselectstart; };
-const getSelectStartCache = () => { return cachedSelectStart; };
-const clearSelectStartCache = () => { cachedSelectStart = null; };
-
-// Disable Text selection in Safari to show correct cursor
-const disableSelectStart = () => {
-  setSelectStartCache();
-  BrowserHelper.getDocument().onselectstart = () => { return false; };
-};
-
-// Enable Text selection in Safari
-const enableSelectStart = () => {
-  BrowserHelper.getDocument().onselectstart = getSelectStartCache();
-  clearSelectStartCache();
-};
-
 const ItemSource = {
   canDrag(props, monitor) {
     return (props.canDrag) ? props.canDrag(props, monitor) : true;
   },
 
   beginDrag(props, monitor, component) {
-    disableSelectStart();
+    component.dragging = true;
     const beginDrag = props.beginDrag || component.context.dragAndDropBeginDrag;
     return beginDrag(props, monitor, component);
   },
 
   endDrag(props, monitor, component) {
-    enableSelectStart();
+    component.dragging = false;
     const endDrag = props.endDrag || component.context.dragAndDropEndDrag;
     return endDrag(props, monitor, component);
   }

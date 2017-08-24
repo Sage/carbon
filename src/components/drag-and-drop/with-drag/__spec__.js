@@ -8,7 +8,7 @@ import BrowserHelper from './../../../utils/helpers/browser';
 
 describe('WithDrag', () => {
   let wrapper, backend, handlerId, beginDragContextSpy, beginDragPropSpy,
-      endDragContextSpy, endDragPropSpy;
+      endDragContextSpy, endDragPropSpy, component;
 
   function createWrapper(props = {}) {
     let DnD = wrapInTestContext(WithDrag);
@@ -19,7 +19,7 @@ describe('WithDrag', () => {
       </DnD>
     );
 
-    let component = wrapper.find(WithDrag).getNode();
+    component = wrapper.find(WithDrag).getNode();
     handlerId = component.getHandlerId();
     backend = wrapper.getNode().getManager().backend;
   }
@@ -69,21 +69,10 @@ describe('WithDrag', () => {
         expect(beginDragContextSpy).toHaveBeenCalled();
       });
 
-      it('disables text selection', () => {
+      it('marks the component as dragging', () => {
         spyOn(BrowserHelper, 'getDocument').and.returnValue({});
         backend.simulateBeginDrag([handlerId]);
-        expect(BrowserHelper.getDocument().onselectstart()).toBeFalsy();
-      });
-
-      it('caches text selection', () => {
-        spyOn(BrowserHelper, 'getDocument').and.returnValue({ onselectstart: () => { return 'cache' } });
-        backend.simulateBeginDrag([handlerId]);
-
-        expect(BrowserHelper.getDocument().onselectstart()).toBeFalsy();
-
-        backend.simulateEndDrag([handlerId]);
-
-        expect(BrowserHelper.getDocument().onselectstart()).toEqual('cache');
+        expect(component.decoratedComponentInstance.dragging).toBeTruthy()
       });
     });
 
@@ -95,11 +84,11 @@ describe('WithDrag', () => {
         expect(endDragContextSpy).toHaveBeenCalled();
       });
 
-      it('enables text selection', () => {
+      it('marks the component as not dragging', () => {
         spyOn(BrowserHelper, 'getDocument').and.returnValue({});
         backend.simulateBeginDrag([handlerId]);
         backend.simulateEndDrag([handlerId]);
-        expect(BrowserHelper.getDocument().onselectstart).toBeFalsy();
+        expect(component.decoratedComponentInstance.dragging).toBeFalsy()
       });
     });
   });
@@ -143,6 +132,43 @@ describe('WithDrag', () => {
       it('it does not trigger begin drag', () => {
         backend.simulateBeginDrag([handlerId]);
         expect(beginDragContextSpy).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('selectstart', () => {
+    describe('when the event target is a dom element', () => {
+      it('prevents selectstart', () => {
+        const event = {
+          target: BrowserHelper.getDocument().createElement('div'),
+          preventDefault: jest.fn()
+        }
+        spyOn(event, 'preventDefault');
+        expect(component.decoratedComponentInstance.preventTextSelection(event)).toBeFalsy();
+      });
+    });
+
+    describe('when the event target is not a dom element but the component is dragging', () => {
+      it('prevents selectstart', () => {
+        const event = {
+          target: 'Some Text',
+          preventDefault: jest.fn()
+        }
+        spyOn(event, 'preventDefault');
+        component.decoratedComponentInstance.dragging = true;
+        expect(component.decoratedComponentInstance.preventTextSelection(event)).toBeFalsy();
+      });
+    });
+
+    describe('when the event target is not a dom element and the component is not dragging', () => {
+      it('does not prevent selectstart', () => {
+        const event = {
+          target: 'Some Text',
+          preventDefault: jest.fn()
+        }
+        spyOn(event, 'preventDefault');
+        component.decoratedComponentInstance.dragging = false;
+        expect(component.decoratedComponentInstance.preventTextSelection(event)).toBeTruthy();
       });
     });
   });
