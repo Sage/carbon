@@ -1,3 +1,9 @@
+# 1.6.0
+
+# Component Enhancements
+
+* `Table` now lets you add an `aria-describedby` attribute via the `ariaDescribedBy` prop.
+
 # 1.5.0
 
 ## Component Improvements
@@ -14,7 +20,6 @@ The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
 
 # Component Enhancements
 
-* `Table` now lets you add an `aria-describedby` attribute via the `ariaDescribedBy` prop.
 * `TableAjax` component now uses the data-state attribute and `aria-busy`.
 
 ## npm (for local development of carbon only)
