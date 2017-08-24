@@ -1,15 +1,27 @@
 # 1.5.0
 
-### npm
+## Component Improvements
 
-* Carbon now require `npm` version 5 for installing dependencies.
-* To upgrade your version of npm, run `npm install npm@latest`.
-* Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
+The following components have had styling updates:-
+
+* DatePicker
+* ButtonToggle
+* Heading / Dialog
+
+## Font Update
+
+The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
 
 # Component Enhancements
 
 * `Table` now lets you add an `aria-describedby` attribute via the `ariaDescribedBy` prop.
 * `TableAjax` component now uses the data-state attribute and `aria-busy`.
+
+## npm (for local development of carbon only)
+
+* Carbon now require `npm` version 5 for installing dependencies.
+* To upgrade your version of npm, run `npm install npm@latest`.
+* Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
 
 # 1.4.6
 
