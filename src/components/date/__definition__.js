@@ -13,9 +13,6 @@ let definition = new Definition('date-input', DateInput, {
 * Entering or picking a start and end date together? [Try Date Range](/components/date-range).
  `,
   type: 'form',
-  propValues: {
-    minDate: moment().subtract(1, 'days').format('YYYY-MM-DD')
-  },
   propTypes: {
     autoFocus: "Boolean",
     disabled: "Boolean",

@@ -10,13 +10,13 @@ const Navbar = ({
     <div className={ className }>
       <button
         className='DayPicker-NavButton DayPicker-NavButton--prev'
-        onClick={ () => { onPreviousClick(); } }
+        onClick={ () => onPreviousClick() }
       >
         <span className='DayPicker-NavButton__arrow'>‹</span>
       </button>
       <button
         className='DayPicker-NavButton DayPicker-NavButton--next'
-        onClick={ () => { onNextClick(); } }
+        onClick={ () => onNextClick() }
       >
         <span className='DayPicker-NavButton__arrow'>›</span>
       </button>

@@ -211,7 +211,7 @@ describe('Date', () => {
 
   describe('handleVisibleInputChange', () => {
     beforeEach(() => {
-      spyOn(instance, 'setState');
+      spyOn(instance, 'setState').and.callThrough();
     });
 
     it('is triggered when visible input changes', () => {
@@ -221,7 +221,7 @@ describe('Date', () => {
       expect(instance.emitOnChangeCallback).toHaveBeenCalledWith(hiddenToday);
       expect(instance.setState).toHaveBeenCalledWith({
         visibleValue: today,
-        datePickerValue: hiddenToday
+        datePickerValue: DateHelper.stringToDate(hiddenToday)
       });
     });
 
@@ -231,54 +231,76 @@ describe('Date', () => {
 
       it('accepts the format DD MMM YYYY', () => {
         let date = moment().add(noOfDays, 'days').format('DD MMM YYYY');
-        instance.handleVisibleInputChange({ target: { value: date } })
+        instance.handleVisibleInputChange({ target: { value: date } });
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          datePickerValue: hiddenDate
+          datePickerValue: DateHelper.stringToDate(hiddenDate)
         });
       });
 
       it('accepts the format DD-MM', () => {
         let date = moment().format('DD-MM');
-        instance.handleVisibleInputChange({ target: { value: date } })
+        instance.handleVisibleInputChange({ target: { value: date } });
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          datePickerValue: hiddenToday
+          datePickerValue: DateHelper.stringToDate(hiddenToday)
         });
       });
 
       it('accepts the format DD.MM.YYYY', () => {
         let date = moment().add(noOfDays, 'days').format('DD.MM.YYYY');
-        instance.handleVisibleInputChange({ target: { value: date } })
+        instance.handleVisibleInputChange({ target: { value: date } });
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          datePickerValue: hiddenDate
+          datePickerValue: DateHelper.stringToDate(hiddenDate)
         });
       });
 
       it('accepts the format DD-MM-YYYY', () => {
         let date = moment().add(noOfDays, 'days').format('DD-MM-YYYY');
-        instance.handleVisibleInputChange({ target: { value: date } })
+        instance.handleVisibleInputChange({ target: { value: date } });
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: date,
-          datePickerValue: hiddenDate
+          datePickerValue: DateHelper.stringToDate(hiddenDate)
+        });
+      });
+
+      describe('if the month changes and datepicker is open', () => {
+        it('updates the month of the datepicker', () => {
+          instance.setState({ open: true });
+          spyOn(instance.datepicker, 'showMonth');
+          let date = moment().add(1, 'months').format('DD-MM-YYYY');
+          instance.handleVisibleInputChange({ target: { value: date } });
+          expect(instance.datepicker.showMonth).toHaveBeenCalledWith(instance.state.datePickerValue);
+        });
+      });
+
+      describe('if the year changes and datepicker is open', () => {
+        it('updates the year of the datepicker', () => {
+          instance.setState({ open: true });
+          spyOn(instance.datepicker, 'showMonth');
+          let date = moment().add(1, 'years').format('DD-MM-YYYY');
+          instance.handleVisibleInputChange({ target: { value: date } });
+          expect(instance.datepicker.showMonth).toHaveBeenCalledWith(instance.state.datePickerValue);
         });
       });
     });
 
     describe('when a invalid date is entered', () => {
       it('does not update the hidden value', () => {
-        instance.handleVisibleInputChange({ target: { value: 'abc' } })
+        instance.handleVisibleInputChange({ target: { value: 'abc' } });
         expect(instance.setState).toHaveBeenCalledWith({
           visibleValue: 'abc'
         });
       });
+
       it("calls inputIconHTML with error in order to correctly generate the error icon", () => {
         let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
         spyOn(invalidDate, 'inputIconHTML');
         invalidDate.setState({ valid: false });
         expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('error');
       });
+
       it("calls inputIconHTML with warning in order to correctly generate the warning icon", () => {
         let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
         spyOn(invalidDate, 'inputIconHTML');
@@ -394,14 +416,6 @@ describe('Date', () => {
       it('sets the input as readonly', () => {
         expect(instance._input.readOnly).toEqual(true);
       });
-    });
-  });
-
-  describe('handleViewDateChange', () => {
-    it('sets the state of the datePickerValue', () => {
-      spyOn(instance, 'setState');
-      instance.handleViewDateChange(123);
-      expect(instance.setState).toHaveBeenCalledWith({ datePickerValue: 123 });
     });
   });
 

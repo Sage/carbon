@@ -283,12 +283,33 @@ class Date extends React.Component {
     // Updates the hidden value after first formatting to default hidden format
     if (validDate) {
       const hiddenValue = DateHelper.formatValue(input, this.hiddenFormat());
-      newState.datePickerValue = hiddenValue;
+      newState.datePickerValue = DateHelper.stringToDate(hiddenValue);
+
+      if (this.datepicker && this.monthOrYearHasChanged(newState.datePickerValue)) {
+        this.datepicker.showMonth(newState.datePickerValue);
+      }
+
       this.emitOnChangeCallback(hiddenValue);
     } else {
       this.emitOnChangeCallback(ev.target.value);
     }
     this.setState(newState);
+  }
+
+  /**
+   * Determines if the new date's month or year has changed from the currently selected.
+   *
+   * @method monthOrYearHasChanged
+   * @param {Date}
+   * @return {Boolean}
+   */
+  monthOrYearHasChanged = (newDate) => {
+    const currentDate = this.datepicker.state.currentMonth;
+
+    return (
+      (currentDate.getMonth() !== newDate.getMonth()) ||
+      (currentDate.getYear() !== newDate.getYear())
+    );
   }
 
   /**
@@ -343,18 +364,6 @@ class Date extends React.Component {
     } else {
       this.openDatePicker();
     }
-  }
-
-
-  /**
-   * Updates datePickerValue as hidden input changes.
-   *
-   * @method handleViewDateChange
-   * @param {String} val hidden input value
-   * @return {void}
-   */
-  handleViewDateChange = (val) => {
-    this.setState({ datePickerValue: val });
   }
 
   /**
@@ -483,6 +492,7 @@ class Date extends React.Component {
       inline: true,
       locale: I18n.locale,
       localeUtils: LocaleUtils,
+      navbarElement: <Navbar />,
       onDayClick: this.handleDateSelect,
       ref: (input) => { this.datepicker = input; },
       selectedDays: [this.state.datePickerValue]
@@ -497,9 +507,7 @@ class Date extends React.Component {
    */
   renderDatePicker() {
     if (!this.state.open) { return null; }
-    return (
-      <DayPicker { ...this.datePickerProps } navbarElement={ <Navbar /> } />
-    );
+    return <DayPicker { ...this.datePickerProps } />;
   }
 
   renderHiddenInput() {

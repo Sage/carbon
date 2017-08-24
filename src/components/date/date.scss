@@ -65,6 +65,10 @@ $date__picker__background-color: $white;
   border-color: $date__picker__background-color;
   border-style: solid;
   border-width: 0 3px 3px 3px;
+
+  abbr {
+    text-decoration: none;
+  }
 }
 
 .DayPicker-Day {
