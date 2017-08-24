@@ -4,7 +4,6 @@ import Business from './svgs/business';
 import CSV from './svgs/csv';
 import Chevron from './svgs/chevron';
 import Completed from './svgs/completed';
-import Draft from './svgs/draft';
 import Dribbble from './svgs/dribbble';
 import Edit from './svgs/edit';
 import Email from './svgs/email';
@@ -41,7 +40,6 @@ export default {
   csv: CSV,
   chevron: Chevron,
   completed: Completed,
-  draft: Draft,
   dribbble: Dribbble,
   edit: Edit,
   email: Email,

@@ -1,5 +1,17 @@
 # 1.5.0
 
+## Component Improvements
+
+The following components have had styling updates:-
+
+* DatePicker
+* ButtonToggle
+* Heading / Dialog
+
+## Font Update
+
+The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
+
 ### npm
 
 * Carbon now require `npm` version 5 for installing dependencies.
