@@ -99,5 +99,14 @@ describe('Immutable Helper', () => {
         });
       });
     });
+
+    describe('when passed an object containing "length" field', () => {
+      it('returns immutable map containing that field', () => {
+        const data = { length: 5 };
+        const expectedData = Immutable.Map({ length: '5' });
+        const result = ImmutableHelper.parseJSON(data);
+        expect(result.toJS()).toEqual(expectedData.toJS());
+      });
+    });
   });
 });

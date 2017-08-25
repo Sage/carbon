@@ -30,7 +30,7 @@ const ImmutableHelper = {
       return Immutable.Seq(js).map(ImmutableHelper.parseJSON).toList();
     }
 
-    return Immutable.Seq(js).map(ImmutableHelper.parseJSON).toMap();
+    return Immutable.Map(js).map(ImmutableHelper.parseJSON);
   }
 };
 
