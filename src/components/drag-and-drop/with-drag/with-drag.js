@@ -43,17 +43,16 @@ class WithDrag extends React.Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
-    BrowserHelper.getWindow().addEventListener('selectstart', this.preventTextSelection);
+    BrowserHelper.getWindow().addEventListener('selectstart', this.allowTextSelection);
   }
 
   componentWillUnmount() {
-    BrowserHelper.getWindow().removeEventListener('selectstart', this.preventTextSelection);
+    BrowserHelper.getWindow().removeEventListener('selectstart', this.allowTextSelection);
   }
 
   // In Safari it changes the mouse cursor when dragging because it thinks text is being selected
   // We test if the target is an html element (not text) or if we already know the user is dragging
-  preventTextSelection = (event) => {
+  allowTextSelection = (event) => {
     if ((event.target instanceof HTMLElement) || this.dragging) {
       event.preventDefault();
       return false;

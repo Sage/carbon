@@ -121,6 +121,7 @@ describe('WithDrag', () => {
 
   describe('custom canDrag', () => {
     beforeEach(() => {
+
       createWrapper({
         canDrag: () => {
           return false
@@ -137,6 +138,24 @@ describe('WithDrag', () => {
   });
 
   describe('selectstart', () => {
+    beforeEach(() => {
+      spyOn(BrowserHelper.getWindow(), 'addEventListener');
+      spyOn(BrowserHelper.getWindow(), 'removeEventListener');
+      createWrapper();
+    });
+    describe('didMount', () => {
+      it('adds a event listener', () => {
+        expect(BrowserHelper.getWindow().addEventListener).toHaveBeenCalledWith('selectstart', jasmine.any(Function))
+      });
+    });
+
+    describe('WillUnmount', () => {
+      it('remove a event listener', () => {
+        wrapper.unmount();
+        expect(BrowserHelper.getWindow().removeEventListener).toHaveBeenCalledWith('selectstart', jasmine.any(Function))
+      });
+    });
+
     describe('when the event target is a dom element', () => {
       it('prevents selectstart', () => {
         const event = {
@@ -144,7 +163,7 @@ describe('WithDrag', () => {
           preventDefault: jest.fn()
         }
         spyOn(event, 'preventDefault');
-        expect(component.decoratedComponentInstance.preventTextSelection(event)).toBeFalsy();
+        expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeFalsy();
       });
     });
 
@@ -156,7 +175,7 @@ describe('WithDrag', () => {
         }
         spyOn(event, 'preventDefault');
         component.decoratedComponentInstance.dragging = true;
-        expect(component.decoratedComponentInstance.preventTextSelection(event)).toBeFalsy();
+        expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeFalsy();
       });
     });
 
@@ -168,7 +187,7 @@ describe('WithDrag', () => {
         }
         spyOn(event, 'preventDefault');
         component.decoratedComponentInstance.dragging = false;
-        expect(component.decoratedComponentInstance.preventTextSelection(event)).toBeTruthy();
+        expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeTruthy();
       });
     });
   });
