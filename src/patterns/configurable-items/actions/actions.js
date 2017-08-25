@@ -1,4 +1,4 @@
-import Dispatcher from 'dispatcher';
+import { Dispatcher } from './../../../utils/flux';
 import Constants from './../constants';
 
 const ConfigurableItemsActions = {
