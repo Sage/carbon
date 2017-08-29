@@ -26,7 +26,9 @@ describe('Service', () => {
     });
 
     it('sets the transformResponse of the axios client', () => {
-      expect(service.client.defaults.transformResponse[0]).toEqual(service.responseTransform);
+      spyOn(JSON, 'parse');
+      service.client.defaults.transformResponse[0]('test');
+      expect(JSON.parse).toHaveBeenCalledWith('test');
     });
 
     it('sets the interceptors of the axios client', () => {

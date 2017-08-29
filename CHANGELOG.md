@@ -1,3 +1,9 @@
+# 1.5.1
+
+## Bug Fixes
+
+* Update `Service` class to use prototypal inheritance instead of class properties.
+
 # 1.5.0
 
 ## Component Improvements
