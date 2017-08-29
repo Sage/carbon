@@ -6,7 +6,6 @@ $date__picker__header-height: 40px;
   .DayPicker-NavBar {
     border-radius: 3px 3px 0 0;
     color: $white;
-    cursor: pointer;
     height: $date__picker__header-height;
     top: 0;
     width: 100%;
@@ -20,6 +19,7 @@ $date__picker__header-height: 40px;
       -moz-box-shadow: none;
       box-shadow: none;
       color: $white;
+      cursor: pointer;
       display: flex;
       font-size: 20px;
       height: $date__picker__header-height;
