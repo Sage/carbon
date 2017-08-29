@@ -71,7 +71,9 @@ describe('WithDrop', () => {
     mockWindow = {
       getSelection() {
         return mockSelection;
-      }
+      },
+      addEventListener() {},
+      removeEventListener() {}
     };
 
     spyOn(mockSelection, 'removeAllRanges');
