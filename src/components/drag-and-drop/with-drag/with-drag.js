@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
 import ItemTypes from './../../../utils/helpers/dnd/item-types';
+import BrowserHelper from './../../../utils/helpers/browser';
 
 class WithDrag extends React.Component {
   static propTypes = {
@@ -41,6 +42,24 @@ class WithDrag extends React.Component {
     dragAndDropEndDrag: PropTypes.func
   }
 
+  componentDidMount() {
+    BrowserHelper.getWindow().addEventListener('selectstart', this.allowTextSelection);
+  }
+
+  componentWillUnmount() {
+    BrowserHelper.getWindow().removeEventListener('selectstart', this.allowTextSelection);
+  }
+
+  // In Safari it changes the mouse cursor when dragging because it thinks text is being selected
+  // We test if the target is an html element (not text) or if we already know the user is dragging
+  allowTextSelection = (event) => {
+    if ((event.target instanceof HTMLElement) || this.dragging) {
+      event.preventDefault();
+      return false;
+    }
+    return true;
+  };
+
   render() {
     // this.props.connectDragSource comes from react-dnd DragSource higher
     // order component, so disable the react/prop-types ESLint rule on the line
@@ -57,11 +76,13 @@ const ItemSource = {
   },
 
   beginDrag(props, monitor, component) {
+    component.dragging = true;
     const beginDrag = props.beginDrag || component.context.dragAndDropBeginDrag;
     return beginDrag(props, monitor, component);
   },
 
   endDrag(props, monitor, component) {
+    component.dragging = false;
     const endDrag = props.endDrag || component.context.dragAndDropEndDrag;
     return endDrag(props, monitor, component);
   }
