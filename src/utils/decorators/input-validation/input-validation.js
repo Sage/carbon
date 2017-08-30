@@ -513,7 +513,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
       }
 
       // reset the error state
-      this.setState({ errorMessage: null, valid: true, warning: false, info: false });
+      this.setState({ errorMessage: null, messageShown: false, valid: true, warning: false, info: false });
     }
   }
 
@@ -552,6 +552,8 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    */
   showMessage = () => {
     if (this.messageExists()) {
+      this.positionMessage();
+
       this.setState({
         messageShown: true,
         immediatelyHideMessage: false
@@ -699,7 +701,6 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
   get inputProps() {
     const inputProps = super.inputProps || {};
 
-    inputProps.onMouseOver = chainFunctions(this.positionMessage, inputProps.onMouseOver);
     inputProps.onFocus = chainFunctions(this._handleFocus, inputProps.onFocus);
     inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
     inputProps.onKeyDown = chainFunctions(this._handleContentChange, inputProps.onKeyDown);

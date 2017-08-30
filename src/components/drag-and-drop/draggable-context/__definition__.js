@@ -1,20 +1,19 @@
 // definition.js
 import DraggableContext from './';
-import ComponentActions from './../../../../demo/actions/component';
 import Definition from './../../../../demo/utils/definition';
 import WithDragDefinition from './../with-drag/__definition__';
 import WithDropDefinition from './../with-drop/__definition__';
+import CustomDragLayerDefinition from './../custom-drag-layer/__definition__';
 
-let definition = new Definition('draggable-context', DraggableContext, {
-  associatedDefinitions: [WithDropDefinition, WithDragDefinition],
+const definition = new Definition('draggable-context', DraggableContext, {
+  associatedDefinitions: [WithDropDefinition, WithDragDefinition, CustomDragLayerDefinition],
 
-  hiddenProps: ['children', 'onDrag'],
+  hiddenProps: ['children', 'customDragLayer', 'onDrag'],
 
-  topLevelComponent: 'Table',
-
-  props: ['onDrag'],
+  props: ['customDragLayer', 'onDrag'],
 
   propTypes: {
+    customDragLayer: 'Object',
     onDrag: 'Function'
   },
 
@@ -23,18 +22,20 @@ let definition = new Definition('draggable-context', DraggableContext, {
   dataVariable: 'dndData',
 
   propValues: {
-    tbody: false,
-    children: `<thead>
-    <TableRow as="header">
-      <TableHeader />
-      <TableHeader>Country</TableHeader>
-    </TableRow>
-  </thead>
-  <DraggableContext onDrag={ updateDndData }>
-    <tbody>
-      { buildRows() }
-    </tbody>
-  </DraggableContext>`
+    onDrag: 'updateDndData',
+    children: `<div>
+    <Table tbody={false}>
+      <thead>
+        <TableRow as="header">
+          <TableHeader />
+          <TableHeader>Country</TableHeader>
+        </TableRow>
+      </thead>
+      <tbody>
+        { buildRows() }
+      </tbody>
+    </Table>
+  </div>`
   },
 
   js: `function buildRows() {
@@ -52,6 +53,7 @@ let definition = new Definition('draggable-context', DraggableContext, {
 }`,
 
   propDescriptions: {
+    customDragLayer: 'Optionally provide the CustomDragLayer for the drag & drop ghost layer',
     onDrag: 'Callback function for when a draggable item is moved'
   },
 

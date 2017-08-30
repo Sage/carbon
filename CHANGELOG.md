@@ -1,8 +1,59 @@
 # 1.6.0
 
-# Component Enhancements
+## Component Enhancements
 
 * `Table` now lets you add an `aria-describedby` prop.
+
+## Draggable Ghost Row
+
+The `DraggableContext` component now includes a `CustomDragLayer` to enable a ghost row when dragging.
+
+In order to enable this you need to define the `draggableNode` prop on the `<WithDrag>` component. For example:
+
+```
+class DraggableItems extends React.Component {
+  render() {
+    return (
+      <DraggableContext onDrag={ onItemMoved }>
+        <ol>
+          {
+            items.map((item, index) => {
+              return (
+                <WithDrop key={ index } index={ index }>
+                  <DraggableItem />
+                </WithDrop>
+              );
+            });
+          }
+        </ol>
+      </DraggableContext>
+    );
+  }
+}
+
+...
+
+class DraggableItem extends React.Component {
+  render() {
+    return (
+      <li ref={ (node) => { this._listItem = node; } } >
+        <WithDrag draggableNode={ () => { return this._listItem; } }>
+          <span>{ item.content }</span>
+        </WithDrag>
+      </li>
+    );
+  }
+}
+```
+
+Note that the `draggableNode` is passed as a function because the ref `_listItem` is undefined until the component is mounted.
+
+# 1.5.1
+
+## Bug Fixes
+
+* Update `Service` class to use prototypal inheritance instead of class properties.
+* Fixes floating error message caused by https://github.com/Sage/carbon/pull/1452/commits/1f902687c507f7b9cc8fe8cb641c048f8d82b034
 
 # 1.5.0
 
