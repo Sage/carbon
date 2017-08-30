@@ -117,7 +117,10 @@ describe('AnimatedMenuButton', () => {
 
   describe('close handler', () => {
     it('closes the menu', () => {
-      basicWidget.closeHandler();
+      let event = { preventDefault: () => {} }
+      spyOn(event, 'preventDefault')
+      basicWidget.closeHandler(event);
+      expect(event.preventDefault).toHaveBeenCalled();
       expect(basicWidget.setState).toHaveBeenCalled();
       expect(basicWidget.blockBlur).toBeFalsy();
     });
@@ -220,6 +223,7 @@ describe('AnimatedMenuButton', () => {
   describe('closeIcon', () => {
     it('returns the HTML for the close Icon', () => {
       expect(basicWidget.closeIcon().props.children.props.type).toEqual('close');
+      expect(basicWidget.closeIcon().type).toEqual('button');
     });
   });
 
