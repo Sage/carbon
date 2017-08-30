@@ -173,7 +173,7 @@ class Service {
     let request;
 
     if (typeof (options) === 'function') {
-      Logger.deprecate('Passing onSuccess and onError as separate arguments is deprecated. Please use `get(1, { onSuccess: function, onError: function, params { k: "v" } })`'); // eslint-disable-line max-len
+      Logger.deprecate('Passing onSuccess and onError as separate arguments is deprecated. Please use `get(1, { onSuccess: function, onError: function, params: { k: "v" } })`'); // eslint-disable-line max-len
 
       request = this.client.get(String(id));
 
@@ -182,18 +182,12 @@ class Service {
         this.handleResponse.bind(this, _onError)
       );
     } else {
-      if (typeof (options.params) === 'undefined') {
-        options.params = {};
-      }
+      const { onSuccess, onError, ...params } = options;
 
-      request = this.client.get(String(id),
-        {
-          params: options.params
-        });
-
+      request = this.client.get(String(id), params);
       request.then(
-        this.handleResponse.bind(this, options.onSuccess),
-        this.handleResponse.bind(this, options.onError)
+        this.handleResponse.bind(this, onSuccess),
+        this.handleResponse.bind(this, onError)
       );
     }
   }
@@ -211,7 +205,7 @@ class Service {
     let request;
 
     if (typeof (options) === 'function') {
-      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `post('', { data_key: 'data_val' }, { onSuccess: function, onError: function, params { k: 'v' } })`"); // eslint-disable-line max-len
+      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `post('', { data_key: 'data_val' }, { onSuccess: function, onError: function, params: { k: 'v' } })`"); // eslint-disable-line max-len
       request = this.client.post('', data);
 
       request.then(
@@ -219,18 +213,13 @@ class Service {
         this.handleResponse.bind(this, _onError)
       );
     } else {
-      if (typeof (options.params) === 'undefined') {
-        options.params = {};
-      }
+      const { onSuccess, onError, ...params } = options;
 
-      request = this.client.post('',
-        {
-          params: options.params
-        });
+      request = this.client.post('', data, params);
 
       request.then(
-        this.handleResponse.bind(this, options.onSuccess),
-        this.handleResponse.bind(this, options.onError)
+        this.handleResponse.bind(this, onSuccess),
+        this.handleResponse.bind(this, onError)
       );
     }
   }
@@ -249,7 +238,7 @@ class Service {
     let request;
 
     if (typeof (options) === 'function') {
-      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `put(1, { data_key: 'data_val' }, { onSuccess: function, onError: function, params { k: 'v' } })`"); // eslint-disable-line max-len
+      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `put(1, { data_key: 'data_val' }, { onSuccess: function, onError: function, params: { k: 'v' } })`"); // eslint-disable-line max-len
       request = this.client.put(String(id), data);
 
       request.then(
@@ -257,18 +246,13 @@ class Service {
         this.handleResponse.bind(this, _onError)
       );
     } else {
-      if (typeof (options.params) === 'undefined') {
-        options.params = {};
-      }
+      const { onSuccess, onError, ...params } = options;
 
-      request = this.client.put(String(id), data,
-        {
-          params: options.params
-        });
+      request = this.client.put(String(id), data, params);
 
       request.then(
-        this.handleResponse.bind(this, options.onSuccess),
-        this.handleResponse.bind(this, options.onError)
+        this.handleResponse.bind(this, onSuccess),
+        this.handleResponse.bind(this, onError)
       );
     }
   }
@@ -286,7 +270,7 @@ class Service {
     let request;
 
     if (typeof (options) === 'function') {
-      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `delete(1, { onSuccess: function, onError: function, params { k: 'v' } })`"); // eslint-disable-line max-len
+      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `delete(1, { onSuccess: function, onError: function, params: { k: 'v' } })`"); // eslint-disable-line max-len
       request = this.client.delete(String(id));
 
       request.then(
@@ -294,18 +278,13 @@ class Service {
         this.handleResponse.bind(this, _onError)
       );
     } else {
-      if (typeof (options.params) === 'undefined') {
-        options.params = {};
-      }
+      const { onSuccess, onError, ...params } = options;
 
-      request = this.client.delete(String(id),
-        {
-          params: options.params
-        });
+      request = this.client.delete(String(id), params);
 
       request.then(
-        this.handleResponse.bind(this, options.onSuccess),
-        this.handleResponse.bind(this, options.onError)
+        this.handleResponse.bind(this, onSuccess),
+        this.handleResponse.bind(this, onError)
       );
     }
   }
