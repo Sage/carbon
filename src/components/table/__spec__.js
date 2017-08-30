@@ -980,10 +980,10 @@ describe('Table', () => {
       expect(toolbar).toBeDefined();
     });
 
-    describe('when ariaDescribedBy is in the table props', () => {
+    describe('when aria-describedby is in the table props', () => {
       it('renders an aria-describedby attribute on the table element', () => {
         const wrapper = shallow(
-          <Table ariaDescribedBy='description' />
+          <Table aria-describedby='description' />
         );
 
         const table = wrapper.find('table');
@@ -992,7 +992,7 @@ describe('Table', () => {
       });
     });
 
-    describe('when ariaDescribedBy is not in the table props', () => {
+    describe('when aria-describedby is not in the table props', () => {
       it('does not render an aria-describedby attribute on the table element', () => {
         const wrapper = shallow(
           <Table />

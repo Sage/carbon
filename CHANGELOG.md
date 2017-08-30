@@ -2,7 +2,7 @@
 
 # Component Enhancements
 
-* `Table` now lets you add an `aria-describedby` attribute via the `ariaDescribedBy` prop.
+* `Table` now lets you add an `aria-describedby` prop.
 
 # 1.5.0
 

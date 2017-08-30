@@ -8,7 +8,7 @@ export default (definition) => {
     children: '{ buildRows() }'
   });
   definition.hiddenProps = definition.hiddenProps.concat([
-    'ariaDescribedBy',
+    'aria-describedby',
     'currentPage',
     'filter',
     'totalRecords',
@@ -46,7 +46,7 @@ function buildRows() {
 
   definition.propTypes = assign({}, definition.propTypes, {
     actions: 'Object',
-    ariaDescribedBy: 'String',
+    'aria-describedby': 'String',
     caption: 'String',
     currentPage: 'String',
     children: 'Node',
@@ -73,7 +73,7 @@ function buildRows() {
   });
   definition.propDescriptions = assign({}, definition.propDescriptions, {
     actions: 'Specify actions to be used by the ActionToolbar component.',
-    ariaDescribedBy: 'The HTML id attribute of the element that contains a description of the table',
+    'aria-describedby': 'The HTML id attribute of the element that contains a description of the table',
     caption: 'Specify a visually hidden title for the table',
     currentPage: 'Controls the current page number of a paginated data set.',
     children: 'This component supports children.',

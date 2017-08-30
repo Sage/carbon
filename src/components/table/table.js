@@ -277,10 +277,10 @@ class Table extends React.Component {
      * The HTML id of the element that contains a description
      * of this table.
      *
-     * @property ariaDescribedBy
+     * @property aria-describedby
      * @type string
      */
-    ariaDescribedBy: PropTypes.string,
+    'aria-describedby': PropTypes.string,
 
     /**
      * Renders as light or dark
@@ -1101,8 +1101,8 @@ class Table extends React.Component {
       className: this.tableClasses
     };
 
-    if (this.props.ariaDescribedBy) {
-      tableProps['aria-describedby'] = this.props.ariaDescribedBy;
+    if (this.props['aria-describedby']) {
+      tableProps['aria-describedby'] = this.props['aria-describedby'];
     }
 
     return (
