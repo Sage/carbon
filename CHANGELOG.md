@@ -2,6 +2,7 @@
 
 ## Bug Fixes
 
+* Update `Service` class to use prototypal inheritance instead of class properties.
 * Fixes floating error message caused by https://github.com/Sage/carbon/pull/1452/commits/1f902687c507f7b9cc8fe8cb641c048f8d82b034
 
 # 1.5.0
