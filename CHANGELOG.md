@@ -1,6 +1,10 @@
 # 1.6.0
 
-### Draggable ghost row
+## Component Enhancements
+
+* `Table` now lets you add an `aria-describedby` prop.
+
+## Draggable Ghost Row
 
 The `DraggableContext` component now includes a `CustomDragLayer` to enable a ghost row when dragging.
 
