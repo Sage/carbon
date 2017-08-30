@@ -857,6 +857,7 @@ describe('Dropdown', () => {
       expect(instance.listProps.key).toEqual('list');
       expect(instance.listProps.ref).toEqual('list');
       expect(instance.listProps.className).toEqual('carbon-dropdown__list');
+      expect(instance.listProps.role).toEqual('listbox');
     });
   });
 
@@ -885,6 +886,15 @@ describe('Dropdown', () => {
       it('adds highlighted class', () => {
         instance.setState({ highlighted: 2 });
         expect(instance.results(instance.options)[1].props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--highlighted');
+      });
+
+      it('sets aria-selected', () => {
+        expect(instance.results(instance.options)[0].props['aria-selected']).toBeTruthy();
+        expect(instance.results(instance.options)[1].props['aria-selected']).toBeFalsy();
+      });
+
+      it('sets the role as option', () => {
+        expect(instance.results(instance.options)[0].props.role).toEqual('option');
       });
     });
 

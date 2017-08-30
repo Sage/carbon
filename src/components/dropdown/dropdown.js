@@ -567,7 +567,8 @@ class Dropdown extends React.Component {
     return {
       key: 'list',
       ref: 'list',
-      className: 'carbon-dropdown__list'
+      className: 'carbon-dropdown__list',
+      role: 'listbox'
     };
   }
 
@@ -628,17 +629,20 @@ class Dropdown extends React.Component {
       }
 
       // add selected class
-      if (String(this.props.value) === optionId) {
+      const selected = String(this.props.value) === optionId;
+      if (selected) {
         klass += ` ${className}--selected`;
       }
 
       return (
         <li
+          aria-selected={ selected }
           data-element='option'
           key={ option.name + option.id }
           value={ option.id }
           onClick={ this.handleSelect }
           onMouseOver={ this.handleMouseOverListItem }
+          role='option'
           className={ klass }
         >
           { this.props.renderItem ? this.props.renderItem(option) : option.name }
