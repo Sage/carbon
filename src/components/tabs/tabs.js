@@ -323,10 +323,12 @@ class Tabs extends React.Component {
       {
         'carbon-tabs__headers__header--error': tabHasError,
         'carbon-tabs__headers__header--warning': tabHasWarning,
-        'carbon-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
+        'carbon-tabs__headers__header--selected': this.isTabSelected(tab.props.tabId)
       }
     );
   }
+
+  isTabSelected = tabId => tabId === this.state.selectedTabId;
 
   /**
    * Build the headers for the tab component
@@ -338,6 +340,7 @@ class Tabs extends React.Component {
     const tabTitles = compact(React.Children.toArray(this.props.children)).map((child) => {
       return (
         <li
+          aria-selected={ this.isTabSelected(child.props.tabId) }
           className={ this.tabHeaderClasses(child) }
           data-element='select-tab'
           data-tabid={ child.props.tabId }
@@ -345,7 +348,8 @@ class Tabs extends React.Component {
           onClick={ this.handleTabClick }
           onKeyDown={ this.handleTabClick }
           ref={ `${child.props.tabId}-tab` }
-          tabIndex='0'
+          role='tab'
+          tabIndex={ this.isTabSelected(child.props.tabId) ? '0' : '-1' }
         >
           { child.props.title }
         </li>
@@ -353,7 +357,7 @@ class Tabs extends React.Component {
     });
 
     return (
-      <ul className={ this.tabsHeaderClasses() } >
+      <ul className={ this.tabsHeaderClasses() } role='tablist'>
         { tabTitles }
       </ul>
     );
@@ -369,7 +373,7 @@ class Tabs extends React.Component {
     let visibleTab;
 
     compact(React.Children.toArray(this.props.children)).forEach((child) => {
-      if (child.props.tabId === this.state.selectedTabId) {
+      if (this.isTabSelected(child.props.tabId)) {
         visibleTab = child;
       }
     });
@@ -388,12 +392,15 @@ class Tabs extends React.Component {
 
     const tabs = compact(React.Children.toArray(this.props.children)).map((child) => {
       let klass = 'hidden';
-
-      if (child.props.tabId === this.state.selectedTabId) {
+      const selected = this.isTabSelected(child.props.tabId);
+      if (selected) {
         klass = 'carbon-tab--selected';
       }
 
-      return React.cloneElement(child, { className: klass });
+      return React.cloneElement(
+        child,
+        { className: klass, role: 'tabPanel', tabIndex: selected ? '0' : '-1' }
+      );
     });
 
     return tabs;

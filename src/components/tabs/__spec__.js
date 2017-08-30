@@ -416,12 +416,26 @@ describe('Tabs', () => {
       expect(instance.tabHeaders.type).toBe('ul');
     });
 
+    it('has the role of tablist', () => {
+      expect(instance.tabHeaders.props.role).toEqual('tablist');
+    });
+
     it('renders a list item for each tab passed to the tabs', () => {
       expect(instance.tabHeaders.props.children.length).toEqual(3);
     });
 
     it('adds a data-tabid to each list item', () => {
       expect(instance.tabHeaders.props.children[0].props['data-tabid']).toEqual('uniqueid1');
+    });
+
+    it('adds a role of tab to each list item', () => {
+      expect(instance.tabHeaders.props.children[0].props.role).toEqual('tab');
+    });
+
+    it('sets aria-selected to true for the selected tab', () => {
+      expect(instance.tabHeaders.props.children[0].props['aria-selected']).toBeTruthy();
+      expect(instance.tabHeaders.props.children[1].props['aria-selected']).toBeFalsy();
+      expect(instance.tabHeaders.props.children[2].props['aria-selected']).toBeFalsy();
     });
 
     describe('when passed a null child', () => {
