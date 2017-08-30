@@ -2,7 +2,6 @@
 @import "./../../style-config/z-index";
 @import "./../../style-config/mixins";
 
-$date__picker__width: 334px;
 $date__picker__header-color: $grey-dark-blue-70;
 $date__picker__header-height: 40px;
 $date__picker__header-border-color: $grey-dark-blue-80;
@@ -17,20 +16,16 @@ $date__picker__background-color: $white;
 }
 
 .DayPicker {
-  color: $date__picker__header-color;
-}
-
-.DayPicker {
   background-color: $date__picker__background-color;
   border-radius: 3px;
   box-shadow: 0 20px 30px rgba($grey-shadow, 0.2);
+  color: $date__picker__header-color;
   display: block;
   font-size: 14px;
   font-weight: 700;
   overflow: hidden;
   position: absolute;
   text-align: center;
-  width: $date__picker__width;
   z-index: $z-datepicker;
 
   -webkit-user-select: none;
@@ -130,21 +125,24 @@ $date__picker__background-color: $white;
   width: percentage(1/7);
 }
 
-.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: $blue;
+.DayPicker-Day--selected, .DayPicker-Day--selected.DayPicker-Day--outside {
+  background-color: $blue !important;
   color: $white;
+  font-weight: 700;
 }
 
-.DayPicker-Day--today {
-  background: $grey-dark-blue-70;
+.DayPicker-Day--today, .DayPicker-Day--today.DayPicker-Day--outside {
+  background-color: $grey-dark-blue-70;
   color: $white;
+  font-weight: 700;
 }
 
 .DayPicker-Day--outside {
   background-color: $date__picker__background-color;
+  color: $grey-dark-blue-50;
 
   &:hover {
-    background-color: $blue;
+    background-color: $azul;
     color: $white;
   }
 }

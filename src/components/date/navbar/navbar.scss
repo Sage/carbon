@@ -32,6 +32,10 @@ $date__picker__header-height: 40px;
       &:active {
         background-color: $grey-dark;
       }
+
+      &:focus {
+        outline-offset: -3px;
+      }
     }
 
     .DayPicker-NavButton__arrow {
