@@ -221,6 +221,14 @@ describe('AnimatedMenuButton', () => {
     it('returns the HTML for the close Icon', () => {
       expect(basicWidget.closeIcon().props.children.props.type).toEqual('close');
     });
+
+    it('has the role button', () => {
+      expect(basicWidget.closeIcon().props.role).toEqual('button');
+    });
+
+    it('has the tabIndex 0', () => {
+      expect(basicWidget.closeIcon().props.tabIndex).toEqual(0);
+    });
   });
 
   describe('render', () => {
