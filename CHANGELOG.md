@@ -1,3 +1,9 @@
+# 1.3.5-1
+
+## Bug Fixes
+
+* Fixes CSS load order issue with `Dialog`, `Form`, and sticky footers.
+
 # 1.3.5
 
 ## Bug Fixes
