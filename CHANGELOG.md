@@ -48,6 +48,20 @@ class DraggableItem extends React.Component {
 
 Note that the `draggableNode` is passed as a function because the ref `_listItem` is undefined until the component is mounted.
 
+## Service class accepts query parameters
+
+The `Service` class now accepts an object as it's second argument, deprecating the separate `onSuccess` and `onError` arguments.
+This allows you to pass in `onSuccess` and `onError` functions in the object, along with `params` if you need query parameters in your requests.
+
+### Examples
+
+Deprecated invocation:
+ - `service.get('1', onSuccessFunc, onErrorFunc)`
+
+New invocation:
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc })`
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc, params: { key1: 'val1', key2: 'val2'} })`
+
 # 1.5.2
 
 ## Bug Fixes
