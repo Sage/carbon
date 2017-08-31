@@ -1,3 +1,9 @@
+# 1.5.2
+
+## Bug Fixes
+
+* Fixes CSS load order issue with `Dialog`, `Form`, and sticky footers.
+
 # 1.5.1
 
 ## Bug Fixes
@@ -132,6 +138,12 @@ The following have had minor internal changes to satisfy the introduction of str
 ## Bug Fix
 
 * `Dialog`: ensures close icon positioning regardless of CSS load order
+
+# 1.3.5-1
+
+## Bug Fixes
+
+* Fixes CSS load order issue with `Dialog`, `Form`, and sticky footers.
 
 # 1.3.5
 
