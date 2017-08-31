@@ -13,7 +13,7 @@ $dialog-sizes: (
 );
 
 @mixin dialog-size-css($name, $size) {
-  .carbon-dialog__dialog--#{$name} {
+  .carbon-dialog .carbon-dialog__dialog--#{$name} {
     width: $size;
 
     &.carbon-dialog__dialog--fixed-bottom.carbon-dialog__dialog--sticky-form-footer .carbon-form__footer-wrapper {
@@ -79,7 +79,7 @@ $dialog-sizes: (
   100% { bottom: 0; }
 }
 
-.carbon-dialog__dialog--fixed-bottom {
+.carbon-dialog .carbon-dialog__dialog--fixed-bottom {
   border-radius: 5px 5px 0 0;
   bottom: 0;
   min-height: 0px !important;
