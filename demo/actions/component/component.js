@@ -1,3 +1,9 @@
+import Dispatcher from './../../dispatcher';
+import ComponentConstants from '../../constants/component';
+import Request from 'superagent';
+import serialize from 'utils/helpers/serialize';
+import Browser from 'utils/helpers/browser';
+
 const ComponentActions = {
   /**
    * Updates the prop values loaded from the definition.
@@ -69,6 +75,23 @@ const ComponentActions = {
       items: data.rows,
       records: String(data.records),
       page: String(data.current_page)
+    });
+  },
+
+  resetOptionsUrl: (data) => {
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.RESET_OPTIONS_URL
+    });
+  },
+
+  generateOptionsUrl: (componentName, componentOptions) => {
+    let options = encodeURIComponent(JSON.stringify({ [componentName]: componentOptions.toJS() }));
+    let basePath = Browser.getLocation().origin + Browser.getLocation().pathname;
+
+    let url = `${ basePath }?options=${ options }`;
+    window.Dispatcher.dispatch({
+      actionType: window.ComponentConstants.SET_OPTIONS_URL,
+      url: url
     });
   },
 

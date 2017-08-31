@@ -41,6 +41,12 @@ describe('Browser', () => {
     });
   });
 
+  describe('getLocation', () => {
+    it('returns the documents location object', () => {
+      expect(Browser.getLocation()).toEqual(document.location);
+    });
+  });
+
   describe('getActiveElement', () => {
     it('returns the document.activeElement', () => {
       expect(Browser.getActiveElement()).toEqual(document.activeElement);
@@ -134,6 +140,21 @@ describe('Browser', () => {
         it('returns null', () => {
           expect(Browser.getCookie('foo')).toBeFalsy();
         });
+      });
+    });
+  });
+
+  describe('extraUrlParams', () => {
+    [
+      { input: '', output: {} },
+      { input: '?foo=bar', output: { foo: 'bar' } },
+      { input: '?foo=bar&baz=quux', output: { foo: 'bar', baz: 'quux' } },
+      { input: '?foo=!@%C2%A3', output: { foo: '!@£' } }
+    ].forEach((paramTestCase) => {
+      it(`parses ${ paramTestCase.input } this into a object`, () => {
+        spyOn(Browser, 'getLocation').and.returnValue({ search: paramTestCase.input });
+
+        expect(Browser.extractUrlParams()).toEqual(paramTestCase.output);
       });
     });
   });

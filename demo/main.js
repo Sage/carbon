@@ -2,7 +2,8 @@ import React from 'react';
 import config from './config';
 import 'utils/css';
 import { Route } from 'react-router';
-import { startRouter } from 'utils/router';
+import { startRouter, history } from 'utils/router';
+import ComponentActions from './actions/component';
 import { enableMock } from './xhr-mock';
 
 // Languages
@@ -23,6 +24,10 @@ global.Highcharts = Highcharts;
 global.imagePath = config.imagePath;
 
 enableMock();
+
+history.listen((location) => {
+  ComponentActions.resetOptionsUrl();
+});
 
 const routes = (
   <Route component={ Chrome }>

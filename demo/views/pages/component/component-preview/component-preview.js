@@ -3,9 +3,11 @@ import React from 'react';
 
 // App Components
 import ComponentCodeBuilder from './../../../../utils/component-code-builder';
+import ComponentActions from '../../../../actions/component';
 import PageContentArea from './../../../common/page-content-area';
 import SimpleHeading from './../../../../components/simple-heading';
 import Code from './../../../../components/code';
+import ShareConfig from './../../../../components/share-config';
 import Fields from './fields';
 
 /**
@@ -16,12 +18,20 @@ import Fields from './fields';
  * @return {PageContentArea}
  */
 class ComponentPreview extends React.Component {
+
   componentDidMount() {
     this.renderDemo();
   }
 
   componentDidUpdate() {
     this.renderDemo();
+  }
+
+  generateOptionsUrl = () => {
+    ComponentActions.generateOptionsUrl(
+      this.props.name,
+      this.props.definition.get('propValues')
+    );
   }
 
   render() {
@@ -31,6 +41,7 @@ class ComponentPreview extends React.Component {
         link={ `https://github.com/Sage/carbon/tree/master/src/components/${this.props.definition.get('key')}` }
       >
         <div className= { `demo-component-preview demo-component-preview--${this.props.definition.get('key')}` }>
+
           <div className='demo-component-preview__component-wrapper'>
             <div id="carbon-demo" />
             <div ref='demo' />
@@ -39,7 +50,12 @@ class ComponentPreview extends React.Component {
           <SimpleHeading title="Code"></SimpleHeading>
 
           <div className='demo-component-preview__interaction'>
-            <Fields name={ this.props.name } definition={ this.props.definition } />
+            <Fields
+              name={ this.props.name }
+              definition={ this.props.definition }
+              optionsUrl={ this.props.optionsUrl }
+              generateOptionsUrl={ this.generateOptionsUrl }
+            />
             { this.renderCode() }
           </div>
         </div>

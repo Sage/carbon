@@ -2,6 +2,8 @@
 import Dispatcher from '../../dispatcher';
 import Store from 'utils/flux/store';
 import ImmutableHelper from 'utils/helpers/immutable';
+import BrowserHelper from 'utils/helpers/browser';
+import Logger from 'utils/logger';
 
 // Flux
 import ComponentActions from './../../actions/component';
@@ -40,6 +42,13 @@ const initialConfigurableItemsData = [
 global.configurableItemsData = ImmutableHelper.parseJSON(initialConfigurableItemsData);
 
 class ComponentStore extends Store {
+
+  constructor(name, data, Dispatcher) {
+    super(name, data, Dispatcher);
+
+    this.parseOptionsFromUrl(data);
+  }
+
   [ComponentConstants.UPDATE_DEFINITION](data) {
     let value = data.value;
 
@@ -86,6 +95,33 @@ class ComponentStore extends Store {
 
     // update the global object
     global.tableAjaxData = data;
+  }
+
+  [ComponentConstants.SET_OPTIONS_URL](action) {
+    this.data = this.data.set('options_url', action.url);
+  }
+
+  [ComponentConstants.RESET_OPTIONS_URL](action) {
+    this.data = this.data.set('options_url', '');
+  }
+
+  parseOptionsFromUrl = (data) => {
+    let params = BrowserHelper.extractUrlParams();
+
+    if (params['options']) {
+      try {
+        let options = JSON.parse(decodeURIComponent(params['options']));
+
+        Object.keys(options).forEach((key) => {
+          this.data = this.data.setIn(
+            [key, 'propValues'],
+            ImmutableHelper.parseJSON(options[key])
+          );
+        });
+      } catch (e) {
+        Logger.error('Unable to parse param options');
+      }
+    }
   }
 
   [ComponentConstants.UPDATE_TABLE_DND](action) {

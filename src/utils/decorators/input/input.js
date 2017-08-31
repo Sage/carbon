@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import chainFunctions from './../../helpers/chain-functions';
 import { assign, union } from 'lodash';
 import css from './../../css';
 import shouldComponentUpdate from './../../helpers/should-component-update';
@@ -69,10 +70,12 @@ const Input = ComposedComponent => class Component extends ComposedComponent {
     form: PropTypes.object
   });
 
-  static propTypes = assign({}, ComposedComponent.propTypes, {});
+  static propTypes = assign({}, ComposedComponent.propTypes, {
+    selectAllOnFocus: React.PropTypes.bool
+  });
+
   // common safeprops
   static safeProps = union([], ComposedComponent.safeProps, ['value']);
-
 
   /**
    * A lifecycle method for when the component has rendered.
@@ -144,6 +147,16 @@ const Input = ComposedComponent => class Component extends ComposedComponent {
   }
 
   /**
+   * Highlights the entire text field
+   *
+   * @method selectFullSelectionRange
+   * @returns {void}
+   */
+  selectFullSelectionRange = () => {
+    this._input.setSelectionRange(0, this._input.value.length);
+  }
+
+  /**
    * Sets indentation of input value based on prefix width.
    *
    * @method setTextIndentation
@@ -206,6 +219,11 @@ const Input = ComposedComponent => class Component extends ComposedComponent {
     // only thread the onChange event through the handler if the event is defined by the dev
     if (this.props.onChange === inputProps.onChange) {
       inputProps.onChange = this._handleOnChange;
+    }
+
+    // Select all text within the input
+    if (this.props.selectAllOnFocus) {
+      inputProps.onFocus = chainFunctions(this.selectFullSelectionRange, inputProps.onFocus);
     }
 
     // Pass onPaste action to input element

@@ -2,6 +2,7 @@ import React from 'react';
 import { includes, startCase } from 'lodash';
 import ImmutableHelper from 'utils/helpers/immutable';
 import ComponentStore from './../../../../../stores/component';
+import ShareConfig from './../../../../../components/share-config';
 import ComponentActions from './../../../../../actions/component';
 import Checkbox from 'components/checkbox';
 import DropdownFilter from 'components/dropdown-filter';
@@ -10,10 +11,24 @@ import Textbox from 'components/textbox';
 import Number from 'components/number';
 
 export default props => (
-  <form className='demo-component-preview__controls'>
-    { buildFields(props) }
-  </form>
+  <div className='demo-component-preview__controls'>
+    <form className='demo-component-preview__form'>
+      { buildFields(props) }
+    </form>
+    <ShareConfig
+      className='demo-component-preview__share-config'
+      optionsUrl={ props.optionsUrl }
+      onShareClick={ props.generateOptionsUrl }
+    />
+  </div>
 )
+
+const generateOptionsUrl = (props) => {
+  ComponentActions.generateOptionsUrl(
+    props.name,
+    props.definition.get('propValues')
+  );
+}
 
 /**
  * builds fields for dynamically editing props
