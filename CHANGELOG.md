@@ -4,6 +4,8 @@
 
 * `Table` now lets you add an `aria-describedby` prop.
 * `ConfigurableItemRow` is vertically centered correctly.
+* ARIA role of `button` added to the `AnimatedMenu` close button
+* `AnimatedMenu` close button is now tabbable
 
 ## Pattern Enhancements
 
