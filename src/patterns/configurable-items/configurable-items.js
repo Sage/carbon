@@ -144,6 +144,7 @@ class ConfigurableItemsPattern extends React.Component {
         onCancel={ this.onCancel }
         open={ this.isDialogOpen }
         title={ this.props.title }
+        stickyFormFooter
       >
         { this.content() }
       </Dialog>
