@@ -634,6 +634,8 @@ class Dropdown extends React.Component {
         klass += ` ${className}--selected`;
       }
 
+      /* eslint-disable jsx-a11y/mouse-events-have-key-events */
+      /* eslint-disable jsx-a11y/click-events-have-key-events */
       return (
         <li
           aria-selected={ selected }
@@ -648,6 +650,8 @@ class Dropdown extends React.Component {
           { this.props.renderItem ? this.props.renderItem(option) : option.name }
         </li>
       );
+      /* eslint-enable jsx-a11y/click-events-have-key-events */
+      /* eslint-enable jsx-a11y/mouse-events-have-key-events */
     });
 
     return results;
