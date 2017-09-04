@@ -250,6 +250,11 @@ class DropdownFilter extends Dropdown {
     this.props.create(ev, this);
   }
 
+  handleCreateBlur = () => {
+    this.blockBlur = false;
+    this.setState({ open: false });
+  }
+
   /**
    * Prepares list options by converting to JSON and formatting filtered options.
    *
@@ -341,7 +346,11 @@ class DropdownFilter extends Dropdown {
           className='carbon-dropdown__action'
           data-element='create'
           key='dropdown-action'
+          onBlur={ this.handleCreateBlur }
           onClick={ this.handleCreate }
+          onKeyPress={ this.handleCreate }
+          role='button'
+          tabIndex='0'
         >
           { text }
         </a>
@@ -508,6 +517,20 @@ class DropdownFilter extends Dropdown {
       'data-element': props['data-element'],
       'data-role': props['data-role']
     };
+  }
+
+  onUpArrow = (list, element) => {
+    if (this.props.create) {
+      this.blockBlur = true;
+    }
+    return super.onUpArrow(list, element);
+  }
+
+  onDownArrow = (list, element) => {
+    if (this.props.create) {
+      this.blockBlur = true;
+    }
+    return super.onDownArrow(list, element);
   }
 }
 

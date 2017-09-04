@@ -60,6 +60,8 @@ class Dropdown extends React.Component {
     // recalled with the use of super
     this.selectValue = this.selectValue.bind(this);
     this.results = this.results.bind(this);
+    this.onDownArrow = this.onDownArrow.bind(this);
+    this.onUpArrow = this.onUpArrow.bind(this);
   }
 
   static propTypes = {
@@ -292,7 +294,7 @@ class Dropdown extends React.Component {
    * Handles touch events.
    *
    * @method handleTouchEvent
-   **/
+   */
   handleTouchEvent = () => {
     // blocking blurring like this stops a bug on mobile when touch doesn't trigger until after blur, we want to
     // update the input before blurring
@@ -407,7 +409,7 @@ class Dropdown extends React.Component {
    * @param {HTML} element current li element
    * @return {HTML} nextVal next li element to be selected
    */
-  onUpArrow = (list, element) => {
+  onUpArrow(list, element) {
     let nextVal = list.lastChild.getAttribute('value');
 
     if (element === list.firstChild) {
@@ -428,7 +430,7 @@ class Dropdown extends React.Component {
    * @param {HTML} element current li element
    * @return {HTML} nextVal next li element to be selected
    */
-  onDownArrow = (list, element) => {
+  onDownArrow(list, element) {
     let nextVal = list.firstChild.getAttribute('value');
 
     if (element === list.lastChild) {
