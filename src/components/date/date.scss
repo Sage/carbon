@@ -41,6 +41,11 @@ $date__picker__background-color: $white;
   &:focus {
     outline: none;
   }
+
+  abbr[title] {
+    border: none;
+    cursor: initial;
+  }
 }
 
 .DayPicker-wrapper {
