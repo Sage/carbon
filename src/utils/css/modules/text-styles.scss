@@ -1,3 +1,5 @@
+@import "./../../../style-config/colors";
+
 @mixin text-theme($type, $color, $border, $background, $color-hover) {
   .text--#{$type} {
     color: $color;
