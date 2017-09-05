@@ -1,3 +1,9 @@
+# 1.5.3
+
+## Bug Fixes
+
+* `FormSummary`: negative margin solves problem where FormSummary is effecting its sibling component's position [#1523](https://github.com/Sage/carbon/issues/1523)
+
 # 1.5.2
 
 ## Bug Fixes
