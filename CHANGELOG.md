@@ -62,7 +62,7 @@ New invocation:
  - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc })`
  - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc, params: { key1: 'val1', key2: 'val2'} })`
 
- ### DatePicker
+## DatePicker
 
 * The Date Picker library has changed from react-date-picker to react-day-picker as the old library is no longer maintained.
 * This will effect the `Date` and `DateRange` components but functionally they have remained the same.
