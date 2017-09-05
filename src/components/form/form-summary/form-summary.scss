@@ -7,6 +7,8 @@
   font-weight: 700;
   margin: -8px;
   white-space: nowrap;
+  padding: 8px;
+  border-radius: 4px;
 
   &__summary {
     padding: 0 3px;
@@ -32,4 +34,9 @@
       color: $warning-accessible;
     }
   }
+}
+
+.carbon-form-summary--invalid {
+  background-color: $grey-dark-blue-5;
+  margin-left: 15px;
 }
