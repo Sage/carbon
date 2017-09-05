@@ -63,7 +63,7 @@
     "marked": "~0.3.6",
     "moment": "~2.15.1",
     "prop-types": "~15.5.8",
-    "react-date-picker": "~5.3.28",
+    "react-day-picker": "~6.1.0",
     "react-dnd": "~2.4.0",
     "react-dnd-touch-backend": "0.2.7",
     "react-highcharts": "~11.5.0",

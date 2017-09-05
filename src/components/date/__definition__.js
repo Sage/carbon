@@ -1,5 +1,6 @@
 import DateInput from './';
 import Definition from './../../../demo/utils/definition';
+import moment from 'moment';
 
 let definition = new Definition('date-input', DateInput, {
   description: `Captures a single date.`,
@@ -12,7 +13,6 @@ let definition = new Definition('date-input', DateInput, {
 * Entering or picking a start and end date together? [Try Date Range](/components/date-range).
  `,
   type: 'form',
-  hiddenProps: ['minDate', 'maxDate'],
   propTypes: {
     autoFocus: "Boolean",
     disabled: "Boolean",
