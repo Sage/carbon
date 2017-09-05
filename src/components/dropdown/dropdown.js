@@ -703,9 +703,11 @@ class Dropdown extends React.Component {
 
   componentTags(props) {
     return {
+      'aria-expanded': this.state.open,
       'data-component': 'dropdown',
       'data-element': props['data-element'],
-      'data-role': props['data-role']
+      'data-role': props['data-role'],
+      role: 'combobox'
     };
   }
 
